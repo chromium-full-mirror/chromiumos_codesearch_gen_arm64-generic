@@ -1,0 +1,115 @@
+// Copyright 2022 The Chromium OS Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+#include "cryptohome/auth_input_utils.h"
+
+#include <optional>
+
+#include <brillo/secure_blob.h>
+#include <cryptohome/proto_bindings/auth_factor.pb.h>
+#include <gtest/gtest.h>
+
+#include "cryptohome/key_objects.h"
+
+using brillo::SecureBlob;
+
+namespace cryptohome {
+
+namespace {
+
+constexpr char kObfuscatedUsername[] = "fake-user@example.org";
+
+}  // namespace
+
+// Test the conversion from the password AuthInput proto into the cryptohome
+// struct.
+TEST(AuthInputUtils, CreateAuthInputPassword) {
+  constexpr char kPassword[] = "fake-password";
+
+  user_data_auth::AuthInput proto;
+  proto.mutable_password_input()->set_secret(kPassword);
+
+  std::optional<AuthInput> auth_input = CreateAuthInput(
+      proto, kObfuscatedUsername, /*locked_to_single_user=*/false,
+      /*cryptohome_recovery_ephemeral_pub_key=*/std::nullopt);
+  ASSERT_TRUE(auth_input.has_value());
+  EXPECT_EQ(auth_input.value().user_input, SecureBlob(kPassword));
+  EXPECT_EQ(auth_input.value().obfuscated_username, kObfuscatedUsername);
+  EXPECT_EQ(auth_input.value().locked_to_single_user, false);
+}
+
+// Test the conversion from the password AuthInput proto into the cryptohome
+// struct, with the locked_to_single_user flag set.
+TEST(AuthInputUtils, CreateAuthInputPasswordLocked) {
+  constexpr char kPassword[] = "fake-password";
+
+  user_data_auth::AuthInput proto;
+  proto.mutable_password_input()->set_secret(kPassword);
+
+  std::optional<AuthInput> auth_input = CreateAuthInput(
+      proto, kObfuscatedUsername, /*locked_to_single_user=*/true,
+      /*cryptohome_recovery_ephemeral_pub_key=*/std::nullopt);
+  ASSERT_TRUE(auth_input.has_value());
+  EXPECT_EQ(auth_input.value().user_input, SecureBlob(kPassword));
+  EXPECT_EQ(auth_input.value().obfuscated_username, kObfuscatedUsername);
+  EXPECT_EQ(auth_input.value().locked_to_single_user, true);
+}
+
+// Test the conversion from an empty AuthInput proto fails.
+TEST(AuthInputUtils, CreateAuthInputErrorEmpty) {
+  user_data_auth::AuthInput proto;
+
+  std::optional<AuthInput> auth_input = CreateAuthInput(
+      proto, kObfuscatedUsername, /*locked_to_single_user=*/false,
+      /*cryptohome_recovery_ephemeral_pub_key=*/std::nullopt);
+  EXPECT_FALSE(auth_input.has_value());
+}
+
+TEST(AuthInputUtils, CreateAuthInputRecoveryCreate) {
+  constexpr char kMediatorPubKey[] = "fake_mediator_pub_key";
+
+  user_data_auth::AuthInput proto;
+  proto.mutable_cryptohome_recovery_input()->set_mediator_pub_key(
+      kMediatorPubKey);
+
+  std::optional<AuthInput> auth_input = CreateAuthInput(
+      proto, kObfuscatedUsername, /*locked_to_single_user=*/true,
+      /*cryptohome_recovery_ephemeral_pub_key=*/std::nullopt);
+  ASSERT_TRUE(auth_input.has_value());
+  ASSERT_TRUE(auth_input.value().cryptohome_recovery_auth_input.has_value());
+  EXPECT_EQ(auth_input.value()
+                .cryptohome_recovery_auth_input.value()
+                .mediator_pub_key,
+            SecureBlob(kMediatorPubKey));
+}
+
+TEST(AuthInputUtils, CreateAuthInputRecoveryDerive) {
+  constexpr char kEpochResponse[] = "fake_epoch_response";
+  constexpr char kRecoveryResponse[] = "fake_recovery_response";
+  SecureBlob ephemeral_pub_key = SecureBlob("fake_ephemeral_pub_key");
+
+  user_data_auth::AuthInput proto;
+  proto.mutable_cryptohome_recovery_input()->set_epoch_response(kEpochResponse);
+  proto.mutable_cryptohome_recovery_input()->set_recovery_response(
+      kRecoveryResponse);
+
+  std::optional<AuthInput> auth_input =
+      CreateAuthInput(proto, kObfuscatedUsername,
+                      /*locked_to_single_user=*/true, ephemeral_pub_key);
+  ASSERT_TRUE(auth_input.has_value());
+  ASSERT_TRUE(auth_input.value().cryptohome_recovery_auth_input.has_value());
+  EXPECT_EQ(
+      auth_input.value().cryptohome_recovery_auth_input.value().epoch_response,
+      SecureBlob(kEpochResponse));
+  EXPECT_EQ(auth_input.value()
+                .cryptohome_recovery_auth_input.value()
+                .recovery_response,
+            SecureBlob(kRecoveryResponse));
+  EXPECT_EQ(auth_input.value()
+                .cryptohome_recovery_auth_input.value()
+                .ephemeral_pub_key,
+            ephemeral_pub_key);
+}
+
+}  // namespace cryptohome
