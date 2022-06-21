@@ -7,7 +7,6 @@
 
 #include <atomic>
 #include <memory>
-#include <optional>
 #include <string>
 #include <vector>
 
@@ -42,7 +41,6 @@ class UploadClient : public base::RefCountedThreadSafe<UploadClient> {
       std::unique_ptr<std::vector<EncryptedRecord>> records,
       bool need_encryption_keys,
       uint64_t remaining_storage_capacity,
-      std::optional<uint64_t> new_events_rate,
       HandleUploadResponseCallback response_callback);
 
   // Sets availability for testing only.
@@ -68,7 +66,6 @@ class UploadClient : public base::RefCountedThreadSafe<UploadClient> {
   void MaybeMakeCall(std::unique_ptr<std::vector<EncryptedRecord>> records,
                      const bool need_encryption_keys,
                      uint64_t remaining_storage_capacity,
-                     std::optional<uint64_t> new_events_rate,
                      HandleUploadResponseCallback response_callback);
 
   // Returns disconnectable client, creating it if not created yet.
