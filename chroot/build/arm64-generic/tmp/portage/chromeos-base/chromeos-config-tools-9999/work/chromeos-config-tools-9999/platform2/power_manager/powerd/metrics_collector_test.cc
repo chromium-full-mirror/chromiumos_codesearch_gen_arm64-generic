@@ -782,31 +782,11 @@ TEST_F(MetricsCollectorTest, DimEventMetricsBattery) {
   collector_.GenerateDimEventMetrics(DimEvent::QUICK_DIM_REVERTED_BY_HPS);
 }
 
-TEST_F(MetricsCollectorTest, GenerateHpsEventDurationMetrics) {
+TEST_F(MetricsCollectorTest, GenerateDimEventDurationMetrics) {
   Init();
   ExpectMetric(kQuickDimDurationBeforeRevertedByHpsSec, 13, 1, 3600, 50);
-  collector_.GenerateHpsEventDurationMetrics(
+  collector_.GenerateDimEventDurationMetrics(
       kQuickDimDurationBeforeRevertedByHpsSec, base::Seconds(13));
-}
-
-TEST_F(MetricsCollectorTest, LockEventMetricsAC) {
-  power_status_.line_power_on = true;
-  Init();
-  ExpectEnumMetric(MetricsCollector::AppendPowerSourceToEnumName(
-                       kLockEvent, PowerSource::AC),
-                   static_cast<int>(LockEvent::STANDARD_LOCK),
-                   static_cast<int>(LockEvent::MAX));
-  collector_.GenerateLockEventMetrics(LockEvent::STANDARD_LOCK);
-}
-
-TEST_F(MetricsCollectorTest, LockEventMetricsBattery) {
-  power_status_.line_power_on = false;
-  Init();
-  ExpectEnumMetric(MetricsCollector::AppendPowerSourceToEnumName(
-                       kLockEvent, PowerSource::BATTERY),
-                   static_cast<int>(LockEvent::QUICK_LOCK),
-                   static_cast<int>(LockEvent::MAX));
-  collector_.GenerateLockEventMetrics(LockEvent::QUICK_LOCK);
 }
 
 class AdaptiveChargingMetricsTest : public MetricsCollectorTest {
