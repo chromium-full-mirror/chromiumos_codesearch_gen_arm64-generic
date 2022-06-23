@@ -99,7 +99,6 @@ bool RecoveryCryptoTpm1BackendImpl::EncryptEccPrivateKey(
     const EllipticCurve& ec,
     const crypto::ScopedEC_KEY& own_key_pair,
     const std::optional<brillo::SecureBlob>& auth_value,
-    const std::string& obfuscated_username,
     brillo::SecureBlob* encrypted_own_priv_key) {
   const BIGNUM* own_priv_key_bn = EC_KEY_get0_private_key(own_key_pair.get());
   if (!own_priv_key_bn || !ec.IsScalarValid(*own_priv_key_bn)) {
@@ -133,7 +132,6 @@ RecoveryCryptoTpm1BackendImpl::GenerateDiffieHellmanSharedSecret(
     const EllipticCurve& ec,
     const brillo::SecureBlob& encrypted_own_priv_key,
     const std::optional<brillo::SecureBlob>& auth_value,
-    const std::string& obfuscated_username,
     const EC_POINT& others_pub_point) {
   ScopedBN_CTX context = CreateBigNumContext();
   if (!context.get()) {

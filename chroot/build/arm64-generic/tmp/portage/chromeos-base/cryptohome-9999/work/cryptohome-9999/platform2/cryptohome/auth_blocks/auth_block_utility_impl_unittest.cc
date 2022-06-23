@@ -1675,8 +1675,7 @@ class AuthBlockUtilityImplRecoveryTest : public AuthBlockUtilityImplTest {
     cryptorecovery::HsmPayload hsm_payload;
     brillo::SecureBlob recovery_key;
     EXPECT_TRUE(recovery->GenerateHsmPayload(
-        mediator_pub_key, cryptorecovery::OnboardingMetadata{},
-        /*obfuscated_username=*/"obfuscated_username", &hsm_payload,
+        mediator_pub_key, cryptorecovery::OnboardingMetadata{}, &hsm_payload,
         &rsa_priv_key_, &destination_share_, &recovery_key, &channel_pub_key_,
         &channel_priv_key_));
     EXPECT_TRUE(SerializeHsmPayloadToCbor(hsm_payload, &hsm_payload_));
@@ -1712,9 +1711,9 @@ class AuthBlockUtilityImplRecoveryTest : public AuthBlockUtilityImplTest {
 TEST_F(AuthBlockUtilityImplRecoveryTest, GenerateRecoveryRequestSuccess) {
   brillo::SecureBlob ephemeral_pub_key, recovery_request;
   CryptoStatus status = auth_block_utility_impl_->GenerateRecoveryRequest(
-      /*obfuscated_username=*/"", cryptorecovery::RequestMetadata{},
-      epoch_response_blob_, GetAuthBlockState(), crypto_.tpm(),
-      &recovery_request, &ephemeral_pub_key);
+      cryptorecovery::RequestMetadata{}, epoch_response_blob_,
+      GetAuthBlockState(), crypto_.tpm(), &recovery_request,
+      &ephemeral_pub_key);
   EXPECT_TRUE(status.ok());
   EXPECT_FALSE(ephemeral_pub_key.empty());
   EXPECT_FALSE(recovery_request.empty());
@@ -1725,9 +1724,8 @@ TEST_F(AuthBlockUtilityImplRecoveryTest, GenerateRecoveryRequestNoHsmPayload) {
   auto state = GetAuthBlockState();
   state.hsm_payload = brillo::SecureBlob();
   CryptoStatus status = auth_block_utility_impl_->GenerateRecoveryRequest(
-      /*obfuscated_username=*/"", cryptorecovery::RequestMetadata{},
-      epoch_response_blob_, state, crypto_.tpm(), &recovery_request,
-      &ephemeral_pub_key);
+      cryptorecovery::RequestMetadata{}, epoch_response_blob_, state,
+      crypto_.tpm(), &recovery_request, &ephemeral_pub_key);
   EXPECT_FALSE(status.ok());
 }
 
@@ -1737,9 +1735,8 @@ TEST_F(AuthBlockUtilityImplRecoveryTest,
   auto state = GetAuthBlockState();
   state.channel_pub_key = brillo::SecureBlob();
   CryptoStatus status = auth_block_utility_impl_->GenerateRecoveryRequest(
-      /*obfuscated_username=*/"", cryptorecovery::RequestMetadata{},
-      epoch_response_blob_, state, crypto_.tpm(), &recovery_request,
-      &ephemeral_pub_key);
+      cryptorecovery::RequestMetadata{}, epoch_response_blob_, state,
+      crypto_.tpm(), &recovery_request, &ephemeral_pub_key);
   EXPECT_FALSE(status.ok());
 }
 
@@ -1749,9 +1746,8 @@ TEST_F(AuthBlockUtilityImplRecoveryTest,
   auto state = GetAuthBlockState();
   state.encrypted_channel_priv_key = brillo::SecureBlob();
   CryptoStatus status = auth_block_utility_impl_->GenerateRecoveryRequest(
-      /*obfuscated_username=*/"", cryptorecovery::RequestMetadata{},
-      epoch_response_blob_, state, crypto_.tpm(), &recovery_request,
-      &ephemeral_pub_key);
+      cryptorecovery::RequestMetadata{}, epoch_response_blob_, state,
+      crypto_.tpm(), &recovery_request, &ephemeral_pub_key);
   EXPECT_FALSE(status.ok());
 }
 
@@ -1759,7 +1755,7 @@ TEST_F(AuthBlockUtilityImplRecoveryTest,
        GenerateRecoveryRequestNoEpochResponse) {
   brillo::SecureBlob ephemeral_pub_key, recovery_request;
   CryptoStatus status = auth_block_utility_impl_->GenerateRecoveryRequest(
-      /*obfuscated_username=*/"", cryptorecovery::RequestMetadata{},
+      cryptorecovery::RequestMetadata{},
       /*epoch_response=*/brillo::Blob(), GetAuthBlockState(), crypto_.tpm(),
       &recovery_request, &ephemeral_pub_key);
   EXPECT_FALSE(status.ok());

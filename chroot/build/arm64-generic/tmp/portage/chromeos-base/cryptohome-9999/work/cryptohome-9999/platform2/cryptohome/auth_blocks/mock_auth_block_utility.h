@@ -95,8 +95,7 @@ class MockAuthBlockUtility : public AuthBlockUtility {
               (const, override));
   MOCK_METHOD(CryptoStatus,
               GenerateRecoveryRequest,
-              (const std::string& obfuscated_username,
-               const cryptorecovery::RequestMetadata& request_metadata,
+              (const cryptorecovery::RequestMetadata& request_metadata,
                const brillo::Blob& epoch_response,
                const CryptohomeRecoveryAuthBlockState& state,
                Tpm* tpm,
