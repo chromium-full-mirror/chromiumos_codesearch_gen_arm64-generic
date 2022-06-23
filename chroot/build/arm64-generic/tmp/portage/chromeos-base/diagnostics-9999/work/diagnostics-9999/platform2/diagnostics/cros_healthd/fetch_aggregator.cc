@@ -12,6 +12,8 @@
 #include <base/bind.h>
 #include <base/logging.h>
 
+#include "diagnostics/cros_healthd/fetchers/audio_fetcher.h"
+#include "diagnostics/cros_healthd/fetchers/bus_fetcher.h"
 #include "diagnostics/cros_healthd/utils/callback_barrier.h"
 
 namespace diagnostics {
@@ -37,12 +39,10 @@ void OnFinish(
 }  // namespace
 
 FetchAggregator::FetchAggregator(Context* context)
-    : audio_fetcher_(context),
-      backlight_fetcher_(context),
+    : backlight_fetcher_(context),
       battery_fetcher_(context),
       bluetooth_fetcher_(context),
       boot_performance_fetcher_(context),
-      bus_fetcher_(context),
       cpu_fetcher_(context),
       disk_fetcher_(context),
       display_fetcher_(context),
@@ -55,7 +55,8 @@ FetchAggregator::FetchAggregator(Context* context)
       system_fetcher_(context),
       timezone_fetcher_(context),
       tpm_fetcher_(context),
-      network_interface_fetcher_(context) {}
+      network_interface_fetcher_(context),
+      context_(context) {}
 
 FetchAggregator::~FetchAggregator() = default;
 
@@ -142,7 +143,8 @@ void FetchAggregator::Run(
         break;
       }
       case mojom::ProbeCategoryEnum::kAudio: {
-        info->audio_result = audio_fetcher_.FetchAudioInfo();
+        FetchAudioInfo(context_,
+                       CreateFetchCallback(&barrier, &info->audio_result));
         break;
       }
       case mojom::ProbeCategoryEnum::kBootPerformance: {
@@ -151,8 +153,8 @@ void FetchAggregator::Run(
         break;
       }
       case mojom::ProbeCategoryEnum::kBus: {
-        bus_fetcher_.FetchBusDevices(
-            CreateFetchCallback(&barrier, &info->bus_result));
+        FetchBusDevices(context_,
+                        CreateFetchCallback(&barrier, &info->bus_result));
         break;
       }
       case mojom::ProbeCategoryEnum::kTpm: {
