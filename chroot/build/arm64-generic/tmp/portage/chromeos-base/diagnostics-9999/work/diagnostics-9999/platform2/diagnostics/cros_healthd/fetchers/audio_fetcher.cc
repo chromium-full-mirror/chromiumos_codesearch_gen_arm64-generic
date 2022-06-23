@@ -2,7 +2,6 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#include <optional>
 #include <string>
 #include <utility>
 #include <vector>
@@ -14,58 +13,37 @@
 #include "diagnostics/cros_healthd/utils/error_utils.h"
 
 namespace diagnostics {
-
 namespace {
 
-namespace mojo_ipc = ::chromeos::cros_healthd::mojom;
-
-}  // namespace
-
-mojo_ipc::AudioResultPtr AudioFetcher::FetchAudioInfo() {
-  mojo_ipc::AudioInfo info;
-
-  auto error = PopulateMuteInfo(&info);
-  if (error.has_value()) {
-    return mojo_ipc::AudioResult::NewError(std::move(error.value()));
-  }
-
-  error = PopulateActiveNodeInfo(&info);
-  if (error.has_value()) {
-    return mojo_ipc::AudioResult::NewError(std::move(error.value()));
-  }
-
-  return mojo_ipc::AudioResult::NewAudioInfo(info.Clone());
-}
-
-std::optional<mojo_ipc::ProbeErrorPtr> AudioFetcher::PopulateMuteInfo(
-    mojo_ipc::AudioInfo* info) {
+void PopulateMuteInfo(Context* context, mojom::AudioResultPtr& res) {
+  mojom::AudioInfoPtr& info = res->get_audio_info();
   int32_t unused_output_volume;
   bool output_mute = false;  // Mute by other system daemons.
   bool input_mute = false;
   bool output_user_mute = false;  // Mute by users.
   brillo::ErrorPtr error;
-  if (!context_->cras_proxy()->GetVolumeState(&unused_output_volume,
-                                              &output_mute, &input_mute,
-                                              &output_user_mute, &error)) {
-    return CreateAndLogProbeError(
-        mojo_ipc::ErrorType::kSystemUtilityError,
-        "Failed retrieving mute info from cras: " + error->GetMessage());
+  if (!context->cras_proxy()->GetVolumeState(&unused_output_volume,
+                                             &output_mute, &input_mute,
+                                             &output_user_mute, &error)) {
+    res->set_error(CreateAndLogProbeError(
+        mojom::ErrorType::kSystemUtilityError,
+        "Failed retrieving mute info from cras: " + error->GetMessage()));
+    return;
   }
 
   info->output_mute = output_mute | output_user_mute;
   info->input_mute = input_mute;
-
-  return std::nullopt;
 }
 
-std::optional<mojo_ipc::ProbeErrorPtr> AudioFetcher::PopulateActiveNodeInfo(
-    mojo_ipc::AudioInfo* info) {
+void PopulateActiveNodeInfo(Context* context, mojom::AudioResultPtr& res) {
+  mojom::AudioInfoPtr& info = res->get_audio_info();
   std::vector<brillo::VariantDictionary> nodes;
   brillo::ErrorPtr error;
-  if (!context_->cras_proxy()->GetNodeInfos(&nodes, &error)) {
-    return CreateAndLogProbeError(
-        mojo_ipc::ErrorType::kSystemUtilityError,
-        "Failed retrieving node info from cras: " + error->GetMessage());
+  if (!context->cras_proxy()->GetNodeInfos(&nodes, &error)) {
+    res->set_error(CreateAndLogProbeError(
+        mojom::ErrorType::kSystemUtilityError,
+        "Failed retrieving node info from cras: " + error->GetMessage()));
+    return;
   }
 
   // There might be no active output / input device such as Chromebox.
@@ -105,8 +83,23 @@ std::optional<mojo_ipc::ProbeErrorPtr> AudioFetcher::PopulateActiveNodeInfo(
           node, cras::kInputNodeGainProperty);
     }
   }
+}
 
-  return std::nullopt;
+mojom::AudioResultPtr FetchAudioInfoInner(Context* context) {
+  auto res = mojom::AudioResult::NewAudioInfo(mojom::AudioInfo::New());
+
+  PopulateMuteInfo(context, res);
+  if (res->is_error())
+    return res;
+
+  PopulateActiveNodeInfo(context, res);
+  return res;
+}
+
+}  // namespace
+
+void FetchAudioInfo(Context* context, FetchAudioInfoCallback callback) {
+  std::move(callback).Run(FetchAudioInfoInner(context));
 }
 
 }  // namespace diagnostics

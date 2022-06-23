@@ -1296,8 +1296,8 @@ scoped_refptr<UserSession> UserDataAuth::GetOrCreateUserSession(
   if (sessions_.count(username) == 0U) {
     // We don't have a mount associated with |username|, let's create one.
     EnsureBootLockboxFinalized();
-    sessions_[username] =
-        user_session_factory_->New(legacy_mount_, bind_mount_downloads_);
+    sessions_[username] = user_session_factory_->New(username, legacy_mount_,
+                                                     bind_mount_downloads_);
   }
   return sessions_[username];
 }
@@ -1350,13 +1350,15 @@ void UserDataAuth::MountGuest(
         ErrorActionSet({ErrorAction::kDevCheckUnexpectedState}),
         user_data_auth::CryptohomeErrorCode::CRYPTOHOME_ERROR_MOUNT_FATAL);
   } else {
-    auto inner = guest_session->MountGuest();
-    if (inner) {
-      LOG(ERROR) << "Could not initialize guest session.";
-      status = MakeStatus<CryptohomeError>(
-          CRYPTOHOME_ERR_LOC(kLocUserDataAuthMountGuestSessionMountFailed),
-          ErrorActionSet({ErrorAction::kReboot}),
-          user_data_auth::CryptohomeErrorCode::CRYPTOHOME_ERROR_MOUNT_FATAL);
+    MountStatus guest_status = guest_session->MountGuest();
+    if (!guest_status.ok()) {
+      LOG(ERROR) << "Could not initialize guest session: " << guest_status;
+      status =
+          MakeStatus<CryptohomeError>(
+              CRYPTOHOME_ERR_LOC(kLocUserDataAuthMountGuestSessionMountFailed),
+              ErrorActionSet({ErrorAction::kReboot}),
+              user_data_auth::CryptohomeErrorCode::CRYPTOHOME_ERROR_MOUNT_FATAL)
+              .Wrap(std::move(guest_status));
     }
   }
 
@@ -1640,7 +1642,8 @@ bool UserDataAuth::InitForChallengeResponseAuth(
 
   // Fail if the TPM is known to be vulnerable and we're not in a test image.
   bool is_srk_roca_vulnerable;
-  if (hwsec::Status err = tpm_->IsSrkRocaVulnerable(&is_srk_roca_vulnerable)) {
+  if (hwsec::Status err = tpm_->IsSrkRocaVulnerable(&is_srk_roca_vulnerable);
+      !err.ok()) {
     LOG(ERROR) << "Cannot do challenge-response mount: Failed to check for "
                   "ROCA vulnerability: "
                << err;
@@ -2544,10 +2547,13 @@ void UserDataAuth::CheckKey(
   const std::string obfuscated_username = credentials.GetObfuscatedUsername();
 
   bool found_valid_credentials = false;
-  for (const auto& session_pair : sessions_) {
-    if (session_pair.second->VerifyCredentials(credentials)) {
+  if (sessions_.count(account_id) != 0U) {
+    if (sessions_[account_id]->VerifyCredentials(credentials)) {
       found_valid_credentials = true;
-      break;
+    } else if (sessions_[account_id]->IsEphemeral()) {
+      std::move(on_done).Run(
+          user_data_auth::CRYPTOHOME_ERROR_AUTHORIZATION_KEY_FAILED);
+      return;
     }
   }
 
@@ -3865,8 +3871,87 @@ void UserDataAuth::AddCredentials(
   } else {
     // Add credentials using data in AuthorizationRequest and
     // auth_session_token.
-    auth_session->AddCredentials(request, std::move(on_done));
+    auto on_add_credential = base::BindOnce(
+        &UserDataAuth::OnAddCredentialFinished<
+            user_data_auth::AddCredentialsReply>,
+        base::Unretained(this), auth_session, std::move(on_done));
+    auth_session->AddCredentials(request, std::move(on_add_credential));
   }
+}
+
+void UserDataAuth::SetCredentialVerifierForUserSession(
+    AuthSession* auth_session, bool override_existing_credential_verifier) {
+  scoped_refptr<UserSession> session = GetUserSession(auth_session->username());
+  // Check the user is already mounted and the session is ephemeral.
+  if (!session) {
+    LOG(WARNING) << "SetCredential failed as user session does not exist";
+    return;
+  }
+  // Check the user is already mounted and the session is ephemeral.
+  if (!session->IsActive()) {
+    LOG(WARNING) << "SetCredential failed as user session is not active.";
+    return;
+  }
+
+  if (!auth_session) {
+    LOG(WARNING) << "SetCredential failed as auth_session does not exist";
+    return;
+  }
+
+  if (session->IsEphemeral() != auth_session->ephemeral_user()) {
+    LOG(WARNING) << "SetCredential failed as user session does not match "
+                    "auth_session ephemeral status user: "
+                 << auth_session->obfuscated_username();
+    return;
+  }
+
+  if (auth_session->GetStatus() != AuthStatus::kAuthStatusAuthenticated) {
+    LOG(WARNING) << "SetCredential failed as auth session is not authenticated "
+                    "for user: "
+                 << auth_session->obfuscated_username();
+    return;
+  }
+
+  if (!session->HasCredentialVerifier() ||
+      override_existing_credential_verifier) {
+    session->SetCredentials(auth_session);
+  }
+}
+
+template <typename AddKeyReply>
+void UserDataAuth::OnAddCredentialFinished(
+    AuthSession* auth_session,
+    base::OnceCallback<void(const AddKeyReply&)> on_done,
+    const AddKeyReply& reply) {
+  if (reply.error() == user_data_auth::CRYPTOHOME_ERROR_NOT_SET) {
+    SetCredentialVerifierForUserSession(
+        auth_session, /*override_existing_credential_verifier=*/false);
+  }
+  std::move(on_done).Run(reply);
+}
+
+template <typename AuthenticateReply>
+void UserDataAuth::OnAuthenticateFinished(
+    AuthSession* auth_session,
+    base::OnceCallback<void(const AuthenticateReply&)> on_done,
+    const AuthenticateReply& reply) {
+  if (reply.error() == user_data_auth::CRYPTOHOME_ERROR_NOT_SET) {
+    SetCredentialVerifierForUserSession(
+        auth_session, /*override_existing_credential_verifier=*/false);
+  }
+  std::move(on_done).Run(reply);
+}
+
+void UserDataAuth::OnUpdateCredentialFinished(
+    AuthSession* auth_session,
+    base::OnceCallback<void(const user_data_auth::UpdateCredentialReply&)>
+        on_done,
+    const user_data_auth::UpdateCredentialReply& reply) {
+  if (reply.error() == user_data_auth::CRYPTOHOME_ERROR_NOT_SET) {
+    SetCredentialVerifierForUserSession(
+        auth_session, /*override_existing_credential_verifier=*/true);
+  }
+  std::move(on_done).Run(reply);
 }
 
 void UserDataAuth::UpdateCredential(
@@ -3888,7 +3973,12 @@ void UserDataAuth::UpdateCredential(
   }
   // Update credentials using data in AuthorizationRequest and
   // auth_session_token.
-  auth_session_status.value()->UpdateCredential(request, std::move(on_done));
+  auto on_update_credential = base::BindOnce(
+      &UserDataAuth::OnUpdateCredentialFinished, base::Unretained(this),
+      auth_session_status.value(), std::move(on_done));
+
+  auth_session_status.value()->UpdateCredential(
+      request, std::move(on_update_credential));
   return;
 }
 
@@ -3933,7 +4023,12 @@ void UserDataAuth::AuthenticateAuthSession(
 
   // Perform authentication using data in AuthorizationRequest and
   // auth_session_token.
-  auth_session->Authenticate(request.authorization(), std::move(on_done));
+  auto on_authenticate =
+      base::BindOnce(&UserDataAuth::OnAuthenticateFinished<
+                         user_data_auth::AuthenticateAuthSessionReply>,
+                     base::Unretained(this), auth_session, std::move(on_done));
+  auth_session->Authenticate(request.authorization(),
+                             std::move(on_authenticate));
 }
 
 void UserDataAuth::InvalidateAuthSession(
@@ -4175,13 +4270,8 @@ void UserDataAuth::PrepareVaultForMigration(
       PreparePersistentVaultImpl(request.auth_session_id(), options);
   reply.set_sanitized_username(
       SanitizedUserNameForSession(request.auth_session_id()));
-  ReplyWithError(
-      std::move(on_done), reply,
-      MakeStatus<CryptohomeError>(
-          CRYPTOHOME_ERR_LOC(
-              kLocUserDataAuthPrepareVaultFailedInPrepareForMigration))
-          .Wrap(std::move(status)));
-}  // namespace cryptohome
+  ReplyWithError(std::move(on_done), reply, status);
+}
 
 void UserDataAuth::CreatePersistentUser(
     user_data_auth::CreatePersistentUserRequest request,
