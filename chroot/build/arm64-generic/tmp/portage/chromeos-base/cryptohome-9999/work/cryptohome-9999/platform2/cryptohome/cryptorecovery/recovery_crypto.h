@@ -7,7 +7,6 @@
 
 #include <memory>
 #include <optional>
-#include <string>
 
 #include <brillo/secure_blob.h>
 #include <crypto/scoped_openssl_types.h>
@@ -40,7 +39,6 @@ class RecoveryCryptoTpmBackend {
       const hwsec_foundation::EllipticCurve& ec,
       const crypto::ScopedEC_KEY& own_key_pair,
       const std::optional<brillo::SecureBlob>& auth_value,
-      const std::string& obfuscated_username,
       brillo::SecureBlob* encrypted_own_priv_key) = 0;
   // Multiplies the private key, provided in encrypted form, with the given the
   // other party's public EC point. Returns the multiplication, or nullptr on
@@ -53,7 +51,6 @@ class RecoveryCryptoTpmBackend {
       const hwsec_foundation::EllipticCurve& ec,
       const brillo::SecureBlob& encrypted_own_priv_key,
       const std::optional<brillo::SecureBlob>& auth_value,
-      const std::string& obfuscated_username,
       const EC_POINT& others_pub_point) = 0;
   // Generate a TPM-backed RSA key pair. Return true if the key generation
   // from TPM modules is successful.
@@ -131,7 +128,6 @@ class RecoveryCrypto {
       const brillo::SecureBlob& encrypted_rsa_priv_key,
       const brillo::SecureBlob& encrypted_channel_priv_key,
       const brillo::SecureBlob& channel_pub_key,
-      const std::string& obfuscated_username,
       CryptoRecoveryRpcRequest* recovery_request,
       brillo::SecureBlob* ephemeral_pub_key) const = 0;
 
@@ -160,7 +156,6 @@ class RecoveryCrypto {
   virtual bool GenerateHsmPayload(
       const brillo::SecureBlob& mediator_pub_key,
       const OnboardingMetadata& onboarding_metadata,
-      const std::string& obfuscated_username,
       HsmPayload* hsm_payload,
       brillo::SecureBlob* encrypted_rsa_priv_key,
       brillo::SecureBlob* encrypted_destination_share,
@@ -183,7 +178,6 @@ class RecoveryCrypto {
       const brillo::SecureBlob& encrypted_destination_share,
       const brillo::SecureBlob& ephemeral_pub_key,
       const brillo::SecureBlob& mediated_publisher_pub_key,
-      const std::string& obfuscated_username,
       brillo::SecureBlob* destination_recovery_key) const = 0;
 
   // Decrypt plain text from the Recovery Response.
@@ -199,7 +193,6 @@ class RecoveryCrypto {
       const brillo::SecureBlob& encrypted_channel_priv_key,
       const CryptoRecoveryEpochResponse& epoch_response,
       const CryptoRecoveryRpcResponse& recovery_response_proto,
-      const std::string& obfuscated_username,
       HsmResponsePlainText* response_plain_text) const = 0;
 };
 

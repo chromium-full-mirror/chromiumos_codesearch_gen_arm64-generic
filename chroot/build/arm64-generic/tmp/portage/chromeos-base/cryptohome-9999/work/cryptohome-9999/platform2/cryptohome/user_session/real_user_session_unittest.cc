@@ -100,7 +100,7 @@ class RealUserSessionTest : public ::testing::Test {
         }));
 
     session_ = base::MakeRefCounted<RealUserSession>(
-        kUser0, homedirs_.get(), keyset_management_.get(),
+        homedirs_.get(), keyset_management_.get(),
         user_activity_timestamp_manager_.get(), &pkcs11_token_factory_, mount_);
   }
 
@@ -164,9 +164,7 @@ class RealUserSessionTest : public ::testing::Test {
 };
 
 MATCHER_P(VaultOptionsEqual, options, "") {
-  return arg.force_type == options.force_type &&
-         arg.migrate == options.migrate &&
-         arg.block_ecryptfs == options.block_ecryptfs;
+  return memcmp(&options, &arg, sizeof(options)) == 0;
 }
 
 // Mount twice: first time with create, and the second time for the existing
@@ -191,8 +189,6 @@ TEST_F(RealUserSessionTest, MountVaultOk) {
               MountCryptohome(users_[0].name, _, VaultOptionsEqual(options)))
       .WillOnce(ReturnOk<StorageError>());
   EXPECT_CALL(platform_, GetCurrentTime()).WillOnce(Return(kTs1));
-  EXPECT_CALL(pkcs11_token_factory_, New(users_[0].name, _, _))
-      .RetiresOnSaturation();
 
   // TEST
 
@@ -230,8 +226,6 @@ TEST_F(RealUserSessionTest, MountVaultOk) {
               MountCryptohome(users_[0].name, _, VaultOptionsEqual(options)))
       .WillOnce(ReturnOk<StorageError>());
   EXPECT_CALL(platform_, GetCurrentTime()).WillOnce(Return(kTs2));
-  EXPECT_CALL(pkcs11_token_factory_, New(users_[0].name, _, _))
-      .RetiresOnSaturation();
 
   // TEST
 
@@ -330,17 +324,8 @@ TEST_F(RealUserSessionTest, EphemeralMountPolicyTest) {
   };
 
   for (const auto& test_case : test_cases) {
-    auto local_session = base::MakeRefCounted<RealUserSession>(
-        test_case.user, homedirs_.get(), keyset_management_.get(),
-        user_activity_timestamp_manager_.get(), &pkcs11_token_factory_, mount_);
-    if (test_case.ok) {
-      // If the mount succeeds in the test, a PKCS11 token should be created.
-      EXPECT_CALL(pkcs11_token_factory_, New(test_case.user, _, _))
-          .RetiresOnSaturation();
-    }
-
     PreparePolicy(test_case.is_enterprise, test_case.owner);
-    MountStatus status = local_session->MountEphemeral(test_case.user);
+    MountStatus status = session_->MountEphemeral(test_case.user);
     ASSERT_EQ(status.ok(), test_case.ok) << "Test case: " << test_case.name;
     if (!test_case.ok) {
       ASSERT_EQ(status->mount_error(), test_case.expected_result)
@@ -452,8 +437,8 @@ class RealUserSessionReAuthTest : public ::testing::Test {
 TEST_F(RealUserSessionReAuthTest, VerifyUser) {
   Credentials credentials("username", SecureBlob("password"));
   scoped_refptr<RealUserSession> session =
-      base::MakeRefCounted<RealUserSession>("username", nullptr, nullptr,
-                                            nullptr, nullptr, nullptr);
+      base::MakeRefCounted<RealUserSession>(nullptr, nullptr, nullptr, nullptr,
+                                            nullptr);
   EXPECT_TRUE(session->SetCredentials(credentials));
 
   EXPECT_TRUE(session->VerifyUser(credentials.GetObfuscatedUsername()));
@@ -465,38 +450,23 @@ TEST_F(RealUserSessionReAuthTest, VerifyCredentials) {
   Credentials credentials_2("username", SecureBlob("password2"));
   Credentials credentials_3("username2", SecureBlob("password2"));
 
-  {
-    scoped_refptr<RealUserSession> session =
-        base::MakeRefCounted<RealUserSession>(credentials_1.username(), nullptr,
-                                              nullptr, nullptr, nullptr,
-                                              nullptr);
-    EXPECT_TRUE(session->SetCredentials(credentials_1));
-    EXPECT_TRUE(session->VerifyCredentials(credentials_1));
-    EXPECT_FALSE(session->VerifyCredentials(credentials_2));
-    EXPECT_FALSE(session->VerifyCredentials(credentials_3));
-  }
+  scoped_refptr<RealUserSession> session =
+      base::MakeRefCounted<RealUserSession>(nullptr, nullptr, nullptr, nullptr,
+                                            nullptr);
+  EXPECT_TRUE(session->SetCredentials(credentials_1));
+  EXPECT_TRUE(session->VerifyCredentials(credentials_1));
+  EXPECT_FALSE(session->VerifyCredentials(credentials_2));
+  EXPECT_FALSE(session->VerifyCredentials(credentials_3));
 
-  {
-    scoped_refptr<RealUserSession> session =
-        base::MakeRefCounted<RealUserSession>(credentials_2.username(), nullptr,
-                                              nullptr, nullptr, nullptr,
-                                              nullptr);
-    EXPECT_TRUE(session->SetCredentials(credentials_2));
-    EXPECT_FALSE(session->VerifyCredentials(credentials_1));
-    EXPECT_TRUE(session->VerifyCredentials(credentials_2));
-    EXPECT_FALSE(session->VerifyCredentials(credentials_3));
-  }
+  EXPECT_TRUE(session->SetCredentials(credentials_2));
+  EXPECT_FALSE(session->VerifyCredentials(credentials_1));
+  EXPECT_TRUE(session->VerifyCredentials(credentials_2));
+  EXPECT_FALSE(session->VerifyCredentials(credentials_3));
 
-  {
-    scoped_refptr<RealUserSession> session =
-        base::MakeRefCounted<RealUserSession>(credentials_3.username(), nullptr,
-                                              nullptr, nullptr, nullptr,
-                                              nullptr);
-    EXPECT_TRUE(session->SetCredentials(credentials_3));
-    EXPECT_FALSE(session->VerifyCredentials(credentials_1));
-    EXPECT_FALSE(session->VerifyCredentials(credentials_2));
-    EXPECT_TRUE(session->VerifyCredentials(credentials_3));
-  }
+  EXPECT_TRUE(session->SetCredentials(credentials_3));
+  EXPECT_FALSE(session->VerifyCredentials(credentials_1));
+  EXPECT_FALSE(session->VerifyCredentials(credentials_2));
+  EXPECT_TRUE(session->VerifyCredentials(credentials_3));
 }
 
 }  // namespace cryptohome

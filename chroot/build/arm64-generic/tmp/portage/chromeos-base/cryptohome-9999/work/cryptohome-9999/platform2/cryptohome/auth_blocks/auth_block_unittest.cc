@@ -69,8 +69,6 @@ using ::testing::SetArgPointee;
 
 namespace cryptohome {
 namespace {
-constexpr char kObfuscatedUsername[] = "OBFUSCATED_USERNAME";
-
 TpmEccAuthBlockState GetDefaultEccAuthBlockState() {
   TpmEccAuthBlockState auth_block_state;
   auth_block_state.salt = brillo::SecureBlob(32, 'A');
@@ -92,6 +90,7 @@ void SetupMockHwsec(NiceMock<hwsec::MockCryptohomeFrontend>& hwsec) {
 TEST(TpmBoundToPcrTest, CreateTest) {
   // Set up inputs to the test.
   brillo::SecureBlob vault_key(20, 'C');
+  std::string obfuscated_username = "OBFUSCATED_USERNAME";
   SerializedVaultKeyset serialized;
 
   // Set up the mock expectations.
@@ -111,7 +110,7 @@ TEST(TpmBoundToPcrTest, CreateTest) {
 
   AuthInput user_input = {vault_key,
                           /*locked_to_single_user=*/std::nullopt,
-                          kObfuscatedUsername,
+                          obfuscated_username,
                           /*reset_secret=*/std::nullopt};
   KeyBlobs vkk_data;
 
@@ -138,6 +137,7 @@ TEST(TpmBoundToPcrTest, CreateTest) {
 TEST(TpmBoundToPcrTest, CreateFailTpm) {
   // Set up inputs to the test.
   brillo::SecureBlob vault_key(20, 'C');
+  std::string obfuscated_username = "OBFUSCATED_USERNAME";
   SerializedVaultKeyset serialized;
 
   // Set up the mock expectations.
@@ -156,7 +156,7 @@ TEST(TpmBoundToPcrTest, CreateFailTpm) {
 
   AuthInput user_input = {vault_key,
                           /*locked_to_single_user=*/std::nullopt,
-                          kObfuscatedUsername,
+                          obfuscated_username,
                           /*reset_secret=*/std::nullopt};
   KeyBlobs vkk_data;
   TpmBoundToPcrAuthBlock auth_block(&hwsec, &cryptohome_keys_manager);
@@ -169,10 +169,11 @@ TEST(TpmBoundToPcrTest, CreateFailTpm) {
 // Test the Create operation fails when there's no user_input provided.
 TEST(TpmBoundToPcrTest, CreateFailNoUserInput) {
   // Prepare.
+  std::string obfuscated_username = "OBFUSCATED_USERNAME";
   NiceMock<hwsec::MockCryptohomeFrontend> hwsec;
   NiceMock<MockCryptohomeKeysManager> cryptohome_keys_manager;
   TpmBoundToPcrAuthBlock auth_block(&hwsec, &cryptohome_keys_manager);
-  AuthInput auth_input = {.obfuscated_username = kObfuscatedUsername};
+  AuthInput auth_input = {.obfuscated_username = obfuscated_username};
 
   // Test.
   AuthBlockState auth_state;
@@ -186,6 +187,7 @@ TEST(TpmBoundToPcrTest, CreateFailNoUserInput) {
 TEST(TpmBoundToPcrTest, CreateFailNoObfuscated) {
   // Prepare.
   brillo::SecureBlob user_input(20, 'C');
+  std::string obfuscated_username = "OBFUSCATED_USERNAME";
   NiceMock<hwsec::MockCryptohomeFrontend> hwsec;
   NiceMock<MockCryptohomeKeysManager> cryptohome_keys_manager;
   TpmBoundToPcrAuthBlock auth_block(&hwsec, &cryptohome_keys_manager);
@@ -202,6 +204,7 @@ TEST(TpmBoundToPcrTest, CreateFailNoObfuscated) {
 TEST(TpmNotBoundToPcrTest, Success) {
   // Set up inputs to the test.
   brillo::SecureBlob vault_key(20, 'C');
+  std::string obfuscated_username = "OBFUSCATED_USERNAME";
   SerializedVaultKeyset serialized;
 
   // Set up the mock expectations.
@@ -216,7 +219,7 @@ TEST(TpmNotBoundToPcrTest, Success) {
 
   AuthInput user_input = {vault_key,
                           /*locked_to_single_user=*/std::nullopt,
-                          kObfuscatedUsername,
+                          obfuscated_username,
                           /*reset_secret=*/std::nullopt};
   KeyBlobs vkk_data;
   TpmNotBoundToPcrAuthBlock auth_block(&hwsec, &cryptohome_keys_manager);
@@ -260,6 +263,7 @@ TEST(TpmNotBoundToPcrTest, Success) {
 TEST(TpmNotBoundToPcrTest, CreateFailTpm) {
   // Set up inputs to the test.
   brillo::SecureBlob vault_key(20, 'C');
+  std::string obfuscated_username = "OBFUSCATED_USERNAME";
   SerializedVaultKeyset serialized;
 
   // Set up the mock expectations.
@@ -270,7 +274,7 @@ TEST(TpmNotBoundToPcrTest, CreateFailTpm) {
 
   AuthInput user_input = {vault_key,
                           /*locked_to_single_user=*/std::nullopt,
-                          kObfuscatedUsername,
+                          obfuscated_username,
                           /*reset_secret=*/std::nullopt};
   KeyBlobs vkk_data;
   TpmNotBoundToPcrAuthBlock auth_block(&hwsec, &cryptohome_keys_manager);
@@ -393,6 +397,7 @@ TEST(TpmNotBoundToPcrTest, DeriveSuccess) {
 TEST(PinWeaverAuthBlockTest, CreateTest) {
   // Set up inputs to the test.
   brillo::SecureBlob vault_key(20, 'C');
+  std::string obfuscated_username = "OBFUSCATED_USERNAME";
   brillo::SecureBlob reset_secret(32, 'S');
 
   // Set up the mock expectations.
@@ -406,7 +411,7 @@ TEST(PinWeaverAuthBlockTest, CreateTest) {
   // Call the Create() method.
   AuthInput user_input = {vault_key,
                           /*locked_to_single_user=*/std::nullopt,
-                          kObfuscatedUsername, reset_secret};
+                          obfuscated_username, reset_secret};
   KeyBlobs vkk_data;
 
   PinWeaverAuthBlock auth_block(&le_cred_manager, &cryptohome_keys_manager);
@@ -431,6 +436,7 @@ TEST(PinWeaverAuthBlockTest, CreateFailureLeManager) {
           std::string("Testing1"));
 
   brillo::SecureBlob vault_key(20, 'C');
+  std::string obfuscated_username = "OBFUSCATED_USERNAME";
   brillo::SecureBlob reset_secret(32, 'S');
 
   // Now test that the method fails if the le_cred_manager fails.
@@ -446,7 +452,7 @@ TEST(PinWeaverAuthBlockTest, CreateFailureLeManager) {
   // Call the Create() method.
   AuthInput user_input = {vault_key,
                           /*locked_to_single_user=*/std::nullopt,
-                          kObfuscatedUsername, reset_secret};
+                          obfuscated_username, reset_secret};
   KeyBlobs vkk_data;
   AuthBlockState auth_state;
   EXPECT_EQ(CryptoError::CE_OTHER_CRYPTO,
@@ -456,13 +462,14 @@ TEST(PinWeaverAuthBlockTest, CreateFailureLeManager) {
 
 // Test PinWeaverAuthBlock create fails when there's no user_input provided.
 TEST(PinWeaverAuthBlockTest, CreateFailureNoUserInput) {
+  std::string obfuscated_username = "OBFUSCATED_USERNAME";
   brillo::SecureBlob reset_secret(32, 'S');
 
   NiceMock<MockCryptohomeKeysManager> cryptohome_keys_manager;
   NiceMock<MockLECredentialManager> le_cred_manager;
 
   PinWeaverAuthBlock auth_block(&le_cred_manager, &cryptohome_keys_manager);
-  AuthInput auth_input = {.obfuscated_username = kObfuscatedUsername,
+  AuthInput auth_input = {.obfuscated_username = obfuscated_username,
                           .reset_secret = reset_secret};
   KeyBlobs vkk_data;
   AuthBlockState auth_state;
@@ -493,13 +500,14 @@ TEST(PinWeaverAuthBlockTest, CreateFailureNoObfuscated) {
 // Test PinWeaverAuthBlock create fails when there's no reset_secret provided.
 TEST(PinWeaverAuthBlockTest, CreateFailureNoResetSecret) {
   brillo::SecureBlob user_input(20, 'C');
+  std::string obfuscated_username = "OBFUSCATED_USERNAME";
 
   NiceMock<MockCryptohomeKeysManager> cryptohome_keys_manager;
   NiceMock<MockLECredentialManager> le_cred_manager;
 
   PinWeaverAuthBlock auth_block(&le_cred_manager, &cryptohome_keys_manager);
   AuthInput auth_input = {.user_input = user_input,
-                          .obfuscated_username = kObfuscatedUsername};
+                          .obfuscated_username = obfuscated_username};
   KeyBlobs vkk_data;
   AuthBlockState auth_state;
   EXPECT_EQ(CryptoError::CE_OTHER_CRYPTO,
@@ -1298,8 +1306,8 @@ class CryptohomeRecoveryAuthBlockTest : public testing::Test {
     ASSERT_TRUE(recovery->GenerateRecoveryRequest(
         hsm_payload, request_metadata, epoch_response_, rsa_priv_key,
         cryptohome_recovery_state.encrypted_channel_priv_key,
-        cryptohome_recovery_state.channel_pub_key, kObfuscatedUsername,
-        &recovery_request, ephemeral_pub_key));
+        cryptohome_recovery_state.channel_pub_key, &recovery_request,
+        ephemeral_pub_key));
 
     // Simulate mediation (it will be done by Recovery Mediator service).
     std::unique_ptr<FakeRecoveryMediatorCrypto> mediator =
@@ -1328,7 +1336,6 @@ TEST_F(CryptohomeRecoveryAuthBlockTest, SuccessTest) {
   CryptohomeRecoveryAuthInput cryptohome_recovery_auth_input;
   cryptohome_recovery_auth_input.mediator_pub_key = mediator_pub_key_;
   auth_input.cryptohome_recovery_auth_input = cryptohome_recovery_auth_input;
-  auth_input.obfuscated_username = kObfuscatedUsername;
 
   // Tpm::GetLECredentialBackend() returns `nullptr` -> revocation is not
   // supported.
@@ -1392,7 +1399,6 @@ TEST_F(CryptohomeRecoveryAuthBlockTest, SuccessTestWithRevocation) {
   CryptohomeRecoveryAuthInput cryptohome_recovery_auth_input;
   cryptohome_recovery_auth_input.mediator_pub_key = mediator_pub_key_;
   auth_input.cryptohome_recovery_auth_input = cryptohome_recovery_auth_input;
-  auth_input.obfuscated_username = kObfuscatedUsername;
 
   // Tpm::GetLECredentialBackend()::IsSupported() returns `true` -> revocation
   // is supported.
@@ -1470,37 +1476,11 @@ TEST_F(CryptohomeRecoveryAuthBlockTest, SuccessTestWithRevocation) {
   EXPECT_EQ(created_key_blobs.chaps_iv, derived_key_blobs.chaps_iv);
 }
 
-TEST_F(CryptohomeRecoveryAuthBlockTest, MissingObfuscatedUsername) {
-  AuthInput auth_input;
-  CryptohomeRecoveryAuthInput cryptohome_recovery_auth_input;
-  cryptohome_recovery_auth_input.mediator_pub_key = mediator_pub_key_;
-  auth_input.cryptohome_recovery_auth_input = cryptohome_recovery_auth_input;
-
-  // Tpm::GetLECredentialBackend() returns `nullptr` -> revocation is not
-  // supported.
-  cryptorecovery::RecoveryCryptoFakeTpmBackendImpl
-      recovery_crypto_fake_tpm_backend;
-
-  NiceMock<hwsec::MockCryptohomeFrontend> hwsec;
-  SetupMockHwsec(hwsec);
-
-  KeyBlobs created_key_blobs;
-  CryptohomeRecoveryAuthBlock auth_block(&hwsec,
-                                         &recovery_crypto_fake_tpm_backend,
-                                         /*LECredentialManager*=*/nullptr);
-  AuthBlockState auth_state;
-  EXPECT_FALSE(
-      auth_block.Create(auth_input, &auth_state, &created_key_blobs).ok());
-  EXPECT_FALSE(created_key_blobs.vkk_key.has_value());
-  EXPECT_FALSE(created_key_blobs.vkk_iv.has_value());
-  EXPECT_FALSE(created_key_blobs.chaps_iv.has_value());
-  EXPECT_FALSE(auth_state.revocation_state.has_value());
-}
-
 // Test the TpmEccAuthBlock::Create works correctly.
 TEST(TpmEccAuthBlockTest, CreateTest) {
   // Set up inputs to the test.
   brillo::SecureBlob vault_key(20, 'C');
+  std::string obfuscated_username = "OBFUSCATED_USERNAME";
 
   // Set up the mock expectations.
   brillo::SecureBlob scrypt_derived_key;
@@ -1519,7 +1499,7 @@ TEST(TpmEccAuthBlockTest, CreateTest) {
 
   AuthInput user_input = {vault_key,
                           /*locked_to_single_user=*/std::nullopt,
-                          kObfuscatedUsername,
+                          obfuscated_username,
                           /*reset_secret=*/std::nullopt};
   KeyBlobs vkk_data;
 
@@ -1546,6 +1526,7 @@ TEST(TpmEccAuthBlockTest, CreateTest) {
 TEST(TpmEccAuthBlockTest, CreateRetryTest) {
   // Set up inputs to the test.
   brillo::SecureBlob vault_key(20, 'C');
+  std::string obfuscated_username = "OBFUSCATED_USERNAME";
 
   // Set up the mock expectations.
   brillo::SecureBlob scrypt_derived_key;
@@ -1573,7 +1554,7 @@ TEST(TpmEccAuthBlockTest, CreateRetryTest) {
 
   AuthInput user_input = {vault_key,
                           /*locked_to_single_user=*/std::nullopt,
-                          kObfuscatedUsername,
+                          obfuscated_username,
                           /*reset_secret=*/std::nullopt};
   KeyBlobs vkk_data;
 
@@ -1600,6 +1581,7 @@ TEST(TpmEccAuthBlockTest, CreateRetryTest) {
 TEST(TpmEccAuthBlockTest, CreateRetryFailTest) {
   // Set up inputs to the test.
   brillo::SecureBlob vault_key(20, 'C');
+  std::string obfuscated_username = "OBFUSCATED_USERNAME";
 
   // Set up the mock expectations.
   brillo::SecureBlob scrypt_derived_key;
@@ -1615,7 +1597,7 @@ TEST(TpmEccAuthBlockTest, CreateRetryFailTest) {
 
   AuthInput user_input = {vault_key,
                           /*locked_to_single_user=*/std::nullopt,
-                          kObfuscatedUsername,
+                          obfuscated_username,
                           /*reset_secret=*/std::nullopt};
   KeyBlobs vkk_data;
   TpmEccAuthBlock auth_block(&hwsec, &cryptohome_keys_manager);
@@ -1628,10 +1610,11 @@ TEST(TpmEccAuthBlockTest, CreateRetryFailTest) {
 // Test the Create operation fails when there's no user_input provided.
 TEST(TpmEccAuthBlockTest, CreateFailNoUserInput) {
   // Prepare.
+  std::string obfuscated_username = "OBFUSCATED_USERNAME";
   NiceMock<hwsec::MockCryptohomeFrontend> hwsec;
   NiceMock<MockCryptohomeKeysManager> cryptohome_keys_manager;
   TpmEccAuthBlock auth_block(&hwsec, &cryptohome_keys_manager);
-  AuthInput auth_input = {.obfuscated_username = kObfuscatedUsername};
+  AuthInput auth_input = {.obfuscated_username = obfuscated_username};
 
   // Test.
   AuthBlockState auth_state;
@@ -1662,6 +1645,7 @@ TEST(TpmEccAuthBlockTest, CreateFailNoObfuscated) {
 TEST(TpmEccAuthBlockTest, CreateSealToPcrFailTest) {
   // Set up inputs to the test.
   brillo::SecureBlob vault_key(20, 'C');
+  std::string obfuscated_username = "OBFUSCATED_USERNAME";
 
   // Set up the mock expectations.
   NiceMock<hwsec::MockCryptohomeFrontend> hwsec;
@@ -1678,7 +1662,7 @@ TEST(TpmEccAuthBlockTest, CreateSealToPcrFailTest) {
 
   AuthInput user_input = {vault_key,
                           /*locked_to_single_user=*/std::nullopt,
-                          kObfuscatedUsername,
+                          obfuscated_username,
                           /*reset_secret=*/std::nullopt};
   KeyBlobs vkk_data;
   TpmEccAuthBlock auth_block(&hwsec, &cryptohome_keys_manager);
@@ -1692,6 +1676,7 @@ TEST(TpmEccAuthBlockTest, CreateSealToPcrFailTest) {
 TEST(TpmEccAuthBlockTest, CreateSecondSealToPcrFailTest) {
   // Set up inputs to the test.
   brillo::SecureBlob vault_key(20, 'C');
+  std::string obfuscated_username = "OBFUSCATED_USERNAME";
 
   // Set up the mock expectations.
   NiceMock<hwsec::MockCryptohomeFrontend> hwsec;
@@ -1709,7 +1694,7 @@ TEST(TpmEccAuthBlockTest, CreateSecondSealToPcrFailTest) {
 
   AuthInput user_input = {vault_key,
                           /*locked_to_single_user=*/std::nullopt,
-                          kObfuscatedUsername,
+                          obfuscated_username,
                           /*reset_secret=*/std::nullopt};
   KeyBlobs vkk_data;
   TpmEccAuthBlock auth_block(&hwsec, &cryptohome_keys_manager);
@@ -1723,6 +1708,7 @@ TEST(TpmEccAuthBlockTest, CreateSecondSealToPcrFailTest) {
 TEST(TpmEccAuthBlockTest, CreateEccAuthValueFailTest) {
   // Set up inputs to the test.
   brillo::SecureBlob vault_key(20, 'C');
+  std::string obfuscated_username = "OBFUSCATED_USERNAME";
 
   // Set up the mock expectations.
   NiceMock<hwsec::MockCryptohomeFrontend> hwsec;
@@ -1737,7 +1723,7 @@ TEST(TpmEccAuthBlockTest, CreateEccAuthValueFailTest) {
 
   AuthInput user_input = {vault_key,
                           /*locked_to_single_user=*/std::nullopt,
-                          kObfuscatedUsername,
+                          obfuscated_username,
                           /*reset_secret=*/std::nullopt};
   KeyBlobs vkk_data;
   TpmEccAuthBlock auth_block(&hwsec, &cryptohome_keys_manager);

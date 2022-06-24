@@ -253,7 +253,6 @@ CryptohomeStatus AuthSession::OnUserCreated() {
 template <typename AddKeyReply>
 void AuthSession::AddVaultKeyset(
     const KeyData& key_data,
-    AuthInput auth_input,
     base::OnceCallback<void(const AddKeyReply&)> on_done,
     CryptoStatus callback_error,
     std::unique_ptr<KeyBlobs> key_blobs,
@@ -328,9 +327,6 @@ void AuthSession::AddVaultKeyset(
 
     // Flip the flag, so that our future invocations go through AddKeyset()
     // and not AddInitialKeyset().
-    if (auth_input.user_input.has_value()) {
-      SetCredentialVerifier(auth_input.user_input.value());
-    }
     user_has_configured_credential_ = true;
   }
 
@@ -397,9 +393,9 @@ void AuthSession::CreateKeyBlobsToAddKeyset(
     }
   }
 
-  auto create_callback = base::BindOnce(
-      &AuthSession::AddVaultKeyset<AddKeyReply>, weak_factory_.GetWeakPtr(),
-      key_data, auth_input, std::move(on_done));
+  AuthBlock::CreateCallback create_callback =
+      base::BindOnce(&AuthSession::AddVaultKeyset<AddKeyReply>,
+                     weak_factory_.GetWeakPtr(), key_data, std::move(on_done));
   auth_block_utility_->CreateKeyBlobsWithAuthBlockAsync(
       auth_block_type, auth_input, std::move(create_callback));
 }
@@ -577,14 +573,13 @@ void AuthSession::CreateKeyBlobsToUpdateKeyset(
 
   AuthBlock::CreateCallback create_callback = base::BindOnce(
       &AuthSession::UpdateVaultKeyset, weak_factory_.GetWeakPtr(),
-      credentials.key_data(), auth_input, std::move(on_done));
+      credentials.key_data(), std::move(on_done));
   auth_block_utility_->CreateKeyBlobsWithAuthBlockAsync(
       auth_block_type, auth_input, std::move(create_callback));
 }
 
 void AuthSession::UpdateVaultKeyset(
     const KeyData& key_data,
-    AuthInput auth_input,
     base::OnceCallback<void(const user_data_auth::UpdateCredentialReply&)>
         on_done,
     CryptoStatus callback_error,
@@ -624,9 +619,6 @@ void AuthSession::UpdateVaultKeyset(
                                        ErrorAction::kDevCheckUnexpectedState}),
                        error_code));
   } else {
-    if (auth_input.user_input.has_value()) {
-      SetCredentialVerifier(auth_input.user_input.value());
-    }
     ReplyWithError(std::move(on_done), reply, OkStatus<CryptohomeError>());
   }
 }
@@ -1017,7 +1009,7 @@ bool AuthSession::GetRecoveryRequest(
   // - `ephemeral_pub_key` which is saved in AuthSession and retrieved during
   // the `AuthenticateAuthFactor` call.
   CryptoStatus status = auth_block_utility_->GenerateRecoveryRequest(
-      obfuscated_username_, RequestMetadataFromProto(request),
+      RequestMetadataFromProto(request),
       brillo::BlobFromString(request.epoch_response()), *state, crypto_->tpm(),
       &recovery_request, &ephemeral_pub_key);
   if (!status.ok()) {

@@ -99,7 +99,6 @@ bool RecoveryCryptoTpm1BackendImpl::EncryptEccPrivateKey(
     const EllipticCurve& ec,
     const crypto::ScopedEC_KEY& own_key_pair,
     const std::optional<brillo::SecureBlob>& auth_value,
-    const std::string& obfuscated_username,
     brillo::SecureBlob* encrypted_own_priv_key) {
   const BIGNUM* own_priv_key_bn = EC_KEY_get0_private_key(own_key_pair.get());
   if (!own_priv_key_bn || !ec.IsScalarValid(*own_priv_key_bn)) {
@@ -120,8 +119,7 @@ bool RecoveryCryptoTpm1BackendImpl::EncryptEccPrivateKey(
     *encrypted_own_priv_key = own_priv_key;
   } else if (hwsec::Status err = tpm_impl_->SealToPcrWithAuthorization(
                  own_priv_key, auth_value.value(), /*pcr_map=*/{{}},
-                 encrypted_own_priv_key);
-             !err.ok()) {
+                 encrypted_own_priv_key)) {
     LOG(ERROR) << "Error sealing the blob: " << err;
     return false;
   }
@@ -133,7 +131,6 @@ RecoveryCryptoTpm1BackendImpl::GenerateDiffieHellmanSharedSecret(
     const EllipticCurve& ec,
     const brillo::SecureBlob& encrypted_own_priv_key,
     const std::optional<brillo::SecureBlob>& auth_value,
-    const std::string& obfuscated_username,
     const EC_POINT& others_pub_point) {
   ScopedBN_CTX context = CreateBigNumContext();
   if (!context.get()) {
@@ -150,8 +147,7 @@ RecoveryCryptoTpm1BackendImpl::GenerateDiffieHellmanSharedSecret(
   } else if (hwsec::Status err = tpm_impl_->UnsealWithAuthorization(
                  /*preload_handle=*/std::nullopt, encrypted_own_priv_key,
                  auth_value.value(),
-                 /* pcr_map=*/{}, &unencrypted_own_priv_key);
-             !err.ok()) {
+                 /* pcr_map=*/{}, &unencrypted_own_priv_key)) {
     LOG(ERROR) << "Failed to unseal the secret value: " << err;
     return nullptr;
   }

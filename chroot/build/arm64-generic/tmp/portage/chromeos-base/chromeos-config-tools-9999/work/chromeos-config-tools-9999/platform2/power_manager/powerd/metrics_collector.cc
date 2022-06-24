@@ -390,15 +390,10 @@ void MetricsCollector::GenerateDimEventMetrics(const DimEvent sample) {
                                 static_cast<int>(DimEvent::MAX));
 }
 
-void MetricsCollector::GenerateLockEventMetrics(const LockEvent sample) {
-  SendEnumMetricWithPowerSource(kLockEvent, static_cast<int>(sample),
-                                static_cast<int>(LockEvent::MAX));
-}
-
-void MetricsCollector::GenerateHpsEventDurationMetrics(
+void MetricsCollector::GenerateDimEventDurationMetrics(
     const std::string& event_name, base::TimeDelta duration) {
-  SendMetric(event_name, duration.InSeconds(), kHpsEventDurationMin,
-             kHpsEventDurationMax, kDefaultBuckets);
+  SendMetric(event_name, duration.InSeconds(), kDimEventDurationMin,
+             kDimEventDurationMax, kDefaultBuckets);
 }
 
 void MetricsCollector::HandlePowerButtonEvent(ButtonState state) {

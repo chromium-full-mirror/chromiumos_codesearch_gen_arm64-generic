@@ -41,11 +41,11 @@ class MockUserSession : public UserSession {
       (override));
   MOCK_METHOD(MountStatus,
               MountVault,
-              (const std::string&,
+              (const std::string,
                const FileSystemKeyset&,
                const CryptohomeVault::Options&),
               (override));
-  MOCK_METHOD(MountStatus, MountEphemeral, (const std::string&), (override));
+  MOCK_METHOD(MountStatus, MountEphemeral, (const std::string), (override));
   MOCK_METHOD(MountStatus, MountGuest, (), (override));
   MOCK_METHOD(bool, Unmount, (), (override));
   MOCK_METHOD(base::Value, GetStatus, (), (const, override));
@@ -63,7 +63,6 @@ class MockUserSession : public UserSession {
               (override));
   MOCK_METHOD(bool, SetCredentials, (const Credentials&), (override));
   MOCK_METHOD(void, SetCredentials, (AuthSession*), (override));
-  MOCK_METHOD(bool, HasCredentialVerifier, (), (const, override));
   MOCK_METHOD(bool, VerifyUser, (const std::string&), (const, override));
   MOCK_METHOD(bool, VerifyCredentials, (const Credentials&), (const, override));
   MOCK_METHOD(const KeyData&, key_data, (), (const, override));
