@@ -72,6 +72,10 @@ class SpacedProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
+  virtual void RegisterStatefulDiskSpaceUpdateSignalHandler(
+      const base::RepeatingCallback<void(const spaced::StatefulDiskSpaceUpdate&)>& signal_callback,
+      dbus::ObjectProxy::OnConnectedCallback on_connected_callback) = 0;
+
   virtual const dbus::ObjectPath& GetObjectPath() const = 0;
   virtual dbus::ObjectProxy* GetObjectProxy() const = 0;
 };
@@ -95,6 +99,17 @@ class SpacedProxy final : public SpacedProxyInterface {
   SpacedProxy& operator=(const SpacedProxy&) = delete;
 
   ~SpacedProxy() override {
+  }
+
+  void RegisterStatefulDiskSpaceUpdateSignalHandler(
+      const base::RepeatingCallback<void(const spaced::StatefulDiskSpaceUpdate&)>& signal_callback,
+      dbus::ObjectProxy::OnConnectedCallback on_connected_callback) override {
+    brillo::dbus_utils::ConnectToSignal(
+        dbus_object_proxy_,
+        "org.chromium.Spaced",
+        "StatefulDiskSpaceUpdate",
+        signal_callback,
+        std::move(on_connected_callback));
   }
 
   void ReleaseObjectProxy(base::OnceClosure callback) {

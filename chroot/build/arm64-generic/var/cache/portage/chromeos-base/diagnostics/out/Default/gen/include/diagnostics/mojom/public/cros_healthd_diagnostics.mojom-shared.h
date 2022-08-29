@@ -179,17 +179,26 @@ inline DiagnosticRoutineEnum ToKnownEnumValue(DiagnosticRoutineEnum value) {
 
 enum class DiskReadRoutineTypeEnum : int32_t {
   
+  kUnmappedEnumField = 2,
+  
   kLinearRead = 0,
   
   kRandomRead = 1,
   kMinValue = 0,
-  kMaxValue = 1,
+  kMaxValue = 2,
+  kDefaultValue = 2
 };
 
  std::ostream& operator<<(std::ostream& os, DiskReadRoutineTypeEnum value);
 inline bool IsKnownEnumValue(DiskReadRoutineTypeEnum value) {
   return internal::DiskReadRoutineTypeEnum_Data::IsKnownValue(
       static_cast<int32_t>(value));
+}
+inline DiskReadRoutineTypeEnum ToKnownEnumValue(DiskReadRoutineTypeEnum value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return DiskReadRoutineTypeEnum::kDefaultValue;
 }
 
 

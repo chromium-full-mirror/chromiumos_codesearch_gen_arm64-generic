@@ -29,7 +29,7 @@ class GetEcTelemetryResponse_Data;
 
 struct EcEvent_Reason_Data {
  public:
-  static bool constexpr kIsExtensible = false;
+  static bool constexpr kIsExtensible = true;
 
   static bool IsKnownValue(int32_t value) {
     switch (value) {
@@ -42,6 +42,7 @@ struct EcEvent_Reason_Data {
       case 6:
       case 7:
       case 8:
+      case 9:
         return true;
     }
     return false;
@@ -60,10 +61,11 @@ struct EcEvent_Reason_Data {
 
 struct EcEvent_Type_Data {
  public:
-  static bool constexpr kIsExtensible = false;
+  static bool constexpr kIsExtensible = true;
 
   static bool IsKnownValue(int32_t value) {
     switch (value) {
+      case 0:
       case 18:
         return true;
     }
@@ -83,7 +85,7 @@ struct EcEvent_Type_Data {
 
 struct GetEcTelemetryResponse_Status_Data {
  public:
-  static bool constexpr kIsExtensible = false;
+  static bool constexpr kIsExtensible = true;
 
   static bool IsKnownValue(int32_t value) {
     switch (value) {

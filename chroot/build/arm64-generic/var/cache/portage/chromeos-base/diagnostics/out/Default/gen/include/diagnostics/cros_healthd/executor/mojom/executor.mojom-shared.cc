@@ -375,7 +375,7 @@ bool Executor_RunMemtester_Params_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 8, validation_context)) {
+          data, 16, validation_context)) {
     return false;
   }
 
@@ -604,6 +604,59 @@ bool Executor_GetUEFISecureBootContent_ResponseParams_Data::Validate(
 }
 
 Executor_GetUEFISecureBootContent_ResponseParams_Data::Executor_GetUEFISecureBootContent_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool Executor_GetLidAngle_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Executor_GetLidAngle_Params_Data* object =
+      static_cast<const Executor_GetLidAngle_Params_Data*>(data);
+
+  return true;
+}
+
+Executor_GetLidAngle_Params_Data::Executor_GetLidAngle_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool Executor_GetLidAngle_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Executor_GetLidAngle_ResponseParams_Data* object =
+      static_cast<const Executor_GetLidAngle_ResponseParams_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->result, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->result, validation_context))
+    return false;
+
+  return true;
+}
+
+Executor_GetLidAngle_ResponseParams_Data::Executor_GetLidAngle_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
 }  // namespace internal

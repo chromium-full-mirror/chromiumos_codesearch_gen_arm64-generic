@@ -35,6 +35,8 @@ class LogMessageBody : public ::protozero::Message {
     kIidFieldNumber = 1,
     kBodyFieldNumber = 2,
   };
+  static constexpr const char* GetName() { return ".perfetto.protos.LogMessageBody"; }
+
 
   using FieldMetadata_Iid =
     ::protozero::proto_utils::FieldMetadata<
@@ -50,7 +52,7 @@ class LogMessageBody : public ::protozero::Message {
   // It is declared as a function to keep protozero bindings header-only as
   // inline constexpr variables are not available until C++17 (while inline
   // functions are).
-  // TODO(altimin): Use inline variable instead after adopting C++17.  
+  // TODO(altimin): Use inline variable instead after adopting C++17.
   static constexpr FieldMetadata_Iid kIid() { return {}; }
   void set_iid(uint64_t value) {
     static constexpr uint32_t field_id = FieldMetadata_Iid::kFieldId;
@@ -75,10 +77,13 @@ class LogMessageBody : public ::protozero::Message {
   // It is declared as a function to keep protozero bindings header-only as
   // inline constexpr variables are not available until C++17 (while inline
   // functions are).
-  // TODO(altimin): Use inline variable instead after adopting C++17.  
+  // TODO(altimin): Use inline variable instead after adopting C++17.
   static constexpr FieldMetadata_Body kBody() { return {}; }
   void set_body(const char* data, size_t size) {
     AppendBytes(FieldMetadata_Body::kFieldId, data, size);
+  }
+  void set_body(::protozero::ConstChars chars) {
+    AppendBytes(FieldMetadata_Body::kFieldId, chars.data, chars.size);
   }
   void set_body(std::string value) {
     static constexpr uint32_t field_id = FieldMetadata_Body::kFieldId;
@@ -108,6 +113,8 @@ class LogMessage : public ::protozero::Message {
     kSourceLocationIidFieldNumber = 1,
     kBodyIidFieldNumber = 2,
   };
+  static constexpr const char* GetName() { return ".perfetto.protos.LogMessage"; }
+
 
   using FieldMetadata_SourceLocationIid =
     ::protozero::proto_utils::FieldMetadata<
@@ -123,7 +130,7 @@ class LogMessage : public ::protozero::Message {
   // It is declared as a function to keep protozero bindings header-only as
   // inline constexpr variables are not available until C++17 (while inline
   // functions are).
-  // TODO(altimin): Use inline variable instead after adopting C++17.  
+  // TODO(altimin): Use inline variable instead after adopting C++17.
   static constexpr FieldMetadata_SourceLocationIid kSourceLocationIid() { return {}; }
   void set_source_location_iid(uint64_t value) {
     static constexpr uint32_t field_id = FieldMetadata_SourceLocationIid::kFieldId;
@@ -148,7 +155,7 @@ class LogMessage : public ::protozero::Message {
   // It is declared as a function to keep protozero bindings header-only as
   // inline constexpr variables are not available until C++17 (while inline
   // functions are).
-  // TODO(altimin): Use inline variable instead after adopting C++17.  
+  // TODO(altimin): Use inline variable instead after adopting C++17.
   static constexpr FieldMetadata_BodyIid kBodyIid() { return {}; }
   void set_body_iid(uint64_t value) {
     static constexpr uint32_t field_id = FieldMetadata_BodyIid::kFieldId;

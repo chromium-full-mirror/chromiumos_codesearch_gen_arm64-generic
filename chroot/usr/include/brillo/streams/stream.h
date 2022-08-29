@@ -89,6 +89,8 @@ class BRILLO_EXPORT Stream {
 
   // Standard error callback for asynchronous operations.
   using ErrorCallback = base::Callback<void(const Error*)>;
+  // TODO(b/242440806): Use better type name after migration is done.
+  using ErrorOnceCallback = base::OnceCallback<void(const Error*)>;
 
   virtual ~Stream() = default;
 
@@ -369,8 +371,10 @@ class BRILLO_EXPORT Stream {
   // data availability for the stream. Calls |callback| when data can be read
   // and/or written without blocking.
   // |mode| specifies the type of operation to monitor for (read, write, both).
+  // If |mode| is set to READ_WRITE, |callback| will be called when data can be
+  // either read or written without blocking. See also WaitForDataBlocking().
   virtual bool WaitForData(AccessMode mode,
-                           const base::Callback<void(AccessMode)>& callback,
+                           base::OnceCallback<void(AccessMode)> callback,
                            ErrorPtr* error) = 0;
 
   // Helper function for implementing blocking I/O. Blocks until the
@@ -398,9 +402,7 @@ class BRILLO_EXPORT Stream {
   // Simple wrapper to call the externally exposed |success_callback| that only
   // receives a size_t.
   BRILLO_PRIVATE static void IgnoreEOSCallback(
-      const base::Callback<void(size_t)>& success_callback,
-      size_t read,
-      bool eos);
+      base::OnceCallback<void(size_t)> success_callback, size_t read, bool eos);
 
   // The internal implementation of ReadAsync() and ReadAllAsync().
   // Calls ReadNonBlocking and if there's no data available waits for it calling
@@ -423,7 +425,7 @@ class BRILLO_EXPORT Stream {
   // |sucess_callback| but invalidate the callback if the Stream is destroyed
   // while this call is waiting in the main loop.
   BRILLO_PRIVATE void OnReadAsyncDone(
-      const base::Callback<void(size_t, bool)>& success_callback,
+      base::OnceCallback<void(size_t, bool)> success_callback,
       size_t bytes_read,
       bool eos);
 
@@ -457,8 +459,7 @@ class BRILLO_EXPORT Stream {
   // |sucess_callback| but invalidate the callback if the Stream is destroyed
   // while this call is waiting in the main loop.
   BRILLO_PRIVATE void OnWriteAsyncDone(
-      const base::Callback<void(size_t)>& success_callback,
-      size_t size_written);
+      base::OnceCallback<void(size_t)> success_callback, size_t size_written);
 
   // Called from WaitForData() when write operations can be performed
   // without blocking (the type of operation is provided in |mode|).
@@ -485,8 +486,8 @@ class BRILLO_EXPORT Stream {
       size_t size_written);
 
   // Helper callbacks to implement FlushAsync().
-  BRILLO_PRIVATE void FlushAsyncCallback(const base::Closure& success_callback,
-                                         const ErrorCallback& error_callback);
+  BRILLO_PRIVATE void FlushAsyncCallback(base::OnceClosure success_callback,
+                                         ErrorOnceCallback error_callback);
 
   // Data members for asynchronous read operations.
   bool is_async_read_pending_{false};

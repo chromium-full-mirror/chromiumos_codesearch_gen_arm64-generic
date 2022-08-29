@@ -80,6 +80,7 @@ class  Executor
     kGetProcessIOContentsMinVersion = 0,
     kReadMsrMinVersion = 0,
     kGetUEFISecureBootContentMinVersion = 0,
+    kGetLidAngleMinVersion = 0,
   };
   virtual ~Executor() = default;
 
@@ -111,7 +112,7 @@ class  Executor
 
   using RunMemtesterCallback = base::OnceCallback<void(ExecutedProcessResultPtr)>;
   
-  virtual void RunMemtester(RunMemtesterCallback callback) = 0;
+  virtual void RunMemtester(uint32_t test_mem_kib, RunMemtesterCallback callback) = 0;
 
   
   virtual void KillMemtester() = 0;
@@ -130,6 +131,11 @@ class  Executor
   using GetUEFISecureBootContentCallback = base::OnceCallback<void(const std::string&)>;
   
   virtual void GetUEFISecureBootContent(GetUEFISecureBootContentCallback callback) = 0;
+
+
+  using GetLidAngleCallback = base::OnceCallback<void(ExecutedProcessResultPtr)>;
+  
+  virtual void GetLidAngle(GetLidAngleCallback callback) = 0;
 };
 
 
@@ -151,7 +157,7 @@ class  ExecutorProxy
   
   void GetScanDump(const std::string& interface_name, GetScanDumpCallback callback) final;
   
-  void RunMemtester(RunMemtesterCallback callback) final;
+  void RunMemtester(uint32_t test_mem_kib, RunMemtesterCallback callback) final;
   
   void KillMemtester() final;
   
@@ -160,6 +166,8 @@ class  ExecutorProxy
   void ReadMsr(uint32_t msr_reg, uint32_t cpu_index, ReadMsrCallback callback) final;
   
   void GetUEFISecureBootContent(GetUEFISecureBootContentCallback callback) final;
+  
+  void GetLidAngle(GetLidAngleCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

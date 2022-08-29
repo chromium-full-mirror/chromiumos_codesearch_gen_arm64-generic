@@ -61,7 +61,8 @@ constexpr VmInfo::VmInfo(
   , cid_(int64_t{0})
   , seneschal_server_handle_(0u)
   , vm_type_(0)
-{}
+
+  , storage_ballooning_(false){}
 struct VmInfoDefaultTypeInternal {
   constexpr VmInfoDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -105,7 +106,8 @@ constexpr StartVmRequest::StartVmRequest(
   , enable_vulkan_(false)
   , enable_big_gl_(false)
   , timeout_(0u)
-  , vtpm_proxy_(false){}
+  , vtpm_proxy_(false)
+  , storage_ballooning_(false){}
 struct StartVmRequestDefaultTypeInternal {
   constexpr StartVmRequestDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -1054,18 +1056,20 @@ bool StartVmRequest_FdType_IsValid(int value) {
     case 2:
     case 3:
     case 4:
+    case 5:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> StartVmRequest_FdType_strings[5] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> StartVmRequest_FdType_strings[6] = {};
 
 static const char StartVmRequest_FdType_names[] =
   "BIOS"
   "INITRD"
   "KERNEL"
+  "PFLASH"
   "ROOTFS"
   "STORAGE";
 
@@ -1073,16 +1077,18 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry StartVmRequest_FdType_
   { {StartVmRequest_FdType_names + 0, 4}, 4 },
   { {StartVmRequest_FdType_names + 4, 6}, 3 },
   { {StartVmRequest_FdType_names + 10, 6}, 0 },
-  { {StartVmRequest_FdType_names + 16, 6}, 1 },
-  { {StartVmRequest_FdType_names + 22, 7}, 2 },
+  { {StartVmRequest_FdType_names + 16, 6}, 5 },
+  { {StartVmRequest_FdType_names + 22, 6}, 1 },
+  { {StartVmRequest_FdType_names + 28, 7}, 2 },
 };
 
 static const int StartVmRequest_FdType_entries_by_number[] = {
   2, // 0 -> KERNEL
-  3, // 1 -> ROOTFS
-  4, // 2 -> STORAGE
+  4, // 1 -> ROOTFS
+  5, // 2 -> STORAGE
   1, // 3 -> INITRD
   0, // 4 -> BIOS
+  3, // 5 -> PFLASH
 };
 
 const std::string& StartVmRequest_FdType_Name(
@@ -1091,12 +1097,12 @@ const std::string& StartVmRequest_FdType_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           StartVmRequest_FdType_entries,
           StartVmRequest_FdType_entries_by_number,
-          5, StartVmRequest_FdType_strings);
+          6, StartVmRequest_FdType_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       StartVmRequest_FdType_entries,
       StartVmRequest_FdType_entries_by_number,
-      5, value);
+      6, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      StartVmRequest_FdType_strings[idx].get();
 }
@@ -1104,7 +1110,7 @@ bool StartVmRequest_FdType_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, StartVmRequest_FdType* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      StartVmRequest_FdType_entries, 5, name, &int_value);
+      StartVmRequest_FdType_entries, 6, name, &int_value);
   if (success) {
     *value = static_cast<StartVmRequest_FdType>(int_value);
   }
@@ -1116,6 +1122,7 @@ constexpr StartVmRequest_FdType StartVmRequest::ROOTFS;
 constexpr StartVmRequest_FdType StartVmRequest::STORAGE;
 constexpr StartVmRequest_FdType StartVmRequest::INITRD;
 constexpr StartVmRequest_FdType StartVmRequest::BIOS;
+constexpr StartVmRequest_FdType StartVmRequest::PFLASH;
 constexpr StartVmRequest_FdType StartVmRequest::FdType_MIN;
 constexpr StartVmRequest_FdType StartVmRequest::FdType_MAX;
 constexpr int StartVmRequest::FdType_ARRAYSIZE;
@@ -2817,8 +2824,8 @@ VmInfo::VmInfo(const VmInfo& from)
       GetArenaForAllocation());
   }
   ::memcpy(&ipv4_address_, &from.ipv4_address_,
-    static_cast<size_t>(reinterpret_cast<char*>(&vm_type_) -
-    reinterpret_cast<char*>(&ipv4_address_)) + sizeof(vm_type_));
+    static_cast<size_t>(reinterpret_cast<char*>(&storage_ballooning_) -
+    reinterpret_cast<char*>(&ipv4_address_)) + sizeof(storage_ballooning_));
   // @@protoc_insertion_point(copy_constructor:vm_tools.concierge.VmInfo)
 }
 
@@ -2829,8 +2836,8 @@ permission_token_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyS
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&ipv4_address_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&vm_type_) -
-    reinterpret_cast<char*>(&ipv4_address_)) + sizeof(vm_type_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&storage_ballooning_) -
+    reinterpret_cast<char*>(&ipv4_address_)) + sizeof(storage_ballooning_));
 }
 
 VmInfo::~VmInfo() {
@@ -2863,8 +2870,8 @@ void VmInfo::Clear() {
 
   permission_token_.ClearToEmpty();
   ::memset(&ipv4_address_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&vm_type_) -
-      reinterpret_cast<char*>(&ipv4_address_)) + sizeof(vm_type_));
+      reinterpret_cast<char*>(&storage_ballooning_) -
+      reinterpret_cast<char*>(&ipv4_address_)) + sizeof(storage_ballooning_));
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -2922,6 +2929,14 @@ const char* VmInfo::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::int
           uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
           _internal_set_vm_type(static_cast<::vm_tools::concierge::VmInfo_VmType>(val));
+        } else
+          goto handle_unusual;
+        continue;
+      // bool storage_ballooning = 7;
+      case 7:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 56)) {
+          storage_ballooning_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
@@ -2995,6 +3010,12 @@ uint8_t* VmInfo::_InternalSerialize(
       6, this->_internal_vm_type(), target);
   }
 
+  // bool storage_ballooning = 7;
+  if (this->_internal_storage_ballooning() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(7, this->_internal_storage_ballooning(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -3044,6 +3065,11 @@ size_t VmInfo::ByteSizeLong() const {
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_vm_type());
   }
 
+  // bool storage_ballooning = 7;
+  if (this->_internal_storage_ballooning() != 0) {
+    total_size += 1 + 1;
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -3082,6 +3108,9 @@ void VmInfo::MergeFrom(const VmInfo& from) {
   if (from._internal_vm_type() != 0) {
     _internal_set_vm_type(from._internal_vm_type());
   }
+  if (from._internal_storage_ballooning() != 0) {
+    _internal_set_storage_ballooning(from._internal_storage_ballooning());
+  }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
@@ -3107,8 +3136,8 @@ void VmInfo::InternalSwap(VmInfo* other) {
       &other->permission_token_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(VmInfo, vm_type_)
-      + sizeof(VmInfo::vm_type_)
+      PROTOBUF_FIELD_OFFSET(VmInfo, storage_ballooning_)
+      + sizeof(VmInfo::storage_ballooning_)
       - PROTOBUF_FIELD_OFFSET(VmInfo, ipv4_address_)>(
           reinterpret_cast<char*>(&ipv4_address_),
           reinterpret_cast<char*>(&other->ipv4_address_));
@@ -3355,8 +3384,8 @@ StartVmRequest::StartVmRequest(const StartVmRequest& from)
     vm_ = nullptr;
   }
   ::memcpy(&start_termina_, &from.start_termina_,
-    static_cast<size_t>(reinterpret_cast<char*>(&vtpm_proxy_) -
-    reinterpret_cast<char*>(&start_termina_)) + sizeof(vtpm_proxy_));
+    static_cast<size_t>(reinterpret_cast<char*>(&storage_ballooning_) -
+    reinterpret_cast<char*>(&start_termina_)) + sizeof(storage_ballooning_));
   // @@protoc_insertion_point(copy_constructor:vm_tools.concierge.StartVmRequest)
 }
 
@@ -3375,8 +3404,8 @@ owner_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlr
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&vm_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&vtpm_proxy_) -
-    reinterpret_cast<char*>(&vm_)) + sizeof(vtpm_proxy_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&storage_ballooning_) -
+    reinterpret_cast<char*>(&vm_)) + sizeof(storage_ballooning_));
 }
 
 StartVmRequest::~StartVmRequest() {
@@ -3422,8 +3451,8 @@ void StartVmRequest::Clear() {
   }
   vm_ = nullptr;
   ::memset(&start_termina_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&vtpm_proxy_) -
-      reinterpret_cast<char*>(&start_termina_)) + sizeof(vtpm_proxy_));
+      reinterpret_cast<char*>(&storage_ballooning_) -
+      reinterpret_cast<char*>(&start_termina_)) + sizeof(storage_ballooning_));
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -3611,6 +3640,14 @@ const char* StartVmRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         } else
           goto handle_unusual;
         continue;
+      // bool storage_ballooning = 23;
+      case 23:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 184)) {
+          storage_ballooning_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -3780,6 +3817,12 @@ uint8_t* StartVmRequest::_InternalSerialize(
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(22, this->_internal_vtpm_proxy(), target);
   }
 
+  // bool storage_ballooning = 23;
+  if (this->_internal_storage_ballooning() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(23, this->_internal_storage_ballooning(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -3932,6 +3975,11 @@ size_t StartVmRequest::ByteSizeLong() const {
     total_size += 2 + 1;
   }
 
+  // bool storage_ballooning = 23;
+  if (this->_internal_storage_ballooning() != 0) {
+    total_size += 2 + 1;
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -4001,6 +4049,9 @@ void StartVmRequest::MergeFrom(const StartVmRequest& from) {
   if (from._internal_vtpm_proxy() != 0) {
     _internal_set_vtpm_proxy(from._internal_vtpm_proxy());
   }
+  if (from._internal_storage_ballooning() != 0) {
+    _internal_set_storage_ballooning(from._internal_storage_ballooning());
+  }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
@@ -4040,8 +4091,8 @@ void StartVmRequest::InternalSwap(StartVmRequest* other) {
       &other->owner_id_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(StartVmRequest, vtpm_proxy_)
-      + sizeof(StartVmRequest::vtpm_proxy_)
+      PROTOBUF_FIELD_OFFSET(StartVmRequest, storage_ballooning_)
+      + sizeof(StartVmRequest::storage_ballooning_)
       - PROTOBUF_FIELD_OFFSET(StartVmRequest, vm_)>(
           reinterpret_cast<char*>(&vm_),
           reinterpret_cast<char*>(&other->vm_));

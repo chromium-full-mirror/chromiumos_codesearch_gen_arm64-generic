@@ -51,7 +51,7 @@ struct TableStruct_tremplin_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[53]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[57]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -210,6 +210,18 @@ extern StopContainerResponseDefaultTypeInternal _StopContainerResponse_default_i
 class TremplinStartupInfo;
 struct TremplinStartupInfoDefaultTypeInternal;
 extern TremplinStartupInfoDefaultTypeInternal _TremplinStartupInfo_default_instance_;
+class UpdateContainerDevicesRequest;
+struct UpdateContainerDevicesRequestDefaultTypeInternal;
+extern UpdateContainerDevicesRequestDefaultTypeInternal _UpdateContainerDevicesRequest_default_instance_;
+class UpdateContainerDevicesRequest_UpdatesEntry_DoNotUse;
+struct UpdateContainerDevicesRequest_UpdatesEntry_DoNotUseDefaultTypeInternal;
+extern UpdateContainerDevicesRequest_UpdatesEntry_DoNotUseDefaultTypeInternal _UpdateContainerDevicesRequest_UpdatesEntry_DoNotUse_default_instance_;
+class UpdateContainerDevicesResponse;
+struct UpdateContainerDevicesResponseDefaultTypeInternal;
+extern UpdateContainerDevicesResponseDefaultTypeInternal _UpdateContainerDevicesResponse_default_instance_;
+class UpdateContainerDevicesResponse_ResultsEntry_DoNotUse;
+struct UpdateContainerDevicesResponse_ResultsEntry_DoNotUseDefaultTypeInternal;
+extern UpdateContainerDevicesResponse_ResultsEntry_DoNotUseDefaultTypeInternal _UpdateContainerDevicesResponse_ResultsEntry_DoNotUse_default_instance_;
 class UpgradeContainerProgress;
 struct UpgradeContainerProgressDefaultTypeInternal;
 extern UpgradeContainerProgressDefaultTypeInternal _UpgradeContainerProgress_default_instance_;
@@ -272,6 +284,10 @@ template<> ::vm_tools::tremplin::StartLxdResponse* Arena::CreateMaybeMessage<::v
 template<> ::vm_tools::tremplin::StopContainerRequest* Arena::CreateMaybeMessage<::vm_tools::tremplin::StopContainerRequest>(Arena*);
 template<> ::vm_tools::tremplin::StopContainerResponse* Arena::CreateMaybeMessage<::vm_tools::tremplin::StopContainerResponse>(Arena*);
 template<> ::vm_tools::tremplin::TremplinStartupInfo* Arena::CreateMaybeMessage<::vm_tools::tremplin::TremplinStartupInfo>(Arena*);
+template<> ::vm_tools::tremplin::UpdateContainerDevicesRequest* Arena::CreateMaybeMessage<::vm_tools::tremplin::UpdateContainerDevicesRequest>(Arena*);
+template<> ::vm_tools::tremplin::UpdateContainerDevicesRequest_UpdatesEntry_DoNotUse* Arena::CreateMaybeMessage<::vm_tools::tremplin::UpdateContainerDevicesRequest_UpdatesEntry_DoNotUse>(Arena*);
+template<> ::vm_tools::tremplin::UpdateContainerDevicesResponse* Arena::CreateMaybeMessage<::vm_tools::tremplin::UpdateContainerDevicesResponse>(Arena*);
+template<> ::vm_tools::tremplin::UpdateContainerDevicesResponse_ResultsEntry_DoNotUse* Arena::CreateMaybeMessage<::vm_tools::tremplin::UpdateContainerDevicesResponse_ResultsEntry_DoNotUse>(Arena*);
 template<> ::vm_tools::tremplin::UpgradeContainerProgress* Arena::CreateMaybeMessage<::vm_tools::tremplin::UpgradeContainerProgress>(Arena*);
 template<> ::vm_tools::tremplin::UpgradeContainerRequest* Arena::CreateMaybeMessage<::vm_tools::tremplin::UpgradeContainerRequest>(Arena*);
 template<> ::vm_tools::tremplin::UpgradeContainerResponse* Arena::CreateMaybeMessage<::vm_tools::tremplin::UpgradeContainerResponse>(Arena*);
@@ -996,6 +1012,108 @@ inline bool DetachUsbFromContainerResponse_Status_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, DetachUsbFromContainerResponse_Status* value) {
   return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<DetachUsbFromContainerResponse_Status>(
     DetachUsbFromContainerResponse_Status_descriptor(), name, value);
+}
+enum UpdateContainerDevicesRequest_Action : int {
+  UpdateContainerDevicesRequest_Action_ENABLE = 0,
+  UpdateContainerDevicesRequest_Action_DISABLE = 1,
+  UpdateContainerDevicesRequest_Action_UpdateContainerDevicesRequest_Action_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  UpdateContainerDevicesRequest_Action_UpdateContainerDevicesRequest_Action_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+};
+bool UpdateContainerDevicesRequest_Action_IsValid(int value);
+constexpr UpdateContainerDevicesRequest_Action UpdateContainerDevicesRequest_Action_Action_MIN = UpdateContainerDevicesRequest_Action_ENABLE;
+constexpr UpdateContainerDevicesRequest_Action UpdateContainerDevicesRequest_Action_Action_MAX = UpdateContainerDevicesRequest_Action_DISABLE;
+constexpr int UpdateContainerDevicesRequest_Action_Action_ARRAYSIZE = UpdateContainerDevicesRequest_Action_Action_MAX + 1;
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* UpdateContainerDevicesRequest_Action_descriptor();
+template<typename T>
+inline const std::string& UpdateContainerDevicesRequest_Action_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, UpdateContainerDevicesRequest_Action>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function UpdateContainerDevicesRequest_Action_Name.");
+  return ::PROTOBUF_NAMESPACE_ID::internal::NameOfEnum(
+    UpdateContainerDevicesRequest_Action_descriptor(), enum_t_value);
+}
+inline bool UpdateContainerDevicesRequest_Action_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, UpdateContainerDevicesRequest_Action* value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<UpdateContainerDevicesRequest_Action>(
+    UpdateContainerDevicesRequest_Action_descriptor(), name, value);
+}
+enum UpdateContainerDevicesResponse_Status : int {
+  UpdateContainerDevicesResponse_Status_UNKNOWN = 0,
+  UpdateContainerDevicesResponse_Status_OK = 1,
+  UpdateContainerDevicesResponse_Status_NO_SUCH_CONTAINER = 2,
+  UpdateContainerDevicesResponse_Status_UpdateContainerDevicesResponse_Status_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  UpdateContainerDevicesResponse_Status_UpdateContainerDevicesResponse_Status_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+};
+bool UpdateContainerDevicesResponse_Status_IsValid(int value);
+constexpr UpdateContainerDevicesResponse_Status UpdateContainerDevicesResponse_Status_Status_MIN = UpdateContainerDevicesResponse_Status_UNKNOWN;
+constexpr UpdateContainerDevicesResponse_Status UpdateContainerDevicesResponse_Status_Status_MAX = UpdateContainerDevicesResponse_Status_NO_SUCH_CONTAINER;
+constexpr int UpdateContainerDevicesResponse_Status_Status_ARRAYSIZE = UpdateContainerDevicesResponse_Status_Status_MAX + 1;
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* UpdateContainerDevicesResponse_Status_descriptor();
+template<typename T>
+inline const std::string& UpdateContainerDevicesResponse_Status_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, UpdateContainerDevicesResponse_Status>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function UpdateContainerDevicesResponse_Status_Name.");
+  return ::PROTOBUF_NAMESPACE_ID::internal::NameOfEnum(
+    UpdateContainerDevicesResponse_Status_descriptor(), enum_t_value);
+}
+inline bool UpdateContainerDevicesResponse_Status_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, UpdateContainerDevicesResponse_Status* value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<UpdateContainerDevicesResponse_Status>(
+    UpdateContainerDevicesResponse_Status_descriptor(), name, value);
+}
+enum UpdateContainerDevicesResponse_UpdateResult : int {
+  UpdateContainerDevicesResponse_UpdateResult_SUCCESS = 0,
+  UpdateContainerDevicesResponse_UpdateResult_NO_SUCH_VM_DEVICE = 1,
+  UpdateContainerDevicesResponse_UpdateResult_FAILED = 2,
+  UpdateContainerDevicesResponse_UpdateResult_UpdateContainerDevicesResponse_UpdateResult_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  UpdateContainerDevicesResponse_UpdateResult_UpdateContainerDevicesResponse_UpdateResult_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+};
+bool UpdateContainerDevicesResponse_UpdateResult_IsValid(int value);
+constexpr UpdateContainerDevicesResponse_UpdateResult UpdateContainerDevicesResponse_UpdateResult_UpdateResult_MIN = UpdateContainerDevicesResponse_UpdateResult_SUCCESS;
+constexpr UpdateContainerDevicesResponse_UpdateResult UpdateContainerDevicesResponse_UpdateResult_UpdateResult_MAX = UpdateContainerDevicesResponse_UpdateResult_FAILED;
+constexpr int UpdateContainerDevicesResponse_UpdateResult_UpdateResult_ARRAYSIZE = UpdateContainerDevicesResponse_UpdateResult_UpdateResult_MAX + 1;
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* UpdateContainerDevicesResponse_UpdateResult_descriptor();
+template<typename T>
+inline const std::string& UpdateContainerDevicesResponse_UpdateResult_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, UpdateContainerDevicesResponse_UpdateResult>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function UpdateContainerDevicesResponse_UpdateResult_Name.");
+  return ::PROTOBUF_NAMESPACE_ID::internal::NameOfEnum(
+    UpdateContainerDevicesResponse_UpdateResult_descriptor(), enum_t_value);
+}
+inline bool UpdateContainerDevicesResponse_UpdateResult_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, UpdateContainerDevicesResponse_UpdateResult* value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<UpdateContainerDevicesResponse_UpdateResult>(
+    UpdateContainerDevicesResponse_UpdateResult_descriptor(), name, value);
+}
+enum VmDevice : int {
+  MICROPHONE = 0,
+  CAMERA = 1,
+  VmDevice_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  VmDevice_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+};
+bool VmDevice_IsValid(int value);
+constexpr VmDevice VmDevice_MIN = MICROPHONE;
+constexpr VmDevice VmDevice_MAX = CAMERA;
+constexpr int VmDevice_ARRAYSIZE = VmDevice_MAX + 1;
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* VmDevice_descriptor();
+template<typename T>
+inline const std::string& VmDevice_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, VmDevice>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function VmDevice_Name.");
+  return ::PROTOBUF_NAMESPACE_ID::internal::NameOfEnum(
+    VmDevice_descriptor(), enum_t_value);
+}
+inline bool VmDevice_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, VmDevice* value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<VmDevice>(
+    VmDevice_descriptor(), name, value);
 }
 // ===================================================================
 
@@ -2573,8 +2691,9 @@ class StartContainerRequest final :
     kHostPublicKeyFieldNumber = 2,
     kContainerPrivateKeyFieldNumber = 3,
     kTokenFieldNumber = 4,
-    kAsyncFieldNumber = 5,
     kPrivilegeLevelFieldNumber = 6,
+    kAsyncFieldNumber = 5,
+    kDisableAudioCaptureFieldNumber = 7,
   };
   // string container_name = 1;
   void clear_container_name();
@@ -2632,6 +2751,15 @@ class StartContainerRequest final :
   std::string* _internal_mutable_token();
   public:
 
+  // .vm_tools.tremplin.StartContainerRequest.PrivilegeLevel privilege_level = 6;
+  void clear_privilege_level();
+  ::vm_tools::tremplin::StartContainerRequest_PrivilegeLevel privilege_level() const;
+  void set_privilege_level(::vm_tools::tremplin::StartContainerRequest_PrivilegeLevel value);
+  private:
+  ::vm_tools::tremplin::StartContainerRequest_PrivilegeLevel _internal_privilege_level() const;
+  void _internal_set_privilege_level(::vm_tools::tremplin::StartContainerRequest_PrivilegeLevel value);
+  public:
+
   // bool async = 5 [deprecated = true];
   PROTOBUF_DEPRECATED void clear_async();
   PROTOBUF_DEPRECATED bool async() const;
@@ -2641,13 +2769,13 @@ class StartContainerRequest final :
   void _internal_set_async(bool value);
   public:
 
-  // .vm_tools.tremplin.StartContainerRequest.PrivilegeLevel privilege_level = 6;
-  void clear_privilege_level();
-  ::vm_tools::tremplin::StartContainerRequest_PrivilegeLevel privilege_level() const;
-  void set_privilege_level(::vm_tools::tremplin::StartContainerRequest_PrivilegeLevel value);
+  // bool disable_audio_capture = 7;
+  void clear_disable_audio_capture();
+  bool disable_audio_capture() const;
+  void set_disable_audio_capture(bool value);
   private:
-  ::vm_tools::tremplin::StartContainerRequest_PrivilegeLevel _internal_privilege_level() const;
-  void _internal_set_privilege_level(::vm_tools::tremplin::StartContainerRequest_PrivilegeLevel value);
+  bool _internal_disable_audio_capture() const;
+  void _internal_set_disable_audio_capture(bool value);
   public:
 
   // @@protoc_insertion_point(class_scope:vm_tools.tremplin.StartContainerRequest)
@@ -2661,8 +2789,9 @@ class StartContainerRequest final :
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr host_public_key_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr container_private_key_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr token_;
-  bool async_;
   int privilege_level_;
+  bool async_;
+  bool disable_audio_capture_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_tremplin_2eproto;
 };
@@ -10599,6 +10728,507 @@ class DetachUsbFromContainerResponse final :
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_tremplin_2eproto;
 };
+// -------------------------------------------------------------------
+
+class UpdateContainerDevicesRequest_UpdatesEntry_DoNotUse : public ::PROTOBUF_NAMESPACE_ID::internal::MapEntry<UpdateContainerDevicesRequest_UpdatesEntry_DoNotUse, 
+    int32_t, ::vm_tools::tremplin::UpdateContainerDevicesRequest_Action,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_INT32,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_ENUM> {
+public:
+  typedef ::PROTOBUF_NAMESPACE_ID::internal::MapEntry<UpdateContainerDevicesRequest_UpdatesEntry_DoNotUse, 
+    int32_t, ::vm_tools::tremplin::UpdateContainerDevicesRequest_Action,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_INT32,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_ENUM> SuperType;
+  UpdateContainerDevicesRequest_UpdatesEntry_DoNotUse();
+  explicit constexpr UpdateContainerDevicesRequest_UpdatesEntry_DoNotUse(
+      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  explicit UpdateContainerDevicesRequest_UpdatesEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  void MergeFrom(const UpdateContainerDevicesRequest_UpdatesEntry_DoNotUse& other);
+  static const UpdateContainerDevicesRequest_UpdatesEntry_DoNotUse* internal_default_instance() { return reinterpret_cast<const UpdateContainerDevicesRequest_UpdatesEntry_DoNotUse*>(&_UpdateContainerDevicesRequest_UpdatesEntry_DoNotUse_default_instance_); }
+  static bool ValidateKey(void*) { return true; }
+  static bool ValidateValue(void*) { return true; }
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+};
+
+// -------------------------------------------------------------------
+
+class UpdateContainerDevicesRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:vm_tools.tremplin.UpdateContainerDevicesRequest) */ {
+ public:
+  inline UpdateContainerDevicesRequest() : UpdateContainerDevicesRequest(nullptr) {}
+  ~UpdateContainerDevicesRequest() override;
+  explicit constexpr UpdateContainerDevicesRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  UpdateContainerDevicesRequest(const UpdateContainerDevicesRequest& from);
+  UpdateContainerDevicesRequest(UpdateContainerDevicesRequest&& from) noexcept
+    : UpdateContainerDevicesRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline UpdateContainerDevicesRequest& operator=(const UpdateContainerDevicesRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline UpdateContainerDevicesRequest& operator=(UpdateContainerDevicesRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const UpdateContainerDevicesRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const UpdateContainerDevicesRequest* internal_default_instance() {
+    return reinterpret_cast<const UpdateContainerDevicesRequest*>(
+               &_UpdateContainerDevicesRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    54;
+
+  friend void swap(UpdateContainerDevicesRequest& a, UpdateContainerDevicesRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(UpdateContainerDevicesRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(UpdateContainerDevicesRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  UpdateContainerDevicesRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<UpdateContainerDevicesRequest>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const UpdateContainerDevicesRequest& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom(const UpdateContainerDevicesRequest& from);
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to, const ::PROTOBUF_NAMESPACE_ID::Message& from);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(UpdateContainerDevicesRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "vm_tools.tremplin.UpdateContainerDevicesRequest";
+  }
+  protected:
+  explicit UpdateContainerDevicesRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+
+  typedef UpdateContainerDevicesRequest_Action Action;
+  static constexpr Action ENABLE =
+    UpdateContainerDevicesRequest_Action_ENABLE;
+  static constexpr Action DISABLE =
+    UpdateContainerDevicesRequest_Action_DISABLE;
+  static inline bool Action_IsValid(int value) {
+    return UpdateContainerDevicesRequest_Action_IsValid(value);
+  }
+  static constexpr Action Action_MIN =
+    UpdateContainerDevicesRequest_Action_Action_MIN;
+  static constexpr Action Action_MAX =
+    UpdateContainerDevicesRequest_Action_Action_MAX;
+  static constexpr int Action_ARRAYSIZE =
+    UpdateContainerDevicesRequest_Action_Action_ARRAYSIZE;
+  static inline const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor*
+  Action_descriptor() {
+    return UpdateContainerDevicesRequest_Action_descriptor();
+  }
+  template<typename T>
+  static inline const std::string& Action_Name(T enum_t_value) {
+    static_assert(::std::is_same<T, Action>::value ||
+      ::std::is_integral<T>::value,
+      "Incorrect type passed to function Action_Name.");
+    return UpdateContainerDevicesRequest_Action_Name(enum_t_value);
+  }
+  static inline bool Action_Parse(::PROTOBUF_NAMESPACE_ID::ConstStringParam name,
+      Action* value) {
+    return UpdateContainerDevicesRequest_Action_Parse(name, value);
+  }
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kUpdatesFieldNumber = 2,
+    kContainerNameFieldNumber = 1,
+  };
+  // map<int32, .vm_tools.tremplin.UpdateContainerDevicesRequest.Action> updates = 2;
+  int updates_size() const;
+  private:
+  int _internal_updates_size() const;
+  public:
+  void clear_updates();
+  private:
+  const ::PROTOBUF_NAMESPACE_ID::Map< int32_t, ::vm_tools::tremplin::UpdateContainerDevicesRequest_Action >&
+      _internal_updates() const;
+  ::PROTOBUF_NAMESPACE_ID::Map< int32_t, ::vm_tools::tremplin::UpdateContainerDevicesRequest_Action >*
+      _internal_mutable_updates();
+  public:
+  const ::PROTOBUF_NAMESPACE_ID::Map< int32_t, ::vm_tools::tremplin::UpdateContainerDevicesRequest_Action >&
+      updates() const;
+  ::PROTOBUF_NAMESPACE_ID::Map< int32_t, ::vm_tools::tremplin::UpdateContainerDevicesRequest_Action >*
+      mutable_updates();
+
+  // string container_name = 1;
+  void clear_container_name();
+  const std::string& container_name() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_container_name(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_container_name();
+  PROTOBUF_NODISCARD std::string* release_container_name();
+  void set_allocated_container_name(std::string* container_name);
+  private:
+  const std::string& _internal_container_name() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_container_name(const std::string& value);
+  std::string* _internal_mutable_container_name();
+  public:
+
+  // @@protoc_insertion_point(class_scope:vm_tools.tremplin.UpdateContainerDevicesRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::MapField<
+      UpdateContainerDevicesRequest_UpdatesEntry_DoNotUse,
+      int32_t, ::vm_tools::tremplin::UpdateContainerDevicesRequest_Action,
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_INT32,
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_ENUM> updates_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr container_name_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_tremplin_2eproto;
+};
+// -------------------------------------------------------------------
+
+class UpdateContainerDevicesResponse_ResultsEntry_DoNotUse : public ::PROTOBUF_NAMESPACE_ID::internal::MapEntry<UpdateContainerDevicesResponse_ResultsEntry_DoNotUse, 
+    int32_t, ::vm_tools::tremplin::UpdateContainerDevicesResponse_UpdateResult,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_INT32,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_ENUM> {
+public:
+  typedef ::PROTOBUF_NAMESPACE_ID::internal::MapEntry<UpdateContainerDevicesResponse_ResultsEntry_DoNotUse, 
+    int32_t, ::vm_tools::tremplin::UpdateContainerDevicesResponse_UpdateResult,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_INT32,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_ENUM> SuperType;
+  UpdateContainerDevicesResponse_ResultsEntry_DoNotUse();
+  explicit constexpr UpdateContainerDevicesResponse_ResultsEntry_DoNotUse(
+      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  explicit UpdateContainerDevicesResponse_ResultsEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  void MergeFrom(const UpdateContainerDevicesResponse_ResultsEntry_DoNotUse& other);
+  static const UpdateContainerDevicesResponse_ResultsEntry_DoNotUse* internal_default_instance() { return reinterpret_cast<const UpdateContainerDevicesResponse_ResultsEntry_DoNotUse*>(&_UpdateContainerDevicesResponse_ResultsEntry_DoNotUse_default_instance_); }
+  static bool ValidateKey(void*) { return true; }
+  static bool ValidateValue(void*) { return true; }
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+};
+
+// -------------------------------------------------------------------
+
+class UpdateContainerDevicesResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:vm_tools.tremplin.UpdateContainerDevicesResponse) */ {
+ public:
+  inline UpdateContainerDevicesResponse() : UpdateContainerDevicesResponse(nullptr) {}
+  ~UpdateContainerDevicesResponse() override;
+  explicit constexpr UpdateContainerDevicesResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  UpdateContainerDevicesResponse(const UpdateContainerDevicesResponse& from);
+  UpdateContainerDevicesResponse(UpdateContainerDevicesResponse&& from) noexcept
+    : UpdateContainerDevicesResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline UpdateContainerDevicesResponse& operator=(const UpdateContainerDevicesResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline UpdateContainerDevicesResponse& operator=(UpdateContainerDevicesResponse&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const UpdateContainerDevicesResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const UpdateContainerDevicesResponse* internal_default_instance() {
+    return reinterpret_cast<const UpdateContainerDevicesResponse*>(
+               &_UpdateContainerDevicesResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    56;
+
+  friend void swap(UpdateContainerDevicesResponse& a, UpdateContainerDevicesResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(UpdateContainerDevicesResponse* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(UpdateContainerDevicesResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  UpdateContainerDevicesResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<UpdateContainerDevicesResponse>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const UpdateContainerDevicesResponse& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom(const UpdateContainerDevicesResponse& from);
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to, const ::PROTOBUF_NAMESPACE_ID::Message& from);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(UpdateContainerDevicesResponse* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "vm_tools.tremplin.UpdateContainerDevicesResponse";
+  }
+  protected:
+  explicit UpdateContainerDevicesResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+
+  typedef UpdateContainerDevicesResponse_Status Status;
+  static constexpr Status UNKNOWN =
+    UpdateContainerDevicesResponse_Status_UNKNOWN;
+  static constexpr Status OK =
+    UpdateContainerDevicesResponse_Status_OK;
+  static constexpr Status NO_SUCH_CONTAINER =
+    UpdateContainerDevicesResponse_Status_NO_SUCH_CONTAINER;
+  static inline bool Status_IsValid(int value) {
+    return UpdateContainerDevicesResponse_Status_IsValid(value);
+  }
+  static constexpr Status Status_MIN =
+    UpdateContainerDevicesResponse_Status_Status_MIN;
+  static constexpr Status Status_MAX =
+    UpdateContainerDevicesResponse_Status_Status_MAX;
+  static constexpr int Status_ARRAYSIZE =
+    UpdateContainerDevicesResponse_Status_Status_ARRAYSIZE;
+  static inline const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor*
+  Status_descriptor() {
+    return UpdateContainerDevicesResponse_Status_descriptor();
+  }
+  template<typename T>
+  static inline const std::string& Status_Name(T enum_t_value) {
+    static_assert(::std::is_same<T, Status>::value ||
+      ::std::is_integral<T>::value,
+      "Incorrect type passed to function Status_Name.");
+    return UpdateContainerDevicesResponse_Status_Name(enum_t_value);
+  }
+  static inline bool Status_Parse(::PROTOBUF_NAMESPACE_ID::ConstStringParam name,
+      Status* value) {
+    return UpdateContainerDevicesResponse_Status_Parse(name, value);
+  }
+
+  typedef UpdateContainerDevicesResponse_UpdateResult UpdateResult;
+  static constexpr UpdateResult SUCCESS =
+    UpdateContainerDevicesResponse_UpdateResult_SUCCESS;
+  static constexpr UpdateResult NO_SUCH_VM_DEVICE =
+    UpdateContainerDevicesResponse_UpdateResult_NO_SUCH_VM_DEVICE;
+  static constexpr UpdateResult FAILED =
+    UpdateContainerDevicesResponse_UpdateResult_FAILED;
+  static inline bool UpdateResult_IsValid(int value) {
+    return UpdateContainerDevicesResponse_UpdateResult_IsValid(value);
+  }
+  static constexpr UpdateResult UpdateResult_MIN =
+    UpdateContainerDevicesResponse_UpdateResult_UpdateResult_MIN;
+  static constexpr UpdateResult UpdateResult_MAX =
+    UpdateContainerDevicesResponse_UpdateResult_UpdateResult_MAX;
+  static constexpr int UpdateResult_ARRAYSIZE =
+    UpdateContainerDevicesResponse_UpdateResult_UpdateResult_ARRAYSIZE;
+  static inline const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor*
+  UpdateResult_descriptor() {
+    return UpdateContainerDevicesResponse_UpdateResult_descriptor();
+  }
+  template<typename T>
+  static inline const std::string& UpdateResult_Name(T enum_t_value) {
+    static_assert(::std::is_same<T, UpdateResult>::value ||
+      ::std::is_integral<T>::value,
+      "Incorrect type passed to function UpdateResult_Name.");
+    return UpdateContainerDevicesResponse_UpdateResult_Name(enum_t_value);
+  }
+  static inline bool UpdateResult_Parse(::PROTOBUF_NAMESPACE_ID::ConstStringParam name,
+      UpdateResult* value) {
+    return UpdateContainerDevicesResponse_UpdateResult_Parse(name, value);
+  }
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kResultsFieldNumber = 3,
+    kFailureReasonFieldNumber = 2,
+    kStatusFieldNumber = 1,
+  };
+  // map<int32, .vm_tools.tremplin.UpdateContainerDevicesResponse.UpdateResult> results = 3;
+  int results_size() const;
+  private:
+  int _internal_results_size() const;
+  public:
+  void clear_results();
+  private:
+  const ::PROTOBUF_NAMESPACE_ID::Map< int32_t, ::vm_tools::tremplin::UpdateContainerDevicesResponse_UpdateResult >&
+      _internal_results() const;
+  ::PROTOBUF_NAMESPACE_ID::Map< int32_t, ::vm_tools::tremplin::UpdateContainerDevicesResponse_UpdateResult >*
+      _internal_mutable_results();
+  public:
+  const ::PROTOBUF_NAMESPACE_ID::Map< int32_t, ::vm_tools::tremplin::UpdateContainerDevicesResponse_UpdateResult >&
+      results() const;
+  ::PROTOBUF_NAMESPACE_ID::Map< int32_t, ::vm_tools::tremplin::UpdateContainerDevicesResponse_UpdateResult >*
+      mutable_results();
+
+  // string failure_reason = 2;
+  void clear_failure_reason();
+  const std::string& failure_reason() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_failure_reason(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_failure_reason();
+  PROTOBUF_NODISCARD std::string* release_failure_reason();
+  void set_allocated_failure_reason(std::string* failure_reason);
+  private:
+  const std::string& _internal_failure_reason() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_failure_reason(const std::string& value);
+  std::string* _internal_mutable_failure_reason();
+  public:
+
+  // .vm_tools.tremplin.UpdateContainerDevicesResponse.Status status = 1;
+  void clear_status();
+  ::vm_tools::tremplin::UpdateContainerDevicesResponse_Status status() const;
+  void set_status(::vm_tools::tremplin::UpdateContainerDevicesResponse_Status value);
+  private:
+  ::vm_tools::tremplin::UpdateContainerDevicesResponse_Status _internal_status() const;
+  void _internal_set_status(::vm_tools::tremplin::UpdateContainerDevicesResponse_Status value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:vm_tools.tremplin.UpdateContainerDevicesResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::MapField<
+      UpdateContainerDevicesResponse_ResultsEntry_DoNotUse,
+      int32_t, ::vm_tools::tremplin::UpdateContainerDevicesResponse_UpdateResult,
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_INT32,
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_ENUM> results_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr failure_reason_;
+  int status_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_tremplin_2eproto;
+};
 // ===================================================================
 
 
@@ -11494,6 +12124,26 @@ inline void StartContainerRequest::_internal_set_privilege_level(::vm_tools::tre
 inline void StartContainerRequest::set_privilege_level(::vm_tools::tremplin::StartContainerRequest_PrivilegeLevel value) {
   _internal_set_privilege_level(value);
   // @@protoc_insertion_point(field_set:vm_tools.tremplin.StartContainerRequest.privilege_level)
+}
+
+// bool disable_audio_capture = 7;
+inline void StartContainerRequest::clear_disable_audio_capture() {
+  disable_audio_capture_ = false;
+}
+inline bool StartContainerRequest::_internal_disable_audio_capture() const {
+  return disable_audio_capture_;
+}
+inline bool StartContainerRequest::disable_audio_capture() const {
+  // @@protoc_insertion_point(field_get:vm_tools.tremplin.StartContainerRequest.disable_audio_capture)
+  return _internal_disable_audio_capture();
+}
+inline void StartContainerRequest::_internal_set_disable_audio_capture(bool value) {
+  
+  disable_audio_capture_ = value;
+}
+inline void StartContainerRequest::set_disable_audio_capture(bool value) {
+  _internal_set_disable_audio_capture(value);
+  // @@protoc_insertion_point(field_set:vm_tools.tremplin.StartContainerRequest.disable_audio_capture)
 }
 
 // -------------------------------------------------------------------
@@ -15544,9 +16194,209 @@ inline void DetachUsbFromContainerResponse::set_allocated_failure_reason(std::st
   // @@protoc_insertion_point(field_set_allocated:vm_tools.tremplin.DetachUsbFromContainerResponse.failure_reason)
 }
 
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// UpdateContainerDevicesRequest
+
+// string container_name = 1;
+inline void UpdateContainerDevicesRequest::clear_container_name() {
+  container_name_.ClearToEmpty();
+}
+inline const std::string& UpdateContainerDevicesRequest::container_name() const {
+  // @@protoc_insertion_point(field_get:vm_tools.tremplin.UpdateContainerDevicesRequest.container_name)
+  return _internal_container_name();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void UpdateContainerDevicesRequest::set_container_name(ArgT0&& arg0, ArgT... args) {
+ 
+ container_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:vm_tools.tremplin.UpdateContainerDevicesRequest.container_name)
+}
+inline std::string* UpdateContainerDevicesRequest::mutable_container_name() {
+  std::string* _s = _internal_mutable_container_name();
+  // @@protoc_insertion_point(field_mutable:vm_tools.tremplin.UpdateContainerDevicesRequest.container_name)
+  return _s;
+}
+inline const std::string& UpdateContainerDevicesRequest::_internal_container_name() const {
+  return container_name_.Get();
+}
+inline void UpdateContainerDevicesRequest::_internal_set_container_name(const std::string& value) {
+  
+  container_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* UpdateContainerDevicesRequest::_internal_mutable_container_name() {
+  
+  return container_name_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* UpdateContainerDevicesRequest::release_container_name() {
+  // @@protoc_insertion_point(field_release:vm_tools.tremplin.UpdateContainerDevicesRequest.container_name)
+  return container_name_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void UpdateContainerDevicesRequest::set_allocated_container_name(std::string* container_name) {
+  if (container_name != nullptr) {
+    
+  } else {
+    
+  }
+  container_name_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), container_name,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (container_name_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    container_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:vm_tools.tremplin.UpdateContainerDevicesRequest.container_name)
+}
+
+// map<int32, .vm_tools.tremplin.UpdateContainerDevicesRequest.Action> updates = 2;
+inline int UpdateContainerDevicesRequest::_internal_updates_size() const {
+  return updates_.size();
+}
+inline int UpdateContainerDevicesRequest::updates_size() const {
+  return _internal_updates_size();
+}
+inline void UpdateContainerDevicesRequest::clear_updates() {
+  updates_.Clear();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::Map< int32_t, ::vm_tools::tremplin::UpdateContainerDevicesRequest_Action >&
+UpdateContainerDevicesRequest::_internal_updates() const {
+  return updates_.GetMap();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::Map< int32_t, ::vm_tools::tremplin::UpdateContainerDevicesRequest_Action >&
+UpdateContainerDevicesRequest::updates() const {
+  // @@protoc_insertion_point(field_map:vm_tools.tremplin.UpdateContainerDevicesRequest.updates)
+  return _internal_updates();
+}
+inline ::PROTOBUF_NAMESPACE_ID::Map< int32_t, ::vm_tools::tremplin::UpdateContainerDevicesRequest_Action >*
+UpdateContainerDevicesRequest::_internal_mutable_updates() {
+  return updates_.MutableMap();
+}
+inline ::PROTOBUF_NAMESPACE_ID::Map< int32_t, ::vm_tools::tremplin::UpdateContainerDevicesRequest_Action >*
+UpdateContainerDevicesRequest::mutable_updates() {
+  // @@protoc_insertion_point(field_mutable_map:vm_tools.tremplin.UpdateContainerDevicesRequest.updates)
+  return _internal_mutable_updates();
+}
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// UpdateContainerDevicesResponse
+
+// .vm_tools.tremplin.UpdateContainerDevicesResponse.Status status = 1;
+inline void UpdateContainerDevicesResponse::clear_status() {
+  status_ = 0;
+}
+inline ::vm_tools::tremplin::UpdateContainerDevicesResponse_Status UpdateContainerDevicesResponse::_internal_status() const {
+  return static_cast< ::vm_tools::tremplin::UpdateContainerDevicesResponse_Status >(status_);
+}
+inline ::vm_tools::tremplin::UpdateContainerDevicesResponse_Status UpdateContainerDevicesResponse::status() const {
+  // @@protoc_insertion_point(field_get:vm_tools.tremplin.UpdateContainerDevicesResponse.status)
+  return _internal_status();
+}
+inline void UpdateContainerDevicesResponse::_internal_set_status(::vm_tools::tremplin::UpdateContainerDevicesResponse_Status value) {
+  
+  status_ = value;
+}
+inline void UpdateContainerDevicesResponse::set_status(::vm_tools::tremplin::UpdateContainerDevicesResponse_Status value) {
+  _internal_set_status(value);
+  // @@protoc_insertion_point(field_set:vm_tools.tremplin.UpdateContainerDevicesResponse.status)
+}
+
+// string failure_reason = 2;
+inline void UpdateContainerDevicesResponse::clear_failure_reason() {
+  failure_reason_.ClearToEmpty();
+}
+inline const std::string& UpdateContainerDevicesResponse::failure_reason() const {
+  // @@protoc_insertion_point(field_get:vm_tools.tremplin.UpdateContainerDevicesResponse.failure_reason)
+  return _internal_failure_reason();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void UpdateContainerDevicesResponse::set_failure_reason(ArgT0&& arg0, ArgT... args) {
+ 
+ failure_reason_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:vm_tools.tremplin.UpdateContainerDevicesResponse.failure_reason)
+}
+inline std::string* UpdateContainerDevicesResponse::mutable_failure_reason() {
+  std::string* _s = _internal_mutable_failure_reason();
+  // @@protoc_insertion_point(field_mutable:vm_tools.tremplin.UpdateContainerDevicesResponse.failure_reason)
+  return _s;
+}
+inline const std::string& UpdateContainerDevicesResponse::_internal_failure_reason() const {
+  return failure_reason_.Get();
+}
+inline void UpdateContainerDevicesResponse::_internal_set_failure_reason(const std::string& value) {
+  
+  failure_reason_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* UpdateContainerDevicesResponse::_internal_mutable_failure_reason() {
+  
+  return failure_reason_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* UpdateContainerDevicesResponse::release_failure_reason() {
+  // @@protoc_insertion_point(field_release:vm_tools.tremplin.UpdateContainerDevicesResponse.failure_reason)
+  return failure_reason_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void UpdateContainerDevicesResponse::set_allocated_failure_reason(std::string* failure_reason) {
+  if (failure_reason != nullptr) {
+    
+  } else {
+    
+  }
+  failure_reason_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), failure_reason,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (failure_reason_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    failure_reason_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:vm_tools.tremplin.UpdateContainerDevicesResponse.failure_reason)
+}
+
+// map<int32, .vm_tools.tremplin.UpdateContainerDevicesResponse.UpdateResult> results = 3;
+inline int UpdateContainerDevicesResponse::_internal_results_size() const {
+  return results_.size();
+}
+inline int UpdateContainerDevicesResponse::results_size() const {
+  return _internal_results_size();
+}
+inline void UpdateContainerDevicesResponse::clear_results() {
+  results_.Clear();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::Map< int32_t, ::vm_tools::tremplin::UpdateContainerDevicesResponse_UpdateResult >&
+UpdateContainerDevicesResponse::_internal_results() const {
+  return results_.GetMap();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::Map< int32_t, ::vm_tools::tremplin::UpdateContainerDevicesResponse_UpdateResult >&
+UpdateContainerDevicesResponse::results() const {
+  // @@protoc_insertion_point(field_map:vm_tools.tremplin.UpdateContainerDevicesResponse.results)
+  return _internal_results();
+}
+inline ::PROTOBUF_NAMESPACE_ID::Map< int32_t, ::vm_tools::tremplin::UpdateContainerDevicesResponse_UpdateResult >*
+UpdateContainerDevicesResponse::_internal_mutable_results() {
+  return results_.MutableMap();
+}
+inline ::PROTOBUF_NAMESPACE_ID::Map< int32_t, ::vm_tools::tremplin::UpdateContainerDevicesResponse_UpdateResult >*
+UpdateContainerDevicesResponse::mutable_results() {
+  // @@protoc_insertion_point(field_mutable_map:vm_tools.tremplin.UpdateContainerDevicesResponse.results)
+  return _internal_mutable_results();
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
@@ -15788,6 +16638,26 @@ template <> struct is_proto_enum< ::vm_tools::tremplin::DetachUsbFromContainerRe
 template <>
 inline const EnumDescriptor* GetEnumDescriptor< ::vm_tools::tremplin::DetachUsbFromContainerResponse_Status>() {
   return ::vm_tools::tremplin::DetachUsbFromContainerResponse_Status_descriptor();
+}
+template <> struct is_proto_enum< ::vm_tools::tremplin::UpdateContainerDevicesRequest_Action> : ::std::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::vm_tools::tremplin::UpdateContainerDevicesRequest_Action>() {
+  return ::vm_tools::tremplin::UpdateContainerDevicesRequest_Action_descriptor();
+}
+template <> struct is_proto_enum< ::vm_tools::tremplin::UpdateContainerDevicesResponse_Status> : ::std::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::vm_tools::tremplin::UpdateContainerDevicesResponse_Status>() {
+  return ::vm_tools::tremplin::UpdateContainerDevicesResponse_Status_descriptor();
+}
+template <> struct is_proto_enum< ::vm_tools::tremplin::UpdateContainerDevicesResponse_UpdateResult> : ::std::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::vm_tools::tremplin::UpdateContainerDevicesResponse_UpdateResult>() {
+  return ::vm_tools::tremplin::UpdateContainerDevicesResponse_UpdateResult_descriptor();
+}
+template <> struct is_proto_enum< ::vm_tools::tremplin::VmDevice> : ::std::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::vm_tools::tremplin::VmDevice>() {
+  return ::vm_tools::tremplin::VmDevice_descriptor();
 }
 
 PROTOBUF_NAMESPACE_CLOSE

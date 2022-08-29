@@ -56,6 +56,15 @@ class SpacedAdaptor {
         "GetRootDeviceSize",
         base::Unretained(interface_),
         &SpacedInterface::GetRootDeviceSize);
+
+    signal_StatefulDiskSpaceUpdate_ = itf->RegisterSignalOfType<SignalStatefulDiskSpaceUpdateType>("StatefulDiskSpaceUpdate");
+  }
+
+  void SendStatefulDiskSpaceUpdateSignal(
+      const spaced::StatefulDiskSpaceUpdate& in_status) {
+    auto signal = signal_StatefulDiskSpaceUpdate_.lock();
+    if (signal)
+      signal->Send(in_status);
   }
 
   static dbus::ObjectPath GetObjectPath() {
@@ -76,10 +85,17 @@ class SpacedAdaptor {
         "    <method name=\"GetRootDeviceSize\">\n"
         "      <arg name=\"reply\" type=\"x\" direction=\"out\"/>\n"
         "    </method>\n"
+        "    <signal name=\"StatefulDiskSpaceUpdate\">\n"
+        "      <arg name=\"status\" type=\"ay\"/>\n"
+        "    </signal>\n"
         "  </interface>\n";
   }
 
  private:
+  using SignalStatefulDiskSpaceUpdateType = brillo::dbus_utils::DBusSignal<
+      spaced::StatefulDiskSpaceUpdate /*status*/>;
+  std::weak_ptr<SignalStatefulDiskSpaceUpdateType> signal_StatefulDiskSpaceUpdate_;
+
   SpacedInterface* interface_;  // Owned by container of this adapter.
 };
 

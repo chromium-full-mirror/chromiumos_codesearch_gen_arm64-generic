@@ -689,12 +689,13 @@ enum CryptohomeErrorCode : int {
   CRYPTOHOME_ERROR_UNKNOWN_LEGACY = 52,
   CRYPTOHOME_ERROR_UNUSABLE_VAULT = 53,
   CRYPTOHOME_REMOVE_CREDENTIALS_FAILED = 54,
+  CRYPTOHOME_UPDATE_CREDENTIALS_FAILED = 55,
   CryptohomeErrorCode_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   CryptohomeErrorCode_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool CryptohomeErrorCode_IsValid(int value);
 constexpr CryptohomeErrorCode CryptohomeErrorCode_MIN = CRYPTOHOME_ERROR_NOT_SET;
-constexpr CryptohomeErrorCode CryptohomeErrorCode_MAX = CRYPTOHOME_REMOVE_CREDENTIALS_FAILED;
+constexpr CryptohomeErrorCode CryptohomeErrorCode_MAX = CRYPTOHOME_UPDATE_CREDENTIALS_FAILED;
 constexpr int CryptohomeErrorCode_ARRAYSIZE = CryptohomeErrorCode_MAX + 1;
 
 const std::string& CryptohomeErrorCode_Name(CryptohomeErrorCode value);
@@ -807,6 +808,28 @@ inline const std::string& AuthSessionFlags_Name(T enum_t_value) {
 }
 bool AuthSessionFlags_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, AuthSessionFlags* value);
+enum AuthIntent : int {
+  AUTH_INTENT_UNSPECIFIED = 0,
+  AUTH_INTENT_DECRYPT = 1,
+  AUTH_INTENT_VERIFY_ONLY = 2,
+  AuthIntent_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  AuthIntent_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+};
+bool AuthIntent_IsValid(int value);
+constexpr AuthIntent AuthIntent_MIN = AUTH_INTENT_UNSPECIFIED;
+constexpr AuthIntent AuthIntent_MAX = AUTH_INTENT_VERIFY_ONLY;
+constexpr int AuthIntent_ARRAYSIZE = AuthIntent_MAX + 1;
+
+const std::string& AuthIntent_Name(AuthIntent value);
+template<typename T>
+inline const std::string& AuthIntent_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, AuthIntent>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function AuthIntent_Name.");
+  return AuthIntent_Name(static_cast<AuthIntent>(enum_t_value));
+}
+bool AuthIntent_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, AuthIntent* value);
 enum AuthSessionStatus : int {
   AUTH_SESSION_STATUS_NOT_SET = 0,
   AUTH_SESSION_STATUS_FURTHER_FACTOR_REQUIRED = 1,
@@ -7584,6 +7607,7 @@ class StartAuthSessionRequest final :
   enum : int {
     kAccountIdFieldNumber = 1,
     kFlagsFieldNumber = 2,
+    kIntentFieldNumber = 3,
   };
   // .cryptohome.AccountIdentifier account_id = 1;
   bool has_account_id() const;
@@ -7612,6 +7636,15 @@ class StartAuthSessionRequest final :
   void _internal_set_flags(uint32_t value);
   public:
 
+  // .user_data_auth.AuthIntent intent = 3;
+  void clear_intent();
+  ::user_data_auth::AuthIntent intent() const;
+  void set_intent(::user_data_auth::AuthIntent value);
+  private:
+  ::user_data_auth::AuthIntent _internal_intent() const;
+  void _internal_set_intent(::user_data_auth::AuthIntent value);
+  public:
+
   // @@protoc_insertion_point(class_scope:user_data_auth.StartAuthSessionRequest)
  private:
   class _Internal;
@@ -7621,6 +7654,7 @@ class StartAuthSessionRequest final :
   typedef void DestructorSkippable_;
   ::cryptohome::AccountIdentifier* account_id_;
   uint32_t flags_;
+  int intent_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_UserDataAuth_2eproto;
 };
@@ -7758,7 +7792,6 @@ class StartAuthSessionReply final :
   enum : int {
     kKeyLabelDataFieldNumber = 4,
     kAuthFactorsFieldNumber = 5,
-    kSupportedAuthFactorsFieldNumber = 7,
     kAuthSessionIdFieldNumber = 2,
     kErrorInfoFieldNumber = 6,
     kErrorFieldNumber = 1,
@@ -7798,23 +7831,6 @@ class StartAuthSessionReply final :
   ::user_data_auth::AuthFactor* add_auth_factors();
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::user_data_auth::AuthFactor >&
       auth_factors() const;
-
-  // repeated .user_data_auth.AuthFactorType supported_auth_factors = 7;
-  int supported_auth_factors_size() const;
-  private:
-  int _internal_supported_auth_factors_size() const;
-  public:
-  void clear_supported_auth_factors();
-  private:
-  ::user_data_auth::AuthFactorType _internal_supported_auth_factors(int index) const;
-  void _internal_add_supported_auth_factors(::user_data_auth::AuthFactorType value);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>* _internal_mutable_supported_auth_factors();
-  public:
-  ::user_data_auth::AuthFactorType supported_auth_factors(int index) const;
-  void set_supported_auth_factors(int index, ::user_data_auth::AuthFactorType value);
-  void add_supported_auth_factors(::user_data_auth::AuthFactorType value);
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>& supported_auth_factors() const;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>* mutable_supported_auth_factors();
 
   // bytes auth_session_id = 2;
   void clear_auth_session_id();
@@ -7879,8 +7895,6 @@ class StartAuthSessionReply final :
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_MESSAGE> key_label_data_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::user_data_auth::AuthFactor > auth_factors_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedField<int> supported_auth_factors_;
-  mutable std::atomic<int> _supported_auth_factors_cached_byte_size_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr auth_session_id_;
   ::user_data_auth::CryptohomeErrorInfo* error_info_;
   int error_;
@@ -10550,10 +10564,28 @@ class GetAuthSessionStatusReply final :
   // accessors -------------------------------------------------------
 
   enum : int {
+    kAuthorizedForFieldNumber = 4,
     kErrorFieldNumber = 1,
     kStatusFieldNumber = 2,
     kTimeLeftFieldNumber = 3,
   };
+  // repeated .user_data_auth.AuthIntent authorized_for = 4;
+  int authorized_for_size() const;
+  private:
+  int _internal_authorized_for_size() const;
+  public:
+  void clear_authorized_for();
+  private:
+  ::user_data_auth::AuthIntent _internal_authorized_for(int index) const;
+  void _internal_add_authorized_for(::user_data_auth::AuthIntent value);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>* _internal_mutable_authorized_for();
+  public:
+  ::user_data_auth::AuthIntent authorized_for(int index) const;
+  void set_authorized_for(int index, ::user_data_auth::AuthIntent value);
+  void add_authorized_for(::user_data_auth::AuthIntent value);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>& authorized_for() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>* mutable_authorized_for();
+
   // .user_data_auth.CryptohomeErrorCode error = 1;
   void clear_error();
   ::user_data_auth::CryptohomeErrorCode error() const;
@@ -10588,6 +10620,8 @@ class GetAuthSessionStatusReply final :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField<int> authorized_for_;
+  mutable std::atomic<int> _authorized_for_cached_byte_size_;
   int error_;
   int status_;
   uint32_t time_left_;
@@ -19258,10 +19292,28 @@ class AuthenticateAuthFactorReply final :
   // accessors -------------------------------------------------------
 
   enum : int {
+    kAuthorizedForFieldNumber = 4,
     kErrorInfoFieldNumber = 2,
     kErrorFieldNumber = 1,
     kAuthenticatedFieldNumber = 3,
   };
+  // repeated .user_data_auth.AuthIntent authorized_for = 4;
+  int authorized_for_size() const;
+  private:
+  int _internal_authorized_for_size() const;
+  public:
+  void clear_authorized_for();
+  private:
+  ::user_data_auth::AuthIntent _internal_authorized_for(int index) const;
+  void _internal_add_authorized_for(::user_data_auth::AuthIntent value);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>* _internal_mutable_authorized_for();
+  public:
+  ::user_data_auth::AuthIntent authorized_for(int index) const;
+  void set_authorized_for(int index, ::user_data_auth::AuthIntent value);
+  void add_authorized_for(::user_data_auth::AuthIntent value);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>& authorized_for() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>* mutable_authorized_for();
+
   // .user_data_auth.CryptohomeErrorInfo error_info = 2;
   bool has_error_info() const;
   private:
@@ -19305,6 +19357,8 @@ class AuthenticateAuthFactorReply final :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField<int> authorized_for_;
+  mutable std::atomic<int> _authorized_for_cached_byte_size_;
   ::user_data_auth::CryptohomeErrorInfo* error_info_;
   int error_;
   bool authenticated_;
@@ -19610,8 +19664,27 @@ class UpdateAuthFactorReply final :
   // accessors -------------------------------------------------------
 
   enum : int {
+    kErrorInfoFieldNumber = 2,
     kErrorFieldNumber = 1,
   };
+  // .user_data_auth.CryptohomeErrorInfo error_info = 2;
+  bool has_error_info() const;
+  private:
+  bool _internal_has_error_info() const;
+  public:
+  void clear_error_info();
+  const ::user_data_auth::CryptohomeErrorInfo& error_info() const;
+  PROTOBUF_NODISCARD ::user_data_auth::CryptohomeErrorInfo* release_error_info();
+  ::user_data_auth::CryptohomeErrorInfo* mutable_error_info();
+  void set_allocated_error_info(::user_data_auth::CryptohomeErrorInfo* error_info);
+  private:
+  const ::user_data_auth::CryptohomeErrorInfo& _internal_error_info() const;
+  ::user_data_auth::CryptohomeErrorInfo* _internal_mutable_error_info();
+  public:
+  void unsafe_arena_set_allocated_error_info(
+      ::user_data_auth::CryptohomeErrorInfo* error_info);
+  ::user_data_auth::CryptohomeErrorInfo* unsafe_arena_release_error_info();
+
   // .user_data_auth.CryptohomeErrorCode error = 1;
   void clear_error();
   ::user_data_auth::CryptohomeErrorCode error() const;
@@ -19628,6 +19701,7 @@ class UpdateAuthFactorReply final :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
+  ::user_data_auth::CryptohomeErrorInfo* error_info_;
   int error_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_UserDataAuth_2eproto;
@@ -25366,6 +25440,26 @@ inline void StartAuthSessionRequest::set_flags(uint32_t value) {
   // @@protoc_insertion_point(field_set:user_data_auth.StartAuthSessionRequest.flags)
 }
 
+// .user_data_auth.AuthIntent intent = 3;
+inline void StartAuthSessionRequest::clear_intent() {
+  intent_ = 0;
+}
+inline ::user_data_auth::AuthIntent StartAuthSessionRequest::_internal_intent() const {
+  return static_cast< ::user_data_auth::AuthIntent >(intent_);
+}
+inline ::user_data_auth::AuthIntent StartAuthSessionRequest::intent() const {
+  // @@protoc_insertion_point(field_get:user_data_auth.StartAuthSessionRequest.intent)
+  return _internal_intent();
+}
+inline void StartAuthSessionRequest::_internal_set_intent(::user_data_auth::AuthIntent value) {
+  
+  intent_ = value;
+}
+inline void StartAuthSessionRequest::set_intent(::user_data_auth::AuthIntent value) {
+  _internal_set_intent(value);
+  // @@protoc_insertion_point(field_set:user_data_auth.StartAuthSessionRequest.intent)
+}
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
@@ -25614,49 +25708,6 @@ inline void StartAuthSessionReply::set_allocated_error_info(::user_data_auth::Cr
   }
   error_info_ = error_info;
   // @@protoc_insertion_point(field_set_allocated:user_data_auth.StartAuthSessionReply.error_info)
-}
-
-// repeated .user_data_auth.AuthFactorType supported_auth_factors = 7;
-inline int StartAuthSessionReply::_internal_supported_auth_factors_size() const {
-  return supported_auth_factors_.size();
-}
-inline int StartAuthSessionReply::supported_auth_factors_size() const {
-  return _internal_supported_auth_factors_size();
-}
-inline void StartAuthSessionReply::clear_supported_auth_factors() {
-  supported_auth_factors_.Clear();
-}
-inline ::user_data_auth::AuthFactorType StartAuthSessionReply::_internal_supported_auth_factors(int index) const {
-  return static_cast< ::user_data_auth::AuthFactorType >(supported_auth_factors_.Get(index));
-}
-inline ::user_data_auth::AuthFactorType StartAuthSessionReply::supported_auth_factors(int index) const {
-  // @@protoc_insertion_point(field_get:user_data_auth.StartAuthSessionReply.supported_auth_factors)
-  return _internal_supported_auth_factors(index);
-}
-inline void StartAuthSessionReply::set_supported_auth_factors(int index, ::user_data_auth::AuthFactorType value) {
-  supported_auth_factors_.Set(index, value);
-  // @@protoc_insertion_point(field_set:user_data_auth.StartAuthSessionReply.supported_auth_factors)
-}
-inline void StartAuthSessionReply::_internal_add_supported_auth_factors(::user_data_auth::AuthFactorType value) {
-  supported_auth_factors_.Add(value);
-}
-inline void StartAuthSessionReply::add_supported_auth_factors(::user_data_auth::AuthFactorType value) {
-  _internal_add_supported_auth_factors(value);
-  // @@protoc_insertion_point(field_add:user_data_auth.StartAuthSessionReply.supported_auth_factors)
-}
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>&
-StartAuthSessionReply::supported_auth_factors() const {
-  // @@protoc_insertion_point(field_list:user_data_auth.StartAuthSessionReply.supported_auth_factors)
-  return supported_auth_factors_;
-}
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>*
-StartAuthSessionReply::_internal_mutable_supported_auth_factors() {
-  return &supported_auth_factors_;
-}
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>*
-StartAuthSessionReply::mutable_supported_auth_factors() {
-  // @@protoc_insertion_point(field_mutable_list:user_data_auth.StartAuthSessionReply.supported_auth_factors)
-  return _internal_mutable_supported_auth_factors();
 }
 
 // -------------------------------------------------------------------
@@ -27599,6 +27650,49 @@ inline void GetAuthSessionStatusReply::_internal_set_time_left(uint32_t value) {
 inline void GetAuthSessionStatusReply::set_time_left(uint32_t value) {
   _internal_set_time_left(value);
   // @@protoc_insertion_point(field_set:user_data_auth.GetAuthSessionStatusReply.time_left)
+}
+
+// repeated .user_data_auth.AuthIntent authorized_for = 4;
+inline int GetAuthSessionStatusReply::_internal_authorized_for_size() const {
+  return authorized_for_.size();
+}
+inline int GetAuthSessionStatusReply::authorized_for_size() const {
+  return _internal_authorized_for_size();
+}
+inline void GetAuthSessionStatusReply::clear_authorized_for() {
+  authorized_for_.Clear();
+}
+inline ::user_data_auth::AuthIntent GetAuthSessionStatusReply::_internal_authorized_for(int index) const {
+  return static_cast< ::user_data_auth::AuthIntent >(authorized_for_.Get(index));
+}
+inline ::user_data_auth::AuthIntent GetAuthSessionStatusReply::authorized_for(int index) const {
+  // @@protoc_insertion_point(field_get:user_data_auth.GetAuthSessionStatusReply.authorized_for)
+  return _internal_authorized_for(index);
+}
+inline void GetAuthSessionStatusReply::set_authorized_for(int index, ::user_data_auth::AuthIntent value) {
+  authorized_for_.Set(index, value);
+  // @@protoc_insertion_point(field_set:user_data_auth.GetAuthSessionStatusReply.authorized_for)
+}
+inline void GetAuthSessionStatusReply::_internal_add_authorized_for(::user_data_auth::AuthIntent value) {
+  authorized_for_.Add(value);
+}
+inline void GetAuthSessionStatusReply::add_authorized_for(::user_data_auth::AuthIntent value) {
+  _internal_add_authorized_for(value);
+  // @@protoc_insertion_point(field_add:user_data_auth.GetAuthSessionStatusReply.authorized_for)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>&
+GetAuthSessionStatusReply::authorized_for() const {
+  // @@protoc_insertion_point(field_list:user_data_auth.GetAuthSessionStatusReply.authorized_for)
+  return authorized_for_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>*
+GetAuthSessionStatusReply::_internal_mutable_authorized_for() {
+  return &authorized_for_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>*
+GetAuthSessionStatusReply::mutable_authorized_for() {
+  // @@protoc_insertion_point(field_mutable_list:user_data_auth.GetAuthSessionStatusReply.authorized_for)
+  return _internal_mutable_authorized_for();
 }
 
 // -------------------------------------------------------------------
@@ -31192,6 +31286,49 @@ inline void AuthenticateAuthFactorReply::set_authenticated(bool value) {
   // @@protoc_insertion_point(field_set:user_data_auth.AuthenticateAuthFactorReply.authenticated)
 }
 
+// repeated .user_data_auth.AuthIntent authorized_for = 4;
+inline int AuthenticateAuthFactorReply::_internal_authorized_for_size() const {
+  return authorized_for_.size();
+}
+inline int AuthenticateAuthFactorReply::authorized_for_size() const {
+  return _internal_authorized_for_size();
+}
+inline void AuthenticateAuthFactorReply::clear_authorized_for() {
+  authorized_for_.Clear();
+}
+inline ::user_data_auth::AuthIntent AuthenticateAuthFactorReply::_internal_authorized_for(int index) const {
+  return static_cast< ::user_data_auth::AuthIntent >(authorized_for_.Get(index));
+}
+inline ::user_data_auth::AuthIntent AuthenticateAuthFactorReply::authorized_for(int index) const {
+  // @@protoc_insertion_point(field_get:user_data_auth.AuthenticateAuthFactorReply.authorized_for)
+  return _internal_authorized_for(index);
+}
+inline void AuthenticateAuthFactorReply::set_authorized_for(int index, ::user_data_auth::AuthIntent value) {
+  authorized_for_.Set(index, value);
+  // @@protoc_insertion_point(field_set:user_data_auth.AuthenticateAuthFactorReply.authorized_for)
+}
+inline void AuthenticateAuthFactorReply::_internal_add_authorized_for(::user_data_auth::AuthIntent value) {
+  authorized_for_.Add(value);
+}
+inline void AuthenticateAuthFactorReply::add_authorized_for(::user_data_auth::AuthIntent value) {
+  _internal_add_authorized_for(value);
+  // @@protoc_insertion_point(field_add:user_data_auth.AuthenticateAuthFactorReply.authorized_for)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>&
+AuthenticateAuthFactorReply::authorized_for() const {
+  // @@protoc_insertion_point(field_list:user_data_auth.AuthenticateAuthFactorReply.authorized_for)
+  return authorized_for_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>*
+AuthenticateAuthFactorReply::_internal_mutable_authorized_for() {
+  return &authorized_for_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>*
+AuthenticateAuthFactorReply::mutable_authorized_for() {
+  // @@protoc_insertion_point(field_mutable_list:user_data_auth.AuthenticateAuthFactorReply.authorized_for)
+  return _internal_mutable_authorized_for();
+}
+
 // -------------------------------------------------------------------
 
 // UpdateAuthFactorRequest
@@ -31492,6 +31629,96 @@ inline void UpdateAuthFactorReply::_internal_set_error(::user_data_auth::Cryptoh
 inline void UpdateAuthFactorReply::set_error(::user_data_auth::CryptohomeErrorCode value) {
   _internal_set_error(value);
   // @@protoc_insertion_point(field_set:user_data_auth.UpdateAuthFactorReply.error)
+}
+
+// .user_data_auth.CryptohomeErrorInfo error_info = 2;
+inline bool UpdateAuthFactorReply::_internal_has_error_info() const {
+  return this != internal_default_instance() && error_info_ != nullptr;
+}
+inline bool UpdateAuthFactorReply::has_error_info() const {
+  return _internal_has_error_info();
+}
+inline void UpdateAuthFactorReply::clear_error_info() {
+  if (GetArenaForAllocation() == nullptr && error_info_ != nullptr) {
+    delete error_info_;
+  }
+  error_info_ = nullptr;
+}
+inline const ::user_data_auth::CryptohomeErrorInfo& UpdateAuthFactorReply::_internal_error_info() const {
+  const ::user_data_auth::CryptohomeErrorInfo* p = error_info_;
+  return p != nullptr ? *p : reinterpret_cast<const ::user_data_auth::CryptohomeErrorInfo&>(
+      ::user_data_auth::_CryptohomeErrorInfo_default_instance_);
+}
+inline const ::user_data_auth::CryptohomeErrorInfo& UpdateAuthFactorReply::error_info() const {
+  // @@protoc_insertion_point(field_get:user_data_auth.UpdateAuthFactorReply.error_info)
+  return _internal_error_info();
+}
+inline void UpdateAuthFactorReply::unsafe_arena_set_allocated_error_info(
+    ::user_data_auth::CryptohomeErrorInfo* error_info) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(error_info_);
+  }
+  error_info_ = error_info;
+  if (error_info) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:user_data_auth.UpdateAuthFactorReply.error_info)
+}
+inline ::user_data_auth::CryptohomeErrorInfo* UpdateAuthFactorReply::release_error_info() {
+  
+  ::user_data_auth::CryptohomeErrorInfo* temp = error_info_;
+  error_info_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::user_data_auth::CryptohomeErrorInfo* UpdateAuthFactorReply::unsafe_arena_release_error_info() {
+  // @@protoc_insertion_point(field_release:user_data_auth.UpdateAuthFactorReply.error_info)
+  
+  ::user_data_auth::CryptohomeErrorInfo* temp = error_info_;
+  error_info_ = nullptr;
+  return temp;
+}
+inline ::user_data_auth::CryptohomeErrorInfo* UpdateAuthFactorReply::_internal_mutable_error_info() {
+  
+  if (error_info_ == nullptr) {
+    auto* p = CreateMaybeMessage<::user_data_auth::CryptohomeErrorInfo>(GetArenaForAllocation());
+    error_info_ = p;
+  }
+  return error_info_;
+}
+inline ::user_data_auth::CryptohomeErrorInfo* UpdateAuthFactorReply::mutable_error_info() {
+  ::user_data_auth::CryptohomeErrorInfo* _msg = _internal_mutable_error_info();
+  // @@protoc_insertion_point(field_mutable:user_data_auth.UpdateAuthFactorReply.error_info)
+  return _msg;
+}
+inline void UpdateAuthFactorReply::set_allocated_error_info(::user_data_auth::CryptohomeErrorInfo* error_info) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete error_info_;
+  }
+  if (error_info) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::user_data_auth::CryptohomeErrorInfo>::GetOwningArena(error_info);
+    if (message_arena != submessage_arena) {
+      error_info = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, error_info, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  error_info_ = error_info;
+  // @@protoc_insertion_point(field_set_allocated:user_data_auth.UpdateAuthFactorReply.error_info)
 }
 
 // -------------------------------------------------------------------
@@ -32781,6 +33008,7 @@ template <> struct is_proto_enum< ::user_data_auth::PrimaryAction> : ::std::true
 template <> struct is_proto_enum< ::user_data_auth::PossibleAction> : ::std::true_type {};
 template <> struct is_proto_enum< ::user_data_auth::DircryptoMigrationStatus> : ::std::true_type {};
 template <> struct is_proto_enum< ::user_data_auth::AuthSessionFlags> : ::std::true_type {};
+template <> struct is_proto_enum< ::user_data_auth::AuthIntent> : ::std::true_type {};
 template <> struct is_proto_enum< ::user_data_auth::AuthSessionStatus> : ::std::true_type {};
 template <> struct is_proto_enum< ::user_data_auth::VaultEncryptionType> : ::std::true_type {};
 template <> struct is_proto_enum< ::user_data_auth::InstallAttributesState> : ::std::true_type {};

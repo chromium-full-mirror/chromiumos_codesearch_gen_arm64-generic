@@ -52,6 +52,17 @@ class UpdateEngineInterfaceProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
+  virtual bool ApplyDeferredUpdateAdvanced(
+      const update_engine::ApplyUpdateConfig& in_config,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual void ApplyDeferredUpdateAdvancedAsync(
+      const update_engine::ApplyUpdateConfig& in_config,
+      base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
   virtual bool AttemptInstall(
       const std::string& in_omaha_url,
       const std::vector<std::string>& in_dlc_ids,
@@ -410,6 +421,36 @@ class UpdateEngineInterfaceProxy final : public UpdateEngineInterfaceProxyInterf
         "ApplyDeferredUpdate",
         std::move(success_callback),
         std::move(error_callback));
+  }
+
+  bool ApplyDeferredUpdateAdvanced(
+      const update_engine::ApplyUpdateConfig& in_config,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.UpdateEngineInterface",
+        "ApplyDeferredUpdateAdvanced",
+        error,
+        in_config);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error);
+  }
+
+  void ApplyDeferredUpdateAdvancedAsync(
+      const update_engine::ApplyUpdateConfig& in_config,
+      base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.UpdateEngineInterface",
+        "ApplyDeferredUpdateAdvanced",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_config);
   }
 
   bool AttemptInstall(

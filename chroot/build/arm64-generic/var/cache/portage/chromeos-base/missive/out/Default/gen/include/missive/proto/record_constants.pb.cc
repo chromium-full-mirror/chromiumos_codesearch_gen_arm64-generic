@@ -38,18 +38,22 @@ bool Destination_IsValid(int value) {
     case 19:
     case 20:
     case 21:
+    case 22:
+    case 23:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> Destination_strings[21] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> Destination_strings[23] = {};
 
 static const char Destination_names[] =
   "ADDED_REMOVED_EVENTS"
   "ARC_INSTALL"
   "CRD_EVENTS"
+  "CROS_SECURITY_AGENT"
+  "CROS_SECURITY_PROCESS"
   "DLP_EVENTS"
   "EVENT_METRIC"
   "EXTENSIONS_WORKFLOW"
@@ -73,48 +77,52 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry Destination_entries[] 
   { {Destination_names + 0, 20}, 17 },
   { {Destination_names + 20, 11}, 4 },
   { {Destination_names + 31, 10}, 18 },
-  { {Destination_names + 41, 10}, 11 },
-  { {Destination_names + 51, 12}, 16 },
-  { {Destination_names + 63, 19}, 10 },
-  { {Destination_names + 82, 17}, 6 },
-  { {Destination_names + 99, 16}, 13 },
-  { {Destination_names + 115, 11}, 14 },
-  { {Destination_names + 126, 18}, 21 },
-  { {Destination_names + 144, 19}, 12 },
-  { {Destination_names + 163, 21}, 2 },
-  { {Destination_names + 184, 17}, 19 },
-  { {Destination_names + 201, 17}, 5 },
-  { {Destination_names + 218, 10}, 9 },
-  { {Destination_names + 228, 16}, 7 },
-  { {Destination_names + 244, 17}, 20 },
-  { {Destination_names + 261, 16}, 15 },
-  { {Destination_names + 277, 21}, 0 },
-  { {Destination_names + 298, 13}, 1 },
-  { {Destination_names + 311, 11}, 3 },
+  { {Destination_names + 41, 19}, 22 },
+  { {Destination_names + 60, 21}, 23 },
+  { {Destination_names + 81, 10}, 11 },
+  { {Destination_names + 91, 12}, 16 },
+  { {Destination_names + 103, 19}, 10 },
+  { {Destination_names + 122, 17}, 6 },
+  { {Destination_names + 139, 16}, 13 },
+  { {Destination_names + 155, 11}, 14 },
+  { {Destination_names + 166, 18}, 21 },
+  { {Destination_names + 184, 19}, 12 },
+  { {Destination_names + 203, 21}, 2 },
+  { {Destination_names + 224, 17}, 19 },
+  { {Destination_names + 241, 17}, 5 },
+  { {Destination_names + 258, 10}, 9 },
+  { {Destination_names + 268, 16}, 7 },
+  { {Destination_names + 284, 17}, 20 },
+  { {Destination_names + 301, 16}, 15 },
+  { {Destination_names + 317, 21}, 0 },
+  { {Destination_names + 338, 13}, 1 },
+  { {Destination_names + 351, 11}, 3 },
 };
 
 static const int Destination_entries_by_number[] = {
-  18, // 0 -> UNDEFINED_DESTINATION
-  19, // 1 -> UPLOAD_EVENTS
-  11, // 2 -> MEET_DEVICE_TELEMETRY
-  20, // 3 -> WEB_PROTECT
+  20, // 0 -> UNDEFINED_DESTINATION
+  21, // 1 -> UPLOAD_EVENTS
+  13, // 2 -> MEET_DEVICE_TELEMETRY
+  22, // 3 -> WEB_PROTECT
   1, // 4 -> ARC_INSTALL
-  13, // 5 -> POLICY_VALIDATION
-  6, // 6 -> EXTENSION_INSTALL
-  15, // 7 -> REPORTING_RECORD
-  14, // 9 -> PRINT_JOBS
-  5, // 10 -> EXTENSIONS_WORKFLOW
-  3, // 11 -> DLP_EVENTS
-  10, // 12 -> LOGIN_LOGOUT_EVENTS
-  7, // 13 -> HEARTBEAT_EVENTS
-  8, // 14 -> INFO_METRIC
-  17, // 15 -> TELEMETRY_METRIC
-  4, // 16 -> EVENT_METRIC
+  15, // 5 -> POLICY_VALIDATION
+  8, // 6 -> EXTENSION_INSTALL
+  17, // 7 -> REPORTING_RECORD
+  16, // 9 -> PRINT_JOBS
+  7, // 10 -> EXTENSIONS_WORKFLOW
+  5, // 11 -> DLP_EVENTS
+  12, // 12 -> LOGIN_LOGOUT_EVENTS
+  9, // 13 -> HEARTBEAT_EVENTS
+  10, // 14 -> INFO_METRIC
+  19, // 15 -> TELEMETRY_METRIC
+  6, // 16 -> EVENT_METRIC
   0, // 17 -> ADDED_REMOVED_EVENTS
   2, // 18 -> CRD_EVENTS
-  12, // 19 -> PERIPHERAL_EVENTS
-  16, // 20 -> SUSPICIOUS_EVENTS
-  9, // 21 -> LOCK_UNLOCK_EVENTS
+  14, // 19 -> PERIPHERAL_EVENTS
+  18, // 20 -> SUSPICIOUS_EVENTS
+  11, // 21 -> LOCK_UNLOCK_EVENTS
+  3, // 22 -> CROS_SECURITY_AGENT
+  4, // 23 -> CROS_SECURITY_PROCESS
 };
 
 const std::string& Destination_Name(
@@ -123,12 +131,12 @@ const std::string& Destination_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           Destination_entries,
           Destination_entries_by_number,
-          21, Destination_strings);
+          23, Destination_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       Destination_entries,
       Destination_entries_by_number,
-      21, value);
+      23, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      Destination_strings[idx].get();
 }
@@ -136,7 +144,7 @@ bool Destination_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, Destination* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      Destination_entries, 21, name, &int_value);
+      Destination_entries, 23, name, &int_value);
   if (success) {
     *value = static_cast<Destination>(int_value);
   }

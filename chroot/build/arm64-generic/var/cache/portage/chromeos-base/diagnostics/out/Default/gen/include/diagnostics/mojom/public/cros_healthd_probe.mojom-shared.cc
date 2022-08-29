@@ -95,8 +95,8 @@ static NOINLINE const char* ProbeCategoryEnumToStringHelper(ProbeCategoryEnum va
       return "kInput";
     case ProbeCategoryEnum::kAudioHardware:
       return "kAudioHardware";
-    case ProbeCategoryEnum::kSystem2:
-      return "kSystem2";
+    case ProbeCategoryEnum::kSensor:
+      return "kSensor";
     default:
       return nullptr;
   }
@@ -636,14 +636,10 @@ bool ProcessResult_Data::Validate(
 
   switch (object->tag) {
 
-    case ProcessResult_Tag::UNMAPPED_FIELD: {
-
-      return true;
-    }
     case ProcessResult_Tag::PROCESS_INFO: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_process_info, 2, validation_context)) {
+              object->data.f_process_info, 1, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_process_info, validation_context))
@@ -653,7 +649,7 @@ bool ProcessResult_Data::Validate(
     case ProcessResult_Tag::ERROR: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_error, 3, validation_context)) {
+              object->data.f_error, 2, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_error, validation_context))
@@ -662,7 +658,11 @@ bool ProcessResult_Data::Validate(
     }
     default: {
 
-      return true;
+      ReportValidationError(
+          validation_context,
+          mojo::internal::VALIDATION_ERROR_UNKNOWN_UNION_TAG,
+          "unknown tag in ProcessResult");
+      return false;
     }
   }
 }
@@ -823,6 +823,10 @@ bool BlockDeviceVendor_Data::Validate(
 
       return true;
     }
+    case BlockDeviceVendor_Tag::JEDEC_MANFID: {
+
+      return true;
+    }
     default: {
 
       return true;
@@ -967,6 +971,10 @@ bool BlockDeviceFirmware_Data::Validate(
       return true;
     }
     case BlockDeviceFirmware_Tag::UNKNOWN: {
+
+      return true;
+    }
+    case BlockDeviceFirmware_Tag::UFS_FWREV: {
 
       return true;
     }
@@ -1388,6 +1396,53 @@ bool BluetoothResult_Data::Validate(
   }
 }
 // static
+bool DEPRECATE_SystemResult_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context,
+    bool inlined) {
+  if (!data) {
+    DCHECK(!inlined);
+    return true;
+  }
+
+  // If it is inlined, the alignment is already enforced by its enclosing
+  // object. We don't have to validate that.
+  DCHECK(!inlined || mojo::internal::IsAligned(data));
+
+  if (!inlined &&
+      !mojo::internal::ValidateNonInlinedUnionHeaderAndClaimMemory(
+          data, validation_context)) {
+    return false;
+  }
+
+  const DEPRECATE_SystemResult_Data* object = static_cast<const DEPRECATE_SystemResult_Data*>(data);
+
+  if (inlined && object->is_null())
+    return true;
+
+  switch (object->tag) {
+
+    case DEPRECATE_SystemResult_Tag::ERROR: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_error, 1, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_error, validation_context))
+        return false;
+      return true;
+    }
+    default: {
+
+      ReportValidationError(
+          validation_context,
+          mojo::internal::VALIDATION_ERROR_UNKNOWN_UNION_TAG,
+          "unknown tag in DEPRECATE_SystemResult");
+      return false;
+    }
+  }
+}
+// static
 bool SystemResult_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context,
@@ -1440,63 +1495,6 @@ bool SystemResult_Data::Validate(
           validation_context,
           mojo::internal::VALIDATION_ERROR_UNKNOWN_UNION_TAG,
           "unknown tag in SystemResult");
-      return false;
-    }
-  }
-}
-// static
-bool SystemResultV2_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context,
-    bool inlined) {
-  if (!data) {
-    DCHECK(!inlined);
-    return true;
-  }
-
-  // If it is inlined, the alignment is already enforced by its enclosing
-  // object. We don't have to validate that.
-  DCHECK(!inlined || mojo::internal::IsAligned(data));
-
-  if (!inlined &&
-      !mojo::internal::ValidateNonInlinedUnionHeaderAndClaimMemory(
-          data, validation_context)) {
-    return false;
-  }
-
-  const SystemResultV2_Data* object = static_cast<const SystemResultV2_Data*>(data);
-
-  if (inlined && object->is_null())
-    return true;
-
-  switch (object->tag) {
-
-    case SystemResultV2_Tag::SYSTEM_INFO_V2: {
-
-      if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_system_info_v2, 1, validation_context)) {
-        return false;
-      }
-      if (!mojo::internal::ValidateStruct(object->data.f_system_info_v2, validation_context))
-        return false;
-      return true;
-    }
-    case SystemResultV2_Tag::ERROR: {
-
-      if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_error, 2, validation_context)) {
-        return false;
-      }
-      if (!mojo::internal::ValidateStruct(object->data.f_error, validation_context))
-        return false;
-      return true;
-    }
-    default: {
-
-      ReportValidationError(
-          validation_context,
-          mojo::internal::VALIDATION_ERROR_UNKNOWN_UNION_TAG,
-          "unknown tag in SystemResultV2");
       return false;
     }
   }
@@ -1750,14 +1748,10 @@ bool AudioHardwareResult_Data::Validate(
 
   switch (object->tag) {
 
-    case AudioHardwareResult_Tag::UNMAPPED_FIELD0: {
-
-      return true;
-    }
     case AudioHardwareResult_Tag::AUDIO_HARDWARE_INFO: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_audio_hardware_info, 2, validation_context)) {
+              object->data.f_audio_hardware_info, 1, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_audio_hardware_info, validation_context))
@@ -1767,7 +1761,7 @@ bool AudioHardwareResult_Data::Validate(
     case AudioHardwareResult_Tag::ERROR: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_error, 3, validation_context)) {
+              object->data.f_error, 2, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_error, validation_context))
@@ -1959,13 +1953,13 @@ bool BusInfo_Data::Validate(
         return false;
       return true;
     }
+    case BusInfo_Tag::UNMAPPED_FIELD: {
+
+      return true;
+    }
     default: {
 
-      ReportValidationError(
-          validation_context,
-          mojo::internal::VALIDATION_ERROR_UNKNOWN_UNION_TAG,
-          "unknown tag in BusInfo");
-      return false;
+      return true;
     }
   }
 }
@@ -2197,6 +2191,63 @@ bool InputResult_Data::Validate(
     }
   }
 }
+// static
+bool SensorResult_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context,
+    bool inlined) {
+  if (!data) {
+    DCHECK(!inlined);
+    return true;
+  }
+
+  // If it is inlined, the alignment is already enforced by its enclosing
+  // object. We don't have to validate that.
+  DCHECK(!inlined || mojo::internal::IsAligned(data));
+
+  if (!inlined &&
+      !mojo::internal::ValidateNonInlinedUnionHeaderAndClaimMemory(
+          data, validation_context)) {
+    return false;
+  }
+
+  const SensorResult_Data* object = static_cast<const SensorResult_Data*>(data);
+
+  if (inlined && object->is_null())
+    return true;
+
+  switch (object->tag) {
+
+    case SensorResult_Tag::SENSOR_INFO: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_sensor_info, 1, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_sensor_info, validation_context))
+        return false;
+      return true;
+    }
+    case SensorResult_Tag::ERROR: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_error, 2, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_error, validation_context))
+        return false;
+      return true;
+    }
+    default: {
+
+      ReportValidationError(
+          validation_context,
+          mojo::internal::VALIDATION_ERROR_UNKNOWN_UNION_TAG,
+          "unknown tag in SensorResult");
+      return false;
+    }
+  }
+}
 
 
 // static
@@ -2247,6 +2298,7 @@ bool ProcessInfo_Data::Validate(
   static constexpr mojo::internal::StructVersionSize kVersionSizes[] = {
     { 0, 104 },
     { 1, 128 },
+    { 2, 128 },
   };
   if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
           data, kVersionSizes, validation_context)) {
@@ -2287,7 +2339,7 @@ bool ProcessInfo_Data::Validate(
 }
 
 ProcessInfo_Data::ProcessInfo_Data()
-    : header_({sizeof(*this), 1}) {}
+    : header_({sizeof(*this), 2}) {}
 
 
 // static
@@ -3239,7 +3291,7 @@ bool SystemInfo_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 104, validation_context)) {
+          data, 32, validation_context)) {
     return false;
   }
 
@@ -3247,113 +3299,6 @@ bool SystemInfo_Data::Validate(
   // the message comes from an older version.
   [[maybe_unused]] const SystemInfo_Data* object =
       static_cast<const SystemInfo_Data*>(data);
-
-  const mojo::internal::ContainerValidateParams first_power_date_validate_params(
-      0, false, nullptr);
-  if (!mojo::internal::ValidateContainer(object->first_power_date, validation_context,
-                                         &first_power_date_validate_params)) {
-    return false;
-  }
-
-  const mojo::internal::ContainerValidateParams manufacture_date_validate_params(
-      0, false, nullptr);
-  if (!mojo::internal::ValidateContainer(object->manufacture_date, validation_context,
-                                         &manufacture_date_validate_params)) {
-    return false;
-  }
-
-  const mojo::internal::ContainerValidateParams product_sku_number_validate_params(
-      0, false, nullptr);
-  if (!mojo::internal::ValidateContainer(object->product_sku_number, validation_context,
-                                         &product_sku_number_validate_params)) {
-    return false;
-  }
-
-  const mojo::internal::ContainerValidateParams product_serial_number_validate_params(
-      0, false, nullptr);
-  if (!mojo::internal::ValidateContainer(object->product_serial_number, validation_context,
-                                         &product_serial_number_validate_params)) {
-    return false;
-  }
-
-  const mojo::internal::ContainerValidateParams product_model_name_validate_params(
-      0, false, nullptr);
-  if (!mojo::internal::ValidateContainer(object->product_model_name, validation_context,
-                                         &product_model_name_validate_params)) {
-    return false;
-  }
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->marketing_name, 6, validation_context)) {
-    return false;
-  }
-  const mojo::internal::ContainerValidateParams marketing_name_validate_params(
-      0, false, nullptr);
-  if (!mojo::internal::ValidateContainer(object->marketing_name, validation_context,
-                                         &marketing_name_validate_params)) {
-    return false;
-  }
-
-  const mojo::internal::ContainerValidateParams bios_version_validate_params(
-      0, false, nullptr);
-  if (!mojo::internal::ValidateContainer(object->bios_version, validation_context,
-                                         &bios_version_validate_params)) {
-    return false;
-  }
-
-  const mojo::internal::ContainerValidateParams board_name_validate_params(
-      0, false, nullptr);
-  if (!mojo::internal::ValidateContainer(object->board_name, validation_context,
-                                         &board_name_validate_params)) {
-    return false;
-  }
-
-  const mojo::internal::ContainerValidateParams board_version_validate_params(
-      0, false, nullptr);
-  if (!mojo::internal::ValidateContainer(object->board_version, validation_context,
-                                         &board_version_validate_params)) {
-    return false;
-  }
-
-  if (!mojo::internal::ValidateStruct(object->chassis_type, validation_context))
-    return false;
-
-  const mojo::internal::ContainerValidateParams product_name_validate_params(
-      0, false, nullptr);
-  if (!mojo::internal::ValidateContainer(object->product_name, validation_context,
-                                         &product_name_validate_params)) {
-    return false;
-  }
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->os_version, 12, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateStruct(object->os_version, validation_context))
-    return false;
-
-  return true;
-}
-
-SystemInfo_Data::SystemInfo_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool SystemInfoV2_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 32, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const SystemInfoV2_Data* object =
-      static_cast<const SystemInfoV2_Data*>(data);
 
   if (!mojo::internal::ValidatePointerNonNullable(
           object->os_info, 1, validation_context)) {
@@ -3371,7 +3316,7 @@ bool SystemInfoV2_Data::Validate(
   return true;
 }
 
-SystemInfoV2_Data::SystemInfoV2_Data()
+SystemInfo_Data::SystemInfo_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -4997,6 +4942,32 @@ InputDevice_Data::InputDevice_Data()
 
 
 // static
+bool SensorInfo_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const SensorInfo_Data* object =
+      static_cast<const SensorInfo_Data*>(data);
+
+  if (!mojo::internal::ValidateStruct(object->lid_angle, validation_context))
+    return false;
+
+  return true;
+}
+
+SensorInfo_Data::SensorInfo_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool TelemetryInfo_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -5008,6 +4979,7 @@ bool TelemetryInfo_Data::Validate(
     { 2, 312 },
     { 3, 328 },
     { 4, 344 },
+    { 5, 360 },
   };
   if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
           data, kVersionSizes, validation_context)) {
@@ -5046,7 +5018,7 @@ bool TelemetryInfo_Data::Validate(
   if (!mojo::internal::ValidateInlinedUnion(object->bluetooth_result, validation_context))
     return false;
 
-  if (!mojo::internal::ValidateInlinedUnion(object->system_result, validation_context))
+  if (!mojo::internal::ValidateInlinedUnion(object->deprecate_system_result, validation_context))
     return false;
 
   if (!mojo::internal::ValidateInlinedUnion(object->network_result, validation_context))
@@ -5061,7 +5033,7 @@ bool TelemetryInfo_Data::Validate(
   if (!mojo::internal::ValidateInlinedUnion(object->bus_result, validation_context))
     return false;
 
-  if (!mojo::internal::ValidateInlinedUnion(object->system_result_v2, validation_context))
+  if (!mojo::internal::ValidateInlinedUnion(object->system_result, validation_context))
     return false;
 
   if (!mojo::internal::ValidateInlinedUnion(object->tpm_result, validation_context))
@@ -5089,12 +5061,17 @@ bool TelemetryInfo_Data::Validate(
 
   if (!mojo::internal::ValidateInlinedUnion(object->audio_hardware_result, validation_context))
     return false;
+  if (object->header_.version < 5)
+    return true;
+
+  if (!mojo::internal::ValidateInlinedUnion(object->sensor_result, validation_context))
+    return false;
 
   return true;
 }
 
 TelemetryInfo_Data::TelemetryInfo_Data()
-    : header_({sizeof(*this), 4}) {}
+    : header_({sizeof(*this), 5}) {}
 
 }  // namespace internal
 }  // namespace mojom

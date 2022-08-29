@@ -1043,7 +1043,8 @@ constexpr DeviceStatusReportRequest::DeviceStatusReportRequest(
   , sound_volume_(0)
   , channel_(0)
 
-  , write_protect_switch_(false){}
+  , write_protect_switch_(false)
+  , root_device_total_storage_bytes_(int64_t{0}){}
 struct DeviceStatusReportRequestDefaultTypeInternal {
   constexpr DeviceStatusReportRequestDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -22622,6 +22623,10 @@ DiskInfo::DiskInfo(const DiskInfo& from)
       _internal_set_other_vendor(from._internal_other_vendor());
       break;
     }
+    case kJedecManfid: {
+      _internal_set_jedec_manfid(from._internal_jedec_manfid());
+      break;
+    }
     case VENDOR_ID_NOT_SET: {
       break;
     }
@@ -22674,6 +22679,10 @@ DiskInfo::DiskInfo(const DiskInfo& from)
     }
     case kOtherFirmwareRev: {
       _internal_set_other_firmware_rev(from._internal_other_firmware_rev());
+      break;
+    }
+    case kUfsFirmwareRev: {
+      _internal_set_ufs_firmware_rev(from._internal_ufs_firmware_rev());
       break;
     }
     case FIRMWARE_REVISION_NOT_SET: {
@@ -22767,6 +22776,10 @@ void DiskInfo::clear_vendor_id() {
       // No need to clear
       break;
     }
+    case kJedecManfid: {
+      // No need to clear
+      break;
+    }
     case VENDOR_ID_NOT_SET: {
       break;
     }
@@ -22830,6 +22843,10 @@ void DiskInfo::clear_firmware_revision() {
       break;
     }
     case kOtherFirmwareRev: {
+      // No need to clear
+      break;
+    }
+    case kUfsFirmwareRev: {
       // No need to clear
       break;
     }
@@ -23122,6 +23139,22 @@ const char* DiskInfo::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::i
         } else
           goto handle_unusual;
         continue;
+      // uint32 jedec_manfid = 27;
+      case 27:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 216)) {
+          _internal_set_jedec_manfid(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr));
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // uint32 ufs_firmware_rev = 28;
+      case 28:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 224)) {
+          _internal_set_ufs_firmware_rev(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr));
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -23310,6 +23343,18 @@ uint8_t* DiskInfo::_InternalSerialize(
       26, this->_internal_purpose(), target);
   }
 
+  // uint32 jedec_manfid = 27;
+  if (_internal_has_jedec_manfid()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(27, this->_internal_jedec_manfid(), target);
+  }
+
+  // uint32 ufs_firmware_rev = 28;
+  if (_internal_has_ufs_firmware_rev()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(28, this->_internal_ufs_firmware_rev(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -23433,6 +23478,13 @@ size_t DiskInfo::ByteSizeLong() const {
           this->_internal_other_vendor());
       break;
     }
+    // uint32 jedec_manfid = 27;
+    case kJedecManfid: {
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32Size(
+          this->_internal_jedec_manfid());
+      break;
+    }
     case VENDOR_ID_NOT_SET: {
       break;
     }
@@ -23509,6 +23561,13 @@ size_t DiskInfo::ByteSizeLong() const {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32Size(
           this->_internal_other_firmware_rev());
+      break;
+    }
+    // uint32 ufs_firmware_rev = 28;
+    case kUfsFirmwareRev: {
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32Size(
+          this->_internal_ufs_firmware_rev());
       break;
     }
     case FIRMWARE_REVISION_NOT_SET: {
@@ -23595,6 +23654,10 @@ void DiskInfo::MergeFrom(const DiskInfo& from) {
       _internal_set_other_vendor(from._internal_other_vendor());
       break;
     }
+    case kJedecManfid: {
+      _internal_set_jedec_manfid(from._internal_jedec_manfid());
+      break;
+    }
     case VENDOR_ID_NOT_SET: {
       break;
     }
@@ -23644,6 +23707,10 @@ void DiskInfo::MergeFrom(const DiskInfo& from) {
     }
     case kOtherFirmwareRev: {
       _internal_set_other_firmware_rev(from._internal_other_firmware_rev());
+      break;
+    }
+    case kUfsFirmwareRev: {
+      _internal_set_ufs_firmware_rev(from._internal_ufs_firmware_rev());
       break;
     }
     case FIRMWARE_REVISION_NOT_SET: {
@@ -30637,6 +30704,9 @@ class DeviceStatusReportRequest::_Internal {
   static void set_has_boot_info(HasBits* has_bits) {
     (*has_bits)[0] |= 1048576u;
   }
+  static void set_has_root_device_total_storage_bytes(HasBits* has_bits) {
+    (*has_bits)[0] |= 33554432u;
+  }
 };
 
 const ::enterprise_management::OsUpdateStatus&
@@ -30872,8 +30942,8 @@ DeviceStatusReportRequest::DeviceStatusReportRequest(const DeviceStatusReportReq
     boot_info_ = nullptr;
   }
   ::memcpy(&system_ram_total_, &from.system_ram_total_,
-    static_cast<size_t>(reinterpret_cast<char*>(&write_protect_switch_) -
-    reinterpret_cast<char*>(&system_ram_total_)) + sizeof(write_protect_switch_));
+    static_cast<size_t>(reinterpret_cast<char*>(&root_device_total_storage_bytes_) -
+    reinterpret_cast<char*>(&system_ram_total_)) + sizeof(root_device_total_storage_bytes_));
   // @@protoc_insertion_point(copy_constructor:enterprise_management.DeviceStatusReportRequest)
 }
 
@@ -30896,8 +30966,8 @@ browser_version_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptySt
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&os_update_status_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&write_protect_switch_) -
-    reinterpret_cast<char*>(&os_update_status_)) + sizeof(write_protect_switch_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&root_device_total_storage_bytes_) -
+    reinterpret_cast<char*>(&os_update_status_)) + sizeof(root_device_total_storage_bytes_));
 }
 
 DeviceStatusReportRequest::~DeviceStatusReportRequest() {
@@ -31057,7 +31127,11 @@ void DeviceStatusReportRequest::Clear() {
         reinterpret_cast<char*>(&channel_) -
         reinterpret_cast<char*>(&system_ram_total_)) + sizeof(channel_));
   }
-  write_protect_switch_ = false;
+  if (cached_has_bits & 0x03000000u) {
+    ::memset(&write_protect_switch_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&root_device_total_storage_bytes_) -
+        reinterpret_cast<char*>(&write_protect_switch_)) + sizeof(root_device_total_storage_bytes_));
+  }
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
@@ -31508,6 +31582,15 @@ const char* DeviceStatusReportRequest::_InternalParse(const char* ptr, ::PROTOBU
         } else
           goto handle_unusual;
         continue;
+      // optional int64 root_device_total_storage_bytes = 47;
+      case 47:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 120)) {
+          _Internal::set_has_root_device_total_storage_bytes(&has_bits);
+          root_device_total_storage_bytes_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -31856,6 +31939,12 @@ uint8_t* DeviceStatusReportRequest::_InternalSerialize(
       InternalWriteMessage(46, this->_internal_lacros_browser_report(i), target, stream);
   }
 
+  // optional int64 root_device_total_storage_bytes = 47;
+  if (cached_has_bits & 0x02000000u) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(47, this->_internal_root_device_total_storage_bytes(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -32167,11 +32256,20 @@ size_t DeviceStatusReportRequest::ByteSizeLong() const {
     }
 
   }
-  // optional bool write_protect_switch = 24;
-  if (cached_has_bits & 0x01000000u) {
-    total_size += 2 + 1;
-  }
+  if (cached_has_bits & 0x03000000u) {
+    // optional bool write_protect_switch = 24;
+    if (cached_has_bits & 0x01000000u) {
+      total_size += 2 + 1;
+    }
 
+    // optional int64 root_device_total_storage_bytes = 47;
+    if (cached_has_bits & 0x02000000u) {
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64Size(
+          this->_internal_root_device_total_storage_bytes());
+    }
+
+  }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -32289,8 +32387,14 @@ void DeviceStatusReportRequest::MergeFrom(const DeviceStatusReportRequest& from)
     }
     _has_bits_[0] |= cached_has_bits;
   }
-  if (cached_has_bits & 0x01000000u) {
-    _internal_set_write_protect_switch(from._internal_write_protect_switch());
+  if (cached_has_bits & 0x03000000u) {
+    if (cached_has_bits & 0x01000000u) {
+      write_protect_switch_ = from.write_protect_switch_;
+    }
+    if (cached_has_bits & 0x02000000u) {
+      root_device_total_storage_bytes_ = from.root_device_total_storage_bytes_;
+    }
+    _has_bits_[0] |= cached_has_bits;
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -32354,8 +32458,8 @@ void DeviceStatusReportRequest::InternalSwap(DeviceStatusReportRequest* other) {
       &other->browser_version_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(DeviceStatusReportRequest, write_protect_switch_)
-      + sizeof(DeviceStatusReportRequest::write_protect_switch_)
+      PROTOBUF_FIELD_OFFSET(DeviceStatusReportRequest, root_device_total_storage_bytes_)
+      + sizeof(DeviceStatusReportRequest::root_device_total_storage_bytes_)
       - PROTOBUF_FIELD_OFFSET(DeviceStatusReportRequest, os_update_status_)>(
           reinterpret_cast<char*>(&os_update_status_),
           reinterpret_cast<char*>(&other->os_update_status_));

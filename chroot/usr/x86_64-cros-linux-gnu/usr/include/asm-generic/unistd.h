@@ -782,7 +782,8 @@ __SYSCALL(__NR_sched_rr_get_interval_time64, sys_sched_rr_get_interval)
 __SYSCALL(__NR_io_uring_setup, sys_io_uring_setup)
 #define __NR_io_uring_enter 426
 __SYSCALL(__NR_io_uring_enter, sys_io_uring_enter)
-
+#define __NR_close_range 436
+__SYSCALL(__NR_close_range, sys_close_range)
 #define __NR_faccessat2 439
 __SYSCALL(__NR_faccessat2, sys_faccessat2)
 

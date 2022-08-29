@@ -565,6 +565,14 @@ std::string GetProtoDebugStringWithIndent(
           .c_str());
   output += "\n";
 
+  if (value.has_attested_device_id()) {
+    output += indent + "  attested_device_id: ";
+    base::StringAppendF(&output, "%s",
+                        base::HexEncode(value.attested_device_id().data(),
+                                        value.attested_device_id().size())
+                            .c_str());
+    output += "\n";
+  }
   output += indent + "}\n";
   return output;
 }

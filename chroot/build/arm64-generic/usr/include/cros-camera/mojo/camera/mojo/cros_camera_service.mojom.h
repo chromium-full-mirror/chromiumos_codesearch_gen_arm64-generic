@@ -126,7 +126,7 @@ class  CameraHalServer
   static const char Name_[];
   static uint32_t MessageToStableIPCHash_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
-  static constexpr uint32_t Version_ = 8;
+  static constexpr uint32_t Version_ = 9;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasSyncMethods_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
@@ -145,6 +145,7 @@ class  CameraHalServer
     kSetAutoFramingStateMinVersion = 7,
     kGetCameraSWPrivacySwitchStateMinVersion = 8,
     kSetCameraSWPrivacySwitchStateMinVersion = 8,
+    kGetAutoFramingSupportedMinVersion = 9,
   };
   virtual ~CameraHalServer() = default;
 
@@ -164,6 +165,11 @@ class  CameraHalServer
 
   
   virtual void SetCameraSWPrivacySwitchState(CameraPrivacySwitchState state) = 0;
+
+
+  using GetAutoFramingSupportedCallback = base::OnceCallback<void(bool)>;
+  
+  virtual void GetAutoFramingSupported(GetAutoFramingSupportedCallback callback) = 0;
 };
 
 class CameraHalServerCallbacksProxy;
@@ -291,6 +297,8 @@ class  CameraHalServerProxy
   void GetCameraSWPrivacySwitchState(GetCameraSWPrivacySwitchStateCallback callback) final;
   
   void SetCameraSWPrivacySwitchState(CameraPrivacySwitchState state) final;
+  
+  void GetAutoFramingSupported(GetAutoFramingSupportedCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

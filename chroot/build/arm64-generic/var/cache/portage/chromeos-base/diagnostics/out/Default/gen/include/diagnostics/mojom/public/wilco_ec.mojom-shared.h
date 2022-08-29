@@ -72,6 +72,8 @@ namespace mojom {
 
 enum class EcEvent_Reason : int32_t {
   
+  kUnmappedEnumField = 9,
+  
   kNonWilcoCharger = 0,
   
   kLowPowerCharger = 1,
@@ -90,7 +92,8 @@ enum class EcEvent_Reason : int32_t {
   
   kNonSysNotification = 8,
   kMinValue = 0,
-  kMaxValue = 8,
+  kMaxValue = 9,
+  kDefaultValue = 9
 };
 
  std::ostream& operator<<(std::ostream& os, EcEvent_Reason value);
@@ -98,19 +101,34 @@ inline bool IsKnownEnumValue(EcEvent_Reason value) {
   return internal::EcEvent_Reason_Data::IsKnownValue(
       static_cast<int32_t>(value));
 }
+inline EcEvent_Reason ToKnownEnumValue(EcEvent_Reason value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return EcEvent_Reason::kDefaultValue;
+}
 
 
 enum class EcEvent_Type : int32_t {
   
+  kUnmappedEnumField = 0,
+  
   kSystemNotify = 18,
-  kMinValue = 18,
+  kMinValue = 0,
   kMaxValue = 18,
+  kDefaultValue = 0
 };
 
  std::ostream& operator<<(std::ostream& os, EcEvent_Type value);
 inline bool IsKnownEnumValue(EcEvent_Type value) {
   return internal::EcEvent_Type_Data::IsKnownValue(
       static_cast<int32_t>(value));
+}
+inline EcEvent_Type ToKnownEnumValue(EcEvent_Type value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return EcEvent_Type::kDefaultValue;
 }
 
 

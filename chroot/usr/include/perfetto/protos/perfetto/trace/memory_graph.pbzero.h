@@ -20,26 +20,70 @@ class MemoryTrackerSnapshot_ProcessSnapshot;
 class MemoryTrackerSnapshot_ProcessSnapshot_MemoryEdge;
 class MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode;
 class MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode_MemoryNodeEntry;
-enum MemoryTrackerSnapshot_LevelOfDetail : int32_t;
-enum MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode_MemoryNodeEntry_Units : int32_t;
+namespace perfetto_pbzero_enum_MemoryTrackerSnapshot {
+enum LevelOfDetail : int32_t;
+}  // namespace perfetto_pbzero_enum_MemoryTrackerSnapshot 
+namespace perfetto_pbzero_enum_MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode_MemoryNodeEntry {
+enum Units : int32_t;
+}  // namespace perfetto_pbzero_enum_MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode_MemoryNodeEntry 
 
-enum MemoryTrackerSnapshot_LevelOfDetail : int32_t {
-  MemoryTrackerSnapshot_LevelOfDetail_DETAIL_FULL = 0,
-  MemoryTrackerSnapshot_LevelOfDetail_DETAIL_LIGHT = 1,
-  MemoryTrackerSnapshot_LevelOfDetail_DETAIL_BACKGROUND = 2,
+namespace perfetto_pbzero_enum_MemoryTrackerSnapshot {
+enum LevelOfDetail : int32_t {
+  DETAIL_FULL = 0,
+  DETAIL_LIGHT = 1,
+  DETAIL_BACKGROUND = 2,
 };
+} // namespace perfetto_pbzero_enum_MemoryTrackerSnapshot
+using MemoryTrackerSnapshot_LevelOfDetail = perfetto_pbzero_enum_MemoryTrackerSnapshot::LevelOfDetail;
 
-const MemoryTrackerSnapshot_LevelOfDetail MemoryTrackerSnapshot_LevelOfDetail_MIN = MemoryTrackerSnapshot_LevelOfDetail_DETAIL_FULL;
-const MemoryTrackerSnapshot_LevelOfDetail MemoryTrackerSnapshot_LevelOfDetail_MAX = MemoryTrackerSnapshot_LevelOfDetail_DETAIL_BACKGROUND;
 
-enum MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode_MemoryNodeEntry_Units : int32_t {
-  MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode_MemoryNodeEntry_Units_UNSPECIFIED = 0,
-  MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode_MemoryNodeEntry_Units_BYTES = 1,
-  MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode_MemoryNodeEntry_Units_COUNT = 2,
+constexpr MemoryTrackerSnapshot_LevelOfDetail MemoryTrackerSnapshot_LevelOfDetail_MIN = MemoryTrackerSnapshot_LevelOfDetail::DETAIL_FULL;
+constexpr MemoryTrackerSnapshot_LevelOfDetail MemoryTrackerSnapshot_LevelOfDetail_MAX = MemoryTrackerSnapshot_LevelOfDetail::DETAIL_BACKGROUND;
+
+
+PERFETTO_PROTOZERO_CONSTEXPR14_OR_INLINE
+const char* MemoryTrackerSnapshot_LevelOfDetail_Name(::perfetto::protos::pbzero::MemoryTrackerSnapshot_LevelOfDetail value) {
+  switch (value) {
+  case ::perfetto::protos::pbzero::MemoryTrackerSnapshot_LevelOfDetail::DETAIL_FULL:
+    return "DETAIL_FULL";
+
+  case ::perfetto::protos::pbzero::MemoryTrackerSnapshot_LevelOfDetail::DETAIL_LIGHT:
+    return "DETAIL_LIGHT";
+
+  case ::perfetto::protos::pbzero::MemoryTrackerSnapshot_LevelOfDetail::DETAIL_BACKGROUND:
+    return "DETAIL_BACKGROUND";
+  }
+  return "PBZERO_UNKNOWN_ENUM_VALUE";
+}
+
+namespace perfetto_pbzero_enum_MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode_MemoryNodeEntry {
+enum Units : int32_t {
+  UNSPECIFIED = 0,
+  BYTES = 1,
+  COUNT = 2,
 };
+} // namespace perfetto_pbzero_enum_MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode_MemoryNodeEntry
+using MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode_MemoryNodeEntry_Units = perfetto_pbzero_enum_MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode_MemoryNodeEntry::Units;
 
-const MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode_MemoryNodeEntry_Units MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode_MemoryNodeEntry_Units_MIN = MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode_MemoryNodeEntry_Units_UNSPECIFIED;
-const MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode_MemoryNodeEntry_Units MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode_MemoryNodeEntry_Units_MAX = MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode_MemoryNodeEntry_Units_COUNT;
+
+constexpr MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode_MemoryNodeEntry_Units MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode_MemoryNodeEntry_Units_MIN = MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode_MemoryNodeEntry_Units::UNSPECIFIED;
+constexpr MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode_MemoryNodeEntry_Units MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode_MemoryNodeEntry_Units_MAX = MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode_MemoryNodeEntry_Units::COUNT;
+
+
+PERFETTO_PROTOZERO_CONSTEXPR14_OR_INLINE
+const char* MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode_MemoryNodeEntry_Units_Name(::perfetto::protos::pbzero::MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode_MemoryNodeEntry_Units value) {
+  switch (value) {
+  case ::perfetto::protos::pbzero::MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode_MemoryNodeEntry_Units::UNSPECIFIED:
+    return "UNSPECIFIED";
+
+  case ::perfetto::protos::pbzero::MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode_MemoryNodeEntry_Units::BYTES:
+    return "BYTES";
+
+  case ::perfetto::protos::pbzero::MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode_MemoryNodeEntry_Units::COUNT:
+    return "COUNT";
+  }
+  return "PBZERO_UNKNOWN_ENUM_VALUE";
+}
 
 class MemoryTrackerSnapshot_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/3, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
  public:
@@ -62,11 +106,17 @@ class MemoryTrackerSnapshot : public ::protozero::Message {
     kLevelOfDetailFieldNumber = 2,
     kProcessMemoryDumpsFieldNumber = 3,
   };
+  static constexpr const char* GetName() { return ".perfetto.protos.MemoryTrackerSnapshot"; }
+
   using ProcessSnapshot = ::perfetto::protos::pbzero::MemoryTrackerSnapshot_ProcessSnapshot;
+
   using LevelOfDetail = ::perfetto::protos::pbzero::MemoryTrackerSnapshot_LevelOfDetail;
-  static const LevelOfDetail DETAIL_FULL = MemoryTrackerSnapshot_LevelOfDetail_DETAIL_FULL;
-  static const LevelOfDetail DETAIL_LIGHT = MemoryTrackerSnapshot_LevelOfDetail_DETAIL_LIGHT;
-  static const LevelOfDetail DETAIL_BACKGROUND = MemoryTrackerSnapshot_LevelOfDetail_DETAIL_BACKGROUND;
+  static inline const char* LevelOfDetail_Name(LevelOfDetail value) {
+    return ::perfetto::protos::pbzero::MemoryTrackerSnapshot_LevelOfDetail_Name(value);
+  }
+  static const LevelOfDetail DETAIL_FULL = LevelOfDetail::DETAIL_FULL;
+  static const LevelOfDetail DETAIL_LIGHT = LevelOfDetail::DETAIL_LIGHT;
+  static const LevelOfDetail DETAIL_BACKGROUND = LevelOfDetail::DETAIL_BACKGROUND;
 
   using FieldMetadata_GlobalDumpId =
     ::protozero::proto_utils::FieldMetadata<
@@ -82,7 +132,7 @@ class MemoryTrackerSnapshot : public ::protozero::Message {
   // It is declared as a function to keep protozero bindings header-only as
   // inline constexpr variables are not available until C++17 (while inline
   // functions are).
-  // TODO(altimin): Use inline variable instead after adopting C++17.  
+  // TODO(altimin): Use inline variable instead after adopting C++17.
   static constexpr FieldMetadata_GlobalDumpId kGlobalDumpId() { return {}; }
   void set_global_dump_id(uint64_t value) {
     static constexpr uint32_t field_id = FieldMetadata_GlobalDumpId::kFieldId;
@@ -107,7 +157,7 @@ class MemoryTrackerSnapshot : public ::protozero::Message {
   // It is declared as a function to keep protozero bindings header-only as
   // inline constexpr variables are not available until C++17 (while inline
   // functions are).
-  // TODO(altimin): Use inline variable instead after adopting C++17.  
+  // TODO(altimin): Use inline variable instead after adopting C++17.
   static constexpr FieldMetadata_LevelOfDetail kLevelOfDetail() { return {}; }
   void set_level_of_detail(::perfetto::protos::pbzero::MemoryTrackerSnapshot_LevelOfDetail value) {
     static constexpr uint32_t field_id = FieldMetadata_LevelOfDetail::kFieldId;
@@ -132,7 +182,7 @@ class MemoryTrackerSnapshot : public ::protozero::Message {
   // It is declared as a function to keep protozero bindings header-only as
   // inline constexpr variables are not available until C++17 (while inline
   // functions are).
-  // TODO(altimin): Use inline variable instead after adopting C++17.  
+  // TODO(altimin): Use inline variable instead after adopting C++17.
   static constexpr FieldMetadata_ProcessMemoryDumps kProcessMemoryDumps() { return {}; }
   template <typename T = MemoryTrackerSnapshot_ProcessSnapshot> T* add_process_memory_dumps() {
     return BeginNestedMessage<T>(3);
@@ -161,6 +211,8 @@ class MemoryTrackerSnapshot_ProcessSnapshot : public ::protozero::Message {
     kAllocatorDumpsFieldNumber = 2,
     kMemoryEdgesFieldNumber = 3,
   };
+  static constexpr const char* GetName() { return ".perfetto.protos.MemoryTrackerSnapshot.ProcessSnapshot"; }
+
   using MemoryNode = ::perfetto::protos::pbzero::MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode;
   using MemoryEdge = ::perfetto::protos::pbzero::MemoryTrackerSnapshot_ProcessSnapshot_MemoryEdge;
 
@@ -178,7 +230,7 @@ class MemoryTrackerSnapshot_ProcessSnapshot : public ::protozero::Message {
   // It is declared as a function to keep protozero bindings header-only as
   // inline constexpr variables are not available until C++17 (while inline
   // functions are).
-  // TODO(altimin): Use inline variable instead after adopting C++17.  
+  // TODO(altimin): Use inline variable instead after adopting C++17.
   static constexpr FieldMetadata_Pid kPid() { return {}; }
   void set_pid(int32_t value) {
     static constexpr uint32_t field_id = FieldMetadata_Pid::kFieldId;
@@ -203,7 +255,7 @@ class MemoryTrackerSnapshot_ProcessSnapshot : public ::protozero::Message {
   // It is declared as a function to keep protozero bindings header-only as
   // inline constexpr variables are not available until C++17 (while inline
   // functions are).
-  // TODO(altimin): Use inline variable instead after adopting C++17.  
+  // TODO(altimin): Use inline variable instead after adopting C++17.
   static constexpr FieldMetadata_AllocatorDumps kAllocatorDumps() { return {}; }
   template <typename T = MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode> T* add_allocator_dumps() {
     return BeginNestedMessage<T>(2);
@@ -224,7 +276,7 @@ class MemoryTrackerSnapshot_ProcessSnapshot : public ::protozero::Message {
   // It is declared as a function to keep protozero bindings header-only as
   // inline constexpr variables are not available until C++17 (while inline
   // functions are).
-  // TODO(altimin): Use inline variable instead after adopting C++17.  
+  // TODO(altimin): Use inline variable instead after adopting C++17.
   static constexpr FieldMetadata_MemoryEdges kMemoryEdges() { return {}; }
   template <typename T = MemoryTrackerSnapshot_ProcessSnapshot_MemoryEdge> T* add_memory_edges() {
     return BeginNestedMessage<T>(3);
@@ -256,6 +308,8 @@ class MemoryTrackerSnapshot_ProcessSnapshot_MemoryEdge : public ::protozero::Mes
     kImportanceFieldNumber = 3,
     kOverridableFieldNumber = 4,
   };
+  static constexpr const char* GetName() { return ".perfetto.protos.MemoryTrackerSnapshot.ProcessSnapshot.MemoryEdge"; }
+
 
   using FieldMetadata_SourceId =
     ::protozero::proto_utils::FieldMetadata<
@@ -271,7 +325,7 @@ class MemoryTrackerSnapshot_ProcessSnapshot_MemoryEdge : public ::protozero::Mes
   // It is declared as a function to keep protozero bindings header-only as
   // inline constexpr variables are not available until C++17 (while inline
   // functions are).
-  // TODO(altimin): Use inline variable instead after adopting C++17.  
+  // TODO(altimin): Use inline variable instead after adopting C++17.
   static constexpr FieldMetadata_SourceId kSourceId() { return {}; }
   void set_source_id(uint64_t value) {
     static constexpr uint32_t field_id = FieldMetadata_SourceId::kFieldId;
@@ -296,7 +350,7 @@ class MemoryTrackerSnapshot_ProcessSnapshot_MemoryEdge : public ::protozero::Mes
   // It is declared as a function to keep protozero bindings header-only as
   // inline constexpr variables are not available until C++17 (while inline
   // functions are).
-  // TODO(altimin): Use inline variable instead after adopting C++17.  
+  // TODO(altimin): Use inline variable instead after adopting C++17.
   static constexpr FieldMetadata_TargetId kTargetId() { return {}; }
   void set_target_id(uint64_t value) {
     static constexpr uint32_t field_id = FieldMetadata_TargetId::kFieldId;
@@ -321,7 +375,7 @@ class MemoryTrackerSnapshot_ProcessSnapshot_MemoryEdge : public ::protozero::Mes
   // It is declared as a function to keep protozero bindings header-only as
   // inline constexpr variables are not available until C++17 (while inline
   // functions are).
-  // TODO(altimin): Use inline variable instead after adopting C++17.  
+  // TODO(altimin): Use inline variable instead after adopting C++17.
   static constexpr FieldMetadata_Importance kImportance() { return {}; }
   void set_importance(uint32_t value) {
     static constexpr uint32_t field_id = FieldMetadata_Importance::kFieldId;
@@ -346,7 +400,7 @@ class MemoryTrackerSnapshot_ProcessSnapshot_MemoryEdge : public ::protozero::Mes
   // It is declared as a function to keep protozero bindings header-only as
   // inline constexpr variables are not available until C++17 (while inline
   // functions are).
-  // TODO(altimin): Use inline variable instead after adopting C++17.  
+  // TODO(altimin): Use inline variable instead after adopting C++17.
   static constexpr FieldMetadata_Overridable kOverridable() { return {}; }
   void set_overridable(bool value) {
     static constexpr uint32_t field_id = FieldMetadata_Overridable::kFieldId;
@@ -385,6 +439,8 @@ class MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode : public ::protozero::Mes
     kSizeBytesFieldNumber = 4,
     kEntriesFieldNumber = 5,
   };
+  static constexpr const char* GetName() { return ".perfetto.protos.MemoryTrackerSnapshot.ProcessSnapshot.MemoryNode"; }
+
   using MemoryNodeEntry = ::perfetto::protos::pbzero::MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode_MemoryNodeEntry;
 
   using FieldMetadata_Id =
@@ -401,7 +457,7 @@ class MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode : public ::protozero::Mes
   // It is declared as a function to keep protozero bindings header-only as
   // inline constexpr variables are not available until C++17 (while inline
   // functions are).
-  // TODO(altimin): Use inline variable instead after adopting C++17.  
+  // TODO(altimin): Use inline variable instead after adopting C++17.
   static constexpr FieldMetadata_Id kId() { return {}; }
   void set_id(uint64_t value) {
     static constexpr uint32_t field_id = FieldMetadata_Id::kFieldId;
@@ -426,10 +482,13 @@ class MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode : public ::protozero::Mes
   // It is declared as a function to keep protozero bindings header-only as
   // inline constexpr variables are not available until C++17 (while inline
   // functions are).
-  // TODO(altimin): Use inline variable instead after adopting C++17.  
+  // TODO(altimin): Use inline variable instead after adopting C++17.
   static constexpr FieldMetadata_AbsoluteName kAbsoluteName() { return {}; }
   void set_absolute_name(const char* data, size_t size) {
     AppendBytes(FieldMetadata_AbsoluteName::kFieldId, data, size);
+  }
+  void set_absolute_name(::protozero::ConstChars chars) {
+    AppendBytes(FieldMetadata_AbsoluteName::kFieldId, chars.data, chars.size);
   }
   void set_absolute_name(std::string value) {
     static constexpr uint32_t field_id = FieldMetadata_AbsoluteName::kFieldId;
@@ -454,7 +513,7 @@ class MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode : public ::protozero::Mes
   // It is declared as a function to keep protozero bindings header-only as
   // inline constexpr variables are not available until C++17 (while inline
   // functions are).
-  // TODO(altimin): Use inline variable instead after adopting C++17.  
+  // TODO(altimin): Use inline variable instead after adopting C++17.
   static constexpr FieldMetadata_Weak kWeak() { return {}; }
   void set_weak(bool value) {
     static constexpr uint32_t field_id = FieldMetadata_Weak::kFieldId;
@@ -479,7 +538,7 @@ class MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode : public ::protozero::Mes
   // It is declared as a function to keep protozero bindings header-only as
   // inline constexpr variables are not available until C++17 (while inline
   // functions are).
-  // TODO(altimin): Use inline variable instead after adopting C++17.  
+  // TODO(altimin): Use inline variable instead after adopting C++17.
   static constexpr FieldMetadata_SizeBytes kSizeBytes() { return {}; }
   void set_size_bytes(uint64_t value) {
     static constexpr uint32_t field_id = FieldMetadata_SizeBytes::kFieldId;
@@ -504,7 +563,7 @@ class MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode : public ::protozero::Mes
   // It is declared as a function to keep protozero bindings header-only as
   // inline constexpr variables are not available until C++17 (while inline
   // functions are).
-  // TODO(altimin): Use inline variable instead after adopting C++17.  
+  // TODO(altimin): Use inline variable instead after adopting C++17.
   static constexpr FieldMetadata_Entries kEntries() { return {}; }
   template <typename T = MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode_MemoryNodeEntry> T* add_entries() {
     return BeginNestedMessage<T>(5);
@@ -536,10 +595,16 @@ class MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode_MemoryNodeEntry : public 
     kValueUint64FieldNumber = 3,
     kValueStringFieldNumber = 4,
   };
+  static constexpr const char* GetName() { return ".perfetto.protos.MemoryTrackerSnapshot.ProcessSnapshot.MemoryNode.MemoryNodeEntry"; }
+
+
   using Units = ::perfetto::protos::pbzero::MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode_MemoryNodeEntry_Units;
-  static const Units UNSPECIFIED = MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode_MemoryNodeEntry_Units_UNSPECIFIED;
-  static const Units BYTES = MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode_MemoryNodeEntry_Units_BYTES;
-  static const Units COUNT = MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode_MemoryNodeEntry_Units_COUNT;
+  static inline const char* Units_Name(Units value) {
+    return ::perfetto::protos::pbzero::MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode_MemoryNodeEntry_Units_Name(value);
+  }
+  static const Units UNSPECIFIED = Units::UNSPECIFIED;
+  static const Units BYTES = Units::BYTES;
+  static const Units COUNT = Units::COUNT;
 
   using FieldMetadata_Name =
     ::protozero::proto_utils::FieldMetadata<
@@ -555,10 +620,13 @@ class MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode_MemoryNodeEntry : public 
   // It is declared as a function to keep protozero bindings header-only as
   // inline constexpr variables are not available until C++17 (while inline
   // functions are).
-  // TODO(altimin): Use inline variable instead after adopting C++17.  
+  // TODO(altimin): Use inline variable instead after adopting C++17.
   static constexpr FieldMetadata_Name kName() { return {}; }
   void set_name(const char* data, size_t size) {
     AppendBytes(FieldMetadata_Name::kFieldId, data, size);
+  }
+  void set_name(::protozero::ConstChars chars) {
+    AppendBytes(FieldMetadata_Name::kFieldId, chars.data, chars.size);
   }
   void set_name(std::string value) {
     static constexpr uint32_t field_id = FieldMetadata_Name::kFieldId;
@@ -583,7 +651,7 @@ class MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode_MemoryNodeEntry : public 
   // It is declared as a function to keep protozero bindings header-only as
   // inline constexpr variables are not available until C++17 (while inline
   // functions are).
-  // TODO(altimin): Use inline variable instead after adopting C++17.  
+  // TODO(altimin): Use inline variable instead after adopting C++17.
   static constexpr FieldMetadata_Units kUnits() { return {}; }
   void set_units(::perfetto::protos::pbzero::MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode_MemoryNodeEntry_Units value) {
     static constexpr uint32_t field_id = FieldMetadata_Units::kFieldId;
@@ -608,7 +676,7 @@ class MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode_MemoryNodeEntry : public 
   // It is declared as a function to keep protozero bindings header-only as
   // inline constexpr variables are not available until C++17 (while inline
   // functions are).
-  // TODO(altimin): Use inline variable instead after adopting C++17.  
+  // TODO(altimin): Use inline variable instead after adopting C++17.
   static constexpr FieldMetadata_ValueUint64 kValueUint64() { return {}; }
   void set_value_uint64(uint64_t value) {
     static constexpr uint32_t field_id = FieldMetadata_ValueUint64::kFieldId;
@@ -633,10 +701,13 @@ class MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode_MemoryNodeEntry : public 
   // It is declared as a function to keep protozero bindings header-only as
   // inline constexpr variables are not available until C++17 (while inline
   // functions are).
-  // TODO(altimin): Use inline variable instead after adopting C++17.  
+  // TODO(altimin): Use inline variable instead after adopting C++17.
   static constexpr FieldMetadata_ValueString kValueString() { return {}; }
   void set_value_string(const char* data, size_t size) {
     AppendBytes(FieldMetadata_ValueString::kFieldId, data, size);
+  }
+  void set_value_string(::protozero::ConstChars chars) {
+    AppendBytes(FieldMetadata_ValueString::kFieldId, chars.data, chars.size);
   }
   void set_value_string(std::string value) {
     static constexpr uint32_t field_id = FieldMetadata_ValueString::kFieldId;

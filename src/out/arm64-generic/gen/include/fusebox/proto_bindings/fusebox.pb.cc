@@ -17,7 +17,8 @@ namespace fusebox {
 constexpr DirEntryProto::DirEntryProto(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , is_directory_(false){}
+  , is_directory_(false)
+  , mode_bits_(0u){}
 struct DirEntryProtoDefaultTypeInternal {
   constexpr DirEntryProtoDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -53,6 +54,9 @@ class DirEntryProto::_Internal {
   static void set_has_name(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
+  static void set_has_mode_bits(HasBits* has_bits) {
+    (*has_bits)[0] |= 4u;
+  }
 };
 
 DirEntryProto::DirEntryProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -76,7 +80,9 @@ DirEntryProto::DirEntryProto(const DirEntryProto& from)
     name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_name(), 
       GetArenaForAllocation());
   }
-  is_directory_ = from.is_directory_;
+  ::memcpy(&is_directory_, &from.is_directory_,
+    static_cast<size_t>(reinterpret_cast<char*>(&mode_bits_) -
+    reinterpret_cast<char*>(&is_directory_)) + sizeof(mode_bits_));
   // @@protoc_insertion_point(copy_constructor:fusebox.DirEntryProto)
 }
 
@@ -85,7 +91,10 @@ name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlready
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-is_directory_ = false;
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&is_directory_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&mode_bits_) -
+    reinterpret_cast<char*>(&is_directory_)) + sizeof(mode_bits_));
 }
 
 DirEntryProto::~DirEntryProto() {
@@ -120,7 +129,11 @@ void DirEntryProto::Clear() {
   if (cached_has_bits & 0x00000001u) {
     name_.ClearNonDefaultToEmpty();
   }
-  is_directory_ = false;
+  if (cached_has_bits & 0x00000006u) {
+    ::memset(&is_directory_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&mode_bits_) -
+        reinterpret_cast<char*>(&is_directory_)) + sizeof(mode_bits_));
+  }
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
@@ -146,6 +159,15 @@ const char* DirEntryProto::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_name();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional uint32 mode_bits = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+          _Internal::set_has_mode_bits(&has_bits);
+          mode_bits_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -193,6 +215,12 @@ uint8_t* DirEntryProto::_InternalSerialize(
         2, this->_internal_name(), target);
   }
 
+  // optional uint32 mode_bits = 3;
+  if (cached_has_bits & 0x00000004u) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(3, this->_internal_mode_bits(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -210,7 +238,7 @@ size_t DirEntryProto::ByteSizeLong() const {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
+  if (cached_has_bits & 0x00000007u) {
     // optional string name = 2;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
@@ -221,6 +249,11 @@ size_t DirEntryProto::ByteSizeLong() const {
     // optional bool is_directory = 1;
     if (cached_has_bits & 0x00000002u) {
       total_size += 1 + 1;
+    }
+
+    // optional uint32 mode_bits = 3;
+    if (cached_has_bits & 0x00000004u) {
+      total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32SizePlusOne(this->_internal_mode_bits());
     }
 
   }
@@ -245,12 +278,15 @@ void DirEntryProto::MergeFrom(const DirEntryProto& from) {
   (void) cached_has_bits;
 
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
+  if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
       _internal_set_name(from._internal_name());
     }
     if (cached_has_bits & 0x00000002u) {
       is_directory_ = from.is_directory_;
+    }
+    if (cached_has_bits & 0x00000004u) {
+      mode_bits_ = from.mode_bits_;
     }
     _has_bits_[0] |= cached_has_bits;
   }
@@ -279,7 +315,12 @@ void DirEntryProto::InternalSwap(DirEntryProto* other) {
       &name_, lhs_arena,
       &other->name_, rhs_arena
   );
-  swap(is_directory_, other->is_directory_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(DirEntryProto, mode_bits_)
+      + sizeof(DirEntryProto::mode_bits_)
+      - PROTOBUF_FIELD_OFFSET(DirEntryProto, is_directory_)>(
+          reinterpret_cast<char*>(&is_directory_),
+          reinterpret_cast<char*>(&other->is_directory_));
 }
 
 std::string DirEntryProto::GetTypeName() const {

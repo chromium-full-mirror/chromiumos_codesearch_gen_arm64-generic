@@ -138,6 +138,8 @@ class ContainerListenerFuzzerSingleAction final :
     kRequestSpaceRequest = 53,
     kReleaseSpaceRequest = 54,
     kReportMetricsRequest = 57,
+    kInstallShaderCacheRequest = 62,
+    kUninstallShaderCacheRequest = 63,
     kMetricsConsentRequest = 33,
     kSendCrashReportRequest = 42,
     kSendFailureReportRequest = 46,
@@ -292,6 +294,8 @@ class ContainerListenerFuzzerSingleAction final :
     kRequestSpaceRequestFieldNumber = 53,
     kReleaseSpaceRequestFieldNumber = 54,
     kReportMetricsRequestFieldNumber = 57,
+    kInstallShaderCacheRequestFieldNumber = 62,
+    kUninstallShaderCacheRequestFieldNumber = 63,
     kMetricsConsentRequestFieldNumber = 33,
     kSendCrashReportRequestFieldNumber = 42,
     kSendFailureReportRequestFieldNumber = 46,
@@ -1167,6 +1171,42 @@ class ContainerListenerFuzzerSingleAction final :
       ::vm_tools::container::ReportMetricsRequest* report_metrics_request);
   ::vm_tools::container::ReportMetricsRequest* unsafe_arena_release_report_metrics_request();
 
+  // .vm_tools.container.InstallShaderCacheRequest install_shader_cache_request = 62;
+  bool has_install_shader_cache_request() const;
+  private:
+  bool _internal_has_install_shader_cache_request() const;
+  public:
+  void clear_install_shader_cache_request();
+  const ::vm_tools::container::InstallShaderCacheRequest& install_shader_cache_request() const;
+  PROTOBUF_NODISCARD ::vm_tools::container::InstallShaderCacheRequest* release_install_shader_cache_request();
+  ::vm_tools::container::InstallShaderCacheRequest* mutable_install_shader_cache_request();
+  void set_allocated_install_shader_cache_request(::vm_tools::container::InstallShaderCacheRequest* install_shader_cache_request);
+  private:
+  const ::vm_tools::container::InstallShaderCacheRequest& _internal_install_shader_cache_request() const;
+  ::vm_tools::container::InstallShaderCacheRequest* _internal_mutable_install_shader_cache_request();
+  public:
+  void unsafe_arena_set_allocated_install_shader_cache_request(
+      ::vm_tools::container::InstallShaderCacheRequest* install_shader_cache_request);
+  ::vm_tools::container::InstallShaderCacheRequest* unsafe_arena_release_install_shader_cache_request();
+
+  // .vm_tools.container.UninstallShaderCacheRequest uninstall_shader_cache_request = 63;
+  bool has_uninstall_shader_cache_request() const;
+  private:
+  bool _internal_has_uninstall_shader_cache_request() const;
+  public:
+  void clear_uninstall_shader_cache_request();
+  const ::vm_tools::container::UninstallShaderCacheRequest& uninstall_shader_cache_request() const;
+  PROTOBUF_NODISCARD ::vm_tools::container::UninstallShaderCacheRequest* release_uninstall_shader_cache_request();
+  ::vm_tools::container::UninstallShaderCacheRequest* mutable_uninstall_shader_cache_request();
+  void set_allocated_uninstall_shader_cache_request(::vm_tools::container::UninstallShaderCacheRequest* uninstall_shader_cache_request);
+  private:
+  const ::vm_tools::container::UninstallShaderCacheRequest& _internal_uninstall_shader_cache_request() const;
+  ::vm_tools::container::UninstallShaderCacheRequest* _internal_mutable_uninstall_shader_cache_request();
+  public:
+  void unsafe_arena_set_allocated_uninstall_shader_cache_request(
+      ::vm_tools::container::UninstallShaderCacheRequest* uninstall_shader_cache_request);
+  ::vm_tools::container::UninstallShaderCacheRequest* unsafe_arena_release_uninstall_shader_cache_request();
+
   // .vm_tools.EmptyMessage metrics_consent_request = 33;
   bool has_metrics_consent_request() const;
   private:
@@ -1442,6 +1482,8 @@ class ContainerListenerFuzzerSingleAction final :
   void set_has_request_space_request();
   void set_has_release_space_request();
   void set_has_report_metrics_request();
+  void set_has_install_shader_cache_request();
+  void set_has_uninstall_shader_cache_request();
   void set_has_metrics_consent_request();
   void set_has_send_crash_report_request();
   void set_has_send_failure_report_request();
@@ -1524,6 +1566,8 @@ class ContainerListenerFuzzerSingleAction final :
     ::vm_tools::container::RequestSpaceRequest* request_space_request_;
     ::vm_tools::container::ReleaseSpaceRequest* release_space_request_;
     ::vm_tools::container::ReportMetricsRequest* report_metrics_request_;
+    ::vm_tools::container::InstallShaderCacheRequest* install_shader_cache_request_;
+    ::vm_tools::container::UninstallShaderCacheRequest* uninstall_shader_cache_request_;
     ::vm_tools::EmptyMessage* metrics_consent_request_;
     ::vm_tools::cicerone::CrashReport* send_crash_report_request_;
     ::vm_tools::cicerone::FailureReport* send_failure_report_request_;
@@ -2895,6 +2939,138 @@ inline ::vm_tools::container::ReportMetricsRequest* ContainerListenerFuzzerSingl
 inline ::vm_tools::container::ReportMetricsRequest* ContainerListenerFuzzerSingleAction::mutable_report_metrics_request() {
   ::vm_tools::container::ReportMetricsRequest* _msg = _internal_mutable_report_metrics_request();
   // @@protoc_insertion_point(field_mutable:vm_tools.container.ContainerListenerFuzzerSingleAction.report_metrics_request)
+  return _msg;
+}
+
+// .vm_tools.container.InstallShaderCacheRequest install_shader_cache_request = 62;
+inline bool ContainerListenerFuzzerSingleAction::_internal_has_install_shader_cache_request() const {
+  return input_case() == kInstallShaderCacheRequest;
+}
+inline bool ContainerListenerFuzzerSingleAction::has_install_shader_cache_request() const {
+  return _internal_has_install_shader_cache_request();
+}
+inline void ContainerListenerFuzzerSingleAction::set_has_install_shader_cache_request() {
+  _oneof_case_[0] = kInstallShaderCacheRequest;
+}
+inline ::vm_tools::container::InstallShaderCacheRequest* ContainerListenerFuzzerSingleAction::release_install_shader_cache_request() {
+  // @@protoc_insertion_point(field_release:vm_tools.container.ContainerListenerFuzzerSingleAction.install_shader_cache_request)
+  if (_internal_has_install_shader_cache_request()) {
+    clear_has_input();
+      ::vm_tools::container::InstallShaderCacheRequest* temp = input_.install_shader_cache_request_;
+    if (GetArenaForAllocation() != nullptr) {
+      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+    }
+    input_.install_shader_cache_request_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline const ::vm_tools::container::InstallShaderCacheRequest& ContainerListenerFuzzerSingleAction::_internal_install_shader_cache_request() const {
+  return _internal_has_install_shader_cache_request()
+      ? *input_.install_shader_cache_request_
+      : reinterpret_cast< ::vm_tools::container::InstallShaderCacheRequest&>(::vm_tools::container::_InstallShaderCacheRequest_default_instance_);
+}
+inline const ::vm_tools::container::InstallShaderCacheRequest& ContainerListenerFuzzerSingleAction::install_shader_cache_request() const {
+  // @@protoc_insertion_point(field_get:vm_tools.container.ContainerListenerFuzzerSingleAction.install_shader_cache_request)
+  return _internal_install_shader_cache_request();
+}
+inline ::vm_tools::container::InstallShaderCacheRequest* ContainerListenerFuzzerSingleAction::unsafe_arena_release_install_shader_cache_request() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:vm_tools.container.ContainerListenerFuzzerSingleAction.install_shader_cache_request)
+  if (_internal_has_install_shader_cache_request()) {
+    clear_has_input();
+    ::vm_tools::container::InstallShaderCacheRequest* temp = input_.install_shader_cache_request_;
+    input_.install_shader_cache_request_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline void ContainerListenerFuzzerSingleAction::unsafe_arena_set_allocated_install_shader_cache_request(::vm_tools::container::InstallShaderCacheRequest* install_shader_cache_request) {
+  clear_input();
+  if (install_shader_cache_request) {
+    set_has_install_shader_cache_request();
+    input_.install_shader_cache_request_ = install_shader_cache_request;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:vm_tools.container.ContainerListenerFuzzerSingleAction.install_shader_cache_request)
+}
+inline ::vm_tools::container::InstallShaderCacheRequest* ContainerListenerFuzzerSingleAction::_internal_mutable_install_shader_cache_request() {
+  if (!_internal_has_install_shader_cache_request()) {
+    clear_input();
+    set_has_install_shader_cache_request();
+    input_.install_shader_cache_request_ = CreateMaybeMessage< ::vm_tools::container::InstallShaderCacheRequest >(GetArenaForAllocation());
+  }
+  return input_.install_shader_cache_request_;
+}
+inline ::vm_tools::container::InstallShaderCacheRequest* ContainerListenerFuzzerSingleAction::mutable_install_shader_cache_request() {
+  ::vm_tools::container::InstallShaderCacheRequest* _msg = _internal_mutable_install_shader_cache_request();
+  // @@protoc_insertion_point(field_mutable:vm_tools.container.ContainerListenerFuzzerSingleAction.install_shader_cache_request)
+  return _msg;
+}
+
+// .vm_tools.container.UninstallShaderCacheRequest uninstall_shader_cache_request = 63;
+inline bool ContainerListenerFuzzerSingleAction::_internal_has_uninstall_shader_cache_request() const {
+  return input_case() == kUninstallShaderCacheRequest;
+}
+inline bool ContainerListenerFuzzerSingleAction::has_uninstall_shader_cache_request() const {
+  return _internal_has_uninstall_shader_cache_request();
+}
+inline void ContainerListenerFuzzerSingleAction::set_has_uninstall_shader_cache_request() {
+  _oneof_case_[0] = kUninstallShaderCacheRequest;
+}
+inline ::vm_tools::container::UninstallShaderCacheRequest* ContainerListenerFuzzerSingleAction::release_uninstall_shader_cache_request() {
+  // @@protoc_insertion_point(field_release:vm_tools.container.ContainerListenerFuzzerSingleAction.uninstall_shader_cache_request)
+  if (_internal_has_uninstall_shader_cache_request()) {
+    clear_has_input();
+      ::vm_tools::container::UninstallShaderCacheRequest* temp = input_.uninstall_shader_cache_request_;
+    if (GetArenaForAllocation() != nullptr) {
+      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+    }
+    input_.uninstall_shader_cache_request_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline const ::vm_tools::container::UninstallShaderCacheRequest& ContainerListenerFuzzerSingleAction::_internal_uninstall_shader_cache_request() const {
+  return _internal_has_uninstall_shader_cache_request()
+      ? *input_.uninstall_shader_cache_request_
+      : reinterpret_cast< ::vm_tools::container::UninstallShaderCacheRequest&>(::vm_tools::container::_UninstallShaderCacheRequest_default_instance_);
+}
+inline const ::vm_tools::container::UninstallShaderCacheRequest& ContainerListenerFuzzerSingleAction::uninstall_shader_cache_request() const {
+  // @@protoc_insertion_point(field_get:vm_tools.container.ContainerListenerFuzzerSingleAction.uninstall_shader_cache_request)
+  return _internal_uninstall_shader_cache_request();
+}
+inline ::vm_tools::container::UninstallShaderCacheRequest* ContainerListenerFuzzerSingleAction::unsafe_arena_release_uninstall_shader_cache_request() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:vm_tools.container.ContainerListenerFuzzerSingleAction.uninstall_shader_cache_request)
+  if (_internal_has_uninstall_shader_cache_request()) {
+    clear_has_input();
+    ::vm_tools::container::UninstallShaderCacheRequest* temp = input_.uninstall_shader_cache_request_;
+    input_.uninstall_shader_cache_request_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline void ContainerListenerFuzzerSingleAction::unsafe_arena_set_allocated_uninstall_shader_cache_request(::vm_tools::container::UninstallShaderCacheRequest* uninstall_shader_cache_request) {
+  clear_input();
+  if (uninstall_shader_cache_request) {
+    set_has_uninstall_shader_cache_request();
+    input_.uninstall_shader_cache_request_ = uninstall_shader_cache_request;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:vm_tools.container.ContainerListenerFuzzerSingleAction.uninstall_shader_cache_request)
+}
+inline ::vm_tools::container::UninstallShaderCacheRequest* ContainerListenerFuzzerSingleAction::_internal_mutable_uninstall_shader_cache_request() {
+  if (!_internal_has_uninstall_shader_cache_request()) {
+    clear_input();
+    set_has_uninstall_shader_cache_request();
+    input_.uninstall_shader_cache_request_ = CreateMaybeMessage< ::vm_tools::container::UninstallShaderCacheRequest >(GetArenaForAllocation());
+  }
+  return input_.uninstall_shader_cache_request_;
+}
+inline ::vm_tools::container::UninstallShaderCacheRequest* ContainerListenerFuzzerSingleAction::mutable_uninstall_shader_cache_request() {
+  ::vm_tools::container::UninstallShaderCacheRequest* _msg = _internal_mutable_uninstall_shader_cache_request();
+  // @@protoc_insertion_point(field_mutable:vm_tools.container.ContainerListenerFuzzerSingleAction.uninstall_shader_cache_request)
   return _msg;
 }
 

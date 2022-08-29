@@ -32,6 +32,8 @@ class TaskExecution : public ::protozero::Message {
   enum : int32_t {
     kPostedFromIidFieldNumber = 1,
   };
+  static constexpr const char* GetName() { return ".perfetto.protos.TaskExecution"; }
+
 
   using FieldMetadata_PostedFromIid =
     ::protozero::proto_utils::FieldMetadata<
@@ -47,7 +49,7 @@ class TaskExecution : public ::protozero::Message {
   // It is declared as a function to keep protozero bindings header-only as
   // inline constexpr variables are not available until C++17 (while inline
   // functions are).
-  // TODO(altimin): Use inline variable instead after adopting C++17.  
+  // TODO(altimin): Use inline variable instead after adopting C++17.
   static constexpr FieldMetadata_PostedFromIid kPostedFromIid() { return {}; }
   void set_posted_from_iid(uint64_t value) {
     static constexpr uint32_t field_id = FieldMetadata_PostedFromIid::kFieldId;

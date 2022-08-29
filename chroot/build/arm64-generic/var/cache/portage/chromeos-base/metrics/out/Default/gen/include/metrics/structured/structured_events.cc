@@ -518,6 +518,24 @@ ModemFwdFwInstallResult& ModemFwdFwInstallResult::Setfw_install_result(const int
   return *this;
 }
 
+HermesOp::HermesOp() :
+  ::metrics::structured::EventBase(kEventNameHash, kProjectNameHash, kIdType, kEventType) {}
+HermesOp::~HermesOp() = default;
+HermesOp& HermesOp::SetOperation(const int64_t value) {
+  AddIntMetric(kOperationNameHash, value);
+  return *this;
+}
+
+HermesOp& HermesOp::SetResult(const int64_t value) {
+  AddIntMetric(kResultNameHash, value);
+  return *this;
+}
+
+HermesOp& HermesOp::Sethome_mccmnc(const int64_t value) {
+  AddIntMetric(khome_mccmncNameHash, value);
+  return *this;
+}
+
 }  // namespace cellular
 
 namespace rmad {

@@ -43,6 +43,8 @@ static NOINLINE const char* EcEvent_ReasonToStringHelper(EcEvent_Reason value) {
       return "kSysNotification";
     case EcEvent_Reason::kNonSysNotification:
       return "kNonSysNotification";
+    case EcEvent_Reason::kUnmappedEnumField:
+      return "kUnmappedEnumField";
     default:
       return nullptr;
   }
@@ -63,6 +65,8 @@ std::ostream& operator<<(std::ostream& os, EcEvent_Reason value) {
 static NOINLINE const char* EcEvent_TypeToStringHelper(EcEvent_Type value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
+    case EcEvent_Type::kUnmappedEnumField:
+      return "kUnmappedEnumField";
     case EcEvent_Type::kSystemNotify:
       return "kSystemNotify";
     default:

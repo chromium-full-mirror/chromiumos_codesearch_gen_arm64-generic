@@ -52,6 +52,8 @@ extern const char kDeviceName[];
 
 extern const char kSysPath[];
 
+extern const char kDevlink[];
+
 extern const char kLocationBase[];
 
 extern const char kLocationLid[];

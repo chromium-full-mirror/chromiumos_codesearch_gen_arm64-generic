@@ -111,6 +111,8 @@ static NOINLINE const char* DiskReadRoutineTypeEnumToStringHelper(DiskReadRoutin
       return "kLinearRead";
     case DiskReadRoutineTypeEnum::kRandomRead:
       return "kRandomRead";
+    case DiskReadRoutineTypeEnum::kUnmappedEnumField:
+      return "kUnmappedEnumField";
     default:
       return nullptr;
   }

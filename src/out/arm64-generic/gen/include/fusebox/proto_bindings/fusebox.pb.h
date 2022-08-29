@@ -181,6 +181,7 @@ class DirEntryProto final :
   enum : int {
     kNameFieldNumber = 2,
     kIsDirectoryFieldNumber = 1,
+    kModeBitsFieldNumber = 3,
   };
   // optional string name = 2;
   bool has_name() const;
@@ -213,6 +214,19 @@ class DirEntryProto final :
   void _internal_set_is_directory(bool value);
   public:
 
+  // optional uint32 mode_bits = 3;
+  bool has_mode_bits() const;
+  private:
+  bool _internal_has_mode_bits() const;
+  public:
+  void clear_mode_bits();
+  uint32_t mode_bits() const;
+  void set_mode_bits(uint32_t value);
+  private:
+  uint32_t _internal_mode_bits() const;
+  void _internal_set_mode_bits(uint32_t value);
+  public:
+
   // @@protoc_insertion_point(class_scope:fusebox.DirEntryProto)
  private:
   class _Internal;
@@ -224,6 +238,7 @@ class DirEntryProto final :
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
   bool is_directory_;
+  uint32_t mode_bits_;
   friend struct ::TableStruct_fusebox_2eproto;
 };
 // -------------------------------------------------------------------
@@ -478,6 +493,34 @@ inline void DirEntryProto::set_allocated_name(std::string* name) {
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   // @@protoc_insertion_point(field_set_allocated:fusebox.DirEntryProto.name)
+}
+
+// optional uint32 mode_bits = 3;
+inline bool DirEntryProto::_internal_has_mode_bits() const {
+  bool value = (_has_bits_[0] & 0x00000004u) != 0;
+  return value;
+}
+inline bool DirEntryProto::has_mode_bits() const {
+  return _internal_has_mode_bits();
+}
+inline void DirEntryProto::clear_mode_bits() {
+  mode_bits_ = 0u;
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline uint32_t DirEntryProto::_internal_mode_bits() const {
+  return mode_bits_;
+}
+inline uint32_t DirEntryProto::mode_bits() const {
+  // @@protoc_insertion_point(field_get:fusebox.DirEntryProto.mode_bits)
+  return _internal_mode_bits();
+}
+inline void DirEntryProto::_internal_set_mode_bits(uint32_t value) {
+  _has_bits_[0] |= 0x00000004u;
+  mode_bits_ = value;
+}
+inline void DirEntryProto::set_mode_bits(uint32_t value) {
+  _internal_set_mode_bits(value);
+  // @@protoc_insertion_point(field_set:fusebox.DirEntryProto.mode_bits)
 }
 
 // -------------------------------------------------------------------

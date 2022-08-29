@@ -53,6 +53,7 @@ const char kLocation[] = "location";
 const char kLabel[] = "label";
 const char kDeviceName[] = "name";
 const char kSysPath[] = "syspath";
+const char kDevlink[] = "devlink";
 const char kLocationBase[] = "base";
 const char kLocationLid[] = "lid";
 const char kLocationCamera[] = "camera";

@@ -1874,6 +1874,7 @@ class AttestationCertificateRequest final :
     kCertifiedKeyProofFieldNumber = 5,
     kMessageIdFieldNumber = 10,
     kOriginFieldNumber = 12,
+    kAttestedDeviceIdFieldNumber = 17,
     kProfileFieldNumber = 11,
     kTemporalIndexFieldNumber = 13,
     kTpmVersionFieldNumber = 14,
@@ -2004,6 +2005,24 @@ class AttestationCertificateRequest final :
   std::string* _internal_mutable_origin();
   public:
 
+  // optional bytes attested_device_id = 17;
+  bool has_attested_device_id() const;
+  private:
+  bool _internal_has_attested_device_id() const;
+  public:
+  void clear_attested_device_id();
+  const std::string& attested_device_id() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_attested_device_id(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_attested_device_id();
+  PROTOBUF_NODISCARD std::string* release_attested_device_id();
+  void set_allocated_attested_device_id(std::string* attested_device_id);
+  private:
+  const std::string& _internal_attested_device_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_attested_device_id(const std::string& value);
+  std::string* _internal_mutable_attested_device_id();
+  public:
+
   // optional .attestation.CertificateProfile profile = 11;
   bool has_profile() const;
   private:
@@ -2087,6 +2106,7 @@ class AttestationCertificateRequest final :
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr certified_key_proof_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr message_id_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr origin_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr attested_device_id_;
   int profile_;
   int32_t temporal_index_;
   int tpm_version_;
@@ -6578,7 +6598,7 @@ inline void AttestationCertificateRequest::set_allocated_message_id(std::string*
 
 // optional .attestation.CertificateProfile profile = 11;
 inline bool AttestationCertificateRequest::_internal_has_profile() const {
-  bool value = (_has_bits_[0] & 0x00000040u) != 0;
+  bool value = (_has_bits_[0] & 0x00000080u) != 0;
   return value;
 }
 inline bool AttestationCertificateRequest::has_profile() const {
@@ -6586,7 +6606,7 @@ inline bool AttestationCertificateRequest::has_profile() const {
 }
 inline void AttestationCertificateRequest::clear_profile() {
   profile_ = 0;
-  _has_bits_[0] &= ~0x00000040u;
+  _has_bits_[0] &= ~0x00000080u;
 }
 inline ::attestation::CertificateProfile AttestationCertificateRequest::_internal_profile() const {
   return static_cast< ::attestation::CertificateProfile >(profile_);
@@ -6597,7 +6617,7 @@ inline ::attestation::CertificateProfile AttestationCertificateRequest::profile(
 }
 inline void AttestationCertificateRequest::_internal_set_profile(::attestation::CertificateProfile value) {
   assert(::attestation::CertificateProfile_IsValid(value));
-  _has_bits_[0] |= 0x00000040u;
+  _has_bits_[0] |= 0x00000080u;
   profile_ = value;
 }
 inline void AttestationCertificateRequest::set_profile(::attestation::CertificateProfile value) {
@@ -6676,7 +6696,7 @@ inline void AttestationCertificateRequest::set_allocated_origin(std::string* ori
 
 // optional int32 temporal_index = 13;
 inline bool AttestationCertificateRequest::_internal_has_temporal_index() const {
-  bool value = (_has_bits_[0] & 0x00000080u) != 0;
+  bool value = (_has_bits_[0] & 0x00000100u) != 0;
   return value;
 }
 inline bool AttestationCertificateRequest::has_temporal_index() const {
@@ -6684,7 +6704,7 @@ inline bool AttestationCertificateRequest::has_temporal_index() const {
 }
 inline void AttestationCertificateRequest::clear_temporal_index() {
   temporal_index_ = 0;
-  _has_bits_[0] &= ~0x00000080u;
+  _has_bits_[0] &= ~0x00000100u;
 }
 inline int32_t AttestationCertificateRequest::_internal_temporal_index() const {
   return temporal_index_;
@@ -6694,7 +6714,7 @@ inline int32_t AttestationCertificateRequest::temporal_index() const {
   return _internal_temporal_index();
 }
 inline void AttestationCertificateRequest::_internal_set_temporal_index(int32_t value) {
-  _has_bits_[0] |= 0x00000080u;
+  _has_bits_[0] |= 0x00000100u;
   temporal_index_ = value;
 }
 inline void AttestationCertificateRequest::set_temporal_index(int32_t value) {
@@ -6704,7 +6724,7 @@ inline void AttestationCertificateRequest::set_temporal_index(int32_t value) {
 
 // optional .attestation.TpmVersion tpm_version = 14;
 inline bool AttestationCertificateRequest::_internal_has_tpm_version() const {
-  bool value = (_has_bits_[0] & 0x00000100u) != 0;
+  bool value = (_has_bits_[0] & 0x00000200u) != 0;
   return value;
 }
 inline bool AttestationCertificateRequest::has_tpm_version() const {
@@ -6712,7 +6732,7 @@ inline bool AttestationCertificateRequest::has_tpm_version() const {
 }
 inline void AttestationCertificateRequest::clear_tpm_version() {
   tpm_version_ = 1;
-  _has_bits_[0] &= ~0x00000100u;
+  _has_bits_[0] &= ~0x00000200u;
 }
 inline ::attestation::TpmVersion AttestationCertificateRequest::_internal_tpm_version() const {
   return static_cast< ::attestation::TpmVersion >(tpm_version_);
@@ -6723,7 +6743,7 @@ inline ::attestation::TpmVersion AttestationCertificateRequest::tpm_version() co
 }
 inline void AttestationCertificateRequest::_internal_set_tpm_version(::attestation::TpmVersion value) {
   assert(::attestation::TpmVersion_IsValid(value));
-  _has_bits_[0] |= 0x00000100u;
+  _has_bits_[0] |= 0x00000200u;
   tpm_version_ = value;
 }
 inline void AttestationCertificateRequest::set_tpm_version(::attestation::TpmVersion value) {
@@ -6832,6 +6852,75 @@ inline ::attestation::DeviceSetupCertificateMetadata* AttestationCertificateRequ
   ::attestation::DeviceSetupCertificateMetadata* _msg = _internal_mutable_device_setup_certificate_metadata();
   // @@protoc_insertion_point(field_mutable:attestation.AttestationCertificateRequest.device_setup_certificate_metadata)
   return _msg;
+}
+
+// optional bytes attested_device_id = 17;
+inline bool AttestationCertificateRequest::_internal_has_attested_device_id() const {
+  bool value = (_has_bits_[0] & 0x00000040u) != 0;
+  return value;
+}
+inline bool AttestationCertificateRequest::has_attested_device_id() const {
+  return _internal_has_attested_device_id();
+}
+inline void AttestationCertificateRequest::clear_attested_device_id() {
+  attested_device_id_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000040u;
+}
+inline const std::string& AttestationCertificateRequest::attested_device_id() const {
+  // @@protoc_insertion_point(field_get:attestation.AttestationCertificateRequest.attested_device_id)
+  return _internal_attested_device_id();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void AttestationCertificateRequest::set_attested_device_id(ArgT0&& arg0, ArgT... args) {
+ _has_bits_[0] |= 0x00000040u;
+ attested_device_id_.SetBytes(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:attestation.AttestationCertificateRequest.attested_device_id)
+}
+inline std::string* AttestationCertificateRequest::mutable_attested_device_id() {
+  std::string* _s = _internal_mutable_attested_device_id();
+  // @@protoc_insertion_point(field_mutable:attestation.AttestationCertificateRequest.attested_device_id)
+  return _s;
+}
+inline const std::string& AttestationCertificateRequest::_internal_attested_device_id() const {
+  return attested_device_id_.Get();
+}
+inline void AttestationCertificateRequest::_internal_set_attested_device_id(const std::string& value) {
+  _has_bits_[0] |= 0x00000040u;
+  attested_device_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* AttestationCertificateRequest::_internal_mutable_attested_device_id() {
+  _has_bits_[0] |= 0x00000040u;
+  return attested_device_id_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* AttestationCertificateRequest::release_attested_device_id() {
+  // @@protoc_insertion_point(field_release:attestation.AttestationCertificateRequest.attested_device_id)
+  if (!_internal_has_attested_device_id()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000040u;
+  auto* p = attested_device_id_.ReleaseNonDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (attested_device_id_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    attested_device_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void AttestationCertificateRequest::set_allocated_attested_device_id(std::string* attested_device_id) {
+  if (attested_device_id != nullptr) {
+    _has_bits_[0] |= 0x00000040u;
+  } else {
+    _has_bits_[0] &= ~0x00000040u;
+  }
+  attested_device_id_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), attested_device_id,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (attested_device_id_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    attested_device_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:attestation.AttestationCertificateRequest.attested_device_id)
 }
 
 inline bool AttestationCertificateRequest::has_metadata() const {

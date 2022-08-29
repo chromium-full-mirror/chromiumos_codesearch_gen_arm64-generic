@@ -21,6 +21,8 @@ namespace container {
 constexpr LaunchApplicationRequest::LaunchApplicationRequest(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : files_()
+  , container_features_()
+  , _container_features_cached_byte_size_(0)
   , desktop_file_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
   , display_scaling_(0)
 {}
@@ -89,7 +91,9 @@ struct IconResponseDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT IconResponseDefaultTypeInternal _IconResponse_default_instance_;
 constexpr LaunchVshdRequest::LaunchVshdRequest(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : port_(0u){}
+  : container_features_()
+  , _container_features_cached_byte_size_(0)
+  , port_(0u){}
 struct LaunchVshdRequestDefaultTypeInternal {
   constexpr LaunchVshdRequestDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -381,7 +385,7 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT GetGarconSessionInfoResponseDef
 }  // namespace container
 }  // namespace vm_tools
 static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_container_5fguest_2eproto[27];
-static const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* file_level_enum_descriptors_container_5fguest_2eproto[9];
+static const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* file_level_enum_descriptors_container_5fguest_2eproto[10];
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_container_5fguest_2eproto = nullptr;
 
 const uint32_t TableStruct_container_5fguest_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
@@ -394,6 +398,7 @@ const uint32_t TableStruct_container_5fguest_2eproto::offsets[] PROTOBUF_SECTION
   PROTOBUF_FIELD_OFFSET(::vm_tools::container::LaunchApplicationRequest, desktop_file_id_),
   PROTOBUF_FIELD_OFFSET(::vm_tools::container::LaunchApplicationRequest, files_),
   PROTOBUF_FIELD_OFFSET(::vm_tools::container::LaunchApplicationRequest, display_scaling_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::LaunchApplicationRequest, container_features_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::vm_tools::container::LaunchApplicationResponse, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -434,6 +439,7 @@ const uint32_t TableStruct_container_5fguest_2eproto::offsets[] PROTOBUF_SECTION
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::vm_tools::container::LaunchVshdRequest, port_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::LaunchVshdRequest, container_features_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::vm_tools::container::LaunchVshdResponse, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -604,32 +610,32 @@ const uint32_t TableStruct_container_5fguest_2eproto::offsets[] PROTOBUF_SECTION
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, -1, sizeof(::vm_tools::container::LaunchApplicationRequest)},
-  { 9, -1, -1, sizeof(::vm_tools::container::LaunchApplicationResponse)},
-  { 17, -1, -1, sizeof(::vm_tools::container::IconRequest)},
-  { 26, -1, -1, sizeof(::vm_tools::container::DesktopIcon)},
-  { 35, -1, -1, sizeof(::vm_tools::container::IconResponse)},
-  { 42, -1, -1, sizeof(::vm_tools::container::LaunchVshdRequest)},
-  { 49, -1, -1, sizeof(::vm_tools::container::LaunchVshdResponse)},
-  { 57, -1, -1, sizeof(::vm_tools::container::LinuxPackageInfoRequest)},
-  { 65, -1, -1, sizeof(::vm_tools::container::LinuxPackageInfoResponse)},
-  { 79, -1, -1, sizeof(::vm_tools::container::InstallLinuxPackageRequest)},
-  { 88, -1, -1, sizeof(::vm_tools::container::InstallLinuxPackageResponse)},
-  { 96, -1, -1, sizeof(::vm_tools::container::UninstallPackageOwningFileRequest)},
-  { 103, -1, -1, sizeof(::vm_tools::container::UninstallPackageOwningFileResponse)},
-  { 111, -1, -1, sizeof(::vm_tools::container::GetDebugInformationRequest)},
-  { 117, -1, -1, sizeof(::vm_tools::container::GetDebugInformationResponse)},
-  { 124, -1, -1, sizeof(::vm_tools::container::ConnectChunnelRequest)},
-  { 132, -1, -1, sizeof(::vm_tools::container::ConnectChunnelResponse)},
-  { 140, -1, -1, sizeof(::vm_tools::container::ApplyAnsiblePlaybookRequest)},
-  { 147, -1, -1, sizeof(::vm_tools::container::ApplyAnsiblePlaybookResponse)},
-  { 155, -1, -1, sizeof(::vm_tools::container::ConfigureForArcSideloadRequest)},
-  { 161, -1, -1, sizeof(::vm_tools::container::ConfigureForArcSideloadResponse)},
-  { 169, -1, -1, sizeof(::vm_tools::container::AddFileWatchRequest)},
-  { 176, -1, -1, sizeof(::vm_tools::container::AddFileWatchResponse)},
-  { 184, -1, -1, sizeof(::vm_tools::container::RemoveFileWatchRequest)},
-  { 191, -1, -1, sizeof(::vm_tools::container::RemoveFileWatchResponse)},
-  { 199, -1, -1, sizeof(::vm_tools::container::GetGarconSessionInfoRequest)},
-  { 205, -1, -1, sizeof(::vm_tools::container::GetGarconSessionInfoResponse)},
+  { 10, -1, -1, sizeof(::vm_tools::container::LaunchApplicationResponse)},
+  { 18, -1, -1, sizeof(::vm_tools::container::IconRequest)},
+  { 27, -1, -1, sizeof(::vm_tools::container::DesktopIcon)},
+  { 36, -1, -1, sizeof(::vm_tools::container::IconResponse)},
+  { 43, -1, -1, sizeof(::vm_tools::container::LaunchVshdRequest)},
+  { 51, -1, -1, sizeof(::vm_tools::container::LaunchVshdResponse)},
+  { 59, -1, -1, sizeof(::vm_tools::container::LinuxPackageInfoRequest)},
+  { 67, -1, -1, sizeof(::vm_tools::container::LinuxPackageInfoResponse)},
+  { 81, -1, -1, sizeof(::vm_tools::container::InstallLinuxPackageRequest)},
+  { 90, -1, -1, sizeof(::vm_tools::container::InstallLinuxPackageResponse)},
+  { 98, -1, -1, sizeof(::vm_tools::container::UninstallPackageOwningFileRequest)},
+  { 105, -1, -1, sizeof(::vm_tools::container::UninstallPackageOwningFileResponse)},
+  { 113, -1, -1, sizeof(::vm_tools::container::GetDebugInformationRequest)},
+  { 119, -1, -1, sizeof(::vm_tools::container::GetDebugInformationResponse)},
+  { 126, -1, -1, sizeof(::vm_tools::container::ConnectChunnelRequest)},
+  { 134, -1, -1, sizeof(::vm_tools::container::ConnectChunnelResponse)},
+  { 142, -1, -1, sizeof(::vm_tools::container::ApplyAnsiblePlaybookRequest)},
+  { 149, -1, -1, sizeof(::vm_tools::container::ApplyAnsiblePlaybookResponse)},
+  { 157, -1, -1, sizeof(::vm_tools::container::ConfigureForArcSideloadRequest)},
+  { 163, -1, -1, sizeof(::vm_tools::container::ConfigureForArcSideloadResponse)},
+  { 171, -1, -1, sizeof(::vm_tools::container::AddFileWatchRequest)},
+  { 178, -1, -1, sizeof(::vm_tools::container::AddFileWatchResponse)},
+  { 186, -1, -1, sizeof(::vm_tools::container::RemoveFileWatchRequest)},
+  { 193, -1, -1, sizeof(::vm_tools::container::RemoveFileWatchResponse)},
+  { 201, -1, -1, sizeof(::vm_tools::container::GetGarconSessionInfoRequest)},
+  { 207, -1, -1, sizeof(::vm_tools::container::GetGarconSessionInfoResponse)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -664,120 +670,126 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
 
 const char descriptor_table_protodef_container_5fguest_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
   "\n\025container_guest.proto\022\022vm_tools.contai"
-  "ner\"\304\001\n\030LaunchApplicationRequest\022\027\n\017desk"
+  "ner\"\206\002\n\030LaunchApplicationRequest\022\027\n\017desk"
   "top_file_id\030\001 \001(\t\022\r\n\005files\030\002 \003(\t\022T\n\017disp"
   "lay_scaling\030\003 \001(\0162;.vm_tools.container.L"
-  "aunchApplicationRequest.DisplayScaling\"*"
-  "\n\016DisplayScaling\022\014\n\010UNSCALED\020\000\022\n\n\006SCALED"
-  "\020\001\"D\n\031LaunchApplicationResponse\022\017\n\007succe"
-  "ss\030\001 \001(\010\022\026\n\016failure_reason\030\002 \001(\t\"I\n\013Icon"
-  "Request\022\030\n\020desktop_file_ids\030\001 \003(\t\022\021\n\tico"
-  "n_size\030\002 \001(\005\022\r\n\005scale\030\003 \001(\005\"\210\001\n\013DesktopI"
-  "con\022\027\n\017desktop_file_id\030\001 \001(\t\022\014\n\004icon\030\002 \001"
-  "(\014\0226\n\006format\030\003 \001(\0162&.vm_tools.container."
-  "DesktopIcon.Format\"\032\n\006Format\022\007\n\003PNG\020\000\022\007\n"
-  "\003SVG\020\001\"F\n\014IconResponse\0226\n\rdesktop_icons\030"
-  "\001 \003(\0132\037.vm_tools.container.DesktopIcon\"!"
-  "\n\021LaunchVshdRequest\022\014\n\004port\030\001 \001(\r\"=\n\022Lau"
-  "nchVshdResponse\022\017\n\007success\030\001 \001(\010\022\026\n\016fail"
-  "ure_reason\030\002 \001(\t\"B\n\027LinuxPackageInfoRequ"
-  "est\022\021\n\tfile_path\030\001 \001(\t\022\024\n\014package_name\030\002"
-  " \001(\t\"\261\001\n\030LinuxPackageInfoResponse\022\017\n\007suc"
-  "cess\030\001 \001(\010\022\026\n\016failure_reason\030\002 \001(\t\022\022\n\npa"
-  "ckage_id\030\003 \001(\t\022\017\n\007license\030\004 \001(\t\022\023\n\013descr"
-  "iption\030\005 \001(\t\022\023\n\013project_url\030\006 \001(\t\022\014\n\004siz"
-  "e\030\007 \001(\004\022\017\n\007summary\030\010 \001(\t\"Y\n\032InstallLinux"
-  "PackageRequest\022\021\n\tfile_path\030\001 \001(\t\022\022\n\npac"
-  "kage_id\030\005 \001(\t\022\024\n\014command_uuid\030\006 \001(\t\"\274\001\n\033"
-  "InstallLinuxPackageResponse\022F\n\006status\030\001 "
-  "\001(\01626.vm_tools.container.InstallLinuxPac"
-  "kageResponse.Status\022\026\n\016failure_reason\030\002 "
-  "\001(\t\"=\n\006Status\022\013\n\007STARTED\020\000\022\n\n\006FAILED\020\001\022\032"
-  "\n\026INSTALL_ALREADY_ACTIVE\020\002\"<\n!UninstallP"
-  "ackageOwningFileRequest\022\027\n\017desktop_file_"
-  "id\030\001 \001(\t\"\322\001\n\"UninstallPackageOwningFileR"
-  "esponse\022M\n\006status\030\001 \001(\0162=.vm_tools.conta"
-  "iner.UninstallPackageOwningFileResponse."
-  "Status\022\026\n\016failure_reason\030\002 \001(\t\"E\n\006Status"
-  "\022\013\n\007STARTED\020\000\022\n\n\006FAILED\020\001\022\"\n\036BLOCKING_OP"
-  "ERATION_IN_PROGRESS\020\002\"\034\n\032GetDebugInforma"
-  "tionRequest\"8\n\033GetDebugInformationRespon"
-  "se\022\031\n\021debug_information\030\001 \001(\t\"H\n\025Connect"
-  "ChunnelRequest\022\025\n\rchunneld_port\030\001 \001(\r\022\030\n"
-  "\020target_tcp4_port\030\002 \001(\r\"A\n\026ConnectChunne"
-  "lResponse\022\017\n\007success\030\001 \001(\010\022\026\n\016failure_re"
-  "ason\030\002 \001(\t\"/\n\033ApplyAnsiblePlaybookReques"
-  "t\022\020\n\010playbook\030\001 \001(\t\"\257\001\n\034ApplyAnsiblePlay"
-  "bookResponse\022G\n\006status\030\001 \001(\01627.vm_tools."
-  "container.ApplyAnsiblePlaybookResponse.S"
-  "tatus\022\026\n\016failure_reason\030\002 \001(\t\".\n\006Status\022"
-  "\013\n\007UNKNOWN\020\000\022\013\n\007STARTED\020\001\022\n\n\006FAILED\020\002\" \n"
-  "\036ConfigureForArcSideloadRequest\"\267\001\n\037Conf"
-  "igureForArcSideloadResponse\022J\n\006status\030\001 "
-  "\001(\0162:.vm_tools.container.ConfigureForArc"
-  "SideloadResponse.Status\022\026\n\016failure_reaso"
-  "n\030\002 \001(\t\"0\n\006Status\022\013\n\007UNKNOWN\020\000\022\r\n\tSUCCEE"
-  "DED\020\002\022\n\n\006FAILED\020\003\"#\n\023AddFileWatchRequest"
-  "\022\014\n\004path\030\001 \001(\t\"\241\001\n\024AddFileWatchResponse\022"
-  "\?\n\006status\030\001 \001(\0162/.vm_tools.container.Add"
-  "FileWatchResponse.Status\022\026\n\016failure_reas"
-  "on\030\002 \001(\t\"0\n\006Status\022\013\n\007UNKNOWN\020\000\022\r\n\tSUCCE"
-  "EDED\020\002\022\n\n\006FAILED\020\001\"&\n\026RemoveFileWatchReq"
-  "uest\022\014\n\004path\030\001 \001(\t\"\247\001\n\027RemoveFileWatchRe"
-  "sponse\022B\n\006status\030\001 \001(\01622.vm_tools.contai"
-  "ner.RemoveFileWatchResponse.Status\022\026\n\016fa"
-  "ilure_reason\030\002 \001(\t\"0\n\006Status\022\013\n\007UNKNOWN\020"
-  "\000\022\r\n\tSUCCEEDED\020\002\022\n\n\006FAILED\020\001\"\035\n\033GetGarco"
-  "nSessionInfoRequest\"\201\002\n\034GetGarconSession"
-  "InfoResponse\022G\n\006status\030\001 \001(\01627.vm_tools."
-  "container.GetGarconSessionInfoResponse.S"
-  "tatus\022\026\n\016failure_reason\030\002 \001(\t\022\032\n\022contain"
-  "er_username\030\003 \001(\t\022\031\n\021container_homedir\030\004"
-  " \001(\t\022\027\n\017sftp_vsock_port\030\005 \001(\r\"0\n\006Status\022"
-  "\013\n\007UNKNOWN\020\000\022\n\n\006FAILED\020\001\022\r\n\tSUCCEEDED\020\0022"
-  "\310\013\n\006Garcon\022p\n\021LaunchApplication\022,.vm_too"
-  "ls.container.LaunchApplicationRequest\032-."
-  "vm_tools.container.LaunchApplicationResp"
-  "onse\022L\n\007GetIcon\022\037.vm_tools.container.Ico"
-  "nRequest\032 .vm_tools.container.IconRespon"
-  "se\022[\n\nLaunchVshd\022%.vm_tools.container.La"
-  "unchVshdRequest\032&.vm_tools.container.Lau"
-  "nchVshdResponse\022p\n\023GetLinuxPackageInfo\022+"
-  ".vm_tools.container.LinuxPackageInfoRequ"
-  "est\032,.vm_tools.container.LinuxPackageInf"
-  "oResponse\022v\n\023InstallLinuxPackage\022..vm_to"
-  "ols.container.InstallLinuxPackageRequest"
-  "\032/.vm_tools.container.InstallLinuxPackag"
-  "eResponse\022\213\001\n\032UninstallPackageOwningFile"
-  "\0225.vm_tools.container.UninstallPackageOw"
-  "ningFileRequest\0326.vm_tools.container.Uni"
-  "nstallPackageOwningFileResponse\022v\n\023GetDe"
-  "bugInformation\022..vm_tools.container.GetD"
-  "ebugInformationRequest\032/.vm_tools.contai"
-  "ner.GetDebugInformationResponse\022g\n\016Conne"
-  "ctChunnel\022).vm_tools.container.ConnectCh"
-  "unnelRequest\032*.vm_tools.container.Connec"
-  "tChunnelResponse\022y\n\024ApplyAnsiblePlaybook"
-  "\022/.vm_tools.container.ApplyAnsiblePlaybo"
-  "okRequest\0320.vm_tools.container.ApplyAnsi"
-  "blePlaybookResponse\022\202\001\n\027ConfigureForArcS"
-  "ideload\0222.vm_tools.container.ConfigureFo"
-  "rArcSideloadRequest\0323.vm_tools.container"
-  ".ConfigureForArcSideloadResponse\022a\n\014AddF"
-  "ileWatch\022\'.vm_tools.container.AddFileWat"
-  "chRequest\032(.vm_tools.container.AddFileWa"
-  "tchResponse\022j\n\017RemoveFileWatch\022*.vm_tool"
-  "s.container.RemoveFileWatchRequest\032+.vm_"
-  "tools.container.RemoveFileWatchResponse\022"
-  "y\n\024GetGarconSessionInfo\022/.vm_tools.conta"
-  "iner.GetGarconSessionInfoRequest\0320.vm_to"
-  "ols.container.GetGarconSessionInfoRespon"
-  "seB(Z#chromiumos/vm_tools/container_prot"
-  "o\370\001\001b\006proto3"
+  "aunchApplicationRequest.DisplayScaling\022@"
+  "\n\022container_features\030\004 \003(\0162$.vm_tools.co"
+  "ntainer.ContainerFeature\"*\n\016DisplayScali"
+  "ng\022\014\n\010UNSCALED\020\000\022\n\n\006SCALED\020\001\"D\n\031LaunchAp"
+  "plicationResponse\022\017\n\007success\030\001 \001(\010\022\026\n\016fa"
+  "ilure_reason\030\002 \001(\t\"I\n\013IconRequest\022\030\n\020des"
+  "ktop_file_ids\030\001 \003(\t\022\021\n\ticon_size\030\002 \001(\005\022\r"
+  "\n\005scale\030\003 \001(\005\"\210\001\n\013DesktopIcon\022\027\n\017desktop"
+  "_file_id\030\001 \001(\t\022\014\n\004icon\030\002 \001(\014\0226\n\006format\030\003"
+  " \001(\0162&.vm_tools.container.DesktopIcon.Fo"
+  "rmat\"\032\n\006Format\022\007\n\003PNG\020\000\022\007\n\003SVG\020\001\"F\n\014Icon"
+  "Response\0226\n\rdesktop_icons\030\001 \003(\0132\037.vm_too"
+  "ls.container.DesktopIcon\"c\n\021LaunchVshdRe"
+  "quest\022\014\n\004port\030\001 \001(\r\022@\n\022container_feature"
+  "s\030\002 \003(\0162$.vm_tools.container.ContainerFe"
+  "ature\"=\n\022LaunchVshdResponse\022\017\n\007success\030\001"
+  " \001(\010\022\026\n\016failure_reason\030\002 \001(\t\"B\n\027LinuxPac"
+  "kageInfoRequest\022\021\n\tfile_path\030\001 \001(\t\022\024\n\014pa"
+  "ckage_name\030\002 \001(\t\"\261\001\n\030LinuxPackageInfoRes"
+  "ponse\022\017\n\007success\030\001 \001(\010\022\026\n\016failure_reason"
+  "\030\002 \001(\t\022\022\n\npackage_id\030\003 \001(\t\022\017\n\007license\030\004 "
+  "\001(\t\022\023\n\013description\030\005 \001(\t\022\023\n\013project_url\030"
+  "\006 \001(\t\022\014\n\004size\030\007 \001(\004\022\017\n\007summary\030\010 \001(\t\"Y\n\032"
+  "InstallLinuxPackageRequest\022\021\n\tfile_path\030"
+  "\001 \001(\t\022\022\n\npackage_id\030\005 \001(\t\022\024\n\014command_uui"
+  "d\030\006 \001(\t\"\274\001\n\033InstallLinuxPackageResponse\022"
+  "F\n\006status\030\001 \001(\01626.vm_tools.container.Ins"
+  "tallLinuxPackageResponse.Status\022\026\n\016failu"
+  "re_reason\030\002 \001(\t\"=\n\006Status\022\013\n\007STARTED\020\000\022\n"
+  "\n\006FAILED\020\001\022\032\n\026INSTALL_ALREADY_ACTIVE\020\002\"<"
+  "\n!UninstallPackageOwningFileRequest\022\027\n\017d"
+  "esktop_file_id\030\001 \001(\t\"\322\001\n\"UninstallPackag"
+  "eOwningFileResponse\022M\n\006status\030\001 \001(\0162=.vm"
+  "_tools.container.UninstallPackageOwningF"
+  "ileResponse.Status\022\026\n\016failure_reason\030\002 \001"
+  "(\t\"E\n\006Status\022\013\n\007STARTED\020\000\022\n\n\006FAILED\020\001\022\"\n"
+  "\036BLOCKING_OPERATION_IN_PROGRESS\020\002\"\034\n\032Get"
+  "DebugInformationRequest\"8\n\033GetDebugInfor"
+  "mationResponse\022\031\n\021debug_information\030\001 \001("
+  "\t\"H\n\025ConnectChunnelRequest\022\025\n\rchunneld_p"
+  "ort\030\001 \001(\r\022\030\n\020target_tcp4_port\030\002 \001(\r\"A\n\026C"
+  "onnectChunnelResponse\022\017\n\007success\030\001 \001(\010\022\026"
+  "\n\016failure_reason\030\002 \001(\t\"/\n\033ApplyAnsiblePl"
+  "aybookRequest\022\020\n\010playbook\030\001 \001(\t\"\257\001\n\034Appl"
+  "yAnsiblePlaybookResponse\022G\n\006status\030\001 \001(\016"
+  "27.vm_tools.container.ApplyAnsiblePlaybo"
+  "okResponse.Status\022\026\n\016failure_reason\030\002 \001("
+  "\t\".\n\006Status\022\013\n\007UNKNOWN\020\000\022\013\n\007STARTED\020\001\022\n\n"
+  "\006FAILED\020\002\" \n\036ConfigureForArcSideloadRequ"
+  "est\"\267\001\n\037ConfigureForArcSideloadResponse\022"
+  "J\n\006status\030\001 \001(\0162:.vm_tools.container.Con"
+  "figureForArcSideloadResponse.Status\022\026\n\016f"
+  "ailure_reason\030\002 \001(\t\"0\n\006Status\022\013\n\007UNKNOWN"
+  "\020\000\022\r\n\tSUCCEEDED\020\002\022\n\n\006FAILED\020\003\"#\n\023AddFile"
+  "WatchRequest\022\014\n\004path\030\001 \001(\t\"\241\001\n\024AddFileWa"
+  "tchResponse\022\?\n\006status\030\001 \001(\0162/.vm_tools.c"
+  "ontainer.AddFileWatchResponse.Status\022\026\n\016"
+  "failure_reason\030\002 \001(\t\"0\n\006Status\022\013\n\007UNKNOW"
+  "N\020\000\022\r\n\tSUCCEEDED\020\002\022\n\n\006FAILED\020\001\"&\n\026Remove"
+  "FileWatchRequest\022\014\n\004path\030\001 \001(\t\"\247\001\n\027Remov"
+  "eFileWatchResponse\022B\n\006status\030\001 \001(\01622.vm_"
+  "tools.container.RemoveFileWatchResponse."
+  "Status\022\026\n\016failure_reason\030\002 \001(\t\"0\n\006Status"
+  "\022\013\n\007UNKNOWN\020\000\022\r\n\tSUCCEEDED\020\002\022\n\n\006FAILED\020\001"
+  "\"\035\n\033GetGarconSessionInfoRequest\"\201\002\n\034GetG"
+  "arconSessionInfoResponse\022G\n\006status\030\001 \001(\016"
+  "27.vm_tools.container.GetGarconSessionIn"
+  "foResponse.Status\022\026\n\016failure_reason\030\002 \001("
+  "\t\022\032\n\022container_username\030\003 \001(\t\022\031\n\021contain"
+  "er_homedir\030\004 \001(\t\022\027\n\017sftp_vsock_port\030\005 \001("
+  "\r\"0\n\006Status\022\013\n\007UNKNOWN\020\000\022\n\n\006FAILED\020\001\022\r\n\t"
+  "SUCCEEDED\020\002*a\n\020ContainerFeature\022\013\n\007UNKNO"
+  "WN\020\000\022\033\n\027ENABLE_GTK3_IME_SUPPORT\020\001\022#\n\037ENA"
+  "BLE_VIRTUAL_KEYBOARD_SUPPORT\020\0022\310\013\n\006Garco"
+  "n\022p\n\021LaunchApplication\022,.vm_tools.contai"
+  "ner.LaunchApplicationRequest\032-.vm_tools."
+  "container.LaunchApplicationResponse\022L\n\007G"
+  "etIcon\022\037.vm_tools.container.IconRequest\032"
+  " .vm_tools.container.IconResponse\022[\n\nLau"
+  "nchVshd\022%.vm_tools.container.LaunchVshdR"
+  "equest\032&.vm_tools.container.LaunchVshdRe"
+  "sponse\022p\n\023GetLinuxPackageInfo\022+.vm_tools"
+  ".container.LinuxPackageInfoRequest\032,.vm_"
+  "tools.container.LinuxPackageInfoResponse"
+  "\022v\n\023InstallLinuxPackage\022..vm_tools.conta"
+  "iner.InstallLinuxPackageRequest\032/.vm_too"
+  "ls.container.InstallLinuxPackageResponse"
+  "\022\213\001\n\032UninstallPackageOwningFile\0225.vm_too"
+  "ls.container.UninstallPackageOwningFileR"
+  "equest\0326.vm_tools.container.UninstallPac"
+  "kageOwningFileResponse\022v\n\023GetDebugInform"
+  "ation\022..vm_tools.container.GetDebugInfor"
+  "mationRequest\032/.vm_tools.container.GetDe"
+  "bugInformationResponse\022g\n\016ConnectChunnel"
+  "\022).vm_tools.container.ConnectChunnelRequ"
+  "est\032*.vm_tools.container.ConnectChunnelR"
+  "esponse\022y\n\024ApplyAnsiblePlaybook\022/.vm_too"
+  "ls.container.ApplyAnsiblePlaybookRequest"
+  "\0320.vm_tools.container.ApplyAnsiblePlaybo"
+  "okResponse\022\202\001\n\027ConfigureForArcSideload\0222"
+  ".vm_tools.container.ConfigureForArcSidel"
+  "oadRequest\0323.vm_tools.container.Configur"
+  "eForArcSideloadResponse\022a\n\014AddFileWatch\022"
+  "\'.vm_tools.container.AddFileWatchRequest"
+  "\032(.vm_tools.container.AddFileWatchRespon"
+  "se\022j\n\017RemoveFileWatch\022*.vm_tools.contain"
+  "er.RemoveFileWatchRequest\032+.vm_tools.con"
+  "tainer.RemoveFileWatchResponse\022y\n\024GetGar"
+  "conSessionInfo\022/.vm_tools.container.GetG"
+  "arconSessionInfoRequest\0320.vm_tools.conta"
+  "iner.GetGarconSessionInfoResponseB(Z#chr"
+  "omiumos/vm_tools/container_proto\370\001\001b\006pro"
+  "to3"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_container_5fguest_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_container_5fguest_2eproto = {
-  false, false, 4412, descriptor_table_protodef_container_5fguest_2eproto, "container_guest.proto", 
+  false, false, 4643, descriptor_table_protodef_container_5fguest_2eproto, "container_guest.proto", 
   &descriptor_table_container_5fguest_2eproto_once, nullptr, 0, 27,
   schemas, file_default_instances, TableStruct_container_5fguest_2eproto::offsets,
   file_level_metadata_container_5fguest_2eproto, file_level_enum_descriptors_container_5fguest_2eproto, file_level_service_descriptors_container_5fguest_2eproto,
@@ -993,6 +1005,21 @@ constexpr GetGarconSessionInfoResponse_Status GetGarconSessionInfoResponse::Stat
 constexpr GetGarconSessionInfoResponse_Status GetGarconSessionInfoResponse::Status_MAX;
 constexpr int GetGarconSessionInfoResponse::Status_ARRAYSIZE;
 #endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* ContainerFeature_descriptor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_container_5fguest_2eproto);
+  return file_level_enum_descriptors_container_5fguest_2eproto[9];
+}
+bool ContainerFeature_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+      return true;
+    default:
+      return false;
+  }
+}
+
 
 // ===================================================================
 
@@ -1003,7 +1030,8 @@ class LaunchApplicationRequest::_Internal {
 LaunchApplicationRequest::LaunchApplicationRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
-  files_(arena) {
+  files_(arena),
+  container_features_(arena) {
   SharedCtor();
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
@@ -1012,7 +1040,8 @@ LaunchApplicationRequest::LaunchApplicationRequest(::PROTOBUF_NAMESPACE_ID::Aren
 }
 LaunchApplicationRequest::LaunchApplicationRequest(const LaunchApplicationRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
-      files_(from.files_) {
+      files_(from.files_),
+      container_features_(from.container_features_) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   desktop_file_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
@@ -1063,6 +1092,7 @@ void LaunchApplicationRequest::Clear() {
   (void) cached_has_bits;
 
   files_.Clear();
+  container_features_.Clear();
   desktop_file_id_.ClearToEmpty();
   display_scaling_ = 0;
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
@@ -1105,6 +1135,18 @@ const char* LaunchApplicationRequest::_InternalParse(const char* ptr, ::PROTOBUF
           uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
           _internal_set_display_scaling(static_cast<::vm_tools::container::LaunchApplicationRequest_DisplayScaling>(val));
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated .vm_tools.container.ContainerFeature container_features = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedEnumParser(_internal_mutable_container_features(), ptr, ctx);
+          CHK_(ptr);
+        } else if (static_cast<uint8_t>(tag) == 32) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_add_container_features(static_cast<::vm_tools::container::ContainerFeature>(val));
         } else
           goto handle_unusual;
         continue;
@@ -1164,6 +1206,15 @@ uint8_t* LaunchApplicationRequest::_InternalSerialize(
       3, this->_internal_display_scaling(), target);
   }
 
+  // repeated .vm_tools.container.ContainerFeature container_features = 4;
+  {
+    int byte_size = _container_features_cached_byte_size_.load(std::memory_order_relaxed);
+    if (byte_size > 0) {
+      target = stream->WriteEnumPacked(
+          4, container_features_, byte_size, target);
+    }
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -1186,6 +1237,24 @@ size_t LaunchApplicationRequest::ByteSizeLong() const {
   for (int i = 0, n = files_.size(); i < n; i++) {
     total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
       files_.Get(i));
+  }
+
+  // repeated .vm_tools.container.ContainerFeature container_features = 4;
+  {
+    size_t data_size = 0;
+    unsigned int count = static_cast<unsigned int>(this->_internal_container_features_size());for (unsigned int i = 0; i < count; i++) {
+      data_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(
+        this->_internal_container_features(static_cast<int>(i)));
+    }
+    if (data_size > 0) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+            static_cast<int32_t>(data_size));
+    }
+    int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(data_size);
+    _container_features_cached_byte_size_.store(cached_size,
+                                    std::memory_order_relaxed);
+    total_size += data_size;
   }
 
   // string desktop_file_id = 1;
@@ -1224,6 +1293,7 @@ void LaunchApplicationRequest::MergeFrom(const LaunchApplicationRequest& from) {
   (void) cached_has_bits;
 
   files_.MergeFrom(from.files_);
+  container_features_.MergeFrom(from.container_features_);
   if (!from._internal_desktop_file_id().empty()) {
     _internal_set_desktop_file_id(from._internal_desktop_file_id());
   }
@@ -1250,6 +1320,7 @@ void LaunchApplicationRequest::InternalSwap(LaunchApplicationRequest* other) {
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   files_.InternalSwap(&other->files_);
+  container_features_.InternalSwap(&other->container_features_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       &desktop_file_id_, lhs_arena,
@@ -2212,7 +2283,8 @@ class LaunchVshdRequest::_Internal {
 
 LaunchVshdRequest::LaunchVshdRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
+  container_features_(arena) {
   SharedCtor();
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
@@ -2220,7 +2292,8 @@ LaunchVshdRequest::LaunchVshdRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
   // @@protoc_insertion_point(arena_constructor:vm_tools.container.LaunchVshdRequest)
 }
 LaunchVshdRequest::LaunchVshdRequest(const LaunchVshdRequest& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  : ::PROTOBUF_NAMESPACE_ID::Message(),
+      container_features_(from.container_features_) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   port_ = from.port_;
   // @@protoc_insertion_point(copy_constructor:vm_tools.container.LaunchVshdRequest)
@@ -2257,6 +2330,7 @@ void LaunchVshdRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  container_features_.Clear();
   port_ = 0u;
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
@@ -2272,6 +2346,18 @@ const char* LaunchVshdRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESP
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
           port_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated .vm_tools.container.ContainerFeature container_features = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedEnumParser(_internal_mutable_container_features(), ptr, ctx);
+          CHK_(ptr);
+        } else if (static_cast<uint8_t>(tag) == 16) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_add_container_features(static_cast<::vm_tools::container::ContainerFeature>(val));
         } else
           goto handle_unusual;
         continue;
@@ -2310,6 +2396,15 @@ uint8_t* LaunchVshdRequest::_InternalSerialize(
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(1, this->_internal_port(), target);
   }
 
+  // repeated .vm_tools.container.ContainerFeature container_features = 2;
+  {
+    int byte_size = _container_features_cached_byte_size_.load(std::memory_order_relaxed);
+    if (byte_size > 0) {
+      target = stream->WriteEnumPacked(
+          2, container_features_, byte_size, target);
+    }
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -2325,6 +2420,24 @@ size_t LaunchVshdRequest::ByteSizeLong() const {
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
+
+  // repeated .vm_tools.container.ContainerFeature container_features = 2;
+  {
+    size_t data_size = 0;
+    unsigned int count = static_cast<unsigned int>(this->_internal_container_features_size());for (unsigned int i = 0; i < count; i++) {
+      data_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(
+        this->_internal_container_features(static_cast<int>(i)));
+    }
+    if (data_size > 0) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+            static_cast<int32_t>(data_size));
+    }
+    int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(data_size);
+    _container_features_cached_byte_size_.store(cached_size,
+                                    std::memory_order_relaxed);
+    total_size += data_size;
+  }
 
   // uint32 port = 1;
   if (this->_internal_port() != 0) {
@@ -2353,6 +2466,7 @@ void LaunchVshdRequest::MergeFrom(const LaunchVshdRequest& from) {
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
+  container_features_.MergeFrom(from.container_features_);
   if (from._internal_port() != 0) {
     _internal_set_port(from._internal_port());
   }
@@ -2373,6 +2487,7 @@ bool LaunchVshdRequest::IsInitialized() const {
 void LaunchVshdRequest::InternalSwap(LaunchVshdRequest* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  container_features_.InternalSwap(&other->container_features_);
   swap(port_, other->port_);
 }
 

@@ -1,0 +1,599 @@
+// Copyright 2022 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+// GENERATED FROM THE API DEFINITION IN
+//   chrome/common/extensions/api/debugger.json
+// by tools/json_schema_compiler.
+// DO NOT EDIT.
+
+#include "chrome/common/extensions/api/debugger.h"
+
+#include <memory>
+#include <ostream>
+#include <string>
+#include <utility>
+#include <vector>
+
+#include "base/check.h"
+#include "base/check_op.h"
+#include "base/notreached.h"
+#include "base/strings/string_number_conversions.h"
+#include "base/strings/utf_string_conversions.h"
+#include "base/values.h"
+#include "tools/json_schema_compiler/util.h"
+
+using base::UTF8ToUTF16;
+
+namespace extensions {
+namespace api {
+namespace debugger {
+//
+// Types
+//
+
+Debuggee::Debuggee()
+ {}
+
+Debuggee::~Debuggee() = default;
+Debuggee::Debuggee(Debuggee&& rhs) = default;
+Debuggee& Debuggee::operator=(Debuggee&& rhs) = default;
+// static
+bool Debuggee::Populate(
+    const base::Value& value, Debuggee* out) {
+  if (!value.is_dict()) {
+    return false;
+  }
+  const auto* dict = static_cast<const base::DictionaryValue*>(&value);
+  const base::Value* tab_id_value = dict->FindKey("tabId");
+  if (tab_id_value) {
+    {
+      auto temp = (*tab_id_value).GetIfInt();
+      if (!temp.has_value()) {
+        out->tab_id.reset();
+        return false;
+      }
+      out->tab_id = temp.value();
+    }
+  }
+
+  const base::Value* extension_id_value = dict->FindKey("extensionId");
+  if (extension_id_value) {
+    {
+      auto* temp = (*extension_id_value).GetIfString();
+      if (!temp) {
+        out->extension_id.reset();
+        return false;
+      }
+      out->extension_id = std::make_unique<std::string>(*temp);
+    }
+  }
+
+  const base::Value* target_id_value = dict->FindKey("targetId");
+  if (target_id_value) {
+    {
+      auto* temp = (*target_id_value).GetIfString();
+      if (!temp) {
+        out->target_id.reset();
+        return false;
+      }
+      out->target_id = std::make_unique<std::string>(*temp);
+    }
+  }
+
+  return true;
+}
+
+// static
+std::unique_ptr<Debuggee> Debuggee::FromValue(const base::Value& value) {
+  auto out = std::make_unique<Debuggee>();
+  bool result = Populate(value, out.get());
+  if (!result)
+    return nullptr;
+  return out;
+}
+
+std::unique_ptr<base::DictionaryValue> Debuggee::ToValue() const {
+  auto to_value_result =
+      std::make_unique<base::DictionaryValue>();
+
+  if (this->tab_id) {
+    to_value_result->SetWithoutPathExpansion("tabId", std::make_unique<base::Value>(*this->tab_id));
+
+  }
+  if (this->extension_id) {
+    to_value_result->SetWithoutPathExpansion("extensionId", std::make_unique<base::Value>(*this->extension_id));
+
+  }
+  if (this->target_id) {
+    to_value_result->SetWithoutPathExpansion("targetId", std::make_unique<base::Value>(*this->target_id));
+
+  }
+
+  return to_value_result;
+}
+
+
+const char* ToString(TargetInfoType enum_param) {
+  switch (enum_param) {
+    case TARGET_INFO_TYPE_PAGE:
+      return "page";
+    case TARGET_INFO_TYPE_BACKGROUND_PAGE:
+      return "background_page";
+    case TARGET_INFO_TYPE_WORKER:
+      return "worker";
+    case TARGET_INFO_TYPE_OTHER:
+      return "other";
+    case TARGET_INFO_TYPE_NONE:
+      return "";
+  }
+  NOTREACHED();
+  return "";
+}
+
+TargetInfoType ParseTargetInfoType(const std::string& enum_string) {
+  if (enum_string == "page")
+    return TARGET_INFO_TYPE_PAGE;
+  if (enum_string == "background_page")
+    return TARGET_INFO_TYPE_BACKGROUND_PAGE;
+  if (enum_string == "worker")
+    return TARGET_INFO_TYPE_WORKER;
+  if (enum_string == "other")
+    return TARGET_INFO_TYPE_OTHER;
+  return TARGET_INFO_TYPE_NONE;
+}
+
+
+const char* ToString(DetachReason enum_param) {
+  switch (enum_param) {
+    case DETACH_REASON_TARGET_CLOSED:
+      return "target_closed";
+    case DETACH_REASON_CANCELED_BY_USER:
+      return "canceled_by_user";
+    case DETACH_REASON_NONE:
+      return "";
+  }
+  NOTREACHED();
+  return "";
+}
+
+DetachReason ParseDetachReason(const std::string& enum_string) {
+  if (enum_string == "target_closed")
+    return DETACH_REASON_TARGET_CLOSED;
+  if (enum_string == "canceled_by_user")
+    return DETACH_REASON_CANCELED_BY_USER;
+  return DETACH_REASON_NONE;
+}
+
+
+TargetInfo::TargetInfo()
+: type(TARGET_INFO_TYPE_NONE),
+attached(false) {}
+
+TargetInfo::~TargetInfo() = default;
+TargetInfo::TargetInfo(TargetInfo&& rhs) = default;
+TargetInfo& TargetInfo::operator=(TargetInfo&& rhs) = default;
+// static
+bool TargetInfo::Populate(
+    const base::Value& value, TargetInfo* out) {
+  if (!value.is_dict()) {
+    return false;
+  }
+  const auto* dict = static_cast<const base::DictionaryValue*>(&value);
+  const base::Value* type_value = dict->FindKey("type");
+  if (!type_value) {
+    return false;
+  }
+  {
+    const std::string* target_info_type_as_string = (*type_value).GetIfString();
+    if (!target_info_type_as_string) {
+      return false;
+    }
+    out->type = ParseTargetInfoType(*target_info_type_as_string);
+    if (out->type == TARGET_INFO_TYPE_NONE) {
+      return false;
+    }
+  }
+
+  const base::Value* id_value = dict->FindKey("id");
+  if (!id_value) {
+    return false;
+  }
+  {
+    auto* temp = (*id_value).GetIfString();
+    if (!temp) {
+      return false;
+    }
+    out->id = *temp;
+  }
+
+  const base::Value* tab_id_value = dict->FindKey("tabId");
+  if (tab_id_value) {
+    {
+      auto temp = (*tab_id_value).GetIfInt();
+      if (!temp.has_value()) {
+        out->tab_id.reset();
+        return false;
+      }
+      out->tab_id = temp.value();
+    }
+  }
+
+  const base::Value* extension_id_value = dict->FindKey("extensionId");
+  if (extension_id_value) {
+    {
+      auto* temp = (*extension_id_value).GetIfString();
+      if (!temp) {
+        out->extension_id.reset();
+        return false;
+      }
+      out->extension_id = std::make_unique<std::string>(*temp);
+    }
+  }
+
+  const base::Value* attached_value = dict->FindKey("attached");
+  if (!attached_value) {
+    return false;
+  }
+  {
+    auto temp = (*attached_value).GetIfBool();
+    if (!temp.has_value()) {
+      return false;
+    }
+    out->attached = temp.value();
+  }
+
+  const base::Value* title_value = dict->FindKey("title");
+  if (!title_value) {
+    return false;
+  }
+  {
+    auto* temp = (*title_value).GetIfString();
+    if (!temp) {
+      return false;
+    }
+    out->title = *temp;
+  }
+
+  const base::Value* url_value = dict->FindKey("url");
+  if (!url_value) {
+    return false;
+  }
+  {
+    auto* temp = (*url_value).GetIfString();
+    if (!temp) {
+      return false;
+    }
+    out->url = *temp;
+  }
+
+  const base::Value* favicon_url_value = dict->FindKey("faviconUrl");
+  if (favicon_url_value) {
+    {
+      auto* temp = (*favicon_url_value).GetIfString();
+      if (!temp) {
+        out->favicon_url.reset();
+        return false;
+      }
+      out->favicon_url = std::make_unique<std::string>(*temp);
+    }
+  }
+
+  return true;
+}
+
+// static
+std::unique_ptr<TargetInfo> TargetInfo::FromValue(const base::Value& value) {
+  auto out = std::make_unique<TargetInfo>();
+  bool result = Populate(value, out.get());
+  if (!result)
+    return nullptr;
+  return out;
+}
+
+std::unique_ptr<base::DictionaryValue> TargetInfo::ToValue() const {
+  auto to_value_result =
+      std::make_unique<base::DictionaryValue>();
+
+  to_value_result->SetWithoutPathExpansion("type", std::make_unique<base::Value>(debugger::ToString(this->type)));
+
+  to_value_result->SetWithoutPathExpansion("id", std::make_unique<base::Value>(this->id));
+
+  if (this->tab_id) {
+    to_value_result->SetWithoutPathExpansion("tabId", std::make_unique<base::Value>(*this->tab_id));
+
+  }
+  if (this->extension_id) {
+    to_value_result->SetWithoutPathExpansion("extensionId", std::make_unique<base::Value>(*this->extension_id));
+
+  }
+  to_value_result->SetWithoutPathExpansion("attached", std::make_unique<base::Value>(this->attached));
+
+  to_value_result->SetWithoutPathExpansion("title", std::make_unique<base::Value>(this->title));
+
+  to_value_result->SetWithoutPathExpansion("url", std::make_unique<base::Value>(this->url));
+
+  if (this->favicon_url) {
+    to_value_result->SetWithoutPathExpansion("faviconUrl", std::make_unique<base::Value>(*this->favicon_url));
+
+  }
+
+  return to_value_result;
+}
+
+
+
+//
+// Functions
+//
+
+namespace Attach {
+
+Params::Params() = default;
+Params::~Params() = default;
+
+// static
+std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
+  if (args.size() != 2) {
+    return nullptr;
+  }
+  std::unique_ptr<Params> params(new Params());
+
+  if (0 < args.size() &&
+      !args[0].is_none()) {
+    const base::Value& target_value = args[0];
+    {
+      if (!target_value.is_dict()) {
+        return std::unique_ptr<Params>();
+      }
+      if (!Debuggee::Populate(target_value, &params->target)) {
+        return std::unique_ptr<Params>();
+      }
+    }
+  }
+  else {
+    return std::unique_ptr<Params>();
+  }
+
+  if (1 < args.size() &&
+      !args[1].is_none()) {
+    const base::Value& required_version_value = args[1];
+    {
+      auto* temp = required_version_value.GetIfString();
+      if (!temp) {
+        return std::unique_ptr<Params>();
+      }
+      params->required_version = *temp;
+    }
+  }
+  else {
+    return std::unique_ptr<Params>();
+  }
+
+  return params;
+}
+
+
+base::Value::List Results::Create() {
+  base::Value::List create_results;
+
+  return create_results;
+}
+}  // namespace Attach
+
+namespace Detach {
+
+Params::Params() = default;
+Params::~Params() = default;
+
+// static
+std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
+  if (args.size() != 1) {
+    return nullptr;
+  }
+  std::unique_ptr<Params> params(new Params());
+
+  if (0 < args.size() &&
+      !args[0].is_none()) {
+    const base::Value& target_value = args[0];
+    {
+      if (!target_value.is_dict()) {
+        return std::unique_ptr<Params>();
+      }
+      if (!Debuggee::Populate(target_value, &params->target)) {
+        return std::unique_ptr<Params>();
+      }
+    }
+  }
+  else {
+    return std::unique_ptr<Params>();
+  }
+
+  return params;
+}
+
+
+base::Value::List Results::Create() {
+  base::Value::List create_results;
+
+  return create_results;
+}
+}  // namespace Detach
+
+namespace SendCommand {
+
+Params::CommandParams::CommandParams()
+ {}
+
+Params::CommandParams::~CommandParams() = default;
+Params::CommandParams::CommandParams(CommandParams&& rhs) = default;
+Params::CommandParams& Params::CommandParams::operator=(CommandParams&& rhs) = default;
+// static
+bool Params::CommandParams::Populate(
+    const base::Value& value, CommandParams* out) {
+  if (!value.is_dict()) {
+    return false;
+  }
+  const auto* dict = static_cast<const base::DictionaryValue*>(&value);
+  out->additional_properties.MergeDictionary(dict);
+  return true;
+}
+
+
+Params::Params() = default;
+Params::~Params() = default;
+
+// static
+std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
+  if (args.size() < 2 || args.size() > 3) {
+    return nullptr;
+  }
+  std::unique_ptr<Params> params(new Params());
+
+  if (0 < args.size() &&
+      !args[0].is_none()) {
+    const base::Value& target_value = args[0];
+    {
+      if (!target_value.is_dict()) {
+        return std::unique_ptr<Params>();
+      }
+      if (!Debuggee::Populate(target_value, &params->target)) {
+        return std::unique_ptr<Params>();
+      }
+    }
+  }
+  else {
+    return std::unique_ptr<Params>();
+  }
+
+  if (1 < args.size() &&
+      !args[1].is_none()) {
+    const base::Value& method_value = args[1];
+    {
+      auto* temp = method_value.GetIfString();
+      if (!temp) {
+        return std::unique_ptr<Params>();
+      }
+      params->method = *temp;
+    }
+  }
+  else {
+    return std::unique_ptr<Params>();
+  }
+
+  if (2 < args.size() &&
+      !args[2].is_none()) {
+    const base::Value& command_params_value = args[2];
+    {
+      if (!command_params_value.is_dict()) {
+        return std::unique_ptr<Params>();
+      }
+      else {
+        auto temp = std::make_unique<CommandParams>();
+        if (!CommandParams::Populate(command_params_value, temp.get())) {
+          return std::unique_ptr<Params>();
+        }
+        else
+          params->command_params = std::move(temp);
+      }
+    }
+  }
+
+  return params;
+}
+
+
+Results::Result::Result()
+ {}
+
+Results::Result::~Result() = default;
+Results::Result::Result(Result&& rhs) = default;
+Results::Result& Results::Result::operator=(Result&& rhs) = default;
+std::unique_ptr<base::DictionaryValue> Results::Result::ToValue() const {
+  auto to_value_result =
+      std::make_unique<base::DictionaryValue>();
+
+  to_value_result->MergeDictionary(&additional_properties);
+
+  return to_value_result;
+}
+
+
+base::Value::List Results::Create(const Result& result) {
+  base::Value::List create_results;
+  create_results.reserve(1);
+  create_results.Append(base::Value::FromUniquePtrValue((result).ToValue()));
+
+  return create_results;
+}
+}  // namespace SendCommand
+
+namespace GetTargets {
+
+base::Value::List Results::Create(const std::vector<TargetInfo>& result) {
+  base::Value::List create_results;
+  create_results.reserve(1);
+  create_results.Append(base::Value::FromUniquePtrValue(json_schema_compiler::util::CreateValueFromArray(result)));
+
+  return create_results;
+}
+}  // namespace GetTargets
+
+//
+// Events
+//
+
+namespace OnEvent {
+
+const char kEventName[] = "debugger.onEvent";
+
+Params::Params()
+ {}
+
+Params::~Params() = default;
+Params::Params(Params&& rhs) = default;
+Params& Params::operator=(Params&& rhs) = default;
+std::unique_ptr<base::DictionaryValue> Params::ToValue() const {
+  auto to_value_result =
+      std::make_unique<base::DictionaryValue>();
+
+  to_value_result->MergeDictionary(&additional_properties);
+
+  return to_value_result;
+}
+
+
+base::Value::List Create(const Debuggee& source, const std::string& method, const Params& params) {
+  base::Value::List create_results;
+  create_results.reserve(3);
+  create_results.Append(base::Value::FromUniquePtrValue((source).ToValue()));
+
+  create_results.Append(base::Value::FromUniquePtrValue(std::make_unique<base::Value>(method)));
+
+  create_results.Append(base::Value::FromUniquePtrValue((params).ToValue()));
+
+  return create_results;
+}
+
+}  // namespace OnEvent
+
+namespace OnDetach {
+
+const char kEventName[] = "debugger.onDetach";
+
+base::Value::List Create(const Debuggee& source, const DetachReason& reason) {
+  base::Value::List create_results;
+  create_results.reserve(2);
+  create_results.Append(base::Value::FromUniquePtrValue((source).ToValue()));
+
+  create_results.Append(base::Value::FromUniquePtrValue(std::make_unique<base::Value>(debugger::ToString(reason))));
+
+  return create_results;
+}
+
+}  // namespace OnDetach
+
+}  // namespace debugger
+}  // namespace api
+}  // namespace extensions
+

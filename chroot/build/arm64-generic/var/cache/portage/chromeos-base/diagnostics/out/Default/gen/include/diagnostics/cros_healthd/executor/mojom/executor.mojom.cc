@@ -160,6 +160,11 @@ uint32_t Executor::MessageToStableIPCHash_(mojo::Message& message) {
               "(Impl)chromeos::cros_healthd::mojom::Executor::GetUEFISecureBootContent");
       return value;
     }
+    case internal::kExecutor_GetLidAngle_Name: {
+      constexpr uint32_t value = base::MD5Hash32Constexpr(
+              "(Impl)chromeos::cros_healthd::mojom::Executor::GetLidAngle");
+      return value;
+    }
   }
   return 0;
 }
@@ -190,6 +195,8 @@ const char* Executor::MessageToMethodName_(mojo::Message& message) {
             return "Receive chromeos::cros_healthd::mojom::Executor::ReadMsr";
       case internal::kExecutor_GetUEFISecureBootContent_Name:
             return "Receive chromeos::cros_healthd::mojom::Executor::GetUEFISecureBootContent";
+      case internal::kExecutor_GetLidAngle_Name:
+            return "Receive chromeos::cros_healthd::mojom::Executor::GetLidAngle";
     }
   } else {
     switch (message.name()) {
@@ -213,6 +220,8 @@ const char* Executor::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply chromeos::cros_healthd::mojom::Executor::ReadMsr";
       case internal::kExecutor_GetUEFISecureBootContent_Name:
             return "Receive reply chromeos::cros_healthd::mojom::Executor::GetUEFISecureBootContent";
+      case internal::kExecutor_GetLidAngle_Name:
+            return "Receive reply chromeos::cros_healthd::mojom::Executor::GetLidAngle";
     }
   }
   return "Receive unknown mojo message";
@@ -368,6 +377,22 @@ class Executor_GetUEFISecureBootContent_ForwardToCallback
   bool Accept(mojo::Message* message) override;
  private:
   Executor::GetUEFISecureBootContentCallback callback_;
+};
+
+class Executor_GetLidAngle_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  Executor_GetLidAngle_ForwardToCallback(
+      Executor::GetLidAngleCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  Executor_GetLidAngle_ForwardToCallback(const Executor_GetLidAngle_ForwardToCallback&) = delete;
+  Executor_GetLidAngle_ForwardToCallback& operator=(const Executor_GetLidAngle_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  Executor::GetLidAngleCallback callback_;
 };
 
 ExecutorProxy::ExecutorProxy(mojo::MessageReceiverWithResponder* receiver)
@@ -584,9 +609,16 @@ void ExecutorProxy::GetScanDump(
 }
 
 void ExecutorProxy::RunMemtester(
-    RunMemtesterCallback callback) {
+    uint32_t in_test_mem_kib, RunMemtesterCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send chromeos::cros_healthd::mojom::Executor::RunMemtester");
+  TRACE_EVENT1(
+    "mojom", "Send chromeos::cros_healthd::mojom::Executor::RunMemtester", "input_parameters",
+    [&](perfetto_libchrome::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("test_mem_kib"), in_test_mem_kib,
+                        "<value of type uint32_t>");
+   });
 #endif
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
@@ -603,6 +635,7 @@ void ExecutorProxy::RunMemtester(
       ::chromeos::cros_healthd::mojom::internal::Executor_RunMemtester_Params_Data> params(
           message);
   params.Allocate();
+  params->test_mem_kib = in_test_mem_kib;
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(Executor::Name_);
@@ -753,6 +786,37 @@ void ExecutorProxy::GetUEFISecureBootContent(
 #endif
   std::unique_ptr<mojo::MessageReceiver> responder(
       new Executor_GetUEFISecureBootContent_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+}
+
+void ExecutorProxy::GetLidAngle(
+    GetLidAngleCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send chromeos::cros_healthd::mojom::Executor::GetLidAngle");
+#endif
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kExecutor_GetLidAngle_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::chromeos::cros_healthd::mojom::internal::Executor_GetLidAngle_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Executor::Name_);
+  message.set_method_name("GetLidAngle");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new Executor_GetLidAngle_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
 }
@@ -1868,6 +1932,130 @@ void Executor_GetUEFISecureBootContent_ProxyToResponder::Run(
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
+class Executor_GetLidAngle_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static Executor::GetLidAngleCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<Executor_GetLidAngle_ProxyToResponder> proxy(
+        new Executor_GetLidAngle_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&Executor_GetLidAngle_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~Executor_GetLidAngle_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  Executor_GetLidAngle_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "Executor::GetLidAngleCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      ExecutedProcessResultPtr in_result);
+};
+
+bool Executor_GetLidAngle_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::Executor_GetLidAngle_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::Executor_GetLidAngle_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  ExecutedProcessResultPtr p_result{};
+  Executor_GetLidAngle_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadResult(&p_result))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        Executor::Name_, 10, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_result));
+  return true;
+}
+
+void Executor_GetLidAngle_ProxyToResponder::Run(
+    ExecutedProcessResultPtr in_result) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply chromeos::cros_healthd::mojom::Executor::GetLidAngle", "async_response_parameters",
+    [&](perfetto_libchrome::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("result"), in_result,
+                        "<value of type ExecutedProcessResultPtr>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kExecutor_GetLidAngle_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::chromeos::cros_healthd::mojom::internal::Executor_GetLidAngle_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->result)::BaseType> result_fragment(
+          params.message());
+  mojo::internal::Serialize<::chromeos::cros_healthd::mojom::ExecutedProcessResultDataView>(
+      in_result, result_fragment);
+  params->result.Set(
+      result_fragment.is_null() ? nullptr : result_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->result.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null result in ");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Executor::Name_);
+  message.set_method_name("GetLidAngle");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMessage(*responder_, message);
+  // SendMessage fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
 
 // static
 bool ExecutorStubDispatch::Accept(
@@ -1921,6 +2109,9 @@ bool ExecutorStubDispatch::Accept(
       break;
     }
     case internal::kExecutor_GetUEFISecureBootContent_Name: {
+      break;
+    }
+    case internal::kExecutor_GetLidAngle_Name: {
       break;
     }
   }
@@ -2081,8 +2272,11 @@ std::move(p_interface_name), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
+      uint32_t p_test_mem_kib{};
       Executor_RunMemtester_ParamsDataView input_data_view(params, message);
       
+      if (success)
+        p_test_mem_kib = input_data_view.test_mem_kib();
       if (!success) {
         ReportValidationErrorForMessage(
             message,
@@ -2095,7 +2289,8 @@ std::move(p_interface_name), std::move(callback));
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RunMemtester(std::move(callback));
+      impl->RunMemtester(
+std::move(p_test_mem_kib), std::move(callback));
       return true;
     }
     case internal::kExecutor_KillMemtester_Name: {
@@ -2188,6 +2383,31 @@ std::move(p_cpu_index), std::move(callback));
       impl->GetUEFISecureBootContent(std::move(callback));
       return true;
     }
+    case internal::kExecutor_GetLidAngle_Name: {
+
+      internal::Executor_GetLidAngle_Params_Data* params =
+          reinterpret_cast<
+              internal::Executor_GetLidAngle_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      Executor_GetLidAngle_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            Executor::Name_, 10, false);
+        return false;
+      }
+      Executor::GetLidAngleCallback callback =
+          Executor_GetLidAngle_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->GetLidAngle(std::move(callback));
+      return true;
+    }
   }
   return false;
 }
@@ -2214,6 +2434,8 @@ static const mojo::internal::GenericValidationInfo kExecutorValidationInfo[] = {
      &internal::Executor_ReadMsr_ResponseParams_Data::Validate},
     {&internal::Executor_GetUEFISecureBootContent_Params_Data::Validate,
      &internal::Executor_GetUEFISecureBootContent_ResponseParams_Data::Validate},
+    {&internal::Executor_GetLidAngle_Params_Data::Validate,
+     &internal::Executor_GetLidAngle_ResponseParams_Data::Validate},
 };
 
 bool ExecutorRequestValidator::Accept(mojo::Message* message) {
@@ -2279,8 +2501,8 @@ void ExecutorInterceptorForTesting::GetInfo(const std::string& interface_name, G
 void ExecutorInterceptorForTesting::GetScanDump(const std::string& interface_name, GetScanDumpCallback callback) {
   GetForwardingInterface()->GetScanDump(std::move(interface_name), std::move(callback));
 }
-void ExecutorInterceptorForTesting::RunMemtester(RunMemtesterCallback callback) {
-  GetForwardingInterface()->RunMemtester(std::move(callback));
+void ExecutorInterceptorForTesting::RunMemtester(uint32_t test_mem_kib, RunMemtesterCallback callback) {
+  GetForwardingInterface()->RunMemtester(std::move(test_mem_kib), std::move(callback));
 }
 void ExecutorInterceptorForTesting::KillMemtester() {
   GetForwardingInterface()->KillMemtester();
@@ -2293,6 +2515,9 @@ void ExecutorInterceptorForTesting::ReadMsr(uint32_t msr_reg, uint32_t cpu_index
 }
 void ExecutorInterceptorForTesting::GetUEFISecureBootContent(GetUEFISecureBootContentCallback callback) {
   GetForwardingInterface()->GetUEFISecureBootContent(std::move(callback));
+}
+void ExecutorInterceptorForTesting::GetLidAngle(GetLidAngleCallback callback) {
+  GetForwardingInterface()->GetLidAngle(std::move(callback));
 }
 ExecutorAsyncWaiter::ExecutorAsyncWaiter(
     Executor* proxy) : proxy_(proxy) {}
@@ -2375,9 +2600,9 @@ void ExecutorAsyncWaiter::GetScanDump(
   loop.Run();
 }
 void ExecutorAsyncWaiter::RunMemtester(
-    ExecutedProcessResultPtr* out_result) {
+    uint32_t test_mem_kib, ExecutedProcessResultPtr* out_result) {
   base::RunLoop loop;
-  proxy_->RunMemtester(
+  proxy_->RunMemtester(std::move(test_mem_kib),
       base::BindOnce(
           [](base::RunLoop* loop,
              ExecutedProcessResultPtr* out_result
@@ -2432,6 +2657,21 @@ void ExecutorAsyncWaiter::GetUEFISecureBootContent(
           },
           &loop,
           out_contents));
+  loop.Run();
+}
+void ExecutorAsyncWaiter::GetLidAngle(
+    ExecutedProcessResultPtr* out_result) {
+  base::RunLoop loop;
+  proxy_->GetLidAngle(
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             ExecutedProcessResultPtr* out_result
+,
+             ExecutedProcessResultPtr result) {*out_result = std::move(result);
+            loop->Quit();
+          },
+          &loop,
+          out_result));
   loop.Run();
 }
 

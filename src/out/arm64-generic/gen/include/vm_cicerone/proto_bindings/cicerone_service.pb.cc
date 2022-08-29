@@ -131,6 +131,8 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ContainerShutdownSignalDefaultT
 constexpr LaunchContainerApplicationRequest::LaunchContainerApplicationRequest(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : files_()
+  , container_features_()
+  , _container_features_cached_byte_size_(0)
   , vm_name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
   , container_name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
   , desktop_file_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
@@ -205,7 +207,9 @@ struct ContainerAppIconResponseDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ContainerAppIconResponseDefaultTypeInternal _ContainerAppIconResponse_default_instance_;
 constexpr LaunchVshdRequest::LaunchVshdRequest(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : vm_name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  : container_features_()
+  , _container_features_cached_byte_size_(0)
+  , vm_name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
   , container_name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
   , owner_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
   , port_(0u){}
@@ -3991,6 +3995,61 @@ constexpr GetGarconSessionInfoResponse_Status GetGarconSessionInfoResponse::Stat
 constexpr GetGarconSessionInfoResponse_Status GetGarconSessionInfoResponse::Status_MAX;
 constexpr int GetGarconSessionInfoResponse::Status_ARRAYSIZE;
 #endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+bool ContainerFeature_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+      return true;
+    default:
+      return false;
+  }
+}
+
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> ContainerFeature_strings[3] = {};
+
+static const char ContainerFeature_names[] =
+  "ENABLE_GTK3_IME_SUPPORT"
+  "ENABLE_VIRTUAL_KEYBOARD_SUPPORT"
+  "UNKNOWN";
+
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry ContainerFeature_entries[] = {
+  { {ContainerFeature_names + 0, 23}, 1 },
+  { {ContainerFeature_names + 23, 31}, 2 },
+  { {ContainerFeature_names + 54, 7}, 0 },
+};
+
+static const int ContainerFeature_entries_by_number[] = {
+  2, // 0 -> UNKNOWN
+  0, // 1 -> ENABLE_GTK3_IME_SUPPORT
+  1, // 2 -> ENABLE_VIRTUAL_KEYBOARD_SUPPORT
+};
+
+const std::string& ContainerFeature_Name(
+    ContainerFeature value) {
+  static const bool dummy =
+      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
+          ContainerFeature_entries,
+          ContainerFeature_entries_by_number,
+          3, ContainerFeature_strings);
+  (void) dummy;
+  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
+      ContainerFeature_entries,
+      ContainerFeature_entries_by_number,
+      3, value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
+                     ContainerFeature_strings[idx].get();
+}
+bool ContainerFeature_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, ContainerFeature* value) {
+  int int_value;
+  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
+      ContainerFeature_entries, 3, name, &int_value);
+  if (success) {
+    *value = static_cast<ContainerFeature>(int_value);
+  }
+  return success;
+}
 
 // ===================================================================
 
@@ -6373,7 +6432,8 @@ class LaunchContainerApplicationRequest::_Internal {
 LaunchContainerApplicationRequest::LaunchContainerApplicationRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  files_(arena) {
+  files_(arena),
+  container_features_(arena) {
   SharedCtor();
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
@@ -6382,7 +6442,8 @@ LaunchContainerApplicationRequest::LaunchContainerApplicationRequest(::PROTOBUF_
 }
 LaunchContainerApplicationRequest::LaunchContainerApplicationRequest(const LaunchContainerApplicationRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      files_(from.files_) {
+      files_(from.files_),
+      container_features_(from.container_features_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   vm_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
@@ -6472,6 +6533,7 @@ void LaunchContainerApplicationRequest::Clear() {
   (void) cached_has_bits;
 
   files_.Clear();
+  container_features_.Clear();
   vm_name_.ClearToEmpty();
   container_name_.ClearToEmpty();
   desktop_file_id_.ClearToEmpty();
@@ -6547,6 +6609,18 @@ const char* LaunchContainerApplicationRequest::_InternalParse(const char* ptr, :
           uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
           _internal_set_display_scaling(static_cast<::vm_tools::cicerone::LaunchContainerApplicationRequest_DisplayScaling>(val));
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated .vm_tools.cicerone.ContainerFeature container_features = 7;
+      case 7:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 58)) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedEnumParser(_internal_mutable_container_features(), ptr, ctx);
+          CHK_(ptr);
+        } else if (static_cast<uint8_t>(tag) == 56) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_add_container_features(static_cast<::vm_tools::cicerone::ContainerFeature>(val));
         } else
           goto handle_unusual;
         continue;
@@ -6636,6 +6710,15 @@ uint8_t* LaunchContainerApplicationRequest::_InternalSerialize(
       6, this->_internal_display_scaling(), target);
   }
 
+  // repeated .vm_tools.cicerone.ContainerFeature container_features = 7;
+  {
+    int byte_size = _container_features_cached_byte_size_.load(std::memory_order_relaxed);
+    if (byte_size > 0) {
+      target = stream->WriteEnumPacked(
+          7, container_features_, byte_size, target);
+    }
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -6658,6 +6741,24 @@ size_t LaunchContainerApplicationRequest::ByteSizeLong() const {
   for (int i = 0, n = files_.size(); i < n; i++) {
     total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
       files_.Get(i));
+  }
+
+  // repeated .vm_tools.cicerone.ContainerFeature container_features = 7;
+  {
+    size_t data_size = 0;
+    unsigned int count = static_cast<unsigned int>(this->_internal_container_features_size());for (unsigned int i = 0; i < count; i++) {
+      data_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(
+        this->_internal_container_features(static_cast<int>(i)));
+    }
+    if (data_size > 0) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+            static_cast<int32_t>(data_size));
+    }
+    int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(data_size);
+    _container_features_cached_byte_size_.store(cached_size,
+                                    std::memory_order_relaxed);
+    total_size += data_size;
   }
 
   // string vm_name = 1;
@@ -6715,6 +6816,7 @@ void LaunchContainerApplicationRequest::MergeFrom(const LaunchContainerApplicati
   (void) cached_has_bits;
 
   files_.MergeFrom(from.files_);
+  container_features_.MergeFrom(from.container_features_);
   if (!from._internal_vm_name().empty()) {
     _internal_set_vm_name(from._internal_vm_name());
   }
@@ -6750,6 +6852,7 @@ void LaunchContainerApplicationRequest::InternalSwap(LaunchContainerApplicationR
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   files_.InternalSwap(&other->files_);
+  container_features_.InternalSwap(&other->container_features_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       &vm_name_, lhs_arena,
@@ -7863,7 +7966,8 @@ class LaunchVshdRequest::_Internal {
 
 LaunchVshdRequest::LaunchVshdRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
+  container_features_(arena) {
   SharedCtor();
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
@@ -7871,7 +7975,8 @@ LaunchVshdRequest::LaunchVshdRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
   // @@protoc_insertion_point(arena_constructor:vm_tools.cicerone.LaunchVshdRequest)
 }
 LaunchVshdRequest::LaunchVshdRequest(const LaunchVshdRequest& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      container_features_(from.container_features_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   vm_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
@@ -7947,6 +8052,7 @@ void LaunchVshdRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  container_features_.Clear();
   vm_name_.ClearToEmpty();
   container_name_.ClearToEmpty();
   owner_id_.ClearToEmpty();
@@ -7995,6 +8101,18 @@ const char* LaunchVshdRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESP
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
           CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated .vm_tools.cicerone.ContainerFeature container_features = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedEnumParser(_internal_mutable_container_features(), ptr, ctx);
+          CHK_(ptr);
+        } else if (static_cast<uint8_t>(tag) == 40) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_add_container_features(static_cast<::vm_tools::cicerone::ContainerFeature>(val));
         } else
           goto handle_unusual;
         continue;
@@ -8063,6 +8181,15 @@ uint8_t* LaunchVshdRequest::_InternalSerialize(
         4, this->_internal_owner_id(), target);
   }
 
+  // repeated .vm_tools.cicerone.ContainerFeature container_features = 5;
+  {
+    int byte_size = _container_features_cached_byte_size_.load(std::memory_order_relaxed);
+    if (byte_size > 0) {
+      target = stream->WriteEnumPacked(
+          5, container_features_, byte_size, target);
+    }
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -8078,6 +8205,24 @@ size_t LaunchVshdRequest::ByteSizeLong() const {
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
+
+  // repeated .vm_tools.cicerone.ContainerFeature container_features = 5;
+  {
+    size_t data_size = 0;
+    unsigned int count = static_cast<unsigned int>(this->_internal_container_features_size());for (unsigned int i = 0; i < count; i++) {
+      data_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(
+        this->_internal_container_features(static_cast<int>(i)));
+    }
+    if (data_size > 0) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+            static_cast<int32_t>(data_size));
+    }
+    int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(data_size);
+    _container_features_cached_byte_size_.store(cached_size,
+                                    std::memory_order_relaxed);
+    total_size += data_size;
+  }
 
   // string vm_name = 1;
   if (!this->_internal_vm_name().empty()) {
@@ -8125,6 +8270,7 @@ void LaunchVshdRequest::MergeFrom(const LaunchVshdRequest& from) {
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
+  container_features_.MergeFrom(from.container_features_);
   if (!from._internal_vm_name().empty()) {
     _internal_set_vm_name(from._internal_vm_name());
   }
@@ -8156,6 +8302,7 @@ void LaunchVshdRequest::InternalSwap(LaunchVshdRequest* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  container_features_.InternalSwap(&other->container_features_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       &vm_name_, lhs_arena,

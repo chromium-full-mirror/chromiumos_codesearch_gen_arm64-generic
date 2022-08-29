@@ -110,8 +110,8 @@ namespace cryptohome {
 
 struct CryptohomeRecoveryAuthBlockState {
   brillo::SecureBlob hsm_payload;
-  brillo::SecureBlob salt;
   brillo::SecureBlob encrypted_destination_share;
+  brillo::SecureBlob extended_pcr_bound_destination_share;
   brillo::SecureBlob channel_pub_key;
   brillo::SecureBlob encrypted_channel_priv_key;
   brillo::SecureBlob encrypted_rsa_priv_key;

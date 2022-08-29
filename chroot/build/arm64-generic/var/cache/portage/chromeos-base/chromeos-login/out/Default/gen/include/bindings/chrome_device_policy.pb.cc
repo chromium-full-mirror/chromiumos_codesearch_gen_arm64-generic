@@ -189,7 +189,8 @@ struct HostnameUserConfigurableProtoDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT HostnameUserConfigurableProtoDefaultTypeInternal _HostnameUserConfigurableProto_default_instance_;
 constexpr DeviceReportingProto::DeviceReportingProto(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : report_location_(false)
+  : report_signal_strength_event_driven_telemetry_(nullptr)
+  , report_location_(false)
   , report_os_update_status_(false)
   , report_running_kiosk_app_(false)
   , report_power_status_(false)
@@ -638,7 +639,7 @@ struct SystemSettingsProtoDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT SystemSettingsProtoDefaultTypeInternal _SystemSettingsProto_default_instance_;
 constexpr SAMLSettingsProto::SAMLSettingsProto(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : url_parameter_to_autofill_saml_username_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  : obsolete_url_parameter_to_autofill_saml_username_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
   , transfer_saml_cookies_(false){}
 struct SAMLSettingsProtoDefaultTypeInternal {
   constexpr SAMLSettingsProtoDefaultTypeInternal()
@@ -649,6 +650,18 @@ struct SAMLSettingsProtoDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT SAMLSettingsProtoDefaultTypeInternal _SAMLSettingsProto_default_instance_;
+constexpr SAMLUsernameProto::SAMLUsernameProto(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : url_parameter_to_autofill_saml_username_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+struct SAMLUsernameProtoDefaultTypeInternal {
+  constexpr SAMLUsernameProtoDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~SAMLUsernameProtoDefaultTypeInternal() {}
+  union {
+    SAMLUsernameProto _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT SAMLUsernameProtoDefaultTypeInternal _SAMLUsernameProto_default_instance_;
 constexpr RebootOnShutdownProto::RebootOnShutdownProto(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : reboot_on_shutdown_(false){}
@@ -1831,7 +1844,10 @@ constexpr ChromeDeviceSettingsProto::ChromeDeviceSettingsProto(
   , login_web_ui_lazy_loading_(nullptr)
   , keylocker_for_storage_encryption_enabled_(nullptr)
   , device_run_automatic_cleanup_on_login_(nullptr)
-  , device_encrypted_reporting_pipeline_enabled_(nullptr){}
+  , device_encrypted_reporting_pipeline_enabled_(nullptr)
+  , saml_username_(nullptr)
+  , device_login_screen_context_aware_access_signals_allowlist_(nullptr)
+  , device_printing_client_name_template_(nullptr){}
 struct ChromeDeviceSettingsProtoDefaultTypeInternal {
   constexpr ChromeDeviceSettingsProtoDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -6152,118 +6168,130 @@ class DeviceReportingProto::_Internal {
  public:
   using HasBits = decltype(std::declval<DeviceReportingProto>()._has_bits_);
   static void set_has_report_version_info(HasBits* has_bits) {
-    (*has_bits)[0] |= 33554432u;
-  }
-  static void set_has_report_activity_times(HasBits* has_bits) {
     (*has_bits)[0] |= 67108864u;
   }
-  static void set_has_report_boot_mode(HasBits* has_bits) {
+  static void set_has_report_activity_times(HasBits* has_bits) {
     (*has_bits)[0] |= 134217728u;
   }
-  static void set_has_report_location(HasBits* has_bits) {
-    (*has_bits)[0] |= 1u;
-  }
-  static void set_has_report_network_interfaces(HasBits* has_bits) {
+  static void set_has_report_boot_mode(HasBits* has_bits) {
     (*has_bits)[0] |= 268435456u;
   }
-  static void set_has_report_users(HasBits* has_bits) {
-    (*has_bits)[0] |= 536870912u;
-  }
-  static void set_has_report_hardware_status(HasBits* has_bits) {
-    (*has_bits)[0] |= 1073741824u;
-  }
-  static void set_has_report_session_status(HasBits* has_bits) {
-    (*has_bits)[0] |= 2147483648u;
-  }
-  static void set_has_report_os_update_status(HasBits* has_bits) {
+  static void set_has_report_location(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
-  static void set_has_report_running_kiosk_app(HasBits* has_bits) {
-    (*has_bits)[0] |= 4u;
+  static void set_has_report_network_interfaces(HasBits* has_bits) {
+    (*has_bits)[0] |= 536870912u;
   }
-  static void set_has_report_power_status(HasBits* has_bits) {
-    (*has_bits)[0] |= 8u;
+  static void set_has_report_users(HasBits* has_bits) {
+    (*has_bits)[0] |= 1073741824u;
   }
-  static void set_has_report_storage_status(HasBits* has_bits) {
-    (*has_bits)[0] |= 16u;
+  static void set_has_report_hardware_status(HasBits* has_bits) {
+    (*has_bits)[0] |= 2147483648u;
   }
-  static void set_has_report_board_status(HasBits* has_bits) {
-    (*has_bits)[0] |= 32u;
-  }
-  static void set_has_report_cpu_info(HasBits* has_bits) {
-    (*has_bits)[0] |= 64u;
-  }
-  static void set_has_report_graphics_status(HasBits* has_bits) {
-    (*has_bits)[0] |= 128u;
-  }
-  static void set_has_report_crash_report_info(HasBits* has_bits) {
-    (*has_bits)[0] |= 256u;
-  }
-  static void set_has_report_timezone_info(HasBits* has_bits) {
-    (*has_bits)[0] |= 512u;
-  }
-  static void set_has_report_memory_info(HasBits* has_bits) {
-    (*has_bits)[0] |= 1024u;
-  }
-  static void set_has_report_backlight_info(HasBits* has_bits) {
-    (*has_bits)[0] |= 2048u;
-  }
-  static void set_has_report_app_info(HasBits* has_bits) {
-    (*has_bits)[0] |= 4096u;
-  }
-  static void set_has_report_bluetooth_info(HasBits* has_bits) {
-    (*has_bits)[0] |= 8192u;
-  }
-  static void set_has_report_fan_info(HasBits* has_bits) {
-    (*has_bits)[0] |= 16384u;
-  }
-  static void set_has_report_vpd_info(HasBits* has_bits) {
-    (*has_bits)[0] |= 32768u;
-  }
-  static void set_has_report_system_info(HasBits* has_bits) {
-    (*has_bits)[0] |= 65536u;
-  }
-  static void set_has_report_print_jobs(HasBits* has_bits) {
-    (*has_bits)[0] |= 131072u;
-  }
-  static void set_has_report_login_logout(HasBits* has_bits) {
-    (*has_bits)[0] |= 262144u;
-  }
-  static void set_has_report_audio_status(HasBits* has_bits) {
+  static void set_has_report_session_status(HasBits* has_bits) {
     (*has_bits)[1] |= 1u;
   }
-  static void set_has_report_network_configuration(HasBits* has_bits) {
-    (*has_bits)[0] |= 4194304u;
+  static void set_has_report_os_update_status(HasBits* has_bits) {
+    (*has_bits)[0] |= 4u;
   }
-  static void set_has_report_network_status(HasBits* has_bits) {
-    (*has_bits)[0] |= 8388608u;
+  static void set_has_report_running_kiosk_app(HasBits* has_bits) {
+    (*has_bits)[0] |= 8u;
   }
-  static void set_has_report_security_status(HasBits* has_bits) {
+  static void set_has_report_power_status(HasBits* has_bits) {
+    (*has_bits)[0] |= 16u;
+  }
+  static void set_has_report_storage_status(HasBits* has_bits) {
+    (*has_bits)[0] |= 32u;
+  }
+  static void set_has_report_board_status(HasBits* has_bits) {
+    (*has_bits)[0] |= 64u;
+  }
+  static void set_has_report_cpu_info(HasBits* has_bits) {
+    (*has_bits)[0] |= 128u;
+  }
+  static void set_has_report_graphics_status(HasBits* has_bits) {
+    (*has_bits)[0] |= 256u;
+  }
+  static void set_has_report_crash_report_info(HasBits* has_bits) {
+    (*has_bits)[0] |= 512u;
+  }
+  static void set_has_report_timezone_info(HasBits* has_bits) {
+    (*has_bits)[0] |= 1024u;
+  }
+  static void set_has_report_memory_info(HasBits* has_bits) {
+    (*has_bits)[0] |= 2048u;
+  }
+  static void set_has_report_backlight_info(HasBits* has_bits) {
+    (*has_bits)[0] |= 4096u;
+  }
+  static void set_has_report_app_info(HasBits* has_bits) {
+    (*has_bits)[0] |= 8192u;
+  }
+  static void set_has_report_bluetooth_info(HasBits* has_bits) {
+    (*has_bits)[0] |= 16384u;
+  }
+  static void set_has_report_fan_info(HasBits* has_bits) {
+    (*has_bits)[0] |= 32768u;
+  }
+  static void set_has_report_vpd_info(HasBits* has_bits) {
+    (*has_bits)[0] |= 65536u;
+  }
+  static void set_has_report_system_info(HasBits* has_bits) {
+    (*has_bits)[0] |= 131072u;
+  }
+  static void set_has_report_print_jobs(HasBits* has_bits) {
+    (*has_bits)[0] |= 262144u;
+  }
+  static void set_has_report_login_logout(HasBits* has_bits) {
     (*has_bits)[0] |= 524288u;
   }
-  static void set_has_report_crd_sessions(HasBits* has_bits) {
-    (*has_bits)[0] |= 1048576u;
-  }
-  static void set_has_report_peripherals(HasBits* has_bits) {
-    (*has_bits)[0] |= 2097152u;
-  }
-  static void set_has_device_status_frequency(HasBits* has_bits) {
+  static void set_has_report_audio_status(HasBits* has_bits) {
     (*has_bits)[1] |= 2u;
   }
-  static void set_has_enable_granular_reporting(HasBits* has_bits) {
+  static void set_has_report_network_configuration(HasBits* has_bits) {
+    (*has_bits)[0] |= 8388608u;
+  }
+  static void set_has_report_network_status(HasBits* has_bits) {
     (*has_bits)[0] |= 16777216u;
   }
-  static void set_has_report_network_telemetry_collection_rate_ms(HasBits* has_bits) {
+  static void set_has_report_security_status(HasBits* has_bits) {
+    (*has_bits)[0] |= 1048576u;
+  }
+  static void set_has_report_crd_sessions(HasBits* has_bits) {
+    (*has_bits)[0] |= 2097152u;
+  }
+  static void set_has_report_peripherals(HasBits* has_bits) {
+    (*has_bits)[0] |= 4194304u;
+  }
+  static void set_has_device_status_frequency(HasBits* has_bits) {
     (*has_bits)[1] |= 4u;
   }
-  static void set_has_report_network_telemetry_event_checking_rate_ms(HasBits* has_bits) {
+  static void set_has_enable_granular_reporting(HasBits* has_bits) {
+    (*has_bits)[0] |= 33554432u;
+  }
+  static void set_has_report_network_telemetry_collection_rate_ms(HasBits* has_bits) {
     (*has_bits)[1] |= 8u;
   }
-  static void set_has_report_device_audio_status_checking_rate_ms(HasBits* has_bits) {
+  static void set_has_report_network_telemetry_event_checking_rate_ms(HasBits* has_bits) {
     (*has_bits)[1] |= 16u;
+  }
+  static void set_has_report_device_audio_status_checking_rate_ms(HasBits* has_bits) {
+    (*has_bits)[1] |= 32u;
+  }
+  static const ::enterprise_management::StringList& report_signal_strength_event_driven_telemetry(const DeviceReportingProto* msg);
+  static void set_has_report_signal_strength_event_driven_telemetry(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
   }
 };
 
+const ::enterprise_management::StringList&
+DeviceReportingProto::_Internal::report_signal_strength_event_driven_telemetry(const DeviceReportingProto* msg) {
+  return *msg->report_signal_strength_event_driven_telemetry_;
+}
+void DeviceReportingProto::clear_report_signal_strength_event_driven_telemetry() {
+  if (report_signal_strength_event_driven_telemetry_ != nullptr) report_signal_strength_event_driven_telemetry_->Clear();
+  _has_bits_[0] &= ~0x00000001u;
+}
 DeviceReportingProto::DeviceReportingProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
@@ -6277,6 +6305,11 @@ DeviceReportingProto::DeviceReportingProto(const DeviceReportingProto& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
       _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  if (from._internal_has_report_signal_strength_event_driven_telemetry()) {
+    report_signal_strength_event_driven_telemetry_ = new ::enterprise_management::StringList(*from.report_signal_strength_event_driven_telemetry_);
+  } else {
+    report_signal_strength_event_driven_telemetry_ = nullptr;
+  }
   ::memcpy(&report_location_, &from.report_location_,
     static_cast<size_t>(reinterpret_cast<char*>(&report_device_audio_status_checking_rate_ms_) -
     reinterpret_cast<char*>(&report_location_)) + sizeof(report_device_audio_status_checking_rate_ms_));
@@ -6285,9 +6318,9 @@ DeviceReportingProto::DeviceReportingProto(const DeviceReportingProto& from)
 
 inline void DeviceReportingProto::SharedCtor() {
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&report_location_) - reinterpret_cast<char*>(this)),
+    reinterpret_cast<char*>(&report_signal_strength_event_driven_telemetry_) - reinterpret_cast<char*>(this)),
     0, static_cast<size_t>(reinterpret_cast<char*>(&report_peripherals_) -
-    reinterpret_cast<char*>(&report_location_)) + sizeof(report_peripherals_));
+    reinterpret_cast<char*>(&report_signal_strength_event_driven_telemetry_)) + sizeof(report_peripherals_));
 report_network_configuration_ = true;
 report_network_status_ = true;
 enable_granular_reporting_ = true;
@@ -6314,6 +6347,7 @@ DeviceReportingProto::~DeviceReportingProto() {
 
 inline void DeviceReportingProto::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  if (this != internal_default_instance()) delete report_signal_strength_event_driven_telemetry_;
 }
 
 void DeviceReportingProto::ArenaDtor(void* object) {
@@ -6333,24 +6367,28 @@ void DeviceReportingProto::Clear() {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x000000ffu) {
+  if (cached_has_bits & 0x00000001u) {
+    GOOGLE_DCHECK(report_signal_strength_event_driven_telemetry_ != nullptr);
+    report_signal_strength_event_driven_telemetry_->Clear();
+  }
+  if (cached_has_bits & 0x000000feu) {
     ::memset(&report_location_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&report_graphics_status_) -
-        reinterpret_cast<char*>(&report_location_)) + sizeof(report_graphics_status_));
+        reinterpret_cast<char*>(&report_cpu_info_) -
+        reinterpret_cast<char*>(&report_location_)) + sizeof(report_cpu_info_));
   }
   if (cached_has_bits & 0x0000ff00u) {
-    ::memset(&report_crash_report_info_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&report_vpd_info_) -
-        reinterpret_cast<char*>(&report_crash_report_info_)) + sizeof(report_vpd_info_));
+    ::memset(&report_graphics_status_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&report_fan_info_) -
+        reinterpret_cast<char*>(&report_graphics_status_)) + sizeof(report_fan_info_));
   }
   if (cached_has_bits & 0x00ff0000u) {
-    ::memset(&report_system_info_, 0, static_cast<size_t>(
+    ::memset(&report_vpd_info_, 0, static_cast<size_t>(
         reinterpret_cast<char*>(&report_peripherals_) -
-        reinterpret_cast<char*>(&report_system_info_)) + sizeof(report_peripherals_));
+        reinterpret_cast<char*>(&report_vpd_info_)) + sizeof(report_peripherals_));
     report_network_configuration_ = true;
-    report_network_status_ = true;
   }
   if (cached_has_bits & 0xff000000u) {
+    report_network_status_ = true;
     enable_granular_reporting_ = true;
     report_version_info_ = true;
     report_activity_times_ = true;
@@ -6358,10 +6396,10 @@ void DeviceReportingProto::Clear() {
     report_network_interfaces_ = true;
     report_users_ = true;
     report_hardware_status_ = true;
-    report_session_status_ = true;
   }
   cached_has_bits = _has_bits_[1];
-  if (cached_has_bits & 0x0000001fu) {
+  if (cached_has_bits & 0x0000003fu) {
+    report_session_status_ = true;
     report_audio_status_ = true;
     device_status_frequency_ = int64_t{10800000};
     report_network_telemetry_collection_rate_ms_ = int64_t{3600000};
@@ -6711,6 +6749,14 @@ const char* DeviceReportingProto::_InternalParse(const char* ptr, ::PROTOBUF_NAM
         } else
           goto handle_unusual;
         continue;
+      // optional .enterprise_management.StringList report_signal_strength_event_driven_telemetry = 38;
+      case 38:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 50)) {
+          ptr = ctx->ParseMessage(_internal_mutable_report_signal_strength_event_driven_telemetry(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -6742,231 +6788,239 @@ uint8_t* DeviceReportingProto::_InternalSerialize(
 
   cached_has_bits = _has_bits_[0];
   // optional bool report_version_info = 1 [default = true];
-  if (cached_has_bits & 0x02000000u) {
+  if (cached_has_bits & 0x04000000u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(1, this->_internal_report_version_info(), target);
   }
 
   // optional bool report_activity_times = 2 [default = true];
-  if (cached_has_bits & 0x04000000u) {
+  if (cached_has_bits & 0x08000000u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(2, this->_internal_report_activity_times(), target);
   }
 
   // optional bool report_boot_mode = 3 [default = true];
-  if (cached_has_bits & 0x08000000u) {
+  if (cached_has_bits & 0x10000000u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(3, this->_internal_report_boot_mode(), target);
   }
 
   // optional bool report_location = 4 [default = false];
-  if (cached_has_bits & 0x00000001u) {
+  if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(4, this->_internal_report_location(), target);
   }
 
   // optional bool report_network_interfaces = 5 [default = true];
-  if (cached_has_bits & 0x10000000u) {
+  if (cached_has_bits & 0x20000000u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(5, this->_internal_report_network_interfaces(), target);
   }
 
   // optional bool report_users = 6 [default = true];
-  if (cached_has_bits & 0x20000000u) {
+  if (cached_has_bits & 0x40000000u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(6, this->_internal_report_users(), target);
   }
 
   // optional bool report_hardware_status = 7 [default = true];
-  if (cached_has_bits & 0x40000000u) {
+  if (cached_has_bits & 0x80000000u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(7, this->_internal_report_hardware_status(), target);
   }
 
+  cached_has_bits = _has_bits_[1];
   // optional bool report_session_status = 8 [default = true];
-  if (cached_has_bits & 0x80000000u) {
+  if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(8, this->_internal_report_session_status(), target);
   }
 
-  cached_has_bits = _has_bits_[1];
   // optional int64 device_status_frequency = 9 [default = 10800000];
-  if (cached_has_bits & 0x00000002u) {
+  if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(9, this->_internal_device_status_frequency(), target);
   }
 
   cached_has_bits = _has_bits_[0];
   // optional bool report_os_update_status = 10 [default = false];
-  if (cached_has_bits & 0x00000002u) {
+  if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(10, this->_internal_report_os_update_status(), target);
   }
 
   // optional bool report_running_kiosk_app = 11 [default = false];
-  if (cached_has_bits & 0x00000004u) {
+  if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(11, this->_internal_report_running_kiosk_app(), target);
   }
 
   // optional bool report_power_status = 12 [default = false];
-  if (cached_has_bits & 0x00000008u) {
+  if (cached_has_bits & 0x00000010u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(12, this->_internal_report_power_status(), target);
   }
 
   // optional bool report_storage_status = 13 [default = false];
-  if (cached_has_bits & 0x00000010u) {
+  if (cached_has_bits & 0x00000020u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(13, this->_internal_report_storage_status(), target);
   }
 
   // optional bool report_board_status = 14 [default = false];
-  if (cached_has_bits & 0x00000020u) {
+  if (cached_has_bits & 0x00000040u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(14, this->_internal_report_board_status(), target);
   }
 
   // optional bool report_cpu_info = 15 [default = false];
-  if (cached_has_bits & 0x00000040u) {
+  if (cached_has_bits & 0x00000080u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(15, this->_internal_report_cpu_info(), target);
   }
 
   // optional bool report_graphics_status = 16 [default = false];
-  if (cached_has_bits & 0x00000080u) {
+  if (cached_has_bits & 0x00000100u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(16, this->_internal_report_graphics_status(), target);
   }
 
   // optional bool report_crash_report_info = 17 [default = false];
-  if (cached_has_bits & 0x00000100u) {
+  if (cached_has_bits & 0x00000200u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(17, this->_internal_report_crash_report_info(), target);
   }
 
   // optional bool report_timezone_info = 18 [default = false];
-  if (cached_has_bits & 0x00000200u) {
+  if (cached_has_bits & 0x00000400u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(18, this->_internal_report_timezone_info(), target);
   }
 
   // optional bool report_memory_info = 19 [default = false];
-  if (cached_has_bits & 0x00000400u) {
+  if (cached_has_bits & 0x00000800u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(19, this->_internal_report_memory_info(), target);
   }
 
   // optional bool report_backlight_info = 20 [default = false];
-  if (cached_has_bits & 0x00000800u) {
+  if (cached_has_bits & 0x00001000u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(20, this->_internal_report_backlight_info(), target);
   }
 
   // optional bool report_app_info = 21 [default = false];
-  if (cached_has_bits & 0x00001000u) {
+  if (cached_has_bits & 0x00002000u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(21, this->_internal_report_app_info(), target);
   }
 
   // optional bool report_bluetooth_info = 22 [default = false];
-  if (cached_has_bits & 0x00002000u) {
+  if (cached_has_bits & 0x00004000u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(22, this->_internal_report_bluetooth_info(), target);
   }
 
   // optional bool report_fan_info = 23 [default = false];
-  if (cached_has_bits & 0x00004000u) {
+  if (cached_has_bits & 0x00008000u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(23, this->_internal_report_fan_info(), target);
   }
 
   // optional bool report_vpd_info = 24 [default = false];
-  if (cached_has_bits & 0x00008000u) {
+  if (cached_has_bits & 0x00010000u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(24, this->_internal_report_vpd_info(), target);
   }
 
   // optional bool report_system_info = 25 [default = false];
-  if (cached_has_bits & 0x00010000u) {
+  if (cached_has_bits & 0x00020000u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(25, this->_internal_report_system_info(), target);
   }
 
   // optional bool report_print_jobs = 26 [default = false];
-  if (cached_has_bits & 0x00020000u) {
+  if (cached_has_bits & 0x00040000u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(26, this->_internal_report_print_jobs(), target);
   }
 
   // optional bool report_login_logout = 27 [default = false];
-  if (cached_has_bits & 0x00040000u) {
+  if (cached_has_bits & 0x00080000u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(27, this->_internal_report_login_logout(), target);
   }
 
   cached_has_bits = _has_bits_[1];
   // optional bool report_audio_status = 28 [default = true];
-  if (cached_has_bits & 0x00000001u) {
+  if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(28, this->_internal_report_audio_status(), target);
   }
 
   cached_has_bits = _has_bits_[0];
   // optional bool report_network_configuration = 29 [default = true];
-  if (cached_has_bits & 0x00400000u) {
+  if (cached_has_bits & 0x00800000u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(29, this->_internal_report_network_configuration(), target);
   }
 
   // optional bool report_network_status = 30 [default = true];
-  if (cached_has_bits & 0x00800000u) {
+  if (cached_has_bits & 0x01000000u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(30, this->_internal_report_network_status(), target);
   }
 
   // optional bool report_security_status = 31 [default = false];
-  if (cached_has_bits & 0x00080000u) {
+  if (cached_has_bits & 0x00100000u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(31, this->_internal_report_security_status(), target);
   }
 
   // optional bool enable_granular_reporting = 32 [default = true];
-  if (cached_has_bits & 0x01000000u) {
+  if (cached_has_bits & 0x02000000u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(32, this->_internal_enable_granular_reporting(), target);
   }
 
   cached_has_bits = _has_bits_[1];
   // optional int64 report_network_telemetry_collection_rate_ms = 33 [default = 3600000];
-  if (cached_has_bits & 0x00000004u) {
+  if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(33, this->_internal_report_network_telemetry_collection_rate_ms(), target);
   }
 
   // optional int64 report_network_telemetry_event_checking_rate_ms = 34 [default = 600000];
-  if (cached_has_bits & 0x00000008u) {
+  if (cached_has_bits & 0x00000010u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(34, this->_internal_report_network_telemetry_event_checking_rate_ms(), target);
   }
 
   // optional int64 report_device_audio_status_checking_rate_ms = 35 [default = 600000];
-  if (cached_has_bits & 0x00000010u) {
+  if (cached_has_bits & 0x00000020u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(35, this->_internal_report_device_audio_status_checking_rate_ms(), target);
   }
 
   cached_has_bits = _has_bits_[0];
   // optional bool report_crd_sessions = 36 [default = false];
-  if (cached_has_bits & 0x00100000u) {
+  if (cached_has_bits & 0x00200000u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(36, this->_internal_report_crd_sessions(), target);
   }
 
   // optional bool report_peripherals = 37 [default = false];
-  if (cached_has_bits & 0x00200000u) {
+  if (cached_has_bits & 0x00400000u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(37, this->_internal_report_peripherals(), target);
+  }
+
+  // optional .enterprise_management.StringList report_signal_strength_event_driven_telemetry = 38;
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(
+        38, _Internal::report_signal_strength_event_driven_telemetry(this), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -6987,201 +7041,208 @@ size_t DeviceReportingProto::ByteSizeLong() const {
 
   cached_has_bits = _has_bits_[0];
   if (cached_has_bits & 0x000000ffu) {
-    // optional bool report_location = 4 [default = false];
+    // optional .enterprise_management.StringList report_signal_strength_event_driven_telemetry = 38;
     if (cached_has_bits & 0x00000001u) {
-      total_size += 1 + 1;
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *report_signal_strength_event_driven_telemetry_);
     }
 
-    // optional bool report_os_update_status = 10 [default = false];
+    // optional bool report_location = 4 [default = false];
     if (cached_has_bits & 0x00000002u) {
       total_size += 1 + 1;
     }
 
-    // optional bool report_running_kiosk_app = 11 [default = false];
+    // optional bool report_os_update_status = 10 [default = false];
     if (cached_has_bits & 0x00000004u) {
       total_size += 1 + 1;
     }
 
-    // optional bool report_power_status = 12 [default = false];
+    // optional bool report_running_kiosk_app = 11 [default = false];
     if (cached_has_bits & 0x00000008u) {
       total_size += 1 + 1;
     }
 
-    // optional bool report_storage_status = 13 [default = false];
+    // optional bool report_power_status = 12 [default = false];
     if (cached_has_bits & 0x00000010u) {
       total_size += 1 + 1;
     }
 
-    // optional bool report_board_status = 14 [default = false];
+    // optional bool report_storage_status = 13 [default = false];
     if (cached_has_bits & 0x00000020u) {
       total_size += 1 + 1;
     }
 
-    // optional bool report_cpu_info = 15 [default = false];
+    // optional bool report_board_status = 14 [default = false];
     if (cached_has_bits & 0x00000040u) {
       total_size += 1 + 1;
     }
 
-    // optional bool report_graphics_status = 16 [default = false];
+    // optional bool report_cpu_info = 15 [default = false];
     if (cached_has_bits & 0x00000080u) {
-      total_size += 2 + 1;
+      total_size += 1 + 1;
     }
 
   }
   if (cached_has_bits & 0x0000ff00u) {
-    // optional bool report_crash_report_info = 17 [default = false];
+    // optional bool report_graphics_status = 16 [default = false];
     if (cached_has_bits & 0x00000100u) {
       total_size += 2 + 1;
     }
 
-    // optional bool report_timezone_info = 18 [default = false];
+    // optional bool report_crash_report_info = 17 [default = false];
     if (cached_has_bits & 0x00000200u) {
       total_size += 2 + 1;
     }
 
-    // optional bool report_memory_info = 19 [default = false];
+    // optional bool report_timezone_info = 18 [default = false];
     if (cached_has_bits & 0x00000400u) {
       total_size += 2 + 1;
     }
 
-    // optional bool report_backlight_info = 20 [default = false];
+    // optional bool report_memory_info = 19 [default = false];
     if (cached_has_bits & 0x00000800u) {
       total_size += 2 + 1;
     }
 
-    // optional bool report_app_info = 21 [default = false];
+    // optional bool report_backlight_info = 20 [default = false];
     if (cached_has_bits & 0x00001000u) {
       total_size += 2 + 1;
     }
 
-    // optional bool report_bluetooth_info = 22 [default = false];
+    // optional bool report_app_info = 21 [default = false];
     if (cached_has_bits & 0x00002000u) {
       total_size += 2 + 1;
     }
 
-    // optional bool report_fan_info = 23 [default = false];
+    // optional bool report_bluetooth_info = 22 [default = false];
     if (cached_has_bits & 0x00004000u) {
       total_size += 2 + 1;
     }
 
-    // optional bool report_vpd_info = 24 [default = false];
+    // optional bool report_fan_info = 23 [default = false];
     if (cached_has_bits & 0x00008000u) {
       total_size += 2 + 1;
     }
 
   }
   if (cached_has_bits & 0x00ff0000u) {
-    // optional bool report_system_info = 25 [default = false];
+    // optional bool report_vpd_info = 24 [default = false];
     if (cached_has_bits & 0x00010000u) {
       total_size += 2 + 1;
     }
 
-    // optional bool report_print_jobs = 26 [default = false];
+    // optional bool report_system_info = 25 [default = false];
     if (cached_has_bits & 0x00020000u) {
       total_size += 2 + 1;
     }
 
-    // optional bool report_login_logout = 27 [default = false];
+    // optional bool report_print_jobs = 26 [default = false];
     if (cached_has_bits & 0x00040000u) {
       total_size += 2 + 1;
     }
 
-    // optional bool report_security_status = 31 [default = false];
+    // optional bool report_login_logout = 27 [default = false];
     if (cached_has_bits & 0x00080000u) {
       total_size += 2 + 1;
     }
 
-    // optional bool report_crd_sessions = 36 [default = false];
+    // optional bool report_security_status = 31 [default = false];
     if (cached_has_bits & 0x00100000u) {
       total_size += 2 + 1;
     }
 
-    // optional bool report_peripherals = 37 [default = false];
+    // optional bool report_crd_sessions = 36 [default = false];
     if (cached_has_bits & 0x00200000u) {
       total_size += 2 + 1;
     }
 
-    // optional bool report_network_configuration = 29 [default = true];
+    // optional bool report_peripherals = 37 [default = false];
     if (cached_has_bits & 0x00400000u) {
       total_size += 2 + 1;
     }
 
-    // optional bool report_network_status = 30 [default = true];
+    // optional bool report_network_configuration = 29 [default = true];
     if (cached_has_bits & 0x00800000u) {
       total_size += 2 + 1;
     }
 
   }
   if (cached_has_bits & 0xff000000u) {
-    // optional bool enable_granular_reporting = 32 [default = true];
+    // optional bool report_network_status = 30 [default = true];
     if (cached_has_bits & 0x01000000u) {
       total_size += 2 + 1;
     }
 
-    // optional bool report_version_info = 1 [default = true];
+    // optional bool enable_granular_reporting = 32 [default = true];
     if (cached_has_bits & 0x02000000u) {
-      total_size += 1 + 1;
+      total_size += 2 + 1;
     }
 
-    // optional bool report_activity_times = 2 [default = true];
+    // optional bool report_version_info = 1 [default = true];
     if (cached_has_bits & 0x04000000u) {
       total_size += 1 + 1;
     }
 
-    // optional bool report_boot_mode = 3 [default = true];
+    // optional bool report_activity_times = 2 [default = true];
     if (cached_has_bits & 0x08000000u) {
       total_size += 1 + 1;
     }
 
-    // optional bool report_network_interfaces = 5 [default = true];
+    // optional bool report_boot_mode = 3 [default = true];
     if (cached_has_bits & 0x10000000u) {
       total_size += 1 + 1;
     }
 
-    // optional bool report_users = 6 [default = true];
+    // optional bool report_network_interfaces = 5 [default = true];
     if (cached_has_bits & 0x20000000u) {
       total_size += 1 + 1;
     }
 
-    // optional bool report_hardware_status = 7 [default = true];
+    // optional bool report_users = 6 [default = true];
     if (cached_has_bits & 0x40000000u) {
       total_size += 1 + 1;
     }
 
-    // optional bool report_session_status = 8 [default = true];
+    // optional bool report_hardware_status = 7 [default = true];
     if (cached_has_bits & 0x80000000u) {
       total_size += 1 + 1;
     }
 
   }
   cached_has_bits = _has_bits_[1];
-  if (cached_has_bits & 0x0000001fu) {
-    // optional bool report_audio_status = 28 [default = true];
+  if (cached_has_bits & 0x0000003fu) {
+    // optional bool report_session_status = 8 [default = true];
     if (cached_has_bits & 0x00000001u) {
+      total_size += 1 + 1;
+    }
+
+    // optional bool report_audio_status = 28 [default = true];
+    if (cached_has_bits & 0x00000002u) {
       total_size += 2 + 1;
     }
 
     // optional int64 device_status_frequency = 9 [default = 10800000];
-    if (cached_has_bits & 0x00000002u) {
+    if (cached_has_bits & 0x00000004u) {
       total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64SizePlusOne(this->_internal_device_status_frequency());
     }
 
     // optional int64 report_network_telemetry_collection_rate_ms = 33 [default = 3600000];
-    if (cached_has_bits & 0x00000004u) {
+    if (cached_has_bits & 0x00000008u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64Size(
           this->_internal_report_network_telemetry_collection_rate_ms());
     }
 
     // optional int64 report_network_telemetry_event_checking_rate_ms = 34 [default = 600000];
-    if (cached_has_bits & 0x00000008u) {
+    if (cached_has_bits & 0x00000010u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64Size(
           this->_internal_report_network_telemetry_event_checking_rate_ms());
     }
 
     // optional int64 report_device_audio_status_checking_rate_ms = 35 [default = 600000];
-    if (cached_has_bits & 0x00000010u) {
+    if (cached_has_bits & 0x00000020u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64Size(
           this->_internal_report_device_audio_status_checking_rate_ms());
@@ -7211,127 +7272,130 @@ void DeviceReportingProto::MergeFrom(const DeviceReportingProto& from) {
   cached_has_bits = from._has_bits_[0];
   if (cached_has_bits & 0x000000ffu) {
     if (cached_has_bits & 0x00000001u) {
-      report_location_ = from.report_location_;
+      _internal_mutable_report_signal_strength_event_driven_telemetry()->::enterprise_management::StringList::MergeFrom(from._internal_report_signal_strength_event_driven_telemetry());
     }
     if (cached_has_bits & 0x00000002u) {
-      report_os_update_status_ = from.report_os_update_status_;
+      report_location_ = from.report_location_;
     }
     if (cached_has_bits & 0x00000004u) {
-      report_running_kiosk_app_ = from.report_running_kiosk_app_;
+      report_os_update_status_ = from.report_os_update_status_;
     }
     if (cached_has_bits & 0x00000008u) {
-      report_power_status_ = from.report_power_status_;
+      report_running_kiosk_app_ = from.report_running_kiosk_app_;
     }
     if (cached_has_bits & 0x00000010u) {
-      report_storage_status_ = from.report_storage_status_;
+      report_power_status_ = from.report_power_status_;
     }
     if (cached_has_bits & 0x00000020u) {
-      report_board_status_ = from.report_board_status_;
+      report_storage_status_ = from.report_storage_status_;
     }
     if (cached_has_bits & 0x00000040u) {
-      report_cpu_info_ = from.report_cpu_info_;
+      report_board_status_ = from.report_board_status_;
     }
     if (cached_has_bits & 0x00000080u) {
-      report_graphics_status_ = from.report_graphics_status_;
+      report_cpu_info_ = from.report_cpu_info_;
     }
     _has_bits_[0] |= cached_has_bits;
   }
   if (cached_has_bits & 0x0000ff00u) {
     if (cached_has_bits & 0x00000100u) {
-      report_crash_report_info_ = from.report_crash_report_info_;
+      report_graphics_status_ = from.report_graphics_status_;
     }
     if (cached_has_bits & 0x00000200u) {
-      report_timezone_info_ = from.report_timezone_info_;
+      report_crash_report_info_ = from.report_crash_report_info_;
     }
     if (cached_has_bits & 0x00000400u) {
-      report_memory_info_ = from.report_memory_info_;
+      report_timezone_info_ = from.report_timezone_info_;
     }
     if (cached_has_bits & 0x00000800u) {
-      report_backlight_info_ = from.report_backlight_info_;
+      report_memory_info_ = from.report_memory_info_;
     }
     if (cached_has_bits & 0x00001000u) {
-      report_app_info_ = from.report_app_info_;
+      report_backlight_info_ = from.report_backlight_info_;
     }
     if (cached_has_bits & 0x00002000u) {
-      report_bluetooth_info_ = from.report_bluetooth_info_;
+      report_app_info_ = from.report_app_info_;
     }
     if (cached_has_bits & 0x00004000u) {
-      report_fan_info_ = from.report_fan_info_;
+      report_bluetooth_info_ = from.report_bluetooth_info_;
     }
     if (cached_has_bits & 0x00008000u) {
-      report_vpd_info_ = from.report_vpd_info_;
+      report_fan_info_ = from.report_fan_info_;
     }
     _has_bits_[0] |= cached_has_bits;
   }
   if (cached_has_bits & 0x00ff0000u) {
     if (cached_has_bits & 0x00010000u) {
-      report_system_info_ = from.report_system_info_;
+      report_vpd_info_ = from.report_vpd_info_;
     }
     if (cached_has_bits & 0x00020000u) {
-      report_print_jobs_ = from.report_print_jobs_;
+      report_system_info_ = from.report_system_info_;
     }
     if (cached_has_bits & 0x00040000u) {
-      report_login_logout_ = from.report_login_logout_;
+      report_print_jobs_ = from.report_print_jobs_;
     }
     if (cached_has_bits & 0x00080000u) {
-      report_security_status_ = from.report_security_status_;
+      report_login_logout_ = from.report_login_logout_;
     }
     if (cached_has_bits & 0x00100000u) {
-      report_crd_sessions_ = from.report_crd_sessions_;
+      report_security_status_ = from.report_security_status_;
     }
     if (cached_has_bits & 0x00200000u) {
-      report_peripherals_ = from.report_peripherals_;
+      report_crd_sessions_ = from.report_crd_sessions_;
     }
     if (cached_has_bits & 0x00400000u) {
-      report_network_configuration_ = from.report_network_configuration_;
+      report_peripherals_ = from.report_peripherals_;
     }
     if (cached_has_bits & 0x00800000u) {
-      report_network_status_ = from.report_network_status_;
+      report_network_configuration_ = from.report_network_configuration_;
     }
     _has_bits_[0] |= cached_has_bits;
   }
   if (cached_has_bits & 0xff000000u) {
     if (cached_has_bits & 0x01000000u) {
-      enable_granular_reporting_ = from.enable_granular_reporting_;
+      report_network_status_ = from.report_network_status_;
     }
     if (cached_has_bits & 0x02000000u) {
-      report_version_info_ = from.report_version_info_;
+      enable_granular_reporting_ = from.enable_granular_reporting_;
     }
     if (cached_has_bits & 0x04000000u) {
-      report_activity_times_ = from.report_activity_times_;
+      report_version_info_ = from.report_version_info_;
     }
     if (cached_has_bits & 0x08000000u) {
-      report_boot_mode_ = from.report_boot_mode_;
+      report_activity_times_ = from.report_activity_times_;
     }
     if (cached_has_bits & 0x10000000u) {
-      report_network_interfaces_ = from.report_network_interfaces_;
+      report_boot_mode_ = from.report_boot_mode_;
     }
     if (cached_has_bits & 0x20000000u) {
-      report_users_ = from.report_users_;
+      report_network_interfaces_ = from.report_network_interfaces_;
     }
     if (cached_has_bits & 0x40000000u) {
-      report_hardware_status_ = from.report_hardware_status_;
+      report_users_ = from.report_users_;
     }
     if (cached_has_bits & 0x80000000u) {
-      report_session_status_ = from.report_session_status_;
+      report_hardware_status_ = from.report_hardware_status_;
     }
     _has_bits_[0] |= cached_has_bits;
   }
   cached_has_bits = from._has_bits_[1];
-  if (cached_has_bits & 0x0000001fu) {
+  if (cached_has_bits & 0x0000003fu) {
     if (cached_has_bits & 0x00000001u) {
-      report_audio_status_ = from.report_audio_status_;
+      report_session_status_ = from.report_session_status_;
     }
     if (cached_has_bits & 0x00000002u) {
-      device_status_frequency_ = from.device_status_frequency_;
+      report_audio_status_ = from.report_audio_status_;
     }
     if (cached_has_bits & 0x00000004u) {
-      report_network_telemetry_collection_rate_ms_ = from.report_network_telemetry_collection_rate_ms_;
+      device_status_frequency_ = from.device_status_frequency_;
     }
     if (cached_has_bits & 0x00000008u) {
-      report_network_telemetry_event_checking_rate_ms_ = from.report_network_telemetry_event_checking_rate_ms_;
+      report_network_telemetry_collection_rate_ms_ = from.report_network_telemetry_collection_rate_ms_;
     }
     if (cached_has_bits & 0x00000010u) {
+      report_network_telemetry_event_checking_rate_ms_ = from.report_network_telemetry_event_checking_rate_ms_;
+    }
+    if (cached_has_bits & 0x00000020u) {
       report_device_audio_status_checking_rate_ms_ = from.report_device_audio_status_checking_rate_ms_;
     }
     _has_bits_[1] |= cached_has_bits;
@@ -7358,9 +7422,9 @@ void DeviceReportingProto::InternalSwap(DeviceReportingProto* other) {
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(DeviceReportingProto, report_peripherals_)
       + sizeof(DeviceReportingProto::report_peripherals_)
-      - PROTOBUF_FIELD_OFFSET(DeviceReportingProto, report_location_)>(
-          reinterpret_cast<char*>(&report_location_),
-          reinterpret_cast<char*>(&other->report_location_));
+      - PROTOBUF_FIELD_OFFSET(DeviceReportingProto, report_signal_strength_event_driven_telemetry_)>(
+          reinterpret_cast<char*>(&report_signal_strength_event_driven_telemetry_),
+          reinterpret_cast<char*>(&other->report_signal_strength_event_driven_telemetry_));
   swap(report_network_configuration_, other->report_network_configuration_);
   swap(report_network_status_, other->report_network_status_);
   swap(enable_granular_reporting_, other->enable_granular_reporting_);
@@ -15556,7 +15620,7 @@ class SAMLSettingsProto::_Internal {
   static void set_has_transfer_saml_cookies(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
-  static void set_has_url_parameter_to_autofill_saml_username(HasBits* has_bits) {
+  static void set_has_obsolete_url_parameter_to_autofill_saml_username(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
 };
@@ -15574,12 +15638,12 @@ SAMLSettingsProto::SAMLSettingsProto(const SAMLSettingsProto& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
       _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  url_parameter_to_autofill_saml_username_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  obsolete_url_parameter_to_autofill_saml_username_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    url_parameter_to_autofill_saml_username_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+    obsolete_url_parameter_to_autofill_saml_username_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_url_parameter_to_autofill_saml_username()) {
-    url_parameter_to_autofill_saml_username_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_url_parameter_to_autofill_saml_username(), 
+  if (from._internal_has_obsolete_url_parameter_to_autofill_saml_username()) {
+    obsolete_url_parameter_to_autofill_saml_username_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_obsolete_url_parameter_to_autofill_saml_username(), 
       GetArenaForAllocation());
   }
   transfer_saml_cookies_ = from.transfer_saml_cookies_;
@@ -15587,9 +15651,9 @@ SAMLSettingsProto::SAMLSettingsProto(const SAMLSettingsProto& from)
 }
 
 inline void SAMLSettingsProto::SharedCtor() {
-url_parameter_to_autofill_saml_username_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+obsolete_url_parameter_to_autofill_saml_username_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  url_parameter_to_autofill_saml_username_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  obsolete_url_parameter_to_autofill_saml_username_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 transfer_saml_cookies_ = false;
 }
@@ -15603,7 +15667,7 @@ SAMLSettingsProto::~SAMLSettingsProto() {
 
 inline void SAMLSettingsProto::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  url_parameter_to_autofill_saml_username_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  obsolete_url_parameter_to_autofill_saml_username_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
 void SAMLSettingsProto::ArenaDtor(void* object) {
@@ -15624,7 +15688,7 @@ void SAMLSettingsProto::Clear() {
 
   cached_has_bits = _has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
-    url_parameter_to_autofill_saml_username_.ClearNonDefaultToEmpty();
+    obsolete_url_parameter_to_autofill_saml_username_.ClearNonDefaultToEmpty();
   }
   transfer_saml_cookies_ = false;
   _has_bits_.Clear();
@@ -15647,10 +15711,10 @@ const char* SAMLSettingsProto::_InternalParse(const char* ptr, ::PROTOBUF_NAMESP
         } else
           goto handle_unusual;
         continue;
-      // optional string url_parameter_to_autofill_saml_username = 2;
+      // optional string OBSOLETE_url_parameter_to_autofill_saml_username = 2 [deprecated = true];
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
-          auto str = _internal_mutable_url_parameter_to_autofill_saml_username();
+          auto str = _internal_mutable_obsolete_url_parameter_to_autofill_saml_username();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
@@ -15693,10 +15757,10 @@ uint8_t* SAMLSettingsProto::_InternalSerialize(
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(1, this->_internal_transfer_saml_cookies(), target);
   }
 
-  // optional string url_parameter_to_autofill_saml_username = 2;
+  // optional string OBSOLETE_url_parameter_to_autofill_saml_username = 2 [deprecated = true];
   if (cached_has_bits & 0x00000001u) {
     target = stream->WriteStringMaybeAliased(
-        2, this->_internal_url_parameter_to_autofill_saml_username(), target);
+        2, this->_internal_obsolete_url_parameter_to_autofill_saml_username(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -15717,11 +15781,11 @@ size_t SAMLSettingsProto::ByteSizeLong() const {
 
   cached_has_bits = _has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
-    // optional string url_parameter_to_autofill_saml_username = 2;
+    // optional string OBSOLETE_url_parameter_to_autofill_saml_username = 2 [deprecated = true];
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_url_parameter_to_autofill_saml_username());
+          this->_internal_obsolete_url_parameter_to_autofill_saml_username());
     }
 
     // optional bool transfer_saml_cookies = 1;
@@ -15753,7 +15817,7 @@ void SAMLSettingsProto::MergeFrom(const SAMLSettingsProto& from) {
   cached_has_bits = from._has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_set_url_parameter_to_autofill_saml_username(from._internal_url_parameter_to_autofill_saml_username());
+      _internal_set_obsolete_url_parameter_to_autofill_saml_username(from._internal_obsolete_url_parameter_to_autofill_saml_username());
     }
     if (cached_has_bits & 0x00000002u) {
       transfer_saml_cookies_ = from.transfer_saml_cookies_;
@@ -15782,14 +15846,223 @@ void SAMLSettingsProto::InternalSwap(SAMLSettingsProto* other) {
   swap(_has_bits_[0], other->_has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &url_parameter_to_autofill_saml_username_, lhs_arena,
-      &other->url_parameter_to_autofill_saml_username_, rhs_arena
+      &obsolete_url_parameter_to_autofill_saml_username_, lhs_arena,
+      &other->obsolete_url_parameter_to_autofill_saml_username_, rhs_arena
   );
   swap(transfer_saml_cookies_, other->transfer_saml_cookies_);
 }
 
 std::string SAMLSettingsProto::GetTypeName() const {
   return "enterprise_management.SAMLSettingsProto";
+}
+
+
+// ===================================================================
+
+class SAMLUsernameProto::_Internal {
+ public:
+  using HasBits = decltype(std::declval<SAMLUsernameProto>()._has_bits_);
+  static void set_has_url_parameter_to_autofill_saml_username(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+};
+
+SAMLUsernameProto::SAMLUsernameProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
+  // @@protoc_insertion_point(arena_constructor:enterprise_management.SAMLUsernameProto)
+}
+SAMLUsernameProto::SAMLUsernameProto(const SAMLUsernameProto& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      _has_bits_(from._has_bits_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  url_parameter_to_autofill_saml_username_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    url_parameter_to_autofill_saml_username_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_url_parameter_to_autofill_saml_username()) {
+    url_parameter_to_autofill_saml_username_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_url_parameter_to_autofill_saml_username(), 
+      GetArenaForAllocation());
+  }
+  // @@protoc_insertion_point(copy_constructor:enterprise_management.SAMLUsernameProto)
+}
+
+inline void SAMLUsernameProto::SharedCtor() {
+url_parameter_to_autofill_saml_username_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  url_parameter_to_autofill_saml_username_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+}
+
+SAMLUsernameProto::~SAMLUsernameProto() {
+  // @@protoc_insertion_point(destructor:enterprise_management.SAMLUsernameProto)
+  if (GetArenaForAllocation() != nullptr) return;
+  SharedDtor();
+  _internal_metadata_.Delete<std::string>();
+}
+
+inline void SAMLUsernameProto::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  url_parameter_to_autofill_saml_username_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+void SAMLUsernameProto::ArenaDtor(void* object) {
+  SAMLUsernameProto* _this = reinterpret_cast< SAMLUsernameProto* >(object);
+  (void)_this;
+}
+void SAMLUsernameProto::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void SAMLUsernameProto::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void SAMLUsernameProto::Clear() {
+// @@protoc_insertion_point(message_clear_start:enterprise_management.SAMLUsernameProto)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    url_parameter_to_autofill_saml_username_.ClearNonDefaultToEmpty();
+  }
+  _has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* SAMLUsernameProto::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional string url_parameter_to_autofill_saml_username = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_url_parameter_to_autofill_saml_username();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* SAMLUsernameProto::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:enterprise_management.SAMLUsernameProto)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // optional string url_parameter_to_autofill_saml_username = 1;
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_url_parameter_to_autofill_saml_username(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:enterprise_management.SAMLUsernameProto)
+  return target;
+}
+
+size_t SAMLUsernameProto::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:enterprise_management.SAMLUsernameProto)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // optional string url_parameter_to_autofill_saml_username = 1;
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_url_parameter_to_autofill_saml_username());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void SAMLUsernameProto::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const SAMLUsernameProto*>(
+      &from));
+}
+
+void SAMLUsernameProto::MergeFrom(const SAMLUsernameProto& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:enterprise_management.SAMLUsernameProto)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_has_url_parameter_to_autofill_saml_username()) {
+    _internal_set_url_parameter_to_autofill_saml_username(from._internal_url_parameter_to_autofill_saml_username());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void SAMLUsernameProto::CopyFrom(const SAMLUsernameProto& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:enterprise_management.SAMLUsernameProto)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool SAMLUsernameProto::IsInitialized() const {
+  return true;
+}
+
+void SAMLUsernameProto::InternalSwap(SAMLUsernameProto* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &url_parameter_to_autofill_saml_username_, lhs_arena,
+      &other->url_parameter_to_autofill_saml_username_, rhs_arena
+  );
+}
+
+std::string SAMLUsernameProto::GetTypeName() const {
+  return "enterprise_management.SAMLUsernameProto";
 }
 
 
@@ -33333,6 +33606,18 @@ class ChromeDeviceSettingsProto::_Internal {
   static void set_has_device_encrypted_reporting_pipeline_enabled(HasBits* has_bits) {
     (*has_bits)[4] |= 4u;
   }
+  static const ::enterprise_management::SAMLUsernameProto& saml_username(const ChromeDeviceSettingsProto* msg);
+  static void set_has_saml_username(HasBits* has_bits) {
+    (*has_bits)[4] |= 8u;
+  }
+  static const ::enterprise_management::StringListPolicyProto& device_login_screen_context_aware_access_signals_allowlist(const ChromeDeviceSettingsProto* msg);
+  static void set_has_device_login_screen_context_aware_access_signals_allowlist(HasBits* has_bits) {
+    (*has_bits)[4] |= 16u;
+  }
+  static const ::enterprise_management::StringPolicyProto& device_printing_client_name_template(const ChromeDeviceSettingsProto* msg);
+  static void set_has_device_printing_client_name_template(HasBits* has_bits) {
+    (*has_bits)[4] |= 32u;
+  }
 };
 
 const ::enterprise_management::DevicePolicyRefreshRateProto&
@@ -33859,6 +34144,18 @@ const ::enterprise_management::EncryptedReportingPipelineConfigurationProto&
 ChromeDeviceSettingsProto::_Internal::device_encrypted_reporting_pipeline_enabled(const ChromeDeviceSettingsProto* msg) {
   return *msg->device_encrypted_reporting_pipeline_enabled_;
 }
+const ::enterprise_management::SAMLUsernameProto&
+ChromeDeviceSettingsProto::_Internal::saml_username(const ChromeDeviceSettingsProto* msg) {
+  return *msg->saml_username_;
+}
+const ::enterprise_management::StringListPolicyProto&
+ChromeDeviceSettingsProto::_Internal::device_login_screen_context_aware_access_signals_allowlist(const ChromeDeviceSettingsProto* msg) {
+  return *msg->device_login_screen_context_aware_access_signals_allowlist_;
+}
+const ::enterprise_management::StringPolicyProto&
+ChromeDeviceSettingsProto::_Internal::device_printing_client_name_template(const ChromeDeviceSettingsProto* msg) {
+  return *msg->device_printing_client_name_template_;
+}
 void ChromeDeviceSettingsProto::clear_device_login_screen_system_info_enforced() {
   if (device_login_screen_system_info_enforced_ != nullptr) device_login_screen_system_info_enforced_->Clear();
   _has_bits_[2] &= ~0x02000000u;
@@ -33906,6 +34203,14 @@ void ChromeDeviceSettingsProto::clear_chromad_to_cloud_migration_enabled() {
 void ChromeDeviceSettingsProto::clear_device_run_automatic_cleanup_on_login() {
   if (device_run_automatic_cleanup_on_login_ != nullptr) device_run_automatic_cleanup_on_login_->Clear();
   _has_bits_[4] &= ~0x00000002u;
+}
+void ChromeDeviceSettingsProto::clear_device_login_screen_context_aware_access_signals_allowlist() {
+  if (device_login_screen_context_aware_access_signals_allowlist_ != nullptr) device_login_screen_context_aware_access_signals_allowlist_->Clear();
+  _has_bits_[4] &= ~0x00000010u;
+}
+void ChromeDeviceSettingsProto::clear_device_printing_client_name_template() {
+  if (device_printing_client_name_template_ != nullptr) device_printing_client_name_template_->Clear();
+  _has_bits_[4] &= ~0x00000020u;
 }
 ChromeDeviceSettingsProto::ChromeDeviceSettingsProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
@@ -34575,14 +34880,29 @@ ChromeDeviceSettingsProto::ChromeDeviceSettingsProto(const ChromeDeviceSettingsP
   } else {
     device_encrypted_reporting_pipeline_enabled_ = nullptr;
   }
+  if (from._internal_has_saml_username()) {
+    saml_username_ = new ::enterprise_management::SAMLUsernameProto(*from.saml_username_);
+  } else {
+    saml_username_ = nullptr;
+  }
+  if (from._internal_has_device_login_screen_context_aware_access_signals_allowlist()) {
+    device_login_screen_context_aware_access_signals_allowlist_ = new ::enterprise_management::StringListPolicyProto(*from.device_login_screen_context_aware_access_signals_allowlist_);
+  } else {
+    device_login_screen_context_aware_access_signals_allowlist_ = nullptr;
+  }
+  if (from._internal_has_device_printing_client_name_template()) {
+    device_printing_client_name_template_ = new ::enterprise_management::StringPolicyProto(*from.device_printing_client_name_template_);
+  } else {
+    device_printing_client_name_template_ = nullptr;
+  }
   // @@protoc_insertion_point(copy_constructor:enterprise_management.ChromeDeviceSettingsProto)
 }
 
 inline void ChromeDeviceSettingsProto::SharedCtor() {
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&device_policy_refresh_rate_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&device_encrypted_reporting_pipeline_enabled_) -
-    reinterpret_cast<char*>(&device_policy_refresh_rate_)) + sizeof(device_encrypted_reporting_pipeline_enabled_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&device_printing_client_name_template_) -
+    reinterpret_cast<char*>(&device_policy_refresh_rate_)) + sizeof(device_printing_client_name_template_));
 }
 
 ChromeDeviceSettingsProto::~ChromeDeviceSettingsProto() {
@@ -34725,6 +35045,9 @@ inline void ChromeDeviceSettingsProto::SharedDtor() {
   if (this != internal_default_instance()) delete keylocker_for_storage_encryption_enabled_;
   if (this != internal_default_instance()) delete device_run_automatic_cleanup_on_login_;
   if (this != internal_default_instance()) delete device_encrypted_reporting_pipeline_enabled_;
+  if (this != internal_default_instance()) delete saml_username_;
+  if (this != internal_default_instance()) delete device_login_screen_context_aware_access_signals_allowlist_;
+  if (this != internal_default_instance()) delete device_printing_client_name_template_;
 }
 
 void ChromeDeviceSettingsProto::ArenaDtor(void* object) {
@@ -35292,7 +35615,7 @@ void ChromeDeviceSettingsProto::Clear() {
     }
   }
   cached_has_bits = _has_bits_[4];
-  if (cached_has_bits & 0x00000007u) {
+  if (cached_has_bits & 0x0000003fu) {
     if (cached_has_bits & 0x00000001u) {
       GOOGLE_DCHECK(keylocker_for_storage_encryption_enabled_ != nullptr);
       keylocker_for_storage_encryption_enabled_->Clear();
@@ -35304,6 +35627,18 @@ void ChromeDeviceSettingsProto::Clear() {
     if (cached_has_bits & 0x00000004u) {
       GOOGLE_DCHECK(device_encrypted_reporting_pipeline_enabled_ != nullptr);
       device_encrypted_reporting_pipeline_enabled_->Clear();
+    }
+    if (cached_has_bits & 0x00000008u) {
+      GOOGLE_DCHECK(saml_username_ != nullptr);
+      saml_username_->Clear();
+    }
+    if (cached_has_bits & 0x00000010u) {
+      GOOGLE_DCHECK(device_login_screen_context_aware_access_signals_allowlist_ != nullptr);
+      device_login_screen_context_aware_access_signals_allowlist_->Clear();
+    }
+    if (cached_has_bits & 0x00000020u) {
+      GOOGLE_DCHECK(device_printing_client_name_template_ != nullptr);
+      device_printing_client_name_template_->Clear();
     }
   }
   _has_bits_.Clear();
@@ -36360,6 +36695,30 @@ const char* ChromeDeviceSettingsProto::_InternalParse(const char* ptr, ::PROTOBU
       case 134:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 50)) {
           ptr = ctx->ParseMessage(_internal_mutable_device_encrypted_reporting_pipeline_enabled(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional .enterprise_management.SAMLUsernameProto saml_username = 135;
+      case 135:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 58)) {
+          ptr = ctx->ParseMessage(_internal_mutable_saml_username(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional .enterprise_management.StringListPolicyProto device_login_screen_context_aware_access_signals_allowlist = 136;
+      case 136:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 66)) {
+          ptr = ctx->ParseMessage(_internal_mutable_device_login_screen_context_aware_access_signals_allowlist(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional .enterprise_management.StringPolicyProto device_printing_client_name_template = 137;
+      case 137:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 74)) {
+          ptr = ctx->ParseMessage(_internal_mutable_device_printing_client_name_template(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -37446,6 +37805,30 @@ uint8_t* ChromeDeviceSettingsProto::_InternalSerialize(
         134, _Internal::device_encrypted_reporting_pipeline_enabled(this), target, stream);
   }
 
+  // optional .enterprise_management.SAMLUsernameProto saml_username = 135;
+  if (cached_has_bits & 0x00000008u) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(
+        135, _Internal::saml_username(this), target, stream);
+  }
+
+  // optional .enterprise_management.StringListPolicyProto device_login_screen_context_aware_access_signals_allowlist = 136;
+  if (cached_has_bits & 0x00000010u) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(
+        136, _Internal::device_login_screen_context_aware_access_signals_allowlist(this), target, stream);
+  }
+
+  // optional .enterprise_management.StringPolicyProto device_printing_client_name_template = 137;
+  if (cached_has_bits & 0x00000020u) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(
+        137, _Internal::device_printing_client_name_template(this), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -38395,7 +38778,7 @@ size_t ChromeDeviceSettingsProto::ByteSizeLong() const {
 
   }
   cached_has_bits = _has_bits_[4];
-  if (cached_has_bits & 0x00000007u) {
+  if (cached_has_bits & 0x0000003fu) {
     // optional .enterprise_management.DeviceKeylockerForStorageEncryptionEnabledProto keylocker_for_storage_encryption_enabled = 132;
     if (cached_has_bits & 0x00000001u) {
       total_size += 2 +
@@ -38415,6 +38798,27 @@ size_t ChromeDeviceSettingsProto::ByteSizeLong() const {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *device_encrypted_reporting_pipeline_enabled_);
+    }
+
+    // optional .enterprise_management.SAMLUsernameProto saml_username = 135;
+    if (cached_has_bits & 0x00000008u) {
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *saml_username_);
+    }
+
+    // optional .enterprise_management.StringListPolicyProto device_login_screen_context_aware_access_signals_allowlist = 136;
+    if (cached_has_bits & 0x00000010u) {
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *device_login_screen_context_aware_access_signals_allowlist_);
+    }
+
+    // optional .enterprise_management.StringPolicyProto device_printing_client_name_template = 137;
+    if (cached_has_bits & 0x00000020u) {
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *device_printing_client_name_template_);
     }
 
   }
@@ -38859,7 +39263,7 @@ void ChromeDeviceSettingsProto::MergeFrom(const ChromeDeviceSettingsProto& from)
     }
   }
   cached_has_bits = from._has_bits_[4];
-  if (cached_has_bits & 0x00000007u) {
+  if (cached_has_bits & 0x0000003fu) {
     if (cached_has_bits & 0x00000001u) {
       _internal_mutable_keylocker_for_storage_encryption_enabled()->::enterprise_management::DeviceKeylockerForStorageEncryptionEnabledProto::MergeFrom(from._internal_keylocker_for_storage_encryption_enabled());
     }
@@ -38868,6 +39272,15 @@ void ChromeDeviceSettingsProto::MergeFrom(const ChromeDeviceSettingsProto& from)
     }
     if (cached_has_bits & 0x00000004u) {
       _internal_mutable_device_encrypted_reporting_pipeline_enabled()->::enterprise_management::EncryptedReportingPipelineConfigurationProto::MergeFrom(from._internal_device_encrypted_reporting_pipeline_enabled());
+    }
+    if (cached_has_bits & 0x00000008u) {
+      _internal_mutable_saml_username()->::enterprise_management::SAMLUsernameProto::MergeFrom(from._internal_saml_username());
+    }
+    if (cached_has_bits & 0x00000010u) {
+      _internal_mutable_device_login_screen_context_aware_access_signals_allowlist()->::enterprise_management::StringListPolicyProto::MergeFrom(from._internal_device_login_screen_context_aware_access_signals_allowlist());
+    }
+    if (cached_has_bits & 0x00000020u) {
+      _internal_mutable_device_printing_client_name_template()->::enterprise_management::StringPolicyProto::MergeFrom(from._internal_device_printing_client_name_template());
     }
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
@@ -38893,8 +39306,8 @@ void ChromeDeviceSettingsProto::InternalSwap(ChromeDeviceSettingsProto* other) {
   swap(_has_bits_[3], other->_has_bits_[3]);
   swap(_has_bits_[4], other->_has_bits_[4]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(ChromeDeviceSettingsProto, device_encrypted_reporting_pipeline_enabled_)
-      + sizeof(ChromeDeviceSettingsProto::device_encrypted_reporting_pipeline_enabled_)
+      PROTOBUF_FIELD_OFFSET(ChromeDeviceSettingsProto, device_printing_client_name_template_)
+      + sizeof(ChromeDeviceSettingsProto::device_printing_client_name_template_)
       - PROTOBUF_FIELD_OFFSET(ChromeDeviceSettingsProto, device_policy_refresh_rate_)>(
           reinterpret_cast<char*>(&device_policy_refresh_rate_),
           reinterpret_cast<char*>(&other->device_policy_refresh_rate_));
@@ -39036,6 +39449,9 @@ template<> PROTOBUF_NOINLINE ::enterprise_management::SystemSettingsProto* Arena
 }
 template<> PROTOBUF_NOINLINE ::enterprise_management::SAMLSettingsProto* Arena::CreateMaybeMessage< ::enterprise_management::SAMLSettingsProto >(Arena* arena) {
   return Arena::CreateMessageInternal< ::enterprise_management::SAMLSettingsProto >(arena);
+}
+template<> PROTOBUF_NOINLINE ::enterprise_management::SAMLUsernameProto* Arena::CreateMaybeMessage< ::enterprise_management::SAMLUsernameProto >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::enterprise_management::SAMLUsernameProto >(arena);
 }
 template<> PROTOBUF_NOINLINE ::enterprise_management::RebootOnShutdownProto* Arena::CreateMaybeMessage< ::enterprise_management::RebootOnShutdownProto >(Arena* arena) {
   return Arena::CreateMessageInternal< ::enterprise_management::RebootOnShutdownProto >(arena);

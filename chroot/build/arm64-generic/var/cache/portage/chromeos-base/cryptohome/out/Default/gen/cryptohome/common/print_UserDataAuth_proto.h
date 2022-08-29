@@ -39,6 +39,8 @@ BRILLO_EXPORT std::string GetProtoDebugString(DircryptoMigrationStatus value);
 std::string GetProtoDebugStringWithIndent(AuthSessionFlags value,
                                           int indent_size);
 BRILLO_EXPORT std::string GetProtoDebugString(AuthSessionFlags value);
+std::string GetProtoDebugStringWithIndent(AuthIntent value, int indent_size);
+BRILLO_EXPORT std::string GetProtoDebugString(AuthIntent value);
 std::string GetProtoDebugStringWithIndent(AuthSessionStatus value,
                                           int indent_size);
 BRILLO_EXPORT std::string GetProtoDebugString(AuthSessionStatus value);

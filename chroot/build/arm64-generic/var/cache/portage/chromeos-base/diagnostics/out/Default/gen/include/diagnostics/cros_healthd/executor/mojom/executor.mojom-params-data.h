@@ -184,6 +184,8 @@ class  Executor_RunMemtester_Params_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
+  uint32_t test_mem_kib;
+  uint8_t padfinal_[4];
 
  private:
   friend class mojo::internal::MessageFragment<Executor_RunMemtester_Params_Data>;
@@ -191,7 +193,7 @@ class  Executor_RunMemtester_Params_Data {
   Executor_RunMemtester_Params_Data();
   ~Executor_RunMemtester_Params_Data() = delete;
 };
-static_assert(sizeof(Executor_RunMemtester_Params_Data) == 8,
+static_assert(sizeof(Executor_RunMemtester_Params_Data) == 16,
               "Bad sizeof(Executor_RunMemtester_Params_Data)");
 class  Executor_RunMemtester_ResponseParams_Data {
  public:
@@ -321,6 +323,37 @@ class  Executor_GetUEFISecureBootContent_ResponseParams_Data {
 };
 static_assert(sizeof(Executor_GetUEFISecureBootContent_ResponseParams_Data) == 16,
               "Bad sizeof(Executor_GetUEFISecureBootContent_ResponseParams_Data)");
+class  Executor_GetLidAngle_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<Executor_GetLidAngle_Params_Data>;
+
+  Executor_GetLidAngle_Params_Data();
+  ~Executor_GetLidAngle_Params_Data() = delete;
+};
+static_assert(sizeof(Executor_GetLidAngle_Params_Data) == 8,
+              "Bad sizeof(Executor_GetLidAngle_Params_Data)");
+class  Executor_GetLidAngle_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<internal::ExecutedProcessResult_Data> result;
+
+ private:
+  friend class mojo::internal::MessageFragment<Executor_GetLidAngle_ResponseParams_Data>;
+
+  Executor_GetLidAngle_ResponseParams_Data();
+  ~Executor_GetLidAngle_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(Executor_GetLidAngle_ResponseParams_Data) == 16,
+              "Bad sizeof(Executor_GetLidAngle_ResponseParams_Data)");
 
 }  // namespace internal
 
@@ -583,6 +616,9 @@ class Executor_RunMemtester_ParamsDataView {
       : data_(data) {}
 
   bool is_null() const { return !data_; }
+  uint32_t test_mem_kib() const {
+    return data_->test_mem_kib;
+  }
  private:
   internal::Executor_RunMemtester_Params_Data* data_ = nullptr;
 };
@@ -780,6 +816,49 @@ class Executor_GetUEFISecureBootContent_ResponseParamsDataView {
 
 
 
+class Executor_GetLidAngle_ParamsDataView {
+ public:
+  Executor_GetLidAngle_ParamsDataView() = default;
+
+  Executor_GetLidAngle_ParamsDataView(
+      internal::Executor_GetLidAngle_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::Executor_GetLidAngle_Params_Data* data_ = nullptr;
+};
+
+
+
+class Executor_GetLidAngle_ResponseParamsDataView {
+ public:
+  Executor_GetLidAngle_ResponseParamsDataView() = default;
+
+  Executor_GetLidAngle_ResponseParamsDataView(
+      internal::Executor_GetLidAngle_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetResultDataView(
+      ExecutedProcessResultDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadResult(UserType* output) {
+    
+    auto* pointer = data_->result.Get();
+    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::ExecutedProcessResultDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::Executor_GetLidAngle_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
 
 inline void Executor_GetFanSpeed_ResponseParamsDataView::GetResultDataView(
     ExecutedProcessResultDataView* output) {
@@ -874,6 +953,15 @@ inline void Executor_GetUEFISecureBootContent_ResponseParamsDataView::GetContent
     mojo::StringDataView* output) {
   auto pointer = data_->contents.Get();
   *output = mojo::StringDataView(pointer, message_);
+}
+
+
+
+
+inline void Executor_GetLidAngle_ResponseParamsDataView::GetResultDataView(
+    ExecutedProcessResultDataView* output) {
+  auto pointer = data_->result.Get();
+  *output = ExecutedProcessResultDataView(pointer, message_);
 }
 
 }  // namespace mojom

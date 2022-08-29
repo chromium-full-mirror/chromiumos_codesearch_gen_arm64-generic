@@ -11310,6 +11310,7 @@ class DiskInfo final :
     kNvmeSubsystemVendor = 14,
     kEmmcOemid = 15,
     kOtherVendor = 16,
+    kJedecManfid = 27,
     VENDOR_ID_NOT_SET = 0,
   };
 
@@ -11331,6 +11332,7 @@ class DiskInfo final :
     kNvmeFirmwareRev = 23,
     kEmmcFirmwareRev = 24,
     kOtherFirmwareRev = 25,
+    kUfsFirmwareRev = 28,
     FIRMWARE_REVISION_NOT_SET = 0,
   };
 
@@ -11451,6 +11453,7 @@ class DiskInfo final :
     kNvmeSubsystemVendorFieldNumber = 14,
     kEmmcOemidFieldNumber = 15,
     kOtherVendorFieldNumber = 16,
+    kJedecManfidFieldNumber = 27,
     kNvmeSubsystemDeviceFieldNumber = 17,
     kEmmcPnmFieldNumber = 18,
     kOtherProductFieldNumber = 19,
@@ -11460,6 +11463,7 @@ class DiskInfo final :
     kNvmeFirmwareRevFieldNumber = 23,
     kEmmcFirmwareRevFieldNumber = 24,
     kOtherFirmwareRevFieldNumber = 25,
+    kUfsFirmwareRevFieldNumber = 28,
   };
   // repeated string volumes = 7;
   int volumes_size() const;
@@ -11718,6 +11722,19 @@ class DiskInfo final :
   void _internal_set_other_vendor(uint32_t value);
   public:
 
+  // uint32 jedec_manfid = 27;
+  bool has_jedec_manfid() const;
+  private:
+  bool _internal_has_jedec_manfid() const;
+  public:
+  void clear_jedec_manfid();
+  uint32_t jedec_manfid() const;
+  void set_jedec_manfid(uint32_t value);
+  private:
+  uint32_t _internal_jedec_manfid() const;
+  void _internal_set_jedec_manfid(uint32_t value);
+  public:
+
   // uint32 nvme_subsystem_device = 17;
   bool has_nvme_subsystem_device() const;
   private:
@@ -11835,6 +11852,19 @@ class DiskInfo final :
   void _internal_set_other_firmware_rev(uint32_t value);
   public:
 
+  // uint32 ufs_firmware_rev = 28;
+  bool has_ufs_firmware_rev() const;
+  private:
+  bool _internal_has_ufs_firmware_rev() const;
+  public:
+  void clear_ufs_firmware_rev();
+  uint32_t ufs_firmware_rev() const;
+  void set_ufs_firmware_rev(uint32_t value);
+  private:
+  uint32_t _internal_ufs_firmware_rev() const;
+  void _internal_set_ufs_firmware_rev(uint32_t value);
+  public:
+
   void clear_vendor_id();
   VendorIdCase vendor_id_case() const;
   void clear_product_id();
@@ -11849,6 +11879,7 @@ class DiskInfo final :
   void set_has_nvme_subsystem_vendor();
   void set_has_emmc_oemid();
   void set_has_other_vendor();
+  void set_has_jedec_manfid();
   void set_has_nvme_subsystem_device();
   void set_has_emmc_pnm();
   void set_has_other_product();
@@ -11858,6 +11889,7 @@ class DiskInfo final :
   void set_has_nvme_firmware_rev();
   void set_has_emmc_firmware_rev();
   void set_has_other_firmware_rev();
+  void set_has_ufs_firmware_rev();
 
   inline bool has_vendor_id() const;
   inline void clear_has_vendor_id();
@@ -11896,6 +11928,7 @@ class DiskInfo final :
     uint32_t nvme_subsystem_vendor_;
     uint32_t emmc_oemid_;
     uint32_t other_vendor_;
+    uint32_t jedec_manfid_;
   } vendor_id_;
   union ProductIdUnion {
     constexpr ProductIdUnion() : _constinit_{} {}
@@ -11917,6 +11950,7 @@ class DiskInfo final :
     uint64_t nvme_firmware_rev_;
     uint64_t emmc_firmware_rev_;
     uint32_t other_firmware_rev_;
+    uint32_t ufs_firmware_rev_;
   } firmware_revision_;
   uint32_t _oneof_case_[4];
 
@@ -16511,6 +16545,7 @@ class DeviceStatusReportRequest final :
     kSoundVolumeFieldNumber = 19,
     kChannelFieldNumber = 22,
     kWriteProtectSwitchFieldNumber = 24,
+    kRootDeviceTotalStorageBytesFieldNumber = 47,
   };
   // repeated .enterprise_management.ActiveTimePeriod active_periods = 6;
   int active_periods_size() const;
@@ -17256,6 +17291,19 @@ class DeviceStatusReportRequest final :
   void _internal_set_write_protect_switch(bool value);
   public:
 
+  // optional int64 root_device_total_storage_bytes = 47;
+  bool has_root_device_total_storage_bytes() const;
+  private:
+  bool _internal_has_root_device_total_storage_bytes() const;
+  public:
+  void clear_root_device_total_storage_bytes();
+  int64_t root_device_total_storage_bytes() const;
+  void set_root_device_total_storage_bytes(int64_t value);
+  private:
+  int64_t _internal_root_device_total_storage_bytes() const;
+  void _internal_set_root_device_total_storage_bytes(int64_t value);
+  public:
+
   // @@protoc_insertion_point(class_scope:enterprise_management.DeviceStatusReportRequest)
  private:
   class _Internal;
@@ -17307,6 +17355,7 @@ class DeviceStatusReportRequest final :
   int32_t sound_volume_;
   int channel_;
   bool write_protect_switch_;
+  int64_t root_device_total_storage_bytes_;
   friend struct ::TableStruct_device_5fmanagement_5fbackend_2eproto;
 };
 // -------------------------------------------------------------------
@@ -51477,6 +51526,44 @@ inline void DiskInfo::set_other_vendor(uint32_t value) {
   // @@protoc_insertion_point(field_set:enterprise_management.DiskInfo.other_vendor)
 }
 
+// uint32 jedec_manfid = 27;
+inline bool DiskInfo::_internal_has_jedec_manfid() const {
+  return vendor_id_case() == kJedecManfid;
+}
+inline bool DiskInfo::has_jedec_manfid() const {
+  return _internal_has_jedec_manfid();
+}
+inline void DiskInfo::set_has_jedec_manfid() {
+  _oneof_case_[0] = kJedecManfid;
+}
+inline void DiskInfo::clear_jedec_manfid() {
+  if (_internal_has_jedec_manfid()) {
+    vendor_id_.jedec_manfid_ = 0u;
+    clear_has_vendor_id();
+  }
+}
+inline uint32_t DiskInfo::_internal_jedec_manfid() const {
+  if (_internal_has_jedec_manfid()) {
+    return vendor_id_.jedec_manfid_;
+  }
+  return 0u;
+}
+inline void DiskInfo::_internal_set_jedec_manfid(uint32_t value) {
+  if (!_internal_has_jedec_manfid()) {
+    clear_vendor_id();
+    set_has_jedec_manfid();
+  }
+  vendor_id_.jedec_manfid_ = value;
+}
+inline uint32_t DiskInfo::jedec_manfid() const {
+  // @@protoc_insertion_point(field_get:enterprise_management.DiskInfo.jedec_manfid)
+  return _internal_jedec_manfid();
+}
+inline void DiskInfo::set_jedec_manfid(uint32_t value) {
+  _internal_set_jedec_manfid(value);
+  // @@protoc_insertion_point(field_set:enterprise_management.DiskInfo.jedec_manfid)
+}
+
 // uint32 nvme_subsystem_device = 17;
 inline bool DiskInfo::_internal_has_nvme_subsystem_device() const {
   return product_id_case() == kNvmeSubsystemDevice;
@@ -51817,6 +51904,44 @@ inline uint32_t DiskInfo::other_firmware_rev() const {
 inline void DiskInfo::set_other_firmware_rev(uint32_t value) {
   _internal_set_other_firmware_rev(value);
   // @@protoc_insertion_point(field_set:enterprise_management.DiskInfo.other_firmware_rev)
+}
+
+// uint32 ufs_firmware_rev = 28;
+inline bool DiskInfo::_internal_has_ufs_firmware_rev() const {
+  return firmware_revision_case() == kUfsFirmwareRev;
+}
+inline bool DiskInfo::has_ufs_firmware_rev() const {
+  return _internal_has_ufs_firmware_rev();
+}
+inline void DiskInfo::set_has_ufs_firmware_rev() {
+  _oneof_case_[3] = kUfsFirmwareRev;
+}
+inline void DiskInfo::clear_ufs_firmware_rev() {
+  if (_internal_has_ufs_firmware_rev()) {
+    firmware_revision_.ufs_firmware_rev_ = 0u;
+    clear_has_firmware_revision();
+  }
+}
+inline uint32_t DiskInfo::_internal_ufs_firmware_rev() const {
+  if (_internal_has_ufs_firmware_rev()) {
+    return firmware_revision_.ufs_firmware_rev_;
+  }
+  return 0u;
+}
+inline void DiskInfo::_internal_set_ufs_firmware_rev(uint32_t value) {
+  if (!_internal_has_ufs_firmware_rev()) {
+    clear_firmware_revision();
+    set_has_ufs_firmware_rev();
+  }
+  firmware_revision_.ufs_firmware_rev_ = value;
+}
+inline uint32_t DiskInfo::ufs_firmware_rev() const {
+  // @@protoc_insertion_point(field_get:enterprise_management.DiskInfo.ufs_firmware_rev)
+  return _internal_ufs_firmware_rev();
+}
+inline void DiskInfo::set_ufs_firmware_rev(uint32_t value) {
+  _internal_set_ufs_firmware_rev(value);
+  // @@protoc_insertion_point(field_set:enterprise_management.DiskInfo.ufs_firmware_rev)
 }
 
 // optional .enterprise_management.DiskInfo.DevicePurpose purpose = 26;
@@ -58118,6 +58243,34 @@ inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::enterprise_management:
 DeviceStatusReportRequest::lacros_browser_report() const {
   // @@protoc_insertion_point(field_list:enterprise_management.DeviceStatusReportRequest.lacros_browser_report)
   return lacros_browser_report_;
+}
+
+// optional int64 root_device_total_storage_bytes = 47;
+inline bool DeviceStatusReportRequest::_internal_has_root_device_total_storage_bytes() const {
+  bool value = (_has_bits_[0] & 0x02000000u) != 0;
+  return value;
+}
+inline bool DeviceStatusReportRequest::has_root_device_total_storage_bytes() const {
+  return _internal_has_root_device_total_storage_bytes();
+}
+inline void DeviceStatusReportRequest::clear_root_device_total_storage_bytes() {
+  root_device_total_storage_bytes_ = int64_t{0};
+  _has_bits_[0] &= ~0x02000000u;
+}
+inline int64_t DeviceStatusReportRequest::_internal_root_device_total_storage_bytes() const {
+  return root_device_total_storage_bytes_;
+}
+inline int64_t DeviceStatusReportRequest::root_device_total_storage_bytes() const {
+  // @@protoc_insertion_point(field_get:enterprise_management.DeviceStatusReportRequest.root_device_total_storage_bytes)
+  return _internal_root_device_total_storage_bytes();
+}
+inline void DeviceStatusReportRequest::_internal_set_root_device_total_storage_bytes(int64_t value) {
+  _has_bits_[0] |= 0x02000000u;
+  root_device_total_storage_bytes_ = value;
+}
+inline void DeviceStatusReportRequest::set_root_device_total_storage_bytes(int64_t value) {
+  _internal_set_root_device_total_storage_bytes(value);
+  // @@protoc_insertion_point(field_set:enterprise_management.DeviceStatusReportRequest.root_device_total_storage_bytes)
 }
 
 // -------------------------------------------------------------------

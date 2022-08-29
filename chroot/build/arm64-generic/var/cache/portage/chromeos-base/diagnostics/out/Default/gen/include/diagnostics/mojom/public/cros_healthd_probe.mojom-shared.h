@@ -82,8 +82,6 @@ class SupportedCapabilitiesDataView;
 
 class SystemInfoDataView;
 
-class SystemInfoV2DataView;
-
 class OsInfoDataView;
 
 class OsVersionDataView;
@@ -150,6 +148,8 @@ class TouchscreenDeviceDataView;
 
 class InputDeviceDataView;
 
+class SensorInfoDataView;
+
 class TelemetryInfoDataView;
 
 class ProcessResultDataView;
@@ -166,8 +166,8 @@ class BacklightResultDataView;
 class FanResultDataView;
 class StatefulPartitionResultDataView;
 class BluetoothResultDataView;
+class DEPRECATE_SystemResultDataView;
 class SystemResultDataView;
-class SystemResultV2DataView;
 class NetworkResultDataView;
 class NetworkInterfaceResultDataView;
 class NetworkInterfaceInfoDataView;
@@ -180,6 +180,7 @@ class TpmResultDataView;
 class GraphicsResultDataView;
 class DisplayResultDataView;
 class InputResultDataView;
+class SensorResultDataView;
 
 
 }  // namespace mojom
@@ -346,13 +347,6 @@ struct MojomTypeTraits<::chromeos::cros_healthd::mojom::SupportedCapabilitiesDat
 template <>
 struct MojomTypeTraits<::chromeos::cros_healthd::mojom::SystemInfoDataView> {
   using Data = ::chromeos::cros_healthd::mojom::internal::SystemInfo_Data;
-  using DataAsArrayElement = Pointer<Data>;
-  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
-};
-
-template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::SystemInfoV2DataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::SystemInfoV2_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -589,6 +583,13 @@ struct MojomTypeTraits<::chromeos::cros_healthd::mojom::InputDeviceDataView> {
 };
 
 template <>
+struct MojomTypeTraits<::chromeos::cros_healthd::mojom::SensorInfoDataView> {
+  using Data = ::chromeos::cros_healthd::mojom::internal::SensorInfo_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
 struct MojomTypeTraits<::chromeos::cros_healthd::mojom::TelemetryInfoDataView> {
   using Data = ::chromeos::cros_healthd::mojom::internal::TelemetryInfo_Data;
   using DataAsArrayElement = Pointer<Data>;
@@ -694,15 +695,15 @@ struct MojomTypeTraits<::chromeos::cros_healthd::mojom::BluetoothResultDataView>
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::SystemResultDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::SystemResult_Data;
+struct MojomTypeTraits<::chromeos::cros_healthd::mojom::DEPRECATE_SystemResultDataView> {
+  using Data = ::chromeos::cros_healthd::mojom::internal::DEPRECATE_SystemResult_Data;
   using DataAsArrayElement = Data;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kUnion;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::SystemResultV2DataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::SystemResultV2_Data;
+struct MojomTypeTraits<::chromeos::cros_healthd::mojom::SystemResultDataView> {
+  using Data = ::chromeos::cros_healthd::mojom::internal::SystemResult_Data;
   using DataAsArrayElement = Data;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kUnion;
 };
@@ -791,6 +792,13 @@ struct MojomTypeTraits<::chromeos::cros_healthd::mojom::InputResultDataView> {
   static constexpr MojomTypeCategory category = MojomTypeCategory::kUnion;
 };
 
+template <>
+struct MojomTypeTraits<::chromeos::cros_healthd::mojom::SensorResultDataView> {
+  using Data = ::chromeos::cros_healthd::mojom::internal::SensorResult_Data;
+  using DataAsArrayElement = Data;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kUnion;
+};
+
 }  // namespace internal
 }  // namespace mojo
 
@@ -871,9 +879,9 @@ enum class ProbeCategoryEnum : int32_t {
   
   kAudioHardware = 20,
   
-  kSystem2 = 65536,
+  kSensor = 21,
   kMinValue = 0,
-  kMaxValue = 65536,
+  kMaxValue = 21,
   kDefaultValue = 16
 };
 
@@ -992,12 +1000,19 @@ enum class EncryptionState : int32_t {
   kMktmeEnabled = 3,
   kMinValue = 0,
   kMaxValue = 3,
+  kDefaultValue = 0
 };
 
  std::ostream& operator<<(std::ostream& os, EncryptionState value);
 inline bool IsKnownEnumValue(EncryptionState value) {
   return internal::EncryptionState_Data::IsKnownValue(
       static_cast<int32_t>(value));
+}
+inline EncryptionState ToKnownEnumValue(EncryptionState value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return EncryptionState::kDefaultValue;
 }
 
 
@@ -1010,12 +1025,19 @@ enum class CryptoAlgorithm : int32_t {
   kAesXts256 = 2,
   kMinValue = 0,
   kMaxValue = 2,
+  kDefaultValue = 0
 };
 
  std::ostream& operator<<(std::ostream& os, CryptoAlgorithm value);
 inline bool IsKnownEnumValue(CryptoAlgorithm value) {
   return internal::CryptoAlgorithm_Data::IsKnownValue(
       static_cast<int32_t>(value));
+}
+inline CryptoAlgorithm ToKnownEnumValue(CryptoAlgorithm value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return CryptoAlgorithm::kDefaultValue;
 }
 
 
@@ -1498,6 +1520,11 @@ static_assert(
     if (data_->header_.version < 1)
       return uint32_t{};
     return data_->threads;
+  }
+  uint32_t process_id() const {
+    if (data_->header_.version < 2)
+      return uint32_t{};
+    return data_->process_id;
   }
  private:
   internal::ProcessInfo_Data* data_ = nullptr;
@@ -2779,243 +2806,6 @@ class SystemInfoDataView {
       : data_(data), message_(message) {}
 
   bool is_null() const { return !data_; }
-  inline void GetFirstPowerDateDataView(
-      mojo::StringDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadFirstPowerDate(UserType* output) {
-    
-static_assert(
-    mojo::internal::IsValidUserTypeForOptionalValue<
-        mojo::StringDataView, UserType>(),
-    "Attempting to read the optional `first_power_date` field into a type which "
-    "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
-    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
-    "SetToNull methods, or use `MaybeReadFirstPowerDate` instead "
-    "of `ReadFirstPowerDate if you're fine with null values being "
-    "silently ignored in this case.");
-    auto* pointer = data_->first_power_date.Get();
-    return mojo::internal::Deserialize<mojo::StringDataView>(
-        pointer, output, message_);
-  }
-  inline void GetManufactureDateDataView(
-      mojo::StringDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadManufactureDate(UserType* output) {
-    
-static_assert(
-    mojo::internal::IsValidUserTypeForOptionalValue<
-        mojo::StringDataView, UserType>(),
-    "Attempting to read the optional `manufacture_date` field into a type which "
-    "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
-    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
-    "SetToNull methods, or use `MaybeReadManufactureDate` instead "
-    "of `ReadManufactureDate if you're fine with null values being "
-    "silently ignored in this case.");
-    auto* pointer = data_->manufacture_date.Get();
-    return mojo::internal::Deserialize<mojo::StringDataView>(
-        pointer, output, message_);
-  }
-  inline void GetProductSkuNumberDataView(
-      mojo::StringDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadProductSkuNumber(UserType* output) {
-    
-static_assert(
-    mojo::internal::IsValidUserTypeForOptionalValue<
-        mojo::StringDataView, UserType>(),
-    "Attempting to read the optional `product_sku_number` field into a type which "
-    "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
-    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
-    "SetToNull methods, or use `MaybeReadProductSkuNumber` instead "
-    "of `ReadProductSkuNumber if you're fine with null values being "
-    "silently ignored in this case.");
-    auto* pointer = data_->product_sku_number.Get();
-    return mojo::internal::Deserialize<mojo::StringDataView>(
-        pointer, output, message_);
-  }
-  inline void GetProductSerialNumberDataView(
-      mojo::StringDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadProductSerialNumber(UserType* output) {
-    
-static_assert(
-    mojo::internal::IsValidUserTypeForOptionalValue<
-        mojo::StringDataView, UserType>(),
-    "Attempting to read the optional `product_serial_number` field into a type which "
-    "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
-    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
-    "SetToNull methods, or use `MaybeReadProductSerialNumber` instead "
-    "of `ReadProductSerialNumber if you're fine with null values being "
-    "silently ignored in this case.");
-    auto* pointer = data_->product_serial_number.Get();
-    return mojo::internal::Deserialize<mojo::StringDataView>(
-        pointer, output, message_);
-  }
-  inline void GetProductModelNameDataView(
-      mojo::StringDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadProductModelName(UserType* output) {
-    
-static_assert(
-    mojo::internal::IsValidUserTypeForOptionalValue<
-        mojo::StringDataView, UserType>(),
-    "Attempting to read the optional `product_model_name` field into a type which "
-    "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
-    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
-    "SetToNull methods, or use `MaybeReadProductModelName` instead "
-    "of `ReadProductModelName if you're fine with null values being "
-    "silently ignored in this case.");
-    auto* pointer = data_->product_model_name.Get();
-    return mojo::internal::Deserialize<mojo::StringDataView>(
-        pointer, output, message_);
-  }
-  inline void GetMarketingNameDataView(
-      mojo::StringDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadMarketingName(UserType* output) {
-    
-    auto* pointer = data_->marketing_name.Get();
-    return mojo::internal::Deserialize<mojo::StringDataView>(
-        pointer, output, message_);
-  }
-  inline void GetBiosVersionDataView(
-      mojo::StringDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadBiosVersion(UserType* output) {
-    
-static_assert(
-    mojo::internal::IsValidUserTypeForOptionalValue<
-        mojo::StringDataView, UserType>(),
-    "Attempting to read the optional `bios_version` field into a type which "
-    "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
-    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
-    "SetToNull methods, or use `MaybeReadBiosVersion` instead "
-    "of `ReadBiosVersion if you're fine with null values being "
-    "silently ignored in this case.");
-    auto* pointer = data_->bios_version.Get();
-    return mojo::internal::Deserialize<mojo::StringDataView>(
-        pointer, output, message_);
-  }
-  inline void GetBoardNameDataView(
-      mojo::StringDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadBoardName(UserType* output) {
-    
-static_assert(
-    mojo::internal::IsValidUserTypeForOptionalValue<
-        mojo::StringDataView, UserType>(),
-    "Attempting to read the optional `board_name` field into a type which "
-    "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
-    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
-    "SetToNull methods, or use `MaybeReadBoardName` instead "
-    "of `ReadBoardName if you're fine with null values being "
-    "silently ignored in this case.");
-    auto* pointer = data_->board_name.Get();
-    return mojo::internal::Deserialize<mojo::StringDataView>(
-        pointer, output, message_);
-  }
-  inline void GetBoardVersionDataView(
-      mojo::StringDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadBoardVersion(UserType* output) {
-    
-static_assert(
-    mojo::internal::IsValidUserTypeForOptionalValue<
-        mojo::StringDataView, UserType>(),
-    "Attempting to read the optional `board_version` field into a type which "
-    "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
-    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
-    "SetToNull methods, or use `MaybeReadBoardVersion` instead "
-    "of `ReadBoardVersion if you're fine with null values being "
-    "silently ignored in this case.");
-    auto* pointer = data_->board_version.Get();
-    return mojo::internal::Deserialize<mojo::StringDataView>(
-        pointer, output, message_);
-  }
-  inline void GetChassisTypeDataView(
-      ::chromeos::cros_healthd::mojom::NullableUint64DataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadChassisType(UserType* output) {
-    
-static_assert(
-    mojo::internal::IsValidUserTypeForOptionalValue<
-        ::chromeos::cros_healthd::mojom::NullableUint64DataView, UserType>(),
-    "Attempting to read the optional `chassis_type` field into a type which "
-    "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
-    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
-    "SetToNull methods, or use `MaybeReadChassisType` instead "
-    "of `ReadChassisType if you're fine with null values being "
-    "silently ignored in this case.");
-    auto* pointer = data_->chassis_type.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::NullableUint64DataView>(
-        pointer, output, message_);
-  }
-  inline void GetProductNameDataView(
-      mojo::StringDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadProductName(UserType* output) {
-    
-static_assert(
-    mojo::internal::IsValidUserTypeForOptionalValue<
-        mojo::StringDataView, UserType>(),
-    "Attempting to read the optional `product_name` field into a type which "
-    "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
-    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
-    "SetToNull methods, or use `MaybeReadProductName` instead "
-    "of `ReadProductName if you're fine with null values being "
-    "silently ignored in this case.");
-    auto* pointer = data_->product_name.Get();
-    return mojo::internal::Deserialize<mojo::StringDataView>(
-        pointer, output, message_);
-  }
-  inline void GetOsVersionDataView(
-      OsVersionDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadOsVersion(UserType* output) {
-    
-    auto* pointer = data_->os_version.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::OsVersionDataView>(
-        pointer, output, message_);
-  }
- private:
-  internal::SystemInfo_Data* data_ = nullptr;
-  mojo::Message* message_ = nullptr;
-};
-
-
-
-class SystemInfoV2DataView {
- public:
-  SystemInfoV2DataView() = default;
-
-  SystemInfoV2DataView(
-      internal::SystemInfoV2_Data* data,
-      mojo::Message* message)
-      : data_(data), message_(message) {}
-
-  bool is_null() const { return !data_; }
   inline void GetOsInfoDataView(
       OsInfoDataView* output);
 
@@ -3067,7 +2857,7 @@ static_assert(
         pointer, output, message_);
   }
  private:
-  internal::SystemInfoV2_Data* data_ = nullptr;
+  internal::SystemInfo_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -5415,6 +5205,43 @@ class InputDeviceDataView {
 
 
 
+class SensorInfoDataView {
+ public:
+  SensorInfoDataView() = default;
+
+  SensorInfoDataView(
+      internal::SensorInfo_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetLidAngleDataView(
+      ::chromeos::cros_healthd::mojom::NullableUint16DataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadLidAngle(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::chromeos::cros_healthd::mojom::NullableUint16DataView, UserType>(),
+    "Attempting to read the optional `lid_angle` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadLidAngle` instead "
+    "of `ReadLidAngle if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->lid_angle.Get();
+    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::NullableUint16DataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::SensorInfo_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
 class TelemetryInfoDataView {
  public:
   TelemetryInfoDataView() = default;
@@ -5605,24 +5432,24 @@ static_assert(
     return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::BluetoothResultDataView>(
         pointer, output, message_);
   }
-  inline void GetSystemResultDataView(
-      SystemResultDataView* output);
+  inline void GetDeprecateSystemResultDataView(
+      DEPRECATE_SystemResultDataView* output);
 
   template <typename UserType>
-  [[nodiscard]] bool ReadSystemResult(UserType* output) {
+  [[nodiscard]] bool ReadDeprecateSystemResult(UserType* output) {
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        ::chromeos::cros_healthd::mojom::SystemResultDataView, UserType>(),
-    "Attempting to read the optional `system_result` field into a type which "
+        ::chromeos::cros_healthd::mojom::DEPRECATE_SystemResultDataView, UserType>(),
+    "Attempting to read the optional `deprecate_system_result` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
-    "SetToNull methods, or use `MaybeReadSystemResult` instead "
-    "of `ReadSystemResult if you're fine with null values being "
+    "SetToNull methods, or use `MaybeReadDeprecateSystemResult` instead "
+    "of `ReadDeprecateSystemResult if you're fine with null values being "
     "silently ignored in this case.");
-    auto* pointer = !data_->system_result.is_null() ? &data_->system_result : nullptr;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::SystemResultDataView>(
+    auto* pointer = !data_->deprecate_system_result.is_null() ? &data_->deprecate_system_result : nullptr;
+    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::DEPRECATE_SystemResultDataView>(
         pointer, output, message_);
   }
   inline void GetNetworkResultDataView(
@@ -5705,24 +5532,24 @@ static_assert(
     return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::BusResultDataView>(
         pointer, output, message_);
   }
-  inline void GetSystemResultV2DataView(
-      SystemResultV2DataView* output);
+  inline void GetSystemResultDataView(
+      SystemResultDataView* output);
 
   template <typename UserType>
-  [[nodiscard]] bool ReadSystemResultV2(UserType* output) {
+  [[nodiscard]] bool ReadSystemResult(UserType* output) {
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        ::chromeos::cros_healthd::mojom::SystemResultV2DataView, UserType>(),
-    "Attempting to read the optional `system_result_v2` field into a type which "
+        ::chromeos::cros_healthd::mojom::SystemResultDataView, UserType>(),
+    "Attempting to read the optional `system_result` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
-    "SetToNull methods, or use `MaybeReadSystemResultV2` instead "
-    "of `ReadSystemResultV2 if you're fine with null values being "
+    "SetToNull methods, or use `MaybeReadSystemResult` instead "
+    "of `ReadSystemResult if you're fine with null values being "
     "silently ignored in this case.");
-    auto* pointer = !data_->system_result_v2.is_null() ? &data_->system_result_v2 : nullptr;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::SystemResultV2DataView>(
+    auto* pointer = !data_->system_result.is_null() ? &data_->system_result : nullptr;
+    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::SystemResultDataView>(
         pointer, output, message_);
   }
   inline void GetTpmResultDataView(
@@ -5849,6 +5676,27 @@ static_assert(
     return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::AudioHardwareResultDataView>(
         pointer, output, message_);
   }
+  inline void GetSensorResultDataView(
+      SensorResultDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadSensorResult(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::chromeos::cros_healthd::mojom::SensorResultDataView, UserType>(),
+    "Attempting to read the optional `sensor_result` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadSensorResult` instead "
+    "of `ReadSensorResult if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->header_.version >= 5 && !data_->sensor_result.is_null()
+                    ? &data_->sensor_result : nullptr;
+    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::SensorResultDataView>(
+        pointer, output, message_);
+  }
  private:
   internal::TelemetryInfo_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -5874,11 +5722,6 @@ class ProcessResultDataView {
   }
 
   Tag tag() const { return data_->tag; }
-  bool is_unmapped_field() const { return data_->tag == Tag::UNMAPPED_FIELD; }
-  bool unmapped_field() const {
-    CHECK(is_unmapped_field());
-    return data_->data.f_unmapped_field;
-  }
   bool is_process_info() const { return data_->tag == Tag::PROCESS_INFO; }
   inline void GetProcessInfoDataView(
       ProcessInfoDataView* output) const;
@@ -6053,6 +5896,11 @@ class BlockDeviceVendorDataView {
     CHECK(is_unknown());
     return data_->data.f_unknown;
   }
+  bool is_jedec_manfid() const { return data_->tag == Tag::JEDEC_MANFID; }
+  uint16_t jedec_manfid() const {
+    CHECK(is_jedec_manfid());
+    return data_->data.f_jedec_manfid;
+  }
 
  private:
   internal::BlockDeviceVendor_Data* data_ = nullptr;
@@ -6187,6 +6035,11 @@ class BlockDeviceFirmwareDataView {
   uint64_t unknown() const {
     CHECK(is_unknown());
     return data_->data.f_unknown;
+  }
+  bool is_ufs_fwrev() const { return data_->tag == Tag::UFS_FWREV; }
+  uint64_t ufs_fwrev() const {
+    CHECK(is_ufs_fwrev());
+    return data_->data.f_ufs_fwrev;
   }
 
  private:
@@ -6531,6 +6384,43 @@ class BluetoothResultDataView {
 
 
 
+class DEPRECATE_SystemResultDataView {
+ public:
+  using Tag = internal::DEPRECATE_SystemResult_Data::DEPRECATE_SystemResult_Tag;
+
+  DEPRECATE_SystemResultDataView() = default;
+
+  DEPRECATE_SystemResultDataView(
+      internal::DEPRECATE_SystemResult_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const {
+    // For inlined unions, |data_| is always non-null. In that case we need to
+    // check |data_->is_null()|.
+    return !data_ || data_->is_null();
+  }
+
+  Tag tag() const { return data_->tag; }
+  bool is_error() const { return data_->tag == Tag::ERROR; }
+  inline void GetErrorDataView(
+      ProbeErrorDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadError(UserType* output) const {
+    
+    CHECK(is_error());
+    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::ProbeErrorDataView>(
+        data_->data.f_error.Get(), output, message_);
+  }
+
+ private:
+  internal::DEPRECATE_SystemResult_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
 class SystemResultDataView {
  public:
   using Tag = internal::SystemResult_Data::SystemResult_Tag;
@@ -6574,54 +6464,6 @@ class SystemResultDataView {
 
  private:
   internal::SystemResult_Data* data_ = nullptr;
-  mojo::Message* message_ = nullptr;
-};
-
-
-
-class SystemResultV2DataView {
- public:
-  using Tag = internal::SystemResultV2_Data::SystemResultV2_Tag;
-
-  SystemResultV2DataView() = default;
-
-  SystemResultV2DataView(
-      internal::SystemResultV2_Data* data,
-      mojo::Message* message)
-      : data_(data), message_(message) {}
-
-  bool is_null() const {
-    // For inlined unions, |data_| is always non-null. In that case we need to
-    // check |data_->is_null()|.
-    return !data_ || data_->is_null();
-  }
-
-  Tag tag() const { return data_->tag; }
-  bool is_system_info_v2() const { return data_->tag == Tag::SYSTEM_INFO_V2; }
-  inline void GetSystemInfoV2DataView(
-      SystemInfoV2DataView* output) const;
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadSystemInfoV2(UserType* output) const {
-    
-    CHECK(is_system_info_v2());
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::SystemInfoV2DataView>(
-        data_->data.f_system_info_v2.Get(), output, message_);
-  }
-  bool is_error() const { return data_->tag == Tag::ERROR; }
-  inline void GetErrorDataView(
-      ProbeErrorDataView* output) const;
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadError(UserType* output) const {
-    
-    CHECK(is_error());
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::ProbeErrorDataView>(
-        data_->data.f_error.Get(), output, message_);
-  }
-
- private:
-  internal::SystemResultV2_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -6826,11 +6668,6 @@ class AudioHardwareResultDataView {
   }
 
   Tag tag() const { return data_->tag; }
-  bool is_unmapped_field0() const { return data_->tag == Tag::UNMAPPED_FIELD0; }
-  bool unmapped_field0() const {
-    CHECK(is_unmapped_field0());
-    return data_->data.f_unmapped_field0;
-  }
   bool is_audio_hardware_info() const { return data_->tag == Tag::AUDIO_HARDWARE_INFO; }
   inline void GetAudioHardwareInfoDataView(
       AudioHardwareInfoDataView* output) const;
@@ -7007,6 +6844,11 @@ class BusInfoDataView {
     CHECK(is_thunderbolt_bus_info());
     return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::ThunderboltBusInfoDataView>(
         data_->data.f_thunderbolt_bus_info.Get(), output, message_);
+  }
+  bool is_unmapped_field() const { return data_->tag == Tag::UNMAPPED_FIELD; }
+  bool unmapped_field() const {
+    CHECK(is_unmapped_field());
+    return data_->data.f_unmapped_field;
   }
 
  private:
@@ -7203,6 +7045,54 @@ class InputResultDataView {
 
  private:
   internal::InputResult_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
+class SensorResultDataView {
+ public:
+  using Tag = internal::SensorResult_Data::SensorResult_Tag;
+
+  SensorResultDataView() = default;
+
+  SensorResultDataView(
+      internal::SensorResult_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const {
+    // For inlined unions, |data_| is always non-null. In that case we need to
+    // check |data_->is_null()|.
+    return !data_ || data_->is_null();
+  }
+
+  Tag tag() const { return data_->tag; }
+  bool is_sensor_info() const { return data_->tag == Tag::SENSOR_INFO; }
+  inline void GetSensorInfoDataView(
+      SensorInfoDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadSensorInfo(UserType* output) const {
+    
+    CHECK(is_sensor_info());
+    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::SensorInfoDataView>(
+        data_->data.f_sensor_info.Get(), output, message_);
+  }
+  bool is_error() const { return data_->tag == Tag::ERROR; }
+  inline void GetErrorDataView(
+      ProbeErrorDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadError(UserType* output) const {
+    
+    CHECK(is_error());
+    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::ProbeErrorDataView>(
+        data_->data.f_error.Get(), output, message_);
+  }
+
+ private:
+  internal::SensorResult_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -7746,6 +7636,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::ProcessInfoDataView, MaybeCon
     fragment->parent_process_id = Traits::parent_process_id(input);
     fragment->process_group_id = Traits::process_group_id(input);
     fragment->threads = Traits::threads(input);
+    fragment->process_id = Traits::process_id(input);
   }
 
   static bool Deserialize(::chromeos::cros_healthd::mojom::internal::ProcessInfo_Data* input,
@@ -8939,139 +8830,6 @@ struct Serializer<::chromeos::cros_healthd::mojom::SystemInfoDataView, MaybeCons
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
-    decltype(Traits::first_power_date(input)) in_first_power_date = Traits::first_power_date(input);
-    mojo::internal::MessageFragment<
-        typename decltype(fragment->first_power_date)::BaseType> first_power_date_fragment(
-            fragment.message());
-    mojo::internal::Serialize<mojo::StringDataView>(
-        in_first_power_date, first_power_date_fragment);
-    fragment->first_power_date.Set(
-        first_power_date_fragment.is_null() ? nullptr : first_power_date_fragment.data());
-    decltype(Traits::manufacture_date(input)) in_manufacture_date = Traits::manufacture_date(input);
-    mojo::internal::MessageFragment<
-        typename decltype(fragment->manufacture_date)::BaseType> manufacture_date_fragment(
-            fragment.message());
-    mojo::internal::Serialize<mojo::StringDataView>(
-        in_manufacture_date, manufacture_date_fragment);
-    fragment->manufacture_date.Set(
-        manufacture_date_fragment.is_null() ? nullptr : manufacture_date_fragment.data());
-    decltype(Traits::product_sku_number(input)) in_product_sku_number = Traits::product_sku_number(input);
-    mojo::internal::MessageFragment<
-        typename decltype(fragment->product_sku_number)::BaseType> product_sku_number_fragment(
-            fragment.message());
-    mojo::internal::Serialize<mojo::StringDataView>(
-        in_product_sku_number, product_sku_number_fragment);
-    fragment->product_sku_number.Set(
-        product_sku_number_fragment.is_null() ? nullptr : product_sku_number_fragment.data());
-    decltype(Traits::product_serial_number(input)) in_product_serial_number = Traits::product_serial_number(input);
-    mojo::internal::MessageFragment<
-        typename decltype(fragment->product_serial_number)::BaseType> product_serial_number_fragment(
-            fragment.message());
-    mojo::internal::Serialize<mojo::StringDataView>(
-        in_product_serial_number, product_serial_number_fragment);
-    fragment->product_serial_number.Set(
-        product_serial_number_fragment.is_null() ? nullptr : product_serial_number_fragment.data());
-    decltype(Traits::product_model_name(input)) in_product_model_name = Traits::product_model_name(input);
-    mojo::internal::MessageFragment<
-        typename decltype(fragment->product_model_name)::BaseType> product_model_name_fragment(
-            fragment.message());
-    mojo::internal::Serialize<mojo::StringDataView>(
-        in_product_model_name, product_model_name_fragment);
-    fragment->product_model_name.Set(
-        product_model_name_fragment.is_null() ? nullptr : product_model_name_fragment.data());
-    decltype(Traits::marketing_name(input)) in_marketing_name = Traits::marketing_name(input);
-    mojo::internal::MessageFragment<
-        typename decltype(fragment->marketing_name)::BaseType> marketing_name_fragment(
-            fragment.message());
-    mojo::internal::Serialize<mojo::StringDataView>(
-        in_marketing_name, marketing_name_fragment);
-    fragment->marketing_name.Set(
-        marketing_name_fragment.is_null() ? nullptr : marketing_name_fragment.data());
-    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-        fragment->marketing_name.is_null(),
-        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-        "null marketing_name in SystemInfo struct");
-    decltype(Traits::bios_version(input)) in_bios_version = Traits::bios_version(input);
-    mojo::internal::MessageFragment<
-        typename decltype(fragment->bios_version)::BaseType> bios_version_fragment(
-            fragment.message());
-    mojo::internal::Serialize<mojo::StringDataView>(
-        in_bios_version, bios_version_fragment);
-    fragment->bios_version.Set(
-        bios_version_fragment.is_null() ? nullptr : bios_version_fragment.data());
-    decltype(Traits::board_name(input)) in_board_name = Traits::board_name(input);
-    mojo::internal::MessageFragment<
-        typename decltype(fragment->board_name)::BaseType> board_name_fragment(
-            fragment.message());
-    mojo::internal::Serialize<mojo::StringDataView>(
-        in_board_name, board_name_fragment);
-    fragment->board_name.Set(
-        board_name_fragment.is_null() ? nullptr : board_name_fragment.data());
-    decltype(Traits::board_version(input)) in_board_version = Traits::board_version(input);
-    mojo::internal::MessageFragment<
-        typename decltype(fragment->board_version)::BaseType> board_version_fragment(
-            fragment.message());
-    mojo::internal::Serialize<mojo::StringDataView>(
-        in_board_version, board_version_fragment);
-    fragment->board_version.Set(
-        board_version_fragment.is_null() ? nullptr : board_version_fragment.data());
-    decltype(Traits::chassis_type(input)) in_chassis_type = Traits::chassis_type(input);
-    mojo::internal::MessageFragment<
-        typename decltype(fragment->chassis_type)::BaseType> chassis_type_fragment(
-            fragment.message());
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::NullableUint64DataView>(
-        in_chassis_type, chassis_type_fragment);
-    fragment->chassis_type.Set(
-        chassis_type_fragment.is_null() ? nullptr : chassis_type_fragment.data());
-    decltype(Traits::product_name(input)) in_product_name = Traits::product_name(input);
-    mojo::internal::MessageFragment<
-        typename decltype(fragment->product_name)::BaseType> product_name_fragment(
-            fragment.message());
-    mojo::internal::Serialize<mojo::StringDataView>(
-        in_product_name, product_name_fragment);
-    fragment->product_name.Set(
-        product_name_fragment.is_null() ? nullptr : product_name_fragment.data());
-    decltype(Traits::os_version(input)) in_os_version = Traits::os_version(input);
-    mojo::internal::MessageFragment<
-        typename decltype(fragment->os_version)::BaseType> os_version_fragment(
-            fragment.message());
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::OsVersionDataView>(
-        in_os_version, os_version_fragment);
-    fragment->os_version.Set(
-        os_version_fragment.is_null() ? nullptr : os_version_fragment.data());
-    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-        fragment->os_version.is_null(),
-        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-        "null os_version in SystemInfo struct");
-  }
-
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::SystemInfo_Data* input,
-                          UserType* output,
-                          Message* message) {
-    if (!input)
-      return CallSetToNullIfExists<Traits>(output);
-
-    ::chromeos::cros_healthd::mojom::SystemInfoDataView data_view(input, message);
-    return Traits::Read(data_view, output);
-  }
-};
-
-}  // namespace internal
-
-
-namespace internal {
-
-template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::SystemInfoV2DataView, MaybeConstUserType> {
-  using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::SystemInfoV2DataView, UserType>;
-
-  static void Serialize(
-      MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::SystemInfoV2_Data>& fragment) {
-    if (CallIsNullIfExists<Traits>(input))
-      return;
-    fragment.Allocate();
     decltype(Traits::os_info(input)) in_os_info = Traits::os_info(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->os_info)::BaseType> os_info_fragment(
@@ -9083,7 +8841,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::SystemInfoV2DataView, MaybeCo
     MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
         fragment->os_info.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-        "null os_info in SystemInfoV2 struct");
+        "null os_info in SystemInfo struct");
     decltype(Traits::vpd_info(input)) in_vpd_info = Traits::vpd_info(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->vpd_info)::BaseType> vpd_info_fragment(
@@ -9102,13 +8860,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::SystemInfoV2DataView, MaybeCo
         dmi_info_fragment.is_null() ? nullptr : dmi_info_fragment.data());
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::SystemInfoV2_Data* input,
+  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::SystemInfo_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::SystemInfoV2DataView data_view(input, message);
+    ::chromeos::cros_healthd::mojom::SystemInfoDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -11149,6 +10907,43 @@ struct Serializer<::chromeos::cros_healthd::mojom::InputDeviceDataView, MaybeCon
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::chromeos::cros_healthd::mojom::SensorInfoDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::chromeos::cros_healthd::mojom::SensorInfoDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::SensorInfo_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::lid_angle(input)) in_lid_angle = Traits::lid_angle(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->lid_angle)::BaseType> lid_angle_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::NullableUint16DataView>(
+        in_lid_angle, lid_angle_fragment);
+    fragment->lid_angle.Set(
+        lid_angle_fragment.is_null() ? nullptr : lid_angle_fragment.data());
+  }
+
+  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::SensorInfo_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::chromeos::cros_healthd::mojom::SensorInfoDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::chromeos::cros_healthd::mojom::TelemetryInfoDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = StructTraits<::chromeos::cros_healthd::mojom::TelemetryInfoDataView, UserType>;
@@ -11213,12 +11008,12 @@ struct Serializer<::chromeos::cros_healthd::mojom::TelemetryInfoDataView, MaybeC
     bluetooth_result_fragment.Claim(&fragment->bluetooth_result);
     mojo::internal::Serialize<::chromeos::cros_healthd::mojom::BluetoothResultDataView>(
         in_bluetooth_result, bluetooth_result_fragment, true);
-    decltype(Traits::system_result(input)) in_system_result = Traits::system_result(input);
-    mojo::internal::MessageFragment<decltype(fragment->system_result)>
-        system_result_fragment(fragment.message());
-    system_result_fragment.Claim(&fragment->system_result);
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::SystemResultDataView>(
-        in_system_result, system_result_fragment, true);
+    decltype(Traits::deprecate_system_result(input)) in_deprecate_system_result = Traits::deprecate_system_result(input);
+    mojo::internal::MessageFragment<decltype(fragment->deprecate_system_result)>
+        deprecate_system_result_fragment(fragment.message());
+    deprecate_system_result_fragment.Claim(&fragment->deprecate_system_result);
+    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::DEPRECATE_SystemResultDataView>(
+        in_deprecate_system_result, deprecate_system_result_fragment, true);
     decltype(Traits::network_result(input)) in_network_result = Traits::network_result(input);
     mojo::internal::MessageFragment<decltype(fragment->network_result)>
         network_result_fragment(fragment.message());
@@ -11243,12 +11038,12 @@ struct Serializer<::chromeos::cros_healthd::mojom::TelemetryInfoDataView, MaybeC
     bus_result_fragment.Claim(&fragment->bus_result);
     mojo::internal::Serialize<::chromeos::cros_healthd::mojom::BusResultDataView>(
         in_bus_result, bus_result_fragment, true);
-    decltype(Traits::system_result_v2(input)) in_system_result_v2 = Traits::system_result_v2(input);
-    mojo::internal::MessageFragment<decltype(fragment->system_result_v2)>
-        system_result_v2_fragment(fragment.message());
-    system_result_v2_fragment.Claim(&fragment->system_result_v2);
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::SystemResultV2DataView>(
-        in_system_result_v2, system_result_v2_fragment, true);
+    decltype(Traits::system_result(input)) in_system_result = Traits::system_result(input);
+    mojo::internal::MessageFragment<decltype(fragment->system_result)>
+        system_result_fragment(fragment.message());
+    system_result_fragment.Claim(&fragment->system_result);
+    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::SystemResultDataView>(
+        in_system_result, system_result_fragment, true);
     decltype(Traits::tpm_result(input)) in_tpm_result = Traits::tpm_result(input);
     mojo::internal::MessageFragment<decltype(fragment->tpm_result)>
         tpm_result_fragment(fragment.message());
@@ -11285,6 +11080,12 @@ struct Serializer<::chromeos::cros_healthd::mojom::TelemetryInfoDataView, MaybeC
     audio_hardware_result_fragment.Claim(&fragment->audio_hardware_result);
     mojo::internal::Serialize<::chromeos::cros_healthd::mojom::AudioHardwareResultDataView>(
         in_audio_hardware_result, audio_hardware_result_fragment, true);
+    decltype(Traits::sensor_result(input)) in_sensor_result = Traits::sensor_result(input);
+    mojo::internal::MessageFragment<decltype(fragment->sensor_result)>
+        sensor_result_fragment(fragment.message());
+    sensor_result_fragment.Claim(&fragment->sensor_result);
+    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::SensorResultDataView>(
+        in_sensor_result, sensor_result_fragment, true);
   }
 
   static bool Deserialize(::chromeos::cros_healthd::mojom::internal::TelemetryInfo_Data* input,
@@ -11325,12 +11126,6 @@ struct Serializer<::chromeos::cros_healthd::mojom::ProcessResultDataView, MaybeC
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::cros_healthd::mojom::ProcessResultDataView::Tag::UNMAPPED_FIELD: {
-        decltype(Traits::unmapped_field(input))
-            in_unmapped_field = Traits::unmapped_field(input);
-        fragment->data.f_unmapped_field = in_unmapped_field;
-        break;
-      }
       case ::chromeos::cros_healthd::mojom::ProcessResultDataView::Tag::PROCESS_INFO: {
         decltype(Traits::process_info(input))
             in_process_info = Traits::process_info(input);
@@ -11572,6 +11367,12 @@ struct Serializer<::chromeos::cros_healthd::mojom::BlockDeviceVendorDataView, Ma
         fragment->data.f_unknown = in_unknown;
         break;
       }
+      case ::chromeos::cros_healthd::mojom::BlockDeviceVendorDataView::Tag::JEDEC_MANFID: {
+        decltype(Traits::jedec_manfid(input))
+            in_jedec_manfid = Traits::jedec_manfid(input);
+        fragment->data.f_jedec_manfid = in_jedec_manfid;
+        break;
+      }
     }
   }
 
@@ -11765,6 +11566,12 @@ struct Serializer<::chromeos::cros_healthd::mojom::BlockDeviceFirmwareDataView, 
         decltype(Traits::unknown(input))
             in_unknown = Traits::unknown(input);
         fragment->data.f_unknown = in_unknown;
+        break;
+      }
+      case ::chromeos::cros_healthd::mojom::BlockDeviceFirmwareDataView::Tag::UFS_FWREV: {
+        decltype(Traits::ufs_fwrev(input))
+            in_ufs_fwrev = Traits::ufs_fwrev(input);
+        fragment->data.f_ufs_fwrev = in_ufs_fwrev;
         break;
       }
     }
@@ -12304,6 +12111,63 @@ struct Serializer<::chromeos::cros_healthd::mojom::BluetoothResultDataView, Mayb
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::chromeos::cros_healthd::mojom::DEPRECATE_SystemResultDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = UnionTraits<::chromeos::cros_healthd::mojom::DEPRECATE_SystemResultDataView, UserType>;
+
+  static void Serialize(MaybeConstUserType& input,
+                        MessageFragment<::chromeos::cros_healthd::mojom::internal::DEPRECATE_SystemResult_Data>& fragment,
+                        bool inlined) {
+    if (CallIsNullIfExists<Traits>(input)) {
+       if (inlined)
+        fragment->set_null();
+      return;
+    }
+
+    if (!inlined)
+      fragment.Allocate();
+
+    // TODO(azani): Handle unknown and objects.
+    // Set the not-null flag.
+    fragment->size = kUnionDataSize;
+    fragment->tag = Traits::GetTag(input);
+    switch (fragment->tag) {
+      case ::chromeos::cros_healthd::mojom::DEPRECATE_SystemResultDataView::Tag::ERROR: {
+        decltype(Traits::error(input))
+            in_error = Traits::error(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_error)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::chromeos::cros_healthd::mojom::ProbeErrorDataView>(
+            in_error, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null error in DEPRECATE_SystemResult union");
+        fragment->data.f_error.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+    }
+  }
+
+  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::DEPRECATE_SystemResult_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input || input->is_null())
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::chromeos::cros_healthd::mojom::DEPRECATE_SystemResultDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::chromeos::cros_healthd::mojom::SystemResultDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = UnionTraits<::chromeos::cros_healthd::mojom::SystemResultDataView, UserType>;
@@ -12367,79 +12231,6 @@ struct Serializer<::chromeos::cros_healthd::mojom::SystemResultDataView, MaybeCo
       return CallSetToNullIfExists<Traits>(output);
 
     ::chromeos::cros_healthd::mojom::SystemResultDataView data_view(input, message);
-    return Traits::Read(data_view, output);
-  }
-};
-
-}  // namespace internal
-
-
-namespace internal {
-
-template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::SystemResultV2DataView, MaybeConstUserType> {
-  using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = UnionTraits<::chromeos::cros_healthd::mojom::SystemResultV2DataView, UserType>;
-
-  static void Serialize(MaybeConstUserType& input,
-                        MessageFragment<::chromeos::cros_healthd::mojom::internal::SystemResultV2_Data>& fragment,
-                        bool inlined) {
-    if (CallIsNullIfExists<Traits>(input)) {
-       if (inlined)
-        fragment->set_null();
-      return;
-    }
-
-    if (!inlined)
-      fragment.Allocate();
-
-    // TODO(azani): Handle unknown and objects.
-    // Set the not-null flag.
-    fragment->size = kUnionDataSize;
-    fragment->tag = Traits::GetTag(input);
-    switch (fragment->tag) {
-      case ::chromeos::cros_healthd::mojom::SystemResultV2DataView::Tag::SYSTEM_INFO_V2: {
-        decltype(Traits::system_info_v2(input))
-            in_system_info_v2 = Traits::system_info_v2(input);
-        mojo::internal::MessageFragment<
-            typename decltype(fragment->data.f_system_info_v2)::BaseType>
-            value_fragment(fragment.message());
-        mojo::internal::Serialize<::chromeos::cros_healthd::mojom::SystemInfoV2DataView>(
-            in_system_info_v2, value_fragment);
-        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-            value_fragment.is_null(),
-            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-            "null system_info_v2 in SystemResultV2 union");
-        fragment->data.f_system_info_v2.Set(
-            value_fragment.is_null() ? nullptr : value_fragment.data());
-        break;
-      }
-      case ::chromeos::cros_healthd::mojom::SystemResultV2DataView::Tag::ERROR: {
-        decltype(Traits::error(input))
-            in_error = Traits::error(input);
-        mojo::internal::MessageFragment<
-            typename decltype(fragment->data.f_error)::BaseType>
-            value_fragment(fragment.message());
-        mojo::internal::Serialize<::chromeos::cros_healthd::mojom::ProbeErrorDataView>(
-            in_error, value_fragment);
-        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-            value_fragment.is_null(),
-            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-            "null error in SystemResultV2 union");
-        fragment->data.f_error.Set(
-            value_fragment.is_null() ? nullptr : value_fragment.data());
-        break;
-      }
-    }
-  }
-
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::SystemResultV2_Data* input,
-                          UserType* output,
-                          Message* message) {
-    if (!input || input->is_null())
-      return CallSetToNullIfExists<Traits>(output);
-
-    ::chromeos::cros_healthd::mojom::SystemResultV2DataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -12749,12 +12540,6 @@ struct Serializer<::chromeos::cros_healthd::mojom::AudioHardwareResultDataView, 
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::cros_healthd::mojom::AudioHardwareResultDataView::Tag::UNMAPPED_FIELD0: {
-        decltype(Traits::unmapped_field0(input))
-            in_unmapped_field0 = Traits::unmapped_field0(input);
-        fragment->data.f_unmapped_field0 = in_unmapped_field0;
-        break;
-      }
       case ::chromeos::cros_healthd::mojom::AudioHardwareResultDataView::Tag::AUDIO_HARDWARE_INFO: {
         decltype(Traits::audio_hardware_info(input))
             in_audio_hardware_info = Traits::audio_hardware_info(input);
@@ -13022,6 +12807,12 @@ struct Serializer<::chromeos::cros_healthd::mojom::BusInfoDataView, MaybeConstUs
             "null thunderbolt_bus_info in BusInfo union");
         fragment->data.f_thunderbolt_bus_info.Set(
             value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::chromeos::cros_healthd::mojom::BusInfoDataView::Tag::UNMAPPED_FIELD: {
+        decltype(Traits::unmapped_field(input))
+            in_unmapped_field = Traits::unmapped_field(input);
+        fragment->data.f_unmapped_field = in_unmapped_field;
         break;
       }
     }
@@ -13326,6 +13117,79 @@ struct Serializer<::chromeos::cros_healthd::mojom::InputResultDataView, MaybeCon
       return CallSetToNullIfExists<Traits>(output);
 
     ::chromeos::cros_healthd::mojom::InputResultDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::chromeos::cros_healthd::mojom::SensorResultDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = UnionTraits<::chromeos::cros_healthd::mojom::SensorResultDataView, UserType>;
+
+  static void Serialize(MaybeConstUserType& input,
+                        MessageFragment<::chromeos::cros_healthd::mojom::internal::SensorResult_Data>& fragment,
+                        bool inlined) {
+    if (CallIsNullIfExists<Traits>(input)) {
+       if (inlined)
+        fragment->set_null();
+      return;
+    }
+
+    if (!inlined)
+      fragment.Allocate();
+
+    // TODO(azani): Handle unknown and objects.
+    // Set the not-null flag.
+    fragment->size = kUnionDataSize;
+    fragment->tag = Traits::GetTag(input);
+    switch (fragment->tag) {
+      case ::chromeos::cros_healthd::mojom::SensorResultDataView::Tag::SENSOR_INFO: {
+        decltype(Traits::sensor_info(input))
+            in_sensor_info = Traits::sensor_info(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_sensor_info)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::chromeos::cros_healthd::mojom::SensorInfoDataView>(
+            in_sensor_info, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null sensor_info in SensorResult union");
+        fragment->data.f_sensor_info.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::chromeos::cros_healthd::mojom::SensorResultDataView::Tag::ERROR: {
+        decltype(Traits::error(input))
+            in_error = Traits::error(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_error)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::chromeos::cros_healthd::mojom::ProbeErrorDataView>(
+            in_error, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null error in SensorResult union");
+        fragment->data.f_error.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+    }
+  }
+
+  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::SensorResult_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input || input->is_null())
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::chromeos::cros_healthd::mojom::SensorResultDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -13655,79 +13519,17 @@ inline void BluetoothDeviceInfoDataView::GetBatteryPercentageDataView(
 
 
 
-inline void SystemInfoDataView::GetFirstPowerDateDataView(
-    mojo::StringDataView* output) {
-  auto pointer = data_->first_power_date.Get();
-  *output = mojo::StringDataView(pointer, message_);
-}
-inline void SystemInfoDataView::GetManufactureDateDataView(
-    mojo::StringDataView* output) {
-  auto pointer = data_->manufacture_date.Get();
-  *output = mojo::StringDataView(pointer, message_);
-}
-inline void SystemInfoDataView::GetProductSkuNumberDataView(
-    mojo::StringDataView* output) {
-  auto pointer = data_->product_sku_number.Get();
-  *output = mojo::StringDataView(pointer, message_);
-}
-inline void SystemInfoDataView::GetProductSerialNumberDataView(
-    mojo::StringDataView* output) {
-  auto pointer = data_->product_serial_number.Get();
-  *output = mojo::StringDataView(pointer, message_);
-}
-inline void SystemInfoDataView::GetProductModelNameDataView(
-    mojo::StringDataView* output) {
-  auto pointer = data_->product_model_name.Get();
-  *output = mojo::StringDataView(pointer, message_);
-}
-inline void SystemInfoDataView::GetMarketingNameDataView(
-    mojo::StringDataView* output) {
-  auto pointer = data_->marketing_name.Get();
-  *output = mojo::StringDataView(pointer, message_);
-}
-inline void SystemInfoDataView::GetBiosVersionDataView(
-    mojo::StringDataView* output) {
-  auto pointer = data_->bios_version.Get();
-  *output = mojo::StringDataView(pointer, message_);
-}
-inline void SystemInfoDataView::GetBoardNameDataView(
-    mojo::StringDataView* output) {
-  auto pointer = data_->board_name.Get();
-  *output = mojo::StringDataView(pointer, message_);
-}
-inline void SystemInfoDataView::GetBoardVersionDataView(
-    mojo::StringDataView* output) {
-  auto pointer = data_->board_version.Get();
-  *output = mojo::StringDataView(pointer, message_);
-}
-inline void SystemInfoDataView::GetChassisTypeDataView(
-    ::chromeos::cros_healthd::mojom::NullableUint64DataView* output) {
-  auto pointer = data_->chassis_type.Get();
-  *output = ::chromeos::cros_healthd::mojom::NullableUint64DataView(pointer, message_);
-}
-inline void SystemInfoDataView::GetProductNameDataView(
-    mojo::StringDataView* output) {
-  auto pointer = data_->product_name.Get();
-  *output = mojo::StringDataView(pointer, message_);
-}
-inline void SystemInfoDataView::GetOsVersionDataView(
-    OsVersionDataView* output) {
-  auto pointer = data_->os_version.Get();
-  *output = OsVersionDataView(pointer, message_);
-}
-
-
-inline void SystemInfoV2DataView::GetOsInfoDataView(
+inline void SystemInfoDataView::GetOsInfoDataView(
     OsInfoDataView* output) {
   auto pointer = data_->os_info.Get();
   *output = OsInfoDataView(pointer, message_);
 }
-inline void SystemInfoV2DataView::GetVpdInfoDataView(
+inline void SystemInfoDataView::GetVpdInfoDataView(
     VpdInfoDataView* output) {
   auto pointer = data_->vpd_info.Get();
   *output = VpdInfoDataView(pointer, message_);
 }
-inline void SystemInfoV2DataView::GetDmiInfoDataView(
+inline void SystemInfoDataView::GetDmiInfoDataView(
     DmiInfoDataView* output) {
   auto pointer = data_->dmi_info.Get();
   *output = DmiInfoDataView(pointer, message_);
@@ -14317,6 +14119,13 @@ inline void InputDeviceDataView::GetPhysicalLocationDataView(
 }
 
 
+inline void SensorInfoDataView::GetLidAngleDataView(
+    ::chromeos::cros_healthd::mojom::NullableUint16DataView* output) {
+  auto pointer = data_->lid_angle.Get();
+  *output = ::chromeos::cros_healthd::mojom::NullableUint16DataView(pointer, message_);
+}
+
+
 inline void TelemetryInfoDataView::GetBatteryResultDataView(
     BatteryResultDataView* output) {
   auto pointer = &data_->battery_result;
@@ -14362,10 +14171,10 @@ inline void TelemetryInfoDataView::GetBluetoothResultDataView(
   auto pointer = &data_->bluetooth_result;
   *output = BluetoothResultDataView(pointer, message_);
 }
-inline void TelemetryInfoDataView::GetSystemResultDataView(
-    SystemResultDataView* output) {
-  auto pointer = &data_->system_result;
-  *output = SystemResultDataView(pointer, message_);
+inline void TelemetryInfoDataView::GetDeprecateSystemResultDataView(
+    DEPRECATE_SystemResultDataView* output) {
+  auto pointer = &data_->deprecate_system_result;
+  *output = DEPRECATE_SystemResultDataView(pointer, message_);
 }
 inline void TelemetryInfoDataView::GetNetworkResultDataView(
     NetworkResultDataView* output) {
@@ -14387,10 +14196,10 @@ inline void TelemetryInfoDataView::GetBusResultDataView(
   auto pointer = &data_->bus_result;
   *output = BusResultDataView(pointer, message_);
 }
-inline void TelemetryInfoDataView::GetSystemResultV2DataView(
-    SystemResultV2DataView* output) {
-  auto pointer = &data_->system_result_v2;
-  *output = SystemResultV2DataView(pointer, message_);
+inline void TelemetryInfoDataView::GetSystemResultDataView(
+    SystemResultDataView* output) {
+  auto pointer = &data_->system_result;
+  *output = SystemResultDataView(pointer, message_);
 }
 inline void TelemetryInfoDataView::GetTpmResultDataView(
     TpmResultDataView* output) {
@@ -14425,6 +14234,12 @@ inline void TelemetryInfoDataView::GetAudioHardwareResultDataView(
   auto pointer = data_->header_.version >= 4
                  ? &data_->audio_hardware_result : nullptr;
   *output = AudioHardwareResultDataView(pointer, message_);
+}
+inline void TelemetryInfoDataView::GetSensorResultDataView(
+    SensorResultDataView* output) {
+  auto pointer = data_->header_.version >= 5
+                 ? &data_->sensor_result : nullptr;
+  *output = SensorResultDataView(pointer, message_);
 }
 
 
@@ -14542,23 +14357,18 @@ inline void BluetoothResultDataView::GetErrorDataView(
   *output = ProbeErrorDataView(data_->data.f_error.Get(), message_);
 }
 
+inline void DEPRECATE_SystemResultDataView::GetErrorDataView(
+    ProbeErrorDataView* output) const {
+  CHECK(is_error());
+  *output = ProbeErrorDataView(data_->data.f_error.Get(), message_);
+}
+
 inline void SystemResultDataView::GetSystemInfoDataView(
     SystemInfoDataView* output) const {
   CHECK(is_system_info());
   *output = SystemInfoDataView(data_->data.f_system_info.Get(), message_);
 }
 inline void SystemResultDataView::GetErrorDataView(
-    ProbeErrorDataView* output) const {
-  CHECK(is_error());
-  *output = ProbeErrorDataView(data_->data.f_error.Get(), message_);
-}
-
-inline void SystemResultV2DataView::GetSystemInfoV2DataView(
-    SystemInfoV2DataView* output) const {
-  CHECK(is_system_info_v2());
-  *output = SystemInfoV2DataView(data_->data.f_system_info_v2.Get(), message_);
-}
-inline void SystemResultV2DataView::GetErrorDataView(
     ProbeErrorDataView* output) const {
   CHECK(is_error());
   *output = ProbeErrorDataView(data_->data.f_error.Get(), message_);
@@ -14691,6 +14501,17 @@ inline void InputResultDataView::GetInputInfoDataView(
   *output = InputInfoDataView(data_->data.f_input_info.Get(), message_);
 }
 inline void InputResultDataView::GetErrorDataView(
+    ProbeErrorDataView* output) const {
+  CHECK(is_error());
+  *output = ProbeErrorDataView(data_->data.f_error.Get(), message_);
+}
+
+inline void SensorResultDataView::GetSensorInfoDataView(
+    SensorInfoDataView* output) const {
+  CHECK(is_sensor_info());
+  *output = SensorInfoDataView(data_->data.f_sensor_info.Get(), message_);
+}
+inline void SensorResultDataView::GetErrorDataView(
     ProbeErrorDataView* output) const {
   CHECK(is_error());
   *output = ProbeErrorDataView(data_->data.f_error.Get(), message_);

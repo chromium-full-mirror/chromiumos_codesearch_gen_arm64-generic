@@ -477,6 +477,28 @@ class BRILLO_EXPORT ModemFwdFwInstallResult final : public ::metrics::structured
 
 };
 
+class BRILLO_EXPORT HermesOp final : public ::metrics::structured::EventBase {
+ public:
+  HermesOp();
+  ~HermesOp() override;
+
+  static constexpr uint64_t kEventNameHash = UINT64_C(8206569500191090563);
+  static constexpr uint64_t kProjectNameHash = UINT64_C(8206859287963243715);
+  static constexpr IdType kIdType = IdType::kProjectId;
+  static constexpr StructuredEventProto_EventType kEventType =
+    StructuredEventProto_EventType_REGULAR;
+
+  static constexpr uint64_t kOperationNameHash = UINT64_C(3060457039018605748);
+  HermesOp& SetOperation(const int64_t value);
+
+  static constexpr uint64_t kResultNameHash = UINT64_C(10298151285721392449);
+  HermesOp& SetResult(const int64_t value);
+
+  static constexpr uint64_t khome_mccmncNameHash = UINT64_C(37695558241520739);
+  HermesOp& Sethome_mccmnc(const int64_t value);
+
+};
+
 }  // namespace cellular
 
 namespace rmad {

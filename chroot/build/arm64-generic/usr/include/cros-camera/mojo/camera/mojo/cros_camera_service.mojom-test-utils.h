@@ -51,6 +51,7 @@ class  CameraHalServerInterceptorForTesting : public CameraHalServer {
   void SetAutoFramingState(CameraAutoFramingState state) override;
   void GetCameraSWPrivacySwitchState(GetCameraSWPrivacySwitchStateCallback callback) override;
   void SetCameraSWPrivacySwitchState(CameraPrivacySwitchState state) override;
+  void GetAutoFramingSupported(GetAutoFramingSupportedCallback callback) override;
 };
 class  CameraHalServerAsyncWaiter {
  public:
@@ -62,6 +63,8 @@ class  CameraHalServerAsyncWaiter {
   ~CameraHalServerAsyncWaiter();
   void GetCameraSWPrivacySwitchState(
       CameraPrivacySwitchState* out_state);
+  void GetAutoFramingSupported(
+      bool* out_supported);
 
  private:
   CameraHalServer* const proxy_;

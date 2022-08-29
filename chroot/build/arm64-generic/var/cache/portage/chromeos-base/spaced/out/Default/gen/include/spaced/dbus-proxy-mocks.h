@@ -52,6 +52,14 @@ class SpacedProxyMock : public SpacedProxyInterface {
                void(base::OnceCallback<void(int64_t /*reply*/)> /*success_callback*/,
                     base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
                     int /*timeout_ms*/));
+  void RegisterStatefulDiskSpaceUpdateSignalHandler(
+    const base::RepeatingCallback<void(const spaced::StatefulDiskSpaceUpdate&)>& signal_callback,
+    dbus::ObjectProxy::OnConnectedCallback on_connected_callback) {
+    DoRegisterStatefulDiskSpaceUpdateSignalHandler(signal_callback, &on_connected_callback);
+  }
+  MOCK_METHOD2(DoRegisterStatefulDiskSpaceUpdateSignalHandler,
+               void(const base::RepeatingCallback<void(const spaced::StatefulDiskSpaceUpdate&)>& /*signal_callback*/,
+                    dbus::ObjectProxy::OnConnectedCallback* /*on_connected_callback*/));
   MOCK_CONST_METHOD0(GetObjectPath, const dbus::ObjectPath&());
   MOCK_CONST_METHOD0(GetObjectProxy, dbus::ObjectProxy*());
 };

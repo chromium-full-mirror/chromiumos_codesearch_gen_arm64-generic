@@ -1912,7 +1912,6 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
-
 class  OsVersion {
  public:
   template <typename T>
@@ -3094,6 +3093,7 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+
 class  ProcessResult {
  public:
   using DataView = ProcessResultDataView;
@@ -3102,14 +3102,6 @@ class  ProcessResult {
 
   static ProcessResultPtr New() {
     return ProcessResultPtr(base::in_place);
-  }
-  // Construct an instance holding |unmapped_field|.
-  static ProcessResultPtr
-  NewUnmappedField(
-      bool unmapped_field) {
-    auto result = ProcessResultPtr(base::in_place);
-    result->set_unmapped_field(std::move(unmapped_field));
-    return result;
   }
   // Construct an instance holding |process_info|.
   static ProcessResultPtr
@@ -3166,18 +3158,6 @@ class  ProcessResult {
 
 
   
-  bool is_unmapped_field() const { return tag_ == Tag::UNMAPPED_FIELD; }
-
-  
-  bool get_unmapped_field() const {
-    CHECK(tag_ == Tag::UNMAPPED_FIELD);
-    return data_.unmapped_field;
-  }
-
-  
-  void set_unmapped_field(
-      bool unmapped_field);
-  
   bool is_process_info() const { return tag_ == Tag::PROCESS_INFO; }
 
   
@@ -3219,7 +3199,6 @@ class  ProcessResult {
   union Union_ {
     Union_() = default;
     ~Union_() = default;
-    bool unmapped_field;
     ProcessInfoPtr* process_info;
     ProbeErrorPtr* error;
   };
@@ -3513,6 +3492,14 @@ class  BlockDeviceVendor {
     result->set_unknown(std::move(unknown));
     return result;
   }
+  // Construct an instance holding |jedec_manfid|.
+  static BlockDeviceVendorPtr
+  NewJedecManfid(
+      uint16_t jedec_manfid) {
+    auto result = BlockDeviceVendorPtr(base::in_place);
+    result->set_jedec_manfid(std::move(jedec_manfid));
+    return result;
+  }
 
   template <typename U>
   static BlockDeviceVendorPtr From(const U& u) {
@@ -3600,6 +3587,18 @@ class  BlockDeviceVendor {
   
   void set_unknown(
       uint64_t unknown);
+  
+  bool is_jedec_manfid() const { return tag_ == Tag::JEDEC_MANFID; }
+
+  
+  uint16_t get_jedec_manfid() const {
+    CHECK(tag_ == Tag::JEDEC_MANFID);
+    return data_.jedec_manfid;
+  }
+
+  
+  void set_jedec_manfid(
+      uint16_t jedec_manfid);
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
@@ -3622,6 +3621,7 @@ class  BlockDeviceVendor {
     uint16_t emmc_oemid;
     uint16_t other;
     uint64_t unknown;
+    uint16_t jedec_manfid;
   };
 
   static bool Validate(const void* data,
@@ -3999,6 +3999,14 @@ class  BlockDeviceFirmware {
     result->set_unknown(std::move(unknown));
     return result;
   }
+  // Construct an instance holding |ufs_fwrev|.
+  static BlockDeviceFirmwarePtr
+  NewUfsFwrev(
+      uint64_t ufs_fwrev) {
+    auto result = BlockDeviceFirmwarePtr(base::in_place);
+    result->set_ufs_fwrev(std::move(ufs_fwrev));
+    return result;
+  }
 
   template <typename U>
   static BlockDeviceFirmwarePtr From(const U& u) {
@@ -4086,6 +4094,18 @@ class  BlockDeviceFirmware {
   
   void set_unknown(
       uint64_t unknown);
+  
+  bool is_ufs_fwrev() const { return tag_ == Tag::UFS_FWREV; }
+
+  
+  uint64_t get_ufs_fwrev() const {
+    CHECK(tag_ == Tag::UFS_FWREV);
+    return data_.ufs_fwrev;
+  }
+
+  
+  void set_ufs_fwrev(
+      uint64_t ufs_fwrev);
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
@@ -4108,6 +4128,7 @@ class  BlockDeviceFirmware {
     uint64_t emmc_fwrev;
     uint16_t other;
     uint64_t unknown;
+    uint64_t ufs_fwrev;
   };
 
   static bool Validate(const void* data,
@@ -4955,6 +4976,105 @@ class  BluetoothResult {
 
 
 
+class  DEPRECATE_SystemResult {
+ public:
+  using DataView = DEPRECATE_SystemResultDataView;
+  using Data_ = internal::DEPRECATE_SystemResult_Data;
+  using Tag = Data_::DEPRECATE_SystemResult_Tag;
+
+  static DEPRECATE_SystemResultPtr New() {
+    return DEPRECATE_SystemResultPtr(base::in_place);
+  }
+  // Construct an instance holding |error|.
+  static DEPRECATE_SystemResultPtr
+  NewError(
+      ProbeErrorPtr error) {
+    auto result = DEPRECATE_SystemResultPtr(base::in_place);
+    result->set_error(std::move(error));
+    return result;
+  }
+
+  template <typename U>
+  static DEPRECATE_SystemResultPtr From(const U& u) {
+    return mojo::TypeConverter<DEPRECATE_SystemResultPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, DEPRECATE_SystemResult>::Convert(*this);
+  }
+
+  DEPRECATE_SystemResult();
+  ~DEPRECATE_SystemResult();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename UnionPtrType = DEPRECATE_SystemResultPtr>
+  DEPRECATE_SystemResultPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T,
+            typename std::enable_if<std::is_same<
+                T, DEPRECATE_SystemResult>::value>::type* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T,
+            typename std::enable_if<std::is_same<
+                T, DEPRECATE_SystemResult>::value>::type* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+  size_t Hash(size_t seed) const;
+
+  Tag which() const {
+    return tag_;
+  }
+
+
+  
+  bool is_error() const { return tag_ == Tag::ERROR; }
+
+  
+  ProbeErrorPtr& get_error() const {
+    CHECK(tag_ == Tag::ERROR);
+    return *(data_.error);
+  }
+
+  
+  void set_error(
+      ProbeErrorPtr error);
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        DEPRECATE_SystemResult::DataView>(input);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    return mojo::internal::DeserializeImpl<DEPRECATE_SystemResult::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+ private:
+  union Union_ {
+    Union_() = default;
+    ~Union_() = default;
+    ProbeErrorPtr* error;
+  };
+
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  void DestroyActive();
+  Tag tag_;
+  Union_ data_;
+};
+
+
+
 class  SystemResult {
  public:
   using DataView = SystemResultDataView;
@@ -5061,125 +5181,6 @@ class  SystemResult {
     Union_() = default;
     ~Union_() = default;
     SystemInfoPtr* system_info;
-    ProbeErrorPtr* error;
-  };
-
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  void DestroyActive();
-  Tag tag_;
-  Union_ data_;
-};
-
-
-
-class  SystemResultV2 {
- public:
-  using DataView = SystemResultV2DataView;
-  using Data_ = internal::SystemResultV2_Data;
-  using Tag = Data_::SystemResultV2_Tag;
-
-  static SystemResultV2Ptr New() {
-    return SystemResultV2Ptr(base::in_place);
-  }
-  // Construct an instance holding |system_info_v2|.
-  static SystemResultV2Ptr
-  NewSystemInfoV2(
-      SystemInfoV2Ptr system_info_v2) {
-    auto result = SystemResultV2Ptr(base::in_place);
-    result->set_system_info_v2(std::move(system_info_v2));
-    return result;
-  }
-  // Construct an instance holding |error|.
-  static SystemResultV2Ptr
-  NewError(
-      ProbeErrorPtr error) {
-    auto result = SystemResultV2Ptr(base::in_place);
-    result->set_error(std::move(error));
-    return result;
-  }
-
-  template <typename U>
-  static SystemResultV2Ptr From(const U& u) {
-    return mojo::TypeConverter<SystemResultV2Ptr, U>::Convert(u);
-  }
-
-  template <typename U>
-  U To() const {
-    return mojo::TypeConverter<U, SystemResultV2>::Convert(*this);
-  }
-
-  SystemResultV2();
-  ~SystemResultV2();
-
-  // Clone() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Clone() or copy
-  // constructor/assignment are available for members.
-  template <typename UnionPtrType = SystemResultV2Ptr>
-  SystemResultV2Ptr Clone() const;
-
-  // Equals() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Equals() or == operator
-  // are available for members.
-  template <typename T,
-            typename std::enable_if<std::is_same<
-                T, SystemResultV2>::value>::type* = nullptr>
-  bool Equals(const T& other) const;
-
-  template <typename T,
-            typename std::enable_if<std::is_same<
-                T, SystemResultV2>::value>::type* = nullptr>
-  bool operator==(const T& rhs) const { return Equals(rhs); }
-
-  Tag which() const {
-    return tag_;
-  }
-
-
-  
-  bool is_system_info_v2() const { return tag_ == Tag::SYSTEM_INFO_V2; }
-
-  
-  SystemInfoV2Ptr& get_system_info_v2() const {
-    CHECK(tag_ == Tag::SYSTEM_INFO_V2);
-    return *(data_.system_info_v2);
-  }
-
-  
-  void set_system_info_v2(
-      SystemInfoV2Ptr system_info_v2);
-  
-  bool is_error() const { return tag_ == Tag::ERROR; }
-
-  
-  ProbeErrorPtr& get_error() const {
-    CHECK(tag_ == Tag::ERROR);
-    return *(data_.error);
-  }
-
-  
-  void set_error(
-      ProbeErrorPtr error);
-
-  template <typename UserType>
-  static mojo::Message SerializeAsMessage(UserType* input) {
-    return mojo::internal::SerializeAsMessageImpl<
-        SystemResultV2::DataView>(input);
-  }
-
-  template <typename UserType>
-  static bool DeserializeFromMessage(mojo::Message input,
-                                     UserType* output) {
-    return mojo::internal::DeserializeImpl<SystemResultV2::DataView>(
-        input, input.payload(), input.payload_num_bytes(), output, Validate);
-  }
-
- private:
-  union Union_ {
-    Union_() = default;
-    ~Union_() = default;
-    SystemInfoV2Ptr* system_info_v2;
     ProbeErrorPtr* error;
   };
 
@@ -5658,14 +5659,6 @@ class  AudioHardwareResult {
   static AudioHardwareResultPtr New() {
     return AudioHardwareResultPtr(base::in_place);
   }
-  // Construct an instance holding |unmapped_field0|.
-  static AudioHardwareResultPtr
-  NewUnmappedField0(
-      bool unmapped_field0) {
-    auto result = AudioHardwareResultPtr(base::in_place);
-    result->set_unmapped_field0(std::move(unmapped_field0));
-    return result;
-  }
   // Construct an instance holding |audio_hardware_info|.
   static AudioHardwareResultPtr
   NewAudioHardwareInfo(
@@ -5721,18 +5714,6 @@ class  AudioHardwareResult {
 
 
   
-  bool is_unmapped_field0() const { return tag_ == Tag::UNMAPPED_FIELD0; }
-
-  
-  bool get_unmapped_field0() const {
-    CHECK(tag_ == Tag::UNMAPPED_FIELD0);
-    return data_.unmapped_field0;
-  }
-
-  
-  void set_unmapped_field0(
-      bool unmapped_field0);
-  
   bool is_audio_hardware_info() const { return tag_ == Tag::AUDIO_HARDWARE_INFO; }
 
   
@@ -5774,7 +5755,6 @@ class  AudioHardwareResult {
   union Union_ {
     Union_() = default;
     ~Union_() = default;
-    bool unmapped_field0;
     AudioHardwareInfoPtr* audio_hardware_info;
     ProbeErrorPtr* error;
   };
@@ -6061,6 +6041,14 @@ class  BusInfo {
     result->set_thunderbolt_bus_info(std::move(thunderbolt_bus_info));
     return result;
   }
+  // Construct an instance holding |unmapped_field|.
+  static BusInfoPtr
+  NewUnmappedField(
+      bool unmapped_field) {
+    auto result = BusInfoPtr(base::in_place);
+    result->set_unmapped_field(std::move(unmapped_field));
+    return result;
+  }
 
   template <typename U>
   static BusInfoPtr From(const U& u) {
@@ -6135,6 +6123,18 @@ class  BusInfo {
   
   void set_thunderbolt_bus_info(
       ThunderboltBusInfoPtr thunderbolt_bus_info);
+  
+  bool is_unmapped_field() const { return tag_ == Tag::UNMAPPED_FIELD; }
+
+  
+  bool get_unmapped_field() const {
+    CHECK(tag_ == Tag::UNMAPPED_FIELD);
+    return data_.unmapped_field;
+  }
+
+  
+  void set_unmapped_field(
+      bool unmapped_field);
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
@@ -6156,6 +6156,7 @@ class  BusInfo {
     PciBusInfoPtr* pci_bus_info;
     UsbBusInfoPtr* usb_bus_info;
     ThunderboltBusInfoPtr* thunderbolt_bus_info;
+    bool unmapped_field;
   };
 
   static bool Validate(const void* data,
@@ -6644,6 +6645,125 @@ class  InputResult {
 
 
 
+class  SensorResult {
+ public:
+  using DataView = SensorResultDataView;
+  using Data_ = internal::SensorResult_Data;
+  using Tag = Data_::SensorResult_Tag;
+
+  static SensorResultPtr New() {
+    return SensorResultPtr(base::in_place);
+  }
+  // Construct an instance holding |sensor_info|.
+  static SensorResultPtr
+  NewSensorInfo(
+      SensorInfoPtr sensor_info) {
+    auto result = SensorResultPtr(base::in_place);
+    result->set_sensor_info(std::move(sensor_info));
+    return result;
+  }
+  // Construct an instance holding |error|.
+  static SensorResultPtr
+  NewError(
+      ProbeErrorPtr error) {
+    auto result = SensorResultPtr(base::in_place);
+    result->set_error(std::move(error));
+    return result;
+  }
+
+  template <typename U>
+  static SensorResultPtr From(const U& u) {
+    return mojo::TypeConverter<SensorResultPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, SensorResult>::Convert(*this);
+  }
+
+  SensorResult();
+  ~SensorResult();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename UnionPtrType = SensorResultPtr>
+  SensorResultPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T,
+            typename std::enable_if<std::is_same<
+                T, SensorResult>::value>::type* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T,
+            typename std::enable_if<std::is_same<
+                T, SensorResult>::value>::type* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  Tag which() const {
+    return tag_;
+  }
+
+
+  
+  bool is_sensor_info() const { return tag_ == Tag::SENSOR_INFO; }
+
+  
+  SensorInfoPtr& get_sensor_info() const {
+    CHECK(tag_ == Tag::SENSOR_INFO);
+    return *(data_.sensor_info);
+  }
+
+  
+  void set_sensor_info(
+      SensorInfoPtr sensor_info);
+  
+  bool is_error() const { return tag_ == Tag::ERROR; }
+
+  
+  ProbeErrorPtr& get_error() const {
+    CHECK(tag_ == Tag::ERROR);
+    return *(data_.error);
+  }
+
+  
+  void set_error(
+      ProbeErrorPtr error);
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        SensorResult::DataView>(input);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    return mojo::internal::DeserializeImpl<SensorResult::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+ private:
+  union Union_ {
+    Union_() = default;
+    ~Union_() = default;
+    SensorInfoPtr* sensor_info;
+    ProbeErrorPtr* error;
+  };
+
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  void DestroyActive();
+  Tag tag_;
+  Union_ data_;
+};
+
+
+
 
 
 
@@ -6712,6 +6832,29 @@ class  ProcessInfo {
       uint32_t parent_process_id,
       uint32_t process_group_id,
       uint32_t threads);
+
+  ProcessInfo(
+      const std::string& command,
+      uint32_t user_id,
+      int8_t priority,
+      int8_t nice,
+      uint64_t uptime_ticks,
+      ProcessState state,
+      uint32_t total_memory_kib,
+      uint32_t resident_memory_kib,
+      uint32_t free_memory_kib,
+      uint64_t bytes_read,
+      uint64_t bytes_written,
+      uint64_t read_system_calls,
+      uint64_t write_system_calls,
+      uint64_t physical_bytes_read,
+      uint64_t physical_bytes_written,
+      uint64_t cancelled_bytes_written,
+      const absl::optional<std::string>& name,
+      uint32_t parent_process_id,
+      uint32_t process_group_id,
+      uint32_t threads,
+      uint32_t process_id);
 
 
   ~ProcessInfo();
@@ -6825,6 +6968,8 @@ class  ProcessInfo {
   uint32_t process_group_id;
   
   uint32_t threads;
+  
+  uint32_t process_id;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
@@ -8252,18 +8397,9 @@ class  SystemInfo {
   SystemInfo();
 
   SystemInfo(
-      const absl::optional<std::string>& first_power_date,
-      const absl::optional<std::string>& manufacture_date,
-      const absl::optional<std::string>& product_sku_number,
-      const absl::optional<std::string>& product_serial_number,
-      const absl::optional<std::string>& product_model_name,
-      const std::string& marketing_name,
-      const absl::optional<std::string>& bios_version,
-      const absl::optional<std::string>& board_name,
-      const absl::optional<std::string>& board_version,
-      ::chromeos::cros_healthd::mojom::NullableUint64Ptr chassis_type,
-      const absl::optional<std::string>& product_name,
-      OsVersionPtr os_version);
+      OsInfoPtr os_info,
+      VpdInfoPtr vpd_info,
+      DmiInfoPtr dmi_info);
 
 SystemInfo(const SystemInfo&) = delete;
 SystemInfo& operator=(const SystemInfo&) = delete;
@@ -8340,169 +8476,6 @@ SystemInfo& operator=(const SystemInfo&) = delete;
   }
 
   
-  absl::optional<std::string> first_power_date;
-  
-  absl::optional<std::string> manufacture_date;
-  
-  absl::optional<std::string> product_sku_number;
-  
-  absl::optional<std::string> product_serial_number;
-  
-  absl::optional<std::string> product_model_name;
-  
-  std::string marketing_name;
-  
-  absl::optional<std::string> bios_version;
-  
-  absl::optional<std::string> board_name;
-  
-  absl::optional<std::string> board_version;
-  
-  ::chromeos::cros_healthd::mojom::NullableUint64Ptr chassis_type;
-  
-  absl::optional<std::string> product_name;
-  
-  OsVersionPtr os_version;
-
-  // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
-
- private:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-};
-
-// The comparison operators are templates, so they are only instantiated if they
-// are used. Thus, the bindings generator does not need to know whether
-// comparison operators are available for members.
-template <typename T, SystemInfo::EnableIfSame<T>* = nullptr>
-bool operator<(const T& lhs, const T& rhs);
-
-template <typename T, SystemInfo::EnableIfSame<T>* = nullptr>
-bool operator<=(const T& lhs, const T& rhs) {
-  return !(rhs < lhs);
-}
-
-template <typename T, SystemInfo::EnableIfSame<T>* = nullptr>
-bool operator>(const T& lhs, const T& rhs) {
-  return rhs < lhs;
-}
-
-template <typename T, SystemInfo::EnableIfSame<T>* = nullptr>
-bool operator>=(const T& lhs, const T& rhs) {
-  return !(lhs < rhs);
-}
-
-
-
-
-
-class  SystemInfoV2 {
- public:
-  template <typename T>
-  using EnableIfSame = std::enable_if_t<std::is_same<SystemInfoV2, T>::value>;
-  using DataView = SystemInfoV2DataView;
-  using Data_ = internal::SystemInfoV2_Data;
-
-  template <typename... Args>
-  static SystemInfoV2Ptr New(Args&&... args) {
-    return SystemInfoV2Ptr(
-        base::in_place, std::forward<Args>(args)...);
-  }
-
-  template <typename U>
-  static SystemInfoV2Ptr From(const U& u) {
-    return mojo::TypeConverter<SystemInfoV2Ptr, U>::Convert(u);
-  }
-
-  template <typename U>
-  U To() const {
-    return mojo::TypeConverter<U, SystemInfoV2>::Convert(*this);
-  }
-
-
-  SystemInfoV2();
-
-  SystemInfoV2(
-      OsInfoPtr os_info,
-      VpdInfoPtr vpd_info,
-      DmiInfoPtr dmi_info);
-
-SystemInfoV2(const SystemInfoV2&) = delete;
-SystemInfoV2& operator=(const SystemInfoV2&) = delete;
-
-  ~SystemInfoV2();
-
-  // Clone() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Clone() or copy
-  // constructor/assignment are available for members.
-  template <typename StructPtrType = SystemInfoV2Ptr>
-  SystemInfoV2Ptr Clone() const;
-
-  // Equals() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Equals() or == operator
-  // are available for members.
-  template <typename T, SystemInfoV2::EnableIfSame<T>* = nullptr>
-  bool Equals(const T& other) const;
-
-  template <typename T, SystemInfoV2::EnableIfSame<T>* = nullptr>
-  bool operator==(const T& rhs) const { return Equals(rhs); }
-  template <typename UserType>
-  static std::vector<uint8_t> Serialize(UserType* input) {
-    return mojo::internal::SerializeImpl<
-        SystemInfoV2::DataView, std::vector<uint8_t>>(input);
-  }
-
-  template <typename UserType>
-  static mojo::Message SerializeAsMessage(UserType* input) {
-    return mojo::internal::SerializeAsMessageImpl<
-        SystemInfoV2::DataView>(input);
-  }
-
-  // The returned Message is serialized only if the message is moved
-  // cross-process or cross-language. Otherwise if the message is Deserialized
-  // as the same UserType |input| will just be moved to |output| in
-  // DeserializeFromMessage.
-  template <typename UserType>
-  static mojo::Message WrapAsMessage(UserType input) {
-    return mojo::Message(std::make_unique<
-        internal::SystemInfoV2_UnserializedMessageContext<
-            UserType, SystemInfoV2::DataView>>(0, 0, std::move(input)),
-        MOJO_CREATE_MESSAGE_FLAG_NONE);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const void* data,
-                          size_t data_num_bytes,
-                          UserType* output) {
-    mojo::Message message;
-    return mojo::internal::DeserializeImpl<SystemInfoV2::DataView>(
-        message, data, data_num_bytes, output, Validate);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const std::vector<uint8_t>& input,
-                          UserType* output) {
-    return SystemInfoV2::Deserialize(
-        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
-  }
-
-  template <typename UserType>
-  static bool DeserializeFromMessage(mojo::Message input,
-                                     UserType* output) {
-    auto context = input.TakeUnserializedContext<
-        internal::SystemInfoV2_UnserializedMessageContext<
-            UserType, SystemInfoV2::DataView>>();
-    if (context) {
-      *output = std::move(context->TakeData());
-      return true;
-    }
-    input.SerializeIfNecessary();
-    return mojo::internal::DeserializeImpl<SystemInfoV2::DataView>(
-        input, input.payload(), input.payload_num_bytes(), output, Validate);
-  }
-
-  
   OsInfoPtr os_info;
   
   VpdInfoPtr vpd_info;
@@ -8520,20 +8493,20 @@ SystemInfoV2& operator=(const SystemInfoV2&) = delete;
 // The comparison operators are templates, so they are only instantiated if they
 // are used. Thus, the bindings generator does not need to know whether
 // comparison operators are available for members.
-template <typename T, SystemInfoV2::EnableIfSame<T>* = nullptr>
+template <typename T, SystemInfo::EnableIfSame<T>* = nullptr>
 bool operator<(const T& lhs, const T& rhs);
 
-template <typename T, SystemInfoV2::EnableIfSame<T>* = nullptr>
+template <typename T, SystemInfo::EnableIfSame<T>* = nullptr>
 bool operator<=(const T& lhs, const T& rhs) {
   return !(rhs < lhs);
 }
 
-template <typename T, SystemInfoV2::EnableIfSame<T>* = nullptr>
+template <typename T, SystemInfo::EnableIfSame<T>* = nullptr>
 bool operator>(const T& lhs, const T& rhs) {
   return rhs < lhs;
 }
 
-template <typename T, SystemInfoV2::EnableIfSame<T>* = nullptr>
+template <typename T, SystemInfo::EnableIfSame<T>* = nullptr>
 bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
@@ -12395,6 +12368,145 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+class  SensorInfo {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<SensorInfo, T>::value>;
+  using DataView = SensorInfoDataView;
+  using Data_ = internal::SensorInfo_Data;
+
+  template <typename... Args>
+  static SensorInfoPtr New(Args&&... args) {
+    return SensorInfoPtr(
+        base::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static SensorInfoPtr From(const U& u) {
+    return mojo::TypeConverter<SensorInfoPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, SensorInfo>::Convert(*this);
+  }
+
+
+  SensorInfo();
+
+  explicit SensorInfo(
+      ::chromeos::cros_healthd::mojom::NullableUint16Ptr lid_angle);
+
+SensorInfo(const SensorInfo&) = delete;
+SensorInfo& operator=(const SensorInfo&) = delete;
+
+  ~SensorInfo();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = SensorInfoPtr>
+  SensorInfoPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, SensorInfo::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, SensorInfo::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        SensorInfo::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        SensorInfo::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::SensorInfo_UnserializedMessageContext<
+            UserType, SensorInfo::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<SensorInfo::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return SensorInfo::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::SensorInfo_UnserializedMessageContext<
+            UserType, SensorInfo::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<SensorInfo::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  ::chromeos::cros_healthd::mojom::NullableUint16Ptr lid_angle;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, SensorInfo::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, SensorInfo::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, SensorInfo::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, SensorInfo::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
 class  TelemetryInfo {
  public:
   template <typename T>
@@ -12431,12 +12543,12 @@ class  TelemetryInfo {
       FanResultPtr fan_result,
       StatefulPartitionResultPtr stateful_partition_result,
       BluetoothResultPtr bluetooth_result,
-      SystemResultPtr system_result,
+      DEPRECATE_SystemResultPtr deprecate_system_result,
       NetworkResultPtr network_result,
       AudioResultPtr audio_result,
       BootPerformanceResultPtr boot_performance_result,
       BusResultPtr bus_result,
-      SystemResultV2Ptr system_result_v2,
+      SystemResultPtr system_result,
       TpmResultPtr tpm_result,
       GraphicsResultPtr graphics_result);
 
@@ -12450,12 +12562,12 @@ class  TelemetryInfo {
       FanResultPtr fan_result,
       StatefulPartitionResultPtr stateful_partition_result,
       BluetoothResultPtr bluetooth_result,
-      SystemResultPtr system_result,
+      DEPRECATE_SystemResultPtr deprecate_system_result,
       NetworkResultPtr network_result,
       AudioResultPtr audio_result,
       BootPerformanceResultPtr boot_performance_result,
       BusResultPtr bus_result,
-      SystemResultV2Ptr system_result_v2,
+      SystemResultPtr system_result,
       TpmResultPtr tpm_result,
       GraphicsResultPtr graphics_result,
       DisplayResultPtr display_result);
@@ -12470,12 +12582,12 @@ class  TelemetryInfo {
       FanResultPtr fan_result,
       StatefulPartitionResultPtr stateful_partition_result,
       BluetoothResultPtr bluetooth_result,
-      SystemResultPtr system_result,
+      DEPRECATE_SystemResultPtr deprecate_system_result,
       NetworkResultPtr network_result,
       AudioResultPtr audio_result,
       BootPerformanceResultPtr boot_performance_result,
       BusResultPtr bus_result,
-      SystemResultV2Ptr system_result_v2,
+      SystemResultPtr system_result,
       TpmResultPtr tpm_result,
       GraphicsResultPtr graphics_result,
       DisplayResultPtr display_result,
@@ -12491,12 +12603,12 @@ class  TelemetryInfo {
       FanResultPtr fan_result,
       StatefulPartitionResultPtr stateful_partition_result,
       BluetoothResultPtr bluetooth_result,
-      SystemResultPtr system_result,
+      DEPRECATE_SystemResultPtr deprecate_system_result,
       NetworkResultPtr network_result,
       AudioResultPtr audio_result,
       BootPerformanceResultPtr boot_performance_result,
       BusResultPtr bus_result,
-      SystemResultV2Ptr system_result_v2,
+      SystemResultPtr system_result,
       TpmResultPtr tpm_result,
       GraphicsResultPtr graphics_result,
       DisplayResultPtr display_result,
@@ -12513,18 +12625,42 @@ class  TelemetryInfo {
       FanResultPtr fan_result,
       StatefulPartitionResultPtr stateful_partition_result,
       BluetoothResultPtr bluetooth_result,
-      SystemResultPtr system_result,
+      DEPRECATE_SystemResultPtr deprecate_system_result,
       NetworkResultPtr network_result,
       AudioResultPtr audio_result,
       BootPerformanceResultPtr boot_performance_result,
       BusResultPtr bus_result,
-      SystemResultV2Ptr system_result_v2,
+      SystemResultPtr system_result,
       TpmResultPtr tpm_result,
       GraphicsResultPtr graphics_result,
       DisplayResultPtr display_result,
       NetworkInterfaceResultPtr network_interface_result,
       InputResultPtr input_result,
       AudioHardwareResultPtr audio_hardware_result);
+
+  TelemetryInfo(
+      BatteryResultPtr battery_result,
+      NonRemovableBlockDeviceResultPtr block_device_result,
+      CpuResultPtr cpu_result,
+      TimezoneResultPtr timezone_result,
+      MemoryResultPtr memory_result,
+      BacklightResultPtr backlight_result,
+      FanResultPtr fan_result,
+      StatefulPartitionResultPtr stateful_partition_result,
+      BluetoothResultPtr bluetooth_result,
+      DEPRECATE_SystemResultPtr deprecate_system_result,
+      NetworkResultPtr network_result,
+      AudioResultPtr audio_result,
+      BootPerformanceResultPtr boot_performance_result,
+      BusResultPtr bus_result,
+      SystemResultPtr system_result,
+      TpmResultPtr tpm_result,
+      GraphicsResultPtr graphics_result,
+      DisplayResultPtr display_result,
+      NetworkInterfaceResultPtr network_interface_result,
+      InputResultPtr input_result,
+      AudioHardwareResultPtr audio_hardware_result,
+      SensorResultPtr sensor_result);
 
 TelemetryInfo(const TelemetryInfo&) = delete;
 TelemetryInfo& operator=(const TelemetryInfo&) = delete;
@@ -12619,7 +12755,7 @@ TelemetryInfo& operator=(const TelemetryInfo&) = delete;
   
   BluetoothResultPtr bluetooth_result;
   
-  SystemResultPtr system_result;
+  DEPRECATE_SystemResultPtr deprecate_system_result;
   
   NetworkResultPtr network_result;
   
@@ -12629,7 +12765,7 @@ TelemetryInfo& operator=(const TelemetryInfo&) = delete;
   
   BusResultPtr bus_result;
   
-  SystemResultV2Ptr system_result_v2;
+  SystemResultPtr system_result;
   
   TpmResultPtr tpm_result;
   
@@ -12642,6 +12778,8 @@ TelemetryInfo& operator=(const TelemetryInfo&) = delete;
   InputResultPtr input_result;
   
   AudioHardwareResultPtr audio_hardware_result;
+  
+  SensorResultPtr sensor_result;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
@@ -12678,9 +12816,6 @@ ProcessResultPtr ProcessResult::Clone() const {
   // without being asked.
   UnionPtrType rv(New());
   switch (tag_) {
-    case Tag::UNMAPPED_FIELD:
-      rv->set_unmapped_field(mojo::Clone(data_.unmapped_field));
-      break;
     case Tag::PROCESS_INFO:
       rv->set_process_info(mojo::Clone(*data_.process_info));
       break;
@@ -12699,8 +12834,6 @@ bool ProcessResult::Equals(const T& other) const {
     return false;
 
   switch (tag_) {
-    case Tag::UNMAPPED_FIELD:
-      return mojo::Equals(data_.unmapped_field, other.data_.unmapped_field);
     case Tag::PROCESS_INFO:
       return mojo::Equals(*(data_.process_info), *(other.data_.process_info));
     case Tag::ERROR:
@@ -12791,6 +12924,9 @@ BlockDeviceVendorPtr BlockDeviceVendor::Clone() const {
     case Tag::UNKNOWN:
       rv->set_unknown(mojo::Clone(data_.unknown));
       break;
+    case Tag::JEDEC_MANFID:
+      rv->set_jedec_manfid(mojo::Clone(data_.jedec_manfid));
+      break;
   }
   return rv;
 }
@@ -12811,6 +12947,8 @@ bool BlockDeviceVendor::Equals(const T& other) const {
       return mojo::Equals(data_.other, other.data_.other);
     case Tag::UNKNOWN:
       return mojo::Equals(data_.unknown, other.data_.unknown);
+    case Tag::JEDEC_MANFID:
+      return mojo::Equals(data_.jedec_manfid, other.data_.jedec_manfid);
   }
 
   return false;
@@ -12917,6 +13055,9 @@ BlockDeviceFirmwarePtr BlockDeviceFirmware::Clone() const {
     case Tag::UNKNOWN:
       rv->set_unknown(mojo::Clone(data_.unknown));
       break;
+    case Tag::UFS_FWREV:
+      rv->set_ufs_fwrev(mojo::Clone(data_.ufs_fwrev));
+      break;
   }
   return rv;
 }
@@ -12937,6 +13078,8 @@ bool BlockDeviceFirmware::Equals(const T& other) const {
       return mojo::Equals(data_.other, other.data_.other);
     case Tag::UNKNOWN:
       return mojo::Equals(data_.unknown, other.data_.unknown);
+    case Tag::UFS_FWREV:
+      return mojo::Equals(data_.ufs_fwrev, other.data_.ufs_fwrev);
   }
 
   return false;
@@ -13166,6 +13309,33 @@ bool BluetoothResult::Equals(const T& other) const {
   return false;
 }
 template <typename UnionPtrType>
+DEPRECATE_SystemResultPtr DEPRECATE_SystemResult::Clone() const {
+  // Use UnionPtrType to prevent the compiler from trying to compile this
+  // without being asked.
+  UnionPtrType rv(New());
+  switch (tag_) {
+    case Tag::ERROR:
+      rv->set_error(mojo::Clone(*data_.error));
+      break;
+  }
+  return rv;
+}
+
+template <typename T,
+          typename std::enable_if<std::is_same<
+              T, DEPRECATE_SystemResult>::value>::type*>
+bool DEPRECATE_SystemResult::Equals(const T& other) const {
+  if (tag_ != other.which())
+    return false;
+
+  switch (tag_) {
+    case Tag::ERROR:
+      return mojo::Equals(*(data_.error), *(other.data_.error));
+  }
+
+  return false;
+}
+template <typename UnionPtrType>
 SystemResultPtr SystemResult::Clone() const {
   // Use UnionPtrType to prevent the compiler from trying to compile this
   // without being asked.
@@ -13191,38 +13361,6 @@ bool SystemResult::Equals(const T& other) const {
   switch (tag_) {
     case Tag::SYSTEM_INFO:
       return mojo::Equals(*(data_.system_info), *(other.data_.system_info));
-    case Tag::ERROR:
-      return mojo::Equals(*(data_.error), *(other.data_.error));
-  }
-
-  return false;
-}
-template <typename UnionPtrType>
-SystemResultV2Ptr SystemResultV2::Clone() const {
-  // Use UnionPtrType to prevent the compiler from trying to compile this
-  // without being asked.
-  UnionPtrType rv(New());
-  switch (tag_) {
-    case Tag::SYSTEM_INFO_V2:
-      rv->set_system_info_v2(mojo::Clone(*data_.system_info_v2));
-      break;
-    case Tag::ERROR:
-      rv->set_error(mojo::Clone(*data_.error));
-      break;
-  }
-  return rv;
-}
-
-template <typename T,
-          typename std::enable_if<std::is_same<
-              T, SystemResultV2>::value>::type*>
-bool SystemResultV2::Equals(const T& other) const {
-  if (tag_ != other.which())
-    return false;
-
-  switch (tag_) {
-    case Tag::SYSTEM_INFO_V2:
-      return mojo::Equals(*(data_.system_info_v2), *(other.data_.system_info_v2));
     case Tag::ERROR:
       return mojo::Equals(*(data_.error), *(other.data_.error));
   }
@@ -13358,9 +13496,6 @@ AudioHardwareResultPtr AudioHardwareResult::Clone() const {
   // without being asked.
   UnionPtrType rv(New());
   switch (tag_) {
-    case Tag::UNMAPPED_FIELD0:
-      rv->set_unmapped_field0(mojo::Clone(data_.unmapped_field0));
-      break;
     case Tag::AUDIO_HARDWARE_INFO:
       rv->set_audio_hardware_info(mojo::Clone(*data_.audio_hardware_info));
       break;
@@ -13379,8 +13514,6 @@ bool AudioHardwareResult::Equals(const T& other) const {
     return false;
 
   switch (tag_) {
-    case Tag::UNMAPPED_FIELD0:
-      return mojo::Equals(data_.unmapped_field0, other.data_.unmapped_field0);
     case Tag::AUDIO_HARDWARE_INFO:
       return mojo::Equals(*(data_.audio_hardware_info), *(other.data_.audio_hardware_info));
     case Tag::ERROR:
@@ -13468,6 +13601,9 @@ BusInfoPtr BusInfo::Clone() const {
     case Tag::THUNDERBOLT_BUS_INFO:
       rv->set_thunderbolt_bus_info(mojo::Clone(*data_.thunderbolt_bus_info));
       break;
+    case Tag::UNMAPPED_FIELD:
+      rv->set_unmapped_field(mojo::Clone(data_.unmapped_field));
+      break;
   }
   return rv;
 }
@@ -13486,6 +13622,8 @@ bool BusInfo::Equals(const T& other) const {
       return mojo::Equals(*(data_.usb_bus_info), *(other.data_.usb_bus_info));
     case Tag::THUNDERBOLT_BUS_INFO:
       return mojo::Equals(*(data_.thunderbolt_bus_info), *(other.data_.thunderbolt_bus_info));
+    case Tag::UNMAPPED_FIELD:
+      return mojo::Equals(data_.unmapped_field, other.data_.unmapped_field);
   }
 
   return false;
@@ -13618,6 +13756,38 @@ bool InputResult::Equals(const T& other) const {
 
   return false;
 }
+template <typename UnionPtrType>
+SensorResultPtr SensorResult::Clone() const {
+  // Use UnionPtrType to prevent the compiler from trying to compile this
+  // without being asked.
+  UnionPtrType rv(New());
+  switch (tag_) {
+    case Tag::SENSOR_INFO:
+      rv->set_sensor_info(mojo::Clone(*data_.sensor_info));
+      break;
+    case Tag::ERROR:
+      rv->set_error(mojo::Clone(*data_.error));
+      break;
+  }
+  return rv;
+}
+
+template <typename T,
+          typename std::enable_if<std::is_same<
+              T, SensorResult>::value>::type*>
+bool SensorResult::Equals(const T& other) const {
+  if (tag_ != other.which())
+    return false;
+
+  switch (tag_) {
+    case Tag::SENSOR_INFO:
+      return mojo::Equals(*(data_.sensor_info), *(other.data_.sensor_info));
+    case Tag::ERROR:
+      return mojo::Equals(*(data_.error), *(other.data_.error));
+  }
+
+  return false;
+}
 template <typename StructPtrType>
 ProbeErrorPtr ProbeError::Clone() const {
   return New(
@@ -13669,7 +13839,8 @@ ProcessInfoPtr ProcessInfo::Clone() const {
       mojo::Clone(name),
       mojo::Clone(parent_process_id),
       mojo::Clone(process_group_id),
-      mojo::Clone(threads)
+      mojo::Clone(threads),
+      mojo::Clone(process_id)
   );
 }
 
@@ -13714,6 +13885,8 @@ bool ProcessInfo::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->process_group_id, other_struct.process_group_id))
     return false;
   if (!mojo::Equals(this->threads, other_struct.threads))
+    return false;
+  if (!mojo::Equals(this->process_id, other_struct.process_id))
     return false;
   return true;
 }
@@ -13799,6 +13972,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.threads < rhs.threads)
     return true;
   if (rhs.threads < lhs.threads)
+    return false;
+  if (lhs.process_id < rhs.process_id)
+    return true;
+  if (rhs.process_id < lhs.process_id)
     return false;
   return false;
 }
@@ -14840,113 +15017,14 @@ bool operator<(const T& lhs, const T& rhs) {
 template <typename StructPtrType>
 SystemInfoPtr SystemInfo::Clone() const {
   return New(
-      mojo::Clone(first_power_date),
-      mojo::Clone(manufacture_date),
-      mojo::Clone(product_sku_number),
-      mojo::Clone(product_serial_number),
-      mojo::Clone(product_model_name),
-      mojo::Clone(marketing_name),
-      mojo::Clone(bios_version),
-      mojo::Clone(board_name),
-      mojo::Clone(board_version),
-      mojo::Clone(chassis_type),
-      mojo::Clone(product_name),
-      mojo::Clone(os_version)
-  );
-}
-
-template <typename T, SystemInfo::EnableIfSame<T>*>
-bool SystemInfo::Equals(const T& other_struct) const {
-  if (!mojo::Equals(this->first_power_date, other_struct.first_power_date))
-    return false;
-  if (!mojo::Equals(this->manufacture_date, other_struct.manufacture_date))
-    return false;
-  if (!mojo::Equals(this->product_sku_number, other_struct.product_sku_number))
-    return false;
-  if (!mojo::Equals(this->product_serial_number, other_struct.product_serial_number))
-    return false;
-  if (!mojo::Equals(this->product_model_name, other_struct.product_model_name))
-    return false;
-  if (!mojo::Equals(this->marketing_name, other_struct.marketing_name))
-    return false;
-  if (!mojo::Equals(this->bios_version, other_struct.bios_version))
-    return false;
-  if (!mojo::Equals(this->board_name, other_struct.board_name))
-    return false;
-  if (!mojo::Equals(this->board_version, other_struct.board_version))
-    return false;
-  if (!mojo::Equals(this->chassis_type, other_struct.chassis_type))
-    return false;
-  if (!mojo::Equals(this->product_name, other_struct.product_name))
-    return false;
-  if (!mojo::Equals(this->os_version, other_struct.os_version))
-    return false;
-  return true;
-}
-
-template <typename T, SystemInfo::EnableIfSame<T>*>
-bool operator<(const T& lhs, const T& rhs) {
-  if (lhs.first_power_date < rhs.first_power_date)
-    return true;
-  if (rhs.first_power_date < lhs.first_power_date)
-    return false;
-  if (lhs.manufacture_date < rhs.manufacture_date)
-    return true;
-  if (rhs.manufacture_date < lhs.manufacture_date)
-    return false;
-  if (lhs.product_sku_number < rhs.product_sku_number)
-    return true;
-  if (rhs.product_sku_number < lhs.product_sku_number)
-    return false;
-  if (lhs.product_serial_number < rhs.product_serial_number)
-    return true;
-  if (rhs.product_serial_number < lhs.product_serial_number)
-    return false;
-  if (lhs.product_model_name < rhs.product_model_name)
-    return true;
-  if (rhs.product_model_name < lhs.product_model_name)
-    return false;
-  if (lhs.marketing_name < rhs.marketing_name)
-    return true;
-  if (rhs.marketing_name < lhs.marketing_name)
-    return false;
-  if (lhs.bios_version < rhs.bios_version)
-    return true;
-  if (rhs.bios_version < lhs.bios_version)
-    return false;
-  if (lhs.board_name < rhs.board_name)
-    return true;
-  if (rhs.board_name < lhs.board_name)
-    return false;
-  if (lhs.board_version < rhs.board_version)
-    return true;
-  if (rhs.board_version < lhs.board_version)
-    return false;
-  if (lhs.chassis_type < rhs.chassis_type)
-    return true;
-  if (rhs.chassis_type < lhs.chassis_type)
-    return false;
-  if (lhs.product_name < rhs.product_name)
-    return true;
-  if (rhs.product_name < lhs.product_name)
-    return false;
-  if (lhs.os_version < rhs.os_version)
-    return true;
-  if (rhs.os_version < lhs.os_version)
-    return false;
-  return false;
-}
-template <typename StructPtrType>
-SystemInfoV2Ptr SystemInfoV2::Clone() const {
-  return New(
       mojo::Clone(os_info),
       mojo::Clone(vpd_info),
       mojo::Clone(dmi_info)
   );
 }
 
-template <typename T, SystemInfoV2::EnableIfSame<T>*>
-bool SystemInfoV2::Equals(const T& other_struct) const {
+template <typename T, SystemInfo::EnableIfSame<T>*>
+bool SystemInfo::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->os_info, other_struct.os_info))
     return false;
   if (!mojo::Equals(this->vpd_info, other_struct.vpd_info))
@@ -14956,7 +15034,7 @@ bool SystemInfoV2::Equals(const T& other_struct) const {
   return true;
 }
 
-template <typename T, SystemInfoV2::EnableIfSame<T>*>
+template <typename T, SystemInfo::EnableIfSame<T>*>
 bool operator<(const T& lhs, const T& rhs) {
   if (lhs.os_info < rhs.os_info)
     return true;
@@ -16630,6 +16708,28 @@ bool operator<(const T& lhs, const T& rhs) {
   return false;
 }
 template <typename StructPtrType>
+SensorInfoPtr SensorInfo::Clone() const {
+  return New(
+      mojo::Clone(lid_angle)
+  );
+}
+
+template <typename T, SensorInfo::EnableIfSame<T>*>
+bool SensorInfo::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->lid_angle, other_struct.lid_angle))
+    return false;
+  return true;
+}
+
+template <typename T, SensorInfo::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.lid_angle < rhs.lid_angle)
+    return true;
+  if (rhs.lid_angle < lhs.lid_angle)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
 TelemetryInfoPtr TelemetryInfo::Clone() const {
   return New(
       mojo::Clone(battery_result),
@@ -16641,18 +16741,19 @@ TelemetryInfoPtr TelemetryInfo::Clone() const {
       mojo::Clone(fan_result),
       mojo::Clone(stateful_partition_result),
       mojo::Clone(bluetooth_result),
-      mojo::Clone(system_result),
+      mojo::Clone(deprecate_system_result),
       mojo::Clone(network_result),
       mojo::Clone(audio_result),
       mojo::Clone(boot_performance_result),
       mojo::Clone(bus_result),
-      mojo::Clone(system_result_v2),
+      mojo::Clone(system_result),
       mojo::Clone(tpm_result),
       mojo::Clone(graphics_result),
       mojo::Clone(display_result),
       mojo::Clone(network_interface_result),
       mojo::Clone(input_result),
-      mojo::Clone(audio_hardware_result)
+      mojo::Clone(audio_hardware_result),
+      mojo::Clone(sensor_result)
   );
 }
 
@@ -16676,7 +16777,7 @@ bool TelemetryInfo::Equals(const T& other_struct) const {
     return false;
   if (!mojo::Equals(this->bluetooth_result, other_struct.bluetooth_result))
     return false;
-  if (!mojo::Equals(this->system_result, other_struct.system_result))
+  if (!mojo::Equals(this->deprecate_system_result, other_struct.deprecate_system_result))
     return false;
   if (!mojo::Equals(this->network_result, other_struct.network_result))
     return false;
@@ -16686,7 +16787,7 @@ bool TelemetryInfo::Equals(const T& other_struct) const {
     return false;
   if (!mojo::Equals(this->bus_result, other_struct.bus_result))
     return false;
-  if (!mojo::Equals(this->system_result_v2, other_struct.system_result_v2))
+  if (!mojo::Equals(this->system_result, other_struct.system_result))
     return false;
   if (!mojo::Equals(this->tpm_result, other_struct.tpm_result))
     return false;
@@ -16699,6 +16800,8 @@ bool TelemetryInfo::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->input_result, other_struct.input_result))
     return false;
   if (!mojo::Equals(this->audio_hardware_result, other_struct.audio_hardware_result))
+    return false;
+  if (!mojo::Equals(this->sensor_result, other_struct.sensor_result))
     return false;
   return true;
 }
@@ -16741,9 +16844,9 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.bluetooth_result < lhs.bluetooth_result)
     return false;
-  if (lhs.system_result < rhs.system_result)
+  if (lhs.deprecate_system_result < rhs.deprecate_system_result)
     return true;
-  if (rhs.system_result < lhs.system_result)
+  if (rhs.deprecate_system_result < lhs.deprecate_system_result)
     return false;
   if (lhs.network_result < rhs.network_result)
     return true;
@@ -16761,9 +16864,9 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.bus_result < lhs.bus_result)
     return false;
-  if (lhs.system_result_v2 < rhs.system_result_v2)
+  if (lhs.system_result < rhs.system_result)
     return true;
-  if (rhs.system_result_v2 < lhs.system_result_v2)
+  if (rhs.system_result < lhs.system_result)
     return false;
   if (lhs.tpm_result < rhs.tpm_result)
     return true;
@@ -16788,6 +16891,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.audio_hardware_result < rhs.audio_hardware_result)
     return true;
   if (rhs.audio_hardware_result < lhs.audio_hardware_result)
+    return false;
+  if (lhs.sensor_result < rhs.sensor_result)
+    return true;
+  if (rhs.sensor_result < lhs.sensor_result)
     return false;
   return false;
 }
@@ -16924,6 +17031,11 @@ struct  StructTraits<::chromeos::cros_healthd::mojom::ProcessInfo::DataView,
   static decltype(::chromeos::cros_healthd::mojom::ProcessInfo::threads) threads(
       const ::chromeos::cros_healthd::mojom::ProcessInfoPtr& input) {
     return input->threads;
+  }
+
+  static decltype(::chromeos::cros_healthd::mojom::ProcessInfo::process_id) process_id(
+      const ::chromeos::cros_healthd::mojom::ProcessInfoPtr& input) {
+    return input->process_id;
   }
 
   static bool Read(::chromeos::cros_healthd::mojom::ProcessInfo::DataView input, ::chromeos::cros_healthd::mojom::ProcessInfoPtr* output);
@@ -17661,92 +17773,22 @@ struct  StructTraits<::chromeos::cros_healthd::mojom::SystemInfo::DataView,
   static bool IsNull(const ::chromeos::cros_healthd::mojom::SystemInfoPtr& input) { return !input; }
   static void SetToNull(::chromeos::cros_healthd::mojom::SystemInfoPtr* output) { output->reset(); }
 
-  static const decltype(::chromeos::cros_healthd::mojom::SystemInfo::first_power_date)& first_power_date(
+  static const decltype(::chromeos::cros_healthd::mojom::SystemInfo::os_info)& os_info(
       const ::chromeos::cros_healthd::mojom::SystemInfoPtr& input) {
-    return input->first_power_date;
-  }
-
-  static const decltype(::chromeos::cros_healthd::mojom::SystemInfo::manufacture_date)& manufacture_date(
-      const ::chromeos::cros_healthd::mojom::SystemInfoPtr& input) {
-    return input->manufacture_date;
-  }
-
-  static const decltype(::chromeos::cros_healthd::mojom::SystemInfo::product_sku_number)& product_sku_number(
-      const ::chromeos::cros_healthd::mojom::SystemInfoPtr& input) {
-    return input->product_sku_number;
-  }
-
-  static const decltype(::chromeos::cros_healthd::mojom::SystemInfo::product_serial_number)& product_serial_number(
-      const ::chromeos::cros_healthd::mojom::SystemInfoPtr& input) {
-    return input->product_serial_number;
-  }
-
-  static const decltype(::chromeos::cros_healthd::mojom::SystemInfo::product_model_name)& product_model_name(
-      const ::chromeos::cros_healthd::mojom::SystemInfoPtr& input) {
-    return input->product_model_name;
-  }
-
-  static const decltype(::chromeos::cros_healthd::mojom::SystemInfo::marketing_name)& marketing_name(
-      const ::chromeos::cros_healthd::mojom::SystemInfoPtr& input) {
-    return input->marketing_name;
-  }
-
-  static const decltype(::chromeos::cros_healthd::mojom::SystemInfo::bios_version)& bios_version(
-      const ::chromeos::cros_healthd::mojom::SystemInfoPtr& input) {
-    return input->bios_version;
-  }
-
-  static const decltype(::chromeos::cros_healthd::mojom::SystemInfo::board_name)& board_name(
-      const ::chromeos::cros_healthd::mojom::SystemInfoPtr& input) {
-    return input->board_name;
-  }
-
-  static const decltype(::chromeos::cros_healthd::mojom::SystemInfo::board_version)& board_version(
-      const ::chromeos::cros_healthd::mojom::SystemInfoPtr& input) {
-    return input->board_version;
-  }
-
-  static const decltype(::chromeos::cros_healthd::mojom::SystemInfo::chassis_type)& chassis_type(
-      const ::chromeos::cros_healthd::mojom::SystemInfoPtr& input) {
-    return input->chassis_type;
-  }
-
-  static const decltype(::chromeos::cros_healthd::mojom::SystemInfo::product_name)& product_name(
-      const ::chromeos::cros_healthd::mojom::SystemInfoPtr& input) {
-    return input->product_name;
-  }
-
-  static const decltype(::chromeos::cros_healthd::mojom::SystemInfo::os_version)& os_version(
-      const ::chromeos::cros_healthd::mojom::SystemInfoPtr& input) {
-    return input->os_version;
-  }
-
-  static bool Read(::chromeos::cros_healthd::mojom::SystemInfo::DataView input, ::chromeos::cros_healthd::mojom::SystemInfoPtr* output);
-};
-
-
-template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::SystemInfoV2::DataView,
-                                         ::chromeos::cros_healthd::mojom::SystemInfoV2Ptr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::SystemInfoV2Ptr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::SystemInfoV2Ptr* output) { output->reset(); }
-
-  static const decltype(::chromeos::cros_healthd::mojom::SystemInfoV2::os_info)& os_info(
-      const ::chromeos::cros_healthd::mojom::SystemInfoV2Ptr& input) {
     return input->os_info;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::SystemInfoV2::vpd_info)& vpd_info(
-      const ::chromeos::cros_healthd::mojom::SystemInfoV2Ptr& input) {
+  static const decltype(::chromeos::cros_healthd::mojom::SystemInfo::vpd_info)& vpd_info(
+      const ::chromeos::cros_healthd::mojom::SystemInfoPtr& input) {
     return input->vpd_info;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::SystemInfoV2::dmi_info)& dmi_info(
-      const ::chromeos::cros_healthd::mojom::SystemInfoV2Ptr& input) {
+  static const decltype(::chromeos::cros_healthd::mojom::SystemInfo::dmi_info)& dmi_info(
+      const ::chromeos::cros_healthd::mojom::SystemInfoPtr& input) {
     return input->dmi_info;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::SystemInfoV2::DataView input, ::chromeos::cros_healthd::mojom::SystemInfoV2Ptr* output);
+  static bool Read(::chromeos::cros_healthd::mojom::SystemInfo::DataView input, ::chromeos::cros_healthd::mojom::SystemInfoPtr* output);
 };
 
 
@@ -18911,6 +18953,21 @@ struct  StructTraits<::chromeos::cros_healthd::mojom::InputDevice::DataView,
 
 
 template <>
+struct  StructTraits<::chromeos::cros_healthd::mojom::SensorInfo::DataView,
+                                         ::chromeos::cros_healthd::mojom::SensorInfoPtr> {
+  static bool IsNull(const ::chromeos::cros_healthd::mojom::SensorInfoPtr& input) { return !input; }
+  static void SetToNull(::chromeos::cros_healthd::mojom::SensorInfoPtr* output) { output->reset(); }
+
+  static const decltype(::chromeos::cros_healthd::mojom::SensorInfo::lid_angle)& lid_angle(
+      const ::chromeos::cros_healthd::mojom::SensorInfoPtr& input) {
+    return input->lid_angle;
+  }
+
+  static bool Read(::chromeos::cros_healthd::mojom::SensorInfo::DataView input, ::chromeos::cros_healthd::mojom::SensorInfoPtr* output);
+};
+
+
+template <>
 struct  StructTraits<::chromeos::cros_healthd::mojom::TelemetryInfo::DataView,
                                          ::chromeos::cros_healthd::mojom::TelemetryInfoPtr> {
   static bool IsNull(const ::chromeos::cros_healthd::mojom::TelemetryInfoPtr& input) { return !input; }
@@ -18961,9 +19018,9 @@ struct  StructTraits<::chromeos::cros_healthd::mojom::TelemetryInfo::DataView,
     return input->bluetooth_result;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::TelemetryInfo::system_result)& system_result(
+  static const decltype(::chromeos::cros_healthd::mojom::TelemetryInfo::deprecate_system_result)& deprecate_system_result(
       const ::chromeos::cros_healthd::mojom::TelemetryInfoPtr& input) {
-    return input->system_result;
+    return input->deprecate_system_result;
   }
 
   static const decltype(::chromeos::cros_healthd::mojom::TelemetryInfo::network_result)& network_result(
@@ -18986,9 +19043,9 @@ struct  StructTraits<::chromeos::cros_healthd::mojom::TelemetryInfo::DataView,
     return input->bus_result;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::TelemetryInfo::system_result_v2)& system_result_v2(
+  static const decltype(::chromeos::cros_healthd::mojom::TelemetryInfo::system_result)& system_result(
       const ::chromeos::cros_healthd::mojom::TelemetryInfoPtr& input) {
-    return input->system_result_v2;
+    return input->system_result;
   }
 
   static const decltype(::chromeos::cros_healthd::mojom::TelemetryInfo::tpm_result)& tpm_result(
@@ -19021,6 +19078,11 @@ struct  StructTraits<::chromeos::cros_healthd::mojom::TelemetryInfo::DataView,
     return input->audio_hardware_result;
   }
 
+  static const decltype(::chromeos::cros_healthd::mojom::TelemetryInfo::sensor_result)& sensor_result(
+      const ::chromeos::cros_healthd::mojom::TelemetryInfoPtr& input) {
+    return input->sensor_result;
+  }
+
   static bool Read(::chromeos::cros_healthd::mojom::TelemetryInfo::DataView input, ::chromeos::cros_healthd::mojom::TelemetryInfoPtr* output);
 };
 
@@ -19033,10 +19095,6 @@ struct  UnionTraits<::chromeos::cros_healthd::mojom::ProcessResult::DataView,
 
   static ::chromeos::cros_healthd::mojom::ProcessResult::Tag GetTag(const ::chromeos::cros_healthd::mojom::ProcessResultPtr& input) {
     return input->which();
-  }
-
-  static  bool unmapped_field(const ::chromeos::cros_healthd::mojom::ProcessResultPtr& input) {
-    return input->get_unmapped_field();
   }
 
   static const ::chromeos::cros_healthd::mojom::ProcessInfoPtr& process_info(const ::chromeos::cros_healthd::mojom::ProcessResultPtr& input) {
@@ -19119,6 +19177,10 @@ struct  UnionTraits<::chromeos::cros_healthd::mojom::BlockDeviceVendor::DataView
 
   static  uint64_t unknown(const ::chromeos::cros_healthd::mojom::BlockDeviceVendorPtr& input) {
     return input->get_unknown();
+  }
+
+  static  uint16_t jedec_manfid(const ::chromeos::cros_healthd::mojom::BlockDeviceVendorPtr& input) {
+    return input->get_jedec_manfid();
   }
 
   static bool Read(::chromeos::cros_healthd::mojom::BlockDeviceVendor::DataView input, ::chromeos::cros_healthd::mojom::BlockDeviceVendorPtr* output);
@@ -19209,6 +19271,10 @@ struct  UnionTraits<::chromeos::cros_healthd::mojom::BlockDeviceFirmware::DataVi
 
   static  uint64_t unknown(const ::chromeos::cros_healthd::mojom::BlockDeviceFirmwarePtr& input) {
     return input->get_unknown();
+  }
+
+  static  uint64_t ufs_fwrev(const ::chromeos::cros_healthd::mojom::BlockDeviceFirmwarePtr& input) {
+    return input->get_ufs_fwrev();
   }
 
   static bool Read(::chromeos::cros_healthd::mojom::BlockDeviceFirmware::DataView input, ::chromeos::cros_healthd::mojom::BlockDeviceFirmwarePtr* output);
@@ -19370,6 +19436,24 @@ struct  UnionTraits<::chromeos::cros_healthd::mojom::BluetoothResult::DataView,
 
 
 template <>
+struct  UnionTraits<::chromeos::cros_healthd::mojom::DEPRECATE_SystemResult::DataView,
+                                        ::chromeos::cros_healthd::mojom::DEPRECATE_SystemResultPtr> {
+  static bool IsNull(const ::chromeos::cros_healthd::mojom::DEPRECATE_SystemResultPtr& input) { return !input; }
+  static void SetToNull(::chromeos::cros_healthd::mojom::DEPRECATE_SystemResultPtr* output) { output->reset(); }
+
+  static ::chromeos::cros_healthd::mojom::DEPRECATE_SystemResult::Tag GetTag(const ::chromeos::cros_healthd::mojom::DEPRECATE_SystemResultPtr& input) {
+    return input->which();
+  }
+
+  static const ::chromeos::cros_healthd::mojom::ProbeErrorPtr& error(const ::chromeos::cros_healthd::mojom::DEPRECATE_SystemResultPtr& input) {
+    return input->get_error();
+  }
+
+  static bool Read(::chromeos::cros_healthd::mojom::DEPRECATE_SystemResult::DataView input, ::chromeos::cros_healthd::mojom::DEPRECATE_SystemResultPtr* output);
+};
+
+
+template <>
 struct  UnionTraits<::chromeos::cros_healthd::mojom::SystemResult::DataView,
                                         ::chromeos::cros_healthd::mojom::SystemResultPtr> {
   static bool IsNull(const ::chromeos::cros_healthd::mojom::SystemResultPtr& input) { return !input; }
@@ -19388,28 +19472,6 @@ struct  UnionTraits<::chromeos::cros_healthd::mojom::SystemResult::DataView,
   }
 
   static bool Read(::chromeos::cros_healthd::mojom::SystemResult::DataView input, ::chromeos::cros_healthd::mojom::SystemResultPtr* output);
-};
-
-
-template <>
-struct  UnionTraits<::chromeos::cros_healthd::mojom::SystemResultV2::DataView,
-                                        ::chromeos::cros_healthd::mojom::SystemResultV2Ptr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::SystemResultV2Ptr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::SystemResultV2Ptr* output) { output->reset(); }
-
-  static ::chromeos::cros_healthd::mojom::SystemResultV2::Tag GetTag(const ::chromeos::cros_healthd::mojom::SystemResultV2Ptr& input) {
-    return input->which();
-  }
-
-  static const ::chromeos::cros_healthd::mojom::SystemInfoV2Ptr& system_info_v2(const ::chromeos::cros_healthd::mojom::SystemResultV2Ptr& input) {
-    return input->get_system_info_v2();
-  }
-
-  static const ::chromeos::cros_healthd::mojom::ProbeErrorPtr& error(const ::chromeos::cros_healthd::mojom::SystemResultV2Ptr& input) {
-    return input->get_error();
-  }
-
-  static bool Read(::chromeos::cros_healthd::mojom::SystemResultV2::DataView input, ::chromeos::cros_healthd::mojom::SystemResultV2Ptr* output);
 };
 
 
@@ -19507,10 +19569,6 @@ struct  UnionTraits<::chromeos::cros_healthd::mojom::AudioHardwareResult::DataVi
     return input->which();
   }
 
-  static  bool unmapped_field0(const ::chromeos::cros_healthd::mojom::AudioHardwareResultPtr& input) {
-    return input->get_unmapped_field0();
-  }
-
   static const ::chromeos::cros_healthd::mojom::AudioHardwareInfoPtr& audio_hardware_info(const ::chromeos::cros_healthd::mojom::AudioHardwareResultPtr& input) {
     return input->get_audio_hardware_info();
   }
@@ -19587,6 +19645,10 @@ struct  UnionTraits<::chromeos::cros_healthd::mojom::BusInfo::DataView,
 
   static const ::chromeos::cros_healthd::mojom::ThunderboltBusInfoPtr& thunderbolt_bus_info(const ::chromeos::cros_healthd::mojom::BusInfoPtr& input) {
     return input->get_thunderbolt_bus_info();
+  }
+
+  static  bool unmapped_field(const ::chromeos::cros_healthd::mojom::BusInfoPtr& input) {
+    return input->get_unmapped_field();
   }
 
   static bool Read(::chromeos::cros_healthd::mojom::BusInfo::DataView input, ::chromeos::cros_healthd::mojom::BusInfoPtr* output);
@@ -19678,6 +19740,28 @@ struct  UnionTraits<::chromeos::cros_healthd::mojom::InputResult::DataView,
   }
 
   static bool Read(::chromeos::cros_healthd::mojom::InputResult::DataView input, ::chromeos::cros_healthd::mojom::InputResultPtr* output);
+};
+
+
+template <>
+struct  UnionTraits<::chromeos::cros_healthd::mojom::SensorResult::DataView,
+                                        ::chromeos::cros_healthd::mojom::SensorResultPtr> {
+  static bool IsNull(const ::chromeos::cros_healthd::mojom::SensorResultPtr& input) { return !input; }
+  static void SetToNull(::chromeos::cros_healthd::mojom::SensorResultPtr* output) { output->reset(); }
+
+  static ::chromeos::cros_healthd::mojom::SensorResult::Tag GetTag(const ::chromeos::cros_healthd::mojom::SensorResultPtr& input) {
+    return input->which();
+  }
+
+  static const ::chromeos::cros_healthd::mojom::SensorInfoPtr& sensor_info(const ::chromeos::cros_healthd::mojom::SensorResultPtr& input) {
+    return input->get_sensor_info();
+  }
+
+  static const ::chromeos::cros_healthd::mojom::ProbeErrorPtr& error(const ::chromeos::cros_healthd::mojom::SensorResultPtr& input) {
+    return input->get_error();
+  }
+
+  static bool Read(::chromeos::cros_healthd::mojom::SensorResult::DataView input, ::chromeos::cros_healthd::mojom::SensorResultPtr* output);
 };
 
 }  // namespace mojo

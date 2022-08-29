@@ -201,6 +201,9 @@ std::string GetProtoDebugStringWithIndent(CryptohomeErrorCode value,
   if (value == CRYPTOHOME_REMOVE_CREDENTIALS_FAILED) {
     return "CRYPTOHOME_REMOVE_CREDENTIALS_FAILED";
   }
+  if (value == CRYPTOHOME_UPDATE_CREDENTIALS_FAILED) {
+    return "CRYPTOHOME_UPDATE_CREDENTIALS_FAILED";
+  }
   return "<unknown>";
 }
 
@@ -308,6 +311,23 @@ std::string GetProtoDebugStringWithIndent(AuthSessionFlags value,
   }
   if (value == AUTH_SESSION_FLAGS_EPHEMERAL_USER) {
     return "AUTH_SESSION_FLAGS_EPHEMERAL_USER";
+  }
+  return "<unknown>";
+}
+
+std::string GetProtoDebugString(AuthIntent value) {
+  return GetProtoDebugStringWithIndent(value, 0);
+}
+
+std::string GetProtoDebugStringWithIndent(AuthIntent value, int indent_size) {
+  if (value == AUTH_INTENT_UNSPECIFIED) {
+    return "AUTH_INTENT_UNSPECIFIED";
+  }
+  if (value == AUTH_INTENT_DECRYPT) {
+    return "AUTH_INTENT_DECRYPT";
+  }
+  if (value == AUTH_INTENT_VERIFY_ONLY) {
+    return "AUTH_INTENT_VERIFY_ONLY";
   }
   return "<unknown>";
 }
@@ -1600,6 +1620,12 @@ std::string GetProtoDebugStringWithIndent(const StartAuthSessionRequest& value,
                       value.flags());
   output += "\n";
 
+  output += indent + "  intent: ";
+  base::StringAppendF(
+      &output, "%s",
+      GetProtoDebugStringWithIndent(value.intent(), indent_size + 2).c_str());
+  output += "\n";
+
   output += indent + "}\n";
   return output;
 }
@@ -1649,17 +1675,6 @@ std::string GetProtoDebugStringWithIndent(const StartAuthSessionReply& value,
           .c_str());
   output += "\n";
 
-  output += indent + "  supported_auth_factors: {";
-  for (int i = 0; i < value.supported_auth_factors_size(); ++i) {
-    if (i > 0) {
-      base::StringAppendF(&output, ", ");
-    }
-    base::StringAppendF(&output, "%s",
-                        GetProtoDebugStringWithIndent(
-                            value.supported_auth_factors(i), indent_size + 2)
-                            .c_str());
-  }
-  output += "}\n";
   output += indent + "}\n";
   return output;
 }
@@ -2150,6 +2165,17 @@ std::string GetProtoDebugStringWithIndent(
                       value.time_left(), value.time_left());
   output += "\n";
 
+  output += indent + "  authorized_for: {";
+  for (int i = 0; i < value.authorized_for_size(); ++i) {
+    if (i > 0) {
+      base::StringAppendF(&output, ", ");
+    }
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.authorized_for(i), indent_size + 2)
+            .c_str());
+  }
+  output += "}\n";
   output += indent + "}\n";
   return output;
 }
@@ -3545,6 +3571,17 @@ std::string GetProtoDebugStringWithIndent(
   base::StringAppendF(&output, "%s", value.authenticated() ? "true" : "false");
   output += "\n";
 
+  output += indent + "  authorized_for: {";
+  for (int i = 0; i < value.authorized_for_size(); ++i) {
+    if (i > 0) {
+      base::StringAppendF(&output, ", ");
+    }
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.authorized_for(i), indent_size + 2)
+            .c_str());
+  }
+  output += "}\n";
   output += indent + "}\n";
   return output;
 }
@@ -3602,6 +3639,13 @@ std::string GetProtoDebugStringWithIndent(const UpdateAuthFactorReply& value,
   base::StringAppendF(
       &output, "%s",
       GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
+  output += "\n";
+
+  output += indent + "  error_info: ";
+  base::StringAppendF(
+      &output, "%s",
+      GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
+          .c_str());
   output += "\n";
 
   output += indent + "}\n";

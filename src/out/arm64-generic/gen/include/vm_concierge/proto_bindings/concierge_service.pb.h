@@ -338,12 +338,13 @@ enum StartVmRequest_FdType : int {
   StartVmRequest_FdType_STORAGE = 2,
   StartVmRequest_FdType_INITRD = 3,
   StartVmRequest_FdType_BIOS = 4,
+  StartVmRequest_FdType_PFLASH = 5,
   StartVmRequest_FdType_StartVmRequest_FdType_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   StartVmRequest_FdType_StartVmRequest_FdType_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool StartVmRequest_FdType_IsValid(int value);
 constexpr StartVmRequest_FdType StartVmRequest_FdType_FdType_MIN = StartVmRequest_FdType_KERNEL;
-constexpr StartVmRequest_FdType StartVmRequest_FdType_FdType_MAX = StartVmRequest_FdType_BIOS;
+constexpr StartVmRequest_FdType StartVmRequest_FdType_FdType_MAX = StartVmRequest_FdType_PFLASH;
 constexpr int StartVmRequest_FdType_FdType_ARRAYSIZE = StartVmRequest_FdType_FdType_MAX + 1;
 
 const std::string& StartVmRequest_FdType_Name(StartVmRequest_FdType value);
@@ -1234,6 +1235,7 @@ class VmInfo final :
     kCidFieldNumber = 3,
     kSeneschalServerHandleFieldNumber = 4,
     kVmTypeFieldNumber = 6,
+    kStorageBallooningFieldNumber = 7,
   };
   // string permission_token = 5;
   void clear_permission_token();
@@ -1294,6 +1296,15 @@ class VmInfo final :
   void _internal_set_vm_type(::vm_tools::concierge::VmInfo_VmType value);
   public:
 
+  // bool storage_ballooning = 7;
+  void clear_storage_ballooning();
+  bool storage_ballooning() const;
+  void set_storage_ballooning(bool value);
+  private:
+  bool _internal_storage_ballooning() const;
+  void _internal_set_storage_ballooning(bool value);
+  public:
+
   // @@protoc_insertion_point(class_scope:vm_tools.concierge.VmInfo)
  private:
   class _Internal;
@@ -1307,6 +1318,7 @@ class VmInfo final :
   int64_t cid_;
   uint32_t seneschal_server_handle_;
   int vm_type_;
+  bool storage_ballooning_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_concierge_5fservice_2eproto;
 };
@@ -1556,6 +1568,8 @@ class StartVmRequest final :
     StartVmRequest_FdType_INITRD;
   static constexpr FdType BIOS =
     StartVmRequest_FdType_BIOS;
+  static constexpr FdType PFLASH =
+    StartVmRequest_FdType_PFLASH;
   static inline bool FdType_IsValid(int value) {
     return StartVmRequest_FdType_IsValid(value);
   }
@@ -1631,6 +1645,7 @@ class StartVmRequest final :
     kEnableBigGlFieldNumber = 19,
     kTimeoutFieldNumber = 20,
     kVtpmProxyFieldNumber = 22,
+    kStorageBallooningFieldNumber = 23,
   };
   // repeated .vm_tools.concierge.DiskImage disks = 2;
   int disks_size() const;
@@ -1867,6 +1882,15 @@ class StartVmRequest final :
   void _internal_set_vtpm_proxy(bool value);
   public:
 
+  // bool storage_ballooning = 23;
+  void clear_storage_ballooning();
+  bool storage_ballooning() const;
+  void set_storage_ballooning(bool value);
+  private:
+  bool _internal_storage_ballooning() const;
+  void _internal_set_storage_ballooning(bool value);
+  public:
+
   // @@protoc_insertion_point(class_scope:vm_tools.concierge.StartVmRequest)
  private:
   class _Internal;
@@ -1895,6 +1919,7 @@ class StartVmRequest final :
   bool enable_big_gl_;
   uint32_t timeout_;
   bool vtpm_proxy_;
+  bool storage_ballooning_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_concierge_5fservice_2eproto;
 };
@@ -12421,6 +12446,26 @@ inline void VmInfo::set_vm_type(::vm_tools::concierge::VmInfo_VmType value) {
   // @@protoc_insertion_point(field_set:vm_tools.concierge.VmInfo.vm_type)
 }
 
+// bool storage_ballooning = 7;
+inline void VmInfo::clear_storage_ballooning() {
+  storage_ballooning_ = false;
+}
+inline bool VmInfo::_internal_storage_ballooning() const {
+  return storage_ballooning_;
+}
+inline bool VmInfo::storage_ballooning() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.VmInfo.storage_ballooning)
+  return _internal_storage_ballooning();
+}
+inline void VmInfo::_internal_set_storage_ballooning(bool value) {
+  
+  storage_ballooning_ = value;
+}
+inline void VmInfo::set_storage_ballooning(bool value) {
+  _internal_set_storage_ballooning(value);
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.VmInfo.storage_ballooning)
+}
+
 // -------------------------------------------------------------------
 
 // NetworkOptions
@@ -13111,6 +13156,26 @@ inline void StartVmRequest::_internal_set_vtpm_proxy(bool value) {
 inline void StartVmRequest::set_vtpm_proxy(bool value) {
   _internal_set_vtpm_proxy(value);
   // @@protoc_insertion_point(field_set:vm_tools.concierge.StartVmRequest.vtpm_proxy)
+}
+
+// bool storage_ballooning = 23;
+inline void StartVmRequest::clear_storage_ballooning() {
+  storage_ballooning_ = false;
+}
+inline bool StartVmRequest::_internal_storage_ballooning() const {
+  return storage_ballooning_;
+}
+inline bool StartVmRequest::storage_ballooning() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.StartVmRequest.storage_ballooning)
+  return _internal_storage_ballooning();
+}
+inline void StartVmRequest::_internal_set_storage_ballooning(bool value) {
+  
+  storage_ballooning_ = value;
+}
+inline void StartVmRequest::set_storage_ballooning(bool value) {
+  _internal_set_storage_ballooning(value);
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.StartVmRequest.storage_ballooning)
 }
 
 // -------------------------------------------------------------------

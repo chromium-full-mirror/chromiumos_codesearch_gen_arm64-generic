@@ -30,8 +30,8 @@ class BRILLO_EXPORT TlsStream : public Stream {
   // |host| must specify the expected remote host (server) name.
   static void Connect(StreamPtr socket,
                       const std::string& host,
-                      const base::Callback<void(StreamPtr)>& success_callback,
-                      const Stream::ErrorCallback& error_callback);
+                      base::OnceCallback<void(StreamPtr)> success_callback,
+                      Stream::ErrorOnceCallback error_callback);
 
   // Overrides from Stream:
   bool IsOpen() const override;
@@ -59,7 +59,7 @@ class BRILLO_EXPORT TlsStream : public Stream {
   bool FlushBlocking(ErrorPtr* error) override;
   bool CloseBlocking(ErrorPtr* error) override;
   bool WaitForData(AccessMode mode,
-                   const base::Callback<void(AccessMode)>& callback,
+                   base::OnceCallback<void(AccessMode)> callback,
                    ErrorPtr* error) override;
   bool WaitForDataBlocking(AccessMode in_mode,
                            base::TimeDelta timeout,

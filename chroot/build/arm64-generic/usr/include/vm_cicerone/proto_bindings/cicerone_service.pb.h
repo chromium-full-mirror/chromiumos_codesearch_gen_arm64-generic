@@ -1302,6 +1302,28 @@ inline const std::string& GetGarconSessionInfoResponse_Status_Name(T enum_t_valu
 }
 bool GetGarconSessionInfoResponse_Status_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, GetGarconSessionInfoResponse_Status* value);
+enum ContainerFeature : int {
+  UNKNOWN = 0,
+  ENABLE_GTK3_IME_SUPPORT = 1,
+  ENABLE_VIRTUAL_KEYBOARD_SUPPORT = 2,
+  ContainerFeature_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  ContainerFeature_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+};
+bool ContainerFeature_IsValid(int value);
+constexpr ContainerFeature ContainerFeature_MIN = UNKNOWN;
+constexpr ContainerFeature ContainerFeature_MAX = ENABLE_VIRTUAL_KEYBOARD_SUPPORT;
+constexpr int ContainerFeature_ARRAYSIZE = ContainerFeature_MAX + 1;
+
+const std::string& ContainerFeature_Name(ContainerFeature value);
+template<typename T>
+inline const std::string& ContainerFeature_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, ContainerFeature>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function ContainerFeature_Name.");
+  return ContainerFeature_Name(static_cast<ContainerFeature>(enum_t_value));
+}
+bool ContainerFeature_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, ContainerFeature* value);
 // ===================================================================
 
 class NotifyVmStartedRequest final :
@@ -2774,6 +2796,7 @@ class LaunchContainerApplicationRequest final :
 
   enum : int {
     kFilesFieldNumber = 5,
+    kContainerFeaturesFieldNumber = 7,
     kVmNameFieldNumber = 1,
     kContainerNameFieldNumber = 2,
     kDesktopFileIdFieldNumber = 3,
@@ -2803,6 +2826,23 @@ class LaunchContainerApplicationRequest final :
   const std::string& _internal_files(int index) const;
   std::string* _internal_add_files();
   public:
+
+  // repeated .vm_tools.cicerone.ContainerFeature container_features = 7;
+  int container_features_size() const;
+  private:
+  int _internal_container_features_size() const;
+  public:
+  void clear_container_features();
+  private:
+  ::vm_tools::cicerone::ContainerFeature _internal_container_features(int index) const;
+  void _internal_add_container_features(::vm_tools::cicerone::ContainerFeature value);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>* _internal_mutable_container_features();
+  public:
+  ::vm_tools::cicerone::ContainerFeature container_features(int index) const;
+  void set_container_features(int index, ::vm_tools::cicerone::ContainerFeature value);
+  void add_container_features(::vm_tools::cicerone::ContainerFeature value);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>& container_features() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>* mutable_container_features();
 
   // string vm_name = 1;
   void clear_vm_name();
@@ -2877,6 +2917,8 @@ class LaunchContainerApplicationRequest final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> files_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField<int> container_features_;
+  mutable std::atomic<int> _container_features_cached_byte_size_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr vm_name_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr container_name_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr desktop_file_id_;
@@ -3681,11 +3723,29 @@ class LaunchVshdRequest final :
   // accessors -------------------------------------------------------
 
   enum : int {
+    kContainerFeaturesFieldNumber = 5,
     kVmNameFieldNumber = 1,
     kContainerNameFieldNumber = 2,
     kOwnerIdFieldNumber = 4,
     kPortFieldNumber = 3,
   };
+  // repeated .vm_tools.cicerone.ContainerFeature container_features = 5;
+  int container_features_size() const;
+  private:
+  int _internal_container_features_size() const;
+  public:
+  void clear_container_features();
+  private:
+  ::vm_tools::cicerone::ContainerFeature _internal_container_features(int index) const;
+  void _internal_add_container_features(::vm_tools::cicerone::ContainerFeature value);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>* _internal_mutable_container_features();
+  public:
+  ::vm_tools::cicerone::ContainerFeature container_features(int index) const;
+  void set_container_features(int index, ::vm_tools::cicerone::ContainerFeature value);
+  void add_container_features(::vm_tools::cicerone::ContainerFeature value);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>& container_features() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>* mutable_container_features();
+
   // string vm_name = 1;
   void clear_vm_name();
   const std::string& vm_name() const;
@@ -3744,6 +3804,8 @@ class LaunchVshdRequest final :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField<int> container_features_;
+  mutable std::atomic<int> _container_features_cached_byte_size_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr vm_name_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr container_name_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr owner_id_;
@@ -19729,6 +19791,49 @@ inline void LaunchContainerApplicationRequest::set_display_scaling(::vm_tools::c
   // @@protoc_insertion_point(field_set:vm_tools.cicerone.LaunchContainerApplicationRequest.display_scaling)
 }
 
+// repeated .vm_tools.cicerone.ContainerFeature container_features = 7;
+inline int LaunchContainerApplicationRequest::_internal_container_features_size() const {
+  return container_features_.size();
+}
+inline int LaunchContainerApplicationRequest::container_features_size() const {
+  return _internal_container_features_size();
+}
+inline void LaunchContainerApplicationRequest::clear_container_features() {
+  container_features_.Clear();
+}
+inline ::vm_tools::cicerone::ContainerFeature LaunchContainerApplicationRequest::_internal_container_features(int index) const {
+  return static_cast< ::vm_tools::cicerone::ContainerFeature >(container_features_.Get(index));
+}
+inline ::vm_tools::cicerone::ContainerFeature LaunchContainerApplicationRequest::container_features(int index) const {
+  // @@protoc_insertion_point(field_get:vm_tools.cicerone.LaunchContainerApplicationRequest.container_features)
+  return _internal_container_features(index);
+}
+inline void LaunchContainerApplicationRequest::set_container_features(int index, ::vm_tools::cicerone::ContainerFeature value) {
+  container_features_.Set(index, value);
+  // @@protoc_insertion_point(field_set:vm_tools.cicerone.LaunchContainerApplicationRequest.container_features)
+}
+inline void LaunchContainerApplicationRequest::_internal_add_container_features(::vm_tools::cicerone::ContainerFeature value) {
+  container_features_.Add(value);
+}
+inline void LaunchContainerApplicationRequest::add_container_features(::vm_tools::cicerone::ContainerFeature value) {
+  _internal_add_container_features(value);
+  // @@protoc_insertion_point(field_add:vm_tools.cicerone.LaunchContainerApplicationRequest.container_features)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>&
+LaunchContainerApplicationRequest::container_features() const {
+  // @@protoc_insertion_point(field_list:vm_tools.cicerone.LaunchContainerApplicationRequest.container_features)
+  return container_features_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>*
+LaunchContainerApplicationRequest::_internal_mutable_container_features() {
+  return &container_features_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>*
+LaunchContainerApplicationRequest::mutable_container_features() {
+  // @@protoc_insertion_point(field_mutable_list:vm_tools.cicerone.LaunchContainerApplicationRequest.container_features)
+  return _internal_mutable_container_features();
+}
+
 // -------------------------------------------------------------------
 
 // LaunchContainerApplicationResponse
@@ -20421,6 +20526,49 @@ inline void LaunchVshdRequest::set_allocated_owner_id(std::string* owner_id) {
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   // @@protoc_insertion_point(field_set_allocated:vm_tools.cicerone.LaunchVshdRequest.owner_id)
+}
+
+// repeated .vm_tools.cicerone.ContainerFeature container_features = 5;
+inline int LaunchVshdRequest::_internal_container_features_size() const {
+  return container_features_.size();
+}
+inline int LaunchVshdRequest::container_features_size() const {
+  return _internal_container_features_size();
+}
+inline void LaunchVshdRequest::clear_container_features() {
+  container_features_.Clear();
+}
+inline ::vm_tools::cicerone::ContainerFeature LaunchVshdRequest::_internal_container_features(int index) const {
+  return static_cast< ::vm_tools::cicerone::ContainerFeature >(container_features_.Get(index));
+}
+inline ::vm_tools::cicerone::ContainerFeature LaunchVshdRequest::container_features(int index) const {
+  // @@protoc_insertion_point(field_get:vm_tools.cicerone.LaunchVshdRequest.container_features)
+  return _internal_container_features(index);
+}
+inline void LaunchVshdRequest::set_container_features(int index, ::vm_tools::cicerone::ContainerFeature value) {
+  container_features_.Set(index, value);
+  // @@protoc_insertion_point(field_set:vm_tools.cicerone.LaunchVshdRequest.container_features)
+}
+inline void LaunchVshdRequest::_internal_add_container_features(::vm_tools::cicerone::ContainerFeature value) {
+  container_features_.Add(value);
+}
+inline void LaunchVshdRequest::add_container_features(::vm_tools::cicerone::ContainerFeature value) {
+  _internal_add_container_features(value);
+  // @@protoc_insertion_point(field_add:vm_tools.cicerone.LaunchVshdRequest.container_features)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>&
+LaunchVshdRequest::container_features() const {
+  // @@protoc_insertion_point(field_list:vm_tools.cicerone.LaunchVshdRequest.container_features)
+  return container_features_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>*
+LaunchVshdRequest::_internal_mutable_container_features() {
+  return &container_features_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>*
+LaunchVshdRequest::mutable_container_features() {
+  // @@protoc_insertion_point(field_mutable_list:vm_tools.cicerone.LaunchVshdRequest.container_features)
+  return _internal_mutable_container_features();
 }
 
 // -------------------------------------------------------------------
@@ -33292,6 +33440,7 @@ template <> struct is_proto_enum< ::vm_tools::cicerone::RemoveFileWatchResponse_
 template <> struct is_proto_enum< ::vm_tools::cicerone::AttachUsbToContainerResponse_Status> : ::std::true_type {};
 template <> struct is_proto_enum< ::vm_tools::cicerone::DetachUsbFromContainerResponse_Status> : ::std::true_type {};
 template <> struct is_proto_enum< ::vm_tools::cicerone::GetGarconSessionInfoResponse_Status> : ::std::true_type {};
+template <> struct is_proto_enum< ::vm_tools::cicerone::ContainerFeature> : ::std::true_type {};
 
 PROTOBUF_NAMESPACE_CLOSE
 

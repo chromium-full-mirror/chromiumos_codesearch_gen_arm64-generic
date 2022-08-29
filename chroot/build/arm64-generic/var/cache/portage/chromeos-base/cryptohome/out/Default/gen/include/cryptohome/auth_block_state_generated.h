@@ -658,8 +658,8 @@ struct CryptohomeRecoveryAuthBlockState FLATBUFFERS_FINAL_CLASS : private flatbu
   typedef CryptohomeRecoveryAuthBlockStateBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_HSM_PAYLOAD = 4,
-    VT_SALT = 6,
-    VT_ENCRYPTED_DESTINATION_SHARE = 8,
+    VT_ENCRYPTED_DESTINATION_SHARE = 6,
+    VT_EXTENDED_PCR_BOUND_DESTINATION_SHARE = 8,
     VT_CHANNEL_PUB_KEY = 10,
     VT_ENCRYPTED_CHANNEL_PRIV_KEY = 12,
     VT_ENCRYPTED_RSA_PRIV_KEY = 14
@@ -667,11 +667,11 @@ struct CryptohomeRecoveryAuthBlockState FLATBUFFERS_FINAL_CLASS : private flatbu
   const flatbuffers::Vector<uint8_t> *hsm_payload() const {
     return GetPointer<const flatbuffers::Vector<uint8_t> *>(VT_HSM_PAYLOAD);
   }
-  const flatbuffers::Vector<uint8_t> *salt() const {
-    return GetPointer<const flatbuffers::Vector<uint8_t> *>(VT_SALT);
-  }
   const flatbuffers::Vector<uint8_t> *encrypted_destination_share() const {
     return GetPointer<const flatbuffers::Vector<uint8_t> *>(VT_ENCRYPTED_DESTINATION_SHARE);
+  }
+  const flatbuffers::Vector<uint8_t> *extended_pcr_bound_destination_share() const {
+    return GetPointer<const flatbuffers::Vector<uint8_t> *>(VT_EXTENDED_PCR_BOUND_DESTINATION_SHARE);
   }
   const flatbuffers::Vector<uint8_t> *channel_pub_key() const {
     return GetPointer<const flatbuffers::Vector<uint8_t> *>(VT_CHANNEL_PUB_KEY);
@@ -686,10 +686,10 @@ struct CryptohomeRecoveryAuthBlockState FLATBUFFERS_FINAL_CLASS : private flatbu
     return VerifyTableStart(verifier) &&
            VerifyOffset(verifier, VT_HSM_PAYLOAD) &&
            verifier.VerifyVector(hsm_payload()) &&
-           VerifyOffset(verifier, VT_SALT) &&
-           verifier.VerifyVector(salt()) &&
            VerifyOffset(verifier, VT_ENCRYPTED_DESTINATION_SHARE) &&
            verifier.VerifyVector(encrypted_destination_share()) &&
+           VerifyOffset(verifier, VT_EXTENDED_PCR_BOUND_DESTINATION_SHARE) &&
+           verifier.VerifyVector(extended_pcr_bound_destination_share()) &&
            VerifyOffset(verifier, VT_CHANNEL_PUB_KEY) &&
            verifier.VerifyVector(channel_pub_key()) &&
            VerifyOffset(verifier, VT_ENCRYPTED_CHANNEL_PRIV_KEY) &&
@@ -707,11 +707,11 @@ struct CryptohomeRecoveryAuthBlockStateBuilder {
   void add_hsm_payload(flatbuffers::Offset<flatbuffers::Vector<uint8_t>> hsm_payload) {
     fbb_.AddOffset(CryptohomeRecoveryAuthBlockState::VT_HSM_PAYLOAD, hsm_payload);
   }
-  void add_salt(flatbuffers::Offset<flatbuffers::Vector<uint8_t>> salt) {
-    fbb_.AddOffset(CryptohomeRecoveryAuthBlockState::VT_SALT, salt);
-  }
   void add_encrypted_destination_share(flatbuffers::Offset<flatbuffers::Vector<uint8_t>> encrypted_destination_share) {
     fbb_.AddOffset(CryptohomeRecoveryAuthBlockState::VT_ENCRYPTED_DESTINATION_SHARE, encrypted_destination_share);
+  }
+  void add_extended_pcr_bound_destination_share(flatbuffers::Offset<flatbuffers::Vector<uint8_t>> extended_pcr_bound_destination_share) {
+    fbb_.AddOffset(CryptohomeRecoveryAuthBlockState::VT_EXTENDED_PCR_BOUND_DESTINATION_SHARE, extended_pcr_bound_destination_share);
   }
   void add_channel_pub_key(flatbuffers::Offset<flatbuffers::Vector<uint8_t>> channel_pub_key) {
     fbb_.AddOffset(CryptohomeRecoveryAuthBlockState::VT_CHANNEL_PUB_KEY, channel_pub_key);
@@ -736,8 +736,8 @@ struct CryptohomeRecoveryAuthBlockStateBuilder {
 inline flatbuffers::Offset<CryptohomeRecoveryAuthBlockState> CreateCryptohomeRecoveryAuthBlockState(
     flatbuffers::FlatBufferBuilder &_fbb,
     flatbuffers::Offset<flatbuffers::Vector<uint8_t>> hsm_payload = 0,
-    flatbuffers::Offset<flatbuffers::Vector<uint8_t>> salt = 0,
     flatbuffers::Offset<flatbuffers::Vector<uint8_t>> encrypted_destination_share = 0,
+    flatbuffers::Offset<flatbuffers::Vector<uint8_t>> extended_pcr_bound_destination_share = 0,
     flatbuffers::Offset<flatbuffers::Vector<uint8_t>> channel_pub_key = 0,
     flatbuffers::Offset<flatbuffers::Vector<uint8_t>> encrypted_channel_priv_key = 0,
     flatbuffers::Offset<flatbuffers::Vector<uint8_t>> encrypted_rsa_priv_key = 0) {
@@ -745,8 +745,8 @@ inline flatbuffers::Offset<CryptohomeRecoveryAuthBlockState> CreateCryptohomeRec
   builder_.add_encrypted_rsa_priv_key(encrypted_rsa_priv_key);
   builder_.add_encrypted_channel_priv_key(encrypted_channel_priv_key);
   builder_.add_channel_pub_key(channel_pub_key);
+  builder_.add_extended_pcr_bound_destination_share(extended_pcr_bound_destination_share);
   builder_.add_encrypted_destination_share(encrypted_destination_share);
-  builder_.add_salt(salt);
   builder_.add_hsm_payload(hsm_payload);
   return builder_.Finish();
 }
@@ -754,22 +754,22 @@ inline flatbuffers::Offset<CryptohomeRecoveryAuthBlockState> CreateCryptohomeRec
 inline flatbuffers::Offset<CryptohomeRecoveryAuthBlockState> CreateCryptohomeRecoveryAuthBlockStateDirect(
     flatbuffers::FlatBufferBuilder &_fbb,
     const std::vector<uint8_t> *hsm_payload = nullptr,
-    const std::vector<uint8_t> *salt = nullptr,
     const std::vector<uint8_t> *encrypted_destination_share = nullptr,
+    const std::vector<uint8_t> *extended_pcr_bound_destination_share = nullptr,
     const std::vector<uint8_t> *channel_pub_key = nullptr,
     const std::vector<uint8_t> *encrypted_channel_priv_key = nullptr,
     const std::vector<uint8_t> *encrypted_rsa_priv_key = nullptr) {
   auto hsm_payload__ = hsm_payload ? _fbb.CreateVector<uint8_t>(*hsm_payload) : 0;
-  auto salt__ = salt ? _fbb.CreateVector<uint8_t>(*salt) : 0;
   auto encrypted_destination_share__ = encrypted_destination_share ? _fbb.CreateVector<uint8_t>(*encrypted_destination_share) : 0;
+  auto extended_pcr_bound_destination_share__ = extended_pcr_bound_destination_share ? _fbb.CreateVector<uint8_t>(*extended_pcr_bound_destination_share) : 0;
   auto channel_pub_key__ = channel_pub_key ? _fbb.CreateVector<uint8_t>(*channel_pub_key) : 0;
   auto encrypted_channel_priv_key__ = encrypted_channel_priv_key ? _fbb.CreateVector<uint8_t>(*encrypted_channel_priv_key) : 0;
   auto encrypted_rsa_priv_key__ = encrypted_rsa_priv_key ? _fbb.CreateVector<uint8_t>(*encrypted_rsa_priv_key) : 0;
   return cryptohome::_serialized_::CreateCryptohomeRecoveryAuthBlockState(
       _fbb,
       hsm_payload__,
-      salt__,
       encrypted_destination_share__,
+      extended_pcr_bound_destination_share__,
       channel_pub_key__,
       encrypted_channel_priv_key__,
       encrypted_rsa_priv_key__);

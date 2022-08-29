@@ -113,7 +113,8 @@ ProcessInfo::ProcessInfo()
       name(),
       parent_process_id(),
       process_group_id(),
-      threads() {}
+      threads(),
+      process_id() {}
 
 ProcessInfo::ProcessInfo(
     const std::string& command_in,
@@ -151,7 +152,8 @@ ProcessInfo::ProcessInfo(
       name(),
       parent_process_id(),
       process_group_id(),
-      threads() {}
+      threads(),
+      process_id() {}
 
 ProcessInfo::ProcessInfo(
     const std::string& command_in,
@@ -193,7 +195,52 @@ ProcessInfo::ProcessInfo(
       name(std::move(name_in)),
       parent_process_id(std::move(parent_process_id_in)),
       process_group_id(std::move(process_group_id_in)),
-      threads(std::move(threads_in)) {}
+      threads(std::move(threads_in)),
+      process_id() {}
+
+ProcessInfo::ProcessInfo(
+    const std::string& command_in,
+    uint32_t user_id_in,
+    int8_t priority_in,
+    int8_t nice_in,
+    uint64_t uptime_ticks_in,
+    ProcessState state_in,
+    uint32_t total_memory_kib_in,
+    uint32_t resident_memory_kib_in,
+    uint32_t free_memory_kib_in,
+    uint64_t bytes_read_in,
+    uint64_t bytes_written_in,
+    uint64_t read_system_calls_in,
+    uint64_t write_system_calls_in,
+    uint64_t physical_bytes_read_in,
+    uint64_t physical_bytes_written_in,
+    uint64_t cancelled_bytes_written_in,
+    const absl::optional<std::string>& name_in,
+    uint32_t parent_process_id_in,
+    uint32_t process_group_id_in,
+    uint32_t threads_in,
+    uint32_t process_id_in)
+    : command(std::move(command_in)),
+      user_id(std::move(user_id_in)),
+      priority(std::move(priority_in)),
+      nice(std::move(nice_in)),
+      uptime_ticks(std::move(uptime_ticks_in)),
+      state(std::move(state_in)),
+      total_memory_kib(std::move(total_memory_kib_in)),
+      resident_memory_kib(std::move(resident_memory_kib_in)),
+      free_memory_kib(std::move(free_memory_kib_in)),
+      bytes_read(std::move(bytes_read_in)),
+      bytes_written(std::move(bytes_written_in)),
+      read_system_calls(std::move(read_system_calls_in)),
+      write_system_calls(std::move(write_system_calls_in)),
+      physical_bytes_read(std::move(physical_bytes_read_in)),
+      physical_bytes_written(std::move(physical_bytes_written_in)),
+      cancelled_bytes_written(std::move(cancelled_bytes_written_in)),
+      name(std::move(name_in)),
+      parent_process_id(std::move(parent_process_id_in)),
+      process_group_id(std::move(process_group_id_in)),
+      threads(std::move(threads_in)),
+      process_id(std::move(process_id_in)) {}
 
 ProcessInfo::~ProcessInfo() = default;
 
@@ -374,6 +421,15 @@ void ProcessInfo::WriteIntoTrace(
   perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "threads"), this->threads,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint32_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "process_id"), this->process_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type uint32_t>"
 #else
@@ -2121,171 +2177,11 @@ bool SupportedCapabilities::Validate(
   return Data_::Validate(data, validation_context);
 }
 SystemInfo::SystemInfo()
-    : first_power_date(),
-      manufacture_date(),
-      product_sku_number(),
-      product_serial_number(),
-      product_model_name(),
-      marketing_name(),
-      bios_version(),
-      board_name(),
-      board_version(),
-      chassis_type(),
-      product_name(),
-      os_version() {}
-
-SystemInfo::SystemInfo(
-    const absl::optional<std::string>& first_power_date_in,
-    const absl::optional<std::string>& manufacture_date_in,
-    const absl::optional<std::string>& product_sku_number_in,
-    const absl::optional<std::string>& product_serial_number_in,
-    const absl::optional<std::string>& product_model_name_in,
-    const std::string& marketing_name_in,
-    const absl::optional<std::string>& bios_version_in,
-    const absl::optional<std::string>& board_name_in,
-    const absl::optional<std::string>& board_version_in,
-    ::chromeos::cros_healthd::mojom::NullableUint64Ptr chassis_type_in,
-    const absl::optional<std::string>& product_name_in,
-    OsVersionPtr os_version_in)
-    : first_power_date(std::move(first_power_date_in)),
-      manufacture_date(std::move(manufacture_date_in)),
-      product_sku_number(std::move(product_sku_number_in)),
-      product_serial_number(std::move(product_serial_number_in)),
-      product_model_name(std::move(product_model_name_in)),
-      marketing_name(std::move(marketing_name_in)),
-      bios_version(std::move(bios_version_in)),
-      board_name(std::move(board_name_in)),
-      board_version(std::move(board_version_in)),
-      chassis_type(std::move(chassis_type_in)),
-      product_name(std::move(product_name_in)),
-      os_version(std::move(os_version_in)) {}
-
-SystemInfo::~SystemInfo() = default;
-
-void SystemInfo::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
-  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "first_power_date"), this->first_power_date,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "manufacture_date"), this->manufacture_date,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "product_sku_number"), this->product_sku_number,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "product_serial_number"), this->product_serial_number,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "product_model_name"), this->product_model_name,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "marketing_name"), this->marketing_name,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const std::string&>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "bios_version"), this->bios_version,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "board_name"), this->board_name,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "board_version"), this->board_version,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "chassis_type"), this->chassis_type,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type ::chromeos::cros_healthd::mojom::NullableUint64Ptr>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "product_name"), this->product_name,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const absl::optional<std::string>&>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "os_version"), this->os_version,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type OsVersionPtr>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-}
-
-bool SystemInfo::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  return Data_::Validate(data, validation_context);
-}
-SystemInfoV2::SystemInfoV2()
     : os_info(),
       vpd_info(),
       dmi_info() {}
 
-SystemInfoV2::SystemInfoV2(
+SystemInfo::SystemInfo(
     OsInfoPtr os_info_in,
     VpdInfoPtr vpd_info_in,
     DmiInfoPtr dmi_info_in)
@@ -2293,9 +2189,9 @@ SystemInfoV2::SystemInfoV2(
       vpd_info(std::move(vpd_info_in)),
       dmi_info(std::move(dmi_info_in)) {}
 
-SystemInfoV2::~SystemInfoV2() = default;
+SystemInfo::~SystemInfo() = default;
 
-void SystemInfoV2::WriteIntoTrace(
+void SystemInfo::WriteIntoTrace(
     perfetto_libchrome::TracedValue traced_context) const {
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
   perfetto_libchrome::WriteIntoTracedValueWithFallback(
@@ -2327,7 +2223,7 @@ void SystemInfoV2::WriteIntoTrace(
     );
 }
 
-bool SystemInfoV2::Validate(
+bool SystemInfo::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
@@ -5042,6 +4938,34 @@ bool InputDevice::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+SensorInfo::SensorInfo()
+    : lid_angle() {}
+
+SensorInfo::SensorInfo(
+    ::chromeos::cros_healthd::mojom::NullableUint16Ptr lid_angle_in)
+    : lid_angle(std::move(lid_angle_in)) {}
+
+SensorInfo::~SensorInfo() = default;
+
+void SensorInfo::WriteIntoTrace(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "lid_angle"), this->lid_angle,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ::chromeos::cros_healthd::mojom::NullableUint16Ptr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool SensorInfo::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 TelemetryInfo::TelemetryInfo()
     : battery_result(),
       block_device_result(),
@@ -5052,18 +4976,19 @@ TelemetryInfo::TelemetryInfo()
       fan_result(),
       stateful_partition_result(),
       bluetooth_result(),
-      system_result(),
+      deprecate_system_result(),
       network_result(),
       audio_result(),
       boot_performance_result(),
       bus_result(),
-      system_result_v2(),
+      system_result(),
       tpm_result(),
       graphics_result(),
       display_result(),
       network_interface_result(),
       input_result(),
-      audio_hardware_result() {}
+      audio_hardware_result(),
+      sensor_result() {}
 
 TelemetryInfo::TelemetryInfo(
     BatteryResultPtr battery_result_in,
@@ -5075,12 +5000,12 @@ TelemetryInfo::TelemetryInfo(
     FanResultPtr fan_result_in,
     StatefulPartitionResultPtr stateful_partition_result_in,
     BluetoothResultPtr bluetooth_result_in,
-    SystemResultPtr system_result_in,
+    DEPRECATE_SystemResultPtr deprecate_system_result_in,
     NetworkResultPtr network_result_in,
     AudioResultPtr audio_result_in,
     BootPerformanceResultPtr boot_performance_result_in,
     BusResultPtr bus_result_in,
-    SystemResultV2Ptr system_result_v2_in,
+    SystemResultPtr system_result_in,
     TpmResultPtr tpm_result_in,
     GraphicsResultPtr graphics_result_in)
     : battery_result(std::move(battery_result_in)),
@@ -5092,18 +5017,19 @@ TelemetryInfo::TelemetryInfo(
       fan_result(std::move(fan_result_in)),
       stateful_partition_result(std::move(stateful_partition_result_in)),
       bluetooth_result(std::move(bluetooth_result_in)),
-      system_result(std::move(system_result_in)),
+      deprecate_system_result(std::move(deprecate_system_result_in)),
       network_result(std::move(network_result_in)),
       audio_result(std::move(audio_result_in)),
       boot_performance_result(std::move(boot_performance_result_in)),
       bus_result(std::move(bus_result_in)),
-      system_result_v2(std::move(system_result_v2_in)),
+      system_result(std::move(system_result_in)),
       tpm_result(std::move(tpm_result_in)),
       graphics_result(std::move(graphics_result_in)),
       display_result(),
       network_interface_result(),
       input_result(),
-      audio_hardware_result() {}
+      audio_hardware_result(),
+      sensor_result() {}
 
 TelemetryInfo::TelemetryInfo(
     BatteryResultPtr battery_result_in,
@@ -5115,12 +5041,12 @@ TelemetryInfo::TelemetryInfo(
     FanResultPtr fan_result_in,
     StatefulPartitionResultPtr stateful_partition_result_in,
     BluetoothResultPtr bluetooth_result_in,
-    SystemResultPtr system_result_in,
+    DEPRECATE_SystemResultPtr deprecate_system_result_in,
     NetworkResultPtr network_result_in,
     AudioResultPtr audio_result_in,
     BootPerformanceResultPtr boot_performance_result_in,
     BusResultPtr bus_result_in,
-    SystemResultV2Ptr system_result_v2_in,
+    SystemResultPtr system_result_in,
     TpmResultPtr tpm_result_in,
     GraphicsResultPtr graphics_result_in,
     DisplayResultPtr display_result_in)
@@ -5133,18 +5059,19 @@ TelemetryInfo::TelemetryInfo(
       fan_result(std::move(fan_result_in)),
       stateful_partition_result(std::move(stateful_partition_result_in)),
       bluetooth_result(std::move(bluetooth_result_in)),
-      system_result(std::move(system_result_in)),
+      deprecate_system_result(std::move(deprecate_system_result_in)),
       network_result(std::move(network_result_in)),
       audio_result(std::move(audio_result_in)),
       boot_performance_result(std::move(boot_performance_result_in)),
       bus_result(std::move(bus_result_in)),
-      system_result_v2(std::move(system_result_v2_in)),
+      system_result(std::move(system_result_in)),
       tpm_result(std::move(tpm_result_in)),
       graphics_result(std::move(graphics_result_in)),
       display_result(std::move(display_result_in)),
       network_interface_result(),
       input_result(),
-      audio_hardware_result() {}
+      audio_hardware_result(),
+      sensor_result() {}
 
 TelemetryInfo::TelemetryInfo(
     BatteryResultPtr battery_result_in,
@@ -5156,12 +5083,12 @@ TelemetryInfo::TelemetryInfo(
     FanResultPtr fan_result_in,
     StatefulPartitionResultPtr stateful_partition_result_in,
     BluetoothResultPtr bluetooth_result_in,
-    SystemResultPtr system_result_in,
+    DEPRECATE_SystemResultPtr deprecate_system_result_in,
     NetworkResultPtr network_result_in,
     AudioResultPtr audio_result_in,
     BootPerformanceResultPtr boot_performance_result_in,
     BusResultPtr bus_result_in,
-    SystemResultV2Ptr system_result_v2_in,
+    SystemResultPtr system_result_in,
     TpmResultPtr tpm_result_in,
     GraphicsResultPtr graphics_result_in,
     DisplayResultPtr display_result_in,
@@ -5175,18 +5102,19 @@ TelemetryInfo::TelemetryInfo(
       fan_result(std::move(fan_result_in)),
       stateful_partition_result(std::move(stateful_partition_result_in)),
       bluetooth_result(std::move(bluetooth_result_in)),
-      system_result(std::move(system_result_in)),
+      deprecate_system_result(std::move(deprecate_system_result_in)),
       network_result(std::move(network_result_in)),
       audio_result(std::move(audio_result_in)),
       boot_performance_result(std::move(boot_performance_result_in)),
       bus_result(std::move(bus_result_in)),
-      system_result_v2(std::move(system_result_v2_in)),
+      system_result(std::move(system_result_in)),
       tpm_result(std::move(tpm_result_in)),
       graphics_result(std::move(graphics_result_in)),
       display_result(std::move(display_result_in)),
       network_interface_result(std::move(network_interface_result_in)),
       input_result(),
-      audio_hardware_result() {}
+      audio_hardware_result(),
+      sensor_result() {}
 
 TelemetryInfo::TelemetryInfo(
     BatteryResultPtr battery_result_in,
@@ -5198,12 +5126,12 @@ TelemetryInfo::TelemetryInfo(
     FanResultPtr fan_result_in,
     StatefulPartitionResultPtr stateful_partition_result_in,
     BluetoothResultPtr bluetooth_result_in,
-    SystemResultPtr system_result_in,
+    DEPRECATE_SystemResultPtr deprecate_system_result_in,
     NetworkResultPtr network_result_in,
     AudioResultPtr audio_result_in,
     BootPerformanceResultPtr boot_performance_result_in,
     BusResultPtr bus_result_in,
-    SystemResultV2Ptr system_result_v2_in,
+    SystemResultPtr system_result_in,
     TpmResultPtr tpm_result_in,
     GraphicsResultPtr graphics_result_in,
     DisplayResultPtr display_result_in,
@@ -5218,18 +5146,19 @@ TelemetryInfo::TelemetryInfo(
       fan_result(std::move(fan_result_in)),
       stateful_partition_result(std::move(stateful_partition_result_in)),
       bluetooth_result(std::move(bluetooth_result_in)),
-      system_result(std::move(system_result_in)),
+      deprecate_system_result(std::move(deprecate_system_result_in)),
       network_result(std::move(network_result_in)),
       audio_result(std::move(audio_result_in)),
       boot_performance_result(std::move(boot_performance_result_in)),
       bus_result(std::move(bus_result_in)),
-      system_result_v2(std::move(system_result_v2_in)),
+      system_result(std::move(system_result_in)),
       tpm_result(std::move(tpm_result_in)),
       graphics_result(std::move(graphics_result_in)),
       display_result(std::move(display_result_in)),
       network_interface_result(std::move(network_interface_result_in)),
       input_result(std::move(input_result_in)),
-      audio_hardware_result() {}
+      audio_hardware_result(),
+      sensor_result() {}
 
 TelemetryInfo::TelemetryInfo(
     BatteryResultPtr battery_result_in,
@@ -5241,12 +5170,12 @@ TelemetryInfo::TelemetryInfo(
     FanResultPtr fan_result_in,
     StatefulPartitionResultPtr stateful_partition_result_in,
     BluetoothResultPtr bluetooth_result_in,
-    SystemResultPtr system_result_in,
+    DEPRECATE_SystemResultPtr deprecate_system_result_in,
     NetworkResultPtr network_result_in,
     AudioResultPtr audio_result_in,
     BootPerformanceResultPtr boot_performance_result_in,
     BusResultPtr bus_result_in,
-    SystemResultV2Ptr system_result_v2_in,
+    SystemResultPtr system_result_in,
     TpmResultPtr tpm_result_in,
     GraphicsResultPtr graphics_result_in,
     DisplayResultPtr display_result_in,
@@ -5262,18 +5191,65 @@ TelemetryInfo::TelemetryInfo(
       fan_result(std::move(fan_result_in)),
       stateful_partition_result(std::move(stateful_partition_result_in)),
       bluetooth_result(std::move(bluetooth_result_in)),
-      system_result(std::move(system_result_in)),
+      deprecate_system_result(std::move(deprecate_system_result_in)),
       network_result(std::move(network_result_in)),
       audio_result(std::move(audio_result_in)),
       boot_performance_result(std::move(boot_performance_result_in)),
       bus_result(std::move(bus_result_in)),
-      system_result_v2(std::move(system_result_v2_in)),
+      system_result(std::move(system_result_in)),
       tpm_result(std::move(tpm_result_in)),
       graphics_result(std::move(graphics_result_in)),
       display_result(std::move(display_result_in)),
       network_interface_result(std::move(network_interface_result_in)),
       input_result(std::move(input_result_in)),
-      audio_hardware_result(std::move(audio_hardware_result_in)) {}
+      audio_hardware_result(std::move(audio_hardware_result_in)),
+      sensor_result() {}
+
+TelemetryInfo::TelemetryInfo(
+    BatteryResultPtr battery_result_in,
+    NonRemovableBlockDeviceResultPtr block_device_result_in,
+    CpuResultPtr cpu_result_in,
+    TimezoneResultPtr timezone_result_in,
+    MemoryResultPtr memory_result_in,
+    BacklightResultPtr backlight_result_in,
+    FanResultPtr fan_result_in,
+    StatefulPartitionResultPtr stateful_partition_result_in,
+    BluetoothResultPtr bluetooth_result_in,
+    DEPRECATE_SystemResultPtr deprecate_system_result_in,
+    NetworkResultPtr network_result_in,
+    AudioResultPtr audio_result_in,
+    BootPerformanceResultPtr boot_performance_result_in,
+    BusResultPtr bus_result_in,
+    SystemResultPtr system_result_in,
+    TpmResultPtr tpm_result_in,
+    GraphicsResultPtr graphics_result_in,
+    DisplayResultPtr display_result_in,
+    NetworkInterfaceResultPtr network_interface_result_in,
+    InputResultPtr input_result_in,
+    AudioHardwareResultPtr audio_hardware_result_in,
+    SensorResultPtr sensor_result_in)
+    : battery_result(std::move(battery_result_in)),
+      block_device_result(std::move(block_device_result_in)),
+      cpu_result(std::move(cpu_result_in)),
+      timezone_result(std::move(timezone_result_in)),
+      memory_result(std::move(memory_result_in)),
+      backlight_result(std::move(backlight_result_in)),
+      fan_result(std::move(fan_result_in)),
+      stateful_partition_result(std::move(stateful_partition_result_in)),
+      bluetooth_result(std::move(bluetooth_result_in)),
+      deprecate_system_result(std::move(deprecate_system_result_in)),
+      network_result(std::move(network_result_in)),
+      audio_result(std::move(audio_result_in)),
+      boot_performance_result(std::move(boot_performance_result_in)),
+      bus_result(std::move(bus_result_in)),
+      system_result(std::move(system_result_in)),
+      tpm_result(std::move(tpm_result_in)),
+      graphics_result(std::move(graphics_result_in)),
+      display_result(std::move(display_result_in)),
+      network_interface_result(std::move(network_interface_result_in)),
+      input_result(std::move(input_result_in)),
+      audio_hardware_result(std::move(audio_hardware_result_in)),
+      sensor_result(std::move(sensor_result_in)) {}
 
 TelemetryInfo::~TelemetryInfo() = default;
 
@@ -5363,9 +5339,9 @@ void TelemetryInfo::WriteIntoTrace(
     );
   perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "system_result"), this->system_result,
+      "deprecate_system_result"), this->deprecate_system_result,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type SystemResultPtr>"
+      "<value of type DEPRECATE_SystemResultPtr>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5408,9 +5384,9 @@ void TelemetryInfo::WriteIntoTrace(
     );
   perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "system_result_v2"), this->system_result_v2,
+      "system_result"), this->system_result,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type SystemResultV2Ptr>"
+      "<value of type SystemResultPtr>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -5469,6 +5445,15 @@ void TelemetryInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "sensor_result"), this->sensor_result,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type SensorResultPtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
 }
 
 bool TelemetryInfo::Validate(
@@ -5476,8 +5461,8 @@ bool TelemetryInfo::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
-ProcessResult::ProcessResult() : tag_(Tag::UNMAPPED_FIELD) {
-  data_.unmapped_field = bool();
+ProcessResult::ProcessResult() : tag_(Tag::PROCESS_INFO) {
+  data_.process_info = new ProcessInfoPtr;
 }
 
 ProcessResult::~ProcessResult() {
@@ -5485,14 +5470,6 @@ ProcessResult::~ProcessResult() {
 }
 
 
-void ProcessResult::set_unmapped_field(
-    bool unmapped_field) {
-  if (tag_ != Tag::UNMAPPED_FIELD) {
-    DestroyActive();
-    tag_ = Tag::UNMAPPED_FIELD;
-  }
-  data_.unmapped_field = unmapped_field;
-}
 void ProcessResult::set_process_info(
     ProcessInfoPtr process_info) {
   if (tag_ == Tag::PROCESS_INFO) {
@@ -5519,9 +5496,6 @@ void ProcessResult::set_error(
 void ProcessResult::DestroyActive() {
   switch (tag_) {
 
-    case Tag::UNMAPPED_FIELD:
-
-      break;
     case Tag::PROCESS_INFO:
 
       delete data_.process_info;
@@ -5681,6 +5655,14 @@ void BlockDeviceVendor::set_unknown(
   }
   data_.unknown = unknown;
 }
+void BlockDeviceVendor::set_jedec_manfid(
+    uint16_t jedec_manfid) {
+  if (tag_ != Tag::JEDEC_MANFID) {
+    DestroyActive();
+    tag_ = Tag::JEDEC_MANFID;
+  }
+  data_.jedec_manfid = jedec_manfid;
+}
 
 void BlockDeviceVendor::DestroyActive() {
   switch (tag_) {
@@ -5697,6 +5679,9 @@ void BlockDeviceVendor::DestroyActive() {
     case Tag::UNKNOWN:
 
       break;
+    case Tag::JEDEC_MANFID:
+
+      break;
   }
 }
 size_t BlockDeviceVendor::Hash(size_t seed) const {
@@ -5711,6 +5696,8 @@ size_t BlockDeviceVendor::Hash(size_t seed) const {
       return mojo::internal::Hash(seed, data_.other);
     case Tag::UNKNOWN:
       return mojo::internal::Hash(seed, data_.unknown);
+    case Tag::JEDEC_MANFID:
+      return mojo::internal::Hash(seed, data_.jedec_manfid);
     default:
       NOTREACHED();
       return seed;
@@ -5927,6 +5914,14 @@ void BlockDeviceFirmware::set_unknown(
   }
   data_.unknown = unknown;
 }
+void BlockDeviceFirmware::set_ufs_fwrev(
+    uint64_t ufs_fwrev) {
+  if (tag_ != Tag::UFS_FWREV) {
+    DestroyActive();
+    tag_ = Tag::UFS_FWREV;
+  }
+  data_.ufs_fwrev = ufs_fwrev;
+}
 
 void BlockDeviceFirmware::DestroyActive() {
   switch (tag_) {
@@ -5943,6 +5938,9 @@ void BlockDeviceFirmware::DestroyActive() {
     case Tag::UNKNOWN:
 
       break;
+    case Tag::UFS_FWREV:
+
+      break;
   }
 }
 size_t BlockDeviceFirmware::Hash(size_t seed) const {
@@ -5957,6 +5955,8 @@ size_t BlockDeviceFirmware::Hash(size_t seed) const {
       return mojo::internal::Hash(seed, data_.other);
     case Tag::UNKNOWN:
       return mojo::internal::Hash(seed, data_.unknown);
+    case Tag::UFS_FWREV:
+      return mojo::internal::Hash(seed, data_.ufs_fwrev);
     default:
       NOTREACHED();
       return seed;
@@ -6351,6 +6351,53 @@ bool BluetoothResult::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context, false);
 }
+DEPRECATE_SystemResult::DEPRECATE_SystemResult() : tag_(Tag::ERROR) {
+  data_.error = new ProbeErrorPtr;
+}
+
+DEPRECATE_SystemResult::~DEPRECATE_SystemResult() {
+  DestroyActive();
+}
+
+
+void DEPRECATE_SystemResult::set_error(
+    ProbeErrorPtr error) {
+  if (tag_ == Tag::ERROR) {
+    *(data_.error) = std::move(error);
+  } else {
+    DestroyActive();
+    tag_ = Tag::ERROR;
+    data_.error = new ProbeErrorPtr(
+        std::move(error));
+  }
+}
+
+void DEPRECATE_SystemResult::DestroyActive() {
+  switch (tag_) {
+
+    case Tag::ERROR:
+
+      delete data_.error;
+      break;
+  }
+}
+size_t DEPRECATE_SystemResult::Hash(size_t seed) const {
+  seed = mojo::internal::HashCombine(seed, static_cast<uint32_t>(tag_));
+  switch (tag_) {
+
+    case Tag::ERROR:
+      return mojo::internal::Hash(seed, data_.error);
+    default:
+      NOTREACHED();
+      return seed;
+  }
+}
+
+bool DEPRECATE_SystemResult::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context, false);
+}
 SystemResult::SystemResult() : tag_(Tag::SYSTEM_INFO) {
   data_.system_info = new SystemInfoPtr;
 }
@@ -6398,57 +6445,6 @@ void SystemResult::DestroyActive() {
 }
 
 bool SystemResult::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  return Data_::Validate(data, validation_context, false);
-}
-SystemResultV2::SystemResultV2() : tag_(Tag::SYSTEM_INFO_V2) {
-  data_.system_info_v2 = new SystemInfoV2Ptr;
-}
-
-SystemResultV2::~SystemResultV2() {
-  DestroyActive();
-}
-
-
-void SystemResultV2::set_system_info_v2(
-    SystemInfoV2Ptr system_info_v2) {
-  if (tag_ == Tag::SYSTEM_INFO_V2) {
-    *(data_.system_info_v2) = std::move(system_info_v2);
-  } else {
-    DestroyActive();
-    tag_ = Tag::SYSTEM_INFO_V2;
-    data_.system_info_v2 = new SystemInfoV2Ptr(
-        std::move(system_info_v2));
-  }
-}
-void SystemResultV2::set_error(
-    ProbeErrorPtr error) {
-  if (tag_ == Tag::ERROR) {
-    *(data_.error) = std::move(error);
-  } else {
-    DestroyActive();
-    tag_ = Tag::ERROR;
-    data_.error = new ProbeErrorPtr(
-        std::move(error));
-  }
-}
-
-void SystemResultV2::DestroyActive() {
-  switch (tag_) {
-
-    case Tag::SYSTEM_INFO_V2:
-
-      delete data_.system_info_v2;
-      break;
-    case Tag::ERROR:
-
-      delete data_.error;
-      break;
-  }
-}
-
-bool SystemResultV2::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context, false);
@@ -6655,8 +6651,8 @@ bool AudioResult::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context, false);
 }
-AudioHardwareResult::AudioHardwareResult() : tag_(Tag::UNMAPPED_FIELD0) {
-  data_.unmapped_field0 = bool();
+AudioHardwareResult::AudioHardwareResult() : tag_(Tag::AUDIO_HARDWARE_INFO) {
+  data_.audio_hardware_info = new AudioHardwareInfoPtr;
 }
 
 AudioHardwareResult::~AudioHardwareResult() {
@@ -6664,14 +6660,6 @@ AudioHardwareResult::~AudioHardwareResult() {
 }
 
 
-void AudioHardwareResult::set_unmapped_field0(
-    bool unmapped_field0) {
-  if (tag_ != Tag::UNMAPPED_FIELD0) {
-    DestroyActive();
-    tag_ = Tag::UNMAPPED_FIELD0;
-  }
-  data_.unmapped_field0 = unmapped_field0;
-}
 void AudioHardwareResult::set_audio_hardware_info(
     AudioHardwareInfoPtr audio_hardware_info) {
   if (tag_ == Tag::AUDIO_HARDWARE_INFO) {
@@ -6698,9 +6686,6 @@ void AudioHardwareResult::set_error(
 void AudioHardwareResult::DestroyActive() {
   switch (tag_) {
 
-    case Tag::UNMAPPED_FIELD0:
-
-      break;
     case Tag::AUDIO_HARDWARE_INFO:
 
       delete data_.audio_hardware_info;
@@ -6874,6 +6859,14 @@ void BusInfo::set_thunderbolt_bus_info(
         std::move(thunderbolt_bus_info));
   }
 }
+void BusInfo::set_unmapped_field(
+    bool unmapped_field) {
+  if (tag_ != Tag::UNMAPPED_FIELD) {
+    DestroyActive();
+    tag_ = Tag::UNMAPPED_FIELD;
+  }
+  data_.unmapped_field = unmapped_field;
+}
 
 void BusInfo::DestroyActive() {
   switch (tag_) {
@@ -6889,6 +6882,9 @@ void BusInfo::DestroyActive() {
     case Tag::THUNDERBOLT_BUS_INFO:
 
       delete data_.thunderbolt_bus_info;
+      break;
+    case Tag::UNMAPPED_FIELD:
+
       break;
   }
 }
@@ -7102,6 +7098,57 @@ bool InputResult::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context, false);
 }
+SensorResult::SensorResult() : tag_(Tag::SENSOR_INFO) {
+  data_.sensor_info = new SensorInfoPtr;
+}
+
+SensorResult::~SensorResult() {
+  DestroyActive();
+}
+
+
+void SensorResult::set_sensor_info(
+    SensorInfoPtr sensor_info) {
+  if (tag_ == Tag::SENSOR_INFO) {
+    *(data_.sensor_info) = std::move(sensor_info);
+  } else {
+    DestroyActive();
+    tag_ = Tag::SENSOR_INFO;
+    data_.sensor_info = new SensorInfoPtr(
+        std::move(sensor_info));
+  }
+}
+void SensorResult::set_error(
+    ProbeErrorPtr error) {
+  if (tag_ == Tag::ERROR) {
+    *(data_.error) = std::move(error);
+  } else {
+    DestroyActive();
+    tag_ = Tag::ERROR;
+    data_.error = new ProbeErrorPtr(
+        std::move(error));
+  }
+}
+
+void SensorResult::DestroyActive() {
+  switch (tag_) {
+
+    case Tag::SENSOR_INFO:
+
+      delete data_.sensor_info;
+      break;
+    case Tag::ERROR:
+
+      delete data_.error;
+      break;
+  }
+}
+
+bool SensorResult::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context, false);
+}
 
 
 }  // namespace mojom
@@ -7175,6 +7222,8 @@ bool StructTraits<::chromeos::cros_healthd::mojom::ProcessInfo::DataView, ::chro
         result->process_group_id = input.process_group_id();
       if (success)
         result->threads = input.threads();
+      if (success)
+        result->process_id = input.process_id();
   *output = std::move(result);
   return success;
 }
@@ -7636,42 +7685,6 @@ bool StructTraits<::chromeos::cros_healthd::mojom::SystemInfo::DataView, ::chrom
     ::chromeos::cros_healthd::mojom::SystemInfoPtr* output) {
   bool success = true;
   ::chromeos::cros_healthd::mojom::SystemInfoPtr result(::chromeos::cros_healthd::mojom::SystemInfo::New());
-  
-      if (success && !input.ReadFirstPowerDate(&result->first_power_date))
-        success = false;
-      if (success && !input.ReadManufactureDate(&result->manufacture_date))
-        success = false;
-      if (success && !input.ReadProductSkuNumber(&result->product_sku_number))
-        success = false;
-      if (success && !input.ReadProductSerialNumber(&result->product_serial_number))
-        success = false;
-      if (success && !input.ReadProductModelName(&result->product_model_name))
-        success = false;
-      if (success && !input.ReadMarketingName(&result->marketing_name))
-        success = false;
-      if (success && !input.ReadBiosVersion(&result->bios_version))
-        success = false;
-      if (success && !input.ReadBoardName(&result->board_name))
-        success = false;
-      if (success && !input.ReadBoardVersion(&result->board_version))
-        success = false;
-      if (success && !input.ReadChassisType(&result->chassis_type))
-        success = false;
-      if (success && !input.ReadProductName(&result->product_name))
-        success = false;
-      if (success && !input.ReadOsVersion(&result->os_version))
-        success = false;
-  *output = std::move(result);
-  return success;
-}
-
-
-// static
-bool StructTraits<::chromeos::cros_healthd::mojom::SystemInfoV2::DataView, ::chromeos::cros_healthd::mojom::SystemInfoV2Ptr>::Read(
-    ::chromeos::cros_healthd::mojom::SystemInfoV2::DataView input,
-    ::chromeos::cros_healthd::mojom::SystemInfoV2Ptr* output) {
-  bool success = true;
-  ::chromeos::cros_healthd::mojom::SystemInfoV2Ptr result(::chromeos::cros_healthd::mojom::SystemInfoV2::New());
   
       if (success && !input.ReadOsInfo(&result->os_info))
         success = false;
@@ -8413,6 +8426,20 @@ bool StructTraits<::chromeos::cros_healthd::mojom::InputDevice::DataView, ::chro
 
 
 // static
+bool StructTraits<::chromeos::cros_healthd::mojom::SensorInfo::DataView, ::chromeos::cros_healthd::mojom::SensorInfoPtr>::Read(
+    ::chromeos::cros_healthd::mojom::SensorInfo::DataView input,
+    ::chromeos::cros_healthd::mojom::SensorInfoPtr* output) {
+  bool success = true;
+  ::chromeos::cros_healthd::mojom::SensorInfoPtr result(::chromeos::cros_healthd::mojom::SensorInfo::New());
+  
+      if (success && !input.ReadLidAngle(&result->lid_angle))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
 bool StructTraits<::chromeos::cros_healthd::mojom::TelemetryInfo::DataView, ::chromeos::cros_healthd::mojom::TelemetryInfoPtr>::Read(
     ::chromeos::cros_healthd::mojom::TelemetryInfo::DataView input,
     ::chromeos::cros_healthd::mojom::TelemetryInfoPtr* output) {
@@ -8437,7 +8464,7 @@ bool StructTraits<::chromeos::cros_healthd::mojom::TelemetryInfo::DataView, ::ch
         success = false;
       if (success && !input.ReadBluetoothResult(&result->bluetooth_result))
         success = false;
-      if (success && !input.ReadSystemResult(&result->system_result))
+      if (success && !input.ReadDeprecateSystemResult(&result->deprecate_system_result))
         success = false;
       if (success && !input.ReadNetworkResult(&result->network_result))
         success = false;
@@ -8447,7 +8474,7 @@ bool StructTraits<::chromeos::cros_healthd::mojom::TelemetryInfo::DataView, ::ch
         success = false;
       if (success && !input.ReadBusResult(&result->bus_result))
         success = false;
-      if (success && !input.ReadSystemResultV2(&result->system_result_v2))
+      if (success && !input.ReadSystemResult(&result->system_result))
         success = false;
       if (success && !input.ReadTpmResult(&result->tpm_result))
         success = false;
@@ -8461,6 +8488,8 @@ bool StructTraits<::chromeos::cros_healthd::mojom::TelemetryInfo::DataView, ::ch
         success = false;
       if (success && !input.ReadAudioHardwareResult(&result->audio_hardware_result))
         success = false;
+      if (success && !input.ReadSensorResult(&result->sensor_result))
+        success = false;
   *output = std::move(result);
   return success;
 }
@@ -8473,10 +8502,6 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::ProcessResult::DataView, ::chr
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
-    case Tag::UNMAPPED_FIELD: {
-      *output = UnionType::NewUnmappedField(input.unmapped_field());
-      break;
-    }
     case Tag::PROCESS_INFO: {
       ::chromeos::cros_healthd::mojom::ProcessInfoPtr result_process_info;
       if (!input.ReadProcessInfo(&result_process_info))
@@ -8497,8 +8522,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::ProcessResult::DataView, ::chr
     }
     default:
 
-      *output = UnionType::NewUnmappedField({});
-      return true;
+      return false;
   }
   return true;
 }
@@ -8591,6 +8615,10 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::BlockDeviceVendor::DataView, :
     }
     case Tag::UNKNOWN: {
       *output = UnionType::NewUnknown(input.unknown());
+      break;
+    }
+    case Tag::JEDEC_MANFID: {
+      *output = UnionType::NewJedecManfid(input.jedec_manfid());
       break;
     }
     default:
@@ -8687,6 +8715,10 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::BlockDeviceFirmware::DataView,
     }
     case Tag::UNKNOWN: {
       *output = UnionType::NewUnknown(input.unknown());
+      break;
+    }
+    case Tag::UFS_FWREV: {
+      *output = UnionType::NewUfsFwrev(input.ufs_fwrev());
       break;
     }
     default:
@@ -8929,22 +8961,13 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::BluetoothResult::DataView, ::c
 }
 
 // static
-bool UnionTraits<::chromeos::cros_healthd::mojom::SystemResult::DataView, ::chromeos::cros_healthd::mojom::SystemResultPtr>::Read(
-    ::chromeos::cros_healthd::mojom::SystemResult::DataView input,
-    ::chromeos::cros_healthd::mojom::SystemResultPtr* output) {
-  using UnionType = ::chromeos::cros_healthd::mojom::SystemResult;
+bool UnionTraits<::chromeos::cros_healthd::mojom::DEPRECATE_SystemResult::DataView, ::chromeos::cros_healthd::mojom::DEPRECATE_SystemResultPtr>::Read(
+    ::chromeos::cros_healthd::mojom::DEPRECATE_SystemResult::DataView input,
+    ::chromeos::cros_healthd::mojom::DEPRECATE_SystemResultPtr* output) {
+  using UnionType = ::chromeos::cros_healthd::mojom::DEPRECATE_SystemResult;
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
-    case Tag::SYSTEM_INFO: {
-      ::chromeos::cros_healthd::mojom::SystemInfoPtr result_system_info;
-      if (!input.ReadSystemInfo(&result_system_info))
-        return false;
-
-      *output = UnionType::NewSystemInfo(
-          std::move(result_system_info));
-      break;
-    }
     case Tag::ERROR: {
       ::chromeos::cros_healthd::mojom::ProbeErrorPtr result_error;
       if (!input.ReadError(&result_error))
@@ -8962,20 +8985,20 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::SystemResult::DataView, ::chro
 }
 
 // static
-bool UnionTraits<::chromeos::cros_healthd::mojom::SystemResultV2::DataView, ::chromeos::cros_healthd::mojom::SystemResultV2Ptr>::Read(
-    ::chromeos::cros_healthd::mojom::SystemResultV2::DataView input,
-    ::chromeos::cros_healthd::mojom::SystemResultV2Ptr* output) {
-  using UnionType = ::chromeos::cros_healthd::mojom::SystemResultV2;
+bool UnionTraits<::chromeos::cros_healthd::mojom::SystemResult::DataView, ::chromeos::cros_healthd::mojom::SystemResultPtr>::Read(
+    ::chromeos::cros_healthd::mojom::SystemResult::DataView input,
+    ::chromeos::cros_healthd::mojom::SystemResultPtr* output) {
+  using UnionType = ::chromeos::cros_healthd::mojom::SystemResult;
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
-    case Tag::SYSTEM_INFO_V2: {
-      ::chromeos::cros_healthd::mojom::SystemInfoV2Ptr result_system_info_v2;
-      if (!input.ReadSystemInfoV2(&result_system_info_v2))
+    case Tag::SYSTEM_INFO: {
+      ::chromeos::cros_healthd::mojom::SystemInfoPtr result_system_info;
+      if (!input.ReadSystemInfo(&result_system_info))
         return false;
 
-      *output = UnionType::NewSystemInfoV2(
-          std::move(result_system_info_v2));
+      *output = UnionType::NewSystemInfo(
+          std::move(result_system_info));
       break;
     }
     case Tag::ERROR: {
@@ -9125,10 +9148,6 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::AudioHardwareResult::DataView,
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
-    case Tag::UNMAPPED_FIELD0: {
-      *output = UnionType::NewUnmappedField0(input.unmapped_field0());
-      break;
-    }
     case Tag::AUDIO_HARDWARE_INFO: {
       ::chromeos::cros_healthd::mojom::AudioHardwareInfoPtr result_audio_hardware_info;
       if (!input.ReadAudioHardwareInfo(&result_audio_hardware_info))
@@ -9255,9 +9274,14 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::BusInfo::DataView, ::chromeos:
           std::move(result_thunderbolt_bus_info));
       break;
     }
+    case Tag::UNMAPPED_FIELD: {
+      *output = UnionType::NewUnmappedField(input.unmapped_field());
+      break;
+    }
     default:
 
-      return false;
+      *output = UnionType::NewUnmappedField({});
+      return true;
   }
   return true;
 }
@@ -9376,6 +9400,39 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::InputResult::DataView, ::chrom
 
       *output = UnionType::NewInputInfo(
           std::move(result_input_info));
+      break;
+    }
+    case Tag::ERROR: {
+      ::chromeos::cros_healthd::mojom::ProbeErrorPtr result_error;
+      if (!input.ReadError(&result_error))
+        return false;
+
+      *output = UnionType::NewError(
+          std::move(result_error));
+      break;
+    }
+    default:
+
+      return false;
+  }
+  return true;
+}
+
+// static
+bool UnionTraits<::chromeos::cros_healthd::mojom::SensorResult::DataView, ::chromeos::cros_healthd::mojom::SensorResultPtr>::Read(
+    ::chromeos::cros_healthd::mojom::SensorResult::DataView input,
+    ::chromeos::cros_healthd::mojom::SensorResultPtr* output) {
+  using UnionType = ::chromeos::cros_healthd::mojom::SensorResult;
+  using Tag = UnionType::Tag;
+
+  switch (input.tag()) {
+    case Tag::SENSOR_INFO: {
+      ::chromeos::cros_healthd::mojom::SensorInfoPtr result_sensor_info;
+      if (!input.ReadSensorInfo(&result_sensor_info))
+        return false;
+
+      *output = UnionType::NewSensorInfo(
+          std::move(result_sensor_info));
       break;
     }
     case Tag::ERROR: {

@@ -70,8 +70,6 @@ class SupportedCapabilitiesDataView;
 
 class SystemInfoDataView;
 
-class SystemInfoV2DataView;
-
 class OsInfoDataView;
 
 class OsVersionDataView;
@@ -138,6 +136,8 @@ class TouchscreenDeviceDataView;
 
 class InputDeviceDataView;
 
+class SensorInfoDataView;
+
 class TelemetryInfoDataView;
 
 class ProcessResultDataView;
@@ -154,8 +154,8 @@ class BacklightResultDataView;
 class FanResultDataView;
 class StatefulPartitionResultDataView;
 class BluetoothResultDataView;
+class DEPRECATE_SystemResultDataView;
 class SystemResultDataView;
-class SystemResultV2DataView;
 class NetworkResultDataView;
 class NetworkInterfaceResultDataView;
 class NetworkInterfaceInfoDataView;
@@ -168,6 +168,7 @@ class TpmResultDataView;
 class GraphicsResultDataView;
 class DisplayResultDataView;
 class InputResultDataView;
+class SensorResultDataView;
 
 enum class CpuArchitectureEnum : int32_t;
 
@@ -273,9 +274,6 @@ using SupportedCapabilitiesPtr = mojo::InlinedStructPtr<SupportedCapabilities>;
 class SystemInfo;
 using SystemInfoPtr = mojo::StructPtr<SystemInfo>;
 
-class SystemInfoV2;
-using SystemInfoV2Ptr = mojo::StructPtr<SystemInfoV2>;
-
 class OsInfo;
 using OsInfoPtr = mojo::StructPtr<OsInfo>;
 
@@ -375,6 +373,9 @@ using TouchscreenDevicePtr = mojo::StructPtr<TouchscreenDevice>;
 class InputDevice;
 using InputDevicePtr = mojo::InlinedStructPtr<InputDevice>;
 
+class SensorInfo;
+using SensorInfoPtr = mojo::StructPtr<SensorInfo>;
+
 class TelemetryInfo;
 using TelemetryInfoPtr = mojo::StructPtr<TelemetryInfo>;
 
@@ -434,13 +435,13 @@ class BluetoothResult;
 
 using BluetoothResultPtr = mojo::StructPtr<BluetoothResult>;
 
+class DEPRECATE_SystemResult;
+
+using DEPRECATE_SystemResultPtr = mojo::StructPtr<DEPRECATE_SystemResult>;
+
 class SystemResult;
 
 using SystemResultPtr = mojo::StructPtr<SystemResult>;
-
-class SystemResultV2;
-
-using SystemResultV2Ptr = mojo::StructPtr<SystemResultV2>;
 
 class NetworkResult;
 
@@ -489,6 +490,10 @@ using DisplayResultPtr = mojo::StructPtr<DisplayResult>;
 class InputResult;
 
 using InputResultPtr = mojo::StructPtr<InputResult>;
+
+class SensorResult;
+
+using SensorResultPtr = mojo::StructPtr<SensorResult>;
 
 
 

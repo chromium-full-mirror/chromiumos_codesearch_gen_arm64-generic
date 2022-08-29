@@ -128,8 +128,10 @@ namespace cryptohome {
 
 inline bool operator==(const CryptohomeRecoveryAuthBlockState& lhs,
                        const CryptohomeRecoveryAuthBlockState& rhs) {
-  return true && lhs.hsm_payload == rhs.hsm_payload && lhs.salt == rhs.salt &&
+  return true && lhs.hsm_payload == rhs.hsm_payload &&
          lhs.encrypted_destination_share == rhs.encrypted_destination_share &&
+         lhs.extended_pcr_bound_destination_share ==
+             rhs.extended_pcr_bound_destination_share &&
          lhs.channel_pub_key == rhs.channel_pub_key &&
          lhs.encrypted_channel_priv_key == rhs.encrypted_channel_priv_key &&
          lhs.encrypted_rsa_priv_key == rhs.encrypted_rsa_priv_key;

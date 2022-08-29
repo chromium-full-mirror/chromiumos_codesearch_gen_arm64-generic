@@ -1220,6 +1220,11 @@ uint32_t CameraHalServer::MessageToStableIPCHash_(mojo::Message& message) {
               "(Impl)cros::mojom::CameraHalServer::SetCameraSWPrivacySwitchState");
       return value;
     }
+    case internal::kCameraHalServer_GetAutoFramingSupported_Name: {
+      constexpr uint32_t value = base::MD5Hash32Constexpr(
+              "(Impl)cros::mojom::CameraHalServer::GetAutoFramingSupported");
+      return value;
+    }
   }
   return 0;
 }
@@ -1240,6 +1245,8 @@ const char* CameraHalServer::MessageToMethodName_(mojo::Message& message) {
             return "Receive cros::mojom::CameraHalServer::GetCameraSWPrivacySwitchState";
       case internal::kCameraHalServer_SetCameraSWPrivacySwitchState_Name:
             return "Receive cros::mojom::CameraHalServer::SetCameraSWPrivacySwitchState";
+      case internal::kCameraHalServer_GetAutoFramingSupported_Name:
+            return "Receive cros::mojom::CameraHalServer::GetAutoFramingSupported";
     }
   } else {
     switch (message.name()) {
@@ -1253,6 +1260,8 @@ const char* CameraHalServer::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply cros::mojom::CameraHalServer::GetCameraSWPrivacySwitchState";
       case internal::kCameraHalServer_SetCameraSWPrivacySwitchState_Name:
             return "Receive reply cros::mojom::CameraHalServer::SetCameraSWPrivacySwitchState";
+      case internal::kCameraHalServer_GetAutoFramingSupported_Name:
+            return "Receive reply cros::mojom::CameraHalServer::GetAutoFramingSupported";
     }
   }
   return "Receive unknown mojo message";
@@ -1280,6 +1289,22 @@ class CameraHalServer_GetCameraSWPrivacySwitchState_ForwardToCallback
   bool Accept(mojo::Message* message) override;
  private:
   CameraHalServer::GetCameraSWPrivacySwitchStateCallback callback_;
+};
+
+class CameraHalServer_GetAutoFramingSupported_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  CameraHalServer_GetAutoFramingSupported_ForwardToCallback(
+      CameraHalServer::GetAutoFramingSupportedCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  CameraHalServer_GetAutoFramingSupported_ForwardToCallback(const CameraHalServer_GetAutoFramingSupported_ForwardToCallback&) = delete;
+  CameraHalServer_GetAutoFramingSupported_ForwardToCallback& operator=(const CameraHalServer_GetAutoFramingSupported_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  CameraHalServer::GetAutoFramingSupportedCallback callback_;
 };
 
 CameraHalServerProxy::CameraHalServerProxy(mojo::MessageReceiverWithResponder* receiver)
@@ -1480,6 +1505,37 @@ void CameraHalServerProxy::SetCameraSWPrivacySwitchState(
   // encountered an error, which will be visible through other means.
   ::mojo::internal::SendMessage(*receiver_, message);
 }
+
+void CameraHalServerProxy::GetAutoFramingSupported(
+    GetAutoFramingSupportedCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send cros::mojom::CameraHalServer::GetAutoFramingSupported");
+#endif
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kCameraHalServer_GetAutoFramingSupported_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::cros::mojom::internal::CameraHalServer_GetAutoFramingSupported_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(CameraHalServer::Name_);
+  message.set_method_name("GetAutoFramingSupported");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new CameraHalServer_GetAutoFramingSupported_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+}
 class CameraHalServer_GetCameraSWPrivacySwitchState_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
   static CameraHalServer::GetCameraSWPrivacySwitchStateCallback CreateCallback(
@@ -1582,6 +1638,120 @@ void CameraHalServer_GetCameraSWPrivacySwitchState_ProxyToResponder::Run(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(CameraHalServer::Name_);
   message.set_method_name("GetCameraSWPrivacySwitchState");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMessage(*responder_, message);
+  // SendMessage fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class CameraHalServer_GetAutoFramingSupported_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static CameraHalServer::GetAutoFramingSupportedCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<CameraHalServer_GetAutoFramingSupported_ProxyToResponder> proxy(
+        new CameraHalServer_GetAutoFramingSupported_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&CameraHalServer_GetAutoFramingSupported_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~CameraHalServer_GetAutoFramingSupported_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  CameraHalServer_GetAutoFramingSupported_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "CameraHalServer::GetAutoFramingSupportedCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      bool in_supported);
+};
+
+bool CameraHalServer_GetAutoFramingSupported_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::CameraHalServer_GetAutoFramingSupported_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::CameraHalServer_GetAutoFramingSupported_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  bool p_supported{};
+  CameraHalServer_GetAutoFramingSupported_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success)
+    p_supported = input_data_view.supported();
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        CameraHalServer::Name_, 5, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_supported));
+  return true;
+}
+
+void CameraHalServer_GetAutoFramingSupported_ProxyToResponder::Run(
+    bool in_supported) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply cros::mojom::CameraHalServer::GetAutoFramingSupported", "async_response_parameters",
+    [&](perfetto_libchrome::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("supported"), in_supported,
+                        "<value of type bool>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kCameraHalServer_GetAutoFramingSupported_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::cros::mojom::internal::CameraHalServer_GetAutoFramingSupported_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  params->supported = in_supported;
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(CameraHalServer::Name_);
+  message.set_method_name("GetAutoFramingSupported");
 #endif
 
   message.set_request_id(request_id_);
@@ -1714,6 +1884,9 @@ std::move(p_state));
 std::move(p_state));
       return true;
     }
+    case internal::kCameraHalServer_GetAutoFramingSupported_Name: {
+      break;
+    }
   }
   return false;
 }
@@ -1764,6 +1937,31 @@ bool CameraHalServerStubDispatch::AcceptWithResponder(
     case internal::kCameraHalServer_SetCameraSWPrivacySwitchState_Name: {
       break;
     }
+    case internal::kCameraHalServer_GetAutoFramingSupported_Name: {
+
+      internal::CameraHalServer_GetAutoFramingSupported_Params_Data* params =
+          reinterpret_cast<
+              internal::CameraHalServer_GetAutoFramingSupported_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      CameraHalServer_GetAutoFramingSupported_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            CameraHalServer::Name_, 5, false);
+        return false;
+      }
+      CameraHalServer::GetAutoFramingSupportedCallback callback =
+          CameraHalServer_GetAutoFramingSupported_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->GetAutoFramingSupported(std::move(callback));
+      return true;
+    }
   }
   return false;
 }
@@ -1780,6 +1978,8 @@ static const mojo::internal::GenericValidationInfo kCameraHalServerValidationInf
      &internal::CameraHalServer_GetCameraSWPrivacySwitchState_ResponseParams_Data::Validate},
     {&internal::CameraHalServer_SetCameraSWPrivacySwitchState_Params_Data::Validate,
      nullptr /* no response */},
+    {&internal::CameraHalServer_GetAutoFramingSupported_Params_Data::Validate,
+     &internal::CameraHalServer_GetAutoFramingSupported_ResponseParams_Data::Validate},
 };
 
 bool CameraHalServerRequestValidator::Accept(mojo::Message* message) {
@@ -2379,6 +2579,9 @@ void CameraHalServerInterceptorForTesting::GetCameraSWPrivacySwitchState(GetCame
 void CameraHalServerInterceptorForTesting::SetCameraSWPrivacySwitchState(CameraPrivacySwitchState state) {
   GetForwardingInterface()->SetCameraSWPrivacySwitchState(std::move(state));
 }
+void CameraHalServerInterceptorForTesting::GetAutoFramingSupported(GetAutoFramingSupportedCallback callback) {
+  GetForwardingInterface()->GetAutoFramingSupported(std::move(callback));
+}
 CameraHalServerAsyncWaiter::CameraHalServerAsyncWaiter(
     CameraHalServer* proxy) : proxy_(proxy) {}
 
@@ -2397,6 +2600,21 @@ void CameraHalServerAsyncWaiter::GetCameraSWPrivacySwitchState(
           },
           &loop,
           out_state));
+  loop.Run();
+}
+void CameraHalServerAsyncWaiter::GetAutoFramingSupported(
+    bool* out_supported) {
+  base::RunLoop loop;
+  proxy_->GetAutoFramingSupported(
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             bool* out_supported
+,
+             bool supported) {*out_supported = std::move(supported);
+            loop->Quit();
+          },
+          &loop,
+          out_supported));
   loop.Run();
 }
 

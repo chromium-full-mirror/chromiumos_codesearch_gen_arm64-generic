@@ -374,9 +374,11 @@ struct ToFlatBuffer<::cryptohome::CryptohomeRecoveryAuthBlockState> {
       const ::cryptohome::CryptohomeRecoveryAuthBlockState& object) const {
     auto hsm_payload =
         ToFlatBuffer<brillo::SecureBlob>()(builder, object.hsm_payload);
-    auto salt = ToFlatBuffer<brillo::SecureBlob>()(builder, object.salt);
     auto encrypted_destination_share = ToFlatBuffer<brillo::SecureBlob>()(
         builder, object.encrypted_destination_share);
+    auto extended_pcr_bound_destination_share =
+        ToFlatBuffer<brillo::SecureBlob>()(
+            builder, object.extended_pcr_bound_destination_share);
     auto channel_pub_key =
         ToFlatBuffer<brillo::SecureBlob>()(builder, object.channel_pub_key);
     auto encrypted_channel_priv_key = ToFlatBuffer<brillo::SecureBlob>()(
@@ -385,8 +387,9 @@ struct ToFlatBuffer<::cryptohome::CryptohomeRecoveryAuthBlockState> {
         builder, object.encrypted_rsa_priv_key);
 
     return ::cryptohome::_serialized_::CreateCryptohomeRecoveryAuthBlockState(
-        *builder, hsm_payload, salt, encrypted_destination_share,
-        channel_pub_key, encrypted_channel_priv_key, encrypted_rsa_priv_key);
+        *builder, hsm_payload, encrypted_destination_share,
+        extended_pcr_bound_destination_share, channel_pub_key,
+        encrypted_channel_priv_key, encrypted_rsa_priv_key);
   }
 };
 
@@ -405,9 +408,11 @@ struct FromFlatBuffer<::cryptohome::CryptohomeRecoveryAuthBlockState> {
     return ::cryptohome::CryptohomeRecoveryAuthBlockState{
         .hsm_payload =
             FromFlatBuffer<brillo::SecureBlob>()(object->hsm_payload()),
-        .salt = FromFlatBuffer<brillo::SecureBlob>()(object->salt()),
         .encrypted_destination_share = FromFlatBuffer<brillo::SecureBlob>()(
             object->encrypted_destination_share()),
+        .extended_pcr_bound_destination_share =
+            FromFlatBuffer<brillo::SecureBlob>()(
+                object->extended_pcr_bound_destination_share()),
         .channel_pub_key =
             FromFlatBuffer<brillo::SecureBlob>()(object->channel_pub_key()),
         .encrypted_channel_priv_key = FromFlatBuffer<brillo::SecureBlob>()(

@@ -49,7 +49,6 @@ class BluetoothAdapterInfo_Data;
 class BluetoothDeviceInfo_Data;
 class SupportedCapabilities_Data;
 class SystemInfo_Data;
-class SystemInfoV2_Data;
 class OsInfo_Data;
 class OsVersion_Data;
 class VpdInfo_Data;
@@ -83,6 +82,7 @@ class ThunderboltBusInfo_Data;
 class InputInfo_Data;
 class TouchscreenDevice_Data;
 class InputDevice_Data;
+class SensorInfo_Data;
 class TelemetryInfo_Data;
 class ProcessResult_Data;
 class BatteryResult_Data;
@@ -98,8 +98,8 @@ class BacklightResult_Data;
 class FanResult_Data;
 class StatefulPartitionResult_Data;
 class BluetoothResult_Data;
+class DEPRECATE_SystemResult_Data;
 class SystemResult_Data;
-class SystemResultV2_Data;
 class NetworkResult_Data;
 class NetworkInterfaceResult_Data;
 class NetworkInterfaceInfo_Data;
@@ -112,6 +112,7 @@ class TpmResult_Data;
 class GraphicsResult_Data;
 class DisplayResult_Data;
 class InputResult_Data;
+class SensorResult_Data;
 
 struct CpuArchitectureEnum_Data {
  public:
@@ -166,7 +167,7 @@ struct ProbeCategoryEnum_Data {
       case 18:
       case 19:
       case 20:
-      case 65536:
+      case 21:
         return true;
     }
     return false;
@@ -654,10 +655,6 @@ class  ProcessResult_Data {
   enum class ProcessResult_Tag : uint32_t {
 
     
-    UNMAPPED_FIELD,
-    
-    kUnmappedField = UNMAPPED_FIELD,
-    
     PROCESS_INFO,
     
     kProcessInfo = PROCESS_INFO,
@@ -672,7 +669,6 @@ class  ProcessResult_Data {
   // a struct." - Section 9.5.2 ISO/IEC 14882:2011 (The C++ Spec)
   union MOJO_ALIGNAS(8) Union_ {
     Union_() : unknown(0) {}
-    uint8_t f_unmapped_field : 1;
     mojo::internal::Pointer<internal::ProcessInfo_Data> f_process_info;
     mojo::internal::Pointer<internal::ProbeError_Data> f_error;
     uint64_t unknown;
@@ -842,6 +838,10 @@ class  BlockDeviceVendor_Data {
     UNKNOWN,
     
     kUnknown = UNKNOWN,
+    
+    JEDEC_MANFID,
+    
+    kJedecManfid = JEDEC_MANFID,
   };
 
   // A note on layout:
@@ -853,6 +853,7 @@ class  BlockDeviceVendor_Data {
     uint16_t f_emmc_oemid;
     uint16_t f_other;
     uint64_t f_unknown;
+    uint16_t f_jedec_manfid;
     uint64_t unknown;
   };
 
@@ -1040,6 +1041,10 @@ class  BlockDeviceFirmware_Data {
     UNKNOWN,
     
     kUnknown = UNKNOWN,
+    
+    UFS_FWREV,
+    
+    kUfsFwrev = UFS_FWREV,
   };
 
   // A note on layout:
@@ -1051,6 +1056,7 @@ class  BlockDeviceFirmware_Data {
     uint64_t f_emmc_fwrev;
     uint16_t f_other;
     uint64_t f_unknown;
+    uint64_t f_ufs_fwrev;
     uint64_t unknown;
   };
 
@@ -1454,6 +1460,57 @@ static_assert(sizeof(BluetoothResult_Data) == mojo::internal::kUnionDataSize,
               "Bad sizeof(BluetoothResult_Data)");
 
 
+class  DEPRECATE_SystemResult_Data {
+ public:
+  // Used to identify Mojom Union Data Classes.
+  typedef void MojomUnionDataType;
+
+  DEPRECATE_SystemResult_Data() = default;
+  // Do nothing in the destructor since it won't be called when it is a
+  // non-inlined union.
+  ~DEPRECATE_SystemResult_Data() = default;
+
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context,
+                       bool inlined);
+
+  bool is_null() const { return size == 0; }
+
+  void set_null() {
+    size = 0U;
+    tag = static_cast<DEPRECATE_SystemResult_Tag>(0);
+    data.unknown = 0U;
+  }
+
+  // TODO(crbug.com/1148486): SHOUTY_CASE values are being deprecated per C++ code style
+  // guidelines (https://google.github.io/styleguide/cppguide.html#Enumerator_Names),
+  // please use kCamelCase values instead.  Cleanup NULL_VALUE, BOOL_VALUE, INT_VALUE, etc.
+  // generation once codebase is transitioned to kNullValue, kBoolValue, kIntValue, etc.
+  enum class DEPRECATE_SystemResult_Tag : uint32_t {
+
+    
+    ERROR,
+    
+    kError = ERROR,
+  };
+
+  // A note on layout:
+  // "Each non-static data member is allocated as if it were the sole member of
+  // a struct." - Section 9.5.2 ISO/IEC 14882:2011 (The C++ Spec)
+  union MOJO_ALIGNAS(8) Union_ {
+    Union_() : unknown(0) {}
+    mojo::internal::Pointer<internal::ProbeError_Data> f_error;
+    uint64_t unknown;
+  };
+
+  uint32_t size;
+  DEPRECATE_SystemResult_Tag tag;
+  Union_ data;
+};
+static_assert(sizeof(DEPRECATE_SystemResult_Data) == mojo::internal::kUnionDataSize,
+              "Bad sizeof(DEPRECATE_SystemResult_Data)");
+
+
 class  SystemResult_Data {
  public:
   // Used to identify Mojom Union Data Classes.
@@ -1508,62 +1565,6 @@ class  SystemResult_Data {
 };
 static_assert(sizeof(SystemResult_Data) == mojo::internal::kUnionDataSize,
               "Bad sizeof(SystemResult_Data)");
-
-
-class  SystemResultV2_Data {
- public:
-  // Used to identify Mojom Union Data Classes.
-  typedef void MojomUnionDataType;
-
-  SystemResultV2_Data() = default;
-  // Do nothing in the destructor since it won't be called when it is a
-  // non-inlined union.
-  ~SystemResultV2_Data() = default;
-
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context,
-                       bool inlined);
-
-  bool is_null() const { return size == 0; }
-
-  void set_null() {
-    size = 0U;
-    tag = static_cast<SystemResultV2_Tag>(0);
-    data.unknown = 0U;
-  }
-
-  // TODO(crbug.com/1148486): SHOUTY_CASE values are being deprecated per C++ code style
-  // guidelines (https://google.github.io/styleguide/cppguide.html#Enumerator_Names),
-  // please use kCamelCase values instead.  Cleanup NULL_VALUE, BOOL_VALUE, INT_VALUE, etc.
-  // generation once codebase is transitioned to kNullValue, kBoolValue, kIntValue, etc.
-  enum class SystemResultV2_Tag : uint32_t {
-
-    
-    SYSTEM_INFO_V2,
-    
-    kSystemInfoV2 = SYSTEM_INFO_V2,
-    
-    ERROR,
-    
-    kError = ERROR,
-  };
-
-  // A note on layout:
-  // "Each non-static data member is allocated as if it were the sole member of
-  // a struct." - Section 9.5.2 ISO/IEC 14882:2011 (The C++ Spec)
-  union MOJO_ALIGNAS(8) Union_ {
-    Union_() : unknown(0) {}
-    mojo::internal::Pointer<internal::SystemInfoV2_Data> f_system_info_v2;
-    mojo::internal::Pointer<internal::ProbeError_Data> f_error;
-    uint64_t unknown;
-  };
-
-  uint32_t size;
-  SystemResultV2_Tag tag;
-  Union_ data;
-};
-static_assert(sizeof(SystemResultV2_Data) == mojo::internal::kUnionDataSize,
-              "Bad sizeof(SystemResultV2_Data)");
 
 
 class  NetworkResult_Data {
@@ -1814,10 +1815,6 @@ class  AudioHardwareResult_Data {
   enum class AudioHardwareResult_Tag : uint32_t {
 
     
-    UNMAPPED_FIELD0,
-    
-    kUnmappedField0 = UNMAPPED_FIELD0,
-    
     AUDIO_HARDWARE_INFO,
     
     kAudioHardwareInfo = AUDIO_HARDWARE_INFO,
@@ -1832,7 +1829,6 @@ class  AudioHardwareResult_Data {
   // a struct." - Section 9.5.2 ISO/IEC 14882:2011 (The C++ Spec)
   union MOJO_ALIGNAS(8) Union_ {
     Union_() : unknown(0) {}
-    uint8_t f_unmapped_field0 : 1;
     mojo::internal::Pointer<internal::AudioHardwareInfo_Data> f_audio_hardware_info;
     mojo::internal::Pointer<internal::ProbeError_Data> f_error;
     uint64_t unknown;
@@ -1998,6 +1994,10 @@ class  BusInfo_Data {
     THUNDERBOLT_BUS_INFO,
     
     kThunderboltBusInfo = THUNDERBOLT_BUS_INFO,
+    
+    UNMAPPED_FIELD,
+    
+    kUnmappedField = UNMAPPED_FIELD,
   };
 
   // A note on layout:
@@ -2008,6 +2008,7 @@ class  BusInfo_Data {
     mojo::internal::Pointer<internal::PciBusInfo_Data> f_pci_bus_info;
     mojo::internal::Pointer<internal::UsbBusInfo_Data> f_usb_bus_info;
     mojo::internal::Pointer<internal::ThunderboltBusInfo_Data> f_thunderbolt_bus_info;
+    uint8_t f_unmapped_field : 1;
     uint64_t unknown;
   };
 
@@ -2241,6 +2242,62 @@ class  InputResult_Data {
 };
 static_assert(sizeof(InputResult_Data) == mojo::internal::kUnionDataSize,
               "Bad sizeof(InputResult_Data)");
+
+
+class  SensorResult_Data {
+ public:
+  // Used to identify Mojom Union Data Classes.
+  typedef void MojomUnionDataType;
+
+  SensorResult_Data() = default;
+  // Do nothing in the destructor since it won't be called when it is a
+  // non-inlined union.
+  ~SensorResult_Data() = default;
+
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context,
+                       bool inlined);
+
+  bool is_null() const { return size == 0; }
+
+  void set_null() {
+    size = 0U;
+    tag = static_cast<SensorResult_Tag>(0);
+    data.unknown = 0U;
+  }
+
+  // TODO(crbug.com/1148486): SHOUTY_CASE values are being deprecated per C++ code style
+  // guidelines (https://google.github.io/styleguide/cppguide.html#Enumerator_Names),
+  // please use kCamelCase values instead.  Cleanup NULL_VALUE, BOOL_VALUE, INT_VALUE, etc.
+  // generation once codebase is transitioned to kNullValue, kBoolValue, kIntValue, etc.
+  enum class SensorResult_Tag : uint32_t {
+
+    
+    SENSOR_INFO,
+    
+    kSensorInfo = SENSOR_INFO,
+    
+    ERROR,
+    
+    kError = ERROR,
+  };
+
+  // A note on layout:
+  // "Each non-static data member is allocated as if it were the sole member of
+  // a struct." - Section 9.5.2 ISO/IEC 14882:2011 (The C++ Spec)
+  union MOJO_ALIGNAS(8) Union_ {
+    Union_() : unknown(0) {}
+    mojo::internal::Pointer<internal::SensorInfo_Data> f_sensor_info;
+    mojo::internal::Pointer<internal::ProbeError_Data> f_error;
+    uint64_t unknown;
+  };
+
+  uint32_t size;
+  SensorResult_Tag tag;
+  Union_ data;
+};
+static_assert(sizeof(SensorResult_Data) == mojo::internal::kUnionDataSize,
+              "Bad sizeof(SensorResult_Data)");
 class  ProbeError_Data {
  public:
   static bool Validate(const void* data,
@@ -2318,7 +2375,7 @@ class  ProcessInfo_Data {
   uint32_t parent_process_id;
   uint32_t process_group_id;
   uint32_t threads;
-  uint8_t padfinal_[4];
+  uint32_t process_id;
 
  private:
   friend class mojo::internal::MessageFragment<ProcessInfo_Data>;
@@ -3424,18 +3481,9 @@ class  SystemInfo_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<mojo::internal::String_Data> first_power_date;
-  mojo::internal::Pointer<mojo::internal::String_Data> manufacture_date;
-  mojo::internal::Pointer<mojo::internal::String_Data> product_sku_number;
-  mojo::internal::Pointer<mojo::internal::String_Data> product_serial_number;
-  mojo::internal::Pointer<mojo::internal::String_Data> product_model_name;
-  mojo::internal::Pointer<mojo::internal::String_Data> marketing_name;
-  mojo::internal::Pointer<mojo::internal::String_Data> bios_version;
-  mojo::internal::Pointer<mojo::internal::String_Data> board_name;
-  mojo::internal::Pointer<mojo::internal::String_Data> board_version;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::NullableUint64_Data> chassis_type;
-  mojo::internal::Pointer<mojo::internal::String_Data> product_name;
-  mojo::internal::Pointer<internal::OsVersion_Data> os_version;
+  mojo::internal::Pointer<internal::OsInfo_Data> os_info;
+  mojo::internal::Pointer<internal::VpdInfo_Data> vpd_info;
+  mojo::internal::Pointer<internal::DmiInfo_Data> dmi_info;
 
  private:
   friend class mojo::internal::MessageFragment<SystemInfo_Data>;
@@ -3443,7 +3491,7 @@ class  SystemInfo_Data {
   SystemInfo_Data();
   ~SystemInfo_Data() = delete;
 };
-static_assert(sizeof(SystemInfo_Data) == 104,
+static_assert(sizeof(SystemInfo_Data) == 32,
               "Bad sizeof(SystemInfo_Data)");
 // Used by SystemInfo::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>
@@ -3477,56 +3525,6 @@ struct SystemInfo_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     SystemInfo_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
-class  SystemInfoV2_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<internal::OsInfo_Data> os_info;
-  mojo::internal::Pointer<internal::VpdInfo_Data> vpd_info;
-  mojo::internal::Pointer<internal::DmiInfo_Data> dmi_info;
-
- private:
-  friend class mojo::internal::MessageFragment<SystemInfoV2_Data>;
-
-  SystemInfoV2_Data();
-  ~SystemInfoV2_Data() = delete;
-};
-static_assert(sizeof(SystemInfoV2_Data) == 32,
-              "Bad sizeof(SystemInfoV2_Data)");
-// Used by SystemInfoV2::WrapAsMessage to lazily serialize the struct.
-template <typename UserType, typename DataView>
-struct SystemInfoV2_UnserializedMessageContext
-    : public mojo::internal::UnserializedMessageContext {
- public:
-  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
-
-  SystemInfoV2_UnserializedMessageContext(
-    uint32_t message_name,
-    uint32_t message_flags,
-    UserType input)
-      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
-      , user_data_(std::move(input)) {}
-  ~SystemInfoV2_UnserializedMessageContext() override = default;
-
-  UserType TakeData() {
-    return std::move(user_data_);
-  }
-
- private:
-  // mojo::internal::UnserializedMessageContext:
-  void Serialize(mojo::Message& message) override {
-    mojo::internal::MessageFragment<SystemInfoV2_Data> fragment(message);
-    mojo::internal::Serialize<DataView>(user_data_, fragment);
-  }
-
-  UserType user_data_;
-};
-
-template <typename UserType, typename DataView>
-const mojo::internal::UnserializedMessageContext::Tag
-    SystemInfoV2_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  OsInfo_Data {
  public:
   static bool Validate(const void* data,
@@ -5264,6 +5262,54 @@ struct InputDevice_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     InputDevice_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  SensorInfo_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::NullableUint16_Data> lid_angle;
+
+ private:
+  friend class mojo::internal::MessageFragment<SensorInfo_Data>;
+
+  SensorInfo_Data();
+  ~SensorInfo_Data() = delete;
+};
+static_assert(sizeof(SensorInfo_Data) == 16,
+              "Bad sizeof(SensorInfo_Data)");
+// Used by SensorInfo::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct SensorInfo_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  SensorInfo_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~SensorInfo_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<SensorInfo_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    SensorInfo_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  TelemetryInfo_Data {
  public:
   static bool Validate(const void* data,
@@ -5279,18 +5325,19 @@ class  TelemetryInfo_Data {
   internal::FanResult_Data fan_result;
   internal::StatefulPartitionResult_Data stateful_partition_result;
   internal::BluetoothResult_Data bluetooth_result;
-  internal::SystemResult_Data system_result;
+  internal::DEPRECATE_SystemResult_Data deprecate_system_result;
   internal::NetworkResult_Data network_result;
   internal::AudioResult_Data audio_result;
   internal::BootPerformanceResult_Data boot_performance_result;
   internal::BusResult_Data bus_result;
-  internal::SystemResultV2_Data system_result_v2;
+  internal::SystemResult_Data system_result;
   internal::TpmResult_Data tpm_result;
   internal::GraphicsResult_Data graphics_result;
   internal::DisplayResult_Data display_result;
   internal::NetworkInterfaceResult_Data network_interface_result;
   internal::InputResult_Data input_result;
   internal::AudioHardwareResult_Data audio_hardware_result;
+  internal::SensorResult_Data sensor_result;
 
  private:
   friend class mojo::internal::MessageFragment<TelemetryInfo_Data>;
@@ -5298,7 +5345,7 @@ class  TelemetryInfo_Data {
   TelemetryInfo_Data();
   ~TelemetryInfo_Data() = delete;
 };
-static_assert(sizeof(TelemetryInfo_Data) == 344,
+static_assert(sizeof(TelemetryInfo_Data) == 360,
               "Bad sizeof(TelemetryInfo_Data)");
 // Used by TelemetryInfo::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

@@ -290,6 +290,38 @@ class  CameraHalServer_SetCameraSWPrivacySwitchState_Params_Data {
 };
 static_assert(sizeof(CameraHalServer_SetCameraSWPrivacySwitchState_Params_Data) == 16,
               "Bad sizeof(CameraHalServer_SetCameraSWPrivacySwitchState_Params_Data)");
+class  CameraHalServer_GetAutoFramingSupported_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<CameraHalServer_GetAutoFramingSupported_Params_Data>;
+
+  CameraHalServer_GetAutoFramingSupported_Params_Data();
+  ~CameraHalServer_GetAutoFramingSupported_Params_Data() = delete;
+};
+static_assert(sizeof(CameraHalServer_GetAutoFramingSupported_Params_Data) == 8,
+              "Bad sizeof(CameraHalServer_GetAutoFramingSupported_Params_Data)");
+class  CameraHalServer_GetAutoFramingSupported_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t supported : 1;
+  uint8_t padfinal_[7];
+
+ private:
+  friend class mojo::internal::MessageFragment<CameraHalServer_GetAutoFramingSupported_ResponseParams_Data>;
+
+  CameraHalServer_GetAutoFramingSupported_ResponseParams_Data();
+  ~CameraHalServer_GetAutoFramingSupported_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(CameraHalServer_GetAutoFramingSupported_ResponseParams_Data) == 16,
+              "Bad sizeof(CameraHalServer_GetAutoFramingSupported_ResponseParams_Data)");
 class  CameraHalServerCallbacks_CameraDeviceActivityChange_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -805,6 +837,41 @@ class CameraHalServer_SetCameraSWPrivacySwitchState_ParamsDataView {
 
 
 
+class CameraHalServer_GetAutoFramingSupported_ParamsDataView {
+ public:
+  CameraHalServer_GetAutoFramingSupported_ParamsDataView() = default;
+
+  CameraHalServer_GetAutoFramingSupported_ParamsDataView(
+      internal::CameraHalServer_GetAutoFramingSupported_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::CameraHalServer_GetAutoFramingSupported_Params_Data* data_ = nullptr;
+};
+
+
+
+class CameraHalServer_GetAutoFramingSupported_ResponseParamsDataView {
+ public:
+  CameraHalServer_GetAutoFramingSupported_ResponseParamsDataView() = default;
+
+  CameraHalServer_GetAutoFramingSupported_ResponseParamsDataView(
+      internal::CameraHalServer_GetAutoFramingSupported_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  bool supported() const {
+    return data_->supported;
+  }
+ private:
+  internal::CameraHalServer_GetAutoFramingSupported_ResponseParams_Data* data_ = nullptr;
+};
+
+
+
 class CameraHalServerCallbacks_CameraDeviceActivityChange_ParamsDataView {
  public:
   CameraHalServerCallbacks_CameraDeviceActivityChange_ParamsDataView() = default;
@@ -950,6 +1017,10 @@ inline void CameraHalDispatcher_RegisterSensorClientWithToken_ParamsDataView::Ge
   auto pointer = data_->auth_token.Get();
   *output = ::mojo_base::mojom::UnguessableTokenDataView(pointer, message_);
 }
+
+
+
+
 
 
 

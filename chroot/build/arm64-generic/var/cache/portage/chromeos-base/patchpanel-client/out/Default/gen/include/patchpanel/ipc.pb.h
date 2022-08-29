@@ -45,7 +45,7 @@ struct TableStruct_ipc_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[6]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[7]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -64,6 +64,9 @@ extern FeedbackMessageDefaultTypeInternal _FeedbackMessage_default_instance_;
 class GuestMessage;
 struct GuestMessageDefaultTypeInternal;
 extern GuestMessageDefaultTypeInternal _GuestMessage_default_instance_;
+class NDProxyControlMessage;
+struct NDProxyControlMessageDefaultTypeInternal;
+extern NDProxyControlMessageDefaultTypeInternal _NDProxyControlMessage_default_instance_;
 class NDProxyMessage;
 struct NDProxyMessageDefaultTypeInternal;
 extern NDProxyMessageDefaultTypeInternal _NDProxyMessage_default_instance_;
@@ -76,6 +79,7 @@ template<> ::patchpanel::ControlMessage* Arena::CreateMaybeMessage<::patchpanel:
 template<> ::patchpanel::DeviceMessage* Arena::CreateMaybeMessage<::patchpanel::DeviceMessage>(Arena*);
 template<> ::patchpanel::FeedbackMessage* Arena::CreateMaybeMessage<::patchpanel::FeedbackMessage>(Arena*);
 template<> ::patchpanel::GuestMessage* Arena::CreateMaybeMessage<::patchpanel::GuestMessage>(Arena*);
+template<> ::patchpanel::NDProxyControlMessage* Arena::CreateMaybeMessage<::patchpanel::NDProxyControlMessage>(Arena*);
 template<> ::patchpanel::NDProxyMessage* Arena::CreateMaybeMessage<::patchpanel::NDProxyMessage>(Arena*);
 template<> ::patchpanel::SubprocessMessage* Arena::CreateMaybeMessage<::patchpanel::SubprocessMessage>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
@@ -144,6 +148,28 @@ inline const std::string& NDProxyMessage_NDProxyEventType_Name(T enum_t_value) {
 }
 bool NDProxyMessage_NDProxyEventType_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, NDProxyMessage_NDProxyEventType* value);
+enum NDProxyControlMessage_NDProxyRequestType : int {
+  NDProxyControlMessage_NDProxyRequestType_UNKNOWN = 0,
+  NDProxyControlMessage_NDProxyRequestType_START_NS_NA = 1,
+  NDProxyControlMessage_NDProxyRequestType_START_NS_NA_RS_RA = 2,
+  NDProxyControlMessage_NDProxyRequestType_START_NS_NA_RS_RA_MODIFYING_ROUTER_ADDRESS = 3,
+  NDProxyControlMessage_NDProxyRequestType_STOP_PROXY = 4
+};
+bool NDProxyControlMessage_NDProxyRequestType_IsValid(int value);
+constexpr NDProxyControlMessage_NDProxyRequestType NDProxyControlMessage_NDProxyRequestType_NDProxyRequestType_MIN = NDProxyControlMessage_NDProxyRequestType_UNKNOWN;
+constexpr NDProxyControlMessage_NDProxyRequestType NDProxyControlMessage_NDProxyRequestType_NDProxyRequestType_MAX = NDProxyControlMessage_NDProxyRequestType_STOP_PROXY;
+constexpr int NDProxyControlMessage_NDProxyRequestType_NDProxyRequestType_ARRAYSIZE = NDProxyControlMessage_NDProxyRequestType_NDProxyRequestType_MAX + 1;
+
+const std::string& NDProxyControlMessage_NDProxyRequestType_Name(NDProxyControlMessage_NDProxyRequestType value);
+template<typename T>
+inline const std::string& NDProxyControlMessage_NDProxyRequestType_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, NDProxyControlMessage_NDProxyRequestType>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function NDProxyControlMessage_NDProxyRequestType_Name.");
+  return NDProxyControlMessage_NDProxyRequestType_Name(static_cast<NDProxyControlMessage_NDProxyRequestType>(enum_t_value));
+}
+bool NDProxyControlMessage_NDProxyRequestType_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, NDProxyControlMessage_NDProxyRequestType* value);
 // ===================================================================
 
 class SubprocessMessage final :
@@ -375,6 +401,7 @@ class ControlMessage final :
   enum MessageTypeCase {
     kGuestMessage = 1,
     kDeviceMessage = 2,
+    kNdproxyControl = 3,
     MESSAGE_TYPE_NOT_SET = 0,
   };
 
@@ -452,6 +479,7 @@ class ControlMessage final :
   enum : int {
     kGuestMessageFieldNumber = 1,
     kDeviceMessageFieldNumber = 2,
+    kNdproxyControlFieldNumber = 3,
   };
   // .patchpanel.GuestMessage guest_message = 1;
   bool has_guest_message() const;
@@ -489,6 +517,24 @@ class ControlMessage final :
       ::patchpanel::DeviceMessage* device_message);
   ::patchpanel::DeviceMessage* unsafe_arena_release_device_message();
 
+  // .patchpanel.NDProxyControlMessage ndproxy_control = 3;
+  bool has_ndproxy_control() const;
+  private:
+  bool _internal_has_ndproxy_control() const;
+  public:
+  void clear_ndproxy_control();
+  const ::patchpanel::NDProxyControlMessage& ndproxy_control() const;
+  PROTOBUF_NODISCARD ::patchpanel::NDProxyControlMessage* release_ndproxy_control();
+  ::patchpanel::NDProxyControlMessage* mutable_ndproxy_control();
+  void set_allocated_ndproxy_control(::patchpanel::NDProxyControlMessage* ndproxy_control);
+  private:
+  const ::patchpanel::NDProxyControlMessage& _internal_ndproxy_control() const;
+  ::patchpanel::NDProxyControlMessage* _internal_mutable_ndproxy_control();
+  public:
+  void unsafe_arena_set_allocated_ndproxy_control(
+      ::patchpanel::NDProxyControlMessage* ndproxy_control);
+  ::patchpanel::NDProxyControlMessage* unsafe_arena_release_ndproxy_control();
+
   void clear_message_type();
   MessageTypeCase message_type_case() const;
   // @@protoc_insertion_point(class_scope:patchpanel.ControlMessage)
@@ -496,6 +542,7 @@ class ControlMessage final :
   class _Internal;
   void set_has_guest_message();
   void set_has_device_message();
+  void set_has_ndproxy_control();
 
   inline bool has_message_type() const;
   inline void clear_has_message_type();
@@ -508,6 +555,7 @@ class ControlMessage final :
       ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
     ::patchpanel::GuestMessage* guest_message_;
     ::patchpanel::DeviceMessage* device_message_;
+    ::patchpanel::NDProxyControlMessage* ndproxy_control_;
   } message_type_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   uint32_t _oneof_case_[1];
@@ -1339,6 +1387,213 @@ class NDProxyMessage final :
   int type_;
   friend struct ::TableStruct_ipc_2eproto;
 };
+// -------------------------------------------------------------------
+
+class NDProxyControlMessage final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:patchpanel.NDProxyControlMessage) */ {
+ public:
+  inline NDProxyControlMessage() : NDProxyControlMessage(nullptr) {}
+  ~NDProxyControlMessage() override;
+  explicit constexpr NDProxyControlMessage(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  NDProxyControlMessage(const NDProxyControlMessage& from);
+  NDProxyControlMessage(NDProxyControlMessage&& from) noexcept
+    : NDProxyControlMessage() {
+    *this = ::std::move(from);
+  }
+
+  inline NDProxyControlMessage& operator=(const NDProxyControlMessage& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline NDProxyControlMessage& operator=(NDProxyControlMessage&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const NDProxyControlMessage& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const NDProxyControlMessage* internal_default_instance() {
+    return reinterpret_cast<const NDProxyControlMessage*>(
+               &_NDProxyControlMessage_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    6;
+
+  friend void swap(NDProxyControlMessage& a, NDProxyControlMessage& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(NDProxyControlMessage* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(NDProxyControlMessage* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  NDProxyControlMessage* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<NDProxyControlMessage>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const NDProxyControlMessage& from);
+  void MergeFrom(const NDProxyControlMessage& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(NDProxyControlMessage* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "patchpanel.NDProxyControlMessage";
+  }
+  protected:
+  explicit NDProxyControlMessage(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  typedef NDProxyControlMessage_NDProxyRequestType NDProxyRequestType;
+  static constexpr NDProxyRequestType UNKNOWN =
+    NDProxyControlMessage_NDProxyRequestType_UNKNOWN;
+  static constexpr NDProxyRequestType START_NS_NA =
+    NDProxyControlMessage_NDProxyRequestType_START_NS_NA;
+  static constexpr NDProxyRequestType START_NS_NA_RS_RA =
+    NDProxyControlMessage_NDProxyRequestType_START_NS_NA_RS_RA;
+  static constexpr NDProxyRequestType START_NS_NA_RS_RA_MODIFYING_ROUTER_ADDRESS =
+    NDProxyControlMessage_NDProxyRequestType_START_NS_NA_RS_RA_MODIFYING_ROUTER_ADDRESS;
+  static constexpr NDProxyRequestType STOP_PROXY =
+    NDProxyControlMessage_NDProxyRequestType_STOP_PROXY;
+  static inline bool NDProxyRequestType_IsValid(int value) {
+    return NDProxyControlMessage_NDProxyRequestType_IsValid(value);
+  }
+  static constexpr NDProxyRequestType NDProxyRequestType_MIN =
+    NDProxyControlMessage_NDProxyRequestType_NDProxyRequestType_MIN;
+  static constexpr NDProxyRequestType NDProxyRequestType_MAX =
+    NDProxyControlMessage_NDProxyRequestType_NDProxyRequestType_MAX;
+  static constexpr int NDProxyRequestType_ARRAYSIZE =
+    NDProxyControlMessage_NDProxyRequestType_NDProxyRequestType_ARRAYSIZE;
+  template<typename T>
+  static inline const std::string& NDProxyRequestType_Name(T enum_t_value) {
+    static_assert(::std::is_same<T, NDProxyRequestType>::value ||
+      ::std::is_integral<T>::value,
+      "Incorrect type passed to function NDProxyRequestType_Name.");
+    return NDProxyControlMessage_NDProxyRequestType_Name(enum_t_value);
+  }
+  static inline bool NDProxyRequestType_Parse(::PROTOBUF_NAMESPACE_ID::ConstStringParam name,
+      NDProxyRequestType* value) {
+    return NDProxyControlMessage_NDProxyRequestType_Parse(name, value);
+  }
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kTypeFieldNumber = 1,
+    kIfIdPrimaryFieldNumber = 2,
+    kIfIdSecondaryFieldNumber = 3,
+  };
+  // required .patchpanel.NDProxyControlMessage.NDProxyRequestType type = 1;
+  bool has_type() const;
+  private:
+  bool _internal_has_type() const;
+  public:
+  void clear_type();
+  ::patchpanel::NDProxyControlMessage_NDProxyRequestType type() const;
+  void set_type(::patchpanel::NDProxyControlMessage_NDProxyRequestType value);
+  private:
+  ::patchpanel::NDProxyControlMessage_NDProxyRequestType _internal_type() const;
+  void _internal_set_type(::patchpanel::NDProxyControlMessage_NDProxyRequestType value);
+  public:
+
+  // required int32 if_id_primary = 2;
+  bool has_if_id_primary() const;
+  private:
+  bool _internal_has_if_id_primary() const;
+  public:
+  void clear_if_id_primary();
+  int32_t if_id_primary() const;
+  void set_if_id_primary(int32_t value);
+  private:
+  int32_t _internal_if_id_primary() const;
+  void _internal_set_if_id_primary(int32_t value);
+  public:
+
+  // optional int32 if_id_secondary = 3;
+  bool has_if_id_secondary() const;
+  private:
+  bool _internal_has_if_id_secondary() const;
+  public:
+  void clear_if_id_secondary();
+  int32_t if_id_secondary() const;
+  void set_if_id_secondary(int32_t value);
+  private:
+  int32_t _internal_if_id_secondary() const;
+  void _internal_set_if_id_secondary(int32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:patchpanel.NDProxyControlMessage)
+ private:
+  class _Internal;
+
+  // helper for ByteSizeLong()
+  size_t RequiredFieldsByteSizeFallback() const;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  int type_;
+  int32_t if_id_primary_;
+  int32_t if_id_secondary_;
+  friend struct ::TableStruct_ipc_2eproto;
+};
 // ===================================================================
 
 
@@ -1656,6 +1911,80 @@ inline ::patchpanel::DeviceMessage* ControlMessage::_internal_mutable_device_mes
 inline ::patchpanel::DeviceMessage* ControlMessage::mutable_device_message() {
   ::patchpanel::DeviceMessage* _msg = _internal_mutable_device_message();
   // @@protoc_insertion_point(field_mutable:patchpanel.ControlMessage.device_message)
+  return _msg;
+}
+
+// .patchpanel.NDProxyControlMessage ndproxy_control = 3;
+inline bool ControlMessage::_internal_has_ndproxy_control() const {
+  return message_type_case() == kNdproxyControl;
+}
+inline bool ControlMessage::has_ndproxy_control() const {
+  return _internal_has_ndproxy_control();
+}
+inline void ControlMessage::set_has_ndproxy_control() {
+  _oneof_case_[0] = kNdproxyControl;
+}
+inline void ControlMessage::clear_ndproxy_control() {
+  if (_internal_has_ndproxy_control()) {
+    if (GetArenaForAllocation() == nullptr) {
+      delete message_type_.ndproxy_control_;
+    }
+    clear_has_message_type();
+  }
+}
+inline ::patchpanel::NDProxyControlMessage* ControlMessage::release_ndproxy_control() {
+  // @@protoc_insertion_point(field_release:patchpanel.ControlMessage.ndproxy_control)
+  if (_internal_has_ndproxy_control()) {
+    clear_has_message_type();
+      ::patchpanel::NDProxyControlMessage* temp = message_type_.ndproxy_control_;
+    if (GetArenaForAllocation() != nullptr) {
+      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+    }
+    message_type_.ndproxy_control_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline const ::patchpanel::NDProxyControlMessage& ControlMessage::_internal_ndproxy_control() const {
+  return _internal_has_ndproxy_control()
+      ? *message_type_.ndproxy_control_
+      : reinterpret_cast< ::patchpanel::NDProxyControlMessage&>(::patchpanel::_NDProxyControlMessage_default_instance_);
+}
+inline const ::patchpanel::NDProxyControlMessage& ControlMessage::ndproxy_control() const {
+  // @@protoc_insertion_point(field_get:patchpanel.ControlMessage.ndproxy_control)
+  return _internal_ndproxy_control();
+}
+inline ::patchpanel::NDProxyControlMessage* ControlMessage::unsafe_arena_release_ndproxy_control() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:patchpanel.ControlMessage.ndproxy_control)
+  if (_internal_has_ndproxy_control()) {
+    clear_has_message_type();
+    ::patchpanel::NDProxyControlMessage* temp = message_type_.ndproxy_control_;
+    message_type_.ndproxy_control_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline void ControlMessage::unsafe_arena_set_allocated_ndproxy_control(::patchpanel::NDProxyControlMessage* ndproxy_control) {
+  clear_message_type();
+  if (ndproxy_control) {
+    set_has_ndproxy_control();
+    message_type_.ndproxy_control_ = ndproxy_control;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:patchpanel.ControlMessage.ndproxy_control)
+}
+inline ::patchpanel::NDProxyControlMessage* ControlMessage::_internal_mutable_ndproxy_control() {
+  if (!_internal_has_ndproxy_control()) {
+    clear_message_type();
+    set_has_ndproxy_control();
+    message_type_.ndproxy_control_ = CreateMaybeMessage< ::patchpanel::NDProxyControlMessage >(GetArenaForAllocation());
+  }
+  return message_type_.ndproxy_control_;
+}
+inline ::patchpanel::NDProxyControlMessage* ControlMessage::mutable_ndproxy_control() {
+  ::patchpanel::NDProxyControlMessage* _msg = _internal_mutable_ndproxy_control();
+  // @@protoc_insertion_point(field_mutable:patchpanel.ControlMessage.ndproxy_control)
   return _msg;
 }
 
@@ -2242,9 +2571,100 @@ inline void NDProxyMessage::set_allocated_ip6addr(std::string* ip6addr) {
   // @@protoc_insertion_point(field_set_allocated:patchpanel.NDProxyMessage.ip6addr)
 }
 
+// -------------------------------------------------------------------
+
+// NDProxyControlMessage
+
+// required .patchpanel.NDProxyControlMessage.NDProxyRequestType type = 1;
+inline bool NDProxyControlMessage::_internal_has_type() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool NDProxyControlMessage::has_type() const {
+  return _internal_has_type();
+}
+inline void NDProxyControlMessage::clear_type() {
+  type_ = 0;
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline ::patchpanel::NDProxyControlMessage_NDProxyRequestType NDProxyControlMessage::_internal_type() const {
+  return static_cast< ::patchpanel::NDProxyControlMessage_NDProxyRequestType >(type_);
+}
+inline ::patchpanel::NDProxyControlMessage_NDProxyRequestType NDProxyControlMessage::type() const {
+  // @@protoc_insertion_point(field_get:patchpanel.NDProxyControlMessage.type)
+  return _internal_type();
+}
+inline void NDProxyControlMessage::_internal_set_type(::patchpanel::NDProxyControlMessage_NDProxyRequestType value) {
+  assert(::patchpanel::NDProxyControlMessage_NDProxyRequestType_IsValid(value));
+  _has_bits_[0] |= 0x00000001u;
+  type_ = value;
+}
+inline void NDProxyControlMessage::set_type(::patchpanel::NDProxyControlMessage_NDProxyRequestType value) {
+  _internal_set_type(value);
+  // @@protoc_insertion_point(field_set:patchpanel.NDProxyControlMessage.type)
+}
+
+// required int32 if_id_primary = 2;
+inline bool NDProxyControlMessage::_internal_has_if_id_primary() const {
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  return value;
+}
+inline bool NDProxyControlMessage::has_if_id_primary() const {
+  return _internal_has_if_id_primary();
+}
+inline void NDProxyControlMessage::clear_if_id_primary() {
+  if_id_primary_ = 0;
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline int32_t NDProxyControlMessage::_internal_if_id_primary() const {
+  return if_id_primary_;
+}
+inline int32_t NDProxyControlMessage::if_id_primary() const {
+  // @@protoc_insertion_point(field_get:patchpanel.NDProxyControlMessage.if_id_primary)
+  return _internal_if_id_primary();
+}
+inline void NDProxyControlMessage::_internal_set_if_id_primary(int32_t value) {
+  _has_bits_[0] |= 0x00000002u;
+  if_id_primary_ = value;
+}
+inline void NDProxyControlMessage::set_if_id_primary(int32_t value) {
+  _internal_set_if_id_primary(value);
+  // @@protoc_insertion_point(field_set:patchpanel.NDProxyControlMessage.if_id_primary)
+}
+
+// optional int32 if_id_secondary = 3;
+inline bool NDProxyControlMessage::_internal_has_if_id_secondary() const {
+  bool value = (_has_bits_[0] & 0x00000004u) != 0;
+  return value;
+}
+inline bool NDProxyControlMessage::has_if_id_secondary() const {
+  return _internal_has_if_id_secondary();
+}
+inline void NDProxyControlMessage::clear_if_id_secondary() {
+  if_id_secondary_ = 0;
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline int32_t NDProxyControlMessage::_internal_if_id_secondary() const {
+  return if_id_secondary_;
+}
+inline int32_t NDProxyControlMessage::if_id_secondary() const {
+  // @@protoc_insertion_point(field_get:patchpanel.NDProxyControlMessage.if_id_secondary)
+  return _internal_if_id_secondary();
+}
+inline void NDProxyControlMessage::_internal_set_if_id_secondary(int32_t value) {
+  _has_bits_[0] |= 0x00000004u;
+  if_id_secondary_ = value;
+}
+inline void NDProxyControlMessage::set_if_id_secondary(int32_t value) {
+  _internal_set_if_id_secondary(value);
+  // @@protoc_insertion_point(field_set:patchpanel.NDProxyControlMessage.if_id_secondary)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
@@ -2265,6 +2685,7 @@ PROTOBUF_NAMESPACE_OPEN
 template <> struct is_proto_enum< ::patchpanel::GuestMessage_GuestType> : ::std::true_type {};
 template <> struct is_proto_enum< ::patchpanel::GuestMessage_GuestEvent> : ::std::true_type {};
 template <> struct is_proto_enum< ::patchpanel::NDProxyMessage_NDProxyEventType> : ::std::true_type {};
+template <> struct is_proto_enum< ::patchpanel::NDProxyControlMessage_NDProxyRequestType> : ::std::true_type {};
 
 PROTOBUF_NAMESPACE_CLOSE
 

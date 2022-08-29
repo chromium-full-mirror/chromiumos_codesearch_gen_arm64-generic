@@ -46,7 +46,7 @@ struct TableStruct_chrome_5fdevice_5fpolicy_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[129]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[130]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -383,6 +383,9 @@ extern RevenDeviceHWDataUsageEnabledProtoDefaultTypeInternal _RevenDeviceHWDataU
 class SAMLSettingsProto;
 struct SAMLSettingsProtoDefaultTypeInternal;
 extern SAMLSettingsProtoDefaultTypeInternal _SAMLSettingsProto_default_instance_;
+class SAMLUsernameProto;
+struct SAMLUsernameProtoDefaultTypeInternal;
+extern SAMLUsernameProtoDefaultTypeInternal _SAMLUsernameProto_default_instance_;
 class ShowUserNamesOnSigninProto;
 struct ShowUserNamesOnSigninProtoDefaultTypeInternal;
 extern ShowUserNamesOnSigninProtoDefaultTypeInternal _ShowUserNamesOnSigninProto_default_instance_;
@@ -552,6 +555,7 @@ template<> ::enterprise_management::ReleaseChannelProto* Arena::CreateMaybeMessa
 template<> ::enterprise_management::RequiredClientCertificateForDeviceProto* Arena::CreateMaybeMessage<::enterprise_management::RequiredClientCertificateForDeviceProto>(Arena*);
 template<> ::enterprise_management::RevenDeviceHWDataUsageEnabledProto* Arena::CreateMaybeMessage<::enterprise_management::RevenDeviceHWDataUsageEnabledProto>(Arena*);
 template<> ::enterprise_management::SAMLSettingsProto* Arena::CreateMaybeMessage<::enterprise_management::SAMLSettingsProto>(Arena*);
+template<> ::enterprise_management::SAMLUsernameProto* Arena::CreateMaybeMessage<::enterprise_management::SAMLUsernameProto>(Arena*);
 template<> ::enterprise_management::ShowUserNamesOnSigninProto* Arena::CreateMaybeMessage<::enterprise_management::ShowUserNamesOnSigninProto>(Arena*);
 template<> ::enterprise_management::SystemProxySettingsProto* Arena::CreateMaybeMessage<::enterprise_management::SystemProxySettingsProto>(Arena*);
 template<> ::enterprise_management::SystemSettingsProto* Arena::CreateMaybeMessage<::enterprise_management::SystemSettingsProto>(Arena*);
@@ -3233,6 +3237,7 @@ class DeviceReportingProto final :
   // accessors -------------------------------------------------------
 
   enum : int {
+    kReportSignalStrengthEventDrivenTelemetryFieldNumber = 38,
     kReportLocationFieldNumber = 4,
     kReportOsUpdateStatusFieldNumber = 10,
     kReportRunningKioskAppFieldNumber = 11,
@@ -3271,6 +3276,24 @@ class DeviceReportingProto final :
     kReportNetworkTelemetryEventCheckingRateMsFieldNumber = 34,
     kReportDeviceAudioStatusCheckingRateMsFieldNumber = 35,
   };
+  // optional .enterprise_management.StringList report_signal_strength_event_driven_telemetry = 38;
+  bool has_report_signal_strength_event_driven_telemetry() const;
+  private:
+  bool _internal_has_report_signal_strength_event_driven_telemetry() const;
+  public:
+  void clear_report_signal_strength_event_driven_telemetry();
+  const ::enterprise_management::StringList& report_signal_strength_event_driven_telemetry() const;
+  PROTOBUF_NODISCARD ::enterprise_management::StringList* release_report_signal_strength_event_driven_telemetry();
+  ::enterprise_management::StringList* mutable_report_signal_strength_event_driven_telemetry();
+  void set_allocated_report_signal_strength_event_driven_telemetry(::enterprise_management::StringList* report_signal_strength_event_driven_telemetry);
+  private:
+  const ::enterprise_management::StringList& _internal_report_signal_strength_event_driven_telemetry() const;
+  ::enterprise_management::StringList* _internal_mutable_report_signal_strength_event_driven_telemetry();
+  public:
+  void unsafe_arena_set_allocated_report_signal_strength_event_driven_telemetry(
+      ::enterprise_management::StringList* report_signal_strength_event_driven_telemetry);
+  ::enterprise_management::StringList* unsafe_arena_release_report_signal_strength_event_driven_telemetry();
+
   // optional bool report_location = 4 [default = false];
   bool has_report_location() const;
   private:
@@ -3761,6 +3784,7 @@ class DeviceReportingProto final :
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::HasBits<2> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::enterprise_management::StringList* report_signal_strength_event_driven_telemetry_;
   bool report_location_;
   bool report_os_update_status_;
   bool report_running_kiosk_app_;
@@ -9280,25 +9304,25 @@ class SAMLSettingsProto final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kUrlParameterToAutofillSamlUsernameFieldNumber = 2,
+    kOBSOLETEUrlParameterToAutofillSamlUsernameFieldNumber = 2,
     kTransferSamlCookiesFieldNumber = 1,
   };
-  // optional string url_parameter_to_autofill_saml_username = 2;
-  bool has_url_parameter_to_autofill_saml_username() const;
+  // optional string OBSOLETE_url_parameter_to_autofill_saml_username = 2 [deprecated = true];
+  PROTOBUF_DEPRECATED bool has_obsolete_url_parameter_to_autofill_saml_username() const;
   private:
-  bool _internal_has_url_parameter_to_autofill_saml_username() const;
+  bool _internal_has_obsolete_url_parameter_to_autofill_saml_username() const;
   public:
-  void clear_url_parameter_to_autofill_saml_username();
-  const std::string& url_parameter_to_autofill_saml_username() const;
+  PROTOBUF_DEPRECATED void clear_obsolete_url_parameter_to_autofill_saml_username();
+  PROTOBUF_DEPRECATED const std::string& obsolete_url_parameter_to_autofill_saml_username() const;
   template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_url_parameter_to_autofill_saml_username(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_url_parameter_to_autofill_saml_username();
-  PROTOBUF_NODISCARD std::string* release_url_parameter_to_autofill_saml_username();
-  void set_allocated_url_parameter_to_autofill_saml_username(std::string* url_parameter_to_autofill_saml_username);
+  PROTOBUF_DEPRECATED void set_obsolete_url_parameter_to_autofill_saml_username(ArgT0&& arg0, ArgT... args);
+  PROTOBUF_DEPRECATED std::string* mutable_obsolete_url_parameter_to_autofill_saml_username();
+  PROTOBUF_NODISCARD PROTOBUF_DEPRECATED std::string* release_obsolete_url_parameter_to_autofill_saml_username();
+  PROTOBUF_DEPRECATED void set_allocated_obsolete_url_parameter_to_autofill_saml_username(std::string* obsolete_url_parameter_to_autofill_saml_username);
   private:
-  const std::string& _internal_url_parameter_to_autofill_saml_username() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_url_parameter_to_autofill_saml_username(const std::string& value);
-  std::string* _internal_mutable_url_parameter_to_autofill_saml_username();
+  const std::string& _internal_obsolete_url_parameter_to_autofill_saml_username() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_obsolete_url_parameter_to_autofill_saml_username(const std::string& value);
+  std::string* _internal_mutable_obsolete_url_parameter_to_autofill_saml_username();
   public:
 
   // optional bool transfer_saml_cookies = 1;
@@ -9323,8 +9347,155 @@ class SAMLSettingsProto final :
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr url_parameter_to_autofill_saml_username_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr obsolete_url_parameter_to_autofill_saml_username_;
   bool transfer_saml_cookies_;
+  friend struct ::TableStruct_chrome_5fdevice_5fpolicy_2eproto;
+};
+// -------------------------------------------------------------------
+
+class SAMLUsernameProto final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:enterprise_management.SAMLUsernameProto) */ {
+ public:
+  inline SAMLUsernameProto() : SAMLUsernameProto(nullptr) {}
+  ~SAMLUsernameProto() override;
+  explicit constexpr SAMLUsernameProto(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  SAMLUsernameProto(const SAMLUsernameProto& from);
+  SAMLUsernameProto(SAMLUsernameProto&& from) noexcept
+    : SAMLUsernameProto() {
+    *this = ::std::move(from);
+  }
+
+  inline SAMLUsernameProto& operator=(const SAMLUsernameProto& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline SAMLUsernameProto& operator=(SAMLUsernameProto&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const SAMLUsernameProto& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const SAMLUsernameProto* internal_default_instance() {
+    return reinterpret_cast<const SAMLUsernameProto*>(
+               &_SAMLUsernameProto_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    43;
+
+  friend void swap(SAMLUsernameProto& a, SAMLUsernameProto& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(SAMLUsernameProto* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(SAMLUsernameProto* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  SAMLUsernameProto* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<SAMLUsernameProto>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const SAMLUsernameProto& from);
+  void MergeFrom(const SAMLUsernameProto& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(SAMLUsernameProto* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "enterprise_management.SAMLUsernameProto";
+  }
+  protected:
+  explicit SAMLUsernameProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kUrlParameterToAutofillSamlUsernameFieldNumber = 1,
+  };
+  // optional string url_parameter_to_autofill_saml_username = 1;
+  bool has_url_parameter_to_autofill_saml_username() const;
+  private:
+  bool _internal_has_url_parameter_to_autofill_saml_username() const;
+  public:
+  void clear_url_parameter_to_autofill_saml_username();
+  const std::string& url_parameter_to_autofill_saml_username() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_url_parameter_to_autofill_saml_username(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_url_parameter_to_autofill_saml_username();
+  PROTOBUF_NODISCARD std::string* release_url_parameter_to_autofill_saml_username();
+  void set_allocated_url_parameter_to_autofill_saml_username(std::string* url_parameter_to_autofill_saml_username);
+  private:
+  const std::string& _internal_url_parameter_to_autofill_saml_username() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_url_parameter_to_autofill_saml_username(const std::string& value);
+  std::string* _internal_mutable_url_parameter_to_autofill_saml_username();
+  public:
+
+  // @@protoc_insertion_point(class_scope:enterprise_management.SAMLUsernameProto)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr url_parameter_to_autofill_saml_username_;
   friend struct ::TableStruct_chrome_5fdevice_5fpolicy_2eproto;
 };
 // -------------------------------------------------------------------
@@ -9375,7 +9546,7 @@ class RebootOnShutdownProto final :
                &_RebootOnShutdownProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    43;
+    44;
 
   friend void swap(RebootOnShutdownProto& a, RebootOnShutdownProto& b) {
     a.Swap(&b);
@@ -9517,7 +9688,7 @@ class DeviceHeartbeatSettingsProto final :
                &_DeviceHeartbeatSettingsProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    44;
+    45;
 
   friend void swap(DeviceHeartbeatSettingsProto& a, DeviceHeartbeatSettingsProto& b) {
     a.Swap(&b);
@@ -9674,7 +9845,7 @@ class ExtensionCacheSizeProto final :
                &_ExtensionCacheSizeProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    45;
+    46;
 
   friend void swap(ExtensionCacheSizeProto& a, ExtensionCacheSizeProto& b) {
     a.Swap(&b);
@@ -9816,7 +9987,7 @@ class LoginScreenDomainAutoCompleteProto final :
                &_LoginScreenDomainAutoCompleteProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    46;
+    47;
 
   friend void swap(LoginScreenDomainAutoCompleteProto& a, LoginScreenDomainAutoCompleteProto& b) {
     a.Swap(&b);
@@ -9963,7 +10134,7 @@ class DeviceLogUploadSettingsProto final :
                &_DeviceLogUploadSettingsProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    47;
+    48;
 
   friend void swap(DeviceLogUploadSettingsProto& a, DeviceLogUploadSettingsProto& b) {
     a.Swap(&b);
@@ -10105,7 +10276,7 @@ class DisplayRotationDefaultProto final :
                &_DisplayRotationDefaultProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    48;
+    49;
 
   friend void swap(DisplayRotationDefaultProto& a, DisplayRotationDefaultProto& b) {
     a.Swap(&b);
@@ -10277,7 +10448,7 @@ class DeviceLoginScreenPrivacyScreenEnabledProto final :
                &_DeviceLoginScreenPrivacyScreenEnabledProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    49;
+    50;
 
   friend void swap(DeviceLoginScreenPrivacyScreenEnabledProto& a, DeviceLoginScreenPrivacyScreenEnabledProto& b) {
     a.Swap(&b);
@@ -10419,7 +10590,7 @@ class DeviceDisplayResolutionProto final :
                &_DeviceDisplayResolutionProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    50;
+    51;
 
   friend void swap(DeviceDisplayResolutionProto& a, DeviceDisplayResolutionProto& b) {
     a.Swap(&b);
@@ -10566,7 +10737,7 @@ class AllowKioskAppControlChromeVersionProto final :
                &_AllowKioskAppControlChromeVersionProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    51;
+    52;
 
   friend void swap(AllowKioskAppControlChromeVersionProto& a, AllowKioskAppControlChromeVersionProto& b) {
     a.Swap(&b);
@@ -10708,7 +10879,7 @@ class LoginAuthenticationBehaviorProto final :
                &_LoginAuthenticationBehaviorProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    52;
+    53;
 
   friend void swap(LoginAuthenticationBehaviorProto& a, LoginAuthenticationBehaviorProto& b) {
     a.Swap(&b);
@@ -10876,7 +11047,7 @@ class UsbDeviceIdProto final :
                &_UsbDeviceIdProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    53;
+    54;
 
   friend void swap(UsbDeviceIdProto& a, UsbDeviceIdProto& b) {
     a.Swap(&b);
@@ -11033,7 +11204,7 @@ class UsbDetachableWhitelistProto final :
                &_UsbDetachableWhitelistProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    54;
+    55;
 
   friend void swap(UsbDetachableWhitelistProto& a, UsbDetachableWhitelistProto& b) {
     a.Swap(&b);
@@ -11179,7 +11350,7 @@ class UsbDeviceIdInclusiveProto final :
                &_UsbDeviceIdInclusiveProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    55;
+    56;
 
   friend void swap(UsbDeviceIdInclusiveProto& a, UsbDeviceIdInclusiveProto& b) {
     a.Swap(&b);
@@ -11336,7 +11507,7 @@ class UsbDetachableAllowlistProto final :
                &_UsbDetachableAllowlistProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    56;
+    57;
 
   friend void swap(UsbDetachableAllowlistProto& a, UsbDetachableAllowlistProto& b) {
     a.Swap(&b);
@@ -11482,7 +11653,7 @@ class AllowBluetoothProto final :
                &_AllowBluetoothProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    57;
+    58;
 
   friend void swap(AllowBluetoothProto& a, AllowBluetoothProto& b) {
     a.Swap(&b);
@@ -11624,7 +11795,7 @@ class DeviceWiFiAllowedProto final :
                &_DeviceWiFiAllowedProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    58;
+    59;
 
   friend void swap(DeviceWiFiAllowedProto& a, DeviceWiFiAllowedProto& b) {
     a.Swap(&b);
@@ -11766,7 +11937,7 @@ class DeviceQuirksDownloadEnabledProto final :
                &_DeviceQuirksDownloadEnabledProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    59;
+    60;
 
   friend void swap(DeviceQuirksDownloadEnabledProto& a, DeviceQuirksDownloadEnabledProto& b) {
     a.Swap(&b);
@@ -11908,7 +12079,7 @@ class LoginVideoCaptureAllowedUrlsProto final :
                &_LoginVideoCaptureAllowedUrlsProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    60;
+    61;
 
   friend void swap(LoginVideoCaptureAllowedUrlsProto& a, LoginVideoCaptureAllowedUrlsProto& b) {
     a.Swap(&b);
@@ -12060,7 +12231,7 @@ class DeviceWiFiFastTransitionEnabledProto final :
                &_DeviceWiFiFastTransitionEnabledProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    61;
+    62;
 
   friend void swap(DeviceWiFiFastTransitionEnabledProto& a, DeviceWiFiFastTransitionEnabledProto& b) {
     a.Swap(&b);
@@ -12202,7 +12373,7 @@ class NetworkThrottlingEnabledProto final :
                &_NetworkThrottlingEnabledProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    62;
+    63;
 
   friend void swap(NetworkThrottlingEnabledProto& a, NetworkThrottlingEnabledProto& b) {
     a.Swap(&b);
@@ -12374,7 +12545,7 @@ class DeviceLoginScreenExtensionsProto final :
                &_DeviceLoginScreenExtensionsProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    63;
+    64;
 
   friend void swap(DeviceLoginScreenExtensionsProto& a, DeviceLoginScreenExtensionsProto& b) {
     a.Swap(&b);
@@ -12526,7 +12697,7 @@ class LoginScreenLocalesProto final :
                &_LoginScreenLocalesProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    64;
+    65;
 
   friend void swap(LoginScreenLocalesProto& a, LoginScreenLocalesProto& b) {
     a.Swap(&b);
@@ -12678,7 +12849,7 @@ class LoginScreenInputMethodsProto final :
                &_LoginScreenInputMethodsProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    65;
+    66;
 
   friend void swap(LoginScreenInputMethodsProto& a, LoginScreenInputMethodsProto& b) {
     a.Swap(&b);
@@ -12830,7 +13001,7 @@ class DeviceWallpaperImageProto final :
                &_DeviceWallpaperImageProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    66;
+    67;
 
   friend void swap(DeviceWallpaperImageProto& a, DeviceWallpaperImageProto& b) {
     a.Swap(&b);
@@ -12977,7 +13148,7 @@ class DeviceEcryptfsMigrationStrategyProto final :
                &_DeviceEcryptfsMigrationStrategyProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    67;
+    68;
 
   friend void swap(DeviceEcryptfsMigrationStrategyProto& a, DeviceEcryptfsMigrationStrategyProto& b) {
     a.Swap(&b);
@@ -13147,7 +13318,7 @@ class DeviceSecondFactorAuthenticationProto final :
                &_DeviceSecondFactorAuthenticationProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    68;
+    69;
 
   friend void swap(DeviceSecondFactorAuthenticationProto& a, DeviceSecondFactorAuthenticationProto& b) {
     a.Swap(&b);
@@ -13319,7 +13490,7 @@ class CastReceiverNameProto final :
                &_CastReceiverNameProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    69;
+    70;
 
   friend void swap(CastReceiverNameProto& a, CastReceiverNameProto& b) {
     a.Swap(&b);
@@ -13466,7 +13637,7 @@ class WeeklyTimeProto final :
                &_WeeklyTimeProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    70;
+    71;
 
   friend void swap(WeeklyTimeProto& a, WeeklyTimeProto& b) {
     a.Swap(&b);
@@ -13661,7 +13832,7 @@ class WeeklyTimeIntervalProto final :
                &_WeeklyTimeIntervalProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    71;
+    72;
 
   friend void swap(WeeklyTimeIntervalProto& a, WeeklyTimeIntervalProto& b) {
     a.Swap(&b);
@@ -13828,7 +13999,7 @@ class DeviceOffHoursProto final :
                &_DeviceOffHoursProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    72;
+    73;
 
   friend void swap(DeviceOffHoursProto& a, DeviceOffHoursProto& b) {
     a.Swap(&b);
@@ -14019,7 +14190,7 @@ class DeviceNativePrintersProto final :
                &_DeviceNativePrintersProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    73;
+    74;
 
   friend void swap(DeviceNativePrintersProto& a, DeviceNativePrintersProto& b) {
     a.Swap(&b);
@@ -14166,7 +14337,7 @@ class DeviceNativePrintersAccessModeProto final :
                &_DeviceNativePrintersAccessModeProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    74;
+    75;
 
   friend void swap(DeviceNativePrintersAccessModeProto& a, DeviceNativePrintersAccessModeProto& b) {
     a.Swap(&b);
@@ -14336,7 +14507,7 @@ class DeviceNativePrintersBlacklistProto final :
                &_DeviceNativePrintersBlacklistProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    75;
+    76;
 
   friend void swap(DeviceNativePrintersBlacklistProto& a, DeviceNativePrintersBlacklistProto& b) {
     a.Swap(&b);
@@ -14488,7 +14659,7 @@ class DeviceNativePrintersWhitelistProto final :
                &_DeviceNativePrintersWhitelistProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    76;
+    77;
 
   friend void swap(DeviceNativePrintersWhitelistProto& a, DeviceNativePrintersWhitelistProto& b) {
     a.Swap(&b);
@@ -14640,7 +14811,7 @@ class DevicePrintersProto final :
                &_DevicePrintersProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    77;
+    78;
 
   friend void swap(DevicePrintersProto& a, DevicePrintersProto& b) {
     a.Swap(&b);
@@ -14787,7 +14958,7 @@ class DevicePrintersAccessModeProto final :
                &_DevicePrintersAccessModeProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    78;
+    79;
 
   friend void swap(DevicePrintersAccessModeProto& a, DevicePrintersAccessModeProto& b) {
     a.Swap(&b);
@@ -14957,7 +15128,7 @@ class DevicePrintersBlocklistProto final :
                &_DevicePrintersBlocklistProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    79;
+    80;
 
   friend void swap(DevicePrintersBlocklistProto& a, DevicePrintersBlocklistProto& b) {
     a.Swap(&b);
@@ -15109,7 +15280,7 @@ class DevicePrintersAllowlistProto final :
                &_DevicePrintersAllowlistProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    80;
+    81;
 
   friend void swap(DevicePrintersAllowlistProto& a, DevicePrintersAllowlistProto& b) {
     a.Swap(&b);
@@ -15261,7 +15432,7 @@ class DeviceExternalPrintServersProto final :
                &_DeviceExternalPrintServersProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    81;
+    82;
 
   friend void swap(DeviceExternalPrintServersProto& a, DeviceExternalPrintServersProto& b) {
     a.Swap(&b);
@@ -15408,7 +15579,7 @@ class DeviceExternalPrintServersAllowlistProto final :
                &_DeviceExternalPrintServersAllowlistProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    82;
+    83;
 
   friend void swap(DeviceExternalPrintServersAllowlistProto& a, DeviceExternalPrintServersAllowlistProto& b) {
     a.Swap(&b);
@@ -15560,7 +15731,7 @@ class TPMFirmwareUpdateSettingsProto final :
                &_TPMFirmwareUpdateSettingsProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    83;
+    84;
 
   friend void swap(TPMFirmwareUpdateSettingsProto& a, TPMFirmwareUpdateSettingsProto& b) {
     a.Swap(&b);
@@ -15764,7 +15935,7 @@ class OBSOLETE_MinimumRequiredVersionProto final :
                &_OBSOLETE_MinimumRequiredVersionProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    84;
+    85;
 
   friend void swap(OBSOLETE_MinimumRequiredVersionProto& a, OBSOLETE_MinimumRequiredVersionProto& b) {
     a.Swap(&b);
@@ -15911,7 +16082,7 @@ class DeviceLoginScreenAutoSelectCertificateForUrls final :
                &_DeviceLoginScreenAutoSelectCertificateForUrls_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    85;
+    86;
 
   friend void swap(DeviceLoginScreenAutoSelectCertificateForUrls& a, DeviceLoginScreenAutoSelectCertificateForUrls& b) {
     a.Swap(&b);
@@ -16063,7 +16234,7 @@ class UnaffiliatedArcAllowedProto final :
                &_UnaffiliatedArcAllowedProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    86;
+    87;
 
   friend void swap(UnaffiliatedArcAllowedProto& a, UnaffiliatedArcAllowedProto& b) {
     a.Swap(&b);
@@ -16205,7 +16376,7 @@ class DeviceKerberosEncryptionTypesProto final :
                &_DeviceKerberosEncryptionTypesProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    87;
+    88;
 
   friend void swap(DeviceKerberosEncryptionTypesProto& a, DeviceKerberosEncryptionTypesProto& b) {
     a.Swap(&b);
@@ -16375,7 +16546,7 @@ class DeviceUserPolicyLoopbackProcessingModeProto final :
                &_DeviceUserPolicyLoopbackProcessingModeProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    88;
+    89;
 
   friend void swap(DeviceUserPolicyLoopbackProcessingModeProto& a, DeviceUserPolicyLoopbackProcessingModeProto& b) {
     a.Swap(&b);
@@ -16545,7 +16716,7 @@ class OBSOLETE_DeviceLoginScreenIsolateOriginsProto final :
                &_OBSOLETE_DeviceLoginScreenIsolateOriginsProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    89;
+    90;
 
   friend void swap(OBSOLETE_DeviceLoginScreenIsolateOriginsProto& a, OBSOLETE_DeviceLoginScreenIsolateOriginsProto& b) {
     a.Swap(&b);
@@ -16692,7 +16863,7 @@ class OBSOLETE_DeviceLoginScreenSitePerProcessProto final :
                &_OBSOLETE_DeviceLoginScreenSitePerProcessProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    90;
+    91;
 
   friend void swap(OBSOLETE_DeviceLoginScreenSitePerProcessProto& a, OBSOLETE_DeviceLoginScreenSitePerProcessProto& b) {
     a.Swap(&b);
@@ -16834,7 +17005,7 @@ class VirtualMachinesAllowedProto final :
                &_VirtualMachinesAllowedProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    91;
+    92;
 
   friend void swap(VirtualMachinesAllowedProto& a, VirtualMachinesAllowedProto& b) {
     a.Swap(&b);
@@ -16976,7 +17147,7 @@ class DeviceMachinePasswordChangeRateProto final :
                &_DeviceMachinePasswordChangeRateProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    92;
+    93;
 
   friend void swap(DeviceMachinePasswordChangeRateProto& a, DeviceMachinePasswordChangeRateProto& b) {
     a.Swap(&b);
@@ -17118,7 +17289,7 @@ class DeviceGpoCacheLifetimeProto final :
                &_DeviceGpoCacheLifetimeProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    93;
+    94;
 
   friend void swap(DeviceGpoCacheLifetimeProto& a, DeviceGpoCacheLifetimeProto& b) {
     a.Swap(&b);
@@ -17260,7 +17431,7 @@ class DeviceAuthDataCacheLifetimeProto final :
                &_DeviceAuthDataCacheLifetimeProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    94;
+    95;
 
   friend void swap(DeviceAuthDataCacheLifetimeProto& a, DeviceAuthDataCacheLifetimeProto& b) {
     a.Swap(&b);
@@ -17402,7 +17573,7 @@ class DeviceUnaffiliatedCrostiniAllowedProto final :
                &_DeviceUnaffiliatedCrostiniAllowedProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    95;
+    96;
 
   friend void swap(DeviceUnaffiliatedCrostiniAllowedProto& a, DeviceUnaffiliatedCrostiniAllowedProto& b) {
     a.Swap(&b);
@@ -17544,7 +17715,7 @@ class PluginVmAllowedProto final :
                &_PluginVmAllowedProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    96;
+    97;
 
   friend void swap(PluginVmAllowedProto& a, PluginVmAllowedProto& b) {
     a.Swap(&b);
@@ -17686,7 +17857,7 @@ class PluginVmLicenseKeyProto final :
                &_PluginVmLicenseKeyProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    97;
+    98;
 
   friend void swap(PluginVmLicenseKeyProto& a, PluginVmLicenseKeyProto& b) {
     a.Swap(&b);
@@ -17833,7 +18004,7 @@ class DeviceRebootOnUserSignoutProto final :
                &_DeviceRebootOnUserSignoutProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    98;
+    99;
 
   friend void swap(DeviceRebootOnUserSignoutProto& a, DeviceRebootOnUserSignoutProto& b) {
     a.Swap(&b);
@@ -18007,7 +18178,7 @@ class DeviceWilcoDtcAllowedProto final :
                &_DeviceWilcoDtcAllowedProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    99;
+    100;
 
   friend void swap(DeviceWilcoDtcAllowedProto& a, DeviceWilcoDtcAllowedProto& b) {
     a.Swap(&b);
@@ -18149,7 +18320,7 @@ class DeviceWilcoDtcConfigurationProto final :
                &_DeviceWilcoDtcConfigurationProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    100;
+    101;
 
   friend void swap(DeviceWilcoDtcConfigurationProto& a, DeviceWilcoDtcConfigurationProto& b) {
     a.Swap(&b);
@@ -18296,7 +18467,7 @@ class DevicePowerPeakShiftProto final :
                &_DevicePowerPeakShiftProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    101;
+    102;
 
   friend void swap(DevicePowerPeakShiftProto& a, DevicePowerPeakShiftProto& b) {
     a.Swap(&b);
@@ -18473,7 +18644,7 @@ class DeviceBootOnAcProto final :
                &_DeviceBootOnAcProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    102;
+    103;
 
   friend void swap(DeviceBootOnAcProto& a, DeviceBootOnAcProto& b) {
     a.Swap(&b);
@@ -18615,7 +18786,7 @@ class DeviceDockMacAddressSourceProto final :
                &_DeviceDockMacAddressSourceProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    103;
+    104;
 
   friend void swap(DeviceDockMacAddressSourceProto& a, DeviceDockMacAddressSourceProto& b) {
     a.Swap(&b);
@@ -18787,7 +18958,7 @@ class DeviceAdvancedBatteryChargeModeProto final :
                &_DeviceAdvancedBatteryChargeModeProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    104;
+    105;
 
   friend void swap(DeviceAdvancedBatteryChargeModeProto& a, DeviceAdvancedBatteryChargeModeProto& b) {
     a.Swap(&b);
@@ -18949,7 +19120,7 @@ class DeviceBatteryChargeModeProto final :
                &_DeviceBatteryChargeModeProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    105;
+    106;
 
   friend void swap(DeviceBatteryChargeModeProto& a, DeviceBatteryChargeModeProto& b) {
     a.Swap(&b);
@@ -19155,7 +19326,7 @@ class DeviceUsbPowerShareProto final :
                &_DeviceUsbPowerShareProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    106;
+    107;
 
   friend void swap(DeviceUsbPowerShareProto& a, DeviceUsbPowerShareProto& b) {
     a.Swap(&b);
@@ -19297,7 +19468,7 @@ class DeviceScheduledUpdateCheckProto final :
                &_DeviceScheduledUpdateCheckProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    107;
+    108;
 
   friend void swap(DeviceScheduledUpdateCheckProto& a, DeviceScheduledUpdateCheckProto& b) {
     a.Swap(&b);
@@ -19444,7 +19615,7 @@ class DevicePowerwashAllowedProto final :
                &_DevicePowerwashAllowedProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    108;
+    109;
 
   friend void swap(DevicePowerwashAllowedProto& a, DevicePowerwashAllowedProto& b) {
     a.Swap(&b);
@@ -19586,7 +19757,7 @@ class DeviceLoginScreenWebUsbAllowDevicesForUrlsProto final :
                &_DeviceLoginScreenWebUsbAllowDevicesForUrlsProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    109;
+    110;
 
   friend void swap(DeviceLoginScreenWebUsbAllowDevicesForUrlsProto& a, DeviceLoginScreenWebUsbAllowDevicesForUrlsProto& b) {
     a.Swap(&b);
@@ -19733,7 +19904,7 @@ class SystemProxySettingsProto final :
                &_SystemProxySettingsProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    110;
+    111;
 
   friend void swap(SystemProxySettingsProto& a, SystemProxySettingsProto& b) {
     a.Swap(&b);
@@ -19880,7 +20051,7 @@ class RequiredClientCertificateForDeviceProto final :
                &_RequiredClientCertificateForDeviceProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    111;
+    112;
 
   friend void swap(RequiredClientCertificateForDeviceProto& a, RequiredClientCertificateForDeviceProto& b) {
     a.Swap(&b);
@@ -20027,7 +20198,7 @@ class DeviceCrostiniArcAdbSideloadingAllowedProto final :
                &_DeviceCrostiniArcAdbSideloadingAllowedProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    112;
+    113;
 
   friend void swap(DeviceCrostiniArcAdbSideloadingAllowedProto& a, DeviceCrostiniArcAdbSideloadingAllowedProto& b) {
     a.Swap(&b);
@@ -20197,7 +20368,7 @@ class DeviceShowLowDiskSpaceNotificationProto final :
                &_DeviceShowLowDiskSpaceNotificationProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    113;
+    114;
 
   friend void swap(DeviceShowLowDiskSpaceNotificationProto& a, DeviceShowLowDiskSpaceNotificationProto& b) {
     a.Swap(&b);
@@ -20339,7 +20510,7 @@ class DeviceFamilyLinkAccountsAllowedProto final :
                &_DeviceFamilyLinkAccountsAllowedProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    114;
+    115;
 
   friend void swap(DeviceFamilyLinkAccountsAllowedProto& a, DeviceFamilyLinkAccountsAllowedProto& b) {
     a.Swap(&b);
@@ -20481,7 +20652,7 @@ class DeviceArcDataSnapshotHoursProto final :
                &_DeviceArcDataSnapshotHoursProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    115;
+    116;
 
   friend void swap(DeviceArcDataSnapshotHoursProto& a, DeviceArcDataSnapshotHoursProto& b) {
     a.Swap(&b);
@@ -20628,7 +20799,7 @@ class DeviceSystemWideTracingEnabledProto final :
                &_DeviceSystemWideTracingEnabledProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    116;
+    117;
 
   friend void swap(DeviceSystemWideTracingEnabledProto& a, DeviceSystemWideTracingEnabledProto& b) {
     a.Swap(&b);
@@ -20770,7 +20941,7 @@ class DevicePciPeripheralDataAccessEnabledProto final :
                &_DevicePciPeripheralDataAccessEnabledProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    117;
+    118;
 
   friend void swap(DevicePciPeripheralDataAccessEnabledProto& a, DevicePciPeripheralDataAccessEnabledProto& b) {
     a.Swap(&b);
@@ -20912,7 +21083,7 @@ class DevicePciPeripheralDataAccessEnabledProtoV2 final :
                &_DevicePciPeripheralDataAccessEnabledProtoV2_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    118;
+    119;
 
   friend void swap(DevicePciPeripheralDataAccessEnabledProtoV2& a, DevicePciPeripheralDataAccessEnabledProtoV2& b) {
     a.Swap(&b);
@@ -21054,7 +21225,7 @@ class DeviceBorealisAllowedProto final :
                &_DeviceBorealisAllowedProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    119;
+    120;
 
   friend void swap(DeviceBorealisAllowedProto& a, DeviceBorealisAllowedProto& b) {
     a.Swap(&b);
@@ -21196,7 +21367,7 @@ class DeviceAllowedBluetoothServicesProto final :
                &_DeviceAllowedBluetoothServicesProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    120;
+    121;
 
   friend void swap(DeviceAllowedBluetoothServicesProto& a, DeviceAllowedBluetoothServicesProto& b) {
     a.Swap(&b);
@@ -21348,7 +21519,7 @@ class DeviceDebugPacketCaptureAllowedProto final :
                &_DeviceDebugPacketCaptureAllowedProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    121;
+    122;
 
   friend void swap(DeviceDebugPacketCaptureAllowedProto& a, DeviceDebugPacketCaptureAllowedProto& b) {
     a.Swap(&b);
@@ -21490,7 +21661,7 @@ class DeviceScheduledRebootProto final :
                &_DeviceScheduledRebootProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    122;
+    123;
 
   friend void swap(DeviceScheduledRebootProto& a, DeviceScheduledRebootProto& b) {
     a.Swap(&b);
@@ -21637,7 +21808,7 @@ class DeviceRestrictedManagedGuestSessionEnabledProto final :
                &_DeviceRestrictedManagedGuestSessionEnabledProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    123;
+    124;
 
   friend void swap(DeviceRestrictedManagedGuestSessionEnabledProto& a, DeviceRestrictedManagedGuestSessionEnabledProto& b) {
     a.Swap(&b);
@@ -21779,7 +21950,7 @@ class DeviceI18nShortcutsEnabledProto final :
                &_DeviceI18nShortcutsEnabledProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    124;
+    125;
 
   friend void swap(DeviceI18nShortcutsEnabledProto& a, DeviceI18nShortcutsEnabledProto& b) {
     a.Swap(&b);
@@ -21921,7 +22092,7 @@ class RevenDeviceHWDataUsageEnabledProto final :
                &_RevenDeviceHWDataUsageEnabledProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    125;
+    126;
 
   friend void swap(RevenDeviceHWDataUsageEnabledProto& a, RevenDeviceHWDataUsageEnabledProto& b) {
     a.Swap(&b);
@@ -22063,7 +22234,7 @@ class DeviceLoginScreenWebUILazyLoadingProto final :
                &_DeviceLoginScreenWebUILazyLoadingProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    126;
+    127;
 
   friend void swap(DeviceLoginScreenWebUILazyLoadingProto& a, DeviceLoginScreenWebUILazyLoadingProto& b) {
     a.Swap(&b);
@@ -22205,7 +22376,7 @@ class EncryptedReportingPipelineConfigurationProto final :
                &_EncryptedReportingPipelineConfigurationProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    127;
+    128;
 
   friend void swap(EncryptedReportingPipelineConfigurationProto& a, EncryptedReportingPipelineConfigurationProto& b) {
     a.Swap(&b);
@@ -22347,7 +22518,7 @@ class ChromeDeviceSettingsProto final :
                &_ChromeDeviceSettingsProto_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    128;
+    129;
 
   friend void swap(ChromeDeviceSettingsProto& a, ChromeDeviceSettingsProto& b) {
     a.Swap(&b);
@@ -22545,6 +22716,9 @@ class ChromeDeviceSettingsProto final :
     kKeylockerForStorageEncryptionEnabledFieldNumber = 132,
     kDeviceRunAutomaticCleanupOnLoginFieldNumber = 133,
     kDeviceEncryptedReportingPipelineEnabledFieldNumber = 134,
+    kSamlUsernameFieldNumber = 135,
+    kDeviceLoginScreenContextAwareAccessSignalsAllowlistFieldNumber = 136,
+    kDevicePrintingClientNameTemplateFieldNumber = 137,
   };
   // optional .enterprise_management.DevicePolicyRefreshRateProto device_policy_refresh_rate = 1;
   bool has_device_policy_refresh_rate() const;
@@ -24904,6 +25078,60 @@ class ChromeDeviceSettingsProto final :
       ::enterprise_management::EncryptedReportingPipelineConfigurationProto* device_encrypted_reporting_pipeline_enabled);
   ::enterprise_management::EncryptedReportingPipelineConfigurationProto* unsafe_arena_release_device_encrypted_reporting_pipeline_enabled();
 
+  // optional .enterprise_management.SAMLUsernameProto saml_username = 135;
+  bool has_saml_username() const;
+  private:
+  bool _internal_has_saml_username() const;
+  public:
+  void clear_saml_username();
+  const ::enterprise_management::SAMLUsernameProto& saml_username() const;
+  PROTOBUF_NODISCARD ::enterprise_management::SAMLUsernameProto* release_saml_username();
+  ::enterprise_management::SAMLUsernameProto* mutable_saml_username();
+  void set_allocated_saml_username(::enterprise_management::SAMLUsernameProto* saml_username);
+  private:
+  const ::enterprise_management::SAMLUsernameProto& _internal_saml_username() const;
+  ::enterprise_management::SAMLUsernameProto* _internal_mutable_saml_username();
+  public:
+  void unsafe_arena_set_allocated_saml_username(
+      ::enterprise_management::SAMLUsernameProto* saml_username);
+  ::enterprise_management::SAMLUsernameProto* unsafe_arena_release_saml_username();
+
+  // optional .enterprise_management.StringListPolicyProto device_login_screen_context_aware_access_signals_allowlist = 136;
+  bool has_device_login_screen_context_aware_access_signals_allowlist() const;
+  private:
+  bool _internal_has_device_login_screen_context_aware_access_signals_allowlist() const;
+  public:
+  void clear_device_login_screen_context_aware_access_signals_allowlist();
+  const ::enterprise_management::StringListPolicyProto& device_login_screen_context_aware_access_signals_allowlist() const;
+  PROTOBUF_NODISCARD ::enterprise_management::StringListPolicyProto* release_device_login_screen_context_aware_access_signals_allowlist();
+  ::enterprise_management::StringListPolicyProto* mutable_device_login_screen_context_aware_access_signals_allowlist();
+  void set_allocated_device_login_screen_context_aware_access_signals_allowlist(::enterprise_management::StringListPolicyProto* device_login_screen_context_aware_access_signals_allowlist);
+  private:
+  const ::enterprise_management::StringListPolicyProto& _internal_device_login_screen_context_aware_access_signals_allowlist() const;
+  ::enterprise_management::StringListPolicyProto* _internal_mutable_device_login_screen_context_aware_access_signals_allowlist();
+  public:
+  void unsafe_arena_set_allocated_device_login_screen_context_aware_access_signals_allowlist(
+      ::enterprise_management::StringListPolicyProto* device_login_screen_context_aware_access_signals_allowlist);
+  ::enterprise_management::StringListPolicyProto* unsafe_arena_release_device_login_screen_context_aware_access_signals_allowlist();
+
+  // optional .enterprise_management.StringPolicyProto device_printing_client_name_template = 137;
+  bool has_device_printing_client_name_template() const;
+  private:
+  bool _internal_has_device_printing_client_name_template() const;
+  public:
+  void clear_device_printing_client_name_template();
+  const ::enterprise_management::StringPolicyProto& device_printing_client_name_template() const;
+  PROTOBUF_NODISCARD ::enterprise_management::StringPolicyProto* release_device_printing_client_name_template();
+  ::enterprise_management::StringPolicyProto* mutable_device_printing_client_name_template();
+  void set_allocated_device_printing_client_name_template(::enterprise_management::StringPolicyProto* device_printing_client_name_template);
+  private:
+  const ::enterprise_management::StringPolicyProto& _internal_device_printing_client_name_template() const;
+  ::enterprise_management::StringPolicyProto* _internal_mutable_device_printing_client_name_template();
+  public:
+  void unsafe_arena_set_allocated_device_printing_client_name_template(
+      ::enterprise_management::StringPolicyProto* device_printing_client_name_template);
+  ::enterprise_management::StringPolicyProto* unsafe_arena_release_device_printing_client_name_template();
+
   // @@protoc_insertion_point(class_scope:enterprise_management.ChromeDeviceSettingsProto)
  private:
   class _Internal;
@@ -25044,6 +25272,9 @@ class ChromeDeviceSettingsProto final :
   ::enterprise_management::DeviceKeylockerForStorageEncryptionEnabledProto* keylocker_for_storage_encryption_enabled_;
   ::enterprise_management::BooleanPolicyProto* device_run_automatic_cleanup_on_login_;
   ::enterprise_management::EncryptedReportingPipelineConfigurationProto* device_encrypted_reporting_pipeline_enabled_;
+  ::enterprise_management::SAMLUsernameProto* saml_username_;
+  ::enterprise_management::StringListPolicyProto* device_login_screen_context_aware_access_signals_allowlist_;
+  ::enterprise_management::StringPolicyProto* device_printing_client_name_template_;
   friend struct ::TableStruct_chrome_5fdevice_5fpolicy_2eproto;
 };
 // ===================================================================
@@ -26069,7 +26300,7 @@ inline void HostnameUserConfigurableProto::set_device_hostname_user_configurable
 
 // optional bool report_version_info = 1 [default = true];
 inline bool DeviceReportingProto::_internal_has_report_version_info() const {
-  bool value = (_has_bits_[0] & 0x02000000u) != 0;
+  bool value = (_has_bits_[0] & 0x04000000u) != 0;
   return value;
 }
 inline bool DeviceReportingProto::has_report_version_info() const {
@@ -26077,7 +26308,7 @@ inline bool DeviceReportingProto::has_report_version_info() const {
 }
 inline void DeviceReportingProto::clear_report_version_info() {
   report_version_info_ = true;
-  _has_bits_[0] &= ~0x02000000u;
+  _has_bits_[0] &= ~0x04000000u;
 }
 inline bool DeviceReportingProto::_internal_report_version_info() const {
   return report_version_info_;
@@ -26087,7 +26318,7 @@ inline bool DeviceReportingProto::report_version_info() const {
   return _internal_report_version_info();
 }
 inline void DeviceReportingProto::_internal_set_report_version_info(bool value) {
-  _has_bits_[0] |= 0x02000000u;
+  _has_bits_[0] |= 0x04000000u;
   report_version_info_ = value;
 }
 inline void DeviceReportingProto::set_report_version_info(bool value) {
@@ -26097,7 +26328,7 @@ inline void DeviceReportingProto::set_report_version_info(bool value) {
 
 // optional bool report_activity_times = 2 [default = true];
 inline bool DeviceReportingProto::_internal_has_report_activity_times() const {
-  bool value = (_has_bits_[0] & 0x04000000u) != 0;
+  bool value = (_has_bits_[0] & 0x08000000u) != 0;
   return value;
 }
 inline bool DeviceReportingProto::has_report_activity_times() const {
@@ -26105,7 +26336,7 @@ inline bool DeviceReportingProto::has_report_activity_times() const {
 }
 inline void DeviceReportingProto::clear_report_activity_times() {
   report_activity_times_ = true;
-  _has_bits_[0] &= ~0x04000000u;
+  _has_bits_[0] &= ~0x08000000u;
 }
 inline bool DeviceReportingProto::_internal_report_activity_times() const {
   return report_activity_times_;
@@ -26115,7 +26346,7 @@ inline bool DeviceReportingProto::report_activity_times() const {
   return _internal_report_activity_times();
 }
 inline void DeviceReportingProto::_internal_set_report_activity_times(bool value) {
-  _has_bits_[0] |= 0x04000000u;
+  _has_bits_[0] |= 0x08000000u;
   report_activity_times_ = value;
 }
 inline void DeviceReportingProto::set_report_activity_times(bool value) {
@@ -26125,7 +26356,7 @@ inline void DeviceReportingProto::set_report_activity_times(bool value) {
 
 // optional bool report_boot_mode = 3 [default = true];
 inline bool DeviceReportingProto::_internal_has_report_boot_mode() const {
-  bool value = (_has_bits_[0] & 0x08000000u) != 0;
+  bool value = (_has_bits_[0] & 0x10000000u) != 0;
   return value;
 }
 inline bool DeviceReportingProto::has_report_boot_mode() const {
@@ -26133,7 +26364,7 @@ inline bool DeviceReportingProto::has_report_boot_mode() const {
 }
 inline void DeviceReportingProto::clear_report_boot_mode() {
   report_boot_mode_ = true;
-  _has_bits_[0] &= ~0x08000000u;
+  _has_bits_[0] &= ~0x10000000u;
 }
 inline bool DeviceReportingProto::_internal_report_boot_mode() const {
   return report_boot_mode_;
@@ -26143,7 +26374,7 @@ inline bool DeviceReportingProto::report_boot_mode() const {
   return _internal_report_boot_mode();
 }
 inline void DeviceReportingProto::_internal_set_report_boot_mode(bool value) {
-  _has_bits_[0] |= 0x08000000u;
+  _has_bits_[0] |= 0x10000000u;
   report_boot_mode_ = value;
 }
 inline void DeviceReportingProto::set_report_boot_mode(bool value) {
@@ -26153,7 +26384,7 @@ inline void DeviceReportingProto::set_report_boot_mode(bool value) {
 
 // optional bool report_location = 4 [default = false];
 inline bool DeviceReportingProto::_internal_has_report_location() const {
-  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
   return value;
 }
 inline bool DeviceReportingProto::has_report_location() const {
@@ -26161,7 +26392,7 @@ inline bool DeviceReportingProto::has_report_location() const {
 }
 inline void DeviceReportingProto::clear_report_location() {
   report_location_ = false;
-  _has_bits_[0] &= ~0x00000001u;
+  _has_bits_[0] &= ~0x00000002u;
 }
 inline bool DeviceReportingProto::_internal_report_location() const {
   return report_location_;
@@ -26171,7 +26402,7 @@ inline bool DeviceReportingProto::report_location() const {
   return _internal_report_location();
 }
 inline void DeviceReportingProto::_internal_set_report_location(bool value) {
-  _has_bits_[0] |= 0x00000001u;
+  _has_bits_[0] |= 0x00000002u;
   report_location_ = value;
 }
 inline void DeviceReportingProto::set_report_location(bool value) {
@@ -26181,7 +26412,7 @@ inline void DeviceReportingProto::set_report_location(bool value) {
 
 // optional bool report_network_interfaces = 5 [default = true];
 inline bool DeviceReportingProto::_internal_has_report_network_interfaces() const {
-  bool value = (_has_bits_[0] & 0x10000000u) != 0;
+  bool value = (_has_bits_[0] & 0x20000000u) != 0;
   return value;
 }
 inline bool DeviceReportingProto::has_report_network_interfaces() const {
@@ -26189,7 +26420,7 @@ inline bool DeviceReportingProto::has_report_network_interfaces() const {
 }
 inline void DeviceReportingProto::clear_report_network_interfaces() {
   report_network_interfaces_ = true;
-  _has_bits_[0] &= ~0x10000000u;
+  _has_bits_[0] &= ~0x20000000u;
 }
 inline bool DeviceReportingProto::_internal_report_network_interfaces() const {
   return report_network_interfaces_;
@@ -26199,7 +26430,7 @@ inline bool DeviceReportingProto::report_network_interfaces() const {
   return _internal_report_network_interfaces();
 }
 inline void DeviceReportingProto::_internal_set_report_network_interfaces(bool value) {
-  _has_bits_[0] |= 0x10000000u;
+  _has_bits_[0] |= 0x20000000u;
   report_network_interfaces_ = value;
 }
 inline void DeviceReportingProto::set_report_network_interfaces(bool value) {
@@ -26209,7 +26440,7 @@ inline void DeviceReportingProto::set_report_network_interfaces(bool value) {
 
 // optional bool report_users = 6 [default = true];
 inline bool DeviceReportingProto::_internal_has_report_users() const {
-  bool value = (_has_bits_[0] & 0x20000000u) != 0;
+  bool value = (_has_bits_[0] & 0x40000000u) != 0;
   return value;
 }
 inline bool DeviceReportingProto::has_report_users() const {
@@ -26217,7 +26448,7 @@ inline bool DeviceReportingProto::has_report_users() const {
 }
 inline void DeviceReportingProto::clear_report_users() {
   report_users_ = true;
-  _has_bits_[0] &= ~0x20000000u;
+  _has_bits_[0] &= ~0x40000000u;
 }
 inline bool DeviceReportingProto::_internal_report_users() const {
   return report_users_;
@@ -26227,7 +26458,7 @@ inline bool DeviceReportingProto::report_users() const {
   return _internal_report_users();
 }
 inline void DeviceReportingProto::_internal_set_report_users(bool value) {
-  _has_bits_[0] |= 0x20000000u;
+  _has_bits_[0] |= 0x40000000u;
   report_users_ = value;
 }
 inline void DeviceReportingProto::set_report_users(bool value) {
@@ -26237,7 +26468,7 @@ inline void DeviceReportingProto::set_report_users(bool value) {
 
 // optional bool report_hardware_status = 7 [default = true];
 inline bool DeviceReportingProto::_internal_has_report_hardware_status() const {
-  bool value = (_has_bits_[0] & 0x40000000u) != 0;
+  bool value = (_has_bits_[0] & 0x80000000u) != 0;
   return value;
 }
 inline bool DeviceReportingProto::has_report_hardware_status() const {
@@ -26245,7 +26476,7 @@ inline bool DeviceReportingProto::has_report_hardware_status() const {
 }
 inline void DeviceReportingProto::clear_report_hardware_status() {
   report_hardware_status_ = true;
-  _has_bits_[0] &= ~0x40000000u;
+  _has_bits_[0] &= ~0x80000000u;
 }
 inline bool DeviceReportingProto::_internal_report_hardware_status() const {
   return report_hardware_status_;
@@ -26255,7 +26486,7 @@ inline bool DeviceReportingProto::report_hardware_status() const {
   return _internal_report_hardware_status();
 }
 inline void DeviceReportingProto::_internal_set_report_hardware_status(bool value) {
-  _has_bits_[0] |= 0x40000000u;
+  _has_bits_[0] |= 0x80000000u;
   report_hardware_status_ = value;
 }
 inline void DeviceReportingProto::set_report_hardware_status(bool value) {
@@ -26265,7 +26496,7 @@ inline void DeviceReportingProto::set_report_hardware_status(bool value) {
 
 // optional bool report_session_status = 8 [default = true];
 inline bool DeviceReportingProto::_internal_has_report_session_status() const {
-  bool value = (_has_bits_[0] & 0x80000000u) != 0;
+  bool value = (_has_bits_[1] & 0x00000001u) != 0;
   return value;
 }
 inline bool DeviceReportingProto::has_report_session_status() const {
@@ -26273,7 +26504,7 @@ inline bool DeviceReportingProto::has_report_session_status() const {
 }
 inline void DeviceReportingProto::clear_report_session_status() {
   report_session_status_ = true;
-  _has_bits_[0] &= ~0x80000000u;
+  _has_bits_[1] &= ~0x00000001u;
 }
 inline bool DeviceReportingProto::_internal_report_session_status() const {
   return report_session_status_;
@@ -26283,7 +26514,7 @@ inline bool DeviceReportingProto::report_session_status() const {
   return _internal_report_session_status();
 }
 inline void DeviceReportingProto::_internal_set_report_session_status(bool value) {
-  _has_bits_[0] |= 0x80000000u;
+  _has_bits_[1] |= 0x00000001u;
   report_session_status_ = value;
 }
 inline void DeviceReportingProto::set_report_session_status(bool value) {
@@ -26293,7 +26524,7 @@ inline void DeviceReportingProto::set_report_session_status(bool value) {
 
 // optional bool report_os_update_status = 10 [default = false];
 inline bool DeviceReportingProto::_internal_has_report_os_update_status() const {
-  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  bool value = (_has_bits_[0] & 0x00000004u) != 0;
   return value;
 }
 inline bool DeviceReportingProto::has_report_os_update_status() const {
@@ -26301,7 +26532,7 @@ inline bool DeviceReportingProto::has_report_os_update_status() const {
 }
 inline void DeviceReportingProto::clear_report_os_update_status() {
   report_os_update_status_ = false;
-  _has_bits_[0] &= ~0x00000002u;
+  _has_bits_[0] &= ~0x00000004u;
 }
 inline bool DeviceReportingProto::_internal_report_os_update_status() const {
   return report_os_update_status_;
@@ -26311,7 +26542,7 @@ inline bool DeviceReportingProto::report_os_update_status() const {
   return _internal_report_os_update_status();
 }
 inline void DeviceReportingProto::_internal_set_report_os_update_status(bool value) {
-  _has_bits_[0] |= 0x00000002u;
+  _has_bits_[0] |= 0x00000004u;
   report_os_update_status_ = value;
 }
 inline void DeviceReportingProto::set_report_os_update_status(bool value) {
@@ -26321,7 +26552,7 @@ inline void DeviceReportingProto::set_report_os_update_status(bool value) {
 
 // optional bool report_running_kiosk_app = 11 [default = false];
 inline bool DeviceReportingProto::_internal_has_report_running_kiosk_app() const {
-  bool value = (_has_bits_[0] & 0x00000004u) != 0;
+  bool value = (_has_bits_[0] & 0x00000008u) != 0;
   return value;
 }
 inline bool DeviceReportingProto::has_report_running_kiosk_app() const {
@@ -26329,7 +26560,7 @@ inline bool DeviceReportingProto::has_report_running_kiosk_app() const {
 }
 inline void DeviceReportingProto::clear_report_running_kiosk_app() {
   report_running_kiosk_app_ = false;
-  _has_bits_[0] &= ~0x00000004u;
+  _has_bits_[0] &= ~0x00000008u;
 }
 inline bool DeviceReportingProto::_internal_report_running_kiosk_app() const {
   return report_running_kiosk_app_;
@@ -26339,7 +26570,7 @@ inline bool DeviceReportingProto::report_running_kiosk_app() const {
   return _internal_report_running_kiosk_app();
 }
 inline void DeviceReportingProto::_internal_set_report_running_kiosk_app(bool value) {
-  _has_bits_[0] |= 0x00000004u;
+  _has_bits_[0] |= 0x00000008u;
   report_running_kiosk_app_ = value;
 }
 inline void DeviceReportingProto::set_report_running_kiosk_app(bool value) {
@@ -26349,7 +26580,7 @@ inline void DeviceReportingProto::set_report_running_kiosk_app(bool value) {
 
 // optional bool report_power_status = 12 [default = false];
 inline bool DeviceReportingProto::_internal_has_report_power_status() const {
-  bool value = (_has_bits_[0] & 0x00000008u) != 0;
+  bool value = (_has_bits_[0] & 0x00000010u) != 0;
   return value;
 }
 inline bool DeviceReportingProto::has_report_power_status() const {
@@ -26357,7 +26588,7 @@ inline bool DeviceReportingProto::has_report_power_status() const {
 }
 inline void DeviceReportingProto::clear_report_power_status() {
   report_power_status_ = false;
-  _has_bits_[0] &= ~0x00000008u;
+  _has_bits_[0] &= ~0x00000010u;
 }
 inline bool DeviceReportingProto::_internal_report_power_status() const {
   return report_power_status_;
@@ -26367,7 +26598,7 @@ inline bool DeviceReportingProto::report_power_status() const {
   return _internal_report_power_status();
 }
 inline void DeviceReportingProto::_internal_set_report_power_status(bool value) {
-  _has_bits_[0] |= 0x00000008u;
+  _has_bits_[0] |= 0x00000010u;
   report_power_status_ = value;
 }
 inline void DeviceReportingProto::set_report_power_status(bool value) {
@@ -26377,7 +26608,7 @@ inline void DeviceReportingProto::set_report_power_status(bool value) {
 
 // optional bool report_storage_status = 13 [default = false];
 inline bool DeviceReportingProto::_internal_has_report_storage_status() const {
-  bool value = (_has_bits_[0] & 0x00000010u) != 0;
+  bool value = (_has_bits_[0] & 0x00000020u) != 0;
   return value;
 }
 inline bool DeviceReportingProto::has_report_storage_status() const {
@@ -26385,7 +26616,7 @@ inline bool DeviceReportingProto::has_report_storage_status() const {
 }
 inline void DeviceReportingProto::clear_report_storage_status() {
   report_storage_status_ = false;
-  _has_bits_[0] &= ~0x00000010u;
+  _has_bits_[0] &= ~0x00000020u;
 }
 inline bool DeviceReportingProto::_internal_report_storage_status() const {
   return report_storage_status_;
@@ -26395,7 +26626,7 @@ inline bool DeviceReportingProto::report_storage_status() const {
   return _internal_report_storage_status();
 }
 inline void DeviceReportingProto::_internal_set_report_storage_status(bool value) {
-  _has_bits_[0] |= 0x00000010u;
+  _has_bits_[0] |= 0x00000020u;
   report_storage_status_ = value;
 }
 inline void DeviceReportingProto::set_report_storage_status(bool value) {
@@ -26405,7 +26636,7 @@ inline void DeviceReportingProto::set_report_storage_status(bool value) {
 
 // optional bool report_board_status = 14 [default = false];
 inline bool DeviceReportingProto::_internal_has_report_board_status() const {
-  bool value = (_has_bits_[0] & 0x00000020u) != 0;
+  bool value = (_has_bits_[0] & 0x00000040u) != 0;
   return value;
 }
 inline bool DeviceReportingProto::has_report_board_status() const {
@@ -26413,7 +26644,7 @@ inline bool DeviceReportingProto::has_report_board_status() const {
 }
 inline void DeviceReportingProto::clear_report_board_status() {
   report_board_status_ = false;
-  _has_bits_[0] &= ~0x00000020u;
+  _has_bits_[0] &= ~0x00000040u;
 }
 inline bool DeviceReportingProto::_internal_report_board_status() const {
   return report_board_status_;
@@ -26423,7 +26654,7 @@ inline bool DeviceReportingProto::report_board_status() const {
   return _internal_report_board_status();
 }
 inline void DeviceReportingProto::_internal_set_report_board_status(bool value) {
-  _has_bits_[0] |= 0x00000020u;
+  _has_bits_[0] |= 0x00000040u;
   report_board_status_ = value;
 }
 inline void DeviceReportingProto::set_report_board_status(bool value) {
@@ -26433,7 +26664,7 @@ inline void DeviceReportingProto::set_report_board_status(bool value) {
 
 // optional bool report_cpu_info = 15 [default = false];
 inline bool DeviceReportingProto::_internal_has_report_cpu_info() const {
-  bool value = (_has_bits_[0] & 0x00000040u) != 0;
+  bool value = (_has_bits_[0] & 0x00000080u) != 0;
   return value;
 }
 inline bool DeviceReportingProto::has_report_cpu_info() const {
@@ -26441,7 +26672,7 @@ inline bool DeviceReportingProto::has_report_cpu_info() const {
 }
 inline void DeviceReportingProto::clear_report_cpu_info() {
   report_cpu_info_ = false;
-  _has_bits_[0] &= ~0x00000040u;
+  _has_bits_[0] &= ~0x00000080u;
 }
 inline bool DeviceReportingProto::_internal_report_cpu_info() const {
   return report_cpu_info_;
@@ -26451,7 +26682,7 @@ inline bool DeviceReportingProto::report_cpu_info() const {
   return _internal_report_cpu_info();
 }
 inline void DeviceReportingProto::_internal_set_report_cpu_info(bool value) {
-  _has_bits_[0] |= 0x00000040u;
+  _has_bits_[0] |= 0x00000080u;
   report_cpu_info_ = value;
 }
 inline void DeviceReportingProto::set_report_cpu_info(bool value) {
@@ -26461,7 +26692,7 @@ inline void DeviceReportingProto::set_report_cpu_info(bool value) {
 
 // optional bool report_graphics_status = 16 [default = false];
 inline bool DeviceReportingProto::_internal_has_report_graphics_status() const {
-  bool value = (_has_bits_[0] & 0x00000080u) != 0;
+  bool value = (_has_bits_[0] & 0x00000100u) != 0;
   return value;
 }
 inline bool DeviceReportingProto::has_report_graphics_status() const {
@@ -26469,7 +26700,7 @@ inline bool DeviceReportingProto::has_report_graphics_status() const {
 }
 inline void DeviceReportingProto::clear_report_graphics_status() {
   report_graphics_status_ = false;
-  _has_bits_[0] &= ~0x00000080u;
+  _has_bits_[0] &= ~0x00000100u;
 }
 inline bool DeviceReportingProto::_internal_report_graphics_status() const {
   return report_graphics_status_;
@@ -26479,7 +26710,7 @@ inline bool DeviceReportingProto::report_graphics_status() const {
   return _internal_report_graphics_status();
 }
 inline void DeviceReportingProto::_internal_set_report_graphics_status(bool value) {
-  _has_bits_[0] |= 0x00000080u;
+  _has_bits_[0] |= 0x00000100u;
   report_graphics_status_ = value;
 }
 inline void DeviceReportingProto::set_report_graphics_status(bool value) {
@@ -26489,7 +26720,7 @@ inline void DeviceReportingProto::set_report_graphics_status(bool value) {
 
 // optional bool report_crash_report_info = 17 [default = false];
 inline bool DeviceReportingProto::_internal_has_report_crash_report_info() const {
-  bool value = (_has_bits_[0] & 0x00000100u) != 0;
+  bool value = (_has_bits_[0] & 0x00000200u) != 0;
   return value;
 }
 inline bool DeviceReportingProto::has_report_crash_report_info() const {
@@ -26497,7 +26728,7 @@ inline bool DeviceReportingProto::has_report_crash_report_info() const {
 }
 inline void DeviceReportingProto::clear_report_crash_report_info() {
   report_crash_report_info_ = false;
-  _has_bits_[0] &= ~0x00000100u;
+  _has_bits_[0] &= ~0x00000200u;
 }
 inline bool DeviceReportingProto::_internal_report_crash_report_info() const {
   return report_crash_report_info_;
@@ -26507,7 +26738,7 @@ inline bool DeviceReportingProto::report_crash_report_info() const {
   return _internal_report_crash_report_info();
 }
 inline void DeviceReportingProto::_internal_set_report_crash_report_info(bool value) {
-  _has_bits_[0] |= 0x00000100u;
+  _has_bits_[0] |= 0x00000200u;
   report_crash_report_info_ = value;
 }
 inline void DeviceReportingProto::set_report_crash_report_info(bool value) {
@@ -26517,7 +26748,7 @@ inline void DeviceReportingProto::set_report_crash_report_info(bool value) {
 
 // optional bool report_timezone_info = 18 [default = false];
 inline bool DeviceReportingProto::_internal_has_report_timezone_info() const {
-  bool value = (_has_bits_[0] & 0x00000200u) != 0;
+  bool value = (_has_bits_[0] & 0x00000400u) != 0;
   return value;
 }
 inline bool DeviceReportingProto::has_report_timezone_info() const {
@@ -26525,7 +26756,7 @@ inline bool DeviceReportingProto::has_report_timezone_info() const {
 }
 inline void DeviceReportingProto::clear_report_timezone_info() {
   report_timezone_info_ = false;
-  _has_bits_[0] &= ~0x00000200u;
+  _has_bits_[0] &= ~0x00000400u;
 }
 inline bool DeviceReportingProto::_internal_report_timezone_info() const {
   return report_timezone_info_;
@@ -26535,7 +26766,7 @@ inline bool DeviceReportingProto::report_timezone_info() const {
   return _internal_report_timezone_info();
 }
 inline void DeviceReportingProto::_internal_set_report_timezone_info(bool value) {
-  _has_bits_[0] |= 0x00000200u;
+  _has_bits_[0] |= 0x00000400u;
   report_timezone_info_ = value;
 }
 inline void DeviceReportingProto::set_report_timezone_info(bool value) {
@@ -26545,7 +26776,7 @@ inline void DeviceReportingProto::set_report_timezone_info(bool value) {
 
 // optional bool report_memory_info = 19 [default = false];
 inline bool DeviceReportingProto::_internal_has_report_memory_info() const {
-  bool value = (_has_bits_[0] & 0x00000400u) != 0;
+  bool value = (_has_bits_[0] & 0x00000800u) != 0;
   return value;
 }
 inline bool DeviceReportingProto::has_report_memory_info() const {
@@ -26553,7 +26784,7 @@ inline bool DeviceReportingProto::has_report_memory_info() const {
 }
 inline void DeviceReportingProto::clear_report_memory_info() {
   report_memory_info_ = false;
-  _has_bits_[0] &= ~0x00000400u;
+  _has_bits_[0] &= ~0x00000800u;
 }
 inline bool DeviceReportingProto::_internal_report_memory_info() const {
   return report_memory_info_;
@@ -26563,7 +26794,7 @@ inline bool DeviceReportingProto::report_memory_info() const {
   return _internal_report_memory_info();
 }
 inline void DeviceReportingProto::_internal_set_report_memory_info(bool value) {
-  _has_bits_[0] |= 0x00000400u;
+  _has_bits_[0] |= 0x00000800u;
   report_memory_info_ = value;
 }
 inline void DeviceReportingProto::set_report_memory_info(bool value) {
@@ -26573,7 +26804,7 @@ inline void DeviceReportingProto::set_report_memory_info(bool value) {
 
 // optional bool report_backlight_info = 20 [default = false];
 inline bool DeviceReportingProto::_internal_has_report_backlight_info() const {
-  bool value = (_has_bits_[0] & 0x00000800u) != 0;
+  bool value = (_has_bits_[0] & 0x00001000u) != 0;
   return value;
 }
 inline bool DeviceReportingProto::has_report_backlight_info() const {
@@ -26581,7 +26812,7 @@ inline bool DeviceReportingProto::has_report_backlight_info() const {
 }
 inline void DeviceReportingProto::clear_report_backlight_info() {
   report_backlight_info_ = false;
-  _has_bits_[0] &= ~0x00000800u;
+  _has_bits_[0] &= ~0x00001000u;
 }
 inline bool DeviceReportingProto::_internal_report_backlight_info() const {
   return report_backlight_info_;
@@ -26591,7 +26822,7 @@ inline bool DeviceReportingProto::report_backlight_info() const {
   return _internal_report_backlight_info();
 }
 inline void DeviceReportingProto::_internal_set_report_backlight_info(bool value) {
-  _has_bits_[0] |= 0x00000800u;
+  _has_bits_[0] |= 0x00001000u;
   report_backlight_info_ = value;
 }
 inline void DeviceReportingProto::set_report_backlight_info(bool value) {
@@ -26601,7 +26832,7 @@ inline void DeviceReportingProto::set_report_backlight_info(bool value) {
 
 // optional bool report_app_info = 21 [default = false];
 inline bool DeviceReportingProto::_internal_has_report_app_info() const {
-  bool value = (_has_bits_[0] & 0x00001000u) != 0;
+  bool value = (_has_bits_[0] & 0x00002000u) != 0;
   return value;
 }
 inline bool DeviceReportingProto::has_report_app_info() const {
@@ -26609,7 +26840,7 @@ inline bool DeviceReportingProto::has_report_app_info() const {
 }
 inline void DeviceReportingProto::clear_report_app_info() {
   report_app_info_ = false;
-  _has_bits_[0] &= ~0x00001000u;
+  _has_bits_[0] &= ~0x00002000u;
 }
 inline bool DeviceReportingProto::_internal_report_app_info() const {
   return report_app_info_;
@@ -26619,7 +26850,7 @@ inline bool DeviceReportingProto::report_app_info() const {
   return _internal_report_app_info();
 }
 inline void DeviceReportingProto::_internal_set_report_app_info(bool value) {
-  _has_bits_[0] |= 0x00001000u;
+  _has_bits_[0] |= 0x00002000u;
   report_app_info_ = value;
 }
 inline void DeviceReportingProto::set_report_app_info(bool value) {
@@ -26629,7 +26860,7 @@ inline void DeviceReportingProto::set_report_app_info(bool value) {
 
 // optional bool report_bluetooth_info = 22 [default = false];
 inline bool DeviceReportingProto::_internal_has_report_bluetooth_info() const {
-  bool value = (_has_bits_[0] & 0x00002000u) != 0;
+  bool value = (_has_bits_[0] & 0x00004000u) != 0;
   return value;
 }
 inline bool DeviceReportingProto::has_report_bluetooth_info() const {
@@ -26637,7 +26868,7 @@ inline bool DeviceReportingProto::has_report_bluetooth_info() const {
 }
 inline void DeviceReportingProto::clear_report_bluetooth_info() {
   report_bluetooth_info_ = false;
-  _has_bits_[0] &= ~0x00002000u;
+  _has_bits_[0] &= ~0x00004000u;
 }
 inline bool DeviceReportingProto::_internal_report_bluetooth_info() const {
   return report_bluetooth_info_;
@@ -26647,7 +26878,7 @@ inline bool DeviceReportingProto::report_bluetooth_info() const {
   return _internal_report_bluetooth_info();
 }
 inline void DeviceReportingProto::_internal_set_report_bluetooth_info(bool value) {
-  _has_bits_[0] |= 0x00002000u;
+  _has_bits_[0] |= 0x00004000u;
   report_bluetooth_info_ = value;
 }
 inline void DeviceReportingProto::set_report_bluetooth_info(bool value) {
@@ -26657,7 +26888,7 @@ inline void DeviceReportingProto::set_report_bluetooth_info(bool value) {
 
 // optional bool report_fan_info = 23 [default = false];
 inline bool DeviceReportingProto::_internal_has_report_fan_info() const {
-  bool value = (_has_bits_[0] & 0x00004000u) != 0;
+  bool value = (_has_bits_[0] & 0x00008000u) != 0;
   return value;
 }
 inline bool DeviceReportingProto::has_report_fan_info() const {
@@ -26665,7 +26896,7 @@ inline bool DeviceReportingProto::has_report_fan_info() const {
 }
 inline void DeviceReportingProto::clear_report_fan_info() {
   report_fan_info_ = false;
-  _has_bits_[0] &= ~0x00004000u;
+  _has_bits_[0] &= ~0x00008000u;
 }
 inline bool DeviceReportingProto::_internal_report_fan_info() const {
   return report_fan_info_;
@@ -26675,7 +26906,7 @@ inline bool DeviceReportingProto::report_fan_info() const {
   return _internal_report_fan_info();
 }
 inline void DeviceReportingProto::_internal_set_report_fan_info(bool value) {
-  _has_bits_[0] |= 0x00004000u;
+  _has_bits_[0] |= 0x00008000u;
   report_fan_info_ = value;
 }
 inline void DeviceReportingProto::set_report_fan_info(bool value) {
@@ -26685,7 +26916,7 @@ inline void DeviceReportingProto::set_report_fan_info(bool value) {
 
 // optional bool report_vpd_info = 24 [default = false];
 inline bool DeviceReportingProto::_internal_has_report_vpd_info() const {
-  bool value = (_has_bits_[0] & 0x00008000u) != 0;
+  bool value = (_has_bits_[0] & 0x00010000u) != 0;
   return value;
 }
 inline bool DeviceReportingProto::has_report_vpd_info() const {
@@ -26693,7 +26924,7 @@ inline bool DeviceReportingProto::has_report_vpd_info() const {
 }
 inline void DeviceReportingProto::clear_report_vpd_info() {
   report_vpd_info_ = false;
-  _has_bits_[0] &= ~0x00008000u;
+  _has_bits_[0] &= ~0x00010000u;
 }
 inline bool DeviceReportingProto::_internal_report_vpd_info() const {
   return report_vpd_info_;
@@ -26703,7 +26934,7 @@ inline bool DeviceReportingProto::report_vpd_info() const {
   return _internal_report_vpd_info();
 }
 inline void DeviceReportingProto::_internal_set_report_vpd_info(bool value) {
-  _has_bits_[0] |= 0x00008000u;
+  _has_bits_[0] |= 0x00010000u;
   report_vpd_info_ = value;
 }
 inline void DeviceReportingProto::set_report_vpd_info(bool value) {
@@ -26713,7 +26944,7 @@ inline void DeviceReportingProto::set_report_vpd_info(bool value) {
 
 // optional bool report_system_info = 25 [default = false];
 inline bool DeviceReportingProto::_internal_has_report_system_info() const {
-  bool value = (_has_bits_[0] & 0x00010000u) != 0;
+  bool value = (_has_bits_[0] & 0x00020000u) != 0;
   return value;
 }
 inline bool DeviceReportingProto::has_report_system_info() const {
@@ -26721,7 +26952,7 @@ inline bool DeviceReportingProto::has_report_system_info() const {
 }
 inline void DeviceReportingProto::clear_report_system_info() {
   report_system_info_ = false;
-  _has_bits_[0] &= ~0x00010000u;
+  _has_bits_[0] &= ~0x00020000u;
 }
 inline bool DeviceReportingProto::_internal_report_system_info() const {
   return report_system_info_;
@@ -26731,7 +26962,7 @@ inline bool DeviceReportingProto::report_system_info() const {
   return _internal_report_system_info();
 }
 inline void DeviceReportingProto::_internal_set_report_system_info(bool value) {
-  _has_bits_[0] |= 0x00010000u;
+  _has_bits_[0] |= 0x00020000u;
   report_system_info_ = value;
 }
 inline void DeviceReportingProto::set_report_system_info(bool value) {
@@ -26741,7 +26972,7 @@ inline void DeviceReportingProto::set_report_system_info(bool value) {
 
 // optional bool report_print_jobs = 26 [default = false];
 inline bool DeviceReportingProto::_internal_has_report_print_jobs() const {
-  bool value = (_has_bits_[0] & 0x00020000u) != 0;
+  bool value = (_has_bits_[0] & 0x00040000u) != 0;
   return value;
 }
 inline bool DeviceReportingProto::has_report_print_jobs() const {
@@ -26749,7 +26980,7 @@ inline bool DeviceReportingProto::has_report_print_jobs() const {
 }
 inline void DeviceReportingProto::clear_report_print_jobs() {
   report_print_jobs_ = false;
-  _has_bits_[0] &= ~0x00020000u;
+  _has_bits_[0] &= ~0x00040000u;
 }
 inline bool DeviceReportingProto::_internal_report_print_jobs() const {
   return report_print_jobs_;
@@ -26759,7 +26990,7 @@ inline bool DeviceReportingProto::report_print_jobs() const {
   return _internal_report_print_jobs();
 }
 inline void DeviceReportingProto::_internal_set_report_print_jobs(bool value) {
-  _has_bits_[0] |= 0x00020000u;
+  _has_bits_[0] |= 0x00040000u;
   report_print_jobs_ = value;
 }
 inline void DeviceReportingProto::set_report_print_jobs(bool value) {
@@ -26769,7 +27000,7 @@ inline void DeviceReportingProto::set_report_print_jobs(bool value) {
 
 // optional bool report_login_logout = 27 [default = false];
 inline bool DeviceReportingProto::_internal_has_report_login_logout() const {
-  bool value = (_has_bits_[0] & 0x00040000u) != 0;
+  bool value = (_has_bits_[0] & 0x00080000u) != 0;
   return value;
 }
 inline bool DeviceReportingProto::has_report_login_logout() const {
@@ -26777,7 +27008,7 @@ inline bool DeviceReportingProto::has_report_login_logout() const {
 }
 inline void DeviceReportingProto::clear_report_login_logout() {
   report_login_logout_ = false;
-  _has_bits_[0] &= ~0x00040000u;
+  _has_bits_[0] &= ~0x00080000u;
 }
 inline bool DeviceReportingProto::_internal_report_login_logout() const {
   return report_login_logout_;
@@ -26787,7 +27018,7 @@ inline bool DeviceReportingProto::report_login_logout() const {
   return _internal_report_login_logout();
 }
 inline void DeviceReportingProto::_internal_set_report_login_logout(bool value) {
-  _has_bits_[0] |= 0x00040000u;
+  _has_bits_[0] |= 0x00080000u;
   report_login_logout_ = value;
 }
 inline void DeviceReportingProto::set_report_login_logout(bool value) {
@@ -26797,7 +27028,7 @@ inline void DeviceReportingProto::set_report_login_logout(bool value) {
 
 // optional bool report_audio_status = 28 [default = true];
 inline bool DeviceReportingProto::_internal_has_report_audio_status() const {
-  bool value = (_has_bits_[1] & 0x00000001u) != 0;
+  bool value = (_has_bits_[1] & 0x00000002u) != 0;
   return value;
 }
 inline bool DeviceReportingProto::has_report_audio_status() const {
@@ -26805,7 +27036,7 @@ inline bool DeviceReportingProto::has_report_audio_status() const {
 }
 inline void DeviceReportingProto::clear_report_audio_status() {
   report_audio_status_ = true;
-  _has_bits_[1] &= ~0x00000001u;
+  _has_bits_[1] &= ~0x00000002u;
 }
 inline bool DeviceReportingProto::_internal_report_audio_status() const {
   return report_audio_status_;
@@ -26815,7 +27046,7 @@ inline bool DeviceReportingProto::report_audio_status() const {
   return _internal_report_audio_status();
 }
 inline void DeviceReportingProto::_internal_set_report_audio_status(bool value) {
-  _has_bits_[1] |= 0x00000001u;
+  _has_bits_[1] |= 0x00000002u;
   report_audio_status_ = value;
 }
 inline void DeviceReportingProto::set_report_audio_status(bool value) {
@@ -26825,7 +27056,7 @@ inline void DeviceReportingProto::set_report_audio_status(bool value) {
 
 // optional bool report_network_configuration = 29 [default = true];
 inline bool DeviceReportingProto::_internal_has_report_network_configuration() const {
-  bool value = (_has_bits_[0] & 0x00400000u) != 0;
+  bool value = (_has_bits_[0] & 0x00800000u) != 0;
   return value;
 }
 inline bool DeviceReportingProto::has_report_network_configuration() const {
@@ -26833,7 +27064,7 @@ inline bool DeviceReportingProto::has_report_network_configuration() const {
 }
 inline void DeviceReportingProto::clear_report_network_configuration() {
   report_network_configuration_ = true;
-  _has_bits_[0] &= ~0x00400000u;
+  _has_bits_[0] &= ~0x00800000u;
 }
 inline bool DeviceReportingProto::_internal_report_network_configuration() const {
   return report_network_configuration_;
@@ -26843,7 +27074,7 @@ inline bool DeviceReportingProto::report_network_configuration() const {
   return _internal_report_network_configuration();
 }
 inline void DeviceReportingProto::_internal_set_report_network_configuration(bool value) {
-  _has_bits_[0] |= 0x00400000u;
+  _has_bits_[0] |= 0x00800000u;
   report_network_configuration_ = value;
 }
 inline void DeviceReportingProto::set_report_network_configuration(bool value) {
@@ -26853,7 +27084,7 @@ inline void DeviceReportingProto::set_report_network_configuration(bool value) {
 
 // optional bool report_network_status = 30 [default = true];
 inline bool DeviceReportingProto::_internal_has_report_network_status() const {
-  bool value = (_has_bits_[0] & 0x00800000u) != 0;
+  bool value = (_has_bits_[0] & 0x01000000u) != 0;
   return value;
 }
 inline bool DeviceReportingProto::has_report_network_status() const {
@@ -26861,7 +27092,7 @@ inline bool DeviceReportingProto::has_report_network_status() const {
 }
 inline void DeviceReportingProto::clear_report_network_status() {
   report_network_status_ = true;
-  _has_bits_[0] &= ~0x00800000u;
+  _has_bits_[0] &= ~0x01000000u;
 }
 inline bool DeviceReportingProto::_internal_report_network_status() const {
   return report_network_status_;
@@ -26871,7 +27102,7 @@ inline bool DeviceReportingProto::report_network_status() const {
   return _internal_report_network_status();
 }
 inline void DeviceReportingProto::_internal_set_report_network_status(bool value) {
-  _has_bits_[0] |= 0x00800000u;
+  _has_bits_[0] |= 0x01000000u;
   report_network_status_ = value;
 }
 inline void DeviceReportingProto::set_report_network_status(bool value) {
@@ -26881,7 +27112,7 @@ inline void DeviceReportingProto::set_report_network_status(bool value) {
 
 // optional bool report_security_status = 31 [default = false];
 inline bool DeviceReportingProto::_internal_has_report_security_status() const {
-  bool value = (_has_bits_[0] & 0x00080000u) != 0;
+  bool value = (_has_bits_[0] & 0x00100000u) != 0;
   return value;
 }
 inline bool DeviceReportingProto::has_report_security_status() const {
@@ -26889,7 +27120,7 @@ inline bool DeviceReportingProto::has_report_security_status() const {
 }
 inline void DeviceReportingProto::clear_report_security_status() {
   report_security_status_ = false;
-  _has_bits_[0] &= ~0x00080000u;
+  _has_bits_[0] &= ~0x00100000u;
 }
 inline bool DeviceReportingProto::_internal_report_security_status() const {
   return report_security_status_;
@@ -26899,7 +27130,7 @@ inline bool DeviceReportingProto::report_security_status() const {
   return _internal_report_security_status();
 }
 inline void DeviceReportingProto::_internal_set_report_security_status(bool value) {
-  _has_bits_[0] |= 0x00080000u;
+  _has_bits_[0] |= 0x00100000u;
   report_security_status_ = value;
 }
 inline void DeviceReportingProto::set_report_security_status(bool value) {
@@ -26909,7 +27140,7 @@ inline void DeviceReportingProto::set_report_security_status(bool value) {
 
 // optional bool report_crd_sessions = 36 [default = false];
 inline bool DeviceReportingProto::_internal_has_report_crd_sessions() const {
-  bool value = (_has_bits_[0] & 0x00100000u) != 0;
+  bool value = (_has_bits_[0] & 0x00200000u) != 0;
   return value;
 }
 inline bool DeviceReportingProto::has_report_crd_sessions() const {
@@ -26917,7 +27148,7 @@ inline bool DeviceReportingProto::has_report_crd_sessions() const {
 }
 inline void DeviceReportingProto::clear_report_crd_sessions() {
   report_crd_sessions_ = false;
-  _has_bits_[0] &= ~0x00100000u;
+  _has_bits_[0] &= ~0x00200000u;
 }
 inline bool DeviceReportingProto::_internal_report_crd_sessions() const {
   return report_crd_sessions_;
@@ -26927,7 +27158,7 @@ inline bool DeviceReportingProto::report_crd_sessions() const {
   return _internal_report_crd_sessions();
 }
 inline void DeviceReportingProto::_internal_set_report_crd_sessions(bool value) {
-  _has_bits_[0] |= 0x00100000u;
+  _has_bits_[0] |= 0x00200000u;
   report_crd_sessions_ = value;
 }
 inline void DeviceReportingProto::set_report_crd_sessions(bool value) {
@@ -26937,7 +27168,7 @@ inline void DeviceReportingProto::set_report_crd_sessions(bool value) {
 
 // optional bool report_peripherals = 37 [default = false];
 inline bool DeviceReportingProto::_internal_has_report_peripherals() const {
-  bool value = (_has_bits_[0] & 0x00200000u) != 0;
+  bool value = (_has_bits_[0] & 0x00400000u) != 0;
   return value;
 }
 inline bool DeviceReportingProto::has_report_peripherals() const {
@@ -26945,7 +27176,7 @@ inline bool DeviceReportingProto::has_report_peripherals() const {
 }
 inline void DeviceReportingProto::clear_report_peripherals() {
   report_peripherals_ = false;
-  _has_bits_[0] &= ~0x00200000u;
+  _has_bits_[0] &= ~0x00400000u;
 }
 inline bool DeviceReportingProto::_internal_report_peripherals() const {
   return report_peripherals_;
@@ -26955,7 +27186,7 @@ inline bool DeviceReportingProto::report_peripherals() const {
   return _internal_report_peripherals();
 }
 inline void DeviceReportingProto::_internal_set_report_peripherals(bool value) {
-  _has_bits_[0] |= 0x00200000u;
+  _has_bits_[0] |= 0x00400000u;
   report_peripherals_ = value;
 }
 inline void DeviceReportingProto::set_report_peripherals(bool value) {
@@ -26965,7 +27196,7 @@ inline void DeviceReportingProto::set_report_peripherals(bool value) {
 
 // optional int64 device_status_frequency = 9 [default = 10800000];
 inline bool DeviceReportingProto::_internal_has_device_status_frequency() const {
-  bool value = (_has_bits_[1] & 0x00000002u) != 0;
+  bool value = (_has_bits_[1] & 0x00000004u) != 0;
   return value;
 }
 inline bool DeviceReportingProto::has_device_status_frequency() const {
@@ -26973,7 +27204,7 @@ inline bool DeviceReportingProto::has_device_status_frequency() const {
 }
 inline void DeviceReportingProto::clear_device_status_frequency() {
   device_status_frequency_ = int64_t{10800000};
-  _has_bits_[1] &= ~0x00000002u;
+  _has_bits_[1] &= ~0x00000004u;
 }
 inline int64_t DeviceReportingProto::_internal_device_status_frequency() const {
   return device_status_frequency_;
@@ -26983,7 +27214,7 @@ inline int64_t DeviceReportingProto::device_status_frequency() const {
   return _internal_device_status_frequency();
 }
 inline void DeviceReportingProto::_internal_set_device_status_frequency(int64_t value) {
-  _has_bits_[1] |= 0x00000002u;
+  _has_bits_[1] |= 0x00000004u;
   device_status_frequency_ = value;
 }
 inline void DeviceReportingProto::set_device_status_frequency(int64_t value) {
@@ -26993,7 +27224,7 @@ inline void DeviceReportingProto::set_device_status_frequency(int64_t value) {
 
 // optional bool enable_granular_reporting = 32 [default = true];
 inline bool DeviceReportingProto::_internal_has_enable_granular_reporting() const {
-  bool value = (_has_bits_[0] & 0x01000000u) != 0;
+  bool value = (_has_bits_[0] & 0x02000000u) != 0;
   return value;
 }
 inline bool DeviceReportingProto::has_enable_granular_reporting() const {
@@ -27001,7 +27232,7 @@ inline bool DeviceReportingProto::has_enable_granular_reporting() const {
 }
 inline void DeviceReportingProto::clear_enable_granular_reporting() {
   enable_granular_reporting_ = true;
-  _has_bits_[0] &= ~0x01000000u;
+  _has_bits_[0] &= ~0x02000000u;
 }
 inline bool DeviceReportingProto::_internal_enable_granular_reporting() const {
   return enable_granular_reporting_;
@@ -27011,7 +27242,7 @@ inline bool DeviceReportingProto::enable_granular_reporting() const {
   return _internal_enable_granular_reporting();
 }
 inline void DeviceReportingProto::_internal_set_enable_granular_reporting(bool value) {
-  _has_bits_[0] |= 0x01000000u;
+  _has_bits_[0] |= 0x02000000u;
   enable_granular_reporting_ = value;
 }
 inline void DeviceReportingProto::set_enable_granular_reporting(bool value) {
@@ -27021,7 +27252,7 @@ inline void DeviceReportingProto::set_enable_granular_reporting(bool value) {
 
 // optional int64 report_network_telemetry_collection_rate_ms = 33 [default = 3600000];
 inline bool DeviceReportingProto::_internal_has_report_network_telemetry_collection_rate_ms() const {
-  bool value = (_has_bits_[1] & 0x00000004u) != 0;
+  bool value = (_has_bits_[1] & 0x00000008u) != 0;
   return value;
 }
 inline bool DeviceReportingProto::has_report_network_telemetry_collection_rate_ms() const {
@@ -27029,7 +27260,7 @@ inline bool DeviceReportingProto::has_report_network_telemetry_collection_rate_m
 }
 inline void DeviceReportingProto::clear_report_network_telemetry_collection_rate_ms() {
   report_network_telemetry_collection_rate_ms_ = int64_t{3600000};
-  _has_bits_[1] &= ~0x00000004u;
+  _has_bits_[1] &= ~0x00000008u;
 }
 inline int64_t DeviceReportingProto::_internal_report_network_telemetry_collection_rate_ms() const {
   return report_network_telemetry_collection_rate_ms_;
@@ -27039,7 +27270,7 @@ inline int64_t DeviceReportingProto::report_network_telemetry_collection_rate_ms
   return _internal_report_network_telemetry_collection_rate_ms();
 }
 inline void DeviceReportingProto::_internal_set_report_network_telemetry_collection_rate_ms(int64_t value) {
-  _has_bits_[1] |= 0x00000004u;
+  _has_bits_[1] |= 0x00000008u;
   report_network_telemetry_collection_rate_ms_ = value;
 }
 inline void DeviceReportingProto::set_report_network_telemetry_collection_rate_ms(int64_t value) {
@@ -27049,7 +27280,7 @@ inline void DeviceReportingProto::set_report_network_telemetry_collection_rate_m
 
 // optional int64 report_network_telemetry_event_checking_rate_ms = 34 [default = 600000];
 inline bool DeviceReportingProto::_internal_has_report_network_telemetry_event_checking_rate_ms() const {
-  bool value = (_has_bits_[1] & 0x00000008u) != 0;
+  bool value = (_has_bits_[1] & 0x00000010u) != 0;
   return value;
 }
 inline bool DeviceReportingProto::has_report_network_telemetry_event_checking_rate_ms() const {
@@ -27057,7 +27288,7 @@ inline bool DeviceReportingProto::has_report_network_telemetry_event_checking_ra
 }
 inline void DeviceReportingProto::clear_report_network_telemetry_event_checking_rate_ms() {
   report_network_telemetry_event_checking_rate_ms_ = int64_t{600000};
-  _has_bits_[1] &= ~0x00000008u;
+  _has_bits_[1] &= ~0x00000010u;
 }
 inline int64_t DeviceReportingProto::_internal_report_network_telemetry_event_checking_rate_ms() const {
   return report_network_telemetry_event_checking_rate_ms_;
@@ -27067,7 +27298,7 @@ inline int64_t DeviceReportingProto::report_network_telemetry_event_checking_rat
   return _internal_report_network_telemetry_event_checking_rate_ms();
 }
 inline void DeviceReportingProto::_internal_set_report_network_telemetry_event_checking_rate_ms(int64_t value) {
-  _has_bits_[1] |= 0x00000008u;
+  _has_bits_[1] |= 0x00000010u;
   report_network_telemetry_event_checking_rate_ms_ = value;
 }
 inline void DeviceReportingProto::set_report_network_telemetry_event_checking_rate_ms(int64_t value) {
@@ -27077,7 +27308,7 @@ inline void DeviceReportingProto::set_report_network_telemetry_event_checking_ra
 
 // optional int64 report_device_audio_status_checking_rate_ms = 35 [default = 600000];
 inline bool DeviceReportingProto::_internal_has_report_device_audio_status_checking_rate_ms() const {
-  bool value = (_has_bits_[1] & 0x00000010u) != 0;
+  bool value = (_has_bits_[1] & 0x00000020u) != 0;
   return value;
 }
 inline bool DeviceReportingProto::has_report_device_audio_status_checking_rate_ms() const {
@@ -27085,7 +27316,7 @@ inline bool DeviceReportingProto::has_report_device_audio_status_checking_rate_m
 }
 inline void DeviceReportingProto::clear_report_device_audio_status_checking_rate_ms() {
   report_device_audio_status_checking_rate_ms_ = int64_t{600000};
-  _has_bits_[1] &= ~0x00000010u;
+  _has_bits_[1] &= ~0x00000020u;
 }
 inline int64_t DeviceReportingProto::_internal_report_device_audio_status_checking_rate_ms() const {
   return report_device_audio_status_checking_rate_ms_;
@@ -27095,12 +27326,100 @@ inline int64_t DeviceReportingProto::report_device_audio_status_checking_rate_ms
   return _internal_report_device_audio_status_checking_rate_ms();
 }
 inline void DeviceReportingProto::_internal_set_report_device_audio_status_checking_rate_ms(int64_t value) {
-  _has_bits_[1] |= 0x00000010u;
+  _has_bits_[1] |= 0x00000020u;
   report_device_audio_status_checking_rate_ms_ = value;
 }
 inline void DeviceReportingProto::set_report_device_audio_status_checking_rate_ms(int64_t value) {
   _internal_set_report_device_audio_status_checking_rate_ms(value);
   // @@protoc_insertion_point(field_set:enterprise_management.DeviceReportingProto.report_device_audio_status_checking_rate_ms)
+}
+
+// optional .enterprise_management.StringList report_signal_strength_event_driven_telemetry = 38;
+inline bool DeviceReportingProto::_internal_has_report_signal_strength_event_driven_telemetry() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  PROTOBUF_ASSUME(!value || report_signal_strength_event_driven_telemetry_ != nullptr);
+  return value;
+}
+inline bool DeviceReportingProto::has_report_signal_strength_event_driven_telemetry() const {
+  return _internal_has_report_signal_strength_event_driven_telemetry();
+}
+inline const ::enterprise_management::StringList& DeviceReportingProto::_internal_report_signal_strength_event_driven_telemetry() const {
+  const ::enterprise_management::StringList* p = report_signal_strength_event_driven_telemetry_;
+  return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::StringList&>(
+      ::enterprise_management::_StringList_default_instance_);
+}
+inline const ::enterprise_management::StringList& DeviceReportingProto::report_signal_strength_event_driven_telemetry() const {
+  // @@protoc_insertion_point(field_get:enterprise_management.DeviceReportingProto.report_signal_strength_event_driven_telemetry)
+  return _internal_report_signal_strength_event_driven_telemetry();
+}
+inline void DeviceReportingProto::unsafe_arena_set_allocated_report_signal_strength_event_driven_telemetry(
+    ::enterprise_management::StringList* report_signal_strength_event_driven_telemetry) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(report_signal_strength_event_driven_telemetry_);
+  }
+  report_signal_strength_event_driven_telemetry_ = report_signal_strength_event_driven_telemetry;
+  if (report_signal_strength_event_driven_telemetry) {
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.DeviceReportingProto.report_signal_strength_event_driven_telemetry)
+}
+inline ::enterprise_management::StringList* DeviceReportingProto::release_report_signal_strength_event_driven_telemetry() {
+  _has_bits_[0] &= ~0x00000001u;
+  ::enterprise_management::StringList* temp = report_signal_strength_event_driven_telemetry_;
+  report_signal_strength_event_driven_telemetry_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::enterprise_management::StringList* DeviceReportingProto::unsafe_arena_release_report_signal_strength_event_driven_telemetry() {
+  // @@protoc_insertion_point(field_release:enterprise_management.DeviceReportingProto.report_signal_strength_event_driven_telemetry)
+  _has_bits_[0] &= ~0x00000001u;
+  ::enterprise_management::StringList* temp = report_signal_strength_event_driven_telemetry_;
+  report_signal_strength_event_driven_telemetry_ = nullptr;
+  return temp;
+}
+inline ::enterprise_management::StringList* DeviceReportingProto::_internal_mutable_report_signal_strength_event_driven_telemetry() {
+  _has_bits_[0] |= 0x00000001u;
+  if (report_signal_strength_event_driven_telemetry_ == nullptr) {
+    auto* p = CreateMaybeMessage<::enterprise_management::StringList>(GetArenaForAllocation());
+    report_signal_strength_event_driven_telemetry_ = p;
+  }
+  return report_signal_strength_event_driven_telemetry_;
+}
+inline ::enterprise_management::StringList* DeviceReportingProto::mutable_report_signal_strength_event_driven_telemetry() {
+  ::enterprise_management::StringList* _msg = _internal_mutable_report_signal_strength_event_driven_telemetry();
+  // @@protoc_insertion_point(field_mutable:enterprise_management.DeviceReportingProto.report_signal_strength_event_driven_telemetry)
+  return _msg;
+}
+inline void DeviceReportingProto::set_allocated_report_signal_strength_event_driven_telemetry(::enterprise_management::StringList* report_signal_strength_event_driven_telemetry) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(report_signal_strength_event_driven_telemetry_);
+  }
+  if (report_signal_strength_event_driven_telemetry) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<
+            ::PROTOBUF_NAMESPACE_ID::MessageLite>::GetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(report_signal_strength_event_driven_telemetry));
+    if (message_arena != submessage_arena) {
+      report_signal_strength_event_driven_telemetry = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, report_signal_strength_event_driven_telemetry, submessage_arena);
+    }
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  report_signal_strength_event_driven_telemetry_ = report_signal_strength_event_driven_telemetry;
+  // @@protoc_insertion_point(field_set_allocated:enterprise_management.DeviceReportingProto.report_signal_strength_event_driven_telemetry)
 }
 
 // -------------------------------------------------------------------
@@ -32360,47 +32679,120 @@ inline void SAMLSettingsProto::set_transfer_saml_cookies(bool value) {
   // @@protoc_insertion_point(field_set:enterprise_management.SAMLSettingsProto.transfer_saml_cookies)
 }
 
-// optional string url_parameter_to_autofill_saml_username = 2;
-inline bool SAMLSettingsProto::_internal_has_url_parameter_to_autofill_saml_username() const {
+// optional string OBSOLETE_url_parameter_to_autofill_saml_username = 2 [deprecated = true];
+inline bool SAMLSettingsProto::_internal_has_obsolete_url_parameter_to_autofill_saml_username() const {
   bool value = (_has_bits_[0] & 0x00000001u) != 0;
   return value;
 }
-inline bool SAMLSettingsProto::has_url_parameter_to_autofill_saml_username() const {
+inline bool SAMLSettingsProto::has_obsolete_url_parameter_to_autofill_saml_username() const {
+  return _internal_has_obsolete_url_parameter_to_autofill_saml_username();
+}
+inline void SAMLSettingsProto::clear_obsolete_url_parameter_to_autofill_saml_username() {
+  obsolete_url_parameter_to_autofill_saml_username_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline const std::string& SAMLSettingsProto::obsolete_url_parameter_to_autofill_saml_username() const {
+  // @@protoc_insertion_point(field_get:enterprise_management.SAMLSettingsProto.OBSOLETE_url_parameter_to_autofill_saml_username)
+  return _internal_obsolete_url_parameter_to_autofill_saml_username();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void SAMLSettingsProto::set_obsolete_url_parameter_to_autofill_saml_username(ArgT0&& arg0, ArgT... args) {
+ _has_bits_[0] |= 0x00000001u;
+ obsolete_url_parameter_to_autofill_saml_username_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:enterprise_management.SAMLSettingsProto.OBSOLETE_url_parameter_to_autofill_saml_username)
+}
+inline std::string* SAMLSettingsProto::mutable_obsolete_url_parameter_to_autofill_saml_username() {
+  std::string* _s = _internal_mutable_obsolete_url_parameter_to_autofill_saml_username();
+  // @@protoc_insertion_point(field_mutable:enterprise_management.SAMLSettingsProto.OBSOLETE_url_parameter_to_autofill_saml_username)
+  return _s;
+}
+inline const std::string& SAMLSettingsProto::_internal_obsolete_url_parameter_to_autofill_saml_username() const {
+  return obsolete_url_parameter_to_autofill_saml_username_.Get();
+}
+inline void SAMLSettingsProto::_internal_set_obsolete_url_parameter_to_autofill_saml_username(const std::string& value) {
+  _has_bits_[0] |= 0x00000001u;
+  obsolete_url_parameter_to_autofill_saml_username_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* SAMLSettingsProto::_internal_mutable_obsolete_url_parameter_to_autofill_saml_username() {
+  _has_bits_[0] |= 0x00000001u;
+  return obsolete_url_parameter_to_autofill_saml_username_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* SAMLSettingsProto::release_obsolete_url_parameter_to_autofill_saml_username() {
+  // @@protoc_insertion_point(field_release:enterprise_management.SAMLSettingsProto.OBSOLETE_url_parameter_to_autofill_saml_username)
+  if (!_internal_has_obsolete_url_parameter_to_autofill_saml_username()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000001u;
+  auto* p = obsolete_url_parameter_to_autofill_saml_username_.ReleaseNonDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (obsolete_url_parameter_to_autofill_saml_username_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    obsolete_url_parameter_to_autofill_saml_username_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void SAMLSettingsProto::set_allocated_obsolete_url_parameter_to_autofill_saml_username(std::string* obsolete_url_parameter_to_autofill_saml_username) {
+  if (obsolete_url_parameter_to_autofill_saml_username != nullptr) {
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  obsolete_url_parameter_to_autofill_saml_username_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), obsolete_url_parameter_to_autofill_saml_username,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (obsolete_url_parameter_to_autofill_saml_username_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    obsolete_url_parameter_to_autofill_saml_username_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:enterprise_management.SAMLSettingsProto.OBSOLETE_url_parameter_to_autofill_saml_username)
+}
+
+// -------------------------------------------------------------------
+
+// SAMLUsernameProto
+
+// optional string url_parameter_to_autofill_saml_username = 1;
+inline bool SAMLUsernameProto::_internal_has_url_parameter_to_autofill_saml_username() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool SAMLUsernameProto::has_url_parameter_to_autofill_saml_username() const {
   return _internal_has_url_parameter_to_autofill_saml_username();
 }
-inline void SAMLSettingsProto::clear_url_parameter_to_autofill_saml_username() {
+inline void SAMLUsernameProto::clear_url_parameter_to_autofill_saml_username() {
   url_parameter_to_autofill_saml_username_.ClearToEmpty();
   _has_bits_[0] &= ~0x00000001u;
 }
-inline const std::string& SAMLSettingsProto::url_parameter_to_autofill_saml_username() const {
-  // @@protoc_insertion_point(field_get:enterprise_management.SAMLSettingsProto.url_parameter_to_autofill_saml_username)
+inline const std::string& SAMLUsernameProto::url_parameter_to_autofill_saml_username() const {
+  // @@protoc_insertion_point(field_get:enterprise_management.SAMLUsernameProto.url_parameter_to_autofill_saml_username)
   return _internal_url_parameter_to_autofill_saml_username();
 }
 template <typename ArgT0, typename... ArgT>
 inline PROTOBUF_ALWAYS_INLINE
-void SAMLSettingsProto::set_url_parameter_to_autofill_saml_username(ArgT0&& arg0, ArgT... args) {
+void SAMLUsernameProto::set_url_parameter_to_autofill_saml_username(ArgT0&& arg0, ArgT... args) {
  _has_bits_[0] |= 0x00000001u;
  url_parameter_to_autofill_saml_username_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:enterprise_management.SAMLSettingsProto.url_parameter_to_autofill_saml_username)
+  // @@protoc_insertion_point(field_set:enterprise_management.SAMLUsernameProto.url_parameter_to_autofill_saml_username)
 }
-inline std::string* SAMLSettingsProto::mutable_url_parameter_to_autofill_saml_username() {
+inline std::string* SAMLUsernameProto::mutable_url_parameter_to_autofill_saml_username() {
   std::string* _s = _internal_mutable_url_parameter_to_autofill_saml_username();
-  // @@protoc_insertion_point(field_mutable:enterprise_management.SAMLSettingsProto.url_parameter_to_autofill_saml_username)
+  // @@protoc_insertion_point(field_mutable:enterprise_management.SAMLUsernameProto.url_parameter_to_autofill_saml_username)
   return _s;
 }
-inline const std::string& SAMLSettingsProto::_internal_url_parameter_to_autofill_saml_username() const {
+inline const std::string& SAMLUsernameProto::_internal_url_parameter_to_autofill_saml_username() const {
   return url_parameter_to_autofill_saml_username_.Get();
 }
-inline void SAMLSettingsProto::_internal_set_url_parameter_to_autofill_saml_username(const std::string& value) {
+inline void SAMLUsernameProto::_internal_set_url_parameter_to_autofill_saml_username(const std::string& value) {
   _has_bits_[0] |= 0x00000001u;
   url_parameter_to_autofill_saml_username_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
 }
-inline std::string* SAMLSettingsProto::_internal_mutable_url_parameter_to_autofill_saml_username() {
+inline std::string* SAMLUsernameProto::_internal_mutable_url_parameter_to_autofill_saml_username() {
   _has_bits_[0] |= 0x00000001u;
   return url_parameter_to_autofill_saml_username_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
 }
-inline std::string* SAMLSettingsProto::release_url_parameter_to_autofill_saml_username() {
-  // @@protoc_insertion_point(field_release:enterprise_management.SAMLSettingsProto.url_parameter_to_autofill_saml_username)
+inline std::string* SAMLUsernameProto::release_url_parameter_to_autofill_saml_username() {
+  // @@protoc_insertion_point(field_release:enterprise_management.SAMLUsernameProto.url_parameter_to_autofill_saml_username)
   if (!_internal_has_url_parameter_to_autofill_saml_username()) {
     return nullptr;
   }
@@ -32413,7 +32805,7 @@ inline std::string* SAMLSettingsProto::release_url_parameter_to_autofill_saml_us
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   return p;
 }
-inline void SAMLSettingsProto::set_allocated_url_parameter_to_autofill_saml_username(std::string* url_parameter_to_autofill_saml_username) {
+inline void SAMLUsernameProto::set_allocated_url_parameter_to_autofill_saml_username(std::string* url_parameter_to_autofill_saml_username) {
   if (url_parameter_to_autofill_saml_username != nullptr) {
     _has_bits_[0] |= 0x00000001u;
   } else {
@@ -32426,7 +32818,7 @@ inline void SAMLSettingsProto::set_allocated_url_parameter_to_autofill_saml_user
     url_parameter_to_autofill_saml_username_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:enterprise_management.SAMLSettingsProto.url_parameter_to_autofill_saml_username)
+  // @@protoc_insertion_point(field_set_allocated:enterprise_management.SAMLUsernameProto.url_parameter_to_autofill_saml_username)
 }
 
 // -------------------------------------------------------------------
@@ -48897,9 +49289,277 @@ inline void ChromeDeviceSettingsProto::set_allocated_device_encrypted_reporting_
   // @@protoc_insertion_point(field_set_allocated:enterprise_management.ChromeDeviceSettingsProto.device_encrypted_reporting_pipeline_enabled)
 }
 
+// optional .enterprise_management.SAMLUsernameProto saml_username = 135;
+inline bool ChromeDeviceSettingsProto::_internal_has_saml_username() const {
+  bool value = (_has_bits_[4] & 0x00000008u) != 0;
+  PROTOBUF_ASSUME(!value || saml_username_ != nullptr);
+  return value;
+}
+inline bool ChromeDeviceSettingsProto::has_saml_username() const {
+  return _internal_has_saml_username();
+}
+inline void ChromeDeviceSettingsProto::clear_saml_username() {
+  if (saml_username_ != nullptr) saml_username_->Clear();
+  _has_bits_[4] &= ~0x00000008u;
+}
+inline const ::enterprise_management::SAMLUsernameProto& ChromeDeviceSettingsProto::_internal_saml_username() const {
+  const ::enterprise_management::SAMLUsernameProto* p = saml_username_;
+  return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::SAMLUsernameProto&>(
+      ::enterprise_management::_SAMLUsernameProto_default_instance_);
+}
+inline const ::enterprise_management::SAMLUsernameProto& ChromeDeviceSettingsProto::saml_username() const {
+  // @@protoc_insertion_point(field_get:enterprise_management.ChromeDeviceSettingsProto.saml_username)
+  return _internal_saml_username();
+}
+inline void ChromeDeviceSettingsProto::unsafe_arena_set_allocated_saml_username(
+    ::enterprise_management::SAMLUsernameProto* saml_username) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(saml_username_);
+  }
+  saml_username_ = saml_username;
+  if (saml_username) {
+    _has_bits_[4] |= 0x00000008u;
+  } else {
+    _has_bits_[4] &= ~0x00000008u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.ChromeDeviceSettingsProto.saml_username)
+}
+inline ::enterprise_management::SAMLUsernameProto* ChromeDeviceSettingsProto::release_saml_username() {
+  _has_bits_[4] &= ~0x00000008u;
+  ::enterprise_management::SAMLUsernameProto* temp = saml_username_;
+  saml_username_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::enterprise_management::SAMLUsernameProto* ChromeDeviceSettingsProto::unsafe_arena_release_saml_username() {
+  // @@protoc_insertion_point(field_release:enterprise_management.ChromeDeviceSettingsProto.saml_username)
+  _has_bits_[4] &= ~0x00000008u;
+  ::enterprise_management::SAMLUsernameProto* temp = saml_username_;
+  saml_username_ = nullptr;
+  return temp;
+}
+inline ::enterprise_management::SAMLUsernameProto* ChromeDeviceSettingsProto::_internal_mutable_saml_username() {
+  _has_bits_[4] |= 0x00000008u;
+  if (saml_username_ == nullptr) {
+    auto* p = CreateMaybeMessage<::enterprise_management::SAMLUsernameProto>(GetArenaForAllocation());
+    saml_username_ = p;
+  }
+  return saml_username_;
+}
+inline ::enterprise_management::SAMLUsernameProto* ChromeDeviceSettingsProto::mutable_saml_username() {
+  ::enterprise_management::SAMLUsernameProto* _msg = _internal_mutable_saml_username();
+  // @@protoc_insertion_point(field_mutable:enterprise_management.ChromeDeviceSettingsProto.saml_username)
+  return _msg;
+}
+inline void ChromeDeviceSettingsProto::set_allocated_saml_username(::enterprise_management::SAMLUsernameProto* saml_username) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete saml_username_;
+  }
+  if (saml_username) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::enterprise_management::SAMLUsernameProto>::GetOwningArena(saml_username);
+    if (message_arena != submessage_arena) {
+      saml_username = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, saml_username, submessage_arena);
+    }
+    _has_bits_[4] |= 0x00000008u;
+  } else {
+    _has_bits_[4] &= ~0x00000008u;
+  }
+  saml_username_ = saml_username;
+  // @@protoc_insertion_point(field_set_allocated:enterprise_management.ChromeDeviceSettingsProto.saml_username)
+}
+
+// optional .enterprise_management.StringListPolicyProto device_login_screen_context_aware_access_signals_allowlist = 136;
+inline bool ChromeDeviceSettingsProto::_internal_has_device_login_screen_context_aware_access_signals_allowlist() const {
+  bool value = (_has_bits_[4] & 0x00000010u) != 0;
+  PROTOBUF_ASSUME(!value || device_login_screen_context_aware_access_signals_allowlist_ != nullptr);
+  return value;
+}
+inline bool ChromeDeviceSettingsProto::has_device_login_screen_context_aware_access_signals_allowlist() const {
+  return _internal_has_device_login_screen_context_aware_access_signals_allowlist();
+}
+inline const ::enterprise_management::StringListPolicyProto& ChromeDeviceSettingsProto::_internal_device_login_screen_context_aware_access_signals_allowlist() const {
+  const ::enterprise_management::StringListPolicyProto* p = device_login_screen_context_aware_access_signals_allowlist_;
+  return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::StringListPolicyProto&>(
+      ::enterprise_management::_StringListPolicyProto_default_instance_);
+}
+inline const ::enterprise_management::StringListPolicyProto& ChromeDeviceSettingsProto::device_login_screen_context_aware_access_signals_allowlist() const {
+  // @@protoc_insertion_point(field_get:enterprise_management.ChromeDeviceSettingsProto.device_login_screen_context_aware_access_signals_allowlist)
+  return _internal_device_login_screen_context_aware_access_signals_allowlist();
+}
+inline void ChromeDeviceSettingsProto::unsafe_arena_set_allocated_device_login_screen_context_aware_access_signals_allowlist(
+    ::enterprise_management::StringListPolicyProto* device_login_screen_context_aware_access_signals_allowlist) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(device_login_screen_context_aware_access_signals_allowlist_);
+  }
+  device_login_screen_context_aware_access_signals_allowlist_ = device_login_screen_context_aware_access_signals_allowlist;
+  if (device_login_screen_context_aware_access_signals_allowlist) {
+    _has_bits_[4] |= 0x00000010u;
+  } else {
+    _has_bits_[4] &= ~0x00000010u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.ChromeDeviceSettingsProto.device_login_screen_context_aware_access_signals_allowlist)
+}
+inline ::enterprise_management::StringListPolicyProto* ChromeDeviceSettingsProto::release_device_login_screen_context_aware_access_signals_allowlist() {
+  _has_bits_[4] &= ~0x00000010u;
+  ::enterprise_management::StringListPolicyProto* temp = device_login_screen_context_aware_access_signals_allowlist_;
+  device_login_screen_context_aware_access_signals_allowlist_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::enterprise_management::StringListPolicyProto* ChromeDeviceSettingsProto::unsafe_arena_release_device_login_screen_context_aware_access_signals_allowlist() {
+  // @@protoc_insertion_point(field_release:enterprise_management.ChromeDeviceSettingsProto.device_login_screen_context_aware_access_signals_allowlist)
+  _has_bits_[4] &= ~0x00000010u;
+  ::enterprise_management::StringListPolicyProto* temp = device_login_screen_context_aware_access_signals_allowlist_;
+  device_login_screen_context_aware_access_signals_allowlist_ = nullptr;
+  return temp;
+}
+inline ::enterprise_management::StringListPolicyProto* ChromeDeviceSettingsProto::_internal_mutable_device_login_screen_context_aware_access_signals_allowlist() {
+  _has_bits_[4] |= 0x00000010u;
+  if (device_login_screen_context_aware_access_signals_allowlist_ == nullptr) {
+    auto* p = CreateMaybeMessage<::enterprise_management::StringListPolicyProto>(GetArenaForAllocation());
+    device_login_screen_context_aware_access_signals_allowlist_ = p;
+  }
+  return device_login_screen_context_aware_access_signals_allowlist_;
+}
+inline ::enterprise_management::StringListPolicyProto* ChromeDeviceSettingsProto::mutable_device_login_screen_context_aware_access_signals_allowlist() {
+  ::enterprise_management::StringListPolicyProto* _msg = _internal_mutable_device_login_screen_context_aware_access_signals_allowlist();
+  // @@protoc_insertion_point(field_mutable:enterprise_management.ChromeDeviceSettingsProto.device_login_screen_context_aware_access_signals_allowlist)
+  return _msg;
+}
+inline void ChromeDeviceSettingsProto::set_allocated_device_login_screen_context_aware_access_signals_allowlist(::enterprise_management::StringListPolicyProto* device_login_screen_context_aware_access_signals_allowlist) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(device_login_screen_context_aware_access_signals_allowlist_);
+  }
+  if (device_login_screen_context_aware_access_signals_allowlist) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<
+            ::PROTOBUF_NAMESPACE_ID::MessageLite>::GetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(device_login_screen_context_aware_access_signals_allowlist));
+    if (message_arena != submessage_arena) {
+      device_login_screen_context_aware_access_signals_allowlist = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, device_login_screen_context_aware_access_signals_allowlist, submessage_arena);
+    }
+    _has_bits_[4] |= 0x00000010u;
+  } else {
+    _has_bits_[4] &= ~0x00000010u;
+  }
+  device_login_screen_context_aware_access_signals_allowlist_ = device_login_screen_context_aware_access_signals_allowlist;
+  // @@protoc_insertion_point(field_set_allocated:enterprise_management.ChromeDeviceSettingsProto.device_login_screen_context_aware_access_signals_allowlist)
+}
+
+// optional .enterprise_management.StringPolicyProto device_printing_client_name_template = 137;
+inline bool ChromeDeviceSettingsProto::_internal_has_device_printing_client_name_template() const {
+  bool value = (_has_bits_[4] & 0x00000020u) != 0;
+  PROTOBUF_ASSUME(!value || device_printing_client_name_template_ != nullptr);
+  return value;
+}
+inline bool ChromeDeviceSettingsProto::has_device_printing_client_name_template() const {
+  return _internal_has_device_printing_client_name_template();
+}
+inline const ::enterprise_management::StringPolicyProto& ChromeDeviceSettingsProto::_internal_device_printing_client_name_template() const {
+  const ::enterprise_management::StringPolicyProto* p = device_printing_client_name_template_;
+  return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::StringPolicyProto&>(
+      ::enterprise_management::_StringPolicyProto_default_instance_);
+}
+inline const ::enterprise_management::StringPolicyProto& ChromeDeviceSettingsProto::device_printing_client_name_template() const {
+  // @@protoc_insertion_point(field_get:enterprise_management.ChromeDeviceSettingsProto.device_printing_client_name_template)
+  return _internal_device_printing_client_name_template();
+}
+inline void ChromeDeviceSettingsProto::unsafe_arena_set_allocated_device_printing_client_name_template(
+    ::enterprise_management::StringPolicyProto* device_printing_client_name_template) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(device_printing_client_name_template_);
+  }
+  device_printing_client_name_template_ = device_printing_client_name_template;
+  if (device_printing_client_name_template) {
+    _has_bits_[4] |= 0x00000020u;
+  } else {
+    _has_bits_[4] &= ~0x00000020u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.ChromeDeviceSettingsProto.device_printing_client_name_template)
+}
+inline ::enterprise_management::StringPolicyProto* ChromeDeviceSettingsProto::release_device_printing_client_name_template() {
+  _has_bits_[4] &= ~0x00000020u;
+  ::enterprise_management::StringPolicyProto* temp = device_printing_client_name_template_;
+  device_printing_client_name_template_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::enterprise_management::StringPolicyProto* ChromeDeviceSettingsProto::unsafe_arena_release_device_printing_client_name_template() {
+  // @@protoc_insertion_point(field_release:enterprise_management.ChromeDeviceSettingsProto.device_printing_client_name_template)
+  _has_bits_[4] &= ~0x00000020u;
+  ::enterprise_management::StringPolicyProto* temp = device_printing_client_name_template_;
+  device_printing_client_name_template_ = nullptr;
+  return temp;
+}
+inline ::enterprise_management::StringPolicyProto* ChromeDeviceSettingsProto::_internal_mutable_device_printing_client_name_template() {
+  _has_bits_[4] |= 0x00000020u;
+  if (device_printing_client_name_template_ == nullptr) {
+    auto* p = CreateMaybeMessage<::enterprise_management::StringPolicyProto>(GetArenaForAllocation());
+    device_printing_client_name_template_ = p;
+  }
+  return device_printing_client_name_template_;
+}
+inline ::enterprise_management::StringPolicyProto* ChromeDeviceSettingsProto::mutable_device_printing_client_name_template() {
+  ::enterprise_management::StringPolicyProto* _msg = _internal_mutable_device_printing_client_name_template();
+  // @@protoc_insertion_point(field_mutable:enterprise_management.ChromeDeviceSettingsProto.device_printing_client_name_template)
+  return _msg;
+}
+inline void ChromeDeviceSettingsProto::set_allocated_device_printing_client_name_template(::enterprise_management::StringPolicyProto* device_printing_client_name_template) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(device_printing_client_name_template_);
+  }
+  if (device_printing_client_name_template) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<
+            ::PROTOBUF_NAMESPACE_ID::MessageLite>::GetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(device_printing_client_name_template));
+    if (message_arena != submessage_arena) {
+      device_printing_client_name_template = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, device_printing_client_name_template, submessage_arena);
+    }
+    _has_bits_[4] |= 0x00000020u;
+  } else {
+    _has_bits_[4] &= ~0x00000020u;
+  }
+  device_printing_client_name_template_ = device_printing_client_name_template;
+  // @@protoc_insertion_point(field_set_allocated:enterprise_management.ChromeDeviceSettingsProto.device_printing_client_name_template)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

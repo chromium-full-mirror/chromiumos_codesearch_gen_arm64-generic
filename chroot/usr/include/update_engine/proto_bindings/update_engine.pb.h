@@ -45,13 +45,16 @@ struct TableStruct_update_5fengine_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[4]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[5]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
   static const uint32_t offsets[];
 };
 namespace update_engine {
+class ApplyUpdateConfig;
+struct ApplyUpdateConfigDefaultTypeInternal;
+extern ApplyUpdateConfigDefaultTypeInternal _ApplyUpdateConfig_default_instance_;
 class Feature;
 struct FeatureDefaultTypeInternal;
 extern FeatureDefaultTypeInternal _Feature_default_instance_;
@@ -66,6 +69,7 @@ struct UpdateParamsDefaultTypeInternal;
 extern UpdateParamsDefaultTypeInternal _UpdateParams_default_instance_;
 }  // namespace update_engine
 PROTOBUF_NAMESPACE_OPEN
+template<> ::update_engine::ApplyUpdateConfig* Arena::CreateMaybeMessage<::update_engine::ApplyUpdateConfig>(Arena*);
 template<> ::update_engine::Feature* Arena::CreateMaybeMessage<::update_engine::Feature>(Arena*);
 template<> ::update_engine::StatusResult* Arena::CreateMaybeMessage<::update_engine::StatusResult>(Arena*);
 template<> ::update_engine::UpdateFlags* Arena::CreateMaybeMessage<::update_engine::UpdateFlags>(Arena*);
@@ -127,7 +131,158 @@ inline const std::string& UpdateUrgency_Name(T enum_t_value) {
 }
 bool UpdateUrgency_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, UpdateUrgency* value);
+enum UpdateDoneAction : int {
+  REBOOT = 0,
+  SHUTDOWN = 1,
+  UpdateDoneAction_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  UpdateDoneAction_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+};
+bool UpdateDoneAction_IsValid(int value);
+constexpr UpdateDoneAction UpdateDoneAction_MIN = REBOOT;
+constexpr UpdateDoneAction UpdateDoneAction_MAX = SHUTDOWN;
+constexpr int UpdateDoneAction_ARRAYSIZE = UpdateDoneAction_MAX + 1;
+
+const std::string& UpdateDoneAction_Name(UpdateDoneAction value);
+template<typename T>
+inline const std::string& UpdateDoneAction_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, UpdateDoneAction>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function UpdateDoneAction_Name.");
+  return UpdateDoneAction_Name(static_cast<UpdateDoneAction>(enum_t_value));
+}
+bool UpdateDoneAction_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, UpdateDoneAction* value);
 // ===================================================================
+
+class ApplyUpdateConfig final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:update_engine.ApplyUpdateConfig) */ {
+ public:
+  inline ApplyUpdateConfig() : ApplyUpdateConfig(nullptr) {}
+  ~ApplyUpdateConfig() override;
+  explicit constexpr ApplyUpdateConfig(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  ApplyUpdateConfig(const ApplyUpdateConfig& from);
+  ApplyUpdateConfig(ApplyUpdateConfig&& from) noexcept
+    : ApplyUpdateConfig() {
+    *this = ::std::move(from);
+  }
+
+  inline ApplyUpdateConfig& operator=(const ApplyUpdateConfig& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline ApplyUpdateConfig& operator=(ApplyUpdateConfig&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ApplyUpdateConfig& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const ApplyUpdateConfig* internal_default_instance() {
+    return reinterpret_cast<const ApplyUpdateConfig*>(
+               &_ApplyUpdateConfig_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    0;
+
+  friend void swap(ApplyUpdateConfig& a, ApplyUpdateConfig& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(ApplyUpdateConfig* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(ApplyUpdateConfig* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  ApplyUpdateConfig* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<ApplyUpdateConfig>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const ApplyUpdateConfig& from);
+  void MergeFrom(const ApplyUpdateConfig& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(ApplyUpdateConfig* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "update_engine.ApplyUpdateConfig";
+  }
+  protected:
+  explicit ApplyUpdateConfig(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kDoneActionFieldNumber = 1,
+  };
+  // .update_engine.UpdateDoneAction done_action = 1;
+  void clear_done_action();
+  ::update_engine::UpdateDoneAction done_action() const;
+  void set_done_action(::update_engine::UpdateDoneAction value);
+  private:
+  ::update_engine::UpdateDoneAction _internal_done_action() const;
+  void _internal_set_done_action(::update_engine::UpdateDoneAction value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:update_engine.ApplyUpdateConfig)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  int done_action_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_update_5fengine_2eproto;
+};
+// -------------------------------------------------------------------
 
 class Feature final :
     public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:update_engine.Feature) */ {
@@ -168,7 +323,7 @@ class Feature final :
                &_Feature_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    0;
+    1;
 
   friend void swap(Feature& a, Feature& b) {
     a.Swap(&b);
@@ -314,7 +469,7 @@ class StatusResult final :
                &_StatusResult_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    1;
+    2;
 
   friend void swap(StatusResult& a, StatusResult& b) {
     a.Swap(&b);
@@ -579,7 +734,7 @@ class UpdateFlags final :
                &_UpdateFlags_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    2;
+    3;
 
   friend void swap(UpdateFlags& a, UpdateFlags& b) {
     a.Swap(&b);
@@ -709,7 +864,7 @@ class UpdateParams final :
                &_UpdateParams_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    3;
+    4;
 
   friend void swap(UpdateParams& a, UpdateParams& b) {
     a.Swap(&b);
@@ -859,6 +1014,30 @@ class UpdateParams final :
   #pragma GCC diagnostic push
   #pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif  // __GNUC__
+// ApplyUpdateConfig
+
+// .update_engine.UpdateDoneAction done_action = 1;
+inline void ApplyUpdateConfig::clear_done_action() {
+  done_action_ = 0;
+}
+inline ::update_engine::UpdateDoneAction ApplyUpdateConfig::_internal_done_action() const {
+  return static_cast< ::update_engine::UpdateDoneAction >(done_action_);
+}
+inline ::update_engine::UpdateDoneAction ApplyUpdateConfig::done_action() const {
+  // @@protoc_insertion_point(field_get:update_engine.ApplyUpdateConfig.done_action)
+  return _internal_done_action();
+}
+inline void ApplyUpdateConfig::_internal_set_done_action(::update_engine::UpdateDoneAction value) {
+  
+  done_action_ = value;
+}
+inline void ApplyUpdateConfig::set_done_action(::update_engine::UpdateDoneAction value) {
+  _internal_set_done_action(value);
+  // @@protoc_insertion_point(field_set:update_engine.ApplyUpdateConfig.done_action)
+}
+
+// -------------------------------------------------------------------
+
 // Feature
 
 // string name = 1;
@@ -1476,6 +1655,8 @@ inline void UpdateParams::set_skip_applying(bool value) {
 
 // -------------------------------------------------------------------
 
+// -------------------------------------------------------------------
+
 
 // @@protoc_insertion_point(namespace_scope)
 
@@ -1485,6 +1666,7 @@ PROTOBUF_NAMESPACE_OPEN
 
 template <> struct is_proto_enum< ::update_engine::Operation> : ::std::true_type {};
 template <> struct is_proto_enum< ::update_engine::UpdateUrgency> : ::std::true_type {};
+template <> struct is_proto_enum< ::update_engine::UpdateDoneAction> : ::std::true_type {};
 
 PROTOBUF_NAMESPACE_CLOSE
 

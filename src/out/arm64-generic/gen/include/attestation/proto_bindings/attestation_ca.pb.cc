@@ -145,6 +145,7 @@ constexpr AttestationCertificateRequest::AttestationCertificateRequest(
   , certified_key_proof_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
   , message_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
   , origin_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , attested_device_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
   , profile_(0)
 
   , temporal_index_(0)
@@ -3278,18 +3279,21 @@ class AttestationCertificateRequest::_Internal {
     (*has_bits)[0] |= 16u;
   }
   static void set_has_profile(HasBits* has_bits) {
-    (*has_bits)[0] |= 64u;
+    (*has_bits)[0] |= 128u;
   }
   static void set_has_origin(HasBits* has_bits) {
     (*has_bits)[0] |= 32u;
   }
   static void set_has_temporal_index(HasBits* has_bits) {
-    (*has_bits)[0] |= 128u;
-  }
-  static void set_has_tpm_version(HasBits* has_bits) {
     (*has_bits)[0] |= 256u;
   }
+  static void set_has_tpm_version(HasBits* has_bits) {
+    (*has_bits)[0] |= 512u;
+  }
   static const ::attestation::DeviceSetupCertificateMetadata& device_setup_certificate_metadata(const AttestationCertificateRequest* msg);
+  static void set_has_attested_device_id(HasBits* has_bits) {
+    (*has_bits)[0] |= 64u;
+  }
 };
 
 const ::attestation::DeviceSetupCertificateMetadata&
@@ -3374,6 +3378,14 @@ AttestationCertificateRequest::AttestationCertificateRequest(const AttestationCe
     origin_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_origin(), 
       GetArenaForAllocation());
   }
+  attested_device_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    attested_device_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_attested_device_id()) {
+    attested_device_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_attested_device_id(), 
+      GetArenaForAllocation());
+  }
   ::memcpy(&profile_, &from.profile_,
     static_cast<size_t>(reinterpret_cast<char*>(&tpm_version_) -
     reinterpret_cast<char*>(&profile_)) + sizeof(tpm_version_));
@@ -3415,6 +3427,10 @@ origin_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlrea
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   origin_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+attested_device_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  attested_device_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&profile_) - reinterpret_cast<char*>(this)),
     0, static_cast<size_t>(reinterpret_cast<char*>(&temporal_index_) -
@@ -3438,6 +3454,7 @@ inline void AttestationCertificateRequest::SharedDtor() {
   certified_key_proof_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   message_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   origin_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  attested_device_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (has_metadata()) {
     clear_metadata();
   }
@@ -3478,7 +3495,7 @@ void AttestationCertificateRequest::Clear() {
 
   nvram_quotes_.Clear();
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x0000003fu) {
+  if (cached_has_bits & 0x0000007fu) {
     if (cached_has_bits & 0x00000001u) {
       identity_credential_.ClearNonDefaultToEmpty();
     }
@@ -3497,13 +3514,15 @@ void AttestationCertificateRequest::Clear() {
     if (cached_has_bits & 0x00000020u) {
       origin_.ClearNonDefaultToEmpty();
     }
+    if (cached_has_bits & 0x00000040u) {
+      attested_device_id_.ClearNonDefaultToEmpty();
+    }
   }
-  if (cached_has_bits & 0x000000c0u) {
-    ::memset(&profile_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&temporal_index_) -
-        reinterpret_cast<char*>(&profile_)) + sizeof(temporal_index_));
+  profile_ = 0;
+  if (cached_has_bits & 0x00000300u) {
+    temporal_index_ = 0;
+    tpm_version_ = 1;
   }
-  tpm_version_ = 1;
   clear_metadata();
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
@@ -3626,6 +3645,15 @@ const char* AttestationCertificateRequest::_InternalParse(const char* ptr, ::PRO
         } else
           goto handle_unusual;
         continue;
+      // optional bytes attested_device_id = 17;
+      case 17:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 138)) {
+          auto str = _internal_mutable_attested_device_id();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -3688,7 +3716,7 @@ uint8_t* AttestationCertificateRequest::_InternalSerialize(
   }
 
   // optional .attestation.CertificateProfile profile = 11;
-  if (cached_has_bits & 0x00000040u) {
+  if (cached_has_bits & 0x00000080u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
       11, this->_internal_profile(), target);
@@ -3701,13 +3729,13 @@ uint8_t* AttestationCertificateRequest::_InternalSerialize(
   }
 
   // optional int32 temporal_index = 13;
-  if (cached_has_bits & 0x00000080u) {
+  if (cached_has_bits & 0x00000100u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(13, this->_internal_temporal_index(), target);
   }
 
   // optional .attestation.TpmVersion tpm_version = 14;
-  if (cached_has_bits & 0x00000100u) {
+  if (cached_has_bits & 0x00000200u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
       14, this->_internal_tpm_version(), target);
@@ -3750,6 +3778,12 @@ uint8_t* AttestationCertificateRequest::_InternalSerialize(
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
         16, _Internal::device_setup_certificate_metadata(this), target, stream);
+  }
+
+  // optional bytes attested_device_id = 17;
+  if (cached_has_bits & 0x00000040u) {
+    target = stream->WriteBytesMaybeAliased(
+        17, this->_internal_attested_device_id(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -3821,24 +3855,33 @@ size_t AttestationCertificateRequest::ByteSizeLong() const {
           this->_internal_origin());
     }
 
-    // optional .attestation.CertificateProfile profile = 11;
+    // optional bytes attested_device_id = 17;
     if (cached_has_bits & 0x00000040u) {
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+          this->_internal_attested_device_id());
+    }
+
+    // optional .attestation.CertificateProfile profile = 11;
+    if (cached_has_bits & 0x00000080u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_profile());
     }
 
+  }
+  if (cached_has_bits & 0x00000300u) {
     // optional int32 temporal_index = 13;
-    if (cached_has_bits & 0x00000080u) {
+    if (cached_has_bits & 0x00000100u) {
       total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_temporal_index());
     }
 
-  }
-  // optional .attestation.TpmVersion tpm_version = 14;
-  if (cached_has_bits & 0x00000100u) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_tpm_version());
-  }
+    // optional .attestation.TpmVersion tpm_version = 14;
+    if (cached_has_bits & 0x00000200u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_tpm_version());
+    }
 
+  }
   switch (metadata_case()) {
     // .attestation.DeviceSetupCertificateMetadata device_setup_certificate_metadata = 16;
     case kDeviceSetupCertificateMetadata: {
@@ -3893,15 +3936,21 @@ void AttestationCertificateRequest::MergeFrom(const AttestationCertificateReques
       _internal_set_origin(from._internal_origin());
     }
     if (cached_has_bits & 0x00000040u) {
-      profile_ = from.profile_;
+      _internal_set_attested_device_id(from._internal_attested_device_id());
     }
     if (cached_has_bits & 0x00000080u) {
-      temporal_index_ = from.temporal_index_;
+      profile_ = from.profile_;
     }
     _has_bits_[0] |= cached_has_bits;
   }
-  if (cached_has_bits & 0x00000100u) {
-    _internal_set_tpm_version(from._internal_tpm_version());
+  if (cached_has_bits & 0x00000300u) {
+    if (cached_has_bits & 0x00000100u) {
+      temporal_index_ = from.temporal_index_;
+    }
+    if (cached_has_bits & 0x00000200u) {
+      tpm_version_ = from.tpm_version_;
+    }
+    _has_bits_[0] |= cached_has_bits;
   }
   switch (from.metadata_case()) {
     case kDeviceSetupCertificateMetadata: {
@@ -3962,6 +4011,11 @@ void AttestationCertificateRequest::InternalSwap(AttestationCertificateRequest* 
       &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       &origin_, lhs_arena,
       &other->origin_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &attested_device_id_, lhs_arena,
+      &other->attested_device_id_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(AttestationCertificateRequest, temporal_index_)

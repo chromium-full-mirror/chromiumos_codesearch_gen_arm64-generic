@@ -13,12 +13,12 @@ constexpr char kChromiumCrosHealthdDataCollector[] =
 constexpr char kChromiumNetworkDiagnosticsRoutines[] =
     "ChromiumNetworkDiagnosticsRoutines";
 constexpr char kChromiumNetworkHealth[] = "ChromiumNetworkHealth";
-constexpr char kChromiumSensorHalClient[] = "ChromiumSensorHalClient";
 constexpr char kCrosHealthdDiagnostics[] = "CrosHealthdDiagnostics";
 constexpr char kCrosHealthdEvent[] = "CrosHealthdEvent";
 constexpr char kCrosHealthdProbe[] = "CrosHealthdProbe";
 constexpr char kCrosHealthdSystem[] = "CrosHealthdSystem";
+constexpr char kIioSensor[] = "IioSensor";
 
-};  // namespace chromeos::mojo_services
+}  // namespace chromeos::mojo_services
 
 #endif  // SYSTEM_API_MOJO_SERVICE_CONSTANTS_H_

@@ -82,8 +82,11 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT AddFileResponseDefaultTypeInter
 constexpr RequestFileAccessRequest::RequestFileAccessRequest(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : inodes_()
+  , files_paths_()
   , destination_url_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , process_id_(0){}
+  , process_id_(0)
+  , destination_component_(0)
+{}
 struct RequestFileAccessRequestDefaultTypeInternal {
   constexpr RequestFileAccessRequestDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -145,6 +148,7 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT GetFilesSourcesRequestDefaultTy
 constexpr FileMetadata::FileMetadata(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : source_url_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , path_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
   , inode_(uint64_t{0u}){}
 struct FileMetadataDefaultTypeInternal {
   constexpr FileMetadataDefaultTypeInternal()
@@ -171,7 +175,11 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT GetFilesSourcesResponseDefaultT
 constexpr CheckFilesTransferRequest::CheckFilesTransferRequest(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : files_paths_()
-  , destination_url_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+  , destination_url_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , destination_component_(0)
+
+  , file_action_(0)
+{}
 struct CheckFilesTransferRequestDefaultTypeInternal {
   constexpr CheckFilesTransferRequestDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -197,7 +205,12 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT CheckFilesTransferResponseDefau
 constexpr IsFilesTransferRestrictedRequest::IsFilesTransferRestrictedRequest(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : files_sources_()
-  , destination_url_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+  , transferred_files_()
+  , destination_url_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , destination_component_(0)
+
+  , file_action_(0)
+{}
 struct IsFilesTransferRestrictedRequestDefaultTypeInternal {
   constexpr IsFilesTransferRestrictedRequestDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -210,6 +223,7 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT IsFilesTransferRestrictedReques
 constexpr IsFilesTransferRestrictedResponse::IsFilesTransferRestrictedResponse(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : files_sources_()
+  , restricted_files_()
   , error_message_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
 struct IsFilesTransferRestrictedResponseDefaultTypeInternal {
   constexpr IsFilesTransferRestrictedResponseDefaultTypeInternal()
@@ -274,6 +288,132 @@ bool DlpRuleLevel_Parse(
       DlpRuleLevel_entries, 3, name, &int_value);
   if (success) {
     *value = static_cast<DlpRuleLevel>(int_value);
+  }
+  return success;
+}
+bool DlpComponent_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+    case 5:
+    case 6:
+      return true;
+    default:
+      return false;
+  }
+}
+
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> DlpComponent_strings[7] = {};
+
+static const char DlpComponent_names[] =
+  "ARC"
+  "CROSTINI"
+  "GOOGLE_DRIVE"
+  "PLUGIN_VM"
+  "SYSTEM"
+  "UNKOWN_COMPONENT"
+  "USB";
+
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry DlpComponent_entries[] = {
+  { {DlpComponent_names + 0, 3}, 2 },
+  { {DlpComponent_names + 3, 8}, 3 },
+  { {DlpComponent_names + 11, 12}, 6 },
+  { {DlpComponent_names + 23, 9}, 4 },
+  { {DlpComponent_names + 32, 6}, 1 },
+  { {DlpComponent_names + 38, 16}, 0 },
+  { {DlpComponent_names + 54, 3}, 5 },
+};
+
+static const int DlpComponent_entries_by_number[] = {
+  5, // 0 -> UNKOWN_COMPONENT
+  4, // 1 -> SYSTEM
+  0, // 2 -> ARC
+  1, // 3 -> CROSTINI
+  3, // 4 -> PLUGIN_VM
+  6, // 5 -> USB
+  2, // 6 -> GOOGLE_DRIVE
+};
+
+const std::string& DlpComponent_Name(
+    DlpComponent value) {
+  static const bool dummy =
+      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
+          DlpComponent_entries,
+          DlpComponent_entries_by_number,
+          7, DlpComponent_strings);
+  (void) dummy;
+  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
+      DlpComponent_entries,
+      DlpComponent_entries_by_number,
+      7, value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
+                     DlpComponent_strings[idx].get();
+}
+bool DlpComponent_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, DlpComponent* value) {
+  int int_value;
+  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
+      DlpComponent_entries, 7, name, &int_value);
+  if (success) {
+    *value = static_cast<DlpComponent>(int_value);
+  }
+  return success;
+}
+bool FileAction_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+      return true;
+    default:
+      return false;
+  }
+}
+
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> FileAction_strings[3] = {};
+
+static const char FileAction_names[] =
+  "OPEN"
+  "TRANSFER"
+  "UPLOAD";
+
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry FileAction_entries[] = {
+  { {FileAction_names + 0, 4}, 2 },
+  { {FileAction_names + 4, 8}, 0 },
+  { {FileAction_names + 12, 6}, 1 },
+};
+
+static const int FileAction_entries_by_number[] = {
+  1, // 0 -> TRANSFER
+  2, // 1 -> UPLOAD
+  0, // 2 -> OPEN
+};
+
+const std::string& FileAction_Name(
+    FileAction value) {
+  static const bool dummy =
+      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
+          FileAction_entries,
+          FileAction_entries_by_number,
+          3, FileAction_strings);
+  (void) dummy;
+  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
+      FileAction_entries,
+      FileAction_entries_by_number,
+      3, value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
+                     FileAction_strings[idx].get();
+}
+bool FileAction_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, FileAction* value) {
+  int int_value;
+  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
+      FileAction_entries, 3, name, &int_value);
+  if (success) {
+    *value = static_cast<FileAction>(int_value);
   }
   return success;
 }
@@ -1462,12 +1602,16 @@ class RequestFileAccessRequest::_Internal {
   static void set_has_destination_url(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
+  static void set_has_destination_component(HasBits* has_bits) {
+    (*has_bits)[0] |= 4u;
+  }
 };
 
 RequestFileAccessRequest::RequestFileAccessRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  inodes_(arena) {
+  inodes_(arena),
+  files_paths_(arena) {
   SharedCtor();
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
@@ -1477,7 +1621,8 @@ RequestFileAccessRequest::RequestFileAccessRequest(::PROTOBUF_NAMESPACE_ID::Aren
 RequestFileAccessRequest::RequestFileAccessRequest(const RequestFileAccessRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
       _has_bits_(from._has_bits_),
-      inodes_(from.inodes_) {
+      inodes_(from.inodes_),
+      files_paths_(from.files_paths_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   destination_url_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
@@ -1487,7 +1632,9 @@ RequestFileAccessRequest::RequestFileAccessRequest(const RequestFileAccessReques
     destination_url_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_destination_url(), 
       GetArenaForAllocation());
   }
-  process_id_ = from.process_id_;
+  ::memcpy(&process_id_, &from.process_id_,
+    static_cast<size_t>(reinterpret_cast<char*>(&destination_component_) -
+    reinterpret_cast<char*>(&process_id_)) + sizeof(destination_component_));
   // @@protoc_insertion_point(copy_constructor:dlp.RequestFileAccessRequest)
 }
 
@@ -1496,7 +1643,10 @@ destination_url_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptySt
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   destination_url_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-process_id_ = 0;
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&process_id_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&destination_component_) -
+    reinterpret_cast<char*>(&process_id_)) + sizeof(destination_component_));
 }
 
 RequestFileAccessRequest::~RequestFileAccessRequest() {
@@ -1528,11 +1678,16 @@ void RequestFileAccessRequest::Clear() {
   (void) cached_has_bits;
 
   inodes_.Clear();
+  files_paths_.Clear();
   cached_has_bits = _has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     destination_url_.ClearNonDefaultToEmpty();
   }
-  process_id_ = 0;
+  if (cached_has_bits & 0x00000006u) {
+    ::memset(&process_id_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&destination_component_) -
+        reinterpret_cast<char*>(&process_id_)) + sizeof(destination_component_));
+  }
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
@@ -1575,6 +1730,33 @@ const char* RequestFileAccessRequest::_InternalParse(const char* ptr, ::PROTOBUF
           auto str = _internal_mutable_destination_url();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated string files_paths = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            auto str = _internal_add_files_paths();
+            ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<34>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // optional .dlp.DlpComponent destination_component = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          if (PROTOBUF_PREDICT_TRUE(::dlp::DlpComponent_IsValid(val))) {
+            _internal_set_destination_component(static_cast<::dlp::DlpComponent>(val));
+          } else {
+            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(5, val, mutable_unknown_fields());
+          }
         } else
           goto handle_unusual;
         continue;
@@ -1627,6 +1809,19 @@ uint8_t* RequestFileAccessRequest::_InternalSerialize(
         3, this->_internal_destination_url(), target);
   }
 
+  // repeated string files_paths = 4;
+  for (int i = 0, n = this->_internal_files_paths_size(); i < n; i++) {
+    const auto& s = this->_internal_files_paths(i);
+    target = stream->WriteString(4, s, target);
+  }
+
+  // optional .dlp.DlpComponent destination_component = 5;
+  if (cached_has_bits & 0x00000004u) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+      5, this->_internal_destination_component(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -1652,8 +1847,16 @@ size_t RequestFileAccessRequest::ByteSizeLong() const {
     total_size += data_size;
   }
 
+  // repeated string files_paths = 4;
+  total_size += 1 *
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(files_paths_.size());
+  for (int i = 0, n = files_paths_.size(); i < n; i++) {
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+      files_paths_.Get(i));
+  }
+
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
+  if (cached_has_bits & 0x00000007u) {
     // optional string destination_url = 3;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
@@ -1664,6 +1867,12 @@ size_t RequestFileAccessRequest::ByteSizeLong() const {
     // optional int32 process_id = 2;
     if (cached_has_bits & 0x00000002u) {
       total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_process_id());
+    }
+
+    // optional .dlp.DlpComponent destination_component = 5;
+    if (cached_has_bits & 0x00000004u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_destination_component());
     }
 
   }
@@ -1688,13 +1897,17 @@ void RequestFileAccessRequest::MergeFrom(const RequestFileAccessRequest& from) {
   (void) cached_has_bits;
 
   inodes_.MergeFrom(from.inodes_);
+  files_paths_.MergeFrom(from.files_paths_);
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
+  if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
       _internal_set_destination_url(from._internal_destination_url());
     }
     if (cached_has_bits & 0x00000002u) {
       process_id_ = from.process_id_;
+    }
+    if (cached_has_bits & 0x00000004u) {
+      destination_component_ = from.destination_component_;
     }
     _has_bits_[0] |= cached_has_bits;
   }
@@ -1719,12 +1932,18 @@ void RequestFileAccessRequest::InternalSwap(RequestFileAccessRequest* other) {
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
   inodes_.InternalSwap(&other->inodes_);
+  files_paths_.InternalSwap(&other->files_paths_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       &destination_url_, lhs_arena,
       &other->destination_url_, rhs_arena
   );
-  swap(process_id_, other->process_id_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(RequestFileAccessRequest, destination_component_)
+      + sizeof(RequestFileAccessRequest::destination_component_)
+      - PROTOBUF_FIELD_OFFSET(RequestFileAccessRequest, process_id_)>(
+          reinterpret_cast<char*>(&process_id_),
+          reinterpret_cast<char*>(&other->process_id_));
 }
 
 std::string RequestFileAccessRequest::GetTypeName() const {
@@ -2564,10 +2783,13 @@ class FileMetadata::_Internal {
  public:
   using HasBits = decltype(std::declval<FileMetadata>()._has_bits_);
   static void set_has_inode(HasBits* has_bits) {
-    (*has_bits)[0] |= 2u;
+    (*has_bits)[0] |= 4u;
   }
   static void set_has_source_url(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
+  }
+  static void set_has_path(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
   }
 };
 
@@ -2592,6 +2814,14 @@ FileMetadata::FileMetadata(const FileMetadata& from)
     source_url_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_source_url(), 
       GetArenaForAllocation());
   }
+  path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    path_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_path()) {
+    path_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_path(), 
+      GetArenaForAllocation());
+  }
   inode_ = from.inode_;
   // @@protoc_insertion_point(copy_constructor:dlp.FileMetadata)
 }
@@ -2600,6 +2830,10 @@ inline void FileMetadata::SharedCtor() {
 source_url_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   source_url_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+path_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  path_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 inode_ = uint64_t{0u};
 }
@@ -2614,6 +2848,7 @@ FileMetadata::~FileMetadata() {
 inline void FileMetadata::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   source_url_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  path_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
 void FileMetadata::ArenaDtor(void* object) {
@@ -2633,8 +2868,13 @@ void FileMetadata::Clear() {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000001u) {
-    source_url_.ClearNonDefaultToEmpty();
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      source_url_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x00000002u) {
+      path_.ClearNonDefaultToEmpty();
+    }
   }
   inode_ = uint64_t{0u};
   _has_bits_.Clear();
@@ -2661,6 +2901,15 @@ const char* FileMetadata::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_I
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_source_url();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional string path = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          auto str = _internal_mutable_path();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
@@ -2698,7 +2947,7 @@ uint8_t* FileMetadata::_InternalSerialize(
 
   cached_has_bits = _has_bits_[0];
   // optional uint64 inode = 1;
-  if (cached_has_bits & 0x00000002u) {
+  if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(1, this->_internal_inode(), target);
   }
@@ -2707,6 +2956,12 @@ uint8_t* FileMetadata::_InternalSerialize(
   if (cached_has_bits & 0x00000001u) {
     target = stream->WriteStringMaybeAliased(
         2, this->_internal_source_url(), target);
+  }
+
+  // optional string path = 3;
+  if (cached_has_bits & 0x00000002u) {
+    target = stream->WriteStringMaybeAliased(
+        3, this->_internal_path(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -2726,7 +2981,7 @@ size_t FileMetadata::ByteSizeLong() const {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
+  if (cached_has_bits & 0x00000007u) {
     // optional string source_url = 2;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
@@ -2734,8 +2989,15 @@ size_t FileMetadata::ByteSizeLong() const {
           this->_internal_source_url());
     }
 
-    // optional uint64 inode = 1;
+    // optional string path = 3;
     if (cached_has_bits & 0x00000002u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_path());
+    }
+
+    // optional uint64 inode = 1;
+    if (cached_has_bits & 0x00000004u) {
       total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt64SizePlusOne(this->_internal_inode());
     }
 
@@ -2761,11 +3023,14 @@ void FileMetadata::MergeFrom(const FileMetadata& from) {
   (void) cached_has_bits;
 
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
+  if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
       _internal_set_source_url(from._internal_source_url());
     }
     if (cached_has_bits & 0x00000002u) {
+      _internal_set_path(from._internal_path());
+    }
+    if (cached_has_bits & 0x00000004u) {
       inode_ = from.inode_;
     }
     _has_bits_[0] |= cached_has_bits;
@@ -2794,6 +3059,11 @@ void FileMetadata::InternalSwap(FileMetadata* other) {
       &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       &source_url_, lhs_arena,
       &other->source_url_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &path_, lhs_arena,
+      &other->path_, rhs_arena
   );
   swap(inode_, other->inode_);
 }
@@ -3053,6 +3323,12 @@ class CheckFilesTransferRequest::_Internal {
   static void set_has_destination_url(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
+  static void set_has_destination_component(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
+  static void set_has_file_action(HasBits* has_bits) {
+    (*has_bits)[0] |= 4u;
+  }
 };
 
 CheckFilesTransferRequest::CheckFilesTransferRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -3078,6 +3354,9 @@ CheckFilesTransferRequest::CheckFilesTransferRequest(const CheckFilesTransferReq
     destination_url_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_destination_url(), 
       GetArenaForAllocation());
   }
+  ::memcpy(&destination_component_, &from.destination_component_,
+    static_cast<size_t>(reinterpret_cast<char*>(&file_action_) -
+    reinterpret_cast<char*>(&destination_component_)) + sizeof(file_action_));
   // @@protoc_insertion_point(copy_constructor:dlp.CheckFilesTransferRequest)
 }
 
@@ -3086,6 +3365,10 @@ destination_url_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptySt
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   destination_url_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&destination_component_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&file_action_) -
+    reinterpret_cast<char*>(&destination_component_)) + sizeof(file_action_));
 }
 
 CheckFilesTransferRequest::~CheckFilesTransferRequest() {
@@ -3121,6 +3404,11 @@ void CheckFilesTransferRequest::Clear() {
   if (cached_has_bits & 0x00000001u) {
     destination_url_.ClearNonDefaultToEmpty();
   }
+  if (cached_has_bits & 0x00000006u) {
+    ::memset(&destination_component_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&file_action_) -
+        reinterpret_cast<char*>(&destination_component_)) + sizeof(file_action_));
+  }
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
@@ -3152,6 +3440,32 @@ const char* CheckFilesTransferRequest::_InternalParse(const char* ptr, ::PROTOBU
           auto str = _internal_mutable_destination_url();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional .dlp.DlpComponent destination_component = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          if (PROTOBUF_PREDICT_TRUE(::dlp::DlpComponent_IsValid(val))) {
+            _internal_set_destination_component(static_cast<::dlp::DlpComponent>(val));
+          } else {
+            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(3, val, mutable_unknown_fields());
+          }
+        } else
+          goto handle_unusual;
+        continue;
+      // optional .dlp.FileAction file_action = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          if (PROTOBUF_PREDICT_TRUE(::dlp::FileAction_IsValid(val))) {
+            _internal_set_file_action(static_cast<::dlp::FileAction>(val));
+          } else {
+            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(4, val, mutable_unknown_fields());
+          }
         } else
           goto handle_unusual;
         continue;
@@ -3198,6 +3512,20 @@ uint8_t* CheckFilesTransferRequest::_InternalSerialize(
         2, this->_internal_destination_url(), target);
   }
 
+  // optional .dlp.DlpComponent destination_component = 3;
+  if (cached_has_bits & 0x00000002u) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+      3, this->_internal_destination_component(), target);
+  }
+
+  // optional .dlp.FileAction file_action = 4;
+  if (cached_has_bits & 0x00000004u) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+      4, this->_internal_file_action(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -3222,14 +3550,28 @@ size_t CheckFilesTransferRequest::ByteSizeLong() const {
       files_paths_.Get(i));
   }
 
-  // optional string destination_url = 2;
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000001u) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_destination_url());
-  }
+  if (cached_has_bits & 0x00000007u) {
+    // optional string destination_url = 2;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_destination_url());
+    }
 
+    // optional .dlp.DlpComponent destination_component = 3;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_destination_component());
+    }
+
+    // optional .dlp.FileAction file_action = 4;
+    if (cached_has_bits & 0x00000004u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_file_action());
+    }
+
+  }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -3251,8 +3593,18 @@ void CheckFilesTransferRequest::MergeFrom(const CheckFilesTransferRequest& from)
   (void) cached_has_bits;
 
   files_paths_.MergeFrom(from.files_paths_);
-  if (from._internal_has_destination_url()) {
-    _internal_set_destination_url(from._internal_destination_url());
+  cached_has_bits = from._has_bits_[0];
+  if (cached_has_bits & 0x00000007u) {
+    if (cached_has_bits & 0x00000001u) {
+      _internal_set_destination_url(from._internal_destination_url());
+    }
+    if (cached_has_bits & 0x00000002u) {
+      destination_component_ = from.destination_component_;
+    }
+    if (cached_has_bits & 0x00000004u) {
+      file_action_ = from.file_action_;
+    }
+    _has_bits_[0] |= cached_has_bits;
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -3280,6 +3632,12 @@ void CheckFilesTransferRequest::InternalSwap(CheckFilesTransferRequest* other) {
       &destination_url_, lhs_arena,
       &other->destination_url_, rhs_arena
   );
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(CheckFilesTransferRequest, file_action_)
+      + sizeof(CheckFilesTransferRequest::file_action_)
+      - PROTOBUF_FIELD_OFFSET(CheckFilesTransferRequest, destination_component_)>(
+          reinterpret_cast<char*>(&destination_component_),
+          reinterpret_cast<char*>(&other->destination_component_));
 }
 
 std::string CheckFilesTransferRequest::GetTypeName() const {
@@ -3537,12 +3895,19 @@ class IsFilesTransferRestrictedRequest::_Internal {
   static void set_has_destination_url(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
+  static void set_has_destination_component(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
+  static void set_has_file_action(HasBits* has_bits) {
+    (*has_bits)[0] |= 4u;
+  }
 };
 
 IsFilesTransferRestrictedRequest::IsFilesTransferRestrictedRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  files_sources_(arena) {
+  files_sources_(arena),
+  transferred_files_(arena) {
   SharedCtor();
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
@@ -3552,7 +3917,8 @@ IsFilesTransferRestrictedRequest::IsFilesTransferRestrictedRequest(::PROTOBUF_NA
 IsFilesTransferRestrictedRequest::IsFilesTransferRestrictedRequest(const IsFilesTransferRestrictedRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
       _has_bits_(from._has_bits_),
-      files_sources_(from.files_sources_) {
+      files_sources_(from.files_sources_),
+      transferred_files_(from.transferred_files_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   destination_url_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
@@ -3562,6 +3928,9 @@ IsFilesTransferRestrictedRequest::IsFilesTransferRestrictedRequest(const IsFiles
     destination_url_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_destination_url(), 
       GetArenaForAllocation());
   }
+  ::memcpy(&destination_component_, &from.destination_component_,
+    static_cast<size_t>(reinterpret_cast<char*>(&file_action_) -
+    reinterpret_cast<char*>(&destination_component_)) + sizeof(file_action_));
   // @@protoc_insertion_point(copy_constructor:dlp.IsFilesTransferRestrictedRequest)
 }
 
@@ -3570,6 +3939,10 @@ destination_url_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptySt
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   destination_url_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&destination_component_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&file_action_) -
+    reinterpret_cast<char*>(&destination_component_)) + sizeof(file_action_));
 }
 
 IsFilesTransferRestrictedRequest::~IsFilesTransferRestrictedRequest() {
@@ -3601,9 +3974,15 @@ void IsFilesTransferRestrictedRequest::Clear() {
   (void) cached_has_bits;
 
   files_sources_.Clear();
+  transferred_files_.Clear();
   cached_has_bits = _has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     destination_url_.ClearNonDefaultToEmpty();
+  }
+  if (cached_has_bits & 0x00000006u) {
+    ::memset(&destination_component_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&file_action_) -
+        reinterpret_cast<char*>(&destination_component_)) + sizeof(file_action_));
   }
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
@@ -3636,6 +4015,45 @@ const char* IsFilesTransferRestrictedRequest::_InternalParse(const char* ptr, ::
           auto str = _internal_mutable_destination_url();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated .dlp.FileMetadata transferred_files = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_transferred_files(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<26>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // optional .dlp.DlpComponent destination_component = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          if (PROTOBUF_PREDICT_TRUE(::dlp::DlpComponent_IsValid(val))) {
+            _internal_set_destination_component(static_cast<::dlp::DlpComponent>(val));
+          } else {
+            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(4, val, mutable_unknown_fields());
+          }
+        } else
+          goto handle_unusual;
+        continue;
+      // optional .dlp.FileAction file_action = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          if (PROTOBUF_PREDICT_TRUE(::dlp::FileAction_IsValid(val))) {
+            _internal_set_file_action(static_cast<::dlp::FileAction>(val));
+          } else {
+            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(5, val, mutable_unknown_fields());
+          }
         } else
           goto handle_unusual;
         continue;
@@ -3682,6 +4100,28 @@ uint8_t* IsFilesTransferRestrictedRequest::_InternalSerialize(
         2, this->_internal_destination_url(), target);
   }
 
+  // repeated .dlp.FileMetadata transferred_files = 3;
+  for (unsigned int i = 0,
+      n = static_cast<unsigned int>(this->_internal_transferred_files_size()); i < n; i++) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(3, this->_internal_transferred_files(i), target, stream);
+  }
+
+  // optional .dlp.DlpComponent destination_component = 4;
+  if (cached_has_bits & 0x00000002u) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+      4, this->_internal_destination_component(), target);
+  }
+
+  // optional .dlp.FileAction file_action = 5;
+  if (cached_has_bits & 0x00000004u) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+      5, this->_internal_file_action(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -3706,14 +4146,35 @@ size_t IsFilesTransferRestrictedRequest::ByteSizeLong() const {
       files_sources_.Get(i));
   }
 
-  // optional string destination_url = 2;
-  cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000001u) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_destination_url());
+  // repeated .dlp.FileMetadata transferred_files = 3;
+  total_size += 1UL * this->_internal_transferred_files_size();
+  for (const auto& msg : this->transferred_files_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000007u) {
+    // optional string destination_url = 2;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_destination_url());
+    }
+
+    // optional .dlp.DlpComponent destination_component = 4;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_destination_component());
+    }
+
+    // optional .dlp.FileAction file_action = 5;
+    if (cached_has_bits & 0x00000004u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_file_action());
+    }
+
+  }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -3735,8 +4196,19 @@ void IsFilesTransferRestrictedRequest::MergeFrom(const IsFilesTransferRestricted
   (void) cached_has_bits;
 
   files_sources_.MergeFrom(from.files_sources_);
-  if (from._internal_has_destination_url()) {
-    _internal_set_destination_url(from._internal_destination_url());
+  transferred_files_.MergeFrom(from.transferred_files_);
+  cached_has_bits = from._has_bits_[0];
+  if (cached_has_bits & 0x00000007u) {
+    if (cached_has_bits & 0x00000001u) {
+      _internal_set_destination_url(from._internal_destination_url());
+    }
+    if (cached_has_bits & 0x00000002u) {
+      destination_component_ = from.destination_component_;
+    }
+    if (cached_has_bits & 0x00000004u) {
+      file_action_ = from.file_action_;
+    }
+    _has_bits_[0] |= cached_has_bits;
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -3759,11 +4231,18 @@ void IsFilesTransferRestrictedRequest::InternalSwap(IsFilesTransferRestrictedReq
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
   files_sources_.InternalSwap(&other->files_sources_);
+  transferred_files_.InternalSwap(&other->transferred_files_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       &destination_url_, lhs_arena,
       &other->destination_url_, rhs_arena
   );
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(IsFilesTransferRestrictedRequest, file_action_)
+      + sizeof(IsFilesTransferRestrictedRequest::file_action_)
+      - PROTOBUF_FIELD_OFFSET(IsFilesTransferRestrictedRequest, destination_component_)>(
+          reinterpret_cast<char*>(&destination_component_),
+          reinterpret_cast<char*>(&other->destination_component_));
 }
 
 std::string IsFilesTransferRestrictedRequest::GetTypeName() const {
@@ -3784,7 +4263,8 @@ class IsFilesTransferRestrictedResponse::_Internal {
 IsFilesTransferRestrictedResponse::IsFilesTransferRestrictedResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  files_sources_(arena) {
+  files_sources_(arena),
+  restricted_files_(arena) {
   SharedCtor();
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
@@ -3794,7 +4274,8 @@ IsFilesTransferRestrictedResponse::IsFilesTransferRestrictedResponse(::PROTOBUF_
 IsFilesTransferRestrictedResponse::IsFilesTransferRestrictedResponse(const IsFilesTransferRestrictedResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
       _has_bits_(from._has_bits_),
-      files_sources_(from.files_sources_) {
+      files_sources_(from.files_sources_),
+      restricted_files_(from.restricted_files_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   error_message_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
@@ -3843,6 +4324,7 @@ void IsFilesTransferRestrictedResponse::Clear() {
   (void) cached_has_bits;
 
   files_sources_.Clear();
+  restricted_files_.Clear();
   cached_has_bits = _has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     error_message_.ClearNonDefaultToEmpty();
@@ -3878,6 +4360,19 @@ const char* IsFilesTransferRestrictedResponse::_InternalParse(const char* ptr, :
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated .dlp.FileMetadata restricted_files = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_restricted_files(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<26>(ptr));
         } else
           goto handle_unusual;
         continue;
@@ -3924,6 +4419,14 @@ uint8_t* IsFilesTransferRestrictedResponse::_InternalSerialize(
     target = stream->WriteString(2, s, target);
   }
 
+  // repeated .dlp.FileMetadata restricted_files = 3;
+  for (unsigned int i = 0,
+      n = static_cast<unsigned int>(this->_internal_restricted_files_size()); i < n; i++) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(3, this->_internal_restricted_files(i), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -3946,6 +4449,13 @@ size_t IsFilesTransferRestrictedResponse::ByteSizeLong() const {
   for (int i = 0, n = files_sources_.size(); i < n; i++) {
     total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
       files_sources_.Get(i));
+  }
+
+  // repeated .dlp.FileMetadata restricted_files = 3;
+  total_size += 1UL * this->_internal_restricted_files_size();
+  for (const auto& msg : this->restricted_files_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
   // optional string error_message = 1;
@@ -3977,6 +4487,7 @@ void IsFilesTransferRestrictedResponse::MergeFrom(const IsFilesTransferRestricte
   (void) cached_has_bits;
 
   files_sources_.MergeFrom(from.files_sources_);
+  restricted_files_.MergeFrom(from.restricted_files_);
   if (from._internal_has_error_message()) {
     _internal_set_error_message(from._internal_error_message());
   }
@@ -4001,6 +4512,7 @@ void IsFilesTransferRestrictedResponse::InternalSwap(IsFilesTransferRestrictedRe
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
   files_sources_.InternalSwap(&other->files_sources_);
+  restricted_files_.InternalSwap(&other->restricted_files_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       &error_message_, lhs_arena,
