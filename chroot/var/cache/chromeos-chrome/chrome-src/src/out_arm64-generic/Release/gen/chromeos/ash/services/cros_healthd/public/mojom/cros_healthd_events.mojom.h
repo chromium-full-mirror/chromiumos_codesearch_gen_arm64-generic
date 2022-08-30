@@ -25,7 +25,6 @@
 
 #include "chromeos/ash/services/cros_healthd/public/mojom/cros_healthd_events.mojom-shared.h"
 #include "chromeos/ash/services/cros_healthd/public/mojom/cros_healthd_events.mojom-forward.h"
-#include "chromeos/services/network_health/public/mojom/network_health.mojom-forward.h"
 #include <string>
 #include <vector>
 

@@ -652,8 +652,6 @@ class  ProcessResult_Data {
   enum class ProcessResult_Tag : uint32_t {
 
     
-    kUnmappedField,
-    
     kProcessInfo,
     
     kError,
@@ -664,7 +662,6 @@ class  ProcessResult_Data {
   // a struct." - Section 9.5.2 ISO/IEC 14882:2011 (The C++ Spec)
   union MOJO_ALIGNAS(8) Union_ {
     Union_() : unknown(0) {}
-    uint8_t f_unmapped_field : 1;
     mojo::internal::Pointer<internal::ProcessInfo_Data> f_process_info;
     mojo::internal::Pointer<internal::ProbeError_Data> f_error;
     uint64_t unknown;
@@ -1719,8 +1716,6 @@ class  AudioHardwareResult_Data {
   enum class AudioHardwareResult_Tag : uint32_t {
 
     
-    kUnmappedField0,
-    
     kAudioHardwareInfo,
     
     kError,
@@ -1731,7 +1726,6 @@ class  AudioHardwareResult_Data {
   // a struct." - Section 9.5.2 ISO/IEC 14882:2011 (The C++ Spec)
   union MOJO_ALIGNAS(8) Union_ {
     Union_() : unknown(0) {}
-    uint8_t f_unmapped_field0 : 1;
     mojo::internal::Pointer<internal::AudioHardwareInfo_Data> f_audio_hardware_info;
     mojo::internal::Pointer<internal::ProbeError_Data> f_error;
     uint64_t unknown;
@@ -1883,6 +1877,8 @@ class  BusInfo_Data {
     kUsbBusInfo,
     
     kThunderboltBusInfo,
+    
+    kUnmappedField,
   };
 
   // A note on layout:
@@ -1893,6 +1889,7 @@ class  BusInfo_Data {
     mojo::internal::Pointer<internal::PciBusInfo_Data> f_pci_bus_info;
     mojo::internal::Pointer<internal::UsbBusInfo_Data> f_usb_bus_info;
     mojo::internal::Pointer<internal::ThunderboltBusInfo_Data> f_thunderbolt_bus_info;
+    uint8_t f_unmapped_field : 1;
     uint64_t unknown;
   };
 

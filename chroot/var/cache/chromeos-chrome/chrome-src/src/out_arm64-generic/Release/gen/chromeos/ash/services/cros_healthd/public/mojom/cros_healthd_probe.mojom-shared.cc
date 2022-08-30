@@ -634,14 +634,10 @@ bool ProcessResult_Data::Validate(
 
   switch (object->tag) {
 
-    case ProcessResult_Tag::kUnmappedField: {
-
-      return true;
-    }
     case ProcessResult_Tag::kProcessInfo: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_process_info, 2, validation_context)) {
+              object->data.f_process_info, 1, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_process_info, validation_context))
@@ -651,7 +647,7 @@ bool ProcessResult_Data::Validate(
     case ProcessResult_Tag::kError: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_error, 3, validation_context)) {
+              object->data.f_error, 2, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_error, validation_context))
@@ -660,7 +656,11 @@ bool ProcessResult_Data::Validate(
     }
     default: {
 
-      return true;
+      ReportValidationError(
+          validation_context,
+          mojo::internal::VALIDATION_ERROR_UNKNOWN_UNION_TAG,
+          "unknown tag in ProcessResult");
+      return false;
     }
   }
 }
@@ -1746,14 +1746,10 @@ bool AudioHardwareResult_Data::Validate(
 
   switch (object->tag) {
 
-    case AudioHardwareResult_Tag::kUnmappedField0: {
-
-      return true;
-    }
     case AudioHardwareResult_Tag::kAudioHardwareInfo: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_audio_hardware_info, 2, validation_context)) {
+              object->data.f_audio_hardware_info, 1, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_audio_hardware_info, validation_context))
@@ -1763,7 +1759,7 @@ bool AudioHardwareResult_Data::Validate(
     case AudioHardwareResult_Tag::kError: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_error, 3, validation_context)) {
+              object->data.f_error, 2, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_error, validation_context))
@@ -1955,13 +1951,13 @@ bool BusInfo_Data::Validate(
         return false;
       return true;
     }
+    case BusInfo_Tag::kUnmappedField: {
+
+      return true;
+    }
     default: {
 
-      ReportValidationError(
-          validation_context,
-          mojo::internal::VALIDATION_ERROR_UNKNOWN_UNION_TAG,
-          "unknown tag in BusInfo");
-      return false;
+      return true;
     }
   }
 }

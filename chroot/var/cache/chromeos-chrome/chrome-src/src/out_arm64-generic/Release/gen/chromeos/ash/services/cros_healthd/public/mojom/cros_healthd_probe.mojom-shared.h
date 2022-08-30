@@ -981,12 +981,19 @@ enum class EncryptionState : int32_t {
   kMktmeEnabled = 3,
   kMinValue = 0,
   kMaxValue = 3,
+  kDefaultValue = 0
 };
 
  std::ostream& operator<<(std::ostream& os, EncryptionState value);
 inline bool IsKnownEnumValue(EncryptionState value) {
   return internal::EncryptionState_Data::IsKnownValue(
       static_cast<int32_t>(value));
+}
+inline EncryptionState ToKnownEnumValue(EncryptionState value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return EncryptionState::kDefaultValue;
 }
 
 
@@ -999,12 +1006,19 @@ enum class CryptoAlgorithm : int32_t {
   kAesXts256 = 2,
   kMinValue = 0,
   kMaxValue = 2,
+  kDefaultValue = 0
 };
 
  std::ostream& operator<<(std::ostream& os, CryptoAlgorithm value);
 inline bool IsKnownEnumValue(CryptoAlgorithm value) {
   return internal::CryptoAlgorithm_Data::IsKnownValue(
       static_cast<int32_t>(value));
+}
+inline CryptoAlgorithm ToKnownEnumValue(CryptoAlgorithm value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return CryptoAlgorithm::kDefaultValue;
 }
 
 
@@ -5631,11 +5645,6 @@ class ProcessResultDataView {
   }
 
   Tag tag() const { return data_->tag; }
-  bool is_unmapped_field() const { return data_->tag == Tag::kUnmappedField; }
-  bool unmapped_field() const {
-    CHECK(is_unmapped_field());
-    return data_->data.f_unmapped_field;
-  }
   bool is_process_info() const { return data_->tag == Tag::kProcessInfo; }
   inline void GetProcessInfoDataView(
       ProcessInfoDataView* output) const;
@@ -6582,11 +6591,6 @@ class AudioHardwareResultDataView {
   }
 
   Tag tag() const { return data_->tag; }
-  bool is_unmapped_field0() const { return data_->tag == Tag::kUnmappedField0; }
-  bool unmapped_field0() const {
-    CHECK(is_unmapped_field0());
-    return data_->data.f_unmapped_field0;
-  }
   bool is_audio_hardware_info() const { return data_->tag == Tag::kAudioHardwareInfo; }
   inline void GetAudioHardwareInfoDataView(
       AudioHardwareInfoDataView* output) const;
@@ -6763,6 +6767,11 @@ class BusInfoDataView {
     CHECK(is_thunderbolt_bus_info());
     return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::ThunderboltBusInfoDataView>(
         data_->data.f_thunderbolt_bus_info.Get(), output, message_);
+  }
+  bool is_unmapped_field() const { return data_->tag == Tag::kUnmappedField; }
+  bool unmapped_field() const {
+    CHECK(is_unmapped_field());
+    return data_->data.f_unmapped_field;
   }
 
  private:
@@ -10949,12 +10958,6 @@ struct Serializer<::chromeos::cros_healthd::mojom::ProcessResultDataView, MaybeC
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::cros_healthd::mojom::ProcessResultDataView::Tag::kUnmappedField: {
-        decltype(Traits::unmapped_field(input))
-            in_unmapped_field = Traits::unmapped_field(input);
-        fragment->data.f_unmapped_field = in_unmapped_field;
-        break;
-      }
       case ::chromeos::cros_healthd::mojom::ProcessResultDataView::Tag::kProcessInfo: {
         decltype(Traits::process_info(input))
             in_process_info = Traits::process_info(input);
@@ -12369,12 +12372,6 @@ struct Serializer<::chromeos::cros_healthd::mojom::AudioHardwareResultDataView, 
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::cros_healthd::mojom::AudioHardwareResultDataView::Tag::kUnmappedField0: {
-        decltype(Traits::unmapped_field0(input))
-            in_unmapped_field0 = Traits::unmapped_field0(input);
-        fragment->data.f_unmapped_field0 = in_unmapped_field0;
-        break;
-      }
       case ::chromeos::cros_healthd::mojom::AudioHardwareResultDataView::Tag::kAudioHardwareInfo: {
         decltype(Traits::audio_hardware_info(input))
             in_audio_hardware_info = Traits::audio_hardware_info(input);
@@ -12642,6 +12639,12 @@ struct Serializer<::chromeos::cros_healthd::mojom::BusInfoDataView, MaybeConstUs
             "null thunderbolt_bus_info in BusInfo union");
         fragment->data.f_thunderbolt_bus_info.Set(
             value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::chromeos::cros_healthd::mojom::BusInfoDataView::Tag::kUnmappedField: {
+        decltype(Traits::unmapped_field(input))
+            in_unmapped_field = Traits::unmapped_field(input);
+        fragment->data.f_unmapped_field = in_unmapped_field;
         break;
       }
     }

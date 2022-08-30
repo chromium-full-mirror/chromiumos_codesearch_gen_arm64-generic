@@ -85,12 +85,13 @@ struct DiagnosticRoutineEnum_Data {
 
 struct DiskReadRoutineTypeEnum_Data {
  public:
-  static bool constexpr kIsExtensible = false;
+  static bool constexpr kIsExtensible = true;
 
   static bool IsKnownValue(int32_t value) {
     switch (value) {
       case 0:
       case 1:
+      case 2:
         return true;
     }
     return false;

@@ -5373,8 +5373,8 @@ bool TelemetryInfo::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
-ProcessResult::ProcessResult() : tag_(Tag::kUnmappedField) {
-  data_.unmapped_field = bool();
+ProcessResult::ProcessResult() : tag_(Tag::kProcessInfo) {
+  data_.process_info = new ProcessInfoPtr;
 }
 
 ProcessResult::~ProcessResult() {
@@ -5382,14 +5382,6 @@ ProcessResult::~ProcessResult() {
 }
 
 
-void ProcessResult::set_unmapped_field(
-    bool unmapped_field) {
-  if (tag_ != Tag::kUnmappedField) {
-    DestroyActive();
-    tag_ = Tag::kUnmappedField;
-  }
-  data_.unmapped_field = unmapped_field;
-}
 void ProcessResult::set_process_info(
     ProcessInfoPtr process_info) {
   if (tag_ == Tag::kProcessInfo) {
@@ -5416,9 +5408,6 @@ void ProcessResult::set_error(
 void ProcessResult::DestroyActive() {
   switch (tag_) {
 
-    case Tag::kUnmappedField:
-
-      break;
     case Tag::kProcessInfo:
 
       delete data_.process_info;
@@ -6574,8 +6563,8 @@ bool AudioResult::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context, false);
 }
-AudioHardwareResult::AudioHardwareResult() : tag_(Tag::kUnmappedField0) {
-  data_.unmapped_field0 = bool();
+AudioHardwareResult::AudioHardwareResult() : tag_(Tag::kAudioHardwareInfo) {
+  data_.audio_hardware_info = new AudioHardwareInfoPtr;
 }
 
 AudioHardwareResult::~AudioHardwareResult() {
@@ -6583,14 +6572,6 @@ AudioHardwareResult::~AudioHardwareResult() {
 }
 
 
-void AudioHardwareResult::set_unmapped_field0(
-    bool unmapped_field0) {
-  if (tag_ != Tag::kUnmappedField0) {
-    DestroyActive();
-    tag_ = Tag::kUnmappedField0;
-  }
-  data_.unmapped_field0 = unmapped_field0;
-}
 void AudioHardwareResult::set_audio_hardware_info(
     AudioHardwareInfoPtr audio_hardware_info) {
   if (tag_ == Tag::kAudioHardwareInfo) {
@@ -6617,9 +6598,6 @@ void AudioHardwareResult::set_error(
 void AudioHardwareResult::DestroyActive() {
   switch (tag_) {
 
-    case Tag::kUnmappedField0:
-
-      break;
     case Tag::kAudioHardwareInfo:
 
       delete data_.audio_hardware_info;
@@ -6793,6 +6771,14 @@ void BusInfo::set_thunderbolt_bus_info(
         std::move(thunderbolt_bus_info));
   }
 }
+void BusInfo::set_unmapped_field(
+    bool unmapped_field) {
+  if (tag_ != Tag::kUnmappedField) {
+    DestroyActive();
+    tag_ = Tag::kUnmappedField;
+  }
+  data_.unmapped_field = unmapped_field;
+}
 
 void BusInfo::DestroyActive() {
   switch (tag_) {
@@ -6808,6 +6794,9 @@ void BusInfo::DestroyActive() {
     case Tag::kThunderboltBusInfo:
 
       delete data_.thunderbolt_bus_info;
+      break;
+    case Tag::kUnmappedField:
+
       break;
   }
 }
@@ -8358,10 +8347,6 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::ProcessResult::DataView, ::chr
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
-    case Tag::kUnmappedField: {
-      *output = UnionType::NewUnmappedField(input.unmapped_field());
-      break;
-    }
     case Tag::kProcessInfo: {
       ::chromeos::cros_healthd::mojom::ProcessInfoPtr result_process_info;
       if (!input.ReadProcessInfo(&result_process_info))
@@ -8382,8 +8367,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::ProcessResult::DataView, ::chr
     }
     default:
 
-      *output = UnionType::NewUnmappedField({});
-      return true;
+      return false;
   }
   return true;
 }
@@ -9009,10 +8993,6 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::AudioHardwareResult::DataView,
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
-    case Tag::kUnmappedField0: {
-      *output = UnionType::NewUnmappedField0(input.unmapped_field0());
-      break;
-    }
     case Tag::kAudioHardwareInfo: {
       ::chromeos::cros_healthd::mojom::AudioHardwareInfoPtr result_audio_hardware_info;
       if (!input.ReadAudioHardwareInfo(&result_audio_hardware_info))
@@ -9139,9 +9119,14 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::BusInfo::DataView, ::chromeos:
           std::move(result_thunderbolt_bus_info));
       break;
     }
+    case Tag::kUnmappedField: {
+      *output = UnionType::NewUnmappedField(input.unmapped_field());
+      break;
+    }
     default:
 
-      return false;
+      *output = UnionType::NewUnmappedField({});
+      return true;
   }
   return true;
 }

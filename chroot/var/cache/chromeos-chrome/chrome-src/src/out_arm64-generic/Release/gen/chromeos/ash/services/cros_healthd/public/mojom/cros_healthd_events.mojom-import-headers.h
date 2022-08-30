@@ -6,7 +6,5 @@
 
 #ifndef CHROMEOS_ASH_SERVICES_CROS_HEALTHD_PUBLIC_MOJOM_CROS_HEALTHD_EVENTS_MOJOM_IMPORT_HEADERS_H_
 #define CHROMEOS_ASH_SERVICES_CROS_HEALTHD_PUBLIC_MOJOM_CROS_HEALTHD_EVENTS_MOJOM_IMPORT_HEADERS_H_
-#include "chromeos/services/network_health/public/mojom/network_health.mojom.h"
-#include "chromeos/services/network_health/public/mojom/network_health.mojom-import-headers.h"
 
 #endif  // CHROMEOS_ASH_SERVICES_CROS_HEALTHD_PUBLIC_MOJOM_CROS_HEALTHD_EVENTS_MOJOM_IMPORT_HEADERS_H_

@@ -3108,14 +3108,6 @@ class  ProcessResult {
         "an empty union, mark the field or parameter as nullable in the mojom "
         "definition.");
   }
-  // Construct an instance holding |unmapped_field|.
-  static ProcessResultPtr
-  NewUnmappedField(
-      bool unmapped_field) {
-    auto result = ProcessResultPtr(absl::in_place);
-    result->set_unmapped_field(std::move(unmapped_field));
-    return result;
-  }
   // Construct an instance holding |process_info|.
   static ProcessResultPtr
   NewProcessInfo(
@@ -3171,18 +3163,6 @@ class  ProcessResult {
 
 
   
-  bool is_unmapped_field() const { return tag_ == Tag::kUnmappedField; }
-
-  
-  bool get_unmapped_field() const {
-    CHECK(tag_ == Tag::kUnmappedField);
-    return data_.unmapped_field;
-  }
-
-  
-  void set_unmapped_field(
-      bool unmapped_field);
-  
   bool is_process_info() const { return tag_ == Tag::kProcessInfo; }
 
   
@@ -3224,7 +3204,6 @@ class  ProcessResult {
   union Union_ {
     Union_() = default;
     ~Union_() = default;
-    bool unmapped_field;
     ProcessInfoPtr* process_info;
     ProbeErrorPtr* error;
   };
@@ -5805,14 +5784,6 @@ class  AudioHardwareResult {
         "an empty union, mark the field or parameter as nullable in the mojom "
         "definition.");
   }
-  // Construct an instance holding |unmapped_field0|.
-  static AudioHardwareResultPtr
-  NewUnmappedField0(
-      bool unmapped_field0) {
-    auto result = AudioHardwareResultPtr(absl::in_place);
-    result->set_unmapped_field0(std::move(unmapped_field0));
-    return result;
-  }
   // Construct an instance holding |audio_hardware_info|.
   static AudioHardwareResultPtr
   NewAudioHardwareInfo(
@@ -5868,18 +5839,6 @@ class  AudioHardwareResult {
 
 
   
-  bool is_unmapped_field0() const { return tag_ == Tag::kUnmappedField0; }
-
-  
-  bool get_unmapped_field0() const {
-    CHECK(tag_ == Tag::kUnmappedField0);
-    return data_.unmapped_field0;
-  }
-
-  
-  void set_unmapped_field0(
-      bool unmapped_field0);
-  
   bool is_audio_hardware_info() const { return tag_ == Tag::kAudioHardwareInfo; }
 
   
@@ -5921,7 +5880,6 @@ class  AudioHardwareResult {
   union Union_ {
     Union_() = default;
     ~Union_() = default;
-    bool unmapped_field0;
     AudioHardwareInfoPtr* audio_hardware_info;
     ProbeErrorPtr* error;
   };
@@ -6226,6 +6184,14 @@ class  BusInfo {
     result->set_thunderbolt_bus_info(std::move(thunderbolt_bus_info));
     return result;
   }
+  // Construct an instance holding |unmapped_field|.
+  static BusInfoPtr
+  NewUnmappedField(
+      bool unmapped_field) {
+    auto result = BusInfoPtr(absl::in_place);
+    result->set_unmapped_field(std::move(unmapped_field));
+    return result;
+  }
 
   template <typename U>
   static BusInfoPtr From(const U& u) {
@@ -6300,6 +6266,18 @@ class  BusInfo {
   
   void set_thunderbolt_bus_info(
       ThunderboltBusInfoPtr thunderbolt_bus_info);
+  
+  bool is_unmapped_field() const { return tag_ == Tag::kUnmappedField; }
+
+  
+  bool get_unmapped_field() const {
+    CHECK(tag_ == Tag::kUnmappedField);
+    return data_.unmapped_field;
+  }
+
+  
+  void set_unmapped_field(
+      bool unmapped_field);
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
@@ -6321,6 +6299,7 @@ class  BusInfo {
     PciBusInfoPtr* pci_bus_info;
     UsbBusInfoPtr* usb_bus_info;
     ThunderboltBusInfoPtr* thunderbolt_bus_info;
+    bool unmapped_field;
   };
 
   static bool Validate(const void* data,
@@ -12717,9 +12696,6 @@ bool operator>=(const T& lhs, const T& rhs) {
 template <typename UnionPtrType>
 ProcessResultPtr ProcessResult::Clone() const {
   switch (tag_) {
-    case Tag::kUnmappedField:
-      return NewUnmappedField(
-          mojo::Clone(data_.unmapped_field));
     case Tag::kProcessInfo:
       return NewProcessInfo(
           mojo::Clone(*data_.process_info));
@@ -12738,8 +12714,6 @@ bool ProcessResult::Equals(const T& other) const {
     return false;
 
   switch (tag_) {
-    case Tag::kUnmappedField:
-      return mojo::Equals(data_.unmapped_field, other.data_.unmapped_field);
     case Tag::kProcessInfo:
       return mojo::Equals(*(data_.process_info), *(other.data_.process_info));
     case Tag::kError:
@@ -13342,9 +13316,6 @@ bool AudioResult::Equals(const T& other) const {
 template <typename UnionPtrType>
 AudioHardwareResultPtr AudioHardwareResult::Clone() const {
   switch (tag_) {
-    case Tag::kUnmappedField0:
-      return NewUnmappedField0(
-          mojo::Clone(data_.unmapped_field0));
     case Tag::kAudioHardwareInfo:
       return NewAudioHardwareInfo(
           mojo::Clone(*data_.audio_hardware_info));
@@ -13363,8 +13334,6 @@ bool AudioHardwareResult::Equals(const T& other) const {
     return false;
 
   switch (tag_) {
-    case Tag::kUnmappedField0:
-      return mojo::Equals(data_.unmapped_field0, other.data_.unmapped_field0);
     case Tag::kAudioHardwareInfo:
       return mojo::Equals(*(data_.audio_hardware_info), *(other.data_.audio_hardware_info));
     case Tag::kError:
@@ -13443,6 +13412,9 @@ BusInfoPtr BusInfo::Clone() const {
     case Tag::kThunderboltBusInfo:
       return NewThunderboltBusInfo(
           mojo::Clone(*data_.thunderbolt_bus_info));
+    case Tag::kUnmappedField:
+      return NewUnmappedField(
+          mojo::Clone(data_.unmapped_field));
   }
   return nullptr;
 }
@@ -13461,6 +13433,8 @@ bool BusInfo::Equals(const T& other) const {
       return mojo::Equals(*(data_.usb_bus_info), *(other.data_.usb_bus_info));
     case Tag::kThunderboltBusInfo:
       return mojo::Equals(*(data_.thunderbolt_bus_info), *(other.data_.thunderbolt_bus_info));
+    case Tag::kUnmappedField:
+      return mojo::Equals(data_.unmapped_field, other.data_.unmapped_field);
   }
 
   return false;
@@ -18841,10 +18815,6 @@ struct  UnionTraits<::chromeos::cros_healthd::mojom::ProcessResult::DataView,
     return input->which();
   }
 
-  static  bool unmapped_field(const ::chromeos::cros_healthd::mojom::ProcessResultPtr& input) {
-    return input->get_unmapped_field();
-  }
-
   static const ::chromeos::cros_healthd::mojom::ProcessInfoPtr& process_info(const ::chromeos::cros_healthd::mojom::ProcessResultPtr& input) {
     return input->get_process_info();
   }
@@ -19317,10 +19287,6 @@ struct  UnionTraits<::chromeos::cros_healthd::mojom::AudioHardwareResult::DataVi
     return input->which();
   }
 
-  static  bool unmapped_field0(const ::chromeos::cros_healthd::mojom::AudioHardwareResultPtr& input) {
-    return input->get_unmapped_field0();
-  }
-
   static const ::chromeos::cros_healthd::mojom::AudioHardwareInfoPtr& audio_hardware_info(const ::chromeos::cros_healthd::mojom::AudioHardwareResultPtr& input) {
     return input->get_audio_hardware_info();
   }
@@ -19397,6 +19363,10 @@ struct  UnionTraits<::chromeos::cros_healthd::mojom::BusInfo::DataView,
 
   static const ::chromeos::cros_healthd::mojom::ThunderboltBusInfoPtr& thunderbolt_bus_info(const ::chromeos::cros_healthd::mojom::BusInfoPtr& input) {
     return input->get_thunderbolt_bus_info();
+  }
+
+  static  bool unmapped_field(const ::chromeos::cros_healthd::mojom::BusInfoPtr& input) {
+    return input->get_unmapped_field();
   }
 
   static bool Read(::chromeos::cros_healthd::mojom::BusInfo::DataView input, ::chromeos::cros_healthd::mojom::BusInfoPtr* output);
