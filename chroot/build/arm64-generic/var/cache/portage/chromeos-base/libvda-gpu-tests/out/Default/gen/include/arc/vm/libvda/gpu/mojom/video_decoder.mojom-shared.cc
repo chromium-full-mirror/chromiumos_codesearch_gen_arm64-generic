@@ -79,7 +79,7 @@ bool DecoderBuffer_Data::Validate(
 
   switch (object->tag) {
 
-    case DecoderBuffer_Tag::BUFFER: {
+    case DecoderBuffer_Tag::kBuffer: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_buffer, 1, validation_context)) {
@@ -89,7 +89,7 @@ bool DecoderBuffer_Data::Validate(
         return false;
       return true;
     }
-    case DecoderBuffer_Tag::END_OF_STREAM: {
+    case DecoderBuffer_Tag::kEndOfStream: {
 
       return true;
     }

@@ -49,23 +49,23 @@ bool Value_Data::Validate(
 
   switch (object->tag) {
 
-    case Value_Tag::NULL_VALUE: {
+    case Value_Tag::kNullValue: {
 
       return true;
     }
-    case Value_Tag::BOOL_VALUE: {
+    case Value_Tag::kBoolValue: {
 
       return true;
     }
-    case Value_Tag::INT_VALUE: {
+    case Value_Tag::kIntValue: {
 
       return true;
     }
-    case Value_Tag::DOUBLE_VALUE: {
+    case Value_Tag::kDoubleValue: {
 
       return true;
     }
-    case Value_Tag::STRING_VALUE: {
+    case Value_Tag::kStringValue: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_string_value, 5, validation_context)) {
@@ -79,7 +79,7 @@ bool Value_Data::Validate(
       }
       return true;
     }
-    case Value_Tag::BINARY_VALUE: {
+    case Value_Tag::kBinaryValue: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_binary_value, 6, validation_context)) {
@@ -93,7 +93,7 @@ bool Value_Data::Validate(
       }
       return true;
     }
-    case Value_Tag::DICTIONARY_VALUE: {
+    case Value_Tag::kDictionaryValue: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_dictionary_value, 7, validation_context)) {
@@ -103,7 +103,7 @@ bool Value_Data::Validate(
         return false;
       return true;
     }
-    case Value_Tag::LIST_VALUE: {
+    case Value_Tag::kListValue: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_list_value, 8, validation_context)) {

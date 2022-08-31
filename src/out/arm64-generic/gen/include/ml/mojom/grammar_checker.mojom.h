@@ -157,7 +157,7 @@ class  GrammarCheckerQuery {
   template <typename... Args>
   static GrammarCheckerQueryPtr New(Args&&... args) {
     return GrammarCheckerQueryPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -298,7 +298,7 @@ class  GrammarCorrectionFragment {
   template <typename... Args>
   static GrammarCorrectionFragmentPtr New(Args&&... args) {
     return GrammarCorrectionFragmentPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -448,7 +448,7 @@ class  GrammarCheckerCandidate {
   template <typename... Args>
   static GrammarCheckerCandidatePtr New(Args&&... args) {
     return GrammarCheckerCandidatePtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -594,7 +594,7 @@ class  GrammarCheckerResult {
   template <typename... Args>
   static GrammarCheckerResultPtr New(Args&&... args) {
     return GrammarCheckerResultPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

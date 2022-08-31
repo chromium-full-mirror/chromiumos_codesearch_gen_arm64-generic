@@ -56,7 +56,7 @@ class  File {
   template <typename... Args>
   static FilePtr New(Args&&... args) {
     return FilePtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

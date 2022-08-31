@@ -509,65 +509,35 @@ class  RoutineProblems_Data {
   enum class RoutineProblems_Tag : uint32_t {
 
     
-    LAN_CONNECTIVITY_PROBLEMS,
+    kLanConnectivityProblems,
     
-    kLanConnectivityProblems = LAN_CONNECTIVITY_PROBLEMS,
+    kSignalStrengthProblems,
     
-    SIGNAL_STRENGTH_PROBLEMS,
+    kGatewayCanBePingedProblems,
     
-    kSignalStrengthProblems = SIGNAL_STRENGTH_PROBLEMS,
+    kHasSecureWifiConnectionProblems,
     
-    GATEWAY_CAN_BE_PINGED_PROBLEMS,
+    kDnsResolverPresentProblems,
     
-    kGatewayCanBePingedProblems = GATEWAY_CAN_BE_PINGED_PROBLEMS,
+    kDnsLatencyProblems,
     
-    HAS_SECURE_WIFI_CONNECTION_PROBLEMS,
+    kDnsResolutionProblems,
     
-    kHasSecureWifiConnectionProblems = HAS_SECURE_WIFI_CONNECTION_PROBLEMS,
+    kCaptivePortalProblems,
     
-    DNS_RESOLVER_PRESENT_PROBLEMS,
+    kHttpFirewallProblems,
     
-    kDnsResolverPresentProblems = DNS_RESOLVER_PRESENT_PROBLEMS,
+    kHttpsFirewallProblems,
     
-    DNS_LATENCY_PROBLEMS,
+    kHttpsLatencyProblems,
     
-    kDnsLatencyProblems = DNS_LATENCY_PROBLEMS,
+    kVideoConferencingProblems,
     
-    DNS_RESOLUTION_PROBLEMS,
+    kArcHttpProblems,
     
-    kDnsResolutionProblems = DNS_RESOLUTION_PROBLEMS,
+    kArcDnsResolutionProblems,
     
-    CAPTIVE_PORTAL_PROBLEMS,
-    
-    kCaptivePortalProblems = CAPTIVE_PORTAL_PROBLEMS,
-    
-    HTTP_FIREWALL_PROBLEMS,
-    
-    kHttpFirewallProblems = HTTP_FIREWALL_PROBLEMS,
-    
-    HTTPS_FIREWALL_PROBLEMS,
-    
-    kHttpsFirewallProblems = HTTPS_FIREWALL_PROBLEMS,
-    
-    HTTPS_LATENCY_PROBLEMS,
-    
-    kHttpsLatencyProblems = HTTPS_LATENCY_PROBLEMS,
-    
-    VIDEO_CONFERENCING_PROBLEMS,
-    
-    kVideoConferencingProblems = VIDEO_CONFERENCING_PROBLEMS,
-    
-    ARC_HTTP_PROBLEMS,
-    
-    kArcHttpProblems = ARC_HTTP_PROBLEMS,
-    
-    ARC_DNS_RESOLUTION_PROBLEMS,
-    
-    kArcDnsResolutionProblems = ARC_DNS_RESOLUTION_PROBLEMS,
-    
-    ARC_PING_PROBLEMS,
-    
-    kArcPingProblems = ARC_PING_PROBLEMS,
+    kArcPingProblems,
   };
 
   // A note on layout:
@@ -630,9 +600,7 @@ class  RoutineResultValue_Data {
   enum class RoutineResultValue_Tag : uint32_t {
 
     
-    HTTPS_LATENCY_RESULT_VALUE,
-    
-    kHttpsLatencyResultValue = HTTPS_LATENCY_RESULT_VALUE,
+    kHttpsLatencyResultValue,
   };
 
   // A note on layout:

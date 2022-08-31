@@ -157,7 +157,7 @@ bool SpeechRecognizerEvent_Data::Validate(
 
   switch (object->tag) {
 
-    case SpeechRecognizerEvent_Tag::AUDIO_EVENT: {
+    case SpeechRecognizerEvent_Tag::kAudioEvent: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_audio_event, 1, validation_context)) {
@@ -167,7 +167,7 @@ bool SpeechRecognizerEvent_Data::Validate(
         return false;
       return true;
     }
-    case SpeechRecognizerEvent_Tag::PARTIAL_RESULT: {
+    case SpeechRecognizerEvent_Tag::kPartialResult: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_partial_result, 2, validation_context)) {
@@ -177,7 +177,7 @@ bool SpeechRecognizerEvent_Data::Validate(
         return false;
       return true;
     }
-    case SpeechRecognizerEvent_Tag::ENDPOINTER_EVENT: {
+    case SpeechRecognizerEvent_Tag::kEndpointerEvent: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_endpointer_event, 3, validation_context)) {
@@ -187,7 +187,7 @@ bool SpeechRecognizerEvent_Data::Validate(
         return false;
       return true;
     }
-    case SpeechRecognizerEvent_Tag::FINAL_RESULT: {
+    case SpeechRecognizerEvent_Tag::kFinalResult: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_final_result, 4, validation_context)) {

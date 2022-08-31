@@ -55,7 +55,7 @@ class  IPAddress {
   template <typename... Args>
   static IPAddressPtr New(Args&&... args) {
     return IPAddressPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

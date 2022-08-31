@@ -317,7 +317,7 @@ class  ConstantBitrate {
   template <typename... Args>
   static ConstantBitratePtr New(Args&&... args) {
     return ConstantBitratePtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -455,7 +455,7 @@ class  VariableBitrate {
   template <typename... Args>
   static VariableBitratePtr New(Args&&... args) {
     return VariableBitratePtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -593,14 +593,20 @@ class  Bitrate {
   using Data_ = internal::Bitrate_Data;
   using Tag = Data_::Bitrate_Tag;
 
-  static BitratePtr New() {
-    return BitratePtr(base::in_place);
+  template <typename... Args>
+  static BitratePtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
   }
   // Construct an instance holding |constant|.
   static BitratePtr
   NewConstant(
       ConstantBitratePtr constant) {
-    auto result = BitratePtr(base::in_place);
+    auto result = BitratePtr(absl::in_place);
     result->set_constant(std::move(constant));
     return result;
   }
@@ -608,7 +614,7 @@ class  Bitrate {
   static BitratePtr
   NewVariable(
       VariableBitratePtr variable) {
-    auto result = BitratePtr(base::in_place);
+    auto result = BitratePtr(absl::in_place);
     result->set_variable(std::move(variable));
     return result;
   }
@@ -652,11 +658,11 @@ class  Bitrate {
 
 
   
-  bool is_constant() const { return tag_ == Tag::CONSTANT; }
+  bool is_constant() const { return tag_ == Tag::kConstant; }
 
   
   ConstantBitratePtr& get_constant() const {
-    CHECK(tag_ == Tag::CONSTANT);
+    CHECK(tag_ == Tag::kConstant);
     return *(data_.constant);
   }
 
@@ -664,11 +670,11 @@ class  Bitrate {
   void set_constant(
       ConstantBitratePtr constant);
   
-  bool is_variable() const { return tag_ == Tag::VARIABLE; }
+  bool is_variable() const { return tag_ == Tag::kVariable; }
 
   
   VariableBitratePtr& get_variable() const {
-    CHECK(tag_ == Tag::VARIABLE);
+    CHECK(tag_ == Tag::kVariable);
     return *(data_.variable);
   }
 
@@ -719,7 +725,7 @@ class  VideoEncodeProfile {
   template <typename... Args>
   static VideoEncodeProfilePtr New(Args&&... args) {
     return VideoEncodeProfilePtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -870,7 +876,7 @@ class  VideoEncodeAcceleratorConfig {
   template <typename... Args>
   static VideoEncodeAcceleratorConfigPtr New(Args&&... args) {
     return VideoEncodeAcceleratorConfigPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1045,18 +1051,15 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 template <typename UnionPtrType>
 BitratePtr Bitrate::Clone() const {
-  // Use UnionPtrType to prevent the compiler from trying to compile this
-  // without being asked.
-  UnionPtrType rv(New());
   switch (tag_) {
-    case Tag::CONSTANT:
-      rv->set_constant(mojo::Clone(*data_.constant));
-      break;
-    case Tag::VARIABLE:
-      rv->set_variable(mojo::Clone(*data_.variable));
-      break;
+    case Tag::kConstant:
+      return NewConstant(
+          mojo::Clone(*data_.constant));
+    case Tag::kVariable:
+      return NewVariable(
+          mojo::Clone(*data_.variable));
   }
-  return rv;
+  return nullptr;
 }
 
 template <typename T,
@@ -1067,9 +1070,9 @@ bool Bitrate::Equals(const T& other) const {
     return false;
 
   switch (tag_) {
-    case Tag::CONSTANT:
+    case Tag::kConstant:
       return mojo::Equals(*(data_.constant), *(other.data_.constant));
-    case Tag::VARIABLE:
+    case Tag::kVariable:
       return mojo::Equals(*(data_.variable), *(other.data_.variable));
   }
 

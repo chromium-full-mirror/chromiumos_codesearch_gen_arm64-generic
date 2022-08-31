@@ -222,7 +222,7 @@ bool RoutineUpdate::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
-RoutineUpdateUnion::RoutineUpdateUnion() : tag_(Tag::INTERACTIVE_UPDATE) {
+RoutineUpdateUnion::RoutineUpdateUnion() : tag_(Tag::kInteractiveUpdate) {
   data_.interactive_update = new InteractiveRoutineUpdatePtr;
 }
 
@@ -233,22 +233,22 @@ RoutineUpdateUnion::~RoutineUpdateUnion() {
 
 void RoutineUpdateUnion::set_interactive_update(
     InteractiveRoutineUpdatePtr interactive_update) {
-  if (tag_ == Tag::INTERACTIVE_UPDATE) {
+  if (tag_ == Tag::kInteractiveUpdate) {
     *(data_.interactive_update) = std::move(interactive_update);
   } else {
     DestroyActive();
-    tag_ = Tag::INTERACTIVE_UPDATE;
+    tag_ = Tag::kInteractiveUpdate;
     data_.interactive_update = new InteractiveRoutineUpdatePtr(
         std::move(interactive_update));
   }
 }
 void RoutineUpdateUnion::set_noninteractive_update(
     NonInteractiveRoutineUpdatePtr noninteractive_update) {
-  if (tag_ == Tag::NONINTERACTIVE_UPDATE) {
+  if (tag_ == Tag::kNoninteractiveUpdate) {
     *(data_.noninteractive_update) = std::move(noninteractive_update);
   } else {
     DestroyActive();
-    tag_ = Tag::NONINTERACTIVE_UPDATE;
+    tag_ = Tag::kNoninteractiveUpdate;
     data_.noninteractive_update = new NonInteractiveRoutineUpdatePtr(
         std::move(noninteractive_update));
   }
@@ -257,11 +257,11 @@ void RoutineUpdateUnion::set_noninteractive_update(
 void RoutineUpdateUnion::DestroyActive() {
   switch (tag_) {
 
-    case Tag::INTERACTIVE_UPDATE:
+    case Tag::kInteractiveUpdate:
 
       delete data_.interactive_update;
       break;
-    case Tag::NONINTERACTIVE_UPDATE:
+    case Tag::kNoninteractiveUpdate:
 
       delete data_.noninteractive_update;
       break;
@@ -271,9 +271,9 @@ size_t RoutineUpdateUnion::Hash(size_t seed) const {
   seed = mojo::internal::HashCombine(seed, static_cast<uint32_t>(tag_));
   switch (tag_) {
 
-    case Tag::INTERACTIVE_UPDATE:
+    case Tag::kInteractiveUpdate:
       return mojo::internal::Hash(seed, data_.interactive_update);
-    case Tag::NONINTERACTIVE_UPDATE:
+    case Tag::kNoninteractiveUpdate:
       return mojo::internal::Hash(seed, data_.noninteractive_update);
     default:
       NOTREACHED();
@@ -367,7 +367,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::RoutineUpdateUnion::DataView, 
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
-    case Tag::INTERACTIVE_UPDATE: {
+    case Tag::kInteractiveUpdate: {
       ::chromeos::cros_healthd::mojom::InteractiveRoutineUpdatePtr result_interactive_update;
       if (!input.ReadInteractiveUpdate(&result_interactive_update))
         return false;
@@ -376,7 +376,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::RoutineUpdateUnion::DataView, 
           std::move(result_interactive_update));
       break;
     }
-    case Tag::NONINTERACTIVE_UPDATE: {
+    case Tag::kNoninteractiveUpdate: {
       ::chromeos::cros_healthd::mojom::NonInteractiveRoutineUpdatePtr result_noninteractive_update;
       if (!input.ReadNoninteractiveUpdate(&result_noninteractive_update))
         return false;

@@ -58,7 +58,7 @@ class  ReadOnlySharedMemoryRegion {
   template <typename... Args>
   static ReadOnlySharedMemoryRegionPtr New(Args&&... args) {
     return ReadOnlySharedMemoryRegionPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -192,7 +192,7 @@ class  WritableSharedMemoryRegion {
   template <typename... Args>
   static WritableSharedMemoryRegionPtr New(Args&&... args) {
     return WritableSharedMemoryRegionPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -326,7 +326,7 @@ class  UnsafeSharedMemoryRegion {
   template <typename... Args>
   static UnsafeSharedMemoryRegionPtr New(Args&&... args) {
     return UnsafeSharedMemoryRegionPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

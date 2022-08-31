@@ -54,7 +54,7 @@ class  RunRoutineResponse {
   template <typename... Args>
   static RunRoutineResponsePtr New(Args&&... args) {
     return RunRoutineResponsePtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -195,7 +195,7 @@ class  InteractiveRoutineUpdate {
   template <typename... Args>
   static InteractiveRoutineUpdatePtr New(Args&&... args) {
     return InteractiveRoutineUpdatePtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -333,7 +333,7 @@ class  NonInteractiveRoutineUpdate {
   template <typename... Args>
   static NonInteractiveRoutineUpdatePtr New(Args&&... args) {
     return NonInteractiveRoutineUpdatePtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -471,14 +471,20 @@ class  RoutineUpdateUnion {
   using Data_ = internal::RoutineUpdateUnion_Data;
   using Tag = Data_::RoutineUpdateUnion_Tag;
 
-  static RoutineUpdateUnionPtr New() {
-    return RoutineUpdateUnionPtr(base::in_place);
+  template <typename... Args>
+  static RoutineUpdateUnionPtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
   }
   // Construct an instance holding |interactive_update|.
   static RoutineUpdateUnionPtr
   NewInteractiveUpdate(
       InteractiveRoutineUpdatePtr interactive_update) {
-    auto result = RoutineUpdateUnionPtr(base::in_place);
+    auto result = RoutineUpdateUnionPtr(absl::in_place);
     result->set_interactive_update(std::move(interactive_update));
     return result;
   }
@@ -486,7 +492,7 @@ class  RoutineUpdateUnion {
   static RoutineUpdateUnionPtr
   NewNoninteractiveUpdate(
       NonInteractiveRoutineUpdatePtr noninteractive_update) {
-    auto result = RoutineUpdateUnionPtr(base::in_place);
+    auto result = RoutineUpdateUnionPtr(absl::in_place);
     result->set_noninteractive_update(std::move(noninteractive_update));
     return result;
   }
@@ -530,11 +536,11 @@ class  RoutineUpdateUnion {
 
 
   
-  bool is_interactive_update() const { return tag_ == Tag::INTERACTIVE_UPDATE; }
+  bool is_interactive_update() const { return tag_ == Tag::kInteractiveUpdate; }
 
   
   InteractiveRoutineUpdatePtr& get_interactive_update() const {
-    CHECK(tag_ == Tag::INTERACTIVE_UPDATE);
+    CHECK(tag_ == Tag::kInteractiveUpdate);
     return *(data_.interactive_update);
   }
 
@@ -542,11 +548,11 @@ class  RoutineUpdateUnion {
   void set_interactive_update(
       InteractiveRoutineUpdatePtr interactive_update);
   
-  bool is_noninteractive_update() const { return tag_ == Tag::NONINTERACTIVE_UPDATE; }
+  bool is_noninteractive_update() const { return tag_ == Tag::kNoninteractiveUpdate; }
 
   
   NonInteractiveRoutineUpdatePtr& get_noninteractive_update() const {
-    CHECK(tag_ == Tag::NONINTERACTIVE_UPDATE);
+    CHECK(tag_ == Tag::kNoninteractiveUpdate);
     return *(data_.noninteractive_update);
   }
 
@@ -600,7 +606,7 @@ class  RoutineUpdate {
   template <typename... Args>
   static RoutineUpdatePtr New(Args&&... args) {
     return RoutineUpdatePtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -728,18 +734,15 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 template <typename UnionPtrType>
 RoutineUpdateUnionPtr RoutineUpdateUnion::Clone() const {
-  // Use UnionPtrType to prevent the compiler from trying to compile this
-  // without being asked.
-  UnionPtrType rv(New());
   switch (tag_) {
-    case Tag::INTERACTIVE_UPDATE:
-      rv->set_interactive_update(mojo::Clone(*data_.interactive_update));
-      break;
-    case Tag::NONINTERACTIVE_UPDATE:
-      rv->set_noninteractive_update(mojo::Clone(*data_.noninteractive_update));
-      break;
+    case Tag::kInteractiveUpdate:
+      return NewInteractiveUpdate(
+          mojo::Clone(*data_.interactive_update));
+    case Tag::kNoninteractiveUpdate:
+      return NewNoninteractiveUpdate(
+          mojo::Clone(*data_.noninteractive_update));
   }
-  return rv;
+  return nullptr;
 }
 
 template <typename T,
@@ -750,9 +753,9 @@ bool RoutineUpdateUnion::Equals(const T& other) const {
     return false;
 
   switch (tag_) {
-    case Tag::INTERACTIVE_UPDATE:
+    case Tag::kInteractiveUpdate:
       return mojo::Equals(*(data_.interactive_update), *(other.data_.interactive_update));
-    case Tag::NONINTERACTIVE_UPDATE:
+    case Tag::kNoninteractiveUpdate:
       return mojo::Equals(*(data_.noninteractive_update), *(other.data_.noninteractive_update));
   }
 

@@ -160,7 +160,7 @@ class  WritingGuide {
   template <typename... Args>
   static WritingGuidePtr New(Args&&... args) {
     return WritingGuidePtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -303,7 +303,7 @@ class  HandwritingRecognizerInkRange {
   template <typename... Args>
   static HandwritingRecognizerInkRangePtr New(Args&&... args) {
     return HandwritingRecognizerInkRangePtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -454,7 +454,7 @@ class  HandwritingRecognizerSpec {
   template <typename... Args>
   static HandwritingRecognizerSpecPtr New(Args&&... args) {
     return HandwritingRecognizerSpecPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -606,7 +606,7 @@ class  InkPoint {
   template <typename... Args>
   static InkPointPtr New(Args&&... args) {
     return InkPointPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -749,7 +749,7 @@ class  InkStroke {
   template <typename... Args>
   static InkStrokePtr New(Args&&... args) {
     return InkStrokePtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -889,7 +889,7 @@ class  RecognitionContext {
   template <typename... Args>
   static RecognitionContextPtr New(Args&&... args) {
     return RecognitionContextPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1031,7 +1031,7 @@ class  HandwritingRecognitionQuery {
   template <typename... Args>
   static HandwritingRecognitionQueryPtr New(Args&&... args) {
     return HandwritingRecognitionQueryPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1180,7 +1180,7 @@ class  HandwritingRecognizerSegment {
   template <typename... Args>
   static HandwritingRecognizerSegmentPtr New(Args&&... args) {
     return HandwritingRecognizerSegmentPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1322,7 +1322,7 @@ class  HandwritingRecognizerSegmentation {
   template <typename... Args>
   static HandwritingRecognizerSegmentationPtr New(Args&&... args) {
     return HandwritingRecognizerSegmentationPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1461,7 +1461,7 @@ class  HandwritingRecognizerCandidate {
   template <typename... Args>
   static HandwritingRecognizerCandidatePtr New(Args&&... args) {
     return HandwritingRecognizerCandidatePtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1607,7 +1607,7 @@ class  HandwritingRecognizerResult {
   template <typename... Args>
   static HandwritingRecognizerResultPtr New(Args&&... args) {
     return HandwritingRecognizerResultPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

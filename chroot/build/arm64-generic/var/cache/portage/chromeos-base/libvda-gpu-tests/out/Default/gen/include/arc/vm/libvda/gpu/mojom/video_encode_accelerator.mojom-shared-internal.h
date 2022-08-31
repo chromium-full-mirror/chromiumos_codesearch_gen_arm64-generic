@@ -139,13 +139,9 @@ class  Bitrate_Data {
   enum class Bitrate_Tag : uint32_t {
 
     
-    CONSTANT,
+    kConstant,
     
-    kConstant = CONSTANT,
-    
-    VARIABLE,
-    
-    kVariable = VARIABLE,
+    kVariable,
   };
 
   // A note on layout:

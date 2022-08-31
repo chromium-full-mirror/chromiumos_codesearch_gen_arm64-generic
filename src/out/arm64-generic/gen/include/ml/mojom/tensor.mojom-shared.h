@@ -232,7 +232,7 @@ class ValueListDataView {
   }
 
   Tag tag() const { return data_->tag; }
-  bool is_string_list() const { return data_->tag == Tag::STRING_LIST; }
+  bool is_string_list() const { return data_->tag == Tag::kStringList; }
   inline void GetStringListDataView(
       StringListDataView* output) const;
 
@@ -243,7 +243,7 @@ class ValueListDataView {
     return mojo::internal::Deserialize<::chromeos::machine_learning::mojom::StringListDataView>(
         data_->data.f_string_list.Get(), output, message_);
   }
-  bool is_float_list() const { return data_->tag == Tag::FLOAT_LIST; }
+  bool is_float_list() const { return data_->tag == Tag::kFloatList; }
   inline void GetFloatListDataView(
       FloatListDataView* output) const;
 
@@ -254,7 +254,7 @@ class ValueListDataView {
     return mojo::internal::Deserialize<::chromeos::machine_learning::mojom::FloatListDataView>(
         data_->data.f_float_list.Get(), output, message_);
   }
-  bool is_int64_list() const { return data_->tag == Tag::INT64_LIST; }
+  bool is_int64_list() const { return data_->tag == Tag::kInt64List; }
   inline void GetInt64ListDataView(
       Int64ListDataView* output) const;
 
@@ -488,7 +488,7 @@ struct Serializer<::chromeos::machine_learning::mojom::ValueListDataView, MaybeC
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::machine_learning::mojom::ValueListDataView::Tag::STRING_LIST: {
+      case ::chromeos::machine_learning::mojom::ValueListDataView::Tag::kStringList: {
         decltype(Traits::string_list(input))
             in_string_list = Traits::string_list(input);
         mojo::internal::MessageFragment<
@@ -504,7 +504,7 @@ struct Serializer<::chromeos::machine_learning::mojom::ValueListDataView, MaybeC
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::machine_learning::mojom::ValueListDataView::Tag::FLOAT_LIST: {
+      case ::chromeos::machine_learning::mojom::ValueListDataView::Tag::kFloatList: {
         decltype(Traits::float_list(input))
             in_float_list = Traits::float_list(input);
         mojo::internal::MessageFragment<
@@ -520,7 +520,7 @@ struct Serializer<::chromeos::machine_learning::mojom::ValueListDataView, MaybeC
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::machine_learning::mojom::ValueListDataView::Tag::INT64_LIST: {
+      case ::chromeos::machine_learning::mojom::ValueListDataView::Tag::kInt64List: {
         decltype(Traits::int64_list(input))
             in_int64_list = Traits::int64_list(input);
         mojo::internal::MessageFragment<

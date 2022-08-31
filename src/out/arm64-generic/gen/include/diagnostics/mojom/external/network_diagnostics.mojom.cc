@@ -150,7 +150,7 @@ bool RoutineResult::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
-RoutineProblems::RoutineProblems() : tag_(Tag::LAN_CONNECTIVITY_PROBLEMS) {
+RoutineProblems::RoutineProblems() : tag_(Tag::kLanConnectivityProblems) {
   data_.lan_connectivity_problems = new std::vector<LanConnectivityProblem>;
 }
 
@@ -161,165 +161,165 @@ RoutineProblems::~RoutineProblems() {
 
 void RoutineProblems::set_lan_connectivity_problems(
     std::vector<LanConnectivityProblem> lan_connectivity_problems) {
-  if (tag_ == Tag::LAN_CONNECTIVITY_PROBLEMS) {
+  if (tag_ == Tag::kLanConnectivityProblems) {
     *(data_.lan_connectivity_problems) = std::move(lan_connectivity_problems);
   } else {
     DestroyActive();
-    tag_ = Tag::LAN_CONNECTIVITY_PROBLEMS;
+    tag_ = Tag::kLanConnectivityProblems;
     data_.lan_connectivity_problems = new std::vector<LanConnectivityProblem>(
         std::move(lan_connectivity_problems));
   }
 }
 void RoutineProblems::set_signal_strength_problems(
     std::vector<SignalStrengthProblem> signal_strength_problems) {
-  if (tag_ == Tag::SIGNAL_STRENGTH_PROBLEMS) {
+  if (tag_ == Tag::kSignalStrengthProblems) {
     *(data_.signal_strength_problems) = std::move(signal_strength_problems);
   } else {
     DestroyActive();
-    tag_ = Tag::SIGNAL_STRENGTH_PROBLEMS;
+    tag_ = Tag::kSignalStrengthProblems;
     data_.signal_strength_problems = new std::vector<SignalStrengthProblem>(
         std::move(signal_strength_problems));
   }
 }
 void RoutineProblems::set_gateway_can_be_pinged_problems(
     std::vector<GatewayCanBePingedProblem> gateway_can_be_pinged_problems) {
-  if (tag_ == Tag::GATEWAY_CAN_BE_PINGED_PROBLEMS) {
+  if (tag_ == Tag::kGatewayCanBePingedProblems) {
     *(data_.gateway_can_be_pinged_problems) = std::move(gateway_can_be_pinged_problems);
   } else {
     DestroyActive();
-    tag_ = Tag::GATEWAY_CAN_BE_PINGED_PROBLEMS;
+    tag_ = Tag::kGatewayCanBePingedProblems;
     data_.gateway_can_be_pinged_problems = new std::vector<GatewayCanBePingedProblem>(
         std::move(gateway_can_be_pinged_problems));
   }
 }
 void RoutineProblems::set_has_secure_wifi_connection_problems(
     std::vector<HasSecureWiFiConnectionProblem> has_secure_wifi_connection_problems) {
-  if (tag_ == Tag::HAS_SECURE_WIFI_CONNECTION_PROBLEMS) {
+  if (tag_ == Tag::kHasSecureWifiConnectionProblems) {
     *(data_.has_secure_wifi_connection_problems) = std::move(has_secure_wifi_connection_problems);
   } else {
     DestroyActive();
-    tag_ = Tag::HAS_SECURE_WIFI_CONNECTION_PROBLEMS;
+    tag_ = Tag::kHasSecureWifiConnectionProblems;
     data_.has_secure_wifi_connection_problems = new std::vector<HasSecureWiFiConnectionProblem>(
         std::move(has_secure_wifi_connection_problems));
   }
 }
 void RoutineProblems::set_dns_resolver_present_problems(
     std::vector<DnsResolverPresentProblem> dns_resolver_present_problems) {
-  if (tag_ == Tag::DNS_RESOLVER_PRESENT_PROBLEMS) {
+  if (tag_ == Tag::kDnsResolverPresentProblems) {
     *(data_.dns_resolver_present_problems) = std::move(dns_resolver_present_problems);
   } else {
     DestroyActive();
-    tag_ = Tag::DNS_RESOLVER_PRESENT_PROBLEMS;
+    tag_ = Tag::kDnsResolverPresentProblems;
     data_.dns_resolver_present_problems = new std::vector<DnsResolverPresentProblem>(
         std::move(dns_resolver_present_problems));
   }
 }
 void RoutineProblems::set_dns_latency_problems(
     std::vector<DnsLatencyProblem> dns_latency_problems) {
-  if (tag_ == Tag::DNS_LATENCY_PROBLEMS) {
+  if (tag_ == Tag::kDnsLatencyProblems) {
     *(data_.dns_latency_problems) = std::move(dns_latency_problems);
   } else {
     DestroyActive();
-    tag_ = Tag::DNS_LATENCY_PROBLEMS;
+    tag_ = Tag::kDnsLatencyProblems;
     data_.dns_latency_problems = new std::vector<DnsLatencyProblem>(
         std::move(dns_latency_problems));
   }
 }
 void RoutineProblems::set_dns_resolution_problems(
     std::vector<DnsResolutionProblem> dns_resolution_problems) {
-  if (tag_ == Tag::DNS_RESOLUTION_PROBLEMS) {
+  if (tag_ == Tag::kDnsResolutionProblems) {
     *(data_.dns_resolution_problems) = std::move(dns_resolution_problems);
   } else {
     DestroyActive();
-    tag_ = Tag::DNS_RESOLUTION_PROBLEMS;
+    tag_ = Tag::kDnsResolutionProblems;
     data_.dns_resolution_problems = new std::vector<DnsResolutionProblem>(
         std::move(dns_resolution_problems));
   }
 }
 void RoutineProblems::set_captive_portal_problems(
     std::vector<CaptivePortalProblem> captive_portal_problems) {
-  if (tag_ == Tag::CAPTIVE_PORTAL_PROBLEMS) {
+  if (tag_ == Tag::kCaptivePortalProblems) {
     *(data_.captive_portal_problems) = std::move(captive_portal_problems);
   } else {
     DestroyActive();
-    tag_ = Tag::CAPTIVE_PORTAL_PROBLEMS;
+    tag_ = Tag::kCaptivePortalProblems;
     data_.captive_portal_problems = new std::vector<CaptivePortalProblem>(
         std::move(captive_portal_problems));
   }
 }
 void RoutineProblems::set_http_firewall_problems(
     std::vector<HttpFirewallProblem> http_firewall_problems) {
-  if (tag_ == Tag::HTTP_FIREWALL_PROBLEMS) {
+  if (tag_ == Tag::kHttpFirewallProblems) {
     *(data_.http_firewall_problems) = std::move(http_firewall_problems);
   } else {
     DestroyActive();
-    tag_ = Tag::HTTP_FIREWALL_PROBLEMS;
+    tag_ = Tag::kHttpFirewallProblems;
     data_.http_firewall_problems = new std::vector<HttpFirewallProblem>(
         std::move(http_firewall_problems));
   }
 }
 void RoutineProblems::set_https_firewall_problems(
     std::vector<HttpsFirewallProblem> https_firewall_problems) {
-  if (tag_ == Tag::HTTPS_FIREWALL_PROBLEMS) {
+  if (tag_ == Tag::kHttpsFirewallProblems) {
     *(data_.https_firewall_problems) = std::move(https_firewall_problems);
   } else {
     DestroyActive();
-    tag_ = Tag::HTTPS_FIREWALL_PROBLEMS;
+    tag_ = Tag::kHttpsFirewallProblems;
     data_.https_firewall_problems = new std::vector<HttpsFirewallProblem>(
         std::move(https_firewall_problems));
   }
 }
 void RoutineProblems::set_https_latency_problems(
     std::vector<HttpsLatencyProblem> https_latency_problems) {
-  if (tag_ == Tag::HTTPS_LATENCY_PROBLEMS) {
+  if (tag_ == Tag::kHttpsLatencyProblems) {
     *(data_.https_latency_problems) = std::move(https_latency_problems);
   } else {
     DestroyActive();
-    tag_ = Tag::HTTPS_LATENCY_PROBLEMS;
+    tag_ = Tag::kHttpsLatencyProblems;
     data_.https_latency_problems = new std::vector<HttpsLatencyProblem>(
         std::move(https_latency_problems));
   }
 }
 void RoutineProblems::set_video_conferencing_problems(
     std::vector<VideoConferencingProblem> video_conferencing_problems) {
-  if (tag_ == Tag::VIDEO_CONFERENCING_PROBLEMS) {
+  if (tag_ == Tag::kVideoConferencingProblems) {
     *(data_.video_conferencing_problems) = std::move(video_conferencing_problems);
   } else {
     DestroyActive();
-    tag_ = Tag::VIDEO_CONFERENCING_PROBLEMS;
+    tag_ = Tag::kVideoConferencingProblems;
     data_.video_conferencing_problems = new std::vector<VideoConferencingProblem>(
         std::move(video_conferencing_problems));
   }
 }
 void RoutineProblems::set_arc_http_problems(
     std::vector<ArcHttpProblem> arc_http_problems) {
-  if (tag_ == Tag::ARC_HTTP_PROBLEMS) {
+  if (tag_ == Tag::kArcHttpProblems) {
     *(data_.arc_http_problems) = std::move(arc_http_problems);
   } else {
     DestroyActive();
-    tag_ = Tag::ARC_HTTP_PROBLEMS;
+    tag_ = Tag::kArcHttpProblems;
     data_.arc_http_problems = new std::vector<ArcHttpProblem>(
         std::move(arc_http_problems));
   }
 }
 void RoutineProblems::set_arc_dns_resolution_problems(
     std::vector<ArcDnsResolutionProblem> arc_dns_resolution_problems) {
-  if (tag_ == Tag::ARC_DNS_RESOLUTION_PROBLEMS) {
+  if (tag_ == Tag::kArcDnsResolutionProblems) {
     *(data_.arc_dns_resolution_problems) = std::move(arc_dns_resolution_problems);
   } else {
     DestroyActive();
-    tag_ = Tag::ARC_DNS_RESOLUTION_PROBLEMS;
+    tag_ = Tag::kArcDnsResolutionProblems;
     data_.arc_dns_resolution_problems = new std::vector<ArcDnsResolutionProblem>(
         std::move(arc_dns_resolution_problems));
   }
 }
 void RoutineProblems::set_arc_ping_problems(
     std::vector<ArcPingProblem> arc_ping_problems) {
-  if (tag_ == Tag::ARC_PING_PROBLEMS) {
+  if (tag_ == Tag::kArcPingProblems) {
     *(data_.arc_ping_problems) = std::move(arc_ping_problems);
   } else {
     DestroyActive();
-    tag_ = Tag::ARC_PING_PROBLEMS;
+    tag_ = Tag::kArcPingProblems;
     data_.arc_ping_problems = new std::vector<ArcPingProblem>(
         std::move(arc_ping_problems));
   }
@@ -328,63 +328,63 @@ void RoutineProblems::set_arc_ping_problems(
 void RoutineProblems::DestroyActive() {
   switch (tag_) {
 
-    case Tag::LAN_CONNECTIVITY_PROBLEMS:
+    case Tag::kLanConnectivityProblems:
 
       delete data_.lan_connectivity_problems;
       break;
-    case Tag::SIGNAL_STRENGTH_PROBLEMS:
+    case Tag::kSignalStrengthProblems:
 
       delete data_.signal_strength_problems;
       break;
-    case Tag::GATEWAY_CAN_BE_PINGED_PROBLEMS:
+    case Tag::kGatewayCanBePingedProblems:
 
       delete data_.gateway_can_be_pinged_problems;
       break;
-    case Tag::HAS_SECURE_WIFI_CONNECTION_PROBLEMS:
+    case Tag::kHasSecureWifiConnectionProblems:
 
       delete data_.has_secure_wifi_connection_problems;
       break;
-    case Tag::DNS_RESOLVER_PRESENT_PROBLEMS:
+    case Tag::kDnsResolverPresentProblems:
 
       delete data_.dns_resolver_present_problems;
       break;
-    case Tag::DNS_LATENCY_PROBLEMS:
+    case Tag::kDnsLatencyProblems:
 
       delete data_.dns_latency_problems;
       break;
-    case Tag::DNS_RESOLUTION_PROBLEMS:
+    case Tag::kDnsResolutionProblems:
 
       delete data_.dns_resolution_problems;
       break;
-    case Tag::CAPTIVE_PORTAL_PROBLEMS:
+    case Tag::kCaptivePortalProblems:
 
       delete data_.captive_portal_problems;
       break;
-    case Tag::HTTP_FIREWALL_PROBLEMS:
+    case Tag::kHttpFirewallProblems:
 
       delete data_.http_firewall_problems;
       break;
-    case Tag::HTTPS_FIREWALL_PROBLEMS:
+    case Tag::kHttpsFirewallProblems:
 
       delete data_.https_firewall_problems;
       break;
-    case Tag::HTTPS_LATENCY_PROBLEMS:
+    case Tag::kHttpsLatencyProblems:
 
       delete data_.https_latency_problems;
       break;
-    case Tag::VIDEO_CONFERENCING_PROBLEMS:
+    case Tag::kVideoConferencingProblems:
 
       delete data_.video_conferencing_problems;
       break;
-    case Tag::ARC_HTTP_PROBLEMS:
+    case Tag::kArcHttpProblems:
 
       delete data_.arc_http_problems;
       break;
-    case Tag::ARC_DNS_RESOLUTION_PROBLEMS:
+    case Tag::kArcDnsResolutionProblems:
 
       delete data_.arc_dns_resolution_problems;
       break;
-    case Tag::ARC_PING_PROBLEMS:
+    case Tag::kArcPingProblems:
 
       delete data_.arc_ping_problems;
       break;
@@ -396,7 +396,7 @@ bool RoutineProblems::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context, false);
 }
-RoutineResultValue::RoutineResultValue() : tag_(Tag::HTTPS_LATENCY_RESULT_VALUE) {
+RoutineResultValue::RoutineResultValue() : tag_(Tag::kHttpsLatencyResultValue) {
   data_.https_latency_result_value = new HttpsLatencyResultValuePtr;
 }
 
@@ -407,11 +407,11 @@ RoutineResultValue::~RoutineResultValue() {
 
 void RoutineResultValue::set_https_latency_result_value(
     HttpsLatencyResultValuePtr https_latency_result_value) {
-  if (tag_ == Tag::HTTPS_LATENCY_RESULT_VALUE) {
+  if (tag_ == Tag::kHttpsLatencyResultValue) {
     *(data_.https_latency_result_value) = std::move(https_latency_result_value);
   } else {
     DestroyActive();
-    tag_ = Tag::HTTPS_LATENCY_RESULT_VALUE;
+    tag_ = Tag::kHttpsLatencyResultValue;
     data_.https_latency_result_value = new HttpsLatencyResultValuePtr(
         std::move(https_latency_result_value));
   }
@@ -420,7 +420,7 @@ void RoutineResultValue::set_https_latency_result_value(
 void RoutineResultValue::DestroyActive() {
   switch (tag_) {
 
-    case Tag::HTTPS_LATENCY_RESULT_VALUE:
+    case Tag::kHttpsLatencyResultValue:
 
       delete data_.https_latency_result_value;
       break;
@@ -4163,7 +4163,7 @@ bool UnionTraits<::chromeos::network_diagnostics::mojom::RoutineProblems::DataVi
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
-    case Tag::LAN_CONNECTIVITY_PROBLEMS: {
+    case Tag::kLanConnectivityProblems: {
       std::vector<::chromeos::network_diagnostics::mojom::LanConnectivityProblem> result_lan_connectivity_problems;
       if (!input.ReadLanConnectivityProblems(&result_lan_connectivity_problems))
         return false;
@@ -4172,7 +4172,7 @@ bool UnionTraits<::chromeos::network_diagnostics::mojom::RoutineProblems::DataVi
           std::move(result_lan_connectivity_problems));
       break;
     }
-    case Tag::SIGNAL_STRENGTH_PROBLEMS: {
+    case Tag::kSignalStrengthProblems: {
       std::vector<::chromeos::network_diagnostics::mojom::SignalStrengthProblem> result_signal_strength_problems;
       if (!input.ReadSignalStrengthProblems(&result_signal_strength_problems))
         return false;
@@ -4181,7 +4181,7 @@ bool UnionTraits<::chromeos::network_diagnostics::mojom::RoutineProblems::DataVi
           std::move(result_signal_strength_problems));
       break;
     }
-    case Tag::GATEWAY_CAN_BE_PINGED_PROBLEMS: {
+    case Tag::kGatewayCanBePingedProblems: {
       std::vector<::chromeos::network_diagnostics::mojom::GatewayCanBePingedProblem> result_gateway_can_be_pinged_problems;
       if (!input.ReadGatewayCanBePingedProblems(&result_gateway_can_be_pinged_problems))
         return false;
@@ -4190,7 +4190,7 @@ bool UnionTraits<::chromeos::network_diagnostics::mojom::RoutineProblems::DataVi
           std::move(result_gateway_can_be_pinged_problems));
       break;
     }
-    case Tag::HAS_SECURE_WIFI_CONNECTION_PROBLEMS: {
+    case Tag::kHasSecureWifiConnectionProblems: {
       std::vector<::chromeos::network_diagnostics::mojom::HasSecureWiFiConnectionProblem> result_has_secure_wifi_connection_problems;
       if (!input.ReadHasSecureWifiConnectionProblems(&result_has_secure_wifi_connection_problems))
         return false;
@@ -4199,7 +4199,7 @@ bool UnionTraits<::chromeos::network_diagnostics::mojom::RoutineProblems::DataVi
           std::move(result_has_secure_wifi_connection_problems));
       break;
     }
-    case Tag::DNS_RESOLVER_PRESENT_PROBLEMS: {
+    case Tag::kDnsResolverPresentProblems: {
       std::vector<::chromeos::network_diagnostics::mojom::DnsResolverPresentProblem> result_dns_resolver_present_problems;
       if (!input.ReadDnsResolverPresentProblems(&result_dns_resolver_present_problems))
         return false;
@@ -4208,7 +4208,7 @@ bool UnionTraits<::chromeos::network_diagnostics::mojom::RoutineProblems::DataVi
           std::move(result_dns_resolver_present_problems));
       break;
     }
-    case Tag::DNS_LATENCY_PROBLEMS: {
+    case Tag::kDnsLatencyProblems: {
       std::vector<::chromeos::network_diagnostics::mojom::DnsLatencyProblem> result_dns_latency_problems;
       if (!input.ReadDnsLatencyProblems(&result_dns_latency_problems))
         return false;
@@ -4217,7 +4217,7 @@ bool UnionTraits<::chromeos::network_diagnostics::mojom::RoutineProblems::DataVi
           std::move(result_dns_latency_problems));
       break;
     }
-    case Tag::DNS_RESOLUTION_PROBLEMS: {
+    case Tag::kDnsResolutionProblems: {
       std::vector<::chromeos::network_diagnostics::mojom::DnsResolutionProblem> result_dns_resolution_problems;
       if (!input.ReadDnsResolutionProblems(&result_dns_resolution_problems))
         return false;
@@ -4226,7 +4226,7 @@ bool UnionTraits<::chromeos::network_diagnostics::mojom::RoutineProblems::DataVi
           std::move(result_dns_resolution_problems));
       break;
     }
-    case Tag::CAPTIVE_PORTAL_PROBLEMS: {
+    case Tag::kCaptivePortalProblems: {
       std::vector<::chromeos::network_diagnostics::mojom::CaptivePortalProblem> result_captive_portal_problems;
       if (!input.ReadCaptivePortalProblems(&result_captive_portal_problems))
         return false;
@@ -4235,7 +4235,7 @@ bool UnionTraits<::chromeos::network_diagnostics::mojom::RoutineProblems::DataVi
           std::move(result_captive_portal_problems));
       break;
     }
-    case Tag::HTTP_FIREWALL_PROBLEMS: {
+    case Tag::kHttpFirewallProblems: {
       std::vector<::chromeos::network_diagnostics::mojom::HttpFirewallProblem> result_http_firewall_problems;
       if (!input.ReadHttpFirewallProblems(&result_http_firewall_problems))
         return false;
@@ -4244,7 +4244,7 @@ bool UnionTraits<::chromeos::network_diagnostics::mojom::RoutineProblems::DataVi
           std::move(result_http_firewall_problems));
       break;
     }
-    case Tag::HTTPS_FIREWALL_PROBLEMS: {
+    case Tag::kHttpsFirewallProblems: {
       std::vector<::chromeos::network_diagnostics::mojom::HttpsFirewallProblem> result_https_firewall_problems;
       if (!input.ReadHttpsFirewallProblems(&result_https_firewall_problems))
         return false;
@@ -4253,7 +4253,7 @@ bool UnionTraits<::chromeos::network_diagnostics::mojom::RoutineProblems::DataVi
           std::move(result_https_firewall_problems));
       break;
     }
-    case Tag::HTTPS_LATENCY_PROBLEMS: {
+    case Tag::kHttpsLatencyProblems: {
       std::vector<::chromeos::network_diagnostics::mojom::HttpsLatencyProblem> result_https_latency_problems;
       if (!input.ReadHttpsLatencyProblems(&result_https_latency_problems))
         return false;
@@ -4262,7 +4262,7 @@ bool UnionTraits<::chromeos::network_diagnostics::mojom::RoutineProblems::DataVi
           std::move(result_https_latency_problems));
       break;
     }
-    case Tag::VIDEO_CONFERENCING_PROBLEMS: {
+    case Tag::kVideoConferencingProblems: {
       std::vector<::chromeos::network_diagnostics::mojom::VideoConferencingProblem> result_video_conferencing_problems;
       if (!input.ReadVideoConferencingProblems(&result_video_conferencing_problems))
         return false;
@@ -4271,7 +4271,7 @@ bool UnionTraits<::chromeos::network_diagnostics::mojom::RoutineProblems::DataVi
           std::move(result_video_conferencing_problems));
       break;
     }
-    case Tag::ARC_HTTP_PROBLEMS: {
+    case Tag::kArcHttpProblems: {
       std::vector<::chromeos::network_diagnostics::mojom::ArcHttpProblem> result_arc_http_problems;
       if (!input.ReadArcHttpProblems(&result_arc_http_problems))
         return false;
@@ -4280,7 +4280,7 @@ bool UnionTraits<::chromeos::network_diagnostics::mojom::RoutineProblems::DataVi
           std::move(result_arc_http_problems));
       break;
     }
-    case Tag::ARC_DNS_RESOLUTION_PROBLEMS: {
+    case Tag::kArcDnsResolutionProblems: {
       std::vector<::chromeos::network_diagnostics::mojom::ArcDnsResolutionProblem> result_arc_dns_resolution_problems;
       if (!input.ReadArcDnsResolutionProblems(&result_arc_dns_resolution_problems))
         return false;
@@ -4289,7 +4289,7 @@ bool UnionTraits<::chromeos::network_diagnostics::mojom::RoutineProblems::DataVi
           std::move(result_arc_dns_resolution_problems));
       break;
     }
-    case Tag::ARC_PING_PROBLEMS: {
+    case Tag::kArcPingProblems: {
       std::vector<::chromeos::network_diagnostics::mojom::ArcPingProblem> result_arc_ping_problems;
       if (!input.ReadArcPingProblems(&result_arc_ping_problems))
         return false;
@@ -4313,7 +4313,7 @@ bool UnionTraits<::chromeos::network_diagnostics::mojom::RoutineResultValue::Dat
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
-    case Tag::HTTPS_LATENCY_RESULT_VALUE: {
+    case Tag::kHttpsLatencyResultValue: {
       ::chromeos::network_diagnostics::mojom::HttpsLatencyResultValuePtr result_https_latency_result_value;
       if (!input.ReadHttpsLatencyResultValue(&result_https_latency_result_value))
         return false;

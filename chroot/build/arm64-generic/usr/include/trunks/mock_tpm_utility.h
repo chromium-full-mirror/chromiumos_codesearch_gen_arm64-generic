@@ -6,6 +6,7 @@
 #define TRUNKS_MOCK_TPM_UTILITY_H_
 
 #include <map>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -247,6 +248,7 @@ class MockTpmUtility : public TpmUtility {
                const brillo::SecureBlob&,
                (const std::map<uint32_t, uint32_t>&),
                const ValidPcrCriteria&,
+               std::optional<uint32_t>,
                uint32_t*,
                std::string*,
                std::string*,
@@ -276,11 +278,11 @@ class MockTpmUtility : public TpmUtility {
   MOCK_METHOD9(PinWeaverResetAuth,
                TPM_RC(uint8_t,
                       const brillo::SecureBlob&,
+                      bool,
                       const std::string&,
                       const std::string&,
                       uint32_t*,
                       std::string*,
-                      brillo::SecureBlob*,
                       std::string*,
                       std::string*));
   MOCK_METHOD5(PinWeaverGetLog,
@@ -298,6 +300,45 @@ class MockTpmUtility : public TpmUtility {
                       std::string*,
                       std::string*,
                       std::string*));
+  MOCK_METHOD5(PinWeaverSysInfo,
+               TPM_RC(uint8_t, uint32_t*, std::string*, uint32_t*, uint64_t*));
+  MOCK_METHOD6(PinWeaverGenerateBiometricsAuthPk,
+               TPM_RC(uint8_t,
+                      uint8_t,
+                      const PinWeaverEccPoint&,
+                      uint32_t*,
+                      std::string*,
+                      PinWeaverEccPoint*));
+  MOCK_METHOD(TPM_RC,
+              PinWeaverCreateBiometricsAuthRateLimiter,
+              (uint8_t,
+               uint8_t,
+               uint64_t,
+               const std::string&,
+               const brillo::SecureBlob&,
+               (const std::map<uint32_t, uint32_t>&),
+               const ValidPcrCriteria&,
+               std::optional<uint32_t>,
+               uint32_t*,
+               std::string*,
+               std::string*,
+               std::string*),
+              (override));
+  MOCK_METHOD(TPM_RC,
+              PinWeaverStartBiometricsAuth,
+              (uint8_t,
+               uint8_t,
+               const brillo::SecureBlob&,
+               const std::string&,
+               const std::string&,
+               uint32_t*,
+               std::string*,
+               brillo::SecureBlob*,
+               brillo::SecureBlob*,
+               brillo::SecureBlob*,
+               std::string*,
+               std::string*),
+              (override));
   MOCK_METHOD1(GetRsuDeviceId, TPM_RC(std::string*));
   MOCK_METHOD1(GetRoVerificationStatus, TPM_RC(ApRoStatus*));
   MOCK_METHOD(bool, IsCr50, (), (override));

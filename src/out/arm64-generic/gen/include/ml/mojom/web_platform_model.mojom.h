@@ -261,7 +261,7 @@ class  CreateModelLoaderOptions {
   template <typename... Args>
   static CreateModelLoaderOptionsPtr New(Args&&... args) {
     return CreateModelLoaderOptionsPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -410,7 +410,7 @@ class  TensorInfo {
   template <typename... Args>
   static TensorInfoPtr New(Args&&... args) {
     return TensorInfoPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -553,7 +553,7 @@ class  ModelInfo {
   template <typename... Args>
   static ModelInfoPtr New(Args&&... args) {
     return ModelInfoPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

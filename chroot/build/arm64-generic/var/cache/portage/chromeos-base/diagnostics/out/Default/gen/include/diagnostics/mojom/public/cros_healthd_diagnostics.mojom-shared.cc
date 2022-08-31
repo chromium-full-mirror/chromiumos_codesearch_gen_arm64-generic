@@ -312,7 +312,7 @@ bool RoutineUpdateUnion_Data::Validate(
 
   switch (object->tag) {
 
-    case RoutineUpdateUnion_Tag::INTERACTIVE_UPDATE: {
+    case RoutineUpdateUnion_Tag::kInteractiveUpdate: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_interactive_update, 1, validation_context)) {
@@ -322,7 +322,7 @@ bool RoutineUpdateUnion_Data::Validate(
         return false;
       return true;
     }
-    case RoutineUpdateUnion_Tag::NONINTERACTIVE_UPDATE: {
+    case RoutineUpdateUnion_Tag::kNoninteractiveUpdate: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_noninteractive_update, 2, validation_context)) {

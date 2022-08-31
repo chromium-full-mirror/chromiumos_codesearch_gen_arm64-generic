@@ -272,7 +272,7 @@ bool Error::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
-ErrorOrServiceState::ErrorOrServiceState() : tag_(Tag::DEFAULT_TYPE) {
+ErrorOrServiceState::ErrorOrServiceState() : tag_(Tag::kDefaultType) {
   data_.default_type = uint8_t();
 }
 
@@ -283,30 +283,30 @@ ErrorOrServiceState::~ErrorOrServiceState() {
 
 void ErrorOrServiceState::set_default_type(
     uint8_t default_type) {
-  if (tag_ != Tag::DEFAULT_TYPE) {
+  if (tag_ != Tag::kDefaultType) {
     DestroyActive();
-    tag_ = Tag::DEFAULT_TYPE;
+    tag_ = Tag::kDefaultType;
   }
   data_.default_type = default_type;
 }
 void ErrorOrServiceState::set_state(
     ServiceStatePtr state) {
-  if (tag_ == Tag::STATE) {
+  if (tag_ == Tag::kState) {
     *(data_.state) = std::move(state);
   } else {
     DestroyActive();
-    tag_ = Tag::STATE;
+    tag_ = Tag::kState;
     data_.state = new ServiceStatePtr(
         std::move(state));
   }
 }
 void ErrorOrServiceState::set_error(
     ErrorPtr error) {
-  if (tag_ == Tag::ERROR) {
+  if (tag_ == Tag::kError) {
     *(data_.error) = std::move(error);
   } else {
     DestroyActive();
-    tag_ = Tag::ERROR;
+    tag_ = Tag::kError;
     data_.error = new ErrorPtr(
         std::move(error));
   }
@@ -315,14 +315,14 @@ void ErrorOrServiceState::set_error(
 void ErrorOrServiceState::DestroyActive() {
   switch (tag_) {
 
-    case Tag::DEFAULT_TYPE:
+    case Tag::kDefaultType:
 
       break;
-    case Tag::STATE:
+    case Tag::kState:
 
       delete data_.state;
       break;
-    case Tag::ERROR:
+    case Tag::kError:
 
       delete data_.error;
       break;
@@ -332,11 +332,11 @@ size_t ErrorOrServiceState::Hash(size_t seed) const {
   seed = mojo::internal::HashCombine(seed, static_cast<uint32_t>(tag_));
   switch (tag_) {
 
-    case Tag::DEFAULT_TYPE:
+    case Tag::kDefaultType:
       return mojo::internal::Hash(seed, data_.default_type);
-    case Tag::STATE:
+    case Tag::kState:
       return mojo::internal::Hash(seed, data_.state);
-    case Tag::ERROR:
+    case Tag::kError:
       return mojo::internal::Hash(seed, data_.error);
     default:
       NOTREACHED();
@@ -349,7 +349,7 @@ bool ErrorOrServiceState::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context, false);
 }
-ServiceState::ServiceState() : tag_(Tag::DEFAULT_TYPE) {
+ServiceState::ServiceState() : tag_(Tag::kDefaultType) {
   data_.default_type = uint8_t();
 }
 
@@ -360,30 +360,30 @@ ServiceState::~ServiceState() {
 
 void ServiceState::set_default_type(
     uint8_t default_type) {
-  if (tag_ != Tag::DEFAULT_TYPE) {
+  if (tag_ != Tag::kDefaultType) {
     DestroyActive();
-    tag_ = Tag::DEFAULT_TYPE;
+    tag_ = Tag::kDefaultType;
   }
   data_.default_type = default_type;
 }
 void ServiceState::set_registered_state(
     RegisteredServiceStatePtr registered_state) {
-  if (tag_ == Tag::REGISTERED_STATE) {
+  if (tag_ == Tag::kRegisteredState) {
     *(data_.registered_state) = std::move(registered_state);
   } else {
     DestroyActive();
-    tag_ = Tag::REGISTERED_STATE;
+    tag_ = Tag::kRegisteredState;
     data_.registered_state = new RegisteredServiceStatePtr(
         std::move(registered_state));
   }
 }
 void ServiceState::set_unregistered_state(
     UnregisteredServiceStatePtr unregistered_state) {
-  if (tag_ == Tag::UNREGISTERED_STATE) {
+  if (tag_ == Tag::kUnregisteredState) {
     *(data_.unregistered_state) = std::move(unregistered_state);
   } else {
     DestroyActive();
-    tag_ = Tag::UNREGISTERED_STATE;
+    tag_ = Tag::kUnregisteredState;
     data_.unregistered_state = new UnregisteredServiceStatePtr(
         std::move(unregistered_state));
   }
@@ -392,14 +392,14 @@ void ServiceState::set_unregistered_state(
 void ServiceState::DestroyActive() {
   switch (tag_) {
 
-    case Tag::DEFAULT_TYPE:
+    case Tag::kDefaultType:
 
       break;
-    case Tag::REGISTERED_STATE:
+    case Tag::kRegisteredState:
 
       delete data_.registered_state;
       break;
-    case Tag::UNREGISTERED_STATE:
+    case Tag::kUnregisteredState:
 
       delete data_.unregistered_state;
       break;
@@ -409,11 +409,11 @@ size_t ServiceState::Hash(size_t seed) const {
   seed = mojo::internal::HashCombine(seed, static_cast<uint32_t>(tag_));
   switch (tag_) {
 
-    case Tag::DEFAULT_TYPE:
+    case Tag::kDefaultType:
       return mojo::internal::Hash(seed, data_.default_type);
-    case Tag::REGISTERED_STATE:
+    case Tag::kRegisteredState:
       return mojo::internal::Hash(seed, data_.registered_state);
-    case Tag::UNREGISTERED_STATE:
+    case Tag::kUnregisteredState:
       return mojo::internal::Hash(seed, data_.unregistered_state);
     default:
       NOTREACHED();
@@ -1444,11 +1444,11 @@ bool UnionTraits<::chromeos::mojo_service_manager::mojom::ErrorOrServiceState::D
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
-    case Tag::DEFAULT_TYPE: {
+    case Tag::kDefaultType: {
       *output = UnionType::NewDefaultType(input.default_type());
       break;
     }
-    case Tag::STATE: {
+    case Tag::kState: {
       ::chromeos::mojo_service_manager::mojom::ServiceStatePtr result_state;
       if (!input.ReadState(&result_state))
         return false;
@@ -1457,7 +1457,7 @@ bool UnionTraits<::chromeos::mojo_service_manager::mojom::ErrorOrServiceState::D
           std::move(result_state));
       break;
     }
-    case Tag::ERROR: {
+    case Tag::kError: {
       ::chromeos::mojo_service_manager::mojom::ErrorPtr result_error;
       if (!input.ReadError(&result_error))
         return false;
@@ -1482,11 +1482,11 @@ bool UnionTraits<::chromeos::mojo_service_manager::mojom::ServiceState::DataView
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
-    case Tag::DEFAULT_TYPE: {
+    case Tag::kDefaultType: {
       *output = UnionType::NewDefaultType(input.default_type());
       break;
     }
-    case Tag::REGISTERED_STATE: {
+    case Tag::kRegisteredState: {
       ::chromeos::mojo_service_manager::mojom::RegisteredServiceStatePtr result_registered_state;
       if (!input.ReadRegisteredState(&result_registered_state))
         return false;
@@ -1495,7 +1495,7 @@ bool UnionTraits<::chromeos::mojo_service_manager::mojom::ServiceState::DataView
           std::move(result_registered_state));
       break;
     }
-    case Tag::UNREGISTERED_STATE: {
+    case Tag::kUnregisteredState: {
       ::chromeos::mojo_service_manager::mojom::UnregisteredServiceStatePtr result_unregistered_state;
       if (!input.ReadUnregisteredState(&result_unregistered_state))
         return false;

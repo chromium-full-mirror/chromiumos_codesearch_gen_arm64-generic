@@ -49,7 +49,7 @@ bool RunInput_Data::Validate(
 
   switch (object->tag) {
 
-    case RunInput_Tag::QUERY_VERSION: {
+    case RunInput_Tag::kQueryVersion: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_query_version, 1, validation_context)) {
@@ -59,7 +59,7 @@ bool RunInput_Data::Validate(
         return false;
       return true;
     }
-    case RunInput_Tag::FLUSH_FOR_TESTING: {
+    case RunInput_Tag::kFlushForTesting: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_flush_for_testing, 2, validation_context)) {
@@ -106,7 +106,7 @@ bool RunOutput_Data::Validate(
 
   switch (object->tag) {
 
-    case RunOutput_Tag::QUERY_VERSION_RESULT: {
+    case RunOutput_Tag::kQueryVersionResult: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_query_version_result, 1, validation_context)) {
@@ -153,7 +153,7 @@ bool RunOrClosePipeInput_Data::Validate(
 
   switch (object->tag) {
 
-    case RunOrClosePipeInput_Tag::REQUIRE_VERSION: {
+    case RunOrClosePipeInput_Tag::kRequireVersion: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_require_version, 1, validation_context)) {
@@ -163,7 +163,7 @@ bool RunOrClosePipeInput_Data::Validate(
         return false;
       return true;
     }
-    case RunOrClosePipeInput_Tag::ENABLE_IDLE_TRACKING: {
+    case RunOrClosePipeInput_Tag::kEnableIdleTracking: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_enable_idle_tracking, 2, validation_context)) {
@@ -173,7 +173,7 @@ bool RunOrClosePipeInput_Data::Validate(
         return false;
       return true;
     }
-    case RunOrClosePipeInput_Tag::MESSAGE_ACK: {
+    case RunOrClosePipeInput_Tag::kMessageAck: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_message_ack, 3, validation_context)) {
@@ -183,7 +183,7 @@ bool RunOrClosePipeInput_Data::Validate(
         return false;
       return true;
     }
-    case RunOrClosePipeInput_Tag::NOTIFY_IDLE: {
+    case RunOrClosePipeInput_Tag::kNotifyIdle: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_notify_idle, 4, validation_context)) {

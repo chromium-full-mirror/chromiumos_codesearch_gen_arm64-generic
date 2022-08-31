@@ -53,7 +53,7 @@ class  FilePath {
   template <typename... Args>
   static FilePathPtr New(Args&&... args) {
     return FilePathPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

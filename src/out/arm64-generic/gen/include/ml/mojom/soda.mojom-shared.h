@@ -641,7 +641,7 @@ class SpeechRecognizerEventDataView {
   }
 
   Tag tag() const { return data_->tag; }
-  bool is_audio_event() const { return data_->tag == Tag::AUDIO_EVENT; }
+  bool is_audio_event() const { return data_->tag == Tag::kAudioEvent; }
   inline void GetAudioEventDataView(
       AudioLevelEventDataView* output) const;
 
@@ -652,7 +652,7 @@ class SpeechRecognizerEventDataView {
     return mojo::internal::Deserialize<::chromeos::machine_learning::mojom::AudioLevelEventDataView>(
         data_->data.f_audio_event.Get(), output, message_);
   }
-  bool is_partial_result() const { return data_->tag == Tag::PARTIAL_RESULT; }
+  bool is_partial_result() const { return data_->tag == Tag::kPartialResult; }
   inline void GetPartialResultDataView(
       PartialResultDataView* output) const;
 
@@ -663,7 +663,7 @@ class SpeechRecognizerEventDataView {
     return mojo::internal::Deserialize<::chromeos::machine_learning::mojom::PartialResultDataView>(
         data_->data.f_partial_result.Get(), output, message_);
   }
-  bool is_endpointer_event() const { return data_->tag == Tag::ENDPOINTER_EVENT; }
+  bool is_endpointer_event() const { return data_->tag == Tag::kEndpointerEvent; }
   inline void GetEndpointerEventDataView(
       EndpointerEventDataView* output) const;
 
@@ -674,7 +674,7 @@ class SpeechRecognizerEventDataView {
     return mojo::internal::Deserialize<::chromeos::machine_learning::mojom::EndpointerEventDataView>(
         data_->data.f_endpointer_event.Get(), output, message_);
   }
-  bool is_final_result() const { return data_->tag == Tag::FINAL_RESULT; }
+  bool is_final_result() const { return data_->tag == Tag::kFinalResult; }
   inline void GetFinalResultDataView(
       FinalResultDataView* output) const;
 
@@ -1238,7 +1238,7 @@ struct Serializer<::chromeos::machine_learning::mojom::SpeechRecognizerEventData
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::machine_learning::mojom::SpeechRecognizerEventDataView::Tag::AUDIO_EVENT: {
+      case ::chromeos::machine_learning::mojom::SpeechRecognizerEventDataView::Tag::kAudioEvent: {
         decltype(Traits::audio_event(input))
             in_audio_event = Traits::audio_event(input);
         mojo::internal::MessageFragment<
@@ -1254,7 +1254,7 @@ struct Serializer<::chromeos::machine_learning::mojom::SpeechRecognizerEventData
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::machine_learning::mojom::SpeechRecognizerEventDataView::Tag::PARTIAL_RESULT: {
+      case ::chromeos::machine_learning::mojom::SpeechRecognizerEventDataView::Tag::kPartialResult: {
         decltype(Traits::partial_result(input))
             in_partial_result = Traits::partial_result(input);
         mojo::internal::MessageFragment<
@@ -1270,7 +1270,7 @@ struct Serializer<::chromeos::machine_learning::mojom::SpeechRecognizerEventData
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::machine_learning::mojom::SpeechRecognizerEventDataView::Tag::ENDPOINTER_EVENT: {
+      case ::chromeos::machine_learning::mojom::SpeechRecognizerEventDataView::Tag::kEndpointerEvent: {
         decltype(Traits::endpointer_event(input))
             in_endpointer_event = Traits::endpointer_event(input);
         mojo::internal::MessageFragment<
@@ -1286,7 +1286,7 @@ struct Serializer<::chromeos::machine_learning::mojom::SpeechRecognizerEventData
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::machine_learning::mojom::SpeechRecognizerEventDataView::Tag::FINAL_RESULT: {
+      case ::chromeos::machine_learning::mojom::SpeechRecognizerEventDataView::Tag::kFinalResult: {
         decltype(Traits::final_result(input))
             in_final_result = Traits::final_result(input);
         mojo::internal::MessageFragment<

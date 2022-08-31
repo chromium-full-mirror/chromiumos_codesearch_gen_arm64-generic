@@ -274,7 +274,7 @@ class  UInt32Value {
   template <typename... Args>
   static UInt32ValuePtr New(Args&&... args) {
     return UInt32ValuePtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -418,7 +418,7 @@ class  SignalStrengthStats {
   template <typename... Args>
   static SignalStrengthStatsPtr New(Args&&... args) {
     return SignalStrengthStatsPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -561,7 +561,7 @@ class  Network {
   template <typename... Args>
   static NetworkPtr New(Args&&... args) {
     return NetworkPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -738,7 +738,7 @@ class  NetworkHealthState {
   template <typename... Args>
   static NetworkHealthStatePtr New(Args&&... args) {
     return NetworkHealthStatePtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

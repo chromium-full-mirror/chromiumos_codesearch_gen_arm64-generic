@@ -454,7 +454,7 @@ bool REMOVED_TextSuggestSelectionRequest::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
-TextEntityData::TextEntityData() : tag_(Tag::NUMERIC_VALUE) {
+TextEntityData::TextEntityData() : tag_(Tag::kNumericValue) {
   data_.numeric_value = double();
 }
 
@@ -465,19 +465,19 @@ TextEntityData::~TextEntityData() {
 
 void TextEntityData::set_numeric_value(
     double numeric_value) {
-  if (tag_ != Tag::NUMERIC_VALUE) {
+  if (tag_ != Tag::kNumericValue) {
     DestroyActive();
-    tag_ = Tag::NUMERIC_VALUE;
+    tag_ = Tag::kNumericValue;
   }
   data_.numeric_value = numeric_value;
 }
 void TextEntityData::set_string_value(
     const std::string& string_value) {
-  if (tag_ == Tag::STRING_VALUE) {
+  if (tag_ == Tag::kStringValue) {
     *(data_.string_value) = std::move(string_value);
   } else {
     DestroyActive();
-    tag_ = Tag::STRING_VALUE;
+    tag_ = Tag::kStringValue;
     data_.string_value = new std::string(
         std::move(string_value));
   }
@@ -486,10 +486,10 @@ void TextEntityData::set_string_value(
 void TextEntityData::DestroyActive() {
   switch (tag_) {
 
-    case Tag::NUMERIC_VALUE:
+    case Tag::kNumericValue:
 
       break;
-    case Tag::STRING_VALUE:
+    case Tag::kStringValue:
 
       delete data_.string_value;
       break;
@@ -499,9 +499,9 @@ size_t TextEntityData::Hash(size_t seed) const {
   seed = mojo::internal::HashCombine(seed, static_cast<uint32_t>(tag_));
   switch (tag_) {
 
-    case Tag::NUMERIC_VALUE:
+    case Tag::kNumericValue:
       return mojo::internal::Hash(seed, data_.numeric_value);
-    case Tag::STRING_VALUE:
+    case Tag::kStringValue:
       return mojo::internal::Hash(seed, data_.string_value);
     default:
       NOTREACHED();
@@ -1418,11 +1418,11 @@ bool UnionTraits<::chromeos::machine_learning::mojom::TextEntityData::DataView, 
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
-    case Tag::NUMERIC_VALUE: {
+    case Tag::kNumericValue: {
       *output = UnionType::NewNumericValue(input.numeric_value());
       break;
     }
-    case Tag::STRING_VALUE: {
+    case Tag::kStringValue: {
       std::string result_string_value;
       if (!input.ReadStringValue(&result_string_value))
         return false;

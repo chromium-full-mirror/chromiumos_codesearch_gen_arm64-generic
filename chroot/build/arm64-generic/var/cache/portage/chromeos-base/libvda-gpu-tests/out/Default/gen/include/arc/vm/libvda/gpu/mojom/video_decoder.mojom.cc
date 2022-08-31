@@ -156,7 +156,7 @@ bool VideoDecoderConfig::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
-DecoderBuffer::DecoderBuffer() : tag_(Tag::BUFFER) {
+DecoderBuffer::DecoderBuffer() : tag_(Tag::kBuffer) {
   data_.buffer = new BufferPtr;
 }
 
@@ -167,20 +167,20 @@ DecoderBuffer::~DecoderBuffer() {
 
 void DecoderBuffer::set_buffer(
     BufferPtr buffer) {
-  if (tag_ == Tag::BUFFER) {
+  if (tag_ == Tag::kBuffer) {
     *(data_.buffer) = std::move(buffer);
   } else {
     DestroyActive();
-    tag_ = Tag::BUFFER;
+    tag_ = Tag::kBuffer;
     data_.buffer = new BufferPtr(
         std::move(buffer));
   }
 }
 void DecoderBuffer::set_end_of_stream(
     uint8_t end_of_stream) {
-  if (tag_ != Tag::END_OF_STREAM) {
+  if (tag_ != Tag::kEndOfStream) {
     DestroyActive();
-    tag_ = Tag::END_OF_STREAM;
+    tag_ = Tag::kEndOfStream;
   }
   data_.end_of_stream = end_of_stream;
 }
@@ -188,11 +188,11 @@ void DecoderBuffer::set_end_of_stream(
 void DecoderBuffer::DestroyActive() {
   switch (tag_) {
 
-    case Tag::BUFFER:
+    case Tag::kBuffer:
 
       delete data_.buffer;
       break;
-    case Tag::END_OF_STREAM:
+    case Tag::kEndOfStream:
 
       break;
   }
@@ -1312,7 +1312,7 @@ bool UnionTraits<::arc::mojom::DecoderBuffer::DataView, ::arc::mojom::DecoderBuf
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
-    case Tag::BUFFER: {
+    case Tag::kBuffer: {
       ::arc::mojom::BufferPtr result_buffer;
       if (!input.ReadBuffer(&result_buffer))
         return false;
@@ -1321,7 +1321,7 @@ bool UnionTraits<::arc::mojom::DecoderBuffer::DataView, ::arc::mojom::DecoderBuf
           std::move(result_buffer));
       break;
     }
-    case Tag::END_OF_STREAM: {
+    case Tag::kEndOfStream: {
       *output = UnionType::NewEndOfStream(input.end_of_stream());
       break;
     }

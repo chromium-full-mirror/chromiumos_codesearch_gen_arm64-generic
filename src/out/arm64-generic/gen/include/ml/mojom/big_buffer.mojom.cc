@@ -87,7 +87,7 @@ bool BigBufferSharedMemoryRegion::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
-BigBuffer::BigBuffer() : tag_(Tag::BYTES) {
+BigBuffer::BigBuffer() : tag_(Tag::kBytes) {
   data_.bytes = new std::vector<uint8_t>;
 }
 
@@ -98,31 +98,31 @@ BigBuffer::~BigBuffer() {
 
 void BigBuffer::set_bytes(
     std::vector<uint8_t> bytes) {
-  if (tag_ == Tag::BYTES) {
+  if (tag_ == Tag::kBytes) {
     *(data_.bytes) = std::move(bytes);
   } else {
     DestroyActive();
-    tag_ = Tag::BYTES;
+    tag_ = Tag::kBytes;
     data_.bytes = new std::vector<uint8_t>(
         std::move(bytes));
   }
 }
 void BigBuffer::set_shared_memory(
     BigBufferSharedMemoryRegionPtr shared_memory) {
-  if (tag_ == Tag::SHARED_MEMORY) {
+  if (tag_ == Tag::kSharedMemory) {
     *(data_.shared_memory) = std::move(shared_memory);
   } else {
     DestroyActive();
-    tag_ = Tag::SHARED_MEMORY;
+    tag_ = Tag::kSharedMemory;
     data_.shared_memory = new BigBufferSharedMemoryRegionPtr(
         std::move(shared_memory));
   }
 }
 void BigBuffer::set_invalid_buffer(
     bool invalid_buffer) {
-  if (tag_ != Tag::INVALID_BUFFER) {
+  if (tag_ != Tag::kInvalidBuffer) {
     DestroyActive();
-    tag_ = Tag::INVALID_BUFFER;
+    tag_ = Tag::kInvalidBuffer;
   }
   data_.invalid_buffer = invalid_buffer;
 }
@@ -130,15 +130,15 @@ void BigBuffer::set_invalid_buffer(
 void BigBuffer::DestroyActive() {
   switch (tag_) {
 
-    case Tag::BYTES:
+    case Tag::kBytes:
 
       delete data_.bytes;
       break;
-    case Tag::SHARED_MEMORY:
+    case Tag::kSharedMemory:
 
       delete data_.shared_memory;
       break;
-    case Tag::INVALID_BUFFER:
+    case Tag::kInvalidBuffer:
 
       break;
   }
@@ -181,7 +181,7 @@ bool UnionTraits<::mojo_base::mojom::BigBuffer::DataView, ::mojo_base::mojom::Bi
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
-    case Tag::BYTES: {
+    case Tag::kBytes: {
       std::vector<uint8_t> result_bytes;
       if (!input.ReadBytes(&result_bytes))
         return false;
@@ -190,7 +190,7 @@ bool UnionTraits<::mojo_base::mojom::BigBuffer::DataView, ::mojo_base::mojom::Bi
           std::move(result_bytes));
       break;
     }
-    case Tag::SHARED_MEMORY: {
+    case Tag::kSharedMemory: {
       ::mojo_base::mojom::BigBufferSharedMemoryRegionPtr result_shared_memory;
       if (!input.ReadSharedMemory(&result_shared_memory))
         return false;
@@ -199,7 +199,7 @@ bool UnionTraits<::mojo_base::mojom::BigBuffer::DataView, ::mojo_base::mojom::Bi
           std::move(result_shared_memory));
       break;
     }
-    case Tag::INVALID_BUFFER: {
+    case Tag::kInvalidBuffer: {
       *output = UnionType::NewInvalidBuffer(input.invalid_buffer());
       break;
     }

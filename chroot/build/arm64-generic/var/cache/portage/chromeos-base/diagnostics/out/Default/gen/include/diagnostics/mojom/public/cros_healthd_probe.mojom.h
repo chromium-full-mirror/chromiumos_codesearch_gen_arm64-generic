@@ -55,7 +55,7 @@ class  ProbeError {
   template <typename... Args>
   static ProbeErrorPtr New(Args&&... args) {
     return ProbeErrorPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -201,7 +201,7 @@ class  VirtualizationInfo {
   template <typename... Args>
   static VirtualizationInfoPtr New(Args&&... args) {
     return VirtualizationInfoPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -346,7 +346,7 @@ class  VulnerabilityInfo {
   template <typename... Args>
   static VulnerabilityInfoPtr New(Args&&... args) {
     return VulnerabilityInfoPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -487,7 +487,7 @@ class  KeylockerInfo {
   template <typename... Args>
   static KeylockerInfoPtr New(Args&&... args) {
     return KeylockerInfoPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -627,7 +627,7 @@ class  CpuVirtualizationInfo {
   template <typename... Args>
   static CpuVirtualizationInfoPtr New(Args&&... args) {
     return CpuVirtualizationInfoPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -772,7 +772,7 @@ class  CpuCStateInfo {
   template <typename... Args>
   static CpuCStateInfoPtr New(Args&&... args) {
     return CpuCStateInfoPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -913,7 +913,7 @@ class  CpuTemperatureChannel {
   template <typename... Args>
   static CpuTemperatureChannelPtr New(Args&&... args) {
     return CpuTemperatureChannelPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1053,7 +1053,7 @@ class  TimezoneInfo {
   template <typename... Args>
   static TimezoneInfoPtr New(Args&&... args) {
     return TimezoneInfoPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1195,7 +1195,7 @@ class  MemoryEncryptionInfo {
   template <typename... Args>
   static MemoryEncryptionInfoPtr New(Args&&... args) {
     return MemoryEncryptionInfoPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1342,7 +1342,7 @@ class  BacklightInfo {
   template <typename... Args>
   static BacklightInfoPtr New(Args&&... args) {
     return BacklightInfoPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1486,7 +1486,7 @@ class  FanInfo {
   template <typename... Args>
   static FanInfoPtr New(Args&&... args) {
     return FanInfoPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1624,7 +1624,7 @@ class  StatefulPartitionInfo {
   template <typename... Args>
   static StatefulPartitionInfoPtr New(Args&&... args) {
     return StatefulPartitionInfoPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1773,7 +1773,7 @@ class  SupportedCapabilities {
   template <typename... Args>
   static SupportedCapabilitiesPtr New(Args&&... args) {
     return SupportedCapabilitiesPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1922,7 +1922,7 @@ class  OsVersion {
   template <typename... Args>
   static OsVersionPtr New(Args&&... args) {
     return OsVersionPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2076,7 +2076,7 @@ class  HDAudioCodec {
   template <typename... Args>
   static HDAudioCodecPtr New(Args&&... args) {
     return HDAudioCodecPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2221,7 +2221,7 @@ class  FwupdFirmwareVersionInfo {
   template <typename... Args>
   static FwupdFirmwareVersionInfoPtr New(Args&&... args) {
     return FwupdFirmwareVersionInfoPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2365,7 +2365,7 @@ class  TpmStatus {
   template <typename... Args>
   static TpmStatusPtr New(Args&&... args) {
     return TpmStatusPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2509,7 +2509,7 @@ class  TpmDictionaryAttack {
   template <typename... Args>
   static TpmDictionaryAttackPtr New(Args&&... args) {
     return TpmDictionaryAttackPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2656,7 +2656,7 @@ class  TpmAttestation {
   template <typename... Args>
   static TpmAttestationPtr New(Args&&... args) {
     return TpmAttestationPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2797,7 +2797,7 @@ class  TpmSupportedFeatures {
   template <typename... Args>
   static TpmSupportedFeaturesPtr New(Args&&... args) {
     return TpmSupportedFeaturesPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2955,7 +2955,7 @@ class  InputDevice {
   template <typename... Args>
   static InputDevicePtr New(Args&&... args) {
     return InputDevicePtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3105,7 +3105,7 @@ class  Sensor {
   template <typename... Args>
   static SensorPtr New(Args&&... args) {
     return SensorPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3248,14 +3248,20 @@ class  ProcessResult {
   using Data_ = internal::ProcessResult_Data;
   using Tag = Data_::ProcessResult_Tag;
 
-  static ProcessResultPtr New() {
-    return ProcessResultPtr(base::in_place);
+  template <typename... Args>
+  static ProcessResultPtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
   }
   // Construct an instance holding |process_info|.
   static ProcessResultPtr
   NewProcessInfo(
       ProcessInfoPtr process_info) {
-    auto result = ProcessResultPtr(base::in_place);
+    auto result = ProcessResultPtr(absl::in_place);
     result->set_process_info(std::move(process_info));
     return result;
   }
@@ -3263,7 +3269,7 @@ class  ProcessResult {
   static ProcessResultPtr
   NewError(
       ProbeErrorPtr error) {
-    auto result = ProcessResultPtr(base::in_place);
+    auto result = ProcessResultPtr(absl::in_place);
     result->set_error(std::move(error));
     return result;
   }
@@ -3306,11 +3312,11 @@ class  ProcessResult {
 
 
   
-  bool is_process_info() const { return tag_ == Tag::PROCESS_INFO; }
+  bool is_process_info() const { return tag_ == Tag::kProcessInfo; }
 
   
   ProcessInfoPtr& get_process_info() const {
-    CHECK(tag_ == Tag::PROCESS_INFO);
+    CHECK(tag_ == Tag::kProcessInfo);
     return *(data_.process_info);
   }
 
@@ -3318,11 +3324,11 @@ class  ProcessResult {
   void set_process_info(
       ProcessInfoPtr process_info);
   
-  bool is_error() const { return tag_ == Tag::ERROR; }
+  bool is_error() const { return tag_ == Tag::kError; }
 
   
   ProbeErrorPtr& get_error() const {
-    CHECK(tag_ == Tag::ERROR);
+    CHECK(tag_ == Tag::kError);
     return *(data_.error);
   }
 
@@ -3367,14 +3373,20 @@ class  BatteryResult {
   using Data_ = internal::BatteryResult_Data;
   using Tag = Data_::BatteryResult_Tag;
 
-  static BatteryResultPtr New() {
-    return BatteryResultPtr(base::in_place);
+  template <typename... Args>
+  static BatteryResultPtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
   }
   // Construct an instance holding |battery_info|.
   static BatteryResultPtr
   NewBatteryInfo(
       BatteryInfoPtr battery_info) {
-    auto result = BatteryResultPtr(base::in_place);
+    auto result = BatteryResultPtr(absl::in_place);
     result->set_battery_info(std::move(battery_info));
     return result;
   }
@@ -3382,7 +3394,7 @@ class  BatteryResult {
   static BatteryResultPtr
   NewError(
       ProbeErrorPtr error) {
-    auto result = BatteryResultPtr(base::in_place);
+    auto result = BatteryResultPtr(absl::in_place);
     result->set_error(std::move(error));
     return result;
   }
@@ -3425,11 +3437,11 @@ class  BatteryResult {
 
 
   
-  bool is_battery_info() const { return tag_ == Tag::BATTERY_INFO; }
+  bool is_battery_info() const { return tag_ == Tag::kBatteryInfo; }
 
   
   BatteryInfoPtr& get_battery_info() const {
-    CHECK(tag_ == Tag::BATTERY_INFO);
+    CHECK(tag_ == Tag::kBatteryInfo);
     return *(data_.battery_info);
   }
 
@@ -3437,11 +3449,11 @@ class  BatteryResult {
   void set_battery_info(
       BatteryInfoPtr battery_info);
   
-  bool is_error() const { return tag_ == Tag::ERROR; }
+  bool is_error() const { return tag_ == Tag::kError; }
 
   
   ProbeErrorPtr& get_error() const {
-    CHECK(tag_ == Tag::ERROR);
+    CHECK(tag_ == Tag::kError);
     return *(data_.error);
   }
 
@@ -3486,14 +3498,20 @@ class  NonRemovableBlockDeviceResult {
   using Data_ = internal::NonRemovableBlockDeviceResult_Data;
   using Tag = Data_::NonRemovableBlockDeviceResult_Tag;
 
-  static NonRemovableBlockDeviceResultPtr New() {
-    return NonRemovableBlockDeviceResultPtr(base::in_place);
+  template <typename... Args>
+  static NonRemovableBlockDeviceResultPtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
   }
   // Construct an instance holding |block_device_info|.
   static NonRemovableBlockDeviceResultPtr
   NewBlockDeviceInfo(
       std::vector<NonRemovableBlockDeviceInfoPtr> block_device_info) {
-    auto result = NonRemovableBlockDeviceResultPtr(base::in_place);
+    auto result = NonRemovableBlockDeviceResultPtr(absl::in_place);
     result->set_block_device_info(std::move(block_device_info));
     return result;
   }
@@ -3501,7 +3519,7 @@ class  NonRemovableBlockDeviceResult {
   static NonRemovableBlockDeviceResultPtr
   NewError(
       ProbeErrorPtr error) {
-    auto result = NonRemovableBlockDeviceResultPtr(base::in_place);
+    auto result = NonRemovableBlockDeviceResultPtr(absl::in_place);
     result->set_error(std::move(error));
     return result;
   }
@@ -3544,11 +3562,11 @@ class  NonRemovableBlockDeviceResult {
 
 
   
-  bool is_block_device_info() const { return tag_ == Tag::BLOCK_DEVICE_INFO; }
+  bool is_block_device_info() const { return tag_ == Tag::kBlockDeviceInfo; }
 
   
   std::vector<NonRemovableBlockDeviceInfoPtr>& get_block_device_info() const {
-    CHECK(tag_ == Tag::BLOCK_DEVICE_INFO);
+    CHECK(tag_ == Tag::kBlockDeviceInfo);
     return *(data_.block_device_info);
   }
 
@@ -3556,11 +3574,11 @@ class  NonRemovableBlockDeviceResult {
   void set_block_device_info(
       std::vector<NonRemovableBlockDeviceInfoPtr> block_device_info);
   
-  bool is_error() const { return tag_ == Tag::ERROR; }
+  bool is_error() const { return tag_ == Tag::kError; }
 
   
   ProbeErrorPtr& get_error() const {
-    CHECK(tag_ == Tag::ERROR);
+    CHECK(tag_ == Tag::kError);
     return *(data_.error);
   }
 
@@ -3605,14 +3623,20 @@ class  BlockDeviceVendor {
   using Data_ = internal::BlockDeviceVendor_Data;
   using Tag = Data_::BlockDeviceVendor_Tag;
 
-  static BlockDeviceVendorPtr New() {
-    return BlockDeviceVendorPtr(base::in_place);
+  template <typename... Args>
+  static BlockDeviceVendorPtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
   }
   // Construct an instance holding |nvme_subsystem_vendor|.
   static BlockDeviceVendorPtr
   NewNvmeSubsystemVendor(
       uint32_t nvme_subsystem_vendor) {
-    auto result = BlockDeviceVendorPtr(base::in_place);
+    auto result = BlockDeviceVendorPtr(absl::in_place);
     result->set_nvme_subsystem_vendor(std::move(nvme_subsystem_vendor));
     return result;
   }
@@ -3620,7 +3644,7 @@ class  BlockDeviceVendor {
   static BlockDeviceVendorPtr
   NewEmmcOemid(
       uint16_t emmc_oemid) {
-    auto result = BlockDeviceVendorPtr(base::in_place);
+    auto result = BlockDeviceVendorPtr(absl::in_place);
     result->set_emmc_oemid(std::move(emmc_oemid));
     return result;
   }
@@ -3628,7 +3652,7 @@ class  BlockDeviceVendor {
   static BlockDeviceVendorPtr
   NewOther(
       uint16_t other) {
-    auto result = BlockDeviceVendorPtr(base::in_place);
+    auto result = BlockDeviceVendorPtr(absl::in_place);
     result->set_other(std::move(other));
     return result;
   }
@@ -3636,7 +3660,7 @@ class  BlockDeviceVendor {
   static BlockDeviceVendorPtr
   NewUnknown(
       uint64_t unknown) {
-    auto result = BlockDeviceVendorPtr(base::in_place);
+    auto result = BlockDeviceVendorPtr(absl::in_place);
     result->set_unknown(std::move(unknown));
     return result;
   }
@@ -3644,7 +3668,7 @@ class  BlockDeviceVendor {
   static BlockDeviceVendorPtr
   NewJedecManfid(
       uint16_t jedec_manfid) {
-    auto result = BlockDeviceVendorPtr(base::in_place);
+    auto result = BlockDeviceVendorPtr(absl::in_place);
     result->set_jedec_manfid(std::move(jedec_manfid));
     return result;
   }
@@ -3688,11 +3712,11 @@ class  BlockDeviceVendor {
 
 
   
-  bool is_nvme_subsystem_vendor() const { return tag_ == Tag::NVME_SUBSYSTEM_VENDOR; }
+  bool is_nvme_subsystem_vendor() const { return tag_ == Tag::kNvmeSubsystemVendor; }
 
   
   uint32_t get_nvme_subsystem_vendor() const {
-    CHECK(tag_ == Tag::NVME_SUBSYSTEM_VENDOR);
+    CHECK(tag_ == Tag::kNvmeSubsystemVendor);
     return data_.nvme_subsystem_vendor;
   }
 
@@ -3700,11 +3724,11 @@ class  BlockDeviceVendor {
   void set_nvme_subsystem_vendor(
       uint32_t nvme_subsystem_vendor);
   
-  bool is_emmc_oemid() const { return tag_ == Tag::EMMC_OEMID; }
+  bool is_emmc_oemid() const { return tag_ == Tag::kEmmcOemid; }
 
   
   uint16_t get_emmc_oemid() const {
-    CHECK(tag_ == Tag::EMMC_OEMID);
+    CHECK(tag_ == Tag::kEmmcOemid);
     return data_.emmc_oemid;
   }
 
@@ -3712,11 +3736,11 @@ class  BlockDeviceVendor {
   void set_emmc_oemid(
       uint16_t emmc_oemid);
   
-  bool is_other() const { return tag_ == Tag::OTHER; }
+  bool is_other() const { return tag_ == Tag::kOther; }
 
   
   uint16_t get_other() const {
-    CHECK(tag_ == Tag::OTHER);
+    CHECK(tag_ == Tag::kOther);
     return data_.other;
   }
 
@@ -3724,11 +3748,11 @@ class  BlockDeviceVendor {
   void set_other(
       uint16_t other);
   
-  bool is_unknown() const { return tag_ == Tag::UNKNOWN; }
+  bool is_unknown() const { return tag_ == Tag::kUnknown; }
 
   
   uint64_t get_unknown() const {
-    CHECK(tag_ == Tag::UNKNOWN);
+    CHECK(tag_ == Tag::kUnknown);
     return data_.unknown;
   }
 
@@ -3736,11 +3760,11 @@ class  BlockDeviceVendor {
   void set_unknown(
       uint64_t unknown);
   
-  bool is_jedec_manfid() const { return tag_ == Tag::JEDEC_MANFID; }
+  bool is_jedec_manfid() const { return tag_ == Tag::kJedecManfid; }
 
   
   uint16_t get_jedec_manfid() const {
-    CHECK(tag_ == Tag::JEDEC_MANFID);
+    CHECK(tag_ == Tag::kJedecManfid);
     return data_.jedec_manfid;
   }
 
@@ -3788,14 +3812,20 @@ class  BlockDeviceProduct {
   using Data_ = internal::BlockDeviceProduct_Data;
   using Tag = Data_::BlockDeviceProduct_Tag;
 
-  static BlockDeviceProductPtr New() {
-    return BlockDeviceProductPtr(base::in_place);
+  template <typename... Args>
+  static BlockDeviceProductPtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
   }
   // Construct an instance holding |nvme_subsystem_device|.
   static BlockDeviceProductPtr
   NewNvmeSubsystemDevice(
       uint32_t nvme_subsystem_device) {
-    auto result = BlockDeviceProductPtr(base::in_place);
+    auto result = BlockDeviceProductPtr(absl::in_place);
     result->set_nvme_subsystem_device(std::move(nvme_subsystem_device));
     return result;
   }
@@ -3803,7 +3833,7 @@ class  BlockDeviceProduct {
   static BlockDeviceProductPtr
   NewEmmcPnm(
       uint64_t emmc_pnm) {
-    auto result = BlockDeviceProductPtr(base::in_place);
+    auto result = BlockDeviceProductPtr(absl::in_place);
     result->set_emmc_pnm(std::move(emmc_pnm));
     return result;
   }
@@ -3811,7 +3841,7 @@ class  BlockDeviceProduct {
   static BlockDeviceProductPtr
   NewOther(
       uint16_t other) {
-    auto result = BlockDeviceProductPtr(base::in_place);
+    auto result = BlockDeviceProductPtr(absl::in_place);
     result->set_other(std::move(other));
     return result;
   }
@@ -3819,7 +3849,7 @@ class  BlockDeviceProduct {
   static BlockDeviceProductPtr
   NewUnknown(
       uint64_t unknown) {
-    auto result = BlockDeviceProductPtr(base::in_place);
+    auto result = BlockDeviceProductPtr(absl::in_place);
     result->set_unknown(std::move(unknown));
     return result;
   }
@@ -3863,11 +3893,11 @@ class  BlockDeviceProduct {
 
 
   
-  bool is_nvme_subsystem_device() const { return tag_ == Tag::NVME_SUBSYSTEM_DEVICE; }
+  bool is_nvme_subsystem_device() const { return tag_ == Tag::kNvmeSubsystemDevice; }
 
   
   uint32_t get_nvme_subsystem_device() const {
-    CHECK(tag_ == Tag::NVME_SUBSYSTEM_DEVICE);
+    CHECK(tag_ == Tag::kNvmeSubsystemDevice);
     return data_.nvme_subsystem_device;
   }
 
@@ -3875,11 +3905,11 @@ class  BlockDeviceProduct {
   void set_nvme_subsystem_device(
       uint32_t nvme_subsystem_device);
   
-  bool is_emmc_pnm() const { return tag_ == Tag::EMMC_PNM; }
+  bool is_emmc_pnm() const { return tag_ == Tag::kEmmcPnm; }
 
   
   uint64_t get_emmc_pnm() const {
-    CHECK(tag_ == Tag::EMMC_PNM);
+    CHECK(tag_ == Tag::kEmmcPnm);
     return data_.emmc_pnm;
   }
 
@@ -3887,11 +3917,11 @@ class  BlockDeviceProduct {
   void set_emmc_pnm(
       uint64_t emmc_pnm);
   
-  bool is_other() const { return tag_ == Tag::OTHER; }
+  bool is_other() const { return tag_ == Tag::kOther; }
 
   
   uint16_t get_other() const {
-    CHECK(tag_ == Tag::OTHER);
+    CHECK(tag_ == Tag::kOther);
     return data_.other;
   }
 
@@ -3899,11 +3929,11 @@ class  BlockDeviceProduct {
   void set_other(
       uint16_t other);
   
-  bool is_unknown() const { return tag_ == Tag::UNKNOWN; }
+  bool is_unknown() const { return tag_ == Tag::kUnknown; }
 
   
   uint64_t get_unknown() const {
-    CHECK(tag_ == Tag::UNKNOWN);
+    CHECK(tag_ == Tag::kUnknown);
     return data_.unknown;
   }
 
@@ -3950,14 +3980,20 @@ class  BlockDeviceRevision {
   using Data_ = internal::BlockDeviceRevision_Data;
   using Tag = Data_::BlockDeviceRevision_Tag;
 
-  static BlockDeviceRevisionPtr New() {
-    return BlockDeviceRevisionPtr(base::in_place);
+  template <typename... Args>
+  static BlockDeviceRevisionPtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
   }
   // Construct an instance holding |nvme_pcie_rev|.
   static BlockDeviceRevisionPtr
   NewNvmePcieRev(
       uint8_t nvme_pcie_rev) {
-    auto result = BlockDeviceRevisionPtr(base::in_place);
+    auto result = BlockDeviceRevisionPtr(absl::in_place);
     result->set_nvme_pcie_rev(std::move(nvme_pcie_rev));
     return result;
   }
@@ -3965,7 +4001,7 @@ class  BlockDeviceRevision {
   static BlockDeviceRevisionPtr
   NewEmmcPrv(
       uint8_t emmc_prv) {
-    auto result = BlockDeviceRevisionPtr(base::in_place);
+    auto result = BlockDeviceRevisionPtr(absl::in_place);
     result->set_emmc_prv(std::move(emmc_prv));
     return result;
   }
@@ -3973,7 +4009,7 @@ class  BlockDeviceRevision {
   static BlockDeviceRevisionPtr
   NewOther(
       uint16_t other) {
-    auto result = BlockDeviceRevisionPtr(base::in_place);
+    auto result = BlockDeviceRevisionPtr(absl::in_place);
     result->set_other(std::move(other));
     return result;
   }
@@ -3981,7 +4017,7 @@ class  BlockDeviceRevision {
   static BlockDeviceRevisionPtr
   NewUnknown(
       uint64_t unknown) {
-    auto result = BlockDeviceRevisionPtr(base::in_place);
+    auto result = BlockDeviceRevisionPtr(absl::in_place);
     result->set_unknown(std::move(unknown));
     return result;
   }
@@ -4025,11 +4061,11 @@ class  BlockDeviceRevision {
 
 
   
-  bool is_nvme_pcie_rev() const { return tag_ == Tag::NVME_PCIE_REV; }
+  bool is_nvme_pcie_rev() const { return tag_ == Tag::kNvmePcieRev; }
 
   
   uint8_t get_nvme_pcie_rev() const {
-    CHECK(tag_ == Tag::NVME_PCIE_REV);
+    CHECK(tag_ == Tag::kNvmePcieRev);
     return data_.nvme_pcie_rev;
   }
 
@@ -4037,11 +4073,11 @@ class  BlockDeviceRevision {
   void set_nvme_pcie_rev(
       uint8_t nvme_pcie_rev);
   
-  bool is_emmc_prv() const { return tag_ == Tag::EMMC_PRV; }
+  bool is_emmc_prv() const { return tag_ == Tag::kEmmcPrv; }
 
   
   uint8_t get_emmc_prv() const {
-    CHECK(tag_ == Tag::EMMC_PRV);
+    CHECK(tag_ == Tag::kEmmcPrv);
     return data_.emmc_prv;
   }
 
@@ -4049,11 +4085,11 @@ class  BlockDeviceRevision {
   void set_emmc_prv(
       uint8_t emmc_prv);
   
-  bool is_other() const { return tag_ == Tag::OTHER; }
+  bool is_other() const { return tag_ == Tag::kOther; }
 
   
   uint16_t get_other() const {
-    CHECK(tag_ == Tag::OTHER);
+    CHECK(tag_ == Tag::kOther);
     return data_.other;
   }
 
@@ -4061,11 +4097,11 @@ class  BlockDeviceRevision {
   void set_other(
       uint16_t other);
   
-  bool is_unknown() const { return tag_ == Tag::UNKNOWN; }
+  bool is_unknown() const { return tag_ == Tag::kUnknown; }
 
   
   uint64_t get_unknown() const {
-    CHECK(tag_ == Tag::UNKNOWN);
+    CHECK(tag_ == Tag::kUnknown);
     return data_.unknown;
   }
 
@@ -4112,14 +4148,20 @@ class  BlockDeviceFirmware {
   using Data_ = internal::BlockDeviceFirmware_Data;
   using Tag = Data_::BlockDeviceFirmware_Tag;
 
-  static BlockDeviceFirmwarePtr New() {
-    return BlockDeviceFirmwarePtr(base::in_place);
+  template <typename... Args>
+  static BlockDeviceFirmwarePtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
   }
   // Construct an instance holding |nvme_firmware_rev|.
   static BlockDeviceFirmwarePtr
   NewNvmeFirmwareRev(
       uint64_t nvme_firmware_rev) {
-    auto result = BlockDeviceFirmwarePtr(base::in_place);
+    auto result = BlockDeviceFirmwarePtr(absl::in_place);
     result->set_nvme_firmware_rev(std::move(nvme_firmware_rev));
     return result;
   }
@@ -4127,7 +4169,7 @@ class  BlockDeviceFirmware {
   static BlockDeviceFirmwarePtr
   NewEmmcFwrev(
       uint64_t emmc_fwrev) {
-    auto result = BlockDeviceFirmwarePtr(base::in_place);
+    auto result = BlockDeviceFirmwarePtr(absl::in_place);
     result->set_emmc_fwrev(std::move(emmc_fwrev));
     return result;
   }
@@ -4135,7 +4177,7 @@ class  BlockDeviceFirmware {
   static BlockDeviceFirmwarePtr
   NewOther(
       uint16_t other) {
-    auto result = BlockDeviceFirmwarePtr(base::in_place);
+    auto result = BlockDeviceFirmwarePtr(absl::in_place);
     result->set_other(std::move(other));
     return result;
   }
@@ -4143,7 +4185,7 @@ class  BlockDeviceFirmware {
   static BlockDeviceFirmwarePtr
   NewUnknown(
       uint64_t unknown) {
-    auto result = BlockDeviceFirmwarePtr(base::in_place);
+    auto result = BlockDeviceFirmwarePtr(absl::in_place);
     result->set_unknown(std::move(unknown));
     return result;
   }
@@ -4151,7 +4193,7 @@ class  BlockDeviceFirmware {
   static BlockDeviceFirmwarePtr
   NewUfsFwrev(
       uint64_t ufs_fwrev) {
-    auto result = BlockDeviceFirmwarePtr(base::in_place);
+    auto result = BlockDeviceFirmwarePtr(absl::in_place);
     result->set_ufs_fwrev(std::move(ufs_fwrev));
     return result;
   }
@@ -4195,11 +4237,11 @@ class  BlockDeviceFirmware {
 
 
   
-  bool is_nvme_firmware_rev() const { return tag_ == Tag::NVME_FIRMWARE_REV; }
+  bool is_nvme_firmware_rev() const { return tag_ == Tag::kNvmeFirmwareRev; }
 
   
   uint64_t get_nvme_firmware_rev() const {
-    CHECK(tag_ == Tag::NVME_FIRMWARE_REV);
+    CHECK(tag_ == Tag::kNvmeFirmwareRev);
     return data_.nvme_firmware_rev;
   }
 
@@ -4207,11 +4249,11 @@ class  BlockDeviceFirmware {
   void set_nvme_firmware_rev(
       uint64_t nvme_firmware_rev);
   
-  bool is_emmc_fwrev() const { return tag_ == Tag::EMMC_FWREV; }
+  bool is_emmc_fwrev() const { return tag_ == Tag::kEmmcFwrev; }
 
   
   uint64_t get_emmc_fwrev() const {
-    CHECK(tag_ == Tag::EMMC_FWREV);
+    CHECK(tag_ == Tag::kEmmcFwrev);
     return data_.emmc_fwrev;
   }
 
@@ -4219,11 +4261,11 @@ class  BlockDeviceFirmware {
   void set_emmc_fwrev(
       uint64_t emmc_fwrev);
   
-  bool is_other() const { return tag_ == Tag::OTHER; }
+  bool is_other() const { return tag_ == Tag::kOther; }
 
   
   uint16_t get_other() const {
-    CHECK(tag_ == Tag::OTHER);
+    CHECK(tag_ == Tag::kOther);
     return data_.other;
   }
 
@@ -4231,11 +4273,11 @@ class  BlockDeviceFirmware {
   void set_other(
       uint16_t other);
   
-  bool is_unknown() const { return tag_ == Tag::UNKNOWN; }
+  bool is_unknown() const { return tag_ == Tag::kUnknown; }
 
   
   uint64_t get_unknown() const {
-    CHECK(tag_ == Tag::UNKNOWN);
+    CHECK(tag_ == Tag::kUnknown);
     return data_.unknown;
   }
 
@@ -4243,11 +4285,11 @@ class  BlockDeviceFirmware {
   void set_unknown(
       uint64_t unknown);
   
-  bool is_ufs_fwrev() const { return tag_ == Tag::UFS_FWREV; }
+  bool is_ufs_fwrev() const { return tag_ == Tag::kUfsFwrev; }
 
   
   uint64_t get_ufs_fwrev() const {
-    CHECK(tag_ == Tag::UFS_FWREV);
+    CHECK(tag_ == Tag::kUfsFwrev);
     return data_.ufs_fwrev;
   }
 
@@ -4295,14 +4337,20 @@ class  CpuResult {
   using Data_ = internal::CpuResult_Data;
   using Tag = Data_::CpuResult_Tag;
 
-  static CpuResultPtr New() {
-    return CpuResultPtr(base::in_place);
+  template <typename... Args>
+  static CpuResultPtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
   }
   // Construct an instance holding |cpu_info|.
   static CpuResultPtr
   NewCpuInfo(
       CpuInfoPtr cpu_info) {
-    auto result = CpuResultPtr(base::in_place);
+    auto result = CpuResultPtr(absl::in_place);
     result->set_cpu_info(std::move(cpu_info));
     return result;
   }
@@ -4310,7 +4358,7 @@ class  CpuResult {
   static CpuResultPtr
   NewError(
       ProbeErrorPtr error) {
-    auto result = CpuResultPtr(base::in_place);
+    auto result = CpuResultPtr(absl::in_place);
     result->set_error(std::move(error));
     return result;
   }
@@ -4353,11 +4401,11 @@ class  CpuResult {
 
 
   
-  bool is_cpu_info() const { return tag_ == Tag::CPU_INFO; }
+  bool is_cpu_info() const { return tag_ == Tag::kCpuInfo; }
 
   
   CpuInfoPtr& get_cpu_info() const {
-    CHECK(tag_ == Tag::CPU_INFO);
+    CHECK(tag_ == Tag::kCpuInfo);
     return *(data_.cpu_info);
   }
 
@@ -4365,11 +4413,11 @@ class  CpuResult {
   void set_cpu_info(
       CpuInfoPtr cpu_info);
   
-  bool is_error() const { return tag_ == Tag::ERROR; }
+  bool is_error() const { return tag_ == Tag::kError; }
 
   
   ProbeErrorPtr& get_error() const {
-    CHECK(tag_ == Tag::ERROR);
+    CHECK(tag_ == Tag::kError);
     return *(data_.error);
   }
 
@@ -4414,14 +4462,20 @@ class  TimezoneResult {
   using Data_ = internal::TimezoneResult_Data;
   using Tag = Data_::TimezoneResult_Tag;
 
-  static TimezoneResultPtr New() {
-    return TimezoneResultPtr(base::in_place);
+  template <typename... Args>
+  static TimezoneResultPtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
   }
   // Construct an instance holding |timezone_info|.
   static TimezoneResultPtr
   NewTimezoneInfo(
       TimezoneInfoPtr timezone_info) {
-    auto result = TimezoneResultPtr(base::in_place);
+    auto result = TimezoneResultPtr(absl::in_place);
     result->set_timezone_info(std::move(timezone_info));
     return result;
   }
@@ -4429,7 +4483,7 @@ class  TimezoneResult {
   static TimezoneResultPtr
   NewError(
       ProbeErrorPtr error) {
-    auto result = TimezoneResultPtr(base::in_place);
+    auto result = TimezoneResultPtr(absl::in_place);
     result->set_error(std::move(error));
     return result;
   }
@@ -4473,11 +4527,11 @@ class  TimezoneResult {
 
 
   
-  bool is_timezone_info() const { return tag_ == Tag::TIMEZONE_INFO; }
+  bool is_timezone_info() const { return tag_ == Tag::kTimezoneInfo; }
 
   
   TimezoneInfoPtr& get_timezone_info() const {
-    CHECK(tag_ == Tag::TIMEZONE_INFO);
+    CHECK(tag_ == Tag::kTimezoneInfo);
     return *(data_.timezone_info);
   }
 
@@ -4485,11 +4539,11 @@ class  TimezoneResult {
   void set_timezone_info(
       TimezoneInfoPtr timezone_info);
   
-  bool is_error() const { return tag_ == Tag::ERROR; }
+  bool is_error() const { return tag_ == Tag::kError; }
 
   
   ProbeErrorPtr& get_error() const {
-    CHECK(tag_ == Tag::ERROR);
+    CHECK(tag_ == Tag::kError);
     return *(data_.error);
   }
 
@@ -4534,14 +4588,20 @@ class  MemoryResult {
   using Data_ = internal::MemoryResult_Data;
   using Tag = Data_::MemoryResult_Tag;
 
-  static MemoryResultPtr New() {
-    return MemoryResultPtr(base::in_place);
+  template <typename... Args>
+  static MemoryResultPtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
   }
   // Construct an instance holding |memory_info|.
   static MemoryResultPtr
   NewMemoryInfo(
       MemoryInfoPtr memory_info) {
-    auto result = MemoryResultPtr(base::in_place);
+    auto result = MemoryResultPtr(absl::in_place);
     result->set_memory_info(std::move(memory_info));
     return result;
   }
@@ -4549,7 +4609,7 @@ class  MemoryResult {
   static MemoryResultPtr
   NewError(
       ProbeErrorPtr error) {
-    auto result = MemoryResultPtr(base::in_place);
+    auto result = MemoryResultPtr(absl::in_place);
     result->set_error(std::move(error));
     return result;
   }
@@ -4592,11 +4652,11 @@ class  MemoryResult {
 
 
   
-  bool is_memory_info() const { return tag_ == Tag::MEMORY_INFO; }
+  bool is_memory_info() const { return tag_ == Tag::kMemoryInfo; }
 
   
   MemoryInfoPtr& get_memory_info() const {
-    CHECK(tag_ == Tag::MEMORY_INFO);
+    CHECK(tag_ == Tag::kMemoryInfo);
     return *(data_.memory_info);
   }
 
@@ -4604,11 +4664,11 @@ class  MemoryResult {
   void set_memory_info(
       MemoryInfoPtr memory_info);
   
-  bool is_error() const { return tag_ == Tag::ERROR; }
+  bool is_error() const { return tag_ == Tag::kError; }
 
   
   ProbeErrorPtr& get_error() const {
-    CHECK(tag_ == Tag::ERROR);
+    CHECK(tag_ == Tag::kError);
     return *(data_.error);
   }
 
@@ -4653,14 +4713,20 @@ class  BacklightResult {
   using Data_ = internal::BacklightResult_Data;
   using Tag = Data_::BacklightResult_Tag;
 
-  static BacklightResultPtr New() {
-    return BacklightResultPtr(base::in_place);
+  template <typename... Args>
+  static BacklightResultPtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
   }
   // Construct an instance holding |backlight_info|.
   static BacklightResultPtr
   NewBacklightInfo(
       std::vector<BacklightInfoPtr> backlight_info) {
-    auto result = BacklightResultPtr(base::in_place);
+    auto result = BacklightResultPtr(absl::in_place);
     result->set_backlight_info(std::move(backlight_info));
     return result;
   }
@@ -4668,7 +4734,7 @@ class  BacklightResult {
   static BacklightResultPtr
   NewError(
       ProbeErrorPtr error) {
-    auto result = BacklightResultPtr(base::in_place);
+    auto result = BacklightResultPtr(absl::in_place);
     result->set_error(std::move(error));
     return result;
   }
@@ -4711,11 +4777,11 @@ class  BacklightResult {
 
 
   
-  bool is_backlight_info() const { return tag_ == Tag::BACKLIGHT_INFO; }
+  bool is_backlight_info() const { return tag_ == Tag::kBacklightInfo; }
 
   
   std::vector<BacklightInfoPtr>& get_backlight_info() const {
-    CHECK(tag_ == Tag::BACKLIGHT_INFO);
+    CHECK(tag_ == Tag::kBacklightInfo);
     return *(data_.backlight_info);
   }
 
@@ -4723,11 +4789,11 @@ class  BacklightResult {
   void set_backlight_info(
       std::vector<BacklightInfoPtr> backlight_info);
   
-  bool is_error() const { return tag_ == Tag::ERROR; }
+  bool is_error() const { return tag_ == Tag::kError; }
 
   
   ProbeErrorPtr& get_error() const {
-    CHECK(tag_ == Tag::ERROR);
+    CHECK(tag_ == Tag::kError);
     return *(data_.error);
   }
 
@@ -4772,14 +4838,20 @@ class  FanResult {
   using Data_ = internal::FanResult_Data;
   using Tag = Data_::FanResult_Tag;
 
-  static FanResultPtr New() {
-    return FanResultPtr(base::in_place);
+  template <typename... Args>
+  static FanResultPtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
   }
   // Construct an instance holding |fan_info|.
   static FanResultPtr
   NewFanInfo(
       std::vector<FanInfoPtr> fan_info) {
-    auto result = FanResultPtr(base::in_place);
+    auto result = FanResultPtr(absl::in_place);
     result->set_fan_info(std::move(fan_info));
     return result;
   }
@@ -4787,7 +4859,7 @@ class  FanResult {
   static FanResultPtr
   NewError(
       ProbeErrorPtr error) {
-    auto result = FanResultPtr(base::in_place);
+    auto result = FanResultPtr(absl::in_place);
     result->set_error(std::move(error));
     return result;
   }
@@ -4830,11 +4902,11 @@ class  FanResult {
 
 
   
-  bool is_fan_info() const { return tag_ == Tag::FAN_INFO; }
+  bool is_fan_info() const { return tag_ == Tag::kFanInfo; }
 
   
   std::vector<FanInfoPtr>& get_fan_info() const {
-    CHECK(tag_ == Tag::FAN_INFO);
+    CHECK(tag_ == Tag::kFanInfo);
     return *(data_.fan_info);
   }
 
@@ -4842,11 +4914,11 @@ class  FanResult {
   void set_fan_info(
       std::vector<FanInfoPtr> fan_info);
   
-  bool is_error() const { return tag_ == Tag::ERROR; }
+  bool is_error() const { return tag_ == Tag::kError; }
 
   
   ProbeErrorPtr& get_error() const {
-    CHECK(tag_ == Tag::ERROR);
+    CHECK(tag_ == Tag::kError);
     return *(data_.error);
   }
 
@@ -4891,14 +4963,20 @@ class  StatefulPartitionResult {
   using Data_ = internal::StatefulPartitionResult_Data;
   using Tag = Data_::StatefulPartitionResult_Tag;
 
-  static StatefulPartitionResultPtr New() {
-    return StatefulPartitionResultPtr(base::in_place);
+  template <typename... Args>
+  static StatefulPartitionResultPtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
   }
   // Construct an instance holding |partition_info|.
   static StatefulPartitionResultPtr
   NewPartitionInfo(
       StatefulPartitionInfoPtr partition_info) {
-    auto result = StatefulPartitionResultPtr(base::in_place);
+    auto result = StatefulPartitionResultPtr(absl::in_place);
     result->set_partition_info(std::move(partition_info));
     return result;
   }
@@ -4906,7 +4984,7 @@ class  StatefulPartitionResult {
   static StatefulPartitionResultPtr
   NewError(
       ProbeErrorPtr error) {
-    auto result = StatefulPartitionResultPtr(base::in_place);
+    auto result = StatefulPartitionResultPtr(absl::in_place);
     result->set_error(std::move(error));
     return result;
   }
@@ -4950,11 +5028,11 @@ class  StatefulPartitionResult {
 
 
   
-  bool is_partition_info() const { return tag_ == Tag::PARTITION_INFO; }
+  bool is_partition_info() const { return tag_ == Tag::kPartitionInfo; }
 
   
   StatefulPartitionInfoPtr& get_partition_info() const {
-    CHECK(tag_ == Tag::PARTITION_INFO);
+    CHECK(tag_ == Tag::kPartitionInfo);
     return *(data_.partition_info);
   }
 
@@ -4962,11 +5040,11 @@ class  StatefulPartitionResult {
   void set_partition_info(
       StatefulPartitionInfoPtr partition_info);
   
-  bool is_error() const { return tag_ == Tag::ERROR; }
+  bool is_error() const { return tag_ == Tag::kError; }
 
   
   ProbeErrorPtr& get_error() const {
-    CHECK(tag_ == Tag::ERROR);
+    CHECK(tag_ == Tag::kError);
     return *(data_.error);
   }
 
@@ -5011,14 +5089,20 @@ class  BluetoothResult {
   using Data_ = internal::BluetoothResult_Data;
   using Tag = Data_::BluetoothResult_Tag;
 
-  static BluetoothResultPtr New() {
-    return BluetoothResultPtr(base::in_place);
+  template <typename... Args>
+  static BluetoothResultPtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
   }
   // Construct an instance holding |bluetooth_adapter_info|.
   static BluetoothResultPtr
   NewBluetoothAdapterInfo(
       std::vector<BluetoothAdapterInfoPtr> bluetooth_adapter_info) {
-    auto result = BluetoothResultPtr(base::in_place);
+    auto result = BluetoothResultPtr(absl::in_place);
     result->set_bluetooth_adapter_info(std::move(bluetooth_adapter_info));
     return result;
   }
@@ -5026,7 +5110,7 @@ class  BluetoothResult {
   static BluetoothResultPtr
   NewError(
       ProbeErrorPtr error) {
-    auto result = BluetoothResultPtr(base::in_place);
+    auto result = BluetoothResultPtr(absl::in_place);
     result->set_error(std::move(error));
     return result;
   }
@@ -5069,11 +5153,11 @@ class  BluetoothResult {
 
 
   
-  bool is_bluetooth_adapter_info() const { return tag_ == Tag::BLUETOOTH_ADAPTER_INFO; }
+  bool is_bluetooth_adapter_info() const { return tag_ == Tag::kBluetoothAdapterInfo; }
 
   
   std::vector<BluetoothAdapterInfoPtr>& get_bluetooth_adapter_info() const {
-    CHECK(tag_ == Tag::BLUETOOTH_ADAPTER_INFO);
+    CHECK(tag_ == Tag::kBluetoothAdapterInfo);
     return *(data_.bluetooth_adapter_info);
   }
 
@@ -5081,11 +5165,11 @@ class  BluetoothResult {
   void set_bluetooth_adapter_info(
       std::vector<BluetoothAdapterInfoPtr> bluetooth_adapter_info);
   
-  bool is_error() const { return tag_ == Tag::ERROR; }
+  bool is_error() const { return tag_ == Tag::kError; }
 
   
   ProbeErrorPtr& get_error() const {
-    CHECK(tag_ == Tag::ERROR);
+    CHECK(tag_ == Tag::kError);
     return *(data_.error);
   }
 
@@ -5130,14 +5214,20 @@ class  DEPRECATE_SystemResult {
   using Data_ = internal::DEPRECATE_SystemResult_Data;
   using Tag = Data_::DEPRECATE_SystemResult_Tag;
 
-  static DEPRECATE_SystemResultPtr New() {
-    return DEPRECATE_SystemResultPtr(base::in_place);
+  template <typename... Args>
+  static DEPRECATE_SystemResultPtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
   }
   // Construct an instance holding |error|.
   static DEPRECATE_SystemResultPtr
   NewError(
       ProbeErrorPtr error) {
-    auto result = DEPRECATE_SystemResultPtr(base::in_place);
+    auto result = DEPRECATE_SystemResultPtr(absl::in_place);
     result->set_error(std::move(error));
     return result;
   }
@@ -5181,11 +5271,11 @@ class  DEPRECATE_SystemResult {
 
 
   
-  bool is_error() const { return tag_ == Tag::ERROR; }
+  bool is_error() const { return tag_ == Tag::kError; }
 
   
   ProbeErrorPtr& get_error() const {
-    CHECK(tag_ == Tag::ERROR);
+    CHECK(tag_ == Tag::kError);
     return *(data_.error);
   }
 
@@ -5229,14 +5319,20 @@ class  SystemResult {
   using Data_ = internal::SystemResult_Data;
   using Tag = Data_::SystemResult_Tag;
 
-  static SystemResultPtr New() {
-    return SystemResultPtr(base::in_place);
+  template <typename... Args>
+  static SystemResultPtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
   }
   // Construct an instance holding |system_info|.
   static SystemResultPtr
   NewSystemInfo(
       SystemInfoPtr system_info) {
-    auto result = SystemResultPtr(base::in_place);
+    auto result = SystemResultPtr(absl::in_place);
     result->set_system_info(std::move(system_info));
     return result;
   }
@@ -5244,7 +5340,7 @@ class  SystemResult {
   static SystemResultPtr
   NewError(
       ProbeErrorPtr error) {
-    auto result = SystemResultPtr(base::in_place);
+    auto result = SystemResultPtr(absl::in_place);
     result->set_error(std::move(error));
     return result;
   }
@@ -5287,11 +5383,11 @@ class  SystemResult {
 
 
   
-  bool is_system_info() const { return tag_ == Tag::SYSTEM_INFO; }
+  bool is_system_info() const { return tag_ == Tag::kSystemInfo; }
 
   
   SystemInfoPtr& get_system_info() const {
-    CHECK(tag_ == Tag::SYSTEM_INFO);
+    CHECK(tag_ == Tag::kSystemInfo);
     return *(data_.system_info);
   }
 
@@ -5299,11 +5395,11 @@ class  SystemResult {
   void set_system_info(
       SystemInfoPtr system_info);
   
-  bool is_error() const { return tag_ == Tag::ERROR; }
+  bool is_error() const { return tag_ == Tag::kError; }
 
   
   ProbeErrorPtr& get_error() const {
-    CHECK(tag_ == Tag::ERROR);
+    CHECK(tag_ == Tag::kError);
     return *(data_.error);
   }
 
@@ -5348,14 +5444,20 @@ class  NetworkResult {
   using Data_ = internal::NetworkResult_Data;
   using Tag = Data_::NetworkResult_Tag;
 
-  static NetworkResultPtr New() {
-    return NetworkResultPtr(base::in_place);
+  template <typename... Args>
+  static NetworkResultPtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
   }
   // Construct an instance holding |network_health|.
   static NetworkResultPtr
   NewNetworkHealth(
       ::chromeos::network_health::mojom::NetworkHealthStatePtr network_health) {
-    auto result = NetworkResultPtr(base::in_place);
+    auto result = NetworkResultPtr(absl::in_place);
     result->set_network_health(std::move(network_health));
     return result;
   }
@@ -5363,7 +5465,7 @@ class  NetworkResult {
   static NetworkResultPtr
   NewError(
       ProbeErrorPtr error) {
-    auto result = NetworkResultPtr(base::in_place);
+    auto result = NetworkResultPtr(absl::in_place);
     result->set_error(std::move(error));
     return result;
   }
@@ -5406,11 +5508,11 @@ class  NetworkResult {
 
 
   
-  bool is_network_health() const { return tag_ == Tag::NETWORK_HEALTH; }
+  bool is_network_health() const { return tag_ == Tag::kNetworkHealth; }
 
   
   ::chromeos::network_health::mojom::NetworkHealthStatePtr& get_network_health() const {
-    CHECK(tag_ == Tag::NETWORK_HEALTH);
+    CHECK(tag_ == Tag::kNetworkHealth);
     return *(data_.network_health);
   }
 
@@ -5418,11 +5520,11 @@ class  NetworkResult {
   void set_network_health(
       ::chromeos::network_health::mojom::NetworkHealthStatePtr network_health);
   
-  bool is_error() const { return tag_ == Tag::ERROR; }
+  bool is_error() const { return tag_ == Tag::kError; }
 
   
   ProbeErrorPtr& get_error() const {
-    CHECK(tag_ == Tag::ERROR);
+    CHECK(tag_ == Tag::kError);
     return *(data_.error);
   }
 
@@ -5467,14 +5569,20 @@ class  NetworkInterfaceResult {
   using Data_ = internal::NetworkInterfaceResult_Data;
   using Tag = Data_::NetworkInterfaceResult_Tag;
 
-  static NetworkInterfaceResultPtr New() {
-    return NetworkInterfaceResultPtr(base::in_place);
+  template <typename... Args>
+  static NetworkInterfaceResultPtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
   }
   // Construct an instance holding |network_interface_info|.
   static NetworkInterfaceResultPtr
   NewNetworkInterfaceInfo(
       std::vector<NetworkInterfaceInfoPtr> network_interface_info) {
-    auto result = NetworkInterfaceResultPtr(base::in_place);
+    auto result = NetworkInterfaceResultPtr(absl::in_place);
     result->set_network_interface_info(std::move(network_interface_info));
     return result;
   }
@@ -5482,7 +5590,7 @@ class  NetworkInterfaceResult {
   static NetworkInterfaceResultPtr
   NewError(
       ProbeErrorPtr error) {
-    auto result = NetworkInterfaceResultPtr(base::in_place);
+    auto result = NetworkInterfaceResultPtr(absl::in_place);
     result->set_error(std::move(error));
     return result;
   }
@@ -5525,11 +5633,11 @@ class  NetworkInterfaceResult {
 
 
   
-  bool is_network_interface_info() const { return tag_ == Tag::NETWORK_INTERFACE_INFO; }
+  bool is_network_interface_info() const { return tag_ == Tag::kNetworkInterfaceInfo; }
 
   
   std::vector<NetworkInterfaceInfoPtr>& get_network_interface_info() const {
-    CHECK(tag_ == Tag::NETWORK_INTERFACE_INFO);
+    CHECK(tag_ == Tag::kNetworkInterfaceInfo);
     return *(data_.network_interface_info);
   }
 
@@ -5537,11 +5645,11 @@ class  NetworkInterfaceResult {
   void set_network_interface_info(
       std::vector<NetworkInterfaceInfoPtr> network_interface_info);
   
-  bool is_error() const { return tag_ == Tag::ERROR; }
+  bool is_error() const { return tag_ == Tag::kError; }
 
   
   ProbeErrorPtr& get_error() const {
-    CHECK(tag_ == Tag::ERROR);
+    CHECK(tag_ == Tag::kError);
     return *(data_.error);
   }
 
@@ -5586,14 +5694,20 @@ class  NetworkInterfaceInfo {
   using Data_ = internal::NetworkInterfaceInfo_Data;
   using Tag = Data_::NetworkInterfaceInfo_Tag;
 
-  static NetworkInterfaceInfoPtr New() {
-    return NetworkInterfaceInfoPtr(base::in_place);
+  template <typename... Args>
+  static NetworkInterfaceInfoPtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
   }
   // Construct an instance holding |wireless_interface_info|.
   static NetworkInterfaceInfoPtr
   NewWirelessInterfaceInfo(
       WirelessInterfaceInfoPtr wireless_interface_info) {
-    auto result = NetworkInterfaceInfoPtr(base::in_place);
+    auto result = NetworkInterfaceInfoPtr(absl::in_place);
     result->set_wireless_interface_info(std::move(wireless_interface_info));
     return result;
   }
@@ -5636,11 +5750,11 @@ class  NetworkInterfaceInfo {
 
 
   
-  bool is_wireless_interface_info() const { return tag_ == Tag::WIRELESS_INTERFACE_INFO; }
+  bool is_wireless_interface_info() const { return tag_ == Tag::kWirelessInterfaceInfo; }
 
   
   WirelessInterfaceInfoPtr& get_wireless_interface_info() const {
-    CHECK(tag_ == Tag::WIRELESS_INTERFACE_INFO);
+    CHECK(tag_ == Tag::kWirelessInterfaceInfo);
     return *(data_.wireless_interface_info);
   }
 
@@ -5684,14 +5798,20 @@ class  AudioResult {
   using Data_ = internal::AudioResult_Data;
   using Tag = Data_::AudioResult_Tag;
 
-  static AudioResultPtr New() {
-    return AudioResultPtr(base::in_place);
+  template <typename... Args>
+  static AudioResultPtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
   }
   // Construct an instance holding |audio_info|.
   static AudioResultPtr
   NewAudioInfo(
       AudioInfoPtr audio_info) {
-    auto result = AudioResultPtr(base::in_place);
+    auto result = AudioResultPtr(absl::in_place);
     result->set_audio_info(std::move(audio_info));
     return result;
   }
@@ -5699,7 +5819,7 @@ class  AudioResult {
   static AudioResultPtr
   NewError(
       ProbeErrorPtr error) {
-    auto result = AudioResultPtr(base::in_place);
+    auto result = AudioResultPtr(absl::in_place);
     result->set_error(std::move(error));
     return result;
   }
@@ -5743,11 +5863,11 @@ class  AudioResult {
 
 
   
-  bool is_audio_info() const { return tag_ == Tag::AUDIO_INFO; }
+  bool is_audio_info() const { return tag_ == Tag::kAudioInfo; }
 
   
   AudioInfoPtr& get_audio_info() const {
-    CHECK(tag_ == Tag::AUDIO_INFO);
+    CHECK(tag_ == Tag::kAudioInfo);
     return *(data_.audio_info);
   }
 
@@ -5755,11 +5875,11 @@ class  AudioResult {
   void set_audio_info(
       AudioInfoPtr audio_info);
   
-  bool is_error() const { return tag_ == Tag::ERROR; }
+  bool is_error() const { return tag_ == Tag::kError; }
 
   
   ProbeErrorPtr& get_error() const {
-    CHECK(tag_ == Tag::ERROR);
+    CHECK(tag_ == Tag::kError);
     return *(data_.error);
   }
 
@@ -5804,14 +5924,20 @@ class  AudioHardwareResult {
   using Data_ = internal::AudioHardwareResult_Data;
   using Tag = Data_::AudioHardwareResult_Tag;
 
-  static AudioHardwareResultPtr New() {
-    return AudioHardwareResultPtr(base::in_place);
+  template <typename... Args>
+  static AudioHardwareResultPtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
   }
   // Construct an instance holding |audio_hardware_info|.
   static AudioHardwareResultPtr
   NewAudioHardwareInfo(
       AudioHardwareInfoPtr audio_hardware_info) {
-    auto result = AudioHardwareResultPtr(base::in_place);
+    auto result = AudioHardwareResultPtr(absl::in_place);
     result->set_audio_hardware_info(std::move(audio_hardware_info));
     return result;
   }
@@ -5819,7 +5945,7 @@ class  AudioHardwareResult {
   static AudioHardwareResultPtr
   NewError(
       ProbeErrorPtr error) {
-    auto result = AudioHardwareResultPtr(base::in_place);
+    auto result = AudioHardwareResultPtr(absl::in_place);
     result->set_error(std::move(error));
     return result;
   }
@@ -5862,11 +5988,11 @@ class  AudioHardwareResult {
 
 
   
-  bool is_audio_hardware_info() const { return tag_ == Tag::AUDIO_HARDWARE_INFO; }
+  bool is_audio_hardware_info() const { return tag_ == Tag::kAudioHardwareInfo; }
 
   
   AudioHardwareInfoPtr& get_audio_hardware_info() const {
-    CHECK(tag_ == Tag::AUDIO_HARDWARE_INFO);
+    CHECK(tag_ == Tag::kAudioHardwareInfo);
     return *(data_.audio_hardware_info);
   }
 
@@ -5874,11 +6000,11 @@ class  AudioHardwareResult {
   void set_audio_hardware_info(
       AudioHardwareInfoPtr audio_hardware_info);
   
-  bool is_error() const { return tag_ == Tag::ERROR; }
+  bool is_error() const { return tag_ == Tag::kError; }
 
   
   ProbeErrorPtr& get_error() const {
-    CHECK(tag_ == Tag::ERROR);
+    CHECK(tag_ == Tag::kError);
     return *(data_.error);
   }
 
@@ -5923,14 +6049,20 @@ class  BootPerformanceResult {
   using Data_ = internal::BootPerformanceResult_Data;
   using Tag = Data_::BootPerformanceResult_Tag;
 
-  static BootPerformanceResultPtr New() {
-    return BootPerformanceResultPtr(base::in_place);
+  template <typename... Args>
+  static BootPerformanceResultPtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
   }
   // Construct an instance holding |boot_performance_info|.
   static BootPerformanceResultPtr
   NewBootPerformanceInfo(
       BootPerformanceInfoPtr boot_performance_info) {
-    auto result = BootPerformanceResultPtr(base::in_place);
+    auto result = BootPerformanceResultPtr(absl::in_place);
     result->set_boot_performance_info(std::move(boot_performance_info));
     return result;
   }
@@ -5938,7 +6070,7 @@ class  BootPerformanceResult {
   static BootPerformanceResultPtr
   NewError(
       ProbeErrorPtr error) {
-    auto result = BootPerformanceResultPtr(base::in_place);
+    auto result = BootPerformanceResultPtr(absl::in_place);
     result->set_error(std::move(error));
     return result;
   }
@@ -5982,11 +6114,11 @@ class  BootPerformanceResult {
 
 
   
-  bool is_boot_performance_info() const { return tag_ == Tag::BOOT_PERFORMANCE_INFO; }
+  bool is_boot_performance_info() const { return tag_ == Tag::kBootPerformanceInfo; }
 
   
   BootPerformanceInfoPtr& get_boot_performance_info() const {
-    CHECK(tag_ == Tag::BOOT_PERFORMANCE_INFO);
+    CHECK(tag_ == Tag::kBootPerformanceInfo);
     return *(data_.boot_performance_info);
   }
 
@@ -5994,11 +6126,11 @@ class  BootPerformanceResult {
   void set_boot_performance_info(
       BootPerformanceInfoPtr boot_performance_info);
   
-  bool is_error() const { return tag_ == Tag::ERROR; }
+  bool is_error() const { return tag_ == Tag::kError; }
 
   
   ProbeErrorPtr& get_error() const {
-    CHECK(tag_ == Tag::ERROR);
+    CHECK(tag_ == Tag::kError);
     return *(data_.error);
   }
 
@@ -6043,14 +6175,20 @@ class  BusResult {
   using Data_ = internal::BusResult_Data;
   using Tag = Data_::BusResult_Tag;
 
-  static BusResultPtr New() {
-    return BusResultPtr(base::in_place);
+  template <typename... Args>
+  static BusResultPtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
   }
   // Construct an instance holding |bus_devices|.
   static BusResultPtr
   NewBusDevices(
       std::vector<BusDevicePtr> bus_devices) {
-    auto result = BusResultPtr(base::in_place);
+    auto result = BusResultPtr(absl::in_place);
     result->set_bus_devices(std::move(bus_devices));
     return result;
   }
@@ -6058,7 +6196,7 @@ class  BusResult {
   static BusResultPtr
   NewError(
       ProbeErrorPtr error) {
-    auto result = BusResultPtr(base::in_place);
+    auto result = BusResultPtr(absl::in_place);
     result->set_error(std::move(error));
     return result;
   }
@@ -6101,11 +6239,11 @@ class  BusResult {
 
 
   
-  bool is_bus_devices() const { return tag_ == Tag::BUS_DEVICES; }
+  bool is_bus_devices() const { return tag_ == Tag::kBusDevices; }
 
   
   std::vector<BusDevicePtr>& get_bus_devices() const {
-    CHECK(tag_ == Tag::BUS_DEVICES);
+    CHECK(tag_ == Tag::kBusDevices);
     return *(data_.bus_devices);
   }
 
@@ -6113,11 +6251,11 @@ class  BusResult {
   void set_bus_devices(
       std::vector<BusDevicePtr> bus_devices);
   
-  bool is_error() const { return tag_ == Tag::ERROR; }
+  bool is_error() const { return tag_ == Tag::kError; }
 
   
   ProbeErrorPtr& get_error() const {
-    CHECK(tag_ == Tag::ERROR);
+    CHECK(tag_ == Tag::kError);
     return *(data_.error);
   }
 
@@ -6162,14 +6300,20 @@ class  BusInfo {
   using Data_ = internal::BusInfo_Data;
   using Tag = Data_::BusInfo_Tag;
 
-  static BusInfoPtr New() {
-    return BusInfoPtr(base::in_place);
+  template <typename... Args>
+  static BusInfoPtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
   }
   // Construct an instance holding |pci_bus_info|.
   static BusInfoPtr
   NewPciBusInfo(
       PciBusInfoPtr pci_bus_info) {
-    auto result = BusInfoPtr(base::in_place);
+    auto result = BusInfoPtr(absl::in_place);
     result->set_pci_bus_info(std::move(pci_bus_info));
     return result;
   }
@@ -6177,7 +6321,7 @@ class  BusInfo {
   static BusInfoPtr
   NewUsbBusInfo(
       UsbBusInfoPtr usb_bus_info) {
-    auto result = BusInfoPtr(base::in_place);
+    auto result = BusInfoPtr(absl::in_place);
     result->set_usb_bus_info(std::move(usb_bus_info));
     return result;
   }
@@ -6185,7 +6329,7 @@ class  BusInfo {
   static BusInfoPtr
   NewThunderboltBusInfo(
       ThunderboltBusInfoPtr thunderbolt_bus_info) {
-    auto result = BusInfoPtr(base::in_place);
+    auto result = BusInfoPtr(absl::in_place);
     result->set_thunderbolt_bus_info(std::move(thunderbolt_bus_info));
     return result;
   }
@@ -6193,7 +6337,7 @@ class  BusInfo {
   static BusInfoPtr
   NewUnmappedField(
       bool unmapped_field) {
-    auto result = BusInfoPtr(base::in_place);
+    auto result = BusInfoPtr(absl::in_place);
     result->set_unmapped_field(std::move(unmapped_field));
     return result;
   }
@@ -6236,11 +6380,11 @@ class  BusInfo {
 
 
   
-  bool is_pci_bus_info() const { return tag_ == Tag::PCI_BUS_INFO; }
+  bool is_pci_bus_info() const { return tag_ == Tag::kPciBusInfo; }
 
   
   PciBusInfoPtr& get_pci_bus_info() const {
-    CHECK(tag_ == Tag::PCI_BUS_INFO);
+    CHECK(tag_ == Tag::kPciBusInfo);
     return *(data_.pci_bus_info);
   }
 
@@ -6248,11 +6392,11 @@ class  BusInfo {
   void set_pci_bus_info(
       PciBusInfoPtr pci_bus_info);
   
-  bool is_usb_bus_info() const { return tag_ == Tag::USB_BUS_INFO; }
+  bool is_usb_bus_info() const { return tag_ == Tag::kUsbBusInfo; }
 
   
   UsbBusInfoPtr& get_usb_bus_info() const {
-    CHECK(tag_ == Tag::USB_BUS_INFO);
+    CHECK(tag_ == Tag::kUsbBusInfo);
     return *(data_.usb_bus_info);
   }
 
@@ -6260,11 +6404,11 @@ class  BusInfo {
   void set_usb_bus_info(
       UsbBusInfoPtr usb_bus_info);
   
-  bool is_thunderbolt_bus_info() const { return tag_ == Tag::THUNDERBOLT_BUS_INFO; }
+  bool is_thunderbolt_bus_info() const { return tag_ == Tag::kThunderboltBusInfo; }
 
   
   ThunderboltBusInfoPtr& get_thunderbolt_bus_info() const {
-    CHECK(tag_ == Tag::THUNDERBOLT_BUS_INFO);
+    CHECK(tag_ == Tag::kThunderboltBusInfo);
     return *(data_.thunderbolt_bus_info);
   }
 
@@ -6272,11 +6416,11 @@ class  BusInfo {
   void set_thunderbolt_bus_info(
       ThunderboltBusInfoPtr thunderbolt_bus_info);
   
-  bool is_unmapped_field() const { return tag_ == Tag::UNMAPPED_FIELD; }
+  bool is_unmapped_field() const { return tag_ == Tag::kUnmappedField; }
 
   
   bool get_unmapped_field() const {
-    CHECK(tag_ == Tag::UNMAPPED_FIELD);
+    CHECK(tag_ == Tag::kUnmappedField);
     return data_.unmapped_field;
   }
 
@@ -6323,14 +6467,20 @@ class  TpmResult {
   using Data_ = internal::TpmResult_Data;
   using Tag = Data_::TpmResult_Tag;
 
-  static TpmResultPtr New() {
-    return TpmResultPtr(base::in_place);
+  template <typename... Args>
+  static TpmResultPtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
   }
   // Construct an instance holding |tpm_info|.
   static TpmResultPtr
   NewTpmInfo(
       TpmInfoPtr tpm_info) {
-    auto result = TpmResultPtr(base::in_place);
+    auto result = TpmResultPtr(absl::in_place);
     result->set_tpm_info(std::move(tpm_info));
     return result;
   }
@@ -6338,7 +6488,7 @@ class  TpmResult {
   static TpmResultPtr
   NewError(
       ProbeErrorPtr error) {
-    auto result = TpmResultPtr(base::in_place);
+    auto result = TpmResultPtr(absl::in_place);
     result->set_error(std::move(error));
     return result;
   }
@@ -6381,11 +6531,11 @@ class  TpmResult {
 
 
   
-  bool is_tpm_info() const { return tag_ == Tag::TPM_INFO; }
+  bool is_tpm_info() const { return tag_ == Tag::kTpmInfo; }
 
   
   TpmInfoPtr& get_tpm_info() const {
-    CHECK(tag_ == Tag::TPM_INFO);
+    CHECK(tag_ == Tag::kTpmInfo);
     return *(data_.tpm_info);
   }
 
@@ -6393,11 +6543,11 @@ class  TpmResult {
   void set_tpm_info(
       TpmInfoPtr tpm_info);
   
-  bool is_error() const { return tag_ == Tag::ERROR; }
+  bool is_error() const { return tag_ == Tag::kError; }
 
   
   ProbeErrorPtr& get_error() const {
-    CHECK(tag_ == Tag::ERROR);
+    CHECK(tag_ == Tag::kError);
     return *(data_.error);
   }
 
@@ -6442,14 +6592,20 @@ class  GraphicsResult {
   using Data_ = internal::GraphicsResult_Data;
   using Tag = Data_::GraphicsResult_Tag;
 
-  static GraphicsResultPtr New() {
-    return GraphicsResultPtr(base::in_place);
+  template <typename... Args>
+  static GraphicsResultPtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
   }
   // Construct an instance holding |graphics_info|.
   static GraphicsResultPtr
   NewGraphicsInfo(
       GraphicsInfoPtr graphics_info) {
-    auto result = GraphicsResultPtr(base::in_place);
+    auto result = GraphicsResultPtr(absl::in_place);
     result->set_graphics_info(std::move(graphics_info));
     return result;
   }
@@ -6457,7 +6613,7 @@ class  GraphicsResult {
   static GraphicsResultPtr
   NewError(
       ProbeErrorPtr error) {
-    auto result = GraphicsResultPtr(base::in_place);
+    auto result = GraphicsResultPtr(absl::in_place);
     result->set_error(std::move(error));
     return result;
   }
@@ -6500,11 +6656,11 @@ class  GraphicsResult {
 
 
   
-  bool is_graphics_info() const { return tag_ == Tag::GRAPHICS_INFO; }
+  bool is_graphics_info() const { return tag_ == Tag::kGraphicsInfo; }
 
   
   GraphicsInfoPtr& get_graphics_info() const {
-    CHECK(tag_ == Tag::GRAPHICS_INFO);
+    CHECK(tag_ == Tag::kGraphicsInfo);
     return *(data_.graphics_info);
   }
 
@@ -6512,11 +6668,11 @@ class  GraphicsResult {
   void set_graphics_info(
       GraphicsInfoPtr graphics_info);
   
-  bool is_error() const { return tag_ == Tag::ERROR; }
+  bool is_error() const { return tag_ == Tag::kError; }
 
   
   ProbeErrorPtr& get_error() const {
-    CHECK(tag_ == Tag::ERROR);
+    CHECK(tag_ == Tag::kError);
     return *(data_.error);
   }
 
@@ -6561,14 +6717,20 @@ class  DisplayResult {
   using Data_ = internal::DisplayResult_Data;
   using Tag = Data_::DisplayResult_Tag;
 
-  static DisplayResultPtr New() {
-    return DisplayResultPtr(base::in_place);
+  template <typename... Args>
+  static DisplayResultPtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
   }
   // Construct an instance holding |display_info|.
   static DisplayResultPtr
   NewDisplayInfo(
       DisplayInfoPtr display_info) {
-    auto result = DisplayResultPtr(base::in_place);
+    auto result = DisplayResultPtr(absl::in_place);
     result->set_display_info(std::move(display_info));
     return result;
   }
@@ -6576,7 +6738,7 @@ class  DisplayResult {
   static DisplayResultPtr
   NewError(
       ProbeErrorPtr error) {
-    auto result = DisplayResultPtr(base::in_place);
+    auto result = DisplayResultPtr(absl::in_place);
     result->set_error(std::move(error));
     return result;
   }
@@ -6619,11 +6781,11 @@ class  DisplayResult {
 
 
   
-  bool is_display_info() const { return tag_ == Tag::DISPLAY_INFO; }
+  bool is_display_info() const { return tag_ == Tag::kDisplayInfo; }
 
   
   DisplayInfoPtr& get_display_info() const {
-    CHECK(tag_ == Tag::DISPLAY_INFO);
+    CHECK(tag_ == Tag::kDisplayInfo);
     return *(data_.display_info);
   }
 
@@ -6631,11 +6793,11 @@ class  DisplayResult {
   void set_display_info(
       DisplayInfoPtr display_info);
   
-  bool is_error() const { return tag_ == Tag::ERROR; }
+  bool is_error() const { return tag_ == Tag::kError; }
 
   
   ProbeErrorPtr& get_error() const {
-    CHECK(tag_ == Tag::ERROR);
+    CHECK(tag_ == Tag::kError);
     return *(data_.error);
   }
 
@@ -6680,14 +6842,20 @@ class  InputResult {
   using Data_ = internal::InputResult_Data;
   using Tag = Data_::InputResult_Tag;
 
-  static InputResultPtr New() {
-    return InputResultPtr(base::in_place);
+  template <typename... Args>
+  static InputResultPtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
   }
   // Construct an instance holding |input_info|.
   static InputResultPtr
   NewInputInfo(
       InputInfoPtr input_info) {
-    auto result = InputResultPtr(base::in_place);
+    auto result = InputResultPtr(absl::in_place);
     result->set_input_info(std::move(input_info));
     return result;
   }
@@ -6695,7 +6863,7 @@ class  InputResult {
   static InputResultPtr
   NewError(
       ProbeErrorPtr error) {
-    auto result = InputResultPtr(base::in_place);
+    auto result = InputResultPtr(absl::in_place);
     result->set_error(std::move(error));
     return result;
   }
@@ -6738,11 +6906,11 @@ class  InputResult {
 
 
   
-  bool is_input_info() const { return tag_ == Tag::INPUT_INFO; }
+  bool is_input_info() const { return tag_ == Tag::kInputInfo; }
 
   
   InputInfoPtr& get_input_info() const {
-    CHECK(tag_ == Tag::INPUT_INFO);
+    CHECK(tag_ == Tag::kInputInfo);
     return *(data_.input_info);
   }
 
@@ -6750,11 +6918,11 @@ class  InputResult {
   void set_input_info(
       InputInfoPtr input_info);
   
-  bool is_error() const { return tag_ == Tag::ERROR; }
+  bool is_error() const { return tag_ == Tag::kError; }
 
   
   ProbeErrorPtr& get_error() const {
-    CHECK(tag_ == Tag::ERROR);
+    CHECK(tag_ == Tag::kError);
     return *(data_.error);
   }
 
@@ -6799,14 +6967,20 @@ class  SensorResult {
   using Data_ = internal::SensorResult_Data;
   using Tag = Data_::SensorResult_Tag;
 
-  static SensorResultPtr New() {
-    return SensorResultPtr(base::in_place);
+  template <typename... Args>
+  static SensorResultPtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
   }
   // Construct an instance holding |sensor_info|.
   static SensorResultPtr
   NewSensorInfo(
       SensorInfoPtr sensor_info) {
-    auto result = SensorResultPtr(base::in_place);
+    auto result = SensorResultPtr(absl::in_place);
     result->set_sensor_info(std::move(sensor_info));
     return result;
   }
@@ -6814,7 +6988,7 @@ class  SensorResult {
   static SensorResultPtr
   NewError(
       ProbeErrorPtr error) {
-    auto result = SensorResultPtr(base::in_place);
+    auto result = SensorResultPtr(absl::in_place);
     result->set_error(std::move(error));
     return result;
   }
@@ -6857,11 +7031,11 @@ class  SensorResult {
 
 
   
-  bool is_sensor_info() const { return tag_ == Tag::SENSOR_INFO; }
+  bool is_sensor_info() const { return tag_ == Tag::kSensorInfo; }
 
   
   SensorInfoPtr& get_sensor_info() const {
-    CHECK(tag_ == Tag::SENSOR_INFO);
+    CHECK(tag_ == Tag::kSensorInfo);
     return *(data_.sensor_info);
   }
 
@@ -6869,11 +7043,11 @@ class  SensorResult {
   void set_sensor_info(
       SensorInfoPtr sensor_info);
   
-  bool is_error() const { return tag_ == Tag::ERROR; }
+  bool is_error() const { return tag_ == Tag::kError; }
 
   
   ProbeErrorPtr& get_error() const {
-    CHECK(tag_ == Tag::ERROR);
+    CHECK(tag_ == Tag::kError);
     return *(data_.error);
   }
 
@@ -6925,7 +7099,7 @@ class  ProcessInfo {
   template <typename... Args>
   static ProcessInfoPtr New(Args&&... args) {
     return ProcessInfoPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -7162,7 +7336,7 @@ class  BatteryInfo {
   template <typename... Args>
   static BatteryInfoPtr New(Args&&... args) {
     return BatteryInfoPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -7340,7 +7514,7 @@ class  NonRemovableBlockDeviceInfo {
   template <typename... Args>
   static NonRemovableBlockDeviceInfoPtr New(Args&&... args) {
     return NonRemovableBlockDeviceInfoPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -7527,7 +7701,7 @@ class  CpuInfo {
   template <typename... Args>
   static CpuInfoPtr New(Args&&... args) {
     return CpuInfoPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -7694,7 +7868,7 @@ class  PhysicalCpuInfo {
   template <typename... Args>
   static PhysicalCpuInfoPtr New(Args&&... args) {
     return PhysicalCpuInfoPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -7847,7 +8021,7 @@ class  LogicalCpuInfo {
   template <typename... Args>
   static LogicalCpuInfoPtr New(Args&&... args) {
     return LogicalCpuInfoPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -8007,7 +8181,7 @@ class  MemoryInfo {
   template <typename... Args>
   static MemoryInfoPtr New(Args&&... args) {
     return MemoryInfoPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -8168,7 +8342,7 @@ class  BluetoothAdapterInfo {
   template <typename... Args>
   static BluetoothAdapterInfoPtr New(Args&&... args) {
     return BluetoothAdapterInfoPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -8354,7 +8528,7 @@ class  BluetoothDeviceInfo {
   template <typename... Args>
   static BluetoothDeviceInfoPtr New(Args&&... args) {
     return BluetoothDeviceInfoPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -8528,7 +8702,7 @@ class  SystemInfo {
   template <typename... Args>
   static SystemInfoPtr New(Args&&... args) {
     return SystemInfoPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -8673,7 +8847,7 @@ class  OsInfo {
   template <typename... Args>
   static OsInfoPtr New(Args&&... args) {
     return OsInfoPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -8831,7 +9005,7 @@ class  VpdInfo {
   template <typename... Args>
   static VpdInfoPtr New(Args&&... args) {
     return VpdInfoPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -8983,7 +9157,7 @@ class  DmiInfo {
   template <typename... Args>
   static DmiInfoPtr New(Args&&... args) {
     return DmiInfoPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -9152,7 +9326,7 @@ class  WirelessInterfaceInfo {
   template <typename... Args>
   static WirelessInterfaceInfoPtr New(Args&&... args) {
     return WirelessInterfaceInfoPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -9297,7 +9471,7 @@ class  WirelessLinkInfo {
   template <typename... Args>
   static WirelessLinkInfoPtr New(Args&&... args) {
     return WirelessLinkInfoPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -9453,7 +9627,7 @@ class  AudioInfo {
   template <typename... Args>
   static AudioInfoPtr New(Args&&... args) {
     return AudioInfoPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -9612,7 +9786,7 @@ class  AudioHardwareInfo {
   template <typename... Args>
   static AudioHardwareInfoPtr New(Args&&... args) {
     return AudioHardwareInfoPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -9751,7 +9925,7 @@ class  AudioCard {
   template <typename... Args>
   static AudioCardPtr New(Args&&... args) {
     return AudioCardPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -9897,7 +10071,7 @@ class  BootPerformanceInfo {
   template <typename... Args>
   static BootPerformanceInfoPtr New(Args&&... args) {
     return BootPerformanceInfoPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -10047,7 +10221,7 @@ class  BusDevice {
   template <typename... Args>
   static BusDevicePtr New(Args&&... args) {
     return BusDevicePtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -10195,7 +10369,7 @@ class  PciBusInfo {
   template <typename... Args>
   static PciBusInfoPtr New(Args&&... args) {
     return PciBusInfoPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -10347,7 +10521,7 @@ class  UsbBusInfo {
   template <typename... Args>
   static UsbBusInfoPtr New(Args&&... args) {
     return UsbBusInfoPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -10513,7 +10687,7 @@ class  UsbBusInterfaceInfo {
   template <typename... Args>
   static UsbBusInterfaceInfoPtr New(Args&&... args) {
     return UsbBusInterfaceInfoPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -10662,7 +10836,7 @@ class  TpmInfo {
   template <typename... Args>
   static TpmInfoPtr New(Args&&... args) {
     return TpmInfoPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -10816,7 +10990,7 @@ class  TpmVersion {
   template <typename... Args>
   static TpmVersionPtr New(Args&&... args) {
     return TpmVersionPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -10975,7 +11149,7 @@ class  GraphicsInfo {
   template <typename... Args>
   static GraphicsInfoPtr New(Args&&... args) {
     return GraphicsInfoPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -11117,7 +11291,7 @@ class  GLESInfo {
   template <typename... Args>
   static GLESInfoPtr New(Args&&... args) {
     return GLESInfoPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -11266,7 +11440,7 @@ class  EGLInfo {
   template <typename... Args>
   static EGLInfoPtr New(Args&&... args) {
     return EGLInfoPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -11412,7 +11586,7 @@ class  DisplayInfo {
   template <typename... Args>
   static DisplayInfoPtr New(Args&&... args) {
     return DisplayInfoPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -11557,7 +11731,7 @@ class  EmbeddedDisplayInfo {
   template <typename... Args>
   static EmbeddedDisplayInfoPtr New(Args&&... args) {
     return EmbeddedDisplayInfoPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -11751,7 +11925,7 @@ class  ExternalDisplayInfo {
   template <typename... Args>
   static ExternalDisplayInfoPtr New(Args&&... args) {
     return ExternalDisplayInfoPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -11933,7 +12107,7 @@ class  ThunderboltBusInterfaceInfo {
   template <typename... Args>
   static ThunderboltBusInterfaceInfoPtr New(Args&&... args) {
     return ThunderboltBusInterfaceInfoPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -12092,7 +12266,7 @@ class  ThunderboltBusInfo {
   template <typename... Args>
   static ThunderboltBusInfoPtr New(Args&&... args) {
     return ThunderboltBusInfoPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -12234,7 +12408,7 @@ class  InputInfo {
   template <typename... Args>
   static InputInfoPtr New(Args&&... args) {
     return InputInfoPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -12376,7 +12550,7 @@ class  TouchscreenDevice {
   template <typename... Args>
   static TouchscreenDevicePtr New(Args&&... args) {
     return TouchscreenDevicePtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -12526,7 +12700,7 @@ class  SensorInfo {
   template <typename... Args>
   static SensorInfoPtr New(Args&&... args) {
     return SensorInfoPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -12672,7 +12846,7 @@ class  TelemetryInfo {
   template <typename... Args>
   static TelemetryInfoPtr New(Args&&... args) {
     return TelemetryInfoPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -12967,18 +13141,15 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 template <typename UnionPtrType>
 ProcessResultPtr ProcessResult::Clone() const {
-  // Use UnionPtrType to prevent the compiler from trying to compile this
-  // without being asked.
-  UnionPtrType rv(New());
   switch (tag_) {
-    case Tag::PROCESS_INFO:
-      rv->set_process_info(mojo::Clone(*data_.process_info));
-      break;
-    case Tag::ERROR:
-      rv->set_error(mojo::Clone(*data_.error));
-      break;
+    case Tag::kProcessInfo:
+      return NewProcessInfo(
+          mojo::Clone(*data_.process_info));
+    case Tag::kError:
+      return NewError(
+          mojo::Clone(*data_.error));
   }
-  return rv;
+  return nullptr;
 }
 
 template <typename T,
@@ -12989,9 +13160,9 @@ bool ProcessResult::Equals(const T& other) const {
     return false;
 
   switch (tag_) {
-    case Tag::PROCESS_INFO:
+    case Tag::kProcessInfo:
       return mojo::Equals(*(data_.process_info), *(other.data_.process_info));
-    case Tag::ERROR:
+    case Tag::kError:
       return mojo::Equals(*(data_.error), *(other.data_.error));
   }
 
@@ -12999,18 +13170,15 @@ bool ProcessResult::Equals(const T& other) const {
 }
 template <typename UnionPtrType>
 BatteryResultPtr BatteryResult::Clone() const {
-  // Use UnionPtrType to prevent the compiler from trying to compile this
-  // without being asked.
-  UnionPtrType rv(New());
   switch (tag_) {
-    case Tag::BATTERY_INFO:
-      rv->set_battery_info(mojo::Clone(*data_.battery_info));
-      break;
-    case Tag::ERROR:
-      rv->set_error(mojo::Clone(*data_.error));
-      break;
+    case Tag::kBatteryInfo:
+      return NewBatteryInfo(
+          mojo::Clone(*data_.battery_info));
+    case Tag::kError:
+      return NewError(
+          mojo::Clone(*data_.error));
   }
-  return rv;
+  return nullptr;
 }
 
 template <typename T,
@@ -13021,9 +13189,9 @@ bool BatteryResult::Equals(const T& other) const {
     return false;
 
   switch (tag_) {
-    case Tag::BATTERY_INFO:
+    case Tag::kBatteryInfo:
       return mojo::Equals(*(data_.battery_info), *(other.data_.battery_info));
-    case Tag::ERROR:
+    case Tag::kError:
       return mojo::Equals(*(data_.error), *(other.data_.error));
   }
 
@@ -13031,18 +13199,15 @@ bool BatteryResult::Equals(const T& other) const {
 }
 template <typename UnionPtrType>
 NonRemovableBlockDeviceResultPtr NonRemovableBlockDeviceResult::Clone() const {
-  // Use UnionPtrType to prevent the compiler from trying to compile this
-  // without being asked.
-  UnionPtrType rv(New());
   switch (tag_) {
-    case Tag::BLOCK_DEVICE_INFO:
-      rv->set_block_device_info(mojo::Clone(*data_.block_device_info));
-      break;
-    case Tag::ERROR:
-      rv->set_error(mojo::Clone(*data_.error));
-      break;
+    case Tag::kBlockDeviceInfo:
+      return NewBlockDeviceInfo(
+          mojo::Clone(*data_.block_device_info));
+    case Tag::kError:
+      return NewError(
+          mojo::Clone(*data_.error));
   }
-  return rv;
+  return nullptr;
 }
 
 template <typename T,
@@ -13053,9 +13218,9 @@ bool NonRemovableBlockDeviceResult::Equals(const T& other) const {
     return false;
 
   switch (tag_) {
-    case Tag::BLOCK_DEVICE_INFO:
+    case Tag::kBlockDeviceInfo:
       return mojo::Equals(*(data_.block_device_info), *(other.data_.block_device_info));
-    case Tag::ERROR:
+    case Tag::kError:
       return mojo::Equals(*(data_.error), *(other.data_.error));
   }
 
@@ -13063,27 +13228,24 @@ bool NonRemovableBlockDeviceResult::Equals(const T& other) const {
 }
 template <typename UnionPtrType>
 BlockDeviceVendorPtr BlockDeviceVendor::Clone() const {
-  // Use UnionPtrType to prevent the compiler from trying to compile this
-  // without being asked.
-  UnionPtrType rv(New());
   switch (tag_) {
-    case Tag::NVME_SUBSYSTEM_VENDOR:
-      rv->set_nvme_subsystem_vendor(mojo::Clone(data_.nvme_subsystem_vendor));
-      break;
-    case Tag::EMMC_OEMID:
-      rv->set_emmc_oemid(mojo::Clone(data_.emmc_oemid));
-      break;
-    case Tag::OTHER:
-      rv->set_other(mojo::Clone(data_.other));
-      break;
-    case Tag::UNKNOWN:
-      rv->set_unknown(mojo::Clone(data_.unknown));
-      break;
-    case Tag::JEDEC_MANFID:
-      rv->set_jedec_manfid(mojo::Clone(data_.jedec_manfid));
-      break;
+    case Tag::kNvmeSubsystemVendor:
+      return NewNvmeSubsystemVendor(
+          mojo::Clone(data_.nvme_subsystem_vendor));
+    case Tag::kEmmcOemid:
+      return NewEmmcOemid(
+          mojo::Clone(data_.emmc_oemid));
+    case Tag::kOther:
+      return NewOther(
+          mojo::Clone(data_.other));
+    case Tag::kUnknown:
+      return NewUnknown(
+          mojo::Clone(data_.unknown));
+    case Tag::kJedecManfid:
+      return NewJedecManfid(
+          mojo::Clone(data_.jedec_manfid));
   }
-  return rv;
+  return nullptr;
 }
 
 template <typename T,
@@ -13094,15 +13256,15 @@ bool BlockDeviceVendor::Equals(const T& other) const {
     return false;
 
   switch (tag_) {
-    case Tag::NVME_SUBSYSTEM_VENDOR:
+    case Tag::kNvmeSubsystemVendor:
       return mojo::Equals(data_.nvme_subsystem_vendor, other.data_.nvme_subsystem_vendor);
-    case Tag::EMMC_OEMID:
+    case Tag::kEmmcOemid:
       return mojo::Equals(data_.emmc_oemid, other.data_.emmc_oemid);
-    case Tag::OTHER:
+    case Tag::kOther:
       return mojo::Equals(data_.other, other.data_.other);
-    case Tag::UNKNOWN:
+    case Tag::kUnknown:
       return mojo::Equals(data_.unknown, other.data_.unknown);
-    case Tag::JEDEC_MANFID:
+    case Tag::kJedecManfid:
       return mojo::Equals(data_.jedec_manfid, other.data_.jedec_manfid);
   }
 
@@ -13110,24 +13272,21 @@ bool BlockDeviceVendor::Equals(const T& other) const {
 }
 template <typename UnionPtrType>
 BlockDeviceProductPtr BlockDeviceProduct::Clone() const {
-  // Use UnionPtrType to prevent the compiler from trying to compile this
-  // without being asked.
-  UnionPtrType rv(New());
   switch (tag_) {
-    case Tag::NVME_SUBSYSTEM_DEVICE:
-      rv->set_nvme_subsystem_device(mojo::Clone(data_.nvme_subsystem_device));
-      break;
-    case Tag::EMMC_PNM:
-      rv->set_emmc_pnm(mojo::Clone(data_.emmc_pnm));
-      break;
-    case Tag::OTHER:
-      rv->set_other(mojo::Clone(data_.other));
-      break;
-    case Tag::UNKNOWN:
-      rv->set_unknown(mojo::Clone(data_.unknown));
-      break;
+    case Tag::kNvmeSubsystemDevice:
+      return NewNvmeSubsystemDevice(
+          mojo::Clone(data_.nvme_subsystem_device));
+    case Tag::kEmmcPnm:
+      return NewEmmcPnm(
+          mojo::Clone(data_.emmc_pnm));
+    case Tag::kOther:
+      return NewOther(
+          mojo::Clone(data_.other));
+    case Tag::kUnknown:
+      return NewUnknown(
+          mojo::Clone(data_.unknown));
   }
-  return rv;
+  return nullptr;
 }
 
 template <typename T,
@@ -13138,13 +13297,13 @@ bool BlockDeviceProduct::Equals(const T& other) const {
     return false;
 
   switch (tag_) {
-    case Tag::NVME_SUBSYSTEM_DEVICE:
+    case Tag::kNvmeSubsystemDevice:
       return mojo::Equals(data_.nvme_subsystem_device, other.data_.nvme_subsystem_device);
-    case Tag::EMMC_PNM:
+    case Tag::kEmmcPnm:
       return mojo::Equals(data_.emmc_pnm, other.data_.emmc_pnm);
-    case Tag::OTHER:
+    case Tag::kOther:
       return mojo::Equals(data_.other, other.data_.other);
-    case Tag::UNKNOWN:
+    case Tag::kUnknown:
       return mojo::Equals(data_.unknown, other.data_.unknown);
   }
 
@@ -13152,24 +13311,21 @@ bool BlockDeviceProduct::Equals(const T& other) const {
 }
 template <typename UnionPtrType>
 BlockDeviceRevisionPtr BlockDeviceRevision::Clone() const {
-  // Use UnionPtrType to prevent the compiler from trying to compile this
-  // without being asked.
-  UnionPtrType rv(New());
   switch (tag_) {
-    case Tag::NVME_PCIE_REV:
-      rv->set_nvme_pcie_rev(mojo::Clone(data_.nvme_pcie_rev));
-      break;
-    case Tag::EMMC_PRV:
-      rv->set_emmc_prv(mojo::Clone(data_.emmc_prv));
-      break;
-    case Tag::OTHER:
-      rv->set_other(mojo::Clone(data_.other));
-      break;
-    case Tag::UNKNOWN:
-      rv->set_unknown(mojo::Clone(data_.unknown));
-      break;
+    case Tag::kNvmePcieRev:
+      return NewNvmePcieRev(
+          mojo::Clone(data_.nvme_pcie_rev));
+    case Tag::kEmmcPrv:
+      return NewEmmcPrv(
+          mojo::Clone(data_.emmc_prv));
+    case Tag::kOther:
+      return NewOther(
+          mojo::Clone(data_.other));
+    case Tag::kUnknown:
+      return NewUnknown(
+          mojo::Clone(data_.unknown));
   }
-  return rv;
+  return nullptr;
 }
 
 template <typename T,
@@ -13180,13 +13336,13 @@ bool BlockDeviceRevision::Equals(const T& other) const {
     return false;
 
   switch (tag_) {
-    case Tag::NVME_PCIE_REV:
+    case Tag::kNvmePcieRev:
       return mojo::Equals(data_.nvme_pcie_rev, other.data_.nvme_pcie_rev);
-    case Tag::EMMC_PRV:
+    case Tag::kEmmcPrv:
       return mojo::Equals(data_.emmc_prv, other.data_.emmc_prv);
-    case Tag::OTHER:
+    case Tag::kOther:
       return mojo::Equals(data_.other, other.data_.other);
-    case Tag::UNKNOWN:
+    case Tag::kUnknown:
       return mojo::Equals(data_.unknown, other.data_.unknown);
   }
 
@@ -13194,27 +13350,24 @@ bool BlockDeviceRevision::Equals(const T& other) const {
 }
 template <typename UnionPtrType>
 BlockDeviceFirmwarePtr BlockDeviceFirmware::Clone() const {
-  // Use UnionPtrType to prevent the compiler from trying to compile this
-  // without being asked.
-  UnionPtrType rv(New());
   switch (tag_) {
-    case Tag::NVME_FIRMWARE_REV:
-      rv->set_nvme_firmware_rev(mojo::Clone(data_.nvme_firmware_rev));
-      break;
-    case Tag::EMMC_FWREV:
-      rv->set_emmc_fwrev(mojo::Clone(data_.emmc_fwrev));
-      break;
-    case Tag::OTHER:
-      rv->set_other(mojo::Clone(data_.other));
-      break;
-    case Tag::UNKNOWN:
-      rv->set_unknown(mojo::Clone(data_.unknown));
-      break;
-    case Tag::UFS_FWREV:
-      rv->set_ufs_fwrev(mojo::Clone(data_.ufs_fwrev));
-      break;
+    case Tag::kNvmeFirmwareRev:
+      return NewNvmeFirmwareRev(
+          mojo::Clone(data_.nvme_firmware_rev));
+    case Tag::kEmmcFwrev:
+      return NewEmmcFwrev(
+          mojo::Clone(data_.emmc_fwrev));
+    case Tag::kOther:
+      return NewOther(
+          mojo::Clone(data_.other));
+    case Tag::kUnknown:
+      return NewUnknown(
+          mojo::Clone(data_.unknown));
+    case Tag::kUfsFwrev:
+      return NewUfsFwrev(
+          mojo::Clone(data_.ufs_fwrev));
   }
-  return rv;
+  return nullptr;
 }
 
 template <typename T,
@@ -13225,15 +13378,15 @@ bool BlockDeviceFirmware::Equals(const T& other) const {
     return false;
 
   switch (tag_) {
-    case Tag::NVME_FIRMWARE_REV:
+    case Tag::kNvmeFirmwareRev:
       return mojo::Equals(data_.nvme_firmware_rev, other.data_.nvme_firmware_rev);
-    case Tag::EMMC_FWREV:
+    case Tag::kEmmcFwrev:
       return mojo::Equals(data_.emmc_fwrev, other.data_.emmc_fwrev);
-    case Tag::OTHER:
+    case Tag::kOther:
       return mojo::Equals(data_.other, other.data_.other);
-    case Tag::UNKNOWN:
+    case Tag::kUnknown:
       return mojo::Equals(data_.unknown, other.data_.unknown);
-    case Tag::UFS_FWREV:
+    case Tag::kUfsFwrev:
       return mojo::Equals(data_.ufs_fwrev, other.data_.ufs_fwrev);
   }
 
@@ -13241,18 +13394,15 @@ bool BlockDeviceFirmware::Equals(const T& other) const {
 }
 template <typename UnionPtrType>
 CpuResultPtr CpuResult::Clone() const {
-  // Use UnionPtrType to prevent the compiler from trying to compile this
-  // without being asked.
-  UnionPtrType rv(New());
   switch (tag_) {
-    case Tag::CPU_INFO:
-      rv->set_cpu_info(mojo::Clone(*data_.cpu_info));
-      break;
-    case Tag::ERROR:
-      rv->set_error(mojo::Clone(*data_.error));
-      break;
+    case Tag::kCpuInfo:
+      return NewCpuInfo(
+          mojo::Clone(*data_.cpu_info));
+    case Tag::kError:
+      return NewError(
+          mojo::Clone(*data_.error));
   }
-  return rv;
+  return nullptr;
 }
 
 template <typename T,
@@ -13263,9 +13413,9 @@ bool CpuResult::Equals(const T& other) const {
     return false;
 
   switch (tag_) {
-    case Tag::CPU_INFO:
+    case Tag::kCpuInfo:
       return mojo::Equals(*(data_.cpu_info), *(other.data_.cpu_info));
-    case Tag::ERROR:
+    case Tag::kError:
       return mojo::Equals(*(data_.error), *(other.data_.error));
   }
 
@@ -13273,18 +13423,15 @@ bool CpuResult::Equals(const T& other) const {
 }
 template <typename UnionPtrType>
 TimezoneResultPtr TimezoneResult::Clone() const {
-  // Use UnionPtrType to prevent the compiler from trying to compile this
-  // without being asked.
-  UnionPtrType rv(New());
   switch (tag_) {
-    case Tag::TIMEZONE_INFO:
-      rv->set_timezone_info(mojo::Clone(*data_.timezone_info));
-      break;
-    case Tag::ERROR:
-      rv->set_error(mojo::Clone(*data_.error));
-      break;
+    case Tag::kTimezoneInfo:
+      return NewTimezoneInfo(
+          mojo::Clone(*data_.timezone_info));
+    case Tag::kError:
+      return NewError(
+          mojo::Clone(*data_.error));
   }
-  return rv;
+  return nullptr;
 }
 
 template <typename T,
@@ -13295,9 +13442,9 @@ bool TimezoneResult::Equals(const T& other) const {
     return false;
 
   switch (tag_) {
-    case Tag::TIMEZONE_INFO:
+    case Tag::kTimezoneInfo:
       return mojo::Equals(*(data_.timezone_info), *(other.data_.timezone_info));
-    case Tag::ERROR:
+    case Tag::kError:
       return mojo::Equals(*(data_.error), *(other.data_.error));
   }
 
@@ -13305,18 +13452,15 @@ bool TimezoneResult::Equals(const T& other) const {
 }
 template <typename UnionPtrType>
 MemoryResultPtr MemoryResult::Clone() const {
-  // Use UnionPtrType to prevent the compiler from trying to compile this
-  // without being asked.
-  UnionPtrType rv(New());
   switch (tag_) {
-    case Tag::MEMORY_INFO:
-      rv->set_memory_info(mojo::Clone(*data_.memory_info));
-      break;
-    case Tag::ERROR:
-      rv->set_error(mojo::Clone(*data_.error));
-      break;
+    case Tag::kMemoryInfo:
+      return NewMemoryInfo(
+          mojo::Clone(*data_.memory_info));
+    case Tag::kError:
+      return NewError(
+          mojo::Clone(*data_.error));
   }
-  return rv;
+  return nullptr;
 }
 
 template <typename T,
@@ -13327,9 +13471,9 @@ bool MemoryResult::Equals(const T& other) const {
     return false;
 
   switch (tag_) {
-    case Tag::MEMORY_INFO:
+    case Tag::kMemoryInfo:
       return mojo::Equals(*(data_.memory_info), *(other.data_.memory_info));
-    case Tag::ERROR:
+    case Tag::kError:
       return mojo::Equals(*(data_.error), *(other.data_.error));
   }
 
@@ -13337,18 +13481,15 @@ bool MemoryResult::Equals(const T& other) const {
 }
 template <typename UnionPtrType>
 BacklightResultPtr BacklightResult::Clone() const {
-  // Use UnionPtrType to prevent the compiler from trying to compile this
-  // without being asked.
-  UnionPtrType rv(New());
   switch (tag_) {
-    case Tag::BACKLIGHT_INFO:
-      rv->set_backlight_info(mojo::Clone(*data_.backlight_info));
-      break;
-    case Tag::ERROR:
-      rv->set_error(mojo::Clone(*data_.error));
-      break;
+    case Tag::kBacklightInfo:
+      return NewBacklightInfo(
+          mojo::Clone(*data_.backlight_info));
+    case Tag::kError:
+      return NewError(
+          mojo::Clone(*data_.error));
   }
-  return rv;
+  return nullptr;
 }
 
 template <typename T,
@@ -13359,9 +13500,9 @@ bool BacklightResult::Equals(const T& other) const {
     return false;
 
   switch (tag_) {
-    case Tag::BACKLIGHT_INFO:
+    case Tag::kBacklightInfo:
       return mojo::Equals(*(data_.backlight_info), *(other.data_.backlight_info));
-    case Tag::ERROR:
+    case Tag::kError:
       return mojo::Equals(*(data_.error), *(other.data_.error));
   }
 
@@ -13369,18 +13510,15 @@ bool BacklightResult::Equals(const T& other) const {
 }
 template <typename UnionPtrType>
 FanResultPtr FanResult::Clone() const {
-  // Use UnionPtrType to prevent the compiler from trying to compile this
-  // without being asked.
-  UnionPtrType rv(New());
   switch (tag_) {
-    case Tag::FAN_INFO:
-      rv->set_fan_info(mojo::Clone(*data_.fan_info));
-      break;
-    case Tag::ERROR:
-      rv->set_error(mojo::Clone(*data_.error));
-      break;
+    case Tag::kFanInfo:
+      return NewFanInfo(
+          mojo::Clone(*data_.fan_info));
+    case Tag::kError:
+      return NewError(
+          mojo::Clone(*data_.error));
   }
-  return rv;
+  return nullptr;
 }
 
 template <typename T,
@@ -13391,9 +13529,9 @@ bool FanResult::Equals(const T& other) const {
     return false;
 
   switch (tag_) {
-    case Tag::FAN_INFO:
+    case Tag::kFanInfo:
       return mojo::Equals(*(data_.fan_info), *(other.data_.fan_info));
-    case Tag::ERROR:
+    case Tag::kError:
       return mojo::Equals(*(data_.error), *(other.data_.error));
   }
 
@@ -13401,18 +13539,15 @@ bool FanResult::Equals(const T& other) const {
 }
 template <typename UnionPtrType>
 StatefulPartitionResultPtr StatefulPartitionResult::Clone() const {
-  // Use UnionPtrType to prevent the compiler from trying to compile this
-  // without being asked.
-  UnionPtrType rv(New());
   switch (tag_) {
-    case Tag::PARTITION_INFO:
-      rv->set_partition_info(mojo::Clone(*data_.partition_info));
-      break;
-    case Tag::ERROR:
-      rv->set_error(mojo::Clone(*data_.error));
-      break;
+    case Tag::kPartitionInfo:
+      return NewPartitionInfo(
+          mojo::Clone(*data_.partition_info));
+    case Tag::kError:
+      return NewError(
+          mojo::Clone(*data_.error));
   }
-  return rv;
+  return nullptr;
 }
 
 template <typename T,
@@ -13423,9 +13558,9 @@ bool StatefulPartitionResult::Equals(const T& other) const {
     return false;
 
   switch (tag_) {
-    case Tag::PARTITION_INFO:
+    case Tag::kPartitionInfo:
       return mojo::Equals(*(data_.partition_info), *(other.data_.partition_info));
-    case Tag::ERROR:
+    case Tag::kError:
       return mojo::Equals(*(data_.error), *(other.data_.error));
   }
 
@@ -13433,18 +13568,15 @@ bool StatefulPartitionResult::Equals(const T& other) const {
 }
 template <typename UnionPtrType>
 BluetoothResultPtr BluetoothResult::Clone() const {
-  // Use UnionPtrType to prevent the compiler from trying to compile this
-  // without being asked.
-  UnionPtrType rv(New());
   switch (tag_) {
-    case Tag::BLUETOOTH_ADAPTER_INFO:
-      rv->set_bluetooth_adapter_info(mojo::Clone(*data_.bluetooth_adapter_info));
-      break;
-    case Tag::ERROR:
-      rv->set_error(mojo::Clone(*data_.error));
-      break;
+    case Tag::kBluetoothAdapterInfo:
+      return NewBluetoothAdapterInfo(
+          mojo::Clone(*data_.bluetooth_adapter_info));
+    case Tag::kError:
+      return NewError(
+          mojo::Clone(*data_.error));
   }
-  return rv;
+  return nullptr;
 }
 
 template <typename T,
@@ -13455,9 +13587,9 @@ bool BluetoothResult::Equals(const T& other) const {
     return false;
 
   switch (tag_) {
-    case Tag::BLUETOOTH_ADAPTER_INFO:
+    case Tag::kBluetoothAdapterInfo:
       return mojo::Equals(*(data_.bluetooth_adapter_info), *(other.data_.bluetooth_adapter_info));
-    case Tag::ERROR:
+    case Tag::kError:
       return mojo::Equals(*(data_.error), *(other.data_.error));
   }
 
@@ -13465,15 +13597,12 @@ bool BluetoothResult::Equals(const T& other) const {
 }
 template <typename UnionPtrType>
 DEPRECATE_SystemResultPtr DEPRECATE_SystemResult::Clone() const {
-  // Use UnionPtrType to prevent the compiler from trying to compile this
-  // without being asked.
-  UnionPtrType rv(New());
   switch (tag_) {
-    case Tag::ERROR:
-      rv->set_error(mojo::Clone(*data_.error));
-      break;
+    case Tag::kError:
+      return NewError(
+          mojo::Clone(*data_.error));
   }
-  return rv;
+  return nullptr;
 }
 
 template <typename T,
@@ -13484,7 +13613,7 @@ bool DEPRECATE_SystemResult::Equals(const T& other) const {
     return false;
 
   switch (tag_) {
-    case Tag::ERROR:
+    case Tag::kError:
       return mojo::Equals(*(data_.error), *(other.data_.error));
   }
 
@@ -13492,18 +13621,15 @@ bool DEPRECATE_SystemResult::Equals(const T& other) const {
 }
 template <typename UnionPtrType>
 SystemResultPtr SystemResult::Clone() const {
-  // Use UnionPtrType to prevent the compiler from trying to compile this
-  // without being asked.
-  UnionPtrType rv(New());
   switch (tag_) {
-    case Tag::SYSTEM_INFO:
-      rv->set_system_info(mojo::Clone(*data_.system_info));
-      break;
-    case Tag::ERROR:
-      rv->set_error(mojo::Clone(*data_.error));
-      break;
+    case Tag::kSystemInfo:
+      return NewSystemInfo(
+          mojo::Clone(*data_.system_info));
+    case Tag::kError:
+      return NewError(
+          mojo::Clone(*data_.error));
   }
-  return rv;
+  return nullptr;
 }
 
 template <typename T,
@@ -13514,9 +13640,9 @@ bool SystemResult::Equals(const T& other) const {
     return false;
 
   switch (tag_) {
-    case Tag::SYSTEM_INFO:
+    case Tag::kSystemInfo:
       return mojo::Equals(*(data_.system_info), *(other.data_.system_info));
-    case Tag::ERROR:
+    case Tag::kError:
       return mojo::Equals(*(data_.error), *(other.data_.error));
   }
 
@@ -13524,18 +13650,15 @@ bool SystemResult::Equals(const T& other) const {
 }
 template <typename UnionPtrType>
 NetworkResultPtr NetworkResult::Clone() const {
-  // Use UnionPtrType to prevent the compiler from trying to compile this
-  // without being asked.
-  UnionPtrType rv(New());
   switch (tag_) {
-    case Tag::NETWORK_HEALTH:
-      rv->set_network_health(mojo::Clone(*data_.network_health));
-      break;
-    case Tag::ERROR:
-      rv->set_error(mojo::Clone(*data_.error));
-      break;
+    case Tag::kNetworkHealth:
+      return NewNetworkHealth(
+          mojo::Clone(*data_.network_health));
+    case Tag::kError:
+      return NewError(
+          mojo::Clone(*data_.error));
   }
-  return rv;
+  return nullptr;
 }
 
 template <typename T,
@@ -13546,9 +13669,9 @@ bool NetworkResult::Equals(const T& other) const {
     return false;
 
   switch (tag_) {
-    case Tag::NETWORK_HEALTH:
+    case Tag::kNetworkHealth:
       return mojo::Equals(*(data_.network_health), *(other.data_.network_health));
-    case Tag::ERROR:
+    case Tag::kError:
       return mojo::Equals(*(data_.error), *(other.data_.error));
   }
 
@@ -13556,18 +13679,15 @@ bool NetworkResult::Equals(const T& other) const {
 }
 template <typename UnionPtrType>
 NetworkInterfaceResultPtr NetworkInterfaceResult::Clone() const {
-  // Use UnionPtrType to prevent the compiler from trying to compile this
-  // without being asked.
-  UnionPtrType rv(New());
   switch (tag_) {
-    case Tag::NETWORK_INTERFACE_INFO:
-      rv->set_network_interface_info(mojo::Clone(*data_.network_interface_info));
-      break;
-    case Tag::ERROR:
-      rv->set_error(mojo::Clone(*data_.error));
-      break;
+    case Tag::kNetworkInterfaceInfo:
+      return NewNetworkInterfaceInfo(
+          mojo::Clone(*data_.network_interface_info));
+    case Tag::kError:
+      return NewError(
+          mojo::Clone(*data_.error));
   }
-  return rv;
+  return nullptr;
 }
 
 template <typename T,
@@ -13578,9 +13698,9 @@ bool NetworkInterfaceResult::Equals(const T& other) const {
     return false;
 
   switch (tag_) {
-    case Tag::NETWORK_INTERFACE_INFO:
+    case Tag::kNetworkInterfaceInfo:
       return mojo::Equals(*(data_.network_interface_info), *(other.data_.network_interface_info));
-    case Tag::ERROR:
+    case Tag::kError:
       return mojo::Equals(*(data_.error), *(other.data_.error));
   }
 
@@ -13588,15 +13708,12 @@ bool NetworkInterfaceResult::Equals(const T& other) const {
 }
 template <typename UnionPtrType>
 NetworkInterfaceInfoPtr NetworkInterfaceInfo::Clone() const {
-  // Use UnionPtrType to prevent the compiler from trying to compile this
-  // without being asked.
-  UnionPtrType rv(New());
   switch (tag_) {
-    case Tag::WIRELESS_INTERFACE_INFO:
-      rv->set_wireless_interface_info(mojo::Clone(*data_.wireless_interface_info));
-      break;
+    case Tag::kWirelessInterfaceInfo:
+      return NewWirelessInterfaceInfo(
+          mojo::Clone(*data_.wireless_interface_info));
   }
-  return rv;
+  return nullptr;
 }
 
 template <typename T,
@@ -13607,7 +13724,7 @@ bool NetworkInterfaceInfo::Equals(const T& other) const {
     return false;
 
   switch (tag_) {
-    case Tag::WIRELESS_INTERFACE_INFO:
+    case Tag::kWirelessInterfaceInfo:
       return mojo::Equals(*(data_.wireless_interface_info), *(other.data_.wireless_interface_info));
   }
 
@@ -13615,18 +13732,15 @@ bool NetworkInterfaceInfo::Equals(const T& other) const {
 }
 template <typename UnionPtrType>
 AudioResultPtr AudioResult::Clone() const {
-  // Use UnionPtrType to prevent the compiler from trying to compile this
-  // without being asked.
-  UnionPtrType rv(New());
   switch (tag_) {
-    case Tag::AUDIO_INFO:
-      rv->set_audio_info(mojo::Clone(*data_.audio_info));
-      break;
-    case Tag::ERROR:
-      rv->set_error(mojo::Clone(*data_.error));
-      break;
+    case Tag::kAudioInfo:
+      return NewAudioInfo(
+          mojo::Clone(*data_.audio_info));
+    case Tag::kError:
+      return NewError(
+          mojo::Clone(*data_.error));
   }
-  return rv;
+  return nullptr;
 }
 
 template <typename T,
@@ -13637,9 +13751,9 @@ bool AudioResult::Equals(const T& other) const {
     return false;
 
   switch (tag_) {
-    case Tag::AUDIO_INFO:
+    case Tag::kAudioInfo:
       return mojo::Equals(*(data_.audio_info), *(other.data_.audio_info));
-    case Tag::ERROR:
+    case Tag::kError:
       return mojo::Equals(*(data_.error), *(other.data_.error));
   }
 
@@ -13647,18 +13761,15 @@ bool AudioResult::Equals(const T& other) const {
 }
 template <typename UnionPtrType>
 AudioHardwareResultPtr AudioHardwareResult::Clone() const {
-  // Use UnionPtrType to prevent the compiler from trying to compile this
-  // without being asked.
-  UnionPtrType rv(New());
   switch (tag_) {
-    case Tag::AUDIO_HARDWARE_INFO:
-      rv->set_audio_hardware_info(mojo::Clone(*data_.audio_hardware_info));
-      break;
-    case Tag::ERROR:
-      rv->set_error(mojo::Clone(*data_.error));
-      break;
+    case Tag::kAudioHardwareInfo:
+      return NewAudioHardwareInfo(
+          mojo::Clone(*data_.audio_hardware_info));
+    case Tag::kError:
+      return NewError(
+          mojo::Clone(*data_.error));
   }
-  return rv;
+  return nullptr;
 }
 
 template <typename T,
@@ -13669,9 +13780,9 @@ bool AudioHardwareResult::Equals(const T& other) const {
     return false;
 
   switch (tag_) {
-    case Tag::AUDIO_HARDWARE_INFO:
+    case Tag::kAudioHardwareInfo:
       return mojo::Equals(*(data_.audio_hardware_info), *(other.data_.audio_hardware_info));
-    case Tag::ERROR:
+    case Tag::kError:
       return mojo::Equals(*(data_.error), *(other.data_.error));
   }
 
@@ -13679,18 +13790,15 @@ bool AudioHardwareResult::Equals(const T& other) const {
 }
 template <typename UnionPtrType>
 BootPerformanceResultPtr BootPerformanceResult::Clone() const {
-  // Use UnionPtrType to prevent the compiler from trying to compile this
-  // without being asked.
-  UnionPtrType rv(New());
   switch (tag_) {
-    case Tag::BOOT_PERFORMANCE_INFO:
-      rv->set_boot_performance_info(mojo::Clone(*data_.boot_performance_info));
-      break;
-    case Tag::ERROR:
-      rv->set_error(mojo::Clone(*data_.error));
-      break;
+    case Tag::kBootPerformanceInfo:
+      return NewBootPerformanceInfo(
+          mojo::Clone(*data_.boot_performance_info));
+    case Tag::kError:
+      return NewError(
+          mojo::Clone(*data_.error));
   }
-  return rv;
+  return nullptr;
 }
 
 template <typename T,
@@ -13701,9 +13809,9 @@ bool BootPerformanceResult::Equals(const T& other) const {
     return false;
 
   switch (tag_) {
-    case Tag::BOOT_PERFORMANCE_INFO:
+    case Tag::kBootPerformanceInfo:
       return mojo::Equals(*(data_.boot_performance_info), *(other.data_.boot_performance_info));
-    case Tag::ERROR:
+    case Tag::kError:
       return mojo::Equals(*(data_.error), *(other.data_.error));
   }
 
@@ -13711,18 +13819,15 @@ bool BootPerformanceResult::Equals(const T& other) const {
 }
 template <typename UnionPtrType>
 BusResultPtr BusResult::Clone() const {
-  // Use UnionPtrType to prevent the compiler from trying to compile this
-  // without being asked.
-  UnionPtrType rv(New());
   switch (tag_) {
-    case Tag::BUS_DEVICES:
-      rv->set_bus_devices(mojo::Clone(*data_.bus_devices));
-      break;
-    case Tag::ERROR:
-      rv->set_error(mojo::Clone(*data_.error));
-      break;
+    case Tag::kBusDevices:
+      return NewBusDevices(
+          mojo::Clone(*data_.bus_devices));
+    case Tag::kError:
+      return NewError(
+          mojo::Clone(*data_.error));
   }
-  return rv;
+  return nullptr;
 }
 
 template <typename T,
@@ -13733,9 +13838,9 @@ bool BusResult::Equals(const T& other) const {
     return false;
 
   switch (tag_) {
-    case Tag::BUS_DEVICES:
+    case Tag::kBusDevices:
       return mojo::Equals(*(data_.bus_devices), *(other.data_.bus_devices));
-    case Tag::ERROR:
+    case Tag::kError:
       return mojo::Equals(*(data_.error), *(other.data_.error));
   }
 
@@ -13743,24 +13848,21 @@ bool BusResult::Equals(const T& other) const {
 }
 template <typename UnionPtrType>
 BusInfoPtr BusInfo::Clone() const {
-  // Use UnionPtrType to prevent the compiler from trying to compile this
-  // without being asked.
-  UnionPtrType rv(New());
   switch (tag_) {
-    case Tag::PCI_BUS_INFO:
-      rv->set_pci_bus_info(mojo::Clone(*data_.pci_bus_info));
-      break;
-    case Tag::USB_BUS_INFO:
-      rv->set_usb_bus_info(mojo::Clone(*data_.usb_bus_info));
-      break;
-    case Tag::THUNDERBOLT_BUS_INFO:
-      rv->set_thunderbolt_bus_info(mojo::Clone(*data_.thunderbolt_bus_info));
-      break;
-    case Tag::UNMAPPED_FIELD:
-      rv->set_unmapped_field(mojo::Clone(data_.unmapped_field));
-      break;
+    case Tag::kPciBusInfo:
+      return NewPciBusInfo(
+          mojo::Clone(*data_.pci_bus_info));
+    case Tag::kUsbBusInfo:
+      return NewUsbBusInfo(
+          mojo::Clone(*data_.usb_bus_info));
+    case Tag::kThunderboltBusInfo:
+      return NewThunderboltBusInfo(
+          mojo::Clone(*data_.thunderbolt_bus_info));
+    case Tag::kUnmappedField:
+      return NewUnmappedField(
+          mojo::Clone(data_.unmapped_field));
   }
-  return rv;
+  return nullptr;
 }
 
 template <typename T,
@@ -13771,13 +13873,13 @@ bool BusInfo::Equals(const T& other) const {
     return false;
 
   switch (tag_) {
-    case Tag::PCI_BUS_INFO:
+    case Tag::kPciBusInfo:
       return mojo::Equals(*(data_.pci_bus_info), *(other.data_.pci_bus_info));
-    case Tag::USB_BUS_INFO:
+    case Tag::kUsbBusInfo:
       return mojo::Equals(*(data_.usb_bus_info), *(other.data_.usb_bus_info));
-    case Tag::THUNDERBOLT_BUS_INFO:
+    case Tag::kThunderboltBusInfo:
       return mojo::Equals(*(data_.thunderbolt_bus_info), *(other.data_.thunderbolt_bus_info));
-    case Tag::UNMAPPED_FIELD:
+    case Tag::kUnmappedField:
       return mojo::Equals(data_.unmapped_field, other.data_.unmapped_field);
   }
 
@@ -13785,18 +13887,15 @@ bool BusInfo::Equals(const T& other) const {
 }
 template <typename UnionPtrType>
 TpmResultPtr TpmResult::Clone() const {
-  // Use UnionPtrType to prevent the compiler from trying to compile this
-  // without being asked.
-  UnionPtrType rv(New());
   switch (tag_) {
-    case Tag::TPM_INFO:
-      rv->set_tpm_info(mojo::Clone(*data_.tpm_info));
-      break;
-    case Tag::ERROR:
-      rv->set_error(mojo::Clone(*data_.error));
-      break;
+    case Tag::kTpmInfo:
+      return NewTpmInfo(
+          mojo::Clone(*data_.tpm_info));
+    case Tag::kError:
+      return NewError(
+          mojo::Clone(*data_.error));
   }
-  return rv;
+  return nullptr;
 }
 
 template <typename T,
@@ -13807,9 +13906,9 @@ bool TpmResult::Equals(const T& other) const {
     return false;
 
   switch (tag_) {
-    case Tag::TPM_INFO:
+    case Tag::kTpmInfo:
       return mojo::Equals(*(data_.tpm_info), *(other.data_.tpm_info));
-    case Tag::ERROR:
+    case Tag::kError:
       return mojo::Equals(*(data_.error), *(other.data_.error));
   }
 
@@ -13817,18 +13916,15 @@ bool TpmResult::Equals(const T& other) const {
 }
 template <typename UnionPtrType>
 GraphicsResultPtr GraphicsResult::Clone() const {
-  // Use UnionPtrType to prevent the compiler from trying to compile this
-  // without being asked.
-  UnionPtrType rv(New());
   switch (tag_) {
-    case Tag::GRAPHICS_INFO:
-      rv->set_graphics_info(mojo::Clone(*data_.graphics_info));
-      break;
-    case Tag::ERROR:
-      rv->set_error(mojo::Clone(*data_.error));
-      break;
+    case Tag::kGraphicsInfo:
+      return NewGraphicsInfo(
+          mojo::Clone(*data_.graphics_info));
+    case Tag::kError:
+      return NewError(
+          mojo::Clone(*data_.error));
   }
-  return rv;
+  return nullptr;
 }
 
 template <typename T,
@@ -13839,9 +13935,9 @@ bool GraphicsResult::Equals(const T& other) const {
     return false;
 
   switch (tag_) {
-    case Tag::GRAPHICS_INFO:
+    case Tag::kGraphicsInfo:
       return mojo::Equals(*(data_.graphics_info), *(other.data_.graphics_info));
-    case Tag::ERROR:
+    case Tag::kError:
       return mojo::Equals(*(data_.error), *(other.data_.error));
   }
 
@@ -13849,18 +13945,15 @@ bool GraphicsResult::Equals(const T& other) const {
 }
 template <typename UnionPtrType>
 DisplayResultPtr DisplayResult::Clone() const {
-  // Use UnionPtrType to prevent the compiler from trying to compile this
-  // without being asked.
-  UnionPtrType rv(New());
   switch (tag_) {
-    case Tag::DISPLAY_INFO:
-      rv->set_display_info(mojo::Clone(*data_.display_info));
-      break;
-    case Tag::ERROR:
-      rv->set_error(mojo::Clone(*data_.error));
-      break;
+    case Tag::kDisplayInfo:
+      return NewDisplayInfo(
+          mojo::Clone(*data_.display_info));
+    case Tag::kError:
+      return NewError(
+          mojo::Clone(*data_.error));
   }
-  return rv;
+  return nullptr;
 }
 
 template <typename T,
@@ -13871,9 +13964,9 @@ bool DisplayResult::Equals(const T& other) const {
     return false;
 
   switch (tag_) {
-    case Tag::DISPLAY_INFO:
+    case Tag::kDisplayInfo:
       return mojo::Equals(*(data_.display_info), *(other.data_.display_info));
-    case Tag::ERROR:
+    case Tag::kError:
       return mojo::Equals(*(data_.error), *(other.data_.error));
   }
 
@@ -13881,18 +13974,15 @@ bool DisplayResult::Equals(const T& other) const {
 }
 template <typename UnionPtrType>
 InputResultPtr InputResult::Clone() const {
-  // Use UnionPtrType to prevent the compiler from trying to compile this
-  // without being asked.
-  UnionPtrType rv(New());
   switch (tag_) {
-    case Tag::INPUT_INFO:
-      rv->set_input_info(mojo::Clone(*data_.input_info));
-      break;
-    case Tag::ERROR:
-      rv->set_error(mojo::Clone(*data_.error));
-      break;
+    case Tag::kInputInfo:
+      return NewInputInfo(
+          mojo::Clone(*data_.input_info));
+    case Tag::kError:
+      return NewError(
+          mojo::Clone(*data_.error));
   }
-  return rv;
+  return nullptr;
 }
 
 template <typename T,
@@ -13903,9 +13993,9 @@ bool InputResult::Equals(const T& other) const {
     return false;
 
   switch (tag_) {
-    case Tag::INPUT_INFO:
+    case Tag::kInputInfo:
       return mojo::Equals(*(data_.input_info), *(other.data_.input_info));
-    case Tag::ERROR:
+    case Tag::kError:
       return mojo::Equals(*(data_.error), *(other.data_.error));
   }
 
@@ -13913,18 +14003,15 @@ bool InputResult::Equals(const T& other) const {
 }
 template <typename UnionPtrType>
 SensorResultPtr SensorResult::Clone() const {
-  // Use UnionPtrType to prevent the compiler from trying to compile this
-  // without being asked.
-  UnionPtrType rv(New());
   switch (tag_) {
-    case Tag::SENSOR_INFO:
-      rv->set_sensor_info(mojo::Clone(*data_.sensor_info));
-      break;
-    case Tag::ERROR:
-      rv->set_error(mojo::Clone(*data_.error));
-      break;
+    case Tag::kSensorInfo:
+      return NewSensorInfo(
+          mojo::Clone(*data_.sensor_info));
+    case Tag::kError:
+      return NewError(
+          mojo::Clone(*data_.error));
   }
-  return rv;
+  return nullptr;
 }
 
 template <typename T,
@@ -13935,9 +14022,9 @@ bool SensorResult::Equals(const T& other) const {
     return false;
 
   switch (tag_) {
-    case Tag::SENSOR_INFO:
+    case Tag::kSensorInfo:
       return mojo::Equals(*(data_.sensor_info), *(other.data_.sensor_info));
-    case Tag::ERROR:
+    case Tag::kError:
       return mojo::Equals(*(data_.error), *(other.data_.error));
   }
 

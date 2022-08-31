@@ -375,7 +375,7 @@ class  KerberosConfig {
   template <typename... Args>
   static KerberosConfigPtr New(Args&&... args) {
     return KerberosConfigPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -523,7 +523,7 @@ class  Password {
   template <typename... Args>
   static PasswordPtr New(Args&&... args) {
     return PasswordPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -663,7 +663,7 @@ class  CredentialStorageOptions {
   template <typename... Args>
   static CredentialStorageOptionsPtr New(Args&&... args) {
     return CredentialStorageOptionsPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -803,7 +803,7 @@ class  MountOptions {
   template <typename... Args>
   static MountOptionsPtr New(Args&&... args) {
     return MountOptionsPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -971,7 +971,7 @@ class  Credentials {
   template <typename... Args>
   static CredentialsPtr New(Args&&... args) {
     return CredentialsPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

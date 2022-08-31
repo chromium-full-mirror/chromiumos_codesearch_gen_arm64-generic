@@ -61,37 +61,21 @@ class  Value_Data {
   enum class Value_Tag : uint32_t {
 
     
-    NULL_VALUE,
+    kNullValue,
     
-    kNullValue = NULL_VALUE,
+    kBoolValue,
     
-    BOOL_VALUE,
+    kIntValue,
     
-    kBoolValue = BOOL_VALUE,
+    kDoubleValue,
     
-    INT_VALUE,
+    kStringValue,
     
-    kIntValue = INT_VALUE,
+    kBinaryValue,
     
-    DOUBLE_VALUE,
+    kDictionaryValue,
     
-    kDoubleValue = DOUBLE_VALUE,
-    
-    STRING_VALUE,
-    
-    kStringValue = STRING_VALUE,
-    
-    BINARY_VALUE,
-    
-    kBinaryValue = BINARY_VALUE,
-    
-    DICTIONARY_VALUE,
-    
-    kDictionaryValue = DICTIONARY_VALUE,
-    
-    LIST_VALUE,
-    
-    kListValue = LIST_VALUE,
+    kListValue,
   };
 
   // A note on layout:

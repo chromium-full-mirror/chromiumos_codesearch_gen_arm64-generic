@@ -53,7 +53,7 @@ class  VideoFramePlane {
   template <typename... Args>
   static VideoFramePlanePtr New(Args&&... args) {
     return VideoFramePlanePtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -194,7 +194,7 @@ class  ColorPlaneLayout {
   template <typename... Args>
   static ColorPlaneLayoutPtr New(Args&&... args) {
     return ColorPlaneLayoutPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -343,7 +343,7 @@ class  VideoFrameLayout {
   template <typename... Args>
   static VideoFrameLayoutPtr New(Args&&... args) {
     return VideoFrameLayoutPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

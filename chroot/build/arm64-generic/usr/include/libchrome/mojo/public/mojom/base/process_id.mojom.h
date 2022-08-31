@@ -52,7 +52,7 @@ class  ProcessId {
   template <typename... Args>
   static ProcessIdPtr New(Args&&... args) {
     return ProcessIdPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

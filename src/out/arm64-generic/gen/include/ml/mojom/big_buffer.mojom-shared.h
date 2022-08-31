@@ -112,7 +112,7 @@ class BigBufferDataView {
   }
 
   Tag tag() const { return data_->tag; }
-  bool is_bytes() const { return data_->tag == Tag::BYTES; }
+  bool is_bytes() const { return data_->tag == Tag::kBytes; }
   inline void GetBytesDataView(
       mojo::ArrayDataView<uint8_t>* output) const;
 
@@ -123,7 +123,7 @@ class BigBufferDataView {
     return mojo::internal::Deserialize<mojo::ArrayDataView<uint8_t>>(
         data_->data.f_bytes.Get(), output, message_);
   }
-  bool is_shared_memory() const { return data_->tag == Tag::SHARED_MEMORY; }
+  bool is_shared_memory() const { return data_->tag == Tag::kSharedMemory; }
   inline void GetSharedMemoryDataView(
       BigBufferSharedMemoryRegionDataView* output) const;
 
@@ -134,7 +134,7 @@ class BigBufferDataView {
     return mojo::internal::Deserialize<::mojo_base::mojom::BigBufferSharedMemoryRegionDataView>(
         data_->data.f_shared_memory.Get(), output, message_);
   }
-  bool is_invalid_buffer() const { return data_->tag == Tag::INVALID_BUFFER; }
+  bool is_invalid_buffer() const { return data_->tag == Tag::kInvalidBuffer; }
   bool invalid_buffer() const {
     CHECK(is_invalid_buffer());
     return data_->data.f_invalid_buffer;
@@ -218,7 +218,7 @@ struct Serializer<::mojo_base::mojom::BigBufferDataView, MaybeConstUserType> {
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::mojo_base::mojom::BigBufferDataView::Tag::BYTES: {
+      case ::mojo_base::mojom::BigBufferDataView::Tag::kBytes: {
         decltype(Traits::bytes(input))
             in_bytes = Traits::bytes(input);
         mojo::internal::MessageFragment<
@@ -236,7 +236,7 @@ struct Serializer<::mojo_base::mojom::BigBufferDataView, MaybeConstUserType> {
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::mojo_base::mojom::BigBufferDataView::Tag::SHARED_MEMORY: {
+      case ::mojo_base::mojom::BigBufferDataView::Tag::kSharedMemory: {
         decltype(Traits::shared_memory(input))
             in_shared_memory = Traits::shared_memory(input);
         mojo::internal::MessageFragment<
@@ -252,7 +252,7 @@ struct Serializer<::mojo_base::mojom::BigBufferDataView, MaybeConstUserType> {
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::mojo_base::mojom::BigBufferDataView::Tag::INVALID_BUFFER: {
+      case ::mojo_base::mojom::BigBufferDataView::Tag::kInvalidBuffer: {
         decltype(Traits::invalid_buffer(input))
             in_invalid_buffer = Traits::invalid_buffer(input);
         fragment->data.f_invalid_buffer = in_invalid_buffer;

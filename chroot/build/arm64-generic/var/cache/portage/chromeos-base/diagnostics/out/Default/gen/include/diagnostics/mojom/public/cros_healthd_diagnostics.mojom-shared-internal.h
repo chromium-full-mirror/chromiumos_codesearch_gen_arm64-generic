@@ -277,13 +277,9 @@ class  RoutineUpdateUnion_Data {
   enum class RoutineUpdateUnion_Tag : uint32_t {
 
     
-    INTERACTIVE_UPDATE,
+    kInteractiveUpdate,
     
-    kInteractiveUpdate = INTERACTIVE_UPDATE,
-    
-    NONINTERACTIVE_UPDATE,
-    
-    kNoninteractiveUpdate = NONINTERACTIVE_UPDATE,
+    kNoninteractiveUpdate,
   };
 
   // A note on layout:

@@ -89,13 +89,9 @@ class  TextEntityData_Data {
   enum class TextEntityData_Tag : uint32_t {
 
     
-    NUMERIC_VALUE,
+    kNumericValue,
     
-    kNumericValue = NUMERIC_VALUE,
-    
-    STRING_VALUE,
-    
-    kStringValue = STRING_VALUE,
+    kStringValue,
   };
 
   // A note on layout:

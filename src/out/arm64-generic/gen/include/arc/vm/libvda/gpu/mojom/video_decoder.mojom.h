@@ -281,14 +281,20 @@ class  DecoderBuffer {
   using Data_ = internal::DecoderBuffer_Data;
   using Tag = Data_::DecoderBuffer_Tag;
 
-  static DecoderBufferPtr New() {
-    return DecoderBufferPtr(base::in_place);
+  template <typename... Args>
+  static DecoderBufferPtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
   }
   // Construct an instance holding |buffer|.
   static DecoderBufferPtr
   NewBuffer(
       BufferPtr buffer) {
-    auto result = DecoderBufferPtr(base::in_place);
+    auto result = DecoderBufferPtr(absl::in_place);
     result->set_buffer(std::move(buffer));
     return result;
   }
@@ -296,7 +302,7 @@ class  DecoderBuffer {
   static DecoderBufferPtr
   NewEndOfStream(
       uint8_t end_of_stream) {
-    auto result = DecoderBufferPtr(base::in_place);
+    auto result = DecoderBufferPtr(absl::in_place);
     result->set_end_of_stream(std::move(end_of_stream));
     return result;
   }
@@ -339,11 +345,11 @@ class  DecoderBuffer {
 
 
   
-  bool is_buffer() const { return tag_ == Tag::BUFFER; }
+  bool is_buffer() const { return tag_ == Tag::kBuffer; }
 
   
   BufferPtr& get_buffer() const {
-    CHECK(tag_ == Tag::BUFFER);
+    CHECK(tag_ == Tag::kBuffer);
     return *(data_.buffer);
   }
 
@@ -351,11 +357,11 @@ class  DecoderBuffer {
   void set_buffer(
       BufferPtr buffer);
   
-  bool is_end_of_stream() const { return tag_ == Tag::END_OF_STREAM; }
+  bool is_end_of_stream() const { return tag_ == Tag::kEndOfStream; }
 
   
   uint8_t get_end_of_stream() const {
-    CHECK(tag_ == Tag::END_OF_STREAM);
+    CHECK(tag_ == Tag::kEndOfStream);
     return data_.end_of_stream;
   }
 
@@ -406,7 +412,7 @@ class  Buffer {
   template <typename... Args>
   static BufferPtr New(Args&&... args) {
     return BufferPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -549,7 +555,7 @@ class  VideoDecoderConfig {
   template <typename... Args>
   static VideoDecoderConfigPtr New(Args&&... args) {
     return VideoDecoderConfigPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -680,18 +686,15 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 template <typename UnionPtrType>
 DecoderBufferPtr DecoderBuffer::Clone() const {
-  // Use UnionPtrType to prevent the compiler from trying to compile this
-  // without being asked.
-  UnionPtrType rv(New());
   switch (tag_) {
-    case Tag::BUFFER:
-      rv->set_buffer(mojo::Clone(*data_.buffer));
-      break;
-    case Tag::END_OF_STREAM:
-      rv->set_end_of_stream(mojo::Clone(data_.end_of_stream));
-      break;
+    case Tag::kBuffer:
+      return NewBuffer(
+          mojo::Clone(*data_.buffer));
+    case Tag::kEndOfStream:
+      return NewEndOfStream(
+          mojo::Clone(data_.end_of_stream));
   }
-  return rv;
+  return nullptr;
 }
 
 template <typename T,
@@ -702,9 +705,9 @@ bool DecoderBuffer::Equals(const T& other) const {
     return false;
 
   switch (tag_) {
-    case Tag::BUFFER:
+    case Tag::kBuffer:
       return mojo::Equals(*(data_.buffer), *(other.data_.buffer));
-    case Tag::END_OF_STREAM:
+    case Tag::kEndOfStream:
       return mojo::Equals(data_.end_of_stream, other.data_.end_of_stream);
   }
 

@@ -323,7 +323,7 @@ class  CropRotateScaleInfo {
   template <typename... Args>
   static CropRotateScaleInfoPtr New(Args&&... args) {
     return CropRotateScaleInfoPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -465,7 +465,7 @@ class  Camera3ErrorMsg {
   template <typename... Args>
   static Camera3ErrorMsgPtr New(Args&&... args) {
     return Camera3ErrorMsgPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -609,7 +609,7 @@ class  Camera3ShutterMsg {
   template <typename... Args>
   static Camera3ShutterMsgPtr New(Args&&... args) {
     return Camera3ShutterMsgPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -750,14 +750,20 @@ class  Camera3NotifyMsgMessage {
   using Data_ = internal::Camera3NotifyMsgMessage_Data;
   using Tag = Data_::Camera3NotifyMsgMessage_Tag;
 
-  static Camera3NotifyMsgMessagePtr New() {
-    return Camera3NotifyMsgMessagePtr(base::in_place);
+  template <typename... Args>
+  static Camera3NotifyMsgMessagePtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
   }
   // Construct an instance holding |error|.
   static Camera3NotifyMsgMessagePtr
   NewError(
       Camera3ErrorMsgPtr error) {
-    auto result = Camera3NotifyMsgMessagePtr(base::in_place);
+    auto result = Camera3NotifyMsgMessagePtr(absl::in_place);
     result->set_error(std::move(error));
     return result;
   }
@@ -765,7 +771,7 @@ class  Camera3NotifyMsgMessage {
   static Camera3NotifyMsgMessagePtr
   NewShutter(
       Camera3ShutterMsgPtr shutter) {
-    auto result = Camera3NotifyMsgMessagePtr(base::in_place);
+    auto result = Camera3NotifyMsgMessagePtr(absl::in_place);
     result->set_shutter(std::move(shutter));
     return result;
   }
@@ -773,7 +779,7 @@ class  Camera3NotifyMsgMessage {
   static Camera3NotifyMsgMessagePtr
   NewGeneric(
       std::vector<uint8_t> generic) {
-    auto result = Camera3NotifyMsgMessagePtr(base::in_place);
+    auto result = Camera3NotifyMsgMessagePtr(absl::in_place);
     result->set_generic(std::move(generic));
     return result;
   }
@@ -816,11 +822,11 @@ class  Camera3NotifyMsgMessage {
 
 
   
-  bool is_error() const { return tag_ == Tag::ERROR; }
+  bool is_error() const { return tag_ == Tag::kError; }
 
   
   Camera3ErrorMsgPtr& get_error() const {
-    CHECK(tag_ == Tag::ERROR);
+    CHECK(tag_ == Tag::kError);
     return *(data_.error);
   }
 
@@ -828,11 +834,11 @@ class  Camera3NotifyMsgMessage {
   void set_error(
       Camera3ErrorMsgPtr error);
   
-  bool is_shutter() const { return tag_ == Tag::SHUTTER; }
+  bool is_shutter() const { return tag_ == Tag::kShutter; }
 
   
   Camera3ShutterMsgPtr& get_shutter() const {
-    CHECK(tag_ == Tag::SHUTTER);
+    CHECK(tag_ == Tag::kShutter);
     return *(data_.shutter);
   }
 
@@ -840,11 +846,11 @@ class  Camera3NotifyMsgMessage {
   void set_shutter(
       Camera3ShutterMsgPtr shutter);
   
-  bool is_generic() const { return tag_ == Tag::GENERIC; }
+  bool is_generic() const { return tag_ == Tag::kGeneric; }
 
   
   std::vector<uint8_t>& get_generic() const {
-    CHECK(tag_ == Tag::GENERIC);
+    CHECK(tag_ == Tag::kGeneric);
     return *(data_.generic);
   }
 
@@ -897,7 +903,7 @@ class  Camera3Stream {
   template <typename... Args>
   static Camera3StreamPtr New(Args&&... args) {
     return Camera3StreamPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1089,7 +1095,7 @@ class  Camera3StreamConfiguration {
   template <typename... Args>
   static Camera3StreamConfigurationPtr New(Args&&... args) {
     return Camera3StreamConfigurationPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1238,7 +1244,7 @@ class  CameraBufferHandle {
   template <typename... Args>
   static CameraBufferHandlePtr New(Args&&... args) {
     return CameraBufferHandlePtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1406,7 +1412,7 @@ class  Camera3StreamBuffer {
   template <typename... Args>
   static Camera3StreamBufferPtr New(Args&&... args) {
     return Camera3StreamBufferPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1564,7 +1570,7 @@ class  Camera3NotifyMsg {
   template <typename... Args>
   static Camera3NotifyMsgPtr New(Args&&... args) {
     return Camera3NotifyMsgPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1706,7 +1712,7 @@ class  Camera3PhyscamMetadata {
   template <typename... Args>
   static Camera3PhyscamMetadataPtr New(Args&&... args) {
     return Camera3PhyscamMetadataPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1848,7 +1854,7 @@ class  Camera3CaptureRequest {
   template <typename... Args>
   static Camera3CaptureRequestPtr New(Args&&... args) {
     return Camera3CaptureRequestPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2000,7 +2006,7 @@ class  Camera3CaptureResult {
   template <typename... Args>
   static Camera3CaptureResultPtr New(Args&&... args) {
     return Camera3CaptureResultPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2144,21 +2150,18 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 template <typename UnionPtrType>
 Camera3NotifyMsgMessagePtr Camera3NotifyMsgMessage::Clone() const {
-  // Use UnionPtrType to prevent the compiler from trying to compile this
-  // without being asked.
-  UnionPtrType rv(New());
   switch (tag_) {
-    case Tag::ERROR:
-      rv->set_error(mojo::Clone(*data_.error));
-      break;
-    case Tag::SHUTTER:
-      rv->set_shutter(mojo::Clone(*data_.shutter));
-      break;
-    case Tag::GENERIC:
-      rv->set_generic(mojo::Clone(*data_.generic));
-      break;
+    case Tag::kError:
+      return NewError(
+          mojo::Clone(*data_.error));
+    case Tag::kShutter:
+      return NewShutter(
+          mojo::Clone(*data_.shutter));
+    case Tag::kGeneric:
+      return NewGeneric(
+          mojo::Clone(*data_.generic));
   }
-  return rv;
+  return nullptr;
 }
 
 template <typename T,
@@ -2169,11 +2172,11 @@ bool Camera3NotifyMsgMessage::Equals(const T& other) const {
     return false;
 
   switch (tag_) {
-    case Tag::ERROR:
+    case Tag::kError:
       return mojo::Equals(*(data_.error), *(other.data_.error));
-    case Tag::SHUTTER:
+    case Tag::kShutter:
       return mojo::Equals(*(data_.shutter), *(other.data_.shutter));
-    case Tag::GENERIC:
+    case Tag::kGeneric:
       return mojo::Equals(*(data_.generic), *(other.data_.generic));
   }
 

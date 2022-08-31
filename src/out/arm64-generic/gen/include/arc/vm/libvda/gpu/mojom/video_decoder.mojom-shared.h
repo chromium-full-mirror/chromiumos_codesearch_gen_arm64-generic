@@ -210,7 +210,7 @@ class DecoderBufferDataView {
   }
 
   Tag tag() const { return data_->tag; }
-  bool is_buffer() const { return data_->tag == Tag::BUFFER; }
+  bool is_buffer() const { return data_->tag == Tag::kBuffer; }
   inline void GetBufferDataView(
       BufferDataView* output) const;
 
@@ -221,7 +221,7 @@ class DecoderBufferDataView {
     return mojo::internal::Deserialize<::arc::mojom::BufferDataView>(
         data_->data.f_buffer.Get(), output, message_);
   }
-  bool is_end_of_stream() const { return data_->tag == Tag::END_OF_STREAM; }
+  bool is_end_of_stream() const { return data_->tag == Tag::kEndOfStream; }
   uint8_t end_of_stream() const {
     CHECK(is_end_of_stream());
     return data_->data.f_end_of_stream;
@@ -374,7 +374,7 @@ struct Serializer<::arc::mojom::DecoderBufferDataView, MaybeConstUserType> {
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::arc::mojom::DecoderBufferDataView::Tag::BUFFER: {
+      case ::arc::mojom::DecoderBufferDataView::Tag::kBuffer: {
         decltype(Traits::buffer(input))
             in_buffer = Traits::buffer(input);
         mojo::internal::MessageFragment<
@@ -390,7 +390,7 @@ struct Serializer<::arc::mojom::DecoderBufferDataView, MaybeConstUserType> {
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::arc::mojom::DecoderBufferDataView::Tag::END_OF_STREAM: {
+      case ::arc::mojom::DecoderBufferDataView::Tag::kEndOfStream: {
         decltype(Traits::end_of_stream(input))
             in_end_of_stream = Traits::end_of_stream(input);
         fragment->data.f_end_of_stream = in_end_of_stream;

@@ -393,7 +393,7 @@ class RunInputDataView {
   }
 
   Tag tag() const { return data_->tag; }
-  bool is_query_version() const { return data_->tag == Tag::QUERY_VERSION; }
+  bool is_query_version() const { return data_->tag == Tag::kQueryVersion; }
   inline void GetQueryVersionDataView(
       QueryVersionDataView* output) const;
 
@@ -404,7 +404,7 @@ class RunInputDataView {
     return mojo::internal::Deserialize<::mojo::interface_control::QueryVersionDataView>(
         data_->data.f_query_version.Get(), output, message_);
   }
-  bool is_flush_for_testing() const { return data_->tag == Tag::FLUSH_FOR_TESTING; }
+  bool is_flush_for_testing() const { return data_->tag == Tag::kFlushForTesting; }
   inline void GetFlushForTestingDataView(
       FlushForTestingDataView* output) const;
 
@@ -441,7 +441,7 @@ class RunOutputDataView {
   }
 
   Tag tag() const { return data_->tag; }
-  bool is_query_version_result() const { return data_->tag == Tag::QUERY_VERSION_RESULT; }
+  bool is_query_version_result() const { return data_->tag == Tag::kQueryVersionResult; }
   inline void GetQueryVersionResultDataView(
       QueryVersionResultDataView* output) const;
 
@@ -478,7 +478,7 @@ class RunOrClosePipeInputDataView {
   }
 
   Tag tag() const { return data_->tag; }
-  bool is_require_version() const { return data_->tag == Tag::REQUIRE_VERSION; }
+  bool is_require_version() const { return data_->tag == Tag::kRequireVersion; }
   inline void GetRequireVersionDataView(
       RequireVersionDataView* output) const;
 
@@ -489,7 +489,7 @@ class RunOrClosePipeInputDataView {
     return mojo::internal::Deserialize<::mojo::interface_control::RequireVersionDataView>(
         data_->data.f_require_version.Get(), output, message_);
   }
-  bool is_enable_idle_tracking() const { return data_->tag == Tag::ENABLE_IDLE_TRACKING; }
+  bool is_enable_idle_tracking() const { return data_->tag == Tag::kEnableIdleTracking; }
   inline void GetEnableIdleTrackingDataView(
       EnableIdleTrackingDataView* output) const;
 
@@ -500,7 +500,7 @@ class RunOrClosePipeInputDataView {
     return mojo::internal::Deserialize<::mojo::interface_control::EnableIdleTrackingDataView>(
         data_->data.f_enable_idle_tracking.Get(), output, message_);
   }
-  bool is_message_ack() const { return data_->tag == Tag::MESSAGE_ACK; }
+  bool is_message_ack() const { return data_->tag == Tag::kMessageAck; }
   inline void GetMessageAckDataView(
       MessageAckDataView* output) const;
 
@@ -511,7 +511,7 @@ class RunOrClosePipeInputDataView {
     return mojo::internal::Deserialize<::mojo::interface_control::MessageAckDataView>(
         data_->data.f_message_ack.Get(), output, message_);
   }
-  bool is_notify_idle() const { return data_->tag == Tag::NOTIFY_IDLE; }
+  bool is_notify_idle() const { return data_->tag == Tag::kNotifyIdle; }
   inline void GetNotifyIdleDataView(
       NotifyIdleDataView* output) const;
 
@@ -883,7 +883,7 @@ struct Serializer<::mojo::interface_control::RunInputDataView, MaybeConstUserTyp
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::mojo::interface_control::RunInputDataView::Tag::QUERY_VERSION: {
+      case ::mojo::interface_control::RunInputDataView::Tag::kQueryVersion: {
         decltype(Traits::query_version(input))
             in_query_version = Traits::query_version(input);
         mojo::internal::MessageFragment<
@@ -899,7 +899,7 @@ struct Serializer<::mojo::interface_control::RunInputDataView, MaybeConstUserTyp
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::mojo::interface_control::RunInputDataView::Tag::FLUSH_FOR_TESTING: {
+      case ::mojo::interface_control::RunInputDataView::Tag::kFlushForTesting: {
         decltype(Traits::flush_for_testing(input))
             in_flush_for_testing = Traits::flush_for_testing(input);
         mojo::internal::MessageFragment<
@@ -956,7 +956,7 @@ struct Serializer<::mojo::interface_control::RunOutputDataView, MaybeConstUserTy
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::mojo::interface_control::RunOutputDataView::Tag::QUERY_VERSION_RESULT: {
+      case ::mojo::interface_control::RunOutputDataView::Tag::kQueryVersionResult: {
         decltype(Traits::query_version_result(input))
             in_query_version_result = Traits::query_version_result(input);
         mojo::internal::MessageFragment<
@@ -1013,7 +1013,7 @@ struct Serializer<::mojo::interface_control::RunOrClosePipeInputDataView, MaybeC
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::mojo::interface_control::RunOrClosePipeInputDataView::Tag::REQUIRE_VERSION: {
+      case ::mojo::interface_control::RunOrClosePipeInputDataView::Tag::kRequireVersion: {
         decltype(Traits::require_version(input))
             in_require_version = Traits::require_version(input);
         mojo::internal::MessageFragment<
@@ -1029,7 +1029,7 @@ struct Serializer<::mojo::interface_control::RunOrClosePipeInputDataView, MaybeC
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::mojo::interface_control::RunOrClosePipeInputDataView::Tag::ENABLE_IDLE_TRACKING: {
+      case ::mojo::interface_control::RunOrClosePipeInputDataView::Tag::kEnableIdleTracking: {
         decltype(Traits::enable_idle_tracking(input))
             in_enable_idle_tracking = Traits::enable_idle_tracking(input);
         mojo::internal::MessageFragment<
@@ -1045,7 +1045,7 @@ struct Serializer<::mojo::interface_control::RunOrClosePipeInputDataView, MaybeC
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::mojo::interface_control::RunOrClosePipeInputDataView::Tag::MESSAGE_ACK: {
+      case ::mojo::interface_control::RunOrClosePipeInputDataView::Tag::kMessageAck: {
         decltype(Traits::message_ack(input))
             in_message_ack = Traits::message_ack(input);
         mojo::internal::MessageFragment<
@@ -1061,7 +1061,7 @@ struct Serializer<::mojo::interface_control::RunOrClosePipeInputDataView, MaybeC
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::mojo::interface_control::RunOrClosePipeInputDataView::Tag::NOTIFY_IDLE: {
+      case ::mojo::interface_control::RunOrClosePipeInputDataView::Tag::kNotifyIdle: {
         decltype(Traits::notify_idle(input))
             in_notify_idle = Traits::notify_idle(input);
         mojo::internal::MessageFragment<

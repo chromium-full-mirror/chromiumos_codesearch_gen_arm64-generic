@@ -89,13 +89,9 @@ class  DecoderBuffer_Data {
   enum class DecoderBuffer_Tag : uint32_t {
 
     
-    BUFFER,
+    kBuffer,
     
-    kBuffer = BUFFER,
-    
-    END_OF_STREAM,
-    
-    kEndOfStream = END_OF_STREAM,
+    kEndOfStream,
   };
 
   // A note on layout:

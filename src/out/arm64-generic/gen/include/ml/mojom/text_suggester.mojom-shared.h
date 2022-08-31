@@ -382,7 +382,7 @@ class TextSuggestionCandidateDataView {
   }
 
   Tag tag() const { return data_->tag; }
-  bool is_multi_word() const { return data_->tag == Tag::MULTI_WORD; }
+  bool is_multi_word() const { return data_->tag == Tag::kMultiWord; }
   inline void GetMultiWordDataView(
       MultiWordSuggestionCandidateDataView* output) const;
 
@@ -725,7 +725,7 @@ struct Serializer<::chromeos::machine_learning::mojom::TextSuggestionCandidateDa
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::machine_learning::mojom::TextSuggestionCandidateDataView::Tag::MULTI_WORD: {
+      case ::chromeos::machine_learning::mojom::TextSuggestionCandidateDataView::Tag::kMultiWord: {
         decltype(Traits::multi_word(input))
             in_multi_word = Traits::multi_word(input);
         mojo::internal::MessageFragment<

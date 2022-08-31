@@ -368,7 +368,7 @@ class  ProcessIdentity {
   template <typename... Args>
   static ProcessIdentityPtr New(Args&&... args) {
     return ProcessIdentityPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -516,7 +516,7 @@ class  UnregisteredServiceState {
   template <typename... Args>
   static UnregisteredServiceStatePtr New(Args&&... args) {
     return UnregisteredServiceStatePtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -650,7 +650,7 @@ class  Error {
   template <typename... Args>
   static ErrorPtr New(Args&&... args) {
     return ErrorPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -787,14 +787,20 @@ class  ErrorOrServiceState {
   using Data_ = internal::ErrorOrServiceState_Data;
   using Tag = Data_::ErrorOrServiceState_Tag;
 
-  static ErrorOrServiceStatePtr New() {
-    return ErrorOrServiceStatePtr(base::in_place);
+  template <typename... Args>
+  static ErrorOrServiceStatePtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
   }
   // Construct an instance holding |default_type|.
   static ErrorOrServiceStatePtr
   NewDefaultType(
       uint8_t default_type) {
-    auto result = ErrorOrServiceStatePtr(base::in_place);
+    auto result = ErrorOrServiceStatePtr(absl::in_place);
     result->set_default_type(std::move(default_type));
     return result;
   }
@@ -802,7 +808,7 @@ class  ErrorOrServiceState {
   static ErrorOrServiceStatePtr
   NewState(
       ServiceStatePtr state) {
-    auto result = ErrorOrServiceStatePtr(base::in_place);
+    auto result = ErrorOrServiceStatePtr(absl::in_place);
     result->set_state(std::move(state));
     return result;
   }
@@ -810,7 +816,7 @@ class  ErrorOrServiceState {
   static ErrorOrServiceStatePtr
   NewError(
       ErrorPtr error) {
-    auto result = ErrorOrServiceStatePtr(base::in_place);
+    auto result = ErrorOrServiceStatePtr(absl::in_place);
     result->set_error(std::move(error));
     return result;
   }
@@ -854,11 +860,11 @@ class  ErrorOrServiceState {
 
 
   
-  bool is_default_type() const { return tag_ == Tag::DEFAULT_TYPE; }
+  bool is_default_type() const { return tag_ == Tag::kDefaultType; }
 
   
   uint8_t get_default_type() const {
-    CHECK(tag_ == Tag::DEFAULT_TYPE);
+    CHECK(tag_ == Tag::kDefaultType);
     return data_.default_type;
   }
 
@@ -866,11 +872,11 @@ class  ErrorOrServiceState {
   void set_default_type(
       uint8_t default_type);
   
-  bool is_state() const { return tag_ == Tag::STATE; }
+  bool is_state() const { return tag_ == Tag::kState; }
 
   
   ServiceStatePtr& get_state() const {
-    CHECK(tag_ == Tag::STATE);
+    CHECK(tag_ == Tag::kState);
     return *(data_.state);
   }
 
@@ -878,11 +884,11 @@ class  ErrorOrServiceState {
   void set_state(
       ServiceStatePtr state);
   
-  bool is_error() const { return tag_ == Tag::ERROR; }
+  bool is_error() const { return tag_ == Tag::kError; }
 
   
   ErrorPtr& get_error() const {
-    CHECK(tag_ == Tag::ERROR);
+    CHECK(tag_ == Tag::kError);
     return *(data_.error);
   }
 
@@ -928,14 +934,20 @@ class  ServiceState {
   using Data_ = internal::ServiceState_Data;
   using Tag = Data_::ServiceState_Tag;
 
-  static ServiceStatePtr New() {
-    return ServiceStatePtr(base::in_place);
+  template <typename... Args>
+  static ServiceStatePtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
   }
   // Construct an instance holding |default_type|.
   static ServiceStatePtr
   NewDefaultType(
       uint8_t default_type) {
-    auto result = ServiceStatePtr(base::in_place);
+    auto result = ServiceStatePtr(absl::in_place);
     result->set_default_type(std::move(default_type));
     return result;
   }
@@ -943,7 +955,7 @@ class  ServiceState {
   static ServiceStatePtr
   NewRegisteredState(
       RegisteredServiceStatePtr registered_state) {
-    auto result = ServiceStatePtr(base::in_place);
+    auto result = ServiceStatePtr(absl::in_place);
     result->set_registered_state(std::move(registered_state));
     return result;
   }
@@ -951,7 +963,7 @@ class  ServiceState {
   static ServiceStatePtr
   NewUnregisteredState(
       UnregisteredServiceStatePtr unregistered_state) {
-    auto result = ServiceStatePtr(base::in_place);
+    auto result = ServiceStatePtr(absl::in_place);
     result->set_unregistered_state(std::move(unregistered_state));
     return result;
   }
@@ -995,11 +1007,11 @@ class  ServiceState {
 
 
   
-  bool is_default_type() const { return tag_ == Tag::DEFAULT_TYPE; }
+  bool is_default_type() const { return tag_ == Tag::kDefaultType; }
 
   
   uint8_t get_default_type() const {
-    CHECK(tag_ == Tag::DEFAULT_TYPE);
+    CHECK(tag_ == Tag::kDefaultType);
     return data_.default_type;
   }
 
@@ -1007,11 +1019,11 @@ class  ServiceState {
   void set_default_type(
       uint8_t default_type);
   
-  bool is_registered_state() const { return tag_ == Tag::REGISTERED_STATE; }
+  bool is_registered_state() const { return tag_ == Tag::kRegisteredState; }
 
   
   RegisteredServiceStatePtr& get_registered_state() const {
-    CHECK(tag_ == Tag::REGISTERED_STATE);
+    CHECK(tag_ == Tag::kRegisteredState);
     return *(data_.registered_state);
   }
 
@@ -1019,11 +1031,11 @@ class  ServiceState {
   void set_registered_state(
       RegisteredServiceStatePtr registered_state);
   
-  bool is_unregistered_state() const { return tag_ == Tag::UNREGISTERED_STATE; }
+  bool is_unregistered_state() const { return tag_ == Tag::kUnregisteredState; }
 
   
   UnregisteredServiceStatePtr& get_unregistered_state() const {
-    CHECK(tag_ == Tag::UNREGISTERED_STATE);
+    CHECK(tag_ == Tag::kUnregisteredState);
     return *(data_.unregistered_state);
   }
 
@@ -1076,7 +1088,7 @@ class  RegisteredServiceState {
   template <typename... Args>
   static RegisteredServiceStatePtr New(Args&&... args) {
     return RegisteredServiceStatePtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1218,7 +1230,7 @@ class  ServiceEvent {
   template <typename... Args>
   static ServiceEventPtr New(Args&&... args) {
     return ServiceEventPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1353,21 +1365,18 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 template <typename UnionPtrType>
 ErrorOrServiceStatePtr ErrorOrServiceState::Clone() const {
-  // Use UnionPtrType to prevent the compiler from trying to compile this
-  // without being asked.
-  UnionPtrType rv(New());
   switch (tag_) {
-    case Tag::DEFAULT_TYPE:
-      rv->set_default_type(mojo::Clone(data_.default_type));
-      break;
-    case Tag::STATE:
-      rv->set_state(mojo::Clone(*data_.state));
-      break;
-    case Tag::ERROR:
-      rv->set_error(mojo::Clone(*data_.error));
-      break;
+    case Tag::kDefaultType:
+      return NewDefaultType(
+          mojo::Clone(data_.default_type));
+    case Tag::kState:
+      return NewState(
+          mojo::Clone(*data_.state));
+    case Tag::kError:
+      return NewError(
+          mojo::Clone(*data_.error));
   }
-  return rv;
+  return nullptr;
 }
 
 template <typename T,
@@ -1378,11 +1387,11 @@ bool ErrorOrServiceState::Equals(const T& other) const {
     return false;
 
   switch (tag_) {
-    case Tag::DEFAULT_TYPE:
+    case Tag::kDefaultType:
       return mojo::Equals(data_.default_type, other.data_.default_type);
-    case Tag::STATE:
+    case Tag::kState:
       return mojo::Equals(*(data_.state), *(other.data_.state));
-    case Tag::ERROR:
+    case Tag::kError:
       return mojo::Equals(*(data_.error), *(other.data_.error));
   }
 
@@ -1390,21 +1399,18 @@ bool ErrorOrServiceState::Equals(const T& other) const {
 }
 template <typename UnionPtrType>
 ServiceStatePtr ServiceState::Clone() const {
-  // Use UnionPtrType to prevent the compiler from trying to compile this
-  // without being asked.
-  UnionPtrType rv(New());
   switch (tag_) {
-    case Tag::DEFAULT_TYPE:
-      rv->set_default_type(mojo::Clone(data_.default_type));
-      break;
-    case Tag::REGISTERED_STATE:
-      rv->set_registered_state(mojo::Clone(*data_.registered_state));
-      break;
-    case Tag::UNREGISTERED_STATE:
-      rv->set_unregistered_state(mojo::Clone(*data_.unregistered_state));
-      break;
+    case Tag::kDefaultType:
+      return NewDefaultType(
+          mojo::Clone(data_.default_type));
+    case Tag::kRegisteredState:
+      return NewRegisteredState(
+          mojo::Clone(*data_.registered_state));
+    case Tag::kUnregisteredState:
+      return NewUnregisteredState(
+          mojo::Clone(*data_.unregistered_state));
   }
-  return rv;
+  return nullptr;
 }
 
 template <typename T,
@@ -1415,11 +1421,11 @@ bool ServiceState::Equals(const T& other) const {
     return false;
 
   switch (tag_) {
-    case Tag::DEFAULT_TYPE:
+    case Tag::kDefaultType:
       return mojo::Equals(data_.default_type, other.data_.default_type);
-    case Tag::REGISTERED_STATE:
+    case Tag::kRegisteredState:
       return mojo::Equals(*(data_.registered_state), *(other.data_.registered_state));
-    case Tag::UNREGISTERED_STATE:
+    case Tag::kUnregisteredState:
       return mojo::Equals(*(data_.unregistered_state), *(other.data_.unregistered_state));
   }
 

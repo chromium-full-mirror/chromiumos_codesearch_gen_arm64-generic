@@ -52,7 +52,7 @@ class  Rect {
   template <typename... Args>
   static RectPtr New(Args&&... args) {
     return RectPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -199,7 +199,7 @@ class  Range {
   template <typename... Args>
   static RangePtr New(Args&&... args) {
     return RangePtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -340,7 +340,7 @@ class  Size {
   template <typename... Args>
   static SizePtr New(Args&&... args) {
     return SizePtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

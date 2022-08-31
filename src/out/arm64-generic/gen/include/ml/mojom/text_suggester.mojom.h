@@ -157,7 +157,7 @@ class  NextWordCompletionCandidate {
   template <typename... Args>
   static NextWordCompletionCandidatePtr New(Args&&... args) {
     return NextWordCompletionCandidatePtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -299,7 +299,7 @@ class  MultiWordSuggestionCandidate {
   template <typename... Args>
   static MultiWordSuggestionCandidatePtr New(Args&&... args) {
     return MultiWordSuggestionCandidatePtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -441,7 +441,7 @@ class  TextSuggesterSpec {
   template <typename... Args>
   static TextSuggesterSpecPtr New(Args&&... args) {
     return TextSuggesterSpecPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -575,14 +575,20 @@ class  TextSuggestionCandidate {
   using Data_ = internal::TextSuggestionCandidate_Data;
   using Tag = Data_::TextSuggestionCandidate_Tag;
 
-  static TextSuggestionCandidatePtr New() {
-    return TextSuggestionCandidatePtr(base::in_place);
+  template <typename... Args>
+  static TextSuggestionCandidatePtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
   }
   // Construct an instance holding |multi_word|.
   static TextSuggestionCandidatePtr
   NewMultiWord(
       MultiWordSuggestionCandidatePtr multi_word) {
-    auto result = TextSuggestionCandidatePtr(base::in_place);
+    auto result = TextSuggestionCandidatePtr(absl::in_place);
     result->set_multi_word(std::move(multi_word));
     return result;
   }
@@ -626,11 +632,11 @@ class  TextSuggestionCandidate {
 
 
   
-  bool is_multi_word() const { return tag_ == Tag::MULTI_WORD; }
+  bool is_multi_word() const { return tag_ == Tag::kMultiWord; }
 
   
   MultiWordSuggestionCandidatePtr& get_multi_word() const {
-    CHECK(tag_ == Tag::MULTI_WORD);
+    CHECK(tag_ == Tag::kMultiWord);
     return *(data_.multi_word);
   }
 
@@ -681,7 +687,7 @@ class  TextSuggesterQuery {
   template <typename... Args>
   static TextSuggesterQueryPtr New(Args&&... args) {
     return TextSuggesterQueryPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -832,7 +838,7 @@ class  TextSuggesterResult {
   template <typename... Args>
   static TextSuggesterResultPtr New(Args&&... args) {
     return TextSuggesterResultPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -963,15 +969,12 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 template <typename UnionPtrType>
 TextSuggestionCandidatePtr TextSuggestionCandidate::Clone() const {
-  // Use UnionPtrType to prevent the compiler from trying to compile this
-  // without being asked.
-  UnionPtrType rv(New());
   switch (tag_) {
-    case Tag::MULTI_WORD:
-      rv->set_multi_word(mojo::Clone(*data_.multi_word));
-      break;
+    case Tag::kMultiWord:
+      return NewMultiWord(
+          mojo::Clone(*data_.multi_word));
   }
-  return rv;
+  return nullptr;
 }
 
 template <typename T,
@@ -982,7 +985,7 @@ bool TextSuggestionCandidate::Equals(const T& other) const {
     return false;
 
   switch (tag_) {
-    case Tag::MULTI_WORD:
+    case Tag::kMultiWord:
       return mojo::Equals(*(data_.multi_word), *(other.data_.multi_word));
   }
 

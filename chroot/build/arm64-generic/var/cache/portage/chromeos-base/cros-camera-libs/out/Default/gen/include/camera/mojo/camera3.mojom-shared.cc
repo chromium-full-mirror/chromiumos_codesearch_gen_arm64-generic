@@ -305,7 +305,7 @@ bool Camera3NotifyMsgMessage_Data::Validate(
 
   switch (object->tag) {
 
-    case Camera3NotifyMsgMessage_Tag::ERROR: {
+    case Camera3NotifyMsgMessage_Tag::kError: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_error, 1, validation_context)) {
@@ -315,7 +315,7 @@ bool Camera3NotifyMsgMessage_Data::Validate(
         return false;
       return true;
     }
-    case Camera3NotifyMsgMessage_Tag::SHUTTER: {
+    case Camera3NotifyMsgMessage_Tag::kShutter: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_shutter, 2, validation_context)) {
@@ -325,7 +325,7 @@ bool Camera3NotifyMsgMessage_Data::Validate(
         return false;
       return true;
     }
-    case Camera3NotifyMsgMessage_Tag::GENERIC: {
+    case Camera3NotifyMsgMessage_Tag::kGeneric: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_generic, 3, validation_context)) {

@@ -372,7 +372,7 @@ class BitrateDataView {
   }
 
   Tag tag() const { return data_->tag; }
-  bool is_constant() const { return data_->tag == Tag::CONSTANT; }
+  bool is_constant() const { return data_->tag == Tag::kConstant; }
   inline void GetConstantDataView(
       ConstantBitrateDataView* output) const;
 
@@ -383,7 +383,7 @@ class BitrateDataView {
     return mojo::internal::Deserialize<::arc::mojom::ConstantBitrateDataView>(
         data_->data.f_constant.Get(), output, message_);
   }
-  bool is_variable() const { return data_->tag == Tag::VARIABLE; }
+  bool is_variable() const { return data_->tag == Tag::kVariable; }
   inline void GetVariableDataView(
       VariableBitrateDataView* output) const;
 
@@ -672,7 +672,7 @@ struct Serializer<::arc::mojom::BitrateDataView, MaybeConstUserType> {
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::arc::mojom::BitrateDataView::Tag::CONSTANT: {
+      case ::arc::mojom::BitrateDataView::Tag::kConstant: {
         decltype(Traits::constant(input))
             in_constant = Traits::constant(input);
         mojo::internal::MessageFragment<
@@ -688,7 +688,7 @@ struct Serializer<::arc::mojom::BitrateDataView, MaybeConstUserType> {
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::arc::mojom::BitrateDataView::Tag::VARIABLE: {
+      case ::arc::mojom::BitrateDataView::Tag::kVariable: {
         decltype(Traits::variable(input))
             in_variable = Traits::variable(input);
         mojo::internal::MessageFragment<

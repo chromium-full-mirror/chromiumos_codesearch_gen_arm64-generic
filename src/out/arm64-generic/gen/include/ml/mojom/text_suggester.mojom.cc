@@ -269,7 +269,7 @@ bool TextSuggesterSpec::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
-TextSuggestionCandidate::TextSuggestionCandidate() : tag_(Tag::MULTI_WORD) {
+TextSuggestionCandidate::TextSuggestionCandidate() : tag_(Tag::kMultiWord) {
   data_.multi_word = new MultiWordSuggestionCandidatePtr;
 }
 
@@ -280,11 +280,11 @@ TextSuggestionCandidate::~TextSuggestionCandidate() {
 
 void TextSuggestionCandidate::set_multi_word(
     MultiWordSuggestionCandidatePtr multi_word) {
-  if (tag_ == Tag::MULTI_WORD) {
+  if (tag_ == Tag::kMultiWord) {
     *(data_.multi_word) = std::move(multi_word);
   } else {
     DestroyActive();
-    tag_ = Tag::MULTI_WORD;
+    tag_ = Tag::kMultiWord;
     data_.multi_word = new MultiWordSuggestionCandidatePtr(
         std::move(multi_word));
   }
@@ -293,7 +293,7 @@ void TextSuggestionCandidate::set_multi_word(
 void TextSuggestionCandidate::DestroyActive() {
   switch (tag_) {
 
-    case Tag::MULTI_WORD:
+    case Tag::kMultiWord:
 
       delete data_.multi_word;
       break;
@@ -303,7 +303,7 @@ size_t TextSuggestionCandidate::Hash(size_t seed) const {
   seed = mojo::internal::HashCombine(seed, static_cast<uint32_t>(tag_));
   switch (tag_) {
 
-    case Tag::MULTI_WORD:
+    case Tag::kMultiWord:
       return mojo::internal::Hash(seed, data_.multi_word);
     default:
       NOTREACHED();
@@ -714,7 +714,7 @@ bool UnionTraits<::chromeos::machine_learning::mojom::TextSuggestionCandidate::D
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
-    case Tag::MULTI_WORD: {
+    case Tag::kMultiWord: {
       ::chromeos::machine_learning::mojom::MultiWordSuggestionCandidatePtr result_multi_word;
       if (!input.ReadMultiWord(&result_multi_word))
         return false;

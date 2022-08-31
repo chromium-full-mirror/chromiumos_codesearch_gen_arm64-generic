@@ -56,7 +56,7 @@ class  FileInfo {
   template <typename... Args>
   static FileInfoPtr New(Args&&... args) {
     return FileInfoPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

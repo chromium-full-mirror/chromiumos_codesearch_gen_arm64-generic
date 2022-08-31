@@ -946,7 +946,7 @@ bool Camera3CaptureResult::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
-Camera3NotifyMsgMessage::Camera3NotifyMsgMessage() : tag_(Tag::ERROR) {
+Camera3NotifyMsgMessage::Camera3NotifyMsgMessage() : tag_(Tag::kError) {
   data_.error = new Camera3ErrorMsgPtr;
 }
 
@@ -957,33 +957,33 @@ Camera3NotifyMsgMessage::~Camera3NotifyMsgMessage() {
 
 void Camera3NotifyMsgMessage::set_error(
     Camera3ErrorMsgPtr error) {
-  if (tag_ == Tag::ERROR) {
+  if (tag_ == Tag::kError) {
     *(data_.error) = std::move(error);
   } else {
     DestroyActive();
-    tag_ = Tag::ERROR;
+    tag_ = Tag::kError;
     data_.error = new Camera3ErrorMsgPtr(
         std::move(error));
   }
 }
 void Camera3NotifyMsgMessage::set_shutter(
     Camera3ShutterMsgPtr shutter) {
-  if (tag_ == Tag::SHUTTER) {
+  if (tag_ == Tag::kShutter) {
     *(data_.shutter) = std::move(shutter);
   } else {
     DestroyActive();
-    tag_ = Tag::SHUTTER;
+    tag_ = Tag::kShutter;
     data_.shutter = new Camera3ShutterMsgPtr(
         std::move(shutter));
   }
 }
 void Camera3NotifyMsgMessage::set_generic(
     std::vector<uint8_t> generic) {
-  if (tag_ == Tag::GENERIC) {
+  if (tag_ == Tag::kGeneric) {
     *(data_.generic) = std::move(generic);
   } else {
     DestroyActive();
-    tag_ = Tag::GENERIC;
+    tag_ = Tag::kGeneric;
     data_.generic = new std::vector<uint8_t>(
         std::move(generic));
   }
@@ -992,15 +992,15 @@ void Camera3NotifyMsgMessage::set_generic(
 void Camera3NotifyMsgMessage::DestroyActive() {
   switch (tag_) {
 
-    case Tag::ERROR:
+    case Tag::kError:
 
       delete data_.error;
       break;
-    case Tag::SHUTTER:
+    case Tag::kShutter:
 
       delete data_.shutter;
       break;
-    case Tag::GENERIC:
+    case Tag::kGeneric:
 
       delete data_.generic;
       break;
@@ -3519,7 +3519,7 @@ bool UnionTraits<::cros::mojom::Camera3NotifyMsgMessage::DataView, ::cros::mojom
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
-    case Tag::ERROR: {
+    case Tag::kError: {
       ::cros::mojom::Camera3ErrorMsgPtr result_error;
       if (!input.ReadError(&result_error))
         return false;
@@ -3528,7 +3528,7 @@ bool UnionTraits<::cros::mojom::Camera3NotifyMsgMessage::DataView, ::cros::mojom
           std::move(result_error));
       break;
     }
-    case Tag::SHUTTER: {
+    case Tag::kShutter: {
       ::cros::mojom::Camera3ShutterMsgPtr result_shutter;
       if (!input.ReadShutter(&result_shutter))
         return false;
@@ -3537,7 +3537,7 @@ bool UnionTraits<::cros::mojom::Camera3NotifyMsgMessage::DataView, ::cros::mojom
           std::move(result_shutter));
       break;
     }
-    case Tag::GENERIC: {
+    case Tag::kGeneric: {
       std::vector<uint8_t> result_generic;
       if (!input.ReadGeneric(&result_generic))
         return false;

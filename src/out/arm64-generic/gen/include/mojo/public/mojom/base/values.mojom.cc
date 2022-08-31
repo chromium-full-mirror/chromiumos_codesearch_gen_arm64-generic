@@ -159,7 +159,7 @@ bool DeprecatedListValue::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
-Value::Value() : tag_(Tag::NULL_VALUE) {
+Value::Value() : tag_(Tag::kNullValue) {
   data_.null_value = uint8_t();
 }
 
@@ -170,76 +170,76 @@ Value::~Value() {
 
 void Value::set_null_value(
     uint8_t null_value) {
-  if (tag_ != Tag::NULL_VALUE) {
+  if (tag_ != Tag::kNullValue) {
     DestroyActive();
-    tag_ = Tag::NULL_VALUE;
+    tag_ = Tag::kNullValue;
   }
   data_.null_value = null_value;
 }
 void Value::set_bool_value(
     bool bool_value) {
-  if (tag_ != Tag::BOOL_VALUE) {
+  if (tag_ != Tag::kBoolValue) {
     DestroyActive();
-    tag_ = Tag::BOOL_VALUE;
+    tag_ = Tag::kBoolValue;
   }
   data_.bool_value = bool_value;
 }
 void Value::set_int_value(
     int32_t int_value) {
-  if (tag_ != Tag::INT_VALUE) {
+  if (tag_ != Tag::kIntValue) {
     DestroyActive();
-    tag_ = Tag::INT_VALUE;
+    tag_ = Tag::kIntValue;
   }
   data_.int_value = int_value;
 }
 void Value::set_double_value(
     double double_value) {
-  if (tag_ != Tag::DOUBLE_VALUE) {
+  if (tag_ != Tag::kDoubleValue) {
     DestroyActive();
-    tag_ = Tag::DOUBLE_VALUE;
+    tag_ = Tag::kDoubleValue;
   }
   data_.double_value = double_value;
 }
 void Value::set_string_value(
     const std::string& string_value) {
-  if (tag_ == Tag::STRING_VALUE) {
+  if (tag_ == Tag::kStringValue) {
     *(data_.string_value) = std::move(string_value);
   } else {
     DestroyActive();
-    tag_ = Tag::STRING_VALUE;
+    tag_ = Tag::kStringValue;
     data_.string_value = new std::string(
         std::move(string_value));
   }
 }
 void Value::set_binary_value(
     std::vector<uint8_t> binary_value) {
-  if (tag_ == Tag::BINARY_VALUE) {
+  if (tag_ == Tag::kBinaryValue) {
     *(data_.binary_value) = std::move(binary_value);
   } else {
     DestroyActive();
-    tag_ = Tag::BINARY_VALUE;
+    tag_ = Tag::kBinaryValue;
     data_.binary_value = new std::vector<uint8_t>(
         std::move(binary_value));
   }
 }
 void Value::set_dictionary_value(
     DictionaryValuePtr dictionary_value) {
-  if (tag_ == Tag::DICTIONARY_VALUE) {
+  if (tag_ == Tag::kDictionaryValue) {
     *(data_.dictionary_value) = std::move(dictionary_value);
   } else {
     DestroyActive();
-    tag_ = Tag::DICTIONARY_VALUE;
+    tag_ = Tag::kDictionaryValue;
     data_.dictionary_value = new DictionaryValuePtr(
         std::move(dictionary_value));
   }
 }
 void Value::set_list_value(
     ListValuePtr list_value) {
-  if (tag_ == Tag::LIST_VALUE) {
+  if (tag_ == Tag::kListValue) {
     *(data_.list_value) = std::move(list_value);
   } else {
     DestroyActive();
-    tag_ = Tag::LIST_VALUE;
+    tag_ = Tag::kListValue;
     data_.list_value = new ListValuePtr(
         std::move(list_value));
   }
@@ -248,31 +248,31 @@ void Value::set_list_value(
 void Value::DestroyActive() {
   switch (tag_) {
 
-    case Tag::NULL_VALUE:
+    case Tag::kNullValue:
 
       break;
-    case Tag::BOOL_VALUE:
+    case Tag::kBoolValue:
 
       break;
-    case Tag::INT_VALUE:
+    case Tag::kIntValue:
 
       break;
-    case Tag::DOUBLE_VALUE:
+    case Tag::kDoubleValue:
 
       break;
-    case Tag::STRING_VALUE:
+    case Tag::kStringValue:
 
       delete data_.string_value;
       break;
-    case Tag::BINARY_VALUE:
+    case Tag::kBinaryValue:
 
       delete data_.binary_value;
       break;
-    case Tag::DICTIONARY_VALUE:
+    case Tag::kDictionaryValue:
 
       delete data_.dictionary_value;
       break;
-    case Tag::LIST_VALUE:
+    case Tag::kListValue:
 
       delete data_.list_value;
       break;
@@ -356,23 +356,23 @@ bool UnionTraits<::mojo_base::mojom::Value::DataView, ::mojo_base::mojom::ValueP
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
-    case Tag::NULL_VALUE: {
+    case Tag::kNullValue: {
       *output = UnionType::NewNullValue(input.null_value());
       break;
     }
-    case Tag::BOOL_VALUE: {
+    case Tag::kBoolValue: {
       *output = UnionType::NewBoolValue(input.bool_value());
       break;
     }
-    case Tag::INT_VALUE: {
+    case Tag::kIntValue: {
       *output = UnionType::NewIntValue(input.int_value());
       break;
     }
-    case Tag::DOUBLE_VALUE: {
+    case Tag::kDoubleValue: {
       *output = UnionType::NewDoubleValue(input.double_value());
       break;
     }
-    case Tag::STRING_VALUE: {
+    case Tag::kStringValue: {
       std::string result_string_value;
       if (!input.ReadStringValue(&result_string_value))
         return false;
@@ -381,7 +381,7 @@ bool UnionTraits<::mojo_base::mojom::Value::DataView, ::mojo_base::mojom::ValueP
           std::move(result_string_value));
       break;
     }
-    case Tag::BINARY_VALUE: {
+    case Tag::kBinaryValue: {
       std::vector<uint8_t> result_binary_value;
       if (!input.ReadBinaryValue(&result_binary_value))
         return false;
@@ -390,7 +390,7 @@ bool UnionTraits<::mojo_base::mojom::Value::DataView, ::mojo_base::mojom::ValueP
           std::move(result_binary_value));
       break;
     }
-    case Tag::DICTIONARY_VALUE: {
+    case Tag::kDictionaryValue: {
       ::mojo_base::mojom::DictionaryValuePtr result_dictionary_value;
       if (!input.ReadDictionaryValue(&result_dictionary_value))
         return false;
@@ -399,7 +399,7 @@ bool UnionTraits<::mojo_base::mojom::Value::DataView, ::mojo_base::mojom::ValueP
           std::move(result_dictionary_value));
       break;
     }
-    case Tag::LIST_VALUE: {
+    case Tag::kListValue: {
       ::mojo_base::mojom::ListValuePtr result_list_value;
       if (!input.ReadListValue(&result_list_value))
         return false;

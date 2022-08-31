@@ -118,17 +118,11 @@ class  ErrorOrServiceState_Data {
   enum class ErrorOrServiceState_Tag : uint32_t {
 
     
-    DEFAULT_TYPE,
+    kDefaultType,
     
-    kDefaultType = DEFAULT_TYPE,
+    kState,
     
-    STATE,
-    
-    kState = STATE,
-    
-    ERROR,
-    
-    kError = ERROR,
+    kError,
   };
 
   // A note on layout:
@@ -179,17 +173,11 @@ class  ServiceState_Data {
   enum class ServiceState_Tag : uint32_t {
 
     
-    DEFAULT_TYPE,
+    kDefaultType,
     
-    kDefaultType = DEFAULT_TYPE,
+    kRegisteredState,
     
-    REGISTERED_STATE,
-    
-    kRegisteredState = REGISTERED_STATE,
-    
-    UNREGISTERED_STATE,
-    
-    kUnregisteredState = UNREGISTERED_STATE,
+    kUnregisteredState,
   };
 
   // A note on layout:

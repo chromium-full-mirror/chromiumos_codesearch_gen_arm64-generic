@@ -44,7 +44,7 @@ struct TableStruct_pinweaver_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[8]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[7]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -66,9 +66,6 @@ extern PinWeaverRemoveLeafLogEntryDefaultTypeInternal _PinWeaverRemoveLeafLogEnt
 class PinWeaverResetTreeLogEntry;
 struct PinWeaverResetTreeLogEntryDefaultTypeInternal;
 extern PinWeaverResetTreeLogEntryDefaultTypeInternal _PinWeaverResetTreeLogEntry_default_instance_;
-class PinWeaverTimestamp;
-struct PinWeaverTimestampDefaultTypeInternal;
-extern PinWeaverTimestampDefaultTypeInternal _PinWeaverTimestamp_default_instance_;
 class ValidPcrCriteria;
 struct ValidPcrCriteriaDefaultTypeInternal;
 extern ValidPcrCriteriaDefaultTypeInternal _ValidPcrCriteria_default_instance_;
@@ -82,7 +79,6 @@ template<> ::trunks::PinWeaverInsertLeafLogEntry* Arena::CreateMaybeMessage<::tr
 template<> ::trunks::PinWeaverLogEntry* Arena::CreateMaybeMessage<::trunks::PinWeaverLogEntry>(Arena*);
 template<> ::trunks::PinWeaverRemoveLeafLogEntry* Arena::CreateMaybeMessage<::trunks::PinWeaverRemoveLeafLogEntry>(Arena*);
 template<> ::trunks::PinWeaverResetTreeLogEntry* Arena::CreateMaybeMessage<::trunks::PinWeaverResetTreeLogEntry>(Arena*);
-template<> ::trunks::PinWeaverTimestamp* Arena::CreateMaybeMessage<::trunks::PinWeaverTimestamp>(Arena*);
 template<> ::trunks::ValidPcrCriteria* Arena::CreateMaybeMessage<::trunks::ValidPcrCriteria>(Arena*);
 template<> ::trunks::ValidPcrValue* Arena::CreateMaybeMessage<::trunks::ValidPcrValue>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
@@ -459,147 +455,6 @@ class PinWeaverResetTreeLogEntry final :
 };
 // -------------------------------------------------------------------
 
-class PinWeaverTimestamp final :
-    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:trunks.PinWeaverTimestamp) */ {
- public:
-  inline PinWeaverTimestamp() : PinWeaverTimestamp(nullptr) {}
-  ~PinWeaverTimestamp() override;
-  explicit constexpr PinWeaverTimestamp(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
-
-  PinWeaverTimestamp(const PinWeaverTimestamp& from);
-  PinWeaverTimestamp(PinWeaverTimestamp&& from) noexcept
-    : PinWeaverTimestamp() {
-    *this = ::std::move(from);
-  }
-
-  inline PinWeaverTimestamp& operator=(const PinWeaverTimestamp& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline PinWeaverTimestamp& operator=(PinWeaverTimestamp&& from) noexcept {
-    if (this == &from) return *this;
-    if (GetOwningArena() == from.GetOwningArena()
-  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
-        && GetOwningArena() != nullptr
-  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
-    ) {
-      InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  static const PinWeaverTimestamp& default_instance() {
-    return *internal_default_instance();
-  }
-  static inline const PinWeaverTimestamp* internal_default_instance() {
-    return reinterpret_cast<const PinWeaverTimestamp*>(
-               &_PinWeaverTimestamp_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    3;
-
-  friend void swap(PinWeaverTimestamp& a, PinWeaverTimestamp& b) {
-    a.Swap(&b);
-  }
-  inline void Swap(PinWeaverTimestamp* other) {
-    if (other == this) return;
-  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() != nullptr &&
-        GetOwningArena() == other->GetOwningArena()) {
-   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
-    if (GetOwningArena() == other->GetOwningArena()) {
-  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
-      InternalSwap(other);
-    } else {
-      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
-    }
-  }
-  void UnsafeArenaSwap(PinWeaverTimestamp* other) {
-    if (other == this) return;
-    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  PinWeaverTimestamp* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<PinWeaverTimestamp>(arena);
-  }
-  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
-  void CopyFrom(const PinWeaverTimestamp& from);
-  void MergeFrom(const PinWeaverTimestamp& from);
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  uint8_t* _InternalSerialize(
-      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
-  int GetCachedSize() const final { return _cached_size_.Get(); }
-
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  void InternalSwap(PinWeaverTimestamp* other);
-
-  private:
-  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "trunks.PinWeaverTimestamp";
-  }
-  protected:
-  explicit PinWeaverTimestamp(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                       bool is_message_owned = false);
-  private:
-  static void ArenaDtor(void* object);
-  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
-  public:
-
-  std::string GetTypeName() const final;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  enum : int {
-    kTimerValueFieldNumber = 2,
-    kBootCountFieldNumber = 1,
-  };
-  // uint64 timer_value = 2;
-  void clear_timer_value();
-  uint64_t timer_value() const;
-  void set_timer_value(uint64_t value);
-  private:
-  uint64_t _internal_timer_value() const;
-  void _internal_set_timer_value(uint64_t value);
-  public:
-
-  // uint32 boot_count = 1;
-  void clear_boot_count();
-  uint32_t boot_count() const;
-  void set_boot_count(uint32_t value);
-  private:
-  uint32_t _internal_boot_count() const;
-  void _internal_set_boot_count(uint32_t value);
-  public:
-
-  // @@protoc_insertion_point(class_scope:trunks.PinWeaverTimestamp)
- private:
-  class _Internal;
-
-  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
-  typedef void InternalArenaConstructable_;
-  typedef void DestructorSkippable_;
-  uint64_t timer_value_;
-  uint32_t boot_count_;
-  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  friend struct ::TableStruct_pinweaver_2eproto;
-};
-// -------------------------------------------------------------------
-
 class PinWeaverAuthLogEntry final :
     public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:trunks.PinWeaverAuthLogEntry) */ {
  public:
@@ -639,7 +494,7 @@ class PinWeaverAuthLogEntry final :
                &_PinWeaverAuthLogEntry_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    4;
+    3;
 
   friend void swap(PinWeaverAuthLogEntry& a, PinWeaverAuthLogEntry& b) {
     a.Swap(&b);
@@ -705,37 +560,6 @@ class PinWeaverAuthLogEntry final :
 
   // accessors -------------------------------------------------------
 
-  enum : int {
-    kTimestampFieldNumber = 1,
-    kReturnCodeFieldNumber = 2,
-  };
-  // .trunks.PinWeaverTimestamp timestamp = 1;
-  bool has_timestamp() const;
-  private:
-  bool _internal_has_timestamp() const;
-  public:
-  void clear_timestamp();
-  const ::trunks::PinWeaverTimestamp& timestamp() const;
-  PROTOBUF_NODISCARD ::trunks::PinWeaverTimestamp* release_timestamp();
-  ::trunks::PinWeaverTimestamp* mutable_timestamp();
-  void set_allocated_timestamp(::trunks::PinWeaverTimestamp* timestamp);
-  private:
-  const ::trunks::PinWeaverTimestamp& _internal_timestamp() const;
-  ::trunks::PinWeaverTimestamp* _internal_mutable_timestamp();
-  public:
-  void unsafe_arena_set_allocated_timestamp(
-      ::trunks::PinWeaverTimestamp* timestamp);
-  ::trunks::PinWeaverTimestamp* unsafe_arena_release_timestamp();
-
-  // uint32 return_code = 2;
-  void clear_return_code();
-  uint32_t return_code() const;
-  void set_return_code(uint32_t value);
-  private:
-  uint32_t _internal_return_code() const;
-  void _internal_set_return_code(uint32_t value);
-  public:
-
   // @@protoc_insertion_point(class_scope:trunks.PinWeaverAuthLogEntry)
  private:
   class _Internal;
@@ -743,8 +567,6 @@ class PinWeaverAuthLogEntry final :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  ::trunks::PinWeaverTimestamp* timestamp_;
-  uint32_t return_code_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_pinweaver_2eproto;
 };
@@ -797,7 +619,7 @@ class PinWeaverLogEntry final :
                &_PinWeaverLogEntry_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    5;
+    4;
 
   friend void swap(PinWeaverLogEntry& a, PinWeaverLogEntry& b) {
     a.Swap(&b);
@@ -1038,7 +860,7 @@ class ValidPcrValue final :
                &_ValidPcrValue_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    6;
+    5;
 
   friend void swap(ValidPcrValue& a, ValidPcrValue& b) {
     a.Swap(&b);
@@ -1189,7 +1011,7 @@ class ValidPcrCriteria final :
                &_ValidPcrCriteria_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    7;
+    6;
 
   friend void swap(ValidPcrCriteria& a, ValidPcrCriteria& b) {
     a.Swap(&b);
@@ -1359,161 +1181,7 @@ inline void PinWeaverInsertLeafLogEntry::set_allocated_hmac(std::string* hmac) {
 
 // -------------------------------------------------------------------
 
-// PinWeaverTimestamp
-
-// uint32 boot_count = 1;
-inline void PinWeaverTimestamp::clear_boot_count() {
-  boot_count_ = 0u;
-}
-inline uint32_t PinWeaverTimestamp::_internal_boot_count() const {
-  return boot_count_;
-}
-inline uint32_t PinWeaverTimestamp::boot_count() const {
-  // @@protoc_insertion_point(field_get:trunks.PinWeaverTimestamp.boot_count)
-  return _internal_boot_count();
-}
-inline void PinWeaverTimestamp::_internal_set_boot_count(uint32_t value) {
-  
-  boot_count_ = value;
-}
-inline void PinWeaverTimestamp::set_boot_count(uint32_t value) {
-  _internal_set_boot_count(value);
-  // @@protoc_insertion_point(field_set:trunks.PinWeaverTimestamp.boot_count)
-}
-
-// uint64 timer_value = 2;
-inline void PinWeaverTimestamp::clear_timer_value() {
-  timer_value_ = uint64_t{0u};
-}
-inline uint64_t PinWeaverTimestamp::_internal_timer_value() const {
-  return timer_value_;
-}
-inline uint64_t PinWeaverTimestamp::timer_value() const {
-  // @@protoc_insertion_point(field_get:trunks.PinWeaverTimestamp.timer_value)
-  return _internal_timer_value();
-}
-inline void PinWeaverTimestamp::_internal_set_timer_value(uint64_t value) {
-  
-  timer_value_ = value;
-}
-inline void PinWeaverTimestamp::set_timer_value(uint64_t value) {
-  _internal_set_timer_value(value);
-  // @@protoc_insertion_point(field_set:trunks.PinWeaverTimestamp.timer_value)
-}
-
-// -------------------------------------------------------------------
-
 // PinWeaverAuthLogEntry
-
-// .trunks.PinWeaverTimestamp timestamp = 1;
-inline bool PinWeaverAuthLogEntry::_internal_has_timestamp() const {
-  return this != internal_default_instance() && timestamp_ != nullptr;
-}
-inline bool PinWeaverAuthLogEntry::has_timestamp() const {
-  return _internal_has_timestamp();
-}
-inline void PinWeaverAuthLogEntry::clear_timestamp() {
-  if (GetArenaForAllocation() == nullptr && timestamp_ != nullptr) {
-    delete timestamp_;
-  }
-  timestamp_ = nullptr;
-}
-inline const ::trunks::PinWeaverTimestamp& PinWeaverAuthLogEntry::_internal_timestamp() const {
-  const ::trunks::PinWeaverTimestamp* p = timestamp_;
-  return p != nullptr ? *p : reinterpret_cast<const ::trunks::PinWeaverTimestamp&>(
-      ::trunks::_PinWeaverTimestamp_default_instance_);
-}
-inline const ::trunks::PinWeaverTimestamp& PinWeaverAuthLogEntry::timestamp() const {
-  // @@protoc_insertion_point(field_get:trunks.PinWeaverAuthLogEntry.timestamp)
-  return _internal_timestamp();
-}
-inline void PinWeaverAuthLogEntry::unsafe_arena_set_allocated_timestamp(
-    ::trunks::PinWeaverTimestamp* timestamp) {
-  if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(timestamp_);
-  }
-  timestamp_ = timestamp;
-  if (timestamp) {
-    
-  } else {
-    
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:trunks.PinWeaverAuthLogEntry.timestamp)
-}
-inline ::trunks::PinWeaverTimestamp* PinWeaverAuthLogEntry::release_timestamp() {
-  
-  ::trunks::PinWeaverTimestamp* temp = timestamp_;
-  timestamp_ = nullptr;
-#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
-  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
-  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  if (GetArenaForAllocation() == nullptr) { delete old; }
-#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
-  if (GetArenaForAllocation() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
-  return temp;
-}
-inline ::trunks::PinWeaverTimestamp* PinWeaverAuthLogEntry::unsafe_arena_release_timestamp() {
-  // @@protoc_insertion_point(field_release:trunks.PinWeaverAuthLogEntry.timestamp)
-  
-  ::trunks::PinWeaverTimestamp* temp = timestamp_;
-  timestamp_ = nullptr;
-  return temp;
-}
-inline ::trunks::PinWeaverTimestamp* PinWeaverAuthLogEntry::_internal_mutable_timestamp() {
-  
-  if (timestamp_ == nullptr) {
-    auto* p = CreateMaybeMessage<::trunks::PinWeaverTimestamp>(GetArenaForAllocation());
-    timestamp_ = p;
-  }
-  return timestamp_;
-}
-inline ::trunks::PinWeaverTimestamp* PinWeaverAuthLogEntry::mutable_timestamp() {
-  ::trunks::PinWeaverTimestamp* _msg = _internal_mutable_timestamp();
-  // @@protoc_insertion_point(field_mutable:trunks.PinWeaverAuthLogEntry.timestamp)
-  return _msg;
-}
-inline void PinWeaverAuthLogEntry::set_allocated_timestamp(::trunks::PinWeaverTimestamp* timestamp) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  if (message_arena == nullptr) {
-    delete timestamp_;
-  }
-  if (timestamp) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::trunks::PinWeaverTimestamp>::GetOwningArena(timestamp);
-    if (message_arena != submessage_arena) {
-      timestamp = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, timestamp, submessage_arena);
-    }
-    
-  } else {
-    
-  }
-  timestamp_ = timestamp;
-  // @@protoc_insertion_point(field_set_allocated:trunks.PinWeaverAuthLogEntry.timestamp)
-}
-
-// uint32 return_code = 2;
-inline void PinWeaverAuthLogEntry::clear_return_code() {
-  return_code_ = 0u;
-}
-inline uint32_t PinWeaverAuthLogEntry::_internal_return_code() const {
-  return return_code_;
-}
-inline uint32_t PinWeaverAuthLogEntry::return_code() const {
-  // @@protoc_insertion_point(field_get:trunks.PinWeaverAuthLogEntry.return_code)
-  return _internal_return_code();
-}
-inline void PinWeaverAuthLogEntry::_internal_set_return_code(uint32_t value) {
-  
-  return_code_ = value;
-}
-inline void PinWeaverAuthLogEntry::set_return_code(uint32_t value) {
-  _internal_set_return_code(value);
-  // @@protoc_insertion_point(field_set:trunks.PinWeaverAuthLogEntry.return_code)
-}
 
 // -------------------------------------------------------------------
 
@@ -2048,8 +1716,6 @@ ValidPcrCriteria::valid_pcr_values() const {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
-// -------------------------------------------------------------------
-
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

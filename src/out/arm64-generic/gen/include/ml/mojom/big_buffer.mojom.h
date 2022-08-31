@@ -50,14 +50,20 @@ class  BigBuffer {
   using Data_ = internal::BigBuffer_Data;
   using Tag = Data_::BigBuffer_Tag;
 
-  static BigBufferPtr New() {
-    return BigBufferPtr(base::in_place);
+  template <typename... Args>
+  static BigBufferPtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
   }
   // Construct an instance holding |bytes|.
   static BigBufferPtr
   NewBytes(
       std::vector<uint8_t> bytes) {
-    auto result = BigBufferPtr(base::in_place);
+    auto result = BigBufferPtr(absl::in_place);
     result->set_bytes(std::move(bytes));
     return result;
   }
@@ -65,7 +71,7 @@ class  BigBuffer {
   static BigBufferPtr
   NewSharedMemory(
       BigBufferSharedMemoryRegionPtr shared_memory) {
-    auto result = BigBufferPtr(base::in_place);
+    auto result = BigBufferPtr(absl::in_place);
     result->set_shared_memory(std::move(shared_memory));
     return result;
   }
@@ -73,7 +79,7 @@ class  BigBuffer {
   static BigBufferPtr
   NewInvalidBuffer(
       bool invalid_buffer) {
-    auto result = BigBufferPtr(base::in_place);
+    auto result = BigBufferPtr(absl::in_place);
     result->set_invalid_buffer(std::move(invalid_buffer));
     return result;
   }
@@ -116,11 +122,11 @@ class  BigBuffer {
 
 
   
-  bool is_bytes() const { return tag_ == Tag::BYTES; }
+  bool is_bytes() const { return tag_ == Tag::kBytes; }
 
   
   std::vector<uint8_t>& get_bytes() const {
-    CHECK(tag_ == Tag::BYTES);
+    CHECK(tag_ == Tag::kBytes);
     return *(data_.bytes);
   }
 
@@ -128,11 +134,11 @@ class  BigBuffer {
   void set_bytes(
       std::vector<uint8_t> bytes);
   
-  bool is_shared_memory() const { return tag_ == Tag::SHARED_MEMORY; }
+  bool is_shared_memory() const { return tag_ == Tag::kSharedMemory; }
 
   
   BigBufferSharedMemoryRegionPtr& get_shared_memory() const {
-    CHECK(tag_ == Tag::SHARED_MEMORY);
+    CHECK(tag_ == Tag::kSharedMemory);
     return *(data_.shared_memory);
   }
 
@@ -140,11 +146,11 @@ class  BigBuffer {
   void set_shared_memory(
       BigBufferSharedMemoryRegionPtr shared_memory);
   
-  bool is_invalid_buffer() const { return tag_ == Tag::INVALID_BUFFER; }
+  bool is_invalid_buffer() const { return tag_ == Tag::kInvalidBuffer; }
 
   
   bool get_invalid_buffer() const {
-    CHECK(tag_ == Tag::INVALID_BUFFER);
+    CHECK(tag_ == Tag::kInvalidBuffer);
     return data_.invalid_buffer;
   }
 
@@ -196,7 +202,7 @@ class  BigBufferSharedMemoryRegion {
   template <typename... Args>
   static BigBufferSharedMemoryRegionPtr New(Args&&... args) {
     return BigBufferSharedMemoryRegionPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -321,21 +327,18 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 template <typename UnionPtrType>
 BigBufferPtr BigBuffer::Clone() const {
-  // Use UnionPtrType to prevent the compiler from trying to compile this
-  // without being asked.
-  UnionPtrType rv(New());
   switch (tag_) {
-    case Tag::BYTES:
-      rv->set_bytes(mojo::Clone(*data_.bytes));
-      break;
-    case Tag::SHARED_MEMORY:
-      rv->set_shared_memory(mojo::Clone(*data_.shared_memory));
-      break;
-    case Tag::INVALID_BUFFER:
-      rv->set_invalid_buffer(mojo::Clone(data_.invalid_buffer));
-      break;
+    case Tag::kBytes:
+      return NewBytes(
+          mojo::Clone(*data_.bytes));
+    case Tag::kSharedMemory:
+      return NewSharedMemory(
+          mojo::Clone(*data_.shared_memory));
+    case Tag::kInvalidBuffer:
+      return NewInvalidBuffer(
+          mojo::Clone(data_.invalid_buffer));
   }
-  return rv;
+  return nullptr;
 }
 
 template <typename T,
@@ -346,11 +349,11 @@ bool BigBuffer::Equals(const T& other) const {
     return false;
 
   switch (tag_) {
-    case Tag::BYTES:
+    case Tag::kBytes:
       return mojo::Equals(*(data_.bytes), *(other.data_.bytes));
-    case Tag::SHARED_MEMORY:
+    case Tag::kSharedMemory:
       return mojo::Equals(*(data_.shared_memory), *(other.data_.shared_memory));
-    case Tag::INVALID_BUFFER:
+    case Tag::kInvalidBuffer:
       return mojo::Equals(data_.invalid_buffer, other.data_.invalid_buffer);
   }
 

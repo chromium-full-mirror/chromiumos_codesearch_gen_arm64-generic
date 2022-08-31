@@ -62,17 +62,11 @@ class  RunOrClosePipeInput_Data {
   enum class RunOrClosePipeInput_Tag : uint32_t {
 
     
-    PEER_ASSOCIATED_ENDPOINT_CLOSED_EVENT,
+    kPeerAssociatedEndpointClosedEvent,
     
-    kPeerAssociatedEndpointClosedEvent = PEER_ASSOCIATED_ENDPOINT_CLOSED_EVENT,
+    kPauseUntilFlushCompletes,
     
-    PAUSE_UNTIL_FLUSH_COMPLETES,
-    
-    kPauseUntilFlushCompletes = PAUSE_UNTIL_FLUSH_COMPLETES,
-    
-    FLUSH_ASYNC,
-    
-    kFlushAsync = FLUSH_ASYNC,
+    kFlushAsync,
   };
 
   // A note on layout:

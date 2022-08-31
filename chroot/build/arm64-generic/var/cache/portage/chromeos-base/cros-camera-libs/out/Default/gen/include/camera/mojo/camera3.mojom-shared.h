@@ -1027,7 +1027,7 @@ class Camera3NotifyMsgMessageDataView {
   }
 
   Tag tag() const { return data_->tag; }
-  bool is_error() const { return data_->tag == Tag::ERROR; }
+  bool is_error() const { return data_->tag == Tag::kError; }
   inline void GetErrorDataView(
       Camera3ErrorMsgDataView* output) const;
 
@@ -1038,7 +1038,7 @@ class Camera3NotifyMsgMessageDataView {
     return mojo::internal::Deserialize<::cros::mojom::Camera3ErrorMsgDataView>(
         data_->data.f_error.Get(), output, message_);
   }
-  bool is_shutter() const { return data_->tag == Tag::SHUTTER; }
+  bool is_shutter() const { return data_->tag == Tag::kShutter; }
   inline void GetShutterDataView(
       Camera3ShutterMsgDataView* output) const;
 
@@ -1049,7 +1049,7 @@ class Camera3NotifyMsgMessageDataView {
     return mojo::internal::Deserialize<::cros::mojom::Camera3ShutterMsgDataView>(
         data_->data.f_shutter.Get(), output, message_);
   }
-  bool is_generic() const { return data_->tag == Tag::GENERIC; }
+  bool is_generic() const { return data_->tag == Tag::kGeneric; }
   inline void GetGenericDataView(
       mojo::ArrayDataView<uint8_t>* output) const;
 
@@ -1885,7 +1885,7 @@ struct Serializer<::cros::mojom::Camera3NotifyMsgMessageDataView, MaybeConstUser
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::cros::mojom::Camera3NotifyMsgMessageDataView::Tag::ERROR: {
+      case ::cros::mojom::Camera3NotifyMsgMessageDataView::Tag::kError: {
         decltype(Traits::error(input))
             in_error = Traits::error(input);
         mojo::internal::MessageFragment<
@@ -1901,7 +1901,7 @@ struct Serializer<::cros::mojom::Camera3NotifyMsgMessageDataView, MaybeConstUser
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::cros::mojom::Camera3NotifyMsgMessageDataView::Tag::SHUTTER: {
+      case ::cros::mojom::Camera3NotifyMsgMessageDataView::Tag::kShutter: {
         decltype(Traits::shutter(input))
             in_shutter = Traits::shutter(input);
         mojo::internal::MessageFragment<
@@ -1917,7 +1917,7 @@ struct Serializer<::cros::mojom::Camera3NotifyMsgMessageDataView, MaybeConstUser
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::cros::mojom::Camera3NotifyMsgMessageDataView::Tag::GENERIC: {
+      case ::cros::mojom::Camera3NotifyMsgMessageDataView::Tag::kGeneric: {
         decltype(Traits::generic(input))
             in_generic = Traits::generic(input);
         mojo::internal::MessageFragment<

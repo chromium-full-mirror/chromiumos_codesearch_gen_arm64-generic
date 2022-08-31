@@ -177,7 +177,7 @@ class  CodepointSpan {
   template <typename... Args>
   static CodepointSpanPtr New(Args&&... args) {
     return CodepointSpanPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -318,7 +318,7 @@ class  TextLanguage {
   template <typename... Args>
   static TextLanguagePtr New(Args&&... args) {
     return TextLanguagePtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -456,14 +456,20 @@ class  TextEntityData {
   using Data_ = internal::TextEntityData_Data;
   using Tag = Data_::TextEntityData_Tag;
 
-  static TextEntityDataPtr New() {
-    return TextEntityDataPtr(base::in_place);
+  template <typename... Args>
+  static TextEntityDataPtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
   }
   // Construct an instance holding |numeric_value|.
   static TextEntityDataPtr
   NewNumericValue(
       double numeric_value) {
-    auto result = TextEntityDataPtr(base::in_place);
+    auto result = TextEntityDataPtr(absl::in_place);
     result->set_numeric_value(std::move(numeric_value));
     return result;
   }
@@ -471,7 +477,7 @@ class  TextEntityData {
   static TextEntityDataPtr
   NewStringValue(
       const std::string& string_value) {
-    auto result = TextEntityDataPtr(base::in_place);
+    auto result = TextEntityDataPtr(absl::in_place);
     result->set_string_value(std::move(string_value));
     return result;
   }
@@ -515,11 +521,11 @@ class  TextEntityData {
 
 
   
-  bool is_numeric_value() const { return tag_ == Tag::NUMERIC_VALUE; }
+  bool is_numeric_value() const { return tag_ == Tag::kNumericValue; }
 
   
   double get_numeric_value() const {
-    CHECK(tag_ == Tag::NUMERIC_VALUE);
+    CHECK(tag_ == Tag::kNumericValue);
     return data_.numeric_value;
   }
 
@@ -527,11 +533,11 @@ class  TextEntityData {
   void set_numeric_value(
       double numeric_value);
   
-  bool is_string_value() const { return tag_ == Tag::STRING_VALUE; }
+  bool is_string_value() const { return tag_ == Tag::kStringValue; }
 
   
   std::string& get_string_value() const {
-    CHECK(tag_ == Tag::STRING_VALUE);
+    CHECK(tag_ == Tag::kStringValue);
     return *(data_.string_value);
   }
 
@@ -582,7 +588,7 @@ class  TextEntity {
   template <typename... Args>
   static TextEntityPtr New(Args&&... args) {
     return TextEntityPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -728,7 +734,7 @@ class  TextAnnotation {
   template <typename... Args>
   static TextAnnotationPtr New(Args&&... args) {
     return TextAnnotationPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -873,7 +879,7 @@ class  TextAnnotationRequest {
   template <typename... Args>
   static TextAnnotationRequestPtr New(Args&&... args) {
     return TextAnnotationRequestPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1042,7 +1048,7 @@ class  REMOVED_TextSuggestSelectionRequest {
   template <typename... Args>
   static REMOVED_TextSuggestSelectionRequestPtr New(Args&&... args) {
     return REMOVED_TextSuggestSelectionRequestPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1181,18 +1187,15 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 template <typename UnionPtrType>
 TextEntityDataPtr TextEntityData::Clone() const {
-  // Use UnionPtrType to prevent the compiler from trying to compile this
-  // without being asked.
-  UnionPtrType rv(New());
   switch (tag_) {
-    case Tag::NUMERIC_VALUE:
-      rv->set_numeric_value(mojo::Clone(data_.numeric_value));
-      break;
-    case Tag::STRING_VALUE:
-      rv->set_string_value(mojo::Clone(*data_.string_value));
-      break;
+    case Tag::kNumericValue:
+      return NewNumericValue(
+          mojo::Clone(data_.numeric_value));
+    case Tag::kStringValue:
+      return NewStringValue(
+          mojo::Clone(*data_.string_value));
   }
-  return rv;
+  return nullptr;
 }
 
 template <typename T,
@@ -1203,9 +1206,9 @@ bool TextEntityData::Equals(const T& other) const {
     return false;
 
   switch (tag_) {
-    case Tag::NUMERIC_VALUE:
+    case Tag::kNumericValue:
       return mojo::Equals(data_.numeric_value, other.data_.numeric_value);
-    case Tag::STRING_VALUE:
+    case Tag::kStringValue:
       return mojo::Equals(*(data_.string_value), *(other.data_.string_value));
   }
 

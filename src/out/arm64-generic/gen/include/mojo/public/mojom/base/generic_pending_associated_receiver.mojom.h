@@ -146,7 +146,7 @@ class  GenericPendingAssociatedReceiver {
   template <typename... Args>
   static GenericPendingAssociatedReceiverPtr New(Args&&... args) {
     return GenericPendingAssociatedReceiverPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -109,11 +109,11 @@ bool ErrorOrServiceState_Data::Validate(
 
   switch (object->tag) {
 
-    case ErrorOrServiceState_Tag::DEFAULT_TYPE: {
+    case ErrorOrServiceState_Tag::kDefaultType: {
 
       return true;
     }
-    case ErrorOrServiceState_Tag::STATE: {
+    case ErrorOrServiceState_Tag::kState: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_state, 2, validation_context)) {
@@ -124,7 +124,7 @@ bool ErrorOrServiceState_Data::Validate(
         return false;
       return true;
     }
-    case ErrorOrServiceState_Tag::ERROR: {
+    case ErrorOrServiceState_Tag::kError: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_error, 3, validation_context)) {
@@ -167,11 +167,11 @@ bool ServiceState_Data::Validate(
 
   switch (object->tag) {
 
-    case ServiceState_Tag::DEFAULT_TYPE: {
+    case ServiceState_Tag::kDefaultType: {
 
       return true;
     }
-    case ServiceState_Tag::REGISTERED_STATE: {
+    case ServiceState_Tag::kRegisteredState: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_registered_state, 2, validation_context)) {
@@ -181,7 +181,7 @@ bool ServiceState_Data::Validate(
         return false;
       return true;
     }
-    case ServiceState_Tag::UNREGISTERED_STATE: {
+    case ServiceState_Tag::kUnregisteredState: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_unregistered_state, 3, validation_context)) {

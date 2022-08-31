@@ -537,7 +537,7 @@ bool RoutineProblems_Data::Validate(
 
   switch (object->tag) {
 
-    case RoutineProblems_Tag::LAN_CONNECTIVITY_PROBLEMS: {
+    case RoutineProblems_Tag::kLanConnectivityProblems: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_lan_connectivity_problems, 1, validation_context)) {
@@ -551,7 +551,7 @@ bool RoutineProblems_Data::Validate(
       }
       return true;
     }
-    case RoutineProblems_Tag::SIGNAL_STRENGTH_PROBLEMS: {
+    case RoutineProblems_Tag::kSignalStrengthProblems: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_signal_strength_problems, 2, validation_context)) {
@@ -565,7 +565,7 @@ bool RoutineProblems_Data::Validate(
       }
       return true;
     }
-    case RoutineProblems_Tag::GATEWAY_CAN_BE_PINGED_PROBLEMS: {
+    case RoutineProblems_Tag::kGatewayCanBePingedProblems: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_gateway_can_be_pinged_problems, 3, validation_context)) {
@@ -579,7 +579,7 @@ bool RoutineProblems_Data::Validate(
       }
       return true;
     }
-    case RoutineProblems_Tag::HAS_SECURE_WIFI_CONNECTION_PROBLEMS: {
+    case RoutineProblems_Tag::kHasSecureWifiConnectionProblems: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_has_secure_wifi_connection_problems, 4, validation_context)) {
@@ -593,7 +593,7 @@ bool RoutineProblems_Data::Validate(
       }
       return true;
     }
-    case RoutineProblems_Tag::DNS_RESOLVER_PRESENT_PROBLEMS: {
+    case RoutineProblems_Tag::kDnsResolverPresentProblems: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_dns_resolver_present_problems, 5, validation_context)) {
@@ -607,7 +607,7 @@ bool RoutineProblems_Data::Validate(
       }
       return true;
     }
-    case RoutineProblems_Tag::DNS_LATENCY_PROBLEMS: {
+    case RoutineProblems_Tag::kDnsLatencyProblems: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_dns_latency_problems, 6, validation_context)) {
@@ -621,7 +621,7 @@ bool RoutineProblems_Data::Validate(
       }
       return true;
     }
-    case RoutineProblems_Tag::DNS_RESOLUTION_PROBLEMS: {
+    case RoutineProblems_Tag::kDnsResolutionProblems: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_dns_resolution_problems, 7, validation_context)) {
@@ -635,7 +635,7 @@ bool RoutineProblems_Data::Validate(
       }
       return true;
     }
-    case RoutineProblems_Tag::CAPTIVE_PORTAL_PROBLEMS: {
+    case RoutineProblems_Tag::kCaptivePortalProblems: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_captive_portal_problems, 8, validation_context)) {
@@ -649,7 +649,7 @@ bool RoutineProblems_Data::Validate(
       }
       return true;
     }
-    case RoutineProblems_Tag::HTTP_FIREWALL_PROBLEMS: {
+    case RoutineProblems_Tag::kHttpFirewallProblems: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_http_firewall_problems, 9, validation_context)) {
@@ -663,7 +663,7 @@ bool RoutineProblems_Data::Validate(
       }
       return true;
     }
-    case RoutineProblems_Tag::HTTPS_FIREWALL_PROBLEMS: {
+    case RoutineProblems_Tag::kHttpsFirewallProblems: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_https_firewall_problems, 10, validation_context)) {
@@ -677,7 +677,7 @@ bool RoutineProblems_Data::Validate(
       }
       return true;
     }
-    case RoutineProblems_Tag::HTTPS_LATENCY_PROBLEMS: {
+    case RoutineProblems_Tag::kHttpsLatencyProblems: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_https_latency_problems, 11, validation_context)) {
@@ -691,7 +691,7 @@ bool RoutineProblems_Data::Validate(
       }
       return true;
     }
-    case RoutineProblems_Tag::VIDEO_CONFERENCING_PROBLEMS: {
+    case RoutineProblems_Tag::kVideoConferencingProblems: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_video_conferencing_problems, 12, validation_context)) {
@@ -705,7 +705,7 @@ bool RoutineProblems_Data::Validate(
       }
       return true;
     }
-    case RoutineProblems_Tag::ARC_HTTP_PROBLEMS: {
+    case RoutineProblems_Tag::kArcHttpProblems: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_arc_http_problems, 13, validation_context)) {
@@ -719,7 +719,7 @@ bool RoutineProblems_Data::Validate(
       }
       return true;
     }
-    case RoutineProblems_Tag::ARC_DNS_RESOLUTION_PROBLEMS: {
+    case RoutineProblems_Tag::kArcDnsResolutionProblems: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_arc_dns_resolution_problems, 14, validation_context)) {
@@ -733,7 +733,7 @@ bool RoutineProblems_Data::Validate(
       }
       return true;
     }
-    case RoutineProblems_Tag::ARC_PING_PROBLEMS: {
+    case RoutineProblems_Tag::kArcPingProblems: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_arc_ping_problems, 15, validation_context)) {
@@ -784,7 +784,7 @@ bool RoutineResultValue_Data::Validate(
 
   switch (object->tag) {
 
-    case RoutineResultValue_Tag::HTTPS_LATENCY_RESULT_VALUE: {
+    case RoutineResultValue_Tag::kHttpsLatencyResultValue: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_https_latency_result_value, 1, validation_context)) {

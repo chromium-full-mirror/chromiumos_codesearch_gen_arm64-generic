@@ -128,7 +128,7 @@ bool TextSuggestionCandidate_Data::Validate(
 
   switch (object->tag) {
 
-    case TextSuggestionCandidate_Tag::MULTI_WORD: {
+    case TextSuggestionCandidate_Tag::kMultiWord: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_multi_word, 1, validation_context)) {

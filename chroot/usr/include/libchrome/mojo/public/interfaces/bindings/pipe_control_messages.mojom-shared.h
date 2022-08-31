@@ -267,7 +267,7 @@ class RunOrClosePipeInputDataView {
   }
 
   Tag tag() const { return data_->tag; }
-  bool is_peer_associated_endpoint_closed_event() const { return data_->tag == Tag::PEER_ASSOCIATED_ENDPOINT_CLOSED_EVENT; }
+  bool is_peer_associated_endpoint_closed_event() const { return data_->tag == Tag::kPeerAssociatedEndpointClosedEvent; }
   inline void GetPeerAssociatedEndpointClosedEventDataView(
       PeerAssociatedEndpointClosedEventDataView* output) const;
 
@@ -278,7 +278,7 @@ class RunOrClosePipeInputDataView {
     return mojo::internal::Deserialize<::mojo::pipe_control::PeerAssociatedEndpointClosedEventDataView>(
         data_->data.f_peer_associated_endpoint_closed_event.Get(), output, message_);
   }
-  bool is_pause_until_flush_completes() const { return data_->tag == Tag::PAUSE_UNTIL_FLUSH_COMPLETES; }
+  bool is_pause_until_flush_completes() const { return data_->tag == Tag::kPauseUntilFlushCompletes; }
   inline void GetPauseUntilFlushCompletesDataView(
       PauseUntilFlushCompletesDataView* output) const;
 
@@ -289,7 +289,7 @@ class RunOrClosePipeInputDataView {
     return mojo::internal::Deserialize<::mojo::pipe_control::PauseUntilFlushCompletesDataView>(
         data_->data.f_pause_until_flush_completes.Get(), output, message_);
   }
-  bool is_flush_async() const { return data_->tag == Tag::FLUSH_ASYNC; }
+  bool is_flush_async() const { return data_->tag == Tag::kFlushAsync; }
   inline void GetFlushAsyncDataView(
       FlushAsyncDataView* output) const;
 
@@ -533,7 +533,7 @@ struct Serializer<::mojo::pipe_control::RunOrClosePipeInputDataView, MaybeConstU
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::mojo::pipe_control::RunOrClosePipeInputDataView::Tag::PEER_ASSOCIATED_ENDPOINT_CLOSED_EVENT: {
+      case ::mojo::pipe_control::RunOrClosePipeInputDataView::Tag::kPeerAssociatedEndpointClosedEvent: {
         decltype(Traits::peer_associated_endpoint_closed_event(input))
             in_peer_associated_endpoint_closed_event = Traits::peer_associated_endpoint_closed_event(input);
         mojo::internal::MessageFragment<
@@ -549,7 +549,7 @@ struct Serializer<::mojo::pipe_control::RunOrClosePipeInputDataView, MaybeConstU
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::mojo::pipe_control::RunOrClosePipeInputDataView::Tag::PAUSE_UNTIL_FLUSH_COMPLETES: {
+      case ::mojo::pipe_control::RunOrClosePipeInputDataView::Tag::kPauseUntilFlushCompletes: {
         decltype(Traits::pause_until_flush_completes(input))
             in_pause_until_flush_completes = Traits::pause_until_flush_completes(input);
         mojo::internal::MessageFragment<
@@ -565,7 +565,7 @@ struct Serializer<::mojo::pipe_control::RunOrClosePipeInputDataView, MaybeConstU
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::mojo::pipe_control::RunOrClosePipeInputDataView::Tag::FLUSH_ASYNC: {
+      case ::mojo::pipe_control::RunOrClosePipeInputDataView::Tag::kFlushAsync: {
         decltype(Traits::flush_async(input))
             in_flush_async = Traits::flush_async(input);
         mojo::internal::MessageFragment<

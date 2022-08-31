@@ -167,21 +167,13 @@ class  SpeechRecognizerEvent_Data {
   enum class SpeechRecognizerEvent_Tag : uint32_t {
 
     
-    AUDIO_EVENT,
+    kAudioEvent,
     
-    kAudioEvent = AUDIO_EVENT,
+    kPartialResult,
     
-    PARTIAL_RESULT,
+    kEndpointerEvent,
     
-    kPartialResult = PARTIAL_RESULT,
-    
-    ENDPOINTER_EVENT,
-    
-    kEndpointerEvent = ENDPOINTER_EVENT,
-    
-    FINAL_RESULT,
-    
-    kFinalResult = FINAL_RESULT,
+    kFinalResult,
   };
 
   // A note on layout:

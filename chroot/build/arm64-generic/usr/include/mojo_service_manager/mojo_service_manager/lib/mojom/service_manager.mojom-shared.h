@@ -382,12 +382,12 @@ class ErrorOrServiceStateDataView {
   }
 
   Tag tag() const { return data_->tag; }
-  bool is_default_type() const { return data_->tag == Tag::DEFAULT_TYPE; }
+  bool is_default_type() const { return data_->tag == Tag::kDefaultType; }
   uint8_t default_type() const {
     CHECK(is_default_type());
     return data_->data.f_default_type;
   }
-  bool is_state() const { return data_->tag == Tag::STATE; }
+  bool is_state() const { return data_->tag == Tag::kState; }
   inline void GetStateDataView(
       ServiceStateDataView* output) const;
 
@@ -398,7 +398,7 @@ class ErrorOrServiceStateDataView {
     return mojo::internal::Deserialize<::chromeos::mojo_service_manager::mojom::ServiceStateDataView>(
         data_->data.f_state.Get(), output, message_);
   }
-  bool is_error() const { return data_->tag == Tag::ERROR; }
+  bool is_error() const { return data_->tag == Tag::kError; }
   inline void GetErrorDataView(
       ErrorDataView* output) const;
 
@@ -435,12 +435,12 @@ class ServiceStateDataView {
   }
 
   Tag tag() const { return data_->tag; }
-  bool is_default_type() const { return data_->tag == Tag::DEFAULT_TYPE; }
+  bool is_default_type() const { return data_->tag == Tag::kDefaultType; }
   uint8_t default_type() const {
     CHECK(is_default_type());
     return data_->data.f_default_type;
   }
-  bool is_registered_state() const { return data_->tag == Tag::REGISTERED_STATE; }
+  bool is_registered_state() const { return data_->tag == Tag::kRegisteredState; }
   inline void GetRegisteredStateDataView(
       RegisteredServiceStateDataView* output) const;
 
@@ -451,7 +451,7 @@ class ServiceStateDataView {
     return mojo::internal::Deserialize<::chromeos::mojo_service_manager::mojom::RegisteredServiceStateDataView>(
         data_->data.f_registered_state.Get(), output, message_);
   }
-  bool is_unregistered_state() const { return data_->tag == Tag::UNREGISTERED_STATE; }
+  bool is_unregistered_state() const { return data_->tag == Tag::kUnregisteredState; }
   inline void GetUnregisteredStateDataView(
       UnregisteredServiceStateDataView* output) const;
 
@@ -765,13 +765,13 @@ struct Serializer<::chromeos::mojo_service_manager::mojom::ErrorOrServiceStateDa
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::mojo_service_manager::mojom::ErrorOrServiceStateDataView::Tag::DEFAULT_TYPE: {
+      case ::chromeos::mojo_service_manager::mojom::ErrorOrServiceStateDataView::Tag::kDefaultType: {
         decltype(Traits::default_type(input))
             in_default_type = Traits::default_type(input);
         fragment->data.f_default_type = in_default_type;
         break;
       }
-      case ::chromeos::mojo_service_manager::mojom::ErrorOrServiceStateDataView::Tag::STATE: {
+      case ::chromeos::mojo_service_manager::mojom::ErrorOrServiceStateDataView::Tag::kState: {
         decltype(Traits::state(input))
             in_state = Traits::state(input);
         mojo::internal::MessageFragment<
@@ -787,7 +787,7 @@ struct Serializer<::chromeos::mojo_service_manager::mojom::ErrorOrServiceStateDa
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::mojo_service_manager::mojom::ErrorOrServiceStateDataView::Tag::ERROR: {
+      case ::chromeos::mojo_service_manager::mojom::ErrorOrServiceStateDataView::Tag::kError: {
         decltype(Traits::error(input))
             in_error = Traits::error(input);
         mojo::internal::MessageFragment<
@@ -844,13 +844,13 @@ struct Serializer<::chromeos::mojo_service_manager::mojom::ServiceStateDataView,
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::mojo_service_manager::mojom::ServiceStateDataView::Tag::DEFAULT_TYPE: {
+      case ::chromeos::mojo_service_manager::mojom::ServiceStateDataView::Tag::kDefaultType: {
         decltype(Traits::default_type(input))
             in_default_type = Traits::default_type(input);
         fragment->data.f_default_type = in_default_type;
         break;
       }
-      case ::chromeos::mojo_service_manager::mojom::ServiceStateDataView::Tag::REGISTERED_STATE: {
+      case ::chromeos::mojo_service_manager::mojom::ServiceStateDataView::Tag::kRegisteredState: {
         decltype(Traits::registered_state(input))
             in_registered_state = Traits::registered_state(input);
         mojo::internal::MessageFragment<
@@ -866,7 +866,7 @@ struct Serializer<::chromeos::mojo_service_manager::mojom::ServiceStateDataView,
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::mojo_service_manager::mojom::ServiceStateDataView::Tag::UNREGISTERED_STATE: {
+      case ::chromeos::mojo_service_manager::mojom::ServiceStateDataView::Tag::kUnregisteredState: {
         decltype(Traits::unregistered_state(input))
             in_unregistered_state = Traits::unregistered_state(input);
         mojo::internal::MessageFragment<

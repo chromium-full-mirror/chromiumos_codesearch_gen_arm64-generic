@@ -561,7 +561,7 @@ class RoutineProblemsDataView {
   }
 
   Tag tag() const { return data_->tag; }
-  bool is_lan_connectivity_problems() const { return data_->tag == Tag::LAN_CONNECTIVITY_PROBLEMS; }
+  bool is_lan_connectivity_problems() const { return data_->tag == Tag::kLanConnectivityProblems; }
   inline void GetLanConnectivityProblemsDataView(
       mojo::ArrayDataView<LanConnectivityProblem>* output) const;
 
@@ -572,7 +572,7 @@ class RoutineProblemsDataView {
     return mojo::internal::Deserialize<mojo::ArrayDataView<::chromeos::network_diagnostics::mojom::LanConnectivityProblem>>(
         data_->data.f_lan_connectivity_problems.Get(), output, message_);
   }
-  bool is_signal_strength_problems() const { return data_->tag == Tag::SIGNAL_STRENGTH_PROBLEMS; }
+  bool is_signal_strength_problems() const { return data_->tag == Tag::kSignalStrengthProblems; }
   inline void GetSignalStrengthProblemsDataView(
       mojo::ArrayDataView<SignalStrengthProblem>* output) const;
 
@@ -583,7 +583,7 @@ class RoutineProblemsDataView {
     return mojo::internal::Deserialize<mojo::ArrayDataView<::chromeos::network_diagnostics::mojom::SignalStrengthProblem>>(
         data_->data.f_signal_strength_problems.Get(), output, message_);
   }
-  bool is_gateway_can_be_pinged_problems() const { return data_->tag == Tag::GATEWAY_CAN_BE_PINGED_PROBLEMS; }
+  bool is_gateway_can_be_pinged_problems() const { return data_->tag == Tag::kGatewayCanBePingedProblems; }
   inline void GetGatewayCanBePingedProblemsDataView(
       mojo::ArrayDataView<GatewayCanBePingedProblem>* output) const;
 
@@ -594,7 +594,7 @@ class RoutineProblemsDataView {
     return mojo::internal::Deserialize<mojo::ArrayDataView<::chromeos::network_diagnostics::mojom::GatewayCanBePingedProblem>>(
         data_->data.f_gateway_can_be_pinged_problems.Get(), output, message_);
   }
-  bool is_has_secure_wifi_connection_problems() const { return data_->tag == Tag::HAS_SECURE_WIFI_CONNECTION_PROBLEMS; }
+  bool is_has_secure_wifi_connection_problems() const { return data_->tag == Tag::kHasSecureWifiConnectionProblems; }
   inline void GetHasSecureWifiConnectionProblemsDataView(
       mojo::ArrayDataView<HasSecureWiFiConnectionProblem>* output) const;
 
@@ -605,7 +605,7 @@ class RoutineProblemsDataView {
     return mojo::internal::Deserialize<mojo::ArrayDataView<::chromeos::network_diagnostics::mojom::HasSecureWiFiConnectionProblem>>(
         data_->data.f_has_secure_wifi_connection_problems.Get(), output, message_);
   }
-  bool is_dns_resolver_present_problems() const { return data_->tag == Tag::DNS_RESOLVER_PRESENT_PROBLEMS; }
+  bool is_dns_resolver_present_problems() const { return data_->tag == Tag::kDnsResolverPresentProblems; }
   inline void GetDnsResolverPresentProblemsDataView(
       mojo::ArrayDataView<DnsResolverPresentProblem>* output) const;
 
@@ -616,7 +616,7 @@ class RoutineProblemsDataView {
     return mojo::internal::Deserialize<mojo::ArrayDataView<::chromeos::network_diagnostics::mojom::DnsResolverPresentProblem>>(
         data_->data.f_dns_resolver_present_problems.Get(), output, message_);
   }
-  bool is_dns_latency_problems() const { return data_->tag == Tag::DNS_LATENCY_PROBLEMS; }
+  bool is_dns_latency_problems() const { return data_->tag == Tag::kDnsLatencyProblems; }
   inline void GetDnsLatencyProblemsDataView(
       mojo::ArrayDataView<DnsLatencyProblem>* output) const;
 
@@ -627,7 +627,7 @@ class RoutineProblemsDataView {
     return mojo::internal::Deserialize<mojo::ArrayDataView<::chromeos::network_diagnostics::mojom::DnsLatencyProblem>>(
         data_->data.f_dns_latency_problems.Get(), output, message_);
   }
-  bool is_dns_resolution_problems() const { return data_->tag == Tag::DNS_RESOLUTION_PROBLEMS; }
+  bool is_dns_resolution_problems() const { return data_->tag == Tag::kDnsResolutionProblems; }
   inline void GetDnsResolutionProblemsDataView(
       mojo::ArrayDataView<DnsResolutionProblem>* output) const;
 
@@ -638,7 +638,7 @@ class RoutineProblemsDataView {
     return mojo::internal::Deserialize<mojo::ArrayDataView<::chromeos::network_diagnostics::mojom::DnsResolutionProblem>>(
         data_->data.f_dns_resolution_problems.Get(), output, message_);
   }
-  bool is_captive_portal_problems() const { return data_->tag == Tag::CAPTIVE_PORTAL_PROBLEMS; }
+  bool is_captive_portal_problems() const { return data_->tag == Tag::kCaptivePortalProblems; }
   inline void GetCaptivePortalProblemsDataView(
       mojo::ArrayDataView<CaptivePortalProblem>* output) const;
 
@@ -649,7 +649,7 @@ class RoutineProblemsDataView {
     return mojo::internal::Deserialize<mojo::ArrayDataView<::chromeos::network_diagnostics::mojom::CaptivePortalProblem>>(
         data_->data.f_captive_portal_problems.Get(), output, message_);
   }
-  bool is_http_firewall_problems() const { return data_->tag == Tag::HTTP_FIREWALL_PROBLEMS; }
+  bool is_http_firewall_problems() const { return data_->tag == Tag::kHttpFirewallProblems; }
   inline void GetHttpFirewallProblemsDataView(
       mojo::ArrayDataView<HttpFirewallProblem>* output) const;
 
@@ -660,7 +660,7 @@ class RoutineProblemsDataView {
     return mojo::internal::Deserialize<mojo::ArrayDataView<::chromeos::network_diagnostics::mojom::HttpFirewallProblem>>(
         data_->data.f_http_firewall_problems.Get(), output, message_);
   }
-  bool is_https_firewall_problems() const { return data_->tag == Tag::HTTPS_FIREWALL_PROBLEMS; }
+  bool is_https_firewall_problems() const { return data_->tag == Tag::kHttpsFirewallProblems; }
   inline void GetHttpsFirewallProblemsDataView(
       mojo::ArrayDataView<HttpsFirewallProblem>* output) const;
 
@@ -671,7 +671,7 @@ class RoutineProblemsDataView {
     return mojo::internal::Deserialize<mojo::ArrayDataView<::chromeos::network_diagnostics::mojom::HttpsFirewallProblem>>(
         data_->data.f_https_firewall_problems.Get(), output, message_);
   }
-  bool is_https_latency_problems() const { return data_->tag == Tag::HTTPS_LATENCY_PROBLEMS; }
+  bool is_https_latency_problems() const { return data_->tag == Tag::kHttpsLatencyProblems; }
   inline void GetHttpsLatencyProblemsDataView(
       mojo::ArrayDataView<HttpsLatencyProblem>* output) const;
 
@@ -682,7 +682,7 @@ class RoutineProblemsDataView {
     return mojo::internal::Deserialize<mojo::ArrayDataView<::chromeos::network_diagnostics::mojom::HttpsLatencyProblem>>(
         data_->data.f_https_latency_problems.Get(), output, message_);
   }
-  bool is_video_conferencing_problems() const { return data_->tag == Tag::VIDEO_CONFERENCING_PROBLEMS; }
+  bool is_video_conferencing_problems() const { return data_->tag == Tag::kVideoConferencingProblems; }
   inline void GetVideoConferencingProblemsDataView(
       mojo::ArrayDataView<VideoConferencingProblem>* output) const;
 
@@ -693,7 +693,7 @@ class RoutineProblemsDataView {
     return mojo::internal::Deserialize<mojo::ArrayDataView<::chromeos::network_diagnostics::mojom::VideoConferencingProblem>>(
         data_->data.f_video_conferencing_problems.Get(), output, message_);
   }
-  bool is_arc_http_problems() const { return data_->tag == Tag::ARC_HTTP_PROBLEMS; }
+  bool is_arc_http_problems() const { return data_->tag == Tag::kArcHttpProblems; }
   inline void GetArcHttpProblemsDataView(
       mojo::ArrayDataView<ArcHttpProblem>* output) const;
 
@@ -704,7 +704,7 @@ class RoutineProblemsDataView {
     return mojo::internal::Deserialize<mojo::ArrayDataView<::chromeos::network_diagnostics::mojom::ArcHttpProblem>>(
         data_->data.f_arc_http_problems.Get(), output, message_);
   }
-  bool is_arc_dns_resolution_problems() const { return data_->tag == Tag::ARC_DNS_RESOLUTION_PROBLEMS; }
+  bool is_arc_dns_resolution_problems() const { return data_->tag == Tag::kArcDnsResolutionProblems; }
   inline void GetArcDnsResolutionProblemsDataView(
       mojo::ArrayDataView<ArcDnsResolutionProblem>* output) const;
 
@@ -715,7 +715,7 @@ class RoutineProblemsDataView {
     return mojo::internal::Deserialize<mojo::ArrayDataView<::chromeos::network_diagnostics::mojom::ArcDnsResolutionProblem>>(
         data_->data.f_arc_dns_resolution_problems.Get(), output, message_);
   }
-  bool is_arc_ping_problems() const { return data_->tag == Tag::ARC_PING_PROBLEMS; }
+  bool is_arc_ping_problems() const { return data_->tag == Tag::kArcPingProblems; }
   inline void GetArcPingProblemsDataView(
       mojo::ArrayDataView<ArcPingProblem>* output) const;
 
@@ -752,7 +752,7 @@ class RoutineResultValueDataView {
   }
 
   Tag tag() const { return data_->tag; }
-  bool is_https_latency_result_value() const { return data_->tag == Tag::HTTPS_LATENCY_RESULT_VALUE; }
+  bool is_https_latency_result_value() const { return data_->tag == Tag::kHttpsLatencyResultValue; }
   inline void GetHttpsLatencyResultValueDataView(
       HttpsLatencyResultValueDataView* output) const;
 
@@ -1314,7 +1314,7 @@ struct Serializer<::chromeos::network_diagnostics::mojom::RoutineProblemsDataVie
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::network_diagnostics::mojom::RoutineProblemsDataView::Tag::LAN_CONNECTIVITY_PROBLEMS: {
+      case ::chromeos::network_diagnostics::mojom::RoutineProblemsDataView::Tag::kLanConnectivityProblems: {
         decltype(Traits::lan_connectivity_problems(input))
             in_lan_connectivity_problems = Traits::lan_connectivity_problems(input);
         mojo::internal::MessageFragment<
@@ -1332,7 +1332,7 @@ struct Serializer<::chromeos::network_diagnostics::mojom::RoutineProblemsDataVie
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::network_diagnostics::mojom::RoutineProblemsDataView::Tag::SIGNAL_STRENGTH_PROBLEMS: {
+      case ::chromeos::network_diagnostics::mojom::RoutineProblemsDataView::Tag::kSignalStrengthProblems: {
         decltype(Traits::signal_strength_problems(input))
             in_signal_strength_problems = Traits::signal_strength_problems(input);
         mojo::internal::MessageFragment<
@@ -1350,7 +1350,7 @@ struct Serializer<::chromeos::network_diagnostics::mojom::RoutineProblemsDataVie
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::network_diagnostics::mojom::RoutineProblemsDataView::Tag::GATEWAY_CAN_BE_PINGED_PROBLEMS: {
+      case ::chromeos::network_diagnostics::mojom::RoutineProblemsDataView::Tag::kGatewayCanBePingedProblems: {
         decltype(Traits::gateway_can_be_pinged_problems(input))
             in_gateway_can_be_pinged_problems = Traits::gateway_can_be_pinged_problems(input);
         mojo::internal::MessageFragment<
@@ -1368,7 +1368,7 @@ struct Serializer<::chromeos::network_diagnostics::mojom::RoutineProblemsDataVie
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::network_diagnostics::mojom::RoutineProblemsDataView::Tag::HAS_SECURE_WIFI_CONNECTION_PROBLEMS: {
+      case ::chromeos::network_diagnostics::mojom::RoutineProblemsDataView::Tag::kHasSecureWifiConnectionProblems: {
         decltype(Traits::has_secure_wifi_connection_problems(input))
             in_has_secure_wifi_connection_problems = Traits::has_secure_wifi_connection_problems(input);
         mojo::internal::MessageFragment<
@@ -1386,7 +1386,7 @@ struct Serializer<::chromeos::network_diagnostics::mojom::RoutineProblemsDataVie
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::network_diagnostics::mojom::RoutineProblemsDataView::Tag::DNS_RESOLVER_PRESENT_PROBLEMS: {
+      case ::chromeos::network_diagnostics::mojom::RoutineProblemsDataView::Tag::kDnsResolverPresentProblems: {
         decltype(Traits::dns_resolver_present_problems(input))
             in_dns_resolver_present_problems = Traits::dns_resolver_present_problems(input);
         mojo::internal::MessageFragment<
@@ -1404,7 +1404,7 @@ struct Serializer<::chromeos::network_diagnostics::mojom::RoutineProblemsDataVie
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::network_diagnostics::mojom::RoutineProblemsDataView::Tag::DNS_LATENCY_PROBLEMS: {
+      case ::chromeos::network_diagnostics::mojom::RoutineProblemsDataView::Tag::kDnsLatencyProblems: {
         decltype(Traits::dns_latency_problems(input))
             in_dns_latency_problems = Traits::dns_latency_problems(input);
         mojo::internal::MessageFragment<
@@ -1422,7 +1422,7 @@ struct Serializer<::chromeos::network_diagnostics::mojom::RoutineProblemsDataVie
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::network_diagnostics::mojom::RoutineProblemsDataView::Tag::DNS_RESOLUTION_PROBLEMS: {
+      case ::chromeos::network_diagnostics::mojom::RoutineProblemsDataView::Tag::kDnsResolutionProblems: {
         decltype(Traits::dns_resolution_problems(input))
             in_dns_resolution_problems = Traits::dns_resolution_problems(input);
         mojo::internal::MessageFragment<
@@ -1440,7 +1440,7 @@ struct Serializer<::chromeos::network_diagnostics::mojom::RoutineProblemsDataVie
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::network_diagnostics::mojom::RoutineProblemsDataView::Tag::CAPTIVE_PORTAL_PROBLEMS: {
+      case ::chromeos::network_diagnostics::mojom::RoutineProblemsDataView::Tag::kCaptivePortalProblems: {
         decltype(Traits::captive_portal_problems(input))
             in_captive_portal_problems = Traits::captive_portal_problems(input);
         mojo::internal::MessageFragment<
@@ -1458,7 +1458,7 @@ struct Serializer<::chromeos::network_diagnostics::mojom::RoutineProblemsDataVie
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::network_diagnostics::mojom::RoutineProblemsDataView::Tag::HTTP_FIREWALL_PROBLEMS: {
+      case ::chromeos::network_diagnostics::mojom::RoutineProblemsDataView::Tag::kHttpFirewallProblems: {
         decltype(Traits::http_firewall_problems(input))
             in_http_firewall_problems = Traits::http_firewall_problems(input);
         mojo::internal::MessageFragment<
@@ -1476,7 +1476,7 @@ struct Serializer<::chromeos::network_diagnostics::mojom::RoutineProblemsDataVie
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::network_diagnostics::mojom::RoutineProblemsDataView::Tag::HTTPS_FIREWALL_PROBLEMS: {
+      case ::chromeos::network_diagnostics::mojom::RoutineProblemsDataView::Tag::kHttpsFirewallProblems: {
         decltype(Traits::https_firewall_problems(input))
             in_https_firewall_problems = Traits::https_firewall_problems(input);
         mojo::internal::MessageFragment<
@@ -1494,7 +1494,7 @@ struct Serializer<::chromeos::network_diagnostics::mojom::RoutineProblemsDataVie
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::network_diagnostics::mojom::RoutineProblemsDataView::Tag::HTTPS_LATENCY_PROBLEMS: {
+      case ::chromeos::network_diagnostics::mojom::RoutineProblemsDataView::Tag::kHttpsLatencyProblems: {
         decltype(Traits::https_latency_problems(input))
             in_https_latency_problems = Traits::https_latency_problems(input);
         mojo::internal::MessageFragment<
@@ -1512,7 +1512,7 @@ struct Serializer<::chromeos::network_diagnostics::mojom::RoutineProblemsDataVie
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::network_diagnostics::mojom::RoutineProblemsDataView::Tag::VIDEO_CONFERENCING_PROBLEMS: {
+      case ::chromeos::network_diagnostics::mojom::RoutineProblemsDataView::Tag::kVideoConferencingProblems: {
         decltype(Traits::video_conferencing_problems(input))
             in_video_conferencing_problems = Traits::video_conferencing_problems(input);
         mojo::internal::MessageFragment<
@@ -1530,7 +1530,7 @@ struct Serializer<::chromeos::network_diagnostics::mojom::RoutineProblemsDataVie
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::network_diagnostics::mojom::RoutineProblemsDataView::Tag::ARC_HTTP_PROBLEMS: {
+      case ::chromeos::network_diagnostics::mojom::RoutineProblemsDataView::Tag::kArcHttpProblems: {
         decltype(Traits::arc_http_problems(input))
             in_arc_http_problems = Traits::arc_http_problems(input);
         mojo::internal::MessageFragment<
@@ -1548,7 +1548,7 @@ struct Serializer<::chromeos::network_diagnostics::mojom::RoutineProblemsDataVie
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::network_diagnostics::mojom::RoutineProblemsDataView::Tag::ARC_DNS_RESOLUTION_PROBLEMS: {
+      case ::chromeos::network_diagnostics::mojom::RoutineProblemsDataView::Tag::kArcDnsResolutionProblems: {
         decltype(Traits::arc_dns_resolution_problems(input))
             in_arc_dns_resolution_problems = Traits::arc_dns_resolution_problems(input);
         mojo::internal::MessageFragment<
@@ -1566,7 +1566,7 @@ struct Serializer<::chromeos::network_diagnostics::mojom::RoutineProblemsDataVie
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::network_diagnostics::mojom::RoutineProblemsDataView::Tag::ARC_PING_PROBLEMS: {
+      case ::chromeos::network_diagnostics::mojom::RoutineProblemsDataView::Tag::kArcPingProblems: {
         decltype(Traits::arc_ping_problems(input))
             in_arc_ping_problems = Traits::arc_ping_problems(input);
         mojo::internal::MessageFragment<
@@ -1625,7 +1625,7 @@ struct Serializer<::chromeos::network_diagnostics::mojom::RoutineResultValueData
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::network_diagnostics::mojom::RoutineResultValueDataView::Tag::HTTPS_LATENCY_RESULT_VALUE: {
+      case ::chromeos::network_diagnostics::mojom::RoutineResultValueDataView::Tag::kHttpsLatencyResultValue: {
         decltype(Traits::https_latency_result_value(input))
             in_https_latency_result_value = Traits::https_latency_result_value(input);
         mojo::internal::MessageFragment<

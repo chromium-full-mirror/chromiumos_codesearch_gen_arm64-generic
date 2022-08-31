@@ -166,7 +166,7 @@ class  GraphExecutorOptions {
   template <typename... Args>
   static GraphExecutorOptionsPtr New(Args&&... args) {
     return GraphExecutorOptionsPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -317,7 +317,7 @@ class  BuiltinModelSpec {
   template <typename... Args>
   static BuiltinModelSpecPtr New(Args&&... args) {
     return BuiltinModelSpecPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -460,7 +460,7 @@ class  FlatBufferModelSpec {
   template <typename... Args>
   static FlatBufferModelSpecPtr New(Args&&... args) {
     return FlatBufferModelSpecPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

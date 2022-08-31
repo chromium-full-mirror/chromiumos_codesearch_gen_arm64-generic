@@ -216,7 +216,7 @@ bool FlushAsync::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
-RunOrClosePipeInput::RunOrClosePipeInput() : tag_(Tag::PEER_ASSOCIATED_ENDPOINT_CLOSED_EVENT) {
+RunOrClosePipeInput::RunOrClosePipeInput() : tag_(Tag::kPeerAssociatedEndpointClosedEvent) {
   data_.peer_associated_endpoint_closed_event = new PeerAssociatedEndpointClosedEventPtr;
 }
 
@@ -227,33 +227,33 @@ RunOrClosePipeInput::~RunOrClosePipeInput() {
 
 void RunOrClosePipeInput::set_peer_associated_endpoint_closed_event(
     PeerAssociatedEndpointClosedEventPtr peer_associated_endpoint_closed_event) {
-  if (tag_ == Tag::PEER_ASSOCIATED_ENDPOINT_CLOSED_EVENT) {
+  if (tag_ == Tag::kPeerAssociatedEndpointClosedEvent) {
     *(data_.peer_associated_endpoint_closed_event) = std::move(peer_associated_endpoint_closed_event);
   } else {
     DestroyActive();
-    tag_ = Tag::PEER_ASSOCIATED_ENDPOINT_CLOSED_EVENT;
+    tag_ = Tag::kPeerAssociatedEndpointClosedEvent;
     data_.peer_associated_endpoint_closed_event = new PeerAssociatedEndpointClosedEventPtr(
         std::move(peer_associated_endpoint_closed_event));
   }
 }
 void RunOrClosePipeInput::set_pause_until_flush_completes(
     PauseUntilFlushCompletesPtr pause_until_flush_completes) {
-  if (tag_ == Tag::PAUSE_UNTIL_FLUSH_COMPLETES) {
+  if (tag_ == Tag::kPauseUntilFlushCompletes) {
     *(data_.pause_until_flush_completes) = std::move(pause_until_flush_completes);
   } else {
     DestroyActive();
-    tag_ = Tag::PAUSE_UNTIL_FLUSH_COMPLETES;
+    tag_ = Tag::kPauseUntilFlushCompletes;
     data_.pause_until_flush_completes = new PauseUntilFlushCompletesPtr(
         std::move(pause_until_flush_completes));
   }
 }
 void RunOrClosePipeInput::set_flush_async(
     FlushAsyncPtr flush_async) {
-  if (tag_ == Tag::FLUSH_ASYNC) {
+  if (tag_ == Tag::kFlushAsync) {
     *(data_.flush_async) = std::move(flush_async);
   } else {
     DestroyActive();
-    tag_ = Tag::FLUSH_ASYNC;
+    tag_ = Tag::kFlushAsync;
     data_.flush_async = new FlushAsyncPtr(
         std::move(flush_async));
   }
@@ -262,15 +262,15 @@ void RunOrClosePipeInput::set_flush_async(
 void RunOrClosePipeInput::DestroyActive() {
   switch (tag_) {
 
-    case Tag::PEER_ASSOCIATED_ENDPOINT_CLOSED_EVENT:
+    case Tag::kPeerAssociatedEndpointClosedEvent:
 
       delete data_.peer_associated_endpoint_closed_event;
       break;
-    case Tag::PAUSE_UNTIL_FLUSH_COMPLETES:
+    case Tag::kPauseUntilFlushCompletes:
 
       delete data_.pause_until_flush_completes;
       break;
-    case Tag::FLUSH_ASYNC:
+    case Tag::kFlushAsync:
 
       delete data_.flush_async;
       break;
@@ -372,7 +372,7 @@ bool UnionTraits<::mojo::pipe_control::RunOrClosePipeInput::DataView, ::mojo::pi
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
-    case Tag::PEER_ASSOCIATED_ENDPOINT_CLOSED_EVENT: {
+    case Tag::kPeerAssociatedEndpointClosedEvent: {
       ::mojo::pipe_control::PeerAssociatedEndpointClosedEventPtr result_peer_associated_endpoint_closed_event;
       if (!input.ReadPeerAssociatedEndpointClosedEvent(&result_peer_associated_endpoint_closed_event))
         return false;
@@ -381,7 +381,7 @@ bool UnionTraits<::mojo::pipe_control::RunOrClosePipeInput::DataView, ::mojo::pi
           std::move(result_peer_associated_endpoint_closed_event));
       break;
     }
-    case Tag::PAUSE_UNTIL_FLUSH_COMPLETES: {
+    case Tag::kPauseUntilFlushCompletes: {
       ::mojo::pipe_control::PauseUntilFlushCompletesPtr result_pause_until_flush_completes;
       if (!input.ReadPauseUntilFlushCompletes(&result_pause_until_flush_completes))
         return false;
@@ -390,7 +390,7 @@ bool UnionTraits<::mojo::pipe_control::RunOrClosePipeInput::DataView, ::mojo::pi
           std::move(result_pause_until_flush_completes));
       break;
     }
-    case Tag::FLUSH_ASYNC: {
+    case Tag::kFlushAsync: {
       ::mojo::pipe_control::FlushAsyncPtr result_flush_async;
       if (!input.ReadFlushAsync(&result_flush_async))
         return false;

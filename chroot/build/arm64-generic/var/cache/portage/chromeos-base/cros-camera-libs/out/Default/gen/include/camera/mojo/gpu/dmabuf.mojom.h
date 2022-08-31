@@ -57,7 +57,7 @@ class  DmaBufPlane {
   template <typename... Args>
   static DmaBufPlanePtr New(Args&&... args) {
     return DmaBufPlanePtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -200,7 +200,7 @@ class  DmaBufVideoFrame {
   template <typename... Args>
   static DmaBufVideoFramePtr New(Args&&... args) {
     return DmaBufVideoFramePtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

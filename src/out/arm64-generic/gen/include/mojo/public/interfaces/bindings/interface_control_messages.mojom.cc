@@ -303,7 +303,7 @@ bool NotifyIdle::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
-RunInput::RunInput() : tag_(Tag::QUERY_VERSION) {
+RunInput::RunInput() : tag_(Tag::kQueryVersion) {
   data_.query_version = new QueryVersionPtr;
 }
 
@@ -314,22 +314,22 @@ RunInput::~RunInput() {
 
 void RunInput::set_query_version(
     QueryVersionPtr query_version) {
-  if (tag_ == Tag::QUERY_VERSION) {
+  if (tag_ == Tag::kQueryVersion) {
     *(data_.query_version) = std::move(query_version);
   } else {
     DestroyActive();
-    tag_ = Tag::QUERY_VERSION;
+    tag_ = Tag::kQueryVersion;
     data_.query_version = new QueryVersionPtr(
         std::move(query_version));
   }
 }
 void RunInput::set_flush_for_testing(
     FlushForTestingPtr flush_for_testing) {
-  if (tag_ == Tag::FLUSH_FOR_TESTING) {
+  if (tag_ == Tag::kFlushForTesting) {
     *(data_.flush_for_testing) = std::move(flush_for_testing);
   } else {
     DestroyActive();
-    tag_ = Tag::FLUSH_FOR_TESTING;
+    tag_ = Tag::kFlushForTesting;
     data_.flush_for_testing = new FlushForTestingPtr(
         std::move(flush_for_testing));
   }
@@ -338,11 +338,11 @@ void RunInput::set_flush_for_testing(
 void RunInput::DestroyActive() {
   switch (tag_) {
 
-    case Tag::QUERY_VERSION:
+    case Tag::kQueryVersion:
 
       delete data_.query_version;
       break;
-    case Tag::FLUSH_FOR_TESTING:
+    case Tag::kFlushForTesting:
 
       delete data_.flush_for_testing;
       break;
@@ -352,9 +352,9 @@ size_t RunInput::Hash(size_t seed) const {
   seed = mojo::internal::HashCombine(seed, static_cast<uint32_t>(tag_));
   switch (tag_) {
 
-    case Tag::QUERY_VERSION:
+    case Tag::kQueryVersion:
       return mojo::internal::Hash(seed, data_.query_version);
-    case Tag::FLUSH_FOR_TESTING:
+    case Tag::kFlushForTesting:
       return mojo::internal::Hash(seed, data_.flush_for_testing);
     default:
       NOTREACHED();
@@ -367,7 +367,7 @@ bool RunInput::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context, false);
 }
-RunOutput::RunOutput() : tag_(Tag::QUERY_VERSION_RESULT) {
+RunOutput::RunOutput() : tag_(Tag::kQueryVersionResult) {
   data_.query_version_result = new QueryVersionResultPtr;
 }
 
@@ -378,11 +378,11 @@ RunOutput::~RunOutput() {
 
 void RunOutput::set_query_version_result(
     QueryVersionResultPtr query_version_result) {
-  if (tag_ == Tag::QUERY_VERSION_RESULT) {
+  if (tag_ == Tag::kQueryVersionResult) {
     *(data_.query_version_result) = std::move(query_version_result);
   } else {
     DestroyActive();
-    tag_ = Tag::QUERY_VERSION_RESULT;
+    tag_ = Tag::kQueryVersionResult;
     data_.query_version_result = new QueryVersionResultPtr(
         std::move(query_version_result));
   }
@@ -391,7 +391,7 @@ void RunOutput::set_query_version_result(
 void RunOutput::DestroyActive() {
   switch (tag_) {
 
-    case Tag::QUERY_VERSION_RESULT:
+    case Tag::kQueryVersionResult:
 
       delete data_.query_version_result;
       break;
@@ -401,7 +401,7 @@ size_t RunOutput::Hash(size_t seed) const {
   seed = mojo::internal::HashCombine(seed, static_cast<uint32_t>(tag_));
   switch (tag_) {
 
-    case Tag::QUERY_VERSION_RESULT:
+    case Tag::kQueryVersionResult:
       return mojo::internal::Hash(seed, data_.query_version_result);
     default:
       NOTREACHED();
@@ -414,7 +414,7 @@ bool RunOutput::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context, false);
 }
-RunOrClosePipeInput::RunOrClosePipeInput() : tag_(Tag::REQUIRE_VERSION) {
+RunOrClosePipeInput::RunOrClosePipeInput() : tag_(Tag::kRequireVersion) {
   data_.require_version = new RequireVersionPtr;
 }
 
@@ -425,44 +425,44 @@ RunOrClosePipeInput::~RunOrClosePipeInput() {
 
 void RunOrClosePipeInput::set_require_version(
     RequireVersionPtr require_version) {
-  if (tag_ == Tag::REQUIRE_VERSION) {
+  if (tag_ == Tag::kRequireVersion) {
     *(data_.require_version) = std::move(require_version);
   } else {
     DestroyActive();
-    tag_ = Tag::REQUIRE_VERSION;
+    tag_ = Tag::kRequireVersion;
     data_.require_version = new RequireVersionPtr(
         std::move(require_version));
   }
 }
 void RunOrClosePipeInput::set_enable_idle_tracking(
     EnableIdleTrackingPtr enable_idle_tracking) {
-  if (tag_ == Tag::ENABLE_IDLE_TRACKING) {
+  if (tag_ == Tag::kEnableIdleTracking) {
     *(data_.enable_idle_tracking) = std::move(enable_idle_tracking);
   } else {
     DestroyActive();
-    tag_ = Tag::ENABLE_IDLE_TRACKING;
+    tag_ = Tag::kEnableIdleTracking;
     data_.enable_idle_tracking = new EnableIdleTrackingPtr(
         std::move(enable_idle_tracking));
   }
 }
 void RunOrClosePipeInput::set_message_ack(
     MessageAckPtr message_ack) {
-  if (tag_ == Tag::MESSAGE_ACK) {
+  if (tag_ == Tag::kMessageAck) {
     *(data_.message_ack) = std::move(message_ack);
   } else {
     DestroyActive();
-    tag_ = Tag::MESSAGE_ACK;
+    tag_ = Tag::kMessageAck;
     data_.message_ack = new MessageAckPtr(
         std::move(message_ack));
   }
 }
 void RunOrClosePipeInput::set_notify_idle(
     NotifyIdlePtr notify_idle) {
-  if (tag_ == Tag::NOTIFY_IDLE) {
+  if (tag_ == Tag::kNotifyIdle) {
     *(data_.notify_idle) = std::move(notify_idle);
   } else {
     DestroyActive();
-    tag_ = Tag::NOTIFY_IDLE;
+    tag_ = Tag::kNotifyIdle;
     data_.notify_idle = new NotifyIdlePtr(
         std::move(notify_idle));
   }
@@ -471,19 +471,19 @@ void RunOrClosePipeInput::set_notify_idle(
 void RunOrClosePipeInput::DestroyActive() {
   switch (tag_) {
 
-    case Tag::REQUIRE_VERSION:
+    case Tag::kRequireVersion:
 
       delete data_.require_version;
       break;
-    case Tag::ENABLE_IDLE_TRACKING:
+    case Tag::kEnableIdleTracking:
 
       delete data_.enable_idle_tracking;
       break;
-    case Tag::MESSAGE_ACK:
+    case Tag::kMessageAck:
 
       delete data_.message_ack;
       break;
-    case Tag::NOTIFY_IDLE:
+    case Tag::kNotifyIdle:
 
       delete data_.notify_idle;
       break;
@@ -493,13 +493,13 @@ size_t RunOrClosePipeInput::Hash(size_t seed) const {
   seed = mojo::internal::HashCombine(seed, static_cast<uint32_t>(tag_));
   switch (tag_) {
 
-    case Tag::REQUIRE_VERSION:
+    case Tag::kRequireVersion:
       return mojo::internal::Hash(seed, data_.require_version);
-    case Tag::ENABLE_IDLE_TRACKING:
+    case Tag::kEnableIdleTracking:
       return mojo::internal::Hash(seed, data_.enable_idle_tracking);
-    case Tag::MESSAGE_ACK:
+    case Tag::kMessageAck:
       return mojo::internal::Hash(seed, data_.message_ack);
-    case Tag::NOTIFY_IDLE:
+    case Tag::kNotifyIdle:
       return mojo::internal::Hash(seed, data_.notify_idle);
     default:
       NOTREACHED();
@@ -660,7 +660,7 @@ bool UnionTraits<::mojo::interface_control::RunInput::DataView, ::mojo::interfac
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
-    case Tag::QUERY_VERSION: {
+    case Tag::kQueryVersion: {
       ::mojo::interface_control::QueryVersionPtr result_query_version;
       if (!input.ReadQueryVersion(&result_query_version))
         return false;
@@ -669,7 +669,7 @@ bool UnionTraits<::mojo::interface_control::RunInput::DataView, ::mojo::interfac
           std::move(result_query_version));
       break;
     }
-    case Tag::FLUSH_FOR_TESTING: {
+    case Tag::kFlushForTesting: {
       ::mojo::interface_control::FlushForTestingPtr result_flush_for_testing;
       if (!input.ReadFlushForTesting(&result_flush_for_testing))
         return false;
@@ -693,7 +693,7 @@ bool UnionTraits<::mojo::interface_control::RunOutput::DataView, ::mojo::interfa
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
-    case Tag::QUERY_VERSION_RESULT: {
+    case Tag::kQueryVersionResult: {
       ::mojo::interface_control::QueryVersionResultPtr result_query_version_result;
       if (!input.ReadQueryVersionResult(&result_query_version_result))
         return false;
@@ -717,7 +717,7 @@ bool UnionTraits<::mojo::interface_control::RunOrClosePipeInput::DataView, ::moj
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
-    case Tag::REQUIRE_VERSION: {
+    case Tag::kRequireVersion: {
       ::mojo::interface_control::RequireVersionPtr result_require_version;
       if (!input.ReadRequireVersion(&result_require_version))
         return false;
@@ -726,7 +726,7 @@ bool UnionTraits<::mojo::interface_control::RunOrClosePipeInput::DataView, ::moj
           std::move(result_require_version));
       break;
     }
-    case Tag::ENABLE_IDLE_TRACKING: {
+    case Tag::kEnableIdleTracking: {
       ::mojo::interface_control::EnableIdleTrackingPtr result_enable_idle_tracking;
       if (!input.ReadEnableIdleTracking(&result_enable_idle_tracking))
         return false;
@@ -735,7 +735,7 @@ bool UnionTraits<::mojo::interface_control::RunOrClosePipeInput::DataView, ::moj
           std::move(result_enable_idle_tracking));
       break;
     }
-    case Tag::MESSAGE_ACK: {
+    case Tag::kMessageAck: {
       ::mojo::interface_control::MessageAckPtr result_message_ack;
       if (!input.ReadMessageAck(&result_message_ack))
         return false;
@@ -744,7 +744,7 @@ bool UnionTraits<::mojo::interface_control::RunOrClosePipeInput::DataView, ::moj
           std::move(result_message_ack));
       break;
     }
-    case Tag::NOTIFY_IDLE: {
+    case Tag::kNotifyIdle: {
       ::mojo::interface_control::NotifyIdlePtr result_notify_idle;
       if (!input.ReadNotifyIdle(&result_notify_idle))
         return false;

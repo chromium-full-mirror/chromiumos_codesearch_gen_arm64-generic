@@ -284,14 +284,20 @@ class  RoutineProblems {
   using Data_ = internal::RoutineProblems_Data;
   using Tag = Data_::RoutineProblems_Tag;
 
-  static RoutineProblemsPtr New() {
-    return RoutineProblemsPtr(base::in_place);
+  template <typename... Args>
+  static RoutineProblemsPtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
   }
   // Construct an instance holding |lan_connectivity_problems|.
   static RoutineProblemsPtr
   NewLanConnectivityProblems(
       std::vector<LanConnectivityProblem> lan_connectivity_problems) {
-    auto result = RoutineProblemsPtr(base::in_place);
+    auto result = RoutineProblemsPtr(absl::in_place);
     result->set_lan_connectivity_problems(std::move(lan_connectivity_problems));
     return result;
   }
@@ -299,7 +305,7 @@ class  RoutineProblems {
   static RoutineProblemsPtr
   NewSignalStrengthProblems(
       std::vector<SignalStrengthProblem> signal_strength_problems) {
-    auto result = RoutineProblemsPtr(base::in_place);
+    auto result = RoutineProblemsPtr(absl::in_place);
     result->set_signal_strength_problems(std::move(signal_strength_problems));
     return result;
   }
@@ -307,7 +313,7 @@ class  RoutineProblems {
   static RoutineProblemsPtr
   NewGatewayCanBePingedProblems(
       std::vector<GatewayCanBePingedProblem> gateway_can_be_pinged_problems) {
-    auto result = RoutineProblemsPtr(base::in_place);
+    auto result = RoutineProblemsPtr(absl::in_place);
     result->set_gateway_can_be_pinged_problems(std::move(gateway_can_be_pinged_problems));
     return result;
   }
@@ -315,7 +321,7 @@ class  RoutineProblems {
   static RoutineProblemsPtr
   NewHasSecureWifiConnectionProblems(
       std::vector<HasSecureWiFiConnectionProblem> has_secure_wifi_connection_problems) {
-    auto result = RoutineProblemsPtr(base::in_place);
+    auto result = RoutineProblemsPtr(absl::in_place);
     result->set_has_secure_wifi_connection_problems(std::move(has_secure_wifi_connection_problems));
     return result;
   }
@@ -323,7 +329,7 @@ class  RoutineProblems {
   static RoutineProblemsPtr
   NewDnsResolverPresentProblems(
       std::vector<DnsResolverPresentProblem> dns_resolver_present_problems) {
-    auto result = RoutineProblemsPtr(base::in_place);
+    auto result = RoutineProblemsPtr(absl::in_place);
     result->set_dns_resolver_present_problems(std::move(dns_resolver_present_problems));
     return result;
   }
@@ -331,7 +337,7 @@ class  RoutineProblems {
   static RoutineProblemsPtr
   NewDnsLatencyProblems(
       std::vector<DnsLatencyProblem> dns_latency_problems) {
-    auto result = RoutineProblemsPtr(base::in_place);
+    auto result = RoutineProblemsPtr(absl::in_place);
     result->set_dns_latency_problems(std::move(dns_latency_problems));
     return result;
   }
@@ -339,7 +345,7 @@ class  RoutineProblems {
   static RoutineProblemsPtr
   NewDnsResolutionProblems(
       std::vector<DnsResolutionProblem> dns_resolution_problems) {
-    auto result = RoutineProblemsPtr(base::in_place);
+    auto result = RoutineProblemsPtr(absl::in_place);
     result->set_dns_resolution_problems(std::move(dns_resolution_problems));
     return result;
   }
@@ -347,7 +353,7 @@ class  RoutineProblems {
   static RoutineProblemsPtr
   NewCaptivePortalProblems(
       std::vector<CaptivePortalProblem> captive_portal_problems) {
-    auto result = RoutineProblemsPtr(base::in_place);
+    auto result = RoutineProblemsPtr(absl::in_place);
     result->set_captive_portal_problems(std::move(captive_portal_problems));
     return result;
   }
@@ -355,7 +361,7 @@ class  RoutineProblems {
   static RoutineProblemsPtr
   NewHttpFirewallProblems(
       std::vector<HttpFirewallProblem> http_firewall_problems) {
-    auto result = RoutineProblemsPtr(base::in_place);
+    auto result = RoutineProblemsPtr(absl::in_place);
     result->set_http_firewall_problems(std::move(http_firewall_problems));
     return result;
   }
@@ -363,7 +369,7 @@ class  RoutineProblems {
   static RoutineProblemsPtr
   NewHttpsFirewallProblems(
       std::vector<HttpsFirewallProblem> https_firewall_problems) {
-    auto result = RoutineProblemsPtr(base::in_place);
+    auto result = RoutineProblemsPtr(absl::in_place);
     result->set_https_firewall_problems(std::move(https_firewall_problems));
     return result;
   }
@@ -371,7 +377,7 @@ class  RoutineProblems {
   static RoutineProblemsPtr
   NewHttpsLatencyProblems(
       std::vector<HttpsLatencyProblem> https_latency_problems) {
-    auto result = RoutineProblemsPtr(base::in_place);
+    auto result = RoutineProblemsPtr(absl::in_place);
     result->set_https_latency_problems(std::move(https_latency_problems));
     return result;
   }
@@ -379,7 +385,7 @@ class  RoutineProblems {
   static RoutineProblemsPtr
   NewVideoConferencingProblems(
       std::vector<VideoConferencingProblem> video_conferencing_problems) {
-    auto result = RoutineProblemsPtr(base::in_place);
+    auto result = RoutineProblemsPtr(absl::in_place);
     result->set_video_conferencing_problems(std::move(video_conferencing_problems));
     return result;
   }
@@ -387,7 +393,7 @@ class  RoutineProblems {
   static RoutineProblemsPtr
   NewArcHttpProblems(
       std::vector<ArcHttpProblem> arc_http_problems) {
-    auto result = RoutineProblemsPtr(base::in_place);
+    auto result = RoutineProblemsPtr(absl::in_place);
     result->set_arc_http_problems(std::move(arc_http_problems));
     return result;
   }
@@ -395,7 +401,7 @@ class  RoutineProblems {
   static RoutineProblemsPtr
   NewArcDnsResolutionProblems(
       std::vector<ArcDnsResolutionProblem> arc_dns_resolution_problems) {
-    auto result = RoutineProblemsPtr(base::in_place);
+    auto result = RoutineProblemsPtr(absl::in_place);
     result->set_arc_dns_resolution_problems(std::move(arc_dns_resolution_problems));
     return result;
   }
@@ -403,7 +409,7 @@ class  RoutineProblems {
   static RoutineProblemsPtr
   NewArcPingProblems(
       std::vector<ArcPingProblem> arc_ping_problems) {
-    auto result = RoutineProblemsPtr(base::in_place);
+    auto result = RoutineProblemsPtr(absl::in_place);
     result->set_arc_ping_problems(std::move(arc_ping_problems));
     return result;
   }
@@ -446,11 +452,11 @@ class  RoutineProblems {
 
 
   
-  bool is_lan_connectivity_problems() const { return tag_ == Tag::LAN_CONNECTIVITY_PROBLEMS; }
+  bool is_lan_connectivity_problems() const { return tag_ == Tag::kLanConnectivityProblems; }
 
   
   std::vector<LanConnectivityProblem>& get_lan_connectivity_problems() const {
-    CHECK(tag_ == Tag::LAN_CONNECTIVITY_PROBLEMS);
+    CHECK(tag_ == Tag::kLanConnectivityProblems);
     return *(data_.lan_connectivity_problems);
   }
 
@@ -458,11 +464,11 @@ class  RoutineProblems {
   void set_lan_connectivity_problems(
       std::vector<LanConnectivityProblem> lan_connectivity_problems);
   
-  bool is_signal_strength_problems() const { return tag_ == Tag::SIGNAL_STRENGTH_PROBLEMS; }
+  bool is_signal_strength_problems() const { return tag_ == Tag::kSignalStrengthProblems; }
 
   
   std::vector<SignalStrengthProblem>& get_signal_strength_problems() const {
-    CHECK(tag_ == Tag::SIGNAL_STRENGTH_PROBLEMS);
+    CHECK(tag_ == Tag::kSignalStrengthProblems);
     return *(data_.signal_strength_problems);
   }
 
@@ -470,11 +476,11 @@ class  RoutineProblems {
   void set_signal_strength_problems(
       std::vector<SignalStrengthProblem> signal_strength_problems);
   
-  bool is_gateway_can_be_pinged_problems() const { return tag_ == Tag::GATEWAY_CAN_BE_PINGED_PROBLEMS; }
+  bool is_gateway_can_be_pinged_problems() const { return tag_ == Tag::kGatewayCanBePingedProblems; }
 
   
   std::vector<GatewayCanBePingedProblem>& get_gateway_can_be_pinged_problems() const {
-    CHECK(tag_ == Tag::GATEWAY_CAN_BE_PINGED_PROBLEMS);
+    CHECK(tag_ == Tag::kGatewayCanBePingedProblems);
     return *(data_.gateway_can_be_pinged_problems);
   }
 
@@ -482,11 +488,11 @@ class  RoutineProblems {
   void set_gateway_can_be_pinged_problems(
       std::vector<GatewayCanBePingedProblem> gateway_can_be_pinged_problems);
   
-  bool is_has_secure_wifi_connection_problems() const { return tag_ == Tag::HAS_SECURE_WIFI_CONNECTION_PROBLEMS; }
+  bool is_has_secure_wifi_connection_problems() const { return tag_ == Tag::kHasSecureWifiConnectionProblems; }
 
   
   std::vector<HasSecureWiFiConnectionProblem>& get_has_secure_wifi_connection_problems() const {
-    CHECK(tag_ == Tag::HAS_SECURE_WIFI_CONNECTION_PROBLEMS);
+    CHECK(tag_ == Tag::kHasSecureWifiConnectionProblems);
     return *(data_.has_secure_wifi_connection_problems);
   }
 
@@ -494,11 +500,11 @@ class  RoutineProblems {
   void set_has_secure_wifi_connection_problems(
       std::vector<HasSecureWiFiConnectionProblem> has_secure_wifi_connection_problems);
   
-  bool is_dns_resolver_present_problems() const { return tag_ == Tag::DNS_RESOLVER_PRESENT_PROBLEMS; }
+  bool is_dns_resolver_present_problems() const { return tag_ == Tag::kDnsResolverPresentProblems; }
 
   
   std::vector<DnsResolverPresentProblem>& get_dns_resolver_present_problems() const {
-    CHECK(tag_ == Tag::DNS_RESOLVER_PRESENT_PROBLEMS);
+    CHECK(tag_ == Tag::kDnsResolverPresentProblems);
     return *(data_.dns_resolver_present_problems);
   }
 
@@ -506,11 +512,11 @@ class  RoutineProblems {
   void set_dns_resolver_present_problems(
       std::vector<DnsResolverPresentProblem> dns_resolver_present_problems);
   
-  bool is_dns_latency_problems() const { return tag_ == Tag::DNS_LATENCY_PROBLEMS; }
+  bool is_dns_latency_problems() const { return tag_ == Tag::kDnsLatencyProblems; }
 
   
   std::vector<DnsLatencyProblem>& get_dns_latency_problems() const {
-    CHECK(tag_ == Tag::DNS_LATENCY_PROBLEMS);
+    CHECK(tag_ == Tag::kDnsLatencyProblems);
     return *(data_.dns_latency_problems);
   }
 
@@ -518,11 +524,11 @@ class  RoutineProblems {
   void set_dns_latency_problems(
       std::vector<DnsLatencyProblem> dns_latency_problems);
   
-  bool is_dns_resolution_problems() const { return tag_ == Tag::DNS_RESOLUTION_PROBLEMS; }
+  bool is_dns_resolution_problems() const { return tag_ == Tag::kDnsResolutionProblems; }
 
   
   std::vector<DnsResolutionProblem>& get_dns_resolution_problems() const {
-    CHECK(tag_ == Tag::DNS_RESOLUTION_PROBLEMS);
+    CHECK(tag_ == Tag::kDnsResolutionProblems);
     return *(data_.dns_resolution_problems);
   }
 
@@ -530,11 +536,11 @@ class  RoutineProblems {
   void set_dns_resolution_problems(
       std::vector<DnsResolutionProblem> dns_resolution_problems);
   
-  bool is_captive_portal_problems() const { return tag_ == Tag::CAPTIVE_PORTAL_PROBLEMS; }
+  bool is_captive_portal_problems() const { return tag_ == Tag::kCaptivePortalProblems; }
 
   
   std::vector<CaptivePortalProblem>& get_captive_portal_problems() const {
-    CHECK(tag_ == Tag::CAPTIVE_PORTAL_PROBLEMS);
+    CHECK(tag_ == Tag::kCaptivePortalProblems);
     return *(data_.captive_portal_problems);
   }
 
@@ -542,11 +548,11 @@ class  RoutineProblems {
   void set_captive_portal_problems(
       std::vector<CaptivePortalProblem> captive_portal_problems);
   
-  bool is_http_firewall_problems() const { return tag_ == Tag::HTTP_FIREWALL_PROBLEMS; }
+  bool is_http_firewall_problems() const { return tag_ == Tag::kHttpFirewallProblems; }
 
   
   std::vector<HttpFirewallProblem>& get_http_firewall_problems() const {
-    CHECK(tag_ == Tag::HTTP_FIREWALL_PROBLEMS);
+    CHECK(tag_ == Tag::kHttpFirewallProblems);
     return *(data_.http_firewall_problems);
   }
 
@@ -554,11 +560,11 @@ class  RoutineProblems {
   void set_http_firewall_problems(
       std::vector<HttpFirewallProblem> http_firewall_problems);
   
-  bool is_https_firewall_problems() const { return tag_ == Tag::HTTPS_FIREWALL_PROBLEMS; }
+  bool is_https_firewall_problems() const { return tag_ == Tag::kHttpsFirewallProblems; }
 
   
   std::vector<HttpsFirewallProblem>& get_https_firewall_problems() const {
-    CHECK(tag_ == Tag::HTTPS_FIREWALL_PROBLEMS);
+    CHECK(tag_ == Tag::kHttpsFirewallProblems);
     return *(data_.https_firewall_problems);
   }
 
@@ -566,11 +572,11 @@ class  RoutineProblems {
   void set_https_firewall_problems(
       std::vector<HttpsFirewallProblem> https_firewall_problems);
   
-  bool is_https_latency_problems() const { return tag_ == Tag::HTTPS_LATENCY_PROBLEMS; }
+  bool is_https_latency_problems() const { return tag_ == Tag::kHttpsLatencyProblems; }
 
   
   std::vector<HttpsLatencyProblem>& get_https_latency_problems() const {
-    CHECK(tag_ == Tag::HTTPS_LATENCY_PROBLEMS);
+    CHECK(tag_ == Tag::kHttpsLatencyProblems);
     return *(data_.https_latency_problems);
   }
 
@@ -578,11 +584,11 @@ class  RoutineProblems {
   void set_https_latency_problems(
       std::vector<HttpsLatencyProblem> https_latency_problems);
   
-  bool is_video_conferencing_problems() const { return tag_ == Tag::VIDEO_CONFERENCING_PROBLEMS; }
+  bool is_video_conferencing_problems() const { return tag_ == Tag::kVideoConferencingProblems; }
 
   
   std::vector<VideoConferencingProblem>& get_video_conferencing_problems() const {
-    CHECK(tag_ == Tag::VIDEO_CONFERENCING_PROBLEMS);
+    CHECK(tag_ == Tag::kVideoConferencingProblems);
     return *(data_.video_conferencing_problems);
   }
 
@@ -590,11 +596,11 @@ class  RoutineProblems {
   void set_video_conferencing_problems(
       std::vector<VideoConferencingProblem> video_conferencing_problems);
   
-  bool is_arc_http_problems() const { return tag_ == Tag::ARC_HTTP_PROBLEMS; }
+  bool is_arc_http_problems() const { return tag_ == Tag::kArcHttpProblems; }
 
   
   std::vector<ArcHttpProblem>& get_arc_http_problems() const {
-    CHECK(tag_ == Tag::ARC_HTTP_PROBLEMS);
+    CHECK(tag_ == Tag::kArcHttpProblems);
     return *(data_.arc_http_problems);
   }
 
@@ -602,11 +608,11 @@ class  RoutineProblems {
   void set_arc_http_problems(
       std::vector<ArcHttpProblem> arc_http_problems);
   
-  bool is_arc_dns_resolution_problems() const { return tag_ == Tag::ARC_DNS_RESOLUTION_PROBLEMS; }
+  bool is_arc_dns_resolution_problems() const { return tag_ == Tag::kArcDnsResolutionProblems; }
 
   
   std::vector<ArcDnsResolutionProblem>& get_arc_dns_resolution_problems() const {
-    CHECK(tag_ == Tag::ARC_DNS_RESOLUTION_PROBLEMS);
+    CHECK(tag_ == Tag::kArcDnsResolutionProblems);
     return *(data_.arc_dns_resolution_problems);
   }
 
@@ -614,11 +620,11 @@ class  RoutineProblems {
   void set_arc_dns_resolution_problems(
       std::vector<ArcDnsResolutionProblem> arc_dns_resolution_problems);
   
-  bool is_arc_ping_problems() const { return tag_ == Tag::ARC_PING_PROBLEMS; }
+  bool is_arc_ping_problems() const { return tag_ == Tag::kArcPingProblems; }
 
   
   std::vector<ArcPingProblem>& get_arc_ping_problems() const {
-    CHECK(tag_ == Tag::ARC_PING_PROBLEMS);
+    CHECK(tag_ == Tag::kArcPingProblems);
     return *(data_.arc_ping_problems);
   }
 
@@ -676,14 +682,20 @@ class  RoutineResultValue {
   using Data_ = internal::RoutineResultValue_Data;
   using Tag = Data_::RoutineResultValue_Tag;
 
-  static RoutineResultValuePtr New() {
-    return RoutineResultValuePtr(base::in_place);
+  template <typename... Args>
+  static RoutineResultValuePtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
   }
   // Construct an instance holding |https_latency_result_value|.
   static RoutineResultValuePtr
   NewHttpsLatencyResultValue(
       HttpsLatencyResultValuePtr https_latency_result_value) {
-    auto result = RoutineResultValuePtr(base::in_place);
+    auto result = RoutineResultValuePtr(absl::in_place);
     result->set_https_latency_result_value(std::move(https_latency_result_value));
     return result;
   }
@@ -726,11 +738,11 @@ class  RoutineResultValue {
 
 
   
-  bool is_https_latency_result_value() const { return tag_ == Tag::HTTPS_LATENCY_RESULT_VALUE; }
+  bool is_https_latency_result_value() const { return tag_ == Tag::kHttpsLatencyResultValue; }
 
   
   HttpsLatencyResultValuePtr& get_https_latency_result_value() const {
-    CHECK(tag_ == Tag::HTTPS_LATENCY_RESULT_VALUE);
+    CHECK(tag_ == Tag::kHttpsLatencyResultValue);
     return *(data_.https_latency_result_value);
   }
 
@@ -780,7 +792,7 @@ class  HttpsLatencyResultValue {
   template <typename... Args>
   static HttpsLatencyResultValuePtr New(Args&&... args) {
     return HttpsLatencyResultValuePtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -917,7 +929,7 @@ class  RoutineResult {
   template <typename... Args>
   static RoutineResultPtr New(Args&&... args) {
     return RoutineResultPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1058,57 +1070,54 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 template <typename UnionPtrType>
 RoutineProblemsPtr RoutineProblems::Clone() const {
-  // Use UnionPtrType to prevent the compiler from trying to compile this
-  // without being asked.
-  UnionPtrType rv(New());
   switch (tag_) {
-    case Tag::LAN_CONNECTIVITY_PROBLEMS:
-      rv->set_lan_connectivity_problems(mojo::Clone(*data_.lan_connectivity_problems));
-      break;
-    case Tag::SIGNAL_STRENGTH_PROBLEMS:
-      rv->set_signal_strength_problems(mojo::Clone(*data_.signal_strength_problems));
-      break;
-    case Tag::GATEWAY_CAN_BE_PINGED_PROBLEMS:
-      rv->set_gateway_can_be_pinged_problems(mojo::Clone(*data_.gateway_can_be_pinged_problems));
-      break;
-    case Tag::HAS_SECURE_WIFI_CONNECTION_PROBLEMS:
-      rv->set_has_secure_wifi_connection_problems(mojo::Clone(*data_.has_secure_wifi_connection_problems));
-      break;
-    case Tag::DNS_RESOLVER_PRESENT_PROBLEMS:
-      rv->set_dns_resolver_present_problems(mojo::Clone(*data_.dns_resolver_present_problems));
-      break;
-    case Tag::DNS_LATENCY_PROBLEMS:
-      rv->set_dns_latency_problems(mojo::Clone(*data_.dns_latency_problems));
-      break;
-    case Tag::DNS_RESOLUTION_PROBLEMS:
-      rv->set_dns_resolution_problems(mojo::Clone(*data_.dns_resolution_problems));
-      break;
-    case Tag::CAPTIVE_PORTAL_PROBLEMS:
-      rv->set_captive_portal_problems(mojo::Clone(*data_.captive_portal_problems));
-      break;
-    case Tag::HTTP_FIREWALL_PROBLEMS:
-      rv->set_http_firewall_problems(mojo::Clone(*data_.http_firewall_problems));
-      break;
-    case Tag::HTTPS_FIREWALL_PROBLEMS:
-      rv->set_https_firewall_problems(mojo::Clone(*data_.https_firewall_problems));
-      break;
-    case Tag::HTTPS_LATENCY_PROBLEMS:
-      rv->set_https_latency_problems(mojo::Clone(*data_.https_latency_problems));
-      break;
-    case Tag::VIDEO_CONFERENCING_PROBLEMS:
-      rv->set_video_conferencing_problems(mojo::Clone(*data_.video_conferencing_problems));
-      break;
-    case Tag::ARC_HTTP_PROBLEMS:
-      rv->set_arc_http_problems(mojo::Clone(*data_.arc_http_problems));
-      break;
-    case Tag::ARC_DNS_RESOLUTION_PROBLEMS:
-      rv->set_arc_dns_resolution_problems(mojo::Clone(*data_.arc_dns_resolution_problems));
-      break;
-    case Tag::ARC_PING_PROBLEMS:
-      rv->set_arc_ping_problems(mojo::Clone(*data_.arc_ping_problems));
-      break;
+    case Tag::kLanConnectivityProblems:
+      return NewLanConnectivityProblems(
+          mojo::Clone(*data_.lan_connectivity_problems));
+    case Tag::kSignalStrengthProblems:
+      return NewSignalStrengthProblems(
+          mojo::Clone(*data_.signal_strength_problems));
+    case Tag::kGatewayCanBePingedProblems:
+      return NewGatewayCanBePingedProblems(
+          mojo::Clone(*data_.gateway_can_be_pinged_problems));
+    case Tag::kHasSecureWifiConnectionProblems:
+      return NewHasSecureWifiConnectionProblems(
+          mojo::Clone(*data_.has_secure_wifi_connection_problems));
+    case Tag::kDnsResolverPresentProblems:
+      return NewDnsResolverPresentProblems(
+          mojo::Clone(*data_.dns_resolver_present_problems));
+    case Tag::kDnsLatencyProblems:
+      return NewDnsLatencyProblems(
+          mojo::Clone(*data_.dns_latency_problems));
+    case Tag::kDnsResolutionProblems:
+      return NewDnsResolutionProblems(
+          mojo::Clone(*data_.dns_resolution_problems));
+    case Tag::kCaptivePortalProblems:
+      return NewCaptivePortalProblems(
+          mojo::Clone(*data_.captive_portal_problems));
+    case Tag::kHttpFirewallProblems:
+      return NewHttpFirewallProblems(
+          mojo::Clone(*data_.http_firewall_problems));
+    case Tag::kHttpsFirewallProblems:
+      return NewHttpsFirewallProblems(
+          mojo::Clone(*data_.https_firewall_problems));
+    case Tag::kHttpsLatencyProblems:
+      return NewHttpsLatencyProblems(
+          mojo::Clone(*data_.https_latency_problems));
+    case Tag::kVideoConferencingProblems:
+      return NewVideoConferencingProblems(
+          mojo::Clone(*data_.video_conferencing_problems));
+    case Tag::kArcHttpProblems:
+      return NewArcHttpProblems(
+          mojo::Clone(*data_.arc_http_problems));
+    case Tag::kArcDnsResolutionProblems:
+      return NewArcDnsResolutionProblems(
+          mojo::Clone(*data_.arc_dns_resolution_problems));
+    case Tag::kArcPingProblems:
+      return NewArcPingProblems(
+          mojo::Clone(*data_.arc_ping_problems));
   }
-  return rv;
+  return nullptr;
 }
 
 template <typename T,
@@ -1119,35 +1128,35 @@ bool RoutineProblems::Equals(const T& other) const {
     return false;
 
   switch (tag_) {
-    case Tag::LAN_CONNECTIVITY_PROBLEMS:
+    case Tag::kLanConnectivityProblems:
       return mojo::Equals(*(data_.lan_connectivity_problems), *(other.data_.lan_connectivity_problems));
-    case Tag::SIGNAL_STRENGTH_PROBLEMS:
+    case Tag::kSignalStrengthProblems:
       return mojo::Equals(*(data_.signal_strength_problems), *(other.data_.signal_strength_problems));
-    case Tag::GATEWAY_CAN_BE_PINGED_PROBLEMS:
+    case Tag::kGatewayCanBePingedProblems:
       return mojo::Equals(*(data_.gateway_can_be_pinged_problems), *(other.data_.gateway_can_be_pinged_problems));
-    case Tag::HAS_SECURE_WIFI_CONNECTION_PROBLEMS:
+    case Tag::kHasSecureWifiConnectionProblems:
       return mojo::Equals(*(data_.has_secure_wifi_connection_problems), *(other.data_.has_secure_wifi_connection_problems));
-    case Tag::DNS_RESOLVER_PRESENT_PROBLEMS:
+    case Tag::kDnsResolverPresentProblems:
       return mojo::Equals(*(data_.dns_resolver_present_problems), *(other.data_.dns_resolver_present_problems));
-    case Tag::DNS_LATENCY_PROBLEMS:
+    case Tag::kDnsLatencyProblems:
       return mojo::Equals(*(data_.dns_latency_problems), *(other.data_.dns_latency_problems));
-    case Tag::DNS_RESOLUTION_PROBLEMS:
+    case Tag::kDnsResolutionProblems:
       return mojo::Equals(*(data_.dns_resolution_problems), *(other.data_.dns_resolution_problems));
-    case Tag::CAPTIVE_PORTAL_PROBLEMS:
+    case Tag::kCaptivePortalProblems:
       return mojo::Equals(*(data_.captive_portal_problems), *(other.data_.captive_portal_problems));
-    case Tag::HTTP_FIREWALL_PROBLEMS:
+    case Tag::kHttpFirewallProblems:
       return mojo::Equals(*(data_.http_firewall_problems), *(other.data_.http_firewall_problems));
-    case Tag::HTTPS_FIREWALL_PROBLEMS:
+    case Tag::kHttpsFirewallProblems:
       return mojo::Equals(*(data_.https_firewall_problems), *(other.data_.https_firewall_problems));
-    case Tag::HTTPS_LATENCY_PROBLEMS:
+    case Tag::kHttpsLatencyProblems:
       return mojo::Equals(*(data_.https_latency_problems), *(other.data_.https_latency_problems));
-    case Tag::VIDEO_CONFERENCING_PROBLEMS:
+    case Tag::kVideoConferencingProblems:
       return mojo::Equals(*(data_.video_conferencing_problems), *(other.data_.video_conferencing_problems));
-    case Tag::ARC_HTTP_PROBLEMS:
+    case Tag::kArcHttpProblems:
       return mojo::Equals(*(data_.arc_http_problems), *(other.data_.arc_http_problems));
-    case Tag::ARC_DNS_RESOLUTION_PROBLEMS:
+    case Tag::kArcDnsResolutionProblems:
       return mojo::Equals(*(data_.arc_dns_resolution_problems), *(other.data_.arc_dns_resolution_problems));
-    case Tag::ARC_PING_PROBLEMS:
+    case Tag::kArcPingProblems:
       return mojo::Equals(*(data_.arc_ping_problems), *(other.data_.arc_ping_problems));
   }
 
@@ -1155,15 +1164,12 @@ bool RoutineProblems::Equals(const T& other) const {
 }
 template <typename UnionPtrType>
 RoutineResultValuePtr RoutineResultValue::Clone() const {
-  // Use UnionPtrType to prevent the compiler from trying to compile this
-  // without being asked.
-  UnionPtrType rv(New());
   switch (tag_) {
-    case Tag::HTTPS_LATENCY_RESULT_VALUE:
-      rv->set_https_latency_result_value(mojo::Clone(*data_.https_latency_result_value));
-      break;
+    case Tag::kHttpsLatencyResultValue:
+      return NewHttpsLatencyResultValue(
+          mojo::Clone(*data_.https_latency_result_value));
   }
-  return rv;
+  return nullptr;
 }
 
 template <typename T,
@@ -1174,7 +1180,7 @@ bool RoutineResultValue::Equals(const T& other) const {
     return false;
 
   switch (tag_) {
-    case Tag::HTTPS_LATENCY_RESULT_VALUE:
+    case Tag::kHttpsLatencyResultValue:
       return mojo::Equals(*(data_.https_latency_result_value), *(other.data_.https_latency_result_value));
   }
 

@@ -69,13 +69,9 @@ class  RunInput_Data {
   enum class RunInput_Tag : uint32_t {
 
     
-    QUERY_VERSION,
+    kQueryVersion,
     
-    kQueryVersion = QUERY_VERSION,
-    
-    FLUSH_FOR_TESTING,
-    
-    kFlushForTesting = FLUSH_FOR_TESTING,
+    kFlushForTesting,
   };
 
   // A note on layout:
@@ -125,9 +121,7 @@ class  RunOutput_Data {
   enum class RunOutput_Tag : uint32_t {
 
     
-    QUERY_VERSION_RESULT,
-    
-    kQueryVersionResult = QUERY_VERSION_RESULT,
+    kQueryVersionResult,
   };
 
   // A note on layout:
@@ -176,21 +170,13 @@ class  RunOrClosePipeInput_Data {
   enum class RunOrClosePipeInput_Tag : uint32_t {
 
     
-    REQUIRE_VERSION,
+    kRequireVersion,
     
-    kRequireVersion = REQUIRE_VERSION,
+    kEnableIdleTracking,
     
-    ENABLE_IDLE_TRACKING,
+    kMessageAck,
     
-    kEnableIdleTracking = ENABLE_IDLE_TRACKING,
-    
-    MESSAGE_ACK,
-    
-    kMessageAck = MESSAGE_ACK,
-    
-    NOTIFY_IDLE,
-    
-    kNotifyIdle = NOTIFY_IDLE,
+    kNotifyIdle,
   };
 
   // A note on layout:

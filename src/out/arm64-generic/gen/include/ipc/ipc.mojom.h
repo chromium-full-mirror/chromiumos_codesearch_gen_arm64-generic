@@ -256,7 +256,7 @@ class  Message {
   template <typename... Args>
   static MessagePtr New(Args&&... args) {
     return MessagePtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

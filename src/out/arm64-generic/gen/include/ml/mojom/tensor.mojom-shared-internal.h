@@ -62,17 +62,11 @@ class  ValueList_Data {
   enum class ValueList_Tag : uint32_t {
 
     
-    STRING_LIST,
+    kStringList,
     
-    kStringList = STRING_LIST,
+    kFloatList,
     
-    FLOAT_LIST,
-    
-    kFloatList = FLOAT_LIST,
-    
-    INT64_LIST,
-    
-    kInt64List = INT64_LIST,
+    kInt64List,
   };
 
   // A note on layout:

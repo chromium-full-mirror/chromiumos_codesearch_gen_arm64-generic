@@ -514,12 +514,12 @@ class TextEntityDataDataView {
   }
 
   Tag tag() const { return data_->tag; }
-  bool is_numeric_value() const { return data_->tag == Tag::NUMERIC_VALUE; }
+  bool is_numeric_value() const { return data_->tag == Tag::kNumericValue; }
   double numeric_value() const {
     CHECK(is_numeric_value());
     return data_->data.f_numeric_value;
   }
-  bool is_string_value() const { return data_->tag == Tag::STRING_VALUE; }
+  bool is_string_value() const { return data_->tag == Tag::kStringValue; }
   inline void GetStringValueDataView(
       mojo::StringDataView* output) const;
 
@@ -924,13 +924,13 @@ struct Serializer<::chromeos::machine_learning::mojom::TextEntityDataDataView, M
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::machine_learning::mojom::TextEntityDataDataView::Tag::NUMERIC_VALUE: {
+      case ::chromeos::machine_learning::mojom::TextEntityDataDataView::Tag::kNumericValue: {
         decltype(Traits::numeric_value(input))
             in_numeric_value = Traits::numeric_value(input);
         fragment->data.f_numeric_value = in_numeric_value;
         break;
       }
-      case ::chromeos::machine_learning::mojom::TextEntityDataDataView::Tag::STRING_VALUE: {
+      case ::chromeos::machine_learning::mojom::TextEntityDataDataView::Tag::kStringValue: {
         decltype(Traits::string_value(input))
             in_string_value = Traits::string_value(input);
         mojo::internal::MessageFragment<

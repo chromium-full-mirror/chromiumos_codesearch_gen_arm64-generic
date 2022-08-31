@@ -263,7 +263,7 @@ class  VideoFrame {
   template <typename... Args>
   static VideoFramePtr New(Args&&... args) {
     return VideoFramePtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

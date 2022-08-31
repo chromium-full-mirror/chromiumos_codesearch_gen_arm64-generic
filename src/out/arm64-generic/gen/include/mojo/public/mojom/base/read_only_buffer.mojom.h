@@ -55,7 +55,7 @@ class  ReadOnlyBuffer {
   template <typename... Args>
   static ReadOnlyBufferPtr New(Args&&... args) {
     return ReadOnlyBufferPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

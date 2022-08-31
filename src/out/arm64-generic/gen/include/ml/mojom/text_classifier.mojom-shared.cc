@@ -75,11 +75,11 @@ bool TextEntityData_Data::Validate(
 
   switch (object->tag) {
 
-    case TextEntityData_Tag::NUMERIC_VALUE: {
+    case TextEntityData_Tag::kNumericValue: {
 
       return true;
     }
-    case TextEntityData_Tag::STRING_VALUE: {
+    case TextEntityData_Tag::kStringValue: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_string_value, 2, validation_context)) {

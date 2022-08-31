@@ -526,7 +526,7 @@ bool AudioLevelEvent::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
-SpeechRecognizerEvent::SpeechRecognizerEvent() : tag_(Tag::AUDIO_EVENT) {
+SpeechRecognizerEvent::SpeechRecognizerEvent() : tag_(Tag::kAudioEvent) {
   data_.audio_event = new AudioLevelEventPtr;
 }
 
@@ -537,44 +537,44 @@ SpeechRecognizerEvent::~SpeechRecognizerEvent() {
 
 void SpeechRecognizerEvent::set_audio_event(
     AudioLevelEventPtr audio_event) {
-  if (tag_ == Tag::AUDIO_EVENT) {
+  if (tag_ == Tag::kAudioEvent) {
     *(data_.audio_event) = std::move(audio_event);
   } else {
     DestroyActive();
-    tag_ = Tag::AUDIO_EVENT;
+    tag_ = Tag::kAudioEvent;
     data_.audio_event = new AudioLevelEventPtr(
         std::move(audio_event));
   }
 }
 void SpeechRecognizerEvent::set_partial_result(
     PartialResultPtr partial_result) {
-  if (tag_ == Tag::PARTIAL_RESULT) {
+  if (tag_ == Tag::kPartialResult) {
     *(data_.partial_result) = std::move(partial_result);
   } else {
     DestroyActive();
-    tag_ = Tag::PARTIAL_RESULT;
+    tag_ = Tag::kPartialResult;
     data_.partial_result = new PartialResultPtr(
         std::move(partial_result));
   }
 }
 void SpeechRecognizerEvent::set_endpointer_event(
     EndpointerEventPtr endpointer_event) {
-  if (tag_ == Tag::ENDPOINTER_EVENT) {
+  if (tag_ == Tag::kEndpointerEvent) {
     *(data_.endpointer_event) = std::move(endpointer_event);
   } else {
     DestroyActive();
-    tag_ = Tag::ENDPOINTER_EVENT;
+    tag_ = Tag::kEndpointerEvent;
     data_.endpointer_event = new EndpointerEventPtr(
         std::move(endpointer_event));
   }
 }
 void SpeechRecognizerEvent::set_final_result(
     FinalResultPtr final_result) {
-  if (tag_ == Tag::FINAL_RESULT) {
+  if (tag_ == Tag::kFinalResult) {
     *(data_.final_result) = std::move(final_result);
   } else {
     DestroyActive();
-    tag_ = Tag::FINAL_RESULT;
+    tag_ = Tag::kFinalResult;
     data_.final_result = new FinalResultPtr(
         std::move(final_result));
   }
@@ -583,19 +583,19 @@ void SpeechRecognizerEvent::set_final_result(
 void SpeechRecognizerEvent::DestroyActive() {
   switch (tag_) {
 
-    case Tag::AUDIO_EVENT:
+    case Tag::kAudioEvent:
 
       delete data_.audio_event;
       break;
-    case Tag::PARTIAL_RESULT:
+    case Tag::kPartialResult:
 
       delete data_.partial_result;
       break;
-    case Tag::ENDPOINTER_EVENT:
+    case Tag::kEndpointerEvent:
 
       delete data_.endpointer_event;
       break;
-    case Tag::FINAL_RESULT:
+    case Tag::kFinalResult:
 
       delete data_.final_result;
       break;
@@ -1396,7 +1396,7 @@ bool UnionTraits<::chromeos::machine_learning::mojom::SpeechRecognizerEvent::Dat
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
-    case Tag::AUDIO_EVENT: {
+    case Tag::kAudioEvent: {
       ::chromeos::machine_learning::mojom::AudioLevelEventPtr result_audio_event;
       if (!input.ReadAudioEvent(&result_audio_event))
         return false;
@@ -1405,7 +1405,7 @@ bool UnionTraits<::chromeos::machine_learning::mojom::SpeechRecognizerEvent::Dat
           std::move(result_audio_event));
       break;
     }
-    case Tag::PARTIAL_RESULT: {
+    case Tag::kPartialResult: {
       ::chromeos::machine_learning::mojom::PartialResultPtr result_partial_result;
       if (!input.ReadPartialResult(&result_partial_result))
         return false;
@@ -1414,7 +1414,7 @@ bool UnionTraits<::chromeos::machine_learning::mojom::SpeechRecognizerEvent::Dat
           std::move(result_partial_result));
       break;
     }
-    case Tag::ENDPOINTER_EVENT: {
+    case Tag::kEndpointerEvent: {
       ::chromeos::machine_learning::mojom::EndpointerEventPtr result_endpointer_event;
       if (!input.ReadEndpointerEvent(&result_endpointer_event))
         return false;
@@ -1423,7 +1423,7 @@ bool UnionTraits<::chromeos::machine_learning::mojom::SpeechRecognizerEvent::Dat
           std::move(result_endpointer_event));
       break;
     }
-    case Tag::FINAL_RESULT: {
+    case Tag::kFinalResult: {
       ::chromeos::machine_learning::mojom::FinalResultPtr result_final_result;
       if (!input.ReadFinalResult(&result_final_result))
         return false;

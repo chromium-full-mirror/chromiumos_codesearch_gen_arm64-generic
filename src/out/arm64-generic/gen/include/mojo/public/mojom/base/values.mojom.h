@@ -52,14 +52,20 @@ class  Value {
   using Data_ = internal::Value_Data;
   using Tag = Data_::Value_Tag;
 
-  static ValuePtr New() {
-    return ValuePtr(base::in_place);
+  template <typename... Args>
+  static ValuePtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
   }
   // Construct an instance holding |null_value|.
   static ValuePtr
   NewNullValue(
       uint8_t null_value) {
-    auto result = ValuePtr(base::in_place);
+    auto result = ValuePtr(absl::in_place);
     result->set_null_value(std::move(null_value));
     return result;
   }
@@ -67,7 +73,7 @@ class  Value {
   static ValuePtr
   NewBoolValue(
       bool bool_value) {
-    auto result = ValuePtr(base::in_place);
+    auto result = ValuePtr(absl::in_place);
     result->set_bool_value(std::move(bool_value));
     return result;
   }
@@ -75,7 +81,7 @@ class  Value {
   static ValuePtr
   NewIntValue(
       int32_t int_value) {
-    auto result = ValuePtr(base::in_place);
+    auto result = ValuePtr(absl::in_place);
     result->set_int_value(std::move(int_value));
     return result;
   }
@@ -83,7 +89,7 @@ class  Value {
   static ValuePtr
   NewDoubleValue(
       double double_value) {
-    auto result = ValuePtr(base::in_place);
+    auto result = ValuePtr(absl::in_place);
     result->set_double_value(std::move(double_value));
     return result;
   }
@@ -91,7 +97,7 @@ class  Value {
   static ValuePtr
   NewStringValue(
       const std::string& string_value) {
-    auto result = ValuePtr(base::in_place);
+    auto result = ValuePtr(absl::in_place);
     result->set_string_value(std::move(string_value));
     return result;
   }
@@ -99,7 +105,7 @@ class  Value {
   static ValuePtr
   NewBinaryValue(
       std::vector<uint8_t> binary_value) {
-    auto result = ValuePtr(base::in_place);
+    auto result = ValuePtr(absl::in_place);
     result->set_binary_value(std::move(binary_value));
     return result;
   }
@@ -107,7 +113,7 @@ class  Value {
   static ValuePtr
   NewDictionaryValue(
       DictionaryValuePtr dictionary_value) {
-    auto result = ValuePtr(base::in_place);
+    auto result = ValuePtr(absl::in_place);
     result->set_dictionary_value(std::move(dictionary_value));
     return result;
   }
@@ -115,7 +121,7 @@ class  Value {
   static ValuePtr
   NewListValue(
       ListValuePtr list_value) {
-    auto result = ValuePtr(base::in_place);
+    auto result = ValuePtr(absl::in_place);
     result->set_list_value(std::move(list_value));
     return result;
   }
@@ -158,11 +164,11 @@ class  Value {
 
 
   
-  bool is_null_value() const { return tag_ == Tag::NULL_VALUE; }
+  bool is_null_value() const { return tag_ == Tag::kNullValue; }
 
   
   uint8_t get_null_value() const {
-    CHECK(tag_ == Tag::NULL_VALUE);
+    CHECK(tag_ == Tag::kNullValue);
     return data_.null_value;
   }
 
@@ -170,11 +176,11 @@ class  Value {
   void set_null_value(
       uint8_t null_value);
   
-  bool is_bool_value() const { return tag_ == Tag::BOOL_VALUE; }
+  bool is_bool_value() const { return tag_ == Tag::kBoolValue; }
 
   
   bool get_bool_value() const {
-    CHECK(tag_ == Tag::BOOL_VALUE);
+    CHECK(tag_ == Tag::kBoolValue);
     return data_.bool_value;
   }
 
@@ -182,11 +188,11 @@ class  Value {
   void set_bool_value(
       bool bool_value);
   
-  bool is_int_value() const { return tag_ == Tag::INT_VALUE; }
+  bool is_int_value() const { return tag_ == Tag::kIntValue; }
 
   
   int32_t get_int_value() const {
-    CHECK(tag_ == Tag::INT_VALUE);
+    CHECK(tag_ == Tag::kIntValue);
     return data_.int_value;
   }
 
@@ -194,11 +200,11 @@ class  Value {
   void set_int_value(
       int32_t int_value);
   
-  bool is_double_value() const { return tag_ == Tag::DOUBLE_VALUE; }
+  bool is_double_value() const { return tag_ == Tag::kDoubleValue; }
 
   
   double get_double_value() const {
-    CHECK(tag_ == Tag::DOUBLE_VALUE);
+    CHECK(tag_ == Tag::kDoubleValue);
     return data_.double_value;
   }
 
@@ -206,11 +212,11 @@ class  Value {
   void set_double_value(
       double double_value);
   
-  bool is_string_value() const { return tag_ == Tag::STRING_VALUE; }
+  bool is_string_value() const { return tag_ == Tag::kStringValue; }
 
   
   std::string& get_string_value() const {
-    CHECK(tag_ == Tag::STRING_VALUE);
+    CHECK(tag_ == Tag::kStringValue);
     return *(data_.string_value);
   }
 
@@ -218,11 +224,11 @@ class  Value {
   void set_string_value(
       const std::string& string_value);
   
-  bool is_binary_value() const { return tag_ == Tag::BINARY_VALUE; }
+  bool is_binary_value() const { return tag_ == Tag::kBinaryValue; }
 
   
   std::vector<uint8_t>& get_binary_value() const {
-    CHECK(tag_ == Tag::BINARY_VALUE);
+    CHECK(tag_ == Tag::kBinaryValue);
     return *(data_.binary_value);
   }
 
@@ -230,11 +236,11 @@ class  Value {
   void set_binary_value(
       std::vector<uint8_t> binary_value);
   
-  bool is_dictionary_value() const { return tag_ == Tag::DICTIONARY_VALUE; }
+  bool is_dictionary_value() const { return tag_ == Tag::kDictionaryValue; }
 
   
   DictionaryValuePtr& get_dictionary_value() const {
-    CHECK(tag_ == Tag::DICTIONARY_VALUE);
+    CHECK(tag_ == Tag::kDictionaryValue);
     return *(data_.dictionary_value);
   }
 
@@ -242,11 +248,11 @@ class  Value {
   void set_dictionary_value(
       DictionaryValuePtr dictionary_value);
   
-  bool is_list_value() const { return tag_ == Tag::LIST_VALUE; }
+  bool is_list_value() const { return tag_ == Tag::kListValue; }
 
   
   ListValuePtr& get_list_value() const {
-    CHECK(tag_ == Tag::LIST_VALUE);
+    CHECK(tag_ == Tag::kListValue);
     return *(data_.list_value);
   }
 
@@ -303,7 +309,7 @@ class  DictionaryValue {
   template <typename... Args>
   static DictionaryValuePtr New(Args&&... args) {
     return DictionaryValuePtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -442,7 +448,7 @@ class  ListValue {
   template <typename... Args>
   static ListValuePtr New(Args&&... args) {
     return ListValuePtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -581,7 +587,7 @@ class  DeprecatedDictionaryValue {
   template <typename... Args>
   static DeprecatedDictionaryValuePtr New(Args&&... args) {
     return DeprecatedDictionaryValuePtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -720,7 +726,7 @@ class  DeprecatedListValue {
   template <typename... Args>
   static DeprecatedListValuePtr New(Args&&... args) {
     return DeprecatedListValuePtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -847,36 +853,33 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 template <typename UnionPtrType>
 ValuePtr Value::Clone() const {
-  // Use UnionPtrType to prevent the compiler from trying to compile this
-  // without being asked.
-  UnionPtrType rv(New());
   switch (tag_) {
-    case Tag::NULL_VALUE:
-      rv->set_null_value(mojo::Clone(data_.null_value));
-      break;
-    case Tag::BOOL_VALUE:
-      rv->set_bool_value(mojo::Clone(data_.bool_value));
-      break;
-    case Tag::INT_VALUE:
-      rv->set_int_value(mojo::Clone(data_.int_value));
-      break;
-    case Tag::DOUBLE_VALUE:
-      rv->set_double_value(mojo::Clone(data_.double_value));
-      break;
-    case Tag::STRING_VALUE:
-      rv->set_string_value(mojo::Clone(*data_.string_value));
-      break;
-    case Tag::BINARY_VALUE:
-      rv->set_binary_value(mojo::Clone(*data_.binary_value));
-      break;
-    case Tag::DICTIONARY_VALUE:
-      rv->set_dictionary_value(mojo::Clone(*data_.dictionary_value));
-      break;
-    case Tag::LIST_VALUE:
-      rv->set_list_value(mojo::Clone(*data_.list_value));
-      break;
+    case Tag::kNullValue:
+      return NewNullValue(
+          mojo::Clone(data_.null_value));
+    case Tag::kBoolValue:
+      return NewBoolValue(
+          mojo::Clone(data_.bool_value));
+    case Tag::kIntValue:
+      return NewIntValue(
+          mojo::Clone(data_.int_value));
+    case Tag::kDoubleValue:
+      return NewDoubleValue(
+          mojo::Clone(data_.double_value));
+    case Tag::kStringValue:
+      return NewStringValue(
+          mojo::Clone(*data_.string_value));
+    case Tag::kBinaryValue:
+      return NewBinaryValue(
+          mojo::Clone(*data_.binary_value));
+    case Tag::kDictionaryValue:
+      return NewDictionaryValue(
+          mojo::Clone(*data_.dictionary_value));
+    case Tag::kListValue:
+      return NewListValue(
+          mojo::Clone(*data_.list_value));
   }
-  return rv;
+  return nullptr;
 }
 
 template <typename T,
@@ -887,21 +890,21 @@ bool Value::Equals(const T& other) const {
     return false;
 
   switch (tag_) {
-    case Tag::NULL_VALUE:
+    case Tag::kNullValue:
       return mojo::Equals(data_.null_value, other.data_.null_value);
-    case Tag::BOOL_VALUE:
+    case Tag::kBoolValue:
       return mojo::Equals(data_.bool_value, other.data_.bool_value);
-    case Tag::INT_VALUE:
+    case Tag::kIntValue:
       return mojo::Equals(data_.int_value, other.data_.int_value);
-    case Tag::DOUBLE_VALUE:
+    case Tag::kDoubleValue:
       return mojo::Equals(data_.double_value, other.data_.double_value);
-    case Tag::STRING_VALUE:
+    case Tag::kStringValue:
       return mojo::Equals(*(data_.string_value), *(other.data_.string_value));
-    case Tag::BINARY_VALUE:
+    case Tag::kBinaryValue:
       return mojo::Equals(*(data_.binary_value), *(other.data_.binary_value));
-    case Tag::DICTIONARY_VALUE:
+    case Tag::kDictionaryValue:
       return mojo::Equals(*(data_.dictionary_value), *(other.data_.dictionary_value));
-    case Tag::LIST_VALUE:
+    case Tag::kListValue:
       return mojo::Equals(*(data_.list_value), *(other.data_.list_value));
   }
 

@@ -236,7 +236,7 @@ class  ExecutedProcessResult {
   template <typename... Args>
   static ExecutedProcessResultPtr New(Args&&... args) {
     return ExecutedProcessResultPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

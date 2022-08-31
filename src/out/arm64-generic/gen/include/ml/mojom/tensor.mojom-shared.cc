@@ -50,7 +50,7 @@ bool ValueList_Data::Validate(
 
   switch (object->tag) {
 
-    case ValueList_Tag::STRING_LIST: {
+    case ValueList_Tag::kStringList: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_string_list, 1, validation_context)) {
@@ -60,7 +60,7 @@ bool ValueList_Data::Validate(
         return false;
       return true;
     }
-    case ValueList_Tag::FLOAT_LIST: {
+    case ValueList_Tag::kFloatList: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_float_list, 2, validation_context)) {
@@ -70,7 +70,7 @@ bool ValueList_Data::Validate(
         return false;
       return true;
     }
-    case ValueList_Tag::INT64_LIST: {
+    case ValueList_Tag::kInt64List: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_int64_list, 3, validation_context)) {

@@ -54,7 +54,7 @@ class  DisconnectReason {
   template <typename... Args>
   static DisconnectReasonPtr New(Args&&... args) {
     return DisconnectReasonPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -194,14 +194,20 @@ class  RunOrClosePipeInput {
   using Data_ = internal::RunOrClosePipeInput_Data;
   using Tag = Data_::RunOrClosePipeInput_Tag;
 
-  static RunOrClosePipeInputPtr New() {
-    return RunOrClosePipeInputPtr(base::in_place);
+  template <typename... Args>
+  static RunOrClosePipeInputPtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
   }
   // Construct an instance holding |peer_associated_endpoint_closed_event|.
   static RunOrClosePipeInputPtr
   NewPeerAssociatedEndpointClosedEvent(
       PeerAssociatedEndpointClosedEventPtr peer_associated_endpoint_closed_event) {
-    auto result = RunOrClosePipeInputPtr(base::in_place);
+    auto result = RunOrClosePipeInputPtr(absl::in_place);
     result->set_peer_associated_endpoint_closed_event(std::move(peer_associated_endpoint_closed_event));
     return result;
   }
@@ -209,7 +215,7 @@ class  RunOrClosePipeInput {
   static RunOrClosePipeInputPtr
   NewPauseUntilFlushCompletes(
       PauseUntilFlushCompletesPtr pause_until_flush_completes) {
-    auto result = RunOrClosePipeInputPtr(base::in_place);
+    auto result = RunOrClosePipeInputPtr(absl::in_place);
     result->set_pause_until_flush_completes(std::move(pause_until_flush_completes));
     return result;
   }
@@ -217,7 +223,7 @@ class  RunOrClosePipeInput {
   static RunOrClosePipeInputPtr
   NewFlushAsync(
       FlushAsyncPtr flush_async) {
-    auto result = RunOrClosePipeInputPtr(base::in_place);
+    auto result = RunOrClosePipeInputPtr(absl::in_place);
     result->set_flush_async(std::move(flush_async));
     return result;
   }
@@ -260,11 +266,11 @@ class  RunOrClosePipeInput {
 
 
   
-  bool is_peer_associated_endpoint_closed_event() const { return tag_ == Tag::PEER_ASSOCIATED_ENDPOINT_CLOSED_EVENT; }
+  bool is_peer_associated_endpoint_closed_event() const { return tag_ == Tag::kPeerAssociatedEndpointClosedEvent; }
 
   
   PeerAssociatedEndpointClosedEventPtr& get_peer_associated_endpoint_closed_event() const {
-    CHECK(tag_ == Tag::PEER_ASSOCIATED_ENDPOINT_CLOSED_EVENT);
+    CHECK(tag_ == Tag::kPeerAssociatedEndpointClosedEvent);
     return *(data_.peer_associated_endpoint_closed_event);
   }
 
@@ -272,11 +278,11 @@ class  RunOrClosePipeInput {
   void set_peer_associated_endpoint_closed_event(
       PeerAssociatedEndpointClosedEventPtr peer_associated_endpoint_closed_event);
   
-  bool is_pause_until_flush_completes() const { return tag_ == Tag::PAUSE_UNTIL_FLUSH_COMPLETES; }
+  bool is_pause_until_flush_completes() const { return tag_ == Tag::kPauseUntilFlushCompletes; }
 
   
   PauseUntilFlushCompletesPtr& get_pause_until_flush_completes() const {
-    CHECK(tag_ == Tag::PAUSE_UNTIL_FLUSH_COMPLETES);
+    CHECK(tag_ == Tag::kPauseUntilFlushCompletes);
     return *(data_.pause_until_flush_completes);
   }
 
@@ -284,11 +290,11 @@ class  RunOrClosePipeInput {
   void set_pause_until_flush_completes(
       PauseUntilFlushCompletesPtr pause_until_flush_completes);
   
-  bool is_flush_async() const { return tag_ == Tag::FLUSH_ASYNC; }
+  bool is_flush_async() const { return tag_ == Tag::kFlushAsync; }
 
   
   FlushAsyncPtr& get_flush_async() const {
-    CHECK(tag_ == Tag::FLUSH_ASYNC);
+    CHECK(tag_ == Tag::kFlushAsync);
     return *(data_.flush_async);
   }
 
@@ -340,7 +346,7 @@ class  RunOrClosePipeMessageParams {
   template <typename... Args>
   static RunOrClosePipeMessageParamsPtr New(Args&&... args) {
     return RunOrClosePipeMessageParamsPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -475,7 +481,7 @@ class  PeerAssociatedEndpointClosedEvent {
   template <typename... Args>
   static PeerAssociatedEndpointClosedEventPtr New(Args&&... args) {
     return PeerAssociatedEndpointClosedEventPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -617,7 +623,7 @@ class  PauseUntilFlushCompletes {
   template <typename... Args>
   static PauseUntilFlushCompletesPtr New(Args&&... args) {
     return PauseUntilFlushCompletesPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -751,7 +757,7 @@ class  FlushAsync {
   template <typename... Args>
   static FlushAsyncPtr New(Args&&... args) {
     return FlushAsyncPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -873,21 +879,18 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 template <typename UnionPtrType>
 RunOrClosePipeInputPtr RunOrClosePipeInput::Clone() const {
-  // Use UnionPtrType to prevent the compiler from trying to compile this
-  // without being asked.
-  UnionPtrType rv(New());
   switch (tag_) {
-    case Tag::PEER_ASSOCIATED_ENDPOINT_CLOSED_EVENT:
-      rv->set_peer_associated_endpoint_closed_event(mojo::Clone(*data_.peer_associated_endpoint_closed_event));
-      break;
-    case Tag::PAUSE_UNTIL_FLUSH_COMPLETES:
-      rv->set_pause_until_flush_completes(mojo::Clone(*data_.pause_until_flush_completes));
-      break;
-    case Tag::FLUSH_ASYNC:
-      rv->set_flush_async(mojo::Clone(*data_.flush_async));
-      break;
+    case Tag::kPeerAssociatedEndpointClosedEvent:
+      return NewPeerAssociatedEndpointClosedEvent(
+          mojo::Clone(*data_.peer_associated_endpoint_closed_event));
+    case Tag::kPauseUntilFlushCompletes:
+      return NewPauseUntilFlushCompletes(
+          mojo::Clone(*data_.pause_until_flush_completes));
+    case Tag::kFlushAsync:
+      return NewFlushAsync(
+          mojo::Clone(*data_.flush_async));
   }
-  return rv;
+  return nullptr;
 }
 
 template <typename T,
@@ -898,11 +901,11 @@ bool RunOrClosePipeInput::Equals(const T& other) const {
     return false;
 
   switch (tag_) {
-    case Tag::PEER_ASSOCIATED_ENDPOINT_CLOSED_EVENT:
+    case Tag::kPeerAssociatedEndpointClosedEvent:
       return mojo::Equals(*(data_.peer_associated_endpoint_closed_event), *(other.data_.peer_associated_endpoint_closed_event));
-    case Tag::PAUSE_UNTIL_FLUSH_COMPLETES:
+    case Tag::kPauseUntilFlushCompletes:
       return mojo::Equals(*(data_.pause_until_flush_completes), *(other.data_.pause_until_flush_completes));
-    case Tag::FLUSH_ASYNC:
+    case Tag::kFlushAsync:
       return mojo::Equals(*(data_.flush_async), *(other.data_.flush_async));
   }
 

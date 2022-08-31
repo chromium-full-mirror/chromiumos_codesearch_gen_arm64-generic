@@ -499,7 +499,7 @@ class RoutineUpdateUnionDataView {
   }
 
   Tag tag() const { return data_->tag; }
-  bool is_interactive_update() const { return data_->tag == Tag::INTERACTIVE_UPDATE; }
+  bool is_interactive_update() const { return data_->tag == Tag::kInteractiveUpdate; }
   inline void GetInteractiveUpdateDataView(
       InteractiveRoutineUpdateDataView* output) const;
 
@@ -510,7 +510,7 @@ class RoutineUpdateUnionDataView {
     return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::InteractiveRoutineUpdateDataView>(
         data_->data.f_interactive_update.Get(), output, message_);
   }
-  bool is_noninteractive_update() const { return data_->tag == Tag::NONINTERACTIVE_UPDATE; }
+  bool is_noninteractive_update() const { return data_->tag == Tag::kNoninteractiveUpdate; }
   inline void GetNoninteractiveUpdateDataView(
       NonInteractiveRoutineUpdateDataView* output) const;
 
@@ -881,7 +881,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::RoutineUpdateUnionDataView, M
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::cros_healthd::mojom::RoutineUpdateUnionDataView::Tag::INTERACTIVE_UPDATE: {
+      case ::chromeos::cros_healthd::mojom::RoutineUpdateUnionDataView::Tag::kInteractiveUpdate: {
         decltype(Traits::interactive_update(input))
             in_interactive_update = Traits::interactive_update(input);
         mojo::internal::MessageFragment<
@@ -897,7 +897,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::RoutineUpdateUnionDataView, M
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::cros_healthd::mojom::RoutineUpdateUnionDataView::Tag::NONINTERACTIVE_UPDATE: {
+      case ::chromeos::cros_healthd::mojom::RoutineUpdateUnionDataView::Tag::kNoninteractiveUpdate: {
         decltype(Traits::noninteractive_update(input))
             in_noninteractive_update = Traits::noninteractive_update(input);
         mojo::internal::MessageFragment<

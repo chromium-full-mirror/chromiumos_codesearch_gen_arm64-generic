@@ -49,7 +49,7 @@ bool BigBuffer_Data::Validate(
 
   switch (object->tag) {
 
-    case BigBuffer_Tag::BYTES: {
+    case BigBuffer_Tag::kBytes: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_bytes, 1, validation_context)) {
@@ -63,7 +63,7 @@ bool BigBuffer_Data::Validate(
       }
       return true;
     }
-    case BigBuffer_Tag::SHARED_MEMORY: {
+    case BigBuffer_Tag::kSharedMemory: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_shared_memory, 2, validation_context)) {
@@ -73,7 +73,7 @@ bool BigBuffer_Data::Validate(
         return false;
       return true;
     }
-    case BigBuffer_Tag::INVALID_BUFFER: {
+    case BigBuffer_Tag::kInvalidBuffer: {
 
       return true;
     }

@@ -5872,7 +5872,7 @@ class ProcessResultDataView {
   }
 
   Tag tag() const { return data_->tag; }
-  bool is_process_info() const { return data_->tag == Tag::PROCESS_INFO; }
+  bool is_process_info() const { return data_->tag == Tag::kProcessInfo; }
   inline void GetProcessInfoDataView(
       ProcessInfoDataView* output) const;
 
@@ -5883,7 +5883,7 @@ class ProcessResultDataView {
     return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::ProcessInfoDataView>(
         data_->data.f_process_info.Get(), output, message_);
   }
-  bool is_error() const { return data_->tag == Tag::ERROR; }
+  bool is_error() const { return data_->tag == Tag::kError; }
   inline void GetErrorDataView(
       ProbeErrorDataView* output) const;
 
@@ -5920,7 +5920,7 @@ class BatteryResultDataView {
   }
 
   Tag tag() const { return data_->tag; }
-  bool is_battery_info() const { return data_->tag == Tag::BATTERY_INFO; }
+  bool is_battery_info() const { return data_->tag == Tag::kBatteryInfo; }
   inline void GetBatteryInfoDataView(
       BatteryInfoDataView* output) const;
 
@@ -5941,7 +5941,7 @@ static_assert(
     return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::BatteryInfoDataView>(
         data_->data.f_battery_info.Get(), output, message_);
   }
-  bool is_error() const { return data_->tag == Tag::ERROR; }
+  bool is_error() const { return data_->tag == Tag::kError; }
   inline void GetErrorDataView(
       ProbeErrorDataView* output) const;
 
@@ -5978,7 +5978,7 @@ class NonRemovableBlockDeviceResultDataView {
   }
 
   Tag tag() const { return data_->tag; }
-  bool is_block_device_info() const { return data_->tag == Tag::BLOCK_DEVICE_INFO; }
+  bool is_block_device_info() const { return data_->tag == Tag::kBlockDeviceInfo; }
   inline void GetBlockDeviceInfoDataView(
       mojo::ArrayDataView<NonRemovableBlockDeviceInfoDataView>* output) const;
 
@@ -5989,7 +5989,7 @@ class NonRemovableBlockDeviceResultDataView {
     return mojo::internal::Deserialize<mojo::ArrayDataView<::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceInfoDataView>>(
         data_->data.f_block_device_info.Get(), output, message_);
   }
-  bool is_error() const { return data_->tag == Tag::ERROR; }
+  bool is_error() const { return data_->tag == Tag::kError; }
   inline void GetErrorDataView(
       ProbeErrorDataView* output) const;
 
@@ -6026,27 +6026,27 @@ class BlockDeviceVendorDataView {
   }
 
   Tag tag() const { return data_->tag; }
-  bool is_nvme_subsystem_vendor() const { return data_->tag == Tag::NVME_SUBSYSTEM_VENDOR; }
+  bool is_nvme_subsystem_vendor() const { return data_->tag == Tag::kNvmeSubsystemVendor; }
   uint32_t nvme_subsystem_vendor() const {
     CHECK(is_nvme_subsystem_vendor());
     return data_->data.f_nvme_subsystem_vendor;
   }
-  bool is_emmc_oemid() const { return data_->tag == Tag::EMMC_OEMID; }
+  bool is_emmc_oemid() const { return data_->tag == Tag::kEmmcOemid; }
   uint16_t emmc_oemid() const {
     CHECK(is_emmc_oemid());
     return data_->data.f_emmc_oemid;
   }
-  bool is_other() const { return data_->tag == Tag::OTHER; }
+  bool is_other() const { return data_->tag == Tag::kOther; }
   uint16_t other() const {
     CHECK(is_other());
     return data_->data.f_other;
   }
-  bool is_unknown() const { return data_->tag == Tag::UNKNOWN; }
+  bool is_unknown() const { return data_->tag == Tag::kUnknown; }
   uint64_t unknown() const {
     CHECK(is_unknown());
     return data_->data.f_unknown;
   }
-  bool is_jedec_manfid() const { return data_->tag == Tag::JEDEC_MANFID; }
+  bool is_jedec_manfid() const { return data_->tag == Tag::kJedecManfid; }
   uint16_t jedec_manfid() const {
     CHECK(is_jedec_manfid());
     return data_->data.f_jedec_manfid;
@@ -6076,22 +6076,22 @@ class BlockDeviceProductDataView {
   }
 
   Tag tag() const { return data_->tag; }
-  bool is_nvme_subsystem_device() const { return data_->tag == Tag::NVME_SUBSYSTEM_DEVICE; }
+  bool is_nvme_subsystem_device() const { return data_->tag == Tag::kNvmeSubsystemDevice; }
   uint32_t nvme_subsystem_device() const {
     CHECK(is_nvme_subsystem_device());
     return data_->data.f_nvme_subsystem_device;
   }
-  bool is_emmc_pnm() const { return data_->tag == Tag::EMMC_PNM; }
+  bool is_emmc_pnm() const { return data_->tag == Tag::kEmmcPnm; }
   uint64_t emmc_pnm() const {
     CHECK(is_emmc_pnm());
     return data_->data.f_emmc_pnm;
   }
-  bool is_other() const { return data_->tag == Tag::OTHER; }
+  bool is_other() const { return data_->tag == Tag::kOther; }
   uint16_t other() const {
     CHECK(is_other());
     return data_->data.f_other;
   }
-  bool is_unknown() const { return data_->tag == Tag::UNKNOWN; }
+  bool is_unknown() const { return data_->tag == Tag::kUnknown; }
   uint64_t unknown() const {
     CHECK(is_unknown());
     return data_->data.f_unknown;
@@ -6121,22 +6121,22 @@ class BlockDeviceRevisionDataView {
   }
 
   Tag tag() const { return data_->tag; }
-  bool is_nvme_pcie_rev() const { return data_->tag == Tag::NVME_PCIE_REV; }
+  bool is_nvme_pcie_rev() const { return data_->tag == Tag::kNvmePcieRev; }
   uint8_t nvme_pcie_rev() const {
     CHECK(is_nvme_pcie_rev());
     return data_->data.f_nvme_pcie_rev;
   }
-  bool is_emmc_prv() const { return data_->tag == Tag::EMMC_PRV; }
+  bool is_emmc_prv() const { return data_->tag == Tag::kEmmcPrv; }
   uint8_t emmc_prv() const {
     CHECK(is_emmc_prv());
     return data_->data.f_emmc_prv;
   }
-  bool is_other() const { return data_->tag == Tag::OTHER; }
+  bool is_other() const { return data_->tag == Tag::kOther; }
   uint16_t other() const {
     CHECK(is_other());
     return data_->data.f_other;
   }
-  bool is_unknown() const { return data_->tag == Tag::UNKNOWN; }
+  bool is_unknown() const { return data_->tag == Tag::kUnknown; }
   uint64_t unknown() const {
     CHECK(is_unknown());
     return data_->data.f_unknown;
@@ -6166,27 +6166,27 @@ class BlockDeviceFirmwareDataView {
   }
 
   Tag tag() const { return data_->tag; }
-  bool is_nvme_firmware_rev() const { return data_->tag == Tag::NVME_FIRMWARE_REV; }
+  bool is_nvme_firmware_rev() const { return data_->tag == Tag::kNvmeFirmwareRev; }
   uint64_t nvme_firmware_rev() const {
     CHECK(is_nvme_firmware_rev());
     return data_->data.f_nvme_firmware_rev;
   }
-  bool is_emmc_fwrev() const { return data_->tag == Tag::EMMC_FWREV; }
+  bool is_emmc_fwrev() const { return data_->tag == Tag::kEmmcFwrev; }
   uint64_t emmc_fwrev() const {
     CHECK(is_emmc_fwrev());
     return data_->data.f_emmc_fwrev;
   }
-  bool is_other() const { return data_->tag == Tag::OTHER; }
+  bool is_other() const { return data_->tag == Tag::kOther; }
   uint16_t other() const {
     CHECK(is_other());
     return data_->data.f_other;
   }
-  bool is_unknown() const { return data_->tag == Tag::UNKNOWN; }
+  bool is_unknown() const { return data_->tag == Tag::kUnknown; }
   uint64_t unknown() const {
     CHECK(is_unknown());
     return data_->data.f_unknown;
   }
-  bool is_ufs_fwrev() const { return data_->tag == Tag::UFS_FWREV; }
+  bool is_ufs_fwrev() const { return data_->tag == Tag::kUfsFwrev; }
   uint64_t ufs_fwrev() const {
     CHECK(is_ufs_fwrev());
     return data_->data.f_ufs_fwrev;
@@ -6216,7 +6216,7 @@ class CpuResultDataView {
   }
 
   Tag tag() const { return data_->tag; }
-  bool is_cpu_info() const { return data_->tag == Tag::CPU_INFO; }
+  bool is_cpu_info() const { return data_->tag == Tag::kCpuInfo; }
   inline void GetCpuInfoDataView(
       CpuInfoDataView* output) const;
 
@@ -6227,7 +6227,7 @@ class CpuResultDataView {
     return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::CpuInfoDataView>(
         data_->data.f_cpu_info.Get(), output, message_);
   }
-  bool is_error() const { return data_->tag == Tag::ERROR; }
+  bool is_error() const { return data_->tag == Tag::kError; }
   inline void GetErrorDataView(
       ProbeErrorDataView* output) const;
 
@@ -6264,7 +6264,7 @@ class TimezoneResultDataView {
   }
 
   Tag tag() const { return data_->tag; }
-  bool is_timezone_info() const { return data_->tag == Tag::TIMEZONE_INFO; }
+  bool is_timezone_info() const { return data_->tag == Tag::kTimezoneInfo; }
   inline void GetTimezoneInfoDataView(
       TimezoneInfoDataView* output) const;
 
@@ -6275,7 +6275,7 @@ class TimezoneResultDataView {
     return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::TimezoneInfoDataView>(
         data_->data.f_timezone_info.Get(), output, message_);
   }
-  bool is_error() const { return data_->tag == Tag::ERROR; }
+  bool is_error() const { return data_->tag == Tag::kError; }
   inline void GetErrorDataView(
       ProbeErrorDataView* output) const;
 
@@ -6312,7 +6312,7 @@ class MemoryResultDataView {
   }
 
   Tag tag() const { return data_->tag; }
-  bool is_memory_info() const { return data_->tag == Tag::MEMORY_INFO; }
+  bool is_memory_info() const { return data_->tag == Tag::kMemoryInfo; }
   inline void GetMemoryInfoDataView(
       MemoryInfoDataView* output) const;
 
@@ -6323,7 +6323,7 @@ class MemoryResultDataView {
     return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::MemoryInfoDataView>(
         data_->data.f_memory_info.Get(), output, message_);
   }
-  bool is_error() const { return data_->tag == Tag::ERROR; }
+  bool is_error() const { return data_->tag == Tag::kError; }
   inline void GetErrorDataView(
       ProbeErrorDataView* output) const;
 
@@ -6360,7 +6360,7 @@ class BacklightResultDataView {
   }
 
   Tag tag() const { return data_->tag; }
-  bool is_backlight_info() const { return data_->tag == Tag::BACKLIGHT_INFO; }
+  bool is_backlight_info() const { return data_->tag == Tag::kBacklightInfo; }
   inline void GetBacklightInfoDataView(
       mojo::ArrayDataView<BacklightInfoDataView>* output) const;
 
@@ -6371,7 +6371,7 @@ class BacklightResultDataView {
     return mojo::internal::Deserialize<mojo::ArrayDataView<::chromeos::cros_healthd::mojom::BacklightInfoDataView>>(
         data_->data.f_backlight_info.Get(), output, message_);
   }
-  bool is_error() const { return data_->tag == Tag::ERROR; }
+  bool is_error() const { return data_->tag == Tag::kError; }
   inline void GetErrorDataView(
       ProbeErrorDataView* output) const;
 
@@ -6408,7 +6408,7 @@ class FanResultDataView {
   }
 
   Tag tag() const { return data_->tag; }
-  bool is_fan_info() const { return data_->tag == Tag::FAN_INFO; }
+  bool is_fan_info() const { return data_->tag == Tag::kFanInfo; }
   inline void GetFanInfoDataView(
       mojo::ArrayDataView<FanInfoDataView>* output) const;
 
@@ -6419,7 +6419,7 @@ class FanResultDataView {
     return mojo::internal::Deserialize<mojo::ArrayDataView<::chromeos::cros_healthd::mojom::FanInfoDataView>>(
         data_->data.f_fan_info.Get(), output, message_);
   }
-  bool is_error() const { return data_->tag == Tag::ERROR; }
+  bool is_error() const { return data_->tag == Tag::kError; }
   inline void GetErrorDataView(
       ProbeErrorDataView* output) const;
 
@@ -6456,7 +6456,7 @@ class StatefulPartitionResultDataView {
   }
 
   Tag tag() const { return data_->tag; }
-  bool is_partition_info() const { return data_->tag == Tag::PARTITION_INFO; }
+  bool is_partition_info() const { return data_->tag == Tag::kPartitionInfo; }
   inline void GetPartitionInfoDataView(
       StatefulPartitionInfoDataView* output) const;
 
@@ -6467,7 +6467,7 @@ class StatefulPartitionResultDataView {
     return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::StatefulPartitionInfoDataView>(
         data_->data.f_partition_info.Get(), output, message_);
   }
-  bool is_error() const { return data_->tag == Tag::ERROR; }
+  bool is_error() const { return data_->tag == Tag::kError; }
   inline void GetErrorDataView(
       ProbeErrorDataView* output) const;
 
@@ -6504,7 +6504,7 @@ class BluetoothResultDataView {
   }
 
   Tag tag() const { return data_->tag; }
-  bool is_bluetooth_adapter_info() const { return data_->tag == Tag::BLUETOOTH_ADAPTER_INFO; }
+  bool is_bluetooth_adapter_info() const { return data_->tag == Tag::kBluetoothAdapterInfo; }
   inline void GetBluetoothAdapterInfoDataView(
       mojo::ArrayDataView<BluetoothAdapterInfoDataView>* output) const;
 
@@ -6515,7 +6515,7 @@ class BluetoothResultDataView {
     return mojo::internal::Deserialize<mojo::ArrayDataView<::chromeos::cros_healthd::mojom::BluetoothAdapterInfoDataView>>(
         data_->data.f_bluetooth_adapter_info.Get(), output, message_);
   }
-  bool is_error() const { return data_->tag == Tag::ERROR; }
+  bool is_error() const { return data_->tag == Tag::kError; }
   inline void GetErrorDataView(
       ProbeErrorDataView* output) const;
 
@@ -6552,7 +6552,7 @@ class DEPRECATE_SystemResultDataView {
   }
 
   Tag tag() const { return data_->tag; }
-  bool is_error() const { return data_->tag == Tag::ERROR; }
+  bool is_error() const { return data_->tag == Tag::kError; }
   inline void GetErrorDataView(
       ProbeErrorDataView* output) const;
 
@@ -6589,7 +6589,7 @@ class SystemResultDataView {
   }
 
   Tag tag() const { return data_->tag; }
-  bool is_system_info() const { return data_->tag == Tag::SYSTEM_INFO; }
+  bool is_system_info() const { return data_->tag == Tag::kSystemInfo; }
   inline void GetSystemInfoDataView(
       SystemInfoDataView* output) const;
 
@@ -6600,7 +6600,7 @@ class SystemResultDataView {
     return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::SystemInfoDataView>(
         data_->data.f_system_info.Get(), output, message_);
   }
-  bool is_error() const { return data_->tag == Tag::ERROR; }
+  bool is_error() const { return data_->tag == Tag::kError; }
   inline void GetErrorDataView(
       ProbeErrorDataView* output) const;
 
@@ -6637,7 +6637,7 @@ class NetworkResultDataView {
   }
 
   Tag tag() const { return data_->tag; }
-  bool is_network_health() const { return data_->tag == Tag::NETWORK_HEALTH; }
+  bool is_network_health() const { return data_->tag == Tag::kNetworkHealth; }
   inline void GetNetworkHealthDataView(
       ::chromeos::network_health::mojom::NetworkHealthStateDataView* output) const;
 
@@ -6648,7 +6648,7 @@ class NetworkResultDataView {
     return mojo::internal::Deserialize<::chromeos::network_health::mojom::NetworkHealthStateDataView>(
         data_->data.f_network_health.Get(), output, message_);
   }
-  bool is_error() const { return data_->tag == Tag::ERROR; }
+  bool is_error() const { return data_->tag == Tag::kError; }
   inline void GetErrorDataView(
       ProbeErrorDataView* output) const;
 
@@ -6685,7 +6685,7 @@ class NetworkInterfaceResultDataView {
   }
 
   Tag tag() const { return data_->tag; }
-  bool is_network_interface_info() const { return data_->tag == Tag::NETWORK_INTERFACE_INFO; }
+  bool is_network_interface_info() const { return data_->tag == Tag::kNetworkInterfaceInfo; }
   inline void GetNetworkInterfaceInfoDataView(
       mojo::ArrayDataView<NetworkInterfaceInfoDataView>* output) const;
 
@@ -6696,7 +6696,7 @@ class NetworkInterfaceResultDataView {
     return mojo::internal::Deserialize<mojo::ArrayDataView<::chromeos::cros_healthd::mojom::NetworkInterfaceInfoDataView>>(
         data_->data.f_network_interface_info.Get(), output, message_);
   }
-  bool is_error() const { return data_->tag == Tag::ERROR; }
+  bool is_error() const { return data_->tag == Tag::kError; }
   inline void GetErrorDataView(
       ProbeErrorDataView* output) const;
 
@@ -6733,7 +6733,7 @@ class NetworkInterfaceInfoDataView {
   }
 
   Tag tag() const { return data_->tag; }
-  bool is_wireless_interface_info() const { return data_->tag == Tag::WIRELESS_INTERFACE_INFO; }
+  bool is_wireless_interface_info() const { return data_->tag == Tag::kWirelessInterfaceInfo; }
   inline void GetWirelessInterfaceInfoDataView(
       WirelessInterfaceInfoDataView* output) const;
 
@@ -6770,7 +6770,7 @@ class AudioResultDataView {
   }
 
   Tag tag() const { return data_->tag; }
-  bool is_audio_info() const { return data_->tag == Tag::AUDIO_INFO; }
+  bool is_audio_info() const { return data_->tag == Tag::kAudioInfo; }
   inline void GetAudioInfoDataView(
       AudioInfoDataView* output) const;
 
@@ -6781,7 +6781,7 @@ class AudioResultDataView {
     return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::AudioInfoDataView>(
         data_->data.f_audio_info.Get(), output, message_);
   }
-  bool is_error() const { return data_->tag == Tag::ERROR; }
+  bool is_error() const { return data_->tag == Tag::kError; }
   inline void GetErrorDataView(
       ProbeErrorDataView* output) const;
 
@@ -6818,7 +6818,7 @@ class AudioHardwareResultDataView {
   }
 
   Tag tag() const { return data_->tag; }
-  bool is_audio_hardware_info() const { return data_->tag == Tag::AUDIO_HARDWARE_INFO; }
+  bool is_audio_hardware_info() const { return data_->tag == Tag::kAudioHardwareInfo; }
   inline void GetAudioHardwareInfoDataView(
       AudioHardwareInfoDataView* output) const;
 
@@ -6829,7 +6829,7 @@ class AudioHardwareResultDataView {
     return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::AudioHardwareInfoDataView>(
         data_->data.f_audio_hardware_info.Get(), output, message_);
   }
-  bool is_error() const { return data_->tag == Tag::ERROR; }
+  bool is_error() const { return data_->tag == Tag::kError; }
   inline void GetErrorDataView(
       ProbeErrorDataView* output) const;
 
@@ -6866,7 +6866,7 @@ class BootPerformanceResultDataView {
   }
 
   Tag tag() const { return data_->tag; }
-  bool is_boot_performance_info() const { return data_->tag == Tag::BOOT_PERFORMANCE_INFO; }
+  bool is_boot_performance_info() const { return data_->tag == Tag::kBootPerformanceInfo; }
   inline void GetBootPerformanceInfoDataView(
       BootPerformanceInfoDataView* output) const;
 
@@ -6877,7 +6877,7 @@ class BootPerformanceResultDataView {
     return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::BootPerformanceInfoDataView>(
         data_->data.f_boot_performance_info.Get(), output, message_);
   }
-  bool is_error() const { return data_->tag == Tag::ERROR; }
+  bool is_error() const { return data_->tag == Tag::kError; }
   inline void GetErrorDataView(
       ProbeErrorDataView* output) const;
 
@@ -6914,7 +6914,7 @@ class BusResultDataView {
   }
 
   Tag tag() const { return data_->tag; }
-  bool is_bus_devices() const { return data_->tag == Tag::BUS_DEVICES; }
+  bool is_bus_devices() const { return data_->tag == Tag::kBusDevices; }
   inline void GetBusDevicesDataView(
       mojo::ArrayDataView<BusDeviceDataView>* output) const;
 
@@ -6925,7 +6925,7 @@ class BusResultDataView {
     return mojo::internal::Deserialize<mojo::ArrayDataView<::chromeos::cros_healthd::mojom::BusDeviceDataView>>(
         data_->data.f_bus_devices.Get(), output, message_);
   }
-  bool is_error() const { return data_->tag == Tag::ERROR; }
+  bool is_error() const { return data_->tag == Tag::kError; }
   inline void GetErrorDataView(
       ProbeErrorDataView* output) const;
 
@@ -6962,7 +6962,7 @@ class BusInfoDataView {
   }
 
   Tag tag() const { return data_->tag; }
-  bool is_pci_bus_info() const { return data_->tag == Tag::PCI_BUS_INFO; }
+  bool is_pci_bus_info() const { return data_->tag == Tag::kPciBusInfo; }
   inline void GetPciBusInfoDataView(
       PciBusInfoDataView* output) const;
 
@@ -6973,7 +6973,7 @@ class BusInfoDataView {
     return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::PciBusInfoDataView>(
         data_->data.f_pci_bus_info.Get(), output, message_);
   }
-  bool is_usb_bus_info() const { return data_->tag == Tag::USB_BUS_INFO; }
+  bool is_usb_bus_info() const { return data_->tag == Tag::kUsbBusInfo; }
   inline void GetUsbBusInfoDataView(
       UsbBusInfoDataView* output) const;
 
@@ -6984,7 +6984,7 @@ class BusInfoDataView {
     return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::UsbBusInfoDataView>(
         data_->data.f_usb_bus_info.Get(), output, message_);
   }
-  bool is_thunderbolt_bus_info() const { return data_->tag == Tag::THUNDERBOLT_BUS_INFO; }
+  bool is_thunderbolt_bus_info() const { return data_->tag == Tag::kThunderboltBusInfo; }
   inline void GetThunderboltBusInfoDataView(
       ThunderboltBusInfoDataView* output) const;
 
@@ -6995,7 +6995,7 @@ class BusInfoDataView {
     return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::ThunderboltBusInfoDataView>(
         data_->data.f_thunderbolt_bus_info.Get(), output, message_);
   }
-  bool is_unmapped_field() const { return data_->tag == Tag::UNMAPPED_FIELD; }
+  bool is_unmapped_field() const { return data_->tag == Tag::kUnmappedField; }
   bool unmapped_field() const {
     CHECK(is_unmapped_field());
     return data_->data.f_unmapped_field;
@@ -7026,7 +7026,7 @@ class TpmResultDataView {
   }
 
   Tag tag() const { return data_->tag; }
-  bool is_tpm_info() const { return data_->tag == Tag::TPM_INFO; }
+  bool is_tpm_info() const { return data_->tag == Tag::kTpmInfo; }
   inline void GetTpmInfoDataView(
       TpmInfoDataView* output) const;
 
@@ -7037,7 +7037,7 @@ class TpmResultDataView {
     return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::TpmInfoDataView>(
         data_->data.f_tpm_info.Get(), output, message_);
   }
-  bool is_error() const { return data_->tag == Tag::ERROR; }
+  bool is_error() const { return data_->tag == Tag::kError; }
   inline void GetErrorDataView(
       ProbeErrorDataView* output) const;
 
@@ -7074,7 +7074,7 @@ class GraphicsResultDataView {
   }
 
   Tag tag() const { return data_->tag; }
-  bool is_graphics_info() const { return data_->tag == Tag::GRAPHICS_INFO; }
+  bool is_graphics_info() const { return data_->tag == Tag::kGraphicsInfo; }
   inline void GetGraphicsInfoDataView(
       GraphicsInfoDataView* output) const;
 
@@ -7085,7 +7085,7 @@ class GraphicsResultDataView {
     return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::GraphicsInfoDataView>(
         data_->data.f_graphics_info.Get(), output, message_);
   }
-  bool is_error() const { return data_->tag == Tag::ERROR; }
+  bool is_error() const { return data_->tag == Tag::kError; }
   inline void GetErrorDataView(
       ProbeErrorDataView* output) const;
 
@@ -7122,7 +7122,7 @@ class DisplayResultDataView {
   }
 
   Tag tag() const { return data_->tag; }
-  bool is_display_info() const { return data_->tag == Tag::DISPLAY_INFO; }
+  bool is_display_info() const { return data_->tag == Tag::kDisplayInfo; }
   inline void GetDisplayInfoDataView(
       DisplayInfoDataView* output) const;
 
@@ -7133,7 +7133,7 @@ class DisplayResultDataView {
     return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::DisplayInfoDataView>(
         data_->data.f_display_info.Get(), output, message_);
   }
-  bool is_error() const { return data_->tag == Tag::ERROR; }
+  bool is_error() const { return data_->tag == Tag::kError; }
   inline void GetErrorDataView(
       ProbeErrorDataView* output) const;
 
@@ -7170,7 +7170,7 @@ class InputResultDataView {
   }
 
   Tag tag() const { return data_->tag; }
-  bool is_input_info() const { return data_->tag == Tag::INPUT_INFO; }
+  bool is_input_info() const { return data_->tag == Tag::kInputInfo; }
   inline void GetInputInfoDataView(
       InputInfoDataView* output) const;
 
@@ -7181,7 +7181,7 @@ class InputResultDataView {
     return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::InputInfoDataView>(
         data_->data.f_input_info.Get(), output, message_);
   }
-  bool is_error() const { return data_->tag == Tag::ERROR; }
+  bool is_error() const { return data_->tag == Tag::kError; }
   inline void GetErrorDataView(
       ProbeErrorDataView* output) const;
 
@@ -7218,7 +7218,7 @@ class SensorResultDataView {
   }
 
   Tag tag() const { return data_->tag; }
-  bool is_sensor_info() const { return data_->tag == Tag::SENSOR_INFO; }
+  bool is_sensor_info() const { return data_->tag == Tag::kSensorInfo; }
   inline void GetSensorInfoDataView(
       SensorInfoDataView* output) const;
 
@@ -7229,7 +7229,7 @@ class SensorResultDataView {
     return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::SensorInfoDataView>(
         data_->data.f_sensor_info.Get(), output, message_);
   }
-  bool is_error() const { return data_->tag == Tag::ERROR; }
+  bool is_error() const { return data_->tag == Tag::kError; }
   inline void GetErrorDataView(
       ProbeErrorDataView* output) const;
 
@@ -11376,7 +11376,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::ProcessResultDataView, MaybeC
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::cros_healthd::mojom::ProcessResultDataView::Tag::PROCESS_INFO: {
+      case ::chromeos::cros_healthd::mojom::ProcessResultDataView::Tag::kProcessInfo: {
         decltype(Traits::process_info(input))
             in_process_info = Traits::process_info(input);
         mojo::internal::MessageFragment<
@@ -11392,7 +11392,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::ProcessResultDataView, MaybeC
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::cros_healthd::mojom::ProcessResultDataView::Tag::ERROR: {
+      case ::chromeos::cros_healthd::mojom::ProcessResultDataView::Tag::kError: {
         decltype(Traits::error(input))
             in_error = Traits::error(input);
         mojo::internal::MessageFragment<
@@ -11449,7 +11449,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::BatteryResultDataView, MaybeC
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::cros_healthd::mojom::BatteryResultDataView::Tag::BATTERY_INFO: {
+      case ::chromeos::cros_healthd::mojom::BatteryResultDataView::Tag::kBatteryInfo: {
         decltype(Traits::battery_info(input))
             in_battery_info = Traits::battery_info(input);
         mojo::internal::MessageFragment<
@@ -11461,7 +11461,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::BatteryResultDataView, MaybeC
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::cros_healthd::mojom::BatteryResultDataView::Tag::ERROR: {
+      case ::chromeos::cros_healthd::mojom::BatteryResultDataView::Tag::kError: {
         decltype(Traits::error(input))
             in_error = Traits::error(input);
         mojo::internal::MessageFragment<
@@ -11518,7 +11518,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceResult
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceResultDataView::Tag::BLOCK_DEVICE_INFO: {
+      case ::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceResultDataView::Tag::kBlockDeviceInfo: {
         decltype(Traits::block_device_info(input))
             in_block_device_info = Traits::block_device_info(input);
         mojo::internal::MessageFragment<
@@ -11536,7 +11536,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceResult
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceResultDataView::Tag::ERROR: {
+      case ::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceResultDataView::Tag::kError: {
         decltype(Traits::error(input))
             in_error = Traits::error(input);
         mojo::internal::MessageFragment<
@@ -11593,31 +11593,31 @@ struct Serializer<::chromeos::cros_healthd::mojom::BlockDeviceVendorDataView, Ma
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::cros_healthd::mojom::BlockDeviceVendorDataView::Tag::NVME_SUBSYSTEM_VENDOR: {
+      case ::chromeos::cros_healthd::mojom::BlockDeviceVendorDataView::Tag::kNvmeSubsystemVendor: {
         decltype(Traits::nvme_subsystem_vendor(input))
             in_nvme_subsystem_vendor = Traits::nvme_subsystem_vendor(input);
         fragment->data.f_nvme_subsystem_vendor = in_nvme_subsystem_vendor;
         break;
       }
-      case ::chromeos::cros_healthd::mojom::BlockDeviceVendorDataView::Tag::EMMC_OEMID: {
+      case ::chromeos::cros_healthd::mojom::BlockDeviceVendorDataView::Tag::kEmmcOemid: {
         decltype(Traits::emmc_oemid(input))
             in_emmc_oemid = Traits::emmc_oemid(input);
         fragment->data.f_emmc_oemid = in_emmc_oemid;
         break;
       }
-      case ::chromeos::cros_healthd::mojom::BlockDeviceVendorDataView::Tag::OTHER: {
+      case ::chromeos::cros_healthd::mojom::BlockDeviceVendorDataView::Tag::kOther: {
         decltype(Traits::other(input))
             in_other = Traits::other(input);
         fragment->data.f_other = in_other;
         break;
       }
-      case ::chromeos::cros_healthd::mojom::BlockDeviceVendorDataView::Tag::UNKNOWN: {
+      case ::chromeos::cros_healthd::mojom::BlockDeviceVendorDataView::Tag::kUnknown: {
         decltype(Traits::unknown(input))
             in_unknown = Traits::unknown(input);
         fragment->data.f_unknown = in_unknown;
         break;
       }
-      case ::chromeos::cros_healthd::mojom::BlockDeviceVendorDataView::Tag::JEDEC_MANFID: {
+      case ::chromeos::cros_healthd::mojom::BlockDeviceVendorDataView::Tag::kJedecManfid: {
         decltype(Traits::jedec_manfid(input))
             in_jedec_manfid = Traits::jedec_manfid(input);
         fragment->data.f_jedec_manfid = in_jedec_manfid;
@@ -11664,25 +11664,25 @@ struct Serializer<::chromeos::cros_healthd::mojom::BlockDeviceProductDataView, M
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::cros_healthd::mojom::BlockDeviceProductDataView::Tag::NVME_SUBSYSTEM_DEVICE: {
+      case ::chromeos::cros_healthd::mojom::BlockDeviceProductDataView::Tag::kNvmeSubsystemDevice: {
         decltype(Traits::nvme_subsystem_device(input))
             in_nvme_subsystem_device = Traits::nvme_subsystem_device(input);
         fragment->data.f_nvme_subsystem_device = in_nvme_subsystem_device;
         break;
       }
-      case ::chromeos::cros_healthd::mojom::BlockDeviceProductDataView::Tag::EMMC_PNM: {
+      case ::chromeos::cros_healthd::mojom::BlockDeviceProductDataView::Tag::kEmmcPnm: {
         decltype(Traits::emmc_pnm(input))
             in_emmc_pnm = Traits::emmc_pnm(input);
         fragment->data.f_emmc_pnm = in_emmc_pnm;
         break;
       }
-      case ::chromeos::cros_healthd::mojom::BlockDeviceProductDataView::Tag::OTHER: {
+      case ::chromeos::cros_healthd::mojom::BlockDeviceProductDataView::Tag::kOther: {
         decltype(Traits::other(input))
             in_other = Traits::other(input);
         fragment->data.f_other = in_other;
         break;
       }
-      case ::chromeos::cros_healthd::mojom::BlockDeviceProductDataView::Tag::UNKNOWN: {
+      case ::chromeos::cros_healthd::mojom::BlockDeviceProductDataView::Tag::kUnknown: {
         decltype(Traits::unknown(input))
             in_unknown = Traits::unknown(input);
         fragment->data.f_unknown = in_unknown;
@@ -11729,25 +11729,25 @@ struct Serializer<::chromeos::cros_healthd::mojom::BlockDeviceRevisionDataView, 
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::cros_healthd::mojom::BlockDeviceRevisionDataView::Tag::NVME_PCIE_REV: {
+      case ::chromeos::cros_healthd::mojom::BlockDeviceRevisionDataView::Tag::kNvmePcieRev: {
         decltype(Traits::nvme_pcie_rev(input))
             in_nvme_pcie_rev = Traits::nvme_pcie_rev(input);
         fragment->data.f_nvme_pcie_rev = in_nvme_pcie_rev;
         break;
       }
-      case ::chromeos::cros_healthd::mojom::BlockDeviceRevisionDataView::Tag::EMMC_PRV: {
+      case ::chromeos::cros_healthd::mojom::BlockDeviceRevisionDataView::Tag::kEmmcPrv: {
         decltype(Traits::emmc_prv(input))
             in_emmc_prv = Traits::emmc_prv(input);
         fragment->data.f_emmc_prv = in_emmc_prv;
         break;
       }
-      case ::chromeos::cros_healthd::mojom::BlockDeviceRevisionDataView::Tag::OTHER: {
+      case ::chromeos::cros_healthd::mojom::BlockDeviceRevisionDataView::Tag::kOther: {
         decltype(Traits::other(input))
             in_other = Traits::other(input);
         fragment->data.f_other = in_other;
         break;
       }
-      case ::chromeos::cros_healthd::mojom::BlockDeviceRevisionDataView::Tag::UNKNOWN: {
+      case ::chromeos::cros_healthd::mojom::BlockDeviceRevisionDataView::Tag::kUnknown: {
         decltype(Traits::unknown(input))
             in_unknown = Traits::unknown(input);
         fragment->data.f_unknown = in_unknown;
@@ -11794,31 +11794,31 @@ struct Serializer<::chromeos::cros_healthd::mojom::BlockDeviceFirmwareDataView, 
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::cros_healthd::mojom::BlockDeviceFirmwareDataView::Tag::NVME_FIRMWARE_REV: {
+      case ::chromeos::cros_healthd::mojom::BlockDeviceFirmwareDataView::Tag::kNvmeFirmwareRev: {
         decltype(Traits::nvme_firmware_rev(input))
             in_nvme_firmware_rev = Traits::nvme_firmware_rev(input);
         fragment->data.f_nvme_firmware_rev = in_nvme_firmware_rev;
         break;
       }
-      case ::chromeos::cros_healthd::mojom::BlockDeviceFirmwareDataView::Tag::EMMC_FWREV: {
+      case ::chromeos::cros_healthd::mojom::BlockDeviceFirmwareDataView::Tag::kEmmcFwrev: {
         decltype(Traits::emmc_fwrev(input))
             in_emmc_fwrev = Traits::emmc_fwrev(input);
         fragment->data.f_emmc_fwrev = in_emmc_fwrev;
         break;
       }
-      case ::chromeos::cros_healthd::mojom::BlockDeviceFirmwareDataView::Tag::OTHER: {
+      case ::chromeos::cros_healthd::mojom::BlockDeviceFirmwareDataView::Tag::kOther: {
         decltype(Traits::other(input))
             in_other = Traits::other(input);
         fragment->data.f_other = in_other;
         break;
       }
-      case ::chromeos::cros_healthd::mojom::BlockDeviceFirmwareDataView::Tag::UNKNOWN: {
+      case ::chromeos::cros_healthd::mojom::BlockDeviceFirmwareDataView::Tag::kUnknown: {
         decltype(Traits::unknown(input))
             in_unknown = Traits::unknown(input);
         fragment->data.f_unknown = in_unknown;
         break;
       }
-      case ::chromeos::cros_healthd::mojom::BlockDeviceFirmwareDataView::Tag::UFS_FWREV: {
+      case ::chromeos::cros_healthd::mojom::BlockDeviceFirmwareDataView::Tag::kUfsFwrev: {
         decltype(Traits::ufs_fwrev(input))
             in_ufs_fwrev = Traits::ufs_fwrev(input);
         fragment->data.f_ufs_fwrev = in_ufs_fwrev;
@@ -11865,7 +11865,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::CpuResultDataView, MaybeConst
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::cros_healthd::mojom::CpuResultDataView::Tag::CPU_INFO: {
+      case ::chromeos::cros_healthd::mojom::CpuResultDataView::Tag::kCpuInfo: {
         decltype(Traits::cpu_info(input))
             in_cpu_info = Traits::cpu_info(input);
         mojo::internal::MessageFragment<
@@ -11881,7 +11881,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::CpuResultDataView, MaybeConst
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::cros_healthd::mojom::CpuResultDataView::Tag::ERROR: {
+      case ::chromeos::cros_healthd::mojom::CpuResultDataView::Tag::kError: {
         decltype(Traits::error(input))
             in_error = Traits::error(input);
         mojo::internal::MessageFragment<
@@ -11938,7 +11938,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::TimezoneResultDataView, Maybe
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::cros_healthd::mojom::TimezoneResultDataView::Tag::TIMEZONE_INFO: {
+      case ::chromeos::cros_healthd::mojom::TimezoneResultDataView::Tag::kTimezoneInfo: {
         decltype(Traits::timezone_info(input))
             in_timezone_info = Traits::timezone_info(input);
         mojo::internal::MessageFragment<
@@ -11954,7 +11954,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::TimezoneResultDataView, Maybe
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::cros_healthd::mojom::TimezoneResultDataView::Tag::ERROR: {
+      case ::chromeos::cros_healthd::mojom::TimezoneResultDataView::Tag::kError: {
         decltype(Traits::error(input))
             in_error = Traits::error(input);
         mojo::internal::MessageFragment<
@@ -12011,7 +12011,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::MemoryResultDataView, MaybeCo
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::cros_healthd::mojom::MemoryResultDataView::Tag::MEMORY_INFO: {
+      case ::chromeos::cros_healthd::mojom::MemoryResultDataView::Tag::kMemoryInfo: {
         decltype(Traits::memory_info(input))
             in_memory_info = Traits::memory_info(input);
         mojo::internal::MessageFragment<
@@ -12027,7 +12027,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::MemoryResultDataView, MaybeCo
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::cros_healthd::mojom::MemoryResultDataView::Tag::ERROR: {
+      case ::chromeos::cros_healthd::mojom::MemoryResultDataView::Tag::kError: {
         decltype(Traits::error(input))
             in_error = Traits::error(input);
         mojo::internal::MessageFragment<
@@ -12084,7 +12084,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::BacklightResultDataView, Mayb
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::cros_healthd::mojom::BacklightResultDataView::Tag::BACKLIGHT_INFO: {
+      case ::chromeos::cros_healthd::mojom::BacklightResultDataView::Tag::kBacklightInfo: {
         decltype(Traits::backlight_info(input))
             in_backlight_info = Traits::backlight_info(input);
         mojo::internal::MessageFragment<
@@ -12102,7 +12102,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::BacklightResultDataView, Mayb
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::cros_healthd::mojom::BacklightResultDataView::Tag::ERROR: {
+      case ::chromeos::cros_healthd::mojom::BacklightResultDataView::Tag::kError: {
         decltype(Traits::error(input))
             in_error = Traits::error(input);
         mojo::internal::MessageFragment<
@@ -12159,7 +12159,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::FanResultDataView, MaybeConst
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::cros_healthd::mojom::FanResultDataView::Tag::FAN_INFO: {
+      case ::chromeos::cros_healthd::mojom::FanResultDataView::Tag::kFanInfo: {
         decltype(Traits::fan_info(input))
             in_fan_info = Traits::fan_info(input);
         mojo::internal::MessageFragment<
@@ -12177,7 +12177,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::FanResultDataView, MaybeConst
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::cros_healthd::mojom::FanResultDataView::Tag::ERROR: {
+      case ::chromeos::cros_healthd::mojom::FanResultDataView::Tag::kError: {
         decltype(Traits::error(input))
             in_error = Traits::error(input);
         mojo::internal::MessageFragment<
@@ -12234,7 +12234,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::StatefulPartitionResultDataVi
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::cros_healthd::mojom::StatefulPartitionResultDataView::Tag::PARTITION_INFO: {
+      case ::chromeos::cros_healthd::mojom::StatefulPartitionResultDataView::Tag::kPartitionInfo: {
         decltype(Traits::partition_info(input))
             in_partition_info = Traits::partition_info(input);
         mojo::internal::MessageFragment<
@@ -12250,7 +12250,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::StatefulPartitionResultDataVi
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::cros_healthd::mojom::StatefulPartitionResultDataView::Tag::ERROR: {
+      case ::chromeos::cros_healthd::mojom::StatefulPartitionResultDataView::Tag::kError: {
         decltype(Traits::error(input))
             in_error = Traits::error(input);
         mojo::internal::MessageFragment<
@@ -12307,7 +12307,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::BluetoothResultDataView, Mayb
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::cros_healthd::mojom::BluetoothResultDataView::Tag::BLUETOOTH_ADAPTER_INFO: {
+      case ::chromeos::cros_healthd::mojom::BluetoothResultDataView::Tag::kBluetoothAdapterInfo: {
         decltype(Traits::bluetooth_adapter_info(input))
             in_bluetooth_adapter_info = Traits::bluetooth_adapter_info(input);
         mojo::internal::MessageFragment<
@@ -12325,7 +12325,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::BluetoothResultDataView, Mayb
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::cros_healthd::mojom::BluetoothResultDataView::Tag::ERROR: {
+      case ::chromeos::cros_healthd::mojom::BluetoothResultDataView::Tag::kError: {
         decltype(Traits::error(input))
             in_error = Traits::error(input);
         mojo::internal::MessageFragment<
@@ -12382,7 +12382,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::DEPRECATE_SystemResultDataVie
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::cros_healthd::mojom::DEPRECATE_SystemResultDataView::Tag::ERROR: {
+      case ::chromeos::cros_healthd::mojom::DEPRECATE_SystemResultDataView::Tag::kError: {
         decltype(Traits::error(input))
             in_error = Traits::error(input);
         mojo::internal::MessageFragment<
@@ -12439,7 +12439,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::SystemResultDataView, MaybeCo
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::cros_healthd::mojom::SystemResultDataView::Tag::SYSTEM_INFO: {
+      case ::chromeos::cros_healthd::mojom::SystemResultDataView::Tag::kSystemInfo: {
         decltype(Traits::system_info(input))
             in_system_info = Traits::system_info(input);
         mojo::internal::MessageFragment<
@@ -12455,7 +12455,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::SystemResultDataView, MaybeCo
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::cros_healthd::mojom::SystemResultDataView::Tag::ERROR: {
+      case ::chromeos::cros_healthd::mojom::SystemResultDataView::Tag::kError: {
         decltype(Traits::error(input))
             in_error = Traits::error(input);
         mojo::internal::MessageFragment<
@@ -12512,7 +12512,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::NetworkResultDataView, MaybeC
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::cros_healthd::mojom::NetworkResultDataView::Tag::NETWORK_HEALTH: {
+      case ::chromeos::cros_healthd::mojom::NetworkResultDataView::Tag::kNetworkHealth: {
         decltype(Traits::network_health(input))
             in_network_health = Traits::network_health(input);
         mojo::internal::MessageFragment<
@@ -12528,7 +12528,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::NetworkResultDataView, MaybeC
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::cros_healthd::mojom::NetworkResultDataView::Tag::ERROR: {
+      case ::chromeos::cros_healthd::mojom::NetworkResultDataView::Tag::kError: {
         decltype(Traits::error(input))
             in_error = Traits::error(input);
         mojo::internal::MessageFragment<
@@ -12585,7 +12585,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::NetworkInterfaceResultDataVie
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::cros_healthd::mojom::NetworkInterfaceResultDataView::Tag::NETWORK_INTERFACE_INFO: {
+      case ::chromeos::cros_healthd::mojom::NetworkInterfaceResultDataView::Tag::kNetworkInterfaceInfo: {
         decltype(Traits::network_interface_info(input))
             in_network_interface_info = Traits::network_interface_info(input);
         mojo::internal::MessageFragment<
@@ -12603,7 +12603,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::NetworkInterfaceResultDataVie
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::cros_healthd::mojom::NetworkInterfaceResultDataView::Tag::ERROR: {
+      case ::chromeos::cros_healthd::mojom::NetworkInterfaceResultDataView::Tag::kError: {
         decltype(Traits::error(input))
             in_error = Traits::error(input);
         mojo::internal::MessageFragment<
@@ -12660,7 +12660,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::NetworkInterfaceInfoDataView,
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::cros_healthd::mojom::NetworkInterfaceInfoDataView::Tag::WIRELESS_INTERFACE_INFO: {
+      case ::chromeos::cros_healthd::mojom::NetworkInterfaceInfoDataView::Tag::kWirelessInterfaceInfo: {
         decltype(Traits::wireless_interface_info(input))
             in_wireless_interface_info = Traits::wireless_interface_info(input);
         mojo::internal::MessageFragment<
@@ -12717,7 +12717,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::AudioResultDataView, MaybeCon
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::cros_healthd::mojom::AudioResultDataView::Tag::AUDIO_INFO: {
+      case ::chromeos::cros_healthd::mojom::AudioResultDataView::Tag::kAudioInfo: {
         decltype(Traits::audio_info(input))
             in_audio_info = Traits::audio_info(input);
         mojo::internal::MessageFragment<
@@ -12733,7 +12733,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::AudioResultDataView, MaybeCon
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::cros_healthd::mojom::AudioResultDataView::Tag::ERROR: {
+      case ::chromeos::cros_healthd::mojom::AudioResultDataView::Tag::kError: {
         decltype(Traits::error(input))
             in_error = Traits::error(input);
         mojo::internal::MessageFragment<
@@ -12790,7 +12790,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::AudioHardwareResultDataView, 
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::cros_healthd::mojom::AudioHardwareResultDataView::Tag::AUDIO_HARDWARE_INFO: {
+      case ::chromeos::cros_healthd::mojom::AudioHardwareResultDataView::Tag::kAudioHardwareInfo: {
         decltype(Traits::audio_hardware_info(input))
             in_audio_hardware_info = Traits::audio_hardware_info(input);
         mojo::internal::MessageFragment<
@@ -12806,7 +12806,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::AudioHardwareResultDataView, 
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::cros_healthd::mojom::AudioHardwareResultDataView::Tag::ERROR: {
+      case ::chromeos::cros_healthd::mojom::AudioHardwareResultDataView::Tag::kError: {
         decltype(Traits::error(input))
             in_error = Traits::error(input);
         mojo::internal::MessageFragment<
@@ -12863,7 +12863,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::BootPerformanceResultDataView
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::cros_healthd::mojom::BootPerformanceResultDataView::Tag::BOOT_PERFORMANCE_INFO: {
+      case ::chromeos::cros_healthd::mojom::BootPerformanceResultDataView::Tag::kBootPerformanceInfo: {
         decltype(Traits::boot_performance_info(input))
             in_boot_performance_info = Traits::boot_performance_info(input);
         mojo::internal::MessageFragment<
@@ -12879,7 +12879,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::BootPerformanceResultDataView
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::cros_healthd::mojom::BootPerformanceResultDataView::Tag::ERROR: {
+      case ::chromeos::cros_healthd::mojom::BootPerformanceResultDataView::Tag::kError: {
         decltype(Traits::error(input))
             in_error = Traits::error(input);
         mojo::internal::MessageFragment<
@@ -12936,7 +12936,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::BusResultDataView, MaybeConst
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::cros_healthd::mojom::BusResultDataView::Tag::BUS_DEVICES: {
+      case ::chromeos::cros_healthd::mojom::BusResultDataView::Tag::kBusDevices: {
         decltype(Traits::bus_devices(input))
             in_bus_devices = Traits::bus_devices(input);
         mojo::internal::MessageFragment<
@@ -12954,7 +12954,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::BusResultDataView, MaybeConst
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::cros_healthd::mojom::BusResultDataView::Tag::ERROR: {
+      case ::chromeos::cros_healthd::mojom::BusResultDataView::Tag::kError: {
         decltype(Traits::error(input))
             in_error = Traits::error(input);
         mojo::internal::MessageFragment<
@@ -13011,7 +13011,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::BusInfoDataView, MaybeConstUs
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::cros_healthd::mojom::BusInfoDataView::Tag::PCI_BUS_INFO: {
+      case ::chromeos::cros_healthd::mojom::BusInfoDataView::Tag::kPciBusInfo: {
         decltype(Traits::pci_bus_info(input))
             in_pci_bus_info = Traits::pci_bus_info(input);
         mojo::internal::MessageFragment<
@@ -13027,7 +13027,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::BusInfoDataView, MaybeConstUs
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::cros_healthd::mojom::BusInfoDataView::Tag::USB_BUS_INFO: {
+      case ::chromeos::cros_healthd::mojom::BusInfoDataView::Tag::kUsbBusInfo: {
         decltype(Traits::usb_bus_info(input))
             in_usb_bus_info = Traits::usb_bus_info(input);
         mojo::internal::MessageFragment<
@@ -13043,7 +13043,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::BusInfoDataView, MaybeConstUs
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::cros_healthd::mojom::BusInfoDataView::Tag::THUNDERBOLT_BUS_INFO: {
+      case ::chromeos::cros_healthd::mojom::BusInfoDataView::Tag::kThunderboltBusInfo: {
         decltype(Traits::thunderbolt_bus_info(input))
             in_thunderbolt_bus_info = Traits::thunderbolt_bus_info(input);
         mojo::internal::MessageFragment<
@@ -13059,7 +13059,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::BusInfoDataView, MaybeConstUs
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::cros_healthd::mojom::BusInfoDataView::Tag::UNMAPPED_FIELD: {
+      case ::chromeos::cros_healthd::mojom::BusInfoDataView::Tag::kUnmappedField: {
         decltype(Traits::unmapped_field(input))
             in_unmapped_field = Traits::unmapped_field(input);
         fragment->data.f_unmapped_field = in_unmapped_field;
@@ -13106,7 +13106,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::TpmResultDataView, MaybeConst
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::cros_healthd::mojom::TpmResultDataView::Tag::TPM_INFO: {
+      case ::chromeos::cros_healthd::mojom::TpmResultDataView::Tag::kTpmInfo: {
         decltype(Traits::tpm_info(input))
             in_tpm_info = Traits::tpm_info(input);
         mojo::internal::MessageFragment<
@@ -13122,7 +13122,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::TpmResultDataView, MaybeConst
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::cros_healthd::mojom::TpmResultDataView::Tag::ERROR: {
+      case ::chromeos::cros_healthd::mojom::TpmResultDataView::Tag::kError: {
         decltype(Traits::error(input))
             in_error = Traits::error(input);
         mojo::internal::MessageFragment<
@@ -13179,7 +13179,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::GraphicsResultDataView, Maybe
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::cros_healthd::mojom::GraphicsResultDataView::Tag::GRAPHICS_INFO: {
+      case ::chromeos::cros_healthd::mojom::GraphicsResultDataView::Tag::kGraphicsInfo: {
         decltype(Traits::graphics_info(input))
             in_graphics_info = Traits::graphics_info(input);
         mojo::internal::MessageFragment<
@@ -13195,7 +13195,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::GraphicsResultDataView, Maybe
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::cros_healthd::mojom::GraphicsResultDataView::Tag::ERROR: {
+      case ::chromeos::cros_healthd::mojom::GraphicsResultDataView::Tag::kError: {
         decltype(Traits::error(input))
             in_error = Traits::error(input);
         mojo::internal::MessageFragment<
@@ -13252,7 +13252,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::DisplayResultDataView, MaybeC
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::cros_healthd::mojom::DisplayResultDataView::Tag::DISPLAY_INFO: {
+      case ::chromeos::cros_healthd::mojom::DisplayResultDataView::Tag::kDisplayInfo: {
         decltype(Traits::display_info(input))
             in_display_info = Traits::display_info(input);
         mojo::internal::MessageFragment<
@@ -13268,7 +13268,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::DisplayResultDataView, MaybeC
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::cros_healthd::mojom::DisplayResultDataView::Tag::ERROR: {
+      case ::chromeos::cros_healthd::mojom::DisplayResultDataView::Tag::kError: {
         decltype(Traits::error(input))
             in_error = Traits::error(input);
         mojo::internal::MessageFragment<
@@ -13325,7 +13325,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::InputResultDataView, MaybeCon
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::cros_healthd::mojom::InputResultDataView::Tag::INPUT_INFO: {
+      case ::chromeos::cros_healthd::mojom::InputResultDataView::Tag::kInputInfo: {
         decltype(Traits::input_info(input))
             in_input_info = Traits::input_info(input);
         mojo::internal::MessageFragment<
@@ -13341,7 +13341,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::InputResultDataView, MaybeCon
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::cros_healthd::mojom::InputResultDataView::Tag::ERROR: {
+      case ::chromeos::cros_healthd::mojom::InputResultDataView::Tag::kError: {
         decltype(Traits::error(input))
             in_error = Traits::error(input);
         mojo::internal::MessageFragment<
@@ -13398,7 +13398,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::SensorResultDataView, MaybeCo
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::cros_healthd::mojom::SensorResultDataView::Tag::SENSOR_INFO: {
+      case ::chromeos::cros_healthd::mojom::SensorResultDataView::Tag::kSensorInfo: {
         decltype(Traits::sensor_info(input))
             in_sensor_info = Traits::sensor_info(input);
         mojo::internal::MessageFragment<
@@ -13414,7 +13414,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::SensorResultDataView, MaybeCo
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::cros_healthd::mojom::SensorResultDataView::Tag::ERROR: {
+      case ::chromeos::cros_healthd::mojom::SensorResultDataView::Tag::kError: {
         decltype(Traits::error(input))
             in_error = Traits::error(input);
         mojo::internal::MessageFragment<

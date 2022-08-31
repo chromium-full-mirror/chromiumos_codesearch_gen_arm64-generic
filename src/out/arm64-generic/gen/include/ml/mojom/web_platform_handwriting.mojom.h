@@ -162,7 +162,7 @@ class  HandwritingDrawingSegment {
   template <typename... Args>
   static HandwritingDrawingSegmentPtr New(Args&&... args) {
     return HandwritingDrawingSegmentPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -312,7 +312,7 @@ class  HandwritingPoint {
   template <typename... Args>
   static HandwritingPointPtr New(Args&&... args) {
     return HandwritingPointPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -454,7 +454,7 @@ class  HandwritingStroke {
   template <typename... Args>
   static HandwritingStrokePtr New(Args&&... args) {
     return HandwritingStrokePtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -594,7 +594,7 @@ class  HandwritingSegment {
   template <typename... Args>
   static HandwritingSegmentPtr New(Args&&... args) {
     return HandwritingSegmentPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -742,7 +742,7 @@ class  HandwritingPrediction {
   template <typename... Args>
   static HandwritingPredictionPtr New(Args&&... args) {
     return HandwritingPredictionPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -884,7 +884,7 @@ class  HandwritingHints {
   template <typename... Args>
   static HandwritingHintsPtr New(Args&&... args) {
     return HandwritingHintsPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1039,7 +1039,7 @@ class  HandwritingModelConstraint {
   template <typename... Args>
   static HandwritingModelConstraintPtr New(Args&&... args) {
     return HandwritingModelConstraintPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -53,14 +53,20 @@ class  ValueList {
   using Data_ = internal::ValueList_Data;
   using Tag = Data_::ValueList_Tag;
 
-  static ValueListPtr New() {
-    return ValueListPtr(base::in_place);
+  template <typename... Args>
+  static ValueListPtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
   }
   // Construct an instance holding |string_list|.
   static ValueListPtr
   NewStringList(
       StringListPtr string_list) {
-    auto result = ValueListPtr(base::in_place);
+    auto result = ValueListPtr(absl::in_place);
     result->set_string_list(std::move(string_list));
     return result;
   }
@@ -68,7 +74,7 @@ class  ValueList {
   static ValueListPtr
   NewFloatList(
       FloatListPtr float_list) {
-    auto result = ValueListPtr(base::in_place);
+    auto result = ValueListPtr(absl::in_place);
     result->set_float_list(std::move(float_list));
     return result;
   }
@@ -76,7 +82,7 @@ class  ValueList {
   static ValueListPtr
   NewInt64List(
       Int64ListPtr int64_list) {
-    auto result = ValueListPtr(base::in_place);
+    auto result = ValueListPtr(absl::in_place);
     result->set_int64_list(std::move(int64_list));
     return result;
   }
@@ -119,11 +125,11 @@ class  ValueList {
 
 
   
-  bool is_string_list() const { return tag_ == Tag::STRING_LIST; }
+  bool is_string_list() const { return tag_ == Tag::kStringList; }
 
   
   StringListPtr& get_string_list() const {
-    CHECK(tag_ == Tag::STRING_LIST);
+    CHECK(tag_ == Tag::kStringList);
     return *(data_.string_list);
   }
 
@@ -131,11 +137,11 @@ class  ValueList {
   void set_string_list(
       StringListPtr string_list);
   
-  bool is_float_list() const { return tag_ == Tag::FLOAT_LIST; }
+  bool is_float_list() const { return tag_ == Tag::kFloatList; }
 
   
   FloatListPtr& get_float_list() const {
-    CHECK(tag_ == Tag::FLOAT_LIST);
+    CHECK(tag_ == Tag::kFloatList);
     return *(data_.float_list);
   }
 
@@ -143,11 +149,11 @@ class  ValueList {
   void set_float_list(
       FloatListPtr float_list);
   
-  bool is_int64_list() const { return tag_ == Tag::INT64_LIST; }
+  bool is_int64_list() const { return tag_ == Tag::kInt64List; }
 
   
   Int64ListPtr& get_int64_list() const {
-    CHECK(tag_ == Tag::INT64_LIST);
+    CHECK(tag_ == Tag::kInt64List);
     return *(data_.int64_list);
   }
 
@@ -199,7 +205,7 @@ class  StringList {
   template <typename... Args>
   static StringListPtr New(Args&&... args) {
     return StringListPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -336,7 +342,7 @@ class  FloatList {
   template <typename... Args>
   static FloatListPtr New(Args&&... args) {
     return FloatListPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -473,7 +479,7 @@ class  Int64List {
   template <typename... Args>
   static Int64ListPtr New(Args&&... args) {
     return Int64ListPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -610,7 +616,7 @@ class  Tensor {
   template <typename... Args>
   static TensorPtr New(Args&&... args) {
     return TensorPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -740,21 +746,18 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 template <typename UnionPtrType>
 ValueListPtr ValueList::Clone() const {
-  // Use UnionPtrType to prevent the compiler from trying to compile this
-  // without being asked.
-  UnionPtrType rv(New());
   switch (tag_) {
-    case Tag::STRING_LIST:
-      rv->set_string_list(mojo::Clone(*data_.string_list));
-      break;
-    case Tag::FLOAT_LIST:
-      rv->set_float_list(mojo::Clone(*data_.float_list));
-      break;
-    case Tag::INT64_LIST:
-      rv->set_int64_list(mojo::Clone(*data_.int64_list));
-      break;
+    case Tag::kStringList:
+      return NewStringList(
+          mojo::Clone(*data_.string_list));
+    case Tag::kFloatList:
+      return NewFloatList(
+          mojo::Clone(*data_.float_list));
+    case Tag::kInt64List:
+      return NewInt64List(
+          mojo::Clone(*data_.int64_list));
   }
-  return rv;
+  return nullptr;
 }
 
 template <typename T,
@@ -765,11 +768,11 @@ bool ValueList::Equals(const T& other) const {
     return false;
 
   switch (tag_) {
-    case Tag::STRING_LIST:
+    case Tag::kStringList:
       return mojo::Equals(*(data_.string_list), *(other.data_.string_list));
-    case Tag::FLOAT_LIST:
+    case Tag::kFloatList:
       return mojo::Equals(*(data_.float_list), *(other.data_.float_list));
-    case Tag::INT64_LIST:
+    case Tag::kInt64List:
       return mojo::Equals(*(data_.int64_list), *(other.data_.int64_list));
   }
 

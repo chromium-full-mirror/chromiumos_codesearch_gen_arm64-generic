@@ -172,7 +172,7 @@ bool Tensor::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
-ValueList::ValueList() : tag_(Tag::STRING_LIST) {
+ValueList::ValueList() : tag_(Tag::kStringList) {
   data_.string_list = new StringListPtr;
 }
 
@@ -183,33 +183,33 @@ ValueList::~ValueList() {
 
 void ValueList::set_string_list(
     StringListPtr string_list) {
-  if (tag_ == Tag::STRING_LIST) {
+  if (tag_ == Tag::kStringList) {
     *(data_.string_list) = std::move(string_list);
   } else {
     DestroyActive();
-    tag_ = Tag::STRING_LIST;
+    tag_ = Tag::kStringList;
     data_.string_list = new StringListPtr(
         std::move(string_list));
   }
 }
 void ValueList::set_float_list(
     FloatListPtr float_list) {
-  if (tag_ == Tag::FLOAT_LIST) {
+  if (tag_ == Tag::kFloatList) {
     *(data_.float_list) = std::move(float_list);
   } else {
     DestroyActive();
-    tag_ = Tag::FLOAT_LIST;
+    tag_ = Tag::kFloatList;
     data_.float_list = new FloatListPtr(
         std::move(float_list));
   }
 }
 void ValueList::set_int64_list(
     Int64ListPtr int64_list) {
-  if (tag_ == Tag::INT64_LIST) {
+  if (tag_ == Tag::kInt64List) {
     *(data_.int64_list) = std::move(int64_list);
   } else {
     DestroyActive();
-    tag_ = Tag::INT64_LIST;
+    tag_ = Tag::kInt64List;
     data_.int64_list = new Int64ListPtr(
         std::move(int64_list));
   }
@@ -218,15 +218,15 @@ void ValueList::set_int64_list(
 void ValueList::DestroyActive() {
   switch (tag_) {
 
-    case Tag::STRING_LIST:
+    case Tag::kStringList:
 
       delete data_.string_list;
       break;
-    case Tag::FLOAT_LIST:
+    case Tag::kFloatList:
 
       delete data_.float_list;
       break;
-    case Tag::INT64_LIST:
+    case Tag::kInt64List:
 
       delete data_.int64_list;
       break;
@@ -313,7 +313,7 @@ bool UnionTraits<::chromeos::machine_learning::mojom::ValueList::DataView, ::chr
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
-    case Tag::STRING_LIST: {
+    case Tag::kStringList: {
       ::chromeos::machine_learning::mojom::StringListPtr result_string_list;
       if (!input.ReadStringList(&result_string_list))
         return false;
@@ -322,7 +322,7 @@ bool UnionTraits<::chromeos::machine_learning::mojom::ValueList::DataView, ::chr
           std::move(result_string_list));
       break;
     }
-    case Tag::FLOAT_LIST: {
+    case Tag::kFloatList: {
       ::chromeos::machine_learning::mojom::FloatListPtr result_float_list;
       if (!input.ReadFloatList(&result_float_list))
         return false;
@@ -331,7 +331,7 @@ bool UnionTraits<::chromeos::machine_learning::mojom::ValueList::DataView, ::chr
           std::move(result_float_list));
       break;
     }
-    case Tag::INT64_LIST: {
+    case Tag::kInt64List: {
       ::chromeos::machine_learning::mojom::Int64ListPtr result_int64_list;
       if (!input.ReadInt64List(&result_int64_list))
         return false;

@@ -1012,7 +1012,7 @@ class  ServiceStatus {
   template <typename... Args>
   static ServiceStatusPtr New(Args&&... args) {
     return ServiceStatusPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -372,7 +372,7 @@ bool VideoEncodeAcceleratorConfig::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
-Bitrate::Bitrate() : tag_(Tag::CONSTANT) {
+Bitrate::Bitrate() : tag_(Tag::kConstant) {
   data_.constant = new ConstantBitratePtr;
 }
 
@@ -383,22 +383,22 @@ Bitrate::~Bitrate() {
 
 void Bitrate::set_constant(
     ConstantBitratePtr constant) {
-  if (tag_ == Tag::CONSTANT) {
+  if (tag_ == Tag::kConstant) {
     *(data_.constant) = std::move(constant);
   } else {
     DestroyActive();
-    tag_ = Tag::CONSTANT;
+    tag_ = Tag::kConstant;
     data_.constant = new ConstantBitratePtr(
         std::move(constant));
   }
 }
 void Bitrate::set_variable(
     VariableBitratePtr variable) {
-  if (tag_ == Tag::VARIABLE) {
+  if (tag_ == Tag::kVariable) {
     *(data_.variable) = std::move(variable);
   } else {
     DestroyActive();
-    tag_ = Tag::VARIABLE;
+    tag_ = Tag::kVariable;
     data_.variable = new VariableBitratePtr(
         std::move(variable));
   }
@@ -407,11 +407,11 @@ void Bitrate::set_variable(
 void Bitrate::DestroyActive() {
   switch (tag_) {
 
-    case Tag::CONSTANT:
+    case Tag::kConstant:
 
       delete data_.constant;
       break;
-    case Tag::VARIABLE:
+    case Tag::kVariable:
 
       delete data_.variable;
       break;
@@ -421,9 +421,9 @@ size_t Bitrate::Hash(size_t seed) const {
   seed = mojo::internal::HashCombine(seed, static_cast<uint32_t>(tag_));
   switch (tag_) {
 
-    case Tag::CONSTANT:
+    case Tag::kConstant:
       return mojo::internal::Hash(seed, data_.constant);
-    case Tag::VARIABLE:
+    case Tag::kVariable:
       return mojo::internal::Hash(seed, data_.variable);
     default:
       NOTREACHED();
@@ -2421,7 +2421,7 @@ bool UnionTraits<::arc::mojom::Bitrate::DataView, ::arc::mojom::BitratePtr>::Rea
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
-    case Tag::CONSTANT: {
+    case Tag::kConstant: {
       ::arc::mojom::ConstantBitratePtr result_constant;
       if (!input.ReadConstant(&result_constant))
         return false;
@@ -2430,7 +2430,7 @@ bool UnionTraits<::arc::mojom::Bitrate::DataView, ::arc::mojom::BitratePtr>::Rea
           std::move(result_constant));
       break;
     }
-    case Tag::VARIABLE: {
+    case Tag::kVariable: {
       ::arc::mojom::VariableBitratePtr result_variable;
       if (!input.ReadVariable(&result_variable))
         return false;

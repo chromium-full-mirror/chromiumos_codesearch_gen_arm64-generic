@@ -698,7 +698,7 @@ bool ProcessResult_Data::Validate(
 
   switch (object->tag) {
 
-    case ProcessResult_Tag::PROCESS_INFO: {
+    case ProcessResult_Tag::kProcessInfo: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_process_info, 1, validation_context)) {
@@ -708,7 +708,7 @@ bool ProcessResult_Data::Validate(
         return false;
       return true;
     }
-    case ProcessResult_Tag::ERROR: {
+    case ProcessResult_Tag::kError: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_error, 2, validation_context)) {
@@ -755,13 +755,13 @@ bool BatteryResult_Data::Validate(
 
   switch (object->tag) {
 
-    case BatteryResult_Tag::BATTERY_INFO: {
+    case BatteryResult_Tag::kBatteryInfo: {
 
       if (!mojo::internal::ValidateStruct(object->data.f_battery_info, validation_context))
         return false;
       return true;
     }
-    case BatteryResult_Tag::ERROR: {
+    case BatteryResult_Tag::kError: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_error, 2, validation_context)) {
@@ -808,7 +808,7 @@ bool NonRemovableBlockDeviceResult_Data::Validate(
 
   switch (object->tag) {
 
-    case NonRemovableBlockDeviceResult_Tag::BLOCK_DEVICE_INFO: {
+    case NonRemovableBlockDeviceResult_Tag::kBlockDeviceInfo: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_block_device_info, 1, validation_context)) {
@@ -822,7 +822,7 @@ bool NonRemovableBlockDeviceResult_Data::Validate(
       }
       return true;
     }
-    case NonRemovableBlockDeviceResult_Tag::ERROR: {
+    case NonRemovableBlockDeviceResult_Tag::kError: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_error, 2, validation_context)) {
@@ -869,23 +869,23 @@ bool BlockDeviceVendor_Data::Validate(
 
   switch (object->tag) {
 
-    case BlockDeviceVendor_Tag::NVME_SUBSYSTEM_VENDOR: {
+    case BlockDeviceVendor_Tag::kNvmeSubsystemVendor: {
 
       return true;
     }
-    case BlockDeviceVendor_Tag::EMMC_OEMID: {
+    case BlockDeviceVendor_Tag::kEmmcOemid: {
 
       return true;
     }
-    case BlockDeviceVendor_Tag::OTHER: {
+    case BlockDeviceVendor_Tag::kOther: {
 
       return true;
     }
-    case BlockDeviceVendor_Tag::UNKNOWN: {
+    case BlockDeviceVendor_Tag::kUnknown: {
 
       return true;
     }
-    case BlockDeviceVendor_Tag::JEDEC_MANFID: {
+    case BlockDeviceVendor_Tag::kJedecManfid: {
 
       return true;
     }
@@ -922,19 +922,19 @@ bool BlockDeviceProduct_Data::Validate(
 
   switch (object->tag) {
 
-    case BlockDeviceProduct_Tag::NVME_SUBSYSTEM_DEVICE: {
+    case BlockDeviceProduct_Tag::kNvmeSubsystemDevice: {
 
       return true;
     }
-    case BlockDeviceProduct_Tag::EMMC_PNM: {
+    case BlockDeviceProduct_Tag::kEmmcPnm: {
 
       return true;
     }
-    case BlockDeviceProduct_Tag::OTHER: {
+    case BlockDeviceProduct_Tag::kOther: {
 
       return true;
     }
-    case BlockDeviceProduct_Tag::UNKNOWN: {
+    case BlockDeviceProduct_Tag::kUnknown: {
 
       return true;
     }
@@ -971,19 +971,19 @@ bool BlockDeviceRevision_Data::Validate(
 
   switch (object->tag) {
 
-    case BlockDeviceRevision_Tag::NVME_PCIE_REV: {
+    case BlockDeviceRevision_Tag::kNvmePcieRev: {
 
       return true;
     }
-    case BlockDeviceRevision_Tag::EMMC_PRV: {
+    case BlockDeviceRevision_Tag::kEmmcPrv: {
 
       return true;
     }
-    case BlockDeviceRevision_Tag::OTHER: {
+    case BlockDeviceRevision_Tag::kOther: {
 
       return true;
     }
-    case BlockDeviceRevision_Tag::UNKNOWN: {
+    case BlockDeviceRevision_Tag::kUnknown: {
 
       return true;
     }
@@ -1020,23 +1020,23 @@ bool BlockDeviceFirmware_Data::Validate(
 
   switch (object->tag) {
 
-    case BlockDeviceFirmware_Tag::NVME_FIRMWARE_REV: {
+    case BlockDeviceFirmware_Tag::kNvmeFirmwareRev: {
 
       return true;
     }
-    case BlockDeviceFirmware_Tag::EMMC_FWREV: {
+    case BlockDeviceFirmware_Tag::kEmmcFwrev: {
 
       return true;
     }
-    case BlockDeviceFirmware_Tag::OTHER: {
+    case BlockDeviceFirmware_Tag::kOther: {
 
       return true;
     }
-    case BlockDeviceFirmware_Tag::UNKNOWN: {
+    case BlockDeviceFirmware_Tag::kUnknown: {
 
       return true;
     }
-    case BlockDeviceFirmware_Tag::UFS_FWREV: {
+    case BlockDeviceFirmware_Tag::kUfsFwrev: {
 
       return true;
     }
@@ -1073,7 +1073,7 @@ bool CpuResult_Data::Validate(
 
   switch (object->tag) {
 
-    case CpuResult_Tag::CPU_INFO: {
+    case CpuResult_Tag::kCpuInfo: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_cpu_info, 1, validation_context)) {
@@ -1083,7 +1083,7 @@ bool CpuResult_Data::Validate(
         return false;
       return true;
     }
-    case CpuResult_Tag::ERROR: {
+    case CpuResult_Tag::kError: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_error, 2, validation_context)) {
@@ -1130,7 +1130,7 @@ bool TimezoneResult_Data::Validate(
 
   switch (object->tag) {
 
-    case TimezoneResult_Tag::TIMEZONE_INFO: {
+    case TimezoneResult_Tag::kTimezoneInfo: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_timezone_info, 1, validation_context)) {
@@ -1140,7 +1140,7 @@ bool TimezoneResult_Data::Validate(
         return false;
       return true;
     }
-    case TimezoneResult_Tag::ERROR: {
+    case TimezoneResult_Tag::kError: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_error, 2, validation_context)) {
@@ -1187,7 +1187,7 @@ bool MemoryResult_Data::Validate(
 
   switch (object->tag) {
 
-    case MemoryResult_Tag::MEMORY_INFO: {
+    case MemoryResult_Tag::kMemoryInfo: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_memory_info, 1, validation_context)) {
@@ -1197,7 +1197,7 @@ bool MemoryResult_Data::Validate(
         return false;
       return true;
     }
-    case MemoryResult_Tag::ERROR: {
+    case MemoryResult_Tag::kError: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_error, 2, validation_context)) {
@@ -1244,7 +1244,7 @@ bool BacklightResult_Data::Validate(
 
   switch (object->tag) {
 
-    case BacklightResult_Tag::BACKLIGHT_INFO: {
+    case BacklightResult_Tag::kBacklightInfo: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_backlight_info, 1, validation_context)) {
@@ -1258,7 +1258,7 @@ bool BacklightResult_Data::Validate(
       }
       return true;
     }
-    case BacklightResult_Tag::ERROR: {
+    case BacklightResult_Tag::kError: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_error, 2, validation_context)) {
@@ -1305,7 +1305,7 @@ bool FanResult_Data::Validate(
 
   switch (object->tag) {
 
-    case FanResult_Tag::FAN_INFO: {
+    case FanResult_Tag::kFanInfo: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_fan_info, 1, validation_context)) {
@@ -1319,7 +1319,7 @@ bool FanResult_Data::Validate(
       }
       return true;
     }
-    case FanResult_Tag::ERROR: {
+    case FanResult_Tag::kError: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_error, 2, validation_context)) {
@@ -1366,7 +1366,7 @@ bool StatefulPartitionResult_Data::Validate(
 
   switch (object->tag) {
 
-    case StatefulPartitionResult_Tag::PARTITION_INFO: {
+    case StatefulPartitionResult_Tag::kPartitionInfo: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_partition_info, 1, validation_context)) {
@@ -1376,7 +1376,7 @@ bool StatefulPartitionResult_Data::Validate(
         return false;
       return true;
     }
-    case StatefulPartitionResult_Tag::ERROR: {
+    case StatefulPartitionResult_Tag::kError: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_error, 2, validation_context)) {
@@ -1423,7 +1423,7 @@ bool BluetoothResult_Data::Validate(
 
   switch (object->tag) {
 
-    case BluetoothResult_Tag::BLUETOOTH_ADAPTER_INFO: {
+    case BluetoothResult_Tag::kBluetoothAdapterInfo: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_bluetooth_adapter_info, 1, validation_context)) {
@@ -1437,7 +1437,7 @@ bool BluetoothResult_Data::Validate(
       }
       return true;
     }
-    case BluetoothResult_Tag::ERROR: {
+    case BluetoothResult_Tag::kError: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_error, 2, validation_context)) {
@@ -1484,7 +1484,7 @@ bool DEPRECATE_SystemResult_Data::Validate(
 
   switch (object->tag) {
 
-    case DEPRECATE_SystemResult_Tag::ERROR: {
+    case DEPRECATE_SystemResult_Tag::kError: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_error, 1, validation_context)) {
@@ -1531,7 +1531,7 @@ bool SystemResult_Data::Validate(
 
   switch (object->tag) {
 
-    case SystemResult_Tag::SYSTEM_INFO: {
+    case SystemResult_Tag::kSystemInfo: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_system_info, 1, validation_context)) {
@@ -1541,7 +1541,7 @@ bool SystemResult_Data::Validate(
         return false;
       return true;
     }
-    case SystemResult_Tag::ERROR: {
+    case SystemResult_Tag::kError: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_error, 2, validation_context)) {
@@ -1588,7 +1588,7 @@ bool NetworkResult_Data::Validate(
 
   switch (object->tag) {
 
-    case NetworkResult_Tag::NETWORK_HEALTH: {
+    case NetworkResult_Tag::kNetworkHealth: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_network_health, 1, validation_context)) {
@@ -1598,7 +1598,7 @@ bool NetworkResult_Data::Validate(
         return false;
       return true;
     }
-    case NetworkResult_Tag::ERROR: {
+    case NetworkResult_Tag::kError: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_error, 2, validation_context)) {
@@ -1645,7 +1645,7 @@ bool NetworkInterfaceResult_Data::Validate(
 
   switch (object->tag) {
 
-    case NetworkInterfaceResult_Tag::NETWORK_INTERFACE_INFO: {
+    case NetworkInterfaceResult_Tag::kNetworkInterfaceInfo: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_network_interface_info, 1, validation_context)) {
@@ -1659,7 +1659,7 @@ bool NetworkInterfaceResult_Data::Validate(
       }
       return true;
     }
-    case NetworkInterfaceResult_Tag::ERROR: {
+    case NetworkInterfaceResult_Tag::kError: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_error, 2, validation_context)) {
@@ -1706,7 +1706,7 @@ bool NetworkInterfaceInfo_Data::Validate(
 
   switch (object->tag) {
 
-    case NetworkInterfaceInfo_Tag::WIRELESS_INTERFACE_INFO: {
+    case NetworkInterfaceInfo_Tag::kWirelessInterfaceInfo: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_wireless_interface_info, 1, validation_context)) {
@@ -1753,7 +1753,7 @@ bool AudioResult_Data::Validate(
 
   switch (object->tag) {
 
-    case AudioResult_Tag::AUDIO_INFO: {
+    case AudioResult_Tag::kAudioInfo: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_audio_info, 1, validation_context)) {
@@ -1763,7 +1763,7 @@ bool AudioResult_Data::Validate(
         return false;
       return true;
     }
-    case AudioResult_Tag::ERROR: {
+    case AudioResult_Tag::kError: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_error, 2, validation_context)) {
@@ -1810,7 +1810,7 @@ bool AudioHardwareResult_Data::Validate(
 
   switch (object->tag) {
 
-    case AudioHardwareResult_Tag::AUDIO_HARDWARE_INFO: {
+    case AudioHardwareResult_Tag::kAudioHardwareInfo: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_audio_hardware_info, 1, validation_context)) {
@@ -1820,7 +1820,7 @@ bool AudioHardwareResult_Data::Validate(
         return false;
       return true;
     }
-    case AudioHardwareResult_Tag::ERROR: {
+    case AudioHardwareResult_Tag::kError: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_error, 2, validation_context)) {
@@ -1867,7 +1867,7 @@ bool BootPerformanceResult_Data::Validate(
 
   switch (object->tag) {
 
-    case BootPerformanceResult_Tag::BOOT_PERFORMANCE_INFO: {
+    case BootPerformanceResult_Tag::kBootPerformanceInfo: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_boot_performance_info, 1, validation_context)) {
@@ -1877,7 +1877,7 @@ bool BootPerformanceResult_Data::Validate(
         return false;
       return true;
     }
-    case BootPerformanceResult_Tag::ERROR: {
+    case BootPerformanceResult_Tag::kError: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_error, 2, validation_context)) {
@@ -1924,7 +1924,7 @@ bool BusResult_Data::Validate(
 
   switch (object->tag) {
 
-    case BusResult_Tag::BUS_DEVICES: {
+    case BusResult_Tag::kBusDevices: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_bus_devices, 1, validation_context)) {
@@ -1938,7 +1938,7 @@ bool BusResult_Data::Validate(
       }
       return true;
     }
-    case BusResult_Tag::ERROR: {
+    case BusResult_Tag::kError: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_error, 2, validation_context)) {
@@ -1985,7 +1985,7 @@ bool BusInfo_Data::Validate(
 
   switch (object->tag) {
 
-    case BusInfo_Tag::PCI_BUS_INFO: {
+    case BusInfo_Tag::kPciBusInfo: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_pci_bus_info, 1, validation_context)) {
@@ -1995,7 +1995,7 @@ bool BusInfo_Data::Validate(
         return false;
       return true;
     }
-    case BusInfo_Tag::USB_BUS_INFO: {
+    case BusInfo_Tag::kUsbBusInfo: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_usb_bus_info, 2, validation_context)) {
@@ -2005,7 +2005,7 @@ bool BusInfo_Data::Validate(
         return false;
       return true;
     }
-    case BusInfo_Tag::THUNDERBOLT_BUS_INFO: {
+    case BusInfo_Tag::kThunderboltBusInfo: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_thunderbolt_bus_info, 3, validation_context)) {
@@ -2015,7 +2015,7 @@ bool BusInfo_Data::Validate(
         return false;
       return true;
     }
-    case BusInfo_Tag::UNMAPPED_FIELD: {
+    case BusInfo_Tag::kUnmappedField: {
 
       return true;
     }
@@ -2052,7 +2052,7 @@ bool TpmResult_Data::Validate(
 
   switch (object->tag) {
 
-    case TpmResult_Tag::TPM_INFO: {
+    case TpmResult_Tag::kTpmInfo: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_tpm_info, 1, validation_context)) {
@@ -2062,7 +2062,7 @@ bool TpmResult_Data::Validate(
         return false;
       return true;
     }
-    case TpmResult_Tag::ERROR: {
+    case TpmResult_Tag::kError: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_error, 2, validation_context)) {
@@ -2109,7 +2109,7 @@ bool GraphicsResult_Data::Validate(
 
   switch (object->tag) {
 
-    case GraphicsResult_Tag::GRAPHICS_INFO: {
+    case GraphicsResult_Tag::kGraphicsInfo: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_graphics_info, 1, validation_context)) {
@@ -2119,7 +2119,7 @@ bool GraphicsResult_Data::Validate(
         return false;
       return true;
     }
-    case GraphicsResult_Tag::ERROR: {
+    case GraphicsResult_Tag::kError: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_error, 2, validation_context)) {
@@ -2166,7 +2166,7 @@ bool DisplayResult_Data::Validate(
 
   switch (object->tag) {
 
-    case DisplayResult_Tag::DISPLAY_INFO: {
+    case DisplayResult_Tag::kDisplayInfo: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_display_info, 1, validation_context)) {
@@ -2176,7 +2176,7 @@ bool DisplayResult_Data::Validate(
         return false;
       return true;
     }
-    case DisplayResult_Tag::ERROR: {
+    case DisplayResult_Tag::kError: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_error, 2, validation_context)) {
@@ -2223,7 +2223,7 @@ bool InputResult_Data::Validate(
 
   switch (object->tag) {
 
-    case InputResult_Tag::INPUT_INFO: {
+    case InputResult_Tag::kInputInfo: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_input_info, 1, validation_context)) {
@@ -2233,7 +2233,7 @@ bool InputResult_Data::Validate(
         return false;
       return true;
     }
-    case InputResult_Tag::ERROR: {
+    case InputResult_Tag::kError: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_error, 2, validation_context)) {
@@ -2280,7 +2280,7 @@ bool SensorResult_Data::Validate(
 
   switch (object->tag) {
 
-    case SensorResult_Tag::SENSOR_INFO: {
+    case SensorResult_Tag::kSensorInfo: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_sensor_info, 1, validation_context)) {
@@ -2290,7 +2290,7 @@ bool SensorResult_Data::Validate(
         return false;
       return true;
     }
-    case SensorResult_Tag::ERROR: {
+    case SensorResult_Tag::kError: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_error, 2, validation_context)) {

@@ -219,27 +219,27 @@ class ValueDataView {
   }
 
   Tag tag() const { return data_->tag; }
-  bool is_null_value() const { return data_->tag == Tag::NULL_VALUE; }
+  bool is_null_value() const { return data_->tag == Tag::kNullValue; }
   uint8_t null_value() const {
     CHECK(is_null_value());
     return data_->data.f_null_value;
   }
-  bool is_bool_value() const { return data_->tag == Tag::BOOL_VALUE; }
+  bool is_bool_value() const { return data_->tag == Tag::kBoolValue; }
   bool bool_value() const {
     CHECK(is_bool_value());
     return data_->data.f_bool_value;
   }
-  bool is_int_value() const { return data_->tag == Tag::INT_VALUE; }
+  bool is_int_value() const { return data_->tag == Tag::kIntValue; }
   int32_t int_value() const {
     CHECK(is_int_value());
     return data_->data.f_int_value;
   }
-  bool is_double_value() const { return data_->tag == Tag::DOUBLE_VALUE; }
+  bool is_double_value() const { return data_->tag == Tag::kDoubleValue; }
   double double_value() const {
     CHECK(is_double_value());
     return data_->data.f_double_value;
   }
-  bool is_string_value() const { return data_->tag == Tag::STRING_VALUE; }
+  bool is_string_value() const { return data_->tag == Tag::kStringValue; }
   inline void GetStringValueDataView(
       mojo::StringDataView* output) const;
 
@@ -250,7 +250,7 @@ class ValueDataView {
     return mojo::internal::Deserialize<mojo::StringDataView>(
         data_->data.f_string_value.Get(), output, message_);
   }
-  bool is_binary_value() const { return data_->tag == Tag::BINARY_VALUE; }
+  bool is_binary_value() const { return data_->tag == Tag::kBinaryValue; }
   inline void GetBinaryValueDataView(
       mojo::ArrayDataView<uint8_t>* output) const;
 
@@ -261,7 +261,7 @@ class ValueDataView {
     return mojo::internal::Deserialize<mojo::ArrayDataView<uint8_t>>(
         data_->data.f_binary_value.Get(), output, message_);
   }
-  bool is_dictionary_value() const { return data_->tag == Tag::DICTIONARY_VALUE; }
+  bool is_dictionary_value() const { return data_->tag == Tag::kDictionaryValue; }
   inline void GetDictionaryValueDataView(
       DictionaryValueDataView* output) const;
 
@@ -272,7 +272,7 @@ class ValueDataView {
     return mojo::internal::Deserialize<::mojo_base::mojom::DictionaryValueDataView>(
         data_->data.f_dictionary_value.Get(), output, message_);
   }
-  bool is_list_value() const { return data_->tag == Tag::LIST_VALUE; }
+  bool is_list_value() const { return data_->tag == Tag::kListValue; }
   inline void GetListValueDataView(
       ListValueDataView* output) const;
 
@@ -497,31 +497,31 @@ struct Serializer<::mojo_base::mojom::ValueDataView, MaybeConstUserType> {
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::mojo_base::mojom::ValueDataView::Tag::NULL_VALUE: {
+      case ::mojo_base::mojom::ValueDataView::Tag::kNullValue: {
         decltype(Traits::null_value(input))
             in_null_value = Traits::null_value(input);
         fragment->data.f_null_value = in_null_value;
         break;
       }
-      case ::mojo_base::mojom::ValueDataView::Tag::BOOL_VALUE: {
+      case ::mojo_base::mojom::ValueDataView::Tag::kBoolValue: {
         decltype(Traits::bool_value(input))
             in_bool_value = Traits::bool_value(input);
         fragment->data.f_bool_value = in_bool_value;
         break;
       }
-      case ::mojo_base::mojom::ValueDataView::Tag::INT_VALUE: {
+      case ::mojo_base::mojom::ValueDataView::Tag::kIntValue: {
         decltype(Traits::int_value(input))
             in_int_value = Traits::int_value(input);
         fragment->data.f_int_value = in_int_value;
         break;
       }
-      case ::mojo_base::mojom::ValueDataView::Tag::DOUBLE_VALUE: {
+      case ::mojo_base::mojom::ValueDataView::Tag::kDoubleValue: {
         decltype(Traits::double_value(input))
             in_double_value = Traits::double_value(input);
         fragment->data.f_double_value = in_double_value;
         break;
       }
-      case ::mojo_base::mojom::ValueDataView::Tag::STRING_VALUE: {
+      case ::mojo_base::mojom::ValueDataView::Tag::kStringValue: {
         decltype(Traits::string_value(input))
             in_string_value = Traits::string_value(input);
         mojo::internal::MessageFragment<
@@ -537,7 +537,7 @@ struct Serializer<::mojo_base::mojom::ValueDataView, MaybeConstUserType> {
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::mojo_base::mojom::ValueDataView::Tag::BINARY_VALUE: {
+      case ::mojo_base::mojom::ValueDataView::Tag::kBinaryValue: {
         decltype(Traits::binary_value(input))
             in_binary_value = Traits::binary_value(input);
         mojo::internal::MessageFragment<
@@ -555,7 +555,7 @@ struct Serializer<::mojo_base::mojom::ValueDataView, MaybeConstUserType> {
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::mojo_base::mojom::ValueDataView::Tag::DICTIONARY_VALUE: {
+      case ::mojo_base::mojom::ValueDataView::Tag::kDictionaryValue: {
         decltype(Traits::dictionary_value(input))
             in_dictionary_value = Traits::dictionary_value(input);
         mojo::internal::MessageFragment<
@@ -571,7 +571,7 @@ struct Serializer<::mojo_base::mojom::ValueDataView, MaybeConstUserType> {
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::mojo_base::mojom::ValueDataView::Tag::LIST_VALUE: {
+      case ::mojo_base::mojom::ValueDataView::Tag::kListValue: {
         decltype(Traits::list_value(input))
             in_list_value = Traits::list_value(input);
         mojo::internal::MessageFragment<

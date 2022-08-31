@@ -182,7 +182,7 @@ class  DocumentScannerConfig {
   template <typename... Args>
   static DocumentScannerConfigPtr New(Args&&... args) {
     return DocumentScannerConfigPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -327,7 +327,7 @@ class  DetectCornersResult {
   template <typename... Args>
   static DetectCornersResultPtr New(Args&&... args) {
     return DetectCornersResultPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -469,7 +469,7 @@ class  DoPostProcessingResult {
   template <typename... Args>
   static DoPostProcessingResultPtr New(Args&&... args) {
     return DoPostProcessingResultPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

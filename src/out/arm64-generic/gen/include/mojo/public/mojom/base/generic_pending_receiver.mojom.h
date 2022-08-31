@@ -56,7 +56,7 @@ class  GenericPendingReceiver {
   template <typename... Args>
   static GenericPendingReceiverPtr New(Args&&... args) {
     return GenericPendingReceiverPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

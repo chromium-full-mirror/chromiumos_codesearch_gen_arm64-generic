@@ -711,13 +711,9 @@ class  ProcessResult_Data {
   enum class ProcessResult_Tag : uint32_t {
 
     
-    PROCESS_INFO,
+    kProcessInfo,
     
-    kProcessInfo = PROCESS_INFO,
-    
-    ERROR,
-    
-    kError = ERROR,
+    kError,
   };
 
   // A note on layout:
@@ -767,13 +763,9 @@ class  BatteryResult_Data {
   enum class BatteryResult_Tag : uint32_t {
 
     
-    BATTERY_INFO,
+    kBatteryInfo,
     
-    kBatteryInfo = BATTERY_INFO,
-    
-    ERROR,
-    
-    kError = ERROR,
+    kError,
   };
 
   // A note on layout:
@@ -823,13 +815,9 @@ class  NonRemovableBlockDeviceResult_Data {
   enum class NonRemovableBlockDeviceResult_Tag : uint32_t {
 
     
-    BLOCK_DEVICE_INFO,
+    kBlockDeviceInfo,
     
-    kBlockDeviceInfo = BLOCK_DEVICE_INFO,
-    
-    ERROR,
-    
-    kError = ERROR,
+    kError,
   };
 
   // A note on layout:
@@ -879,25 +867,15 @@ class  BlockDeviceVendor_Data {
   enum class BlockDeviceVendor_Tag : uint32_t {
 
     
-    NVME_SUBSYSTEM_VENDOR,
+    kNvmeSubsystemVendor,
     
-    kNvmeSubsystemVendor = NVME_SUBSYSTEM_VENDOR,
+    kEmmcOemid,
     
-    EMMC_OEMID,
+    kOther,
     
-    kEmmcOemid = EMMC_OEMID,
+    kUnknown,
     
-    OTHER,
-    
-    kOther = OTHER,
-    
-    UNKNOWN,
-    
-    kUnknown = UNKNOWN,
-    
-    JEDEC_MANFID,
-    
-    kJedecManfid = JEDEC_MANFID,
+    kJedecManfid,
   };
 
   // A note on layout:
@@ -950,21 +928,13 @@ class  BlockDeviceProduct_Data {
   enum class BlockDeviceProduct_Tag : uint32_t {
 
     
-    NVME_SUBSYSTEM_DEVICE,
+    kNvmeSubsystemDevice,
     
-    kNvmeSubsystemDevice = NVME_SUBSYSTEM_DEVICE,
+    kEmmcPnm,
     
-    EMMC_PNM,
+    kOther,
     
-    kEmmcPnm = EMMC_PNM,
-    
-    OTHER,
-    
-    kOther = OTHER,
-    
-    UNKNOWN,
-    
-    kUnknown = UNKNOWN,
+    kUnknown,
   };
 
   // A note on layout:
@@ -1016,21 +986,13 @@ class  BlockDeviceRevision_Data {
   enum class BlockDeviceRevision_Tag : uint32_t {
 
     
-    NVME_PCIE_REV,
+    kNvmePcieRev,
     
-    kNvmePcieRev = NVME_PCIE_REV,
+    kEmmcPrv,
     
-    EMMC_PRV,
+    kOther,
     
-    kEmmcPrv = EMMC_PRV,
-    
-    OTHER,
-    
-    kOther = OTHER,
-    
-    UNKNOWN,
-    
-    kUnknown = UNKNOWN,
+    kUnknown,
   };
 
   // A note on layout:
@@ -1082,25 +1044,15 @@ class  BlockDeviceFirmware_Data {
   enum class BlockDeviceFirmware_Tag : uint32_t {
 
     
-    NVME_FIRMWARE_REV,
+    kNvmeFirmwareRev,
     
-    kNvmeFirmwareRev = NVME_FIRMWARE_REV,
+    kEmmcFwrev,
     
-    EMMC_FWREV,
+    kOther,
     
-    kEmmcFwrev = EMMC_FWREV,
+    kUnknown,
     
-    OTHER,
-    
-    kOther = OTHER,
-    
-    UNKNOWN,
-    
-    kUnknown = UNKNOWN,
-    
-    UFS_FWREV,
-    
-    kUfsFwrev = UFS_FWREV,
+    kUfsFwrev,
   };
 
   // A note on layout:
@@ -1153,13 +1105,9 @@ class  CpuResult_Data {
   enum class CpuResult_Tag : uint32_t {
 
     
-    CPU_INFO,
+    kCpuInfo,
     
-    kCpuInfo = CPU_INFO,
-    
-    ERROR,
-    
-    kError = ERROR,
+    kError,
   };
 
   // A note on layout:
@@ -1209,13 +1157,9 @@ class  TimezoneResult_Data {
   enum class TimezoneResult_Tag : uint32_t {
 
     
-    TIMEZONE_INFO,
+    kTimezoneInfo,
     
-    kTimezoneInfo = TIMEZONE_INFO,
-    
-    ERROR,
-    
-    kError = ERROR,
+    kError,
   };
 
   // A note on layout:
@@ -1265,13 +1209,9 @@ class  MemoryResult_Data {
   enum class MemoryResult_Tag : uint32_t {
 
     
-    MEMORY_INFO,
+    kMemoryInfo,
     
-    kMemoryInfo = MEMORY_INFO,
-    
-    ERROR,
-    
-    kError = ERROR,
+    kError,
   };
 
   // A note on layout:
@@ -1321,13 +1261,9 @@ class  BacklightResult_Data {
   enum class BacklightResult_Tag : uint32_t {
 
     
-    BACKLIGHT_INFO,
+    kBacklightInfo,
     
-    kBacklightInfo = BACKLIGHT_INFO,
-    
-    ERROR,
-    
-    kError = ERROR,
+    kError,
   };
 
   // A note on layout:
@@ -1377,13 +1313,9 @@ class  FanResult_Data {
   enum class FanResult_Tag : uint32_t {
 
     
-    FAN_INFO,
+    kFanInfo,
     
-    kFanInfo = FAN_INFO,
-    
-    ERROR,
-    
-    kError = ERROR,
+    kError,
   };
 
   // A note on layout:
@@ -1433,13 +1365,9 @@ class  StatefulPartitionResult_Data {
   enum class StatefulPartitionResult_Tag : uint32_t {
 
     
-    PARTITION_INFO,
+    kPartitionInfo,
     
-    kPartitionInfo = PARTITION_INFO,
-    
-    ERROR,
-    
-    kError = ERROR,
+    kError,
   };
 
   // A note on layout:
@@ -1489,13 +1417,9 @@ class  BluetoothResult_Data {
   enum class BluetoothResult_Tag : uint32_t {
 
     
-    BLUETOOTH_ADAPTER_INFO,
+    kBluetoothAdapterInfo,
     
-    kBluetoothAdapterInfo = BLUETOOTH_ADAPTER_INFO,
-    
-    ERROR,
-    
-    kError = ERROR,
+    kError,
   };
 
   // A note on layout:
@@ -1545,9 +1469,7 @@ class  DEPRECATE_SystemResult_Data {
   enum class DEPRECATE_SystemResult_Tag : uint32_t {
 
     
-    ERROR,
-    
-    kError = ERROR,
+    kError,
   };
 
   // A note on layout:
@@ -1596,13 +1518,9 @@ class  SystemResult_Data {
   enum class SystemResult_Tag : uint32_t {
 
     
-    SYSTEM_INFO,
+    kSystemInfo,
     
-    kSystemInfo = SYSTEM_INFO,
-    
-    ERROR,
-    
-    kError = ERROR,
+    kError,
   };
 
   // A note on layout:
@@ -1652,13 +1570,9 @@ class  NetworkResult_Data {
   enum class NetworkResult_Tag : uint32_t {
 
     
-    NETWORK_HEALTH,
+    kNetworkHealth,
     
-    kNetworkHealth = NETWORK_HEALTH,
-    
-    ERROR,
-    
-    kError = ERROR,
+    kError,
   };
 
   // A note on layout:
@@ -1708,13 +1622,9 @@ class  NetworkInterfaceResult_Data {
   enum class NetworkInterfaceResult_Tag : uint32_t {
 
     
-    NETWORK_INTERFACE_INFO,
+    kNetworkInterfaceInfo,
     
-    kNetworkInterfaceInfo = NETWORK_INTERFACE_INFO,
-    
-    ERROR,
-    
-    kError = ERROR,
+    kError,
   };
 
   // A note on layout:
@@ -1764,9 +1674,7 @@ class  NetworkInterfaceInfo_Data {
   enum class NetworkInterfaceInfo_Tag : uint32_t {
 
     
-    WIRELESS_INTERFACE_INFO,
-    
-    kWirelessInterfaceInfo = WIRELESS_INTERFACE_INFO,
+    kWirelessInterfaceInfo,
   };
 
   // A note on layout:
@@ -1815,13 +1723,9 @@ class  AudioResult_Data {
   enum class AudioResult_Tag : uint32_t {
 
     
-    AUDIO_INFO,
+    kAudioInfo,
     
-    kAudioInfo = AUDIO_INFO,
-    
-    ERROR,
-    
-    kError = ERROR,
+    kError,
   };
 
   // A note on layout:
@@ -1871,13 +1775,9 @@ class  AudioHardwareResult_Data {
   enum class AudioHardwareResult_Tag : uint32_t {
 
     
-    AUDIO_HARDWARE_INFO,
+    kAudioHardwareInfo,
     
-    kAudioHardwareInfo = AUDIO_HARDWARE_INFO,
-    
-    ERROR,
-    
-    kError = ERROR,
+    kError,
   };
 
   // A note on layout:
@@ -1927,13 +1827,9 @@ class  BootPerformanceResult_Data {
   enum class BootPerformanceResult_Tag : uint32_t {
 
     
-    BOOT_PERFORMANCE_INFO,
+    kBootPerformanceInfo,
     
-    kBootPerformanceInfo = BOOT_PERFORMANCE_INFO,
-    
-    ERROR,
-    
-    kError = ERROR,
+    kError,
   };
 
   // A note on layout:
@@ -1983,13 +1879,9 @@ class  BusResult_Data {
   enum class BusResult_Tag : uint32_t {
 
     
-    BUS_DEVICES,
+    kBusDevices,
     
-    kBusDevices = BUS_DEVICES,
-    
-    ERROR,
-    
-    kError = ERROR,
+    kError,
   };
 
   // A note on layout:
@@ -2039,21 +1931,13 @@ class  BusInfo_Data {
   enum class BusInfo_Tag : uint32_t {
 
     
-    PCI_BUS_INFO,
+    kPciBusInfo,
     
-    kPciBusInfo = PCI_BUS_INFO,
+    kUsbBusInfo,
     
-    USB_BUS_INFO,
+    kThunderboltBusInfo,
     
-    kUsbBusInfo = USB_BUS_INFO,
-    
-    THUNDERBOLT_BUS_INFO,
-    
-    kThunderboltBusInfo = THUNDERBOLT_BUS_INFO,
-    
-    UNMAPPED_FIELD,
-    
-    kUnmappedField = UNMAPPED_FIELD,
+    kUnmappedField,
   };
 
   // A note on layout:
@@ -2105,13 +1989,9 @@ class  TpmResult_Data {
   enum class TpmResult_Tag : uint32_t {
 
     
-    TPM_INFO,
+    kTpmInfo,
     
-    kTpmInfo = TPM_INFO,
-    
-    ERROR,
-    
-    kError = ERROR,
+    kError,
   };
 
   // A note on layout:
@@ -2161,13 +2041,9 @@ class  GraphicsResult_Data {
   enum class GraphicsResult_Tag : uint32_t {
 
     
-    GRAPHICS_INFO,
+    kGraphicsInfo,
     
-    kGraphicsInfo = GRAPHICS_INFO,
-    
-    ERROR,
-    
-    kError = ERROR,
+    kError,
   };
 
   // A note on layout:
@@ -2217,13 +2093,9 @@ class  DisplayResult_Data {
   enum class DisplayResult_Tag : uint32_t {
 
     
-    DISPLAY_INFO,
+    kDisplayInfo,
     
-    kDisplayInfo = DISPLAY_INFO,
-    
-    ERROR,
-    
-    kError = ERROR,
+    kError,
   };
 
   // A note on layout:
@@ -2273,13 +2145,9 @@ class  InputResult_Data {
   enum class InputResult_Tag : uint32_t {
 
     
-    INPUT_INFO,
+    kInputInfo,
     
-    kInputInfo = INPUT_INFO,
-    
-    ERROR,
-    
-    kError = ERROR,
+    kError,
   };
 
   // A note on layout:
@@ -2329,13 +2197,9 @@ class  SensorResult_Data {
   enum class SensorResult_Tag : uint32_t {
 
     
-    SENSOR_INFO,
+    kSensorInfo,
     
-    kSensorInfo = SENSOR_INFO,
-    
-    ERROR,
-    
-    kError = ERROR,
+    kError,
   };
 
   // A note on layout:

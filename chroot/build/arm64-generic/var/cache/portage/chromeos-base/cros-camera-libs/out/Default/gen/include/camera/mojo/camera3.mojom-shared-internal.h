@@ -305,17 +305,11 @@ class  Camera3NotifyMsgMessage_Data {
   enum class Camera3NotifyMsgMessage_Tag : uint32_t {
 
     
-    ERROR,
+    kError,
     
-    kError = ERROR,
+    kShutter,
     
-    SHUTTER,
-    
-    kShutter = SHUTTER,
-    
-    GENERIC,
-    
-    kGeneric = GENERIC,
+    kGeneric,
   };
 
   // A note on layout:

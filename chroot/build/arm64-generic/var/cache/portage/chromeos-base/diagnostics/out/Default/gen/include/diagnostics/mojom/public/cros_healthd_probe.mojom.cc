@@ -5542,7 +5542,7 @@ bool TelemetryInfo::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
-ProcessResult::ProcessResult() : tag_(Tag::PROCESS_INFO) {
+ProcessResult::ProcessResult() : tag_(Tag::kProcessInfo) {
   data_.process_info = new ProcessInfoPtr;
 }
 
@@ -5553,22 +5553,22 @@ ProcessResult::~ProcessResult() {
 
 void ProcessResult::set_process_info(
     ProcessInfoPtr process_info) {
-  if (tag_ == Tag::PROCESS_INFO) {
+  if (tag_ == Tag::kProcessInfo) {
     *(data_.process_info) = std::move(process_info);
   } else {
     DestroyActive();
-    tag_ = Tag::PROCESS_INFO;
+    tag_ = Tag::kProcessInfo;
     data_.process_info = new ProcessInfoPtr(
         std::move(process_info));
   }
 }
 void ProcessResult::set_error(
     ProbeErrorPtr error) {
-  if (tag_ == Tag::ERROR) {
+  if (tag_ == Tag::kError) {
     *(data_.error) = std::move(error);
   } else {
     DestroyActive();
-    tag_ = Tag::ERROR;
+    tag_ = Tag::kError;
     data_.error = new ProbeErrorPtr(
         std::move(error));
   }
@@ -5577,11 +5577,11 @@ void ProcessResult::set_error(
 void ProcessResult::DestroyActive() {
   switch (tag_) {
 
-    case Tag::PROCESS_INFO:
+    case Tag::kProcessInfo:
 
       delete data_.process_info;
       break;
-    case Tag::ERROR:
+    case Tag::kError:
 
       delete data_.error;
       break;
@@ -5593,7 +5593,7 @@ bool ProcessResult::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context, false);
 }
-BatteryResult::BatteryResult() : tag_(Tag::BATTERY_INFO) {
+BatteryResult::BatteryResult() : tag_(Tag::kBatteryInfo) {
   data_.battery_info = new BatteryInfoPtr;
 }
 
@@ -5604,22 +5604,22 @@ BatteryResult::~BatteryResult() {
 
 void BatteryResult::set_battery_info(
     BatteryInfoPtr battery_info) {
-  if (tag_ == Tag::BATTERY_INFO) {
+  if (tag_ == Tag::kBatteryInfo) {
     *(data_.battery_info) = std::move(battery_info);
   } else {
     DestroyActive();
-    tag_ = Tag::BATTERY_INFO;
+    tag_ = Tag::kBatteryInfo;
     data_.battery_info = new BatteryInfoPtr(
         std::move(battery_info));
   }
 }
 void BatteryResult::set_error(
     ProbeErrorPtr error) {
-  if (tag_ == Tag::ERROR) {
+  if (tag_ == Tag::kError) {
     *(data_.error) = std::move(error);
   } else {
     DestroyActive();
-    tag_ = Tag::ERROR;
+    tag_ = Tag::kError;
     data_.error = new ProbeErrorPtr(
         std::move(error));
   }
@@ -5628,11 +5628,11 @@ void BatteryResult::set_error(
 void BatteryResult::DestroyActive() {
   switch (tag_) {
 
-    case Tag::BATTERY_INFO:
+    case Tag::kBatteryInfo:
 
       delete data_.battery_info;
       break;
-    case Tag::ERROR:
+    case Tag::kError:
 
       delete data_.error;
       break;
@@ -5644,7 +5644,7 @@ bool BatteryResult::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context, false);
 }
-NonRemovableBlockDeviceResult::NonRemovableBlockDeviceResult() : tag_(Tag::BLOCK_DEVICE_INFO) {
+NonRemovableBlockDeviceResult::NonRemovableBlockDeviceResult() : tag_(Tag::kBlockDeviceInfo) {
   data_.block_device_info = new std::vector<NonRemovableBlockDeviceInfoPtr>;
 }
 
@@ -5655,22 +5655,22 @@ NonRemovableBlockDeviceResult::~NonRemovableBlockDeviceResult() {
 
 void NonRemovableBlockDeviceResult::set_block_device_info(
     std::vector<NonRemovableBlockDeviceInfoPtr> block_device_info) {
-  if (tag_ == Tag::BLOCK_DEVICE_INFO) {
+  if (tag_ == Tag::kBlockDeviceInfo) {
     *(data_.block_device_info) = std::move(block_device_info);
   } else {
     DestroyActive();
-    tag_ = Tag::BLOCK_DEVICE_INFO;
+    tag_ = Tag::kBlockDeviceInfo;
     data_.block_device_info = new std::vector<NonRemovableBlockDeviceInfoPtr>(
         std::move(block_device_info));
   }
 }
 void NonRemovableBlockDeviceResult::set_error(
     ProbeErrorPtr error) {
-  if (tag_ == Tag::ERROR) {
+  if (tag_ == Tag::kError) {
     *(data_.error) = std::move(error);
   } else {
     DestroyActive();
-    tag_ = Tag::ERROR;
+    tag_ = Tag::kError;
     data_.error = new ProbeErrorPtr(
         std::move(error));
   }
@@ -5679,11 +5679,11 @@ void NonRemovableBlockDeviceResult::set_error(
 void NonRemovableBlockDeviceResult::DestroyActive() {
   switch (tag_) {
 
-    case Tag::BLOCK_DEVICE_INFO:
+    case Tag::kBlockDeviceInfo:
 
       delete data_.block_device_info;
       break;
-    case Tag::ERROR:
+    case Tag::kError:
 
       delete data_.error;
       break;
@@ -5695,7 +5695,7 @@ bool NonRemovableBlockDeviceResult::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context, false);
 }
-BlockDeviceVendor::BlockDeviceVendor() : tag_(Tag::NVME_SUBSYSTEM_VENDOR) {
+BlockDeviceVendor::BlockDeviceVendor() : tag_(Tag::kNvmeSubsystemVendor) {
   data_.nvme_subsystem_vendor = uint32_t();
 }
 
@@ -5706,41 +5706,41 @@ BlockDeviceVendor::~BlockDeviceVendor() {
 
 void BlockDeviceVendor::set_nvme_subsystem_vendor(
     uint32_t nvme_subsystem_vendor) {
-  if (tag_ != Tag::NVME_SUBSYSTEM_VENDOR) {
+  if (tag_ != Tag::kNvmeSubsystemVendor) {
     DestroyActive();
-    tag_ = Tag::NVME_SUBSYSTEM_VENDOR;
+    tag_ = Tag::kNvmeSubsystemVendor;
   }
   data_.nvme_subsystem_vendor = nvme_subsystem_vendor;
 }
 void BlockDeviceVendor::set_emmc_oemid(
     uint16_t emmc_oemid) {
-  if (tag_ != Tag::EMMC_OEMID) {
+  if (tag_ != Tag::kEmmcOemid) {
     DestroyActive();
-    tag_ = Tag::EMMC_OEMID;
+    tag_ = Tag::kEmmcOemid;
   }
   data_.emmc_oemid = emmc_oemid;
 }
 void BlockDeviceVendor::set_other(
     uint16_t other) {
-  if (tag_ != Tag::OTHER) {
+  if (tag_ != Tag::kOther) {
     DestroyActive();
-    tag_ = Tag::OTHER;
+    tag_ = Tag::kOther;
   }
   data_.other = other;
 }
 void BlockDeviceVendor::set_unknown(
     uint64_t unknown) {
-  if (tag_ != Tag::UNKNOWN) {
+  if (tag_ != Tag::kUnknown) {
     DestroyActive();
-    tag_ = Tag::UNKNOWN;
+    tag_ = Tag::kUnknown;
   }
   data_.unknown = unknown;
 }
 void BlockDeviceVendor::set_jedec_manfid(
     uint16_t jedec_manfid) {
-  if (tag_ != Tag::JEDEC_MANFID) {
+  if (tag_ != Tag::kJedecManfid) {
     DestroyActive();
-    tag_ = Tag::JEDEC_MANFID;
+    tag_ = Tag::kJedecManfid;
   }
   data_.jedec_manfid = jedec_manfid;
 }
@@ -5748,19 +5748,19 @@ void BlockDeviceVendor::set_jedec_manfid(
 void BlockDeviceVendor::DestroyActive() {
   switch (tag_) {
 
-    case Tag::NVME_SUBSYSTEM_VENDOR:
+    case Tag::kNvmeSubsystemVendor:
 
       break;
-    case Tag::EMMC_OEMID:
+    case Tag::kEmmcOemid:
 
       break;
-    case Tag::OTHER:
+    case Tag::kOther:
 
       break;
-    case Tag::UNKNOWN:
+    case Tag::kUnknown:
 
       break;
-    case Tag::JEDEC_MANFID:
+    case Tag::kJedecManfid:
 
       break;
   }
@@ -5769,15 +5769,15 @@ size_t BlockDeviceVendor::Hash(size_t seed) const {
   seed = mojo::internal::HashCombine(seed, static_cast<uint32_t>(tag_));
   switch (tag_) {
 
-    case Tag::NVME_SUBSYSTEM_VENDOR:
+    case Tag::kNvmeSubsystemVendor:
       return mojo::internal::Hash(seed, data_.nvme_subsystem_vendor);
-    case Tag::EMMC_OEMID:
+    case Tag::kEmmcOemid:
       return mojo::internal::Hash(seed, data_.emmc_oemid);
-    case Tag::OTHER:
+    case Tag::kOther:
       return mojo::internal::Hash(seed, data_.other);
-    case Tag::UNKNOWN:
+    case Tag::kUnknown:
       return mojo::internal::Hash(seed, data_.unknown);
-    case Tag::JEDEC_MANFID:
+    case Tag::kJedecManfid:
       return mojo::internal::Hash(seed, data_.jedec_manfid);
     default:
       NOTREACHED();
@@ -5790,7 +5790,7 @@ bool BlockDeviceVendor::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context, false);
 }
-BlockDeviceProduct::BlockDeviceProduct() : tag_(Tag::NVME_SUBSYSTEM_DEVICE) {
+BlockDeviceProduct::BlockDeviceProduct() : tag_(Tag::kNvmeSubsystemDevice) {
   data_.nvme_subsystem_device = uint32_t();
 }
 
@@ -5801,33 +5801,33 @@ BlockDeviceProduct::~BlockDeviceProduct() {
 
 void BlockDeviceProduct::set_nvme_subsystem_device(
     uint32_t nvme_subsystem_device) {
-  if (tag_ != Tag::NVME_SUBSYSTEM_DEVICE) {
+  if (tag_ != Tag::kNvmeSubsystemDevice) {
     DestroyActive();
-    tag_ = Tag::NVME_SUBSYSTEM_DEVICE;
+    tag_ = Tag::kNvmeSubsystemDevice;
   }
   data_.nvme_subsystem_device = nvme_subsystem_device;
 }
 void BlockDeviceProduct::set_emmc_pnm(
     uint64_t emmc_pnm) {
-  if (tag_ != Tag::EMMC_PNM) {
+  if (tag_ != Tag::kEmmcPnm) {
     DestroyActive();
-    tag_ = Tag::EMMC_PNM;
+    tag_ = Tag::kEmmcPnm;
   }
   data_.emmc_pnm = emmc_pnm;
 }
 void BlockDeviceProduct::set_other(
     uint16_t other) {
-  if (tag_ != Tag::OTHER) {
+  if (tag_ != Tag::kOther) {
     DestroyActive();
-    tag_ = Tag::OTHER;
+    tag_ = Tag::kOther;
   }
   data_.other = other;
 }
 void BlockDeviceProduct::set_unknown(
     uint64_t unknown) {
-  if (tag_ != Tag::UNKNOWN) {
+  if (tag_ != Tag::kUnknown) {
     DestroyActive();
-    tag_ = Tag::UNKNOWN;
+    tag_ = Tag::kUnknown;
   }
   data_.unknown = unknown;
 }
@@ -5835,16 +5835,16 @@ void BlockDeviceProduct::set_unknown(
 void BlockDeviceProduct::DestroyActive() {
   switch (tag_) {
 
-    case Tag::NVME_SUBSYSTEM_DEVICE:
+    case Tag::kNvmeSubsystemDevice:
 
       break;
-    case Tag::EMMC_PNM:
+    case Tag::kEmmcPnm:
 
       break;
-    case Tag::OTHER:
+    case Tag::kOther:
 
       break;
-    case Tag::UNKNOWN:
+    case Tag::kUnknown:
 
       break;
   }
@@ -5853,13 +5853,13 @@ size_t BlockDeviceProduct::Hash(size_t seed) const {
   seed = mojo::internal::HashCombine(seed, static_cast<uint32_t>(tag_));
   switch (tag_) {
 
-    case Tag::NVME_SUBSYSTEM_DEVICE:
+    case Tag::kNvmeSubsystemDevice:
       return mojo::internal::Hash(seed, data_.nvme_subsystem_device);
-    case Tag::EMMC_PNM:
+    case Tag::kEmmcPnm:
       return mojo::internal::Hash(seed, data_.emmc_pnm);
-    case Tag::OTHER:
+    case Tag::kOther:
       return mojo::internal::Hash(seed, data_.other);
-    case Tag::UNKNOWN:
+    case Tag::kUnknown:
       return mojo::internal::Hash(seed, data_.unknown);
     default:
       NOTREACHED();
@@ -5872,7 +5872,7 @@ bool BlockDeviceProduct::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context, false);
 }
-BlockDeviceRevision::BlockDeviceRevision() : tag_(Tag::NVME_PCIE_REV) {
+BlockDeviceRevision::BlockDeviceRevision() : tag_(Tag::kNvmePcieRev) {
   data_.nvme_pcie_rev = uint8_t();
 }
 
@@ -5883,33 +5883,33 @@ BlockDeviceRevision::~BlockDeviceRevision() {
 
 void BlockDeviceRevision::set_nvme_pcie_rev(
     uint8_t nvme_pcie_rev) {
-  if (tag_ != Tag::NVME_PCIE_REV) {
+  if (tag_ != Tag::kNvmePcieRev) {
     DestroyActive();
-    tag_ = Tag::NVME_PCIE_REV;
+    tag_ = Tag::kNvmePcieRev;
   }
   data_.nvme_pcie_rev = nvme_pcie_rev;
 }
 void BlockDeviceRevision::set_emmc_prv(
     uint8_t emmc_prv) {
-  if (tag_ != Tag::EMMC_PRV) {
+  if (tag_ != Tag::kEmmcPrv) {
     DestroyActive();
-    tag_ = Tag::EMMC_PRV;
+    tag_ = Tag::kEmmcPrv;
   }
   data_.emmc_prv = emmc_prv;
 }
 void BlockDeviceRevision::set_other(
     uint16_t other) {
-  if (tag_ != Tag::OTHER) {
+  if (tag_ != Tag::kOther) {
     DestroyActive();
-    tag_ = Tag::OTHER;
+    tag_ = Tag::kOther;
   }
   data_.other = other;
 }
 void BlockDeviceRevision::set_unknown(
     uint64_t unknown) {
-  if (tag_ != Tag::UNKNOWN) {
+  if (tag_ != Tag::kUnknown) {
     DestroyActive();
-    tag_ = Tag::UNKNOWN;
+    tag_ = Tag::kUnknown;
   }
   data_.unknown = unknown;
 }
@@ -5917,16 +5917,16 @@ void BlockDeviceRevision::set_unknown(
 void BlockDeviceRevision::DestroyActive() {
   switch (tag_) {
 
-    case Tag::NVME_PCIE_REV:
+    case Tag::kNvmePcieRev:
 
       break;
-    case Tag::EMMC_PRV:
+    case Tag::kEmmcPrv:
 
       break;
-    case Tag::OTHER:
+    case Tag::kOther:
 
       break;
-    case Tag::UNKNOWN:
+    case Tag::kUnknown:
 
       break;
   }
@@ -5935,13 +5935,13 @@ size_t BlockDeviceRevision::Hash(size_t seed) const {
   seed = mojo::internal::HashCombine(seed, static_cast<uint32_t>(tag_));
   switch (tag_) {
 
-    case Tag::NVME_PCIE_REV:
+    case Tag::kNvmePcieRev:
       return mojo::internal::Hash(seed, data_.nvme_pcie_rev);
-    case Tag::EMMC_PRV:
+    case Tag::kEmmcPrv:
       return mojo::internal::Hash(seed, data_.emmc_prv);
-    case Tag::OTHER:
+    case Tag::kOther:
       return mojo::internal::Hash(seed, data_.other);
-    case Tag::UNKNOWN:
+    case Tag::kUnknown:
       return mojo::internal::Hash(seed, data_.unknown);
     default:
       NOTREACHED();
@@ -5954,7 +5954,7 @@ bool BlockDeviceRevision::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context, false);
 }
-BlockDeviceFirmware::BlockDeviceFirmware() : tag_(Tag::NVME_FIRMWARE_REV) {
+BlockDeviceFirmware::BlockDeviceFirmware() : tag_(Tag::kNvmeFirmwareRev) {
   data_.nvme_firmware_rev = uint64_t();
 }
 
@@ -5965,41 +5965,41 @@ BlockDeviceFirmware::~BlockDeviceFirmware() {
 
 void BlockDeviceFirmware::set_nvme_firmware_rev(
     uint64_t nvme_firmware_rev) {
-  if (tag_ != Tag::NVME_FIRMWARE_REV) {
+  if (tag_ != Tag::kNvmeFirmwareRev) {
     DestroyActive();
-    tag_ = Tag::NVME_FIRMWARE_REV;
+    tag_ = Tag::kNvmeFirmwareRev;
   }
   data_.nvme_firmware_rev = nvme_firmware_rev;
 }
 void BlockDeviceFirmware::set_emmc_fwrev(
     uint64_t emmc_fwrev) {
-  if (tag_ != Tag::EMMC_FWREV) {
+  if (tag_ != Tag::kEmmcFwrev) {
     DestroyActive();
-    tag_ = Tag::EMMC_FWREV;
+    tag_ = Tag::kEmmcFwrev;
   }
   data_.emmc_fwrev = emmc_fwrev;
 }
 void BlockDeviceFirmware::set_other(
     uint16_t other) {
-  if (tag_ != Tag::OTHER) {
+  if (tag_ != Tag::kOther) {
     DestroyActive();
-    tag_ = Tag::OTHER;
+    tag_ = Tag::kOther;
   }
   data_.other = other;
 }
 void BlockDeviceFirmware::set_unknown(
     uint64_t unknown) {
-  if (tag_ != Tag::UNKNOWN) {
+  if (tag_ != Tag::kUnknown) {
     DestroyActive();
-    tag_ = Tag::UNKNOWN;
+    tag_ = Tag::kUnknown;
   }
   data_.unknown = unknown;
 }
 void BlockDeviceFirmware::set_ufs_fwrev(
     uint64_t ufs_fwrev) {
-  if (tag_ != Tag::UFS_FWREV) {
+  if (tag_ != Tag::kUfsFwrev) {
     DestroyActive();
-    tag_ = Tag::UFS_FWREV;
+    tag_ = Tag::kUfsFwrev;
   }
   data_.ufs_fwrev = ufs_fwrev;
 }
@@ -6007,19 +6007,19 @@ void BlockDeviceFirmware::set_ufs_fwrev(
 void BlockDeviceFirmware::DestroyActive() {
   switch (tag_) {
 
-    case Tag::NVME_FIRMWARE_REV:
+    case Tag::kNvmeFirmwareRev:
 
       break;
-    case Tag::EMMC_FWREV:
+    case Tag::kEmmcFwrev:
 
       break;
-    case Tag::OTHER:
+    case Tag::kOther:
 
       break;
-    case Tag::UNKNOWN:
+    case Tag::kUnknown:
 
       break;
-    case Tag::UFS_FWREV:
+    case Tag::kUfsFwrev:
 
       break;
   }
@@ -6028,15 +6028,15 @@ size_t BlockDeviceFirmware::Hash(size_t seed) const {
   seed = mojo::internal::HashCombine(seed, static_cast<uint32_t>(tag_));
   switch (tag_) {
 
-    case Tag::NVME_FIRMWARE_REV:
+    case Tag::kNvmeFirmwareRev:
       return mojo::internal::Hash(seed, data_.nvme_firmware_rev);
-    case Tag::EMMC_FWREV:
+    case Tag::kEmmcFwrev:
       return mojo::internal::Hash(seed, data_.emmc_fwrev);
-    case Tag::OTHER:
+    case Tag::kOther:
       return mojo::internal::Hash(seed, data_.other);
-    case Tag::UNKNOWN:
+    case Tag::kUnknown:
       return mojo::internal::Hash(seed, data_.unknown);
-    case Tag::UFS_FWREV:
+    case Tag::kUfsFwrev:
       return mojo::internal::Hash(seed, data_.ufs_fwrev);
     default:
       NOTREACHED();
@@ -6049,7 +6049,7 @@ bool BlockDeviceFirmware::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context, false);
 }
-CpuResult::CpuResult() : tag_(Tag::CPU_INFO) {
+CpuResult::CpuResult() : tag_(Tag::kCpuInfo) {
   data_.cpu_info = new CpuInfoPtr;
 }
 
@@ -6060,22 +6060,22 @@ CpuResult::~CpuResult() {
 
 void CpuResult::set_cpu_info(
     CpuInfoPtr cpu_info) {
-  if (tag_ == Tag::CPU_INFO) {
+  if (tag_ == Tag::kCpuInfo) {
     *(data_.cpu_info) = std::move(cpu_info);
   } else {
     DestroyActive();
-    tag_ = Tag::CPU_INFO;
+    tag_ = Tag::kCpuInfo;
     data_.cpu_info = new CpuInfoPtr(
         std::move(cpu_info));
   }
 }
 void CpuResult::set_error(
     ProbeErrorPtr error) {
-  if (tag_ == Tag::ERROR) {
+  if (tag_ == Tag::kError) {
     *(data_.error) = std::move(error);
   } else {
     DestroyActive();
-    tag_ = Tag::ERROR;
+    tag_ = Tag::kError;
     data_.error = new ProbeErrorPtr(
         std::move(error));
   }
@@ -6084,11 +6084,11 @@ void CpuResult::set_error(
 void CpuResult::DestroyActive() {
   switch (tag_) {
 
-    case Tag::CPU_INFO:
+    case Tag::kCpuInfo:
 
       delete data_.cpu_info;
       break;
-    case Tag::ERROR:
+    case Tag::kError:
 
       delete data_.error;
       break;
@@ -6100,7 +6100,7 @@ bool CpuResult::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context, false);
 }
-TimezoneResult::TimezoneResult() : tag_(Tag::TIMEZONE_INFO) {
+TimezoneResult::TimezoneResult() : tag_(Tag::kTimezoneInfo) {
   data_.timezone_info = new TimezoneInfoPtr;
 }
 
@@ -6111,22 +6111,22 @@ TimezoneResult::~TimezoneResult() {
 
 void TimezoneResult::set_timezone_info(
     TimezoneInfoPtr timezone_info) {
-  if (tag_ == Tag::TIMEZONE_INFO) {
+  if (tag_ == Tag::kTimezoneInfo) {
     *(data_.timezone_info) = std::move(timezone_info);
   } else {
     DestroyActive();
-    tag_ = Tag::TIMEZONE_INFO;
+    tag_ = Tag::kTimezoneInfo;
     data_.timezone_info = new TimezoneInfoPtr(
         std::move(timezone_info));
   }
 }
 void TimezoneResult::set_error(
     ProbeErrorPtr error) {
-  if (tag_ == Tag::ERROR) {
+  if (tag_ == Tag::kError) {
     *(data_.error) = std::move(error);
   } else {
     DestroyActive();
-    tag_ = Tag::ERROR;
+    tag_ = Tag::kError;
     data_.error = new ProbeErrorPtr(
         std::move(error));
   }
@@ -6135,11 +6135,11 @@ void TimezoneResult::set_error(
 void TimezoneResult::DestroyActive() {
   switch (tag_) {
 
-    case Tag::TIMEZONE_INFO:
+    case Tag::kTimezoneInfo:
 
       delete data_.timezone_info;
       break;
-    case Tag::ERROR:
+    case Tag::kError:
 
       delete data_.error;
       break;
@@ -6149,9 +6149,9 @@ size_t TimezoneResult::Hash(size_t seed) const {
   seed = mojo::internal::HashCombine(seed, static_cast<uint32_t>(tag_));
   switch (tag_) {
 
-    case Tag::TIMEZONE_INFO:
+    case Tag::kTimezoneInfo:
       return mojo::internal::Hash(seed, data_.timezone_info);
-    case Tag::ERROR:
+    case Tag::kError:
       return mojo::internal::Hash(seed, data_.error);
     default:
       NOTREACHED();
@@ -6164,7 +6164,7 @@ bool TimezoneResult::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context, false);
 }
-MemoryResult::MemoryResult() : tag_(Tag::MEMORY_INFO) {
+MemoryResult::MemoryResult() : tag_(Tag::kMemoryInfo) {
   data_.memory_info = new MemoryInfoPtr;
 }
 
@@ -6175,22 +6175,22 @@ MemoryResult::~MemoryResult() {
 
 void MemoryResult::set_memory_info(
     MemoryInfoPtr memory_info) {
-  if (tag_ == Tag::MEMORY_INFO) {
+  if (tag_ == Tag::kMemoryInfo) {
     *(data_.memory_info) = std::move(memory_info);
   } else {
     DestroyActive();
-    tag_ = Tag::MEMORY_INFO;
+    tag_ = Tag::kMemoryInfo;
     data_.memory_info = new MemoryInfoPtr(
         std::move(memory_info));
   }
 }
 void MemoryResult::set_error(
     ProbeErrorPtr error) {
-  if (tag_ == Tag::ERROR) {
+  if (tag_ == Tag::kError) {
     *(data_.error) = std::move(error);
   } else {
     DestroyActive();
-    tag_ = Tag::ERROR;
+    tag_ = Tag::kError;
     data_.error = new ProbeErrorPtr(
         std::move(error));
   }
@@ -6199,11 +6199,11 @@ void MemoryResult::set_error(
 void MemoryResult::DestroyActive() {
   switch (tag_) {
 
-    case Tag::MEMORY_INFO:
+    case Tag::kMemoryInfo:
 
       delete data_.memory_info;
       break;
-    case Tag::ERROR:
+    case Tag::kError:
 
       delete data_.error;
       break;
@@ -6215,7 +6215,7 @@ bool MemoryResult::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context, false);
 }
-BacklightResult::BacklightResult() : tag_(Tag::BACKLIGHT_INFO) {
+BacklightResult::BacklightResult() : tag_(Tag::kBacklightInfo) {
   data_.backlight_info = new std::vector<BacklightInfoPtr>;
 }
 
@@ -6226,22 +6226,22 @@ BacklightResult::~BacklightResult() {
 
 void BacklightResult::set_backlight_info(
     std::vector<BacklightInfoPtr> backlight_info) {
-  if (tag_ == Tag::BACKLIGHT_INFO) {
+  if (tag_ == Tag::kBacklightInfo) {
     *(data_.backlight_info) = std::move(backlight_info);
   } else {
     DestroyActive();
-    tag_ = Tag::BACKLIGHT_INFO;
+    tag_ = Tag::kBacklightInfo;
     data_.backlight_info = new std::vector<BacklightInfoPtr>(
         std::move(backlight_info));
   }
 }
 void BacklightResult::set_error(
     ProbeErrorPtr error) {
-  if (tag_ == Tag::ERROR) {
+  if (tag_ == Tag::kError) {
     *(data_.error) = std::move(error);
   } else {
     DestroyActive();
-    tag_ = Tag::ERROR;
+    tag_ = Tag::kError;
     data_.error = new ProbeErrorPtr(
         std::move(error));
   }
@@ -6250,11 +6250,11 @@ void BacklightResult::set_error(
 void BacklightResult::DestroyActive() {
   switch (tag_) {
 
-    case Tag::BACKLIGHT_INFO:
+    case Tag::kBacklightInfo:
 
       delete data_.backlight_info;
       break;
-    case Tag::ERROR:
+    case Tag::kError:
 
       delete data_.error;
       break;
@@ -6266,7 +6266,7 @@ bool BacklightResult::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context, false);
 }
-FanResult::FanResult() : tag_(Tag::FAN_INFO) {
+FanResult::FanResult() : tag_(Tag::kFanInfo) {
   data_.fan_info = new std::vector<FanInfoPtr>;
 }
 
@@ -6277,22 +6277,22 @@ FanResult::~FanResult() {
 
 void FanResult::set_fan_info(
     std::vector<FanInfoPtr> fan_info) {
-  if (tag_ == Tag::FAN_INFO) {
+  if (tag_ == Tag::kFanInfo) {
     *(data_.fan_info) = std::move(fan_info);
   } else {
     DestroyActive();
-    tag_ = Tag::FAN_INFO;
+    tag_ = Tag::kFanInfo;
     data_.fan_info = new std::vector<FanInfoPtr>(
         std::move(fan_info));
   }
 }
 void FanResult::set_error(
     ProbeErrorPtr error) {
-  if (tag_ == Tag::ERROR) {
+  if (tag_ == Tag::kError) {
     *(data_.error) = std::move(error);
   } else {
     DestroyActive();
-    tag_ = Tag::ERROR;
+    tag_ = Tag::kError;
     data_.error = new ProbeErrorPtr(
         std::move(error));
   }
@@ -6301,11 +6301,11 @@ void FanResult::set_error(
 void FanResult::DestroyActive() {
   switch (tag_) {
 
-    case Tag::FAN_INFO:
+    case Tag::kFanInfo:
 
       delete data_.fan_info;
       break;
-    case Tag::ERROR:
+    case Tag::kError:
 
       delete data_.error;
       break;
@@ -6317,7 +6317,7 @@ bool FanResult::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context, false);
 }
-StatefulPartitionResult::StatefulPartitionResult() : tag_(Tag::PARTITION_INFO) {
+StatefulPartitionResult::StatefulPartitionResult() : tag_(Tag::kPartitionInfo) {
   data_.partition_info = new StatefulPartitionInfoPtr;
 }
 
@@ -6328,22 +6328,22 @@ StatefulPartitionResult::~StatefulPartitionResult() {
 
 void StatefulPartitionResult::set_partition_info(
     StatefulPartitionInfoPtr partition_info) {
-  if (tag_ == Tag::PARTITION_INFO) {
+  if (tag_ == Tag::kPartitionInfo) {
     *(data_.partition_info) = std::move(partition_info);
   } else {
     DestroyActive();
-    tag_ = Tag::PARTITION_INFO;
+    tag_ = Tag::kPartitionInfo;
     data_.partition_info = new StatefulPartitionInfoPtr(
         std::move(partition_info));
   }
 }
 void StatefulPartitionResult::set_error(
     ProbeErrorPtr error) {
-  if (tag_ == Tag::ERROR) {
+  if (tag_ == Tag::kError) {
     *(data_.error) = std::move(error);
   } else {
     DestroyActive();
-    tag_ = Tag::ERROR;
+    tag_ = Tag::kError;
     data_.error = new ProbeErrorPtr(
         std::move(error));
   }
@@ -6352,11 +6352,11 @@ void StatefulPartitionResult::set_error(
 void StatefulPartitionResult::DestroyActive() {
   switch (tag_) {
 
-    case Tag::PARTITION_INFO:
+    case Tag::kPartitionInfo:
 
       delete data_.partition_info;
       break;
-    case Tag::ERROR:
+    case Tag::kError:
 
       delete data_.error;
       break;
@@ -6366,9 +6366,9 @@ size_t StatefulPartitionResult::Hash(size_t seed) const {
   seed = mojo::internal::HashCombine(seed, static_cast<uint32_t>(tag_));
   switch (tag_) {
 
-    case Tag::PARTITION_INFO:
+    case Tag::kPartitionInfo:
       return mojo::internal::Hash(seed, data_.partition_info);
-    case Tag::ERROR:
+    case Tag::kError:
       return mojo::internal::Hash(seed, data_.error);
     default:
       NOTREACHED();
@@ -6381,7 +6381,7 @@ bool StatefulPartitionResult::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context, false);
 }
-BluetoothResult::BluetoothResult() : tag_(Tag::BLUETOOTH_ADAPTER_INFO) {
+BluetoothResult::BluetoothResult() : tag_(Tag::kBluetoothAdapterInfo) {
   data_.bluetooth_adapter_info = new std::vector<BluetoothAdapterInfoPtr>;
 }
 
@@ -6392,22 +6392,22 @@ BluetoothResult::~BluetoothResult() {
 
 void BluetoothResult::set_bluetooth_adapter_info(
     std::vector<BluetoothAdapterInfoPtr> bluetooth_adapter_info) {
-  if (tag_ == Tag::BLUETOOTH_ADAPTER_INFO) {
+  if (tag_ == Tag::kBluetoothAdapterInfo) {
     *(data_.bluetooth_adapter_info) = std::move(bluetooth_adapter_info);
   } else {
     DestroyActive();
-    tag_ = Tag::BLUETOOTH_ADAPTER_INFO;
+    tag_ = Tag::kBluetoothAdapterInfo;
     data_.bluetooth_adapter_info = new std::vector<BluetoothAdapterInfoPtr>(
         std::move(bluetooth_adapter_info));
   }
 }
 void BluetoothResult::set_error(
     ProbeErrorPtr error) {
-  if (tag_ == Tag::ERROR) {
+  if (tag_ == Tag::kError) {
     *(data_.error) = std::move(error);
   } else {
     DestroyActive();
-    tag_ = Tag::ERROR;
+    tag_ = Tag::kError;
     data_.error = new ProbeErrorPtr(
         std::move(error));
   }
@@ -6416,11 +6416,11 @@ void BluetoothResult::set_error(
 void BluetoothResult::DestroyActive() {
   switch (tag_) {
 
-    case Tag::BLUETOOTH_ADAPTER_INFO:
+    case Tag::kBluetoothAdapterInfo:
 
       delete data_.bluetooth_adapter_info;
       break;
-    case Tag::ERROR:
+    case Tag::kError:
 
       delete data_.error;
       break;
@@ -6432,7 +6432,7 @@ bool BluetoothResult::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context, false);
 }
-DEPRECATE_SystemResult::DEPRECATE_SystemResult() : tag_(Tag::ERROR) {
+DEPRECATE_SystemResult::DEPRECATE_SystemResult() : tag_(Tag::kError) {
   data_.error = new ProbeErrorPtr;
 }
 
@@ -6443,11 +6443,11 @@ DEPRECATE_SystemResult::~DEPRECATE_SystemResult() {
 
 void DEPRECATE_SystemResult::set_error(
     ProbeErrorPtr error) {
-  if (tag_ == Tag::ERROR) {
+  if (tag_ == Tag::kError) {
     *(data_.error) = std::move(error);
   } else {
     DestroyActive();
-    tag_ = Tag::ERROR;
+    tag_ = Tag::kError;
     data_.error = new ProbeErrorPtr(
         std::move(error));
   }
@@ -6456,7 +6456,7 @@ void DEPRECATE_SystemResult::set_error(
 void DEPRECATE_SystemResult::DestroyActive() {
   switch (tag_) {
 
-    case Tag::ERROR:
+    case Tag::kError:
 
       delete data_.error;
       break;
@@ -6466,7 +6466,7 @@ size_t DEPRECATE_SystemResult::Hash(size_t seed) const {
   seed = mojo::internal::HashCombine(seed, static_cast<uint32_t>(tag_));
   switch (tag_) {
 
-    case Tag::ERROR:
+    case Tag::kError:
       return mojo::internal::Hash(seed, data_.error);
     default:
       NOTREACHED();
@@ -6479,7 +6479,7 @@ bool DEPRECATE_SystemResult::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context, false);
 }
-SystemResult::SystemResult() : tag_(Tag::SYSTEM_INFO) {
+SystemResult::SystemResult() : tag_(Tag::kSystemInfo) {
   data_.system_info = new SystemInfoPtr;
 }
 
@@ -6490,22 +6490,22 @@ SystemResult::~SystemResult() {
 
 void SystemResult::set_system_info(
     SystemInfoPtr system_info) {
-  if (tag_ == Tag::SYSTEM_INFO) {
+  if (tag_ == Tag::kSystemInfo) {
     *(data_.system_info) = std::move(system_info);
   } else {
     DestroyActive();
-    tag_ = Tag::SYSTEM_INFO;
+    tag_ = Tag::kSystemInfo;
     data_.system_info = new SystemInfoPtr(
         std::move(system_info));
   }
 }
 void SystemResult::set_error(
     ProbeErrorPtr error) {
-  if (tag_ == Tag::ERROR) {
+  if (tag_ == Tag::kError) {
     *(data_.error) = std::move(error);
   } else {
     DestroyActive();
-    tag_ = Tag::ERROR;
+    tag_ = Tag::kError;
     data_.error = new ProbeErrorPtr(
         std::move(error));
   }
@@ -6514,11 +6514,11 @@ void SystemResult::set_error(
 void SystemResult::DestroyActive() {
   switch (tag_) {
 
-    case Tag::SYSTEM_INFO:
+    case Tag::kSystemInfo:
 
       delete data_.system_info;
       break;
-    case Tag::ERROR:
+    case Tag::kError:
 
       delete data_.error;
       break;
@@ -6530,7 +6530,7 @@ bool SystemResult::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context, false);
 }
-NetworkResult::NetworkResult() : tag_(Tag::NETWORK_HEALTH) {
+NetworkResult::NetworkResult() : tag_(Tag::kNetworkHealth) {
   data_.network_health = new ::chromeos::network_health::mojom::NetworkHealthStatePtr;
 }
 
@@ -6541,22 +6541,22 @@ NetworkResult::~NetworkResult() {
 
 void NetworkResult::set_network_health(
     ::chromeos::network_health::mojom::NetworkHealthStatePtr network_health) {
-  if (tag_ == Tag::NETWORK_HEALTH) {
+  if (tag_ == Tag::kNetworkHealth) {
     *(data_.network_health) = std::move(network_health);
   } else {
     DestroyActive();
-    tag_ = Tag::NETWORK_HEALTH;
+    tag_ = Tag::kNetworkHealth;
     data_.network_health = new ::chromeos::network_health::mojom::NetworkHealthStatePtr(
         std::move(network_health));
   }
 }
 void NetworkResult::set_error(
     ProbeErrorPtr error) {
-  if (tag_ == Tag::ERROR) {
+  if (tag_ == Tag::kError) {
     *(data_.error) = std::move(error);
   } else {
     DestroyActive();
-    tag_ = Tag::ERROR;
+    tag_ = Tag::kError;
     data_.error = new ProbeErrorPtr(
         std::move(error));
   }
@@ -6565,11 +6565,11 @@ void NetworkResult::set_error(
 void NetworkResult::DestroyActive() {
   switch (tag_) {
 
-    case Tag::NETWORK_HEALTH:
+    case Tag::kNetworkHealth:
 
       delete data_.network_health;
       break;
-    case Tag::ERROR:
+    case Tag::kError:
 
       delete data_.error;
       break;
@@ -6581,7 +6581,7 @@ bool NetworkResult::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context, false);
 }
-NetworkInterfaceResult::NetworkInterfaceResult() : tag_(Tag::NETWORK_INTERFACE_INFO) {
+NetworkInterfaceResult::NetworkInterfaceResult() : tag_(Tag::kNetworkInterfaceInfo) {
   data_.network_interface_info = new std::vector<NetworkInterfaceInfoPtr>;
 }
 
@@ -6592,22 +6592,22 @@ NetworkInterfaceResult::~NetworkInterfaceResult() {
 
 void NetworkInterfaceResult::set_network_interface_info(
     std::vector<NetworkInterfaceInfoPtr> network_interface_info) {
-  if (tag_ == Tag::NETWORK_INTERFACE_INFO) {
+  if (tag_ == Tag::kNetworkInterfaceInfo) {
     *(data_.network_interface_info) = std::move(network_interface_info);
   } else {
     DestroyActive();
-    tag_ = Tag::NETWORK_INTERFACE_INFO;
+    tag_ = Tag::kNetworkInterfaceInfo;
     data_.network_interface_info = new std::vector<NetworkInterfaceInfoPtr>(
         std::move(network_interface_info));
   }
 }
 void NetworkInterfaceResult::set_error(
     ProbeErrorPtr error) {
-  if (tag_ == Tag::ERROR) {
+  if (tag_ == Tag::kError) {
     *(data_.error) = std::move(error);
   } else {
     DestroyActive();
-    tag_ = Tag::ERROR;
+    tag_ = Tag::kError;
     data_.error = new ProbeErrorPtr(
         std::move(error));
   }
@@ -6616,11 +6616,11 @@ void NetworkInterfaceResult::set_error(
 void NetworkInterfaceResult::DestroyActive() {
   switch (tag_) {
 
-    case Tag::NETWORK_INTERFACE_INFO:
+    case Tag::kNetworkInterfaceInfo:
 
       delete data_.network_interface_info;
       break;
-    case Tag::ERROR:
+    case Tag::kError:
 
       delete data_.error;
       break;
@@ -6632,7 +6632,7 @@ bool NetworkInterfaceResult::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context, false);
 }
-NetworkInterfaceInfo::NetworkInterfaceInfo() : tag_(Tag::WIRELESS_INTERFACE_INFO) {
+NetworkInterfaceInfo::NetworkInterfaceInfo() : tag_(Tag::kWirelessInterfaceInfo) {
   data_.wireless_interface_info = new WirelessInterfaceInfoPtr;
 }
 
@@ -6643,11 +6643,11 @@ NetworkInterfaceInfo::~NetworkInterfaceInfo() {
 
 void NetworkInterfaceInfo::set_wireless_interface_info(
     WirelessInterfaceInfoPtr wireless_interface_info) {
-  if (tag_ == Tag::WIRELESS_INTERFACE_INFO) {
+  if (tag_ == Tag::kWirelessInterfaceInfo) {
     *(data_.wireless_interface_info) = std::move(wireless_interface_info);
   } else {
     DestroyActive();
-    tag_ = Tag::WIRELESS_INTERFACE_INFO;
+    tag_ = Tag::kWirelessInterfaceInfo;
     data_.wireless_interface_info = new WirelessInterfaceInfoPtr(
         std::move(wireless_interface_info));
   }
@@ -6656,7 +6656,7 @@ void NetworkInterfaceInfo::set_wireless_interface_info(
 void NetworkInterfaceInfo::DestroyActive() {
   switch (tag_) {
 
-    case Tag::WIRELESS_INTERFACE_INFO:
+    case Tag::kWirelessInterfaceInfo:
 
       delete data_.wireless_interface_info;
       break;
@@ -6668,7 +6668,7 @@ bool NetworkInterfaceInfo::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context, false);
 }
-AudioResult::AudioResult() : tag_(Tag::AUDIO_INFO) {
+AudioResult::AudioResult() : tag_(Tag::kAudioInfo) {
   data_.audio_info = new AudioInfoPtr;
 }
 
@@ -6679,22 +6679,22 @@ AudioResult::~AudioResult() {
 
 void AudioResult::set_audio_info(
     AudioInfoPtr audio_info) {
-  if (tag_ == Tag::AUDIO_INFO) {
+  if (tag_ == Tag::kAudioInfo) {
     *(data_.audio_info) = std::move(audio_info);
   } else {
     DestroyActive();
-    tag_ = Tag::AUDIO_INFO;
+    tag_ = Tag::kAudioInfo;
     data_.audio_info = new AudioInfoPtr(
         std::move(audio_info));
   }
 }
 void AudioResult::set_error(
     ProbeErrorPtr error) {
-  if (tag_ == Tag::ERROR) {
+  if (tag_ == Tag::kError) {
     *(data_.error) = std::move(error);
   } else {
     DestroyActive();
-    tag_ = Tag::ERROR;
+    tag_ = Tag::kError;
     data_.error = new ProbeErrorPtr(
         std::move(error));
   }
@@ -6703,11 +6703,11 @@ void AudioResult::set_error(
 void AudioResult::DestroyActive() {
   switch (tag_) {
 
-    case Tag::AUDIO_INFO:
+    case Tag::kAudioInfo:
 
       delete data_.audio_info;
       break;
-    case Tag::ERROR:
+    case Tag::kError:
 
       delete data_.error;
       break;
@@ -6717,9 +6717,9 @@ size_t AudioResult::Hash(size_t seed) const {
   seed = mojo::internal::HashCombine(seed, static_cast<uint32_t>(tag_));
   switch (tag_) {
 
-    case Tag::AUDIO_INFO:
+    case Tag::kAudioInfo:
       return mojo::internal::Hash(seed, data_.audio_info);
-    case Tag::ERROR:
+    case Tag::kError:
       return mojo::internal::Hash(seed, data_.error);
     default:
       NOTREACHED();
@@ -6732,7 +6732,7 @@ bool AudioResult::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context, false);
 }
-AudioHardwareResult::AudioHardwareResult() : tag_(Tag::AUDIO_HARDWARE_INFO) {
+AudioHardwareResult::AudioHardwareResult() : tag_(Tag::kAudioHardwareInfo) {
   data_.audio_hardware_info = new AudioHardwareInfoPtr;
 }
 
@@ -6743,22 +6743,22 @@ AudioHardwareResult::~AudioHardwareResult() {
 
 void AudioHardwareResult::set_audio_hardware_info(
     AudioHardwareInfoPtr audio_hardware_info) {
-  if (tag_ == Tag::AUDIO_HARDWARE_INFO) {
+  if (tag_ == Tag::kAudioHardwareInfo) {
     *(data_.audio_hardware_info) = std::move(audio_hardware_info);
   } else {
     DestroyActive();
-    tag_ = Tag::AUDIO_HARDWARE_INFO;
+    tag_ = Tag::kAudioHardwareInfo;
     data_.audio_hardware_info = new AudioHardwareInfoPtr(
         std::move(audio_hardware_info));
   }
 }
 void AudioHardwareResult::set_error(
     ProbeErrorPtr error) {
-  if (tag_ == Tag::ERROR) {
+  if (tag_ == Tag::kError) {
     *(data_.error) = std::move(error);
   } else {
     DestroyActive();
-    tag_ = Tag::ERROR;
+    tag_ = Tag::kError;
     data_.error = new ProbeErrorPtr(
         std::move(error));
   }
@@ -6767,11 +6767,11 @@ void AudioHardwareResult::set_error(
 void AudioHardwareResult::DestroyActive() {
   switch (tag_) {
 
-    case Tag::AUDIO_HARDWARE_INFO:
+    case Tag::kAudioHardwareInfo:
 
       delete data_.audio_hardware_info;
       break;
-    case Tag::ERROR:
+    case Tag::kError:
 
       delete data_.error;
       break;
@@ -6783,7 +6783,7 @@ bool AudioHardwareResult::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context, false);
 }
-BootPerformanceResult::BootPerformanceResult() : tag_(Tag::BOOT_PERFORMANCE_INFO) {
+BootPerformanceResult::BootPerformanceResult() : tag_(Tag::kBootPerformanceInfo) {
   data_.boot_performance_info = new BootPerformanceInfoPtr;
 }
 
@@ -6794,22 +6794,22 @@ BootPerformanceResult::~BootPerformanceResult() {
 
 void BootPerformanceResult::set_boot_performance_info(
     BootPerformanceInfoPtr boot_performance_info) {
-  if (tag_ == Tag::BOOT_PERFORMANCE_INFO) {
+  if (tag_ == Tag::kBootPerformanceInfo) {
     *(data_.boot_performance_info) = std::move(boot_performance_info);
   } else {
     DestroyActive();
-    tag_ = Tag::BOOT_PERFORMANCE_INFO;
+    tag_ = Tag::kBootPerformanceInfo;
     data_.boot_performance_info = new BootPerformanceInfoPtr(
         std::move(boot_performance_info));
   }
 }
 void BootPerformanceResult::set_error(
     ProbeErrorPtr error) {
-  if (tag_ == Tag::ERROR) {
+  if (tag_ == Tag::kError) {
     *(data_.error) = std::move(error);
   } else {
     DestroyActive();
-    tag_ = Tag::ERROR;
+    tag_ = Tag::kError;
     data_.error = new ProbeErrorPtr(
         std::move(error));
   }
@@ -6818,11 +6818,11 @@ void BootPerformanceResult::set_error(
 void BootPerformanceResult::DestroyActive() {
   switch (tag_) {
 
-    case Tag::BOOT_PERFORMANCE_INFO:
+    case Tag::kBootPerformanceInfo:
 
       delete data_.boot_performance_info;
       break;
-    case Tag::ERROR:
+    case Tag::kError:
 
       delete data_.error;
       break;
@@ -6832,9 +6832,9 @@ size_t BootPerformanceResult::Hash(size_t seed) const {
   seed = mojo::internal::HashCombine(seed, static_cast<uint32_t>(tag_));
   switch (tag_) {
 
-    case Tag::BOOT_PERFORMANCE_INFO:
+    case Tag::kBootPerformanceInfo:
       return mojo::internal::Hash(seed, data_.boot_performance_info);
-    case Tag::ERROR:
+    case Tag::kError:
       return mojo::internal::Hash(seed, data_.error);
     default:
       NOTREACHED();
@@ -6847,7 +6847,7 @@ bool BootPerformanceResult::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context, false);
 }
-BusResult::BusResult() : tag_(Tag::BUS_DEVICES) {
+BusResult::BusResult() : tag_(Tag::kBusDevices) {
   data_.bus_devices = new std::vector<BusDevicePtr>;
 }
 
@@ -6858,22 +6858,22 @@ BusResult::~BusResult() {
 
 void BusResult::set_bus_devices(
     std::vector<BusDevicePtr> bus_devices) {
-  if (tag_ == Tag::BUS_DEVICES) {
+  if (tag_ == Tag::kBusDevices) {
     *(data_.bus_devices) = std::move(bus_devices);
   } else {
     DestroyActive();
-    tag_ = Tag::BUS_DEVICES;
+    tag_ = Tag::kBusDevices;
     data_.bus_devices = new std::vector<BusDevicePtr>(
         std::move(bus_devices));
   }
 }
 void BusResult::set_error(
     ProbeErrorPtr error) {
-  if (tag_ == Tag::ERROR) {
+  if (tag_ == Tag::kError) {
     *(data_.error) = std::move(error);
   } else {
     DestroyActive();
-    tag_ = Tag::ERROR;
+    tag_ = Tag::kError;
     data_.error = new ProbeErrorPtr(
         std::move(error));
   }
@@ -6882,11 +6882,11 @@ void BusResult::set_error(
 void BusResult::DestroyActive() {
   switch (tag_) {
 
-    case Tag::BUS_DEVICES:
+    case Tag::kBusDevices:
 
       delete data_.bus_devices;
       break;
-    case Tag::ERROR:
+    case Tag::kError:
 
       delete data_.error;
       break;
@@ -6898,7 +6898,7 @@ bool BusResult::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context, false);
 }
-BusInfo::BusInfo() : tag_(Tag::PCI_BUS_INFO) {
+BusInfo::BusInfo() : tag_(Tag::kPciBusInfo) {
   data_.pci_bus_info = new PciBusInfoPtr;
 }
 
@@ -6909,42 +6909,42 @@ BusInfo::~BusInfo() {
 
 void BusInfo::set_pci_bus_info(
     PciBusInfoPtr pci_bus_info) {
-  if (tag_ == Tag::PCI_BUS_INFO) {
+  if (tag_ == Tag::kPciBusInfo) {
     *(data_.pci_bus_info) = std::move(pci_bus_info);
   } else {
     DestroyActive();
-    tag_ = Tag::PCI_BUS_INFO;
+    tag_ = Tag::kPciBusInfo;
     data_.pci_bus_info = new PciBusInfoPtr(
         std::move(pci_bus_info));
   }
 }
 void BusInfo::set_usb_bus_info(
     UsbBusInfoPtr usb_bus_info) {
-  if (tag_ == Tag::USB_BUS_INFO) {
+  if (tag_ == Tag::kUsbBusInfo) {
     *(data_.usb_bus_info) = std::move(usb_bus_info);
   } else {
     DestroyActive();
-    tag_ = Tag::USB_BUS_INFO;
+    tag_ = Tag::kUsbBusInfo;
     data_.usb_bus_info = new UsbBusInfoPtr(
         std::move(usb_bus_info));
   }
 }
 void BusInfo::set_thunderbolt_bus_info(
     ThunderboltBusInfoPtr thunderbolt_bus_info) {
-  if (tag_ == Tag::THUNDERBOLT_BUS_INFO) {
+  if (tag_ == Tag::kThunderboltBusInfo) {
     *(data_.thunderbolt_bus_info) = std::move(thunderbolt_bus_info);
   } else {
     DestroyActive();
-    tag_ = Tag::THUNDERBOLT_BUS_INFO;
+    tag_ = Tag::kThunderboltBusInfo;
     data_.thunderbolt_bus_info = new ThunderboltBusInfoPtr(
         std::move(thunderbolt_bus_info));
   }
 }
 void BusInfo::set_unmapped_field(
     bool unmapped_field) {
-  if (tag_ != Tag::UNMAPPED_FIELD) {
+  if (tag_ != Tag::kUnmappedField) {
     DestroyActive();
-    tag_ = Tag::UNMAPPED_FIELD;
+    tag_ = Tag::kUnmappedField;
   }
   data_.unmapped_field = unmapped_field;
 }
@@ -6952,19 +6952,19 @@ void BusInfo::set_unmapped_field(
 void BusInfo::DestroyActive() {
   switch (tag_) {
 
-    case Tag::PCI_BUS_INFO:
+    case Tag::kPciBusInfo:
 
       delete data_.pci_bus_info;
       break;
-    case Tag::USB_BUS_INFO:
+    case Tag::kUsbBusInfo:
 
       delete data_.usb_bus_info;
       break;
-    case Tag::THUNDERBOLT_BUS_INFO:
+    case Tag::kThunderboltBusInfo:
 
       delete data_.thunderbolt_bus_info;
       break;
-    case Tag::UNMAPPED_FIELD:
+    case Tag::kUnmappedField:
 
       break;
   }
@@ -6975,7 +6975,7 @@ bool BusInfo::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context, false);
 }
-TpmResult::TpmResult() : tag_(Tag::TPM_INFO) {
+TpmResult::TpmResult() : tag_(Tag::kTpmInfo) {
   data_.tpm_info = new TpmInfoPtr;
 }
 
@@ -6986,22 +6986,22 @@ TpmResult::~TpmResult() {
 
 void TpmResult::set_tpm_info(
     TpmInfoPtr tpm_info) {
-  if (tag_ == Tag::TPM_INFO) {
+  if (tag_ == Tag::kTpmInfo) {
     *(data_.tpm_info) = std::move(tpm_info);
   } else {
     DestroyActive();
-    tag_ = Tag::TPM_INFO;
+    tag_ = Tag::kTpmInfo;
     data_.tpm_info = new TpmInfoPtr(
         std::move(tpm_info));
   }
 }
 void TpmResult::set_error(
     ProbeErrorPtr error) {
-  if (tag_ == Tag::ERROR) {
+  if (tag_ == Tag::kError) {
     *(data_.error) = std::move(error);
   } else {
     DestroyActive();
-    tag_ = Tag::ERROR;
+    tag_ = Tag::kError;
     data_.error = new ProbeErrorPtr(
         std::move(error));
   }
@@ -7010,11 +7010,11 @@ void TpmResult::set_error(
 void TpmResult::DestroyActive() {
   switch (tag_) {
 
-    case Tag::TPM_INFO:
+    case Tag::kTpmInfo:
 
       delete data_.tpm_info;
       break;
-    case Tag::ERROR:
+    case Tag::kError:
 
       delete data_.error;
       break;
@@ -7026,7 +7026,7 @@ bool TpmResult::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context, false);
 }
-GraphicsResult::GraphicsResult() : tag_(Tag::GRAPHICS_INFO) {
+GraphicsResult::GraphicsResult() : tag_(Tag::kGraphicsInfo) {
   data_.graphics_info = new GraphicsInfoPtr;
 }
 
@@ -7037,22 +7037,22 @@ GraphicsResult::~GraphicsResult() {
 
 void GraphicsResult::set_graphics_info(
     GraphicsInfoPtr graphics_info) {
-  if (tag_ == Tag::GRAPHICS_INFO) {
+  if (tag_ == Tag::kGraphicsInfo) {
     *(data_.graphics_info) = std::move(graphics_info);
   } else {
     DestroyActive();
-    tag_ = Tag::GRAPHICS_INFO;
+    tag_ = Tag::kGraphicsInfo;
     data_.graphics_info = new GraphicsInfoPtr(
         std::move(graphics_info));
   }
 }
 void GraphicsResult::set_error(
     ProbeErrorPtr error) {
-  if (tag_ == Tag::ERROR) {
+  if (tag_ == Tag::kError) {
     *(data_.error) = std::move(error);
   } else {
     DestroyActive();
-    tag_ = Tag::ERROR;
+    tag_ = Tag::kError;
     data_.error = new ProbeErrorPtr(
         std::move(error));
   }
@@ -7061,11 +7061,11 @@ void GraphicsResult::set_error(
 void GraphicsResult::DestroyActive() {
   switch (tag_) {
 
-    case Tag::GRAPHICS_INFO:
+    case Tag::kGraphicsInfo:
 
       delete data_.graphics_info;
       break;
-    case Tag::ERROR:
+    case Tag::kError:
 
       delete data_.error;
       break;
@@ -7077,7 +7077,7 @@ bool GraphicsResult::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context, false);
 }
-DisplayResult::DisplayResult() : tag_(Tag::DISPLAY_INFO) {
+DisplayResult::DisplayResult() : tag_(Tag::kDisplayInfo) {
   data_.display_info = new DisplayInfoPtr;
 }
 
@@ -7088,22 +7088,22 @@ DisplayResult::~DisplayResult() {
 
 void DisplayResult::set_display_info(
     DisplayInfoPtr display_info) {
-  if (tag_ == Tag::DISPLAY_INFO) {
+  if (tag_ == Tag::kDisplayInfo) {
     *(data_.display_info) = std::move(display_info);
   } else {
     DestroyActive();
-    tag_ = Tag::DISPLAY_INFO;
+    tag_ = Tag::kDisplayInfo;
     data_.display_info = new DisplayInfoPtr(
         std::move(display_info));
   }
 }
 void DisplayResult::set_error(
     ProbeErrorPtr error) {
-  if (tag_ == Tag::ERROR) {
+  if (tag_ == Tag::kError) {
     *(data_.error) = std::move(error);
   } else {
     DestroyActive();
-    tag_ = Tag::ERROR;
+    tag_ = Tag::kError;
     data_.error = new ProbeErrorPtr(
         std::move(error));
   }
@@ -7112,11 +7112,11 @@ void DisplayResult::set_error(
 void DisplayResult::DestroyActive() {
   switch (tag_) {
 
-    case Tag::DISPLAY_INFO:
+    case Tag::kDisplayInfo:
 
       delete data_.display_info;
       break;
-    case Tag::ERROR:
+    case Tag::kError:
 
       delete data_.error;
       break;
@@ -7128,7 +7128,7 @@ bool DisplayResult::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context, false);
 }
-InputResult::InputResult() : tag_(Tag::INPUT_INFO) {
+InputResult::InputResult() : tag_(Tag::kInputInfo) {
   data_.input_info = new InputInfoPtr;
 }
 
@@ -7139,22 +7139,22 @@ InputResult::~InputResult() {
 
 void InputResult::set_input_info(
     InputInfoPtr input_info) {
-  if (tag_ == Tag::INPUT_INFO) {
+  if (tag_ == Tag::kInputInfo) {
     *(data_.input_info) = std::move(input_info);
   } else {
     DestroyActive();
-    tag_ = Tag::INPUT_INFO;
+    tag_ = Tag::kInputInfo;
     data_.input_info = new InputInfoPtr(
         std::move(input_info));
   }
 }
 void InputResult::set_error(
     ProbeErrorPtr error) {
-  if (tag_ == Tag::ERROR) {
+  if (tag_ == Tag::kError) {
     *(data_.error) = std::move(error);
   } else {
     DestroyActive();
-    tag_ = Tag::ERROR;
+    tag_ = Tag::kError;
     data_.error = new ProbeErrorPtr(
         std::move(error));
   }
@@ -7163,11 +7163,11 @@ void InputResult::set_error(
 void InputResult::DestroyActive() {
   switch (tag_) {
 
-    case Tag::INPUT_INFO:
+    case Tag::kInputInfo:
 
       delete data_.input_info;
       break;
-    case Tag::ERROR:
+    case Tag::kError:
 
       delete data_.error;
       break;
@@ -7179,7 +7179,7 @@ bool InputResult::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context, false);
 }
-SensorResult::SensorResult() : tag_(Tag::SENSOR_INFO) {
+SensorResult::SensorResult() : tag_(Tag::kSensorInfo) {
   data_.sensor_info = new SensorInfoPtr;
 }
 
@@ -7190,22 +7190,22 @@ SensorResult::~SensorResult() {
 
 void SensorResult::set_sensor_info(
     SensorInfoPtr sensor_info) {
-  if (tag_ == Tag::SENSOR_INFO) {
+  if (tag_ == Tag::kSensorInfo) {
     *(data_.sensor_info) = std::move(sensor_info);
   } else {
     DestroyActive();
-    tag_ = Tag::SENSOR_INFO;
+    tag_ = Tag::kSensorInfo;
     data_.sensor_info = new SensorInfoPtr(
         std::move(sensor_info));
   }
 }
 void SensorResult::set_error(
     ProbeErrorPtr error) {
-  if (tag_ == Tag::ERROR) {
+  if (tag_ == Tag::kError) {
     *(data_.error) = std::move(error);
   } else {
     DestroyActive();
-    tag_ = Tag::ERROR;
+    tag_ = Tag::kError;
     data_.error = new ProbeErrorPtr(
         std::move(error));
   }
@@ -7214,11 +7214,11 @@ void SensorResult::set_error(
 void SensorResult::DestroyActive() {
   switch (tag_) {
 
-    case Tag::SENSOR_INFO:
+    case Tag::kSensorInfo:
 
       delete data_.sensor_info;
       break;
-    case Tag::ERROR:
+    case Tag::kError:
 
       delete data_.error;
       break;
@@ -8605,7 +8605,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::ProcessResult::DataView, ::chr
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
-    case Tag::PROCESS_INFO: {
+    case Tag::kProcessInfo: {
       ::chromeos::cros_healthd::mojom::ProcessInfoPtr result_process_info;
       if (!input.ReadProcessInfo(&result_process_info))
         return false;
@@ -8614,7 +8614,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::ProcessResult::DataView, ::chr
           std::move(result_process_info));
       break;
     }
-    case Tag::ERROR: {
+    case Tag::kError: {
       ::chromeos::cros_healthd::mojom::ProbeErrorPtr result_error;
       if (!input.ReadError(&result_error))
         return false;
@@ -8638,7 +8638,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::BatteryResult::DataView, ::chr
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
-    case Tag::BATTERY_INFO: {
+    case Tag::kBatteryInfo: {
       ::chromeos::cros_healthd::mojom::BatteryInfoPtr result_battery_info;
       if (!input.ReadBatteryInfo(&result_battery_info))
         return false;
@@ -8647,7 +8647,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::BatteryResult::DataView, ::chr
           std::move(result_battery_info));
       break;
     }
-    case Tag::ERROR: {
+    case Tag::kError: {
       ::chromeos::cros_healthd::mojom::ProbeErrorPtr result_error;
       if (!input.ReadError(&result_error))
         return false;
@@ -8671,7 +8671,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceResult:
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
-    case Tag::BLOCK_DEVICE_INFO: {
+    case Tag::kBlockDeviceInfo: {
       std::vector<::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceInfoPtr> result_block_device_info;
       if (!input.ReadBlockDeviceInfo(&result_block_device_info))
         return false;
@@ -8680,7 +8680,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceResult:
           std::move(result_block_device_info));
       break;
     }
-    case Tag::ERROR: {
+    case Tag::kError: {
       ::chromeos::cros_healthd::mojom::ProbeErrorPtr result_error;
       if (!input.ReadError(&result_error))
         return false;
@@ -8704,23 +8704,23 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::BlockDeviceVendor::DataView, :
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
-    case Tag::NVME_SUBSYSTEM_VENDOR: {
+    case Tag::kNvmeSubsystemVendor: {
       *output = UnionType::NewNvmeSubsystemVendor(input.nvme_subsystem_vendor());
       break;
     }
-    case Tag::EMMC_OEMID: {
+    case Tag::kEmmcOemid: {
       *output = UnionType::NewEmmcOemid(input.emmc_oemid());
       break;
     }
-    case Tag::OTHER: {
+    case Tag::kOther: {
       *output = UnionType::NewOther(input.other());
       break;
     }
-    case Tag::UNKNOWN: {
+    case Tag::kUnknown: {
       *output = UnionType::NewUnknown(input.unknown());
       break;
     }
-    case Tag::JEDEC_MANFID: {
+    case Tag::kJedecManfid: {
       *output = UnionType::NewJedecManfid(input.jedec_manfid());
       break;
     }
@@ -8740,19 +8740,19 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::BlockDeviceProduct::DataView, 
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
-    case Tag::NVME_SUBSYSTEM_DEVICE: {
+    case Tag::kNvmeSubsystemDevice: {
       *output = UnionType::NewNvmeSubsystemDevice(input.nvme_subsystem_device());
       break;
     }
-    case Tag::EMMC_PNM: {
+    case Tag::kEmmcPnm: {
       *output = UnionType::NewEmmcPnm(input.emmc_pnm());
       break;
     }
-    case Tag::OTHER: {
+    case Tag::kOther: {
       *output = UnionType::NewOther(input.other());
       break;
     }
-    case Tag::UNKNOWN: {
+    case Tag::kUnknown: {
       *output = UnionType::NewUnknown(input.unknown());
       break;
     }
@@ -8772,19 +8772,19 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::BlockDeviceRevision::DataView,
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
-    case Tag::NVME_PCIE_REV: {
+    case Tag::kNvmePcieRev: {
       *output = UnionType::NewNvmePcieRev(input.nvme_pcie_rev());
       break;
     }
-    case Tag::EMMC_PRV: {
+    case Tag::kEmmcPrv: {
       *output = UnionType::NewEmmcPrv(input.emmc_prv());
       break;
     }
-    case Tag::OTHER: {
+    case Tag::kOther: {
       *output = UnionType::NewOther(input.other());
       break;
     }
-    case Tag::UNKNOWN: {
+    case Tag::kUnknown: {
       *output = UnionType::NewUnknown(input.unknown());
       break;
     }
@@ -8804,23 +8804,23 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::BlockDeviceFirmware::DataView,
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
-    case Tag::NVME_FIRMWARE_REV: {
+    case Tag::kNvmeFirmwareRev: {
       *output = UnionType::NewNvmeFirmwareRev(input.nvme_firmware_rev());
       break;
     }
-    case Tag::EMMC_FWREV: {
+    case Tag::kEmmcFwrev: {
       *output = UnionType::NewEmmcFwrev(input.emmc_fwrev());
       break;
     }
-    case Tag::OTHER: {
+    case Tag::kOther: {
       *output = UnionType::NewOther(input.other());
       break;
     }
-    case Tag::UNKNOWN: {
+    case Tag::kUnknown: {
       *output = UnionType::NewUnknown(input.unknown());
       break;
     }
-    case Tag::UFS_FWREV: {
+    case Tag::kUfsFwrev: {
       *output = UnionType::NewUfsFwrev(input.ufs_fwrev());
       break;
     }
@@ -8840,7 +8840,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::CpuResult::DataView, ::chromeo
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
-    case Tag::CPU_INFO: {
+    case Tag::kCpuInfo: {
       ::chromeos::cros_healthd::mojom::CpuInfoPtr result_cpu_info;
       if (!input.ReadCpuInfo(&result_cpu_info))
         return false;
@@ -8849,7 +8849,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::CpuResult::DataView, ::chromeo
           std::move(result_cpu_info));
       break;
     }
-    case Tag::ERROR: {
+    case Tag::kError: {
       ::chromeos::cros_healthd::mojom::ProbeErrorPtr result_error;
       if (!input.ReadError(&result_error))
         return false;
@@ -8873,7 +8873,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::TimezoneResult::DataView, ::ch
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
-    case Tag::TIMEZONE_INFO: {
+    case Tag::kTimezoneInfo: {
       ::chromeos::cros_healthd::mojom::TimezoneInfoPtr result_timezone_info;
       if (!input.ReadTimezoneInfo(&result_timezone_info))
         return false;
@@ -8882,7 +8882,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::TimezoneResult::DataView, ::ch
           std::move(result_timezone_info));
       break;
     }
-    case Tag::ERROR: {
+    case Tag::kError: {
       ::chromeos::cros_healthd::mojom::ProbeErrorPtr result_error;
       if (!input.ReadError(&result_error))
         return false;
@@ -8906,7 +8906,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::MemoryResult::DataView, ::chro
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
-    case Tag::MEMORY_INFO: {
+    case Tag::kMemoryInfo: {
       ::chromeos::cros_healthd::mojom::MemoryInfoPtr result_memory_info;
       if (!input.ReadMemoryInfo(&result_memory_info))
         return false;
@@ -8915,7 +8915,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::MemoryResult::DataView, ::chro
           std::move(result_memory_info));
       break;
     }
-    case Tag::ERROR: {
+    case Tag::kError: {
       ::chromeos::cros_healthd::mojom::ProbeErrorPtr result_error;
       if (!input.ReadError(&result_error))
         return false;
@@ -8939,7 +8939,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::BacklightResult::DataView, ::c
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
-    case Tag::BACKLIGHT_INFO: {
+    case Tag::kBacklightInfo: {
       std::vector<::chromeos::cros_healthd::mojom::BacklightInfoPtr> result_backlight_info;
       if (!input.ReadBacklightInfo(&result_backlight_info))
         return false;
@@ -8948,7 +8948,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::BacklightResult::DataView, ::c
           std::move(result_backlight_info));
       break;
     }
-    case Tag::ERROR: {
+    case Tag::kError: {
       ::chromeos::cros_healthd::mojom::ProbeErrorPtr result_error;
       if (!input.ReadError(&result_error))
         return false;
@@ -8972,7 +8972,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::FanResult::DataView, ::chromeo
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
-    case Tag::FAN_INFO: {
+    case Tag::kFanInfo: {
       std::vector<::chromeos::cros_healthd::mojom::FanInfoPtr> result_fan_info;
       if (!input.ReadFanInfo(&result_fan_info))
         return false;
@@ -8981,7 +8981,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::FanResult::DataView, ::chromeo
           std::move(result_fan_info));
       break;
     }
-    case Tag::ERROR: {
+    case Tag::kError: {
       ::chromeos::cros_healthd::mojom::ProbeErrorPtr result_error;
       if (!input.ReadError(&result_error))
         return false;
@@ -9005,7 +9005,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::StatefulPartitionResult::DataV
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
-    case Tag::PARTITION_INFO: {
+    case Tag::kPartitionInfo: {
       ::chromeos::cros_healthd::mojom::StatefulPartitionInfoPtr result_partition_info;
       if (!input.ReadPartitionInfo(&result_partition_info))
         return false;
@@ -9014,7 +9014,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::StatefulPartitionResult::DataV
           std::move(result_partition_info));
       break;
     }
-    case Tag::ERROR: {
+    case Tag::kError: {
       ::chromeos::cros_healthd::mojom::ProbeErrorPtr result_error;
       if (!input.ReadError(&result_error))
         return false;
@@ -9038,7 +9038,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::BluetoothResult::DataView, ::c
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
-    case Tag::BLUETOOTH_ADAPTER_INFO: {
+    case Tag::kBluetoothAdapterInfo: {
       std::vector<::chromeos::cros_healthd::mojom::BluetoothAdapterInfoPtr> result_bluetooth_adapter_info;
       if (!input.ReadBluetoothAdapterInfo(&result_bluetooth_adapter_info))
         return false;
@@ -9047,7 +9047,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::BluetoothResult::DataView, ::c
           std::move(result_bluetooth_adapter_info));
       break;
     }
-    case Tag::ERROR: {
+    case Tag::kError: {
       ::chromeos::cros_healthd::mojom::ProbeErrorPtr result_error;
       if (!input.ReadError(&result_error))
         return false;
@@ -9071,7 +9071,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::DEPRECATE_SystemResult::DataVi
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
-    case Tag::ERROR: {
+    case Tag::kError: {
       ::chromeos::cros_healthd::mojom::ProbeErrorPtr result_error;
       if (!input.ReadError(&result_error))
         return false;
@@ -9095,7 +9095,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::SystemResult::DataView, ::chro
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
-    case Tag::SYSTEM_INFO: {
+    case Tag::kSystemInfo: {
       ::chromeos::cros_healthd::mojom::SystemInfoPtr result_system_info;
       if (!input.ReadSystemInfo(&result_system_info))
         return false;
@@ -9104,7 +9104,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::SystemResult::DataView, ::chro
           std::move(result_system_info));
       break;
     }
-    case Tag::ERROR: {
+    case Tag::kError: {
       ::chromeos::cros_healthd::mojom::ProbeErrorPtr result_error;
       if (!input.ReadError(&result_error))
         return false;
@@ -9128,7 +9128,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::NetworkResult::DataView, ::chr
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
-    case Tag::NETWORK_HEALTH: {
+    case Tag::kNetworkHealth: {
       ::chromeos::network_health::mojom::NetworkHealthStatePtr result_network_health;
       if (!input.ReadNetworkHealth(&result_network_health))
         return false;
@@ -9137,7 +9137,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::NetworkResult::DataView, ::chr
           std::move(result_network_health));
       break;
     }
-    case Tag::ERROR: {
+    case Tag::kError: {
       ::chromeos::cros_healthd::mojom::ProbeErrorPtr result_error;
       if (!input.ReadError(&result_error))
         return false;
@@ -9161,7 +9161,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::NetworkInterfaceResult::DataVi
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
-    case Tag::NETWORK_INTERFACE_INFO: {
+    case Tag::kNetworkInterfaceInfo: {
       std::vector<::chromeos::cros_healthd::mojom::NetworkInterfaceInfoPtr> result_network_interface_info;
       if (!input.ReadNetworkInterfaceInfo(&result_network_interface_info))
         return false;
@@ -9170,7 +9170,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::NetworkInterfaceResult::DataVi
           std::move(result_network_interface_info));
       break;
     }
-    case Tag::ERROR: {
+    case Tag::kError: {
       ::chromeos::cros_healthd::mojom::ProbeErrorPtr result_error;
       if (!input.ReadError(&result_error))
         return false;
@@ -9194,7 +9194,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::NetworkInterfaceInfo::DataView
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
-    case Tag::WIRELESS_INTERFACE_INFO: {
+    case Tag::kWirelessInterfaceInfo: {
       ::chromeos::cros_healthd::mojom::WirelessInterfaceInfoPtr result_wireless_interface_info;
       if (!input.ReadWirelessInterfaceInfo(&result_wireless_interface_info))
         return false;
@@ -9218,7 +9218,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::AudioResult::DataView, ::chrom
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
-    case Tag::AUDIO_INFO: {
+    case Tag::kAudioInfo: {
       ::chromeos::cros_healthd::mojom::AudioInfoPtr result_audio_info;
       if (!input.ReadAudioInfo(&result_audio_info))
         return false;
@@ -9227,7 +9227,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::AudioResult::DataView, ::chrom
           std::move(result_audio_info));
       break;
     }
-    case Tag::ERROR: {
+    case Tag::kError: {
       ::chromeos::cros_healthd::mojom::ProbeErrorPtr result_error;
       if (!input.ReadError(&result_error))
         return false;
@@ -9251,7 +9251,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::AudioHardwareResult::DataView,
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
-    case Tag::AUDIO_HARDWARE_INFO: {
+    case Tag::kAudioHardwareInfo: {
       ::chromeos::cros_healthd::mojom::AudioHardwareInfoPtr result_audio_hardware_info;
       if (!input.ReadAudioHardwareInfo(&result_audio_hardware_info))
         return false;
@@ -9260,7 +9260,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::AudioHardwareResult::DataView,
           std::move(result_audio_hardware_info));
       break;
     }
-    case Tag::ERROR: {
+    case Tag::kError: {
       ::chromeos::cros_healthd::mojom::ProbeErrorPtr result_error;
       if (!input.ReadError(&result_error))
         return false;
@@ -9284,7 +9284,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::BootPerformanceResult::DataVie
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
-    case Tag::BOOT_PERFORMANCE_INFO: {
+    case Tag::kBootPerformanceInfo: {
       ::chromeos::cros_healthd::mojom::BootPerformanceInfoPtr result_boot_performance_info;
       if (!input.ReadBootPerformanceInfo(&result_boot_performance_info))
         return false;
@@ -9293,7 +9293,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::BootPerformanceResult::DataVie
           std::move(result_boot_performance_info));
       break;
     }
-    case Tag::ERROR: {
+    case Tag::kError: {
       ::chromeos::cros_healthd::mojom::ProbeErrorPtr result_error;
       if (!input.ReadError(&result_error))
         return false;
@@ -9317,7 +9317,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::BusResult::DataView, ::chromeo
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
-    case Tag::BUS_DEVICES: {
+    case Tag::kBusDevices: {
       std::vector<::chromeos::cros_healthd::mojom::BusDevicePtr> result_bus_devices;
       if (!input.ReadBusDevices(&result_bus_devices))
         return false;
@@ -9326,7 +9326,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::BusResult::DataView, ::chromeo
           std::move(result_bus_devices));
       break;
     }
-    case Tag::ERROR: {
+    case Tag::kError: {
       ::chromeos::cros_healthd::mojom::ProbeErrorPtr result_error;
       if (!input.ReadError(&result_error))
         return false;
@@ -9350,7 +9350,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::BusInfo::DataView, ::chromeos:
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
-    case Tag::PCI_BUS_INFO: {
+    case Tag::kPciBusInfo: {
       ::chromeos::cros_healthd::mojom::PciBusInfoPtr result_pci_bus_info;
       if (!input.ReadPciBusInfo(&result_pci_bus_info))
         return false;
@@ -9359,7 +9359,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::BusInfo::DataView, ::chromeos:
           std::move(result_pci_bus_info));
       break;
     }
-    case Tag::USB_BUS_INFO: {
+    case Tag::kUsbBusInfo: {
       ::chromeos::cros_healthd::mojom::UsbBusInfoPtr result_usb_bus_info;
       if (!input.ReadUsbBusInfo(&result_usb_bus_info))
         return false;
@@ -9368,7 +9368,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::BusInfo::DataView, ::chromeos:
           std::move(result_usb_bus_info));
       break;
     }
-    case Tag::THUNDERBOLT_BUS_INFO: {
+    case Tag::kThunderboltBusInfo: {
       ::chromeos::cros_healthd::mojom::ThunderboltBusInfoPtr result_thunderbolt_bus_info;
       if (!input.ReadThunderboltBusInfo(&result_thunderbolt_bus_info))
         return false;
@@ -9377,7 +9377,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::BusInfo::DataView, ::chromeos:
           std::move(result_thunderbolt_bus_info));
       break;
     }
-    case Tag::UNMAPPED_FIELD: {
+    case Tag::kUnmappedField: {
       *output = UnionType::NewUnmappedField(input.unmapped_field());
       break;
     }
@@ -9397,7 +9397,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::TpmResult::DataView, ::chromeo
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
-    case Tag::TPM_INFO: {
+    case Tag::kTpmInfo: {
       ::chromeos::cros_healthd::mojom::TpmInfoPtr result_tpm_info;
       if (!input.ReadTpmInfo(&result_tpm_info))
         return false;
@@ -9406,7 +9406,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::TpmResult::DataView, ::chromeo
           std::move(result_tpm_info));
       break;
     }
-    case Tag::ERROR: {
+    case Tag::kError: {
       ::chromeos::cros_healthd::mojom::ProbeErrorPtr result_error;
       if (!input.ReadError(&result_error))
         return false;
@@ -9430,7 +9430,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::GraphicsResult::DataView, ::ch
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
-    case Tag::GRAPHICS_INFO: {
+    case Tag::kGraphicsInfo: {
       ::chromeos::cros_healthd::mojom::GraphicsInfoPtr result_graphics_info;
       if (!input.ReadGraphicsInfo(&result_graphics_info))
         return false;
@@ -9439,7 +9439,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::GraphicsResult::DataView, ::ch
           std::move(result_graphics_info));
       break;
     }
-    case Tag::ERROR: {
+    case Tag::kError: {
       ::chromeos::cros_healthd::mojom::ProbeErrorPtr result_error;
       if (!input.ReadError(&result_error))
         return false;
@@ -9463,7 +9463,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::DisplayResult::DataView, ::chr
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
-    case Tag::DISPLAY_INFO: {
+    case Tag::kDisplayInfo: {
       ::chromeos::cros_healthd::mojom::DisplayInfoPtr result_display_info;
       if (!input.ReadDisplayInfo(&result_display_info))
         return false;
@@ -9472,7 +9472,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::DisplayResult::DataView, ::chr
           std::move(result_display_info));
       break;
     }
-    case Tag::ERROR: {
+    case Tag::kError: {
       ::chromeos::cros_healthd::mojom::ProbeErrorPtr result_error;
       if (!input.ReadError(&result_error))
         return false;
@@ -9496,7 +9496,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::InputResult::DataView, ::chrom
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
-    case Tag::INPUT_INFO: {
+    case Tag::kInputInfo: {
       ::chromeos::cros_healthd::mojom::InputInfoPtr result_input_info;
       if (!input.ReadInputInfo(&result_input_info))
         return false;
@@ -9505,7 +9505,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::InputResult::DataView, ::chrom
           std::move(result_input_info));
       break;
     }
-    case Tag::ERROR: {
+    case Tag::kError: {
       ::chromeos::cros_healthd::mojom::ProbeErrorPtr result_error;
       if (!input.ReadError(&result_error))
         return false;
@@ -9529,7 +9529,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::SensorResult::DataView, ::chro
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
-    case Tag::SENSOR_INFO: {
+    case Tag::kSensorInfo: {
       ::chromeos::cros_healthd::mojom::SensorInfoPtr result_sensor_info;
       if (!input.ReadSensorInfo(&result_sensor_info))
         return false;
@@ -9538,7 +9538,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::SensorResult::DataView, ::chro
           std::move(result_sensor_info));
       break;
     }
-    case Tag::ERROR: {
+    case Tag::kError: {
       ::chromeos::cros_healthd::mojom::ProbeErrorPtr result_error;
       if (!input.ReadError(&result_error))
         return false;

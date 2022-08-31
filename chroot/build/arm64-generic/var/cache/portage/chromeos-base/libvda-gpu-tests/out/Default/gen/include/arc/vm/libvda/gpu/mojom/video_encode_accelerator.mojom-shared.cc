@@ -129,7 +129,7 @@ bool Bitrate_Data::Validate(
 
   switch (object->tag) {
 
-    case Bitrate_Tag::CONSTANT: {
+    case Bitrate_Tag::kConstant: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_constant, 1, validation_context)) {
@@ -139,7 +139,7 @@ bool Bitrate_Data::Validate(
         return false;
       return true;
     }
-    case Bitrate_Tag::VARIABLE: {
+    case Bitrate_Tag::kVariable: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_variable, 2, validation_context)) {

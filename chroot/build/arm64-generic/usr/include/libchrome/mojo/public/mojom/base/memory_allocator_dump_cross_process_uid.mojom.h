@@ -52,7 +52,7 @@ class  MemoryAllocatorDumpCrossProcessUid {
   template <typename... Args>
   static MemoryAllocatorDumpCrossProcessUidPtr New(Args&&... args) {
     return MemoryAllocatorDumpCrossProcessUidPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -717,7 +717,7 @@ class  UsbEventInfo {
   template <typename... Args>
   static UsbEventInfoPtr New(Args&&... args) {
     return UsbEventInfoPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
