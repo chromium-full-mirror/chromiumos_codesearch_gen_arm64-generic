@@ -614,7 +614,9 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INI
 PROTOBUF_CONSTEXPR StartAuthSessionRequest::StartAuthSessionRequest(
     ::_pbi::ConstantInitialized)
   : account_id_(nullptr)
-  , flags_(0u){}
+  , flags_(0u)
+  , intent_(0)
+{}
 struct StartAuthSessionRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR StartAuthSessionRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -886,7 +888,9 @@ struct GetAuthSessionStatusRequestDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetAuthSessionStatusRequestDefaultTypeInternal _GetAuthSessionStatusRequest_default_instance_;
 PROTOBUF_CONSTEXPR GetAuthSessionStatusReply::GetAuthSessionStatusReply(
     ::_pbi::ConstantInitialized)
-  : error_(0)
+  : authorized_for_()
+  , _authorized_for_cached_byte_size_(0)
+  , error_(0)
 
   , status_(0)
 
@@ -1690,7 +1694,9 @@ struct AuthenticateAuthFactorRequestDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AuthenticateAuthFactorRequestDefaultTypeInternal _AuthenticateAuthFactorRequest_default_instance_;
 PROTOBUF_CONSTEXPR AuthenticateAuthFactorReply::AuthenticateAuthFactorReply(
     ::_pbi::ConstantInitialized)
-  : error_info_(nullptr)
+  : authorized_for_()
+  , _authorized_for_cached_byte_size_(0)
+  , error_info_(nullptr)
   , error_(0)
 
   , authenticated_(false){}
@@ -2414,6 +2420,61 @@ bool AuthSessionFlags_Parse(
       AuthSessionFlags_entries, 2, name, &int_value);
   if (success) {
     *value = static_cast<AuthSessionFlags>(int_value);
+  }
+  return success;
+}
+bool AuthIntent_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+      return true;
+    default:
+      return false;
+  }
+}
+
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> AuthIntent_strings[3] = {};
+
+static const char AuthIntent_names[] =
+  "AUTH_INTENT_DECRYPT"
+  "AUTH_INTENT_UNSPECIFIED"
+  "AUTH_INTENT_VERIFY_ONLY";
+
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry AuthIntent_entries[] = {
+  { {AuthIntent_names + 0, 19}, 1 },
+  { {AuthIntent_names + 19, 23}, 0 },
+  { {AuthIntent_names + 42, 23}, 2 },
+};
+
+static const int AuthIntent_entries_by_number[] = {
+  1, // 0 -> AUTH_INTENT_UNSPECIFIED
+  0, // 1 -> AUTH_INTENT_DECRYPT
+  2, // 2 -> AUTH_INTENT_VERIFY_ONLY
+};
+
+const std::string& AuthIntent_Name(
+    AuthIntent value) {
+  static const bool dummy =
+      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
+          AuthIntent_entries,
+          AuthIntent_entries_by_number,
+          3, AuthIntent_strings);
+  (void) dummy;
+  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
+      AuthIntent_entries,
+      AuthIntent_entries_by_number,
+      3, value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
+                     AuthIntent_strings[idx].get();
+}
+bool AuthIntent_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, AuthIntent* value) {
+  int int_value;
+  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
+      AuthIntent_entries, 3, name, &int_value);
+  if (success) {
+    *value = static_cast<AuthIntent>(int_value);
   }
   return success;
 }
@@ -12278,15 +12339,17 @@ StartAuthSessionRequest::StartAuthSessionRequest(const StartAuthSessionRequest& 
   } else {
     account_id_ = nullptr;
   }
-  flags_ = from.flags_;
+  ::memcpy(&flags_, &from.flags_,
+    static_cast<size_t>(reinterpret_cast<char*>(&intent_) -
+    reinterpret_cast<char*>(&flags_)) + sizeof(intent_));
   // @@protoc_insertion_point(copy_constructor:user_data_auth.StartAuthSessionRequest)
 }
 
 inline void StartAuthSessionRequest::SharedCtor() {
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&account_id_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&flags_) -
-    reinterpret_cast<char*>(&account_id_)) + sizeof(flags_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&intent_) -
+    reinterpret_cast<char*>(&account_id_)) + sizeof(intent_));
 }
 
 StartAuthSessionRequest::~StartAuthSessionRequest() {
@@ -12317,7 +12380,9 @@ void StartAuthSessionRequest::Clear() {
     delete account_id_;
   }
   account_id_ = nullptr;
-  flags_ = 0u;
+  ::memset(&flags_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&intent_) -
+      reinterpret_cast<char*>(&flags_)) + sizeof(intent_));
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -12340,6 +12405,15 @@ const char* StartAuthSessionRequest::_InternalParse(const char* ptr, ::_pbi::Par
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
           flags_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .user_data_auth.AuthIntent intent = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_set_intent(static_cast<::user_data_auth::AuthIntent>(val));
         } else
           goto handle_unusual;
         continue;
@@ -12385,6 +12459,13 @@ uint8_t* StartAuthSessionRequest::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteUInt32ToArray(2, this->_internal_flags(), target);
   }
 
+  // .user_data_auth.AuthIntent intent = 3;
+  if (this->_internal_intent() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      3, this->_internal_intent(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -12413,6 +12494,12 @@ size_t StartAuthSessionRequest::ByteSizeLong() const {
     total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_flags());
   }
 
+  // .user_data_auth.AuthIntent intent = 3;
+  if (this->_internal_intent() != 0) {
+    total_size += 1 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_intent());
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -12439,6 +12526,9 @@ void StartAuthSessionRequest::MergeFrom(const StartAuthSessionRequest& from) {
   if (from._internal_flags() != 0) {
     _internal_set_flags(from._internal_flags());
   }
+  if (from._internal_intent() != 0) {
+    _internal_set_intent(from._internal_intent());
+  }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
@@ -12457,8 +12547,8 @@ void StartAuthSessionRequest::InternalSwap(StartAuthSessionRequest* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(StartAuthSessionRequest, flags_)
-      + sizeof(StartAuthSessionRequest::flags_)
+      PROTOBUF_FIELD_OFFSET(StartAuthSessionRequest, intent_)
+      + sizeof(StartAuthSessionRequest::intent_)
       - PROTOBUF_FIELD_OFFSET(StartAuthSessionRequest, account_id_)>(
           reinterpret_cast<char*>(&account_id_),
           reinterpret_cast<char*>(&other->account_id_));
@@ -16723,12 +16813,14 @@ class GetAuthSessionStatusReply::_Internal {
 
 GetAuthSessionStatusReply::GetAuthSessionStatusReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
+  authorized_for_(arena) {
   SharedCtor();
   // @@protoc_insertion_point(arena_constructor:user_data_auth.GetAuthSessionStatusReply)
 }
 GetAuthSessionStatusReply::GetAuthSessionStatusReply(const GetAuthSessionStatusReply& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      authorized_for_(from.authorized_for_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   ::memcpy(&error_, &from.error_,
     static_cast<size_t>(reinterpret_cast<char*>(&time_left_) -
@@ -16766,6 +16858,7 @@ void GetAuthSessionStatusReply::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  authorized_for_.Clear();
   ::memset(&error_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&time_left_) -
       reinterpret_cast<char*>(&error_)) + sizeof(time_left_));
@@ -16801,6 +16894,18 @@ const char* GetAuthSessionStatusReply::_InternalParse(const char* ptr, ::_pbi::P
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
           time_left_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated .user_data_auth.AuthIntent authorized_for = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedEnumParser(_internal_mutable_authorized_for(), ptr, ctx);
+          CHK_(ptr);
+        } else if (static_cast<uint8_t>(tag) == 32) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_add_authorized_for(static_cast<::user_data_auth::AuthIntent>(val));
         } else
           goto handle_unusual;
         continue;
@@ -16853,6 +16958,15 @@ uint8_t* GetAuthSessionStatusReply::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteUInt32ToArray(3, this->_internal_time_left(), target);
   }
 
+  // repeated .user_data_auth.AuthIntent authorized_for = 4;
+  {
+    int byte_size = _authorized_for_cached_byte_size_.load(std::memory_order_relaxed);
+    if (byte_size > 0) {
+      target = stream->WriteEnumPacked(
+          4, authorized_for_, byte_size, target);
+    }
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -16868,6 +16982,23 @@ size_t GetAuthSessionStatusReply::ByteSizeLong() const {
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
+
+  // repeated .user_data_auth.AuthIntent authorized_for = 4;
+  {
+    size_t data_size = 0;
+    unsigned int count = static_cast<unsigned int>(this->_internal_authorized_for_size());for (unsigned int i = 0; i < count; i++) {
+      data_size += ::_pbi::WireFormatLite::EnumSize(
+        this->_internal_authorized_for(static_cast<int>(i)));
+    }
+    if (data_size > 0) {
+      total_size += 1 +
+        ::_pbi::WireFormatLite::Int32Size(static_cast<int32_t>(data_size));
+    }
+    int cached_size = ::_pbi::ToCachedSize(data_size);
+    _authorized_for_cached_byte_size_.store(cached_size,
+                                    std::memory_order_relaxed);
+    total_size += data_size;
+  }
 
   // .user_data_auth.CryptohomeErrorCode error = 1;
   if (this->_internal_error() != 0) {
@@ -16906,6 +17037,7 @@ void GetAuthSessionStatusReply::MergeFrom(const GetAuthSessionStatusReply& from)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
+  authorized_for_.MergeFrom(from.authorized_for_);
   if (from._internal_error() != 0) {
     _internal_set_error(from._internal_error());
   }
@@ -16932,6 +17064,7 @@ bool GetAuthSessionStatusReply::IsInitialized() const {
 void GetAuthSessionStatusReply::InternalSwap(GetAuthSessionStatusReply* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  authorized_for_.InternalSwap(&other->authorized_for_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(GetAuthSessionStatusReply, time_left_)
       + sizeof(GetAuthSessionStatusReply::time_left_)
@@ -28713,12 +28846,14 @@ AuthenticateAuthFactorReply::_Internal::error_info(const AuthenticateAuthFactorR
 }
 AuthenticateAuthFactorReply::AuthenticateAuthFactorReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
+  authorized_for_(arena) {
   SharedCtor();
   // @@protoc_insertion_point(arena_constructor:user_data_auth.AuthenticateAuthFactorReply)
 }
 AuthenticateAuthFactorReply::AuthenticateAuthFactorReply(const AuthenticateAuthFactorReply& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      authorized_for_(from.authorized_for_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   if (from._internal_has_error_info()) {
     error_info_ = new ::user_data_auth::CryptohomeErrorInfo(*from.error_info_);
@@ -28762,6 +28897,7 @@ void AuthenticateAuthFactorReply::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  authorized_for_.Clear();
   if (GetArenaForAllocation() == nullptr && error_info_ != nullptr) {
     delete error_info_;
   }
@@ -28800,6 +28936,18 @@ const char* AuthenticateAuthFactorReply::_InternalParse(const char* ptr, ::_pbi:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
           authenticated_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated .user_data_auth.AuthIntent authorized_for = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedEnumParser(_internal_mutable_authorized_for(), ptr, ctx);
+          CHK_(ptr);
+        } else if (static_cast<uint8_t>(tag) == 32) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_add_authorized_for(static_cast<::user_data_auth::AuthIntent>(val));
         } else
           goto handle_unusual;
         continue;
@@ -28852,6 +29000,15 @@ uint8_t* AuthenticateAuthFactorReply::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteBoolToArray(3, this->_internal_authenticated(), target);
   }
 
+  // repeated .user_data_auth.AuthIntent authorized_for = 4;
+  {
+    int byte_size = _authorized_for_cached_byte_size_.load(std::memory_order_relaxed);
+    if (byte_size > 0) {
+      target = stream->WriteEnumPacked(
+          4, authorized_for_, byte_size, target);
+    }
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -28867,6 +29024,23 @@ size_t AuthenticateAuthFactorReply::ByteSizeLong() const {
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
+
+  // repeated .user_data_auth.AuthIntent authorized_for = 4;
+  {
+    size_t data_size = 0;
+    unsigned int count = static_cast<unsigned int>(this->_internal_authorized_for_size());for (unsigned int i = 0; i < count; i++) {
+      data_size += ::_pbi::WireFormatLite::EnumSize(
+        this->_internal_authorized_for(static_cast<int>(i)));
+    }
+    if (data_size > 0) {
+      total_size += 1 +
+        ::_pbi::WireFormatLite::Int32Size(static_cast<int32_t>(data_size));
+    }
+    int cached_size = ::_pbi::ToCachedSize(data_size);
+    _authorized_for_cached_byte_size_.store(cached_size,
+                                    std::memory_order_relaxed);
+    total_size += data_size;
+  }
 
   // .user_data_auth.CryptohomeErrorInfo error_info = 2;
   if (this->_internal_has_error_info()) {
@@ -28906,6 +29080,7 @@ void AuthenticateAuthFactorReply::MergeFrom(const AuthenticateAuthFactorReply& f
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
+  authorized_for_.MergeFrom(from.authorized_for_);
   if (from._internal_has_error_info()) {
     _internal_mutable_error_info()->::user_data_auth::CryptohomeErrorInfo::MergeFrom(from._internal_error_info());
   }
@@ -28932,6 +29107,7 @@ bool AuthenticateAuthFactorReply::IsInitialized() const {
 void AuthenticateAuthFactorReply::InternalSwap(AuthenticateAuthFactorReply* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  authorized_for_.InternalSwap(&other->authorized_for_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(AuthenticateAuthFactorReply, authenticated_)
       + sizeof(AuthenticateAuthFactorReply::authenticated_)
