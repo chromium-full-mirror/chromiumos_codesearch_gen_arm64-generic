@@ -2837,6 +2837,10 @@ class SimProxyInterface {
   virtual const std::vector<std::string>& emergency_numbers() const = 0;
   static const char* PreferredNetworksName() { return "PreferredNetworks"; }
   virtual const std::vector<std::tuple<std::string, uint32_t>>& preferred_networks() const = 0;
+  static const char* Gid1Name() { return "Gid1"; }
+  virtual const std::vector<uint8_t>& gid1() const = 0;
+  static const char* Gid2Name() { return "Gid2"; }
+  virtual const std::vector<uint8_t>& gid2() const = 0;
   static const char* SimTypeName() { return "SimType"; }
   virtual uint32_t sim_type() const = 0;
   static const char* EsimStatusName() { return "EsimStatus"; }
@@ -2877,6 +2881,8 @@ class SimProxy final : public SimProxyInterface {
       RegisterProperty(OperatorNameName(), &operator_name);
       RegisterProperty(EmergencyNumbersName(), &emergency_numbers);
       RegisterProperty(PreferredNetworksName(), &preferred_networks);
+      RegisterProperty(Gid1Name(), &gid1);
+      RegisterProperty(Gid2Name(), &gid2);
       RegisterProperty(SimTypeName(), &sim_type);
       RegisterProperty(EsimStatusName(), &esim_status);
       RegisterProperty(RemovabilityName(), &removability);
@@ -2892,6 +2898,8 @@ class SimProxy final : public SimProxyInterface {
     brillo::dbus_utils::Property<std::string> operator_name;
     brillo::dbus_utils::Property<std::vector<std::string>> emergency_numbers;
     brillo::dbus_utils::Property<std::vector<std::tuple<std::string, uint32_t>>> preferred_networks;
+    brillo::dbus_utils::Property<std::vector<uint8_t>> gid1;
+    brillo::dbus_utils::Property<std::vector<uint8_t>> gid2;
     brillo::dbus_utils::Property<uint32_t> sim_type;
     brillo::dbus_utils::Property<uint32_t> esim_status;
     brillo::dbus_utils::Property<uint32_t> removability;
@@ -3130,6 +3138,14 @@ class SimProxy final : public SimProxyInterface {
 
   const std::vector<std::tuple<std::string, uint32_t>>& preferred_networks() const override {
     return property_set_->preferred_networks.value();
+  }
+
+  const std::vector<uint8_t>& gid1() const override {
+    return property_set_->gid1.value();
+  }
+
+  const std::vector<uint8_t>& gid2() const override {
+    return property_set_->gid2.value();
   }
 
   uint32_t sim_type() const override {

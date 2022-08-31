@@ -83,6 +83,7 @@ class InputInfo_Data;
 class TouchscreenDevice_Data;
 class InputDevice_Data;
 class SensorInfo_Data;
+class Sensor_Data;
 class TelemetryInfo_Data;
 class ProcessResult_Data;
 class BatteryResult_Data;
@@ -597,6 +598,61 @@ struct CpuVirtualizationInfo_Type_Data {
 };
 
 struct InputDevice_ConnectionType_Data {
+ public:
+  static bool constexpr kIsExtensible = true;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+      case 3:
+      case 4:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
+struct Sensor_Type_Data {
+ public:
+  static bool constexpr kIsExtensible = true;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+      case 3:
+      case 4:
+      case 5:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
+struct Sensor_Location_Data {
  public:
   static bool constexpr kIsExtensible = true;
 
@@ -5269,6 +5325,7 @@ class  SensorInfo_Data {
 
   mojo::internal::StructHeader header_;
   mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::NullableUint16_Data> lid_angle;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::Sensor_Data>>> sensors;
 
  private:
   friend class mojo::internal::MessageFragment<SensorInfo_Data>;
@@ -5276,7 +5333,7 @@ class  SensorInfo_Data {
   SensorInfo_Data();
   ~SensorInfo_Data() = delete;
 };
-static_assert(sizeof(SensorInfo_Data) == 16,
+static_assert(sizeof(SensorInfo_Data) == 24,
               "Bad sizeof(SensorInfo_Data)");
 // Used by SensorInfo::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>
@@ -5310,6 +5367,58 @@ struct SensorInfo_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     SensorInfo_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  Sensor_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> name;
+  int32_t device_id;
+  int32_t type;
+  int32_t location;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<Sensor_Data>;
+
+  Sensor_Data();
+  ~Sensor_Data() = delete;
+};
+static_assert(sizeof(Sensor_Data) == 32,
+              "Bad sizeof(Sensor_Data)");
+// Used by Sensor::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct Sensor_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  Sensor_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~Sensor_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<Sensor_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    Sensor_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  TelemetryInfo_Data {
  public:
   static bool Validate(const void* data,

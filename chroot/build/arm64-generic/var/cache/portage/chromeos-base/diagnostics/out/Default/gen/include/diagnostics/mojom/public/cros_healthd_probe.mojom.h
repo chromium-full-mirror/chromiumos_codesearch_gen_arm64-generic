@@ -3093,6 +3093,154 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+class  Sensor {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<Sensor, T>::value>;
+  using DataView = SensorDataView;
+  using Data_ = internal::Sensor_Data;
+  using Type = Sensor_Type;
+  using Location = Sensor_Location;
+
+  template <typename... Args>
+  static SensorPtr New(Args&&... args) {
+    return SensorPtr(
+        base::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static SensorPtr From(const U& u) {
+    return mojo::TypeConverter<SensorPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, Sensor>::Convert(*this);
+  }
+
+
+  Sensor();
+
+  Sensor(
+      const absl::optional<std::string>& name,
+      int32_t device_id,
+      Sensor::Type type,
+      Sensor::Location location);
+
+
+  ~Sensor();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = SensorPtr>
+  SensorPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, Sensor::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, Sensor::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        Sensor::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        Sensor::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::Sensor_UnserializedMessageContext<
+            UserType, Sensor::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<Sensor::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return Sensor::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::Sensor_UnserializedMessageContext<
+            UserType, Sensor::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<Sensor::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  absl::optional<std::string> name;
+  
+  int32_t device_id;
+  
+  Sensor::Type type;
+  
+  Sensor::Location location;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, Sensor::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, Sensor::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, Sensor::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, Sensor::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
 
 class  ProcessResult {
  public:
@@ -12397,6 +12545,10 @@ class  SensorInfo {
   explicit SensorInfo(
       ::chromeos::cros_healthd::mojom::NullableUint16Ptr lid_angle);
 
+  SensorInfo(
+      ::chromeos::cros_healthd::mojom::NullableUint16Ptr lid_angle,
+      absl::optional<std::vector<SensorPtr>> sensors);
+
 SensorInfo(const SensorInfo&) = delete;
 SensorInfo& operator=(const SensorInfo&) = delete;
 
@@ -12473,6 +12625,8 @@ SensorInfo& operator=(const SensorInfo&) = delete;
 
   
   ::chromeos::cros_healthd::mojom::NullableUint16Ptr lid_angle;
+  
+  absl::optional<std::vector<SensorPtr>> sensors;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
@@ -12502,6 +12656,7 @@ template <typename T, SensorInfo::EnableIfSame<T>* = nullptr>
 bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
+
 
 
 
@@ -16710,13 +16865,16 @@ bool operator<(const T& lhs, const T& rhs) {
 template <typename StructPtrType>
 SensorInfoPtr SensorInfo::Clone() const {
   return New(
-      mojo::Clone(lid_angle)
+      mojo::Clone(lid_angle),
+      mojo::Clone(sensors)
   );
 }
 
 template <typename T, SensorInfo::EnableIfSame<T>*>
 bool SensorInfo::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->lid_angle, other_struct.lid_angle))
+    return false;
+  if (!mojo::Equals(this->sensors, other_struct.sensors))
     return false;
   return true;
 }
@@ -16726,6 +16884,53 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.lid_angle < rhs.lid_angle)
     return true;
   if (rhs.lid_angle < lhs.lid_angle)
+    return false;
+  if (lhs.sensors < rhs.sensors)
+    return true;
+  if (rhs.sensors < lhs.sensors)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+SensorPtr Sensor::Clone() const {
+  return New(
+      mojo::Clone(name),
+      mojo::Clone(device_id),
+      mojo::Clone(type),
+      mojo::Clone(location)
+  );
+}
+
+template <typename T, Sensor::EnableIfSame<T>*>
+bool Sensor::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->name, other_struct.name))
+    return false;
+  if (!mojo::Equals(this->device_id, other_struct.device_id))
+    return false;
+  if (!mojo::Equals(this->type, other_struct.type))
+    return false;
+  if (!mojo::Equals(this->location, other_struct.location))
+    return false;
+  return true;
+}
+
+template <typename T, Sensor::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.name < rhs.name)
+    return true;
+  if (rhs.name < lhs.name)
+    return false;
+  if (lhs.device_id < rhs.device_id)
+    return true;
+  if (rhs.device_id < lhs.device_id)
+    return false;
+  if (lhs.type < rhs.type)
+    return true;
+  if (rhs.type < lhs.type)
+    return false;
+  if (lhs.location < rhs.location)
+    return true;
+  if (rhs.location < lhs.location)
     return false;
   return false;
 }
@@ -18963,7 +19168,42 @@ struct  StructTraits<::chromeos::cros_healthd::mojom::SensorInfo::DataView,
     return input->lid_angle;
   }
 
+  static const decltype(::chromeos::cros_healthd::mojom::SensorInfo::sensors)& sensors(
+      const ::chromeos::cros_healthd::mojom::SensorInfoPtr& input) {
+    return input->sensors;
+  }
+
   static bool Read(::chromeos::cros_healthd::mojom::SensorInfo::DataView input, ::chromeos::cros_healthd::mojom::SensorInfoPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::chromeos::cros_healthd::mojom::Sensor::DataView,
+                                         ::chromeos::cros_healthd::mojom::SensorPtr> {
+  static bool IsNull(const ::chromeos::cros_healthd::mojom::SensorPtr& input) { return !input; }
+  static void SetToNull(::chromeos::cros_healthd::mojom::SensorPtr* output) { output->reset(); }
+
+  static const decltype(::chromeos::cros_healthd::mojom::Sensor::name)& name(
+      const ::chromeos::cros_healthd::mojom::SensorPtr& input) {
+    return input->name;
+  }
+
+  static decltype(::chromeos::cros_healthd::mojom::Sensor::device_id) device_id(
+      const ::chromeos::cros_healthd::mojom::SensorPtr& input) {
+    return input->device_id;
+  }
+
+  static decltype(::chromeos::cros_healthd::mojom::Sensor::type) type(
+      const ::chromeos::cros_healthd::mojom::SensorPtr& input) {
+    return input->type;
+  }
+
+  static decltype(::chromeos::cros_healthd::mojom::Sensor::location) location(
+      const ::chromeos::cros_healthd::mojom::SensorPtr& input) {
+    return input->location;
+  }
+
+  static bool Read(::chromeos::cros_healthd::mojom::Sensor::DataView input, ::chromeos::cros_healthd::mojom::SensorPtr* output);
 };
 
 

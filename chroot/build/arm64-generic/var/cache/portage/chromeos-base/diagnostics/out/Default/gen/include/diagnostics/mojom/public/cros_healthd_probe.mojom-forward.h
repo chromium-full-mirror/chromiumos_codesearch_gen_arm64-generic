@@ -138,6 +138,8 @@ class InputDeviceDataView;
 
 class SensorInfoDataView;
 
+class SensorDataView;
+
 class TelemetryInfoDataView;
 
 class ProcessResultDataView;
@@ -205,6 +207,10 @@ enum class VulnerabilityInfo_Status : int32_t;
 enum class CpuVirtualizationInfo_Type : int32_t;
 
 enum class InputDevice_ConnectionType : int32_t;
+
+enum class Sensor_Type : int32_t;
+
+enum class Sensor_Location : int32_t;
 class ProbeError;
 using ProbeErrorPtr = mojo::InlinedStructPtr<ProbeError>;
 
@@ -375,6 +381,9 @@ using InputDevicePtr = mojo::InlinedStructPtr<InputDevice>;
 
 class SensorInfo;
 using SensorInfoPtr = mojo::StructPtr<SensorInfo>;
+
+class Sensor;
+using SensorPtr = mojo::InlinedStructPtr<Sensor>;
 
 class TelemetryInfo;
 using TelemetryInfoPtr = mojo::StructPtr<TelemetryInfo>;

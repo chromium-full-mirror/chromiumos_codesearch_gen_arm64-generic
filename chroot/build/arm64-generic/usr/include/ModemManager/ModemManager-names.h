@@ -97,6 +97,8 @@
 #define MM_SIM_PROPERTY_OPERATORNAME "OperatorName"
 #define MM_SIM_PROPERTY_EMERGENCYNUMBERS "EmergencyNumbers"
 #define MM_SIM_PROPERTY_PREFERREDNETWORKS "PreferredNetworks"
+#define MM_SIM_PROPERTY_GID1 "Gid1"
+#define MM_SIM_PROPERTY_GID2 "Gid2"
 #define MM_SIM_PROPERTY_SIMTYPE "SimType"
 #define MM_SIM_PROPERTY_ESIMSTATUS "EsimStatus"
 #define MM_SIM_PROPERTY_REMOVABILITY "Removability"

@@ -4939,11 +4939,19 @@ bool InputDevice::Validate(
   return Data_::Validate(data, validation_context);
 }
 SensorInfo::SensorInfo()
-    : lid_angle() {}
+    : lid_angle(),
+      sensors() {}
 
 SensorInfo::SensorInfo(
     ::chromeos::cros_healthd::mojom::NullableUint16Ptr lid_angle_in)
-    : lid_angle(std::move(lid_angle_in)) {}
+    : lid_angle(std::move(lid_angle_in)),
+      sensors() {}
+
+SensorInfo::SensorInfo(
+    ::chromeos::cros_healthd::mojom::NullableUint16Ptr lid_angle_in,
+    absl::optional<std::vector<SensorPtr>> sensors_in)
+    : lid_angle(std::move(lid_angle_in)),
+      sensors(std::move(sensors_in)) {}
 
 SensorInfo::~SensorInfo() = default;
 
@@ -4959,9 +4967,82 @@ void SensorInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "sensors"), this->sensors,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type absl::optional<std::vector<SensorPtr>>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
 }
 
 bool SensorInfo::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+Sensor::Sensor()
+    : name(),
+      device_id(),
+      type(),
+      location() {}
+
+Sensor::Sensor(
+    const absl::optional<std::string>& name_in,
+    int32_t device_id_in,
+    Sensor::Type type_in,
+    Sensor::Location location_in)
+    : name(std::move(name_in)),
+      device_id(std::move(device_id_in)),
+      type(std::move(type_in)),
+      location(std::move(location_in)) {}
+
+Sensor::~Sensor() = default;
+
+void Sensor::WriteIntoTrace(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "name"), this->name,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const absl::optional<std::string>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "device_id"), this->device_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type int32_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "type"), this->type,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type Sensor::Type>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "location"), this->location,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type Sensor::Location>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool Sensor::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
@@ -8433,6 +8514,28 @@ bool StructTraits<::chromeos::cros_healthd::mojom::SensorInfo::DataView, ::chrom
   ::chromeos::cros_healthd::mojom::SensorInfoPtr result(::chromeos::cros_healthd::mojom::SensorInfo::New());
   
       if (success && !input.ReadLidAngle(&result->lid_angle))
+        success = false;
+      if (success && !input.ReadSensors(&result->sensors))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::chromeos::cros_healthd::mojom::Sensor::DataView, ::chromeos::cros_healthd::mojom::SensorPtr>::Read(
+    ::chromeos::cros_healthd::mojom::Sensor::DataView input,
+    ::chromeos::cros_healthd::mojom::SensorPtr* output) {
+  bool success = true;
+  ::chromeos::cros_healthd::mojom::SensorPtr result(::chromeos::cros_healthd::mojom::Sensor::New());
+  
+      if (success && !input.ReadName(&result->name))
+        success = false;
+      if (success)
+        result->device_id = input.device_id();
+      if (success && !input.ReadType(&result->type))
+        success = false;
+      if (success && !input.ReadLocation(&result->location))
         success = false;
   *output = std::move(result);
   return success;
