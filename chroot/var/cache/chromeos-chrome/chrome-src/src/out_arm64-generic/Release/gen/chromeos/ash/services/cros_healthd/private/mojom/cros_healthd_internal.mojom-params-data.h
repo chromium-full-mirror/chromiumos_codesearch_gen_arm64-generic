@@ -83,6 +83,23 @@ class  ChromiumDataCollector_GetTouchpadLibraryName_ResponseParams_Data {
 };
 static_assert(sizeof(ChromiumDataCollector_GetTouchpadLibraryName_ResponseParams_Data) == 16,
               "Bad sizeof(ChromiumDataCollector_GetTouchpadLibraryName_ResponseParams_Data)");
+class  ChromiumDataCollector_BindSensorService_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Handle_Data receiver;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<ChromiumDataCollector_BindSensorService_Params_Data>;
+
+  ChromiumDataCollector_BindSensorService_Params_Data();
+  ~ChromiumDataCollector_BindSensorService_Params_Data() = delete;
+};
+static_assert(sizeof(ChromiumDataCollector_BindSensorService_Params_Data) == 16,
+              "Bad sizeof(ChromiumDataCollector_BindSensorService_Params_Data)");
 
 }  // namespace internal
 
@@ -173,6 +190,32 @@ class ChromiumDataCollector_GetTouchpadLibraryName_ResponseParamsDataView {
 
 
 
+class ChromiumDataCollector_BindSensorService_ParamsDataView {
+ public:
+  ChromiumDataCollector_BindSensorService_ParamsDataView() = default;
+
+  ChromiumDataCollector_BindSensorService_ParamsDataView(
+      internal::ChromiumDataCollector_BindSensorService_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  UserType TakeReceiver() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfaceRequestDataView<::chromeos::sensors::mojom::SensorServiceInterfaceBase>>(
+            &data_->receiver, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+ private:
+  internal::ChromiumDataCollector_BindSensorService_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
 
 inline void ChromiumDataCollector_GetTouchscreenDevices_ResponseParamsDataView::GetDevicesDataView(
     mojo::ArrayDataView<TouchscreenDeviceDataView>* output) {
@@ -188,6 +231,8 @@ inline void ChromiumDataCollector_GetTouchpadLibraryName_ResponseParamsDataView:
   auto pointer = data_->library_name.Get();
   *output = mojo::StringDataView(pointer, message_);
 }
+
+
 
 }  // namespace mojom
 }  // namespace internal

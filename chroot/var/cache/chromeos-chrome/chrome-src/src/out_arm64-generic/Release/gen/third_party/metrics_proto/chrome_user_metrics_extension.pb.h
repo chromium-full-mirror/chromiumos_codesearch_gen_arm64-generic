@@ -34,7 +34,6 @@
 #include "chrome_os_app_list_launch_event.pb.h"
 #include "custom_tab_session.pb.h"
 #include "histogram_event.pb.h"
-#include "memory_leak_report.pb.h"
 #include "omnibox_event.pb.h"
 #include "perf_data.pb.h"
 #include "printer_event.pb.h"
@@ -463,7 +462,6 @@ class ChromeUserMetricsExtension final :
     kHistogramEventFieldNumber = 6,
     kPerfDataFieldNumber = 8,
     kSampledProfileFieldNumber = 11,
-    kMemoryLeakReportFieldNumber = 13,
     kTranslateEventFieldNumber = 15,
     kPrinterEventFieldNumber = 16,
     kTraceLogFieldNumber = 19,
@@ -572,24 +570,6 @@ class ChromeUserMetricsExtension final :
   ::metrics::SampledProfile* add_sampled_profile();
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::metrics::SampledProfile >&
       sampled_profile() const;
-
-  // repeated .metrics.MemoryLeakReportProto memory_leak_report = 13;
-  int memory_leak_report_size() const;
-  private:
-  int _internal_memory_leak_report_size() const;
-  public:
-  void clear_memory_leak_report();
-  ::metrics::MemoryLeakReportProto* mutable_memory_leak_report(int index);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::metrics::MemoryLeakReportProto >*
-      mutable_memory_leak_report();
-  private:
-  const ::metrics::MemoryLeakReportProto& _internal_memory_leak_report(int index) const;
-  ::metrics::MemoryLeakReportProto* _internal_add_memory_leak_report();
-  public:
-  const ::metrics::MemoryLeakReportProto& memory_leak_report(int index) const;
-  ::metrics::MemoryLeakReportProto* add_memory_leak_report();
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::metrics::MemoryLeakReportProto >&
-      memory_leak_report() const;
 
   // repeated .metrics.TranslateEventProto translate_event = 15;
   int translate_event_size() const;
@@ -909,7 +889,6 @@ class ChromeUserMetricsExtension final :
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::metrics::HistogramEventProto > histogram_event_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::metrics::PerfDataProto > perf_data_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::metrics::SampledProfile > sampled_profile_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::metrics::MemoryLeakReportProto > memory_leak_report_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::metrics::TranslateEventProto > translate_event_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::metrics::PrinterEventProto > printer_event_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::metrics::TraceLog > trace_log_;
@@ -2001,43 +1980,6 @@ inline void ChromeUserMetricsExtension::set_allocated_cast_logs(::metrics::CastL
   }
   cast_logs_ = cast_logs;
   // @@protoc_insertion_point(field_set_allocated:metrics.ChromeUserMetricsExtension.cast_logs)
-}
-
-// repeated .metrics.MemoryLeakReportProto memory_leak_report = 13;
-inline int ChromeUserMetricsExtension::_internal_memory_leak_report_size() const {
-  return memory_leak_report_.size();
-}
-inline int ChromeUserMetricsExtension::memory_leak_report_size() const {
-  return _internal_memory_leak_report_size();
-}
-inline ::metrics::MemoryLeakReportProto* ChromeUserMetricsExtension::mutable_memory_leak_report(int index) {
-  // @@protoc_insertion_point(field_mutable:metrics.ChromeUserMetricsExtension.memory_leak_report)
-  return memory_leak_report_.Mutable(index);
-}
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::metrics::MemoryLeakReportProto >*
-ChromeUserMetricsExtension::mutable_memory_leak_report() {
-  // @@protoc_insertion_point(field_mutable_list:metrics.ChromeUserMetricsExtension.memory_leak_report)
-  return &memory_leak_report_;
-}
-inline const ::metrics::MemoryLeakReportProto& ChromeUserMetricsExtension::_internal_memory_leak_report(int index) const {
-  return memory_leak_report_.Get(index);
-}
-inline const ::metrics::MemoryLeakReportProto& ChromeUserMetricsExtension::memory_leak_report(int index) const {
-  // @@protoc_insertion_point(field_get:metrics.ChromeUserMetricsExtension.memory_leak_report)
-  return _internal_memory_leak_report(index);
-}
-inline ::metrics::MemoryLeakReportProto* ChromeUserMetricsExtension::_internal_add_memory_leak_report() {
-  return memory_leak_report_.Add();
-}
-inline ::metrics::MemoryLeakReportProto* ChromeUserMetricsExtension::add_memory_leak_report() {
-  ::metrics::MemoryLeakReportProto* _add = _internal_add_memory_leak_report();
-  // @@protoc_insertion_point(field_add:metrics.ChromeUserMetricsExtension.memory_leak_report)
-  return _add;
-}
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::metrics::MemoryLeakReportProto >&
-ChromeUserMetricsExtension::memory_leak_report() const {
-  // @@protoc_insertion_point(field_list:metrics.ChromeUserMetricsExtension.memory_leak_report)
-  return memory_leak_report_;
 }
 
 // optional .metrics.CastAssistantLogsProto cast_assistant_logs = 14;

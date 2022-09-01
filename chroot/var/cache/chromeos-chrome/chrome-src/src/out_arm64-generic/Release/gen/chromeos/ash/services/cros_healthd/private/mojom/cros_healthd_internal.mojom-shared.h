@@ -24,6 +24,7 @@
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
 #include "chromeos/ash/services/cros_healthd/private/mojom/cros_healthd_internal.mojom-shared-internal.h"
+#include "chromeos/components/sensors/mojom/sensor.mojom-shared.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
 #include "mojo/public/cpp/system/data_pipe.h"
 

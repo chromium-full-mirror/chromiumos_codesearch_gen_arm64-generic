@@ -25,6 +25,7 @@
 
 #include "chromeos/ash/services/cros_healthd/private/mojom/cros_healthd_internal.mojom-shared.h"
 #include "chromeos/ash/services/cros_healthd/private/mojom/cros_healthd_internal.mojom-forward.h"
+#include "chromeos/components/sensors/mojom/sensor.mojom-forward.h"
 #include <string>
 #include <vector>
 
@@ -58,7 +59,7 @@ class  ChromiumDataCollector
   static const char Name_[];
   static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
-  static constexpr uint32_t Version_ = 0;
+  static constexpr uint32_t Version_ = 1;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasSyncMethods_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
@@ -74,6 +75,7 @@ class  ChromiumDataCollector
   enum MethodMinVersions : uint32_t {
     kGetTouchscreenDevicesMinVersion = 0,
     kGetTouchpadLibraryNameMinVersion = 0,
+    kBindSensorServiceMinVersion = 1,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -83,6 +85,9 @@ class  ChromiumDataCollector
     NOINLINE static uint32_t IPCStableHash();
   };
   struct GetTouchpadLibraryName_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct BindSensorService_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -97,6 +102,9 @@ class  ChromiumDataCollector
   using GetTouchpadLibraryNameCallback = base::OnceCallback<void(const std::string&)>;
   
   virtual void GetTouchpadLibraryName(GetTouchpadLibraryNameCallback callback) = 0;
+
+  
+  virtual void BindSensorService(::mojo::PendingReceiver<::chromeos::sensors::mojom::SensorService> receiver) = 0;
 };
 
 
@@ -111,6 +119,8 @@ class  ChromiumDataCollectorProxy
   void GetTouchscreenDevices(GetTouchscreenDevicesCallback callback) final;
   
   void GetTouchpadLibraryName(GetTouchpadLibraryNameCallback callback) final;
+  
+  void BindSensorService(::mojo::PendingReceiver<::chromeos::sensors::mojom::SensorService> receiver) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

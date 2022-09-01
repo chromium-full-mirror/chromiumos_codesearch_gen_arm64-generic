@@ -309,6 +309,14 @@ class PowerManagerProxyMock : public PowerManagerProxyInterface {
                void(base::OnceCallback<void()> /*success_callback*/,
                     base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
                     int /*timeout_ms*/));
+  MOCK_METHOD3(GetChargeHistory,
+               bool(std::vector<uint8_t>* /*out_serialized_proto*/,
+                    brillo::ErrorPtr* /*error*/,
+                    int /*timeout_ms*/));
+  MOCK_METHOD3(GetChargeHistoryAsync,
+               void(base::OnceCallback<void(const std::vector<uint8_t>& /*serialized_proto*/)> /*success_callback*/,
+                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+                    int /*timeout_ms*/));
   MOCK_METHOD5(BatteryStatePoll,
                bool(uint32_t* /*out_external_power_type*/,
                     uint32_t* /*out_battery_state*/,

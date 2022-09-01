@@ -499,6 +499,22 @@ class PowerManagerProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
+  // Fetches the charge history for up to the last 30 days.
+  // |serialized_proto| is a serialized power_manager::ChargeHistory
+  // protobuf.
+  virtual bool GetChargeHistory(
+      std::vector<uint8_t>* out_serialized_proto,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Fetches the charge history for up to the last 30 days.
+  // |serialized_proto| is a serialized power_manager::ChargeHistory
+  // protobuf.
+  virtual void GetChargeHistoryAsync(
+      base::OnceCallback<void(const std::vector<uint8_t>& /*serialized_proto*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
   // The |external_power_type| arg is a native enum:
   // power_manager::system::ExternalPowerType.
   // The |battery_state| arg is an enum created to be compatible
@@ -1870,6 +1886,39 @@ class PowerManagerProxy final : public PowerManagerProxyInterface {
         dbus_object_proxy_,
         "org.chromium.PowerManager",
         "ChargeNowForAdaptiveCharging",
+        std::move(success_callback),
+        std::move(error_callback));
+  }
+
+  // Fetches the charge history for up to the last 30 days.
+  // |serialized_proto| is a serialized power_manager::ChargeHistory
+  // protobuf.
+  bool GetChargeHistory(
+      std::vector<uint8_t>* out_serialized_proto,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.PowerManager",
+        "GetChargeHistory",
+        error);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_serialized_proto);
+  }
+
+  // Fetches the charge history for up to the last 30 days.
+  // |serialized_proto| is a serialized power_manager::ChargeHistory
+  // protobuf.
+  void GetChargeHistoryAsync(
+      base::OnceCallback<void(const std::vector<uint8_t>& /*serialized_proto*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.PowerManager",
+        "GetChargeHistory",
         std::move(success_callback),
         std::move(error_callback));
   }

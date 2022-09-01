@@ -216,6 +216,9 @@ ChromiumDataCollector::IPCStableHashFunction ChromiumDataCollector::MessageToMet
     case internal::kChromiumDataCollector_GetTouchpadLibraryName_Name: {
       return &ChromiumDataCollector::GetTouchpadLibraryName_Sym::IPCStableHash;
     }
+    case internal::kChromiumDataCollector_BindSensorService_Name: {
+      return &ChromiumDataCollector::BindSensorService_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -231,6 +234,8 @@ const char* ChromiumDataCollector::MessageToMethodName_(mojo::Message& message) 
             return "Receive chromeos::cros_healthd::internal::mojom::ChromiumDataCollector::GetTouchscreenDevices";
       case internal::kChromiumDataCollector_GetTouchpadLibraryName_Name:
             return "Receive chromeos::cros_healthd::internal::mojom::ChromiumDataCollector::GetTouchpadLibraryName";
+      case internal::kChromiumDataCollector_BindSensorService_Name:
+            return "Receive chromeos::cros_healthd::internal::mojom::ChromiumDataCollector::BindSensorService";
     }
   } else {
     switch (message.name()) {
@@ -238,6 +243,8 @@ const char* ChromiumDataCollector::MessageToMethodName_(mojo::Message& message) 
             return "Receive reply chromeos::cros_healthd::internal::mojom::ChromiumDataCollector::GetTouchscreenDevices";
       case internal::kChromiumDataCollector_GetTouchpadLibraryName_Name:
             return "Receive reply chromeos::cros_healthd::internal::mojom::ChromiumDataCollector::GetTouchpadLibraryName";
+      case internal::kChromiumDataCollector_BindSensorService_Name:
+            return "Receive reply chromeos::cros_healthd::internal::mojom::ChromiumDataCollector::BindSensorService";
     }
   }
   return "Receive unknown mojo message";
@@ -274,6 +281,19 @@ uint32_t ChromiumDataCollector::GetTouchpadLibraryName_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)chromeos::cros_healthd::internal::mojom::ChromiumDataCollector::GetTouchpadLibraryName");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t ChromiumDataCollector::BindSensorService_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)chromeos::cros_healthd::internal::mojom::ChromiumDataCollector::BindSensorService");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -376,6 +396,49 @@ void ChromiumDataCollectorProxy::GetTouchpadLibraryName(
       new ChromiumDataCollector_GetTouchpadLibraryName_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void ChromiumDataCollectorProxy::BindSensorService(
+    ::mojo::PendingReceiver<::chromeos::sensors::mojom::SensorService> in_receiver) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send chromeos::cros_healthd::internal::mojom::ChromiumDataCollector::BindSensorService", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("receiver"), in_receiver,
+                        "<value of type ::mojo::PendingReceiver<::chromeos::sensors::mojom::SensorService>>");
+   });
+#endif
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kChromiumDataCollector_BindSensorService_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::chromeos::cros_healthd::internal::mojom::internal::ChromiumDataCollector_BindSensorService_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<mojo::InterfaceRequestDataView<::chromeos::sensors::mojom::SensorServiceInterfaceBase>>(
+      in_receiver, &params->receiver, &params.message());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      !mojo::internal::IsHandleOrInterfaceValid(params->receiver),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
+      "invalid receiver in ChromiumDataCollector.BindSensorService request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(ChromiumDataCollector::Name_);
+  message.set_method_name("BindSensorService");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 class ChromiumDataCollector_GetTouchscreenDevices_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
@@ -639,6 +702,34 @@ bool ChromiumDataCollectorStubDispatch::Accept(
     case internal::kChromiumDataCollector_GetTouchpadLibraryName_Name: {
       break;
     }
+    case internal::kChromiumDataCollector_BindSensorService_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::ChromiumDataCollector_BindSensorService_Params_Data* params =
+          reinterpret_cast<internal::ChromiumDataCollector_BindSensorService_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      ::mojo::PendingReceiver<::chromeos::sensors::mojom::SensorService> p_receiver{};
+      ChromiumDataCollector_BindSensorService_ParamsDataView input_data_view(params, message);
+      
+      if (success) {
+        p_receiver =
+            input_data_view.TakeReceiver<decltype(p_receiver)>();
+      }
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            ChromiumDataCollector::Name_, 2, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->BindSensorService(
+std::move(p_receiver));
+      return true;
+    }
   }
   return false;
 }
@@ -702,6 +793,9 @@ bool ChromiumDataCollectorStubDispatch::AcceptWithResponder(
       impl->GetTouchpadLibraryName(std::move(callback));
       return true;
     }
+    case internal::kChromiumDataCollector_BindSensorService_Name: {
+      break;
+    }
   }
   return false;
 }
@@ -712,6 +806,8 @@ static const mojo::internal::GenericValidationInfo kChromiumDataCollectorValidat
      &internal::ChromiumDataCollector_GetTouchscreenDevices_ResponseParams_Data::Validate},
     {&internal::ChromiumDataCollector_GetTouchpadLibraryName_Params_Data::Validate,
      &internal::ChromiumDataCollector_GetTouchpadLibraryName_ResponseParams_Data::Validate},
+    {&internal::ChromiumDataCollector_BindSensorService_Params_Data::Validate,
+     nullptr /* no response */},
 };
 
 bool ChromiumDataCollectorRequestValidator::Accept(mojo::Message* message) {
@@ -793,6 +889,9 @@ void ChromiumDataCollectorInterceptorForTesting::GetTouchscreenDevices(GetTouchs
 }
 void ChromiumDataCollectorInterceptorForTesting::GetTouchpadLibraryName(GetTouchpadLibraryNameCallback callback) {
   GetForwardingInterface()->GetTouchpadLibraryName(std::move(callback));
+}
+void ChromiumDataCollectorInterceptorForTesting::BindSensorService(::mojo::PendingReceiver<::chromeos::sensors::mojom::SensorService> receiver) {
+  GetForwardingInterface()->BindSensorService(std::move(receiver));
 }
 ChromiumDataCollectorAsyncWaiter::ChromiumDataCollectorAsyncWaiter(
     ChromiumDataCollector* proxy) : proxy_(proxy) {}

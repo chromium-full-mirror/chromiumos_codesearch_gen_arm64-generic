@@ -46,6 +46,7 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INI
 PROTOBUF_CONSTEXPR TrustTokenIssuerToplevelPairConfig::TrustTokenIssuerToplevelPairConfig(
     ::_pbi::ConstantInitialized)
   : last_redemption_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , penultimate_redemption_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , redemption_record_(nullptr){}
 struct TrustTokenIssuerToplevelPairConfigDefaultTypeInternal {
   PROTOBUF_CONSTEXPR TrustTokenIssuerToplevelPairConfigDefaultTypeInternal()
@@ -481,6 +482,9 @@ class TrustTokenIssuerToplevelPairConfig::_Internal {
   }
   static const ::network::TrustTokenRedemptionRecord& redemption_record(const TrustTokenIssuerToplevelPairConfig* msg);
   static void set_has_redemption_record(HasBits* has_bits) {
+    (*has_bits)[0] |= 4u;
+  }
+  static void set_has_penultimate_redemption(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
 };
@@ -491,7 +495,7 @@ TrustTokenIssuerToplevelPairConfig::_Internal::redemption_record(const TrustToke
 }
 void TrustTokenIssuerToplevelPairConfig::clear_redemption_record() {
   if (redemption_record_ != nullptr) redemption_record_->Clear();
-  _has_bits_[0] &= ~0x00000002u;
+  _has_bits_[0] &= ~0x00000004u;
 }
 TrustTokenIssuerToplevelPairConfig::TrustTokenIssuerToplevelPairConfig(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
@@ -511,6 +515,14 @@ TrustTokenIssuerToplevelPairConfig::TrustTokenIssuerToplevelPairConfig(const Tru
     last_redemption_.Set(from._internal_last_redemption(), 
       GetArenaForAllocation());
   }
+  penultimate_redemption_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    penultimate_redemption_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_penultimate_redemption()) {
+    penultimate_redemption_.Set(from._internal_penultimate_redemption(), 
+      GetArenaForAllocation());
+  }
   if (from._internal_has_redemption_record()) {
     redemption_record_ = new ::network::TrustTokenRedemptionRecord(*from.redemption_record_);
   } else {
@@ -523,6 +535,10 @@ inline void TrustTokenIssuerToplevelPairConfig::SharedCtor() {
 last_redemption_.InitDefault();
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   last_redemption_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+penultimate_redemption_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  penultimate_redemption_.Set("", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 redemption_record_ = nullptr;
 }
@@ -539,6 +555,7 @@ TrustTokenIssuerToplevelPairConfig::~TrustTokenIssuerToplevelPairConfig() {
 inline void TrustTokenIssuerToplevelPairConfig::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   last_redemption_.Destroy();
+  penultimate_redemption_.Destroy();
   if (this != internal_default_instance()) delete redemption_record_;
 }
 
@@ -553,11 +570,14 @@ void TrustTokenIssuerToplevelPairConfig::Clear() {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
+  if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
       last_redemption_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
+      penultimate_redemption_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x00000004u) {
       GOOGLE_DCHECK(redemption_record_ != nullptr);
       redemption_record_->Clear();
     }
@@ -586,6 +606,15 @@ const char* TrustTokenIssuerToplevelPairConfig::_InternalParse(const char* ptr, 
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_redemption_record(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional string penultimate_redemption = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          auto str = _internal_mutable_penultimate_redemption();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -628,10 +657,16 @@ uint8_t* TrustTokenIssuerToplevelPairConfig::_InternalSerialize(
   }
 
   // optional .network.TrustTokenRedemptionRecord redemption_record = 2;
-  if (cached_has_bits & 0x00000002u) {
+  if (cached_has_bits & 0x00000004u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(2, _Internal::redemption_record(this),
         _Internal::redemption_record(this).GetCachedSize(), target, stream);
+  }
+
+  // optional string penultimate_redemption = 3;
+  if (cached_has_bits & 0x00000002u) {
+    target = stream->WriteStringMaybeAliased(
+        3, this->_internal_penultimate_redemption(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -651,7 +686,7 @@ size_t TrustTokenIssuerToplevelPairConfig::ByteSizeLong() const {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
+  if (cached_has_bits & 0x00000007u) {
     // optional string last_redemption = 1;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
@@ -659,8 +694,15 @@ size_t TrustTokenIssuerToplevelPairConfig::ByteSizeLong() const {
           this->_internal_last_redemption());
     }
 
-    // optional .network.TrustTokenRedemptionRecord redemption_record = 2;
+    // optional string penultimate_redemption = 3;
     if (cached_has_bits & 0x00000002u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_penultimate_redemption());
+    }
+
+    // optional .network.TrustTokenRedemptionRecord redemption_record = 2;
+    if (cached_has_bits & 0x00000004u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *redemption_record_);
@@ -688,11 +730,14 @@ void TrustTokenIssuerToplevelPairConfig::MergeFrom(const TrustTokenIssuerTopleve
   (void) cached_has_bits;
 
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
+  if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
       _internal_set_last_redemption(from._internal_last_redemption());
     }
     if (cached_has_bits & 0x00000002u) {
+      _internal_set_penultimate_redemption(from._internal_penultimate_redemption());
+    }
+    if (cached_has_bits & 0x00000004u) {
       _internal_mutable_redemption_record()->::network::TrustTokenRedemptionRecord::MergeFrom(from._internal_redemption_record());
     }
   }
@@ -719,6 +764,10 @@ void TrustTokenIssuerToplevelPairConfig::InternalSwap(TrustTokenIssuerToplevelPa
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &last_redemption_, lhs_arena,
       &other->last_redemption_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &penultimate_redemption_, lhs_arena,
+      &other->penultimate_redemption_, rhs_arena
   );
   swap(redemption_record_, other->redemption_record_);
 }

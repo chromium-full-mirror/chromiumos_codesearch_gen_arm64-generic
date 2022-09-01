@@ -40,7 +40,6 @@ PROTOBUF_CONSTEXPR ChromeUserMetricsExtension::ChromeUserMetricsExtension(
   , histogram_event_()
   , perf_data_()
   , sampled_profile_()
-  , memory_leak_report_()
   , translate_event_()
   , printer_event_()
   , trace_log_()
@@ -600,9 +599,6 @@ void ChromeUserMetricsExtension::clear_cast_logs() {
   if (cast_logs_ != nullptr) cast_logs_->Clear();
   _has_bits_[0] &= ~0x00000002u;
 }
-void ChromeUserMetricsExtension::clear_memory_leak_report() {
-  memory_leak_report_.Clear();
-}
 void ChromeUserMetricsExtension::clear_cast_assistant_logs() {
   if (cast_assistant_logs_ != nullptr) cast_assistant_logs_->Clear();
   _has_bits_[0] &= ~0x00000004u;
@@ -626,7 +622,6 @@ ChromeUserMetricsExtension::ChromeUserMetricsExtension(::PROTOBUF_NAMESPACE_ID::
   histogram_event_(arena),
   perf_data_(arena),
   sampled_profile_(arena),
-  memory_leak_report_(arena),
   translate_event_(arena),
   printer_event_(arena),
   trace_log_(arena),
@@ -643,7 +638,6 @@ ChromeUserMetricsExtension::ChromeUserMetricsExtension(const ChromeUserMetricsEx
       histogram_event_(from.histogram_event_),
       perf_data_(from.perf_data_),
       sampled_profile_(from.sampled_profile_),
-      memory_leak_report_(from.memory_leak_report_),
       translate_event_(from.translate_event_),
       printer_event_(from.printer_event_),
       trace_log_(from.trace_log_),
@@ -745,7 +739,6 @@ void ChromeUserMetricsExtension::Clear() {
   histogram_event_.Clear();
   perf_data_.Clear();
   sampled_profile_.Clear();
-  memory_leak_report_.Clear();
   translate_event_.Clear();
   printer_event_.Clear();
   trace_log_.Clear();
@@ -911,19 +904,6 @@ const char* ChromeUserMetricsExtension::_InternalParse(const char* ptr, ::_pbi::
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 98)) {
           ptr = ctx->ParseMessage(_internal_mutable_cast_logs(), ptr);
           CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // repeated .metrics.MemoryLeakReportProto memory_leak_report = 13;
-      case 13:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 106)) {
-          ptr -= 1;
-          do {
-            ptr += 1;
-            ptr = ctx->ParseMessage(_internal_add_memory_leak_report(), ptr);
-            CHK_(ptr);
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<106>(ptr));
         } else
           goto handle_unusual;
         continue;
@@ -1160,14 +1140,6 @@ uint8_t* ChromeUserMetricsExtension::_InternalSerialize(
         _Internal::cast_logs(this).GetCachedSize(), target, stream);
   }
 
-  // repeated .metrics.MemoryLeakReportProto memory_leak_report = 13;
-  for (unsigned i = 0,
-      n = static_cast<unsigned>(this->_internal_memory_leak_report_size()); i < n; i++) {
-    const auto& repfield = this->_internal_memory_leak_report(i);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-        InternalWriteMessage(13, repfield, repfield.GetCachedSize(), target, stream);
-  }
-
   // optional .metrics.CastAssistantLogsProto cast_assistant_logs = 14;
   if (cached_has_bits & 0x00000004u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
@@ -1310,13 +1282,6 @@ size_t ChromeUserMetricsExtension::ByteSizeLong() const {
   // repeated .metrics.SampledProfile sampled_profile = 11;
   total_size += 1UL * this->_internal_sampled_profile_size();
   for (const auto& msg : this->sampled_profile_) {
-    total_size +=
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
-  }
-
-  // repeated .metrics.MemoryLeakReportProto memory_leak_report = 13;
-  total_size += 1UL * this->_internal_memory_leak_report_size();
-  for (const auto& msg : this->memory_leak_report_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
@@ -1469,7 +1434,6 @@ void ChromeUserMetricsExtension::MergeFrom(const ChromeUserMetricsExtension& fro
   histogram_event_.MergeFrom(from.histogram_event_);
   perf_data_.MergeFrom(from.perf_data_);
   sampled_profile_.MergeFrom(from.sampled_profile_);
-  memory_leak_report_.MergeFrom(from.memory_leak_report_);
   translate_event_.MergeFrom(from.translate_event_);
   printer_event_.MergeFrom(from.printer_event_);
   trace_log_.MergeFrom(from.trace_log_);
@@ -1543,7 +1507,6 @@ void ChromeUserMetricsExtension::InternalSwap(ChromeUserMetricsExtension* other)
   histogram_event_.InternalSwap(&other->histogram_event_);
   perf_data_.InternalSwap(&other->perf_data_);
   sampled_profile_.InternalSwap(&other->sampled_profile_);
-  memory_leak_report_.InternalSwap(&other->memory_leak_report_);
   translate_event_.InternalSwap(&other->translate_event_);
   printer_event_.InternalSwap(&other->printer_event_);
   trace_log_.InternalSwap(&other->trace_log_);

@@ -20,6 +20,7 @@ class  ChromiumDataCollectorInterceptorForTesting : public ChromiumDataCollector
   virtual ChromiumDataCollector* GetForwardingInterface() = 0;
   void GetTouchscreenDevices(GetTouchscreenDevicesCallback callback) override;
   void GetTouchpadLibraryName(GetTouchpadLibraryNameCallback callback) override;
+  void BindSensorService(::mojo::PendingReceiver<::chromeos::sensors::mojom::SensorService> receiver) override;
 };
 class  ChromiumDataCollectorAsyncWaiter {
  public:

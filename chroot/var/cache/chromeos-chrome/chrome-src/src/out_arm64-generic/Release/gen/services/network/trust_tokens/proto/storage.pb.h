@@ -486,6 +486,7 @@ class TrustTokenIssuerToplevelPairConfig final :
 
   enum : int {
     kLastRedemptionFieldNumber = 1,
+    kPenultimateRedemptionFieldNumber = 3,
     kRedemptionRecordFieldNumber = 2,
   };
   // optional string last_redemption = 1;
@@ -504,6 +505,24 @@ class TrustTokenIssuerToplevelPairConfig final :
   const std::string& _internal_last_redemption() const;
   inline PROTOBUF_ALWAYS_INLINE void _internal_set_last_redemption(const std::string& value);
   std::string* _internal_mutable_last_redemption();
+  public:
+
+  // optional string penultimate_redemption = 3;
+  bool has_penultimate_redemption() const;
+  private:
+  bool _internal_has_penultimate_redemption() const;
+  public:
+  void clear_penultimate_redemption();
+  const std::string& penultimate_redemption() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_penultimate_redemption(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_penultimate_redemption();
+  PROTOBUF_NODISCARD std::string* release_penultimate_redemption();
+  void set_allocated_penultimate_redemption(std::string* penultimate_redemption);
+  private:
+  const std::string& _internal_penultimate_redemption() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_penultimate_redemption(const std::string& value);
+  std::string* _internal_mutable_penultimate_redemption();
   public:
 
   // optional .network.TrustTokenRedemptionRecord redemption_record = 2;
@@ -534,6 +553,7 @@ class TrustTokenIssuerToplevelPairConfig final :
   ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr last_redemption_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr penultimate_redemption_;
   ::network::TrustTokenRedemptionRecord* redemption_record_;
   friend struct ::TableStruct_storage_2eproto;
 };
@@ -806,7 +826,7 @@ inline void TrustTokenIssuerToplevelPairConfig::set_allocated_last_redemption(st
 
 // optional .network.TrustTokenRedemptionRecord redemption_record = 2;
 inline bool TrustTokenIssuerToplevelPairConfig::_internal_has_redemption_record() const {
-  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  bool value = (_has_bits_[0] & 0x00000004u) != 0;
   PROTOBUF_ASSUME(!value || redemption_record_ != nullptr);
   return value;
 }
@@ -829,14 +849,14 @@ inline void TrustTokenIssuerToplevelPairConfig::unsafe_arena_set_allocated_redem
   }
   redemption_record_ = redemption_record;
   if (redemption_record) {
-    _has_bits_[0] |= 0x00000002u;
+    _has_bits_[0] |= 0x00000004u;
   } else {
-    _has_bits_[0] &= ~0x00000002u;
+    _has_bits_[0] &= ~0x00000004u;
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:network.TrustTokenIssuerToplevelPairConfig.redemption_record)
 }
 inline ::network::TrustTokenRedemptionRecord* TrustTokenIssuerToplevelPairConfig::release_redemption_record() {
-  _has_bits_[0] &= ~0x00000002u;
+  _has_bits_[0] &= ~0x00000004u;
   ::network::TrustTokenRedemptionRecord* temp = redemption_record_;
   redemption_record_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -852,13 +872,13 @@ inline ::network::TrustTokenRedemptionRecord* TrustTokenIssuerToplevelPairConfig
 }
 inline ::network::TrustTokenRedemptionRecord* TrustTokenIssuerToplevelPairConfig::unsafe_arena_release_redemption_record() {
   // @@protoc_insertion_point(field_release:network.TrustTokenIssuerToplevelPairConfig.redemption_record)
-  _has_bits_[0] &= ~0x00000002u;
+  _has_bits_[0] &= ~0x00000004u;
   ::network::TrustTokenRedemptionRecord* temp = redemption_record_;
   redemption_record_ = nullptr;
   return temp;
 }
 inline ::network::TrustTokenRedemptionRecord* TrustTokenIssuerToplevelPairConfig::_internal_mutable_redemption_record() {
-  _has_bits_[0] |= 0x00000002u;
+  _has_bits_[0] |= 0x00000004u;
   if (redemption_record_ == nullptr) {
     auto* p = CreateMaybeMessage<::network::TrustTokenRedemptionRecord>(GetArenaForAllocation());
     redemption_record_ = p;
@@ -883,12 +903,80 @@ inline void TrustTokenIssuerToplevelPairConfig::set_allocated_redemption_record(
       redemption_record = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, redemption_record, submessage_arena);
     }
+    _has_bits_[0] |= 0x00000004u;
+  } else {
+    _has_bits_[0] &= ~0x00000004u;
+  }
+  redemption_record_ = redemption_record;
+  // @@protoc_insertion_point(field_set_allocated:network.TrustTokenIssuerToplevelPairConfig.redemption_record)
+}
+
+// optional string penultimate_redemption = 3;
+inline bool TrustTokenIssuerToplevelPairConfig::_internal_has_penultimate_redemption() const {
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  return value;
+}
+inline bool TrustTokenIssuerToplevelPairConfig::has_penultimate_redemption() const {
+  return _internal_has_penultimate_redemption();
+}
+inline void TrustTokenIssuerToplevelPairConfig::clear_penultimate_redemption() {
+  penultimate_redemption_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline const std::string& TrustTokenIssuerToplevelPairConfig::penultimate_redemption() const {
+  // @@protoc_insertion_point(field_get:network.TrustTokenIssuerToplevelPairConfig.penultimate_redemption)
+  return _internal_penultimate_redemption();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void TrustTokenIssuerToplevelPairConfig::set_penultimate_redemption(ArgT0&& arg0, ArgT... args) {
+ _has_bits_[0] |= 0x00000002u;
+ penultimate_redemption_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:network.TrustTokenIssuerToplevelPairConfig.penultimate_redemption)
+}
+inline std::string* TrustTokenIssuerToplevelPairConfig::mutable_penultimate_redemption() {
+  std::string* _s = _internal_mutable_penultimate_redemption();
+  // @@protoc_insertion_point(field_mutable:network.TrustTokenIssuerToplevelPairConfig.penultimate_redemption)
+  return _s;
+}
+inline const std::string& TrustTokenIssuerToplevelPairConfig::_internal_penultimate_redemption() const {
+  return penultimate_redemption_.Get();
+}
+inline void TrustTokenIssuerToplevelPairConfig::_internal_set_penultimate_redemption(const std::string& value) {
+  _has_bits_[0] |= 0x00000002u;
+  penultimate_redemption_.Set(value, GetArenaForAllocation());
+}
+inline std::string* TrustTokenIssuerToplevelPairConfig::_internal_mutable_penultimate_redemption() {
+  _has_bits_[0] |= 0x00000002u;
+  return penultimate_redemption_.Mutable(GetArenaForAllocation());
+}
+inline std::string* TrustTokenIssuerToplevelPairConfig::release_penultimate_redemption() {
+  // @@protoc_insertion_point(field_release:network.TrustTokenIssuerToplevelPairConfig.penultimate_redemption)
+  if (!_internal_has_penultimate_redemption()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000002u;
+  auto* p = penultimate_redemption_.Release();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (penultimate_redemption_.IsDefault()) {
+    penultimate_redemption_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void TrustTokenIssuerToplevelPairConfig::set_allocated_penultimate_redemption(std::string* penultimate_redemption) {
+  if (penultimate_redemption != nullptr) {
     _has_bits_[0] |= 0x00000002u;
   } else {
     _has_bits_[0] &= ~0x00000002u;
   }
-  redemption_record_ = redemption_record;
-  // @@protoc_insertion_point(field_set_allocated:network.TrustTokenIssuerToplevelPairConfig.redemption_record)
+  penultimate_redemption_.SetAllocated(penultimate_redemption, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (penultimate_redemption_.IsDefault()) {
+    penultimate_redemption_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:network.TrustTokenIssuerToplevelPairConfig.penultimate_redemption)
 }
 
 #ifdef __GNUC__

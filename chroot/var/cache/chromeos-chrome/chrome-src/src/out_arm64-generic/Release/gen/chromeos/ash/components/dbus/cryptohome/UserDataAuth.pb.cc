@@ -641,8 +641,6 @@ PROTOBUF_CONSTEXPR StartAuthSessionReply::StartAuthSessionReply(
     ::_pbi::ConstantInitialized)
   : key_label_data_()
   , auth_factors_()
-  , supported_auth_factors_()
-  , _supported_auth_factors_cached_byte_size_(0)
   , auth_session_id_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , error_info_(nullptr)
   , error_(0)
@@ -12589,15 +12587,13 @@ StartAuthSessionReply::StartAuthSessionReply(::PROTOBUF_NAMESPACE_ID::Arena* are
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
   key_label_data_(arena),
-  auth_factors_(arena),
-  supported_auth_factors_(arena) {
+  auth_factors_(arena) {
   SharedCtor();
   // @@protoc_insertion_point(arena_constructor:user_data_auth.StartAuthSessionReply)
 }
 StartAuthSessionReply::StartAuthSessionReply(const StartAuthSessionReply& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      auth_factors_(from.auth_factors_),
-      supported_auth_factors_(from.supported_auth_factors_) {
+      auth_factors_(from.auth_factors_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   key_label_data_.MergeFrom(from.key_label_data_);
   auth_session_id_.InitDefault();
@@ -12658,7 +12654,6 @@ void StartAuthSessionReply::Clear() {
 
   key_label_data_.Clear();
   auth_factors_.Clear();
-  supported_auth_factors_.Clear();
   auth_session_id_.ClearToEmpty();
   if (GetArenaForAllocation() == nullptr && error_info_ != nullptr) {
     delete error_info_;
@@ -12733,18 +12728,6 @@ const char* StartAuthSessionReply::_InternalParse(const char* ptr, ::_pbi::Parse
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 50)) {
           ptr = ctx->ParseMessage(_internal_mutable_error_info(), ptr);
           CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // repeated .user_data_auth.AuthFactorType supported_auth_factors = 7;
-      case 7:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 58)) {
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedEnumParser(_internal_mutable_supported_auth_factors(), ptr, ctx);
-          CHK_(ptr);
-        } else if (static_cast<uint8_t>(tag) == 56) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-          _internal_add_supported_auth_factors(static_cast<::user_data_auth::AuthFactorType>(val));
         } else
           goto handle_unusual;
         continue;
@@ -12837,15 +12820,6 @@ uint8_t* StartAuthSessionReply::_InternalSerialize(
         _Internal::error_info(this).GetCachedSize(), target, stream);
   }
 
-  // repeated .user_data_auth.AuthFactorType supported_auth_factors = 7;
-  {
-    int byte_size = _supported_auth_factors_cached_byte_size_.load(std::memory_order_relaxed);
-    if (byte_size > 0) {
-      target = stream->WriteEnumPacked(
-          7, supported_auth_factors_, byte_size, target);
-    }
-  }
-
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -12876,23 +12850,6 @@ size_t StartAuthSessionReply::ByteSizeLong() const {
   for (const auto& msg : this->auth_factors_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
-  }
-
-  // repeated .user_data_auth.AuthFactorType supported_auth_factors = 7;
-  {
-    size_t data_size = 0;
-    unsigned int count = static_cast<unsigned int>(this->_internal_supported_auth_factors_size());for (unsigned int i = 0; i < count; i++) {
-      data_size += ::_pbi::WireFormatLite::EnumSize(
-        this->_internal_supported_auth_factors(static_cast<int>(i)));
-    }
-    if (data_size > 0) {
-      total_size += 1 +
-        ::_pbi::WireFormatLite::Int32Size(static_cast<int32_t>(data_size));
-    }
-    int cached_size = ::_pbi::ToCachedSize(data_size);
-    _supported_auth_factors_cached_byte_size_.store(cached_size,
-                                    std::memory_order_relaxed);
-    total_size += data_size;
   }
 
   // bytes auth_session_id = 2;
@@ -12942,7 +12899,6 @@ void StartAuthSessionReply::MergeFrom(const StartAuthSessionReply& from) {
 
   key_label_data_.MergeFrom(from.key_label_data_);
   auth_factors_.MergeFrom(from.auth_factors_);
-  supported_auth_factors_.MergeFrom(from.supported_auth_factors_);
   if (!from._internal_auth_session_id().empty()) {
     _internal_set_auth_session_id(from._internal_auth_session_id());
   }
@@ -12976,7 +12932,6 @@ void StartAuthSessionReply::InternalSwap(StartAuthSessionReply* other) {
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   key_label_data_.InternalSwap(&other->key_label_data_);
   auth_factors_.InternalSwap(&other->auth_factors_);
-  supported_auth_factors_.InternalSwap(&other->supported_auth_factors_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &auth_session_id_, lhs_arena,
       &other->auth_session_id_, rhs_arena
