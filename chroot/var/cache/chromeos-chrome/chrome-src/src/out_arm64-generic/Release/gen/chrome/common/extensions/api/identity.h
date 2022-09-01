@@ -144,7 +144,7 @@ struct TokenDetails {
   // <code>getAuthToken</code> will prompt the user as necessary. When the flag is
   // <code>false</code> or omitted, <code>getAuthToken</code> will return failure
   // any time a prompt would be required.
-  std::unique_ptr<bool> interactive;
+  absl::optional<bool> interactive;
 
   // The account ID whose token should be returned. If not specified, the function
   // will use an account from the Chrome profile: the Sync account if there is
@@ -159,7 +159,7 @@ struct TokenDetails {
   // The <code>enableGranularPermissions</code> flag allows extensions to opt-in
   // early to the granular permissions consent screen, in which requested
   // permissions are granted or denied individually.
-  std::unique_ptr<bool> enable_granular_permissions;
+  absl::optional<bool> enable_granular_permissions;
 
 };
 
@@ -218,7 +218,7 @@ struct WebAuthFlowDetails {
   // will be displayed when a page load completes. If the flag is
   // <code>false</code> or omitted, <code>launchWebAuthFlow</code> will return
   // with an error if the initial navigation does not complete the flow.</p>
-  std::unique_ptr<bool> interactive;
+  absl::optional<bool> interactive;
 
 };
 

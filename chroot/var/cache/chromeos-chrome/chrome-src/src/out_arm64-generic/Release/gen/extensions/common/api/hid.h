@@ -215,7 +215,7 @@ struct DevicePromptOptions {
   std::unique_ptr<base::DictionaryValue> ToValue() const;
 
   // Allow the user to select multiple devices.
-  std::unique_ptr<bool> multiple;
+  absl::optional<bool> multiple;
 
   // Filter the list of devices presented to the user. If multiple filters are
   // provided devices matching any filter will be displayed.

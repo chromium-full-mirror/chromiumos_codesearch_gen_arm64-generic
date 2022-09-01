@@ -212,7 +212,7 @@ bool ChooseEntryOptions::Populate(
         out->accepts_all_types.reset();
         return false;
       }
-      out->accepts_all_types = std::make_unique<bool>(temp.value());
+      out->accepts_all_types = temp.value();
     }
   }
 
@@ -224,7 +224,7 @@ bool ChooseEntryOptions::Populate(
         out->accepts_multiple.reset();
         return false;
       }
-      out->accepts_multiple = std::make_unique<bool>(temp.value());
+      out->accepts_multiple = temp.value();
     }
   }
 
@@ -302,7 +302,7 @@ bool RequestFileSystemOptions::Populate(
         out->writable.reset();
         return false;
       }
-      out->writable = std::make_unique<bool>(temp.value());
+      out->writable = temp.value();
     }
   }
 

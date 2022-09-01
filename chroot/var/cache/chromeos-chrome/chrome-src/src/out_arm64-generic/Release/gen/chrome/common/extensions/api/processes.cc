@@ -319,7 +319,7 @@ bool Process::Populate(
         out->cpu.reset();
         return false;
       }
-      out->cpu = std::make_unique<double>(temp.value());
+      out->cpu = temp.value();
     }
   }
 
@@ -331,7 +331,7 @@ bool Process::Populate(
         out->network.reset();
         return false;
       }
-      out->network = std::make_unique<double>(temp.value());
+      out->network = temp.value();
     }
   }
 
@@ -343,7 +343,7 @@ bool Process::Populate(
         out->private_memory.reset();
         return false;
       }
-      out->private_memory = std::make_unique<double>(temp.value());
+      out->private_memory = temp.value();
     }
   }
 
@@ -355,7 +355,7 @@ bool Process::Populate(
         out->js_memory_allocated.reset();
         return false;
       }
-      out->js_memory_allocated = std::make_unique<double>(temp.value());
+      out->js_memory_allocated = temp.value();
     }
   }
 
@@ -367,7 +367,7 @@ bool Process::Populate(
         out->js_memory_used.reset();
         return false;
       }
-      out->js_memory_used = std::make_unique<double>(temp.value());
+      out->js_memory_used = temp.value();
     }
   }
 
@@ -379,7 +379,7 @@ bool Process::Populate(
         out->sqlite_memory.reset();
         return false;
       }
-      out->sqlite_memory = std::make_unique<double>(temp.value());
+      out->sqlite_memory = temp.value();
     }
   }
 

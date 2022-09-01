@@ -802,6 +802,13 @@ class ServiceProxyMock : public ServiceProxyInterface {
                void(base::OnceCallback<void(const std::string&)> /*success_callback*/,
                     base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
                     int /*timeout_ms*/));
+  MOCK_METHOD2(RequestPortalDetection,
+               bool(brillo::ErrorPtr* /*error*/,
+                    int /*timeout_ms*/));
+  MOCK_METHOD3(RequestPortalDetectionAsync,
+               void(base::OnceCallback<void()> /*success_callback*/,
+                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+                    int /*timeout_ms*/));
   MOCK_METHOD3(RequestTrafficCounters,
                bool(std::vector<brillo::VariantDictionary>*,
                     brillo::ErrorPtr* /*error*/,

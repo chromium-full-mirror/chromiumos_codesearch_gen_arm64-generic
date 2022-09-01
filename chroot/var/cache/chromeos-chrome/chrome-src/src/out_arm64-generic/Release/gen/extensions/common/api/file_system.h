@@ -106,13 +106,13 @@ struct ChooseEntryOptions {
   // Whether to accept all file types, in addition to the options specified in the
   // accepts argument. The default is true. If the accepts field is unset or
   // contains no valid entries, this will always be reset to true.
-  std::unique_ptr<bool> accepts_all_types;
+  absl::optional<bool> accepts_all_types;
 
   // Whether to accept multiple files. This is only supported for openFile and
   // openWritableFile. The callback to chooseEntry will be called with a list of
   // entries if this is set to true. Otherwise it will be called with a single
   // Entry.
-  std::unique_ptr<bool> accepts_multiple;
+  absl::optional<bool> accepts_multiple;
 
 };
 
@@ -141,7 +141,7 @@ struct RequestFileSystemOptions {
 
   // Whether the requested file system should be writable. The default is
   // read-only.
-  std::unique_ptr<bool> writable;
+  absl::optional<bool> writable;
 
 };
 

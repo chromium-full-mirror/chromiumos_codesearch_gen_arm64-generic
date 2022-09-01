@@ -145,32 +145,32 @@ struct Process {
   // threads. This gives a value from zero to CpuInfo.numOfProcessors*100, which
   // can exceed 100% in multi-threaded processes. Only available when receiving
   // the object as part of a callback from onUpdated or onUpdatedWithMemory.
-  std::unique_ptr<double> cpu;
+  absl::optional<double> cpu;
 
   // The most recent measurement of the process network usage, in bytes per
   // second. Only available when receiving the object as part of a callback from
   // onUpdated or onUpdatedWithMemory.
-  std::unique_ptr<double> network;
+  absl::optional<double> network;
 
   // The most recent measurement of the process private memory usage, in bytes.
   // Only available when receiving the object as part of a callback from
   // onUpdatedWithMemory or getProcessInfo with the includeMemory flag.
-  std::unique_ptr<double> private_memory;
+  absl::optional<double> private_memory;
 
   // The most recent measurement of the process JavaScript allocated memory, in
   // bytes. Only available when receiving the object as part of a callback from
   // onUpdated or onUpdatedWithMemory.
-  std::unique_ptr<double> js_memory_allocated;
+  absl::optional<double> js_memory_allocated;
 
   // The most recent measurement of the process JavaScript memory used, in bytes.
   // Only available when receiving the object as part of a callback from onUpdated
   // or onUpdatedWithMemory.
-  std::unique_ptr<double> js_memory_used;
+  absl::optional<double> js_memory_used;
 
   // The most recent measurement of the process's SQLite memory usage, in bytes.
   // Only available when receiving the object as part of a callback from onUpdated
   // or onUpdatedWithMemory.
-  std::unique_ptr<double> sqlite_memory;
+  absl::optional<double> sqlite_memory;
 
   // The most recent information about the image cache for the process. Only
   // available when receiving the object as part of a callback from onUpdated or

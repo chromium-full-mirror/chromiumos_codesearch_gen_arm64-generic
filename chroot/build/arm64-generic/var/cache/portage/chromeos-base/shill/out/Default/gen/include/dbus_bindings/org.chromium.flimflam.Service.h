@@ -58,6 +58,8 @@ class ServiceInterface {
   virtual bool GetEapPassphrase(
       brillo::ErrorPtr* error,
       std::string* out_1) = 0;
+  virtual bool RequestPortalDetection(
+      brillo::ErrorPtr* error) = 0;
   virtual void RequestTrafficCounters(
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<std::vector<brillo::VariantDictionary>>> response) = 0;
   virtual bool ResetTrafficCounters(
@@ -123,6 +125,10 @@ class ServiceAdaptor {
         "GetEapPassphrase",
         base::Unretained(interface_),
         &ServiceInterface::GetEapPassphrase);
+    itf->AddSimpleMethodHandlerWithError(
+        "RequestPortalDetection",
+        base::Unretained(interface_),
+        &ServiceInterface::RequestPortalDetection);
     itf->AddMethodHandler(
         "RequestTrafficCounters",
         base::Unretained(interface_),
@@ -179,6 +185,8 @@ class ServiceAdaptor {
         "    </method>\n"
         "    <method name=\"GetEapPassphrase\">\n"
         "      <arg name=\"\" type=\"s\" direction=\"out\"/>\n"
+        "    </method>\n"
+        "    <method name=\"RequestPortalDetection\">\n"
         "    </method>\n"
         "    <method name=\"RequestTrafficCounters\">\n"
         "      <arg name=\"\" type=\"aa{sv}\" direction=\"out\"/>\n"
