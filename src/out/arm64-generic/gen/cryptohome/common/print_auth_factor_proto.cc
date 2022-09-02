@@ -52,6 +52,24 @@ std::string GetProtoDebugStringWithIndent(AuthFactorType value,
   return "<unknown>";
 }
 
+std::string GetProtoDebugString(AuthFactorPreparePurpose value) {
+  return GetProtoDebugStringWithIndent(value, 0);
+}
+
+std::string GetProtoDebugStringWithIndent(AuthFactorPreparePurpose value,
+                                          int indent_size) {
+  if (value == PURPOSE_UNSPECIFIED) {
+    return "PURPOSE_UNSPECIFIED";
+  }
+  if (value == ADD_AUTH_FACTOR) {
+    return "ADD_AUTH_FACTOR";
+  }
+  if (value == AUTHENTICATE_AUTH_FACTOR) {
+    return "AUTHENTICATE_AUTH_FACTOR";
+  }
+  return "<unknown>";
+}
+
 std::string GetProtoDebugString(SmartCardSignatureAlgorithm value) {
   return GetProtoDebugStringWithIndent(value, 0);
 }

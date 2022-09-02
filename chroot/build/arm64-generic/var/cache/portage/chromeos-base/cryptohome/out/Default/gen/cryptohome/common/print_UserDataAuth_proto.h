@@ -638,6 +638,16 @@ std::string GetProtoDebugStringWithIndent(const GetRecoveryRequestReply& value,
                                           int indent_size);
 BRILLO_EXPORT std::string GetProtoDebugString(
     const GetRecoveryRequestReply& value);
+std::string GetProtoDebugStringWithIndent(
+    const PrepareAsyncAuthFactorRequest& value,
+    int indent_size);
+BRILLO_EXPORT std::string GetProtoDebugString(
+    const PrepareAsyncAuthFactorRequest& value);
+std::string GetProtoDebugStringWithIndent(
+    const PrepareAsyncAuthFactorReply& value,
+    int indent_size);
+BRILLO_EXPORT std::string GetProtoDebugString(
+    const PrepareAsyncAuthFactorReply& value);
 
 }  // namespace user_data_auth
 

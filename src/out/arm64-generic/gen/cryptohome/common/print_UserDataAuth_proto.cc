@@ -3860,4 +3860,67 @@ std::string GetProtoDebugStringWithIndent(const GetRecoveryRequestReply& value,
   return output;
 }
 
+std::string GetProtoDebugString(const PrepareAsyncAuthFactorRequest& value) {
+  return GetProtoDebugStringWithIndent(value, 0);
+}
+
+std::string GetProtoDebugStringWithIndent(
+    const PrepareAsyncAuthFactorRequest& value,
+    int indent_size) {
+  std::string indent(indent_size, ' ');
+  std::string output =
+      base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
+
+  output += indent + "  auth_session_id: ";
+  base::StringAppendF(&output, "%s",
+                      base::HexEncode(value.auth_session_id().data(),
+                                      value.auth_session_id().size())
+                          .c_str());
+  output += "\n";
+
+  output += indent + "  auth_factor_type: ";
+  base::StringAppendF(
+      &output, "%s",
+      GetProtoDebugStringWithIndent(value.auth_factor_type(), indent_size + 2)
+          .c_str());
+  output += "\n";
+
+  output += indent + "  purpose: ";
+  base::StringAppendF(
+      &output, "%s",
+      GetProtoDebugStringWithIndent(value.purpose(), indent_size + 2).c_str());
+  output += "\n";
+
+  output += indent + "}\n";
+  return output;
+}
+
+std::string GetProtoDebugString(const PrepareAsyncAuthFactorReply& value) {
+  return GetProtoDebugStringWithIndent(value, 0);
+}
+
+std::string GetProtoDebugStringWithIndent(
+    const PrepareAsyncAuthFactorReply& value,
+    int indent_size) {
+  std::string indent(indent_size, ' ');
+  std::string output =
+      base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
+
+  output += indent + "  error: ";
+  base::StringAppendF(
+      &output, "%s",
+      GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
+  output += "\n";
+
+  output += indent + "  error_info: ";
+  base::StringAppendF(
+      &output, "%s",
+      GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
+          .c_str());
+  output += "\n";
+
+  output += indent + "}\n";
+  return output;
+}
+
 }  // namespace user_data_auth

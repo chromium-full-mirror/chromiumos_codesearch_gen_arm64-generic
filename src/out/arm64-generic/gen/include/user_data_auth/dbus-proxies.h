@@ -480,6 +480,18 @@ class UserDataAuthInterfaceProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
+  virtual bool PrepareAsyncAuthFactor(
+      const user_data_auth::PrepareAsyncAuthFactorRequest& in_request,
+      user_data_auth::PrepareAsyncAuthFactorReply* out_reply,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual void PrepareAsyncAuthFactorAsync(
+      const user_data_auth::PrepareAsyncAuthFactorRequest& in_request,
+      base::OnceCallback<void(const user_data_auth::PrepareAsyncAuthFactorReply& /*reply*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
   virtual bool GetRecoveryRequest(
       const user_data_auth::GetRecoveryRequestRequest& in_request,
       user_data_auth::GetRecoveryRequestReply* out_reply,
@@ -1701,6 +1713,37 @@ class UserDataAuthInterfaceProxy final : public UserDataAuthInterfaceProxyInterf
         dbus_object_proxy_,
         "org.chromium.UserDataAuthInterface",
         "ListAuthFactors",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_request);
+  }
+
+  bool PrepareAsyncAuthFactor(
+      const user_data_auth::PrepareAsyncAuthFactorRequest& in_request,
+      user_data_auth::PrepareAsyncAuthFactorReply* out_reply,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.UserDataAuthInterface",
+        "PrepareAsyncAuthFactor",
+        error,
+        in_request);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_reply);
+  }
+
+  void PrepareAsyncAuthFactorAsync(
+      const user_data_auth::PrepareAsyncAuthFactorRequest& in_request,
+      base::OnceCallback<void(const user_data_auth::PrepareAsyncAuthFactorReply& /*reply*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.UserDataAuthInterface",
+        "PrepareAsyncAuthFactor",
         std::move(success_callback),
         std::move(error_callback),
         in_request);

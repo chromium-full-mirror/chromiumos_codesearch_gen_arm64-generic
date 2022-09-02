@@ -28,6 +28,9 @@ namespace user_data_auth {
 std::string GetProtoDebugStringWithIndent(AuthFactorType value,
                                           int indent_size);
 BRILLO_EXPORT std::string GetProtoDebugString(AuthFactorType value);
+std::string GetProtoDebugStringWithIndent(AuthFactorPreparePurpose value,
+                                          int indent_size);
+BRILLO_EXPORT std::string GetProtoDebugString(AuthFactorPreparePurpose value);
 std::string GetProtoDebugStringWithIndent(SmartCardSignatureAlgorithm value,
                                           int indent_size);
 BRILLO_EXPORT std::string GetProtoDebugString(
