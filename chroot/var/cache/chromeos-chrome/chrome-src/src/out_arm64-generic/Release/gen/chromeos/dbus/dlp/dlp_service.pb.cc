@@ -113,9 +113,24 @@ struct RequestFileAccessResponseDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RequestFileAccessResponseDefaultTypeInternal _RequestFileAccessResponse_default_instance_;
+PROTOBUF_CONSTEXPR FileMetadata::FileMetadata(
+    ::_pbi::ConstantInitialized)
+  : source_url_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , path_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , inode_(uint64_t{0u}){}
+struct FileMetadataDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR FileMetadataDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~FileMetadataDefaultTypeInternal() {}
+  union {
+    FileMetadata _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 FileMetadataDefaultTypeInternal _FileMetadata_default_instance_;
 PROTOBUF_CONSTEXPR IsDlpPolicyMatchedRequest::IsDlpPolicyMatchedRequest(
     ::_pbi::ConstantInitialized)
-  : source_url_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}){}
+  : source_url_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , file_metadata_(nullptr){}
 struct IsDlpPolicyMatchedRequestDefaultTypeInternal {
   PROTOBUF_CONSTEXPR IsDlpPolicyMatchedRequestDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -149,20 +164,6 @@ struct GetFilesSourcesRequestDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 GetFilesSourcesRequestDefaultTypeInternal _GetFilesSourcesRequest_default_instance_;
-PROTOBUF_CONSTEXPR FileMetadata::FileMetadata(
-    ::_pbi::ConstantInitialized)
-  : source_url_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , path_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , inode_(uint64_t{0u}){}
-struct FileMetadataDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR FileMetadataDefaultTypeInternal()
-      : _instance(::_pbi::ConstantInitialized{}) {}
-  ~FileMetadataDefaultTypeInternal() {}
-  union {
-    FileMetadata _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 FileMetadataDefaultTypeInternal _FileMetadata_default_instance_;
 PROTOBUF_CONSTEXPR GetFilesSourcesResponse::GetFilesSourcesResponse(
     ::_pbi::ConstantInitialized)
   : files_metadata_()
@@ -2146,14 +2147,309 @@ std::string RequestFileAccessResponse::GetTypeName() const {
 
 // ===================================================================
 
+class FileMetadata::_Internal {
+ public:
+  using HasBits = decltype(std::declval<FileMetadata>()._has_bits_);
+  static void set_has_inode(HasBits* has_bits) {
+    (*has_bits)[0] |= 4u;
+  }
+  static void set_has_source_url(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+  static void set_has_path(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
+};
+
+FileMetadata::FileMetadata(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:dlp.FileMetadata)
+}
+FileMetadata::FileMetadata(const FileMetadata& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      _has_bits_(from._has_bits_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  source_url_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    source_url_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_source_url()) {
+    source_url_.Set(from._internal_source_url(), 
+      GetArenaForAllocation());
+  }
+  path_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    path_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_path()) {
+    path_.Set(from._internal_path(), 
+      GetArenaForAllocation());
+  }
+  inode_ = from.inode_;
+  // @@protoc_insertion_point(copy_constructor:dlp.FileMetadata)
+}
+
+inline void FileMetadata::SharedCtor() {
+source_url_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  source_url_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+path_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  path_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+inode_ = uint64_t{0u};
+}
+
+FileMetadata::~FileMetadata() {
+  // @@protoc_insertion_point(destructor:dlp.FileMetadata)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void FileMetadata::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  source_url_.Destroy();
+  path_.Destroy();
+}
+
+void FileMetadata::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void FileMetadata::Clear() {
+// @@protoc_insertion_point(message_clear_start:dlp.FileMetadata)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      source_url_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x00000002u) {
+      path_.ClearNonDefaultToEmpty();
+    }
+  }
+  inode_ = uint64_t{0u};
+  _has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* FileMetadata::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional uint64 inode = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _Internal::set_has_inode(&has_bits);
+          inode_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional string source_url = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          auto str = _internal_mutable_source_url();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional string path = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          auto str = _internal_mutable_path();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* FileMetadata::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:dlp.FileMetadata)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // optional uint64 inode = 1;
+  if (cached_has_bits & 0x00000004u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(1, this->_internal_inode(), target);
+  }
+
+  // optional string source_url = 2;
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_source_url(), target);
+  }
+
+  // optional string path = 3;
+  if (cached_has_bits & 0x00000002u) {
+    target = stream->WriteStringMaybeAliased(
+        3, this->_internal_path(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:dlp.FileMetadata)
+  return target;
+}
+
+size_t FileMetadata::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:dlp.FileMetadata)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000007u) {
+    // optional string source_url = 2;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_source_url());
+    }
+
+    // optional string path = 3;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_path());
+    }
+
+    // optional uint64 inode = 1;
+    if (cached_has_bits & 0x00000004u) {
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_inode());
+    }
+
+  }
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void FileMetadata::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const FileMetadata*>(
+      &from));
+}
+
+void FileMetadata::MergeFrom(const FileMetadata& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:dlp.FileMetadata)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = from._has_bits_[0];
+  if (cached_has_bits & 0x00000007u) {
+    if (cached_has_bits & 0x00000001u) {
+      _internal_set_source_url(from._internal_source_url());
+    }
+    if (cached_has_bits & 0x00000002u) {
+      _internal_set_path(from._internal_path());
+    }
+    if (cached_has_bits & 0x00000004u) {
+      inode_ = from.inode_;
+    }
+    _has_bits_[0] |= cached_has_bits;
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void FileMetadata::CopyFrom(const FileMetadata& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:dlp.FileMetadata)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool FileMetadata::IsInitialized() const {
+  return true;
+}
+
+void FileMetadata::InternalSwap(FileMetadata* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &source_url_, lhs_arena,
+      &other->source_url_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &path_, lhs_arena,
+      &other->path_, rhs_arena
+  );
+  swap(inode_, other->inode_);
+}
+
+std::string FileMetadata::GetTypeName() const {
+  return "dlp.FileMetadata";
+}
+
+
+// ===================================================================
+
 class IsDlpPolicyMatchedRequest::_Internal {
  public:
   using HasBits = decltype(std::declval<IsDlpPolicyMatchedRequest>()._has_bits_);
   static void set_has_source_url(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
+  static const ::dlp::FileMetadata& file_metadata(const IsDlpPolicyMatchedRequest* msg);
+  static void set_has_file_metadata(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
 };
 
+const ::dlp::FileMetadata&
+IsDlpPolicyMatchedRequest::_Internal::file_metadata(const IsDlpPolicyMatchedRequest* msg) {
+  return *msg->file_metadata_;
+}
 IsDlpPolicyMatchedRequest::IsDlpPolicyMatchedRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
@@ -2172,6 +2468,11 @@ IsDlpPolicyMatchedRequest::IsDlpPolicyMatchedRequest(const IsDlpPolicyMatchedReq
     source_url_.Set(from._internal_source_url(), 
       GetArenaForAllocation());
   }
+  if (from._internal_has_file_metadata()) {
+    file_metadata_ = new ::dlp::FileMetadata(*from.file_metadata_);
+  } else {
+    file_metadata_ = nullptr;
+  }
   // @@protoc_insertion_point(copy_constructor:dlp.IsDlpPolicyMatchedRequest)
 }
 
@@ -2180,6 +2481,7 @@ source_url_.InitDefault();
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   source_url_.Set("", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+file_metadata_ = nullptr;
 }
 
 IsDlpPolicyMatchedRequest::~IsDlpPolicyMatchedRequest() {
@@ -2194,6 +2496,7 @@ IsDlpPolicyMatchedRequest::~IsDlpPolicyMatchedRequest() {
 inline void IsDlpPolicyMatchedRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   source_url_.Destroy();
+  if (this != internal_default_instance()) delete file_metadata_;
 }
 
 void IsDlpPolicyMatchedRequest::SetCachedSize(int size) const {
@@ -2207,8 +2510,14 @@ void IsDlpPolicyMatchedRequest::Clear() {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000001u) {
-    source_url_.ClearNonDefaultToEmpty();
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      source_url_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x00000002u) {
+      GOOGLE_DCHECK(file_metadata_ != nullptr);
+      file_metadata_->Clear();
+    }
   }
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
@@ -2226,6 +2535,14 @@ const char* IsDlpPolicyMatchedRequest::_InternalParse(const char* ptr, ::_pbi::P
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_source_url();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional .dlp.FileMetadata file_metadata = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          ptr = ctx->ParseMessage(_internal_mutable_file_metadata(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -2267,6 +2584,13 @@ uint8_t* IsDlpPolicyMatchedRequest::_InternalSerialize(
         1, this->_internal_source_url(), target);
   }
 
+  // optional .dlp.FileMetadata file_metadata = 2;
+  if (cached_has_bits & 0x00000002u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(2, _Internal::file_metadata(this),
+        _Internal::file_metadata(this).GetCachedSize(), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -2283,14 +2607,23 @@ size_t IsDlpPolicyMatchedRequest::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // optional string source_url = 1;
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000001u) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_source_url());
-  }
+  if (cached_has_bits & 0x00000003u) {
+    // optional string source_url = 1;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_source_url());
+    }
 
+    // optional .dlp.FileMetadata file_metadata = 2;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *file_metadata_);
+    }
+
+  }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -2311,8 +2644,14 @@ void IsDlpPolicyMatchedRequest::MergeFrom(const IsDlpPolicyMatchedRequest& from)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from._internal_has_source_url()) {
-    _internal_set_source_url(from._internal_source_url());
+  cached_has_bits = from._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      _internal_set_source_url(from._internal_source_url());
+    }
+    if (cached_has_bits & 0x00000002u) {
+      _internal_mutable_file_metadata()->::dlp::FileMetadata::MergeFrom(from._internal_file_metadata());
+    }
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -2338,6 +2677,7 @@ void IsDlpPolicyMatchedRequest::InternalSwap(IsDlpPolicyMatchedRequest* other) {
       &source_url_, lhs_arena,
       &other->source_url_, rhs_arena
   );
+  swap(file_metadata_, other->file_metadata_);
 }
 
 std::string IsDlpPolicyMatchedRequest::GetTypeName() const {
@@ -2700,293 +3040,6 @@ void GetFilesSourcesRequest::InternalSwap(GetFilesSourcesRequest* other) {
 
 std::string GetFilesSourcesRequest::GetTypeName() const {
   return "dlp.GetFilesSourcesRequest";
-}
-
-
-// ===================================================================
-
-class FileMetadata::_Internal {
- public:
-  using HasBits = decltype(std::declval<FileMetadata>()._has_bits_);
-  static void set_has_inode(HasBits* has_bits) {
-    (*has_bits)[0] |= 4u;
-  }
-  static void set_has_source_url(HasBits* has_bits) {
-    (*has_bits)[0] |= 1u;
-  }
-  static void set_has_path(HasBits* has_bits) {
-    (*has_bits)[0] |= 2u;
-  }
-};
-
-FileMetadata::FileMetadata(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  // @@protoc_insertion_point(arena_constructor:dlp.FileMetadata)
-}
-FileMetadata::FileMetadata(const FileMetadata& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  source_url_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    source_url_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_source_url()) {
-    source_url_.Set(from._internal_source_url(), 
-      GetArenaForAllocation());
-  }
-  path_.InitDefault();
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    path_.Set("", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_path()) {
-    path_.Set(from._internal_path(), 
-      GetArenaForAllocation());
-  }
-  inode_ = from.inode_;
-  // @@protoc_insertion_point(copy_constructor:dlp.FileMetadata)
-}
-
-inline void FileMetadata::SharedCtor() {
-source_url_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  source_url_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-path_.InitDefault();
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  path_.Set("", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-inode_ = uint64_t{0u};
-}
-
-FileMetadata::~FileMetadata() {
-  // @@protoc_insertion_point(destructor:dlp.FileMetadata)
-  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
-  (void)arena;
-    return;
-  }
-  SharedDtor();
-}
-
-inline void FileMetadata::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  source_url_.Destroy();
-  path_.Destroy();
-}
-
-void FileMetadata::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
-}
-
-void FileMetadata::Clear() {
-// @@protoc_insertion_point(message_clear_start:dlp.FileMetadata)
-  uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
-    if (cached_has_bits & 0x00000001u) {
-      source_url_.ClearNonDefaultToEmpty();
-    }
-    if (cached_has_bits & 0x00000002u) {
-      path_.ClearNonDefaultToEmpty();
-    }
-  }
-  inode_ = uint64_t{0u};
-  _has_bits_.Clear();
-  _internal_metadata_.Clear<std::string>();
-}
-
-const char* FileMetadata::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  _Internal::HasBits has_bits{};
-  while (!ctx->Done(&ptr)) {
-    uint32_t tag;
-    ptr = ::_pbi::ReadTag(ptr, &tag);
-    switch (tag >> 3) {
-      // optional uint64 inode = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          _Internal::set_has_inode(&has_bits);
-          inode_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // optional string source_url = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
-          auto str = _internal_mutable_source_url();
-          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // optional string path = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
-          auto str = _internal_mutable_path();
-          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      default:
-        goto handle_unusual;
-    }  // switch
-  handle_unusual:
-    if ((tag == 0) || ((tag & 7) == 4)) {
-      CHK_(ptr);
-      ctx->SetLastTag(tag);
-      goto message_done;
-    }
-    ptr = UnknownFieldParse(
-        tag,
-        _internal_metadata_.mutable_unknown_fields<std::string>(),
-        ptr, ctx);
-    CHK_(ptr != nullptr);
-  }  // while
-message_done:
-  _has_bits_.Or(has_bits);
-  return ptr;
-failure:
-  ptr = nullptr;
-  goto message_done;
-#undef CHK_
-}
-
-uint8_t* FileMetadata::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:dlp.FileMetadata)
-  uint32_t cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  cached_has_bits = _has_bits_[0];
-  // optional uint64 inode = 1;
-  if (cached_has_bits & 0x00000004u) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(1, this->_internal_inode(), target);
-  }
-
-  // optional string source_url = 2;
-  if (cached_has_bits & 0x00000001u) {
-    target = stream->WriteStringMaybeAliased(
-        2, this->_internal_source_url(), target);
-  }
-
-  // optional string path = 3;
-  if (cached_has_bits & 0x00000002u) {
-    target = stream->WriteStringMaybeAliased(
-        3, this->_internal_path(), target);
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
-        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
-  }
-  // @@protoc_insertion_point(serialize_to_array_end:dlp.FileMetadata)
-  return target;
-}
-
-size_t FileMetadata::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:dlp.FileMetadata)
-  size_t total_size = 0;
-
-  uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
-    // optional string source_url = 2;
-    if (cached_has_bits & 0x00000001u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_source_url());
-    }
-
-    // optional string path = 3;
-    if (cached_has_bits & 0x00000002u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_path());
-    }
-
-    // optional uint64 inode = 1;
-    if (cached_has_bits & 0x00000004u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_inode());
-    }
-
-  }
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
-  }
-  int cached_size = ::_pbi::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
-}
-
-void FileMetadata::CheckTypeAndMergeFrom(
-    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::_pbi::DownCast<const FileMetadata*>(
-      &from));
-}
-
-void FileMetadata::MergeFrom(const FileMetadata& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:dlp.FileMetadata)
-  GOOGLE_DCHECK_NE(&from, this);
-  uint32_t cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
-    if (cached_has_bits & 0x00000001u) {
-      _internal_set_source_url(from._internal_source_url());
-    }
-    if (cached_has_bits & 0x00000002u) {
-      _internal_set_path(from._internal_path());
-    }
-    if (cached_has_bits & 0x00000004u) {
-      inode_ = from.inode_;
-    }
-    _has_bits_[0] |= cached_has_bits;
-  }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-}
-
-void FileMetadata::CopyFrom(const FileMetadata& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:dlp.FileMetadata)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool FileMetadata::IsInitialized() const {
-  return true;
-}
-
-void FileMetadata::InternalSwap(FileMetadata* other) {
-  using std::swap;
-  auto* lhs_arena = GetArenaForAllocation();
-  auto* rhs_arena = other->GetArenaForAllocation();
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &source_url_, lhs_arena,
-      &other->source_url_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &path_, lhs_arena,
-      &other->path_, rhs_arena
-  );
-  swap(inode_, other->inode_);
-}
-
-std::string FileMetadata::GetTypeName() const {
-  return "dlp.FileMetadata";
 }
 
 
@@ -4433,6 +4486,10 @@ template<> PROTOBUF_NOINLINE ::dlp::RequestFileAccessResponse*
 Arena::CreateMaybeMessage< ::dlp::RequestFileAccessResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::dlp::RequestFileAccessResponse >(arena);
 }
+template<> PROTOBUF_NOINLINE ::dlp::FileMetadata*
+Arena::CreateMaybeMessage< ::dlp::FileMetadata >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::dlp::FileMetadata >(arena);
+}
 template<> PROTOBUF_NOINLINE ::dlp::IsDlpPolicyMatchedRequest*
 Arena::CreateMaybeMessage< ::dlp::IsDlpPolicyMatchedRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::dlp::IsDlpPolicyMatchedRequest >(arena);
@@ -4444,10 +4501,6 @@ Arena::CreateMaybeMessage< ::dlp::IsDlpPolicyMatchedResponse >(Arena* arena) {
 template<> PROTOBUF_NOINLINE ::dlp::GetFilesSourcesRequest*
 Arena::CreateMaybeMessage< ::dlp::GetFilesSourcesRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::dlp::GetFilesSourcesRequest >(arena);
-}
-template<> PROTOBUF_NOINLINE ::dlp::FileMetadata*
-Arena::CreateMaybeMessage< ::dlp::FileMetadata >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::dlp::FileMetadata >(arena);
 }
 template<> PROTOBUF_NOINLINE ::dlp::GetFilesSourcesResponse*
 Arena::CreateMaybeMessage< ::dlp::GetFilesSourcesResponse >(Arena* arena) {

@@ -37,8 +37,6 @@ class BASE_EXPORT SharedMemoryMapper {
   // Unmaps the specified region of shared memory from the caller's address
   // space.
   virtual void Unmap(span<uint8_t> mapping) = 0;
-
-  virtual ~SharedMemoryMapper() = default;
 };
 
 }  // namespace base
