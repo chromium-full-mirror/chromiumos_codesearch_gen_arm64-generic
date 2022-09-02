@@ -11,8 +11,12 @@
 #include <grpcpp/impl/codegen/channel_interface.h>
 #include <grpcpp/impl/codegen/client_unary_call.h>
 #include <grpcpp/impl/codegen/client_callback.h>
-#include <grpcpp/impl/codegen/method_handler_impl.h>
+#include <grpcpp/impl/codegen/message_allocator.h>
+#include <grpcpp/impl/codegen/method_handler.h>
 #include <grpcpp/impl/codegen/rpc_service_method.h>
+#include <grpcpp/impl/codegen/server_callback.h>
+#include <grpcpp/impl/codegen/server_callback_handlers.h>
+#include <grpcpp/impl/codegen/server_context.h>
 #include <grpcpp/impl/codegen/service_type.h>
 #include <grpcpp/impl/codegen/sync_stream.h>
 namespace test_rpcs {
@@ -25,80 +29,116 @@ static const char* ExampleService_method_names[] = {
 
 std::unique_ptr< ExampleService::Stub> ExampleService::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
   (void)options;
-  std::unique_ptr< ExampleService::Stub> stub(new ExampleService::Stub(channel));
+  std::unique_ptr< ExampleService::Stub> stub(new ExampleService::Stub(channel, options));
   return stub;
 }
 
-ExampleService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel)
-  : channel_(channel), rpcmethod_EmptyRpc_(ExampleService_method_names[0], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_EchoIntRpc_(ExampleService_method_names[1], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_HeavyRpc_(ExampleService_method_names[2], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+ExampleService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options)
+  : channel_(channel), rpcmethod_EmptyRpc_(ExampleService_method_names[0], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_EchoIntRpc_(ExampleService_method_names[1], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_HeavyRpc_(ExampleService_method_names[2], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   {}
 
 ::grpc::Status ExampleService::Stub::EmptyRpc(::grpc::ClientContext* context, const ::test_rpcs::EmptyRpcRequest& request, ::test_rpcs::EmptyRpcResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_EmptyRpc_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::test_rpcs::EmptyRpcRequest, ::test_rpcs::EmptyRpcResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_EmptyRpc_, context, request, response);
 }
 
-void ExampleService::Stub::experimental_async::EmptyRpc(::grpc::ClientContext* context, const ::test_rpcs::EmptyRpcRequest* request, ::test_rpcs::EmptyRpcResponse* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_EmptyRpc_, context, request, response, std::move(f));
+void ExampleService::Stub::async::EmptyRpc(::grpc::ClientContext* context, const ::test_rpcs::EmptyRpcRequest* request, ::test_rpcs::EmptyRpcResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::test_rpcs::EmptyRpcRequest, ::test_rpcs::EmptyRpcResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_EmptyRpc_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::test_rpcs::EmptyRpcResponse>* ExampleService::Stub::AsyncEmptyRpcRaw(::grpc::ClientContext* context, const ::test_rpcs::EmptyRpcRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::test_rpcs::EmptyRpcResponse>::Create(channel_.get(), cq, rpcmethod_EmptyRpc_, context, request, true);
+void ExampleService::Stub::async::EmptyRpc(::grpc::ClientContext* context, const ::test_rpcs::EmptyRpcRequest* request, ::test_rpcs::EmptyRpcResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_EmptyRpc_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::test_rpcs::EmptyRpcResponse>* ExampleService::Stub::PrepareAsyncEmptyRpcRaw(::grpc::ClientContext* context, const ::test_rpcs::EmptyRpcRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::test_rpcs::EmptyRpcResponse>::Create(channel_.get(), cq, rpcmethod_EmptyRpc_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::test_rpcs::EmptyRpcResponse, ::test_rpcs::EmptyRpcRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_EmptyRpc_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::test_rpcs::EmptyRpcResponse>* ExampleService::Stub::AsyncEmptyRpcRaw(::grpc::ClientContext* context, const ::test_rpcs::EmptyRpcRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncEmptyRpcRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 ::grpc::Status ExampleService::Stub::EchoIntRpc(::grpc::ClientContext* context, const ::test_rpcs::EchoIntRpcRequest& request, ::test_rpcs::EchoIntRpcResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_EchoIntRpc_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::test_rpcs::EchoIntRpcRequest, ::test_rpcs::EchoIntRpcResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_EchoIntRpc_, context, request, response);
 }
 
-void ExampleService::Stub::experimental_async::EchoIntRpc(::grpc::ClientContext* context, const ::test_rpcs::EchoIntRpcRequest* request, ::test_rpcs::EchoIntRpcResponse* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_EchoIntRpc_, context, request, response, std::move(f));
+void ExampleService::Stub::async::EchoIntRpc(::grpc::ClientContext* context, const ::test_rpcs::EchoIntRpcRequest* request, ::test_rpcs::EchoIntRpcResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::test_rpcs::EchoIntRpcRequest, ::test_rpcs::EchoIntRpcResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_EchoIntRpc_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::test_rpcs::EchoIntRpcResponse>* ExampleService::Stub::AsyncEchoIntRpcRaw(::grpc::ClientContext* context, const ::test_rpcs::EchoIntRpcRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::test_rpcs::EchoIntRpcResponse>::Create(channel_.get(), cq, rpcmethod_EchoIntRpc_, context, request, true);
+void ExampleService::Stub::async::EchoIntRpc(::grpc::ClientContext* context, const ::test_rpcs::EchoIntRpcRequest* request, ::test_rpcs::EchoIntRpcResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_EchoIntRpc_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::test_rpcs::EchoIntRpcResponse>* ExampleService::Stub::PrepareAsyncEchoIntRpcRaw(::grpc::ClientContext* context, const ::test_rpcs::EchoIntRpcRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::test_rpcs::EchoIntRpcResponse>::Create(channel_.get(), cq, rpcmethod_EchoIntRpc_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::test_rpcs::EchoIntRpcResponse, ::test_rpcs::EchoIntRpcRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_EchoIntRpc_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::test_rpcs::EchoIntRpcResponse>* ExampleService::Stub::AsyncEchoIntRpcRaw(::grpc::ClientContext* context, const ::test_rpcs::EchoIntRpcRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncEchoIntRpcRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 ::grpc::Status ExampleService::Stub::HeavyRpc(::grpc::ClientContext* context, const ::test_rpcs::HeavyRpcRequest& request, ::test_rpcs::HeavyRpcResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_HeavyRpc_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::test_rpcs::HeavyRpcRequest, ::test_rpcs::HeavyRpcResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_HeavyRpc_, context, request, response);
 }
 
-void ExampleService::Stub::experimental_async::HeavyRpc(::grpc::ClientContext* context, const ::test_rpcs::HeavyRpcRequest* request, ::test_rpcs::HeavyRpcResponse* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_HeavyRpc_, context, request, response, std::move(f));
+void ExampleService::Stub::async::HeavyRpc(::grpc::ClientContext* context, const ::test_rpcs::HeavyRpcRequest* request, ::test_rpcs::HeavyRpcResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::test_rpcs::HeavyRpcRequest, ::test_rpcs::HeavyRpcResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_HeavyRpc_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::test_rpcs::HeavyRpcResponse>* ExampleService::Stub::AsyncHeavyRpcRaw(::grpc::ClientContext* context, const ::test_rpcs::HeavyRpcRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::test_rpcs::HeavyRpcResponse>::Create(channel_.get(), cq, rpcmethod_HeavyRpc_, context, request, true);
+void ExampleService::Stub::async::HeavyRpc(::grpc::ClientContext* context, const ::test_rpcs::HeavyRpcRequest* request, ::test_rpcs::HeavyRpcResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_HeavyRpc_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::test_rpcs::HeavyRpcResponse>* ExampleService::Stub::PrepareAsyncHeavyRpcRaw(::grpc::ClientContext* context, const ::test_rpcs::HeavyRpcRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::test_rpcs::HeavyRpcResponse>::Create(channel_.get(), cq, rpcmethod_HeavyRpc_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::test_rpcs::HeavyRpcResponse, ::test_rpcs::HeavyRpcRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_HeavyRpc_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::test_rpcs::HeavyRpcResponse>* ExampleService::Stub::AsyncHeavyRpcRaw(::grpc::ClientContext* context, const ::test_rpcs::HeavyRpcRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncHeavyRpcRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 ExampleService::Service::Service() {
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       ExampleService_method_names[0],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< ExampleService::Service, ::test_rpcs::EmptyRpcRequest, ::test_rpcs::EmptyRpcResponse>(
-          std::mem_fn(&ExampleService::Service::EmptyRpc), this)));
+      new ::grpc::internal::RpcMethodHandler< ExampleService::Service, ::test_rpcs::EmptyRpcRequest, ::test_rpcs::EmptyRpcResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](ExampleService::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::test_rpcs::EmptyRpcRequest* req,
+             ::test_rpcs::EmptyRpcResponse* resp) {
+               return service->EmptyRpc(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       ExampleService_method_names[1],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< ExampleService::Service, ::test_rpcs::EchoIntRpcRequest, ::test_rpcs::EchoIntRpcResponse>(
-          std::mem_fn(&ExampleService::Service::EchoIntRpc), this)));
+      new ::grpc::internal::RpcMethodHandler< ExampleService::Service, ::test_rpcs::EchoIntRpcRequest, ::test_rpcs::EchoIntRpcResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](ExampleService::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::test_rpcs::EchoIntRpcRequest* req,
+             ::test_rpcs::EchoIntRpcResponse* resp) {
+               return service->EchoIntRpc(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       ExampleService_method_names[2],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< ExampleService::Service, ::test_rpcs::HeavyRpcRequest, ::test_rpcs::HeavyRpcResponse>(
-          std::mem_fn(&ExampleService::Service::HeavyRpc), this)));
+      new ::grpc::internal::RpcMethodHandler< ExampleService::Service, ::test_rpcs::HeavyRpcRequest, ::test_rpcs::HeavyRpcResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](ExampleService::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::test_rpcs::HeavyRpcRequest* req,
+             ::test_rpcs::HeavyRpcResponse* resp) {
+               return service->HeavyRpc(ctx, req, resp);
+             }, this)));
 }
 
 ExampleService::Service::~Service() {

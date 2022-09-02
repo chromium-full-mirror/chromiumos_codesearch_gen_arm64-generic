@@ -15,20 +15,20 @@
 #include <grpcpp/impl/codegen/async_generic_service.h>
 #include <grpcpp/impl/codegen/async_stream.h>
 #include <grpcpp/impl/codegen/async_unary_call.h>
-#include <grpcpp/impl/codegen/method_handler_impl.h>
+#include <grpcpp/impl/codegen/client_callback.h>
+#include <grpcpp/impl/codegen/client_context.h>
+#include <grpcpp/impl/codegen/completion_queue.h>
+#include <grpcpp/impl/codegen/message_allocator.h>
+#include <grpcpp/impl/codegen/method_handler.h>
 #include <grpcpp/impl/codegen/proto_utils.h>
 #include <grpcpp/impl/codegen/rpc_method.h>
+#include <grpcpp/impl/codegen/server_callback.h>
+#include <grpcpp/impl/codegen/server_callback_handlers.h>
+#include <grpcpp/impl/codegen/server_context.h>
 #include <grpcpp/impl/codegen/service_type.h>
 #include <grpcpp/impl/codegen/status.h>
 #include <grpcpp/impl/codegen/stub_options.h>
 #include <grpcpp/impl/codegen/sync_stream.h>
-
-namespace grpc {
-class CompletionQueue;
-class Channel;
-class ServerCompletionQueue;
-class ServerContext;
-}  // namespace grpc
 
 namespace vm_tools {
 namespace container {
@@ -148,40 +148,55 @@ class Garcon final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::container::GetGarconSessionInfoResponse>> PrepareAsyncGetGarconSessionInfo(::grpc::ClientContext* context, const ::vm_tools::container::GetGarconSessionInfoRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::container::GetGarconSessionInfoResponse>>(PrepareAsyncGetGarconSessionInfoRaw(context, request, cq));
     }
-    class experimental_async_interface {
+    class async_interface {
      public:
-      virtual ~experimental_async_interface() {}
+      virtual ~async_interface() {}
       // Called to launch an application in a container.
       virtual void LaunchApplication(::grpc::ClientContext* context, const ::vm_tools::container::LaunchApplicationRequest* request, ::vm_tools::container::LaunchApplicationResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void LaunchApplication(::grpc::ClientContext* context, const ::vm_tools::container::LaunchApplicationRequest* request, ::vm_tools::container::LaunchApplicationResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Get an application icon from the container.
       virtual void GetIcon(::grpc::ClientContext* context, const ::vm_tools::container::IconRequest* request, ::vm_tools::container::IconResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void GetIcon(::grpc::ClientContext* context, const ::vm_tools::container::IconRequest* request, ::vm_tools::container::IconResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Launch a vshd instance that will connect back to the host.
       virtual void LaunchVshd(::grpc::ClientContext* context, const ::vm_tools::container::LaunchVshdRequest* request, ::vm_tools::container::LaunchVshdResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void LaunchVshd(::grpc::ClientContext* context, const ::vm_tools::container::LaunchVshdRequest* request, ::vm_tools::container::LaunchVshdResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Gets information about a Linux package file in the container.
       virtual void GetLinuxPackageInfo(::grpc::ClientContext* context, const ::vm_tools::container::LinuxPackageInfoRequest* request, ::vm_tools::container::LinuxPackageInfoResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void GetLinuxPackageInfo(::grpc::ClientContext* context, const ::vm_tools::container::LinuxPackageInfoRequest* request, ::vm_tools::container::LinuxPackageInfoResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Install a Linux package file in the container.
       virtual void InstallLinuxPackage(::grpc::ClientContext* context, const ::vm_tools::container::InstallLinuxPackageRequest* request, ::vm_tools::container::InstallLinuxPackageResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void InstallLinuxPackage(::grpc::ClientContext* context, const ::vm_tools::container::InstallLinuxPackageRequest* request, ::vm_tools::container::InstallLinuxPackageResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Uninstalls the package that owns the specified file. Results are in
       // signals.
       virtual void UninstallPackageOwningFile(::grpc::ClientContext* context, const ::vm_tools::container::UninstallPackageOwningFileRequest* request, ::vm_tools::container::UninstallPackageOwningFileResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void UninstallPackageOwningFile(::grpc::ClientContext* context, const ::vm_tools::container::UninstallPackageOwningFileRequest* request, ::vm_tools::container::UninstallPackageOwningFileResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Get debug information about container state.
       virtual void GetDebugInformation(::grpc::ClientContext* context, const ::vm_tools::container::GetDebugInformationRequest* request, ::vm_tools::container::GetDebugInformationResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void GetDebugInformation(::grpc::ClientContext* context, const ::vm_tools::container::GetDebugInformationRequest* request, ::vm_tools::container::GetDebugInformationResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Connects to chunnel to forward traffic to localhost.
       virtual void ConnectChunnel(::grpc::ClientContext* context, const ::vm_tools::container::ConnectChunnelRequest* request, ::vm_tools::container::ConnectChunnelResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void ConnectChunnel(::grpc::ClientContext* context, const ::vm_tools::container::ConnectChunnelRequest* request, ::vm_tools::container::ConnectChunnelResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Apply Ansible playbook to the container.
       virtual void ApplyAnsiblePlaybook(::grpc::ClientContext* context, const ::vm_tools::container::ApplyAnsiblePlaybookRequest* request, ::vm_tools::container::ApplyAnsiblePlaybookResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void ApplyAnsiblePlaybook(::grpc::ClientContext* context, const ::vm_tools::container::ApplyAnsiblePlaybookRequest* request, ::vm_tools::container::ApplyAnsiblePlaybookResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Configure the container to allow sideloading android apps.
       virtual void ConfigureForArcSideload(::grpc::ClientContext* context, const ::vm_tools::container::ConfigureForArcSideloadRequest* request, ::vm_tools::container::ConfigureForArcSideloadResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void ConfigureForArcSideload(::grpc::ClientContext* context, const ::vm_tools::container::ConfigureForArcSideloadRequest* request, ::vm_tools::container::ConfigureForArcSideloadResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Watch files in the specified directory and notify if there are changes.
       // This is used by FilesApp.
       virtual void AddFileWatch(::grpc::ClientContext* context, const ::vm_tools::container::AddFileWatchRequest* request, ::vm_tools::container::AddFileWatchResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void AddFileWatch(::grpc::ClientContext* context, const ::vm_tools::container::AddFileWatchRequest* request, ::vm_tools::container::AddFileWatchResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Stop watching files in the specified directory.
       virtual void RemoveFileWatch(::grpc::ClientContext* context, const ::vm_tools::container::RemoveFileWatchRequest* request, ::vm_tools::container::RemoveFileWatchResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void RemoveFileWatch(::grpc::ClientContext* context, const ::vm_tools::container::RemoveFileWatchRequest* request, ::vm_tools::container::RemoveFileWatchResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Requests Garcon to send information about the current session
       virtual void GetGarconSessionInfo(::grpc::ClientContext* context, const ::vm_tools::container::GetGarconSessionInfoRequest* request, ::vm_tools::container::GetGarconSessionInfoResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void GetGarconSessionInfo(::grpc::ClientContext* context, const ::vm_tools::container::GetGarconSessionInfoRequest* request, ::vm_tools::container::GetGarconSessionInfoResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
     };
-    virtual class experimental_async_interface* experimental_async() { return nullptr; }
-  private:
+    typedef class async_interface experimental_async_interface;
+    virtual class async_interface* async() { return nullptr; }
+    class async_interface* experimental_async() { return async(); }
+   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::container::LaunchApplicationResponse>* AsyncLaunchApplicationRaw(::grpc::ClientContext* context, const ::vm_tools::container::LaunchApplicationRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::container::LaunchApplicationResponse>* PrepareAsyncLaunchApplicationRaw(::grpc::ClientContext* context, const ::vm_tools::container::LaunchApplicationRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::container::IconResponse>* AsyncGetIconRaw(::grpc::ClientContext* context, const ::vm_tools::container::IconRequest& request, ::grpc::CompletionQueue* cq) = 0;
@@ -211,7 +226,7 @@ class Garcon final {
   };
   class Stub final : public StubInterface {
    public:
-    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel);
+    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
     ::grpc::Status LaunchApplication(::grpc::ClientContext* context, const ::vm_tools::container::LaunchApplicationRequest& request, ::vm_tools::container::LaunchApplicationResponse* response) override;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::vm_tools::container::LaunchApplicationResponse>> AsyncLaunchApplication(::grpc::ClientContext* context, const ::vm_tools::container::LaunchApplicationRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::vm_tools::container::LaunchApplicationResponse>>(AsyncLaunchApplicationRaw(context, request, cq));
@@ -303,33 +318,46 @@ class Garcon final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::vm_tools::container::GetGarconSessionInfoResponse>> PrepareAsyncGetGarconSessionInfo(::grpc::ClientContext* context, const ::vm_tools::container::GetGarconSessionInfoRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::vm_tools::container::GetGarconSessionInfoResponse>>(PrepareAsyncGetGarconSessionInfoRaw(context, request, cq));
     }
-    class experimental_async final :
-      public StubInterface::experimental_async_interface {
+    class async final :
+      public StubInterface::async_interface {
      public:
       void LaunchApplication(::grpc::ClientContext* context, const ::vm_tools::container::LaunchApplicationRequest* request, ::vm_tools::container::LaunchApplicationResponse* response, std::function<void(::grpc::Status)>) override;
+      void LaunchApplication(::grpc::ClientContext* context, const ::vm_tools::container::LaunchApplicationRequest* request, ::vm_tools::container::LaunchApplicationResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void GetIcon(::grpc::ClientContext* context, const ::vm_tools::container::IconRequest* request, ::vm_tools::container::IconResponse* response, std::function<void(::grpc::Status)>) override;
+      void GetIcon(::grpc::ClientContext* context, const ::vm_tools::container::IconRequest* request, ::vm_tools::container::IconResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void LaunchVshd(::grpc::ClientContext* context, const ::vm_tools::container::LaunchVshdRequest* request, ::vm_tools::container::LaunchVshdResponse* response, std::function<void(::grpc::Status)>) override;
+      void LaunchVshd(::grpc::ClientContext* context, const ::vm_tools::container::LaunchVshdRequest* request, ::vm_tools::container::LaunchVshdResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void GetLinuxPackageInfo(::grpc::ClientContext* context, const ::vm_tools::container::LinuxPackageInfoRequest* request, ::vm_tools::container::LinuxPackageInfoResponse* response, std::function<void(::grpc::Status)>) override;
+      void GetLinuxPackageInfo(::grpc::ClientContext* context, const ::vm_tools::container::LinuxPackageInfoRequest* request, ::vm_tools::container::LinuxPackageInfoResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void InstallLinuxPackage(::grpc::ClientContext* context, const ::vm_tools::container::InstallLinuxPackageRequest* request, ::vm_tools::container::InstallLinuxPackageResponse* response, std::function<void(::grpc::Status)>) override;
+      void InstallLinuxPackage(::grpc::ClientContext* context, const ::vm_tools::container::InstallLinuxPackageRequest* request, ::vm_tools::container::InstallLinuxPackageResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void UninstallPackageOwningFile(::grpc::ClientContext* context, const ::vm_tools::container::UninstallPackageOwningFileRequest* request, ::vm_tools::container::UninstallPackageOwningFileResponse* response, std::function<void(::grpc::Status)>) override;
+      void UninstallPackageOwningFile(::grpc::ClientContext* context, const ::vm_tools::container::UninstallPackageOwningFileRequest* request, ::vm_tools::container::UninstallPackageOwningFileResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void GetDebugInformation(::grpc::ClientContext* context, const ::vm_tools::container::GetDebugInformationRequest* request, ::vm_tools::container::GetDebugInformationResponse* response, std::function<void(::grpc::Status)>) override;
+      void GetDebugInformation(::grpc::ClientContext* context, const ::vm_tools::container::GetDebugInformationRequest* request, ::vm_tools::container::GetDebugInformationResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void ConnectChunnel(::grpc::ClientContext* context, const ::vm_tools::container::ConnectChunnelRequest* request, ::vm_tools::container::ConnectChunnelResponse* response, std::function<void(::grpc::Status)>) override;
+      void ConnectChunnel(::grpc::ClientContext* context, const ::vm_tools::container::ConnectChunnelRequest* request, ::vm_tools::container::ConnectChunnelResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void ApplyAnsiblePlaybook(::grpc::ClientContext* context, const ::vm_tools::container::ApplyAnsiblePlaybookRequest* request, ::vm_tools::container::ApplyAnsiblePlaybookResponse* response, std::function<void(::grpc::Status)>) override;
+      void ApplyAnsiblePlaybook(::grpc::ClientContext* context, const ::vm_tools::container::ApplyAnsiblePlaybookRequest* request, ::vm_tools::container::ApplyAnsiblePlaybookResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void ConfigureForArcSideload(::grpc::ClientContext* context, const ::vm_tools::container::ConfigureForArcSideloadRequest* request, ::vm_tools::container::ConfigureForArcSideloadResponse* response, std::function<void(::grpc::Status)>) override;
+      void ConfigureForArcSideload(::grpc::ClientContext* context, const ::vm_tools::container::ConfigureForArcSideloadRequest* request, ::vm_tools::container::ConfigureForArcSideloadResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void AddFileWatch(::grpc::ClientContext* context, const ::vm_tools::container::AddFileWatchRequest* request, ::vm_tools::container::AddFileWatchResponse* response, std::function<void(::grpc::Status)>) override;
+      void AddFileWatch(::grpc::ClientContext* context, const ::vm_tools::container::AddFileWatchRequest* request, ::vm_tools::container::AddFileWatchResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void RemoveFileWatch(::grpc::ClientContext* context, const ::vm_tools::container::RemoveFileWatchRequest* request, ::vm_tools::container::RemoveFileWatchResponse* response, std::function<void(::grpc::Status)>) override;
+      void RemoveFileWatch(::grpc::ClientContext* context, const ::vm_tools::container::RemoveFileWatchRequest* request, ::vm_tools::container::RemoveFileWatchResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void GetGarconSessionInfo(::grpc::ClientContext* context, const ::vm_tools::container::GetGarconSessionInfoRequest* request, ::vm_tools::container::GetGarconSessionInfoResponse* response, std::function<void(::grpc::Status)>) override;
+      void GetGarconSessionInfo(::grpc::ClientContext* context, const ::vm_tools::container::GetGarconSessionInfoRequest* request, ::vm_tools::container::GetGarconSessionInfoResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
      private:
       friend class Stub;
-      explicit experimental_async(Stub* stub): stub_(stub) { }
+      explicit async(Stub* stub): stub_(stub) { }
       Stub* stub() { return stub_; }
       Stub* stub_;
     };
-    class experimental_async_interface* experimental_async() override { return &async_stub_; }
+    class async* async() override { return &async_stub_; }
 
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
-    class experimental_async async_stub_{this};
+    class async async_stub_{this};
     ::grpc::ClientAsyncResponseReader< ::vm_tools::container::LaunchApplicationResponse>* AsyncLaunchApplicationRaw(::grpc::ClientContext* context, const ::vm_tools::container::LaunchApplicationRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::vm_tools::container::LaunchApplicationResponse>* PrepareAsyncLaunchApplicationRaw(::grpc::ClientContext* context, const ::vm_tools::container::LaunchApplicationRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::vm_tools::container::IconResponse>* AsyncGetIconRaw(::grpc::ClientContext* context, const ::vm_tools::container::IconRequest& request, ::grpc::CompletionQueue* cq) override;
@@ -408,7 +436,7 @@ class Garcon final {
   template <class BaseClass>
   class WithAsyncMethod_LaunchApplication : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_LaunchApplication() {
       ::grpc::Service::MarkMethodAsync(0);
@@ -417,7 +445,7 @@ class Garcon final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status LaunchApplication(::grpc::ServerContext* context, const ::vm_tools::container::LaunchApplicationRequest* request, ::vm_tools::container::LaunchApplicationResponse* response) override {
+    ::grpc::Status LaunchApplication(::grpc::ServerContext* /*context*/, const ::vm_tools::container::LaunchApplicationRequest* /*request*/, ::vm_tools::container::LaunchApplicationResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -428,7 +456,7 @@ class Garcon final {
   template <class BaseClass>
   class WithAsyncMethod_GetIcon : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_GetIcon() {
       ::grpc::Service::MarkMethodAsync(1);
@@ -437,7 +465,7 @@ class Garcon final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetIcon(::grpc::ServerContext* context, const ::vm_tools::container::IconRequest* request, ::vm_tools::container::IconResponse* response) override {
+    ::grpc::Status GetIcon(::grpc::ServerContext* /*context*/, const ::vm_tools::container::IconRequest* /*request*/, ::vm_tools::container::IconResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -448,7 +476,7 @@ class Garcon final {
   template <class BaseClass>
   class WithAsyncMethod_LaunchVshd : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_LaunchVshd() {
       ::grpc::Service::MarkMethodAsync(2);
@@ -457,7 +485,7 @@ class Garcon final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status LaunchVshd(::grpc::ServerContext* context, const ::vm_tools::container::LaunchVshdRequest* request, ::vm_tools::container::LaunchVshdResponse* response) override {
+    ::grpc::Status LaunchVshd(::grpc::ServerContext* /*context*/, const ::vm_tools::container::LaunchVshdRequest* /*request*/, ::vm_tools::container::LaunchVshdResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -468,7 +496,7 @@ class Garcon final {
   template <class BaseClass>
   class WithAsyncMethod_GetLinuxPackageInfo : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_GetLinuxPackageInfo() {
       ::grpc::Service::MarkMethodAsync(3);
@@ -477,7 +505,7 @@ class Garcon final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetLinuxPackageInfo(::grpc::ServerContext* context, const ::vm_tools::container::LinuxPackageInfoRequest* request, ::vm_tools::container::LinuxPackageInfoResponse* response) override {
+    ::grpc::Status GetLinuxPackageInfo(::grpc::ServerContext* /*context*/, const ::vm_tools::container::LinuxPackageInfoRequest* /*request*/, ::vm_tools::container::LinuxPackageInfoResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -488,7 +516,7 @@ class Garcon final {
   template <class BaseClass>
   class WithAsyncMethod_InstallLinuxPackage : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_InstallLinuxPackage() {
       ::grpc::Service::MarkMethodAsync(4);
@@ -497,7 +525,7 @@ class Garcon final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status InstallLinuxPackage(::grpc::ServerContext* context, const ::vm_tools::container::InstallLinuxPackageRequest* request, ::vm_tools::container::InstallLinuxPackageResponse* response) override {
+    ::grpc::Status InstallLinuxPackage(::grpc::ServerContext* /*context*/, const ::vm_tools::container::InstallLinuxPackageRequest* /*request*/, ::vm_tools::container::InstallLinuxPackageResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -508,7 +536,7 @@ class Garcon final {
   template <class BaseClass>
   class WithAsyncMethod_UninstallPackageOwningFile : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_UninstallPackageOwningFile() {
       ::grpc::Service::MarkMethodAsync(5);
@@ -517,7 +545,7 @@ class Garcon final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status UninstallPackageOwningFile(::grpc::ServerContext* context, const ::vm_tools::container::UninstallPackageOwningFileRequest* request, ::vm_tools::container::UninstallPackageOwningFileResponse* response) override {
+    ::grpc::Status UninstallPackageOwningFile(::grpc::ServerContext* /*context*/, const ::vm_tools::container::UninstallPackageOwningFileRequest* /*request*/, ::vm_tools::container::UninstallPackageOwningFileResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -528,7 +556,7 @@ class Garcon final {
   template <class BaseClass>
   class WithAsyncMethod_GetDebugInformation : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_GetDebugInformation() {
       ::grpc::Service::MarkMethodAsync(6);
@@ -537,7 +565,7 @@ class Garcon final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetDebugInformation(::grpc::ServerContext* context, const ::vm_tools::container::GetDebugInformationRequest* request, ::vm_tools::container::GetDebugInformationResponse* response) override {
+    ::grpc::Status GetDebugInformation(::grpc::ServerContext* /*context*/, const ::vm_tools::container::GetDebugInformationRequest* /*request*/, ::vm_tools::container::GetDebugInformationResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -548,7 +576,7 @@ class Garcon final {
   template <class BaseClass>
   class WithAsyncMethod_ConnectChunnel : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_ConnectChunnel() {
       ::grpc::Service::MarkMethodAsync(7);
@@ -557,7 +585,7 @@ class Garcon final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status ConnectChunnel(::grpc::ServerContext* context, const ::vm_tools::container::ConnectChunnelRequest* request, ::vm_tools::container::ConnectChunnelResponse* response) override {
+    ::grpc::Status ConnectChunnel(::grpc::ServerContext* /*context*/, const ::vm_tools::container::ConnectChunnelRequest* /*request*/, ::vm_tools::container::ConnectChunnelResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -568,7 +596,7 @@ class Garcon final {
   template <class BaseClass>
   class WithAsyncMethod_ApplyAnsiblePlaybook : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_ApplyAnsiblePlaybook() {
       ::grpc::Service::MarkMethodAsync(8);
@@ -577,7 +605,7 @@ class Garcon final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status ApplyAnsiblePlaybook(::grpc::ServerContext* context, const ::vm_tools::container::ApplyAnsiblePlaybookRequest* request, ::vm_tools::container::ApplyAnsiblePlaybookResponse* response) override {
+    ::grpc::Status ApplyAnsiblePlaybook(::grpc::ServerContext* /*context*/, const ::vm_tools::container::ApplyAnsiblePlaybookRequest* /*request*/, ::vm_tools::container::ApplyAnsiblePlaybookResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -588,7 +616,7 @@ class Garcon final {
   template <class BaseClass>
   class WithAsyncMethod_ConfigureForArcSideload : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_ConfigureForArcSideload() {
       ::grpc::Service::MarkMethodAsync(9);
@@ -597,7 +625,7 @@ class Garcon final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status ConfigureForArcSideload(::grpc::ServerContext* context, const ::vm_tools::container::ConfigureForArcSideloadRequest* request, ::vm_tools::container::ConfigureForArcSideloadResponse* response) override {
+    ::grpc::Status ConfigureForArcSideload(::grpc::ServerContext* /*context*/, const ::vm_tools::container::ConfigureForArcSideloadRequest* /*request*/, ::vm_tools::container::ConfigureForArcSideloadResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -608,7 +636,7 @@ class Garcon final {
   template <class BaseClass>
   class WithAsyncMethod_AddFileWatch : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_AddFileWatch() {
       ::grpc::Service::MarkMethodAsync(10);
@@ -617,7 +645,7 @@ class Garcon final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status AddFileWatch(::grpc::ServerContext* context, const ::vm_tools::container::AddFileWatchRequest* request, ::vm_tools::container::AddFileWatchResponse* response) override {
+    ::grpc::Status AddFileWatch(::grpc::ServerContext* /*context*/, const ::vm_tools::container::AddFileWatchRequest* /*request*/, ::vm_tools::container::AddFileWatchResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -628,7 +656,7 @@ class Garcon final {
   template <class BaseClass>
   class WithAsyncMethod_RemoveFileWatch : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_RemoveFileWatch() {
       ::grpc::Service::MarkMethodAsync(11);
@@ -637,7 +665,7 @@ class Garcon final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status RemoveFileWatch(::grpc::ServerContext* context, const ::vm_tools::container::RemoveFileWatchRequest* request, ::vm_tools::container::RemoveFileWatchResponse* response) override {
+    ::grpc::Status RemoveFileWatch(::grpc::ServerContext* /*context*/, const ::vm_tools::container::RemoveFileWatchRequest* /*request*/, ::vm_tools::container::RemoveFileWatchResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -648,7 +676,7 @@ class Garcon final {
   template <class BaseClass>
   class WithAsyncMethod_GetGarconSessionInfo : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_GetGarconSessionInfo() {
       ::grpc::Service::MarkMethodAsync(12);
@@ -657,7 +685,7 @@ class Garcon final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetGarconSessionInfo(::grpc::ServerContext* context, const ::vm_tools::container::GetGarconSessionInfoRequest* request, ::vm_tools::container::GetGarconSessionInfoResponse* response) override {
+    ::grpc::Status GetGarconSessionInfo(::grpc::ServerContext* /*context*/, const ::vm_tools::container::GetGarconSessionInfoRequest* /*request*/, ::vm_tools::container::GetGarconSessionInfoResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -667,9 +695,362 @@ class Garcon final {
   };
   typedef WithAsyncMethod_LaunchApplication<WithAsyncMethod_GetIcon<WithAsyncMethod_LaunchVshd<WithAsyncMethod_GetLinuxPackageInfo<WithAsyncMethod_InstallLinuxPackage<WithAsyncMethod_UninstallPackageOwningFile<WithAsyncMethod_GetDebugInformation<WithAsyncMethod_ConnectChunnel<WithAsyncMethod_ApplyAnsiblePlaybook<WithAsyncMethod_ConfigureForArcSideload<WithAsyncMethod_AddFileWatch<WithAsyncMethod_RemoveFileWatch<WithAsyncMethod_GetGarconSessionInfo<Service > > > > > > > > > > > > > AsyncService;
   template <class BaseClass>
+  class WithCallbackMethod_LaunchApplication : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_LaunchApplication() {
+      ::grpc::Service::MarkMethodCallback(0,
+          new ::grpc::internal::CallbackUnaryHandler< ::vm_tools::container::LaunchApplicationRequest, ::vm_tools::container::LaunchApplicationResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::vm_tools::container::LaunchApplicationRequest* request, ::vm_tools::container::LaunchApplicationResponse* response) { return this->LaunchApplication(context, request, response); }));}
+    void SetMessageAllocatorFor_LaunchApplication(
+        ::grpc::MessageAllocator< ::vm_tools::container::LaunchApplicationRequest, ::vm_tools::container::LaunchApplicationResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(0);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::vm_tools::container::LaunchApplicationRequest, ::vm_tools::container::LaunchApplicationResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_LaunchApplication() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status LaunchApplication(::grpc::ServerContext* /*context*/, const ::vm_tools::container::LaunchApplicationRequest* /*request*/, ::vm_tools::container::LaunchApplicationResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* LaunchApplication(
+      ::grpc::CallbackServerContext* /*context*/, const ::vm_tools::container::LaunchApplicationRequest* /*request*/, ::vm_tools::container::LaunchApplicationResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_GetIcon : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_GetIcon() {
+      ::grpc::Service::MarkMethodCallback(1,
+          new ::grpc::internal::CallbackUnaryHandler< ::vm_tools::container::IconRequest, ::vm_tools::container::IconResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::vm_tools::container::IconRequest* request, ::vm_tools::container::IconResponse* response) { return this->GetIcon(context, request, response); }));}
+    void SetMessageAllocatorFor_GetIcon(
+        ::grpc::MessageAllocator< ::vm_tools::container::IconRequest, ::vm_tools::container::IconResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(1);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::vm_tools::container::IconRequest, ::vm_tools::container::IconResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_GetIcon() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetIcon(::grpc::ServerContext* /*context*/, const ::vm_tools::container::IconRequest* /*request*/, ::vm_tools::container::IconResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetIcon(
+      ::grpc::CallbackServerContext* /*context*/, const ::vm_tools::container::IconRequest* /*request*/, ::vm_tools::container::IconResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_LaunchVshd : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_LaunchVshd() {
+      ::grpc::Service::MarkMethodCallback(2,
+          new ::grpc::internal::CallbackUnaryHandler< ::vm_tools::container::LaunchVshdRequest, ::vm_tools::container::LaunchVshdResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::vm_tools::container::LaunchVshdRequest* request, ::vm_tools::container::LaunchVshdResponse* response) { return this->LaunchVshd(context, request, response); }));}
+    void SetMessageAllocatorFor_LaunchVshd(
+        ::grpc::MessageAllocator< ::vm_tools::container::LaunchVshdRequest, ::vm_tools::container::LaunchVshdResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(2);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::vm_tools::container::LaunchVshdRequest, ::vm_tools::container::LaunchVshdResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_LaunchVshd() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status LaunchVshd(::grpc::ServerContext* /*context*/, const ::vm_tools::container::LaunchVshdRequest* /*request*/, ::vm_tools::container::LaunchVshdResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* LaunchVshd(
+      ::grpc::CallbackServerContext* /*context*/, const ::vm_tools::container::LaunchVshdRequest* /*request*/, ::vm_tools::container::LaunchVshdResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_GetLinuxPackageInfo : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_GetLinuxPackageInfo() {
+      ::grpc::Service::MarkMethodCallback(3,
+          new ::grpc::internal::CallbackUnaryHandler< ::vm_tools::container::LinuxPackageInfoRequest, ::vm_tools::container::LinuxPackageInfoResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::vm_tools::container::LinuxPackageInfoRequest* request, ::vm_tools::container::LinuxPackageInfoResponse* response) { return this->GetLinuxPackageInfo(context, request, response); }));}
+    void SetMessageAllocatorFor_GetLinuxPackageInfo(
+        ::grpc::MessageAllocator< ::vm_tools::container::LinuxPackageInfoRequest, ::vm_tools::container::LinuxPackageInfoResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(3);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::vm_tools::container::LinuxPackageInfoRequest, ::vm_tools::container::LinuxPackageInfoResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_GetLinuxPackageInfo() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetLinuxPackageInfo(::grpc::ServerContext* /*context*/, const ::vm_tools::container::LinuxPackageInfoRequest* /*request*/, ::vm_tools::container::LinuxPackageInfoResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetLinuxPackageInfo(
+      ::grpc::CallbackServerContext* /*context*/, const ::vm_tools::container::LinuxPackageInfoRequest* /*request*/, ::vm_tools::container::LinuxPackageInfoResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_InstallLinuxPackage : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_InstallLinuxPackage() {
+      ::grpc::Service::MarkMethodCallback(4,
+          new ::grpc::internal::CallbackUnaryHandler< ::vm_tools::container::InstallLinuxPackageRequest, ::vm_tools::container::InstallLinuxPackageResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::vm_tools::container::InstallLinuxPackageRequest* request, ::vm_tools::container::InstallLinuxPackageResponse* response) { return this->InstallLinuxPackage(context, request, response); }));}
+    void SetMessageAllocatorFor_InstallLinuxPackage(
+        ::grpc::MessageAllocator< ::vm_tools::container::InstallLinuxPackageRequest, ::vm_tools::container::InstallLinuxPackageResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(4);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::vm_tools::container::InstallLinuxPackageRequest, ::vm_tools::container::InstallLinuxPackageResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_InstallLinuxPackage() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status InstallLinuxPackage(::grpc::ServerContext* /*context*/, const ::vm_tools::container::InstallLinuxPackageRequest* /*request*/, ::vm_tools::container::InstallLinuxPackageResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* InstallLinuxPackage(
+      ::grpc::CallbackServerContext* /*context*/, const ::vm_tools::container::InstallLinuxPackageRequest* /*request*/, ::vm_tools::container::InstallLinuxPackageResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_UninstallPackageOwningFile : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_UninstallPackageOwningFile() {
+      ::grpc::Service::MarkMethodCallback(5,
+          new ::grpc::internal::CallbackUnaryHandler< ::vm_tools::container::UninstallPackageOwningFileRequest, ::vm_tools::container::UninstallPackageOwningFileResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::vm_tools::container::UninstallPackageOwningFileRequest* request, ::vm_tools::container::UninstallPackageOwningFileResponse* response) { return this->UninstallPackageOwningFile(context, request, response); }));}
+    void SetMessageAllocatorFor_UninstallPackageOwningFile(
+        ::grpc::MessageAllocator< ::vm_tools::container::UninstallPackageOwningFileRequest, ::vm_tools::container::UninstallPackageOwningFileResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(5);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::vm_tools::container::UninstallPackageOwningFileRequest, ::vm_tools::container::UninstallPackageOwningFileResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_UninstallPackageOwningFile() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UninstallPackageOwningFile(::grpc::ServerContext* /*context*/, const ::vm_tools::container::UninstallPackageOwningFileRequest* /*request*/, ::vm_tools::container::UninstallPackageOwningFileResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* UninstallPackageOwningFile(
+      ::grpc::CallbackServerContext* /*context*/, const ::vm_tools::container::UninstallPackageOwningFileRequest* /*request*/, ::vm_tools::container::UninstallPackageOwningFileResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_GetDebugInformation : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_GetDebugInformation() {
+      ::grpc::Service::MarkMethodCallback(6,
+          new ::grpc::internal::CallbackUnaryHandler< ::vm_tools::container::GetDebugInformationRequest, ::vm_tools::container::GetDebugInformationResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::vm_tools::container::GetDebugInformationRequest* request, ::vm_tools::container::GetDebugInformationResponse* response) { return this->GetDebugInformation(context, request, response); }));}
+    void SetMessageAllocatorFor_GetDebugInformation(
+        ::grpc::MessageAllocator< ::vm_tools::container::GetDebugInformationRequest, ::vm_tools::container::GetDebugInformationResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(6);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::vm_tools::container::GetDebugInformationRequest, ::vm_tools::container::GetDebugInformationResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_GetDebugInformation() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetDebugInformation(::grpc::ServerContext* /*context*/, const ::vm_tools::container::GetDebugInformationRequest* /*request*/, ::vm_tools::container::GetDebugInformationResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetDebugInformation(
+      ::grpc::CallbackServerContext* /*context*/, const ::vm_tools::container::GetDebugInformationRequest* /*request*/, ::vm_tools::container::GetDebugInformationResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_ConnectChunnel : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_ConnectChunnel() {
+      ::grpc::Service::MarkMethodCallback(7,
+          new ::grpc::internal::CallbackUnaryHandler< ::vm_tools::container::ConnectChunnelRequest, ::vm_tools::container::ConnectChunnelResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::vm_tools::container::ConnectChunnelRequest* request, ::vm_tools::container::ConnectChunnelResponse* response) { return this->ConnectChunnel(context, request, response); }));}
+    void SetMessageAllocatorFor_ConnectChunnel(
+        ::grpc::MessageAllocator< ::vm_tools::container::ConnectChunnelRequest, ::vm_tools::container::ConnectChunnelResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(7);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::vm_tools::container::ConnectChunnelRequest, ::vm_tools::container::ConnectChunnelResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_ConnectChunnel() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ConnectChunnel(::grpc::ServerContext* /*context*/, const ::vm_tools::container::ConnectChunnelRequest* /*request*/, ::vm_tools::container::ConnectChunnelResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* ConnectChunnel(
+      ::grpc::CallbackServerContext* /*context*/, const ::vm_tools::container::ConnectChunnelRequest* /*request*/, ::vm_tools::container::ConnectChunnelResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_ApplyAnsiblePlaybook : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_ApplyAnsiblePlaybook() {
+      ::grpc::Service::MarkMethodCallback(8,
+          new ::grpc::internal::CallbackUnaryHandler< ::vm_tools::container::ApplyAnsiblePlaybookRequest, ::vm_tools::container::ApplyAnsiblePlaybookResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::vm_tools::container::ApplyAnsiblePlaybookRequest* request, ::vm_tools::container::ApplyAnsiblePlaybookResponse* response) { return this->ApplyAnsiblePlaybook(context, request, response); }));}
+    void SetMessageAllocatorFor_ApplyAnsiblePlaybook(
+        ::grpc::MessageAllocator< ::vm_tools::container::ApplyAnsiblePlaybookRequest, ::vm_tools::container::ApplyAnsiblePlaybookResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(8);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::vm_tools::container::ApplyAnsiblePlaybookRequest, ::vm_tools::container::ApplyAnsiblePlaybookResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_ApplyAnsiblePlaybook() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ApplyAnsiblePlaybook(::grpc::ServerContext* /*context*/, const ::vm_tools::container::ApplyAnsiblePlaybookRequest* /*request*/, ::vm_tools::container::ApplyAnsiblePlaybookResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* ApplyAnsiblePlaybook(
+      ::grpc::CallbackServerContext* /*context*/, const ::vm_tools::container::ApplyAnsiblePlaybookRequest* /*request*/, ::vm_tools::container::ApplyAnsiblePlaybookResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_ConfigureForArcSideload : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_ConfigureForArcSideload() {
+      ::grpc::Service::MarkMethodCallback(9,
+          new ::grpc::internal::CallbackUnaryHandler< ::vm_tools::container::ConfigureForArcSideloadRequest, ::vm_tools::container::ConfigureForArcSideloadResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::vm_tools::container::ConfigureForArcSideloadRequest* request, ::vm_tools::container::ConfigureForArcSideloadResponse* response) { return this->ConfigureForArcSideload(context, request, response); }));}
+    void SetMessageAllocatorFor_ConfigureForArcSideload(
+        ::grpc::MessageAllocator< ::vm_tools::container::ConfigureForArcSideloadRequest, ::vm_tools::container::ConfigureForArcSideloadResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(9);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::vm_tools::container::ConfigureForArcSideloadRequest, ::vm_tools::container::ConfigureForArcSideloadResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_ConfigureForArcSideload() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ConfigureForArcSideload(::grpc::ServerContext* /*context*/, const ::vm_tools::container::ConfigureForArcSideloadRequest* /*request*/, ::vm_tools::container::ConfigureForArcSideloadResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* ConfigureForArcSideload(
+      ::grpc::CallbackServerContext* /*context*/, const ::vm_tools::container::ConfigureForArcSideloadRequest* /*request*/, ::vm_tools::container::ConfigureForArcSideloadResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_AddFileWatch : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_AddFileWatch() {
+      ::grpc::Service::MarkMethodCallback(10,
+          new ::grpc::internal::CallbackUnaryHandler< ::vm_tools::container::AddFileWatchRequest, ::vm_tools::container::AddFileWatchResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::vm_tools::container::AddFileWatchRequest* request, ::vm_tools::container::AddFileWatchResponse* response) { return this->AddFileWatch(context, request, response); }));}
+    void SetMessageAllocatorFor_AddFileWatch(
+        ::grpc::MessageAllocator< ::vm_tools::container::AddFileWatchRequest, ::vm_tools::container::AddFileWatchResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(10);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::vm_tools::container::AddFileWatchRequest, ::vm_tools::container::AddFileWatchResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_AddFileWatch() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status AddFileWatch(::grpc::ServerContext* /*context*/, const ::vm_tools::container::AddFileWatchRequest* /*request*/, ::vm_tools::container::AddFileWatchResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* AddFileWatch(
+      ::grpc::CallbackServerContext* /*context*/, const ::vm_tools::container::AddFileWatchRequest* /*request*/, ::vm_tools::container::AddFileWatchResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_RemoveFileWatch : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_RemoveFileWatch() {
+      ::grpc::Service::MarkMethodCallback(11,
+          new ::grpc::internal::CallbackUnaryHandler< ::vm_tools::container::RemoveFileWatchRequest, ::vm_tools::container::RemoveFileWatchResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::vm_tools::container::RemoveFileWatchRequest* request, ::vm_tools::container::RemoveFileWatchResponse* response) { return this->RemoveFileWatch(context, request, response); }));}
+    void SetMessageAllocatorFor_RemoveFileWatch(
+        ::grpc::MessageAllocator< ::vm_tools::container::RemoveFileWatchRequest, ::vm_tools::container::RemoveFileWatchResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(11);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::vm_tools::container::RemoveFileWatchRequest, ::vm_tools::container::RemoveFileWatchResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_RemoveFileWatch() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status RemoveFileWatch(::grpc::ServerContext* /*context*/, const ::vm_tools::container::RemoveFileWatchRequest* /*request*/, ::vm_tools::container::RemoveFileWatchResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* RemoveFileWatch(
+      ::grpc::CallbackServerContext* /*context*/, const ::vm_tools::container::RemoveFileWatchRequest* /*request*/, ::vm_tools::container::RemoveFileWatchResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_GetGarconSessionInfo : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_GetGarconSessionInfo() {
+      ::grpc::Service::MarkMethodCallback(12,
+          new ::grpc::internal::CallbackUnaryHandler< ::vm_tools::container::GetGarconSessionInfoRequest, ::vm_tools::container::GetGarconSessionInfoResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::vm_tools::container::GetGarconSessionInfoRequest* request, ::vm_tools::container::GetGarconSessionInfoResponse* response) { return this->GetGarconSessionInfo(context, request, response); }));}
+    void SetMessageAllocatorFor_GetGarconSessionInfo(
+        ::grpc::MessageAllocator< ::vm_tools::container::GetGarconSessionInfoRequest, ::vm_tools::container::GetGarconSessionInfoResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(12);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::vm_tools::container::GetGarconSessionInfoRequest, ::vm_tools::container::GetGarconSessionInfoResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_GetGarconSessionInfo() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetGarconSessionInfo(::grpc::ServerContext* /*context*/, const ::vm_tools::container::GetGarconSessionInfoRequest* /*request*/, ::vm_tools::container::GetGarconSessionInfoResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetGarconSessionInfo(
+      ::grpc::CallbackServerContext* /*context*/, const ::vm_tools::container::GetGarconSessionInfoRequest* /*request*/, ::vm_tools::container::GetGarconSessionInfoResponse* /*response*/)  { return nullptr; }
+  };
+  typedef WithCallbackMethod_LaunchApplication<WithCallbackMethod_GetIcon<WithCallbackMethod_LaunchVshd<WithCallbackMethod_GetLinuxPackageInfo<WithCallbackMethod_InstallLinuxPackage<WithCallbackMethod_UninstallPackageOwningFile<WithCallbackMethod_GetDebugInformation<WithCallbackMethod_ConnectChunnel<WithCallbackMethod_ApplyAnsiblePlaybook<WithCallbackMethod_ConfigureForArcSideload<WithCallbackMethod_AddFileWatch<WithCallbackMethod_RemoveFileWatch<WithCallbackMethod_GetGarconSessionInfo<Service > > > > > > > > > > > > > CallbackService;
+  typedef CallbackService ExperimentalCallbackService;
+  template <class BaseClass>
   class WithGenericMethod_LaunchApplication : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_LaunchApplication() {
       ::grpc::Service::MarkMethodGeneric(0);
@@ -678,7 +1059,7 @@ class Garcon final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status LaunchApplication(::grpc::ServerContext* context, const ::vm_tools::container::LaunchApplicationRequest* request, ::vm_tools::container::LaunchApplicationResponse* response) override {
+    ::grpc::Status LaunchApplication(::grpc::ServerContext* /*context*/, const ::vm_tools::container::LaunchApplicationRequest* /*request*/, ::vm_tools::container::LaunchApplicationResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -686,7 +1067,7 @@ class Garcon final {
   template <class BaseClass>
   class WithGenericMethod_GetIcon : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_GetIcon() {
       ::grpc::Service::MarkMethodGeneric(1);
@@ -695,7 +1076,7 @@ class Garcon final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetIcon(::grpc::ServerContext* context, const ::vm_tools::container::IconRequest* request, ::vm_tools::container::IconResponse* response) override {
+    ::grpc::Status GetIcon(::grpc::ServerContext* /*context*/, const ::vm_tools::container::IconRequest* /*request*/, ::vm_tools::container::IconResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -703,7 +1084,7 @@ class Garcon final {
   template <class BaseClass>
   class WithGenericMethod_LaunchVshd : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_LaunchVshd() {
       ::grpc::Service::MarkMethodGeneric(2);
@@ -712,7 +1093,7 @@ class Garcon final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status LaunchVshd(::grpc::ServerContext* context, const ::vm_tools::container::LaunchVshdRequest* request, ::vm_tools::container::LaunchVshdResponse* response) override {
+    ::grpc::Status LaunchVshd(::grpc::ServerContext* /*context*/, const ::vm_tools::container::LaunchVshdRequest* /*request*/, ::vm_tools::container::LaunchVshdResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -720,7 +1101,7 @@ class Garcon final {
   template <class BaseClass>
   class WithGenericMethod_GetLinuxPackageInfo : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_GetLinuxPackageInfo() {
       ::grpc::Service::MarkMethodGeneric(3);
@@ -729,7 +1110,7 @@ class Garcon final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetLinuxPackageInfo(::grpc::ServerContext* context, const ::vm_tools::container::LinuxPackageInfoRequest* request, ::vm_tools::container::LinuxPackageInfoResponse* response) override {
+    ::grpc::Status GetLinuxPackageInfo(::grpc::ServerContext* /*context*/, const ::vm_tools::container::LinuxPackageInfoRequest* /*request*/, ::vm_tools::container::LinuxPackageInfoResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -737,7 +1118,7 @@ class Garcon final {
   template <class BaseClass>
   class WithGenericMethod_InstallLinuxPackage : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_InstallLinuxPackage() {
       ::grpc::Service::MarkMethodGeneric(4);
@@ -746,7 +1127,7 @@ class Garcon final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status InstallLinuxPackage(::grpc::ServerContext* context, const ::vm_tools::container::InstallLinuxPackageRequest* request, ::vm_tools::container::InstallLinuxPackageResponse* response) override {
+    ::grpc::Status InstallLinuxPackage(::grpc::ServerContext* /*context*/, const ::vm_tools::container::InstallLinuxPackageRequest* /*request*/, ::vm_tools::container::InstallLinuxPackageResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -754,7 +1135,7 @@ class Garcon final {
   template <class BaseClass>
   class WithGenericMethod_UninstallPackageOwningFile : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_UninstallPackageOwningFile() {
       ::grpc::Service::MarkMethodGeneric(5);
@@ -763,7 +1144,7 @@ class Garcon final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status UninstallPackageOwningFile(::grpc::ServerContext* context, const ::vm_tools::container::UninstallPackageOwningFileRequest* request, ::vm_tools::container::UninstallPackageOwningFileResponse* response) override {
+    ::grpc::Status UninstallPackageOwningFile(::grpc::ServerContext* /*context*/, const ::vm_tools::container::UninstallPackageOwningFileRequest* /*request*/, ::vm_tools::container::UninstallPackageOwningFileResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -771,7 +1152,7 @@ class Garcon final {
   template <class BaseClass>
   class WithGenericMethod_GetDebugInformation : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_GetDebugInformation() {
       ::grpc::Service::MarkMethodGeneric(6);
@@ -780,7 +1161,7 @@ class Garcon final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetDebugInformation(::grpc::ServerContext* context, const ::vm_tools::container::GetDebugInformationRequest* request, ::vm_tools::container::GetDebugInformationResponse* response) override {
+    ::grpc::Status GetDebugInformation(::grpc::ServerContext* /*context*/, const ::vm_tools::container::GetDebugInformationRequest* /*request*/, ::vm_tools::container::GetDebugInformationResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -788,7 +1169,7 @@ class Garcon final {
   template <class BaseClass>
   class WithGenericMethod_ConnectChunnel : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_ConnectChunnel() {
       ::grpc::Service::MarkMethodGeneric(7);
@@ -797,7 +1178,7 @@ class Garcon final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status ConnectChunnel(::grpc::ServerContext* context, const ::vm_tools::container::ConnectChunnelRequest* request, ::vm_tools::container::ConnectChunnelResponse* response) override {
+    ::grpc::Status ConnectChunnel(::grpc::ServerContext* /*context*/, const ::vm_tools::container::ConnectChunnelRequest* /*request*/, ::vm_tools::container::ConnectChunnelResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -805,7 +1186,7 @@ class Garcon final {
   template <class BaseClass>
   class WithGenericMethod_ApplyAnsiblePlaybook : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_ApplyAnsiblePlaybook() {
       ::grpc::Service::MarkMethodGeneric(8);
@@ -814,7 +1195,7 @@ class Garcon final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status ApplyAnsiblePlaybook(::grpc::ServerContext* context, const ::vm_tools::container::ApplyAnsiblePlaybookRequest* request, ::vm_tools::container::ApplyAnsiblePlaybookResponse* response) override {
+    ::grpc::Status ApplyAnsiblePlaybook(::grpc::ServerContext* /*context*/, const ::vm_tools::container::ApplyAnsiblePlaybookRequest* /*request*/, ::vm_tools::container::ApplyAnsiblePlaybookResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -822,7 +1203,7 @@ class Garcon final {
   template <class BaseClass>
   class WithGenericMethod_ConfigureForArcSideload : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_ConfigureForArcSideload() {
       ::grpc::Service::MarkMethodGeneric(9);
@@ -831,7 +1212,7 @@ class Garcon final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status ConfigureForArcSideload(::grpc::ServerContext* context, const ::vm_tools::container::ConfigureForArcSideloadRequest* request, ::vm_tools::container::ConfigureForArcSideloadResponse* response) override {
+    ::grpc::Status ConfigureForArcSideload(::grpc::ServerContext* /*context*/, const ::vm_tools::container::ConfigureForArcSideloadRequest* /*request*/, ::vm_tools::container::ConfigureForArcSideloadResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -839,7 +1220,7 @@ class Garcon final {
   template <class BaseClass>
   class WithGenericMethod_AddFileWatch : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_AddFileWatch() {
       ::grpc::Service::MarkMethodGeneric(10);
@@ -848,7 +1229,7 @@ class Garcon final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status AddFileWatch(::grpc::ServerContext* context, const ::vm_tools::container::AddFileWatchRequest* request, ::vm_tools::container::AddFileWatchResponse* response) override {
+    ::grpc::Status AddFileWatch(::grpc::ServerContext* /*context*/, const ::vm_tools::container::AddFileWatchRequest* /*request*/, ::vm_tools::container::AddFileWatchResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -856,7 +1237,7 @@ class Garcon final {
   template <class BaseClass>
   class WithGenericMethod_RemoveFileWatch : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_RemoveFileWatch() {
       ::grpc::Service::MarkMethodGeneric(11);
@@ -865,7 +1246,7 @@ class Garcon final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status RemoveFileWatch(::grpc::ServerContext* context, const ::vm_tools::container::RemoveFileWatchRequest* request, ::vm_tools::container::RemoveFileWatchResponse* response) override {
+    ::grpc::Status RemoveFileWatch(::grpc::ServerContext* /*context*/, const ::vm_tools::container::RemoveFileWatchRequest* /*request*/, ::vm_tools::container::RemoveFileWatchResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -873,7 +1254,7 @@ class Garcon final {
   template <class BaseClass>
   class WithGenericMethod_GetGarconSessionInfo : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_GetGarconSessionInfo() {
       ::grpc::Service::MarkMethodGeneric(12);
@@ -882,7 +1263,7 @@ class Garcon final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetGarconSessionInfo(::grpc::ServerContext* context, const ::vm_tools::container::GetGarconSessionInfoRequest* request, ::vm_tools::container::GetGarconSessionInfoResponse* response) override {
+    ::grpc::Status GetGarconSessionInfo(::grpc::ServerContext* /*context*/, const ::vm_tools::container::GetGarconSessionInfoRequest* /*request*/, ::vm_tools::container::GetGarconSessionInfoResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -890,7 +1271,7 @@ class Garcon final {
   template <class BaseClass>
   class WithRawMethod_LaunchApplication : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_LaunchApplication() {
       ::grpc::Service::MarkMethodRaw(0);
@@ -899,7 +1280,7 @@ class Garcon final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status LaunchApplication(::grpc::ServerContext* context, const ::vm_tools::container::LaunchApplicationRequest* request, ::vm_tools::container::LaunchApplicationResponse* response) override {
+    ::grpc::Status LaunchApplication(::grpc::ServerContext* /*context*/, const ::vm_tools::container::LaunchApplicationRequest* /*request*/, ::vm_tools::container::LaunchApplicationResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -910,7 +1291,7 @@ class Garcon final {
   template <class BaseClass>
   class WithRawMethod_GetIcon : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_GetIcon() {
       ::grpc::Service::MarkMethodRaw(1);
@@ -919,7 +1300,7 @@ class Garcon final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetIcon(::grpc::ServerContext* context, const ::vm_tools::container::IconRequest* request, ::vm_tools::container::IconResponse* response) override {
+    ::grpc::Status GetIcon(::grpc::ServerContext* /*context*/, const ::vm_tools::container::IconRequest* /*request*/, ::vm_tools::container::IconResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -930,7 +1311,7 @@ class Garcon final {
   template <class BaseClass>
   class WithRawMethod_LaunchVshd : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_LaunchVshd() {
       ::grpc::Service::MarkMethodRaw(2);
@@ -939,7 +1320,7 @@ class Garcon final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status LaunchVshd(::grpc::ServerContext* context, const ::vm_tools::container::LaunchVshdRequest* request, ::vm_tools::container::LaunchVshdResponse* response) override {
+    ::grpc::Status LaunchVshd(::grpc::ServerContext* /*context*/, const ::vm_tools::container::LaunchVshdRequest* /*request*/, ::vm_tools::container::LaunchVshdResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -950,7 +1331,7 @@ class Garcon final {
   template <class BaseClass>
   class WithRawMethod_GetLinuxPackageInfo : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_GetLinuxPackageInfo() {
       ::grpc::Service::MarkMethodRaw(3);
@@ -959,7 +1340,7 @@ class Garcon final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetLinuxPackageInfo(::grpc::ServerContext* context, const ::vm_tools::container::LinuxPackageInfoRequest* request, ::vm_tools::container::LinuxPackageInfoResponse* response) override {
+    ::grpc::Status GetLinuxPackageInfo(::grpc::ServerContext* /*context*/, const ::vm_tools::container::LinuxPackageInfoRequest* /*request*/, ::vm_tools::container::LinuxPackageInfoResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -970,7 +1351,7 @@ class Garcon final {
   template <class BaseClass>
   class WithRawMethod_InstallLinuxPackage : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_InstallLinuxPackage() {
       ::grpc::Service::MarkMethodRaw(4);
@@ -979,7 +1360,7 @@ class Garcon final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status InstallLinuxPackage(::grpc::ServerContext* context, const ::vm_tools::container::InstallLinuxPackageRequest* request, ::vm_tools::container::InstallLinuxPackageResponse* response) override {
+    ::grpc::Status InstallLinuxPackage(::grpc::ServerContext* /*context*/, const ::vm_tools::container::InstallLinuxPackageRequest* /*request*/, ::vm_tools::container::InstallLinuxPackageResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -990,7 +1371,7 @@ class Garcon final {
   template <class BaseClass>
   class WithRawMethod_UninstallPackageOwningFile : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_UninstallPackageOwningFile() {
       ::grpc::Service::MarkMethodRaw(5);
@@ -999,7 +1380,7 @@ class Garcon final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status UninstallPackageOwningFile(::grpc::ServerContext* context, const ::vm_tools::container::UninstallPackageOwningFileRequest* request, ::vm_tools::container::UninstallPackageOwningFileResponse* response) override {
+    ::grpc::Status UninstallPackageOwningFile(::grpc::ServerContext* /*context*/, const ::vm_tools::container::UninstallPackageOwningFileRequest* /*request*/, ::vm_tools::container::UninstallPackageOwningFileResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1010,7 +1391,7 @@ class Garcon final {
   template <class BaseClass>
   class WithRawMethod_GetDebugInformation : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_GetDebugInformation() {
       ::grpc::Service::MarkMethodRaw(6);
@@ -1019,7 +1400,7 @@ class Garcon final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetDebugInformation(::grpc::ServerContext* context, const ::vm_tools::container::GetDebugInformationRequest* request, ::vm_tools::container::GetDebugInformationResponse* response) override {
+    ::grpc::Status GetDebugInformation(::grpc::ServerContext* /*context*/, const ::vm_tools::container::GetDebugInformationRequest* /*request*/, ::vm_tools::container::GetDebugInformationResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1030,7 +1411,7 @@ class Garcon final {
   template <class BaseClass>
   class WithRawMethod_ConnectChunnel : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_ConnectChunnel() {
       ::grpc::Service::MarkMethodRaw(7);
@@ -1039,7 +1420,7 @@ class Garcon final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status ConnectChunnel(::grpc::ServerContext* context, const ::vm_tools::container::ConnectChunnelRequest* request, ::vm_tools::container::ConnectChunnelResponse* response) override {
+    ::grpc::Status ConnectChunnel(::grpc::ServerContext* /*context*/, const ::vm_tools::container::ConnectChunnelRequest* /*request*/, ::vm_tools::container::ConnectChunnelResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1050,7 +1431,7 @@ class Garcon final {
   template <class BaseClass>
   class WithRawMethod_ApplyAnsiblePlaybook : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_ApplyAnsiblePlaybook() {
       ::grpc::Service::MarkMethodRaw(8);
@@ -1059,7 +1440,7 @@ class Garcon final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status ApplyAnsiblePlaybook(::grpc::ServerContext* context, const ::vm_tools::container::ApplyAnsiblePlaybookRequest* request, ::vm_tools::container::ApplyAnsiblePlaybookResponse* response) override {
+    ::grpc::Status ApplyAnsiblePlaybook(::grpc::ServerContext* /*context*/, const ::vm_tools::container::ApplyAnsiblePlaybookRequest* /*request*/, ::vm_tools::container::ApplyAnsiblePlaybookResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1070,7 +1451,7 @@ class Garcon final {
   template <class BaseClass>
   class WithRawMethod_ConfigureForArcSideload : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_ConfigureForArcSideload() {
       ::grpc::Service::MarkMethodRaw(9);
@@ -1079,7 +1460,7 @@ class Garcon final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status ConfigureForArcSideload(::grpc::ServerContext* context, const ::vm_tools::container::ConfigureForArcSideloadRequest* request, ::vm_tools::container::ConfigureForArcSideloadResponse* response) override {
+    ::grpc::Status ConfigureForArcSideload(::grpc::ServerContext* /*context*/, const ::vm_tools::container::ConfigureForArcSideloadRequest* /*request*/, ::vm_tools::container::ConfigureForArcSideloadResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1090,7 +1471,7 @@ class Garcon final {
   template <class BaseClass>
   class WithRawMethod_AddFileWatch : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_AddFileWatch() {
       ::grpc::Service::MarkMethodRaw(10);
@@ -1099,7 +1480,7 @@ class Garcon final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status AddFileWatch(::grpc::ServerContext* context, const ::vm_tools::container::AddFileWatchRequest* request, ::vm_tools::container::AddFileWatchResponse* response) override {
+    ::grpc::Status AddFileWatch(::grpc::ServerContext* /*context*/, const ::vm_tools::container::AddFileWatchRequest* /*request*/, ::vm_tools::container::AddFileWatchResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1110,7 +1491,7 @@ class Garcon final {
   template <class BaseClass>
   class WithRawMethod_RemoveFileWatch : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_RemoveFileWatch() {
       ::grpc::Service::MarkMethodRaw(11);
@@ -1119,7 +1500,7 @@ class Garcon final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status RemoveFileWatch(::grpc::ServerContext* context, const ::vm_tools::container::RemoveFileWatchRequest* request, ::vm_tools::container::RemoveFileWatchResponse* response) override {
+    ::grpc::Status RemoveFileWatch(::grpc::ServerContext* /*context*/, const ::vm_tools::container::RemoveFileWatchRequest* /*request*/, ::vm_tools::container::RemoveFileWatchResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1130,7 +1511,7 @@ class Garcon final {
   template <class BaseClass>
   class WithRawMethod_GetGarconSessionInfo : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_GetGarconSessionInfo() {
       ::grpc::Service::MarkMethodRaw(12);
@@ -1139,7 +1520,7 @@ class Garcon final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetGarconSessionInfo(::grpc::ServerContext* context, const ::vm_tools::container::GetGarconSessionInfoRequest* request, ::vm_tools::container::GetGarconSessionInfoResponse* response) override {
+    ::grpc::Status GetGarconSessionInfo(::grpc::ServerContext* /*context*/, const ::vm_tools::container::GetGarconSessionInfoRequest* /*request*/, ::vm_tools::container::GetGarconSessionInfoResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1148,19 +1529,312 @@ class Garcon final {
     }
   };
   template <class BaseClass>
+  class WithRawCallbackMethod_LaunchApplication : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_LaunchApplication() {
+      ::grpc::Service::MarkMethodRawCallback(0,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->LaunchApplication(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_LaunchApplication() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status LaunchApplication(::grpc::ServerContext* /*context*/, const ::vm_tools::container::LaunchApplicationRequest* /*request*/, ::vm_tools::container::LaunchApplicationResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* LaunchApplication(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_GetIcon : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_GetIcon() {
+      ::grpc::Service::MarkMethodRawCallback(1,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetIcon(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_GetIcon() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetIcon(::grpc::ServerContext* /*context*/, const ::vm_tools::container::IconRequest* /*request*/, ::vm_tools::container::IconResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetIcon(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_LaunchVshd : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_LaunchVshd() {
+      ::grpc::Service::MarkMethodRawCallback(2,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->LaunchVshd(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_LaunchVshd() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status LaunchVshd(::grpc::ServerContext* /*context*/, const ::vm_tools::container::LaunchVshdRequest* /*request*/, ::vm_tools::container::LaunchVshdResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* LaunchVshd(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_GetLinuxPackageInfo : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_GetLinuxPackageInfo() {
+      ::grpc::Service::MarkMethodRawCallback(3,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetLinuxPackageInfo(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_GetLinuxPackageInfo() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetLinuxPackageInfo(::grpc::ServerContext* /*context*/, const ::vm_tools::container::LinuxPackageInfoRequest* /*request*/, ::vm_tools::container::LinuxPackageInfoResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetLinuxPackageInfo(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_InstallLinuxPackage : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_InstallLinuxPackage() {
+      ::grpc::Service::MarkMethodRawCallback(4,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->InstallLinuxPackage(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_InstallLinuxPackage() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status InstallLinuxPackage(::grpc::ServerContext* /*context*/, const ::vm_tools::container::InstallLinuxPackageRequest* /*request*/, ::vm_tools::container::InstallLinuxPackageResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* InstallLinuxPackage(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_UninstallPackageOwningFile : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_UninstallPackageOwningFile() {
+      ::grpc::Service::MarkMethodRawCallback(5,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UninstallPackageOwningFile(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_UninstallPackageOwningFile() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UninstallPackageOwningFile(::grpc::ServerContext* /*context*/, const ::vm_tools::container::UninstallPackageOwningFileRequest* /*request*/, ::vm_tools::container::UninstallPackageOwningFileResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* UninstallPackageOwningFile(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_GetDebugInformation : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_GetDebugInformation() {
+      ::grpc::Service::MarkMethodRawCallback(6,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetDebugInformation(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_GetDebugInformation() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetDebugInformation(::grpc::ServerContext* /*context*/, const ::vm_tools::container::GetDebugInformationRequest* /*request*/, ::vm_tools::container::GetDebugInformationResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetDebugInformation(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_ConnectChunnel : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_ConnectChunnel() {
+      ::grpc::Service::MarkMethodRawCallback(7,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ConnectChunnel(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_ConnectChunnel() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ConnectChunnel(::grpc::ServerContext* /*context*/, const ::vm_tools::container::ConnectChunnelRequest* /*request*/, ::vm_tools::container::ConnectChunnelResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* ConnectChunnel(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_ApplyAnsiblePlaybook : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_ApplyAnsiblePlaybook() {
+      ::grpc::Service::MarkMethodRawCallback(8,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ApplyAnsiblePlaybook(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_ApplyAnsiblePlaybook() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ApplyAnsiblePlaybook(::grpc::ServerContext* /*context*/, const ::vm_tools::container::ApplyAnsiblePlaybookRequest* /*request*/, ::vm_tools::container::ApplyAnsiblePlaybookResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* ApplyAnsiblePlaybook(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_ConfigureForArcSideload : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_ConfigureForArcSideload() {
+      ::grpc::Service::MarkMethodRawCallback(9,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ConfigureForArcSideload(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_ConfigureForArcSideload() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ConfigureForArcSideload(::grpc::ServerContext* /*context*/, const ::vm_tools::container::ConfigureForArcSideloadRequest* /*request*/, ::vm_tools::container::ConfigureForArcSideloadResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* ConfigureForArcSideload(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_AddFileWatch : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_AddFileWatch() {
+      ::grpc::Service::MarkMethodRawCallback(10,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->AddFileWatch(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_AddFileWatch() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status AddFileWatch(::grpc::ServerContext* /*context*/, const ::vm_tools::container::AddFileWatchRequest* /*request*/, ::vm_tools::container::AddFileWatchResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* AddFileWatch(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_RemoveFileWatch : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_RemoveFileWatch() {
+      ::grpc::Service::MarkMethodRawCallback(11,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->RemoveFileWatch(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_RemoveFileWatch() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status RemoveFileWatch(::grpc::ServerContext* /*context*/, const ::vm_tools::container::RemoveFileWatchRequest* /*request*/, ::vm_tools::container::RemoveFileWatchResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* RemoveFileWatch(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_GetGarconSessionInfo : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_GetGarconSessionInfo() {
+      ::grpc::Service::MarkMethodRawCallback(12,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetGarconSessionInfo(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_GetGarconSessionInfo() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetGarconSessionInfo(::grpc::ServerContext* /*context*/, const ::vm_tools::container::GetGarconSessionInfoRequest* /*request*/, ::vm_tools::container::GetGarconSessionInfoResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetGarconSessionInfo(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
   class WithStreamedUnaryMethod_LaunchApplication : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_LaunchApplication() {
       ::grpc::Service::MarkMethodStreamed(0,
-        new ::grpc::internal::StreamedUnaryHandler< ::vm_tools::container::LaunchApplicationRequest, ::vm_tools::container::LaunchApplicationResponse>(std::bind(&WithStreamedUnaryMethod_LaunchApplication<BaseClass>::StreamedLaunchApplication, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::vm_tools::container::LaunchApplicationRequest, ::vm_tools::container::LaunchApplicationResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::vm_tools::container::LaunchApplicationRequest, ::vm_tools::container::LaunchApplicationResponse>* streamer) {
+                       return this->StreamedLaunchApplication(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_LaunchApplication() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status LaunchApplication(::grpc::ServerContext* context, const ::vm_tools::container::LaunchApplicationRequest* request, ::vm_tools::container::LaunchApplicationResponse* response) override {
+    ::grpc::Status LaunchApplication(::grpc::ServerContext* /*context*/, const ::vm_tools::container::LaunchApplicationRequest* /*request*/, ::vm_tools::container::LaunchApplicationResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1170,17 +1844,24 @@ class Garcon final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_GetIcon : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_GetIcon() {
       ::grpc::Service::MarkMethodStreamed(1,
-        new ::grpc::internal::StreamedUnaryHandler< ::vm_tools::container::IconRequest, ::vm_tools::container::IconResponse>(std::bind(&WithStreamedUnaryMethod_GetIcon<BaseClass>::StreamedGetIcon, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::vm_tools::container::IconRequest, ::vm_tools::container::IconResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::vm_tools::container::IconRequest, ::vm_tools::container::IconResponse>* streamer) {
+                       return this->StreamedGetIcon(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_GetIcon() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status GetIcon(::grpc::ServerContext* context, const ::vm_tools::container::IconRequest* request, ::vm_tools::container::IconResponse* response) override {
+    ::grpc::Status GetIcon(::grpc::ServerContext* /*context*/, const ::vm_tools::container::IconRequest* /*request*/, ::vm_tools::container::IconResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1190,17 +1871,24 @@ class Garcon final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_LaunchVshd : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_LaunchVshd() {
       ::grpc::Service::MarkMethodStreamed(2,
-        new ::grpc::internal::StreamedUnaryHandler< ::vm_tools::container::LaunchVshdRequest, ::vm_tools::container::LaunchVshdResponse>(std::bind(&WithStreamedUnaryMethod_LaunchVshd<BaseClass>::StreamedLaunchVshd, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::vm_tools::container::LaunchVshdRequest, ::vm_tools::container::LaunchVshdResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::vm_tools::container::LaunchVshdRequest, ::vm_tools::container::LaunchVshdResponse>* streamer) {
+                       return this->StreamedLaunchVshd(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_LaunchVshd() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status LaunchVshd(::grpc::ServerContext* context, const ::vm_tools::container::LaunchVshdRequest* request, ::vm_tools::container::LaunchVshdResponse* response) override {
+    ::grpc::Status LaunchVshd(::grpc::ServerContext* /*context*/, const ::vm_tools::container::LaunchVshdRequest* /*request*/, ::vm_tools::container::LaunchVshdResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1210,17 +1898,24 @@ class Garcon final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_GetLinuxPackageInfo : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_GetLinuxPackageInfo() {
       ::grpc::Service::MarkMethodStreamed(3,
-        new ::grpc::internal::StreamedUnaryHandler< ::vm_tools::container::LinuxPackageInfoRequest, ::vm_tools::container::LinuxPackageInfoResponse>(std::bind(&WithStreamedUnaryMethod_GetLinuxPackageInfo<BaseClass>::StreamedGetLinuxPackageInfo, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::vm_tools::container::LinuxPackageInfoRequest, ::vm_tools::container::LinuxPackageInfoResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::vm_tools::container::LinuxPackageInfoRequest, ::vm_tools::container::LinuxPackageInfoResponse>* streamer) {
+                       return this->StreamedGetLinuxPackageInfo(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_GetLinuxPackageInfo() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status GetLinuxPackageInfo(::grpc::ServerContext* context, const ::vm_tools::container::LinuxPackageInfoRequest* request, ::vm_tools::container::LinuxPackageInfoResponse* response) override {
+    ::grpc::Status GetLinuxPackageInfo(::grpc::ServerContext* /*context*/, const ::vm_tools::container::LinuxPackageInfoRequest* /*request*/, ::vm_tools::container::LinuxPackageInfoResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1230,17 +1925,24 @@ class Garcon final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_InstallLinuxPackage : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_InstallLinuxPackage() {
       ::grpc::Service::MarkMethodStreamed(4,
-        new ::grpc::internal::StreamedUnaryHandler< ::vm_tools::container::InstallLinuxPackageRequest, ::vm_tools::container::InstallLinuxPackageResponse>(std::bind(&WithStreamedUnaryMethod_InstallLinuxPackage<BaseClass>::StreamedInstallLinuxPackage, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::vm_tools::container::InstallLinuxPackageRequest, ::vm_tools::container::InstallLinuxPackageResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::vm_tools::container::InstallLinuxPackageRequest, ::vm_tools::container::InstallLinuxPackageResponse>* streamer) {
+                       return this->StreamedInstallLinuxPackage(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_InstallLinuxPackage() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status InstallLinuxPackage(::grpc::ServerContext* context, const ::vm_tools::container::InstallLinuxPackageRequest* request, ::vm_tools::container::InstallLinuxPackageResponse* response) override {
+    ::grpc::Status InstallLinuxPackage(::grpc::ServerContext* /*context*/, const ::vm_tools::container::InstallLinuxPackageRequest* /*request*/, ::vm_tools::container::InstallLinuxPackageResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1250,17 +1952,24 @@ class Garcon final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_UninstallPackageOwningFile : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_UninstallPackageOwningFile() {
       ::grpc::Service::MarkMethodStreamed(5,
-        new ::grpc::internal::StreamedUnaryHandler< ::vm_tools::container::UninstallPackageOwningFileRequest, ::vm_tools::container::UninstallPackageOwningFileResponse>(std::bind(&WithStreamedUnaryMethod_UninstallPackageOwningFile<BaseClass>::StreamedUninstallPackageOwningFile, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::vm_tools::container::UninstallPackageOwningFileRequest, ::vm_tools::container::UninstallPackageOwningFileResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::vm_tools::container::UninstallPackageOwningFileRequest, ::vm_tools::container::UninstallPackageOwningFileResponse>* streamer) {
+                       return this->StreamedUninstallPackageOwningFile(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_UninstallPackageOwningFile() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status UninstallPackageOwningFile(::grpc::ServerContext* context, const ::vm_tools::container::UninstallPackageOwningFileRequest* request, ::vm_tools::container::UninstallPackageOwningFileResponse* response) override {
+    ::grpc::Status UninstallPackageOwningFile(::grpc::ServerContext* /*context*/, const ::vm_tools::container::UninstallPackageOwningFileRequest* /*request*/, ::vm_tools::container::UninstallPackageOwningFileResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1270,17 +1979,24 @@ class Garcon final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_GetDebugInformation : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_GetDebugInformation() {
       ::grpc::Service::MarkMethodStreamed(6,
-        new ::grpc::internal::StreamedUnaryHandler< ::vm_tools::container::GetDebugInformationRequest, ::vm_tools::container::GetDebugInformationResponse>(std::bind(&WithStreamedUnaryMethod_GetDebugInformation<BaseClass>::StreamedGetDebugInformation, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::vm_tools::container::GetDebugInformationRequest, ::vm_tools::container::GetDebugInformationResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::vm_tools::container::GetDebugInformationRequest, ::vm_tools::container::GetDebugInformationResponse>* streamer) {
+                       return this->StreamedGetDebugInformation(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_GetDebugInformation() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status GetDebugInformation(::grpc::ServerContext* context, const ::vm_tools::container::GetDebugInformationRequest* request, ::vm_tools::container::GetDebugInformationResponse* response) override {
+    ::grpc::Status GetDebugInformation(::grpc::ServerContext* /*context*/, const ::vm_tools::container::GetDebugInformationRequest* /*request*/, ::vm_tools::container::GetDebugInformationResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1290,17 +2006,24 @@ class Garcon final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_ConnectChunnel : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_ConnectChunnel() {
       ::grpc::Service::MarkMethodStreamed(7,
-        new ::grpc::internal::StreamedUnaryHandler< ::vm_tools::container::ConnectChunnelRequest, ::vm_tools::container::ConnectChunnelResponse>(std::bind(&WithStreamedUnaryMethod_ConnectChunnel<BaseClass>::StreamedConnectChunnel, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::vm_tools::container::ConnectChunnelRequest, ::vm_tools::container::ConnectChunnelResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::vm_tools::container::ConnectChunnelRequest, ::vm_tools::container::ConnectChunnelResponse>* streamer) {
+                       return this->StreamedConnectChunnel(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_ConnectChunnel() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status ConnectChunnel(::grpc::ServerContext* context, const ::vm_tools::container::ConnectChunnelRequest* request, ::vm_tools::container::ConnectChunnelResponse* response) override {
+    ::grpc::Status ConnectChunnel(::grpc::ServerContext* /*context*/, const ::vm_tools::container::ConnectChunnelRequest* /*request*/, ::vm_tools::container::ConnectChunnelResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1310,17 +2033,24 @@ class Garcon final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_ApplyAnsiblePlaybook : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_ApplyAnsiblePlaybook() {
       ::grpc::Service::MarkMethodStreamed(8,
-        new ::grpc::internal::StreamedUnaryHandler< ::vm_tools::container::ApplyAnsiblePlaybookRequest, ::vm_tools::container::ApplyAnsiblePlaybookResponse>(std::bind(&WithStreamedUnaryMethod_ApplyAnsiblePlaybook<BaseClass>::StreamedApplyAnsiblePlaybook, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::vm_tools::container::ApplyAnsiblePlaybookRequest, ::vm_tools::container::ApplyAnsiblePlaybookResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::vm_tools::container::ApplyAnsiblePlaybookRequest, ::vm_tools::container::ApplyAnsiblePlaybookResponse>* streamer) {
+                       return this->StreamedApplyAnsiblePlaybook(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_ApplyAnsiblePlaybook() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status ApplyAnsiblePlaybook(::grpc::ServerContext* context, const ::vm_tools::container::ApplyAnsiblePlaybookRequest* request, ::vm_tools::container::ApplyAnsiblePlaybookResponse* response) override {
+    ::grpc::Status ApplyAnsiblePlaybook(::grpc::ServerContext* /*context*/, const ::vm_tools::container::ApplyAnsiblePlaybookRequest* /*request*/, ::vm_tools::container::ApplyAnsiblePlaybookResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1330,17 +2060,24 @@ class Garcon final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_ConfigureForArcSideload : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_ConfigureForArcSideload() {
       ::grpc::Service::MarkMethodStreamed(9,
-        new ::grpc::internal::StreamedUnaryHandler< ::vm_tools::container::ConfigureForArcSideloadRequest, ::vm_tools::container::ConfigureForArcSideloadResponse>(std::bind(&WithStreamedUnaryMethod_ConfigureForArcSideload<BaseClass>::StreamedConfigureForArcSideload, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::vm_tools::container::ConfigureForArcSideloadRequest, ::vm_tools::container::ConfigureForArcSideloadResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::vm_tools::container::ConfigureForArcSideloadRequest, ::vm_tools::container::ConfigureForArcSideloadResponse>* streamer) {
+                       return this->StreamedConfigureForArcSideload(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_ConfigureForArcSideload() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status ConfigureForArcSideload(::grpc::ServerContext* context, const ::vm_tools::container::ConfigureForArcSideloadRequest* request, ::vm_tools::container::ConfigureForArcSideloadResponse* response) override {
+    ::grpc::Status ConfigureForArcSideload(::grpc::ServerContext* /*context*/, const ::vm_tools::container::ConfigureForArcSideloadRequest* /*request*/, ::vm_tools::container::ConfigureForArcSideloadResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1350,17 +2087,24 @@ class Garcon final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_AddFileWatch : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_AddFileWatch() {
       ::grpc::Service::MarkMethodStreamed(10,
-        new ::grpc::internal::StreamedUnaryHandler< ::vm_tools::container::AddFileWatchRequest, ::vm_tools::container::AddFileWatchResponse>(std::bind(&WithStreamedUnaryMethod_AddFileWatch<BaseClass>::StreamedAddFileWatch, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::vm_tools::container::AddFileWatchRequest, ::vm_tools::container::AddFileWatchResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::vm_tools::container::AddFileWatchRequest, ::vm_tools::container::AddFileWatchResponse>* streamer) {
+                       return this->StreamedAddFileWatch(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_AddFileWatch() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status AddFileWatch(::grpc::ServerContext* context, const ::vm_tools::container::AddFileWatchRequest* request, ::vm_tools::container::AddFileWatchResponse* response) override {
+    ::grpc::Status AddFileWatch(::grpc::ServerContext* /*context*/, const ::vm_tools::container::AddFileWatchRequest* /*request*/, ::vm_tools::container::AddFileWatchResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1370,17 +2114,24 @@ class Garcon final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_RemoveFileWatch : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_RemoveFileWatch() {
       ::grpc::Service::MarkMethodStreamed(11,
-        new ::grpc::internal::StreamedUnaryHandler< ::vm_tools::container::RemoveFileWatchRequest, ::vm_tools::container::RemoveFileWatchResponse>(std::bind(&WithStreamedUnaryMethod_RemoveFileWatch<BaseClass>::StreamedRemoveFileWatch, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::vm_tools::container::RemoveFileWatchRequest, ::vm_tools::container::RemoveFileWatchResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::vm_tools::container::RemoveFileWatchRequest, ::vm_tools::container::RemoveFileWatchResponse>* streamer) {
+                       return this->StreamedRemoveFileWatch(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_RemoveFileWatch() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status RemoveFileWatch(::grpc::ServerContext* context, const ::vm_tools::container::RemoveFileWatchRequest* request, ::vm_tools::container::RemoveFileWatchResponse* response) override {
+    ::grpc::Status RemoveFileWatch(::grpc::ServerContext* /*context*/, const ::vm_tools::container::RemoveFileWatchRequest* /*request*/, ::vm_tools::container::RemoveFileWatchResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1390,17 +2141,24 @@ class Garcon final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_GetGarconSessionInfo : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_GetGarconSessionInfo() {
       ::grpc::Service::MarkMethodStreamed(12,
-        new ::grpc::internal::StreamedUnaryHandler< ::vm_tools::container::GetGarconSessionInfoRequest, ::vm_tools::container::GetGarconSessionInfoResponse>(std::bind(&WithStreamedUnaryMethod_GetGarconSessionInfo<BaseClass>::StreamedGetGarconSessionInfo, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::vm_tools::container::GetGarconSessionInfoRequest, ::vm_tools::container::GetGarconSessionInfoResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::vm_tools::container::GetGarconSessionInfoRequest, ::vm_tools::container::GetGarconSessionInfoResponse>* streamer) {
+                       return this->StreamedGetGarconSessionInfo(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_GetGarconSessionInfo() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status GetGarconSessionInfo(::grpc::ServerContext* context, const ::vm_tools::container::GetGarconSessionInfoRequest* request, ::vm_tools::container::GetGarconSessionInfoResponse* response) override {
+    ::grpc::Status GetGarconSessionInfo(::grpc::ServerContext* /*context*/, const ::vm_tools::container::GetGarconSessionInfoRequest* /*request*/, ::vm_tools::container::GetGarconSessionInfoResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }

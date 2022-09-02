@@ -29,6 +29,7 @@
 #include <google/protobuf/message_lite.h>
 #include <google/protobuf/repeated_field.h>  // IWYU pragma: export
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
+#include <google/protobuf/generated_enum_util.h>
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
 #define PROTOBUF_INTERNAL_EXPORT_cryptorecovery_2fcryptorecovery_2eproto
@@ -75,6 +76,28 @@ PROTOBUF_NAMESPACE_CLOSE
 namespace cryptohome {
 namespace cryptorecovery {
 
+enum RecoveryError : int {
+  RECOVERY_ERROR_UNSPECIFIED = 0,
+  RECOVERY_ERROR_FATAL = 1,
+  RECOVERY_ERROR_TRANSIENT = 2,
+  RECOVERY_ERROR_AUTH = 3,
+  RECOVERY_ERROR_EPOCH = 4
+};
+bool RecoveryError_IsValid(int value);
+constexpr RecoveryError RecoveryError_MIN = RECOVERY_ERROR_UNSPECIFIED;
+constexpr RecoveryError RecoveryError_MAX = RECOVERY_ERROR_EPOCH;
+constexpr int RecoveryError_ARRAYSIZE = RecoveryError_MAX + 1;
+
+const std::string& RecoveryError_Name(RecoveryError value);
+template<typename T>
+inline const std::string& RecoveryError_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, RecoveryError>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function RecoveryError_Name.");
+  return RecoveryError_Name(static_cast<RecoveryError>(enum_t_value));
+}
+bool RecoveryError_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, RecoveryError* value);
 // ===================================================================
 
 class CryptoRecoveryEpochRequest final :
@@ -678,6 +701,7 @@ class CryptoRecoveryRpcResponse final :
   enum : int {
     kCborCryptorecoveryresponseFieldNumber = 2,
     kProtocolVersionFieldNumber = 1,
+    kErrorCodeFieldNumber = 3,
   };
   // optional bytes cbor_cryptorecoveryresponse = 2;
   bool has_cbor_cryptorecoveryresponse() const;
@@ -710,6 +734,19 @@ class CryptoRecoveryRpcResponse final :
   void _internal_set_protocol_version(int32_t value);
   public:
 
+  // optional .cryptohome.cryptorecovery.RecoveryError error_code = 3;
+  bool has_error_code() const;
+  private:
+  bool _internal_has_error_code() const;
+  public:
+  void clear_error_code();
+  ::cryptohome::cryptorecovery::RecoveryError error_code() const;
+  void set_error_code(::cryptohome::cryptorecovery::RecoveryError value);
+  private:
+  ::cryptohome::cryptorecovery::RecoveryError _internal_error_code() const;
+  void _internal_set_error_code(::cryptohome::cryptorecovery::RecoveryError value);
+  public:
+
   // @@protoc_insertion_point(class_scope:cryptohome.cryptorecovery.CryptoRecoveryRpcResponse)
  private:
   class _Internal;
@@ -721,6 +758,7 @@ class CryptoRecoveryRpcResponse final :
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr cbor_cryptorecoveryresponse_;
   int32_t protocol_version_;
+  int error_code_;
   friend struct ::TableStruct_cryptorecovery_2fcryptorecovery_2eproto;
 };
 // ===================================================================
@@ -1134,6 +1172,35 @@ inline void CryptoRecoveryRpcResponse::set_allocated_cbor_cryptorecoveryresponse
   // @@protoc_insertion_point(field_set_allocated:cryptohome.cryptorecovery.CryptoRecoveryRpcResponse.cbor_cryptorecoveryresponse)
 }
 
+// optional .cryptohome.cryptorecovery.RecoveryError error_code = 3;
+inline bool CryptoRecoveryRpcResponse::_internal_has_error_code() const {
+  bool value = (_has_bits_[0] & 0x00000004u) != 0;
+  return value;
+}
+inline bool CryptoRecoveryRpcResponse::has_error_code() const {
+  return _internal_has_error_code();
+}
+inline void CryptoRecoveryRpcResponse::clear_error_code() {
+  error_code_ = 0;
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline ::cryptohome::cryptorecovery::RecoveryError CryptoRecoveryRpcResponse::_internal_error_code() const {
+  return static_cast< ::cryptohome::cryptorecovery::RecoveryError >(error_code_);
+}
+inline ::cryptohome::cryptorecovery::RecoveryError CryptoRecoveryRpcResponse::error_code() const {
+  // @@protoc_insertion_point(field_get:cryptohome.cryptorecovery.CryptoRecoveryRpcResponse.error_code)
+  return _internal_error_code();
+}
+inline void CryptoRecoveryRpcResponse::_internal_set_error_code(::cryptohome::cryptorecovery::RecoveryError value) {
+  assert(::cryptohome::cryptorecovery::RecoveryError_IsValid(value));
+  _has_bits_[0] |= 0x00000004u;
+  error_code_ = value;
+}
+inline void CryptoRecoveryRpcResponse::set_error_code(::cryptohome::cryptorecovery::RecoveryError value) {
+  _internal_set_error_code(value);
+  // @@protoc_insertion_point(field_set:cryptohome.cryptorecovery.CryptoRecoveryRpcResponse.error_code)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
@@ -1148,6 +1215,12 @@ inline void CryptoRecoveryRpcResponse::set_allocated_cbor_cryptorecoveryresponse
 
 }  // namespace cryptorecovery
 }  // namespace cryptohome
+
+PROTOBUF_NAMESPACE_OPEN
+
+template <> struct is_proto_enum< ::cryptohome::cryptorecovery::RecoveryError> : ::std::true_type {};
+
+PROTOBUF_NAMESPACE_CLOSE
 
 // @@protoc_insertion_point(global_scope)
 

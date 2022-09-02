@@ -17,20 +17,20 @@
 #include <grpcpp/impl/codegen/async_generic_service.h>
 #include <grpcpp/impl/codegen/async_stream.h>
 #include <grpcpp/impl/codegen/async_unary_call.h>
-#include <grpcpp/impl/codegen/method_handler_impl.h>
+#include <grpcpp/impl/codegen/client_callback.h>
+#include <grpcpp/impl/codegen/client_context.h>
+#include <grpcpp/impl/codegen/completion_queue.h>
+#include <grpcpp/impl/codegen/message_allocator.h>
+#include <grpcpp/impl/codegen/method_handler.h>
 #include <grpcpp/impl/codegen/proto_utils.h>
 #include <grpcpp/impl/codegen/rpc_method.h>
+#include <grpcpp/impl/codegen/server_callback.h>
+#include <grpcpp/impl/codegen/server_callback_handlers.h>
+#include <grpcpp/impl/codegen/server_context.h>
 #include <grpcpp/impl/codegen/service_type.h>
 #include <grpcpp/impl/codegen/status.h>
 #include <grpcpp/impl/codegen/stub_options.h>
 #include <grpcpp/impl/codegen/sync_stream.h>
-
-namespace grpc {
-class CompletionQueue;
-class Channel;
-class ServerCompletionQueue;
-class ServerContext;
-}  // namespace grpc
 
 namespace test_rpcs {
 
@@ -63,15 +63,20 @@ class ExampleService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::test_rpcs::HeavyRpcResponse>> PrepareAsyncHeavyRpc(::grpc::ClientContext* context, const ::test_rpcs::HeavyRpcRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::test_rpcs::HeavyRpcResponse>>(PrepareAsyncHeavyRpcRaw(context, request, cq));
     }
-    class experimental_async_interface {
+    class async_interface {
      public:
-      virtual ~experimental_async_interface() {}
+      virtual ~async_interface() {}
       virtual void EmptyRpc(::grpc::ClientContext* context, const ::test_rpcs::EmptyRpcRequest* request, ::test_rpcs::EmptyRpcResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void EmptyRpc(::grpc::ClientContext* context, const ::test_rpcs::EmptyRpcRequest* request, ::test_rpcs::EmptyRpcResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       virtual void EchoIntRpc(::grpc::ClientContext* context, const ::test_rpcs::EchoIntRpcRequest* request, ::test_rpcs::EchoIntRpcResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void EchoIntRpc(::grpc::ClientContext* context, const ::test_rpcs::EchoIntRpcRequest* request, ::test_rpcs::EchoIntRpcResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       virtual void HeavyRpc(::grpc::ClientContext* context, const ::test_rpcs::HeavyRpcRequest* request, ::test_rpcs::HeavyRpcResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void HeavyRpc(::grpc::ClientContext* context, const ::test_rpcs::HeavyRpcRequest* request, ::test_rpcs::HeavyRpcResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
     };
-    virtual class experimental_async_interface* experimental_async() { return nullptr; }
-  private:
+    typedef class async_interface experimental_async_interface;
+    virtual class async_interface* async() { return nullptr; }
+    class async_interface* experimental_async() { return async(); }
+   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::test_rpcs::EmptyRpcResponse>* AsyncEmptyRpcRaw(::grpc::ClientContext* context, const ::test_rpcs::EmptyRpcRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::test_rpcs::EmptyRpcResponse>* PrepareAsyncEmptyRpcRaw(::grpc::ClientContext* context, const ::test_rpcs::EmptyRpcRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::test_rpcs::EchoIntRpcResponse>* AsyncEchoIntRpcRaw(::grpc::ClientContext* context, const ::test_rpcs::EchoIntRpcRequest& request, ::grpc::CompletionQueue* cq) = 0;
@@ -81,7 +86,7 @@ class ExampleService final {
   };
   class Stub final : public StubInterface {
    public:
-    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel);
+    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
     ::grpc::Status EmptyRpc(::grpc::ClientContext* context, const ::test_rpcs::EmptyRpcRequest& request, ::test_rpcs::EmptyRpcResponse* response) override;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::test_rpcs::EmptyRpcResponse>> AsyncEmptyRpc(::grpc::ClientContext* context, const ::test_rpcs::EmptyRpcRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::test_rpcs::EmptyRpcResponse>>(AsyncEmptyRpcRaw(context, request, cq));
@@ -103,23 +108,26 @@ class ExampleService final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::test_rpcs::HeavyRpcResponse>> PrepareAsyncHeavyRpc(::grpc::ClientContext* context, const ::test_rpcs::HeavyRpcRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::test_rpcs::HeavyRpcResponse>>(PrepareAsyncHeavyRpcRaw(context, request, cq));
     }
-    class experimental_async final :
-      public StubInterface::experimental_async_interface {
+    class async final :
+      public StubInterface::async_interface {
      public:
       void EmptyRpc(::grpc::ClientContext* context, const ::test_rpcs::EmptyRpcRequest* request, ::test_rpcs::EmptyRpcResponse* response, std::function<void(::grpc::Status)>) override;
+      void EmptyRpc(::grpc::ClientContext* context, const ::test_rpcs::EmptyRpcRequest* request, ::test_rpcs::EmptyRpcResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void EchoIntRpc(::grpc::ClientContext* context, const ::test_rpcs::EchoIntRpcRequest* request, ::test_rpcs::EchoIntRpcResponse* response, std::function<void(::grpc::Status)>) override;
+      void EchoIntRpc(::grpc::ClientContext* context, const ::test_rpcs::EchoIntRpcRequest* request, ::test_rpcs::EchoIntRpcResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void HeavyRpc(::grpc::ClientContext* context, const ::test_rpcs::HeavyRpcRequest* request, ::test_rpcs::HeavyRpcResponse* response, std::function<void(::grpc::Status)>) override;
+      void HeavyRpc(::grpc::ClientContext* context, const ::test_rpcs::HeavyRpcRequest* request, ::test_rpcs::HeavyRpcResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
      private:
       friend class Stub;
-      explicit experimental_async(Stub* stub): stub_(stub) { }
+      explicit async(Stub* stub): stub_(stub) { }
       Stub* stub() { return stub_; }
       Stub* stub_;
     };
-    class experimental_async_interface* experimental_async() override { return &async_stub_; }
+    class async* async() override { return &async_stub_; }
 
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
-    class experimental_async async_stub_{this};
+    class async async_stub_{this};
     ::grpc::ClientAsyncResponseReader< ::test_rpcs::EmptyRpcResponse>* AsyncEmptyRpcRaw(::grpc::ClientContext* context, const ::test_rpcs::EmptyRpcRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::test_rpcs::EmptyRpcResponse>* PrepareAsyncEmptyRpcRaw(::grpc::ClientContext* context, const ::test_rpcs::EmptyRpcRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::test_rpcs::EchoIntRpcResponse>* AsyncEchoIntRpcRaw(::grpc::ClientContext* context, const ::test_rpcs::EchoIntRpcRequest& request, ::grpc::CompletionQueue* cq) override;
@@ -143,7 +151,7 @@ class ExampleService final {
   template <class BaseClass>
   class WithAsyncMethod_EmptyRpc : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_EmptyRpc() {
       ::grpc::Service::MarkMethodAsync(0);
@@ -152,7 +160,7 @@ class ExampleService final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status EmptyRpc(::grpc::ServerContext* context, const ::test_rpcs::EmptyRpcRequest* request, ::test_rpcs::EmptyRpcResponse* response) override {
+    ::grpc::Status EmptyRpc(::grpc::ServerContext* /*context*/, const ::test_rpcs::EmptyRpcRequest* /*request*/, ::test_rpcs::EmptyRpcResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -163,7 +171,7 @@ class ExampleService final {
   template <class BaseClass>
   class WithAsyncMethod_EchoIntRpc : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_EchoIntRpc() {
       ::grpc::Service::MarkMethodAsync(1);
@@ -172,7 +180,7 @@ class ExampleService final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status EchoIntRpc(::grpc::ServerContext* context, const ::test_rpcs::EchoIntRpcRequest* request, ::test_rpcs::EchoIntRpcResponse* response) override {
+    ::grpc::Status EchoIntRpc(::grpc::ServerContext* /*context*/, const ::test_rpcs::EchoIntRpcRequest* /*request*/, ::test_rpcs::EchoIntRpcResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -183,7 +191,7 @@ class ExampleService final {
   template <class BaseClass>
   class WithAsyncMethod_HeavyRpc : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_HeavyRpc() {
       ::grpc::Service::MarkMethodAsync(2);
@@ -192,7 +200,7 @@ class ExampleService final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status HeavyRpc(::grpc::ServerContext* context, const ::test_rpcs::HeavyRpcRequest* request, ::test_rpcs::HeavyRpcResponse* response) override {
+    ::grpc::Status HeavyRpc(::grpc::ServerContext* /*context*/, const ::test_rpcs::HeavyRpcRequest* /*request*/, ::test_rpcs::HeavyRpcResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -202,9 +210,92 @@ class ExampleService final {
   };
   typedef WithAsyncMethod_EmptyRpc<WithAsyncMethod_EchoIntRpc<WithAsyncMethod_HeavyRpc<Service > > > AsyncService;
   template <class BaseClass>
+  class WithCallbackMethod_EmptyRpc : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_EmptyRpc() {
+      ::grpc::Service::MarkMethodCallback(0,
+          new ::grpc::internal::CallbackUnaryHandler< ::test_rpcs::EmptyRpcRequest, ::test_rpcs::EmptyRpcResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::test_rpcs::EmptyRpcRequest* request, ::test_rpcs::EmptyRpcResponse* response) { return this->EmptyRpc(context, request, response); }));}
+    void SetMessageAllocatorFor_EmptyRpc(
+        ::grpc::MessageAllocator< ::test_rpcs::EmptyRpcRequest, ::test_rpcs::EmptyRpcResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(0);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::test_rpcs::EmptyRpcRequest, ::test_rpcs::EmptyRpcResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_EmptyRpc() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status EmptyRpc(::grpc::ServerContext* /*context*/, const ::test_rpcs::EmptyRpcRequest* /*request*/, ::test_rpcs::EmptyRpcResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* EmptyRpc(
+      ::grpc::CallbackServerContext* /*context*/, const ::test_rpcs::EmptyRpcRequest* /*request*/, ::test_rpcs::EmptyRpcResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_EchoIntRpc : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_EchoIntRpc() {
+      ::grpc::Service::MarkMethodCallback(1,
+          new ::grpc::internal::CallbackUnaryHandler< ::test_rpcs::EchoIntRpcRequest, ::test_rpcs::EchoIntRpcResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::test_rpcs::EchoIntRpcRequest* request, ::test_rpcs::EchoIntRpcResponse* response) { return this->EchoIntRpc(context, request, response); }));}
+    void SetMessageAllocatorFor_EchoIntRpc(
+        ::grpc::MessageAllocator< ::test_rpcs::EchoIntRpcRequest, ::test_rpcs::EchoIntRpcResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(1);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::test_rpcs::EchoIntRpcRequest, ::test_rpcs::EchoIntRpcResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_EchoIntRpc() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status EchoIntRpc(::grpc::ServerContext* /*context*/, const ::test_rpcs::EchoIntRpcRequest* /*request*/, ::test_rpcs::EchoIntRpcResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* EchoIntRpc(
+      ::grpc::CallbackServerContext* /*context*/, const ::test_rpcs::EchoIntRpcRequest* /*request*/, ::test_rpcs::EchoIntRpcResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_HeavyRpc : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_HeavyRpc() {
+      ::grpc::Service::MarkMethodCallback(2,
+          new ::grpc::internal::CallbackUnaryHandler< ::test_rpcs::HeavyRpcRequest, ::test_rpcs::HeavyRpcResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::test_rpcs::HeavyRpcRequest* request, ::test_rpcs::HeavyRpcResponse* response) { return this->HeavyRpc(context, request, response); }));}
+    void SetMessageAllocatorFor_HeavyRpc(
+        ::grpc::MessageAllocator< ::test_rpcs::HeavyRpcRequest, ::test_rpcs::HeavyRpcResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(2);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::test_rpcs::HeavyRpcRequest, ::test_rpcs::HeavyRpcResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_HeavyRpc() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status HeavyRpc(::grpc::ServerContext* /*context*/, const ::test_rpcs::HeavyRpcRequest* /*request*/, ::test_rpcs::HeavyRpcResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* HeavyRpc(
+      ::grpc::CallbackServerContext* /*context*/, const ::test_rpcs::HeavyRpcRequest* /*request*/, ::test_rpcs::HeavyRpcResponse* /*response*/)  { return nullptr; }
+  };
+  typedef WithCallbackMethod_EmptyRpc<WithCallbackMethod_EchoIntRpc<WithCallbackMethod_HeavyRpc<Service > > > CallbackService;
+  typedef CallbackService ExperimentalCallbackService;
+  template <class BaseClass>
   class WithGenericMethod_EmptyRpc : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_EmptyRpc() {
       ::grpc::Service::MarkMethodGeneric(0);
@@ -213,7 +304,7 @@ class ExampleService final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status EmptyRpc(::grpc::ServerContext* context, const ::test_rpcs::EmptyRpcRequest* request, ::test_rpcs::EmptyRpcResponse* response) override {
+    ::grpc::Status EmptyRpc(::grpc::ServerContext* /*context*/, const ::test_rpcs::EmptyRpcRequest* /*request*/, ::test_rpcs::EmptyRpcResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -221,7 +312,7 @@ class ExampleService final {
   template <class BaseClass>
   class WithGenericMethod_EchoIntRpc : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_EchoIntRpc() {
       ::grpc::Service::MarkMethodGeneric(1);
@@ -230,7 +321,7 @@ class ExampleService final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status EchoIntRpc(::grpc::ServerContext* context, const ::test_rpcs::EchoIntRpcRequest* request, ::test_rpcs::EchoIntRpcResponse* response) override {
+    ::grpc::Status EchoIntRpc(::grpc::ServerContext* /*context*/, const ::test_rpcs::EchoIntRpcRequest* /*request*/, ::test_rpcs::EchoIntRpcResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -238,7 +329,7 @@ class ExampleService final {
   template <class BaseClass>
   class WithGenericMethod_HeavyRpc : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_HeavyRpc() {
       ::grpc::Service::MarkMethodGeneric(2);
@@ -247,7 +338,7 @@ class ExampleService final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status HeavyRpc(::grpc::ServerContext* context, const ::test_rpcs::HeavyRpcRequest* request, ::test_rpcs::HeavyRpcResponse* response) override {
+    ::grpc::Status HeavyRpc(::grpc::ServerContext* /*context*/, const ::test_rpcs::HeavyRpcRequest* /*request*/, ::test_rpcs::HeavyRpcResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -255,7 +346,7 @@ class ExampleService final {
   template <class BaseClass>
   class WithRawMethod_EmptyRpc : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_EmptyRpc() {
       ::grpc::Service::MarkMethodRaw(0);
@@ -264,7 +355,7 @@ class ExampleService final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status EmptyRpc(::grpc::ServerContext* context, const ::test_rpcs::EmptyRpcRequest* request, ::test_rpcs::EmptyRpcResponse* response) override {
+    ::grpc::Status EmptyRpc(::grpc::ServerContext* /*context*/, const ::test_rpcs::EmptyRpcRequest* /*request*/, ::test_rpcs::EmptyRpcResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -275,7 +366,7 @@ class ExampleService final {
   template <class BaseClass>
   class WithRawMethod_EchoIntRpc : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_EchoIntRpc() {
       ::grpc::Service::MarkMethodRaw(1);
@@ -284,7 +375,7 @@ class ExampleService final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status EchoIntRpc(::grpc::ServerContext* context, const ::test_rpcs::EchoIntRpcRequest* request, ::test_rpcs::EchoIntRpcResponse* response) override {
+    ::grpc::Status EchoIntRpc(::grpc::ServerContext* /*context*/, const ::test_rpcs::EchoIntRpcRequest* /*request*/, ::test_rpcs::EchoIntRpcResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -295,7 +386,7 @@ class ExampleService final {
   template <class BaseClass>
   class WithRawMethod_HeavyRpc : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_HeavyRpc() {
       ::grpc::Service::MarkMethodRaw(2);
@@ -304,7 +395,7 @@ class ExampleService final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status HeavyRpc(::grpc::ServerContext* context, const ::test_rpcs::HeavyRpcRequest* request, ::test_rpcs::HeavyRpcResponse* response) override {
+    ::grpc::Status HeavyRpc(::grpc::ServerContext* /*context*/, const ::test_rpcs::HeavyRpcRequest* /*request*/, ::test_rpcs::HeavyRpcResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -313,19 +404,92 @@ class ExampleService final {
     }
   };
   template <class BaseClass>
+  class WithRawCallbackMethod_EmptyRpc : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_EmptyRpc() {
+      ::grpc::Service::MarkMethodRawCallback(0,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->EmptyRpc(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_EmptyRpc() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status EmptyRpc(::grpc::ServerContext* /*context*/, const ::test_rpcs::EmptyRpcRequest* /*request*/, ::test_rpcs::EmptyRpcResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* EmptyRpc(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_EchoIntRpc : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_EchoIntRpc() {
+      ::grpc::Service::MarkMethodRawCallback(1,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->EchoIntRpc(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_EchoIntRpc() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status EchoIntRpc(::grpc::ServerContext* /*context*/, const ::test_rpcs::EchoIntRpcRequest* /*request*/, ::test_rpcs::EchoIntRpcResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* EchoIntRpc(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_HeavyRpc : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_HeavyRpc() {
+      ::grpc::Service::MarkMethodRawCallback(2,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->HeavyRpc(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_HeavyRpc() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status HeavyRpc(::grpc::ServerContext* /*context*/, const ::test_rpcs::HeavyRpcRequest* /*request*/, ::test_rpcs::HeavyRpcResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* HeavyRpc(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
   class WithStreamedUnaryMethod_EmptyRpc : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_EmptyRpc() {
       ::grpc::Service::MarkMethodStreamed(0,
-        new ::grpc::internal::StreamedUnaryHandler< ::test_rpcs::EmptyRpcRequest, ::test_rpcs::EmptyRpcResponse>(std::bind(&WithStreamedUnaryMethod_EmptyRpc<BaseClass>::StreamedEmptyRpc, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::test_rpcs::EmptyRpcRequest, ::test_rpcs::EmptyRpcResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::test_rpcs::EmptyRpcRequest, ::test_rpcs::EmptyRpcResponse>* streamer) {
+                       return this->StreamedEmptyRpc(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_EmptyRpc() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status EmptyRpc(::grpc::ServerContext* context, const ::test_rpcs::EmptyRpcRequest* request, ::test_rpcs::EmptyRpcResponse* response) override {
+    ::grpc::Status EmptyRpc(::grpc::ServerContext* /*context*/, const ::test_rpcs::EmptyRpcRequest* /*request*/, ::test_rpcs::EmptyRpcResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -335,17 +499,24 @@ class ExampleService final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_EchoIntRpc : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_EchoIntRpc() {
       ::grpc::Service::MarkMethodStreamed(1,
-        new ::grpc::internal::StreamedUnaryHandler< ::test_rpcs::EchoIntRpcRequest, ::test_rpcs::EchoIntRpcResponse>(std::bind(&WithStreamedUnaryMethod_EchoIntRpc<BaseClass>::StreamedEchoIntRpc, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::test_rpcs::EchoIntRpcRequest, ::test_rpcs::EchoIntRpcResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::test_rpcs::EchoIntRpcRequest, ::test_rpcs::EchoIntRpcResponse>* streamer) {
+                       return this->StreamedEchoIntRpc(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_EchoIntRpc() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status EchoIntRpc(::grpc::ServerContext* context, const ::test_rpcs::EchoIntRpcRequest* request, ::test_rpcs::EchoIntRpcResponse* response) override {
+    ::grpc::Status EchoIntRpc(::grpc::ServerContext* /*context*/, const ::test_rpcs::EchoIntRpcRequest* /*request*/, ::test_rpcs::EchoIntRpcResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -355,17 +526,24 @@ class ExampleService final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_HeavyRpc : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_HeavyRpc() {
       ::grpc::Service::MarkMethodStreamed(2,
-        new ::grpc::internal::StreamedUnaryHandler< ::test_rpcs::HeavyRpcRequest, ::test_rpcs::HeavyRpcResponse>(std::bind(&WithStreamedUnaryMethod_HeavyRpc<BaseClass>::StreamedHeavyRpc, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::test_rpcs::HeavyRpcRequest, ::test_rpcs::HeavyRpcResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::test_rpcs::HeavyRpcRequest, ::test_rpcs::HeavyRpcResponse>* streamer) {
+                       return this->StreamedHeavyRpc(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_HeavyRpc() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status HeavyRpc(::grpc::ServerContext* context, const ::test_rpcs::HeavyRpcRequest* request, ::test_rpcs::HeavyRpcResponse* response) override {
+    ::grpc::Status HeavyRpc(::grpc::ServerContext* /*context*/, const ::test_rpcs::HeavyRpcRequest* /*request*/, ::test_rpcs::HeavyRpcResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }

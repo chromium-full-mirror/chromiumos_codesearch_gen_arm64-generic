@@ -15,20 +15,20 @@
 #include <grpcpp/impl/codegen/async_generic_service.h>
 #include <grpcpp/impl/codegen/async_stream.h>
 #include <grpcpp/impl/codegen/async_unary_call.h>
-#include <grpcpp/impl/codegen/method_handler_impl.h>
+#include <grpcpp/impl/codegen/client_callback.h>
+#include <grpcpp/impl/codegen/client_context.h>
+#include <grpcpp/impl/codegen/completion_queue.h>
+#include <grpcpp/impl/codegen/message_allocator.h>
+#include <grpcpp/impl/codegen/method_handler.h>
 #include <grpcpp/impl/codegen/proto_utils.h>
 #include <grpcpp/impl/codegen/rpc_method.h>
+#include <grpcpp/impl/codegen/server_callback.h>
+#include <grpcpp/impl/codegen/server_callback_handlers.h>
+#include <grpcpp/impl/codegen/server_context.h>
 #include <grpcpp/impl/codegen/service_type.h>
 #include <grpcpp/impl/codegen/status.h>
 #include <grpcpp/impl/codegen/stub_options.h>
 #include <grpcpp/impl/codegen/sync_stream.h>
-
-namespace grpc {
-class CompletionQueue;
-class Channel;
-class ServerCompletionQueue;
-class ServerContext;
-}  // namespace grpc
 
 namespace vm_tools {
 
@@ -193,56 +193,76 @@ class Maitred final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::EmptyMessage>> PrepareAsyncPrepareToSuspend(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::EmptyMessage>>(PrepareAsyncPrepareToSuspendRaw(context, request, cq));
     }
-    class experimental_async_interface {
+    class async_interface {
      public:
-      virtual ~experimental_async_interface() {}
+      virtual ~async_interface() {}
       // Set up networking inside the VM so that it can access the internet.
       virtual void ConfigureNetwork(::grpc::ClientContext* context, const ::vm_tools::NetworkConfigRequest* request, ::vm_tools::EmptyMessage* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void ConfigureNetwork(::grpc::ClientContext* context, const ::vm_tools::NetworkConfigRequest* request, ::vm_tools::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Set up a container guest in the VM, so that it can interface with cicerone.
       virtual void ConfigureContainerGuest(::grpc::ClientContext* context, const ::vm_tools::ConfigureContainerGuestRequest* request, ::vm_tools::EmptyMessage* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void ConfigureContainerGuest(::grpc::ClientContext* context, const ::vm_tools::ConfigureContainerGuestRequest* request, ::vm_tools::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // DEPRECATED. Use OnHostNetworkChanged instead.
       // Reset IPv6 in VM and restart SLAAC process to acquire a new configuration.
       virtual void ResetIPv6(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::EmptyMessage* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void ResetIPv6(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Informs the guest that the host network has changed. The guest should
       // perform any actions necessary, such as resetting potentially stale sockets,
       // flushing DNS caches, and renegotiating SLAAC addresses for IPv6.
       virtual void OnHostNetworkChanged(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::EmptyMessage* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void OnHostNetworkChanged(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Initiate a shut-down of the VM.
       virtual void Shutdown(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::EmptyMessage* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void Shutdown(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Launch one process inside the VM.
       virtual void LaunchProcess(::grpc::ClientContext* context, const ::vm_tools::LaunchProcessRequest* request, ::vm_tools::LaunchProcessResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void LaunchProcess(::grpc::ClientContext* context, const ::vm_tools::LaunchProcessRequest* request, ::vm_tools::LaunchProcessResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Mount a filesystem in the VM.
       virtual void Mount(::grpc::ClientContext* context, const ::vm_tools::MountRequest* request, ::vm_tools::MountResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void Mount(::grpc::ClientContext* context, const ::vm_tools::MountRequest* request, ::vm_tools::MountResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Start Termina-specific system services.
       virtual void StartTermina(::grpc::ClientContext* context, const ::vm_tools::StartTerminaRequest* request, ::vm_tools::StartTerminaResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void StartTermina(::grpc::ClientContext* context, const ::vm_tools::StartTerminaRequest* request, ::vm_tools::StartTerminaResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Set the VM time to a specified value.
       // If the new time is invalid (roughly 0), ignore it.
       // This RPC is to address cases where the guest loses time for some reason
       // (e.g. due to the host being suspended for a while).
       virtual void SetTime(::grpc::ClientContext* context, const ::vm_tools::SetTimeRequest* request, ::vm_tools::EmptyMessage* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void SetTime(::grpc::ClientContext* context, const ::vm_tools::SetTimeRequest* request, ::vm_tools::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Set the VM timezone to a specified value.
       virtual void SetTimezone(::grpc::ClientContext* context, const ::vm_tools::SetTimezoneRequest* request, ::vm_tools::EmptyMessage* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void SetTimezone(::grpc::ClientContext* context, const ::vm_tools::SetTimezoneRequest* request, ::vm_tools::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Mount a 9P server using a vsock socket.  This uses the trans=fd option
       // when mounting the 9P server, which requires first connecting a socket
       // to the server.  Other transports should use the normal Mount rpc instead.
       virtual void Mount9P(::grpc::ClientContext* context, const ::vm_tools::Mount9PRequest* request, ::vm_tools::MountResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void Mount9P(::grpc::ClientContext* context, const ::vm_tools::Mount9PRequest* request, ::vm_tools::MountResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Sets the resolv config (nameservers, search domains, and local domain).
       virtual void SetResolvConfig(::grpc::ClientContext* context, const ::vm_tools::SetResolvConfigRequest* request, ::vm_tools::EmptyMessage* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void SetResolvConfig(::grpc::ClientContext* context, const ::vm_tools::SetResolvConfigRequest* request, ::vm_tools::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Returns the kernel release and version for enterprise reporting.
       virtual void GetKernelVersion(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::GetKernelVersionResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void GetKernelVersion(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::GetKernelVersionResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Resizes the stateful filesystem.
       virtual void ResizeFilesystem(::grpc::ClientContext* context, const ::vm_tools::ResizeFilesystemRequest* request, ::vm_tools::ResizeFilesystemResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void ResizeFilesystem(::grpc::ClientContext* context, const ::vm_tools::ResizeFilesystemRequest* request, ::vm_tools::ResizeFilesystemResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Queries the status of the most recent ResizeFilesystem request.
       virtual void GetResizeStatus(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::GetResizeStatusResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void GetResizeStatus(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::GetResizeStatusResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Gets information about the valid range of parameters to ResizeFilesystem.
       virtual void GetResizeBounds(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::GetResizeBoundsResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void GetResizeBounds(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::GetResizeBoundsResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Gets information about unallocated space on a disk.
       virtual void GetAvailableSpace(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::GetAvailableSpaceResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void GetAvailableSpace(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::GetAvailableSpaceResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Prepares to suspend the VM.
       virtual void PrepareToSuspend(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::EmptyMessage* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void PrepareToSuspend(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) = 0;
     };
-    virtual class experimental_async_interface* experimental_async() { return nullptr; }
-  private:
+    typedef class async_interface experimental_async_interface;
+    virtual class async_interface* async() { return nullptr; }
+    class async_interface* experimental_async() { return async(); }
+   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::EmptyMessage>* AsyncConfigureNetworkRaw(::grpc::ClientContext* context, const ::vm_tools::NetworkConfigRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::EmptyMessage>* PrepareAsyncConfigureNetworkRaw(::grpc::ClientContext* context, const ::vm_tools::NetworkConfigRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::EmptyMessage>* AsyncConfigureContainerGuestRaw(::grpc::ClientContext* context, const ::vm_tools::ConfigureContainerGuestRequest& request, ::grpc::CompletionQueue* cq) = 0;
@@ -282,7 +302,7 @@ class Maitred final {
   };
   class Stub final : public StubInterface {
    public:
-    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel);
+    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
     ::grpc::Status ConfigureNetwork(::grpc::ClientContext* context, const ::vm_tools::NetworkConfigRequest& request, ::vm_tools::EmptyMessage* response) override;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>> AsyncConfigureNetwork(::grpc::ClientContext* context, const ::vm_tools::NetworkConfigRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>>(AsyncConfigureNetworkRaw(context, request, cq));
@@ -409,38 +429,56 @@ class Maitred final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>> PrepareAsyncPrepareToSuspend(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>>(PrepareAsyncPrepareToSuspendRaw(context, request, cq));
     }
-    class experimental_async final :
-      public StubInterface::experimental_async_interface {
+    class async final :
+      public StubInterface::async_interface {
      public:
       void ConfigureNetwork(::grpc::ClientContext* context, const ::vm_tools::NetworkConfigRequest* request, ::vm_tools::EmptyMessage* response, std::function<void(::grpc::Status)>) override;
+      void ConfigureNetwork(::grpc::ClientContext* context, const ::vm_tools::NetworkConfigRequest* request, ::vm_tools::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) override;
       void ConfigureContainerGuest(::grpc::ClientContext* context, const ::vm_tools::ConfigureContainerGuestRequest* request, ::vm_tools::EmptyMessage* response, std::function<void(::grpc::Status)>) override;
+      void ConfigureContainerGuest(::grpc::ClientContext* context, const ::vm_tools::ConfigureContainerGuestRequest* request, ::vm_tools::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) override;
       void ResetIPv6(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::EmptyMessage* response, std::function<void(::grpc::Status)>) override;
+      void ResetIPv6(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) override;
       void OnHostNetworkChanged(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::EmptyMessage* response, std::function<void(::grpc::Status)>) override;
+      void OnHostNetworkChanged(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) override;
       void Shutdown(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::EmptyMessage* response, std::function<void(::grpc::Status)>) override;
+      void Shutdown(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) override;
       void LaunchProcess(::grpc::ClientContext* context, const ::vm_tools::LaunchProcessRequest* request, ::vm_tools::LaunchProcessResponse* response, std::function<void(::grpc::Status)>) override;
+      void LaunchProcess(::grpc::ClientContext* context, const ::vm_tools::LaunchProcessRequest* request, ::vm_tools::LaunchProcessResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void Mount(::grpc::ClientContext* context, const ::vm_tools::MountRequest* request, ::vm_tools::MountResponse* response, std::function<void(::grpc::Status)>) override;
+      void Mount(::grpc::ClientContext* context, const ::vm_tools::MountRequest* request, ::vm_tools::MountResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void StartTermina(::grpc::ClientContext* context, const ::vm_tools::StartTerminaRequest* request, ::vm_tools::StartTerminaResponse* response, std::function<void(::grpc::Status)>) override;
+      void StartTermina(::grpc::ClientContext* context, const ::vm_tools::StartTerminaRequest* request, ::vm_tools::StartTerminaResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void SetTime(::grpc::ClientContext* context, const ::vm_tools::SetTimeRequest* request, ::vm_tools::EmptyMessage* response, std::function<void(::grpc::Status)>) override;
+      void SetTime(::grpc::ClientContext* context, const ::vm_tools::SetTimeRequest* request, ::vm_tools::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) override;
       void SetTimezone(::grpc::ClientContext* context, const ::vm_tools::SetTimezoneRequest* request, ::vm_tools::EmptyMessage* response, std::function<void(::grpc::Status)>) override;
+      void SetTimezone(::grpc::ClientContext* context, const ::vm_tools::SetTimezoneRequest* request, ::vm_tools::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) override;
       void Mount9P(::grpc::ClientContext* context, const ::vm_tools::Mount9PRequest* request, ::vm_tools::MountResponse* response, std::function<void(::grpc::Status)>) override;
+      void Mount9P(::grpc::ClientContext* context, const ::vm_tools::Mount9PRequest* request, ::vm_tools::MountResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void SetResolvConfig(::grpc::ClientContext* context, const ::vm_tools::SetResolvConfigRequest* request, ::vm_tools::EmptyMessage* response, std::function<void(::grpc::Status)>) override;
+      void SetResolvConfig(::grpc::ClientContext* context, const ::vm_tools::SetResolvConfigRequest* request, ::vm_tools::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) override;
       void GetKernelVersion(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::GetKernelVersionResponse* response, std::function<void(::grpc::Status)>) override;
+      void GetKernelVersion(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::GetKernelVersionResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void ResizeFilesystem(::grpc::ClientContext* context, const ::vm_tools::ResizeFilesystemRequest* request, ::vm_tools::ResizeFilesystemResponse* response, std::function<void(::grpc::Status)>) override;
+      void ResizeFilesystem(::grpc::ClientContext* context, const ::vm_tools::ResizeFilesystemRequest* request, ::vm_tools::ResizeFilesystemResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void GetResizeStatus(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::GetResizeStatusResponse* response, std::function<void(::grpc::Status)>) override;
+      void GetResizeStatus(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::GetResizeStatusResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void GetResizeBounds(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::GetResizeBoundsResponse* response, std::function<void(::grpc::Status)>) override;
+      void GetResizeBounds(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::GetResizeBoundsResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void GetAvailableSpace(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::GetAvailableSpaceResponse* response, std::function<void(::grpc::Status)>) override;
+      void GetAvailableSpace(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::GetAvailableSpaceResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void PrepareToSuspend(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::EmptyMessage* response, std::function<void(::grpc::Status)>) override;
+      void PrepareToSuspend(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) override;
      private:
       friend class Stub;
-      explicit experimental_async(Stub* stub): stub_(stub) { }
+      explicit async(Stub* stub): stub_(stub) { }
       Stub* stub() { return stub_; }
       Stub* stub_;
     };
-    class experimental_async_interface* experimental_async() override { return &async_stub_; }
+    class async* async() override { return &async_stub_; }
 
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
-    class experimental_async async_stub_{this};
+    class async async_stub_{this};
     ::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>* AsyncConfigureNetworkRaw(::grpc::ClientContext* context, const ::vm_tools::NetworkConfigRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>* PrepareAsyncConfigureNetworkRaw(::grpc::ClientContext* context, const ::vm_tools::NetworkConfigRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>* AsyncConfigureContainerGuestRaw(::grpc::ClientContext* context, const ::vm_tools::ConfigureContainerGuestRequest& request, ::grpc::CompletionQueue* cq) override;
@@ -550,7 +588,7 @@ class Maitred final {
   template <class BaseClass>
   class WithAsyncMethod_ConfigureNetwork : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_ConfigureNetwork() {
       ::grpc::Service::MarkMethodAsync(0);
@@ -559,7 +597,7 @@ class Maitred final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status ConfigureNetwork(::grpc::ServerContext* context, const ::vm_tools::NetworkConfigRequest* request, ::vm_tools::EmptyMessage* response) override {
+    ::grpc::Status ConfigureNetwork(::grpc::ServerContext* /*context*/, const ::vm_tools::NetworkConfigRequest* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -570,7 +608,7 @@ class Maitred final {
   template <class BaseClass>
   class WithAsyncMethod_ConfigureContainerGuest : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_ConfigureContainerGuest() {
       ::grpc::Service::MarkMethodAsync(1);
@@ -579,7 +617,7 @@ class Maitred final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status ConfigureContainerGuest(::grpc::ServerContext* context, const ::vm_tools::ConfigureContainerGuestRequest* request, ::vm_tools::EmptyMessage* response) override {
+    ::grpc::Status ConfigureContainerGuest(::grpc::ServerContext* /*context*/, const ::vm_tools::ConfigureContainerGuestRequest* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -590,7 +628,7 @@ class Maitred final {
   template <class BaseClass>
   class WithAsyncMethod_ResetIPv6 : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_ResetIPv6() {
       ::grpc::Service::MarkMethodAsync(2);
@@ -599,7 +637,7 @@ class Maitred final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status ResetIPv6(::grpc::ServerContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::EmptyMessage* response) override {
+    ::grpc::Status ResetIPv6(::grpc::ServerContext* /*context*/, const ::vm_tools::EmptyMessage* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -610,7 +648,7 @@ class Maitred final {
   template <class BaseClass>
   class WithAsyncMethod_OnHostNetworkChanged : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_OnHostNetworkChanged() {
       ::grpc::Service::MarkMethodAsync(3);
@@ -619,7 +657,7 @@ class Maitred final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status OnHostNetworkChanged(::grpc::ServerContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::EmptyMessage* response) override {
+    ::grpc::Status OnHostNetworkChanged(::grpc::ServerContext* /*context*/, const ::vm_tools::EmptyMessage* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -630,7 +668,7 @@ class Maitred final {
   template <class BaseClass>
   class WithAsyncMethod_Shutdown : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_Shutdown() {
       ::grpc::Service::MarkMethodAsync(4);
@@ -639,7 +677,7 @@ class Maitred final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status Shutdown(::grpc::ServerContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::EmptyMessage* response) override {
+    ::grpc::Status Shutdown(::grpc::ServerContext* /*context*/, const ::vm_tools::EmptyMessage* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -650,7 +688,7 @@ class Maitred final {
   template <class BaseClass>
   class WithAsyncMethod_LaunchProcess : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_LaunchProcess() {
       ::grpc::Service::MarkMethodAsync(5);
@@ -659,7 +697,7 @@ class Maitred final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status LaunchProcess(::grpc::ServerContext* context, const ::vm_tools::LaunchProcessRequest* request, ::vm_tools::LaunchProcessResponse* response) override {
+    ::grpc::Status LaunchProcess(::grpc::ServerContext* /*context*/, const ::vm_tools::LaunchProcessRequest* /*request*/, ::vm_tools::LaunchProcessResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -670,7 +708,7 @@ class Maitred final {
   template <class BaseClass>
   class WithAsyncMethod_Mount : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_Mount() {
       ::grpc::Service::MarkMethodAsync(6);
@@ -679,7 +717,7 @@ class Maitred final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status Mount(::grpc::ServerContext* context, const ::vm_tools::MountRequest* request, ::vm_tools::MountResponse* response) override {
+    ::grpc::Status Mount(::grpc::ServerContext* /*context*/, const ::vm_tools::MountRequest* /*request*/, ::vm_tools::MountResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -690,7 +728,7 @@ class Maitred final {
   template <class BaseClass>
   class WithAsyncMethod_StartTermina : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_StartTermina() {
       ::grpc::Service::MarkMethodAsync(7);
@@ -699,7 +737,7 @@ class Maitred final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status StartTermina(::grpc::ServerContext* context, const ::vm_tools::StartTerminaRequest* request, ::vm_tools::StartTerminaResponse* response) override {
+    ::grpc::Status StartTermina(::grpc::ServerContext* /*context*/, const ::vm_tools::StartTerminaRequest* /*request*/, ::vm_tools::StartTerminaResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -710,7 +748,7 @@ class Maitred final {
   template <class BaseClass>
   class WithAsyncMethod_SetTime : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_SetTime() {
       ::grpc::Service::MarkMethodAsync(8);
@@ -719,7 +757,7 @@ class Maitred final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status SetTime(::grpc::ServerContext* context, const ::vm_tools::SetTimeRequest* request, ::vm_tools::EmptyMessage* response) override {
+    ::grpc::Status SetTime(::grpc::ServerContext* /*context*/, const ::vm_tools::SetTimeRequest* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -730,7 +768,7 @@ class Maitred final {
   template <class BaseClass>
   class WithAsyncMethod_SetTimezone : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_SetTimezone() {
       ::grpc::Service::MarkMethodAsync(9);
@@ -739,7 +777,7 @@ class Maitred final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status SetTimezone(::grpc::ServerContext* context, const ::vm_tools::SetTimezoneRequest* request, ::vm_tools::EmptyMessage* response) override {
+    ::grpc::Status SetTimezone(::grpc::ServerContext* /*context*/, const ::vm_tools::SetTimezoneRequest* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -750,7 +788,7 @@ class Maitred final {
   template <class BaseClass>
   class WithAsyncMethod_Mount9P : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_Mount9P() {
       ::grpc::Service::MarkMethodAsync(10);
@@ -759,7 +797,7 @@ class Maitred final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status Mount9P(::grpc::ServerContext* context, const ::vm_tools::Mount9PRequest* request, ::vm_tools::MountResponse* response) override {
+    ::grpc::Status Mount9P(::grpc::ServerContext* /*context*/, const ::vm_tools::Mount9PRequest* /*request*/, ::vm_tools::MountResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -770,7 +808,7 @@ class Maitred final {
   template <class BaseClass>
   class WithAsyncMethod_SetResolvConfig : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_SetResolvConfig() {
       ::grpc::Service::MarkMethodAsync(11);
@@ -779,7 +817,7 @@ class Maitred final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status SetResolvConfig(::grpc::ServerContext* context, const ::vm_tools::SetResolvConfigRequest* request, ::vm_tools::EmptyMessage* response) override {
+    ::grpc::Status SetResolvConfig(::grpc::ServerContext* /*context*/, const ::vm_tools::SetResolvConfigRequest* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -790,7 +828,7 @@ class Maitred final {
   template <class BaseClass>
   class WithAsyncMethod_GetKernelVersion : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_GetKernelVersion() {
       ::grpc::Service::MarkMethodAsync(12);
@@ -799,7 +837,7 @@ class Maitred final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetKernelVersion(::grpc::ServerContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::GetKernelVersionResponse* response) override {
+    ::grpc::Status GetKernelVersion(::grpc::ServerContext* /*context*/, const ::vm_tools::EmptyMessage* /*request*/, ::vm_tools::GetKernelVersionResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -810,7 +848,7 @@ class Maitred final {
   template <class BaseClass>
   class WithAsyncMethod_ResizeFilesystem : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_ResizeFilesystem() {
       ::grpc::Service::MarkMethodAsync(13);
@@ -819,7 +857,7 @@ class Maitred final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status ResizeFilesystem(::grpc::ServerContext* context, const ::vm_tools::ResizeFilesystemRequest* request, ::vm_tools::ResizeFilesystemResponse* response) override {
+    ::grpc::Status ResizeFilesystem(::grpc::ServerContext* /*context*/, const ::vm_tools::ResizeFilesystemRequest* /*request*/, ::vm_tools::ResizeFilesystemResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -830,7 +868,7 @@ class Maitred final {
   template <class BaseClass>
   class WithAsyncMethod_GetResizeStatus : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_GetResizeStatus() {
       ::grpc::Service::MarkMethodAsync(14);
@@ -839,7 +877,7 @@ class Maitred final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetResizeStatus(::grpc::ServerContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::GetResizeStatusResponse* response) override {
+    ::grpc::Status GetResizeStatus(::grpc::ServerContext* /*context*/, const ::vm_tools::EmptyMessage* /*request*/, ::vm_tools::GetResizeStatusResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -850,7 +888,7 @@ class Maitred final {
   template <class BaseClass>
   class WithAsyncMethod_GetResizeBounds : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_GetResizeBounds() {
       ::grpc::Service::MarkMethodAsync(15);
@@ -859,7 +897,7 @@ class Maitred final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetResizeBounds(::grpc::ServerContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::GetResizeBoundsResponse* response) override {
+    ::grpc::Status GetResizeBounds(::grpc::ServerContext* /*context*/, const ::vm_tools::EmptyMessage* /*request*/, ::vm_tools::GetResizeBoundsResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -870,7 +908,7 @@ class Maitred final {
   template <class BaseClass>
   class WithAsyncMethod_GetAvailableSpace : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_GetAvailableSpace() {
       ::grpc::Service::MarkMethodAsync(16);
@@ -879,7 +917,7 @@ class Maitred final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetAvailableSpace(::grpc::ServerContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::GetAvailableSpaceResponse* response) override {
+    ::grpc::Status GetAvailableSpace(::grpc::ServerContext* /*context*/, const ::vm_tools::EmptyMessage* /*request*/, ::vm_tools::GetAvailableSpaceResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -890,7 +928,7 @@ class Maitred final {
   template <class BaseClass>
   class WithAsyncMethod_PrepareToSuspend : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_PrepareToSuspend() {
       ::grpc::Service::MarkMethodAsync(17);
@@ -899,7 +937,7 @@ class Maitred final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status PrepareToSuspend(::grpc::ServerContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::EmptyMessage* response) override {
+    ::grpc::Status PrepareToSuspend(::grpc::ServerContext* /*context*/, const ::vm_tools::EmptyMessage* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -909,9 +947,497 @@ class Maitred final {
   };
   typedef WithAsyncMethod_ConfigureNetwork<WithAsyncMethod_ConfigureContainerGuest<WithAsyncMethod_ResetIPv6<WithAsyncMethod_OnHostNetworkChanged<WithAsyncMethod_Shutdown<WithAsyncMethod_LaunchProcess<WithAsyncMethod_Mount<WithAsyncMethod_StartTermina<WithAsyncMethod_SetTime<WithAsyncMethod_SetTimezone<WithAsyncMethod_Mount9P<WithAsyncMethod_SetResolvConfig<WithAsyncMethod_GetKernelVersion<WithAsyncMethod_ResizeFilesystem<WithAsyncMethod_GetResizeStatus<WithAsyncMethod_GetResizeBounds<WithAsyncMethod_GetAvailableSpace<WithAsyncMethod_PrepareToSuspend<Service > > > > > > > > > > > > > > > > > > AsyncService;
   template <class BaseClass>
+  class WithCallbackMethod_ConfigureNetwork : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_ConfigureNetwork() {
+      ::grpc::Service::MarkMethodCallback(0,
+          new ::grpc::internal::CallbackUnaryHandler< ::vm_tools::NetworkConfigRequest, ::vm_tools::EmptyMessage>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::vm_tools::NetworkConfigRequest* request, ::vm_tools::EmptyMessage* response) { return this->ConfigureNetwork(context, request, response); }));}
+    void SetMessageAllocatorFor_ConfigureNetwork(
+        ::grpc::MessageAllocator< ::vm_tools::NetworkConfigRequest, ::vm_tools::EmptyMessage>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(0);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::vm_tools::NetworkConfigRequest, ::vm_tools::EmptyMessage>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_ConfigureNetwork() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ConfigureNetwork(::grpc::ServerContext* /*context*/, const ::vm_tools::NetworkConfigRequest* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* ConfigureNetwork(
+      ::grpc::CallbackServerContext* /*context*/, const ::vm_tools::NetworkConfigRequest* /*request*/, ::vm_tools::EmptyMessage* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_ConfigureContainerGuest : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_ConfigureContainerGuest() {
+      ::grpc::Service::MarkMethodCallback(1,
+          new ::grpc::internal::CallbackUnaryHandler< ::vm_tools::ConfigureContainerGuestRequest, ::vm_tools::EmptyMessage>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::vm_tools::ConfigureContainerGuestRequest* request, ::vm_tools::EmptyMessage* response) { return this->ConfigureContainerGuest(context, request, response); }));}
+    void SetMessageAllocatorFor_ConfigureContainerGuest(
+        ::grpc::MessageAllocator< ::vm_tools::ConfigureContainerGuestRequest, ::vm_tools::EmptyMessage>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(1);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::vm_tools::ConfigureContainerGuestRequest, ::vm_tools::EmptyMessage>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_ConfigureContainerGuest() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ConfigureContainerGuest(::grpc::ServerContext* /*context*/, const ::vm_tools::ConfigureContainerGuestRequest* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* ConfigureContainerGuest(
+      ::grpc::CallbackServerContext* /*context*/, const ::vm_tools::ConfigureContainerGuestRequest* /*request*/, ::vm_tools::EmptyMessage* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_ResetIPv6 : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_ResetIPv6() {
+      ::grpc::Service::MarkMethodCallback(2,
+          new ::grpc::internal::CallbackUnaryHandler< ::vm_tools::EmptyMessage, ::vm_tools::EmptyMessage>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::EmptyMessage* response) { return this->ResetIPv6(context, request, response); }));}
+    void SetMessageAllocatorFor_ResetIPv6(
+        ::grpc::MessageAllocator< ::vm_tools::EmptyMessage, ::vm_tools::EmptyMessage>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(2);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::vm_tools::EmptyMessage, ::vm_tools::EmptyMessage>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_ResetIPv6() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ResetIPv6(::grpc::ServerContext* /*context*/, const ::vm_tools::EmptyMessage* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* ResetIPv6(
+      ::grpc::CallbackServerContext* /*context*/, const ::vm_tools::EmptyMessage* /*request*/, ::vm_tools::EmptyMessage* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_OnHostNetworkChanged : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_OnHostNetworkChanged() {
+      ::grpc::Service::MarkMethodCallback(3,
+          new ::grpc::internal::CallbackUnaryHandler< ::vm_tools::EmptyMessage, ::vm_tools::EmptyMessage>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::EmptyMessage* response) { return this->OnHostNetworkChanged(context, request, response); }));}
+    void SetMessageAllocatorFor_OnHostNetworkChanged(
+        ::grpc::MessageAllocator< ::vm_tools::EmptyMessage, ::vm_tools::EmptyMessage>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(3);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::vm_tools::EmptyMessage, ::vm_tools::EmptyMessage>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_OnHostNetworkChanged() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status OnHostNetworkChanged(::grpc::ServerContext* /*context*/, const ::vm_tools::EmptyMessage* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* OnHostNetworkChanged(
+      ::grpc::CallbackServerContext* /*context*/, const ::vm_tools::EmptyMessage* /*request*/, ::vm_tools::EmptyMessage* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_Shutdown : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_Shutdown() {
+      ::grpc::Service::MarkMethodCallback(4,
+          new ::grpc::internal::CallbackUnaryHandler< ::vm_tools::EmptyMessage, ::vm_tools::EmptyMessage>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::EmptyMessage* response) { return this->Shutdown(context, request, response); }));}
+    void SetMessageAllocatorFor_Shutdown(
+        ::grpc::MessageAllocator< ::vm_tools::EmptyMessage, ::vm_tools::EmptyMessage>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(4);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::vm_tools::EmptyMessage, ::vm_tools::EmptyMessage>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_Shutdown() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status Shutdown(::grpc::ServerContext* /*context*/, const ::vm_tools::EmptyMessage* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* Shutdown(
+      ::grpc::CallbackServerContext* /*context*/, const ::vm_tools::EmptyMessage* /*request*/, ::vm_tools::EmptyMessage* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_LaunchProcess : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_LaunchProcess() {
+      ::grpc::Service::MarkMethodCallback(5,
+          new ::grpc::internal::CallbackUnaryHandler< ::vm_tools::LaunchProcessRequest, ::vm_tools::LaunchProcessResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::vm_tools::LaunchProcessRequest* request, ::vm_tools::LaunchProcessResponse* response) { return this->LaunchProcess(context, request, response); }));}
+    void SetMessageAllocatorFor_LaunchProcess(
+        ::grpc::MessageAllocator< ::vm_tools::LaunchProcessRequest, ::vm_tools::LaunchProcessResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(5);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::vm_tools::LaunchProcessRequest, ::vm_tools::LaunchProcessResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_LaunchProcess() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status LaunchProcess(::grpc::ServerContext* /*context*/, const ::vm_tools::LaunchProcessRequest* /*request*/, ::vm_tools::LaunchProcessResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* LaunchProcess(
+      ::grpc::CallbackServerContext* /*context*/, const ::vm_tools::LaunchProcessRequest* /*request*/, ::vm_tools::LaunchProcessResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_Mount : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_Mount() {
+      ::grpc::Service::MarkMethodCallback(6,
+          new ::grpc::internal::CallbackUnaryHandler< ::vm_tools::MountRequest, ::vm_tools::MountResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::vm_tools::MountRequest* request, ::vm_tools::MountResponse* response) { return this->Mount(context, request, response); }));}
+    void SetMessageAllocatorFor_Mount(
+        ::grpc::MessageAllocator< ::vm_tools::MountRequest, ::vm_tools::MountResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(6);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::vm_tools::MountRequest, ::vm_tools::MountResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_Mount() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status Mount(::grpc::ServerContext* /*context*/, const ::vm_tools::MountRequest* /*request*/, ::vm_tools::MountResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* Mount(
+      ::grpc::CallbackServerContext* /*context*/, const ::vm_tools::MountRequest* /*request*/, ::vm_tools::MountResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_StartTermina : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_StartTermina() {
+      ::grpc::Service::MarkMethodCallback(7,
+          new ::grpc::internal::CallbackUnaryHandler< ::vm_tools::StartTerminaRequest, ::vm_tools::StartTerminaResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::vm_tools::StartTerminaRequest* request, ::vm_tools::StartTerminaResponse* response) { return this->StartTermina(context, request, response); }));}
+    void SetMessageAllocatorFor_StartTermina(
+        ::grpc::MessageAllocator< ::vm_tools::StartTerminaRequest, ::vm_tools::StartTerminaResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(7);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::vm_tools::StartTerminaRequest, ::vm_tools::StartTerminaResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_StartTermina() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status StartTermina(::grpc::ServerContext* /*context*/, const ::vm_tools::StartTerminaRequest* /*request*/, ::vm_tools::StartTerminaResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* StartTermina(
+      ::grpc::CallbackServerContext* /*context*/, const ::vm_tools::StartTerminaRequest* /*request*/, ::vm_tools::StartTerminaResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_SetTime : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_SetTime() {
+      ::grpc::Service::MarkMethodCallback(8,
+          new ::grpc::internal::CallbackUnaryHandler< ::vm_tools::SetTimeRequest, ::vm_tools::EmptyMessage>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::vm_tools::SetTimeRequest* request, ::vm_tools::EmptyMessage* response) { return this->SetTime(context, request, response); }));}
+    void SetMessageAllocatorFor_SetTime(
+        ::grpc::MessageAllocator< ::vm_tools::SetTimeRequest, ::vm_tools::EmptyMessage>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(8);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::vm_tools::SetTimeRequest, ::vm_tools::EmptyMessage>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_SetTime() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status SetTime(::grpc::ServerContext* /*context*/, const ::vm_tools::SetTimeRequest* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* SetTime(
+      ::grpc::CallbackServerContext* /*context*/, const ::vm_tools::SetTimeRequest* /*request*/, ::vm_tools::EmptyMessage* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_SetTimezone : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_SetTimezone() {
+      ::grpc::Service::MarkMethodCallback(9,
+          new ::grpc::internal::CallbackUnaryHandler< ::vm_tools::SetTimezoneRequest, ::vm_tools::EmptyMessage>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::vm_tools::SetTimezoneRequest* request, ::vm_tools::EmptyMessage* response) { return this->SetTimezone(context, request, response); }));}
+    void SetMessageAllocatorFor_SetTimezone(
+        ::grpc::MessageAllocator< ::vm_tools::SetTimezoneRequest, ::vm_tools::EmptyMessage>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(9);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::vm_tools::SetTimezoneRequest, ::vm_tools::EmptyMessage>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_SetTimezone() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status SetTimezone(::grpc::ServerContext* /*context*/, const ::vm_tools::SetTimezoneRequest* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* SetTimezone(
+      ::grpc::CallbackServerContext* /*context*/, const ::vm_tools::SetTimezoneRequest* /*request*/, ::vm_tools::EmptyMessage* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_Mount9P : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_Mount9P() {
+      ::grpc::Service::MarkMethodCallback(10,
+          new ::grpc::internal::CallbackUnaryHandler< ::vm_tools::Mount9PRequest, ::vm_tools::MountResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::vm_tools::Mount9PRequest* request, ::vm_tools::MountResponse* response) { return this->Mount9P(context, request, response); }));}
+    void SetMessageAllocatorFor_Mount9P(
+        ::grpc::MessageAllocator< ::vm_tools::Mount9PRequest, ::vm_tools::MountResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(10);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::vm_tools::Mount9PRequest, ::vm_tools::MountResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_Mount9P() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status Mount9P(::grpc::ServerContext* /*context*/, const ::vm_tools::Mount9PRequest* /*request*/, ::vm_tools::MountResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* Mount9P(
+      ::grpc::CallbackServerContext* /*context*/, const ::vm_tools::Mount9PRequest* /*request*/, ::vm_tools::MountResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_SetResolvConfig : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_SetResolvConfig() {
+      ::grpc::Service::MarkMethodCallback(11,
+          new ::grpc::internal::CallbackUnaryHandler< ::vm_tools::SetResolvConfigRequest, ::vm_tools::EmptyMessage>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::vm_tools::SetResolvConfigRequest* request, ::vm_tools::EmptyMessage* response) { return this->SetResolvConfig(context, request, response); }));}
+    void SetMessageAllocatorFor_SetResolvConfig(
+        ::grpc::MessageAllocator< ::vm_tools::SetResolvConfigRequest, ::vm_tools::EmptyMessage>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(11);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::vm_tools::SetResolvConfigRequest, ::vm_tools::EmptyMessage>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_SetResolvConfig() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status SetResolvConfig(::grpc::ServerContext* /*context*/, const ::vm_tools::SetResolvConfigRequest* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* SetResolvConfig(
+      ::grpc::CallbackServerContext* /*context*/, const ::vm_tools::SetResolvConfigRequest* /*request*/, ::vm_tools::EmptyMessage* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_GetKernelVersion : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_GetKernelVersion() {
+      ::grpc::Service::MarkMethodCallback(12,
+          new ::grpc::internal::CallbackUnaryHandler< ::vm_tools::EmptyMessage, ::vm_tools::GetKernelVersionResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::GetKernelVersionResponse* response) { return this->GetKernelVersion(context, request, response); }));}
+    void SetMessageAllocatorFor_GetKernelVersion(
+        ::grpc::MessageAllocator< ::vm_tools::EmptyMessage, ::vm_tools::GetKernelVersionResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(12);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::vm_tools::EmptyMessage, ::vm_tools::GetKernelVersionResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_GetKernelVersion() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetKernelVersion(::grpc::ServerContext* /*context*/, const ::vm_tools::EmptyMessage* /*request*/, ::vm_tools::GetKernelVersionResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetKernelVersion(
+      ::grpc::CallbackServerContext* /*context*/, const ::vm_tools::EmptyMessage* /*request*/, ::vm_tools::GetKernelVersionResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_ResizeFilesystem : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_ResizeFilesystem() {
+      ::grpc::Service::MarkMethodCallback(13,
+          new ::grpc::internal::CallbackUnaryHandler< ::vm_tools::ResizeFilesystemRequest, ::vm_tools::ResizeFilesystemResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::vm_tools::ResizeFilesystemRequest* request, ::vm_tools::ResizeFilesystemResponse* response) { return this->ResizeFilesystem(context, request, response); }));}
+    void SetMessageAllocatorFor_ResizeFilesystem(
+        ::grpc::MessageAllocator< ::vm_tools::ResizeFilesystemRequest, ::vm_tools::ResizeFilesystemResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(13);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::vm_tools::ResizeFilesystemRequest, ::vm_tools::ResizeFilesystemResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_ResizeFilesystem() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ResizeFilesystem(::grpc::ServerContext* /*context*/, const ::vm_tools::ResizeFilesystemRequest* /*request*/, ::vm_tools::ResizeFilesystemResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* ResizeFilesystem(
+      ::grpc::CallbackServerContext* /*context*/, const ::vm_tools::ResizeFilesystemRequest* /*request*/, ::vm_tools::ResizeFilesystemResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_GetResizeStatus : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_GetResizeStatus() {
+      ::grpc::Service::MarkMethodCallback(14,
+          new ::grpc::internal::CallbackUnaryHandler< ::vm_tools::EmptyMessage, ::vm_tools::GetResizeStatusResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::GetResizeStatusResponse* response) { return this->GetResizeStatus(context, request, response); }));}
+    void SetMessageAllocatorFor_GetResizeStatus(
+        ::grpc::MessageAllocator< ::vm_tools::EmptyMessage, ::vm_tools::GetResizeStatusResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(14);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::vm_tools::EmptyMessage, ::vm_tools::GetResizeStatusResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_GetResizeStatus() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetResizeStatus(::grpc::ServerContext* /*context*/, const ::vm_tools::EmptyMessage* /*request*/, ::vm_tools::GetResizeStatusResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetResizeStatus(
+      ::grpc::CallbackServerContext* /*context*/, const ::vm_tools::EmptyMessage* /*request*/, ::vm_tools::GetResizeStatusResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_GetResizeBounds : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_GetResizeBounds() {
+      ::grpc::Service::MarkMethodCallback(15,
+          new ::grpc::internal::CallbackUnaryHandler< ::vm_tools::EmptyMessage, ::vm_tools::GetResizeBoundsResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::GetResizeBoundsResponse* response) { return this->GetResizeBounds(context, request, response); }));}
+    void SetMessageAllocatorFor_GetResizeBounds(
+        ::grpc::MessageAllocator< ::vm_tools::EmptyMessage, ::vm_tools::GetResizeBoundsResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(15);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::vm_tools::EmptyMessage, ::vm_tools::GetResizeBoundsResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_GetResizeBounds() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetResizeBounds(::grpc::ServerContext* /*context*/, const ::vm_tools::EmptyMessage* /*request*/, ::vm_tools::GetResizeBoundsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetResizeBounds(
+      ::grpc::CallbackServerContext* /*context*/, const ::vm_tools::EmptyMessage* /*request*/, ::vm_tools::GetResizeBoundsResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_GetAvailableSpace : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_GetAvailableSpace() {
+      ::grpc::Service::MarkMethodCallback(16,
+          new ::grpc::internal::CallbackUnaryHandler< ::vm_tools::EmptyMessage, ::vm_tools::GetAvailableSpaceResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::GetAvailableSpaceResponse* response) { return this->GetAvailableSpace(context, request, response); }));}
+    void SetMessageAllocatorFor_GetAvailableSpace(
+        ::grpc::MessageAllocator< ::vm_tools::EmptyMessage, ::vm_tools::GetAvailableSpaceResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(16);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::vm_tools::EmptyMessage, ::vm_tools::GetAvailableSpaceResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_GetAvailableSpace() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetAvailableSpace(::grpc::ServerContext* /*context*/, const ::vm_tools::EmptyMessage* /*request*/, ::vm_tools::GetAvailableSpaceResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetAvailableSpace(
+      ::grpc::CallbackServerContext* /*context*/, const ::vm_tools::EmptyMessage* /*request*/, ::vm_tools::GetAvailableSpaceResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_PrepareToSuspend : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_PrepareToSuspend() {
+      ::grpc::Service::MarkMethodCallback(17,
+          new ::grpc::internal::CallbackUnaryHandler< ::vm_tools::EmptyMessage, ::vm_tools::EmptyMessage>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::EmptyMessage* response) { return this->PrepareToSuspend(context, request, response); }));}
+    void SetMessageAllocatorFor_PrepareToSuspend(
+        ::grpc::MessageAllocator< ::vm_tools::EmptyMessage, ::vm_tools::EmptyMessage>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(17);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::vm_tools::EmptyMessage, ::vm_tools::EmptyMessage>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_PrepareToSuspend() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status PrepareToSuspend(::grpc::ServerContext* /*context*/, const ::vm_tools::EmptyMessage* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* PrepareToSuspend(
+      ::grpc::CallbackServerContext* /*context*/, const ::vm_tools::EmptyMessage* /*request*/, ::vm_tools::EmptyMessage* /*response*/)  { return nullptr; }
+  };
+  typedef WithCallbackMethod_ConfigureNetwork<WithCallbackMethod_ConfigureContainerGuest<WithCallbackMethod_ResetIPv6<WithCallbackMethod_OnHostNetworkChanged<WithCallbackMethod_Shutdown<WithCallbackMethod_LaunchProcess<WithCallbackMethod_Mount<WithCallbackMethod_StartTermina<WithCallbackMethod_SetTime<WithCallbackMethod_SetTimezone<WithCallbackMethod_Mount9P<WithCallbackMethod_SetResolvConfig<WithCallbackMethod_GetKernelVersion<WithCallbackMethod_ResizeFilesystem<WithCallbackMethod_GetResizeStatus<WithCallbackMethod_GetResizeBounds<WithCallbackMethod_GetAvailableSpace<WithCallbackMethod_PrepareToSuspend<Service > > > > > > > > > > > > > > > > > > CallbackService;
+  typedef CallbackService ExperimentalCallbackService;
+  template <class BaseClass>
   class WithGenericMethod_ConfigureNetwork : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_ConfigureNetwork() {
       ::grpc::Service::MarkMethodGeneric(0);
@@ -920,7 +1446,7 @@ class Maitred final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status ConfigureNetwork(::grpc::ServerContext* context, const ::vm_tools::NetworkConfigRequest* request, ::vm_tools::EmptyMessage* response) override {
+    ::grpc::Status ConfigureNetwork(::grpc::ServerContext* /*context*/, const ::vm_tools::NetworkConfigRequest* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -928,7 +1454,7 @@ class Maitred final {
   template <class BaseClass>
   class WithGenericMethod_ConfigureContainerGuest : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_ConfigureContainerGuest() {
       ::grpc::Service::MarkMethodGeneric(1);
@@ -937,7 +1463,7 @@ class Maitred final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status ConfigureContainerGuest(::grpc::ServerContext* context, const ::vm_tools::ConfigureContainerGuestRequest* request, ::vm_tools::EmptyMessage* response) override {
+    ::grpc::Status ConfigureContainerGuest(::grpc::ServerContext* /*context*/, const ::vm_tools::ConfigureContainerGuestRequest* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -945,7 +1471,7 @@ class Maitred final {
   template <class BaseClass>
   class WithGenericMethod_ResetIPv6 : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_ResetIPv6() {
       ::grpc::Service::MarkMethodGeneric(2);
@@ -954,7 +1480,7 @@ class Maitred final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status ResetIPv6(::grpc::ServerContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::EmptyMessage* response) override {
+    ::grpc::Status ResetIPv6(::grpc::ServerContext* /*context*/, const ::vm_tools::EmptyMessage* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -962,7 +1488,7 @@ class Maitred final {
   template <class BaseClass>
   class WithGenericMethod_OnHostNetworkChanged : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_OnHostNetworkChanged() {
       ::grpc::Service::MarkMethodGeneric(3);
@@ -971,7 +1497,7 @@ class Maitred final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status OnHostNetworkChanged(::grpc::ServerContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::EmptyMessage* response) override {
+    ::grpc::Status OnHostNetworkChanged(::grpc::ServerContext* /*context*/, const ::vm_tools::EmptyMessage* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -979,7 +1505,7 @@ class Maitred final {
   template <class BaseClass>
   class WithGenericMethod_Shutdown : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_Shutdown() {
       ::grpc::Service::MarkMethodGeneric(4);
@@ -988,7 +1514,7 @@ class Maitred final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status Shutdown(::grpc::ServerContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::EmptyMessage* response) override {
+    ::grpc::Status Shutdown(::grpc::ServerContext* /*context*/, const ::vm_tools::EmptyMessage* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -996,7 +1522,7 @@ class Maitred final {
   template <class BaseClass>
   class WithGenericMethod_LaunchProcess : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_LaunchProcess() {
       ::grpc::Service::MarkMethodGeneric(5);
@@ -1005,7 +1531,7 @@ class Maitred final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status LaunchProcess(::grpc::ServerContext* context, const ::vm_tools::LaunchProcessRequest* request, ::vm_tools::LaunchProcessResponse* response) override {
+    ::grpc::Status LaunchProcess(::grpc::ServerContext* /*context*/, const ::vm_tools::LaunchProcessRequest* /*request*/, ::vm_tools::LaunchProcessResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1013,7 +1539,7 @@ class Maitred final {
   template <class BaseClass>
   class WithGenericMethod_Mount : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_Mount() {
       ::grpc::Service::MarkMethodGeneric(6);
@@ -1022,7 +1548,7 @@ class Maitred final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status Mount(::grpc::ServerContext* context, const ::vm_tools::MountRequest* request, ::vm_tools::MountResponse* response) override {
+    ::grpc::Status Mount(::grpc::ServerContext* /*context*/, const ::vm_tools::MountRequest* /*request*/, ::vm_tools::MountResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1030,7 +1556,7 @@ class Maitred final {
   template <class BaseClass>
   class WithGenericMethod_StartTermina : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_StartTermina() {
       ::grpc::Service::MarkMethodGeneric(7);
@@ -1039,7 +1565,7 @@ class Maitred final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status StartTermina(::grpc::ServerContext* context, const ::vm_tools::StartTerminaRequest* request, ::vm_tools::StartTerminaResponse* response) override {
+    ::grpc::Status StartTermina(::grpc::ServerContext* /*context*/, const ::vm_tools::StartTerminaRequest* /*request*/, ::vm_tools::StartTerminaResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1047,7 +1573,7 @@ class Maitred final {
   template <class BaseClass>
   class WithGenericMethod_SetTime : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_SetTime() {
       ::grpc::Service::MarkMethodGeneric(8);
@@ -1056,7 +1582,7 @@ class Maitred final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status SetTime(::grpc::ServerContext* context, const ::vm_tools::SetTimeRequest* request, ::vm_tools::EmptyMessage* response) override {
+    ::grpc::Status SetTime(::grpc::ServerContext* /*context*/, const ::vm_tools::SetTimeRequest* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1064,7 +1590,7 @@ class Maitred final {
   template <class BaseClass>
   class WithGenericMethod_SetTimezone : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_SetTimezone() {
       ::grpc::Service::MarkMethodGeneric(9);
@@ -1073,7 +1599,7 @@ class Maitred final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status SetTimezone(::grpc::ServerContext* context, const ::vm_tools::SetTimezoneRequest* request, ::vm_tools::EmptyMessage* response) override {
+    ::grpc::Status SetTimezone(::grpc::ServerContext* /*context*/, const ::vm_tools::SetTimezoneRequest* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1081,7 +1607,7 @@ class Maitred final {
   template <class BaseClass>
   class WithGenericMethod_Mount9P : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_Mount9P() {
       ::grpc::Service::MarkMethodGeneric(10);
@@ -1090,7 +1616,7 @@ class Maitred final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status Mount9P(::grpc::ServerContext* context, const ::vm_tools::Mount9PRequest* request, ::vm_tools::MountResponse* response) override {
+    ::grpc::Status Mount9P(::grpc::ServerContext* /*context*/, const ::vm_tools::Mount9PRequest* /*request*/, ::vm_tools::MountResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1098,7 +1624,7 @@ class Maitred final {
   template <class BaseClass>
   class WithGenericMethod_SetResolvConfig : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_SetResolvConfig() {
       ::grpc::Service::MarkMethodGeneric(11);
@@ -1107,7 +1633,7 @@ class Maitred final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status SetResolvConfig(::grpc::ServerContext* context, const ::vm_tools::SetResolvConfigRequest* request, ::vm_tools::EmptyMessage* response) override {
+    ::grpc::Status SetResolvConfig(::grpc::ServerContext* /*context*/, const ::vm_tools::SetResolvConfigRequest* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1115,7 +1641,7 @@ class Maitred final {
   template <class BaseClass>
   class WithGenericMethod_GetKernelVersion : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_GetKernelVersion() {
       ::grpc::Service::MarkMethodGeneric(12);
@@ -1124,7 +1650,7 @@ class Maitred final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetKernelVersion(::grpc::ServerContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::GetKernelVersionResponse* response) override {
+    ::grpc::Status GetKernelVersion(::grpc::ServerContext* /*context*/, const ::vm_tools::EmptyMessage* /*request*/, ::vm_tools::GetKernelVersionResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1132,7 +1658,7 @@ class Maitred final {
   template <class BaseClass>
   class WithGenericMethod_ResizeFilesystem : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_ResizeFilesystem() {
       ::grpc::Service::MarkMethodGeneric(13);
@@ -1141,7 +1667,7 @@ class Maitred final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status ResizeFilesystem(::grpc::ServerContext* context, const ::vm_tools::ResizeFilesystemRequest* request, ::vm_tools::ResizeFilesystemResponse* response) override {
+    ::grpc::Status ResizeFilesystem(::grpc::ServerContext* /*context*/, const ::vm_tools::ResizeFilesystemRequest* /*request*/, ::vm_tools::ResizeFilesystemResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1149,7 +1675,7 @@ class Maitred final {
   template <class BaseClass>
   class WithGenericMethod_GetResizeStatus : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_GetResizeStatus() {
       ::grpc::Service::MarkMethodGeneric(14);
@@ -1158,7 +1684,7 @@ class Maitred final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetResizeStatus(::grpc::ServerContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::GetResizeStatusResponse* response) override {
+    ::grpc::Status GetResizeStatus(::grpc::ServerContext* /*context*/, const ::vm_tools::EmptyMessage* /*request*/, ::vm_tools::GetResizeStatusResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1166,7 +1692,7 @@ class Maitred final {
   template <class BaseClass>
   class WithGenericMethod_GetResizeBounds : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_GetResizeBounds() {
       ::grpc::Service::MarkMethodGeneric(15);
@@ -1175,7 +1701,7 @@ class Maitred final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetResizeBounds(::grpc::ServerContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::GetResizeBoundsResponse* response) override {
+    ::grpc::Status GetResizeBounds(::grpc::ServerContext* /*context*/, const ::vm_tools::EmptyMessage* /*request*/, ::vm_tools::GetResizeBoundsResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1183,7 +1709,7 @@ class Maitred final {
   template <class BaseClass>
   class WithGenericMethod_GetAvailableSpace : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_GetAvailableSpace() {
       ::grpc::Service::MarkMethodGeneric(16);
@@ -1192,7 +1718,7 @@ class Maitred final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetAvailableSpace(::grpc::ServerContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::GetAvailableSpaceResponse* response) override {
+    ::grpc::Status GetAvailableSpace(::grpc::ServerContext* /*context*/, const ::vm_tools::EmptyMessage* /*request*/, ::vm_tools::GetAvailableSpaceResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1200,7 +1726,7 @@ class Maitred final {
   template <class BaseClass>
   class WithGenericMethod_PrepareToSuspend : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_PrepareToSuspend() {
       ::grpc::Service::MarkMethodGeneric(17);
@@ -1209,7 +1735,7 @@ class Maitred final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status PrepareToSuspend(::grpc::ServerContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::EmptyMessage* response) override {
+    ::grpc::Status PrepareToSuspend(::grpc::ServerContext* /*context*/, const ::vm_tools::EmptyMessage* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1217,7 +1743,7 @@ class Maitred final {
   template <class BaseClass>
   class WithRawMethod_ConfigureNetwork : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_ConfigureNetwork() {
       ::grpc::Service::MarkMethodRaw(0);
@@ -1226,7 +1752,7 @@ class Maitred final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status ConfigureNetwork(::grpc::ServerContext* context, const ::vm_tools::NetworkConfigRequest* request, ::vm_tools::EmptyMessage* response) override {
+    ::grpc::Status ConfigureNetwork(::grpc::ServerContext* /*context*/, const ::vm_tools::NetworkConfigRequest* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1237,7 +1763,7 @@ class Maitred final {
   template <class BaseClass>
   class WithRawMethod_ConfigureContainerGuest : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_ConfigureContainerGuest() {
       ::grpc::Service::MarkMethodRaw(1);
@@ -1246,7 +1772,7 @@ class Maitred final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status ConfigureContainerGuest(::grpc::ServerContext* context, const ::vm_tools::ConfigureContainerGuestRequest* request, ::vm_tools::EmptyMessage* response) override {
+    ::grpc::Status ConfigureContainerGuest(::grpc::ServerContext* /*context*/, const ::vm_tools::ConfigureContainerGuestRequest* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1257,7 +1783,7 @@ class Maitred final {
   template <class BaseClass>
   class WithRawMethod_ResetIPv6 : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_ResetIPv6() {
       ::grpc::Service::MarkMethodRaw(2);
@@ -1266,7 +1792,7 @@ class Maitred final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status ResetIPv6(::grpc::ServerContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::EmptyMessage* response) override {
+    ::grpc::Status ResetIPv6(::grpc::ServerContext* /*context*/, const ::vm_tools::EmptyMessage* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1277,7 +1803,7 @@ class Maitred final {
   template <class BaseClass>
   class WithRawMethod_OnHostNetworkChanged : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_OnHostNetworkChanged() {
       ::grpc::Service::MarkMethodRaw(3);
@@ -1286,7 +1812,7 @@ class Maitred final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status OnHostNetworkChanged(::grpc::ServerContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::EmptyMessage* response) override {
+    ::grpc::Status OnHostNetworkChanged(::grpc::ServerContext* /*context*/, const ::vm_tools::EmptyMessage* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1297,7 +1823,7 @@ class Maitred final {
   template <class BaseClass>
   class WithRawMethod_Shutdown : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_Shutdown() {
       ::grpc::Service::MarkMethodRaw(4);
@@ -1306,7 +1832,7 @@ class Maitred final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status Shutdown(::grpc::ServerContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::EmptyMessage* response) override {
+    ::grpc::Status Shutdown(::grpc::ServerContext* /*context*/, const ::vm_tools::EmptyMessage* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1317,7 +1843,7 @@ class Maitred final {
   template <class BaseClass>
   class WithRawMethod_LaunchProcess : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_LaunchProcess() {
       ::grpc::Service::MarkMethodRaw(5);
@@ -1326,7 +1852,7 @@ class Maitred final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status LaunchProcess(::grpc::ServerContext* context, const ::vm_tools::LaunchProcessRequest* request, ::vm_tools::LaunchProcessResponse* response) override {
+    ::grpc::Status LaunchProcess(::grpc::ServerContext* /*context*/, const ::vm_tools::LaunchProcessRequest* /*request*/, ::vm_tools::LaunchProcessResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1337,7 +1863,7 @@ class Maitred final {
   template <class BaseClass>
   class WithRawMethod_Mount : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_Mount() {
       ::grpc::Service::MarkMethodRaw(6);
@@ -1346,7 +1872,7 @@ class Maitred final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status Mount(::grpc::ServerContext* context, const ::vm_tools::MountRequest* request, ::vm_tools::MountResponse* response) override {
+    ::grpc::Status Mount(::grpc::ServerContext* /*context*/, const ::vm_tools::MountRequest* /*request*/, ::vm_tools::MountResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1357,7 +1883,7 @@ class Maitred final {
   template <class BaseClass>
   class WithRawMethod_StartTermina : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_StartTermina() {
       ::grpc::Service::MarkMethodRaw(7);
@@ -1366,7 +1892,7 @@ class Maitred final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status StartTermina(::grpc::ServerContext* context, const ::vm_tools::StartTerminaRequest* request, ::vm_tools::StartTerminaResponse* response) override {
+    ::grpc::Status StartTermina(::grpc::ServerContext* /*context*/, const ::vm_tools::StartTerminaRequest* /*request*/, ::vm_tools::StartTerminaResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1377,7 +1903,7 @@ class Maitred final {
   template <class BaseClass>
   class WithRawMethod_SetTime : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_SetTime() {
       ::grpc::Service::MarkMethodRaw(8);
@@ -1386,7 +1912,7 @@ class Maitred final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status SetTime(::grpc::ServerContext* context, const ::vm_tools::SetTimeRequest* request, ::vm_tools::EmptyMessage* response) override {
+    ::grpc::Status SetTime(::grpc::ServerContext* /*context*/, const ::vm_tools::SetTimeRequest* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1397,7 +1923,7 @@ class Maitred final {
   template <class BaseClass>
   class WithRawMethod_SetTimezone : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_SetTimezone() {
       ::grpc::Service::MarkMethodRaw(9);
@@ -1406,7 +1932,7 @@ class Maitred final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status SetTimezone(::grpc::ServerContext* context, const ::vm_tools::SetTimezoneRequest* request, ::vm_tools::EmptyMessage* response) override {
+    ::grpc::Status SetTimezone(::grpc::ServerContext* /*context*/, const ::vm_tools::SetTimezoneRequest* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1417,7 +1943,7 @@ class Maitred final {
   template <class BaseClass>
   class WithRawMethod_Mount9P : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_Mount9P() {
       ::grpc::Service::MarkMethodRaw(10);
@@ -1426,7 +1952,7 @@ class Maitred final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status Mount9P(::grpc::ServerContext* context, const ::vm_tools::Mount9PRequest* request, ::vm_tools::MountResponse* response) override {
+    ::grpc::Status Mount9P(::grpc::ServerContext* /*context*/, const ::vm_tools::Mount9PRequest* /*request*/, ::vm_tools::MountResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1437,7 +1963,7 @@ class Maitred final {
   template <class BaseClass>
   class WithRawMethod_SetResolvConfig : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_SetResolvConfig() {
       ::grpc::Service::MarkMethodRaw(11);
@@ -1446,7 +1972,7 @@ class Maitred final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status SetResolvConfig(::grpc::ServerContext* context, const ::vm_tools::SetResolvConfigRequest* request, ::vm_tools::EmptyMessage* response) override {
+    ::grpc::Status SetResolvConfig(::grpc::ServerContext* /*context*/, const ::vm_tools::SetResolvConfigRequest* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1457,7 +1983,7 @@ class Maitred final {
   template <class BaseClass>
   class WithRawMethod_GetKernelVersion : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_GetKernelVersion() {
       ::grpc::Service::MarkMethodRaw(12);
@@ -1466,7 +1992,7 @@ class Maitred final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetKernelVersion(::grpc::ServerContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::GetKernelVersionResponse* response) override {
+    ::grpc::Status GetKernelVersion(::grpc::ServerContext* /*context*/, const ::vm_tools::EmptyMessage* /*request*/, ::vm_tools::GetKernelVersionResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1477,7 +2003,7 @@ class Maitred final {
   template <class BaseClass>
   class WithRawMethod_ResizeFilesystem : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_ResizeFilesystem() {
       ::grpc::Service::MarkMethodRaw(13);
@@ -1486,7 +2012,7 @@ class Maitred final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status ResizeFilesystem(::grpc::ServerContext* context, const ::vm_tools::ResizeFilesystemRequest* request, ::vm_tools::ResizeFilesystemResponse* response) override {
+    ::grpc::Status ResizeFilesystem(::grpc::ServerContext* /*context*/, const ::vm_tools::ResizeFilesystemRequest* /*request*/, ::vm_tools::ResizeFilesystemResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1497,7 +2023,7 @@ class Maitred final {
   template <class BaseClass>
   class WithRawMethod_GetResizeStatus : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_GetResizeStatus() {
       ::grpc::Service::MarkMethodRaw(14);
@@ -1506,7 +2032,7 @@ class Maitred final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetResizeStatus(::grpc::ServerContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::GetResizeStatusResponse* response) override {
+    ::grpc::Status GetResizeStatus(::grpc::ServerContext* /*context*/, const ::vm_tools::EmptyMessage* /*request*/, ::vm_tools::GetResizeStatusResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1517,7 +2043,7 @@ class Maitred final {
   template <class BaseClass>
   class WithRawMethod_GetResizeBounds : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_GetResizeBounds() {
       ::grpc::Service::MarkMethodRaw(15);
@@ -1526,7 +2052,7 @@ class Maitred final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetResizeBounds(::grpc::ServerContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::GetResizeBoundsResponse* response) override {
+    ::grpc::Status GetResizeBounds(::grpc::ServerContext* /*context*/, const ::vm_tools::EmptyMessage* /*request*/, ::vm_tools::GetResizeBoundsResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1537,7 +2063,7 @@ class Maitred final {
   template <class BaseClass>
   class WithRawMethod_GetAvailableSpace : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_GetAvailableSpace() {
       ::grpc::Service::MarkMethodRaw(16);
@@ -1546,7 +2072,7 @@ class Maitred final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetAvailableSpace(::grpc::ServerContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::GetAvailableSpaceResponse* response) override {
+    ::grpc::Status GetAvailableSpace(::grpc::ServerContext* /*context*/, const ::vm_tools::EmptyMessage* /*request*/, ::vm_tools::GetAvailableSpaceResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1557,7 +2083,7 @@ class Maitred final {
   template <class BaseClass>
   class WithRawMethod_PrepareToSuspend : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_PrepareToSuspend() {
       ::grpc::Service::MarkMethodRaw(17);
@@ -1566,7 +2092,7 @@ class Maitred final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status PrepareToSuspend(::grpc::ServerContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::EmptyMessage* response) override {
+    ::grpc::Status PrepareToSuspend(::grpc::ServerContext* /*context*/, const ::vm_tools::EmptyMessage* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1575,19 +2101,422 @@ class Maitred final {
     }
   };
   template <class BaseClass>
+  class WithRawCallbackMethod_ConfigureNetwork : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_ConfigureNetwork() {
+      ::grpc::Service::MarkMethodRawCallback(0,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ConfigureNetwork(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_ConfigureNetwork() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ConfigureNetwork(::grpc::ServerContext* /*context*/, const ::vm_tools::NetworkConfigRequest* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* ConfigureNetwork(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_ConfigureContainerGuest : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_ConfigureContainerGuest() {
+      ::grpc::Service::MarkMethodRawCallback(1,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ConfigureContainerGuest(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_ConfigureContainerGuest() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ConfigureContainerGuest(::grpc::ServerContext* /*context*/, const ::vm_tools::ConfigureContainerGuestRequest* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* ConfigureContainerGuest(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_ResetIPv6 : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_ResetIPv6() {
+      ::grpc::Service::MarkMethodRawCallback(2,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ResetIPv6(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_ResetIPv6() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ResetIPv6(::grpc::ServerContext* /*context*/, const ::vm_tools::EmptyMessage* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* ResetIPv6(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_OnHostNetworkChanged : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_OnHostNetworkChanged() {
+      ::grpc::Service::MarkMethodRawCallback(3,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->OnHostNetworkChanged(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_OnHostNetworkChanged() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status OnHostNetworkChanged(::grpc::ServerContext* /*context*/, const ::vm_tools::EmptyMessage* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* OnHostNetworkChanged(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_Shutdown : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_Shutdown() {
+      ::grpc::Service::MarkMethodRawCallback(4,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->Shutdown(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_Shutdown() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status Shutdown(::grpc::ServerContext* /*context*/, const ::vm_tools::EmptyMessage* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* Shutdown(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_LaunchProcess : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_LaunchProcess() {
+      ::grpc::Service::MarkMethodRawCallback(5,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->LaunchProcess(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_LaunchProcess() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status LaunchProcess(::grpc::ServerContext* /*context*/, const ::vm_tools::LaunchProcessRequest* /*request*/, ::vm_tools::LaunchProcessResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* LaunchProcess(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_Mount : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_Mount() {
+      ::grpc::Service::MarkMethodRawCallback(6,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->Mount(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_Mount() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status Mount(::grpc::ServerContext* /*context*/, const ::vm_tools::MountRequest* /*request*/, ::vm_tools::MountResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* Mount(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_StartTermina : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_StartTermina() {
+      ::grpc::Service::MarkMethodRawCallback(7,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->StartTermina(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_StartTermina() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status StartTermina(::grpc::ServerContext* /*context*/, const ::vm_tools::StartTerminaRequest* /*request*/, ::vm_tools::StartTerminaResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* StartTermina(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_SetTime : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_SetTime() {
+      ::grpc::Service::MarkMethodRawCallback(8,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->SetTime(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_SetTime() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status SetTime(::grpc::ServerContext* /*context*/, const ::vm_tools::SetTimeRequest* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* SetTime(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_SetTimezone : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_SetTimezone() {
+      ::grpc::Service::MarkMethodRawCallback(9,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->SetTimezone(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_SetTimezone() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status SetTimezone(::grpc::ServerContext* /*context*/, const ::vm_tools::SetTimezoneRequest* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* SetTimezone(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_Mount9P : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_Mount9P() {
+      ::grpc::Service::MarkMethodRawCallback(10,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->Mount9P(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_Mount9P() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status Mount9P(::grpc::ServerContext* /*context*/, const ::vm_tools::Mount9PRequest* /*request*/, ::vm_tools::MountResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* Mount9P(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_SetResolvConfig : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_SetResolvConfig() {
+      ::grpc::Service::MarkMethodRawCallback(11,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->SetResolvConfig(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_SetResolvConfig() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status SetResolvConfig(::grpc::ServerContext* /*context*/, const ::vm_tools::SetResolvConfigRequest* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* SetResolvConfig(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_GetKernelVersion : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_GetKernelVersion() {
+      ::grpc::Service::MarkMethodRawCallback(12,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetKernelVersion(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_GetKernelVersion() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetKernelVersion(::grpc::ServerContext* /*context*/, const ::vm_tools::EmptyMessage* /*request*/, ::vm_tools::GetKernelVersionResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetKernelVersion(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_ResizeFilesystem : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_ResizeFilesystem() {
+      ::grpc::Service::MarkMethodRawCallback(13,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ResizeFilesystem(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_ResizeFilesystem() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ResizeFilesystem(::grpc::ServerContext* /*context*/, const ::vm_tools::ResizeFilesystemRequest* /*request*/, ::vm_tools::ResizeFilesystemResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* ResizeFilesystem(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_GetResizeStatus : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_GetResizeStatus() {
+      ::grpc::Service::MarkMethodRawCallback(14,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetResizeStatus(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_GetResizeStatus() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetResizeStatus(::grpc::ServerContext* /*context*/, const ::vm_tools::EmptyMessage* /*request*/, ::vm_tools::GetResizeStatusResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetResizeStatus(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_GetResizeBounds : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_GetResizeBounds() {
+      ::grpc::Service::MarkMethodRawCallback(15,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetResizeBounds(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_GetResizeBounds() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetResizeBounds(::grpc::ServerContext* /*context*/, const ::vm_tools::EmptyMessage* /*request*/, ::vm_tools::GetResizeBoundsResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetResizeBounds(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_GetAvailableSpace : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_GetAvailableSpace() {
+      ::grpc::Service::MarkMethodRawCallback(16,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetAvailableSpace(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_GetAvailableSpace() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetAvailableSpace(::grpc::ServerContext* /*context*/, const ::vm_tools::EmptyMessage* /*request*/, ::vm_tools::GetAvailableSpaceResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetAvailableSpace(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_PrepareToSuspend : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_PrepareToSuspend() {
+      ::grpc::Service::MarkMethodRawCallback(17,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->PrepareToSuspend(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_PrepareToSuspend() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status PrepareToSuspend(::grpc::ServerContext* /*context*/, const ::vm_tools::EmptyMessage* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* PrepareToSuspend(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
   class WithStreamedUnaryMethod_ConfigureNetwork : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_ConfigureNetwork() {
       ::grpc::Service::MarkMethodStreamed(0,
-        new ::grpc::internal::StreamedUnaryHandler< ::vm_tools::NetworkConfigRequest, ::vm_tools::EmptyMessage>(std::bind(&WithStreamedUnaryMethod_ConfigureNetwork<BaseClass>::StreamedConfigureNetwork, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::vm_tools::NetworkConfigRequest, ::vm_tools::EmptyMessage>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::vm_tools::NetworkConfigRequest, ::vm_tools::EmptyMessage>* streamer) {
+                       return this->StreamedConfigureNetwork(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_ConfigureNetwork() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status ConfigureNetwork(::grpc::ServerContext* context, const ::vm_tools::NetworkConfigRequest* request, ::vm_tools::EmptyMessage* response) override {
+    ::grpc::Status ConfigureNetwork(::grpc::ServerContext* /*context*/, const ::vm_tools::NetworkConfigRequest* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1597,17 +2526,24 @@ class Maitred final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_ConfigureContainerGuest : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_ConfigureContainerGuest() {
       ::grpc::Service::MarkMethodStreamed(1,
-        new ::grpc::internal::StreamedUnaryHandler< ::vm_tools::ConfigureContainerGuestRequest, ::vm_tools::EmptyMessage>(std::bind(&WithStreamedUnaryMethod_ConfigureContainerGuest<BaseClass>::StreamedConfigureContainerGuest, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::vm_tools::ConfigureContainerGuestRequest, ::vm_tools::EmptyMessage>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::vm_tools::ConfigureContainerGuestRequest, ::vm_tools::EmptyMessage>* streamer) {
+                       return this->StreamedConfigureContainerGuest(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_ConfigureContainerGuest() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status ConfigureContainerGuest(::grpc::ServerContext* context, const ::vm_tools::ConfigureContainerGuestRequest* request, ::vm_tools::EmptyMessage* response) override {
+    ::grpc::Status ConfigureContainerGuest(::grpc::ServerContext* /*context*/, const ::vm_tools::ConfigureContainerGuestRequest* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1617,17 +2553,24 @@ class Maitred final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_ResetIPv6 : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_ResetIPv6() {
       ::grpc::Service::MarkMethodStreamed(2,
-        new ::grpc::internal::StreamedUnaryHandler< ::vm_tools::EmptyMessage, ::vm_tools::EmptyMessage>(std::bind(&WithStreamedUnaryMethod_ResetIPv6<BaseClass>::StreamedResetIPv6, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::vm_tools::EmptyMessage, ::vm_tools::EmptyMessage>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::vm_tools::EmptyMessage, ::vm_tools::EmptyMessage>* streamer) {
+                       return this->StreamedResetIPv6(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_ResetIPv6() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status ResetIPv6(::grpc::ServerContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::EmptyMessage* response) override {
+    ::grpc::Status ResetIPv6(::grpc::ServerContext* /*context*/, const ::vm_tools::EmptyMessage* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1637,17 +2580,24 @@ class Maitred final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_OnHostNetworkChanged : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_OnHostNetworkChanged() {
       ::grpc::Service::MarkMethodStreamed(3,
-        new ::grpc::internal::StreamedUnaryHandler< ::vm_tools::EmptyMessage, ::vm_tools::EmptyMessage>(std::bind(&WithStreamedUnaryMethod_OnHostNetworkChanged<BaseClass>::StreamedOnHostNetworkChanged, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::vm_tools::EmptyMessage, ::vm_tools::EmptyMessage>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::vm_tools::EmptyMessage, ::vm_tools::EmptyMessage>* streamer) {
+                       return this->StreamedOnHostNetworkChanged(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_OnHostNetworkChanged() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status OnHostNetworkChanged(::grpc::ServerContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::EmptyMessage* response) override {
+    ::grpc::Status OnHostNetworkChanged(::grpc::ServerContext* /*context*/, const ::vm_tools::EmptyMessage* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1657,17 +2607,24 @@ class Maitred final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_Shutdown : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_Shutdown() {
       ::grpc::Service::MarkMethodStreamed(4,
-        new ::grpc::internal::StreamedUnaryHandler< ::vm_tools::EmptyMessage, ::vm_tools::EmptyMessage>(std::bind(&WithStreamedUnaryMethod_Shutdown<BaseClass>::StreamedShutdown, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::vm_tools::EmptyMessage, ::vm_tools::EmptyMessage>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::vm_tools::EmptyMessage, ::vm_tools::EmptyMessage>* streamer) {
+                       return this->StreamedShutdown(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_Shutdown() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status Shutdown(::grpc::ServerContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::EmptyMessage* response) override {
+    ::grpc::Status Shutdown(::grpc::ServerContext* /*context*/, const ::vm_tools::EmptyMessage* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1677,17 +2634,24 @@ class Maitred final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_LaunchProcess : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_LaunchProcess() {
       ::grpc::Service::MarkMethodStreamed(5,
-        new ::grpc::internal::StreamedUnaryHandler< ::vm_tools::LaunchProcessRequest, ::vm_tools::LaunchProcessResponse>(std::bind(&WithStreamedUnaryMethod_LaunchProcess<BaseClass>::StreamedLaunchProcess, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::vm_tools::LaunchProcessRequest, ::vm_tools::LaunchProcessResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::vm_tools::LaunchProcessRequest, ::vm_tools::LaunchProcessResponse>* streamer) {
+                       return this->StreamedLaunchProcess(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_LaunchProcess() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status LaunchProcess(::grpc::ServerContext* context, const ::vm_tools::LaunchProcessRequest* request, ::vm_tools::LaunchProcessResponse* response) override {
+    ::grpc::Status LaunchProcess(::grpc::ServerContext* /*context*/, const ::vm_tools::LaunchProcessRequest* /*request*/, ::vm_tools::LaunchProcessResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1697,17 +2661,24 @@ class Maitred final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_Mount : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_Mount() {
       ::grpc::Service::MarkMethodStreamed(6,
-        new ::grpc::internal::StreamedUnaryHandler< ::vm_tools::MountRequest, ::vm_tools::MountResponse>(std::bind(&WithStreamedUnaryMethod_Mount<BaseClass>::StreamedMount, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::vm_tools::MountRequest, ::vm_tools::MountResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::vm_tools::MountRequest, ::vm_tools::MountResponse>* streamer) {
+                       return this->StreamedMount(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_Mount() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status Mount(::grpc::ServerContext* context, const ::vm_tools::MountRequest* request, ::vm_tools::MountResponse* response) override {
+    ::grpc::Status Mount(::grpc::ServerContext* /*context*/, const ::vm_tools::MountRequest* /*request*/, ::vm_tools::MountResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1717,17 +2688,24 @@ class Maitred final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_StartTermina : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_StartTermina() {
       ::grpc::Service::MarkMethodStreamed(7,
-        new ::grpc::internal::StreamedUnaryHandler< ::vm_tools::StartTerminaRequest, ::vm_tools::StartTerminaResponse>(std::bind(&WithStreamedUnaryMethod_StartTermina<BaseClass>::StreamedStartTermina, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::vm_tools::StartTerminaRequest, ::vm_tools::StartTerminaResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::vm_tools::StartTerminaRequest, ::vm_tools::StartTerminaResponse>* streamer) {
+                       return this->StreamedStartTermina(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_StartTermina() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status StartTermina(::grpc::ServerContext* context, const ::vm_tools::StartTerminaRequest* request, ::vm_tools::StartTerminaResponse* response) override {
+    ::grpc::Status StartTermina(::grpc::ServerContext* /*context*/, const ::vm_tools::StartTerminaRequest* /*request*/, ::vm_tools::StartTerminaResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1737,17 +2715,24 @@ class Maitred final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_SetTime : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_SetTime() {
       ::grpc::Service::MarkMethodStreamed(8,
-        new ::grpc::internal::StreamedUnaryHandler< ::vm_tools::SetTimeRequest, ::vm_tools::EmptyMessage>(std::bind(&WithStreamedUnaryMethod_SetTime<BaseClass>::StreamedSetTime, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::vm_tools::SetTimeRequest, ::vm_tools::EmptyMessage>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::vm_tools::SetTimeRequest, ::vm_tools::EmptyMessage>* streamer) {
+                       return this->StreamedSetTime(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_SetTime() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status SetTime(::grpc::ServerContext* context, const ::vm_tools::SetTimeRequest* request, ::vm_tools::EmptyMessage* response) override {
+    ::grpc::Status SetTime(::grpc::ServerContext* /*context*/, const ::vm_tools::SetTimeRequest* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1757,17 +2742,24 @@ class Maitred final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_SetTimezone : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_SetTimezone() {
       ::grpc::Service::MarkMethodStreamed(9,
-        new ::grpc::internal::StreamedUnaryHandler< ::vm_tools::SetTimezoneRequest, ::vm_tools::EmptyMessage>(std::bind(&WithStreamedUnaryMethod_SetTimezone<BaseClass>::StreamedSetTimezone, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::vm_tools::SetTimezoneRequest, ::vm_tools::EmptyMessage>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::vm_tools::SetTimezoneRequest, ::vm_tools::EmptyMessage>* streamer) {
+                       return this->StreamedSetTimezone(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_SetTimezone() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status SetTimezone(::grpc::ServerContext* context, const ::vm_tools::SetTimezoneRequest* request, ::vm_tools::EmptyMessage* response) override {
+    ::grpc::Status SetTimezone(::grpc::ServerContext* /*context*/, const ::vm_tools::SetTimezoneRequest* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1777,17 +2769,24 @@ class Maitred final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_Mount9P : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_Mount9P() {
       ::grpc::Service::MarkMethodStreamed(10,
-        new ::grpc::internal::StreamedUnaryHandler< ::vm_tools::Mount9PRequest, ::vm_tools::MountResponse>(std::bind(&WithStreamedUnaryMethod_Mount9P<BaseClass>::StreamedMount9P, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::vm_tools::Mount9PRequest, ::vm_tools::MountResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::vm_tools::Mount9PRequest, ::vm_tools::MountResponse>* streamer) {
+                       return this->StreamedMount9P(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_Mount9P() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status Mount9P(::grpc::ServerContext* context, const ::vm_tools::Mount9PRequest* request, ::vm_tools::MountResponse* response) override {
+    ::grpc::Status Mount9P(::grpc::ServerContext* /*context*/, const ::vm_tools::Mount9PRequest* /*request*/, ::vm_tools::MountResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1797,17 +2796,24 @@ class Maitred final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_SetResolvConfig : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_SetResolvConfig() {
       ::grpc::Service::MarkMethodStreamed(11,
-        new ::grpc::internal::StreamedUnaryHandler< ::vm_tools::SetResolvConfigRequest, ::vm_tools::EmptyMessage>(std::bind(&WithStreamedUnaryMethod_SetResolvConfig<BaseClass>::StreamedSetResolvConfig, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::vm_tools::SetResolvConfigRequest, ::vm_tools::EmptyMessage>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::vm_tools::SetResolvConfigRequest, ::vm_tools::EmptyMessage>* streamer) {
+                       return this->StreamedSetResolvConfig(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_SetResolvConfig() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status SetResolvConfig(::grpc::ServerContext* context, const ::vm_tools::SetResolvConfigRequest* request, ::vm_tools::EmptyMessage* response) override {
+    ::grpc::Status SetResolvConfig(::grpc::ServerContext* /*context*/, const ::vm_tools::SetResolvConfigRequest* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1817,17 +2823,24 @@ class Maitred final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_GetKernelVersion : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_GetKernelVersion() {
       ::grpc::Service::MarkMethodStreamed(12,
-        new ::grpc::internal::StreamedUnaryHandler< ::vm_tools::EmptyMessage, ::vm_tools::GetKernelVersionResponse>(std::bind(&WithStreamedUnaryMethod_GetKernelVersion<BaseClass>::StreamedGetKernelVersion, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::vm_tools::EmptyMessage, ::vm_tools::GetKernelVersionResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::vm_tools::EmptyMessage, ::vm_tools::GetKernelVersionResponse>* streamer) {
+                       return this->StreamedGetKernelVersion(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_GetKernelVersion() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status GetKernelVersion(::grpc::ServerContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::GetKernelVersionResponse* response) override {
+    ::grpc::Status GetKernelVersion(::grpc::ServerContext* /*context*/, const ::vm_tools::EmptyMessage* /*request*/, ::vm_tools::GetKernelVersionResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1837,17 +2850,24 @@ class Maitred final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_ResizeFilesystem : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_ResizeFilesystem() {
       ::grpc::Service::MarkMethodStreamed(13,
-        new ::grpc::internal::StreamedUnaryHandler< ::vm_tools::ResizeFilesystemRequest, ::vm_tools::ResizeFilesystemResponse>(std::bind(&WithStreamedUnaryMethod_ResizeFilesystem<BaseClass>::StreamedResizeFilesystem, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::vm_tools::ResizeFilesystemRequest, ::vm_tools::ResizeFilesystemResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::vm_tools::ResizeFilesystemRequest, ::vm_tools::ResizeFilesystemResponse>* streamer) {
+                       return this->StreamedResizeFilesystem(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_ResizeFilesystem() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status ResizeFilesystem(::grpc::ServerContext* context, const ::vm_tools::ResizeFilesystemRequest* request, ::vm_tools::ResizeFilesystemResponse* response) override {
+    ::grpc::Status ResizeFilesystem(::grpc::ServerContext* /*context*/, const ::vm_tools::ResizeFilesystemRequest* /*request*/, ::vm_tools::ResizeFilesystemResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1857,17 +2877,24 @@ class Maitred final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_GetResizeStatus : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_GetResizeStatus() {
       ::grpc::Service::MarkMethodStreamed(14,
-        new ::grpc::internal::StreamedUnaryHandler< ::vm_tools::EmptyMessage, ::vm_tools::GetResizeStatusResponse>(std::bind(&WithStreamedUnaryMethod_GetResizeStatus<BaseClass>::StreamedGetResizeStatus, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::vm_tools::EmptyMessage, ::vm_tools::GetResizeStatusResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::vm_tools::EmptyMessage, ::vm_tools::GetResizeStatusResponse>* streamer) {
+                       return this->StreamedGetResizeStatus(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_GetResizeStatus() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status GetResizeStatus(::grpc::ServerContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::GetResizeStatusResponse* response) override {
+    ::grpc::Status GetResizeStatus(::grpc::ServerContext* /*context*/, const ::vm_tools::EmptyMessage* /*request*/, ::vm_tools::GetResizeStatusResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1877,17 +2904,24 @@ class Maitred final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_GetResizeBounds : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_GetResizeBounds() {
       ::grpc::Service::MarkMethodStreamed(15,
-        new ::grpc::internal::StreamedUnaryHandler< ::vm_tools::EmptyMessage, ::vm_tools::GetResizeBoundsResponse>(std::bind(&WithStreamedUnaryMethod_GetResizeBounds<BaseClass>::StreamedGetResizeBounds, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::vm_tools::EmptyMessage, ::vm_tools::GetResizeBoundsResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::vm_tools::EmptyMessage, ::vm_tools::GetResizeBoundsResponse>* streamer) {
+                       return this->StreamedGetResizeBounds(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_GetResizeBounds() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status GetResizeBounds(::grpc::ServerContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::GetResizeBoundsResponse* response) override {
+    ::grpc::Status GetResizeBounds(::grpc::ServerContext* /*context*/, const ::vm_tools::EmptyMessage* /*request*/, ::vm_tools::GetResizeBoundsResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1897,17 +2931,24 @@ class Maitred final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_GetAvailableSpace : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_GetAvailableSpace() {
       ::grpc::Service::MarkMethodStreamed(16,
-        new ::grpc::internal::StreamedUnaryHandler< ::vm_tools::EmptyMessage, ::vm_tools::GetAvailableSpaceResponse>(std::bind(&WithStreamedUnaryMethod_GetAvailableSpace<BaseClass>::StreamedGetAvailableSpace, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::vm_tools::EmptyMessage, ::vm_tools::GetAvailableSpaceResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::vm_tools::EmptyMessage, ::vm_tools::GetAvailableSpaceResponse>* streamer) {
+                       return this->StreamedGetAvailableSpace(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_GetAvailableSpace() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status GetAvailableSpace(::grpc::ServerContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::GetAvailableSpaceResponse* response) override {
+    ::grpc::Status GetAvailableSpace(::grpc::ServerContext* /*context*/, const ::vm_tools::EmptyMessage* /*request*/, ::vm_tools::GetAvailableSpaceResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1917,17 +2958,24 @@ class Maitred final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_PrepareToSuspend : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_PrepareToSuspend() {
       ::grpc::Service::MarkMethodStreamed(17,
-        new ::grpc::internal::StreamedUnaryHandler< ::vm_tools::EmptyMessage, ::vm_tools::EmptyMessage>(std::bind(&WithStreamedUnaryMethod_PrepareToSuspend<BaseClass>::StreamedPrepareToSuspend, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::vm_tools::EmptyMessage, ::vm_tools::EmptyMessage>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::vm_tools::EmptyMessage, ::vm_tools::EmptyMessage>* streamer) {
+                       return this->StreamedPrepareToSuspend(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_PrepareToSuspend() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status PrepareToSuspend(::grpc::ServerContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::EmptyMessage* response) override {
+    ::grpc::Status PrepareToSuspend(::grpc::ServerContext* /*context*/, const ::vm_tools::EmptyMessage* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }

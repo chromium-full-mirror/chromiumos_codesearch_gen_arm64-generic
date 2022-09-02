@@ -57,7 +57,9 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT CryptoRecoveryRpcRequestDefault
 constexpr CryptoRecoveryRpcResponse::CryptoRecoveryRpcResponse(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : cbor_cryptorecoveryresponse_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , protocol_version_(0){}
+  , protocol_version_(0)
+  , error_code_(0)
+{}
 struct CryptoRecoveryRpcResponseDefaultTypeInternal {
   constexpr CryptoRecoveryRpcResponseDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -71,6 +73,69 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT CryptoRecoveryRpcResponseDefaul
 }  // namespace cryptohome
 namespace cryptohome {
 namespace cryptorecovery {
+bool RecoveryError_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+      return true;
+    default:
+      return false;
+  }
+}
+
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> RecoveryError_strings[5] = {};
+
+static const char RecoveryError_names[] =
+  "RECOVERY_ERROR_AUTH"
+  "RECOVERY_ERROR_EPOCH"
+  "RECOVERY_ERROR_FATAL"
+  "RECOVERY_ERROR_TRANSIENT"
+  "RECOVERY_ERROR_UNSPECIFIED";
+
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry RecoveryError_entries[] = {
+  { {RecoveryError_names + 0, 19}, 3 },
+  { {RecoveryError_names + 19, 20}, 4 },
+  { {RecoveryError_names + 39, 20}, 1 },
+  { {RecoveryError_names + 59, 24}, 2 },
+  { {RecoveryError_names + 83, 26}, 0 },
+};
+
+static const int RecoveryError_entries_by_number[] = {
+  4, // 0 -> RECOVERY_ERROR_UNSPECIFIED
+  2, // 1 -> RECOVERY_ERROR_FATAL
+  3, // 2 -> RECOVERY_ERROR_TRANSIENT
+  0, // 3 -> RECOVERY_ERROR_AUTH
+  1, // 4 -> RECOVERY_ERROR_EPOCH
+};
+
+const std::string& RecoveryError_Name(
+    RecoveryError value) {
+  static const bool dummy =
+      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
+          RecoveryError_entries,
+          RecoveryError_entries_by_number,
+          5, RecoveryError_strings);
+  (void) dummy;
+  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
+      RecoveryError_entries,
+      RecoveryError_entries_by_number,
+      5, value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
+                     RecoveryError_strings[idx].get();
+}
+bool RecoveryError_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, RecoveryError* value) {
+  int int_value;
+  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
+      RecoveryError_entries, 5, name, &int_value);
+  if (success) {
+    *value = static_cast<RecoveryError>(int_value);
+  }
+  return success;
+}
 
 // ===================================================================
 
@@ -811,6 +876,9 @@ class CryptoRecoveryRpcResponse::_Internal {
   static void set_has_cbor_cryptorecoveryresponse(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
+  static void set_has_error_code(HasBits* has_bits) {
+    (*has_bits)[0] |= 4u;
+  }
 };
 
 CryptoRecoveryRpcResponse::CryptoRecoveryRpcResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -834,7 +902,9 @@ CryptoRecoveryRpcResponse::CryptoRecoveryRpcResponse(const CryptoRecoveryRpcResp
     cbor_cryptorecoveryresponse_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_cbor_cryptorecoveryresponse(), 
       GetArenaForAllocation());
   }
-  protocol_version_ = from.protocol_version_;
+  ::memcpy(&protocol_version_, &from.protocol_version_,
+    static_cast<size_t>(reinterpret_cast<char*>(&error_code_) -
+    reinterpret_cast<char*>(&protocol_version_)) + sizeof(error_code_));
   // @@protoc_insertion_point(copy_constructor:cryptohome.cryptorecovery.CryptoRecoveryRpcResponse)
 }
 
@@ -843,7 +913,10 @@ cbor_cryptorecoveryresponse_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   cbor_cryptorecoveryresponse_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-protocol_version_ = 0;
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&protocol_version_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&error_code_) -
+    reinterpret_cast<char*>(&protocol_version_)) + sizeof(error_code_));
 }
 
 CryptoRecoveryRpcResponse::~CryptoRecoveryRpcResponse() {
@@ -878,7 +951,11 @@ void CryptoRecoveryRpcResponse::Clear() {
   if (cached_has_bits & 0x00000001u) {
     cbor_cryptorecoveryresponse_.ClearNonDefaultToEmpty();
   }
-  protocol_version_ = 0;
+  if (cached_has_bits & 0x00000006u) {
+    ::memset(&protocol_version_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&error_code_) -
+        reinterpret_cast<char*>(&protocol_version_)) + sizeof(error_code_));
+  }
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
@@ -905,6 +982,19 @@ const char* CryptoRecoveryRpcResponse::_InternalParse(const char* ptr, ::PROTOBU
           auto str = _internal_mutable_cbor_cryptorecoveryresponse();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional .cryptohome.cryptorecovery.RecoveryError error_code = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          if (PROTOBUF_PREDICT_TRUE(::cryptohome::cryptorecovery::RecoveryError_IsValid(val))) {
+            _internal_set_error_code(static_cast<::cryptohome::cryptorecovery::RecoveryError>(val));
+          } else {
+            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(3, val, mutable_unknown_fields());
+          }
         } else
           goto handle_unusual;
         continue;
@@ -951,6 +1041,13 @@ uint8_t* CryptoRecoveryRpcResponse::_InternalSerialize(
         2, this->_internal_cbor_cryptorecoveryresponse(), target);
   }
 
+  // optional .cryptohome.cryptorecovery.RecoveryError error_code = 3;
+  if (cached_has_bits & 0x00000004u) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+      3, this->_internal_error_code(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -968,7 +1065,7 @@ size_t CryptoRecoveryRpcResponse::ByteSizeLong() const {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
+  if (cached_has_bits & 0x00000007u) {
     // optional bytes cbor_cryptorecoveryresponse = 2;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
@@ -979,6 +1076,12 @@ size_t CryptoRecoveryRpcResponse::ByteSizeLong() const {
     // optional int32 protocol_version = 1;
     if (cached_has_bits & 0x00000002u) {
       total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_protocol_version());
+    }
+
+    // optional .cryptohome.cryptorecovery.RecoveryError error_code = 3;
+    if (cached_has_bits & 0x00000004u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_error_code());
     }
 
   }
@@ -1003,12 +1106,15 @@ void CryptoRecoveryRpcResponse::MergeFrom(const CryptoRecoveryRpcResponse& from)
   (void) cached_has_bits;
 
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
+  if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
       _internal_set_cbor_cryptorecoveryresponse(from._internal_cbor_cryptorecoveryresponse());
     }
     if (cached_has_bits & 0x00000002u) {
       protocol_version_ = from.protocol_version_;
+    }
+    if (cached_has_bits & 0x00000004u) {
+      error_code_ = from.error_code_;
     }
     _has_bits_[0] |= cached_has_bits;
   }
@@ -1037,7 +1143,12 @@ void CryptoRecoveryRpcResponse::InternalSwap(CryptoRecoveryRpcResponse* other) {
       &cbor_cryptorecoveryresponse_, lhs_arena,
       &other->cbor_cryptorecoveryresponse_, rhs_arena
   );
-  swap(protocol_version_, other->protocol_version_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(CryptoRecoveryRpcResponse, error_code_)
+      + sizeof(CryptoRecoveryRpcResponse::error_code_)
+      - PROTOBUF_FIELD_OFFSET(CryptoRecoveryRpcResponse, protocol_version_)>(
+          reinterpret_cast<char*>(&protocol_version_),
+          reinterpret_cast<char*>(&other->protocol_version_));
 }
 
 std::string CryptoRecoveryRpcResponse::GetTypeName() const {

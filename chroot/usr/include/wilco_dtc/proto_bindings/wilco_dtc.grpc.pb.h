@@ -18,20 +18,20 @@
 #include <grpcpp/impl/codegen/async_generic_service.h>
 #include <grpcpp/impl/codegen/async_stream.h>
 #include <grpcpp/impl/codegen/async_unary_call.h>
-#include <grpcpp/impl/codegen/method_handler_impl.h>
+#include <grpcpp/impl/codegen/client_callback.h>
+#include <grpcpp/impl/codegen/client_context.h>
+#include <grpcpp/impl/codegen/completion_queue.h>
+#include <grpcpp/impl/codegen/message_allocator.h>
+#include <grpcpp/impl/codegen/method_handler.h>
 #include <grpcpp/impl/codegen/proto_utils.h>
 #include <grpcpp/impl/codegen/rpc_method.h>
+#include <grpcpp/impl/codegen/server_callback.h>
+#include <grpcpp/impl/codegen/server_callback_handlers.h>
+#include <grpcpp/impl/codegen/server_context.h>
 #include <grpcpp/impl/codegen/service_type.h>
 #include <grpcpp/impl/codegen/status.h>
 #include <grpcpp/impl/codegen/stub_options.h>
 #include <grpcpp/impl/codegen/sync_stream.h>
-
-namespace grpc {
-class CompletionQueue;
-class Channel;
-class ServerCompletionQueue;
-class ServerContext;
-}  // namespace grpc
 
 namespace diagnostics {
 namespace grpc_api {
@@ -94,17 +94,20 @@ class WilcoDtc final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::diagnostics::grpc_api::HandleBluetoothDataChangedResponse>> PrepareAsyncHandleBluetoothDataChanged(::grpc::ClientContext* context, const ::diagnostics::grpc_api::HandleBluetoothDataChangedRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::diagnostics::grpc_api::HandleBluetoothDataChangedResponse>>(PrepareAsyncHandleBluetoothDataChangedRaw(context, request, cq));
     }
-    class experimental_async_interface {
+    class async_interface {
      public:
-      virtual ~experimental_async_interface() {}
+      virtual ~async_interface() {}
       // Called when a message is sent by the diagnostics UI extension (hosted by
       // the browser).
       virtual void HandleMessageFromUi(::grpc::ClientContext* context, const ::diagnostics::grpc_api::HandleMessageFromUiRequest* request, ::diagnostics::grpc_api::HandleMessageFromUiResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void HandleMessageFromUi(::grpc::ClientContext* context, const ::diagnostics::grpc_api::HandleMessageFromUiRequest* request, ::diagnostics::grpc_api::HandleMessageFromUiResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Called when the wilco_dtc_supportd daemon received EC event.
       virtual void HandleEcNotification(::grpc::ClientContext* context, const ::diagnostics::grpc_api::HandleEcNotificationRequest* request, ::diagnostics::grpc_api::HandleEcNotificationResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void HandleEcNotification(::grpc::ClientContext* context, const ::diagnostics::grpc_api::HandleEcNotificationRequest* request, ::diagnostics::grpc_api::HandleEcNotificationResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Called when the wilco_dtc_supportd daemon received power event from powerd
       // daemon and event of the tracking type occured.
       virtual void HandlePowerNotification(::grpc::ClientContext* context, const ::diagnostics::grpc_api::HandlePowerNotificationRequest* request, ::diagnostics::grpc_api::HandlePowerNotificationResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void HandlePowerNotification(::grpc::ClientContext* context, const ::diagnostics::grpc_api::HandlePowerNotificationRequest* request, ::diagnostics::grpc_api::HandlePowerNotificationResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Called when the wilco_dtc_supportd daemon received new configuration data
       // blob, this happens when the device policy, passing this configuration data
       // blob, gets updated.
@@ -114,12 +117,16 @@ class WilcoDtc final {
       // NOTE: calling the GetConfigurationData on every startup is highly
       // recommended to retrieve the up-to-date configuration data.
       virtual void HandleConfigurationDataChanged(::grpc::ClientContext* context, const ::diagnostics::grpc_api::HandleConfigurationDataChangedRequest* request, ::diagnostics::grpc_api::HandleConfigurationDataChangedResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void HandleConfigurationDataChanged(::grpc::ClientContext* context, const ::diagnostics::grpc_api::HandleConfigurationDataChangedRequest* request, ::diagnostics::grpc_api::HandleConfigurationDataChangedResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Called when the wilco_dtc_supportd daemon received D-Bus signal from
       // bluetooth daemon that bluetooth data has changed.
       virtual void HandleBluetoothDataChanged(::grpc::ClientContext* context, const ::diagnostics::grpc_api::HandleBluetoothDataChangedRequest* request, ::diagnostics::grpc_api::HandleBluetoothDataChangedResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void HandleBluetoothDataChanged(::grpc::ClientContext* context, const ::diagnostics::grpc_api::HandleBluetoothDataChangedRequest* request, ::diagnostics::grpc_api::HandleBluetoothDataChangedResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
     };
-    virtual class experimental_async_interface* experimental_async() { return nullptr; }
-  private:
+    typedef class async_interface experimental_async_interface;
+    virtual class async_interface* async() { return nullptr; }
+    class async_interface* experimental_async() { return async(); }
+   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::diagnostics::grpc_api::HandleMessageFromUiResponse>* AsyncHandleMessageFromUiRaw(::grpc::ClientContext* context, const ::diagnostics::grpc_api::HandleMessageFromUiRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::diagnostics::grpc_api::HandleMessageFromUiResponse>* PrepareAsyncHandleMessageFromUiRaw(::grpc::ClientContext* context, const ::diagnostics::grpc_api::HandleMessageFromUiRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::diagnostics::grpc_api::HandleEcNotificationResponse>* AsyncHandleEcNotificationRaw(::grpc::ClientContext* context, const ::diagnostics::grpc_api::HandleEcNotificationRequest& request, ::grpc::CompletionQueue* cq) = 0;
@@ -133,7 +140,7 @@ class WilcoDtc final {
   };
   class Stub final : public StubInterface {
    public:
-    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel);
+    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
     ::grpc::Status HandleMessageFromUi(::grpc::ClientContext* context, const ::diagnostics::grpc_api::HandleMessageFromUiRequest& request, ::diagnostics::grpc_api::HandleMessageFromUiResponse* response) override;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::diagnostics::grpc_api::HandleMessageFromUiResponse>> AsyncHandleMessageFromUi(::grpc::ClientContext* context, const ::diagnostics::grpc_api::HandleMessageFromUiRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::diagnostics::grpc_api::HandleMessageFromUiResponse>>(AsyncHandleMessageFromUiRaw(context, request, cq));
@@ -169,25 +176,30 @@ class WilcoDtc final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::diagnostics::grpc_api::HandleBluetoothDataChangedResponse>> PrepareAsyncHandleBluetoothDataChanged(::grpc::ClientContext* context, const ::diagnostics::grpc_api::HandleBluetoothDataChangedRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::diagnostics::grpc_api::HandleBluetoothDataChangedResponse>>(PrepareAsyncHandleBluetoothDataChangedRaw(context, request, cq));
     }
-    class experimental_async final :
-      public StubInterface::experimental_async_interface {
+    class async final :
+      public StubInterface::async_interface {
      public:
       void HandleMessageFromUi(::grpc::ClientContext* context, const ::diagnostics::grpc_api::HandleMessageFromUiRequest* request, ::diagnostics::grpc_api::HandleMessageFromUiResponse* response, std::function<void(::grpc::Status)>) override;
+      void HandleMessageFromUi(::grpc::ClientContext* context, const ::diagnostics::grpc_api::HandleMessageFromUiRequest* request, ::diagnostics::grpc_api::HandleMessageFromUiResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void HandleEcNotification(::grpc::ClientContext* context, const ::diagnostics::grpc_api::HandleEcNotificationRequest* request, ::diagnostics::grpc_api::HandleEcNotificationResponse* response, std::function<void(::grpc::Status)>) override;
+      void HandleEcNotification(::grpc::ClientContext* context, const ::diagnostics::grpc_api::HandleEcNotificationRequest* request, ::diagnostics::grpc_api::HandleEcNotificationResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void HandlePowerNotification(::grpc::ClientContext* context, const ::diagnostics::grpc_api::HandlePowerNotificationRequest* request, ::diagnostics::grpc_api::HandlePowerNotificationResponse* response, std::function<void(::grpc::Status)>) override;
+      void HandlePowerNotification(::grpc::ClientContext* context, const ::diagnostics::grpc_api::HandlePowerNotificationRequest* request, ::diagnostics::grpc_api::HandlePowerNotificationResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void HandleConfigurationDataChanged(::grpc::ClientContext* context, const ::diagnostics::grpc_api::HandleConfigurationDataChangedRequest* request, ::diagnostics::grpc_api::HandleConfigurationDataChangedResponse* response, std::function<void(::grpc::Status)>) override;
+      void HandleConfigurationDataChanged(::grpc::ClientContext* context, const ::diagnostics::grpc_api::HandleConfigurationDataChangedRequest* request, ::diagnostics::grpc_api::HandleConfigurationDataChangedResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void HandleBluetoothDataChanged(::grpc::ClientContext* context, const ::diagnostics::grpc_api::HandleBluetoothDataChangedRequest* request, ::diagnostics::grpc_api::HandleBluetoothDataChangedResponse* response, std::function<void(::grpc::Status)>) override;
+      void HandleBluetoothDataChanged(::grpc::ClientContext* context, const ::diagnostics::grpc_api::HandleBluetoothDataChangedRequest* request, ::diagnostics::grpc_api::HandleBluetoothDataChangedResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
      private:
       friend class Stub;
-      explicit experimental_async(Stub* stub): stub_(stub) { }
+      explicit async(Stub* stub): stub_(stub) { }
       Stub* stub() { return stub_; }
       Stub* stub_;
     };
-    class experimental_async_interface* experimental_async() override { return &async_stub_; }
+    class async* async() override { return &async_stub_; }
 
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
-    class experimental_async async_stub_{this};
+    class async async_stub_{this};
     ::grpc::ClientAsyncResponseReader< ::diagnostics::grpc_api::HandleMessageFromUiResponse>* AsyncHandleMessageFromUiRaw(::grpc::ClientContext* context, const ::diagnostics::grpc_api::HandleMessageFromUiRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::diagnostics::grpc_api::HandleMessageFromUiResponse>* PrepareAsyncHandleMessageFromUiRaw(::grpc::ClientContext* context, const ::diagnostics::grpc_api::HandleMessageFromUiRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::diagnostics::grpc_api::HandleEcNotificationResponse>* AsyncHandleEcNotificationRaw(::grpc::ClientContext* context, const ::diagnostics::grpc_api::HandleEcNotificationRequest& request, ::grpc::CompletionQueue* cq) override;
@@ -234,7 +246,7 @@ class WilcoDtc final {
   template <class BaseClass>
   class WithAsyncMethod_HandleMessageFromUi : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_HandleMessageFromUi() {
       ::grpc::Service::MarkMethodAsync(0);
@@ -243,7 +255,7 @@ class WilcoDtc final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status HandleMessageFromUi(::grpc::ServerContext* context, const ::diagnostics::grpc_api::HandleMessageFromUiRequest* request, ::diagnostics::grpc_api::HandleMessageFromUiResponse* response) override {
+    ::grpc::Status HandleMessageFromUi(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::HandleMessageFromUiRequest* /*request*/, ::diagnostics::grpc_api::HandleMessageFromUiResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -254,7 +266,7 @@ class WilcoDtc final {
   template <class BaseClass>
   class WithAsyncMethod_HandleEcNotification : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_HandleEcNotification() {
       ::grpc::Service::MarkMethodAsync(1);
@@ -263,7 +275,7 @@ class WilcoDtc final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status HandleEcNotification(::grpc::ServerContext* context, const ::diagnostics::grpc_api::HandleEcNotificationRequest* request, ::diagnostics::grpc_api::HandleEcNotificationResponse* response) override {
+    ::grpc::Status HandleEcNotification(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::HandleEcNotificationRequest* /*request*/, ::diagnostics::grpc_api::HandleEcNotificationResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -274,7 +286,7 @@ class WilcoDtc final {
   template <class BaseClass>
   class WithAsyncMethod_HandlePowerNotification : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_HandlePowerNotification() {
       ::grpc::Service::MarkMethodAsync(2);
@@ -283,7 +295,7 @@ class WilcoDtc final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status HandlePowerNotification(::grpc::ServerContext* context, const ::diagnostics::grpc_api::HandlePowerNotificationRequest* request, ::diagnostics::grpc_api::HandlePowerNotificationResponse* response) override {
+    ::grpc::Status HandlePowerNotification(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::HandlePowerNotificationRequest* /*request*/, ::diagnostics::grpc_api::HandlePowerNotificationResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -294,7 +306,7 @@ class WilcoDtc final {
   template <class BaseClass>
   class WithAsyncMethod_HandleConfigurationDataChanged : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_HandleConfigurationDataChanged() {
       ::grpc::Service::MarkMethodAsync(3);
@@ -303,7 +315,7 @@ class WilcoDtc final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status HandleConfigurationDataChanged(::grpc::ServerContext* context, const ::diagnostics::grpc_api::HandleConfigurationDataChangedRequest* request, ::diagnostics::grpc_api::HandleConfigurationDataChangedResponse* response) override {
+    ::grpc::Status HandleConfigurationDataChanged(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::HandleConfigurationDataChangedRequest* /*request*/, ::diagnostics::grpc_api::HandleConfigurationDataChangedResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -314,7 +326,7 @@ class WilcoDtc final {
   template <class BaseClass>
   class WithAsyncMethod_HandleBluetoothDataChanged : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_HandleBluetoothDataChanged() {
       ::grpc::Service::MarkMethodAsync(4);
@@ -323,7 +335,7 @@ class WilcoDtc final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status HandleBluetoothDataChanged(::grpc::ServerContext* context, const ::diagnostics::grpc_api::HandleBluetoothDataChangedRequest* request, ::diagnostics::grpc_api::HandleBluetoothDataChangedResponse* response) override {
+    ::grpc::Status HandleBluetoothDataChanged(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::HandleBluetoothDataChangedRequest* /*request*/, ::diagnostics::grpc_api::HandleBluetoothDataChangedResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -333,9 +345,146 @@ class WilcoDtc final {
   };
   typedef WithAsyncMethod_HandleMessageFromUi<WithAsyncMethod_HandleEcNotification<WithAsyncMethod_HandlePowerNotification<WithAsyncMethod_HandleConfigurationDataChanged<WithAsyncMethod_HandleBluetoothDataChanged<Service > > > > > AsyncService;
   template <class BaseClass>
+  class WithCallbackMethod_HandleMessageFromUi : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_HandleMessageFromUi() {
+      ::grpc::Service::MarkMethodCallback(0,
+          new ::grpc::internal::CallbackUnaryHandler< ::diagnostics::grpc_api::HandleMessageFromUiRequest, ::diagnostics::grpc_api::HandleMessageFromUiResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::diagnostics::grpc_api::HandleMessageFromUiRequest* request, ::diagnostics::grpc_api::HandleMessageFromUiResponse* response) { return this->HandleMessageFromUi(context, request, response); }));}
+    void SetMessageAllocatorFor_HandleMessageFromUi(
+        ::grpc::MessageAllocator< ::diagnostics::grpc_api::HandleMessageFromUiRequest, ::diagnostics::grpc_api::HandleMessageFromUiResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(0);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::diagnostics::grpc_api::HandleMessageFromUiRequest, ::diagnostics::grpc_api::HandleMessageFromUiResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_HandleMessageFromUi() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status HandleMessageFromUi(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::HandleMessageFromUiRequest* /*request*/, ::diagnostics::grpc_api::HandleMessageFromUiResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* HandleMessageFromUi(
+      ::grpc::CallbackServerContext* /*context*/, const ::diagnostics::grpc_api::HandleMessageFromUiRequest* /*request*/, ::diagnostics::grpc_api::HandleMessageFromUiResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_HandleEcNotification : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_HandleEcNotification() {
+      ::grpc::Service::MarkMethodCallback(1,
+          new ::grpc::internal::CallbackUnaryHandler< ::diagnostics::grpc_api::HandleEcNotificationRequest, ::diagnostics::grpc_api::HandleEcNotificationResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::diagnostics::grpc_api::HandleEcNotificationRequest* request, ::diagnostics::grpc_api::HandleEcNotificationResponse* response) { return this->HandleEcNotification(context, request, response); }));}
+    void SetMessageAllocatorFor_HandleEcNotification(
+        ::grpc::MessageAllocator< ::diagnostics::grpc_api::HandleEcNotificationRequest, ::diagnostics::grpc_api::HandleEcNotificationResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(1);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::diagnostics::grpc_api::HandleEcNotificationRequest, ::diagnostics::grpc_api::HandleEcNotificationResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_HandleEcNotification() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status HandleEcNotification(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::HandleEcNotificationRequest* /*request*/, ::diagnostics::grpc_api::HandleEcNotificationResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* HandleEcNotification(
+      ::grpc::CallbackServerContext* /*context*/, const ::diagnostics::grpc_api::HandleEcNotificationRequest* /*request*/, ::diagnostics::grpc_api::HandleEcNotificationResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_HandlePowerNotification : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_HandlePowerNotification() {
+      ::grpc::Service::MarkMethodCallback(2,
+          new ::grpc::internal::CallbackUnaryHandler< ::diagnostics::grpc_api::HandlePowerNotificationRequest, ::diagnostics::grpc_api::HandlePowerNotificationResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::diagnostics::grpc_api::HandlePowerNotificationRequest* request, ::diagnostics::grpc_api::HandlePowerNotificationResponse* response) { return this->HandlePowerNotification(context, request, response); }));}
+    void SetMessageAllocatorFor_HandlePowerNotification(
+        ::grpc::MessageAllocator< ::diagnostics::grpc_api::HandlePowerNotificationRequest, ::diagnostics::grpc_api::HandlePowerNotificationResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(2);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::diagnostics::grpc_api::HandlePowerNotificationRequest, ::diagnostics::grpc_api::HandlePowerNotificationResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_HandlePowerNotification() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status HandlePowerNotification(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::HandlePowerNotificationRequest* /*request*/, ::diagnostics::grpc_api::HandlePowerNotificationResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* HandlePowerNotification(
+      ::grpc::CallbackServerContext* /*context*/, const ::diagnostics::grpc_api::HandlePowerNotificationRequest* /*request*/, ::diagnostics::grpc_api::HandlePowerNotificationResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_HandleConfigurationDataChanged : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_HandleConfigurationDataChanged() {
+      ::grpc::Service::MarkMethodCallback(3,
+          new ::grpc::internal::CallbackUnaryHandler< ::diagnostics::grpc_api::HandleConfigurationDataChangedRequest, ::diagnostics::grpc_api::HandleConfigurationDataChangedResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::diagnostics::grpc_api::HandleConfigurationDataChangedRequest* request, ::diagnostics::grpc_api::HandleConfigurationDataChangedResponse* response) { return this->HandleConfigurationDataChanged(context, request, response); }));}
+    void SetMessageAllocatorFor_HandleConfigurationDataChanged(
+        ::grpc::MessageAllocator< ::diagnostics::grpc_api::HandleConfigurationDataChangedRequest, ::diagnostics::grpc_api::HandleConfigurationDataChangedResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(3);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::diagnostics::grpc_api::HandleConfigurationDataChangedRequest, ::diagnostics::grpc_api::HandleConfigurationDataChangedResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_HandleConfigurationDataChanged() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status HandleConfigurationDataChanged(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::HandleConfigurationDataChangedRequest* /*request*/, ::diagnostics::grpc_api::HandleConfigurationDataChangedResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* HandleConfigurationDataChanged(
+      ::grpc::CallbackServerContext* /*context*/, const ::diagnostics::grpc_api::HandleConfigurationDataChangedRequest* /*request*/, ::diagnostics::grpc_api::HandleConfigurationDataChangedResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_HandleBluetoothDataChanged : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_HandleBluetoothDataChanged() {
+      ::grpc::Service::MarkMethodCallback(4,
+          new ::grpc::internal::CallbackUnaryHandler< ::diagnostics::grpc_api::HandleBluetoothDataChangedRequest, ::diagnostics::grpc_api::HandleBluetoothDataChangedResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::diagnostics::grpc_api::HandleBluetoothDataChangedRequest* request, ::diagnostics::grpc_api::HandleBluetoothDataChangedResponse* response) { return this->HandleBluetoothDataChanged(context, request, response); }));}
+    void SetMessageAllocatorFor_HandleBluetoothDataChanged(
+        ::grpc::MessageAllocator< ::diagnostics::grpc_api::HandleBluetoothDataChangedRequest, ::diagnostics::grpc_api::HandleBluetoothDataChangedResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(4);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::diagnostics::grpc_api::HandleBluetoothDataChangedRequest, ::diagnostics::grpc_api::HandleBluetoothDataChangedResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_HandleBluetoothDataChanged() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status HandleBluetoothDataChanged(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::HandleBluetoothDataChangedRequest* /*request*/, ::diagnostics::grpc_api::HandleBluetoothDataChangedResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* HandleBluetoothDataChanged(
+      ::grpc::CallbackServerContext* /*context*/, const ::diagnostics::grpc_api::HandleBluetoothDataChangedRequest* /*request*/, ::diagnostics::grpc_api::HandleBluetoothDataChangedResponse* /*response*/)  { return nullptr; }
+  };
+  typedef WithCallbackMethod_HandleMessageFromUi<WithCallbackMethod_HandleEcNotification<WithCallbackMethod_HandlePowerNotification<WithCallbackMethod_HandleConfigurationDataChanged<WithCallbackMethod_HandleBluetoothDataChanged<Service > > > > > CallbackService;
+  typedef CallbackService ExperimentalCallbackService;
+  template <class BaseClass>
   class WithGenericMethod_HandleMessageFromUi : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_HandleMessageFromUi() {
       ::grpc::Service::MarkMethodGeneric(0);
@@ -344,7 +493,7 @@ class WilcoDtc final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status HandleMessageFromUi(::grpc::ServerContext* context, const ::diagnostics::grpc_api::HandleMessageFromUiRequest* request, ::diagnostics::grpc_api::HandleMessageFromUiResponse* response) override {
+    ::grpc::Status HandleMessageFromUi(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::HandleMessageFromUiRequest* /*request*/, ::diagnostics::grpc_api::HandleMessageFromUiResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -352,7 +501,7 @@ class WilcoDtc final {
   template <class BaseClass>
   class WithGenericMethod_HandleEcNotification : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_HandleEcNotification() {
       ::grpc::Service::MarkMethodGeneric(1);
@@ -361,7 +510,7 @@ class WilcoDtc final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status HandleEcNotification(::grpc::ServerContext* context, const ::diagnostics::grpc_api::HandleEcNotificationRequest* request, ::diagnostics::grpc_api::HandleEcNotificationResponse* response) override {
+    ::grpc::Status HandleEcNotification(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::HandleEcNotificationRequest* /*request*/, ::diagnostics::grpc_api::HandleEcNotificationResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -369,7 +518,7 @@ class WilcoDtc final {
   template <class BaseClass>
   class WithGenericMethod_HandlePowerNotification : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_HandlePowerNotification() {
       ::grpc::Service::MarkMethodGeneric(2);
@@ -378,7 +527,7 @@ class WilcoDtc final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status HandlePowerNotification(::grpc::ServerContext* context, const ::diagnostics::grpc_api::HandlePowerNotificationRequest* request, ::diagnostics::grpc_api::HandlePowerNotificationResponse* response) override {
+    ::grpc::Status HandlePowerNotification(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::HandlePowerNotificationRequest* /*request*/, ::diagnostics::grpc_api::HandlePowerNotificationResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -386,7 +535,7 @@ class WilcoDtc final {
   template <class BaseClass>
   class WithGenericMethod_HandleConfigurationDataChanged : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_HandleConfigurationDataChanged() {
       ::grpc::Service::MarkMethodGeneric(3);
@@ -395,7 +544,7 @@ class WilcoDtc final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status HandleConfigurationDataChanged(::grpc::ServerContext* context, const ::diagnostics::grpc_api::HandleConfigurationDataChangedRequest* request, ::diagnostics::grpc_api::HandleConfigurationDataChangedResponse* response) override {
+    ::grpc::Status HandleConfigurationDataChanged(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::HandleConfigurationDataChangedRequest* /*request*/, ::diagnostics::grpc_api::HandleConfigurationDataChangedResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -403,7 +552,7 @@ class WilcoDtc final {
   template <class BaseClass>
   class WithGenericMethod_HandleBluetoothDataChanged : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_HandleBluetoothDataChanged() {
       ::grpc::Service::MarkMethodGeneric(4);
@@ -412,7 +561,7 @@ class WilcoDtc final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status HandleBluetoothDataChanged(::grpc::ServerContext* context, const ::diagnostics::grpc_api::HandleBluetoothDataChangedRequest* request, ::diagnostics::grpc_api::HandleBluetoothDataChangedResponse* response) override {
+    ::grpc::Status HandleBluetoothDataChanged(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::HandleBluetoothDataChangedRequest* /*request*/, ::diagnostics::grpc_api::HandleBluetoothDataChangedResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -420,7 +569,7 @@ class WilcoDtc final {
   template <class BaseClass>
   class WithRawMethod_HandleMessageFromUi : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_HandleMessageFromUi() {
       ::grpc::Service::MarkMethodRaw(0);
@@ -429,7 +578,7 @@ class WilcoDtc final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status HandleMessageFromUi(::grpc::ServerContext* context, const ::diagnostics::grpc_api::HandleMessageFromUiRequest* request, ::diagnostics::grpc_api::HandleMessageFromUiResponse* response) override {
+    ::grpc::Status HandleMessageFromUi(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::HandleMessageFromUiRequest* /*request*/, ::diagnostics::grpc_api::HandleMessageFromUiResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -440,7 +589,7 @@ class WilcoDtc final {
   template <class BaseClass>
   class WithRawMethod_HandleEcNotification : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_HandleEcNotification() {
       ::grpc::Service::MarkMethodRaw(1);
@@ -449,7 +598,7 @@ class WilcoDtc final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status HandleEcNotification(::grpc::ServerContext* context, const ::diagnostics::grpc_api::HandleEcNotificationRequest* request, ::diagnostics::grpc_api::HandleEcNotificationResponse* response) override {
+    ::grpc::Status HandleEcNotification(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::HandleEcNotificationRequest* /*request*/, ::diagnostics::grpc_api::HandleEcNotificationResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -460,7 +609,7 @@ class WilcoDtc final {
   template <class BaseClass>
   class WithRawMethod_HandlePowerNotification : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_HandlePowerNotification() {
       ::grpc::Service::MarkMethodRaw(2);
@@ -469,7 +618,7 @@ class WilcoDtc final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status HandlePowerNotification(::grpc::ServerContext* context, const ::diagnostics::grpc_api::HandlePowerNotificationRequest* request, ::diagnostics::grpc_api::HandlePowerNotificationResponse* response) override {
+    ::grpc::Status HandlePowerNotification(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::HandlePowerNotificationRequest* /*request*/, ::diagnostics::grpc_api::HandlePowerNotificationResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -480,7 +629,7 @@ class WilcoDtc final {
   template <class BaseClass>
   class WithRawMethod_HandleConfigurationDataChanged : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_HandleConfigurationDataChanged() {
       ::grpc::Service::MarkMethodRaw(3);
@@ -489,7 +638,7 @@ class WilcoDtc final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status HandleConfigurationDataChanged(::grpc::ServerContext* context, const ::diagnostics::grpc_api::HandleConfigurationDataChangedRequest* request, ::diagnostics::grpc_api::HandleConfigurationDataChangedResponse* response) override {
+    ::grpc::Status HandleConfigurationDataChanged(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::HandleConfigurationDataChangedRequest* /*request*/, ::diagnostics::grpc_api::HandleConfigurationDataChangedResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -500,7 +649,7 @@ class WilcoDtc final {
   template <class BaseClass>
   class WithRawMethod_HandleBluetoothDataChanged : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_HandleBluetoothDataChanged() {
       ::grpc::Service::MarkMethodRaw(4);
@@ -509,7 +658,7 @@ class WilcoDtc final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status HandleBluetoothDataChanged(::grpc::ServerContext* context, const ::diagnostics::grpc_api::HandleBluetoothDataChangedRequest* request, ::diagnostics::grpc_api::HandleBluetoothDataChangedResponse* response) override {
+    ::grpc::Status HandleBluetoothDataChanged(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::HandleBluetoothDataChangedRequest* /*request*/, ::diagnostics::grpc_api::HandleBluetoothDataChangedResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -518,19 +667,136 @@ class WilcoDtc final {
     }
   };
   template <class BaseClass>
+  class WithRawCallbackMethod_HandleMessageFromUi : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_HandleMessageFromUi() {
+      ::grpc::Service::MarkMethodRawCallback(0,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->HandleMessageFromUi(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_HandleMessageFromUi() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status HandleMessageFromUi(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::HandleMessageFromUiRequest* /*request*/, ::diagnostics::grpc_api::HandleMessageFromUiResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* HandleMessageFromUi(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_HandleEcNotification : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_HandleEcNotification() {
+      ::grpc::Service::MarkMethodRawCallback(1,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->HandleEcNotification(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_HandleEcNotification() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status HandleEcNotification(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::HandleEcNotificationRequest* /*request*/, ::diagnostics::grpc_api::HandleEcNotificationResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* HandleEcNotification(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_HandlePowerNotification : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_HandlePowerNotification() {
+      ::grpc::Service::MarkMethodRawCallback(2,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->HandlePowerNotification(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_HandlePowerNotification() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status HandlePowerNotification(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::HandlePowerNotificationRequest* /*request*/, ::diagnostics::grpc_api::HandlePowerNotificationResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* HandlePowerNotification(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_HandleConfigurationDataChanged : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_HandleConfigurationDataChanged() {
+      ::grpc::Service::MarkMethodRawCallback(3,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->HandleConfigurationDataChanged(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_HandleConfigurationDataChanged() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status HandleConfigurationDataChanged(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::HandleConfigurationDataChangedRequest* /*request*/, ::diagnostics::grpc_api::HandleConfigurationDataChangedResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* HandleConfigurationDataChanged(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_HandleBluetoothDataChanged : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_HandleBluetoothDataChanged() {
+      ::grpc::Service::MarkMethodRawCallback(4,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->HandleBluetoothDataChanged(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_HandleBluetoothDataChanged() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status HandleBluetoothDataChanged(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::HandleBluetoothDataChangedRequest* /*request*/, ::diagnostics::grpc_api::HandleBluetoothDataChangedResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* HandleBluetoothDataChanged(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
   class WithStreamedUnaryMethod_HandleMessageFromUi : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_HandleMessageFromUi() {
       ::grpc::Service::MarkMethodStreamed(0,
-        new ::grpc::internal::StreamedUnaryHandler< ::diagnostics::grpc_api::HandleMessageFromUiRequest, ::diagnostics::grpc_api::HandleMessageFromUiResponse>(std::bind(&WithStreamedUnaryMethod_HandleMessageFromUi<BaseClass>::StreamedHandleMessageFromUi, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::diagnostics::grpc_api::HandleMessageFromUiRequest, ::diagnostics::grpc_api::HandleMessageFromUiResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::diagnostics::grpc_api::HandleMessageFromUiRequest, ::diagnostics::grpc_api::HandleMessageFromUiResponse>* streamer) {
+                       return this->StreamedHandleMessageFromUi(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_HandleMessageFromUi() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status HandleMessageFromUi(::grpc::ServerContext* context, const ::diagnostics::grpc_api::HandleMessageFromUiRequest* request, ::diagnostics::grpc_api::HandleMessageFromUiResponse* response) override {
+    ::grpc::Status HandleMessageFromUi(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::HandleMessageFromUiRequest* /*request*/, ::diagnostics::grpc_api::HandleMessageFromUiResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -540,17 +806,24 @@ class WilcoDtc final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_HandleEcNotification : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_HandleEcNotification() {
       ::grpc::Service::MarkMethodStreamed(1,
-        new ::grpc::internal::StreamedUnaryHandler< ::diagnostics::grpc_api::HandleEcNotificationRequest, ::diagnostics::grpc_api::HandleEcNotificationResponse>(std::bind(&WithStreamedUnaryMethod_HandleEcNotification<BaseClass>::StreamedHandleEcNotification, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::diagnostics::grpc_api::HandleEcNotificationRequest, ::diagnostics::grpc_api::HandleEcNotificationResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::diagnostics::grpc_api::HandleEcNotificationRequest, ::diagnostics::grpc_api::HandleEcNotificationResponse>* streamer) {
+                       return this->StreamedHandleEcNotification(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_HandleEcNotification() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status HandleEcNotification(::grpc::ServerContext* context, const ::diagnostics::grpc_api::HandleEcNotificationRequest* request, ::diagnostics::grpc_api::HandleEcNotificationResponse* response) override {
+    ::grpc::Status HandleEcNotification(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::HandleEcNotificationRequest* /*request*/, ::diagnostics::grpc_api::HandleEcNotificationResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -560,17 +833,24 @@ class WilcoDtc final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_HandlePowerNotification : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_HandlePowerNotification() {
       ::grpc::Service::MarkMethodStreamed(2,
-        new ::grpc::internal::StreamedUnaryHandler< ::diagnostics::grpc_api::HandlePowerNotificationRequest, ::diagnostics::grpc_api::HandlePowerNotificationResponse>(std::bind(&WithStreamedUnaryMethod_HandlePowerNotification<BaseClass>::StreamedHandlePowerNotification, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::diagnostics::grpc_api::HandlePowerNotificationRequest, ::diagnostics::grpc_api::HandlePowerNotificationResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::diagnostics::grpc_api::HandlePowerNotificationRequest, ::diagnostics::grpc_api::HandlePowerNotificationResponse>* streamer) {
+                       return this->StreamedHandlePowerNotification(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_HandlePowerNotification() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status HandlePowerNotification(::grpc::ServerContext* context, const ::diagnostics::grpc_api::HandlePowerNotificationRequest* request, ::diagnostics::grpc_api::HandlePowerNotificationResponse* response) override {
+    ::grpc::Status HandlePowerNotification(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::HandlePowerNotificationRequest* /*request*/, ::diagnostics::grpc_api::HandlePowerNotificationResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -580,17 +860,24 @@ class WilcoDtc final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_HandleConfigurationDataChanged : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_HandleConfigurationDataChanged() {
       ::grpc::Service::MarkMethodStreamed(3,
-        new ::grpc::internal::StreamedUnaryHandler< ::diagnostics::grpc_api::HandleConfigurationDataChangedRequest, ::diagnostics::grpc_api::HandleConfigurationDataChangedResponse>(std::bind(&WithStreamedUnaryMethod_HandleConfigurationDataChanged<BaseClass>::StreamedHandleConfigurationDataChanged, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::diagnostics::grpc_api::HandleConfigurationDataChangedRequest, ::diagnostics::grpc_api::HandleConfigurationDataChangedResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::diagnostics::grpc_api::HandleConfigurationDataChangedRequest, ::diagnostics::grpc_api::HandleConfigurationDataChangedResponse>* streamer) {
+                       return this->StreamedHandleConfigurationDataChanged(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_HandleConfigurationDataChanged() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status HandleConfigurationDataChanged(::grpc::ServerContext* context, const ::diagnostics::grpc_api::HandleConfigurationDataChangedRequest* request, ::diagnostics::grpc_api::HandleConfigurationDataChangedResponse* response) override {
+    ::grpc::Status HandleConfigurationDataChanged(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::HandleConfigurationDataChangedRequest* /*request*/, ::diagnostics::grpc_api::HandleConfigurationDataChangedResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -600,17 +887,24 @@ class WilcoDtc final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_HandleBluetoothDataChanged : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_HandleBluetoothDataChanged() {
       ::grpc::Service::MarkMethodStreamed(4,
-        new ::grpc::internal::StreamedUnaryHandler< ::diagnostics::grpc_api::HandleBluetoothDataChangedRequest, ::diagnostics::grpc_api::HandleBluetoothDataChangedResponse>(std::bind(&WithStreamedUnaryMethod_HandleBluetoothDataChanged<BaseClass>::StreamedHandleBluetoothDataChanged, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::diagnostics::grpc_api::HandleBluetoothDataChangedRequest, ::diagnostics::grpc_api::HandleBluetoothDataChangedResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::diagnostics::grpc_api::HandleBluetoothDataChangedRequest, ::diagnostics::grpc_api::HandleBluetoothDataChangedResponse>* streamer) {
+                       return this->StreamedHandleBluetoothDataChanged(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_HandleBluetoothDataChanged() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status HandleBluetoothDataChanged(::grpc::ServerContext* context, const ::diagnostics::grpc_api::HandleBluetoothDataChangedRequest* request, ::diagnostics::grpc_api::HandleBluetoothDataChangedResponse* response) override {
+    ::grpc::Status HandleBluetoothDataChanged(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::HandleBluetoothDataChangedRequest* /*request*/, ::diagnostics::grpc_api::HandleBluetoothDataChangedResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }

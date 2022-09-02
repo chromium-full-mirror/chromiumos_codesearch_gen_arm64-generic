@@ -28,7 +28,6 @@
 #include <grpcpp/support/config.h>
 
 namespace grpc {
-
 /// Create a new \a Channel pointing to \a target.
 ///
 /// \param target The URI of the endpoint to connect to.
@@ -70,8 +69,8 @@ std::shared_ptr<Channel> CreateCustomChannelWithInterceptors(
     const grpc::string& target,
     const std::shared_ptr<ChannelCredentials>& creds,
     const ChannelArguments& args,
-    std::unique_ptr<std::vector<
-        std::unique_ptr<experimental::ClientInterceptorFactoryInterface>>>
+    std::vector<
+        std::unique_ptr<experimental::ClientInterceptorFactoryInterface>>
         interceptor_creators);
 }  // namespace experimental
 }  // namespace grpc

@@ -11,8 +11,12 @@
 #include <grpcpp/impl/codegen/channel_interface.h>
 #include <grpcpp/impl/codegen/client_unary_call.h>
 #include <grpcpp/impl/codegen/client_callback.h>
-#include <grpcpp/impl/codegen/method_handler_impl.h>
+#include <grpcpp/impl/codegen/message_allocator.h>
+#include <grpcpp/impl/codegen/method_handler.h>
 #include <grpcpp/impl/codegen/rpc_service_method.h>
+#include <grpcpp/impl/codegen/server_callback.h>
+#include <grpcpp/impl/codegen/server_callback_handlers.h>
+#include <grpcpp/impl/codegen/server_context.h>
 #include <grpcpp/impl/codegen/service_type.h>
 #include <grpcpp/impl/codegen/sync_stream.h>
 namespace vm_tools {
@@ -24,58 +28,82 @@ static const char* LogCollector_method_names[] = {
 
 std::unique_ptr< LogCollector::Stub> LogCollector::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
   (void)options;
-  std::unique_ptr< LogCollector::Stub> stub(new LogCollector::Stub(channel));
+  std::unique_ptr< LogCollector::Stub> stub(new LogCollector::Stub(channel, options));
   return stub;
 }
 
-LogCollector::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel)
-  : channel_(channel), rpcmethod_CollectKernelLogs_(LogCollector_method_names[0], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_CollectUserLogs_(LogCollector_method_names[1], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+LogCollector::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options)
+  : channel_(channel), rpcmethod_CollectKernelLogs_(LogCollector_method_names[0], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_CollectUserLogs_(LogCollector_method_names[1], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   {}
 
 ::grpc::Status LogCollector::Stub::CollectKernelLogs(::grpc::ClientContext* context, const ::vm_tools::LogRequest& request, ::vm_tools::EmptyMessage* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_CollectKernelLogs_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::LogRequest, ::vm_tools::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_CollectKernelLogs_, context, request, response);
 }
 
-void LogCollector::Stub::experimental_async::CollectKernelLogs(::grpc::ClientContext* context, const ::vm_tools::LogRequest* request, ::vm_tools::EmptyMessage* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_CollectKernelLogs_, context, request, response, std::move(f));
+void LogCollector::Stub::async::CollectKernelLogs(::grpc::ClientContext* context, const ::vm_tools::LogRequest* request, ::vm_tools::EmptyMessage* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::LogRequest, ::vm_tools::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_CollectKernelLogs_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>* LogCollector::Stub::AsyncCollectKernelLogsRaw(::grpc::ClientContext* context, const ::vm_tools::LogRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::EmptyMessage>::Create(channel_.get(), cq, rpcmethod_CollectKernelLogs_, context, request, true);
+void LogCollector::Stub::async::CollectKernelLogs(::grpc::ClientContext* context, const ::vm_tools::LogRequest* request, ::vm_tools::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_CollectKernelLogs_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>* LogCollector::Stub::PrepareAsyncCollectKernelLogsRaw(::grpc::ClientContext* context, const ::vm_tools::LogRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::EmptyMessage>::Create(channel_.get(), cq, rpcmethod_CollectKernelLogs_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::EmptyMessage, ::vm_tools::LogRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_CollectKernelLogs_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>* LogCollector::Stub::AsyncCollectKernelLogsRaw(::grpc::ClientContext* context, const ::vm_tools::LogRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncCollectKernelLogsRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 ::grpc::Status LogCollector::Stub::CollectUserLogs(::grpc::ClientContext* context, const ::vm_tools::LogRequest& request, ::vm_tools::EmptyMessage* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_CollectUserLogs_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::LogRequest, ::vm_tools::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_CollectUserLogs_, context, request, response);
 }
 
-void LogCollector::Stub::experimental_async::CollectUserLogs(::grpc::ClientContext* context, const ::vm_tools::LogRequest* request, ::vm_tools::EmptyMessage* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_CollectUserLogs_, context, request, response, std::move(f));
+void LogCollector::Stub::async::CollectUserLogs(::grpc::ClientContext* context, const ::vm_tools::LogRequest* request, ::vm_tools::EmptyMessage* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::LogRequest, ::vm_tools::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_CollectUserLogs_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>* LogCollector::Stub::AsyncCollectUserLogsRaw(::grpc::ClientContext* context, const ::vm_tools::LogRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::EmptyMessage>::Create(channel_.get(), cq, rpcmethod_CollectUserLogs_, context, request, true);
+void LogCollector::Stub::async::CollectUserLogs(::grpc::ClientContext* context, const ::vm_tools::LogRequest* request, ::vm_tools::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_CollectUserLogs_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>* LogCollector::Stub::PrepareAsyncCollectUserLogsRaw(::grpc::ClientContext* context, const ::vm_tools::LogRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::EmptyMessage>::Create(channel_.get(), cq, rpcmethod_CollectUserLogs_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::EmptyMessage, ::vm_tools::LogRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_CollectUserLogs_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>* LogCollector::Stub::AsyncCollectUserLogsRaw(::grpc::ClientContext* context, const ::vm_tools::LogRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncCollectUserLogsRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 LogCollector::Service::Service() {
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       LogCollector_method_names[0],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< LogCollector::Service, ::vm_tools::LogRequest, ::vm_tools::EmptyMessage>(
-          std::mem_fn(&LogCollector::Service::CollectKernelLogs), this)));
+      new ::grpc::internal::RpcMethodHandler< LogCollector::Service, ::vm_tools::LogRequest, ::vm_tools::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](LogCollector::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::LogRequest* req,
+             ::vm_tools::EmptyMessage* resp) {
+               return service->CollectKernelLogs(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       LogCollector_method_names[1],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< LogCollector::Service, ::vm_tools::LogRequest, ::vm_tools::EmptyMessage>(
-          std::mem_fn(&LogCollector::Service::CollectUserLogs), this)));
+      new ::grpc::internal::RpcMethodHandler< LogCollector::Service, ::vm_tools::LogRequest, ::vm_tools::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](LogCollector::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::LogRequest* req,
+             ::vm_tools::EmptyMessage* resp) {
+               return service->CollectUserLogs(ctx, req, resp);
+             }, this)));
 }
 
 LogCollector::Service::~Service() {
@@ -102,36 +130,48 @@ static const char* StartupListener_method_names[] = {
 
 std::unique_ptr< StartupListener::Stub> StartupListener::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
   (void)options;
-  std::unique_ptr< StartupListener::Stub> stub(new StartupListener::Stub(channel));
+  std::unique_ptr< StartupListener::Stub> stub(new StartupListener::Stub(channel, options));
   return stub;
 }
 
-StartupListener::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel)
-  : channel_(channel), rpcmethod_VmReady_(StartupListener_method_names[0], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+StartupListener::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options)
+  : channel_(channel), rpcmethod_VmReady_(StartupListener_method_names[0], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   {}
 
 ::grpc::Status StartupListener::Stub::VmReady(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage& request, ::vm_tools::EmptyMessage* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_VmReady_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::EmptyMessage, ::vm_tools::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_VmReady_, context, request, response);
 }
 
-void StartupListener::Stub::experimental_async::VmReady(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::EmptyMessage* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_VmReady_, context, request, response, std::move(f));
+void StartupListener::Stub::async::VmReady(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::EmptyMessage* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::EmptyMessage, ::vm_tools::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_VmReady_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>* StartupListener::Stub::AsyncVmReadyRaw(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::EmptyMessage>::Create(channel_.get(), cq, rpcmethod_VmReady_, context, request, true);
+void StartupListener::Stub::async::VmReady(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_VmReady_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>* StartupListener::Stub::PrepareAsyncVmReadyRaw(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::EmptyMessage>::Create(channel_.get(), cq, rpcmethod_VmReady_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::EmptyMessage, ::vm_tools::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_VmReady_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>* StartupListener::Stub::AsyncVmReadyRaw(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncVmReadyRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 StartupListener::Service::Service() {
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       StartupListener_method_names[0],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< StartupListener::Service, ::vm_tools::EmptyMessage, ::vm_tools::EmptyMessage>(
-          std::mem_fn(&StartupListener::Service::VmReady), this)));
+      new ::grpc::internal::RpcMethodHandler< StartupListener::Service, ::vm_tools::EmptyMessage, ::vm_tools::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](StartupListener::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::EmptyMessage* req,
+             ::vm_tools::EmptyMessage* resp) {
+               return service->VmReady(ctx, req, resp);
+             }, this)));
 }
 
 StartupListener::Service::~Service() {
