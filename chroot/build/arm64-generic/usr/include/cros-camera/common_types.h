@@ -73,6 +73,7 @@ struct Size {
   bool operator==(const Size& rhs) const {
     return width == rhs.width && height == rhs.height;
   }
+  bool operator!=(const Size& rhs) const { return !(*this == rhs); }
   bool is_valid() const { return width > 0 && height > 0; }
   std::string ToString() const {
     return base::StringPrintf("%ux%u", width, height);
@@ -107,5 +108,14 @@ std::ostream& operator<<(std::ostream& stream, const Range<T>& r) {
 }
 
 }  // namespace cros
+
+template <>
+struct std::hash<cros::Size> {
+  std::size_t operator()(cros::Size const& s) const noexcept {
+    std::size_t h1 = std::hash<unsigned int>{}(s.width);
+    std::size_t h2 = std::hash<unsigned int>{}(s.height);
+    return h1 ^ (h2 << 1);
+  }
+};
 
 #endif  // CAMERA_INCLUDE_CROS_CAMERA_COMMON_TYPES_H_

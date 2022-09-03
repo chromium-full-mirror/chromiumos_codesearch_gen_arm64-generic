@@ -97,6 +97,8 @@ static NOINLINE const char* GetEcTelemetryResponse_StatusToStringHelper(GetEcTel
       return "kStatusErrorInputPayloadMaxSizeExceeded";
     case GetEcTelemetryResponse_Status::kStatusErrorAccessingDriver:
       return "kStatusErrorAccessingDriver";
+    case GetEcTelemetryResponse_Status::kUnmappedEnumField:
+      return "kUnmappedEnumField";
     default:
       return nullptr;
   }

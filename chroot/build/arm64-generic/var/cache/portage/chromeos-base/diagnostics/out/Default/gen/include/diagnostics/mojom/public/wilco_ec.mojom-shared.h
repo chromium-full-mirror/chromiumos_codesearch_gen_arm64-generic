@@ -134,6 +134,8 @@ inline EcEvent_Type ToKnownEnumValue(EcEvent_Type value) {
 
 enum class GetEcTelemetryResponse_Status : int32_t {
   
+  kUnmappedEnumField = 4,
+  
   kStatusOk = 0,
   
   kStatusErrorInputPayloadEmpty = 1,
@@ -142,13 +144,20 @@ enum class GetEcTelemetryResponse_Status : int32_t {
   
   kStatusErrorAccessingDriver = 3,
   kMinValue = 0,
-  kMaxValue = 3,
+  kMaxValue = 4,
+  kDefaultValue = 4
 };
 
  std::ostream& operator<<(std::ostream& os, GetEcTelemetryResponse_Status value);
 inline bool IsKnownEnumValue(GetEcTelemetryResponse_Status value) {
   return internal::GetEcTelemetryResponse_Status_Data::IsKnownValue(
       static_cast<int32_t>(value));
+}
+inline GetEcTelemetryResponse_Status ToKnownEnumValue(GetEcTelemetryResponse_Status value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return GetEcTelemetryResponse_Status::kDefaultValue;
 }
 // Interface base classes. They are used for type safety check.
 class WilcoEcObserverInterfaceBase {};
