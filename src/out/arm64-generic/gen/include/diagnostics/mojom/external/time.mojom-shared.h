@@ -31,6 +31,9 @@
 
 
 
+namespace chromeos {
+namespace cros_healthd {
+namespace internal {
 namespace mojo_base {
 namespace mojom {
 class TimeDataView;
@@ -43,27 +46,30 @@ class TimeTicksDataView;
 
 }  // namespace mojom
 }  // namespace mojo_base
+}  // namespace internal
+}  // namespace cros_healthd
+}  // namespace chromeos
 
 namespace mojo {
 namespace internal {
 
 template <>
-struct MojomTypeTraits<::mojo_base::mojom::TimeDataView> {
-  using Data = ::mojo_base::mojom::internal::Time_Data;
+struct MojomTypeTraits<::chromeos::cros_healthd::internal::mojo_base::mojom::TimeDataView> {
+  using Data = ::chromeos::cros_healthd::internal::mojo_base::mojom::internal::Time_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::mojo_base::mojom::TimeDeltaDataView> {
-  using Data = ::mojo_base::mojom::internal::TimeDelta_Data;
+struct MojomTypeTraits<::chromeos::cros_healthd::internal::mojo_base::mojom::TimeDeltaDataView> {
+  using Data = ::chromeos::cros_healthd::internal::mojo_base::mojom::internal::TimeDelta_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::mojo_base::mojom::TimeTicksDataView> {
-  using Data = ::mojo_base::mojom::internal::TimeTicks_Data;
+struct MojomTypeTraits<::chromeos::cros_healthd::internal::mojo_base::mojom::TimeTicksDataView> {
+  using Data = ::chromeos::cros_healthd::internal::mojo_base::mojom::internal::TimeTicks_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -72,6 +78,9 @@ struct MojomTypeTraits<::mojo_base::mojom::TimeTicksDataView> {
 }  // namespace mojo
 
 
+namespace chromeos {
+namespace cros_healthd {
+namespace internal {
 namespace mojo_base {
 namespace mojom {
 
@@ -135,6 +144,9 @@ class TimeTicksDataView {
 
 }  // namespace mojom
 }  // namespace mojo_base
+}  // namespace internal
+}  // namespace cros_healthd
+}  // namespace chromeos
 
 namespace std {
 
@@ -146,26 +158,26 @@ namespace mojo {
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::mojo_base::mojom::TimeDataView, MaybeConstUserType> {
+struct Serializer<::chromeos::cros_healthd::internal::mojo_base::mojom::TimeDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::mojo_base::mojom::TimeDataView, UserType>;
+  using Traits = StructTraits<::chromeos::cros_healthd::internal::mojo_base::mojom::TimeDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::mojo_base::mojom::internal::Time_Data>& fragment) {
+      mojo::internal::MessageFragment<::chromeos::cros_healthd::internal::mojo_base::mojom::internal::Time_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
     fragment->internal_value = Traits::internal_value(input);
   }
 
-  static bool Deserialize(::mojo_base::mojom::internal::Time_Data* input,
+  static bool Deserialize(::chromeos::cros_healthd::internal::mojo_base::mojom::internal::Time_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::mojo_base::mojom::TimeDataView data_view(input, message);
+    ::chromeos::cros_healthd::internal::mojo_base::mojom::TimeDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -176,26 +188,26 @@ struct Serializer<::mojo_base::mojom::TimeDataView, MaybeConstUserType> {
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::mojo_base::mojom::TimeDeltaDataView, MaybeConstUserType> {
+struct Serializer<::chromeos::cros_healthd::internal::mojo_base::mojom::TimeDeltaDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::mojo_base::mojom::TimeDeltaDataView, UserType>;
+  using Traits = StructTraits<::chromeos::cros_healthd::internal::mojo_base::mojom::TimeDeltaDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::mojo_base::mojom::internal::TimeDelta_Data>& fragment) {
+      mojo::internal::MessageFragment<::chromeos::cros_healthd::internal::mojo_base::mojom::internal::TimeDelta_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
     fragment->microseconds = Traits::microseconds(input);
   }
 
-  static bool Deserialize(::mojo_base::mojom::internal::TimeDelta_Data* input,
+  static bool Deserialize(::chromeos::cros_healthd::internal::mojo_base::mojom::internal::TimeDelta_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::mojo_base::mojom::TimeDeltaDataView data_view(input, message);
+    ::chromeos::cros_healthd::internal::mojo_base::mojom::TimeDeltaDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -206,26 +218,26 @@ struct Serializer<::mojo_base::mojom::TimeDeltaDataView, MaybeConstUserType> {
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::mojo_base::mojom::TimeTicksDataView, MaybeConstUserType> {
+struct Serializer<::chromeos::cros_healthd::internal::mojo_base::mojom::TimeTicksDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::mojo_base::mojom::TimeTicksDataView, UserType>;
+  using Traits = StructTraits<::chromeos::cros_healthd::internal::mojo_base::mojom::TimeTicksDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::mojo_base::mojom::internal::TimeTicks_Data>& fragment) {
+      mojo::internal::MessageFragment<::chromeos::cros_healthd::internal::mojo_base::mojom::internal::TimeTicks_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
     fragment->internal_value = Traits::internal_value(input);
   }
 
-  static bool Deserialize(::mojo_base::mojom::internal::TimeTicks_Data* input,
+  static bool Deserialize(::chromeos::cros_healthd::internal::mojo_base::mojom::internal::TimeTicks_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::mojo_base::mojom::TimeTicksDataView data_view(input, message);
+    ::chromeos::cros_healthd::internal::mojo_base::mojom::TimeTicksDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -235,6 +247,9 @@ struct Serializer<::mojo_base::mojom::TimeTicksDataView, MaybeConstUserType> {
 }  // namespace mojo
 
 
+namespace chromeos {
+namespace cros_healthd {
+namespace internal {
 namespace mojo_base {
 namespace mojom {
 
@@ -247,6 +262,9 @@ namespace mojom {
 
 }  // namespace mojom
 }  // namespace mojo_base
+}  // namespace internal
+}  // namespace cros_healthd
+}  // namespace chromeos
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

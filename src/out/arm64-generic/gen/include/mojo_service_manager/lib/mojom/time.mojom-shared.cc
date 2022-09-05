@@ -18,7 +18,8 @@
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
 #include "mojo_service_manager/lib/mojom/time.mojom-params-data.h"
-namespace mojo_base {
+namespace chromeos {
+namespace mojo_service_manager {
 namespace mojom {
 
 namespace internal {
@@ -48,4 +49,5 @@ TimeDelta_Data::TimeDelta_Data()
 
 }  // namespace internal
 }  // namespace mojom
-}  // namespace mojo_base
+}  // namespace mojo_service_manager
+}  // namespace chromeos

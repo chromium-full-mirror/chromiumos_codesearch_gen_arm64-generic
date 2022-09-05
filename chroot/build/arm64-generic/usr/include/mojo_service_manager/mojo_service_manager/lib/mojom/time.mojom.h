@@ -36,7 +36,8 @@
 
 
 
-namespace mojo_base {
+namespace chromeos {
+namespace mojo_service_manager {
 namespace mojom {
 
 
@@ -204,23 +205,24 @@ bool operator<(const T& lhs, const T& rhs) {
 
 
 }  // namespace mojom
-}  // namespace mojo_base
+}  // namespace mojo_service_manager
+}  // namespace chromeos
 
 namespace mojo {
 
 
 template <>
-struct  StructTraits<::mojo_base::mojom::TimeDelta::DataView,
-                                         ::mojo_base::mojom::TimeDeltaPtr> {
-  static bool IsNull(const ::mojo_base::mojom::TimeDeltaPtr& input) { return !input; }
-  static void SetToNull(::mojo_base::mojom::TimeDeltaPtr* output) { output->reset(); }
+struct  StructTraits<::chromeos::mojo_service_manager::mojom::TimeDelta::DataView,
+                                         ::chromeos::mojo_service_manager::mojom::TimeDeltaPtr> {
+  static bool IsNull(const ::chromeos::mojo_service_manager::mojom::TimeDeltaPtr& input) { return !input; }
+  static void SetToNull(::chromeos::mojo_service_manager::mojom::TimeDeltaPtr* output) { output->reset(); }
 
-  static decltype(::mojo_base::mojom::TimeDelta::microseconds) microseconds(
-      const ::mojo_base::mojom::TimeDeltaPtr& input) {
+  static decltype(::chromeos::mojo_service_manager::mojom::TimeDelta::microseconds) microseconds(
+      const ::chromeos::mojo_service_manager::mojom::TimeDeltaPtr& input) {
     return input->microseconds;
   }
 
-  static bool Read(::mojo_base::mojom::TimeDelta::DataView input, ::mojo_base::mojom::TimeDeltaPtr* output);
+  static bool Read(::chromeos::mojo_service_manager::mojom::TimeDelta::DataView input, ::chromeos::mojo_service_manager::mojom::TimeDeltaPtr* output);
 };
 
 }  // namespace mojo

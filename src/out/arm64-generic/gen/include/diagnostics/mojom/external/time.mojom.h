@@ -36,6 +36,9 @@
 
 
 
+namespace chromeos {
+namespace cros_healthd {
+namespace internal {
 namespace mojo_base {
 namespace mojom {
 
@@ -526,52 +529,55 @@ bool operator<(const T& lhs, const T& rhs) {
 
 }  // namespace mojom
 }  // namespace mojo_base
+}  // namespace internal
+}  // namespace cros_healthd
+}  // namespace chromeos
 
 namespace mojo {
 
 
 template <>
-struct  StructTraits<::mojo_base::mojom::Time::DataView,
-                                         ::mojo_base::mojom::TimePtr> {
-  static bool IsNull(const ::mojo_base::mojom::TimePtr& input) { return !input; }
-  static void SetToNull(::mojo_base::mojom::TimePtr* output) { output->reset(); }
+struct  StructTraits<::chromeos::cros_healthd::internal::mojo_base::mojom::Time::DataView,
+                                         ::chromeos::cros_healthd::internal::mojo_base::mojom::TimePtr> {
+  static bool IsNull(const ::chromeos::cros_healthd::internal::mojo_base::mojom::TimePtr& input) { return !input; }
+  static void SetToNull(::chromeos::cros_healthd::internal::mojo_base::mojom::TimePtr* output) { output->reset(); }
 
-  static decltype(::mojo_base::mojom::Time::internal_value) internal_value(
-      const ::mojo_base::mojom::TimePtr& input) {
+  static decltype(::chromeos::cros_healthd::internal::mojo_base::mojom::Time::internal_value) internal_value(
+      const ::chromeos::cros_healthd::internal::mojo_base::mojom::TimePtr& input) {
     return input->internal_value;
   }
 
-  static bool Read(::mojo_base::mojom::Time::DataView input, ::mojo_base::mojom::TimePtr* output);
+  static bool Read(::chromeos::cros_healthd::internal::mojo_base::mojom::Time::DataView input, ::chromeos::cros_healthd::internal::mojo_base::mojom::TimePtr* output);
 };
 
 
 template <>
-struct  StructTraits<::mojo_base::mojom::TimeDelta::DataView,
-                                         ::mojo_base::mojom::TimeDeltaPtr> {
-  static bool IsNull(const ::mojo_base::mojom::TimeDeltaPtr& input) { return !input; }
-  static void SetToNull(::mojo_base::mojom::TimeDeltaPtr* output) { output->reset(); }
+struct  StructTraits<::chromeos::cros_healthd::internal::mojo_base::mojom::TimeDelta::DataView,
+                                         ::chromeos::cros_healthd::internal::mojo_base::mojom::TimeDeltaPtr> {
+  static bool IsNull(const ::chromeos::cros_healthd::internal::mojo_base::mojom::TimeDeltaPtr& input) { return !input; }
+  static void SetToNull(::chromeos::cros_healthd::internal::mojo_base::mojom::TimeDeltaPtr* output) { output->reset(); }
 
-  static decltype(::mojo_base::mojom::TimeDelta::microseconds) microseconds(
-      const ::mojo_base::mojom::TimeDeltaPtr& input) {
+  static decltype(::chromeos::cros_healthd::internal::mojo_base::mojom::TimeDelta::microseconds) microseconds(
+      const ::chromeos::cros_healthd::internal::mojo_base::mojom::TimeDeltaPtr& input) {
     return input->microseconds;
   }
 
-  static bool Read(::mojo_base::mojom::TimeDelta::DataView input, ::mojo_base::mojom::TimeDeltaPtr* output);
+  static bool Read(::chromeos::cros_healthd::internal::mojo_base::mojom::TimeDelta::DataView input, ::chromeos::cros_healthd::internal::mojo_base::mojom::TimeDeltaPtr* output);
 };
 
 
 template <>
-struct  StructTraits<::mojo_base::mojom::TimeTicks::DataView,
-                                         ::mojo_base::mojom::TimeTicksPtr> {
-  static bool IsNull(const ::mojo_base::mojom::TimeTicksPtr& input) { return !input; }
-  static void SetToNull(::mojo_base::mojom::TimeTicksPtr* output) { output->reset(); }
+struct  StructTraits<::chromeos::cros_healthd::internal::mojo_base::mojom::TimeTicks::DataView,
+                                         ::chromeos::cros_healthd::internal::mojo_base::mojom::TimeTicksPtr> {
+  static bool IsNull(const ::chromeos::cros_healthd::internal::mojo_base::mojom::TimeTicksPtr& input) { return !input; }
+  static void SetToNull(::chromeos::cros_healthd::internal::mojo_base::mojom::TimeTicksPtr* output) { output->reset(); }
 
-  static decltype(::mojo_base::mojom::TimeTicks::internal_value) internal_value(
-      const ::mojo_base::mojom::TimeTicksPtr& input) {
+  static decltype(::chromeos::cros_healthd::internal::mojo_base::mojom::TimeTicks::internal_value) internal_value(
+      const ::chromeos::cros_healthd::internal::mojo_base::mojom::TimeTicksPtr& input) {
     return input->internal_value;
   }
 
-  static bool Read(::mojo_base::mojom::TimeTicks::DataView input, ::mojo_base::mojom::TimeTicksPtr* output);
+  static bool Read(::chromeos::cros_healthd::internal::mojo_base::mojom::TimeTicks::DataView input, ::chromeos::cros_healthd::internal::mojo_base::mojom::TimeTicksPtr* output);
 };
 
 }  // namespace mojo

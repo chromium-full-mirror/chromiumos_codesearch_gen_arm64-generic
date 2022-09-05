@@ -21,7 +21,8 @@
 
 
 
-namespace mojo_base {
+namespace chromeos {
+namespace mojo_service_manager {
 namespace mojom {
 class TimeDeltaDataView;
 
@@ -32,6 +33,7 @@ using TimeDeltaPtr = mojo::InlinedStructPtr<TimeDelta>;
 
 
 }  // namespace mojom
-}  // namespace mojo_base
+}  // namespace mojo_service_manager
+}  // namespace chromeos
 
 #endif  // MOJO_SERVICE_MANAGER_LIB_MOJOM_TIME_MOJOM_FORWARD_H_

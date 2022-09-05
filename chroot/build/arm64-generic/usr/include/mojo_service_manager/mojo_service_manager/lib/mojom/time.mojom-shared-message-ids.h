@@ -8,7 +8,8 @@
 #define MOJO_SERVICE_MANAGER_LIB_MOJOM_TIME_MOJOM_SHARED_MESSAGE_IDS_H_
 
 #include <stdint.h>
-namespace mojo_base {
+namespace chromeos {
+namespace mojo_service_manager {
 namespace mojom {
 
 namespace internal {
@@ -17,6 +18,7 @@ namespace internal {
 
 }  // namespace internal
 }  // namespace mojom
-}  // namespace mojo_base
+}  // namespace mojo_service_manager
+}  // namespace chromeos
 
 #endif  // MOJO_SERVICE_MANAGER_LIB_MOJOM_TIME_MOJOM_SHARED_MESSAGE_IDS_H_

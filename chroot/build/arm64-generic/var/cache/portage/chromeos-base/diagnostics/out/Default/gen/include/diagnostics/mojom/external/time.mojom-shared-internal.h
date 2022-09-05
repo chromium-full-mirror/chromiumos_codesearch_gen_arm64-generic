@@ -20,6 +20,9 @@ namespace internal {
 class ValidationContext;
 }
 }
+namespace chromeos {
+namespace cros_healthd {
+namespace internal {
 namespace mojo_base {
 namespace mojom {
 namespace internal {
@@ -178,5 +181,8 @@ const mojo::internal::UnserializedMessageContext::Tag
 }  // namespace internal
 }  // namespace mojom
 }  // namespace mojo_base
+}  // namespace internal
+}  // namespace cros_healthd
+}  // namespace chromeos
 
 #endif  // DIAGNOSTICS_MOJOM_EXTERNAL_TIME_MOJOM_SHARED_INTERNAL_H_

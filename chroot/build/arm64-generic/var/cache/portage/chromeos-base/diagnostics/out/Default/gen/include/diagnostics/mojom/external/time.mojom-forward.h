@@ -21,6 +21,9 @@
 
 
 
+namespace chromeos {
+namespace cros_healthd {
+namespace internal {
 namespace mojo_base {
 namespace mojom {
 class TimeDataView;
@@ -43,5 +46,8 @@ using TimeTicksPtr = mojo::InlinedStructPtr<TimeTicks>;
 
 }  // namespace mojom
 }  // namespace mojo_base
+}  // namespace internal
+}  // namespace cros_healthd
+}  // namespace chromeos
 
 #endif  // DIAGNOSTICS_MOJOM_EXTERNAL_TIME_MOJOM_FORWARD_H_

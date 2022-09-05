@@ -45,7 +45,8 @@
 
 
 
-namespace mojo_base {
+namespace chromeos {
+namespace mojo_service_manager {
 namespace mojom {
 TimeDelta::TimeDelta()
     : microseconds() {}
@@ -78,18 +79,19 @@ bool TimeDelta::Validate(
 
 
 }  // namespace mojom
-}  // namespace mojo_base
+}  // namespace mojo_service_manager
+}  // namespace chromeos
 
 
 namespace mojo {
 
 
 // static
-bool StructTraits<::mojo_base::mojom::TimeDelta::DataView, ::mojo_base::mojom::TimeDeltaPtr>::Read(
-    ::mojo_base::mojom::TimeDelta::DataView input,
-    ::mojo_base::mojom::TimeDeltaPtr* output) {
+bool StructTraits<::chromeos::mojo_service_manager::mojom::TimeDelta::DataView, ::chromeos::mojo_service_manager::mojom::TimeDeltaPtr>::Read(
+    ::chromeos::mojo_service_manager::mojom::TimeDelta::DataView input,
+    ::chromeos::mojo_service_manager::mojom::TimeDeltaPtr* output) {
   bool success = true;
-  ::mojo_base::mojom::TimeDeltaPtr result(::mojo_base::mojom::TimeDelta::New());
+  ::chromeos::mojo_service_manager::mojom::TimeDeltaPtr result(::chromeos::mojo_service_manager::mojom::TimeDelta::New());
   
       if (success)
         result->microseconds = input.microseconds();
@@ -104,14 +106,16 @@ bool StructTraits<::mojo_base::mojom::TimeDelta::DataView, ::mojo_base::mojom::T
 // separate .cc file to save compile time.
 
 
-namespace mojo_base {
+namespace chromeos {
+namespace mojo_service_manager {
 namespace mojom {
 
 
 
 
 }  // namespace mojom
-}  // namespace mojo_base
+}  // namespace mojo_service_manager
+}  // namespace chromeos
 
 
 #if defined(__clang__)

@@ -616,7 +616,7 @@ void ServiceManagerProxy::Request(
   mojo::internal::MessageFragment<
       typename decltype(params->timeout)::BaseType> timeout_fragment(
           params.message());
-  mojo::internal::Serialize<::mojo_base::mojom::TimeDeltaDataView>(
+  mojo::internal::Serialize<::chromeos::mojo_service_manager::mojom::TimeDeltaDataView>(
       in_timeout, timeout_fragment);
   params->timeout.Set(
       timeout_fragment.is_null() ? nullptr : timeout_fragment.data());

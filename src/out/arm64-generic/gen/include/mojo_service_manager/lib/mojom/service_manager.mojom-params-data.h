@@ -44,7 +44,7 @@ class  ServiceManager_Request_Params_Data {
 
   mojo::internal::StructHeader header_;
   mojo::internal::Pointer<mojo::internal::String_Data> service_name;
-  mojo::internal::Pointer<::mojo_base::mojom::internal::TimeDelta_Data> timeout;
+  mojo::internal::Pointer<::chromeos::mojo_service_manager::mojom::internal::TimeDelta_Data> timeout;
   mojo::internal::Handle_Data receiver;
   uint8_t padfinal_[4];
 
@@ -199,14 +199,14 @@ class ServiceManager_Request_ParamsDataView {
         pointer, output, message_);
   }
   inline void GetTimeoutDataView(
-      ::mojo_base::mojom::TimeDeltaDataView* output);
+      ::chromeos::mojo_service_manager::mojom::TimeDeltaDataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadTimeout(UserType* output) {
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        ::mojo_base::mojom::TimeDeltaDataView, UserType>(),
+        ::chromeos::mojo_service_manager::mojom::TimeDeltaDataView, UserType>(),
     "Attempting to read the optional `timeout` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
@@ -215,7 +215,7 @@ static_assert(
     "of `ReadTimeout if you're fine with null values being "
     "silently ignored in this case.");
     auto* pointer = data_->timeout.Get();
-    return mojo::internal::Deserialize<::mojo_base::mojom::TimeDeltaDataView>(
+    return mojo::internal::Deserialize<::chromeos::mojo_service_manager::mojom::TimeDeltaDataView>(
         pointer, output, message_);
   }
   mojo::ScopedMessagePipeHandle TakeReceiver() {
@@ -387,9 +387,9 @@ inline void ServiceManager_Request_ParamsDataView::GetServiceNameDataView(
   *output = mojo::StringDataView(pointer, message_);
 }
 inline void ServiceManager_Request_ParamsDataView::GetTimeoutDataView(
-    ::mojo_base::mojom::TimeDeltaDataView* output) {
+    ::chromeos::mojo_service_manager::mojom::TimeDeltaDataView* output) {
   auto pointer = data_->timeout.Get();
-  *output = ::mojo_base::mojom::TimeDeltaDataView(pointer, message_);
+  *output = ::chromeos::mojo_service_manager::mojom::TimeDeltaDataView(pointer, message_);
 }
 
 

@@ -14,6 +14,9 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunused-private-field"
 #endif
+namespace chromeos {
+namespace cros_healthd {
+namespace internal {
 namespace mojo_base {
 namespace mojom {
 namespace internal {
@@ -23,6 +26,9 @@ class ValidationContext;
 }  // namespace internal
 }  // namespace mojom
 }  // namespace mojo_base
+}  // namespace internal
+}  // namespace cros_healthd
+}  // namespace chromeos
 
 #if defined(__clang__)
 #pragma clang diagnostic pop

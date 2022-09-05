@@ -45,6 +45,9 @@
 
 
 
+namespace chromeos {
+namespace cros_healthd {
+namespace internal {
 namespace mojo_base {
 namespace mojom {
 Time::Time()
@@ -139,17 +142,20 @@ bool TimeTicks::Validate(
 
 }  // namespace mojom
 }  // namespace mojo_base
+}  // namespace internal
+}  // namespace cros_healthd
+}  // namespace chromeos
 
 
 namespace mojo {
 
 
 // static
-bool StructTraits<::mojo_base::mojom::Time::DataView, ::mojo_base::mojom::TimePtr>::Read(
-    ::mojo_base::mojom::Time::DataView input,
-    ::mojo_base::mojom::TimePtr* output) {
+bool StructTraits<::chromeos::cros_healthd::internal::mojo_base::mojom::Time::DataView, ::chromeos::cros_healthd::internal::mojo_base::mojom::TimePtr>::Read(
+    ::chromeos::cros_healthd::internal::mojo_base::mojom::Time::DataView input,
+    ::chromeos::cros_healthd::internal::mojo_base::mojom::TimePtr* output) {
   bool success = true;
-  ::mojo_base::mojom::TimePtr result(::mojo_base::mojom::Time::New());
+  ::chromeos::cros_healthd::internal::mojo_base::mojom::TimePtr result(::chromeos::cros_healthd::internal::mojo_base::mojom::Time::New());
   
       if (success)
         result->internal_value = input.internal_value();
@@ -159,11 +165,11 @@ bool StructTraits<::mojo_base::mojom::Time::DataView, ::mojo_base::mojom::TimePt
 
 
 // static
-bool StructTraits<::mojo_base::mojom::TimeDelta::DataView, ::mojo_base::mojom::TimeDeltaPtr>::Read(
-    ::mojo_base::mojom::TimeDelta::DataView input,
-    ::mojo_base::mojom::TimeDeltaPtr* output) {
+bool StructTraits<::chromeos::cros_healthd::internal::mojo_base::mojom::TimeDelta::DataView, ::chromeos::cros_healthd::internal::mojo_base::mojom::TimeDeltaPtr>::Read(
+    ::chromeos::cros_healthd::internal::mojo_base::mojom::TimeDelta::DataView input,
+    ::chromeos::cros_healthd::internal::mojo_base::mojom::TimeDeltaPtr* output) {
   bool success = true;
-  ::mojo_base::mojom::TimeDeltaPtr result(::mojo_base::mojom::TimeDelta::New());
+  ::chromeos::cros_healthd::internal::mojo_base::mojom::TimeDeltaPtr result(::chromeos::cros_healthd::internal::mojo_base::mojom::TimeDelta::New());
   
       if (success)
         result->microseconds = input.microseconds();
@@ -173,11 +179,11 @@ bool StructTraits<::mojo_base::mojom::TimeDelta::DataView, ::mojo_base::mojom::T
 
 
 // static
-bool StructTraits<::mojo_base::mojom::TimeTicks::DataView, ::mojo_base::mojom::TimeTicksPtr>::Read(
-    ::mojo_base::mojom::TimeTicks::DataView input,
-    ::mojo_base::mojom::TimeTicksPtr* output) {
+bool StructTraits<::chromeos::cros_healthd::internal::mojo_base::mojom::TimeTicks::DataView, ::chromeos::cros_healthd::internal::mojo_base::mojom::TimeTicksPtr>::Read(
+    ::chromeos::cros_healthd::internal::mojo_base::mojom::TimeTicks::DataView input,
+    ::chromeos::cros_healthd::internal::mojo_base::mojom::TimeTicksPtr* output) {
   bool success = true;
-  ::mojo_base::mojom::TimeTicksPtr result(::mojo_base::mojom::TimeTicks::New());
+  ::chromeos::cros_healthd::internal::mojo_base::mojom::TimeTicksPtr result(::chromeos::cros_healthd::internal::mojo_base::mojom::TimeTicks::New());
   
       if (success)
         result->internal_value = input.internal_value();
@@ -192,6 +198,9 @@ bool StructTraits<::mojo_base::mojom::TimeTicks::DataView, ::mojo_base::mojom::T
 // separate .cc file to save compile time.
 
 
+namespace chromeos {
+namespace cros_healthd {
+namespace internal {
 namespace mojo_base {
 namespace mojom {
 
@@ -200,6 +209,9 @@ namespace mojom {
 
 }  // namespace mojom
 }  // namespace mojo_base
+}  // namespace internal
+}  // namespace cros_healthd
+}  // namespace chromeos
 
 
 #if defined(__clang__)

@@ -31,21 +31,23 @@
 
 
 
-namespace mojo_base {
+namespace chromeos {
+namespace mojo_service_manager {
 namespace mojom {
 class TimeDeltaDataView;
 
 
 
 }  // namespace mojom
-}  // namespace mojo_base
+}  // namespace mojo_service_manager
+}  // namespace chromeos
 
 namespace mojo {
 namespace internal {
 
 template <>
-struct MojomTypeTraits<::mojo_base::mojom::TimeDeltaDataView> {
-  using Data = ::mojo_base::mojom::internal::TimeDelta_Data;
+struct MojomTypeTraits<::chromeos::mojo_service_manager::mojom::TimeDeltaDataView> {
+  using Data = ::chromeos::mojo_service_manager::mojom::internal::TimeDelta_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -54,7 +56,8 @@ struct MojomTypeTraits<::mojo_base::mojom::TimeDeltaDataView> {
 }  // namespace mojo
 
 
-namespace mojo_base {
+namespace chromeos {
+namespace mojo_service_manager {
 namespace mojom {
 
 
@@ -78,7 +81,8 @@ class TimeDeltaDataView {
 
 
 }  // namespace mojom
-}  // namespace mojo_base
+}  // namespace mojo_service_manager
+}  // namespace chromeos
 
 namespace std {
 
@@ -90,26 +94,26 @@ namespace mojo {
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::mojo_base::mojom::TimeDeltaDataView, MaybeConstUserType> {
+struct Serializer<::chromeos::mojo_service_manager::mojom::TimeDeltaDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::mojo_base::mojom::TimeDeltaDataView, UserType>;
+  using Traits = StructTraits<::chromeos::mojo_service_manager::mojom::TimeDeltaDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::mojo_base::mojom::internal::TimeDelta_Data>& fragment) {
+      mojo::internal::MessageFragment<::chromeos::mojo_service_manager::mojom::internal::TimeDelta_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
     fragment->microseconds = Traits::microseconds(input);
   }
 
-  static bool Deserialize(::mojo_base::mojom::internal::TimeDelta_Data* input,
+  static bool Deserialize(::chromeos::mojo_service_manager::mojom::internal::TimeDelta_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::mojo_base::mojom::TimeDeltaDataView data_view(input, message);
+    ::chromeos::mojo_service_manager::mojom::TimeDeltaDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -119,14 +123,16 @@ struct Serializer<::mojo_base::mojom::TimeDeltaDataView, MaybeConstUserType> {
 }  // namespace mojo
 
 
-namespace mojo_base {
+namespace chromeos {
+namespace mojo_service_manager {
 namespace mojom {
 
 
 
 
 }  // namespace mojom
-}  // namespace mojo_base
+}  // namespace mojo_service_manager
+}  // namespace chromeos
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

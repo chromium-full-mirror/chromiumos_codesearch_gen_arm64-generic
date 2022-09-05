@@ -14,7 +14,8 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunused-private-field"
 #endif
-namespace mojo_base {
+namespace chromeos {
+namespace mojo_service_manager {
 namespace mojom {
 namespace internal {
 
@@ -22,7 +23,8 @@ class ValidationContext;
 
 }  // namespace internal
 }  // namespace mojom
-}  // namespace mojo_base
+}  // namespace mojo_service_manager
+}  // namespace chromeos
 
 #if defined(__clang__)
 #pragma clang diagnostic pop
