@@ -8,7 +8,7 @@
 #define CHROMEOS_ASH_SERVICES_CROS_HEALTHD_PRIVATE_MOJOM_CROS_HEALTHD_INTERNAL_MOJOM_SHARED_MESSAGE_IDS_H_
 
 #include <stdint.h>
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace internal {
 namespace mojom {
@@ -24,6 +24,6 @@ constexpr uint32_t kChromiumDataCollector_BindSensorService_Name = 2;
 }  // namespace mojom
 }  // namespace internal
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 #endif  // CHROMEOS_ASH_SERVICES_CROS_HEALTHD_PRIVATE_MOJOM_CROS_HEALTHD_INTERNAL_MOJOM_SHARED_MESSAGE_IDS_H_

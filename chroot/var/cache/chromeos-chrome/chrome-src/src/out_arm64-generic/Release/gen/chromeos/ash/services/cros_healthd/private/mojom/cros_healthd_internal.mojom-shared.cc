@@ -18,7 +18,7 @@
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
 #include "chromeos/ash/services/cros_healthd/private/mojom/cros_healthd_internal.mojom-params-data.h"
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace internal {
 namespace mojom {
@@ -114,7 +114,7 @@ bool InputDevice_Data::Validate(
   }
 
 
-  if (!::chromeos::cros_healthd::internal::mojom::internal::InputDevice_ConnectionType_Data
+  if (!::ash::cros_healthd::internal::mojom::internal::InputDevice_ConnectionType_Data
         ::Validate(object->connection_type, validation_context))
     return false;
 
@@ -296,14 +296,14 @@ ChromiumDataCollector_BindSensorService_Params_Data::ChromiumDataCollector_BindS
 }  // namespace mojom
 }  // namespace internal
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 namespace perfetto {
 
 // static
-void TraceFormatTraits<::chromeos::cros_healthd::internal::mojom::InputDevice_ConnectionType>::WriteIntoTrace(
-   perfetto::TracedValue context, ::chromeos::cros_healthd::internal::mojom::InputDevice_ConnectionType value) {
-  return std::move(context).WriteString(::chromeos::cros_healthd::internal::mojom::InputDevice_ConnectionTypeToString(value));
+void TraceFormatTraits<::ash::cros_healthd::internal::mojom::InputDevice_ConnectionType>::WriteIntoTrace(
+   perfetto::TracedValue context, ::ash::cros_healthd::internal::mojom::InputDevice_ConnectionType value) {
+  return std::move(context).WriteString(::ash::cros_healthd::internal::mojom::InputDevice_ConnectionTypeToString(value));
 }
 
 } // namespace perfetto

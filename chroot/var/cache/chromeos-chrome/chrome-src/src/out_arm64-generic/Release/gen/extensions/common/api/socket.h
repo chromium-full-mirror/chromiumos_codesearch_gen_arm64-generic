@@ -224,7 +224,7 @@ struct SocketInfo {
 
   // If the underlying socket is connected, contains the IPv4/6 address of the
   // peer.
-  std::unique_ptr<std::string> peer_address;
+  absl::optional<std::string> peer_address;
 
   // If the underlying socket is connected, contains the port of the connected
   // peer.
@@ -232,7 +232,7 @@ struct SocketInfo {
 
   // If the underlying socket is bound or connected, contains its local IPv4/6
   // address.
-  std::unique_ptr<std::string> local_address;
+  absl::optional<std::string> local_address;
 
   // If the underlying socket is bound or connected, contains its local port.
   absl::optional<int> local_port;
@@ -293,9 +293,9 @@ struct TLSVersionConstraints {
   // The minimum and maximum acceptable versions of TLS. These will be
   // <code>tls1</code>, <code>tls1.1</code>, <code>tls1.2</code>, or
   // <code>tls1.3</code>.
-  std::unique_ptr<std::string> min;
+  absl::optional<std::string> min;
 
-  std::unique_ptr<std::string> max;
+  absl::optional<std::string> max;
 
 };
 

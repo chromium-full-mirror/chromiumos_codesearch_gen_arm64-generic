@@ -18,7 +18,7 @@
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
 #include "chromeos/ash/services/cros_healthd/public/mojom/cros_healthd.mojom-params-data.h"
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace mojom {
 
@@ -316,7 +316,7 @@ bool CrosHealthdDiagnosticsService_GetAvailableRoutines_ResponseParams_Data::Val
     return false;
   }
   const mojo::internal::ContainerValidateParams available_routines_validate_params(
-      0, ::chromeos::cros_healthd::mojom::internal::DiagnosticRoutineEnum_Data::Validate);
+      0, ::ash::cros_healthd::mojom::internal::DiagnosticRoutineEnum_Data::Validate);
   if (!mojo::internal::ValidateContainer(object->available_routines, validation_context,
                                          &available_routines_validate_params)) {
     return false;
@@ -346,7 +346,7 @@ bool CrosHealthdDiagnosticsService_GetRoutineUpdate_Params_Data::Validate(
       static_cast<const CrosHealthdDiagnosticsService_GetRoutineUpdate_Params_Data*>(data);
 
 
-  if (!::chromeos::cros_healthd::mojom::internal::DiagnosticRoutineCommandEnum_Data
+  if (!::ash::cros_healthd::mojom::internal::DiagnosticRoutineCommandEnum_Data
         ::Validate(object->command, validation_context))
     return false;
 
@@ -619,7 +619,7 @@ bool CrosHealthdDiagnosticsService_RunAcPowerRoutine_Params_Data::Validate(
       static_cast<const CrosHealthdDiagnosticsService_RunAcPowerRoutine_Params_Data*>(data);
 
 
-  if (!::chromeos::cros_healthd::mojom::internal::AcPowerStatusEnum_Data
+  if (!::ash::cros_healthd::mojom::internal::AcPowerStatusEnum_Data
         ::Validate(object->expected_status, validation_context))
     return false;
 
@@ -905,7 +905,7 @@ bool CrosHealthdDiagnosticsService_RunNvmeSelfTestRoutine_Params_Data::Validate(
       static_cast<const CrosHealthdDiagnosticsService_RunNvmeSelfTestRoutine_Params_Data*>(data);
 
 
-  if (!::chromeos::cros_healthd::mojom::internal::NvmeSelfTestTypeEnum_Data
+  if (!::ash::cros_healthd::mojom::internal::NvmeSelfTestTypeEnum_Data
         ::Validate(object->nvme_self_test_type, validation_context))
     return false;
 
@@ -963,7 +963,7 @@ bool CrosHealthdDiagnosticsService_RunDiskReadRoutine_Params_Data::Validate(
       static_cast<const CrosHealthdDiagnosticsService_RunDiskReadRoutine_Params_Data*>(data);
 
 
-  if (!::chromeos::cros_healthd::mojom::internal::DiskReadRoutineTypeEnum_Data
+  if (!::ash::cros_healthd::mojom::internal::DiskReadRoutineTypeEnum_Data
         ::Validate(object->type, validation_context))
     return false;
 
@@ -2319,7 +2319,7 @@ bool CrosHealthdProbeService_ProbeTelemetryInfo_Params_Data::Validate(
     return false;
   }
   const mojo::internal::ContainerValidateParams categories_validate_params(
-      0, ::chromeos::cros_healthd::mojom::internal::ProbeCategoryEnum_Data::Validate);
+      0, ::ash::cros_healthd::mojom::internal::ProbeCategoryEnum_Data::Validate);
   if (!mojo::internal::ValidateContainer(object->categories, validation_context,
                                          &categories_validate_params)) {
     return false;
@@ -2559,4 +2559,4 @@ WilcoEcServiceController_ShutdownEcService_Params_Data::WilcoEcServiceController
 }  // namespace internal
 }  // namespace mojom
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash

@@ -53,10 +53,10 @@ struct Debuggee {
   // The id of the extension which you intend to debug. Attaching to an extension
   // background page is only possible when the
   // <code>--silent-debugger-extension-api</code> command-line switch is used.
-  std::unique_ptr<std::string> extension_id;
+  absl::optional<std::string> extension_id;
 
   // The opaque id of the debug target.
-  std::unique_ptr<std::string> target_id;
+  absl::optional<std::string> target_id;
 
 };
 
@@ -116,7 +116,7 @@ struct TargetInfo {
   absl::optional<int> tab_id;
 
   // The extension id, defined if type = 'background_page'.
-  std::unique_ptr<std::string> extension_id;
+  absl::optional<std::string> extension_id;
 
   // True if debugger is already attached.
   bool attached;
@@ -128,7 +128,7 @@ struct TargetInfo {
   std::string url;
 
   // Target favicon URL.
-  std::unique_ptr<std::string> favicon_url;
+  absl::optional<std::string> favicon_url;
 
 };
 

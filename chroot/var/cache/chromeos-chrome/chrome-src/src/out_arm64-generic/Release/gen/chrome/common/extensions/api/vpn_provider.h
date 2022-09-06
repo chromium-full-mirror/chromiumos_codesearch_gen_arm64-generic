@@ -52,10 +52,10 @@ struct Parameters {
 
   // Broadcast address for the VPN interface. (default: deduced from IP address
   // and mask)
-  std::unique_ptr<std::string> broadcast_address;
+  absl::optional<std::string> broadcast_address;
 
   // MTU setting for the VPN interface. (default: 1500 bytes)
-  std::unique_ptr<std::string> mtu;
+  absl::optional<std::string> mtu;
 
   // Exclude network traffic to the list of IP blocks in CIDR notation from the
   // tunnel. This can be used to bypass traffic to and from the VPN server. When
@@ -91,7 +91,7 @@ struct Parameters {
   // property is new in Chrome 51; it will generate an exception in earlier
   // versions. try/catch can be used to conditionally enable the feature based on
   // browser support.</p>
-  std::unique_ptr<std::string> reconnect;
+  absl::optional<std::string> reconnect;
 
 };
 

@@ -50,10 +50,10 @@ bool Debuggee::Populate(
     {
       auto temp = (*tab_id_value).GetIfInt();
       if (!temp.has_value()) {
-        out->tab_id.reset();
+        out->tab_id = absl::nullopt;
         return false;
       }
-      out->tab_id = temp.value();
+      out->tab_id = *temp;
     }
   }
 
@@ -62,10 +62,10 @@ bool Debuggee::Populate(
     {
       auto* temp = (*extension_id_value).GetIfString();
       if (!temp) {
-        out->extension_id.reset();
+        out->extension_id = absl::nullopt;
         return false;
       }
-      out->extension_id = std::make_unique<std::string>(*temp);
+      out->extension_id = *temp;
     }
   }
 
@@ -74,10 +74,10 @@ bool Debuggee::Populate(
     {
       auto* temp = (*target_id_value).GetIfString();
       if (!temp) {
-        out->target_id.reset();
+        out->target_id = absl::nullopt;
         return false;
       }
-      out->target_id = std::make_unique<std::string>(*temp);
+      out->target_id = *temp;
     }
   }
 
@@ -212,10 +212,10 @@ bool TargetInfo::Populate(
     {
       auto temp = (*tab_id_value).GetIfInt();
       if (!temp.has_value()) {
-        out->tab_id.reset();
+        out->tab_id = absl::nullopt;
         return false;
       }
-      out->tab_id = temp.value();
+      out->tab_id = *temp;
     }
   }
 
@@ -224,10 +224,10 @@ bool TargetInfo::Populate(
     {
       auto* temp = (*extension_id_value).GetIfString();
       if (!temp) {
-        out->extension_id.reset();
+        out->extension_id = absl::nullopt;
         return false;
       }
-      out->extension_id = std::make_unique<std::string>(*temp);
+      out->extension_id = *temp;
     }
   }
 
@@ -240,7 +240,7 @@ bool TargetInfo::Populate(
     if (!temp.has_value()) {
       return false;
     }
-    out->attached = temp.value();
+    out->attached = *temp;
   }
 
   const base::Value* title_value = dict->FindKey("title");
@@ -272,10 +272,10 @@ bool TargetInfo::Populate(
     {
       auto* temp = (*favicon_url_value).GetIfString();
       if (!temp) {
-        out->favicon_url.reset();
+        out->favicon_url = absl::nullopt;
         return false;
       }
-      out->favicon_url = std::make_unique<std::string>(*temp);
+      out->favicon_url = *temp;
     }
   }
 

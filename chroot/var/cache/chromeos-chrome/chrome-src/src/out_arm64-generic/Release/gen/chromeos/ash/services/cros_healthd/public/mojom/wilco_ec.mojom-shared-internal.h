@@ -20,7 +20,7 @@ namespace internal {
 class ValidationContext;
 }
 }
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace mojom {
 namespace internal {
@@ -29,7 +29,7 @@ class GetEcTelemetryResponse_Data;
 
 struct EcEvent_Reason_Data {
  public:
-  static bool constexpr kIsExtensible = false;
+  static bool constexpr kIsExtensible = true;
 
   static bool IsKnownValue(int32_t value) {
     switch (value) {
@@ -42,6 +42,7 @@ struct EcEvent_Reason_Data {
       case 6:
       case 7:
       case 8:
+      case 9:
         return true;
     }
     return false;
@@ -60,10 +61,11 @@ struct EcEvent_Reason_Data {
 
 struct EcEvent_Type_Data {
  public:
-  static bool constexpr kIsExtensible = false;
+  static bool constexpr kIsExtensible = true;
 
   static bool IsKnownValue(int32_t value) {
     switch (value) {
+      case 0:
       case 18:
         return true;
     }
@@ -83,7 +85,7 @@ struct EcEvent_Type_Data {
 
 struct GetEcTelemetryResponse_Status_Data {
  public:
-  static bool constexpr kIsExtensible = false;
+  static bool constexpr kIsExtensible = true;
 
   static bool IsKnownValue(int32_t value) {
     switch (value) {
@@ -91,6 +93,7 @@ struct GetEcTelemetryResponse_Status_Data {
       case 1:
       case 2:
       case 3:
+      case 4:
         return true;
     }
     return false;
@@ -214,6 +217,6 @@ const mojo::internal::UnserializedMessageContext::Tag
 }  // namespace internal
 }  // namespace mojom
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 #endif  // CHROMEOS_ASH_SERVICES_CROS_HEALTHD_PUBLIC_MOJOM_WILCO_EC_MOJOM_SHARED_INTERNAL_H_

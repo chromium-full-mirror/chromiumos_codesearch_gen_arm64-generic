@@ -91,14 +91,14 @@ bool StorageChange::Populate(
   const base::Value* old_value_value = dict->FindKey("oldValue");
   if (old_value_value) {
     {
-      out->old_value = (*old_value_value).CreateDeepCopy();
+      out->old_value = (*old_value_value).Clone();
     }
   }
 
   const base::Value* new_value_value = dict->FindKey("newValue");
   if (new_value_value) {
     {
-      out->new_value = (*new_value_value).CreateDeepCopy();
+      out->new_value = (*new_value_value).Clone();
     }
   }
 
@@ -167,10 +167,10 @@ bool Params::Keys::Populate(
     {
       auto* temp = value.GetIfString();
       if (!temp) {
-        out->as_string.reset();
+        out->as_string = absl::nullopt;
         return false;
       }
-      out->as_string = std::make_unique<std::string>(*temp);
+      out->as_string = *temp;
     }
     return true;
   }
@@ -272,10 +272,10 @@ bool Params::Keys::Populate(
     {
       auto* temp = value.GetIfString();
       if (!temp) {
-        out->as_string.reset();
+        out->as_string = absl::nullopt;
         return false;
       }
-      out->as_string = std::make_unique<std::string>(*temp);
+      out->as_string = *temp;
     }
     return true;
   }
@@ -402,10 +402,10 @@ bool Params::Keys::Populate(
     {
       auto* temp = value.GetIfString();
       if (!temp) {
-        out->as_string.reset();
+        out->as_string = absl::nullopt;
         return false;
       }
-      out->as_string = std::make_unique<std::string>(*temp);
+      out->as_string = *temp;
     }
     return true;
   }

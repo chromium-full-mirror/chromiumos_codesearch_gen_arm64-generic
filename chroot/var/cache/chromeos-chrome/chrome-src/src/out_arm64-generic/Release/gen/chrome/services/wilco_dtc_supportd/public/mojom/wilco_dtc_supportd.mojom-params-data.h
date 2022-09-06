@@ -602,7 +602,7 @@ class WilcoDtcSupportdClient_GetCrosHealthdDiagnosticsService_ParamsDataView {
   UserType TakeService() {
     UserType result;
     bool ret =
-        mojo::internal::Deserialize<mojo::InterfaceRequestDataView<::chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsServiceInterfaceBase>>(
+        mojo::internal::Deserialize<mojo::InterfaceRequestDataView<::ash::cros_healthd::mojom::CrosHealthdDiagnosticsServiceInterfaceBase>>(
             &data_->service, &result, message_);
     DCHECK(ret);
     return result;
@@ -628,7 +628,7 @@ class WilcoDtcSupportdClient_GetCrosHealthdProbeService_ParamsDataView {
   UserType TakeService() {
     UserType result;
     bool ret =
-        mojo::internal::Deserialize<mojo::InterfaceRequestDataView<::chromeos::cros_healthd::mojom::CrosHealthdProbeServiceInterfaceBase>>(
+        mojo::internal::Deserialize<mojo::InterfaceRequestDataView<::ash::cros_healthd::mojom::CrosHealthdProbeServiceInterfaceBase>>(
             &data_->service, &result, message_);
     DCHECK(ret);
     return result;

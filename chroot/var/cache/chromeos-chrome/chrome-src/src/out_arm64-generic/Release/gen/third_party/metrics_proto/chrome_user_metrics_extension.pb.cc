@@ -38,16 +38,13 @@ PROTOBUF_CONSTEXPR ChromeUserMetricsExtension::ChromeUserMetricsExtension(
   : user_action_event_()
   , omnibox_event_()
   , histogram_event_()
-  , perf_data_()
   , sampled_profile_()
   , translate_event_()
   , printer_event_()
   , trace_log_()
   , chrome_os_app_list_launch_event_()
-  , deprecated_structured_event_()
   , system_profile_(nullptr)
   , cast_logs_(nullptr)
-  , cast_assistant_logs_(nullptr)
   , reporting_info_(nullptr)
   , user_demographics_(nullptr)
   , structured_data_(nullptr)
@@ -471,24 +468,24 @@ class ChromeUserMetricsExtension::_Internal {
  public:
   using HasBits = decltype(std::declval<ChromeUserMetricsExtension>()._has_bits_);
   static void set_has_product(HasBits* has_bits) {
-    (*has_bits)[0] |= 2048u;
-  }
-  static void set_has_client_id(HasBits* has_bits) {
-    (*has_bits)[0] |= 512u;
-  }
-  static void set_has_session_id(HasBits* has_bits) {
     (*has_bits)[0] |= 1024u;
   }
+  static void set_has_client_id(HasBits* has_bits) {
+    (*has_bits)[0] |= 256u;
+  }
+  static void set_has_session_id(HasBits* has_bits) {
+    (*has_bits)[0] |= 512u;
+  }
   static void set_has_user_id(HasBits* has_bits) {
-    (*has_bits)[0] |= 4096u;
+    (*has_bits)[0] |= 2048u;
   }
   static const ::metrics::ChromeUserMetricsExtension_RealLocalTime& time_log_created(const ChromeUserMetricsExtension* msg);
   static void set_has_time_log_created(HasBits* has_bits) {
-    (*has_bits)[0] |= 64u;
+    (*has_bits)[0] |= 32u;
   }
   static const ::metrics::ChromeUserMetricsExtension_RealLocalTime& time_log_closed(const ChromeUserMetricsExtension* msg);
   static void set_has_time_log_closed(HasBits* has_bits) {
-    (*has_bits)[0] |= 128u;
+    (*has_bits)[0] |= 64u;
   }
   static const ::metrics::SystemProfileProto& system_profile(const ChromeUserMetricsExtension* msg);
   static void set_has_system_profile(HasBits* has_bits) {
@@ -496,27 +493,23 @@ class ChromeUserMetricsExtension::_Internal {
   }
   static const ::metrics::UserDemographicsProto& user_demographics(const ChromeUserMetricsExtension* msg);
   static void set_has_user_demographics(HasBits* has_bits) {
-    (*has_bits)[0] |= 16u;
+    (*has_bits)[0] |= 8u;
   }
   static const ::metrics::StructuredDataProto& structured_data(const ChromeUserMetricsExtension* msg);
   static void set_has_structured_data(HasBits* has_bits) {
-    (*has_bits)[0] |= 32u;
+    (*has_bits)[0] |= 16u;
   }
   static const ::metrics::CastLogsProto& cast_logs(const ChromeUserMetricsExtension* msg);
   static void set_has_cast_logs(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
-  static const ::metrics::CastAssistantLogsProto& cast_assistant_logs(const ChromeUserMetricsExtension* msg);
-  static void set_has_cast_assistant_logs(HasBits* has_bits) {
-    (*has_bits)[0] |= 4u;
-  }
   static const ::metrics::ReportingInfo& reporting_info(const ChromeUserMetricsExtension* msg);
   static void set_has_reporting_info(HasBits* has_bits) {
-    (*has_bits)[0] |= 8u;
+    (*has_bits)[0] |= 4u;
   }
   static const ::metrics::CustomTabSessionProto& custom_tab_session(const ChromeUserMetricsExtension* msg);
   static void set_has_custom_tab_session(HasBits* has_bits) {
-    (*has_bits)[0] |= 256u;
+    (*has_bits)[0] |= 128u;
   }
 };
 
@@ -544,10 +537,6 @@ const ::metrics::CastLogsProto&
 ChromeUserMetricsExtension::_Internal::cast_logs(const ChromeUserMetricsExtension* msg) {
   return *msg->cast_logs_;
 }
-const ::metrics::CastAssistantLogsProto&
-ChromeUserMetricsExtension::_Internal::cast_assistant_logs(const ChromeUserMetricsExtension* msg) {
-  return *msg->cast_assistant_logs_;
-}
 const ::metrics::ReportingInfo&
 ChromeUserMetricsExtension::_Internal::reporting_info(const ChromeUserMetricsExtension* msg) {
   return *msg->reporting_info_;
@@ -562,7 +551,7 @@ void ChromeUserMetricsExtension::clear_system_profile() {
 }
 void ChromeUserMetricsExtension::clear_user_demographics() {
   if (user_demographics_ != nullptr) user_demographics_->Clear();
-  _has_bits_[0] &= ~0x00000010u;
+  _has_bits_[0] &= ~0x00000008u;
 }
 void ChromeUserMetricsExtension::clear_user_action_event() {
   user_action_event_.Clear();
@@ -582,15 +571,9 @@ void ChromeUserMetricsExtension::clear_printer_event() {
 void ChromeUserMetricsExtension::clear_chrome_os_app_list_launch_event() {
   chrome_os_app_list_launch_event_.Clear();
 }
-void ChromeUserMetricsExtension::clear_deprecated_structured_event() {
-  deprecated_structured_event_.Clear();
-}
 void ChromeUserMetricsExtension::clear_structured_data() {
   if (structured_data_ != nullptr) structured_data_->Clear();
-  _has_bits_[0] &= ~0x00000020u;
-}
-void ChromeUserMetricsExtension::clear_perf_data() {
-  perf_data_.Clear();
+  _has_bits_[0] &= ~0x00000010u;
 }
 void ChromeUserMetricsExtension::clear_sampled_profile() {
   sampled_profile_.Clear();
@@ -599,20 +582,16 @@ void ChromeUserMetricsExtension::clear_cast_logs() {
   if (cast_logs_ != nullptr) cast_logs_->Clear();
   _has_bits_[0] &= ~0x00000002u;
 }
-void ChromeUserMetricsExtension::clear_cast_assistant_logs() {
-  if (cast_assistant_logs_ != nullptr) cast_assistant_logs_->Clear();
-  _has_bits_[0] &= ~0x00000004u;
-}
 void ChromeUserMetricsExtension::clear_reporting_info() {
   if (reporting_info_ != nullptr) reporting_info_->Clear();
-  _has_bits_[0] &= ~0x00000008u;
+  _has_bits_[0] &= ~0x00000004u;
 }
 void ChromeUserMetricsExtension::clear_trace_log() {
   trace_log_.Clear();
 }
 void ChromeUserMetricsExtension::clear_custom_tab_session() {
   if (custom_tab_session_ != nullptr) custom_tab_session_->Clear();
-  _has_bits_[0] &= ~0x00000100u;
+  _has_bits_[0] &= ~0x00000080u;
 }
 ChromeUserMetricsExtension::ChromeUserMetricsExtension(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
@@ -620,13 +599,11 @@ ChromeUserMetricsExtension::ChromeUserMetricsExtension(::PROTOBUF_NAMESPACE_ID::
   user_action_event_(arena),
   omnibox_event_(arena),
   histogram_event_(arena),
-  perf_data_(arena),
   sampled_profile_(arena),
   translate_event_(arena),
   printer_event_(arena),
   trace_log_(arena),
-  chrome_os_app_list_launch_event_(arena),
-  deprecated_structured_event_(arena) {
+  chrome_os_app_list_launch_event_(arena) {
   SharedCtor();
   // @@protoc_insertion_point(arena_constructor:metrics.ChromeUserMetricsExtension)
 }
@@ -636,13 +613,11 @@ ChromeUserMetricsExtension::ChromeUserMetricsExtension(const ChromeUserMetricsEx
       user_action_event_(from.user_action_event_),
       omnibox_event_(from.omnibox_event_),
       histogram_event_(from.histogram_event_),
-      perf_data_(from.perf_data_),
       sampled_profile_(from.sampled_profile_),
       translate_event_(from.translate_event_),
       printer_event_(from.printer_event_),
       trace_log_(from.trace_log_),
-      chrome_os_app_list_launch_event_(from.chrome_os_app_list_launch_event_),
-      deprecated_structured_event_(from.deprecated_structured_event_) {
+      chrome_os_app_list_launch_event_(from.chrome_os_app_list_launch_event_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   if (from._internal_has_system_profile()) {
     system_profile_ = new ::metrics::SystemProfileProto(*from.system_profile_);
@@ -653,11 +628,6 @@ ChromeUserMetricsExtension::ChromeUserMetricsExtension(const ChromeUserMetricsEx
     cast_logs_ = new ::metrics::CastLogsProto(*from.cast_logs_);
   } else {
     cast_logs_ = nullptr;
-  }
-  if (from._internal_has_cast_assistant_logs()) {
-    cast_assistant_logs_ = new ::metrics::CastAssistantLogsProto(*from.cast_assistant_logs_);
-  } else {
-    cast_assistant_logs_ = nullptr;
   }
   if (from._internal_has_reporting_info()) {
     reporting_info_ = new ::metrics::ReportingInfo(*from.reporting_info_);
@@ -715,7 +685,6 @@ inline void ChromeUserMetricsExtension::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   if (this != internal_default_instance()) delete system_profile_;
   if (this != internal_default_instance()) delete cast_logs_;
-  if (this != internal_default_instance()) delete cast_assistant_logs_;
   if (this != internal_default_instance()) delete reporting_info_;
   if (this != internal_default_instance()) delete user_demographics_;
   if (this != internal_default_instance()) delete structured_data_;
@@ -737,13 +706,11 @@ void ChromeUserMetricsExtension::Clear() {
   user_action_event_.Clear();
   omnibox_event_.Clear();
   histogram_event_.Clear();
-  perf_data_.Clear();
   sampled_profile_.Clear();
   translate_event_.Clear();
   printer_event_.Clear();
   trace_log_.Clear();
   chrome_os_app_list_launch_event_.Clear();
-  deprecated_structured_event_.Clear();
   cached_has_bits = _has_bits_[0];
   if (cached_has_bits & 0x000000ffu) {
     if (cached_has_bits & 0x00000001u) {
@@ -755,35 +722,31 @@ void ChromeUserMetricsExtension::Clear() {
       cast_logs_->Clear();
     }
     if (cached_has_bits & 0x00000004u) {
-      GOOGLE_DCHECK(cast_assistant_logs_ != nullptr);
-      cast_assistant_logs_->Clear();
-    }
-    if (cached_has_bits & 0x00000008u) {
       GOOGLE_DCHECK(reporting_info_ != nullptr);
       reporting_info_->Clear();
     }
-    if (cached_has_bits & 0x00000010u) {
+    if (cached_has_bits & 0x00000008u) {
       GOOGLE_DCHECK(user_demographics_ != nullptr);
       user_demographics_->Clear();
     }
-    if (cached_has_bits & 0x00000020u) {
+    if (cached_has_bits & 0x00000010u) {
       GOOGLE_DCHECK(structured_data_ != nullptr);
       structured_data_->Clear();
     }
-    if (cached_has_bits & 0x00000040u) {
+    if (cached_has_bits & 0x00000020u) {
       GOOGLE_DCHECK(time_log_created_ != nullptr);
       time_log_created_->Clear();
     }
-    if (cached_has_bits & 0x00000080u) {
+    if (cached_has_bits & 0x00000040u) {
       GOOGLE_DCHECK(time_log_closed_ != nullptr);
       time_log_closed_->Clear();
     }
+    if (cached_has_bits & 0x00000080u) {
+      GOOGLE_DCHECK(custom_tab_session_ != nullptr);
+      custom_tab_session_->Clear();
+    }
   }
-  if (cached_has_bits & 0x00000100u) {
-    GOOGLE_DCHECK(custom_tab_session_ != nullptr);
-    custom_tab_session_->Clear();
-  }
-  if (cached_has_bits & 0x00001e00u) {
+  if (cached_has_bits & 0x00000f00u) {
     ::memset(&client_id_, 0, static_cast<size_t>(
         reinterpret_cast<char*>(&user_id_) -
         reinterpret_cast<char*>(&client_id_)) + sizeof(user_id_));
@@ -864,19 +827,6 @@ const char* ChromeUserMetricsExtension::_InternalParse(const char* ptr, ::_pbi::
         } else
           goto handle_unusual;
         continue;
-      // repeated .metrics.PerfDataProto perf_data = 8 [deprecated = true];
-      case 8:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 66)) {
-          ptr -= 1;
-          do {
-            ptr += 1;
-            ptr = ctx->ParseMessage(_internal_add_perf_data(), ptr);
-            CHK_(ptr);
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<66>(ptr));
-        } else
-          goto handle_unusual;
-        continue;
       // optional int32 product = 10 [default = 0];
       case 10:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 80)) {
@@ -903,14 +853,6 @@ const char* ChromeUserMetricsExtension::_InternalParse(const char* ptr, ::_pbi::
       case 12:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 98)) {
           ptr = ctx->ParseMessage(_internal_mutable_cast_logs(), ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // optional .metrics.CastAssistantLogsProto cast_assistant_logs = 14;
-      case 14:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 114)) {
-          ptr = ctx->ParseMessage(_internal_mutable_cast_assistant_logs(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -980,19 +922,6 @@ const char* ChromeUserMetricsExtension::_InternalParse(const char* ptr, ::_pbi::
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 170)) {
           ptr = ctx->ParseMessage(_internal_mutable_user_demographics(), ptr);
           CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // repeated .metrics.StructuredEventProto deprecated_structured_event = 22 [deprecated = true];
-      case 22:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 178)) {
-          ptr -= 2;
-          do {
-            ptr += 2;
-            ptr = ctx->ParseMessage(_internal_add_deprecated_structured_event(), ptr);
-            CHK_(ptr);
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<178>(ptr));
         } else
           goto handle_unusual;
         continue;
@@ -1069,13 +998,13 @@ uint8_t* ChromeUserMetricsExtension::_InternalSerialize(
 
   cached_has_bits = _has_bits_[0];
   // optional fixed64 client_id = 1;
-  if (cached_has_bits & 0x00000200u) {
+  if (cached_has_bits & 0x00000100u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteFixed64ToArray(1, this->_internal_client_id(), target);
   }
 
   // optional int32 session_id = 2;
-  if (cached_has_bits & 0x00000400u) {
+  if (cached_has_bits & 0x00000200u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(2, this->_internal_session_id(), target);
   }
@@ -1111,16 +1040,8 @@ uint8_t* ChromeUserMetricsExtension::_InternalSerialize(
         InternalWriteMessage(6, repfield, repfield.GetCachedSize(), target, stream);
   }
 
-  // repeated .metrics.PerfDataProto perf_data = 8 [deprecated = true];
-  for (unsigned i = 0,
-      n = static_cast<unsigned>(this->_internal_perf_data_size()); i < n; i++) {
-    const auto& repfield = this->_internal_perf_data(i);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-        InternalWriteMessage(8, repfield, repfield.GetCachedSize(), target, stream);
-  }
-
   // optional int32 product = 10 [default = 0];
-  if (cached_has_bits & 0x00000800u) {
+  if (cached_has_bits & 0x00000400u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(10, this->_internal_product(), target);
   }
@@ -1140,13 +1061,6 @@ uint8_t* ChromeUserMetricsExtension::_InternalSerialize(
         _Internal::cast_logs(this).GetCachedSize(), target, stream);
   }
 
-  // optional .metrics.CastAssistantLogsProto cast_assistant_logs = 14;
-  if (cached_has_bits & 0x00000004u) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(14, _Internal::cast_assistant_logs(this),
-        _Internal::cast_assistant_logs(this).GetCachedSize(), target, stream);
-  }
-
   // repeated .metrics.TranslateEventProto translate_event = 15;
   for (unsigned i = 0,
       n = static_cast<unsigned>(this->_internal_translate_event_size()); i < n; i++) {
@@ -1164,7 +1078,7 @@ uint8_t* ChromeUserMetricsExtension::_InternalSerialize(
   }
 
   // optional .metrics.ReportingInfo reporting_info = 17;
-  if (cached_has_bits & 0x00000008u) {
+  if (cached_has_bits & 0x00000004u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(17, _Internal::reporting_info(this),
         _Internal::reporting_info(this).GetCachedSize(), target, stream);
@@ -1187,49 +1101,41 @@ uint8_t* ChromeUserMetricsExtension::_InternalSerialize(
   }
 
   // optional .metrics.UserDemographicsProto user_demographics = 21;
-  if (cached_has_bits & 0x00000010u) {
+  if (cached_has_bits & 0x00000008u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(21, _Internal::user_demographics(this),
         _Internal::user_demographics(this).GetCachedSize(), target, stream);
   }
 
-  // repeated .metrics.StructuredEventProto deprecated_structured_event = 22 [deprecated = true];
-  for (unsigned i = 0,
-      n = static_cast<unsigned>(this->_internal_deprecated_structured_event_size()); i < n; i++) {
-    const auto& repfield = this->_internal_deprecated_structured_event(i);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-        InternalWriteMessage(22, repfield, repfield.GetCachedSize(), target, stream);
-  }
-
   // optional .metrics.StructuredDataProto structured_data = 23;
-  if (cached_has_bits & 0x00000020u) {
+  if (cached_has_bits & 0x00000010u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(23, _Internal::structured_data(this),
         _Internal::structured_data(this).GetCachedSize(), target, stream);
   }
 
   // optional fixed64 user_id = 24;
-  if (cached_has_bits & 0x00001000u) {
+  if (cached_has_bits & 0x00000800u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteFixed64ToArray(24, this->_internal_user_id(), target);
   }
 
   // optional .metrics.ChromeUserMetricsExtension.RealLocalTime time_log_created = 25;
-  if (cached_has_bits & 0x00000040u) {
+  if (cached_has_bits & 0x00000020u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(25, _Internal::time_log_created(this),
         _Internal::time_log_created(this).GetCachedSize(), target, stream);
   }
 
   // optional .metrics.ChromeUserMetricsExtension.RealLocalTime time_log_closed = 26;
-  if (cached_has_bits & 0x00000080u) {
+  if (cached_has_bits & 0x00000040u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(26, _Internal::time_log_closed(this),
         _Internal::time_log_closed(this).GetCachedSize(), target, stream);
   }
 
   // optional .metrics.CustomTabSessionProto custom_tab_session = 27;
-  if (cached_has_bits & 0x00000100u) {
+  if (cached_has_bits & 0x00000080u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(27, _Internal::custom_tab_session(this),
         _Internal::custom_tab_session(this).GetCachedSize(), target, stream);
@@ -1272,13 +1178,6 @@ size_t ChromeUserMetricsExtension::ByteSizeLong() const {
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
-  // repeated .metrics.PerfDataProto perf_data = 8 [deprecated = true];
-  total_size += 1UL * this->_internal_perf_data_size();
-  for (const auto& msg : this->perf_data_) {
-    total_size +=
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
-  }
-
   // repeated .metrics.SampledProfile sampled_profile = 11;
   total_size += 1UL * this->_internal_sampled_profile_size();
   for (const auto& msg : this->sampled_profile_) {
@@ -1314,13 +1213,6 @@ size_t ChromeUserMetricsExtension::ByteSizeLong() const {
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
-  // repeated .metrics.StructuredEventProto deprecated_structured_event = 22 [deprecated = true];
-  total_size += 2UL * this->_internal_deprecated_structured_event_size();
-  for (const auto& msg : this->deprecated_structured_event_) {
-    total_size +=
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
-  }
-
   cached_has_bits = _has_bits_[0];
   if (cached_has_bits & 0x000000ffu) {
     // optional .metrics.SystemProfileProto system_profile = 3;
@@ -1337,74 +1229,67 @@ size_t ChromeUserMetricsExtension::ByteSizeLong() const {
           *cast_logs_);
     }
 
-    // optional .metrics.CastAssistantLogsProto cast_assistant_logs = 14;
-    if (cached_has_bits & 0x00000004u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *cast_assistant_logs_);
-    }
-
     // optional .metrics.ReportingInfo reporting_info = 17;
-    if (cached_has_bits & 0x00000008u) {
+    if (cached_has_bits & 0x00000004u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *reporting_info_);
     }
 
     // optional .metrics.UserDemographicsProto user_demographics = 21;
-    if (cached_has_bits & 0x00000010u) {
+    if (cached_has_bits & 0x00000008u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *user_demographics_);
     }
 
     // optional .metrics.StructuredDataProto structured_data = 23;
-    if (cached_has_bits & 0x00000020u) {
+    if (cached_has_bits & 0x00000010u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *structured_data_);
     }
 
     // optional .metrics.ChromeUserMetricsExtension.RealLocalTime time_log_created = 25;
-    if (cached_has_bits & 0x00000040u) {
+    if (cached_has_bits & 0x00000020u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *time_log_created_);
     }
 
     // optional .metrics.ChromeUserMetricsExtension.RealLocalTime time_log_closed = 26;
-    if (cached_has_bits & 0x00000080u) {
+    if (cached_has_bits & 0x00000040u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *time_log_closed_);
     }
 
-  }
-  if (cached_has_bits & 0x00001f00u) {
     // optional .metrics.CustomTabSessionProto custom_tab_session = 27;
-    if (cached_has_bits & 0x00000100u) {
+    if (cached_has_bits & 0x00000080u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *custom_tab_session_);
     }
 
+  }
+  if (cached_has_bits & 0x00000f00u) {
     // optional fixed64 client_id = 1;
-    if (cached_has_bits & 0x00000200u) {
+    if (cached_has_bits & 0x00000100u) {
       total_size += 1 + 8;
     }
 
     // optional int32 session_id = 2;
-    if (cached_has_bits & 0x00000400u) {
+    if (cached_has_bits & 0x00000200u) {
       total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_session_id());
     }
 
     // optional int32 product = 10 [default = 0];
-    if (cached_has_bits & 0x00000800u) {
+    if (cached_has_bits & 0x00000400u) {
       total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_product());
     }
 
     // optional fixed64 user_id = 24;
-    if (cached_has_bits & 0x00001000u) {
+    if (cached_has_bits & 0x00000800u) {
       total_size += 2 + 8;
     }
 
@@ -1432,13 +1317,11 @@ void ChromeUserMetricsExtension::MergeFrom(const ChromeUserMetricsExtension& fro
   user_action_event_.MergeFrom(from.user_action_event_);
   omnibox_event_.MergeFrom(from.omnibox_event_);
   histogram_event_.MergeFrom(from.histogram_event_);
-  perf_data_.MergeFrom(from.perf_data_);
   sampled_profile_.MergeFrom(from.sampled_profile_);
   translate_event_.MergeFrom(from.translate_event_);
   printer_event_.MergeFrom(from.printer_event_);
   trace_log_.MergeFrom(from.trace_log_);
   chrome_os_app_list_launch_event_.MergeFrom(from.chrome_os_app_list_launch_event_);
-  deprecated_structured_event_.MergeFrom(from.deprecated_structured_event_);
   cached_has_bits = from._has_bits_[0];
   if (cached_has_bits & 0x000000ffu) {
     if (cached_has_bits & 0x00000001u) {
@@ -1448,38 +1331,35 @@ void ChromeUserMetricsExtension::MergeFrom(const ChromeUserMetricsExtension& fro
       _internal_mutable_cast_logs()->::metrics::CastLogsProto::MergeFrom(from._internal_cast_logs());
     }
     if (cached_has_bits & 0x00000004u) {
-      _internal_mutable_cast_assistant_logs()->::metrics::CastAssistantLogsProto::MergeFrom(from._internal_cast_assistant_logs());
-    }
-    if (cached_has_bits & 0x00000008u) {
       _internal_mutable_reporting_info()->::metrics::ReportingInfo::MergeFrom(from._internal_reporting_info());
     }
-    if (cached_has_bits & 0x00000010u) {
+    if (cached_has_bits & 0x00000008u) {
       _internal_mutable_user_demographics()->::metrics::UserDemographicsProto::MergeFrom(from._internal_user_demographics());
     }
-    if (cached_has_bits & 0x00000020u) {
+    if (cached_has_bits & 0x00000010u) {
       _internal_mutable_structured_data()->::metrics::StructuredDataProto::MergeFrom(from._internal_structured_data());
     }
-    if (cached_has_bits & 0x00000040u) {
+    if (cached_has_bits & 0x00000020u) {
       _internal_mutable_time_log_created()->::metrics::ChromeUserMetricsExtension_RealLocalTime::MergeFrom(from._internal_time_log_created());
     }
-    if (cached_has_bits & 0x00000080u) {
+    if (cached_has_bits & 0x00000040u) {
       _internal_mutable_time_log_closed()->::metrics::ChromeUserMetricsExtension_RealLocalTime::MergeFrom(from._internal_time_log_closed());
     }
-  }
-  if (cached_has_bits & 0x00001f00u) {
-    if (cached_has_bits & 0x00000100u) {
+    if (cached_has_bits & 0x00000080u) {
       _internal_mutable_custom_tab_session()->::metrics::CustomTabSessionProto::MergeFrom(from._internal_custom_tab_session());
     }
-    if (cached_has_bits & 0x00000200u) {
+  }
+  if (cached_has_bits & 0x00000f00u) {
+    if (cached_has_bits & 0x00000100u) {
       client_id_ = from.client_id_;
     }
-    if (cached_has_bits & 0x00000400u) {
+    if (cached_has_bits & 0x00000200u) {
       session_id_ = from.session_id_;
     }
-    if (cached_has_bits & 0x00000800u) {
+    if (cached_has_bits & 0x00000400u) {
       product_ = from.product_;
     }
-    if (cached_has_bits & 0x00001000u) {
+    if (cached_has_bits & 0x00000800u) {
       user_id_ = from.user_id_;
     }
     _has_bits_[0] |= cached_has_bits;
@@ -1505,13 +1385,11 @@ void ChromeUserMetricsExtension::InternalSwap(ChromeUserMetricsExtension* other)
   user_action_event_.InternalSwap(&other->user_action_event_);
   omnibox_event_.InternalSwap(&other->omnibox_event_);
   histogram_event_.InternalSwap(&other->histogram_event_);
-  perf_data_.InternalSwap(&other->perf_data_);
   sampled_profile_.InternalSwap(&other->sampled_profile_);
   translate_event_.InternalSwap(&other->translate_event_);
   printer_event_.InternalSwap(&other->printer_event_);
   trace_log_.InternalSwap(&other->trace_log_);
   chrome_os_app_list_launch_event_.InternalSwap(&other->chrome_os_app_list_launch_event_);
-  deprecated_structured_event_.InternalSwap(&other->deprecated_structured_event_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(ChromeUserMetricsExtension, user_id_)
       + sizeof(ChromeUserMetricsExtension::user_id_)

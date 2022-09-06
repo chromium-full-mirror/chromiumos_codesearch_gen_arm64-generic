@@ -64,8 +64,8 @@ class  WilcoDtcSupportdClientInterceptorForTesting : public WilcoDtcSupportdClie
   void SendWilcoDtcMessageToUi(::mojo::ScopedHandle json_message, SendWilcoDtcMessageToUiCallback callback) override;
   void GetConfigurationData(GetConfigurationDataCallback callback) override;
   void HandleEvent(WilcoDtcSupportdEvent event) override;
-  void GetCrosHealthdDiagnosticsService(::mojo::PendingReceiver<::chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService> service) override;
-  void GetCrosHealthdProbeService(::mojo::PendingReceiver<::chromeos::cros_healthd::mojom::CrosHealthdProbeService> service) override;
+  void GetCrosHealthdDiagnosticsService(::mojo::PendingReceiver<::ash::cros_healthd::mojom::CrosHealthdDiagnosticsService> service) override;
+  void GetCrosHealthdProbeService(::mojo::PendingReceiver<::ash::cros_healthd::mojom::CrosHealthdProbeService> service) override;
 };
 class  WilcoDtcSupportdClientAsyncWaiter {
  public:

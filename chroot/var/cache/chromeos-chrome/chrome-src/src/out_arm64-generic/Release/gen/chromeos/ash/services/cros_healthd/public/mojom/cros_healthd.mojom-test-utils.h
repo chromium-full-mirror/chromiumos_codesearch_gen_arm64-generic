@@ -10,7 +10,7 @@
 #include "chromeos/ash/services/cros_healthd/public/mojom/cros_healthd.mojom.h"
 
 
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace mojom {
 
@@ -23,7 +23,7 @@ class  CrosHealthdServiceFactoryInterceptorForTesting : public CrosHealthdServic
   void SendNetworkHealthService(::mojo::PendingRemote<::chromeos::network_health::mojom::NetworkHealthService> remote) override;
   void SendNetworkDiagnosticsRoutines(::mojo::PendingRemote<::chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines> network_diagnostics_routines) override;
   void GetSystemService(::mojo::PendingReceiver<CrosHealthdSystemService> service) override;
-  void SendChromiumDataCollector(::mojo::PendingRemote<::chromeos::cros_healthd::internal::mojom::ChromiumDataCollector> remote) override;
+  void SendChromiumDataCollector(::mojo::PendingRemote<::ash::cros_healthd::internal::mojom::ChromiumDataCollector> remote) override;
 };
 class  CrosHealthdServiceFactoryAsyncWaiter {
  public:
@@ -42,19 +42,19 @@ class  CrosHealthdServiceFactoryAsyncWaiter {
 class  CrosHealthdDiagnosticsServiceInterceptorForTesting : public CrosHealthdDiagnosticsService {
   virtual CrosHealthdDiagnosticsService* GetForwardingInterface() = 0;
   void GetAvailableRoutines(GetAvailableRoutinesCallback callback) override;
-  void GetRoutineUpdate(int32_t id, ::chromeos::cros_healthd::mojom::DiagnosticRoutineCommandEnum command, bool include_output, GetRoutineUpdateCallback callback) override;
-  void RunUrandomRoutine(::chromeos::cros_healthd::mojom::NullableUint32Ptr length_seconds, RunUrandomRoutineCallback callback) override;
+  void GetRoutineUpdate(int32_t id, ::ash::cros_healthd::mojom::DiagnosticRoutineCommandEnum command, bool include_output, GetRoutineUpdateCallback callback) override;
+  void RunUrandomRoutine(::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds, RunUrandomRoutineCallback callback) override;
   void RunBatteryCapacityRoutine(RunBatteryCapacityRoutineCallback callback) override;
   void RunBatteryHealthRoutine(RunBatteryHealthRoutineCallback callback) override;
   void RunSmartctlCheckRoutine(RunSmartctlCheckRoutineCallback callback) override;
-  void RunAcPowerRoutine(::chromeos::cros_healthd::mojom::AcPowerStatusEnum expected_status, const absl::optional<std::string>& expected_power_type, RunAcPowerRoutineCallback callback) override;
-  void RunCpuCacheRoutine(::chromeos::cros_healthd::mojom::NullableUint32Ptr length_seconds, RunCpuCacheRoutineCallback callback) override;
-  void RunCpuStressRoutine(::chromeos::cros_healthd::mojom::NullableUint32Ptr length_seconds, RunCpuStressRoutineCallback callback) override;
-  void RunFloatingPointAccuracyRoutine(::chromeos::cros_healthd::mojom::NullableUint32Ptr length_seconds, RunFloatingPointAccuracyRoutineCallback callback) override;
+  void RunAcPowerRoutine(::ash::cros_healthd::mojom::AcPowerStatusEnum expected_status, const absl::optional<std::string>& expected_power_type, RunAcPowerRoutineCallback callback) override;
+  void RunCpuCacheRoutine(::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds, RunCpuCacheRoutineCallback callback) override;
+  void RunCpuStressRoutine(::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds, RunCpuStressRoutineCallback callback) override;
+  void RunFloatingPointAccuracyRoutine(::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds, RunFloatingPointAccuracyRoutineCallback callback) override;
   void RunNvmeWearLevelRoutine(uint32_t wear_level_threshold, RunNvmeWearLevelRoutineCallback callback) override;
-  void RunNvmeSelfTestRoutine(::chromeos::cros_healthd::mojom::NvmeSelfTestTypeEnum nvme_self_test_type, RunNvmeSelfTestRoutineCallback callback) override;
-  void RunDiskReadRoutine(::chromeos::cros_healthd::mojom::DiskReadRoutineTypeEnum type, uint32_t length_seconds, uint32_t file_size_mb, RunDiskReadRoutineCallback callback) override;
-  void RunPrimeSearchRoutine(::chromeos::cros_healthd::mojom::NullableUint32Ptr length_seconds, RunPrimeSearchRoutineCallback callback) override;
+  void RunNvmeSelfTestRoutine(::ash::cros_healthd::mojom::NvmeSelfTestTypeEnum nvme_self_test_type, RunNvmeSelfTestRoutineCallback callback) override;
+  void RunDiskReadRoutine(::ash::cros_healthd::mojom::DiskReadRoutineTypeEnum type, uint32_t length_seconds, uint32_t file_size_mb, RunDiskReadRoutineCallback callback) override;
+  void RunPrimeSearchRoutine(::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds, RunPrimeSearchRoutineCallback callback) override;
   void RunBatteryDischargeRoutine(uint32_t length_seconds, uint32_t maximum_discharge_percent_allowed, RunBatteryDischargeRoutineCallback callback) override;
   void RunBatteryChargeRoutine(uint32_t length_seconds, uint32_t minimum_charge_percent_required, RunBatteryChargeRoutineCallback callback) override;
   void RunMemoryRoutine(RunMemoryRoutineCallback callback) override;
@@ -83,101 +83,101 @@ class  CrosHealthdDiagnosticsServiceAsyncWaiter {
 
   ~CrosHealthdDiagnosticsServiceAsyncWaiter();
   void GetAvailableRoutines(
-      std::vector<::chromeos::cros_healthd::mojom::DiagnosticRoutineEnum>* out_available_routines);
-  std::vector<::chromeos::cros_healthd::mojom::DiagnosticRoutineEnum> GetAvailableRoutines();
+      std::vector<::ash::cros_healthd::mojom::DiagnosticRoutineEnum>* out_available_routines);
+  std::vector<::ash::cros_healthd::mojom::DiagnosticRoutineEnum> GetAvailableRoutines();
   void GetRoutineUpdate(
-      int32_t id, ::chromeos::cros_healthd::mojom::DiagnosticRoutineCommandEnum command, bool include_output, ::chromeos::cros_healthd::mojom::RoutineUpdatePtr* out_routine_update);
-  ::chromeos::cros_healthd::mojom::RoutineUpdatePtr GetRoutineUpdate(int32_t id, ::chromeos::cros_healthd::mojom::DiagnosticRoutineCommandEnum command, bool include_output);
+      int32_t id, ::ash::cros_healthd::mojom::DiagnosticRoutineCommandEnum command, bool include_output, ::ash::cros_healthd::mojom::RoutineUpdatePtr* out_routine_update);
+  ::ash::cros_healthd::mojom::RoutineUpdatePtr GetRoutineUpdate(int32_t id, ::ash::cros_healthd::mojom::DiagnosticRoutineCommandEnum command, bool include_output);
   void RunUrandomRoutine(
-      ::chromeos::cros_healthd::mojom::NullableUint32Ptr length_seconds, ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr RunUrandomRoutine(::chromeos::cros_healthd::mojom::NullableUint32Ptr length_seconds);
+      ::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunUrandomRoutine(::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds);
   void RunBatteryCapacityRoutine(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr RunBatteryCapacityRoutine();
+      ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunBatteryCapacityRoutine();
   void RunBatteryHealthRoutine(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr RunBatteryHealthRoutine();
+      ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunBatteryHealthRoutine();
   void RunSmartctlCheckRoutine(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr RunSmartctlCheckRoutine();
+      ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunSmartctlCheckRoutine();
   void RunAcPowerRoutine(
-      ::chromeos::cros_healthd::mojom::AcPowerStatusEnum expected_status, const absl::optional<std::string>& expected_power_type, ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr RunAcPowerRoutine(::chromeos::cros_healthd::mojom::AcPowerStatusEnum expected_status, const absl::optional<std::string>& expected_power_type);
+      ::ash::cros_healthd::mojom::AcPowerStatusEnum expected_status, const absl::optional<std::string>& expected_power_type, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunAcPowerRoutine(::ash::cros_healthd::mojom::AcPowerStatusEnum expected_status, const absl::optional<std::string>& expected_power_type);
   void RunCpuCacheRoutine(
-      ::chromeos::cros_healthd::mojom::NullableUint32Ptr length_seconds, ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr RunCpuCacheRoutine(::chromeos::cros_healthd::mojom::NullableUint32Ptr length_seconds);
+      ::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunCpuCacheRoutine(::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds);
   void RunCpuStressRoutine(
-      ::chromeos::cros_healthd::mojom::NullableUint32Ptr length_seconds, ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr RunCpuStressRoutine(::chromeos::cros_healthd::mojom::NullableUint32Ptr length_seconds);
+      ::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunCpuStressRoutine(::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds);
   void RunFloatingPointAccuracyRoutine(
-      ::chromeos::cros_healthd::mojom::NullableUint32Ptr length_seconds, ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr RunFloatingPointAccuracyRoutine(::chromeos::cros_healthd::mojom::NullableUint32Ptr length_seconds);
+      ::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunFloatingPointAccuracyRoutine(::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds);
   void RunNvmeWearLevelRoutine(
-      uint32_t wear_level_threshold, ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr RunNvmeWearLevelRoutine(uint32_t wear_level_threshold);
+      uint32_t wear_level_threshold, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunNvmeWearLevelRoutine(uint32_t wear_level_threshold);
   void RunNvmeSelfTestRoutine(
-      ::chromeos::cros_healthd::mojom::NvmeSelfTestTypeEnum nvme_self_test_type, ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr RunNvmeSelfTestRoutine(::chromeos::cros_healthd::mojom::NvmeSelfTestTypeEnum nvme_self_test_type);
+      ::ash::cros_healthd::mojom::NvmeSelfTestTypeEnum nvme_self_test_type, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunNvmeSelfTestRoutine(::ash::cros_healthd::mojom::NvmeSelfTestTypeEnum nvme_self_test_type);
   void RunDiskReadRoutine(
-      ::chromeos::cros_healthd::mojom::DiskReadRoutineTypeEnum type, uint32_t length_seconds, uint32_t file_size_mb, ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr RunDiskReadRoutine(::chromeos::cros_healthd::mojom::DiskReadRoutineTypeEnum type, uint32_t length_seconds, uint32_t file_size_mb);
+      ::ash::cros_healthd::mojom::DiskReadRoutineTypeEnum type, uint32_t length_seconds, uint32_t file_size_mb, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunDiskReadRoutine(::ash::cros_healthd::mojom::DiskReadRoutineTypeEnum type, uint32_t length_seconds, uint32_t file_size_mb);
   void RunPrimeSearchRoutine(
-      ::chromeos::cros_healthd::mojom::NullableUint32Ptr length_seconds, ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr RunPrimeSearchRoutine(::chromeos::cros_healthd::mojom::NullableUint32Ptr length_seconds);
+      ::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunPrimeSearchRoutine(::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds);
   void RunBatteryDischargeRoutine(
-      uint32_t length_seconds, uint32_t maximum_discharge_percent_allowed, ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr RunBatteryDischargeRoutine(uint32_t length_seconds, uint32_t maximum_discharge_percent_allowed);
+      uint32_t length_seconds, uint32_t maximum_discharge_percent_allowed, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunBatteryDischargeRoutine(uint32_t length_seconds, uint32_t maximum_discharge_percent_allowed);
   void RunBatteryChargeRoutine(
-      uint32_t length_seconds, uint32_t minimum_charge_percent_required, ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr RunBatteryChargeRoutine(uint32_t length_seconds, uint32_t minimum_charge_percent_required);
+      uint32_t length_seconds, uint32_t minimum_charge_percent_required, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunBatteryChargeRoutine(uint32_t length_seconds, uint32_t minimum_charge_percent_required);
   void RunMemoryRoutine(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr RunMemoryRoutine();
+      ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunMemoryRoutine();
   void RunLanConnectivityRoutine(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr RunLanConnectivityRoutine();
+      ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunLanConnectivityRoutine();
   void RunSignalStrengthRoutine(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr RunSignalStrengthRoutine();
+      ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunSignalStrengthRoutine();
   void RunGatewayCanBePingedRoutine(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr RunGatewayCanBePingedRoutine();
+      ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunGatewayCanBePingedRoutine();
   void RunHasSecureWiFiConnectionRoutine(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr RunHasSecureWiFiConnectionRoutine();
+      ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunHasSecureWiFiConnectionRoutine();
   void RunDnsResolverPresentRoutine(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr RunDnsResolverPresentRoutine();
+      ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunDnsResolverPresentRoutine();
   void RunDnsLatencyRoutine(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr RunDnsLatencyRoutine();
+      ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunDnsLatencyRoutine();
   void RunDnsResolutionRoutine(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr RunDnsResolutionRoutine();
+      ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunDnsResolutionRoutine();
   void RunCaptivePortalRoutine(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr RunCaptivePortalRoutine();
+      ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunCaptivePortalRoutine();
   void RunHttpFirewallRoutine(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr RunHttpFirewallRoutine();
+      ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunHttpFirewallRoutine();
   void RunHttpsFirewallRoutine(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr RunHttpsFirewallRoutine();
+      ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunHttpsFirewallRoutine();
   void RunHttpsLatencyRoutine(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr RunHttpsLatencyRoutine();
+      ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunHttpsLatencyRoutine();
   void RunVideoConferencingRoutine(
-      const absl::optional<std::string>& stun_server_hostname, ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr RunVideoConferencingRoutine(const absl::optional<std::string>& stun_server_hostname);
+      const absl::optional<std::string>& stun_server_hostname, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunVideoConferencingRoutine(const absl::optional<std::string>& stun_server_hostname);
   void RunArcHttpRoutine(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr RunArcHttpRoutine();
+      ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunArcHttpRoutine();
   void RunArcPingRoutine(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr RunArcPingRoutine();
+      ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunArcPingRoutine();
   void RunArcDnsResolutionRoutine(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr RunArcDnsResolutionRoutine();
+      ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunArcDnsResolutionRoutine();
 
  private:
   CrosHealthdDiagnosticsService* const proxy_;
@@ -186,13 +186,13 @@ class  CrosHealthdDiagnosticsServiceAsyncWaiter {
 
 class  CrosHealthdEventServiceInterceptorForTesting : public CrosHealthdEventService {
   virtual CrosHealthdEventService* GetForwardingInterface() = 0;
-  void AddBluetoothObserver(::mojo::PendingRemote<::chromeos::cros_healthd::mojom::CrosHealthdBluetoothObserver> observer) override;
-  void AddLidObserver(::mojo::PendingRemote<::chromeos::cros_healthd::mojom::CrosHealthdLidObserver> observer) override;
-  void AddPowerObserver(::mojo::PendingRemote<::chromeos::cros_healthd::mojom::CrosHealthdPowerObserver> observer) override;
+  void AddBluetoothObserver(::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdBluetoothObserver> observer) override;
+  void AddLidObserver(::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdLidObserver> observer) override;
+  void AddPowerObserver(::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdPowerObserver> observer) override;
   void AddNetworkObserver(::mojo::PendingRemote<::chromeos::network_health::mojom::NetworkEventsObserver> observer) override;
-  void AddAudioObserver(::mojo::PendingRemote<::chromeos::cros_healthd::mojom::CrosHealthdAudioObserver> observer) override;
-  void AddThunderboltObserver(::mojo::PendingRemote<::chromeos::cros_healthd::mojom::CrosHealthdThunderboltObserver> observer) override;
-  void AddUsbObserver(::mojo::PendingRemote<::chromeos::cros_healthd::mojom::CrosHealthdUsbObserver> observer) override;
+  void AddAudioObserver(::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdAudioObserver> observer) override;
+  void AddThunderboltObserver(::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdThunderboltObserver> observer) override;
+  void AddUsbObserver(::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdUsbObserver> observer) override;
 };
 class  CrosHealthdEventServiceAsyncWaiter {
  public:
@@ -211,7 +211,7 @@ class  CrosHealthdEventServiceAsyncWaiter {
 class  CrosHealthdProbeServiceInterceptorForTesting : public CrosHealthdProbeService {
   virtual CrosHealthdProbeService* GetForwardingInterface() = 0;
   void ProbeProcessInfo(uint32_t process_id, ProbeProcessInfoCallback callback) override;
-  void ProbeTelemetryInfo(const std::vector<::chromeos::cros_healthd::mojom::ProbeCategoryEnum>& categories, ProbeTelemetryInfoCallback callback) override;
+  void ProbeTelemetryInfo(const std::vector<::ash::cros_healthd::mojom::ProbeCategoryEnum>& categories, ProbeTelemetryInfoCallback callback) override;
 };
 class  CrosHealthdProbeServiceAsyncWaiter {
  public:
@@ -222,11 +222,11 @@ class  CrosHealthdProbeServiceAsyncWaiter {
 
   ~CrosHealthdProbeServiceAsyncWaiter();
   void ProbeProcessInfo(
-      uint32_t process_id, ::chromeos::cros_healthd::mojom::ProcessResultPtr* out_process_info);
-  ::chromeos::cros_healthd::mojom::ProcessResultPtr ProbeProcessInfo(uint32_t process_id);
+      uint32_t process_id, ::ash::cros_healthd::mojom::ProcessResultPtr* out_process_info);
+  ::ash::cros_healthd::mojom::ProcessResultPtr ProbeProcessInfo(uint32_t process_id);
   void ProbeTelemetryInfo(
-      const std::vector<::chromeos::cros_healthd::mojom::ProbeCategoryEnum>& categories, ::chromeos::cros_healthd::mojom::TelemetryInfoPtr* out_telemetry_info);
-  ::chromeos::cros_healthd::mojom::TelemetryInfoPtr ProbeTelemetryInfo(const std::vector<::chromeos::cros_healthd::mojom::ProbeCategoryEnum>& categories);
+      const std::vector<::ash::cros_healthd::mojom::ProbeCategoryEnum>& categories, ::ash::cros_healthd::mojom::TelemetryInfoPtr* out_telemetry_info);
+  ::ash::cros_healthd::mojom::TelemetryInfoPtr ProbeTelemetryInfo(const std::vector<::ash::cros_healthd::mojom::ProbeCategoryEnum>& categories);
 
  private:
   CrosHealthdProbeService* const proxy_;
@@ -256,7 +256,7 @@ class  CrosHealthdSystemServiceAsyncWaiter {
 
 class  WilcoEcServiceControllerInterceptorForTesting : public WilcoEcServiceController {
   virtual WilcoEcServiceController* GetForwardingInterface() = 0;
-  void AddEcObserver(::mojo::PendingRemote<::chromeos::cros_healthd::mojom::WilcoEcObserver> observer) override;
+  void AddEcObserver(::mojo::PendingRemote<::ash::cros_healthd::mojom::WilcoEcObserver> observer) override;
   void GetEcTelemetry(const std::string& payload_string, GetEcTelemetryCallback callback) override;
   void StartEcService() override;
   void ShutdownEcService() override;
@@ -270,8 +270,8 @@ class  WilcoEcServiceControllerAsyncWaiter {
 
   ~WilcoEcServiceControllerAsyncWaiter();
   void GetEcTelemetry(
-      const std::string& payload_string, ::chromeos::cros_healthd::mojom::GetEcTelemetryResponsePtr* out_response);
-  ::chromeos::cros_healthd::mojom::GetEcTelemetryResponsePtr GetEcTelemetry(const std::string& payload_string);
+      const std::string& payload_string, ::ash::cros_healthd::mojom::GetEcTelemetryResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::GetEcTelemetryResponsePtr GetEcTelemetry(const std::string& payload_string);
 
  private:
   WilcoEcServiceController* const proxy_;
@@ -282,6 +282,6 @@ class  WilcoEcServiceControllerAsyncWaiter {
 
 }  // namespace mojom
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 #endif  // CHROMEOS_ASH_SERVICES_CROS_HEALTHD_PUBLIC_MOJOM_CROS_HEALTHD_MOJOM_TEST_UTILS_H_

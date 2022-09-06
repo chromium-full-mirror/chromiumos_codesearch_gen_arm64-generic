@@ -235,6 +235,61 @@ bool AuthFactorType_Parse(
   }
   return success;
 }
+bool AuthFactorPreparePurpose_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+      return true;
+    default:
+      return false;
+  }
+}
+
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> AuthFactorPreparePurpose_strings[3] = {};
+
+static const char AuthFactorPreparePurpose_names[] =
+  "ADD_AUTH_FACTOR"
+  "AUTHENTICATE_AUTH_FACTOR"
+  "PURPOSE_UNSPECIFIED";
+
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry AuthFactorPreparePurpose_entries[] = {
+  { {AuthFactorPreparePurpose_names + 0, 15}, 1 },
+  { {AuthFactorPreparePurpose_names + 15, 24}, 2 },
+  { {AuthFactorPreparePurpose_names + 39, 19}, 0 },
+};
+
+static const int AuthFactorPreparePurpose_entries_by_number[] = {
+  2, // 0 -> PURPOSE_UNSPECIFIED
+  0, // 1 -> ADD_AUTH_FACTOR
+  1, // 2 -> AUTHENTICATE_AUTH_FACTOR
+};
+
+const std::string& AuthFactorPreparePurpose_Name(
+    AuthFactorPreparePurpose value) {
+  static const bool dummy =
+      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
+          AuthFactorPreparePurpose_entries,
+          AuthFactorPreparePurpose_entries_by_number,
+          3, AuthFactorPreparePurpose_strings);
+  (void) dummy;
+  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
+      AuthFactorPreparePurpose_entries,
+      AuthFactorPreparePurpose_entries_by_number,
+      3, value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
+                     AuthFactorPreparePurpose_strings[idx].get();
+}
+bool AuthFactorPreparePurpose_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, AuthFactorPreparePurpose* value) {
+  int int_value;
+  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
+      AuthFactorPreparePurpose_entries, 3, name, &int_value);
+  if (success) {
+    *value = static_cast<AuthFactorPreparePurpose>(int_value);
+  }
+  return success;
+}
 bool SmartCardSignatureAlgorithm_IsValid(int value) {
   switch (value) {
     case 0:

@@ -115,10 +115,10 @@ struct StorageChange {
   std::unique_ptr<base::DictionaryValue> ToValue() const;
 
   // The old value of the item, if there was an old value.
-  std::unique_ptr<base::Value> old_value;
+  absl::optional<base::Value> old_value;
 
   // The new value of the item, if there is a new value.
-  std::unique_ptr<base::Value> new_value;
+  absl::optional<base::Value> new_value;
 
 };
 
@@ -166,7 +166,7 @@ struct Params {
 
 
     // Choices:
-    std::unique_ptr<std::string> as_string;
+    absl::optional<std::string> as_string;
     std::unique_ptr<std::vector<std::string>> as_strings;
     std::unique_ptr<Object> as_object;
   };
@@ -230,7 +230,7 @@ struct Params {
     // successfully populated.
     static bool Populate(const base::Value& value, Keys* out);
     // Choices:
-    std::unique_ptr<std::string> as_string;
+    absl::optional<std::string> as_string;
     std::unique_ptr<std::vector<std::string>> as_strings;
   };
 
@@ -325,7 +325,7 @@ struct Params {
     // successfully populated.
     static bool Populate(const base::Value& value, Keys* out);
     // Choices:
-    std::unique_ptr<std::string> as_string;
+    absl::optional<std::string> as_string;
     std::unique_ptr<std::vector<std::string>> as_strings;
   };
 

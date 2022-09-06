@@ -42,8 +42,7 @@ PROTOBUF_NAMESPACE_CLOSE
 struct TableStruct_user_5fcharging_5fevent_2eproto {
   static const uint32_t offsets[];
 };
-namespace ash {
-namespace power {
+namespace power_manager {
 class PastChargingEvents;
 struct PastChargingEventsDefaultTypeInternal;
 extern PastChargingEventsDefaultTypeInternal _PastChargingEvents_default_instance_;
@@ -59,17 +58,15 @@ extern UserChargingEvent_EventDefaultTypeInternal _UserChargingEvent_Event_defau
 class UserChargingEvent_Features;
 struct UserChargingEvent_FeaturesDefaultTypeInternal;
 extern UserChargingEvent_FeaturesDefaultTypeInternal _UserChargingEvent_Features_default_instance_;
-}  // namespace power
-}  // namespace ash
+}  // namespace power_manager
 PROTOBUF_NAMESPACE_OPEN
-template<> ::ash::power::PastChargingEvents* Arena::CreateMaybeMessage<::ash::power::PastChargingEvents>(Arena*);
-template<> ::ash::power::PastChargingEvents_Event* Arena::CreateMaybeMessage<::ash::power::PastChargingEvents_Event>(Arena*);
-template<> ::ash::power::UserChargingEvent* Arena::CreateMaybeMessage<::ash::power::UserChargingEvent>(Arena*);
-template<> ::ash::power::UserChargingEvent_Event* Arena::CreateMaybeMessage<::ash::power::UserChargingEvent_Event>(Arena*);
-template<> ::ash::power::UserChargingEvent_Features* Arena::CreateMaybeMessage<::ash::power::UserChargingEvent_Features>(Arena*);
+template<> ::power_manager::PastChargingEvents* Arena::CreateMaybeMessage<::power_manager::PastChargingEvents>(Arena*);
+template<> ::power_manager::PastChargingEvents_Event* Arena::CreateMaybeMessage<::power_manager::PastChargingEvents_Event>(Arena*);
+template<> ::power_manager::UserChargingEvent* Arena::CreateMaybeMessage<::power_manager::UserChargingEvent>(Arena*);
+template<> ::power_manager::UserChargingEvent_Event* Arena::CreateMaybeMessage<::power_manager::UserChargingEvent_Event>(Arena*);
+template<> ::power_manager::UserChargingEvent_Features* Arena::CreateMaybeMessage<::power_manager::UserChargingEvent_Features>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
-namespace ash {
-namespace power {
+namespace power_manager {
 
 enum UserChargingEvent_Features_DayOfWeek : int {
   UserChargingEvent_Features_DayOfWeek_SUN = 0,
@@ -126,13 +123,15 @@ bool UserChargingEvent_Features_Month_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, UserChargingEvent_Features_Month* value);
 enum UserChargingEvent_Features_DeviceType : int {
   UserChargingEvent_Features_DeviceType_UNKNOWN = 0,
-  UserChargingEvent_Features_DeviceType_LAPTOP = 1,
-  UserChargingEvent_Features_DeviceType_CLAMSHELL = 2,
-  UserChargingEvent_Features_DeviceType_TABLET = 3
+  UserChargingEvent_Features_DeviceType_CLAMSHELL = 1,
+  UserChargingEvent_Features_DeviceType_CONVERTIBLE = 2,
+  UserChargingEvent_Features_DeviceType_DETACHABLE = 3,
+  UserChargingEvent_Features_DeviceType_TABLET = 4,
+  UserChargingEvent_Features_DeviceType_OTHER = 5
 };
 bool UserChargingEvent_Features_DeviceType_IsValid(int value);
 constexpr UserChargingEvent_Features_DeviceType UserChargingEvent_Features_DeviceType_DeviceType_MIN = UserChargingEvent_Features_DeviceType_UNKNOWN;
-constexpr UserChargingEvent_Features_DeviceType UserChargingEvent_Features_DeviceType_DeviceType_MAX = UserChargingEvent_Features_DeviceType_TABLET;
+constexpr UserChargingEvent_Features_DeviceType UserChargingEvent_Features_DeviceType_DeviceType_MAX = UserChargingEvent_Features_DeviceType_OTHER;
 constexpr int UserChargingEvent_Features_DeviceType_DeviceType_ARRAYSIZE = UserChargingEvent_Features_DeviceType_DeviceType_MAX + 1;
 
 const std::string& UserChargingEvent_Features_DeviceType_Name(UserChargingEvent_Features_DeviceType value);
@@ -191,7 +190,7 @@ bool UserChargingEvent_Event_Reason_Parse(
 // ===================================================================
 
 class UserChargingEvent_Features final :
-    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:ash.power.UserChargingEvent.Features) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:power_manager.UserChargingEvent.Features) */ {
  public:
   inline UserChargingEvent_Features() : UserChargingEvent_Features(nullptr) {}
   ~UserChargingEvent_Features() override;
@@ -286,7 +285,7 @@ class UserChargingEvent_Features final :
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "ash.power.UserChargingEvent.Features";
+    return "power_manager.UserChargingEvent.Features";
   }
   protected:
   explicit UserChargingEvent_Features(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -382,12 +381,16 @@ class UserChargingEvent_Features final :
   typedef UserChargingEvent_Features_DeviceType DeviceType;
   static constexpr DeviceType UNKNOWN =
     UserChargingEvent_Features_DeviceType_UNKNOWN;
-  static constexpr DeviceType LAPTOP =
-    UserChargingEvent_Features_DeviceType_LAPTOP;
   static constexpr DeviceType CLAMSHELL =
     UserChargingEvent_Features_DeviceType_CLAMSHELL;
+  static constexpr DeviceType CONVERTIBLE =
+    UserChargingEvent_Features_DeviceType_CONVERTIBLE;
+  static constexpr DeviceType DETACHABLE =
+    UserChargingEvent_Features_DeviceType_DETACHABLE;
   static constexpr DeviceType TABLET =
     UserChargingEvent_Features_DeviceType_TABLET;
+  static constexpr DeviceType OTHER =
+    UserChargingEvent_Features_DeviceType_OTHER;
   static inline bool DeviceType_IsValid(int value) {
     return UserChargingEvent_Features_DeviceType_IsValid(value);
   }
@@ -443,24 +446,24 @@ class UserChargingEvent_Features final :
 
   enum : int {
     kBatteryPercentageFieldNumber = 1,
-    kTimeSinceLastChargeFieldNumber = 2,
-    kDurationOfLastChargeFieldNumber = 3,
+    kTimeSinceLastChargeMinutesFieldNumber = 2,
+    kDurationOfLastChargeMinutesFieldNumber = 3,
     kBatteryPercentageOfLastChargeFieldNumber = 4,
     kBatteryPercentageBeforeLastChargeFieldNumber = 5,
-    kTimeOfTheDayFieldNumber = 6,
+    kTimeOfTheDayMinutesFieldNumber = 6,
     kDayOfWeekFieldNumber = 7,
     kDayOfMonthFieldNumber = 8,
-    kTimezoneDifferenceFromLastChargeFieldNumber = 10,
+    kTimezoneDifferenceFromLastChargeHoursFieldNumber = 10,
     kDeviceTypeFieldNumber = 11,
     kDeviceModeFieldNumber = 12,
     kNumRecentKeyEventsFieldNumber = 13,
     kNumRecentMouseEventsFieldNumber = 14,
     kNumRecentTouchEventsFieldNumber = 15,
     kNumRecentStylusEventsFieldNumber = 16,
-    kDurationRecentVideoPlayingFieldNumber = 17,
-    kDurationRecentAudioPlayingFieldNumber = 18,
+    kDurationRecentVideoPlayingMinutesFieldNumber = 17,
+    kDurationRecentAudioPlayingMinutesFieldNumber = 18,
     kScreenBrightnessPercentFieldNumber = 19,
-    kVoltageFieldNumber = 20,
+    kVoltageMvFieldNumber = 20,
     kHaltFromLastChargeFieldNumber = 21,
     kIsChargingFieldNumber = 22,
     kMonthFieldNumber = 9,
@@ -478,30 +481,30 @@ class UserChargingEvent_Features final :
   void _internal_set_battery_percentage(int32_t value);
   public:
 
-  // optional int32 time_since_last_charge = 2;
-  bool has_time_since_last_charge() const;
+  // optional int32 time_since_last_charge_minutes = 2;
+  bool has_time_since_last_charge_minutes() const;
   private:
-  bool _internal_has_time_since_last_charge() const;
+  bool _internal_has_time_since_last_charge_minutes() const;
   public:
-  void clear_time_since_last_charge();
-  int32_t time_since_last_charge() const;
-  void set_time_since_last_charge(int32_t value);
+  void clear_time_since_last_charge_minutes();
+  int32_t time_since_last_charge_minutes() const;
+  void set_time_since_last_charge_minutes(int32_t value);
   private:
-  int32_t _internal_time_since_last_charge() const;
-  void _internal_set_time_since_last_charge(int32_t value);
+  int32_t _internal_time_since_last_charge_minutes() const;
+  void _internal_set_time_since_last_charge_minutes(int32_t value);
   public:
 
-  // optional int32 duration_of_last_charge = 3;
-  bool has_duration_of_last_charge() const;
+  // optional int32 duration_of_last_charge_minutes = 3;
+  bool has_duration_of_last_charge_minutes() const;
   private:
-  bool _internal_has_duration_of_last_charge() const;
+  bool _internal_has_duration_of_last_charge_minutes() const;
   public:
-  void clear_duration_of_last_charge();
-  int32_t duration_of_last_charge() const;
-  void set_duration_of_last_charge(int32_t value);
+  void clear_duration_of_last_charge_minutes();
+  int32_t duration_of_last_charge_minutes() const;
+  void set_duration_of_last_charge_minutes(int32_t value);
   private:
-  int32_t _internal_duration_of_last_charge() const;
-  void _internal_set_duration_of_last_charge(int32_t value);
+  int32_t _internal_duration_of_last_charge_minutes() const;
+  void _internal_set_duration_of_last_charge_minutes(int32_t value);
   public:
 
   // optional int32 battery_percentage_of_last_charge = 4;
@@ -530,30 +533,30 @@ class UserChargingEvent_Features final :
   void _internal_set_battery_percentage_before_last_charge(int32_t value);
   public:
 
-  // optional int32 time_of_the_day = 6;
-  bool has_time_of_the_day() const;
+  // optional int32 time_of_the_day_minutes = 6;
+  bool has_time_of_the_day_minutes() const;
   private:
-  bool _internal_has_time_of_the_day() const;
+  bool _internal_has_time_of_the_day_minutes() const;
   public:
-  void clear_time_of_the_day();
-  int32_t time_of_the_day() const;
-  void set_time_of_the_day(int32_t value);
+  void clear_time_of_the_day_minutes();
+  int32_t time_of_the_day_minutes() const;
+  void set_time_of_the_day_minutes(int32_t value);
   private:
-  int32_t _internal_time_of_the_day() const;
-  void _internal_set_time_of_the_day(int32_t value);
+  int32_t _internal_time_of_the_day_minutes() const;
+  void _internal_set_time_of_the_day_minutes(int32_t value);
   public:
 
-  // optional .ash.power.UserChargingEvent.Features.DayOfWeek day_of_week = 7;
+  // optional .power_manager.UserChargingEvent.Features.DayOfWeek day_of_week = 7;
   bool has_day_of_week() const;
   private:
   bool _internal_has_day_of_week() const;
   public:
   void clear_day_of_week();
-  ::ash::power::UserChargingEvent_Features_DayOfWeek day_of_week() const;
-  void set_day_of_week(::ash::power::UserChargingEvent_Features_DayOfWeek value);
+  ::power_manager::UserChargingEvent_Features_DayOfWeek day_of_week() const;
+  void set_day_of_week(::power_manager::UserChargingEvent_Features_DayOfWeek value);
   private:
-  ::ash::power::UserChargingEvent_Features_DayOfWeek _internal_day_of_week() const;
-  void _internal_set_day_of_week(::ash::power::UserChargingEvent_Features_DayOfWeek value);
+  ::power_manager::UserChargingEvent_Features_DayOfWeek _internal_day_of_week() const;
+  void _internal_set_day_of_week(::power_manager::UserChargingEvent_Features_DayOfWeek value);
   public:
 
   // optional int32 day_of_month = 8;
@@ -569,43 +572,43 @@ class UserChargingEvent_Features final :
   void _internal_set_day_of_month(int32_t value);
   public:
 
-  // optional double timezone_difference_from_last_charge = 10;
-  bool has_timezone_difference_from_last_charge() const;
+  // optional double timezone_difference_from_last_charge_hours = 10;
+  bool has_timezone_difference_from_last_charge_hours() const;
   private:
-  bool _internal_has_timezone_difference_from_last_charge() const;
+  bool _internal_has_timezone_difference_from_last_charge_hours() const;
   public:
-  void clear_timezone_difference_from_last_charge();
-  double timezone_difference_from_last_charge() const;
-  void set_timezone_difference_from_last_charge(double value);
+  void clear_timezone_difference_from_last_charge_hours();
+  double timezone_difference_from_last_charge_hours() const;
+  void set_timezone_difference_from_last_charge_hours(double value);
   private:
-  double _internal_timezone_difference_from_last_charge() const;
-  void _internal_set_timezone_difference_from_last_charge(double value);
+  double _internal_timezone_difference_from_last_charge_hours() const;
+  void _internal_set_timezone_difference_from_last_charge_hours(double value);
   public:
 
-  // optional .ash.power.UserChargingEvent.Features.DeviceType device_type = 11;
+  // optional .power_manager.UserChargingEvent.Features.DeviceType device_type = 11;
   bool has_device_type() const;
   private:
   bool _internal_has_device_type() const;
   public:
   void clear_device_type();
-  ::ash::power::UserChargingEvent_Features_DeviceType device_type() const;
-  void set_device_type(::ash::power::UserChargingEvent_Features_DeviceType value);
+  ::power_manager::UserChargingEvent_Features_DeviceType device_type() const;
+  void set_device_type(::power_manager::UserChargingEvent_Features_DeviceType value);
   private:
-  ::ash::power::UserChargingEvent_Features_DeviceType _internal_device_type() const;
-  void _internal_set_device_type(::ash::power::UserChargingEvent_Features_DeviceType value);
+  ::power_manager::UserChargingEvent_Features_DeviceType _internal_device_type() const;
+  void _internal_set_device_type(::power_manager::UserChargingEvent_Features_DeviceType value);
   public:
 
-  // optional .ash.power.UserChargingEvent.Features.DeviceMode device_mode = 12;
+  // optional .power_manager.UserChargingEvent.Features.DeviceMode device_mode = 12;
   bool has_device_mode() const;
   private:
   bool _internal_has_device_mode() const;
   public:
   void clear_device_mode();
-  ::ash::power::UserChargingEvent_Features_DeviceMode device_mode() const;
-  void set_device_mode(::ash::power::UserChargingEvent_Features_DeviceMode value);
+  ::power_manager::UserChargingEvent_Features_DeviceMode device_mode() const;
+  void set_device_mode(::power_manager::UserChargingEvent_Features_DeviceMode value);
   private:
-  ::ash::power::UserChargingEvent_Features_DeviceMode _internal_device_mode() const;
-  void _internal_set_device_mode(::ash::power::UserChargingEvent_Features_DeviceMode value);
+  ::power_manager::UserChargingEvent_Features_DeviceMode _internal_device_mode() const;
+  void _internal_set_device_mode(::power_manager::UserChargingEvent_Features_DeviceMode value);
   public:
 
   // optional int32 num_recent_key_events = 13;
@@ -660,30 +663,30 @@ class UserChargingEvent_Features final :
   void _internal_set_num_recent_stylus_events(int32_t value);
   public:
 
-  // optional int32 duration_recent_video_playing = 17;
-  bool has_duration_recent_video_playing() const;
+  // optional int32 duration_recent_video_playing_minutes = 17;
+  bool has_duration_recent_video_playing_minutes() const;
   private:
-  bool _internal_has_duration_recent_video_playing() const;
+  bool _internal_has_duration_recent_video_playing_minutes() const;
   public:
-  void clear_duration_recent_video_playing();
-  int32_t duration_recent_video_playing() const;
-  void set_duration_recent_video_playing(int32_t value);
+  void clear_duration_recent_video_playing_minutes();
+  int32_t duration_recent_video_playing_minutes() const;
+  void set_duration_recent_video_playing_minutes(int32_t value);
   private:
-  int32_t _internal_duration_recent_video_playing() const;
-  void _internal_set_duration_recent_video_playing(int32_t value);
+  int32_t _internal_duration_recent_video_playing_minutes() const;
+  void _internal_set_duration_recent_video_playing_minutes(int32_t value);
   public:
 
-  // optional int32 duration_recent_audio_playing = 18;
-  bool has_duration_recent_audio_playing() const;
+  // optional int32 duration_recent_audio_playing_minutes = 18;
+  bool has_duration_recent_audio_playing_minutes() const;
   private:
-  bool _internal_has_duration_recent_audio_playing() const;
+  bool _internal_has_duration_recent_audio_playing_minutes() const;
   public:
-  void clear_duration_recent_audio_playing();
-  int32_t duration_recent_audio_playing() const;
-  void set_duration_recent_audio_playing(int32_t value);
+  void clear_duration_recent_audio_playing_minutes();
+  int32_t duration_recent_audio_playing_minutes() const;
+  void set_duration_recent_audio_playing_minutes(int32_t value);
   private:
-  int32_t _internal_duration_recent_audio_playing() const;
-  void _internal_set_duration_recent_audio_playing(int32_t value);
+  int32_t _internal_duration_recent_audio_playing_minutes() const;
+  void _internal_set_duration_recent_audio_playing_minutes(int32_t value);
   public:
 
   // optional int32 screen_brightness_percent = 19;
@@ -699,17 +702,17 @@ class UserChargingEvent_Features final :
   void _internal_set_screen_brightness_percent(int32_t value);
   public:
 
-  // optional int32 voltage = 20;
-  bool has_voltage() const;
+  // optional int32 voltage_mv = 20;
+  bool has_voltage_mv() const;
   private:
-  bool _internal_has_voltage() const;
+  bool _internal_has_voltage_mv() const;
   public:
-  void clear_voltage();
-  int32_t voltage() const;
-  void set_voltage(int32_t value);
+  void clear_voltage_mv();
+  int32_t voltage_mv() const;
+  void set_voltage_mv(int32_t value);
   private:
-  int32_t _internal_voltage() const;
-  void _internal_set_voltage(int32_t value);
+  int32_t _internal_voltage_mv() const;
+  void _internal_set_voltage_mv(int32_t value);
   public:
 
   // optional bool halt_from_last_charge = 21;
@@ -738,20 +741,20 @@ class UserChargingEvent_Features final :
   void _internal_set_is_charging(bool value);
   public:
 
-  // optional .ash.power.UserChargingEvent.Features.Month month = 9;
+  // optional .power_manager.UserChargingEvent.Features.Month month = 9;
   bool has_month() const;
   private:
   bool _internal_has_month() const;
   public:
   void clear_month();
-  ::ash::power::UserChargingEvent_Features_Month month() const;
-  void set_month(::ash::power::UserChargingEvent_Features_Month value);
+  ::power_manager::UserChargingEvent_Features_Month month() const;
+  void set_month(::power_manager::UserChargingEvent_Features_Month value);
   private:
-  ::ash::power::UserChargingEvent_Features_Month _internal_month() const;
-  void _internal_set_month(::ash::power::UserChargingEvent_Features_Month value);
+  ::power_manager::UserChargingEvent_Features_Month _internal_month() const;
+  void _internal_set_month(::power_manager::UserChargingEvent_Features_Month value);
   public:
 
-  // @@protoc_insertion_point(class_scope:ash.power.UserChargingEvent.Features)
+  // @@protoc_insertion_point(class_scope:power_manager.UserChargingEvent.Features)
  private:
   class _Internal;
 
@@ -761,24 +764,24 @@ class UserChargingEvent_Features final :
   ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   int32_t battery_percentage_;
-  int32_t time_since_last_charge_;
-  int32_t duration_of_last_charge_;
+  int32_t time_since_last_charge_minutes_;
+  int32_t duration_of_last_charge_minutes_;
   int32_t battery_percentage_of_last_charge_;
   int32_t battery_percentage_before_last_charge_;
-  int32_t time_of_the_day_;
+  int32_t time_of_the_day_minutes_;
   int day_of_week_;
   int32_t day_of_month_;
-  double timezone_difference_from_last_charge_;
+  double timezone_difference_from_last_charge_hours_;
   int device_type_;
   int device_mode_;
   int32_t num_recent_key_events_;
   int32_t num_recent_mouse_events_;
   int32_t num_recent_touch_events_;
   int32_t num_recent_stylus_events_;
-  int32_t duration_recent_video_playing_;
-  int32_t duration_recent_audio_playing_;
+  int32_t duration_recent_video_playing_minutes_;
+  int32_t duration_recent_audio_playing_minutes_;
   int32_t screen_brightness_percent_;
-  int32_t voltage_;
+  int32_t voltage_mv_;
   bool halt_from_last_charge_;
   bool is_charging_;
   int month_;
@@ -787,7 +790,7 @@ class UserChargingEvent_Features final :
 // -------------------------------------------------------------------
 
 class UserChargingEvent_Event final :
-    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:ash.power.UserChargingEvent.Event) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:power_manager.UserChargingEvent.Event) */ {
  public:
   inline UserChargingEvent_Event() : UserChargingEvent_Event(nullptr) {}
   ~UserChargingEvent_Event() override;
@@ -882,7 +885,7 @@ class UserChargingEvent_Event final :
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "ash.power.UserChargingEvent.Event";
+    return "power_manager.UserChargingEvent.Event";
   }
   protected:
   explicit UserChargingEvent_Event(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -944,20 +947,20 @@ class UserChargingEvent_Event final :
   void _internal_set_event_id(int32_t value);
   public:
 
-  // optional .ash.power.UserChargingEvent.Event.Reason reason = 2;
+  // optional .power_manager.UserChargingEvent.Event.Reason reason = 2;
   bool has_reason() const;
   private:
   bool _internal_has_reason() const;
   public:
   void clear_reason();
-  ::ash::power::UserChargingEvent_Event_Reason reason() const;
-  void set_reason(::ash::power::UserChargingEvent_Event_Reason value);
+  ::power_manager::UserChargingEvent_Event_Reason reason() const;
+  void set_reason(::power_manager::UserChargingEvent_Event_Reason value);
   private:
-  ::ash::power::UserChargingEvent_Event_Reason _internal_reason() const;
-  void _internal_set_reason(::ash::power::UserChargingEvent_Event_Reason value);
+  ::power_manager::UserChargingEvent_Event_Reason _internal_reason() const;
+  void _internal_set_reason(::power_manager::UserChargingEvent_Event_Reason value);
   public:
 
-  // @@protoc_insertion_point(class_scope:ash.power.UserChargingEvent.Event)
+  // @@protoc_insertion_point(class_scope:power_manager.UserChargingEvent.Event)
  private:
   class _Internal;
 
@@ -973,7 +976,7 @@ class UserChargingEvent_Event final :
 // -------------------------------------------------------------------
 
 class UserChargingEvent final :
-    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:ash.power.UserChargingEvent) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:power_manager.UserChargingEvent) */ {
  public:
   inline UserChargingEvent() : UserChargingEvent(nullptr) {}
   ~UserChargingEvent() override;
@@ -1068,7 +1071,7 @@ class UserChargingEvent final :
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "ash.power.UserChargingEvent";
+    return "power_manager.UserChargingEvent";
   }
   protected:
   explicit UserChargingEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -1088,43 +1091,43 @@ class UserChargingEvent final :
     kFeaturesFieldNumber = 1,
     kEventFieldNumber = 2,
   };
-  // optional .ash.power.UserChargingEvent.Features features = 1;
+  // optional .power_manager.UserChargingEvent.Features features = 1;
   bool has_features() const;
   private:
   bool _internal_has_features() const;
   public:
   void clear_features();
-  const ::ash::power::UserChargingEvent_Features& features() const;
-  PROTOBUF_NODISCARD ::ash::power::UserChargingEvent_Features* release_features();
-  ::ash::power::UserChargingEvent_Features* mutable_features();
-  void set_allocated_features(::ash::power::UserChargingEvent_Features* features);
+  const ::power_manager::UserChargingEvent_Features& features() const;
+  PROTOBUF_NODISCARD ::power_manager::UserChargingEvent_Features* release_features();
+  ::power_manager::UserChargingEvent_Features* mutable_features();
+  void set_allocated_features(::power_manager::UserChargingEvent_Features* features);
   private:
-  const ::ash::power::UserChargingEvent_Features& _internal_features() const;
-  ::ash::power::UserChargingEvent_Features* _internal_mutable_features();
+  const ::power_manager::UserChargingEvent_Features& _internal_features() const;
+  ::power_manager::UserChargingEvent_Features* _internal_mutable_features();
   public:
   void unsafe_arena_set_allocated_features(
-      ::ash::power::UserChargingEvent_Features* features);
-  ::ash::power::UserChargingEvent_Features* unsafe_arena_release_features();
+      ::power_manager::UserChargingEvent_Features* features);
+  ::power_manager::UserChargingEvent_Features* unsafe_arena_release_features();
 
-  // optional .ash.power.UserChargingEvent.Event event = 2;
+  // optional .power_manager.UserChargingEvent.Event event = 2;
   bool has_event() const;
   private:
   bool _internal_has_event() const;
   public:
   void clear_event();
-  const ::ash::power::UserChargingEvent_Event& event() const;
-  PROTOBUF_NODISCARD ::ash::power::UserChargingEvent_Event* release_event();
-  ::ash::power::UserChargingEvent_Event* mutable_event();
-  void set_allocated_event(::ash::power::UserChargingEvent_Event* event);
+  const ::power_manager::UserChargingEvent_Event& event() const;
+  PROTOBUF_NODISCARD ::power_manager::UserChargingEvent_Event* release_event();
+  ::power_manager::UserChargingEvent_Event* mutable_event();
+  void set_allocated_event(::power_manager::UserChargingEvent_Event* event);
   private:
-  const ::ash::power::UserChargingEvent_Event& _internal_event() const;
-  ::ash::power::UserChargingEvent_Event* _internal_mutable_event();
+  const ::power_manager::UserChargingEvent_Event& _internal_event() const;
+  ::power_manager::UserChargingEvent_Event* _internal_mutable_event();
   public:
   void unsafe_arena_set_allocated_event(
-      ::ash::power::UserChargingEvent_Event* event);
-  ::ash::power::UserChargingEvent_Event* unsafe_arena_release_event();
+      ::power_manager::UserChargingEvent_Event* event);
+  ::power_manager::UserChargingEvent_Event* unsafe_arena_release_event();
 
-  // @@protoc_insertion_point(class_scope:ash.power.UserChargingEvent)
+  // @@protoc_insertion_point(class_scope:power_manager.UserChargingEvent)
  private:
   class _Internal;
 
@@ -1133,14 +1136,14 @@ class UserChargingEvent final :
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  ::ash::power::UserChargingEvent_Features* features_;
-  ::ash::power::UserChargingEvent_Event* event_;
+  ::power_manager::UserChargingEvent_Features* features_;
+  ::power_manager::UserChargingEvent_Event* event_;
   friend struct ::TableStruct_user_5fcharging_5fevent_2eproto;
 };
 // -------------------------------------------------------------------
 
 class PastChargingEvents_Event final :
-    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:ash.power.PastChargingEvents.Event) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:power_manager.PastChargingEvents.Event) */ {
  public:
   inline PastChargingEvents_Event() : PastChargingEvents_Event(nullptr) {}
   ~PastChargingEvents_Event() override;
@@ -1235,7 +1238,7 @@ class PastChargingEvents_Event final :
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "ash.power.PastChargingEvents.Event";
+    return "power_manager.PastChargingEvents.Event";
   }
   protected:
   explicit PastChargingEvents_Event(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -1293,20 +1296,20 @@ class PastChargingEvents_Event final :
   void _internal_set_timezone(int32_t value);
   public:
 
-  // optional .ash.power.UserChargingEvent.Event.Reason reason = 4;
+  // optional .power_manager.UserChargingEvent.Event.Reason reason = 4;
   bool has_reason() const;
   private:
   bool _internal_has_reason() const;
   public:
   void clear_reason();
-  ::ash::power::UserChargingEvent_Event_Reason reason() const;
-  void set_reason(::ash::power::UserChargingEvent_Event_Reason value);
+  ::power_manager::UserChargingEvent_Event_Reason reason() const;
+  void set_reason(::power_manager::UserChargingEvent_Event_Reason value);
   private:
-  ::ash::power::UserChargingEvent_Event_Reason _internal_reason() const;
-  void _internal_set_reason(::ash::power::UserChargingEvent_Event_Reason value);
+  ::power_manager::UserChargingEvent_Event_Reason _internal_reason() const;
+  void _internal_set_reason(::power_manager::UserChargingEvent_Event_Reason value);
   public:
 
-  // @@protoc_insertion_point(class_scope:ash.power.PastChargingEvents.Event)
+  // @@protoc_insertion_point(class_scope:power_manager.PastChargingEvents.Event)
  private:
   class _Internal;
 
@@ -1324,7 +1327,7 @@ class PastChargingEvents_Event final :
 // -------------------------------------------------------------------
 
 class PastChargingEvents final :
-    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:ash.power.PastChargingEvents) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:power_manager.PastChargingEvents) */ {
  public:
   inline PastChargingEvents() : PastChargingEvents(nullptr) {}
   ~PastChargingEvents() override;
@@ -1419,7 +1422,7 @@ class PastChargingEvents final :
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "ash.power.PastChargingEvents";
+    return "power_manager.PastChargingEvents";
   }
   protected:
   explicit PastChargingEvents(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -1437,32 +1440,32 @@ class PastChargingEvents final :
   enum : int {
     kEventsFieldNumber = 1,
   };
-  // repeated .ash.power.PastChargingEvents.Event events = 1;
+  // repeated .power_manager.PastChargingEvents.Event events = 1;
   int events_size() const;
   private:
   int _internal_events_size() const;
   public:
   void clear_events();
-  ::ash::power::PastChargingEvents_Event* mutable_events(int index);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::ash::power::PastChargingEvents_Event >*
+  ::power_manager::PastChargingEvents_Event* mutable_events(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::power_manager::PastChargingEvents_Event >*
       mutable_events();
   private:
-  const ::ash::power::PastChargingEvents_Event& _internal_events(int index) const;
-  ::ash::power::PastChargingEvents_Event* _internal_add_events();
+  const ::power_manager::PastChargingEvents_Event& _internal_events(int index) const;
+  ::power_manager::PastChargingEvents_Event* _internal_add_events();
   public:
-  const ::ash::power::PastChargingEvents_Event& events(int index) const;
-  ::ash::power::PastChargingEvents_Event* add_events();
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::ash::power::PastChargingEvents_Event >&
+  const ::power_manager::PastChargingEvents_Event& events(int index) const;
+  ::power_manager::PastChargingEvents_Event* add_events();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::power_manager::PastChargingEvents_Event >&
       events() const;
 
-  // @@protoc_insertion_point(class_scope:ash.power.PastChargingEvents)
+  // @@protoc_insertion_point(class_scope:power_manager.PastChargingEvents)
  private:
   class _Internal;
 
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::ash::power::PastChargingEvents_Event > events_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::power_manager::PastChargingEvents_Event > events_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_user_5fcharging_5fevent_2eproto;
 };
@@ -1493,7 +1496,7 @@ inline int32_t UserChargingEvent_Features::_internal_battery_percentage() const 
   return battery_percentage_;
 }
 inline int32_t UserChargingEvent_Features::battery_percentage() const {
-  // @@protoc_insertion_point(field_get:ash.power.UserChargingEvent.Features.battery_percentage)
+  // @@protoc_insertion_point(field_get:power_manager.UserChargingEvent.Features.battery_percentage)
   return _internal_battery_percentage();
 }
 inline void UserChargingEvent_Features::_internal_set_battery_percentage(int32_t value) {
@@ -1502,63 +1505,63 @@ inline void UserChargingEvent_Features::_internal_set_battery_percentage(int32_t
 }
 inline void UserChargingEvent_Features::set_battery_percentage(int32_t value) {
   _internal_set_battery_percentage(value);
-  // @@protoc_insertion_point(field_set:ash.power.UserChargingEvent.Features.battery_percentage)
+  // @@protoc_insertion_point(field_set:power_manager.UserChargingEvent.Features.battery_percentage)
 }
 
-// optional int32 time_since_last_charge = 2;
-inline bool UserChargingEvent_Features::_internal_has_time_since_last_charge() const {
+// optional int32 time_since_last_charge_minutes = 2;
+inline bool UserChargingEvent_Features::_internal_has_time_since_last_charge_minutes() const {
   bool value = (_has_bits_[0] & 0x00000002u) != 0;
   return value;
 }
-inline bool UserChargingEvent_Features::has_time_since_last_charge() const {
-  return _internal_has_time_since_last_charge();
+inline bool UserChargingEvent_Features::has_time_since_last_charge_minutes() const {
+  return _internal_has_time_since_last_charge_minutes();
 }
-inline void UserChargingEvent_Features::clear_time_since_last_charge() {
-  time_since_last_charge_ = 0;
+inline void UserChargingEvent_Features::clear_time_since_last_charge_minutes() {
+  time_since_last_charge_minutes_ = 0;
   _has_bits_[0] &= ~0x00000002u;
 }
-inline int32_t UserChargingEvent_Features::_internal_time_since_last_charge() const {
-  return time_since_last_charge_;
+inline int32_t UserChargingEvent_Features::_internal_time_since_last_charge_minutes() const {
+  return time_since_last_charge_minutes_;
 }
-inline int32_t UserChargingEvent_Features::time_since_last_charge() const {
-  // @@protoc_insertion_point(field_get:ash.power.UserChargingEvent.Features.time_since_last_charge)
-  return _internal_time_since_last_charge();
+inline int32_t UserChargingEvent_Features::time_since_last_charge_minutes() const {
+  // @@protoc_insertion_point(field_get:power_manager.UserChargingEvent.Features.time_since_last_charge_minutes)
+  return _internal_time_since_last_charge_minutes();
 }
-inline void UserChargingEvent_Features::_internal_set_time_since_last_charge(int32_t value) {
+inline void UserChargingEvent_Features::_internal_set_time_since_last_charge_minutes(int32_t value) {
   _has_bits_[0] |= 0x00000002u;
-  time_since_last_charge_ = value;
+  time_since_last_charge_minutes_ = value;
 }
-inline void UserChargingEvent_Features::set_time_since_last_charge(int32_t value) {
-  _internal_set_time_since_last_charge(value);
-  // @@protoc_insertion_point(field_set:ash.power.UserChargingEvent.Features.time_since_last_charge)
+inline void UserChargingEvent_Features::set_time_since_last_charge_minutes(int32_t value) {
+  _internal_set_time_since_last_charge_minutes(value);
+  // @@protoc_insertion_point(field_set:power_manager.UserChargingEvent.Features.time_since_last_charge_minutes)
 }
 
-// optional int32 duration_of_last_charge = 3;
-inline bool UserChargingEvent_Features::_internal_has_duration_of_last_charge() const {
+// optional int32 duration_of_last_charge_minutes = 3;
+inline bool UserChargingEvent_Features::_internal_has_duration_of_last_charge_minutes() const {
   bool value = (_has_bits_[0] & 0x00000004u) != 0;
   return value;
 }
-inline bool UserChargingEvent_Features::has_duration_of_last_charge() const {
-  return _internal_has_duration_of_last_charge();
+inline bool UserChargingEvent_Features::has_duration_of_last_charge_minutes() const {
+  return _internal_has_duration_of_last_charge_minutes();
 }
-inline void UserChargingEvent_Features::clear_duration_of_last_charge() {
-  duration_of_last_charge_ = 0;
+inline void UserChargingEvent_Features::clear_duration_of_last_charge_minutes() {
+  duration_of_last_charge_minutes_ = 0;
   _has_bits_[0] &= ~0x00000004u;
 }
-inline int32_t UserChargingEvent_Features::_internal_duration_of_last_charge() const {
-  return duration_of_last_charge_;
+inline int32_t UserChargingEvent_Features::_internal_duration_of_last_charge_minutes() const {
+  return duration_of_last_charge_minutes_;
 }
-inline int32_t UserChargingEvent_Features::duration_of_last_charge() const {
-  // @@protoc_insertion_point(field_get:ash.power.UserChargingEvent.Features.duration_of_last_charge)
-  return _internal_duration_of_last_charge();
+inline int32_t UserChargingEvent_Features::duration_of_last_charge_minutes() const {
+  // @@protoc_insertion_point(field_get:power_manager.UserChargingEvent.Features.duration_of_last_charge_minutes)
+  return _internal_duration_of_last_charge_minutes();
 }
-inline void UserChargingEvent_Features::_internal_set_duration_of_last_charge(int32_t value) {
+inline void UserChargingEvent_Features::_internal_set_duration_of_last_charge_minutes(int32_t value) {
   _has_bits_[0] |= 0x00000004u;
-  duration_of_last_charge_ = value;
+  duration_of_last_charge_minutes_ = value;
 }
-inline void UserChargingEvent_Features::set_duration_of_last_charge(int32_t value) {
-  _internal_set_duration_of_last_charge(value);
-  // @@protoc_insertion_point(field_set:ash.power.UserChargingEvent.Features.duration_of_last_charge)
+inline void UserChargingEvent_Features::set_duration_of_last_charge_minutes(int32_t value) {
+  _internal_set_duration_of_last_charge_minutes(value);
+  // @@protoc_insertion_point(field_set:power_manager.UserChargingEvent.Features.duration_of_last_charge_minutes)
 }
 
 // optional int32 battery_percentage_of_last_charge = 4;
@@ -1577,7 +1580,7 @@ inline int32_t UserChargingEvent_Features::_internal_battery_percentage_of_last_
   return battery_percentage_of_last_charge_;
 }
 inline int32_t UserChargingEvent_Features::battery_percentage_of_last_charge() const {
-  // @@protoc_insertion_point(field_get:ash.power.UserChargingEvent.Features.battery_percentage_of_last_charge)
+  // @@protoc_insertion_point(field_get:power_manager.UserChargingEvent.Features.battery_percentage_of_last_charge)
   return _internal_battery_percentage_of_last_charge();
 }
 inline void UserChargingEvent_Features::_internal_set_battery_percentage_of_last_charge(int32_t value) {
@@ -1586,7 +1589,7 @@ inline void UserChargingEvent_Features::_internal_set_battery_percentage_of_last
 }
 inline void UserChargingEvent_Features::set_battery_percentage_of_last_charge(int32_t value) {
   _internal_set_battery_percentage_of_last_charge(value);
-  // @@protoc_insertion_point(field_set:ash.power.UserChargingEvent.Features.battery_percentage_of_last_charge)
+  // @@protoc_insertion_point(field_set:power_manager.UserChargingEvent.Features.battery_percentage_of_last_charge)
 }
 
 // optional int32 battery_percentage_before_last_charge = 5;
@@ -1605,7 +1608,7 @@ inline int32_t UserChargingEvent_Features::_internal_battery_percentage_before_l
   return battery_percentage_before_last_charge_;
 }
 inline int32_t UserChargingEvent_Features::battery_percentage_before_last_charge() const {
-  // @@protoc_insertion_point(field_get:ash.power.UserChargingEvent.Features.battery_percentage_before_last_charge)
+  // @@protoc_insertion_point(field_get:power_manager.UserChargingEvent.Features.battery_percentage_before_last_charge)
   return _internal_battery_percentage_before_last_charge();
 }
 inline void UserChargingEvent_Features::_internal_set_battery_percentage_before_last_charge(int32_t value) {
@@ -1614,38 +1617,38 @@ inline void UserChargingEvent_Features::_internal_set_battery_percentage_before_
 }
 inline void UserChargingEvent_Features::set_battery_percentage_before_last_charge(int32_t value) {
   _internal_set_battery_percentage_before_last_charge(value);
-  // @@protoc_insertion_point(field_set:ash.power.UserChargingEvent.Features.battery_percentage_before_last_charge)
+  // @@protoc_insertion_point(field_set:power_manager.UserChargingEvent.Features.battery_percentage_before_last_charge)
 }
 
-// optional int32 time_of_the_day = 6;
-inline bool UserChargingEvent_Features::_internal_has_time_of_the_day() const {
+// optional int32 time_of_the_day_minutes = 6;
+inline bool UserChargingEvent_Features::_internal_has_time_of_the_day_minutes() const {
   bool value = (_has_bits_[0] & 0x00000020u) != 0;
   return value;
 }
-inline bool UserChargingEvent_Features::has_time_of_the_day() const {
-  return _internal_has_time_of_the_day();
+inline bool UserChargingEvent_Features::has_time_of_the_day_minutes() const {
+  return _internal_has_time_of_the_day_minutes();
 }
-inline void UserChargingEvent_Features::clear_time_of_the_day() {
-  time_of_the_day_ = 0;
+inline void UserChargingEvent_Features::clear_time_of_the_day_minutes() {
+  time_of_the_day_minutes_ = 0;
   _has_bits_[0] &= ~0x00000020u;
 }
-inline int32_t UserChargingEvent_Features::_internal_time_of_the_day() const {
-  return time_of_the_day_;
+inline int32_t UserChargingEvent_Features::_internal_time_of_the_day_minutes() const {
+  return time_of_the_day_minutes_;
 }
-inline int32_t UserChargingEvent_Features::time_of_the_day() const {
-  // @@protoc_insertion_point(field_get:ash.power.UserChargingEvent.Features.time_of_the_day)
-  return _internal_time_of_the_day();
+inline int32_t UserChargingEvent_Features::time_of_the_day_minutes() const {
+  // @@protoc_insertion_point(field_get:power_manager.UserChargingEvent.Features.time_of_the_day_minutes)
+  return _internal_time_of_the_day_minutes();
 }
-inline void UserChargingEvent_Features::_internal_set_time_of_the_day(int32_t value) {
+inline void UserChargingEvent_Features::_internal_set_time_of_the_day_minutes(int32_t value) {
   _has_bits_[0] |= 0x00000020u;
-  time_of_the_day_ = value;
+  time_of_the_day_minutes_ = value;
 }
-inline void UserChargingEvent_Features::set_time_of_the_day(int32_t value) {
-  _internal_set_time_of_the_day(value);
-  // @@protoc_insertion_point(field_set:ash.power.UserChargingEvent.Features.time_of_the_day)
+inline void UserChargingEvent_Features::set_time_of_the_day_minutes(int32_t value) {
+  _internal_set_time_of_the_day_minutes(value);
+  // @@protoc_insertion_point(field_set:power_manager.UserChargingEvent.Features.time_of_the_day_minutes)
 }
 
-// optional .ash.power.UserChargingEvent.Features.DayOfWeek day_of_week = 7;
+// optional .power_manager.UserChargingEvent.Features.DayOfWeek day_of_week = 7;
 inline bool UserChargingEvent_Features::_internal_has_day_of_week() const {
   bool value = (_has_bits_[0] & 0x00000040u) != 0;
   return value;
@@ -1657,21 +1660,21 @@ inline void UserChargingEvent_Features::clear_day_of_week() {
   day_of_week_ = 0;
   _has_bits_[0] &= ~0x00000040u;
 }
-inline ::ash::power::UserChargingEvent_Features_DayOfWeek UserChargingEvent_Features::_internal_day_of_week() const {
-  return static_cast< ::ash::power::UserChargingEvent_Features_DayOfWeek >(day_of_week_);
+inline ::power_manager::UserChargingEvent_Features_DayOfWeek UserChargingEvent_Features::_internal_day_of_week() const {
+  return static_cast< ::power_manager::UserChargingEvent_Features_DayOfWeek >(day_of_week_);
 }
-inline ::ash::power::UserChargingEvent_Features_DayOfWeek UserChargingEvent_Features::day_of_week() const {
-  // @@protoc_insertion_point(field_get:ash.power.UserChargingEvent.Features.day_of_week)
+inline ::power_manager::UserChargingEvent_Features_DayOfWeek UserChargingEvent_Features::day_of_week() const {
+  // @@protoc_insertion_point(field_get:power_manager.UserChargingEvent.Features.day_of_week)
   return _internal_day_of_week();
 }
-inline void UserChargingEvent_Features::_internal_set_day_of_week(::ash::power::UserChargingEvent_Features_DayOfWeek value) {
-  assert(::ash::power::UserChargingEvent_Features_DayOfWeek_IsValid(value));
+inline void UserChargingEvent_Features::_internal_set_day_of_week(::power_manager::UserChargingEvent_Features_DayOfWeek value) {
+  assert(::power_manager::UserChargingEvent_Features_DayOfWeek_IsValid(value));
   _has_bits_[0] |= 0x00000040u;
   day_of_week_ = value;
 }
-inline void UserChargingEvent_Features::set_day_of_week(::ash::power::UserChargingEvent_Features_DayOfWeek value) {
+inline void UserChargingEvent_Features::set_day_of_week(::power_manager::UserChargingEvent_Features_DayOfWeek value) {
   _internal_set_day_of_week(value);
-  // @@protoc_insertion_point(field_set:ash.power.UserChargingEvent.Features.day_of_week)
+  // @@protoc_insertion_point(field_set:power_manager.UserChargingEvent.Features.day_of_week)
 }
 
 // optional int32 day_of_month = 8;
@@ -1690,7 +1693,7 @@ inline int32_t UserChargingEvent_Features::_internal_day_of_month() const {
   return day_of_month_;
 }
 inline int32_t UserChargingEvent_Features::day_of_month() const {
-  // @@protoc_insertion_point(field_get:ash.power.UserChargingEvent.Features.day_of_month)
+  // @@protoc_insertion_point(field_get:power_manager.UserChargingEvent.Features.day_of_month)
   return _internal_day_of_month();
 }
 inline void UserChargingEvent_Features::_internal_set_day_of_month(int32_t value) {
@@ -1699,10 +1702,10 @@ inline void UserChargingEvent_Features::_internal_set_day_of_month(int32_t value
 }
 inline void UserChargingEvent_Features::set_day_of_month(int32_t value) {
   _internal_set_day_of_month(value);
-  // @@protoc_insertion_point(field_set:ash.power.UserChargingEvent.Features.day_of_month)
+  // @@protoc_insertion_point(field_set:power_manager.UserChargingEvent.Features.day_of_month)
 }
 
-// optional .ash.power.UserChargingEvent.Features.Month month = 9;
+// optional .power_manager.UserChargingEvent.Features.Month month = 9;
 inline bool UserChargingEvent_Features::_internal_has_month() const {
   bool value = (_has_bits_[0] & 0x00200000u) != 0;
   return value;
@@ -1714,52 +1717,52 @@ inline void UserChargingEvent_Features::clear_month() {
   month_ = 1;
   _has_bits_[0] &= ~0x00200000u;
 }
-inline ::ash::power::UserChargingEvent_Features_Month UserChargingEvent_Features::_internal_month() const {
-  return static_cast< ::ash::power::UserChargingEvent_Features_Month >(month_);
+inline ::power_manager::UserChargingEvent_Features_Month UserChargingEvent_Features::_internal_month() const {
+  return static_cast< ::power_manager::UserChargingEvent_Features_Month >(month_);
 }
-inline ::ash::power::UserChargingEvent_Features_Month UserChargingEvent_Features::month() const {
-  // @@protoc_insertion_point(field_get:ash.power.UserChargingEvent.Features.month)
+inline ::power_manager::UserChargingEvent_Features_Month UserChargingEvent_Features::month() const {
+  // @@protoc_insertion_point(field_get:power_manager.UserChargingEvent.Features.month)
   return _internal_month();
 }
-inline void UserChargingEvent_Features::_internal_set_month(::ash::power::UserChargingEvent_Features_Month value) {
-  assert(::ash::power::UserChargingEvent_Features_Month_IsValid(value));
+inline void UserChargingEvent_Features::_internal_set_month(::power_manager::UserChargingEvent_Features_Month value) {
+  assert(::power_manager::UserChargingEvent_Features_Month_IsValid(value));
   _has_bits_[0] |= 0x00200000u;
   month_ = value;
 }
-inline void UserChargingEvent_Features::set_month(::ash::power::UserChargingEvent_Features_Month value) {
+inline void UserChargingEvent_Features::set_month(::power_manager::UserChargingEvent_Features_Month value) {
   _internal_set_month(value);
-  // @@protoc_insertion_point(field_set:ash.power.UserChargingEvent.Features.month)
+  // @@protoc_insertion_point(field_set:power_manager.UserChargingEvent.Features.month)
 }
 
-// optional double timezone_difference_from_last_charge = 10;
-inline bool UserChargingEvent_Features::_internal_has_timezone_difference_from_last_charge() const {
+// optional double timezone_difference_from_last_charge_hours = 10;
+inline bool UserChargingEvent_Features::_internal_has_timezone_difference_from_last_charge_hours() const {
   bool value = (_has_bits_[0] & 0x00000100u) != 0;
   return value;
 }
-inline bool UserChargingEvent_Features::has_timezone_difference_from_last_charge() const {
-  return _internal_has_timezone_difference_from_last_charge();
+inline bool UserChargingEvent_Features::has_timezone_difference_from_last_charge_hours() const {
+  return _internal_has_timezone_difference_from_last_charge_hours();
 }
-inline void UserChargingEvent_Features::clear_timezone_difference_from_last_charge() {
-  timezone_difference_from_last_charge_ = 0;
+inline void UserChargingEvent_Features::clear_timezone_difference_from_last_charge_hours() {
+  timezone_difference_from_last_charge_hours_ = 0;
   _has_bits_[0] &= ~0x00000100u;
 }
-inline double UserChargingEvent_Features::_internal_timezone_difference_from_last_charge() const {
-  return timezone_difference_from_last_charge_;
+inline double UserChargingEvent_Features::_internal_timezone_difference_from_last_charge_hours() const {
+  return timezone_difference_from_last_charge_hours_;
 }
-inline double UserChargingEvent_Features::timezone_difference_from_last_charge() const {
-  // @@protoc_insertion_point(field_get:ash.power.UserChargingEvent.Features.timezone_difference_from_last_charge)
-  return _internal_timezone_difference_from_last_charge();
+inline double UserChargingEvent_Features::timezone_difference_from_last_charge_hours() const {
+  // @@protoc_insertion_point(field_get:power_manager.UserChargingEvent.Features.timezone_difference_from_last_charge_hours)
+  return _internal_timezone_difference_from_last_charge_hours();
 }
-inline void UserChargingEvent_Features::_internal_set_timezone_difference_from_last_charge(double value) {
+inline void UserChargingEvent_Features::_internal_set_timezone_difference_from_last_charge_hours(double value) {
   _has_bits_[0] |= 0x00000100u;
-  timezone_difference_from_last_charge_ = value;
+  timezone_difference_from_last_charge_hours_ = value;
 }
-inline void UserChargingEvent_Features::set_timezone_difference_from_last_charge(double value) {
-  _internal_set_timezone_difference_from_last_charge(value);
-  // @@protoc_insertion_point(field_set:ash.power.UserChargingEvent.Features.timezone_difference_from_last_charge)
+inline void UserChargingEvent_Features::set_timezone_difference_from_last_charge_hours(double value) {
+  _internal_set_timezone_difference_from_last_charge_hours(value);
+  // @@protoc_insertion_point(field_set:power_manager.UserChargingEvent.Features.timezone_difference_from_last_charge_hours)
 }
 
-// optional .ash.power.UserChargingEvent.Features.DeviceType device_type = 11;
+// optional .power_manager.UserChargingEvent.Features.DeviceType device_type = 11;
 inline bool UserChargingEvent_Features::_internal_has_device_type() const {
   bool value = (_has_bits_[0] & 0x00000200u) != 0;
   return value;
@@ -1771,24 +1774,24 @@ inline void UserChargingEvent_Features::clear_device_type() {
   device_type_ = 0;
   _has_bits_[0] &= ~0x00000200u;
 }
-inline ::ash::power::UserChargingEvent_Features_DeviceType UserChargingEvent_Features::_internal_device_type() const {
-  return static_cast< ::ash::power::UserChargingEvent_Features_DeviceType >(device_type_);
+inline ::power_manager::UserChargingEvent_Features_DeviceType UserChargingEvent_Features::_internal_device_type() const {
+  return static_cast< ::power_manager::UserChargingEvent_Features_DeviceType >(device_type_);
 }
-inline ::ash::power::UserChargingEvent_Features_DeviceType UserChargingEvent_Features::device_type() const {
-  // @@protoc_insertion_point(field_get:ash.power.UserChargingEvent.Features.device_type)
+inline ::power_manager::UserChargingEvent_Features_DeviceType UserChargingEvent_Features::device_type() const {
+  // @@protoc_insertion_point(field_get:power_manager.UserChargingEvent.Features.device_type)
   return _internal_device_type();
 }
-inline void UserChargingEvent_Features::_internal_set_device_type(::ash::power::UserChargingEvent_Features_DeviceType value) {
-  assert(::ash::power::UserChargingEvent_Features_DeviceType_IsValid(value));
+inline void UserChargingEvent_Features::_internal_set_device_type(::power_manager::UserChargingEvent_Features_DeviceType value) {
+  assert(::power_manager::UserChargingEvent_Features_DeviceType_IsValid(value));
   _has_bits_[0] |= 0x00000200u;
   device_type_ = value;
 }
-inline void UserChargingEvent_Features::set_device_type(::ash::power::UserChargingEvent_Features_DeviceType value) {
+inline void UserChargingEvent_Features::set_device_type(::power_manager::UserChargingEvent_Features_DeviceType value) {
   _internal_set_device_type(value);
-  // @@protoc_insertion_point(field_set:ash.power.UserChargingEvent.Features.device_type)
+  // @@protoc_insertion_point(field_set:power_manager.UserChargingEvent.Features.device_type)
 }
 
-// optional .ash.power.UserChargingEvent.Features.DeviceMode device_mode = 12;
+// optional .power_manager.UserChargingEvent.Features.DeviceMode device_mode = 12;
 inline bool UserChargingEvent_Features::_internal_has_device_mode() const {
   bool value = (_has_bits_[0] & 0x00000400u) != 0;
   return value;
@@ -1800,21 +1803,21 @@ inline void UserChargingEvent_Features::clear_device_mode() {
   device_mode_ = 0;
   _has_bits_[0] &= ~0x00000400u;
 }
-inline ::ash::power::UserChargingEvent_Features_DeviceMode UserChargingEvent_Features::_internal_device_mode() const {
-  return static_cast< ::ash::power::UserChargingEvent_Features_DeviceMode >(device_mode_);
+inline ::power_manager::UserChargingEvent_Features_DeviceMode UserChargingEvent_Features::_internal_device_mode() const {
+  return static_cast< ::power_manager::UserChargingEvent_Features_DeviceMode >(device_mode_);
 }
-inline ::ash::power::UserChargingEvent_Features_DeviceMode UserChargingEvent_Features::device_mode() const {
-  // @@protoc_insertion_point(field_get:ash.power.UserChargingEvent.Features.device_mode)
+inline ::power_manager::UserChargingEvent_Features_DeviceMode UserChargingEvent_Features::device_mode() const {
+  // @@protoc_insertion_point(field_get:power_manager.UserChargingEvent.Features.device_mode)
   return _internal_device_mode();
 }
-inline void UserChargingEvent_Features::_internal_set_device_mode(::ash::power::UserChargingEvent_Features_DeviceMode value) {
-  assert(::ash::power::UserChargingEvent_Features_DeviceMode_IsValid(value));
+inline void UserChargingEvent_Features::_internal_set_device_mode(::power_manager::UserChargingEvent_Features_DeviceMode value) {
+  assert(::power_manager::UserChargingEvent_Features_DeviceMode_IsValid(value));
   _has_bits_[0] |= 0x00000400u;
   device_mode_ = value;
 }
-inline void UserChargingEvent_Features::set_device_mode(::ash::power::UserChargingEvent_Features_DeviceMode value) {
+inline void UserChargingEvent_Features::set_device_mode(::power_manager::UserChargingEvent_Features_DeviceMode value) {
   _internal_set_device_mode(value);
-  // @@protoc_insertion_point(field_set:ash.power.UserChargingEvent.Features.device_mode)
+  // @@protoc_insertion_point(field_set:power_manager.UserChargingEvent.Features.device_mode)
 }
 
 // optional int32 num_recent_key_events = 13;
@@ -1833,7 +1836,7 @@ inline int32_t UserChargingEvent_Features::_internal_num_recent_key_events() con
   return num_recent_key_events_;
 }
 inline int32_t UserChargingEvent_Features::num_recent_key_events() const {
-  // @@protoc_insertion_point(field_get:ash.power.UserChargingEvent.Features.num_recent_key_events)
+  // @@protoc_insertion_point(field_get:power_manager.UserChargingEvent.Features.num_recent_key_events)
   return _internal_num_recent_key_events();
 }
 inline void UserChargingEvent_Features::_internal_set_num_recent_key_events(int32_t value) {
@@ -1842,7 +1845,7 @@ inline void UserChargingEvent_Features::_internal_set_num_recent_key_events(int3
 }
 inline void UserChargingEvent_Features::set_num_recent_key_events(int32_t value) {
   _internal_set_num_recent_key_events(value);
-  // @@protoc_insertion_point(field_set:ash.power.UserChargingEvent.Features.num_recent_key_events)
+  // @@protoc_insertion_point(field_set:power_manager.UserChargingEvent.Features.num_recent_key_events)
 }
 
 // optional int32 num_recent_mouse_events = 14;
@@ -1861,7 +1864,7 @@ inline int32_t UserChargingEvent_Features::_internal_num_recent_mouse_events() c
   return num_recent_mouse_events_;
 }
 inline int32_t UserChargingEvent_Features::num_recent_mouse_events() const {
-  // @@protoc_insertion_point(field_get:ash.power.UserChargingEvent.Features.num_recent_mouse_events)
+  // @@protoc_insertion_point(field_get:power_manager.UserChargingEvent.Features.num_recent_mouse_events)
   return _internal_num_recent_mouse_events();
 }
 inline void UserChargingEvent_Features::_internal_set_num_recent_mouse_events(int32_t value) {
@@ -1870,7 +1873,7 @@ inline void UserChargingEvent_Features::_internal_set_num_recent_mouse_events(in
 }
 inline void UserChargingEvent_Features::set_num_recent_mouse_events(int32_t value) {
   _internal_set_num_recent_mouse_events(value);
-  // @@protoc_insertion_point(field_set:ash.power.UserChargingEvent.Features.num_recent_mouse_events)
+  // @@protoc_insertion_point(field_set:power_manager.UserChargingEvent.Features.num_recent_mouse_events)
 }
 
 // optional int32 num_recent_touch_events = 15;
@@ -1889,7 +1892,7 @@ inline int32_t UserChargingEvent_Features::_internal_num_recent_touch_events() c
   return num_recent_touch_events_;
 }
 inline int32_t UserChargingEvent_Features::num_recent_touch_events() const {
-  // @@protoc_insertion_point(field_get:ash.power.UserChargingEvent.Features.num_recent_touch_events)
+  // @@protoc_insertion_point(field_get:power_manager.UserChargingEvent.Features.num_recent_touch_events)
   return _internal_num_recent_touch_events();
 }
 inline void UserChargingEvent_Features::_internal_set_num_recent_touch_events(int32_t value) {
@@ -1898,7 +1901,7 @@ inline void UserChargingEvent_Features::_internal_set_num_recent_touch_events(in
 }
 inline void UserChargingEvent_Features::set_num_recent_touch_events(int32_t value) {
   _internal_set_num_recent_touch_events(value);
-  // @@protoc_insertion_point(field_set:ash.power.UserChargingEvent.Features.num_recent_touch_events)
+  // @@protoc_insertion_point(field_set:power_manager.UserChargingEvent.Features.num_recent_touch_events)
 }
 
 // optional int32 num_recent_stylus_events = 16;
@@ -1917,7 +1920,7 @@ inline int32_t UserChargingEvent_Features::_internal_num_recent_stylus_events() 
   return num_recent_stylus_events_;
 }
 inline int32_t UserChargingEvent_Features::num_recent_stylus_events() const {
-  // @@protoc_insertion_point(field_get:ash.power.UserChargingEvent.Features.num_recent_stylus_events)
+  // @@protoc_insertion_point(field_get:power_manager.UserChargingEvent.Features.num_recent_stylus_events)
   return _internal_num_recent_stylus_events();
 }
 inline void UserChargingEvent_Features::_internal_set_num_recent_stylus_events(int32_t value) {
@@ -1926,63 +1929,63 @@ inline void UserChargingEvent_Features::_internal_set_num_recent_stylus_events(i
 }
 inline void UserChargingEvent_Features::set_num_recent_stylus_events(int32_t value) {
   _internal_set_num_recent_stylus_events(value);
-  // @@protoc_insertion_point(field_set:ash.power.UserChargingEvent.Features.num_recent_stylus_events)
+  // @@protoc_insertion_point(field_set:power_manager.UserChargingEvent.Features.num_recent_stylus_events)
 }
 
-// optional int32 duration_recent_video_playing = 17;
-inline bool UserChargingEvent_Features::_internal_has_duration_recent_video_playing() const {
+// optional int32 duration_recent_video_playing_minutes = 17;
+inline bool UserChargingEvent_Features::_internal_has_duration_recent_video_playing_minutes() const {
   bool value = (_has_bits_[0] & 0x00008000u) != 0;
   return value;
 }
-inline bool UserChargingEvent_Features::has_duration_recent_video_playing() const {
-  return _internal_has_duration_recent_video_playing();
+inline bool UserChargingEvent_Features::has_duration_recent_video_playing_minutes() const {
+  return _internal_has_duration_recent_video_playing_minutes();
 }
-inline void UserChargingEvent_Features::clear_duration_recent_video_playing() {
-  duration_recent_video_playing_ = 0;
+inline void UserChargingEvent_Features::clear_duration_recent_video_playing_minutes() {
+  duration_recent_video_playing_minutes_ = 0;
   _has_bits_[0] &= ~0x00008000u;
 }
-inline int32_t UserChargingEvent_Features::_internal_duration_recent_video_playing() const {
-  return duration_recent_video_playing_;
+inline int32_t UserChargingEvent_Features::_internal_duration_recent_video_playing_minutes() const {
+  return duration_recent_video_playing_minutes_;
 }
-inline int32_t UserChargingEvent_Features::duration_recent_video_playing() const {
-  // @@protoc_insertion_point(field_get:ash.power.UserChargingEvent.Features.duration_recent_video_playing)
-  return _internal_duration_recent_video_playing();
+inline int32_t UserChargingEvent_Features::duration_recent_video_playing_minutes() const {
+  // @@protoc_insertion_point(field_get:power_manager.UserChargingEvent.Features.duration_recent_video_playing_minutes)
+  return _internal_duration_recent_video_playing_minutes();
 }
-inline void UserChargingEvent_Features::_internal_set_duration_recent_video_playing(int32_t value) {
+inline void UserChargingEvent_Features::_internal_set_duration_recent_video_playing_minutes(int32_t value) {
   _has_bits_[0] |= 0x00008000u;
-  duration_recent_video_playing_ = value;
+  duration_recent_video_playing_minutes_ = value;
 }
-inline void UserChargingEvent_Features::set_duration_recent_video_playing(int32_t value) {
-  _internal_set_duration_recent_video_playing(value);
-  // @@protoc_insertion_point(field_set:ash.power.UserChargingEvent.Features.duration_recent_video_playing)
+inline void UserChargingEvent_Features::set_duration_recent_video_playing_minutes(int32_t value) {
+  _internal_set_duration_recent_video_playing_minutes(value);
+  // @@protoc_insertion_point(field_set:power_manager.UserChargingEvent.Features.duration_recent_video_playing_minutes)
 }
 
-// optional int32 duration_recent_audio_playing = 18;
-inline bool UserChargingEvent_Features::_internal_has_duration_recent_audio_playing() const {
+// optional int32 duration_recent_audio_playing_minutes = 18;
+inline bool UserChargingEvent_Features::_internal_has_duration_recent_audio_playing_minutes() const {
   bool value = (_has_bits_[0] & 0x00010000u) != 0;
   return value;
 }
-inline bool UserChargingEvent_Features::has_duration_recent_audio_playing() const {
-  return _internal_has_duration_recent_audio_playing();
+inline bool UserChargingEvent_Features::has_duration_recent_audio_playing_minutes() const {
+  return _internal_has_duration_recent_audio_playing_minutes();
 }
-inline void UserChargingEvent_Features::clear_duration_recent_audio_playing() {
-  duration_recent_audio_playing_ = 0;
+inline void UserChargingEvent_Features::clear_duration_recent_audio_playing_minutes() {
+  duration_recent_audio_playing_minutes_ = 0;
   _has_bits_[0] &= ~0x00010000u;
 }
-inline int32_t UserChargingEvent_Features::_internal_duration_recent_audio_playing() const {
-  return duration_recent_audio_playing_;
+inline int32_t UserChargingEvent_Features::_internal_duration_recent_audio_playing_minutes() const {
+  return duration_recent_audio_playing_minutes_;
 }
-inline int32_t UserChargingEvent_Features::duration_recent_audio_playing() const {
-  // @@protoc_insertion_point(field_get:ash.power.UserChargingEvent.Features.duration_recent_audio_playing)
-  return _internal_duration_recent_audio_playing();
+inline int32_t UserChargingEvent_Features::duration_recent_audio_playing_minutes() const {
+  // @@protoc_insertion_point(field_get:power_manager.UserChargingEvent.Features.duration_recent_audio_playing_minutes)
+  return _internal_duration_recent_audio_playing_minutes();
 }
-inline void UserChargingEvent_Features::_internal_set_duration_recent_audio_playing(int32_t value) {
+inline void UserChargingEvent_Features::_internal_set_duration_recent_audio_playing_minutes(int32_t value) {
   _has_bits_[0] |= 0x00010000u;
-  duration_recent_audio_playing_ = value;
+  duration_recent_audio_playing_minutes_ = value;
 }
-inline void UserChargingEvent_Features::set_duration_recent_audio_playing(int32_t value) {
-  _internal_set_duration_recent_audio_playing(value);
-  // @@protoc_insertion_point(field_set:ash.power.UserChargingEvent.Features.duration_recent_audio_playing)
+inline void UserChargingEvent_Features::set_duration_recent_audio_playing_minutes(int32_t value) {
+  _internal_set_duration_recent_audio_playing_minutes(value);
+  // @@protoc_insertion_point(field_set:power_manager.UserChargingEvent.Features.duration_recent_audio_playing_minutes)
 }
 
 // optional int32 screen_brightness_percent = 19;
@@ -2001,7 +2004,7 @@ inline int32_t UserChargingEvent_Features::_internal_screen_brightness_percent()
   return screen_brightness_percent_;
 }
 inline int32_t UserChargingEvent_Features::screen_brightness_percent() const {
-  // @@protoc_insertion_point(field_get:ash.power.UserChargingEvent.Features.screen_brightness_percent)
+  // @@protoc_insertion_point(field_get:power_manager.UserChargingEvent.Features.screen_brightness_percent)
   return _internal_screen_brightness_percent();
 }
 inline void UserChargingEvent_Features::_internal_set_screen_brightness_percent(int32_t value) {
@@ -2010,35 +2013,35 @@ inline void UserChargingEvent_Features::_internal_set_screen_brightness_percent(
 }
 inline void UserChargingEvent_Features::set_screen_brightness_percent(int32_t value) {
   _internal_set_screen_brightness_percent(value);
-  // @@protoc_insertion_point(field_set:ash.power.UserChargingEvent.Features.screen_brightness_percent)
+  // @@protoc_insertion_point(field_set:power_manager.UserChargingEvent.Features.screen_brightness_percent)
 }
 
-// optional int32 voltage = 20;
-inline bool UserChargingEvent_Features::_internal_has_voltage() const {
+// optional int32 voltage_mv = 20;
+inline bool UserChargingEvent_Features::_internal_has_voltage_mv() const {
   bool value = (_has_bits_[0] & 0x00040000u) != 0;
   return value;
 }
-inline bool UserChargingEvent_Features::has_voltage() const {
-  return _internal_has_voltage();
+inline bool UserChargingEvent_Features::has_voltage_mv() const {
+  return _internal_has_voltage_mv();
 }
-inline void UserChargingEvent_Features::clear_voltage() {
-  voltage_ = 0;
+inline void UserChargingEvent_Features::clear_voltage_mv() {
+  voltage_mv_ = 0;
   _has_bits_[0] &= ~0x00040000u;
 }
-inline int32_t UserChargingEvent_Features::_internal_voltage() const {
-  return voltage_;
+inline int32_t UserChargingEvent_Features::_internal_voltage_mv() const {
+  return voltage_mv_;
 }
-inline int32_t UserChargingEvent_Features::voltage() const {
-  // @@protoc_insertion_point(field_get:ash.power.UserChargingEvent.Features.voltage)
-  return _internal_voltage();
+inline int32_t UserChargingEvent_Features::voltage_mv() const {
+  // @@protoc_insertion_point(field_get:power_manager.UserChargingEvent.Features.voltage_mv)
+  return _internal_voltage_mv();
 }
-inline void UserChargingEvent_Features::_internal_set_voltage(int32_t value) {
+inline void UserChargingEvent_Features::_internal_set_voltage_mv(int32_t value) {
   _has_bits_[0] |= 0x00040000u;
-  voltage_ = value;
+  voltage_mv_ = value;
 }
-inline void UserChargingEvent_Features::set_voltage(int32_t value) {
-  _internal_set_voltage(value);
-  // @@protoc_insertion_point(field_set:ash.power.UserChargingEvent.Features.voltage)
+inline void UserChargingEvent_Features::set_voltage_mv(int32_t value) {
+  _internal_set_voltage_mv(value);
+  // @@protoc_insertion_point(field_set:power_manager.UserChargingEvent.Features.voltage_mv)
 }
 
 // optional bool halt_from_last_charge = 21;
@@ -2057,7 +2060,7 @@ inline bool UserChargingEvent_Features::_internal_halt_from_last_charge() const 
   return halt_from_last_charge_;
 }
 inline bool UserChargingEvent_Features::halt_from_last_charge() const {
-  // @@protoc_insertion_point(field_get:ash.power.UserChargingEvent.Features.halt_from_last_charge)
+  // @@protoc_insertion_point(field_get:power_manager.UserChargingEvent.Features.halt_from_last_charge)
   return _internal_halt_from_last_charge();
 }
 inline void UserChargingEvent_Features::_internal_set_halt_from_last_charge(bool value) {
@@ -2066,7 +2069,7 @@ inline void UserChargingEvent_Features::_internal_set_halt_from_last_charge(bool
 }
 inline void UserChargingEvent_Features::set_halt_from_last_charge(bool value) {
   _internal_set_halt_from_last_charge(value);
-  // @@protoc_insertion_point(field_set:ash.power.UserChargingEvent.Features.halt_from_last_charge)
+  // @@protoc_insertion_point(field_set:power_manager.UserChargingEvent.Features.halt_from_last_charge)
 }
 
 // optional bool is_charging = 22;
@@ -2085,7 +2088,7 @@ inline bool UserChargingEvent_Features::_internal_is_charging() const {
   return is_charging_;
 }
 inline bool UserChargingEvent_Features::is_charging() const {
-  // @@protoc_insertion_point(field_get:ash.power.UserChargingEvent.Features.is_charging)
+  // @@protoc_insertion_point(field_get:power_manager.UserChargingEvent.Features.is_charging)
   return _internal_is_charging();
 }
 inline void UserChargingEvent_Features::_internal_set_is_charging(bool value) {
@@ -2094,7 +2097,7 @@ inline void UserChargingEvent_Features::_internal_set_is_charging(bool value) {
 }
 inline void UserChargingEvent_Features::set_is_charging(bool value) {
   _internal_set_is_charging(value);
-  // @@protoc_insertion_point(field_set:ash.power.UserChargingEvent.Features.is_charging)
+  // @@protoc_insertion_point(field_set:power_manager.UserChargingEvent.Features.is_charging)
 }
 
 // -------------------------------------------------------------------
@@ -2117,7 +2120,7 @@ inline int32_t UserChargingEvent_Event::_internal_event_id() const {
   return event_id_;
 }
 inline int32_t UserChargingEvent_Event::event_id() const {
-  // @@protoc_insertion_point(field_get:ash.power.UserChargingEvent.Event.event_id)
+  // @@protoc_insertion_point(field_get:power_manager.UserChargingEvent.Event.event_id)
   return _internal_event_id();
 }
 inline void UserChargingEvent_Event::_internal_set_event_id(int32_t value) {
@@ -2126,10 +2129,10 @@ inline void UserChargingEvent_Event::_internal_set_event_id(int32_t value) {
 }
 inline void UserChargingEvent_Event::set_event_id(int32_t value) {
   _internal_set_event_id(value);
-  // @@protoc_insertion_point(field_set:ash.power.UserChargingEvent.Event.event_id)
+  // @@protoc_insertion_point(field_set:power_manager.UserChargingEvent.Event.event_id)
 }
 
-// optional .ash.power.UserChargingEvent.Event.Reason reason = 2;
+// optional .power_manager.UserChargingEvent.Event.Reason reason = 2;
 inline bool UserChargingEvent_Event::_internal_has_reason() const {
   bool value = (_has_bits_[0] & 0x00000002u) != 0;
   return value;
@@ -2141,28 +2144,28 @@ inline void UserChargingEvent_Event::clear_reason() {
   reason_ = 1;
   _has_bits_[0] &= ~0x00000002u;
 }
-inline ::ash::power::UserChargingEvent_Event_Reason UserChargingEvent_Event::_internal_reason() const {
-  return static_cast< ::ash::power::UserChargingEvent_Event_Reason >(reason_);
+inline ::power_manager::UserChargingEvent_Event_Reason UserChargingEvent_Event::_internal_reason() const {
+  return static_cast< ::power_manager::UserChargingEvent_Event_Reason >(reason_);
 }
-inline ::ash::power::UserChargingEvent_Event_Reason UserChargingEvent_Event::reason() const {
-  // @@protoc_insertion_point(field_get:ash.power.UserChargingEvent.Event.reason)
+inline ::power_manager::UserChargingEvent_Event_Reason UserChargingEvent_Event::reason() const {
+  // @@protoc_insertion_point(field_get:power_manager.UserChargingEvent.Event.reason)
   return _internal_reason();
 }
-inline void UserChargingEvent_Event::_internal_set_reason(::ash::power::UserChargingEvent_Event_Reason value) {
-  assert(::ash::power::UserChargingEvent_Event_Reason_IsValid(value));
+inline void UserChargingEvent_Event::_internal_set_reason(::power_manager::UserChargingEvent_Event_Reason value) {
+  assert(::power_manager::UserChargingEvent_Event_Reason_IsValid(value));
   _has_bits_[0] |= 0x00000002u;
   reason_ = value;
 }
-inline void UserChargingEvent_Event::set_reason(::ash::power::UserChargingEvent_Event_Reason value) {
+inline void UserChargingEvent_Event::set_reason(::power_manager::UserChargingEvent_Event_Reason value) {
   _internal_set_reason(value);
-  // @@protoc_insertion_point(field_set:ash.power.UserChargingEvent.Event.reason)
+  // @@protoc_insertion_point(field_set:power_manager.UserChargingEvent.Event.reason)
 }
 
 // -------------------------------------------------------------------
 
 // UserChargingEvent
 
-// optional .ash.power.UserChargingEvent.Features features = 1;
+// optional .power_manager.UserChargingEvent.Features features = 1;
 inline bool UserChargingEvent::_internal_has_features() const {
   bool value = (_has_bits_[0] & 0x00000001u) != 0;
   PROTOBUF_ASSUME(!value || features_ != nullptr);
@@ -2175,17 +2178,17 @@ inline void UserChargingEvent::clear_features() {
   if (features_ != nullptr) features_->Clear();
   _has_bits_[0] &= ~0x00000001u;
 }
-inline const ::ash::power::UserChargingEvent_Features& UserChargingEvent::_internal_features() const {
-  const ::ash::power::UserChargingEvent_Features* p = features_;
-  return p != nullptr ? *p : reinterpret_cast<const ::ash::power::UserChargingEvent_Features&>(
-      ::ash::power::_UserChargingEvent_Features_default_instance_);
+inline const ::power_manager::UserChargingEvent_Features& UserChargingEvent::_internal_features() const {
+  const ::power_manager::UserChargingEvent_Features* p = features_;
+  return p != nullptr ? *p : reinterpret_cast<const ::power_manager::UserChargingEvent_Features&>(
+      ::power_manager::_UserChargingEvent_Features_default_instance_);
 }
-inline const ::ash::power::UserChargingEvent_Features& UserChargingEvent::features() const {
-  // @@protoc_insertion_point(field_get:ash.power.UserChargingEvent.features)
+inline const ::power_manager::UserChargingEvent_Features& UserChargingEvent::features() const {
+  // @@protoc_insertion_point(field_get:power_manager.UserChargingEvent.features)
   return _internal_features();
 }
 inline void UserChargingEvent::unsafe_arena_set_allocated_features(
-    ::ash::power::UserChargingEvent_Features* features) {
+    ::power_manager::UserChargingEvent_Features* features) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(features_);
   }
@@ -2195,11 +2198,11 @@ inline void UserChargingEvent::unsafe_arena_set_allocated_features(
   } else {
     _has_bits_[0] &= ~0x00000001u;
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:ash.power.UserChargingEvent.features)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:power_manager.UserChargingEvent.features)
 }
-inline ::ash::power::UserChargingEvent_Features* UserChargingEvent::release_features() {
+inline ::power_manager::UserChargingEvent_Features* UserChargingEvent::release_features() {
   _has_bits_[0] &= ~0x00000001u;
-  ::ash::power::UserChargingEvent_Features* temp = features_;
+  ::power_manager::UserChargingEvent_Features* temp = features_;
   features_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -2212,27 +2215,27 @@ inline ::ash::power::UserChargingEvent_Features* UserChargingEvent::release_feat
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::ash::power::UserChargingEvent_Features* UserChargingEvent::unsafe_arena_release_features() {
-  // @@protoc_insertion_point(field_release:ash.power.UserChargingEvent.features)
+inline ::power_manager::UserChargingEvent_Features* UserChargingEvent::unsafe_arena_release_features() {
+  // @@protoc_insertion_point(field_release:power_manager.UserChargingEvent.features)
   _has_bits_[0] &= ~0x00000001u;
-  ::ash::power::UserChargingEvent_Features* temp = features_;
+  ::power_manager::UserChargingEvent_Features* temp = features_;
   features_ = nullptr;
   return temp;
 }
-inline ::ash::power::UserChargingEvent_Features* UserChargingEvent::_internal_mutable_features() {
+inline ::power_manager::UserChargingEvent_Features* UserChargingEvent::_internal_mutable_features() {
   _has_bits_[0] |= 0x00000001u;
   if (features_ == nullptr) {
-    auto* p = CreateMaybeMessage<::ash::power::UserChargingEvent_Features>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::power_manager::UserChargingEvent_Features>(GetArenaForAllocation());
     features_ = p;
   }
   return features_;
 }
-inline ::ash::power::UserChargingEvent_Features* UserChargingEvent::mutable_features() {
-  ::ash::power::UserChargingEvent_Features* _msg = _internal_mutable_features();
-  // @@protoc_insertion_point(field_mutable:ash.power.UserChargingEvent.features)
+inline ::power_manager::UserChargingEvent_Features* UserChargingEvent::mutable_features() {
+  ::power_manager::UserChargingEvent_Features* _msg = _internal_mutable_features();
+  // @@protoc_insertion_point(field_mutable:power_manager.UserChargingEvent.features)
   return _msg;
 }
-inline void UserChargingEvent::set_allocated_features(::ash::power::UserChargingEvent_Features* features) {
+inline void UserChargingEvent::set_allocated_features(::power_manager::UserChargingEvent_Features* features) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete features_;
@@ -2249,10 +2252,10 @@ inline void UserChargingEvent::set_allocated_features(::ash::power::UserCharging
     _has_bits_[0] &= ~0x00000001u;
   }
   features_ = features;
-  // @@protoc_insertion_point(field_set_allocated:ash.power.UserChargingEvent.features)
+  // @@protoc_insertion_point(field_set_allocated:power_manager.UserChargingEvent.features)
 }
 
-// optional .ash.power.UserChargingEvent.Event event = 2;
+// optional .power_manager.UserChargingEvent.Event event = 2;
 inline bool UserChargingEvent::_internal_has_event() const {
   bool value = (_has_bits_[0] & 0x00000002u) != 0;
   PROTOBUF_ASSUME(!value || event_ != nullptr);
@@ -2265,17 +2268,17 @@ inline void UserChargingEvent::clear_event() {
   if (event_ != nullptr) event_->Clear();
   _has_bits_[0] &= ~0x00000002u;
 }
-inline const ::ash::power::UserChargingEvent_Event& UserChargingEvent::_internal_event() const {
-  const ::ash::power::UserChargingEvent_Event* p = event_;
-  return p != nullptr ? *p : reinterpret_cast<const ::ash::power::UserChargingEvent_Event&>(
-      ::ash::power::_UserChargingEvent_Event_default_instance_);
+inline const ::power_manager::UserChargingEvent_Event& UserChargingEvent::_internal_event() const {
+  const ::power_manager::UserChargingEvent_Event* p = event_;
+  return p != nullptr ? *p : reinterpret_cast<const ::power_manager::UserChargingEvent_Event&>(
+      ::power_manager::_UserChargingEvent_Event_default_instance_);
 }
-inline const ::ash::power::UserChargingEvent_Event& UserChargingEvent::event() const {
-  // @@protoc_insertion_point(field_get:ash.power.UserChargingEvent.event)
+inline const ::power_manager::UserChargingEvent_Event& UserChargingEvent::event() const {
+  // @@protoc_insertion_point(field_get:power_manager.UserChargingEvent.event)
   return _internal_event();
 }
 inline void UserChargingEvent::unsafe_arena_set_allocated_event(
-    ::ash::power::UserChargingEvent_Event* event) {
+    ::power_manager::UserChargingEvent_Event* event) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(event_);
   }
@@ -2285,11 +2288,11 @@ inline void UserChargingEvent::unsafe_arena_set_allocated_event(
   } else {
     _has_bits_[0] &= ~0x00000002u;
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:ash.power.UserChargingEvent.event)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:power_manager.UserChargingEvent.event)
 }
-inline ::ash::power::UserChargingEvent_Event* UserChargingEvent::release_event() {
+inline ::power_manager::UserChargingEvent_Event* UserChargingEvent::release_event() {
   _has_bits_[0] &= ~0x00000002u;
-  ::ash::power::UserChargingEvent_Event* temp = event_;
+  ::power_manager::UserChargingEvent_Event* temp = event_;
   event_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -2302,27 +2305,27 @@ inline ::ash::power::UserChargingEvent_Event* UserChargingEvent::release_event()
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::ash::power::UserChargingEvent_Event* UserChargingEvent::unsafe_arena_release_event() {
-  // @@protoc_insertion_point(field_release:ash.power.UserChargingEvent.event)
+inline ::power_manager::UserChargingEvent_Event* UserChargingEvent::unsafe_arena_release_event() {
+  // @@protoc_insertion_point(field_release:power_manager.UserChargingEvent.event)
   _has_bits_[0] &= ~0x00000002u;
-  ::ash::power::UserChargingEvent_Event* temp = event_;
+  ::power_manager::UserChargingEvent_Event* temp = event_;
   event_ = nullptr;
   return temp;
 }
-inline ::ash::power::UserChargingEvent_Event* UserChargingEvent::_internal_mutable_event() {
+inline ::power_manager::UserChargingEvent_Event* UserChargingEvent::_internal_mutable_event() {
   _has_bits_[0] |= 0x00000002u;
   if (event_ == nullptr) {
-    auto* p = CreateMaybeMessage<::ash::power::UserChargingEvent_Event>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::power_manager::UserChargingEvent_Event>(GetArenaForAllocation());
     event_ = p;
   }
   return event_;
 }
-inline ::ash::power::UserChargingEvent_Event* UserChargingEvent::mutable_event() {
-  ::ash::power::UserChargingEvent_Event* _msg = _internal_mutable_event();
-  // @@protoc_insertion_point(field_mutable:ash.power.UserChargingEvent.event)
+inline ::power_manager::UserChargingEvent_Event* UserChargingEvent::mutable_event() {
+  ::power_manager::UserChargingEvent_Event* _msg = _internal_mutable_event();
+  // @@protoc_insertion_point(field_mutable:power_manager.UserChargingEvent.event)
   return _msg;
 }
-inline void UserChargingEvent::set_allocated_event(::ash::power::UserChargingEvent_Event* event) {
+inline void UserChargingEvent::set_allocated_event(::power_manager::UserChargingEvent_Event* event) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete event_;
@@ -2339,7 +2342,7 @@ inline void UserChargingEvent::set_allocated_event(::ash::power::UserChargingEve
     _has_bits_[0] &= ~0x00000002u;
   }
   event_ = event;
-  // @@protoc_insertion_point(field_set_allocated:ash.power.UserChargingEvent.event)
+  // @@protoc_insertion_point(field_set_allocated:power_manager.UserChargingEvent.event)
 }
 
 // -------------------------------------------------------------------
@@ -2362,7 +2365,7 @@ inline int32_t PastChargingEvents_Event::_internal_time() const {
   return time_;
 }
 inline int32_t PastChargingEvents_Event::time() const {
-  // @@protoc_insertion_point(field_get:ash.power.PastChargingEvents.Event.time)
+  // @@protoc_insertion_point(field_get:power_manager.PastChargingEvents.Event.time)
   return _internal_time();
 }
 inline void PastChargingEvents_Event::_internal_set_time(int32_t value) {
@@ -2371,7 +2374,7 @@ inline void PastChargingEvents_Event::_internal_set_time(int32_t value) {
 }
 inline void PastChargingEvents_Event::set_time(int32_t value) {
   _internal_set_time(value);
-  // @@protoc_insertion_point(field_set:ash.power.PastChargingEvents.Event.time)
+  // @@protoc_insertion_point(field_set:power_manager.PastChargingEvents.Event.time)
 }
 
 // optional int32 battery_percent = 2;
@@ -2390,7 +2393,7 @@ inline int32_t PastChargingEvents_Event::_internal_battery_percent() const {
   return battery_percent_;
 }
 inline int32_t PastChargingEvents_Event::battery_percent() const {
-  // @@protoc_insertion_point(field_get:ash.power.PastChargingEvents.Event.battery_percent)
+  // @@protoc_insertion_point(field_get:power_manager.PastChargingEvents.Event.battery_percent)
   return _internal_battery_percent();
 }
 inline void PastChargingEvents_Event::_internal_set_battery_percent(int32_t value) {
@@ -2399,7 +2402,7 @@ inline void PastChargingEvents_Event::_internal_set_battery_percent(int32_t valu
 }
 inline void PastChargingEvents_Event::set_battery_percent(int32_t value) {
   _internal_set_battery_percent(value);
-  // @@protoc_insertion_point(field_set:ash.power.PastChargingEvents.Event.battery_percent)
+  // @@protoc_insertion_point(field_set:power_manager.PastChargingEvents.Event.battery_percent)
 }
 
 // optional int32 timezone = 3;
@@ -2418,7 +2421,7 @@ inline int32_t PastChargingEvents_Event::_internal_timezone() const {
   return timezone_;
 }
 inline int32_t PastChargingEvents_Event::timezone() const {
-  // @@protoc_insertion_point(field_get:ash.power.PastChargingEvents.Event.timezone)
+  // @@protoc_insertion_point(field_get:power_manager.PastChargingEvents.Event.timezone)
   return _internal_timezone();
 }
 inline void PastChargingEvents_Event::_internal_set_timezone(int32_t value) {
@@ -2427,10 +2430,10 @@ inline void PastChargingEvents_Event::_internal_set_timezone(int32_t value) {
 }
 inline void PastChargingEvents_Event::set_timezone(int32_t value) {
   _internal_set_timezone(value);
-  // @@protoc_insertion_point(field_set:ash.power.PastChargingEvents.Event.timezone)
+  // @@protoc_insertion_point(field_set:power_manager.PastChargingEvents.Event.timezone)
 }
 
-// optional .ash.power.UserChargingEvent.Event.Reason reason = 4;
+// optional .power_manager.UserChargingEvent.Event.Reason reason = 4;
 inline bool PastChargingEvents_Event::_internal_has_reason() const {
   bool value = (_has_bits_[0] & 0x00000008u) != 0;
   return value;
@@ -2442,28 +2445,28 @@ inline void PastChargingEvents_Event::clear_reason() {
   reason_ = 1;
   _has_bits_[0] &= ~0x00000008u;
 }
-inline ::ash::power::UserChargingEvent_Event_Reason PastChargingEvents_Event::_internal_reason() const {
-  return static_cast< ::ash::power::UserChargingEvent_Event_Reason >(reason_);
+inline ::power_manager::UserChargingEvent_Event_Reason PastChargingEvents_Event::_internal_reason() const {
+  return static_cast< ::power_manager::UserChargingEvent_Event_Reason >(reason_);
 }
-inline ::ash::power::UserChargingEvent_Event_Reason PastChargingEvents_Event::reason() const {
-  // @@protoc_insertion_point(field_get:ash.power.PastChargingEvents.Event.reason)
+inline ::power_manager::UserChargingEvent_Event_Reason PastChargingEvents_Event::reason() const {
+  // @@protoc_insertion_point(field_get:power_manager.PastChargingEvents.Event.reason)
   return _internal_reason();
 }
-inline void PastChargingEvents_Event::_internal_set_reason(::ash::power::UserChargingEvent_Event_Reason value) {
-  assert(::ash::power::UserChargingEvent_Event_Reason_IsValid(value));
+inline void PastChargingEvents_Event::_internal_set_reason(::power_manager::UserChargingEvent_Event_Reason value) {
+  assert(::power_manager::UserChargingEvent_Event_Reason_IsValid(value));
   _has_bits_[0] |= 0x00000008u;
   reason_ = value;
 }
-inline void PastChargingEvents_Event::set_reason(::ash::power::UserChargingEvent_Event_Reason value) {
+inline void PastChargingEvents_Event::set_reason(::power_manager::UserChargingEvent_Event_Reason value) {
   _internal_set_reason(value);
-  // @@protoc_insertion_point(field_set:ash.power.PastChargingEvents.Event.reason)
+  // @@protoc_insertion_point(field_set:power_manager.PastChargingEvents.Event.reason)
 }
 
 // -------------------------------------------------------------------
 
 // PastChargingEvents
 
-// repeated .ash.power.PastChargingEvents.Event events = 1;
+// repeated .power_manager.PastChargingEvents.Event events = 1;
 inline int PastChargingEvents::_internal_events_size() const {
   return events_.size();
 }
@@ -2473,33 +2476,33 @@ inline int PastChargingEvents::events_size() const {
 inline void PastChargingEvents::clear_events() {
   events_.Clear();
 }
-inline ::ash::power::PastChargingEvents_Event* PastChargingEvents::mutable_events(int index) {
-  // @@protoc_insertion_point(field_mutable:ash.power.PastChargingEvents.events)
+inline ::power_manager::PastChargingEvents_Event* PastChargingEvents::mutable_events(int index) {
+  // @@protoc_insertion_point(field_mutable:power_manager.PastChargingEvents.events)
   return events_.Mutable(index);
 }
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::ash::power::PastChargingEvents_Event >*
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::power_manager::PastChargingEvents_Event >*
 PastChargingEvents::mutable_events() {
-  // @@protoc_insertion_point(field_mutable_list:ash.power.PastChargingEvents.events)
+  // @@protoc_insertion_point(field_mutable_list:power_manager.PastChargingEvents.events)
   return &events_;
 }
-inline const ::ash::power::PastChargingEvents_Event& PastChargingEvents::_internal_events(int index) const {
+inline const ::power_manager::PastChargingEvents_Event& PastChargingEvents::_internal_events(int index) const {
   return events_.Get(index);
 }
-inline const ::ash::power::PastChargingEvents_Event& PastChargingEvents::events(int index) const {
-  // @@protoc_insertion_point(field_get:ash.power.PastChargingEvents.events)
+inline const ::power_manager::PastChargingEvents_Event& PastChargingEvents::events(int index) const {
+  // @@protoc_insertion_point(field_get:power_manager.PastChargingEvents.events)
   return _internal_events(index);
 }
-inline ::ash::power::PastChargingEvents_Event* PastChargingEvents::_internal_add_events() {
+inline ::power_manager::PastChargingEvents_Event* PastChargingEvents::_internal_add_events() {
   return events_.Add();
 }
-inline ::ash::power::PastChargingEvents_Event* PastChargingEvents::add_events() {
-  ::ash::power::PastChargingEvents_Event* _add = _internal_add_events();
-  // @@protoc_insertion_point(field_add:ash.power.PastChargingEvents.events)
+inline ::power_manager::PastChargingEvents_Event* PastChargingEvents::add_events() {
+  ::power_manager::PastChargingEvents_Event* _add = _internal_add_events();
+  // @@protoc_insertion_point(field_add:power_manager.PastChargingEvents.events)
   return _add;
 }
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::ash::power::PastChargingEvents_Event >&
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::power_manager::PastChargingEvents_Event >&
 PastChargingEvents::events() const {
-  // @@protoc_insertion_point(field_list:ash.power.PastChargingEvents.events)
+  // @@protoc_insertion_point(field_list:power_manager.PastChargingEvents.events)
   return events_;
 }
 
@@ -2517,16 +2520,15 @@ PastChargingEvents::events() const {
 
 // @@protoc_insertion_point(namespace_scope)
 
-}  // namespace power
-}  // namespace ash
+}  // namespace power_manager
 
 PROTOBUF_NAMESPACE_OPEN
 
-template <> struct is_proto_enum< ::ash::power::UserChargingEvent_Features_DayOfWeek> : ::std::true_type {};
-template <> struct is_proto_enum< ::ash::power::UserChargingEvent_Features_Month> : ::std::true_type {};
-template <> struct is_proto_enum< ::ash::power::UserChargingEvent_Features_DeviceType> : ::std::true_type {};
-template <> struct is_proto_enum< ::ash::power::UserChargingEvent_Features_DeviceMode> : ::std::true_type {};
-template <> struct is_proto_enum< ::ash::power::UserChargingEvent_Event_Reason> : ::std::true_type {};
+template <> struct is_proto_enum< ::power_manager::UserChargingEvent_Features_DayOfWeek> : ::std::true_type {};
+template <> struct is_proto_enum< ::power_manager::UserChargingEvent_Features_Month> : ::std::true_type {};
+template <> struct is_proto_enum< ::power_manager::UserChargingEvent_Features_DeviceType> : ::std::true_type {};
+template <> struct is_proto_enum< ::power_manager::UserChargingEvent_Features_DeviceMode> : ::std::true_type {};
+template <> struct is_proto_enum< ::power_manager::UserChargingEvent_Event_Reason> : ::std::true_type {};
 
 PROTOBUF_NAMESPACE_CLOSE
 

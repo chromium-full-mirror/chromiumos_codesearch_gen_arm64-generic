@@ -50,10 +50,10 @@ bool AcceptOption::Populate(
     {
       auto* temp = (*description_value).GetIfString();
       if (!temp) {
-        out->description.reset();
+        out->description = absl::nullopt;
         return false;
       }
-      out->description = std::make_unique<std::string>(*temp);
+      out->description = *temp;
     }
   }
 
@@ -183,10 +183,10 @@ bool ChooseEntryOptions::Populate(
     {
       auto* temp = (*suggested_name_value).GetIfString();
       if (!temp) {
-        out->suggested_name.reset();
+        out->suggested_name = absl::nullopt;
         return false;
       }
-      out->suggested_name = std::make_unique<std::string>(*temp);
+      out->suggested_name = *temp;
     }
   }
 
@@ -209,10 +209,10 @@ bool ChooseEntryOptions::Populate(
     {
       auto temp = (*accepts_all_types_value).GetIfBool();
       if (!temp.has_value()) {
-        out->accepts_all_types.reset();
+        out->accepts_all_types = absl::nullopt;
         return false;
       }
-      out->accepts_all_types = temp.value();
+      out->accepts_all_types = *temp;
     }
   }
 
@@ -221,10 +221,10 @@ bool ChooseEntryOptions::Populate(
     {
       auto temp = (*accepts_multiple_value).GetIfBool();
       if (!temp.has_value()) {
-        out->accepts_multiple.reset();
+        out->accepts_multiple = absl::nullopt;
         return false;
       }
-      out->accepts_multiple = temp.value();
+      out->accepts_multiple = *temp;
     }
   }
 
@@ -299,10 +299,10 @@ bool RequestFileSystemOptions::Populate(
     {
       auto temp = (*writable_value).GetIfBool();
       if (!temp.has_value()) {
-        out->writable.reset();
+        out->writable = absl::nullopt;
         return false;
       }
-      out->writable = temp.value();
+      out->writable = *temp;
     }
   }
 
@@ -367,7 +367,7 @@ bool Volume::Populate(
     if (!temp.has_value()) {
       return false;
     }
-    out->writable = temp.value();
+    out->writable = *temp;
   }
 
   return true;

@@ -10,7 +10,7 @@
 #include "chromeos/ash/services/cros_healthd/public/mojom/nullable_primitives.mojom.h"
 
 
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace mojom {
 
@@ -19,6 +19,6 @@ namespace mojom {
 
 }  // namespace mojom
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 #endif  // CHROMEOS_ASH_SERVICES_CROS_HEALTHD_PUBLIC_MOJOM_NULLABLE_PRIMITIVES_MOJOM_TEST_UTILS_H_

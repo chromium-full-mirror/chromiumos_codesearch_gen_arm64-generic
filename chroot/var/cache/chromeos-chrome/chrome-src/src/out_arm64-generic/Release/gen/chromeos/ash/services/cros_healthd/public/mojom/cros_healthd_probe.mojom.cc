@@ -46,7 +46,7 @@
 
 
 
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace mojom {
 ProbeError::ProbeError()
@@ -474,7 +474,7 @@ BatteryInfo::BatteryInfo(
     const std::string& technology_in,
     const std::string& status_in,
     const absl::optional<std::string>& manufacture_date_in,
-    ::chromeos::cros_healthd::mojom::NullableUint64Ptr temperature_in)
+    ::ash::cros_healthd::mojom::NullableUint64Ptr temperature_in)
     : cycle_count(std::move(cycle_count_in)),
       voltage_now(std::move(voltage_now_in)),
       vendor(std::move(vendor_in)),
@@ -616,7 +616,7 @@ void BatteryInfo::WriteIntoTrace(
     dict.AddItem(
       "temperature"), this->temperature,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type ::chromeos::cros_healthd::mojom::NullableUint64Ptr>"
+      "<value of type ::ash::cros_healthd::mojom::NullableUint64Ptr>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -653,7 +653,7 @@ NonRemovableBlockDeviceInfo::NonRemovableBlockDeviceInfo(
     uint64_t read_time_seconds_since_last_boot_in,
     uint64_t write_time_seconds_since_last_boot_in,
     uint64_t io_time_seconds_since_last_boot_in,
-    ::chromeos::cros_healthd::mojom::NullableUint64Ptr discard_time_seconds_since_last_boot_in,
+    ::ash::cros_healthd::mojom::NullableUint64Ptr discard_time_seconds_since_last_boot_in,
     BlockDeviceVendorPtr vendor_id_in,
     BlockDeviceProductPtr product_id_in,
     BlockDeviceRevisionPtr revision_in,
@@ -737,7 +737,7 @@ void NonRemovableBlockDeviceInfo::WriteIntoTrace(
     dict.AddItem(
       "discard_time_seconds_since_last_boot"), this->discard_time_seconds_since_last_boot,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type ::chromeos::cros_healthd::mojom::NullableUint64Ptr>"
+      "<value of type ::ash::cros_healthd::mojom::NullableUint64Ptr>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1978,10 +1978,10 @@ BluetoothDeviceInfo::BluetoothDeviceInfo(
     const std::string& address_in,
     const absl::optional<std::string>& name_in,
     BluetoothDeviceType type_in,
-    ::chromeos::cros_healthd::mojom::NullableUint16Ptr appearance_in,
+    ::ash::cros_healthd::mojom::NullableUint16Ptr appearance_in,
     const absl::optional<std::string>& modalias_in,
-    ::chromeos::cros_healthd::mojom::NullableInt16Ptr rssi_in,
-    ::chromeos::cros_healthd::mojom::NullableUint16Ptr mtu_in,
+    ::ash::cros_healthd::mojom::NullableInt16Ptr rssi_in,
+    ::ash::cros_healthd::mojom::NullableUint16Ptr mtu_in,
     absl::optional<std::vector<std::string>> uuids_in)
     : address(std::move(address_in)),
       name(std::move(name_in)),
@@ -1997,12 +1997,12 @@ BluetoothDeviceInfo::BluetoothDeviceInfo(
     const std::string& address_in,
     const absl::optional<std::string>& name_in,
     BluetoothDeviceType type_in,
-    ::chromeos::cros_healthd::mojom::NullableUint16Ptr appearance_in,
+    ::ash::cros_healthd::mojom::NullableUint16Ptr appearance_in,
     const absl::optional<std::string>& modalias_in,
-    ::chromeos::cros_healthd::mojom::NullableInt16Ptr rssi_in,
-    ::chromeos::cros_healthd::mojom::NullableUint16Ptr mtu_in,
+    ::ash::cros_healthd::mojom::NullableInt16Ptr rssi_in,
+    ::ash::cros_healthd::mojom::NullableUint16Ptr mtu_in,
     absl::optional<std::vector<std::string>> uuids_in,
-    ::chromeos::cros_healthd::mojom::NullableUint8Ptr battery_percentage_in)
+    ::ash::cros_healthd::mojom::NullableUint8Ptr battery_percentage_in)
     : address(std::move(address_in)),
       name(std::move(name_in)),
       type(std::move(type_in)),
@@ -2049,7 +2049,7 @@ void BluetoothDeviceInfo::WriteIntoTrace(
     dict.AddItem(
       "appearance"), this->appearance,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type ::chromeos::cros_healthd::mojom::NullableUint16Ptr>"
+      "<value of type ::ash::cros_healthd::mojom::NullableUint16Ptr>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2067,7 +2067,7 @@ void BluetoothDeviceInfo::WriteIntoTrace(
     dict.AddItem(
       "rssi"), this->rssi,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type ::chromeos::cros_healthd::mojom::NullableInt16Ptr>"
+      "<value of type ::ash::cros_healthd::mojom::NullableInt16Ptr>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2076,7 +2076,7 @@ void BluetoothDeviceInfo::WriteIntoTrace(
     dict.AddItem(
       "mtu"), this->mtu,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type ::chromeos::cros_healthd::mojom::NullableUint16Ptr>"
+      "<value of type ::ash::cros_healthd::mojom::NullableUint16Ptr>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2094,7 +2094,7 @@ void BluetoothDeviceInfo::WriteIntoTrace(
     dict.AddItem(
       "battery_percentage"), this->battery_percentage,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type ::chromeos::cros_healthd::mojom::NullableUint8Ptr>"
+      "<value of type ::ash::cros_healthd::mojom::NullableUint8Ptr>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2495,7 +2495,7 @@ DmiInfo::DmiInfo(
     const absl::optional<std::string>& board_vendor_in,
     const absl::optional<std::string>& board_version_in,
     const absl::optional<std::string>& chassis_vendor_in,
-    ::chromeos::cros_healthd::mojom::NullableUint64Ptr chassis_type_in,
+    ::ash::cros_healthd::mojom::NullableUint64Ptr chassis_type_in,
     const absl::optional<std::string>& product_family_in,
     const absl::optional<std::string>& product_name_in,
     const absl::optional<std::string>& product_version_in,
@@ -2575,7 +2575,7 @@ void DmiInfo::WriteIntoTrace(
     dict.AddItem(
       "chassis_type"), this->chassis_type,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type ::chromeos::cros_healthd::mojom::NullableUint64Ptr>"
+      "<value of type ::ash::cros_healthd::mojom::NullableUint64Ptr>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4202,11 +4202,11 @@ EmbeddedDisplayInfo::EmbeddedDisplayInfo(
 EmbeddedDisplayInfo::EmbeddedDisplayInfo(
     bool privacy_screen_supported_in,
     bool privacy_screen_enabled_in,
-    ::chromeos::cros_healthd::mojom::NullableUint32Ptr display_width_in,
-    ::chromeos::cros_healthd::mojom::NullableUint32Ptr display_height_in,
-    ::chromeos::cros_healthd::mojom::NullableUint32Ptr resolution_horizontal_in,
-    ::chromeos::cros_healthd::mojom::NullableUint32Ptr resolution_vertical_in,
-    ::chromeos::cros_healthd::mojom::NullableDoublePtr refresh_rate_in)
+    ::ash::cros_healthd::mojom::NullableUint32Ptr display_width_in,
+    ::ash::cros_healthd::mojom::NullableUint32Ptr display_height_in,
+    ::ash::cros_healthd::mojom::NullableUint32Ptr resolution_horizontal_in,
+    ::ash::cros_healthd::mojom::NullableUint32Ptr resolution_vertical_in,
+    ::ash::cros_healthd::mojom::NullableDoublePtr refresh_rate_in)
     : privacy_screen_supported(std::move(privacy_screen_supported_in)),
       privacy_screen_enabled(std::move(privacy_screen_enabled_in)),
       display_width(std::move(display_width_in)),
@@ -4226,16 +4226,16 @@ EmbeddedDisplayInfo::EmbeddedDisplayInfo(
 EmbeddedDisplayInfo::EmbeddedDisplayInfo(
     bool privacy_screen_supported_in,
     bool privacy_screen_enabled_in,
-    ::chromeos::cros_healthd::mojom::NullableUint32Ptr display_width_in,
-    ::chromeos::cros_healthd::mojom::NullableUint32Ptr display_height_in,
-    ::chromeos::cros_healthd::mojom::NullableUint32Ptr resolution_horizontal_in,
-    ::chromeos::cros_healthd::mojom::NullableUint32Ptr resolution_vertical_in,
-    ::chromeos::cros_healthd::mojom::NullableDoublePtr refresh_rate_in,
+    ::ash::cros_healthd::mojom::NullableUint32Ptr display_width_in,
+    ::ash::cros_healthd::mojom::NullableUint32Ptr display_height_in,
+    ::ash::cros_healthd::mojom::NullableUint32Ptr resolution_horizontal_in,
+    ::ash::cros_healthd::mojom::NullableUint32Ptr resolution_vertical_in,
+    ::ash::cros_healthd::mojom::NullableDoublePtr refresh_rate_in,
     const absl::optional<std::string>& manufacturer_in,
-    ::chromeos::cros_healthd::mojom::NullableUint16Ptr model_id_in,
-    ::chromeos::cros_healthd::mojom::NullableUint32Ptr serial_number_in,
-    ::chromeos::cros_healthd::mojom::NullableUint8Ptr manufacture_week_in,
-    ::chromeos::cros_healthd::mojom::NullableUint16Ptr manufacture_year_in,
+    ::ash::cros_healthd::mojom::NullableUint16Ptr model_id_in,
+    ::ash::cros_healthd::mojom::NullableUint32Ptr serial_number_in,
+    ::ash::cros_healthd::mojom::NullableUint8Ptr manufacture_week_in,
+    ::ash::cros_healthd::mojom::NullableUint16Ptr manufacture_year_in,
     const absl::optional<std::string>& edid_version_in,
     DisplayInputType input_type_in,
     const absl::optional<std::string>& display_name_in)
@@ -4282,7 +4282,7 @@ void EmbeddedDisplayInfo::WriteIntoTrace(
     dict.AddItem(
       "display_width"), this->display_width,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type ::chromeos::cros_healthd::mojom::NullableUint32Ptr>"
+      "<value of type ::ash::cros_healthd::mojom::NullableUint32Ptr>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4291,7 +4291,7 @@ void EmbeddedDisplayInfo::WriteIntoTrace(
     dict.AddItem(
       "display_height"), this->display_height,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type ::chromeos::cros_healthd::mojom::NullableUint32Ptr>"
+      "<value of type ::ash::cros_healthd::mojom::NullableUint32Ptr>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4300,7 +4300,7 @@ void EmbeddedDisplayInfo::WriteIntoTrace(
     dict.AddItem(
       "resolution_horizontal"), this->resolution_horizontal,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type ::chromeos::cros_healthd::mojom::NullableUint32Ptr>"
+      "<value of type ::ash::cros_healthd::mojom::NullableUint32Ptr>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4309,7 +4309,7 @@ void EmbeddedDisplayInfo::WriteIntoTrace(
     dict.AddItem(
       "resolution_vertical"), this->resolution_vertical,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type ::chromeos::cros_healthd::mojom::NullableUint32Ptr>"
+      "<value of type ::ash::cros_healthd::mojom::NullableUint32Ptr>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4318,7 +4318,7 @@ void EmbeddedDisplayInfo::WriteIntoTrace(
     dict.AddItem(
       "refresh_rate"), this->refresh_rate,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type ::chromeos::cros_healthd::mojom::NullableDoublePtr>"
+      "<value of type ::ash::cros_healthd::mojom::NullableDoublePtr>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4336,7 +4336,7 @@ void EmbeddedDisplayInfo::WriteIntoTrace(
     dict.AddItem(
       "model_id"), this->model_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type ::chromeos::cros_healthd::mojom::NullableUint16Ptr>"
+      "<value of type ::ash::cros_healthd::mojom::NullableUint16Ptr>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4345,7 +4345,7 @@ void EmbeddedDisplayInfo::WriteIntoTrace(
     dict.AddItem(
       "serial_number"), this->serial_number,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type ::chromeos::cros_healthd::mojom::NullableUint32Ptr>"
+      "<value of type ::ash::cros_healthd::mojom::NullableUint32Ptr>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4354,7 +4354,7 @@ void EmbeddedDisplayInfo::WriteIntoTrace(
     dict.AddItem(
       "manufacture_week"), this->manufacture_week,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type ::chromeos::cros_healthd::mojom::NullableUint8Ptr>"
+      "<value of type ::ash::cros_healthd::mojom::NullableUint8Ptr>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4363,7 +4363,7 @@ void EmbeddedDisplayInfo::WriteIntoTrace(
     dict.AddItem(
       "manufacture_year"), this->manufacture_year,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type ::chromeos::cros_healthd::mojom::NullableUint16Ptr>"
+      "<value of type ::ash::cros_healthd::mojom::NullableUint16Ptr>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4418,11 +4418,11 @@ ExternalDisplayInfo::ExternalDisplayInfo()
       display_name() {}
 
 ExternalDisplayInfo::ExternalDisplayInfo(
-    ::chromeos::cros_healthd::mojom::NullableUint32Ptr display_width_in,
-    ::chromeos::cros_healthd::mojom::NullableUint32Ptr display_height_in,
-    ::chromeos::cros_healthd::mojom::NullableUint32Ptr resolution_horizontal_in,
-    ::chromeos::cros_healthd::mojom::NullableUint32Ptr resolution_vertical_in,
-    ::chromeos::cros_healthd::mojom::NullableDoublePtr refresh_rate_in)
+    ::ash::cros_healthd::mojom::NullableUint32Ptr display_width_in,
+    ::ash::cros_healthd::mojom::NullableUint32Ptr display_height_in,
+    ::ash::cros_healthd::mojom::NullableUint32Ptr resolution_horizontal_in,
+    ::ash::cros_healthd::mojom::NullableUint32Ptr resolution_vertical_in,
+    ::ash::cros_healthd::mojom::NullableDoublePtr refresh_rate_in)
     : display_width(std::move(display_width_in)),
       display_height(std::move(display_height_in)),
       resolution_horizontal(std::move(resolution_horizontal_in)),
@@ -4438,16 +4438,16 @@ ExternalDisplayInfo::ExternalDisplayInfo(
       display_name() {}
 
 ExternalDisplayInfo::ExternalDisplayInfo(
-    ::chromeos::cros_healthd::mojom::NullableUint32Ptr display_width_in,
-    ::chromeos::cros_healthd::mojom::NullableUint32Ptr display_height_in,
-    ::chromeos::cros_healthd::mojom::NullableUint32Ptr resolution_horizontal_in,
-    ::chromeos::cros_healthd::mojom::NullableUint32Ptr resolution_vertical_in,
-    ::chromeos::cros_healthd::mojom::NullableDoublePtr refresh_rate_in,
+    ::ash::cros_healthd::mojom::NullableUint32Ptr display_width_in,
+    ::ash::cros_healthd::mojom::NullableUint32Ptr display_height_in,
+    ::ash::cros_healthd::mojom::NullableUint32Ptr resolution_horizontal_in,
+    ::ash::cros_healthd::mojom::NullableUint32Ptr resolution_vertical_in,
+    ::ash::cros_healthd::mojom::NullableDoublePtr refresh_rate_in,
     const absl::optional<std::string>& manufacturer_in,
-    ::chromeos::cros_healthd::mojom::NullableUint16Ptr model_id_in,
-    ::chromeos::cros_healthd::mojom::NullableUint32Ptr serial_number_in,
-    ::chromeos::cros_healthd::mojom::NullableUint8Ptr manufacture_week_in,
-    ::chromeos::cros_healthd::mojom::NullableUint16Ptr manufacture_year_in,
+    ::ash::cros_healthd::mojom::NullableUint16Ptr model_id_in,
+    ::ash::cros_healthd::mojom::NullableUint32Ptr serial_number_in,
+    ::ash::cros_healthd::mojom::NullableUint8Ptr manufacture_week_in,
+    ::ash::cros_healthd::mojom::NullableUint16Ptr manufacture_year_in,
     const absl::optional<std::string>& edid_version_in,
     DisplayInputType input_type_in,
     const absl::optional<std::string>& display_name_in)
@@ -4474,7 +4474,7 @@ void ExternalDisplayInfo::WriteIntoTrace(
     dict.AddItem(
       "display_width"), this->display_width,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type ::chromeos::cros_healthd::mojom::NullableUint32Ptr>"
+      "<value of type ::ash::cros_healthd::mojom::NullableUint32Ptr>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4483,7 +4483,7 @@ void ExternalDisplayInfo::WriteIntoTrace(
     dict.AddItem(
       "display_height"), this->display_height,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type ::chromeos::cros_healthd::mojom::NullableUint32Ptr>"
+      "<value of type ::ash::cros_healthd::mojom::NullableUint32Ptr>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4492,7 +4492,7 @@ void ExternalDisplayInfo::WriteIntoTrace(
     dict.AddItem(
       "resolution_horizontal"), this->resolution_horizontal,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type ::chromeos::cros_healthd::mojom::NullableUint32Ptr>"
+      "<value of type ::ash::cros_healthd::mojom::NullableUint32Ptr>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4501,7 +4501,7 @@ void ExternalDisplayInfo::WriteIntoTrace(
     dict.AddItem(
       "resolution_vertical"), this->resolution_vertical,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type ::chromeos::cros_healthd::mojom::NullableUint32Ptr>"
+      "<value of type ::ash::cros_healthd::mojom::NullableUint32Ptr>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4510,7 +4510,7 @@ void ExternalDisplayInfo::WriteIntoTrace(
     dict.AddItem(
       "refresh_rate"), this->refresh_rate,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type ::chromeos::cros_healthd::mojom::NullableDoublePtr>"
+      "<value of type ::ash::cros_healthd::mojom::NullableDoublePtr>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4528,7 +4528,7 @@ void ExternalDisplayInfo::WriteIntoTrace(
     dict.AddItem(
       "model_id"), this->model_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type ::chromeos::cros_healthd::mojom::NullableUint16Ptr>"
+      "<value of type ::ash::cros_healthd::mojom::NullableUint16Ptr>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4537,7 +4537,7 @@ void ExternalDisplayInfo::WriteIntoTrace(
     dict.AddItem(
       "serial_number"), this->serial_number,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type ::chromeos::cros_healthd::mojom::NullableUint32Ptr>"
+      "<value of type ::ash::cros_healthd::mojom::NullableUint32Ptr>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4546,7 +4546,7 @@ void ExternalDisplayInfo::WriteIntoTrace(
     dict.AddItem(
       "manufacture_week"), this->manufacture_week,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type ::chromeos::cros_healthd::mojom::NullableUint8Ptr>"
+      "<value of type ::ash::cros_healthd::mojom::NullableUint8Ptr>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4555,7 +4555,7 @@ void ExternalDisplayInfo::WriteIntoTrace(
     dict.AddItem(
       "manufacture_year"), this->manufacture_year,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type ::chromeos::cros_healthd::mojom::NullableUint16Ptr>"
+      "<value of type ::ash::cros_healthd::mojom::NullableUint16Ptr>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -7014,18 +7014,18 @@ bool InputResult::Validate(
 
 }  // namespace mojom
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 
 namespace mojo {
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::mojom::ProbeError::DataView, ::chromeos::cros_healthd::mojom::ProbeErrorPtr>::Read(
-    ::chromeos::cros_healthd::mojom::ProbeError::DataView input,
-    ::chromeos::cros_healthd::mojom::ProbeErrorPtr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::ProbeError::DataView, ::ash::cros_healthd::mojom::ProbeErrorPtr>::Read(
+    ::ash::cros_healthd::mojom::ProbeError::DataView input,
+    ::ash::cros_healthd::mojom::ProbeErrorPtr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::mojom::ProbeErrorPtr result(::chromeos::cros_healthd::mojom::ProbeError::New());
+  ::ash::cros_healthd::mojom::ProbeErrorPtr result(::ash::cros_healthd::mojom::ProbeError::New());
   
       if (success && !input.ReadType(&result->type))
         success = false;
@@ -7037,11 +7037,11 @@ bool StructTraits<::chromeos::cros_healthd::mojom::ProbeError::DataView, ::chrom
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::mojom::ProcessInfo::DataView, ::chromeos::cros_healthd::mojom::ProcessInfoPtr>::Read(
-    ::chromeos::cros_healthd::mojom::ProcessInfo::DataView input,
-    ::chromeos::cros_healthd::mojom::ProcessInfoPtr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::ProcessInfo::DataView, ::ash::cros_healthd::mojom::ProcessInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::ProcessInfo::DataView input,
+    ::ash::cros_healthd::mojom::ProcessInfoPtr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::mojom::ProcessInfoPtr result(::chromeos::cros_healthd::mojom::ProcessInfo::New());
+  ::ash::cros_healthd::mojom::ProcessInfoPtr result(::ash::cros_healthd::mojom::ProcessInfo::New());
   
       if (success && !input.ReadCommand(&result->command))
         success = false;
@@ -7091,11 +7091,11 @@ bool StructTraits<::chromeos::cros_healthd::mojom::ProcessInfo::DataView, ::chro
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::mojom::BatteryInfo::DataView, ::chromeos::cros_healthd::mojom::BatteryInfoPtr>::Read(
-    ::chromeos::cros_healthd::mojom::BatteryInfo::DataView input,
-    ::chromeos::cros_healthd::mojom::BatteryInfoPtr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::BatteryInfo::DataView, ::ash::cros_healthd::mojom::BatteryInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::BatteryInfo::DataView input,
+    ::ash::cros_healthd::mojom::BatteryInfoPtr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::mojom::BatteryInfoPtr result(::chromeos::cros_healthd::mojom::BatteryInfo::New());
+  ::ash::cros_healthd::mojom::BatteryInfoPtr result(::ash::cros_healthd::mojom::BatteryInfo::New());
   
       if (success)
         result->cycle_count = input.cycle_count();
@@ -7131,11 +7131,11 @@ bool StructTraits<::chromeos::cros_healthd::mojom::BatteryInfo::DataView, ::chro
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceInfo::DataView, ::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceInfoPtr>::Read(
-    ::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceInfo::DataView input,
-    ::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceInfoPtr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfo::DataView, ::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfo::DataView input,
+    ::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfoPtr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceInfoPtr result(::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceInfo::New());
+  ::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfoPtr result(::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfo::New());
   
       if (success)
         result->bytes_read_since_last_boot = input.bytes_read_since_last_boot();
@@ -7177,11 +7177,11 @@ bool StructTraits<::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceInfo::
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::mojom::CpuInfo::DataView, ::chromeos::cros_healthd::mojom::CpuInfoPtr>::Read(
-    ::chromeos::cros_healthd::mojom::CpuInfo::DataView input,
-    ::chromeos::cros_healthd::mojom::CpuInfoPtr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::CpuInfo::DataView, ::ash::cros_healthd::mojom::CpuInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::CpuInfo::DataView input,
+    ::ash::cros_healthd::mojom::CpuInfoPtr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::mojom::CpuInfoPtr result(::chromeos::cros_healthd::mojom::CpuInfo::New());
+  ::ash::cros_healthd::mojom::CpuInfoPtr result(::ash::cros_healthd::mojom::CpuInfo::New());
   
       if (success)
         result->num_total_threads = input.num_total_threads();
@@ -7203,11 +7203,11 @@ bool StructTraits<::chromeos::cros_healthd::mojom::CpuInfo::DataView, ::chromeos
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::mojom::VirtualizationInfo::DataView, ::chromeos::cros_healthd::mojom::VirtualizationInfoPtr>::Read(
-    ::chromeos::cros_healthd::mojom::VirtualizationInfo::DataView input,
-    ::chromeos::cros_healthd::mojom::VirtualizationInfoPtr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::VirtualizationInfo::DataView, ::ash::cros_healthd::mojom::VirtualizationInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::VirtualizationInfo::DataView input,
+    ::ash::cros_healthd::mojom::VirtualizationInfoPtr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::mojom::VirtualizationInfoPtr result(::chromeos::cros_healthd::mojom::VirtualizationInfo::New());
+  ::ash::cros_healthd::mojom::VirtualizationInfoPtr result(::ash::cros_healthd::mojom::VirtualizationInfo::New());
   
       if (success)
         result->has_kvm_device = input.has_kvm_device();
@@ -7221,11 +7221,11 @@ bool StructTraits<::chromeos::cros_healthd::mojom::VirtualizationInfo::DataView,
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::mojom::VulnerabilityInfo::DataView, ::chromeos::cros_healthd::mojom::VulnerabilityInfoPtr>::Read(
-    ::chromeos::cros_healthd::mojom::VulnerabilityInfo::DataView input,
-    ::chromeos::cros_healthd::mojom::VulnerabilityInfoPtr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::VulnerabilityInfo::DataView, ::ash::cros_healthd::mojom::VulnerabilityInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::VulnerabilityInfo::DataView input,
+    ::ash::cros_healthd::mojom::VulnerabilityInfoPtr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::mojom::VulnerabilityInfoPtr result(::chromeos::cros_healthd::mojom::VulnerabilityInfo::New());
+  ::ash::cros_healthd::mojom::VulnerabilityInfoPtr result(::ash::cros_healthd::mojom::VulnerabilityInfo::New());
   
       if (success && !input.ReadStatus(&result->status))
         success = false;
@@ -7237,11 +7237,11 @@ bool StructTraits<::chromeos::cros_healthd::mojom::VulnerabilityInfo::DataView, 
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::mojom::KeylockerInfo::DataView, ::chromeos::cros_healthd::mojom::KeylockerInfoPtr>::Read(
-    ::chromeos::cros_healthd::mojom::KeylockerInfo::DataView input,
-    ::chromeos::cros_healthd::mojom::KeylockerInfoPtr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::KeylockerInfo::DataView, ::ash::cros_healthd::mojom::KeylockerInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::KeylockerInfo::DataView input,
+    ::ash::cros_healthd::mojom::KeylockerInfoPtr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::mojom::KeylockerInfoPtr result(::chromeos::cros_healthd::mojom::KeylockerInfo::New());
+  ::ash::cros_healthd::mojom::KeylockerInfoPtr result(::ash::cros_healthd::mojom::KeylockerInfo::New());
   
       if (success)
         result->keylocker_configured = input.keylocker_configured();
@@ -7251,11 +7251,11 @@ bool StructTraits<::chromeos::cros_healthd::mojom::KeylockerInfo::DataView, ::ch
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::mojom::PhysicalCpuInfo::DataView, ::chromeos::cros_healthd::mojom::PhysicalCpuInfoPtr>::Read(
-    ::chromeos::cros_healthd::mojom::PhysicalCpuInfo::DataView input,
-    ::chromeos::cros_healthd::mojom::PhysicalCpuInfoPtr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::PhysicalCpuInfo::DataView, ::ash::cros_healthd::mojom::PhysicalCpuInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::PhysicalCpuInfo::DataView input,
+    ::ash::cros_healthd::mojom::PhysicalCpuInfoPtr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::mojom::PhysicalCpuInfoPtr result(::chromeos::cros_healthd::mojom::PhysicalCpuInfo::New());
+  ::ash::cros_healthd::mojom::PhysicalCpuInfoPtr result(::ash::cros_healthd::mojom::PhysicalCpuInfo::New());
   
       if (success && !input.ReadModelName(&result->model_name))
         success = false;
@@ -7271,11 +7271,11 @@ bool StructTraits<::chromeos::cros_healthd::mojom::PhysicalCpuInfo::DataView, ::
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::mojom::CpuVirtualizationInfo::DataView, ::chromeos::cros_healthd::mojom::CpuVirtualizationInfoPtr>::Read(
-    ::chromeos::cros_healthd::mojom::CpuVirtualizationInfo::DataView input,
-    ::chromeos::cros_healthd::mojom::CpuVirtualizationInfoPtr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::CpuVirtualizationInfo::DataView, ::ash::cros_healthd::mojom::CpuVirtualizationInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::CpuVirtualizationInfo::DataView input,
+    ::ash::cros_healthd::mojom::CpuVirtualizationInfoPtr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::mojom::CpuVirtualizationInfoPtr result(::chromeos::cros_healthd::mojom::CpuVirtualizationInfo::New());
+  ::ash::cros_healthd::mojom::CpuVirtualizationInfoPtr result(::ash::cros_healthd::mojom::CpuVirtualizationInfo::New());
   
       if (success && !input.ReadType(&result->type))
         success = false;
@@ -7289,11 +7289,11 @@ bool StructTraits<::chromeos::cros_healthd::mojom::CpuVirtualizationInfo::DataVi
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::mojom::LogicalCpuInfo::DataView, ::chromeos::cros_healthd::mojom::LogicalCpuInfoPtr>::Read(
-    ::chromeos::cros_healthd::mojom::LogicalCpuInfo::DataView input,
-    ::chromeos::cros_healthd::mojom::LogicalCpuInfoPtr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::LogicalCpuInfo::DataView, ::ash::cros_healthd::mojom::LogicalCpuInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::LogicalCpuInfo::DataView input,
+    ::ash::cros_healthd::mojom::LogicalCpuInfoPtr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::mojom::LogicalCpuInfoPtr result(::chromeos::cros_healthd::mojom::LogicalCpuInfo::New());
+  ::ash::cros_healthd::mojom::LogicalCpuInfoPtr result(::ash::cros_healthd::mojom::LogicalCpuInfo::New());
   
       if (success)
         result->max_clock_speed_khz = input.max_clock_speed_khz();
@@ -7315,11 +7315,11 @@ bool StructTraits<::chromeos::cros_healthd::mojom::LogicalCpuInfo::DataView, ::c
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::mojom::CpuCStateInfo::DataView, ::chromeos::cros_healthd::mojom::CpuCStateInfoPtr>::Read(
-    ::chromeos::cros_healthd::mojom::CpuCStateInfo::DataView input,
-    ::chromeos::cros_healthd::mojom::CpuCStateInfoPtr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::CpuCStateInfo::DataView, ::ash::cros_healthd::mojom::CpuCStateInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::CpuCStateInfo::DataView input,
+    ::ash::cros_healthd::mojom::CpuCStateInfoPtr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::mojom::CpuCStateInfoPtr result(::chromeos::cros_healthd::mojom::CpuCStateInfo::New());
+  ::ash::cros_healthd::mojom::CpuCStateInfoPtr result(::ash::cros_healthd::mojom::CpuCStateInfo::New());
   
       if (success && !input.ReadName(&result->name))
         success = false;
@@ -7331,11 +7331,11 @@ bool StructTraits<::chromeos::cros_healthd::mojom::CpuCStateInfo::DataView, ::ch
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::mojom::CpuTemperatureChannel::DataView, ::chromeos::cros_healthd::mojom::CpuTemperatureChannelPtr>::Read(
-    ::chromeos::cros_healthd::mojom::CpuTemperatureChannel::DataView input,
-    ::chromeos::cros_healthd::mojom::CpuTemperatureChannelPtr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::CpuTemperatureChannel::DataView, ::ash::cros_healthd::mojom::CpuTemperatureChannelPtr>::Read(
+    ::ash::cros_healthd::mojom::CpuTemperatureChannel::DataView input,
+    ::ash::cros_healthd::mojom::CpuTemperatureChannelPtr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::mojom::CpuTemperatureChannelPtr result(::chromeos::cros_healthd::mojom::CpuTemperatureChannel::New());
+  ::ash::cros_healthd::mojom::CpuTemperatureChannelPtr result(::ash::cros_healthd::mojom::CpuTemperatureChannel::New());
   
       if (success && !input.ReadLabel(&result->label))
         success = false;
@@ -7347,11 +7347,11 @@ bool StructTraits<::chromeos::cros_healthd::mojom::CpuTemperatureChannel::DataVi
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::mojom::TimezoneInfo::DataView, ::chromeos::cros_healthd::mojom::TimezoneInfoPtr>::Read(
-    ::chromeos::cros_healthd::mojom::TimezoneInfo::DataView input,
-    ::chromeos::cros_healthd::mojom::TimezoneInfoPtr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::TimezoneInfo::DataView, ::ash::cros_healthd::mojom::TimezoneInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::TimezoneInfo::DataView input,
+    ::ash::cros_healthd::mojom::TimezoneInfoPtr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::mojom::TimezoneInfoPtr result(::chromeos::cros_healthd::mojom::TimezoneInfo::New());
+  ::ash::cros_healthd::mojom::TimezoneInfoPtr result(::ash::cros_healthd::mojom::TimezoneInfo::New());
   
       if (success && !input.ReadPosix(&result->posix))
         success = false;
@@ -7363,11 +7363,11 @@ bool StructTraits<::chromeos::cros_healthd::mojom::TimezoneInfo::DataView, ::chr
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::mojom::MemoryInfo::DataView, ::chromeos::cros_healthd::mojom::MemoryInfoPtr>::Read(
-    ::chromeos::cros_healthd::mojom::MemoryInfo::DataView input,
-    ::chromeos::cros_healthd::mojom::MemoryInfoPtr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::MemoryInfo::DataView, ::ash::cros_healthd::mojom::MemoryInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::MemoryInfo::DataView input,
+    ::ash::cros_healthd::mojom::MemoryInfoPtr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::mojom::MemoryInfoPtr result(::chromeos::cros_healthd::mojom::MemoryInfo::New());
+  ::ash::cros_healthd::mojom::MemoryInfoPtr result(::ash::cros_healthd::mojom::MemoryInfo::New());
   
       if (success)
         result->total_memory_kib = input.total_memory_kib();
@@ -7385,11 +7385,11 @@ bool StructTraits<::chromeos::cros_healthd::mojom::MemoryInfo::DataView, ::chrom
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::mojom::MemoryEncryptionInfo::DataView, ::chromeos::cros_healthd::mojom::MemoryEncryptionInfoPtr>::Read(
-    ::chromeos::cros_healthd::mojom::MemoryEncryptionInfo::DataView input,
-    ::chromeos::cros_healthd::mojom::MemoryEncryptionInfoPtr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::MemoryEncryptionInfo::DataView, ::ash::cros_healthd::mojom::MemoryEncryptionInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::MemoryEncryptionInfo::DataView input,
+    ::ash::cros_healthd::mojom::MemoryEncryptionInfoPtr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::mojom::MemoryEncryptionInfoPtr result(::chromeos::cros_healthd::mojom::MemoryEncryptionInfo::New());
+  ::ash::cros_healthd::mojom::MemoryEncryptionInfoPtr result(::ash::cros_healthd::mojom::MemoryEncryptionInfo::New());
   
       if (success && !input.ReadEncryptionState(&result->encryption_state))
         success = false;
@@ -7405,11 +7405,11 @@ bool StructTraits<::chromeos::cros_healthd::mojom::MemoryEncryptionInfo::DataVie
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::mojom::BacklightInfo::DataView, ::chromeos::cros_healthd::mojom::BacklightInfoPtr>::Read(
-    ::chromeos::cros_healthd::mojom::BacklightInfo::DataView input,
-    ::chromeos::cros_healthd::mojom::BacklightInfoPtr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::BacklightInfo::DataView, ::ash::cros_healthd::mojom::BacklightInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::BacklightInfo::DataView input,
+    ::ash::cros_healthd::mojom::BacklightInfoPtr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::mojom::BacklightInfoPtr result(::chromeos::cros_healthd::mojom::BacklightInfo::New());
+  ::ash::cros_healthd::mojom::BacklightInfoPtr result(::ash::cros_healthd::mojom::BacklightInfo::New());
   
       if (success && !input.ReadPath(&result->path))
         success = false;
@@ -7423,11 +7423,11 @@ bool StructTraits<::chromeos::cros_healthd::mojom::BacklightInfo::DataView, ::ch
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::mojom::FanInfo::DataView, ::chromeos::cros_healthd::mojom::FanInfoPtr>::Read(
-    ::chromeos::cros_healthd::mojom::FanInfo::DataView input,
-    ::chromeos::cros_healthd::mojom::FanInfoPtr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::FanInfo::DataView, ::ash::cros_healthd::mojom::FanInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::FanInfo::DataView input,
+    ::ash::cros_healthd::mojom::FanInfoPtr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::mojom::FanInfoPtr result(::chromeos::cros_healthd::mojom::FanInfo::New());
+  ::ash::cros_healthd::mojom::FanInfoPtr result(::ash::cros_healthd::mojom::FanInfo::New());
   
       if (success)
         result->speed_rpm = input.speed_rpm();
@@ -7437,11 +7437,11 @@ bool StructTraits<::chromeos::cros_healthd::mojom::FanInfo::DataView, ::chromeos
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::mojom::StatefulPartitionInfo::DataView, ::chromeos::cros_healthd::mojom::StatefulPartitionInfoPtr>::Read(
-    ::chromeos::cros_healthd::mojom::StatefulPartitionInfo::DataView input,
-    ::chromeos::cros_healthd::mojom::StatefulPartitionInfoPtr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::StatefulPartitionInfo::DataView, ::ash::cros_healthd::mojom::StatefulPartitionInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::StatefulPartitionInfo::DataView input,
+    ::ash::cros_healthd::mojom::StatefulPartitionInfoPtr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::mojom::StatefulPartitionInfoPtr result(::chromeos::cros_healthd::mojom::StatefulPartitionInfo::New());
+  ::ash::cros_healthd::mojom::StatefulPartitionInfoPtr result(::ash::cros_healthd::mojom::StatefulPartitionInfo::New());
   
       if (success)
         result->available_space = input.available_space();
@@ -7457,11 +7457,11 @@ bool StructTraits<::chromeos::cros_healthd::mojom::StatefulPartitionInfo::DataVi
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::mojom::BluetoothAdapterInfo::DataView, ::chromeos::cros_healthd::mojom::BluetoothAdapterInfoPtr>::Read(
-    ::chromeos::cros_healthd::mojom::BluetoothAdapterInfo::DataView input,
-    ::chromeos::cros_healthd::mojom::BluetoothAdapterInfoPtr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::BluetoothAdapterInfo::DataView, ::ash::cros_healthd::mojom::BluetoothAdapterInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::BluetoothAdapterInfo::DataView input,
+    ::ash::cros_healthd::mojom::BluetoothAdapterInfoPtr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::mojom::BluetoothAdapterInfoPtr result(::chromeos::cros_healthd::mojom::BluetoothAdapterInfo::New());
+  ::ash::cros_healthd::mojom::BluetoothAdapterInfoPtr result(::ash::cros_healthd::mojom::BluetoothAdapterInfo::New());
   
       if (success && !input.ReadName(&result->name))
         success = false;
@@ -7491,11 +7491,11 @@ bool StructTraits<::chromeos::cros_healthd::mojom::BluetoothAdapterInfo::DataVie
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::mojom::BluetoothDeviceInfo::DataView, ::chromeos::cros_healthd::mojom::BluetoothDeviceInfoPtr>::Read(
-    ::chromeos::cros_healthd::mojom::BluetoothDeviceInfo::DataView input,
-    ::chromeos::cros_healthd::mojom::BluetoothDeviceInfoPtr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::BluetoothDeviceInfo::DataView, ::ash::cros_healthd::mojom::BluetoothDeviceInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::BluetoothDeviceInfo::DataView input,
+    ::ash::cros_healthd::mojom::BluetoothDeviceInfoPtr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::mojom::BluetoothDeviceInfoPtr result(::chromeos::cros_healthd::mojom::BluetoothDeviceInfo::New());
+  ::ash::cros_healthd::mojom::BluetoothDeviceInfoPtr result(::ash::cros_healthd::mojom::BluetoothDeviceInfo::New());
   
       if (success && !input.ReadAddress(&result->address))
         success = false;
@@ -7521,11 +7521,11 @@ bool StructTraits<::chromeos::cros_healthd::mojom::BluetoothDeviceInfo::DataView
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::mojom::SupportedCapabilities::DataView, ::chromeos::cros_healthd::mojom::SupportedCapabilitiesPtr>::Read(
-    ::chromeos::cros_healthd::mojom::SupportedCapabilities::DataView input,
-    ::chromeos::cros_healthd::mojom::SupportedCapabilitiesPtr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::SupportedCapabilities::DataView, ::ash::cros_healthd::mojom::SupportedCapabilitiesPtr>::Read(
+    ::ash::cros_healthd::mojom::SupportedCapabilities::DataView input,
+    ::ash::cros_healthd::mojom::SupportedCapabilitiesPtr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::mojom::SupportedCapabilitiesPtr result(::chromeos::cros_healthd::mojom::SupportedCapabilities::New());
+  ::ash::cros_healthd::mojom::SupportedCapabilitiesPtr result(::ash::cros_healthd::mojom::SupportedCapabilities::New());
   
       if (success)
         result->max_adv_len = input.max_adv_len();
@@ -7541,11 +7541,11 @@ bool StructTraits<::chromeos::cros_healthd::mojom::SupportedCapabilities::DataVi
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::mojom::SystemInfo::DataView, ::chromeos::cros_healthd::mojom::SystemInfoPtr>::Read(
-    ::chromeos::cros_healthd::mojom::SystemInfo::DataView input,
-    ::chromeos::cros_healthd::mojom::SystemInfoPtr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::SystemInfo::DataView, ::ash::cros_healthd::mojom::SystemInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::SystemInfo::DataView input,
+    ::ash::cros_healthd::mojom::SystemInfoPtr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::mojom::SystemInfoPtr result(::chromeos::cros_healthd::mojom::SystemInfo::New());
+  ::ash::cros_healthd::mojom::SystemInfoPtr result(::ash::cros_healthd::mojom::SystemInfo::New());
   
       if (success && !input.ReadOsInfo(&result->os_info))
         success = false;
@@ -7559,11 +7559,11 @@ bool StructTraits<::chromeos::cros_healthd::mojom::SystemInfo::DataView, ::chrom
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::mojom::OsInfo::DataView, ::chromeos::cros_healthd::mojom::OsInfoPtr>::Read(
-    ::chromeos::cros_healthd::mojom::OsInfo::DataView input,
-    ::chromeos::cros_healthd::mojom::OsInfoPtr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::OsInfo::DataView, ::ash::cros_healthd::mojom::OsInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::OsInfo::DataView input,
+    ::ash::cros_healthd::mojom::OsInfoPtr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::mojom::OsInfoPtr result(::chromeos::cros_healthd::mojom::OsInfo::New());
+  ::ash::cros_healthd::mojom::OsInfoPtr result(::ash::cros_healthd::mojom::OsInfo::New());
   
       if (success && !input.ReadCodeName(&result->code_name))
         success = false;
@@ -7581,11 +7581,11 @@ bool StructTraits<::chromeos::cros_healthd::mojom::OsInfo::DataView, ::chromeos:
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::mojom::OsVersion::DataView, ::chromeos::cros_healthd::mojom::OsVersionPtr>::Read(
-    ::chromeos::cros_healthd::mojom::OsVersion::DataView input,
-    ::chromeos::cros_healthd::mojom::OsVersionPtr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::OsVersion::DataView, ::ash::cros_healthd::mojom::OsVersionPtr>::Read(
+    ::ash::cros_healthd::mojom::OsVersion::DataView input,
+    ::ash::cros_healthd::mojom::OsVersionPtr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::mojom::OsVersionPtr result(::chromeos::cros_healthd::mojom::OsVersion::New());
+  ::ash::cros_healthd::mojom::OsVersionPtr result(::ash::cros_healthd::mojom::OsVersion::New());
   
       if (success && !input.ReadReleaseMilestone(&result->release_milestone))
         success = false;
@@ -7601,11 +7601,11 @@ bool StructTraits<::chromeos::cros_healthd::mojom::OsVersion::DataView, ::chrome
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::mojom::VpdInfo::DataView, ::chromeos::cros_healthd::mojom::VpdInfoPtr>::Read(
-    ::chromeos::cros_healthd::mojom::VpdInfo::DataView input,
-    ::chromeos::cros_healthd::mojom::VpdInfoPtr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::VpdInfo::DataView, ::ash::cros_healthd::mojom::VpdInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::VpdInfo::DataView input,
+    ::ash::cros_healthd::mojom::VpdInfoPtr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::mojom::VpdInfoPtr result(::chromeos::cros_healthd::mojom::VpdInfo::New());
+  ::ash::cros_healthd::mojom::VpdInfoPtr result(::ash::cros_healthd::mojom::VpdInfo::New());
   
       if (success && !input.ReadSerialNumber(&result->serial_number))
         success = false;
@@ -7625,11 +7625,11 @@ bool StructTraits<::chromeos::cros_healthd::mojom::VpdInfo::DataView, ::chromeos
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::mojom::DmiInfo::DataView, ::chromeos::cros_healthd::mojom::DmiInfoPtr>::Read(
-    ::chromeos::cros_healthd::mojom::DmiInfo::DataView input,
-    ::chromeos::cros_healthd::mojom::DmiInfoPtr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::DmiInfo::DataView, ::ash::cros_healthd::mojom::DmiInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::DmiInfo::DataView input,
+    ::ash::cros_healthd::mojom::DmiInfoPtr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::mojom::DmiInfoPtr result(::chromeos::cros_healthd::mojom::DmiInfo::New());
+  ::ash::cros_healthd::mojom::DmiInfoPtr result(::ash::cros_healthd::mojom::DmiInfo::New());
   
       if (success && !input.ReadBiosVendor(&result->bios_vendor))
         success = false;
@@ -7659,11 +7659,11 @@ bool StructTraits<::chromeos::cros_healthd::mojom::DmiInfo::DataView, ::chromeos
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::mojom::WirelessInterfaceInfo::DataView, ::chromeos::cros_healthd::mojom::WirelessInterfaceInfoPtr>::Read(
-    ::chromeos::cros_healthd::mojom::WirelessInterfaceInfo::DataView input,
-    ::chromeos::cros_healthd::mojom::WirelessInterfaceInfoPtr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::WirelessInterfaceInfo::DataView, ::ash::cros_healthd::mojom::WirelessInterfaceInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::WirelessInterfaceInfo::DataView input,
+    ::ash::cros_healthd::mojom::WirelessInterfaceInfoPtr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::mojom::WirelessInterfaceInfoPtr result(::chromeos::cros_healthd::mojom::WirelessInterfaceInfo::New());
+  ::ash::cros_healthd::mojom::WirelessInterfaceInfoPtr result(::ash::cros_healthd::mojom::WirelessInterfaceInfo::New());
   
       if (success && !input.ReadInterfaceName(&result->interface_name))
         success = false;
@@ -7677,11 +7677,11 @@ bool StructTraits<::chromeos::cros_healthd::mojom::WirelessInterfaceInfo::DataVi
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::mojom::WirelessLinkInfo::DataView, ::chromeos::cros_healthd::mojom::WirelessLinkInfoPtr>::Read(
-    ::chromeos::cros_healthd::mojom::WirelessLinkInfo::DataView input,
-    ::chromeos::cros_healthd::mojom::WirelessLinkInfoPtr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::WirelessLinkInfo::DataView, ::ash::cros_healthd::mojom::WirelessLinkInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::WirelessLinkInfo::DataView input,
+    ::ash::cros_healthd::mojom::WirelessLinkInfoPtr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::mojom::WirelessLinkInfoPtr result(::chromeos::cros_healthd::mojom::WirelessLinkInfo::New());
+  ::ash::cros_healthd::mojom::WirelessLinkInfoPtr result(::ash::cros_healthd::mojom::WirelessLinkInfo::New());
   
       if (success && !input.ReadAccessPointAddressStr(&result->access_point_address_str))
         success = false;
@@ -7703,11 +7703,11 @@ bool StructTraits<::chromeos::cros_healthd::mojom::WirelessLinkInfo::DataView, :
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::mojom::AudioInfo::DataView, ::chromeos::cros_healthd::mojom::AudioInfoPtr>::Read(
-    ::chromeos::cros_healthd::mojom::AudioInfo::DataView input,
-    ::chromeos::cros_healthd::mojom::AudioInfoPtr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::AudioInfo::DataView, ::ash::cros_healthd::mojom::AudioInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::AudioInfo::DataView input,
+    ::ash::cros_healthd::mojom::AudioInfoPtr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::mojom::AudioInfoPtr result(::chromeos::cros_healthd::mojom::AudioInfo::New());
+  ::ash::cros_healthd::mojom::AudioInfoPtr result(::ash::cros_healthd::mojom::AudioInfo::New());
   
       if (success)
         result->output_mute = input.output_mute();
@@ -7731,11 +7731,11 @@ bool StructTraits<::chromeos::cros_healthd::mojom::AudioInfo::DataView, ::chrome
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::mojom::AudioHardwareInfo::DataView, ::chromeos::cros_healthd::mojom::AudioHardwareInfoPtr>::Read(
-    ::chromeos::cros_healthd::mojom::AudioHardwareInfo::DataView input,
-    ::chromeos::cros_healthd::mojom::AudioHardwareInfoPtr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::AudioHardwareInfo::DataView, ::ash::cros_healthd::mojom::AudioHardwareInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::AudioHardwareInfo::DataView input,
+    ::ash::cros_healthd::mojom::AudioHardwareInfoPtr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::mojom::AudioHardwareInfoPtr result(::chromeos::cros_healthd::mojom::AudioHardwareInfo::New());
+  ::ash::cros_healthd::mojom::AudioHardwareInfoPtr result(::ash::cros_healthd::mojom::AudioHardwareInfo::New());
   
       if (success && !input.ReadAudioCards(&result->audio_cards))
         success = false;
@@ -7745,11 +7745,11 @@ bool StructTraits<::chromeos::cros_healthd::mojom::AudioHardwareInfo::DataView, 
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::mojom::AudioCard::DataView, ::chromeos::cros_healthd::mojom::AudioCardPtr>::Read(
-    ::chromeos::cros_healthd::mojom::AudioCard::DataView input,
-    ::chromeos::cros_healthd::mojom::AudioCardPtr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::AudioCard::DataView, ::ash::cros_healthd::mojom::AudioCardPtr>::Read(
+    ::ash::cros_healthd::mojom::AudioCard::DataView input,
+    ::ash::cros_healthd::mojom::AudioCardPtr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::mojom::AudioCardPtr result(::chromeos::cros_healthd::mojom::AudioCard::New());
+  ::ash::cros_healthd::mojom::AudioCardPtr result(::ash::cros_healthd::mojom::AudioCard::New());
   
       if (success && !input.ReadAlsaId(&result->alsa_id))
         success = false;
@@ -7763,11 +7763,11 @@ bool StructTraits<::chromeos::cros_healthd::mojom::AudioCard::DataView, ::chrome
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::mojom::HDAudioCodec::DataView, ::chromeos::cros_healthd::mojom::HDAudioCodecPtr>::Read(
-    ::chromeos::cros_healthd::mojom::HDAudioCodec::DataView input,
-    ::chromeos::cros_healthd::mojom::HDAudioCodecPtr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::HDAudioCodec::DataView, ::ash::cros_healthd::mojom::HDAudioCodecPtr>::Read(
+    ::ash::cros_healthd::mojom::HDAudioCodec::DataView input,
+    ::ash::cros_healthd::mojom::HDAudioCodecPtr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::mojom::HDAudioCodecPtr result(::chromeos::cros_healthd::mojom::HDAudioCodec::New());
+  ::ash::cros_healthd::mojom::HDAudioCodecPtr result(::ash::cros_healthd::mojom::HDAudioCodec::New());
   
       if (success && !input.ReadName(&result->name))
         success = false;
@@ -7779,11 +7779,11 @@ bool StructTraits<::chromeos::cros_healthd::mojom::HDAudioCodec::DataView, ::chr
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::mojom::BootPerformanceInfo::DataView, ::chromeos::cros_healthd::mojom::BootPerformanceInfoPtr>::Read(
-    ::chromeos::cros_healthd::mojom::BootPerformanceInfo::DataView input,
-    ::chromeos::cros_healthd::mojom::BootPerformanceInfoPtr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::BootPerformanceInfo::DataView, ::ash::cros_healthd::mojom::BootPerformanceInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::BootPerformanceInfo::DataView input,
+    ::ash::cros_healthd::mojom::BootPerformanceInfoPtr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::mojom::BootPerformanceInfoPtr result(::chromeos::cros_healthd::mojom::BootPerformanceInfo::New());
+  ::ash::cros_healthd::mojom::BootPerformanceInfoPtr result(::ash::cros_healthd::mojom::BootPerformanceInfo::New());
   
       if (success)
         result->boot_up_seconds = input.boot_up_seconds();
@@ -7801,11 +7801,11 @@ bool StructTraits<::chromeos::cros_healthd::mojom::BootPerformanceInfo::DataView
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::mojom::BusDevice::DataView, ::chromeos::cros_healthd::mojom::BusDevicePtr>::Read(
-    ::chromeos::cros_healthd::mojom::BusDevice::DataView input,
-    ::chromeos::cros_healthd::mojom::BusDevicePtr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::BusDevice::DataView, ::ash::cros_healthd::mojom::BusDevicePtr>::Read(
+    ::ash::cros_healthd::mojom::BusDevice::DataView input,
+    ::ash::cros_healthd::mojom::BusDevicePtr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::mojom::BusDevicePtr result(::chromeos::cros_healthd::mojom::BusDevice::New());
+  ::ash::cros_healthd::mojom::BusDevicePtr result(::ash::cros_healthd::mojom::BusDevice::New());
   
       if (success && !input.ReadVendorName(&result->vendor_name))
         success = false;
@@ -7821,11 +7821,11 @@ bool StructTraits<::chromeos::cros_healthd::mojom::BusDevice::DataView, ::chrome
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::mojom::PciBusInfo::DataView, ::chromeos::cros_healthd::mojom::PciBusInfoPtr>::Read(
-    ::chromeos::cros_healthd::mojom::PciBusInfo::DataView input,
-    ::chromeos::cros_healthd::mojom::PciBusInfoPtr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::PciBusInfo::DataView, ::ash::cros_healthd::mojom::PciBusInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::PciBusInfo::DataView input,
+    ::ash::cros_healthd::mojom::PciBusInfoPtr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::mojom::PciBusInfoPtr result(::chromeos::cros_healthd::mojom::PciBusInfo::New());
+  ::ash::cros_healthd::mojom::PciBusInfoPtr result(::ash::cros_healthd::mojom::PciBusInfo::New());
   
       if (success)
         result->class_id = input.class_id();
@@ -7845,11 +7845,11 @@ bool StructTraits<::chromeos::cros_healthd::mojom::PciBusInfo::DataView, ::chrom
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::mojom::UsbBusInfo::DataView, ::chromeos::cros_healthd::mojom::UsbBusInfoPtr>::Read(
-    ::chromeos::cros_healthd::mojom::UsbBusInfo::DataView input,
-    ::chromeos::cros_healthd::mojom::UsbBusInfoPtr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::UsbBusInfo::DataView, ::ash::cros_healthd::mojom::UsbBusInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::UsbBusInfo::DataView input,
+    ::ash::cros_healthd::mojom::UsbBusInfoPtr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::mojom::UsbBusInfoPtr result(::chromeos::cros_healthd::mojom::UsbBusInfo::New());
+  ::ash::cros_healthd::mojom::UsbBusInfoPtr result(::ash::cros_healthd::mojom::UsbBusInfo::New());
   
       if (success)
         result->class_id = input.class_id();
@@ -7871,11 +7871,11 @@ bool StructTraits<::chromeos::cros_healthd::mojom::UsbBusInfo::DataView, ::chrom
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::mojom::FwupdFirmwareVersionInfo::DataView, ::chromeos::cros_healthd::mojom::FwupdFirmwareVersionInfoPtr>::Read(
-    ::chromeos::cros_healthd::mojom::FwupdFirmwareVersionInfo::DataView input,
-    ::chromeos::cros_healthd::mojom::FwupdFirmwareVersionInfoPtr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::FwupdFirmwareVersionInfo::DataView, ::ash::cros_healthd::mojom::FwupdFirmwareVersionInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::FwupdFirmwareVersionInfo::DataView input,
+    ::ash::cros_healthd::mojom::FwupdFirmwareVersionInfoPtr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::mojom::FwupdFirmwareVersionInfoPtr result(::chromeos::cros_healthd::mojom::FwupdFirmwareVersionInfo::New());
+  ::ash::cros_healthd::mojom::FwupdFirmwareVersionInfoPtr result(::ash::cros_healthd::mojom::FwupdFirmwareVersionInfo::New());
   
       if (success && !input.ReadVersion(&result->version))
         success = false;
@@ -7887,11 +7887,11 @@ bool StructTraits<::chromeos::cros_healthd::mojom::FwupdFirmwareVersionInfo::Dat
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::mojom::UsbBusInterfaceInfo::DataView, ::chromeos::cros_healthd::mojom::UsbBusInterfaceInfoPtr>::Read(
-    ::chromeos::cros_healthd::mojom::UsbBusInterfaceInfo::DataView input,
-    ::chromeos::cros_healthd::mojom::UsbBusInterfaceInfoPtr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::UsbBusInterfaceInfo::DataView, ::ash::cros_healthd::mojom::UsbBusInterfaceInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::UsbBusInterfaceInfo::DataView input,
+    ::ash::cros_healthd::mojom::UsbBusInterfaceInfoPtr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::mojom::UsbBusInterfaceInfoPtr result(::chromeos::cros_healthd::mojom::UsbBusInterfaceInfo::New());
+  ::ash::cros_healthd::mojom::UsbBusInterfaceInfoPtr result(::ash::cros_healthd::mojom::UsbBusInterfaceInfo::New());
   
       if (success)
         result->interface_number = input.interface_number();
@@ -7909,11 +7909,11 @@ bool StructTraits<::chromeos::cros_healthd::mojom::UsbBusInterfaceInfo::DataView
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::mojom::TpmInfo::DataView, ::chromeos::cros_healthd::mojom::TpmInfoPtr>::Read(
-    ::chromeos::cros_healthd::mojom::TpmInfo::DataView input,
-    ::chromeos::cros_healthd::mojom::TpmInfoPtr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::TpmInfo::DataView, ::ash::cros_healthd::mojom::TpmInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::TpmInfo::DataView input,
+    ::ash::cros_healthd::mojom::TpmInfoPtr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::mojom::TpmInfoPtr result(::chromeos::cros_healthd::mojom::TpmInfo::New());
+  ::ash::cros_healthd::mojom::TpmInfoPtr result(::ash::cros_healthd::mojom::TpmInfo::New());
   
       if (success && !input.ReadVersion(&result->version))
         success = false;
@@ -7933,11 +7933,11 @@ bool StructTraits<::chromeos::cros_healthd::mojom::TpmInfo::DataView, ::chromeos
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::mojom::TpmVersion::DataView, ::chromeos::cros_healthd::mojom::TpmVersionPtr>::Read(
-    ::chromeos::cros_healthd::mojom::TpmVersion::DataView input,
-    ::chromeos::cros_healthd::mojom::TpmVersionPtr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::TpmVersion::DataView, ::ash::cros_healthd::mojom::TpmVersionPtr>::Read(
+    ::ash::cros_healthd::mojom::TpmVersion::DataView input,
+    ::ash::cros_healthd::mojom::TpmVersionPtr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::mojom::TpmVersionPtr result(::chromeos::cros_healthd::mojom::TpmVersion::New());
+  ::ash::cros_healthd::mojom::TpmVersionPtr result(::ash::cros_healthd::mojom::TpmVersion::New());
   
       if (success && !input.ReadGscVersion(&result->gsc_version))
         success = false;
@@ -7959,11 +7959,11 @@ bool StructTraits<::chromeos::cros_healthd::mojom::TpmVersion::DataView, ::chrom
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::mojom::TpmStatus::DataView, ::chromeos::cros_healthd::mojom::TpmStatusPtr>::Read(
-    ::chromeos::cros_healthd::mojom::TpmStatus::DataView input,
-    ::chromeos::cros_healthd::mojom::TpmStatusPtr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::TpmStatus::DataView, ::ash::cros_healthd::mojom::TpmStatusPtr>::Read(
+    ::ash::cros_healthd::mojom::TpmStatus::DataView input,
+    ::ash::cros_healthd::mojom::TpmStatusPtr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::mojom::TpmStatusPtr result(::chromeos::cros_healthd::mojom::TpmStatus::New());
+  ::ash::cros_healthd::mojom::TpmStatusPtr result(::ash::cros_healthd::mojom::TpmStatus::New());
   
       if (success)
         result->enabled = input.enabled();
@@ -7977,11 +7977,11 @@ bool StructTraits<::chromeos::cros_healthd::mojom::TpmStatus::DataView, ::chrome
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::mojom::TpmDictionaryAttack::DataView, ::chromeos::cros_healthd::mojom::TpmDictionaryAttackPtr>::Read(
-    ::chromeos::cros_healthd::mojom::TpmDictionaryAttack::DataView input,
-    ::chromeos::cros_healthd::mojom::TpmDictionaryAttackPtr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::TpmDictionaryAttack::DataView, ::ash::cros_healthd::mojom::TpmDictionaryAttackPtr>::Read(
+    ::ash::cros_healthd::mojom::TpmDictionaryAttack::DataView input,
+    ::ash::cros_healthd::mojom::TpmDictionaryAttackPtr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::mojom::TpmDictionaryAttackPtr result(::chromeos::cros_healthd::mojom::TpmDictionaryAttack::New());
+  ::ash::cros_healthd::mojom::TpmDictionaryAttackPtr result(::ash::cros_healthd::mojom::TpmDictionaryAttack::New());
   
       if (success)
         result->counter = input.counter();
@@ -7997,11 +7997,11 @@ bool StructTraits<::chromeos::cros_healthd::mojom::TpmDictionaryAttack::DataView
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::mojom::TpmAttestation::DataView, ::chromeos::cros_healthd::mojom::TpmAttestationPtr>::Read(
-    ::chromeos::cros_healthd::mojom::TpmAttestation::DataView input,
-    ::chromeos::cros_healthd::mojom::TpmAttestationPtr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::TpmAttestation::DataView, ::ash::cros_healthd::mojom::TpmAttestationPtr>::Read(
+    ::ash::cros_healthd::mojom::TpmAttestation::DataView input,
+    ::ash::cros_healthd::mojom::TpmAttestationPtr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::mojom::TpmAttestationPtr result(::chromeos::cros_healthd::mojom::TpmAttestation::New());
+  ::ash::cros_healthd::mojom::TpmAttestationPtr result(::ash::cros_healthd::mojom::TpmAttestation::New());
   
       if (success)
         result->prepared_for_enrollment = input.prepared_for_enrollment();
@@ -8013,11 +8013,11 @@ bool StructTraits<::chromeos::cros_healthd::mojom::TpmAttestation::DataView, ::c
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::mojom::TpmSupportedFeatures::DataView, ::chromeos::cros_healthd::mojom::TpmSupportedFeaturesPtr>::Read(
-    ::chromeos::cros_healthd::mojom::TpmSupportedFeatures::DataView input,
-    ::chromeos::cros_healthd::mojom::TpmSupportedFeaturesPtr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::TpmSupportedFeatures::DataView, ::ash::cros_healthd::mojom::TpmSupportedFeaturesPtr>::Read(
+    ::ash::cros_healthd::mojom::TpmSupportedFeatures::DataView input,
+    ::ash::cros_healthd::mojom::TpmSupportedFeaturesPtr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::mojom::TpmSupportedFeaturesPtr result(::chromeos::cros_healthd::mojom::TpmSupportedFeatures::New());
+  ::ash::cros_healthd::mojom::TpmSupportedFeaturesPtr result(::ash::cros_healthd::mojom::TpmSupportedFeatures::New());
   
       if (success)
         result->support_u2f = input.support_u2f();
@@ -8033,11 +8033,11 @@ bool StructTraits<::chromeos::cros_healthd::mojom::TpmSupportedFeatures::DataVie
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::mojom::GraphicsInfo::DataView, ::chromeos::cros_healthd::mojom::GraphicsInfoPtr>::Read(
-    ::chromeos::cros_healthd::mojom::GraphicsInfo::DataView input,
-    ::chromeos::cros_healthd::mojom::GraphicsInfoPtr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::GraphicsInfo::DataView, ::ash::cros_healthd::mojom::GraphicsInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::GraphicsInfo::DataView input,
+    ::ash::cros_healthd::mojom::GraphicsInfoPtr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::mojom::GraphicsInfoPtr result(::chromeos::cros_healthd::mojom::GraphicsInfo::New());
+  ::ash::cros_healthd::mojom::GraphicsInfoPtr result(::ash::cros_healthd::mojom::GraphicsInfo::New());
   
       if (success && !input.ReadGlesInfo(&result->gles_info))
         success = false;
@@ -8049,11 +8049,11 @@ bool StructTraits<::chromeos::cros_healthd::mojom::GraphicsInfo::DataView, ::chr
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::mojom::GLESInfo::DataView, ::chromeos::cros_healthd::mojom::GLESInfoPtr>::Read(
-    ::chromeos::cros_healthd::mojom::GLESInfo::DataView input,
-    ::chromeos::cros_healthd::mojom::GLESInfoPtr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::GLESInfo::DataView, ::ash::cros_healthd::mojom::GLESInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::GLESInfo::DataView input,
+    ::ash::cros_healthd::mojom::GLESInfoPtr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::mojom::GLESInfoPtr result(::chromeos::cros_healthd::mojom::GLESInfo::New());
+  ::ash::cros_healthd::mojom::GLESInfoPtr result(::ash::cros_healthd::mojom::GLESInfo::New());
   
       if (success && !input.ReadVersion(&result->version))
         success = false;
@@ -8071,11 +8071,11 @@ bool StructTraits<::chromeos::cros_healthd::mojom::GLESInfo::DataView, ::chromeo
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::mojom::EGLInfo::DataView, ::chromeos::cros_healthd::mojom::EGLInfoPtr>::Read(
-    ::chromeos::cros_healthd::mojom::EGLInfo::DataView input,
-    ::chromeos::cros_healthd::mojom::EGLInfoPtr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::EGLInfo::DataView, ::ash::cros_healthd::mojom::EGLInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::EGLInfo::DataView input,
+    ::ash::cros_healthd::mojom::EGLInfoPtr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::mojom::EGLInfoPtr result(::chromeos::cros_healthd::mojom::EGLInfo::New());
+  ::ash::cros_healthd::mojom::EGLInfoPtr result(::ash::cros_healthd::mojom::EGLInfo::New());
   
       if (success && !input.ReadVersion(&result->version))
         success = false;
@@ -8091,11 +8091,11 @@ bool StructTraits<::chromeos::cros_healthd::mojom::EGLInfo::DataView, ::chromeos
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::mojom::DisplayInfo::DataView, ::chromeos::cros_healthd::mojom::DisplayInfoPtr>::Read(
-    ::chromeos::cros_healthd::mojom::DisplayInfo::DataView input,
-    ::chromeos::cros_healthd::mojom::DisplayInfoPtr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::DisplayInfo::DataView, ::ash::cros_healthd::mojom::DisplayInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::DisplayInfo::DataView input,
+    ::ash::cros_healthd::mojom::DisplayInfoPtr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::mojom::DisplayInfoPtr result(::chromeos::cros_healthd::mojom::DisplayInfo::New());
+  ::ash::cros_healthd::mojom::DisplayInfoPtr result(::ash::cros_healthd::mojom::DisplayInfo::New());
   
       if (success && !input.ReadEdpInfo(&result->edp_info))
         success = false;
@@ -8107,11 +8107,11 @@ bool StructTraits<::chromeos::cros_healthd::mojom::DisplayInfo::DataView, ::chro
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::mojom::EmbeddedDisplayInfo::DataView, ::chromeos::cros_healthd::mojom::EmbeddedDisplayInfoPtr>::Read(
-    ::chromeos::cros_healthd::mojom::EmbeddedDisplayInfo::DataView input,
-    ::chromeos::cros_healthd::mojom::EmbeddedDisplayInfoPtr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::EmbeddedDisplayInfo::DataView, ::ash::cros_healthd::mojom::EmbeddedDisplayInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::EmbeddedDisplayInfo::DataView input,
+    ::ash::cros_healthd::mojom::EmbeddedDisplayInfoPtr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::mojom::EmbeddedDisplayInfoPtr result(::chromeos::cros_healthd::mojom::EmbeddedDisplayInfo::New());
+  ::ash::cros_healthd::mojom::EmbeddedDisplayInfoPtr result(::ash::cros_healthd::mojom::EmbeddedDisplayInfo::New());
   
       if (success)
         result->privacy_screen_supported = input.privacy_screen_supported();
@@ -8149,11 +8149,11 @@ bool StructTraits<::chromeos::cros_healthd::mojom::EmbeddedDisplayInfo::DataView
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::mojom::ExternalDisplayInfo::DataView, ::chromeos::cros_healthd::mojom::ExternalDisplayInfoPtr>::Read(
-    ::chromeos::cros_healthd::mojom::ExternalDisplayInfo::DataView input,
-    ::chromeos::cros_healthd::mojom::ExternalDisplayInfoPtr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::ExternalDisplayInfo::DataView, ::ash::cros_healthd::mojom::ExternalDisplayInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::ExternalDisplayInfo::DataView input,
+    ::ash::cros_healthd::mojom::ExternalDisplayInfoPtr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::mojom::ExternalDisplayInfoPtr result(::chromeos::cros_healthd::mojom::ExternalDisplayInfo::New());
+  ::ash::cros_healthd::mojom::ExternalDisplayInfoPtr result(::ash::cros_healthd::mojom::ExternalDisplayInfo::New());
   
       if (success && !input.ReadDisplayWidth(&result->display_width))
         success = false;
@@ -8187,11 +8187,11 @@ bool StructTraits<::chromeos::cros_healthd::mojom::ExternalDisplayInfo::DataView
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::mojom::ThunderboltBusInterfaceInfo::DataView, ::chromeos::cros_healthd::mojom::ThunderboltBusInterfaceInfoPtr>::Read(
-    ::chromeos::cros_healthd::mojom::ThunderboltBusInterfaceInfo::DataView input,
-    ::chromeos::cros_healthd::mojom::ThunderboltBusInterfaceInfoPtr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::ThunderboltBusInterfaceInfo::DataView, ::ash::cros_healthd::mojom::ThunderboltBusInterfaceInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::ThunderboltBusInterfaceInfo::DataView input,
+    ::ash::cros_healthd::mojom::ThunderboltBusInterfaceInfoPtr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::mojom::ThunderboltBusInterfaceInfoPtr result(::chromeos::cros_healthd::mojom::ThunderboltBusInterfaceInfo::New());
+  ::ash::cros_healthd::mojom::ThunderboltBusInterfaceInfoPtr result(::ash::cros_healthd::mojom::ThunderboltBusInterfaceInfo::New());
   
       if (success && !input.ReadVendorName(&result->vendor_name))
         success = false;
@@ -8215,11 +8215,11 @@ bool StructTraits<::chromeos::cros_healthd::mojom::ThunderboltBusInterfaceInfo::
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::mojom::ThunderboltBusInfo::DataView, ::chromeos::cros_healthd::mojom::ThunderboltBusInfoPtr>::Read(
-    ::chromeos::cros_healthd::mojom::ThunderboltBusInfo::DataView input,
-    ::chromeos::cros_healthd::mojom::ThunderboltBusInfoPtr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::ThunderboltBusInfo::DataView, ::ash::cros_healthd::mojom::ThunderboltBusInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::ThunderboltBusInfo::DataView input,
+    ::ash::cros_healthd::mojom::ThunderboltBusInfoPtr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::mojom::ThunderboltBusInfoPtr result(::chromeos::cros_healthd::mojom::ThunderboltBusInfo::New());
+  ::ash::cros_healthd::mojom::ThunderboltBusInfoPtr result(::ash::cros_healthd::mojom::ThunderboltBusInfo::New());
   
       if (success && !input.ReadSecurityLevel(&result->security_level))
         success = false;
@@ -8231,11 +8231,11 @@ bool StructTraits<::chromeos::cros_healthd::mojom::ThunderboltBusInfo::DataView,
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::mojom::InputInfo::DataView, ::chromeos::cros_healthd::mojom::InputInfoPtr>::Read(
-    ::chromeos::cros_healthd::mojom::InputInfo::DataView input,
-    ::chromeos::cros_healthd::mojom::InputInfoPtr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::InputInfo::DataView, ::ash::cros_healthd::mojom::InputInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::InputInfo::DataView input,
+    ::ash::cros_healthd::mojom::InputInfoPtr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::mojom::InputInfoPtr result(::chromeos::cros_healthd::mojom::InputInfo::New());
+  ::ash::cros_healthd::mojom::InputInfoPtr result(::ash::cros_healthd::mojom::InputInfo::New());
   
       if (success && !input.ReadTouchpadLibraryName(&result->touchpad_library_name))
         success = false;
@@ -8247,11 +8247,11 @@ bool StructTraits<::chromeos::cros_healthd::mojom::InputInfo::DataView, ::chrome
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::mojom::TouchscreenDevice::DataView, ::chromeos::cros_healthd::mojom::TouchscreenDevicePtr>::Read(
-    ::chromeos::cros_healthd::mojom::TouchscreenDevice::DataView input,
-    ::chromeos::cros_healthd::mojom::TouchscreenDevicePtr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::TouchscreenDevice::DataView, ::ash::cros_healthd::mojom::TouchscreenDevicePtr>::Read(
+    ::ash::cros_healthd::mojom::TouchscreenDevice::DataView input,
+    ::ash::cros_healthd::mojom::TouchscreenDevicePtr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::mojom::TouchscreenDevicePtr result(::chromeos::cros_healthd::mojom::TouchscreenDevice::New());
+  ::ash::cros_healthd::mojom::TouchscreenDevicePtr result(::ash::cros_healthd::mojom::TouchscreenDevice::New());
   
       if (success && !input.ReadInputDevice(&result->input_device))
         success = false;
@@ -8267,11 +8267,11 @@ bool StructTraits<::chromeos::cros_healthd::mojom::TouchscreenDevice::DataView, 
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::mojom::InputDevice::DataView, ::chromeos::cros_healthd::mojom::InputDevicePtr>::Read(
-    ::chromeos::cros_healthd::mojom::InputDevice::DataView input,
-    ::chromeos::cros_healthd::mojom::InputDevicePtr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::InputDevice::DataView, ::ash::cros_healthd::mojom::InputDevicePtr>::Read(
+    ::ash::cros_healthd::mojom::InputDevice::DataView input,
+    ::ash::cros_healthd::mojom::InputDevicePtr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::mojom::InputDevicePtr result(::chromeos::cros_healthd::mojom::InputDevice::New());
+  ::ash::cros_healthd::mojom::InputDevicePtr result(::ash::cros_healthd::mojom::InputDevice::New());
   
       if (success && !input.ReadName(&result->name))
         success = false;
@@ -8287,11 +8287,11 @@ bool StructTraits<::chromeos::cros_healthd::mojom::InputDevice::DataView, ::chro
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::mojom::TelemetryInfo::DataView, ::chromeos::cros_healthd::mojom::TelemetryInfoPtr>::Read(
-    ::chromeos::cros_healthd::mojom::TelemetryInfo::DataView input,
-    ::chromeos::cros_healthd::mojom::TelemetryInfoPtr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::TelemetryInfo::DataView, ::ash::cros_healthd::mojom::TelemetryInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::TelemetryInfo::DataView input,
+    ::ash::cros_healthd::mojom::TelemetryInfoPtr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::mojom::TelemetryInfoPtr result(::chromeos::cros_healthd::mojom::TelemetryInfo::New());
+  ::ash::cros_healthd::mojom::TelemetryInfoPtr result(::ash::cros_healthd::mojom::TelemetryInfo::New());
   
       if (success && !input.ReadBatteryResult(&result->battery_result))
         success = false;
@@ -8340,15 +8340,15 @@ bool StructTraits<::chromeos::cros_healthd::mojom::TelemetryInfo::DataView, ::ch
 }
 
 // static
-bool UnionTraits<::chromeos::cros_healthd::mojom::ProcessResult::DataView, ::chromeos::cros_healthd::mojom::ProcessResultPtr>::Read(
-    ::chromeos::cros_healthd::mojom::ProcessResult::DataView input,
-    ::chromeos::cros_healthd::mojom::ProcessResultPtr* output) {
-  using UnionType = ::chromeos::cros_healthd::mojom::ProcessResult;
+bool UnionTraits<::ash::cros_healthd::mojom::ProcessResult::DataView, ::ash::cros_healthd::mojom::ProcessResultPtr>::Read(
+    ::ash::cros_healthd::mojom::ProcessResult::DataView input,
+    ::ash::cros_healthd::mojom::ProcessResultPtr* output) {
+  using UnionType = ::ash::cros_healthd::mojom::ProcessResult;
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
     case Tag::kProcessInfo: {
-      ::chromeos::cros_healthd::mojom::ProcessInfoPtr result_process_info;
+      ::ash::cros_healthd::mojom::ProcessInfoPtr result_process_info;
       if (!input.ReadProcessInfo(&result_process_info))
         return false;
 
@@ -8357,7 +8357,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::ProcessResult::DataView, ::chr
       break;
     }
     case Tag::kError: {
-      ::chromeos::cros_healthd::mojom::ProbeErrorPtr result_error;
+      ::ash::cros_healthd::mojom::ProbeErrorPtr result_error;
       if (!input.ReadError(&result_error))
         return false;
 
@@ -8373,15 +8373,15 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::ProcessResult::DataView, ::chr
 }
 
 // static
-bool UnionTraits<::chromeos::cros_healthd::mojom::BatteryResult::DataView, ::chromeos::cros_healthd::mojom::BatteryResultPtr>::Read(
-    ::chromeos::cros_healthd::mojom::BatteryResult::DataView input,
-    ::chromeos::cros_healthd::mojom::BatteryResultPtr* output) {
-  using UnionType = ::chromeos::cros_healthd::mojom::BatteryResult;
+bool UnionTraits<::ash::cros_healthd::mojom::BatteryResult::DataView, ::ash::cros_healthd::mojom::BatteryResultPtr>::Read(
+    ::ash::cros_healthd::mojom::BatteryResult::DataView input,
+    ::ash::cros_healthd::mojom::BatteryResultPtr* output) {
+  using UnionType = ::ash::cros_healthd::mojom::BatteryResult;
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
     case Tag::kBatteryInfo: {
-      ::chromeos::cros_healthd::mojom::BatteryInfoPtr result_battery_info;
+      ::ash::cros_healthd::mojom::BatteryInfoPtr result_battery_info;
       if (!input.ReadBatteryInfo(&result_battery_info))
         return false;
 
@@ -8390,7 +8390,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::BatteryResult::DataView, ::chr
       break;
     }
     case Tag::kError: {
-      ::chromeos::cros_healthd::mojom::ProbeErrorPtr result_error;
+      ::ash::cros_healthd::mojom::ProbeErrorPtr result_error;
       if (!input.ReadError(&result_error))
         return false;
 
@@ -8406,15 +8406,15 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::BatteryResult::DataView, ::chr
 }
 
 // static
-bool UnionTraits<::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceResult::DataView, ::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceResultPtr>::Read(
-    ::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceResult::DataView input,
-    ::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceResultPtr* output) {
-  using UnionType = ::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceResult;
+bool UnionTraits<::ash::cros_healthd::mojom::NonRemovableBlockDeviceResult::DataView, ::ash::cros_healthd::mojom::NonRemovableBlockDeviceResultPtr>::Read(
+    ::ash::cros_healthd::mojom::NonRemovableBlockDeviceResult::DataView input,
+    ::ash::cros_healthd::mojom::NonRemovableBlockDeviceResultPtr* output) {
+  using UnionType = ::ash::cros_healthd::mojom::NonRemovableBlockDeviceResult;
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
     case Tag::kBlockDeviceInfo: {
-      std::vector<::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceInfoPtr> result_block_device_info;
+      std::vector<::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfoPtr> result_block_device_info;
       if (!input.ReadBlockDeviceInfo(&result_block_device_info))
         return false;
 
@@ -8423,7 +8423,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceResult:
       break;
     }
     case Tag::kError: {
-      ::chromeos::cros_healthd::mojom::ProbeErrorPtr result_error;
+      ::ash::cros_healthd::mojom::ProbeErrorPtr result_error;
       if (!input.ReadError(&result_error))
         return false;
 
@@ -8439,10 +8439,10 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceResult:
 }
 
 // static
-bool UnionTraits<::chromeos::cros_healthd::mojom::BlockDeviceVendor::DataView, ::chromeos::cros_healthd::mojom::BlockDeviceVendorPtr>::Read(
-    ::chromeos::cros_healthd::mojom::BlockDeviceVendor::DataView input,
-    ::chromeos::cros_healthd::mojom::BlockDeviceVendorPtr* output) {
-  using UnionType = ::chromeos::cros_healthd::mojom::BlockDeviceVendor;
+bool UnionTraits<::ash::cros_healthd::mojom::BlockDeviceVendor::DataView, ::ash::cros_healthd::mojom::BlockDeviceVendorPtr>::Read(
+    ::ash::cros_healthd::mojom::BlockDeviceVendor::DataView input,
+    ::ash::cros_healthd::mojom::BlockDeviceVendorPtr* output) {
+  using UnionType = ::ash::cros_healthd::mojom::BlockDeviceVendor;
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
@@ -8475,10 +8475,10 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::BlockDeviceVendor::DataView, :
 }
 
 // static
-bool UnionTraits<::chromeos::cros_healthd::mojom::BlockDeviceProduct::DataView, ::chromeos::cros_healthd::mojom::BlockDeviceProductPtr>::Read(
-    ::chromeos::cros_healthd::mojom::BlockDeviceProduct::DataView input,
-    ::chromeos::cros_healthd::mojom::BlockDeviceProductPtr* output) {
-  using UnionType = ::chromeos::cros_healthd::mojom::BlockDeviceProduct;
+bool UnionTraits<::ash::cros_healthd::mojom::BlockDeviceProduct::DataView, ::ash::cros_healthd::mojom::BlockDeviceProductPtr>::Read(
+    ::ash::cros_healthd::mojom::BlockDeviceProduct::DataView input,
+    ::ash::cros_healthd::mojom::BlockDeviceProductPtr* output) {
+  using UnionType = ::ash::cros_healthd::mojom::BlockDeviceProduct;
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
@@ -8507,10 +8507,10 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::BlockDeviceProduct::DataView, 
 }
 
 // static
-bool UnionTraits<::chromeos::cros_healthd::mojom::BlockDeviceRevision::DataView, ::chromeos::cros_healthd::mojom::BlockDeviceRevisionPtr>::Read(
-    ::chromeos::cros_healthd::mojom::BlockDeviceRevision::DataView input,
-    ::chromeos::cros_healthd::mojom::BlockDeviceRevisionPtr* output) {
-  using UnionType = ::chromeos::cros_healthd::mojom::BlockDeviceRevision;
+bool UnionTraits<::ash::cros_healthd::mojom::BlockDeviceRevision::DataView, ::ash::cros_healthd::mojom::BlockDeviceRevisionPtr>::Read(
+    ::ash::cros_healthd::mojom::BlockDeviceRevision::DataView input,
+    ::ash::cros_healthd::mojom::BlockDeviceRevisionPtr* output) {
+  using UnionType = ::ash::cros_healthd::mojom::BlockDeviceRevision;
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
@@ -8539,10 +8539,10 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::BlockDeviceRevision::DataView,
 }
 
 // static
-bool UnionTraits<::chromeos::cros_healthd::mojom::BlockDeviceFirmware::DataView, ::chromeos::cros_healthd::mojom::BlockDeviceFirmwarePtr>::Read(
-    ::chromeos::cros_healthd::mojom::BlockDeviceFirmware::DataView input,
-    ::chromeos::cros_healthd::mojom::BlockDeviceFirmwarePtr* output) {
-  using UnionType = ::chromeos::cros_healthd::mojom::BlockDeviceFirmware;
+bool UnionTraits<::ash::cros_healthd::mojom::BlockDeviceFirmware::DataView, ::ash::cros_healthd::mojom::BlockDeviceFirmwarePtr>::Read(
+    ::ash::cros_healthd::mojom::BlockDeviceFirmware::DataView input,
+    ::ash::cros_healthd::mojom::BlockDeviceFirmwarePtr* output) {
+  using UnionType = ::ash::cros_healthd::mojom::BlockDeviceFirmware;
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
@@ -8575,15 +8575,15 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::BlockDeviceFirmware::DataView,
 }
 
 // static
-bool UnionTraits<::chromeos::cros_healthd::mojom::CpuResult::DataView, ::chromeos::cros_healthd::mojom::CpuResultPtr>::Read(
-    ::chromeos::cros_healthd::mojom::CpuResult::DataView input,
-    ::chromeos::cros_healthd::mojom::CpuResultPtr* output) {
-  using UnionType = ::chromeos::cros_healthd::mojom::CpuResult;
+bool UnionTraits<::ash::cros_healthd::mojom::CpuResult::DataView, ::ash::cros_healthd::mojom::CpuResultPtr>::Read(
+    ::ash::cros_healthd::mojom::CpuResult::DataView input,
+    ::ash::cros_healthd::mojom::CpuResultPtr* output) {
+  using UnionType = ::ash::cros_healthd::mojom::CpuResult;
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
     case Tag::kCpuInfo: {
-      ::chromeos::cros_healthd::mojom::CpuInfoPtr result_cpu_info;
+      ::ash::cros_healthd::mojom::CpuInfoPtr result_cpu_info;
       if (!input.ReadCpuInfo(&result_cpu_info))
         return false;
 
@@ -8592,7 +8592,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::CpuResult::DataView, ::chromeo
       break;
     }
     case Tag::kError: {
-      ::chromeos::cros_healthd::mojom::ProbeErrorPtr result_error;
+      ::ash::cros_healthd::mojom::ProbeErrorPtr result_error;
       if (!input.ReadError(&result_error))
         return false;
 
@@ -8608,15 +8608,15 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::CpuResult::DataView, ::chromeo
 }
 
 // static
-bool UnionTraits<::chromeos::cros_healthd::mojom::TimezoneResult::DataView, ::chromeos::cros_healthd::mojom::TimezoneResultPtr>::Read(
-    ::chromeos::cros_healthd::mojom::TimezoneResult::DataView input,
-    ::chromeos::cros_healthd::mojom::TimezoneResultPtr* output) {
-  using UnionType = ::chromeos::cros_healthd::mojom::TimezoneResult;
+bool UnionTraits<::ash::cros_healthd::mojom::TimezoneResult::DataView, ::ash::cros_healthd::mojom::TimezoneResultPtr>::Read(
+    ::ash::cros_healthd::mojom::TimezoneResult::DataView input,
+    ::ash::cros_healthd::mojom::TimezoneResultPtr* output) {
+  using UnionType = ::ash::cros_healthd::mojom::TimezoneResult;
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
     case Tag::kTimezoneInfo: {
-      ::chromeos::cros_healthd::mojom::TimezoneInfoPtr result_timezone_info;
+      ::ash::cros_healthd::mojom::TimezoneInfoPtr result_timezone_info;
       if (!input.ReadTimezoneInfo(&result_timezone_info))
         return false;
 
@@ -8625,7 +8625,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::TimezoneResult::DataView, ::ch
       break;
     }
     case Tag::kError: {
-      ::chromeos::cros_healthd::mojom::ProbeErrorPtr result_error;
+      ::ash::cros_healthd::mojom::ProbeErrorPtr result_error;
       if (!input.ReadError(&result_error))
         return false;
 
@@ -8641,15 +8641,15 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::TimezoneResult::DataView, ::ch
 }
 
 // static
-bool UnionTraits<::chromeos::cros_healthd::mojom::MemoryResult::DataView, ::chromeos::cros_healthd::mojom::MemoryResultPtr>::Read(
-    ::chromeos::cros_healthd::mojom::MemoryResult::DataView input,
-    ::chromeos::cros_healthd::mojom::MemoryResultPtr* output) {
-  using UnionType = ::chromeos::cros_healthd::mojom::MemoryResult;
+bool UnionTraits<::ash::cros_healthd::mojom::MemoryResult::DataView, ::ash::cros_healthd::mojom::MemoryResultPtr>::Read(
+    ::ash::cros_healthd::mojom::MemoryResult::DataView input,
+    ::ash::cros_healthd::mojom::MemoryResultPtr* output) {
+  using UnionType = ::ash::cros_healthd::mojom::MemoryResult;
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
     case Tag::kMemoryInfo: {
-      ::chromeos::cros_healthd::mojom::MemoryInfoPtr result_memory_info;
+      ::ash::cros_healthd::mojom::MemoryInfoPtr result_memory_info;
       if (!input.ReadMemoryInfo(&result_memory_info))
         return false;
 
@@ -8658,7 +8658,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::MemoryResult::DataView, ::chro
       break;
     }
     case Tag::kError: {
-      ::chromeos::cros_healthd::mojom::ProbeErrorPtr result_error;
+      ::ash::cros_healthd::mojom::ProbeErrorPtr result_error;
       if (!input.ReadError(&result_error))
         return false;
 
@@ -8674,15 +8674,15 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::MemoryResult::DataView, ::chro
 }
 
 // static
-bool UnionTraits<::chromeos::cros_healthd::mojom::BacklightResult::DataView, ::chromeos::cros_healthd::mojom::BacklightResultPtr>::Read(
-    ::chromeos::cros_healthd::mojom::BacklightResult::DataView input,
-    ::chromeos::cros_healthd::mojom::BacklightResultPtr* output) {
-  using UnionType = ::chromeos::cros_healthd::mojom::BacklightResult;
+bool UnionTraits<::ash::cros_healthd::mojom::BacklightResult::DataView, ::ash::cros_healthd::mojom::BacklightResultPtr>::Read(
+    ::ash::cros_healthd::mojom::BacklightResult::DataView input,
+    ::ash::cros_healthd::mojom::BacklightResultPtr* output) {
+  using UnionType = ::ash::cros_healthd::mojom::BacklightResult;
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
     case Tag::kBacklightInfo: {
-      std::vector<::chromeos::cros_healthd::mojom::BacklightInfoPtr> result_backlight_info;
+      std::vector<::ash::cros_healthd::mojom::BacklightInfoPtr> result_backlight_info;
       if (!input.ReadBacklightInfo(&result_backlight_info))
         return false;
 
@@ -8691,7 +8691,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::BacklightResult::DataView, ::c
       break;
     }
     case Tag::kError: {
-      ::chromeos::cros_healthd::mojom::ProbeErrorPtr result_error;
+      ::ash::cros_healthd::mojom::ProbeErrorPtr result_error;
       if (!input.ReadError(&result_error))
         return false;
 
@@ -8707,15 +8707,15 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::BacklightResult::DataView, ::c
 }
 
 // static
-bool UnionTraits<::chromeos::cros_healthd::mojom::FanResult::DataView, ::chromeos::cros_healthd::mojom::FanResultPtr>::Read(
-    ::chromeos::cros_healthd::mojom::FanResult::DataView input,
-    ::chromeos::cros_healthd::mojom::FanResultPtr* output) {
-  using UnionType = ::chromeos::cros_healthd::mojom::FanResult;
+bool UnionTraits<::ash::cros_healthd::mojom::FanResult::DataView, ::ash::cros_healthd::mojom::FanResultPtr>::Read(
+    ::ash::cros_healthd::mojom::FanResult::DataView input,
+    ::ash::cros_healthd::mojom::FanResultPtr* output) {
+  using UnionType = ::ash::cros_healthd::mojom::FanResult;
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
     case Tag::kFanInfo: {
-      std::vector<::chromeos::cros_healthd::mojom::FanInfoPtr> result_fan_info;
+      std::vector<::ash::cros_healthd::mojom::FanInfoPtr> result_fan_info;
       if (!input.ReadFanInfo(&result_fan_info))
         return false;
 
@@ -8724,7 +8724,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::FanResult::DataView, ::chromeo
       break;
     }
     case Tag::kError: {
-      ::chromeos::cros_healthd::mojom::ProbeErrorPtr result_error;
+      ::ash::cros_healthd::mojom::ProbeErrorPtr result_error;
       if (!input.ReadError(&result_error))
         return false;
 
@@ -8740,15 +8740,15 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::FanResult::DataView, ::chromeo
 }
 
 // static
-bool UnionTraits<::chromeos::cros_healthd::mojom::StatefulPartitionResult::DataView, ::chromeos::cros_healthd::mojom::StatefulPartitionResultPtr>::Read(
-    ::chromeos::cros_healthd::mojom::StatefulPartitionResult::DataView input,
-    ::chromeos::cros_healthd::mojom::StatefulPartitionResultPtr* output) {
-  using UnionType = ::chromeos::cros_healthd::mojom::StatefulPartitionResult;
+bool UnionTraits<::ash::cros_healthd::mojom::StatefulPartitionResult::DataView, ::ash::cros_healthd::mojom::StatefulPartitionResultPtr>::Read(
+    ::ash::cros_healthd::mojom::StatefulPartitionResult::DataView input,
+    ::ash::cros_healthd::mojom::StatefulPartitionResultPtr* output) {
+  using UnionType = ::ash::cros_healthd::mojom::StatefulPartitionResult;
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
     case Tag::kPartitionInfo: {
-      ::chromeos::cros_healthd::mojom::StatefulPartitionInfoPtr result_partition_info;
+      ::ash::cros_healthd::mojom::StatefulPartitionInfoPtr result_partition_info;
       if (!input.ReadPartitionInfo(&result_partition_info))
         return false;
 
@@ -8757,7 +8757,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::StatefulPartitionResult::DataV
       break;
     }
     case Tag::kError: {
-      ::chromeos::cros_healthd::mojom::ProbeErrorPtr result_error;
+      ::ash::cros_healthd::mojom::ProbeErrorPtr result_error;
       if (!input.ReadError(&result_error))
         return false;
 
@@ -8773,15 +8773,15 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::StatefulPartitionResult::DataV
 }
 
 // static
-bool UnionTraits<::chromeos::cros_healthd::mojom::BluetoothResult::DataView, ::chromeos::cros_healthd::mojom::BluetoothResultPtr>::Read(
-    ::chromeos::cros_healthd::mojom::BluetoothResult::DataView input,
-    ::chromeos::cros_healthd::mojom::BluetoothResultPtr* output) {
-  using UnionType = ::chromeos::cros_healthd::mojom::BluetoothResult;
+bool UnionTraits<::ash::cros_healthd::mojom::BluetoothResult::DataView, ::ash::cros_healthd::mojom::BluetoothResultPtr>::Read(
+    ::ash::cros_healthd::mojom::BluetoothResult::DataView input,
+    ::ash::cros_healthd::mojom::BluetoothResultPtr* output) {
+  using UnionType = ::ash::cros_healthd::mojom::BluetoothResult;
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
     case Tag::kBluetoothAdapterInfo: {
-      std::vector<::chromeos::cros_healthd::mojom::BluetoothAdapterInfoPtr> result_bluetooth_adapter_info;
+      std::vector<::ash::cros_healthd::mojom::BluetoothAdapterInfoPtr> result_bluetooth_adapter_info;
       if (!input.ReadBluetoothAdapterInfo(&result_bluetooth_adapter_info))
         return false;
 
@@ -8790,7 +8790,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::BluetoothResult::DataView, ::c
       break;
     }
     case Tag::kError: {
-      ::chromeos::cros_healthd::mojom::ProbeErrorPtr result_error;
+      ::ash::cros_healthd::mojom::ProbeErrorPtr result_error;
       if (!input.ReadError(&result_error))
         return false;
 
@@ -8806,15 +8806,15 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::BluetoothResult::DataView, ::c
 }
 
 // static
-bool UnionTraits<::chromeos::cros_healthd::mojom::DEPRECATE_SystemResult::DataView, ::chromeos::cros_healthd::mojom::DEPRECATE_SystemResultPtr>::Read(
-    ::chromeos::cros_healthd::mojom::DEPRECATE_SystemResult::DataView input,
-    ::chromeos::cros_healthd::mojom::DEPRECATE_SystemResultPtr* output) {
-  using UnionType = ::chromeos::cros_healthd::mojom::DEPRECATE_SystemResult;
+bool UnionTraits<::ash::cros_healthd::mojom::DEPRECATE_SystemResult::DataView, ::ash::cros_healthd::mojom::DEPRECATE_SystemResultPtr>::Read(
+    ::ash::cros_healthd::mojom::DEPRECATE_SystemResult::DataView input,
+    ::ash::cros_healthd::mojom::DEPRECATE_SystemResultPtr* output) {
+  using UnionType = ::ash::cros_healthd::mojom::DEPRECATE_SystemResult;
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
     case Tag::kError: {
-      ::chromeos::cros_healthd::mojom::ProbeErrorPtr result_error;
+      ::ash::cros_healthd::mojom::ProbeErrorPtr result_error;
       if (!input.ReadError(&result_error))
         return false;
 
@@ -8830,15 +8830,15 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::DEPRECATE_SystemResult::DataVi
 }
 
 // static
-bool UnionTraits<::chromeos::cros_healthd::mojom::SystemResult::DataView, ::chromeos::cros_healthd::mojom::SystemResultPtr>::Read(
-    ::chromeos::cros_healthd::mojom::SystemResult::DataView input,
-    ::chromeos::cros_healthd::mojom::SystemResultPtr* output) {
-  using UnionType = ::chromeos::cros_healthd::mojom::SystemResult;
+bool UnionTraits<::ash::cros_healthd::mojom::SystemResult::DataView, ::ash::cros_healthd::mojom::SystemResultPtr>::Read(
+    ::ash::cros_healthd::mojom::SystemResult::DataView input,
+    ::ash::cros_healthd::mojom::SystemResultPtr* output) {
+  using UnionType = ::ash::cros_healthd::mojom::SystemResult;
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
     case Tag::kSystemInfo: {
-      ::chromeos::cros_healthd::mojom::SystemInfoPtr result_system_info;
+      ::ash::cros_healthd::mojom::SystemInfoPtr result_system_info;
       if (!input.ReadSystemInfo(&result_system_info))
         return false;
 
@@ -8847,7 +8847,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::SystemResult::DataView, ::chro
       break;
     }
     case Tag::kError: {
-      ::chromeos::cros_healthd::mojom::ProbeErrorPtr result_error;
+      ::ash::cros_healthd::mojom::ProbeErrorPtr result_error;
       if (!input.ReadError(&result_error))
         return false;
 
@@ -8863,10 +8863,10 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::SystemResult::DataView, ::chro
 }
 
 // static
-bool UnionTraits<::chromeos::cros_healthd::mojom::NetworkResult::DataView, ::chromeos::cros_healthd::mojom::NetworkResultPtr>::Read(
-    ::chromeos::cros_healthd::mojom::NetworkResult::DataView input,
-    ::chromeos::cros_healthd::mojom::NetworkResultPtr* output) {
-  using UnionType = ::chromeos::cros_healthd::mojom::NetworkResult;
+bool UnionTraits<::ash::cros_healthd::mojom::NetworkResult::DataView, ::ash::cros_healthd::mojom::NetworkResultPtr>::Read(
+    ::ash::cros_healthd::mojom::NetworkResult::DataView input,
+    ::ash::cros_healthd::mojom::NetworkResultPtr* output) {
+  using UnionType = ::ash::cros_healthd::mojom::NetworkResult;
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
@@ -8880,7 +8880,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::NetworkResult::DataView, ::chr
       break;
     }
     case Tag::kError: {
-      ::chromeos::cros_healthd::mojom::ProbeErrorPtr result_error;
+      ::ash::cros_healthd::mojom::ProbeErrorPtr result_error;
       if (!input.ReadError(&result_error))
         return false;
 
@@ -8896,15 +8896,15 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::NetworkResult::DataView, ::chr
 }
 
 // static
-bool UnionTraits<::chromeos::cros_healthd::mojom::NetworkInterfaceResult::DataView, ::chromeos::cros_healthd::mojom::NetworkInterfaceResultPtr>::Read(
-    ::chromeos::cros_healthd::mojom::NetworkInterfaceResult::DataView input,
-    ::chromeos::cros_healthd::mojom::NetworkInterfaceResultPtr* output) {
-  using UnionType = ::chromeos::cros_healthd::mojom::NetworkInterfaceResult;
+bool UnionTraits<::ash::cros_healthd::mojom::NetworkInterfaceResult::DataView, ::ash::cros_healthd::mojom::NetworkInterfaceResultPtr>::Read(
+    ::ash::cros_healthd::mojom::NetworkInterfaceResult::DataView input,
+    ::ash::cros_healthd::mojom::NetworkInterfaceResultPtr* output) {
+  using UnionType = ::ash::cros_healthd::mojom::NetworkInterfaceResult;
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
     case Tag::kNetworkInterfaceInfo: {
-      std::vector<::chromeos::cros_healthd::mojom::NetworkInterfaceInfoPtr> result_network_interface_info;
+      std::vector<::ash::cros_healthd::mojom::NetworkInterfaceInfoPtr> result_network_interface_info;
       if (!input.ReadNetworkInterfaceInfo(&result_network_interface_info))
         return false;
 
@@ -8913,7 +8913,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::NetworkInterfaceResult::DataVi
       break;
     }
     case Tag::kError: {
-      ::chromeos::cros_healthd::mojom::ProbeErrorPtr result_error;
+      ::ash::cros_healthd::mojom::ProbeErrorPtr result_error;
       if (!input.ReadError(&result_error))
         return false;
 
@@ -8929,15 +8929,15 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::NetworkInterfaceResult::DataVi
 }
 
 // static
-bool UnionTraits<::chromeos::cros_healthd::mojom::NetworkInterfaceInfo::DataView, ::chromeos::cros_healthd::mojom::NetworkInterfaceInfoPtr>::Read(
-    ::chromeos::cros_healthd::mojom::NetworkInterfaceInfo::DataView input,
-    ::chromeos::cros_healthd::mojom::NetworkInterfaceInfoPtr* output) {
-  using UnionType = ::chromeos::cros_healthd::mojom::NetworkInterfaceInfo;
+bool UnionTraits<::ash::cros_healthd::mojom::NetworkInterfaceInfo::DataView, ::ash::cros_healthd::mojom::NetworkInterfaceInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::NetworkInterfaceInfo::DataView input,
+    ::ash::cros_healthd::mojom::NetworkInterfaceInfoPtr* output) {
+  using UnionType = ::ash::cros_healthd::mojom::NetworkInterfaceInfo;
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
     case Tag::kWirelessInterfaceInfo: {
-      ::chromeos::cros_healthd::mojom::WirelessInterfaceInfoPtr result_wireless_interface_info;
+      ::ash::cros_healthd::mojom::WirelessInterfaceInfoPtr result_wireless_interface_info;
       if (!input.ReadWirelessInterfaceInfo(&result_wireless_interface_info))
         return false;
 
@@ -8953,15 +8953,15 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::NetworkInterfaceInfo::DataView
 }
 
 // static
-bool UnionTraits<::chromeos::cros_healthd::mojom::AudioResult::DataView, ::chromeos::cros_healthd::mojom::AudioResultPtr>::Read(
-    ::chromeos::cros_healthd::mojom::AudioResult::DataView input,
-    ::chromeos::cros_healthd::mojom::AudioResultPtr* output) {
-  using UnionType = ::chromeos::cros_healthd::mojom::AudioResult;
+bool UnionTraits<::ash::cros_healthd::mojom::AudioResult::DataView, ::ash::cros_healthd::mojom::AudioResultPtr>::Read(
+    ::ash::cros_healthd::mojom::AudioResult::DataView input,
+    ::ash::cros_healthd::mojom::AudioResultPtr* output) {
+  using UnionType = ::ash::cros_healthd::mojom::AudioResult;
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
     case Tag::kAudioInfo: {
-      ::chromeos::cros_healthd::mojom::AudioInfoPtr result_audio_info;
+      ::ash::cros_healthd::mojom::AudioInfoPtr result_audio_info;
       if (!input.ReadAudioInfo(&result_audio_info))
         return false;
 
@@ -8970,7 +8970,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::AudioResult::DataView, ::chrom
       break;
     }
     case Tag::kError: {
-      ::chromeos::cros_healthd::mojom::ProbeErrorPtr result_error;
+      ::ash::cros_healthd::mojom::ProbeErrorPtr result_error;
       if (!input.ReadError(&result_error))
         return false;
 
@@ -8986,15 +8986,15 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::AudioResult::DataView, ::chrom
 }
 
 // static
-bool UnionTraits<::chromeos::cros_healthd::mojom::AudioHardwareResult::DataView, ::chromeos::cros_healthd::mojom::AudioHardwareResultPtr>::Read(
-    ::chromeos::cros_healthd::mojom::AudioHardwareResult::DataView input,
-    ::chromeos::cros_healthd::mojom::AudioHardwareResultPtr* output) {
-  using UnionType = ::chromeos::cros_healthd::mojom::AudioHardwareResult;
+bool UnionTraits<::ash::cros_healthd::mojom::AudioHardwareResult::DataView, ::ash::cros_healthd::mojom::AudioHardwareResultPtr>::Read(
+    ::ash::cros_healthd::mojom::AudioHardwareResult::DataView input,
+    ::ash::cros_healthd::mojom::AudioHardwareResultPtr* output) {
+  using UnionType = ::ash::cros_healthd::mojom::AudioHardwareResult;
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
     case Tag::kAudioHardwareInfo: {
-      ::chromeos::cros_healthd::mojom::AudioHardwareInfoPtr result_audio_hardware_info;
+      ::ash::cros_healthd::mojom::AudioHardwareInfoPtr result_audio_hardware_info;
       if (!input.ReadAudioHardwareInfo(&result_audio_hardware_info))
         return false;
 
@@ -9003,7 +9003,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::AudioHardwareResult::DataView,
       break;
     }
     case Tag::kError: {
-      ::chromeos::cros_healthd::mojom::ProbeErrorPtr result_error;
+      ::ash::cros_healthd::mojom::ProbeErrorPtr result_error;
       if (!input.ReadError(&result_error))
         return false;
 
@@ -9019,15 +9019,15 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::AudioHardwareResult::DataView,
 }
 
 // static
-bool UnionTraits<::chromeos::cros_healthd::mojom::BootPerformanceResult::DataView, ::chromeos::cros_healthd::mojom::BootPerformanceResultPtr>::Read(
-    ::chromeos::cros_healthd::mojom::BootPerformanceResult::DataView input,
-    ::chromeos::cros_healthd::mojom::BootPerformanceResultPtr* output) {
-  using UnionType = ::chromeos::cros_healthd::mojom::BootPerformanceResult;
+bool UnionTraits<::ash::cros_healthd::mojom::BootPerformanceResult::DataView, ::ash::cros_healthd::mojom::BootPerformanceResultPtr>::Read(
+    ::ash::cros_healthd::mojom::BootPerformanceResult::DataView input,
+    ::ash::cros_healthd::mojom::BootPerformanceResultPtr* output) {
+  using UnionType = ::ash::cros_healthd::mojom::BootPerformanceResult;
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
     case Tag::kBootPerformanceInfo: {
-      ::chromeos::cros_healthd::mojom::BootPerformanceInfoPtr result_boot_performance_info;
+      ::ash::cros_healthd::mojom::BootPerformanceInfoPtr result_boot_performance_info;
       if (!input.ReadBootPerformanceInfo(&result_boot_performance_info))
         return false;
 
@@ -9036,7 +9036,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::BootPerformanceResult::DataVie
       break;
     }
     case Tag::kError: {
-      ::chromeos::cros_healthd::mojom::ProbeErrorPtr result_error;
+      ::ash::cros_healthd::mojom::ProbeErrorPtr result_error;
       if (!input.ReadError(&result_error))
         return false;
 
@@ -9052,15 +9052,15 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::BootPerformanceResult::DataVie
 }
 
 // static
-bool UnionTraits<::chromeos::cros_healthd::mojom::BusResult::DataView, ::chromeos::cros_healthd::mojom::BusResultPtr>::Read(
-    ::chromeos::cros_healthd::mojom::BusResult::DataView input,
-    ::chromeos::cros_healthd::mojom::BusResultPtr* output) {
-  using UnionType = ::chromeos::cros_healthd::mojom::BusResult;
+bool UnionTraits<::ash::cros_healthd::mojom::BusResult::DataView, ::ash::cros_healthd::mojom::BusResultPtr>::Read(
+    ::ash::cros_healthd::mojom::BusResult::DataView input,
+    ::ash::cros_healthd::mojom::BusResultPtr* output) {
+  using UnionType = ::ash::cros_healthd::mojom::BusResult;
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
     case Tag::kBusDevices: {
-      std::vector<::chromeos::cros_healthd::mojom::BusDevicePtr> result_bus_devices;
+      std::vector<::ash::cros_healthd::mojom::BusDevicePtr> result_bus_devices;
       if (!input.ReadBusDevices(&result_bus_devices))
         return false;
 
@@ -9069,7 +9069,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::BusResult::DataView, ::chromeo
       break;
     }
     case Tag::kError: {
-      ::chromeos::cros_healthd::mojom::ProbeErrorPtr result_error;
+      ::ash::cros_healthd::mojom::ProbeErrorPtr result_error;
       if (!input.ReadError(&result_error))
         return false;
 
@@ -9085,15 +9085,15 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::BusResult::DataView, ::chromeo
 }
 
 // static
-bool UnionTraits<::chromeos::cros_healthd::mojom::BusInfo::DataView, ::chromeos::cros_healthd::mojom::BusInfoPtr>::Read(
-    ::chromeos::cros_healthd::mojom::BusInfo::DataView input,
-    ::chromeos::cros_healthd::mojom::BusInfoPtr* output) {
-  using UnionType = ::chromeos::cros_healthd::mojom::BusInfo;
+bool UnionTraits<::ash::cros_healthd::mojom::BusInfo::DataView, ::ash::cros_healthd::mojom::BusInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::BusInfo::DataView input,
+    ::ash::cros_healthd::mojom::BusInfoPtr* output) {
+  using UnionType = ::ash::cros_healthd::mojom::BusInfo;
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
     case Tag::kPciBusInfo: {
-      ::chromeos::cros_healthd::mojom::PciBusInfoPtr result_pci_bus_info;
+      ::ash::cros_healthd::mojom::PciBusInfoPtr result_pci_bus_info;
       if (!input.ReadPciBusInfo(&result_pci_bus_info))
         return false;
 
@@ -9102,7 +9102,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::BusInfo::DataView, ::chromeos:
       break;
     }
     case Tag::kUsbBusInfo: {
-      ::chromeos::cros_healthd::mojom::UsbBusInfoPtr result_usb_bus_info;
+      ::ash::cros_healthd::mojom::UsbBusInfoPtr result_usb_bus_info;
       if (!input.ReadUsbBusInfo(&result_usb_bus_info))
         return false;
 
@@ -9111,7 +9111,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::BusInfo::DataView, ::chromeos:
       break;
     }
     case Tag::kThunderboltBusInfo: {
-      ::chromeos::cros_healthd::mojom::ThunderboltBusInfoPtr result_thunderbolt_bus_info;
+      ::ash::cros_healthd::mojom::ThunderboltBusInfoPtr result_thunderbolt_bus_info;
       if (!input.ReadThunderboltBusInfo(&result_thunderbolt_bus_info))
         return false;
 
@@ -9132,15 +9132,15 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::BusInfo::DataView, ::chromeos:
 }
 
 // static
-bool UnionTraits<::chromeos::cros_healthd::mojom::TpmResult::DataView, ::chromeos::cros_healthd::mojom::TpmResultPtr>::Read(
-    ::chromeos::cros_healthd::mojom::TpmResult::DataView input,
-    ::chromeos::cros_healthd::mojom::TpmResultPtr* output) {
-  using UnionType = ::chromeos::cros_healthd::mojom::TpmResult;
+bool UnionTraits<::ash::cros_healthd::mojom::TpmResult::DataView, ::ash::cros_healthd::mojom::TpmResultPtr>::Read(
+    ::ash::cros_healthd::mojom::TpmResult::DataView input,
+    ::ash::cros_healthd::mojom::TpmResultPtr* output) {
+  using UnionType = ::ash::cros_healthd::mojom::TpmResult;
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
     case Tag::kTpmInfo: {
-      ::chromeos::cros_healthd::mojom::TpmInfoPtr result_tpm_info;
+      ::ash::cros_healthd::mojom::TpmInfoPtr result_tpm_info;
       if (!input.ReadTpmInfo(&result_tpm_info))
         return false;
 
@@ -9149,7 +9149,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::TpmResult::DataView, ::chromeo
       break;
     }
     case Tag::kError: {
-      ::chromeos::cros_healthd::mojom::ProbeErrorPtr result_error;
+      ::ash::cros_healthd::mojom::ProbeErrorPtr result_error;
       if (!input.ReadError(&result_error))
         return false;
 
@@ -9165,15 +9165,15 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::TpmResult::DataView, ::chromeo
 }
 
 // static
-bool UnionTraits<::chromeos::cros_healthd::mojom::GraphicsResult::DataView, ::chromeos::cros_healthd::mojom::GraphicsResultPtr>::Read(
-    ::chromeos::cros_healthd::mojom::GraphicsResult::DataView input,
-    ::chromeos::cros_healthd::mojom::GraphicsResultPtr* output) {
-  using UnionType = ::chromeos::cros_healthd::mojom::GraphicsResult;
+bool UnionTraits<::ash::cros_healthd::mojom::GraphicsResult::DataView, ::ash::cros_healthd::mojom::GraphicsResultPtr>::Read(
+    ::ash::cros_healthd::mojom::GraphicsResult::DataView input,
+    ::ash::cros_healthd::mojom::GraphicsResultPtr* output) {
+  using UnionType = ::ash::cros_healthd::mojom::GraphicsResult;
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
     case Tag::kGraphicsInfo: {
-      ::chromeos::cros_healthd::mojom::GraphicsInfoPtr result_graphics_info;
+      ::ash::cros_healthd::mojom::GraphicsInfoPtr result_graphics_info;
       if (!input.ReadGraphicsInfo(&result_graphics_info))
         return false;
 
@@ -9182,7 +9182,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::GraphicsResult::DataView, ::ch
       break;
     }
     case Tag::kError: {
-      ::chromeos::cros_healthd::mojom::ProbeErrorPtr result_error;
+      ::ash::cros_healthd::mojom::ProbeErrorPtr result_error;
       if (!input.ReadError(&result_error))
         return false;
 
@@ -9198,15 +9198,15 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::GraphicsResult::DataView, ::ch
 }
 
 // static
-bool UnionTraits<::chromeos::cros_healthd::mojom::DisplayResult::DataView, ::chromeos::cros_healthd::mojom::DisplayResultPtr>::Read(
-    ::chromeos::cros_healthd::mojom::DisplayResult::DataView input,
-    ::chromeos::cros_healthd::mojom::DisplayResultPtr* output) {
-  using UnionType = ::chromeos::cros_healthd::mojom::DisplayResult;
+bool UnionTraits<::ash::cros_healthd::mojom::DisplayResult::DataView, ::ash::cros_healthd::mojom::DisplayResultPtr>::Read(
+    ::ash::cros_healthd::mojom::DisplayResult::DataView input,
+    ::ash::cros_healthd::mojom::DisplayResultPtr* output) {
+  using UnionType = ::ash::cros_healthd::mojom::DisplayResult;
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
     case Tag::kDisplayInfo: {
-      ::chromeos::cros_healthd::mojom::DisplayInfoPtr result_display_info;
+      ::ash::cros_healthd::mojom::DisplayInfoPtr result_display_info;
       if (!input.ReadDisplayInfo(&result_display_info))
         return false;
 
@@ -9215,7 +9215,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::DisplayResult::DataView, ::chr
       break;
     }
     case Tag::kError: {
-      ::chromeos::cros_healthd::mojom::ProbeErrorPtr result_error;
+      ::ash::cros_healthd::mojom::ProbeErrorPtr result_error;
       if (!input.ReadError(&result_error))
         return false;
 
@@ -9231,15 +9231,15 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::DisplayResult::DataView, ::chr
 }
 
 // static
-bool UnionTraits<::chromeos::cros_healthd::mojom::InputResult::DataView, ::chromeos::cros_healthd::mojom::InputResultPtr>::Read(
-    ::chromeos::cros_healthd::mojom::InputResult::DataView input,
-    ::chromeos::cros_healthd::mojom::InputResultPtr* output) {
-  using UnionType = ::chromeos::cros_healthd::mojom::InputResult;
+bool UnionTraits<::ash::cros_healthd::mojom::InputResult::DataView, ::ash::cros_healthd::mojom::InputResultPtr>::Read(
+    ::ash::cros_healthd::mojom::InputResult::DataView input,
+    ::ash::cros_healthd::mojom::InputResultPtr* output) {
+  using UnionType = ::ash::cros_healthd::mojom::InputResult;
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
     case Tag::kInputInfo: {
-      ::chromeos::cros_healthd::mojom::InputInfoPtr result_input_info;
+      ::ash::cros_healthd::mojom::InputInfoPtr result_input_info;
       if (!input.ReadInputInfo(&result_input_info))
         return false;
 
@@ -9248,7 +9248,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::InputResult::DataView, ::chrom
       break;
     }
     case Tag::kError: {
-      ::chromeos::cros_healthd::mojom::ProbeErrorPtr result_error;
+      ::ash::cros_healthd::mojom::ProbeErrorPtr result_error;
       if (!input.ReadError(&result_error))
         return false;
 
@@ -9270,7 +9270,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::InputResult::DataView, ::chrom
 // separate .cc file to save compile time.
 
 
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace mojom {
 
@@ -9279,7 +9279,7 @@ namespace mojom {
 
 }  // namespace mojom
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 
 #if defined(__clang__)

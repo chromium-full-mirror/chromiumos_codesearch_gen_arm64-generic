@@ -46,7 +46,7 @@
 
 
 
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace mojom {
 ServiceStatus::ServiceStatus()
@@ -94,7 +94,7 @@ bool ServiceStatus::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
-const char CrosHealthdServiceFactory::Name_[] = "chromeos.cros_healthd.mojom.CrosHealthdServiceFactory";
+const char CrosHealthdServiceFactory::Name_[] = "ash.cros_healthd.mojom.CrosHealthdServiceFactory";
 
 CrosHealthdServiceFactory::IPCStableHashFunction CrosHealthdServiceFactory::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
@@ -132,36 +132,36 @@ const char* CrosHealthdServiceFactory::MessageToMethodName_(mojo::Message& messa
   if (!is_response) {
     switch (message.name()) {
       case internal::kCrosHealthdServiceFactory_GetDiagnosticsService_Name:
-            return "Receive chromeos::cros_healthd::mojom::CrosHealthdServiceFactory::GetDiagnosticsService";
+            return "Receive ash::cros_healthd::mojom::CrosHealthdServiceFactory::GetDiagnosticsService";
       case internal::kCrosHealthdServiceFactory_GetEventService_Name:
-            return "Receive chromeos::cros_healthd::mojom::CrosHealthdServiceFactory::GetEventService";
+            return "Receive ash::cros_healthd::mojom::CrosHealthdServiceFactory::GetEventService";
       case internal::kCrosHealthdServiceFactory_GetProbeService_Name:
-            return "Receive chromeos::cros_healthd::mojom::CrosHealthdServiceFactory::GetProbeService";
+            return "Receive ash::cros_healthd::mojom::CrosHealthdServiceFactory::GetProbeService";
       case internal::kCrosHealthdServiceFactory_SendNetworkHealthService_Name:
-            return "Receive chromeos::cros_healthd::mojom::CrosHealthdServiceFactory::SendNetworkHealthService";
+            return "Receive ash::cros_healthd::mojom::CrosHealthdServiceFactory::SendNetworkHealthService";
       case internal::kCrosHealthdServiceFactory_SendNetworkDiagnosticsRoutines_Name:
-            return "Receive chromeos::cros_healthd::mojom::CrosHealthdServiceFactory::SendNetworkDiagnosticsRoutines";
+            return "Receive ash::cros_healthd::mojom::CrosHealthdServiceFactory::SendNetworkDiagnosticsRoutines";
       case internal::kCrosHealthdServiceFactory_GetSystemService_Name:
-            return "Receive chromeos::cros_healthd::mojom::CrosHealthdServiceFactory::GetSystemService";
+            return "Receive ash::cros_healthd::mojom::CrosHealthdServiceFactory::GetSystemService";
       case internal::kCrosHealthdServiceFactory_SendChromiumDataCollector_Name:
-            return "Receive chromeos::cros_healthd::mojom::CrosHealthdServiceFactory::SendChromiumDataCollector";
+            return "Receive ash::cros_healthd::mojom::CrosHealthdServiceFactory::SendChromiumDataCollector";
     }
   } else {
     switch (message.name()) {
       case internal::kCrosHealthdServiceFactory_GetDiagnosticsService_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::CrosHealthdServiceFactory::GetDiagnosticsService";
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdServiceFactory::GetDiagnosticsService";
       case internal::kCrosHealthdServiceFactory_GetEventService_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::CrosHealthdServiceFactory::GetEventService";
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdServiceFactory::GetEventService";
       case internal::kCrosHealthdServiceFactory_GetProbeService_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::CrosHealthdServiceFactory::GetProbeService";
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdServiceFactory::GetProbeService";
       case internal::kCrosHealthdServiceFactory_SendNetworkHealthService_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::CrosHealthdServiceFactory::SendNetworkHealthService";
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdServiceFactory::SendNetworkHealthService";
       case internal::kCrosHealthdServiceFactory_SendNetworkDiagnosticsRoutines_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::CrosHealthdServiceFactory::SendNetworkDiagnosticsRoutines";
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdServiceFactory::SendNetworkDiagnosticsRoutines";
       case internal::kCrosHealthdServiceFactory_GetSystemService_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::CrosHealthdServiceFactory::GetSystemService";
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdServiceFactory::GetSystemService";
       case internal::kCrosHealthdServiceFactory_SendChromiumDataCollector_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::CrosHealthdServiceFactory::SendChromiumDataCollector";
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdServiceFactory::SendChromiumDataCollector";
     }
   }
   return "Receive unknown mojo message";
@@ -184,7 +184,7 @@ uint32_t CrosHealthdServiceFactory::GetDiagnosticsService_Sym::IPCStableHash() {
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)chromeos::cros_healthd::mojom::CrosHealthdServiceFactory::GetDiagnosticsService");
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdServiceFactory::GetDiagnosticsService");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -197,7 +197,7 @@ uint32_t CrosHealthdServiceFactory::GetEventService_Sym::IPCStableHash() {
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)chromeos::cros_healthd::mojom::CrosHealthdServiceFactory::GetEventService");
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdServiceFactory::GetEventService");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -210,7 +210,7 @@ uint32_t CrosHealthdServiceFactory::GetProbeService_Sym::IPCStableHash() {
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)chromeos::cros_healthd::mojom::CrosHealthdServiceFactory::GetProbeService");
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdServiceFactory::GetProbeService");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -223,7 +223,7 @@ uint32_t CrosHealthdServiceFactory::SendNetworkHealthService_Sym::IPCStableHash(
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)chromeos::cros_healthd::mojom::CrosHealthdServiceFactory::SendNetworkHealthService");
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdServiceFactory::SendNetworkHealthService");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -236,7 +236,7 @@ uint32_t CrosHealthdServiceFactory::SendNetworkDiagnosticsRoutines_Sym::IPCStabl
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)chromeos::cros_healthd::mojom::CrosHealthdServiceFactory::SendNetworkDiagnosticsRoutines");
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdServiceFactory::SendNetworkDiagnosticsRoutines");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -249,7 +249,7 @@ uint32_t CrosHealthdServiceFactory::GetSystemService_Sym::IPCStableHash() {
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)chromeos::cros_healthd::mojom::CrosHealthdServiceFactory::GetSystemService");
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdServiceFactory::GetSystemService");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -262,7 +262,7 @@ uint32_t CrosHealthdServiceFactory::SendChromiumDataCollector_Sym::IPCStableHash
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)chromeos::cros_healthd::mojom::CrosHealthdServiceFactory::SendChromiumDataCollector");
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdServiceFactory::SendChromiumDataCollector");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -277,7 +277,7 @@ void CrosHealthdServiceFactoryProxy::GetDiagnosticsService(
     ::mojo::PendingReceiver<CrosHealthdDiagnosticsService> in_service) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send chromeos::cros_healthd::mojom::CrosHealthdServiceFactory::GetDiagnosticsService", "input_parameters",
+    "mojom", "Send ash::cros_healthd::mojom::CrosHealthdServiceFactory::GetDiagnosticsService", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
@@ -297,10 +297,10 @@ void CrosHealthdServiceFactoryProxy::GetDiagnosticsService(
   mojo::Message message(
       internal::kCrosHealthdServiceFactory_GetDiagnosticsService_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdServiceFactory_GetDiagnosticsService_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdServiceFactory_GetDiagnosticsService_Params_Data> params(
           message);
   params.Allocate();
-  mojo::internal::Serialize<mojo::InterfaceRequestDataView<::chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsServiceInterfaceBase>>(
+  mojo::internal::Serialize<mojo::InterfaceRequestDataView<::ash::cros_healthd::mojom::CrosHealthdDiagnosticsServiceInterfaceBase>>(
       in_service, &params->service, &params.message());
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
       !mojo::internal::IsHandleOrInterfaceValid(params->service),
@@ -320,7 +320,7 @@ void CrosHealthdServiceFactoryProxy::GetEventService(
     ::mojo::PendingReceiver<CrosHealthdEventService> in_service) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send chromeos::cros_healthd::mojom::CrosHealthdServiceFactory::GetEventService", "input_parameters",
+    "mojom", "Send ash::cros_healthd::mojom::CrosHealthdServiceFactory::GetEventService", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
@@ -340,10 +340,10 @@ void CrosHealthdServiceFactoryProxy::GetEventService(
   mojo::Message message(
       internal::kCrosHealthdServiceFactory_GetEventService_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdServiceFactory_GetEventService_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdServiceFactory_GetEventService_Params_Data> params(
           message);
   params.Allocate();
-  mojo::internal::Serialize<mojo::InterfaceRequestDataView<::chromeos::cros_healthd::mojom::CrosHealthdEventServiceInterfaceBase>>(
+  mojo::internal::Serialize<mojo::InterfaceRequestDataView<::ash::cros_healthd::mojom::CrosHealthdEventServiceInterfaceBase>>(
       in_service, &params->service, &params.message());
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
       !mojo::internal::IsHandleOrInterfaceValid(params->service),
@@ -363,7 +363,7 @@ void CrosHealthdServiceFactoryProxy::GetProbeService(
     ::mojo::PendingReceiver<CrosHealthdProbeService> in_service) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send chromeos::cros_healthd::mojom::CrosHealthdServiceFactory::GetProbeService", "input_parameters",
+    "mojom", "Send ash::cros_healthd::mojom::CrosHealthdServiceFactory::GetProbeService", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
@@ -383,10 +383,10 @@ void CrosHealthdServiceFactoryProxy::GetProbeService(
   mojo::Message message(
       internal::kCrosHealthdServiceFactory_GetProbeService_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdServiceFactory_GetProbeService_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdServiceFactory_GetProbeService_Params_Data> params(
           message);
   params.Allocate();
-  mojo::internal::Serialize<mojo::InterfaceRequestDataView<::chromeos::cros_healthd::mojom::CrosHealthdProbeServiceInterfaceBase>>(
+  mojo::internal::Serialize<mojo::InterfaceRequestDataView<::ash::cros_healthd::mojom::CrosHealthdProbeServiceInterfaceBase>>(
       in_service, &params->service, &params.message());
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
       !mojo::internal::IsHandleOrInterfaceValid(params->service),
@@ -406,7 +406,7 @@ void CrosHealthdServiceFactoryProxy::SendNetworkHealthService(
     ::mojo::PendingRemote<::chromeos::network_health::mojom::NetworkHealthService> in_remote) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send chromeos::cros_healthd::mojom::CrosHealthdServiceFactory::SendNetworkHealthService", "input_parameters",
+    "mojom", "Send ash::cros_healthd::mojom::CrosHealthdServiceFactory::SendNetworkHealthService", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
@@ -426,7 +426,7 @@ void CrosHealthdServiceFactoryProxy::SendNetworkHealthService(
   mojo::Message message(
       internal::kCrosHealthdServiceFactory_SendNetworkHealthService_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdServiceFactory_SendNetworkHealthService_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdServiceFactory_SendNetworkHealthService_Params_Data> params(
           message);
   params.Allocate();
   mojo::internal::Serialize<mojo::InterfacePtrDataView<::chromeos::network_health::mojom::NetworkHealthServiceInterfaceBase>>(
@@ -449,7 +449,7 @@ void CrosHealthdServiceFactoryProxy::SendNetworkDiagnosticsRoutines(
     ::mojo::PendingRemote<::chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines> in_network_diagnostics_routines) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send chromeos::cros_healthd::mojom::CrosHealthdServiceFactory::SendNetworkDiagnosticsRoutines", "input_parameters",
+    "mojom", "Send ash::cros_healthd::mojom::CrosHealthdServiceFactory::SendNetworkDiagnosticsRoutines", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
@@ -469,7 +469,7 @@ void CrosHealthdServiceFactoryProxy::SendNetworkDiagnosticsRoutines(
   mojo::Message message(
       internal::kCrosHealthdServiceFactory_SendNetworkDiagnosticsRoutines_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdServiceFactory_SendNetworkDiagnosticsRoutines_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdServiceFactory_SendNetworkDiagnosticsRoutines_Params_Data> params(
           message);
   params.Allocate();
   mojo::internal::Serialize<mojo::InterfacePtrDataView<::chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutinesInterfaceBase>>(
@@ -492,7 +492,7 @@ void CrosHealthdServiceFactoryProxy::GetSystemService(
     ::mojo::PendingReceiver<CrosHealthdSystemService> in_service) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send chromeos::cros_healthd::mojom::CrosHealthdServiceFactory::GetSystemService", "input_parameters",
+    "mojom", "Send ash::cros_healthd::mojom::CrosHealthdServiceFactory::GetSystemService", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
@@ -512,10 +512,10 @@ void CrosHealthdServiceFactoryProxy::GetSystemService(
   mojo::Message message(
       internal::kCrosHealthdServiceFactory_GetSystemService_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdServiceFactory_GetSystemService_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdServiceFactory_GetSystemService_Params_Data> params(
           message);
   params.Allocate();
-  mojo::internal::Serialize<mojo::InterfaceRequestDataView<::chromeos::cros_healthd::mojom::CrosHealthdSystemServiceInterfaceBase>>(
+  mojo::internal::Serialize<mojo::InterfaceRequestDataView<::ash::cros_healthd::mojom::CrosHealthdSystemServiceInterfaceBase>>(
       in_service, &params->service, &params.message());
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
       !mojo::internal::IsHandleOrInterfaceValid(params->service),
@@ -532,15 +532,15 @@ void CrosHealthdServiceFactoryProxy::GetSystemService(
 }
 
 void CrosHealthdServiceFactoryProxy::SendChromiumDataCollector(
-    ::mojo::PendingRemote<::chromeos::cros_healthd::internal::mojom::ChromiumDataCollector> in_remote) {
+    ::mojo::PendingRemote<::ash::cros_healthd::internal::mojom::ChromiumDataCollector> in_remote) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send chromeos::cros_healthd::mojom::CrosHealthdServiceFactory::SendChromiumDataCollector", "input_parameters",
+    "mojom", "Send ash::cros_healthd::mojom::CrosHealthdServiceFactory::SendChromiumDataCollector", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("remote"), in_remote,
-                        "<value of type ::mojo::PendingRemote<::chromeos::cros_healthd::internal::mojom::ChromiumDataCollector>>");
+                        "<value of type ::mojo::PendingRemote<::ash::cros_healthd::internal::mojom::ChromiumDataCollector>>");
    });
 #endif
   const bool kExpectsResponse = false;
@@ -555,10 +555,10 @@ void CrosHealthdServiceFactoryProxy::SendChromiumDataCollector(
   mojo::Message message(
       internal::kCrosHealthdServiceFactory_SendChromiumDataCollector_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdServiceFactory_SendChromiumDataCollector_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdServiceFactory_SendChromiumDataCollector_Params_Data> params(
           message);
   params.Allocate();
-  mojo::internal::Serialize<mojo::InterfacePtrDataView<::chromeos::cros_healthd::internal::mojom::ChromiumDataCollectorInterfaceBase>>(
+  mojo::internal::Serialize<mojo::InterfacePtrDataView<::ash::cros_healthd::internal::mojom::ChromiumDataCollectorInterfaceBase>>(
       in_remote, &params->remote, &params.message());
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
       !mojo::internal::IsHandleOrInterfaceValid(params->remote),
@@ -755,7 +755,7 @@ std::move(p_service));
               message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingRemote<::chromeos::cros_healthd::internal::mojom::ChromiumDataCollector> p_remote{};
+      ::mojo::PendingRemote<::ash::cros_healthd::internal::mojom::ChromiumDataCollector> p_remote{};
       CrosHealthdServiceFactory_SendChromiumDataCollector_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -832,11 +832,11 @@ static const mojo::internal::GenericValidationInfo kCrosHealthdServiceFactoryVal
 };
 
 bool CrosHealthdServiceFactoryRequestValidator::Accept(mojo::Message* message) {
-  const char* name = ::chromeos::cros_healthd::mojom::CrosHealthdServiceFactory::Name_;
+  const char* name = ::ash::cros_healthd::mojom::CrosHealthdServiceFactory::Name_;
   return mojo::internal::ValidateRequestGenericPacked(message, name, kCrosHealthdServiceFactoryValidationInfo);
 }
 
-const char CrosHealthdDiagnosticsService::Name_[] = "chromeos.cros_healthd.mojom.CrosHealthdDiagnosticsService";
+const char CrosHealthdDiagnosticsService::Name_[] = "ash.cros_healthd.mojom.CrosHealthdDiagnosticsService";
 
 CrosHealthdDiagnosticsService::IPCStableHashFunction CrosHealthdDiagnosticsService::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
@@ -949,136 +949,136 @@ const char* CrosHealthdDiagnosticsService::MessageToMethodName_(mojo::Message& m
   if (!is_response) {
     switch (message.name()) {
       case internal::kCrosHealthdDiagnosticsService_GetAvailableRoutines_Name:
-            return "Receive chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::GetAvailableRoutines";
+            return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::GetAvailableRoutines";
       case internal::kCrosHealthdDiagnosticsService_GetRoutineUpdate_Name:
-            return "Receive chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::GetRoutineUpdate";
+            return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::GetRoutineUpdate";
       case internal::kCrosHealthdDiagnosticsService_RunUrandomRoutine_Name:
-            return "Receive chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunUrandomRoutine";
+            return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunUrandomRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunBatteryCapacityRoutine_Name:
-            return "Receive chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBatteryCapacityRoutine";
+            return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBatteryCapacityRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunBatteryHealthRoutine_Name:
-            return "Receive chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBatteryHealthRoutine";
+            return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBatteryHealthRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_Name:
-            return "Receive chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunSmartctlCheckRoutine";
+            return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunSmartctlCheckRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunAcPowerRoutine_Name:
-            return "Receive chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunAcPowerRoutine";
+            return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunAcPowerRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunCpuCacheRoutine_Name:
-            return "Receive chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunCpuCacheRoutine";
+            return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunCpuCacheRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunCpuStressRoutine_Name:
-            return "Receive chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunCpuStressRoutine";
+            return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunCpuStressRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_Name:
-            return "Receive chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunFloatingPointAccuracyRoutine";
+            return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunFloatingPointAccuracyRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_Name:
-            return "Receive chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunNvmeWearLevelRoutine";
+            return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunNvmeWearLevelRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunNvmeSelfTestRoutine_Name:
-            return "Receive chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunNvmeSelfTestRoutine";
+            return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunNvmeSelfTestRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunDiskReadRoutine_Name:
-            return "Receive chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunDiskReadRoutine";
+            return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunDiskReadRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunPrimeSearchRoutine_Name:
-            return "Receive chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunPrimeSearchRoutine";
+            return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunPrimeSearchRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunBatteryDischargeRoutine_Name:
-            return "Receive chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBatteryDischargeRoutine";
+            return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBatteryDischargeRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunBatteryChargeRoutine_Name:
-            return "Receive chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBatteryChargeRoutine";
+            return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBatteryChargeRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunMemoryRoutine_Name:
-            return "Receive chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunMemoryRoutine";
+            return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunMemoryRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunLanConnectivityRoutine_Name:
-            return "Receive chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunLanConnectivityRoutine";
+            return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunLanConnectivityRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunSignalStrengthRoutine_Name:
-            return "Receive chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunSignalStrengthRoutine";
+            return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunSignalStrengthRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunGatewayCanBePingedRoutine_Name:
-            return "Receive chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunGatewayCanBePingedRoutine";
+            return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunGatewayCanBePingedRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunHasSecureWiFiConnectionRoutine_Name:
-            return "Receive chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunHasSecureWiFiConnectionRoutine";
+            return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunHasSecureWiFiConnectionRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunDnsResolverPresentRoutine_Name:
-            return "Receive chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunDnsResolverPresentRoutine";
+            return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunDnsResolverPresentRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunDnsLatencyRoutine_Name:
-            return "Receive chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunDnsLatencyRoutine";
+            return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunDnsLatencyRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunDnsResolutionRoutine_Name:
-            return "Receive chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunDnsResolutionRoutine";
+            return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunDnsResolutionRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunCaptivePortalRoutine_Name:
-            return "Receive chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunCaptivePortalRoutine";
+            return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunCaptivePortalRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunHttpFirewallRoutine_Name:
-            return "Receive chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunHttpFirewallRoutine";
+            return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunHttpFirewallRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunHttpsFirewallRoutine_Name:
-            return "Receive chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunHttpsFirewallRoutine";
+            return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunHttpsFirewallRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunHttpsLatencyRoutine_Name:
-            return "Receive chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunHttpsLatencyRoutine";
+            return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunHttpsLatencyRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunVideoConferencingRoutine_Name:
-            return "Receive chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunVideoConferencingRoutine";
+            return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunVideoConferencingRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunArcHttpRoutine_Name:
-            return "Receive chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunArcHttpRoutine";
+            return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunArcHttpRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunArcPingRoutine_Name:
-            return "Receive chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunArcPingRoutine";
+            return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunArcPingRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunArcDnsResolutionRoutine_Name:
-            return "Receive chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunArcDnsResolutionRoutine";
+            return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunArcDnsResolutionRoutine";
     }
   } else {
     switch (message.name()) {
       case internal::kCrosHealthdDiagnosticsService_GetAvailableRoutines_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::GetAvailableRoutines";
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::GetAvailableRoutines";
       case internal::kCrosHealthdDiagnosticsService_GetRoutineUpdate_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::GetRoutineUpdate";
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::GetRoutineUpdate";
       case internal::kCrosHealthdDiagnosticsService_RunUrandomRoutine_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunUrandomRoutine";
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunUrandomRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunBatteryCapacityRoutine_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBatteryCapacityRoutine";
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBatteryCapacityRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunBatteryHealthRoutine_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBatteryHealthRoutine";
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBatteryHealthRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunSmartctlCheckRoutine";
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunSmartctlCheckRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunAcPowerRoutine_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunAcPowerRoutine";
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunAcPowerRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunCpuCacheRoutine_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunCpuCacheRoutine";
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunCpuCacheRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunCpuStressRoutine_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunCpuStressRoutine";
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunCpuStressRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunFloatingPointAccuracyRoutine";
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunFloatingPointAccuracyRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunNvmeWearLevelRoutine";
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunNvmeWearLevelRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunNvmeSelfTestRoutine_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunNvmeSelfTestRoutine";
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunNvmeSelfTestRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunDiskReadRoutine_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunDiskReadRoutine";
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunDiskReadRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunPrimeSearchRoutine_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunPrimeSearchRoutine";
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunPrimeSearchRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunBatteryDischargeRoutine_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBatteryDischargeRoutine";
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBatteryDischargeRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunBatteryChargeRoutine_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBatteryChargeRoutine";
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBatteryChargeRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunMemoryRoutine_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunMemoryRoutine";
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunMemoryRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunLanConnectivityRoutine_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunLanConnectivityRoutine";
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunLanConnectivityRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunSignalStrengthRoutine_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunSignalStrengthRoutine";
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunSignalStrengthRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunGatewayCanBePingedRoutine_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunGatewayCanBePingedRoutine";
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunGatewayCanBePingedRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunHasSecureWiFiConnectionRoutine_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunHasSecureWiFiConnectionRoutine";
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunHasSecureWiFiConnectionRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunDnsResolverPresentRoutine_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunDnsResolverPresentRoutine";
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunDnsResolverPresentRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunDnsLatencyRoutine_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunDnsLatencyRoutine";
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunDnsLatencyRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunDnsResolutionRoutine_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunDnsResolutionRoutine";
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunDnsResolutionRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunCaptivePortalRoutine_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunCaptivePortalRoutine";
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunCaptivePortalRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunHttpFirewallRoutine_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunHttpFirewallRoutine";
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunHttpFirewallRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunHttpsFirewallRoutine_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunHttpsFirewallRoutine";
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunHttpsFirewallRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunHttpsLatencyRoutine_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunHttpsLatencyRoutine";
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunHttpsLatencyRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunVideoConferencingRoutine_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunVideoConferencingRoutine";
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunVideoConferencingRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunArcHttpRoutine_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunArcHttpRoutine";
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunArcHttpRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunArcPingRoutine_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunArcPingRoutine";
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunArcPingRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunArcDnsResolutionRoutine_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunArcDnsResolutionRoutine";
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunArcDnsResolutionRoutine";
     }
   }
   return "Receive unknown mojo message";
@@ -1101,7 +1101,7 @@ uint32_t CrosHealthdDiagnosticsService::GetAvailableRoutines_Sym::IPCStableHash(
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::GetAvailableRoutines");
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::GetAvailableRoutines");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -1114,7 +1114,7 @@ uint32_t CrosHealthdDiagnosticsService::GetRoutineUpdate_Sym::IPCStableHash() {
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::GetRoutineUpdate");
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::GetRoutineUpdate");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -1127,7 +1127,7 @@ uint32_t CrosHealthdDiagnosticsService::RunUrandomRoutine_Sym::IPCStableHash() {
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunUrandomRoutine");
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunUrandomRoutine");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -1140,7 +1140,7 @@ uint32_t CrosHealthdDiagnosticsService::RunBatteryCapacityRoutine_Sym::IPCStable
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBatteryCapacityRoutine");
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBatteryCapacityRoutine");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -1153,7 +1153,7 @@ uint32_t CrosHealthdDiagnosticsService::RunBatteryHealthRoutine_Sym::IPCStableHa
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBatteryHealthRoutine");
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBatteryHealthRoutine");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -1166,7 +1166,7 @@ uint32_t CrosHealthdDiagnosticsService::RunSmartctlCheckRoutine_Sym::IPCStableHa
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunSmartctlCheckRoutine");
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunSmartctlCheckRoutine");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -1179,7 +1179,7 @@ uint32_t CrosHealthdDiagnosticsService::RunAcPowerRoutine_Sym::IPCStableHash() {
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunAcPowerRoutine");
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunAcPowerRoutine");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -1192,7 +1192,7 @@ uint32_t CrosHealthdDiagnosticsService::RunCpuCacheRoutine_Sym::IPCStableHash() 
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunCpuCacheRoutine");
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunCpuCacheRoutine");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -1205,7 +1205,7 @@ uint32_t CrosHealthdDiagnosticsService::RunCpuStressRoutine_Sym::IPCStableHash()
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunCpuStressRoutine");
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunCpuStressRoutine");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -1218,7 +1218,7 @@ uint32_t CrosHealthdDiagnosticsService::RunFloatingPointAccuracyRoutine_Sym::IPC
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunFloatingPointAccuracyRoutine");
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunFloatingPointAccuracyRoutine");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -1231,7 +1231,7 @@ uint32_t CrosHealthdDiagnosticsService::RunNvmeWearLevelRoutine_Sym::IPCStableHa
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunNvmeWearLevelRoutine");
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunNvmeWearLevelRoutine");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -1244,7 +1244,7 @@ uint32_t CrosHealthdDiagnosticsService::RunNvmeSelfTestRoutine_Sym::IPCStableHas
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunNvmeSelfTestRoutine");
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunNvmeSelfTestRoutine");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -1257,7 +1257,7 @@ uint32_t CrosHealthdDiagnosticsService::RunDiskReadRoutine_Sym::IPCStableHash() 
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunDiskReadRoutine");
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunDiskReadRoutine");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -1270,7 +1270,7 @@ uint32_t CrosHealthdDiagnosticsService::RunPrimeSearchRoutine_Sym::IPCStableHash
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunPrimeSearchRoutine");
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunPrimeSearchRoutine");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -1283,7 +1283,7 @@ uint32_t CrosHealthdDiagnosticsService::RunBatteryDischargeRoutine_Sym::IPCStabl
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBatteryDischargeRoutine");
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBatteryDischargeRoutine");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -1296,7 +1296,7 @@ uint32_t CrosHealthdDiagnosticsService::RunBatteryChargeRoutine_Sym::IPCStableHa
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBatteryChargeRoutine");
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBatteryChargeRoutine");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -1309,7 +1309,7 @@ uint32_t CrosHealthdDiagnosticsService::RunMemoryRoutine_Sym::IPCStableHash() {
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunMemoryRoutine");
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunMemoryRoutine");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -1322,7 +1322,7 @@ uint32_t CrosHealthdDiagnosticsService::RunLanConnectivityRoutine_Sym::IPCStable
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunLanConnectivityRoutine");
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunLanConnectivityRoutine");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -1335,7 +1335,7 @@ uint32_t CrosHealthdDiagnosticsService::RunSignalStrengthRoutine_Sym::IPCStableH
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunSignalStrengthRoutine");
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunSignalStrengthRoutine");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -1348,7 +1348,7 @@ uint32_t CrosHealthdDiagnosticsService::RunGatewayCanBePingedRoutine_Sym::IPCSta
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunGatewayCanBePingedRoutine");
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunGatewayCanBePingedRoutine");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -1361,7 +1361,7 @@ uint32_t CrosHealthdDiagnosticsService::RunHasSecureWiFiConnectionRoutine_Sym::I
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunHasSecureWiFiConnectionRoutine");
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunHasSecureWiFiConnectionRoutine");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -1374,7 +1374,7 @@ uint32_t CrosHealthdDiagnosticsService::RunDnsResolverPresentRoutine_Sym::IPCSta
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunDnsResolverPresentRoutine");
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunDnsResolverPresentRoutine");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -1387,7 +1387,7 @@ uint32_t CrosHealthdDiagnosticsService::RunDnsLatencyRoutine_Sym::IPCStableHash(
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunDnsLatencyRoutine");
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunDnsLatencyRoutine");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -1400,7 +1400,7 @@ uint32_t CrosHealthdDiagnosticsService::RunDnsResolutionRoutine_Sym::IPCStableHa
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunDnsResolutionRoutine");
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunDnsResolutionRoutine");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -1413,7 +1413,7 @@ uint32_t CrosHealthdDiagnosticsService::RunCaptivePortalRoutine_Sym::IPCStableHa
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunCaptivePortalRoutine");
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunCaptivePortalRoutine");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -1426,7 +1426,7 @@ uint32_t CrosHealthdDiagnosticsService::RunHttpFirewallRoutine_Sym::IPCStableHas
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunHttpFirewallRoutine");
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunHttpFirewallRoutine");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -1439,7 +1439,7 @@ uint32_t CrosHealthdDiagnosticsService::RunHttpsFirewallRoutine_Sym::IPCStableHa
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunHttpsFirewallRoutine");
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunHttpsFirewallRoutine");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -1452,7 +1452,7 @@ uint32_t CrosHealthdDiagnosticsService::RunHttpsLatencyRoutine_Sym::IPCStableHas
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunHttpsLatencyRoutine");
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunHttpsLatencyRoutine");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -1465,7 +1465,7 @@ uint32_t CrosHealthdDiagnosticsService::RunVideoConferencingRoutine_Sym::IPCStab
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunVideoConferencingRoutine");
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunVideoConferencingRoutine");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -1478,7 +1478,7 @@ uint32_t CrosHealthdDiagnosticsService::RunArcHttpRoutine_Sym::IPCStableHash() {
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunArcHttpRoutine");
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunArcHttpRoutine");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -1491,7 +1491,7 @@ uint32_t CrosHealthdDiagnosticsService::RunArcPingRoutine_Sym::IPCStableHash() {
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunArcPingRoutine");
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunArcPingRoutine");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -1504,7 +1504,7 @@ uint32_t CrosHealthdDiagnosticsService::RunArcDnsResolutionRoutine_Sym::IPCStabl
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunArcDnsResolutionRoutine");
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunArcDnsResolutionRoutine");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -2030,7 +2030,7 @@ CrosHealthdDiagnosticsServiceProxy::CrosHealthdDiagnosticsServiceProxy(mojo::Mes
 void CrosHealthdDiagnosticsServiceProxy::GetAvailableRoutines(
     GetAvailableRoutinesCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::GetAvailableRoutines");
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::GetAvailableRoutines");
 #endif
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
@@ -2044,7 +2044,7 @@ void CrosHealthdDiagnosticsServiceProxy::GetAvailableRoutines(
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_GetAvailableRoutines_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_GetAvailableRoutines_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_GetAvailableRoutines_Params_Data> params(
           message);
   params.Allocate();
 
@@ -2059,10 +2059,10 @@ void CrosHealthdDiagnosticsServiceProxy::GetAvailableRoutines(
 }
 
 void CrosHealthdDiagnosticsServiceProxy::GetRoutineUpdate(
-    int32_t in_id, ::chromeos::cros_healthd::mojom::DiagnosticRoutineCommandEnum in_command, bool in_include_output, GetRoutineUpdateCallback callback) {
+    int32_t in_id, ::ash::cros_healthd::mojom::DiagnosticRoutineCommandEnum in_command, bool in_include_output, GetRoutineUpdateCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::GetRoutineUpdate", "input_parameters",
+    "mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::GetRoutineUpdate", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
@@ -2070,7 +2070,7 @@ void CrosHealthdDiagnosticsServiceProxy::GetRoutineUpdate(
                         "<value of type int32_t>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("command"), in_command,
-                        "<value of type ::chromeos::cros_healthd::mojom::DiagnosticRoutineCommandEnum>");
+                        "<value of type ::ash::cros_healthd::mojom::DiagnosticRoutineCommandEnum>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("include_output"), in_include_output,
                         "<value of type bool>");
@@ -2088,11 +2088,11 @@ void CrosHealthdDiagnosticsServiceProxy::GetRoutineUpdate(
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_GetRoutineUpdate_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_GetRoutineUpdate_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_GetRoutineUpdate_Params_Data> params(
           message);
   params.Allocate();
   params->id = in_id;
-  mojo::internal::Serialize<::chromeos::cros_healthd::mojom::DiagnosticRoutineCommandEnum>(
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::DiagnosticRoutineCommandEnum>(
       in_command, &params->command);
   params->include_output = in_include_output;
 
@@ -2107,15 +2107,15 @@ void CrosHealthdDiagnosticsServiceProxy::GetRoutineUpdate(
 }
 
 void CrosHealthdDiagnosticsServiceProxy::RunUrandomRoutine(
-    ::chromeos::cros_healthd::mojom::NullableUint32Ptr in_length_seconds, RunUrandomRoutineCallback callback) {
+    ::ash::cros_healthd::mojom::NullableUint32Ptr in_length_seconds, RunUrandomRoutineCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunUrandomRoutine", "input_parameters",
+    "mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunUrandomRoutine", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("length_seconds"), in_length_seconds,
-                        "<value of type ::chromeos::cros_healthd::mojom::NullableUint32Ptr>");
+                        "<value of type ::ash::cros_healthd::mojom::NullableUint32Ptr>");
    });
 #endif
   const bool kExpectsResponse = true;
@@ -2130,13 +2130,13 @@ void CrosHealthdDiagnosticsServiceProxy::RunUrandomRoutine(
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunUrandomRoutine_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunUrandomRoutine_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunUrandomRoutine_Params_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
       typename decltype(params->length_seconds)::BaseType> length_seconds_fragment(
           params.message());
-  mojo::internal::Serialize<::chromeos::cros_healthd::mojom::NullableUint32DataView>(
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::NullableUint32DataView>(
       in_length_seconds, length_seconds_fragment);
   params->length_seconds.Set(
       length_seconds_fragment.is_null() ? nullptr : length_seconds_fragment.data());
@@ -2154,7 +2154,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunUrandomRoutine(
 void CrosHealthdDiagnosticsServiceProxy::RunBatteryCapacityRoutine(
     RunBatteryCapacityRoutineCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBatteryCapacityRoutine");
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBatteryCapacityRoutine");
 #endif
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
@@ -2168,7 +2168,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunBatteryCapacityRoutine(
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunBatteryCapacityRoutine_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunBatteryCapacityRoutine_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunBatteryCapacityRoutine_Params_Data> params(
           message);
   params.Allocate();
 
@@ -2185,7 +2185,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunBatteryCapacityRoutine(
 void CrosHealthdDiagnosticsServiceProxy::RunBatteryHealthRoutine(
     RunBatteryHealthRoutineCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBatteryHealthRoutine");
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBatteryHealthRoutine");
 #endif
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
@@ -2199,7 +2199,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunBatteryHealthRoutine(
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunBatteryHealthRoutine_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunBatteryHealthRoutine_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunBatteryHealthRoutine_Params_Data> params(
           message);
   params.Allocate();
 
@@ -2216,7 +2216,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunBatteryHealthRoutine(
 void CrosHealthdDiagnosticsServiceProxy::RunSmartctlCheckRoutine(
     RunSmartctlCheckRoutineCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunSmartctlCheckRoutine");
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunSmartctlCheckRoutine");
 #endif
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
@@ -2230,7 +2230,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunSmartctlCheckRoutine(
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_Params_Data> params(
           message);
   params.Allocate();
 
@@ -2245,15 +2245,15 @@ void CrosHealthdDiagnosticsServiceProxy::RunSmartctlCheckRoutine(
 }
 
 void CrosHealthdDiagnosticsServiceProxy::RunAcPowerRoutine(
-    ::chromeos::cros_healthd::mojom::AcPowerStatusEnum in_expected_status, const absl::optional<std::string>& in_expected_power_type, RunAcPowerRoutineCallback callback) {
+    ::ash::cros_healthd::mojom::AcPowerStatusEnum in_expected_status, const absl::optional<std::string>& in_expected_power_type, RunAcPowerRoutineCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunAcPowerRoutine", "input_parameters",
+    "mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunAcPowerRoutine", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("expected_status"), in_expected_status,
-                        "<value of type ::chromeos::cros_healthd::mojom::AcPowerStatusEnum>");
+                        "<value of type ::ash::cros_healthd::mojom::AcPowerStatusEnum>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("expected_power_type"), in_expected_power_type,
                         "<value of type const absl::optional<std::string>&>");
@@ -2271,10 +2271,10 @@ void CrosHealthdDiagnosticsServiceProxy::RunAcPowerRoutine(
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunAcPowerRoutine_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunAcPowerRoutine_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunAcPowerRoutine_Params_Data> params(
           message);
   params.Allocate();
-  mojo::internal::Serialize<::chromeos::cros_healthd::mojom::AcPowerStatusEnum>(
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::AcPowerStatusEnum>(
       in_expected_status, &params->expected_status);
   mojo::internal::MessageFragment<
       typename decltype(params->expected_power_type)::BaseType> expected_power_type_fragment(
@@ -2295,15 +2295,15 @@ void CrosHealthdDiagnosticsServiceProxy::RunAcPowerRoutine(
 }
 
 void CrosHealthdDiagnosticsServiceProxy::RunCpuCacheRoutine(
-    ::chromeos::cros_healthd::mojom::NullableUint32Ptr in_length_seconds, RunCpuCacheRoutineCallback callback) {
+    ::ash::cros_healthd::mojom::NullableUint32Ptr in_length_seconds, RunCpuCacheRoutineCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunCpuCacheRoutine", "input_parameters",
+    "mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunCpuCacheRoutine", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("length_seconds"), in_length_seconds,
-                        "<value of type ::chromeos::cros_healthd::mojom::NullableUint32Ptr>");
+                        "<value of type ::ash::cros_healthd::mojom::NullableUint32Ptr>");
    });
 #endif
   const bool kExpectsResponse = true;
@@ -2318,13 +2318,13 @@ void CrosHealthdDiagnosticsServiceProxy::RunCpuCacheRoutine(
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunCpuCacheRoutine_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunCpuCacheRoutine_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunCpuCacheRoutine_Params_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
       typename decltype(params->length_seconds)::BaseType> length_seconds_fragment(
           params.message());
-  mojo::internal::Serialize<::chromeos::cros_healthd::mojom::NullableUint32DataView>(
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::NullableUint32DataView>(
       in_length_seconds, length_seconds_fragment);
   params->length_seconds.Set(
       length_seconds_fragment.is_null() ? nullptr : length_seconds_fragment.data());
@@ -2340,15 +2340,15 @@ void CrosHealthdDiagnosticsServiceProxy::RunCpuCacheRoutine(
 }
 
 void CrosHealthdDiagnosticsServiceProxy::RunCpuStressRoutine(
-    ::chromeos::cros_healthd::mojom::NullableUint32Ptr in_length_seconds, RunCpuStressRoutineCallback callback) {
+    ::ash::cros_healthd::mojom::NullableUint32Ptr in_length_seconds, RunCpuStressRoutineCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunCpuStressRoutine", "input_parameters",
+    "mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunCpuStressRoutine", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("length_seconds"), in_length_seconds,
-                        "<value of type ::chromeos::cros_healthd::mojom::NullableUint32Ptr>");
+                        "<value of type ::ash::cros_healthd::mojom::NullableUint32Ptr>");
    });
 #endif
   const bool kExpectsResponse = true;
@@ -2363,13 +2363,13 @@ void CrosHealthdDiagnosticsServiceProxy::RunCpuStressRoutine(
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunCpuStressRoutine_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunCpuStressRoutine_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunCpuStressRoutine_Params_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
       typename decltype(params->length_seconds)::BaseType> length_seconds_fragment(
           params.message());
-  mojo::internal::Serialize<::chromeos::cros_healthd::mojom::NullableUint32DataView>(
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::NullableUint32DataView>(
       in_length_seconds, length_seconds_fragment);
   params->length_seconds.Set(
       length_seconds_fragment.is_null() ? nullptr : length_seconds_fragment.data());
@@ -2385,15 +2385,15 @@ void CrosHealthdDiagnosticsServiceProxy::RunCpuStressRoutine(
 }
 
 void CrosHealthdDiagnosticsServiceProxy::RunFloatingPointAccuracyRoutine(
-    ::chromeos::cros_healthd::mojom::NullableUint32Ptr in_length_seconds, RunFloatingPointAccuracyRoutineCallback callback) {
+    ::ash::cros_healthd::mojom::NullableUint32Ptr in_length_seconds, RunFloatingPointAccuracyRoutineCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunFloatingPointAccuracyRoutine", "input_parameters",
+    "mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunFloatingPointAccuracyRoutine", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("length_seconds"), in_length_seconds,
-                        "<value of type ::chromeos::cros_healthd::mojom::NullableUint32Ptr>");
+                        "<value of type ::ash::cros_healthd::mojom::NullableUint32Ptr>");
    });
 #endif
   const bool kExpectsResponse = true;
@@ -2408,13 +2408,13 @@ void CrosHealthdDiagnosticsServiceProxy::RunFloatingPointAccuracyRoutine(
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_Params_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
       typename decltype(params->length_seconds)::BaseType> length_seconds_fragment(
           params.message());
-  mojo::internal::Serialize<::chromeos::cros_healthd::mojom::NullableUint32DataView>(
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::NullableUint32DataView>(
       in_length_seconds, length_seconds_fragment);
   params->length_seconds.Set(
       length_seconds_fragment.is_null() ? nullptr : length_seconds_fragment.data());
@@ -2433,7 +2433,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunNvmeWearLevelRoutine(
     uint32_t in_wear_level_threshold, RunNvmeWearLevelRoutineCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunNvmeWearLevelRoutine", "input_parameters",
+    "mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunNvmeWearLevelRoutine", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
@@ -2453,7 +2453,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunNvmeWearLevelRoutine(
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_Params_Data> params(
           message);
   params.Allocate();
   params->wear_level_threshold = in_wear_level_threshold;
@@ -2469,15 +2469,15 @@ void CrosHealthdDiagnosticsServiceProxy::RunNvmeWearLevelRoutine(
 }
 
 void CrosHealthdDiagnosticsServiceProxy::RunNvmeSelfTestRoutine(
-    ::chromeos::cros_healthd::mojom::NvmeSelfTestTypeEnum in_nvme_self_test_type, RunNvmeSelfTestRoutineCallback callback) {
+    ::ash::cros_healthd::mojom::NvmeSelfTestTypeEnum in_nvme_self_test_type, RunNvmeSelfTestRoutineCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunNvmeSelfTestRoutine", "input_parameters",
+    "mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunNvmeSelfTestRoutine", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("nvme_self_test_type"), in_nvme_self_test_type,
-                        "<value of type ::chromeos::cros_healthd::mojom::NvmeSelfTestTypeEnum>");
+                        "<value of type ::ash::cros_healthd::mojom::NvmeSelfTestTypeEnum>");
    });
 #endif
   const bool kExpectsResponse = true;
@@ -2492,10 +2492,10 @@ void CrosHealthdDiagnosticsServiceProxy::RunNvmeSelfTestRoutine(
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunNvmeSelfTestRoutine_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunNvmeSelfTestRoutine_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunNvmeSelfTestRoutine_Params_Data> params(
           message);
   params.Allocate();
-  mojo::internal::Serialize<::chromeos::cros_healthd::mojom::NvmeSelfTestTypeEnum>(
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::NvmeSelfTestTypeEnum>(
       in_nvme_self_test_type, &params->nvme_self_test_type);
 
 #if defined(ENABLE_IPC_FUZZER)
@@ -2509,15 +2509,15 @@ void CrosHealthdDiagnosticsServiceProxy::RunNvmeSelfTestRoutine(
 }
 
 void CrosHealthdDiagnosticsServiceProxy::RunDiskReadRoutine(
-    ::chromeos::cros_healthd::mojom::DiskReadRoutineTypeEnum in_type, uint32_t in_length_seconds, uint32_t in_file_size_mb, RunDiskReadRoutineCallback callback) {
+    ::ash::cros_healthd::mojom::DiskReadRoutineTypeEnum in_type, uint32_t in_length_seconds, uint32_t in_file_size_mb, RunDiskReadRoutineCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunDiskReadRoutine", "input_parameters",
+    "mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunDiskReadRoutine", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("type"), in_type,
-                        "<value of type ::chromeos::cros_healthd::mojom::DiskReadRoutineTypeEnum>");
+                        "<value of type ::ash::cros_healthd::mojom::DiskReadRoutineTypeEnum>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("length_seconds"), in_length_seconds,
                         "<value of type uint32_t>");
@@ -2538,10 +2538,10 @@ void CrosHealthdDiagnosticsServiceProxy::RunDiskReadRoutine(
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunDiskReadRoutine_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunDiskReadRoutine_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunDiskReadRoutine_Params_Data> params(
           message);
   params.Allocate();
-  mojo::internal::Serialize<::chromeos::cros_healthd::mojom::DiskReadRoutineTypeEnum>(
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::DiskReadRoutineTypeEnum>(
       in_type, &params->type);
   params->length_seconds = in_length_seconds;
   params->file_size_mb = in_file_size_mb;
@@ -2557,15 +2557,15 @@ void CrosHealthdDiagnosticsServiceProxy::RunDiskReadRoutine(
 }
 
 void CrosHealthdDiagnosticsServiceProxy::RunPrimeSearchRoutine(
-    ::chromeos::cros_healthd::mojom::NullableUint32Ptr in_length_seconds, RunPrimeSearchRoutineCallback callback) {
+    ::ash::cros_healthd::mojom::NullableUint32Ptr in_length_seconds, RunPrimeSearchRoutineCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunPrimeSearchRoutine", "input_parameters",
+    "mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunPrimeSearchRoutine", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("length_seconds"), in_length_seconds,
-                        "<value of type ::chromeos::cros_healthd::mojom::NullableUint32Ptr>");
+                        "<value of type ::ash::cros_healthd::mojom::NullableUint32Ptr>");
    });
 #endif
   const bool kExpectsResponse = true;
@@ -2580,13 +2580,13 @@ void CrosHealthdDiagnosticsServiceProxy::RunPrimeSearchRoutine(
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunPrimeSearchRoutine_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunPrimeSearchRoutine_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunPrimeSearchRoutine_Params_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
       typename decltype(params->length_seconds)::BaseType> length_seconds_fragment(
           params.message());
-  mojo::internal::Serialize<::chromeos::cros_healthd::mojom::NullableUint32DataView>(
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::NullableUint32DataView>(
       in_length_seconds, length_seconds_fragment);
   params->length_seconds.Set(
       length_seconds_fragment.is_null() ? nullptr : length_seconds_fragment.data());
@@ -2605,7 +2605,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunBatteryDischargeRoutine(
     uint32_t in_length_seconds, uint32_t in_maximum_discharge_percent_allowed, RunBatteryDischargeRoutineCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBatteryDischargeRoutine", "input_parameters",
+    "mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBatteryDischargeRoutine", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
@@ -2628,7 +2628,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunBatteryDischargeRoutine(
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunBatteryDischargeRoutine_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunBatteryDischargeRoutine_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunBatteryDischargeRoutine_Params_Data> params(
           message);
   params.Allocate();
   params->length_seconds = in_length_seconds;
@@ -2648,7 +2648,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunBatteryChargeRoutine(
     uint32_t in_length_seconds, uint32_t in_minimum_charge_percent_required, RunBatteryChargeRoutineCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBatteryChargeRoutine", "input_parameters",
+    "mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBatteryChargeRoutine", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
@@ -2671,7 +2671,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunBatteryChargeRoutine(
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunBatteryChargeRoutine_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunBatteryChargeRoutine_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunBatteryChargeRoutine_Params_Data> params(
           message);
   params.Allocate();
   params->length_seconds = in_length_seconds;
@@ -2690,7 +2690,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunBatteryChargeRoutine(
 void CrosHealthdDiagnosticsServiceProxy::RunMemoryRoutine(
     RunMemoryRoutineCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunMemoryRoutine");
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunMemoryRoutine");
 #endif
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
@@ -2704,7 +2704,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunMemoryRoutine(
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunMemoryRoutine_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunMemoryRoutine_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunMemoryRoutine_Params_Data> params(
           message);
   params.Allocate();
 
@@ -2721,7 +2721,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunMemoryRoutine(
 void CrosHealthdDiagnosticsServiceProxy::RunLanConnectivityRoutine(
     RunLanConnectivityRoutineCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunLanConnectivityRoutine");
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunLanConnectivityRoutine");
 #endif
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
@@ -2735,7 +2735,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunLanConnectivityRoutine(
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunLanConnectivityRoutine_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunLanConnectivityRoutine_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunLanConnectivityRoutine_Params_Data> params(
           message);
   params.Allocate();
 
@@ -2752,7 +2752,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunLanConnectivityRoutine(
 void CrosHealthdDiagnosticsServiceProxy::RunSignalStrengthRoutine(
     RunSignalStrengthRoutineCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunSignalStrengthRoutine");
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunSignalStrengthRoutine");
 #endif
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
@@ -2766,7 +2766,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunSignalStrengthRoutine(
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunSignalStrengthRoutine_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunSignalStrengthRoutine_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunSignalStrengthRoutine_Params_Data> params(
           message);
   params.Allocate();
 
@@ -2783,7 +2783,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunSignalStrengthRoutine(
 void CrosHealthdDiagnosticsServiceProxy::RunGatewayCanBePingedRoutine(
     RunGatewayCanBePingedRoutineCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunGatewayCanBePingedRoutine");
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunGatewayCanBePingedRoutine");
 #endif
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
@@ -2797,7 +2797,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunGatewayCanBePingedRoutine(
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunGatewayCanBePingedRoutine_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunGatewayCanBePingedRoutine_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunGatewayCanBePingedRoutine_Params_Data> params(
           message);
   params.Allocate();
 
@@ -2814,7 +2814,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunGatewayCanBePingedRoutine(
 void CrosHealthdDiagnosticsServiceProxy::RunHasSecureWiFiConnectionRoutine(
     RunHasSecureWiFiConnectionRoutineCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunHasSecureWiFiConnectionRoutine");
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunHasSecureWiFiConnectionRoutine");
 #endif
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
@@ -2828,7 +2828,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunHasSecureWiFiConnectionRoutine(
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunHasSecureWiFiConnectionRoutine_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunHasSecureWiFiConnectionRoutine_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunHasSecureWiFiConnectionRoutine_Params_Data> params(
           message);
   params.Allocate();
 
@@ -2845,7 +2845,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunHasSecureWiFiConnectionRoutine(
 void CrosHealthdDiagnosticsServiceProxy::RunDnsResolverPresentRoutine(
     RunDnsResolverPresentRoutineCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunDnsResolverPresentRoutine");
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunDnsResolverPresentRoutine");
 #endif
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
@@ -2859,7 +2859,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunDnsResolverPresentRoutine(
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunDnsResolverPresentRoutine_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunDnsResolverPresentRoutine_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunDnsResolverPresentRoutine_Params_Data> params(
           message);
   params.Allocate();
 
@@ -2876,7 +2876,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunDnsResolverPresentRoutine(
 void CrosHealthdDiagnosticsServiceProxy::RunDnsLatencyRoutine(
     RunDnsLatencyRoutineCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunDnsLatencyRoutine");
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunDnsLatencyRoutine");
 #endif
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
@@ -2890,7 +2890,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunDnsLatencyRoutine(
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunDnsLatencyRoutine_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunDnsLatencyRoutine_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunDnsLatencyRoutine_Params_Data> params(
           message);
   params.Allocate();
 
@@ -2907,7 +2907,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunDnsLatencyRoutine(
 void CrosHealthdDiagnosticsServiceProxy::RunDnsResolutionRoutine(
     RunDnsResolutionRoutineCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunDnsResolutionRoutine");
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunDnsResolutionRoutine");
 #endif
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
@@ -2921,7 +2921,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunDnsResolutionRoutine(
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunDnsResolutionRoutine_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunDnsResolutionRoutine_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunDnsResolutionRoutine_Params_Data> params(
           message);
   params.Allocate();
 
@@ -2938,7 +2938,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunDnsResolutionRoutine(
 void CrosHealthdDiagnosticsServiceProxy::RunCaptivePortalRoutine(
     RunCaptivePortalRoutineCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunCaptivePortalRoutine");
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunCaptivePortalRoutine");
 #endif
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
@@ -2952,7 +2952,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunCaptivePortalRoutine(
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunCaptivePortalRoutine_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunCaptivePortalRoutine_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunCaptivePortalRoutine_Params_Data> params(
           message);
   params.Allocate();
 
@@ -2969,7 +2969,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunCaptivePortalRoutine(
 void CrosHealthdDiagnosticsServiceProxy::RunHttpFirewallRoutine(
     RunHttpFirewallRoutineCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunHttpFirewallRoutine");
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunHttpFirewallRoutine");
 #endif
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
@@ -2983,7 +2983,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunHttpFirewallRoutine(
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunHttpFirewallRoutine_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunHttpFirewallRoutine_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunHttpFirewallRoutine_Params_Data> params(
           message);
   params.Allocate();
 
@@ -3000,7 +3000,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunHttpFirewallRoutine(
 void CrosHealthdDiagnosticsServiceProxy::RunHttpsFirewallRoutine(
     RunHttpsFirewallRoutineCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunHttpsFirewallRoutine");
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunHttpsFirewallRoutine");
 #endif
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
@@ -3014,7 +3014,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunHttpsFirewallRoutine(
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunHttpsFirewallRoutine_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunHttpsFirewallRoutine_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunHttpsFirewallRoutine_Params_Data> params(
           message);
   params.Allocate();
 
@@ -3031,7 +3031,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunHttpsFirewallRoutine(
 void CrosHealthdDiagnosticsServiceProxy::RunHttpsLatencyRoutine(
     RunHttpsLatencyRoutineCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunHttpsLatencyRoutine");
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunHttpsLatencyRoutine");
 #endif
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
@@ -3045,7 +3045,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunHttpsLatencyRoutine(
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunHttpsLatencyRoutine_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunHttpsLatencyRoutine_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunHttpsLatencyRoutine_Params_Data> params(
           message);
   params.Allocate();
 
@@ -3063,7 +3063,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunVideoConferencingRoutine(
     const absl::optional<std::string>& in_stun_server_hostname, RunVideoConferencingRoutineCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunVideoConferencingRoutine", "input_parameters",
+    "mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunVideoConferencingRoutine", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
@@ -3083,7 +3083,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunVideoConferencingRoutine(
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunVideoConferencingRoutine_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunVideoConferencingRoutine_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunVideoConferencingRoutine_Params_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
@@ -3107,7 +3107,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunVideoConferencingRoutine(
 void CrosHealthdDiagnosticsServiceProxy::RunArcHttpRoutine(
     RunArcHttpRoutineCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunArcHttpRoutine");
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunArcHttpRoutine");
 #endif
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
@@ -3121,7 +3121,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunArcHttpRoutine(
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunArcHttpRoutine_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunArcHttpRoutine_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunArcHttpRoutine_Params_Data> params(
           message);
   params.Allocate();
 
@@ -3138,7 +3138,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunArcHttpRoutine(
 void CrosHealthdDiagnosticsServiceProxy::RunArcPingRoutine(
     RunArcPingRoutineCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunArcPingRoutine");
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunArcPingRoutine");
 #endif
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
@@ -3152,7 +3152,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunArcPingRoutine(
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunArcPingRoutine_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunArcPingRoutine_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunArcPingRoutine_Params_Data> params(
           message);
   params.Allocate();
 
@@ -3169,7 +3169,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunArcPingRoutine(
 void CrosHealthdDiagnosticsServiceProxy::RunArcDnsResolutionRoutine(
     RunArcDnsResolutionRoutineCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunArcDnsResolutionRoutine");
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunArcDnsResolutionRoutine");
 #endif
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
@@ -3183,7 +3183,7 @@ void CrosHealthdDiagnosticsServiceProxy::RunArcDnsResolutionRoutine(
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunArcDnsResolutionRoutine_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunArcDnsResolutionRoutine_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunArcDnsResolutionRoutine_Params_Data> params(
           message);
   params.Allocate();
 
@@ -3238,7 +3238,7 @@ class CrosHealthdDiagnosticsService_GetAvailableRoutines_ProxyToResponder : publ
 #endif
 
   void Run(
-      const std::vector<::chromeos::cros_healthd::mojom::DiagnosticRoutineEnum>& in_available_routines);
+      const std::vector<::ash::cros_healthd::mojom::DiagnosticRoutineEnum>& in_available_routines);
 };
 
 bool CrosHealthdDiagnosticsService_GetAvailableRoutines_ForwardToCallback::Accept(
@@ -3251,7 +3251,7 @@ bool CrosHealthdDiagnosticsService_GetAvailableRoutines_ForwardToCallback::Accep
               message->mutable_payload());
   
   bool success = true;
-  std::vector<::chromeos::cros_healthd::mojom::DiagnosticRoutineEnum> p_available_routines{};
+  std::vector<::ash::cros_healthd::mojom::DiagnosticRoutineEnum> p_available_routines{};
   CrosHealthdDiagnosticsService_GetAvailableRoutines_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadAvailableRoutines(&p_available_routines))
@@ -3270,15 +3270,15 @@ std::move(p_available_routines));
 }
 
 void CrosHealthdDiagnosticsService_GetAvailableRoutines_ProxyToResponder::Run(
-    const std::vector<::chromeos::cros_healthd::mojom::DiagnosticRoutineEnum>& in_available_routines) {
+    const std::vector<::ash::cros_healthd::mojom::DiagnosticRoutineEnum>& in_available_routines) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send reply chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::GetAvailableRoutines", "async_response_parameters",
+    "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::GetAvailableRoutines", "async_response_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("available_routines"), in_available_routines,
-                        "<value of type const std::vector<::chromeos::cros_healthd::mojom::DiagnosticRoutineEnum>&>");
+                        "<value of type const std::vector<::ash::cros_healthd::mojom::DiagnosticRoutineEnum>&>");
    });
 #endif
   
@@ -3289,15 +3289,15 @@ void CrosHealthdDiagnosticsService_GetAvailableRoutines_ProxyToResponder::Run(
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_GetAvailableRoutines_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_GetAvailableRoutines_ResponseParams_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_GetAvailableRoutines_ResponseParams_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
       typename decltype(params->available_routines)::BaseType>
       available_routines_fragment(params.message());
   const mojo::internal::ContainerValidateParams available_routines_validate_params(
-      0, ::chromeos::cros_healthd::mojom::internal::DiagnosticRoutineEnum_Data::Validate);
-  mojo::internal::Serialize<mojo::ArrayDataView<::chromeos::cros_healthd::mojom::DiagnosticRoutineEnum>>(
+      0, ::ash::cros_healthd::mojom::internal::DiagnosticRoutineEnum_Data::Validate);
+  mojo::internal::Serialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::DiagnosticRoutineEnum>>(
       in_available_routines, available_routines_fragment, &available_routines_validate_params);
   params->available_routines.Set(
       available_routines_fragment.is_null() ? nullptr : available_routines_fragment.data());
@@ -3364,7 +3364,7 @@ class CrosHealthdDiagnosticsService_GetRoutineUpdate_ProxyToResponder : public :
 #endif
 
   void Run(
-      ::chromeos::cros_healthd::mojom::RoutineUpdatePtr in_routine_update);
+      ::ash::cros_healthd::mojom::RoutineUpdatePtr in_routine_update);
 };
 
 bool CrosHealthdDiagnosticsService_GetRoutineUpdate_ForwardToCallback::Accept(
@@ -3377,7 +3377,7 @@ bool CrosHealthdDiagnosticsService_GetRoutineUpdate_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  ::chromeos::cros_healthd::mojom::RoutineUpdatePtr p_routine_update{};
+  ::ash::cros_healthd::mojom::RoutineUpdatePtr p_routine_update{};
   CrosHealthdDiagnosticsService_GetRoutineUpdate_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadRoutineUpdate(&p_routine_update))
@@ -3396,15 +3396,15 @@ std::move(p_routine_update));
 }
 
 void CrosHealthdDiagnosticsService_GetRoutineUpdate_ProxyToResponder::Run(
-    ::chromeos::cros_healthd::mojom::RoutineUpdatePtr in_routine_update) {
+    ::ash::cros_healthd::mojom::RoutineUpdatePtr in_routine_update) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send reply chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::GetRoutineUpdate", "async_response_parameters",
+    "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::GetRoutineUpdate", "async_response_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("routine_update"), in_routine_update,
-                        "<value of type ::chromeos::cros_healthd::mojom::RoutineUpdatePtr>");
+                        "<value of type ::ash::cros_healthd::mojom::RoutineUpdatePtr>");
    });
 #endif
   
@@ -3415,13 +3415,13 @@ void CrosHealthdDiagnosticsService_GetRoutineUpdate_ProxyToResponder::Run(
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_GetRoutineUpdate_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_GetRoutineUpdate_ResponseParams_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_GetRoutineUpdate_ResponseParams_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
       typename decltype(params->routine_update)::BaseType> routine_update_fragment(
           params.message());
-  mojo::internal::Serialize<::chromeos::cros_healthd::mojom::RoutineUpdateDataView>(
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::RoutineUpdateDataView>(
       in_routine_update, routine_update_fragment);
   params->routine_update.Set(
       routine_update_fragment.is_null() ? nullptr : routine_update_fragment.data());
@@ -3488,7 +3488,7 @@ class CrosHealthdDiagnosticsService_RunUrandomRoutine_ProxyToResponder : public 
 #endif
 
   void Run(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr in_response);
+      ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response);
 };
 
 bool CrosHealthdDiagnosticsService_RunUrandomRoutine_ForwardToCallback::Accept(
@@ -3501,7 +3501,7 @@ bool CrosHealthdDiagnosticsService_RunUrandomRoutine_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunUrandomRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -3520,15 +3520,15 @@ std::move(p_response));
 }
 
 void CrosHealthdDiagnosticsService_RunUrandomRoutine_ProxyToResponder::Run(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr in_response) {
+    ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send reply chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunUrandomRoutine", "async_response_parameters",
+    "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunUrandomRoutine", "async_response_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
-                        "<value of type ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr>");
+                        "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
 #endif
   
@@ -3539,13 +3539,13 @@ void CrosHealthdDiagnosticsService_RunUrandomRoutine_ProxyToResponder::Run(
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunUrandomRoutine_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunUrandomRoutine_ResponseParams_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunUrandomRoutine_ResponseParams_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
       typename decltype(params->response)::BaseType> response_fragment(
           params.message());
-  mojo::internal::Serialize<::chromeos::cros_healthd::mojom::RunRoutineResponseDataView>(
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
       in_response, response_fragment);
   params->response.Set(
       response_fragment.is_null() ? nullptr : response_fragment.data());
@@ -3612,7 +3612,7 @@ class CrosHealthdDiagnosticsService_RunBatteryCapacityRoutine_ProxyToResponder :
 #endif
 
   void Run(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr in_response);
+      ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response);
 };
 
 bool CrosHealthdDiagnosticsService_RunBatteryCapacityRoutine_ForwardToCallback::Accept(
@@ -3625,7 +3625,7 @@ bool CrosHealthdDiagnosticsService_RunBatteryCapacityRoutine_ForwardToCallback::
               message->mutable_payload());
   
   bool success = true;
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunBatteryCapacityRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -3644,15 +3644,15 @@ std::move(p_response));
 }
 
 void CrosHealthdDiagnosticsService_RunBatteryCapacityRoutine_ProxyToResponder::Run(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr in_response) {
+    ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send reply chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBatteryCapacityRoutine", "async_response_parameters",
+    "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBatteryCapacityRoutine", "async_response_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
-                        "<value of type ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr>");
+                        "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
 #endif
   
@@ -3663,13 +3663,13 @@ void CrosHealthdDiagnosticsService_RunBatteryCapacityRoutine_ProxyToResponder::R
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunBatteryCapacityRoutine_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunBatteryCapacityRoutine_ResponseParams_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunBatteryCapacityRoutine_ResponseParams_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
       typename decltype(params->response)::BaseType> response_fragment(
           params.message());
-  mojo::internal::Serialize<::chromeos::cros_healthd::mojom::RunRoutineResponseDataView>(
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
       in_response, response_fragment);
   params->response.Set(
       response_fragment.is_null() ? nullptr : response_fragment.data());
@@ -3736,7 +3736,7 @@ class CrosHealthdDiagnosticsService_RunBatteryHealthRoutine_ProxyToResponder : p
 #endif
 
   void Run(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr in_response);
+      ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response);
 };
 
 bool CrosHealthdDiagnosticsService_RunBatteryHealthRoutine_ForwardToCallback::Accept(
@@ -3749,7 +3749,7 @@ bool CrosHealthdDiagnosticsService_RunBatteryHealthRoutine_ForwardToCallback::Ac
               message->mutable_payload());
   
   bool success = true;
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunBatteryHealthRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -3768,15 +3768,15 @@ std::move(p_response));
 }
 
 void CrosHealthdDiagnosticsService_RunBatteryHealthRoutine_ProxyToResponder::Run(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr in_response) {
+    ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send reply chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBatteryHealthRoutine", "async_response_parameters",
+    "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBatteryHealthRoutine", "async_response_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
-                        "<value of type ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr>");
+                        "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
 #endif
   
@@ -3787,13 +3787,13 @@ void CrosHealthdDiagnosticsService_RunBatteryHealthRoutine_ProxyToResponder::Run
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunBatteryHealthRoutine_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunBatteryHealthRoutine_ResponseParams_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunBatteryHealthRoutine_ResponseParams_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
       typename decltype(params->response)::BaseType> response_fragment(
           params.message());
-  mojo::internal::Serialize<::chromeos::cros_healthd::mojom::RunRoutineResponseDataView>(
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
       in_response, response_fragment);
   params->response.Set(
       response_fragment.is_null() ? nullptr : response_fragment.data());
@@ -3860,7 +3860,7 @@ class CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_ProxyToResponder : p
 #endif
 
   void Run(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr in_response);
+      ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response);
 };
 
 bool CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_ForwardToCallback::Accept(
@@ -3873,7 +3873,7 @@ bool CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_ForwardToCallback::Ac
               message->mutable_payload());
   
   bool success = true;
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -3892,15 +3892,15 @@ std::move(p_response));
 }
 
 void CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_ProxyToResponder::Run(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr in_response) {
+    ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send reply chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunSmartctlCheckRoutine", "async_response_parameters",
+    "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunSmartctlCheckRoutine", "async_response_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
-                        "<value of type ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr>");
+                        "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
 #endif
   
@@ -3911,13 +3911,13 @@ void CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_ProxyToResponder::Run
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_ResponseParams_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_ResponseParams_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
       typename decltype(params->response)::BaseType> response_fragment(
           params.message());
-  mojo::internal::Serialize<::chromeos::cros_healthd::mojom::RunRoutineResponseDataView>(
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
       in_response, response_fragment);
   params->response.Set(
       response_fragment.is_null() ? nullptr : response_fragment.data());
@@ -3984,7 +3984,7 @@ class CrosHealthdDiagnosticsService_RunAcPowerRoutine_ProxyToResponder : public 
 #endif
 
   void Run(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr in_response);
+      ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response);
 };
 
 bool CrosHealthdDiagnosticsService_RunAcPowerRoutine_ForwardToCallback::Accept(
@@ -3997,7 +3997,7 @@ bool CrosHealthdDiagnosticsService_RunAcPowerRoutine_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunAcPowerRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -4016,15 +4016,15 @@ std::move(p_response));
 }
 
 void CrosHealthdDiagnosticsService_RunAcPowerRoutine_ProxyToResponder::Run(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr in_response) {
+    ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send reply chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunAcPowerRoutine", "async_response_parameters",
+    "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunAcPowerRoutine", "async_response_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
-                        "<value of type ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr>");
+                        "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
 #endif
   
@@ -4035,13 +4035,13 @@ void CrosHealthdDiagnosticsService_RunAcPowerRoutine_ProxyToResponder::Run(
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunAcPowerRoutine_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunAcPowerRoutine_ResponseParams_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunAcPowerRoutine_ResponseParams_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
       typename decltype(params->response)::BaseType> response_fragment(
           params.message());
-  mojo::internal::Serialize<::chromeos::cros_healthd::mojom::RunRoutineResponseDataView>(
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
       in_response, response_fragment);
   params->response.Set(
       response_fragment.is_null() ? nullptr : response_fragment.data());
@@ -4108,7 +4108,7 @@ class CrosHealthdDiagnosticsService_RunCpuCacheRoutine_ProxyToResponder : public
 #endif
 
   void Run(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr in_response);
+      ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response);
 };
 
 bool CrosHealthdDiagnosticsService_RunCpuCacheRoutine_ForwardToCallback::Accept(
@@ -4121,7 +4121,7 @@ bool CrosHealthdDiagnosticsService_RunCpuCacheRoutine_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunCpuCacheRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -4140,15 +4140,15 @@ std::move(p_response));
 }
 
 void CrosHealthdDiagnosticsService_RunCpuCacheRoutine_ProxyToResponder::Run(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr in_response) {
+    ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send reply chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunCpuCacheRoutine", "async_response_parameters",
+    "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunCpuCacheRoutine", "async_response_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
-                        "<value of type ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr>");
+                        "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
 #endif
   
@@ -4159,13 +4159,13 @@ void CrosHealthdDiagnosticsService_RunCpuCacheRoutine_ProxyToResponder::Run(
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunCpuCacheRoutine_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunCpuCacheRoutine_ResponseParams_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunCpuCacheRoutine_ResponseParams_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
       typename decltype(params->response)::BaseType> response_fragment(
           params.message());
-  mojo::internal::Serialize<::chromeos::cros_healthd::mojom::RunRoutineResponseDataView>(
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
       in_response, response_fragment);
   params->response.Set(
       response_fragment.is_null() ? nullptr : response_fragment.data());
@@ -4232,7 +4232,7 @@ class CrosHealthdDiagnosticsService_RunCpuStressRoutine_ProxyToResponder : publi
 #endif
 
   void Run(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr in_response);
+      ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response);
 };
 
 bool CrosHealthdDiagnosticsService_RunCpuStressRoutine_ForwardToCallback::Accept(
@@ -4245,7 +4245,7 @@ bool CrosHealthdDiagnosticsService_RunCpuStressRoutine_ForwardToCallback::Accept
               message->mutable_payload());
   
   bool success = true;
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunCpuStressRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -4264,15 +4264,15 @@ std::move(p_response));
 }
 
 void CrosHealthdDiagnosticsService_RunCpuStressRoutine_ProxyToResponder::Run(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr in_response) {
+    ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send reply chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunCpuStressRoutine", "async_response_parameters",
+    "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunCpuStressRoutine", "async_response_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
-                        "<value of type ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr>");
+                        "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
 #endif
   
@@ -4283,13 +4283,13 @@ void CrosHealthdDiagnosticsService_RunCpuStressRoutine_ProxyToResponder::Run(
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunCpuStressRoutine_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunCpuStressRoutine_ResponseParams_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunCpuStressRoutine_ResponseParams_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
       typename decltype(params->response)::BaseType> response_fragment(
           params.message());
-  mojo::internal::Serialize<::chromeos::cros_healthd::mojom::RunRoutineResponseDataView>(
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
       in_response, response_fragment);
   params->response.Set(
       response_fragment.is_null() ? nullptr : response_fragment.data());
@@ -4356,7 +4356,7 @@ class CrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_ProxyToRespo
 #endif
 
   void Run(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr in_response);
+      ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response);
 };
 
 bool CrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_ForwardToCallback::Accept(
@@ -4369,7 +4369,7 @@ bool CrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_ForwardToCall
               message->mutable_payload());
   
   bool success = true;
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -4388,15 +4388,15 @@ std::move(p_response));
 }
 
 void CrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_ProxyToResponder::Run(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr in_response) {
+    ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send reply chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunFloatingPointAccuracyRoutine", "async_response_parameters",
+    "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunFloatingPointAccuracyRoutine", "async_response_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
-                        "<value of type ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr>");
+                        "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
 #endif
   
@@ -4407,13 +4407,13 @@ void CrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_ProxyToRespon
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_ResponseParams_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_ResponseParams_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
       typename decltype(params->response)::BaseType> response_fragment(
           params.message());
-  mojo::internal::Serialize<::chromeos::cros_healthd::mojom::RunRoutineResponseDataView>(
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
       in_response, response_fragment);
   params->response.Set(
       response_fragment.is_null() ? nullptr : response_fragment.data());
@@ -4480,7 +4480,7 @@ class CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_ProxyToResponder : p
 #endif
 
   void Run(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr in_response);
+      ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response);
 };
 
 bool CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_ForwardToCallback::Accept(
@@ -4493,7 +4493,7 @@ bool CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_ForwardToCallback::Ac
               message->mutable_payload());
   
   bool success = true;
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -4512,15 +4512,15 @@ std::move(p_response));
 }
 
 void CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_ProxyToResponder::Run(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr in_response) {
+    ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send reply chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunNvmeWearLevelRoutine", "async_response_parameters",
+    "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunNvmeWearLevelRoutine", "async_response_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
-                        "<value of type ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr>");
+                        "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
 #endif
   
@@ -4531,13 +4531,13 @@ void CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_ProxyToResponder::Run
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_ResponseParams_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_ResponseParams_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
       typename decltype(params->response)::BaseType> response_fragment(
           params.message());
-  mojo::internal::Serialize<::chromeos::cros_healthd::mojom::RunRoutineResponseDataView>(
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
       in_response, response_fragment);
   params->response.Set(
       response_fragment.is_null() ? nullptr : response_fragment.data());
@@ -4604,7 +4604,7 @@ class CrosHealthdDiagnosticsService_RunNvmeSelfTestRoutine_ProxyToResponder : pu
 #endif
 
   void Run(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr in_response);
+      ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response);
 };
 
 bool CrosHealthdDiagnosticsService_RunNvmeSelfTestRoutine_ForwardToCallback::Accept(
@@ -4617,7 +4617,7 @@ bool CrosHealthdDiagnosticsService_RunNvmeSelfTestRoutine_ForwardToCallback::Acc
               message->mutable_payload());
   
   bool success = true;
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunNvmeSelfTestRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -4636,15 +4636,15 @@ std::move(p_response));
 }
 
 void CrosHealthdDiagnosticsService_RunNvmeSelfTestRoutine_ProxyToResponder::Run(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr in_response) {
+    ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send reply chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunNvmeSelfTestRoutine", "async_response_parameters",
+    "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunNvmeSelfTestRoutine", "async_response_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
-                        "<value of type ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr>");
+                        "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
 #endif
   
@@ -4655,13 +4655,13 @@ void CrosHealthdDiagnosticsService_RunNvmeSelfTestRoutine_ProxyToResponder::Run(
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunNvmeSelfTestRoutine_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunNvmeSelfTestRoutine_ResponseParams_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunNvmeSelfTestRoutine_ResponseParams_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
       typename decltype(params->response)::BaseType> response_fragment(
           params.message());
-  mojo::internal::Serialize<::chromeos::cros_healthd::mojom::RunRoutineResponseDataView>(
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
       in_response, response_fragment);
   params->response.Set(
       response_fragment.is_null() ? nullptr : response_fragment.data());
@@ -4728,7 +4728,7 @@ class CrosHealthdDiagnosticsService_RunDiskReadRoutine_ProxyToResponder : public
 #endif
 
   void Run(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr in_response);
+      ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response);
 };
 
 bool CrosHealthdDiagnosticsService_RunDiskReadRoutine_ForwardToCallback::Accept(
@@ -4741,7 +4741,7 @@ bool CrosHealthdDiagnosticsService_RunDiskReadRoutine_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunDiskReadRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -4760,15 +4760,15 @@ std::move(p_response));
 }
 
 void CrosHealthdDiagnosticsService_RunDiskReadRoutine_ProxyToResponder::Run(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr in_response) {
+    ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send reply chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunDiskReadRoutine", "async_response_parameters",
+    "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunDiskReadRoutine", "async_response_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
-                        "<value of type ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr>");
+                        "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
 #endif
   
@@ -4779,13 +4779,13 @@ void CrosHealthdDiagnosticsService_RunDiskReadRoutine_ProxyToResponder::Run(
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunDiskReadRoutine_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunDiskReadRoutine_ResponseParams_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunDiskReadRoutine_ResponseParams_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
       typename decltype(params->response)::BaseType> response_fragment(
           params.message());
-  mojo::internal::Serialize<::chromeos::cros_healthd::mojom::RunRoutineResponseDataView>(
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
       in_response, response_fragment);
   params->response.Set(
       response_fragment.is_null() ? nullptr : response_fragment.data());
@@ -4852,7 +4852,7 @@ class CrosHealthdDiagnosticsService_RunPrimeSearchRoutine_ProxyToResponder : pub
 #endif
 
   void Run(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr in_response);
+      ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response);
 };
 
 bool CrosHealthdDiagnosticsService_RunPrimeSearchRoutine_ForwardToCallback::Accept(
@@ -4865,7 +4865,7 @@ bool CrosHealthdDiagnosticsService_RunPrimeSearchRoutine_ForwardToCallback::Acce
               message->mutable_payload());
   
   bool success = true;
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunPrimeSearchRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -4884,15 +4884,15 @@ std::move(p_response));
 }
 
 void CrosHealthdDiagnosticsService_RunPrimeSearchRoutine_ProxyToResponder::Run(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr in_response) {
+    ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send reply chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunPrimeSearchRoutine", "async_response_parameters",
+    "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunPrimeSearchRoutine", "async_response_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
-                        "<value of type ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr>");
+                        "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
 #endif
   
@@ -4903,13 +4903,13 @@ void CrosHealthdDiagnosticsService_RunPrimeSearchRoutine_ProxyToResponder::Run(
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunPrimeSearchRoutine_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunPrimeSearchRoutine_ResponseParams_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunPrimeSearchRoutine_ResponseParams_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
       typename decltype(params->response)::BaseType> response_fragment(
           params.message());
-  mojo::internal::Serialize<::chromeos::cros_healthd::mojom::RunRoutineResponseDataView>(
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
       in_response, response_fragment);
   params->response.Set(
       response_fragment.is_null() ? nullptr : response_fragment.data());
@@ -4976,7 +4976,7 @@ class CrosHealthdDiagnosticsService_RunBatteryDischargeRoutine_ProxyToResponder 
 #endif
 
   void Run(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr in_response);
+      ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response);
 };
 
 bool CrosHealthdDiagnosticsService_RunBatteryDischargeRoutine_ForwardToCallback::Accept(
@@ -4989,7 +4989,7 @@ bool CrosHealthdDiagnosticsService_RunBatteryDischargeRoutine_ForwardToCallback:
               message->mutable_payload());
   
   bool success = true;
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunBatteryDischargeRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -5008,15 +5008,15 @@ std::move(p_response));
 }
 
 void CrosHealthdDiagnosticsService_RunBatteryDischargeRoutine_ProxyToResponder::Run(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr in_response) {
+    ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send reply chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBatteryDischargeRoutine", "async_response_parameters",
+    "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBatteryDischargeRoutine", "async_response_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
-                        "<value of type ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr>");
+                        "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
 #endif
   
@@ -5027,13 +5027,13 @@ void CrosHealthdDiagnosticsService_RunBatteryDischargeRoutine_ProxyToResponder::
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunBatteryDischargeRoutine_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunBatteryDischargeRoutine_ResponseParams_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunBatteryDischargeRoutine_ResponseParams_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
       typename decltype(params->response)::BaseType> response_fragment(
           params.message());
-  mojo::internal::Serialize<::chromeos::cros_healthd::mojom::RunRoutineResponseDataView>(
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
       in_response, response_fragment);
   params->response.Set(
       response_fragment.is_null() ? nullptr : response_fragment.data());
@@ -5100,7 +5100,7 @@ class CrosHealthdDiagnosticsService_RunBatteryChargeRoutine_ProxyToResponder : p
 #endif
 
   void Run(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr in_response);
+      ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response);
 };
 
 bool CrosHealthdDiagnosticsService_RunBatteryChargeRoutine_ForwardToCallback::Accept(
@@ -5113,7 +5113,7 @@ bool CrosHealthdDiagnosticsService_RunBatteryChargeRoutine_ForwardToCallback::Ac
               message->mutable_payload());
   
   bool success = true;
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunBatteryChargeRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -5132,15 +5132,15 @@ std::move(p_response));
 }
 
 void CrosHealthdDiagnosticsService_RunBatteryChargeRoutine_ProxyToResponder::Run(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr in_response) {
+    ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send reply chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBatteryChargeRoutine", "async_response_parameters",
+    "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunBatteryChargeRoutine", "async_response_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
-                        "<value of type ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr>");
+                        "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
 #endif
   
@@ -5151,13 +5151,13 @@ void CrosHealthdDiagnosticsService_RunBatteryChargeRoutine_ProxyToResponder::Run
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunBatteryChargeRoutine_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunBatteryChargeRoutine_ResponseParams_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunBatteryChargeRoutine_ResponseParams_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
       typename decltype(params->response)::BaseType> response_fragment(
           params.message());
-  mojo::internal::Serialize<::chromeos::cros_healthd::mojom::RunRoutineResponseDataView>(
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
       in_response, response_fragment);
   params->response.Set(
       response_fragment.is_null() ? nullptr : response_fragment.data());
@@ -5224,7 +5224,7 @@ class CrosHealthdDiagnosticsService_RunMemoryRoutine_ProxyToResponder : public :
 #endif
 
   void Run(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr in_response);
+      ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response);
 };
 
 bool CrosHealthdDiagnosticsService_RunMemoryRoutine_ForwardToCallback::Accept(
@@ -5237,7 +5237,7 @@ bool CrosHealthdDiagnosticsService_RunMemoryRoutine_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunMemoryRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -5256,15 +5256,15 @@ std::move(p_response));
 }
 
 void CrosHealthdDiagnosticsService_RunMemoryRoutine_ProxyToResponder::Run(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr in_response) {
+    ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send reply chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunMemoryRoutine", "async_response_parameters",
+    "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunMemoryRoutine", "async_response_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
-                        "<value of type ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr>");
+                        "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
 #endif
   
@@ -5275,13 +5275,13 @@ void CrosHealthdDiagnosticsService_RunMemoryRoutine_ProxyToResponder::Run(
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunMemoryRoutine_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunMemoryRoutine_ResponseParams_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunMemoryRoutine_ResponseParams_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
       typename decltype(params->response)::BaseType> response_fragment(
           params.message());
-  mojo::internal::Serialize<::chromeos::cros_healthd::mojom::RunRoutineResponseDataView>(
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
       in_response, response_fragment);
   params->response.Set(
       response_fragment.is_null() ? nullptr : response_fragment.data());
@@ -5348,7 +5348,7 @@ class CrosHealthdDiagnosticsService_RunLanConnectivityRoutine_ProxyToResponder :
 #endif
 
   void Run(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr in_response);
+      ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response);
 };
 
 bool CrosHealthdDiagnosticsService_RunLanConnectivityRoutine_ForwardToCallback::Accept(
@@ -5361,7 +5361,7 @@ bool CrosHealthdDiagnosticsService_RunLanConnectivityRoutine_ForwardToCallback::
               message->mutable_payload());
   
   bool success = true;
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunLanConnectivityRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -5380,15 +5380,15 @@ std::move(p_response));
 }
 
 void CrosHealthdDiagnosticsService_RunLanConnectivityRoutine_ProxyToResponder::Run(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr in_response) {
+    ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send reply chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunLanConnectivityRoutine", "async_response_parameters",
+    "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunLanConnectivityRoutine", "async_response_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
-                        "<value of type ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr>");
+                        "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
 #endif
   
@@ -5399,13 +5399,13 @@ void CrosHealthdDiagnosticsService_RunLanConnectivityRoutine_ProxyToResponder::R
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunLanConnectivityRoutine_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunLanConnectivityRoutine_ResponseParams_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunLanConnectivityRoutine_ResponseParams_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
       typename decltype(params->response)::BaseType> response_fragment(
           params.message());
-  mojo::internal::Serialize<::chromeos::cros_healthd::mojom::RunRoutineResponseDataView>(
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
       in_response, response_fragment);
   params->response.Set(
       response_fragment.is_null() ? nullptr : response_fragment.data());
@@ -5472,7 +5472,7 @@ class CrosHealthdDiagnosticsService_RunSignalStrengthRoutine_ProxyToResponder : 
 #endif
 
   void Run(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr in_response);
+      ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response);
 };
 
 bool CrosHealthdDiagnosticsService_RunSignalStrengthRoutine_ForwardToCallback::Accept(
@@ -5485,7 +5485,7 @@ bool CrosHealthdDiagnosticsService_RunSignalStrengthRoutine_ForwardToCallback::A
               message->mutable_payload());
   
   bool success = true;
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunSignalStrengthRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -5504,15 +5504,15 @@ std::move(p_response));
 }
 
 void CrosHealthdDiagnosticsService_RunSignalStrengthRoutine_ProxyToResponder::Run(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr in_response) {
+    ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send reply chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunSignalStrengthRoutine", "async_response_parameters",
+    "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunSignalStrengthRoutine", "async_response_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
-                        "<value of type ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr>");
+                        "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
 #endif
   
@@ -5523,13 +5523,13 @@ void CrosHealthdDiagnosticsService_RunSignalStrengthRoutine_ProxyToResponder::Ru
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunSignalStrengthRoutine_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunSignalStrengthRoutine_ResponseParams_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunSignalStrengthRoutine_ResponseParams_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
       typename decltype(params->response)::BaseType> response_fragment(
           params.message());
-  mojo::internal::Serialize<::chromeos::cros_healthd::mojom::RunRoutineResponseDataView>(
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
       in_response, response_fragment);
   params->response.Set(
       response_fragment.is_null() ? nullptr : response_fragment.data());
@@ -5596,7 +5596,7 @@ class CrosHealthdDiagnosticsService_RunGatewayCanBePingedRoutine_ProxyToResponde
 #endif
 
   void Run(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr in_response);
+      ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response);
 };
 
 bool CrosHealthdDiagnosticsService_RunGatewayCanBePingedRoutine_ForwardToCallback::Accept(
@@ -5609,7 +5609,7 @@ bool CrosHealthdDiagnosticsService_RunGatewayCanBePingedRoutine_ForwardToCallbac
               message->mutable_payload());
   
   bool success = true;
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunGatewayCanBePingedRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -5628,15 +5628,15 @@ std::move(p_response));
 }
 
 void CrosHealthdDiagnosticsService_RunGatewayCanBePingedRoutine_ProxyToResponder::Run(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr in_response) {
+    ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send reply chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunGatewayCanBePingedRoutine", "async_response_parameters",
+    "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunGatewayCanBePingedRoutine", "async_response_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
-                        "<value of type ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr>");
+                        "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
 #endif
   
@@ -5647,13 +5647,13 @@ void CrosHealthdDiagnosticsService_RunGatewayCanBePingedRoutine_ProxyToResponder
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunGatewayCanBePingedRoutine_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunGatewayCanBePingedRoutine_ResponseParams_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunGatewayCanBePingedRoutine_ResponseParams_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
       typename decltype(params->response)::BaseType> response_fragment(
           params.message());
-  mojo::internal::Serialize<::chromeos::cros_healthd::mojom::RunRoutineResponseDataView>(
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
       in_response, response_fragment);
   params->response.Set(
       response_fragment.is_null() ? nullptr : response_fragment.data());
@@ -5720,7 +5720,7 @@ class CrosHealthdDiagnosticsService_RunHasSecureWiFiConnectionRoutine_ProxyToRes
 #endif
 
   void Run(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr in_response);
+      ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response);
 };
 
 bool CrosHealthdDiagnosticsService_RunHasSecureWiFiConnectionRoutine_ForwardToCallback::Accept(
@@ -5733,7 +5733,7 @@ bool CrosHealthdDiagnosticsService_RunHasSecureWiFiConnectionRoutine_ForwardToCa
               message->mutable_payload());
   
   bool success = true;
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunHasSecureWiFiConnectionRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -5752,15 +5752,15 @@ std::move(p_response));
 }
 
 void CrosHealthdDiagnosticsService_RunHasSecureWiFiConnectionRoutine_ProxyToResponder::Run(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr in_response) {
+    ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send reply chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunHasSecureWiFiConnectionRoutine", "async_response_parameters",
+    "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunHasSecureWiFiConnectionRoutine", "async_response_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
-                        "<value of type ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr>");
+                        "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
 #endif
   
@@ -5771,13 +5771,13 @@ void CrosHealthdDiagnosticsService_RunHasSecureWiFiConnectionRoutine_ProxyToResp
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunHasSecureWiFiConnectionRoutine_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunHasSecureWiFiConnectionRoutine_ResponseParams_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunHasSecureWiFiConnectionRoutine_ResponseParams_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
       typename decltype(params->response)::BaseType> response_fragment(
           params.message());
-  mojo::internal::Serialize<::chromeos::cros_healthd::mojom::RunRoutineResponseDataView>(
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
       in_response, response_fragment);
   params->response.Set(
       response_fragment.is_null() ? nullptr : response_fragment.data());
@@ -5844,7 +5844,7 @@ class CrosHealthdDiagnosticsService_RunDnsResolverPresentRoutine_ProxyToResponde
 #endif
 
   void Run(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr in_response);
+      ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response);
 };
 
 bool CrosHealthdDiagnosticsService_RunDnsResolverPresentRoutine_ForwardToCallback::Accept(
@@ -5857,7 +5857,7 @@ bool CrosHealthdDiagnosticsService_RunDnsResolverPresentRoutine_ForwardToCallbac
               message->mutable_payload());
   
   bool success = true;
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunDnsResolverPresentRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -5876,15 +5876,15 @@ std::move(p_response));
 }
 
 void CrosHealthdDiagnosticsService_RunDnsResolverPresentRoutine_ProxyToResponder::Run(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr in_response) {
+    ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send reply chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunDnsResolverPresentRoutine", "async_response_parameters",
+    "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunDnsResolverPresentRoutine", "async_response_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
-                        "<value of type ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr>");
+                        "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
 #endif
   
@@ -5895,13 +5895,13 @@ void CrosHealthdDiagnosticsService_RunDnsResolverPresentRoutine_ProxyToResponder
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunDnsResolverPresentRoutine_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunDnsResolverPresentRoutine_ResponseParams_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunDnsResolverPresentRoutine_ResponseParams_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
       typename decltype(params->response)::BaseType> response_fragment(
           params.message());
-  mojo::internal::Serialize<::chromeos::cros_healthd::mojom::RunRoutineResponseDataView>(
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
       in_response, response_fragment);
   params->response.Set(
       response_fragment.is_null() ? nullptr : response_fragment.data());
@@ -5968,7 +5968,7 @@ class CrosHealthdDiagnosticsService_RunDnsLatencyRoutine_ProxyToResponder : publ
 #endif
 
   void Run(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr in_response);
+      ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response);
 };
 
 bool CrosHealthdDiagnosticsService_RunDnsLatencyRoutine_ForwardToCallback::Accept(
@@ -5981,7 +5981,7 @@ bool CrosHealthdDiagnosticsService_RunDnsLatencyRoutine_ForwardToCallback::Accep
               message->mutable_payload());
   
   bool success = true;
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunDnsLatencyRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -6000,15 +6000,15 @@ std::move(p_response));
 }
 
 void CrosHealthdDiagnosticsService_RunDnsLatencyRoutine_ProxyToResponder::Run(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr in_response) {
+    ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send reply chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunDnsLatencyRoutine", "async_response_parameters",
+    "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunDnsLatencyRoutine", "async_response_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
-                        "<value of type ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr>");
+                        "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
 #endif
   
@@ -6019,13 +6019,13 @@ void CrosHealthdDiagnosticsService_RunDnsLatencyRoutine_ProxyToResponder::Run(
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunDnsLatencyRoutine_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunDnsLatencyRoutine_ResponseParams_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunDnsLatencyRoutine_ResponseParams_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
       typename decltype(params->response)::BaseType> response_fragment(
           params.message());
-  mojo::internal::Serialize<::chromeos::cros_healthd::mojom::RunRoutineResponseDataView>(
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
       in_response, response_fragment);
   params->response.Set(
       response_fragment.is_null() ? nullptr : response_fragment.data());
@@ -6092,7 +6092,7 @@ class CrosHealthdDiagnosticsService_RunDnsResolutionRoutine_ProxyToResponder : p
 #endif
 
   void Run(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr in_response);
+      ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response);
 };
 
 bool CrosHealthdDiagnosticsService_RunDnsResolutionRoutine_ForwardToCallback::Accept(
@@ -6105,7 +6105,7 @@ bool CrosHealthdDiagnosticsService_RunDnsResolutionRoutine_ForwardToCallback::Ac
               message->mutable_payload());
   
   bool success = true;
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunDnsResolutionRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -6124,15 +6124,15 @@ std::move(p_response));
 }
 
 void CrosHealthdDiagnosticsService_RunDnsResolutionRoutine_ProxyToResponder::Run(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr in_response) {
+    ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send reply chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunDnsResolutionRoutine", "async_response_parameters",
+    "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunDnsResolutionRoutine", "async_response_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
-                        "<value of type ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr>");
+                        "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
 #endif
   
@@ -6143,13 +6143,13 @@ void CrosHealthdDiagnosticsService_RunDnsResolutionRoutine_ProxyToResponder::Run
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunDnsResolutionRoutine_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunDnsResolutionRoutine_ResponseParams_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunDnsResolutionRoutine_ResponseParams_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
       typename decltype(params->response)::BaseType> response_fragment(
           params.message());
-  mojo::internal::Serialize<::chromeos::cros_healthd::mojom::RunRoutineResponseDataView>(
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
       in_response, response_fragment);
   params->response.Set(
       response_fragment.is_null() ? nullptr : response_fragment.data());
@@ -6216,7 +6216,7 @@ class CrosHealthdDiagnosticsService_RunCaptivePortalRoutine_ProxyToResponder : p
 #endif
 
   void Run(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr in_response);
+      ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response);
 };
 
 bool CrosHealthdDiagnosticsService_RunCaptivePortalRoutine_ForwardToCallback::Accept(
@@ -6229,7 +6229,7 @@ bool CrosHealthdDiagnosticsService_RunCaptivePortalRoutine_ForwardToCallback::Ac
               message->mutable_payload());
   
   bool success = true;
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunCaptivePortalRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -6248,15 +6248,15 @@ std::move(p_response));
 }
 
 void CrosHealthdDiagnosticsService_RunCaptivePortalRoutine_ProxyToResponder::Run(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr in_response) {
+    ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send reply chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunCaptivePortalRoutine", "async_response_parameters",
+    "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunCaptivePortalRoutine", "async_response_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
-                        "<value of type ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr>");
+                        "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
 #endif
   
@@ -6267,13 +6267,13 @@ void CrosHealthdDiagnosticsService_RunCaptivePortalRoutine_ProxyToResponder::Run
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunCaptivePortalRoutine_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunCaptivePortalRoutine_ResponseParams_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunCaptivePortalRoutine_ResponseParams_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
       typename decltype(params->response)::BaseType> response_fragment(
           params.message());
-  mojo::internal::Serialize<::chromeos::cros_healthd::mojom::RunRoutineResponseDataView>(
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
       in_response, response_fragment);
   params->response.Set(
       response_fragment.is_null() ? nullptr : response_fragment.data());
@@ -6340,7 +6340,7 @@ class CrosHealthdDiagnosticsService_RunHttpFirewallRoutine_ProxyToResponder : pu
 #endif
 
   void Run(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr in_response);
+      ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response);
 };
 
 bool CrosHealthdDiagnosticsService_RunHttpFirewallRoutine_ForwardToCallback::Accept(
@@ -6353,7 +6353,7 @@ bool CrosHealthdDiagnosticsService_RunHttpFirewallRoutine_ForwardToCallback::Acc
               message->mutable_payload());
   
   bool success = true;
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunHttpFirewallRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -6372,15 +6372,15 @@ std::move(p_response));
 }
 
 void CrosHealthdDiagnosticsService_RunHttpFirewallRoutine_ProxyToResponder::Run(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr in_response) {
+    ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send reply chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunHttpFirewallRoutine", "async_response_parameters",
+    "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunHttpFirewallRoutine", "async_response_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
-                        "<value of type ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr>");
+                        "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
 #endif
   
@@ -6391,13 +6391,13 @@ void CrosHealthdDiagnosticsService_RunHttpFirewallRoutine_ProxyToResponder::Run(
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunHttpFirewallRoutine_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunHttpFirewallRoutine_ResponseParams_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunHttpFirewallRoutine_ResponseParams_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
       typename decltype(params->response)::BaseType> response_fragment(
           params.message());
-  mojo::internal::Serialize<::chromeos::cros_healthd::mojom::RunRoutineResponseDataView>(
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
       in_response, response_fragment);
   params->response.Set(
       response_fragment.is_null() ? nullptr : response_fragment.data());
@@ -6464,7 +6464,7 @@ class CrosHealthdDiagnosticsService_RunHttpsFirewallRoutine_ProxyToResponder : p
 #endif
 
   void Run(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr in_response);
+      ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response);
 };
 
 bool CrosHealthdDiagnosticsService_RunHttpsFirewallRoutine_ForwardToCallback::Accept(
@@ -6477,7 +6477,7 @@ bool CrosHealthdDiagnosticsService_RunHttpsFirewallRoutine_ForwardToCallback::Ac
               message->mutable_payload());
   
   bool success = true;
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunHttpsFirewallRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -6496,15 +6496,15 @@ std::move(p_response));
 }
 
 void CrosHealthdDiagnosticsService_RunHttpsFirewallRoutine_ProxyToResponder::Run(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr in_response) {
+    ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send reply chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunHttpsFirewallRoutine", "async_response_parameters",
+    "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunHttpsFirewallRoutine", "async_response_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
-                        "<value of type ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr>");
+                        "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
 #endif
   
@@ -6515,13 +6515,13 @@ void CrosHealthdDiagnosticsService_RunHttpsFirewallRoutine_ProxyToResponder::Run
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunHttpsFirewallRoutine_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunHttpsFirewallRoutine_ResponseParams_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunHttpsFirewallRoutine_ResponseParams_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
       typename decltype(params->response)::BaseType> response_fragment(
           params.message());
-  mojo::internal::Serialize<::chromeos::cros_healthd::mojom::RunRoutineResponseDataView>(
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
       in_response, response_fragment);
   params->response.Set(
       response_fragment.is_null() ? nullptr : response_fragment.data());
@@ -6588,7 +6588,7 @@ class CrosHealthdDiagnosticsService_RunHttpsLatencyRoutine_ProxyToResponder : pu
 #endif
 
   void Run(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr in_response);
+      ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response);
 };
 
 bool CrosHealthdDiagnosticsService_RunHttpsLatencyRoutine_ForwardToCallback::Accept(
@@ -6601,7 +6601,7 @@ bool CrosHealthdDiagnosticsService_RunHttpsLatencyRoutine_ForwardToCallback::Acc
               message->mutable_payload());
   
   bool success = true;
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunHttpsLatencyRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -6620,15 +6620,15 @@ std::move(p_response));
 }
 
 void CrosHealthdDiagnosticsService_RunHttpsLatencyRoutine_ProxyToResponder::Run(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr in_response) {
+    ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send reply chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunHttpsLatencyRoutine", "async_response_parameters",
+    "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunHttpsLatencyRoutine", "async_response_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
-                        "<value of type ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr>");
+                        "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
 #endif
   
@@ -6639,13 +6639,13 @@ void CrosHealthdDiagnosticsService_RunHttpsLatencyRoutine_ProxyToResponder::Run(
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunHttpsLatencyRoutine_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunHttpsLatencyRoutine_ResponseParams_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunHttpsLatencyRoutine_ResponseParams_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
       typename decltype(params->response)::BaseType> response_fragment(
           params.message());
-  mojo::internal::Serialize<::chromeos::cros_healthd::mojom::RunRoutineResponseDataView>(
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
       in_response, response_fragment);
   params->response.Set(
       response_fragment.is_null() ? nullptr : response_fragment.data());
@@ -6712,7 +6712,7 @@ class CrosHealthdDiagnosticsService_RunVideoConferencingRoutine_ProxyToResponder
 #endif
 
   void Run(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr in_response);
+      ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response);
 };
 
 bool CrosHealthdDiagnosticsService_RunVideoConferencingRoutine_ForwardToCallback::Accept(
@@ -6725,7 +6725,7 @@ bool CrosHealthdDiagnosticsService_RunVideoConferencingRoutine_ForwardToCallback
               message->mutable_payload());
   
   bool success = true;
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunVideoConferencingRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -6744,15 +6744,15 @@ std::move(p_response));
 }
 
 void CrosHealthdDiagnosticsService_RunVideoConferencingRoutine_ProxyToResponder::Run(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr in_response) {
+    ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send reply chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunVideoConferencingRoutine", "async_response_parameters",
+    "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunVideoConferencingRoutine", "async_response_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
-                        "<value of type ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr>");
+                        "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
 #endif
   
@@ -6763,13 +6763,13 @@ void CrosHealthdDiagnosticsService_RunVideoConferencingRoutine_ProxyToResponder:
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunVideoConferencingRoutine_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunVideoConferencingRoutine_ResponseParams_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunVideoConferencingRoutine_ResponseParams_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
       typename decltype(params->response)::BaseType> response_fragment(
           params.message());
-  mojo::internal::Serialize<::chromeos::cros_healthd::mojom::RunRoutineResponseDataView>(
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
       in_response, response_fragment);
   params->response.Set(
       response_fragment.is_null() ? nullptr : response_fragment.data());
@@ -6836,7 +6836,7 @@ class CrosHealthdDiagnosticsService_RunArcHttpRoutine_ProxyToResponder : public 
 #endif
 
   void Run(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr in_response);
+      ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response);
 };
 
 bool CrosHealthdDiagnosticsService_RunArcHttpRoutine_ForwardToCallback::Accept(
@@ -6849,7 +6849,7 @@ bool CrosHealthdDiagnosticsService_RunArcHttpRoutine_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunArcHttpRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -6868,15 +6868,15 @@ std::move(p_response));
 }
 
 void CrosHealthdDiagnosticsService_RunArcHttpRoutine_ProxyToResponder::Run(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr in_response) {
+    ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send reply chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunArcHttpRoutine", "async_response_parameters",
+    "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunArcHttpRoutine", "async_response_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
-                        "<value of type ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr>");
+                        "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
 #endif
   
@@ -6887,13 +6887,13 @@ void CrosHealthdDiagnosticsService_RunArcHttpRoutine_ProxyToResponder::Run(
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunArcHttpRoutine_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunArcHttpRoutine_ResponseParams_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunArcHttpRoutine_ResponseParams_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
       typename decltype(params->response)::BaseType> response_fragment(
           params.message());
-  mojo::internal::Serialize<::chromeos::cros_healthd::mojom::RunRoutineResponseDataView>(
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
       in_response, response_fragment);
   params->response.Set(
       response_fragment.is_null() ? nullptr : response_fragment.data());
@@ -6960,7 +6960,7 @@ class CrosHealthdDiagnosticsService_RunArcPingRoutine_ProxyToResponder : public 
 #endif
 
   void Run(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr in_response);
+      ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response);
 };
 
 bool CrosHealthdDiagnosticsService_RunArcPingRoutine_ForwardToCallback::Accept(
@@ -6973,7 +6973,7 @@ bool CrosHealthdDiagnosticsService_RunArcPingRoutine_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunArcPingRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -6992,15 +6992,15 @@ std::move(p_response));
 }
 
 void CrosHealthdDiagnosticsService_RunArcPingRoutine_ProxyToResponder::Run(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr in_response) {
+    ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send reply chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunArcPingRoutine", "async_response_parameters",
+    "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunArcPingRoutine", "async_response_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
-                        "<value of type ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr>");
+                        "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
 #endif
   
@@ -7011,13 +7011,13 @@ void CrosHealthdDiagnosticsService_RunArcPingRoutine_ProxyToResponder::Run(
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunArcPingRoutine_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunArcPingRoutine_ResponseParams_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunArcPingRoutine_ResponseParams_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
       typename decltype(params->response)::BaseType> response_fragment(
           params.message());
-  mojo::internal::Serialize<::chromeos::cros_healthd::mojom::RunRoutineResponseDataView>(
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
       in_response, response_fragment);
   params->response.Set(
       response_fragment.is_null() ? nullptr : response_fragment.data());
@@ -7084,7 +7084,7 @@ class CrosHealthdDiagnosticsService_RunArcDnsResolutionRoutine_ProxyToResponder 
 #endif
 
   void Run(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr in_response);
+      ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response);
 };
 
 bool CrosHealthdDiagnosticsService_RunArcDnsResolutionRoutine_ForwardToCallback::Accept(
@@ -7097,7 +7097,7 @@ bool CrosHealthdDiagnosticsService_RunArcDnsResolutionRoutine_ForwardToCallback:
               message->mutable_payload());
   
   bool success = true;
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response{};
   CrosHealthdDiagnosticsService_RunArcDnsResolutionRoutine_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -7116,15 +7116,15 @@ std::move(p_response));
 }
 
 void CrosHealthdDiagnosticsService_RunArcDnsResolutionRoutine_ProxyToResponder::Run(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr in_response) {
+    ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send reply chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunArcDnsResolutionRoutine", "async_response_parameters",
+    "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunArcDnsResolutionRoutine", "async_response_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
-                        "<value of type ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr>");
+                        "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
    });
 #endif
   
@@ -7135,13 +7135,13 @@ void CrosHealthdDiagnosticsService_RunArcDnsResolutionRoutine_ProxyToResponder::
   mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunArcDnsResolutionRoutine_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunArcDnsResolutionRoutine_ResponseParams_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunArcDnsResolutionRoutine_ResponseParams_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
       typename decltype(params->response)::BaseType> response_fragment(
           params.message());
-  mojo::internal::Serialize<::chromeos::cros_healthd::mojom::RunRoutineResponseDataView>(
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
       in_response, response_fragment);
   params->response.Set(
       response_fragment.is_null() ? nullptr : response_fragment.data());
@@ -7315,7 +7315,7 @@ bool CrosHealthdDiagnosticsServiceStubDispatch::AcceptWithResponder(
       
       bool success = true;
       int32_t p_id{};
-      ::chromeos::cros_healthd::mojom::DiagnosticRoutineCommandEnum p_command{};
+      ::ash::cros_healthd::mojom::DiagnosticRoutineCommandEnum p_command{};
       bool p_include_output{};
       CrosHealthdDiagnosticsService_GetRoutineUpdate_ParamsDataView input_data_view(params, message);
       
@@ -7351,7 +7351,7 @@ std::move(p_include_output), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      ::chromeos::cros_healthd::mojom::NullableUint32Ptr p_length_seconds{};
+      ::ash::cros_healthd::mojom::NullableUint32Ptr p_length_seconds{};
       CrosHealthdDiagnosticsService_RunUrandomRoutine_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadLengthSeconds(&p_length_seconds))
@@ -7455,7 +7455,7 @@ std::move(p_length_seconds), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      ::chromeos::cros_healthd::mojom::AcPowerStatusEnum p_expected_status{};
+      ::ash::cros_healthd::mojom::AcPowerStatusEnum p_expected_status{};
       absl::optional<std::string> p_expected_power_type{};
       CrosHealthdDiagnosticsService_RunAcPowerRoutine_ParamsDataView input_data_view(params, message);
       
@@ -7488,7 +7488,7 @@ std::move(p_expected_power_type), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      ::chromeos::cros_healthd::mojom::NullableUint32Ptr p_length_seconds{};
+      ::ash::cros_healthd::mojom::NullableUint32Ptr p_length_seconds{};
       CrosHealthdDiagnosticsService_RunCpuCacheRoutine_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadLengthSeconds(&p_length_seconds))
@@ -7517,7 +7517,7 @@ std::move(p_length_seconds), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      ::chromeos::cros_healthd::mojom::NullableUint32Ptr p_length_seconds{};
+      ::ash::cros_healthd::mojom::NullableUint32Ptr p_length_seconds{};
       CrosHealthdDiagnosticsService_RunCpuStressRoutine_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadLengthSeconds(&p_length_seconds))
@@ -7546,7 +7546,7 @@ std::move(p_length_seconds), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      ::chromeos::cros_healthd::mojom::NullableUint32Ptr p_length_seconds{};
+      ::ash::cros_healthd::mojom::NullableUint32Ptr p_length_seconds{};
       CrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadLengthSeconds(&p_length_seconds))
@@ -7604,7 +7604,7 @@ std::move(p_wear_level_threshold), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      ::chromeos::cros_healthd::mojom::NvmeSelfTestTypeEnum p_nvme_self_test_type{};
+      ::ash::cros_healthd::mojom::NvmeSelfTestTypeEnum p_nvme_self_test_type{};
       CrosHealthdDiagnosticsService_RunNvmeSelfTestRoutine_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadNvmeSelfTestType(&p_nvme_self_test_type))
@@ -7633,7 +7633,7 @@ std::move(p_nvme_self_test_type), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      ::chromeos::cros_healthd::mojom::DiskReadRoutineTypeEnum p_type{};
+      ::ash::cros_healthd::mojom::DiskReadRoutineTypeEnum p_type{};
       uint32_t p_length_seconds{};
       uint32_t p_file_size_mb{};
       CrosHealthdDiagnosticsService_RunDiskReadRoutine_ParamsDataView input_data_view(params, message);
@@ -7670,7 +7670,7 @@ std::move(p_file_size_mb), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      ::chromeos::cros_healthd::mojom::NullableUint32Ptr p_length_seconds{};
+      ::ash::cros_healthd::mojom::NullableUint32Ptr p_length_seconds{};
       CrosHealthdDiagnosticsService_RunPrimeSearchRoutine_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadLengthSeconds(&p_length_seconds))
@@ -8234,15 +8234,15 @@ static const mojo::internal::GenericValidationInfo kCrosHealthdDiagnosticsServic
 };
 
 bool CrosHealthdDiagnosticsServiceRequestValidator::Accept(mojo::Message* message) {
-  const char* name = ::chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::Name_;
+  const char* name = ::ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::Name_;
   return mojo::internal::ValidateRequestGenericPacked(message, name, kCrosHealthdDiagnosticsServiceValidationInfo);
 }
 
 bool CrosHealthdDiagnosticsServiceResponseValidator::Accept(mojo::Message* message) {
-  const char* name = ::chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService::Name_;
+  const char* name = ::ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::Name_;
   return mojo::internal::ValidateResponseGenericPacked(message, name, kCrosHealthdDiagnosticsServiceValidationInfo);
 }
-const char CrosHealthdEventService::Name_[] = "chromeos.cros_healthd.mojom.CrosHealthdEventService";
+const char CrosHealthdEventService::Name_[] = "ash.cros_healthd.mojom.CrosHealthdEventService";
 
 CrosHealthdEventService::IPCStableHashFunction CrosHealthdEventService::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
@@ -8280,36 +8280,36 @@ const char* CrosHealthdEventService::MessageToMethodName_(mojo::Message& message
   if (!is_response) {
     switch (message.name()) {
       case internal::kCrosHealthdEventService_AddBluetoothObserver_Name:
-            return "Receive chromeos::cros_healthd::mojom::CrosHealthdEventService::AddBluetoothObserver";
+            return "Receive ash::cros_healthd::mojom::CrosHealthdEventService::AddBluetoothObserver";
       case internal::kCrosHealthdEventService_AddLidObserver_Name:
-            return "Receive chromeos::cros_healthd::mojom::CrosHealthdEventService::AddLidObserver";
+            return "Receive ash::cros_healthd::mojom::CrosHealthdEventService::AddLidObserver";
       case internal::kCrosHealthdEventService_AddPowerObserver_Name:
-            return "Receive chromeos::cros_healthd::mojom::CrosHealthdEventService::AddPowerObserver";
+            return "Receive ash::cros_healthd::mojom::CrosHealthdEventService::AddPowerObserver";
       case internal::kCrosHealthdEventService_AddNetworkObserver_Name:
-            return "Receive chromeos::cros_healthd::mojom::CrosHealthdEventService::AddNetworkObserver";
+            return "Receive ash::cros_healthd::mojom::CrosHealthdEventService::AddNetworkObserver";
       case internal::kCrosHealthdEventService_AddAudioObserver_Name:
-            return "Receive chromeos::cros_healthd::mojom::CrosHealthdEventService::AddAudioObserver";
+            return "Receive ash::cros_healthd::mojom::CrosHealthdEventService::AddAudioObserver";
       case internal::kCrosHealthdEventService_AddThunderboltObserver_Name:
-            return "Receive chromeos::cros_healthd::mojom::CrosHealthdEventService::AddThunderboltObserver";
+            return "Receive ash::cros_healthd::mojom::CrosHealthdEventService::AddThunderboltObserver";
       case internal::kCrosHealthdEventService_AddUsbObserver_Name:
-            return "Receive chromeos::cros_healthd::mojom::CrosHealthdEventService::AddUsbObserver";
+            return "Receive ash::cros_healthd::mojom::CrosHealthdEventService::AddUsbObserver";
     }
   } else {
     switch (message.name()) {
       case internal::kCrosHealthdEventService_AddBluetoothObserver_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::CrosHealthdEventService::AddBluetoothObserver";
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdEventService::AddBluetoothObserver";
       case internal::kCrosHealthdEventService_AddLidObserver_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::CrosHealthdEventService::AddLidObserver";
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdEventService::AddLidObserver";
       case internal::kCrosHealthdEventService_AddPowerObserver_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::CrosHealthdEventService::AddPowerObserver";
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdEventService::AddPowerObserver";
       case internal::kCrosHealthdEventService_AddNetworkObserver_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::CrosHealthdEventService::AddNetworkObserver";
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdEventService::AddNetworkObserver";
       case internal::kCrosHealthdEventService_AddAudioObserver_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::CrosHealthdEventService::AddAudioObserver";
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdEventService::AddAudioObserver";
       case internal::kCrosHealthdEventService_AddThunderboltObserver_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::CrosHealthdEventService::AddThunderboltObserver";
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdEventService::AddThunderboltObserver";
       case internal::kCrosHealthdEventService_AddUsbObserver_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::CrosHealthdEventService::AddUsbObserver";
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdEventService::AddUsbObserver";
     }
   }
   return "Receive unknown mojo message";
@@ -8332,7 +8332,7 @@ uint32_t CrosHealthdEventService::AddBluetoothObserver_Sym::IPCStableHash() {
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)chromeos::cros_healthd::mojom::CrosHealthdEventService::AddBluetoothObserver");
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdEventService::AddBluetoothObserver");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -8345,7 +8345,7 @@ uint32_t CrosHealthdEventService::AddLidObserver_Sym::IPCStableHash() {
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)chromeos::cros_healthd::mojom::CrosHealthdEventService::AddLidObserver");
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdEventService::AddLidObserver");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -8358,7 +8358,7 @@ uint32_t CrosHealthdEventService::AddPowerObserver_Sym::IPCStableHash() {
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)chromeos::cros_healthd::mojom::CrosHealthdEventService::AddPowerObserver");
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdEventService::AddPowerObserver");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -8371,7 +8371,7 @@ uint32_t CrosHealthdEventService::AddNetworkObserver_Sym::IPCStableHash() {
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)chromeos::cros_healthd::mojom::CrosHealthdEventService::AddNetworkObserver");
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdEventService::AddNetworkObserver");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -8384,7 +8384,7 @@ uint32_t CrosHealthdEventService::AddAudioObserver_Sym::IPCStableHash() {
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)chromeos::cros_healthd::mojom::CrosHealthdEventService::AddAudioObserver");
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdEventService::AddAudioObserver");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -8397,7 +8397,7 @@ uint32_t CrosHealthdEventService::AddThunderboltObserver_Sym::IPCStableHash() {
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)chromeos::cros_healthd::mojom::CrosHealthdEventService::AddThunderboltObserver");
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdEventService::AddThunderboltObserver");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -8410,7 +8410,7 @@ uint32_t CrosHealthdEventService::AddUsbObserver_Sym::IPCStableHash() {
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)chromeos::cros_healthd::mojom::CrosHealthdEventService::AddUsbObserver");
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdEventService::AddUsbObserver");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -8422,15 +8422,15 @@ CrosHealthdEventServiceProxy::CrosHealthdEventServiceProxy(mojo::MessageReceiver
 }
 
 void CrosHealthdEventServiceProxy::AddBluetoothObserver(
-    ::mojo::PendingRemote<::chromeos::cros_healthd::mojom::CrosHealthdBluetoothObserver> in_observer) {
+    ::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdBluetoothObserver> in_observer) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send chromeos::cros_healthd::mojom::CrosHealthdEventService::AddBluetoothObserver", "input_parameters",
+    "mojom", "Send ash::cros_healthd::mojom::CrosHealthdEventService::AddBluetoothObserver", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("observer"), in_observer,
-                        "<value of type ::mojo::PendingRemote<::chromeos::cros_healthd::mojom::CrosHealthdBluetoothObserver>>");
+                        "<value of type ::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdBluetoothObserver>>");
    });
 #endif
   const bool kExpectsResponse = false;
@@ -8445,10 +8445,10 @@ void CrosHealthdEventServiceProxy::AddBluetoothObserver(
   mojo::Message message(
       internal::kCrosHealthdEventService_AddBluetoothObserver_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdEventService_AddBluetoothObserver_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdEventService_AddBluetoothObserver_Params_Data> params(
           message);
   params.Allocate();
-  mojo::internal::Serialize<mojo::InterfacePtrDataView<::chromeos::cros_healthd::mojom::CrosHealthdBluetoothObserverInterfaceBase>>(
+  mojo::internal::Serialize<mojo::InterfacePtrDataView<::ash::cros_healthd::mojom::CrosHealthdBluetoothObserverInterfaceBase>>(
       in_observer, &params->observer, &params.message());
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
       !mojo::internal::IsHandleOrInterfaceValid(params->observer),
@@ -8465,15 +8465,15 @@ void CrosHealthdEventServiceProxy::AddBluetoothObserver(
 }
 
 void CrosHealthdEventServiceProxy::AddLidObserver(
-    ::mojo::PendingRemote<::chromeos::cros_healthd::mojom::CrosHealthdLidObserver> in_observer) {
+    ::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdLidObserver> in_observer) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send chromeos::cros_healthd::mojom::CrosHealthdEventService::AddLidObserver", "input_parameters",
+    "mojom", "Send ash::cros_healthd::mojom::CrosHealthdEventService::AddLidObserver", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("observer"), in_observer,
-                        "<value of type ::mojo::PendingRemote<::chromeos::cros_healthd::mojom::CrosHealthdLidObserver>>");
+                        "<value of type ::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdLidObserver>>");
    });
 #endif
   const bool kExpectsResponse = false;
@@ -8488,10 +8488,10 @@ void CrosHealthdEventServiceProxy::AddLidObserver(
   mojo::Message message(
       internal::kCrosHealthdEventService_AddLidObserver_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdEventService_AddLidObserver_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdEventService_AddLidObserver_Params_Data> params(
           message);
   params.Allocate();
-  mojo::internal::Serialize<mojo::InterfacePtrDataView<::chromeos::cros_healthd::mojom::CrosHealthdLidObserverInterfaceBase>>(
+  mojo::internal::Serialize<mojo::InterfacePtrDataView<::ash::cros_healthd::mojom::CrosHealthdLidObserverInterfaceBase>>(
       in_observer, &params->observer, &params.message());
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
       !mojo::internal::IsHandleOrInterfaceValid(params->observer),
@@ -8508,15 +8508,15 @@ void CrosHealthdEventServiceProxy::AddLidObserver(
 }
 
 void CrosHealthdEventServiceProxy::AddPowerObserver(
-    ::mojo::PendingRemote<::chromeos::cros_healthd::mojom::CrosHealthdPowerObserver> in_observer) {
+    ::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdPowerObserver> in_observer) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send chromeos::cros_healthd::mojom::CrosHealthdEventService::AddPowerObserver", "input_parameters",
+    "mojom", "Send ash::cros_healthd::mojom::CrosHealthdEventService::AddPowerObserver", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("observer"), in_observer,
-                        "<value of type ::mojo::PendingRemote<::chromeos::cros_healthd::mojom::CrosHealthdPowerObserver>>");
+                        "<value of type ::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdPowerObserver>>");
    });
 #endif
   const bool kExpectsResponse = false;
@@ -8531,10 +8531,10 @@ void CrosHealthdEventServiceProxy::AddPowerObserver(
   mojo::Message message(
       internal::kCrosHealthdEventService_AddPowerObserver_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdEventService_AddPowerObserver_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdEventService_AddPowerObserver_Params_Data> params(
           message);
   params.Allocate();
-  mojo::internal::Serialize<mojo::InterfacePtrDataView<::chromeos::cros_healthd::mojom::CrosHealthdPowerObserverInterfaceBase>>(
+  mojo::internal::Serialize<mojo::InterfacePtrDataView<::ash::cros_healthd::mojom::CrosHealthdPowerObserverInterfaceBase>>(
       in_observer, &params->observer, &params.message());
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
       !mojo::internal::IsHandleOrInterfaceValid(params->observer),
@@ -8554,7 +8554,7 @@ void CrosHealthdEventServiceProxy::AddNetworkObserver(
     ::mojo::PendingRemote<::chromeos::network_health::mojom::NetworkEventsObserver> in_observer) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send chromeos::cros_healthd::mojom::CrosHealthdEventService::AddNetworkObserver", "input_parameters",
+    "mojom", "Send ash::cros_healthd::mojom::CrosHealthdEventService::AddNetworkObserver", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
@@ -8574,7 +8574,7 @@ void CrosHealthdEventServiceProxy::AddNetworkObserver(
   mojo::Message message(
       internal::kCrosHealthdEventService_AddNetworkObserver_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdEventService_AddNetworkObserver_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdEventService_AddNetworkObserver_Params_Data> params(
           message);
   params.Allocate();
   mojo::internal::Serialize<mojo::InterfacePtrDataView<::chromeos::network_health::mojom::NetworkEventsObserverInterfaceBase>>(
@@ -8594,15 +8594,15 @@ void CrosHealthdEventServiceProxy::AddNetworkObserver(
 }
 
 void CrosHealthdEventServiceProxy::AddAudioObserver(
-    ::mojo::PendingRemote<::chromeos::cros_healthd::mojom::CrosHealthdAudioObserver> in_observer) {
+    ::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdAudioObserver> in_observer) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send chromeos::cros_healthd::mojom::CrosHealthdEventService::AddAudioObserver", "input_parameters",
+    "mojom", "Send ash::cros_healthd::mojom::CrosHealthdEventService::AddAudioObserver", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("observer"), in_observer,
-                        "<value of type ::mojo::PendingRemote<::chromeos::cros_healthd::mojom::CrosHealthdAudioObserver>>");
+                        "<value of type ::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdAudioObserver>>");
    });
 #endif
   const bool kExpectsResponse = false;
@@ -8617,10 +8617,10 @@ void CrosHealthdEventServiceProxy::AddAudioObserver(
   mojo::Message message(
       internal::kCrosHealthdEventService_AddAudioObserver_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdEventService_AddAudioObserver_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdEventService_AddAudioObserver_Params_Data> params(
           message);
   params.Allocate();
-  mojo::internal::Serialize<mojo::InterfacePtrDataView<::chromeos::cros_healthd::mojom::CrosHealthdAudioObserverInterfaceBase>>(
+  mojo::internal::Serialize<mojo::InterfacePtrDataView<::ash::cros_healthd::mojom::CrosHealthdAudioObserverInterfaceBase>>(
       in_observer, &params->observer, &params.message());
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
       !mojo::internal::IsHandleOrInterfaceValid(params->observer),
@@ -8637,15 +8637,15 @@ void CrosHealthdEventServiceProxy::AddAudioObserver(
 }
 
 void CrosHealthdEventServiceProxy::AddThunderboltObserver(
-    ::mojo::PendingRemote<::chromeos::cros_healthd::mojom::CrosHealthdThunderboltObserver> in_observer) {
+    ::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdThunderboltObserver> in_observer) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send chromeos::cros_healthd::mojom::CrosHealthdEventService::AddThunderboltObserver", "input_parameters",
+    "mojom", "Send ash::cros_healthd::mojom::CrosHealthdEventService::AddThunderboltObserver", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("observer"), in_observer,
-                        "<value of type ::mojo::PendingRemote<::chromeos::cros_healthd::mojom::CrosHealthdThunderboltObserver>>");
+                        "<value of type ::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdThunderboltObserver>>");
    });
 #endif
   const bool kExpectsResponse = false;
@@ -8660,10 +8660,10 @@ void CrosHealthdEventServiceProxy::AddThunderboltObserver(
   mojo::Message message(
       internal::kCrosHealthdEventService_AddThunderboltObserver_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdEventService_AddThunderboltObserver_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdEventService_AddThunderboltObserver_Params_Data> params(
           message);
   params.Allocate();
-  mojo::internal::Serialize<mojo::InterfacePtrDataView<::chromeos::cros_healthd::mojom::CrosHealthdThunderboltObserverInterfaceBase>>(
+  mojo::internal::Serialize<mojo::InterfacePtrDataView<::ash::cros_healthd::mojom::CrosHealthdThunderboltObserverInterfaceBase>>(
       in_observer, &params->observer, &params.message());
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
       !mojo::internal::IsHandleOrInterfaceValid(params->observer),
@@ -8680,15 +8680,15 @@ void CrosHealthdEventServiceProxy::AddThunderboltObserver(
 }
 
 void CrosHealthdEventServiceProxy::AddUsbObserver(
-    ::mojo::PendingRemote<::chromeos::cros_healthd::mojom::CrosHealthdUsbObserver> in_observer) {
+    ::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdUsbObserver> in_observer) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send chromeos::cros_healthd::mojom::CrosHealthdEventService::AddUsbObserver", "input_parameters",
+    "mojom", "Send ash::cros_healthd::mojom::CrosHealthdEventService::AddUsbObserver", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("observer"), in_observer,
-                        "<value of type ::mojo::PendingRemote<::chromeos::cros_healthd::mojom::CrosHealthdUsbObserver>>");
+                        "<value of type ::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdUsbObserver>>");
    });
 #endif
   const bool kExpectsResponse = false;
@@ -8703,10 +8703,10 @@ void CrosHealthdEventServiceProxy::AddUsbObserver(
   mojo::Message message(
       internal::kCrosHealthdEventService_AddUsbObserver_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdEventService_AddUsbObserver_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdEventService_AddUsbObserver_Params_Data> params(
           message);
   params.Allocate();
-  mojo::internal::Serialize<mojo::InterfacePtrDataView<::chromeos::cros_healthd::mojom::CrosHealthdUsbObserverInterfaceBase>>(
+  mojo::internal::Serialize<mojo::InterfacePtrDataView<::ash::cros_healthd::mojom::CrosHealthdUsbObserverInterfaceBase>>(
       in_observer, &params->observer, &params.message());
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
       !mojo::internal::IsHandleOrInterfaceValid(params->observer),
@@ -8735,7 +8735,7 @@ bool CrosHealthdEventServiceStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingRemote<::chromeos::cros_healthd::mojom::CrosHealthdBluetoothObserver> p_observer{};
+      ::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdBluetoothObserver> p_observer{};
       CrosHealthdEventService_AddBluetoothObserver_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -8763,7 +8763,7 @@ std::move(p_observer));
               message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingRemote<::chromeos::cros_healthd::mojom::CrosHealthdLidObserver> p_observer{};
+      ::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdLidObserver> p_observer{};
       CrosHealthdEventService_AddLidObserver_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -8791,7 +8791,7 @@ std::move(p_observer));
               message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingRemote<::chromeos::cros_healthd::mojom::CrosHealthdPowerObserver> p_observer{};
+      ::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdPowerObserver> p_observer{};
       CrosHealthdEventService_AddPowerObserver_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -8847,7 +8847,7 @@ std::move(p_observer));
               message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingRemote<::chromeos::cros_healthd::mojom::CrosHealthdAudioObserver> p_observer{};
+      ::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdAudioObserver> p_observer{};
       CrosHealthdEventService_AddAudioObserver_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -8875,7 +8875,7 @@ std::move(p_observer));
               message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingRemote<::chromeos::cros_healthd::mojom::CrosHealthdThunderboltObserver> p_observer{};
+      ::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdThunderboltObserver> p_observer{};
       CrosHealthdEventService_AddThunderboltObserver_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -8903,7 +8903,7 @@ std::move(p_observer));
               message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingRemote<::chromeos::cros_healthd::mojom::CrosHealthdUsbObserver> p_observer{};
+      ::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdUsbObserver> p_observer{};
       CrosHealthdEventService_AddUsbObserver_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -8980,11 +8980,11 @@ static const mojo::internal::GenericValidationInfo kCrosHealthdEventServiceValid
 };
 
 bool CrosHealthdEventServiceRequestValidator::Accept(mojo::Message* message) {
-  const char* name = ::chromeos::cros_healthd::mojom::CrosHealthdEventService::Name_;
+  const char* name = ::ash::cros_healthd::mojom::CrosHealthdEventService::Name_;
   return mojo::internal::ValidateRequestGenericPacked(message, name, kCrosHealthdEventServiceValidationInfo);
 }
 
-const char CrosHealthdProbeService::Name_[] = "chromeos.cros_healthd.mojom.CrosHealthdProbeService";
+const char CrosHealthdProbeService::Name_[] = "ash.cros_healthd.mojom.CrosHealthdProbeService";
 
 CrosHealthdProbeService::IPCStableHashFunction CrosHealthdProbeService::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
@@ -9007,16 +9007,16 @@ const char* CrosHealthdProbeService::MessageToMethodName_(mojo::Message& message
   if (!is_response) {
     switch (message.name()) {
       case internal::kCrosHealthdProbeService_ProbeProcessInfo_Name:
-            return "Receive chromeos::cros_healthd::mojom::CrosHealthdProbeService::ProbeProcessInfo";
+            return "Receive ash::cros_healthd::mojom::CrosHealthdProbeService::ProbeProcessInfo";
       case internal::kCrosHealthdProbeService_ProbeTelemetryInfo_Name:
-            return "Receive chromeos::cros_healthd::mojom::CrosHealthdProbeService::ProbeTelemetryInfo";
+            return "Receive ash::cros_healthd::mojom::CrosHealthdProbeService::ProbeTelemetryInfo";
     }
   } else {
     switch (message.name()) {
       case internal::kCrosHealthdProbeService_ProbeProcessInfo_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::CrosHealthdProbeService::ProbeProcessInfo";
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdProbeService::ProbeProcessInfo";
       case internal::kCrosHealthdProbeService_ProbeTelemetryInfo_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::CrosHealthdProbeService::ProbeTelemetryInfo";
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdProbeService::ProbeTelemetryInfo";
     }
   }
   return "Receive unknown mojo message";
@@ -9039,7 +9039,7 @@ uint32_t CrosHealthdProbeService::ProbeProcessInfo_Sym::IPCStableHash() {
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)chromeos::cros_healthd::mojom::CrosHealthdProbeService::ProbeProcessInfo");
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdProbeService::ProbeProcessInfo");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -9052,7 +9052,7 @@ uint32_t CrosHealthdProbeService::ProbeTelemetryInfo_Sym::IPCStableHash() {
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)chromeos::cros_healthd::mojom::CrosHealthdProbeService::ProbeTelemetryInfo");
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdProbeService::ProbeTelemetryInfo");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -9099,7 +9099,7 @@ void CrosHealthdProbeServiceProxy::ProbeProcessInfo(
     uint32_t in_process_id, ProbeProcessInfoCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send chromeos::cros_healthd::mojom::CrosHealthdProbeService::ProbeProcessInfo", "input_parameters",
+    "mojom", "Send ash::cros_healthd::mojom::CrosHealthdProbeService::ProbeProcessInfo", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
@@ -9119,7 +9119,7 @@ void CrosHealthdProbeServiceProxy::ProbeProcessInfo(
   mojo::Message message(
       internal::kCrosHealthdProbeService_ProbeProcessInfo_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdProbeService_ProbeProcessInfo_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdProbeService_ProbeProcessInfo_Params_Data> params(
           message);
   params.Allocate();
   params->process_id = in_process_id;
@@ -9135,15 +9135,15 @@ void CrosHealthdProbeServiceProxy::ProbeProcessInfo(
 }
 
 void CrosHealthdProbeServiceProxy::ProbeTelemetryInfo(
-    const std::vector<::chromeos::cros_healthd::mojom::ProbeCategoryEnum>& in_categories, ProbeTelemetryInfoCallback callback) {
+    const std::vector<::ash::cros_healthd::mojom::ProbeCategoryEnum>& in_categories, ProbeTelemetryInfoCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send chromeos::cros_healthd::mojom::CrosHealthdProbeService::ProbeTelemetryInfo", "input_parameters",
+    "mojom", "Send ash::cros_healthd::mojom::CrosHealthdProbeService::ProbeTelemetryInfo", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("categories"), in_categories,
-                        "<value of type const std::vector<::chromeos::cros_healthd::mojom::ProbeCategoryEnum>&>");
+                        "<value of type const std::vector<::ash::cros_healthd::mojom::ProbeCategoryEnum>&>");
    });
 #endif
   const bool kExpectsResponse = true;
@@ -9158,15 +9158,15 @@ void CrosHealthdProbeServiceProxy::ProbeTelemetryInfo(
   mojo::Message message(
       internal::kCrosHealthdProbeService_ProbeTelemetryInfo_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdProbeService_ProbeTelemetryInfo_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdProbeService_ProbeTelemetryInfo_Params_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
       typename decltype(params->categories)::BaseType>
       categories_fragment(params.message());
   const mojo::internal::ContainerValidateParams categories_validate_params(
-      0, ::chromeos::cros_healthd::mojom::internal::ProbeCategoryEnum_Data::Validate);
-  mojo::internal::Serialize<mojo::ArrayDataView<::chromeos::cros_healthd::mojom::ProbeCategoryEnum>>(
+      0, ::ash::cros_healthd::mojom::internal::ProbeCategoryEnum_Data::Validate);
+  mojo::internal::Serialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::ProbeCategoryEnum>>(
       in_categories, categories_fragment, &categories_validate_params);
   params->categories.Set(
       categories_fragment.is_null() ? nullptr : categories_fragment.data());
@@ -9226,7 +9226,7 @@ class CrosHealthdProbeService_ProbeProcessInfo_ProxyToResponder : public ::mojo:
 #endif
 
   void Run(
-      ::chromeos::cros_healthd::mojom::ProcessResultPtr in_process_info);
+      ::ash::cros_healthd::mojom::ProcessResultPtr in_process_info);
 };
 
 bool CrosHealthdProbeService_ProbeProcessInfo_ForwardToCallback::Accept(
@@ -9239,7 +9239,7 @@ bool CrosHealthdProbeService_ProbeProcessInfo_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  ::chromeos::cros_healthd::mojom::ProcessResultPtr p_process_info{};
+  ::ash::cros_healthd::mojom::ProcessResultPtr p_process_info{};
   CrosHealthdProbeService_ProbeProcessInfo_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadProcessInfo(&p_process_info))
@@ -9258,15 +9258,15 @@ std::move(p_process_info));
 }
 
 void CrosHealthdProbeService_ProbeProcessInfo_ProxyToResponder::Run(
-    ::chromeos::cros_healthd::mojom::ProcessResultPtr in_process_info) {
+    ::ash::cros_healthd::mojom::ProcessResultPtr in_process_info) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send reply chromeos::cros_healthd::mojom::CrosHealthdProbeService::ProbeProcessInfo", "async_response_parameters",
+    "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdProbeService::ProbeProcessInfo", "async_response_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("process_info"), in_process_info,
-                        "<value of type ::chromeos::cros_healthd::mojom::ProcessResultPtr>");
+                        "<value of type ::ash::cros_healthd::mojom::ProcessResultPtr>");
    });
 #endif
   
@@ -9277,13 +9277,13 @@ void CrosHealthdProbeService_ProbeProcessInfo_ProxyToResponder::Run(
   mojo::Message message(
       internal::kCrosHealthdProbeService_ProbeProcessInfo_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdProbeService_ProbeProcessInfo_ResponseParams_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdProbeService_ProbeProcessInfo_ResponseParams_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<decltype(params->process_info)>
       process_info_fragment(params.message());
   process_info_fragment.Claim(&params->process_info);
-  mojo::internal::Serialize<::chromeos::cros_healthd::mojom::ProcessResultDataView>(
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::ProcessResultDataView>(
       in_process_info, process_info_fragment, true);
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
       params->process_info.is_null(),
@@ -9348,7 +9348,7 @@ class CrosHealthdProbeService_ProbeTelemetryInfo_ProxyToResponder : public ::moj
 #endif
 
   void Run(
-      ::chromeos::cros_healthd::mojom::TelemetryInfoPtr in_telemetry_info);
+      ::ash::cros_healthd::mojom::TelemetryInfoPtr in_telemetry_info);
 };
 
 bool CrosHealthdProbeService_ProbeTelemetryInfo_ForwardToCallback::Accept(
@@ -9361,7 +9361,7 @@ bool CrosHealthdProbeService_ProbeTelemetryInfo_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  ::chromeos::cros_healthd::mojom::TelemetryInfoPtr p_telemetry_info{};
+  ::ash::cros_healthd::mojom::TelemetryInfoPtr p_telemetry_info{};
   CrosHealthdProbeService_ProbeTelemetryInfo_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadTelemetryInfo(&p_telemetry_info))
@@ -9380,15 +9380,15 @@ std::move(p_telemetry_info));
 }
 
 void CrosHealthdProbeService_ProbeTelemetryInfo_ProxyToResponder::Run(
-    ::chromeos::cros_healthd::mojom::TelemetryInfoPtr in_telemetry_info) {
+    ::ash::cros_healthd::mojom::TelemetryInfoPtr in_telemetry_info) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send reply chromeos::cros_healthd::mojom::CrosHealthdProbeService::ProbeTelemetryInfo", "async_response_parameters",
+    "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdProbeService::ProbeTelemetryInfo", "async_response_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("telemetry_info"), in_telemetry_info,
-                        "<value of type ::chromeos::cros_healthd::mojom::TelemetryInfoPtr>");
+                        "<value of type ::ash::cros_healthd::mojom::TelemetryInfoPtr>");
    });
 #endif
   
@@ -9399,13 +9399,13 @@ void CrosHealthdProbeService_ProbeTelemetryInfo_ProxyToResponder::Run(
   mojo::Message message(
       internal::kCrosHealthdProbeService_ProbeTelemetryInfo_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdProbeService_ProbeTelemetryInfo_ResponseParams_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdProbeService_ProbeTelemetryInfo_ResponseParams_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
       typename decltype(params->telemetry_info)::BaseType> telemetry_info_fragment(
           params.message());
-  mojo::internal::Serialize<::chromeos::cros_healthd::mojom::TelemetryInfoDataView>(
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::TelemetryInfoDataView>(
       in_telemetry_info, telemetry_info_fragment);
   params->telemetry_info.Set(
       telemetry_info_fragment.is_null() ? nullptr : telemetry_info_fragment.data());
@@ -9492,7 +9492,7 @@ std::move(p_process_id), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      std::vector<::chromeos::cros_healthd::mojom::ProbeCategoryEnum> p_categories{};
+      std::vector<::ash::cros_healthd::mojom::ProbeCategoryEnum> p_categories{};
       CrosHealthdProbeService_ProbeTelemetryInfo_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadCategories(&p_categories))
@@ -9526,15 +9526,15 @@ static const mojo::internal::GenericValidationInfo kCrosHealthdProbeServiceValid
 };
 
 bool CrosHealthdProbeServiceRequestValidator::Accept(mojo::Message* message) {
-  const char* name = ::chromeos::cros_healthd::mojom::CrosHealthdProbeService::Name_;
+  const char* name = ::ash::cros_healthd::mojom::CrosHealthdProbeService::Name_;
   return mojo::internal::ValidateRequestGenericPacked(message, name, kCrosHealthdProbeServiceValidationInfo);
 }
 
 bool CrosHealthdProbeServiceResponseValidator::Accept(mojo::Message* message) {
-  const char* name = ::chromeos::cros_healthd::mojom::CrosHealthdProbeService::Name_;
+  const char* name = ::ash::cros_healthd::mojom::CrosHealthdProbeService::Name_;
   return mojo::internal::ValidateResponseGenericPacked(message, name, kCrosHealthdProbeServiceValidationInfo);
 }
-const char CrosHealthdSystemService::Name_[] = "chromeos.cros_healthd.mojom.CrosHealthdSystemService";
+const char CrosHealthdSystemService::Name_[] = "ash.cros_healthd.mojom.CrosHealthdSystemService";
 
 CrosHealthdSystemService::IPCStableHashFunction CrosHealthdSystemService::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
@@ -9554,12 +9554,12 @@ const char* CrosHealthdSystemService::MessageToMethodName_(mojo::Message& messag
   if (!is_response) {
     switch (message.name()) {
       case internal::kCrosHealthdSystemService_GetServiceStatus_Name:
-            return "Receive chromeos::cros_healthd::mojom::CrosHealthdSystemService::GetServiceStatus";
+            return "Receive ash::cros_healthd::mojom::CrosHealthdSystemService::GetServiceStatus";
     }
   } else {
     switch (message.name()) {
       case internal::kCrosHealthdSystemService_GetServiceStatus_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::CrosHealthdSystemService::GetServiceStatus";
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdSystemService::GetServiceStatus";
     }
   }
   return "Receive unknown mojo message";
@@ -9582,7 +9582,7 @@ uint32_t CrosHealthdSystemService::GetServiceStatus_Sym::IPCStableHash() {
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)chromeos::cros_healthd::mojom::CrosHealthdSystemService::GetServiceStatus");
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdSystemService::GetServiceStatus");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -9612,7 +9612,7 @@ CrosHealthdSystemServiceProxy::CrosHealthdSystemServiceProxy(mojo::MessageReceiv
 void CrosHealthdSystemServiceProxy::GetServiceStatus(
     GetServiceStatusCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send chromeos::cros_healthd::mojom::CrosHealthdSystemService::GetServiceStatus");
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdSystemService::GetServiceStatus");
 #endif
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
@@ -9626,7 +9626,7 @@ void CrosHealthdSystemServiceProxy::GetServiceStatus(
   mojo::Message message(
       internal::kCrosHealthdSystemService_GetServiceStatus_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdSystemService_GetServiceStatus_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdSystemService_GetServiceStatus_Params_Data> params(
           message);
   params.Allocate();
 
@@ -9716,7 +9716,7 @@ void CrosHealthdSystemService_GetServiceStatus_ProxyToResponder::Run(
     ServiceStatusPtr in_response) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send reply chromeos::cros_healthd::mojom::CrosHealthdSystemService::GetServiceStatus", "async_response_parameters",
+    "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdSystemService::GetServiceStatus", "async_response_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
@@ -9732,13 +9732,13 @@ void CrosHealthdSystemService_GetServiceStatus_ProxyToResponder::Run(
   mojo::Message message(
       internal::kCrosHealthdSystemService_GetServiceStatus_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdSystemService_GetServiceStatus_ResponseParams_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdSystemService_GetServiceStatus_ResponseParams_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
       typename decltype(params->response)::BaseType> response_fragment(
           params.message());
-  mojo::internal::Serialize<::chromeos::cros_healthd::mojom::ServiceStatusDataView>(
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::ServiceStatusDataView>(
       in_response, response_fragment);
   params->response.Set(
       response_fragment.is_null() ? nullptr : response_fragment.data());
@@ -9821,15 +9821,15 @@ static const mojo::internal::GenericValidationInfo kCrosHealthdSystemServiceVali
 };
 
 bool CrosHealthdSystemServiceRequestValidator::Accept(mojo::Message* message) {
-  const char* name = ::chromeos::cros_healthd::mojom::CrosHealthdSystemService::Name_;
+  const char* name = ::ash::cros_healthd::mojom::CrosHealthdSystemService::Name_;
   return mojo::internal::ValidateRequestGenericPacked(message, name, kCrosHealthdSystemServiceValidationInfo);
 }
 
 bool CrosHealthdSystemServiceResponseValidator::Accept(mojo::Message* message) {
-  const char* name = ::chromeos::cros_healthd::mojom::CrosHealthdSystemService::Name_;
+  const char* name = ::ash::cros_healthd::mojom::CrosHealthdSystemService::Name_;
   return mojo::internal::ValidateResponseGenericPacked(message, name, kCrosHealthdSystemServiceValidationInfo);
 }
-const char WilcoEcServiceController::Name_[] = "chromeos.cros_healthd.mojom.WilcoEcServiceController";
+const char WilcoEcServiceController::Name_[] = "ash.cros_healthd.mojom.WilcoEcServiceController";
 
 WilcoEcServiceController::IPCStableHashFunction WilcoEcServiceController::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
@@ -9858,24 +9858,24 @@ const char* WilcoEcServiceController::MessageToMethodName_(mojo::Message& messag
   if (!is_response) {
     switch (message.name()) {
       case internal::kWilcoEcServiceController_AddEcObserver_Name:
-            return "Receive chromeos::cros_healthd::mojom::WilcoEcServiceController::AddEcObserver";
+            return "Receive ash::cros_healthd::mojom::WilcoEcServiceController::AddEcObserver";
       case internal::kWilcoEcServiceController_GetEcTelemetry_Name:
-            return "Receive chromeos::cros_healthd::mojom::WilcoEcServiceController::GetEcTelemetry";
+            return "Receive ash::cros_healthd::mojom::WilcoEcServiceController::GetEcTelemetry";
       case internal::kWilcoEcServiceController_StartEcService_Name:
-            return "Receive chromeos::cros_healthd::mojom::WilcoEcServiceController::StartEcService";
+            return "Receive ash::cros_healthd::mojom::WilcoEcServiceController::StartEcService";
       case internal::kWilcoEcServiceController_ShutdownEcService_Name:
-            return "Receive chromeos::cros_healthd::mojom::WilcoEcServiceController::ShutdownEcService";
+            return "Receive ash::cros_healthd::mojom::WilcoEcServiceController::ShutdownEcService";
     }
   } else {
     switch (message.name()) {
       case internal::kWilcoEcServiceController_AddEcObserver_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::WilcoEcServiceController::AddEcObserver";
+            return "Receive reply ash::cros_healthd::mojom::WilcoEcServiceController::AddEcObserver";
       case internal::kWilcoEcServiceController_GetEcTelemetry_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::WilcoEcServiceController::GetEcTelemetry";
+            return "Receive reply ash::cros_healthd::mojom::WilcoEcServiceController::GetEcTelemetry";
       case internal::kWilcoEcServiceController_StartEcService_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::WilcoEcServiceController::StartEcService";
+            return "Receive reply ash::cros_healthd::mojom::WilcoEcServiceController::StartEcService";
       case internal::kWilcoEcServiceController_ShutdownEcService_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::WilcoEcServiceController::ShutdownEcService";
+            return "Receive reply ash::cros_healthd::mojom::WilcoEcServiceController::ShutdownEcService";
     }
   }
   return "Receive unknown mojo message";
@@ -9898,7 +9898,7 @@ uint32_t WilcoEcServiceController::AddEcObserver_Sym::IPCStableHash() {
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)chromeos::cros_healthd::mojom::WilcoEcServiceController::AddEcObserver");
+          "(Impl)ash::cros_healthd::mojom::WilcoEcServiceController::AddEcObserver");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -9911,7 +9911,7 @@ uint32_t WilcoEcServiceController::GetEcTelemetry_Sym::IPCStableHash() {
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)chromeos::cros_healthd::mojom::WilcoEcServiceController::GetEcTelemetry");
+          "(Impl)ash::cros_healthd::mojom::WilcoEcServiceController::GetEcTelemetry");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -9924,7 +9924,7 @@ uint32_t WilcoEcServiceController::StartEcService_Sym::IPCStableHash() {
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)chromeos::cros_healthd::mojom::WilcoEcServiceController::StartEcService");
+          "(Impl)ash::cros_healthd::mojom::WilcoEcServiceController::StartEcService");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -9937,7 +9937,7 @@ uint32_t WilcoEcServiceController::ShutdownEcService_Sym::IPCStableHash() {
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)chromeos::cros_healthd::mojom::WilcoEcServiceController::ShutdownEcService");
+          "(Impl)ash::cros_healthd::mojom::WilcoEcServiceController::ShutdownEcService");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -9965,15 +9965,15 @@ WilcoEcServiceControllerProxy::WilcoEcServiceControllerProxy(mojo::MessageReceiv
 }
 
 void WilcoEcServiceControllerProxy::AddEcObserver(
-    ::mojo::PendingRemote<::chromeos::cros_healthd::mojom::WilcoEcObserver> in_observer) {
+    ::mojo::PendingRemote<::ash::cros_healthd::mojom::WilcoEcObserver> in_observer) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send chromeos::cros_healthd::mojom::WilcoEcServiceController::AddEcObserver", "input_parameters",
+    "mojom", "Send ash::cros_healthd::mojom::WilcoEcServiceController::AddEcObserver", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("observer"), in_observer,
-                        "<value of type ::mojo::PendingRemote<::chromeos::cros_healthd::mojom::WilcoEcObserver>>");
+                        "<value of type ::mojo::PendingRemote<::ash::cros_healthd::mojom::WilcoEcObserver>>");
    });
 #endif
   const bool kExpectsResponse = false;
@@ -9988,10 +9988,10 @@ void WilcoEcServiceControllerProxy::AddEcObserver(
   mojo::Message message(
       internal::kWilcoEcServiceController_AddEcObserver_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::WilcoEcServiceController_AddEcObserver_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::WilcoEcServiceController_AddEcObserver_Params_Data> params(
           message);
   params.Allocate();
-  mojo::internal::Serialize<mojo::InterfacePtrDataView<::chromeos::cros_healthd::mojom::WilcoEcObserverInterfaceBase>>(
+  mojo::internal::Serialize<mojo::InterfacePtrDataView<::ash::cros_healthd::mojom::WilcoEcObserverInterfaceBase>>(
       in_observer, &params->observer, &params.message());
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
       !mojo::internal::IsHandleOrInterfaceValid(params->observer),
@@ -10011,7 +10011,7 @@ void WilcoEcServiceControllerProxy::GetEcTelemetry(
     const std::string& in_payload_string, GetEcTelemetryCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send chromeos::cros_healthd::mojom::WilcoEcServiceController::GetEcTelemetry", "input_parameters",
+    "mojom", "Send ash::cros_healthd::mojom::WilcoEcServiceController::GetEcTelemetry", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
@@ -10031,7 +10031,7 @@ void WilcoEcServiceControllerProxy::GetEcTelemetry(
   mojo::Message message(
       internal::kWilcoEcServiceController_GetEcTelemetry_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::WilcoEcServiceController_GetEcTelemetry_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::WilcoEcServiceController_GetEcTelemetry_Params_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
@@ -10059,7 +10059,7 @@ void WilcoEcServiceControllerProxy::GetEcTelemetry(
 void WilcoEcServiceControllerProxy::StartEcService(
     ) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send chromeos::cros_healthd::mojom::WilcoEcServiceController::StartEcService");
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::WilcoEcServiceController::StartEcService");
 #endif
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
@@ -10073,7 +10073,7 @@ void WilcoEcServiceControllerProxy::StartEcService(
   mojo::Message message(
       internal::kWilcoEcServiceController_StartEcService_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::WilcoEcServiceController_StartEcService_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::WilcoEcServiceController_StartEcService_Params_Data> params(
           message);
   params.Allocate();
 
@@ -10089,7 +10089,7 @@ void WilcoEcServiceControllerProxy::StartEcService(
 void WilcoEcServiceControllerProxy::ShutdownEcService(
     ) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send chromeos::cros_healthd::mojom::WilcoEcServiceController::ShutdownEcService");
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::WilcoEcServiceController::ShutdownEcService");
 #endif
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
@@ -10103,7 +10103,7 @@ void WilcoEcServiceControllerProxy::ShutdownEcService(
   mojo::Message message(
       internal::kWilcoEcServiceController_ShutdownEcService_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::WilcoEcServiceController_ShutdownEcService_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::WilcoEcServiceController_ShutdownEcService_Params_Data> params(
           message);
   params.Allocate();
 
@@ -10157,7 +10157,7 @@ class WilcoEcServiceController_GetEcTelemetry_ProxyToResponder : public ::mojo::
 #endif
 
   void Run(
-      ::chromeos::cros_healthd::mojom::GetEcTelemetryResponsePtr in_response);
+      ::ash::cros_healthd::mojom::GetEcTelemetryResponsePtr in_response);
 };
 
 bool WilcoEcServiceController_GetEcTelemetry_ForwardToCallback::Accept(
@@ -10170,7 +10170,7 @@ bool WilcoEcServiceController_GetEcTelemetry_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  ::chromeos::cros_healthd::mojom::GetEcTelemetryResponsePtr p_response{};
+  ::ash::cros_healthd::mojom::GetEcTelemetryResponsePtr p_response{};
   WilcoEcServiceController_GetEcTelemetry_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResponse(&p_response))
@@ -10189,15 +10189,15 @@ std::move(p_response));
 }
 
 void WilcoEcServiceController_GetEcTelemetry_ProxyToResponder::Run(
-    ::chromeos::cros_healthd::mojom::GetEcTelemetryResponsePtr in_response) {
+    ::ash::cros_healthd::mojom::GetEcTelemetryResponsePtr in_response) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send reply chromeos::cros_healthd::mojom::WilcoEcServiceController::GetEcTelemetry", "async_response_parameters",
+    "mojom", "Send reply ash::cros_healthd::mojom::WilcoEcServiceController::GetEcTelemetry", "async_response_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("response"), in_response,
-                        "<value of type ::chromeos::cros_healthd::mojom::GetEcTelemetryResponsePtr>");
+                        "<value of type ::ash::cros_healthd::mojom::GetEcTelemetryResponsePtr>");
    });
 #endif
   
@@ -10208,13 +10208,13 @@ void WilcoEcServiceController_GetEcTelemetry_ProxyToResponder::Run(
   mojo::Message message(
       internal::kWilcoEcServiceController_GetEcTelemetry_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::WilcoEcServiceController_GetEcTelemetry_ResponseParams_Data> params(
+      ::ash::cros_healthd::mojom::internal::WilcoEcServiceController_GetEcTelemetry_ResponseParams_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
       typename decltype(params->response)::BaseType> response_fragment(
           params.message());
-  mojo::internal::Serialize<::chromeos::cros_healthd::mojom::GetEcTelemetryResponseDataView>(
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::GetEcTelemetryResponseDataView>(
       in_response, response_fragment);
   params->response.Set(
       response_fragment.is_null() ? nullptr : response_fragment.data());
@@ -10253,7 +10253,7 @@ bool WilcoEcServiceControllerStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingRemote<::chromeos::cros_healthd::mojom::WilcoEcObserver> p_observer{};
+      ::mojo::PendingRemote<::ash::cros_healthd::mojom::WilcoEcObserver> p_observer{};
       WilcoEcServiceController_AddEcObserver_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -10388,30 +10388,30 @@ static const mojo::internal::GenericValidationInfo kWilcoEcServiceControllerVali
 };
 
 bool WilcoEcServiceControllerRequestValidator::Accept(mojo::Message* message) {
-  const char* name = ::chromeos::cros_healthd::mojom::WilcoEcServiceController::Name_;
+  const char* name = ::ash::cros_healthd::mojom::WilcoEcServiceController::Name_;
   return mojo::internal::ValidateRequestGenericPacked(message, name, kWilcoEcServiceControllerValidationInfo);
 }
 
 bool WilcoEcServiceControllerResponseValidator::Accept(mojo::Message* message) {
-  const char* name = ::chromeos::cros_healthd::mojom::WilcoEcServiceController::Name_;
+  const char* name = ::ash::cros_healthd::mojom::WilcoEcServiceController::Name_;
   return mojo::internal::ValidateResponseGenericPacked(message, name, kWilcoEcServiceControllerValidationInfo);
 }
 
 
 }  // namespace mojom
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 
 namespace mojo {
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::mojom::ServiceStatus::DataView, ::chromeos::cros_healthd::mojom::ServiceStatusPtr>::Read(
-    ::chromeos::cros_healthd::mojom::ServiceStatus::DataView input,
-    ::chromeos::cros_healthd::mojom::ServiceStatusPtr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::ServiceStatus::DataView, ::ash::cros_healthd::mojom::ServiceStatusPtr>::Read(
+    ::ash::cros_healthd::mojom::ServiceStatus::DataView input,
+    ::ash::cros_healthd::mojom::ServiceStatusPtr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::mojom::ServiceStatusPtr result(::chromeos::cros_healthd::mojom::ServiceStatus::New());
+  ::ash::cros_healthd::mojom::ServiceStatusPtr result(::ash::cros_healthd::mojom::ServiceStatus::New());
   
       if (success)
         result->network_health_bound = input.network_health_bound();
@@ -10428,7 +10428,7 @@ bool StructTraits<::chromeos::cros_healthd::mojom::ServiceStatus::DataView, ::ch
 // separate .cc file to save compile time.
 
 
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace mojom {
 
@@ -10451,7 +10451,7 @@ void CrosHealthdServiceFactoryInterceptorForTesting::SendNetworkDiagnosticsRouti
 void CrosHealthdServiceFactoryInterceptorForTesting::GetSystemService(::mojo::PendingReceiver<CrosHealthdSystemService> service) {
   GetForwardingInterface()->GetSystemService(std::move(service));
 }
-void CrosHealthdServiceFactoryInterceptorForTesting::SendChromiumDataCollector(::mojo::PendingRemote<::chromeos::cros_healthd::internal::mojom::ChromiumDataCollector> remote) {
+void CrosHealthdServiceFactoryInterceptorForTesting::SendChromiumDataCollector(::mojo::PendingRemote<::ash::cros_healthd::internal::mojom::ChromiumDataCollector> remote) {
   GetForwardingInterface()->SendChromiumDataCollector(std::move(remote));
 }
 CrosHealthdServiceFactoryAsyncWaiter::CrosHealthdServiceFactoryAsyncWaiter(
@@ -10465,10 +10465,10 @@ CrosHealthdServiceFactoryAsyncWaiter::~CrosHealthdServiceFactoryAsyncWaiter() = 
 void CrosHealthdDiagnosticsServiceInterceptorForTesting::GetAvailableRoutines(GetAvailableRoutinesCallback callback) {
   GetForwardingInterface()->GetAvailableRoutines(std::move(callback));
 }
-void CrosHealthdDiagnosticsServiceInterceptorForTesting::GetRoutineUpdate(int32_t id, ::chromeos::cros_healthd::mojom::DiagnosticRoutineCommandEnum command, bool include_output, GetRoutineUpdateCallback callback) {
+void CrosHealthdDiagnosticsServiceInterceptorForTesting::GetRoutineUpdate(int32_t id, ::ash::cros_healthd::mojom::DiagnosticRoutineCommandEnum command, bool include_output, GetRoutineUpdateCallback callback) {
   GetForwardingInterface()->GetRoutineUpdate(std::move(id), std::move(command), std::move(include_output), std::move(callback));
 }
-void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunUrandomRoutine(::chromeos::cros_healthd::mojom::NullableUint32Ptr length_seconds, RunUrandomRoutineCallback callback) {
+void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunUrandomRoutine(::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds, RunUrandomRoutineCallback callback) {
   GetForwardingInterface()->RunUrandomRoutine(std::move(length_seconds), std::move(callback));
 }
 void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunBatteryCapacityRoutine(RunBatteryCapacityRoutineCallback callback) {
@@ -10480,28 +10480,28 @@ void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunBatteryHealthRoutine
 void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunSmartctlCheckRoutine(RunSmartctlCheckRoutineCallback callback) {
   GetForwardingInterface()->RunSmartctlCheckRoutine(std::move(callback));
 }
-void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunAcPowerRoutine(::chromeos::cros_healthd::mojom::AcPowerStatusEnum expected_status, const absl::optional<std::string>& expected_power_type, RunAcPowerRoutineCallback callback) {
+void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunAcPowerRoutine(::ash::cros_healthd::mojom::AcPowerStatusEnum expected_status, const absl::optional<std::string>& expected_power_type, RunAcPowerRoutineCallback callback) {
   GetForwardingInterface()->RunAcPowerRoutine(std::move(expected_status), std::move(expected_power_type), std::move(callback));
 }
-void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunCpuCacheRoutine(::chromeos::cros_healthd::mojom::NullableUint32Ptr length_seconds, RunCpuCacheRoutineCallback callback) {
+void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunCpuCacheRoutine(::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds, RunCpuCacheRoutineCallback callback) {
   GetForwardingInterface()->RunCpuCacheRoutine(std::move(length_seconds), std::move(callback));
 }
-void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunCpuStressRoutine(::chromeos::cros_healthd::mojom::NullableUint32Ptr length_seconds, RunCpuStressRoutineCallback callback) {
+void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunCpuStressRoutine(::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds, RunCpuStressRoutineCallback callback) {
   GetForwardingInterface()->RunCpuStressRoutine(std::move(length_seconds), std::move(callback));
 }
-void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunFloatingPointAccuracyRoutine(::chromeos::cros_healthd::mojom::NullableUint32Ptr length_seconds, RunFloatingPointAccuracyRoutineCallback callback) {
+void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunFloatingPointAccuracyRoutine(::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds, RunFloatingPointAccuracyRoutineCallback callback) {
   GetForwardingInterface()->RunFloatingPointAccuracyRoutine(std::move(length_seconds), std::move(callback));
 }
 void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunNvmeWearLevelRoutine(uint32_t wear_level_threshold, RunNvmeWearLevelRoutineCallback callback) {
   GetForwardingInterface()->RunNvmeWearLevelRoutine(std::move(wear_level_threshold), std::move(callback));
 }
-void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunNvmeSelfTestRoutine(::chromeos::cros_healthd::mojom::NvmeSelfTestTypeEnum nvme_self_test_type, RunNvmeSelfTestRoutineCallback callback) {
+void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunNvmeSelfTestRoutine(::ash::cros_healthd::mojom::NvmeSelfTestTypeEnum nvme_self_test_type, RunNvmeSelfTestRoutineCallback callback) {
   GetForwardingInterface()->RunNvmeSelfTestRoutine(std::move(nvme_self_test_type), std::move(callback));
 }
-void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunDiskReadRoutine(::chromeos::cros_healthd::mojom::DiskReadRoutineTypeEnum type, uint32_t length_seconds, uint32_t file_size_mb, RunDiskReadRoutineCallback callback) {
+void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunDiskReadRoutine(::ash::cros_healthd::mojom::DiskReadRoutineTypeEnum type, uint32_t length_seconds, uint32_t file_size_mb, RunDiskReadRoutineCallback callback) {
   GetForwardingInterface()->RunDiskReadRoutine(std::move(type), std::move(length_seconds), std::move(file_size_mb), std::move(callback));
 }
-void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunPrimeSearchRoutine(::chromeos::cros_healthd::mojom::NullableUint32Ptr length_seconds, RunPrimeSearchRoutineCallback callback) {
+void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunPrimeSearchRoutine(::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds, RunPrimeSearchRoutineCallback callback) {
   GetForwardingInterface()->RunPrimeSearchRoutine(std::move(length_seconds), std::move(callback));
 }
 void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunBatteryDischargeRoutine(uint32_t length_seconds, uint32_t maximum_discharge_percent_allowed, RunBatteryDischargeRoutineCallback callback) {
@@ -10564,14 +10564,14 @@ CrosHealthdDiagnosticsServiceAsyncWaiter::CrosHealthdDiagnosticsServiceAsyncWait
 CrosHealthdDiagnosticsServiceAsyncWaiter::~CrosHealthdDiagnosticsServiceAsyncWaiter() = default;
 
 void CrosHealthdDiagnosticsServiceAsyncWaiter::GetAvailableRoutines(
-    std::vector<::chromeos::cros_healthd::mojom::DiagnosticRoutineEnum>* out_available_routines) {
+    std::vector<::ash::cros_healthd::mojom::DiagnosticRoutineEnum>* out_available_routines) {
   base::RunLoop loop;
   proxy_->GetAvailableRoutines(
       base::BindOnce(
           [](base::RunLoop* loop,
-             std::vector<::chromeos::cros_healthd::mojom::DiagnosticRoutineEnum>* out_available_routines
+             std::vector<::ash::cros_healthd::mojom::DiagnosticRoutineEnum>* out_available_routines
 ,
-             const std::vector<::chromeos::cros_healthd::mojom::DiagnosticRoutineEnum>& available_routines) {*out_available_routines = std::move(available_routines);
+             const std::vector<::ash::cros_healthd::mojom::DiagnosticRoutineEnum>& available_routines) {*out_available_routines = std::move(available_routines);
             loop->Quit();
           },
           &loop,
@@ -10579,22 +10579,22 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::GetAvailableRoutines(
   loop.Run();
 }
 
-std::vector<::chromeos::cros_healthd::mojom::DiagnosticRoutineEnum> CrosHealthdDiagnosticsServiceAsyncWaiter::GetAvailableRoutines(
+std::vector<::ash::cros_healthd::mojom::DiagnosticRoutineEnum> CrosHealthdDiagnosticsServiceAsyncWaiter::GetAvailableRoutines(
     ) {
-  std::vector<::chromeos::cros_healthd::mojom::DiagnosticRoutineEnum> async_wait_result;
+  std::vector<::ash::cros_healthd::mojom::DiagnosticRoutineEnum> async_wait_result;
   GetAvailableRoutines(&async_wait_result);
   return async_wait_result;
 }
 
 void CrosHealthdDiagnosticsServiceAsyncWaiter::GetRoutineUpdate(
-    int32_t id, ::chromeos::cros_healthd::mojom::DiagnosticRoutineCommandEnum command, bool include_output, ::chromeos::cros_healthd::mojom::RoutineUpdatePtr* out_routine_update) {
+    int32_t id, ::ash::cros_healthd::mojom::DiagnosticRoutineCommandEnum command, bool include_output, ::ash::cros_healthd::mojom::RoutineUpdatePtr* out_routine_update) {
   base::RunLoop loop;
   proxy_->GetRoutineUpdate(std::move(id),std::move(command),std::move(include_output),
       base::BindOnce(
           [](base::RunLoop* loop,
-             ::chromeos::cros_healthd::mojom::RoutineUpdatePtr* out_routine_update
+             ::ash::cros_healthd::mojom::RoutineUpdatePtr* out_routine_update
 ,
-             ::chromeos::cros_healthd::mojom::RoutineUpdatePtr routine_update) {*out_routine_update = std::move(routine_update);
+             ::ash::cros_healthd::mojom::RoutineUpdatePtr routine_update) {*out_routine_update = std::move(routine_update);
             loop->Quit();
           },
           &loop,
@@ -10602,22 +10602,22 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::GetRoutineUpdate(
   loop.Run();
 }
 
-::chromeos::cros_healthd::mojom::RoutineUpdatePtr CrosHealthdDiagnosticsServiceAsyncWaiter::GetRoutineUpdate(
-    int32_t id, ::chromeos::cros_healthd::mojom::DiagnosticRoutineCommandEnum command, bool include_output) {
-  ::chromeos::cros_healthd::mojom::RoutineUpdatePtr async_wait_result;
+::ash::cros_healthd::mojom::RoutineUpdatePtr CrosHealthdDiagnosticsServiceAsyncWaiter::GetRoutineUpdate(
+    int32_t id, ::ash::cros_healthd::mojom::DiagnosticRoutineCommandEnum command, bool include_output) {
+  ::ash::cros_healthd::mojom::RoutineUpdatePtr async_wait_result;
   GetRoutineUpdate(std::move(id),std::move(command),std::move(include_output),&async_wait_result);
   return async_wait_result;
 }
 
 void CrosHealthdDiagnosticsServiceAsyncWaiter::RunUrandomRoutine(
-    ::chromeos::cros_healthd::mojom::NullableUint32Ptr length_seconds, ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
+    ::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
   base::RunLoop loop;
   proxy_->RunUrandomRoutine(std::move(length_seconds),
       base::BindOnce(
           [](base::RunLoop* loop,
-             ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response
 ,
-             ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr response) {*out_response = std::move(response);
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr response) {*out_response = std::move(response);
             loop->Quit();
           },
           &loop,
@@ -10625,22 +10625,22 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunUrandomRoutine(
   loop.Run();
 }
 
-::chromeos::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunUrandomRoutine(
-    ::chromeos::cros_healthd::mojom::NullableUint32Ptr length_seconds) {
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunUrandomRoutine(
+    ::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds) {
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunUrandomRoutine(std::move(length_seconds),&async_wait_result);
   return async_wait_result;
 }
 
 void CrosHealthdDiagnosticsServiceAsyncWaiter::RunBatteryCapacityRoutine(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
+    ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
   base::RunLoop loop;
   proxy_->RunBatteryCapacityRoutine(
       base::BindOnce(
           [](base::RunLoop* loop,
-             ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response
 ,
-             ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr response) {*out_response = std::move(response);
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr response) {*out_response = std::move(response);
             loop->Quit();
           },
           &loop,
@@ -10648,22 +10648,22 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunBatteryCapacityRoutine(
   loop.Run();
 }
 
-::chromeos::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunBatteryCapacityRoutine(
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunBatteryCapacityRoutine(
     ) {
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunBatteryCapacityRoutine(&async_wait_result);
   return async_wait_result;
 }
 
 void CrosHealthdDiagnosticsServiceAsyncWaiter::RunBatteryHealthRoutine(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
+    ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
   base::RunLoop loop;
   proxy_->RunBatteryHealthRoutine(
       base::BindOnce(
           [](base::RunLoop* loop,
-             ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response
 ,
-             ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr response) {*out_response = std::move(response);
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr response) {*out_response = std::move(response);
             loop->Quit();
           },
           &loop,
@@ -10671,22 +10671,22 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunBatteryHealthRoutine(
   loop.Run();
 }
 
-::chromeos::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunBatteryHealthRoutine(
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunBatteryHealthRoutine(
     ) {
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunBatteryHealthRoutine(&async_wait_result);
   return async_wait_result;
 }
 
 void CrosHealthdDiagnosticsServiceAsyncWaiter::RunSmartctlCheckRoutine(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
+    ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
   base::RunLoop loop;
   proxy_->RunSmartctlCheckRoutine(
       base::BindOnce(
           [](base::RunLoop* loop,
-             ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response
 ,
-             ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr response) {*out_response = std::move(response);
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr response) {*out_response = std::move(response);
             loop->Quit();
           },
           &loop,
@@ -10694,22 +10694,22 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunSmartctlCheckRoutine(
   loop.Run();
 }
 
-::chromeos::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunSmartctlCheckRoutine(
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunSmartctlCheckRoutine(
     ) {
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunSmartctlCheckRoutine(&async_wait_result);
   return async_wait_result;
 }
 
 void CrosHealthdDiagnosticsServiceAsyncWaiter::RunAcPowerRoutine(
-    ::chromeos::cros_healthd::mojom::AcPowerStatusEnum expected_status, const absl::optional<std::string>& expected_power_type, ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
+    ::ash::cros_healthd::mojom::AcPowerStatusEnum expected_status, const absl::optional<std::string>& expected_power_type, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
   base::RunLoop loop;
   proxy_->RunAcPowerRoutine(std::move(expected_status),std::move(expected_power_type),
       base::BindOnce(
           [](base::RunLoop* loop,
-             ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response
 ,
-             ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr response) {*out_response = std::move(response);
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr response) {*out_response = std::move(response);
             loop->Quit();
           },
           &loop,
@@ -10717,22 +10717,22 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunAcPowerRoutine(
   loop.Run();
 }
 
-::chromeos::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunAcPowerRoutine(
-    ::chromeos::cros_healthd::mojom::AcPowerStatusEnum expected_status, const absl::optional<std::string>& expected_power_type) {
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunAcPowerRoutine(
+    ::ash::cros_healthd::mojom::AcPowerStatusEnum expected_status, const absl::optional<std::string>& expected_power_type) {
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunAcPowerRoutine(std::move(expected_status),std::move(expected_power_type),&async_wait_result);
   return async_wait_result;
 }
 
 void CrosHealthdDiagnosticsServiceAsyncWaiter::RunCpuCacheRoutine(
-    ::chromeos::cros_healthd::mojom::NullableUint32Ptr length_seconds, ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
+    ::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
   base::RunLoop loop;
   proxy_->RunCpuCacheRoutine(std::move(length_seconds),
       base::BindOnce(
           [](base::RunLoop* loop,
-             ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response
 ,
-             ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr response) {*out_response = std::move(response);
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr response) {*out_response = std::move(response);
             loop->Quit();
           },
           &loop,
@@ -10740,22 +10740,22 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunCpuCacheRoutine(
   loop.Run();
 }
 
-::chromeos::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunCpuCacheRoutine(
-    ::chromeos::cros_healthd::mojom::NullableUint32Ptr length_seconds) {
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunCpuCacheRoutine(
+    ::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds) {
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunCpuCacheRoutine(std::move(length_seconds),&async_wait_result);
   return async_wait_result;
 }
 
 void CrosHealthdDiagnosticsServiceAsyncWaiter::RunCpuStressRoutine(
-    ::chromeos::cros_healthd::mojom::NullableUint32Ptr length_seconds, ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
+    ::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
   base::RunLoop loop;
   proxy_->RunCpuStressRoutine(std::move(length_seconds),
       base::BindOnce(
           [](base::RunLoop* loop,
-             ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response
 ,
-             ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr response) {*out_response = std::move(response);
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr response) {*out_response = std::move(response);
             loop->Quit();
           },
           &loop,
@@ -10763,22 +10763,22 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunCpuStressRoutine(
   loop.Run();
 }
 
-::chromeos::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunCpuStressRoutine(
-    ::chromeos::cros_healthd::mojom::NullableUint32Ptr length_seconds) {
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunCpuStressRoutine(
+    ::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds) {
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunCpuStressRoutine(std::move(length_seconds),&async_wait_result);
   return async_wait_result;
 }
 
 void CrosHealthdDiagnosticsServiceAsyncWaiter::RunFloatingPointAccuracyRoutine(
-    ::chromeos::cros_healthd::mojom::NullableUint32Ptr length_seconds, ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
+    ::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
   base::RunLoop loop;
   proxy_->RunFloatingPointAccuracyRoutine(std::move(length_seconds),
       base::BindOnce(
           [](base::RunLoop* loop,
-             ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response
 ,
-             ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr response) {*out_response = std::move(response);
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr response) {*out_response = std::move(response);
             loop->Quit();
           },
           &loop,
@@ -10786,22 +10786,22 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunFloatingPointAccuracyRoutine(
   loop.Run();
 }
 
-::chromeos::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunFloatingPointAccuracyRoutine(
-    ::chromeos::cros_healthd::mojom::NullableUint32Ptr length_seconds) {
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunFloatingPointAccuracyRoutine(
+    ::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds) {
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunFloatingPointAccuracyRoutine(std::move(length_seconds),&async_wait_result);
   return async_wait_result;
 }
 
 void CrosHealthdDiagnosticsServiceAsyncWaiter::RunNvmeWearLevelRoutine(
-    uint32_t wear_level_threshold, ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
+    uint32_t wear_level_threshold, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
   base::RunLoop loop;
   proxy_->RunNvmeWearLevelRoutine(std::move(wear_level_threshold),
       base::BindOnce(
           [](base::RunLoop* loop,
-             ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response
 ,
-             ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr response) {*out_response = std::move(response);
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr response) {*out_response = std::move(response);
             loop->Quit();
           },
           &loop,
@@ -10809,22 +10809,22 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunNvmeWearLevelRoutine(
   loop.Run();
 }
 
-::chromeos::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunNvmeWearLevelRoutine(
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunNvmeWearLevelRoutine(
     uint32_t wear_level_threshold) {
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunNvmeWearLevelRoutine(std::move(wear_level_threshold),&async_wait_result);
   return async_wait_result;
 }
 
 void CrosHealthdDiagnosticsServiceAsyncWaiter::RunNvmeSelfTestRoutine(
-    ::chromeos::cros_healthd::mojom::NvmeSelfTestTypeEnum nvme_self_test_type, ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
+    ::ash::cros_healthd::mojom::NvmeSelfTestTypeEnum nvme_self_test_type, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
   base::RunLoop loop;
   proxy_->RunNvmeSelfTestRoutine(std::move(nvme_self_test_type),
       base::BindOnce(
           [](base::RunLoop* loop,
-             ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response
 ,
-             ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr response) {*out_response = std::move(response);
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr response) {*out_response = std::move(response);
             loop->Quit();
           },
           &loop,
@@ -10832,22 +10832,22 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunNvmeSelfTestRoutine(
   loop.Run();
 }
 
-::chromeos::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunNvmeSelfTestRoutine(
-    ::chromeos::cros_healthd::mojom::NvmeSelfTestTypeEnum nvme_self_test_type) {
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunNvmeSelfTestRoutine(
+    ::ash::cros_healthd::mojom::NvmeSelfTestTypeEnum nvme_self_test_type) {
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunNvmeSelfTestRoutine(std::move(nvme_self_test_type),&async_wait_result);
   return async_wait_result;
 }
 
 void CrosHealthdDiagnosticsServiceAsyncWaiter::RunDiskReadRoutine(
-    ::chromeos::cros_healthd::mojom::DiskReadRoutineTypeEnum type, uint32_t length_seconds, uint32_t file_size_mb, ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
+    ::ash::cros_healthd::mojom::DiskReadRoutineTypeEnum type, uint32_t length_seconds, uint32_t file_size_mb, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
   base::RunLoop loop;
   proxy_->RunDiskReadRoutine(std::move(type),std::move(length_seconds),std::move(file_size_mb),
       base::BindOnce(
           [](base::RunLoop* loop,
-             ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response
 ,
-             ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr response) {*out_response = std::move(response);
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr response) {*out_response = std::move(response);
             loop->Quit();
           },
           &loop,
@@ -10855,22 +10855,22 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunDiskReadRoutine(
   loop.Run();
 }
 
-::chromeos::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunDiskReadRoutine(
-    ::chromeos::cros_healthd::mojom::DiskReadRoutineTypeEnum type, uint32_t length_seconds, uint32_t file_size_mb) {
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunDiskReadRoutine(
+    ::ash::cros_healthd::mojom::DiskReadRoutineTypeEnum type, uint32_t length_seconds, uint32_t file_size_mb) {
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunDiskReadRoutine(std::move(type),std::move(length_seconds),std::move(file_size_mb),&async_wait_result);
   return async_wait_result;
 }
 
 void CrosHealthdDiagnosticsServiceAsyncWaiter::RunPrimeSearchRoutine(
-    ::chromeos::cros_healthd::mojom::NullableUint32Ptr length_seconds, ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
+    ::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
   base::RunLoop loop;
   proxy_->RunPrimeSearchRoutine(std::move(length_seconds),
       base::BindOnce(
           [](base::RunLoop* loop,
-             ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response
 ,
-             ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr response) {*out_response = std::move(response);
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr response) {*out_response = std::move(response);
             loop->Quit();
           },
           &loop,
@@ -10878,22 +10878,22 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunPrimeSearchRoutine(
   loop.Run();
 }
 
-::chromeos::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunPrimeSearchRoutine(
-    ::chromeos::cros_healthd::mojom::NullableUint32Ptr length_seconds) {
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunPrimeSearchRoutine(
+    ::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds) {
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunPrimeSearchRoutine(std::move(length_seconds),&async_wait_result);
   return async_wait_result;
 }
 
 void CrosHealthdDiagnosticsServiceAsyncWaiter::RunBatteryDischargeRoutine(
-    uint32_t length_seconds, uint32_t maximum_discharge_percent_allowed, ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
+    uint32_t length_seconds, uint32_t maximum_discharge_percent_allowed, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
   base::RunLoop loop;
   proxy_->RunBatteryDischargeRoutine(std::move(length_seconds),std::move(maximum_discharge_percent_allowed),
       base::BindOnce(
           [](base::RunLoop* loop,
-             ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response
 ,
-             ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr response) {*out_response = std::move(response);
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr response) {*out_response = std::move(response);
             loop->Quit();
           },
           &loop,
@@ -10901,22 +10901,22 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunBatteryDischargeRoutine(
   loop.Run();
 }
 
-::chromeos::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunBatteryDischargeRoutine(
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunBatteryDischargeRoutine(
     uint32_t length_seconds, uint32_t maximum_discharge_percent_allowed) {
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunBatteryDischargeRoutine(std::move(length_seconds),std::move(maximum_discharge_percent_allowed),&async_wait_result);
   return async_wait_result;
 }
 
 void CrosHealthdDiagnosticsServiceAsyncWaiter::RunBatteryChargeRoutine(
-    uint32_t length_seconds, uint32_t minimum_charge_percent_required, ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
+    uint32_t length_seconds, uint32_t minimum_charge_percent_required, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
   base::RunLoop loop;
   proxy_->RunBatteryChargeRoutine(std::move(length_seconds),std::move(minimum_charge_percent_required),
       base::BindOnce(
           [](base::RunLoop* loop,
-             ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response
 ,
-             ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr response) {*out_response = std::move(response);
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr response) {*out_response = std::move(response);
             loop->Quit();
           },
           &loop,
@@ -10924,22 +10924,22 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunBatteryChargeRoutine(
   loop.Run();
 }
 
-::chromeos::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunBatteryChargeRoutine(
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunBatteryChargeRoutine(
     uint32_t length_seconds, uint32_t minimum_charge_percent_required) {
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunBatteryChargeRoutine(std::move(length_seconds),std::move(minimum_charge_percent_required),&async_wait_result);
   return async_wait_result;
 }
 
 void CrosHealthdDiagnosticsServiceAsyncWaiter::RunMemoryRoutine(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
+    ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
   base::RunLoop loop;
   proxy_->RunMemoryRoutine(
       base::BindOnce(
           [](base::RunLoop* loop,
-             ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response
 ,
-             ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr response) {*out_response = std::move(response);
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr response) {*out_response = std::move(response);
             loop->Quit();
           },
           &loop,
@@ -10947,22 +10947,22 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunMemoryRoutine(
   loop.Run();
 }
 
-::chromeos::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunMemoryRoutine(
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunMemoryRoutine(
     ) {
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunMemoryRoutine(&async_wait_result);
   return async_wait_result;
 }
 
 void CrosHealthdDiagnosticsServiceAsyncWaiter::RunLanConnectivityRoutine(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
+    ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
   base::RunLoop loop;
   proxy_->RunLanConnectivityRoutine(
       base::BindOnce(
           [](base::RunLoop* loop,
-             ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response
 ,
-             ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr response) {*out_response = std::move(response);
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr response) {*out_response = std::move(response);
             loop->Quit();
           },
           &loop,
@@ -10970,22 +10970,22 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunLanConnectivityRoutine(
   loop.Run();
 }
 
-::chromeos::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunLanConnectivityRoutine(
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunLanConnectivityRoutine(
     ) {
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunLanConnectivityRoutine(&async_wait_result);
   return async_wait_result;
 }
 
 void CrosHealthdDiagnosticsServiceAsyncWaiter::RunSignalStrengthRoutine(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
+    ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
   base::RunLoop loop;
   proxy_->RunSignalStrengthRoutine(
       base::BindOnce(
           [](base::RunLoop* loop,
-             ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response
 ,
-             ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr response) {*out_response = std::move(response);
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr response) {*out_response = std::move(response);
             loop->Quit();
           },
           &loop,
@@ -10993,22 +10993,22 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunSignalStrengthRoutine(
   loop.Run();
 }
 
-::chromeos::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunSignalStrengthRoutine(
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunSignalStrengthRoutine(
     ) {
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunSignalStrengthRoutine(&async_wait_result);
   return async_wait_result;
 }
 
 void CrosHealthdDiagnosticsServiceAsyncWaiter::RunGatewayCanBePingedRoutine(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
+    ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
   base::RunLoop loop;
   proxy_->RunGatewayCanBePingedRoutine(
       base::BindOnce(
           [](base::RunLoop* loop,
-             ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response
 ,
-             ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr response) {*out_response = std::move(response);
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr response) {*out_response = std::move(response);
             loop->Quit();
           },
           &loop,
@@ -11016,22 +11016,22 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunGatewayCanBePingedRoutine(
   loop.Run();
 }
 
-::chromeos::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunGatewayCanBePingedRoutine(
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunGatewayCanBePingedRoutine(
     ) {
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunGatewayCanBePingedRoutine(&async_wait_result);
   return async_wait_result;
 }
 
 void CrosHealthdDiagnosticsServiceAsyncWaiter::RunHasSecureWiFiConnectionRoutine(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
+    ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
   base::RunLoop loop;
   proxy_->RunHasSecureWiFiConnectionRoutine(
       base::BindOnce(
           [](base::RunLoop* loop,
-             ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response
 ,
-             ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr response) {*out_response = std::move(response);
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr response) {*out_response = std::move(response);
             loop->Quit();
           },
           &loop,
@@ -11039,22 +11039,22 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunHasSecureWiFiConnectionRoutine
   loop.Run();
 }
 
-::chromeos::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunHasSecureWiFiConnectionRoutine(
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunHasSecureWiFiConnectionRoutine(
     ) {
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunHasSecureWiFiConnectionRoutine(&async_wait_result);
   return async_wait_result;
 }
 
 void CrosHealthdDiagnosticsServiceAsyncWaiter::RunDnsResolverPresentRoutine(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
+    ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
   base::RunLoop loop;
   proxy_->RunDnsResolverPresentRoutine(
       base::BindOnce(
           [](base::RunLoop* loop,
-             ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response
 ,
-             ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr response) {*out_response = std::move(response);
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr response) {*out_response = std::move(response);
             loop->Quit();
           },
           &loop,
@@ -11062,22 +11062,22 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunDnsResolverPresentRoutine(
   loop.Run();
 }
 
-::chromeos::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunDnsResolverPresentRoutine(
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunDnsResolverPresentRoutine(
     ) {
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunDnsResolverPresentRoutine(&async_wait_result);
   return async_wait_result;
 }
 
 void CrosHealthdDiagnosticsServiceAsyncWaiter::RunDnsLatencyRoutine(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
+    ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
   base::RunLoop loop;
   proxy_->RunDnsLatencyRoutine(
       base::BindOnce(
           [](base::RunLoop* loop,
-             ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response
 ,
-             ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr response) {*out_response = std::move(response);
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr response) {*out_response = std::move(response);
             loop->Quit();
           },
           &loop,
@@ -11085,22 +11085,22 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunDnsLatencyRoutine(
   loop.Run();
 }
 
-::chromeos::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunDnsLatencyRoutine(
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunDnsLatencyRoutine(
     ) {
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunDnsLatencyRoutine(&async_wait_result);
   return async_wait_result;
 }
 
 void CrosHealthdDiagnosticsServiceAsyncWaiter::RunDnsResolutionRoutine(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
+    ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
   base::RunLoop loop;
   proxy_->RunDnsResolutionRoutine(
       base::BindOnce(
           [](base::RunLoop* loop,
-             ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response
 ,
-             ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr response) {*out_response = std::move(response);
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr response) {*out_response = std::move(response);
             loop->Quit();
           },
           &loop,
@@ -11108,22 +11108,22 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunDnsResolutionRoutine(
   loop.Run();
 }
 
-::chromeos::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunDnsResolutionRoutine(
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunDnsResolutionRoutine(
     ) {
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunDnsResolutionRoutine(&async_wait_result);
   return async_wait_result;
 }
 
 void CrosHealthdDiagnosticsServiceAsyncWaiter::RunCaptivePortalRoutine(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
+    ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
   base::RunLoop loop;
   proxy_->RunCaptivePortalRoutine(
       base::BindOnce(
           [](base::RunLoop* loop,
-             ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response
 ,
-             ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr response) {*out_response = std::move(response);
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr response) {*out_response = std::move(response);
             loop->Quit();
           },
           &loop,
@@ -11131,22 +11131,22 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunCaptivePortalRoutine(
   loop.Run();
 }
 
-::chromeos::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunCaptivePortalRoutine(
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunCaptivePortalRoutine(
     ) {
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunCaptivePortalRoutine(&async_wait_result);
   return async_wait_result;
 }
 
 void CrosHealthdDiagnosticsServiceAsyncWaiter::RunHttpFirewallRoutine(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
+    ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
   base::RunLoop loop;
   proxy_->RunHttpFirewallRoutine(
       base::BindOnce(
           [](base::RunLoop* loop,
-             ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response
 ,
-             ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr response) {*out_response = std::move(response);
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr response) {*out_response = std::move(response);
             loop->Quit();
           },
           &loop,
@@ -11154,22 +11154,22 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunHttpFirewallRoutine(
   loop.Run();
 }
 
-::chromeos::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunHttpFirewallRoutine(
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunHttpFirewallRoutine(
     ) {
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunHttpFirewallRoutine(&async_wait_result);
   return async_wait_result;
 }
 
 void CrosHealthdDiagnosticsServiceAsyncWaiter::RunHttpsFirewallRoutine(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
+    ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
   base::RunLoop loop;
   proxy_->RunHttpsFirewallRoutine(
       base::BindOnce(
           [](base::RunLoop* loop,
-             ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response
 ,
-             ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr response) {*out_response = std::move(response);
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr response) {*out_response = std::move(response);
             loop->Quit();
           },
           &loop,
@@ -11177,22 +11177,22 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunHttpsFirewallRoutine(
   loop.Run();
 }
 
-::chromeos::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunHttpsFirewallRoutine(
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunHttpsFirewallRoutine(
     ) {
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunHttpsFirewallRoutine(&async_wait_result);
   return async_wait_result;
 }
 
 void CrosHealthdDiagnosticsServiceAsyncWaiter::RunHttpsLatencyRoutine(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
+    ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
   base::RunLoop loop;
   proxy_->RunHttpsLatencyRoutine(
       base::BindOnce(
           [](base::RunLoop* loop,
-             ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response
 ,
-             ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr response) {*out_response = std::move(response);
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr response) {*out_response = std::move(response);
             loop->Quit();
           },
           &loop,
@@ -11200,22 +11200,22 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunHttpsLatencyRoutine(
   loop.Run();
 }
 
-::chromeos::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunHttpsLatencyRoutine(
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunHttpsLatencyRoutine(
     ) {
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunHttpsLatencyRoutine(&async_wait_result);
   return async_wait_result;
 }
 
 void CrosHealthdDiagnosticsServiceAsyncWaiter::RunVideoConferencingRoutine(
-    const absl::optional<std::string>& stun_server_hostname, ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
+    const absl::optional<std::string>& stun_server_hostname, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
   base::RunLoop loop;
   proxy_->RunVideoConferencingRoutine(std::move(stun_server_hostname),
       base::BindOnce(
           [](base::RunLoop* loop,
-             ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response
 ,
-             ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr response) {*out_response = std::move(response);
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr response) {*out_response = std::move(response);
             loop->Quit();
           },
           &loop,
@@ -11223,22 +11223,22 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunVideoConferencingRoutine(
   loop.Run();
 }
 
-::chromeos::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunVideoConferencingRoutine(
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunVideoConferencingRoutine(
     const absl::optional<std::string>& stun_server_hostname) {
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunVideoConferencingRoutine(std::move(stun_server_hostname),&async_wait_result);
   return async_wait_result;
 }
 
 void CrosHealthdDiagnosticsServiceAsyncWaiter::RunArcHttpRoutine(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
+    ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
   base::RunLoop loop;
   proxy_->RunArcHttpRoutine(
       base::BindOnce(
           [](base::RunLoop* loop,
-             ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response
 ,
-             ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr response) {*out_response = std::move(response);
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr response) {*out_response = std::move(response);
             loop->Quit();
           },
           &loop,
@@ -11246,22 +11246,22 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunArcHttpRoutine(
   loop.Run();
 }
 
-::chromeos::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunArcHttpRoutine(
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunArcHttpRoutine(
     ) {
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunArcHttpRoutine(&async_wait_result);
   return async_wait_result;
 }
 
 void CrosHealthdDiagnosticsServiceAsyncWaiter::RunArcPingRoutine(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
+    ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
   base::RunLoop loop;
   proxy_->RunArcPingRoutine(
       base::BindOnce(
           [](base::RunLoop* loop,
-             ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response
 ,
-             ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr response) {*out_response = std::move(response);
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr response) {*out_response = std::move(response);
             loop->Quit();
           },
           &loop,
@@ -11269,22 +11269,22 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunArcPingRoutine(
   loop.Run();
 }
 
-::chromeos::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunArcPingRoutine(
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunArcPingRoutine(
     ) {
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunArcPingRoutine(&async_wait_result);
   return async_wait_result;
 }
 
 void CrosHealthdDiagnosticsServiceAsyncWaiter::RunArcDnsResolutionRoutine(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
+    ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
   base::RunLoop loop;
   proxy_->RunArcDnsResolutionRoutine(
       base::BindOnce(
           [](base::RunLoop* loop,
-             ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* out_response
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response
 ,
-             ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr response) {*out_response = std::move(response);
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr response) {*out_response = std::move(response);
             loop->Quit();
           },
           &loop,
@@ -11292,9 +11292,9 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunArcDnsResolutionRoutine(
   loop.Run();
 }
 
-::chromeos::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunArcDnsResolutionRoutine(
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunArcDnsResolutionRoutine(
     ) {
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
   RunArcDnsResolutionRoutine(&async_wait_result);
   return async_wait_result;
 }
@@ -11302,25 +11302,25 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunArcDnsResolutionRoutine(
 
 
 
-void CrosHealthdEventServiceInterceptorForTesting::AddBluetoothObserver(::mojo::PendingRemote<::chromeos::cros_healthd::mojom::CrosHealthdBluetoothObserver> observer) {
+void CrosHealthdEventServiceInterceptorForTesting::AddBluetoothObserver(::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdBluetoothObserver> observer) {
   GetForwardingInterface()->AddBluetoothObserver(std::move(observer));
 }
-void CrosHealthdEventServiceInterceptorForTesting::AddLidObserver(::mojo::PendingRemote<::chromeos::cros_healthd::mojom::CrosHealthdLidObserver> observer) {
+void CrosHealthdEventServiceInterceptorForTesting::AddLidObserver(::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdLidObserver> observer) {
   GetForwardingInterface()->AddLidObserver(std::move(observer));
 }
-void CrosHealthdEventServiceInterceptorForTesting::AddPowerObserver(::mojo::PendingRemote<::chromeos::cros_healthd::mojom::CrosHealthdPowerObserver> observer) {
+void CrosHealthdEventServiceInterceptorForTesting::AddPowerObserver(::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdPowerObserver> observer) {
   GetForwardingInterface()->AddPowerObserver(std::move(observer));
 }
 void CrosHealthdEventServiceInterceptorForTesting::AddNetworkObserver(::mojo::PendingRemote<::chromeos::network_health::mojom::NetworkEventsObserver> observer) {
   GetForwardingInterface()->AddNetworkObserver(std::move(observer));
 }
-void CrosHealthdEventServiceInterceptorForTesting::AddAudioObserver(::mojo::PendingRemote<::chromeos::cros_healthd::mojom::CrosHealthdAudioObserver> observer) {
+void CrosHealthdEventServiceInterceptorForTesting::AddAudioObserver(::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdAudioObserver> observer) {
   GetForwardingInterface()->AddAudioObserver(std::move(observer));
 }
-void CrosHealthdEventServiceInterceptorForTesting::AddThunderboltObserver(::mojo::PendingRemote<::chromeos::cros_healthd::mojom::CrosHealthdThunderboltObserver> observer) {
+void CrosHealthdEventServiceInterceptorForTesting::AddThunderboltObserver(::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdThunderboltObserver> observer) {
   GetForwardingInterface()->AddThunderboltObserver(std::move(observer));
 }
-void CrosHealthdEventServiceInterceptorForTesting::AddUsbObserver(::mojo::PendingRemote<::chromeos::cros_healthd::mojom::CrosHealthdUsbObserver> observer) {
+void CrosHealthdEventServiceInterceptorForTesting::AddUsbObserver(::mojo::PendingRemote<::ash::cros_healthd::mojom::CrosHealthdUsbObserver> observer) {
   GetForwardingInterface()->AddUsbObserver(std::move(observer));
 }
 CrosHealthdEventServiceAsyncWaiter::CrosHealthdEventServiceAsyncWaiter(
@@ -11334,7 +11334,7 @@ CrosHealthdEventServiceAsyncWaiter::~CrosHealthdEventServiceAsyncWaiter() = defa
 void CrosHealthdProbeServiceInterceptorForTesting::ProbeProcessInfo(uint32_t process_id, ProbeProcessInfoCallback callback) {
   GetForwardingInterface()->ProbeProcessInfo(std::move(process_id), std::move(callback));
 }
-void CrosHealthdProbeServiceInterceptorForTesting::ProbeTelemetryInfo(const std::vector<::chromeos::cros_healthd::mojom::ProbeCategoryEnum>& categories, ProbeTelemetryInfoCallback callback) {
+void CrosHealthdProbeServiceInterceptorForTesting::ProbeTelemetryInfo(const std::vector<::ash::cros_healthd::mojom::ProbeCategoryEnum>& categories, ProbeTelemetryInfoCallback callback) {
   GetForwardingInterface()->ProbeTelemetryInfo(std::move(categories), std::move(callback));
 }
 CrosHealthdProbeServiceAsyncWaiter::CrosHealthdProbeServiceAsyncWaiter(
@@ -11343,14 +11343,14 @@ CrosHealthdProbeServiceAsyncWaiter::CrosHealthdProbeServiceAsyncWaiter(
 CrosHealthdProbeServiceAsyncWaiter::~CrosHealthdProbeServiceAsyncWaiter() = default;
 
 void CrosHealthdProbeServiceAsyncWaiter::ProbeProcessInfo(
-    uint32_t process_id, ::chromeos::cros_healthd::mojom::ProcessResultPtr* out_process_info) {
+    uint32_t process_id, ::ash::cros_healthd::mojom::ProcessResultPtr* out_process_info) {
   base::RunLoop loop;
   proxy_->ProbeProcessInfo(std::move(process_id),
       base::BindOnce(
           [](base::RunLoop* loop,
-             ::chromeos::cros_healthd::mojom::ProcessResultPtr* out_process_info
+             ::ash::cros_healthd::mojom::ProcessResultPtr* out_process_info
 ,
-             ::chromeos::cros_healthd::mojom::ProcessResultPtr process_info) {*out_process_info = std::move(process_info);
+             ::ash::cros_healthd::mojom::ProcessResultPtr process_info) {*out_process_info = std::move(process_info);
             loop->Quit();
           },
           &loop,
@@ -11358,22 +11358,22 @@ void CrosHealthdProbeServiceAsyncWaiter::ProbeProcessInfo(
   loop.Run();
 }
 
-::chromeos::cros_healthd::mojom::ProcessResultPtr CrosHealthdProbeServiceAsyncWaiter::ProbeProcessInfo(
+::ash::cros_healthd::mojom::ProcessResultPtr CrosHealthdProbeServiceAsyncWaiter::ProbeProcessInfo(
     uint32_t process_id) {
-  ::chromeos::cros_healthd::mojom::ProcessResultPtr async_wait_result;
+  ::ash::cros_healthd::mojom::ProcessResultPtr async_wait_result;
   ProbeProcessInfo(std::move(process_id),&async_wait_result);
   return async_wait_result;
 }
 
 void CrosHealthdProbeServiceAsyncWaiter::ProbeTelemetryInfo(
-    const std::vector<::chromeos::cros_healthd::mojom::ProbeCategoryEnum>& categories, ::chromeos::cros_healthd::mojom::TelemetryInfoPtr* out_telemetry_info) {
+    const std::vector<::ash::cros_healthd::mojom::ProbeCategoryEnum>& categories, ::ash::cros_healthd::mojom::TelemetryInfoPtr* out_telemetry_info) {
   base::RunLoop loop;
   proxy_->ProbeTelemetryInfo(std::move(categories),
       base::BindOnce(
           [](base::RunLoop* loop,
-             ::chromeos::cros_healthd::mojom::TelemetryInfoPtr* out_telemetry_info
+             ::ash::cros_healthd::mojom::TelemetryInfoPtr* out_telemetry_info
 ,
-             ::chromeos::cros_healthd::mojom::TelemetryInfoPtr telemetry_info) {*out_telemetry_info = std::move(telemetry_info);
+             ::ash::cros_healthd::mojom::TelemetryInfoPtr telemetry_info) {*out_telemetry_info = std::move(telemetry_info);
             loop->Quit();
           },
           &loop,
@@ -11381,9 +11381,9 @@ void CrosHealthdProbeServiceAsyncWaiter::ProbeTelemetryInfo(
   loop.Run();
 }
 
-::chromeos::cros_healthd::mojom::TelemetryInfoPtr CrosHealthdProbeServiceAsyncWaiter::ProbeTelemetryInfo(
-    const std::vector<::chromeos::cros_healthd::mojom::ProbeCategoryEnum>& categories) {
-  ::chromeos::cros_healthd::mojom::TelemetryInfoPtr async_wait_result;
+::ash::cros_healthd::mojom::TelemetryInfoPtr CrosHealthdProbeServiceAsyncWaiter::ProbeTelemetryInfo(
+    const std::vector<::ash::cros_healthd::mojom::ProbeCategoryEnum>& categories) {
+  ::ash::cros_healthd::mojom::TelemetryInfoPtr async_wait_result;
   ProbeTelemetryInfo(std::move(categories),&async_wait_result);
   return async_wait_result;
 }
@@ -11425,7 +11425,7 @@ ServiceStatusPtr CrosHealthdSystemServiceAsyncWaiter::GetServiceStatus(
 
 
 
-void WilcoEcServiceControllerInterceptorForTesting::AddEcObserver(::mojo::PendingRemote<::chromeos::cros_healthd::mojom::WilcoEcObserver> observer) {
+void WilcoEcServiceControllerInterceptorForTesting::AddEcObserver(::mojo::PendingRemote<::ash::cros_healthd::mojom::WilcoEcObserver> observer) {
   GetForwardingInterface()->AddEcObserver(std::move(observer));
 }
 void WilcoEcServiceControllerInterceptorForTesting::GetEcTelemetry(const std::string& payload_string, GetEcTelemetryCallback callback) {
@@ -11443,14 +11443,14 @@ WilcoEcServiceControllerAsyncWaiter::WilcoEcServiceControllerAsyncWaiter(
 WilcoEcServiceControllerAsyncWaiter::~WilcoEcServiceControllerAsyncWaiter() = default;
 
 void WilcoEcServiceControllerAsyncWaiter::GetEcTelemetry(
-    const std::string& payload_string, ::chromeos::cros_healthd::mojom::GetEcTelemetryResponsePtr* out_response) {
+    const std::string& payload_string, ::ash::cros_healthd::mojom::GetEcTelemetryResponsePtr* out_response) {
   base::RunLoop loop;
   proxy_->GetEcTelemetry(std::move(payload_string),
       base::BindOnce(
           [](base::RunLoop* loop,
-             ::chromeos::cros_healthd::mojom::GetEcTelemetryResponsePtr* out_response
+             ::ash::cros_healthd::mojom::GetEcTelemetryResponsePtr* out_response
 ,
-             ::chromeos::cros_healthd::mojom::GetEcTelemetryResponsePtr response) {*out_response = std::move(response);
+             ::ash::cros_healthd::mojom::GetEcTelemetryResponsePtr response) {*out_response = std::move(response);
             loop->Quit();
           },
           &loop,
@@ -11458,9 +11458,9 @@ void WilcoEcServiceControllerAsyncWaiter::GetEcTelemetry(
   loop.Run();
 }
 
-::chromeos::cros_healthd::mojom::GetEcTelemetryResponsePtr WilcoEcServiceControllerAsyncWaiter::GetEcTelemetry(
+::ash::cros_healthd::mojom::GetEcTelemetryResponsePtr WilcoEcServiceControllerAsyncWaiter::GetEcTelemetry(
     const std::string& payload_string) {
-  ::chromeos::cros_healthd::mojom::GetEcTelemetryResponsePtr async_wait_result;
+  ::ash::cros_healthd::mojom::GetEcTelemetryResponsePtr async_wait_result;
   GetEcTelemetry(std::move(payload_string),&async_wait_result);
   return async_wait_result;
 }
@@ -11472,7 +11472,7 @@ void WilcoEcServiceControllerAsyncWaiter::GetEcTelemetry(
 
 }  // namespace mojom
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 
 #if defined(__clang__)

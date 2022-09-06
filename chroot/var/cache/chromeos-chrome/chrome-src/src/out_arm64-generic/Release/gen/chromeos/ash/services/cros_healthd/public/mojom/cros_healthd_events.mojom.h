@@ -36,7 +36,7 @@
 
 
 
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace mojom {
 
@@ -1008,43 +1008,43 @@ bool operator<(const T& lhs, const T& rhs) {
 
 }  // namespace mojom
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 namespace mojo {
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::UsbEventInfo::DataView,
-                                         ::chromeos::cros_healthd::mojom::UsbEventInfoPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::UsbEventInfoPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::UsbEventInfoPtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::UsbEventInfo::DataView,
+                                         ::ash::cros_healthd::mojom::UsbEventInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::UsbEventInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::UsbEventInfoPtr* output) { output->reset(); }
 
-  static const decltype(::chromeos::cros_healthd::mojom::UsbEventInfo::vendor)& vendor(
-      const ::chromeos::cros_healthd::mojom::UsbEventInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::UsbEventInfo::vendor)& vendor(
+      const ::ash::cros_healthd::mojom::UsbEventInfoPtr& input) {
     return input->vendor;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::UsbEventInfo::name)& name(
-      const ::chromeos::cros_healthd::mojom::UsbEventInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::UsbEventInfo::name)& name(
+      const ::ash::cros_healthd::mojom::UsbEventInfoPtr& input) {
     return input->name;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::UsbEventInfo::vid) vid(
-      const ::chromeos::cros_healthd::mojom::UsbEventInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::UsbEventInfo::vid) vid(
+      const ::ash::cros_healthd::mojom::UsbEventInfoPtr& input) {
     return input->vid;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::UsbEventInfo::pid) pid(
-      const ::chromeos::cros_healthd::mojom::UsbEventInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::UsbEventInfo::pid) pid(
+      const ::ash::cros_healthd::mojom::UsbEventInfoPtr& input) {
     return input->pid;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::UsbEventInfo::categories)& categories(
-      const ::chromeos::cros_healthd::mojom::UsbEventInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::UsbEventInfo::categories)& categories(
+      const ::ash::cros_healthd::mojom::UsbEventInfoPtr& input) {
     return input->categories;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::UsbEventInfo::DataView input, ::chromeos::cros_healthd::mojom::UsbEventInfoPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::UsbEventInfo::DataView input, ::ash::cros_healthd::mojom::UsbEventInfoPtr* output);
 };
 
 }  // namespace mojo

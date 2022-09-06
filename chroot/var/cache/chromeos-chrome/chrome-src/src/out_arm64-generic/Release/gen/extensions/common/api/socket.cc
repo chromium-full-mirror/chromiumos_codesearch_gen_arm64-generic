@@ -109,7 +109,7 @@ bool CreateInfo::Populate(
     if (!temp.has_value()) {
       return false;
     }
-    out->socket_id = temp.value();
+    out->socket_id = *temp;
   }
 
   return true;
@@ -157,7 +157,7 @@ bool AcceptInfo::Populate(
     if (!temp.has_value()) {
       return false;
     }
-    out->result_code = temp.value();
+    out->result_code = *temp;
   }
 
   const base::Value* socket_id_value = dict->FindKey("socketId");
@@ -165,10 +165,10 @@ bool AcceptInfo::Populate(
     {
       auto temp = (*socket_id_value).GetIfInt();
       if (!temp.has_value()) {
-        out->socket_id.reset();
+        out->socket_id = absl::nullopt;
         return false;
       }
-      out->socket_id = temp.value();
+      out->socket_id = *temp;
     }
   }
 
@@ -221,7 +221,7 @@ bool ReadInfo::Populate(
     if (!temp.has_value()) {
       return false;
     }
-    out->result_code = temp.value();
+    out->result_code = *temp;
   }
 
   const base::Value* data_value = dict->FindKey("data");
@@ -284,7 +284,7 @@ bool WriteInfo::Populate(
     if (!temp.has_value()) {
       return false;
     }
-    out->bytes_written = temp.value();
+    out->bytes_written = *temp;
   }
 
   return true;
@@ -333,7 +333,7 @@ bool RecvFromInfo::Populate(
     if (!temp.has_value()) {
       return false;
     }
-    out->result_code = temp.value();
+    out->result_code = *temp;
   }
 
   const base::Value* data_value = dict->FindKey("data");
@@ -370,7 +370,7 @@ bool RecvFromInfo::Populate(
     if (!temp.has_value()) {
       return false;
     }
-    out->port = temp.value();
+    out->port = *temp;
   }
 
   return true;
@@ -440,7 +440,7 @@ bool SocketInfo::Populate(
     if (!temp.has_value()) {
       return false;
     }
-    out->connected = temp.value();
+    out->connected = *temp;
   }
 
   const base::Value* peer_address_value = dict->FindKey("peerAddress");
@@ -448,10 +448,10 @@ bool SocketInfo::Populate(
     {
       auto* temp = (*peer_address_value).GetIfString();
       if (!temp) {
-        out->peer_address.reset();
+        out->peer_address = absl::nullopt;
         return false;
       }
-      out->peer_address = std::make_unique<std::string>(*temp);
+      out->peer_address = *temp;
     }
   }
 
@@ -460,10 +460,10 @@ bool SocketInfo::Populate(
     {
       auto temp = (*peer_port_value).GetIfInt();
       if (!temp.has_value()) {
-        out->peer_port.reset();
+        out->peer_port = absl::nullopt;
         return false;
       }
-      out->peer_port = temp.value();
+      out->peer_port = *temp;
     }
   }
 
@@ -472,10 +472,10 @@ bool SocketInfo::Populate(
     {
       auto* temp = (*local_address_value).GetIfString();
       if (!temp) {
-        out->local_address.reset();
+        out->local_address = absl::nullopt;
         return false;
       }
-      out->local_address = std::make_unique<std::string>(*temp);
+      out->local_address = *temp;
     }
   }
 
@@ -484,10 +484,10 @@ bool SocketInfo::Populate(
     {
       auto temp = (*local_port_value).GetIfInt();
       if (!temp.has_value()) {
-        out->local_port.reset();
+        out->local_port = absl::nullopt;
         return false;
       }
-      out->local_port = temp.value();
+      out->local_port = *temp;
     }
   }
 
@@ -578,7 +578,7 @@ bool NetworkInterface::Populate(
     if (!temp.has_value()) {
       return false;
     }
-    out->prefix_length = temp.value();
+    out->prefix_length = *temp;
   }
 
   return true;
@@ -626,10 +626,10 @@ bool TLSVersionConstraints::Populate(
     {
       auto* temp = (*min_value).GetIfString();
       if (!temp) {
-        out->min.reset();
+        out->min = absl::nullopt;
         return false;
       }
-      out->min = std::make_unique<std::string>(*temp);
+      out->min = *temp;
     }
   }
 
@@ -638,10 +638,10 @@ bool TLSVersionConstraints::Populate(
     {
       auto* temp = (*max_value).GetIfString();
       if (!temp) {
-        out->max.reset();
+        out->max = absl::nullopt;
         return false;
       }
-      out->max = std::make_unique<std::string>(*temp);
+      out->max = *temp;
     }
   }
 
@@ -815,7 +815,7 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
       if (!temp.has_value()) {
         return std::unique_ptr<Params>();
       }
-      params->socket_id = temp.value();
+      params->socket_id = *temp;
     }
   }
   else {
@@ -848,7 +848,7 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
       if (!temp.has_value()) {
         return std::unique_ptr<Params>();
       }
-      params->socket_id = temp.value();
+      params->socket_id = *temp;
     }
   }
   else {
@@ -878,7 +878,7 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
       if (!temp.has_value()) {
         return std::unique_ptr<Params>();
       }
-      params->port = temp.value();
+      params->port = *temp;
     }
   }
   else {
@@ -918,7 +918,7 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
       if (!temp.has_value()) {
         return std::unique_ptr<Params>();
       }
-      params->socket_id = temp.value();
+      params->socket_id = *temp;
     }
   }
   else {
@@ -948,7 +948,7 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
       if (!temp.has_value()) {
         return std::unique_ptr<Params>();
       }
-      params->port = temp.value();
+      params->port = *temp;
     }
   }
   else {
@@ -988,7 +988,7 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
       if (!temp.has_value()) {
         return std::unique_ptr<Params>();
       }
-      params->socket_id = temp.value();
+      params->socket_id = *temp;
     }
   }
   else {
@@ -1021,7 +1021,7 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
       if (!temp.has_value()) {
         return std::unique_ptr<Params>();
       }
-      params->socket_id = temp.value();
+      params->socket_id = *temp;
     }
   }
   else {
@@ -1034,10 +1034,10 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = buffer_size_value.GetIfInt();
       if (!temp.has_value()) {
-        params->buffer_size.reset();
+        params->buffer_size = absl::nullopt;
         return std::unique_ptr<Params>();
       }
-      params->buffer_size = temp.value();
+      params->buffer_size = *temp;
     }
   }
 
@@ -1074,7 +1074,7 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
       if (!temp.has_value()) {
         return std::unique_ptr<Params>();
       }
-      params->socket_id = temp.value();
+      params->socket_id = *temp;
     }
   }
   else {
@@ -1130,7 +1130,7 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
       if (!temp.has_value()) {
         return std::unique_ptr<Params>();
       }
-      params->socket_id = temp.value();
+      params->socket_id = *temp;
     }
   }
   else {
@@ -1143,10 +1143,10 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = buffer_size_value.GetIfInt();
       if (!temp.has_value()) {
-        params->buffer_size.reset();
+        params->buffer_size = absl::nullopt;
         return std::unique_ptr<Params>();
       }
-      params->buffer_size = temp.value();
+      params->buffer_size = *temp;
     }
   }
 
@@ -1183,7 +1183,7 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
       if (!temp.has_value()) {
         return std::unique_ptr<Params>();
       }
-      params->socket_id = temp.value();
+      params->socket_id = *temp;
     }
   }
   else {
@@ -1229,7 +1229,7 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
       if (!temp.has_value()) {
         return std::unique_ptr<Params>();
       }
-      params->port = temp.value();
+      params->port = *temp;
     }
   }
   else {
@@ -1269,7 +1269,7 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
       if (!temp.has_value()) {
         return std::unique_ptr<Params>();
       }
-      params->socket_id = temp.value();
+      params->socket_id = *temp;
     }
   }
   else {
@@ -1299,7 +1299,7 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
       if (!temp.has_value()) {
         return std::unique_ptr<Params>();
       }
-      params->port = temp.value();
+      params->port = *temp;
     }
   }
   else {
@@ -1312,10 +1312,10 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = backlog_value.GetIfInt();
       if (!temp.has_value()) {
-        params->backlog.reset();
+        params->backlog = absl::nullopt;
         return std::unique_ptr<Params>();
       }
-      params->backlog = temp.value();
+      params->backlog = *temp;
     }
   }
 
@@ -1352,7 +1352,7 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
       if (!temp.has_value()) {
         return std::unique_ptr<Params>();
       }
-      params->socket_id = temp.value();
+      params->socket_id = *temp;
     }
   }
   else {
@@ -1392,7 +1392,7 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
       if (!temp.has_value()) {
         return std::unique_ptr<Params>();
       }
-      params->socket_id = temp.value();
+      params->socket_id = *temp;
     }
   }
   else {
@@ -1407,7 +1407,7 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
       if (!temp.has_value()) {
         return std::unique_ptr<Params>();
       }
-      params->enable = temp.value();
+      params->enable = *temp;
     }
   }
   else {
@@ -1420,10 +1420,10 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
     {
       auto temp = delay_value.GetIfInt();
       if (!temp.has_value()) {
-        params->delay.reset();
+        params->delay = absl::nullopt;
         return std::unique_ptr<Params>();
       }
-      params->delay = temp.value();
+      params->delay = *temp;
     }
   }
 
@@ -1460,7 +1460,7 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
       if (!temp.has_value()) {
         return std::unique_ptr<Params>();
       }
-      params->socket_id = temp.value();
+      params->socket_id = *temp;
     }
   }
   else {
@@ -1475,7 +1475,7 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
       if (!temp.has_value()) {
         return std::unique_ptr<Params>();
       }
-      params->no_delay = temp.value();
+      params->no_delay = *temp;
     }
   }
   else {
@@ -1515,7 +1515,7 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
       if (!temp.has_value()) {
         return std::unique_ptr<Params>();
       }
-      params->socket_id = temp.value();
+      params->socket_id = *temp;
     }
   }
   else {
@@ -1566,7 +1566,7 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
       if (!temp.has_value()) {
         return std::unique_ptr<Params>();
       }
-      params->socket_id = temp.value();
+      params->socket_id = *temp;
     }
   }
   else {
@@ -1621,7 +1621,7 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
       if (!temp.has_value()) {
         return std::unique_ptr<Params>();
       }
-      params->socket_id = temp.value();
+      params->socket_id = *temp;
     }
   }
   else {
@@ -1676,7 +1676,7 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
       if (!temp.has_value()) {
         return std::unique_ptr<Params>();
       }
-      params->socket_id = temp.value();
+      params->socket_id = *temp;
     }
   }
   else {
@@ -1691,7 +1691,7 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
       if (!temp.has_value()) {
         return std::unique_ptr<Params>();
       }
-      params->ttl = temp.value();
+      params->ttl = *temp;
     }
   }
   else {
@@ -1731,7 +1731,7 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
       if (!temp.has_value()) {
         return std::unique_ptr<Params>();
       }
-      params->socket_id = temp.value();
+      params->socket_id = *temp;
     }
   }
   else {
@@ -1746,7 +1746,7 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
       if (!temp.has_value()) {
         return std::unique_ptr<Params>();
       }
-      params->enabled = temp.value();
+      params->enabled = *temp;
     }
   }
   else {
@@ -1786,7 +1786,7 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
       if (!temp.has_value()) {
         return std::unique_ptr<Params>();
       }
-      params->socket_id = temp.value();
+      params->socket_id = *temp;
     }
   }
   else {
@@ -1826,7 +1826,7 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
       if (!temp.has_value()) {
         return std::unique_ptr<Params>();
       }
-      params->socket_id = temp.value();
+      params->socket_id = *temp;
     }
   }
   else {

@@ -6343,7 +6343,7 @@ const char* DeviceReportingProto::_InternalParse(const char* ptr, ::_pbi::ParseC
         } else
           goto handle_unusual;
         continue;
-      // optional bool report_network_interfaces = 5 [default = true];
+      // optional bool report_network_interfaces = 5 [default = true, deprecated = true];
       case 5:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
           _Internal::set_has_report_network_interfaces(&_has_bits_);
@@ -6361,7 +6361,7 @@ const char* DeviceReportingProto::_InternalParse(const char* ptr, ::_pbi::ParseC
         } else
           goto handle_unusual;
         continue;
-      // optional bool report_hardware_status = 7 [default = true];
+      // optional bool report_hardware_status = 7 [default = true, deprecated = true];
       case 7:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 56)) {
           _Internal::set_has_report_hardware_status(&_has_bits_);
@@ -6702,7 +6702,7 @@ uint8_t* DeviceReportingProto::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteBoolToArray(4, this->_internal_report_location(), target);
   }
 
-  // optional bool report_network_interfaces = 5 [default = true];
+  // optional bool report_network_interfaces = 5 [default = true, deprecated = true];
   if (cached_has_bits & 0x20000000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(5, this->_internal_report_network_interfaces(), target);
@@ -6714,7 +6714,7 @@ uint8_t* DeviceReportingProto::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteBoolToArray(6, this->_internal_report_users(), target);
   }
 
-  // optional bool report_hardware_status = 7 [default = true];
+  // optional bool report_hardware_status = 7 [default = true, deprecated = true];
   if (cached_has_bits & 0x80000000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(7, this->_internal_report_hardware_status(), target);
@@ -7084,7 +7084,7 @@ size_t DeviceReportingProto::ByteSizeLong() const {
       total_size += 1 + 1;
     }
 
-    // optional bool report_network_interfaces = 5 [default = true];
+    // optional bool report_network_interfaces = 5 [default = true, deprecated = true];
     if (cached_has_bits & 0x20000000u) {
       total_size += 1 + 1;
     }
@@ -7094,7 +7094,7 @@ size_t DeviceReportingProto::ByteSizeLong() const {
       total_size += 1 + 1;
     }
 
-    // optional bool report_hardware_status = 7 [default = true];
+    // optional bool report_hardware_status = 7 [default = true, deprecated = true];
     if (cached_has_bits & 0x80000000u) {
       total_size += 1 + 1;
     }

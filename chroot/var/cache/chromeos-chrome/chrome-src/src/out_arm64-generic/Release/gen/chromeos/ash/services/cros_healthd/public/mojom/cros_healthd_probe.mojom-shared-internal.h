@@ -22,7 +22,7 @@ namespace internal {
 class ValidationContext;
 }
 }
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace mojom {
 namespace internal {
@@ -2245,7 +2245,7 @@ class  BatteryInfo_Data {
   mojo::internal::Pointer<mojo::internal::String_Data> technology;
   mojo::internal::Pointer<mojo::internal::String_Data> status;
   mojo::internal::Pointer<mojo::internal::String_Data> manufacture_date;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::NullableUint64_Data> temperature;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint64_Data> temperature;
 
  private:
   friend class mojo::internal::MessageFragment<BatteryInfo_Data>;
@@ -2298,7 +2298,7 @@ class  NonRemovableBlockDeviceInfo_Data {
   uint64_t read_time_seconds_since_last_boot;
   uint64_t write_time_seconds_since_last_boot;
   uint64_t io_time_seconds_since_last_boot;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::NullableUint64_Data> discard_time_seconds_since_last_boot;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint64_Data> discard_time_seconds_since_last_boot;
   internal::BlockDeviceVendor_Data vendor_id;
   internal::BlockDeviceProduct_Data product_id;
   internal::BlockDeviceRevision_Data revision;
@@ -3185,12 +3185,12 @@ class  BluetoothDeviceInfo_Data {
   mojo::internal::Pointer<mojo::internal::String_Data> name;
   int32_t type;
   uint8_t pad2_[4];
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::NullableUint16_Data> appearance;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint16_Data> appearance;
   mojo::internal::Pointer<mojo::internal::String_Data> modalias;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::NullableInt16_Data> rssi;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::NullableUint16_Data> mtu;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableInt16_Data> rssi;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint16_Data> mtu;
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<mojo::internal::String_Data>>> uuids;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::NullableUint8_Data> battery_percentage;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint8_Data> battery_percentage;
 
  private:
   friend class mojo::internal::MessageFragment<BluetoothDeviceInfo_Data>;
@@ -3503,7 +3503,7 @@ class  DmiInfo_Data {
   mojo::internal::Pointer<mojo::internal::String_Data> board_vendor;
   mojo::internal::Pointer<mojo::internal::String_Data> board_version;
   mojo::internal::Pointer<mojo::internal::String_Data> chassis_vendor;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::NullableUint64_Data> chassis_type;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint64_Data> chassis_type;
   mojo::internal::Pointer<mojo::internal::String_Data> product_family;
   mojo::internal::Pointer<mojo::internal::String_Data> product_name;
   mojo::internal::Pointer<mojo::internal::String_Data> product_version;
@@ -4698,16 +4698,16 @@ class  EmbeddedDisplayInfo_Data {
   uint8_t privacy_screen_enabled : 1;
   uint8_t pad1_[3];
   int32_t input_type;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::NullableUint32_Data> display_width;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::NullableUint32_Data> display_height;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::NullableUint32_Data> resolution_horizontal;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::NullableUint32_Data> resolution_vertical;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::NullableDouble_Data> refresh_rate;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint32_Data> display_width;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint32_Data> display_height;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint32_Data> resolution_horizontal;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint32_Data> resolution_vertical;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableDouble_Data> refresh_rate;
   mojo::internal::Pointer<mojo::internal::String_Data> manufacturer;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::NullableUint16_Data> model_id;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::NullableUint32_Data> serial_number;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::NullableUint8_Data> manufacture_week;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::NullableUint16_Data> manufacture_year;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint16_Data> model_id;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint32_Data> serial_number;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint8_Data> manufacture_week;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint16_Data> manufacture_year;
   mojo::internal::Pointer<mojo::internal::String_Data> edid_version;
   mojo::internal::Pointer<mojo::internal::String_Data> display_name;
 
@@ -4757,16 +4757,16 @@ class  ExternalDisplayInfo_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::NullableUint32_Data> display_width;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::NullableUint32_Data> display_height;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::NullableUint32_Data> resolution_horizontal;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::NullableUint32_Data> resolution_vertical;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::NullableDouble_Data> refresh_rate;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint32_Data> display_width;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint32_Data> display_height;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint32_Data> resolution_horizontal;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint32_Data> resolution_vertical;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableDouble_Data> refresh_rate;
   mojo::internal::Pointer<mojo::internal::String_Data> manufacturer;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::NullableUint16_Data> model_id;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::NullableUint32_Data> serial_number;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::NullableUint8_Data> manufacture_week;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::NullableUint16_Data> manufacture_year;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint16_Data> model_id;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint32_Data> serial_number;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint8_Data> manufacture_week;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint16_Data> manufacture_year;
   mojo::internal::Pointer<mojo::internal::String_Data> edid_version;
   int32_t input_type;
   uint8_t pad11_[4];
@@ -5145,6 +5145,6 @@ const mojo::internal::UnserializedMessageContext::Tag
 }  // namespace internal
 }  // namespace mojom
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 #endif  // CHROMEOS_ASH_SERVICES_CROS_HEALTHD_PUBLIC_MOJOM_CROS_HEALTHD_PROBE_MOJOM_SHARED_INTERNAL_H_

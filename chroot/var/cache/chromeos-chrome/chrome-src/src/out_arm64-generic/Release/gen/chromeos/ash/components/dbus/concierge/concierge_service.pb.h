@@ -122,6 +122,12 @@ extern GetVmEnterpriseReportingInfoRequestDefaultTypeInternal _GetVmEnterpriseRe
 class GetVmEnterpriseReportingInfoResponse;
 struct GetVmEnterpriseReportingInfoResponseDefaultTypeInternal;
 extern GetVmEnterpriseReportingInfoResponseDefaultTypeInternal _GetVmEnterpriseReportingInfoResponse_default_instance_;
+class GetVmGpuCachePathRequest;
+struct GetVmGpuCachePathRequestDefaultTypeInternal;
+extern GetVmGpuCachePathRequestDefaultTypeInternal _GetVmGpuCachePathRequest_default_instance_;
+class GetVmGpuCachePathResponse;
+struct GetVmGpuCachePathResponseDefaultTypeInternal;
+extern GetVmGpuCachePathResponseDefaultTypeInternal _GetVmGpuCachePathResponse_default_instance_;
 class GetVmInfoRequest;
 struct GetVmInfoRequestDefaultTypeInternal;
 extern GetVmInfoRequestDefaultTypeInternal _GetVmInfoRequest_default_instance_;
@@ -259,6 +265,8 @@ template<> ::vm_tools::concierge::ExportDiskImageResponse* Arena::CreateMaybeMes
 template<> ::vm_tools::concierge::ExtendedVmInfo* Arena::CreateMaybeMessage<::vm_tools::concierge::ExtendedVmInfo>(Arena*);
 template<> ::vm_tools::concierge::GetVmEnterpriseReportingInfoRequest* Arena::CreateMaybeMessage<::vm_tools::concierge::GetVmEnterpriseReportingInfoRequest>(Arena*);
 template<> ::vm_tools::concierge::GetVmEnterpriseReportingInfoResponse* Arena::CreateMaybeMessage<::vm_tools::concierge::GetVmEnterpriseReportingInfoResponse>(Arena*);
+template<> ::vm_tools::concierge::GetVmGpuCachePathRequest* Arena::CreateMaybeMessage<::vm_tools::concierge::GetVmGpuCachePathRequest>(Arena*);
+template<> ::vm_tools::concierge::GetVmGpuCachePathResponse* Arena::CreateMaybeMessage<::vm_tools::concierge::GetVmGpuCachePathResponse>(Arena*);
 template<> ::vm_tools::concierge::GetVmInfoRequest* Arena::CreateMaybeMessage<::vm_tools::concierge::GetVmInfoRequest>(Arena*);
 template<> ::vm_tools::concierge::GetVmInfoResponse* Arena::CreateMaybeMessage<::vm_tools::concierge::GetVmInfoResponse>(Arena*);
 template<> ::vm_tools::concierge::ImportDiskImageRequest* Arena::CreateMaybeMessage<::vm_tools::concierge::ImportDiskImageRequest>(Arena*);
@@ -11471,6 +11479,286 @@ class ListVmsResponse final :
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_concierge_5fservice_2eproto;
 };
+// -------------------------------------------------------------------
+
+class GetVmGpuCachePathRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:vm_tools.concierge.GetVmGpuCachePathRequest) */ {
+ public:
+  inline GetVmGpuCachePathRequest() : GetVmGpuCachePathRequest(nullptr) {}
+  ~GetVmGpuCachePathRequest() override;
+  explicit PROTOBUF_CONSTEXPR GetVmGpuCachePathRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  GetVmGpuCachePathRequest(const GetVmGpuCachePathRequest& from);
+  GetVmGpuCachePathRequest(GetVmGpuCachePathRequest&& from) noexcept
+    : GetVmGpuCachePathRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline GetVmGpuCachePathRequest& operator=(const GetVmGpuCachePathRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline GetVmGpuCachePathRequest& operator=(GetVmGpuCachePathRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const GetVmGpuCachePathRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const GetVmGpuCachePathRequest* internal_default_instance() {
+    return reinterpret_cast<const GetVmGpuCachePathRequest*>(
+               &_GetVmGpuCachePathRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    62;
+
+  friend void swap(GetVmGpuCachePathRequest& a, GetVmGpuCachePathRequest& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(GetVmGpuCachePathRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(GetVmGpuCachePathRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  GetVmGpuCachePathRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<GetVmGpuCachePathRequest>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const GetVmGpuCachePathRequest& from);
+  void MergeFrom(const GetVmGpuCachePathRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(GetVmGpuCachePathRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "vm_tools.concierge.GetVmGpuCachePathRequest";
+  }
+  protected:
+  explicit GetVmGpuCachePathRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kNameFieldNumber = 1,
+    kOwnerIdFieldNumber = 2,
+  };
+  // string name = 1;
+  void clear_name();
+  const std::string& name() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_name(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_name();
+  PROTOBUF_NODISCARD std::string* release_name();
+  void set_allocated_name(std::string* name);
+  private:
+  const std::string& _internal_name() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_name(const std::string& value);
+  std::string* _internal_mutable_name();
+  public:
+
+  // string owner_id = 2;
+  void clear_owner_id();
+  const std::string& owner_id() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_owner_id(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_owner_id();
+  PROTOBUF_NODISCARD std::string* release_owner_id();
+  void set_allocated_owner_id(std::string* owner_id);
+  private:
+  const std::string& _internal_owner_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_owner_id(const std::string& value);
+  std::string* _internal_mutable_owner_id();
+  public:
+
+  // @@protoc_insertion_point(class_scope:vm_tools.concierge.GetVmGpuCachePathRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr owner_id_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_concierge_5fservice_2eproto;
+};
+// -------------------------------------------------------------------
+
+class GetVmGpuCachePathResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:vm_tools.concierge.GetVmGpuCachePathResponse) */ {
+ public:
+  inline GetVmGpuCachePathResponse() : GetVmGpuCachePathResponse(nullptr) {}
+  ~GetVmGpuCachePathResponse() override;
+  explicit PROTOBUF_CONSTEXPR GetVmGpuCachePathResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  GetVmGpuCachePathResponse(const GetVmGpuCachePathResponse& from);
+  GetVmGpuCachePathResponse(GetVmGpuCachePathResponse&& from) noexcept
+    : GetVmGpuCachePathResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline GetVmGpuCachePathResponse& operator=(const GetVmGpuCachePathResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline GetVmGpuCachePathResponse& operator=(GetVmGpuCachePathResponse&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const GetVmGpuCachePathResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const GetVmGpuCachePathResponse* internal_default_instance() {
+    return reinterpret_cast<const GetVmGpuCachePathResponse*>(
+               &_GetVmGpuCachePathResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    63;
+
+  friend void swap(GetVmGpuCachePathResponse& a, GetVmGpuCachePathResponse& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(GetVmGpuCachePathResponse* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(GetVmGpuCachePathResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  GetVmGpuCachePathResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<GetVmGpuCachePathResponse>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const GetVmGpuCachePathResponse& from);
+  void MergeFrom(const GetVmGpuCachePathResponse& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(GetVmGpuCachePathResponse* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "vm_tools.concierge.GetVmGpuCachePathResponse";
+  }
+  protected:
+  explicit GetVmGpuCachePathResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kPathFieldNumber = 1,
+  };
+  // string path = 1;
+  void clear_path();
+  const std::string& path() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_path(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_path();
+  PROTOBUF_NODISCARD std::string* release_path();
+  void set_allocated_path(std::string* path);
+  private:
+  const std::string& _internal_path() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_path(const std::string& value);
+  std::string* _internal_mutable_path();
+  public:
+
+  // @@protoc_insertion_point(class_scope:vm_tools.concierge.GetVmGpuCachePathResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr path_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_concierge_5fservice_2eproto;
+};
 // ===================================================================
 
 
@@ -20852,9 +21140,171 @@ ListVmsResponse::vms() const {
   return vms_;
 }
 
+// -------------------------------------------------------------------
+
+// GetVmGpuCachePathRequest
+
+// string name = 1;
+inline void GetVmGpuCachePathRequest::clear_name() {
+  name_.ClearToEmpty();
+}
+inline const std::string& GetVmGpuCachePathRequest::name() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.GetVmGpuCachePathRequest.name)
+  return _internal_name();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void GetVmGpuCachePathRequest::set_name(ArgT0&& arg0, ArgT... args) {
+ 
+ name_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.GetVmGpuCachePathRequest.name)
+}
+inline std::string* GetVmGpuCachePathRequest::mutable_name() {
+  std::string* _s = _internal_mutable_name();
+  // @@protoc_insertion_point(field_mutable:vm_tools.concierge.GetVmGpuCachePathRequest.name)
+  return _s;
+}
+inline const std::string& GetVmGpuCachePathRequest::_internal_name() const {
+  return name_.Get();
+}
+inline void GetVmGpuCachePathRequest::_internal_set_name(const std::string& value) {
+  
+  name_.Set(value, GetArenaForAllocation());
+}
+inline std::string* GetVmGpuCachePathRequest::_internal_mutable_name() {
+  
+  return name_.Mutable(GetArenaForAllocation());
+}
+inline std::string* GetVmGpuCachePathRequest::release_name() {
+  // @@protoc_insertion_point(field_release:vm_tools.concierge.GetVmGpuCachePathRequest.name)
+  return name_.Release();
+}
+inline void GetVmGpuCachePathRequest::set_allocated_name(std::string* name) {
+  if (name != nullptr) {
+    
+  } else {
+    
+  }
+  name_.SetAllocated(name, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (name_.IsDefault()) {
+    name_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.GetVmGpuCachePathRequest.name)
+}
+
+// string owner_id = 2;
+inline void GetVmGpuCachePathRequest::clear_owner_id() {
+  owner_id_.ClearToEmpty();
+}
+inline const std::string& GetVmGpuCachePathRequest::owner_id() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.GetVmGpuCachePathRequest.owner_id)
+  return _internal_owner_id();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void GetVmGpuCachePathRequest::set_owner_id(ArgT0&& arg0, ArgT... args) {
+ 
+ owner_id_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.GetVmGpuCachePathRequest.owner_id)
+}
+inline std::string* GetVmGpuCachePathRequest::mutable_owner_id() {
+  std::string* _s = _internal_mutable_owner_id();
+  // @@protoc_insertion_point(field_mutable:vm_tools.concierge.GetVmGpuCachePathRequest.owner_id)
+  return _s;
+}
+inline const std::string& GetVmGpuCachePathRequest::_internal_owner_id() const {
+  return owner_id_.Get();
+}
+inline void GetVmGpuCachePathRequest::_internal_set_owner_id(const std::string& value) {
+  
+  owner_id_.Set(value, GetArenaForAllocation());
+}
+inline std::string* GetVmGpuCachePathRequest::_internal_mutable_owner_id() {
+  
+  return owner_id_.Mutable(GetArenaForAllocation());
+}
+inline std::string* GetVmGpuCachePathRequest::release_owner_id() {
+  // @@protoc_insertion_point(field_release:vm_tools.concierge.GetVmGpuCachePathRequest.owner_id)
+  return owner_id_.Release();
+}
+inline void GetVmGpuCachePathRequest::set_allocated_owner_id(std::string* owner_id) {
+  if (owner_id != nullptr) {
+    
+  } else {
+    
+  }
+  owner_id_.SetAllocated(owner_id, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (owner_id_.IsDefault()) {
+    owner_id_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.GetVmGpuCachePathRequest.owner_id)
+}
+
+// -------------------------------------------------------------------
+
+// GetVmGpuCachePathResponse
+
+// string path = 1;
+inline void GetVmGpuCachePathResponse::clear_path() {
+  path_.ClearToEmpty();
+}
+inline const std::string& GetVmGpuCachePathResponse::path() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.GetVmGpuCachePathResponse.path)
+  return _internal_path();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void GetVmGpuCachePathResponse::set_path(ArgT0&& arg0, ArgT... args) {
+ 
+ path_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.GetVmGpuCachePathResponse.path)
+}
+inline std::string* GetVmGpuCachePathResponse::mutable_path() {
+  std::string* _s = _internal_mutable_path();
+  // @@protoc_insertion_point(field_mutable:vm_tools.concierge.GetVmGpuCachePathResponse.path)
+  return _s;
+}
+inline const std::string& GetVmGpuCachePathResponse::_internal_path() const {
+  return path_.Get();
+}
+inline void GetVmGpuCachePathResponse::_internal_set_path(const std::string& value) {
+  
+  path_.Set(value, GetArenaForAllocation());
+}
+inline std::string* GetVmGpuCachePathResponse::_internal_mutable_path() {
+  
+  return path_.Mutable(GetArenaForAllocation());
+}
+inline std::string* GetVmGpuCachePathResponse::release_path() {
+  // @@protoc_insertion_point(field_release:vm_tools.concierge.GetVmGpuCachePathResponse.path)
+  return path_.Release();
+}
+inline void GetVmGpuCachePathResponse::set_allocated_path(std::string* path) {
+  if (path != nullptr) {
+    
+  } else {
+    
+  }
+  path_.SetAllocated(path, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (path_.IsDefault()) {
+    path_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.GetVmGpuCachePathResponse.path)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

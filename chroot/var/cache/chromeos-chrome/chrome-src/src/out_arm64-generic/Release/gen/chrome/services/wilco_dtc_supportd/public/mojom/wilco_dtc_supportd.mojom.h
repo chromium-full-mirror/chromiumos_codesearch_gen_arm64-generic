@@ -228,10 +228,10 @@ class  WilcoDtcSupportdClient
   virtual void HandleEvent(WilcoDtcSupportdEvent event) = 0;
 
   
-  virtual void GetCrosHealthdDiagnosticsService(::mojo::PendingReceiver<::chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService> service) = 0;
+  virtual void GetCrosHealthdDiagnosticsService(::mojo::PendingReceiver<::ash::cros_healthd::mojom::CrosHealthdDiagnosticsService> service) = 0;
 
   
-  virtual void GetCrosHealthdProbeService(::mojo::PendingReceiver<::chromeos::cros_healthd::mojom::CrosHealthdProbeService> service) = 0;
+  virtual void GetCrosHealthdProbeService(::mojo::PendingReceiver<::ash::cros_healthd::mojom::CrosHealthdProbeService> service) = 0;
 };
 
 
@@ -283,9 +283,9 @@ class  WilcoDtcSupportdClientProxy
   
   void HandleEvent(WilcoDtcSupportdEvent event) final;
   
-  void GetCrosHealthdDiagnosticsService(::mojo::PendingReceiver<::chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService> service) final;
+  void GetCrosHealthdDiagnosticsService(::mojo::PendingReceiver<::ash::cros_healthd::mojom::CrosHealthdDiagnosticsService> service) final;
   
-  void GetCrosHealthdProbeService(::mojo::PendingReceiver<::chromeos::cros_healthd::mojom::CrosHealthdProbeService> service) final;
+  void GetCrosHealthdProbeService(::mojo::PendingReceiver<::ash::cros_healthd::mojom::CrosHealthdProbeService> service) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

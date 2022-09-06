@@ -32,7 +32,7 @@
 
 
 
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace mojom {
 class EcEventDataView;
@@ -43,21 +43,21 @@ class GetEcTelemetryResponseDataView;
 
 }  // namespace mojom
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 namespace mojo {
 namespace internal {
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::EcEventDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::EcEvent_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::EcEventDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::EcEvent_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::GetEcTelemetryResponseDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::GetEcTelemetryResponse_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::GetEcTelemetryResponseDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::GetEcTelemetryResponse_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -66,12 +66,14 @@ struct MojomTypeTraits<::chromeos::cros_healthd::mojom::GetEcTelemetryResponseDa
 }  // namespace mojo
 
 
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace mojom {
 
 
 enum class EcEvent_Reason : int32_t {
+  
+  kUnmappedEnumField = 9,
   
   kNonWilcoCharger = 0,
   
@@ -91,7 +93,8 @@ enum class EcEvent_Reason : int32_t {
   
   kNonSysNotification = 8,
   kMinValue = 0,
-  kMaxValue = 8,
+  kMaxValue = 9,
+  kDefaultValue = 9
 };
 
  std::ostream& operator<<(std::ostream& os, EcEvent_Reason value);
@@ -99,13 +102,22 @@ inline bool IsKnownEnumValue(EcEvent_Reason value) {
   return internal::EcEvent_Reason_Data::IsKnownValue(
       static_cast<int32_t>(value));
 }
+inline EcEvent_Reason ToKnownEnumValue(EcEvent_Reason value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return EcEvent_Reason::kDefaultValue;
+}
 
 
 enum class EcEvent_Type : int32_t {
   
+  kUnmappedEnumField = 0,
+  
   kSystemNotify = 18,
-  kMinValue = 18,
+  kMinValue = 0,
   kMaxValue = 18,
+  kDefaultValue = 0
 };
 
  std::ostream& operator<<(std::ostream& os, EcEvent_Type value);
@@ -113,9 +125,17 @@ inline bool IsKnownEnumValue(EcEvent_Type value) {
   return internal::EcEvent_Type_Data::IsKnownValue(
       static_cast<int32_t>(value));
 }
+inline EcEvent_Type ToKnownEnumValue(EcEvent_Type value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return EcEvent_Type::kDefaultValue;
+}
 
 
 enum class GetEcTelemetryResponse_Status : int32_t {
+  
+  kUnmappedEnumField = 4,
   
   kStatusOk = 0,
   
@@ -125,13 +145,20 @@ enum class GetEcTelemetryResponse_Status : int32_t {
   
   kStatusErrorAccessingDriver = 3,
   kMinValue = 0,
-  kMaxValue = 3,
+  kMaxValue = 4,
+  kDefaultValue = 4
 };
 
  std::ostream& operator<<(std::ostream& os, GetEcTelemetryResponse_Status value);
 inline bool IsKnownEnumValue(GetEcTelemetryResponse_Status value) {
   return internal::GetEcTelemetryResponse_Status_Data::IsKnownValue(
       static_cast<int32_t>(value));
+}
+inline GetEcTelemetryResponse_Status ToKnownEnumValue(GetEcTelemetryResponse_Status value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return GetEcTelemetryResponse_Status::kDefaultValue;
 }
 // Interface base classes. They are used for type safety check.
 class WilcoEcObserverInterfaceBase {};
@@ -159,12 +186,12 @@ class EcEventDataView {
   template <typename UserType>
   [[nodiscard]] bool ReadType(UserType* output) const {
     auto data_value = data_->type;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::EcEvent_Type>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::EcEvent_Type>(
         data_value, output);
   }
   EcEvent_Type type() const {
     return ::mojo::internal::ToKnownEnumValueHelper(
-          static_cast<::chromeos::cros_healthd::mojom::EcEvent_Type>(data_->type));
+          static_cast<::ash::cros_healthd::mojom::EcEvent_Type>(data_->type));
   }
   inline void GetPayloadDataView(
       mojo::ArrayDataView<uint16_t>* output);
@@ -179,12 +206,12 @@ class EcEventDataView {
   template <typename UserType>
   [[nodiscard]] bool ReadReason(UserType* output) const {
     auto data_value = data_->reason;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::EcEvent_Reason>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::EcEvent_Reason>(
         data_value, output);
   }
   EcEvent_Reason reason() const {
     return ::mojo::internal::ToKnownEnumValueHelper(
-          static_cast<::chromeos::cros_healthd::mojom::EcEvent_Reason>(data_->reason));
+          static_cast<::ash::cros_healthd::mojom::EcEvent_Reason>(data_->reason));
   }
  private:
   internal::EcEvent_Data* data_ = nullptr;
@@ -206,12 +233,12 @@ class GetEcTelemetryResponseDataView {
   template <typename UserType>
   [[nodiscard]] bool ReadStatus(UserType* output) const {
     auto data_value = data_->status;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::GetEcTelemetryResponse_Status>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::GetEcTelemetryResponse_Status>(
         data_value, output);
   }
   GetEcTelemetryResponse_Status status() const {
     return ::mojo::internal::ToKnownEnumValueHelper(
-          static_cast<::chromeos::cros_healthd::mojom::GetEcTelemetryResponse_Status>(data_->status));
+          static_cast<::ash::cros_healthd::mojom::GetEcTelemetryResponse_Status>(data_->status));
   }
   inline void GetPayloadDataView(
       mojo::StringDataView* output);
@@ -232,21 +259,21 @@ class GetEcTelemetryResponseDataView {
 
 }  // namespace mojom
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 namespace std {
 
 template <>
-struct hash<::chromeos::cros_healthd::mojom::EcEvent_Reason>
-    : public mojo::internal::EnumHashImpl<::chromeos::cros_healthd::mojom::EcEvent_Reason> {};
+struct hash<::ash::cros_healthd::mojom::EcEvent_Reason>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::EcEvent_Reason> {};
 
 template <>
-struct hash<::chromeos::cros_healthd::mojom::EcEvent_Type>
-    : public mojo::internal::EnumHashImpl<::chromeos::cros_healthd::mojom::EcEvent_Type> {};
+struct hash<::ash::cros_healthd::mojom::EcEvent_Type>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::EcEvent_Type> {};
 
 template <>
-struct hash<::chromeos::cros_healthd::mojom::GetEcTelemetryResponse_Status>
-    : public mojo::internal::EnumHashImpl<::chromeos::cros_healthd::mojom::GetEcTelemetryResponse_Status> {};
+struct hash<::ash::cros_healthd::mojom::GetEcTelemetryResponse_Status>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::GetEcTelemetryResponse_Status> {};
 
 }  // namespace std
 
@@ -256,9 +283,9 @@ namespace mojo {
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::EcEvent_Reason, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::EcEvent_Reason, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = EnumTraits<::chromeos::cros_healthd::mojom::EcEvent_Reason, UserType>;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::EcEvent_Reason, UserType>;
 
   static void Serialize(UserType input, int32_t* output) {
     *output = static_cast<int32_t>(Traits::ToMojom(input));
@@ -266,7 +293,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::EcEvent_Reason, MaybeConstUse
 
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
-        static_cast<::chromeos::cros_healthd::mojom::EcEvent_Reason>(input)), output);
+        static_cast<::ash::cros_healthd::mojom::EcEvent_Reason>(input)), output);
   }
 };
 
@@ -276,9 +303,9 @@ struct Serializer<::chromeos::cros_healthd::mojom::EcEvent_Reason, MaybeConstUse
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::EcEvent_Type, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::EcEvent_Type, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = EnumTraits<::chromeos::cros_healthd::mojom::EcEvent_Type, UserType>;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::EcEvent_Type, UserType>;
 
   static void Serialize(UserType input, int32_t* output) {
     *output = static_cast<int32_t>(Traits::ToMojom(input));
@@ -286,7 +313,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::EcEvent_Type, MaybeConstUserT
 
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
-        static_cast<::chromeos::cros_healthd::mojom::EcEvent_Type>(input)), output);
+        static_cast<::ash::cros_healthd::mojom::EcEvent_Type>(input)), output);
   }
 };
 
@@ -296,9 +323,9 @@ struct Serializer<::chromeos::cros_healthd::mojom::EcEvent_Type, MaybeConstUserT
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::GetEcTelemetryResponse_Status, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::GetEcTelemetryResponse_Status, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = EnumTraits<::chromeos::cros_healthd::mojom::GetEcTelemetryResponse_Status, UserType>;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::GetEcTelemetryResponse_Status, UserType>;
 
   static void Serialize(UserType input, int32_t* output) {
     *output = static_cast<int32_t>(Traits::ToMojom(input));
@@ -306,7 +333,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::GetEcTelemetryResponse_Status
 
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
-        static_cast<::chromeos::cros_healthd::mojom::GetEcTelemetryResponse_Status>(input)), output);
+        static_cast<::ash::cros_healthd::mojom::GetEcTelemetryResponse_Status>(input)), output);
   }
 };
 
@@ -316,17 +343,17 @@ struct Serializer<::chromeos::cros_healthd::mojom::GetEcTelemetryResponse_Status
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::EcEventDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::EcEventDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::EcEventDataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::EcEventDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::EcEvent_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::EcEvent_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::EcEvent_Type>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::EcEvent_Type>(
         Traits::type(input), &fragment->type);
     decltype(Traits::payload(input)) in_payload = Traits::payload(input);
     mojo::internal::MessageFragment<
@@ -342,17 +369,17 @@ struct Serializer<::chromeos::cros_healthd::mojom::EcEventDataView, MaybeConstUs
         fragment->payload.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null payload in EcEvent struct");
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::EcEvent_Reason>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::EcEvent_Reason>(
         Traits::reason(input), &fragment->reason);
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::EcEvent_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::EcEvent_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::EcEventDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::EcEventDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -363,17 +390,17 @@ struct Serializer<::chromeos::cros_healthd::mojom::EcEventDataView, MaybeConstUs
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::GetEcTelemetryResponseDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::GetEcTelemetryResponseDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::GetEcTelemetryResponseDataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::GetEcTelemetryResponseDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::GetEcTelemetryResponse_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::GetEcTelemetryResponse_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::GetEcTelemetryResponse_Status>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::GetEcTelemetryResponse_Status>(
         Traits::status(input), &fragment->status);
     decltype(Traits::payload(input)) in_payload = Traits::payload(input);
     mojo::internal::MessageFragment<
@@ -389,13 +416,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::GetEcTelemetryResponseDataVie
         "null payload in GetEcTelemetryResponse struct");
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::GetEcTelemetryResponse_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::GetEcTelemetryResponse_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::GetEcTelemetryResponseDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::GetEcTelemetryResponseDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -405,7 +432,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::GetEcTelemetryResponseDataVie
 }  // namespace mojo
 
 
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace mojom {
 
@@ -426,7 +453,7 @@ inline void GetEcTelemetryResponseDataView::GetPayloadDataView(
 
 }  // namespace mojom
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.
@@ -434,8 +461,8 @@ inline void GetEcTelemetryResponseDataView::GetPayloadDataView(
 namespace perfetto {
 
 template <>
-struct  TraceFormatTraits<::chromeos::cros_healthd::mojom::EcEvent_Reason> {
- static void WriteIntoTrace(perfetto::TracedValue context, ::chromeos::cros_healthd::mojom::EcEvent_Reason value);
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::EcEvent_Reason> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::cros_healthd::mojom::EcEvent_Reason value);
 };
 
 } // namespace perfetto
@@ -443,8 +470,8 @@ struct  TraceFormatTraits<::chromeos::cros_healthd::mojom::EcEvent_Reason> {
 namespace perfetto {
 
 template <>
-struct  TraceFormatTraits<::chromeos::cros_healthd::mojom::EcEvent_Type> {
- static void WriteIntoTrace(perfetto::TracedValue context, ::chromeos::cros_healthd::mojom::EcEvent_Type value);
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::EcEvent_Type> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::cros_healthd::mojom::EcEvent_Type value);
 };
 
 } // namespace perfetto
@@ -452,8 +479,8 @@ struct  TraceFormatTraits<::chromeos::cros_healthd::mojom::EcEvent_Type> {
 namespace perfetto {
 
 template <>
-struct  TraceFormatTraits<::chromeos::cros_healthd::mojom::GetEcTelemetryResponse_Status> {
- static void WriteIntoTrace(perfetto::TracedValue context, ::chromeos::cros_healthd::mojom::GetEcTelemetryResponse_Status value);
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::GetEcTelemetryResponse_Status> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::cros_healthd::mojom::GetEcTelemetryResponse_Status value);
 };
 
 } // namespace perfetto

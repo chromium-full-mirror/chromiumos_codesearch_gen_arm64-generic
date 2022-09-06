@@ -120,10 +120,10 @@ bool TaskInfo::Populate(
     {
       auto temp = (*tab_id_value).GetIfInt();
       if (!temp.has_value()) {
-        out->tab_id.reset();
+        out->tab_id = absl::nullopt;
         return false;
       }
-      out->tab_id = temp.value();
+      out->tab_id = *temp;
     }
   }
 
@@ -177,7 +177,7 @@ bool Cache::Populate(
     if (!temp.has_value()) {
       return false;
     }
-    out->size = temp.value();
+    out->size = *temp;
   }
 
   const base::Value* live_size_value = dict->FindKey("liveSize");
@@ -189,7 +189,7 @@ bool Cache::Populate(
     if (!temp.has_value()) {
       return false;
     }
-    out->live_size = temp.value();
+    out->live_size = *temp;
   }
 
   return true;
@@ -242,7 +242,7 @@ bool Process::Populate(
     if (!temp.has_value()) {
       return false;
     }
-    out->id = temp.value();
+    out->id = *temp;
   }
 
   const base::Value* os_process_id_value = dict->FindKey("osProcessId");
@@ -254,7 +254,7 @@ bool Process::Populate(
     if (!temp.has_value()) {
       return false;
     }
-    out->os_process_id = temp.value();
+    out->os_process_id = *temp;
   }
 
   const base::Value* type_value = dict->FindKey("type");
@@ -293,7 +293,7 @@ bool Process::Populate(
     if (!temp.has_value()) {
       return false;
     }
-    out->nacl_debug_port = temp.value();
+    out->nacl_debug_port = *temp;
   }
 
   const base::Value* tasks_value = dict->FindKey("tasks");
@@ -316,10 +316,10 @@ bool Process::Populate(
     {
       auto temp = (*cpu_value).GetIfDouble();
       if (!temp.has_value()) {
-        out->cpu.reset();
+        out->cpu = absl::nullopt;
         return false;
       }
-      out->cpu = temp.value();
+      out->cpu = *temp;
     }
   }
 
@@ -328,10 +328,10 @@ bool Process::Populate(
     {
       auto temp = (*network_value).GetIfDouble();
       if (!temp.has_value()) {
-        out->network.reset();
+        out->network = absl::nullopt;
         return false;
       }
-      out->network = temp.value();
+      out->network = *temp;
     }
   }
 
@@ -340,10 +340,10 @@ bool Process::Populate(
     {
       auto temp = (*private_memory_value).GetIfDouble();
       if (!temp.has_value()) {
-        out->private_memory.reset();
+        out->private_memory = absl::nullopt;
         return false;
       }
-      out->private_memory = temp.value();
+      out->private_memory = *temp;
     }
   }
 
@@ -352,10 +352,10 @@ bool Process::Populate(
     {
       auto temp = (*js_memory_allocated_value).GetIfDouble();
       if (!temp.has_value()) {
-        out->js_memory_allocated.reset();
+        out->js_memory_allocated = absl::nullopt;
         return false;
       }
-      out->js_memory_allocated = temp.value();
+      out->js_memory_allocated = *temp;
     }
   }
 
@@ -364,10 +364,10 @@ bool Process::Populate(
     {
       auto temp = (*js_memory_used_value).GetIfDouble();
       if (!temp.has_value()) {
-        out->js_memory_used.reset();
+        out->js_memory_used = absl::nullopt;
         return false;
       }
-      out->js_memory_used = temp.value();
+      out->js_memory_used = *temp;
     }
   }
 
@@ -376,10 +376,10 @@ bool Process::Populate(
     {
       auto temp = (*sqlite_memory_value).GetIfDouble();
       if (!temp.has_value()) {
-        out->sqlite_memory.reset();
+        out->sqlite_memory = absl::nullopt;
         return false;
       }
-      out->sqlite_memory = temp.value();
+      out->sqlite_memory = *temp;
     }
   }
 
@@ -528,7 +528,7 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
       if (!temp.has_value()) {
         return std::unique_ptr<Params>();
       }
-      params->tab_id = temp.value();
+      params->tab_id = *temp;
     }
   }
   else {
@@ -568,7 +568,7 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
       if (!temp.has_value()) {
         return std::unique_ptr<Params>();
       }
-      params->process_id = temp.value();
+      params->process_id = *temp;
     }
   }
   else {
@@ -603,10 +603,10 @@ bool Params::ProcessIds::Populate(
     {
       auto temp = value.GetIfInt();
       if (!temp.has_value()) {
-        out->as_integer.reset();
+        out->as_integer = absl::nullopt;
         return false;
       }
-      out->as_integer = temp.value();
+      out->as_integer = *temp;
     }
     return true;
   }
@@ -657,7 +657,7 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
       if (!temp.has_value()) {
         return std::unique_ptr<Params>();
       }
-      params->include_memory = temp.value();
+      params->include_memory = *temp;
     }
   }
   else {

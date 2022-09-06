@@ -49,7 +49,7 @@ struct AcceptOption {
   // This is the optional text description for this option. If not present, a
   // description will be automatically generated; typically containing an expanded
   // list of valid extensions (e.g. "text/html" may expand to "*.html, *.htm").
-  std::unique_ptr<std::string> description;
+  absl::optional<std::string> description;
 
   // Mime-types to accept, e.g. "image/jpeg" or "audio/*". One of mimeTypes or
   // extensions must contain at least one valid element.
@@ -97,7 +97,7 @@ struct ChooseEntryOptions {
 
   // The suggested file name that will be presented to the user as the default
   // name to read or write. This is optional.
-  std::unique_ptr<std::string> suggested_name;
+  absl::optional<std::string> suggested_name;
 
   // The optional list of accept options for this file opener. Each option will be
   // presented as a unique group to the end-user.

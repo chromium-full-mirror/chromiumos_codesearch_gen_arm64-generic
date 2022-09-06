@@ -8,7 +8,7 @@
 #define CHROMEOS_ASH_SERVICES_CROS_HEALTHD_PUBLIC_MOJOM_WILCO_EC_MOJOM_SHARED_MESSAGE_IDS_H_
 
 #include <stdint.h>
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace mojom {
 
@@ -20,6 +20,6 @@ constexpr uint32_t kWilcoEcObserver_OnEcEvent_Name = 0;
 }  // namespace internal
 }  // namespace mojom
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 #endif  // CHROMEOS_ASH_SERVICES_CROS_HEALTHD_PUBLIC_MOJOM_WILCO_EC_MOJOM_SHARED_MESSAGE_IDS_H_

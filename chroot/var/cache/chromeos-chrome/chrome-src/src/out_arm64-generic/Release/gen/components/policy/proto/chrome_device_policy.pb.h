@@ -3605,14 +3605,14 @@ bool _internal_report_boot_mode() const;
 void _internal_set_report_boot_mode(bool value);
 public:
 
-// optional bool report_network_interfaces = 5 [default = true];
-bool has_report_network_interfaces() const;
+// optional bool report_network_interfaces = 5 [default = true, deprecated = true];
+PROTOBUF_DEPRECATED bool has_report_network_interfaces() const;
 private:
 bool _internal_has_report_network_interfaces() const;
 public:
-void clear_report_network_interfaces();
-bool report_network_interfaces() const;
-void set_report_network_interfaces(bool value);
+PROTOBUF_DEPRECATED void clear_report_network_interfaces();
+PROTOBUF_DEPRECATED bool report_network_interfaces() const;
+PROTOBUF_DEPRECATED void set_report_network_interfaces(bool value);
 private:
 bool _internal_report_network_interfaces() const;
 void _internal_set_report_network_interfaces(bool value);
@@ -3631,14 +3631,14 @@ bool _internal_report_users() const;
 void _internal_set_report_users(bool value);
 public:
 
-// optional bool report_hardware_status = 7 [default = true];
-bool has_report_hardware_status() const;
+// optional bool report_hardware_status = 7 [default = true, deprecated = true];
+PROTOBUF_DEPRECATED bool has_report_hardware_status() const;
 private:
 bool _internal_has_report_hardware_status() const;
 public:
-void clear_report_hardware_status();
-bool report_hardware_status() const;
-void set_report_hardware_status(bool value);
+PROTOBUF_DEPRECATED void clear_report_hardware_status();
+PROTOBUF_DEPRECATED bool report_hardware_status() const;
+PROTOBUF_DEPRECATED void set_report_hardware_status(bool value);
 private:
 bool _internal_report_hardware_status() const;
 void _internal_set_report_hardware_status(bool value);
@@ -26004,7 +26004,7 @@ _internal_set_report_location(value);
 // @@protoc_insertion_point(field_set:enterprise_management.DeviceReportingProto.report_location)
 }
 
-// optional bool report_network_interfaces = 5 [default = true];
+// optional bool report_network_interfaces = 5 [default = true, deprecated = true];
 inline bool DeviceReportingProto::_internal_has_report_network_interfaces() const {
 bool value = (_has_bits_[0] & 0x20000000u) != 0;
 return value;
@@ -26060,7 +26060,7 @@ _internal_set_report_users(value);
 // @@protoc_insertion_point(field_set:enterprise_management.DeviceReportingProto.report_users)
 }
 
-// optional bool report_hardware_status = 7 [default = true];
+// optional bool report_hardware_status = 7 [default = true, deprecated = true];
 inline bool DeviceReportingProto::_internal_has_report_hardware_status() const {
 bool value = (_has_bits_[0] & 0x80000000u) != 0;
 return value;

@@ -18,7 +18,7 @@
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
 #include "chromeos/ash/services/cros_healthd/public/mojom/cros_healthd_diagnostics.mojom-params-data.h"
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace mojom {
 
@@ -361,7 +361,7 @@ bool RunRoutineResponse_Data::Validate(
       static_cast<const RunRoutineResponse_Data*>(data);
 
 
-  if (!::chromeos::cros_healthd::mojom::internal::DiagnosticRoutineStatusEnum_Data
+  if (!::ash::cros_healthd::mojom::internal::DiagnosticRoutineStatusEnum_Data
         ::Validate(object->status, validation_context))
     return false;
 
@@ -389,7 +389,7 @@ bool InteractiveRoutineUpdate_Data::Validate(
       static_cast<const InteractiveRoutineUpdate_Data*>(data);
 
 
-  if (!::chromeos::cros_healthd::mojom::internal::DiagnosticRoutineUserMessageEnum_Data
+  if (!::ash::cros_healthd::mojom::internal::DiagnosticRoutineUserMessageEnum_Data
         ::Validate(object->user_message, validation_context))
     return false;
 
@@ -417,7 +417,7 @@ bool NonInteractiveRoutineUpdate_Data::Validate(
       static_cast<const NonInteractiveRoutineUpdate_Data*>(data);
 
 
-  if (!::chromeos::cros_healthd::mojom::internal::DiagnosticRoutineStatusEnum_Data
+  if (!::ash::cros_healthd::mojom::internal::DiagnosticRoutineStatusEnum_Data
         ::Validate(object->status, validation_context))
     return false;
 
@@ -476,14 +476,14 @@ RoutineUpdate_Data::RoutineUpdate_Data()
 }  // namespace internal
 }  // namespace mojom
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 namespace perfetto {
 
 // static
-void TraceFormatTraits<::chromeos::cros_healthd::mojom::DiagnosticRoutineEnum>::WriteIntoTrace(
-   perfetto::TracedValue context, ::chromeos::cros_healthd::mojom::DiagnosticRoutineEnum value) {
-  return std::move(context).WriteString(::chromeos::cros_healthd::mojom::DiagnosticRoutineEnumToString(value));
+void TraceFormatTraits<::ash::cros_healthd::mojom::DiagnosticRoutineEnum>::WriteIntoTrace(
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::DiagnosticRoutineEnum value) {
+  return std::move(context).WriteString(::ash::cros_healthd::mojom::DiagnosticRoutineEnumToString(value));
 }
 
 } // namespace perfetto
@@ -491,9 +491,9 @@ void TraceFormatTraits<::chromeos::cros_healthd::mojom::DiagnosticRoutineEnum>::
 namespace perfetto {
 
 // static
-void TraceFormatTraits<::chromeos::cros_healthd::mojom::DiskReadRoutineTypeEnum>::WriteIntoTrace(
-   perfetto::TracedValue context, ::chromeos::cros_healthd::mojom::DiskReadRoutineTypeEnum value) {
-  return std::move(context).WriteString(::chromeos::cros_healthd::mojom::DiskReadRoutineTypeEnumToString(value));
+void TraceFormatTraits<::ash::cros_healthd::mojom::DiskReadRoutineTypeEnum>::WriteIntoTrace(
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::DiskReadRoutineTypeEnum value) {
+  return std::move(context).WriteString(::ash::cros_healthd::mojom::DiskReadRoutineTypeEnumToString(value));
 }
 
 } // namespace perfetto
@@ -501,9 +501,9 @@ void TraceFormatTraits<::chromeos::cros_healthd::mojom::DiskReadRoutineTypeEnum>
 namespace perfetto {
 
 // static
-void TraceFormatTraits<::chromeos::cros_healthd::mojom::DiagnosticRoutineStatusEnum>::WriteIntoTrace(
-   perfetto::TracedValue context, ::chromeos::cros_healthd::mojom::DiagnosticRoutineStatusEnum value) {
-  return std::move(context).WriteString(::chromeos::cros_healthd::mojom::DiagnosticRoutineStatusEnumToString(value));
+void TraceFormatTraits<::ash::cros_healthd::mojom::DiagnosticRoutineStatusEnum>::WriteIntoTrace(
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::DiagnosticRoutineStatusEnum value) {
+  return std::move(context).WriteString(::ash::cros_healthd::mojom::DiagnosticRoutineStatusEnumToString(value));
 }
 
 } // namespace perfetto
@@ -511,9 +511,9 @@ void TraceFormatTraits<::chromeos::cros_healthd::mojom::DiagnosticRoutineStatusE
 namespace perfetto {
 
 // static
-void TraceFormatTraits<::chromeos::cros_healthd::mojom::DiagnosticRoutineUserMessageEnum>::WriteIntoTrace(
-   perfetto::TracedValue context, ::chromeos::cros_healthd::mojom::DiagnosticRoutineUserMessageEnum value) {
-  return std::move(context).WriteString(::chromeos::cros_healthd::mojom::DiagnosticRoutineUserMessageEnumToString(value));
+void TraceFormatTraits<::ash::cros_healthd::mojom::DiagnosticRoutineUserMessageEnum>::WriteIntoTrace(
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::DiagnosticRoutineUserMessageEnum value) {
+  return std::move(context).WriteString(::ash::cros_healthd::mojom::DiagnosticRoutineUserMessageEnumToString(value));
 }
 
 } // namespace perfetto
@@ -521,9 +521,9 @@ void TraceFormatTraits<::chromeos::cros_healthd::mojom::DiagnosticRoutineUserMes
 namespace perfetto {
 
 // static
-void TraceFormatTraits<::chromeos::cros_healthd::mojom::DiagnosticRoutineCommandEnum>::WriteIntoTrace(
-   perfetto::TracedValue context, ::chromeos::cros_healthd::mojom::DiagnosticRoutineCommandEnum value) {
-  return std::move(context).WriteString(::chromeos::cros_healthd::mojom::DiagnosticRoutineCommandEnumToString(value));
+void TraceFormatTraits<::ash::cros_healthd::mojom::DiagnosticRoutineCommandEnum>::WriteIntoTrace(
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::DiagnosticRoutineCommandEnum value) {
+  return std::move(context).WriteString(::ash::cros_healthd::mojom::DiagnosticRoutineCommandEnumToString(value));
 }
 
 } // namespace perfetto
@@ -531,9 +531,9 @@ void TraceFormatTraits<::chromeos::cros_healthd::mojom::DiagnosticRoutineCommand
 namespace perfetto {
 
 // static
-void TraceFormatTraits<::chromeos::cros_healthd::mojom::AcPowerStatusEnum>::WriteIntoTrace(
-   perfetto::TracedValue context, ::chromeos::cros_healthd::mojom::AcPowerStatusEnum value) {
-  return std::move(context).WriteString(::chromeos::cros_healthd::mojom::AcPowerStatusEnumToString(value));
+void TraceFormatTraits<::ash::cros_healthd::mojom::AcPowerStatusEnum>::WriteIntoTrace(
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::AcPowerStatusEnum value) {
+  return std::move(context).WriteString(::ash::cros_healthd::mojom::AcPowerStatusEnumToString(value));
 }
 
 } // namespace perfetto
@@ -541,9 +541,9 @@ void TraceFormatTraits<::chromeos::cros_healthd::mojom::AcPowerStatusEnum>::Writ
 namespace perfetto {
 
 // static
-void TraceFormatTraits<::chromeos::cros_healthd::mojom::NvmeSelfTestTypeEnum>::WriteIntoTrace(
-   perfetto::TracedValue context, ::chromeos::cros_healthd::mojom::NvmeSelfTestTypeEnum value) {
-  return std::move(context).WriteString(::chromeos::cros_healthd::mojom::NvmeSelfTestTypeEnumToString(value));
+void TraceFormatTraits<::ash::cros_healthd::mojom::NvmeSelfTestTypeEnum>::WriteIntoTrace(
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::NvmeSelfTestTypeEnum value) {
+  return std::move(context).WriteString(::ash::cros_healthd::mojom::NvmeSelfTestTypeEnumToString(value));
 }
 
 } // namespace perfetto

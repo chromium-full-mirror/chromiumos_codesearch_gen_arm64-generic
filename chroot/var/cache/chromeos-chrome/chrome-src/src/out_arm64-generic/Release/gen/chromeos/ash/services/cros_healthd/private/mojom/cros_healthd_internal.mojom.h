@@ -37,7 +37,7 @@
 
 
 
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace internal {
 namespace mojom {
@@ -577,73 +577,73 @@ bool operator<(const T& lhs, const T& rhs) {
 }  // namespace mojom
 }  // namespace internal
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 namespace mojo {
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::internal::mojom::TouchscreenDevice::DataView,
-                                         ::chromeos::cros_healthd::internal::mojom::TouchscreenDevicePtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::internal::mojom::TouchscreenDevicePtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::internal::mojom::TouchscreenDevicePtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::internal::mojom::TouchscreenDevice::DataView,
+                                         ::ash::cros_healthd::internal::mojom::TouchscreenDevicePtr> {
+  static bool IsNull(const ::ash::cros_healthd::internal::mojom::TouchscreenDevicePtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::internal::mojom::TouchscreenDevicePtr* output) { output->reset(); }
 
-  static const decltype(::chromeos::cros_healthd::internal::mojom::TouchscreenDevice::input_device)& input_device(
-      const ::chromeos::cros_healthd::internal::mojom::TouchscreenDevicePtr& input) {
+  static const decltype(::ash::cros_healthd::internal::mojom::TouchscreenDevice::input_device)& input_device(
+      const ::ash::cros_healthd::internal::mojom::TouchscreenDevicePtr& input) {
     return input->input_device;
   }
 
-  static decltype(::chromeos::cros_healthd::internal::mojom::TouchscreenDevice::touch_points) touch_points(
-      const ::chromeos::cros_healthd::internal::mojom::TouchscreenDevicePtr& input) {
+  static decltype(::ash::cros_healthd::internal::mojom::TouchscreenDevice::touch_points) touch_points(
+      const ::ash::cros_healthd::internal::mojom::TouchscreenDevicePtr& input) {
     return input->touch_points;
   }
 
-  static decltype(::chromeos::cros_healthd::internal::mojom::TouchscreenDevice::has_stylus) has_stylus(
-      const ::chromeos::cros_healthd::internal::mojom::TouchscreenDevicePtr& input) {
+  static decltype(::ash::cros_healthd::internal::mojom::TouchscreenDevice::has_stylus) has_stylus(
+      const ::ash::cros_healthd::internal::mojom::TouchscreenDevicePtr& input) {
     return input->has_stylus;
   }
 
-  static decltype(::chromeos::cros_healthd::internal::mojom::TouchscreenDevice::has_stylus_garage_switch) has_stylus_garage_switch(
-      const ::chromeos::cros_healthd::internal::mojom::TouchscreenDevicePtr& input) {
+  static decltype(::ash::cros_healthd::internal::mojom::TouchscreenDevice::has_stylus_garage_switch) has_stylus_garage_switch(
+      const ::ash::cros_healthd::internal::mojom::TouchscreenDevicePtr& input) {
     return input->has_stylus_garage_switch;
   }
 
-  static bool Read(::chromeos::cros_healthd::internal::mojom::TouchscreenDevice::DataView input, ::chromeos::cros_healthd::internal::mojom::TouchscreenDevicePtr* output);
+  static bool Read(::ash::cros_healthd::internal::mojom::TouchscreenDevice::DataView input, ::ash::cros_healthd::internal::mojom::TouchscreenDevicePtr* output);
 };
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::internal::mojom::InputDevice::DataView,
-                                         ::chromeos::cros_healthd::internal::mojom::InputDevicePtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::internal::mojom::InputDevicePtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::internal::mojom::InputDevicePtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::internal::mojom::InputDevice::DataView,
+                                         ::ash::cros_healthd::internal::mojom::InputDevicePtr> {
+  static bool IsNull(const ::ash::cros_healthd::internal::mojom::InputDevicePtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::internal::mojom::InputDevicePtr* output) { output->reset(); }
 
-  static const decltype(::chromeos::cros_healthd::internal::mojom::InputDevice::name)& name(
-      const ::chromeos::cros_healthd::internal::mojom::InputDevicePtr& input) {
+  static const decltype(::ash::cros_healthd::internal::mojom::InputDevice::name)& name(
+      const ::ash::cros_healthd::internal::mojom::InputDevicePtr& input) {
     return input->name;
   }
 
-  static decltype(::chromeos::cros_healthd::internal::mojom::InputDevice::connection_type) connection_type(
-      const ::chromeos::cros_healthd::internal::mojom::InputDevicePtr& input) {
+  static decltype(::ash::cros_healthd::internal::mojom::InputDevice::connection_type) connection_type(
+      const ::ash::cros_healthd::internal::mojom::InputDevicePtr& input) {
     return input->connection_type;
   }
 
-  static const decltype(::chromeos::cros_healthd::internal::mojom::InputDevice::physical_location)& physical_location(
-      const ::chromeos::cros_healthd::internal::mojom::InputDevicePtr& input) {
+  static const decltype(::ash::cros_healthd::internal::mojom::InputDevice::physical_location)& physical_location(
+      const ::ash::cros_healthd::internal::mojom::InputDevicePtr& input) {
     return input->physical_location;
   }
 
-  static decltype(::chromeos::cros_healthd::internal::mojom::InputDevice::is_enabled) is_enabled(
-      const ::chromeos::cros_healthd::internal::mojom::InputDevicePtr& input) {
+  static decltype(::ash::cros_healthd::internal::mojom::InputDevice::is_enabled) is_enabled(
+      const ::ash::cros_healthd::internal::mojom::InputDevicePtr& input) {
     return input->is_enabled;
   }
 
-  static const decltype(::chromeos::cros_healthd::internal::mojom::InputDevice::sysfs_path)& sysfs_path(
-      const ::chromeos::cros_healthd::internal::mojom::InputDevicePtr& input) {
+  static const decltype(::ash::cros_healthd::internal::mojom::InputDevice::sysfs_path)& sysfs_path(
+      const ::ash::cros_healthd::internal::mojom::InputDevicePtr& input) {
     return input->sysfs_path;
   }
 
-  static bool Read(::chromeos::cros_healthd::internal::mojom::InputDevice::DataView input, ::chromeos::cros_healthd::internal::mojom::InputDevicePtr* output);
+  static bool Read(::ash::cros_healthd::internal::mojom::InputDevice::DataView input, ::ash::cros_healthd::internal::mojom::InputDevicePtr* output);
 };
 
 }  // namespace mojo

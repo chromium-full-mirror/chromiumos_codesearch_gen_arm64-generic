@@ -242,7 +242,7 @@ struct GetAuthTokenResult {
   std::unique_ptr<base::DictionaryValue> ToValue() const;
 
   // The specific token associated with the request.
-  std::unique_ptr<std::string> token;
+  absl::optional<std::string> token;
 
   // A list of OAuth2 scopes granted to the extension.
   std::unique_ptr<std::vector<std::string>> granted_scopes;

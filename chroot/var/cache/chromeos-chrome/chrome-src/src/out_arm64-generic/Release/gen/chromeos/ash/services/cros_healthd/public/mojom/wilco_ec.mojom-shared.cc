@@ -18,7 +18,7 @@
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
 #include "chromeos/ash/services/cros_healthd/public/mojom/wilco_ec.mojom-params-data.h"
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace mojom {
 
@@ -43,6 +43,8 @@ static NOINLINE const char* EcEvent_ReasonToStringHelper(EcEvent_Reason value) {
       return "kSysNotification";
     case EcEvent_Reason::kNonSysNotification:
       return "kNonSysNotification";
+    case EcEvent_Reason::kUnmappedEnumField:
+      return "kUnmappedEnumField";
     default:
       return nullptr;
   }
@@ -63,6 +65,8 @@ std::ostream& operator<<(std::ostream& os, EcEvent_Reason value) {
 static NOINLINE const char* EcEvent_TypeToStringHelper(EcEvent_Type value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
+    case EcEvent_Type::kUnmappedEnumField:
+      return "kUnmappedEnumField";
     case EcEvent_Type::kSystemNotify:
       return "kSystemNotify";
     default:
@@ -93,6 +97,8 @@ static NOINLINE const char* GetEcTelemetryResponse_StatusToStringHelper(GetEcTel
       return "kStatusErrorInputPayloadMaxSizeExceeded";
     case GetEcTelemetryResponse_Status::kStatusErrorAccessingDriver:
       return "kStatusErrorAccessingDriver";
+    case GetEcTelemetryResponse_Status::kUnmappedEnumField:
+      return "kUnmappedEnumField";
     default:
       return nullptr;
   }
@@ -130,7 +136,7 @@ bool EcEvent_Data::Validate(
       static_cast<const EcEvent_Data*>(data);
 
 
-  if (!::chromeos::cros_healthd::mojom::internal::EcEvent_Type_Data
+  if (!::ash::cros_healthd::mojom::internal::EcEvent_Type_Data
         ::Validate(object->type, validation_context))
     return false;
 
@@ -146,7 +152,7 @@ bool EcEvent_Data::Validate(
   }
 
 
-  if (!::chromeos::cros_healthd::mojom::internal::EcEvent_Reason_Data
+  if (!::ash::cros_healthd::mojom::internal::EcEvent_Reason_Data
         ::Validate(object->reason, validation_context))
     return false;
 
@@ -174,7 +180,7 @@ bool GetEcTelemetryResponse_Data::Validate(
       static_cast<const GetEcTelemetryResponse_Data*>(data);
 
 
-  if (!::chromeos::cros_healthd::mojom::internal::GetEcTelemetryResponse_Status_Data
+  if (!::ash::cros_healthd::mojom::internal::GetEcTelemetryResponse_Status_Data
         ::Validate(object->status, validation_context))
     return false;
 
@@ -228,14 +234,14 @@ WilcoEcObserver_OnEcEvent_Params_Data::WilcoEcObserver_OnEcEvent_Params_Data()
 }  // namespace internal
 }  // namespace mojom
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 namespace perfetto {
 
 // static
-void TraceFormatTraits<::chromeos::cros_healthd::mojom::EcEvent_Reason>::WriteIntoTrace(
-   perfetto::TracedValue context, ::chromeos::cros_healthd::mojom::EcEvent_Reason value) {
-  return std::move(context).WriteString(::chromeos::cros_healthd::mojom::EcEvent_ReasonToString(value));
+void TraceFormatTraits<::ash::cros_healthd::mojom::EcEvent_Reason>::WriteIntoTrace(
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::EcEvent_Reason value) {
+  return std::move(context).WriteString(::ash::cros_healthd::mojom::EcEvent_ReasonToString(value));
 }
 
 } // namespace perfetto
@@ -243,9 +249,9 @@ void TraceFormatTraits<::chromeos::cros_healthd::mojom::EcEvent_Reason>::WriteIn
 namespace perfetto {
 
 // static
-void TraceFormatTraits<::chromeos::cros_healthd::mojom::EcEvent_Type>::WriteIntoTrace(
-   perfetto::TracedValue context, ::chromeos::cros_healthd::mojom::EcEvent_Type value) {
-  return std::move(context).WriteString(::chromeos::cros_healthd::mojom::EcEvent_TypeToString(value));
+void TraceFormatTraits<::ash::cros_healthd::mojom::EcEvent_Type>::WriteIntoTrace(
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::EcEvent_Type value) {
+  return std::move(context).WriteString(::ash::cros_healthd::mojom::EcEvent_TypeToString(value));
 }
 
 } // namespace perfetto
@@ -253,9 +259,9 @@ void TraceFormatTraits<::chromeos::cros_healthd::mojom::EcEvent_Type>::WriteInto
 namespace perfetto {
 
 // static
-void TraceFormatTraits<::chromeos::cros_healthd::mojom::GetEcTelemetryResponse_Status>::WriteIntoTrace(
-   perfetto::TracedValue context, ::chromeos::cros_healthd::mojom::GetEcTelemetryResponse_Status value) {
-  return std::move(context).WriteString(::chromeos::cros_healthd::mojom::GetEcTelemetryResponse_StatusToString(value));
+void TraceFormatTraits<::ash::cros_healthd::mojom::GetEcTelemetryResponse_Status>::WriteIntoTrace(
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::GetEcTelemetryResponse_Status value) {
+  return std::move(context).WriteString(::ash::cros_healthd::mojom::GetEcTelemetryResponse_StatusToString(value));
 }
 
 } // namespace perfetto

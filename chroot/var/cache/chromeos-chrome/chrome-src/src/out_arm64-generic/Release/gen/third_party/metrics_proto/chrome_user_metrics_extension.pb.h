@@ -30,12 +30,10 @@
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
 #include <google/protobuf/generated_enum_util.h>
 #include "cast_logs.pb.h"
-#include "cast_assistant_logs.pb.h"
 #include "chrome_os_app_list_launch_event.pb.h"
 #include "custom_tab_session.pb.h"
 #include "histogram_event.pb.h"
 #include "omnibox_event.pb.h"
-#include "perf_data.pb.h"
 #include "printer_event.pb.h"
 #include "reporting_info.pb.h"
 #include "sampled_profile.pb.h"
@@ -460,16 +458,13 @@ class ChromeUserMetricsExtension final :
     kUserActionEventFieldNumber = 4,
     kOmniboxEventFieldNumber = 5,
     kHistogramEventFieldNumber = 6,
-    kPerfDataFieldNumber = 8,
     kSampledProfileFieldNumber = 11,
     kTranslateEventFieldNumber = 15,
     kPrinterEventFieldNumber = 16,
     kTraceLogFieldNumber = 19,
     kChromeOsAppListLaunchEventFieldNumber = 20,
-    kDeprecatedStructuredEventFieldNumber = 22,
     kSystemProfileFieldNumber = 3,
     kCastLogsFieldNumber = 12,
-    kCastAssistantLogsFieldNumber = 14,
     kReportingInfoFieldNumber = 17,
     kUserDemographicsFieldNumber = 21,
     kStructuredDataFieldNumber = 23,
@@ -534,24 +529,6 @@ class ChromeUserMetricsExtension final :
   ::metrics::HistogramEventProto* add_histogram_event();
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::metrics::HistogramEventProto >&
       histogram_event() const;
-
-  // repeated .metrics.PerfDataProto perf_data = 8 [deprecated = true];
-  PROTOBUF_DEPRECATED int perf_data_size() const;
-  private:
-  int _internal_perf_data_size() const;
-  public:
-  PROTOBUF_DEPRECATED void clear_perf_data();
-  PROTOBUF_DEPRECATED ::metrics::PerfDataProto* mutable_perf_data(int index);
-  PROTOBUF_DEPRECATED ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::metrics::PerfDataProto >*
-      mutable_perf_data();
-  private:
-  const ::metrics::PerfDataProto& _internal_perf_data(int index) const;
-  ::metrics::PerfDataProto* _internal_add_perf_data();
-  public:
-  PROTOBUF_DEPRECATED const ::metrics::PerfDataProto& perf_data(int index) const;
-  PROTOBUF_DEPRECATED ::metrics::PerfDataProto* add_perf_data();
-  PROTOBUF_DEPRECATED const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::metrics::PerfDataProto >&
-      perf_data() const;
 
   // repeated .metrics.SampledProfile sampled_profile = 11;
   int sampled_profile_size() const;
@@ -643,24 +620,6 @@ class ChromeUserMetricsExtension final :
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::metrics::ChromeOSAppListLaunchEventProto >&
       chrome_os_app_list_launch_event() const;
 
-  // repeated .metrics.StructuredEventProto deprecated_structured_event = 22 [deprecated = true];
-  PROTOBUF_DEPRECATED int deprecated_structured_event_size() const;
-  private:
-  int _internal_deprecated_structured_event_size() const;
-  public:
-  PROTOBUF_DEPRECATED void clear_deprecated_structured_event();
-  PROTOBUF_DEPRECATED ::metrics::StructuredEventProto* mutable_deprecated_structured_event(int index);
-  PROTOBUF_DEPRECATED ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::metrics::StructuredEventProto >*
-      mutable_deprecated_structured_event();
-  private:
-  const ::metrics::StructuredEventProto& _internal_deprecated_structured_event(int index) const;
-  ::metrics::StructuredEventProto* _internal_add_deprecated_structured_event();
-  public:
-  PROTOBUF_DEPRECATED const ::metrics::StructuredEventProto& deprecated_structured_event(int index) const;
-  PROTOBUF_DEPRECATED ::metrics::StructuredEventProto* add_deprecated_structured_event();
-  PROTOBUF_DEPRECATED const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::metrics::StructuredEventProto >&
-      deprecated_structured_event() const;
-
   // optional .metrics.SystemProfileProto system_profile = 3;
   bool has_system_profile() const;
   private:
@@ -696,24 +655,6 @@ class ChromeUserMetricsExtension final :
   void unsafe_arena_set_allocated_cast_logs(
       ::metrics::CastLogsProto* cast_logs);
   ::metrics::CastLogsProto* unsafe_arena_release_cast_logs();
-
-  // optional .metrics.CastAssistantLogsProto cast_assistant_logs = 14;
-  bool has_cast_assistant_logs() const;
-  private:
-  bool _internal_has_cast_assistant_logs() const;
-  public:
-  void clear_cast_assistant_logs();
-  const ::metrics::CastAssistantLogsProto& cast_assistant_logs() const;
-  PROTOBUF_NODISCARD ::metrics::CastAssistantLogsProto* release_cast_assistant_logs();
-  ::metrics::CastAssistantLogsProto* mutable_cast_assistant_logs();
-  void set_allocated_cast_assistant_logs(::metrics::CastAssistantLogsProto* cast_assistant_logs);
-  private:
-  const ::metrics::CastAssistantLogsProto& _internal_cast_assistant_logs() const;
-  ::metrics::CastAssistantLogsProto* _internal_mutable_cast_assistant_logs();
-  public:
-  void unsafe_arena_set_allocated_cast_assistant_logs(
-      ::metrics::CastAssistantLogsProto* cast_assistant_logs);
-  ::metrics::CastAssistantLogsProto* unsafe_arena_release_cast_assistant_logs();
 
   // optional .metrics.ReportingInfo reporting_info = 17;
   bool has_reporting_info() const;
@@ -887,16 +828,13 @@ class ChromeUserMetricsExtension final :
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::metrics::UserActionEventProto > user_action_event_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::metrics::OmniboxEventProto > omnibox_event_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::metrics::HistogramEventProto > histogram_event_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::metrics::PerfDataProto > perf_data_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::metrics::SampledProfile > sampled_profile_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::metrics::TranslateEventProto > translate_event_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::metrics::PrinterEventProto > printer_event_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::metrics::TraceLog > trace_log_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::metrics::ChromeOSAppListLaunchEventProto > chrome_os_app_list_launch_event_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::metrics::StructuredEventProto > deprecated_structured_event_;
   ::metrics::SystemProfileProto* system_profile_;
   ::metrics::CastLogsProto* cast_logs_;
-  ::metrics::CastAssistantLogsProto* cast_assistant_logs_;
   ::metrics::ReportingInfo* reporting_info_;
   ::metrics::UserDemographicsProto* user_demographics_;
   ::metrics::StructuredDataProto* structured_data_;
@@ -1011,7 +949,7 @@ inline void ChromeUserMetricsExtension_RealLocalTime::set_time_zone_offset_from_
 
 // optional int32 product = 10 [default = 0];
 inline bool ChromeUserMetricsExtension::_internal_has_product() const {
-  bool value = (_has_bits_[0] & 0x00000800u) != 0;
+  bool value = (_has_bits_[0] & 0x00000400u) != 0;
   return value;
 }
 inline bool ChromeUserMetricsExtension::has_product() const {
@@ -1019,7 +957,7 @@ inline bool ChromeUserMetricsExtension::has_product() const {
 }
 inline void ChromeUserMetricsExtension::clear_product() {
   product_ = 0;
-  _has_bits_[0] &= ~0x00000800u;
+  _has_bits_[0] &= ~0x00000400u;
 }
 inline int32_t ChromeUserMetricsExtension::_internal_product() const {
   return product_;
@@ -1029,7 +967,7 @@ inline int32_t ChromeUserMetricsExtension::product() const {
   return _internal_product();
 }
 inline void ChromeUserMetricsExtension::_internal_set_product(int32_t value) {
-  _has_bits_[0] |= 0x00000800u;
+  _has_bits_[0] |= 0x00000400u;
   product_ = value;
 }
 inline void ChromeUserMetricsExtension::set_product(int32_t value) {
@@ -1039,7 +977,7 @@ inline void ChromeUserMetricsExtension::set_product(int32_t value) {
 
 // optional fixed64 client_id = 1;
 inline bool ChromeUserMetricsExtension::_internal_has_client_id() const {
-  bool value = (_has_bits_[0] & 0x00000200u) != 0;
+  bool value = (_has_bits_[0] & 0x00000100u) != 0;
   return value;
 }
 inline bool ChromeUserMetricsExtension::has_client_id() const {
@@ -1047,7 +985,7 @@ inline bool ChromeUserMetricsExtension::has_client_id() const {
 }
 inline void ChromeUserMetricsExtension::clear_client_id() {
   client_id_ = uint64_t{0u};
-  _has_bits_[0] &= ~0x00000200u;
+  _has_bits_[0] &= ~0x00000100u;
 }
 inline uint64_t ChromeUserMetricsExtension::_internal_client_id() const {
   return client_id_;
@@ -1057,7 +995,7 @@ inline uint64_t ChromeUserMetricsExtension::client_id() const {
   return _internal_client_id();
 }
 inline void ChromeUserMetricsExtension::_internal_set_client_id(uint64_t value) {
-  _has_bits_[0] |= 0x00000200u;
+  _has_bits_[0] |= 0x00000100u;
   client_id_ = value;
 }
 inline void ChromeUserMetricsExtension::set_client_id(uint64_t value) {
@@ -1067,7 +1005,7 @@ inline void ChromeUserMetricsExtension::set_client_id(uint64_t value) {
 
 // optional int32 session_id = 2;
 inline bool ChromeUserMetricsExtension::_internal_has_session_id() const {
-  bool value = (_has_bits_[0] & 0x00000400u) != 0;
+  bool value = (_has_bits_[0] & 0x00000200u) != 0;
   return value;
 }
 inline bool ChromeUserMetricsExtension::has_session_id() const {
@@ -1075,7 +1013,7 @@ inline bool ChromeUserMetricsExtension::has_session_id() const {
 }
 inline void ChromeUserMetricsExtension::clear_session_id() {
   session_id_ = 0;
-  _has_bits_[0] &= ~0x00000400u;
+  _has_bits_[0] &= ~0x00000200u;
 }
 inline int32_t ChromeUserMetricsExtension::_internal_session_id() const {
   return session_id_;
@@ -1085,7 +1023,7 @@ inline int32_t ChromeUserMetricsExtension::session_id() const {
   return _internal_session_id();
 }
 inline void ChromeUserMetricsExtension::_internal_set_session_id(int32_t value) {
-  _has_bits_[0] |= 0x00000400u;
+  _has_bits_[0] |= 0x00000200u;
   session_id_ = value;
 }
 inline void ChromeUserMetricsExtension::set_session_id(int32_t value) {
@@ -1095,7 +1033,7 @@ inline void ChromeUserMetricsExtension::set_session_id(int32_t value) {
 
 // optional fixed64 user_id = 24;
 inline bool ChromeUserMetricsExtension::_internal_has_user_id() const {
-  bool value = (_has_bits_[0] & 0x00001000u) != 0;
+  bool value = (_has_bits_[0] & 0x00000800u) != 0;
   return value;
 }
 inline bool ChromeUserMetricsExtension::has_user_id() const {
@@ -1103,7 +1041,7 @@ inline bool ChromeUserMetricsExtension::has_user_id() const {
 }
 inline void ChromeUserMetricsExtension::clear_user_id() {
   user_id_ = uint64_t{0u};
-  _has_bits_[0] &= ~0x00001000u;
+  _has_bits_[0] &= ~0x00000800u;
 }
 inline uint64_t ChromeUserMetricsExtension::_internal_user_id() const {
   return user_id_;
@@ -1113,7 +1051,7 @@ inline uint64_t ChromeUserMetricsExtension::user_id() const {
   return _internal_user_id();
 }
 inline void ChromeUserMetricsExtension::_internal_set_user_id(uint64_t value) {
-  _has_bits_[0] |= 0x00001000u;
+  _has_bits_[0] |= 0x00000800u;
   user_id_ = value;
 }
 inline void ChromeUserMetricsExtension::set_user_id(uint64_t value) {
@@ -1123,7 +1061,7 @@ inline void ChromeUserMetricsExtension::set_user_id(uint64_t value) {
 
 // optional .metrics.ChromeUserMetricsExtension.RealLocalTime time_log_created = 25;
 inline bool ChromeUserMetricsExtension::_internal_has_time_log_created() const {
-  bool value = (_has_bits_[0] & 0x00000040u) != 0;
+  bool value = (_has_bits_[0] & 0x00000020u) != 0;
   PROTOBUF_ASSUME(!value || time_log_created_ != nullptr);
   return value;
 }
@@ -1132,7 +1070,7 @@ inline bool ChromeUserMetricsExtension::has_time_log_created() const {
 }
 inline void ChromeUserMetricsExtension::clear_time_log_created() {
   if (time_log_created_ != nullptr) time_log_created_->Clear();
-  _has_bits_[0] &= ~0x00000040u;
+  _has_bits_[0] &= ~0x00000020u;
 }
 inline const ::metrics::ChromeUserMetricsExtension_RealLocalTime& ChromeUserMetricsExtension::_internal_time_log_created() const {
   const ::metrics::ChromeUserMetricsExtension_RealLocalTime* p = time_log_created_;
@@ -1150,14 +1088,14 @@ inline void ChromeUserMetricsExtension::unsafe_arena_set_allocated_time_log_crea
   }
   time_log_created_ = time_log_created;
   if (time_log_created) {
-    _has_bits_[0] |= 0x00000040u;
+    _has_bits_[0] |= 0x00000020u;
   } else {
-    _has_bits_[0] &= ~0x00000040u;
+    _has_bits_[0] &= ~0x00000020u;
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:metrics.ChromeUserMetricsExtension.time_log_created)
 }
 inline ::metrics::ChromeUserMetricsExtension_RealLocalTime* ChromeUserMetricsExtension::release_time_log_created() {
-  _has_bits_[0] &= ~0x00000040u;
+  _has_bits_[0] &= ~0x00000020u;
   ::metrics::ChromeUserMetricsExtension_RealLocalTime* temp = time_log_created_;
   time_log_created_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -1173,13 +1111,13 @@ inline ::metrics::ChromeUserMetricsExtension_RealLocalTime* ChromeUserMetricsExt
 }
 inline ::metrics::ChromeUserMetricsExtension_RealLocalTime* ChromeUserMetricsExtension::unsafe_arena_release_time_log_created() {
   // @@protoc_insertion_point(field_release:metrics.ChromeUserMetricsExtension.time_log_created)
-  _has_bits_[0] &= ~0x00000040u;
+  _has_bits_[0] &= ~0x00000020u;
   ::metrics::ChromeUserMetricsExtension_RealLocalTime* temp = time_log_created_;
   time_log_created_ = nullptr;
   return temp;
 }
 inline ::metrics::ChromeUserMetricsExtension_RealLocalTime* ChromeUserMetricsExtension::_internal_mutable_time_log_created() {
-  _has_bits_[0] |= 0x00000040u;
+  _has_bits_[0] |= 0x00000020u;
   if (time_log_created_ == nullptr) {
     auto* p = CreateMaybeMessage<::metrics::ChromeUserMetricsExtension_RealLocalTime>(GetArenaForAllocation());
     time_log_created_ = p;
@@ -1203,9 +1141,9 @@ inline void ChromeUserMetricsExtension::set_allocated_time_log_created(::metrics
       time_log_created = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, time_log_created, submessage_arena);
     }
-    _has_bits_[0] |= 0x00000040u;
+    _has_bits_[0] |= 0x00000020u;
   } else {
-    _has_bits_[0] &= ~0x00000040u;
+    _has_bits_[0] &= ~0x00000020u;
   }
   time_log_created_ = time_log_created;
   // @@protoc_insertion_point(field_set_allocated:metrics.ChromeUserMetricsExtension.time_log_created)
@@ -1213,7 +1151,7 @@ inline void ChromeUserMetricsExtension::set_allocated_time_log_created(::metrics
 
 // optional .metrics.ChromeUserMetricsExtension.RealLocalTime time_log_closed = 26;
 inline bool ChromeUserMetricsExtension::_internal_has_time_log_closed() const {
-  bool value = (_has_bits_[0] & 0x00000080u) != 0;
+  bool value = (_has_bits_[0] & 0x00000040u) != 0;
   PROTOBUF_ASSUME(!value || time_log_closed_ != nullptr);
   return value;
 }
@@ -1222,7 +1160,7 @@ inline bool ChromeUserMetricsExtension::has_time_log_closed() const {
 }
 inline void ChromeUserMetricsExtension::clear_time_log_closed() {
   if (time_log_closed_ != nullptr) time_log_closed_->Clear();
-  _has_bits_[0] &= ~0x00000080u;
+  _has_bits_[0] &= ~0x00000040u;
 }
 inline const ::metrics::ChromeUserMetricsExtension_RealLocalTime& ChromeUserMetricsExtension::_internal_time_log_closed() const {
   const ::metrics::ChromeUserMetricsExtension_RealLocalTime* p = time_log_closed_;
@@ -1240,14 +1178,14 @@ inline void ChromeUserMetricsExtension::unsafe_arena_set_allocated_time_log_clos
   }
   time_log_closed_ = time_log_closed;
   if (time_log_closed) {
-    _has_bits_[0] |= 0x00000080u;
+    _has_bits_[0] |= 0x00000040u;
   } else {
-    _has_bits_[0] &= ~0x00000080u;
+    _has_bits_[0] &= ~0x00000040u;
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:metrics.ChromeUserMetricsExtension.time_log_closed)
 }
 inline ::metrics::ChromeUserMetricsExtension_RealLocalTime* ChromeUserMetricsExtension::release_time_log_closed() {
-  _has_bits_[0] &= ~0x00000080u;
+  _has_bits_[0] &= ~0x00000040u;
   ::metrics::ChromeUserMetricsExtension_RealLocalTime* temp = time_log_closed_;
   time_log_closed_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -1263,13 +1201,13 @@ inline ::metrics::ChromeUserMetricsExtension_RealLocalTime* ChromeUserMetricsExt
 }
 inline ::metrics::ChromeUserMetricsExtension_RealLocalTime* ChromeUserMetricsExtension::unsafe_arena_release_time_log_closed() {
   // @@protoc_insertion_point(field_release:metrics.ChromeUserMetricsExtension.time_log_closed)
-  _has_bits_[0] &= ~0x00000080u;
+  _has_bits_[0] &= ~0x00000040u;
   ::metrics::ChromeUserMetricsExtension_RealLocalTime* temp = time_log_closed_;
   time_log_closed_ = nullptr;
   return temp;
 }
 inline ::metrics::ChromeUserMetricsExtension_RealLocalTime* ChromeUserMetricsExtension::_internal_mutable_time_log_closed() {
-  _has_bits_[0] |= 0x00000080u;
+  _has_bits_[0] |= 0x00000040u;
   if (time_log_closed_ == nullptr) {
     auto* p = CreateMaybeMessage<::metrics::ChromeUserMetricsExtension_RealLocalTime>(GetArenaForAllocation());
     time_log_closed_ = p;
@@ -1293,9 +1231,9 @@ inline void ChromeUserMetricsExtension::set_allocated_time_log_closed(::metrics:
       time_log_closed = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, time_log_closed, submessage_arena);
     }
-    _has_bits_[0] |= 0x00000080u;
+    _has_bits_[0] |= 0x00000040u;
   } else {
-    _has_bits_[0] &= ~0x00000080u;
+    _has_bits_[0] &= ~0x00000040u;
   }
   time_log_closed_ = time_log_closed;
   // @@protoc_insertion_point(field_set_allocated:metrics.ChromeUserMetricsExtension.time_log_closed)
@@ -1390,7 +1328,7 @@ inline void ChromeUserMetricsExtension::set_allocated_system_profile(::metrics::
 
 // optional .metrics.UserDemographicsProto user_demographics = 21;
 inline bool ChromeUserMetricsExtension::_internal_has_user_demographics() const {
-  bool value = (_has_bits_[0] & 0x00000010u) != 0;
+  bool value = (_has_bits_[0] & 0x00000008u) != 0;
   PROTOBUF_ASSUME(!value || user_demographics_ != nullptr);
   return value;
 }
@@ -1413,14 +1351,14 @@ inline void ChromeUserMetricsExtension::unsafe_arena_set_allocated_user_demograp
   }
   user_demographics_ = user_demographics;
   if (user_demographics) {
-    _has_bits_[0] |= 0x00000010u;
+    _has_bits_[0] |= 0x00000008u;
   } else {
-    _has_bits_[0] &= ~0x00000010u;
+    _has_bits_[0] &= ~0x00000008u;
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:metrics.ChromeUserMetricsExtension.user_demographics)
 }
 inline ::metrics::UserDemographicsProto* ChromeUserMetricsExtension::release_user_demographics() {
-  _has_bits_[0] &= ~0x00000010u;
+  _has_bits_[0] &= ~0x00000008u;
   ::metrics::UserDemographicsProto* temp = user_demographics_;
   user_demographics_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -1436,13 +1374,13 @@ inline ::metrics::UserDemographicsProto* ChromeUserMetricsExtension::release_use
 }
 inline ::metrics::UserDemographicsProto* ChromeUserMetricsExtension::unsafe_arena_release_user_demographics() {
   // @@protoc_insertion_point(field_release:metrics.ChromeUserMetricsExtension.user_demographics)
-  _has_bits_[0] &= ~0x00000010u;
+  _has_bits_[0] &= ~0x00000008u;
   ::metrics::UserDemographicsProto* temp = user_demographics_;
   user_demographics_ = nullptr;
   return temp;
 }
 inline ::metrics::UserDemographicsProto* ChromeUserMetricsExtension::_internal_mutable_user_demographics() {
-  _has_bits_[0] |= 0x00000010u;
+  _has_bits_[0] |= 0x00000008u;
   if (user_demographics_ == nullptr) {
     auto* p = CreateMaybeMessage<::metrics::UserDemographicsProto>(GetArenaForAllocation());
     user_demographics_ = p;
@@ -1467,9 +1405,9 @@ inline void ChromeUserMetricsExtension::set_allocated_user_demographics(::metric
       user_demographics = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, user_demographics, submessage_arena);
     }
-    _has_bits_[0] |= 0x00000010u;
+    _has_bits_[0] |= 0x00000008u;
   } else {
-    _has_bits_[0] &= ~0x00000010u;
+    _has_bits_[0] &= ~0x00000008u;
   }
   user_demographics_ = user_demographics;
   // @@protoc_insertion_point(field_set_allocated:metrics.ChromeUserMetricsExtension.user_demographics)
@@ -1697,46 +1635,9 @@ ChromeUserMetricsExtension::chrome_os_app_list_launch_event() const {
   return chrome_os_app_list_launch_event_;
 }
 
-// repeated .metrics.StructuredEventProto deprecated_structured_event = 22 [deprecated = true];
-inline int ChromeUserMetricsExtension::_internal_deprecated_structured_event_size() const {
-  return deprecated_structured_event_.size();
-}
-inline int ChromeUserMetricsExtension::deprecated_structured_event_size() const {
-  return _internal_deprecated_structured_event_size();
-}
-inline ::metrics::StructuredEventProto* ChromeUserMetricsExtension::mutable_deprecated_structured_event(int index) {
-  // @@protoc_insertion_point(field_mutable:metrics.ChromeUserMetricsExtension.deprecated_structured_event)
-  return deprecated_structured_event_.Mutable(index);
-}
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::metrics::StructuredEventProto >*
-ChromeUserMetricsExtension::mutable_deprecated_structured_event() {
-  // @@protoc_insertion_point(field_mutable_list:metrics.ChromeUserMetricsExtension.deprecated_structured_event)
-  return &deprecated_structured_event_;
-}
-inline const ::metrics::StructuredEventProto& ChromeUserMetricsExtension::_internal_deprecated_structured_event(int index) const {
-  return deprecated_structured_event_.Get(index);
-}
-inline const ::metrics::StructuredEventProto& ChromeUserMetricsExtension::deprecated_structured_event(int index) const {
-  // @@protoc_insertion_point(field_get:metrics.ChromeUserMetricsExtension.deprecated_structured_event)
-  return _internal_deprecated_structured_event(index);
-}
-inline ::metrics::StructuredEventProto* ChromeUserMetricsExtension::_internal_add_deprecated_structured_event() {
-  return deprecated_structured_event_.Add();
-}
-inline ::metrics::StructuredEventProto* ChromeUserMetricsExtension::add_deprecated_structured_event() {
-  ::metrics::StructuredEventProto* _add = _internal_add_deprecated_structured_event();
-  // @@protoc_insertion_point(field_add:metrics.ChromeUserMetricsExtension.deprecated_structured_event)
-  return _add;
-}
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::metrics::StructuredEventProto >&
-ChromeUserMetricsExtension::deprecated_structured_event() const {
-  // @@protoc_insertion_point(field_list:metrics.ChromeUserMetricsExtension.deprecated_structured_event)
-  return deprecated_structured_event_;
-}
-
 // optional .metrics.StructuredDataProto structured_data = 23;
 inline bool ChromeUserMetricsExtension::_internal_has_structured_data() const {
-  bool value = (_has_bits_[0] & 0x00000020u) != 0;
+  bool value = (_has_bits_[0] & 0x00000010u) != 0;
   PROTOBUF_ASSUME(!value || structured_data_ != nullptr);
   return value;
 }
@@ -1759,14 +1660,14 @@ inline void ChromeUserMetricsExtension::unsafe_arena_set_allocated_structured_da
   }
   structured_data_ = structured_data;
   if (structured_data) {
-    _has_bits_[0] |= 0x00000020u;
+    _has_bits_[0] |= 0x00000010u;
   } else {
-    _has_bits_[0] &= ~0x00000020u;
+    _has_bits_[0] &= ~0x00000010u;
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:metrics.ChromeUserMetricsExtension.structured_data)
 }
 inline ::metrics::StructuredDataProto* ChromeUserMetricsExtension::release_structured_data() {
-  _has_bits_[0] &= ~0x00000020u;
+  _has_bits_[0] &= ~0x00000010u;
   ::metrics::StructuredDataProto* temp = structured_data_;
   structured_data_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -1782,13 +1683,13 @@ inline ::metrics::StructuredDataProto* ChromeUserMetricsExtension::release_struc
 }
 inline ::metrics::StructuredDataProto* ChromeUserMetricsExtension::unsafe_arena_release_structured_data() {
   // @@protoc_insertion_point(field_release:metrics.ChromeUserMetricsExtension.structured_data)
-  _has_bits_[0] &= ~0x00000020u;
+  _has_bits_[0] &= ~0x00000010u;
   ::metrics::StructuredDataProto* temp = structured_data_;
   structured_data_ = nullptr;
   return temp;
 }
 inline ::metrics::StructuredDataProto* ChromeUserMetricsExtension::_internal_mutable_structured_data() {
-  _has_bits_[0] |= 0x00000020u;
+  _has_bits_[0] |= 0x00000010u;
   if (structured_data_ == nullptr) {
     auto* p = CreateMaybeMessage<::metrics::StructuredDataProto>(GetArenaForAllocation());
     structured_data_ = p;
@@ -1813,49 +1714,12 @@ inline void ChromeUserMetricsExtension::set_allocated_structured_data(::metrics:
       structured_data = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, structured_data, submessage_arena);
     }
-    _has_bits_[0] |= 0x00000020u;
+    _has_bits_[0] |= 0x00000010u;
   } else {
-    _has_bits_[0] &= ~0x00000020u;
+    _has_bits_[0] &= ~0x00000010u;
   }
   structured_data_ = structured_data;
   // @@protoc_insertion_point(field_set_allocated:metrics.ChromeUserMetricsExtension.structured_data)
-}
-
-// repeated .metrics.PerfDataProto perf_data = 8 [deprecated = true];
-inline int ChromeUserMetricsExtension::_internal_perf_data_size() const {
-  return perf_data_.size();
-}
-inline int ChromeUserMetricsExtension::perf_data_size() const {
-  return _internal_perf_data_size();
-}
-inline ::metrics::PerfDataProto* ChromeUserMetricsExtension::mutable_perf_data(int index) {
-  // @@protoc_insertion_point(field_mutable:metrics.ChromeUserMetricsExtension.perf_data)
-  return perf_data_.Mutable(index);
-}
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::metrics::PerfDataProto >*
-ChromeUserMetricsExtension::mutable_perf_data() {
-  // @@protoc_insertion_point(field_mutable_list:metrics.ChromeUserMetricsExtension.perf_data)
-  return &perf_data_;
-}
-inline const ::metrics::PerfDataProto& ChromeUserMetricsExtension::_internal_perf_data(int index) const {
-  return perf_data_.Get(index);
-}
-inline const ::metrics::PerfDataProto& ChromeUserMetricsExtension::perf_data(int index) const {
-  // @@protoc_insertion_point(field_get:metrics.ChromeUserMetricsExtension.perf_data)
-  return _internal_perf_data(index);
-}
-inline ::metrics::PerfDataProto* ChromeUserMetricsExtension::_internal_add_perf_data() {
-  return perf_data_.Add();
-}
-inline ::metrics::PerfDataProto* ChromeUserMetricsExtension::add_perf_data() {
-  ::metrics::PerfDataProto* _add = _internal_add_perf_data();
-  // @@protoc_insertion_point(field_add:metrics.ChromeUserMetricsExtension.perf_data)
-  return _add;
-}
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::metrics::PerfDataProto >&
-ChromeUserMetricsExtension::perf_data() const {
-  // @@protoc_insertion_point(field_list:metrics.ChromeUserMetricsExtension.perf_data)
-  return perf_data_;
 }
 
 // repeated .metrics.SampledProfile sampled_profile = 11;
@@ -1982,96 +1846,9 @@ inline void ChromeUserMetricsExtension::set_allocated_cast_logs(::metrics::CastL
   // @@protoc_insertion_point(field_set_allocated:metrics.ChromeUserMetricsExtension.cast_logs)
 }
 
-// optional .metrics.CastAssistantLogsProto cast_assistant_logs = 14;
-inline bool ChromeUserMetricsExtension::_internal_has_cast_assistant_logs() const {
-  bool value = (_has_bits_[0] & 0x00000004u) != 0;
-  PROTOBUF_ASSUME(!value || cast_assistant_logs_ != nullptr);
-  return value;
-}
-inline bool ChromeUserMetricsExtension::has_cast_assistant_logs() const {
-  return _internal_has_cast_assistant_logs();
-}
-inline const ::metrics::CastAssistantLogsProto& ChromeUserMetricsExtension::_internal_cast_assistant_logs() const {
-  const ::metrics::CastAssistantLogsProto* p = cast_assistant_logs_;
-  return p != nullptr ? *p : reinterpret_cast<const ::metrics::CastAssistantLogsProto&>(
-      ::metrics::_CastAssistantLogsProto_default_instance_);
-}
-inline const ::metrics::CastAssistantLogsProto& ChromeUserMetricsExtension::cast_assistant_logs() const {
-  // @@protoc_insertion_point(field_get:metrics.ChromeUserMetricsExtension.cast_assistant_logs)
-  return _internal_cast_assistant_logs();
-}
-inline void ChromeUserMetricsExtension::unsafe_arena_set_allocated_cast_assistant_logs(
-    ::metrics::CastAssistantLogsProto* cast_assistant_logs) {
-  if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(cast_assistant_logs_);
-  }
-  cast_assistant_logs_ = cast_assistant_logs;
-  if (cast_assistant_logs) {
-    _has_bits_[0] |= 0x00000004u;
-  } else {
-    _has_bits_[0] &= ~0x00000004u;
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:metrics.ChromeUserMetricsExtension.cast_assistant_logs)
-}
-inline ::metrics::CastAssistantLogsProto* ChromeUserMetricsExtension::release_cast_assistant_logs() {
-  _has_bits_[0] &= ~0x00000004u;
-  ::metrics::CastAssistantLogsProto* temp = cast_assistant_logs_;
-  cast_assistant_logs_ = nullptr;
-#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
-  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
-  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  if (GetArenaForAllocation() == nullptr) { delete old; }
-#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
-  if (GetArenaForAllocation() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
-  return temp;
-}
-inline ::metrics::CastAssistantLogsProto* ChromeUserMetricsExtension::unsafe_arena_release_cast_assistant_logs() {
-  // @@protoc_insertion_point(field_release:metrics.ChromeUserMetricsExtension.cast_assistant_logs)
-  _has_bits_[0] &= ~0x00000004u;
-  ::metrics::CastAssistantLogsProto* temp = cast_assistant_logs_;
-  cast_assistant_logs_ = nullptr;
-  return temp;
-}
-inline ::metrics::CastAssistantLogsProto* ChromeUserMetricsExtension::_internal_mutable_cast_assistant_logs() {
-  _has_bits_[0] |= 0x00000004u;
-  if (cast_assistant_logs_ == nullptr) {
-    auto* p = CreateMaybeMessage<::metrics::CastAssistantLogsProto>(GetArenaForAllocation());
-    cast_assistant_logs_ = p;
-  }
-  return cast_assistant_logs_;
-}
-inline ::metrics::CastAssistantLogsProto* ChromeUserMetricsExtension::mutable_cast_assistant_logs() {
-  ::metrics::CastAssistantLogsProto* _msg = _internal_mutable_cast_assistant_logs();
-  // @@protoc_insertion_point(field_mutable:metrics.ChromeUserMetricsExtension.cast_assistant_logs)
-  return _msg;
-}
-inline void ChromeUserMetricsExtension::set_allocated_cast_assistant_logs(::metrics::CastAssistantLogsProto* cast_assistant_logs) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  if (message_arena == nullptr) {
-    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(cast_assistant_logs_);
-  }
-  if (cast_assistant_logs) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
-                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(cast_assistant_logs));
-    if (message_arena != submessage_arena) {
-      cast_assistant_logs = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, cast_assistant_logs, submessage_arena);
-    }
-    _has_bits_[0] |= 0x00000004u;
-  } else {
-    _has_bits_[0] &= ~0x00000004u;
-  }
-  cast_assistant_logs_ = cast_assistant_logs;
-  // @@protoc_insertion_point(field_set_allocated:metrics.ChromeUserMetricsExtension.cast_assistant_logs)
-}
-
 // optional .metrics.ReportingInfo reporting_info = 17;
 inline bool ChromeUserMetricsExtension::_internal_has_reporting_info() const {
-  bool value = (_has_bits_[0] & 0x00000008u) != 0;
+  bool value = (_has_bits_[0] & 0x00000004u) != 0;
   PROTOBUF_ASSUME(!value || reporting_info_ != nullptr);
   return value;
 }
@@ -2094,14 +1871,14 @@ inline void ChromeUserMetricsExtension::unsafe_arena_set_allocated_reporting_inf
   }
   reporting_info_ = reporting_info;
   if (reporting_info) {
-    _has_bits_[0] |= 0x00000008u;
+    _has_bits_[0] |= 0x00000004u;
   } else {
-    _has_bits_[0] &= ~0x00000008u;
+    _has_bits_[0] &= ~0x00000004u;
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:metrics.ChromeUserMetricsExtension.reporting_info)
 }
 inline ::metrics::ReportingInfo* ChromeUserMetricsExtension::release_reporting_info() {
-  _has_bits_[0] &= ~0x00000008u;
+  _has_bits_[0] &= ~0x00000004u;
   ::metrics::ReportingInfo* temp = reporting_info_;
   reporting_info_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -2117,13 +1894,13 @@ inline ::metrics::ReportingInfo* ChromeUserMetricsExtension::release_reporting_i
 }
 inline ::metrics::ReportingInfo* ChromeUserMetricsExtension::unsafe_arena_release_reporting_info() {
   // @@protoc_insertion_point(field_release:metrics.ChromeUserMetricsExtension.reporting_info)
-  _has_bits_[0] &= ~0x00000008u;
+  _has_bits_[0] &= ~0x00000004u;
   ::metrics::ReportingInfo* temp = reporting_info_;
   reporting_info_ = nullptr;
   return temp;
 }
 inline ::metrics::ReportingInfo* ChromeUserMetricsExtension::_internal_mutable_reporting_info() {
-  _has_bits_[0] |= 0x00000008u;
+  _has_bits_[0] |= 0x00000004u;
   if (reporting_info_ == nullptr) {
     auto* p = CreateMaybeMessage<::metrics::ReportingInfo>(GetArenaForAllocation());
     reporting_info_ = p;
@@ -2148,9 +1925,9 @@ inline void ChromeUserMetricsExtension::set_allocated_reporting_info(::metrics::
       reporting_info = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, reporting_info, submessage_arena);
     }
-    _has_bits_[0] |= 0x00000008u;
+    _has_bits_[0] |= 0x00000004u;
   } else {
-    _has_bits_[0] &= ~0x00000008u;
+    _has_bits_[0] &= ~0x00000004u;
   }
   reporting_info_ = reporting_info;
   // @@protoc_insertion_point(field_set_allocated:metrics.ChromeUserMetricsExtension.reporting_info)
@@ -2195,7 +1972,7 @@ ChromeUserMetricsExtension::trace_log() const {
 
 // optional .metrics.CustomTabSessionProto custom_tab_session = 27;
 inline bool ChromeUserMetricsExtension::_internal_has_custom_tab_session() const {
-  bool value = (_has_bits_[0] & 0x00000100u) != 0;
+  bool value = (_has_bits_[0] & 0x00000080u) != 0;
   PROTOBUF_ASSUME(!value || custom_tab_session_ != nullptr);
   return value;
 }
@@ -2218,14 +1995,14 @@ inline void ChromeUserMetricsExtension::unsafe_arena_set_allocated_custom_tab_se
   }
   custom_tab_session_ = custom_tab_session;
   if (custom_tab_session) {
-    _has_bits_[0] |= 0x00000100u;
+    _has_bits_[0] |= 0x00000080u;
   } else {
-    _has_bits_[0] &= ~0x00000100u;
+    _has_bits_[0] &= ~0x00000080u;
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:metrics.ChromeUserMetricsExtension.custom_tab_session)
 }
 inline ::metrics::CustomTabSessionProto* ChromeUserMetricsExtension::release_custom_tab_session() {
-  _has_bits_[0] &= ~0x00000100u;
+  _has_bits_[0] &= ~0x00000080u;
   ::metrics::CustomTabSessionProto* temp = custom_tab_session_;
   custom_tab_session_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -2241,13 +2018,13 @@ inline ::metrics::CustomTabSessionProto* ChromeUserMetricsExtension::release_cus
 }
 inline ::metrics::CustomTabSessionProto* ChromeUserMetricsExtension::unsafe_arena_release_custom_tab_session() {
   // @@protoc_insertion_point(field_release:metrics.ChromeUserMetricsExtension.custom_tab_session)
-  _has_bits_[0] &= ~0x00000100u;
+  _has_bits_[0] &= ~0x00000080u;
   ::metrics::CustomTabSessionProto* temp = custom_tab_session_;
   custom_tab_session_ = nullptr;
   return temp;
 }
 inline ::metrics::CustomTabSessionProto* ChromeUserMetricsExtension::_internal_mutable_custom_tab_session() {
-  _has_bits_[0] |= 0x00000100u;
+  _has_bits_[0] |= 0x00000080u;
   if (custom_tab_session_ == nullptr) {
     auto* p = CreateMaybeMessage<::metrics::CustomTabSessionProto>(GetArenaForAllocation());
     custom_tab_session_ = p;
@@ -2272,9 +2049,9 @@ inline void ChromeUserMetricsExtension::set_allocated_custom_tab_session(::metri
       custom_tab_session = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, custom_tab_session, submessage_arena);
     }
-    _has_bits_[0] |= 0x00000100u;
+    _has_bits_[0] |= 0x00000080u;
   } else {
-    _has_bits_[0] &= ~0x00000100u;
+    _has_bits_[0] &= ~0x00000080u;
   }
   custom_tab_session_ = custom_tab_session;
   // @@protoc_insertion_point(field_set_allocated:metrics.ChromeUserMetricsExtension.custom_tab_session)

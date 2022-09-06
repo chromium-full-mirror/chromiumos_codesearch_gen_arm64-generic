@@ -21,7 +21,7 @@
 
 
 
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace internal {
 namespace mojom {
@@ -45,6 +45,6 @@ class ChromiumDataCollector;
 }  // namespace mojom
 }  // namespace internal
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 #endif  // CHROMEOS_ASH_SERVICES_CROS_HEALTHD_PRIVATE_MOJOM_CROS_HEALTHD_INTERNAL_MOJOM_FORWARD_H_

@@ -62,10 +62,10 @@ bool Parameters::Populate(
     {
       auto* temp = (*broadcast_address_value).GetIfString();
       if (!temp) {
-        out->broadcast_address.reset();
+        out->broadcast_address = absl::nullopt;
         return false;
       }
-      out->broadcast_address = std::make_unique<std::string>(*temp);
+      out->broadcast_address = *temp;
     }
   }
 
@@ -74,10 +74,10 @@ bool Parameters::Populate(
     {
       auto* temp = (*mtu_value).GetIfString();
       if (!temp) {
-        out->mtu.reset();
+        out->mtu = absl::nullopt;
         return false;
       }
-      out->mtu = std::make_unique<std::string>(*temp);
+      out->mtu = *temp;
     }
   }
 
@@ -145,10 +145,10 @@ bool Parameters::Populate(
     {
       auto* temp = (*reconnect_value).GetIfString();
       if (!temp) {
-        out->reconnect.reset();
+        out->reconnect = absl::nullopt;
         return false;
       }
-      out->reconnect = std::make_unique<std::string>(*temp);
+      out->reconnect = *temp;
     }
   }
 

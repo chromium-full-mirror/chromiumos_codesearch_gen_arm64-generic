@@ -48,16 +48,16 @@ struct Rule {
   std::unique_ptr<base::DictionaryValue> ToValue() const;
 
   // Optional identifier that allows referencing this rule.
-  std::unique_ptr<std::string> id;
+  absl::optional<std::string> id;
 
   // Tags can be used to annotate rules and perform operations on sets of rules.
   std::unique_ptr<std::vector<std::string>> tags;
 
   // List of conditions that can trigger the actions.
-  std::vector<std::unique_ptr<base::Value>> conditions;
+  std::vector<base::Value> conditions;
 
   // List of actions that are triggered if one of the conditions is fulfilled.
-  std::vector<std::unique_ptr<base::Value>> actions;
+  std::vector<base::Value> actions;
 
   // Optional priority of this rule. Defaults to 100.
   absl::optional<int> priority;

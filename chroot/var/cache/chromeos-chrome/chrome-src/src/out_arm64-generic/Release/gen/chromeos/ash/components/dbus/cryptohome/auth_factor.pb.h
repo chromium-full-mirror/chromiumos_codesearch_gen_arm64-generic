@@ -121,6 +121,28 @@ inline const std::string& AuthFactorType_Name(T enum_t_value) {
 }
 bool AuthFactorType_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, AuthFactorType* value);
+enum AuthFactorPreparePurpose : int {
+  PURPOSE_UNSPECIFIED = 0,
+  ADD_AUTH_FACTOR = 1,
+  AUTHENTICATE_AUTH_FACTOR = 2,
+  AuthFactorPreparePurpose_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  AuthFactorPreparePurpose_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+};
+bool AuthFactorPreparePurpose_IsValid(int value);
+constexpr AuthFactorPreparePurpose AuthFactorPreparePurpose_MIN = PURPOSE_UNSPECIFIED;
+constexpr AuthFactorPreparePurpose AuthFactorPreparePurpose_MAX = AUTHENTICATE_AUTH_FACTOR;
+constexpr int AuthFactorPreparePurpose_ARRAYSIZE = AuthFactorPreparePurpose_MAX + 1;
+
+const std::string& AuthFactorPreparePurpose_Name(AuthFactorPreparePurpose value);
+template<typename T>
+inline const std::string& AuthFactorPreparePurpose_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, AuthFactorPreparePurpose>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function AuthFactorPreparePurpose_Name.");
+  return AuthFactorPreparePurpose_Name(static_cast<AuthFactorPreparePurpose>(enum_t_value));
+}
+bool AuthFactorPreparePurpose_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, AuthFactorPreparePurpose* value);
 enum SmartCardSignatureAlgorithm : int {
   CHALLENGE_NOT_SPECIFIED = 0,
   CHALLENGE_RSASSA_PKCS1_V1_5_SHA1 = 1,
@@ -3309,6 +3331,7 @@ inline AuthFactor::MetadataCase AuthFactor::metadata_case() const {
 PROTOBUF_NAMESPACE_OPEN
 
 template <> struct is_proto_enum< ::user_data_auth::AuthFactorType> : ::std::true_type {};
+template <> struct is_proto_enum< ::user_data_auth::AuthFactorPreparePurpose> : ::std::true_type {};
 template <> struct is_proto_enum< ::user_data_auth::SmartCardSignatureAlgorithm> : ::std::true_type {};
 
 PROTOBUF_NAMESPACE_CLOSE

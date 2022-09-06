@@ -32,7 +32,7 @@
 
 
 
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace mojom {
 class UsbEventInfoDataView;
@@ -41,14 +41,14 @@ class UsbEventInfoDataView;
 
 }  // namespace mojom
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 namespace mojo {
 namespace internal {
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::UsbEventInfoDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::UsbEventInfo_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::UsbEventInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::UsbEventInfo_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -57,7 +57,7 @@ struct MojomTypeTraits<::chromeos::cros_healthd::mojom::UsbEventInfoDataView> {
 }  // namespace mojo
 
 
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace mojom {
 // Interface base classes. They are used for type safety check.
@@ -178,7 +178,7 @@ class UsbEventInfoDataView {
 
 }  // namespace mojom
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 namespace std {
 
@@ -190,13 +190,13 @@ namespace mojo {
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::UsbEventInfoDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::UsbEventInfoDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::UsbEventInfoDataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::UsbEventInfoDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::UsbEventInfo_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::UsbEventInfo_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
@@ -242,13 +242,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::UsbEventInfoDataView, MaybeCo
         "null categories in UsbEventInfo struct");
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::UsbEventInfo_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::UsbEventInfo_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::UsbEventInfoDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::UsbEventInfoDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -258,7 +258,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::UsbEventInfoDataView, MaybeCo
 }  // namespace mojo
 
 
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace mojom {
 
@@ -282,7 +282,7 @@ inline void UsbEventInfoDataView::GetCategoriesDataView(
 
 }  // namespace mojom
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

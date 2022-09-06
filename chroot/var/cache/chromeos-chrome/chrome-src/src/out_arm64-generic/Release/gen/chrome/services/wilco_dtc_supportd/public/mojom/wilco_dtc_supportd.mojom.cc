@@ -1128,7 +1128,7 @@ void WilcoDtcSupportdClientProxy::HandleEvent(
 }
 
 void WilcoDtcSupportdClientProxy::GetCrosHealthdDiagnosticsService(
-    ::mojo::PendingReceiver<::chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService> in_service) {
+    ::mojo::PendingReceiver<::ash::cros_healthd::mojom::CrosHealthdDiagnosticsService> in_service) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send chromeos::wilco_dtc_supportd::mojom::WilcoDtcSupportdClient::GetCrosHealthdDiagnosticsService", "input_parameters",
@@ -1136,7 +1136,7 @@ void WilcoDtcSupportdClientProxy::GetCrosHealthdDiagnosticsService(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("service"), in_service,
-                        "<value of type ::mojo::PendingReceiver<::chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService>>");
+                        "<value of type ::mojo::PendingReceiver<::ash::cros_healthd::mojom::CrosHealthdDiagnosticsService>>");
    });
 #endif
   const bool kExpectsResponse = false;
@@ -1154,7 +1154,7 @@ void WilcoDtcSupportdClientProxy::GetCrosHealthdDiagnosticsService(
       ::chromeos::wilco_dtc_supportd::mojom::internal::WilcoDtcSupportdClient_GetCrosHealthdDiagnosticsService_Params_Data> params(
           message);
   params.Allocate();
-  mojo::internal::Serialize<mojo::InterfaceRequestDataView<::chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsServiceInterfaceBase>>(
+  mojo::internal::Serialize<mojo::InterfaceRequestDataView<::ash::cros_healthd::mojom::CrosHealthdDiagnosticsServiceInterfaceBase>>(
       in_service, &params->service, &params.message());
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
       !mojo::internal::IsHandleOrInterfaceValid(params->service),
@@ -1171,7 +1171,7 @@ void WilcoDtcSupportdClientProxy::GetCrosHealthdDiagnosticsService(
 }
 
 void WilcoDtcSupportdClientProxy::GetCrosHealthdProbeService(
-    ::mojo::PendingReceiver<::chromeos::cros_healthd::mojom::CrosHealthdProbeService> in_service) {
+    ::mojo::PendingReceiver<::ash::cros_healthd::mojom::CrosHealthdProbeService> in_service) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send chromeos::wilco_dtc_supportd::mojom::WilcoDtcSupportdClient::GetCrosHealthdProbeService", "input_parameters",
@@ -1179,7 +1179,7 @@ void WilcoDtcSupportdClientProxy::GetCrosHealthdProbeService(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("service"), in_service,
-                        "<value of type ::mojo::PendingReceiver<::chromeos::cros_healthd::mojom::CrosHealthdProbeService>>");
+                        "<value of type ::mojo::PendingReceiver<::ash::cros_healthd::mojom::CrosHealthdProbeService>>");
    });
 #endif
   const bool kExpectsResponse = false;
@@ -1197,7 +1197,7 @@ void WilcoDtcSupportdClientProxy::GetCrosHealthdProbeService(
       ::chromeos::wilco_dtc_supportd::mojom::internal::WilcoDtcSupportdClient_GetCrosHealthdProbeService_Params_Data> params(
           message);
   params.Allocate();
-  mojo::internal::Serialize<mojo::InterfaceRequestDataView<::chromeos::cros_healthd::mojom::CrosHealthdProbeServiceInterfaceBase>>(
+  mojo::internal::Serialize<mojo::InterfaceRequestDataView<::ash::cros_healthd::mojom::CrosHealthdProbeServiceInterfaceBase>>(
       in_service, &params->service, &params.message());
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
       !mojo::internal::IsHandleOrInterfaceValid(params->service),
@@ -1632,7 +1632,7 @@ std::move(p_event));
               message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingReceiver<::chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService> p_service{};
+      ::mojo::PendingReceiver<::ash::cros_healthd::mojom::CrosHealthdDiagnosticsService> p_service{};
       WilcoDtcSupportdClient_GetCrosHealthdDiagnosticsService_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -1660,7 +1660,7 @@ std::move(p_service));
               message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingReceiver<::chromeos::cros_healthd::mojom::CrosHealthdProbeService> p_service{};
+      ::mojo::PendingReceiver<::ash::cros_healthd::mojom::CrosHealthdProbeService> p_service{};
       WilcoDtcSupportdClient_GetCrosHealthdProbeService_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -1921,10 +1921,10 @@ void WilcoDtcSupportdClientInterceptorForTesting::GetConfigurationData(GetConfig
 void WilcoDtcSupportdClientInterceptorForTesting::HandleEvent(WilcoDtcSupportdEvent event) {
   GetForwardingInterface()->HandleEvent(std::move(event));
 }
-void WilcoDtcSupportdClientInterceptorForTesting::GetCrosHealthdDiagnosticsService(::mojo::PendingReceiver<::chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService> service) {
+void WilcoDtcSupportdClientInterceptorForTesting::GetCrosHealthdDiagnosticsService(::mojo::PendingReceiver<::ash::cros_healthd::mojom::CrosHealthdDiagnosticsService> service) {
   GetForwardingInterface()->GetCrosHealthdDiagnosticsService(std::move(service));
 }
-void WilcoDtcSupportdClientInterceptorForTesting::GetCrosHealthdProbeService(::mojo::PendingReceiver<::chromeos::cros_healthd::mojom::CrosHealthdProbeService> service) {
+void WilcoDtcSupportdClientInterceptorForTesting::GetCrosHealthdProbeService(::mojo::PendingReceiver<::ash::cros_healthd::mojom::CrosHealthdProbeService> service) {
   GetForwardingInterface()->GetCrosHealthdProbeService(std::move(service));
 }
 WilcoDtcSupportdClientAsyncWaiter::WilcoDtcSupportdClientAsyncWaiter(
