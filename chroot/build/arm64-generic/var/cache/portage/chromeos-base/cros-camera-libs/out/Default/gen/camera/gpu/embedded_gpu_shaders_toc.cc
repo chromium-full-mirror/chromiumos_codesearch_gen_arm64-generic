@@ -66,13 +66,13 @@ void main() {
   if (uBicubic) {
     outColor = textureBicubic(uInputTexture, sample_coord);
   } else {
-    outColor = texture2D(uInputTexture, sample_coord);
+    outColor = texture(uInputTexture, sample_coord);
   }
 }
 )cc_embed_data";
 
 const char external_yuv_to_nv12_frag[] = R"cc_embed_data(#version 310 es
-#extension GL_OES_EGL_image_external: require
+#extension GL_OES_EGL_image_external_essl3: require
 
 precision highp float;
 
@@ -83,7 +83,7 @@ layout(location = 0) in highp vec2 vTexCoord;
 layout(location = 0) out highp vec4 outColor;
 
 void main() {
-  vec3 rgb = texture2D(uInputExternalYuvTexture, vTexCoord).rgb;
+  vec3 rgb = texture(uInputExternalYuvTexture, vTexCoord).rgb;
   if (uIsYPlane) {
     float y = 0.299 * rgb.r + 0.587 * rgb.g + 0.114 * rgb.b;
     outColor = vec4(y, 0.0, 0.0, 0.0);
@@ -96,7 +96,7 @@ void main() {
 )cc_embed_data";
 
 const char external_yuv_to_rgba_frag[] = R"cc_embed_data(#version 310 es
-#extension GL_OES_EGL_image_external: require
+#extension GL_OES_EGL_image_external_essl3: require
 
 precision highp float;
 
@@ -106,7 +106,7 @@ layout(location = 0) in highp vec2 vTexCoord;
 layout(location = 0) out highp vec4 outColor;
 
 void main() {
-  outColor = texture2D(uInputExternalYuvTexture, vTexCoord);
+  outColor = texture(uInputExternalYuvTexture, vTexCoord);
 }
 )cc_embed_data";
 
@@ -142,7 +142,7 @@ vec3 apply_gamma(vec3 inputRgb, vec3 gamma) {
 void main() {
   vec3 gamma = vec3(uGammaValue, uGammaValue, uGammaValue);
   outColor = vec4(
-      apply_gamma(texture2D(uInputRgbaTexture, vTexCoord).rgb, gamma), 1.0);
+      apply_gamma(texture(uInputRgbaTexture, vTexCoord).rgb, gamma), 1.0);
 }
 
 )cc_embed_data";
@@ -160,10 +160,10 @@ layout(location = 0) in highp vec2 vTexCoord;
 layout(location = 0) out highp vec4 outColor;
 
 void main() {
-  vec3 rgb = texture2D(uInputRgbaTexture, vTexCoord).rgb;
-  outColor = vec4(texture2D(uRLutTexture, vec2(rgb.r, 0.0)).r,
-                  texture2D(uGLutTexture, vec2(rgb.g, 0.0)).r,
-                  texture2D(uBLutTexture, vec2(rgb.b, 0.0)).r,
+  vec3 rgb = texture(uInputRgbaTexture, vTexCoord).rgb;
+  outColor = vec4(texture(uRLutTexture, vec2(rgb.r, 0.0)).r,
+                  texture(uGLutTexture, vec2(rgb.g, 0.0)).r,
+                  texture(uBLutTexture, vec2(rgb.b, 0.0)).r,
                   1.0);
 }
 )cc_embed_data";
@@ -179,9 +179,9 @@ layout(location = 0) in highp vec2 vTexCoord;
 layout(location = 0) out highp vec4 outColor;
 
 void main() {
-  float y = texture2D(uInputYTexture, vTexCoord).r;
-  float u = texture2D(uInputUvTexture, vTexCoord).r;
-  float v = texture2D(uInputUvTexture, vTexCoord).g;
+  float y = texture(uInputYTexture, vTexCoord).r;
+  float u = texture(uInputUvTexture, vTexCoord).r;
+  float v = texture(uInputUvTexture, vTexCoord).g;
 
   vec3 rgb = clamp(vec3(
     y + 1.4017 * (v - 0.5),
@@ -204,7 +204,7 @@ layout(location = 0) in highp vec2 vTexCoord;
 layout(location = 0) out highp vec4 outColor;
 
 void main() {
-  vec3 rgb = texture2D(uInputRgbaTexture, vTexCoord).rgb;
+  vec3 rgb = texture(uInputRgbaTexture, vTexCoord).rgb;
   if (uIsYPlane) {
     float y = 0.299 * rgb.r + 0.587 * rgb.g + 0.114 * rgb.b;
     outColor = vec4(y, 0.0, 0.0, 0.0);
@@ -230,10 +230,10 @@ layout(location = 0) out highp vec4 outColor;
 
 void main() {
   if (uIsYPlane) {
-    float y = texture2D(uInputYTexture, vTexCoord).r;
+    float y = texture(uInputYTexture, vTexCoord).r;
     outColor = vec4(y, 0.0, 0.0, 0.0);
   } else {
-    vec2 uv = texture2D(uInputUvTexture, vTexCoord).rg;
+    vec2 uv = texture(uInputUvTexture, vTexCoord).rg;
     outColor = vec4(uv, 0.0, 0.0);
   }
 }
@@ -254,10 +254,10 @@ layout(location = 0) out highp vec4 outColor;
 
 void main() {
   if (uIsYPlane) {
-    float y = texture2D(uInputYxTexture, vTexCoord).r;
+    float y = texture(uInputYxTexture, vTexCoord).r;
     outColor = vec4(y, 0.0, 0.0, 0.0);
   } else {
-    vec2 uv = texture2D(uInputYuyvTexture, vTexCoord).ga;
+    vec2 uv = texture(uInputYuyvTexture, vTexCoord).ga;
     outColor = vec4(uv, 0.0, 0.0);
   }
 }

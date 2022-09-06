@@ -45,7 +45,7 @@ struct TableStruct_cicerone_5fservice_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[91]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[93]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -194,6 +194,9 @@ extern ImportLxdContainerRequestDefaultTypeInternal _ImportLxdContainerRequest_d
 class ImportLxdContainerResponse;
 struct ImportLxdContainerResponseDefaultTypeInternal;
 extern ImportLxdContainerResponseDefaultTypeInternal _ImportLxdContainerResponse_default_instance_;
+class InhibitScreensaverSignal;
+struct InhibitScreensaverSignalDefaultTypeInternal;
+extern InhibitScreensaverSignalDefaultTypeInternal _InhibitScreensaverSignal_default_instance_;
 class InstallLinuxPackageProgressSignal;
 struct InstallLinuxPackageProgressSignalDefaultTypeInternal;
 extern InstallLinuxPackageProgressSignalDefaultTypeInternal _InstallLinuxPackageProgressSignal_default_instance_;
@@ -308,6 +311,9 @@ extern StopLxdContainerResponseDefaultTypeInternal _StopLxdContainerResponse_def
 class TremplinStartedSignal;
 struct TremplinStartedSignalDefaultTypeInternal;
 extern TremplinStartedSignalDefaultTypeInternal _TremplinStartedSignal_default_instance_;
+class UninhibitScreensaverSignal;
+struct UninhibitScreensaverSignalDefaultTypeInternal;
+extern UninhibitScreensaverSignalDefaultTypeInternal _UninhibitScreensaverSignal_default_instance_;
 class UninstallPackageOwningFileRequest;
 struct UninstallPackageOwningFileRequestDefaultTypeInternal;
 extern UninstallPackageOwningFileRequestDefaultTypeInternal _UninstallPackageOwningFileRequest_default_instance_;
@@ -376,6 +382,7 @@ template<> ::vm_tools::cicerone::GetVshSessionResponse* Arena::CreateMaybeMessag
 template<> ::vm_tools::cicerone::ImportLxdContainerProgressSignal* Arena::CreateMaybeMessage<::vm_tools::cicerone::ImportLxdContainerProgressSignal>(Arena*);
 template<> ::vm_tools::cicerone::ImportLxdContainerRequest* Arena::CreateMaybeMessage<::vm_tools::cicerone::ImportLxdContainerRequest>(Arena*);
 template<> ::vm_tools::cicerone::ImportLxdContainerResponse* Arena::CreateMaybeMessage<::vm_tools::cicerone::ImportLxdContainerResponse>(Arena*);
+template<> ::vm_tools::cicerone::InhibitScreensaverSignal* Arena::CreateMaybeMessage<::vm_tools::cicerone::InhibitScreensaverSignal>(Arena*);
 template<> ::vm_tools::cicerone::InstallLinuxPackageProgressSignal* Arena::CreateMaybeMessage<::vm_tools::cicerone::InstallLinuxPackageProgressSignal>(Arena*);
 template<> ::vm_tools::cicerone::InstallLinuxPackageRequest* Arena::CreateMaybeMessage<::vm_tools::cicerone::InstallLinuxPackageRequest>(Arena*);
 template<> ::vm_tools::cicerone::InstallLinuxPackageResponse* Arena::CreateMaybeMessage<::vm_tools::cicerone::InstallLinuxPackageResponse>(Arena*);
@@ -414,6 +421,7 @@ template<> ::vm_tools::cicerone::StartLxdResponse* Arena::CreateMaybeMessage<::v
 template<> ::vm_tools::cicerone::StopLxdContainerRequest* Arena::CreateMaybeMessage<::vm_tools::cicerone::StopLxdContainerRequest>(Arena*);
 template<> ::vm_tools::cicerone::StopLxdContainerResponse* Arena::CreateMaybeMessage<::vm_tools::cicerone::StopLxdContainerResponse>(Arena*);
 template<> ::vm_tools::cicerone::TremplinStartedSignal* Arena::CreateMaybeMessage<::vm_tools::cicerone::TremplinStartedSignal>(Arena*);
+template<> ::vm_tools::cicerone::UninhibitScreensaverSignal* Arena::CreateMaybeMessage<::vm_tools::cicerone::UninhibitScreensaverSignal>(Arena*);
 template<> ::vm_tools::cicerone::UninstallPackageOwningFileRequest* Arena::CreateMaybeMessage<::vm_tools::cicerone::UninstallPackageOwningFileRequest>(Arena*);
 template<> ::vm_tools::cicerone::UninstallPackageOwningFileResponse* Arena::CreateMaybeMessage<::vm_tools::cicerone::UninstallPackageOwningFileResponse>(Arena*);
 template<> ::vm_tools::cicerone::UninstallPackageProgressSignal* Arena::CreateMaybeMessage<::vm_tools::cicerone::UninstallPackageProgressSignal>(Arena*);
@@ -18267,6 +18275,394 @@ class GetGarconSessionInfoResponse final :
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_cicerone_5fservice_2eproto;
 };
+// -------------------------------------------------------------------
+
+class InhibitScreensaverSignal final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:vm_tools.cicerone.InhibitScreensaverSignal) */ {
+ public:
+  inline InhibitScreensaverSignal() : InhibitScreensaverSignal(nullptr) {}
+  ~InhibitScreensaverSignal() override;
+  explicit constexpr InhibitScreensaverSignal(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  InhibitScreensaverSignal(const InhibitScreensaverSignal& from);
+  InhibitScreensaverSignal(InhibitScreensaverSignal&& from) noexcept
+    : InhibitScreensaverSignal() {
+    *this = ::std::move(from);
+  }
+
+  inline InhibitScreensaverSignal& operator=(const InhibitScreensaverSignal& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline InhibitScreensaverSignal& operator=(InhibitScreensaverSignal&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const InhibitScreensaverSignal& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const InhibitScreensaverSignal* internal_default_instance() {
+    return reinterpret_cast<const InhibitScreensaverSignal*>(
+               &_InhibitScreensaverSignal_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    91;
+
+  friend void swap(InhibitScreensaverSignal& a, InhibitScreensaverSignal& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(InhibitScreensaverSignal* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(InhibitScreensaverSignal* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  InhibitScreensaverSignal* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<InhibitScreensaverSignal>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const InhibitScreensaverSignal& from);
+  void MergeFrom(const InhibitScreensaverSignal& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(InhibitScreensaverSignal* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "vm_tools.cicerone.InhibitScreensaverSignal";
+  }
+  protected:
+  explicit InhibitScreensaverSignal(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kVmNameFieldNumber = 1,
+    kContainerNameFieldNumber = 2,
+    kOwnerIdFieldNumber = 3,
+    kClientFieldNumber = 5,
+    kReasonFieldNumber = 6,
+    kCookieFieldNumber = 4,
+  };
+  // string vm_name = 1;
+  void clear_vm_name();
+  const std::string& vm_name() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_vm_name(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_vm_name();
+  PROTOBUF_NODISCARD std::string* release_vm_name();
+  void set_allocated_vm_name(std::string* vm_name);
+  private:
+  const std::string& _internal_vm_name() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_vm_name(const std::string& value);
+  std::string* _internal_mutable_vm_name();
+  public:
+
+  // string container_name = 2;
+  void clear_container_name();
+  const std::string& container_name() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_container_name(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_container_name();
+  PROTOBUF_NODISCARD std::string* release_container_name();
+  void set_allocated_container_name(std::string* container_name);
+  private:
+  const std::string& _internal_container_name() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_container_name(const std::string& value);
+  std::string* _internal_mutable_container_name();
+  public:
+
+  // string owner_id = 3;
+  void clear_owner_id();
+  const std::string& owner_id() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_owner_id(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_owner_id();
+  PROTOBUF_NODISCARD std::string* release_owner_id();
+  void set_allocated_owner_id(std::string* owner_id);
+  private:
+  const std::string& _internal_owner_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_owner_id(const std::string& value);
+  std::string* _internal_mutable_owner_id();
+  public:
+
+  // string client = 5;
+  void clear_client();
+  const std::string& client() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_client(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_client();
+  PROTOBUF_NODISCARD std::string* release_client();
+  void set_allocated_client(std::string* client);
+  private:
+  const std::string& _internal_client() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_client(const std::string& value);
+  std::string* _internal_mutable_client();
+  public:
+
+  // string reason = 6;
+  void clear_reason();
+  const std::string& reason() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_reason(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_reason();
+  PROTOBUF_NODISCARD std::string* release_reason();
+  void set_allocated_reason(std::string* reason);
+  private:
+  const std::string& _internal_reason() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_reason(const std::string& value);
+  std::string* _internal_mutable_reason();
+  public:
+
+  // uint32 cookie = 4;
+  void clear_cookie();
+  uint32_t cookie() const;
+  void set_cookie(uint32_t value);
+  private:
+  uint32_t _internal_cookie() const;
+  void _internal_set_cookie(uint32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:vm_tools.cicerone.InhibitScreensaverSignal)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr vm_name_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr container_name_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr owner_id_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr client_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr reason_;
+  uint32_t cookie_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_cicerone_5fservice_2eproto;
+};
+// -------------------------------------------------------------------
+
+class UninhibitScreensaverSignal final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:vm_tools.cicerone.UninhibitScreensaverSignal) */ {
+ public:
+  inline UninhibitScreensaverSignal() : UninhibitScreensaverSignal(nullptr) {}
+  ~UninhibitScreensaverSignal() override;
+  explicit constexpr UninhibitScreensaverSignal(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  UninhibitScreensaverSignal(const UninhibitScreensaverSignal& from);
+  UninhibitScreensaverSignal(UninhibitScreensaverSignal&& from) noexcept
+    : UninhibitScreensaverSignal() {
+    *this = ::std::move(from);
+  }
+
+  inline UninhibitScreensaverSignal& operator=(const UninhibitScreensaverSignal& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline UninhibitScreensaverSignal& operator=(UninhibitScreensaverSignal&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const UninhibitScreensaverSignal& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const UninhibitScreensaverSignal* internal_default_instance() {
+    return reinterpret_cast<const UninhibitScreensaverSignal*>(
+               &_UninhibitScreensaverSignal_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    92;
+
+  friend void swap(UninhibitScreensaverSignal& a, UninhibitScreensaverSignal& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(UninhibitScreensaverSignal* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(UninhibitScreensaverSignal* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  UninhibitScreensaverSignal* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<UninhibitScreensaverSignal>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const UninhibitScreensaverSignal& from);
+  void MergeFrom(const UninhibitScreensaverSignal& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(UninhibitScreensaverSignal* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "vm_tools.cicerone.UninhibitScreensaverSignal";
+  }
+  protected:
+  explicit UninhibitScreensaverSignal(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kVmNameFieldNumber = 1,
+    kContainerNameFieldNumber = 2,
+    kOwnerIdFieldNumber = 3,
+    kCookieFieldNumber = 4,
+  };
+  // string vm_name = 1;
+  void clear_vm_name();
+  const std::string& vm_name() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_vm_name(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_vm_name();
+  PROTOBUF_NODISCARD std::string* release_vm_name();
+  void set_allocated_vm_name(std::string* vm_name);
+  private:
+  const std::string& _internal_vm_name() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_vm_name(const std::string& value);
+  std::string* _internal_mutable_vm_name();
+  public:
+
+  // string container_name = 2;
+  void clear_container_name();
+  const std::string& container_name() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_container_name(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_container_name();
+  PROTOBUF_NODISCARD std::string* release_container_name();
+  void set_allocated_container_name(std::string* container_name);
+  private:
+  const std::string& _internal_container_name() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_container_name(const std::string& value);
+  std::string* _internal_mutable_container_name();
+  public:
+
+  // string owner_id = 3;
+  void clear_owner_id();
+  const std::string& owner_id() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_owner_id(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_owner_id();
+  PROTOBUF_NODISCARD std::string* release_owner_id();
+  void set_allocated_owner_id(std::string* owner_id);
+  private:
+  const std::string& _internal_owner_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_owner_id(const std::string& value);
+  std::string* _internal_mutable_owner_id();
+  public:
+
+  // uint32 cookie = 4;
+  void clear_cookie();
+  uint32_t cookie() const;
+  void set_cookie(uint32_t value);
+  private:
+  uint32_t _internal_cookie() const;
+  void _internal_set_cookie(uint32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:vm_tools.cicerone.UninhibitScreensaverSignal)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr vm_name_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr container_name_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr owner_id_;
+  uint32_t cookie_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_cicerone_5fservice_2eproto;
+};
 // ===================================================================
 
 
@@ -33211,9 +33607,469 @@ inline void GetGarconSessionInfoResponse::set_sftp_vsock_port(uint32_t value) {
   // @@protoc_insertion_point(field_set:vm_tools.cicerone.GetGarconSessionInfoResponse.sftp_vsock_port)
 }
 
+// -------------------------------------------------------------------
+
+// InhibitScreensaverSignal
+
+// string vm_name = 1;
+inline void InhibitScreensaverSignal::clear_vm_name() {
+  vm_name_.ClearToEmpty();
+}
+inline const std::string& InhibitScreensaverSignal::vm_name() const {
+  // @@protoc_insertion_point(field_get:vm_tools.cicerone.InhibitScreensaverSignal.vm_name)
+  return _internal_vm_name();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void InhibitScreensaverSignal::set_vm_name(ArgT0&& arg0, ArgT... args) {
+ 
+ vm_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:vm_tools.cicerone.InhibitScreensaverSignal.vm_name)
+}
+inline std::string* InhibitScreensaverSignal::mutable_vm_name() {
+  std::string* _s = _internal_mutable_vm_name();
+  // @@protoc_insertion_point(field_mutable:vm_tools.cicerone.InhibitScreensaverSignal.vm_name)
+  return _s;
+}
+inline const std::string& InhibitScreensaverSignal::_internal_vm_name() const {
+  return vm_name_.Get();
+}
+inline void InhibitScreensaverSignal::_internal_set_vm_name(const std::string& value) {
+  
+  vm_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* InhibitScreensaverSignal::_internal_mutable_vm_name() {
+  
+  return vm_name_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* InhibitScreensaverSignal::release_vm_name() {
+  // @@protoc_insertion_point(field_release:vm_tools.cicerone.InhibitScreensaverSignal.vm_name)
+  return vm_name_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void InhibitScreensaverSignal::set_allocated_vm_name(std::string* vm_name) {
+  if (vm_name != nullptr) {
+    
+  } else {
+    
+  }
+  vm_name_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), vm_name,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (vm_name_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    vm_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:vm_tools.cicerone.InhibitScreensaverSignal.vm_name)
+}
+
+// string container_name = 2;
+inline void InhibitScreensaverSignal::clear_container_name() {
+  container_name_.ClearToEmpty();
+}
+inline const std::string& InhibitScreensaverSignal::container_name() const {
+  // @@protoc_insertion_point(field_get:vm_tools.cicerone.InhibitScreensaverSignal.container_name)
+  return _internal_container_name();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void InhibitScreensaverSignal::set_container_name(ArgT0&& arg0, ArgT... args) {
+ 
+ container_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:vm_tools.cicerone.InhibitScreensaverSignal.container_name)
+}
+inline std::string* InhibitScreensaverSignal::mutable_container_name() {
+  std::string* _s = _internal_mutable_container_name();
+  // @@protoc_insertion_point(field_mutable:vm_tools.cicerone.InhibitScreensaverSignal.container_name)
+  return _s;
+}
+inline const std::string& InhibitScreensaverSignal::_internal_container_name() const {
+  return container_name_.Get();
+}
+inline void InhibitScreensaverSignal::_internal_set_container_name(const std::string& value) {
+  
+  container_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* InhibitScreensaverSignal::_internal_mutable_container_name() {
+  
+  return container_name_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* InhibitScreensaverSignal::release_container_name() {
+  // @@protoc_insertion_point(field_release:vm_tools.cicerone.InhibitScreensaverSignal.container_name)
+  return container_name_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void InhibitScreensaverSignal::set_allocated_container_name(std::string* container_name) {
+  if (container_name != nullptr) {
+    
+  } else {
+    
+  }
+  container_name_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), container_name,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (container_name_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    container_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:vm_tools.cicerone.InhibitScreensaverSignal.container_name)
+}
+
+// string owner_id = 3;
+inline void InhibitScreensaverSignal::clear_owner_id() {
+  owner_id_.ClearToEmpty();
+}
+inline const std::string& InhibitScreensaverSignal::owner_id() const {
+  // @@protoc_insertion_point(field_get:vm_tools.cicerone.InhibitScreensaverSignal.owner_id)
+  return _internal_owner_id();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void InhibitScreensaverSignal::set_owner_id(ArgT0&& arg0, ArgT... args) {
+ 
+ owner_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:vm_tools.cicerone.InhibitScreensaverSignal.owner_id)
+}
+inline std::string* InhibitScreensaverSignal::mutable_owner_id() {
+  std::string* _s = _internal_mutable_owner_id();
+  // @@protoc_insertion_point(field_mutable:vm_tools.cicerone.InhibitScreensaverSignal.owner_id)
+  return _s;
+}
+inline const std::string& InhibitScreensaverSignal::_internal_owner_id() const {
+  return owner_id_.Get();
+}
+inline void InhibitScreensaverSignal::_internal_set_owner_id(const std::string& value) {
+  
+  owner_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* InhibitScreensaverSignal::_internal_mutable_owner_id() {
+  
+  return owner_id_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* InhibitScreensaverSignal::release_owner_id() {
+  // @@protoc_insertion_point(field_release:vm_tools.cicerone.InhibitScreensaverSignal.owner_id)
+  return owner_id_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void InhibitScreensaverSignal::set_allocated_owner_id(std::string* owner_id) {
+  if (owner_id != nullptr) {
+    
+  } else {
+    
+  }
+  owner_id_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), owner_id,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (owner_id_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    owner_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:vm_tools.cicerone.InhibitScreensaverSignal.owner_id)
+}
+
+// uint32 cookie = 4;
+inline void InhibitScreensaverSignal::clear_cookie() {
+  cookie_ = 0u;
+}
+inline uint32_t InhibitScreensaverSignal::_internal_cookie() const {
+  return cookie_;
+}
+inline uint32_t InhibitScreensaverSignal::cookie() const {
+  // @@protoc_insertion_point(field_get:vm_tools.cicerone.InhibitScreensaverSignal.cookie)
+  return _internal_cookie();
+}
+inline void InhibitScreensaverSignal::_internal_set_cookie(uint32_t value) {
+  
+  cookie_ = value;
+}
+inline void InhibitScreensaverSignal::set_cookie(uint32_t value) {
+  _internal_set_cookie(value);
+  // @@protoc_insertion_point(field_set:vm_tools.cicerone.InhibitScreensaverSignal.cookie)
+}
+
+// string client = 5;
+inline void InhibitScreensaverSignal::clear_client() {
+  client_.ClearToEmpty();
+}
+inline const std::string& InhibitScreensaverSignal::client() const {
+  // @@protoc_insertion_point(field_get:vm_tools.cicerone.InhibitScreensaverSignal.client)
+  return _internal_client();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void InhibitScreensaverSignal::set_client(ArgT0&& arg0, ArgT... args) {
+ 
+ client_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:vm_tools.cicerone.InhibitScreensaverSignal.client)
+}
+inline std::string* InhibitScreensaverSignal::mutable_client() {
+  std::string* _s = _internal_mutable_client();
+  // @@protoc_insertion_point(field_mutable:vm_tools.cicerone.InhibitScreensaverSignal.client)
+  return _s;
+}
+inline const std::string& InhibitScreensaverSignal::_internal_client() const {
+  return client_.Get();
+}
+inline void InhibitScreensaverSignal::_internal_set_client(const std::string& value) {
+  
+  client_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* InhibitScreensaverSignal::_internal_mutable_client() {
+  
+  return client_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* InhibitScreensaverSignal::release_client() {
+  // @@protoc_insertion_point(field_release:vm_tools.cicerone.InhibitScreensaverSignal.client)
+  return client_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void InhibitScreensaverSignal::set_allocated_client(std::string* client) {
+  if (client != nullptr) {
+    
+  } else {
+    
+  }
+  client_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), client,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (client_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    client_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:vm_tools.cicerone.InhibitScreensaverSignal.client)
+}
+
+// string reason = 6;
+inline void InhibitScreensaverSignal::clear_reason() {
+  reason_.ClearToEmpty();
+}
+inline const std::string& InhibitScreensaverSignal::reason() const {
+  // @@protoc_insertion_point(field_get:vm_tools.cicerone.InhibitScreensaverSignal.reason)
+  return _internal_reason();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void InhibitScreensaverSignal::set_reason(ArgT0&& arg0, ArgT... args) {
+ 
+ reason_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:vm_tools.cicerone.InhibitScreensaverSignal.reason)
+}
+inline std::string* InhibitScreensaverSignal::mutable_reason() {
+  std::string* _s = _internal_mutable_reason();
+  // @@protoc_insertion_point(field_mutable:vm_tools.cicerone.InhibitScreensaverSignal.reason)
+  return _s;
+}
+inline const std::string& InhibitScreensaverSignal::_internal_reason() const {
+  return reason_.Get();
+}
+inline void InhibitScreensaverSignal::_internal_set_reason(const std::string& value) {
+  
+  reason_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* InhibitScreensaverSignal::_internal_mutable_reason() {
+  
+  return reason_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* InhibitScreensaverSignal::release_reason() {
+  // @@protoc_insertion_point(field_release:vm_tools.cicerone.InhibitScreensaverSignal.reason)
+  return reason_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void InhibitScreensaverSignal::set_allocated_reason(std::string* reason) {
+  if (reason != nullptr) {
+    
+  } else {
+    
+  }
+  reason_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), reason,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (reason_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    reason_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:vm_tools.cicerone.InhibitScreensaverSignal.reason)
+}
+
+// -------------------------------------------------------------------
+
+// UninhibitScreensaverSignal
+
+// string vm_name = 1;
+inline void UninhibitScreensaverSignal::clear_vm_name() {
+  vm_name_.ClearToEmpty();
+}
+inline const std::string& UninhibitScreensaverSignal::vm_name() const {
+  // @@protoc_insertion_point(field_get:vm_tools.cicerone.UninhibitScreensaverSignal.vm_name)
+  return _internal_vm_name();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void UninhibitScreensaverSignal::set_vm_name(ArgT0&& arg0, ArgT... args) {
+ 
+ vm_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:vm_tools.cicerone.UninhibitScreensaverSignal.vm_name)
+}
+inline std::string* UninhibitScreensaverSignal::mutable_vm_name() {
+  std::string* _s = _internal_mutable_vm_name();
+  // @@protoc_insertion_point(field_mutable:vm_tools.cicerone.UninhibitScreensaverSignal.vm_name)
+  return _s;
+}
+inline const std::string& UninhibitScreensaverSignal::_internal_vm_name() const {
+  return vm_name_.Get();
+}
+inline void UninhibitScreensaverSignal::_internal_set_vm_name(const std::string& value) {
+  
+  vm_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* UninhibitScreensaverSignal::_internal_mutable_vm_name() {
+  
+  return vm_name_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* UninhibitScreensaverSignal::release_vm_name() {
+  // @@protoc_insertion_point(field_release:vm_tools.cicerone.UninhibitScreensaverSignal.vm_name)
+  return vm_name_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void UninhibitScreensaverSignal::set_allocated_vm_name(std::string* vm_name) {
+  if (vm_name != nullptr) {
+    
+  } else {
+    
+  }
+  vm_name_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), vm_name,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (vm_name_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    vm_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:vm_tools.cicerone.UninhibitScreensaverSignal.vm_name)
+}
+
+// string container_name = 2;
+inline void UninhibitScreensaverSignal::clear_container_name() {
+  container_name_.ClearToEmpty();
+}
+inline const std::string& UninhibitScreensaverSignal::container_name() const {
+  // @@protoc_insertion_point(field_get:vm_tools.cicerone.UninhibitScreensaverSignal.container_name)
+  return _internal_container_name();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void UninhibitScreensaverSignal::set_container_name(ArgT0&& arg0, ArgT... args) {
+ 
+ container_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:vm_tools.cicerone.UninhibitScreensaverSignal.container_name)
+}
+inline std::string* UninhibitScreensaverSignal::mutable_container_name() {
+  std::string* _s = _internal_mutable_container_name();
+  // @@protoc_insertion_point(field_mutable:vm_tools.cicerone.UninhibitScreensaverSignal.container_name)
+  return _s;
+}
+inline const std::string& UninhibitScreensaverSignal::_internal_container_name() const {
+  return container_name_.Get();
+}
+inline void UninhibitScreensaverSignal::_internal_set_container_name(const std::string& value) {
+  
+  container_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* UninhibitScreensaverSignal::_internal_mutable_container_name() {
+  
+  return container_name_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* UninhibitScreensaverSignal::release_container_name() {
+  // @@protoc_insertion_point(field_release:vm_tools.cicerone.UninhibitScreensaverSignal.container_name)
+  return container_name_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void UninhibitScreensaverSignal::set_allocated_container_name(std::string* container_name) {
+  if (container_name != nullptr) {
+    
+  } else {
+    
+  }
+  container_name_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), container_name,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (container_name_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    container_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:vm_tools.cicerone.UninhibitScreensaverSignal.container_name)
+}
+
+// string owner_id = 3;
+inline void UninhibitScreensaverSignal::clear_owner_id() {
+  owner_id_.ClearToEmpty();
+}
+inline const std::string& UninhibitScreensaverSignal::owner_id() const {
+  // @@protoc_insertion_point(field_get:vm_tools.cicerone.UninhibitScreensaverSignal.owner_id)
+  return _internal_owner_id();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void UninhibitScreensaverSignal::set_owner_id(ArgT0&& arg0, ArgT... args) {
+ 
+ owner_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:vm_tools.cicerone.UninhibitScreensaverSignal.owner_id)
+}
+inline std::string* UninhibitScreensaverSignal::mutable_owner_id() {
+  std::string* _s = _internal_mutable_owner_id();
+  // @@protoc_insertion_point(field_mutable:vm_tools.cicerone.UninhibitScreensaverSignal.owner_id)
+  return _s;
+}
+inline const std::string& UninhibitScreensaverSignal::_internal_owner_id() const {
+  return owner_id_.Get();
+}
+inline void UninhibitScreensaverSignal::_internal_set_owner_id(const std::string& value) {
+  
+  owner_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* UninhibitScreensaverSignal::_internal_mutable_owner_id() {
+  
+  return owner_id_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* UninhibitScreensaverSignal::release_owner_id() {
+  // @@protoc_insertion_point(field_release:vm_tools.cicerone.UninhibitScreensaverSignal.owner_id)
+  return owner_id_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void UninhibitScreensaverSignal::set_allocated_owner_id(std::string* owner_id) {
+  if (owner_id != nullptr) {
+    
+  } else {
+    
+  }
+  owner_id_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), owner_id,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (owner_id_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    owner_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:vm_tools.cicerone.UninhibitScreensaverSignal.owner_id)
+}
+
+// uint32 cookie = 4;
+inline void UninhibitScreensaverSignal::clear_cookie() {
+  cookie_ = 0u;
+}
+inline uint32_t UninhibitScreensaverSignal::_internal_cookie() const {
+  return cookie_;
+}
+inline uint32_t UninhibitScreensaverSignal::cookie() const {
+  // @@protoc_insertion_point(field_get:vm_tools.cicerone.UninhibitScreensaverSignal.cookie)
+  return _internal_cookie();
+}
+inline void UninhibitScreensaverSignal::_internal_set_cookie(uint32_t value) {
+  
+  cookie_ = value;
+}
+inline void UninhibitScreensaverSignal::set_cookie(uint32_t value) {
+  _internal_set_cookie(value);
+  // @@protoc_insertion_point(field_set:vm_tools.cicerone.UninhibitScreensaverSignal.cookie)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

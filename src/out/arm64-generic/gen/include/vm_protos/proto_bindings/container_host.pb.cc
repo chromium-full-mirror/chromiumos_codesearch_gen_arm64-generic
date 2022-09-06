@@ -465,9 +465,37 @@ struct UninstallShaderCacheRequestDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT UninstallShaderCacheRequestDefaultTypeInternal _UninstallShaderCacheRequest_default_instance_;
+constexpr InhibitScreensaverInfo::InhibitScreensaverInfo(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : token_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , client_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , reason_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , cookie_(0){}
+struct InhibitScreensaverInfoDefaultTypeInternal {
+  constexpr InhibitScreensaverInfoDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~InhibitScreensaverInfoDefaultTypeInternal() {}
+  union {
+    InhibitScreensaverInfo _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT InhibitScreensaverInfoDefaultTypeInternal _InhibitScreensaverInfo_default_instance_;
+constexpr UninhibitScreensaverInfo::UninhibitScreensaverInfo(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : token_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , cookie_(0){}
+struct UninhibitScreensaverInfoDefaultTypeInternal {
+  constexpr UninhibitScreensaverInfoDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~UninhibitScreensaverInfoDefaultTypeInternal() {}
+  union {
+    UninhibitScreensaverInfo _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT UninhibitScreensaverInfoDefaultTypeInternal _UninhibitScreensaverInfo_default_instance_;
 }  // namespace container
 }  // namespace vm_tools
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_container_5fhost_2eproto[33];
+static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_container_5fhost_2eproto[35];
 static const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* file_level_enum_descriptors_container_5fhost_2eproto[3];
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_container_5fhost_2eproto = nullptr;
 
@@ -755,6 +783,24 @@ const uint32_t TableStruct_container_5fhost_2eproto::offsets[] PROTOBUF_SECTION_
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::vm_tools::container::UninstallShaderCacheRequest, token_),
   PROTOBUF_FIELD_OFFSET(::vm_tools::container::UninstallShaderCacheRequest, steam_app_id_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::InhibitScreensaverInfo, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::InhibitScreensaverInfo, token_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::InhibitScreensaverInfo, cookie_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::InhibitScreensaverInfo, client_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::InhibitScreensaverInfo, reason_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::UninhibitScreensaverInfo, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::UninhibitScreensaverInfo, token_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::container::UninhibitScreensaverInfo, cookie_),
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, -1, sizeof(::vm_tools::container::ContainerStartupInfo)},
@@ -790,6 +836,8 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOB
   { 258, -1, -1, sizeof(::vm_tools::container::ReportMetricsResponse)},
   { 265, -1, -1, sizeof(::vm_tools::container::InstallShaderCacheRequest)},
   { 275, -1, -1, sizeof(::vm_tools::container::UninstallShaderCacheRequest)},
+  { 283, -1, -1, sizeof(::vm_tools::container::InhibitScreensaverInfo)},
+  { 293, -1, -1, sizeof(::vm_tools::container::UninhibitScreensaverInfo)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -826,6 +874,8 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vm_tools::container::_ReportMetricsResponse_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vm_tools::container::_InstallShaderCacheRequest_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vm_tools::container::_UninstallShaderCacheRequest_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vm_tools::container::_InhibitScreensaverInfo_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vm_tools::container::_UninhibitScreensaverInfo_default_instance_),
 };
 
 const char descriptor_table_protodef_container_5fhost_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
@@ -908,65 +958,74 @@ const char descriptor_table_protodef_container_5fhost_2eproto[] PROTOBUF_SECTION
   "eRequest\022\r\n\005token\030\001 \001(\t\022\024\n\014steam_app_id\030"
   "\002 \001(\004\022\r\n\005mount\030\003 \001(\010\022\014\n\004wait\030\004 \001(\010\"B\n\033Un"
   "installShaderCacheRequest\022\r\n\005token\030\001 \001(\t"
-  "\022\024\n\014steam_app_id\030\002 \001(\0042\251\017\n\021ContainerList"
-  "ener\022R\n\016ContainerReady\022(.vm_tools.contai"
-  "ner.ContainerStartupInfo\032\026.vm_tools.Empt"
-  "yMessage\022V\n\021ContainerShutdown\022).vm_tools"
-  ".container.ContainerShutdownInfo\032\026.vm_to"
-  "ols.EmptyMessage\022a\n\025UpdateApplicationLis"
-  "t\0220.vm_tools.container.UpdateApplication"
-  "ListRequest\032\026.vm_tools.EmptyMessage\022j\n!P"
-  "endingUpdateApplicationListCalls\022-.vm_to"
-  "ols.container.PendingAppListUpdateCount\032"
-  "\026.vm_tools.EmptyMessage\022E\n\007OpenUrl\022\".vm_"
-  "tools.container.OpenUrlRequest\032\026.vm_tool"
-  "s.EmptyMessage\022j\n\033InstallLinuxPackagePro"
-  "gress\0223.vm_tools.container.InstallLinuxP"
-  "ackageProgressInfo\032\026.vm_tools.EmptyMessa"
-  "ge\022d\n\030UninstallPackageProgress\0220.vm_tool"
-  "s.container.UninstallPackageProgressInfo"
-  "\032\026.vm_tools.EmptyMessage\022l\n\034ApplyAnsible"
-  "PlaybookProgress\0224.vm_tools.container.Ap"
-  "plyAnsiblePlaybookProgressInfo\032\026.vm_tool"
-  "s.EmptyMessage\022O\n\014OpenTerminal\022\'.vm_tool"
-  "s.container.OpenTerminalRequest\032\026.vm_too"
-  "ls.EmptyMessage\022U\n\017UpdateMimeTypes\022*.vm_"
-  "tools.container.UpdateMimeTypesRequest\032\026"
-  ".vm_tools.EmptyMessage\022X\n\022FileWatchTrigg"
-  "ered\022*.vm_tools.container.FileWatchTrigg"
-  "eredInfo\032\026.vm_tools.EmptyMessage\022^\n\025LowD"
-  "iskSpaceTriggered\022-.vm_tools.container.L"
-  "owDiskSpaceTriggeredInfo\032\026.vm_tools.Empt"
-  "yMessage\022\210\001\n\031ForwardSecurityKeyMessage\0224"
-  ".vm_tools.container.ForwardSecurityKeyMe"
-  "ssageRequest\0325.vm_tools.container.Forwar"
-  "dSecurityKeyMessageResponse\022[\n\nSelectFil"
-  "e\022%.vm_tools.container.SelectFileRequest"
-  "\032&.vm_tools.container.SelectFileResponse"
-  "\022^\n\013GetDiskInfo\022&.vm_tools.container.Get"
-  "DiskInfoRequest\032\'.vm_tools.container.Get"
-  "DiskInfoResponse\022a\n\014RequestSpace\022\'.vm_to"
-  "ols.container.RequestSpaceRequest\032(.vm_t"
-  "ools.container.RequestSpaceResponse\022a\n\014R"
-  "eleaseSpace\022\'.vm_tools.container.Release"
-  "SpaceRequest\032(.vm_tools.container.Releas"
-  "eSpaceResponse\022d\n\rReportMetrics\022(.vm_too"
-  "ls.container.ReportMetricsRequest\032).vm_t"
-  "ools.container.ReportMetricsResponse\022[\n\022"
-  "InstallShaderCache\022-.vm_tools.container."
-  "InstallShaderCacheRequest\032\026.vm_tools.Emp"
-  "tyMessage\022_\n\024UninstallShaderCache\022/.vm_t"
-  "ools.container.UninstallShaderCacheReque"
-  "st\032\026.vm_tools.EmptyMessageB(Z#chromiumos"
-  "/vm_tools/container_proto\370\001\001b\006proto3"
+  "\022\024\n\014steam_app_id\030\002 \001(\004\"W\n\026InhibitScreens"
+  "averInfo\022\r\n\005token\030\001 \001(\t\022\016\n\006cookie\030\002 \001(\005\022"
+  "\016\n\006client\030\003 \001(\t\022\016\n\006reason\030\004 \001(\t\"9\n\030Uninh"
+  "ibitScreensaverInfo\022\r\n\005token\030\001 \001(\t\022\016\n\006co"
+  "okie\030\002 \001(\0052\341\020\n\021ContainerListener\022R\n\016Cont"
+  "ainerReady\022(.vm_tools.container.Containe"
+  "rStartupInfo\032\026.vm_tools.EmptyMessage\022V\n\021"
+  "ContainerShutdown\022).vm_tools.container.C"
+  "ontainerShutdownInfo\032\026.vm_tools.EmptyMes"
+  "sage\022a\n\025UpdateApplicationList\0220.vm_tools"
+  ".container.UpdateApplicationListRequest\032"
+  "\026.vm_tools.EmptyMessage\022j\n!PendingUpdate"
+  "ApplicationListCalls\022-.vm_tools.containe"
+  "r.PendingAppListUpdateCount\032\026.vm_tools.E"
+  "mptyMessage\022E\n\007OpenUrl\022\".vm_tools.contai"
+  "ner.OpenUrlRequest\032\026.vm_tools.EmptyMessa"
+  "ge\022j\n\033InstallLinuxPackageProgress\0223.vm_t"
+  "ools.container.InstallLinuxPackageProgre"
+  "ssInfo\032\026.vm_tools.EmptyMessage\022d\n\030Uninst"
+  "allPackageProgress\0220.vm_tools.container."
+  "UninstallPackageProgressInfo\032\026.vm_tools."
+  "EmptyMessage\022l\n\034ApplyAnsiblePlaybookProg"
+  "ress\0224.vm_tools.container.ApplyAnsiblePl"
+  "aybookProgressInfo\032\026.vm_tools.EmptyMessa"
+  "ge\022O\n\014OpenTerminal\022\'.vm_tools.container."
+  "OpenTerminalRequest\032\026.vm_tools.EmptyMess"
+  "age\022U\n\017UpdateMimeTypes\022*.vm_tools.contai"
+  "ner.UpdateMimeTypesRequest\032\026.vm_tools.Em"
+  "ptyMessage\022X\n\022FileWatchTriggered\022*.vm_to"
+  "ols.container.FileWatchTriggeredInfo\032\026.v"
+  "m_tools.EmptyMessage\022^\n\025LowDiskSpaceTrig"
+  "gered\022-.vm_tools.container.LowDiskSpaceT"
+  "riggeredInfo\032\026.vm_tools.EmptyMessage\022\210\001\n"
+  "\031ForwardSecurityKeyMessage\0224.vm_tools.co"
+  "ntainer.ForwardSecurityKeyMessageRequest"
+  "\0325.vm_tools.container.ForwardSecurityKey"
+  "MessageResponse\022[\n\nSelectFile\022%.vm_tools"
+  ".container.SelectFileRequest\032&.vm_tools."
+  "container.SelectFileResponse\022^\n\013GetDiskI"
+  "nfo\022&.vm_tools.container.GetDiskInfoRequ"
+  "est\032\'.vm_tools.container.GetDiskInfoResp"
+  "onse\022a\n\014RequestSpace\022\'.vm_tools.containe"
+  "r.RequestSpaceRequest\032(.vm_tools.contain"
+  "er.RequestSpaceResponse\022a\n\014ReleaseSpace\022"
+  "\'.vm_tools.container.ReleaseSpaceRequest"
+  "\032(.vm_tools.container.ReleaseSpaceRespon"
+  "se\022d\n\rReportMetrics\022(.vm_tools.container"
+  ".ReportMetricsRequest\032).vm_tools.contain"
+  "er.ReportMetricsResponse\022[\n\022InstallShade"
+  "rCache\022-.vm_tools.container.InstallShade"
+  "rCacheRequest\032\026.vm_tools.EmptyMessage\022_\n"
+  "\024UninstallShaderCache\022/.vm_tools.contain"
+  "er.UninstallShaderCacheRequest\032\026.vm_tool"
+  "s.EmptyMessage\022X\n\022InhibitScreensaver\022*.v"
+  "m_tools.container.InhibitScreensaverInfo"
+  "\032\026.vm_tools.EmptyMessage\022\\\n\024UninhibitScr"
+  "eensaver\022,.vm_tools.container.UninhibitS"
+  "creensaverInfo\032\026.vm_tools.EmptyMessageB("
+  "Z#chromiumos/vm_tools/container_proto\370\001\001"
+  "b\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_container_5fhost_2eproto_deps[1] = {
   &::descriptor_table_common_2eproto,
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_container_5fhost_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_container_5fhost_2eproto = {
-  false, false, 5196, descriptor_table_protodef_container_5fhost_2eproto, "container_host.proto", 
-  &descriptor_table_container_5fhost_2eproto_once, descriptor_table_container_5fhost_2eproto_deps, 1, 33,
+  false, false, 5528, descriptor_table_protodef_container_5fhost_2eproto, "container_host.proto", 
+  &descriptor_table_container_5fhost_2eproto_once, descriptor_table_container_5fhost_2eproto_deps, 1, 35,
   schemas, file_default_instances, TableStruct_container_5fhost_2eproto::offsets,
   file_level_metadata_container_5fhost_2eproto, file_level_enum_descriptors_container_5fhost_2eproto, file_level_service_descriptors_container_5fhost_2eproto,
 };
@@ -9263,6 +9322,562 @@ void UninstallShaderCacheRequest::InternalSwap(UninstallShaderCacheRequest* othe
       file_level_metadata_container_5fhost_2eproto[32]);
 }
 
+// ===================================================================
+
+class InhibitScreensaverInfo::_Internal {
+ public:
+};
+
+InhibitScreensaverInfo::InhibitScreensaverInfo(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor();
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
+  // @@protoc_insertion_point(arena_constructor:vm_tools.container.InhibitScreensaverInfo)
+}
+InhibitScreensaverInfo::InhibitScreensaverInfo(const InhibitScreensaverInfo& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  token_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    token_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_token().empty()) {
+    token_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_token(), 
+      GetArenaForAllocation());
+  }
+  client_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    client_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_client().empty()) {
+    client_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_client(), 
+      GetArenaForAllocation());
+  }
+  reason_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    reason_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_reason().empty()) {
+    reason_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_reason(), 
+      GetArenaForAllocation());
+  }
+  cookie_ = from.cookie_;
+  // @@protoc_insertion_point(copy_constructor:vm_tools.container.InhibitScreensaverInfo)
+}
+
+inline void InhibitScreensaverInfo::SharedCtor() {
+token_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  token_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+client_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  client_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+reason_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  reason_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+cookie_ = 0;
+}
+
+InhibitScreensaverInfo::~InhibitScreensaverInfo() {
+  // @@protoc_insertion_point(destructor:vm_tools.container.InhibitScreensaverInfo)
+  if (GetArenaForAllocation() != nullptr) return;
+  SharedDtor();
+  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+inline void InhibitScreensaverInfo::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  token_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  client_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  reason_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+void InhibitScreensaverInfo::ArenaDtor(void* object) {
+  InhibitScreensaverInfo* _this = reinterpret_cast< InhibitScreensaverInfo* >(object);
+  (void)_this;
+}
+void InhibitScreensaverInfo::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void InhibitScreensaverInfo::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void InhibitScreensaverInfo::Clear() {
+// @@protoc_insertion_point(message_clear_start:vm_tools.container.InhibitScreensaverInfo)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  token_.ClearToEmpty();
+  client_.ClearToEmpty();
+  reason_.ClearToEmpty();
+  cookie_ = 0;
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* InhibitScreensaverInfo::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // string token = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_token();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vm_tools.container.InhibitScreensaverInfo.token"));
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 cookie = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          cookie_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // string client = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          auto str = _internal_mutable_client();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vm_tools.container.InhibitScreensaverInfo.client"));
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // string reason = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+          auto str = _internal_mutable_reason();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vm_tools.container.InhibitScreensaverInfo.reason"));
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* InhibitScreensaverInfo::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:vm_tools.container.InhibitScreensaverInfo)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string token = 1;
+  if (!this->_internal_token().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_token().data(), static_cast<int>(this->_internal_token().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "vm_tools.container.InhibitScreensaverInfo.token");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_token(), target);
+  }
+
+  // int32 cookie = 2;
+  if (this->_internal_cookie() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(2, this->_internal_cookie(), target);
+  }
+
+  // string client = 3;
+  if (!this->_internal_client().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_client().data(), static_cast<int>(this->_internal_client().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "vm_tools.container.InhibitScreensaverInfo.client");
+    target = stream->WriteStringMaybeAliased(
+        3, this->_internal_client(), target);
+  }
+
+  // string reason = 4;
+  if (!this->_internal_reason().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_reason().data(), static_cast<int>(this->_internal_reason().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "vm_tools.container.InhibitScreensaverInfo.reason");
+    target = stream->WriteStringMaybeAliased(
+        4, this->_internal_reason(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:vm_tools.container.InhibitScreensaverInfo)
+  return target;
+}
+
+size_t InhibitScreensaverInfo::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:vm_tools.container.InhibitScreensaverInfo)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string token = 1;
+  if (!this->_internal_token().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_token());
+  }
+
+  // string client = 3;
+  if (!this->_internal_client().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_client());
+  }
+
+  // string reason = 4;
+  if (!this->_internal_reason().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_reason());
+  }
+
+  // int32 cookie = 2;
+  if (this->_internal_cookie() != 0) {
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_cookie());
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData InhibitScreensaverInfo::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    InhibitScreensaverInfo::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*InhibitScreensaverInfo::GetClassData() const { return &_class_data_; }
+
+void InhibitScreensaverInfo::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
+                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+  static_cast<InhibitScreensaverInfo *>(to)->MergeFrom(
+      static_cast<const InhibitScreensaverInfo &>(from));
+}
+
+
+void InhibitScreensaverInfo::MergeFrom(const InhibitScreensaverInfo& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.container.InhibitScreensaverInfo)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (!from._internal_token().empty()) {
+    _internal_set_token(from._internal_token());
+  }
+  if (!from._internal_client().empty()) {
+    _internal_set_client(from._internal_client());
+  }
+  if (!from._internal_reason().empty()) {
+    _internal_set_reason(from._internal_reason());
+  }
+  if (from._internal_cookie() != 0) {
+    _internal_set_cookie(from._internal_cookie());
+  }
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void InhibitScreensaverInfo::CopyFrom(const InhibitScreensaverInfo& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:vm_tools.container.InhibitScreensaverInfo)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool InhibitScreensaverInfo::IsInitialized() const {
+  return true;
+}
+
+void InhibitScreensaverInfo::InternalSwap(InhibitScreensaverInfo* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &token_, lhs_arena,
+      &other->token_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &client_, lhs_arena,
+      &other->client_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &reason_, lhs_arena,
+      &other->reason_, rhs_arena
+  );
+  swap(cookie_, other->cookie_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata InhibitScreensaverInfo::GetMetadata() const {
+  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+      &descriptor_table_container_5fhost_2eproto_getter, &descriptor_table_container_5fhost_2eproto_once,
+      file_level_metadata_container_5fhost_2eproto[33]);
+}
+
+// ===================================================================
+
+class UninhibitScreensaverInfo::_Internal {
+ public:
+};
+
+UninhibitScreensaverInfo::UninhibitScreensaverInfo(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor();
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
+  // @@protoc_insertion_point(arena_constructor:vm_tools.container.UninhibitScreensaverInfo)
+}
+UninhibitScreensaverInfo::UninhibitScreensaverInfo(const UninhibitScreensaverInfo& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  token_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    token_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_token().empty()) {
+    token_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_token(), 
+      GetArenaForAllocation());
+  }
+  cookie_ = from.cookie_;
+  // @@protoc_insertion_point(copy_constructor:vm_tools.container.UninhibitScreensaverInfo)
+}
+
+inline void UninhibitScreensaverInfo::SharedCtor() {
+token_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  token_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+cookie_ = 0;
+}
+
+UninhibitScreensaverInfo::~UninhibitScreensaverInfo() {
+  // @@protoc_insertion_point(destructor:vm_tools.container.UninhibitScreensaverInfo)
+  if (GetArenaForAllocation() != nullptr) return;
+  SharedDtor();
+  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+inline void UninhibitScreensaverInfo::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  token_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+void UninhibitScreensaverInfo::ArenaDtor(void* object) {
+  UninhibitScreensaverInfo* _this = reinterpret_cast< UninhibitScreensaverInfo* >(object);
+  (void)_this;
+}
+void UninhibitScreensaverInfo::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void UninhibitScreensaverInfo::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void UninhibitScreensaverInfo::Clear() {
+// @@protoc_insertion_point(message_clear_start:vm_tools.container.UninhibitScreensaverInfo)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  token_.ClearToEmpty();
+  cookie_ = 0;
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* UninhibitScreensaverInfo::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // string token = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_token();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vm_tools.container.UninhibitScreensaverInfo.token"));
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 cookie = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          cookie_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* UninhibitScreensaverInfo::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:vm_tools.container.UninhibitScreensaverInfo)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string token = 1;
+  if (!this->_internal_token().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_token().data(), static_cast<int>(this->_internal_token().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "vm_tools.container.UninhibitScreensaverInfo.token");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_token(), target);
+  }
+
+  // int32 cookie = 2;
+  if (this->_internal_cookie() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(2, this->_internal_cookie(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:vm_tools.container.UninhibitScreensaverInfo)
+  return target;
+}
+
+size_t UninhibitScreensaverInfo::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:vm_tools.container.UninhibitScreensaverInfo)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string token = 1;
+  if (!this->_internal_token().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_token());
+  }
+
+  // int32 cookie = 2;
+  if (this->_internal_cookie() != 0) {
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_cookie());
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData UninhibitScreensaverInfo::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    UninhibitScreensaverInfo::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*UninhibitScreensaverInfo::GetClassData() const { return &_class_data_; }
+
+void UninhibitScreensaverInfo::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
+                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+  static_cast<UninhibitScreensaverInfo *>(to)->MergeFrom(
+      static_cast<const UninhibitScreensaverInfo &>(from));
+}
+
+
+void UninhibitScreensaverInfo::MergeFrom(const UninhibitScreensaverInfo& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.container.UninhibitScreensaverInfo)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (!from._internal_token().empty()) {
+    _internal_set_token(from._internal_token());
+  }
+  if (from._internal_cookie() != 0) {
+    _internal_set_cookie(from._internal_cookie());
+  }
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void UninhibitScreensaverInfo::CopyFrom(const UninhibitScreensaverInfo& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:vm_tools.container.UninhibitScreensaverInfo)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool UninhibitScreensaverInfo::IsInitialized() const {
+  return true;
+}
+
+void UninhibitScreensaverInfo::InternalSwap(UninhibitScreensaverInfo* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &token_, lhs_arena,
+      &other->token_, rhs_arena
+  );
+  swap(cookie_, other->cookie_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata UninhibitScreensaverInfo::GetMetadata() const {
+  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+      &descriptor_table_container_5fhost_2eproto_getter, &descriptor_table_container_5fhost_2eproto_once,
+      file_level_metadata_container_5fhost_2eproto[34]);
+}
+
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace container
 }  // namespace vm_tools
@@ -9365,6 +9980,12 @@ template<> PROTOBUF_NOINLINE ::vm_tools::container::InstallShaderCacheRequest* A
 }
 template<> PROTOBUF_NOINLINE ::vm_tools::container::UninstallShaderCacheRequest* Arena::CreateMaybeMessage< ::vm_tools::container::UninstallShaderCacheRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_tools::container::UninstallShaderCacheRequest >(arena);
+}
+template<> PROTOBUF_NOINLINE ::vm_tools::container::InhibitScreensaverInfo* Arena::CreateMaybeMessage< ::vm_tools::container::InhibitScreensaverInfo >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::vm_tools::container::InhibitScreensaverInfo >(arena);
+}
+template<> PROTOBUF_NOINLINE ::vm_tools::container::UninhibitScreensaverInfo* Arena::CreateMaybeMessage< ::vm_tools::container::UninhibitScreensaverInfo >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::vm_tools::container::UninhibitScreensaverInfo >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

@@ -130,12 +130,13 @@ enum SharePathRequest_StorageLocation : int {
   SharePathRequest_StorageLocation_FONTS = 8,
   SharePathRequest_StorageLocation_ARCHIVE = 9,
   SharePathRequest_StorageLocation_SMBFS = 10,
+  SharePathRequest_StorageLocation_GUEST_OS_FILES = 13,
   SharePathRequest_StorageLocation_SharePathRequest_StorageLocation_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   SharePathRequest_StorageLocation_SharePathRequest_StorageLocation_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool SharePathRequest_StorageLocation_IsValid(int value);
 constexpr SharePathRequest_StorageLocation SharePathRequest_StorageLocation_StorageLocation_MIN = SharePathRequest_StorageLocation_DOWNLOADS;
-constexpr SharePathRequest_StorageLocation SharePathRequest_StorageLocation_StorageLocation_MAX = SharePathRequest_StorageLocation_DRIVEFS_SHORTCUT_TARGETS_BY_ID;
+constexpr SharePathRequest_StorageLocation SharePathRequest_StorageLocation_StorageLocation_MAX = SharePathRequest_StorageLocation_GUEST_OS_FILES;
 constexpr int SharePathRequest_StorageLocation_StorageLocation_ARRAYSIZE = SharePathRequest_StorageLocation_StorageLocation_MAX + 1;
 
 const std::string& SharePathRequest_StorageLocation_Name(SharePathRequest_StorageLocation value);
@@ -1785,6 +1786,8 @@ class SharePathRequest final :
     SharePathRequest_StorageLocation_ARCHIVE;
   static constexpr StorageLocation SMBFS =
     SharePathRequest_StorageLocation_SMBFS;
+  static constexpr StorageLocation GUEST_OS_FILES =
+    SharePathRequest_StorageLocation_GUEST_OS_FILES;
   static inline bool StorageLocation_IsValid(int value) {
     return SharePathRequest_StorageLocation_IsValid(value);
   }
@@ -1812,6 +1815,7 @@ class SharePathRequest final :
     kOwnerIdFieldNumber = 4,
     kDrivefsMountNameFieldNumber = 5,
     kSmbfsMountNameFieldNumber = 6,
+    kGuestOsMountNameFieldNumber = 7,
     kSharedPathFieldNumber = 2,
     kHandleFieldNumber = 1,
     kStorageLocationFieldNumber = 3,
@@ -1856,6 +1860,20 @@ class SharePathRequest final :
   const std::string& _internal_smbfs_mount_name() const;
   inline PROTOBUF_ALWAYS_INLINE void _internal_set_smbfs_mount_name(const std::string& value);
   std::string* _internal_mutable_smbfs_mount_name();
+  public:
+
+  // string guest_os_mount_name = 7;
+  void clear_guest_os_mount_name();
+  const std::string& guest_os_mount_name() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_guest_os_mount_name(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_guest_os_mount_name();
+  PROTOBUF_NODISCARD std::string* release_guest_os_mount_name();
+  void set_allocated_guest_os_mount_name(std::string* guest_os_mount_name);
+  private:
+  const std::string& _internal_guest_os_mount_name() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_guest_os_mount_name(const std::string& value);
+  std::string* _internal_mutable_guest_os_mount_name();
   public:
 
   // .vm_tools.seneschal.SharedPath shared_path = 2;
@@ -1904,6 +1922,7 @@ class SharePathRequest final :
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr owner_id_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr drivefs_mount_name_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr smbfs_mount_name_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr guest_os_mount_name_;
   ::vm_tools::seneschal::SharedPath* shared_path_;
   uint32_t handle_;
   int storage_location_;
@@ -3485,6 +3504,57 @@ inline void SharePathRequest::set_allocated_smbfs_mount_name(std::string* smbfs_
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   // @@protoc_insertion_point(field_set_allocated:vm_tools.seneschal.SharePathRequest.smbfs_mount_name)
+}
+
+// string guest_os_mount_name = 7;
+inline void SharePathRequest::clear_guest_os_mount_name() {
+  guest_os_mount_name_.ClearToEmpty();
+}
+inline const std::string& SharePathRequest::guest_os_mount_name() const {
+  // @@protoc_insertion_point(field_get:vm_tools.seneschal.SharePathRequest.guest_os_mount_name)
+  return _internal_guest_os_mount_name();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void SharePathRequest::set_guest_os_mount_name(ArgT0&& arg0, ArgT... args) {
+ 
+ guest_os_mount_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:vm_tools.seneschal.SharePathRequest.guest_os_mount_name)
+}
+inline std::string* SharePathRequest::mutable_guest_os_mount_name() {
+  std::string* _s = _internal_mutable_guest_os_mount_name();
+  // @@protoc_insertion_point(field_mutable:vm_tools.seneschal.SharePathRequest.guest_os_mount_name)
+  return _s;
+}
+inline const std::string& SharePathRequest::_internal_guest_os_mount_name() const {
+  return guest_os_mount_name_.Get();
+}
+inline void SharePathRequest::_internal_set_guest_os_mount_name(const std::string& value) {
+  
+  guest_os_mount_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* SharePathRequest::_internal_mutable_guest_os_mount_name() {
+  
+  return guest_os_mount_name_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* SharePathRequest::release_guest_os_mount_name() {
+  // @@protoc_insertion_point(field_release:vm_tools.seneschal.SharePathRequest.guest_os_mount_name)
+  return guest_os_mount_name_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void SharePathRequest::set_allocated_guest_os_mount_name(std::string* guest_os_mount_name) {
+  if (guest_os_mount_name != nullptr) {
+    
+  } else {
+    
+  }
+  guest_os_mount_name_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), guest_os_mount_name,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (guest_os_mount_name_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    guest_os_mount_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:vm_tools.seneschal.SharePathRequest.guest_os_mount_name)
 }
 
 // -------------------------------------------------------------------

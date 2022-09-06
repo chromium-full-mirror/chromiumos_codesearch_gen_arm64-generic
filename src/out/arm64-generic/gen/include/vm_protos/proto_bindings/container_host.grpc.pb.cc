@@ -43,6 +43,8 @@ static const char* ContainerListener_method_names[] = {
   "/vm_tools.container.ContainerListener/ReportMetrics",
   "/vm_tools.container.ContainerListener/InstallShaderCache",
   "/vm_tools.container.ContainerListener/UninstallShaderCache",
+  "/vm_tools.container.ContainerListener/InhibitScreensaver",
+  "/vm_tools.container.ContainerListener/UninhibitScreensaver",
 };
 
 std::unique_ptr< ContainerListener::Stub> ContainerListener::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
@@ -72,6 +74,8 @@ ContainerListener::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& 
   , rpcmethod_ReportMetrics_(ContainerListener_method_names[17], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_InstallShaderCache_(ContainerListener_method_names[18], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_UninstallShaderCache_(ContainerListener_method_names[19], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_InhibitScreensaver_(ContainerListener_method_names[20], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_UninhibitScreensaver_(ContainerListener_method_names[21], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   {}
 
 ::grpc::Status ContainerListener::Stub::ContainerReady(::grpc::ClientContext* context, const ::vm_tools::container::ContainerStartupInfo& request, ::vm_tools::EmptyMessage* response) {
@@ -534,6 +538,52 @@ void ContainerListener::Stub::async::UninstallShaderCache(::grpc::ClientContext*
   return result;
 }
 
+::grpc::Status ContainerListener::Stub::InhibitScreensaver(::grpc::ClientContext* context, const ::vm_tools::container::InhibitScreensaverInfo& request, ::vm_tools::EmptyMessage* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::container::InhibitScreensaverInfo, ::vm_tools::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_InhibitScreensaver_, context, request, response);
+}
+
+void ContainerListener::Stub::async::InhibitScreensaver(::grpc::ClientContext* context, const ::vm_tools::container::InhibitScreensaverInfo* request, ::vm_tools::EmptyMessage* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::container::InhibitScreensaverInfo, ::vm_tools::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_InhibitScreensaver_, context, request, response, std::move(f));
+}
+
+void ContainerListener::Stub::async::InhibitScreensaver(::grpc::ClientContext* context, const ::vm_tools::container::InhibitScreensaverInfo* request, ::vm_tools::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_InhibitScreensaver_, context, request, response, reactor);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>* ContainerListener::Stub::PrepareAsyncInhibitScreensaverRaw(::grpc::ClientContext* context, const ::vm_tools::container::InhibitScreensaverInfo& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::EmptyMessage, ::vm_tools::container::InhibitScreensaverInfo, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_InhibitScreensaver_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>* ContainerListener::Stub::AsyncInhibitScreensaverRaw(::grpc::ClientContext* context, const ::vm_tools::container::InhibitScreensaverInfo& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncInhibitScreensaverRaw(context, request, cq);
+  result->StartCall();
+  return result;
+}
+
+::grpc::Status ContainerListener::Stub::UninhibitScreensaver(::grpc::ClientContext* context, const ::vm_tools::container::UninhibitScreensaverInfo& request, ::vm_tools::EmptyMessage* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::container::UninhibitScreensaverInfo, ::vm_tools::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_UninhibitScreensaver_, context, request, response);
+}
+
+void ContainerListener::Stub::async::UninhibitScreensaver(::grpc::ClientContext* context, const ::vm_tools::container::UninhibitScreensaverInfo* request, ::vm_tools::EmptyMessage* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::container::UninhibitScreensaverInfo, ::vm_tools::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_UninhibitScreensaver_, context, request, response, std::move(f));
+}
+
+void ContainerListener::Stub::async::UninhibitScreensaver(::grpc::ClientContext* context, const ::vm_tools::container::UninhibitScreensaverInfo* request, ::vm_tools::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_UninhibitScreensaver_, context, request, response, reactor);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>* ContainerListener::Stub::PrepareAsyncUninhibitScreensaverRaw(::grpc::ClientContext* context, const ::vm_tools::container::UninhibitScreensaverInfo& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::EmptyMessage, ::vm_tools::container::UninhibitScreensaverInfo, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_UninhibitScreensaver_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>* ContainerListener::Stub::AsyncUninhibitScreensaverRaw(::grpc::ClientContext* context, const ::vm_tools::container::UninhibitScreensaverInfo& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncUninhibitScreensaverRaw(context, request, cq);
+  result->StartCall();
+  return result;
+}
+
 ContainerListener::Service::Service() {
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       ContainerListener_method_names[0],
@@ -735,6 +785,26 @@ ContainerListener::Service::Service() {
              ::vm_tools::EmptyMessage* resp) {
                return service->UninstallShaderCache(ctx, req, resp);
              }, this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      ContainerListener_method_names[20],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< ContainerListener::Service, ::vm_tools::container::InhibitScreensaverInfo, ::vm_tools::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](ContainerListener::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::container::InhibitScreensaverInfo* req,
+             ::vm_tools::EmptyMessage* resp) {
+               return service->InhibitScreensaver(ctx, req, resp);
+             }, this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      ContainerListener_method_names[21],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< ContainerListener::Service, ::vm_tools::container::UninhibitScreensaverInfo, ::vm_tools::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](ContainerListener::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::container::UninhibitScreensaverInfo* req,
+             ::vm_tools::EmptyMessage* resp) {
+               return service->UninhibitScreensaver(ctx, req, resp);
+             }, this)));
 }
 
 ContainerListener::Service::~Service() {
@@ -874,6 +944,20 @@ ContainerListener::Service::~Service() {
 }
 
 ::grpc::Status ContainerListener::Service::UninstallShaderCache(::grpc::ServerContext* context, const ::vm_tools::container::UninstallShaderCacheRequest* request, ::vm_tools::EmptyMessage* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status ContainerListener::Service::InhibitScreensaver(::grpc::ServerContext* context, const ::vm_tools::container::InhibitScreensaverInfo* request, ::vm_tools::EmptyMessage* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status ContainerListener::Service::UninhibitScreensaver(::grpc::ServerContext* context, const ::vm_tools::container::UninhibitScreensaverInfo* request, ::vm_tools::EmptyMessage* response) {
   (void) context;
   (void) request;
   (void) response;

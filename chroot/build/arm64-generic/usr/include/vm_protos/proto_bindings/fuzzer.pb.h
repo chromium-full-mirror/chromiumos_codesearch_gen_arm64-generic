@@ -140,6 +140,8 @@ class ContainerListenerFuzzerSingleAction final :
     kReportMetricsRequest = 57,
     kInstallShaderCacheRequest = 62,
     kUninstallShaderCacheRequest = 63,
+    kInhibitScreensaverInfo = 64,
+    kUninhibitScreensaverInfo = 65,
     kMetricsConsentRequest = 33,
     kSendCrashReportRequest = 42,
     kSendFailureReportRequest = 46,
@@ -296,6 +298,8 @@ class ContainerListenerFuzzerSingleAction final :
     kReportMetricsRequestFieldNumber = 57,
     kInstallShaderCacheRequestFieldNumber = 62,
     kUninstallShaderCacheRequestFieldNumber = 63,
+    kInhibitScreensaverInfoFieldNumber = 64,
+    kUninhibitScreensaverInfoFieldNumber = 65,
     kMetricsConsentRequestFieldNumber = 33,
     kSendCrashReportRequestFieldNumber = 42,
     kSendFailureReportRequestFieldNumber = 46,
@@ -1207,6 +1211,42 @@ class ContainerListenerFuzzerSingleAction final :
       ::vm_tools::container::UninstallShaderCacheRequest* uninstall_shader_cache_request);
   ::vm_tools::container::UninstallShaderCacheRequest* unsafe_arena_release_uninstall_shader_cache_request();
 
+  // .vm_tools.container.InhibitScreensaverInfo inhibit_screensaver_info = 64;
+  bool has_inhibit_screensaver_info() const;
+  private:
+  bool _internal_has_inhibit_screensaver_info() const;
+  public:
+  void clear_inhibit_screensaver_info();
+  const ::vm_tools::container::InhibitScreensaverInfo& inhibit_screensaver_info() const;
+  PROTOBUF_NODISCARD ::vm_tools::container::InhibitScreensaverInfo* release_inhibit_screensaver_info();
+  ::vm_tools::container::InhibitScreensaverInfo* mutable_inhibit_screensaver_info();
+  void set_allocated_inhibit_screensaver_info(::vm_tools::container::InhibitScreensaverInfo* inhibit_screensaver_info);
+  private:
+  const ::vm_tools::container::InhibitScreensaverInfo& _internal_inhibit_screensaver_info() const;
+  ::vm_tools::container::InhibitScreensaverInfo* _internal_mutable_inhibit_screensaver_info();
+  public:
+  void unsafe_arena_set_allocated_inhibit_screensaver_info(
+      ::vm_tools::container::InhibitScreensaverInfo* inhibit_screensaver_info);
+  ::vm_tools::container::InhibitScreensaverInfo* unsafe_arena_release_inhibit_screensaver_info();
+
+  // .vm_tools.container.UninhibitScreensaverInfo uninhibit_screensaver_info = 65;
+  bool has_uninhibit_screensaver_info() const;
+  private:
+  bool _internal_has_uninhibit_screensaver_info() const;
+  public:
+  void clear_uninhibit_screensaver_info();
+  const ::vm_tools::container::UninhibitScreensaverInfo& uninhibit_screensaver_info() const;
+  PROTOBUF_NODISCARD ::vm_tools::container::UninhibitScreensaverInfo* release_uninhibit_screensaver_info();
+  ::vm_tools::container::UninhibitScreensaverInfo* mutable_uninhibit_screensaver_info();
+  void set_allocated_uninhibit_screensaver_info(::vm_tools::container::UninhibitScreensaverInfo* uninhibit_screensaver_info);
+  private:
+  const ::vm_tools::container::UninhibitScreensaverInfo& _internal_uninhibit_screensaver_info() const;
+  ::vm_tools::container::UninhibitScreensaverInfo* _internal_mutable_uninhibit_screensaver_info();
+  public:
+  void unsafe_arena_set_allocated_uninhibit_screensaver_info(
+      ::vm_tools::container::UninhibitScreensaverInfo* uninhibit_screensaver_info);
+  ::vm_tools::container::UninhibitScreensaverInfo* unsafe_arena_release_uninhibit_screensaver_info();
+
   // .vm_tools.EmptyMessage metrics_consent_request = 33;
   bool has_metrics_consent_request() const;
   private:
@@ -1484,6 +1524,8 @@ class ContainerListenerFuzzerSingleAction final :
   void set_has_report_metrics_request();
   void set_has_install_shader_cache_request();
   void set_has_uninstall_shader_cache_request();
+  void set_has_inhibit_screensaver_info();
+  void set_has_uninhibit_screensaver_info();
   void set_has_metrics_consent_request();
   void set_has_send_crash_report_request();
   void set_has_send_failure_report_request();
@@ -1568,6 +1610,8 @@ class ContainerListenerFuzzerSingleAction final :
     ::vm_tools::container::ReportMetricsRequest* report_metrics_request_;
     ::vm_tools::container::InstallShaderCacheRequest* install_shader_cache_request_;
     ::vm_tools::container::UninstallShaderCacheRequest* uninstall_shader_cache_request_;
+    ::vm_tools::container::InhibitScreensaverInfo* inhibit_screensaver_info_;
+    ::vm_tools::container::UninhibitScreensaverInfo* uninhibit_screensaver_info_;
     ::vm_tools::EmptyMessage* metrics_consent_request_;
     ::vm_tools::cicerone::CrashReport* send_crash_report_request_;
     ::vm_tools::cicerone::FailureReport* send_failure_report_request_;
@@ -3071,6 +3115,138 @@ inline ::vm_tools::container::UninstallShaderCacheRequest* ContainerListenerFuzz
 inline ::vm_tools::container::UninstallShaderCacheRequest* ContainerListenerFuzzerSingleAction::mutable_uninstall_shader_cache_request() {
   ::vm_tools::container::UninstallShaderCacheRequest* _msg = _internal_mutable_uninstall_shader_cache_request();
   // @@protoc_insertion_point(field_mutable:vm_tools.container.ContainerListenerFuzzerSingleAction.uninstall_shader_cache_request)
+  return _msg;
+}
+
+// .vm_tools.container.InhibitScreensaverInfo inhibit_screensaver_info = 64;
+inline bool ContainerListenerFuzzerSingleAction::_internal_has_inhibit_screensaver_info() const {
+  return input_case() == kInhibitScreensaverInfo;
+}
+inline bool ContainerListenerFuzzerSingleAction::has_inhibit_screensaver_info() const {
+  return _internal_has_inhibit_screensaver_info();
+}
+inline void ContainerListenerFuzzerSingleAction::set_has_inhibit_screensaver_info() {
+  _oneof_case_[0] = kInhibitScreensaverInfo;
+}
+inline ::vm_tools::container::InhibitScreensaverInfo* ContainerListenerFuzzerSingleAction::release_inhibit_screensaver_info() {
+  // @@protoc_insertion_point(field_release:vm_tools.container.ContainerListenerFuzzerSingleAction.inhibit_screensaver_info)
+  if (_internal_has_inhibit_screensaver_info()) {
+    clear_has_input();
+      ::vm_tools::container::InhibitScreensaverInfo* temp = input_.inhibit_screensaver_info_;
+    if (GetArenaForAllocation() != nullptr) {
+      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+    }
+    input_.inhibit_screensaver_info_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline const ::vm_tools::container::InhibitScreensaverInfo& ContainerListenerFuzzerSingleAction::_internal_inhibit_screensaver_info() const {
+  return _internal_has_inhibit_screensaver_info()
+      ? *input_.inhibit_screensaver_info_
+      : reinterpret_cast< ::vm_tools::container::InhibitScreensaverInfo&>(::vm_tools::container::_InhibitScreensaverInfo_default_instance_);
+}
+inline const ::vm_tools::container::InhibitScreensaverInfo& ContainerListenerFuzzerSingleAction::inhibit_screensaver_info() const {
+  // @@protoc_insertion_point(field_get:vm_tools.container.ContainerListenerFuzzerSingleAction.inhibit_screensaver_info)
+  return _internal_inhibit_screensaver_info();
+}
+inline ::vm_tools::container::InhibitScreensaverInfo* ContainerListenerFuzzerSingleAction::unsafe_arena_release_inhibit_screensaver_info() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:vm_tools.container.ContainerListenerFuzzerSingleAction.inhibit_screensaver_info)
+  if (_internal_has_inhibit_screensaver_info()) {
+    clear_has_input();
+    ::vm_tools::container::InhibitScreensaverInfo* temp = input_.inhibit_screensaver_info_;
+    input_.inhibit_screensaver_info_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline void ContainerListenerFuzzerSingleAction::unsafe_arena_set_allocated_inhibit_screensaver_info(::vm_tools::container::InhibitScreensaverInfo* inhibit_screensaver_info) {
+  clear_input();
+  if (inhibit_screensaver_info) {
+    set_has_inhibit_screensaver_info();
+    input_.inhibit_screensaver_info_ = inhibit_screensaver_info;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:vm_tools.container.ContainerListenerFuzzerSingleAction.inhibit_screensaver_info)
+}
+inline ::vm_tools::container::InhibitScreensaverInfo* ContainerListenerFuzzerSingleAction::_internal_mutable_inhibit_screensaver_info() {
+  if (!_internal_has_inhibit_screensaver_info()) {
+    clear_input();
+    set_has_inhibit_screensaver_info();
+    input_.inhibit_screensaver_info_ = CreateMaybeMessage< ::vm_tools::container::InhibitScreensaverInfo >(GetArenaForAllocation());
+  }
+  return input_.inhibit_screensaver_info_;
+}
+inline ::vm_tools::container::InhibitScreensaverInfo* ContainerListenerFuzzerSingleAction::mutable_inhibit_screensaver_info() {
+  ::vm_tools::container::InhibitScreensaverInfo* _msg = _internal_mutable_inhibit_screensaver_info();
+  // @@protoc_insertion_point(field_mutable:vm_tools.container.ContainerListenerFuzzerSingleAction.inhibit_screensaver_info)
+  return _msg;
+}
+
+// .vm_tools.container.UninhibitScreensaverInfo uninhibit_screensaver_info = 65;
+inline bool ContainerListenerFuzzerSingleAction::_internal_has_uninhibit_screensaver_info() const {
+  return input_case() == kUninhibitScreensaverInfo;
+}
+inline bool ContainerListenerFuzzerSingleAction::has_uninhibit_screensaver_info() const {
+  return _internal_has_uninhibit_screensaver_info();
+}
+inline void ContainerListenerFuzzerSingleAction::set_has_uninhibit_screensaver_info() {
+  _oneof_case_[0] = kUninhibitScreensaverInfo;
+}
+inline ::vm_tools::container::UninhibitScreensaverInfo* ContainerListenerFuzzerSingleAction::release_uninhibit_screensaver_info() {
+  // @@protoc_insertion_point(field_release:vm_tools.container.ContainerListenerFuzzerSingleAction.uninhibit_screensaver_info)
+  if (_internal_has_uninhibit_screensaver_info()) {
+    clear_has_input();
+      ::vm_tools::container::UninhibitScreensaverInfo* temp = input_.uninhibit_screensaver_info_;
+    if (GetArenaForAllocation() != nullptr) {
+      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+    }
+    input_.uninhibit_screensaver_info_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline const ::vm_tools::container::UninhibitScreensaverInfo& ContainerListenerFuzzerSingleAction::_internal_uninhibit_screensaver_info() const {
+  return _internal_has_uninhibit_screensaver_info()
+      ? *input_.uninhibit_screensaver_info_
+      : reinterpret_cast< ::vm_tools::container::UninhibitScreensaverInfo&>(::vm_tools::container::_UninhibitScreensaverInfo_default_instance_);
+}
+inline const ::vm_tools::container::UninhibitScreensaverInfo& ContainerListenerFuzzerSingleAction::uninhibit_screensaver_info() const {
+  // @@protoc_insertion_point(field_get:vm_tools.container.ContainerListenerFuzzerSingleAction.uninhibit_screensaver_info)
+  return _internal_uninhibit_screensaver_info();
+}
+inline ::vm_tools::container::UninhibitScreensaverInfo* ContainerListenerFuzzerSingleAction::unsafe_arena_release_uninhibit_screensaver_info() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:vm_tools.container.ContainerListenerFuzzerSingleAction.uninhibit_screensaver_info)
+  if (_internal_has_uninhibit_screensaver_info()) {
+    clear_has_input();
+    ::vm_tools::container::UninhibitScreensaverInfo* temp = input_.uninhibit_screensaver_info_;
+    input_.uninhibit_screensaver_info_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline void ContainerListenerFuzzerSingleAction::unsafe_arena_set_allocated_uninhibit_screensaver_info(::vm_tools::container::UninhibitScreensaverInfo* uninhibit_screensaver_info) {
+  clear_input();
+  if (uninhibit_screensaver_info) {
+    set_has_uninhibit_screensaver_info();
+    input_.uninhibit_screensaver_info_ = uninhibit_screensaver_info;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:vm_tools.container.ContainerListenerFuzzerSingleAction.uninhibit_screensaver_info)
+}
+inline ::vm_tools::container::UninhibitScreensaverInfo* ContainerListenerFuzzerSingleAction::_internal_mutable_uninhibit_screensaver_info() {
+  if (!_internal_has_uninhibit_screensaver_info()) {
+    clear_input();
+    set_has_uninhibit_screensaver_info();
+    input_.uninhibit_screensaver_info_ = CreateMaybeMessage< ::vm_tools::container::UninhibitScreensaverInfo >(GetArenaForAllocation());
+  }
+  return input_.uninhibit_screensaver_info_;
+}
+inline ::vm_tools::container::UninhibitScreensaverInfo* ContainerListenerFuzzerSingleAction::mutable_uninhibit_screensaver_info() {
+  ::vm_tools::container::UninhibitScreensaverInfo* _msg = _internal_mutable_uninhibit_screensaver_info();
+  // @@protoc_insertion_point(field_mutable:vm_tools.container.ContainerListenerFuzzerSingleAction.uninhibit_screensaver_info)
   return _msg;
 }
 

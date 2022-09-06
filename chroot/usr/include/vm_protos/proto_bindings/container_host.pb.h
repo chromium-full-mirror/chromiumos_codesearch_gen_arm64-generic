@@ -51,7 +51,7 @@ struct TableStruct_container_5fhost_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[33]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[35]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -99,6 +99,9 @@ extern GetDiskInfoRequestDefaultTypeInternal _GetDiskInfoRequest_default_instanc
 class GetDiskInfoResponse;
 struct GetDiskInfoResponseDefaultTypeInternal;
 extern GetDiskInfoResponseDefaultTypeInternal _GetDiskInfoResponse_default_instance_;
+class InhibitScreensaverInfo;
+struct InhibitScreensaverInfoDefaultTypeInternal;
+extern InhibitScreensaverInfoDefaultTypeInternal _InhibitScreensaverInfo_default_instance_;
 class InstallLinuxPackageProgressInfo;
 struct InstallLinuxPackageProgressInfoDefaultTypeInternal;
 extern InstallLinuxPackageProgressInfoDefaultTypeInternal _InstallLinuxPackageProgressInfo_default_instance_;
@@ -144,6 +147,9 @@ extern SelectFileRequestDefaultTypeInternal _SelectFileRequest_default_instance_
 class SelectFileResponse;
 struct SelectFileResponseDefaultTypeInternal;
 extern SelectFileResponseDefaultTypeInternal _SelectFileResponse_default_instance_;
+class UninhibitScreensaverInfo;
+struct UninhibitScreensaverInfoDefaultTypeInternal;
+extern UninhibitScreensaverInfoDefaultTypeInternal _UninhibitScreensaverInfo_default_instance_;
 class UninstallPackageProgressInfo;
 struct UninstallPackageProgressInfoDefaultTypeInternal;
 extern UninstallPackageProgressInfoDefaultTypeInternal _UninstallPackageProgressInfo_default_instance_;
@@ -175,6 +181,7 @@ template<> ::vm_tools::container::ForwardSecurityKeyMessageRequest* Arena::Creat
 template<> ::vm_tools::container::ForwardSecurityKeyMessageResponse* Arena::CreateMaybeMessage<::vm_tools::container::ForwardSecurityKeyMessageResponse>(Arena*);
 template<> ::vm_tools::container::GetDiskInfoRequest* Arena::CreateMaybeMessage<::vm_tools::container::GetDiskInfoRequest>(Arena*);
 template<> ::vm_tools::container::GetDiskInfoResponse* Arena::CreateMaybeMessage<::vm_tools::container::GetDiskInfoResponse>(Arena*);
+template<> ::vm_tools::container::InhibitScreensaverInfo* Arena::CreateMaybeMessage<::vm_tools::container::InhibitScreensaverInfo>(Arena*);
 template<> ::vm_tools::container::InstallLinuxPackageProgressInfo* Arena::CreateMaybeMessage<::vm_tools::container::InstallLinuxPackageProgressInfo>(Arena*);
 template<> ::vm_tools::container::InstallShaderCacheRequest* Arena::CreateMaybeMessage<::vm_tools::container::InstallShaderCacheRequest>(Arena*);
 template<> ::vm_tools::container::LowDiskSpaceTriggeredInfo* Arena::CreateMaybeMessage<::vm_tools::container::LowDiskSpaceTriggeredInfo>(Arena*);
@@ -190,6 +197,7 @@ template<> ::vm_tools::container::RequestSpaceRequest* Arena::CreateMaybeMessage
 template<> ::vm_tools::container::RequestSpaceResponse* Arena::CreateMaybeMessage<::vm_tools::container::RequestSpaceResponse>(Arena*);
 template<> ::vm_tools::container::SelectFileRequest* Arena::CreateMaybeMessage<::vm_tools::container::SelectFileRequest>(Arena*);
 template<> ::vm_tools::container::SelectFileResponse* Arena::CreateMaybeMessage<::vm_tools::container::SelectFileResponse>(Arena*);
+template<> ::vm_tools::container::UninhibitScreensaverInfo* Arena::CreateMaybeMessage<::vm_tools::container::UninhibitScreensaverInfo>(Arena*);
 template<> ::vm_tools::container::UninstallPackageProgressInfo* Arena::CreateMaybeMessage<::vm_tools::container::UninstallPackageProgressInfo>(Arena*);
 template<> ::vm_tools::container::UninstallShaderCacheRequest* Arena::CreateMaybeMessage<::vm_tools::container::UninstallShaderCacheRequest>(Arena*);
 template<> ::vm_tools::container::UpdateApplicationListRequest* Arena::CreateMaybeMessage<::vm_tools::container::UpdateApplicationListRequest>(Arena*);
@@ -5990,6 +5998,362 @@ class UninstallShaderCacheRequest final :
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_container_5fhost_2eproto;
 };
+// -------------------------------------------------------------------
+
+class InhibitScreensaverInfo final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:vm_tools.container.InhibitScreensaverInfo) */ {
+ public:
+  inline InhibitScreensaverInfo() : InhibitScreensaverInfo(nullptr) {}
+  ~InhibitScreensaverInfo() override;
+  explicit constexpr InhibitScreensaverInfo(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  InhibitScreensaverInfo(const InhibitScreensaverInfo& from);
+  InhibitScreensaverInfo(InhibitScreensaverInfo&& from) noexcept
+    : InhibitScreensaverInfo() {
+    *this = ::std::move(from);
+  }
+
+  inline InhibitScreensaverInfo& operator=(const InhibitScreensaverInfo& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline InhibitScreensaverInfo& operator=(InhibitScreensaverInfo&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const InhibitScreensaverInfo& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const InhibitScreensaverInfo* internal_default_instance() {
+    return reinterpret_cast<const InhibitScreensaverInfo*>(
+               &_InhibitScreensaverInfo_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    33;
+
+  friend void swap(InhibitScreensaverInfo& a, InhibitScreensaverInfo& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(InhibitScreensaverInfo* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(InhibitScreensaverInfo* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  InhibitScreensaverInfo* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<InhibitScreensaverInfo>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const InhibitScreensaverInfo& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom(const InhibitScreensaverInfo& from);
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to, const ::PROTOBUF_NAMESPACE_ID::Message& from);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(InhibitScreensaverInfo* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "vm_tools.container.InhibitScreensaverInfo";
+  }
+  protected:
+  explicit InhibitScreensaverInfo(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kTokenFieldNumber = 1,
+    kClientFieldNumber = 3,
+    kReasonFieldNumber = 4,
+    kCookieFieldNumber = 2,
+  };
+  // string token = 1;
+  void clear_token();
+  const std::string& token() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_token(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_token();
+  PROTOBUF_NODISCARD std::string* release_token();
+  void set_allocated_token(std::string* token);
+  private:
+  const std::string& _internal_token() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_token(const std::string& value);
+  std::string* _internal_mutable_token();
+  public:
+
+  // string client = 3;
+  void clear_client();
+  const std::string& client() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_client(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_client();
+  PROTOBUF_NODISCARD std::string* release_client();
+  void set_allocated_client(std::string* client);
+  private:
+  const std::string& _internal_client() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_client(const std::string& value);
+  std::string* _internal_mutable_client();
+  public:
+
+  // string reason = 4;
+  void clear_reason();
+  const std::string& reason() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_reason(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_reason();
+  PROTOBUF_NODISCARD std::string* release_reason();
+  void set_allocated_reason(std::string* reason);
+  private:
+  const std::string& _internal_reason() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_reason(const std::string& value);
+  std::string* _internal_mutable_reason();
+  public:
+
+  // int32 cookie = 2;
+  void clear_cookie();
+  int32_t cookie() const;
+  void set_cookie(int32_t value);
+  private:
+  int32_t _internal_cookie() const;
+  void _internal_set_cookie(int32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:vm_tools.container.InhibitScreensaverInfo)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr token_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr client_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr reason_;
+  int32_t cookie_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_container_5fhost_2eproto;
+};
+// -------------------------------------------------------------------
+
+class UninhibitScreensaverInfo final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:vm_tools.container.UninhibitScreensaverInfo) */ {
+ public:
+  inline UninhibitScreensaverInfo() : UninhibitScreensaverInfo(nullptr) {}
+  ~UninhibitScreensaverInfo() override;
+  explicit constexpr UninhibitScreensaverInfo(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  UninhibitScreensaverInfo(const UninhibitScreensaverInfo& from);
+  UninhibitScreensaverInfo(UninhibitScreensaverInfo&& from) noexcept
+    : UninhibitScreensaverInfo() {
+    *this = ::std::move(from);
+  }
+
+  inline UninhibitScreensaverInfo& operator=(const UninhibitScreensaverInfo& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline UninhibitScreensaverInfo& operator=(UninhibitScreensaverInfo&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const UninhibitScreensaverInfo& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const UninhibitScreensaverInfo* internal_default_instance() {
+    return reinterpret_cast<const UninhibitScreensaverInfo*>(
+               &_UninhibitScreensaverInfo_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    34;
+
+  friend void swap(UninhibitScreensaverInfo& a, UninhibitScreensaverInfo& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(UninhibitScreensaverInfo* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(UninhibitScreensaverInfo* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  UninhibitScreensaverInfo* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<UninhibitScreensaverInfo>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const UninhibitScreensaverInfo& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom(const UninhibitScreensaverInfo& from);
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to, const ::PROTOBUF_NAMESPACE_ID::Message& from);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(UninhibitScreensaverInfo* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "vm_tools.container.UninhibitScreensaverInfo";
+  }
+  protected:
+  explicit UninhibitScreensaverInfo(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kTokenFieldNumber = 1,
+    kCookieFieldNumber = 2,
+  };
+  // string token = 1;
+  void clear_token();
+  const std::string& token() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_token(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_token();
+  PROTOBUF_NODISCARD std::string* release_token();
+  void set_allocated_token(std::string* token);
+  private:
+  const std::string& _internal_token() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_token(const std::string& value);
+  std::string* _internal_mutable_token();
+  public:
+
+  // int32 cookie = 2;
+  void clear_cookie();
+  int32_t cookie() const;
+  void set_cookie(int32_t value);
+  private:
+  int32_t _internal_cookie() const;
+  void _internal_set_cookie(int32_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:vm_tools.container.UninhibitScreensaverInfo)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr token_;
+  int32_t cookie_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_container_5fhost_2eproto;
+};
 // ===================================================================
 
 
@@ -9616,9 +9980,265 @@ inline void UninstallShaderCacheRequest::set_steam_app_id(uint64_t value) {
   // @@protoc_insertion_point(field_set:vm_tools.container.UninstallShaderCacheRequest.steam_app_id)
 }
 
+// -------------------------------------------------------------------
+
+// InhibitScreensaverInfo
+
+// string token = 1;
+inline void InhibitScreensaverInfo::clear_token() {
+  token_.ClearToEmpty();
+}
+inline const std::string& InhibitScreensaverInfo::token() const {
+  // @@protoc_insertion_point(field_get:vm_tools.container.InhibitScreensaverInfo.token)
+  return _internal_token();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void InhibitScreensaverInfo::set_token(ArgT0&& arg0, ArgT... args) {
+ 
+ token_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:vm_tools.container.InhibitScreensaverInfo.token)
+}
+inline std::string* InhibitScreensaverInfo::mutable_token() {
+  std::string* _s = _internal_mutable_token();
+  // @@protoc_insertion_point(field_mutable:vm_tools.container.InhibitScreensaverInfo.token)
+  return _s;
+}
+inline const std::string& InhibitScreensaverInfo::_internal_token() const {
+  return token_.Get();
+}
+inline void InhibitScreensaverInfo::_internal_set_token(const std::string& value) {
+  
+  token_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* InhibitScreensaverInfo::_internal_mutable_token() {
+  
+  return token_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* InhibitScreensaverInfo::release_token() {
+  // @@protoc_insertion_point(field_release:vm_tools.container.InhibitScreensaverInfo.token)
+  return token_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void InhibitScreensaverInfo::set_allocated_token(std::string* token) {
+  if (token != nullptr) {
+    
+  } else {
+    
+  }
+  token_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), token,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (token_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    token_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:vm_tools.container.InhibitScreensaverInfo.token)
+}
+
+// int32 cookie = 2;
+inline void InhibitScreensaverInfo::clear_cookie() {
+  cookie_ = 0;
+}
+inline int32_t InhibitScreensaverInfo::_internal_cookie() const {
+  return cookie_;
+}
+inline int32_t InhibitScreensaverInfo::cookie() const {
+  // @@protoc_insertion_point(field_get:vm_tools.container.InhibitScreensaverInfo.cookie)
+  return _internal_cookie();
+}
+inline void InhibitScreensaverInfo::_internal_set_cookie(int32_t value) {
+  
+  cookie_ = value;
+}
+inline void InhibitScreensaverInfo::set_cookie(int32_t value) {
+  _internal_set_cookie(value);
+  // @@protoc_insertion_point(field_set:vm_tools.container.InhibitScreensaverInfo.cookie)
+}
+
+// string client = 3;
+inline void InhibitScreensaverInfo::clear_client() {
+  client_.ClearToEmpty();
+}
+inline const std::string& InhibitScreensaverInfo::client() const {
+  // @@protoc_insertion_point(field_get:vm_tools.container.InhibitScreensaverInfo.client)
+  return _internal_client();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void InhibitScreensaverInfo::set_client(ArgT0&& arg0, ArgT... args) {
+ 
+ client_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:vm_tools.container.InhibitScreensaverInfo.client)
+}
+inline std::string* InhibitScreensaverInfo::mutable_client() {
+  std::string* _s = _internal_mutable_client();
+  // @@protoc_insertion_point(field_mutable:vm_tools.container.InhibitScreensaverInfo.client)
+  return _s;
+}
+inline const std::string& InhibitScreensaverInfo::_internal_client() const {
+  return client_.Get();
+}
+inline void InhibitScreensaverInfo::_internal_set_client(const std::string& value) {
+  
+  client_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* InhibitScreensaverInfo::_internal_mutable_client() {
+  
+  return client_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* InhibitScreensaverInfo::release_client() {
+  // @@protoc_insertion_point(field_release:vm_tools.container.InhibitScreensaverInfo.client)
+  return client_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void InhibitScreensaverInfo::set_allocated_client(std::string* client) {
+  if (client != nullptr) {
+    
+  } else {
+    
+  }
+  client_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), client,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (client_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    client_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:vm_tools.container.InhibitScreensaverInfo.client)
+}
+
+// string reason = 4;
+inline void InhibitScreensaverInfo::clear_reason() {
+  reason_.ClearToEmpty();
+}
+inline const std::string& InhibitScreensaverInfo::reason() const {
+  // @@protoc_insertion_point(field_get:vm_tools.container.InhibitScreensaverInfo.reason)
+  return _internal_reason();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void InhibitScreensaverInfo::set_reason(ArgT0&& arg0, ArgT... args) {
+ 
+ reason_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:vm_tools.container.InhibitScreensaverInfo.reason)
+}
+inline std::string* InhibitScreensaverInfo::mutable_reason() {
+  std::string* _s = _internal_mutable_reason();
+  // @@protoc_insertion_point(field_mutable:vm_tools.container.InhibitScreensaverInfo.reason)
+  return _s;
+}
+inline const std::string& InhibitScreensaverInfo::_internal_reason() const {
+  return reason_.Get();
+}
+inline void InhibitScreensaverInfo::_internal_set_reason(const std::string& value) {
+  
+  reason_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* InhibitScreensaverInfo::_internal_mutable_reason() {
+  
+  return reason_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* InhibitScreensaverInfo::release_reason() {
+  // @@protoc_insertion_point(field_release:vm_tools.container.InhibitScreensaverInfo.reason)
+  return reason_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void InhibitScreensaverInfo::set_allocated_reason(std::string* reason) {
+  if (reason != nullptr) {
+    
+  } else {
+    
+  }
+  reason_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), reason,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (reason_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    reason_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:vm_tools.container.InhibitScreensaverInfo.reason)
+}
+
+// -------------------------------------------------------------------
+
+// UninhibitScreensaverInfo
+
+// string token = 1;
+inline void UninhibitScreensaverInfo::clear_token() {
+  token_.ClearToEmpty();
+}
+inline const std::string& UninhibitScreensaverInfo::token() const {
+  // @@protoc_insertion_point(field_get:vm_tools.container.UninhibitScreensaverInfo.token)
+  return _internal_token();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void UninhibitScreensaverInfo::set_token(ArgT0&& arg0, ArgT... args) {
+ 
+ token_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:vm_tools.container.UninhibitScreensaverInfo.token)
+}
+inline std::string* UninhibitScreensaverInfo::mutable_token() {
+  std::string* _s = _internal_mutable_token();
+  // @@protoc_insertion_point(field_mutable:vm_tools.container.UninhibitScreensaverInfo.token)
+  return _s;
+}
+inline const std::string& UninhibitScreensaverInfo::_internal_token() const {
+  return token_.Get();
+}
+inline void UninhibitScreensaverInfo::_internal_set_token(const std::string& value) {
+  
+  token_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* UninhibitScreensaverInfo::_internal_mutable_token() {
+  
+  return token_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* UninhibitScreensaverInfo::release_token() {
+  // @@protoc_insertion_point(field_release:vm_tools.container.UninhibitScreensaverInfo.token)
+  return token_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void UninhibitScreensaverInfo::set_allocated_token(std::string* token) {
+  if (token != nullptr) {
+    
+  } else {
+    
+  }
+  token_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), token,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (token_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    token_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:vm_tools.container.UninhibitScreensaverInfo.token)
+}
+
+// int32 cookie = 2;
+inline void UninhibitScreensaverInfo::clear_cookie() {
+  cookie_ = 0;
+}
+inline int32_t UninhibitScreensaverInfo::_internal_cookie() const {
+  return cookie_;
+}
+inline int32_t UninhibitScreensaverInfo::cookie() const {
+  // @@protoc_insertion_point(field_get:vm_tools.container.UninhibitScreensaverInfo.cookie)
+  return _internal_cookie();
+}
+inline void UninhibitScreensaverInfo::_internal_set_cookie(int32_t value) {
+  
+  cookie_ = value;
+}
+inline void UninhibitScreensaverInfo::set_cookie(int32_t value) {
+  _internal_set_cookie(value);
+  // @@protoc_insertion_point(field_set:vm_tools.container.UninhibitScreensaverInfo.cookie)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
