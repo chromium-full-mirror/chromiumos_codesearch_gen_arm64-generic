@@ -24,6 +24,9 @@ struct SerializedCryptohomeRecoveryMetadataBuilder;
 struct SerializedKioskMetadata;
 struct SerializedKioskMetadataBuilder;
 
+struct SerializedSmartCardMetadata;
+struct SerializedSmartCardMetadataBuilder;
+
 struct SerializedAuthFactor;
 struct SerializedAuthFactorBuilder;
 
@@ -33,35 +36,38 @@ enum class SerializedAuthFactorMetadata : uint8_t {
   SerializedPinMetadata = 2,
   SerializedCryptohomeRecoveryMetadata = 3,
   SerializedKioskMetadata = 4,
+  SerializedSmartCardMetadata = 5,
   MIN = NONE,
-  MAX = SerializedKioskMetadata
+  MAX = SerializedSmartCardMetadata
 };
 
-inline const SerializedAuthFactorMetadata (&EnumValuesSerializedAuthFactorMetadata())[5] {
+inline const SerializedAuthFactorMetadata (&EnumValuesSerializedAuthFactorMetadata())[6] {
   static const SerializedAuthFactorMetadata values[] = {
     SerializedAuthFactorMetadata::NONE,
     SerializedAuthFactorMetadata::SerializedPasswordMetadata,
     SerializedAuthFactorMetadata::SerializedPinMetadata,
     SerializedAuthFactorMetadata::SerializedCryptohomeRecoveryMetadata,
-    SerializedAuthFactorMetadata::SerializedKioskMetadata
+    SerializedAuthFactorMetadata::SerializedKioskMetadata,
+    SerializedAuthFactorMetadata::SerializedSmartCardMetadata
   };
   return values;
 }
 
 inline const char * const *EnumNamesSerializedAuthFactorMetadata() {
-  static const char * const names[6] = {
+  static const char * const names[7] = {
     "NONE",
     "SerializedPasswordMetadata",
     "SerializedPinMetadata",
     "SerializedCryptohomeRecoveryMetadata",
     "SerializedKioskMetadata",
+    "SerializedSmartCardMetadata",
     nullptr
   };
   return names;
 }
 
 inline const char *EnumNameSerializedAuthFactorMetadata(SerializedAuthFactorMetadata e) {
-  if (flatbuffers::IsOutRange(e, SerializedAuthFactorMetadata::NONE, SerializedAuthFactorMetadata::SerializedKioskMetadata)) return "";
+  if (flatbuffers::IsOutRange(e, SerializedAuthFactorMetadata::NONE, SerializedAuthFactorMetadata::SerializedSmartCardMetadata)) return "";
   const size_t index = static_cast<size_t>(e);
   return EnumNamesSerializedAuthFactorMetadata()[index];
 }
@@ -84,6 +90,10 @@ template<> struct SerializedAuthFactorMetadataTraits<cryptohome::SerializedCrypt
 
 template<> struct SerializedAuthFactorMetadataTraits<cryptohome::SerializedKioskMetadata> {
   static const SerializedAuthFactorMetadata enum_value = SerializedAuthFactorMetadata::SerializedKioskMetadata;
+};
+
+template<> struct SerializedAuthFactorMetadataTraits<cryptohome::SerializedSmartCardMetadata> {
+  static const SerializedAuthFactorMetadata enum_value = SerializedAuthFactorMetadata::SerializedSmartCardMetadata;
 };
 
 bool VerifySerializedAuthFactorMetadata(flatbuffers::Verifier &verifier, const void *obj, SerializedAuthFactorMetadata type);
@@ -205,6 +215,57 @@ inline flatbuffers::Offset<SerializedKioskMetadata> CreateSerializedKioskMetadat
   return builder_.Finish();
 }
 
+struct SerializedSmartCardMetadata FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+  typedef SerializedSmartCardMetadataBuilder Builder;
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
+    VT_PUBLIC_KEY_SPKI_DER = 4
+  };
+  const flatbuffers::Vector<uint8_t> *public_key_spki_der() const {
+    return GetPointer<const flatbuffers::Vector<uint8_t> *>(VT_PUBLIC_KEY_SPKI_DER);
+  }
+  bool Verify(flatbuffers::Verifier &verifier) const {
+    return VerifyTableStart(verifier) &&
+           VerifyOffset(verifier, VT_PUBLIC_KEY_SPKI_DER) &&
+           verifier.VerifyVector(public_key_spki_der()) &&
+           verifier.EndTable();
+  }
+};
+
+struct SerializedSmartCardMetadataBuilder {
+  typedef SerializedSmartCardMetadata Table;
+  flatbuffers::FlatBufferBuilder &fbb_;
+  flatbuffers::uoffset_t start_;
+  void add_public_key_spki_der(flatbuffers::Offset<flatbuffers::Vector<uint8_t>> public_key_spki_der) {
+    fbb_.AddOffset(SerializedSmartCardMetadata::VT_PUBLIC_KEY_SPKI_DER, public_key_spki_der);
+  }
+  explicit SerializedSmartCardMetadataBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+        : fbb_(_fbb) {
+    start_ = fbb_.StartTable();
+  }
+  flatbuffers::Offset<SerializedSmartCardMetadata> Finish() {
+    const auto end = fbb_.EndTable(start_);
+    auto o = flatbuffers::Offset<SerializedSmartCardMetadata>(end);
+    return o;
+  }
+};
+
+inline flatbuffers::Offset<SerializedSmartCardMetadata> CreateSerializedSmartCardMetadata(
+    flatbuffers::FlatBufferBuilder &_fbb,
+    flatbuffers::Offset<flatbuffers::Vector<uint8_t>> public_key_spki_der = 0) {
+  SerializedSmartCardMetadataBuilder builder_(_fbb);
+  builder_.add_public_key_spki_der(public_key_spki_der);
+  return builder_.Finish();
+}
+
+inline flatbuffers::Offset<SerializedSmartCardMetadata> CreateSerializedSmartCardMetadataDirect(
+    flatbuffers::FlatBufferBuilder &_fbb,
+    const std::vector<uint8_t> *public_key_spki_der = nullptr) {
+  auto public_key_spki_der__ = public_key_spki_der ? _fbb.CreateVector<uint8_t>(*public_key_spki_der) : 0;
+  return cryptohome::CreateSerializedSmartCardMetadata(
+      _fbb,
+      public_key_spki_der__);
+}
+
 struct SerializedAuthFactor FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   typedef SerializedAuthFactorBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
@@ -234,6 +295,9 @@ struct SerializedAuthFactor FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table
   const cryptohome::SerializedKioskMetadata *metadata_as_SerializedKioskMetadata() const {
     return metadata_type() == cryptohome::SerializedAuthFactorMetadata::SerializedKioskMetadata ? static_cast<const cryptohome::SerializedKioskMetadata *>(metadata()) : nullptr;
   }
+  const cryptohome::SerializedSmartCardMetadata *metadata_as_SerializedSmartCardMetadata() const {
+    return metadata_type() == cryptohome::SerializedAuthFactorMetadata::SerializedSmartCardMetadata ? static_cast<const cryptohome::SerializedSmartCardMetadata *>(metadata()) : nullptr;
+  }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyOffset(verifier, VT_AUTH_BLOCK_STATE) &&
@@ -259,6 +323,10 @@ template<> inline const cryptohome::SerializedCryptohomeRecoveryMetadata *Serial
 
 template<> inline const cryptohome::SerializedKioskMetadata *SerializedAuthFactor::metadata_as<cryptohome::SerializedKioskMetadata>() const {
   return metadata_as_SerializedKioskMetadata();
+}
+
+template<> inline const cryptohome::SerializedSmartCardMetadata *SerializedAuthFactor::metadata_as<cryptohome::SerializedSmartCardMetadata>() const {
+  return metadata_as_SerializedSmartCardMetadata();
 }
 
 struct SerializedAuthFactorBuilder {
@@ -316,6 +384,10 @@ inline bool VerifySerializedAuthFactorMetadata(flatbuffers::Verifier &verifier, 
     }
     case SerializedAuthFactorMetadata::SerializedKioskMetadata: {
       auto ptr = reinterpret_cast<const cryptohome::SerializedKioskMetadata *>(obj);
+      return verifier.VerifyTable(ptr);
+    }
+    case SerializedAuthFactorMetadata::SerializedSmartCardMetadata: {
+      auto ptr = reinterpret_cast<const cryptohome::SerializedSmartCardMetadata *>(obj);
       return verifier.VerifyTable(ptr);
     }
     default: return true;

@@ -180,6 +180,7 @@ class  CrosHealthdProbeServiceInterceptorForTesting : public CrosHealthdProbeSer
   virtual CrosHealthdProbeService* GetForwardingInterface() = 0;
   void ProbeProcessInfo(uint32_t process_id, ProbeProcessInfoCallback callback) override;
   void ProbeTelemetryInfo(const std::vector<::chromeos::cros_healthd::mojom::ProbeCategoryEnum>& categories, ProbeTelemetryInfoCallback callback) override;
+  void ProbeMultipleProcessInfo(const absl::optional<std::vector<uint32_t>>& process_ids, bool ignore_single_process_error, ProbeMultipleProcessInfoCallback callback) override;
 };
 class  CrosHealthdProbeServiceAsyncWaiter {
  public:
@@ -193,6 +194,8 @@ class  CrosHealthdProbeServiceAsyncWaiter {
       uint32_t process_id, ::chromeos::cros_healthd::mojom::ProcessResultPtr* out_process_info);
   void ProbeTelemetryInfo(
       const std::vector<::chromeos::cros_healthd::mojom::ProbeCategoryEnum>& categories, ::chromeos::cros_healthd::mojom::TelemetryInfoPtr* out_telemetry_info);
+  void ProbeMultipleProcessInfo(
+      const absl::optional<std::vector<uint32_t>>& process_ids, bool ignore_single_process_error, ::chromeos::cros_healthd::mojom::MultipleProcessResultPtr* out_multiple_process_info);
 
  private:
   CrosHealthdProbeService* const proxy_;

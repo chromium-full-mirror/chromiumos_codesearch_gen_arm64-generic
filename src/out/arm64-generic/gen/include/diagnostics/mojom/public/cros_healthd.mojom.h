@@ -408,7 +408,7 @@ class  CrosHealthdProbeService
   static const char Name_[];
   static uint32_t MessageToStableIPCHash_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
-  static constexpr uint32_t Version_ = 0;
+  static constexpr uint32_t Version_ = 1;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasSyncMethods_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
@@ -424,6 +424,7 @@ class  CrosHealthdProbeService
   enum MethodMinVersions : uint32_t {
     kProbeProcessInfoMinVersion = 0,
     kProbeTelemetryInfoMinVersion = 0,
+    kProbeMultipleProcessInfoMinVersion = 1,
   };
   virtual ~CrosHealthdProbeService() = default;
 
@@ -436,6 +437,11 @@ class  CrosHealthdProbeService
   using ProbeTelemetryInfoCallback = base::OnceCallback<void(::chromeos::cros_healthd::mojom::TelemetryInfoPtr)>;
   
   virtual void ProbeTelemetryInfo(const std::vector<::chromeos::cros_healthd::mojom::ProbeCategoryEnum>& categories, ProbeTelemetryInfoCallback callback) = 0;
+
+
+  using ProbeMultipleProcessInfoCallback = base::OnceCallback<void(::chromeos::cros_healthd::mojom::MultipleProcessResultPtr)>;
+  
+  virtual void ProbeMultipleProcessInfo(const absl::optional<std::vector<uint32_t>>& process_ids, bool ignore_single_process_error, ProbeMultipleProcessInfoCallback callback) = 0;
 };
 
 class CrosHealthdSystemServiceProxy;
@@ -671,6 +677,8 @@ class  CrosHealthdProbeServiceProxy
   void ProbeProcessInfo(uint32_t process_id, ProbeProcessInfoCallback callback) final;
   
   void ProbeTelemetryInfo(const std::vector<::chromeos::cros_healthd::mojom::ProbeCategoryEnum>& categories, ProbeTelemetryInfoCallback callback) final;
+  
+  void ProbeMultipleProcessInfo(const absl::optional<std::vector<uint32_t>>& process_ids, bool ignore_single_process_error, ProbeMultipleProcessInfoCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

@@ -142,9 +142,10 @@ class SessionManagerInterfaceInterface {
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<bool>> response) = 0;
   virtual void QueryAdbSideload(
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<bool>> response) = 0;
-  virtual void StartBrowserDataMigration(
-      dbus::MethodCall* method_call,
-      brillo::dbus_utils::ResponseSender sender) = 0;
+  virtual bool StartBrowserDataMigration(
+      brillo::ErrorPtr* error,
+      const std::string& in_account_id,
+      const std::string& in_mode) = 0;
   virtual void UnblockDevModeForInitialStateDetermination(
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<>> response) = 0;
   virtual void UnblockDevModeForEnrollment(
@@ -342,7 +343,7 @@ class SessionManagerInterfaceAdaptor {
         "QueryAdbSideload",
         base::Unretained(interface_),
         &SessionManagerInterfaceInterface::QueryAdbSideload);
-    itf->AddRawMethodHandler(
+    itf->AddSimpleMethodHandlerWithError(
         "StartBrowserDataMigration",
         base::Unretained(interface_),
         &SessionManagerInterfaceInterface::StartBrowserDataMigration);
@@ -563,6 +564,8 @@ class SessionManagerInterfaceAdaptor {
         "      <arg name=\"reply\" type=\"b\" direction=\"out\"/>\n"
         "    </method>\n"
         "    <method name=\"StartBrowserDataMigration\">\n"
+        "      <arg name=\"account_id\" type=\"s\" direction=\"in\"/>\n"
+        "      <arg name=\"mode\" type=\"s\" direction=\"in\"/>\n"
         "    </method>\n"
         "    <method name=\"UnblockDevModeForInitialStateDetermination\">\n"
         "    </method>\n"

@@ -1384,6 +1384,12 @@ std::string GetProtoDebugStringWithIndent(
                         value.device_trust_signals_json().c_str());
     output += "\n";
   }
+  if (value.has_include_customer_id()) {
+    output += indent + "  include_customer_id: ";
+    base::StringAppendF(&output, "%s",
+                        value.include_customer_id() ? "true" : "false");
+    output += "\n";
+  }
   output += indent + "}\n";
   return output;
 }

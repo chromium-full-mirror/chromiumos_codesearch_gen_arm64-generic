@@ -103,10 +103,6 @@ class BASE_EXPORT PlatformSharedMemoryRegion {
   };
 #endif
 
-  using ScopedPlatformHandle
-      [[deprecated("Use base::subtle::ScopedPlatformSharedMemoryHandle.")]] =
-          base::subtle::ScopedPlatformSharedMemoryHandle;
-
   // The minimum alignment in bytes that any mapped address produced by Map()
   // and MapAt() is guaranteed to have.
   enum { kMapMinimumAlignment = 32 };

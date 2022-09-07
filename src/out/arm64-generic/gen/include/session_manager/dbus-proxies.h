@@ -522,10 +522,14 @@ class SessionManagerInterfaceProxyInterface {
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
   virtual bool StartBrowserDataMigration(
+      const std::string& in_account_id,
+      const std::string& in_mode,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
   virtual void StartBrowserDataMigrationAsync(
+      const std::string& in_account_id,
+      const std::string& in_mode,
       base::OnceCallback<void()> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
@@ -2023,6 +2027,8 @@ class SessionManagerInterfaceProxy final : public SessionManagerInterfaceProxyIn
   }
 
   bool StartBrowserDataMigration(
+      const std::string& in_account_id,
+      const std::string& in_mode,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
     auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
@@ -2030,12 +2036,16 @@ class SessionManagerInterfaceProxy final : public SessionManagerInterfaceProxyIn
         dbus_object_proxy_,
         "org.chromium.SessionManagerInterface",
         "StartBrowserDataMigration",
-        error);
+        error,
+        in_account_id,
+        in_mode);
     return response && brillo::dbus_utils::ExtractMethodCallResults(
         response.get(), error);
   }
 
   void StartBrowserDataMigrationAsync(
+      const std::string& in_account_id,
+      const std::string& in_mode,
       base::OnceCallback<void()> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
@@ -2045,7 +2055,9 @@ class SessionManagerInterfaceProxy final : public SessionManagerInterfaceProxyIn
         "org.chromium.SessionManagerInterface",
         "StartBrowserDataMigration",
         std::move(success_callback),
-        std::move(error_callback));
+        std::move(error_callback),
+        in_account_id,
+        in_mode);
   }
 
   bool UnblockDevModeForInitialStateDetermination(

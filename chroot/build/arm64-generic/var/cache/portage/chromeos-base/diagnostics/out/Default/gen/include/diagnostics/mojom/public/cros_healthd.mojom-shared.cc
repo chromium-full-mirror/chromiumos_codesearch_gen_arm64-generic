@@ -2363,6 +2363,66 @@ CrosHealthdProbeService_ProbeTelemetryInfo_ResponseParams_Data::CrosHealthdProbe
 
 
 // static
+bool CrosHealthdProbeService_ProbeMultipleProcessInfo_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const CrosHealthdProbeService_ProbeMultipleProcessInfo_Params_Data* object =
+      static_cast<const CrosHealthdProbeService_ProbeMultipleProcessInfo_Params_Data*>(data);
+
+  const mojo::internal::ContainerValidateParams process_ids_validate_params(
+      0, false, nullptr);
+  if (!mojo::internal::ValidateContainer(object->process_ids, validation_context,
+                                         &process_ids_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+CrosHealthdProbeService_ProbeMultipleProcessInfo_Params_Data::CrosHealthdProbeService_ProbeMultipleProcessInfo_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool CrosHealthdProbeService_ProbeMultipleProcessInfo_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const CrosHealthdProbeService_ProbeMultipleProcessInfo_ResponseParams_Data* object =
+      static_cast<const CrosHealthdProbeService_ProbeMultipleProcessInfo_ResponseParams_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->multiple_process_info, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->multiple_process_info, validation_context))
+    return false;
+
+  return true;
+}
+
+CrosHealthdProbeService_ProbeMultipleProcessInfo_ResponseParams_Data::CrosHealthdProbeService_ProbeMultipleProcessInfo_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool CrosHealthdSystemService_GetServiceStatus_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {

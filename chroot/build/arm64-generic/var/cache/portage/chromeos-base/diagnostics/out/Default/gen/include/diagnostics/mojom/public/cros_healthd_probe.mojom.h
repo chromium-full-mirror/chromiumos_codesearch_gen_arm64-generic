@@ -190,6 +190,7 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+
 class  VirtualizationInfo {
  public:
   template <typename T>
@@ -7084,6 +7085,148 @@ class  SensorResult {
   Union_ data_;
 };
 
+
+
+
+
+
+class  MultipleProcessResult {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<MultipleProcessResult, T>::value>;
+  using DataView = MultipleProcessResultDataView;
+  using Data_ = internal::MultipleProcessResult_Data;
+
+  template <typename... Args>
+  static MultipleProcessResultPtr New(Args&&... args) {
+    return MultipleProcessResultPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static MultipleProcessResultPtr From(const U& u) {
+    return mojo::TypeConverter<MultipleProcessResultPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, MultipleProcessResult>::Convert(*this);
+  }
+
+
+  MultipleProcessResult();
+
+  MultipleProcessResult(
+      base::flat_map<uint32_t, ProcessInfoPtr> process_infos,
+      base::flat_map<uint32_t, ProbeErrorPtr> errors);
+
+MultipleProcessResult(const MultipleProcessResult&) = delete;
+MultipleProcessResult& operator=(const MultipleProcessResult&) = delete;
+
+  ~MultipleProcessResult();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = MultipleProcessResultPtr>
+  MultipleProcessResultPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, MultipleProcessResult::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, MultipleProcessResult::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        MultipleProcessResult::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        MultipleProcessResult::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::MultipleProcessResult_UnserializedMessageContext<
+            UserType, MultipleProcessResult::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<MultipleProcessResult::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return MultipleProcessResult::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::MultipleProcessResult_UnserializedMessageContext<
+            UserType, MultipleProcessResult::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<MultipleProcessResult::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  base::flat_map<uint32_t, ProcessInfoPtr> process_infos;
+  
+  base::flat_map<uint32_t, ProbeErrorPtr> errors;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, MultipleProcessResult::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, MultipleProcessResult::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, MultipleProcessResult::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, MultipleProcessResult::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
 
 
 
@@ -14060,6 +14203,35 @@ bool operator<(const T& lhs, const T& rhs) {
   return false;
 }
 template <typename StructPtrType>
+MultipleProcessResultPtr MultipleProcessResult::Clone() const {
+  return New(
+      mojo::Clone(process_infos),
+      mojo::Clone(errors)
+  );
+}
+
+template <typename T, MultipleProcessResult::EnableIfSame<T>*>
+bool MultipleProcessResult::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->process_infos, other_struct.process_infos))
+    return false;
+  if (!mojo::Equals(this->errors, other_struct.errors))
+    return false;
+  return true;
+}
+
+template <typename T, MultipleProcessResult::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.process_infos < rhs.process_infos)
+    return true;
+  if (rhs.process_infos < lhs.process_infos)
+    return false;
+  if (lhs.errors < rhs.errors)
+    return true;
+  if (rhs.errors < lhs.errors)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
 ProcessInfoPtr ProcessInfo::Clone() const {
   return New(
       mojo::Clone(command),
@@ -17216,6 +17388,26 @@ struct  StructTraits<::chromeos::cros_healthd::mojom::ProbeError::DataView,
   }
 
   static bool Read(::chromeos::cros_healthd::mojom::ProbeError::DataView input, ::chromeos::cros_healthd::mojom::ProbeErrorPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::chromeos::cros_healthd::mojom::MultipleProcessResult::DataView,
+                                         ::chromeos::cros_healthd::mojom::MultipleProcessResultPtr> {
+  static bool IsNull(const ::chromeos::cros_healthd::mojom::MultipleProcessResultPtr& input) { return !input; }
+  static void SetToNull(::chromeos::cros_healthd::mojom::MultipleProcessResultPtr* output) { output->reset(); }
+
+  static const decltype(::chromeos::cros_healthd::mojom::MultipleProcessResult::process_infos)& process_infos(
+      const ::chromeos::cros_healthd::mojom::MultipleProcessResultPtr& input) {
+    return input->process_infos;
+  }
+
+  static const decltype(::chromeos::cros_healthd::mojom::MultipleProcessResult::errors)& errors(
+      const ::chromeos::cros_healthd::mojom::MultipleProcessResultPtr& input) {
+    return input->errors;
+  }
+
+  static bool Read(::chromeos::cros_healthd::mojom::MultipleProcessResult::DataView input, ::chromeos::cros_healthd::mojom::MultipleProcessResultPtr* output);
 };
 
 

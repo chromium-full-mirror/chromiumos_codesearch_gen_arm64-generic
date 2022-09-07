@@ -8476,6 +8476,11 @@ uint32_t CrosHealthdProbeService::MessageToStableIPCHash_(mojo::Message& message
               "(Impl)chromeos::cros_healthd::mojom::CrosHealthdProbeService::ProbeTelemetryInfo");
       return value;
     }
+    case internal::kCrosHealthdProbeService_ProbeMultipleProcessInfo_Name: {
+      constexpr uint32_t value = base::MD5Hash32Constexpr(
+              "(Impl)chromeos::cros_healthd::mojom::CrosHealthdProbeService::ProbeMultipleProcessInfo");
+      return value;
+    }
   }
   return 0;
 }
@@ -8490,6 +8495,8 @@ const char* CrosHealthdProbeService::MessageToMethodName_(mojo::Message& message
             return "Receive chromeos::cros_healthd::mojom::CrosHealthdProbeService::ProbeProcessInfo";
       case internal::kCrosHealthdProbeService_ProbeTelemetryInfo_Name:
             return "Receive chromeos::cros_healthd::mojom::CrosHealthdProbeService::ProbeTelemetryInfo";
+      case internal::kCrosHealthdProbeService_ProbeMultipleProcessInfo_Name:
+            return "Receive chromeos::cros_healthd::mojom::CrosHealthdProbeService::ProbeMultipleProcessInfo";
     }
   } else {
     switch (message.name()) {
@@ -8497,6 +8504,8 @@ const char* CrosHealthdProbeService::MessageToMethodName_(mojo::Message& message
             return "Receive reply chromeos::cros_healthd::mojom::CrosHealthdProbeService::ProbeProcessInfo";
       case internal::kCrosHealthdProbeService_ProbeTelemetryInfo_Name:
             return "Receive reply chromeos::cros_healthd::mojom::CrosHealthdProbeService::ProbeTelemetryInfo";
+      case internal::kCrosHealthdProbeService_ProbeMultipleProcessInfo_Name:
+            return "Receive reply chromeos::cros_healthd::mojom::CrosHealthdProbeService::ProbeMultipleProcessInfo";
     }
   }
   return "Receive unknown mojo message";
@@ -8540,6 +8549,22 @@ class CrosHealthdProbeService_ProbeTelemetryInfo_ForwardToCallback
   bool Accept(mojo::Message* message) override;
  private:
   CrosHealthdProbeService::ProbeTelemetryInfoCallback callback_;
+};
+
+class CrosHealthdProbeService_ProbeMultipleProcessInfo_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  CrosHealthdProbeService_ProbeMultipleProcessInfo_ForwardToCallback(
+      CrosHealthdProbeService::ProbeMultipleProcessInfoCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  CrosHealthdProbeService_ProbeMultipleProcessInfo_ForwardToCallback(const CrosHealthdProbeService_ProbeMultipleProcessInfo_ForwardToCallback&) = delete;
+  CrosHealthdProbeService_ProbeMultipleProcessInfo_ForwardToCallback& operator=(const CrosHealthdProbeService_ProbeMultipleProcessInfo_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  CrosHealthdProbeService::ProbeMultipleProcessInfoCallback callback_;
 };
 
 CrosHealthdProbeServiceProxy::CrosHealthdProbeServiceProxy(mojo::MessageReceiverWithResponder* receiver)
@@ -8632,6 +8657,57 @@ void CrosHealthdProbeServiceProxy::ProbeTelemetryInfo(
 #endif
   std::unique_ptr<mojo::MessageReceiver> responder(
       new CrosHealthdProbeService_ProbeTelemetryInfo_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+}
+
+void CrosHealthdProbeServiceProxy::ProbeMultipleProcessInfo(
+    const absl::optional<std::vector<uint32_t>>& in_process_ids, bool in_ignore_single_process_error, ProbeMultipleProcessInfoCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send chromeos::cros_healthd::mojom::CrosHealthdProbeService::ProbeMultipleProcessInfo", "input_parameters",
+    [&](perfetto_libchrome::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("process_ids"), in_process_ids,
+                        "<value of type const absl::optional<std::vector<uint32_t>>&>");
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("ignore_single_process_error"), in_ignore_single_process_error,
+                        "<value of type bool>");
+   });
+#endif
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kCrosHealthdProbeService_ProbeMultipleProcessInfo_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::chromeos::cros_healthd::mojom::internal::CrosHealthdProbeService_ProbeMultipleProcessInfo_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->process_ids)::BaseType>
+      process_ids_fragment(params.message());
+  const mojo::internal::ContainerValidateParams process_ids_validate_params(
+      0, false, nullptr);
+  mojo::internal::Serialize<mojo::ArrayDataView<uint32_t>>(
+      in_process_ids, process_ids_fragment, &process_ids_validate_params);
+  params->process_ids.Set(
+      process_ids_fragment.is_null() ? nullptr : process_ids_fragment.data());
+  params->ignore_single_process_error = in_ignore_single_process_error;
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(CrosHealthdProbeService::Name_);
+  message.set_method_name("ProbeMultipleProcessInfo");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new CrosHealthdProbeService_ProbeMultipleProcessInfo_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
 }
@@ -8881,6 +8957,130 @@ void CrosHealthdProbeService_ProbeTelemetryInfo_ProxyToResponder::Run(
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
+class CrosHealthdProbeService_ProbeMultipleProcessInfo_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static CrosHealthdProbeService::ProbeMultipleProcessInfoCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<CrosHealthdProbeService_ProbeMultipleProcessInfo_ProxyToResponder> proxy(
+        new CrosHealthdProbeService_ProbeMultipleProcessInfo_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&CrosHealthdProbeService_ProbeMultipleProcessInfo_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~CrosHealthdProbeService_ProbeMultipleProcessInfo_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  CrosHealthdProbeService_ProbeMultipleProcessInfo_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "CrosHealthdProbeService::ProbeMultipleProcessInfoCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      ::chromeos::cros_healthd::mojom::MultipleProcessResultPtr in_multiple_process_info);
+};
+
+bool CrosHealthdProbeService_ProbeMultipleProcessInfo_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::CrosHealthdProbeService_ProbeMultipleProcessInfo_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::CrosHealthdProbeService_ProbeMultipleProcessInfo_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  ::chromeos::cros_healthd::mojom::MultipleProcessResultPtr p_multiple_process_info{};
+  CrosHealthdProbeService_ProbeMultipleProcessInfo_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadMultipleProcessInfo(&p_multiple_process_info))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        CrosHealthdProbeService::Name_, 2, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_multiple_process_info));
+  return true;
+}
+
+void CrosHealthdProbeService_ProbeMultipleProcessInfo_ProxyToResponder::Run(
+    ::chromeos::cros_healthd::mojom::MultipleProcessResultPtr in_multiple_process_info) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply chromeos::cros_healthd::mojom::CrosHealthdProbeService::ProbeMultipleProcessInfo", "async_response_parameters",
+    [&](perfetto_libchrome::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("multiple_process_info"), in_multiple_process_info,
+                        "<value of type ::chromeos::cros_healthd::mojom::MultipleProcessResultPtr>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kCrosHealthdProbeService_ProbeMultipleProcessInfo_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::chromeos::cros_healthd::mojom::internal::CrosHealthdProbeService_ProbeMultipleProcessInfo_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->multiple_process_info)::BaseType> multiple_process_info_fragment(
+          params.message());
+  mojo::internal::Serialize<::chromeos::cros_healthd::mojom::MultipleProcessResultDataView>(
+      in_multiple_process_info, multiple_process_info_fragment);
+  params->multiple_process_info.Set(
+      multiple_process_info_fragment.is_null() ? nullptr : multiple_process_info_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->multiple_process_info.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null multiple_process_info in ");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(CrosHealthdProbeService::Name_);
+  message.set_method_name("ProbeMultipleProcessInfo");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMessage(*responder_, message);
+  // SendMessage fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
 
 // static
 bool CrosHealthdProbeServiceStubDispatch::Accept(
@@ -8891,6 +9091,9 @@ bool CrosHealthdProbeServiceStubDispatch::Accept(
       break;
     }
     case internal::kCrosHealthdProbeService_ProbeTelemetryInfo_Name: {
+      break;
+    }
+    case internal::kCrosHealthdProbeService_ProbeMultipleProcessInfo_Name: {
       break;
     }
   }
@@ -8964,6 +9167,39 @@ std::move(p_process_id), std::move(callback));
 std::move(p_categories), std::move(callback));
       return true;
     }
+    case internal::kCrosHealthdProbeService_ProbeMultipleProcessInfo_Name: {
+
+      internal::CrosHealthdProbeService_ProbeMultipleProcessInfo_Params_Data* params =
+          reinterpret_cast<
+              internal::CrosHealthdProbeService_ProbeMultipleProcessInfo_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      absl::optional<std::vector<uint32_t>> p_process_ids{};
+      bool p_ignore_single_process_error{};
+      CrosHealthdProbeService_ProbeMultipleProcessInfo_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadProcessIds(&p_process_ids))
+        success = false;
+      if (success)
+        p_ignore_single_process_error = input_data_view.ignore_single_process_error();
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            CrosHealthdProbeService::Name_, 2, false);
+        return false;
+      }
+      CrosHealthdProbeService::ProbeMultipleProcessInfoCallback callback =
+          CrosHealthdProbeService_ProbeMultipleProcessInfo_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->ProbeMultipleProcessInfo(
+std::move(p_process_ids), 
+std::move(p_ignore_single_process_error), std::move(callback));
+      return true;
+    }
   }
   return false;
 }
@@ -8974,6 +9210,8 @@ static const mojo::internal::GenericValidationInfo kCrosHealthdProbeServiceValid
      &internal::CrosHealthdProbeService_ProbeProcessInfo_ResponseParams_Data::Validate},
     {&internal::CrosHealthdProbeService_ProbeTelemetryInfo_Params_Data::Validate,
      &internal::CrosHealthdProbeService_ProbeTelemetryInfo_ResponseParams_Data::Validate},
+    {&internal::CrosHealthdProbeService_ProbeMultipleProcessInfo_Params_Data::Validate,
+     &internal::CrosHealthdProbeService_ProbeMultipleProcessInfo_ResponseParams_Data::Validate},
 };
 
 bool CrosHealthdProbeServiceRequestValidator::Accept(mojo::Message* message) {
@@ -10467,6 +10705,9 @@ void CrosHealthdProbeServiceInterceptorForTesting::ProbeProcessInfo(uint32_t pro
 void CrosHealthdProbeServiceInterceptorForTesting::ProbeTelemetryInfo(const std::vector<::chromeos::cros_healthd::mojom::ProbeCategoryEnum>& categories, ProbeTelemetryInfoCallback callback) {
   GetForwardingInterface()->ProbeTelemetryInfo(std::move(categories), std::move(callback));
 }
+void CrosHealthdProbeServiceInterceptorForTesting::ProbeMultipleProcessInfo(const absl::optional<std::vector<uint32_t>>& process_ids, bool ignore_single_process_error, ProbeMultipleProcessInfoCallback callback) {
+  GetForwardingInterface()->ProbeMultipleProcessInfo(std::move(process_ids), std::move(ignore_single_process_error), std::move(callback));
+}
 CrosHealthdProbeServiceAsyncWaiter::CrosHealthdProbeServiceAsyncWaiter(
     CrosHealthdProbeService* proxy) : proxy_(proxy) {}
 
@@ -10500,6 +10741,21 @@ void CrosHealthdProbeServiceAsyncWaiter::ProbeTelemetryInfo(
           },
           &loop,
           out_telemetry_info));
+  loop.Run();
+}
+void CrosHealthdProbeServiceAsyncWaiter::ProbeMultipleProcessInfo(
+    const absl::optional<std::vector<uint32_t>>& process_ids, bool ignore_single_process_error, ::chromeos::cros_healthd::mojom::MultipleProcessResultPtr* out_multiple_process_info) {
+  base::RunLoop loop;
+  proxy_->ProbeMultipleProcessInfo(std::move(process_ids),std::move(ignore_single_process_error),
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             ::chromeos::cros_healthd::mojom::MultipleProcessResultPtr* out_multiple_process_info
+,
+             ::chromeos::cros_healthd::mojom::MultipleProcessResultPtr multiple_process_info) {*out_multiple_process_info = std::move(multiple_process_info);
+            loop->Quit();
+          },
+          &loop,
+          out_multiple_process_info));
   loop.Run();
 }
 

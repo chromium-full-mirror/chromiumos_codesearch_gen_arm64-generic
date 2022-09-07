@@ -45,8 +45,4 @@ inline
 
 }  // namespace base
 
-template <class Dest, class Source>
-[[deprecated("The function was moved, use base::bit_cast.")]]
-inline Dest bit_cast(Source source) { return base::bit_cast<Dest>(source); }
-
 #endif  // BASE_BIT_CAST_H_

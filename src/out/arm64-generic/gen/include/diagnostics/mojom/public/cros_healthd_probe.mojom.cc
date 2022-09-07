@@ -93,6 +93,46 @@ bool ProbeError::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+MultipleProcessResult::MultipleProcessResult()
+    : process_infos(),
+      errors() {}
+
+MultipleProcessResult::MultipleProcessResult(
+    base::flat_map<uint32_t, ProcessInfoPtr> process_infos_in,
+    base::flat_map<uint32_t, ProbeErrorPtr> errors_in)
+    : process_infos(std::move(process_infos_in)),
+      errors(std::move(errors_in)) {}
+
+MultipleProcessResult::~MultipleProcessResult() = default;
+
+void MultipleProcessResult::WriteIntoTrace(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "process_infos"), this->process_infos,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type base::flat_map<uint32_t, ProcessInfoPtr>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "errors"), this->errors,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type base::flat_map<uint32_t, ProbeErrorPtr>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool MultipleProcessResult::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 ProcessInfo::ProcessInfo()
     : command(),
       user_id(),
@@ -7250,6 +7290,22 @@ bool StructTraits<::chromeos::cros_healthd::mojom::ProbeError::DataView, ::chrom
       if (success && !input.ReadType(&result->type))
         success = false;
       if (success && !input.ReadMsg(&result->msg))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::chromeos::cros_healthd::mojom::MultipleProcessResult::DataView, ::chromeos::cros_healthd::mojom::MultipleProcessResultPtr>::Read(
+    ::chromeos::cros_healthd::mojom::MultipleProcessResult::DataView input,
+    ::chromeos::cros_healthd::mojom::MultipleProcessResultPtr* output) {
+  bool success = true;
+  ::chromeos::cros_healthd::mojom::MultipleProcessResultPtr result(::chromeos::cros_healthd::mojom::MultipleProcessResult::New());
+  
+      if (success && !input.ReadProcessInfos(&result->process_infos))
+        success = false;
+      if (success && !input.ReadErrors(&result->errors))
         success = false;
   *output = std::move(result);
   return success;

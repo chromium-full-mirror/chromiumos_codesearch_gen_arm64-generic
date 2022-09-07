@@ -1330,6 +1330,40 @@ class  CrosHealthdProbeService_ProbeTelemetryInfo_ResponseParams_Data {
 };
 static_assert(sizeof(CrosHealthdProbeService_ProbeTelemetryInfo_ResponseParams_Data) == 16,
               "Bad sizeof(CrosHealthdProbeService_ProbeTelemetryInfo_ResponseParams_Data)");
+class  CrosHealthdProbeService_ProbeMultipleProcessInfo_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::Array_Data<uint32_t>> process_ids;
+  uint8_t ignore_single_process_error : 1;
+  uint8_t padfinal_[7];
+
+ private:
+  friend class mojo::internal::MessageFragment<CrosHealthdProbeService_ProbeMultipleProcessInfo_Params_Data>;
+
+  CrosHealthdProbeService_ProbeMultipleProcessInfo_Params_Data();
+  ~CrosHealthdProbeService_ProbeMultipleProcessInfo_Params_Data() = delete;
+};
+static_assert(sizeof(CrosHealthdProbeService_ProbeMultipleProcessInfo_Params_Data) == 24,
+              "Bad sizeof(CrosHealthdProbeService_ProbeMultipleProcessInfo_Params_Data)");
+class  CrosHealthdProbeService_ProbeMultipleProcessInfo_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::MultipleProcessResult_Data> multiple_process_info;
+
+ private:
+  friend class mojo::internal::MessageFragment<CrosHealthdProbeService_ProbeMultipleProcessInfo_ResponseParams_Data>;
+
+  CrosHealthdProbeService_ProbeMultipleProcessInfo_ResponseParams_Data();
+  ~CrosHealthdProbeService_ProbeMultipleProcessInfo_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(CrosHealthdProbeService_ProbeMultipleProcessInfo_ResponseParams_Data) == 16,
+              "Bad sizeof(CrosHealthdProbeService_ProbeMultipleProcessInfo_ResponseParams_Data)");
 class  CrosHealthdSystemService_GetServiceStatus_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -3497,6 +3531,73 @@ class CrosHealthdProbeService_ProbeTelemetryInfo_ResponseParamsDataView {
 
 
 
+class CrosHealthdProbeService_ProbeMultipleProcessInfo_ParamsDataView {
+ public:
+  CrosHealthdProbeService_ProbeMultipleProcessInfo_ParamsDataView() = default;
+
+  CrosHealthdProbeService_ProbeMultipleProcessInfo_ParamsDataView(
+      internal::CrosHealthdProbeService_ProbeMultipleProcessInfo_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetProcessIdsDataView(
+      mojo::ArrayDataView<uint32_t>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadProcessIds(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::ArrayDataView<uint32_t>, UserType>(),
+    "Attempting to read the optional `process_ids` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadProcessIds` instead "
+    "of `ReadProcessIds if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->process_ids.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<uint32_t>>(
+        pointer, output, message_);
+  }
+  bool ignore_single_process_error() const {
+    return data_->ignore_single_process_error;
+  }
+ private:
+  internal::CrosHealthdProbeService_ProbeMultipleProcessInfo_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
+class CrosHealthdProbeService_ProbeMultipleProcessInfo_ResponseParamsDataView {
+ public:
+  CrosHealthdProbeService_ProbeMultipleProcessInfo_ResponseParamsDataView() = default;
+
+  CrosHealthdProbeService_ProbeMultipleProcessInfo_ResponseParamsDataView(
+      internal::CrosHealthdProbeService_ProbeMultipleProcessInfo_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetMultipleProcessInfoDataView(
+      ::chromeos::cros_healthd::mojom::MultipleProcessResultDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadMultipleProcessInfo(UserType* output) {
+    
+    auto* pointer = data_->multiple_process_info.Get();
+    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::MultipleProcessResultDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::CrosHealthdProbeService_ProbeMultipleProcessInfo_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
 class CrosHealthdSystemService_GetServiceStatus_ParamsDataView {
  public:
   CrosHealthdSystemService_GetServiceStatus_ParamsDataView() = default;
@@ -4022,6 +4123,20 @@ inline void CrosHealthdProbeService_ProbeTelemetryInfo_ResponseParamsDataView::G
     ::chromeos::cros_healthd::mojom::TelemetryInfoDataView* output) {
   auto pointer = data_->telemetry_info.Get();
   *output = ::chromeos::cros_healthd::mojom::TelemetryInfoDataView(pointer, message_);
+}
+
+
+inline void CrosHealthdProbeService_ProbeMultipleProcessInfo_ParamsDataView::GetProcessIdsDataView(
+    mojo::ArrayDataView<uint32_t>* output) {
+  auto pointer = data_->process_ids.Get();
+  *output = mojo::ArrayDataView<uint32_t>(pointer, message_);
+}
+
+
+inline void CrosHealthdProbeService_ProbeMultipleProcessInfo_ResponseParamsDataView::GetMultipleProcessInfoDataView(
+    ::chromeos::cros_healthd::mojom::MultipleProcessResultDataView* output) {
+  auto pointer = data_->multiple_process_info.Get();
+  *output = ::chromeos::cros_healthd::mojom::MultipleProcessResultDataView(pointer, message_);
 }
 
 

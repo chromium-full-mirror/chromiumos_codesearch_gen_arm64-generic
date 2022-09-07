@@ -38,6 +38,8 @@ namespace cros_healthd {
 namespace mojom {
 class ProbeErrorDataView;
 
+class MultipleProcessResultDataView;
+
 class ProcessInfoDataView;
 
 class BatteryInfoDataView;
@@ -195,6 +197,13 @@ namespace internal {
 template <>
 struct MojomTypeTraits<::chromeos::cros_healthd::mojom::ProbeErrorDataView> {
   using Data = ::chromeos::cros_healthd::mojom::internal::ProbeError_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::chromeos::cros_healthd::mojom::MultipleProcessResultDataView> {
+  using Data = ::chromeos::cros_healthd::mojom::internal::MultipleProcessResult_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -1477,6 +1486,43 @@ class ProbeErrorDataView {
   }
  private:
   internal::ProbeError_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
+class MultipleProcessResultDataView {
+ public:
+  MultipleProcessResultDataView() = default;
+
+  MultipleProcessResultDataView(
+      internal::MultipleProcessResult_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetProcessInfosDataView(
+      mojo::MapDataView<uint32_t, ProcessInfoDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadProcessInfos(UserType* output) {
+    
+    auto* pointer = data_->process_infos.Get();
+    return mojo::internal::Deserialize<mojo::MapDataView<uint32_t, ::chromeos::cros_healthd::mojom::ProcessInfoDataView>>(
+        pointer, output, message_);
+  }
+  inline void GetErrorsDataView(
+      mojo::MapDataView<uint32_t, ProbeErrorDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadErrors(UserType* output) {
+    
+    auto* pointer = data_->errors.Get();
+    return mojo::internal::Deserialize<mojo::MapDataView<uint32_t, ::chromeos::cros_healthd::mojom::ProbeErrorDataView>>(
+        pointer, output, message_);
+  }
+ private:
+  internal::MultipleProcessResult_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -7785,6 +7831,63 @@ struct Serializer<::chromeos::cros_healthd::mojom::ProbeErrorDataView, MaybeCons
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::chromeos::cros_healthd::mojom::MultipleProcessResultDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::chromeos::cros_healthd::mojom::MultipleProcessResultDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::MultipleProcessResult_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::process_infos(input)) in_process_infos = Traits::process_infos(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->process_infos)::BaseType>
+        process_infos_fragment(fragment.message());
+    const mojo::internal::ContainerValidateParams process_infos_validate_params(
+        new mojo::internal::ContainerValidateParams(0, false, nullptr), new mojo::internal::ContainerValidateParams(0, false, nullptr));
+    mojo::internal::Serialize<mojo::MapDataView<uint32_t, ::chromeos::cros_healthd::mojom::ProcessInfoDataView>>(
+        in_process_infos, process_infos_fragment, &process_infos_validate_params);
+    fragment->process_infos.Set(
+        process_infos_fragment.is_null() ? nullptr : process_infos_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->process_infos.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null process_infos in MultipleProcessResult struct");
+    decltype(Traits::errors(input)) in_errors = Traits::errors(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->errors)::BaseType>
+        errors_fragment(fragment.message());
+    const mojo::internal::ContainerValidateParams errors_validate_params(
+        new mojo::internal::ContainerValidateParams(0, false, nullptr), new mojo::internal::ContainerValidateParams(0, false, nullptr));
+    mojo::internal::Serialize<mojo::MapDataView<uint32_t, ::chromeos::cros_healthd::mojom::ProbeErrorDataView>>(
+        in_errors, errors_fragment, &errors_validate_params);
+    fragment->errors.Set(
+        errors_fragment.is_null() ? nullptr : errors_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->errors.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null errors in MultipleProcessResult struct");
+  }
+
+  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::MultipleProcessResult_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::chromeos::cros_healthd::mojom::MultipleProcessResultDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::chromeos::cros_healthd::mojom::ProcessInfoDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = StructTraits<::chromeos::cros_healthd::mojom::ProcessInfoDataView, UserType>;
@@ -13457,6 +13560,18 @@ inline void ProbeErrorDataView::GetMsgDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->msg.Get();
   *output = mojo::StringDataView(pointer, message_);
+}
+
+
+inline void MultipleProcessResultDataView::GetProcessInfosDataView(
+    mojo::MapDataView<uint32_t, ProcessInfoDataView>* output) {
+  auto pointer = data_->process_infos.Get();
+  *output = mojo::MapDataView<uint32_t, ProcessInfoDataView>(pointer, message_);
+}
+inline void MultipleProcessResultDataView::GetErrorsDataView(
+    mojo::MapDataView<uint32_t, ProbeErrorDataView>* output) {
+  auto pointer = data_->errors.Get();
+  *output = mojo::MapDataView<uint32_t, ProbeErrorDataView>(pointer, message_);
 }
 
 
