@@ -1141,17 +1141,17 @@ class GuestMessage final :
   void _internal_set_arc_pid(int32_t value);
   public:
 
-  // optional int32 arcvm_vsock_cid = 4;
+  // optional uint32 arcvm_vsock_cid = 4;
   bool has_arcvm_vsock_cid() const;
   private:
   bool _internal_has_arcvm_vsock_cid() const;
   public:
   void clear_arcvm_vsock_cid();
-  int32_t arcvm_vsock_cid() const;
-  void set_arcvm_vsock_cid(int32_t value);
+  uint32_t arcvm_vsock_cid() const;
+  void set_arcvm_vsock_cid(uint32_t value);
   private:
-  int32_t _internal_arcvm_vsock_cid() const;
-  void _internal_set_arcvm_vsock_cid(int32_t value);
+  uint32_t _internal_arcvm_vsock_cid() const;
+  void _internal_set_arcvm_vsock_cid(uint32_t value);
   public:
 
   // @@protoc_insertion_point(class_scope:patchpanel.GuestMessage)
@@ -1169,7 +1169,7 @@ class GuestMessage final :
   int type_;
   int event_;
   int32_t arc_pid_;
-  int32_t arcvm_vsock_cid_;
+  uint32_t arcvm_vsock_cid_;
   friend struct ::TableStruct_ipc_2eproto;
 };
 // -------------------------------------------------------------------
@@ -2372,7 +2372,7 @@ inline void GuestMessage::set_arc_pid(int32_t value) {
   // @@protoc_insertion_point(field_set:patchpanel.GuestMessage.arc_pid)
 }
 
-// optional int32 arcvm_vsock_cid = 4;
+// optional uint32 arcvm_vsock_cid = 4;
 inline bool GuestMessage::_internal_has_arcvm_vsock_cid() const {
   bool value = (_has_bits_[0] & 0x00000008u) != 0;
   return value;
@@ -2381,21 +2381,21 @@ inline bool GuestMessage::has_arcvm_vsock_cid() const {
   return _internal_has_arcvm_vsock_cid();
 }
 inline void GuestMessage::clear_arcvm_vsock_cid() {
-  arcvm_vsock_cid_ = 0;
+  arcvm_vsock_cid_ = 0u;
   _has_bits_[0] &= ~0x00000008u;
 }
-inline int32_t GuestMessage::_internal_arcvm_vsock_cid() const {
+inline uint32_t GuestMessage::_internal_arcvm_vsock_cid() const {
   return arcvm_vsock_cid_;
 }
-inline int32_t GuestMessage::arcvm_vsock_cid() const {
+inline uint32_t GuestMessage::arcvm_vsock_cid() const {
   // @@protoc_insertion_point(field_get:patchpanel.GuestMessage.arcvm_vsock_cid)
   return _internal_arcvm_vsock_cid();
 }
-inline void GuestMessage::_internal_set_arcvm_vsock_cid(int32_t value) {
+inline void GuestMessage::_internal_set_arcvm_vsock_cid(uint32_t value) {
   _has_bits_[0] |= 0x00000008u;
   arcvm_vsock_cid_ = value;
 }
-inline void GuestMessage::set_arcvm_vsock_cid(int32_t value) {
+inline void GuestMessage::set_arcvm_vsock_cid(uint32_t value) {
   _internal_set_arcvm_vsock_cid(value);
   // @@protoc_insertion_point(field_set:patchpanel.GuestMessage.arcvm_vsock_cid)
 }

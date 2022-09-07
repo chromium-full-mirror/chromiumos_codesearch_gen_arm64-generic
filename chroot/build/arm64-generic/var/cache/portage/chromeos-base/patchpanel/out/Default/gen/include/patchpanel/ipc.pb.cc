@@ -72,7 +72,7 @@ constexpr GuestMessage::GuestMessage(
   , event_(0)
 
   , arc_pid_(0)
-  , arcvm_vsock_cid_(0){}
+  , arcvm_vsock_cid_(0u){}
 struct GuestMessageDefaultTypeInternal {
   constexpr GuestMessageDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -1799,7 +1799,7 @@ const char* GuestMessage::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_I
         } else
           goto handle_unusual;
         continue;
-      // optional int32 arcvm_vsock_cid = 4;
+      // optional uint32 arcvm_vsock_cid = 4;
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
           _Internal::set_has_arcvm_vsock_cid(&has_bits);
@@ -1859,10 +1859,10 @@ uint8_t* GuestMessage::_InternalSerialize(
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(3, this->_internal_arc_pid(), target);
   }
 
-  // optional int32 arcvm_vsock_cid = 4;
+  // optional uint32 arcvm_vsock_cid = 4;
   if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(4, this->_internal_arcvm_vsock_cid(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(4, this->_internal_arcvm_vsock_cid(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1918,9 +1918,9 @@ size_t GuestMessage::ByteSizeLong() const {
       total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_arc_pid());
     }
 
-    // optional int32 arcvm_vsock_cid = 4;
+    // optional uint32 arcvm_vsock_cid = 4;
     if (cached_has_bits & 0x00000008u) {
-      total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_arcvm_vsock_cid());
+      total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32SizePlusOne(this->_internal_arcvm_vsock_cid());
     }
 
   }
