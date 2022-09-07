@@ -221,13 +221,14 @@ bool SharePathRequest_StorageLocation_IsValid(int value) {
     case 11:
     case 12:
     case 13:
+    case 14:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> SharePathRequest_StorageLocation_strings[14] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> SharePathRequest_StorageLocation_strings[15] = {};
 
 static const char SharePathRequest_StorageLocation_names[] =
   "ARCHIVE"
@@ -242,6 +243,7 @@ static const char SharePathRequest_StorageLocation_names[] =
   "LINUX_FILES"
   "MY_FILES"
   "PLAY_FILES"
+  "PLAY_FILES_GUEST_OS"
   "REMOVABLE"
   "SMBFS";
 
@@ -258,8 +260,9 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry SharePathRequest_Stora
   { {SharePathRequest_StorageLocation_names + 136, 11}, 7 },
   { {SharePathRequest_StorageLocation_names + 147, 8}, 5 },
   { {SharePathRequest_StorageLocation_names + 155, 10}, 6 },
-  { {SharePathRequest_StorageLocation_names + 165, 9}, 4 },
-  { {SharePathRequest_StorageLocation_names + 174, 5}, 10 },
+  { {SharePathRequest_StorageLocation_names + 165, 19}, 14 },
+  { {SharePathRequest_StorageLocation_names + 184, 9}, 4 },
+  { {SharePathRequest_StorageLocation_names + 193, 5}, 10 },
 };
 
 static const int SharePathRequest_StorageLocation_entries_by_number[] = {
@@ -267,16 +270,17 @@ static const int SharePathRequest_StorageLocation_entries_by_number[] = {
   4, // 1 -> DRIVEFS_MY_DRIVE
   6, // 2 -> DRIVEFS_TEAM_DRIVES
   2, // 3 -> DRIVEFS_COMPUTERS
-  12, // 4 -> REMOVABLE
+  13, // 4 -> REMOVABLE
   10, // 5 -> MY_FILES
   11, // 6 -> PLAY_FILES
   9, // 7 -> LINUX_FILES
   7, // 8 -> FONTS
   0, // 9 -> ARCHIVE
-  13, // 10 -> SMBFS
+  14, // 10 -> SMBFS
   3, // 11 -> DRIVEFS_FILES_BY_ID
   5, // 12 -> DRIVEFS_SHORTCUT_TARGETS_BY_ID
   8, // 13 -> GUEST_OS_FILES
+  12, // 14 -> PLAY_FILES_GUEST_OS
 };
 
 const std::string& SharePathRequest_StorageLocation_Name(
@@ -285,12 +289,12 @@ const std::string& SharePathRequest_StorageLocation_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           SharePathRequest_StorageLocation_entries,
           SharePathRequest_StorageLocation_entries_by_number,
-          14, SharePathRequest_StorageLocation_strings);
+          15, SharePathRequest_StorageLocation_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       SharePathRequest_StorageLocation_entries,
       SharePathRequest_StorageLocation_entries_by_number,
-      14, value);
+      15, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      SharePathRequest_StorageLocation_strings[idx].get();
 }
@@ -298,7 +302,7 @@ bool SharePathRequest_StorageLocation_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, SharePathRequest_StorageLocation* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      SharePathRequest_StorageLocation_entries, 14, name, &int_value);
+      SharePathRequest_StorageLocation_entries, 15, name, &int_value);
   if (success) {
     *value = static_cast<SharePathRequest_StorageLocation>(int_value);
   }
@@ -319,6 +323,7 @@ constexpr SharePathRequest_StorageLocation SharePathRequest::FONTS;
 constexpr SharePathRequest_StorageLocation SharePathRequest::ARCHIVE;
 constexpr SharePathRequest_StorageLocation SharePathRequest::SMBFS;
 constexpr SharePathRequest_StorageLocation SharePathRequest::GUEST_OS_FILES;
+constexpr SharePathRequest_StorageLocation SharePathRequest::PLAY_FILES_GUEST_OS;
 constexpr SharePathRequest_StorageLocation SharePathRequest::StorageLocation_MIN;
 constexpr SharePathRequest_StorageLocation SharePathRequest::StorageLocation_MAX;
 constexpr int SharePathRequest::StorageLocation_ARRAYSIZE;

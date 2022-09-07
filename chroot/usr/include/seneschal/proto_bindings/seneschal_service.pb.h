@@ -131,12 +131,13 @@ enum SharePathRequest_StorageLocation : int {
   SharePathRequest_StorageLocation_ARCHIVE = 9,
   SharePathRequest_StorageLocation_SMBFS = 10,
   SharePathRequest_StorageLocation_GUEST_OS_FILES = 13,
+  SharePathRequest_StorageLocation_PLAY_FILES_GUEST_OS = 14,
   SharePathRequest_StorageLocation_SharePathRequest_StorageLocation_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   SharePathRequest_StorageLocation_SharePathRequest_StorageLocation_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool SharePathRequest_StorageLocation_IsValid(int value);
 constexpr SharePathRequest_StorageLocation SharePathRequest_StorageLocation_StorageLocation_MIN = SharePathRequest_StorageLocation_DOWNLOADS;
-constexpr SharePathRequest_StorageLocation SharePathRequest_StorageLocation_StorageLocation_MAX = SharePathRequest_StorageLocation_GUEST_OS_FILES;
+constexpr SharePathRequest_StorageLocation SharePathRequest_StorageLocation_StorageLocation_MAX = SharePathRequest_StorageLocation_PLAY_FILES_GUEST_OS;
 constexpr int SharePathRequest_StorageLocation_StorageLocation_ARRAYSIZE = SharePathRequest_StorageLocation_StorageLocation_MAX + 1;
 
 const std::string& SharePathRequest_StorageLocation_Name(SharePathRequest_StorageLocation value);
@@ -1788,6 +1789,8 @@ class SharePathRequest final :
     SharePathRequest_StorageLocation_SMBFS;
   static constexpr StorageLocation GUEST_OS_FILES =
     SharePathRequest_StorageLocation_GUEST_OS_FILES;
+  static constexpr StorageLocation PLAY_FILES_GUEST_OS =
+    SharePathRequest_StorageLocation_PLAY_FILES_GUEST_OS;
   static inline bool StorageLocation_IsValid(int value) {
     return SharePathRequest_StorageLocation_IsValid(value);
   }
