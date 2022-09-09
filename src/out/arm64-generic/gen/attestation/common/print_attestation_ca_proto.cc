@@ -465,10 +465,10 @@ std::string GetProtoDebugStringWithIndent(
     base::StringAppendF(&output, "%s", value.id().c_str());
     output += "\n";
   }
-  if (value.has_timestamp()) {
-    output += indent + "  timestamp: ";
+  if (value.has_timestamp_seconds()) {
+    output += indent + "  timestamp_seconds: ";
     base::StringAppendF(&output, "%" PRIu64 " (0x%016" PRIX64 ")",
-                        value.timestamp(), value.timestamp());
+                        value.timestamp_seconds(), value.timestamp_seconds());
     output += "\n";
   }
   if (value.has_content_binding()) {
