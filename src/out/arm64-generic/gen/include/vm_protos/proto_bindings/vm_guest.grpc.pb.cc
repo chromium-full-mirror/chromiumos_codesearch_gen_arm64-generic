@@ -40,6 +40,7 @@ static const char* Maitred_method_names[] = {
   "/vm_tools.Maitred/GetResizeBounds",
   "/vm_tools.Maitred/GetAvailableSpace",
   "/vm_tools.Maitred/PrepareToSuspend",
+  "/vm_tools.Maitred/UpdateStorageBalloon",
 };
 
 std::unique_ptr< Maitred::Stub> Maitred::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
@@ -67,6 +68,7 @@ Maitred::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, c
   , rpcmethod_GetResizeBounds_(Maitred_method_names[15], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_GetAvailableSpace_(Maitred_method_names[16], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   , rpcmethod_PrepareToSuspend_(Maitred_method_names[17], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_UpdateStorageBalloon_(Maitred_method_names[18], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   {}
 
 ::grpc::Status Maitred::Stub::ConfigureNetwork(::grpc::ClientContext* context, const ::vm_tools::NetworkConfigRequest& request, ::vm_tools::EmptyMessage* response) {
@@ -483,6 +485,29 @@ void Maitred::Stub::async::PrepareToSuspend(::grpc::ClientContext* context, cons
   return result;
 }
 
+::grpc::Status Maitred::Stub::UpdateStorageBalloon(::grpc::ClientContext* context, const ::vm_tools::UpdateStorageBalloonRequest& request, ::vm_tools::UpdateStorageBalloonResponse* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::UpdateStorageBalloonRequest, ::vm_tools::UpdateStorageBalloonResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_UpdateStorageBalloon_, context, request, response);
+}
+
+void Maitred::Stub::async::UpdateStorageBalloon(::grpc::ClientContext* context, const ::vm_tools::UpdateStorageBalloonRequest* request, ::vm_tools::UpdateStorageBalloonResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::UpdateStorageBalloonRequest, ::vm_tools::UpdateStorageBalloonResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_UpdateStorageBalloon_, context, request, response, std::move(f));
+}
+
+void Maitred::Stub::async::UpdateStorageBalloon(::grpc::ClientContext* context, const ::vm_tools::UpdateStorageBalloonRequest* request, ::vm_tools::UpdateStorageBalloonResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_UpdateStorageBalloon_, context, request, response, reactor);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::UpdateStorageBalloonResponse>* Maitred::Stub::PrepareAsyncUpdateStorageBalloonRaw(::grpc::ClientContext* context, const ::vm_tools::UpdateStorageBalloonRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::UpdateStorageBalloonResponse, ::vm_tools::UpdateStorageBalloonRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_UpdateStorageBalloon_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::UpdateStorageBalloonResponse>* Maitred::Stub::AsyncUpdateStorageBalloonRaw(::grpc::ClientContext* context, const ::vm_tools::UpdateStorageBalloonRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncUpdateStorageBalloonRaw(context, request, cq);
+  result->StartCall();
+  return result;
+}
+
 Maitred::Service::Service() {
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Maitred_method_names[0],
@@ -664,6 +689,16 @@ Maitred::Service::Service() {
              ::vm_tools::EmptyMessage* resp) {
                return service->PrepareToSuspend(ctx, req, resp);
              }, this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      Maitred_method_names[18],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< Maitred::Service, ::vm_tools::UpdateStorageBalloonRequest, ::vm_tools::UpdateStorageBalloonResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](Maitred::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::UpdateStorageBalloonRequest* req,
+             ::vm_tools::UpdateStorageBalloonResponse* resp) {
+               return service->UpdateStorageBalloon(ctx, req, resp);
+             }, this)));
 }
 
 Maitred::Service::~Service() {
@@ -789,6 +824,13 @@ Maitred::Service::~Service() {
 }
 
 ::grpc::Status Maitred::Service::PrepareToSuspend(::grpc::ServerContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::EmptyMessage* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status Maitred::Service::UpdateStorageBalloon(::grpc::ServerContext* context, const ::vm_tools::UpdateStorageBalloonRequest* request, ::vm_tools::UpdateStorageBalloonResponse* response) {
   (void) context;
   (void) request;
   (void) response;

@@ -193,6 +193,16 @@ class Maitred final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::EmptyMessage>> PrepareAsyncPrepareToSuspend(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::EmptyMessage>>(PrepareAsyncPrepareToSuspendRaw(context, request, cq));
     }
+    // Adjusts the disk state of the VM based on the given state. This generally
+    // means adjusting the size of the storage balloon and/or other parameters
+    // (e.g /proc/sys/dirty_ratio).
+    virtual ::grpc::Status UpdateStorageBalloon(::grpc::ClientContext* context, const ::vm_tools::UpdateStorageBalloonRequest& request, ::vm_tools::UpdateStorageBalloonResponse* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::UpdateStorageBalloonResponse>> AsyncUpdateStorageBalloon(::grpc::ClientContext* context, const ::vm_tools::UpdateStorageBalloonRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::UpdateStorageBalloonResponse>>(AsyncUpdateStorageBalloonRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::UpdateStorageBalloonResponse>> PrepareAsyncUpdateStorageBalloon(::grpc::ClientContext* context, const ::vm_tools::UpdateStorageBalloonRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::UpdateStorageBalloonResponse>>(PrepareAsyncUpdateStorageBalloonRaw(context, request, cq));
+    }
     class async_interface {
      public:
       virtual ~async_interface() {}
@@ -258,6 +268,11 @@ class Maitred final {
       // Prepares to suspend the VM.
       virtual void PrepareToSuspend(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::EmptyMessage* response, std::function<void(::grpc::Status)>) = 0;
       virtual void PrepareToSuspend(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      // Adjusts the disk state of the VM based on the given state. This generally
+      // means adjusting the size of the storage balloon and/or other parameters
+      // (e.g /proc/sys/dirty_ratio).
+      virtual void UpdateStorageBalloon(::grpc::ClientContext* context, const ::vm_tools::UpdateStorageBalloonRequest* request, ::vm_tools::UpdateStorageBalloonResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void UpdateStorageBalloon(::grpc::ClientContext* context, const ::vm_tools::UpdateStorageBalloonRequest* request, ::vm_tools::UpdateStorageBalloonResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
     };
     typedef class async_interface experimental_async_interface;
     virtual class async_interface* async() { return nullptr; }
@@ -299,6 +314,8 @@ class Maitred final {
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::GetAvailableSpaceResponse>* PrepareAsyncGetAvailableSpaceRaw(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::EmptyMessage>* AsyncPrepareToSuspendRaw(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::EmptyMessage>* PrepareAsyncPrepareToSuspendRaw(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::UpdateStorageBalloonResponse>* AsyncUpdateStorageBalloonRaw(::grpc::ClientContext* context, const ::vm_tools::UpdateStorageBalloonRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::UpdateStorageBalloonResponse>* PrepareAsyncUpdateStorageBalloonRaw(::grpc::ClientContext* context, const ::vm_tools::UpdateStorageBalloonRequest& request, ::grpc::CompletionQueue* cq) = 0;
   };
   class Stub final : public StubInterface {
    public:
@@ -429,6 +446,13 @@ class Maitred final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>> PrepareAsyncPrepareToSuspend(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>>(PrepareAsyncPrepareToSuspendRaw(context, request, cq));
     }
+    ::grpc::Status UpdateStorageBalloon(::grpc::ClientContext* context, const ::vm_tools::UpdateStorageBalloonRequest& request, ::vm_tools::UpdateStorageBalloonResponse* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::vm_tools::UpdateStorageBalloonResponse>> AsyncUpdateStorageBalloon(::grpc::ClientContext* context, const ::vm_tools::UpdateStorageBalloonRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::vm_tools::UpdateStorageBalloonResponse>>(AsyncUpdateStorageBalloonRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::vm_tools::UpdateStorageBalloonResponse>> PrepareAsyncUpdateStorageBalloon(::grpc::ClientContext* context, const ::vm_tools::UpdateStorageBalloonRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::vm_tools::UpdateStorageBalloonResponse>>(PrepareAsyncUpdateStorageBalloonRaw(context, request, cq));
+    }
     class async final :
       public StubInterface::async_interface {
      public:
@@ -468,6 +492,8 @@ class Maitred final {
       void GetAvailableSpace(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::GetAvailableSpaceResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void PrepareToSuspend(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::EmptyMessage* response, std::function<void(::grpc::Status)>) override;
       void PrepareToSuspend(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void UpdateStorageBalloon(::grpc::ClientContext* context, const ::vm_tools::UpdateStorageBalloonRequest* request, ::vm_tools::UpdateStorageBalloonResponse* response, std::function<void(::grpc::Status)>) override;
+      void UpdateStorageBalloon(::grpc::ClientContext* context, const ::vm_tools::UpdateStorageBalloonRequest* request, ::vm_tools::UpdateStorageBalloonResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
      private:
       friend class Stub;
       explicit async(Stub* stub): stub_(stub) { }
@@ -515,6 +541,8 @@ class Maitred final {
     ::grpc::ClientAsyncResponseReader< ::vm_tools::GetAvailableSpaceResponse>* PrepareAsyncGetAvailableSpaceRaw(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>* AsyncPrepareToSuspendRaw(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>* PrepareAsyncPrepareToSuspendRaw(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::vm_tools::UpdateStorageBalloonResponse>* AsyncUpdateStorageBalloonRaw(::grpc::ClientContext* context, const ::vm_tools::UpdateStorageBalloonRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::vm_tools::UpdateStorageBalloonResponse>* PrepareAsyncUpdateStorageBalloonRaw(::grpc::ClientContext* context, const ::vm_tools::UpdateStorageBalloonRequest& request, ::grpc::CompletionQueue* cq) override;
     const ::grpc::internal::RpcMethod rpcmethod_ConfigureNetwork_;
     const ::grpc::internal::RpcMethod rpcmethod_ConfigureContainerGuest_;
     const ::grpc::internal::RpcMethod rpcmethod_ResetIPv6_;
@@ -533,6 +561,7 @@ class Maitred final {
     const ::grpc::internal::RpcMethod rpcmethod_GetResizeBounds_;
     const ::grpc::internal::RpcMethod rpcmethod_GetAvailableSpace_;
     const ::grpc::internal::RpcMethod rpcmethod_PrepareToSuspend_;
+    const ::grpc::internal::RpcMethod rpcmethod_UpdateStorageBalloon_;
   };
   static std::unique_ptr<Stub> NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
 
@@ -584,6 +613,10 @@ class Maitred final {
     virtual ::grpc::Status GetAvailableSpace(::grpc::ServerContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::GetAvailableSpaceResponse* response);
     // Prepares to suspend the VM.
     virtual ::grpc::Status PrepareToSuspend(::grpc::ServerContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::EmptyMessage* response);
+    // Adjusts the disk state of the VM based on the given state. This generally
+    // means adjusting the size of the storage balloon and/or other parameters
+    // (e.g /proc/sys/dirty_ratio).
+    virtual ::grpc::Status UpdateStorageBalloon(::grpc::ServerContext* context, const ::vm_tools::UpdateStorageBalloonRequest* request, ::vm_tools::UpdateStorageBalloonResponse* response);
   };
   template <class BaseClass>
   class WithAsyncMethod_ConfigureNetwork : public BaseClass {
@@ -945,7 +978,27 @@ class Maitred final {
       ::grpc::Service::RequestAsyncUnary(17, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
-  typedef WithAsyncMethod_ConfigureNetwork<WithAsyncMethod_ConfigureContainerGuest<WithAsyncMethod_ResetIPv6<WithAsyncMethod_OnHostNetworkChanged<WithAsyncMethod_Shutdown<WithAsyncMethod_LaunchProcess<WithAsyncMethod_Mount<WithAsyncMethod_StartTermina<WithAsyncMethod_SetTime<WithAsyncMethod_SetTimezone<WithAsyncMethod_Mount9P<WithAsyncMethod_SetResolvConfig<WithAsyncMethod_GetKernelVersion<WithAsyncMethod_ResizeFilesystem<WithAsyncMethod_GetResizeStatus<WithAsyncMethod_GetResizeBounds<WithAsyncMethod_GetAvailableSpace<WithAsyncMethod_PrepareToSuspend<Service > > > > > > > > > > > > > > > > > > AsyncService;
+  template <class BaseClass>
+  class WithAsyncMethod_UpdateStorageBalloon : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_UpdateStorageBalloon() {
+      ::grpc::Service::MarkMethodAsync(18);
+    }
+    ~WithAsyncMethod_UpdateStorageBalloon() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UpdateStorageBalloon(::grpc::ServerContext* /*context*/, const ::vm_tools::UpdateStorageBalloonRequest* /*request*/, ::vm_tools::UpdateStorageBalloonResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestUpdateStorageBalloon(::grpc::ServerContext* context, ::vm_tools::UpdateStorageBalloonRequest* request, ::grpc::ServerAsyncResponseWriter< ::vm_tools::UpdateStorageBalloonResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(18, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  typedef WithAsyncMethod_ConfigureNetwork<WithAsyncMethod_ConfigureContainerGuest<WithAsyncMethod_ResetIPv6<WithAsyncMethod_OnHostNetworkChanged<WithAsyncMethod_Shutdown<WithAsyncMethod_LaunchProcess<WithAsyncMethod_Mount<WithAsyncMethod_StartTermina<WithAsyncMethod_SetTime<WithAsyncMethod_SetTimezone<WithAsyncMethod_Mount9P<WithAsyncMethod_SetResolvConfig<WithAsyncMethod_GetKernelVersion<WithAsyncMethod_ResizeFilesystem<WithAsyncMethod_GetResizeStatus<WithAsyncMethod_GetResizeBounds<WithAsyncMethod_GetAvailableSpace<WithAsyncMethod_PrepareToSuspend<WithAsyncMethod_UpdateStorageBalloon<Service > > > > > > > > > > > > > > > > > > > AsyncService;
   template <class BaseClass>
   class WithCallbackMethod_ConfigureNetwork : public BaseClass {
    private:
@@ -1432,7 +1485,34 @@ class Maitred final {
     virtual ::grpc::ServerUnaryReactor* PrepareToSuspend(
       ::grpc::CallbackServerContext* /*context*/, const ::vm_tools::EmptyMessage* /*request*/, ::vm_tools::EmptyMessage* /*response*/)  { return nullptr; }
   };
-  typedef WithCallbackMethod_ConfigureNetwork<WithCallbackMethod_ConfigureContainerGuest<WithCallbackMethod_ResetIPv6<WithCallbackMethod_OnHostNetworkChanged<WithCallbackMethod_Shutdown<WithCallbackMethod_LaunchProcess<WithCallbackMethod_Mount<WithCallbackMethod_StartTermina<WithCallbackMethod_SetTime<WithCallbackMethod_SetTimezone<WithCallbackMethod_Mount9P<WithCallbackMethod_SetResolvConfig<WithCallbackMethod_GetKernelVersion<WithCallbackMethod_ResizeFilesystem<WithCallbackMethod_GetResizeStatus<WithCallbackMethod_GetResizeBounds<WithCallbackMethod_GetAvailableSpace<WithCallbackMethod_PrepareToSuspend<Service > > > > > > > > > > > > > > > > > > CallbackService;
+  template <class BaseClass>
+  class WithCallbackMethod_UpdateStorageBalloon : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_UpdateStorageBalloon() {
+      ::grpc::Service::MarkMethodCallback(18,
+          new ::grpc::internal::CallbackUnaryHandler< ::vm_tools::UpdateStorageBalloonRequest, ::vm_tools::UpdateStorageBalloonResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::vm_tools::UpdateStorageBalloonRequest* request, ::vm_tools::UpdateStorageBalloonResponse* response) { return this->UpdateStorageBalloon(context, request, response); }));}
+    void SetMessageAllocatorFor_UpdateStorageBalloon(
+        ::grpc::MessageAllocator< ::vm_tools::UpdateStorageBalloonRequest, ::vm_tools::UpdateStorageBalloonResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(18);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::vm_tools::UpdateStorageBalloonRequest, ::vm_tools::UpdateStorageBalloonResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_UpdateStorageBalloon() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UpdateStorageBalloon(::grpc::ServerContext* /*context*/, const ::vm_tools::UpdateStorageBalloonRequest* /*request*/, ::vm_tools::UpdateStorageBalloonResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* UpdateStorageBalloon(
+      ::grpc::CallbackServerContext* /*context*/, const ::vm_tools::UpdateStorageBalloonRequest* /*request*/, ::vm_tools::UpdateStorageBalloonResponse* /*response*/)  { return nullptr; }
+  };
+  typedef WithCallbackMethod_ConfigureNetwork<WithCallbackMethod_ConfigureContainerGuest<WithCallbackMethod_ResetIPv6<WithCallbackMethod_OnHostNetworkChanged<WithCallbackMethod_Shutdown<WithCallbackMethod_LaunchProcess<WithCallbackMethod_Mount<WithCallbackMethod_StartTermina<WithCallbackMethod_SetTime<WithCallbackMethod_SetTimezone<WithCallbackMethod_Mount9P<WithCallbackMethod_SetResolvConfig<WithCallbackMethod_GetKernelVersion<WithCallbackMethod_ResizeFilesystem<WithCallbackMethod_GetResizeStatus<WithCallbackMethod_GetResizeBounds<WithCallbackMethod_GetAvailableSpace<WithCallbackMethod_PrepareToSuspend<WithCallbackMethod_UpdateStorageBalloon<Service > > > > > > > > > > > > > > > > > > > CallbackService;
   typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_ConfigureNetwork : public BaseClass {
@@ -1736,6 +1816,23 @@ class Maitred final {
     }
     // disable synchronous version of this method
     ::grpc::Status PrepareToSuspend(::grpc::ServerContext* /*context*/, const ::vm_tools::EmptyMessage* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_UpdateStorageBalloon : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_UpdateStorageBalloon() {
+      ::grpc::Service::MarkMethodGeneric(18);
+    }
+    ~WithGenericMethod_UpdateStorageBalloon() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UpdateStorageBalloon(::grpc::ServerContext* /*context*/, const ::vm_tools::UpdateStorageBalloonRequest* /*request*/, ::vm_tools::UpdateStorageBalloonResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -2098,6 +2195,26 @@ class Maitred final {
     }
     void RequestPrepareToSuspend(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(17, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_UpdateStorageBalloon : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_UpdateStorageBalloon() {
+      ::grpc::Service::MarkMethodRaw(18);
+    }
+    ~WithRawMethod_UpdateStorageBalloon() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UpdateStorageBalloon(::grpc::ServerContext* /*context*/, const ::vm_tools::UpdateStorageBalloonRequest* /*request*/, ::vm_tools::UpdateStorageBalloonResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestUpdateStorageBalloon(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(18, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -2494,6 +2611,28 @@ class Maitred final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     virtual ::grpc::ServerUnaryReactor* PrepareToSuspend(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_UpdateStorageBalloon : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_UpdateStorageBalloon() {
+      ::grpc::Service::MarkMethodRawCallback(18,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateStorageBalloon(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_UpdateStorageBalloon() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UpdateStorageBalloon(::grpc::ServerContext* /*context*/, const ::vm_tools::UpdateStorageBalloonRequest* /*request*/, ::vm_tools::UpdateStorageBalloonResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* UpdateStorageBalloon(
       ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
@@ -2982,9 +3121,36 @@ class Maitred final {
     // replace default version of method with streamed unary
     virtual ::grpc::Status StreamedPrepareToSuspend(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::vm_tools::EmptyMessage,::vm_tools::EmptyMessage>* server_unary_streamer) = 0;
   };
-  typedef WithStreamedUnaryMethod_ConfigureNetwork<WithStreamedUnaryMethod_ConfigureContainerGuest<WithStreamedUnaryMethod_ResetIPv6<WithStreamedUnaryMethod_OnHostNetworkChanged<WithStreamedUnaryMethod_Shutdown<WithStreamedUnaryMethod_LaunchProcess<WithStreamedUnaryMethod_Mount<WithStreamedUnaryMethod_StartTermina<WithStreamedUnaryMethod_SetTime<WithStreamedUnaryMethod_SetTimezone<WithStreamedUnaryMethod_Mount9P<WithStreamedUnaryMethod_SetResolvConfig<WithStreamedUnaryMethod_GetKernelVersion<WithStreamedUnaryMethod_ResizeFilesystem<WithStreamedUnaryMethod_GetResizeStatus<WithStreamedUnaryMethod_GetResizeBounds<WithStreamedUnaryMethod_GetAvailableSpace<WithStreamedUnaryMethod_PrepareToSuspend<Service > > > > > > > > > > > > > > > > > > StreamedUnaryService;
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_UpdateStorageBalloon : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_UpdateStorageBalloon() {
+      ::grpc::Service::MarkMethodStreamed(18,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::vm_tools::UpdateStorageBalloonRequest, ::vm_tools::UpdateStorageBalloonResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::vm_tools::UpdateStorageBalloonRequest, ::vm_tools::UpdateStorageBalloonResponse>* streamer) {
+                       return this->StreamedUpdateStorageBalloon(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_UpdateStorageBalloon() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status UpdateStorageBalloon(::grpc::ServerContext* /*context*/, const ::vm_tools::UpdateStorageBalloonRequest* /*request*/, ::vm_tools::UpdateStorageBalloonResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedUpdateStorageBalloon(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::vm_tools::UpdateStorageBalloonRequest,::vm_tools::UpdateStorageBalloonResponse>* server_unary_streamer) = 0;
+  };
+  typedef WithStreamedUnaryMethod_ConfigureNetwork<WithStreamedUnaryMethod_ConfigureContainerGuest<WithStreamedUnaryMethod_ResetIPv6<WithStreamedUnaryMethod_OnHostNetworkChanged<WithStreamedUnaryMethod_Shutdown<WithStreamedUnaryMethod_LaunchProcess<WithStreamedUnaryMethod_Mount<WithStreamedUnaryMethod_StartTermina<WithStreamedUnaryMethod_SetTime<WithStreamedUnaryMethod_SetTimezone<WithStreamedUnaryMethod_Mount9P<WithStreamedUnaryMethod_SetResolvConfig<WithStreamedUnaryMethod_GetKernelVersion<WithStreamedUnaryMethod_ResizeFilesystem<WithStreamedUnaryMethod_GetResizeStatus<WithStreamedUnaryMethod_GetResizeBounds<WithStreamedUnaryMethod_GetAvailableSpace<WithStreamedUnaryMethod_PrepareToSuspend<WithStreamedUnaryMethod_UpdateStorageBalloon<Service > > > > > > > > > > > > > > > > > > > StreamedUnaryService;
   typedef Service SplitStreamedService;
-  typedef WithStreamedUnaryMethod_ConfigureNetwork<WithStreamedUnaryMethod_ConfigureContainerGuest<WithStreamedUnaryMethod_ResetIPv6<WithStreamedUnaryMethod_OnHostNetworkChanged<WithStreamedUnaryMethod_Shutdown<WithStreamedUnaryMethod_LaunchProcess<WithStreamedUnaryMethod_Mount<WithStreamedUnaryMethod_StartTermina<WithStreamedUnaryMethod_SetTime<WithStreamedUnaryMethod_SetTimezone<WithStreamedUnaryMethod_Mount9P<WithStreamedUnaryMethod_SetResolvConfig<WithStreamedUnaryMethod_GetKernelVersion<WithStreamedUnaryMethod_ResizeFilesystem<WithStreamedUnaryMethod_GetResizeStatus<WithStreamedUnaryMethod_GetResizeBounds<WithStreamedUnaryMethod_GetAvailableSpace<WithStreamedUnaryMethod_PrepareToSuspend<Service > > > > > > > > > > > > > > > > > > StreamedService;
+  typedef WithStreamedUnaryMethod_ConfigureNetwork<WithStreamedUnaryMethod_ConfigureContainerGuest<WithStreamedUnaryMethod_ResetIPv6<WithStreamedUnaryMethod_OnHostNetworkChanged<WithStreamedUnaryMethod_Shutdown<WithStreamedUnaryMethod_LaunchProcess<WithStreamedUnaryMethod_Mount<WithStreamedUnaryMethod_StartTermina<WithStreamedUnaryMethod_SetTime<WithStreamedUnaryMethod_SetTimezone<WithStreamedUnaryMethod_Mount9P<WithStreamedUnaryMethod_SetResolvConfig<WithStreamedUnaryMethod_GetKernelVersion<WithStreamedUnaryMethod_ResizeFilesystem<WithStreamedUnaryMethod_GetResizeStatus<WithStreamedUnaryMethod_GetResizeBounds<WithStreamedUnaryMethod_GetAvailableSpace<WithStreamedUnaryMethod_PrepareToSuspend<WithStreamedUnaryMethod_UpdateStorageBalloon<Service > > > > > > > > > > > > > > > > > > > StreamedService;
 };
 
 }  // namespace vm_tools

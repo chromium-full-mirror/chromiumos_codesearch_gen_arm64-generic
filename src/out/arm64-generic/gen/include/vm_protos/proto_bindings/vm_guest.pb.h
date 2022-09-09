@@ -52,7 +52,7 @@ struct TableStruct_vm_5fguest_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[21]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[23]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -123,6 +123,12 @@ extern StartTerminaRequestDefaultTypeInternal _StartTerminaRequest_default_insta
 class StartTerminaResponse;
 struct StartTerminaResponseDefaultTypeInternal;
 extern StartTerminaResponseDefaultTypeInternal _StartTerminaResponse_default_instance_;
+class UpdateStorageBalloonRequest;
+struct UpdateStorageBalloonRequestDefaultTypeInternal;
+extern UpdateStorageBalloonRequestDefaultTypeInternal _UpdateStorageBalloonRequest_default_instance_;
+class UpdateStorageBalloonResponse;
+struct UpdateStorageBalloonResponseDefaultTypeInternal;
+extern UpdateStorageBalloonResponseDefaultTypeInternal _UpdateStorageBalloonResponse_default_instance_;
 }  // namespace vm_tools
 PROTOBUF_NAMESPACE_OPEN
 template<> ::vm_tools::ConfigureContainerGuestRequest* Arena::CreateMaybeMessage<::vm_tools::ConfigureContainerGuestRequest>(Arena*);
@@ -146,6 +152,8 @@ template<> ::vm_tools::SetTimeRequest* Arena::CreateMaybeMessage<::vm_tools::Set
 template<> ::vm_tools::SetTimezoneRequest* Arena::CreateMaybeMessage<::vm_tools::SetTimezoneRequest>(Arena*);
 template<> ::vm_tools::StartTerminaRequest* Arena::CreateMaybeMessage<::vm_tools::StartTerminaRequest>(Arena*);
 template<> ::vm_tools::StartTerminaResponse* Arena::CreateMaybeMessage<::vm_tools::StartTerminaResponse>(Arena*);
+template<> ::vm_tools::UpdateStorageBalloonRequest* Arena::CreateMaybeMessage<::vm_tools::UpdateStorageBalloonRequest>(Arena*);
+template<> ::vm_tools::UpdateStorageBalloonResponse* Arena::CreateMaybeMessage<::vm_tools::UpdateStorageBalloonResponse>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace vm_tools {
 
@@ -229,6 +237,58 @@ inline bool ResizeFilesystemResponse_ResizeStatus_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, ResizeFilesystemResponse_ResizeStatus* value) {
   return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<ResizeFilesystemResponse_ResizeStatus>(
     ResizeFilesystemResponse_ResizeStatus_descriptor(), name, value);
+}
+enum StatefulDiskSpaceState : int {
+  DISK_NONE = 0,
+  DISK_NORMAL = 1,
+  DISK_LOW = 2,
+  DISK_CRITICAL = 3,
+  StatefulDiskSpaceState_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  StatefulDiskSpaceState_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+};
+bool StatefulDiskSpaceState_IsValid(int value);
+constexpr StatefulDiskSpaceState StatefulDiskSpaceState_MIN = DISK_NONE;
+constexpr StatefulDiskSpaceState StatefulDiskSpaceState_MAX = DISK_CRITICAL;
+constexpr int StatefulDiskSpaceState_ARRAYSIZE = StatefulDiskSpaceState_MAX + 1;
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* StatefulDiskSpaceState_descriptor();
+template<typename T>
+inline const std::string& StatefulDiskSpaceState_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, StatefulDiskSpaceState>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function StatefulDiskSpaceState_Name.");
+  return ::PROTOBUF_NAMESPACE_ID::internal::NameOfEnum(
+    StatefulDiskSpaceState_descriptor(), enum_t_value);
+}
+inline bool StatefulDiskSpaceState_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, StatefulDiskSpaceState* value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<StatefulDiskSpaceState>(
+    StatefulDiskSpaceState_descriptor(), name, value);
+}
+enum UpdateStorageBalloonResult : int {
+  SUCCESS = 0,
+  BALLOON_INFLATE_FAILED = 1,
+  UpdateStorageBalloonResult_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  UpdateStorageBalloonResult_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+};
+bool UpdateStorageBalloonResult_IsValid(int value);
+constexpr UpdateStorageBalloonResult UpdateStorageBalloonResult_MIN = SUCCESS;
+constexpr UpdateStorageBalloonResult UpdateStorageBalloonResult_MAX = BALLOON_INFLATE_FAILED;
+constexpr int UpdateStorageBalloonResult_ARRAYSIZE = UpdateStorageBalloonResult_MAX + 1;
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* UpdateStorageBalloonResult_descriptor();
+template<typename T>
+inline const std::string& UpdateStorageBalloonResult_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, UpdateStorageBalloonResult>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function UpdateStorageBalloonResult_Name.");
+  return ::PROTOBUF_NAMESPACE_ID::internal::NameOfEnum(
+    UpdateStorageBalloonResult_descriptor(), enum_t_value);
+}
+inline bool UpdateStorageBalloonResult_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, UpdateStorageBalloonResult* value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<UpdateStorageBalloonResult>(
+    UpdateStorageBalloonResult_descriptor(), name, value);
 }
 enum ProcessStatus : int {
   UNKNOWN = 0,
@@ -790,6 +850,309 @@ class NetworkConfigRequest final :
 };
 // -------------------------------------------------------------------
 
+class UpdateStorageBalloonRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:vm_tools.UpdateStorageBalloonRequest) */ {
+ public:
+  inline UpdateStorageBalloonRequest() : UpdateStorageBalloonRequest(nullptr) {}
+  ~UpdateStorageBalloonRequest() override;
+  explicit constexpr UpdateStorageBalloonRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  UpdateStorageBalloonRequest(const UpdateStorageBalloonRequest& from);
+  UpdateStorageBalloonRequest(UpdateStorageBalloonRequest&& from) noexcept
+    : UpdateStorageBalloonRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline UpdateStorageBalloonRequest& operator=(const UpdateStorageBalloonRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline UpdateStorageBalloonRequest& operator=(UpdateStorageBalloonRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const UpdateStorageBalloonRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const UpdateStorageBalloonRequest* internal_default_instance() {
+    return reinterpret_cast<const UpdateStorageBalloonRequest*>(
+               &_UpdateStorageBalloonRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    3;
+
+  friend void swap(UpdateStorageBalloonRequest& a, UpdateStorageBalloonRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(UpdateStorageBalloonRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(UpdateStorageBalloonRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  UpdateStorageBalloonRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<UpdateStorageBalloonRequest>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const UpdateStorageBalloonRequest& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom(const UpdateStorageBalloonRequest& from);
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to, const ::PROTOBUF_NAMESPACE_ID::Message& from);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(UpdateStorageBalloonRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "vm_tools.UpdateStorageBalloonRequest";
+  }
+  protected:
+  explicit UpdateStorageBalloonRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kFreeSpaceBytesFieldNumber = 2,
+    kStateFieldNumber = 1,
+  };
+  // int64 free_space_bytes = 2;
+  void clear_free_space_bytes();
+  int64_t free_space_bytes() const;
+  void set_free_space_bytes(int64_t value);
+  private:
+  int64_t _internal_free_space_bytes() const;
+  void _internal_set_free_space_bytes(int64_t value);
+  public:
+
+  // .vm_tools.StatefulDiskSpaceState state = 1;
+  void clear_state();
+  ::vm_tools::StatefulDiskSpaceState state() const;
+  void set_state(::vm_tools::StatefulDiskSpaceState value);
+  private:
+  ::vm_tools::StatefulDiskSpaceState _internal_state() const;
+  void _internal_set_state(::vm_tools::StatefulDiskSpaceState value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:vm_tools.UpdateStorageBalloonRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  int64_t free_space_bytes_;
+  int state_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_vm_5fguest_2eproto;
+};
+// -------------------------------------------------------------------
+
+class UpdateStorageBalloonResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:vm_tools.UpdateStorageBalloonResponse) */ {
+ public:
+  inline UpdateStorageBalloonResponse() : UpdateStorageBalloonResponse(nullptr) {}
+  ~UpdateStorageBalloonResponse() override;
+  explicit constexpr UpdateStorageBalloonResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  UpdateStorageBalloonResponse(const UpdateStorageBalloonResponse& from);
+  UpdateStorageBalloonResponse(UpdateStorageBalloonResponse&& from) noexcept
+    : UpdateStorageBalloonResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline UpdateStorageBalloonResponse& operator=(const UpdateStorageBalloonResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline UpdateStorageBalloonResponse& operator=(UpdateStorageBalloonResponse&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const UpdateStorageBalloonResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const UpdateStorageBalloonResponse* internal_default_instance() {
+    return reinterpret_cast<const UpdateStorageBalloonResponse*>(
+               &_UpdateStorageBalloonResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    4;
+
+  friend void swap(UpdateStorageBalloonResponse& a, UpdateStorageBalloonResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(UpdateStorageBalloonResponse* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(UpdateStorageBalloonResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  UpdateStorageBalloonResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<UpdateStorageBalloonResponse>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const UpdateStorageBalloonResponse& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom(const UpdateStorageBalloonResponse& from);
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to, const ::PROTOBUF_NAMESPACE_ID::Message& from);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(UpdateStorageBalloonResponse* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "vm_tools.UpdateStorageBalloonResponse";
+  }
+  protected:
+  explicit UpdateStorageBalloonResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kResultFieldNumber = 1,
+  };
+  // .vm_tools.UpdateStorageBalloonResult result = 1;
+  void clear_result();
+  ::vm_tools::UpdateStorageBalloonResult result() const;
+  void set_result(::vm_tools::UpdateStorageBalloonResult value);
+  private:
+  ::vm_tools::UpdateStorageBalloonResult _internal_result() const;
+  void _internal_set_result(::vm_tools::UpdateStorageBalloonResult value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:vm_tools.UpdateStorageBalloonResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  int result_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_vm_5fguest_2eproto;
+};
+// -------------------------------------------------------------------
+
 class ConfigureContainerGuestRequest final :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:vm_tools.ConfigureContainerGuestRequest) */ {
  public:
@@ -838,7 +1201,7 @@ class ConfigureContainerGuestRequest final :
                &_ConfigureContainerGuestRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    3;
+    5;
 
   friend void swap(ConfigureContainerGuestRequest& a, ConfigureContainerGuestRequest& b) {
     a.Swap(&b);
@@ -1016,7 +1379,7 @@ class LaunchProcessRequest final :
                &_LaunchProcessRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    5;
+    7;
 
   friend void swap(LaunchProcessRequest& a, LaunchProcessRequest& b) {
     a.Swap(&b);
@@ -1234,7 +1597,7 @@ class LaunchProcessResponse final :
                &_LaunchProcessResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    6;
+    8;
 
   friend void swap(LaunchProcessResponse& a, LaunchProcessResponse& b) {
     a.Swap(&b);
@@ -1391,7 +1754,7 @@ class MountRequest final :
                &_MountRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    7;
+    9;
 
   friend void swap(MountRequest& a, MountRequest& b) {
     a.Swap(&b);
@@ -1634,7 +1997,7 @@ class Mount9PRequest final :
                &_Mount9PRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    8;
+    10;
 
   friend void swap(Mount9PRequest& a, Mount9PRequest& b) {
     a.Swap(&b);
@@ -1796,7 +2159,7 @@ class MountResponse final :
                &_MountResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    9;
+    11;
 
   friend void swap(MountResponse& a, MountResponse& b) {
     a.Swap(&b);
@@ -1942,7 +2305,7 @@ class StartTerminaRequest final :
                &_StartTerminaRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    10;
+    12;
 
   friend void swap(StartTerminaRequest& a, StartTerminaRequest& b) {
     a.Swap(&b);
@@ -2187,7 +2550,7 @@ class StartTerminaResponse final :
                &_StartTerminaResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    11;
+    13;
 
   friend void swap(StartTerminaResponse& a, StartTerminaResponse& b) {
     a.Swap(&b);
@@ -2389,7 +2752,7 @@ class SetResolvConfigRequest final :
                &_SetResolvConfigRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    12;
+    14;
 
   friend void swap(SetResolvConfigRequest& a, SetResolvConfigRequest& b) {
     a.Swap(&b);
@@ -2544,7 +2907,7 @@ class SetTimeRequest final :
                &_SetTimeRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    13;
+    15;
 
   friend void swap(SetTimeRequest& a, SetTimeRequest& b) {
     a.Swap(&b);
@@ -2699,7 +3062,7 @@ class SetTimezoneRequest final :
                &_SetTimezoneRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    14;
+    16;
 
   friend void swap(SetTimezoneRequest& a, SetTimezoneRequest& b) {
     a.Swap(&b);
@@ -2861,7 +3224,7 @@ class GetKernelVersionResponse final :
                &_GetKernelVersionResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    15;
+    17;
 
   friend void swap(GetKernelVersionResponse& a, GetKernelVersionResponse& b) {
     a.Swap(&b);
@@ -3028,7 +3391,7 @@ class ResizeFilesystemRequest final :
                &_ResizeFilesystemRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    16;
+    18;
 
   friend void swap(ResizeFilesystemRequest& a, ResizeFilesystemRequest& b) {
     a.Swap(&b);
@@ -3174,7 +3537,7 @@ class ResizeFilesystemResponse final :
                &_ResizeFilesystemResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    17;
+    19;
 
   friend void swap(ResizeFilesystemResponse& a, ResizeFilesystemResponse& b) {
     a.Swap(&b);
@@ -3352,7 +3715,7 @@ class GetResizeStatusResponse final :
                &_GetResizeStatusResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    18;
+    20;
 
   friend void swap(GetResizeStatusResponse& a, GetResizeStatusResponse& b) {
     a.Swap(&b);
@@ -3520,7 +3883,7 @@ class GetResizeBoundsResponse final :
                &_GetResizeBoundsResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    19;
+    21;
 
   friend void swap(GetResizeBoundsResponse& a, GetResizeBoundsResponse& b) {
     a.Swap(&b);
@@ -3666,7 +4029,7 @@ class GetAvailableSpaceResponse final :
                &_GetAvailableSpaceResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    20;
+    22;
 
   friend void swap(GetAvailableSpaceResponse& a, GetAvailableSpaceResponse& b) {
     a.Swap(&b);
@@ -4169,6 +4532,74 @@ inline void NetworkConfigRequest::set_allocated_resolv_config(::vm_tools::Resolv
   }
   resolv_config_ = resolv_config;
   // @@protoc_insertion_point(field_set_allocated:vm_tools.NetworkConfigRequest.resolv_config)
+}
+
+// -------------------------------------------------------------------
+
+// UpdateStorageBalloonRequest
+
+// .vm_tools.StatefulDiskSpaceState state = 1;
+inline void UpdateStorageBalloonRequest::clear_state() {
+  state_ = 0;
+}
+inline ::vm_tools::StatefulDiskSpaceState UpdateStorageBalloonRequest::_internal_state() const {
+  return static_cast< ::vm_tools::StatefulDiskSpaceState >(state_);
+}
+inline ::vm_tools::StatefulDiskSpaceState UpdateStorageBalloonRequest::state() const {
+  // @@protoc_insertion_point(field_get:vm_tools.UpdateStorageBalloonRequest.state)
+  return _internal_state();
+}
+inline void UpdateStorageBalloonRequest::_internal_set_state(::vm_tools::StatefulDiskSpaceState value) {
+  
+  state_ = value;
+}
+inline void UpdateStorageBalloonRequest::set_state(::vm_tools::StatefulDiskSpaceState value) {
+  _internal_set_state(value);
+  // @@protoc_insertion_point(field_set:vm_tools.UpdateStorageBalloonRequest.state)
+}
+
+// int64 free_space_bytes = 2;
+inline void UpdateStorageBalloonRequest::clear_free_space_bytes() {
+  free_space_bytes_ = int64_t{0};
+}
+inline int64_t UpdateStorageBalloonRequest::_internal_free_space_bytes() const {
+  return free_space_bytes_;
+}
+inline int64_t UpdateStorageBalloonRequest::free_space_bytes() const {
+  // @@protoc_insertion_point(field_get:vm_tools.UpdateStorageBalloonRequest.free_space_bytes)
+  return _internal_free_space_bytes();
+}
+inline void UpdateStorageBalloonRequest::_internal_set_free_space_bytes(int64_t value) {
+  
+  free_space_bytes_ = value;
+}
+inline void UpdateStorageBalloonRequest::set_free_space_bytes(int64_t value) {
+  _internal_set_free_space_bytes(value);
+  // @@protoc_insertion_point(field_set:vm_tools.UpdateStorageBalloonRequest.free_space_bytes)
+}
+
+// -------------------------------------------------------------------
+
+// UpdateStorageBalloonResponse
+
+// .vm_tools.UpdateStorageBalloonResult result = 1;
+inline void UpdateStorageBalloonResponse::clear_result() {
+  result_ = 0;
+}
+inline ::vm_tools::UpdateStorageBalloonResult UpdateStorageBalloonResponse::_internal_result() const {
+  return static_cast< ::vm_tools::UpdateStorageBalloonResult >(result_);
+}
+inline ::vm_tools::UpdateStorageBalloonResult UpdateStorageBalloonResponse::result() const {
+  // @@protoc_insertion_point(field_get:vm_tools.UpdateStorageBalloonResponse.result)
+  return _internal_result();
+}
+inline void UpdateStorageBalloonResponse::_internal_set_result(::vm_tools::UpdateStorageBalloonResult value) {
+  
+  result_ = value;
+}
+inline void UpdateStorageBalloonResponse::set_result(::vm_tools::UpdateStorageBalloonResult value) {
+  _internal_set_result(value);
+  // @@protoc_insertion_point(field_set:vm_tools.UpdateStorageBalloonResponse.result)
 }
 
 // -------------------------------------------------------------------
@@ -5648,6 +6079,10 @@ inline void GetAvailableSpaceResponse::set_available_space(uint64_t value) {
 
 // -------------------------------------------------------------------
 
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 
 // @@protoc_insertion_point(namespace_scope)
 
@@ -5669,6 +6104,16 @@ template <> struct is_proto_enum< ::vm_tools::ResizeFilesystemResponse_ResizeSta
 template <>
 inline const EnumDescriptor* GetEnumDescriptor< ::vm_tools::ResizeFilesystemResponse_ResizeStatus>() {
   return ::vm_tools::ResizeFilesystemResponse_ResizeStatus_descriptor();
+}
+template <> struct is_proto_enum< ::vm_tools::StatefulDiskSpaceState> : ::std::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::vm_tools::StatefulDiskSpaceState>() {
+  return ::vm_tools::StatefulDiskSpaceState_descriptor();
+}
+template <> struct is_proto_enum< ::vm_tools::UpdateStorageBalloonResult> : ::std::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::vm_tools::UpdateStorageBalloonResult>() {
+  return ::vm_tools::UpdateStorageBalloonResult_descriptor();
 }
 template <> struct is_proto_enum< ::vm_tools::ProcessStatus> : ::std::true_type {};
 template <>

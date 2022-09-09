@@ -57,6 +57,33 @@ struct NetworkConfigRequestDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT NetworkConfigRequestDefaultTypeInternal _NetworkConfigRequest_default_instance_;
+constexpr UpdateStorageBalloonRequest::UpdateStorageBalloonRequest(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : free_space_bytes_(int64_t{0})
+  , state_(0)
+{}
+struct UpdateStorageBalloonRequestDefaultTypeInternal {
+  constexpr UpdateStorageBalloonRequestDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~UpdateStorageBalloonRequestDefaultTypeInternal() {}
+  union {
+    UpdateStorageBalloonRequest _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT UpdateStorageBalloonRequestDefaultTypeInternal _UpdateStorageBalloonRequest_default_instance_;
+constexpr UpdateStorageBalloonResponse::UpdateStorageBalloonResponse(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : result_(0)
+{}
+struct UpdateStorageBalloonResponseDefaultTypeInternal {
+  constexpr UpdateStorageBalloonResponseDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~UpdateStorageBalloonResponseDefaultTypeInternal() {}
+  union {
+    UpdateStorageBalloonResponse _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT UpdateStorageBalloonResponseDefaultTypeInternal _UpdateStorageBalloonResponse_default_instance_;
 constexpr ConfigureContainerGuestRequest::ConfigureContainerGuestRequest(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : container_token_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
@@ -300,8 +327,8 @@ struct GetAvailableSpaceResponseDefaultTypeInternal {
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT GetAvailableSpaceResponseDefaultTypeInternal _GetAvailableSpaceResponse_default_instance_;
 }  // namespace vm_tools
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_vm_5fguest_2eproto[21];
-static const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* file_level_enum_descriptors_vm_5fguest_2eproto[4];
+static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_vm_5fguest_2eproto[23];
+static const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* file_level_enum_descriptors_vm_5fguest_2eproto[6];
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_vm_5fguest_2eproto = nullptr;
 
 const uint32_t TableStruct_vm_5fguest_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
@@ -330,6 +357,21 @@ const uint32_t TableStruct_vm_5fguest_2eproto::offsets[] PROTOBUF_SECTION_VARIAB
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::vm_tools::NetworkConfigRequest, ipv4_config_),
   PROTOBUF_FIELD_OFFSET(::vm_tools::NetworkConfigRequest, resolv_config_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::vm_tools::UpdateStorageBalloonRequest, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::vm_tools::UpdateStorageBalloonRequest, state_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::UpdateStorageBalloonRequest, free_space_bytes_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::vm_tools::UpdateStorageBalloonResponse, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
+  PROTOBUF_FIELD_OFFSET(::vm_tools::UpdateStorageBalloonResponse, result_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::vm_tools::ConfigureContainerGuestRequest, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -487,30 +529,34 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOB
   { 0, -1, -1, sizeof(::vm_tools::IPv4Config)},
   { 9, -1, -1, sizeof(::vm_tools::ResolvConfig)},
   { 17, -1, -1, sizeof(::vm_tools::NetworkConfigRequest)},
-  { 25, -1, -1, sizeof(::vm_tools::ConfigureContainerGuestRequest)},
-  { 32, 40, -1, sizeof(::vm_tools::LaunchProcessRequest_EnvEntry_DoNotUse)},
-  { 42, -1, -1, sizeof(::vm_tools::LaunchProcessRequest)},
-  { 53, -1, -1, sizeof(::vm_tools::LaunchProcessResponse)},
-  { 61, -1, -1, sizeof(::vm_tools::MountRequest)},
-  { 75, -1, -1, sizeof(::vm_tools::Mount9PRequest)},
-  { 83, -1, -1, sizeof(::vm_tools::MountResponse)},
-  { 90, -1, -1, sizeof(::vm_tools::StartTerminaRequest)},
-  { 101, -1, -1, sizeof(::vm_tools::StartTerminaResponse)},
-  { 110, -1, -1, sizeof(::vm_tools::SetResolvConfigRequest)},
-  { 117, -1, -1, sizeof(::vm_tools::SetTimeRequest)},
-  { 124, -1, -1, sizeof(::vm_tools::SetTimezoneRequest)},
-  { 132, -1, -1, sizeof(::vm_tools::GetKernelVersionResponse)},
-  { 140, -1, -1, sizeof(::vm_tools::ResizeFilesystemRequest)},
-  { 147, -1, -1, sizeof(::vm_tools::ResizeFilesystemResponse)},
-  { 154, -1, -1, sizeof(::vm_tools::GetResizeStatusResponse)},
-  { 163, -1, -1, sizeof(::vm_tools::GetResizeBoundsResponse)},
-  { 170, -1, -1, sizeof(::vm_tools::GetAvailableSpaceResponse)},
+  { 25, -1, -1, sizeof(::vm_tools::UpdateStorageBalloonRequest)},
+  { 33, -1, -1, sizeof(::vm_tools::UpdateStorageBalloonResponse)},
+  { 40, -1, -1, sizeof(::vm_tools::ConfigureContainerGuestRequest)},
+  { 47, 55, -1, sizeof(::vm_tools::LaunchProcessRequest_EnvEntry_DoNotUse)},
+  { 57, -1, -1, sizeof(::vm_tools::LaunchProcessRequest)},
+  { 68, -1, -1, sizeof(::vm_tools::LaunchProcessResponse)},
+  { 76, -1, -1, sizeof(::vm_tools::MountRequest)},
+  { 90, -1, -1, sizeof(::vm_tools::Mount9PRequest)},
+  { 98, -1, -1, sizeof(::vm_tools::MountResponse)},
+  { 105, -1, -1, sizeof(::vm_tools::StartTerminaRequest)},
+  { 116, -1, -1, sizeof(::vm_tools::StartTerminaResponse)},
+  { 125, -1, -1, sizeof(::vm_tools::SetResolvConfigRequest)},
+  { 132, -1, -1, sizeof(::vm_tools::SetTimeRequest)},
+  { 139, -1, -1, sizeof(::vm_tools::SetTimezoneRequest)},
+  { 147, -1, -1, sizeof(::vm_tools::GetKernelVersionResponse)},
+  { 155, -1, -1, sizeof(::vm_tools::ResizeFilesystemRequest)},
+  { 162, -1, -1, sizeof(::vm_tools::ResizeFilesystemResponse)},
+  { 169, -1, -1, sizeof(::vm_tools::GetResizeStatusResponse)},
+  { 178, -1, -1, sizeof(::vm_tools::GetResizeBoundsResponse)},
+  { 185, -1, -1, sizeof(::vm_tools::GetAvailableSpaceResponse)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vm_tools::_IPv4Config_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vm_tools::_ResolvConfig_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vm_tools::_NetworkConfigRequest_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vm_tools::_UpdateStorageBalloonRequest_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vm_tools::_UpdateStorageBalloonResponse_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vm_tools::_ConfigureContainerGuestRequest_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vm_tools::_LaunchProcessRequest_EnvEntry_DoNotUse_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::vm_tools::_LaunchProcessRequest_default_instance_),
@@ -539,89 +585,100 @@ const char descriptor_table_protodef_vm_5fguest_2eproto[] PROTOBUF_SECTION_VARIA
   "meservers\030\001 \003(\t\022\026\n\016search_domains\030\002 \003(\t\""
   "p\n\024NetworkConfigRequest\022)\n\013ipv4_config\030\001"
   " \001(\0132\024.vm_tools.IPv4Config\022-\n\rresolv_con"
-  "fig\030\002 \001(\0132\026.vm_tools.ResolvConfig\"9\n\036Con"
-  "figureContainerGuestRequest\022\027\n\017container"
-  "_token\030\001 \001(\t\"\303\001\n\024LaunchProcessRequest\022\014\n"
-  "\004argv\030\001 \003(\t\0224\n\003env\030\002 \003(\0132\'.vm_tools.Laun"
-  "chProcessRequest.EnvEntry\022\017\n\007respawn\030\003 \001"
-  "(\010\022\023\n\013use_console\030\004 \001(\010\022\025\n\rwait_for_exit"
-  "\030\005 \001(\010\032*\n\010EnvEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value"
-  "\030\002 \001(\t:\0028\001\"N\n\025LaunchProcessResponse\022\'\n\006s"
-  "tatus\030\001 \001(\0162\027.vm_tools.ProcessStatus\022\014\n\004"
-  "code\030\002 \001(\021\"\247\001\n\014MountRequest\022\016\n\006source\030\001 "
-  "\001(\t\022\016\n\006target\030\002 \001(\t\022\016\n\006fstype\030\003 \001(\t\022\022\n\nm"
-  "ountflags\030\004 \001(\004\022\017\n\007options\030\005 \001(\t\022\025\n\rcrea"
-  "te_target\030\006 \001(\010\022\023\n\013permissions\030\007 \001(\r\022\026\n\016"
-  "mkfs_if_needed\030\010 \001(\010\".\n\016Mount9PRequest\022\014"
-  "\n\004port\030\001 \001(\r\022\016\n\006target\030\002 \001(\t\"\036\n\rMountRes"
-  "ponse\022\r\n\005error\030\001 \001(\021\"\255\002\n\023StartTerminaReq"
-  "uest\022\035\n\025tremplin_ipv4_address\030\001 \001(\r\022\027\n\017l"
-  "xd_ipv4_subnet\030\002 \001(\t\022\027\n\017stateful_device\030"
-  "\003 \001(\t\022#\n\033allow_privileged_containers\030\004 \001"
-  "(\010\0226\n\007feature\030\005 \003(\0162%.vm_tools.StartTerm"
-  "inaRequest.Feature\"h\n\007Feature\022\013\n\007UNKNOWN"
-  "\020\000\022\021\n\rUSED_BY_TESTS\020\001\022\021\n\tSTART_LXD\020\002\032\002\010\001"
-  "\022\033\n\023RESET_LXD_ON_LAUNCH\020\003\032\002\010\001\022\r\n\tLXD_4_L"
-  "TS\020\004\"\327\001\n\024StartTerminaResponse\022@\n\014mount_r"
-  "esult\030\001 \001(\0162*.vm_tools.StartTerminaRespo"
-  "nse.MountResult\022\022\n\nfree_bytes\030\002 \001(\003\022\034\n\024f"
-  "ree_bytes_has_value\030\003 \001(\010\"K\n\013MountResult"
-  "\022\013\n\007UNKNOWN\020\000\022\013\n\007SUCCESS\020\001\022\025\n\021PARTIAL_DA"
-  "TA_LOSS\020\002\022\013\n\007FAILURE\020\003\"G\n\026SetResolvConfi"
-  "gRequest\022-\n\rresolv_config\030\001 \001(\0132\026.vm_too"
-  "ls.ResolvConfig\":\n\016SetTimeRequest\022(\n\004tim"
-  "e\030\001 \001(\0132\032.google.protobuf.Timestamp\"C\n\022S"
-  "etTimezoneRequest\022\025\n\rtimezone_name\030\001 \001(\t"
-  "\022\026\n\016use_bind_mount\030\002 \001(\010\"J\n\030GetKernelVer"
-  "sionResponse\022\026\n\016kernel_release\030\001 \001(\t\022\026\n\016"
-  "kernel_version\030\002 \001(\t\"\'\n\027ResizeFilesystem"
-  "Request\022\014\n\004size\030\001 \001(\004\"\235\001\n\030ResizeFilesyst"
-  "emResponse\022\?\n\006status\030\001 \001(\0162/.vm_tools.Re"
-  "sizeFilesystemResponse.ResizeStatus\"@\n\014R"
-  "esizeStatus\022\n\n\006FAILED\020\000\022\027\n\023ALREADY_IN_PR"
-  "OGRESS\020\001\022\013\n\007STARTED\020\002\"`\n\027GetResizeStatus"
-  "Response\022\032\n\022resize_in_progress\030\001 \001(\010\022\024\n\014"
-  "current_size\030\002 \001(\004\022\023\n\013target_size\030\003 \001(\004\""
-  "/\n\027GetResizeBoundsResponse\022\024\n\014minimum_si"
-  "ze\030\001 \001(\004\"4\n\031GetAvailableSpaceResponse\022\027\n"
-  "\017available_space\030\001 \001(\004*P\n\rProcessStatus\022"
-  "\013\n\007UNKNOWN\020\000\022\n\n\006EXITED\020\001\022\014\n\010SIGNALED\020\002\022\014"
-  "\n\010LAUNCHED\020\003\022\n\n\006FAILED\020\0042\270\n\n\007Maitred\022J\n\020"
-  "ConfigureNetwork\022\036.vm_tools.NetworkConfi"
-  "gRequest\032\026.vm_tools.EmptyMessage\022[\n\027Conf"
-  "igureContainerGuest\022(.vm_tools.Configure"
-  "ContainerGuestRequest\032\026.vm_tools.EmptyMe"
-  "ssage\022;\n\tResetIPv6\022\026.vm_tools.EmptyMessa"
-  "ge\032\026.vm_tools.EmptyMessage\022F\n\024OnHostNetw"
-  "orkChanged\022\026.vm_tools.EmptyMessage\032\026.vm_"
-  "tools.EmptyMessage\022:\n\010Shutdown\022\026.vm_tool"
-  "s.EmptyMessage\032\026.vm_tools.EmptyMessage\022P"
-  "\n\rLaunchProcess\022\036.vm_tools.LaunchProcess"
-  "Request\032\037.vm_tools.LaunchProcessResponse"
-  "\0228\n\005Mount\022\026.vm_tools.MountRequest\032\027.vm_t"
-  "ools.MountResponse\022M\n\014StartTermina\022\035.vm_"
-  "tools.StartTerminaRequest\032\036.vm_tools.Sta"
-  "rtTerminaResponse\022;\n\007SetTime\022\030.vm_tools."
-  "SetTimeRequest\032\026.vm_tools.EmptyMessage\022C"
-  "\n\013SetTimezone\022\034.vm_tools.SetTimezoneRequ"
-  "est\032\026.vm_tools.EmptyMessage\022<\n\007Mount9P\022\030"
-  ".vm_tools.Mount9PRequest\032\027.vm_tools.Moun"
-  "tResponse\022K\n\017SetResolvConfig\022 .vm_tools."
-  "SetResolvConfigRequest\032\026.vm_tools.EmptyM"
-  "essage\022N\n\020GetKernelVersion\022\026.vm_tools.Em"
-  "ptyMessage\032\".vm_tools.GetKernelVersionRe"
-  "sponse\022Y\n\020ResizeFilesystem\022!.vm_tools.Re"
-  "sizeFilesystemRequest\032\".vm_tools.ResizeF"
-  "ilesystemResponse\022L\n\017GetResizeStatus\022\026.v"
-  "m_tools.EmptyMessage\032!.vm_tools.GetResiz"
-  "eStatusResponse\022L\n\017GetResizeBounds\022\026.vm_"
-  "tools.EmptyMessage\032!.vm_tools.GetResizeB"
-  "oundsResponse\022P\n\021GetAvailableSpace\022\026.vm_"
-  "tools.EmptyMessage\032#.vm_tools.GetAvailab"
-  "leSpaceResponse\022B\n\020PrepareToSuspend\022\026.vm"
-  "_tools.EmptyMessage\032\026.vm_tools.EmptyMess"
-  "ageB\037Z\032chromiumos/vm_tools/vm_rpc\370\001\001b\006pr"
-  "oto3"
+  "fig\030\002 \001(\0132\026.vm_tools.ResolvConfig\"h\n\033Upd"
+  "ateStorageBalloonRequest\022/\n\005state\030\001 \001(\0162"
+  " .vm_tools.StatefulDiskSpaceState\022\030\n\020fre"
+  "e_space_bytes\030\002 \001(\003\"T\n\034UpdateStorageBall"
+  "oonResponse\0224\n\006result\030\001 \001(\0162$.vm_tools.U"
+  "pdateStorageBalloonResult\"9\n\036ConfigureCo"
+  "ntainerGuestRequest\022\027\n\017container_token\030\001"
+  " \001(\t\"\303\001\n\024LaunchProcessRequest\022\014\n\004argv\030\001 "
+  "\003(\t\0224\n\003env\030\002 \003(\0132\'.vm_tools.LaunchProces"
+  "sRequest.EnvEntry\022\017\n\007respawn\030\003 \001(\010\022\023\n\013us"
+  "e_console\030\004 \001(\010\022\025\n\rwait_for_exit\030\005 \001(\010\032*"
+  "\n\010EnvEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\002"
+  "8\001\"N\n\025LaunchProcessResponse\022\'\n\006status\030\001 "
+  "\001(\0162\027.vm_tools.ProcessStatus\022\014\n\004code\030\002 \001"
+  "(\021\"\247\001\n\014MountRequest\022\016\n\006source\030\001 \001(\t\022\016\n\006t"
+  "arget\030\002 \001(\t\022\016\n\006fstype\030\003 \001(\t\022\022\n\nmountflag"
+  "s\030\004 \001(\004\022\017\n\007options\030\005 \001(\t\022\025\n\rcreate_targe"
+  "t\030\006 \001(\010\022\023\n\013permissions\030\007 \001(\r\022\026\n\016mkfs_if_"
+  "needed\030\010 \001(\010\".\n\016Mount9PRequest\022\014\n\004port\030\001"
+  " \001(\r\022\016\n\006target\030\002 \001(\t\"\036\n\rMountResponse\022\r\n"
+  "\005error\030\001 \001(\021\"\255\002\n\023StartTerminaRequest\022\035\n\025"
+  "tremplin_ipv4_address\030\001 \001(\r\022\027\n\017lxd_ipv4_"
+  "subnet\030\002 \001(\t\022\027\n\017stateful_device\030\003 \001(\t\022#\n"
+  "\033allow_privileged_containers\030\004 \001(\010\0226\n\007fe"
+  "ature\030\005 \003(\0162%.vm_tools.StartTerminaReque"
+  "st.Feature\"h\n\007Feature\022\013\n\007UNKNOWN\020\000\022\021\n\rUS"
+  "ED_BY_TESTS\020\001\022\021\n\tSTART_LXD\020\002\032\002\010\001\022\033\n\023RESE"
+  "T_LXD_ON_LAUNCH\020\003\032\002\010\001\022\r\n\tLXD_4_LTS\020\004\"\327\001\n"
+  "\024StartTerminaResponse\022@\n\014mount_result\030\001 "
+  "\001(\0162*.vm_tools.StartTerminaResponse.Moun"
+  "tResult\022\022\n\nfree_bytes\030\002 \001(\003\022\034\n\024free_byte"
+  "s_has_value\030\003 \001(\010\"K\n\013MountResult\022\013\n\007UNKN"
+  "OWN\020\000\022\013\n\007SUCCESS\020\001\022\025\n\021PARTIAL_DATA_LOSS\020"
+  "\002\022\013\n\007FAILURE\020\003\"G\n\026SetResolvConfigRequest"
+  "\022-\n\rresolv_config\030\001 \001(\0132\026.vm_tools.Resol"
+  "vConfig\":\n\016SetTimeRequest\022(\n\004time\030\001 \001(\0132"
+  "\032.google.protobuf.Timestamp\"C\n\022SetTimezo"
+  "neRequest\022\025\n\rtimezone_name\030\001 \001(\t\022\026\n\016use_"
+  "bind_mount\030\002 \001(\010\"J\n\030GetKernelVersionResp"
+  "onse\022\026\n\016kernel_release\030\001 \001(\t\022\026\n\016kernel_v"
+  "ersion\030\002 \001(\t\"\'\n\027ResizeFilesystemRequest\022"
+  "\014\n\004size\030\001 \001(\004\"\235\001\n\030ResizeFilesystemRespon"
+  "se\022\?\n\006status\030\001 \001(\0162/.vm_tools.ResizeFile"
+  "systemResponse.ResizeStatus\"@\n\014ResizeSta"
+  "tus\022\n\n\006FAILED\020\000\022\027\n\023ALREADY_IN_PROGRESS\020\001"
+  "\022\013\n\007STARTED\020\002\"`\n\027GetResizeStatusResponse"
+  "\022\032\n\022resize_in_progress\030\001 \001(\010\022\024\n\014current_"
+  "size\030\002 \001(\004\022\023\n\013target_size\030\003 \001(\004\"/\n\027GetRe"
+  "sizeBoundsResponse\022\024\n\014minimum_size\030\001 \001(\004"
+  "\"4\n\031GetAvailableSpaceResponse\022\027\n\017availab"
+  "le_space\030\001 \001(\004*Y\n\026StatefulDiskSpaceState"
+  "\022\r\n\tDISK_NONE\020\000\022\017\n\013DISK_NORMAL\020\001\022\014\n\010DISK"
+  "_LOW\020\002\022\021\n\rDISK_CRITICAL\020\003*E\n\032UpdateStora"
+  "geBalloonResult\022\013\n\007SUCCESS\020\000\022\032\n\026BALLOON_"
+  "INFLATE_FAILED\020\001*P\n\rProcessStatus\022\013\n\007UNK"
+  "NOWN\020\000\022\n\n\006EXITED\020\001\022\014\n\010SIGNALED\020\002\022\014\n\010LAUN"
+  "CHED\020\003\022\n\n\006FAILED\020\0042\237\013\n\007Maitred\022J\n\020Config"
+  "ureNetwork\022\036.vm_tools.NetworkConfigReque"
+  "st\032\026.vm_tools.EmptyMessage\022[\n\027ConfigureC"
+  "ontainerGuest\022(.vm_tools.ConfigureContai"
+  "nerGuestRequest\032\026.vm_tools.EmptyMessage\022"
+  ";\n\tResetIPv6\022\026.vm_tools.EmptyMessage\032\026.v"
+  "m_tools.EmptyMessage\022F\n\024OnHostNetworkCha"
+  "nged\022\026.vm_tools.EmptyMessage\032\026.vm_tools."
+  "EmptyMessage\022:\n\010Shutdown\022\026.vm_tools.Empt"
+  "yMessage\032\026.vm_tools.EmptyMessage\022P\n\rLaun"
+  "chProcess\022\036.vm_tools.LaunchProcessReques"
+  "t\032\037.vm_tools.LaunchProcessResponse\0228\n\005Mo"
+  "unt\022\026.vm_tools.MountRequest\032\027.vm_tools.M"
+  "ountResponse\022M\n\014StartTermina\022\035.vm_tools."
+  "StartTerminaRequest\032\036.vm_tools.StartTerm"
+  "inaResponse\022;\n\007SetTime\022\030.vm_tools.SetTim"
+  "eRequest\032\026.vm_tools.EmptyMessage\022C\n\013SetT"
+  "imezone\022\034.vm_tools.SetTimezoneRequest\032\026."
+  "vm_tools.EmptyMessage\022<\n\007Mount9P\022\030.vm_to"
+  "ols.Mount9PRequest\032\027.vm_tools.MountRespo"
+  "nse\022K\n\017SetResolvConfig\022 .vm_tools.SetRes"
+  "olvConfigRequest\032\026.vm_tools.EmptyMessage"
+  "\022N\n\020GetKernelVersion\022\026.vm_tools.EmptyMes"
+  "sage\032\".vm_tools.GetKernelVersionResponse"
+  "\022Y\n\020ResizeFilesystem\022!.vm_tools.ResizeFi"
+  "lesystemRequest\032\".vm_tools.ResizeFilesys"
+  "temResponse\022L\n\017GetResizeStatus\022\026.vm_tool"
+  "s.EmptyMessage\032!.vm_tools.GetResizeStatu"
+  "sResponse\022L\n\017GetResizeBounds\022\026.vm_tools."
+  "EmptyMessage\032!.vm_tools.GetResizeBoundsR"
+  "esponse\022P\n\021GetAvailableSpace\022\026.vm_tools."
+  "EmptyMessage\032#.vm_tools.GetAvailableSpac"
+  "eResponse\022B\n\020PrepareToSuspend\022\026.vm_tools"
+  ".EmptyMessage\032\026.vm_tools.EmptyMessage\022e\n"
+  "\024UpdateStorageBalloon\022%.vm_tools.UpdateS"
+  "torageBalloonRequest\032&.vm_tools.UpdateSt"
+  "orageBalloonResponseB\037Z\032chromiumos/vm_to"
+  "ols/vm_rpc\370\001\001b\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_vm_5fguest_2eproto_deps[2] = {
   &::descriptor_table_common_2eproto,
@@ -629,8 +686,8 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_vm_5fguest_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_vm_5fguest_2eproto = {
-  false, false, 3564, descriptor_table_protodef_vm_5fguest_2eproto, "vm_guest.proto", 
-  &descriptor_table_vm_5fguest_2eproto_once, descriptor_table_vm_5fguest_2eproto_deps, 2, 21,
+  false, false, 4021, descriptor_table_protodef_vm_5fguest_2eproto, "vm_guest.proto", 
+  &descriptor_table_vm_5fguest_2eproto_once, descriptor_table_vm_5fguest_2eproto_deps, 2, 23,
   schemas, file_default_instances, TableStruct_vm_5fguest_2eproto::offsets,
   file_level_metadata_vm_5fguest_2eproto, file_level_enum_descriptors_vm_5fguest_2eproto, file_level_service_descriptors_vm_5fguest_2eproto,
 };
@@ -716,9 +773,39 @@ constexpr ResizeFilesystemResponse_ResizeStatus ResizeFilesystemResponse::Resize
 constexpr ResizeFilesystemResponse_ResizeStatus ResizeFilesystemResponse::ResizeStatus_MAX;
 constexpr int ResizeFilesystemResponse::ResizeStatus_ARRAYSIZE;
 #endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
-const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* ProcessStatus_descriptor() {
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* StatefulDiskSpaceState_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_vm_5fguest_2eproto);
   return file_level_enum_descriptors_vm_5fguest_2eproto[3];
+}
+bool StatefulDiskSpaceState_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+      return true;
+    default:
+      return false;
+  }
+}
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* UpdateStorageBalloonResult_descriptor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_vm_5fguest_2eproto);
+  return file_level_enum_descriptors_vm_5fguest_2eproto[4];
+}
+bool UpdateStorageBalloonResult_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+      return true;
+    default:
+      return false;
+  }
+}
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* ProcessStatus_descriptor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_vm_5fguest_2eproto);
+  return file_level_enum_descriptors_vm_5fguest_2eproto[5];
 }
 bool ProcessStatus_IsValid(int value) {
   switch (value) {
@@ -1442,6 +1529,402 @@ void NetworkConfigRequest::InternalSwap(NetworkConfigRequest* other) {
 
 // ===================================================================
 
+class UpdateStorageBalloonRequest::_Internal {
+ public:
+};
+
+UpdateStorageBalloonRequest::UpdateStorageBalloonRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor();
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
+  // @@protoc_insertion_point(arena_constructor:vm_tools.UpdateStorageBalloonRequest)
+}
+UpdateStorageBalloonRequest::UpdateStorageBalloonRequest(const UpdateStorageBalloonRequest& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  ::memcpy(&free_space_bytes_, &from.free_space_bytes_,
+    static_cast<size_t>(reinterpret_cast<char*>(&state_) -
+    reinterpret_cast<char*>(&free_space_bytes_)) + sizeof(state_));
+  // @@protoc_insertion_point(copy_constructor:vm_tools.UpdateStorageBalloonRequest)
+}
+
+inline void UpdateStorageBalloonRequest::SharedCtor() {
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&free_space_bytes_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&state_) -
+    reinterpret_cast<char*>(&free_space_bytes_)) + sizeof(state_));
+}
+
+UpdateStorageBalloonRequest::~UpdateStorageBalloonRequest() {
+  // @@protoc_insertion_point(destructor:vm_tools.UpdateStorageBalloonRequest)
+  if (GetArenaForAllocation() != nullptr) return;
+  SharedDtor();
+  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+inline void UpdateStorageBalloonRequest::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void UpdateStorageBalloonRequest::ArenaDtor(void* object) {
+  UpdateStorageBalloonRequest* _this = reinterpret_cast< UpdateStorageBalloonRequest* >(object);
+  (void)_this;
+}
+void UpdateStorageBalloonRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void UpdateStorageBalloonRequest::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void UpdateStorageBalloonRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:vm_tools.UpdateStorageBalloonRequest)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  ::memset(&free_space_bytes_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&state_) -
+      reinterpret_cast<char*>(&free_space_bytes_)) + sizeof(state_));
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* UpdateStorageBalloonRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // .vm_tools.StatefulDiskSpaceState state = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_set_state(static_cast<::vm_tools::StatefulDiskSpaceState>(val));
+        } else
+          goto handle_unusual;
+        continue;
+      // int64 free_space_bytes = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          free_space_bytes_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* UpdateStorageBalloonRequest::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:vm_tools.UpdateStorageBalloonRequest)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .vm_tools.StatefulDiskSpaceState state = 1;
+  if (this->_internal_state() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+      1, this->_internal_state(), target);
+  }
+
+  // int64 free_space_bytes = 2;
+  if (this->_internal_free_space_bytes() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(2, this->_internal_free_space_bytes(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:vm_tools.UpdateStorageBalloonRequest)
+  return target;
+}
+
+size_t UpdateStorageBalloonRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:vm_tools.UpdateStorageBalloonRequest)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // int64 free_space_bytes = 2;
+  if (this->_internal_free_space_bytes() != 0) {
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64SizePlusOne(this->_internal_free_space_bytes());
+  }
+
+  // .vm_tools.StatefulDiskSpaceState state = 1;
+  if (this->_internal_state() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_state());
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData UpdateStorageBalloonRequest::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    UpdateStorageBalloonRequest::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*UpdateStorageBalloonRequest::GetClassData() const { return &_class_data_; }
+
+void UpdateStorageBalloonRequest::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
+                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+  static_cast<UpdateStorageBalloonRequest *>(to)->MergeFrom(
+      static_cast<const UpdateStorageBalloonRequest &>(from));
+}
+
+
+void UpdateStorageBalloonRequest::MergeFrom(const UpdateStorageBalloonRequest& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.UpdateStorageBalloonRequest)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_free_space_bytes() != 0) {
+    _internal_set_free_space_bytes(from._internal_free_space_bytes());
+  }
+  if (from._internal_state() != 0) {
+    _internal_set_state(from._internal_state());
+  }
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void UpdateStorageBalloonRequest::CopyFrom(const UpdateStorageBalloonRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:vm_tools.UpdateStorageBalloonRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool UpdateStorageBalloonRequest::IsInitialized() const {
+  return true;
+}
+
+void UpdateStorageBalloonRequest::InternalSwap(UpdateStorageBalloonRequest* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(UpdateStorageBalloonRequest, state_)
+      + sizeof(UpdateStorageBalloonRequest::state_)
+      - PROTOBUF_FIELD_OFFSET(UpdateStorageBalloonRequest, free_space_bytes_)>(
+          reinterpret_cast<char*>(&free_space_bytes_),
+          reinterpret_cast<char*>(&other->free_space_bytes_));
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata UpdateStorageBalloonRequest::GetMetadata() const {
+  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+      &descriptor_table_vm_5fguest_2eproto_getter, &descriptor_table_vm_5fguest_2eproto_once,
+      file_level_metadata_vm_5fguest_2eproto[3]);
+}
+
+// ===================================================================
+
+class UpdateStorageBalloonResponse::_Internal {
+ public:
+};
+
+UpdateStorageBalloonResponse::UpdateStorageBalloonResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor();
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
+  // @@protoc_insertion_point(arena_constructor:vm_tools.UpdateStorageBalloonResponse)
+}
+UpdateStorageBalloonResponse::UpdateStorageBalloonResponse(const UpdateStorageBalloonResponse& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  result_ = from.result_;
+  // @@protoc_insertion_point(copy_constructor:vm_tools.UpdateStorageBalloonResponse)
+}
+
+inline void UpdateStorageBalloonResponse::SharedCtor() {
+result_ = 0;
+}
+
+UpdateStorageBalloonResponse::~UpdateStorageBalloonResponse() {
+  // @@protoc_insertion_point(destructor:vm_tools.UpdateStorageBalloonResponse)
+  if (GetArenaForAllocation() != nullptr) return;
+  SharedDtor();
+  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+inline void UpdateStorageBalloonResponse::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void UpdateStorageBalloonResponse::ArenaDtor(void* object) {
+  UpdateStorageBalloonResponse* _this = reinterpret_cast< UpdateStorageBalloonResponse* >(object);
+  (void)_this;
+}
+void UpdateStorageBalloonResponse::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void UpdateStorageBalloonResponse::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void UpdateStorageBalloonResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:vm_tools.UpdateStorageBalloonResponse)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  result_ = 0;
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* UpdateStorageBalloonResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // .vm_tools.UpdateStorageBalloonResult result = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_set_result(static_cast<::vm_tools::UpdateStorageBalloonResult>(val));
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* UpdateStorageBalloonResponse::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:vm_tools.UpdateStorageBalloonResponse)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .vm_tools.UpdateStorageBalloonResult result = 1;
+  if (this->_internal_result() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+      1, this->_internal_result(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:vm_tools.UpdateStorageBalloonResponse)
+  return target;
+}
+
+size_t UpdateStorageBalloonResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:vm_tools.UpdateStorageBalloonResponse)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // .vm_tools.UpdateStorageBalloonResult result = 1;
+  if (this->_internal_result() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_result());
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData UpdateStorageBalloonResponse::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    UpdateStorageBalloonResponse::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*UpdateStorageBalloonResponse::GetClassData() const { return &_class_data_; }
+
+void UpdateStorageBalloonResponse::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message* to,
+                      const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+  static_cast<UpdateStorageBalloonResponse *>(to)->MergeFrom(
+      static_cast<const UpdateStorageBalloonResponse &>(from));
+}
+
+
+void UpdateStorageBalloonResponse::MergeFrom(const UpdateStorageBalloonResponse& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.UpdateStorageBalloonResponse)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_result() != 0) {
+    _internal_set_result(from._internal_result());
+  }
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void UpdateStorageBalloonResponse::CopyFrom(const UpdateStorageBalloonResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:vm_tools.UpdateStorageBalloonResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool UpdateStorageBalloonResponse::IsInitialized() const {
+  return true;
+}
+
+void UpdateStorageBalloonResponse::InternalSwap(UpdateStorageBalloonResponse* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(result_, other->result_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata UpdateStorageBalloonResponse::GetMetadata() const {
+  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+      &descriptor_table_vm_5fguest_2eproto_getter, &descriptor_table_vm_5fguest_2eproto_once,
+      file_level_metadata_vm_5fguest_2eproto[4]);
+}
+
+// ===================================================================
+
 class ConfigureContainerGuestRequest::_Internal {
  public:
 };
@@ -1640,7 +2123,7 @@ void ConfigureContainerGuestRequest::InternalSwap(ConfigureContainerGuestRequest
 ::PROTOBUF_NAMESPACE_ID::Metadata ConfigureContainerGuestRequest::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_vm_5fguest_2eproto_getter, &descriptor_table_vm_5fguest_2eproto_once,
-      file_level_metadata_vm_5fguest_2eproto[3]);
+      file_level_metadata_vm_5fguest_2eproto[5]);
 }
 
 // ===================================================================
@@ -1654,7 +2137,7 @@ void LaunchProcessRequest_EnvEntry_DoNotUse::MergeFrom(const LaunchProcessReques
 ::PROTOBUF_NAMESPACE_ID::Metadata LaunchProcessRequest_EnvEntry_DoNotUse::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_vm_5fguest_2eproto_getter, &descriptor_table_vm_5fguest_2eproto_once,
-      file_level_metadata_vm_5fguest_2eproto[4]);
+      file_level_metadata_vm_5fguest_2eproto[6]);
 }
 
 // ===================================================================
@@ -2003,7 +2486,7 @@ void LaunchProcessRequest::InternalSwap(LaunchProcessRequest* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata LaunchProcessRequest::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_vm_5fguest_2eproto_getter, &descriptor_table_vm_5fguest_2eproto_once,
-      file_level_metadata_vm_5fguest_2eproto[5]);
+      file_level_metadata_vm_5fguest_2eproto[7]);
 }
 
 // ===================================================================
@@ -2218,7 +2701,7 @@ void LaunchProcessResponse::InternalSwap(LaunchProcessResponse* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata LaunchProcessResponse::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_vm_5fguest_2eproto_getter, &descriptor_table_vm_5fguest_2eproto_once,
-      file_level_metadata_vm_5fguest_2eproto[6]);
+      file_level_metadata_vm_5fguest_2eproto[8]);
 }
 
 // ===================================================================
@@ -2672,7 +3155,7 @@ void MountRequest::InternalSwap(MountRequest* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata MountRequest::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_vm_5fguest_2eproto_getter, &descriptor_table_vm_5fguest_2eproto_once,
-      file_level_metadata_vm_5fguest_2eproto[7]);
+      file_level_metadata_vm_5fguest_2eproto[9]);
 }
 
 // ===================================================================
@@ -2901,7 +3384,7 @@ void Mount9PRequest::InternalSwap(Mount9PRequest* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata Mount9PRequest::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_vm_5fguest_2eproto_getter, &descriptor_table_vm_5fguest_2eproto_once,
-      file_level_metadata_vm_5fguest_2eproto[8]);
+      file_level_metadata_vm_5fguest_2eproto[10]);
 }
 
 // ===================================================================
@@ -3079,7 +3562,7 @@ void MountResponse::InternalSwap(MountResponse* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata MountResponse::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_vm_5fguest_2eproto_getter, &descriptor_table_vm_5fguest_2eproto_once,
-      file_level_metadata_vm_5fguest_2eproto[9]);
+      file_level_metadata_vm_5fguest_2eproto[11]);
 }
 
 // ===================================================================
@@ -3435,7 +3918,7 @@ void StartTerminaRequest::InternalSwap(StartTerminaRequest* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata StartTerminaRequest::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_vm_5fguest_2eproto_getter, &descriptor_table_vm_5fguest_2eproto_once,
-      file_level_metadata_vm_5fguest_2eproto[10]);
+      file_level_metadata_vm_5fguest_2eproto[12]);
 }
 
 // ===================================================================
@@ -3672,7 +4155,7 @@ void StartTerminaResponse::InternalSwap(StartTerminaResponse* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata StartTerminaResponse::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_vm_5fguest_2eproto_getter, &descriptor_table_vm_5fguest_2eproto_once,
-      file_level_metadata_vm_5fguest_2eproto[11]);
+      file_level_metadata_vm_5fguest_2eproto[13]);
 }
 
 // ===================================================================
@@ -3867,7 +4350,7 @@ void SetResolvConfigRequest::InternalSwap(SetResolvConfigRequest* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata SetResolvConfigRequest::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_vm_5fguest_2eproto_getter, &descriptor_table_vm_5fguest_2eproto_once,
-      file_level_metadata_vm_5fguest_2eproto[12]);
+      file_level_metadata_vm_5fguest_2eproto[14]);
 }
 
 // ===================================================================
@@ -4068,7 +4551,7 @@ void SetTimeRequest::InternalSwap(SetTimeRequest* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata SetTimeRequest::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_vm_5fguest_2eproto_getter, &descriptor_table_vm_5fguest_2eproto_once,
-      file_level_metadata_vm_5fguest_2eproto[13]);
+      file_level_metadata_vm_5fguest_2eproto[15]);
 }
 
 // ===================================================================
@@ -4297,7 +4780,7 @@ void SetTimezoneRequest::InternalSwap(SetTimezoneRequest* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata SetTimezoneRequest::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_vm_5fguest_2eproto_getter, &descriptor_table_vm_5fguest_2eproto_once,
-      file_level_metadata_vm_5fguest_2eproto[14]);
+      file_level_metadata_vm_5fguest_2eproto[16]);
 }
 
 // ===================================================================
@@ -4549,7 +5032,7 @@ void GetKernelVersionResponse::InternalSwap(GetKernelVersionResponse* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata GetKernelVersionResponse::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_vm_5fguest_2eproto_getter, &descriptor_table_vm_5fguest_2eproto_once,
-      file_level_metadata_vm_5fguest_2eproto[15]);
+      file_level_metadata_vm_5fguest_2eproto[17]);
 }
 
 // ===================================================================
@@ -4727,7 +5210,7 @@ void ResizeFilesystemRequest::InternalSwap(ResizeFilesystemRequest* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata ResizeFilesystemRequest::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_vm_5fguest_2eproto_getter, &descriptor_table_vm_5fguest_2eproto_once,
-      file_level_metadata_vm_5fguest_2eproto[16]);
+      file_level_metadata_vm_5fguest_2eproto[18]);
 }
 
 // ===================================================================
@@ -4908,7 +5391,7 @@ void ResizeFilesystemResponse::InternalSwap(ResizeFilesystemResponse* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata ResizeFilesystemResponse::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_vm_5fguest_2eproto_getter, &descriptor_table_vm_5fguest_2eproto_once,
-      file_level_metadata_vm_5fguest_2eproto[17]);
+      file_level_metadata_vm_5fguest_2eproto[19]);
 }
 
 // ===================================================================
@@ -5142,7 +5625,7 @@ void GetResizeStatusResponse::InternalSwap(GetResizeStatusResponse* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata GetResizeStatusResponse::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_vm_5fguest_2eproto_getter, &descriptor_table_vm_5fguest_2eproto_once,
-      file_level_metadata_vm_5fguest_2eproto[18]);
+      file_level_metadata_vm_5fguest_2eproto[20]);
 }
 
 // ===================================================================
@@ -5320,7 +5803,7 @@ void GetResizeBoundsResponse::InternalSwap(GetResizeBoundsResponse* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata GetResizeBoundsResponse::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_vm_5fguest_2eproto_getter, &descriptor_table_vm_5fguest_2eproto_once,
-      file_level_metadata_vm_5fguest_2eproto[19]);
+      file_level_metadata_vm_5fguest_2eproto[21]);
 }
 
 // ===================================================================
@@ -5498,7 +5981,7 @@ void GetAvailableSpaceResponse::InternalSwap(GetAvailableSpaceResponse* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata GetAvailableSpaceResponse::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_vm_5fguest_2eproto_getter, &descriptor_table_vm_5fguest_2eproto_once,
-      file_level_metadata_vm_5fguest_2eproto[20]);
+      file_level_metadata_vm_5fguest_2eproto[22]);
 }
 
 // @@protoc_insertion_point(namespace_scope)
@@ -5512,6 +5995,12 @@ template<> PROTOBUF_NOINLINE ::vm_tools::ResolvConfig* Arena::CreateMaybeMessage
 }
 template<> PROTOBUF_NOINLINE ::vm_tools::NetworkConfigRequest* Arena::CreateMaybeMessage< ::vm_tools::NetworkConfigRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_tools::NetworkConfigRequest >(arena);
+}
+template<> PROTOBUF_NOINLINE ::vm_tools::UpdateStorageBalloonRequest* Arena::CreateMaybeMessage< ::vm_tools::UpdateStorageBalloonRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::vm_tools::UpdateStorageBalloonRequest >(arena);
+}
+template<> PROTOBUF_NOINLINE ::vm_tools::UpdateStorageBalloonResponse* Arena::CreateMaybeMessage< ::vm_tools::UpdateStorageBalloonResponse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::vm_tools::UpdateStorageBalloonResponse >(arena);
 }
 template<> PROTOBUF_NOINLINE ::vm_tools::ConfigureContainerGuestRequest* Arena::CreateMaybeMessage< ::vm_tools::ConfigureContainerGuestRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_tools::ConfigureContainerGuestRequest >(arena);
