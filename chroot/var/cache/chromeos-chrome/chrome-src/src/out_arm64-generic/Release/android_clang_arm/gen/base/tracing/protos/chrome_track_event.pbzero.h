@@ -78,6 +78,10 @@ namespace perfetto_pbzero_enum_RendererMainThreadTaskExecution {
 enum TaskType : int32_t;
 }  // namespace perfetto_pbzero_enum_RendererMainThreadTaskExecution
 using RendererMainThreadTaskExecution_TaskType = perfetto_pbzero_enum_RendererMainThreadTaskExecution::TaskType;
+namespace perfetto_pbzero_enum_SequenceManagerTask {
+enum Priority : int32_t;
+}  // namespace perfetto_pbzero_enum_SequenceManagerTask
+using SequenceManagerTask_Priority = perfetto_pbzero_enum_SequenceManagerTask::Priority;
 enum ShouldSwapBrowsingInstance : int32_t;
 
 enum ChromeAppState : int32_t {
@@ -285,6 +289,55 @@ const char* DeviceThermalState_Name(::perfetto::protos::pbzero::DeviceThermalSta
 
   case ::perfetto::protos::pbzero::DeviceThermalState::DEVICE_THERMAL_STATE_CRITICAL:
     return "DEVICE_THERMAL_STATE_CRITICAL";
+  }
+  return "PBZERO_UNKNOWN_ENUM_VALUE";
+}
+
+namespace perfetto_pbzero_enum_SequenceManagerTask {
+enum Priority : int32_t {
+  UNKNOWN = 0,
+  CONTROL_PRIORITY = 1,
+  HIGHEST_PRIORITY = 2,
+  VERY_HIGH_PRIORITY = 3,
+  HIGH_PRIORITY = 4,
+  NORMAL_PRIORITY = 5,
+  LOW_PRIORITY = 6,
+  BEST_EFFORT_PRIORITY = 7,
+};
+} // namespace perfetto_pbzero_enum_SequenceManagerTask
+using SequenceManagerTask_Priority = perfetto_pbzero_enum_SequenceManagerTask::Priority;
+
+
+constexpr SequenceManagerTask_Priority SequenceManagerTask_Priority_MIN = SequenceManagerTask_Priority::UNKNOWN;
+constexpr SequenceManagerTask_Priority SequenceManagerTask_Priority_MAX = SequenceManagerTask_Priority::BEST_EFFORT_PRIORITY;
+
+
+PERFETTO_PROTOZERO_CONSTEXPR14_OR_INLINE
+const char* SequenceManagerTask_Priority_Name(::perfetto::protos::pbzero::SequenceManagerTask_Priority value) {
+  switch (value) {
+  case ::perfetto::protos::pbzero::SequenceManagerTask_Priority::UNKNOWN:
+    return "UNKNOWN";
+
+  case ::perfetto::protos::pbzero::SequenceManagerTask_Priority::CONTROL_PRIORITY:
+    return "CONTROL_PRIORITY";
+
+  case ::perfetto::protos::pbzero::SequenceManagerTask_Priority::HIGHEST_PRIORITY:
+    return "HIGHEST_PRIORITY";
+
+  case ::perfetto::protos::pbzero::SequenceManagerTask_Priority::VERY_HIGH_PRIORITY:
+    return "VERY_HIGH_PRIORITY";
+
+  case ::perfetto::protos::pbzero::SequenceManagerTask_Priority::HIGH_PRIORITY:
+    return "HIGH_PRIORITY";
+
+  case ::perfetto::protos::pbzero::SequenceManagerTask_Priority::NORMAL_PRIORITY:
+    return "NORMAL_PRIORITY";
+
+  case ::perfetto::protos::pbzero::SequenceManagerTask_Priority::LOW_PRIORITY:
+    return "LOW_PRIORITY";
+
+  case ::perfetto::protos::pbzero::SequenceManagerTask_Priority::BEST_EFFORT_PRIORITY:
+    return "BEST_EFFORT_PRIORITY";
   }
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
@@ -1320,6 +1373,63 @@ const char* ChildProcessLauncherPriority_Importance_Name(::perfetto::protos::pbz
   }
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
+
+class SequenceManagerTask_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/1, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+ public:
+  SequenceManagerTask_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
+  explicit SequenceManagerTask_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
+  explicit SequenceManagerTask_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
+  bool has_priority() const { return at<1>().valid(); }
+  int32_t priority() const { return at<1>().as_int32(); }
+};
+
+class SequenceManagerTask : public ::protozero::Message {
+ public:
+  using Decoder = SequenceManagerTask_Decoder;
+  enum : int32_t {
+    kPriorityFieldNumber = 1,
+  };
+  static constexpr const char* GetName() { return ".perfetto.protos.SequenceManagerTask"; }
+
+
+  using Priority = ::perfetto::protos::pbzero::SequenceManagerTask_Priority;
+  static inline const char* Priority_Name(Priority value) {
+    return ::perfetto::protos::pbzero::SequenceManagerTask_Priority_Name(value);
+  }
+  static const Priority UNKNOWN = Priority::UNKNOWN;
+  static const Priority CONTROL_PRIORITY = Priority::CONTROL_PRIORITY;
+  static const Priority HIGHEST_PRIORITY = Priority::HIGHEST_PRIORITY;
+  static const Priority VERY_HIGH_PRIORITY = Priority::VERY_HIGH_PRIORITY;
+  static const Priority HIGH_PRIORITY = Priority::HIGH_PRIORITY;
+  static const Priority NORMAL_PRIORITY = Priority::NORMAL_PRIORITY;
+  static const Priority LOW_PRIORITY = Priority::LOW_PRIORITY;
+  static const Priority BEST_EFFORT_PRIORITY = Priority::BEST_EFFORT_PRIORITY;
+
+  using FieldMetadata_Priority =
+    ::protozero::proto_utils::FieldMetadata<
+      1,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kEnum,
+      ::perfetto::protos::pbzero::SequenceManagerTask_Priority,
+      SequenceManagerTask>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_Priority kPriority() { return {}; }
+  void set_priority(::perfetto::protos::pbzero::SequenceManagerTask_Priority value) {
+    static constexpr uint32_t field_id = FieldMetadata_Priority::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kEnum>
+        ::Append(*this, field_id, value);
+  }
+};
 
 class AndroidIPC_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/2, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
  public:
@@ -7504,6 +7614,27 @@ class ChromeTrackEvent : public ::perfetto::protos::pbzero::TrackEvent {
   static constexpr FieldMetadata_SqlDiagnostics kSqlDiagnostics() { return {}; }
   template <typename T = ChromeSqlDiagnostics> T* set_sql_diagnostics() {
     return BeginNestedMessage<T>(1039);
+  }
+
+
+  using FieldMetadata_SequenceManagerTask =
+    ::protozero::proto_utils::FieldMetadata<
+      1040,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      SequenceManagerTask,
+      ChromeTrackEvent>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_SequenceManagerTask kSequenceManagerTask() { return {}; }
+  template <typename T = SequenceManagerTask> T* set_sequence_manager_task() {
+    return BeginNestedMessage<T>(1040);
   }
 
 };

@@ -569,7 +569,7 @@ class  CrosHealthdProbeService
   static const char Name_[];
   static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
-  static constexpr uint32_t Version_ = 0;
+  static constexpr uint32_t Version_ = 1;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasSyncMethods_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
@@ -585,6 +585,7 @@ class  CrosHealthdProbeService
   enum MethodMinVersions : uint32_t {
     kProbeProcessInfoMinVersion = 0,
     kProbeTelemetryInfoMinVersion = 0,
+    kProbeMultipleProcessInfoMinVersion = 1,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -594,6 +595,9 @@ class  CrosHealthdProbeService
     NOINLINE static uint32_t IPCStableHash();
   };
   struct ProbeTelemetryInfo_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct ProbeMultipleProcessInfo_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -608,6 +612,11 @@ class  CrosHealthdProbeService
   using ProbeTelemetryInfoCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::TelemetryInfoPtr)>;
   
   virtual void ProbeTelemetryInfo(const std::vector<::ash::cros_healthd::mojom::ProbeCategoryEnum>& categories, ProbeTelemetryInfoCallback callback) = 0;
+
+
+  using ProbeMultipleProcessInfoCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::MultipleProcessResultPtr)>;
+  
+  virtual void ProbeMultipleProcessInfo(const absl::optional<std::vector<uint32_t>>& process_ids, bool ignore_single_process_error, ProbeMultipleProcessInfoCallback callback) = 0;
 };
 
 class CrosHealthdSystemServiceProxy;
@@ -872,6 +881,8 @@ class  CrosHealthdProbeServiceProxy
   void ProbeProcessInfo(uint32_t process_id, ProbeProcessInfoCallback callback) final;
   
   void ProbeTelemetryInfo(const std::vector<::ash::cros_healthd::mojom::ProbeCategoryEnum>& categories, ProbeTelemetryInfoCallback callback) final;
+  
+  void ProbeMultipleProcessInfo(const absl::optional<std::vector<uint32_t>>& process_ids, bool ignore_single_process_error, ProbeMultipleProcessInfoCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

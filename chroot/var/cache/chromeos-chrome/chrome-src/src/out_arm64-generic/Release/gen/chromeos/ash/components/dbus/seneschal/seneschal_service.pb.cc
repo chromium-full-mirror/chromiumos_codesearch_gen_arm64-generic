@@ -151,6 +151,7 @@ PROTOBUF_CONSTEXPR SharePathRequest::SharePathRequest(
   : owner_id_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , drivefs_mount_name_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , smbfs_mount_name_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , guest_os_mount_name_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , shared_path_(nullptr)
   , handle_(0u)
   , storage_location_(0)
@@ -223,13 +224,15 @@ bool SharePathRequest_StorageLocation_IsValid(int value) {
     case 10:
     case 11:
     case 12:
+    case 13:
+    case 14:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> SharePathRequest_StorageLocation_strings[13] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> SharePathRequest_StorageLocation_strings[15] = {};
 
 static const char SharePathRequest_StorageLocation_names[] =
   "ARCHIVE"
@@ -240,9 +243,11 @@ static const char SharePathRequest_StorageLocation_names[] =
   "DRIVEFS_SHORTCUT_TARGETS_BY_ID"
   "DRIVEFS_TEAM_DRIVES"
   "FONTS"
+  "GUEST_OS_FILES"
   "LINUX_FILES"
   "MY_FILES"
   "PLAY_FILES"
+  "PLAY_FILES_GUEST_OS"
   "REMOVABLE"
   "SMBFS";
 
@@ -255,11 +260,13 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry SharePathRequest_Stora
   { {SharePathRequest_StorageLocation_names + 68, 30}, 12 },
   { {SharePathRequest_StorageLocation_names + 98, 19}, 2 },
   { {SharePathRequest_StorageLocation_names + 117, 5}, 8 },
-  { {SharePathRequest_StorageLocation_names + 122, 11}, 7 },
-  { {SharePathRequest_StorageLocation_names + 133, 8}, 5 },
-  { {SharePathRequest_StorageLocation_names + 141, 10}, 6 },
-  { {SharePathRequest_StorageLocation_names + 151, 9}, 4 },
-  { {SharePathRequest_StorageLocation_names + 160, 5}, 10 },
+  { {SharePathRequest_StorageLocation_names + 122, 14}, 13 },
+  { {SharePathRequest_StorageLocation_names + 136, 11}, 7 },
+  { {SharePathRequest_StorageLocation_names + 147, 8}, 5 },
+  { {SharePathRequest_StorageLocation_names + 155, 10}, 6 },
+  { {SharePathRequest_StorageLocation_names + 165, 19}, 14 },
+  { {SharePathRequest_StorageLocation_names + 184, 9}, 4 },
+  { {SharePathRequest_StorageLocation_names + 193, 5}, 10 },
 };
 
 static const int SharePathRequest_StorageLocation_entries_by_number[] = {
@@ -267,15 +274,17 @@ static const int SharePathRequest_StorageLocation_entries_by_number[] = {
   4, // 1 -> DRIVEFS_MY_DRIVE
   6, // 2 -> DRIVEFS_TEAM_DRIVES
   2, // 3 -> DRIVEFS_COMPUTERS
-  11, // 4 -> REMOVABLE
-  9, // 5 -> MY_FILES
-  10, // 6 -> PLAY_FILES
-  8, // 7 -> LINUX_FILES
+  13, // 4 -> REMOVABLE
+  10, // 5 -> MY_FILES
+  11, // 6 -> PLAY_FILES
+  9, // 7 -> LINUX_FILES
   7, // 8 -> FONTS
   0, // 9 -> ARCHIVE
-  12, // 10 -> SMBFS
+  14, // 10 -> SMBFS
   3, // 11 -> DRIVEFS_FILES_BY_ID
   5, // 12 -> DRIVEFS_SHORTCUT_TARGETS_BY_ID
+  8, // 13 -> GUEST_OS_FILES
+  12, // 14 -> PLAY_FILES_GUEST_OS
 };
 
 const std::string& SharePathRequest_StorageLocation_Name(
@@ -284,12 +293,12 @@ const std::string& SharePathRequest_StorageLocation_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           SharePathRequest_StorageLocation_entries,
           SharePathRequest_StorageLocation_entries_by_number,
-          13, SharePathRequest_StorageLocation_strings);
+          15, SharePathRequest_StorageLocation_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       SharePathRequest_StorageLocation_entries,
       SharePathRequest_StorageLocation_entries_by_number,
-      13, value);
+      15, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      SharePathRequest_StorageLocation_strings[idx].get();
 }
@@ -297,7 +306,7 @@ bool SharePathRequest_StorageLocation_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, SharePathRequest_StorageLocation* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      SharePathRequest_StorageLocation_entries, 13, name, &int_value);
+      SharePathRequest_StorageLocation_entries, 15, name, &int_value);
   if (success) {
     *value = static_cast<SharePathRequest_StorageLocation>(int_value);
   }
@@ -317,6 +326,8 @@ constexpr SharePathRequest_StorageLocation SharePathRequest::LINUX_FILES;
 constexpr SharePathRequest_StorageLocation SharePathRequest::FONTS;
 constexpr SharePathRequest_StorageLocation SharePathRequest::ARCHIVE;
 constexpr SharePathRequest_StorageLocation SharePathRequest::SMBFS;
+constexpr SharePathRequest_StorageLocation SharePathRequest::GUEST_OS_FILES;
+constexpr SharePathRequest_StorageLocation SharePathRequest::PLAY_FILES_GUEST_OS;
 constexpr SharePathRequest_StorageLocation SharePathRequest::StorageLocation_MIN;
 constexpr SharePathRequest_StorageLocation SharePathRequest::StorageLocation_MAX;
 constexpr int SharePathRequest::StorageLocation_ARRAYSIZE;
@@ -2589,6 +2600,14 @@ SharePathRequest::SharePathRequest(const SharePathRequest& from)
     smbfs_mount_name_.Set(from._internal_smbfs_mount_name(), 
       GetArenaForAllocation());
   }
+  guest_os_mount_name_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    guest_os_mount_name_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_guest_os_mount_name().empty()) {
+    guest_os_mount_name_.Set(from._internal_guest_os_mount_name(), 
+      GetArenaForAllocation());
+  }
   if (from._internal_has_shared_path()) {
     shared_path_ = new ::vm_tools::seneschal::SharedPath(*from.shared_path_);
   } else {
@@ -2613,6 +2632,10 @@ smbfs_mount_name_.InitDefault();
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   smbfs_mount_name_.Set("", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+guest_os_mount_name_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  guest_os_mount_name_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&shared_path_) - reinterpret_cast<char*>(this)),
     0, static_cast<size_t>(reinterpret_cast<char*>(&storage_location_) -
@@ -2633,6 +2656,7 @@ inline void SharePathRequest::SharedDtor() {
   owner_id_.Destroy();
   drivefs_mount_name_.Destroy();
   smbfs_mount_name_.Destroy();
+  guest_os_mount_name_.Destroy();
   if (this != internal_default_instance()) delete shared_path_;
 }
 
@@ -2649,6 +2673,7 @@ void SharePathRequest::Clear() {
   owner_id_.ClearToEmpty();
   drivefs_mount_name_.ClearToEmpty();
   smbfs_mount_name_.ClearToEmpty();
+  guest_os_mount_name_.ClearToEmpty();
   if (GetArenaForAllocation() == nullptr && shared_path_ != nullptr) {
     delete shared_path_;
   }
@@ -2714,6 +2739,16 @@ const char* SharePathRequest::_InternalParse(const char* ptr, ::_pbi::ParseConte
       case 6:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 50)) {
           auto str = _internal_mutable_smbfs_mount_name();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // string guest_os_mount_name = 7;
+      case 7:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 58)) {
+          auto str = _internal_mutable_guest_os_mount_name();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
           CHK_(::_pbi::VerifyUTF8(str, nullptr));
@@ -2799,6 +2834,16 @@ uint8_t* SharePathRequest::_InternalSerialize(
         6, this->_internal_smbfs_mount_name(), target);
   }
 
+  // string guest_os_mount_name = 7;
+  if (!this->_internal_guest_os_mount_name().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_guest_os_mount_name().data(), static_cast<int>(this->_internal_guest_os_mount_name().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "vm_tools.seneschal.SharePathRequest.guest_os_mount_name");
+    target = stream->WriteStringMaybeAliased(
+        7, this->_internal_guest_os_mount_name(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -2834,6 +2879,13 @@ size_t SharePathRequest::ByteSizeLong() const {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_smbfs_mount_name());
+  }
+
+  // string guest_os_mount_name = 7;
+  if (!this->_internal_guest_os_mount_name().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_guest_os_mount_name());
   }
 
   // .vm_tools.seneschal.SharedPath shared_path = 2;
@@ -2883,6 +2935,9 @@ void SharePathRequest::MergeFrom(const SharePathRequest& from) {
   if (!from._internal_smbfs_mount_name().empty()) {
     _internal_set_smbfs_mount_name(from._internal_smbfs_mount_name());
   }
+  if (!from._internal_guest_os_mount_name().empty()) {
+    _internal_set_guest_os_mount_name(from._internal_guest_os_mount_name());
+  }
   if (from._internal_has_shared_path()) {
     _internal_mutable_shared_path()->::vm_tools::seneschal::SharedPath::MergeFrom(from._internal_shared_path());
   }
@@ -2922,6 +2977,10 @@ void SharePathRequest::InternalSwap(SharePathRequest* other) {
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &smbfs_mount_name_, lhs_arena,
       &other->smbfs_mount_name_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &guest_os_mount_name_, lhs_arena,
+      &other->guest_os_mount_name_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(SharePathRequest, storage_location_)

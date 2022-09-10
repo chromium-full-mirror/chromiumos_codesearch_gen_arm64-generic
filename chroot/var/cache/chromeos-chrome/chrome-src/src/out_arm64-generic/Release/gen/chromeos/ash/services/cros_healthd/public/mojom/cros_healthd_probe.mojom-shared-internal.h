@@ -27,6 +27,7 @@ namespace cros_healthd {
 namespace mojom {
 namespace internal {
 class ProbeError_Data;
+class MultipleProcessResult_Data;
 class ProcessInfo_Data;
 class BatteryInfo_Data;
 class NonRemovableBlockDeviceInfo_Data;
@@ -2157,6 +2158,55 @@ struct ProbeError_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     ProbeError_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  MultipleProcessResult_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::Map_Data<uint32_t, mojo::internal::Pointer<internal::ProcessInfo_Data>>> process_infos;
+  mojo::internal::Pointer<mojo::internal::Map_Data<uint32_t, mojo::internal::Pointer<internal::ProbeError_Data>>> errors;
+
+ private:
+  friend class mojo::internal::MessageFragment<MultipleProcessResult_Data>;
+
+  MultipleProcessResult_Data();
+  ~MultipleProcessResult_Data() = delete;
+};
+static_assert(sizeof(MultipleProcessResult_Data) == 24,
+              "Bad sizeof(MultipleProcessResult_Data)");
+// Used by MultipleProcessResult::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct MultipleProcessResult_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  MultipleProcessResult_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~MultipleProcessResult_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<MultipleProcessResult_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    MultipleProcessResult_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  ProcessInfo_Data {
  public:
   static bool Validate(const void* data,

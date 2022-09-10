@@ -63,6 +63,7 @@ constexpr uint32_t kCrosHealthdEventService_AddThunderboltObserver_Name = 5;
 constexpr uint32_t kCrosHealthdEventService_AddUsbObserver_Name = 6;
 constexpr uint32_t kCrosHealthdProbeService_ProbeProcessInfo_Name = 0;
 constexpr uint32_t kCrosHealthdProbeService_ProbeTelemetryInfo_Name = 1;
+constexpr uint32_t kCrosHealthdProbeService_ProbeMultipleProcessInfo_Name = 2;
 constexpr uint32_t kCrosHealthdSystemService_GetServiceStatus_Name = 0;
 constexpr uint32_t kWilcoEcServiceController_AddEcObserver_Name = 0;
 constexpr uint32_t kWilcoEcServiceController_GetEcTelemetry_Name = 1;

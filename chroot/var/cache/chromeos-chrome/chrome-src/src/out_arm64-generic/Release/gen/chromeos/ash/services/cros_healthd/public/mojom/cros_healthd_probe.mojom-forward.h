@@ -26,6 +26,8 @@ namespace cros_healthd {
 namespace mojom {
 class ProbeErrorDataView;
 
+class MultipleProcessResultDataView;
+
 class ProcessInfoDataView;
 
 class BatteryInfoDataView;
@@ -204,6 +206,9 @@ enum class CpuVirtualizationInfo_Type : int32_t;
 enum class InputDevice_ConnectionType : int32_t;
 class ProbeError;
 using ProbeErrorPtr = mojo::InlinedStructPtr<ProbeError>;
+
+class MultipleProcessResult;
+using MultipleProcessResultPtr = mojo::StructPtr<MultipleProcessResult>;
 
 class ProcessInfo;
 using ProcessInfoPtr = mojo::StructPtr<ProcessInfo>;
