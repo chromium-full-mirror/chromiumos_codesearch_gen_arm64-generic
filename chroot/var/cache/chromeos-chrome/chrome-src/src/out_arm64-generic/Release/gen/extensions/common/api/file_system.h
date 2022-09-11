@@ -53,10 +53,10 @@ struct AcceptOption {
 
   // Mime-types to accept, e.g. "image/jpeg" or "audio/*". One of mimeTypes or
   // extensions must contain at least one valid element.
-  std::unique_ptr<std::vector<std::string>> mime_types;
+  absl::optional<std::vector<std::string>> mime_types;
 
   // Extensions to accept, e.g. "jpg", "gif", "crx".
-  std::unique_ptr<std::vector<std::string>> extensions;
+  absl::optional<std::vector<std::string>> extensions;
 
 };
 
@@ -101,7 +101,7 @@ struct ChooseEntryOptions {
 
   // The optional list of accept options for this file opener. Each option will be
   // presented as a unique group to the end-user.
-  std::unique_ptr<std::vector<AcceptOption>> accepts;
+  absl::optional<std::vector<AcceptOption>> accepts;
 
   // Whether to accept all file types, in addition to the options specified in the
   // accepts argument. The default is true. If the accepts field is unset or

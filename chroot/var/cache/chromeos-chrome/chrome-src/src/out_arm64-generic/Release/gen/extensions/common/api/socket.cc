@@ -128,7 +128,7 @@ std::unique_ptr<base::DictionaryValue> CreateInfo::ToValue() const {
   auto to_value_result =
       std::make_unique<base::DictionaryValue>();
 
-  to_value_result->SetWithoutPathExpansion("socketId", std::make_unique<base::Value>(this->socket_id));
+  to_value_result->GetDict().Set("socketId", std::move(*std::make_unique<base::Value>(this->socket_id)));
 
 
   return to_value_result;
@@ -188,10 +188,10 @@ std::unique_ptr<base::DictionaryValue> AcceptInfo::ToValue() const {
   auto to_value_result =
       std::make_unique<base::DictionaryValue>();
 
-  to_value_result->SetWithoutPathExpansion("resultCode", std::make_unique<base::Value>(this->result_code));
+  to_value_result->GetDict().Set("resultCode", std::move(*std::make_unique<base::Value>(this->result_code)));
 
   if (this->socket_id) {
-    to_value_result->SetWithoutPathExpansion("socketId", std::make_unique<base::Value>(*this->socket_id));
+    to_value_result->GetDict().Set("socketId", std::move(*std::make_unique<base::Value>(*this->socket_id)));
 
   }
 
@@ -253,9 +253,9 @@ std::unique_ptr<base::DictionaryValue> ReadInfo::ToValue() const {
   auto to_value_result =
       std::make_unique<base::DictionaryValue>();
 
-  to_value_result->SetWithoutPathExpansion("resultCode", std::make_unique<base::Value>(this->result_code));
+  to_value_result->GetDict().Set("resultCode", std::move(*std::make_unique<base::Value>(this->result_code)));
 
-  to_value_result->SetWithoutPathExpansion("data", std::make_unique<base::Value>(this->data));
+  to_value_result->GetDict().Set("data", std::move(*std::make_unique<base::Value>(this->data)));
 
 
   return to_value_result;
@@ -303,7 +303,7 @@ std::unique_ptr<base::DictionaryValue> WriteInfo::ToValue() const {
   auto to_value_result =
       std::make_unique<base::DictionaryValue>();
 
-  to_value_result->SetWithoutPathExpansion("bytesWritten", std::make_unique<base::Value>(this->bytes_written));
+  to_value_result->GetDict().Set("bytesWritten", std::move(*std::make_unique<base::Value>(this->bytes_written)));
 
 
   return to_value_result;
@@ -389,13 +389,13 @@ std::unique_ptr<base::DictionaryValue> RecvFromInfo::ToValue() const {
   auto to_value_result =
       std::make_unique<base::DictionaryValue>();
 
-  to_value_result->SetWithoutPathExpansion("resultCode", std::make_unique<base::Value>(this->result_code));
+  to_value_result->GetDict().Set("resultCode", std::move(*std::make_unique<base::Value>(this->result_code)));
 
-  to_value_result->SetWithoutPathExpansion("data", std::make_unique<base::Value>(this->data));
+  to_value_result->GetDict().Set("data", std::move(*std::make_unique<base::Value>(this->data)));
 
-  to_value_result->SetWithoutPathExpansion("address", std::make_unique<base::Value>(this->address));
+  to_value_result->GetDict().Set("address", std::move(*std::make_unique<base::Value>(this->address)));
 
-  to_value_result->SetWithoutPathExpansion("port", std::make_unique<base::Value>(this->port));
+  to_value_result->GetDict().Set("port", std::move(*std::make_unique<base::Value>(this->port)));
 
 
   return to_value_result;
@@ -507,24 +507,24 @@ std::unique_ptr<base::DictionaryValue> SocketInfo::ToValue() const {
   auto to_value_result =
       std::make_unique<base::DictionaryValue>();
 
-  to_value_result->SetWithoutPathExpansion("socketType", std::make_unique<base::Value>(socket::ToString(this->socket_type)));
+  to_value_result->GetDict().Set("socketType", std::move(*std::make_unique<base::Value>(socket::ToString(this->socket_type))));
 
-  to_value_result->SetWithoutPathExpansion("connected", std::make_unique<base::Value>(this->connected));
+  to_value_result->GetDict().Set("connected", std::move(*std::make_unique<base::Value>(this->connected)));
 
   if (this->peer_address) {
-    to_value_result->SetWithoutPathExpansion("peerAddress", std::make_unique<base::Value>(*this->peer_address));
+    to_value_result->GetDict().Set("peerAddress", std::move(*std::make_unique<base::Value>(*this->peer_address)));
 
   }
   if (this->peer_port) {
-    to_value_result->SetWithoutPathExpansion("peerPort", std::make_unique<base::Value>(*this->peer_port));
+    to_value_result->GetDict().Set("peerPort", std::move(*std::make_unique<base::Value>(*this->peer_port)));
 
   }
   if (this->local_address) {
-    to_value_result->SetWithoutPathExpansion("localAddress", std::make_unique<base::Value>(*this->local_address));
+    to_value_result->GetDict().Set("localAddress", std::move(*std::make_unique<base::Value>(*this->local_address)));
 
   }
   if (this->local_port) {
-    to_value_result->SetWithoutPathExpansion("localPort", std::make_unique<base::Value>(*this->local_port));
+    to_value_result->GetDict().Set("localPort", std::move(*std::make_unique<base::Value>(*this->local_port)));
 
   }
 
@@ -597,11 +597,11 @@ std::unique_ptr<base::DictionaryValue> NetworkInterface::ToValue() const {
   auto to_value_result =
       std::make_unique<base::DictionaryValue>();
 
-  to_value_result->SetWithoutPathExpansion("name", std::make_unique<base::Value>(this->name));
+  to_value_result->GetDict().Set("name", std::move(*std::make_unique<base::Value>(this->name)));
 
-  to_value_result->SetWithoutPathExpansion("address", std::make_unique<base::Value>(this->address));
+  to_value_result->GetDict().Set("address", std::move(*std::make_unique<base::Value>(this->address)));
 
-  to_value_result->SetWithoutPathExpansion("prefixLength", std::make_unique<base::Value>(this->prefix_length));
+  to_value_result->GetDict().Set("prefixLength", std::move(*std::make_unique<base::Value>(this->prefix_length)));
 
 
   return to_value_result;
@@ -662,11 +662,11 @@ std::unique_ptr<base::DictionaryValue> TLSVersionConstraints::ToValue() const {
       std::make_unique<base::DictionaryValue>();
 
   if (this->min) {
-    to_value_result->SetWithoutPathExpansion("min", std::make_unique<base::Value>(*this->min));
+    to_value_result->GetDict().Set("min", std::move(*std::make_unique<base::Value>(*this->min)));
 
   }
   if (this->max) {
-    to_value_result->SetWithoutPathExpansion("max", std::make_unique<base::Value>(*this->max));
+    to_value_result->GetDict().Set("max", std::move(*std::make_unique<base::Value>(*this->max)));
 
   }
 
@@ -721,7 +721,7 @@ std::unique_ptr<base::DictionaryValue> SecureOptions::ToValue() const {
       std::make_unique<base::DictionaryValue>();
 
   if (this->tls_version) {
-    to_value_result->SetWithoutPathExpansion("tlsVersion", (this->tls_version)->ToValue());
+    to_value_result->GetDict().Set("tlsVersion", std::move(*(this->tls_version)->ToValue()));
 
   }
 

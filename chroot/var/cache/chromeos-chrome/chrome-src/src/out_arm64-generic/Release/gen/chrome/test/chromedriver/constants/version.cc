@@ -1,4 +1,4 @@
-// Copyright 2019 The Chromium Authors. All rights reserved.
+// Copyright 2019 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -8,7 +8,7 @@
 
 // Version Information
 
-const char kChromeDriverVersion[] = "107.0.5287.3 (c1d50c7d8a3676e9f833be70731948d47810042b-refs/branch-heads/5287@{#6})";
+const char kChromeDriverVersion[] = "107.0.5293.0 (a7811c48952e7326b951e41044055d3eeee64646-refs/branch-heads/5293@{#1})";
 
 // Branding Information
 

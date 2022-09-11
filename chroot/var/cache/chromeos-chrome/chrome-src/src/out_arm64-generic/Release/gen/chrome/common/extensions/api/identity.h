@@ -154,7 +154,7 @@ struct TokenDetails {
   // <p>A list of OAuth2 scopes to request.</p><p>When the <code>scopes</code>
   // field is present, it overrides the list of scopes specified in
   // manifest.json.</p>
-  std::unique_ptr<std::vector<std::string>> scopes;
+  absl::optional<std::vector<std::string>> scopes;
 
   // The <code>enableGranularPermissions</code> flag allows extensions to opt-in
   // early to the granular permissions consent screen, in which requested
@@ -245,7 +245,7 @@ struct GetAuthTokenResult {
   absl::optional<std::string> token;
 
   // A list of OAuth2 scopes granted to the extension.
-  std::unique_ptr<std::vector<std::string>> granted_scopes;
+  absl::optional<std::vector<std::string>> granted_scopes;
 
 };
 

@@ -265,7 +265,7 @@ struct Params {
     static bool Populate(const base::Value& value, ProcessIds* out);
     // Choices:
     absl::optional<int> as_integer;
-    std::unique_ptr<std::vector<int>> as_integers;
+    absl::optional<std::vector<int>> as_integers;
   };
 
 

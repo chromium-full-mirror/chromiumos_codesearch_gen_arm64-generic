@@ -168,28 +168,28 @@ std::unique_ptr<base::DictionaryValue> Parameters::ToValue() const {
   auto to_value_result =
       std::make_unique<base::DictionaryValue>();
 
-  to_value_result->SetWithoutPathExpansion("address", std::make_unique<base::Value>(this->address));
+  to_value_result->GetDict().Set("address", std::move(*std::make_unique<base::Value>(this->address)));
 
   if (this->broadcast_address) {
-    to_value_result->SetWithoutPathExpansion("broadcastAddress", std::make_unique<base::Value>(*this->broadcast_address));
+    to_value_result->GetDict().Set("broadcastAddress", std::move(*std::make_unique<base::Value>(*this->broadcast_address)));
 
   }
   if (this->mtu) {
-    to_value_result->SetWithoutPathExpansion("mtu", std::make_unique<base::Value>(*this->mtu));
+    to_value_result->GetDict().Set("mtu", std::move(*std::make_unique<base::Value>(*this->mtu)));
 
   }
-  to_value_result->SetWithoutPathExpansion("exclusionList", json_schema_compiler::util::CreateValueFromArray(this->exclusion_list));
+  to_value_result->GetDict().Set("exclusionList", std::move(*json_schema_compiler::util::CreateValueFromArray(this->exclusion_list)));
 
-  to_value_result->SetWithoutPathExpansion("inclusionList", json_schema_compiler::util::CreateValueFromArray(this->inclusion_list));
+  to_value_result->GetDict().Set("inclusionList", std::move(*json_schema_compiler::util::CreateValueFromArray(this->inclusion_list)));
 
   if (this->domain_search) {
-    to_value_result->SetWithoutPathExpansion("domainSearch", json_schema_compiler::util::CreateValueFromArray(*this->domain_search));
+    to_value_result->GetDict().Set("domainSearch", std::move(*json_schema_compiler::util::CreateValueFromArray(*this->domain_search)));
 
   }
-  to_value_result->SetWithoutPathExpansion("dnsServers", json_schema_compiler::util::CreateValueFromArray(this->dns_servers));
+  to_value_result->GetDict().Set("dnsServers", std::move(*json_schema_compiler::util::CreateValueFromArray(this->dns_servers)));
 
   if (this->reconnect) {
-    to_value_result->SetWithoutPathExpansion("reconnect", std::make_unique<base::Value>(*this->reconnect));
+    to_value_result->GetDict().Set("reconnect", std::move(*std::make_unique<base::Value>(*this->reconnect)));
 
   }
 

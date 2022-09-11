@@ -119,11 +119,11 @@ std::unique_ptr<base::DictionaryValue> StorageChange::ToValue() const {
       std::make_unique<base::DictionaryValue>();
 
   if (this->old_value) {
-    to_value_result->SetWithoutPathExpansion("oldValue", (this->old_value)->CreateDeepCopy());
+    to_value_result->GetDict().Set("oldValue", std::move(*(this->old_value)->CreateDeepCopy()));
 
   }
   if (this->new_value) {
-    to_value_result->SetWithoutPathExpansion("newValue", (this->new_value)->CreateDeepCopy());
+    to_value_result->GetDict().Set("newValue", std::move(*(this->new_value)->CreateDeepCopy()));
 
   }
 
@@ -561,7 +561,7 @@ std::unique_ptr<base::DictionaryValue> Changes::ToValue() const {
       std::make_unique<base::DictionaryValue>();
 
   for (const auto& it : additional_properties) {
-    to_value_result->SetWithoutPathExpansion(it.first, (it.second).ToValue());
+    to_value_result->GetDict().Set(it.first, std::move(*(it.second).ToValue()));
 
   }
 

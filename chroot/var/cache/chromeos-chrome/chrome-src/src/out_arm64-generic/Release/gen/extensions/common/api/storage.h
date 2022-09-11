@@ -167,7 +167,7 @@ struct Params {
 
     // Choices:
     absl::optional<std::string> as_string;
-    std::unique_ptr<std::vector<std::string>> as_strings;
+    absl::optional<std::vector<std::string>> as_strings;
     std::unique_ptr<Object> as_object;
   };
 
@@ -231,7 +231,7 @@ struct Params {
     static bool Populate(const base::Value& value, Keys* out);
     // Choices:
     absl::optional<std::string> as_string;
-    std::unique_ptr<std::vector<std::string>> as_strings;
+    absl::optional<std::vector<std::string>> as_strings;
   };
 
 
@@ -326,7 +326,7 @@ struct Params {
     static bool Populate(const base::Value& value, Keys* out);
     // Choices:
     absl::optional<std::string> as_string;
-    std::unique_ptr<std::vector<std::string>> as_strings;
+    absl::optional<std::vector<std::string>> as_strings;
   };
 
 

@@ -143,10 +143,10 @@ std::unique_ptr<base::DictionaryValue> TaskInfo::ToValue() const {
   auto to_value_result =
       std::make_unique<base::DictionaryValue>();
 
-  to_value_result->SetWithoutPathExpansion("title", std::make_unique<base::Value>(this->title));
+  to_value_result->GetDict().Set("title", std::move(*std::make_unique<base::Value>(this->title)));
 
   if (this->tab_id) {
-    to_value_result->SetWithoutPathExpansion("tabId", std::make_unique<base::Value>(*this->tab_id));
+    to_value_result->GetDict().Set("tabId", std::move(*std::make_unique<base::Value>(*this->tab_id)));
 
   }
 
@@ -208,9 +208,9 @@ std::unique_ptr<base::DictionaryValue> Cache::ToValue() const {
   auto to_value_result =
       std::make_unique<base::DictionaryValue>();
 
-  to_value_result->SetWithoutPathExpansion("size", std::make_unique<base::Value>(this->size));
+  to_value_result->GetDict().Set("size", std::move(*std::make_unique<base::Value>(this->size)));
 
-  to_value_result->SetWithoutPathExpansion("liveSize", std::make_unique<base::Value>(this->live_size));
+  to_value_result->GetDict().Set("liveSize", std::move(*std::make_unique<base::Value>(this->live_size)));
 
 
   return to_value_result;
@@ -450,52 +450,52 @@ std::unique_ptr<base::DictionaryValue> Process::ToValue() const {
   auto to_value_result =
       std::make_unique<base::DictionaryValue>();
 
-  to_value_result->SetWithoutPathExpansion("id", std::make_unique<base::Value>(this->id));
+  to_value_result->GetDict().Set("id", std::move(*std::make_unique<base::Value>(this->id)));
 
-  to_value_result->SetWithoutPathExpansion("osProcessId", std::make_unique<base::Value>(this->os_process_id));
+  to_value_result->GetDict().Set("osProcessId", std::move(*std::make_unique<base::Value>(this->os_process_id)));
 
-  to_value_result->SetWithoutPathExpansion("type", std::make_unique<base::Value>(processes::ToString(this->type)));
+  to_value_result->GetDict().Set("type", std::move(*std::make_unique<base::Value>(processes::ToString(this->type))));
 
-  to_value_result->SetWithoutPathExpansion("profile", std::make_unique<base::Value>(this->profile));
+  to_value_result->GetDict().Set("profile", std::move(*std::make_unique<base::Value>(this->profile)));
 
-  to_value_result->SetWithoutPathExpansion("naclDebugPort", std::make_unique<base::Value>(this->nacl_debug_port));
+  to_value_result->GetDict().Set("naclDebugPort", std::move(*std::make_unique<base::Value>(this->nacl_debug_port)));
 
-  to_value_result->SetWithoutPathExpansion("tasks", json_schema_compiler::util::CreateValueFromArray(this->tasks));
+  to_value_result->GetDict().Set("tasks", std::move(*json_schema_compiler::util::CreateValueFromArray(this->tasks)));
 
   if (this->cpu) {
-    to_value_result->SetWithoutPathExpansion("cpu", std::make_unique<base::Value>(*this->cpu));
+    to_value_result->GetDict().Set("cpu", std::move(*std::make_unique<base::Value>(*this->cpu)));
 
   }
   if (this->network) {
-    to_value_result->SetWithoutPathExpansion("network", std::make_unique<base::Value>(*this->network));
+    to_value_result->GetDict().Set("network", std::move(*std::make_unique<base::Value>(*this->network)));
 
   }
   if (this->private_memory) {
-    to_value_result->SetWithoutPathExpansion("privateMemory", std::make_unique<base::Value>(*this->private_memory));
+    to_value_result->GetDict().Set("privateMemory", std::move(*std::make_unique<base::Value>(*this->private_memory)));
 
   }
   if (this->js_memory_allocated) {
-    to_value_result->SetWithoutPathExpansion("jsMemoryAllocated", std::make_unique<base::Value>(*this->js_memory_allocated));
+    to_value_result->GetDict().Set("jsMemoryAllocated", std::move(*std::make_unique<base::Value>(*this->js_memory_allocated)));
 
   }
   if (this->js_memory_used) {
-    to_value_result->SetWithoutPathExpansion("jsMemoryUsed", std::make_unique<base::Value>(*this->js_memory_used));
+    to_value_result->GetDict().Set("jsMemoryUsed", std::move(*std::make_unique<base::Value>(*this->js_memory_used)));
 
   }
   if (this->sqlite_memory) {
-    to_value_result->SetWithoutPathExpansion("sqliteMemory", std::make_unique<base::Value>(*this->sqlite_memory));
+    to_value_result->GetDict().Set("sqliteMemory", std::move(*std::make_unique<base::Value>(*this->sqlite_memory)));
 
   }
   if (this->image_cache) {
-    to_value_result->SetWithoutPathExpansion("imageCache", (this->image_cache)->ToValue());
+    to_value_result->GetDict().Set("imageCache", std::move(*(this->image_cache)->ToValue()));
 
   }
   if (this->script_cache) {
-    to_value_result->SetWithoutPathExpansion("scriptCache", (this->script_cache)->ToValue());
+    to_value_result->GetDict().Set("scriptCache", std::move(*(this->script_cache)->ToValue()));
 
   }
   if (this->css_cache) {
-    to_value_result->SetWithoutPathExpansion("cssCache", (this->css_cache)->ToValue());
+    to_value_result->GetDict().Set("cssCache", std::move(*(this->css_cache)->ToValue()));
 
   }
 

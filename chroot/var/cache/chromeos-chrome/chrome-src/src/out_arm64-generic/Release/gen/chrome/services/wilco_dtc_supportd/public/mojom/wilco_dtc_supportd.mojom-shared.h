@@ -56,6 +56,8 @@ namespace mojom {
 
 enum class WilcoDtcSupportdWebRequestHttpMethod : int32_t {
   
+  kUnmappedEnumField = 5,
+  
   kGet = 0,
   
   kHead = 1,
@@ -66,7 +68,8 @@ enum class WilcoDtcSupportdWebRequestHttpMethod : int32_t {
   
   kPatch = 4,
   kMinValue = 0,
-  kMaxValue = 4,
+  kMaxValue = 5,
+  kDefaultValue = 5
 };
 
  std::ostream& operator<<(std::ostream& os, WilcoDtcSupportdWebRequestHttpMethod value);
@@ -74,9 +77,17 @@ inline bool IsKnownEnumValue(WilcoDtcSupportdWebRequestHttpMethod value) {
   return internal::WilcoDtcSupportdWebRequestHttpMethod_Data::IsKnownValue(
       static_cast<int32_t>(value));
 }
+inline WilcoDtcSupportdWebRequestHttpMethod ToKnownEnumValue(WilcoDtcSupportdWebRequestHttpMethod value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return WilcoDtcSupportdWebRequestHttpMethod::kDefaultValue;
+}
 
 
 enum class WilcoDtcSupportdWebRequestStatus : int32_t {
+  
+  kUnmappedEnumField = 3,
   
   kOk = 0,
   
@@ -84,7 +95,8 @@ enum class WilcoDtcSupportdWebRequestStatus : int32_t {
   
   kHttpError = 2,
   kMinValue = 0,
-  kMaxValue = 2,
+  kMaxValue = 3,
+  kDefaultValue = 3
 };
 
  std::ostream& operator<<(std::ostream& os, WilcoDtcSupportdWebRequestStatus value);
@@ -92,9 +104,17 @@ inline bool IsKnownEnumValue(WilcoDtcSupportdWebRequestStatus value) {
   return internal::WilcoDtcSupportdWebRequestStatus_Data::IsKnownValue(
       static_cast<int32_t>(value));
 }
+inline WilcoDtcSupportdWebRequestStatus ToKnownEnumValue(WilcoDtcSupportdWebRequestStatus value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return WilcoDtcSupportdWebRequestStatus::kDefaultValue;
+}
 
 
 enum class WilcoDtcSupportdEvent : int32_t {
+  
+  kUnmappedEnumField = 7,
   
   kBatteryAuth = 0,
   
@@ -110,13 +130,20 @@ enum class WilcoDtcSupportdEvent : int32_t {
   
   kLowPowerCharger = 6,
   kMinValue = 0,
-  kMaxValue = 6,
+  kMaxValue = 7,
+  kDefaultValue = 7
 };
 
  std::ostream& operator<<(std::ostream& os, WilcoDtcSupportdEvent value);
 inline bool IsKnownEnumValue(WilcoDtcSupportdEvent value) {
   return internal::WilcoDtcSupportdEvent_Data::IsKnownValue(
       static_cast<int32_t>(value));
+}
+inline WilcoDtcSupportdEvent ToKnownEnumValue(WilcoDtcSupportdEvent value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return WilcoDtcSupportdEvent::kDefaultValue;
 }
 // Interface base classes. They are used for type safety check.
 class WilcoDtcSupportdServiceFactoryInterfaceBase {};

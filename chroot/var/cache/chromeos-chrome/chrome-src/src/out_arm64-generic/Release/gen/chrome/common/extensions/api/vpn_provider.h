@@ -77,7 +77,7 @@ struct Parameters {
   std::vector<std::string> inclusion_list;
 
   // A list of search domains. (default: no search domain)
-  std::unique_ptr<std::vector<std::string>> domain_search;
+  absl::optional<std::vector<std::string>> domain_search;
 
   // A list of IPs for the DNS servers.
   std::vector<std::string> dns_servers;

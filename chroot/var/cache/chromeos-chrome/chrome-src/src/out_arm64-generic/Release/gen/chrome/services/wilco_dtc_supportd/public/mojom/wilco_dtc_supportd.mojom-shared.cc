@@ -35,6 +35,8 @@ static NOINLINE const char* WilcoDtcSupportdWebRequestHttpMethodToStringHelper(W
       return "kPut";
     case WilcoDtcSupportdWebRequestHttpMethod::kPatch:
       return "kPatch";
+    case WilcoDtcSupportdWebRequestHttpMethod::kUnmappedEnumField:
+      return "kUnmappedEnumField";
     default:
       return nullptr;
   }
@@ -61,6 +63,8 @@ static NOINLINE const char* WilcoDtcSupportdWebRequestStatusToStringHelper(Wilco
       return "kNetworkError";
     case WilcoDtcSupportdWebRequestStatus::kHttpError:
       return "kHttpError";
+    case WilcoDtcSupportdWebRequestStatus::kUnmappedEnumField:
+      return "kUnmappedEnumField";
     default:
       return nullptr;
   }
@@ -95,6 +99,8 @@ static NOINLINE const char* WilcoDtcSupportdEventToStringHelper(WilcoDtcSupportd
       return "kDockThunderbolt";
     case WilcoDtcSupportdEvent::kLowPowerCharger:
       return "kLowPowerCharger";
+    case WilcoDtcSupportdEvent::kUnmappedEnumField:
+      return "kUnmappedEnumField";
     default:
       return nullptr;
   }

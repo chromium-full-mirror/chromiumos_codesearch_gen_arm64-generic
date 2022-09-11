@@ -102,15 +102,15 @@ std::unique_ptr<base::DictionaryValue> AcceptOption::ToValue() const {
       std::make_unique<base::DictionaryValue>();
 
   if (this->description) {
-    to_value_result->SetWithoutPathExpansion("description", std::make_unique<base::Value>(*this->description));
+    to_value_result->GetDict().Set("description", std::move(*std::make_unique<base::Value>(*this->description)));
 
   }
   if (this->mime_types) {
-    to_value_result->SetWithoutPathExpansion("mimeTypes", json_schema_compiler::util::CreateValueFromArray(*this->mime_types));
+    to_value_result->GetDict().Set("mimeTypes", std::move(*json_schema_compiler::util::CreateValueFromArray(*this->mime_types)));
 
   }
   if (this->extensions) {
-    to_value_result->SetWithoutPathExpansion("extensions", json_schema_compiler::util::CreateValueFromArray(*this->extensions));
+    to_value_result->GetDict().Set("extensions", std::move(*json_schema_compiler::util::CreateValueFromArray(*this->extensions)));
 
   }
 
@@ -245,23 +245,23 @@ std::unique_ptr<base::DictionaryValue> ChooseEntryOptions::ToValue() const {
       std::make_unique<base::DictionaryValue>();
 
   if (this->type != CHOOSE_ENTRY_TYPE_NONE) {
-    to_value_result->SetWithoutPathExpansion("type", std::make_unique<base::Value>(file_system::ToString(this->type)));
+    to_value_result->GetDict().Set("type", std::move(*std::make_unique<base::Value>(file_system::ToString(this->type))));
 
   }
   if (this->suggested_name) {
-    to_value_result->SetWithoutPathExpansion("suggestedName", std::make_unique<base::Value>(*this->suggested_name));
+    to_value_result->GetDict().Set("suggestedName", std::move(*std::make_unique<base::Value>(*this->suggested_name)));
 
   }
   if (this->accepts) {
-    to_value_result->SetWithoutPathExpansion("accepts", json_schema_compiler::util::CreateValueFromArray(*this->accepts));
+    to_value_result->GetDict().Set("accepts", std::move(*json_schema_compiler::util::CreateValueFromArray(*this->accepts)));
 
   }
   if (this->accepts_all_types) {
-    to_value_result->SetWithoutPathExpansion("acceptsAllTypes", std::make_unique<base::Value>(*this->accepts_all_types));
+    to_value_result->GetDict().Set("acceptsAllTypes", std::move(*std::make_unique<base::Value>(*this->accepts_all_types)));
 
   }
   if (this->accepts_multiple) {
-    to_value_result->SetWithoutPathExpansion("acceptsMultiple", std::make_unique<base::Value>(*this->accepts_multiple));
+    to_value_result->GetDict().Set("acceptsMultiple", std::move(*std::make_unique<base::Value>(*this->accepts_multiple)));
 
   }
 
@@ -322,10 +322,10 @@ std::unique_ptr<base::DictionaryValue> RequestFileSystemOptions::ToValue() const
   auto to_value_result =
       std::make_unique<base::DictionaryValue>();
 
-  to_value_result->SetWithoutPathExpansion("volumeId", std::make_unique<base::Value>(this->volume_id));
+  to_value_result->GetDict().Set("volumeId", std::move(*std::make_unique<base::Value>(this->volume_id)));
 
   if (this->writable) {
-    to_value_result->SetWithoutPathExpansion("writable", std::make_unique<base::Value>(*this->writable));
+    to_value_result->GetDict().Set("writable", std::move(*std::make_unique<base::Value>(*this->writable)));
 
   }
 
@@ -386,9 +386,9 @@ std::unique_ptr<base::DictionaryValue> Volume::ToValue() const {
   auto to_value_result =
       std::make_unique<base::DictionaryValue>();
 
-  to_value_result->SetWithoutPathExpansion("volumeId", std::make_unique<base::Value>(this->volume_id));
+  to_value_result->GetDict().Set("volumeId", std::move(*std::make_unique<base::Value>(this->volume_id)));
 
-  to_value_result->SetWithoutPathExpansion("writable", std::make_unique<base::Value>(this->writable));
+  to_value_result->GetDict().Set("writable", std::move(*std::make_unique<base::Value>(this->writable)));
 
 
   return to_value_result;
@@ -439,7 +439,7 @@ std::unique_ptr<base::DictionaryValue> VolumeListChangedEvent::ToValue() const {
   auto to_value_result =
       std::make_unique<base::DictionaryValue>();
 
-  to_value_result->SetWithoutPathExpansion("volumes", json_schema_compiler::util::CreateValueFromArray(this->volumes));
+  to_value_result->GetDict().Set("volumes", std::move(*json_schema_compiler::util::CreateValueFromArray(this->volumes)));
 
 
   return to_value_result;

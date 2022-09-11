@@ -6790,8 +6790,9 @@ class SignEnterpriseChallengeRequest final :
     kKeyNameForSpkacFieldNumber = 8,
     kDeviceTrustSignalsJsonFieldNumber = 10,
     kDeviceTrustSignalsFieldNumber = 9,
-    kIncludeSignedPublicKeyFieldNumber = 5,
     kVaTypeFieldNumber = 7,
+    kIncludeSignedPublicKeyFieldNumber = 5,
+    kIncludeCustomerIdFieldNumber = 11,
   };
   // optional string key_label = 1;
   bool has_key_label() const;
@@ -6937,6 +6938,19 @@ class SignEnterpriseChallengeRequest final :
       ::attestation::DeviceTrustSignals* device_trust_signals);
   PROTOBUF_DEPRECATED ::attestation::DeviceTrustSignals* unsafe_arena_release_device_trust_signals();
 
+  // optional .attestation.VAType va_type = 7;
+  bool has_va_type() const;
+  private:
+  bool _internal_has_va_type() const;
+  public:
+  void clear_va_type();
+  ::attestation::VAType va_type() const;
+  void set_va_type(::attestation::VAType value);
+  private:
+  ::attestation::VAType _internal_va_type() const;
+  void _internal_set_va_type(::attestation::VAType value);
+  public:
+
   // optional bool include_signed_public_key = 5;
   bool has_include_signed_public_key() const;
   private:
@@ -6950,17 +6964,17 @@ class SignEnterpriseChallengeRequest final :
   void _internal_set_include_signed_public_key(bool value);
   public:
 
-  // optional .attestation.VAType va_type = 7;
-  bool has_va_type() const;
+  // optional bool include_customer_id = 11;
+  bool has_include_customer_id() const;
   private:
-  bool _internal_has_va_type() const;
+  bool _internal_has_include_customer_id() const;
   public:
-  void clear_va_type();
-  ::attestation::VAType va_type() const;
-  void set_va_type(::attestation::VAType value);
+  void clear_include_customer_id();
+  bool include_customer_id() const;
+  void set_include_customer_id(bool value);
   private:
-  ::attestation::VAType _internal_va_type() const;
-  void _internal_set_va_type(::attestation::VAType value);
+  bool _internal_include_customer_id() const;
+  void _internal_set_include_customer_id(bool value);
   public:
 
   // @@protoc_insertion_point(class_scope:attestation.SignEnterpriseChallengeRequest)
@@ -6980,8 +6994,9 @@ class SignEnterpriseChallengeRequest final :
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr key_name_for_spkac_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr device_trust_signals_json_;
   ::attestation::DeviceTrustSignals* device_trust_signals_;
-  bool include_signed_public_key_;
   int va_type_;
+  bool include_signed_public_key_;
+  bool include_customer_id_;
   friend struct ::TableStruct_interface_2eproto;
 };
 // -------------------------------------------------------------------
@@ -14457,7 +14472,7 @@ inline void SignEnterpriseChallengeRequest::set_allocated_device_id(std::string*
 
 // optional bool include_signed_public_key = 5;
 inline bool SignEnterpriseChallengeRequest::_internal_has_include_signed_public_key() const {
-  bool value = (_has_bits_[0] & 0x00000100u) != 0;
+  bool value = (_has_bits_[0] & 0x00000200u) != 0;
   return value;
 }
 inline bool SignEnterpriseChallengeRequest::has_include_signed_public_key() const {
@@ -14465,7 +14480,7 @@ inline bool SignEnterpriseChallengeRequest::has_include_signed_public_key() cons
 }
 inline void SignEnterpriseChallengeRequest::clear_include_signed_public_key() {
   include_signed_public_key_ = false;
-  _has_bits_[0] &= ~0x00000100u;
+  _has_bits_[0] &= ~0x00000200u;
 }
 inline bool SignEnterpriseChallengeRequest::_internal_include_signed_public_key() const {
   return include_signed_public_key_;
@@ -14475,7 +14490,7 @@ inline bool SignEnterpriseChallengeRequest::include_signed_public_key() const {
   return _internal_include_signed_public_key();
 }
 inline void SignEnterpriseChallengeRequest::_internal_set_include_signed_public_key(bool value) {
-  _has_bits_[0] |= 0x00000100u;
+  _has_bits_[0] |= 0x00000200u;
   include_signed_public_key_ = value;
 }
 inline void SignEnterpriseChallengeRequest::set_include_signed_public_key(bool value) {
@@ -14553,7 +14568,7 @@ inline void SignEnterpriseChallengeRequest::set_allocated_challenge(std::string*
 
 // optional .attestation.VAType va_type = 7;
 inline bool SignEnterpriseChallengeRequest::_internal_has_va_type() const {
-  bool value = (_has_bits_[0] & 0x00000200u) != 0;
+  bool value = (_has_bits_[0] & 0x00000100u) != 0;
   return value;
 }
 inline bool SignEnterpriseChallengeRequest::has_va_type() const {
@@ -14561,7 +14576,7 @@ inline bool SignEnterpriseChallengeRequest::has_va_type() const {
 }
 inline void SignEnterpriseChallengeRequest::clear_va_type() {
   va_type_ = 0;
-  _has_bits_[0] &= ~0x00000200u;
+  _has_bits_[0] &= ~0x00000100u;
 }
 inline ::attestation::VAType SignEnterpriseChallengeRequest::_internal_va_type() const {
   return static_cast< ::attestation::VAType >(va_type_);
@@ -14572,7 +14587,7 @@ inline ::attestation::VAType SignEnterpriseChallengeRequest::va_type() const {
 }
 inline void SignEnterpriseChallengeRequest::_internal_set_va_type(::attestation::VAType value) {
   assert(::attestation::VAType_IsValid(value));
-  _has_bits_[0] |= 0x00000200u;
+  _has_bits_[0] |= 0x00000100u;
   va_type_ = value;
 }
 inline void SignEnterpriseChallengeRequest::set_va_type(::attestation::VAType value) {
@@ -14801,6 +14816,34 @@ inline void SignEnterpriseChallengeRequest::set_allocated_device_trust_signals_j
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   // @@protoc_insertion_point(field_set_allocated:attestation.SignEnterpriseChallengeRequest.device_trust_signals_json)
+}
+
+// optional bool include_customer_id = 11;
+inline bool SignEnterpriseChallengeRequest::_internal_has_include_customer_id() const {
+  bool value = (_has_bits_[0] & 0x00000400u) != 0;
+  return value;
+}
+inline bool SignEnterpriseChallengeRequest::has_include_customer_id() const {
+  return _internal_has_include_customer_id();
+}
+inline void SignEnterpriseChallengeRequest::clear_include_customer_id() {
+  include_customer_id_ = false;
+  _has_bits_[0] &= ~0x00000400u;
+}
+inline bool SignEnterpriseChallengeRequest::_internal_include_customer_id() const {
+  return include_customer_id_;
+}
+inline bool SignEnterpriseChallengeRequest::include_customer_id() const {
+  // @@protoc_insertion_point(field_get:attestation.SignEnterpriseChallengeRequest.include_customer_id)
+  return _internal_include_customer_id();
+}
+inline void SignEnterpriseChallengeRequest::_internal_set_include_customer_id(bool value) {
+  _has_bits_[0] |= 0x00000400u;
+  include_customer_id_ = value;
+}
+inline void SignEnterpriseChallengeRequest::set_include_customer_id(bool value) {
+  _internal_set_include_customer_id(value);
+  // @@protoc_insertion_point(field_set:attestation.SignEnterpriseChallengeRequest.include_customer_id)
 }
 
 // -------------------------------------------------------------------

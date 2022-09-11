@@ -51,7 +51,7 @@ struct Rule {
   absl::optional<std::string> id;
 
   // Tags can be used to annotate rules and perform operations on sets of rules.
-  std::unique_ptr<std::vector<std::string>> tags;
+  absl::optional<std::vector<std::string>> tags;
 
   // List of conditions that can trigger the actions.
   std::vector<base::Value> conditions;
@@ -114,7 +114,7 @@ struct Params {
 
   // If an array is passed, only rules with identifiers contained in this array
   // are returned.
-  std::unique_ptr<std::vector<std::string>> rule_identifiers;
+  absl::optional<std::vector<std::string>> rule_identifiers;
 
 
  private:
@@ -146,7 +146,7 @@ struct Params {
 
   // If an array is passed, only rules with identifiers contained in this array
   // are unregistered.
-  std::unique_ptr<std::vector<std::string>> rule_identifiers;
+  absl::optional<std::vector<std::string>> rule_identifiers;
 
 
  private:

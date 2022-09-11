@@ -190,7 +190,7 @@ struct GetDevicesOptions {
 
   // A device matching any given filter will be returned. An empty filter list
   // will return all devices the app has permission for.
-  std::unique_ptr<std::vector<DeviceFilter>> filters;
+  absl::optional<std::vector<DeviceFilter>> filters;
 
 };
 
@@ -219,7 +219,7 @@ struct DevicePromptOptions {
 
   // Filter the list of devices presented to the user. If multiple filters are
   // provided devices matching any filter will be displayed.
-  std::unique_ptr<std::vector<DeviceFilter>> filters;
+  absl::optional<std::vector<DeviceFilter>> filters;
 
 };
 

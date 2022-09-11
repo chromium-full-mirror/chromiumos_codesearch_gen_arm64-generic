@@ -98,15 +98,15 @@ std::unique_ptr<base::DictionaryValue> Debuggee::ToValue() const {
       std::make_unique<base::DictionaryValue>();
 
   if (this->tab_id) {
-    to_value_result->SetWithoutPathExpansion("tabId", std::make_unique<base::Value>(*this->tab_id));
+    to_value_result->GetDict().Set("tabId", std::move(*std::make_unique<base::Value>(*this->tab_id)));
 
   }
   if (this->extension_id) {
-    to_value_result->SetWithoutPathExpansion("extensionId", std::make_unique<base::Value>(*this->extension_id));
+    to_value_result->GetDict().Set("extensionId", std::move(*std::make_unique<base::Value>(*this->extension_id)));
 
   }
   if (this->target_id) {
-    to_value_result->SetWithoutPathExpansion("targetId", std::make_unique<base::Value>(*this->target_id));
+    to_value_result->GetDict().Set("targetId", std::move(*std::make_unique<base::Value>(*this->target_id)));
 
   }
 
@@ -295,26 +295,26 @@ std::unique_ptr<base::DictionaryValue> TargetInfo::ToValue() const {
   auto to_value_result =
       std::make_unique<base::DictionaryValue>();
 
-  to_value_result->SetWithoutPathExpansion("type", std::make_unique<base::Value>(debugger::ToString(this->type)));
+  to_value_result->GetDict().Set("type", std::move(*std::make_unique<base::Value>(debugger::ToString(this->type))));
 
-  to_value_result->SetWithoutPathExpansion("id", std::make_unique<base::Value>(this->id));
+  to_value_result->GetDict().Set("id", std::move(*std::make_unique<base::Value>(this->id)));
 
   if (this->tab_id) {
-    to_value_result->SetWithoutPathExpansion("tabId", std::make_unique<base::Value>(*this->tab_id));
+    to_value_result->GetDict().Set("tabId", std::move(*std::make_unique<base::Value>(*this->tab_id)));
 
   }
   if (this->extension_id) {
-    to_value_result->SetWithoutPathExpansion("extensionId", std::make_unique<base::Value>(*this->extension_id));
+    to_value_result->GetDict().Set("extensionId", std::move(*std::make_unique<base::Value>(*this->extension_id)));
 
   }
-  to_value_result->SetWithoutPathExpansion("attached", std::make_unique<base::Value>(this->attached));
+  to_value_result->GetDict().Set("attached", std::move(*std::make_unique<base::Value>(this->attached)));
 
-  to_value_result->SetWithoutPathExpansion("title", std::make_unique<base::Value>(this->title));
+  to_value_result->GetDict().Set("title", std::move(*std::make_unique<base::Value>(this->title)));
 
-  to_value_result->SetWithoutPathExpansion("url", std::make_unique<base::Value>(this->url));
+  to_value_result->GetDict().Set("url", std::move(*std::make_unique<base::Value>(this->url)));
 
   if (this->favicon_url) {
-    to_value_result->SetWithoutPathExpansion("faviconUrl", std::make_unique<base::Value>(*this->favicon_url));
+    to_value_result->GetDict().Set("faviconUrl", std::move(*std::make_unique<base::Value>(*this->favicon_url)));
 
   }
 
