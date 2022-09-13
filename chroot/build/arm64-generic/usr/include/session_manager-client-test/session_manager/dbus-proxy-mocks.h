@@ -436,6 +436,15 @@ class SessionManagerInterfaceProxyMock : public SessionManagerInterfaceProxyInte
                     base::OnceCallback<void()> /*success_callback*/,
                     base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
                     int /*timeout_ms*/));
+  MOCK_METHOD3(StartBrowserDataBackwardMigration,
+               bool(const std::string& /*in_account_id*/,
+                    brillo::ErrorPtr* /*error*/,
+                    int /*timeout_ms*/));
+  MOCK_METHOD4(StartBrowserDataBackwardMigrationAsync,
+               void(const std::string& /*in_account_id*/,
+                    base::OnceCallback<void()> /*success_callback*/,
+                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+                    int /*timeout_ms*/));
   MOCK_METHOD2(UnblockDevModeForInitialStateDetermination,
                bool(brillo::ErrorPtr* /*error*/,
                     int /*timeout_ms*/));
