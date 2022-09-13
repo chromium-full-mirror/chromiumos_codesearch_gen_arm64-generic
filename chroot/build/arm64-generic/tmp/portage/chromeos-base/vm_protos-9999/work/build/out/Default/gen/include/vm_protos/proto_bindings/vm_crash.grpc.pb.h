@@ -15,20 +15,20 @@
 #include <grpcpp/impl/codegen/async_generic_service.h>
 #include <grpcpp/impl/codegen/async_stream.h>
 #include <grpcpp/impl/codegen/async_unary_call.h>
-#include <grpcpp/impl/codegen/method_handler_impl.h>
+#include <grpcpp/impl/codegen/client_callback.h>
+#include <grpcpp/impl/codegen/client_context.h>
+#include <grpcpp/impl/codegen/completion_queue.h>
+#include <grpcpp/impl/codegen/message_allocator.h>
+#include <grpcpp/impl/codegen/method_handler.h>
 #include <grpcpp/impl/codegen/proto_utils.h>
 #include <grpcpp/impl/codegen/rpc_method.h>
+#include <grpcpp/impl/codegen/server_callback.h>
+#include <grpcpp/impl/codegen/server_callback_handlers.h>
+#include <grpcpp/impl/codegen/server_context.h>
 #include <grpcpp/impl/codegen/service_type.h>
 #include <grpcpp/impl/codegen/status.h>
 #include <grpcpp/impl/codegen/stub_options.h>
 #include <grpcpp/impl/codegen/sync_stream.h>
-
-namespace grpc {
-class CompletionQueue;
-class Channel;
-class ServerCompletionQueue;
-class ServerContext;
-}  // namespace grpc
 
 namespace vm_tools {
 namespace cicerone {
@@ -63,15 +63,20 @@ class CrashListener final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::EmptyMessage>> PrepareAsyncSendFailureReport(::grpc::ClientContext* context, const ::vm_tools::cicerone::FailureReport& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::EmptyMessage>>(PrepareAsyncSendFailureReportRaw(context, request, cq));
     }
-    class experimental_async_interface {
+    class async_interface {
      public:
-      virtual ~experimental_async_interface() {}
+      virtual ~async_interface() {}
       virtual void CheckMetricsConsent(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::cicerone::MetricsConsentResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void CheckMetricsConsent(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::cicerone::MetricsConsentResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       virtual void SendCrashReport(::grpc::ClientContext* context, const ::vm_tools::cicerone::CrashReport* request, ::vm_tools::EmptyMessage* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void SendCrashReport(::grpc::ClientContext* context, const ::vm_tools::cicerone::CrashReport* request, ::vm_tools::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       virtual void SendFailureReport(::grpc::ClientContext* context, const ::vm_tools::cicerone::FailureReport* request, ::vm_tools::EmptyMessage* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void SendFailureReport(::grpc::ClientContext* context, const ::vm_tools::cicerone::FailureReport* request, ::vm_tools::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) = 0;
     };
-    virtual class experimental_async_interface* experimental_async() { return nullptr; }
-  private:
+    typedef class async_interface experimental_async_interface;
+    virtual class async_interface* async() { return nullptr; }
+    class async_interface* experimental_async() { return async(); }
+   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::cicerone::MetricsConsentResponse>* AsyncCheckMetricsConsentRaw(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::cicerone::MetricsConsentResponse>* PrepareAsyncCheckMetricsConsentRaw(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::EmptyMessage>* AsyncSendCrashReportRaw(::grpc::ClientContext* context, const ::vm_tools::cicerone::CrashReport& request, ::grpc::CompletionQueue* cq) = 0;
@@ -81,7 +86,7 @@ class CrashListener final {
   };
   class Stub final : public StubInterface {
    public:
-    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel);
+    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
     ::grpc::Status CheckMetricsConsent(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage& request, ::vm_tools::cicerone::MetricsConsentResponse* response) override;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::vm_tools::cicerone::MetricsConsentResponse>> AsyncCheckMetricsConsent(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::vm_tools::cicerone::MetricsConsentResponse>>(AsyncCheckMetricsConsentRaw(context, request, cq));
@@ -103,23 +108,26 @@ class CrashListener final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>> PrepareAsyncSendFailureReport(::grpc::ClientContext* context, const ::vm_tools::cicerone::FailureReport& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>>(PrepareAsyncSendFailureReportRaw(context, request, cq));
     }
-    class experimental_async final :
-      public StubInterface::experimental_async_interface {
+    class async final :
+      public StubInterface::async_interface {
      public:
       void CheckMetricsConsent(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::cicerone::MetricsConsentResponse* response, std::function<void(::grpc::Status)>) override;
+      void CheckMetricsConsent(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::cicerone::MetricsConsentResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void SendCrashReport(::grpc::ClientContext* context, const ::vm_tools::cicerone::CrashReport* request, ::vm_tools::EmptyMessage* response, std::function<void(::grpc::Status)>) override;
+      void SendCrashReport(::grpc::ClientContext* context, const ::vm_tools::cicerone::CrashReport* request, ::vm_tools::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) override;
       void SendFailureReport(::grpc::ClientContext* context, const ::vm_tools::cicerone::FailureReport* request, ::vm_tools::EmptyMessage* response, std::function<void(::grpc::Status)>) override;
+      void SendFailureReport(::grpc::ClientContext* context, const ::vm_tools::cicerone::FailureReport* request, ::vm_tools::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) override;
      private:
       friend class Stub;
-      explicit experimental_async(Stub* stub): stub_(stub) { }
+      explicit async(Stub* stub): stub_(stub) { }
       Stub* stub() { return stub_; }
       Stub* stub_;
     };
-    class experimental_async_interface* experimental_async() override { return &async_stub_; }
+    class async* async() override { return &async_stub_; }
 
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
-    class experimental_async async_stub_{this};
+    class async async_stub_{this};
     ::grpc::ClientAsyncResponseReader< ::vm_tools::cicerone::MetricsConsentResponse>* AsyncCheckMetricsConsentRaw(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::vm_tools::cicerone::MetricsConsentResponse>* PrepareAsyncCheckMetricsConsentRaw(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>* AsyncSendCrashReportRaw(::grpc::ClientContext* context, const ::vm_tools::cicerone::CrashReport& request, ::grpc::CompletionQueue* cq) override;
@@ -143,7 +151,7 @@ class CrashListener final {
   template <class BaseClass>
   class WithAsyncMethod_CheckMetricsConsent : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_CheckMetricsConsent() {
       ::grpc::Service::MarkMethodAsync(0);
@@ -152,7 +160,7 @@ class CrashListener final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status CheckMetricsConsent(::grpc::ServerContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::cicerone::MetricsConsentResponse* response) override {
+    ::grpc::Status CheckMetricsConsent(::grpc::ServerContext* /*context*/, const ::vm_tools::EmptyMessage* /*request*/, ::vm_tools::cicerone::MetricsConsentResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -163,7 +171,7 @@ class CrashListener final {
   template <class BaseClass>
   class WithAsyncMethod_SendCrashReport : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_SendCrashReport() {
       ::grpc::Service::MarkMethodAsync(1);
@@ -172,7 +180,7 @@ class CrashListener final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status SendCrashReport(::grpc::ServerContext* context, const ::vm_tools::cicerone::CrashReport* request, ::vm_tools::EmptyMessage* response) override {
+    ::grpc::Status SendCrashReport(::grpc::ServerContext* /*context*/, const ::vm_tools::cicerone::CrashReport* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -183,7 +191,7 @@ class CrashListener final {
   template <class BaseClass>
   class WithAsyncMethod_SendFailureReport : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_SendFailureReport() {
       ::grpc::Service::MarkMethodAsync(2);
@@ -192,7 +200,7 @@ class CrashListener final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status SendFailureReport(::grpc::ServerContext* context, const ::vm_tools::cicerone::FailureReport* request, ::vm_tools::EmptyMessage* response) override {
+    ::grpc::Status SendFailureReport(::grpc::ServerContext* /*context*/, const ::vm_tools::cicerone::FailureReport* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -202,9 +210,92 @@ class CrashListener final {
   };
   typedef WithAsyncMethod_CheckMetricsConsent<WithAsyncMethod_SendCrashReport<WithAsyncMethod_SendFailureReport<Service > > > AsyncService;
   template <class BaseClass>
+  class WithCallbackMethod_CheckMetricsConsent : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_CheckMetricsConsent() {
+      ::grpc::Service::MarkMethodCallback(0,
+          new ::grpc::internal::CallbackUnaryHandler< ::vm_tools::EmptyMessage, ::vm_tools::cicerone::MetricsConsentResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::cicerone::MetricsConsentResponse* response) { return this->CheckMetricsConsent(context, request, response); }));}
+    void SetMessageAllocatorFor_CheckMetricsConsent(
+        ::grpc::MessageAllocator< ::vm_tools::EmptyMessage, ::vm_tools::cicerone::MetricsConsentResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(0);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::vm_tools::EmptyMessage, ::vm_tools::cicerone::MetricsConsentResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_CheckMetricsConsent() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CheckMetricsConsent(::grpc::ServerContext* /*context*/, const ::vm_tools::EmptyMessage* /*request*/, ::vm_tools::cicerone::MetricsConsentResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* CheckMetricsConsent(
+      ::grpc::CallbackServerContext* /*context*/, const ::vm_tools::EmptyMessage* /*request*/, ::vm_tools::cicerone::MetricsConsentResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_SendCrashReport : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_SendCrashReport() {
+      ::grpc::Service::MarkMethodCallback(1,
+          new ::grpc::internal::CallbackUnaryHandler< ::vm_tools::cicerone::CrashReport, ::vm_tools::EmptyMessage>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::vm_tools::cicerone::CrashReport* request, ::vm_tools::EmptyMessage* response) { return this->SendCrashReport(context, request, response); }));}
+    void SetMessageAllocatorFor_SendCrashReport(
+        ::grpc::MessageAllocator< ::vm_tools::cicerone::CrashReport, ::vm_tools::EmptyMessage>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(1);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::vm_tools::cicerone::CrashReport, ::vm_tools::EmptyMessage>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_SendCrashReport() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status SendCrashReport(::grpc::ServerContext* /*context*/, const ::vm_tools::cicerone::CrashReport* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* SendCrashReport(
+      ::grpc::CallbackServerContext* /*context*/, const ::vm_tools::cicerone::CrashReport* /*request*/, ::vm_tools::EmptyMessage* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_SendFailureReport : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_SendFailureReport() {
+      ::grpc::Service::MarkMethodCallback(2,
+          new ::grpc::internal::CallbackUnaryHandler< ::vm_tools::cicerone::FailureReport, ::vm_tools::EmptyMessage>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::vm_tools::cicerone::FailureReport* request, ::vm_tools::EmptyMessage* response) { return this->SendFailureReport(context, request, response); }));}
+    void SetMessageAllocatorFor_SendFailureReport(
+        ::grpc::MessageAllocator< ::vm_tools::cicerone::FailureReport, ::vm_tools::EmptyMessage>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(2);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::vm_tools::cicerone::FailureReport, ::vm_tools::EmptyMessage>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_SendFailureReport() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status SendFailureReport(::grpc::ServerContext* /*context*/, const ::vm_tools::cicerone::FailureReport* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* SendFailureReport(
+      ::grpc::CallbackServerContext* /*context*/, const ::vm_tools::cicerone::FailureReport* /*request*/, ::vm_tools::EmptyMessage* /*response*/)  { return nullptr; }
+  };
+  typedef WithCallbackMethod_CheckMetricsConsent<WithCallbackMethod_SendCrashReport<WithCallbackMethod_SendFailureReport<Service > > > CallbackService;
+  typedef CallbackService ExperimentalCallbackService;
+  template <class BaseClass>
   class WithGenericMethod_CheckMetricsConsent : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_CheckMetricsConsent() {
       ::grpc::Service::MarkMethodGeneric(0);
@@ -213,7 +304,7 @@ class CrashListener final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status CheckMetricsConsent(::grpc::ServerContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::cicerone::MetricsConsentResponse* response) override {
+    ::grpc::Status CheckMetricsConsent(::grpc::ServerContext* /*context*/, const ::vm_tools::EmptyMessage* /*request*/, ::vm_tools::cicerone::MetricsConsentResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -221,7 +312,7 @@ class CrashListener final {
   template <class BaseClass>
   class WithGenericMethod_SendCrashReport : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_SendCrashReport() {
       ::grpc::Service::MarkMethodGeneric(1);
@@ -230,7 +321,7 @@ class CrashListener final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status SendCrashReport(::grpc::ServerContext* context, const ::vm_tools::cicerone::CrashReport* request, ::vm_tools::EmptyMessage* response) override {
+    ::grpc::Status SendCrashReport(::grpc::ServerContext* /*context*/, const ::vm_tools::cicerone::CrashReport* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -238,7 +329,7 @@ class CrashListener final {
   template <class BaseClass>
   class WithGenericMethod_SendFailureReport : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_SendFailureReport() {
       ::grpc::Service::MarkMethodGeneric(2);
@@ -247,7 +338,7 @@ class CrashListener final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status SendFailureReport(::grpc::ServerContext* context, const ::vm_tools::cicerone::FailureReport* request, ::vm_tools::EmptyMessage* response) override {
+    ::grpc::Status SendFailureReport(::grpc::ServerContext* /*context*/, const ::vm_tools::cicerone::FailureReport* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -255,7 +346,7 @@ class CrashListener final {
   template <class BaseClass>
   class WithRawMethod_CheckMetricsConsent : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_CheckMetricsConsent() {
       ::grpc::Service::MarkMethodRaw(0);
@@ -264,7 +355,7 @@ class CrashListener final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status CheckMetricsConsent(::grpc::ServerContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::cicerone::MetricsConsentResponse* response) override {
+    ::grpc::Status CheckMetricsConsent(::grpc::ServerContext* /*context*/, const ::vm_tools::EmptyMessage* /*request*/, ::vm_tools::cicerone::MetricsConsentResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -275,7 +366,7 @@ class CrashListener final {
   template <class BaseClass>
   class WithRawMethod_SendCrashReport : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_SendCrashReport() {
       ::grpc::Service::MarkMethodRaw(1);
@@ -284,7 +375,7 @@ class CrashListener final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status SendCrashReport(::grpc::ServerContext* context, const ::vm_tools::cicerone::CrashReport* request, ::vm_tools::EmptyMessage* response) override {
+    ::grpc::Status SendCrashReport(::grpc::ServerContext* /*context*/, const ::vm_tools::cicerone::CrashReport* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -295,7 +386,7 @@ class CrashListener final {
   template <class BaseClass>
   class WithRawMethod_SendFailureReport : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_SendFailureReport() {
       ::grpc::Service::MarkMethodRaw(2);
@@ -304,7 +395,7 @@ class CrashListener final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status SendFailureReport(::grpc::ServerContext* context, const ::vm_tools::cicerone::FailureReport* request, ::vm_tools::EmptyMessage* response) override {
+    ::grpc::Status SendFailureReport(::grpc::ServerContext* /*context*/, const ::vm_tools::cicerone::FailureReport* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -313,19 +404,92 @@ class CrashListener final {
     }
   };
   template <class BaseClass>
+  class WithRawCallbackMethod_CheckMetricsConsent : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_CheckMetricsConsent() {
+      ::grpc::Service::MarkMethodRawCallback(0,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CheckMetricsConsent(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_CheckMetricsConsent() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CheckMetricsConsent(::grpc::ServerContext* /*context*/, const ::vm_tools::EmptyMessage* /*request*/, ::vm_tools::cicerone::MetricsConsentResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* CheckMetricsConsent(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_SendCrashReport : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_SendCrashReport() {
+      ::grpc::Service::MarkMethodRawCallback(1,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->SendCrashReport(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_SendCrashReport() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status SendCrashReport(::grpc::ServerContext* /*context*/, const ::vm_tools::cicerone::CrashReport* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* SendCrashReport(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_SendFailureReport : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_SendFailureReport() {
+      ::grpc::Service::MarkMethodRawCallback(2,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->SendFailureReport(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_SendFailureReport() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status SendFailureReport(::grpc::ServerContext* /*context*/, const ::vm_tools::cicerone::FailureReport* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* SendFailureReport(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
   class WithStreamedUnaryMethod_CheckMetricsConsent : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_CheckMetricsConsent() {
       ::grpc::Service::MarkMethodStreamed(0,
-        new ::grpc::internal::StreamedUnaryHandler< ::vm_tools::EmptyMessage, ::vm_tools::cicerone::MetricsConsentResponse>(std::bind(&WithStreamedUnaryMethod_CheckMetricsConsent<BaseClass>::StreamedCheckMetricsConsent, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::vm_tools::EmptyMessage, ::vm_tools::cicerone::MetricsConsentResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::vm_tools::EmptyMessage, ::vm_tools::cicerone::MetricsConsentResponse>* streamer) {
+                       return this->StreamedCheckMetricsConsent(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_CheckMetricsConsent() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status CheckMetricsConsent(::grpc::ServerContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::cicerone::MetricsConsentResponse* response) override {
+    ::grpc::Status CheckMetricsConsent(::grpc::ServerContext* /*context*/, const ::vm_tools::EmptyMessage* /*request*/, ::vm_tools::cicerone::MetricsConsentResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -335,17 +499,24 @@ class CrashListener final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_SendCrashReport : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_SendCrashReport() {
       ::grpc::Service::MarkMethodStreamed(1,
-        new ::grpc::internal::StreamedUnaryHandler< ::vm_tools::cicerone::CrashReport, ::vm_tools::EmptyMessage>(std::bind(&WithStreamedUnaryMethod_SendCrashReport<BaseClass>::StreamedSendCrashReport, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::vm_tools::cicerone::CrashReport, ::vm_tools::EmptyMessage>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::vm_tools::cicerone::CrashReport, ::vm_tools::EmptyMessage>* streamer) {
+                       return this->StreamedSendCrashReport(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_SendCrashReport() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status SendCrashReport(::grpc::ServerContext* context, const ::vm_tools::cicerone::CrashReport* request, ::vm_tools::EmptyMessage* response) override {
+    ::grpc::Status SendCrashReport(::grpc::ServerContext* /*context*/, const ::vm_tools::cicerone::CrashReport* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -355,17 +526,24 @@ class CrashListener final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_SendFailureReport : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_SendFailureReport() {
       ::grpc::Service::MarkMethodStreamed(2,
-        new ::grpc::internal::StreamedUnaryHandler< ::vm_tools::cicerone::FailureReport, ::vm_tools::EmptyMessage>(std::bind(&WithStreamedUnaryMethod_SendFailureReport<BaseClass>::StreamedSendFailureReport, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::vm_tools::cicerone::FailureReport, ::vm_tools::EmptyMessage>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::vm_tools::cicerone::FailureReport, ::vm_tools::EmptyMessage>* streamer) {
+                       return this->StreamedSendFailureReport(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_SendFailureReport() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status SendFailureReport(::grpc::ServerContext* context, const ::vm_tools::cicerone::FailureReport* request, ::vm_tools::EmptyMessage* response) override {
+    ::grpc::Status SendFailureReport(::grpc::ServerContext* /*context*/, const ::vm_tools::cicerone::FailureReport* /*request*/, ::vm_tools::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }

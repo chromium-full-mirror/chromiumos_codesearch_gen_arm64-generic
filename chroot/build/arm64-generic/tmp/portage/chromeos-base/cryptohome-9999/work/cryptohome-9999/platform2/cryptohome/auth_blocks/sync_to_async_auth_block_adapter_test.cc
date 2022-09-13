@@ -14,19 +14,16 @@
 #include <base/test/bind.h>
 #include <base/test/task_environment.h>
 #include <gtest/gtest.h>
-#include <libhwsec/error/elliptic_curve_error.h>
 #include <libhwsec-foundation/crypto/scrypt.h>
 #include <libhwsec-foundation/error/testing_helper.h>
 
-#include "cryptohome/auth_blocks/auth_block_state.h"
 #include "cryptohome/auth_blocks/auth_block_utils.h"
 #include "cryptohome/auth_blocks/libscrypt_compat_auth_block.h"
 #include "cryptohome/auth_blocks/tpm_ecc_auth_block.h"
 #include "cryptohome/crypto_error.h"
+#include "cryptohome/flatbuffer_schemas/auth_block_state.h"
 #include "cryptohome/mock_cryptohome_keys_manager.h"
-#include "cryptohome/mock_le_credential_backend.h"
 #include "cryptohome/mock_le_credential_manager.h"
-#include "cryptohome/mock_tpm.h"
 
 using ::hwsec::TPMError;
 using ::hwsec::TPMErrorBase;

@@ -14,10 +14,11 @@
 #include <utility>
 #include <vector>
 
+#include "base/base_export.h"
 #include "base/callback.h"
-#include "base/compiler_specific.h"
 #include "base/containers/flat_map.h"
 #include "base/containers/intrusive_heap.h"
+#include "base/dcheck_is_on.h"
 #include "base/memory/raw_ptr.h"
 #include "base/memory/scoped_refptr.h"
 #include "base/memory/weak_ptr.h"
@@ -112,7 +113,7 @@ class BASE_EXPORT TaskQueueImpl {
 
     // `task_queue` is not a raw_ptr<...> for performance reasons (based on
     // analysis of sampling profiler data and tab_search:top100:2020).
-    internal::TaskQueueImpl* task_queue;
+    RAW_PTR_EXCLUSION internal::TaskQueueImpl* task_queue;
 
     WorkQueueType work_queue_type;
   };
@@ -124,7 +125,7 @@ class BASE_EXPORT TaskQueueImpl {
       RepeatingCallback<void(const Task&, TaskQueue::TaskTiming*, LazyNow*)>;
   using OnTaskPostedHandler = RepeatingCallback<void(const Task&)>;
   using TaskExecutionTraceLogger =
-      RepeatingCallback<void(perfetto::libchrome::EventContext&, const Task&)>;
+      RepeatingCallback<void(perfetto_libchrome::EventContext&, const Task&)>;
 
   // May be called from any thread.
   scoped_refptr<SingleThreadTaskRunner> CreateTaskRunner(
@@ -216,9 +217,10 @@ class BASE_EXPORT TaskQueueImpl {
   // removed.
   bool RemoveAllCanceledDelayedTasksFromFront(LazyNow* lazy_now);
 
-  // Enqueues any delayed tasks which should be run now on the
-  // `delayed_work_queue`, setting each task's enqueue order to `enqueue_order`.
-  // Must be called from the main thread.
+  // Enqueues in `delayed_work_queue` all delayed tasks which must run now
+  // (cannot be postponed) and possibly some delayed tasks which can run now but
+  // could be postponed (due to how tasks are stored, it is not possible to
+  // retrieve all such tasks efficiently). Must be called from the main thread.
   void MoveReadyDelayedTasksToWorkQueue(LazyNow* lazy_now,
                                         EnqueueOrder enqueue_order);
 
@@ -268,8 +270,8 @@ class BASE_EXPORT TaskQueueImpl {
   // deadlocks. For example, PostTask should not be called directly and
   // ScopedDeferTaskPosting::PostOrDefer should be used instead. `handler` must
   // not be a null callback.
-  std::unique_ptr<TaskQueue::OnTaskPostedCallbackHandle> AddOnTaskPostedHandler(
-      OnTaskPostedHandler handler) WARN_UNUSED_RESULT;
+  [[nodiscard]] std::unique_ptr<TaskQueue::OnTaskPostedCallbackHandle>
+  AddOnTaskPostedHandler(OnTaskPostedHandler handler);
 
   // Set a callback to fill trace event arguments associated with the task
   // execution.
@@ -411,7 +413,10 @@ class BASE_EXPORT TaskQueueImpl {
     Value AsValue(TimeTicks now) const;
 
    private:
-    IntrusiveHeap<Task, std::greater<>> queue_;
+    struct Compare {
+      bool operator()(const Task& lhs, const Task& rhs) const;
+    };
+    IntrusiveHeap<Task, Compare> queue_;
 
     // Number of pending tasks in the queue that need high resolution timing.
     int pending_high_res_tasks_ = 0;

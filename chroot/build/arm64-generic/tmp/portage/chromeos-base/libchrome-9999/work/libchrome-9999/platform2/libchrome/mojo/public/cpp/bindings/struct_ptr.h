@@ -14,6 +14,8 @@
 #include "base/template_util.h"
 #include "mojo/public/cpp/bindings/lib/hash_util.h"
 #include "mojo/public/cpp/bindings/type_converter.h"
+#include "third_party/abseil-cpp/absl/utility/utility.h"
+#include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
 namespace mojo {
 namespace internal {
@@ -58,7 +60,7 @@ class StructPtr {
   }
 
   template <typename... Args>
-  StructPtr(base::in_place_t, Args&&... args)
+  StructPtr(absl::in_place_t, Args&&... args)
       : ptr_(new Struct(std::forward<Args>(args)...)) {}
 
   template <typename U>
@@ -113,9 +115,9 @@ class StructPtr {
   // If T is serialisable into trace, StructPtr<T> is also serialisable.
 #if 0
   template <class U = S>
-  typename perfetto::libchrome::check_traced_value_support<U>::type WriteIntoTrace(
-      perfetto::libchrome::TracedValue&& context) const {
-    perfetto::libchrome::WriteIntoTracedValue(std::move(context), ptr_);
+  typename perfetto_libchrome::check_traced_value_support<U>::type WriteIntoTrace(
+      perfetto_libchrome::TracedValue&& context) const {
+    perfetto_libchrome::WriteIntoTracedValue(std::move(context), ptr_);
   }
 #endif
 
@@ -159,7 +161,7 @@ class InlinedStructPtr {
   }
 
   template <typename... Args>
-  InlinedStructPtr(base::in_place_t, Args&&... args)
+  InlinedStructPtr(absl::in_place_t, Args&&... args)
       : value_(std::forward<Args>(args)...), state_(VALID) {}
 
   template <typename U>
@@ -217,9 +219,9 @@ class InlinedStructPtr {
 #if 0
   // If T is serialisable into trace, StructPtr<T> is also serialisable.
   template <class U = S>
-  typename perfetto::libchrome::check_traced_value_support<U>::type WriteIntoTrace(
-      perfetto::libchrome::TracedValue&& context) const {
-    perfetto::libchrome::WriteIntoTracedValue(std::move(context), get());
+  typename perfetto_libchrome::check_traced_value_support<U>::type WriteIntoTrace(
+      perfetto_libchrome::TracedValue&& context) const {
+    perfetto_libchrome::WriteIntoTracedValue(std::move(context), get());
   }
 #endif
 

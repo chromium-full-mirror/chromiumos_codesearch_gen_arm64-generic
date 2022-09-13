@@ -21,7 +21,7 @@
 #include "mojo/public/cpp/bindings/map_data_view.h"
 #include "mojo/public/cpp/bindings/string_data_view.h"
 
-#include "base/trace_event/base_tracing.h"
+#include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
 #include "mojo/public/interfaces/bindings/native_struct.mojom-shared-internal.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
@@ -108,7 +108,7 @@ class SerializedHandleDataView {
     return result;
   }
   template <typename UserType>
-  WARN_UNUSED_RESULT bool ReadType(UserType* output) const {
+  [[nodiscard]] bool ReadType(UserType* output) const {
     auto data_value = data_->type;
     return mojo::internal::Deserialize<::mojo::native::SerializedHandleType>(
         data_value, output);
@@ -138,7 +138,7 @@ class NativeStructDataView {
       mojo::ArrayDataView<uint8_t>* output);
 
   template <typename UserType>
-  WARN_UNUSED_RESULT bool ReadData(UserType* output) {
+  [[nodiscard]] bool ReadData(UserType* output) {
     
     auto* pointer = data_->data.Get();
     return mojo::internal::Deserialize<mojo::ArrayDataView<uint8_t>>(
@@ -148,7 +148,7 @@ class NativeStructDataView {
       mojo::ArrayDataView<SerializedHandleDataView>* output);
 
   template <typename UserType>
-  WARN_UNUSED_RESULT bool ReadHandles(UserType* output) {
+  [[nodiscard]] bool ReadHandles(UserType* output) {
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
@@ -270,15 +270,13 @@ inline void NativeStructDataView::GetHandlesDataView(
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.
 
-namespace perfetto {
-namespace libchrome {
+namespace perfetto_libchrome {
 
 template <>
 struct  TraceFormatTraits<::mojo::native::SerializedHandleType> {
- static void WriteIntoTrace(perfetto::libchrome::TracedValue context, ::mojo::native::SerializedHandleType value);
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::mojo::native::SerializedHandleType value);
 };
 
-} // namespace libchrome
 } // namespace perfetto
 
 #endif  // MOJO_PUBLIC_INTERFACES_BINDINGS_NATIVE_STRUCT_MOJOM_SHARED_H_

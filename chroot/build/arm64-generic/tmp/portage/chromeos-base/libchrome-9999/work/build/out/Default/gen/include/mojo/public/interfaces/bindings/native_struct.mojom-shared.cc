@@ -12,10 +12,10 @@
 #include <utility>
 
 #include "base/strings/stringprintf.h"
-#include "base/trace_event/base_tracing.h"
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/lib/validation_util.h"
+#include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
 #include "mojo/public/interfaces/bindings/native_struct.mojom-params-data.h"
 namespace mojo {
@@ -135,14 +135,12 @@ NativeStruct_Data::NativeStruct_Data()
 }  // namespace native
 }  // namespace mojo
 
-namespace perfetto {
-namespace libchrome {
+namespace perfetto_libchrome {
 
 // static
 void TraceFormatTraits<::mojo::native::SerializedHandleType>::WriteIntoTrace(
-   perfetto::libchrome::TracedValue context, ::mojo::native::SerializedHandleType value) {
+   perfetto_libchrome::TracedValue context, ::mojo::native::SerializedHandleType value) {
   return std::move(context).WriteString(::mojo::native::SerializedHandleTypeToString(value));
 }
 
-} // namespace libchrome
 } // namespace perfetto

@@ -16,12 +16,12 @@
 #include <cryptohome/proto_bindings/UserDataAuth.pb.h>
 #include <dbus/cryptohome/dbus-constants.h>
 
-#include "cryptohome/auth_blocks/auth_block_state.h"
 #include "cryptohome/cleanup/user_oldest_activity_timestamp_manager.h"
 #include "cryptohome/credentials.h"
 #include "cryptohome/crypto.h"
 #include "cryptohome/cryptohome_metrics.h"
 #include "cryptohome/error/cryptohome_mount_error.h"
+#include "cryptohome/flatbuffer_schemas/auth_block_state.h"
 #include "cryptohome/key_objects.h"
 #include "cryptohome/platform.h"
 #include "cryptohome/storage/homedirs.h"
@@ -87,8 +87,8 @@ class KeysetManagement {
       const Credentials& creds);
 
   // Loads the vault keyset for the supplied obfuscated username and index.
-  // Returns true for success, false for failure.
-  std::unique_ptr<VaultKeyset> LoadVaultKeysetForUser(
+  // Returns null on failure.
+  virtual std::unique_ptr<VaultKeyset> LoadVaultKeysetForUser(
       const std::string& obfuscated_user, int index) const;
 
   // Checks if the directory containing user keys exists.
@@ -154,9 +154,13 @@ class KeysetManagement {
 
   // Attempts to reset all LE credentials associated with a username, given
   // a credential |cred|.
-  void ResetLECredentials(const std::optional<Credentials>& creds,
-                          const std::optional<VaultKeyset>& validated_vk,
+  void ResetLECredentials(const Credentials& creds,
                           const std::string& obfuscated);
+
+  // Attempts to reset all LE credentials associated with a username, given
+  // validated VK |validated_vk|.
+  void ResetLECredentialsWithValidatedVK(const VaultKeyset& validated_vk,
+                                         const std::string& obfuscated);
 
   // Removes all LE credentials for a user with |obfuscated_username|.
   virtual void RemoveLECredentials(const std::string& obfuscated_username);
@@ -299,8 +303,14 @@ class KeysetManagement {
 
   // Records various metrics about the VaultKeyset into the VaultKeysetMetrics
   // struct.
-  bool RecordVaultKeysetMetrics(const VaultKeyset& vk,
+  void RecordVaultKeysetMetrics(const VaultKeyset& vk,
                                 VaultKeysetMetrics& keyset_metrics) const;
+
+  // Attempts to reset all LE credentials associated with a username, given
+  // a credential |cred| and |key_indices|.
+  void ResetLECredentialsInternal(const VaultKeyset& vk,
+                                  const std::string& obfuscated,
+                                  const std::vector<int>& key_indices);
 
   Platform* platform_;
   Crypto* crypto_;

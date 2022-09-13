@@ -6,6 +6,7 @@
 
 #include "cryptohome/user_session/real_user_session.h"
 
+#include <memory>
 #include <string>
 #include <vector>
 
@@ -14,6 +15,8 @@
 #include <brillo/cryptohome.h>
 #include <brillo/secure_blob.h>
 #include <gtest/gtest.h>
+#include <libhwsec/frontend/cryptohome/mock_frontend.h>
+#include <libhwsec/frontend/pinweaver/mock_frontend.h>
 #include <libhwsec-foundation/crypto/hmac.h>
 #include <libhwsec-foundation/crypto/secure_blob_util.h>
 #include <libhwsec-foundation/error/testing_helper.h>
@@ -27,7 +30,6 @@
 #include "cryptohome/mock_cryptohome_keys_manager.h"
 #include "cryptohome/mock_keyset_management.h"
 #include "cryptohome/mock_platform.h"
-#include "cryptohome/mock_tpm.h"
 #include "cryptohome/pkcs11/fake_pkcs11_token.h"
 #include "cryptohome/pkcs11/mock_pkcs11_token_factory.h"
 #include "cryptohome/storage/file_system_keyset.h"
@@ -61,7 +63,8 @@ constexpr char kHibernateSecretHmacMessage[] = "AuthTimeHibernateSecret";
 
 class RealUserSessionTest : public ::testing::Test {
  public:
-  RealUserSessionTest() : crypto_(&tpm_, &cryptohome_keys_manager_) {}
+  RealUserSessionTest()
+      : crypto_(&hwsec_, &pinweaver_, &cryptohome_keys_manager_, nullptr) {}
   ~RealUserSessionTest() override {}
 
   // Not copyable or movable
@@ -99,8 +102,8 @@ class RealUserSessionTest : public ::testing::Test {
           return std::make_unique<FakePkcs11Token>();
         }));
 
-    session_ = base::MakeRefCounted<RealUserSession>(
-        homedirs_.get(), keyset_management_.get(),
+    session_ = std::make_unique<RealUserSession>(
+        kUser0, homedirs_.get(), keyset_management_.get(),
         user_activity_timestamp_manager_.get(), &pkcs11_token_factory_, mount_);
   }
 
@@ -117,7 +120,8 @@ class RealUserSessionTest : public ::testing::Test {
 
   // Information about users' homedirs. The order of users is equal to kUsers.
   std::vector<UserInfo> users_;
-  NiceMock<MockTpm> tpm_;
+  NiceMock<hwsec::MockCryptohomeFrontend> hwsec_;
+  NiceMock<hwsec::MockPinWeaverFrontend> pinweaver_;
   NiceMock<MockPlatform> platform_;
   NiceMock<MockCryptohomeKeysManager> cryptohome_keys_manager_;
   NiceMock<MockPkcs11TokenFactory> pkcs11_token_factory_;
@@ -127,7 +131,7 @@ class RealUserSessionTest : public ::testing::Test {
   std::unique_ptr<UserOldestActivityTimestampManager>
       user_activity_timestamp_manager_;
   std::unique_ptr<HomeDirs> homedirs_;
-  scoped_refptr<RealUserSession> session_;
+  std::unique_ptr<RealUserSession> session_;
   // TODO(dlunev): Replace with real mount when FakePlatform is mature enough
   // to support it mock-less.
   scoped_refptr<MockMount> mount_;
@@ -164,7 +168,9 @@ class RealUserSessionTest : public ::testing::Test {
 };
 
 MATCHER_P(VaultOptionsEqual, options, "") {
-  return memcmp(&options, &arg, sizeof(options)) == 0;
+  return arg.force_type == options.force_type &&
+         arg.migrate == options.migrate &&
+         arg.block_ecryptfs == options.block_ecryptfs;
 }
 
 // Mount twice: first time with create, and the second time for the existing
@@ -189,6 +195,8 @@ TEST_F(RealUserSessionTest, MountVaultOk) {
               MountCryptohome(users_[0].name, _, VaultOptionsEqual(options)))
       .WillOnce(ReturnOk<StorageError>());
   EXPECT_CALL(platform_, GetCurrentTime()).WillOnce(Return(kTs1));
+  EXPECT_CALL(pkcs11_token_factory_, New(users_[0].name, _, _))
+      .RetiresOnSaturation();
 
   // TEST
 
@@ -226,6 +234,8 @@ TEST_F(RealUserSessionTest, MountVaultOk) {
               MountCryptohome(users_[0].name, _, VaultOptionsEqual(options)))
       .WillOnce(ReturnOk<StorageError>());
   EXPECT_CALL(platform_, GetCurrentTime()).WillOnce(Return(kTs2));
+  EXPECT_CALL(pkcs11_token_factory_, New(users_[0].name, _, _))
+      .RetiresOnSaturation();
 
   // TEST
 
@@ -324,8 +334,17 @@ TEST_F(RealUserSessionTest, EphemeralMountPolicyTest) {
   };
 
   for (const auto& test_case : test_cases) {
+    RealUserSession local_session(
+        test_case.user, homedirs_.get(), keyset_management_.get(),
+        user_activity_timestamp_manager_.get(), &pkcs11_token_factory_, mount_);
+    if (test_case.ok) {
+      // If the mount succeeds in the test, a PKCS11 token should be created.
+      EXPECT_CALL(pkcs11_token_factory_, New(test_case.user, _, _))
+          .RetiresOnSaturation();
+    }
+
     PreparePolicy(test_case.is_enterprise, test_case.owner);
-    MountStatus status = session_->MountEphemeral(test_case.user);
+    MountStatus status = local_session.MountEphemeral(test_case.user);
     ASSERT_EQ(status.ok(), test_case.ok) << "Test case: " << test_case.name;
     if (!test_case.ok) {
       ASSERT_EQ(status->mount_error(), test_case.expected_result)
@@ -436,13 +455,12 @@ class RealUserSessionReAuthTest : public ::testing::Test {
 
 TEST_F(RealUserSessionReAuthTest, VerifyUser) {
   Credentials credentials("username", SecureBlob("password"));
-  scoped_refptr<RealUserSession> session =
-      base::MakeRefCounted<RealUserSession>(nullptr, nullptr, nullptr, nullptr,
-                                            nullptr);
-  EXPECT_TRUE(session->SetCredentials(credentials));
+  RealUserSession session("username", nullptr, nullptr, nullptr, nullptr,
+                          nullptr);
+  session.SetCredentials(credentials);
 
-  EXPECT_TRUE(session->VerifyUser(credentials.GetObfuscatedUsername()));
-  EXPECT_FALSE(session->VerifyUser("other"));
+  EXPECT_TRUE(session.VerifyUser(credentials.GetObfuscatedUsername()));
+  EXPECT_FALSE(session.VerifyUser("other"));
 }
 
 TEST_F(RealUserSessionReAuthTest, VerifyCredentials) {
@@ -450,23 +468,64 @@ TEST_F(RealUserSessionReAuthTest, VerifyCredentials) {
   Credentials credentials_2("username", SecureBlob("password2"));
   Credentials credentials_3("username2", SecureBlob("password2"));
 
-  scoped_refptr<RealUserSession> session =
-      base::MakeRefCounted<RealUserSession>(nullptr, nullptr, nullptr, nullptr,
-                                            nullptr);
-  EXPECT_TRUE(session->SetCredentials(credentials_1));
-  EXPECT_TRUE(session->VerifyCredentials(credentials_1));
-  EXPECT_FALSE(session->VerifyCredentials(credentials_2));
-  EXPECT_FALSE(session->VerifyCredentials(credentials_3));
+  {
+    RealUserSession session(credentials_1.username(), nullptr, nullptr, nullptr,
+                            nullptr, nullptr);
+    session.SetCredentials(credentials_1);
+    EXPECT_TRUE(session.VerifyCredentials(credentials_1));
+    EXPECT_FALSE(session.VerifyCredentials(credentials_2));
+    EXPECT_FALSE(session.VerifyCredentials(credentials_3));
+  }
 
-  EXPECT_TRUE(session->SetCredentials(credentials_2));
-  EXPECT_FALSE(session->VerifyCredentials(credentials_1));
-  EXPECT_TRUE(session->VerifyCredentials(credentials_2));
-  EXPECT_FALSE(session->VerifyCredentials(credentials_3));
+  {
+    RealUserSession session(credentials_2.username(), nullptr, nullptr, nullptr,
+                            nullptr, nullptr);
+    session.SetCredentials(credentials_2);
+    EXPECT_FALSE(session.VerifyCredentials(credentials_1));
+    EXPECT_TRUE(session.VerifyCredentials(credentials_2));
+    EXPECT_FALSE(session.VerifyCredentials(credentials_3));
+  }
 
-  EXPECT_TRUE(session->SetCredentials(credentials_3));
-  EXPECT_FALSE(session->VerifyCredentials(credentials_1));
-  EXPECT_FALSE(session->VerifyCredentials(credentials_2));
-  EXPECT_TRUE(session->VerifyCredentials(credentials_3));
+  {
+    RealUserSession session(credentials_3.username(), nullptr, nullptr, nullptr,
+                            nullptr, nullptr);
+    session.SetCredentials(credentials_3);
+    EXPECT_FALSE(session.VerifyCredentials(credentials_1));
+    EXPECT_FALSE(session.VerifyCredentials(credentials_2));
+    EXPECT_TRUE(session.VerifyCredentials(credentials_3));
+  }
+}
+
+TEST_F(RealUserSessionReAuthTest, RemoveCredentials) {
+  Credentials credentials_1("username", SecureBlob("password"));
+  KeyData key_data1;
+  key_data1.set_label("password1");
+  credentials_1.set_key_data(key_data1);
+
+  Credentials credentials_2("username", SecureBlob("password2"));
+  KeyData key_data2;
+  key_data1.set_label("password2");
+  credentials_2.set_key_data(key_data2);
+
+  {
+    RealUserSession session(credentials_1.username(), nullptr, nullptr, nullptr,
+                            nullptr, nullptr);
+    session.SetCredentials(credentials_1);
+    EXPECT_TRUE(session.VerifyCredentials(credentials_1));
+    EXPECT_FALSE(session.VerifyCredentials(credentials_2));
+
+    // Removing another label that is not the same as this session was set with.
+    session.RemoveCredentialVerifierForKeyLabel(
+        credentials_2.key_data().label());
+    // Verification should still work.
+    EXPECT_TRUE(session.VerifyCredentials(credentials_1));
+
+    // Removing the credential label set in this user session.
+    session.RemoveCredentialVerifierForKeyLabel(
+        credentials_1.key_data().label());
+    // Verification should not work.
+    EXPECT_FALSE(session.VerifyCredentials(credentials_1));
+  }
 }
 
 }  // namespace cryptohome

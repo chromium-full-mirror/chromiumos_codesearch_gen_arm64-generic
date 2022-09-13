@@ -21,7 +21,7 @@
 #include "mojo/public/cpp/bindings/map_data_view.h"
 #include "mojo/public/cpp/bindings/string_data_view.h"
 
-#include "base/trace_event/base_tracing.h"
+#include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
 #include "ipc/ipc.mojom-shared-internal.h"
 #include "mojo/public/interfaces/bindings/native_struct.mojom-shared.h"
@@ -95,7 +95,7 @@ class MessageDataView {
       mojo::ArrayDataView<uint8_t>* output);
 
   template <typename UserType>
-  WARN_UNUSED_RESULT bool ReadBytes(UserType* output) {
+  [[nodiscard]] bool ReadBytes(UserType* output) {
     
     auto* pointer = data_->bytes.Get();
     return mojo::internal::Deserialize<mojo::ArrayDataView<uint8_t>>(
@@ -105,7 +105,7 @@ class MessageDataView {
       mojo::ArrayDataView<::mojo::native::SerializedHandleDataView>* output);
 
   template <typename UserType>
-  WARN_UNUSED_RESULT bool ReadHandles(UserType* output) {
+  [[nodiscard]] bool ReadHandles(UserType* output) {
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<

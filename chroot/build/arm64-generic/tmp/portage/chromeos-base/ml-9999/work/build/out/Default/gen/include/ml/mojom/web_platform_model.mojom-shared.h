@@ -21,7 +21,7 @@
 #include "mojo/public/cpp/bindings/map_data_view.h"
 #include "mojo/public/cpp/bindings/string_data_view.h"
 
-#include "base/trace_event/base_tracing.h"
+#include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
 #include "ml/mojom/web_platform_model.mojom-shared-internal.h"
 #include "ml/mojom/big_buffer.mojom-shared.h"
@@ -270,7 +270,7 @@ class CreateModelLoaderOptionsDataView {
     return data_->num_threads;
   }
   template <typename UserType>
-  WARN_UNUSED_RESULT bool ReadModelFormat(UserType* output) const {
+  [[nodiscard]] bool ReadModelFormat(UserType* output) const {
     auto data_value = data_->model_format;
     return mojo::internal::Deserialize<::ml::model_loader::mojom::ModelFormat>(
         data_value, output);
@@ -280,7 +280,7 @@ class CreateModelLoaderOptionsDataView {
           static_cast<::ml::model_loader::mojom::ModelFormat>(data_->model_format));
   }
   template <typename UserType>
-  WARN_UNUSED_RESULT bool ReadDevicePreference(UserType* output) const {
+  [[nodiscard]] bool ReadDevicePreference(UserType* output) const {
     auto data_value = data_->device_preference;
     return mojo::internal::Deserialize<::ml::model_loader::mojom::DevicePreference>(
         data_value, output);
@@ -309,7 +309,7 @@ class TensorInfoDataView {
     return data_->byte_size;
   }
   template <typename UserType>
-  WARN_UNUSED_RESULT bool ReadDataType(UserType* output) const {
+  [[nodiscard]] bool ReadDataType(UserType* output) const {
     auto data_value = data_->data_type;
     return mojo::internal::Deserialize<::ml::model_loader::mojom::DataType>(
         data_value, output);
@@ -322,7 +322,7 @@ class TensorInfoDataView {
       mojo::ArrayDataView<uint32_t>* output);
 
   template <typename UserType>
-  WARN_UNUSED_RESULT bool ReadDimensions(UserType* output) {
+  [[nodiscard]] bool ReadDimensions(UserType* output) {
     
     auto* pointer = data_->dimensions.Get();
     return mojo::internal::Deserialize<mojo::ArrayDataView<uint32_t>>(
@@ -349,7 +349,7 @@ class ModelInfoDataView {
       mojo::MapDataView<mojo::StringDataView, TensorInfoDataView>* output);
 
   template <typename UserType>
-  WARN_UNUSED_RESULT bool ReadInputTensorInfo(UserType* output) {
+  [[nodiscard]] bool ReadInputTensorInfo(UserType* output) {
     
     auto* pointer = data_->input_tensor_info.Get();
     return mojo::internal::Deserialize<mojo::MapDataView<mojo::StringDataView, ::ml::model_loader::mojom::TensorInfoDataView>>(
@@ -359,7 +359,7 @@ class ModelInfoDataView {
       mojo::MapDataView<mojo::StringDataView, TensorInfoDataView>* output);
 
   template <typename UserType>
-  WARN_UNUSED_RESULT bool ReadOutputTensorInfo(UserType* output) {
+  [[nodiscard]] bool ReadOutputTensorInfo(UserType* output) {
     
     auto* pointer = data_->output_tensor_info.Get();
     return mojo::internal::Deserialize<mojo::MapDataView<mojo::StringDataView, ::ml::model_loader::mojom::TensorInfoDataView>>(
@@ -699,70 +699,58 @@ inline void ModelInfoDataView::GetOutputTensorInfoDataView(
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.
 
-namespace perfetto {
-namespace libchrome {
+namespace perfetto_libchrome {
 
 template <>
 struct  TraceFormatTraits<::ml::model_loader::mojom::ModelFormat> {
- static void WriteIntoTrace(perfetto::libchrome::TracedValue context, ::ml::model_loader::mojom::ModelFormat value);
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ml::model_loader::mojom::ModelFormat value);
 };
 
-} // namespace libchrome
 } // namespace perfetto
 
-namespace perfetto {
-namespace libchrome {
+namespace perfetto_libchrome {
 
 template <>
 struct  TraceFormatTraits<::ml::model_loader::mojom::DevicePreference> {
- static void WriteIntoTrace(perfetto::libchrome::TracedValue context, ::ml::model_loader::mojom::DevicePreference value);
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ml::model_loader::mojom::DevicePreference value);
 };
 
-} // namespace libchrome
 } // namespace perfetto
 
-namespace perfetto {
-namespace libchrome {
+namespace perfetto_libchrome {
 
 template <>
 struct  TraceFormatTraits<::ml::model_loader::mojom::DataType> {
- static void WriteIntoTrace(perfetto::libchrome::TracedValue context, ::ml::model_loader::mojom::DataType value);
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ml::model_loader::mojom::DataType value);
 };
 
-} // namespace libchrome
 } // namespace perfetto
 
-namespace perfetto {
-namespace libchrome {
+namespace perfetto_libchrome {
 
 template <>
 struct  TraceFormatTraits<::ml::model_loader::mojom::LoadModelResult> {
- static void WriteIntoTrace(perfetto::libchrome::TracedValue context, ::ml::model_loader::mojom::LoadModelResult value);
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ml::model_loader::mojom::LoadModelResult value);
 };
 
-} // namespace libchrome
 } // namespace perfetto
 
-namespace perfetto {
-namespace libchrome {
+namespace perfetto_libchrome {
 
 template <>
 struct  TraceFormatTraits<::ml::model_loader::mojom::CreateModelLoaderResult> {
- static void WriteIntoTrace(perfetto::libchrome::TracedValue context, ::ml::model_loader::mojom::CreateModelLoaderResult value);
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ml::model_loader::mojom::CreateModelLoaderResult value);
 };
 
-} // namespace libchrome
 } // namespace perfetto
 
-namespace perfetto {
-namespace libchrome {
+namespace perfetto_libchrome {
 
 template <>
 struct  TraceFormatTraits<::ml::model_loader::mojom::ComputeResult> {
- static void WriteIntoTrace(perfetto::libchrome::TracedValue context, ::ml::model_loader::mojom::ComputeResult value);
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ml::model_loader::mojom::ComputeResult value);
 };
 
-} // namespace libchrome
 } // namespace perfetto
 
 #endif  // ML_MOJOM_WEB_PLATFORM_MODEL_MOJOM_SHARED_H_

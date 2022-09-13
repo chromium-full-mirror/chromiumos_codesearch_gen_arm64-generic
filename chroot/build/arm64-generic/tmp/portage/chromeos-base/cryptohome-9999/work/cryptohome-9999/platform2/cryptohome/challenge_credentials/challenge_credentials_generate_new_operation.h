@@ -14,18 +14,17 @@
 #include <base/callback.h>
 #include <base/memory/weak_ptr.h>
 #include <brillo/secure_blob.h>
+#include <libhwsec/frontend/cryptohome/frontend.h>
 
 #include "cryptohome/challenge_credentials/challenge_credentials_helper.h"
 #include "cryptohome/challenge_credentials/challenge_credentials_operation.h"
 #include "cryptohome/error/cryptohome_tpm_error.h"
-#include "cryptohome/signature_sealing/structures.h"
-#include "cryptohome/signature_sealing_backend.h"
+#include "cryptohome/flatbuffer_schemas/structures.h"
 
 namespace cryptohome {
 
 class Credentials;
 class KeyChallengeService;
-class Tpm;
 
 // This operation generates new credentials for the given user and the
 // referenced cryptographic key. This operation involves making challenge
@@ -53,9 +52,7 @@ class ChallengeCredentialsGenerateNewOperation final
   // The result is reported via |completion_callback|.
   ChallengeCredentialsGenerateNewOperation(
       KeyChallengeService* key_challenge_service,
-      Tpm* tpm,
-      const brillo::Blob& delegate_blob,
-      const brillo::Blob& delegate_secret,
+      hwsec::CryptohomeFrontend* hwsec,
       const std::string& account_id,
       const structure::ChallengePublicKeyInfo& public_key_info,
       const std::string& obfuscated_username,
@@ -92,20 +89,17 @@ class ChallengeCredentialsGenerateNewOperation final
   structure::SignatureChallengeInfo ConstructKeysetSignatureChallengeInfo()
       const;
 
-  Tpm* const tpm_;
-  const brillo::Blob delegate_blob_;
-  const brillo::Blob delegate_secret_;
   const std::string account_id_;
   const structure::ChallengePublicKeyInfo public_key_info_;
   const std::string obfuscated_username_;
   CompletionCallback completion_callback_;
-  SignatureSealingBackend* const signature_sealing_backend_;
+  hwsec::CryptohomeFrontend* const hwsec_;
   brillo::Blob salt_;
   structure::ChallengeSignatureAlgorithm salt_signature_algorithm_ =
       structure::ChallengeSignatureAlgorithm::kRsassaPkcs1V15Sha1;
   std::unique_ptr<brillo::Blob> salt_signature_;
   std::unique_ptr<brillo::SecureBlob> tpm_protected_secret_value_;
-  structure::SignatureSealedData tpm_sealed_secret_data_;
+  hwsec::SignatureSealedData tpm_sealed_secret_data_;
   base::WeakPtrFactory<ChallengeCredentialsGenerateNewOperation>
       weak_ptr_factory_{this};
 };

@@ -8,11 +8,9 @@
 #include <memory>
 #include <string>
 
-#include <base/memory/ref_counted.h>
 #include <base/timer/timer.h>
 #include <brillo/secure_blob.h>
 
-#include "cryptohome/auth_session.h"
 #include "cryptohome/cleanup/user_oldest_activity_timestamp_manager.h"
 #include "cryptohome/credential_verifier.h"
 #include "cryptohome/credentials.h"
@@ -26,9 +24,12 @@
 
 namespace cryptohome {
 
-class UserSession : public base::RefCountedThreadSafe<UserSession> {
+class AuthSession;
+
+class UserSession {
  public:
   UserSession() = default;
+  virtual ~UserSession() = default;
 
   // Disallow Copy/Move/Assign
   UserSession(const UserSession&) = delete;
@@ -55,12 +56,12 @@ class UserSession : public base::RefCountedThreadSafe<UserSession> {
   // Mounts disk backed vault for the given username with the supplied file
   // system keyset.
   virtual MountStatus MountVault(
-      const std::string username,
+      const std::string& username,
       const FileSystemKeyset& fs_keyset,
       const CryptohomeVault::Options& vault_options) = 0;
 
   // Creates and mounts a ramdisk backed ephemeral session for the given user.
-  virtual MountStatus MountEphemeral(const std::string username) = 0;
+  virtual MountStatus MountEphemeral(const std::string& username) = 0;
 
   // Creates and mounts a ramdisk backed ephemeral session for an anonymous
   // user.
@@ -85,11 +86,14 @@ class UserSession : public base::RefCountedThreadSafe<UserSession> {
   virtual std::unique_ptr<brillo::SecureBlob> GetHibernateSecret() = 0;
 
   // Sets credentials current session can be re-authenticated with.
-  // Returns false in case anything went wrong in setting up new re-auth state.
-  virtual bool SetCredentials(const Credentials& credentials) = 0;
+  // Logs warning in case anything went wrong in setting up new re-auth state.
+  virtual void SetCredentials(const Credentials& credentials) = 0;
 
   // Sets credentials current session can be re-authenticated with.
   virtual void SetCredentials(AuthSession* auth_session) = 0;
+
+  // Returns if a |credential_verifier_| is set for this session.
+  virtual bool HasCredentialVerifier() const = 0;
 
   // Checks that the session belongs to the obfuscated_user.
   virtual bool VerifyUser(const std::string& obfuscated_username) const = 0;
@@ -112,9 +116,10 @@ class UserSession : public base::RefCountedThreadSafe<UserSession> {
   virtual void PrepareWebAuthnSecret(const brillo::SecureBlob& fek,
                                      const brillo::SecureBlob& fnek) = 0;
 
- protected:
-  friend class base::RefCountedThreadSafe<UserSession>;
-  virtual ~UserSession() = default;
+  // Removes the credential_verifier if key_label matches the current verifier
+  // label (stored in RealUserSession::key_data_).
+  virtual void RemoveCredentialVerifierForKeyLabel(
+      const std::string& key_label) = 0;
 };
 
 }  // namespace cryptohome

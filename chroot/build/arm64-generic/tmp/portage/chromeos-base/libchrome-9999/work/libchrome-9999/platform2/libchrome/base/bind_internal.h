@@ -14,7 +14,6 @@
 #include <utility>
 
 #include "base/allocator/buildflags.h"
-#include "base/bind.h"
 #include "base/callback_internal.h"
 #include "base/check.h"
 #include "base/compiler_specific.h"
@@ -22,10 +21,9 @@
 #include "base/memory/raw_scoped_refptr_mismatch_checker.h"
 #include "base/memory/weak_ptr.h"
 #include "base/notreached.h"
-#include "base/template_util.h"
 #include "build/build_config.h"
 
-#if defined(OS_APPLE) && !HAS_FEATURE(objc_arc)
+#if BUILDFLAG(IS_APPLE) && !HAS_FEATURE(objc_arc)
 #include "base/mac/scoped_block.h"
 #endif
 
@@ -56,7 +54,7 @@
 //  BindState<> -- Stores the curried parameters, and is the main entry point
 //                 into the Bind() system.
 
-#if defined(OS_WIN)
+#if BUILDFLAG(IS_WIN)
 namespace Microsoft {
 namespace WRL {
 template <typename>
@@ -85,6 +83,14 @@ template <typename T>
 class UnretainedWrapper {
  public:
   explicit UnretainedWrapper(T* o) : ptr_(o) {}
+
+  // Trick to only instantiate this constructor if it is used. Otherwise,
+  // instantiating UnretainedWrapper with a T that is not supported by
+  // raw_ptr would trigger raw_ptr<T>'s static_assert.
+  template <typename U = T>
+  // Avoids having a raw_ptr<T> -> T* -> raw_ptr<T> round trip, which
+  // would trigger the raw_ptr error detector if T* was dangling.
+  explicit UnretainedWrapper(const raw_ptr<U>& o) : ptr_(o) {}
   T* get() const { return ptr_; }
 
  private:
@@ -357,14 +363,14 @@ template <typename Functor, typename SFINAE = void>
 struct IsCallableObject : std::false_type {};
 
 template <typename Callable>
-struct IsCallableObject<Callable, void_t<decltype(&Callable::operator())>>
+struct IsCallableObject<Callable, std::void_t<decltype(&Callable::operator())>>
     : std::true_type {};
 
 // HasRefCountedTypeAsRawPtr inherits from true_type when any of the |Args| is a
 // raw pointer to a RefCounted type.
 template <typename... Ts>
 struct HasRefCountedTypeAsRawPtr
-    : disjunction<NeedsScopedRefptrButGetsRawPtr<Ts>...> {};
+    : std::disjunction<NeedsScopedRefptrButGetsRawPtr<Ts>...> {};
 
 // ForceVoidReturn<>
 //
@@ -431,7 +437,7 @@ struct FunctorTraits<R (*)(Args...)> {
   }
 };
 
-#if defined(OS_WIN) && !defined(ARCH_CPU_64_BITS)
+#if BUILDFLAG(IS_WIN) && !defined(ARCH_CPU_64_BITS)
 
 // For functions.
 template <typename R, typename... Args>
@@ -461,9 +467,9 @@ struct FunctorTraits<R(__fastcall*)(Args...)> {
   }
 };
 
-#endif  // defined(OS_WIN) && !defined(ARCH_CPU_64_BITS)
+#endif  // BUILDFLAG(IS_WIN) && !defined(ARCH_CPU_64_BITS)
 
-#if defined(OS_APPLE)
+#if BUILDFLAG(IS_APPLE)
 
 // Support for Objective-C blocks. There are two implementation depending
 // on whether Automated Reference Counting (ARC) is enabled. When ARC is
@@ -518,7 +524,7 @@ struct FunctorTraits<base::mac::ScopedBlock<R (^)(Args...)>> {
 };
 
 #endif  // HAS_FEATURE(objc_arc)
-#endif  // defined(OS_APPLE)
+#endif  // BUILDFLAG(IS_APPLE)
 
 // For methods.
 template <typename R, typename Receiver, typename... Args>
@@ -552,7 +558,7 @@ struct FunctorTraits<R (Receiver::*)(Args...) const> {
   }
 };
 
-#if defined(OS_WIN) && !defined(ARCH_CPU_64_BITS)
+#if BUILDFLAG(IS_WIN) && !defined(ARCH_CPU_64_BITS)
 
 // For __stdcall methods.
 template <typename R, typename Receiver, typename... Args>
@@ -586,7 +592,7 @@ struct FunctorTraits<R (__stdcall Receiver::*)(Args...) const> {
   }
 };
 
-#endif  // defined(OS_WIN) && !defined(ARCH_CPU_64_BITS)
+#endif  // BUILDFLAG(IS_WIN) && !defined(ARCH_CPU_64_BITS)
 
 #ifdef __cpp_noexcept_function_type
 // noexcept makes a distinct function type in C++17.
@@ -874,7 +880,7 @@ BanUnconstructedRefCountedReceiver(const Receiver& receiver, Unused&&...) {
   // ran fast enough, the newly created instance could be destroyed before `oo`
   // makes another reference.
   //   Foo::Foo() {
-  //     base::PostTask(FROM_HERE, base::BindOnce(&Foo::Bar, this));
+  //     base::ThreadPool::PostTask(FROM_HERE, base::BindOnce(&Foo::Bar, this));
   //   }
   //
   //   scoped_refptr<Foo> oo = new Foo();
@@ -889,7 +895,7 @@ BanUnconstructedRefCountedReceiver(const Receiver& receiver, Unused&&...) {
   //   // static
   //   scoped_refptr<Foo> Foo::Create() {
   //     auto foo = base::WrapRefCounted(new Foo());
-  //     base::PostTask(FROM_HERE, base::BindOnce(&Foo::Bar, foo));
+  //     base::ThreadPool::PostTask(FROM_HERE, base::BindOnce(&Foo::Bar, foo));
   //     return foo;
   //   }
   //
@@ -905,7 +911,7 @@ BanUnconstructedRefCountedReceiver(const Receiver& receiver, Unused&&...) {
 // This stores all the state passed into Bind().
 template <typename Functor, typename... BoundArgs>
 struct BindState final : BindStateBase {
-  using IsCancellable = bool_constant<
+  using IsCancellable = std::bool_constant<
       CallbackCancellationTraits<Functor,
                                  std::tuple<BoundArgs...>>::is_cancellable>;
   template <typename ForwardFunctor, typename... ForwardBoundArgs>
@@ -1378,7 +1384,7 @@ struct BindUnwrapTraits<internal::PassedWrapper<T>> {
   static T Unwrap(const internal::PassedWrapper<T>& o) { return o.Take(); }
 };
 
-#if defined(OS_WIN)
+#if BUILDFLAG(IS_WIN)
 template <typename T>
 struct BindUnwrapTraits<Microsoft::WRL::ComPtr<T>> {
   static T* Unwrap(const Microsoft::WRL::ComPtr<T>& ptr) { return ptr.Get(); }

@@ -329,10 +329,6 @@ class MockPlatform : public Platform {
               (const base::FilePath&, int),
               (const, override));
   MOCK_METHOD(bool,
-              SetQuotaProjectId,
-              (int, const base::FilePath&),
-              (const, override));
-  MOCK_METHOD(bool,
               SetQuotaProjectIdWithFd,
               (int, int, int*),
               (const, override));
@@ -386,6 +382,7 @@ class MockPlatform : public Platform {
   MOCK_METHOD(std::string, GetHardwareID, (), (override));
   MOCK_METHOD(bool, GetBlkSize, (const base::FilePath&, uint64_t*), (override));
   MOCK_METHOD(bool, DetachLoop, (const base::FilePath&), (override));
+  MOCK_METHOD(bool, DiscardDevice, (const base::FilePath&), (override));
   MOCK_METHOD(std::vector<LoopDevice>, GetAttachedLoopDevices, (), (override));
   MOCK_METHOD(bool,
               FormatExt4,

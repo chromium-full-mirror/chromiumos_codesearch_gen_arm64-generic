@@ -21,7 +21,7 @@
 #include "mojo/public/cpp/bindings/map_data_view.h"
 #include "mojo/public/cpp/bindings/string_data_view.h"
 
-#include "base/trace_event/base_tracing.h"
+#include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
 #include "ml/mojom/text_suggester.mojom-shared-internal.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
@@ -205,7 +205,7 @@ class NextWordCompletionCandidateDataView {
       mojo::StringDataView* output);
 
   template <typename UserType>
-  WARN_UNUSED_RESULT bool ReadText(UserType* output) {
+  [[nodiscard]] bool ReadText(UserType* output) {
     
     auto* pointer = data_->text.Get();
     return mojo::internal::Deserialize<mojo::StringDataView>(
@@ -235,7 +235,7 @@ class TextSuggesterQueryDataView {
       mojo::StringDataView* output);
 
   template <typename UserType>
-  WARN_UNUSED_RESULT bool ReadText(UserType* output) {
+  [[nodiscard]] bool ReadText(UserType* output) {
     
     auto* pointer = data_->text.Get();
     return mojo::internal::Deserialize<mojo::StringDataView>(
@@ -245,14 +245,14 @@ class TextSuggesterQueryDataView {
       mojo::ArrayDataView<NextWordCompletionCandidateDataView>* output);
 
   template <typename UserType>
-  WARN_UNUSED_RESULT bool ReadNextWordCandidates(UserType* output) {
+  [[nodiscard]] bool ReadNextWordCandidates(UserType* output) {
     
     auto* pointer = data_->next_word_candidates.Get();
     return mojo::internal::Deserialize<mojo::ArrayDataView<::chromeos::machine_learning::mojom::NextWordCompletionCandidateDataView>>(
         pointer, output, message_);
   }
   template <typename UserType>
-  WARN_UNUSED_RESULT bool ReadSuggestionMode(UserType* output) const {
+  [[nodiscard]] bool ReadSuggestionMode(UserType* output) const {
     auto data_value = data_->header_.version >= 1
                       ? data_->suggestion_mode : 0;
     return mojo::internal::Deserialize<::chromeos::machine_learning::mojom::TextSuggestionMode>(
@@ -285,7 +285,7 @@ class MultiWordSuggestionCandidateDataView {
       mojo::StringDataView* output);
 
   template <typename UserType>
-  WARN_UNUSED_RESULT bool ReadText(UserType* output) {
+  [[nodiscard]] bool ReadText(UserType* output) {
     
     auto* pointer = data_->text.Get();
     return mojo::internal::Deserialize<mojo::StringDataView>(
@@ -312,7 +312,7 @@ class TextSuggesterResultDataView {
 
   bool is_null() const { return !data_; }
   template <typename UserType>
-  WARN_UNUSED_RESULT bool ReadStatus(UserType* output) const {
+  [[nodiscard]] bool ReadStatus(UserType* output) const {
     auto data_value = data_->status;
     return mojo::internal::Deserialize<::chromeos::machine_learning::mojom::TextSuggesterResult_Status>(
         data_value, output);
@@ -325,7 +325,7 @@ class TextSuggesterResultDataView {
       mojo::ArrayDataView<TextSuggestionCandidateDataView>* output);
 
   template <typename UserType>
-  WARN_UNUSED_RESULT bool ReadCandidates(UserType* output) {
+  [[nodiscard]] bool ReadCandidates(UserType* output) {
     
     auto* pointer = data_->candidates.Get();
     return mojo::internal::Deserialize<mojo::ArrayDataView<::chromeos::machine_learning::mojom::TextSuggestionCandidateDataView>>(
@@ -349,7 +349,7 @@ class TextSuggesterSpecDataView {
 
   bool is_null() const { return !data_; }
   template <typename UserType>
-  WARN_UNUSED_RESULT bool ReadMultiWordExperiment(UserType* output) const {
+  [[nodiscard]] bool ReadMultiWordExperiment(UserType* output) const {
     auto data_value = data_->multi_word_experiment;
     return mojo::internal::Deserialize<::chromeos::machine_learning::mojom::MultiWordExperimentGroup>(
         data_value, output);
@@ -382,12 +382,12 @@ class TextSuggestionCandidateDataView {
   }
 
   Tag tag() const { return data_->tag; }
-  bool is_multi_word() const { return data_->tag == Tag::MULTI_WORD; }
+  bool is_multi_word() const { return data_->tag == Tag::kMultiWord; }
   inline void GetMultiWordDataView(
       MultiWordSuggestionCandidateDataView* output) const;
 
   template <typename UserType>
-  WARN_UNUSED_RESULT bool ReadMultiWord(UserType* output) const {
+  [[nodiscard]] bool ReadMultiWord(UserType* output) const {
     
     CHECK(is_multi_word());
     return mojo::internal::Deserialize<::chromeos::machine_learning::mojom::MultiWordSuggestionCandidateDataView>(
@@ -725,7 +725,7 @@ struct Serializer<::chromeos::machine_learning::mojom::TextSuggestionCandidateDa
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::machine_learning::mojom::TextSuggestionCandidateDataView::Tag::MULTI_WORD: {
+      case ::chromeos::machine_learning::mojom::TextSuggestionCandidateDataView::Tag::kMultiWord: {
         decltype(Traits::multi_word(input))
             in_multi_word = Traits::multi_word(input);
         mojo::internal::MessageFragment<
@@ -813,37 +813,31 @@ inline void TextSuggestionCandidateDataView::GetMultiWordDataView(
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.
 
-namespace perfetto {
-namespace libchrome {
+namespace perfetto_libchrome {
 
 template <>
 struct  TraceFormatTraits<::chromeos::machine_learning::mojom::TextSuggestionMode> {
- static void WriteIntoTrace(perfetto::libchrome::TracedValue context, ::chromeos::machine_learning::mojom::TextSuggestionMode value);
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::chromeos::machine_learning::mojom::TextSuggestionMode value);
 };
 
-} // namespace libchrome
 } // namespace perfetto
 
-namespace perfetto {
-namespace libchrome {
+namespace perfetto_libchrome {
 
 template <>
 struct  TraceFormatTraits<::chromeos::machine_learning::mojom::MultiWordExperimentGroup> {
- static void WriteIntoTrace(perfetto::libchrome::TracedValue context, ::chromeos::machine_learning::mojom::MultiWordExperimentGroup value);
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::chromeos::machine_learning::mojom::MultiWordExperimentGroup value);
 };
 
-} // namespace libchrome
 } // namespace perfetto
 
-namespace perfetto {
-namespace libchrome {
+namespace perfetto_libchrome {
 
 template <>
 struct  TraceFormatTraits<::chromeos::machine_learning::mojom::TextSuggesterResult_Status> {
- static void WriteIntoTrace(perfetto::libchrome::TracedValue context, ::chromeos::machine_learning::mojom::TextSuggesterResult_Status value);
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::chromeos::machine_learning::mojom::TextSuggesterResult_Status value);
 };
 
-} // namespace libchrome
 } // namespace perfetto
 
 #endif  // ML_MOJOM_TEXT_SUGGESTER_MOJOM_SHARED_H_

@@ -21,7 +21,6 @@
 #include "base/system/sys_info_internal.h"
 #include "base/threading/scoped_blocking_call.h"
 #include "build/build_config.h"
-#include "build/chromeos_buildflags.h"
 
 #if BUILDFLAG(IS_ANDROID)
 #include <sys/vfs.h>
@@ -60,7 +59,7 @@ int NumberOfProcessors() {
 
   int num_cpus = static_cast<int>(res);
 
-#if BUILDFLAG(IS_LINUX) && !BUILDFLAG(IS_CHROMEOS)
+#if BUILDFLAG(IS_LINUX)
   // Restrict the CPU count based on the process's CPU affinity mask, if
   // available.
   cpu_set_t* cpu_set = CPU_ALLOC(num_cpus);
@@ -70,7 +69,7 @@ int NumberOfProcessors() {
     num_cpus = CPU_COUNT_S(cpu_set_size, cpu_set);
   }
   CPU_FREE(cpu_set);
-#endif  // BUILDFLAG(IS_LINUX) && !defined(OS_CHROMEOS
+#endif  // BUILDFLAG(IS_LINUX)
 
   return num_cpus;
 }
@@ -204,8 +203,7 @@ std::string SysInfo::OperatingSystemName() {
 }
 #endif  //! BUILDFLAG(IS_APPLE) && !BUILDFLAG(IS_ANDROID)
 
-#if !BUILDFLAG(IS_APPLE) && !BUILDFLAG(IS_ANDROID) && \
-    !BUILDFLAG(IS_CHROMEOS_ASH) && !BUILDFLAG(IS_CHROMEOS_LACROS)
+#if !BUILDFLAG(IS_APPLE) && !BUILDFLAG(IS_ANDROID) && !BUILDFLAG(IS_CHROMEOS)
 // static
 std::string SysInfo::OperatingSystemVersion() {
   struct utsname info;
@@ -217,8 +215,7 @@ std::string SysInfo::OperatingSystemVersion() {
 }
 #endif
 
-#if !BUILDFLAG(IS_APPLE) && !BUILDFLAG(IS_ANDROID) && \
-    !BUILDFLAG(IS_CHROMEOS_ASH) && !BUILDFLAG(IS_CHROMEOS_LACROS)
+#if !BUILDFLAG(IS_APPLE) && !BUILDFLAG(IS_ANDROID) && !BUILDFLAG(IS_CHROMEOS)
 // static
 void SysInfo::OperatingSystemVersionNumbers(int32_t* major_version,
                                             int32_t* minor_version,

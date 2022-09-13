@@ -315,7 +315,7 @@ const char* TaskQueue::GetName() const {
   return name_;
 }
 
-void TaskQueue::WriteIntoTrace(perfetto::libchrome::TracedValue context) const {
+void TaskQueue::WriteIntoTrace(perfetto_libchrome::TracedValue context) const {
   auto dict = std::move(context).WriteDictionary();
   dict.Add("name", name_);
 }

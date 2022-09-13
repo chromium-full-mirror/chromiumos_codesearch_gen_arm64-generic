@@ -12,10 +12,10 @@
 #include <utility>
 
 #include "base/strings/stringprintf.h"
-#include "base/trace_event/base_tracing.h"
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/lib/validation_util.h"
+#include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
 #include "ml/mojom/soda.mojom-params-data.h"
 #include "ml/mojom/time_mojom_traits.h"
@@ -157,7 +157,7 @@ bool SpeechRecognizerEvent_Data::Validate(
 
   switch (object->tag) {
 
-    case SpeechRecognizerEvent_Tag::AUDIO_EVENT: {
+    case SpeechRecognizerEvent_Tag::kAudioEvent: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_audio_event, 1, validation_context)) {
@@ -167,7 +167,7 @@ bool SpeechRecognizerEvent_Data::Validate(
         return false;
       return true;
     }
-    case SpeechRecognizerEvent_Tag::PARTIAL_RESULT: {
+    case SpeechRecognizerEvent_Tag::kPartialResult: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_partial_result, 2, validation_context)) {
@@ -177,7 +177,7 @@ bool SpeechRecognizerEvent_Data::Validate(
         return false;
       return true;
     }
-    case SpeechRecognizerEvent_Tag::ENDPOINTER_EVENT: {
+    case SpeechRecognizerEvent_Tag::kEndpointerEvent: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_endpointer_event, 3, validation_context)) {
@@ -187,7 +187,7 @@ bool SpeechRecognizerEvent_Data::Validate(
         return false;
       return true;
     }
-    case SpeechRecognizerEvent_Tag::FINAL_RESULT: {
+    case SpeechRecognizerEvent_Tag::kFinalResult: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_final_result, 4, validation_context)) {
@@ -723,50 +723,42 @@ SodaRecognizer_MarkDone_Params_Data::SodaRecognizer_MarkDone_Params_Data()
 }  // namespace machine_learning
 }  // namespace chromeos
 
-namespace perfetto {
-namespace libchrome {
+namespace perfetto_libchrome {
 
 // static
 void TraceFormatTraits<::chromeos::machine_learning::mojom::OptionalBool>::WriteIntoTrace(
-   perfetto::libchrome::TracedValue context, ::chromeos::machine_learning::mojom::OptionalBool value) {
+   perfetto_libchrome::TracedValue context, ::chromeos::machine_learning::mojom::OptionalBool value) {
   return std::move(context).WriteString(::chromeos::machine_learning::mojom::OptionalBoolToString(value));
 }
 
-} // namespace libchrome
 } // namespace perfetto
 
-namespace perfetto {
-namespace libchrome {
+namespace perfetto_libchrome {
 
 // static
 void TraceFormatTraits<::chromeos::machine_learning::mojom::SodaRecognitionMode>::WriteIntoTrace(
-   perfetto::libchrome::TracedValue context, ::chromeos::machine_learning::mojom::SodaRecognitionMode value) {
+   perfetto_libchrome::TracedValue context, ::chromeos::machine_learning::mojom::SodaRecognitionMode value) {
   return std::move(context).WriteString(::chromeos::machine_learning::mojom::SodaRecognitionModeToString(value));
 }
 
-} // namespace libchrome
 } // namespace perfetto
 
-namespace perfetto {
-namespace libchrome {
+namespace perfetto_libchrome {
 
 // static
 void TraceFormatTraits<::chromeos::machine_learning::mojom::EndpointerType>::WriteIntoTrace(
-   perfetto::libchrome::TracedValue context, ::chromeos::machine_learning::mojom::EndpointerType value) {
+   perfetto_libchrome::TracedValue context, ::chromeos::machine_learning::mojom::EndpointerType value) {
   return std::move(context).WriteString(::chromeos::machine_learning::mojom::EndpointerTypeToString(value));
 }
 
-} // namespace libchrome
 } // namespace perfetto
 
-namespace perfetto {
-namespace libchrome {
+namespace perfetto_libchrome {
 
 // static
 void TraceFormatTraits<::chromeos::machine_learning::mojom::EndpointReason>::WriteIntoTrace(
-   perfetto::libchrome::TracedValue context, ::chromeos::machine_learning::mojom::EndpointReason value) {
+   perfetto_libchrome::TracedValue context, ::chromeos::machine_learning::mojom::EndpointReason value) {
   return std::move(context).WriteString(::chromeos::machine_learning::mojom::EndpointReasonToString(value));
 }
 
-} // namespace libchrome
 } // namespace perfetto

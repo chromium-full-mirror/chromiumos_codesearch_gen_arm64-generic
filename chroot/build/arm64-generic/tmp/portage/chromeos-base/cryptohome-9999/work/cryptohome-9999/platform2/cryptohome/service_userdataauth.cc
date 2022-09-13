@@ -64,13 +64,7 @@ void UserDataAuthAdaptor::DoUnmount(
     std::unique_ptr<
         brillo::dbus_utils::DBusMethodResponse<user_data_auth::UnmountReply>>
         response) {
-  bool unmount_ok = service_->Unmount();
-
-  user_data_auth::UnmountReply reply;
-  if (!unmount_ok) {
-    reply.set_error(
-        user_data_auth::CryptohomeErrorCode::CRYPTOHOME_ERROR_MOUNT_FATAL);
-  }
+  user_data_auth::UnmountReply reply = service_->Unmount();
   response->Return(reply);
 }
 
@@ -526,6 +520,63 @@ void UserDataAuthAdaptor::DoRemoveAuthFactor(
           std::move(response)));
 }
 
+void UserDataAuthAdaptor::ListAuthFactors(
+    std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<
+        user_data_auth::ListAuthFactorsReply>> response,
+    const user_data_auth::ListAuthFactorsRequest& in_request) {
+  service_->PostTaskToMountThread(
+      FROM_HERE,
+      base::BindOnce(
+          &UserDataAuthAdaptor::DoListAuthFactors, base::Unretained(this),
+          ThreadSafeDBusMethodResponse<user_data_auth::ListAuthFactorsReply>::
+              MakeThreadSafe(std::move(response)),
+          in_request));
+}
+
+void UserDataAuthAdaptor::DoListAuthFactors(
+    std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<
+        user_data_auth::ListAuthFactorsReply>> response,
+    const user_data_auth::ListAuthFactorsRequest& in_request) {
+  service_->ListAuthFactors(
+      in_request,
+      base::BindOnce(
+          [](std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<
+                 user_data_auth::ListAuthFactorsReply>> local_response,
+             const user_data_auth::ListAuthFactorsReply& reply) {
+            local_response->Return(reply);
+          },
+          std::move(response)));
+}
+
+void UserDataAuthAdaptor::PrepareAsyncAuthFactor(
+    std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<
+        user_data_auth::PrepareAsyncAuthFactorReply>> response,
+    const user_data_auth::PrepareAsyncAuthFactorRequest& in_request) {
+  service_->PostTaskToMountThread(
+      FROM_HERE,
+      base::BindOnce(&UserDataAuthAdaptor::DoPrepareAsyncAuthFactor,
+                     base::Unretained(this),
+                     ThreadSafeDBusMethodResponse<
+                         user_data_auth::PrepareAsyncAuthFactorReply>::
+                         MakeThreadSafe(std::move(response)),
+                     in_request));
+}
+
+void UserDataAuthAdaptor::DoPrepareAsyncAuthFactor(
+    std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<
+        user_data_auth::PrepareAsyncAuthFactorReply>> response,
+    const user_data_auth::PrepareAsyncAuthFactorRequest& in_request) {
+  service_->PrepareAsyncAuthFactor(
+      in_request,
+      base::BindOnce(
+          [](std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<
+                 user_data_auth::PrepareAsyncAuthFactorReply>> local_response,
+             const user_data_auth::PrepareAsyncAuthFactorReply& reply) {
+            local_response->Return(reply);
+          },
+          std::move(response)));
+}
+
 void UserDataAuthAdaptor::GetRecoveryRequest(
     std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<
         user_data_auth::GetRecoveryRequestReply>> response,
@@ -571,11 +622,7 @@ void UserDataAuthAdaptor::DoRemove(
     std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<
         user_data_auth::RemoveReply>> response,
     const user_data_auth::RemoveRequest& in_request) {
-  user_data_auth::RemoveReply reply;
-  auto status = service_->Remove(in_request);
-  // Note, if there's no error, then |status| is set to CRYPTOHOME_ERROR_NOT_SET
-  // to indicate that.
-  reply.set_error(status);
+  user_data_auth::RemoveReply reply = service_->Remove(in_request);
   response->Return(reply);
 }
 
@@ -597,16 +644,7 @@ void UserDataAuthAdaptor::DoListKeys(
         user_data_auth::ListKeysReply>> response,
     const user_data_auth::ListKeysRequest& in_request) {
   // TODO(b/136152258): Add unit test for this method.
-  user_data_auth::ListKeysReply reply;
-  std::vector<std::string> labels;
-  auto status = service_->ListKeys(in_request, &labels);
-  // Note, if there's no error, then |status| is set to CRYPTOHOME_ERROR_NOT_SET
-  // to indicate that.
-  reply.set_error(status);
-  if (status == user_data_auth::CRYPTOHOME_ERROR_NOT_SET) {
-    // The contents is |labels| is valid.
-    *reply.mutable_labels() = {labels.begin(), labels.end()};
-  }
+  user_data_auth::ListKeysReply reply = service_->ListKeys(in_request);
   response->Return(reply);
 }
 
@@ -1007,17 +1045,6 @@ void ArcQuotaAdaptor::GetCurrentSpaceForArcProjectId(
   user_data_auth::GetCurrentSpaceForArcProjectIdReply reply;
   reply.set_cur_space(
       service_->GetCurrentSpaceForArcProjectId(in_request.project_id()));
-  response->Return(reply);
-}
-
-void ArcQuotaAdaptor::SetProjectId(
-    std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<
-        user_data_auth::SetProjectIdReply>> response,
-    const user_data_auth::SetProjectIdRequest& in_request) {
-  user_data_auth::SetProjectIdReply reply;
-  reply.set_success(service_->SetProjectId(
-      in_request.project_id(), in_request.parent_path(),
-      FilePath(in_request.child_path()), in_request.account_id()));
   response->Return(reply);
 }
 

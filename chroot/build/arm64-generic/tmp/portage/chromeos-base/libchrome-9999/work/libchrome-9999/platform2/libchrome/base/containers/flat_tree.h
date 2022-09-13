@@ -15,10 +15,8 @@
 #include "base/as_const.h"
 #include "base/check.h"
 #include "base/compiler_specific.h"
-#include "base/cxx17_backports.h"
 #include "base/functional/not_fn.h"
 #include "base/ranges/algorithm.h"
-#include "base/template_util.h"
 
 namespace base {
 
@@ -53,7 +51,7 @@ using is_multipass = std::is_base_of<
 template <typename T, typename = void>
 struct IsTransparentCompare : std::false_type {};
 template <typename T>
-struct IsTransparentCompare<T, void_t<typename T::is_transparent>>
+struct IsTransparentCompare<T, std::void_t<typename T::is_transparent>>
     : std::true_type {};
 
 // Helper inspired by C++20's std::to_array to convert a C-style array to a
@@ -75,14 +73,14 @@ constexpr std::array<U, N> ToArray(const T (&data)[N]) {
   return ToArrayImpl<U>(data, std::make_index_sequence<N>());
 }
 
-// Helper that calls `container.reserve(base::size(source))`.
+// Helper that calls `container.reserve(std::size(source))`.
 template <typename T, typename U>
 constexpr void ReserveIfSupported(const T&, const U&) {}
 
 template <typename T, typename U>
 auto ReserveIfSupported(T& container, const U& source)
-    -> decltype(container.reserve(base::size(source)), void()) {
-  container.reserve(base::size(source));
+    -> decltype(container.reserve(std::size(source)), void()) {
+  container.reserve(std::size(source));
 }
 
 // std::pair's operator= is not constexpr prior to C++20. Thus we need this

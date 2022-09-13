@@ -21,7 +21,7 @@
 #include "mojo/public/cpp/bindings/map_data_view.h"
 #include "mojo/public/cpp/bindings/string_data_view.h"
 
-#include "base/trace_event/base_tracing.h"
+#include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
 #include "ml/mojom/soda.mojom-shared-internal.h"
 #include "ml/mojom/time.mojom-shared.h"
@@ -253,7 +253,7 @@ class SodaConfigDataView {
       mojo::StringDataView* output);
 
   template <typename UserType>
-  WARN_UNUSED_RESULT bool ReadApiKey(UserType* output) {
+  [[nodiscard]] bool ReadApiKey(UserType* output) {
     
     auto* pointer = data_->api_key.Get();
     return mojo::internal::Deserialize<mojo::StringDataView>(
@@ -263,7 +263,7 @@ class SodaConfigDataView {
       mojo::StringDataView* output);
 
   template <typename UserType>
-  WARN_UNUSED_RESULT bool ReadLibraryDlcPath(UserType* output) {
+  [[nodiscard]] bool ReadLibraryDlcPath(UserType* output) {
     
     auto* pointer = data_->library_dlc_path.Get();
     return mojo::internal::Deserialize<mojo::StringDataView>(
@@ -273,14 +273,14 @@ class SodaConfigDataView {
       mojo::StringDataView* output);
 
   template <typename UserType>
-  WARN_UNUSED_RESULT bool ReadLanguageDlcPath(UserType* output) {
+  [[nodiscard]] bool ReadLanguageDlcPath(UserType* output) {
     
     auto* pointer = data_->language_dlc_path.Get();
     return mojo::internal::Deserialize<mojo::StringDataView>(
         pointer, output, message_);
   }
   template <typename UserType>
-  WARN_UNUSED_RESULT bool ReadEnableFormatting(UserType* output) const {
+  [[nodiscard]] bool ReadEnableFormatting(UserType* output) const {
     auto data_value = data_->header_.version >= 2
                       ? data_->enable_formatting : 0;
     return mojo::internal::Deserialize<::chromeos::machine_learning::mojom::OptionalBool>(
@@ -293,7 +293,7 @@ class SodaConfigDataView {
           static_cast<::chromeos::machine_learning::mojom::OptionalBool>(data_->enable_formatting));
   }
   template <typename UserType>
-  WARN_UNUSED_RESULT bool ReadRecognitionMode(UserType* output) const {
+  [[nodiscard]] bool ReadRecognitionMode(UserType* output) const {
     auto data_value = data_->header_.version >= 3
                       ? data_->recognition_mode : 0;
     return mojo::internal::Deserialize<::chromeos::machine_learning::mojom::SodaRecognitionMode>(
@@ -326,7 +326,7 @@ class TimingInfoDataView {
       ::mojo_base::mojom::TimeDataView* output);
 
   template <typename UserType>
-  WARN_UNUSED_RESULT bool ReadAudioStartEpoch(UserType* output) {
+  [[nodiscard]] bool ReadAudioStartEpoch(UserType* output) {
     
     auto* pointer = data_->audio_start_epoch.Get();
     return mojo::internal::Deserialize<::mojo_base::mojom::TimeDataView>(
@@ -336,7 +336,7 @@ class TimingInfoDataView {
       ::mojo_base::mojom::TimeDeltaDataView* output);
 
   template <typename UserType>
-  WARN_UNUSED_RESULT bool ReadAudioStartTime(UserType* output) {
+  [[nodiscard]] bool ReadAudioStartTime(UserType* output) {
     
     auto* pointer = data_->audio_start_time.Get();
     return mojo::internal::Deserialize<::mojo_base::mojom::TimeDeltaDataView>(
@@ -346,7 +346,7 @@ class TimingInfoDataView {
       ::mojo_base::mojom::TimeDeltaDataView* output);
 
   template <typename UserType>
-  WARN_UNUSED_RESULT bool ReadElapsedWallTime(UserType* output) {
+  [[nodiscard]] bool ReadElapsedWallTime(UserType* output) {
     
     auto* pointer = data_->elapsed_wall_time.Get();
     return mojo::internal::Deserialize<::mojo_base::mojom::TimeDeltaDataView>(
@@ -356,7 +356,7 @@ class TimingInfoDataView {
       ::mojo_base::mojom::TimeDeltaDataView* output);
 
   template <typename UserType>
-  WARN_UNUSED_RESULT bool ReadEventEndTime(UserType* output) {
+  [[nodiscard]] bool ReadEventEndTime(UserType* output) {
     
     auto* pointer = data_->event_end_time.Get();
     return mojo::internal::Deserialize<::mojo_base::mojom::TimeDeltaDataView>(
@@ -366,7 +366,7 @@ class TimingInfoDataView {
       ::mojo_base::mojom::TimeDeltaDataView* output);
 
   template <typename UserType>
-  WARN_UNUSED_RESULT bool ReadLatency(UserType* output) {
+  [[nodiscard]] bool ReadLatency(UserType* output) {
     
     auto* pointer = data_->latency.Get();
     return mojo::internal::Deserialize<::mojo_base::mojom::TimeDeltaDataView>(
@@ -379,7 +379,7 @@ class TimingInfoDataView {
       mojo::ArrayDataView<::mojo_base::mojom::TimeDeltaDataView>* output);
 
   template <typename UserType>
-  WARN_UNUSED_RESULT bool ReadWordAlignments(UserType* output) {
+  [[nodiscard]] bool ReadWordAlignments(UserType* output) {
     
     auto* pointer = data_->word_alignments.Get();
     return mojo::internal::Deserialize<mojo::ArrayDataView<::mojo_base::mojom::TimeDeltaDataView>>(
@@ -403,7 +403,7 @@ class EndpointerEventDataView {
 
   bool is_null() const { return !data_; }
   template <typename UserType>
-  WARN_UNUSED_RESULT bool ReadEndpointerType(UserType* output) const {
+  [[nodiscard]] bool ReadEndpointerType(UserType* output) const {
     auto data_value = data_->endpointer_type;
     return mojo::internal::Deserialize<::chromeos::machine_learning::mojom::EndpointerType>(
         data_value, output);
@@ -416,7 +416,7 @@ class EndpointerEventDataView {
       TimingInfoDataView* output);
 
   template <typename UserType>
-  WARN_UNUSED_RESULT bool ReadTimingEvent(UserType* output) {
+  [[nodiscard]] bool ReadTimingEvent(UserType* output) {
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
@@ -453,7 +453,7 @@ class PartialResultDataView {
       mojo::ArrayDataView<mojo::StringDataView>* output);
 
   template <typename UserType>
-  WARN_UNUSED_RESULT bool ReadPartialText(UserType* output) {
+  [[nodiscard]] bool ReadPartialText(UserType* output) {
     
     auto* pointer = data_->partial_text.Get();
     return mojo::internal::Deserialize<mojo::ArrayDataView<mojo::StringDataView>>(
@@ -463,7 +463,7 @@ class PartialResultDataView {
       TimingInfoDataView* output);
 
   template <typename UserType>
-  WARN_UNUSED_RESULT bool ReadTimingEvent(UserType* output) {
+  [[nodiscard]] bool ReadTimingEvent(UserType* output) {
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
@@ -500,7 +500,7 @@ class HypothesisPartInResultDataView {
       mojo::ArrayDataView<mojo::StringDataView>* output);
 
   template <typename UserType>
-  WARN_UNUSED_RESULT bool ReadText(UserType* output) {
+  [[nodiscard]] bool ReadText(UserType* output) {
     
     auto* pointer = data_->text.Get();
     return mojo::internal::Deserialize<mojo::ArrayDataView<mojo::StringDataView>>(
@@ -510,7 +510,7 @@ class HypothesisPartInResultDataView {
       ::mojo_base::mojom::TimeDeltaDataView* output);
 
   template <typename UserType>
-  WARN_UNUSED_RESULT bool ReadAlignment(UserType* output) {
+  [[nodiscard]] bool ReadAlignment(UserType* output) {
     
     auto* pointer = data_->alignment.Get();
     return mojo::internal::Deserialize<::mojo_base::mojom::TimeDeltaDataView>(
@@ -537,14 +537,14 @@ class FinalResultDataView {
       mojo::ArrayDataView<mojo::StringDataView>* output);
 
   template <typename UserType>
-  WARN_UNUSED_RESULT bool ReadFinalHypotheses(UserType* output) {
+  [[nodiscard]] bool ReadFinalHypotheses(UserType* output) {
     
     auto* pointer = data_->final_hypotheses.Get();
     return mojo::internal::Deserialize<mojo::ArrayDataView<mojo::StringDataView>>(
         pointer, output, message_);
   }
   template <typename UserType>
-  WARN_UNUSED_RESULT bool ReadEndpointReason(UserType* output) const {
+  [[nodiscard]] bool ReadEndpointReason(UserType* output) const {
     auto data_value = data_->endpoint_reason;
     return mojo::internal::Deserialize<::chromeos::machine_learning::mojom::EndpointReason>(
         data_value, output);
@@ -557,7 +557,7 @@ class FinalResultDataView {
       TimingInfoDataView* output);
 
   template <typename UserType>
-  WARN_UNUSED_RESULT bool ReadTimingEvent(UserType* output) {
+  [[nodiscard]] bool ReadTimingEvent(UserType* output) {
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
@@ -577,7 +577,7 @@ static_assert(
       mojo::ArrayDataView<HypothesisPartInResultDataView>* output);
 
   template <typename UserType>
-  WARN_UNUSED_RESULT bool ReadHypothesisPart(UserType* output) {
+  [[nodiscard]] bool ReadHypothesisPart(UserType* output) {
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
@@ -641,45 +641,45 @@ class SpeechRecognizerEventDataView {
   }
 
   Tag tag() const { return data_->tag; }
-  bool is_audio_event() const { return data_->tag == Tag::AUDIO_EVENT; }
+  bool is_audio_event() const { return data_->tag == Tag::kAudioEvent; }
   inline void GetAudioEventDataView(
       AudioLevelEventDataView* output) const;
 
   template <typename UserType>
-  WARN_UNUSED_RESULT bool ReadAudioEvent(UserType* output) const {
+  [[nodiscard]] bool ReadAudioEvent(UserType* output) const {
     
     CHECK(is_audio_event());
     return mojo::internal::Deserialize<::chromeos::machine_learning::mojom::AudioLevelEventDataView>(
         data_->data.f_audio_event.Get(), output, message_);
   }
-  bool is_partial_result() const { return data_->tag == Tag::PARTIAL_RESULT; }
+  bool is_partial_result() const { return data_->tag == Tag::kPartialResult; }
   inline void GetPartialResultDataView(
       PartialResultDataView* output) const;
 
   template <typename UserType>
-  WARN_UNUSED_RESULT bool ReadPartialResult(UserType* output) const {
+  [[nodiscard]] bool ReadPartialResult(UserType* output) const {
     
     CHECK(is_partial_result());
     return mojo::internal::Deserialize<::chromeos::machine_learning::mojom::PartialResultDataView>(
         data_->data.f_partial_result.Get(), output, message_);
   }
-  bool is_endpointer_event() const { return data_->tag == Tag::ENDPOINTER_EVENT; }
+  bool is_endpointer_event() const { return data_->tag == Tag::kEndpointerEvent; }
   inline void GetEndpointerEventDataView(
       EndpointerEventDataView* output) const;
 
   template <typename UserType>
-  WARN_UNUSED_RESULT bool ReadEndpointerEvent(UserType* output) const {
+  [[nodiscard]] bool ReadEndpointerEvent(UserType* output) const {
     
     CHECK(is_endpointer_event());
     return mojo::internal::Deserialize<::chromeos::machine_learning::mojom::EndpointerEventDataView>(
         data_->data.f_endpointer_event.Get(), output, message_);
   }
-  bool is_final_result() const { return data_->tag == Tag::FINAL_RESULT; }
+  bool is_final_result() const { return data_->tag == Tag::kFinalResult; }
   inline void GetFinalResultDataView(
       FinalResultDataView* output) const;
 
   template <typename UserType>
-  WARN_UNUSED_RESULT bool ReadFinalResult(UserType* output) const {
+  [[nodiscard]] bool ReadFinalResult(UserType* output) const {
     
     CHECK(is_final_result());
     return mojo::internal::Deserialize<::chromeos::machine_learning::mojom::FinalResultDataView>(
@@ -1238,7 +1238,7 @@ struct Serializer<::chromeos::machine_learning::mojom::SpeechRecognizerEventData
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::machine_learning::mojom::SpeechRecognizerEventDataView::Tag::AUDIO_EVENT: {
+      case ::chromeos::machine_learning::mojom::SpeechRecognizerEventDataView::Tag::kAudioEvent: {
         decltype(Traits::audio_event(input))
             in_audio_event = Traits::audio_event(input);
         mojo::internal::MessageFragment<
@@ -1254,7 +1254,7 @@ struct Serializer<::chromeos::machine_learning::mojom::SpeechRecognizerEventData
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::machine_learning::mojom::SpeechRecognizerEventDataView::Tag::PARTIAL_RESULT: {
+      case ::chromeos::machine_learning::mojom::SpeechRecognizerEventDataView::Tag::kPartialResult: {
         decltype(Traits::partial_result(input))
             in_partial_result = Traits::partial_result(input);
         mojo::internal::MessageFragment<
@@ -1270,7 +1270,7 @@ struct Serializer<::chromeos::machine_learning::mojom::SpeechRecognizerEventData
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::machine_learning::mojom::SpeechRecognizerEventDataView::Tag::ENDPOINTER_EVENT: {
+      case ::chromeos::machine_learning::mojom::SpeechRecognizerEventDataView::Tag::kEndpointerEvent: {
         decltype(Traits::endpointer_event(input))
             in_endpointer_event = Traits::endpointer_event(input);
         mojo::internal::MessageFragment<
@@ -1286,7 +1286,7 @@ struct Serializer<::chromeos::machine_learning::mojom::SpeechRecognizerEventData
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::machine_learning::mojom::SpeechRecognizerEventDataView::Tag::FINAL_RESULT: {
+      case ::chromeos::machine_learning::mojom::SpeechRecognizerEventDataView::Tag::kFinalResult: {
         decltype(Traits::final_result(input))
             in_final_result = Traits::final_result(input);
         mojo::internal::MessageFragment<
@@ -1454,48 +1454,40 @@ inline void SpeechRecognizerEventDataView::GetFinalResultDataView(
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.
 
-namespace perfetto {
-namespace libchrome {
+namespace perfetto_libchrome {
 
 template <>
 struct  TraceFormatTraits<::chromeos::machine_learning::mojom::OptionalBool> {
- static void WriteIntoTrace(perfetto::libchrome::TracedValue context, ::chromeos::machine_learning::mojom::OptionalBool value);
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::chromeos::machine_learning::mojom::OptionalBool value);
 };
 
-} // namespace libchrome
 } // namespace perfetto
 
-namespace perfetto {
-namespace libchrome {
+namespace perfetto_libchrome {
 
 template <>
 struct  TraceFormatTraits<::chromeos::machine_learning::mojom::SodaRecognitionMode> {
- static void WriteIntoTrace(perfetto::libchrome::TracedValue context, ::chromeos::machine_learning::mojom::SodaRecognitionMode value);
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::chromeos::machine_learning::mojom::SodaRecognitionMode value);
 };
 
-} // namespace libchrome
 } // namespace perfetto
 
-namespace perfetto {
-namespace libchrome {
+namespace perfetto_libchrome {
 
 template <>
 struct  TraceFormatTraits<::chromeos::machine_learning::mojom::EndpointerType> {
- static void WriteIntoTrace(perfetto::libchrome::TracedValue context, ::chromeos::machine_learning::mojom::EndpointerType value);
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::chromeos::machine_learning::mojom::EndpointerType value);
 };
 
-} // namespace libchrome
 } // namespace perfetto
 
-namespace perfetto {
-namespace libchrome {
+namespace perfetto_libchrome {
 
 template <>
 struct  TraceFormatTraits<::chromeos::machine_learning::mojom::EndpointReason> {
- static void WriteIntoTrace(perfetto::libchrome::TracedValue context, ::chromeos::machine_learning::mojom::EndpointReason value);
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::chromeos::machine_learning::mojom::EndpointReason value);
 };
 
-} // namespace libchrome
 } // namespace perfetto
 
 #endif  // ML_MOJOM_SODA_MOJOM_SHARED_H_

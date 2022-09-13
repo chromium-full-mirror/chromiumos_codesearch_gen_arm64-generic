@@ -28,6 +28,7 @@
 #include "power_manager/powerd/system/input_watcher_interface.h"
 #include "power_manager/powerd/system/power_supply.h"
 #include "power_manager/powerd/system/power_supply_observer.h"
+#include "power_manager/proto_bindings/charge_history_state.pb.h"
 #include "power_manager/proto_bindings/policy.pb.h"
 #include "power_manager/proto_bindings/user_charging_event.pb.h"
 
@@ -168,6 +169,10 @@ class ChargeHistory {
   // retention window.
   base::TimeDelta GetTimeFullOnAC();
 
+  // Returns the hold charge duration on AC within ChargeHistory's retention
+  // window.
+  base::TimeDelta GetHoldTimeOnAC();
+
   // Returns the number of days that have charge history recorded.
   int DaysOfHistory();
 
@@ -178,7 +183,20 @@ class ChargeHistory {
   // Reschedules pending writes to disk at the next 15 minute aligned time.
   void OnExitLowPowerState();
 
+  // Populate `protobuf` with the internal state of ChargeHistory.
+  // Returns true if the state was successfully copied to the protocol buffer,
+  // and false if it was not. This can happen if this is called before
+  // ChargeHistory has Init called on it.
+  bool CopyToProtocolBuffer(ChargeHistoryState* protobuf);
+
  private:
+  // Helper function for `CheckAndFixSystemTimeChange` to correct different
+  // `timestamp` values based on the current system time and ticks.
+  // Returns true if `timestamp` was corrected, and false if it was not.
+  bool CheckAndFixTimestamp(base::Time* timestamp,
+                            const base::TimeTicks& ticks,
+                            const base::TimeDelta& ticks_offset);
+
   // Check if system time had a large change, and adjust `full_charge_time_`,
   // `ac_connect_time_` and the charge event file associated with
   // `ac_connect_time_` if there was a large time change.
@@ -246,6 +264,14 @@ class ChargeHistory {
                            base::Time time,
                            base::TimeDelta duration);
 
+  // This returns the duration associated with a day that starts at `day_start`
+  // since `start`. `day_start` must be equal to a value returned by
+  // `base::Time::UTCMidnight`. For instance, if now is January 10th
+  // 00:00:00UTC, `day_start` is January 8th 00:00:00UTC, and `start` is January
+  // 8th 12:00:00UTC, this will return base::Hours(12). If `start` is changed to
+  // January 7th 00:00:00UTC, this will instead return base::Days(1).
+  base::TimeDelta DurationForDay(base::Time start, base::Time day_start);
+
   // Helper function to floor time values to a multiple of
   // `kChargeHistoryTimeInterval`.
   static base::Time FloorTime(base::Time time);
@@ -274,6 +300,11 @@ class ChargeHistory {
 
   // Base directory for Charge History.
   base::FilePath charge_history_dir_;
+
+  // Directory for files that track the amount of time at the hold percent while
+  // an AC charger is connected per day. If there's a hold range, start to track
+  // time when the lower bound of the range is reached for the first time.
+  base::FilePath hold_time_on_ac_dir_;
 
   // Directory for files that track the amount of time with full charge while an
   // AC charger is connected per day.
@@ -333,17 +364,32 @@ class ChargeHistory {
   // became fully charged.
   base::TimeDelta full_charge_ticks_offset_;
 
+  // Timestamp for when we started holding/delaying charge. Equal to
+  // base::Time() (0) if the charger is disconnected or the battery is actively
+  // charging.
+  // Value is always floored to `kChargeHistoryTimeInterval`.
+  base::Time hold_charge_time_;
+
+  // Used for making sure a time change doesn't alter the hold time on AC
+  // durations.
+  base::TimeTicks hold_charge_ticks_;
+
   // Ordered map of charge events, which maps AC charge plug in times to
   // duration of charge. This provides O(logn) addition and removal of charge
   // events (including removal of min and max) where n <= 50.
   std::map<base::Time, base::TimeDelta> charge_events_;
 
+  // TODO(b/241061371): refactor these maps to group them together.
   // Ordered map of days to duration on AC for up to the last 30 days.
   std::map<base::Time, base::TimeDelta> time_on_ac_days_;
 
   // Ordered map of days to duration on AC with full charge for up to the last
   // 30 days.
   std::map<base::Time, base::TimeDelta> time_full_on_ac_days_;
+
+  // Ordered map of days to duration holding charge while on AC for up to the
+  // last 30 days.
+  std::map<base::Time, base::TimeDelta> hold_time_on_ac_days_;
 
   // The duration spent on AC for the charge history currently retained.
   // Value is always floored to `kChargeHistoryTimeInterval`.
@@ -353,6 +399,11 @@ class ChargeHistory {
   // currently retained.
   // Value is always floored to `kChargeHistoryTimeInterval`.
   base::TimeDelta duration_full_on_ac_;
+
+  // The duration spent holding charge while on AC for the charge history
+  // currently retained in `hold_time_on_ac_dir_`.
+  // Value is always floored to `kChargeHistoryTimeInterval`.
+  base::TimeDelta hold_duration_on_ac_;
 
   // Cached external power type. Used to determine if a charge event needs to be
   // created or completed.
@@ -430,6 +481,11 @@ class AdaptiveChargingController : public AdaptiveChargingControllerInterface {
   // system is plugged in.
   void HandleChargeNow(dbus::MethodCall* method_call,
                        dbus::ExportedObject::ResponseSender response_sender);
+
+  // Convert and copy `charge_history_` to a protobuf, then return it.
+  void HandleGetChargeHistory(
+      dbus::MethodCall* method_call,
+      dbus::ExportedObject::ResponseSender response_sender);
 
   // Sets battery sustain via the `Delegate::SetBatterySustain` callback.
   // Returns true on success and false otherwise.
@@ -529,9 +585,11 @@ class AdaptiveChargingController : public AdaptiveChargingControllerInterface {
   // USER_CANCELED - User stopped Adaptive Charging by clicking the "Charge Now"
   // button.
   // USER_DISABLED - User does not have the Adaptive Charging feature enabled
-  // (but it is supported).
+  // (but it is supported), but the heuristic check for enabling passes.
+  // SHUTDOWN - The system has initiated shutdown, so starting any new Adaptive
+  // Charging logic is prevented (metrics may still be reported on AC unplug).
   // NOT_SUPPORTED - EC functionality required for Adaptive Charging does not
-  // exist on this platform.
+  // exist on this platform, but the heuristic check for enabling passes.
   AdaptiveChargingState state_;
 
   // Whether we should report the AdaptiveChargingTimeToFull metric, which
@@ -581,9 +639,10 @@ class AdaptiveChargingController : public AdaptiveChargingControllerInterface {
   //                       HEURISTIC_DISABLED, or USER_CANCELED.
   // 1       | 0         | Scenario does not exist.
   // 0       | 1         | Evaluate predictions but do not delay charging.
-  //                       `state_` is set to USER_DISABLED
+  //                       `state_` is set to HEURISTIC_DISABLED, USER_DISABLED
+  //                       or SHUTDOWN.
   // 0       | 0         | Evaluate predictions but do not delay charging.
-  //                       `state_` is set to NOT_SUPPORTED
+  //                       `state_` is set to NOT_SUPPORTED or SHUTDOWN.
   //
   // Whether Adaptive Charging will delay charging. Predictions are still
   // evaluated if this is false.

@@ -7,6 +7,7 @@
 #include <base/check.h>
 #include <brillo/cryptohome.h>
 #include <cryptohome/proto_bindings/auth_factor.pb.h>
+#include <cryptohome/proto_bindings/key.pb.h>
 #include <cryptohome/proto_bindings/rpc.pb.h>
 #include <cryptohome/proto_bindings/UserDataAuth.pb.h>
 #include <stdint.h>
@@ -22,7 +23,6 @@
 #include "cryptohome/auth_factor/auth_factor_label.h"
 #include "cryptohome/auth_factor/auth_factor_metadata.h"
 #include "cryptohome/auth_factor/auth_factor_type.h"
-#include "cryptohome/key_objects.h"
 #include "cryptohome/keyset_management.h"
 #include "cryptohome/vault_keyset.h"
 #include "cryptohome/vault_keyset.pb.h"
@@ -33,32 +33,70 @@ namespace {
 
 // Construct the AuthFactor metadata based on AuthFactor type.
 bool GetAuthFactorMetadataWithType(const AuthFactorType& type,
-                                   AuthFactorMetadata& metadata) {
-  if (type == AuthFactorType::kPassword) {
-    metadata.metadata = PasswordAuthFactorMetadata();
-    return true;
+                                   AuthFactorMetadata& metadata,
+                                   const KeyData& key_data) {
+  switch (type) {
+    case AuthFactorType::kPassword:
+      metadata.metadata = PasswordAuthFactorMetadata();
+      break;
+    case AuthFactorType::kPin:
+      metadata.metadata = PinAuthFactorMetadata();
+      break;
+    case AuthFactorType::kKiosk:
+      metadata.metadata = KioskAuthFactorMetadata();
+      break;
+    case AuthFactorType::kSmartCard: {
+      // Check for 0 or more than 1 challenge response key,
+      // this is assumed to be only 1.
+      if (key_data.challenge_response_key_size() != 1) {
+        return false;
+      }
+      if (!key_data.challenge_response_key(0).has_public_key_spki_der()) {
+        return false;
+      }
+      // For AuthFactorType::kSmartCard chose the first/only key by default.
+      brillo::Blob public_key_blob = brillo::BlobFromString(
+          key_data.challenge_response_key(0).public_key_spki_der());
+      metadata.metadata =
+          SmartCardAuthFactorMetadata{.public_key_spki_der = public_key_blob};
+      break;
+    }
+    default:
+      return false;
   }
-  return false;
+  return true;
 }
 
 // Returns the AuthFactor type mapped from the input VaultKeyset.
-AuthFactorType VaultKeysetTypeToAuthFactorType(int32_t vk_flags) {
+AuthFactorType VaultKeysetTypeToAuthFactorType(int32_t vk_flags,
+                                               const KeyData& key_data) {
+  // Kiosk is special, we need to identify it from key data and not flags.
+  if (key_data.type() == KeyData::KEY_TYPE_KIOSK) {
+    return AuthFactorType::kKiosk;
+  }
+
+  // Convert the VK flags to a block type and then that to a factor type.
   AuthBlockType auth_block_type = AuthBlockType::kMaxValue;
   if (!FlagsToAuthBlockType(vk_flags, auth_block_type)) {
     LOG(ERROR) << "Failed to get the AuthBlock type for AuthFactor convertion.";
     return AuthFactorType::kUnspecified;
   }
-  // For VaultKeysets password type maps to various wrapping methods.
-  if (auth_block_type == AuthBlockType::kDoubleWrappedCompat ||
-      auth_block_type == AuthBlockType::kTpmBoundToPcr ||
-      auth_block_type == AuthBlockType::kTpmNotBoundToPcr ||
-      auth_block_type == AuthBlockType::kLibScryptCompat ||
-      auth_block_type == AuthBlockType::kTpmEcc ||
-      auth_block_type == AuthBlockType::kScrypt) {
-    return AuthFactorType::kPassword;
+  switch (auth_block_type) {
+    case AuthBlockType::kDoubleWrappedCompat:
+    case AuthBlockType::kTpmBoundToPcr:
+    case AuthBlockType::kTpmNotBoundToPcr:
+    case AuthBlockType::kLibScryptCompat:
+    case AuthBlockType::kTpmEcc:
+    case AuthBlockType::kScrypt:
+      return AuthFactorType::kPassword;
+    case AuthBlockType::kPinWeaver:
+      return AuthFactorType::kPin;
+    case AuthBlockType::kChallengeCredential:
+      return AuthFactorType::kSmartCard;
+    case AuthBlockType::kCryptohomeRecovery:   // Never reported by a VK.
+    case AuthBlockType::kMaxValue:
+      return AuthFactorType::kUnspecified;
   }
-
-  return AuthFactorType::kUnspecified;
 }
 
 // Returns the AuthFactor object converted from the input VaultKeyset.
@@ -75,14 +113,15 @@ std::unique_ptr<AuthFactor> ConvertToAuthFactor(const VaultKeyset& vk) {
     return nullptr;
   }
 
+  KeyData key_data = vk.GetKeyDataOrDefault();
   AuthFactorType auth_factor_type =
-      VaultKeysetTypeToAuthFactorType(vk.GetFlags());
+      VaultKeysetTypeToAuthFactorType(vk.GetFlags(), key_data);
   if (auth_factor_type == AuthFactorType::kUnspecified) {
     return nullptr;
   }
 
   AuthFactorMetadata metadata;
-  if (!GetAuthFactorMetadataWithType(auth_factor_type, metadata)) {
+  if (!GetAuthFactorMetadataWithType(auth_factor_type, metadata, key_data)) {
     return nullptr;
   }
 
@@ -163,7 +202,7 @@ AuthFactorVaultKeysetConverter::PopulateKeyDataForVK(
     LOG(ERROR) << "No keyset found for the label " << obfuscated_username;
     return user_data_auth::CRYPTOHOME_ERROR_KEY_NOT_FOUND;
   }
-  out_vk_key_data = vk->GetKeyData();
+  out_vk_key_data = vk->GetKeyDataOrDefault();
 
   return user_data_auth::CRYPTOHOME_ERROR_NOT_SET;
 }
@@ -172,6 +211,7 @@ user_data_auth::CryptohomeErrorCode
 AuthFactorVaultKeysetConverter::AuthFactorToKeyData(
     const std::string& auth_factor_label,
     const AuthFactorType& auth_factor_type,
+    const AuthFactorMetadata& auth_factor_metadata,
     KeyData& out_key_data) {
   out_key_data.set_label(auth_factor_label);
 
@@ -183,7 +223,27 @@ AuthFactorVaultKeysetConverter::AuthFactorToKeyData(
       out_key_data.set_type(KeyData::KEY_TYPE_PASSWORD);
       out_key_data.mutable_policy()->set_low_entropy_credential(true);
       return user_data_auth::CRYPTOHOME_ERROR_NOT_SET;
+    case AuthFactorType::kKiosk:
+      out_key_data.set_type(KeyData::KEY_TYPE_KIOSK);
+      return user_data_auth::CRYPTOHOME_ERROR_NOT_SET;
     case AuthFactorType::kCryptohomeRecovery:
+      return user_data_auth::CRYPTOHOME_ERROR_NOT_IMPLEMENTED;
+    case AuthFactorType::kSmartCard: {
+      out_key_data.set_type(KeyData::KEY_TYPE_CHALLENGE_RESPONSE);
+      const auto* smart_card_metadata =
+          std::get_if<SmartCardAuthFactorMetadata>(
+              &auth_factor_metadata.metadata);
+      if (!smart_card_metadata) {
+        LOG(ERROR) << "Could not extract SmartCardMetadata from "
+                      "|auth_factor_metadata|";
+        return user_data_auth::CRYPTOHOME_ERROR_INVALID_ARGUMENT;
+      }
+      std::string public_key_string =
+          brillo::BlobToString(smart_card_metadata->public_key_spki_der);
+      auto* challenge_key = out_key_data.add_challenge_response_key();
+      challenge_key->set_public_key_spki_der(public_key_string);
+      return user_data_auth::CRYPTOHOME_ERROR_NOT_SET;
+    }
     case AuthFactorType::kUnspecified:
       LOG(ERROR) << "Unimplemented AuthFactorType.";
       return user_data_auth::CRYPTOHOME_ERROR_NOT_IMPLEMENTED;

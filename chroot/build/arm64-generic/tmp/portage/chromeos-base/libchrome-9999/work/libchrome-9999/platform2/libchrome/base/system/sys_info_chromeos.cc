@@ -10,7 +10,6 @@
 
 #include "base/callback.h"
 #include "base/command_line.h"
-#include "base/cxx17_backports.h"
 #include "base/environment.h"
 #include "base/files/file.h"
 #include "base/files/file_path.h"
@@ -124,7 +123,7 @@ class ChromeOSVersionInfo {
     }
     // Parse the version from the first matching recognized version key.
     std::string version;
-    for (size_t i = 0; i < base::size(kLinuxStandardBaseVersionKeys); ++i) {
+    for (size_t i = 0; i < std::size(kLinuxStandardBaseVersionKeys); ++i) {
       std::string key = kLinuxStandardBaseVersionKeys[i];
       if (GetLsbReleaseValue(key, &version) && !version.empty())
         break;
@@ -143,7 +142,7 @@ class ChromeOSVersionInfo {
     // Check release name for Chrome OS.
     std::string release_name;
     if (GetLsbReleaseValue(kChromeOsReleaseNameKey, &release_name)) {
-      for (size_t i = 0; i < base::size(kChromeOsReleaseNames); ++i) {
+      for (size_t i = 0; i < std::size(kChromeOsReleaseNames); ++i) {
         if (release_name == kChromeOsReleaseNames[i]) {
           is_running_on_chromeos_ = true;
           break;

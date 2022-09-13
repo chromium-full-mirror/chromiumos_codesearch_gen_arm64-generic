@@ -21,7 +21,7 @@
 #include "mojo/public/cpp/bindings/map_data_view.h"
 #include "mojo/public/cpp/bindings/string_data_view.h"
 
-#include "base/trace_event/base_tracing.h"
+#include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
 #include "mojo/public/mojom/base/read_only_buffer.mojom-shared-internal.h"
 
@@ -72,7 +72,7 @@ class ReadOnlyBufferDataView {
       mojo::ArrayDataView<uint8_t>* output);
 
   template <typename UserType>
-  WARN_UNUSED_RESULT bool ReadBuffer(UserType* output) {
+  [[nodiscard]] bool ReadBuffer(UserType* output) {
     
     auto* pointer = data_->buffer.Get();
     return mojo::internal::Deserialize<mojo::ArrayDataView<uint8_t>>(

@@ -2,6 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+#include <cstdint>
 #include <memory>
 #include <utility>
 
@@ -22,6 +23,13 @@ using tpm_manager::TpmManagerStatus;
 namespace hwsec {
 
 class BackendSealingTpm2Test : public BackendTpm2TestBase {};
+
+TEST_F(BackendSealingTpm2Test, IsSupported) {
+  auto result = middleware_->CallSync<&Backend::Sealing::IsSupported>();
+
+  ASSERT_TRUE(result.ok());
+  EXPECT_TRUE(*result);
+}
 
 TEST_F(BackendSealingTpm2Test, Seal) {
   const std::string kFakeAuthValue = "fake_auth_value";

@@ -25,12 +25,12 @@
 #include <chromeos/constants/cryptohome.h>
 #include <dbus/cryptohome/dbus-constants.h>
 
-#include "cryptohome/auth_blocks/auth_block_state.h"
 #include "cryptohome/credentials.h"
 #include "cryptohome/crypto.h"
 #include "cryptohome/cryptohome_metrics.h"
 #include "cryptohome/error/location_utils.h"
 #include "cryptohome/filesystem_layout.h"
+#include "cryptohome/flatbuffer_schemas/auth_block_state.h"
 #include "cryptohome/key_objects.h"
 #include "cryptohome/platform.h"
 #include "cryptohome/storage/homedirs.h"
@@ -298,7 +298,8 @@ bool KeysetManagement::GetVaultKeysetLabelsAndData(
       LOG(INFO) << "Found a duplicate label, skipping it: " << vk->GetLabel();
       continue;
     }
-    key_label_data->insert({vk->GetLabel(), vk->GetKeyData()});
+
+    key_label_data->insert({vk->GetLabel(), vk->GetKeyDataOrDefault()});
   }
 
   return (key_label_data->size() > 0);
@@ -618,38 +619,37 @@ CryptohomeErrorCode KeysetManagement::AddKeysetImpl(
     const VaultKeyset& vault_keyset_old,
     EncryptVkCallback encrypt_vk_callback,
     bool clobber) {
-  // Walk the namespace looking for the first free spot.
-  // Note, nothing is stopping simultaneous access to these files
-  // or enforcing mandatory locking.
-  base::FilePath vk_path;
-  bool file_found = false;
-  for (int new_index = 0; new_index < kKeyFileMax; ++new_index) {
-    vk_path = VaultKeysetPath(obfuscated_username_new, new_index);
-    // Rely on fopen()'s O_EXCL|O_CREAT behavior to fail
-    // repeatedly until there is an opening.
-    base::ScopedFILE vk_file(platform_->OpenFile(vk_path, "wx"));
-    if (vk_file) {  // got one
-      file_found = true;
-      break;
-    }
-  }
-
-  if (!file_found) {
-    LOG(WARNING) << "Failed to find an available keyset slot";
-    return CRYPTOHOME_ERROR_KEY_QUOTA_EXCEEDED;
-  }
-
   // Before persisting, check if there is an existing labeled credential.
   std::unique_ptr<VaultKeyset> match =
       GetVaultKeyset(obfuscated_username_new, key_data_new.label());
-
+  base::FilePath vk_path;
   if (match.get()) {
     LOG(INFO) << "Label already exists.";
-    platform_->DeleteFile(vk_path);
     if (!clobber) {
       return CRYPTOHOME_ERROR_KEY_LABEL_EXISTS;
     }
     vk_path = match->GetSourceFile();
+  }
+
+  // If we need to create a new file, walk the namespace looking for the first
+  // free spot. Note, nothing is stopping simultaneous access to these files
+  // or enforcing mandatory locking.
+  if (vk_path.empty()) {
+    bool file_found = false;
+    for (int new_index = 0; new_index < kKeyFileMax; ++new_index) {
+      vk_path = VaultKeysetPath(obfuscated_username_new, new_index);
+      // Rely on fopen()'s O_EXCL|O_CREAT behavior to fail
+      // repeatedly until there is an opening.
+      base::ScopedFILE vk_file(platform_->OpenFile(vk_path, "wx"));
+      if (vk_file) {  // got one
+        file_found = true;
+        break;
+      }
+    }
+    if (!file_found) {
+      LOG(WARNING) << "Failed to find an available keyset slot";
+      return CRYPTOHOME_ERROR_KEY_QUOTA_EXCEEDED;
+    }
   }
 
   std::unique_ptr<VaultKeyset> keyset_to_add(
@@ -924,39 +924,42 @@ bool KeysetManagement::Migrate(const VaultKeyset& old_vk,
   return true;
 }
 
-void KeysetManagement::ResetLECredentials(
-    const std::optional<Credentials>& creds,
-    const std::optional<VaultKeyset>& validated_vk,
-    const std::string& obfuscated) {
-  if (!creds.has_value() && !validated_vk.has_value()) {
-    LOG(WARNING) << "Neither credentials nor validated keyset is provided "
-                    "for LE credential reset, reset skipped.";
-    return;
-  }
-
+void KeysetManagement::ResetLECredentials(const Credentials& creds,
+                                          const std::string& obfuscated) {
   std::vector<int> key_indices;
   if (!GetVaultKeysets(obfuscated, &key_indices)) {
     LOG(WARNING) << "No valid keysets on disk for " << obfuscated;
     return;
   }
 
-  std::unique_ptr<VaultKeyset> vk;
-  if (validated_vk.has_value()) {
-    vk = std::make_unique<VaultKeyset>(validated_vk.value());
-  }
-  if (!validated_vk.has_value()) {
-    // Make sure the credential can actually be used for sign-in.
-    // It is also the easiest way to get a valid keyset.
-    MountStatusOr<std::unique_ptr<VaultKeyset>> vk_status =
-        GetValidKeyset(creds.value());
-    if (!vk_status.ok()) {
-      LOG(WARNING) << "The provided credentials are incorrect or invalid"
-                      " for LE credential reset, reset skipped.";
-      return;
-    }
-    vk = std::move(vk_status).value();
+  // Make sure the credential can actually be used for sign-in.
+  // It is also the easiest way to get a valid keyset.
+  MountStatusOr<std::unique_ptr<VaultKeyset>> vk_status = GetValidKeyset(creds);
+  if (!vk_status.ok()) {
+    LOG(WARNING) << "The provided credentials are incorrect or invalid"
+                    " for LE credential reset, reset skipped.";
+    return;
   }
 
+  return ResetLECredentialsInternal(*vk_status.value(), obfuscated,
+                                    key_indices);
+}
+
+void KeysetManagement::ResetLECredentialsWithValidatedVK(
+    const VaultKeyset& validated_vk, const std::string& obfuscated) {
+  std::vector<int> key_indices;
+  if (!GetVaultKeysets(obfuscated, &key_indices)) {
+    LOG(WARNING) << "No valid keysets on disk for " << obfuscated;
+    return;
+  }
+
+  return ResetLECredentialsInternal(validated_vk, obfuscated, key_indices);
+}
+
+void KeysetManagement::ResetLECredentialsInternal(
+    const VaultKeyset& validated_vk,
+    const std::string& obfuscated,
+    const std::vector<int>& key_indices) {
   for (int index : key_indices) {
     std::unique_ptr<VaultKeyset> vk_reset =
         LoadVaultKeysetForUser(obfuscated, index);
@@ -966,7 +969,7 @@ void KeysetManagement::ResetLECredentials(
     }
 
     CryptoError err;
-    if (!crypto_->ResetLECredential(*vk_reset, *vk, &err)) {
+    if (!crypto_->ResetLECredential(*vk_reset, validated_vk, &err)) {
       LOG(WARNING) << "Failed to reset an LE credential: " << err;
       continue;
     }
@@ -1080,22 +1083,22 @@ void KeysetManagement::RecordAllVaultKeysetMetrics(
     if (!vk) {
       continue;
     } else {
-      if (!RecordVaultKeysetMetrics(*vk.get(), keyset_metrics)) {
-        LOG(ERROR) << "Metrics not recorded for " << vk->GetLabel();
-      }
+      RecordVaultKeysetMetrics(*vk.get(), keyset_metrics);
     }
   }
   ReportVaultKeysetMetrics(keyset_metrics);
 }
 
-bool KeysetManagement::RecordVaultKeysetMetrics(
+void KeysetManagement::RecordVaultKeysetMetrics(
     const VaultKeyset& vk, VaultKeysetMetrics& keyset_metrics) const {
   if (!vk.HasKeyData()) {
-    LOG(ERROR) << "VaultKeyset doesn't have a valid KeyData field.";
-    return false;
-  }
-  if (vk.GetKeyData().label().empty()) {
-    // VaultKeyset label is empty.
+    // Some legacy keysets were created without any key_data at all.
+    keyset_metrics.missing_key_data_count++;
+  } else if (vk.GetKeyData().label().empty()) {
+    // Note that we access the label via |GetKeyData()| instead of |GetLabel()|,
+    // because we want to report the number of keysets without an explicitly
+    // assigned label here, meanwhile |GetLabel()| would backfill an empty label
+    // with a "legacy-N" value.
     if (vk.IsLECredential()) {
       keyset_metrics.empty_label_le_cred_count++;
     } else {
@@ -1104,6 +1107,13 @@ bool KeysetManagement::RecordVaultKeysetMetrics(
   } else if (vk.IsLECredential()) {
     // VaultKeyset is PIN based, label is non-empty.
     keyset_metrics.le_cred_count++;
+  } else if (!vk.GetKeyData().has_type()) {
+    // Check the case of a missing type separately, since otherwise the key
+    // would be misclassified below, based on |type()|s default return value
+    // |KEY_TYPE_PASSWORD|.
+    keyset_metrics.untyped_count++;
+    // TODO(b/204482221): Remove this log after collecting stats.
+    LOG(INFO) << "Untyped vault keyset " << vk.GetLabel() << ".";
   } else {
     switch (vk.GetKeyData().type()) {
       case KeyData::KEY_TYPE_PASSWORD:
@@ -1128,11 +1138,13 @@ bool KeysetManagement::RecordVaultKeysetMetrics(
         keyset_metrics.kiosk_count++;
         break;
       default:
+        // TODO(b/204482221): Remove this log after collecting stats.
+        LOG(WARNING) << "Unexpected type " << vk.GetKeyData().type()
+                     << " in vault keyset " << vk.GetLabel() << ".";
         keyset_metrics.unclassified_count++;
         break;
     }
   }
-  return true;
 }
 
 // TODO(b/205759690, dlunev): can be removed after a stepping stone release.

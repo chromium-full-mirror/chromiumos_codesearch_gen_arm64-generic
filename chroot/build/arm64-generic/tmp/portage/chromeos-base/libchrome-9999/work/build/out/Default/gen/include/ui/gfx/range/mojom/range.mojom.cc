@@ -18,8 +18,8 @@
 #include "base/hash/md5_constexpr.h"
 #include "base/run_loop.h"
 #include "base/strings/string_number_conversions.h"
-#include "base/task/common/task_annotator.h"
-#include "base/trace_event/base_tracing.h"
+#include "base/trace_event/trace_event.h"
+#include "base/trace_event/typed_macros.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
 #include "mojo/public/cpp/bindings/lib/send_message_helper.h"
@@ -30,6 +30,7 @@
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
+#include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
 #include "ui/gfx/range/mojom/range.mojom-params-data.h"
 #include "ui/gfx/range/mojom/range.mojom-shared-message-ids.h"
@@ -64,9 +65,9 @@ size_t Range::Hash(size_t seed) const {
 }
 
 void Range::WriteIntoTrace(
-    perfetto::libchrome::TracedValue traced_context) const {
-  auto dict = std::move(traced_context).WriteDictionary();
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "start"), this->start,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -75,7 +76,7 @@ void Range::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "end"), this->end,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -109,9 +110,9 @@ size_t RangeF::Hash(size_t seed) const {
 }
 
 void RangeF::WriteIntoTrace(
-    perfetto::libchrome::TracedValue traced_context) const {
-  auto dict = std::move(traced_context).WriteDictionary();
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "start"), this->start,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -120,7 +121,7 @@ void RangeF::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "end"), this->end,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)

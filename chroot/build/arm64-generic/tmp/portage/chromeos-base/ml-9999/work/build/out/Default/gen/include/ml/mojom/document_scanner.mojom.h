@@ -21,20 +21,17 @@
 #include "mojo/public/cpp/bindings/struct_traits.h"
 #include "mojo/public/cpp/bindings/union_traits.h"
 
-#include "base/trace_event/base_tracing.h"
+#include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
 #include "ml/mojom/document_scanner.mojom-shared.h"
 #include "ml/mojom/document_scanner.mojom-forward.h"
 #include "ml/mojom/document_scanner_param_types.mojom-forward.h"
+#include "ml/mojom/file_path.mojom.h"
 #include "ml/mojom/geometry.mojom.h"
 #include "ml/mojom/shared_memory.mojom-forward.h"
 #include <string>
 #include <vector>
 
-#include "mojo/public/cpp/bindings/associated_interface_ptr_info.h"
-#include "mojo/public/cpp/bindings/associated_interface_request.h"
-#include "mojo/public/cpp/bindings/interface_ptr.h"
-#include "mojo/public/cpp/bindings/interface_request.h"
 #include "mojo/public/cpp/bindings/lib/control_message_handler.h"
 #include "mojo/public/cpp/bindings/raw_ptr_impl_ref_traits.h"
 
@@ -60,6 +57,8 @@ class  DocumentScanner
     : public DocumentScannerInterfaceBase {
  public:
   static const char Name_[];
+  static uint32_t MessageToStableIPCHash_(mojo::Message& message);
+  static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 1;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasSyncMethods_ = false;
@@ -168,6 +167,11 @@ class  DocumentScannerResponseValidator : public mojo::MessageReceiver {
 
 
 
+
+
+
+
+
 class  DocumentScannerConfig {
  public:
   template <typename T>
@@ -178,7 +182,7 @@ class  DocumentScannerConfig {
   template <typename... Args>
   static DocumentScannerConfigPtr New(Args&&... args) {
     return DocumentScannerConfigPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -195,8 +199,14 @@ class  DocumentScannerConfig {
   DocumentScannerConfig();
 
   explicit DocumentScannerConfig(
-      const std::string& library_dlc_path);
+      const std::string& deprecated_library_dlc_path);
 
+  DocumentScannerConfig(
+      const std::string& deprecated_library_dlc_path,
+      ::mojo_base::mojom::FilePathPtr library_dlc_path);
+
+DocumentScannerConfig(const DocumentScannerConfig&) = delete;
+DocumentScannerConfig& operator=(const DocumentScannerConfig&) = delete;
 
   ~DocumentScannerConfig();
 
@@ -214,7 +224,6 @@ class  DocumentScannerConfig {
 
   template <typename T, DocumentScannerConfig::EnableIfSame<T>* = nullptr>
   bool operator==(const T& rhs) const { return Equals(rhs); }
-  size_t Hash(size_t seed) const;
   template <typename UserType>
   static std::vector<uint8_t> Serialize(UserType* input) {
     return mojo::internal::SerializeImpl<
@@ -271,10 +280,12 @@ class  DocumentScannerConfig {
   }
 
   
-  std::string library_dlc_path;
+  std::string deprecated_library_dlc_path;
+  
+  ::mojo_base::mojom::FilePathPtr library_dlc_path;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto::libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -306,11 +317,6 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
-
-
-
-
-
 class  DetectCornersResult {
  public:
   template <typename T>
@@ -321,7 +327,7 @@ class  DetectCornersResult {
   template <typename... Args>
   static DetectCornersResultPtr New(Args&&... args) {
     return DetectCornersResultPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -421,7 +427,7 @@ DetectCornersResult& operator=(const DetectCornersResult&) = delete;
   std::vector<::gfx::mojom::PointFPtr> corners;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto::libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -463,7 +469,7 @@ class  DoPostProcessingResult {
   template <typename... Args>
   static DoPostProcessingResultPtr New(Args&&... args) {
     return DoPostProcessingResultPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -561,7 +567,7 @@ class  DoPostProcessingResult {
   std::vector<uint8_t> processed_jpeg_image;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto::libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -592,12 +598,15 @@ bool operator>=(const T& lhs, const T& rhs) {
 template <typename StructPtrType>
 DocumentScannerConfigPtr DocumentScannerConfig::Clone() const {
   return New(
+      mojo::Clone(deprecated_library_dlc_path),
       mojo::Clone(library_dlc_path)
   );
 }
 
 template <typename T, DocumentScannerConfig::EnableIfSame<T>*>
 bool DocumentScannerConfig::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->deprecated_library_dlc_path, other_struct.deprecated_library_dlc_path))
+    return false;
   if (!mojo::Equals(this->library_dlc_path, other_struct.library_dlc_path))
     return false;
   return true;
@@ -605,6 +614,10 @@ bool DocumentScannerConfig::Equals(const T& other_struct) const {
 
 template <typename T, DocumentScannerConfig::EnableIfSame<T>*>
 bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.deprecated_library_dlc_path < rhs.deprecated_library_dlc_path)
+    return true;
+  if (rhs.deprecated_library_dlc_path < lhs.deprecated_library_dlc_path)
+    return false;
   if (lhs.library_dlc_path < rhs.library_dlc_path)
     return true;
   if (rhs.library_dlc_path < lhs.library_dlc_path)
@@ -683,6 +696,11 @@ struct  StructTraits<::chromeos::machine_learning::mojom::DocumentScannerConfig:
                                          ::chromeos::machine_learning::mojom::DocumentScannerConfigPtr> {
   static bool IsNull(const ::chromeos::machine_learning::mojom::DocumentScannerConfigPtr& input) { return !input; }
   static void SetToNull(::chromeos::machine_learning::mojom::DocumentScannerConfigPtr* output) { output->reset(); }
+
+  static const decltype(::chromeos::machine_learning::mojom::DocumentScannerConfig::deprecated_library_dlc_path)& deprecated_library_dlc_path(
+      const ::chromeos::machine_learning::mojom::DocumentScannerConfigPtr& input) {
+    return input->deprecated_library_dlc_path;
+  }
 
   static const decltype(::chromeos::machine_learning::mojom::DocumentScannerConfig::library_dlc_path)& library_dlc_path(
       const ::chromeos::machine_learning::mojom::DocumentScannerConfigPtr& input) {

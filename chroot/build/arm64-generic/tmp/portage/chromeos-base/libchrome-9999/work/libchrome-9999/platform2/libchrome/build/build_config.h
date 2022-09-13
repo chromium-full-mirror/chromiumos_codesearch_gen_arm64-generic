@@ -15,11 +15,11 @@
 //    Deprecated: #if defined(OS_WIN)
 //
 //  Operating System:
-//    IS_AIX / IS_ANDROID / IS_ASMJS / IS_FREEBSD / IS_FUCHSIA / IS_IOS /
-//    IS_LINUX / IS_MAC / IS_NACL / IS_NETBSD / IS_OPENBSD /
-//    IS_QNX / IS_SOLARIS / IS_WIN
+//    IS_AIX / IS_ANDROID / IS_ASMJS / IS_CHROMEOS / IS_FREEBSD / IS_FUCHSIA /
+//    IS_IOS / IS_IOS_MACCATALYST / IS_LINUX / IS_MAC / IS_NACL / IS_NETBSD /
+//    IS_OPENBSD / IS_QNX / IS_SOLARIS / IS_WIN
 //  Operating System family:
-//    IS_APPLE: IOS or MAC
+//    IS_APPLE: IOS or MAC or IOS_MACCATALYST
 //    IS_BSD: FREEBSD or NETBSD or OPENBSD
 //    IS_POSIX: AIX or ANDROID or ASMJS or CHROMEOS or FREEBSD or IOS or LINUX
 //              or MAC or NACL or NETBSD or OPENBSD or QNX or SOLARIS
@@ -30,15 +30,18 @@
 //    COMPILER_MSVC / COMPILER_GCC
 //
 //  Processor:
-//    ARCH_CPU_ARM64 / ARCH_CPU_ARMEL / ARCH_CPU_MIPS / ARCH_CPU_MIPS64 /
-//    ARCH_CPU_MIPS64EL / ARCH_CPU_MIPSEL / ARCH_CPU_PPC64 / ARCH_CPU_S390 /
-//    ARCH_CPU_S390X / ARCH_CPU_X86 / ARCH_CPU_X86_64
+//    ARCH_CPU_ARM64 / ARCH_CPU_ARMEL / ARCH_CPU_LOONG32 / ARCH_CPU_LOONG64 /
+//    ARCH_CPU_MIPS / ARCH_CPU_MIPS64 / ARCH_CPU_MIPS64EL / ARCH_CPU_MIPSEL /
+//    ARCH_CPU_PPC64 / ARCH_CPU_S390 / ARCH_CPU_S390X / ARCH_CPU_X86 /
+//    ARCH_CPU_X86_64 / ARCH_CPU_RISCV64
 //  Processor family:
 //    ARCH_CPU_ARM_FAMILY: ARMEL or ARM64
+//    ARCH_CPU_LOONG_FAMILY: LOONG32 or LOONG64
 //    ARCH_CPU_MIPS_FAMILY: MIPS64EL or MIPSEL or MIPS64 or MIPS
 //    ARCH_CPU_PPC64_FAMILY: PPC64
 //    ARCH_CPU_S390_FAMILY: S390 or S390X
 //    ARCH_CPU_X86_FAMILY: X86 or X86_64
+//    ARCH_CPU_RISCV_FAMILY: Riscv64
 //  Processor features:
 //    ARCH_CPU_31_BITS / ARCH_CPU_32_BITS / ARCH_CPU_64_BITS
 //    ARCH_CPU_BIG_ENDIAN / ARCH_CPU_LITTLE_ENDIAN
@@ -85,6 +88,11 @@
 #include <TargetConditionals.h>
 #if defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE
 #define OS_IOS 1
+// Catalyst is the technology that allows running iOS apps on macOS. These
+// builds are both OS_IOS and OS_IOS_MACCATALYST.
+#if defined(TARGET_OS_MACCATALYST) && TARGET_OS_MACCATALYST
+#define OS_IOS_MACCATALYST
+#endif  // defined(TARGET_OS_MACCATALYST) && TARGET_OS_MACCATALYST
 #else
 #define OS_MAC 1
 #endif  // defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE
@@ -199,6 +207,12 @@
 #define BUILDFLAG_INTERNAL_IS_IOS() (1)
 #else
 #define BUILDFLAG_INTERNAL_IS_IOS() (0)
+#endif
+
+#if defined(OS_IOS_MACCATALYST)
+#define BUILDFLAG_INTERNAL_IS_IOS_MACCATALYST() (1)
+#else
+#define BUILDFLAG_INTERNAL_IS_IOS_MACCATALYST() (0)
 #endif
 
 #if defined(OS_LINUX)
@@ -336,6 +350,21 @@
 #define ARCH_CPU_32_BITS 1
 #define ARCH_CPU_BIG_ENDIAN 1
 #endif
+#elif defined(__loongarch32)
+#define ARCH_CPU_LOONG_FAMILY 1
+#define ARCH_CPU_LOONG32 1
+#define ARCH_CPU_32_BITS 1
+#define ARCH_CPU_LITTLE_ENDIAN 1
+#elif defined(__loongarch64)
+#define ARCH_CPU_LOONG_FAMILY 1
+#define ARCH_CPU_LOONG64 1
+#define ARCH_CPU_64_BITS 1
+#define ARCH_CPU_LITTLE_ENDIAN 1
+#elif defined(__riscv) && (__riscv_xlen == 64)
+#define ARCH_CPU_RISCV_FAMILY 1
+#define ARCH_CPU_RISCV64 1
+#define ARCH_CPU_64_BITS 1
+#define ARCH_CPU_LITTLE_ENDIAN 1
 #else
 #error Please add support for your architecture in build/build_config.h
 #endif

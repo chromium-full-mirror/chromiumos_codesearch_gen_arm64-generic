@@ -2,16 +2,19 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#include "libhwsec/backend/tpm1/backend.h"
+#include "libhwsec/backend/tpm1/config.h"
 
+#include <cstdint>
 #include <string>
 
 #include <base/hash/sha1.h>
+#include <base/strings/stringprintf.h>
 #include <crypto/sha2.h>
 #include <libhwsec-foundation/crypto/sha.h>
 #include <libhwsec-foundation/status/status_chain_macros.h>
 #include <openssl/sha.h>
 
+#include "libhwsec/backend/tpm1/backend.h"
 #include "libhwsec/error/tpm1_error.h"
 #include "libhwsec/overalls/overalls.h"
 #include "libhwsec/status.h"
@@ -23,13 +26,12 @@ using hwsec_foundation::status::MakeStatus;
 
 namespace hwsec {
 
-using ConfigTpm1 = BackendTpm1::ConfigTpm1;
+const int kCurrentUserPcrTpm1 = USE_TPM_DYNAMIC ? 11 : 4;
 
 namespace {
 
 constexpr int kBootModePcr = 0;
 constexpr int kDeviceModelPcr = 1;
-constexpr int kCurrentUserPcr = USE_TPM_DYNAMIC ? 11 : 4;
 
 constexpr DeviceConfig kSupportConfigs[] = {
     DeviceConfig::kBootMode,
@@ -44,7 +46,7 @@ StatusOr<int> DeviceConfigToPcr(DeviceConfig config) {
     case DeviceConfig::kDeviceModel:
       return kDeviceModelPcr;
     case DeviceConfig::kCurrentUser:
-      return kCurrentUserPcr;
+      return kCurrentUserPcrTpm1;
   }
   return MakeStatus<TPMError>("Unknown device config",
                               TPMRetryAction::kNoRetry);
@@ -75,23 +77,31 @@ StatusOr<OperationPolicy> ConfigTpm1::ToOperationPolicy(
 }
 
 Status ConfigTpm1::SetCurrentUser(const std::string& current_user) {
-  ASSIGN_OR_RETURN(const TssTpmContext& user_context,
-                   backend_.GetTssUserContext());
+  ASSIGN_OR_RETURN(TSS_HCONTEXT context, backend_.GetTssContext());
 
-  overalls::Overalls& overalls = backend_.overall_context_.overalls;
+  ASSIGN_OR_RETURN(TSS_HTPM tpm_handle, backend_.GetUserTpmHandle());
+
+  overalls::Overalls& overalls = backend_.GetOverall().overalls;
 
   brillo::Blob extention = Sha1(brillo::BlobFromString(current_user));
 
   uint32_t new_pcr_value_length = 0;
-  ScopedTssMemory new_pcr_value(overalls, user_context.context);
+  ScopedTssMemory new_pcr_value(overalls, context);
 
-  RETURN_IF_ERROR(MakeStatus<TPM1Error>(overalls.Ospi_TPM_PcrExtend(
-                      user_context.tpm_handle, kCurrentUserPcr,
-                      extention.size(), extention.data(), nullptr,
-                      &new_pcr_value_length, new_pcr_value.ptr())))
+  RETURN_IF_ERROR(
+      MakeStatus<TPM1Error>(overalls.Ospi_TPM_PcrExtend(
+          tpm_handle, kCurrentUserPcrTpm1, extention.size(), extention.data(),
+          nullptr, &new_pcr_value_length, new_pcr_value.ptr())))
       .WithStatus<TPMError>("Failed to call Ospi_TPM_PcrExtend");
 
   return OkStatus();
+}
+
+StatusOr<bool> ConfigTpm1::IsCurrentUserSet() {
+  ASSIGN_OR_RETURN(brillo::Blob && value, ReadPcr(kCurrentUserPcrTpm1),
+                   _.WithStatus<TPMError>("Failed to read boot mode PCR"));
+
+  return value != brillo::Blob(SHA_DIGEST_LENGTH, 0);
 }
 
 StatusOr<ConfigTpm1::QuoteResult> ConfigTpm1::Quote(DeviceConfigs device_config,
@@ -112,18 +122,34 @@ StatusOr<ConfigTpm1::PcrMap> ConfigTpm1::ToPcrMap(
   return result;
 }
 
-StatusOr<brillo::Blob> ConfigTpm1::ReadPcr(uint32_t pcr_index) {
-  ASSIGN_OR_RETURN(const TssTpmContext& user_context,
-                   backend_.GetTssUserContext());
+StatusOr<ConfigTpm1::PcrMap> ConfigTpm1::ToCurrentPcrValueMap(
+    const DeviceConfigs& device_config) {
+  PcrMap result;
+  for (DeviceConfig config : kSupportConfigs) {
+    if (device_config[config]) {
+      ASSIGN_OR_RETURN(int pcr, DeviceConfigToPcr(config),
+                       _.WithStatus<TPMError>("Failed to convert to PCR"));
 
-  overalls::Overalls& overalls = backend_.overall_context_.overalls;
+      ASSIGN_OR_RETURN(result[pcr], ReadPcr(pcr),
+                       _.WithStatus<TPMError>(base::StringPrintf(
+                           "Failed to read PCR %d value", pcr)));
+    }
+  }
+  return result;
+}
+
+StatusOr<brillo::Blob> ConfigTpm1::ReadPcr(uint32_t pcr_index) {
+  ASSIGN_OR_RETURN(TSS_HCONTEXT context, backend_.GetTssContext());
+
+  ASSIGN_OR_RETURN(TSS_HTPM tpm_handle, backend_.GetUserTpmHandle());
+
+  overalls::Overalls& overalls = backend_.GetOverall().overalls;
 
   uint32_t length = 0;
-  ScopedTssMemory buffer(overalls, user_context.context);
+  ScopedTssMemory buffer(overalls, context);
 
-  RETURN_IF_ERROR(
-      MakeStatus<TPM1Error>(overalls.Ospi_TPM_PcrRead(
-          user_context.tpm_handle, pcr_index, &length, buffer.ptr())))
+  RETURN_IF_ERROR(MakeStatus<TPM1Error>(overalls.Ospi_TPM_PcrRead(
+                      tpm_handle, pcr_index, &length, buffer.ptr())))
       .WithStatus<TPMError>("Failed to call Ospi_TPM_PcrRead");
 
   return brillo::Blob(buffer.value(), buffer.value() + length);
@@ -165,7 +191,7 @@ StatusOr<ConfigTpm1::PcrMap> ConfigTpm1::ToSettingsPcrMap(
       digest_value = Sha1(brillo::CombineBlobs(
           {digest_value, Sha1(BlobFromString(username.value()))}));
     }
-    result[kCurrentUserPcr] = digest_value;
+    result[kCurrentUserPcrTpm1] = digest_value;
   }
 
   return result;

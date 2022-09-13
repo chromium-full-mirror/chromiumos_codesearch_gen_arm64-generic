@@ -18,13 +18,13 @@
 #include "base/lazy_instance.h"
 #include "base/logging.h"
 #include "base/metrics/field_trial_params.h"
+#include "base/notreached.h"
 #include "base/process/internal_linux.h"
 #include "base/strings/string_number_conversions.h"
 #include "base/strings/stringprintf.h"
 #include "base/threading/platform_thread_internal_posix.h"
 #include "base/threading/thread_id_name_manager.h"
 #include "build/build_config.h"
-#include "build/chromeos_buildflags.h"
 #include "third_party/abseil-cpp/absl/types/optional.h"
 
 #if !BUILDFLAG(IS_NACL) && !BUILDFLAG(IS_AIX)
@@ -38,13 +38,13 @@
 
 namespace base {
 
-#if BUILDFLAG(IS_CHROMEOS_ASH) || BUILDFLAG(IS_CHROMEOS_LACROS)
+#if BUILDFLAG(IS_CHROMEOS)
 const Feature kSchedUtilHints{"SchedUtilHints", base::FEATURE_ENABLED_BY_DEFAULT};
 #endif
 
 namespace {
 
-#if BUILDFLAG(IS_CHROMEOS_ASH) || BUILDFLAG(IS_CHROMEOS_LACROS)
+#if BUILDFLAG(IS_CHROMEOS)
 std::atomic<bool> g_use_sched_util(true);
 std::atomic<bool> g_scheduler_hints_adjusted(false);
 
@@ -130,7 +130,7 @@ int sched_setattr(pid_t pid,
   return syscall(__NR_sched_setattr, pid, attr, flags);
 }
 #endif  // !BUILDFLAG(IS_NACL) && !BUILDFLAG(IS_AIX)
-#endif  // BUILDFLAG(IS_CHROMEOS_ASH) || BUILDFLAG(IS_CHROMEOS_LACROS)
+#endif  // BUILDFLAG(IS_CHROMEOS)
 
 #if !BUILDFLAG(IS_NACL)
 const FilePath::CharType kCgroupDirectory[] =
@@ -176,7 +176,7 @@ void SetThreadCgroupForThreadPriority(PlatformThreadId thread_id,
   SetThreadCgroup(thread_id, cgroup_directory);
 }
 
-#if BUILDFLAG(IS_CHROMEOS_ASH) || BUILDFLAG(IS_CHROMEOS_LACROS)
+#if BUILDFLAG(IS_CHROMEOS)
 // thread_id should always be the value in the root PID namespace (see
 // FindThreadID).
 void SetThreadLatencySensitivity(ProcessId process_id,
@@ -314,7 +314,7 @@ bool SetCurrentThreadPriorityForPlatform(ThreadPriority priority) {
   // For legacy schedtune interface
   SetThreadCgroupsForThreadPriority(PlatformThread::CurrentId(), priority);
 
-#if BUILDFLAG(IS_CHROMEOS_ASH) || BUILDFLAG(IS_CHROMEOS_LACROS)
+#if BUILDFLAG(IS_CHROMEOS)
   // For upstream uclamp interface. We try both legacy (schedtune, as done
   // earlier) and upstream (uclamp) interfaces, and whichever succeeds wins.
   SetThreadLatencySensitivity(0 /* ignore */, 0 /* thread-self */, priority);
@@ -380,7 +380,7 @@ void PlatformThread::SetThreadPriority(ProcessId process_id,
   // For legacy schedtune interface
   SetThreadCgroupsForThreadPriority(thread_id, priority);
 
-#if BUILDFLAG(IS_CHROMEOS_ASH) || BUILDFLAG(IS_CHROMEOS_LACROS)
+#if BUILDFLAG(IS_CHROMEOS)
   // For upstream uclamp interface. We try both legacy (schedtune, as done
   // earlier) and upstream (uclamp) interfaces, and whichever succeeds wins.
   SetThreadLatencySensitivity(process_id, thread_id, priority);
@@ -394,7 +394,7 @@ void PlatformThread::SetThreadPriority(ProcessId process_id,
 }
 #endif  //  !BUILDFLAG(IS_NACL) && !BUILDFLAG(IS_AIX)
 
-#if BUILDFLAG(IS_CHROMEOS_ASH) || BUILDFLAG(IS_CHROMEOS_LACROS)
+#if BUILDFLAG(IS_CHROMEOS)
 void PlatformThread::InitThreadPostFieldTrial() {
   DCHECK(FeatureList::GetInstance());
   if (!FeatureList::IsEnabled(kSchedUtilHints)) {

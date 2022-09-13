@@ -20,6 +20,7 @@
 #include "power_manager/common/power_constants.h"
 #include "power_manager/powerd/policy/suspender.h"
 #include "power_manager/powerd/system/power_supply.h"
+#include "privacy_screen/proto_bindings/privacy_screen.pb.h"
 
 namespace power_manager {
 
@@ -58,6 +59,12 @@ class MetricsCollector {
   static std::string AppendPowerSourceToEnumName(const std::string& enum_name,
                                                  PowerSource power_source);
 
+  // Returns a copy of |enum_name| with a suffix describing privacy screen state
+  // |state| appended to it. Public so it can be called by tests.
+  static std::string AppendPrivacyScreenStateToEnumName(
+      const std::string& enum_name,
+      const privacy_screen::PrivacyScreenSetting_PrivacyScreenState& state);
+
   // Calculates the S0ix residency percentage that should be reported
   // as part of UMA metrics by MetricsCollector.
   static int GetExpectedS0ixResidencyPercent(
@@ -85,6 +92,8 @@ class MetricsCollector {
   void HandleSessionStateChange(SessionState state);
   void HandlePowerStatusUpdate(const system::PowerStatus& status);
   void HandleShutdown(ShutdownReason reason);
+  void HandlePrivacyScreenStateChange(
+      const privacy_screen::PrivacyScreenSetting_PrivacyScreenState& state);
 
   // Called at the beginning of a suspend request (which may consist of multiple
   // suspend attempts).
@@ -92,12 +101,13 @@ class MetricsCollector {
 
   // Called at the end of a successful suspend request. |num_suspend_attempts|
   // contains the number of attempts up to and including the one in which the
-  // system successfully suspended.
-  void HandleResume(int num_suspend_attempts);
+  // system successfully suspended. |hibernated| indicates whether or not the
+  // system suspended to disk (true) or RAM (false).
+  void HandleResume(int num_suspend_attempts, bool hibernated);
 
   // Called after a suspend request (that is, a series of one or more suspend
   // attempts performed in response to e.g. the lid being closed) is canceled.
-  void HandleCanceledSuspendRequest(int num_suspend_attempts);
+  void HandleCanceledSuspendRequest(int num_suspend_attempts, bool hibernate);
 
   // Called after a suspend request has completed (successfully or not).
   // Generates UMA metrics for dark resume.  The size of |wake_durations| is the
@@ -118,8 +128,12 @@ class MetricsCollector {
   // Generates UMA metrics about dimming events.
   void GenerateDimEventMetrics(DimEvent sample);
 
-  // Generates UMA metrics about dimming events durations.
-  void GenerateDimEventDurationMetrics(const std::string& event_name,
+  // Generates UMA metrics about locking events.
+  void GenerateLockEventMetrics(LockEvent sample);
+
+  // Generates UMA metrics about Hps events (dimming, locking, deferring by Hps)
+  // durations.
+  void GenerateHpsEventDurationMetrics(const std::string& event_name,
                                        base::TimeDelta duration);
 
   // Generates UMA metric on number of Adaptive Charging Actives.
@@ -160,6 +174,13 @@ class MetricsCollector {
   bool SendEnumMetricWithPowerSource(const std::string& name,
                                      int sample,
                                      int max);
+  // This method appends the current privacy screen state and the current power
+  // source to |name|. Metrics are only sent if privacy screen is supported. If
+  // privacy screen is not supported, this method returns true but does not send
+  // metrics.
+  bool SendEnumMetricWithPrivacyScreenStatePowerSource(const std::string& name,
+                                                       int sample,
+                                                       int max);
 
   // Generates a battery discharge rate UMA metric sample. Returns
   // true if a sample was sent to UMA, false otherwise.
@@ -216,6 +237,11 @@ class MetricsCollector {
   // Runs GenerateBacklightLevelMetric().
   base::RepeatingTimer generate_backlight_metrics_timer_;
 
+  // Last privacy screen state that we have been informed of.
+  privacy_screen::PrivacyScreenSetting_PrivacyScreenState
+      privacy_screen_state_ =
+          privacy_screen::PrivacyScreenSetting_PrivacyScreenState_NOT_SUPPORTED;
+
   // Timestamp of the last generated battery discharge rate metric.
   base::TimeTicks last_battery_discharge_rate_metric_timestamp_;
 
@@ -228,6 +254,9 @@ class MetricsCollector {
 
   // Idle duration as of the last idle event.
   base::TimeDelta last_idle_timedelta_;
+
+  // Notes if the most recent suspend attempt was a hibernation or not.
+  bool last_suspend_was_hibernate_ = false;
 
   // Timestamps of the last idle-triggered power state transitions.
   base::TimeTicks screen_dim_timestamp_;

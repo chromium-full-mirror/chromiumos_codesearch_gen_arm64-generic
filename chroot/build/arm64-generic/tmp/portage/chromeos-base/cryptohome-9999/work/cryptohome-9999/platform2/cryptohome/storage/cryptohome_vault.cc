@@ -7,8 +7,8 @@
 #include <memory>
 #include <string>
 #include <tuple>
+#include <unordered_map>
 #include <utility>
-#include <vector>
 
 #include <base/location.h>
 #include <base/logging.h>
@@ -30,7 +30,8 @@ CryptohomeVault::CryptohomeVault(
     std::unique_ptr<EncryptedContainer> container,
     std::unique_ptr<EncryptedContainer> migrating_container,
     std::unique_ptr<EncryptedContainer> cache_container,
-    std::vector<std::unique_ptr<EncryptedContainer>> application_containers,
+    std::unordered_map<std::string, std::unique_ptr<EncryptedContainer>>
+        application_containers,
     Platform* platform)
     : obfuscated_username_(obfuscated_username),
       container_(std::move(container)),
@@ -81,9 +82,9 @@ StorageStatus CryptohomeVault::Setup(const FileSystemKey& filesystem_key) {
                                MOUNT_ERROR_KEYRING_FAILED);
   }
 
-  for (auto& container : application_containers_) {
+  for (auto& [name, container] : application_containers_) {
     if (!container->Setup(filesystem_key)) {
-      LOG(ERROR) << "Failed to setup an application container.";
+      LOG(ERROR) << "Failed to setup an application container " << name;
       // TODO(sarthakkukreti): MOUNT_ERROR_KEYRING_FAILED should be replaced
       //  with a more specific type.
       return StorageStatus::Make(FROM_HERE,
@@ -229,14 +230,24 @@ bool CryptohomeVault::Teardown() {
     ret = false;
   }
 
-  for (auto& container : application_containers_) {
+  for (auto& [name, container] : application_containers_) {
     if (!container->Teardown()) {
-      LOG(ERROR) << "Failed to teardown application container";
+      LOG(ERROR) << "Failed to teardown application container " << name;
       ret = false;
     }
   }
 
   return ret;
+}
+
+bool CryptohomeVault::ResetApplicationContainer(const std::string& app) {
+  auto it = application_containers_.find(app);
+  if (it == application_containers_.end()) {
+    LOG(ERROR) << "Failed to find a valid application container for " << app;
+    return false;
+  }
+
+  return it->second->Reset();
 }
 
 bool CryptohomeVault::Purge() {
@@ -258,9 +269,9 @@ bool CryptohomeVault::Purge() {
     ret = false;
   }
 
-  for (auto& container : application_containers_) {
+  for (auto& [name, container] : application_containers_) {
     if (container->Exists() && !container->Purge()) {
-      LOG(ERROR) << "Failed to purge application container";
+      LOG(ERROR) << "Failed to purge application container " << name;
       ret = false;
     }
   }

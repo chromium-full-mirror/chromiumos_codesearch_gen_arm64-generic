@@ -58,21 +58,41 @@ std::optional<cbor::Value> ReadCborMap(const brillo::SecureBlob& map_cbor) {
   return cbor_response;
 }
 
+template <typename Alloc>
 bool FindBytestringValueInCborMap(const cbor::Value::MapValue& map,
                                   const std::string& key,
-                                  brillo::SecureBlob* blob) {
+                                  std::vector<uint8_t, Alloc>* blob) {
   const auto entry = map.find(cbor::Value(key));
   if (entry == map.end()) {
-    LOG(ERROR) << "No `" + key + "` entry in the CBOR map.";
+    LOG(ERROR) << "No `" << key << "` entry in the CBOR map.";
     return false;
   }
   if (!entry->second.is_bytestring()) {
-    LOG(ERROR) << "Wrongly formatted `" + key + "` entry in the CBOR map.";
+    LOG(ERROR) << "Wrongly formatted `" << key
+               << "` entry in the CBOR map (expected bytestring).";
     return false;
   }
 
   blob->assign(entry->second.GetBytestring().begin(),
                entry->second.GetBytestring().end());
+  return true;
+}
+
+bool FindStringValueInCborMap(const cbor::Value::MapValue& map,
+                              const std::string& key,
+                              std::string* result) {
+  const auto entry = map.find(cbor::Value(key));
+  if (entry == map.end()) {
+    LOG(ERROR) << "No `" << key << "` entry in the CBOR map.";
+    return false;
+  }
+  if (!entry->second.is_string()) {
+    LOG(ERROR) << "Wrongly formatted `" << key
+               << "` entry in the CBOR map (expected string).";
+    return false;
+  }
+
+  *result = entry->second.GetString();
   return true;
 }
 
@@ -122,6 +142,79 @@ bool ConvertCborMapToAeadPayload(const cbor::Value::MapValue& aead_payload_map,
   return true;
 }
 
+bool ConvertCborMapToOnboardingMetadata(
+    const cbor::Value::MapValue& metadata_map, OnboardingMetadata* metadata) {
+  const auto user_type_entry =
+      metadata_map.find(cbor::Value(kCryptohomeUserType));
+  if (user_type_entry == metadata_map.end()) {
+    LOG(ERROR) << "No " << kCryptohomeUserType << " entry in the CBOR map.";
+    return false;
+  }
+  if (!user_type_entry->second.is_integer()) {
+    LOG(ERROR) << "Wrongly formatted " << kCryptohomeUserType
+               << " entry in the CBOR map.";
+    return false;
+  }
+  UserType user_type;
+  switch (user_type_entry->second.GetInteger()) {
+    case static_cast<int>(UserType::kGaiaId):
+      user_type = UserType::kGaiaId;
+      break;
+    default:
+      LOG(ERROR) << "User Type is unknown: "
+                 << user_type_entry->second.GetInteger();
+      user_type = UserType::kUnknown;
+      break;
+  }
+
+  std::string cryptohome_user;
+  if (!FindStringValueInCborMap(metadata_map, kCryptohomeUser,
+                                &cryptohome_user)) {
+    LOG(ERROR) << "Failed to get cryptohome user from the onboarding metadata "
+                  "CBOR map.";
+    return false;
+  }
+  std::string device_user_id;
+  if (!FindStringValueInCborMap(metadata_map, kDeviceUserId, &device_user_id)) {
+    LOG(ERROR) << "Failed to get device user id from the onboarding metadata "
+                  "CBOR map.";
+    return false;
+  }
+  std::string board_name;
+  if (!FindStringValueInCborMap(metadata_map, kBoardName, &board_name)) {
+    LOG(ERROR)
+        << "Failed to get board name from the onboarding metadata CBOR map.";
+    return false;
+  }
+  std::string form_factor;
+  if (!FindStringValueInCborMap(metadata_map, kFormFactor, &form_factor)) {
+    LOG(ERROR)
+        << "Failed to get form factor from the onboarding metadata CBOR map.";
+    return false;
+  }
+  std::string rlz_code;
+  if (!FindStringValueInCborMap(metadata_map, kRlzCode, &rlz_code)) {
+    LOG(ERROR)
+        << "Failed to get rlz code from the onboarding metadata CBOR map.";
+    return false;
+  }
+  std::string recovery_id;
+  if (!FindStringValueInCborMap(metadata_map, kRecoveryId, &recovery_id)) {
+    LOG(ERROR)
+        << "Failed to get recovery id from the onboarding metadata CBOR map.";
+    return false;
+  }
+
+  metadata->cryptohome_user_type = user_type;
+  metadata->cryptohome_user = cryptohome_user;
+  metadata->device_user_id = device_user_id;
+  metadata->board_name = board_name;
+  metadata->form_factor = form_factor;
+  metadata->rlz_code = rlz_code;
+  metadata->recovery_id = recovery_id;
+  return true;
+}
+
 cbor::Value::MapValue ConvertRequestMetadataToCborMap(
     const RequestMetadata& metadata) {
   cbor::Value::MapValue auth_claim;
@@ -147,6 +240,131 @@ cbor::Value::MapValue ConvertHsmMetadataToCborMap(
   return hsm_meta_data_map;
 }
 
+std::vector<cbor::Value> ConvertInclusionProofToVectorValue(
+    const std::vector<brillo::Blob>& inclusion_proof) {
+  std::vector<cbor::Value> result;
+  for (const brillo::Blob& element : inclusion_proof) {
+    result.push_back(cbor::Value(element));
+  }
+  return result;
+}
+
+cbor::Value::MapValue ConvertLedgerSignedProofToCborMap(
+    const LedgerSignedProof& ledger_signed_proof) {
+  cbor::Value::MapValue logged_record_map;
+  logged_record_map.emplace(kSchemaVersion, kLoggedRecordSchemaVersion);
+  logged_record_map.emplace(
+      kPublicLedgerEntryProof,
+      ledger_signed_proof.logged_record.public_ledger_entry);
+  logged_record_map.emplace(
+      kPrivateLogEntryProof,
+      ledger_signed_proof.logged_record.private_log_entry);
+  logged_record_map.emplace(kLeafIndex,
+                            ledger_signed_proof.logged_record.leaf_index);
+
+  cbor::Value::MapValue ledger_signed_proof_map;
+  ledger_signed_proof_map.emplace(kSchemaVersion, kHsmMetaDataSchemaVersion);
+  ledger_signed_proof_map.emplace(kCheckpointNote,
+                                  ledger_signed_proof.checkpoint_note);
+  ledger_signed_proof_map.emplace(
+      kInclusionProof,
+      ConvertInclusionProofToVectorValue(ledger_signed_proof.inclusion_proof));
+  ledger_signed_proof_map.emplace(kLoggedRecord, std::move(logged_record_map));
+
+  return ledger_signed_proof_map;
+}
+
+bool ConvertCborMapToLoggedRecord(
+    const cbor::Value::MapValue& logged_record_map,
+    LoggedRecord* logged_record) {
+  brillo::Blob public_ledger_entry;
+  if (!FindBytestringValueInCborMap(logged_record_map, kPublicLedgerEntryProof,
+                                    &public_ledger_entry)) {
+    LOG(ERROR)
+        << "Failed to get public ledger entry from the logged record map.";
+    return false;
+  }
+
+  brillo::Blob private_log_entry;
+  if (!FindBytestringValueInCborMap(logged_record_map, kPrivateLogEntryProof,
+                                    &private_log_entry)) {
+    LOG(ERROR) << "Failed to get private log entry from the logged record map.";
+    return false;
+  }
+
+  const auto leaf_index_entry = logged_record_map.find(cbor::Value(kLeafIndex));
+  if (leaf_index_entry == logged_record_map.end()) {
+    LOG(ERROR) << "No " << kLeafIndex << " entry in the logged record map.";
+    return false;
+  }
+  if (!leaf_index_entry->second.is_integer()) {
+    LOG(ERROR) << "Wrongly formatted " << kLeafIndex
+               << " entry in the logged record map.";
+    return false;
+  }
+
+  logged_record->public_ledger_entry = public_ledger_entry;
+  logged_record->private_log_entry = private_log_entry;
+  logged_record->leaf_index = leaf_index_entry->second.GetInteger();
+  return true;
+}
+
+bool ConvertCborMapToLedgerSignedProof(
+    const cbor::Value::MapValue& ledger_signed_proof_map,
+    LedgerSignedProof* ledger_signed_proof) {
+  brillo::Blob checkpoint_note;
+  if (!FindBytestringValueInCborMap(ledger_signed_proof_map, kCheckpointNote,
+                                    &checkpoint_note)) {
+    LOG(ERROR) << "Failed to get checkpoint note from the logged record map.";
+    return false;
+  }
+
+  const auto inclusion_proof_entry =
+      ledger_signed_proof_map.find(cbor::Value(kInclusionProof));
+  if (inclusion_proof_entry == ledger_signed_proof_map.end()) {
+    LOG(ERROR) << "No " << kLeafIndex
+               << " entry in the ledger signed proof map.";
+    return false;
+  }
+  if (!inclusion_proof_entry->second.is_array()) {
+    LOG(ERROR) << "Wrongly formatted " << kLeafIndex
+               << " entry in the ledger signed proof map.";
+    return false;
+  }
+  std::vector<brillo::Blob> inclusion_proof;
+  for (const auto& element : inclusion_proof_entry->second.GetArray()) {
+    if (!element.is_bytestring()) {
+      LOG(ERROR) << "Wrongly formatted element in the inclusion proof entry.";
+      return false;
+    }
+    inclusion_proof.push_back(element.GetBytestring());
+  }
+
+  const auto logged_record_entry =
+      ledger_signed_proof_map.find(cbor::Value(kLoggedRecord));
+  if (logged_record_entry == ledger_signed_proof_map.end()) {
+    LOG(ERROR) << "No " << kLoggedRecord
+               << " entry in the ledger signed proof map.";
+    return false;
+  }
+  if (!logged_record_entry->second.is_map()) {
+    LOG(ERROR) << "Wrongly formatted " << kLoggedRecord
+               << " entry in the ledger signed proof map.";
+    return false;
+  }
+  LoggedRecord logged_record;
+  if (!ConvertCborMapToLoggedRecord(logged_record_entry->second.GetMap(),
+                                    &logged_record)) {
+    LOG(ERROR) << "Failed to deserialize logged record from CBOR.";
+    return false;
+  }
+
+  ledger_signed_proof->checkpoint_note = checkpoint_note;
+  ledger_signed_proof->inclusion_proof = inclusion_proof;
+  ledger_signed_proof->logged_record = logged_record;
+  return true;
+}
+
 }  // namespace
 
 // !!! DO NOT MODIFY !!!
@@ -170,19 +388,23 @@ const char kAeadTag[] = "tag";
 const char kRequestMetaData[] = "request_meta_data";
 const char kRequestAead[] = "req_aead";
 const char kRequestRsaSignature[] = "rsa_signature";
-const char kEpochPublicKey[] = "epoch_pub_key";
 const char kEphemeralPublicInvKey[] = "ephemeral_pub_inv_key";
 const char kRequestPayloadSalt[] = "request_salt";
-const char kResponseAead[] = "resp_aead";
 const char kResponseHsmMetaData[] = "hsm_meta_data";
 const char kResponsePayloadSalt[] = "response_salt";
-const char kResponseErrorCode[] = "error_code";
-const char kResponseErrorString[] = "error_string";
+const char kPublicLedgerEntryProof[] = "public_ledger_entry";
+const char kPrivateLogEntryProof[] = "private_log_entry";
+const char kLeafIndex[] = "leaf_index";
+const char kCheckpointNote[] = "checkpoint_note";
+const char kInclusionProof[] = "inclusion_proof";
+const char kLoggedRecord[] = "logged_record";
+const char kLedgerSignedProof[] = "ledger_signed_proof";
 const char kCryptohomeUser[] = "cryptohome_user";
 const char kCryptohomeUserType[] = "cryptohome_user_type";
 const char kDeviceUserId[] = "device_user_id";
 const char kBoardName[] = "board_name";
-const char kModelName[] = "model_name";
+const char kFormFactor[] = "form_factor";
+const char kRlzCode[] = "rlz_code";
 const char kRecoveryId[] = "recovery_id";
 const char kAuthClaim[] = "auth_claim";
 const char kRequestorUser[] = "requestor_user";
@@ -195,6 +417,8 @@ const int kHsmAssociatedDataSchemaVersion = 1;
 const int kOnboardingMetaDataSchemaVersion = 1;
 const int kRequestMetaDataSchemaVersion = 1;
 const int kHsmMetaDataSchemaVersion = 1;
+const int kLoggedRecordSchemaVersion = 1;
+const int kLedgerSignedProofSchemaVersion = 1;
 
 bool SerializeRecoveryRequestPayloadToCbor(
     const RequestPayload& request_payload,
@@ -227,6 +451,22 @@ bool SerializeRecoveryRequestToCbor(const RecoveryRequest& request,
   return true;
 }
 
+cbor::Value::MapValue ConvertOnboardingMetadataToCborMap(
+    const OnboardingMetadata& args) {
+  cbor::Value::MapValue map;
+
+  map.emplace(kSchemaVersion, kOnboardingMetaDataSchemaVersion);
+  map.emplace(kCryptohomeUser, args.cryptohome_user);
+  map.emplace(kCryptohomeUserType, static_cast<int>(args.cryptohome_user_type));
+  map.emplace(kDeviceUserId, args.device_user_id);
+  map.emplace(kBoardName, args.board_name);
+  map.emplace(kFormFactor, args.form_factor);
+  map.emplace(kRlzCode, args.rlz_code);
+  map.emplace(kRecoveryId, args.recovery_id);
+
+  return map;
+}
+
 bool SerializeHsmAssociatedDataToCbor(const HsmAssociatedData& args,
                                       brillo::SecureBlob* ad_cbor) {
   cbor::Value::MapValue ad_map;
@@ -239,23 +479,8 @@ bool SerializeHsmAssociatedDataToCbor(const HsmAssociatedData& args,
     ad_map.emplace(kRsaPublicKey, args.rsa_public_key);
   }
 
-  cbor::Value::MapValue onboarding_meta_data_map;
-  onboarding_meta_data_map.emplace(kSchemaVersion,
-                                   kOnboardingMetaDataSchemaVersion);
-  onboarding_meta_data_map.emplace(kCryptohomeUser,
-                                   args.onboarding_meta_data.cryptohome_user);
-  onboarding_meta_data_map.emplace(
-      kCryptohomeUserType,
-      static_cast<int>(args.onboarding_meta_data.cryptohome_user_type));
-  onboarding_meta_data_map.emplace(kDeviceUserId,
-                                   args.onboarding_meta_data.device_user_id);
-  onboarding_meta_data_map.emplace(kBoardName,
-                                   args.onboarding_meta_data.board_name);
-  onboarding_meta_data_map.emplace(kModelName,
-                                   args.onboarding_meta_data.model_name);
-  onboarding_meta_data_map.emplace(kRecoveryId,
-                                   args.onboarding_meta_data.recovery_id);
-  ad_map.emplace(kOnboardingMetaData, std::move(onboarding_meta_data_map));
+  ad_map.emplace(kOnboardingMetaData,
+                 ConvertOnboardingMetadataToCborMap(args.onboarding_meta_data));
 
   if (!SerializeCborMap(ad_map, ad_cbor)) {
     LOG(ERROR) << "Failed to serialize HSM Associated Data to CBOR";
@@ -270,7 +495,6 @@ bool SerializeRecoveryRequestAssociatedDataToCbor(
   cbor::Value::MapValue ad_map;
 
   ad_map.emplace(kHsmAead, ConvertAeadPayloadToCborMap(args.hsm_payload));
-  ad_map.emplace(kEpochPublicKey, args.epoch_pub_key);
   ad_map.emplace(kRequestPayloadSalt, args.request_payload_salt);
 
   ad_map.emplace(kRequestMetaData,
@@ -293,6 +517,8 @@ bool SerializeHsmResponseAssociatedDataToCbor(
   ad_map.emplace(kResponseHsmMetaData,
                  ConvertHsmMetadataToCborMap(response_ad.hsm_meta_data));
   ad_map.emplace(kResponsePayloadSalt, response_ad.response_payload_salt);
+  ad_map.emplace(kLedgerSignedProof, ConvertLedgerSignedProofToCborMap(
+                                         response_ad.ledger_signed_proof));
 
   if (!SerializeCborMap(ad_map, response_ad_cbor)) {
     LOG(ERROR) << "Failed to serialize HSM Response Associated Data to CBOR";
@@ -332,16 +558,9 @@ bool SerializeRecoveryRequestPlainTextToCbor(
   return true;
 }
 
-bool SerializeRecoveryResponseToCbor(const RecoveryResponse& response,
-                                     brillo::SecureBlob* response_cbor) {
-  cbor::Value::MapValue response_map;
-
-  response_map.emplace(kResponseAead,
-                       ConvertAeadPayloadToCborMap(response.response_payload));
-  response_map.emplace(kResponseErrorCode, response.error_code);
-  response_map.emplace(kResponseErrorString, response.error_string);
-
-  if (!SerializeCborMap(response_map, response_cbor)) {
+bool SerializeResponsePayloadToCbor(const ResponsePayload& response,
+                                    brillo::SecureBlob* response_cbor) {
+  if (!SerializeCborMap(ConvertAeadPayloadToCborMap(response), response_cbor)) {
     LOG(ERROR) << "Failed to serialize Recovery Response to CBOR";
     return false;
   }
@@ -434,6 +653,26 @@ bool DeserializeHsmAssociatedDataFromCbor(
   }
 
   const cbor::Value::MapValue& response_map = cbor->GetMap();
+
+  const auto onboarding_meta_data_entry =
+      response_map.find(cbor::Value(kOnboardingMetaData));
+  if (onboarding_meta_data_entry == response_map.end()) {
+    LOG(ERROR) << "No " << kOnboardingMetaData
+               << " entry in the HSM associated data map.";
+    return false;
+  }
+  if (!onboarding_meta_data_entry->second.is_map()) {
+    LOG(ERROR) << "Wrongly formatted " << kOnboardingMetaData
+               << " entry in the HSM associated data map.";
+    return false;
+  }
+  if (!ConvertCborMapToOnboardingMetadata(
+          onboarding_meta_data_entry->second.GetMap(),
+          &hsm_associated_data->onboarding_meta_data)) {
+    LOG(ERROR) << "Failed to deserialize Onboarding metadata from CBOR.";
+    return false;
+  }
+
   brillo::SecureBlob publisher_pub_key;
   if (!FindBytestringValueInCborMap(response_map, kPublisherPublicKey,
                                     &publisher_pub_key)) {
@@ -609,66 +848,41 @@ bool DeserializeHsmResponseAssociatedDataFromCbor(
     return false;
   }
 
+  const auto ledger_signed_proof_entry =
+      response_map.find(cbor::Value(kLedgerSignedProof));
+  if (ledger_signed_proof_entry == response_map.end()) {
+    LOG(ERROR) << "No " << kLedgerSignedProof
+               << " entry in the HSM Response associated data map.";
+    return false;
+  }
+  if (!ledger_signed_proof_entry->second.is_map()) {
+    LOG(ERROR) << "Wrongly formatted " << kLedgerSignedProof
+               << " entry in the HSM Response associated data map.";
+    return false;
+  }
+  LedgerSignedProof ledger_signed_proof;
+  if (!ConvertCborMapToLedgerSignedProof(
+          ledger_signed_proof_entry->second.GetMap(), &ledger_signed_proof)) {
+    LOG(ERROR) << "Failed to deserialize Response payload from CBOR.";
+    return false;
+  }
+
   response_ad->response_payload_salt = std::move(response_payload_salt);
+  response_ad->ledger_signed_proof = std::move(ledger_signed_proof);
   return true;
 }
 
-bool DeserializeRecoveryResponseFromCbor(
-    const brillo::SecureBlob& response_cbor, RecoveryResponse* response) {
+bool DeserializeResponsePayloadFromCbor(const brillo::SecureBlob& response_cbor,
+                                        ResponsePayload* response) {
   const auto& cbor = ReadCborMap(response_cbor);
   if (!cbor) {
     return false;
   }
 
-  const cbor::Value::MapValue& response_map = cbor->GetMap();
-  const auto error_code_entry =
-      response_map.find(cbor::Value(kResponseErrorCode));
-  if (error_code_entry == response_map.end()) {
-    LOG(ERROR) << "No " << kResponseErrorCode
-               << " entry in the Recovery Response map.";
-    return false;
-  }
-  if (!error_code_entry->second.is_integer()) {
-    LOG(ERROR) << "Wrongly formatted " << kResponseErrorCode
-               << " entry in the Recovery Response map.";
-    return false;
-  }
-
-  const auto error_string_entry =
-      response_map.find(cbor::Value(kResponseErrorString));
-  if (error_string_entry == response_map.end()) {
-    LOG(ERROR) << "No " << kResponseErrorString
-               << " entry in the Recovery Response map.";
-    return false;
-  }
-  if (!error_string_entry->second.is_string()) {
-    LOG(ERROR) << "Wrongly formatted " << kResponseErrorString
-               << " entry in the Recovery Response map.";
-    return false;
-  }
-
-  const auto response_payload_entry =
-      response_map.find(cbor::Value(kResponseAead));
-  if (response_payload_entry == response_map.end()) {
-    LOG(ERROR) << "No " << kResponseAead
-               << " entry in the Recovery Response map.";
-    return false;
-  }
-  if (!response_payload_entry->second.is_map()) {
-    LOG(ERROR) << "Wrongly formatted " << kResponseAead
-               << " entry in the Recovery Response map.";
-    return false;
-  }
-  ResponsePayload response_payload;
-  if (!ConvertCborMapToAeadPayload(response_payload_entry->second.GetMap(),
-                                   &response_payload)) {
+  if (!ConvertCborMapToAeadPayload(cbor->GetMap(), response)) {
     LOG(ERROR) << "Failed to deserialize Response payload from CBOR.";
     return false;
   }
-
-  response->response_payload = std::move(response_payload);
-  response->error_code = error_code_entry->second.GetInteger();
-  response->error_string = error_string_entry->second.GetString();
   return true;
 }
 
@@ -695,7 +909,7 @@ bool GetValueFromCborMapByKeyForTesting(const brillo::SecureBlob& input_cbor,
   const cbor::Value::MapValue& map = cbor->GetMap();
   const auto entry = map.find(cbor::Value(map_key));
   if (entry == map.end()) {
-    LOG(ERROR) << "No `" + map_key + "` entry in the CBOR map.";
+    LOG(ERROR) << "No `" << map_key << "` entry in the CBOR map.";
     return false;
   }
 

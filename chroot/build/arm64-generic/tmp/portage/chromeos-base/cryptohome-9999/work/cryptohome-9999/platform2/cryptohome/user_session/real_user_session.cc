@@ -11,6 +11,7 @@
 
 #include <base/logging.h>
 #include <base/memory/ref_counted.h>
+#include <base/notreached.h>
 #include <base/values.h>
 #include <brillo/cryptohome.h>
 #include <cryptohome/scrypt_verifier.h>
@@ -50,23 +51,30 @@ constexpr char kWebAuthnSecretHmacMessage[] = "AuthTimeWebAuthnSecret";
 constexpr char kHibernateSecretHmacMessage[] = "AuthTimeHibernateSecret";
 
 RealUserSession::RealUserSession() {}
-RealUserSession::~RealUserSession() {}
+
 RealUserSession::RealUserSession(
+    const std::string& username,
     HomeDirs* homedirs,
     KeysetManagement* keyset_management,
     UserOldestActivityTimestampManager* user_activity_timestamp_manager,
     Pkcs11TokenFactory* pkcs11_token_factory,
     const scoped_refptr<Mount> mount)
-    : homedirs_(homedirs),
+    : username_(username),
+      obfuscated_username_(SanitizeUserName(username_)),
+      homedirs_(homedirs),
       keyset_management_(keyset_management),
       user_activity_timestamp_manager_(user_activity_timestamp_manager),
       pkcs11_token_factory_(pkcs11_token_factory),
       mount_(mount) {}
 
 MountStatus RealUserSession::MountVault(
-    const std::string username,
+    const std::string& username,
     const FileSystemKeyset& fs_keyset,
     const CryptohomeVault::Options& vault_options) {
+  if (username_ != username) {
+    NOTREACHED() << "MountVault username mismatch.";
+  }
+
   StorageStatus status =
       mount_->MountCryptohome(username, fs_keyset, vault_options);
   if (!status.ok()) {
@@ -77,7 +85,6 @@ MountStatus RealUserSession::MountVault(
         status->error());
   }
 
-  obfuscated_username_ = SanitizeUserName(username);
   user_activity_timestamp_manager_->UpdateTimestamp(obfuscated_username_,
                                                     base::TimeDelta());
   pkcs11_token_ = pkcs11_token_factory_->New(
@@ -91,7 +98,11 @@ MountStatus RealUserSession::MountVault(
   return OkStatus<CryptohomeMountError>();
 }
 
-MountStatus RealUserSession::MountEphemeral(const std::string username) {
+MountStatus RealUserSession::MountEphemeral(const std::string& username) {
+  if (username_ != username) {
+    NOTREACHED() << "MountEphemeral username mismatch.";
+  }
+
   if (homedirs_->IsOrWillBeOwner(username)) {
     return MakeStatus<CryptohomeMountError>(
         CRYPTOHOME_ERR_LOC(kLocUserSessionOwnerNotSupportedInMountEphemeral),
@@ -115,6 +126,10 @@ MountStatus RealUserSession::MountEphemeral(const std::string username) {
 }
 
 MountStatus RealUserSession::MountGuest() {
+  if (username_ != kGuestUserName) {
+    NOTREACHED() << "MountGuest username mismatch.";
+  }
+
   StorageStatus status = mount_->MountEphemeralCryptohome(kGuestUserName);
   if (status.ok()) {
     return OkStatus<CryptohomeMountError>();
@@ -244,18 +259,26 @@ std::unique_ptr<brillo::SecureBlob> RealUserSession::GetHibernateSecret() {
   return std::move(hibernate_secret_);
 }
 
-bool RealUserSession::SetCredentials(const Credentials& credentials) {
-  obfuscated_username_ = credentials.GetObfuscatedUsername();
-  username_ = credentials.username();
+void RealUserSession::SetCredentials(const Credentials& credentials) {
+  if (obfuscated_username_ != credentials.GetObfuscatedUsername()) {
+    NOTREACHED() << "SetCredentials username mismatch.";
+    return;
+  }
+
   key_data_ = credentials.key_data();
 
-  credential_verifier_.reset(new ScryptVerifier());
-  return credential_verifier_->Set(credentials.passkey());
+  credential_verifier_.reset(new ScryptVerifier(key_data_.label()));
+  if (!credential_verifier_->Set(credentials.passkey())) {
+    LOG(WARNING) << "CredentialVerifier could not be set";
+  }
 }
 
 void RealUserSession::SetCredentials(AuthSession* auth_session) {
-  username_ = auth_session->username();
-  obfuscated_username_ = SanitizeUserName(username_);
+  if (obfuscated_username_ != auth_session->obfuscated_username()) {
+    NOTREACHED() << "SetCredentials auth session username mismatch.";
+    return;
+  }
+
   key_data_ = auth_session->current_key_data();
   credential_verifier_ = auth_session->TakeCredentialVerifier();
 }
@@ -276,11 +299,11 @@ bool RealUserSession::VerifyCredentials(const Credentials& credentials) const {
   if (!VerifyUser(credentials.GetObfuscatedUsername())) {
     return false;
   }
-  // If the incoming credentials have no label, then just
-  // test the secret.  If it is labeled, then the label must
-  // match.
+  // If the incoming credentials have no label, then just test the secret. If it
+  // is labeled, then the label must match.
   if (!credentials.key_data().label().empty() &&
-      credentials.key_data().label() != key_data_.label()) {
+      credentials.key_data().label() !=
+          credential_verifier_->auth_factor_label()) {
     return false;
   }
 
@@ -289,6 +312,20 @@ bool RealUserSession::VerifyCredentials(const Credentials& credentials) const {
   ReportTimerStop(kSessionUnlockTimer);
 
   return status;
+}
+
+void RealUserSession::RemoveCredentialVerifierForKeyLabel(
+    const std::string& key_label) {
+  if (!credential_verifier_) {
+    return;
+  }
+
+  // If the credential to remove has the same label as the current credential
+  // verifier, then we reset the credential verifier and remove KeyData.
+  if (key_label == credential_verifier_->auth_factor_label()) {
+    credential_verifier_.reset();
+    key_data_ = KeyData();
+  }
 }
 
 }  // namespace cryptohome

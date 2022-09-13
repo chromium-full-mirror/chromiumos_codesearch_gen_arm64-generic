@@ -42,9 +42,6 @@ namespace mojom = chromeos::cros_healthd::mojom;
 namespace network_config_mojom = chromeos::network_config::mojom;
 namespace network_health_mojom = chromeos::network_health::mojom;
 
-// Value printed for optional fields when they aren't populated.
-constexpr char kNotApplicableString[] = "N/A";
-
 constexpr std::pair<const char*, mojom::ProbeCategoryEnum> kCategorySwitches[] =
     {
         {"battery", mojom::ProbeCategoryEnum::kBattery},
@@ -57,7 +54,6 @@ constexpr std::pair<const char*, mojom::ProbeCategoryEnum> kCategorySwitches[] =
         {"stateful_partition", mojom::ProbeCategoryEnum::kStatefulPartition},
         {"bluetooth", mojom::ProbeCategoryEnum::kBluetooth},
         {"system", mojom::ProbeCategoryEnum::kSystem},
-        {"system2", mojom::ProbeCategoryEnum::kSystem2},
         {"network", mojom::ProbeCategoryEnum::kNetwork},
         {"audio", mojom::ProbeCategoryEnum::kAudio},
         {"boot_performance", mojom::ProbeCategoryEnum::kBootPerformance},
@@ -67,6 +63,8 @@ constexpr std::pair<const char*, mojom::ProbeCategoryEnum> kCategorySwitches[] =
         {"graphics", mojom::ProbeCategoryEnum::kGraphics},
         {"display", mojom::ProbeCategoryEnum::kDisplay},
         {"input", mojom::ProbeCategoryEnum::kInput},
+        {"audio_hardware", mojom::ProbeCategoryEnum::kAudioHardware},
+        {"sensor", mojom::ProbeCategoryEnum::kSensor},
 };
 
 std::string EnumToString(mojom::ProcessState state) {
@@ -87,6 +85,8 @@ std::string EnumToString(mojom::ProcessState state) {
       return "Tracing Stop";
     case mojom::ProcessState::kDead:
       return "Dead";
+    case mojom::ProcessState::kIdle:
+      return "Idle";
   }
 }
 
@@ -185,7 +185,7 @@ std::string EnumToString(mojom::EncryptionState encryption_state) {
       return "TME enabled";
     case mojom::EncryptionState::kMktmeEnabled:
       return "MKTME enabled";
-    default:
+    case mojom::EncryptionState::kUnknown:
       return "Unknown state";
   }
 }
@@ -196,7 +196,7 @@ std::string EnumToString(mojom::CryptoAlgorithm algorithm) {
       return "AES-XTS-128";
     case mojom::CryptoAlgorithm::kAesXts256:
       return "AES-XTS-256";
-    default:
+    case mojom::CryptoAlgorithm::kUnknown:
       return "Invalid Algorithm";
   }
 }
@@ -215,6 +215,8 @@ std::string EnumToString(mojom::BusDeviceClass device_class) {
       return "bluetooth controller";
     case mojom::BusDeviceClass::kThunderboltController:
       return "thunderbolt controller";
+    case mojom::BusDeviceClass::kAudioCard:
+      return "audio card";
   }
 }
 
@@ -304,7 +306,9 @@ std::optional<std::string> EnumToString(mojom::BluetoothDeviceType type) {
       return "LE";
     case mojom::BluetoothDeviceType::kDual:
       return "DUAL";
-    default:
+    case mojom::BluetoothDeviceType::kUnfound:
+      return std::nullopt;
+    case mojom::BluetoothDeviceType::kUnmappedEnumField:
       return std::nullopt;
   }
 }
@@ -375,7 +379,7 @@ std::optional<std::string> EnumToString(mojom::DisplayInputType type) {
       return "Digital";
     case mojom::DisplayInputType::kAnalog:
       return "Analog";
-    default:
+    case mojom::DisplayInputType::kUnmappedEnumField:
       return std::nullopt;
   }
 }
@@ -438,27 +442,6 @@ void SetJsonDictValue(const std::string& key,
   }
 }
 
-void OutputCSVLine(const std::vector<std::string>& datas,
-                   const std::string separator = ",") {
-  bool is_first = true;
-  for (const auto& data : datas) {
-    if (!is_first) {
-      std::cout << separator;
-    }
-    is_first = false;
-    std::cout << data;
-  }
-  std::cout << std::endl;
-}
-
-void OutputCSV(const std::vector<std::string>& headers,
-               const std::vector<std::vector<std::string>>& values) {
-  OutputCSVLine(headers);
-  for (const auto& value : values) {
-    OutputCSVLine(value);
-  }
-}
-
 void OutputJson(const base::Value& output) {
   std::string json;
   base::JSONWriter::WriteWithOptions(
@@ -492,13 +475,18 @@ void DisplayProcessInfo(const mojom::ProcessResultPtr& result) {
   SET_DICT(cancelled_bytes_written, info, &output);
   SET_DICT(command, info, &output);
   SET_DICT(free_memory_kib, info, &output);
+  SET_DICT(name, info, &output);
   SET_DICT(nice, info, &output);
+  SET_DICT(parent_process_id, info, &output);
+  SET_DICT(process_group_id, info, &output);
+  SET_DICT(process_id, info, &output);
   SET_DICT(physical_bytes_read, info, &output);
   SET_DICT(physical_bytes_written, info, &output);
   SET_DICT(priority, info, &output);
   SET_DICT(read_system_calls, info, &output);
   SET_DICT(resident_memory_kib, info, &output);
   SET_DICT(state, info, &output);
+  SET_DICT(threads, info, &output);
   SET_DICT(total_memory_kib, info, &output);
   SET_DICT(uptime_ticks, info, &output);
   SET_DICT(user_id, info, &output);
@@ -913,7 +901,7 @@ void DisplayNetworkInterfaceInfo(
   for (const auto& network_interface : infos) {
     base::Value out_network_interface{base::Value::Type::DICTIONARY};
     switch (network_interface->which()) {
-      case mojom::NetworkInterfaceInfo::Tag::WIRELESS_INTERFACE_INFO: {
+      case mojom::NetworkInterfaceInfo::Tag::kWirelessInterfaceInfo: {
         const auto& wireless_interface =
             network_interface->get_wireless_interface_info();
         auto* out_wireless_interface = out_network_interface.SetKey(
@@ -1035,50 +1023,6 @@ void DisplaySystemInfo(const mojom::SystemResultPtr& system_result) {
     return;
   }
   const auto& system_info = system_result->get_system_info();
-  const std::vector<std::string> headers = {
-      "first_power_date",   "manufacture_date",
-      "product_sku_number", "product_serial_number",
-      "marketing_name",     "bios_version",
-      "board_name",         "board_version",
-      "chassis_type",       "product_name",
-      "os_version",         "os_channel"};
-  std::string chassis_type =
-      !system_info->chassis_type.is_null()
-          ? std::to_string(system_info->chassis_type->value)
-          : kNotApplicableString;
-  std::string os_version =
-      base::JoinString({system_info->os_version->release_milestone,
-                        system_info->os_version->build_number,
-                        system_info->os_version->patch_number},
-                       ".");
-
-  // The marketing name sometimes has a comma, for example:
-  // "Acer Chromebook Spin 11 (CP311-H1, CP311-1HN)"
-  // This messes up the tast logic, which splits on commas. To fix it, we
-  // replace any ", " patterns found with "/".
-  std::string marketing_name = system_info->marketing_name;
-  base::ReplaceSubstringsAfterOffset(&marketing_name, 0, ", ", "/");
-
-  const std::vector<std::vector<std::string>> values = {
-      {system_info->first_power_date.value_or(kNotApplicableString),
-       system_info->manufacture_date.value_or(kNotApplicableString),
-       system_info->product_sku_number.value_or(kNotApplicableString),
-       system_info->product_serial_number.value_or(kNotApplicableString),
-       marketing_name, system_info->bios_version.value_or(kNotApplicableString),
-       system_info->board_name.value_or(kNotApplicableString),
-       system_info->board_version.value_or(kNotApplicableString), chassis_type,
-       system_info->product_name.value_or(kNotApplicableString), os_version,
-       system_info->os_version->release_channel}};
-
-  OutputCSV(headers, values);
-}
-
-void DisplaySystemInfoV2(const mojom::SystemResultV2Ptr& system_result) {
-  if (system_result->is_error()) {
-    DisplayError(system_result->get_error());
-    return;
-  }
-  const auto& system_info = system_result->get_system_info_v2();
   base::Value output{base::Value::Type::DICTIONARY};
 
   const auto& os_info = system_info->os_info;
@@ -1129,6 +1073,96 @@ void DisplaySystemInfoV2(const mojom::SystemResultV2Ptr& system_result) {
   OutputJson(output);
 }
 
+base::Value GetBusDeviceJson(const mojom::BusDevicePtr& device) {
+  base::Value out_device{base::Value::Type::DICTIONARY};
+  SET_DICT(vendor_name, device, &out_device);
+  SET_DICT(product_name, device, &out_device);
+  SET_DICT(device_class, device, &out_device);
+  auto* out_bus_info =
+      out_device.SetKey("bus_info", base::Value{base::Value::Type::DICTIONARY});
+  switch (device->bus_info->which()) {
+    case mojom::BusInfo::Tag::kPciBusInfo: {
+      auto* out_pci_info = out_bus_info->SetKey(
+          "pci_bus_info", base::Value{base::Value::Type::DICTIONARY});
+      const auto& pci_info = device->bus_info->get_pci_bus_info();
+      SET_DICT(class_id, pci_info, out_pci_info);
+      SET_DICT(subclass_id, pci_info, out_pci_info);
+      SET_DICT(prog_if_id, pci_info, out_pci_info);
+      SET_DICT(vendor_id, pci_info, out_pci_info);
+      SET_DICT(device_id, pci_info, out_pci_info);
+      SET_DICT(driver, pci_info, out_pci_info);
+      break;
+    }
+    case mojom::BusInfo::Tag::kUsbBusInfo: {
+      const auto& usb_info = device->bus_info->get_usb_bus_info();
+      auto* out_usb_info = out_bus_info->SetKey(
+          "usb_bus_info", base::Value{base::Value::Type::DICTIONARY});
+      SET_DICT(class_id, usb_info, out_usb_info);
+      SET_DICT(subclass_id, usb_info, out_usb_info);
+      SET_DICT(protocol_id, usb_info, out_usb_info);
+      SET_DICT(vendor_id, usb_info, out_usb_info);
+      SET_DICT(product_id, usb_info, out_usb_info);
+      auto* out_usb_ifs = out_usb_info->SetKey(
+          "interfaces", base::Value{base::Value::Type::LIST});
+      for (const auto& usb_if_info : usb_info->interfaces) {
+        base::Value out_usb_if{base::Value::Type::DICTIONARY};
+        SET_DICT(interface_number, usb_if_info, &out_usb_if);
+        SET_DICT(class_id, usb_if_info, &out_usb_if);
+        SET_DICT(subclass_id, usb_if_info, &out_usb_if);
+        SET_DICT(protocol_id, usb_if_info, &out_usb_if);
+        SET_DICT(driver, usb_if_info, &out_usb_if);
+        out_usb_ifs->Append(std::move(out_usb_if));
+      }
+      if (usb_info->fwupd_firmware_version_info) {
+        auto* out_usb_firmware =
+            out_usb_info->SetKey("fwupd_firmware_version_info",
+                                 base::Value{base::Value::Type::DICTIONARY});
+        SET_DICT(version, usb_info->fwupd_firmware_version_info,
+                 out_usb_firmware);
+        SET_DICT(version_format, usb_info->fwupd_firmware_version_info,
+                 out_usb_firmware);
+      }
+      break;
+    }
+    case mojom::BusInfo::Tag::kThunderboltBusInfo: {
+      const auto& thunderbolt_info =
+          device->bus_info->get_thunderbolt_bus_info();
+      auto* out_thunderbolt_info = out_bus_info->SetKey(
+          "thunderbolt_bus_info", base::Value{base::Value::Type::DICTIONARY});
+      SET_DICT(security_level, thunderbolt_info, out_thunderbolt_info);
+      auto* out_thunderbolt_interfaces = out_thunderbolt_info->SetKey(
+          "thunderbolt_interfaces", base::Value{base::Value::Type::LIST});
+      for (const auto& thunderbolt_interface :
+           thunderbolt_info->thunderbolt_interfaces) {
+        base::Value out_thunderbolt_interface{base::Value::Type::DICTIONARY};
+        SET_DICT(vendor_name, thunderbolt_interface,
+                 &out_thunderbolt_interface);
+        SET_DICT(device_name, thunderbolt_interface,
+                 &out_thunderbolt_interface);
+        SET_DICT(device_type, thunderbolt_interface,
+                 &out_thunderbolt_interface);
+        SET_DICT(device_uuid, thunderbolt_interface,
+                 &out_thunderbolt_interface);
+        SET_DICT(tx_speed_gbs, thunderbolt_interface,
+                 &out_thunderbolt_interface);
+        SET_DICT(rx_speed_gbs, thunderbolt_interface,
+                 &out_thunderbolt_interface);
+        SET_DICT(authorized, thunderbolt_interface, &out_thunderbolt_interface);
+        SET_DICT(device_fw_version, thunderbolt_interface,
+                 &out_thunderbolt_interface);
+        out_thunderbolt_interfaces->Append(
+            std::move(out_thunderbolt_interface));
+      }
+      break;
+    }
+    case mojom::BusInfo::Tag::kUnmappedField: {
+      NOTREACHED();
+      break;
+    }
+  }
+  return out_device;
+}
+
 void DisplayBusDevices(const mojom::BusResultPtr& bus_result) {
   if (bus_result->is_error()) {
     DisplayError(bus_result->get_error());
@@ -1141,90 +1175,7 @@ void DisplayBusDevices(const mojom::BusResultPtr& bus_result) {
   auto* out_devices =
       output.SetKey("devices", base::Value{base::Value::Type::LIST});
   for (const auto& device : devices) {
-    base::Value out_device{base::Value::Type::DICTIONARY};
-    SET_DICT(vendor_name, device, &out_device);
-    SET_DICT(product_name, device, &out_device);
-    SET_DICT(device_class, device, &out_device);
-    auto* out_bus_info = out_device.SetKey(
-        "bus_info", base::Value{base::Value::Type::DICTIONARY});
-    switch (device->bus_info->which()) {
-      case mojom::BusInfo::Tag::PCI_BUS_INFO: {
-        auto* out_pci_info = out_bus_info->SetKey(
-            "pci_bus_info", base::Value{base::Value::Type::DICTIONARY});
-        const auto& pci_info = device->bus_info->get_pci_bus_info();
-        SET_DICT(class_id, pci_info, out_pci_info);
-        SET_DICT(subclass_id, pci_info, out_pci_info);
-        SET_DICT(prog_if_id, pci_info, out_pci_info);
-        SET_DICT(vendor_id, pci_info, out_pci_info);
-        SET_DICT(device_id, pci_info, out_pci_info);
-        SET_DICT(driver, pci_info, out_pci_info);
-        break;
-      }
-      case mojom::BusInfo::Tag::USB_BUS_INFO: {
-        const auto& usb_info = device->bus_info->get_usb_bus_info();
-        auto* out_usb_info = out_bus_info->SetKey(
-            "usb_bus_info", base::Value{base::Value::Type::DICTIONARY});
-        SET_DICT(class_id, usb_info, out_usb_info);
-        SET_DICT(subclass_id, usb_info, out_usb_info);
-        SET_DICT(protocol_id, usb_info, out_usb_info);
-        SET_DICT(vendor_id, usb_info, out_usb_info);
-        SET_DICT(product_id, usb_info, out_usb_info);
-        auto* out_usb_ifs = out_usb_info->SetKey(
-            "interfaces", base::Value{base::Value::Type::LIST});
-        for (const auto& usb_if_info : usb_info->interfaces) {
-          base::Value out_usb_if{base::Value::Type::DICTIONARY};
-          SET_DICT(interface_number, usb_if_info, &out_usb_if);
-          SET_DICT(class_id, usb_if_info, &out_usb_if);
-          SET_DICT(subclass_id, usb_if_info, &out_usb_if);
-          SET_DICT(protocol_id, usb_if_info, &out_usb_if);
-          SET_DICT(driver, usb_if_info, &out_usb_if);
-          out_usb_ifs->Append(std::move(out_usb_if));
-        }
-        if (usb_info->fwupd_firmware_version_info) {
-          auto* out_usb_firmware =
-              out_usb_info->SetKey("fwupd_firmware_version_info",
-                                   base::Value{base::Value::Type::DICTIONARY});
-          SET_DICT(version, usb_info->fwupd_firmware_version_info,
-                   out_usb_firmware);
-          SET_DICT(version_format, usb_info->fwupd_firmware_version_info,
-                   out_usb_firmware);
-        }
-        break;
-      }
-      case mojom::BusInfo::Tag::THUNDERBOLT_BUS_INFO: {
-        const auto& thunderbolt_info =
-            device->bus_info->get_thunderbolt_bus_info();
-        auto* out_thunderbolt_info = out_bus_info->SetKey(
-            "thunderbolt_bus_info", base::Value{base::Value::Type::DICTIONARY});
-        SET_DICT(security_level, thunderbolt_info, out_thunderbolt_info);
-        auto* out_thunderbolt_interfaces = out_thunderbolt_info->SetKey(
-            "thunderbolt_interfaces", base::Value{base::Value::Type::LIST});
-        for (const auto& thunderbolt_interface :
-             thunderbolt_info->thunderbolt_interfaces) {
-          base::Value out_thunderbolt_interface{base::Value::Type::DICTIONARY};
-          SET_DICT(vendor_name, thunderbolt_interface,
-                   &out_thunderbolt_interface);
-          SET_DICT(device_name, thunderbolt_interface,
-                   &out_thunderbolt_interface);
-          SET_DICT(device_type, thunderbolt_interface,
-                   &out_thunderbolt_interface);
-          SET_DICT(device_uuid, thunderbolt_interface,
-                   &out_thunderbolt_interface);
-          SET_DICT(tx_speed_gbs, thunderbolt_interface,
-                   &out_thunderbolt_interface);
-          SET_DICT(rx_speed_gbs, thunderbolt_interface,
-                   &out_thunderbolt_interface);
-          SET_DICT(authorized, thunderbolt_interface,
-                   &out_thunderbolt_interface);
-          SET_DICT(device_fw_version, thunderbolt_interface,
-                   &out_thunderbolt_interface);
-          out_thunderbolt_interfaces->Append(
-              std::move(out_thunderbolt_interface));
-        }
-        break;
-      }
-    }
-    out_devices->Append(std::move(out_device));
+    out_devices->Append(GetBusDeviceJson(device));
   }
 
   OutputJson(output);
@@ -1351,6 +1302,60 @@ void DisplayInputInfo(const mojom::InputResultPtr& input_result) {
   OutputJson(output);
 }
 
+void DisplayAudioHardwareInfo(const mojom::AudioHardwareResultPtr& result) {
+  if (result->is_error()) {
+    DisplayError(result->get_error());
+    return;
+  }
+
+  base::Value output{base::Value::Type::DICTIONARY};
+  const auto& info = result->get_audio_hardware_info();
+  CHECK(!info.is_null());
+
+  const auto& audio_cards = info->audio_cards;
+  auto* out_audio_cards =
+      output.SetKey("audio_cards", base::Value{base::Value::Type::LIST});
+  for (const auto& audio_card : audio_cards) {
+    base::Value out_audio_card{base::Value::Type::DICTIONARY};
+    SET_DICT(alsa_id, audio_card, &out_audio_card);
+
+    if (audio_card->bus_device) {
+      out_audio_card.SetKey("bus_device",
+                            GetBusDeviceJson(audio_card->bus_device));
+    }
+
+    const auto& hd_audio_codecs = audio_card->hd_audio_codecs;
+    auto* out_hd_audio_codecs = out_audio_card.SetKey(
+        "hd_audio_codecs", base::Value{base::Value::Type::LIST});
+    for (const auto& hd_audio_codec : hd_audio_codecs) {
+      base::Value out_hd_audio_codec{base::Value::Type::DICTIONARY};
+      SET_DICT(name, hd_audio_codec, &out_hd_audio_codec);
+      SET_DICT(address, hd_audio_codec, &out_hd_audio_codec);
+
+      out_hd_audio_codecs->Append(std::move(out_hd_audio_codec));
+    }
+
+    out_audio_cards->Append(std::move(out_audio_card));
+  }
+
+  OutputJson(output);
+}
+
+void DisplaySensorInfo(const mojom::SensorResultPtr& result) {
+  if (result->is_error()) {
+    DisplayError(result->get_error());
+    return;
+  }
+
+  base::Value output{base::Value::Type::DICTIONARY};
+  const auto& info = result->get_sensor_info();
+  CHECK(!info.is_null());
+
+  SET_DICT(lid_angle, info, &output);
+
+  OutputJson(output);
+}
+
 // Displays the retrieved telemetry information to the console.
 void DisplayTelemetryInfo(const mojom::TelemetryInfoPtr& info) {
   const auto& battery_result = info->battery_result;
@@ -1389,10 +1394,6 @@ void DisplayTelemetryInfo(const mojom::TelemetryInfoPtr& info) {
   if (bluetooth_result)
     DisplayBluetoothInfo(bluetooth_result);
 
-  const auto& system_result = info->system_result;
-  if (system_result)
-    DisplaySystemInfo(system_result);
-
   const auto& network_result = info->network_result;
   if (network_result)
     DisplayNetworkInfo(network_result);
@@ -1417,10 +1418,9 @@ void DisplayTelemetryInfo(const mojom::TelemetryInfoPtr& info) {
   if (tpm_result)
     DisplayTpmInfo(tpm_result);
 
-  const auto& system_result_v2 = info->system_result_v2;
-  // TODO(b/190459636): Remove |!system_result| after migration.
-  if (!system_result && system_result_v2)
-    DisplaySystemInfoV2(system_result_v2);
+  const auto& system_result = info->system_result;
+  if (system_result)
+    DisplaySystemInfo(system_result);
 
   const auto& graphics_result = info->graphics_result;
   if (graphics_result)
@@ -1433,6 +1433,14 @@ void DisplayTelemetryInfo(const mojom::TelemetryInfoPtr& info) {
   const auto& input_result = info->input_result;
   if (input_result)
     DisplayInputInfo(input_result);
+
+  const auto& audio_hardware_result = info->audio_hardware_result;
+  if (audio_hardware_result)
+    DisplayAudioHardwareInfo(audio_hardware_result);
+
+  const auto& sensor_result = info->sensor_result;
+  if (sensor_result)
+    DisplaySensorInfo(sensor_result);
 }
 
 // Create a stringified list of the category names for use in help.

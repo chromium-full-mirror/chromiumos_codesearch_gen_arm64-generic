@@ -18,8 +18,8 @@
 #include "base/hash/md5_constexpr.h"
 #include "base/run_loop.h"
 #include "base/strings/string_number_conversions.h"
-#include "base/task/common/task_annotator.h"
-#include "base/trace_event/base_tracing.h"
+#include "base/trace_event/trace_event.h"
+#include "base/trace_event/typed_macros.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
 #include "mojo/public/cpp/bindings/lib/send_message_helper.h"
@@ -30,6 +30,7 @@
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
+#include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
 #include "ml/mojom/tensor.mojom-params-data.h"
 #include "ml/mojom/tensor.mojom-shared-message-ids.h"
@@ -57,9 +58,9 @@ StringList::StringList(
 StringList::~StringList() = default;
 
 void StringList::WriteIntoTrace(
-    perfetto::libchrome::TracedValue traced_context) const {
-  auto dict = std::move(traced_context).WriteDictionary();
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "value"), this->value,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -85,9 +86,9 @@ FloatList::FloatList(
 FloatList::~FloatList() = default;
 
 void FloatList::WriteIntoTrace(
-    perfetto::libchrome::TracedValue traced_context) const {
-  auto dict = std::move(traced_context).WriteDictionary();
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "value"), this->value,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -113,9 +114,9 @@ Int64List::Int64List(
 Int64List::~Int64List() = default;
 
 void Int64List::WriteIntoTrace(
-    perfetto::libchrome::TracedValue traced_context) const {
-  auto dict = std::move(traced_context).WriteDictionary();
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "value"), this->value,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -144,9 +145,9 @@ Tensor::Tensor(
 Tensor::~Tensor() = default;
 
 void Tensor::WriteIntoTrace(
-    perfetto::libchrome::TracedValue traced_context) const {
-  auto dict = std::move(traced_context).WriteDictionary();
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "data"), this->data,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -155,7 +156,7 @@ void Tensor::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "shape"), this->shape,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -171,7 +172,7 @@ bool Tensor::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
-ValueList::ValueList() : tag_(Tag::STRING_LIST) {
+ValueList::ValueList() : tag_(Tag::kStringList) {
   data_.string_list = new StringListPtr;
 }
 
@@ -182,33 +183,33 @@ ValueList::~ValueList() {
 
 void ValueList::set_string_list(
     StringListPtr string_list) {
-  if (tag_ == Tag::STRING_LIST) {
+  if (tag_ == Tag::kStringList) {
     *(data_.string_list) = std::move(string_list);
   } else {
     DestroyActive();
-    tag_ = Tag::STRING_LIST;
+    tag_ = Tag::kStringList;
     data_.string_list = new StringListPtr(
         std::move(string_list));
   }
 }
 void ValueList::set_float_list(
     FloatListPtr float_list) {
-  if (tag_ == Tag::FLOAT_LIST) {
+  if (tag_ == Tag::kFloatList) {
     *(data_.float_list) = std::move(float_list);
   } else {
     DestroyActive();
-    tag_ = Tag::FLOAT_LIST;
+    tag_ = Tag::kFloatList;
     data_.float_list = new FloatListPtr(
         std::move(float_list));
   }
 }
 void ValueList::set_int64_list(
     Int64ListPtr int64_list) {
-  if (tag_ == Tag::INT64_LIST) {
+  if (tag_ == Tag::kInt64List) {
     *(data_.int64_list) = std::move(int64_list);
   } else {
     DestroyActive();
-    tag_ = Tag::INT64_LIST;
+    tag_ = Tag::kInt64List;
     data_.int64_list = new Int64ListPtr(
         std::move(int64_list));
   }
@@ -217,15 +218,15 @@ void ValueList::set_int64_list(
 void ValueList::DestroyActive() {
   switch (tag_) {
 
-    case Tag::STRING_LIST:
+    case Tag::kStringList:
 
       delete data_.string_list;
       break;
-    case Tag::FLOAT_LIST:
+    case Tag::kFloatList:
 
       delete data_.float_list;
       break;
-    case Tag::INT64_LIST:
+    case Tag::kInt64List:
 
       delete data_.int64_list;
       break;
@@ -312,7 +313,7 @@ bool UnionTraits<::chromeos::machine_learning::mojom::ValueList::DataView, ::chr
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
-    case Tag::STRING_LIST: {
+    case Tag::kStringList: {
       ::chromeos::machine_learning::mojom::StringListPtr result_string_list;
       if (!input.ReadStringList(&result_string_list))
         return false;
@@ -321,7 +322,7 @@ bool UnionTraits<::chromeos::machine_learning::mojom::ValueList::DataView, ::chr
           std::move(result_string_list));
       break;
     }
-    case Tag::FLOAT_LIST: {
+    case Tag::kFloatList: {
       ::chromeos::machine_learning::mojom::FloatListPtr result_float_list;
       if (!input.ReadFloatList(&result_float_list))
         return false;
@@ -330,7 +331,7 @@ bool UnionTraits<::chromeos::machine_learning::mojom::ValueList::DataView, ::chr
           std::move(result_float_list));
       break;
     }
-    case Tag::INT64_LIST: {
+    case Tag::kInt64List: {
       ::chromeos::machine_learning::mojom::Int64ListPtr result_int64_list;
       if (!input.ReadInt64List(&result_int64_list))
         return false;

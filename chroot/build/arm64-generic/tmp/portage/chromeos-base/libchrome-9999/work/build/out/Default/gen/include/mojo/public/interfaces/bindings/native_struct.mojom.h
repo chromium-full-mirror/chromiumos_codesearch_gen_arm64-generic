@@ -21,17 +21,13 @@
 #include "mojo/public/cpp/bindings/struct_traits.h"
 #include "mojo/public/cpp/bindings/union_traits.h"
 
-#include "base/trace_event/base_tracing.h"
+#include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
 #include "mojo/public/interfaces/bindings/native_struct.mojom-shared.h"
 #include "mojo/public/interfaces/bindings/native_struct.mojom-forward.h"
 #include <string>
 #include <vector>
 
-#include "mojo/public/cpp/bindings/associated_interface_ptr_info.h"
-#include "mojo/public/cpp/bindings/associated_interface_request.h"
-#include "mojo/public/cpp/bindings/interface_ptr.h"
-#include "mojo/public/cpp/bindings/interface_request.h"
 #include "mojo/public/cpp/bindings/lib/control_message_handler.h"
 #include "mojo/public/cpp/bindings/raw_ptr_impl_ref_traits.h"
 
@@ -61,7 +57,7 @@ class  SerializedHandle {
   template <typename... Args>
   static SerializedHandlePtr New(Args&&... args) {
     return SerializedHandlePtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -156,7 +152,7 @@ SerializedHandle& operator=(const SerializedHandle&) = delete;
   SerializedHandleType type;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto::libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -198,7 +194,7 @@ class  NativeStruct {
   template <typename... Args>
   static NativeStructPtr New(Args&&... args) {
     return NativeStructPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -293,7 +289,7 @@ NativeStruct& operator=(const NativeStruct&) = delete;
   absl::optional<std::vector<SerializedHandlePtr>> handles;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto::libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,

@@ -6,6 +6,8 @@
 #define LIBMEMS_COMMON_TYPES_H_
 
 #include <linux/iio/types.h>
+#include <optional>
+#include <string>
 #include <vector>
 
 #include "libmems/export.h"
@@ -34,6 +36,8 @@ constexpr char kFrequencyAttr[] = "frequency";
 constexpr char kSamplingFrequencyAttr[] = "sampling_frequency";
 constexpr char kHWFifoTimeoutAttr[] = "buffer/hwfifo_timeout";
 constexpr char kSamplingFrequencyAvailable[] = "sampling_frequency_available";
+constexpr char kLabelAttr[] = "label";
+constexpr char kLocationAttr[] = "location";
 
 constexpr double kFrequencyEpsilon = 0.001;  // Hz
 
@@ -54,6 +58,9 @@ constexpr char kBaroName[] = "baro";
 constexpr char kAccelUncalibName[] = "accel_uncalib";
 constexpr char kGyroUncalibName[] = "anglvel_uncalib";
 constexpr char kMagnUncalibName[] = "magn_uncalib";
+
+LIBMEMS_EXPORT std::optional<std::string> GetIioSarSensorDevlink(
+    const std::string& sys_path);
 
 }  // namespace libmems
 

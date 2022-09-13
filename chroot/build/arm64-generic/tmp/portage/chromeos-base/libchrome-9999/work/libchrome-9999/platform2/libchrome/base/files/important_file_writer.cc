@@ -16,7 +16,6 @@
 #include "base/callback_helpers.h"
 #include "base/check.h"
 #include "base/critical_closure.h"
-#include "base/cxx17_backports.h"
 #include "base/debug/alias.h"
 #include "base/files/file.h"
 #include "base/files/file_path.h"
@@ -24,6 +23,7 @@
 #include "base/files/important_file_writer_cleaner.h"
 #include "base/logging.h"
 #include "base/metrics/histogram_functions.h"
+#include "base/notreached.h"
 #include "base/numerics/safe_conversions.h"
 #include "base/strings/string_number_conversions.h"
 #include "base/strings/string_util.h"
@@ -147,6 +147,7 @@ bool ImportantFileWriter::WriteFileAtomicallyImpl(const FilePath& path,
                                                   StringPiece data,
                                                   StringPiece histogram_suffix,
                                                   bool from_instance) {
+  const TimeTicks write_start = TimeTicks::Now();
   if (!from_instance)
     ImportantFileWriterCleaner::AddDirectory(path.DirName());
 
@@ -155,7 +156,7 @@ bool ImportantFileWriter::WriteFileAtomicallyImpl(const FilePath& path,
   // hits a DCHECK because creation fails with no indication why. Pull the path
   // onto the stack so that we can see if it is malformed in some odd way.
   wchar_t path_copy[MAX_PATH];
-  base::wcslcpy(path_copy, path.value().c_str(), base::size(path_copy));
+  base::wcslcpy(path_copy, path.value().c_str(), std::size(path_copy));
   base::debug::Alias(path_copy);
 #endif  // BUILDFLAG(IS_WIN) && DCHECK_IS_ON()
 
@@ -169,7 +170,7 @@ bool ImportantFileWriter::WriteFileAtomicallyImpl(const FilePath& path,
     char path[128];
   } file_info;
   file_info.data_size = data.size();
-  strlcpy(file_info.path, path.value().c_str(), base::size(file_info.path));
+  strlcpy(file_info.path, path.value().c_str(), std::size(file_info.path));
   debug::Alias(&file_info);
 #endif
 
@@ -259,6 +260,10 @@ bool ImportantFileWriter::WriteFileAtomicallyImpl(const FilePath& path,
     DeleteTmpFileWithRetry(File(), tmp_file_path);
   }
 
+  const TimeDelta write_duration = TimeTicks::Now() - write_start;
+  UmaHistogramTimesWithSuffix("ImportantFile.WriteDuration", histogram_suffix,
+                              write_duration);
+
   return result;
 }
 
@@ -324,7 +329,8 @@ void ImportantFileWriter::WriteNowWithBackgroundDataProducer(
 
   if (!task_runner_->PostTask(
           FROM_HERE, MakeCriticalClosure("ImportantFileWriter::WriteNow",
-                                         std::move(split_task.first)))) {
+                                         std::move(split_task.first),
+                                         /*is_immediate=*/true))) {
     // Posting the task to background message loop is not expected
     // to fail, but if it does, avoid losing data and just hit the disk
     // on the current thread.

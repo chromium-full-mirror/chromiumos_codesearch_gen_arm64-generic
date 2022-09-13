@@ -138,9 +138,7 @@ class  TextSuggestionCandidate_Data {
   enum class TextSuggestionCandidate_Tag : uint32_t {
 
     
-    MULTI_WORD,
-    
-    kMultiWord = MULTI_WORD,
+    kMultiWord,
   };
 
   // A note on layout:

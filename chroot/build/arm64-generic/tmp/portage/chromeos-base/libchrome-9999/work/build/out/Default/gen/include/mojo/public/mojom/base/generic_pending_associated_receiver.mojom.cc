@@ -18,8 +18,8 @@
 #include "base/hash/md5_constexpr.h"
 #include "base/run_loop.h"
 #include "base/strings/string_number_conversions.h"
-#include "base/task/common/task_annotator.h"
-#include "base/trace_event/base_tracing.h"
+#include "base/trace_event/trace_event.h"
+#include "base/trace_event/typed_macros.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
 #include "mojo/public/cpp/bindings/lib/send_message_helper.h"
@@ -30,6 +30,7 @@
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
+#include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
 #include "mojo/public/mojom/base/generic_pending_associated_receiver.mojom-params-data.h"
 #include "mojo/public/mojom/base/generic_pending_associated_receiver.mojom-shared-message-ids.h"
@@ -59,9 +60,9 @@ GenericPendingAssociatedReceiver::GenericPendingAssociatedReceiver(
 GenericPendingAssociatedReceiver::~GenericPendingAssociatedReceiver() = default;
 
 void GenericPendingAssociatedReceiver::WriteIntoTrace(
-    perfetto::libchrome::TracedValue traced_context) const {
-  auto dict = std::move(traced_context).WriteDictionary();
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "interface_name"), this->interface_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -70,7 +71,7 @@ void GenericPendingAssociatedReceiver::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "receiver"), this->receiver,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -87,6 +88,24 @@ bool GenericPendingAssociatedReceiver::Validate(
   return Data_::Validate(data, validation_context);
 }
 const char GenericAssociatedInterface::Name_[] = "mojo_base.mojom.GenericAssociatedInterface";
+
+uint32_t GenericAssociatedInterface::MessageToStableIPCHash_(mojo::Message& message) {
+  return 0;
+}
+
+
+const char* GenericAssociatedInterface::MessageToMethodName_(mojo::Message& message) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  return "Receive unknown mojo message";
+#else
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (is_response) {
+    return "Receive mojo reply";
+  } else {
+    return "Receive mojo message";
+  }
+#endif // BUILDFLAG(MOJO_TRACE_ENABLED)
+}
 
 GenericAssociatedInterfaceProxy::GenericAssociatedInterfaceProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {

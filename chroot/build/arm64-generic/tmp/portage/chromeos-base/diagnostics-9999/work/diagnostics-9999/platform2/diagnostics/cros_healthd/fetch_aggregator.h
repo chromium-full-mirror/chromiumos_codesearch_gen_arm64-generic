@@ -7,12 +7,10 @@
 
 #include <vector>
 
-#include "diagnostics/cros_healthd/fetchers/audio_fetcher.h"
 #include "diagnostics/cros_healthd/fetchers/backlight_fetcher.h"
 #include "diagnostics/cros_healthd/fetchers/battery_fetcher.h"
 #include "diagnostics/cros_healthd/fetchers/bluetooth_fetcher.h"
 #include "diagnostics/cros_healthd/fetchers/boot_performance_fetcher.h"
-#include "diagnostics/cros_healthd/fetchers/bus_fetcher.h"
 #include "diagnostics/cros_healthd/fetchers/cpu_fetcher.h"
 #include "diagnostics/cros_healthd/fetchers/disk_fetcher.h"
 #include "diagnostics/cros_healthd/fetchers/display_fetcher.h"
@@ -22,6 +20,7 @@
 #include "diagnostics/cros_healthd/fetchers/memory_fetcher.h"
 #include "diagnostics/cros_healthd/fetchers/network_fetcher.h"
 #include "diagnostics/cros_healthd/fetchers/network_interface_fetcher.h"
+#include "diagnostics/cros_healthd/fetchers/sensor_fetcher.h"
 #include "diagnostics/cros_healthd/fetchers/stateful_partition_fetcher.h"
 #include "diagnostics/cros_healthd/fetchers/system_fetcher.h"
 #include "diagnostics/cros_healthd/fetchers/timezone_fetcher.h"
@@ -50,12 +49,10 @@ class FetchAggregator final {
            mojom::CrosHealthdProbeService::ProbeTelemetryInfoCallback callback);
 
  private:
-  AudioFetcher audio_fetcher_;
   BacklightFetcher backlight_fetcher_;
   BatteryFetcher battery_fetcher_;
   BluetoothFetcher bluetooth_fetcher_;
   BootPerformanceFetcher boot_performance_fetcher_;
-  BusFetcher bus_fetcher_;
   AsyncFetcher<CpuFetcher> cpu_fetcher_;
   DiskFetcher disk_fetcher_;
   DisplayFetcher display_fetcher_;
@@ -69,6 +66,9 @@ class FetchAggregator final {
   TimezoneFetcher timezone_fetcher_;
   TpmFetcher tpm_fetcher_;
   NetworkInterfaceFetcher network_interface_fetcher_;
+
+  // The pointer to the Context object for accessing system utilities.
+  Context* const context_;
 };
 
 }  // namespace diagnostics

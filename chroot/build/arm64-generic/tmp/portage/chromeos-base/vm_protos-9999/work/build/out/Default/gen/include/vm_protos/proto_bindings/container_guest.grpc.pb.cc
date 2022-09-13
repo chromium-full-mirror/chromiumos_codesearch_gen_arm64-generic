@@ -11,8 +11,12 @@
 #include <grpcpp/impl/codegen/channel_interface.h>
 #include <grpcpp/impl/codegen/client_unary_call.h>
 #include <grpcpp/impl/codegen/client_callback.h>
-#include <grpcpp/impl/codegen/method_handler_impl.h>
+#include <grpcpp/impl/codegen/message_allocator.h>
+#include <grpcpp/impl/codegen/method_handler.h>
 #include <grpcpp/impl/codegen/rpc_service_method.h>
+#include <grpcpp/impl/codegen/server_callback.h>
+#include <grpcpp/impl/codegen/server_callback_handlers.h>
+#include <grpcpp/impl/codegen/server_context.h>
 #include <grpcpp/impl/codegen/service_type.h>
 #include <grpcpp/impl/codegen/sync_stream.h>
 namespace vm_tools {
@@ -31,282 +35,461 @@ static const char* Garcon_method_names[] = {
   "/vm_tools.container.Garcon/ConfigureForArcSideload",
   "/vm_tools.container.Garcon/AddFileWatch",
   "/vm_tools.container.Garcon/RemoveFileWatch",
+  "/vm_tools.container.Garcon/GetGarconSessionInfo",
 };
 
 std::unique_ptr< Garcon::Stub> Garcon::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
   (void)options;
-  std::unique_ptr< Garcon::Stub> stub(new Garcon::Stub(channel));
+  std::unique_ptr< Garcon::Stub> stub(new Garcon::Stub(channel, options));
   return stub;
 }
 
-Garcon::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel)
-  : channel_(channel), rpcmethod_LaunchApplication_(Garcon_method_names[0], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_GetIcon_(Garcon_method_names[1], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_LaunchVshd_(Garcon_method_names[2], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_GetLinuxPackageInfo_(Garcon_method_names[3], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_InstallLinuxPackage_(Garcon_method_names[4], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_UninstallPackageOwningFile_(Garcon_method_names[5], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_GetDebugInformation_(Garcon_method_names[6], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_ConnectChunnel_(Garcon_method_names[7], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_ApplyAnsiblePlaybook_(Garcon_method_names[8], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_ConfigureForArcSideload_(Garcon_method_names[9], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_AddFileWatch_(Garcon_method_names[10], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_RemoveFileWatch_(Garcon_method_names[11], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+Garcon::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options)
+  : channel_(channel), rpcmethod_LaunchApplication_(Garcon_method_names[0], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_GetIcon_(Garcon_method_names[1], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_LaunchVshd_(Garcon_method_names[2], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_GetLinuxPackageInfo_(Garcon_method_names[3], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_InstallLinuxPackage_(Garcon_method_names[4], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_UninstallPackageOwningFile_(Garcon_method_names[5], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_GetDebugInformation_(Garcon_method_names[6], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_ConnectChunnel_(Garcon_method_names[7], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_ApplyAnsiblePlaybook_(Garcon_method_names[8], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_ConfigureForArcSideload_(Garcon_method_names[9], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_AddFileWatch_(Garcon_method_names[10], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_RemoveFileWatch_(Garcon_method_names[11], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_GetGarconSessionInfo_(Garcon_method_names[12], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   {}
 
 ::grpc::Status Garcon::Stub::LaunchApplication(::grpc::ClientContext* context, const ::vm_tools::container::LaunchApplicationRequest& request, ::vm_tools::container::LaunchApplicationResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_LaunchApplication_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::container::LaunchApplicationRequest, ::vm_tools::container::LaunchApplicationResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_LaunchApplication_, context, request, response);
 }
 
-void Garcon::Stub::experimental_async::LaunchApplication(::grpc::ClientContext* context, const ::vm_tools::container::LaunchApplicationRequest* request, ::vm_tools::container::LaunchApplicationResponse* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_LaunchApplication_, context, request, response, std::move(f));
+void Garcon::Stub::async::LaunchApplication(::grpc::ClientContext* context, const ::vm_tools::container::LaunchApplicationRequest* request, ::vm_tools::container::LaunchApplicationResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::container::LaunchApplicationRequest, ::vm_tools::container::LaunchApplicationResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_LaunchApplication_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::vm_tools::container::LaunchApplicationResponse>* Garcon::Stub::AsyncLaunchApplicationRaw(::grpc::ClientContext* context, const ::vm_tools::container::LaunchApplicationRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::container::LaunchApplicationResponse>::Create(channel_.get(), cq, rpcmethod_LaunchApplication_, context, request, true);
+void Garcon::Stub::async::LaunchApplication(::grpc::ClientContext* context, const ::vm_tools::container::LaunchApplicationRequest* request, ::vm_tools::container::LaunchApplicationResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_LaunchApplication_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::vm_tools::container::LaunchApplicationResponse>* Garcon::Stub::PrepareAsyncLaunchApplicationRaw(::grpc::ClientContext* context, const ::vm_tools::container::LaunchApplicationRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::container::LaunchApplicationResponse>::Create(channel_.get(), cq, rpcmethod_LaunchApplication_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::container::LaunchApplicationResponse, ::vm_tools::container::LaunchApplicationRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_LaunchApplication_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::container::LaunchApplicationResponse>* Garcon::Stub::AsyncLaunchApplicationRaw(::grpc::ClientContext* context, const ::vm_tools::container::LaunchApplicationRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncLaunchApplicationRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 ::grpc::Status Garcon::Stub::GetIcon(::grpc::ClientContext* context, const ::vm_tools::container::IconRequest& request, ::vm_tools::container::IconResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_GetIcon_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::container::IconRequest, ::vm_tools::container::IconResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_GetIcon_, context, request, response);
 }
 
-void Garcon::Stub::experimental_async::GetIcon(::grpc::ClientContext* context, const ::vm_tools::container::IconRequest* request, ::vm_tools::container::IconResponse* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_GetIcon_, context, request, response, std::move(f));
+void Garcon::Stub::async::GetIcon(::grpc::ClientContext* context, const ::vm_tools::container::IconRequest* request, ::vm_tools::container::IconResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::container::IconRequest, ::vm_tools::container::IconResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetIcon_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::vm_tools::container::IconResponse>* Garcon::Stub::AsyncGetIconRaw(::grpc::ClientContext* context, const ::vm_tools::container::IconRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::container::IconResponse>::Create(channel_.get(), cq, rpcmethod_GetIcon_, context, request, true);
+void Garcon::Stub::async::GetIcon(::grpc::ClientContext* context, const ::vm_tools::container::IconRequest* request, ::vm_tools::container::IconResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetIcon_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::vm_tools::container::IconResponse>* Garcon::Stub::PrepareAsyncGetIconRaw(::grpc::ClientContext* context, const ::vm_tools::container::IconRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::container::IconResponse>::Create(channel_.get(), cq, rpcmethod_GetIcon_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::container::IconResponse, ::vm_tools::container::IconRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_GetIcon_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::container::IconResponse>* Garcon::Stub::AsyncGetIconRaw(::grpc::ClientContext* context, const ::vm_tools::container::IconRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncGetIconRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 ::grpc::Status Garcon::Stub::LaunchVshd(::grpc::ClientContext* context, const ::vm_tools::container::LaunchVshdRequest& request, ::vm_tools::container::LaunchVshdResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_LaunchVshd_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::container::LaunchVshdRequest, ::vm_tools::container::LaunchVshdResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_LaunchVshd_, context, request, response);
 }
 
-void Garcon::Stub::experimental_async::LaunchVshd(::grpc::ClientContext* context, const ::vm_tools::container::LaunchVshdRequest* request, ::vm_tools::container::LaunchVshdResponse* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_LaunchVshd_, context, request, response, std::move(f));
+void Garcon::Stub::async::LaunchVshd(::grpc::ClientContext* context, const ::vm_tools::container::LaunchVshdRequest* request, ::vm_tools::container::LaunchVshdResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::container::LaunchVshdRequest, ::vm_tools::container::LaunchVshdResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_LaunchVshd_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::vm_tools::container::LaunchVshdResponse>* Garcon::Stub::AsyncLaunchVshdRaw(::grpc::ClientContext* context, const ::vm_tools::container::LaunchVshdRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::container::LaunchVshdResponse>::Create(channel_.get(), cq, rpcmethod_LaunchVshd_, context, request, true);
+void Garcon::Stub::async::LaunchVshd(::grpc::ClientContext* context, const ::vm_tools::container::LaunchVshdRequest* request, ::vm_tools::container::LaunchVshdResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_LaunchVshd_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::vm_tools::container::LaunchVshdResponse>* Garcon::Stub::PrepareAsyncLaunchVshdRaw(::grpc::ClientContext* context, const ::vm_tools::container::LaunchVshdRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::container::LaunchVshdResponse>::Create(channel_.get(), cq, rpcmethod_LaunchVshd_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::container::LaunchVshdResponse, ::vm_tools::container::LaunchVshdRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_LaunchVshd_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::container::LaunchVshdResponse>* Garcon::Stub::AsyncLaunchVshdRaw(::grpc::ClientContext* context, const ::vm_tools::container::LaunchVshdRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncLaunchVshdRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 ::grpc::Status Garcon::Stub::GetLinuxPackageInfo(::grpc::ClientContext* context, const ::vm_tools::container::LinuxPackageInfoRequest& request, ::vm_tools::container::LinuxPackageInfoResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_GetLinuxPackageInfo_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::container::LinuxPackageInfoRequest, ::vm_tools::container::LinuxPackageInfoResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_GetLinuxPackageInfo_, context, request, response);
 }
 
-void Garcon::Stub::experimental_async::GetLinuxPackageInfo(::grpc::ClientContext* context, const ::vm_tools::container::LinuxPackageInfoRequest* request, ::vm_tools::container::LinuxPackageInfoResponse* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_GetLinuxPackageInfo_, context, request, response, std::move(f));
+void Garcon::Stub::async::GetLinuxPackageInfo(::grpc::ClientContext* context, const ::vm_tools::container::LinuxPackageInfoRequest* request, ::vm_tools::container::LinuxPackageInfoResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::container::LinuxPackageInfoRequest, ::vm_tools::container::LinuxPackageInfoResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetLinuxPackageInfo_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::vm_tools::container::LinuxPackageInfoResponse>* Garcon::Stub::AsyncGetLinuxPackageInfoRaw(::grpc::ClientContext* context, const ::vm_tools::container::LinuxPackageInfoRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::container::LinuxPackageInfoResponse>::Create(channel_.get(), cq, rpcmethod_GetLinuxPackageInfo_, context, request, true);
+void Garcon::Stub::async::GetLinuxPackageInfo(::grpc::ClientContext* context, const ::vm_tools::container::LinuxPackageInfoRequest* request, ::vm_tools::container::LinuxPackageInfoResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetLinuxPackageInfo_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::vm_tools::container::LinuxPackageInfoResponse>* Garcon::Stub::PrepareAsyncGetLinuxPackageInfoRaw(::grpc::ClientContext* context, const ::vm_tools::container::LinuxPackageInfoRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::container::LinuxPackageInfoResponse>::Create(channel_.get(), cq, rpcmethod_GetLinuxPackageInfo_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::container::LinuxPackageInfoResponse, ::vm_tools::container::LinuxPackageInfoRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_GetLinuxPackageInfo_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::container::LinuxPackageInfoResponse>* Garcon::Stub::AsyncGetLinuxPackageInfoRaw(::grpc::ClientContext* context, const ::vm_tools::container::LinuxPackageInfoRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncGetLinuxPackageInfoRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 ::grpc::Status Garcon::Stub::InstallLinuxPackage(::grpc::ClientContext* context, const ::vm_tools::container::InstallLinuxPackageRequest& request, ::vm_tools::container::InstallLinuxPackageResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_InstallLinuxPackage_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::container::InstallLinuxPackageRequest, ::vm_tools::container::InstallLinuxPackageResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_InstallLinuxPackage_, context, request, response);
 }
 
-void Garcon::Stub::experimental_async::InstallLinuxPackage(::grpc::ClientContext* context, const ::vm_tools::container::InstallLinuxPackageRequest* request, ::vm_tools::container::InstallLinuxPackageResponse* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_InstallLinuxPackage_, context, request, response, std::move(f));
+void Garcon::Stub::async::InstallLinuxPackage(::grpc::ClientContext* context, const ::vm_tools::container::InstallLinuxPackageRequest* request, ::vm_tools::container::InstallLinuxPackageResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::container::InstallLinuxPackageRequest, ::vm_tools::container::InstallLinuxPackageResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_InstallLinuxPackage_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::vm_tools::container::InstallLinuxPackageResponse>* Garcon::Stub::AsyncInstallLinuxPackageRaw(::grpc::ClientContext* context, const ::vm_tools::container::InstallLinuxPackageRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::container::InstallLinuxPackageResponse>::Create(channel_.get(), cq, rpcmethod_InstallLinuxPackage_, context, request, true);
+void Garcon::Stub::async::InstallLinuxPackage(::grpc::ClientContext* context, const ::vm_tools::container::InstallLinuxPackageRequest* request, ::vm_tools::container::InstallLinuxPackageResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_InstallLinuxPackage_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::vm_tools::container::InstallLinuxPackageResponse>* Garcon::Stub::PrepareAsyncInstallLinuxPackageRaw(::grpc::ClientContext* context, const ::vm_tools::container::InstallLinuxPackageRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::container::InstallLinuxPackageResponse>::Create(channel_.get(), cq, rpcmethod_InstallLinuxPackage_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::container::InstallLinuxPackageResponse, ::vm_tools::container::InstallLinuxPackageRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_InstallLinuxPackage_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::container::InstallLinuxPackageResponse>* Garcon::Stub::AsyncInstallLinuxPackageRaw(::grpc::ClientContext* context, const ::vm_tools::container::InstallLinuxPackageRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncInstallLinuxPackageRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 ::grpc::Status Garcon::Stub::UninstallPackageOwningFile(::grpc::ClientContext* context, const ::vm_tools::container::UninstallPackageOwningFileRequest& request, ::vm_tools::container::UninstallPackageOwningFileResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_UninstallPackageOwningFile_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::container::UninstallPackageOwningFileRequest, ::vm_tools::container::UninstallPackageOwningFileResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_UninstallPackageOwningFile_, context, request, response);
 }
 
-void Garcon::Stub::experimental_async::UninstallPackageOwningFile(::grpc::ClientContext* context, const ::vm_tools::container::UninstallPackageOwningFileRequest* request, ::vm_tools::container::UninstallPackageOwningFileResponse* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_UninstallPackageOwningFile_, context, request, response, std::move(f));
+void Garcon::Stub::async::UninstallPackageOwningFile(::grpc::ClientContext* context, const ::vm_tools::container::UninstallPackageOwningFileRequest* request, ::vm_tools::container::UninstallPackageOwningFileResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::container::UninstallPackageOwningFileRequest, ::vm_tools::container::UninstallPackageOwningFileResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_UninstallPackageOwningFile_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::vm_tools::container::UninstallPackageOwningFileResponse>* Garcon::Stub::AsyncUninstallPackageOwningFileRaw(::grpc::ClientContext* context, const ::vm_tools::container::UninstallPackageOwningFileRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::container::UninstallPackageOwningFileResponse>::Create(channel_.get(), cq, rpcmethod_UninstallPackageOwningFile_, context, request, true);
+void Garcon::Stub::async::UninstallPackageOwningFile(::grpc::ClientContext* context, const ::vm_tools::container::UninstallPackageOwningFileRequest* request, ::vm_tools::container::UninstallPackageOwningFileResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_UninstallPackageOwningFile_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::vm_tools::container::UninstallPackageOwningFileResponse>* Garcon::Stub::PrepareAsyncUninstallPackageOwningFileRaw(::grpc::ClientContext* context, const ::vm_tools::container::UninstallPackageOwningFileRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::container::UninstallPackageOwningFileResponse>::Create(channel_.get(), cq, rpcmethod_UninstallPackageOwningFile_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::container::UninstallPackageOwningFileResponse, ::vm_tools::container::UninstallPackageOwningFileRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_UninstallPackageOwningFile_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::container::UninstallPackageOwningFileResponse>* Garcon::Stub::AsyncUninstallPackageOwningFileRaw(::grpc::ClientContext* context, const ::vm_tools::container::UninstallPackageOwningFileRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncUninstallPackageOwningFileRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 ::grpc::Status Garcon::Stub::GetDebugInformation(::grpc::ClientContext* context, const ::vm_tools::container::GetDebugInformationRequest& request, ::vm_tools::container::GetDebugInformationResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_GetDebugInformation_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::container::GetDebugInformationRequest, ::vm_tools::container::GetDebugInformationResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_GetDebugInformation_, context, request, response);
 }
 
-void Garcon::Stub::experimental_async::GetDebugInformation(::grpc::ClientContext* context, const ::vm_tools::container::GetDebugInformationRequest* request, ::vm_tools::container::GetDebugInformationResponse* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_GetDebugInformation_, context, request, response, std::move(f));
+void Garcon::Stub::async::GetDebugInformation(::grpc::ClientContext* context, const ::vm_tools::container::GetDebugInformationRequest* request, ::vm_tools::container::GetDebugInformationResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::container::GetDebugInformationRequest, ::vm_tools::container::GetDebugInformationResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetDebugInformation_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::vm_tools::container::GetDebugInformationResponse>* Garcon::Stub::AsyncGetDebugInformationRaw(::grpc::ClientContext* context, const ::vm_tools::container::GetDebugInformationRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::container::GetDebugInformationResponse>::Create(channel_.get(), cq, rpcmethod_GetDebugInformation_, context, request, true);
+void Garcon::Stub::async::GetDebugInformation(::grpc::ClientContext* context, const ::vm_tools::container::GetDebugInformationRequest* request, ::vm_tools::container::GetDebugInformationResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetDebugInformation_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::vm_tools::container::GetDebugInformationResponse>* Garcon::Stub::PrepareAsyncGetDebugInformationRaw(::grpc::ClientContext* context, const ::vm_tools::container::GetDebugInformationRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::container::GetDebugInformationResponse>::Create(channel_.get(), cq, rpcmethod_GetDebugInformation_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::container::GetDebugInformationResponse, ::vm_tools::container::GetDebugInformationRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_GetDebugInformation_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::container::GetDebugInformationResponse>* Garcon::Stub::AsyncGetDebugInformationRaw(::grpc::ClientContext* context, const ::vm_tools::container::GetDebugInformationRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncGetDebugInformationRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 ::grpc::Status Garcon::Stub::ConnectChunnel(::grpc::ClientContext* context, const ::vm_tools::container::ConnectChunnelRequest& request, ::vm_tools::container::ConnectChunnelResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_ConnectChunnel_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::container::ConnectChunnelRequest, ::vm_tools::container::ConnectChunnelResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_ConnectChunnel_, context, request, response);
 }
 
-void Garcon::Stub::experimental_async::ConnectChunnel(::grpc::ClientContext* context, const ::vm_tools::container::ConnectChunnelRequest* request, ::vm_tools::container::ConnectChunnelResponse* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_ConnectChunnel_, context, request, response, std::move(f));
+void Garcon::Stub::async::ConnectChunnel(::grpc::ClientContext* context, const ::vm_tools::container::ConnectChunnelRequest* request, ::vm_tools::container::ConnectChunnelResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::container::ConnectChunnelRequest, ::vm_tools::container::ConnectChunnelResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_ConnectChunnel_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::vm_tools::container::ConnectChunnelResponse>* Garcon::Stub::AsyncConnectChunnelRaw(::grpc::ClientContext* context, const ::vm_tools::container::ConnectChunnelRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::container::ConnectChunnelResponse>::Create(channel_.get(), cq, rpcmethod_ConnectChunnel_, context, request, true);
+void Garcon::Stub::async::ConnectChunnel(::grpc::ClientContext* context, const ::vm_tools::container::ConnectChunnelRequest* request, ::vm_tools::container::ConnectChunnelResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_ConnectChunnel_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::vm_tools::container::ConnectChunnelResponse>* Garcon::Stub::PrepareAsyncConnectChunnelRaw(::grpc::ClientContext* context, const ::vm_tools::container::ConnectChunnelRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::container::ConnectChunnelResponse>::Create(channel_.get(), cq, rpcmethod_ConnectChunnel_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::container::ConnectChunnelResponse, ::vm_tools::container::ConnectChunnelRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_ConnectChunnel_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::container::ConnectChunnelResponse>* Garcon::Stub::AsyncConnectChunnelRaw(::grpc::ClientContext* context, const ::vm_tools::container::ConnectChunnelRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncConnectChunnelRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 ::grpc::Status Garcon::Stub::ApplyAnsiblePlaybook(::grpc::ClientContext* context, const ::vm_tools::container::ApplyAnsiblePlaybookRequest& request, ::vm_tools::container::ApplyAnsiblePlaybookResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_ApplyAnsiblePlaybook_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::container::ApplyAnsiblePlaybookRequest, ::vm_tools::container::ApplyAnsiblePlaybookResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_ApplyAnsiblePlaybook_, context, request, response);
 }
 
-void Garcon::Stub::experimental_async::ApplyAnsiblePlaybook(::grpc::ClientContext* context, const ::vm_tools::container::ApplyAnsiblePlaybookRequest* request, ::vm_tools::container::ApplyAnsiblePlaybookResponse* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_ApplyAnsiblePlaybook_, context, request, response, std::move(f));
+void Garcon::Stub::async::ApplyAnsiblePlaybook(::grpc::ClientContext* context, const ::vm_tools::container::ApplyAnsiblePlaybookRequest* request, ::vm_tools::container::ApplyAnsiblePlaybookResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::container::ApplyAnsiblePlaybookRequest, ::vm_tools::container::ApplyAnsiblePlaybookResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_ApplyAnsiblePlaybook_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::vm_tools::container::ApplyAnsiblePlaybookResponse>* Garcon::Stub::AsyncApplyAnsiblePlaybookRaw(::grpc::ClientContext* context, const ::vm_tools::container::ApplyAnsiblePlaybookRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::container::ApplyAnsiblePlaybookResponse>::Create(channel_.get(), cq, rpcmethod_ApplyAnsiblePlaybook_, context, request, true);
+void Garcon::Stub::async::ApplyAnsiblePlaybook(::grpc::ClientContext* context, const ::vm_tools::container::ApplyAnsiblePlaybookRequest* request, ::vm_tools::container::ApplyAnsiblePlaybookResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_ApplyAnsiblePlaybook_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::vm_tools::container::ApplyAnsiblePlaybookResponse>* Garcon::Stub::PrepareAsyncApplyAnsiblePlaybookRaw(::grpc::ClientContext* context, const ::vm_tools::container::ApplyAnsiblePlaybookRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::container::ApplyAnsiblePlaybookResponse>::Create(channel_.get(), cq, rpcmethod_ApplyAnsiblePlaybook_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::container::ApplyAnsiblePlaybookResponse, ::vm_tools::container::ApplyAnsiblePlaybookRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_ApplyAnsiblePlaybook_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::container::ApplyAnsiblePlaybookResponse>* Garcon::Stub::AsyncApplyAnsiblePlaybookRaw(::grpc::ClientContext* context, const ::vm_tools::container::ApplyAnsiblePlaybookRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncApplyAnsiblePlaybookRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 ::grpc::Status Garcon::Stub::ConfigureForArcSideload(::grpc::ClientContext* context, const ::vm_tools::container::ConfigureForArcSideloadRequest& request, ::vm_tools::container::ConfigureForArcSideloadResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_ConfigureForArcSideload_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::container::ConfigureForArcSideloadRequest, ::vm_tools::container::ConfigureForArcSideloadResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_ConfigureForArcSideload_, context, request, response);
 }
 
-void Garcon::Stub::experimental_async::ConfigureForArcSideload(::grpc::ClientContext* context, const ::vm_tools::container::ConfigureForArcSideloadRequest* request, ::vm_tools::container::ConfigureForArcSideloadResponse* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_ConfigureForArcSideload_, context, request, response, std::move(f));
+void Garcon::Stub::async::ConfigureForArcSideload(::grpc::ClientContext* context, const ::vm_tools::container::ConfigureForArcSideloadRequest* request, ::vm_tools::container::ConfigureForArcSideloadResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::container::ConfigureForArcSideloadRequest, ::vm_tools::container::ConfigureForArcSideloadResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_ConfigureForArcSideload_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::vm_tools::container::ConfigureForArcSideloadResponse>* Garcon::Stub::AsyncConfigureForArcSideloadRaw(::grpc::ClientContext* context, const ::vm_tools::container::ConfigureForArcSideloadRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::container::ConfigureForArcSideloadResponse>::Create(channel_.get(), cq, rpcmethod_ConfigureForArcSideload_, context, request, true);
+void Garcon::Stub::async::ConfigureForArcSideload(::grpc::ClientContext* context, const ::vm_tools::container::ConfigureForArcSideloadRequest* request, ::vm_tools::container::ConfigureForArcSideloadResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_ConfigureForArcSideload_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::vm_tools::container::ConfigureForArcSideloadResponse>* Garcon::Stub::PrepareAsyncConfigureForArcSideloadRaw(::grpc::ClientContext* context, const ::vm_tools::container::ConfigureForArcSideloadRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::container::ConfigureForArcSideloadResponse>::Create(channel_.get(), cq, rpcmethod_ConfigureForArcSideload_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::container::ConfigureForArcSideloadResponse, ::vm_tools::container::ConfigureForArcSideloadRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_ConfigureForArcSideload_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::container::ConfigureForArcSideloadResponse>* Garcon::Stub::AsyncConfigureForArcSideloadRaw(::grpc::ClientContext* context, const ::vm_tools::container::ConfigureForArcSideloadRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncConfigureForArcSideloadRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 ::grpc::Status Garcon::Stub::AddFileWatch(::grpc::ClientContext* context, const ::vm_tools::container::AddFileWatchRequest& request, ::vm_tools::container::AddFileWatchResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_AddFileWatch_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::container::AddFileWatchRequest, ::vm_tools::container::AddFileWatchResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_AddFileWatch_, context, request, response);
 }
 
-void Garcon::Stub::experimental_async::AddFileWatch(::grpc::ClientContext* context, const ::vm_tools::container::AddFileWatchRequest* request, ::vm_tools::container::AddFileWatchResponse* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_AddFileWatch_, context, request, response, std::move(f));
+void Garcon::Stub::async::AddFileWatch(::grpc::ClientContext* context, const ::vm_tools::container::AddFileWatchRequest* request, ::vm_tools::container::AddFileWatchResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::container::AddFileWatchRequest, ::vm_tools::container::AddFileWatchResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_AddFileWatch_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::vm_tools::container::AddFileWatchResponse>* Garcon::Stub::AsyncAddFileWatchRaw(::grpc::ClientContext* context, const ::vm_tools::container::AddFileWatchRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::container::AddFileWatchResponse>::Create(channel_.get(), cq, rpcmethod_AddFileWatch_, context, request, true);
+void Garcon::Stub::async::AddFileWatch(::grpc::ClientContext* context, const ::vm_tools::container::AddFileWatchRequest* request, ::vm_tools::container::AddFileWatchResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_AddFileWatch_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::vm_tools::container::AddFileWatchResponse>* Garcon::Stub::PrepareAsyncAddFileWatchRaw(::grpc::ClientContext* context, const ::vm_tools::container::AddFileWatchRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::container::AddFileWatchResponse>::Create(channel_.get(), cq, rpcmethod_AddFileWatch_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::container::AddFileWatchResponse, ::vm_tools::container::AddFileWatchRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_AddFileWatch_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::container::AddFileWatchResponse>* Garcon::Stub::AsyncAddFileWatchRaw(::grpc::ClientContext* context, const ::vm_tools::container::AddFileWatchRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncAddFileWatchRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 ::grpc::Status Garcon::Stub::RemoveFileWatch(::grpc::ClientContext* context, const ::vm_tools::container::RemoveFileWatchRequest& request, ::vm_tools::container::RemoveFileWatchResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_RemoveFileWatch_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::container::RemoveFileWatchRequest, ::vm_tools::container::RemoveFileWatchResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_RemoveFileWatch_, context, request, response);
 }
 
-void Garcon::Stub::experimental_async::RemoveFileWatch(::grpc::ClientContext* context, const ::vm_tools::container::RemoveFileWatchRequest* request, ::vm_tools::container::RemoveFileWatchResponse* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_RemoveFileWatch_, context, request, response, std::move(f));
+void Garcon::Stub::async::RemoveFileWatch(::grpc::ClientContext* context, const ::vm_tools::container::RemoveFileWatchRequest* request, ::vm_tools::container::RemoveFileWatchResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::container::RemoveFileWatchRequest, ::vm_tools::container::RemoveFileWatchResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_RemoveFileWatch_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::vm_tools::container::RemoveFileWatchResponse>* Garcon::Stub::AsyncRemoveFileWatchRaw(::grpc::ClientContext* context, const ::vm_tools::container::RemoveFileWatchRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::container::RemoveFileWatchResponse>::Create(channel_.get(), cq, rpcmethod_RemoveFileWatch_, context, request, true);
+void Garcon::Stub::async::RemoveFileWatch(::grpc::ClientContext* context, const ::vm_tools::container::RemoveFileWatchRequest* request, ::vm_tools::container::RemoveFileWatchResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_RemoveFileWatch_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::vm_tools::container::RemoveFileWatchResponse>* Garcon::Stub::PrepareAsyncRemoveFileWatchRaw(::grpc::ClientContext* context, const ::vm_tools::container::RemoveFileWatchRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::container::RemoveFileWatchResponse>::Create(channel_.get(), cq, rpcmethod_RemoveFileWatch_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::container::RemoveFileWatchResponse, ::vm_tools::container::RemoveFileWatchRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_RemoveFileWatch_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::container::RemoveFileWatchResponse>* Garcon::Stub::AsyncRemoveFileWatchRaw(::grpc::ClientContext* context, const ::vm_tools::container::RemoveFileWatchRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncRemoveFileWatchRaw(context, request, cq);
+  result->StartCall();
+  return result;
+}
+
+::grpc::Status Garcon::Stub::GetGarconSessionInfo(::grpc::ClientContext* context, const ::vm_tools::container::GetGarconSessionInfoRequest& request, ::vm_tools::container::GetGarconSessionInfoResponse* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::container::GetGarconSessionInfoRequest, ::vm_tools::container::GetGarconSessionInfoResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_GetGarconSessionInfo_, context, request, response);
+}
+
+void Garcon::Stub::async::GetGarconSessionInfo(::grpc::ClientContext* context, const ::vm_tools::container::GetGarconSessionInfoRequest* request, ::vm_tools::container::GetGarconSessionInfoResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::container::GetGarconSessionInfoRequest, ::vm_tools::container::GetGarconSessionInfoResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetGarconSessionInfo_, context, request, response, std::move(f));
+}
+
+void Garcon::Stub::async::GetGarconSessionInfo(::grpc::ClientContext* context, const ::vm_tools::container::GetGarconSessionInfoRequest* request, ::vm_tools::container::GetGarconSessionInfoResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetGarconSessionInfo_, context, request, response, reactor);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::container::GetGarconSessionInfoResponse>* Garcon::Stub::PrepareAsyncGetGarconSessionInfoRaw(::grpc::ClientContext* context, const ::vm_tools::container::GetGarconSessionInfoRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::container::GetGarconSessionInfoResponse, ::vm_tools::container::GetGarconSessionInfoRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_GetGarconSessionInfo_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::container::GetGarconSessionInfoResponse>* Garcon::Stub::AsyncGetGarconSessionInfoRaw(::grpc::ClientContext* context, const ::vm_tools::container::GetGarconSessionInfoRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncGetGarconSessionInfoRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 Garcon::Service::Service() {
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Garcon_method_names[0],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< Garcon::Service, ::vm_tools::container::LaunchApplicationRequest, ::vm_tools::container::LaunchApplicationResponse>(
-          std::mem_fn(&Garcon::Service::LaunchApplication), this)));
+      new ::grpc::internal::RpcMethodHandler< Garcon::Service, ::vm_tools::container::LaunchApplicationRequest, ::vm_tools::container::LaunchApplicationResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](Garcon::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::container::LaunchApplicationRequest* req,
+             ::vm_tools::container::LaunchApplicationResponse* resp) {
+               return service->LaunchApplication(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Garcon_method_names[1],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< Garcon::Service, ::vm_tools::container::IconRequest, ::vm_tools::container::IconResponse>(
-          std::mem_fn(&Garcon::Service::GetIcon), this)));
+      new ::grpc::internal::RpcMethodHandler< Garcon::Service, ::vm_tools::container::IconRequest, ::vm_tools::container::IconResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](Garcon::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::container::IconRequest* req,
+             ::vm_tools::container::IconResponse* resp) {
+               return service->GetIcon(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Garcon_method_names[2],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< Garcon::Service, ::vm_tools::container::LaunchVshdRequest, ::vm_tools::container::LaunchVshdResponse>(
-          std::mem_fn(&Garcon::Service::LaunchVshd), this)));
+      new ::grpc::internal::RpcMethodHandler< Garcon::Service, ::vm_tools::container::LaunchVshdRequest, ::vm_tools::container::LaunchVshdResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](Garcon::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::container::LaunchVshdRequest* req,
+             ::vm_tools::container::LaunchVshdResponse* resp) {
+               return service->LaunchVshd(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Garcon_method_names[3],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< Garcon::Service, ::vm_tools::container::LinuxPackageInfoRequest, ::vm_tools::container::LinuxPackageInfoResponse>(
-          std::mem_fn(&Garcon::Service::GetLinuxPackageInfo), this)));
+      new ::grpc::internal::RpcMethodHandler< Garcon::Service, ::vm_tools::container::LinuxPackageInfoRequest, ::vm_tools::container::LinuxPackageInfoResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](Garcon::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::container::LinuxPackageInfoRequest* req,
+             ::vm_tools::container::LinuxPackageInfoResponse* resp) {
+               return service->GetLinuxPackageInfo(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Garcon_method_names[4],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< Garcon::Service, ::vm_tools::container::InstallLinuxPackageRequest, ::vm_tools::container::InstallLinuxPackageResponse>(
-          std::mem_fn(&Garcon::Service::InstallLinuxPackage), this)));
+      new ::grpc::internal::RpcMethodHandler< Garcon::Service, ::vm_tools::container::InstallLinuxPackageRequest, ::vm_tools::container::InstallLinuxPackageResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](Garcon::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::container::InstallLinuxPackageRequest* req,
+             ::vm_tools::container::InstallLinuxPackageResponse* resp) {
+               return service->InstallLinuxPackage(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Garcon_method_names[5],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< Garcon::Service, ::vm_tools::container::UninstallPackageOwningFileRequest, ::vm_tools::container::UninstallPackageOwningFileResponse>(
-          std::mem_fn(&Garcon::Service::UninstallPackageOwningFile), this)));
+      new ::grpc::internal::RpcMethodHandler< Garcon::Service, ::vm_tools::container::UninstallPackageOwningFileRequest, ::vm_tools::container::UninstallPackageOwningFileResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](Garcon::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::container::UninstallPackageOwningFileRequest* req,
+             ::vm_tools::container::UninstallPackageOwningFileResponse* resp) {
+               return service->UninstallPackageOwningFile(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Garcon_method_names[6],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< Garcon::Service, ::vm_tools::container::GetDebugInformationRequest, ::vm_tools::container::GetDebugInformationResponse>(
-          std::mem_fn(&Garcon::Service::GetDebugInformation), this)));
+      new ::grpc::internal::RpcMethodHandler< Garcon::Service, ::vm_tools::container::GetDebugInformationRequest, ::vm_tools::container::GetDebugInformationResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](Garcon::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::container::GetDebugInformationRequest* req,
+             ::vm_tools::container::GetDebugInformationResponse* resp) {
+               return service->GetDebugInformation(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Garcon_method_names[7],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< Garcon::Service, ::vm_tools::container::ConnectChunnelRequest, ::vm_tools::container::ConnectChunnelResponse>(
-          std::mem_fn(&Garcon::Service::ConnectChunnel), this)));
+      new ::grpc::internal::RpcMethodHandler< Garcon::Service, ::vm_tools::container::ConnectChunnelRequest, ::vm_tools::container::ConnectChunnelResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](Garcon::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::container::ConnectChunnelRequest* req,
+             ::vm_tools::container::ConnectChunnelResponse* resp) {
+               return service->ConnectChunnel(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Garcon_method_names[8],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< Garcon::Service, ::vm_tools::container::ApplyAnsiblePlaybookRequest, ::vm_tools::container::ApplyAnsiblePlaybookResponse>(
-          std::mem_fn(&Garcon::Service::ApplyAnsiblePlaybook), this)));
+      new ::grpc::internal::RpcMethodHandler< Garcon::Service, ::vm_tools::container::ApplyAnsiblePlaybookRequest, ::vm_tools::container::ApplyAnsiblePlaybookResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](Garcon::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::container::ApplyAnsiblePlaybookRequest* req,
+             ::vm_tools::container::ApplyAnsiblePlaybookResponse* resp) {
+               return service->ApplyAnsiblePlaybook(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Garcon_method_names[9],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< Garcon::Service, ::vm_tools::container::ConfigureForArcSideloadRequest, ::vm_tools::container::ConfigureForArcSideloadResponse>(
-          std::mem_fn(&Garcon::Service::ConfigureForArcSideload), this)));
+      new ::grpc::internal::RpcMethodHandler< Garcon::Service, ::vm_tools::container::ConfigureForArcSideloadRequest, ::vm_tools::container::ConfigureForArcSideloadResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](Garcon::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::container::ConfigureForArcSideloadRequest* req,
+             ::vm_tools::container::ConfigureForArcSideloadResponse* resp) {
+               return service->ConfigureForArcSideload(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Garcon_method_names[10],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< Garcon::Service, ::vm_tools::container::AddFileWatchRequest, ::vm_tools::container::AddFileWatchResponse>(
-          std::mem_fn(&Garcon::Service::AddFileWatch), this)));
+      new ::grpc::internal::RpcMethodHandler< Garcon::Service, ::vm_tools::container::AddFileWatchRequest, ::vm_tools::container::AddFileWatchResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](Garcon::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::container::AddFileWatchRequest* req,
+             ::vm_tools::container::AddFileWatchResponse* resp) {
+               return service->AddFileWatch(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Garcon_method_names[11],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< Garcon::Service, ::vm_tools::container::RemoveFileWatchRequest, ::vm_tools::container::RemoveFileWatchResponse>(
-          std::mem_fn(&Garcon::Service::RemoveFileWatch), this)));
+      new ::grpc::internal::RpcMethodHandler< Garcon::Service, ::vm_tools::container::RemoveFileWatchRequest, ::vm_tools::container::RemoveFileWatchResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](Garcon::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::container::RemoveFileWatchRequest* req,
+             ::vm_tools::container::RemoveFileWatchResponse* resp) {
+               return service->RemoveFileWatch(ctx, req, resp);
+             }, this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      Garcon_method_names[12],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< Garcon::Service, ::vm_tools::container::GetGarconSessionInfoRequest, ::vm_tools::container::GetGarconSessionInfoResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](Garcon::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::container::GetGarconSessionInfoRequest* req,
+             ::vm_tools::container::GetGarconSessionInfoResponse* resp) {
+               return service->GetGarconSessionInfo(ctx, req, resp);
+             }, this)));
 }
 
 Garcon::Service::~Service() {
@@ -390,6 +573,13 @@ Garcon::Service::~Service() {
 }
 
 ::grpc::Status Garcon::Service::RemoveFileWatch(::grpc::ServerContext* context, const ::vm_tools::container::RemoveFileWatchRequest* request, ::vm_tools::container::RemoveFileWatchResponse* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status Garcon::Service::GetGarconSessionInfo(::grpc::ServerContext* context, const ::vm_tools::container::GetGarconSessionInfoRequest* request, ::vm_tools::container::GetGarconSessionInfoResponse* response) {
   (void) context;
   (void) request;
   (void) response;

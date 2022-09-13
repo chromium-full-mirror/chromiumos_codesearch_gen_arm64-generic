@@ -12,14 +12,13 @@
 #include <libhwsec-foundation/status/status_chain_or.h>
 
 #include "cryptohome/auth_blocks/auth_block.h"
-#include "cryptohome/auth_blocks/auth_block_state.h"
 #include "cryptohome/auth_blocks/auth_block_utility.h"
 #include "cryptohome/auth_factor/auth_factor_metadata.h"
 #include "cryptohome/auth_factor/auth_factor_type.h"
 #include "cryptohome/credentials.h"
 #include "cryptohome/error/cryptohome_crypto_error.h"
 #include "cryptohome/error/cryptohome_error.h"
-#include "cryptohome/key_objects.h"
+#include "cryptohome/flatbuffer_schemas/auth_block_state.h"
 #include "cryptohome/storage/file_system_keyset.h"
 
 namespace cryptohome {
@@ -30,20 +29,6 @@ namespace cryptohome {
 // it.
 class AuthFactor {
  public:
-  // Creates a new auth factor instance, populated with freshly generated auth
-  // block state and the given metadata. On success, additionally fills the key
-  // blobs. On failure, returns nullptr.
-  // `auth_block_utility` is not owned and the returned auth factor doesn't
-  // depend on it.
-  static CryptohomeStatusOr<std::unique_ptr<AuthFactor>> CreateNew(
-      AuthFactorType type,
-      const AuthFactorStorageType auth_factor_storage_type,
-      const std::string& label,
-      const AuthFactorMetadata& metadata,
-      const AuthInput& auth_input,
-      AuthBlockUtility* auth_block_utility,
-      KeyBlobs& out_key_blobs);
-
   AuthFactor(AuthFactorType type,
              const std::string& label,
              const AuthFactorMetadata& metadata,
@@ -56,12 +41,10 @@ class AuthFactor {
   const AuthFactorMetadata& metadata() const { return metadata_; }
   const AuthBlockState& auth_block_state() const { return auth_block_state_; }
 
-  // Authenticates and derives key blobs.
-  // `auth_block_utility` is not owned and only needs to stay valid throughout
-  // this call.
-  CryptoStatus Authenticate(const AuthInput& auth_input,
-                            AuthBlockUtility* auth_block_utility,
-                            KeyBlobs& out_key_blobs);
+  // Executes additional steps needed for auth factor removal before it's
+  // deleted from disk. This method can be used before removing or replacing an
+  // auth factor.
+  CryptoStatus PrepareForRemoval(AuthBlockUtility* auth_block_utility);
 
  private:
   // The auth factor public information.

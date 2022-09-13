@@ -9,16 +9,17 @@
 
 #include <memory>
 #include <optional>
+#include <set>
 #include <string>
 #include <utility>
 
 #include <brillo/secure_blob.h>
 #include <gmock/gmock.h>
 
-#include "cryptohome/auth_blocks/auth_block_state.h"
 #include "cryptohome/auth_factor/auth_factor_type.h"
 #include "cryptohome/credentials.h"
 #include "cryptohome/crypto_error.h"
+#include "cryptohome/flatbuffer_schemas/auth_block_state.h"
 #include "cryptohome/key_objects.h"
 
 namespace cryptohome {
@@ -29,6 +30,12 @@ class MockAuthBlockUtility : public AuthBlockUtility {
   ~MockAuthBlockUtility() = default;
 
   MOCK_METHOD(bool, GetLockedToSingleUser, (), (const, override));
+  MOCK_METHOD(bool,
+              IsAuthFactorSupported,
+              (AuthFactorType,
+               AuthFactorStorageType,
+               const std::set<AuthFactorType>&),
+              (const, override));
   MOCK_METHOD(CryptoStatus,
               CreateKeyBlobsWithAuthBlock,
               (AuthBlockType auth_block_type,
@@ -62,12 +69,8 @@ class MockAuthBlockUtility : public AuthBlockUtility {
               (const bool, const bool, const bool, const AuthFactorStorageType),
               (const, override));
   MOCK_METHOD(AuthBlockType,
-              GetAuthBlockTypeForDerive,
+              GetAuthBlockTypeFromState,
               (const AuthBlockState& auth_state),
-              (const, override));
-  MOCK_METHOD(AuthBlockType,
-              GetAuthBlockTypeForDerivation,
-              (const std::string&, const std::string&),
               (const, override));
   MOCK_METHOD(bool,
               GetAuthBlockStateFromVaultKeyset,
@@ -80,25 +83,16 @@ class MockAuthBlockUtility : public AuthBlockUtility {
               (const AuthBlockState& state, VaultKeyset& vault_keyset),
               (const, override));
   MOCK_METHOD(CryptoStatus,
-              CreateKeyBlobsWithAuthFactorType,
-              (AuthFactorType auth_factor_type,
-               const AuthFactorStorageType auth_factor_storage_type,
-               const AuthInput& auth_input,
-               AuthBlockState& out_auth_block_state,
-               KeyBlobs& out_key_blobs),
-              (const, override));
-  MOCK_METHOD(CryptoStatus,
-              DeriveKeyBlobs,
-              (const AuthInput& auth_input,
-               const AuthBlockState& auth_block_state,
-               KeyBlobs& out_key_blobs),
-              (const, override));
+              PrepareAuthBlockForRemoval,
+              (const AuthBlockState& auth_block_state),
+              (override));
   MOCK_METHOD(CryptoStatus,
               GenerateRecoveryRequest,
-              (const cryptorecovery::RequestMetadata& request_metadata,
+              (const std::string& obfuscated_username,
+               const cryptorecovery::RequestMetadata& request_metadata,
                const brillo::Blob& epoch_response,
                const CryptohomeRecoveryAuthBlockState& state,
-               Tpm* tpm,
+               hwsec::RecoveryCryptoFrontend* recovery_hwsec,
                brillo::SecureBlob* out_recovery_request,
                brillo::SecureBlob* out_ephemeral_pub_key),
               (const, override));

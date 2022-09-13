@@ -18,8 +18,8 @@
 #include "base/hash/md5_constexpr.h"
 #include "base/run_loop.h"
 #include "base/strings/string_number_conversions.h"
-#include "base/task/common/task_annotator.h"
-#include "base/trace_event/base_tracing.h"
+#include "base/trace_event/trace_event.h"
+#include "base/trace_event/typed_macros.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
 #include "mojo/public/cpp/bindings/lib/send_message_helper.h"
@@ -30,6 +30,7 @@
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
+#include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
 #include "ml/mojom/document_scanner.mojom-params-data.h"
 #include "ml/mojom/document_scanner.mojom-shared-message-ids.h"
@@ -48,26 +49,39 @@ namespace chromeos {
 namespace machine_learning {
 namespace mojom {
 DocumentScannerConfig::DocumentScannerConfig()
-    : library_dlc_path() {}
+    : deprecated_library_dlc_path(),
+      library_dlc_path() {}
 
 DocumentScannerConfig::DocumentScannerConfig(
-    const std::string& library_dlc_path_in)
-    : library_dlc_path(std::move(library_dlc_path_in)) {}
+    const std::string& deprecated_library_dlc_path_in)
+    : deprecated_library_dlc_path(std::move(deprecated_library_dlc_path_in)),
+      library_dlc_path() {}
+
+DocumentScannerConfig::DocumentScannerConfig(
+    const std::string& deprecated_library_dlc_path_in,
+    ::mojo_base::mojom::FilePathPtr library_dlc_path_in)
+    : deprecated_library_dlc_path(std::move(deprecated_library_dlc_path_in)),
+      library_dlc_path(std::move(library_dlc_path_in)) {}
 
 DocumentScannerConfig::~DocumentScannerConfig() = default;
-size_t DocumentScannerConfig::Hash(size_t seed) const {
-  seed = mojo::internal::Hash(seed, this->library_dlc_path);
-  return seed;
-}
 
 void DocumentScannerConfig::WriteIntoTrace(
-    perfetto::libchrome::TracedValue traced_context) const {
-  auto dict = std::move(traced_context).WriteDictionary();
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "deprecated_library_dlc_path"), this->deprecated_library_dlc_path,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "library_dlc_path"), this->library_dlc_path,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const std::string&>"
+      "<value of type ::mojo_base::mojom::FilePathPtr>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -92,9 +106,9 @@ DetectCornersResult::DetectCornersResult(
 DetectCornersResult::~DetectCornersResult() = default;
 
 void DetectCornersResult::WriteIntoTrace(
-    perfetto::libchrome::TracedValue traced_context) const {
-  auto dict = std::move(traced_context).WriteDictionary();
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "status"), this->status,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -103,7 +117,7 @@ void DetectCornersResult::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "corners"), this->corners,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -132,9 +146,9 @@ DoPostProcessingResult::DoPostProcessingResult(
 DoPostProcessingResult::~DoPostProcessingResult() = default;
 
 void DoPostProcessingResult::WriteIntoTrace(
-    perfetto::libchrome::TracedValue traced_context) const {
-  auto dict = std::move(traced_context).WriteDictionary();
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "status"), this->status,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -143,7 +157,7 @@ void DoPostProcessingResult::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "processed_jpeg_image"), this->processed_jpeg_image,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -160,6 +174,61 @@ bool DoPostProcessingResult::Validate(
   return Data_::Validate(data, validation_context);
 }
 const char DocumentScanner::Name_[] = "chromeos.machine_learning.mojom.DocumentScanner";
+
+uint32_t DocumentScanner::MessageToStableIPCHash_(mojo::Message& message) {
+  switch (message.name()) {
+    case internal::kDocumentScanner_DetectCornersFromNV12Image_Name: {
+      constexpr uint32_t value = base::MD5Hash32Constexpr(
+              "(Impl)chromeos::machine_learning::mojom::DocumentScanner::DetectCornersFromNV12Image");
+      return value;
+    }
+    case internal::kDocumentScanner_DetectCornersFromJPEGImage_Name: {
+      constexpr uint32_t value = base::MD5Hash32Constexpr(
+              "(Impl)chromeos::machine_learning::mojom::DocumentScanner::DetectCornersFromJPEGImage");
+      return value;
+    }
+    case internal::kDocumentScanner_DoPostProcessing_Name: {
+      constexpr uint32_t value = base::MD5Hash32Constexpr(
+              "(Impl)chromeos::machine_learning::mojom::DocumentScanner::DoPostProcessing");
+      return value;
+    }
+  }
+  return 0;
+}
+
+
+const char* DocumentScanner::MessageToMethodName_(mojo::Message& message) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (!is_response) {
+    switch (message.name()) {
+      case internal::kDocumentScanner_DetectCornersFromNV12Image_Name:
+            return "Receive chromeos::machine_learning::mojom::DocumentScanner::DetectCornersFromNV12Image";
+      case internal::kDocumentScanner_DetectCornersFromJPEGImage_Name:
+            return "Receive chromeos::machine_learning::mojom::DocumentScanner::DetectCornersFromJPEGImage";
+      case internal::kDocumentScanner_DoPostProcessing_Name:
+            return "Receive chromeos::machine_learning::mojom::DocumentScanner::DoPostProcessing";
+    }
+  } else {
+    switch (message.name()) {
+      case internal::kDocumentScanner_DetectCornersFromNV12Image_Name:
+            return "Receive reply chromeos::machine_learning::mojom::DocumentScanner::DetectCornersFromNV12Image";
+      case internal::kDocumentScanner_DetectCornersFromJPEGImage_Name:
+            return "Receive reply chromeos::machine_learning::mojom::DocumentScanner::DetectCornersFromJPEGImage";
+      case internal::kDocumentScanner_DoPostProcessing_Name:
+            return "Receive reply chromeos::machine_learning::mojom::DocumentScanner::DoPostProcessing";
+    }
+  }
+  return "Receive unknown mojo message";
+#else
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (is_response) {
+    return "Receive mojo reply";
+  } else {
+    return "Receive mojo message";
+  }
+#endif // BUILDFLAG(MOJO_TRACE_ENABLED)
+}
 
 class DocumentScanner_DetectCornersFromNV12Image_ForwardToCallback
     : public mojo::MessageReceiver {
@@ -218,9 +287,9 @@ void DocumentScannerProxy::DetectCornersFromNV12Image(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send chromeos::machine_learning::mojom::DocumentScanner::DetectCornersFromNV12Image", "input_parameters",
-    [&](perfetto::libchrome::TracedValue context){
+    [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto::libchrome::WriteIntoTracedValueWithFallback(
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("nv12_image"), in_nv12_image,
                         "<value of type ::mojo_base::mojom::ReadOnlySharedMemoryRegionPtr>");
    });
@@ -267,9 +336,9 @@ void DocumentScannerProxy::DetectCornersFromJPEGImage(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send chromeos::machine_learning::mojom::DocumentScanner::DetectCornersFromJPEGImage", "input_parameters",
-    [&](perfetto::libchrome::TracedValue context){
+    [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto::libchrome::WriteIntoTracedValueWithFallback(
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("jpeg_image"), in_jpeg_image,
                         "<value of type ::mojo_base::mojom::ReadOnlySharedMemoryRegionPtr>");
    });
@@ -316,15 +385,15 @@ void DocumentScannerProxy::DoPostProcessing(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send chromeos::machine_learning::mojom::DocumentScanner::DoPostProcessing", "input_parameters",
-    [&](perfetto::libchrome::TracedValue context){
+    [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto::libchrome::WriteIntoTracedValueWithFallback(
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("jpeg_image"), in_jpeg_image,
                         "<value of type ::mojo_base::mojom::ReadOnlySharedMemoryRegionPtr>");
-      perfetto::libchrome::WriteIntoTracedValueWithFallback(
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("corners"), in_corners,
                         "<value of type std::vector<::gfx::mojom::PointFPtr>>");
-      perfetto::libchrome::WriteIntoTracedValueWithFallback(
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("rotation"), in_rotation,
                         "<value of type ::chromeos::machine_learning::mojom::Rotation>");
    });
@@ -427,10 +496,6 @@ class DocumentScanner_DetectCornersFromNV12Image_ProxyToResponder : public ::moj
 
 bool DocumentScanner_DetectCornersFromNV12Image_ForwardToCallback::Accept(
     mojo::Message* message) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT("toplevel", "Receive reply chromeos::machine_learning::mojom::DocumentScanner::DetectCornersFromNV12Image",
-               perfetto::libchrome::Flow::Global(message->GetTraceId()));
-#endif
 
   DCHECK(message->is_serialized());
   internal::DocumentScanner_DetectCornersFromNV12Image_ResponseParams_Data* params =
@@ -462,9 +527,9 @@ void DocumentScanner_DetectCornersFromNV12Image_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply chromeos::machine_learning::mojom::DocumentScanner::DetectCornersFromNV12Image", "async_response_parameters",
-    [&](perfetto::libchrome::TracedValue context){
+    [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto::libchrome::WriteIntoTracedValueWithFallback(
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("result"), in_result,
                         "<value of type DetectCornersResultPtr>");
    });
@@ -500,8 +565,11 @@ void DocumentScanner_DetectCornersFromNV12Image_ProxyToResponder::Run(
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
   ::mojo::internal::SendMessage(*responder_, message);
-  // TODO(darin): Accept() returning false indicates a malformed message, and
-  // that may be good reason to close the connection. However, we don't have a
+  // SendMessage fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
@@ -552,10 +620,6 @@ class DocumentScanner_DetectCornersFromJPEGImage_ProxyToResponder : public ::moj
 
 bool DocumentScanner_DetectCornersFromJPEGImage_ForwardToCallback::Accept(
     mojo::Message* message) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT("toplevel", "Receive reply chromeos::machine_learning::mojom::DocumentScanner::DetectCornersFromJPEGImage",
-               perfetto::libchrome::Flow::Global(message->GetTraceId()));
-#endif
 
   DCHECK(message->is_serialized());
   internal::DocumentScanner_DetectCornersFromJPEGImage_ResponseParams_Data* params =
@@ -587,9 +651,9 @@ void DocumentScanner_DetectCornersFromJPEGImage_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply chromeos::machine_learning::mojom::DocumentScanner::DetectCornersFromJPEGImage", "async_response_parameters",
-    [&](perfetto::libchrome::TracedValue context){
+    [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto::libchrome::WriteIntoTracedValueWithFallback(
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("result"), in_result,
                         "<value of type DetectCornersResultPtr>");
    });
@@ -625,8 +689,11 @@ void DocumentScanner_DetectCornersFromJPEGImage_ProxyToResponder::Run(
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
   ::mojo::internal::SendMessage(*responder_, message);
-  // TODO(darin): Accept() returning false indicates a malformed message, and
-  // that may be good reason to close the connection. However, we don't have a
+  // SendMessage fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
@@ -677,10 +744,6 @@ class DocumentScanner_DoPostProcessing_ProxyToResponder : public ::mojo::interna
 
 bool DocumentScanner_DoPostProcessing_ForwardToCallback::Accept(
     mojo::Message* message) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT("toplevel", "Receive reply chromeos::machine_learning::mojom::DocumentScanner::DoPostProcessing",
-               perfetto::libchrome::Flow::Global(message->GetTraceId()));
-#endif
 
   DCHECK(message->is_serialized());
   internal::DocumentScanner_DoPostProcessing_ResponseParams_Data* params =
@@ -712,9 +775,9 @@ void DocumentScanner_DoPostProcessing_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply chromeos::machine_learning::mojom::DocumentScanner::DoPostProcessing", "async_response_parameters",
-    [&](perfetto::libchrome::TracedValue context){
+    [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto::libchrome::WriteIntoTracedValueWithFallback(
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("result"), in_result,
                         "<value of type DoPostProcessingResultPtr>");
    });
@@ -750,8 +813,11 @@ void DocumentScanner_DoPostProcessing_ProxyToResponder::Run(
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
   ::mojo::internal::SendMessage(*responder_, message);
-  // TODO(darin): Accept() returning false indicates a malformed message, and
-  // that may be good reason to close the connection. However, we don't have a
+  // SendMessage fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
@@ -784,15 +850,6 @@ bool DocumentScannerStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const uint64_t request_id = message->request_id();
   switch (message->header()->name) {
     case internal::kDocumentScanner_DetectCornersFromNV12Image_Name: {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      TRACE_EVENT(
-          "toplevel",
-          "Receive chromeos::machine_learning::mojom::DocumentScanner::DetectCornersFromNV12Image",
-          perfetto::libchrome::Flow::Global(message->GetTraceId()));
-#endif
-      static constexpr uint32_t kMessageHash = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::machine_learning::mojom::DocumentScanner::DetectCornersFromNV12Image");
-      base::TaskAnnotator::ScopedSetIpcHash scoped_ipc_hash(kMessageHash);
 
       internal::DocumentScanner_DetectCornersFromNV12Image_Params_Data* params =
           reinterpret_cast<
@@ -822,15 +879,6 @@ std::move(p_nv12_image), std::move(callback));
       return true;
     }
     case internal::kDocumentScanner_DetectCornersFromJPEGImage_Name: {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      TRACE_EVENT(
-          "toplevel",
-          "Receive chromeos::machine_learning::mojom::DocumentScanner::DetectCornersFromJPEGImage",
-          perfetto::libchrome::Flow::Global(message->GetTraceId()));
-#endif
-      static constexpr uint32_t kMessageHash = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::machine_learning::mojom::DocumentScanner::DetectCornersFromJPEGImage");
-      base::TaskAnnotator::ScopedSetIpcHash scoped_ipc_hash(kMessageHash);
 
       internal::DocumentScanner_DetectCornersFromJPEGImage_Params_Data* params =
           reinterpret_cast<
@@ -860,15 +908,6 @@ std::move(p_jpeg_image), std::move(callback));
       return true;
     }
     case internal::kDocumentScanner_DoPostProcessing_Name: {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      TRACE_EVENT(
-          "toplevel",
-          "Receive chromeos::machine_learning::mojom::DocumentScanner::DoPostProcessing",
-          perfetto::libchrome::Flow::Global(message->GetTraceId()));
-#endif
-      static constexpr uint32_t kMessageHash = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::machine_learning::mojom::DocumentScanner::DoPostProcessing");
-      base::TaskAnnotator::ScopedSetIpcHash scoped_ipc_hash(kMessageHash);
 
       internal::DocumentScanner_DoPostProcessing_Params_Data* params =
           reinterpret_cast<
@@ -945,6 +984,8 @@ bool StructTraits<::chromeos::machine_learning::mojom::DocumentScannerConfig::Da
   bool success = true;
   ::chromeos::machine_learning::mojom::DocumentScannerConfigPtr result(::chromeos::machine_learning::mojom::DocumentScannerConfig::New());
   
+      if (success && !input.ReadDeprecatedLibraryDlcPath(&result->deprecated_library_dlc_path))
+        success = false;
       if (success && !input.ReadLibraryDlcPath(&result->library_dlc_path))
         success = false;
   *output = std::move(result);

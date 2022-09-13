@@ -15,8 +15,8 @@
 #include <base/callback.h>
 #include <brillo/secure_blob.h>
 
+#include "cryptohome/flatbuffer_schemas/structures.h"
 #include "cryptohome/key_challenge_service.h"
-#include "cryptohome/signature_sealing/structures.h"
 
 namespace cryptohome {
 
@@ -136,7 +136,6 @@ class ChallengeCredentialsHelper {
       const std::string& account_id,
       const structure::ChallengePublicKeyInfo& public_key_info,
       const structure::SignatureChallengeInfo& keyset_challenge_info,
-      bool locked_to_single_user,
       std::unique_ptr<KeyChallengeService> key_challenge_service,
       DecryptCallback callback) = 0;
 

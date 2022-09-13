@@ -12,10 +12,10 @@
 #include <utility>
 
 #include "base/strings/stringprintf.h"
-#include "base/trace_event/base_tracing.h"
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/lib/validation_util.h"
+#include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
 #include "mojo/public/mojom/base/values.mojom-params-data.h"
 namespace mojo_base {
@@ -49,23 +49,23 @@ bool Value_Data::Validate(
 
   switch (object->tag) {
 
-    case Value_Tag::NULL_VALUE: {
+    case Value_Tag::kNullValue: {
 
       return true;
     }
-    case Value_Tag::BOOL_VALUE: {
+    case Value_Tag::kBoolValue: {
 
       return true;
     }
-    case Value_Tag::INT_VALUE: {
+    case Value_Tag::kIntValue: {
 
       return true;
     }
-    case Value_Tag::DOUBLE_VALUE: {
+    case Value_Tag::kDoubleValue: {
 
       return true;
     }
-    case Value_Tag::STRING_VALUE: {
+    case Value_Tag::kStringValue: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_string_value, 5, validation_context)) {
@@ -79,7 +79,7 @@ bool Value_Data::Validate(
       }
       return true;
     }
-    case Value_Tag::BINARY_VALUE: {
+    case Value_Tag::kBinaryValue: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_binary_value, 6, validation_context)) {
@@ -93,7 +93,7 @@ bool Value_Data::Validate(
       }
       return true;
     }
-    case Value_Tag::DICTIONARY_VALUE: {
+    case Value_Tag::kDictionaryValue: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_dictionary_value, 7, validation_context)) {
@@ -103,7 +103,7 @@ bool Value_Data::Validate(
         return false;
       return true;
     }
-    case Value_Tag::LIST_VALUE: {
+    case Value_Tag::kListValue: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_list_value, 8, validation_context)) {
@@ -190,6 +190,74 @@ bool ListValue_Data::Validate(
 }
 
 ListValue_Data::ListValue_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool DeprecatedDictionaryValue_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const DeprecatedDictionaryValue_Data* object =
+      static_cast<const DeprecatedDictionaryValue_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->storage, 1, validation_context)) {
+    return false;
+  }
+  const mojo::internal::ContainerValidateParams storage_validate_params(
+      new mojo::internal::ContainerValidateParams(0, false, new mojo::internal::ContainerValidateParams(0, false, nullptr)), new mojo::internal::ContainerValidateParams(0, false, nullptr));
+  if (!mojo::internal::ValidateContainer(object->storage, validation_context,
+                                         &storage_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+DeprecatedDictionaryValue_Data::DeprecatedDictionaryValue_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool DeprecatedListValue_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const DeprecatedListValue_Data* object =
+      static_cast<const DeprecatedListValue_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->storage, 1, validation_context)) {
+    return false;
+  }
+  const mojo::internal::ContainerValidateParams storage_validate_params(
+      0, false, nullptr);
+  if (!mojo::internal::ValidateContainer(object->storage, validation_context,
+                                         &storage_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+DeprecatedListValue_Data::DeprecatedListValue_Data()
     : header_({sizeof(*this), 0}) {}
 
 }  // namespace internal

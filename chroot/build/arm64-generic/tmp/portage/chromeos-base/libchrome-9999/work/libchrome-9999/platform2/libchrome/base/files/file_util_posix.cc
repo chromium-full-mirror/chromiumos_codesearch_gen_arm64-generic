@@ -20,18 +20,20 @@
 #include <time.h>
 #include <unistd.h>
 
+#include "base/base_export.h"
 #include "base/base_switches.h"
 #include "base/bits.h"
 #include "base/command_line.h"
+#include "base/containers/adapters.h"
 #include "base/containers/contains.h"
 #include "base/containers/stack.h"
-#include "base/cxx17_backports.h"
 #include "base/environment.h"
 #include "base/files/file_enumerator.h"
 #include "base/files/file_path.h"
 #include "base/files/scoped_file.h"
 #include "base/logging.h"
 #include "base/memory/singleton.h"
+#include "base/notreached.h"
 #include "base/numerics/safe_conversions.h"
 #include "base/path_service.h"
 #include "base/posix/eintr_wrapper.h"
@@ -46,7 +48,6 @@
 #include "base/time/time.h"
 #include "build/branding_buildflags.h"
 #include "build/build_config.h"
-#include "build/chromeos_buildflags.h"
 
 #if BUILDFLAG(IS_APPLE)
 #include <AvailabilityMacros.h>
@@ -248,7 +249,7 @@ bool DoCopyDirectory(const FilePath& from_path,
     // set of permissions than it does on other POSIX platforms.
 #if BUILDFLAG(IS_APPLE)
     int mode = 0600 | (stat_at_use.st_mode & 0177);
-#elif BUILDFLAG(IS_CHROMEOS_ASH) || BUILDFLAG(IS_CHROMEOS_LACROS)
+#elif BUILDFLAG(IS_CHROMEOS)
     int mode = 0644;
 #else
     int mode = 0600;
@@ -490,8 +491,7 @@ bool ReadSymbolicLink(const FilePath& symlink_path, FilePath* target_path) {
   DCHECK(!symlink_path.empty());
   DCHECK(target_path);
   char buf[PATH_MAX];
-  ssize_t count =
-      ::readlink(symlink_path.value().c_str(), buf, base::size(buf));
+  ssize_t count = ::readlink(symlink_path.value().c_str(), buf, std::size(buf));
 
 #if BUILDFLAG(IS_ANDROID) && defined(__LP64__)
   // A few 64-bit Android L/M devices return INT_MAX instead of -1 here for
@@ -577,11 +577,7 @@ bool GetTempDir(FilePath* path) {
   }
 
 #if BUILDFLAG(IS_ANDROID)
-#if 0 // This is for building Chromium browser on Android.
   return PathService::Get(DIR_CACHE, path);
-#endif
-  *path = FilePath("/data/local/tmp");
-  return true;
 #else
   *path = FilePath("/tmp");
   return true;
@@ -591,7 +587,7 @@ bool GetTempDir(FilePath* path) {
 
 #if !BUILDFLAG(IS_APPLE)  // Mac implementation is in file_util_mac.mm.
 FilePath GetHomeDir() {
-#if BUILDFLAG(IS_CHROMEOS_ASH) || BUILDFLAG(IS_CHROMEOS_LACROS)
+#if BUILDFLAG(IS_CHROMEOS)
   if (SysInfo::IsRunningOnChromeOS()) {
     // On Chrome OS chrome::DIR_USER_DATA is overridden with a primary user
     // homedir once it becomes available. Return / as the safe option.
@@ -710,17 +706,17 @@ bool CreateDirectoryAndGetError(const FilePath& full_path,
   }
 
   // Iterate through the parents and create the missing ones.
-  for (auto i = subpaths.rbegin(); i != subpaths.rend(); ++i) {
-    if (DirectoryExists(*i))
+  for (const FilePath& subpath : base::Reversed(subpaths)) {
+    if (DirectoryExists(subpath))
       continue;
-    if (mkdir(i->value().c_str(), 0700) == 0)
+    if (mkdir(subpath.value().c_str(), 0700) == 0)
       continue;
     // Mkdir failed, but it might have failed with EEXIST, or some other error
     // due to the directory appearing out of thin air. This can occur if
     // two processes are trying to create the same file system tree at the same
     // time. Check to see if it exists and make sure it is a directory.
     int saved_errno = errno;
-    if (!DirectoryExists(*i)) {
+    if (!DirectoryExists(subpath)) {
       if (error)
         *error = File::OSErrorToFileError(saved_errno);
       return false;
@@ -1027,12 +1023,8 @@ bool VerifyPathControlledByUser(const FilePath& base,
      return false;
   }
 
-  std::vector<FilePath::StringType> base_components;
-  std::vector<FilePath::StringType> path_components;
-
-  base.GetComponents(&base_components);
-  path.GetComponents(&path_components);
-
+  std::vector<FilePath::StringType> base_components = base.GetComponents();
+  std::vector<FilePath::StringType> path_components = path.GetComponents();
   std::vector<FilePath::StringType>::const_iterator ib, ip;
   for (ib = base_components.begin(), ip = path_components.begin();
        ib != base_components.end(); ++ib, ++ip) {
@@ -1071,7 +1063,7 @@ bool VerifyPathControlledByAdmin(const FilePath& path) {
   ScopedBlockingCall scoped_blocking_call(FROM_HERE, BlockingType::MAY_BLOCK);
 
   std::set<gid_t> allowed_group_ids;
-  for (int i = 0, ie = base::size(kAdminGroupNames); i < ie; ++i) {
+  for (int i = 0, ie = std::size(kAdminGroupNames); i < ie; ++i) {
     struct group *group_record = getgrnam(kAdminGroupNames[i]);
     if (!group_record) {
       DPLOG(ERROR) << "Could not get the group ID of group \""
@@ -1103,7 +1095,7 @@ int GetMaximumPathComponentLength(const FilePath& path) {
 bool GetShmemTempDir(bool executable, FilePath* path) {
 #if BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_CHROMEOS) || BUILDFLAG(IS_AIX)
   bool disable_dev_shm = false;
-#if !BUILDFLAG(IS_CHROMEOS_ASH) && !BUILDFLAG(IS_CHROMEOS_LACROS)
+#if !BUILDFLAG(IS_CHROMEOS)
   disable_dev_shm = CommandLine::ForCurrentProcess()->HasSwitch(
       switches::kDisableDevShmUsage);
 #endif

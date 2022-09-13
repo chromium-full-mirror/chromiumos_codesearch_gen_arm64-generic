@@ -21,7 +21,9 @@ namespace reporting::analytics {
 ResourceCollectorCpu::ResourceCollectorCpu(base::TimeDelta interval)
     : ResourceCollector(interval) {}
 
-ResourceCollectorCpu::~ResourceCollectorCpu() = default;
+ResourceCollectorCpu::~ResourceCollectorCpu() {
+  StopTimer();
+}
 
 void ResourceCollectorCpu::Collect() {
   const auto cpu_percentage = tallier_->Tally();
@@ -39,8 +41,9 @@ bool ResourceCollectorCpu::SendCpuUsagePercentageToUma(
       /*sample=*/static_cast<int>(cpu_percentage));
 }
 
-StatusOr<uint64_t> ResourceCollectorCpu::CpuUsageTallier::Tally()
-    VALID_CONTEXT_REQUIRED(sequence_checker_) {
+StatusOr<uint64_t> ResourceCollectorCpu::CpuUsageTallier::Tally() {
+  DCHECK_CALLED_ON_VALID_SEQUENCE(sequence_checker_);
+
   ASSIGN_OR_RETURN(time_t cpu_time, GetCurrentTime(TimeType::kProcessCpu));
   ASSIGN_OR_RETURN(time_t wall_time, GetCurrentTime(TimeType::kWall));
 

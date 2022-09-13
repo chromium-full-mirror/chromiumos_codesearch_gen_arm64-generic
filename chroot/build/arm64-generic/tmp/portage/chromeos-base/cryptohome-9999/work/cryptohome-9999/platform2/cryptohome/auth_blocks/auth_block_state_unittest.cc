@@ -9,7 +9,7 @@
 #include <brillo/secure_blob.h>
 #include <gtest/gtest.h>
 
-#include "cryptohome/auth_blocks/auth_block_state.h"
+#include "cryptohome/flatbuffer_schemas/auth_block_state.h"
 #include "cryptohome/flatbuffer_schemas/auth_block_state_test_utils.h"
 
 using brillo::Blob;
@@ -187,34 +187,58 @@ TEST(AuthBlockStateBindingTest, DoubleWrappedCompatAuthBlockState) {
 }
 
 TEST(AuthBlockStateBindingTest, ChallengeCredentialAuthBlockStateTpm12) {
-  AuthBlockState state = {
-      .state = ChallengeCredentialAuthBlockState{
-          .scrypt_state =
-              LibScryptCompatAuthBlockState{
-                  .wrapped_keyset = SecureBlob("wrapped_keyset"),
-                  .wrapped_chaps_key = SecureBlob("wrapped_chaps_key"),
-                  .wrapped_reset_seed = SecureBlob("wrapped_reset_seed"),
-                  .salt = SecureBlob("salt"),
-              },
-          .keyset_challenge_info = structure::SignatureChallengeInfo{
-              .public_key_spki_der = BlobFromString("public_key_spki_der"),
-              .sealed_secret =
-                  structure::Tpm12CertifiedMigratableKeyData{
-                      .public_key_spki_der =
-                          BlobFromString("public_key_spki_der"),
-                      .srk_wrapped_cmk = BlobFromString("srk_wrapped_cmk"),
-                      .cmk_pubkey = BlobFromString("cmk_pubkey"),
-                      .cmk_wrapped_auth_data =
-                          BlobFromString("cmk_wrapped_auth_data"),
-                      .default_pcr_bound_secret =
-                          BlobFromString("default_pcr_bound_secret"),
-                      .extended_pcr_bound_secret =
-                          BlobFromString("extended_pcr_bound_secret"),
-                  },
-              .salt = BlobFromString("salt"),
-              .salt_signature_algorithm =
-                  structure::ChallengeSignatureAlgorithm::kRsassaPkcs1V15Sha256,
-          }}};
+  AuthBlockState state =
+      {.state =
+           ChallengeCredentialAuthBlockState{
+               .scrypt_state =
+                   LibScryptCompatAuthBlockState{
+                       .wrapped_keyset = SecureBlob("wrapped_keyset"),
+                       .wrapped_chaps_key = SecureBlob("wrapped_chaps_key"),
+                       .wrapped_reset_seed = SecureBlob("wrapped_reset_seed"),
+                       .salt = SecureBlob("salt"),
+                   },
+               .keyset_challenge_info = structure::SignatureChallengeInfo{
+                   .public_key_spki_der = BlobFromString("public_key_spki_der"),
+                   .sealed_secret =
+                       hwsec::Tpm12CertifiedMigratableKeyData{
+                           .public_key_spki_der =
+                               BlobFromString("public_key_spki_der"),
+                           .srk_wrapped_cmk = BlobFromString("srk_wrapped_cmk"),
+                           .cmk_pubkey = BlobFromString("cmk_pubkey"),
+                           .cmk_wrapped_auth_data =
+                               BlobFromString("cmk_wrapped_auth_data"),
+                           .pcr_bound_items =
+                               {
+                                   hwsec::Tpm12PcrBoundItem{
+                                       .pcr_values =
+                                           {
+                                               hwsec::Tpm12PcrValue{
+                                                   .pcr_index = 4,
+                                                   .pcr_value = BlobFromString(
+                                                       "pcr_value1"),
+                                               },
+                                           },
+                                       .bound_secret =
+                                           BlobFromString("bound_secret0"),
+                                   },
+                                   hwsec::Tpm12PcrBoundItem{
+                                       .pcr_values =
+                                           {
+                                               hwsec::Tpm12PcrValue{
+                                                   .pcr_index = 4,
+                                                   .pcr_value = BlobFromString(
+                                                       "pcr_value1"),
+                                               },
+                                           },
+                                       .bound_secret =
+                                           BlobFromString("bound_secret1"),
+                                   },
+                               },
+                       },
+                   .salt = BlobFromString("salt"),
+                   .salt_signature_algorithm = structure::
+                       ChallengeSignatureAlgorithm::kRsassaPkcs1V15Sha256,
+               }}};
   std::optional<SecureBlob> blob = state.Serialize();
   ASSERT_TRUE(blob.has_value());
   std::optional<AuthBlockState> state2 =
@@ -236,17 +260,20 @@ TEST(AuthBlockStateBindingTest, ChallengeCredentialAuthBlockStateTpm2) {
           .keyset_challenge_info = structure::SignatureChallengeInfo{
               .public_key_spki_der = BlobFromString("public_key_spki_der"),
               .sealed_secret =
-                  structure::Tpm2PolicySignedData{
+                  hwsec::Tpm2PolicySignedData{
                       .public_key_spki_der =
                           BlobFromString("public_key_spki_der"),
                       .srk_wrapped_secret =
                           BlobFromString("srk_wrapped_secret"),
                       .scheme = 5566,
                       .hash_alg = 7788,
-                      .default_pcr_policy_digest =
-                          BlobFromString("default_pcr_policy_digest"),
-                      .extended_pcr_policy_digest =
-                          BlobFromString("extended_pcr_policy_digest"),
+                      .pcr_policy_digests =
+                          {
+                              hwsec::Tpm2PolicyDigest{
+                                  .digest = BlobFromString("digest0")},
+                              hwsec::Tpm2PolicyDigest{
+                                  .digest = BlobFromString("digest1")},
+                          },
                   },
               .salt = BlobFromString("salt"),
               .salt_signature_algorithm =
@@ -273,11 +300,16 @@ TEST(AuthBlockStateBindingTest, ChallengeCredentialAuthBlockStateEmpty) {
           .keyset_challenge_info = structure::SignatureChallengeInfo{
               .public_key_spki_der = BlobFromString(""),
               .sealed_secret =
-                  structure::Tpm2PolicySignedData{
+                  hwsec::Tpm2PolicySignedData{
                       .public_key_spki_der = BlobFromString(""),
                       .srk_wrapped_secret = BlobFromString(""),
-                      .default_pcr_policy_digest = BlobFromString(""),
-                      .extended_pcr_policy_digest = BlobFromString(""),
+                      .pcr_policy_digests =
+                          {
+                              hwsec::Tpm2PolicyDigest{.digest =
+                                                          BlobFromString("")},
+                              hwsec::Tpm2PolicyDigest{.digest =
+                                                          BlobFromString("")},
+                          },
                   },
               .salt = BlobFromString(""),
           }}};
@@ -312,7 +344,7 @@ TEST(AuthBlockStateBindingTest, ChallengeCredentialAuthBlockStateDefault) {
   AuthBlockState state = {
       .state = ChallengeCredentialAuthBlockState{
           .keyset_challenge_info = structure::SignatureChallengeInfo{
-              .sealed_secret = structure::Tpm2PolicySignedData{},
+              .sealed_secret = hwsec::Tpm2PolicySignedData{},
           }}};
   std::optional<SecureBlob> blob = state.Serialize();
   ASSERT_TRUE(blob.has_value());
@@ -324,11 +356,10 @@ TEST(AuthBlockStateBindingTest, ChallengeCredentialAuthBlockStateDefault) {
       .keyset_challenge_info = structure::SignatureChallengeInfo{
           .public_key_spki_der = BlobFromString(""),
           .sealed_secret =
-              structure::Tpm2PolicySignedData{
+              hwsec::Tpm2PolicySignedData{
                   .public_key_spki_der = BlobFromString(""),
                   .srk_wrapped_secret = BlobFromString(""),
-                  .default_pcr_policy_digest = BlobFromString(""),
-                  .extended_pcr_policy_digest = BlobFromString(""),
+                  .pcr_policy_digests = {},
               },
           .salt = BlobFromString(""),
       }};
@@ -370,7 +401,6 @@ TEST(AuthBlockStateBindingTest, PinWeaverAuthBlockState) {
 TEST(AuthBlockStateBindingTest, CryptohomeRecoveryAuthBlockState) {
   AuthBlockState state = {.state = CryptohomeRecoveryAuthBlockState{
                               .hsm_payload = SecureBlob("hsm_payload"),
-                              .salt = SecureBlob("salt"),
                               .encrypted_destination_share =
                                   SecureBlob("encrypted_destination_share"),
                               .channel_pub_key = SecureBlob(),

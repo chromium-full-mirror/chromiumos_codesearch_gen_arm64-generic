@@ -21,7 +21,7 @@
 #include "mojo/public/cpp/bindings/struct_traits.h"
 #include "mojo/public/cpp/bindings/union_traits.h"
 
-#include "base/trace_event/base_tracing.h"
+#include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
 #include "ml/mojom/soda.mojom-shared.h"
 #include "ml/mojom/soda.mojom-forward.h"
@@ -29,10 +29,6 @@
 #include <string>
 #include <vector>
 
-#include "mojo/public/cpp/bindings/associated_interface_ptr_info.h"
-#include "mojo/public/cpp/bindings/associated_interface_request.h"
-#include "mojo/public/cpp/bindings/interface_ptr.h"
-#include "mojo/public/cpp/bindings/interface_request.h"
 #include "mojo/public/cpp/bindings/lib/control_message_handler.h"
 #include "mojo/public/cpp/bindings/raw_ptr_impl_ref_traits.h"
 
@@ -57,6 +53,8 @@ class  SodaClient
     : public SodaClientInterfaceBase {
  public:
   static const char Name_[];
+  static uint32_t MessageToStableIPCHash_(mojo::Message& message);
+  static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 0;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasSyncMethods_ = false;
@@ -99,6 +97,8 @@ class  SodaRecognizer
     : public SodaRecognizerInterfaceBase {
  public:
   static const char Name_[];
+  static uint32_t MessageToStableIPCHash_(mojo::Message& message);
+  static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 0;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasSyncMethods_ = false;
@@ -283,7 +283,7 @@ class  AudioLevelEvent {
   template <typename... Args>
   static AudioLevelEventPtr New(Args&&... args) {
     return AudioLevelEventPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -382,7 +382,7 @@ class  AudioLevelEvent {
   float audio_level;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto::libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -420,14 +420,20 @@ class  SpeechRecognizerEvent {
   using Data_ = internal::SpeechRecognizerEvent_Data;
   using Tag = Data_::SpeechRecognizerEvent_Tag;
 
-  static SpeechRecognizerEventPtr New() {
-    return SpeechRecognizerEventPtr(base::in_place);
+  template <typename... Args>
+  static SpeechRecognizerEventPtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
   }
   // Construct an instance holding |audio_event|.
   static SpeechRecognizerEventPtr
   NewAudioEvent(
       AudioLevelEventPtr audio_event) {
-    auto result = SpeechRecognizerEventPtr(base::in_place);
+    auto result = SpeechRecognizerEventPtr(absl::in_place);
     result->set_audio_event(std::move(audio_event));
     return result;
   }
@@ -435,7 +441,7 @@ class  SpeechRecognizerEvent {
   static SpeechRecognizerEventPtr
   NewPartialResult(
       PartialResultPtr partial_result) {
-    auto result = SpeechRecognizerEventPtr(base::in_place);
+    auto result = SpeechRecognizerEventPtr(absl::in_place);
     result->set_partial_result(std::move(partial_result));
     return result;
   }
@@ -443,7 +449,7 @@ class  SpeechRecognizerEvent {
   static SpeechRecognizerEventPtr
   NewEndpointerEvent(
       EndpointerEventPtr endpointer_event) {
-    auto result = SpeechRecognizerEventPtr(base::in_place);
+    auto result = SpeechRecognizerEventPtr(absl::in_place);
     result->set_endpointer_event(std::move(endpointer_event));
     return result;
   }
@@ -451,7 +457,7 @@ class  SpeechRecognizerEvent {
   static SpeechRecognizerEventPtr
   NewFinalResult(
       FinalResultPtr final_result) {
-    auto result = SpeechRecognizerEventPtr(base::in_place);
+    auto result = SpeechRecognizerEventPtr(absl::in_place);
     result->set_final_result(std::move(final_result));
     return result;
   }
@@ -494,11 +500,11 @@ class  SpeechRecognizerEvent {
 
 
   
-  bool is_audio_event() const { return tag_ == Tag::AUDIO_EVENT; }
+  bool is_audio_event() const { return tag_ == Tag::kAudioEvent; }
 
   
   AudioLevelEventPtr& get_audio_event() const {
-    CHECK(tag_ == Tag::AUDIO_EVENT);
+    CHECK(tag_ == Tag::kAudioEvent);
     return *(data_.audio_event);
   }
 
@@ -506,11 +512,11 @@ class  SpeechRecognizerEvent {
   void set_audio_event(
       AudioLevelEventPtr audio_event);
   
-  bool is_partial_result() const { return tag_ == Tag::PARTIAL_RESULT; }
+  bool is_partial_result() const { return tag_ == Tag::kPartialResult; }
 
   
   PartialResultPtr& get_partial_result() const {
-    CHECK(tag_ == Tag::PARTIAL_RESULT);
+    CHECK(tag_ == Tag::kPartialResult);
     return *(data_.partial_result);
   }
 
@@ -518,11 +524,11 @@ class  SpeechRecognizerEvent {
   void set_partial_result(
       PartialResultPtr partial_result);
   
-  bool is_endpointer_event() const { return tag_ == Tag::ENDPOINTER_EVENT; }
+  bool is_endpointer_event() const { return tag_ == Tag::kEndpointerEvent; }
 
   
   EndpointerEventPtr& get_endpointer_event() const {
-    CHECK(tag_ == Tag::ENDPOINTER_EVENT);
+    CHECK(tag_ == Tag::kEndpointerEvent);
     return *(data_.endpointer_event);
   }
 
@@ -530,11 +536,11 @@ class  SpeechRecognizerEvent {
   void set_endpointer_event(
       EndpointerEventPtr endpointer_event);
   
-  bool is_final_result() const { return tag_ == Tag::FINAL_RESULT; }
+  bool is_final_result() const { return tag_ == Tag::kFinalResult; }
 
   
   FinalResultPtr& get_final_result() const {
-    CHECK(tag_ == Tag::FINAL_RESULT);
+    CHECK(tag_ == Tag::kFinalResult);
     return *(data_.final_result);
   }
 
@@ -587,7 +593,7 @@ class  SodaConfig {
   template <typename... Args>
   static SodaConfigPtr New(Args&&... args) {
     return SodaConfigPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -716,7 +722,7 @@ class  SodaConfig {
   SodaRecognitionMode recognition_mode;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto::libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -758,7 +764,7 @@ class  TimingInfo {
   template <typename... Args>
   static TimingInfoPtr New(Args&&... args) {
     return TimingInfoPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -871,7 +877,7 @@ class  TimingInfo {
   std::vector<base::TimeDelta> word_alignments;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto::libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -913,7 +919,7 @@ class  EndpointerEvent {
   template <typename... Args>
   static EndpointerEventPtr New(Args&&... args) {
     return EndpointerEventPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1013,7 +1019,7 @@ EndpointerEvent& operator=(const EndpointerEvent&) = delete;
   TimingInfoPtr timing_event;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto::libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -1055,7 +1061,7 @@ class  PartialResult {
   template <typename... Args>
   static PartialResultPtr New(Args&&... args) {
     return PartialResultPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1155,7 +1161,7 @@ PartialResult& operator=(const PartialResult&) = delete;
   TimingInfoPtr timing_event;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto::libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -1197,7 +1203,7 @@ class  HypothesisPartInResult {
   template <typename... Args>
   static HypothesisPartInResultPtr New(Args&&... args) {
     return HypothesisPartInResultPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1295,7 +1301,7 @@ class  HypothesisPartInResult {
   base::TimeDelta alignment;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto::libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -1337,7 +1343,7 @@ class  FinalResult {
   template <typename... Args>
   static FinalResultPtr New(Args&&... args) {
     return FinalResultPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1448,7 +1454,7 @@ FinalResult& operator=(const FinalResult&) = delete;
   absl::optional<std::vector<HypothesisPartInResultPtr>> hypothesis_part;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto::libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -1479,24 +1485,21 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 template <typename UnionPtrType>
 SpeechRecognizerEventPtr SpeechRecognizerEvent::Clone() const {
-  // Use UnionPtrType to prevent the compiler from trying to compile this
-  // without being asked.
-  UnionPtrType rv(New());
   switch (tag_) {
-    case Tag::AUDIO_EVENT:
-      rv->set_audio_event(mojo::Clone(*data_.audio_event));
-      break;
-    case Tag::PARTIAL_RESULT:
-      rv->set_partial_result(mojo::Clone(*data_.partial_result));
-      break;
-    case Tag::ENDPOINTER_EVENT:
-      rv->set_endpointer_event(mojo::Clone(*data_.endpointer_event));
-      break;
-    case Tag::FINAL_RESULT:
-      rv->set_final_result(mojo::Clone(*data_.final_result));
-      break;
+    case Tag::kAudioEvent:
+      return NewAudioEvent(
+          mojo::Clone(*data_.audio_event));
+    case Tag::kPartialResult:
+      return NewPartialResult(
+          mojo::Clone(*data_.partial_result));
+    case Tag::kEndpointerEvent:
+      return NewEndpointerEvent(
+          mojo::Clone(*data_.endpointer_event));
+    case Tag::kFinalResult:
+      return NewFinalResult(
+          mojo::Clone(*data_.final_result));
   }
-  return rv;
+  return nullptr;
 }
 
 template <typename T,
@@ -1507,13 +1510,13 @@ bool SpeechRecognizerEvent::Equals(const T& other) const {
     return false;
 
   switch (tag_) {
-    case Tag::AUDIO_EVENT:
+    case Tag::kAudioEvent:
       return mojo::Equals(*(data_.audio_event), *(other.data_.audio_event));
-    case Tag::PARTIAL_RESULT:
+    case Tag::kPartialResult:
       return mojo::Equals(*(data_.partial_result), *(other.data_.partial_result));
-    case Tag::ENDPOINTER_EVENT:
+    case Tag::kEndpointerEvent:
       return mojo::Equals(*(data_.endpointer_event), *(other.data_.endpointer_event));
-    case Tag::FINAL_RESULT:
+    case Tag::kFinalResult:
       return mojo::Equals(*(data_.final_result), *(other.data_.final_result));
   }
 

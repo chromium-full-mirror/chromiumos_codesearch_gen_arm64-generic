@@ -7,6 +7,7 @@
 
 #include <memory>
 #include <optional>
+#include <string>
 
 #include <brillo/secure_blob.h>
 #include <crypto/scoped_openssl_types.h>
@@ -14,62 +15,64 @@
 #include <openssl/ec.h>
 #include <libhwsec-foundation/crypto/ecdh_hkdf.h>
 #include <libhwsec-foundation/crypto/elliptic_curve.h>
+#include <libhwsec-foundation/utility/no_default_init.h>
 
 #include "cryptohome/cryptorecovery/cryptorecovery.pb.h"
 #include "cryptohome/cryptorecovery/recovery_crypto_util.h"
 
 namespace cryptohome {
 namespace cryptorecovery {
-// RecoveryCryptoTpmBackend - class for performing cryptorecovery
-// encryption/decryption in the TPM. For cryptorecovery, the TPM may be used as
-// a way to strengthen the secret shares/ private keys stored on disk.
-class RecoveryCryptoTpmBackend {
- public:
-  virtual ~RecoveryCryptoTpmBackend() = default;
-  // Generate key_auth_value. key auth value is required for sealing/ unsealing
-  // in TPM1.2 only and the required length is 32 bytes. The implementation for
-  // TPM2 backend will return an empty SecureBlob.
-  virtual brillo::SecureBlob GenerateKeyAuthValue() = 0;
-  // Encrypts the provided ECC private key using TPM, and returns it via
-  // `encrypted_own_priv_key`, which is one's own private key. (the format of
-  // this blob is TPM-specific). Returns false on failure.
-  // As TPM1.2 does not support ECC, instead of encrypting the ECC private key,
-  // it will seal the private key with the provided auth_value.
-  virtual bool EncryptEccPrivateKey(
-      const hwsec_foundation::EllipticCurve& ec,
-      const crypto::ScopedEC_KEY& own_key_pair,
-      const std::optional<brillo::SecureBlob>& auth_value,
-      brillo::SecureBlob* encrypted_own_priv_key) = 0;
-  // Multiplies the private key, provided in encrypted form, with the given the
-  // other party's public EC point. Returns the multiplication, or nullptr on
-  // failure.
-  // As TPM1.2 does not support ECC, instead of loading the ECC private key and
-  // computing the shared secret from TPM modules, the private key will be
-  // unsealed with the provided auth_value and the shared secret will be
-  // computed via openssl lib.
-  virtual crypto::ScopedEC_POINT GenerateDiffieHellmanSharedSecret(
-      const hwsec_foundation::EllipticCurve& ec,
-      const brillo::SecureBlob& encrypted_own_priv_key,
-      const std::optional<brillo::SecureBlob>& auth_value,
-      const EC_POINT& others_pub_point) = 0;
-  // Generate a TPM-backed RSA key pair. Return true if the key generation
-  // from TPM modules is successful.
-  // Generated RSA private key would be used to sign recovery request payload
-  // when channel private key cannot be restored in a secure manner. Therefore,
-  // it will only be implemented in TPM1 backend. For TPM2, a dummy true would
-  // be returned.
-  virtual bool GenerateRsaKeyPair(
-      brillo::SecureBlob* encrypted_rsa_private_key,
-      brillo::SecureBlob* rsa_public_key_spki_der) = 0;
-  // Sign the request payload with the provided RSA private key. Return true if
-  // the signing operation is successful.
-  // The RSA private key would be loaded from the TPM modules first and used to
-  // sign the payload. As signing the request payload is only required for TPM1,
-  // the implementation of TPM2 would return a dummy true.
-  virtual bool SignRequestPayload(
-      const brillo::SecureBlob& encrypted_rsa_private_key,
-      const brillo::SecureBlob& request_payload,
-      brillo::SecureBlob* signature) = 0;
+
+// RecoveryCrypto input parameters for function GenerateHsmPayload.
+struct GenerateHsmPayloadRequest {
+  hwsec_foundation::NoDefault<brillo::SecureBlob> mediator_pub_key;
+  // The metadata generated during the Onboarding workflow on a Chromebook
+  // (OMD).
+  hwsec_foundation::NoDefault<OnboardingMetadata> onboarding_metadata;
+  // Used to generate PCR map.
+  hwsec_foundation::NoDefault<std::string> obfuscated_username;
+};
+
+// RecoveryCrypto output parameters for function GenerateHsmPayload.
+struct GenerateHsmPayloadResponse {
+  HsmPayload hsm_payload;
+  brillo::SecureBlob encrypted_rsa_priv_key;
+  brillo::SecureBlob encrypted_destination_share;
+  brillo::SecureBlob extended_pcr_bound_destination_share;
+  brillo::SecureBlob recovery_key;
+  brillo::SecureBlob channel_pub_key;
+  brillo::SecureBlob encrypted_channel_priv_key;
+};
+
+// RecoveryCrypto input parameters for function GenerateRecoveryRequest.
+struct GenerateRecoveryRequestRequest {
+  hwsec_foundation::NoDefault<HsmPayload> hsm_payload;
+  hwsec_foundation::NoDefault<RequestMetadata> request_meta_data;
+  CryptoRecoveryEpochResponse epoch_response;
+  hwsec_foundation::NoDefault<brillo::SecureBlob> encrypted_rsa_priv_key;
+  hwsec_foundation::NoDefault<brillo::SecureBlob> encrypted_channel_priv_key;
+  hwsec_foundation::NoDefault<brillo::SecureBlob> channel_pub_key;
+  hwsec_foundation::NoDefault<std::string> obfuscated_username;
+};
+
+// RecoveryCrypto input parameters for function RecoverDestination.
+struct RecoverDestinationRequest {
+  hwsec_foundation::NoDefault<brillo::SecureBlob> dealer_pub_key;
+  hwsec_foundation::NoDefault<brillo::SecureBlob> key_auth_value;
+  hwsec_foundation::NoDefault<brillo::SecureBlob> encrypted_destination_share;
+  hwsec_foundation::NoDefault<brillo::SecureBlob>
+      extended_pcr_bound_destination_share;
+  hwsec_foundation::NoDefault<brillo::SecureBlob> ephemeral_pub_key;
+  hwsec_foundation::NoDefault<brillo::SecureBlob> mediated_publisher_pub_key;
+  hwsec_foundation::NoDefault<std::string> obfuscated_username;
+};
+
+// RecoveryCrypto input parameters for function DecryptResponsePayload.
+struct DecryptResponsePayloadRequest {
+  hwsec_foundation::NoDefault<brillo::SecureBlob> encrypted_channel_priv_key;
+  CryptoRecoveryEpochResponse epoch_response;
+  CryptoRecoveryRpcResponse recovery_response_proto;
+  hwsec_foundation::NoDefault<std::string> obfuscated_username;
 };
 
 // Cryptographic operations for cryptohome recovery.
@@ -122,12 +125,7 @@ class RecoveryCrypto {
   // 7. Construct `CryptoRecoveryRpcRequest` which contains `RecoveryRequest`
   // serialized to CBOR.
   virtual bool GenerateRecoveryRequest(
-      const HsmPayload& hsm_payload,
-      const RequestMetadata& request_meta_data,
-      const CryptoRecoveryEpochResponse& epoch_response,
-      const brillo::SecureBlob& encrypted_rsa_priv_key,
-      const brillo::SecureBlob& encrypted_channel_priv_key,
-      const brillo::SecureBlob& channel_pub_key,
+      const GenerateRecoveryRequestRequest& request,
       CryptoRecoveryRpcRequest* recovery_request,
       brillo::SecureBlob* ephemeral_pub_key) const = 0;
 
@@ -154,14 +152,8 @@ class RecoveryCrypto {
   // The resulting destination share should be either added to TPM 2.0 or sealed
   // with kav for TPM 1.2 and stored in the host.
   virtual bool GenerateHsmPayload(
-      const brillo::SecureBlob& mediator_pub_key,
-      const OnboardingMetadata& onboarding_metadata,
-      HsmPayload* hsm_payload,
-      brillo::SecureBlob* encrypted_rsa_priv_key,
-      brillo::SecureBlob* encrypted_destination_share,
-      brillo::SecureBlob* recovery_key,
-      brillo::SecureBlob* channel_pub_key,
-      brillo::SecureBlob* encrypted_channel_priv_key) const = 0;
+      const GenerateHsmPayloadRequest& request,
+      GenerateHsmPayloadResponse* response) const = 0;
 
   // Recovers destination. Returns false if error occurred.
   // Formula:
@@ -173,26 +165,20 @@ class RecoveryCrypto {
   // loaded back in the form of key handle, which requires no additional crypto
   // secret.
   virtual bool RecoverDestination(
-      const brillo::SecureBlob& dealer_pub_key,
-      const brillo::SecureBlob& key_auth_value,
-      const brillo::SecureBlob& encrypted_destination_share,
-      const brillo::SecureBlob& ephemeral_pub_key,
-      const brillo::SecureBlob& mediated_publisher_pub_key,
+      const RecoverDestinationRequest& request,
       brillo::SecureBlob* destination_recovery_key) const = 0;
 
   // Decrypt plain text from the Recovery Response.
   // Consists of the following steps:
   // 1. Deserialize `recovery_response_proto.cbor_cryptorecoveryresponse` to
-  // `RecoveryResponse`.
+  // `ResponsePayload`.
   // 2. Get cipher text, associated data, AES-GCM tag and iv from
-  // `response_payload` field of `RecoveryResponse`
+  // `response_payload` field of `ResponsePayload`
   // 3. Decrypt cipher text of response payload, deserialize it from CBOR
   // and store the result in `response_plain_text`. The key for decryption is
   // HKDF(ECDH(channel_priv_key, epoch_response.epoch_pub_key)).
   virtual bool DecryptResponsePayload(
-      const brillo::SecureBlob& encrypted_channel_priv_key,
-      const CryptoRecoveryEpochResponse& epoch_response,
-      const CryptoRecoveryRpcResponse& recovery_response_proto,
+      const DecryptResponsePayloadRequest& request,
       HsmResponsePlainText* response_plain_text) const = 0;
 };
 

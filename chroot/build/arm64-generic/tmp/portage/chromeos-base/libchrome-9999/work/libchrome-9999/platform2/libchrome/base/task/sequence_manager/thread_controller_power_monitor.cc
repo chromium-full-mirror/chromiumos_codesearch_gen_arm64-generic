@@ -69,8 +69,8 @@ void ThreadControllerPowerMonitor::OnSuspend() {
   DCHECK(!is_power_suspended_);
 
   TRACE_EVENT_BEGIN("base", "ThreadController::Suspended",
-                    perfetto::libchrome::Track(reinterpret_cast<uint64_t>(this),
-                                    perfetto::libchrome::ThreadTrack::Current()));
+                    perfetto_libchrome::Track(reinterpret_cast<uint64_t>(this),
+                                    perfetto_libchrome::ThreadTrack::Current()));
   is_power_suspended_ = true;
 }
 
@@ -82,8 +82,8 @@ void ThreadControllerPowerMonitor::OnResume() {
   // added to the power monitor. Ignoring the resume notification in that case.
   if (is_power_suspended_) {
     TRACE_EVENT_END("base" /* ThreadController::Suspended */,
-                    perfetto::libchrome::Track(reinterpret_cast<uint64_t>(this),
-                                    perfetto::libchrome::ThreadTrack::Current()));
+                    perfetto_libchrome::Track(reinterpret_cast<uint64_t>(this),
+                                    perfetto_libchrome::ThreadTrack::Current()));
     is_power_suspended_ = false;
   }
 }

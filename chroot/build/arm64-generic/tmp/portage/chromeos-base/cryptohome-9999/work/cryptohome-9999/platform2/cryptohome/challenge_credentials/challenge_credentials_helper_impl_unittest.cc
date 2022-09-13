@@ -16,18 +16,16 @@
 #include <brillo/secure_blob.h>
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
+#include <libhwsec/frontend/cryptohome/mock_frontend.h>
 #include <libhwsec-foundation/crypto/sha.h>
 #include <libhwsec-foundation/error/testing_helper.h>
 
 #include "cryptohome/challenge_credentials/challenge_credentials_constants.h"
 #include "cryptohome/challenge_credentials/challenge_credentials_helper_impl.h"
 #include "cryptohome/challenge_credentials/challenge_credentials_test_utils.h"
+#include "cryptohome/challenge_credentials/signature_sealing_test_utils.h"
+#include "cryptohome/flatbuffer_schemas/structures.h"
 #include "cryptohome/mock_key_challenge_service.h"
-#include "cryptohome/mock_signature_sealing_backend.h"
-#include "cryptohome/mock_tpm.h"
-#include "cryptohome/signature_sealing/structures.h"
-#include "cryptohome/signature_sealing_backend.h"
-#include "cryptohome/signature_sealing_backend_test_utils.h"
 
 using brillo::Blob;
 using brillo::BlobToString;
@@ -38,9 +36,11 @@ using hwsec::TPMErrorBase;
 using hwsec::TPMRetryAction;
 using hwsec_foundation::Sha256;
 using hwsec_foundation::error::testing::ReturnError;
+using hwsec_foundation::error::testing::ReturnValue;
 using testing::_;
 using testing::AnyNumber;
 using testing::DoAll;
+using testing::NiceMock;
 using testing::Return;
 using testing::SetArgPointee;
 using testing::StrictMock;
@@ -49,6 +49,24 @@ using testing::Values;
 namespace cryptohome {
 
 namespace {
+
+using HwsecAlgorithm = hwsec::CryptohomeFrontend::SignatureSealingAlgorithm;
+
+HwsecAlgorithm ConvertAlgorithm(
+    structure::ChallengeSignatureAlgorithm algorithm) {
+  switch (algorithm) {
+    case structure::ChallengeSignatureAlgorithm::kRsassaPkcs1V15Sha1:
+      return HwsecAlgorithm::kRsassaPkcs1V15Sha1;
+    case structure::ChallengeSignatureAlgorithm::kRsassaPkcs1V15Sha256:
+      return HwsecAlgorithm::kRsassaPkcs1V15Sha256;
+    case structure::ChallengeSignatureAlgorithm::kRsassaPkcs1V15Sha384:
+      return HwsecAlgorithm::kRsassaPkcs1V15Sha384;
+    case structure::ChallengeSignatureAlgorithm::kRsassaPkcs1V15Sha512:
+      return HwsecAlgorithm::kRsassaPkcs1V15Sha512;
+  }
+  NOTREACHED();
+  return static_cast<HwsecAlgorithm>(algorithm);
+}
 
 structure::ChallengePublicKeyInfo MakeChallengePublicKeyInfo(
     const Blob& set_public_key_spki_der,
@@ -78,18 +96,7 @@ structure::SignatureChallengeInfo MakeFakeKeysetChallengeInfo(
 class ChallengeCredentialsHelperImplTestBase : public testing::Test {
  protected:
   ChallengeCredentialsHelperImplTestBase()
-      : challenge_credentials_helper_(&tpm_, kDelegateBlob, kDelegateSecret) {}
-
-  void PrepareSignatureSealingBackend(bool enabled) {
-    SignatureSealingBackend* const return_value =
-        enabled ? &sealing_backend_ : nullptr;
-    EXPECT_CALL(tpm_, GetSignatureSealingBackend())
-        .WillRepeatedly(Return(return_value));
-    EXPECT_CALL(tpm_, GetPcrMap("", false))
-        .WillRepeatedly(Return(kDefaultPcrMap));
-    EXPECT_CALL(tpm_, GetPcrMap("", true))
-        .WillRepeatedly(Return(kExtendedPcrMap));
-  }
+      : challenge_credentials_helper_(&hwsec_) {}
 
   // Starts the asynchronous GenerateNew() operation.  The result, once the
   // operation completes, will be stored in |generate_new_result|.
@@ -122,7 +129,7 @@ class ChallengeCredentialsHelperImplTestBase : public testing::Test {
                                     salt_challenge_algorithm);
     challenge_credentials_helper_.Decrypt(
         kUserEmail, public_key_info, keyset_challenge_info,
-        /*locked_to_single_user=*/false, std::move(challenge_service_),
+        std::move(challenge_service_),
         MakeChallengeCredentialsDecryptResultWriter(decrypt_result));
   }
 
@@ -156,8 +163,7 @@ class ChallengeCredentialsHelperImplTestBase : public testing::Test {
             kLocalAlgorithm /* salt_challenge_algorithm */);
     challenge_credentials_helper_.Decrypt(
         kUserEmail, public_key_info, keyset_challenge_info,
-        /*locked_to_single_user=*/false, std::move(mock_key_challenge_service),
-        base::DoNothing());
+        std::move(mock_key_challenge_service), base::DoNothing());
   }
 
   // Assert that the given GenerateNew() operation result is a valid success
@@ -165,46 +171,50 @@ class ChallengeCredentialsHelperImplTestBase : public testing::Test {
   void VerifySuccessfulGenerateNewResult(
       const ChallengeCredentialsHelper::GenerateNewOrDecryptResult&
           generate_new_result) const {
-    VerifySuccessfulChallengeCredentialsGenerateNewResult(
-        generate_new_result, SecureBlob(kPasskey.begin(), kPasskey.end()));
+    VerifySuccessfulChallengeCredentialsGenerateNewResult(generate_new_result,
+                                                          kPasskey);
   }
 
   // Assert that the given Decrypt() operation result is a valid success result.
   void VerifySuccessfulDecryptResult(
       const ChallengeCredentialsHelper::GenerateNewOrDecryptResult&
           decrypt_result) const {
-    VerifySuccessfulChallengeCredentialsDecryptResult(
-        decrypt_result, SecureBlob(kPasskey.begin(), kPasskey.end()));
+    VerifySuccessfulChallengeCredentialsDecryptResult(decrypt_result, kPasskey);
   }
 
   // Returns a helper object that aids mocking of the sealed secret creation
-  // functionality (SignatureSealingBackend::CreateSealedSecret()).
+  // functionality.
   std::unique_ptr<SignatureSealedCreationMocker> MakeSealedCreationMocker(
       const std::vector<structure::ChallengeSignatureAlgorithm>&
           key_algorithms) {
-    auto mocker =
-        std::make_unique<SignatureSealedCreationMocker>(&sealing_backend_);
+    EXPECT_CALL(hwsec_, GetRandomSecureBlob(_))
+        .WillOnce(ReturnValue(kTpmProtectedSecret));
+
+    std::vector<HwsecAlgorithm> hwsec_key_algorithms;
+    for (auto algo : key_algorithms) {
+      hwsec_key_algorithms.push_back(ConvertAlgorithm(algo));
+    }
+    auto mocker = std::make_unique<SignatureSealedCreationMocker>(&hwsec_);
     mocker->set_public_key_spki_der(kPublicKeySpkiDer);
-    mocker->set_key_algorithms(key_algorithms);
+    mocker->set_key_algorithms(hwsec_key_algorithms);
     mocker->set_obfuscated_username(kObfuscatedUsername);
-    mocker->set_delegate_blob(kDelegateBlob);
-    mocker->set_delegate_secret(kDelegateSecret);
     mocker->set_secret_value(kTpmProtectedSecret);
     return mocker;
   }
 
   // Returns a helper object that aids mocking of the secret unsealing
-  // functionality (SignatureSealingBackend::CreateUnsealingSession() et al.).
+  // functionality.
   std::unique_ptr<SignatureSealedUnsealingMocker> MakeUnsealingMocker(
       const std::vector<structure::ChallengeSignatureAlgorithm>& key_algorithms,
       structure::ChallengeSignatureAlgorithm unsealing_algorithm) {
-    auto mocker =
-        std::make_unique<SignatureSealedUnsealingMocker>(&sealing_backend_);
+    std::vector<HwsecAlgorithm> hwsec_key_algorithms;
+    for (auto algo : key_algorithms) {
+      hwsec_key_algorithms.push_back(ConvertAlgorithm(algo));
+    }
+    auto mocker = std::make_unique<SignatureSealedUnsealingMocker>(&hwsec_);
     mocker->set_public_key_spki_der(kPublicKeySpkiDer);
-    mocker->set_key_algorithms(key_algorithms);
-    mocker->set_delegate_blob(kDelegateBlob);
-    mocker->set_delegate_secret(kDelegateSecret);
-    mocker->set_chosen_algorithm(unsealing_algorithm);
+    mocker->set_key_algorithms(hwsec_key_algorithms);
+    mocker->set_chosen_algorithm(ConvertAlgorithm(unsealing_algorithm));
     mocker->set_challenge_value(kUnsealingChallengeValue);
     mocker->set_challenge_signature(kUnsealingChallengeSignature);
     mocker->set_secret_value(kTpmProtectedSecret);
@@ -266,16 +276,13 @@ class ChallengeCredentialsHelperImplTestBase : public testing::Test {
 
   // Sets up a mock for the successful salt generation.
   void SetSuccessfulSaltGenerationMock() {
-    EXPECT_CALL(tpm_,
-                GetRandomDataBlob(kChallengeCredentialsSaltRandomByteCount, _))
-        .WillOnce(DoAll(SetArgPointee<1>(kSaltRandomPart),
-                        ReturnError<TPMErrorBase>()));
+    EXPECT_CALL(hwsec_, GetRandomBlob(kChallengeCredentialsSaltRandomByteCount))
+        .WillOnce(ReturnValue(kSaltRandomPart));
   }
 
   // Sets up a mock for the failure during salt generation.
   void SetFailingSaltGenerationMock() {
-    EXPECT_CALL(tpm_,
-                GetRandomDataBlob(kChallengeCredentialsSaltRandomByteCount, _))
+    EXPECT_CALL(hwsec_, GetRandomBlob(kChallengeCredentialsSaltRandomByteCount))
         .WillOnce(ReturnError<TPMError>("fake", TPMRetryAction::kNoRetry));
   }
 
@@ -283,11 +290,6 @@ class ChallengeCredentialsHelperImplTestBase : public testing::Test {
   // Constants which are passed as fake data inputs to the
   // ChallengeCredentialsHelperImpl methods:
 
-  // Fake TPM delegate. It's supplied to the ChallengeCredentialsHelperImpl
-  // constructor. Then it's verified to be passed into SignatureSealingBackend
-  // methods.
-  const Blob kDelegateBlob{{1, 1, 1}};
-  const Blob kDelegateSecret{{2, 2, 2}};
   // Fake user e-mail. It's supplied to the ChallengeCredentialsHelperImpl
   // operation methods. Then it's verified to be passed alongside challenge
   // requests made via KeyChallengeService, and to be present in the resulting
@@ -296,7 +298,7 @@ class ChallengeCredentialsHelperImplTestBase : public testing::Test {
   // Fake Subject Public Key Information of the challenged cryptographic key.
   // It's supplied to the ChallengeCredentialsHelperImpl operation methods as a
   // field of both |key_data| and |keyset_challenge_info| parameters. Then it's
-  // verified to be passed into SignatureSealingBackend methods and to be used
+  // verified to be passed into SignatureSealing methods and to be used
   // for challenge requests made via KeyChallengeService.
   const Blob kPublicKeySpkiDer{{3, 3, 3}};
   // Fake random part of the salt. When testing the GenerateNew() operation,
@@ -311,7 +313,7 @@ class ChallengeCredentialsHelperImplTestBase : public testing::Test {
       {GetChallengeCredentialsSaltConstantPrefix(), kSaltRandomPart});
   // Fake obfuscated username: It's supplied to the GenerateNew() operation.
   // Then it's verified to be passed into the
-  // SignatureSealingBackend::CreateSealedSecret() method.
+  // hwsec::CryptohomeFrontend::SealWithSignatureAndCurrentUser method.
   const std::string kObfuscatedUsername = "obfuscated_username";
   // Fake PCR restrictions.
   const std::map<uint32_t, brillo::Blob> kDefaultPcrMap{{0, {9, 9, 9}},
@@ -329,35 +331,37 @@ class ChallengeCredentialsHelperImplTestBase : public testing::Test {
   // constant.
   const Blob kSaltSignature{{5, 5, 5}};
   // Fake challenge value for unsealing the secret. It's injected as a fake
-  // value returned from SignatureSealingBackend::UnsealingSession. Then it's
-  // verified to be used as the challenge value for one of requests made via
-  // KeyChallengeService.
+  // value returned from
+  // hwsec::CryptohomeFrontend::ChallengeWithSignatureAndCurrentUser(). Then
+  // it's verified to be used as the challenge value for one of requests made
+  // via KeyChallengeService.
   const Blob kUnsealingChallengeValue{{6, 6, 6}};
   // Fake signature of |kUnsealingChallengeValue| using the
   // |unsealing_algorithm_| algorithm. It's injected as a fake response to the
   // unsealing challenge request made via KeyChallengeService. Then it's
   // verified to be passed to the Unseal() method of
-  // SignatureSealingBackend::UnsealingSession.
+  // hwsec::CryptohomeFrontend::ChallengeWithSignatureAndCurrentUser.
   const Blob kUnsealingChallengeSignature{{7, 7, 7}};
   // Fake TPM-protected secret. When testing the GenerateNew() operation, it's
-  // injected as a fake result of SignatureSealingBackend::CreateSealedSecret()
-  // method. When testing the Decrypt() operation, it's injected as a fake
-  // result of the Unseal() method of SignatureSealingBackend::UnsealingSession.
-  // Also this constant is implicitly verified to be used for the generation of
-  // the passkey in the resulting Credentials - see the |kPasskey| constant.
-  const Blob kTpmProtectedSecret{{8, 8, 8}};
+  // injected as a fake result of
+  // hwsec::CryptohomeFrontend::SealWithSignatureAndCurrentUser() method. When
+  // testing the Decrypt() operation, it's injected as a fake result of the
+  // Unseal() method of
+  // hwsec::CryptohomeFrontend::ChallengeWithSignatureAndCurrentUser(). Also
+  // this constant is implicitly verified to be used for the generation of the
+  // passkey in the resulting Credentials - see the |kPasskey| constant.
+  const SecureBlob kTpmProtectedSecret{{8, 8, 8}};
 
   // The expected passkey of the resulting Credentials returned from the
   // ChallengeCredentialsHelperImpl operations. Its value is derived from the
   // injected fake data.
-  const Blob kPasskey =
-      CombineBlobs({kTpmProtectedSecret, Sha256(kSaltSignature)});
+  const SecureBlob kPasskey = SecureBlob::Combine(
+      kTpmProtectedSecret, SecureBlob(Sha256(kSaltSignature)));
 
  private:
   // Mock objects:
 
-  StrictMock<MockSignatureSealingBackend> sealing_backend_;
-  StrictMock<MockTpm> tpm_;
+  NiceMock<hwsec::MockCryptohomeFrontend> hwsec_;
   std::unique_ptr<StrictMock<MockKeyChallengeService>> challenge_service_ =
       std::make_unique<StrictMock<MockKeyChallengeService>>();
   KeyChallengeServiceMockController salt_challenge_mock_controller_{
@@ -369,27 +373,16 @@ class ChallengeCredentialsHelperImplTestBase : public testing::Test {
   ChallengeCredentialsHelperImpl challenge_credentials_helper_;
 };
 
-// Base fixture class that uses a single algorithm for simplicity.
-class ChallengeCredentialsHelperImplSingleAlgorithmTestBase
+// Base fixture class that uses a single algorithm and have the sealing backend
+// available.
+class ChallengeCredentialsHelperImplBasicTest
     : public ChallengeCredentialsHelperImplTestBase {
  protected:
   // The single algorithm to be used in this test.
   static constexpr structure::ChallengeSignatureAlgorithm kAlgorithm =
       structure::ChallengeSignatureAlgorithm::kRsassaPkcs1V15Sha256;
-};
 
-// Base fixture class that uses a single algorithm and have the sealing backend
-// available.
-class ChallengeCredentialsHelperImplBasicTest
-    : public ChallengeCredentialsHelperImplSingleAlgorithmTestBase {
- protected:
-  // The single algorithm to be used in this test.
-  static constexpr structure::ChallengeSignatureAlgorithm kAlgorithm =
-      structure::ChallengeSignatureAlgorithm::kRsassaPkcs1V15Sha256;
-
-  ChallengeCredentialsHelperImplBasicTest() {
-    PrepareSignatureSealingBackend(true /* enabled */);
-  }
+  ChallengeCredentialsHelperImplBasicTest() {}
 };
 
 }  // namespace
@@ -732,30 +725,6 @@ TEST_F(ChallengeCredentialsHelperImplBasicTest, DecryptAbortionAfterUnsealing) {
 
 namespace {
 
-// Tests with simulation of SignatureSealingBackend absence.
-class ChallengeCredentialsHelperImplNoBackendTest
-    : public ChallengeCredentialsHelperImplSingleAlgorithmTestBase {
- protected:
-  ChallengeCredentialsHelperImplNoBackendTest() {
-    PrepareSignatureSealingBackend(false /* enabled */);
-  }
-};
-
-}  // namespace
-
-// Test failure of the Decrypt() operation due to the absence of the sealing
-// backend.
-TEST_F(ChallengeCredentialsHelperImplNoBackendTest, DecryptFailure) {
-  std::unique_ptr<ChallengeCredentialsHelper::GenerateNewOrDecryptResult>
-      decrypt_result;
-  CallDecrypt({kAlgorithm} /* key_algorithms */,
-              kAlgorithm /* salt_challenge_algorithm */, kSalt,
-              &decrypt_result);
-  ASSERT_FALSE(decrypt_result);
-}
-
-namespace {
-
 // Test parameters for ChallengeCredentialsHelperImplAlgorithmsTest.
 struct AlgorithmsTestParam {
   std::vector<structure::ChallengeSignatureAlgorithm> key_algorithms;
@@ -768,9 +737,7 @@ class ChallengeCredentialsHelperImplAlgorithmsTest
     : public ChallengeCredentialsHelperImplTestBase,
       public testing::WithParamInterface<AlgorithmsTestParam> {
  protected:
-  ChallengeCredentialsHelperImplAlgorithmsTest() {
-    PrepareSignatureSealingBackend(true /* enabled */);
-  }
+  ChallengeCredentialsHelperImplAlgorithmsTest() = default;
 };
 
 }  // namespace

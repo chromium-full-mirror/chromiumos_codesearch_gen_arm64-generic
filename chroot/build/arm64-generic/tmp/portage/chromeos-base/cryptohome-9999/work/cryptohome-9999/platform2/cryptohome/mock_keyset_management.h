@@ -17,8 +17,8 @@
 #include <dbus/cryptohome/dbus-constants.h>
 #include <gmock/gmock.h>
 
-#include "cryptohome/auth_blocks/auth_block_state.h"
 #include "cryptohome/credentials.h"
+#include "cryptohome/flatbuffer_schemas/auth_block_state.h"
 #include "cryptohome/key_objects.h"
 #include "cryptohome/storage/file_system_keyset.h"
 #include "cryptohome/storage/mount.h"
@@ -86,6 +86,10 @@ class MockKeysetManagement : public KeysetManagement {
   MOCK_METHOD(bool, MoveKeyset, (const std::string&, int, int), (override));
   MOCK_METHOD(void, RemoveLECredentials, (const std::string&), (override));
   MOCK_METHOD(bool, UserExists, (const std::string&), (override));
+  MOCK_METHOD(std::unique_ptr<VaultKeyset>,
+              LoadVaultKeysetForUser,
+              (const std::string&, int),
+              (const, override));
   MOCK_METHOD(brillo::SecureBlob,
               GetPublicMountPassKey,
               (const std::string&),

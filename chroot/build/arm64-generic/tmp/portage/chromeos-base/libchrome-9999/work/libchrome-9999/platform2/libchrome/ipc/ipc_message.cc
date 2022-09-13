@@ -19,7 +19,7 @@
 
 #include "base/atomic_sequence_num.h"
 #include "base/logging.h"
-#include "base/trace_event/base_tracing.h"
+#include "base/trace_event/trace_event.h"
 #include "build/build_config.h"
 #include "ipc/ipc_message_attachment.h"
 #include "ipc/ipc_message_attachment_set.h"

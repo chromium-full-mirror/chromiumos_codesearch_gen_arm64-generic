@@ -9,17 +9,31 @@
 #include <brillo/secure_blob.h>
 #include <gtest/gtest.h>
 
-#include <cryptohome/scrypt_verifier.h>
+#include "cryptohome/auth_factor/auth_factor_type.h"
+#include "cryptohome/scrypt_verifier.h"
 
 namespace cryptohome {
+namespace {
+
+constexpr char kLabel[] = "fake-label";
 
 class VerifierTest : public ::testing::Test {
  public:
-  void SetUp() override { password_verifier_.reset(new ScryptVerifier()); }
+  void SetUp() override {
+    password_verifier_ = std::make_unique<ScryptVerifier>(kLabel);
+  }
 
  protected:
   std::unique_ptr<CredentialVerifier> password_verifier_;
 };
+
+TEST_F(VerifierTest, AuthFactorType) {
+  EXPECT_EQ(password_verifier_->auth_factor_type(), AuthFactorType::kPassword);
+}
+
+TEST_F(VerifierTest, AuthFactorLabel) {
+  EXPECT_EQ(password_verifier_->auth_factor_label(), kLabel);
+}
 
 TEST_F(VerifierTest, Ok) {
   brillo::SecureBlob secret("good");
@@ -39,4 +53,5 @@ TEST_F(VerifierTest, NotSet) {
   EXPECT_FALSE(password_verifier_->Verify(secret));
 }
 
+}  // namespace
 }  // namespace cryptohome

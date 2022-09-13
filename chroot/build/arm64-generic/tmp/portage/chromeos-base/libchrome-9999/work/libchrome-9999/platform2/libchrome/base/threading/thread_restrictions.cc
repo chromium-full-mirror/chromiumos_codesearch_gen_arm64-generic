@@ -295,10 +295,9 @@ ScopedAllowBlocking::ScopedAllowBlocking(const Location& from_here)
 #endif
 {
   TRACE_EVENT_BEGIN(
-      "base", "ScopedAllowBlocking", [&](perfetto::libchrome::EventContext ctx) {
+      "base", "ScopedAllowBlocking", [&](perfetto_libchrome::EventContext ctx) {
         ctx.event()->set_source_location_iid(
-            base::trace_event::InternedSourceLocation::Get(
-                &ctx, base::trace_event::TraceSourceLocation(from_here)));
+            base::trace_event::InternedSourceLocation::Get(&ctx, from_here));
       });
 }
 
@@ -320,10 +319,9 @@ ScopedAllowBaseSyncPrimitivesOutsideBlockingScope::
 {
   TRACE_EVENT_BEGIN(
       "base", "ScopedAllowBaseSyncPrimitivesOutsideBlockingScope",
-      [&](perfetto::libchrome::EventContext ctx) {
+      [&](perfetto_libchrome::EventContext ctx) {
         ctx.event()->set_source_location_iid(
-            base::trace_event::InternedSourceLocation::Get(
-                &ctx, base::trace_event::TraceSourceLocation(from_here)));
+            base::trace_event::InternedSourceLocation::Get(&ctx, from_here));
       });
 
   // Since this object is used to indicate that sync primitives will be used to
@@ -348,10 +346,9 @@ ThreadRestrictions::ScopedAllowIO::ScopedAllowIO(const Location& from_here)
           std::make_unique<BooleanWithStack>(false)))
 #endif
 {
-  TRACE_EVENT_BEGIN("base", "ScopedAllowIO", [&](perfetto::libchrome::EventContext ctx) {
+  TRACE_EVENT_BEGIN("base", "ScopedAllowIO", [&](perfetto_libchrome::EventContext ctx) {
     ctx.event()->set_source_location_iid(
-        base::trace_event::InternedSourceLocation::Get(
-            &ctx, base::trace_event::TraceSourceLocation(from_here)));
+        base::trace_event::InternedSourceLocation::Get(&ctx, from_here));
   });
 }
 

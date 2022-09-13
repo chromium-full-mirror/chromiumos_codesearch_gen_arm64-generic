@@ -10,12 +10,11 @@
 #include "base/task/common/task_annotator.h"
 #include "base/task/sequenced_task_runner.h"
 #include "base/threading/thread_task_runner_handle.h"
-#include "base/trace_event/base_tracing.h"
+#include "base/trace_event/heap_profiler.h"
+#include "base/trace_event/trace_event.h"
+#include "base/trace_event/typed_macros.h"
 #include "mojo/public/c/system/trap.h"
-
-#if BUILDFLAG(ENABLE_BASE_TRACING)
 #include "third_party/perfetto/protos/perfetto/trace/track_event/chrome_mojo_event_info.pbzero.h"
-#endif
 
 namespace mojo {
 
@@ -269,7 +268,7 @@ void SimpleWatcher::OnHandleReady(int watch_id,
     // helps identify the cause of janks. It is ok to pass |handler_tag_|
     // here since it is a string literal.
     TRACE_EVENT("toplevel", "SimpleWatcher::OnHandleReady",
-                [this](perfetto::libchrome::EventContext ctx) {
+                [this](perfetto_libchrome::EventContext ctx) {
                   ctx.event()
                       ->set_chrome_mojo_event_info()
                       ->set_watcher_notify_interface_tag(handler_tag_);

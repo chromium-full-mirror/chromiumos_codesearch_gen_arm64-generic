@@ -21,7 +21,7 @@
 #include "mojo/public/cpp/bindings/struct_traits.h"
 #include "mojo/public/cpp/bindings/union_traits.h"
 
-#include "base/trace_event/base_tracing.h"
+#include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
 #include "mojo/public/mojom/base/process_id.mojom-shared.h"
 #include "mojo/public/mojom/base/process_id.mojom-forward.h"
@@ -52,7 +52,7 @@ class  ProcessId {
   template <typename... Args>
   static ProcessIdPtr New(Args&&... args) {
     return ProcessIdPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -148,7 +148,7 @@ class  ProcessId {
   uint32_t pid;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto::libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,

@@ -58,17 +58,11 @@ class  BigBuffer_Data {
   enum class BigBuffer_Tag : uint32_t {
 
     
-    BYTES,
+    kBytes,
     
-    kBytes = BYTES,
+    kSharedMemory,
     
-    SHARED_MEMORY,
-    
-    kSharedMemory = SHARED_MEMORY,
-    
-    INVALID_BUFFER,
-    
-    kInvalidBuffer = INVALID_BUFFER,
+    kInvalidBuffer,
   };
 
   // A note on layout:

@@ -9,6 +9,8 @@
 #include "power_manager/powerd/system/input_watcher_stub.h"
 #include "power_manager/powerd/system/power_supply_stub.h"
 
+#include <algorithm>
+#include <functional>
 #include <string>
 #include <utility>
 #include <vector>
@@ -93,6 +95,7 @@ class AdaptiveChargingControllerTest : public ::testing::Test {
     EXPECT_TRUE(temp_dir_.IsValid());
     charge_history_dir_ = temp_dir_.GetPath().Append("charge_history");
     charge_events_dir_ = charge_history_dir_.Append("charge_events");
+    hold_time_on_ac_dir_ = charge_history_dir_.Append("hold_time_on_ac");
     time_full_on_ac_dir_ = charge_history_dir_.Append("time_full_on_ac");
     time_on_ac_dir_ = charge_history_dir_.Append("time_on_ac");
     charge_history_ =
@@ -104,14 +107,39 @@ class AdaptiveChargingControllerTest : public ::testing::Test {
 
   void CreateDefaultChargeHistory() {
     CreateChargeHistoryDirectories();
-    base::Time now = base::Time::Now();
+    // Tests may adjust the time to avoid race conditions around midnight, etc.,
+    // so use that time if it was set.
+    base::Time now = charge_history_->clock()->GetCurrentWallTime();
     base::Time today = now.UTCMidnight();
     for (int i = 0; i < 15; ++i) {
+      WriteChargeHistoryFile(charge_events_dir_,
+                             today - (i + 1) * base::Hours(20),
+                             base::Hours(i + 1));
       WriteChargeHistoryFile(time_on_ac_dir_, today - i * base::Days(1),
                              base::Hours(5));
       WriteChargeHistoryFile(time_full_on_ac_dir_, today - i * base::Days(1),
-                             base::Hours(3));
+                             base::Hours(2));
+      WriteChargeHistoryFile(hold_time_on_ac_dir_, today - i * base::Days(1),
+                             base::Hours(1));
     }
+  }
+
+  void SetHoldCharge() {
+    power_status_.battery_percentage = 77;
+    power_status_.display_battery_percentage = 80;
+    power_status_.adaptive_delaying_charge = true;
+    power_supply_.set_status(power_status_);
+    power_status_.battery_state = PowerSupplyProperties_BatteryState_CHARGING;
+    power_supply_.NotifyObservers();
+  }
+
+  void SetFullCharge() {
+    power_status_.battery_percentage = 100;
+    power_status_.display_battery_percentage = 100;
+    power_status_.adaptive_delaying_charge = false;
+    power_status_.battery_state = PowerSupplyProperties_BatteryState_FULL;
+    power_supply_.set_status(power_status_);
+    power_supply_.NotifyObservers();
   }
 
   void InitNoHistory() {
@@ -141,6 +169,7 @@ class AdaptiveChargingControllerTest : public ::testing::Test {
   void InitFullChargeNoHistory() {
     power_status_.battery_percentage = 100;
     power_status_.display_battery_percentage = 100;
+    power_status_.adaptive_delaying_charge = false;
     power_status_.battery_state = PowerSupplyProperties_BatteryState_FULL;
     power_supply_.set_status(power_status_);
     adaptive_charging_controller_.Init(&delegate_, &backlight_controller_,
@@ -187,6 +216,7 @@ class AdaptiveChargingControllerTest : public ::testing::Test {
     EXPECT_FALSE(base::DirectoryExists(charge_history_dir_));
     EXPECT_TRUE(CreateDirectory(charge_history_dir_));
     EXPECT_TRUE(CreateDirectory(charge_events_dir_));
+    EXPECT_TRUE(CreateDirectory(hold_time_on_ac_dir_));
     EXPECT_TRUE(CreateDirectory(time_full_on_ac_dir_));
     EXPECT_TRUE(CreateDirectory(time_on_ac_dir_));
   }
@@ -261,6 +291,7 @@ class AdaptiveChargingControllerTest : public ::testing::Test {
   base::ScopedTempDir temp_dir_;
   base::FilePath charge_history_dir_;
   base::FilePath charge_events_dir_;
+  base::FilePath hold_time_on_ac_dir_;
   base::FilePath time_full_on_ac_dir_;
   base::FilePath time_on_ac_dir_;
   AdaptiveChargingController adaptive_charging_controller_;
@@ -364,6 +395,16 @@ TEST_F(AdaptiveChargingControllerTest, TestStoppedOnShutdown) {
   EXPECT_FALSE(charge_alarm_->IsRunning());
   EXPECT_EQ(delegate_.fake_lower, kBatterySustainDisabled);
   EXPECT_EQ(delegate_.fake_upper, kBatterySustainDisabled);
+
+  // Check that a policy update doesn't start Adaptive Charging
+  PowerManagementPolicy policy;
+  policy.set_adaptive_charging_enabled(true);
+  adaptive_charging_controller_.HandlePolicyChange(policy);
+
+  EXPECT_FALSE(recheck_alarm_->IsRunning());
+  EXPECT_FALSE(charge_alarm_->IsRunning());
+  EXPECT_EQ(delegate_.fake_lower, kBatterySustainDisabled);
+  EXPECT_EQ(delegate_.fake_upper, kBatterySustainDisabled);
 }
 
 // Test that the sustain settings are set based on
@@ -456,6 +497,71 @@ TEST_F(AdaptiveChargingControllerTest, TestChargeNow) {
   EXPECT_EQ(delegate_.fake_upper, kDefaultTestPercent);
 }
 
+// Test that the GetChargeHistory DBus method accurately returns the Charge
+// History.
+TEST_F(AdaptiveChargingControllerTest, TestGetChargeHistory) {
+  // Set wall time to avoid race conditions with midnight creating another day
+  // for Charge History.
+  base::Time now = base::Time::Now().UTCMidnight();
+  charge_history_->clock()->set_current_wall_time_for_testing(now);
+  Init();
+
+  ChargeHistoryState proto;
+  dbus::MethodCall method_call(kPowerManagerInterface, kGetChargeHistoryMethod);
+  std::unique_ptr<dbus::Response> response =
+      dbus_wrapper_.CallExportedMethodSync(&method_call);
+  EXPECT_TRUE(response &&
+              response->GetMessageType() != dbus::Message::MESSAGE_ERROR);
+  proto.Clear();
+  EXPECT_TRUE(
+      dbus::MessageReader(response.get()).PopArrayOfBytesAsProto(&proto));
+
+  std::vector<std::pair<int64_t, int64_t>> stored_charge_events;
+  // We write 15 charge events when creating history, plus there's the
+  // incomplete charge event, since we're plugged in.
+  EXPECT_EQ(proto.charge_event().size(), 16);
+  for (auto& event : proto.charge_event()) {
+    stored_charge_events.push_back(
+        std::make_pair(event.start_time(), event.duration()));
+  }
+
+  // Reverse sort these values, so that we can verify the values in the
+  // same order they were generated in CreateDefaultChargeHistory.
+  std::sort(stored_charge_events.begin(), stored_charge_events.end(),
+            std::greater<>());
+
+  // The incomplete charge event that isn't created in
+  // CreateDefaultChargeHistory will be at the front, so skip it. This also
+  // means that the "i + 1" for charge events created in that function are
+  // changed to just "i".
+  for (size_t i = 1; i < proto.charge_event().size(); i++) {
+    EXPECT_EQ(stored_charge_events[i].first,
+              (now - i * base::Hours(20)).ToInternalValue());
+    EXPECT_EQ(stored_charge_events[i].second, base::Hours(i).ToInternalValue());
+  }
+
+  // Check the start time and duration of the incomplete charge event.
+  EXPECT_EQ(stored_charge_events[0].first, now.ToInternalValue());
+  EXPECT_EQ(stored_charge_events[0].second,
+            base::TimeDelta().ToInternalValue());
+
+  std::vector<int64_t> stored_midnights;
+  EXPECT_EQ(proto.daily_history().size(), 15);
+  for (auto& history : proto.daily_history()) {
+    stored_midnights.push_back(history.utc_midnight());
+    EXPECT_EQ(history.time_on_ac(), base::Hours(5).ToInternalValue());
+    EXPECT_EQ(history.time_full_on_ac(), base::Hours(2).ToInternalValue());
+    EXPECT_EQ(history.hold_time_on_ac(), base::Hours(1).ToInternalValue());
+  }
+
+  std::sort(stored_midnights.begin(), stored_midnights.end());
+  for (size_t i = 0; i < stored_midnights.size(); i++) {
+    EXPECT_EQ(
+        stored_midnights[i],
+        (now - base::Days(stored_midnights.size() - i - 1)).ToInternalValue());
+  }
+}
+
 // Test that we don't start Adaptive Charging when the battery is already full.
 TEST_F(AdaptiveChargingControllerTest, TestFullCharge) {
   // This verifies that Adaptive Charging doesn't start when enabled via policy.
@@ -494,6 +600,7 @@ TEST_F(AdaptiveChargingControllerTest, TestEmptyChargeHistory) {
   // Check that directories are created.
   EXPECT_TRUE(base::DirectoryExists(charge_history_dir_));
   EXPECT_TRUE(base::DirectoryExists(charge_events_dir_));
+  EXPECT_TRUE(base::DirectoryExists(hold_time_on_ac_dir_));
   EXPECT_TRUE(base::DirectoryExists(time_full_on_ac_dir_));
   EXPECT_TRUE(base::DirectoryExists(time_on_ac_dir_));
 
@@ -503,6 +610,8 @@ TEST_F(AdaptiveChargingControllerTest, TestEmptyChargeHistory) {
   EXPECT_TRUE(base::GetPosixFilePermissions(charge_history_dir_, &mode));
   EXPECT_EQ(0700, mode);
   EXPECT_TRUE(base::GetPosixFilePermissions(charge_events_dir_, &mode));
+  EXPECT_EQ(0700, mode);
+  EXPECT_TRUE(base::GetPosixFilePermissions(hold_time_on_ac_dir_, &mode));
   EXPECT_EQ(0700, mode);
   EXPECT_TRUE(base::GetPosixFilePermissions(time_full_on_ac_dir_, &mode));
   EXPECT_EQ(0700, mode);
@@ -520,22 +629,28 @@ TEST_F(AdaptiveChargingControllerTest, TestEmptyChargeHistory) {
   }
   EXPECT_EQ(1, NumChargeHistoryFiles(charge_events_dir_));
 
-  // Check that the current day is created for the `time_full_on_ac_dir_` and
-  // `time_on_ac_dir_`.
+  // Check that the current day is created for the `hold_time_on_ac_dir_`,
+  // `time_full_on_ac_dir_` and `time_on_ac_dir_`.
+  base::FileEnumerator hold_on_ac_dir(hold_time_on_ac_dir_, false,
+                                      base::FileEnumerator::FILES);
+  for (base::FilePath path = hold_on_ac_dir.Next(); !path.empty();
+       path = hold_on_ac_dir.Next()) {
+    EXPECT_EQ(base::TimeDelta(), ReadTimeDeltaFromFile(path));
+  }
+  EXPECT_EQ(1, NumChargeHistoryFiles(hold_time_on_ac_dir_));
+
   base::FileEnumerator full_on_ac_dir(time_full_on_ac_dir_, false,
                                       base::FileEnumerator::FILES);
   for (base::FilePath path = full_on_ac_dir.Next(); !path.empty();
        path = full_on_ac_dir.Next()) {
-    std::string contents;
     EXPECT_EQ(base::TimeDelta(), ReadTimeDeltaFromFile(path));
   }
   EXPECT_EQ(1, NumChargeHistoryFiles(time_full_on_ac_dir_));
 
-  base::FileEnumerator on_ac_dir(time_full_on_ac_dir_, false,
+  base::FileEnumerator on_ac_dir(time_on_ac_dir_, false,
                                  base::FileEnumerator::FILES);
   for (base::FilePath path = on_ac_dir.Next(); !path.empty();
        path = on_ac_dir.Next()) {
-    std::string contents;
     EXPECT_EQ(base::TimeDelta(), ReadTimeDeltaFromFile(path));
   }
   EXPECT_EQ(1, NumChargeHistoryFiles(time_on_ac_dir_));
@@ -581,24 +696,44 @@ TEST_F(AdaptiveChargingControllerTest, HistoryWrittenOnUnplug) {
             ReadChargeHistoryFile(charge_events_dir_, event_time));
 }
 
-// Test that we record pending time to `time_full_on_ac_dir_` when entering
-// suspend and shutdown.
+// Test that we record pending time to `time_full_on_ac_dir_` and
+// `hold_time_on_ac_dir_`  when entering suspend and shutdown.
 TEST_F(AdaptiveChargingControllerTest, TimeFullWrittenOnLowPowerStates) {
   base::Time now = base::Time::Now().UTCMidnight();
-  charge_history_->clock()->set_current_wall_time_for_testing(now);
+  base::TimeTicks ticks = base::TimeTicks::Now();
+  Clock* clock = charge_history_->clock();
+  clock->set_current_wall_time_for_testing(now - base::Hours(2));
+  clock->set_current_boot_time_for_testing(ticks - base::Hours(2));
   CreateChargeHistoryDirectories();
-  CreateChargeHistoryFile(charge_events_dir_, now - base::Minutes(30));
-  InitFullChargeNoHistory();
+  CreateChargeHistoryFile(charge_events_dir_, now - base::Hours(3));
+  InitNoHistory();
+
+  SetHoldCharge();
+  clock->set_current_wall_time_for_testing(now - base::Hours(1));
+  clock->set_current_boot_time_for_testing(ticks - base::Hours(1));
+
+  SetFullCharge();
+  clock->set_current_wall_time_for_testing(now);
+  clock->set_current_boot_time_for_testing(ticks);
 
   adaptive_charging_controller_.PrepareForSuspendAttempt();
-  base::TimeDelta duration_full_on_ac_file_times = base::TimeDelta();
+  base::TimeDelta duration = base::TimeDelta();
   base::FileEnumerator full_on_ac_dir(time_full_on_ac_dir_, false,
                                       base::FileEnumerator::FILES);
   for (base::FilePath path = full_on_ac_dir.Next(); !path.empty();
        path = full_on_ac_dir.Next())
-    duration_full_on_ac_file_times += ReadTimeDeltaFromFile(path);
+    duration += ReadTimeDeltaFromFile(path);
 
-  EXPECT_EQ(base::Minutes(30), duration_full_on_ac_file_times);
+  EXPECT_EQ(base::Hours(1), duration);
+
+  base::FileEnumerator hold_on_ac_dir(hold_time_on_ac_dir_, false,
+                                      base::FileEnumerator::FILES);
+  duration = base::TimeDelta();
+  for (base::FilePath path = hold_on_ac_dir.Next(); !path.empty();
+       path = hold_on_ac_dir.Next())
+    duration += ReadTimeDeltaFromFile(path);
+
+  EXPECT_EQ(base::Hours(1), duration);
 }
 
 // Test that our retention policy is properly enforced on Init.
@@ -608,14 +743,16 @@ TEST_F(AdaptiveChargingControllerTest, HistoryRetentionOnInit) {
   base::Time now = base::Time::Now();
   std::vector<base::Time> event_times = {
       now - base::Days(7), now - base::Days(31), now - base::Days(32)};
-  std::vector<base::TimeDelta> event_durations = {base::Hours(1), base::Days(2),
+  std::vector<base::TimeDelta> event_durations = {base::Hours(2), base::Days(2),
                                                   base::Hours(10)};
   CreateChargeHistoryDirectories();
   for (int i = 0; i < event_times.size(); i++) {
     WriteChargeHistoryFile(charge_events_dir_, FloorTime(event_times[i]),
                            event_durations[i]);
+    WriteChargeHistoryFile(hold_time_on_ac_dir_, event_times[i].UTCMidnight(),
+                           base::Hours(1));
     WriteChargeHistoryFile(time_full_on_ac_dir_, event_times[i].UTCMidnight(),
-                           event_durations[i] - base::Hours(1));
+                           event_durations[i] - base::Hours(2));
     WriteChargeHistoryFile(time_on_ac_dir_, event_times[i].UTCMidnight(),
                            event_durations[i]);
   }
@@ -623,6 +760,7 @@ TEST_F(AdaptiveChargingControllerTest, HistoryRetentionOnInit) {
   // Add in some days with no charging.
   for (base::Time date = now.UTCMidnight(); date > now - base::Days(5);
        date -= base::Days(1)) {
+    WriteChargeHistoryFile(hold_time_on_ac_dir_, date, base::TimeDelta());
     WriteChargeHistoryFile(time_full_on_ac_dir_, date, base::TimeDelta());
     WriteChargeHistoryFile(time_on_ac_dir_, date, base::TimeDelta());
   }
@@ -643,6 +781,12 @@ TEST_F(AdaptiveChargingControllerTest, HistoryRetentionOnInit) {
                                        event_times[1].UTCMidnight()));
   EXPECT_FALSE(ChargeHistoryFileExists(time_full_on_ac_dir_,
                                        event_times[2].UTCMidnight()));
+  EXPECT_TRUE(ChargeHistoryFileExists(hold_time_on_ac_dir_,
+                                      event_times[0].UTCMidnight()));
+  EXPECT_FALSE(ChargeHistoryFileExists(hold_time_on_ac_dir_,
+                                       event_times[1].UTCMidnight()));
+  EXPECT_FALSE(ChargeHistoryFileExists(hold_time_on_ac_dir_,
+                                       event_times[2].UTCMidnight()));
   EXPECT_TRUE(
       ChargeHistoryFileExists(time_on_ac_dir_, event_times[0].UTCMidnight()));
   EXPECT_FALSE(
@@ -651,10 +795,12 @@ TEST_F(AdaptiveChargingControllerTest, HistoryRetentionOnInit) {
       ChargeHistoryFileExists(time_on_ac_dir_, event_times[2].UTCMidnight()));
   for (base::Time date = now.UTCMidnight(); date > now - base::Days(5);
        date -= base::Days(1)) {
+    EXPECT_TRUE(ChargeHistoryFileExists(hold_time_on_ac_dir_, date));
     EXPECT_TRUE(ChargeHistoryFileExists(time_full_on_ac_dir_, date));
     EXPECT_TRUE(ChargeHistoryFileExists(time_on_ac_dir_, date));
   }
 
+  EXPECT_EQ(6, NumChargeHistoryFiles(hold_time_on_ac_dir_));
   EXPECT_EQ(6, NumChargeHistoryFiles(time_full_on_ac_dir_));
   EXPECT_EQ(6, NumChargeHistoryFiles(time_on_ac_dir_));
 }
@@ -697,6 +843,8 @@ TEST_F(AdaptiveChargingControllerTest, TestDaysOfHistory) {
                            base::Hours(5));
     WriteChargeHistoryFile(time_full_on_ac_dir_,
                            today - (i + 5) * base::Days(1), base::Hours(2));
+    WriteChargeHistoryFile(hold_time_on_ac_dir_,
+                           today - (i + 5) * base::Days(1), base::Hours(2));
   }
 
   InitNoHistory();
@@ -717,6 +865,8 @@ TEST_F(AdaptiveChargingControllerTest, TestGetTimeFunctions) {
                            base::Hours(5));
     WriteChargeHistoryFile(time_full_on_ac_dir_, now - (i + 5) * base::Days(1),
                            base::Hours(2));
+    WriteChargeHistoryFile(hold_time_on_ac_dir_, now - (i + 5) * base::Days(1),
+                           base::Hours(1));
   }
 
   CreateChargeHistoryFile(charge_events_dir_, now - base::Hours(10));
@@ -724,15 +874,25 @@ TEST_F(AdaptiveChargingControllerTest, TestGetTimeFunctions) {
   InitNoHistory();
   base::TimeDelta time_on_ac = 15 * base::Hours(5) + base::Hours(10);
   base::TimeDelta time_full_on_ac = 15 * base::Hours(2);
+  base::TimeDelta hold_time_on_ac = 15 * base::Hours(1);
   EXPECT_EQ(time_on_ac, charge_history_->GetTimeOnAC());
   EXPECT_EQ(time_full_on_ac, charge_history_->GetTimeFullOnAC());
+  EXPECT_EQ(hold_time_on_ac, charge_history_->GetHoldTimeOnAC());
+
+  // Set that we're holding charge, so that GetHoldTimeOnAC() will increase.
+  SetHoldCharge();
+
+  // Advance boot time and check that GetTime... values reflect that.
+  clock->advance_current_boot_time_for_testing(base::Hours(1));
+  clock->set_current_wall_time_for_testing(now + base::Hours(1));
+  time_on_ac += base::Hours(1);
+  hold_time_on_ac += base::Hours(1);
+  EXPECT_EQ(time_on_ac, charge_history_->GetTimeOnAC());
+  EXPECT_EQ(time_full_on_ac, charge_history_->GetTimeFullOnAC());
+  EXPECT_EQ(hold_time_on_ac, charge_history_->GetHoldTimeOnAC());
 
   // Set charge to full, so that GetTimeFullOnAC() will also increase now.
-  power_status_.battery_percentage = 100;
-  power_status_.display_battery_percentage = 100;
-  power_status_.battery_state = PowerSupplyProperties_BatteryState_FULL;
-  power_supply_.set_status(power_status_);
-  power_supply_.NotifyObservers();
+  SetFullCharge();
 
   // Advance boot time and check that GetTime... values reflect that.
   clock->advance_current_boot_time_for_testing(base::Hours(1));
@@ -741,6 +901,7 @@ TEST_F(AdaptiveChargingControllerTest, TestGetTimeFunctions) {
   time_full_on_ac += base::Hours(1);
   EXPECT_EQ(time_on_ac, charge_history_->GetTimeOnAC());
   EXPECT_EQ(time_full_on_ac, charge_history_->GetTimeFullOnAC());
+  EXPECT_EQ(hold_time_on_ac, charge_history_->GetHoldTimeOnAC());
 
   // Check that disconnecting power (and thus finalizing charge history numbers
   // based on the current charge event) doesn't change the GetTime... values.
@@ -748,6 +909,7 @@ TEST_F(AdaptiveChargingControllerTest, TestGetTimeFunctions) {
 
   EXPECT_EQ(time_on_ac, charge_history_->GetTimeOnAC());
   EXPECT_EQ(time_full_on_ac, charge_history_->GetTimeFullOnAC());
+  EXPECT_EQ(hold_time_on_ac, charge_history_->GetHoldTimeOnAC());
 }
 
 // Test that only a few charge history days will result in Adaptive Charging
@@ -761,6 +923,8 @@ TEST_F(AdaptiveChargingControllerTest, TestHeuristicDisabledOnDays) {
                            base::Hours(5));
     WriteChargeHistoryFile(time_full_on_ac_dir_, today - i * base::Days(1),
                            base::Hours(3));
+    WriteChargeHistoryFile(hold_time_on_ac_dir_, today - i * base::Days(1),
+                           base::Hours(1));
   }
 
   InitNoHistory();
@@ -782,7 +946,9 @@ TEST_F(AdaptiveChargingControllerTest, TestHeuristicDisabledOnRatio) {
     WriteChargeHistoryFile(time_on_ac_dir_, today - i * base::Days(1),
                            base::Hours(5));
     WriteChargeHistoryFile(time_full_on_ac_dir_, today - i * base::Days(1),
-                           base::Hours(2));
+                           base::Hours(1));
+    WriteChargeHistoryFile(hold_time_on_ac_dir_, today - i * base::Days(1),
+                           base::Hours(1));
   }
 
   InitNoHistory();
@@ -795,20 +961,35 @@ TEST_F(AdaptiveChargingControllerTest, TestHeuristicDisabledOnRatio) {
 
 // Test that a large time jump while ChargeHistory is keeping track of time will
 // be accounted for. We expect that the plug in time and durations will be
-// correct.
+// correct. This means if wall time jumps X days ahead (due to the RTC losing
+// state for instance) while boot time doesn't, ChargeHistory will not add X
+// days to any of its durations.
 TEST_F(AdaptiveChargingControllerTest, TestSystemTimeJumpNoHistory) {
   Clock* clock = charge_history_->clock();
   base::Time now = base::Time::Now().UTCMidnight();
-  base::Time old_now = now - base::Days(5);
-  clock->set_current_wall_time_for_testing(old_now);
+  base::Time old_now = now - base::Days(3);
+  base::Time older_now = old_now - base::Days(2);
+  clock->set_current_wall_time_for_testing(older_now);
 
   // ChargeHistory should initially create a file in `charge_events_dir_` with
-  // `old_now` as the start time for charging, but change it to `now` later on,
-  // after time changed to 5 days later.
-  InitFullChargeNoHistory();
-  EXPECT_TRUE(ChargeHistoryFileExists(charge_events_dir_, old_now));
+  // `older_now` as the start time for charging, but change it to `old_now`
+  // later on, after time changed to 2 days later.
+  InitNoHistory();
+  EXPECT_TRUE(ChargeHistoryFileExists(charge_events_dir_, older_now));
+
+  // Check that hold_time_on_ac values aren't incremented.
+  SetHoldCharge();
+  clock->set_current_wall_time_for_testing(old_now);
+  EXPECT_EQ(base::TimeDelta(), charge_history_->GetHoldTimeOnAC());
+
+  // Check that time_full_on_ac values aren't incremented after changing the
+  // wall time to `now`, which is 3 days later, without increasing boot time.
+  SetFullCharge();
   clock->set_current_wall_time_for_testing(now);
+  EXPECT_EQ(base::TimeDelta(), charge_history_->GetTimeFullOnAC());
+
   DisconnectCharger();
+  EXPECT_FALSE(ChargeHistoryFileExists(charge_events_dir_, older_now));
   EXPECT_FALSE(ChargeHistoryFileExists(charge_events_dir_, old_now));
   EXPECT_TRUE(ChargeHistoryFileExists(charge_events_dir_, now));
 
@@ -817,6 +998,8 @@ TEST_F(AdaptiveChargingControllerTest, TestSystemTimeJumpNoHistory) {
   EXPECT_EQ(base::TimeDelta(), ReadChargeHistoryFile(charge_events_dir_, now));
   EXPECT_EQ(base::TimeDelta(),
             ReadChargeHistoryFile(time_full_on_ac_dir_, now));
+  EXPECT_EQ(base::TimeDelta(),
+            ReadChargeHistoryFile(hold_time_on_ac_dir_, now));
   EXPECT_EQ(base::TimeDelta(), ReadChargeHistoryFile(time_on_ac_dir_, now));
 }
 
@@ -847,11 +1030,14 @@ TEST_F(AdaptiveChargingControllerTest, TestSystemTimeJumpExistingChargeEvent) {
   EXPECT_FALSE(ChargeHistoryFileExists(charge_events_dir_, old_event_time));
   EXPECT_EQ(1, NumChargeHistoryFiles(charge_events_dir_));
   EXPECT_TRUE(ChargeHistoryFileExists(charge_events_dir_, event_time));
+  EXPECT_TRUE(ChargeHistoryFileExists(hold_time_on_ac_dir_, yesterday));
   EXPECT_TRUE(ChargeHistoryFileExists(time_full_on_ac_dir_, yesterday));
   EXPECT_TRUE(ChargeHistoryFileExists(time_on_ac_dir_, yesterday));
 
   EXPECT_EQ(base::Days(1),
             ReadChargeHistoryFile(charge_events_dir_, event_time));
+  EXPECT_EQ(base::TimeDelta(),
+            ReadChargeHistoryFile(hold_time_on_ac_dir_, yesterday));
   EXPECT_EQ(base::Days(1),
             ReadChargeHistoryFile(time_full_on_ac_dir_, yesterday));
   EXPECT_EQ(base::Days(1), ReadChargeHistoryFile(time_on_ac_dir_, yesterday));

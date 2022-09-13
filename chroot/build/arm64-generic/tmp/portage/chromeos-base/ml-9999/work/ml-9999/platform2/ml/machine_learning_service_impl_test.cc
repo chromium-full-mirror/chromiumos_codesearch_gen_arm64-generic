@@ -1335,15 +1335,16 @@ TEST(SODARecognizerTest, FakeImplMojoCallback) {
                                    soda_client.BindNewPipeAndPassRemote(),
                                    soda_recognizer.BindNewPipeAndPassReceiver(),
                                    base::BindOnce([](LoadModelResult) {}));
-  chromeos::machine_learning::mojom::SpeechRecognizerEventPtr event =
-      chromeos::machine_learning::mojom::SpeechRecognizerEvent::New();
+  chromeos::machine_learning::mojom::SpeechRecognizerEventPtr event;
   chromeos::machine_learning::mojom::FinalResultPtr final_result =
       chromeos::machine_learning::mojom::FinalResult::New();
   final_result->final_hypotheses.push_back(
       "On-device speech is not supported.");
   final_result->endpoint_reason =
       chromeos::machine_learning::mojom::EndpointReason::ENDPOINT_UNKNOWN;
-  event->set_final_result(std::move(final_result));
+  event =
+      chromeos::machine_learning::mojom::SpeechRecognizerEvent::NewFinalResult(
+          std::move(final_result));
 
   // TODO(robsc): Update this unittest to use regular Eq() once
   // https://chromium-review.googlesource.com/c/chromium/src/+/2456184 is
@@ -1623,7 +1624,9 @@ ReadOnlySharedMemoryRegionPtr ToSharedMemory(const std::vector<uint8_t>& data) {
 class DocumentScannerTest : public ::testing::Test {
  public:
   bool IsDocumentScannerSupported() {
-    return ml::DocumentScannerLibrary::GetInstance()->IsSupported();
+    // Only tested when the library is installed in rootfs.
+    return ml::DocumentScannerLibrary::GetInstance()->IsSupported() &&
+           ml::DocumentScannerLibrary::GetInstance()->IsEnabledOnRootfs();
   }
 
   void ConnectDocumentScanner() {
@@ -1633,7 +1636,8 @@ class DocumentScannerTest : public ::testing::Test {
 
     auto config =
         chromeos::machine_learning::mojom::DocumentScannerConfig::New();
-    config->library_dlc_path = "/usr/share/cros-camera/libfs/";
+    config->library_dlc_path = mojo_base::mojom::FilePath::New();
+    config->library_dlc_path->path = "/usr/share/cros-camera/libfs/";
 
     bool model_callback_done = false;
     ml_service->LoadDocumentScanner(
@@ -1796,8 +1800,7 @@ TEST(WebPlatformModelTest, ValidInputs) {
   std::vector<uint8_t> model_vector(model_string.size());
   memcpy(model_vector.data(), model_string.c_str(), model_string.size());
 
-  auto buffer = mojo_base::mojom::BigBuffer::New();
-  buffer->set_bytes(std::move(model_vector));
+  auto buffer = mojo_base::mojom::BigBuffer::NewBytes(std::move(model_vector));
 
   mojo::Remote<model_loader::mojom::Model> model;
 

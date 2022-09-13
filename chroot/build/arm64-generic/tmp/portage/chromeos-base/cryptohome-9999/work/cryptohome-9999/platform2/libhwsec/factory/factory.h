@@ -9,6 +9,8 @@
 #include <utility>
 
 #include "libhwsec/frontend/cryptohome/frontend.h"
+#include "libhwsec/frontend/pinweaver/frontend.h"
+#include "libhwsec/frontend/recovery_crypto/frontend.h"
 #include "libhwsec/hwsec_export.h"
 
 // Factory holds the ownership of the middleware and backend.
@@ -20,6 +22,9 @@ class Factory {
  public:
   virtual ~Factory() = default;
   virtual std::unique_ptr<CryptohomeFrontend> GetCryptohomeFrontend() = 0;
+  virtual std::unique_ptr<PinWeaverFrontend> GetPinWeaverFrontend() = 0;
+  virtual std::unique_ptr<RecoveryCryptoFrontend>
+  GetRecoveryCryptoFrontend() = 0;
 };
 
 }  // namespace hwsec

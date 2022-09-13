@@ -19,11 +19,12 @@
 #include <base/files/file_path.h>
 #include <brillo/secure_blob.h>
 #include <libhwsec/frontend/cryptohome/frontend.h>
+#include <libhwsec/frontend/pinweaver/frontend.h>
+#include <libhwsec/frontend/recovery_crypto/frontend.h>
 
 #include "cryptohome/crypto_error.h"
 #include "cryptohome/cryptohome_keys_manager.h"
 #include "cryptohome/le_credential_manager.h"
-#include "cryptohome/tpm.h"
 #include "cryptohome/vault_keyset.pb.h"
 
 namespace cryptohome {
@@ -35,7 +36,10 @@ class VaultKeyset;
 class Crypto {
  public:
   // Default constructor
-  explicit Crypto(Tpm* tpm, CryptohomeKeysManager* cryptohome_keys_manager);
+  explicit Crypto(hwsec::CryptohomeFrontend* hwsec,
+                  hwsec::PinWeaverFrontend* pinweaver,
+                  CryptohomeKeysManager* cryptohome_keys_manager,
+                  hwsec::RecoveryCryptoFrontend* recovery_hwsec);
   Crypto(const Crypto&) = delete;
   Crypto& operator=(const Crypto&) = delete;
 
@@ -86,13 +90,16 @@ class Crypto {
   // Returns the number of wrong authentication attempts for the LE keyset.
   int GetWrongAuthAttempts(uint64_t le_label) const;
 
-  // Gets the TPM implementation
-  Tpm* tpm() { return tpm_; }
+  // Gets the HWSec implementation
+  hwsec::CryptohomeFrontend* GetHwsec() { return hwsec_; }
 
   // Gets the CryptohomeKeysManager object.
   CryptohomeKeysManager* cryptohome_keys_manager() {
     return cryptohome_keys_manager_;
   }
+
+  // Gets the hwsec::RecoveryCryptoFrontend object.
+  hwsec::RecoveryCryptoFrontend* GetRecoveryCrypto() { return recovery_hwsec_; }
 
   // Gets an instance of the LECredentialManagerImpl object.
   LECredentialManager* le_manager() { return le_manager_.get(); }
@@ -106,11 +113,17 @@ class Crypto {
   }
 
  private:
-  // The TPM implementation
-  Tpm* const tpm_;
+  // The HWSec implementation.
+  hwsec::CryptohomeFrontend* const hwsec_;
 
-  // The CryptohomeKeysManager object used to reload Cryptohome keys
+  // The pinweaver implementation.
+  hwsec::PinWeaverFrontend* const pinweaver_;
+
+  // The CryptohomeKeysManager object used to reload Cryptohome keys.
   CryptohomeKeysManager* const cryptohome_keys_manager_;
+
+  // The cryptohome recovery backend.
+  hwsec::RecoveryCryptoFrontend* const recovery_hwsec_;
 
   // Handler for Low Entropy credentials.
   std::unique_ptr<LECredentialManager> le_manager_;

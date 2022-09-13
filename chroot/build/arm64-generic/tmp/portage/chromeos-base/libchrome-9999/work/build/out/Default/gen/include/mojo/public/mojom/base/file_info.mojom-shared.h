@@ -21,7 +21,7 @@
 #include "mojo/public/cpp/bindings/map_data_view.h"
 #include "mojo/public/cpp/bindings/string_data_view.h"
 
-#include "base/trace_event/base_tracing.h"
+#include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
 #include "mojo/public/mojom/base/file_info.mojom-shared-internal.h"
 #include "mojo/public/mojom/base/time.mojom-shared.h"
@@ -82,7 +82,7 @@ class FileInfoDataView {
       ::mojo_base::mojom::TimeDataView* output);
 
   template <typename UserType>
-  WARN_UNUSED_RESULT bool ReadLastModified(UserType* output) {
+  [[nodiscard]] bool ReadLastModified(UserType* output) {
     
     auto* pointer = data_->last_modified.Get();
     return mojo::internal::Deserialize<::mojo_base::mojom::TimeDataView>(
@@ -92,7 +92,7 @@ class FileInfoDataView {
       ::mojo_base::mojom::TimeDataView* output);
 
   template <typename UserType>
-  WARN_UNUSED_RESULT bool ReadLastAccessed(UserType* output) {
+  [[nodiscard]] bool ReadLastAccessed(UserType* output) {
     
     auto* pointer = data_->last_accessed.Get();
     return mojo::internal::Deserialize<::mojo_base::mojom::TimeDataView>(
@@ -102,7 +102,7 @@ class FileInfoDataView {
       ::mojo_base::mojom::TimeDataView* output);
 
   template <typename UserType>
-  WARN_UNUSED_RESULT bool ReadCreationTime(UserType* output) {
+  [[nodiscard]] bool ReadCreationTime(UserType* output) {
     
     auto* pointer = data_->creation_time.Get();
     return mojo::internal::Deserialize<::mojo_base::mojom::TimeDataView>(

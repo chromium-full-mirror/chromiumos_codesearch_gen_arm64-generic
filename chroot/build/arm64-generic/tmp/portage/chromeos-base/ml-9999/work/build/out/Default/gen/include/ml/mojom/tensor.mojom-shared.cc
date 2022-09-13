@@ -12,10 +12,10 @@
 #include <utility>
 
 #include "base/strings/stringprintf.h"
-#include "base/trace_event/base_tracing.h"
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/lib/validation_util.h"
+#include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
 #include "ml/mojom/tensor.mojom-params-data.h"
 namespace chromeos {
@@ -50,7 +50,7 @@ bool ValueList_Data::Validate(
 
   switch (object->tag) {
 
-    case ValueList_Tag::STRING_LIST: {
+    case ValueList_Tag::kStringList: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_string_list, 1, validation_context)) {
@@ -60,7 +60,7 @@ bool ValueList_Data::Validate(
         return false;
       return true;
     }
-    case ValueList_Tag::FLOAT_LIST: {
+    case ValueList_Tag::kFloatList: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_float_list, 2, validation_context)) {
@@ -70,7 +70,7 @@ bool ValueList_Data::Validate(
         return false;
       return true;
     }
-    case ValueList_Tag::INT64_LIST: {
+    case ValueList_Tag::kInt64List: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_int64_list, 3, validation_context)) {

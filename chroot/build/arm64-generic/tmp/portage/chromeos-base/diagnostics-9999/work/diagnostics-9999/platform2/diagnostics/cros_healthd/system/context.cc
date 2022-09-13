@@ -25,6 +25,7 @@
 #include "diagnostics/cros_healthd/network/network_health_adapter_impl.h"
 #include "diagnostics/cros_healthd/network_diagnostics/network_diagnostics_adapter_impl.h"
 #include "diagnostics/cros_healthd/system/libdrm_util_impl.h"
+#include "diagnostics/cros_healthd/system/mojo_service_impl.h"
 #include "diagnostics/cros_healthd/system/pci_util_impl.h"
 #include "diagnostics/cros_healthd/system/system_config.h"
 #include "diagnostics/cros_healthd/system/system_utilities_impl.h"
@@ -90,19 +91,14 @@ std::unique_ptr<Context> Context::Create(
 
   // Create the mojo clients which will be initialized after connecting with
   // chrome.
+  context->mojo_service_ = MojoServiceImpl::Create();
   context->network_health_adapter_ =
       std::make_unique<NetworkHealthAdapterImpl>();
   context->network_diagnostics_adapter_ =
       std::make_unique<NetworkDiagnosticsAdapterImpl>();
-  context->chromium_data_collector_relay_.InitNewPipeAndWaitForIncomingRemote();
 
   // Create others.
-  auto cros_config = std::make_unique<brillo::CrosConfig>();
-  if (!cros_config->Init()) {
-    LOG(ERROR) << "Unable to initialize cros_config";
-    return nullptr;
-  }
-  context->cros_config_ = std::move(cros_config);
+  context->cros_config_ = std::make_unique<brillo::CrosConfig>();
 
   context->system_config_ = std::make_unique<SystemConfig>(
       context->cros_config_.get(), context->debugd_proxy_.get());

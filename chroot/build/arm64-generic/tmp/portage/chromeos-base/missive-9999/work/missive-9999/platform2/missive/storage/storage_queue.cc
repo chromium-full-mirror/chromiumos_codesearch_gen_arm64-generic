@@ -36,7 +36,6 @@
 #include <base/strings/string_piece.h>
 #include <base/strings/string_split.h>
 #include <base/strings/string_util.h>
-#include <base/task/post_task.h>
 #include <base/task/task_runner.h>
 #include <base/task/thread_pool.h>
 #include <crypto/random.h>
@@ -83,7 +82,7 @@ struct RecordHeader {
 // static
 void StorageQueue::Create(
     const QueueOptions& options,
-    AsyncStartUploaderCb async_start_upload_cb,
+    UploaderInterface::AsyncStartUploaderCb async_start_upload_cb,
     scoped_refptr<EncryptionModuleInterface> encryption_module,
     scoped_refptr<CompressionModule> compression_module,
     base::OnceCallback<void(StatusOr<scoped_refptr<StorageQueue>>)>
@@ -137,11 +136,13 @@ void StorageQueue::Create(
 StorageQueue::StorageQueue(
     scoped_refptr<base::SequencedTaskRunner> sequenced_task_runner,
     const QueueOptions& options,
-    AsyncStartUploaderCb async_start_upload_cb,
+    UploaderInterface::AsyncStartUploaderCb async_start_upload_cb,
     scoped_refptr<EncryptionModuleInterface> encryption_module,
     scoped_refptr<CompressionModule> compression_module)
     : base::RefCountedDeleteOnSequence<StorageQueue>(sequenced_task_runner),
       sequenced_task_runner_(std::move(sequenced_task_runner)),
+      low_priority_task_runner_(base::ThreadPool::CreateSequencedTaskRunner(
+          {base::TaskPriority::BEST_EFFORT, base::MayBlock()})),
       options_(options),
       async_start_upload_cb_(async_start_upload_cb),
       encryption_module_(encryption_module),
@@ -318,8 +319,8 @@ Status StorageQueue::EnumerateDataFiles(
                                 /*recursive=*/false,
                                 base::FileEnumerator::FILES,
                                 base::StrCat({options_.file_prefix(), ".*"}));
-  base::FilePath full_name;
-  while (full_name = dir_enum.Next(), !full_name.empty()) {
+  for (auto full_name = dir_enum.Next(); !full_name.empty();
+       full_name = dir_enum.Next()) {
     const auto file_sequencing_id_result =
         AddDataFile(full_name, dir_enum.GetInfo());
     if (!file_sequencing_id_result.ok()) {
@@ -612,10 +613,9 @@ Status StorageQueue::WriteMetadata(base::StringPiece current_record_digest) {
   meta_file_ = std::move(meta_file);
   // Asynchronously delete all earlier metafiles. Do not wait for this to
   // happen.
-  base::ThreadPool::PostTask(
-      FROM_HERE, {base::TaskPriority::BEST_EFFORT, base::MayBlock()},
-      base::BindOnce(&StorageQueue::DeleteOutdatedMetadata, this,
-                     next_sequencing_id_));
+  low_priority_task_runner_->PostTask(
+      FROM_HERE, base::BindOnce(&StorageQueue::DeleteOutdatedMetadata, this,
+                                next_sequencing_id_));
   return Status::StatusOK();
 }
 
@@ -756,7 +756,7 @@ void StorageQueue::DeleteUnusedFiles(
                     &used_files_set));
 }
 
-void StorageQueue::DeleteOutdatedMetadata(int64_t sequencing_id_to_keep) {
+void StorageQueue::DeleteOutdatedMetadata(int64_t sequencing_id_to_keep) const {
   // Delete file on disk. Note: disk space has already been released when the
   // metafile was destructed, and so we don't need to do that here.
   // If the deletion of a file fails, the file will be naturally handled next
@@ -998,14 +998,22 @@ class StorageQueue::ReadContext : public TaskRunnerContext<Status> {
     google::protobuf::io::ArrayInputStream blob_stream(  // Zero-copy stream.
         blob.data(), blob.size());
     EncryptedRecord encrypted_record;
+    ScopedReservation scoped_reservation(
+        blob.size(), storage_queue_->options().memory_resource());
+    if (!scoped_reservation.reserved()) {
+      Response(
+          Status(error::RESOURCE_EXHAUSTED, "Insufficient memory for upload"));
+      return;
+    }
     if (!encrypted_record.ParseFromZeroCopyStream(&blob_stream)) {
       LOG(ERROR) << "Failed to parse record, seq="
                  << sequence_info_.sequencing_id();
-      CallGapUpload(/*count=*/1);
+      CallGapUpload(/*count=*/1);  // Do not reserve space for Gap record.
       // Resume at ScheduleNextRecord.
       return;
     }
-    CallRecordUpload(std::move(encrypted_record));
+    CallRecordUpload(std::move(encrypted_record),
+                     std::move(scoped_reservation));
   }
 
   // Completes sequence information and makes a call to UploaderInterface
@@ -1014,7 +1022,8 @@ class StorageQueue::ReadContext : public TaskRunnerContext<Status> {
   // sequential thread runner of this StorageQueue. If |encrypted_record| is
   // empty (has no |encrypted_wrapped_record| and/or |encryption_info|), it
   // indicates a gap notification.
-  void CallRecordUpload(EncryptedRecord encrypted_record) {
+  void CallRecordUpload(EncryptedRecord encrypted_record,
+                        ScopedReservation scoped_reservation) {
     DCHECK_CALLED_ON_VALID_SEQUENCE(
         storage_queue_->storage_queue_sequence_checker_);
     if (encrypted_record.has_sequence_information()) {
@@ -1028,6 +1037,7 @@ class StorageQueue::ReadContext : public TaskRunnerContext<Status> {
     // Priority is attached by the Storage layer.
     *encrypted_record.mutable_sequence_information() = sequence_info_;
     uploader_->ProcessRecord(std::move(encrypted_record),
+                             std::move(scoped_reservation),
                              base::BindOnce(&ReadContext::ScheduleNextRecord,
                                             base::Unretained(this)));
     // Move sequencing id forward (ScheduleNextRecord will see this).
@@ -1209,6 +1219,8 @@ class StorageQueue::ReadContext : public TaskRunnerContext<Status> {
   }
 
   void InstantiateUploader(base::OnceCallback<void()> continuation) {
+    DCHECK_CALLED_ON_VALID_SEQUENCE(
+        storage_queue_->storage_queue_sequence_checker_);
     base::ThreadPool::PostTask(
         FROM_HERE, {base::TaskPriority::BEST_EFFORT},
         base::BindOnce(
@@ -1257,7 +1269,7 @@ class StorageQueue::ReadContext : public TaskRunnerContext<Status> {
   SequenceInformation sequence_info_;
   uint32_t current_pos_;
   std::map<int64_t, scoped_refptr<SingleFile>>::iterator current_file_;
-  const AsyncStartUploaderCb async_start_upload_cb_;
+  const UploaderInterface::AsyncStartUploaderCb async_start_upload_cb_;
   const bool must_invoke_upload_;
   std::unique_ptr<UploaderInterface> uploader_;
   base::WeakPtr<StorageQueue> storage_queue_;
@@ -1376,7 +1388,7 @@ class StorageQueue::WriteContext : public TaskRunnerContext<Status> {
 
     // UTC time of 2122-01-01T00:00:00Z since Unix epoch 1970-01-01T00:00:00Z in
     // microseconds
-    constexpr uint64_t kTime2122 = 4796668800000000U;
+    static constexpr int64_t kTime2122 = 4'796'668'800'000'000;
     // Log an error if the timestamp is larger than 2122-01-01T00:00:00Z. This
     // is the latest spot in the code before a record is compressed or
     // encrypted.
@@ -1573,13 +1585,13 @@ StorageQueue::CollectFilesForUpload(int64_t sequencing_id) const {
 
 class StorageQueue::ConfirmContext : public TaskRunnerContext<Status> {
  public:
-  ConfirmContext(std::optional<int64_t> sequencing_id,
+  ConfirmContext(SequenceInformation sequence_information,
                  bool force,
                  base::OnceCallback<void(Status)> end_callback,
                  scoped_refptr<StorageQueue> storage_queue)
       : TaskRunnerContext<Status>(std::move(end_callback),
                                   storage_queue->sequenced_task_runner_),
-        sequencing_id_(sequencing_id),
+        sequence_information_(std::move(sequence_information)),
         force_(force),
         storage_queue_(storage_queue) {
     DCHECK(storage_queue.get());
@@ -1592,29 +1604,41 @@ class StorageQueue::ConfirmContext : public TaskRunnerContext<Status> {
   void OnStart() override {
     DCHECK_CALLED_ON_VALID_SEQUENCE(
         storage_queue_->storage_queue_sequence_checker_);
+    if (sequence_information_.generation_id() !=
+        storage_queue_->generation_id_) {
+      Response(Status(
+          error::FAILED_PRECONDITION,
+          base::StrCat(
+              {"Generation mismatch - ",
+               base::NumberToString(sequence_information_.generation_id()),
+               ", expected=",
+               base::NumberToString(storage_queue_->generation_id_)})));
+      return;
+    }
     if (force_) {
       storage_queue_->first_unconfirmed_sequencing_id_ =
-          sequencing_id_.has_value() ? (sequencing_id_.value() + 1) : 0;
+          sequence_information_.sequencing_id() + 1;
       Response(Status::StatusOK());
     } else {
-      Response(sequencing_id_.has_value()
-                   ? storage_queue_->RemoveConfirmedData(sequencing_id_.value())
-                   : Status::StatusOK());
+      Response(storage_queue_->RemoveConfirmedData(
+          sequence_information_.sequencing_id()));
     }
   }
 
-  // Confirmed sequencing id.
-  std::optional<int64_t> sequencing_id_;
+  // Confirmed sequencing information.
+  const SequenceInformation sequence_information_;
 
-  bool force_;
+  // Force-confirm flag.
+  const bool force_;
 
-  scoped_refptr<StorageQueue> storage_queue_;
+  const scoped_refptr<StorageQueue> storage_queue_;
 };
 
-void StorageQueue::Confirm(std::optional<int64_t> sequencing_id,
+void StorageQueue::Confirm(SequenceInformation sequence_information,
                            bool force,
                            base::OnceCallback<void(Status)> completion_cb) {
-  Start<ConfirmContext>(sequencing_id, force, std::move(completion_cb), this);
+  Start<ConfirmContext>(std::move(sequence_information), force,
+                        std::move(completion_cb), this);
 }
 
 Status StorageQueue::RemoveConfirmedData(int64_t sequencing_id) {

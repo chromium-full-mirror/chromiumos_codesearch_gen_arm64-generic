@@ -20,23 +20,24 @@
 #include <brillo/secure_blob.h>
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
+#include <libhwsec/frontend/cryptohome/mock_frontend.h>
+#include <libhwsec/frontend/pinweaver/mock_frontend.h>
 #include <libhwsec-foundation/crypto/aes.h>
 #include <libhwsec-foundation/crypto/hmac.h>
 #include <libhwsec-foundation/crypto/secure_blob_util.h>
 #include <libhwsec-foundation/error/testing_helper.h>
 
 #include "cryptohome/auth_blocks/auth_block.h"
-#include "cryptohome/auth_blocks/auth_block_state.h"
 #include "cryptohome/auth_blocks/auth_block_utils.h"
 #include "cryptohome/auth_blocks/libscrypt_compat_auth_block.h"
 #include "cryptohome/auth_blocks/pin_weaver_auth_block.h"
 #include "cryptohome/crypto.h"
 #include "cryptohome/crypto_error.h"
 #include "cryptohome/cryptohome_common.h"
+#include "cryptohome/flatbuffer_schemas/auth_block_state.h"
 #include "cryptohome/mock_cryptohome_keys_manager.h"
 #include "cryptohome/mock_le_credential_manager.h"
 #include "cryptohome/mock_platform.h"
-#include "cryptohome/mock_tpm.h"
 #include "cryptohome/storage/file_system_keyset.h"
 
 namespace cryptohome {
@@ -161,7 +162,8 @@ class LibScryptCompatVaultKeyset : public VaultKeyset {
 
 class VaultKeysetTest : public ::testing::Test {
  public:
-  VaultKeysetTest() : crypto_(&tpm_, &cryptohome_keys_manager_) {}
+  VaultKeysetTest()
+      : crypto_(&hwsec_, &pinweaver_, &cryptohome_keys_manager_, nullptr) {}
   VaultKeysetTest(const VaultKeysetTest&) = delete;
   VaultKeysetTest& operator=(const VaultKeysetTest&) = delete;
 
@@ -183,7 +185,8 @@ class VaultKeysetTest : public ::testing::Test {
 
  protected:
   MockPlatform platform_;
-  NiceMock<MockTpm> tpm_;
+  NiceMock<hwsec::MockCryptohomeFrontend> hwsec_;
+  NiceMock<hwsec::MockPinWeaverFrontend> pinweaver_;
   NiceMock<MockCryptohomeKeysManager> cryptohome_keys_manager_;
   Crypto crypto_;
 };
@@ -647,19 +650,20 @@ TEST_F(VaultKeysetTest, DecryptFailNotLoaded) {
 TEST_F(VaultKeysetTest, DecryptTPMReboot) {
   // Test to have Decrypt() fail because of CE_TPM_REBOOT.
   // Setup
-  crypto_.Init();
-
-  EXPECT_CALL(tpm_, IsEnabled()).WillRepeatedly(Return(true));
-  EXPECT_CALL(tpm_, IsOwned()).WillRepeatedly(Return(true));
-
-  EXPECT_CALL(*tpm_.get_mock_hwsec(), GetManufacturer())
+  EXPECT_CALL(hwsec_, IsEnabled()).WillRepeatedly(ReturnValue(true));
+  EXPECT_CALL(hwsec_, IsReady()).WillRepeatedly(ReturnValue(true));
+  EXPECT_CALL(hwsec_, IsSealingSupported()).WillRepeatedly(ReturnValue(true));
+  EXPECT_CALL(hwsec_, GetManufacturer())
       .WillRepeatedly(ReturnValue(0x43524f53));
-  EXPECT_CALL(*tpm_.get_mock_hwsec(), GetAuthValue(_, _))
+  EXPECT_CALL(hwsec_, GetAuthValue(_, _))
       .WillRepeatedly(ReturnValue(brillo::SecureBlob()));
-  EXPECT_CALL(*tpm_.get_mock_hwsec(), SealWithCurrentUser(_, _, _))
+  EXPECT_CALL(hwsec_, SealWithCurrentUser(_, _, _))
       .WillRepeatedly(ReturnValue(brillo::Blob()));
-  EXPECT_CALL(*tpm_.get_mock_hwsec(), GetPubkeyHash(_))
+  EXPECT_CALL(hwsec_, GetPubkeyHash(_))
       .WillRepeatedly(ReturnValue(brillo::Blob()));
+  EXPECT_CALL(pinweaver_, IsEnabled()).WillRepeatedly(ReturnValue(true));
+
+  crypto_.Init();
 
   SecureBlob bytes;
   EXPECT_CALL(platform_, WriteFileAtomicDurable(FilePath(kFilePath), _, _))
@@ -810,14 +814,57 @@ TEST_F(VaultKeysetTest, DecryptWithAuthBlockFailNotLoaded) {
   ASSERT_EQ(status->local_crypto_error(), CryptoError::CE_OTHER_CRYPTO);
 }
 
+TEST_F(VaultKeysetTest, KeyData) {
+  VaultKeyset vk;
+  vk.Initialize(&platform_, &crypto_);
+  vk.SetLegacyIndex(0);
+  EXPECT_FALSE(vk.HasKeyData());
+
+  // When there's no key data stored, |GetKeyDataOrDefault()| should return an
+  // empty protobuf.
+  KeyData key_data = vk.GetKeyDataOrDefault();
+  EXPECT_FALSE(key_data.has_type());
+  EXPECT_FALSE(key_data.has_label());
+
+  KeyData key_data2;
+  key_data2.set_type(KeyData::KEY_TYPE_PASSWORD);
+  key_data2.set_label("pin");
+  vk.SetKeyData(key_data2);
+  vk.SetLowEntropyCredential(true);
+  ASSERT_TRUE(vk.HasKeyData());
+
+  KeyData key_data3 = vk.GetKeyData();
+  KeyData key_data4 = vk.GetKeyDataOrDefault();
+  EXPECT_EQ(key_data3.has_type(), key_data4.has_type());
+  EXPECT_EQ(key_data3.type(), key_data4.type());
+  EXPECT_EQ(key_data3.has_label(), key_data4.has_label());
+  EXPECT_EQ(key_data3.label(), key_data4.label());
+  EXPECT_EQ(key_data3.has_policy(), key_data4.has_policy());
+  EXPECT_EQ(key_data3.policy().has_low_entropy_credential(),
+            key_data4.policy().has_low_entropy_credential());
+  EXPECT_EQ(key_data3.policy().low_entropy_credential(),
+            key_data4.policy().low_entropy_credential());
+
+  EXPECT_TRUE(key_data3.has_type());
+  EXPECT_EQ(key_data3.type(), KeyData::KEY_TYPE_PASSWORD);
+  EXPECT_TRUE(key_data3.has_label());
+  EXPECT_EQ(key_data3.label(), "pin");
+  EXPECT_TRUE(key_data3.has_policy());
+  EXPECT_TRUE(key_data3.policy().has_low_entropy_credential());
+  EXPECT_TRUE(key_data3.policy().low_entropy_credential());
+}
+
 class LeCredentialsManagerTest : public ::testing::Test {
  public:
-  LeCredentialsManagerTest() : crypto_(&tpm_, &cryptohome_keys_manager_) {
+  LeCredentialsManagerTest()
+      : crypto_(&hwsec_, &pinweaver_, &cryptohome_keys_manager_, nullptr) {
     EXPECT_CALL(cryptohome_keys_manager_, Init())
         .WillOnce(Return());  // because HasCryptohomeKey returned false once.
 
-    EXPECT_CALL(tpm_, IsEnabled()).WillRepeatedly(Return(true));
-    EXPECT_CALL(tpm_, IsOwned()).WillRepeatedly(Return(true));
+    EXPECT_CALL(hwsec_, IsEnabled()).WillRepeatedly(ReturnValue(true));
+    EXPECT_CALL(hwsec_, IsReady()).WillRepeatedly(ReturnValue(true));
+    EXPECT_CALL(hwsec_, IsSealingSupported()).WillRepeatedly(ReturnValue(true));
+    EXPECT_CALL(pinweaver_, IsEnabled()).WillRepeatedly(ReturnValue(true));
 
     // Raw pointer as crypto_ expects unique_ptr, which we will wrap this
     // allocation into.
@@ -846,7 +893,8 @@ class LeCredentialsManagerTest : public ::testing::Test {
 
  protected:
   MockPlatform platform_;
-  NiceMock<MockTpm> tpm_;
+  NiceMock<hwsec::MockCryptohomeFrontend> hwsec_;
+  NiceMock<hwsec::MockPinWeaverFrontend> pinweaver_;
   NiceMock<MockCryptohomeKeysManager> cryptohome_keys_manager_;
   Crypto crypto_;
   MockLECredentialManager* le_cred_manager_;
@@ -962,9 +1010,8 @@ TEST_F(LeCredentialsManagerTest, EncryptTestReset) {
   EXPECT_FALSE(serialized.key_data().policy().auth_locked());
 }
 
-TEST_F(LeCredentialsManagerTest, DecryptTPMDefendLock) {
-  // Test to have LECredential fail Decrypt because CE_TPM_DEFEND_LOCK
-  // Setup
+TEST_F(LeCredentialsManagerTest, DecryptLocked) {
+  // Test to have LECredential fail to decrypt and be locked.
   pin_vault_keyset_.CreateFromFileSystemKeyset(
       FileSystemKeyset::CreateRandom());
   pin_vault_keyset_.SetLowEntropyCredential(true);
@@ -988,14 +1035,30 @@ TEST_F(LeCredentialsManagerTest, DecryptTPMDefendLock) {
 
   // Test
   ASSERT_FALSE(new_keyset.GetAuthLocked());
-  // Have le_cred_manager inject a
-  // CryptoError::CE_TPM_DEFEND_LOCK error
+
+  // Have le_cred_manager inject a CryptoError::LE_CRED_ERROR_INVALID_LE_SECRET
+  // error.
+  EXPECT_CALL(*le_cred_manager_, CheckCredential(_, _, _, _))
+      .WillOnce(ReturnError<CryptohomeLECredError>(
+          kErrorLocationForTesting1, ErrorActionSet({ErrorAction::kFatal}),
+          LE_CRED_ERROR_INVALID_LE_SECRET));
+  EXPECT_CALL(*le_cred_manager_, GetDelayInSeconds(_))
+      .WillOnce(ReturnValue(UINT32_MAX));
+
+  CryptoStatus status = new_keyset.Decrypt(key, false);
+  ASSERT_FALSE(status.ok());
+  ASSERT_EQ(status->local_crypto_error(), CryptoError::CE_CREDENTIAL_LOCKED);
+  ASSERT_TRUE(new_keyset.GetAuthLocked());
+
+  // Try to decrypt again.
+  // Have le_cred_manager inject a CryptoError::LE_CRED_ERROR_TOO_MANY_ATTEMPTS
+  // error.
   EXPECT_CALL(*le_cred_manager_, CheckCredential(_, _, _, _))
       .WillOnce(ReturnError<CryptohomeLECredError>(
           kErrorLocationForTesting1, ErrorActionSet({ErrorAction::kFatal}),
           LE_CRED_ERROR_TOO_MANY_ATTEMPTS));
 
-  CryptoStatus status = new_keyset.Decrypt(key, false);
+  status = new_keyset.Decrypt(key, false);
   ASSERT_FALSE(status.ok());
   ASSERT_EQ(status->local_crypto_error(), CryptoError::CE_TPM_DEFEND_LOCK);
   ASSERT_TRUE(new_keyset.GetAuthLocked());
@@ -1008,13 +1071,12 @@ TEST_F(LeCredentialsManagerTest, EncryptWithKeyBlobs) {
   pin_vault_keyset_.CreateFromFileSystemKeyset(
       FileSystemKeyset::CreateRandom());
   pin_vault_keyset_.SetLowEntropyCredential(true);
-  pin_vault_keyset_.reset_seed_ = CreateSecureRandomBlob(kAesBlockSize);
 
   auto auth_block = std::make_unique<PinWeaverAuthBlock>(
       crypto_.le_manager(), crypto_.cryptohome_keys_manager());
 
   AuthInput auth_input = {brillo::SecureBlob(HexDecode(kHexVaultKey)), false,
-                          "unused", std::nullopt,
+                          "unused", /*reset_secret*/ std::nullopt,
                           pin_vault_keyset_.reset_seed_};
   KeyBlobs key_blobs;
   AuthBlockState auth_state;
@@ -1044,7 +1106,30 @@ TEST_F(LeCredentialsManagerTest, EncryptWithKeyBlobsFailWithBadAuthState) {
       crypto_.le_manager(), crypto_.cryptohome_keys_manager());
 
   AuthInput auth_input = {brillo::SecureBlob(44, 'A'), false, "unused",
-                          std::nullopt, reset_seed};
+                          /*reset_secret*/ std::nullopt,
+                          pin_vault_keyset_.GetResetSeed()};
+  KeyBlobs key_blobs;
+  AuthBlockState auth_state;
+  CryptoStatus status = auth_block->Create(auth_input, &auth_state, &key_blobs);
+  ASSERT_FALSE(status.ok());
+
+  EXPECT_FALSE(
+      std::holds_alternative<PinWeaverAuthBlockState>(auth_state.state));
+}
+
+TEST_F(LeCredentialsManagerTest, EncryptWithKeyBlobsFailWithNoResetSeed) {
+  EXPECT_CALL(*le_cred_manager_, InsertCredential(_, _, _, _, _, _)).Times(0);
+
+  pin_vault_keyset_.CreateFromFileSystemKeyset(
+      FileSystemKeyset::CreateRandom());
+  pin_vault_keyset_.SetLowEntropyCredential(true);
+
+  auto auth_block = std::make_unique<PinWeaverAuthBlock>(
+      crypto_.le_manager(), crypto_.cryptohome_keys_manager());
+
+  AuthInput auth_input = {brillo::SecureBlob(44, 'A'), false, "unused",
+                          /*reset_secret*/ std::nullopt,
+                          /*reset_seed*/ std::nullopt};
   KeyBlobs key_blobs;
   AuthBlockState auth_state;
   CryptoStatus status = auth_block->Create(auth_input, &auth_state, &key_blobs);

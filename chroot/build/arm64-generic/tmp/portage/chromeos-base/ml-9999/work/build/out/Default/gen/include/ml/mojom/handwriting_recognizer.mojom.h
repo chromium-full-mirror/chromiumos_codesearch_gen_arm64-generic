@@ -21,7 +21,7 @@
 #include "mojo/public/cpp/bindings/struct_traits.h"
 #include "mojo/public/cpp/bindings/union_traits.h"
 
-#include "base/trace_event/base_tracing.h"
+#include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
 #include "ml/mojom/handwriting_recognizer.mojom-shared.h"
 #include "ml/mojom/handwriting_recognizer.mojom-forward.h"
@@ -29,10 +29,6 @@
 #include <string>
 #include <vector>
 
-#include "mojo/public/cpp/bindings/associated_interface_ptr_info.h"
-#include "mojo/public/cpp/bindings/associated_interface_request.h"
-#include "mojo/public/cpp/bindings/interface_ptr.h"
-#include "mojo/public/cpp/bindings/interface_request.h"
 #include "mojo/public/cpp/bindings/lib/control_message_handler.h"
 #include "mojo/public/cpp/bindings/raw_ptr_impl_ref_traits.h"
 
@@ -58,6 +54,8 @@ class  HandwritingRecognizer
     : public HandwritingRecognizerInterfaceBase {
  public:
   static const char Name_[];
+  static uint32_t MessageToStableIPCHash_(mojo::Message& message);
+  static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 0;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasSyncMethods_ = false;
@@ -162,7 +160,7 @@ class  WritingGuide {
   template <typename... Args>
   static WritingGuidePtr New(Args&&... args) {
     return WritingGuidePtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -261,7 +259,7 @@ class  WritingGuide {
   float height;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto::libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -305,7 +303,7 @@ class  HandwritingRecognizerInkRange {
   template <typename... Args>
   static HandwritingRecognizerInkRangePtr New(Args&&... args) {
     return HandwritingRecognizerInkRangePtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -410,7 +408,7 @@ class  HandwritingRecognizerInkRange {
   uint32_t end_point;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto::libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -456,7 +454,7 @@ class  HandwritingRecognizerSpec {
   template <typename... Args>
   static HandwritingRecognizerSpecPtr New(Args&&... args) {
     return HandwritingRecognizerSpecPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -564,7 +562,7 @@ class  HandwritingRecognizerSpec {
   absl::optional<std::string> library_dlc_path;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto::libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -608,7 +606,7 @@ class  InkPoint {
   template <typename... Args>
   static InkPointPtr New(Args&&... args) {
     return InkPointPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -709,7 +707,7 @@ class  InkPoint {
   absl::optional<base::TimeDelta> t;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto::libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -751,7 +749,7 @@ class  InkStroke {
   template <typename... Args>
   static InkStrokePtr New(Args&&... args) {
     return InkStrokePtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -848,7 +846,7 @@ InkStroke& operator=(const InkStroke&) = delete;
   std::vector<InkPointPtr> points;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto::libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -891,7 +889,7 @@ class  RecognitionContext {
   template <typename... Args>
   static RecognitionContextPtr New(Args&&... args) {
     return RecognitionContextPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -991,7 +989,7 @@ RecognitionContext& operator=(const RecognitionContext&) = delete;
   absl::optional<std::string> pre_context;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto::libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -1033,7 +1031,7 @@ class  HandwritingRecognitionQuery {
   template <typename... Args>
   static HandwritingRecognitionQueryPtr New(Args&&... args) {
     return HandwritingRecognitionQueryPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1139,7 +1137,7 @@ HandwritingRecognitionQuery& operator=(const HandwritingRecognitionQuery&) = del
   bool return_segmentation;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto::libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -1182,7 +1180,7 @@ class  HandwritingRecognizerSegment {
   template <typename... Args>
   static HandwritingRecognizerSegmentPtr New(Args&&... args) {
     return HandwritingRecognizerSegmentPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1282,7 +1280,7 @@ HandwritingRecognizerSegment& operator=(const HandwritingRecognizerSegment&) = d
   std::vector<HandwritingRecognizerInkRangePtr> ink_ranges;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto::libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -1324,7 +1322,7 @@ class  HandwritingRecognizerSegmentation {
   template <typename... Args>
   static HandwritingRecognizerSegmentationPtr New(Args&&... args) {
     return HandwritingRecognizerSegmentationPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1421,7 +1419,7 @@ HandwritingRecognizerSegmentation& operator=(const HandwritingRecognizerSegmenta
   std::vector<HandwritingRecognizerSegmentPtr> segments;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto::libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -1463,7 +1461,7 @@ class  HandwritingRecognizerCandidate {
   template <typename... Args>
   static HandwritingRecognizerCandidatePtr New(Args&&... args) {
     return HandwritingRecognizerCandidatePtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1566,7 +1564,7 @@ HandwritingRecognizerCandidate& operator=(const HandwritingRecognizerCandidate&)
   HandwritingRecognizerSegmentationPtr segmentation;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto::libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -1609,7 +1607,7 @@ class  HandwritingRecognizerResult {
   template <typename... Args>
   static HandwritingRecognizerResultPtr New(Args&&... args) {
     return HandwritingRecognizerResultPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1709,7 +1707,7 @@ HandwritingRecognizerResult& operator=(const HandwritingRecognizerResult&) = del
   std::vector<HandwritingRecognizerCandidatePtr> candidates;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto::libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,

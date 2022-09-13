@@ -2,6 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+#include <cstdint>
 #include <memory>
 #include <utility>
 
@@ -12,7 +13,6 @@
 #include <libhwsec-foundation/error/testing_helper.h>
 
 #include "libhwsec/backend/tpm2/backend_test_base.h"
-#include "libhwsec/error/elliptic_curve_error.h"
 
 // Prevent the conflict definition from tss.h
 #undef TPM_ALG_RSA
@@ -77,7 +77,7 @@ TEST_F(BackendDeriveTpm2Test, DeriveSecureRsa) {
       .WillOnce(
           DoAll(SetArgPointee<1>(kFakePublic), Return(trunks::TPM_RC_SUCCESS)));
 
-  auto key = middleware_->CallSync<&Backend::KeyManagerment::LoadKey>(
+  auto key = middleware_->CallSync<&Backend::KeyManagement::LoadKey>(
       kFakePolicy, brillo::BlobFromString(kFakeKeyBlob));
 
   ASSERT_TRUE(key.ok());
@@ -159,7 +159,7 @@ TEST_F(BackendDeriveTpm2Test, DeriveEcc) {
       .WillOnce(
           DoAll(SetArgPointee<1>(kFakePublic), Return(trunks::TPM_RC_SUCCESS)));
 
-  auto key = middleware_->CallSync<&Backend::KeyManagerment::LoadKey>(
+  auto key = middleware_->CallSync<&Backend::KeyManagement::LoadKey>(
       kFakePolicy, brillo::BlobFromString(kFakeKeyBlob));
 
   ASSERT_TRUE(key.ok());
@@ -231,7 +231,7 @@ TEST_F(BackendDeriveTpm2Test, DeriveEccOutOfRange) {
       .WillOnce(
           DoAll(SetArgPointee<1>(kFakePublic), Return(trunks::TPM_RC_SUCCESS)));
 
-  auto key = middleware_->CallSync<&Backend::KeyManagerment::LoadKey>(
+  auto key = middleware_->CallSync<&Backend::KeyManagement::LoadKey>(
       kFakePolicy, brillo::BlobFromString(kFakeKeyBlob));
 
   ASSERT_TRUE(key.ok());
@@ -240,11 +240,8 @@ TEST_F(BackendDeriveTpm2Test, DeriveEccOutOfRange) {
                                                                   fake_blob);
 
   ASSERT_FALSE(result.ok());
-
-  auto ecc_err = result.status().Find<EllipticCurveError>();
-
-  ASSERT_NE(ecc_err, nullptr);
-  EXPECT_EQ(EllipticCurveErrorCode::kScalarOutOfRange, ecc_err->ErrorCode());
+  EXPECT_EQ(result.status()->ToTPMRetryAction(),
+            TPMRetryAction::kEllipticCurveScalarOutOfRange);
 }
 
 }  // namespace hwsec

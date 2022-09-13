@@ -21,7 +21,7 @@
 #include "mojo/public/cpp/bindings/struct_traits.h"
 #include "mojo/public/cpp/bindings/union_traits.h"
 
-#include "base/trace_event/base_tracing.h"
+#include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom-shared.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom-forward.h"
@@ -54,7 +54,7 @@ class  QueryVersion {
   template <typename... Args>
   static QueryVersionPtr New(Args&&... args) {
     return QueryVersionPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -145,7 +145,7 @@ class  QueryVersion {
 
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto::libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -187,7 +187,7 @@ class  QueryVersionResult {
   template <typename... Args>
   static QueryVersionResultPtr New(Args&&... args) {
     return QueryVersionResultPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -283,7 +283,7 @@ class  QueryVersionResult {
   uint32_t version;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto::libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -325,7 +325,7 @@ class  FlushForTesting {
   template <typename... Args>
   static FlushForTestingPtr New(Args&&... args) {
     return FlushForTestingPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -416,7 +416,7 @@ class  FlushForTesting {
 
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto::libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -459,7 +459,7 @@ class  RequireVersion {
   template <typename... Args>
   static RequireVersionPtr New(Args&&... args) {
     return RequireVersionPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -555,7 +555,7 @@ class  RequireVersion {
   uint32_t version;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto::libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -597,7 +597,7 @@ class  EnableIdleTracking {
   template <typename... Args>
   static EnableIdleTrackingPtr New(Args&&... args) {
     return EnableIdleTrackingPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -693,7 +693,7 @@ class  EnableIdleTracking {
   int64_t timeout_in_microseconds;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto::libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -735,7 +735,7 @@ class  MessageAck {
   template <typename... Args>
   static MessageAckPtr New(Args&&... args) {
     return MessageAckPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -826,7 +826,7 @@ class  MessageAck {
 
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto::libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -868,7 +868,7 @@ class  NotifyIdle {
   template <typename... Args>
   static NotifyIdlePtr New(Args&&... args) {
     return NotifyIdlePtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -959,7 +959,7 @@ class  NotifyIdle {
 
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto::libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -997,14 +997,20 @@ class  RunInput {
   using Data_ = internal::RunInput_Data;
   using Tag = Data_::RunInput_Tag;
 
-  static RunInputPtr New() {
-    return RunInputPtr(base::in_place);
+  template <typename... Args>
+  static RunInputPtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
   }
   // Construct an instance holding |query_version|.
   static RunInputPtr
   NewQueryVersion(
       QueryVersionPtr query_version) {
-    auto result = RunInputPtr(base::in_place);
+    auto result = RunInputPtr(absl::in_place);
     result->set_query_version(std::move(query_version));
     return result;
   }
@@ -1012,7 +1018,7 @@ class  RunInput {
   static RunInputPtr
   NewFlushForTesting(
       FlushForTestingPtr flush_for_testing) {
-    auto result = RunInputPtr(base::in_place);
+    auto result = RunInputPtr(absl::in_place);
     result->set_flush_for_testing(std::move(flush_for_testing));
     return result;
   }
@@ -1056,11 +1062,11 @@ class  RunInput {
 
 
   
-  bool is_query_version() const { return tag_ == Tag::QUERY_VERSION; }
+  bool is_query_version() const { return tag_ == Tag::kQueryVersion; }
 
   
   QueryVersionPtr& get_query_version() const {
-    CHECK(tag_ == Tag::QUERY_VERSION);
+    CHECK(tag_ == Tag::kQueryVersion);
     return *(data_.query_version);
   }
 
@@ -1068,11 +1074,11 @@ class  RunInput {
   void set_query_version(
       QueryVersionPtr query_version);
   
-  bool is_flush_for_testing() const { return tag_ == Tag::FLUSH_FOR_TESTING; }
+  bool is_flush_for_testing() const { return tag_ == Tag::kFlushForTesting; }
 
   
   FlushForTestingPtr& get_flush_for_testing() const {
-    CHECK(tag_ == Tag::FLUSH_FOR_TESTING);
+    CHECK(tag_ == Tag::kFlushForTesting);
     return *(data_.flush_for_testing);
   }
 
@@ -1117,14 +1123,20 @@ class  RunOutput {
   using Data_ = internal::RunOutput_Data;
   using Tag = Data_::RunOutput_Tag;
 
-  static RunOutputPtr New() {
-    return RunOutputPtr(base::in_place);
+  template <typename... Args>
+  static RunOutputPtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
   }
   // Construct an instance holding |query_version_result|.
   static RunOutputPtr
   NewQueryVersionResult(
       QueryVersionResultPtr query_version_result) {
-    auto result = RunOutputPtr(base::in_place);
+    auto result = RunOutputPtr(absl::in_place);
     result->set_query_version_result(std::move(query_version_result));
     return result;
   }
@@ -1168,11 +1180,11 @@ class  RunOutput {
 
 
   
-  bool is_query_version_result() const { return tag_ == Tag::QUERY_VERSION_RESULT; }
+  bool is_query_version_result() const { return tag_ == Tag::kQueryVersionResult; }
 
   
   QueryVersionResultPtr& get_query_version_result() const {
-    CHECK(tag_ == Tag::QUERY_VERSION_RESULT);
+    CHECK(tag_ == Tag::kQueryVersionResult);
     return *(data_.query_version_result);
   }
 
@@ -1216,14 +1228,20 @@ class  RunOrClosePipeInput {
   using Data_ = internal::RunOrClosePipeInput_Data;
   using Tag = Data_::RunOrClosePipeInput_Tag;
 
-  static RunOrClosePipeInputPtr New() {
-    return RunOrClosePipeInputPtr(base::in_place);
+  template <typename... Args>
+  static RunOrClosePipeInputPtr New(Args&&... args) {
+    static_assert(
+        sizeof...(args) < 0,
+        "Do not use Union::New(); to create a union of a given subtype, use "
+        "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
+        "an empty union, mark the field or parameter as nullable in the mojom "
+        "definition.");
   }
   // Construct an instance holding |require_version|.
   static RunOrClosePipeInputPtr
   NewRequireVersion(
       RequireVersionPtr require_version) {
-    auto result = RunOrClosePipeInputPtr(base::in_place);
+    auto result = RunOrClosePipeInputPtr(absl::in_place);
     result->set_require_version(std::move(require_version));
     return result;
   }
@@ -1231,7 +1249,7 @@ class  RunOrClosePipeInput {
   static RunOrClosePipeInputPtr
   NewEnableIdleTracking(
       EnableIdleTrackingPtr enable_idle_tracking) {
-    auto result = RunOrClosePipeInputPtr(base::in_place);
+    auto result = RunOrClosePipeInputPtr(absl::in_place);
     result->set_enable_idle_tracking(std::move(enable_idle_tracking));
     return result;
   }
@@ -1239,7 +1257,7 @@ class  RunOrClosePipeInput {
   static RunOrClosePipeInputPtr
   NewMessageAck(
       MessageAckPtr message_ack) {
-    auto result = RunOrClosePipeInputPtr(base::in_place);
+    auto result = RunOrClosePipeInputPtr(absl::in_place);
     result->set_message_ack(std::move(message_ack));
     return result;
   }
@@ -1247,7 +1265,7 @@ class  RunOrClosePipeInput {
   static RunOrClosePipeInputPtr
   NewNotifyIdle(
       NotifyIdlePtr notify_idle) {
-    auto result = RunOrClosePipeInputPtr(base::in_place);
+    auto result = RunOrClosePipeInputPtr(absl::in_place);
     result->set_notify_idle(std::move(notify_idle));
     return result;
   }
@@ -1291,11 +1309,11 @@ class  RunOrClosePipeInput {
 
 
   
-  bool is_require_version() const { return tag_ == Tag::REQUIRE_VERSION; }
+  bool is_require_version() const { return tag_ == Tag::kRequireVersion; }
 
   
   RequireVersionPtr& get_require_version() const {
-    CHECK(tag_ == Tag::REQUIRE_VERSION);
+    CHECK(tag_ == Tag::kRequireVersion);
     return *(data_.require_version);
   }
 
@@ -1303,11 +1321,11 @@ class  RunOrClosePipeInput {
   void set_require_version(
       RequireVersionPtr require_version);
   
-  bool is_enable_idle_tracking() const { return tag_ == Tag::ENABLE_IDLE_TRACKING; }
+  bool is_enable_idle_tracking() const { return tag_ == Tag::kEnableIdleTracking; }
 
   
   EnableIdleTrackingPtr& get_enable_idle_tracking() const {
-    CHECK(tag_ == Tag::ENABLE_IDLE_TRACKING);
+    CHECK(tag_ == Tag::kEnableIdleTracking);
     return *(data_.enable_idle_tracking);
   }
 
@@ -1315,11 +1333,11 @@ class  RunOrClosePipeInput {
   void set_enable_idle_tracking(
       EnableIdleTrackingPtr enable_idle_tracking);
   
-  bool is_message_ack() const { return tag_ == Tag::MESSAGE_ACK; }
+  bool is_message_ack() const { return tag_ == Tag::kMessageAck; }
 
   
   MessageAckPtr& get_message_ack() const {
-    CHECK(tag_ == Tag::MESSAGE_ACK);
+    CHECK(tag_ == Tag::kMessageAck);
     return *(data_.message_ack);
   }
 
@@ -1327,11 +1345,11 @@ class  RunOrClosePipeInput {
   void set_message_ack(
       MessageAckPtr message_ack);
   
-  bool is_notify_idle() const { return tag_ == Tag::NOTIFY_IDLE; }
+  bool is_notify_idle() const { return tag_ == Tag::kNotifyIdle; }
 
   
   NotifyIdlePtr& get_notify_idle() const {
-    CHECK(tag_ == Tag::NOTIFY_IDLE);
+    CHECK(tag_ == Tag::kNotifyIdle);
     return *(data_.notify_idle);
   }
 
@@ -1384,7 +1402,7 @@ class  RunMessageParams {
   template <typename... Args>
   static RunMessageParamsPtr New(Args&&... args) {
     return RunMessageParamsPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1482,7 +1500,7 @@ RunMessageParams& operator=(const RunMessageParams&) = delete;
   RunInputPtr input;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto::libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -1524,7 +1542,7 @@ class  RunResponseMessageParams {
   template <typename... Args>
   static RunResponseMessageParamsPtr New(Args&&... args) {
     return RunResponseMessageParamsPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1621,7 +1639,7 @@ RunResponseMessageParams& operator=(const RunResponseMessageParams&) = delete;
   RunOutputPtr output;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto::libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -1666,7 +1684,7 @@ class  RunOrClosePipeMessageParams {
   template <typename... Args>
   static RunOrClosePipeMessageParamsPtr New(Args&&... args) {
     return RunOrClosePipeMessageParamsPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1764,7 +1782,7 @@ RunOrClosePipeMessageParams& operator=(const RunOrClosePipeMessageParams&) = del
   RunOrClosePipeInputPtr input;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto::libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -1798,18 +1816,15 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 template <typename UnionPtrType>
 RunInputPtr RunInput::Clone() const {
-  // Use UnionPtrType to prevent the compiler from trying to compile this
-  // without being asked.
-  UnionPtrType rv(New());
   switch (tag_) {
-    case Tag::QUERY_VERSION:
-      rv->set_query_version(mojo::Clone(*data_.query_version));
-      break;
-    case Tag::FLUSH_FOR_TESTING:
-      rv->set_flush_for_testing(mojo::Clone(*data_.flush_for_testing));
-      break;
+    case Tag::kQueryVersion:
+      return NewQueryVersion(
+          mojo::Clone(*data_.query_version));
+    case Tag::kFlushForTesting:
+      return NewFlushForTesting(
+          mojo::Clone(*data_.flush_for_testing));
   }
-  return rv;
+  return nullptr;
 }
 
 template <typename T,
@@ -1820,9 +1835,9 @@ bool RunInput::Equals(const T& other) const {
     return false;
 
   switch (tag_) {
-    case Tag::QUERY_VERSION:
+    case Tag::kQueryVersion:
       return mojo::Equals(*(data_.query_version), *(other.data_.query_version));
-    case Tag::FLUSH_FOR_TESTING:
+    case Tag::kFlushForTesting:
       return mojo::Equals(*(data_.flush_for_testing), *(other.data_.flush_for_testing));
   }
 
@@ -1830,15 +1845,12 @@ bool RunInput::Equals(const T& other) const {
 }
 template <typename UnionPtrType>
 RunOutputPtr RunOutput::Clone() const {
-  // Use UnionPtrType to prevent the compiler from trying to compile this
-  // without being asked.
-  UnionPtrType rv(New());
   switch (tag_) {
-    case Tag::QUERY_VERSION_RESULT:
-      rv->set_query_version_result(mojo::Clone(*data_.query_version_result));
-      break;
+    case Tag::kQueryVersionResult:
+      return NewQueryVersionResult(
+          mojo::Clone(*data_.query_version_result));
   }
-  return rv;
+  return nullptr;
 }
 
 template <typename T,
@@ -1849,7 +1861,7 @@ bool RunOutput::Equals(const T& other) const {
     return false;
 
   switch (tag_) {
-    case Tag::QUERY_VERSION_RESULT:
+    case Tag::kQueryVersionResult:
       return mojo::Equals(*(data_.query_version_result), *(other.data_.query_version_result));
   }
 
@@ -1857,24 +1869,21 @@ bool RunOutput::Equals(const T& other) const {
 }
 template <typename UnionPtrType>
 RunOrClosePipeInputPtr RunOrClosePipeInput::Clone() const {
-  // Use UnionPtrType to prevent the compiler from trying to compile this
-  // without being asked.
-  UnionPtrType rv(New());
   switch (tag_) {
-    case Tag::REQUIRE_VERSION:
-      rv->set_require_version(mojo::Clone(*data_.require_version));
-      break;
-    case Tag::ENABLE_IDLE_TRACKING:
-      rv->set_enable_idle_tracking(mojo::Clone(*data_.enable_idle_tracking));
-      break;
-    case Tag::MESSAGE_ACK:
-      rv->set_message_ack(mojo::Clone(*data_.message_ack));
-      break;
-    case Tag::NOTIFY_IDLE:
-      rv->set_notify_idle(mojo::Clone(*data_.notify_idle));
-      break;
+    case Tag::kRequireVersion:
+      return NewRequireVersion(
+          mojo::Clone(*data_.require_version));
+    case Tag::kEnableIdleTracking:
+      return NewEnableIdleTracking(
+          mojo::Clone(*data_.enable_idle_tracking));
+    case Tag::kMessageAck:
+      return NewMessageAck(
+          mojo::Clone(*data_.message_ack));
+    case Tag::kNotifyIdle:
+      return NewNotifyIdle(
+          mojo::Clone(*data_.notify_idle));
   }
-  return rv;
+  return nullptr;
 }
 
 template <typename T,
@@ -1885,13 +1894,13 @@ bool RunOrClosePipeInput::Equals(const T& other) const {
     return false;
 
   switch (tag_) {
-    case Tag::REQUIRE_VERSION:
+    case Tag::kRequireVersion:
       return mojo::Equals(*(data_.require_version), *(other.data_.require_version));
-    case Tag::ENABLE_IDLE_TRACKING:
+    case Tag::kEnableIdleTracking:
       return mojo::Equals(*(data_.enable_idle_tracking), *(other.data_.enable_idle_tracking));
-    case Tag::MESSAGE_ACK:
+    case Tag::kMessageAck:
       return mojo::Equals(*(data_.message_ack), *(other.data_.message_ack));
-    case Tag::NOTIFY_IDLE:
+    case Tag::kNotifyIdle:
       return mojo::Equals(*(data_.notify_idle), *(other.data_.notify_idle));
   }
 

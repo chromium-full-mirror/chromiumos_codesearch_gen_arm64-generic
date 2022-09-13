@@ -6,13 +6,13 @@
 #include <utility>
 
 #include <base/strings/string_number_conversions.h>
+#include <cstdint>
 #include <gtest/gtest.h>
 
 #include <libhwsec-foundation/crypto/sha.h>
 #include <libhwsec-foundation/error/testing_helper.h>
 
 #include "libhwsec/backend/tpm2/backend_test_base.h"
-#include "libhwsec/error/elliptic_curve_error.h"
 
 // Prevent the conflict definition from tss.h
 #undef TPM_ALG_RSA
@@ -53,7 +53,7 @@ TEST_F(BackendEncryptionTpm2Test, Encrypt) {
       .WillOnce(
           DoAll(SetArgPointee<1>(kFakePublic), Return(trunks::TPM_RC_SUCCESS)));
 
-  auto key = middleware_->CallSync<&Backend::KeyManagerment::LoadKey>(
+  auto key = middleware_->CallSync<&Backend::KeyManagement::LoadKey>(
       kFakePolicy, brillo::BlobFromString(kFakeKeyBlob));
 
   ASSERT_TRUE(key.ok());
@@ -94,7 +94,7 @@ TEST_F(BackendEncryptionTpm2Test, EncryptNullAlgo) {
       .WillOnce(
           DoAll(SetArgPointee<1>(kFakePublic), Return(trunks::TPM_RC_SUCCESS)));
 
-  auto key = middleware_->CallSync<&Backend::KeyManagerment::LoadKey>(
+  auto key = middleware_->CallSync<&Backend::KeyManagement::LoadKey>(
       kFakePolicy, brillo::BlobFromString(kFakeKeyBlob));
 
   ASSERT_TRUE(key.ok());
@@ -137,7 +137,7 @@ TEST_F(BackendEncryptionTpm2Test, Decrypt) {
       .WillOnce(
           DoAll(SetArgPointee<1>(kFakePublic), Return(trunks::TPM_RC_SUCCESS)));
 
-  auto key = middleware_->CallSync<&Backend::KeyManagerment::LoadKey>(
+  auto key = middleware_->CallSync<&Backend::KeyManagement::LoadKey>(
       kFakePolicy, brillo::BlobFromString(kFakeKeyBlob));
 
   ASSERT_TRUE(key.ok());

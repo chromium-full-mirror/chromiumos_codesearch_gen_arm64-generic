@@ -88,6 +88,10 @@ class TestDelegate : public Suspender::Delegate, public ActionRecorder {
   base::TimeDelta last_suspend_duration() const {
     return last_suspend_duration_;
   }
+  bool shutdown_failed_suspend_due_to_hibernate() const {
+    return shutdown_failed_suspend_hibernate_;
+  }
+  bool quirks_applied() const { return quirks_applied_; }
 
   // Delegate implementation:
   int GetInitialSuspendId() override { return 1; }
@@ -128,13 +132,19 @@ class TestDelegate : public Suspender::Delegate, public ActionRecorder {
     return suspend_result_;
   }
 
-  void UndoPrepareToSuspend(bool success, int num_suspend_attempts) override {
+  void UndoPrepareToSuspend(bool success,
+                            int num_suspend_attempts,
+                            bool hibernated) override {
     AppendAction(kUnprepare);
     suspend_was_successful_ = success;
     num_suspend_attempts_ = num_suspend_attempts;
     if (!completion_callback_.is_null())
       completion_callback_.Run();
   }
+
+  void ApplyQuirksBeforeSuspend() override { quirks_applied_ = true; }
+
+  void UnapplyQuirksAfterSuspend() override { quirks_applied_ = false; }
 
   void GenerateDarkResumeMetrics(
       const std::vector<Suspender::DarkResumeInfo>& dark_resume_wake_durations,
@@ -144,7 +154,8 @@ class TestDelegate : public Suspender::Delegate, public ActionRecorder {
     last_suspend_duration_ = suspend_duration;
   }
 
-  void ShutDownForFailedSuspend() override {
+  void ShutDownForFailedSuspend(bool hibernate) override {
+    shutdown_failed_suspend_hibernate_ = hibernate;
     AppendAction(kShutDown);
     if (!shutdown_callback_.is_null())
       shutdown_callback_.Run();
@@ -193,6 +204,12 @@ class TestDelegate : public Suspender::Delegate, public ActionRecorder {
   // Arguments passed to last invocation of UndoPrepareToSuspend().
   bool suspend_was_successful_ = false;
   int num_suspend_attempts_ = 0;
+
+  // Arguments passed to the last invocation of ShutdownForFailedSuspend.
+  bool shutdown_failed_suspend_hibernate_ = false;
+
+  // Quirks state
+  bool quirks_applied_ = false;
 
   // Dark resume wake data provided to GenerateDarkResumeMetrics().
   std::vector<Suspender::DarkResumeInfo> dark_resume_wake_durations_;
@@ -514,6 +531,33 @@ TEST_F(SuspenderTest, ShutDownAfterRepeatedFailures) {
   // After the last failed attempt, the system should shut down immediately.
   EXPECT_TRUE(test_api_.TriggerResuspendTimeout());
   EXPECT_EQ(JoinActions(kSuspend, kShutDown, nullptr), delegate_.GetActions());
+  EXPECT_FALSE(delegate_.shutdown_failed_suspend_due_to_hibernate());
+  EXPECT_FALSE(test_api_.TriggerResuspendTimeout());
+}
+
+// Tests that the system is shut down after repeated hibernate failures.
+TEST_F(SuspenderTest, ShutDownAfterRepeatedHibernateFailures) {
+  pref_num_retries_ = 5;
+  Init();
+
+  delegate_.set_suspend_result(Suspender::Delegate::SuspendResult::FAILURE);
+  suspender_.RequestSuspend(SuspendImminent_Reason_OTHER, base::TimeDelta(),
+                            SuspendFlavor::SUSPEND_TO_DISK);
+  EXPECT_EQ(kPrepare, delegate_.GetActions());
+  AnnounceReadyForSuspend(test_api_.suspend_id());
+  EXPECT_EQ(kSuspend, delegate_.GetActions());
+
+  // Proceed through all retries, reporting failure each time.
+  for (int i = 1; i <= pref_num_retries_ - 1; ++i) {
+    EXPECT_TRUE(test_api_.TriggerResuspendTimeout()) << "Retry #" << i;
+    EXPECT_EQ(kSuspend, delegate_.GetActions()) << "Retry #" << i;
+  }
+
+  // After the last failed attempt, the system should shut down immediately,
+  // and indicate hibernate as the action.
+  EXPECT_TRUE(test_api_.TriggerResuspendTimeout());
+  EXPECT_EQ(JoinActions(kSuspend, kShutDown, nullptr), delegate_.GetActions());
+  EXPECT_TRUE(delegate_.shutdown_failed_suspend_due_to_hibernate());
   EXPECT_FALSE(test_api_.TriggerResuspendTimeout());
 }
 
@@ -1463,6 +1507,34 @@ TEST_F(SuspenderTest, SpuriousResumeAbortIsIgnored) {
   EXPECT_FALSE(delegate_.suspend_announced());
   EXPECT_EQ(0, delegate_.num_suspend_attempts());
   EXPECT_EQ(0, dbus_wrapper_.num_sent_signals());
+}
+
+// Quirks should be applied in StartRequest and FinishRequest.
+TEST_F(SuspenderTest, QuirksHandledCorrectly) {
+  Init();
+
+  ASSERT_FALSE(delegate_.quirks_applied());
+
+  const base::TimeDelta kDuration = base::Seconds(5);
+  suspender_.RequestSuspend(SuspendImminent_Reason_OTHER, kDuration,
+                            SuspendFlavor::SUSPEND_DEFAULT);
+  const int suspend_id = test_api_.suspend_id();
+  EXPECT_EQ(kPrepare, delegate_.GetActions());
+  EXPECT_TRUE(delegate_.suspend_announced());
+  EXPECT_TRUE(delegate_.quirks_applied());
+
+  // Simulate suspending.
+  delegate_.set_suspend_advance_time(kDuration);
+
+  // When Suspender receives notice that the system is ready to be
+  // suspended, it should immediately suspend the system.
+  AnnounceReadyForSuspend(suspend_id);
+
+  EXPECT_EQ(JoinActions(kSuspend, kUnprepare, nullptr), delegate_.GetActions());
+  EXPECT_TRUE(delegate_.suspend_was_successful());
+
+  EXPECT_EQ(1, delegate_.num_suspend_attempts());
+  EXPECT_FALSE(delegate_.quirks_applied());
 }
 
 }  // namespace policy

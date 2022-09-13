@@ -18,20 +18,20 @@
 #include <grpcpp/impl/codegen/async_generic_service.h>
 #include <grpcpp/impl/codegen/async_stream.h>
 #include <grpcpp/impl/codegen/async_unary_call.h>
-#include <grpcpp/impl/codegen/method_handler_impl.h>
+#include <grpcpp/impl/codegen/client_callback.h>
+#include <grpcpp/impl/codegen/client_context.h>
+#include <grpcpp/impl/codegen/completion_queue.h>
+#include <grpcpp/impl/codegen/message_allocator.h>
+#include <grpcpp/impl/codegen/method_handler.h>
 #include <grpcpp/impl/codegen/proto_utils.h>
 #include <grpcpp/impl/codegen/rpc_method.h>
+#include <grpcpp/impl/codegen/server_callback.h>
+#include <grpcpp/impl/codegen/server_callback_handlers.h>
+#include <grpcpp/impl/codegen/server_context.h>
 #include <grpcpp/impl/codegen/service_type.h>
 #include <grpcpp/impl/codegen/status.h>
 #include <grpcpp/impl/codegen/stub_options.h>
 #include <grpcpp/impl/codegen/sync_stream.h>
-
-namespace grpc {
-class CompletionQueue;
-class Channel;
-class ServerCompletionQueue;
-class ServerContext;
-}  // namespace grpc
 
 namespace diagnostics {
 namespace grpc_api {
@@ -162,46 +162,62 @@ class WilcoDtcSupportd final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityResponse>> PrepareAsyncGetStatefulPartitionAvailableCapacity(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityResponse>>(PrepareAsyncGetStatefulPartitionAvailableCapacityRaw(context, request, cq));
     }
-    class experimental_async_interface {
+    class async_interface {
      public:
-      virtual ~experimental_async_interface() {}
+      virtual ~async_interface() {}
       // Sends a message to the diagnostics UI extension (hosted by the browser).
       // Delivery of the message is not guaranteed (for example, if the diagnostics
       // UI extension isn't running at the moment).
       virtual void SendMessageToUi(::grpc::ClientContext* context, const ::diagnostics::grpc_api::SendMessageToUiRequest* request, ::diagnostics::grpc_api::SendMessageToUiResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void SendMessageToUi(::grpc::ClientContext* context, const ::diagnostics::grpc_api::SendMessageToUiRequest* request, ::diagnostics::grpc_api::SendMessageToUiResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Returns the specified data from the proc filesystem.
       virtual void GetProcData(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetProcDataRequest* request, ::diagnostics::grpc_api::GetProcDataResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void GetProcData(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetProcDataRequest* request, ::diagnostics::grpc_api::GetProcDataResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Returns the specified data from the sysfs filesystem.
       virtual void GetSysfsData(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetSysfsDataRequest* request, ::diagnostics::grpc_api::GetSysfsDataResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void GetSysfsData(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetSysfsDataRequest* request, ::diagnostics::grpc_api::GetSysfsDataResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Performs a web request to the specified HTTPS URL. Returns only whether the
       // request succeeded and the HTTP status code.
       //
       // It is implementation-defined which network, proxy and VPN settings are used
       // for making the request.
       virtual void PerformWebRequest(::grpc::ClientContext* context, const ::diagnostics::grpc_api::PerformWebRequestParameter* request, ::diagnostics::grpc_api::PerformWebRequestResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void PerformWebRequest(::grpc::ClientContext* context, const ::diagnostics::grpc_api::PerformWebRequestParameter* request, ::diagnostics::grpc_api::PerformWebRequestResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Retrieves EC telemetry data.
       virtual void GetEcTelemetry(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetEcTelemetryRequest* request, ::diagnostics::grpc_api::GetEcTelemetryResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void GetEcTelemetry(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetEcTelemetryRequest* request, ::diagnostics::grpc_api::GetEcTelemetryResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Retrieves a list of diagnostic routines which wilco_dtc_supportd can run.
       virtual void GetAvailableRoutines(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetAvailableRoutinesRequest* request, ::diagnostics::grpc_api::GetAvailableRoutinesResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void GetAvailableRoutines(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetAvailableRoutinesRequest* request, ::diagnostics::grpc_api::GetAvailableRoutinesResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Requests that wilco_dtc_supportd start a particular diagnostics routine.
       virtual void RunRoutine(::grpc::ClientContext* context, const ::diagnostics::grpc_api::RunRoutineRequest* request, ::diagnostics::grpc_api::RunRoutineResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void RunRoutine(::grpc::ClientContext* context, const ::diagnostics::grpc_api::RunRoutineRequest* request, ::diagnostics::grpc_api::RunRoutineResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Requests an update on a particular diagnostics routine's status.
       virtual void GetRoutineUpdate(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetRoutineUpdateRequest* request, ::diagnostics::grpc_api::GetRoutineUpdateResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void GetRoutineUpdate(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetRoutineUpdateRequest* request, ::diagnostics::grpc_api::GetRoutineUpdateResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Retrieves the configuration data.
       virtual void GetConfigurationData(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetConfigurationDataRequest* request, ::diagnostics::grpc_api::GetConfigurationDataResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void GetConfigurationData(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetConfigurationDataRequest* request, ::diagnostics::grpc_api::GetConfigurationDataResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Retrieves the OS version.
       virtual void GetOsVersion(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetOsVersionRequest* request, ::diagnostics::grpc_api::GetOsVersionResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void GetOsVersion(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetOsVersionRequest* request, ::diagnostics::grpc_api::GetOsVersionResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Retrieves the VPD (Vital Product Data) field values.
       virtual void GetVpdField(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetVpdFieldRequest* request, ::diagnostics::grpc_api::GetVpdFieldResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void GetVpdField(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetVpdFieldRequest* request, ::diagnostics::grpc_api::GetVpdFieldResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Retrieves the disk system data from smartctl/nvme command run output.
       virtual void GetDriveSystemData(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetDriveSystemDataRequest* request, ::diagnostics::grpc_api::GetDriveSystemDataResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void GetDriveSystemData(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetDriveSystemDataRequest* request, ::diagnostics::grpc_api::GetDriveSystemDataResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Request a notification with the current bluetooth adapter data.
       virtual void RequestBluetoothDataNotification(::grpc::ClientContext* context, const ::diagnostics::grpc_api::RequestBluetoothDataNotificationRequest* request, ::diagnostics::grpc_api::RequestBluetoothDataNotificationResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void RequestBluetoothDataNotification(::grpc::ClientContext* context, const ::diagnostics::grpc_api::RequestBluetoothDataNotificationRequest* request, ::diagnostics::grpc_api::RequestBluetoothDataNotificationResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       // Retrieves the available disk capacity of the stateful partition.
       virtual void GetStatefulPartitionAvailableCapacity(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityRequest* request, ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void GetStatefulPartitionAvailableCapacity(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityRequest* request, ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
     };
-    virtual class experimental_async_interface* experimental_async() { return nullptr; }
-  private:
+    typedef class async_interface experimental_async_interface;
+    virtual class async_interface* async() { return nullptr; }
+    class async_interface* experimental_async() { return async(); }
+   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::diagnostics::grpc_api::SendMessageToUiResponse>* AsyncSendMessageToUiRaw(::grpc::ClientContext* context, const ::diagnostics::grpc_api::SendMessageToUiRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::diagnostics::grpc_api::SendMessageToUiResponse>* PrepareAsyncSendMessageToUiRaw(::grpc::ClientContext* context, const ::diagnostics::grpc_api::SendMessageToUiRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::diagnostics::grpc_api::GetProcDataResponse>* AsyncGetProcDataRaw(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetProcDataRequest& request, ::grpc::CompletionQueue* cq) = 0;
@@ -233,7 +249,7 @@ class WilcoDtcSupportd final {
   };
   class Stub final : public StubInterface {
    public:
-    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel);
+    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
     ::grpc::Status SendMessageToUi(::grpc::ClientContext* context, const ::diagnostics::grpc_api::SendMessageToUiRequest& request, ::diagnostics::grpc_api::SendMessageToUiResponse* response) override;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::diagnostics::grpc_api::SendMessageToUiResponse>> AsyncSendMessageToUi(::grpc::ClientContext* context, const ::diagnostics::grpc_api::SendMessageToUiRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::diagnostics::grpc_api::SendMessageToUiResponse>>(AsyncSendMessageToUiRaw(context, request, cq));
@@ -332,34 +348,48 @@ class WilcoDtcSupportd final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityResponse>> PrepareAsyncGetStatefulPartitionAvailableCapacity(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityResponse>>(PrepareAsyncGetStatefulPartitionAvailableCapacityRaw(context, request, cq));
     }
-    class experimental_async final :
-      public StubInterface::experimental_async_interface {
+    class async final :
+      public StubInterface::async_interface {
      public:
       void SendMessageToUi(::grpc::ClientContext* context, const ::diagnostics::grpc_api::SendMessageToUiRequest* request, ::diagnostics::grpc_api::SendMessageToUiResponse* response, std::function<void(::grpc::Status)>) override;
+      void SendMessageToUi(::grpc::ClientContext* context, const ::diagnostics::grpc_api::SendMessageToUiRequest* request, ::diagnostics::grpc_api::SendMessageToUiResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void GetProcData(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetProcDataRequest* request, ::diagnostics::grpc_api::GetProcDataResponse* response, std::function<void(::grpc::Status)>) override;
+      void GetProcData(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetProcDataRequest* request, ::diagnostics::grpc_api::GetProcDataResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void GetSysfsData(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetSysfsDataRequest* request, ::diagnostics::grpc_api::GetSysfsDataResponse* response, std::function<void(::grpc::Status)>) override;
+      void GetSysfsData(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetSysfsDataRequest* request, ::diagnostics::grpc_api::GetSysfsDataResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void PerformWebRequest(::grpc::ClientContext* context, const ::diagnostics::grpc_api::PerformWebRequestParameter* request, ::diagnostics::grpc_api::PerformWebRequestResponse* response, std::function<void(::grpc::Status)>) override;
+      void PerformWebRequest(::grpc::ClientContext* context, const ::diagnostics::grpc_api::PerformWebRequestParameter* request, ::diagnostics::grpc_api::PerformWebRequestResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void GetEcTelemetry(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetEcTelemetryRequest* request, ::diagnostics::grpc_api::GetEcTelemetryResponse* response, std::function<void(::grpc::Status)>) override;
+      void GetEcTelemetry(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetEcTelemetryRequest* request, ::diagnostics::grpc_api::GetEcTelemetryResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void GetAvailableRoutines(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetAvailableRoutinesRequest* request, ::diagnostics::grpc_api::GetAvailableRoutinesResponse* response, std::function<void(::grpc::Status)>) override;
+      void GetAvailableRoutines(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetAvailableRoutinesRequest* request, ::diagnostics::grpc_api::GetAvailableRoutinesResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void RunRoutine(::grpc::ClientContext* context, const ::diagnostics::grpc_api::RunRoutineRequest* request, ::diagnostics::grpc_api::RunRoutineResponse* response, std::function<void(::grpc::Status)>) override;
+      void RunRoutine(::grpc::ClientContext* context, const ::diagnostics::grpc_api::RunRoutineRequest* request, ::diagnostics::grpc_api::RunRoutineResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void GetRoutineUpdate(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetRoutineUpdateRequest* request, ::diagnostics::grpc_api::GetRoutineUpdateResponse* response, std::function<void(::grpc::Status)>) override;
+      void GetRoutineUpdate(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetRoutineUpdateRequest* request, ::diagnostics::grpc_api::GetRoutineUpdateResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void GetConfigurationData(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetConfigurationDataRequest* request, ::diagnostics::grpc_api::GetConfigurationDataResponse* response, std::function<void(::grpc::Status)>) override;
+      void GetConfigurationData(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetConfigurationDataRequest* request, ::diagnostics::grpc_api::GetConfigurationDataResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void GetOsVersion(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetOsVersionRequest* request, ::diagnostics::grpc_api::GetOsVersionResponse* response, std::function<void(::grpc::Status)>) override;
+      void GetOsVersion(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetOsVersionRequest* request, ::diagnostics::grpc_api::GetOsVersionResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void GetVpdField(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetVpdFieldRequest* request, ::diagnostics::grpc_api::GetVpdFieldResponse* response, std::function<void(::grpc::Status)>) override;
+      void GetVpdField(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetVpdFieldRequest* request, ::diagnostics::grpc_api::GetVpdFieldResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void GetDriveSystemData(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetDriveSystemDataRequest* request, ::diagnostics::grpc_api::GetDriveSystemDataResponse* response, std::function<void(::grpc::Status)>) override;
+      void GetDriveSystemData(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetDriveSystemDataRequest* request, ::diagnostics::grpc_api::GetDriveSystemDataResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void RequestBluetoothDataNotification(::grpc::ClientContext* context, const ::diagnostics::grpc_api::RequestBluetoothDataNotificationRequest* request, ::diagnostics::grpc_api::RequestBluetoothDataNotificationResponse* response, std::function<void(::grpc::Status)>) override;
+      void RequestBluetoothDataNotification(::grpc::ClientContext* context, const ::diagnostics::grpc_api::RequestBluetoothDataNotificationRequest* request, ::diagnostics::grpc_api::RequestBluetoothDataNotificationResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void GetStatefulPartitionAvailableCapacity(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityRequest* request, ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityResponse* response, std::function<void(::grpc::Status)>) override;
+      void GetStatefulPartitionAvailableCapacity(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityRequest* request, ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
      private:
       friend class Stub;
-      explicit experimental_async(Stub* stub): stub_(stub) { }
+      explicit async(Stub* stub): stub_(stub) { }
       Stub* stub() { return stub_; }
       Stub* stub_;
     };
-    class experimental_async_interface* experimental_async() override { return &async_stub_; }
+    class async* async() override { return &async_stub_; }
 
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
-    class experimental_async async_stub_{this};
+    class async async_stub_{this};
     ::grpc::ClientAsyncResponseReader< ::diagnostics::grpc_api::SendMessageToUiResponse>* AsyncSendMessageToUiRaw(::grpc::ClientContext* context, const ::diagnostics::grpc_api::SendMessageToUiRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::diagnostics::grpc_api::SendMessageToUiResponse>* PrepareAsyncSendMessageToUiRaw(::grpc::ClientContext* context, const ::diagnostics::grpc_api::SendMessageToUiRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::diagnostics::grpc_api::GetProcDataResponse>* AsyncGetProcDataRaw(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetProcDataRequest& request, ::grpc::CompletionQueue* cq) override;
@@ -447,7 +477,7 @@ class WilcoDtcSupportd final {
   template <class BaseClass>
   class WithAsyncMethod_SendMessageToUi : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_SendMessageToUi() {
       ::grpc::Service::MarkMethodAsync(0);
@@ -456,7 +486,7 @@ class WilcoDtcSupportd final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status SendMessageToUi(::grpc::ServerContext* context, const ::diagnostics::grpc_api::SendMessageToUiRequest* request, ::diagnostics::grpc_api::SendMessageToUiResponse* response) override {
+    ::grpc::Status SendMessageToUi(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::SendMessageToUiRequest* /*request*/, ::diagnostics::grpc_api::SendMessageToUiResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -467,7 +497,7 @@ class WilcoDtcSupportd final {
   template <class BaseClass>
   class WithAsyncMethod_GetProcData : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_GetProcData() {
       ::grpc::Service::MarkMethodAsync(1);
@@ -476,7 +506,7 @@ class WilcoDtcSupportd final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetProcData(::grpc::ServerContext* context, const ::diagnostics::grpc_api::GetProcDataRequest* request, ::diagnostics::grpc_api::GetProcDataResponse* response) override {
+    ::grpc::Status GetProcData(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::GetProcDataRequest* /*request*/, ::diagnostics::grpc_api::GetProcDataResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -487,7 +517,7 @@ class WilcoDtcSupportd final {
   template <class BaseClass>
   class WithAsyncMethod_GetSysfsData : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_GetSysfsData() {
       ::grpc::Service::MarkMethodAsync(2);
@@ -496,7 +526,7 @@ class WilcoDtcSupportd final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetSysfsData(::grpc::ServerContext* context, const ::diagnostics::grpc_api::GetSysfsDataRequest* request, ::diagnostics::grpc_api::GetSysfsDataResponse* response) override {
+    ::grpc::Status GetSysfsData(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::GetSysfsDataRequest* /*request*/, ::diagnostics::grpc_api::GetSysfsDataResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -507,7 +537,7 @@ class WilcoDtcSupportd final {
   template <class BaseClass>
   class WithAsyncMethod_PerformWebRequest : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_PerformWebRequest() {
       ::grpc::Service::MarkMethodAsync(3);
@@ -516,7 +546,7 @@ class WilcoDtcSupportd final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status PerformWebRequest(::grpc::ServerContext* context, const ::diagnostics::grpc_api::PerformWebRequestParameter* request, ::diagnostics::grpc_api::PerformWebRequestResponse* response) override {
+    ::grpc::Status PerformWebRequest(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::PerformWebRequestParameter* /*request*/, ::diagnostics::grpc_api::PerformWebRequestResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -527,7 +557,7 @@ class WilcoDtcSupportd final {
   template <class BaseClass>
   class WithAsyncMethod_GetEcTelemetry : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_GetEcTelemetry() {
       ::grpc::Service::MarkMethodAsync(4);
@@ -536,7 +566,7 @@ class WilcoDtcSupportd final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetEcTelemetry(::grpc::ServerContext* context, const ::diagnostics::grpc_api::GetEcTelemetryRequest* request, ::diagnostics::grpc_api::GetEcTelemetryResponse* response) override {
+    ::grpc::Status GetEcTelemetry(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::GetEcTelemetryRequest* /*request*/, ::diagnostics::grpc_api::GetEcTelemetryResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -547,7 +577,7 @@ class WilcoDtcSupportd final {
   template <class BaseClass>
   class WithAsyncMethod_GetAvailableRoutines : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_GetAvailableRoutines() {
       ::grpc::Service::MarkMethodAsync(5);
@@ -556,7 +586,7 @@ class WilcoDtcSupportd final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetAvailableRoutines(::grpc::ServerContext* context, const ::diagnostics::grpc_api::GetAvailableRoutinesRequest* request, ::diagnostics::grpc_api::GetAvailableRoutinesResponse* response) override {
+    ::grpc::Status GetAvailableRoutines(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::GetAvailableRoutinesRequest* /*request*/, ::diagnostics::grpc_api::GetAvailableRoutinesResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -567,7 +597,7 @@ class WilcoDtcSupportd final {
   template <class BaseClass>
   class WithAsyncMethod_RunRoutine : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_RunRoutine() {
       ::grpc::Service::MarkMethodAsync(6);
@@ -576,7 +606,7 @@ class WilcoDtcSupportd final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status RunRoutine(::grpc::ServerContext* context, const ::diagnostics::grpc_api::RunRoutineRequest* request, ::diagnostics::grpc_api::RunRoutineResponse* response) override {
+    ::grpc::Status RunRoutine(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::RunRoutineRequest* /*request*/, ::diagnostics::grpc_api::RunRoutineResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -587,7 +617,7 @@ class WilcoDtcSupportd final {
   template <class BaseClass>
   class WithAsyncMethod_GetRoutineUpdate : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_GetRoutineUpdate() {
       ::grpc::Service::MarkMethodAsync(7);
@@ -596,7 +626,7 @@ class WilcoDtcSupportd final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetRoutineUpdate(::grpc::ServerContext* context, const ::diagnostics::grpc_api::GetRoutineUpdateRequest* request, ::diagnostics::grpc_api::GetRoutineUpdateResponse* response) override {
+    ::grpc::Status GetRoutineUpdate(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::GetRoutineUpdateRequest* /*request*/, ::diagnostics::grpc_api::GetRoutineUpdateResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -607,7 +637,7 @@ class WilcoDtcSupportd final {
   template <class BaseClass>
   class WithAsyncMethod_GetConfigurationData : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_GetConfigurationData() {
       ::grpc::Service::MarkMethodAsync(8);
@@ -616,7 +646,7 @@ class WilcoDtcSupportd final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetConfigurationData(::grpc::ServerContext* context, const ::diagnostics::grpc_api::GetConfigurationDataRequest* request, ::diagnostics::grpc_api::GetConfigurationDataResponse* response) override {
+    ::grpc::Status GetConfigurationData(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::GetConfigurationDataRequest* /*request*/, ::diagnostics::grpc_api::GetConfigurationDataResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -627,7 +657,7 @@ class WilcoDtcSupportd final {
   template <class BaseClass>
   class WithAsyncMethod_GetOsVersion : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_GetOsVersion() {
       ::grpc::Service::MarkMethodAsync(9);
@@ -636,7 +666,7 @@ class WilcoDtcSupportd final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetOsVersion(::grpc::ServerContext* context, const ::diagnostics::grpc_api::GetOsVersionRequest* request, ::diagnostics::grpc_api::GetOsVersionResponse* response) override {
+    ::grpc::Status GetOsVersion(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::GetOsVersionRequest* /*request*/, ::diagnostics::grpc_api::GetOsVersionResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -647,7 +677,7 @@ class WilcoDtcSupportd final {
   template <class BaseClass>
   class WithAsyncMethod_GetVpdField : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_GetVpdField() {
       ::grpc::Service::MarkMethodAsync(10);
@@ -656,7 +686,7 @@ class WilcoDtcSupportd final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetVpdField(::grpc::ServerContext* context, const ::diagnostics::grpc_api::GetVpdFieldRequest* request, ::diagnostics::grpc_api::GetVpdFieldResponse* response) override {
+    ::grpc::Status GetVpdField(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::GetVpdFieldRequest* /*request*/, ::diagnostics::grpc_api::GetVpdFieldResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -667,7 +697,7 @@ class WilcoDtcSupportd final {
   template <class BaseClass>
   class WithAsyncMethod_GetDriveSystemData : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_GetDriveSystemData() {
       ::grpc::Service::MarkMethodAsync(11);
@@ -676,7 +706,7 @@ class WilcoDtcSupportd final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetDriveSystemData(::grpc::ServerContext* context, const ::diagnostics::grpc_api::GetDriveSystemDataRequest* request, ::diagnostics::grpc_api::GetDriveSystemDataResponse* response) override {
+    ::grpc::Status GetDriveSystemData(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::GetDriveSystemDataRequest* /*request*/, ::diagnostics::grpc_api::GetDriveSystemDataResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -687,7 +717,7 @@ class WilcoDtcSupportd final {
   template <class BaseClass>
   class WithAsyncMethod_RequestBluetoothDataNotification : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_RequestBluetoothDataNotification() {
       ::grpc::Service::MarkMethodAsync(12);
@@ -696,7 +726,7 @@ class WilcoDtcSupportd final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status RequestBluetoothDataNotification(::grpc::ServerContext* context, const ::diagnostics::grpc_api::RequestBluetoothDataNotificationRequest* request, ::diagnostics::grpc_api::RequestBluetoothDataNotificationResponse* response) override {
+    ::grpc::Status RequestBluetoothDataNotification(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::RequestBluetoothDataNotificationRequest* /*request*/, ::diagnostics::grpc_api::RequestBluetoothDataNotificationResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -707,7 +737,7 @@ class WilcoDtcSupportd final {
   template <class BaseClass>
   class WithAsyncMethod_GetStatefulPartitionAvailableCapacity : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_GetStatefulPartitionAvailableCapacity() {
       ::grpc::Service::MarkMethodAsync(13);
@@ -716,7 +746,7 @@ class WilcoDtcSupportd final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetStatefulPartitionAvailableCapacity(::grpc::ServerContext* context, const ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityRequest* request, ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityResponse* response) override {
+    ::grpc::Status GetStatefulPartitionAvailableCapacity(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityRequest* /*request*/, ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -726,9 +756,389 @@ class WilcoDtcSupportd final {
   };
   typedef WithAsyncMethod_SendMessageToUi<WithAsyncMethod_GetProcData<WithAsyncMethod_GetSysfsData<WithAsyncMethod_PerformWebRequest<WithAsyncMethod_GetEcTelemetry<WithAsyncMethod_GetAvailableRoutines<WithAsyncMethod_RunRoutine<WithAsyncMethod_GetRoutineUpdate<WithAsyncMethod_GetConfigurationData<WithAsyncMethod_GetOsVersion<WithAsyncMethod_GetVpdField<WithAsyncMethod_GetDriveSystemData<WithAsyncMethod_RequestBluetoothDataNotification<WithAsyncMethod_GetStatefulPartitionAvailableCapacity<Service > > > > > > > > > > > > > > AsyncService;
   template <class BaseClass>
+  class WithCallbackMethod_SendMessageToUi : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_SendMessageToUi() {
+      ::grpc::Service::MarkMethodCallback(0,
+          new ::grpc::internal::CallbackUnaryHandler< ::diagnostics::grpc_api::SendMessageToUiRequest, ::diagnostics::grpc_api::SendMessageToUiResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::diagnostics::grpc_api::SendMessageToUiRequest* request, ::diagnostics::grpc_api::SendMessageToUiResponse* response) { return this->SendMessageToUi(context, request, response); }));}
+    void SetMessageAllocatorFor_SendMessageToUi(
+        ::grpc::MessageAllocator< ::diagnostics::grpc_api::SendMessageToUiRequest, ::diagnostics::grpc_api::SendMessageToUiResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(0);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::diagnostics::grpc_api::SendMessageToUiRequest, ::diagnostics::grpc_api::SendMessageToUiResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_SendMessageToUi() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status SendMessageToUi(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::SendMessageToUiRequest* /*request*/, ::diagnostics::grpc_api::SendMessageToUiResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* SendMessageToUi(
+      ::grpc::CallbackServerContext* /*context*/, const ::diagnostics::grpc_api::SendMessageToUiRequest* /*request*/, ::diagnostics::grpc_api::SendMessageToUiResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_GetProcData : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_GetProcData() {
+      ::grpc::Service::MarkMethodCallback(1,
+          new ::grpc::internal::CallbackUnaryHandler< ::diagnostics::grpc_api::GetProcDataRequest, ::diagnostics::grpc_api::GetProcDataResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::diagnostics::grpc_api::GetProcDataRequest* request, ::diagnostics::grpc_api::GetProcDataResponse* response) { return this->GetProcData(context, request, response); }));}
+    void SetMessageAllocatorFor_GetProcData(
+        ::grpc::MessageAllocator< ::diagnostics::grpc_api::GetProcDataRequest, ::diagnostics::grpc_api::GetProcDataResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(1);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::diagnostics::grpc_api::GetProcDataRequest, ::diagnostics::grpc_api::GetProcDataResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_GetProcData() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetProcData(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::GetProcDataRequest* /*request*/, ::diagnostics::grpc_api::GetProcDataResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetProcData(
+      ::grpc::CallbackServerContext* /*context*/, const ::diagnostics::grpc_api::GetProcDataRequest* /*request*/, ::diagnostics::grpc_api::GetProcDataResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_GetSysfsData : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_GetSysfsData() {
+      ::grpc::Service::MarkMethodCallback(2,
+          new ::grpc::internal::CallbackUnaryHandler< ::diagnostics::grpc_api::GetSysfsDataRequest, ::diagnostics::grpc_api::GetSysfsDataResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::diagnostics::grpc_api::GetSysfsDataRequest* request, ::diagnostics::grpc_api::GetSysfsDataResponse* response) { return this->GetSysfsData(context, request, response); }));}
+    void SetMessageAllocatorFor_GetSysfsData(
+        ::grpc::MessageAllocator< ::diagnostics::grpc_api::GetSysfsDataRequest, ::diagnostics::grpc_api::GetSysfsDataResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(2);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::diagnostics::grpc_api::GetSysfsDataRequest, ::diagnostics::grpc_api::GetSysfsDataResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_GetSysfsData() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetSysfsData(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::GetSysfsDataRequest* /*request*/, ::diagnostics::grpc_api::GetSysfsDataResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetSysfsData(
+      ::grpc::CallbackServerContext* /*context*/, const ::diagnostics::grpc_api::GetSysfsDataRequest* /*request*/, ::diagnostics::grpc_api::GetSysfsDataResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_PerformWebRequest : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_PerformWebRequest() {
+      ::grpc::Service::MarkMethodCallback(3,
+          new ::grpc::internal::CallbackUnaryHandler< ::diagnostics::grpc_api::PerformWebRequestParameter, ::diagnostics::grpc_api::PerformWebRequestResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::diagnostics::grpc_api::PerformWebRequestParameter* request, ::diagnostics::grpc_api::PerformWebRequestResponse* response) { return this->PerformWebRequest(context, request, response); }));}
+    void SetMessageAllocatorFor_PerformWebRequest(
+        ::grpc::MessageAllocator< ::diagnostics::grpc_api::PerformWebRequestParameter, ::diagnostics::grpc_api::PerformWebRequestResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(3);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::diagnostics::grpc_api::PerformWebRequestParameter, ::diagnostics::grpc_api::PerformWebRequestResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_PerformWebRequest() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status PerformWebRequest(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::PerformWebRequestParameter* /*request*/, ::diagnostics::grpc_api::PerformWebRequestResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* PerformWebRequest(
+      ::grpc::CallbackServerContext* /*context*/, const ::diagnostics::grpc_api::PerformWebRequestParameter* /*request*/, ::diagnostics::grpc_api::PerformWebRequestResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_GetEcTelemetry : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_GetEcTelemetry() {
+      ::grpc::Service::MarkMethodCallback(4,
+          new ::grpc::internal::CallbackUnaryHandler< ::diagnostics::grpc_api::GetEcTelemetryRequest, ::diagnostics::grpc_api::GetEcTelemetryResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::diagnostics::grpc_api::GetEcTelemetryRequest* request, ::diagnostics::grpc_api::GetEcTelemetryResponse* response) { return this->GetEcTelemetry(context, request, response); }));}
+    void SetMessageAllocatorFor_GetEcTelemetry(
+        ::grpc::MessageAllocator< ::diagnostics::grpc_api::GetEcTelemetryRequest, ::diagnostics::grpc_api::GetEcTelemetryResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(4);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::diagnostics::grpc_api::GetEcTelemetryRequest, ::diagnostics::grpc_api::GetEcTelemetryResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_GetEcTelemetry() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetEcTelemetry(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::GetEcTelemetryRequest* /*request*/, ::diagnostics::grpc_api::GetEcTelemetryResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetEcTelemetry(
+      ::grpc::CallbackServerContext* /*context*/, const ::diagnostics::grpc_api::GetEcTelemetryRequest* /*request*/, ::diagnostics::grpc_api::GetEcTelemetryResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_GetAvailableRoutines : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_GetAvailableRoutines() {
+      ::grpc::Service::MarkMethodCallback(5,
+          new ::grpc::internal::CallbackUnaryHandler< ::diagnostics::grpc_api::GetAvailableRoutinesRequest, ::diagnostics::grpc_api::GetAvailableRoutinesResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::diagnostics::grpc_api::GetAvailableRoutinesRequest* request, ::diagnostics::grpc_api::GetAvailableRoutinesResponse* response) { return this->GetAvailableRoutines(context, request, response); }));}
+    void SetMessageAllocatorFor_GetAvailableRoutines(
+        ::grpc::MessageAllocator< ::diagnostics::grpc_api::GetAvailableRoutinesRequest, ::diagnostics::grpc_api::GetAvailableRoutinesResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(5);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::diagnostics::grpc_api::GetAvailableRoutinesRequest, ::diagnostics::grpc_api::GetAvailableRoutinesResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_GetAvailableRoutines() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetAvailableRoutines(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::GetAvailableRoutinesRequest* /*request*/, ::diagnostics::grpc_api::GetAvailableRoutinesResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetAvailableRoutines(
+      ::grpc::CallbackServerContext* /*context*/, const ::diagnostics::grpc_api::GetAvailableRoutinesRequest* /*request*/, ::diagnostics::grpc_api::GetAvailableRoutinesResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_RunRoutine : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_RunRoutine() {
+      ::grpc::Service::MarkMethodCallback(6,
+          new ::grpc::internal::CallbackUnaryHandler< ::diagnostics::grpc_api::RunRoutineRequest, ::diagnostics::grpc_api::RunRoutineResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::diagnostics::grpc_api::RunRoutineRequest* request, ::diagnostics::grpc_api::RunRoutineResponse* response) { return this->RunRoutine(context, request, response); }));}
+    void SetMessageAllocatorFor_RunRoutine(
+        ::grpc::MessageAllocator< ::diagnostics::grpc_api::RunRoutineRequest, ::diagnostics::grpc_api::RunRoutineResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(6);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::diagnostics::grpc_api::RunRoutineRequest, ::diagnostics::grpc_api::RunRoutineResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_RunRoutine() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status RunRoutine(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::RunRoutineRequest* /*request*/, ::diagnostics::grpc_api::RunRoutineResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* RunRoutine(
+      ::grpc::CallbackServerContext* /*context*/, const ::diagnostics::grpc_api::RunRoutineRequest* /*request*/, ::diagnostics::grpc_api::RunRoutineResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_GetRoutineUpdate : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_GetRoutineUpdate() {
+      ::grpc::Service::MarkMethodCallback(7,
+          new ::grpc::internal::CallbackUnaryHandler< ::diagnostics::grpc_api::GetRoutineUpdateRequest, ::diagnostics::grpc_api::GetRoutineUpdateResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::diagnostics::grpc_api::GetRoutineUpdateRequest* request, ::diagnostics::grpc_api::GetRoutineUpdateResponse* response) { return this->GetRoutineUpdate(context, request, response); }));}
+    void SetMessageAllocatorFor_GetRoutineUpdate(
+        ::grpc::MessageAllocator< ::diagnostics::grpc_api::GetRoutineUpdateRequest, ::diagnostics::grpc_api::GetRoutineUpdateResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(7);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::diagnostics::grpc_api::GetRoutineUpdateRequest, ::diagnostics::grpc_api::GetRoutineUpdateResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_GetRoutineUpdate() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetRoutineUpdate(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::GetRoutineUpdateRequest* /*request*/, ::diagnostics::grpc_api::GetRoutineUpdateResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetRoutineUpdate(
+      ::grpc::CallbackServerContext* /*context*/, const ::diagnostics::grpc_api::GetRoutineUpdateRequest* /*request*/, ::diagnostics::grpc_api::GetRoutineUpdateResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_GetConfigurationData : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_GetConfigurationData() {
+      ::grpc::Service::MarkMethodCallback(8,
+          new ::grpc::internal::CallbackUnaryHandler< ::diagnostics::grpc_api::GetConfigurationDataRequest, ::diagnostics::grpc_api::GetConfigurationDataResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::diagnostics::grpc_api::GetConfigurationDataRequest* request, ::diagnostics::grpc_api::GetConfigurationDataResponse* response) { return this->GetConfigurationData(context, request, response); }));}
+    void SetMessageAllocatorFor_GetConfigurationData(
+        ::grpc::MessageAllocator< ::diagnostics::grpc_api::GetConfigurationDataRequest, ::diagnostics::grpc_api::GetConfigurationDataResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(8);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::diagnostics::grpc_api::GetConfigurationDataRequest, ::diagnostics::grpc_api::GetConfigurationDataResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_GetConfigurationData() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetConfigurationData(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::GetConfigurationDataRequest* /*request*/, ::diagnostics::grpc_api::GetConfigurationDataResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetConfigurationData(
+      ::grpc::CallbackServerContext* /*context*/, const ::diagnostics::grpc_api::GetConfigurationDataRequest* /*request*/, ::diagnostics::grpc_api::GetConfigurationDataResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_GetOsVersion : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_GetOsVersion() {
+      ::grpc::Service::MarkMethodCallback(9,
+          new ::grpc::internal::CallbackUnaryHandler< ::diagnostics::grpc_api::GetOsVersionRequest, ::diagnostics::grpc_api::GetOsVersionResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::diagnostics::grpc_api::GetOsVersionRequest* request, ::diagnostics::grpc_api::GetOsVersionResponse* response) { return this->GetOsVersion(context, request, response); }));}
+    void SetMessageAllocatorFor_GetOsVersion(
+        ::grpc::MessageAllocator< ::diagnostics::grpc_api::GetOsVersionRequest, ::diagnostics::grpc_api::GetOsVersionResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(9);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::diagnostics::grpc_api::GetOsVersionRequest, ::diagnostics::grpc_api::GetOsVersionResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_GetOsVersion() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetOsVersion(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::GetOsVersionRequest* /*request*/, ::diagnostics::grpc_api::GetOsVersionResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetOsVersion(
+      ::grpc::CallbackServerContext* /*context*/, const ::diagnostics::grpc_api::GetOsVersionRequest* /*request*/, ::diagnostics::grpc_api::GetOsVersionResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_GetVpdField : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_GetVpdField() {
+      ::grpc::Service::MarkMethodCallback(10,
+          new ::grpc::internal::CallbackUnaryHandler< ::diagnostics::grpc_api::GetVpdFieldRequest, ::diagnostics::grpc_api::GetVpdFieldResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::diagnostics::grpc_api::GetVpdFieldRequest* request, ::diagnostics::grpc_api::GetVpdFieldResponse* response) { return this->GetVpdField(context, request, response); }));}
+    void SetMessageAllocatorFor_GetVpdField(
+        ::grpc::MessageAllocator< ::diagnostics::grpc_api::GetVpdFieldRequest, ::diagnostics::grpc_api::GetVpdFieldResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(10);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::diagnostics::grpc_api::GetVpdFieldRequest, ::diagnostics::grpc_api::GetVpdFieldResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_GetVpdField() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetVpdField(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::GetVpdFieldRequest* /*request*/, ::diagnostics::grpc_api::GetVpdFieldResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetVpdField(
+      ::grpc::CallbackServerContext* /*context*/, const ::diagnostics::grpc_api::GetVpdFieldRequest* /*request*/, ::diagnostics::grpc_api::GetVpdFieldResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_GetDriveSystemData : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_GetDriveSystemData() {
+      ::grpc::Service::MarkMethodCallback(11,
+          new ::grpc::internal::CallbackUnaryHandler< ::diagnostics::grpc_api::GetDriveSystemDataRequest, ::diagnostics::grpc_api::GetDriveSystemDataResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::diagnostics::grpc_api::GetDriveSystemDataRequest* request, ::diagnostics::grpc_api::GetDriveSystemDataResponse* response) { return this->GetDriveSystemData(context, request, response); }));}
+    void SetMessageAllocatorFor_GetDriveSystemData(
+        ::grpc::MessageAllocator< ::diagnostics::grpc_api::GetDriveSystemDataRequest, ::diagnostics::grpc_api::GetDriveSystemDataResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(11);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::diagnostics::grpc_api::GetDriveSystemDataRequest, ::diagnostics::grpc_api::GetDriveSystemDataResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_GetDriveSystemData() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetDriveSystemData(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::GetDriveSystemDataRequest* /*request*/, ::diagnostics::grpc_api::GetDriveSystemDataResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetDriveSystemData(
+      ::grpc::CallbackServerContext* /*context*/, const ::diagnostics::grpc_api::GetDriveSystemDataRequest* /*request*/, ::diagnostics::grpc_api::GetDriveSystemDataResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_RequestBluetoothDataNotification : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_RequestBluetoothDataNotification() {
+      ::grpc::Service::MarkMethodCallback(12,
+          new ::grpc::internal::CallbackUnaryHandler< ::diagnostics::grpc_api::RequestBluetoothDataNotificationRequest, ::diagnostics::grpc_api::RequestBluetoothDataNotificationResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::diagnostics::grpc_api::RequestBluetoothDataNotificationRequest* request, ::diagnostics::grpc_api::RequestBluetoothDataNotificationResponse* response) { return this->RequestBluetoothDataNotification(context, request, response); }));}
+    void SetMessageAllocatorFor_RequestBluetoothDataNotification(
+        ::grpc::MessageAllocator< ::diagnostics::grpc_api::RequestBluetoothDataNotificationRequest, ::diagnostics::grpc_api::RequestBluetoothDataNotificationResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(12);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::diagnostics::grpc_api::RequestBluetoothDataNotificationRequest, ::diagnostics::grpc_api::RequestBluetoothDataNotificationResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_RequestBluetoothDataNotification() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status RequestBluetoothDataNotification(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::RequestBluetoothDataNotificationRequest* /*request*/, ::diagnostics::grpc_api::RequestBluetoothDataNotificationResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* RequestBluetoothDataNotification(
+      ::grpc::CallbackServerContext* /*context*/, const ::diagnostics::grpc_api::RequestBluetoothDataNotificationRequest* /*request*/, ::diagnostics::grpc_api::RequestBluetoothDataNotificationResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_GetStatefulPartitionAvailableCapacity : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_GetStatefulPartitionAvailableCapacity() {
+      ::grpc::Service::MarkMethodCallback(13,
+          new ::grpc::internal::CallbackUnaryHandler< ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityRequest, ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityRequest* request, ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityResponse* response) { return this->GetStatefulPartitionAvailableCapacity(context, request, response); }));}
+    void SetMessageAllocatorFor_GetStatefulPartitionAvailableCapacity(
+        ::grpc::MessageAllocator< ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityRequest, ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(13);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityRequest, ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_GetStatefulPartitionAvailableCapacity() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetStatefulPartitionAvailableCapacity(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityRequest* /*request*/, ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetStatefulPartitionAvailableCapacity(
+      ::grpc::CallbackServerContext* /*context*/, const ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityRequest* /*request*/, ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityResponse* /*response*/)  { return nullptr; }
+  };
+  typedef WithCallbackMethod_SendMessageToUi<WithCallbackMethod_GetProcData<WithCallbackMethod_GetSysfsData<WithCallbackMethod_PerformWebRequest<WithCallbackMethod_GetEcTelemetry<WithCallbackMethod_GetAvailableRoutines<WithCallbackMethod_RunRoutine<WithCallbackMethod_GetRoutineUpdate<WithCallbackMethod_GetConfigurationData<WithCallbackMethod_GetOsVersion<WithCallbackMethod_GetVpdField<WithCallbackMethod_GetDriveSystemData<WithCallbackMethod_RequestBluetoothDataNotification<WithCallbackMethod_GetStatefulPartitionAvailableCapacity<Service > > > > > > > > > > > > > > CallbackService;
+  typedef CallbackService ExperimentalCallbackService;
+  template <class BaseClass>
   class WithGenericMethod_SendMessageToUi : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_SendMessageToUi() {
       ::grpc::Service::MarkMethodGeneric(0);
@@ -737,7 +1147,7 @@ class WilcoDtcSupportd final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status SendMessageToUi(::grpc::ServerContext* context, const ::diagnostics::grpc_api::SendMessageToUiRequest* request, ::diagnostics::grpc_api::SendMessageToUiResponse* response) override {
+    ::grpc::Status SendMessageToUi(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::SendMessageToUiRequest* /*request*/, ::diagnostics::grpc_api::SendMessageToUiResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -745,7 +1155,7 @@ class WilcoDtcSupportd final {
   template <class BaseClass>
   class WithGenericMethod_GetProcData : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_GetProcData() {
       ::grpc::Service::MarkMethodGeneric(1);
@@ -754,7 +1164,7 @@ class WilcoDtcSupportd final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetProcData(::grpc::ServerContext* context, const ::diagnostics::grpc_api::GetProcDataRequest* request, ::diagnostics::grpc_api::GetProcDataResponse* response) override {
+    ::grpc::Status GetProcData(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::GetProcDataRequest* /*request*/, ::diagnostics::grpc_api::GetProcDataResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -762,7 +1172,7 @@ class WilcoDtcSupportd final {
   template <class BaseClass>
   class WithGenericMethod_GetSysfsData : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_GetSysfsData() {
       ::grpc::Service::MarkMethodGeneric(2);
@@ -771,7 +1181,7 @@ class WilcoDtcSupportd final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetSysfsData(::grpc::ServerContext* context, const ::diagnostics::grpc_api::GetSysfsDataRequest* request, ::diagnostics::grpc_api::GetSysfsDataResponse* response) override {
+    ::grpc::Status GetSysfsData(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::GetSysfsDataRequest* /*request*/, ::diagnostics::grpc_api::GetSysfsDataResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -779,7 +1189,7 @@ class WilcoDtcSupportd final {
   template <class BaseClass>
   class WithGenericMethod_PerformWebRequest : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_PerformWebRequest() {
       ::grpc::Service::MarkMethodGeneric(3);
@@ -788,7 +1198,7 @@ class WilcoDtcSupportd final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status PerformWebRequest(::grpc::ServerContext* context, const ::diagnostics::grpc_api::PerformWebRequestParameter* request, ::diagnostics::grpc_api::PerformWebRequestResponse* response) override {
+    ::grpc::Status PerformWebRequest(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::PerformWebRequestParameter* /*request*/, ::diagnostics::grpc_api::PerformWebRequestResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -796,7 +1206,7 @@ class WilcoDtcSupportd final {
   template <class BaseClass>
   class WithGenericMethod_GetEcTelemetry : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_GetEcTelemetry() {
       ::grpc::Service::MarkMethodGeneric(4);
@@ -805,7 +1215,7 @@ class WilcoDtcSupportd final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetEcTelemetry(::grpc::ServerContext* context, const ::diagnostics::grpc_api::GetEcTelemetryRequest* request, ::diagnostics::grpc_api::GetEcTelemetryResponse* response) override {
+    ::grpc::Status GetEcTelemetry(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::GetEcTelemetryRequest* /*request*/, ::diagnostics::grpc_api::GetEcTelemetryResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -813,7 +1223,7 @@ class WilcoDtcSupportd final {
   template <class BaseClass>
   class WithGenericMethod_GetAvailableRoutines : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_GetAvailableRoutines() {
       ::grpc::Service::MarkMethodGeneric(5);
@@ -822,7 +1232,7 @@ class WilcoDtcSupportd final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetAvailableRoutines(::grpc::ServerContext* context, const ::diagnostics::grpc_api::GetAvailableRoutinesRequest* request, ::diagnostics::grpc_api::GetAvailableRoutinesResponse* response) override {
+    ::grpc::Status GetAvailableRoutines(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::GetAvailableRoutinesRequest* /*request*/, ::diagnostics::grpc_api::GetAvailableRoutinesResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -830,7 +1240,7 @@ class WilcoDtcSupportd final {
   template <class BaseClass>
   class WithGenericMethod_RunRoutine : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_RunRoutine() {
       ::grpc::Service::MarkMethodGeneric(6);
@@ -839,7 +1249,7 @@ class WilcoDtcSupportd final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status RunRoutine(::grpc::ServerContext* context, const ::diagnostics::grpc_api::RunRoutineRequest* request, ::diagnostics::grpc_api::RunRoutineResponse* response) override {
+    ::grpc::Status RunRoutine(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::RunRoutineRequest* /*request*/, ::diagnostics::grpc_api::RunRoutineResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -847,7 +1257,7 @@ class WilcoDtcSupportd final {
   template <class BaseClass>
   class WithGenericMethod_GetRoutineUpdate : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_GetRoutineUpdate() {
       ::grpc::Service::MarkMethodGeneric(7);
@@ -856,7 +1266,7 @@ class WilcoDtcSupportd final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetRoutineUpdate(::grpc::ServerContext* context, const ::diagnostics::grpc_api::GetRoutineUpdateRequest* request, ::diagnostics::grpc_api::GetRoutineUpdateResponse* response) override {
+    ::grpc::Status GetRoutineUpdate(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::GetRoutineUpdateRequest* /*request*/, ::diagnostics::grpc_api::GetRoutineUpdateResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -864,7 +1274,7 @@ class WilcoDtcSupportd final {
   template <class BaseClass>
   class WithGenericMethod_GetConfigurationData : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_GetConfigurationData() {
       ::grpc::Service::MarkMethodGeneric(8);
@@ -873,7 +1283,7 @@ class WilcoDtcSupportd final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetConfigurationData(::grpc::ServerContext* context, const ::diagnostics::grpc_api::GetConfigurationDataRequest* request, ::diagnostics::grpc_api::GetConfigurationDataResponse* response) override {
+    ::grpc::Status GetConfigurationData(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::GetConfigurationDataRequest* /*request*/, ::diagnostics::grpc_api::GetConfigurationDataResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -881,7 +1291,7 @@ class WilcoDtcSupportd final {
   template <class BaseClass>
   class WithGenericMethod_GetOsVersion : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_GetOsVersion() {
       ::grpc::Service::MarkMethodGeneric(9);
@@ -890,7 +1300,7 @@ class WilcoDtcSupportd final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetOsVersion(::grpc::ServerContext* context, const ::diagnostics::grpc_api::GetOsVersionRequest* request, ::diagnostics::grpc_api::GetOsVersionResponse* response) override {
+    ::grpc::Status GetOsVersion(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::GetOsVersionRequest* /*request*/, ::diagnostics::grpc_api::GetOsVersionResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -898,7 +1308,7 @@ class WilcoDtcSupportd final {
   template <class BaseClass>
   class WithGenericMethod_GetVpdField : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_GetVpdField() {
       ::grpc::Service::MarkMethodGeneric(10);
@@ -907,7 +1317,7 @@ class WilcoDtcSupportd final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetVpdField(::grpc::ServerContext* context, const ::diagnostics::grpc_api::GetVpdFieldRequest* request, ::diagnostics::grpc_api::GetVpdFieldResponse* response) override {
+    ::grpc::Status GetVpdField(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::GetVpdFieldRequest* /*request*/, ::diagnostics::grpc_api::GetVpdFieldResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -915,7 +1325,7 @@ class WilcoDtcSupportd final {
   template <class BaseClass>
   class WithGenericMethod_GetDriveSystemData : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_GetDriveSystemData() {
       ::grpc::Service::MarkMethodGeneric(11);
@@ -924,7 +1334,7 @@ class WilcoDtcSupportd final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetDriveSystemData(::grpc::ServerContext* context, const ::diagnostics::grpc_api::GetDriveSystemDataRequest* request, ::diagnostics::grpc_api::GetDriveSystemDataResponse* response) override {
+    ::grpc::Status GetDriveSystemData(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::GetDriveSystemDataRequest* /*request*/, ::diagnostics::grpc_api::GetDriveSystemDataResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -932,7 +1342,7 @@ class WilcoDtcSupportd final {
   template <class BaseClass>
   class WithGenericMethod_RequestBluetoothDataNotification : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_RequestBluetoothDataNotification() {
       ::grpc::Service::MarkMethodGeneric(12);
@@ -941,7 +1351,7 @@ class WilcoDtcSupportd final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status RequestBluetoothDataNotification(::grpc::ServerContext* context, const ::diagnostics::grpc_api::RequestBluetoothDataNotificationRequest* request, ::diagnostics::grpc_api::RequestBluetoothDataNotificationResponse* response) override {
+    ::grpc::Status RequestBluetoothDataNotification(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::RequestBluetoothDataNotificationRequest* /*request*/, ::diagnostics::grpc_api::RequestBluetoothDataNotificationResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -949,7 +1359,7 @@ class WilcoDtcSupportd final {
   template <class BaseClass>
   class WithGenericMethod_GetStatefulPartitionAvailableCapacity : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_GetStatefulPartitionAvailableCapacity() {
       ::grpc::Service::MarkMethodGeneric(13);
@@ -958,7 +1368,7 @@ class WilcoDtcSupportd final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetStatefulPartitionAvailableCapacity(::grpc::ServerContext* context, const ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityRequest* request, ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityResponse* response) override {
+    ::grpc::Status GetStatefulPartitionAvailableCapacity(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityRequest* /*request*/, ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -966,7 +1376,7 @@ class WilcoDtcSupportd final {
   template <class BaseClass>
   class WithRawMethod_SendMessageToUi : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_SendMessageToUi() {
       ::grpc::Service::MarkMethodRaw(0);
@@ -975,7 +1385,7 @@ class WilcoDtcSupportd final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status SendMessageToUi(::grpc::ServerContext* context, const ::diagnostics::grpc_api::SendMessageToUiRequest* request, ::diagnostics::grpc_api::SendMessageToUiResponse* response) override {
+    ::grpc::Status SendMessageToUi(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::SendMessageToUiRequest* /*request*/, ::diagnostics::grpc_api::SendMessageToUiResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -986,7 +1396,7 @@ class WilcoDtcSupportd final {
   template <class BaseClass>
   class WithRawMethod_GetProcData : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_GetProcData() {
       ::grpc::Service::MarkMethodRaw(1);
@@ -995,7 +1405,7 @@ class WilcoDtcSupportd final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetProcData(::grpc::ServerContext* context, const ::diagnostics::grpc_api::GetProcDataRequest* request, ::diagnostics::grpc_api::GetProcDataResponse* response) override {
+    ::grpc::Status GetProcData(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::GetProcDataRequest* /*request*/, ::diagnostics::grpc_api::GetProcDataResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1006,7 +1416,7 @@ class WilcoDtcSupportd final {
   template <class BaseClass>
   class WithRawMethod_GetSysfsData : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_GetSysfsData() {
       ::grpc::Service::MarkMethodRaw(2);
@@ -1015,7 +1425,7 @@ class WilcoDtcSupportd final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetSysfsData(::grpc::ServerContext* context, const ::diagnostics::grpc_api::GetSysfsDataRequest* request, ::diagnostics::grpc_api::GetSysfsDataResponse* response) override {
+    ::grpc::Status GetSysfsData(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::GetSysfsDataRequest* /*request*/, ::diagnostics::grpc_api::GetSysfsDataResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1026,7 +1436,7 @@ class WilcoDtcSupportd final {
   template <class BaseClass>
   class WithRawMethod_PerformWebRequest : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_PerformWebRequest() {
       ::grpc::Service::MarkMethodRaw(3);
@@ -1035,7 +1445,7 @@ class WilcoDtcSupportd final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status PerformWebRequest(::grpc::ServerContext* context, const ::diagnostics::grpc_api::PerformWebRequestParameter* request, ::diagnostics::grpc_api::PerformWebRequestResponse* response) override {
+    ::grpc::Status PerformWebRequest(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::PerformWebRequestParameter* /*request*/, ::diagnostics::grpc_api::PerformWebRequestResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1046,7 +1456,7 @@ class WilcoDtcSupportd final {
   template <class BaseClass>
   class WithRawMethod_GetEcTelemetry : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_GetEcTelemetry() {
       ::grpc::Service::MarkMethodRaw(4);
@@ -1055,7 +1465,7 @@ class WilcoDtcSupportd final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetEcTelemetry(::grpc::ServerContext* context, const ::diagnostics::grpc_api::GetEcTelemetryRequest* request, ::diagnostics::grpc_api::GetEcTelemetryResponse* response) override {
+    ::grpc::Status GetEcTelemetry(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::GetEcTelemetryRequest* /*request*/, ::diagnostics::grpc_api::GetEcTelemetryResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1066,7 +1476,7 @@ class WilcoDtcSupportd final {
   template <class BaseClass>
   class WithRawMethod_GetAvailableRoutines : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_GetAvailableRoutines() {
       ::grpc::Service::MarkMethodRaw(5);
@@ -1075,7 +1485,7 @@ class WilcoDtcSupportd final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetAvailableRoutines(::grpc::ServerContext* context, const ::diagnostics::grpc_api::GetAvailableRoutinesRequest* request, ::diagnostics::grpc_api::GetAvailableRoutinesResponse* response) override {
+    ::grpc::Status GetAvailableRoutines(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::GetAvailableRoutinesRequest* /*request*/, ::diagnostics::grpc_api::GetAvailableRoutinesResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1086,7 +1496,7 @@ class WilcoDtcSupportd final {
   template <class BaseClass>
   class WithRawMethod_RunRoutine : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_RunRoutine() {
       ::grpc::Service::MarkMethodRaw(6);
@@ -1095,7 +1505,7 @@ class WilcoDtcSupportd final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status RunRoutine(::grpc::ServerContext* context, const ::diagnostics::grpc_api::RunRoutineRequest* request, ::diagnostics::grpc_api::RunRoutineResponse* response) override {
+    ::grpc::Status RunRoutine(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::RunRoutineRequest* /*request*/, ::diagnostics::grpc_api::RunRoutineResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1106,7 +1516,7 @@ class WilcoDtcSupportd final {
   template <class BaseClass>
   class WithRawMethod_GetRoutineUpdate : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_GetRoutineUpdate() {
       ::grpc::Service::MarkMethodRaw(7);
@@ -1115,7 +1525,7 @@ class WilcoDtcSupportd final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetRoutineUpdate(::grpc::ServerContext* context, const ::diagnostics::grpc_api::GetRoutineUpdateRequest* request, ::diagnostics::grpc_api::GetRoutineUpdateResponse* response) override {
+    ::grpc::Status GetRoutineUpdate(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::GetRoutineUpdateRequest* /*request*/, ::diagnostics::grpc_api::GetRoutineUpdateResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1126,7 +1536,7 @@ class WilcoDtcSupportd final {
   template <class BaseClass>
   class WithRawMethod_GetConfigurationData : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_GetConfigurationData() {
       ::grpc::Service::MarkMethodRaw(8);
@@ -1135,7 +1545,7 @@ class WilcoDtcSupportd final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetConfigurationData(::grpc::ServerContext* context, const ::diagnostics::grpc_api::GetConfigurationDataRequest* request, ::diagnostics::grpc_api::GetConfigurationDataResponse* response) override {
+    ::grpc::Status GetConfigurationData(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::GetConfigurationDataRequest* /*request*/, ::diagnostics::grpc_api::GetConfigurationDataResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1146,7 +1556,7 @@ class WilcoDtcSupportd final {
   template <class BaseClass>
   class WithRawMethod_GetOsVersion : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_GetOsVersion() {
       ::grpc::Service::MarkMethodRaw(9);
@@ -1155,7 +1565,7 @@ class WilcoDtcSupportd final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetOsVersion(::grpc::ServerContext* context, const ::diagnostics::grpc_api::GetOsVersionRequest* request, ::diagnostics::grpc_api::GetOsVersionResponse* response) override {
+    ::grpc::Status GetOsVersion(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::GetOsVersionRequest* /*request*/, ::diagnostics::grpc_api::GetOsVersionResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1166,7 +1576,7 @@ class WilcoDtcSupportd final {
   template <class BaseClass>
   class WithRawMethod_GetVpdField : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_GetVpdField() {
       ::grpc::Service::MarkMethodRaw(10);
@@ -1175,7 +1585,7 @@ class WilcoDtcSupportd final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetVpdField(::grpc::ServerContext* context, const ::diagnostics::grpc_api::GetVpdFieldRequest* request, ::diagnostics::grpc_api::GetVpdFieldResponse* response) override {
+    ::grpc::Status GetVpdField(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::GetVpdFieldRequest* /*request*/, ::diagnostics::grpc_api::GetVpdFieldResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1186,7 +1596,7 @@ class WilcoDtcSupportd final {
   template <class BaseClass>
   class WithRawMethod_GetDriveSystemData : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_GetDriveSystemData() {
       ::grpc::Service::MarkMethodRaw(11);
@@ -1195,7 +1605,7 @@ class WilcoDtcSupportd final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetDriveSystemData(::grpc::ServerContext* context, const ::diagnostics::grpc_api::GetDriveSystemDataRequest* request, ::diagnostics::grpc_api::GetDriveSystemDataResponse* response) override {
+    ::grpc::Status GetDriveSystemData(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::GetDriveSystemDataRequest* /*request*/, ::diagnostics::grpc_api::GetDriveSystemDataResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1206,7 +1616,7 @@ class WilcoDtcSupportd final {
   template <class BaseClass>
   class WithRawMethod_RequestBluetoothDataNotification : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_RequestBluetoothDataNotification() {
       ::grpc::Service::MarkMethodRaw(12);
@@ -1215,7 +1625,7 @@ class WilcoDtcSupportd final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status RequestBluetoothDataNotification(::grpc::ServerContext* context, const ::diagnostics::grpc_api::RequestBluetoothDataNotificationRequest* request, ::diagnostics::grpc_api::RequestBluetoothDataNotificationResponse* response) override {
+    ::grpc::Status RequestBluetoothDataNotification(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::RequestBluetoothDataNotificationRequest* /*request*/, ::diagnostics::grpc_api::RequestBluetoothDataNotificationResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1226,7 +1636,7 @@ class WilcoDtcSupportd final {
   template <class BaseClass>
   class WithRawMethod_GetStatefulPartitionAvailableCapacity : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_GetStatefulPartitionAvailableCapacity() {
       ::grpc::Service::MarkMethodRaw(13);
@@ -1235,7 +1645,7 @@ class WilcoDtcSupportd final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetStatefulPartitionAvailableCapacity(::grpc::ServerContext* context, const ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityRequest* request, ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityResponse* response) override {
+    ::grpc::Status GetStatefulPartitionAvailableCapacity(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityRequest* /*request*/, ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1244,19 +1654,334 @@ class WilcoDtcSupportd final {
     }
   };
   template <class BaseClass>
+  class WithRawCallbackMethod_SendMessageToUi : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_SendMessageToUi() {
+      ::grpc::Service::MarkMethodRawCallback(0,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->SendMessageToUi(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_SendMessageToUi() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status SendMessageToUi(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::SendMessageToUiRequest* /*request*/, ::diagnostics::grpc_api::SendMessageToUiResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* SendMessageToUi(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_GetProcData : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_GetProcData() {
+      ::grpc::Service::MarkMethodRawCallback(1,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetProcData(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_GetProcData() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetProcData(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::GetProcDataRequest* /*request*/, ::diagnostics::grpc_api::GetProcDataResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetProcData(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_GetSysfsData : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_GetSysfsData() {
+      ::grpc::Service::MarkMethodRawCallback(2,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetSysfsData(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_GetSysfsData() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetSysfsData(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::GetSysfsDataRequest* /*request*/, ::diagnostics::grpc_api::GetSysfsDataResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetSysfsData(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_PerformWebRequest : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_PerformWebRequest() {
+      ::grpc::Service::MarkMethodRawCallback(3,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->PerformWebRequest(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_PerformWebRequest() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status PerformWebRequest(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::PerformWebRequestParameter* /*request*/, ::diagnostics::grpc_api::PerformWebRequestResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* PerformWebRequest(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_GetEcTelemetry : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_GetEcTelemetry() {
+      ::grpc::Service::MarkMethodRawCallback(4,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetEcTelemetry(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_GetEcTelemetry() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetEcTelemetry(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::GetEcTelemetryRequest* /*request*/, ::diagnostics::grpc_api::GetEcTelemetryResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetEcTelemetry(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_GetAvailableRoutines : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_GetAvailableRoutines() {
+      ::grpc::Service::MarkMethodRawCallback(5,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetAvailableRoutines(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_GetAvailableRoutines() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetAvailableRoutines(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::GetAvailableRoutinesRequest* /*request*/, ::diagnostics::grpc_api::GetAvailableRoutinesResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetAvailableRoutines(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_RunRoutine : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_RunRoutine() {
+      ::grpc::Service::MarkMethodRawCallback(6,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->RunRoutine(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_RunRoutine() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status RunRoutine(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::RunRoutineRequest* /*request*/, ::diagnostics::grpc_api::RunRoutineResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* RunRoutine(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_GetRoutineUpdate : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_GetRoutineUpdate() {
+      ::grpc::Service::MarkMethodRawCallback(7,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetRoutineUpdate(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_GetRoutineUpdate() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetRoutineUpdate(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::GetRoutineUpdateRequest* /*request*/, ::diagnostics::grpc_api::GetRoutineUpdateResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetRoutineUpdate(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_GetConfigurationData : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_GetConfigurationData() {
+      ::grpc::Service::MarkMethodRawCallback(8,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetConfigurationData(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_GetConfigurationData() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetConfigurationData(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::GetConfigurationDataRequest* /*request*/, ::diagnostics::grpc_api::GetConfigurationDataResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetConfigurationData(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_GetOsVersion : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_GetOsVersion() {
+      ::grpc::Service::MarkMethodRawCallback(9,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetOsVersion(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_GetOsVersion() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetOsVersion(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::GetOsVersionRequest* /*request*/, ::diagnostics::grpc_api::GetOsVersionResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetOsVersion(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_GetVpdField : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_GetVpdField() {
+      ::grpc::Service::MarkMethodRawCallback(10,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetVpdField(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_GetVpdField() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetVpdField(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::GetVpdFieldRequest* /*request*/, ::diagnostics::grpc_api::GetVpdFieldResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetVpdField(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_GetDriveSystemData : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_GetDriveSystemData() {
+      ::grpc::Service::MarkMethodRawCallback(11,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetDriveSystemData(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_GetDriveSystemData() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetDriveSystemData(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::GetDriveSystemDataRequest* /*request*/, ::diagnostics::grpc_api::GetDriveSystemDataResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetDriveSystemData(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_RequestBluetoothDataNotification : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_RequestBluetoothDataNotification() {
+      ::grpc::Service::MarkMethodRawCallback(12,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->RequestBluetoothDataNotification(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_RequestBluetoothDataNotification() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status RequestBluetoothDataNotification(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::RequestBluetoothDataNotificationRequest* /*request*/, ::diagnostics::grpc_api::RequestBluetoothDataNotificationResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* RequestBluetoothDataNotification(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_GetStatefulPartitionAvailableCapacity : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_GetStatefulPartitionAvailableCapacity() {
+      ::grpc::Service::MarkMethodRawCallback(13,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetStatefulPartitionAvailableCapacity(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_GetStatefulPartitionAvailableCapacity() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetStatefulPartitionAvailableCapacity(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityRequest* /*request*/, ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetStatefulPartitionAvailableCapacity(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
   class WithStreamedUnaryMethod_SendMessageToUi : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_SendMessageToUi() {
       ::grpc::Service::MarkMethodStreamed(0,
-        new ::grpc::internal::StreamedUnaryHandler< ::diagnostics::grpc_api::SendMessageToUiRequest, ::diagnostics::grpc_api::SendMessageToUiResponse>(std::bind(&WithStreamedUnaryMethod_SendMessageToUi<BaseClass>::StreamedSendMessageToUi, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::diagnostics::grpc_api::SendMessageToUiRequest, ::diagnostics::grpc_api::SendMessageToUiResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::diagnostics::grpc_api::SendMessageToUiRequest, ::diagnostics::grpc_api::SendMessageToUiResponse>* streamer) {
+                       return this->StreamedSendMessageToUi(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_SendMessageToUi() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status SendMessageToUi(::grpc::ServerContext* context, const ::diagnostics::grpc_api::SendMessageToUiRequest* request, ::diagnostics::grpc_api::SendMessageToUiResponse* response) override {
+    ::grpc::Status SendMessageToUi(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::SendMessageToUiRequest* /*request*/, ::diagnostics::grpc_api::SendMessageToUiResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1266,17 +1991,24 @@ class WilcoDtcSupportd final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_GetProcData : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_GetProcData() {
       ::grpc::Service::MarkMethodStreamed(1,
-        new ::grpc::internal::StreamedUnaryHandler< ::diagnostics::grpc_api::GetProcDataRequest, ::diagnostics::grpc_api::GetProcDataResponse>(std::bind(&WithStreamedUnaryMethod_GetProcData<BaseClass>::StreamedGetProcData, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::diagnostics::grpc_api::GetProcDataRequest, ::diagnostics::grpc_api::GetProcDataResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::diagnostics::grpc_api::GetProcDataRequest, ::diagnostics::grpc_api::GetProcDataResponse>* streamer) {
+                       return this->StreamedGetProcData(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_GetProcData() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status GetProcData(::grpc::ServerContext* context, const ::diagnostics::grpc_api::GetProcDataRequest* request, ::diagnostics::grpc_api::GetProcDataResponse* response) override {
+    ::grpc::Status GetProcData(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::GetProcDataRequest* /*request*/, ::diagnostics::grpc_api::GetProcDataResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1286,17 +2018,24 @@ class WilcoDtcSupportd final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_GetSysfsData : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_GetSysfsData() {
       ::grpc::Service::MarkMethodStreamed(2,
-        new ::grpc::internal::StreamedUnaryHandler< ::diagnostics::grpc_api::GetSysfsDataRequest, ::diagnostics::grpc_api::GetSysfsDataResponse>(std::bind(&WithStreamedUnaryMethod_GetSysfsData<BaseClass>::StreamedGetSysfsData, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::diagnostics::grpc_api::GetSysfsDataRequest, ::diagnostics::grpc_api::GetSysfsDataResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::diagnostics::grpc_api::GetSysfsDataRequest, ::diagnostics::grpc_api::GetSysfsDataResponse>* streamer) {
+                       return this->StreamedGetSysfsData(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_GetSysfsData() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status GetSysfsData(::grpc::ServerContext* context, const ::diagnostics::grpc_api::GetSysfsDataRequest* request, ::diagnostics::grpc_api::GetSysfsDataResponse* response) override {
+    ::grpc::Status GetSysfsData(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::GetSysfsDataRequest* /*request*/, ::diagnostics::grpc_api::GetSysfsDataResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1306,17 +2045,24 @@ class WilcoDtcSupportd final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_PerformWebRequest : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_PerformWebRequest() {
       ::grpc::Service::MarkMethodStreamed(3,
-        new ::grpc::internal::StreamedUnaryHandler< ::diagnostics::grpc_api::PerformWebRequestParameter, ::diagnostics::grpc_api::PerformWebRequestResponse>(std::bind(&WithStreamedUnaryMethod_PerformWebRequest<BaseClass>::StreamedPerformWebRequest, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::diagnostics::grpc_api::PerformWebRequestParameter, ::diagnostics::grpc_api::PerformWebRequestResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::diagnostics::grpc_api::PerformWebRequestParameter, ::diagnostics::grpc_api::PerformWebRequestResponse>* streamer) {
+                       return this->StreamedPerformWebRequest(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_PerformWebRequest() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status PerformWebRequest(::grpc::ServerContext* context, const ::diagnostics::grpc_api::PerformWebRequestParameter* request, ::diagnostics::grpc_api::PerformWebRequestResponse* response) override {
+    ::grpc::Status PerformWebRequest(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::PerformWebRequestParameter* /*request*/, ::diagnostics::grpc_api::PerformWebRequestResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1326,17 +2072,24 @@ class WilcoDtcSupportd final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_GetEcTelemetry : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_GetEcTelemetry() {
       ::grpc::Service::MarkMethodStreamed(4,
-        new ::grpc::internal::StreamedUnaryHandler< ::diagnostics::grpc_api::GetEcTelemetryRequest, ::diagnostics::grpc_api::GetEcTelemetryResponse>(std::bind(&WithStreamedUnaryMethod_GetEcTelemetry<BaseClass>::StreamedGetEcTelemetry, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::diagnostics::grpc_api::GetEcTelemetryRequest, ::diagnostics::grpc_api::GetEcTelemetryResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::diagnostics::grpc_api::GetEcTelemetryRequest, ::diagnostics::grpc_api::GetEcTelemetryResponse>* streamer) {
+                       return this->StreamedGetEcTelemetry(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_GetEcTelemetry() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status GetEcTelemetry(::grpc::ServerContext* context, const ::diagnostics::grpc_api::GetEcTelemetryRequest* request, ::diagnostics::grpc_api::GetEcTelemetryResponse* response) override {
+    ::grpc::Status GetEcTelemetry(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::GetEcTelemetryRequest* /*request*/, ::diagnostics::grpc_api::GetEcTelemetryResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1346,17 +2099,24 @@ class WilcoDtcSupportd final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_GetAvailableRoutines : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_GetAvailableRoutines() {
       ::grpc::Service::MarkMethodStreamed(5,
-        new ::grpc::internal::StreamedUnaryHandler< ::diagnostics::grpc_api::GetAvailableRoutinesRequest, ::diagnostics::grpc_api::GetAvailableRoutinesResponse>(std::bind(&WithStreamedUnaryMethod_GetAvailableRoutines<BaseClass>::StreamedGetAvailableRoutines, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::diagnostics::grpc_api::GetAvailableRoutinesRequest, ::diagnostics::grpc_api::GetAvailableRoutinesResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::diagnostics::grpc_api::GetAvailableRoutinesRequest, ::diagnostics::grpc_api::GetAvailableRoutinesResponse>* streamer) {
+                       return this->StreamedGetAvailableRoutines(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_GetAvailableRoutines() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status GetAvailableRoutines(::grpc::ServerContext* context, const ::diagnostics::grpc_api::GetAvailableRoutinesRequest* request, ::diagnostics::grpc_api::GetAvailableRoutinesResponse* response) override {
+    ::grpc::Status GetAvailableRoutines(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::GetAvailableRoutinesRequest* /*request*/, ::diagnostics::grpc_api::GetAvailableRoutinesResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1366,17 +2126,24 @@ class WilcoDtcSupportd final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_RunRoutine : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_RunRoutine() {
       ::grpc::Service::MarkMethodStreamed(6,
-        new ::grpc::internal::StreamedUnaryHandler< ::diagnostics::grpc_api::RunRoutineRequest, ::diagnostics::grpc_api::RunRoutineResponse>(std::bind(&WithStreamedUnaryMethod_RunRoutine<BaseClass>::StreamedRunRoutine, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::diagnostics::grpc_api::RunRoutineRequest, ::diagnostics::grpc_api::RunRoutineResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::diagnostics::grpc_api::RunRoutineRequest, ::diagnostics::grpc_api::RunRoutineResponse>* streamer) {
+                       return this->StreamedRunRoutine(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_RunRoutine() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status RunRoutine(::grpc::ServerContext* context, const ::diagnostics::grpc_api::RunRoutineRequest* request, ::diagnostics::grpc_api::RunRoutineResponse* response) override {
+    ::grpc::Status RunRoutine(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::RunRoutineRequest* /*request*/, ::diagnostics::grpc_api::RunRoutineResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1386,17 +2153,24 @@ class WilcoDtcSupportd final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_GetRoutineUpdate : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_GetRoutineUpdate() {
       ::grpc::Service::MarkMethodStreamed(7,
-        new ::grpc::internal::StreamedUnaryHandler< ::diagnostics::grpc_api::GetRoutineUpdateRequest, ::diagnostics::grpc_api::GetRoutineUpdateResponse>(std::bind(&WithStreamedUnaryMethod_GetRoutineUpdate<BaseClass>::StreamedGetRoutineUpdate, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::diagnostics::grpc_api::GetRoutineUpdateRequest, ::diagnostics::grpc_api::GetRoutineUpdateResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::diagnostics::grpc_api::GetRoutineUpdateRequest, ::diagnostics::grpc_api::GetRoutineUpdateResponse>* streamer) {
+                       return this->StreamedGetRoutineUpdate(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_GetRoutineUpdate() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status GetRoutineUpdate(::grpc::ServerContext* context, const ::diagnostics::grpc_api::GetRoutineUpdateRequest* request, ::diagnostics::grpc_api::GetRoutineUpdateResponse* response) override {
+    ::grpc::Status GetRoutineUpdate(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::GetRoutineUpdateRequest* /*request*/, ::diagnostics::grpc_api::GetRoutineUpdateResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1406,17 +2180,24 @@ class WilcoDtcSupportd final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_GetConfigurationData : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_GetConfigurationData() {
       ::grpc::Service::MarkMethodStreamed(8,
-        new ::grpc::internal::StreamedUnaryHandler< ::diagnostics::grpc_api::GetConfigurationDataRequest, ::diagnostics::grpc_api::GetConfigurationDataResponse>(std::bind(&WithStreamedUnaryMethod_GetConfigurationData<BaseClass>::StreamedGetConfigurationData, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::diagnostics::grpc_api::GetConfigurationDataRequest, ::diagnostics::grpc_api::GetConfigurationDataResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::diagnostics::grpc_api::GetConfigurationDataRequest, ::diagnostics::grpc_api::GetConfigurationDataResponse>* streamer) {
+                       return this->StreamedGetConfigurationData(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_GetConfigurationData() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status GetConfigurationData(::grpc::ServerContext* context, const ::diagnostics::grpc_api::GetConfigurationDataRequest* request, ::diagnostics::grpc_api::GetConfigurationDataResponse* response) override {
+    ::grpc::Status GetConfigurationData(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::GetConfigurationDataRequest* /*request*/, ::diagnostics::grpc_api::GetConfigurationDataResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1426,17 +2207,24 @@ class WilcoDtcSupportd final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_GetOsVersion : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_GetOsVersion() {
       ::grpc::Service::MarkMethodStreamed(9,
-        new ::grpc::internal::StreamedUnaryHandler< ::diagnostics::grpc_api::GetOsVersionRequest, ::diagnostics::grpc_api::GetOsVersionResponse>(std::bind(&WithStreamedUnaryMethod_GetOsVersion<BaseClass>::StreamedGetOsVersion, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::diagnostics::grpc_api::GetOsVersionRequest, ::diagnostics::grpc_api::GetOsVersionResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::diagnostics::grpc_api::GetOsVersionRequest, ::diagnostics::grpc_api::GetOsVersionResponse>* streamer) {
+                       return this->StreamedGetOsVersion(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_GetOsVersion() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status GetOsVersion(::grpc::ServerContext* context, const ::diagnostics::grpc_api::GetOsVersionRequest* request, ::diagnostics::grpc_api::GetOsVersionResponse* response) override {
+    ::grpc::Status GetOsVersion(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::GetOsVersionRequest* /*request*/, ::diagnostics::grpc_api::GetOsVersionResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1446,17 +2234,24 @@ class WilcoDtcSupportd final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_GetVpdField : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_GetVpdField() {
       ::grpc::Service::MarkMethodStreamed(10,
-        new ::grpc::internal::StreamedUnaryHandler< ::diagnostics::grpc_api::GetVpdFieldRequest, ::diagnostics::grpc_api::GetVpdFieldResponse>(std::bind(&WithStreamedUnaryMethod_GetVpdField<BaseClass>::StreamedGetVpdField, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::diagnostics::grpc_api::GetVpdFieldRequest, ::diagnostics::grpc_api::GetVpdFieldResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::diagnostics::grpc_api::GetVpdFieldRequest, ::diagnostics::grpc_api::GetVpdFieldResponse>* streamer) {
+                       return this->StreamedGetVpdField(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_GetVpdField() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status GetVpdField(::grpc::ServerContext* context, const ::diagnostics::grpc_api::GetVpdFieldRequest* request, ::diagnostics::grpc_api::GetVpdFieldResponse* response) override {
+    ::grpc::Status GetVpdField(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::GetVpdFieldRequest* /*request*/, ::diagnostics::grpc_api::GetVpdFieldResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1466,17 +2261,24 @@ class WilcoDtcSupportd final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_GetDriveSystemData : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_GetDriveSystemData() {
       ::grpc::Service::MarkMethodStreamed(11,
-        new ::grpc::internal::StreamedUnaryHandler< ::diagnostics::grpc_api::GetDriveSystemDataRequest, ::diagnostics::grpc_api::GetDriveSystemDataResponse>(std::bind(&WithStreamedUnaryMethod_GetDriveSystemData<BaseClass>::StreamedGetDriveSystemData, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::diagnostics::grpc_api::GetDriveSystemDataRequest, ::diagnostics::grpc_api::GetDriveSystemDataResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::diagnostics::grpc_api::GetDriveSystemDataRequest, ::diagnostics::grpc_api::GetDriveSystemDataResponse>* streamer) {
+                       return this->StreamedGetDriveSystemData(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_GetDriveSystemData() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status GetDriveSystemData(::grpc::ServerContext* context, const ::diagnostics::grpc_api::GetDriveSystemDataRequest* request, ::diagnostics::grpc_api::GetDriveSystemDataResponse* response) override {
+    ::grpc::Status GetDriveSystemData(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::GetDriveSystemDataRequest* /*request*/, ::diagnostics::grpc_api::GetDriveSystemDataResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1486,17 +2288,24 @@ class WilcoDtcSupportd final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_RequestBluetoothDataNotification : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_RequestBluetoothDataNotification() {
       ::grpc::Service::MarkMethodStreamed(12,
-        new ::grpc::internal::StreamedUnaryHandler< ::diagnostics::grpc_api::RequestBluetoothDataNotificationRequest, ::diagnostics::grpc_api::RequestBluetoothDataNotificationResponse>(std::bind(&WithStreamedUnaryMethod_RequestBluetoothDataNotification<BaseClass>::StreamedRequestBluetoothDataNotification, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::diagnostics::grpc_api::RequestBluetoothDataNotificationRequest, ::diagnostics::grpc_api::RequestBluetoothDataNotificationResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::diagnostics::grpc_api::RequestBluetoothDataNotificationRequest, ::diagnostics::grpc_api::RequestBluetoothDataNotificationResponse>* streamer) {
+                       return this->StreamedRequestBluetoothDataNotification(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_RequestBluetoothDataNotification() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status RequestBluetoothDataNotification(::grpc::ServerContext* context, const ::diagnostics::grpc_api::RequestBluetoothDataNotificationRequest* request, ::diagnostics::grpc_api::RequestBluetoothDataNotificationResponse* response) override {
+    ::grpc::Status RequestBluetoothDataNotification(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::RequestBluetoothDataNotificationRequest* /*request*/, ::diagnostics::grpc_api::RequestBluetoothDataNotificationResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1506,17 +2315,24 @@ class WilcoDtcSupportd final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_GetStatefulPartitionAvailableCapacity : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_GetStatefulPartitionAvailableCapacity() {
       ::grpc::Service::MarkMethodStreamed(13,
-        new ::grpc::internal::StreamedUnaryHandler< ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityRequest, ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityResponse>(std::bind(&WithStreamedUnaryMethod_GetStatefulPartitionAvailableCapacity<BaseClass>::StreamedGetStatefulPartitionAvailableCapacity, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityRequest, ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityRequest, ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityResponse>* streamer) {
+                       return this->StreamedGetStatefulPartitionAvailableCapacity(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_GetStatefulPartitionAvailableCapacity() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status GetStatefulPartitionAvailableCapacity(::grpc::ServerContext* context, const ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityRequest* request, ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityResponse* response) override {
+    ::grpc::Status GetStatefulPartitionAvailableCapacity(::grpc::ServerContext* /*context*/, const ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityRequest* /*request*/, ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }

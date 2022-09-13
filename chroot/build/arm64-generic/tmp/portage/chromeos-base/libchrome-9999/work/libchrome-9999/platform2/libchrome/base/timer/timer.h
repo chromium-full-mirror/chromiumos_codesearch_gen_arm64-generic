@@ -22,8 +22,12 @@
 //   class MyClass {
 //    public:
 //     void StartDoingStuff() {
-//       timer_.Start(FROM_HERE, Seconds(1),
+//       timer_.Start(FROM_HERE, base::Seconds(1),
 //                    this, &MyClass::DoStuff);
+//       // Alternative form if the callback is not bound to `this` or
+//       // requires arguments:
+//       //    timer_.Start(FROM_HERE, base::Seconds(1),
+//       //                 base::BindRepeating(&MyFunction, 42));
 //     }
 //     void StopDoingStuff() {
 //       timer_.Stop();
@@ -74,8 +78,6 @@ using ExactDeadline = base::StrongAlias<class ExactDeadlineTag, bool>;
 
 namespace internal {
 
-class TaskDestructionDetector;
-
 // This class wraps logic shared by all timers.
 class BASE_EXPORT TimerBase {
  public:
@@ -109,11 +111,10 @@ class BASE_EXPORT TimerBase {
   // Constructs a timer. Start must be called later to set task info.
   explicit TimerBase(const Location& posted_from = Location());
 
-  virtual void RunUserTask() = 0;
   virtual void OnStop() = 0;
 
-  // Cancels the scheduled task and abandon it so that it no longer refers back
-  // to this object.
+  // Disables the scheduled task and abandons it so that it no longer refers
+  // back to this object.
   void AbandonScheduledTask();
 
   // Returns the task runner on which the task should be scheduled. If the
@@ -133,23 +134,12 @@ class BASE_EXPORT TimerBase {
   // Location in user code.
   Location posted_from_ GUARDED_BY_CONTEXT(sequence_checker_);
 
-  // Detects when the scheduled task is deleted before being executed. Null when
-  // there is no scheduled task.
-  raw_ptr<TaskDestructionDetector> task_destruction_detector_
-      GUARDED_BY_CONTEXT(sequence_checker_);
-
   // If true, |user_task_| is scheduled to run sometime in the future.
+  // TODO(1262205): Remove once kAlwaysAbandonScheduledTask is gone.
   bool is_running_ GUARDED_BY_CONTEXT(sequence_checker_) = false;
 
   // The handle to the posted delayed task.
   DelayedTaskHandle delayed_task_handle_ GUARDED_BY_CONTEXT(sequence_checker_);
-
- private:
-  friend class TaskDestructionDetector;
-
-  // Indicates that the scheduled task was destroyed from inside the queue.
-  // Stops the timer if it was running.
-  void OnTaskDestroyed();
 };
 
 //-----------------------------------------------------------------------------
@@ -194,6 +184,8 @@ class BASE_EXPORT DelayTimerBase : public TimerBase {
                  TimeDelta delay,
                  const TickClock* tick_clock = nullptr);
 
+  virtual void RunUserTask() = 0;
+
   // Schedules |OnScheduledTaskInvoked()| to run on the current sequence with
   // the given |delay|. |scheduled_run_time_| and |desired_run_time_| are reset
   // to Now() + delay.
@@ -202,15 +194,16 @@ class BASE_EXPORT DelayTimerBase : public TimerBase {
   void StartInternal(const Location& posted_from, TimeDelta delay);
 
  private:
+  // DCHECKs that the user task is not null. Used to diagnose a recurring bug
+  // where Reset() is called on a OneShotTimer that has already fired.
+  virtual void EnsureNonNullUserTask() = 0;
+
   // Returns the current tick count.
   TimeTicks Now() const;
 
   // Called when the scheduled task is invoked. Will run the  |user_task| if the
   // timer is still running and |desired_run_time_| was reached.
-  // |task_destruction_detector| is owned by the callback to detect when the
-  // scheduled task is deleted before being executed.
-  void OnScheduledTaskInvoked(
-      std::unique_ptr<TaskDestructionDetector> task_destruction_detector);
+  void OnScheduledTaskInvoked();
 
   // Delay requested by user.
   TimeDelta delay_ GUARDED_BY_CONTEXT(sequence_checker_);
@@ -271,6 +264,7 @@ class BASE_EXPORT OneShotTimer : public internal::DelayTimerBase {
  private:
   void OnStop() final;
   void RunUserTask() final;
+  void EnsureNonNullUserTask() final;
 
   OnceClosure user_task_;
 };
@@ -317,8 +311,8 @@ class BASE_EXPORT RepeatingTimer : public internal::DelayTimerBase {
  private:
   // Mark this final, so that the destructor can call this safely.
   void OnStop() final;
-
   void RunUserTask() override;
+  void EnsureNonNullUserTask() final;
 
   RepeatingClosure user_task_;
 };
@@ -366,8 +360,8 @@ class BASE_EXPORT RetainingOneShotTimer : public internal::DelayTimerBase {
  private:
   // Mark this final, so that the destructor can call this safely.
   void OnStop() final;
-
   void RunUserTask() override;
+  void EnsureNonNullUserTask() final;
 
   RepeatingClosure user_task_;
 };
@@ -446,7 +440,6 @@ class BASE_EXPORT DeadlineTimer : public internal::TimerBase {
 
  protected:
   void OnStop() override;
-  void RunUserTask() override;
 
   // Schedules |OnScheduledTaskInvoked()| to run on the current sequence at
   // the given |deadline|.
@@ -454,10 +447,7 @@ class BASE_EXPORT DeadlineTimer : public internal::TimerBase {
 
  private:
   // Called when the scheduled task is invoked to run the |user_task|.
-  // |task_destruction_detector| is owned by the callback to detect when the
-  // scheduled task is deleted before being executed.
-  void OnScheduledTaskInvoked(std::unique_ptr<internal::TaskDestructionDetector>
-                                  task_destruction_detector);
+  void OnScheduledTaskInvoked();
 
   OnceClosure user_task_;
 };

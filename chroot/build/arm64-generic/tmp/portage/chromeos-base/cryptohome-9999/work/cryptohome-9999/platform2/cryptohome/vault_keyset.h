@@ -14,11 +14,11 @@
 #include <base/gtest_prod_util.h>
 #include <brillo/secure_blob.h>
 
-#include "cryptohome/auth_blocks/auth_block_state.h"
 #include "cryptohome/crypto.h"
 #include "cryptohome/crypto_error.h"
 #include "cryptohome/cryptohome_common.h"
 #include "cryptohome/error/cryptohome_crypto_error.h"
+#include "cryptohome/flatbuffer_schemas/auth_block_state.h"
 #include "cryptohome/key_objects.h"
 #include "cryptohome/storage/file_system_keyset.h"
 #include "cryptohome/vault_keyset.pb.h"
@@ -124,6 +124,9 @@ class VaultKeyset {
   virtual void SetKeyData(const KeyData& key_data);
   virtual void ClearKeyData();
   virtual const KeyData& GetKeyData() const;
+
+  // Gets the KeyData or return default value if it's empty.
+  virtual KeyData GetKeyDataOrDefault() const;
 
   // Gets the label from the KeyData.
   virtual std::string GetLabel() const;

@@ -18,8 +18,8 @@
 #include "base/hash/md5_constexpr.h"
 #include "base/run_loop.h"
 #include "base/strings/string_number_conversions.h"
-#include "base/task/common/task_annotator.h"
-#include "base/trace_event/base_tracing.h"
+#include "base/trace_event/trace_event.h"
+#include "base/trace_event/typed_macros.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
 #include "mojo/public/cpp/bindings/lib/send_message_helper.h"
@@ -30,6 +30,7 @@
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
+#include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
 #include "ml/mojom/web_platform_handwriting.mojom-params-data.h"
 #include "ml/mojom/web_platform_handwriting.mojom-shared-message-ids.h"
@@ -62,9 +63,9 @@ HandwritingPoint::HandwritingPoint(
 HandwritingPoint::~HandwritingPoint() = default;
 
 void HandwritingPoint::WriteIntoTrace(
-    perfetto::libchrome::TracedValue traced_context) const {
-  auto dict = std::move(traced_context).WriteDictionary();
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "location"), this->location,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -73,7 +74,7 @@ void HandwritingPoint::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "t"), this->t,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -99,9 +100,9 @@ HandwritingStroke::HandwritingStroke(
 HandwritingStroke::~HandwritingStroke() = default;
 
 void HandwritingStroke::WriteIntoTrace(
-    perfetto::libchrome::TracedValue traced_context) const {
-  auto dict = std::move(traced_context).WriteDictionary();
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "points"), this->points,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -139,9 +140,9 @@ size_t HandwritingDrawingSegment::Hash(size_t seed) const {
 }
 
 void HandwritingDrawingSegment::WriteIntoTrace(
-    perfetto::libchrome::TracedValue traced_context) const {
-  auto dict = std::move(traced_context).WriteDictionary();
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "stroke_index"), this->stroke_index,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -150,7 +151,7 @@ void HandwritingDrawingSegment::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "begin_point_index"), this->begin_point_index,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -159,7 +160,7 @@ void HandwritingDrawingSegment::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "end_point_index"), this->end_point_index,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -194,9 +195,9 @@ HandwritingSegment::HandwritingSegment(
 HandwritingSegment::~HandwritingSegment() = default;
 
 void HandwritingSegment::WriteIntoTrace(
-    perfetto::libchrome::TracedValue traced_context) const {
-  auto dict = std::move(traced_context).WriteDictionary();
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "grapheme"), this->grapheme,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -205,7 +206,7 @@ void HandwritingSegment::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "begin_index"), this->begin_index,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -214,7 +215,7 @@ void HandwritingSegment::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "end_index"), this->end_index,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -223,7 +224,7 @@ void HandwritingSegment::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "drawing_segments"), this->drawing_segments,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -252,9 +253,9 @@ HandwritingPrediction::HandwritingPrediction(
 HandwritingPrediction::~HandwritingPrediction() = default;
 
 void HandwritingPrediction::WriteIntoTrace(
-    perfetto::libchrome::TracedValue traced_context) const {
-  auto dict = std::move(traced_context).WriteDictionary();
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "text"), this->text,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -263,7 +264,7 @@ void HandwritingPrediction::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "segmentation_result"), this->segmentation_result,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -312,9 +313,9 @@ HandwritingHints::HandwritingHints(
 HandwritingHints::~HandwritingHints() = default;
 
 void HandwritingHints::WriteIntoTrace(
-    perfetto::libchrome::TracedValue traced_context) const {
-  auto dict = std::move(traced_context).WriteDictionary();
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "recognition_type"), this->recognition_type,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -323,7 +324,7 @@ void HandwritingHints::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "input_type"), this->input_type,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -332,7 +333,7 @@ void HandwritingHints::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "deprecated_text_context"), this->deprecated_text_context,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -341,7 +342,7 @@ void HandwritingHints::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "alternatives"), this->alternatives,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -350,7 +351,7 @@ void HandwritingHints::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "text_context"), this->text_context,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -376,9 +377,9 @@ HandwritingModelConstraint::HandwritingModelConstraint(
 HandwritingModelConstraint::~HandwritingModelConstraint() = default;
 
 void HandwritingModelConstraint::WriteIntoTrace(
-    perfetto::libchrome::TracedValue traced_context) const {
-  auto dict = std::move(traced_context).WriteDictionary();
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "languages"), this->languages,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -395,6 +396,43 @@ bool HandwritingModelConstraint::Validate(
   return Data_::Validate(data, validation_context);
 }
 const char HandwritingRecognizer::Name_[] = "chromeos.machine_learning.web_platform.mojom.HandwritingRecognizer";
+
+uint32_t HandwritingRecognizer::MessageToStableIPCHash_(mojo::Message& message) {
+  switch (message.name()) {
+    case internal::kHandwritingRecognizer_GetPrediction_Name: {
+      constexpr uint32_t value = base::MD5Hash32Constexpr(
+              "(Impl)chromeos::machine_learning::web_platform::mojom::HandwritingRecognizer::GetPrediction");
+      return value;
+    }
+  }
+  return 0;
+}
+
+
+const char* HandwritingRecognizer::MessageToMethodName_(mojo::Message& message) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (!is_response) {
+    switch (message.name()) {
+      case internal::kHandwritingRecognizer_GetPrediction_Name:
+            return "Receive chromeos::machine_learning::web_platform::mojom::HandwritingRecognizer::GetPrediction";
+    }
+  } else {
+    switch (message.name()) {
+      case internal::kHandwritingRecognizer_GetPrediction_Name:
+            return "Receive reply chromeos::machine_learning::web_platform::mojom::HandwritingRecognizer::GetPrediction";
+    }
+  }
+  return "Receive unknown mojo message";
+#else
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (is_response) {
+    return "Receive mojo reply";
+  } else {
+    return "Receive mojo message";
+  }
+#endif // BUILDFLAG(MOJO_TRACE_ENABLED)
+}
 
 class HandwritingRecognizer_GetPrediction_ForwardToCallback
     : public mojo::MessageReceiver {
@@ -421,12 +459,12 @@ void HandwritingRecognizerProxy::GetPrediction(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send chromeos::machine_learning::web_platform::mojom::HandwritingRecognizer::GetPrediction", "input_parameters",
-    [&](perfetto::libchrome::TracedValue context){
+    [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto::libchrome::WriteIntoTracedValueWithFallback(
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("strokes"), in_strokes,
                         "<value of type std::vector<HandwritingStrokePtr>>");
-      perfetto::libchrome::WriteIntoTracedValueWithFallback(
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("hints"), in_hints,
                         "<value of type HandwritingHintsPtr>");
    });
@@ -527,10 +565,6 @@ class HandwritingRecognizer_GetPrediction_ProxyToResponder : public ::mojo::inte
 
 bool HandwritingRecognizer_GetPrediction_ForwardToCallback::Accept(
     mojo::Message* message) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT("toplevel", "Receive reply chromeos::machine_learning::web_platform::mojom::HandwritingRecognizer::GetPrediction",
-               perfetto::libchrome::Flow::Global(message->GetTraceId()));
-#endif
 
   DCHECK(message->is_serialized());
   internal::HandwritingRecognizer_GetPrediction_ResponseParams_Data* params =
@@ -562,9 +596,9 @@ void HandwritingRecognizer_GetPrediction_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply chromeos::machine_learning::web_platform::mojom::HandwritingRecognizer::GetPrediction", "async_response_parameters",
-    [&](perfetto::libchrome::TracedValue context){
+    [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto::libchrome::WriteIntoTracedValueWithFallback(
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("prediction"), in_prediction,
                         "<value of type absl::optional<std::vector<HandwritingPredictionPtr>>>");
    });
@@ -598,8 +632,11 @@ void HandwritingRecognizer_GetPrediction_ProxyToResponder::Run(
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
   ::mojo::internal::SendMessage(*responder_, message);
-  // TODO(darin): Accept() returning false indicates a malformed message, and
-  // that may be good reason to close the connection. However, we don't have a
+  // SendMessage fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
@@ -626,15 +663,6 @@ bool HandwritingRecognizerStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const uint64_t request_id = message->request_id();
   switch (message->header()->name) {
     case internal::kHandwritingRecognizer_GetPrediction_Name: {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      TRACE_EVENT(
-          "toplevel",
-          "Receive chromeos::machine_learning::web_platform::mojom::HandwritingRecognizer::GetPrediction",
-          perfetto::libchrome::Flow::Global(message->GetTraceId()));
-#endif
-      static constexpr uint32_t kMessageHash = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::machine_learning::web_platform::mojom::HandwritingRecognizer::GetPrediction");
-      base::TaskAnnotator::ScopedSetIpcHash scoped_ipc_hash(kMessageHash);
 
       internal::HandwritingRecognizer_GetPrediction_Params_Data* params =
           reinterpret_cast<

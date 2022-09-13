@@ -21,7 +21,7 @@
 #include "mojo/public/cpp/bindings/map_data_view.h"
 #include "mojo/public/cpp/bindings/string_data_view.h"
 
-#include "base/trace_event/base_tracing.h"
+#include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
 #include "ml/mojom/grammar_checker.mojom-shared-internal.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
@@ -129,7 +129,7 @@ class GrammarCheckerQueryDataView {
       mojo::StringDataView* output);
 
   template <typename UserType>
-  WARN_UNUSED_RESULT bool ReadText(UserType* output) {
+  [[nodiscard]] bool ReadText(UserType* output) {
     
     auto* pointer = data_->text.Get();
     return mojo::internal::Deserialize<mojo::StringDataView>(
@@ -139,7 +139,7 @@ class GrammarCheckerQueryDataView {
       mojo::StringDataView* output);
 
   template <typename UserType>
-  WARN_UNUSED_RESULT bool ReadLanguage(UserType* output) {
+  [[nodiscard]] bool ReadLanguage(UserType* output) {
     
     auto* pointer = data_->language.Get();
     return mojo::internal::Deserialize<mojo::StringDataView>(
@@ -172,7 +172,7 @@ class GrammarCorrectionFragmentDataView {
       mojo::StringDataView* output);
 
   template <typename UserType>
-  WARN_UNUSED_RESULT bool ReadReplacement(UserType* output) {
+  [[nodiscard]] bool ReadReplacement(UserType* output) {
     
     auto* pointer = data_->replacement.Get();
     return mojo::internal::Deserialize<mojo::StringDataView>(
@@ -199,7 +199,7 @@ class GrammarCheckerCandidateDataView {
       mojo::StringDataView* output);
 
   template <typename UserType>
-  WARN_UNUSED_RESULT bool ReadText(UserType* output) {
+  [[nodiscard]] bool ReadText(UserType* output) {
     
     auto* pointer = data_->text.Get();
     return mojo::internal::Deserialize<mojo::StringDataView>(
@@ -212,7 +212,7 @@ class GrammarCheckerCandidateDataView {
       mojo::ArrayDataView<GrammarCorrectionFragmentDataView>* output);
 
   template <typename UserType>
-  WARN_UNUSED_RESULT bool ReadFragments(UserType* output) {
+  [[nodiscard]] bool ReadFragments(UserType* output) {
     
     auto* pointer = data_->fragments.Get();
     return mojo::internal::Deserialize<mojo::ArrayDataView<::chromeos::machine_learning::mojom::GrammarCorrectionFragmentDataView>>(
@@ -236,7 +236,7 @@ class GrammarCheckerResultDataView {
 
   bool is_null() const { return !data_; }
   template <typename UserType>
-  WARN_UNUSED_RESULT bool ReadStatus(UserType* output) const {
+  [[nodiscard]] bool ReadStatus(UserType* output) const {
     auto data_value = data_->status;
     return mojo::internal::Deserialize<::chromeos::machine_learning::mojom::GrammarCheckerResult_Status>(
         data_value, output);
@@ -249,7 +249,7 @@ class GrammarCheckerResultDataView {
       mojo::ArrayDataView<GrammarCheckerCandidateDataView>* output);
 
   template <typename UserType>
-  WARN_UNUSED_RESULT bool ReadCandidates(UserType* output) {
+  [[nodiscard]] bool ReadCandidates(UserType* output) {
     
     auto* pointer = data_->candidates.Get();
     return mojo::internal::Deserialize<mojo::ArrayDataView<::chromeos::machine_learning::mojom::GrammarCheckerCandidateDataView>>(
@@ -546,15 +546,13 @@ inline void GrammarCheckerResultDataView::GetCandidatesDataView(
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.
 
-namespace perfetto {
-namespace libchrome {
+namespace perfetto_libchrome {
 
 template <>
 struct  TraceFormatTraits<::chromeos::machine_learning::mojom::GrammarCheckerResult_Status> {
- static void WriteIntoTrace(perfetto::libchrome::TracedValue context, ::chromeos::machine_learning::mojom::GrammarCheckerResult_Status value);
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::chromeos::machine_learning::mojom::GrammarCheckerResult_Status value);
 };
 
-} // namespace libchrome
 } // namespace perfetto
 
 #endif  // ML_MOJOM_GRAMMAR_CHECKER_MOJOM_SHARED_H_

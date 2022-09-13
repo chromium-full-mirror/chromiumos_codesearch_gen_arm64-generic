@@ -210,6 +210,7 @@ bool DiskCleanup::FreeDiskSpaceDuringLogin(const std::string& obfuscated) {
                                 after_cleanup.value() - free_space.value()) /
                        1024 / 1024;
 
+  ReportFreeDiskSpaceDuringLoginTotalFreedInMb(cleaned_in_mb);
   VLOG(1) << "Login disk cleanup cleared " << cleaned_in_mb << "MB.";
 
   LOG(INFO) << "Login disk cleanup complete.";
@@ -239,7 +240,7 @@ bool DiskCleanup::FreeDiskSpaceInternal() {
 
   std::sort(
       unmounted_homedirs.begin(), unmounted_homedirs.end(),
-      [&](const HomeDirs::HomeDir& a, const HomeDirs::HomeDir& b) {
+      [this](const HomeDirs::HomeDir& a, const HomeDirs::HomeDir& b) {
         return timestamp_manager_->GetLastUserActivityTimestamp(a.obfuscated) >
                timestamp_manager_->GetLastUserActivityTimestamp(b.obfuscated);
       });
@@ -481,12 +482,15 @@ bool DiskCleanup::FreeDiskSpaceDuringLoginInternal(
 
   std::sort(
       unmounted_homedirs.begin(), unmounted_homedirs.end(),
-      [&](const HomeDirs::HomeDir& a, const HomeDirs::HomeDir& b) {
+      [this](const HomeDirs::HomeDir& a, const HomeDirs::HomeDir& b) {
         return timestamp_manager_->GetLastUserActivityTimestamp(a.obfuscated) >
                timestamp_manager_->GetLastUserActivityTimestamp(b.obfuscated);
       });
 
   bool result = true;
+  bool performed_cleanup = false;
+
+  DiskCleanup::FreeSpaceState state;
 
   for (auto dir = unmounted_homedirs.rbegin(); dir != unmounted_homedirs.rend();
        dir++) {
@@ -500,12 +504,34 @@ bool DiskCleanup::FreeDiskSpaceDuringLoginInternal(
       result = false;
     timestamp_manager_->RemoveUser(dir->obfuscated);
 
+    performed_cleanup = true;
+
     // Login cleanup stops at kAboveThreshold.
-    auto state = GetFreeDiskSpaceState();
+    state = GetFreeDiskSpaceState();
     if (state == DiskCleanup::FreeSpaceState::kAboveThreshold ||
         state == DiskCleanup::FreeSpaceState::kAboveTarget) {
       break;
     }
+  }
+
+  if (performed_cleanup) {
+    switch (state) {
+      case DiskCleanup::FreeSpaceState::kError:
+        result = false;
+        break;
+      case DiskCleanup::FreeSpaceState::kAboveThreshold:
+      case DiskCleanup::FreeSpaceState::kAboveTarget:
+        ReportLoginDiskCleanupProgress(
+            LoginDiskCleanupProgress::kWholeUserProfilesCleanedAboveTarget);
+        break;
+      default:
+        ReportLoginDiskCleanupProgress(
+            LoginDiskCleanupProgress::kWholeUserProfilesCleaned);
+        break;
+    }
+  } else {
+    ReportLoginDiskCleanupProgress(
+        LoginDiskCleanupProgress::kNoUnmountedCryptohomes);
   }
 
   return result;
@@ -524,7 +550,7 @@ void DiskCleanup::FilterHomedirsProcessedBeforeCutoff(
     base::Time cutoff, std::vector<HomeDirs::HomeDir>* homedirs) {
   homedirs->erase(
       std::remove_if(homedirs->begin(), homedirs->end(),
-                     [&](const HomeDirs::HomeDir& dir) {
+                     [this, cutoff](const HomeDirs::HomeDir& dir) {
                        return timestamp_manager_->GetLastUserActivityTimestamp(
                                   dir.obfuscated) < cutoff;
                      }),

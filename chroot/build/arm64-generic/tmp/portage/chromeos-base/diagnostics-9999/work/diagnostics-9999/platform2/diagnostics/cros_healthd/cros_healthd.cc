@@ -27,6 +27,7 @@
 #include "diagnostics/cros_healthd/events/lid_events_impl.h"
 #include "diagnostics/cros_healthd/events/power_events_impl.h"
 #include "diagnostics/cros_healthd/events/udev_events_impl.h"
+#include "diagnostics/cros_healthd/system/mojo_service_impl.h"
 
 namespace diagnostics {
 
@@ -52,7 +53,9 @@ CrosHealthd::CrosHealthd(mojo::PlatformChannelEndpoint endpoint,
   audio_events_ = std::make_unique<AudioEventsImpl>(context_.get());
 
   udev_events_ = std::make_unique<UdevEventsImpl>(context_.get());
-  udev_events_->Initialize();
+  if (!udev_events_->Initialize()) {
+    LOG(ERROR) << "Failed to initialize udev_events.";
+  }
 
   routine_factory_ =
       std::make_unique<CrosHealthdRoutineFactoryImpl>(context_.get());
@@ -128,6 +131,7 @@ std::string CrosHealthd::BootstrapMojoConnection(const base::ScopedFD& mojo_fd,
       chromeos::cros_healthd::mojom::CrosHealthdServiceFactory>
       receiver;
   if (is_chrome) {
+    LOG(INFO) << "Bootstrap from chrome through dbus";
     if (mojo_service_bind_attempted_) {
       // This should not normally be triggered, since the other endpoint - the
       // browser process - should bootstrap the Mojo connection only once, and
@@ -181,7 +185,10 @@ void CrosHealthd::GetProbeService(
 void CrosHealthd::GetDiagnosticsService(
     mojo::PendingReceiver<
         chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService> service) {
-  diagnostics_receiver_set_.Add(routine_service_.get(), std::move(service));
+  // Bind the service after it becomes ready.
+  routine_service_->RegisterServiceReadyCallback(
+      base::BindOnce(&CrosHealthd::GetDiagnosticsServiceInternal,
+                     base::Unretained(this), std::move(service)));
 }
 
 void CrosHealthd::GetEventService(
@@ -214,7 +221,10 @@ void CrosHealthd::SendChromiumDataCollector(
     mojo::PendingRemote<
         chromeos::cros_healthd::internal::mojom::ChromiumDataCollector>
         remote) {
-  context_->chromium_data_collector_relay().Bind(std::move(remote));
+  // TODO(b/230064284): Remove this after migrate to service manager.
+  static_cast<MojoServiceImpl*>(context_->mojo_service())
+      ->chromium_data_collector_relay()
+      .Bind(std::move(remote));
 }
 
 void CrosHealthd::ShutDownDueToMojoError(const std::string& debug_reason) {
@@ -232,6 +242,12 @@ void CrosHealthd::OnDisconnect() {
   // recoverable.
   if (service_factory_receiver_set_.current_context())
     ShutDownDueToMojoError("Lost mojo connection to browser.");
+}
+
+void CrosHealthd::GetDiagnosticsServiceInternal(
+    mojo::PendingReceiver<
+        chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService> service) {
+  diagnostics_receiver_set_.Add(routine_service_.get(), std::move(service));
 }
 
 }  // namespace diagnostics

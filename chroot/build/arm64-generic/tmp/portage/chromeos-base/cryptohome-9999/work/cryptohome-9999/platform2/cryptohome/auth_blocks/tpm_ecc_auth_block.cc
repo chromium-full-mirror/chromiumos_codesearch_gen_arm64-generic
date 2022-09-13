@@ -16,7 +16,6 @@
 #include <base/logging.h>
 #include <brillo/secure_blob.h>
 #include <libhwsec/status.h>
-#include <libhwsec/error/elliptic_curve_error.h>
 #include <libhwsec/error/tpm_retry_handler.h>
 #include <libhwsec-foundation/crypto/aes.h>
 #include <libhwsec-foundation/crypto/scrypt.h>
@@ -29,14 +28,11 @@
 #include "cryptohome/cryptohome_keys_manager.h"
 #include "cryptohome/cryptohome_metrics.h"
 #include "cryptohome/error/location_utils.h"
-#include "cryptohome/tpm.h"
 #include "cryptohome/vault_keyset.pb.h"
 
 using cryptohome::error::CryptohomeCryptoError;
 using cryptohome::error::ErrorAction;
 using cryptohome::error::ErrorActionSet;
-using hwsec::EllipticCurveError;
-using hwsec::EllipticCurveErrorCode;
 using hwsec::TPMError;
 using hwsec::TPMErrorBase;
 using hwsec::TPMRetryAction;
@@ -190,9 +186,8 @@ CryptoStatus TpmEccAuthBlock::TryCreate(const AuthInput& auth_input,
     hwsec::StatusOr<brillo::SecureBlob> tmp_value =
         hwsec_->GetAuthValue(cryptohome_key, auth_value);
     if (!tmp_value.ok()) {
-      const auto* ecc_err = tmp_value.status().Find<EllipticCurveError>();
-      if (ecc_err &&
-          ecc_err->ErrorCode() == EllipticCurveErrorCode::kScalarOutOfRange) {
+      if (tmp_value.status()->ToTPMRetryAction() ==
+          TPMRetryAction::kEllipticCurveScalarOutOfRange) {
         // The scalar for EC_POINT multiplication is out of range.
         // We should retry the process again.
         return TryCreate(auth_input, auth_block_state, key_blobs,

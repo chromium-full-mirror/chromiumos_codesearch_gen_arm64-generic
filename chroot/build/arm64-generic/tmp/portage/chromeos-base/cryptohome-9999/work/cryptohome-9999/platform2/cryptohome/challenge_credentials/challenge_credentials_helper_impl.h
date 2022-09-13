@@ -15,17 +15,17 @@
 #include <base/memory/weak_ptr.h>
 #include <base/threading/thread_checker.h>
 #include <brillo/secure_blob.h>
+#include <libhwsec/frontend/cryptohome/frontend.h>
 #include <libhwsec/status.h>
 
 #include "cryptohome/challenge_credentials/challenge_credentials_helper.h"
 #include "cryptohome/challenge_credentials/challenge_credentials_operation.h"
 #include "cryptohome/error/cryptohome_tpm_error.h"
 #include "cryptohome/key_challenge_service.h"
-#include "cryptohome/tpm.h"
 
 namespace cryptohome {
 
-// Real implementation of ChallengeCredentialsHelper that is based on TPM and
+// Real implementation of ChallengeCredentialsHelper that is based on HWSec and
 // other cryptographic operations.
 class ChallengeCredentialsHelperImpl final : public ChallengeCredentialsHelper {
  public:
@@ -33,14 +33,9 @@ class ChallengeCredentialsHelperImpl final : public ChallengeCredentialsHelper {
   // when it fails with a transient error.
   static constexpr int kRetryAttemptCount = 3;
 
-  // |tpm| is a non-owned pointer that must stay valid for the whole lifetime of
-  // the created object.
-  // |delegate_blob| and |delegate_secret| should correspond to a TPM delegate
-  // that allows doing signature-sealing operations (currently used only on TPM
-  // 1.2).
-  ChallengeCredentialsHelperImpl(Tpm* tpm,
-                                 const brillo::Blob& delegate_blob,
-                                 const brillo::Blob& delegate_secret);
+  // |hwsec| is a non-owned pointer that must stay valid for the whole lifetime
+  // of the created object.
+  explicit ChallengeCredentialsHelperImpl(hwsec::CryptohomeFrontend* hwsec);
   ChallengeCredentialsHelperImpl(const ChallengeCredentialsHelperImpl&) =
       delete;
   ChallengeCredentialsHelperImpl& operator=(
@@ -56,7 +51,6 @@ class ChallengeCredentialsHelperImpl final : public ChallengeCredentialsHelper {
   void Decrypt(const std::string& account_id,
                const structure::ChallengePublicKeyInfo& public_key_info,
                const structure::SignatureChallengeInfo& keyset_challenge_info,
-               bool locked_to_single_user,
                std::unique_ptr<KeyChallengeService> key_challenge_service,
                DecryptCallback callback) override;
   void VerifyKey(const std::string& account_id,
@@ -69,7 +63,6 @@ class ChallengeCredentialsHelperImpl final : public ChallengeCredentialsHelper {
       const std::string& account_id,
       const structure::ChallengePublicKeyInfo& public_key_info,
       const structure::SignatureChallengeInfo& keyset_challenge_info,
-      bool locked_to_single_user,
       int attempt_number,
       DecryptCallback callback);
 
@@ -90,7 +83,6 @@ class ChallengeCredentialsHelperImpl final : public ChallengeCredentialsHelper {
       const std::string& account_id,
       const structure::ChallengePublicKeyInfo& public_key_info,
       const structure::SignatureChallengeInfo& keyset_challenge_info,
-      bool locked_to_single_user,
       int attempt_number,
       DecryptCallback original_callback,
       TPMStatusOr<GenerateNewOrDecryptResult> result);
@@ -102,10 +94,7 @@ class ChallengeCredentialsHelperImpl final : public ChallengeCredentialsHelper {
                             TPMStatus verify_status);
 
   // Non-owned.
-  Tpm* const tpm_;
-  // TPM delegate that was passed to the constructor.
-  const brillo::Blob delegate_blob_;
-  const brillo::Blob delegate_secret_;
+  hwsec::CryptohomeFrontend* const hwsec_;
   // The key challenge service used for the currently running operation, if any.
   std::unique_ptr<KeyChallengeService> key_challenge_service_;
   // The state of the currently running operation, if any.

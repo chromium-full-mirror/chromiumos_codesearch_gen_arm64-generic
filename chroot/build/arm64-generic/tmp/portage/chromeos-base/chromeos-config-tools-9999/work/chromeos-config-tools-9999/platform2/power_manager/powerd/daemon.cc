@@ -299,9 +299,13 @@ class Daemon::StateControllerDelegate
     daemon_->metrics_collector_->GenerateDimEventMetrics(sample);
   }
 
-  void ReportDimEventDurationMetrics(const std::string& event_name,
+  void ReportLockEventMetrics(metrics::LockEvent sample) override {
+    daemon_->metrics_collector_->GenerateLockEventMetrics(sample);
+  }
+
+  void ReportHpsEventDurationMetrics(const std::string& event_name,
                                      base::TimeDelta duration) override {
-    daemon_->metrics_collector_->GenerateDimEventDurationMetrics(event_name,
+    daemon_->metrics_collector_->GenerateHpsEventDurationMetrics(event_name,
                                                                  duration);
   }
 
@@ -317,6 +321,7 @@ Daemon::Daemon(DaemonDelegate* delegate, const base::FilePath& run_dir)
       input_device_controller_(new policy::InputDeviceController),
       shutdown_from_suspend_(std::make_unique<policy::ShutdownFromSuspend>()),
       suspender_(new policy::Suspender),
+      bluetooth_controller_(std::make_unique<policy::BluetoothController>()),
       wifi_controller_(std::make_unique<policy::WifiController>()),
       cellular_controller_(std::make_unique<policy::CellularController>()),
       metrics_collector_(new metrics::MetricsCollector),
@@ -527,6 +532,7 @@ void Daemon::Init() {
     audio_client_->AddObserver(this);
   }
 
+  bluetooth_controller_->Init(udev_.get());
   wifi_controller_->Init(this, prefs_.get(), udev_.get(), tablet_mode);
   cellular_controller_->Init(this, prefs_.get(), dbus_wrapper_.get());
   peripheral_battery_watcher_ = delegate_->CreatePeripheralBatteryWatcher(
@@ -888,7 +894,9 @@ policy::Suspender::Delegate::SuspendResult Daemon::DoSuspend(
   }
 }
 
-void Daemon::UndoPrepareToSuspend(bool success, int num_suspend_attempts) {
+void Daemon::UndoPrepareToSuspend(bool success,
+                                  int num_suspend_attempts,
+                                  bool hibernated) {
   LidState lid_state = input_watcher_->QueryLidState();
 
   // Update the lid state first so that resume does not turn the internal
@@ -910,9 +918,18 @@ void Daemon::UndoPrepareToSuspend(bool success, int num_suspend_attempts) {
   power_supply_->SetSuspended(false);
 
   if (success)
-    metrics_collector_->HandleResume(num_suspend_attempts);
+    metrics_collector_->HandleResume(num_suspend_attempts, hibernated);
   else if (num_suspend_attempts > 0)
-    metrics_collector_->HandleCanceledSuspendRequest(num_suspend_attempts);
+    metrics_collector_->HandleCanceledSuspendRequest(num_suspend_attempts,
+                                                     hibernated);
+}
+
+void Daemon::ApplyQuirksBeforeSuspend() {
+  bluetooth_controller_->ApplyAutosuspendQuirk();
+}
+
+void Daemon::UnapplyQuirksAfterSuspend() {
+  bluetooth_controller_->UnapplyAutosuspendQuirk();
 }
 
 void Daemon::GenerateDarkResumeMetrics(
@@ -923,8 +940,9 @@ void Daemon::GenerateDarkResumeMetrics(
                                                 suspend_duration);
 }
 
-void Daemon::ShutDownForFailedSuspend() {
-  ShutDown(ShutdownMode::POWER_OFF, ShutdownReason::SUSPEND_FAILED);
+void Daemon::ShutDownForFailedSuspend(bool hibernate) {
+  ShutDown(ShutdownMode::POWER_OFF, hibernate ? ShutdownReason::HIBERNATE_FAILED
+                                              : ShutdownReason::SUSPEND_FAILED);
 }
 
 void Daemon::ShutDownFromSuspend() {
@@ -1660,6 +1678,7 @@ void Daemon::OnPrivacyScreenStateChange(
   VLOG(1) << "Privacy screen state changed to "
           << PrivacyScreenStateToString(state);
   privacy_screen_state_ = state;
+  metrics_collector_->HandlePrivacyScreenStateChange(privacy_screen_state_);
 }
 
 void Daemon::RequestTpmStatus() {

@@ -12,10 +12,10 @@
 #include <utility>
 
 #include "base/strings/stringprintf.h"
-#include "base/trace_event/base_tracing.h"
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/lib/validation_util.h"
+#include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
 #include "ml/mojom/text_classifier.mojom-params-data.h"
 #include "ml/mojom/time_mojom_traits.h"
@@ -75,11 +75,11 @@ bool TextEntityData_Data::Validate(
 
   switch (object->tag) {
 
-    case TextEntityData_Tag::NUMERIC_VALUE: {
+    case TextEntityData_Tag::kNumericValue: {
 
       return true;
     }
-    case TextEntityData_Tag::STRING_VALUE: {
+    case TextEntityData_Tag::kStringValue: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_string_value, 2, validation_context)) {
@@ -567,14 +567,12 @@ TextClassifier_REMOVED_1_ResponseParams_Data::TextClassifier_REMOVED_1_ResponseP
 }  // namespace machine_learning
 }  // namespace chromeos
 
-namespace perfetto {
-namespace libchrome {
+namespace perfetto_libchrome {
 
 // static
 void TraceFormatTraits<::chromeos::machine_learning::mojom::AnnotationUsecase>::WriteIntoTrace(
-   perfetto::libchrome::TracedValue context, ::chromeos::machine_learning::mojom::AnnotationUsecase value) {
+   perfetto_libchrome::TracedValue context, ::chromeos::machine_learning::mojom::AnnotationUsecase value) {
   return std::move(context).WriteString(::chromeos::machine_learning::mojom::AnnotationUsecaseToString(value));
 }
 
-} // namespace libchrome
 } // namespace perfetto

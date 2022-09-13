@@ -6,6 +6,7 @@
 
 #include <cstddef>
 #include <memory>
+#include <optional>
 #include <utility>
 
 #include <base/bind.h>
@@ -22,6 +23,7 @@
 
 #include "missive/dbus/upload_client.h"
 #include "missive/proto/record.pb.h"
+#include "missive/resources/resource_interface.h"
 #include "missive/scheduler/scheduler.h"
 #include "missive/storage/storage_uploader_interface.h"
 #include "missive/util/status.h"
@@ -39,10 +41,12 @@ constexpr size_t kMaxUploadSize = 10UL * 1024UL * 1024UL;  // 10MiB
 UploadJob::UploadDelegate::UploadDelegate(
     scoped_refptr<UploadClient> upload_client,
     bool need_encryption_key,
-    uint64_t remaining_storage_capacity)
+    uint64_t remaining_storage_capacity,
+    std::optional<uint64_t> new_events_rate)
     : upload_client_(upload_client),
       need_encryption_key_(need_encryption_key),
-      remaining_storage_capacity_(remaining_storage_capacity) {}
+      remaining_storage_capacity_(remaining_storage_capacity),
+      new_events_rate_(new_events_rate) {}
 
 UploadJob::UploadDelegate::~UploadDelegate() = default;
 UploadJob::SetRecordsCb UploadJob::UploadDelegate::GetSetRecordsCb() {
@@ -51,7 +55,8 @@ UploadJob::SetRecordsCb UploadJob::UploadDelegate::GetSetRecordsCb() {
 
 Status UploadJob::UploadDelegate::Complete() {
   upload_client_->SendEncryptedRecords(
-      std::move(records_), need_encryption_key_, remaining_storage_capacity_,
+      std::move(encrypted_records_), need_encryption_key_,
+      remaining_storage_capacity_, new_events_rate_,
       // For now the response doesn't contain anything interesting, so we don't
       // handle it. In the future this could change. If it does, UploadClient
       // should be updated to use CallMethodAndBlock rather than CallMethod.
@@ -64,13 +69,12 @@ Status UploadJob::UploadDelegate::Cancel(Status status) {
   return Status::StatusOK();
 }
 
-void UploadJob::UploadDelegate::SetRecords(Records records) {
-  records_ = std::move(records);
+void UploadJob::UploadDelegate::SetRecords(EncryptedRecords records) {
+  encrypted_records_ = std::move(records);
 }
 
 UploadJob::RecordProcessor::RecordProcessor(DoneCb done_cb)
-    : done_cb_(std::move(done_cb)),
-      records_(std::make_unique<std::vector<EncryptedRecord>>()) {
+    : done_cb_(std::move(done_cb)) {
   DETACH_FROM_SEQUENCE(sequence_checker_);
   DCHECK(done_cb_);
 }
@@ -78,7 +82,9 @@ UploadJob::RecordProcessor::RecordProcessor(DoneCb done_cb)
 UploadJob::RecordProcessor::~RecordProcessor() = default;
 
 void UploadJob::RecordProcessor::ProcessRecord(
-    EncryptedRecord record, base::OnceCallback<void(bool)> processed_cb) {
+    EncryptedRecord record,
+    ScopedReservation scoped_reservation,
+    base::OnceCallback<void(bool)> processed_cb) {
   DCHECK_CALLED_ON_VALID_SEQUENCE(sequence_checker_);  // Guaranteed by storage
   size_t record_size = record.ByteSizeLong();
   // We have to allow a single record through even if it is too large.
@@ -87,7 +93,8 @@ void UploadJob::RecordProcessor::ProcessRecord(
     std::move(processed_cb).Run(false);
     return;
   }
-  records_->push_back(std::move(record));
+  encrypted_records_.push_back(std::move(record));
+  encrypted_records_reservation_.HandOver(scoped_reservation);
   current_size_ += record_size;
   std::move(processed_cb).Run(current_size_ < kMaxUploadSize);
 }
@@ -99,10 +106,10 @@ void UploadJob::RecordProcessor::ProcessGap(
   DCHECK_CALLED_ON_VALID_SEQUENCE(sequence_checker_);  // Guaranteed by storage
   // We'll process the whole gap request, even if it goes over our max.
   for (uint64_t i = 0; i < count; ++i) {
-    records_->emplace_back();
-    *records_->rbegin()->mutable_sequence_information() = start;
+    encrypted_records_.emplace_back();
+    *encrypted_records_.rbegin()->mutable_sequence_information() = start;
     start.set_sequencing_id(start.sequencing_id() + 1);
-    current_size_ += records_->rbegin()->ByteSizeLong();
+    current_size_ += encrypted_records_.rbegin()->ByteSizeLong();
   }
   std::move(processed_cb).Run(current_size_ < kMaxUploadSize);
 }
@@ -112,11 +119,13 @@ void UploadJob::RecordProcessor::Completed(Status final_status) {
   DCHECK(done_cb_);
   if (!final_status.ok()) {
     // Destroy the records to regain system memory now.
-    records_.reset();
-    std::move(done_cb_).Run(final_status);
+    encrypted_records_.clear();
+    std::move(done_cb_).Run(final_status,
+                            std::move(encrypted_records_reservation_));
     return;
   }
-  std::move(done_cb_).Run(std::move(records_));
+  std::move(done_cb_).Run(std::move(encrypted_records_),
+                          std::move(encrypted_records_reservation_));
 }
 
 // static
@@ -124,6 +133,7 @@ StatusOr<Scheduler::Job::SmartPtr<UploadJob>> UploadJob::Create(
     scoped_refptr<UploadClient> upload_client,
     bool need_encryption_key,
     uint64_t remaining_storage_capacity,
+    std::optional<uint64_t> new_events_rate,
     UploaderInterface::UploaderInterfaceResultCb start_cb) {
   if (upload_client == nullptr) {
     Status status(error::INVALID_ARGUMENT,
@@ -133,7 +143,8 @@ StatusOr<Scheduler::Job::SmartPtr<UploadJob>> UploadJob::Create(
   }
 
   auto upload_delegate = std::make_unique<UploadDelegate>(
-      upload_client, need_encryption_key, remaining_storage_capacity);
+      upload_client, need_encryption_key, remaining_storage_capacity,
+      new_events_rate);
   SetRecordsCb set_records_callback = upload_delegate->GetSetRecordsCb();
 
   scoped_refptr<base::SequencedTaskRunner> sequenced_task_runner =
@@ -151,7 +162,8 @@ void UploadJob::StartImpl() {
       base::BindOnce(&UploadJob::Done, weak_ptr_factory_.GetWeakPtr()))));
 }
 
-void UploadJob::Done(StatusOr<Records> records_result) {
+void UploadJob::Done(StatusOr<EncryptedRecords> records_result,
+                     ScopedReservation records_reservation) {
   CheckValidSequence();
   if (!records_result.ok()) {
     Finish(records_result.status());

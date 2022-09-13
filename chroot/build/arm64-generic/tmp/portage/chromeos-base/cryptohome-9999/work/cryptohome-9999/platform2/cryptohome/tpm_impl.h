@@ -21,8 +21,6 @@
 #include <string>
 #include <utility>
 
-#include "cryptohome/cryptorecovery/recovery_crypto_tpm1_backend_impl.h"
-#include "cryptohome/signature_sealing_backend_tpm1_impl.h"
 #include "cryptohome/tpm.h"
 
 namespace cryptohome {
@@ -110,17 +108,13 @@ class TpmImpl : public Tpm {
                                int* threshold,
                                bool* lockout,
                                int* seconds_remaining) override;
-  bool ResetDictionaryAttackMitigation(
-      const brillo::Blob& delegate_blob,
-      const brillo::Blob& delegate_secret) override;
+  bool ResetDictionaryAttackMitigation() override;
   void DeclareTpmFirmwareStable() override {}
   bool RemoveOwnerDependency(Tpm::TpmOwnerDependency dependency) override;
   bool GetVersionInfo(TpmVersionInfo* version_info) override;
   bool GetIFXFieldUpgradeInfo(IFXFieldUpgradeInfo* info) override;
   bool GetRsuDeviceId(std::string* device_id) override;
-  LECredentialBackend* GetLECredentialBackend() override;
-  SignatureSealingBackend* GetSignatureSealingBackend() override;
-  cryptorecovery::RecoveryCryptoTpmBackend* GetRecoveryCryptoBackend() override;
+  hwsec::RecoveryCryptoFrontend* GetRecoveryCrypto() override;
   bool GetDelegate(brillo::Blob* blob,
                    brillo::Blob* secret,
                    bool* has_reset_lock_permissions) override;
@@ -145,11 +139,8 @@ class TpmImpl : public Tpm {
                              TSS_HTPM* tpm_handle);
 
   // Populates |context_handle| with a valid TSS_HCONTEXT and |tpm_handle| with
-  // its matching TPM object authorized by the given delegation.
-  bool ConnectContextAsDelegate(const brillo::Blob& delegate_blob,
-                                const brillo::Blob& delegate_secret,
-                                TSS_HCONTEXT* context,
-                                TSS_HTPM* tpm_handle);
+  // its matching TPM object authorized by the delegation.
+  bool ConnectContextAsDelegate(TSS_HCONTEXT* context, TSS_HTPM* tpm_handle);
 
   // Wrapper for Tspi_GetAttribData.
   hwsec::Status GetDataAttribute(TSS_HCONTEXT context,
@@ -183,6 +174,7 @@ class TpmImpl : public Tpm {
                                 brillo::SecureBlob* auth_value) override;
 
   hwsec::CryptohomeFrontend* GetHwsec() override;
+  hwsec::PinWeaverFrontend* GetPinWeaver() override;
 
  private:
   // Returns the owner password if this instance was used to take ownership.
@@ -300,13 +292,6 @@ class TpmImpl : public Tpm {
   // Tpm Context information
   trousers::ScopedTssContext tpm_context_;
 
-  // A single instance of the backend for signature-sealing operations that is
-  // returned from GetSignatureSealingBackend().
-  SignatureSealingBackendTpm1Impl signature_sealing_backend_{this};
-  // A single instance of the backend for cryptohome-recovery operations that is
-  // returned from GetRecoveryCryptoBackend().
-  cryptorecovery::RecoveryCryptoTpm1BackendImpl recovery_crypto_backend_{this};
-
   // wrapped tpm_manager proxy to get information from |tpm_manager|.
   tpm_manager::TpmManagerUtility* tpm_manager_utility_ = nullptr;
 
@@ -328,6 +313,8 @@ class TpmImpl : public Tpm {
 
   std::unique_ptr<hwsec::Factory> hwsec_factory_;
   std::unique_ptr<hwsec::CryptohomeFrontend> hwsec_;
+  std::unique_ptr<hwsec::PinWeaverFrontend> pinweaver_;
+  std::unique_ptr<hwsec::RecoveryCryptoFrontend> recovery_crypto_;
 };
 
 }  // namespace cryptohome

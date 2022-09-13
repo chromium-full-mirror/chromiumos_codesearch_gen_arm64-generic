@@ -20,6 +20,10 @@
 #include <brillo/secure_blob.h>
 #include <cryptohome/proto_bindings/UserDataAuth.pb.h>
 #include <dbus/bus.h>
+#include <libhwsec/factory/factory.h>
+#include <libhwsec/frontend/cryptohome/frontend.h>
+#include <libhwsec/frontend/pinweaver/frontend.h>
+#include <libhwsec/frontend/recovery_crypto/frontend.h>
 #include <libhwsec-foundation/status/status_chain_or.h>
 #include <tpm_manager/client/tpm_manager_utility.h>
 #include <tpm_manager/proto_bindings/tpm_manager.pb.h>
@@ -49,6 +53,7 @@
 #include "cryptohome/user_secret_stash_storage.h"
 #include "cryptohome/user_session/user_session.h"
 #include "cryptohome/user_session/user_session_factory.h"
+#include "cryptohome/user_session/user_session_map.h"
 #include "cryptohome/uss_experiment_config_fetcher.h"
 
 namespace cryptohome {
@@ -112,9 +117,9 @@ class UserDataAuth {
                         bool* is_ephemeral_out = nullptr);
 
   // Calling this function will unmount all mounted cryptohomes. It'll return
-  // true if all mounts are cleanly unmounted.
+  // a reply without error if all mounts are cleanly unmounted.
   // Note: This must only be called on mount thread
-  bool Unmount();
+  user_data_auth::UnmountReply Unmount();
 
   // This function will attempt to mount the requested user's home directory, as
   // specified in |request|. Once that's done, it'll call |on_done| to notify
@@ -231,12 +236,10 @@ class UserDataAuth {
   user_data_auth::CryptohomeErrorCode MassRemoveKeys(
       const user_data_auth::MassRemoveKeysRequest request);
 
-  // List the keys stored in |homedirs_|. If CRYPTOHOME_ERROR_NOT_SET is
-  // returned, then |labels_out| contains the label of the keys. Otherwise, the
-  // content of |labels_out| is undefined.
-  user_data_auth::CryptohomeErrorCode ListKeys(
-      const user_data_auth::ListKeysRequest& request,
-      std::vector<std::string>* labels_out);
+  // List the keys stored in |homedirs_|.
+  // See definition of ListKeysReply for what is returned.
+  user_data_auth::ListKeysReply ListKeys(
+      const user_data_auth::ListKeysRequest& request);
 
   // Get the KeyData associated with key that have the label specified in
   // |request.key.data.label|. If there's an error processing this request, then
@@ -260,9 +263,8 @@ class UserDataAuth {
       const user_data_auth::MigrateKeyRequest& request);
 
   // Remove the cryptohome (user's home directory) specified in
-  // |request.identifier|. If removed successfully, then return
-  // CRYPTOHOME_ERROR_NOT_SET, otherwise, some error code is returned.
-  user_data_auth::CryptohomeErrorCode Remove(
+  // |request.identifier|. See definition of RemoveReply for what is returned.
+  user_data_auth::RemoveReply Remove(
       const user_data_auth::RemoveRequest& request);
 
   // Return true if we support low entropy credential.
@@ -287,13 +289,6 @@ class UserDataAuth {
   // Will return a negative number if the request fails. See
   // cryptohome/arc_disk_quota.h for more details.
   int64_t GetCurrentSpaceForArcProjectId(int project_id);
-
-  // Sets the project ID to the file/directory pointed by path.
-  // See cryptohome/arc_disk_quota.h for more details.
-  bool SetProjectId(int project_id,
-                    user_data_auth::SetProjectIdAllowedPathType parent_path,
-                    const FilePath& child_path,
-                    const cryptohome::AccountIdentifier& account);
 
   // Sets the project ID of a media_rw_data_file.
   // See cryptohome/arc_disk_quota.h for more details.
@@ -563,8 +558,23 @@ class UserDataAuth {
   // Override |homedirs_| for testing purpose
   void set_homedirs(cryptohome::HomeDirs* homedirs) { homedirs_ = homedirs; }
 
-  // Override |tpm_| for testing purpose
-  void set_tpm(Tpm* tpm) { tpm_ = tpm; }
+  // Override |hwsec_factory_| for testing purpose
+  void set_hwsec_factory(hwsec::Factory* hwsec_factory) {
+    hwsec_factory_ = hwsec_factory;
+  }
+
+  // Override |hwsec_| for testing purpose
+  void set_hwsec(hwsec::CryptohomeFrontend* hwsec) { hwsec_ = hwsec; }
+
+  // Override |pinweaver_| for testing purpose
+  void set_pinweaver(hwsec::PinWeaverFrontend* pinweaver) {
+    pinweaver_ = pinweaver;
+  }
+
+  // Override |recovery_crypto| for testing purpose
+  void set_recovery_crypto(hwsec::RecoveryCryptoFrontend* recovery_crypto) {
+    recovery_crypto_ = recovery_crypto;
+  }
 
   // Override |cryptohome_keys_manager_| for testing purpose
   void set_cryptohome_keys_manager(
@@ -665,16 +675,15 @@ class UserDataAuth {
 
   // Retrieve the session associated with the given user, for testing purpose
   // only.
-  UserSession* get_session_for_user(const std::string& username) {
-    if (sessions_.count(username) == 0)
-      return nullptr;
-    return sessions_[username].get();
+  UserSession* FindUserSessionForTest(const std::string& username) {
+    return sessions_.Find(username);
   }
 
   // Associate a particular session object |session| with the username
   // |username| for testing purpose
-  void set_session_for_user(const std::string& username, UserSession* session) {
-    sessions_[username] = session;
+  bool AddUserSessionForTest(const std::string& username,
+                             std::unique_ptr<UserSession> session) {
+    return sessions_.Add(username, std::move(session));
   }
 
   void StartAuthSession(
@@ -752,6 +761,16 @@ class UserDataAuth {
       base::OnceCallback<void(const user_data_auth::RemoveAuthFactorReply&)>
           on_done);
 
+  void ListAuthFactors(
+      user_data_auth::ListAuthFactorsRequest request,
+      base::OnceCallback<void(const user_data_auth::ListAuthFactorsReply&)>
+          on_done);
+
+  void PrepareAsyncAuthFactor(
+      user_data_auth::PrepareAsyncAuthFactorRequest request,
+      base::OnceCallback<
+          void(const user_data_auth::PrepareAsyncAuthFactorReply&)> on_done);
+
   void GetAuthSessionStatus(
       user_data_auth::GetAuthSessionStatusRequest request,
       base::OnceCallback<void(const user_data_auth::GetAuthSessionStatusReply&)>
@@ -799,15 +818,12 @@ class UserDataAuth {
   // Performs a single attempt to Mount a non-annonimous user.
   MountStatus AttemptUserMount(const Credentials& credentials,
                                const MountArgs& mount_args,
-                               scoped_refptr<UserSession> user_session);
+                               UserSession* user_session);
 
   // Performs a single attempt to Mount a non-annonimous user with AuthSession
   MountStatus AttemptUserMount(AuthSession* auth_session,
                                const MountArgs& mount_args,
-                               scoped_refptr<UserSession> user_session);
-
-  // Returns the UserSession object associated with the given username
-  scoped_refptr<UserSession> GetUserSession(const std::string& username);
+                               UserSession* user_session);
 
   // Filters out active mounts from |mounts|, populating |active_mounts| set.
   // If |include_busy_mount| is false, then stale mounts with open files and
@@ -852,14 +868,8 @@ class UserDataAuth {
       bool is_ephemeral_mount_requested,
       bool has_create_request) const;
 
-  // Returns either and existing or a newly created UserSession, if not present.
-  scoped_refptr<UserSession> GetOrCreateUserSession(
-      const std::string& username);
-
-  // Safely removes the reference to the UserSession from. This method returns
-  // true if as a result of the operation there is no reference to a session of
-  // the given user (including if it was absent in the first place).
-  bool RemoveUserSession(const std::string& username);
+  // Returns either an existing or a newly created UserSession, if not present.
+  UserSession* GetOrCreateUserSession(const std::string& username);
 
   // Calling this method will mount the home directory for guest users.
   // This is usually called by DoMount(). Note that this method is asynchronous,
@@ -871,15 +881,19 @@ class UserDataAuth {
   // Performs the lazy part of the initialization that is required for
   // performing operations with challenge-response keys. Returns whether
   // succeeded.
-  bool InitForChallengeResponseAuth(
-      user_data_auth::CryptohomeErrorCode* error_code);
+  CryptohomeStatus InitForChallengeResponseAuth();
 
   // After lazy initialization through InitForChallengeResponseAuth,
   // it updates the existing auth_block_utility_ to have a valid
   // challenge_credentials_helper and refreshes the key_challenge_service
   // for adding, updating and authenticating with ChallengeCredentials.
-  bool InitAuthBlockUtilityForChallengeResponse(
+  CryptohomeStatus InitAuthBlockUtilityForChallengeResponse(
       const AuthorizationRequest& authorization, const std::string& username);
+
+  // Helper function for InitAuthBlockUtilityForChallengeResponse initializes
+  // KeyChallengeService.
+  CryptohomeStatus InitKeyChallengeServiceForAuthBlockUtility(
+      const std::string& dbus_service_name, const std::string& username);
 
   // This is a utility function used by DoMount(). It is called if the request
   // mounting operation requires challenge response authentication. i.e. The key
@@ -1004,11 +1018,6 @@ class UserDataAuth {
   // functionalities after mounting.
   void InitializePkcs11(UserSession* mount);
 
-  // This is called when TPM is enabled and owned, so that we can continue
-  // the initialization of any PKCS#11 that was paused because TPM wasn't
-  // ready.
-  void ResumeAllPkcs11Initialization();
-
   // =============== Install Attributes Related Utilities ===============
 
   // Set whether this device is enterprise owned. Calling this method will have
@@ -1024,10 +1033,6 @@ class UserDataAuth {
   // can only be called on origin thread.
   void InitializeInstallAttributes();
 
-  // Calling this method will finalize the install attributes if we current have
-  // a non-guest mount mounted. This can only be called on mount thread.
-  void FinalizeInstallAttributesIfMounted();
-
   // =============== Signal Related Utilities/Callback ===============
 
   // This is called whenever the signal handlers for signals on tpm_manager's
@@ -1038,7 +1043,7 @@ class UserDataAuth {
                                    bool success);
 
   // This is called whenever the OwnershipTaken signal is emitted by
-  // tpm_manager. This will notify |tpm_| about the emitted signal.
+  // tpm_manager.
   // Note: The caller of it may neither origin thread nor mount thread.
   void OnOwnershipTakenSignal();
 
@@ -1085,7 +1090,7 @@ class UserDataAuth {
   // session is mountable if it is not already mounted, and the guest is not
   // mounted. If user session object doesn't exist, this method will create
   // one.
-  CryptohomeStatusOr<scoped_refptr<UserSession>> GetMountableUserSession(
+  CryptohomeStatusOr<UserSession*> GetMountableUserSession(
       AuthSession* auth_session);
 
   // Pre-mount hook specifies operations that need to be executed before doing
@@ -1096,8 +1101,7 @@ class UserDataAuth {
   // Post-mount hook specifies operations that need to be executed after doing
   // mount. Eventually those actions should be triggered outside of mount code.
   // Not applicable to guest user.
-  void PostMountHook(scoped_refptr<UserSession> user_session,
-                     const MountStatus& error);
+  void PostMountHook(UserSession* user_session, const MountStatus& error);
 
   // Converts the Dbus value for encryption type into internal representation.
   EncryptedContainerType DbusEncryptionTypeToContainerType(
@@ -1122,6 +1126,26 @@ class UserDataAuth {
   // anything to the disk and just sets verifier in memory for screen unlock.
   user_data_auth::CryptohomeErrorCode HandleAddCredentialForEphemeralVault(
       AuthorizationRequest request, const AuthSession* auth_session);
+
+  // OnAddCredentialFinished when AuthSession::AddCredential is finished. The
+  // function will set credential in user_session for user to do unlock. The
+  // credential verifier will not be overridden if it is already set once.
+  void OnAddCredentialFinished(AuthSession* auth_session,
+                               StatusCallback on_done,
+                               CryptohomeStatus status);
+
+  // OnUpdateCredentialFinished is called when AuthSession::UpdateCredentials is
+  // finished. The function will set credential in user_session for user to do
+  // unlock. The credential verifier will be overridden if it is already set
+  // once.
+  void OnUpdateCredentialFinished(AuthSession* auth_session,
+                                  StatusCallback on_done,
+                                  CryptohomeStatus status);
+
+  // SetCredentialVerifierForUserSession sets credential_verifier derived from
+  // AuthSession.
+  void SetCredentialVerifierForUserSession(
+      AuthSession* auth_session, bool override_existing_credential_verifier);
 
   // =============== WebAuthn Related Helpers ===============
 
@@ -1161,10 +1185,29 @@ class UserDataAuth {
   // The system salt that is used for obfuscating the username
   brillo::SecureBlob system_salt_;
 
-  // The object for accessing the TPM
-  // Note that TPM doesn't use the unique_ptr for default pattern, since the tpm
-  // is a singleton - we don't want it getting destroyed when we are.
-  Tpm* tpm_;
+  // The default hwsec factory object.
+  std::unique_ptr<hwsec::Factory> default_hwsec_factory_;
+
+  // The object to generate the other frontends.
+  hwsec::Factory* hwsec_factory_;
+
+  // The default object for accessing the HWSec related functions.
+  std::unique_ptr<hwsec::CryptohomeFrontend> default_hwsec_;
+
+  // The object for accessing the HWSec related functions.
+  hwsec::CryptohomeFrontend* hwsec_;
+
+  // The default object for accessing the pinweaver related functions.
+  std::unique_ptr<hwsec::PinWeaverFrontend> default_pinweaver_;
+
+  // The object for accessing the pinweaver related functions.
+  hwsec::PinWeaverFrontend* pinweaver_;
+
+  // The default object for accessing the recovery crypto related functions.
+  std::unique_ptr<hwsec::RecoveryCryptoFrontend> default_recovery_crypto_;
+
+  // The object for accessing the recovery crypto related functions.
+  hwsec::RecoveryCryptoFrontend* recovery_crypto_;
 
   // The default cryptohome key loader object
   std::unique_ptr<CryptohomeKeysManager> default_cryptohome_keys_manager_;
@@ -1320,21 +1363,15 @@ class UserDataAuth {
   // for tests.
   UserSecretStashStorage* user_secret_stash_storage_ = nullptr;
 
+  // Records the UserSession objects associated with each username.
+  // This and its content should only be accessed from the mount thread.
+  UserSessionMap sessions_;
+
   // Manager for auth session objects.
   std::unique_ptr<AuthSessionManager> default_auth_session_manager_;
   // Usually set to default_auth_session_manager_, but can be overridden for
   // tests.
   AuthSessionManager* auth_session_manager_;
-
-  // Defines a type for tracking Mount objects for each user by username.
-  typedef std::map<const std::string, scoped_refptr<UserSession>>
-      UserSessionMap;
-
-  // Records the UserSession objects associated with each username.
-  // This and its content should only be accessed from the mount thread.
-  // TODO(b/126022424): Verify that this access paradigm doesn't cause
-  // measurable performance impact.
-  UserSessionMap sessions_;
 
   // The low_disk_space_handler_ object in normal operation
   std::unique_ptr<LowDiskSpaceHandler> default_low_disk_space_handler_;
@@ -1417,12 +1454,17 @@ class UserDataAuth {
   // default_uss_experiment_config_fetcher_, but can be overridden for testing.
   UssExperimentConfigFetcher* uss_experiment_config_fetcher_;
 
+  friend class AuthSessionTestWithKeysetManagement;
+  FRIEND_TEST(AuthSessionTestWithKeysetManagement,
+              StartAuthSessionWithoutKeyData);
+
   friend class UserDataAuthTestTasked;
   FRIEND_TEST(UserDataAuthTest, Unmount_AllDespiteFailures);
   FRIEND_TEST(UserDataAuthTest, InitializePkcs11Unmounted);
 
   friend class UserDataAuthExTest;
   FRIEND_TEST(UserDataAuthExTest, ExtendAuthSession);
+  FRIEND_TEST(UserDataAuthExTest, CheckTimeoutTimerSetAfterAuthentication);
   FRIEND_TEST(UserDataAuthExTest, InvalidateAuthSession);
   FRIEND_TEST(UserDataAuthExTest, MountUnauthenticatedAuthSession);
   FRIEND_TEST(UserDataAuthExTest, RemoveValidityWithAuthSession);
@@ -1433,7 +1475,9 @@ class UserDataAuth {
   FRIEND_TEST(UserDataAuthExTest,
               StartMigrateToDircryptoWithUnAuthenticatedAuthSession);
 
+  friend class AuthSessionInterfaceTestBase;
   friend class AuthSessionInterfaceTest;
+  friend class AuthSessionInterfaceMockAuthTest;
 };
 
 }  // namespace cryptohome

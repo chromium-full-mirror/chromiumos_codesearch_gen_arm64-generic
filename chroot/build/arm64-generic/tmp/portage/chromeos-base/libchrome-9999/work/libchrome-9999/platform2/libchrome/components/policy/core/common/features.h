@@ -7,28 +7,15 @@
 
 #include "base/feature_list.h"
 #include "base/metrics/field_trial_params.h"
+#include "base/time/time.h"
 #include "build/build_config.h"
 #include "components/policy/policy_export.h"
 
 namespace policy {
 namespace features {
 
-// Enable chrome://management page on Android.
-POLICY_EXPORT extern const base::Feature kChromeManagementPageAndroid;
-
 // Enable force installed Chrome apps policy migration.
 POLICY_EXPORT extern const base::Feature kDefaultChromeAppsMigration;
-
-// PolicyBlocklistThrottle defers navigations until policies are loaded.
-POLICY_EXPORT extern const base::Feature
-    kPolicyBlocklistThrottleRequiresPoliciesLoaded;
-
-// Max time to defer the navigation while waiting for policies to load.
-POLICY_EXPORT extern const base::FeatureParam<base::TimeDelta>
-    kPolicyBlocklistThrottlePolicyLoadTimeout;
-
-// Update browser device identifier during enrollment and fetching policies.
-POLICY_EXPORT extern const base::Feature kUploadBrowserDeviceIdentifier;
 
 // Enable reporting Login events to the reporting connector when the Password
 // Manager detects that the user logged in to a web page.
@@ -47,6 +34,9 @@ POLICY_EXPORT extern const base::Feature
 // Android.
 POLICY_EXPORT extern const base::Feature
     kActivateMetricsReportingEnabledPolicyAndroid;
+
+// Enable caching the value of the ManagementStatus.
+POLICY_EXPORT extern const base::Feature kEnableCachedManagementStatus;
 
 }  // namespace features
 }  // namespace policy

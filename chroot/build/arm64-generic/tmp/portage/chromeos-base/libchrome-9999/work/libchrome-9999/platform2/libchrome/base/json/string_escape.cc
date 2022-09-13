@@ -10,6 +10,7 @@
 #include <limits>
 #include <string>
 
+#include "base/check_op.h"
 #include "base/strings/string_util.h"
 #include "base/strings/stringprintf.h"
 #include "base/strings/utf_string_conversion_utils.h"
@@ -92,8 +93,7 @@ bool EscapeJSONStringImpl(const S& str, bool put_in_quotes, std::string* dest) {
   for (int32_t i = 0; i < length; ++i) {
     uint32_t code_point;
     if (!ReadUnicodeCharacter(str.data(), length, &i, &code_point) ||
-        code_point == static_cast<decltype(code_point)>(CBU_SENTINEL) ||
-        !IsValidCodepoint(code_point)) {
+        code_point == static_cast<decltype(code_point)>(CBU_SENTINEL)) {
       code_point = kReplacementCodePoint;
       did_replacement = true;
     }

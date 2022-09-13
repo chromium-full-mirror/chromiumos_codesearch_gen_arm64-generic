@@ -27,14 +27,9 @@
 #include <openssl/rsa.h>
 
 namespace cryptohome {
-namespace cryptorecovery {
-class RecoveryCryptoTpmBackend;
-}  //  namespace cryptorecovery
 
 using TpmKeyHandle = uint32_t;
 
-class LECredentialBackend;
-class SignatureSealingBackend;
 class Tpm;
 
 inline constexpr uint32_t kNotBoundToPCR = UINT32_MAX;
@@ -457,13 +452,8 @@ class Tpm {
                                        bool* lockout,
                                        int* seconds_remaining) = 0;
 
-  // Resets DA lock. This call requires owner permissions. For TPM 1.2,
-  // |delegate_blob| and |delegate_secret| for an owner delegate must be
-  // provided. For TPM 2.0, everything is handled in tpm_managerd and those 2
-  // args are unused.
-  virtual bool ResetDictionaryAttackMitigation(
-      const brillo::Blob& delegate_blob,
-      const brillo::Blob& delegate_secret) = 0;
+  // Resets DA lock.
+  virtual bool ResetDictionaryAttackMitigation() = 0;
 
   // For TPMs with updateable firmware: Declate the current firmware
   // version stable and invalidate previous versions, if any.
@@ -488,24 +478,10 @@ class Tpm {
   // than verifying RMA unlock eligibility.
   virtual bool GetRsuDeviceId(std::string* device_id) = 0;
 
-  // Get a pointer to the LECredentialBackend object, which is used to call the
-  // relevant TPM commands necessary to implement Low Entropy (LE) credential
-  // protection.
-  //
-  // If the Tpm implementation does not support LE credential handling,
-  // this function will return a nullptr.
-  virtual LECredentialBackend* GetLECredentialBackend() = 0;
-
-  // Get a pointer to the SignatureSealingBackend object, which is used for
-  // performing signature-sealing operations. Returns nullptr if the
-  // implementation does not support signature-sealing operations.
-  virtual SignatureSealingBackend* GetSignatureSealingBackend() = 0;
-
-  // Get a pointer to the RecoveryCryptoBackend object, which is used for
-  // performing recovery-crypto operations. Returns nullptr if the
+  // Get a pointer to the hwsec::RecoveryCryptoFrontend object, which is used
+  // for performing recovery-crypto operations. Returns nullptr if the
   // implementation does not support recovery-crypto operations.
-  virtual cryptorecovery::RecoveryCryptoTpmBackend*
-  GetRecoveryCryptoBackend() = 0;
+  virtual hwsec::RecoveryCryptoFrontend* GetRecoveryCrypto() = 0;
 
   // Gets owner auth delegate. Returns |true| iff the operation succeeds. Once
   // returning |true|, |blob| and |secret| are set to the blob and secret of
@@ -553,6 +529,9 @@ class Tpm {
 
   // Get the hwsec abstraction frontend.
   virtual hwsec::CryptohomeFrontend* GetHwsec() = 0;
+
+  // Get the pinweaver abstraction frontend.
+  virtual hwsec::PinWeaverFrontend* GetPinWeaver() = 0;
 
  private:
   static Tpm* singleton_;

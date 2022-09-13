@@ -48,13 +48,13 @@ std::string ConstructOutput() {
                                                  kFakeBatteryChargeFullDesign));
   result_dict.SetIntKey("cycleCount", kLowCycleCount);
   result_dict.SetStringKey("manufacturer", kFakeManufacturer);
-  result_dict.SetIntKey("currentNowA", kFakeCurrentNow);
+  result_dict.SetDoubleKey("currentNowA", kFakeCurrentNow);
   result_dict.SetIntKey("present", kFakePresent);
   result_dict.SetStringKey("status", kFakeStatus);
-  result_dict.SetIntKey("voltageNowV", kFakeVoltageNow);
-  result_dict.SetIntKey("chargeFullAh", kHighChargeFull);
-  result_dict.SetIntKey("chargeFullDesignAh", kFakeBatteryChargeFullDesign);
-  result_dict.SetIntKey("chargeNowAh", kFakeChargeNow);
+  result_dict.SetDoubleKey("voltageNowV", kFakeVoltageNow);
+  result_dict.SetDoubleKey("chargeFullAh", kHighChargeFull);
+  result_dict.SetDoubleKey("chargeFullDesignAh", kFakeBatteryChargeFullDesign);
+  result_dict.SetDoubleKey("chargeNowAh", kFakeChargeNow);
   base::Value output_dict(base::Value::Type::DICTIONARY);
   output_dict.SetKey("resultDetails", std::move(result_dict));
   base::JSONWriter::WriteWithOptions(
@@ -106,7 +106,7 @@ class BatteryHealthRoutineTest : public testing::Test {
   MockContext mock_context_;
   std::unique_ptr<DiagnosticRoutine> routine_;
   mojo_ipc::RoutineUpdate update_{0, mojo::ScopedHandle(),
-                                  mojo_ipc::RoutineUpdateUnion::New()};
+                                  mojo_ipc::RoutineUpdateUnionPtr()};
 };
 
 // Test that the battery health routine fails if the cycle count is too high.

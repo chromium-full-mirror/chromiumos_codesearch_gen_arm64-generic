@@ -6,6 +6,7 @@
 #define LIBHWSEC_FRONTEND_CRYPTOHOME_FRONTEND_H_
 
 #include <string>
+#include <vector>
 
 #include <absl/container/flat_hash_set.h>
 #include <brillo/secure_blob.h>
@@ -21,7 +22,12 @@ namespace hwsec {
 
 class HWSEC_EXPORT CryptohomeFrontend : public Frontend {
  public:
-  using CreateKeyResult = Backend::KeyManagerment::CreateKeyResult;
+  using CreateKeyResult = Backend::KeyManagement::CreateKeyResult;
+  using StorageState = Backend::Storage::ReadyState;
+  using ChallengeID = Backend::SignatureSealing::ChallengeID;
+  using ChallengeResult = Backend::SignatureSealing::ChallengeResult;
+  using SignatureSealingAlgorithm = Backend::SignatureSealing::Algorithm;
+
   ~CryptohomeFrontend() override = default;
 
   // Is the security module enabled or not.
@@ -29,6 +35,18 @@ class HWSEC_EXPORT CryptohomeFrontend : public Frontend {
 
   // Is the security module ready to use or not.
   virtual StatusOr<bool> IsReady() = 0;
+
+  // Is DA counter can be mitigated or not.
+  virtual StatusOr<bool> IsDAMitigationReady() = 0;
+
+  // Is the SRK ROCA vulnerable or not.
+  virtual StatusOr<bool> IsSrkRocaVulnerable() = 0;
+
+  // Tries to mitigate the DA counter.
+  virtual Status MitigateDACounter() = 0;
+
+  // Gets the lookup key for Remote Server Unlock.
+  virtual StatusOr<brillo::Blob> GetRsuDeviceId() = 0;
 
   // Gets the supported algorithm.
   virtual StatusOr<absl::flat_hash_set<KeyAlgoType>> GetSupportedAlgo() = 0;
@@ -53,6 +71,12 @@ class HWSEC_EXPORT CryptohomeFrontend : public Frontend {
 
   // Sets the |current_user| config.
   virtual Status SetCurrentUser(const std::string& current_user) = 0;
+
+  // Is the current user had been set or not.
+  virtual StatusOr<bool> IsCurrentUserSet() = 0;
+
+  // Is the device supported sealing/unsealing or not.
+  virtual StatusOr<bool> IsSealingSupported() = 0;
 
   // Seals the |unsealed_data| with |auth_value| and binds to |current_user|.
   // If the |current_user| is std::nullopt, it would bind to the prior login
@@ -95,6 +119,52 @@ class HWSEC_EXPORT CryptohomeFrontend : public Frontend {
 
   // Is the PinWeaver enabled or not.
   virtual StatusOr<bool> IsPinWeaverEnabled() = 0;
+
+  // Gets the state of |space|.
+  virtual StatusOr<StorageState> GetSpaceState(Space space) = 0;
+
+  // Prepares the |space|.
+  virtual Status PrepareSpace(Space space, uint32_t size) = 0;
+
+  // Reads the data of |space|.
+  virtual StatusOr<brillo::Blob> LoadSpace(Space space) = 0;
+
+  // Writes the data to |space|.
+  virtual Status StoreSpace(Space space, const brillo::Blob& blob) = 0;
+
+  // Destroys the |space|.
+  virtual Status DestroySpace(Space space) = 0;
+
+  // Is the |space| write locked or not.
+  virtual StatusOr<bool> IsSpaceWriteLocked(Space space) = 0;
+
+  // Declares the TPM firmware is stable.
+  virtual Status DeclareTpmFirmwareStable() = 0;
+
+  // Seals the |unsealed_data| with |public_key_spki_der| and binds to
+  // |current_user| or the prior login state.
+  //
+  // |key_algorithms| is the list of signature algorithms supported by the
+  // key. Listed in the order of preference (starting from the most
+  // preferred); however, the implementation is permitted to ignore this
+  // order.
+  virtual StatusOr<SignatureSealedData> SealWithSignatureAndCurrentUser(
+      const std::string& current_user,
+      const brillo::SecureBlob& unsealed_data,
+      const brillo::Blob& public_key_spki_der,
+      const std::vector<SignatureSealingAlgorithm>& key_algorithms) = 0;
+
+  // Creates a challenge from the |sealed_data| and the current user state,
+  // |public_key_spki_der|, |key_algorithms|.
+  virtual StatusOr<ChallengeResult> ChallengeWithSignatureAndCurrentUser(
+      const SignatureSealedData& sealed_data,
+      const brillo::Blob& public_key_spki_der,
+      const std::vector<SignatureSealingAlgorithm>& key_algorithms) = 0;
+
+  // Unseals the sealed_data from previous |challenge| with the
+  // |challenge_response|.
+  virtual StatusOr<brillo::SecureBlob> UnsealWithChallenge(
+      ChallengeID challenge, const brillo::Blob& challenge_response) = 0;
 };
 
 }  // namespace hwsec

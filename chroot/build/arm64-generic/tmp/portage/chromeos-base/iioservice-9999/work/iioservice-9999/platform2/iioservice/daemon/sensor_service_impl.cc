@@ -42,11 +42,6 @@ constexpr char kChnPrefixes[][12] = {
     "magn_",        // MAGN
     "angl",         // ANGL
     "pressure",     // BARO
-    "",             // ACCEL_UNCALIBRATED
-    "",             // ANGLVEL_UNCALIBRATED
-    "",             // MAGN_UNCALIBRATED
-    "",             // GRAVITY
-    "proximity",    // PROXIMITY
 };
 
 bool DeviceHasType(libmems::IioDevice* iio_device,
@@ -69,7 +64,6 @@ bool DeviceHasType(libmems::IioDevice* iio_device,
     case cros::mojom::DeviceType::COUNT:
     case cros::mojom::DeviceType::ANGL:
     case cros::mojom::DeviceType::BARO:
-    case cros::mojom::DeviceType::PROXIMITY:
       for (auto chn : channels) {
         if (strcmp(chn->GetId(), kChnPrefixes[type_int]) == 0)
           return true;
@@ -84,7 +78,7 @@ bool DeviceHasType(libmems::IioDevice* iio_device,
 }
 
 Location GetLocation(libmems::IioDevice* device) {
-  auto location_opt = device->ReadStringAttribute(cros::mojom::kLocation);
+  auto location_opt = device->GetLocation();
   if (location_opt.has_value()) {
     std::string location_str = std::string(
         base::TrimString(location_opt.value(), base::StringPiece("\0\n", 2),

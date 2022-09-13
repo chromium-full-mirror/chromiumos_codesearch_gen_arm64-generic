@@ -11,6 +11,7 @@
 #include <base/check_op.h>
 #include <base/logging.h>
 #include <libhwsec/status.h>
+#include <libhwsec/frontend/cryptohome/frontend.h>
 
 #include "cryptohome/challenge_credentials/challenge_credentials_decrypt_operation.h"
 #include "cryptohome/challenge_credentials/challenge_credentials_generate_new_operation.h"
@@ -18,7 +19,6 @@
 #include "cryptohome/challenge_credentials/challenge_credentials_verify_key_operation.h"
 #include "cryptohome/error/location_utils.h"
 #include "cryptohome/key_challenge_service.h"
-#include "cryptohome/signature_sealing_backend.h"
 
 using brillo::Blob;
 using cryptohome::error::CryptohomeTPMError;
@@ -47,11 +47,9 @@ bool IsOperationFailureTransient(
 }  // namespace
 
 ChallengeCredentialsHelperImpl::ChallengeCredentialsHelperImpl(
-    Tpm* tpm, const Blob& delegate_blob, const Blob& delegate_secret)
-    : tpm_(tpm),
-      delegate_blob_(delegate_blob),
-      delegate_secret_(delegate_secret) {
-  DCHECK(tpm_);
+    hwsec::CryptohomeFrontend* hwsec)
+    : hwsec_(hwsec) {
+  DCHECK(hwsec_);
 }
 
 ChallengeCredentialsHelperImpl::~ChallengeCredentialsHelperImpl() {
@@ -69,8 +67,8 @@ void ChallengeCredentialsHelperImpl::GenerateNew(
   CancelRunningOperation();
   key_challenge_service_ = std::move(key_challenge_service);
   operation_ = std::make_unique<ChallengeCredentialsGenerateNewOperation>(
-      key_challenge_service_.get(), tpm_, delegate_blob_, delegate_secret_,
-      account_id, public_key_info, obfuscated_username,
+      key_challenge_service_.get(), hwsec_, account_id, public_key_info,
+      obfuscated_username,
       base::BindOnce(&ChallengeCredentialsHelperImpl::OnGenerateNewCompleted,
                      base::Unretained(this), std::move(callback)));
   operation_->Start();
@@ -80,7 +78,6 @@ void ChallengeCredentialsHelperImpl::Decrypt(
     const std::string& account_id,
     const structure::ChallengePublicKeyInfo& public_key_info,
     const structure::SignatureChallengeInfo& keyset_challenge_info,
-    bool locked_to_single_user,
     std::unique_ptr<KeyChallengeService> key_challenge_service,
     DecryptCallback callback) {
   DCHECK(thread_checker_.CalledOnValidThread());
@@ -88,8 +85,7 @@ void ChallengeCredentialsHelperImpl::Decrypt(
   CancelRunningOperation();
   key_challenge_service_ = std::move(key_challenge_service);
   StartDecryptOperation(account_id, public_key_info, keyset_challenge_info,
-                        locked_to_single_user, 1 /* attempt_number */,
-                        std::move(callback));
+                        1 /* attempt_number */, std::move(callback));
 }
 
 void ChallengeCredentialsHelperImpl::VerifyKey(
@@ -102,7 +98,7 @@ void ChallengeCredentialsHelperImpl::VerifyKey(
   CancelRunningOperation();
   key_challenge_service_ = std::move(key_challenge_service);
   operation_ = std::make_unique<ChallengeCredentialsVerifyKeyOperation>(
-      key_challenge_service_.get(), tpm_, account_id, public_key_info,
+      key_challenge_service_.get(), hwsec_, account_id, public_key_info,
       base::BindOnce(&ChallengeCredentialsHelperImpl::OnVerifyKeyCompleted,
                      base::Unretained(this), std::move(callback)));
   operation_->Start();
@@ -112,24 +108,23 @@ void ChallengeCredentialsHelperImpl::StartDecryptOperation(
     const std::string& account_id,
     const structure::ChallengePublicKeyInfo& public_key_info,
     const structure::SignatureChallengeInfo& keyset_challenge_info,
-    bool locked_to_single_user,
     int attempt_number,
     DecryptCallback callback) {
   DCHECK(!operation_);
   operation_ = std::make_unique<ChallengeCredentialsDecryptOperation>(
-      key_challenge_service_.get(), tpm_, delegate_blob_, delegate_secret_,
-      account_id, public_key_info, keyset_challenge_info, locked_to_single_user,
+      key_challenge_service_.get(), hwsec_, account_id, public_key_info,
+      keyset_challenge_info,
       base::BindOnce(&ChallengeCredentialsHelperImpl::OnDecryptCompleted,
                      base::Unretained(this), account_id, public_key_info,
-                     keyset_challenge_info, locked_to_single_user,
-                     attempt_number, std::move(callback)));
+                     keyset_challenge_info, attempt_number,
+                     std::move(callback)));
   operation_->Start();
 }
 
 void ChallengeCredentialsHelperImpl::CancelRunningOperation() {
   // Destroy the previous Operation before instantiating a new one, to keep the
   // resource usage constrained (for example, there must be only one instance of
-  // SignatureSealingBackend::UnsealingSession at a time).
+  // hwsec::CryptohomeFrontend::ChallengeWithSignatureAndCurrentUser at a time).
   if (operation_) {
     DLOG(INFO) << "Cancelling an old challenge-response credentials operation";
     // Note: kReboot is specified here instead of kRetry because kRetry could
@@ -157,7 +152,6 @@ void ChallengeCredentialsHelperImpl::OnDecryptCompleted(
     const std::string& account_id,
     const structure::ChallengePublicKeyInfo& public_key_info,
     const structure::SignatureChallengeInfo& keyset_challenge_info,
-    bool locked_to_single_user,
     int attempt_number,
     DecryptCallback original_callback,
     TPMStatusOr<ChallengeCredentialsHelper::GenerateNewOrDecryptResult>
@@ -169,8 +163,7 @@ void ChallengeCredentialsHelperImpl::OnDecryptCompleted(
     LOG(WARNING) << "Retrying the decryption operation after transient error: "
                  << result.status();
     StartDecryptOperation(account_id, public_key_info, keyset_challenge_info,
-                          locked_to_single_user, attempt_number + 1,
-                          std::move(original_callback));
+                          attempt_number + 1, std::move(original_callback));
   } else {
     if (!result.ok()) {
       LOG(ERROR) << "Decryption completed with error: " << result.status();

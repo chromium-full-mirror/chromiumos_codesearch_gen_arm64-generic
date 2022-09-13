@@ -7,11 +7,11 @@
 
 #include <libhwsec/frontend/cryptohome/frontend.h>
 
-#include "cryptohome/auth_blocks/auth_block_state.h"
+#include "cryptohome/auth_blocks/auth_block_type.h"
 #include "cryptohome/crypto_error.h"
+#include "cryptohome/flatbuffer_schemas/auth_block_state.h"
 #include "cryptohome/key_objects.h"
 #include "cryptohome/le_credential_manager.h"
-#include "cryptohome/tpm.h"
 
 namespace cryptohome {
 namespace revocation {
@@ -32,7 +32,9 @@ CryptoError Derive(LECredentialManager* le_manager,
                    KeyBlobs* in_out_key_blobs);
 
 // Removes data required to derive a key from provided `revocation_state`.
-CryptoError Revoke(LECredentialManager* le_manager,
+// `auth_block_type` is used for metrics.
+CryptoError Revoke(AuthBlockType auth_block_type,
+                   LECredentialManager* le_manager,
                    const RevocationState& revocation_state);
 
 }  // namespace revocation

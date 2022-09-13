@@ -17,17 +17,19 @@
 #include "cryptohome/auth_session.h"
 #include "cryptohome/crypto.h"
 #include "cryptohome/keyset_management.h"
+#include "cryptohome/platform.h"
 #include "cryptohome/user_secret_stash_storage.h"
+#include "cryptohome/user_session/user_session_map.h"
 
 namespace cryptohome {
 
 class AuthSessionManager {
  public:
-  // The `Crypto`, `KeysetManagement*`, `AuthBlockUtility*`,
-  // `AuthFactorManager*`, `UserSecretStashStorage*` are unowned and must
-  // outlive the created object.
+  // The passed raw pointers are unowned and must outlive the created object.
   explicit AuthSessionManager(
       Crypto* crypto,
+      Platform* platform,
+      UserSessionMap* user_session_map,
       KeysetManagement* keyset_management,
       AuthBlockUtility* auth_block_utility,
       AuthFactorManager* auth_factor_manager,
@@ -38,13 +40,17 @@ class AuthSessionManager {
 
   // Creates new auth session for account_id. AuthSessionManager owns the
   // created AuthSession and the method returns a pointer to it.
-  AuthSession* CreateAuthSession(const std::string& account_id, uint32_t flags);
+  AuthSession* CreateAuthSession(const std::string& account_id,
+                                 uint32_t flags,
+                                 AuthIntent auth_intent);
 
-  // Removes existing auth session with token.
-  void RemoveAuthSession(const base::UnguessableToken& token);
+  // Removes existing auth session with token. Returns false if there's no auth
+  // session with this token.
+  bool RemoveAuthSession(const base::UnguessableToken& token);
 
-  // Overload for remove to avoid deserialization client side.
-  void RemoveAuthSession(const std::string& serialized_token);
+  // Overload for remove to avoid deserialization client side. Returns false if
+  // there's no auth session with the given token.
+  bool RemoveAuthSession(const std::string& serialized_token);
 
   // Finds existing auth session with token.
   AuthSession* FindAuthSession(const base::UnguessableToken& token) const;
@@ -55,6 +61,10 @@ class AuthSessionManager {
  private:
   // Unowned; must outlive `this`.
   Crypto* const crypto_;
+  // Unowned; must outlive `this`.
+  Platform* const platform_;
+  // Unowned; must outlive `this`.
+  UserSessionMap* const user_session_map_;
   // Unowned; must outlive `this`.
   KeysetManagement* const keyset_management_;
   // Unowned; must outlive `this`.

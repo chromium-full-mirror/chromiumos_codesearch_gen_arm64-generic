@@ -2,6 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+#include <cstdint>
 #include <memory>
 #include <utility>
 
@@ -46,7 +47,7 @@ TEST_F(BackendEncryptionTpm1Test, Encrypt) {
                       SetArgPointee<2>(fake_pubkey.data()),
                       Return(TPM_SUCCESS)));
 
-  auto key = middleware_->CallSync<&Backend::KeyManagerment::LoadKey>(
+  auto key = middleware_->CallSync<&Backend::KeyManagement::LoadKey>(
       kFakePolicy, kFakeKeyBlob);
 
   ASSERT_TRUE(key.ok());
@@ -99,7 +100,7 @@ TEST_F(BackendEncryptionTpm1Test, Decrypt) {
                       SetArgPointee<2>(fake_pubkey.data()),
                       Return(TPM_SUCCESS)));
 
-  auto key = middleware_->CallSync<&Backend::KeyManagerment::LoadKey>(
+  auto key = middleware_->CallSync<&Backend::KeyManagement::LoadKey>(
       kFakePolicy, kFakeKeyBlob);
 
   ASSERT_TRUE(key.ok());

@@ -18,8 +18,8 @@
 #include "base/hash/md5_constexpr.h"
 #include "base/run_loop.h"
 #include "base/strings/string_number_conversions.h"
-#include "base/task/common/task_annotator.h"
-#include "base/trace_event/base_tracing.h"
+#include "base/trace_event/trace_event.h"
+#include "base/trace_event/typed_macros.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
 #include "mojo/public/cpp/bindings/lib/send_message_helper.h"
@@ -30,6 +30,7 @@
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
+#include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
 #include "ml/mojom/model.mojom-params-data.h"
 #include "ml/mojom/model.mojom-shared-message-ids.h"
@@ -82,9 +83,9 @@ size_t GraphExecutorOptions::Hash(size_t seed) const {
 }
 
 void GraphExecutorOptions::WriteIntoTrace(
-    perfetto::libchrome::TracedValue traced_context) const {
-  auto dict = std::move(traced_context).WriteDictionary();
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "use_nnapi"), this->use_nnapi,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -93,7 +94,7 @@ void GraphExecutorOptions::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "use_gpu"), this->use_gpu,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -102,7 +103,7 @@ void GraphExecutorOptions::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "gpu_delegate_api"), this->gpu_delegate_api,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -132,9 +133,9 @@ size_t BuiltinModelSpec::Hash(size_t seed) const {
 }
 
 void BuiltinModelSpec::WriteIntoTrace(
-    perfetto::libchrome::TracedValue traced_context) const {
-  auto dict = std::move(traced_context).WriteDictionary();
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "id"), this->id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -169,9 +170,9 @@ FlatBufferModelSpec::FlatBufferModelSpec(
 FlatBufferModelSpec::~FlatBufferModelSpec() = default;
 
 void FlatBufferModelSpec::WriteIntoTrace(
-    perfetto::libchrome::TracedValue traced_context) const {
-  auto dict = std::move(traced_context).WriteDictionary();
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "model_string"), this->model_string,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -180,7 +181,7 @@ void FlatBufferModelSpec::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "inputs"), this->inputs,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -189,7 +190,7 @@ void FlatBufferModelSpec::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "outputs"), this->outputs,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -198,7 +199,7 @@ void FlatBufferModelSpec::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "metrics_model_name"), this->metrics_model_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -215,6 +216,52 @@ bool FlatBufferModelSpec::Validate(
   return Data_::Validate(data, validation_context);
 }
 const char Model::Name_[] = "chromeos.machine_learning.mojom.Model";
+
+uint32_t Model::MessageToStableIPCHash_(mojo::Message& message) {
+  switch (message.name()) {
+    case internal::kModel_REMOVED_0_Name: {
+      constexpr uint32_t value = base::MD5Hash32Constexpr(
+              "(Impl)chromeos::machine_learning::mojom::Model::REMOVED_0");
+      return value;
+    }
+    case internal::kModel_CreateGraphExecutor_Name: {
+      constexpr uint32_t value = base::MD5Hash32Constexpr(
+              "(Impl)chromeos::machine_learning::mojom::Model::CreateGraphExecutor");
+      return value;
+    }
+  }
+  return 0;
+}
+
+
+const char* Model::MessageToMethodName_(mojo::Message& message) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (!is_response) {
+    switch (message.name()) {
+      case internal::kModel_REMOVED_0_Name:
+            return "Receive chromeos::machine_learning::mojom::Model::REMOVED_0";
+      case internal::kModel_CreateGraphExecutor_Name:
+            return "Receive chromeos::machine_learning::mojom::Model::CreateGraphExecutor";
+    }
+  } else {
+    switch (message.name()) {
+      case internal::kModel_REMOVED_0_Name:
+            return "Receive reply chromeos::machine_learning::mojom::Model::REMOVED_0";
+      case internal::kModel_CreateGraphExecutor_Name:
+            return "Receive reply chromeos::machine_learning::mojom::Model::CreateGraphExecutor";
+    }
+  }
+  return "Receive unknown mojo message";
+#else
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (is_response) {
+    return "Receive mojo reply";
+  } else {
+    return "Receive mojo message";
+  }
+#endif // BUILDFLAG(MOJO_TRACE_ENABLED)
+}
 
 class Model_REMOVED_0_ForwardToCallback
     : public mojo::MessageReceiver {
@@ -257,9 +304,9 @@ void ModelProxy::REMOVED_0(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send chromeos::machine_learning::mojom::Model::REMOVED_0", "input_parameters",
-    [&](perfetto::libchrome::TracedValue context){
+    [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto::libchrome::WriteIntoTracedValueWithFallback(
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("receiver"), in_receiver,
                         "<value of type ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::GraphExecutor>>");
    });
@@ -301,12 +348,12 @@ void ModelProxy::CreateGraphExecutor(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send chromeos::machine_learning::mojom::Model::CreateGraphExecutor", "input_parameters",
-    [&](perfetto::libchrome::TracedValue context){
+    [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto::libchrome::WriteIntoTracedValueWithFallback(
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("options"), in_options,
                         "<value of type GraphExecutorOptionsPtr>");
-      perfetto::libchrome::WriteIntoTracedValueWithFallback(
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("receiver"), in_receiver,
                         "<value of type ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::GraphExecutor>>");
    });
@@ -400,10 +447,6 @@ class Model_REMOVED_0_ProxyToResponder : public ::mojo::internal::ProxyToRespond
 
 bool Model_REMOVED_0_ForwardToCallback::Accept(
     mojo::Message* message) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT("toplevel", "Receive reply chromeos::machine_learning::mojom::Model::REMOVED_0",
-               perfetto::libchrome::Flow::Global(message->GetTraceId()));
-#endif
 
   DCHECK(message->is_serialized());
   internal::Model_REMOVED_0_ResponseParams_Data* params =
@@ -435,9 +478,9 @@ void Model_REMOVED_0_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply chromeos::machine_learning::mojom::Model::REMOVED_0", "async_response_parameters",
-    [&](perfetto::libchrome::TracedValue context){
+    [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto::libchrome::WriteIntoTracedValueWithFallback(
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("result"), in_result,
                         "<value of type CreateGraphExecutorResult>");
    });
@@ -464,8 +507,11 @@ void Model_REMOVED_0_ProxyToResponder::Run(
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
   ::mojo::internal::SendMessage(*responder_, message);
-  // TODO(darin): Accept() returning false indicates a malformed message, and
-  // that may be good reason to close the connection. However, we don't have a
+  // SendMessage fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
@@ -516,10 +562,6 @@ class Model_CreateGraphExecutor_ProxyToResponder : public ::mojo::internal::Prox
 
 bool Model_CreateGraphExecutor_ForwardToCallback::Accept(
     mojo::Message* message) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT("toplevel", "Receive reply chromeos::machine_learning::mojom::Model::CreateGraphExecutor",
-               perfetto::libchrome::Flow::Global(message->GetTraceId()));
-#endif
 
   DCHECK(message->is_serialized());
   internal::Model_CreateGraphExecutor_ResponseParams_Data* params =
@@ -551,9 +593,9 @@ void Model_CreateGraphExecutor_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply chromeos::machine_learning::mojom::Model::CreateGraphExecutor", "async_response_parameters",
-    [&](perfetto::libchrome::TracedValue context){
+    [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto::libchrome::WriteIntoTracedValueWithFallback(
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("result"), in_result,
                         "<value of type CreateGraphExecutorResult>");
    });
@@ -580,8 +622,11 @@ void Model_CreateGraphExecutor_ProxyToResponder::Run(
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
   ::mojo::internal::SendMessage(*responder_, message);
-  // TODO(darin): Accept() returning false indicates a malformed message, and
-  // that may be good reason to close the connection. However, we don't have a
+  // SendMessage fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
@@ -611,15 +656,6 @@ bool ModelStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const uint64_t request_id = message->request_id();
   switch (message->header()->name) {
     case internal::kModel_REMOVED_0_Name: {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      TRACE_EVENT(
-          "toplevel",
-          "Receive chromeos::machine_learning::mojom::Model::REMOVED_0",
-          perfetto::libchrome::Flow::Global(message->GetTraceId()));
-#endif
-      static constexpr uint32_t kMessageHash = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::machine_learning::mojom::Model::REMOVED_0");
-      base::TaskAnnotator::ScopedSetIpcHash scoped_ipc_hash(kMessageHash);
 
       internal::Model_REMOVED_0_Params_Data* params =
           reinterpret_cast<
@@ -651,15 +687,6 @@ std::move(p_receiver), std::move(callback));
       return true;
     }
     case internal::kModel_CreateGraphExecutor_Name: {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      TRACE_EVENT(
-          "toplevel",
-          "Receive chromeos::machine_learning::mojom::Model::CreateGraphExecutor",
-          perfetto::libchrome::Flow::Global(message->GetTraceId()));
-#endif
-      static constexpr uint32_t kMessageHash = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::machine_learning::mojom::Model::CreateGraphExecutor");
-      base::TaskAnnotator::ScopedSetIpcHash scoped_ipc_hash(kMessageHash);
 
       internal::Model_CreateGraphExecutor_Params_Data* params =
           reinterpret_cast<

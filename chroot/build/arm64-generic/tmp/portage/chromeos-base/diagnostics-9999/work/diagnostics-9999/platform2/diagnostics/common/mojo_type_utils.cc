@@ -17,12 +17,14 @@ bool operator<(const BusInfo& a, const BusInfo& b) {
   if (a.which() != b.which())
     return a.which() < b.which();
   switch (a.which()) {
-    case BusInfo::Tag::PCI_BUS_INFO:
+    case BusInfo::Tag::kPciBusInfo:
       return a.get_pci_bus_info() < b.get_pci_bus_info();
-    case BusInfo::Tag::USB_BUS_INFO:
+    case BusInfo::Tag::kUsbBusInfo:
       return a.get_usb_bus_info() < b.get_usb_bus_info();
-    case BusInfo::Tag::THUNDERBOLT_BUS_INFO:
+    case BusInfo::Tag::kThunderboltBusInfo:
       return a.get_thunderbolt_bus_info() < b.get_thunderbolt_bus_info();
+    case BusInfo::Tag::kUnmappedField:
+      return a.get_unmapped_field() < b.get_unmapped_field();
   }
 }
 }  // namespace mojom
@@ -199,8 +201,8 @@ std::string GetDiffString<mojo_ipc::OsInfo>(const mojo_ipc::OsInfo& a,
 }
 
 template <>
-std::string GetDiffString<mojo_ipc::SystemInfoV2>(
-    const mojo_ipc::SystemInfoV2& a, const mojo_ipc::SystemInfoV2& b) {
+std::string GetDiffString<mojo_ipc::SystemInfo>(const mojo_ipc::SystemInfo& a,
+                                                const mojo_ipc::SystemInfo& b) {
   return CompareHelper(a, b)
       .FIELD(vpd_info)
       .FIELD(dmi_info)

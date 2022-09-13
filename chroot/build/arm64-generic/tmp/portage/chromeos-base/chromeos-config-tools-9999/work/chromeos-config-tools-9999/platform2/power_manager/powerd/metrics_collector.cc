@@ -13,6 +13,7 @@
 #include <base/files/file_path.h>
 #include <base/files/file_util.h>
 #include <base/logging.h>
+#include <base/notreached.h>
 #include <base/strings/string_number_conversions.h>
 
 #include "power_manager/common/metrics_constants.h"
@@ -75,6 +76,22 @@ std::string MetricsCollector::AppendPowerSourceToEnumName(
     const std::string& enum_name, PowerSource power_source) {
   return enum_name +
          (power_source == PowerSource::AC ? kAcSuffix : kBatterySuffix);
+}
+
+std::string MetricsCollector::AppendPrivacyScreenStateToEnumName(
+    const std::string& enum_name,
+    const privacy_screen::PrivacyScreenSetting_PrivacyScreenState& state) {
+  switch (state) {
+    case privacy_screen::PrivacyScreenSetting_PrivacyScreenState_DISABLED:
+      return enum_name + kPrivacyScreenDisabled;
+    case privacy_screen::PrivacyScreenSetting_PrivacyScreenState_ENABLED:
+      return enum_name + kPrivacyScreenEnabled;
+    default:
+      NOTREACHED()
+          << "Will not send metrics for unhandled privacy screen state "
+          << static_cast<int>(state);
+      return enum_name;
+  }
 }
 
 // static
@@ -288,6 +305,14 @@ void MetricsCollector::HandleShutdown(ShutdownReason reason) {
                  static_cast<int>(kShutdownReasonMax));
 }
 
+void MetricsCollector::HandlePrivacyScreenStateChange(
+    const privacy_screen::PrivacyScreenSetting_PrivacyScreenState& state) {
+  if (state == privacy_screen_state_)
+    return;
+
+  privacy_screen_state_ = state;
+}
+
 void MetricsCollector::PrepareForSuspend() {
   battery_energy_before_suspend_ = last_power_status_.battery_energy;
   on_line_power_before_suspend_ = last_power_status_.line_power_on;
@@ -296,19 +321,25 @@ void MetricsCollector::PrepareForSuspend() {
     TrackS0ixResidency(true);
 }
 
-void MetricsCollector::HandleResume(int num_suspend_attempts) {
-  SendMetric(kSuspendAttemptsBeforeSuccessName, num_suspend_attempts,
-             kSuspendAttemptsMin, kSuspendAttemptsMax, kSuspendAttemptsBuckets);
+void MetricsCollector::HandleResume(int num_suspend_attempts, bool hibernated) {
+  last_suspend_was_hibernate_ = hibernated;
+  SendMetric(hibernated ? kHibernateAttemptsBeforeSuccessName
+                        : kSuspendAttemptsBeforeSuccessName,
+             num_suspend_attempts, kSuspendAttemptsMin, kSuspendAttemptsMax,
+             kSuspendAttemptsBuckets);
   // Report the discharge rate in response to the next
   // OnPowerStatusUpdate() call.
   report_battery_discharge_rate_while_suspended_ = true;
-  if (suspend_to_idle_)
+  if (suspend_to_idle_ && !hibernated)
     TrackS0ixResidency(false);
 }
 
-void MetricsCollector::HandleCanceledSuspendRequest(int num_suspend_attempts) {
-  SendMetric(kSuspendAttemptsBeforeCancelName, num_suspend_attempts,
-             kSuspendAttemptsMin, kSuspendAttemptsMax, kSuspendAttemptsBuckets);
+void MetricsCollector::HandleCanceledSuspendRequest(int num_suspend_attempts,
+                                                    bool hibernate) {
+  SendMetric(hibernate ? kHibernateAttemptsBeforeCancelName
+                       : kSuspendAttemptsBeforeCancelName,
+             num_suspend_attempts, kSuspendAttemptsMin, kSuspendAttemptsMax,
+             kSuspendAttemptsBuckets);
 }
 
 void MetricsCollector::GenerateDarkResumeMetrics(
@@ -377,6 +408,8 @@ void MetricsCollector::GenerateBacklightLevelMetrics() {
     // Enum to avoid exponential histogram's varyingly-sized buckets.
     SendEnumMetricWithPowerSource(kBacklightLevelName, lround(percent),
                                   kMaxPercent);
+    SendEnumMetricWithPrivacyScreenStatePowerSource(
+        kBacklightLevelName, lround(percent), kMaxPercent);
   }
   if (keyboard_backlight_controller_ &&
       keyboard_backlight_controller_->GetBrightnessPercent(&percent)) {
@@ -390,10 +423,15 @@ void MetricsCollector::GenerateDimEventMetrics(const DimEvent sample) {
                                 static_cast<int>(DimEvent::MAX));
 }
 
-void MetricsCollector::GenerateDimEventDurationMetrics(
+void MetricsCollector::GenerateLockEventMetrics(const LockEvent sample) {
+  SendEnumMetricWithPowerSource(kLockEvent, static_cast<int>(sample),
+                                static_cast<int>(LockEvent::MAX));
+}
+
+void MetricsCollector::GenerateHpsEventDurationMetrics(
     const std::string& event_name, base::TimeDelta duration) {
-  SendMetric(event_name, duration.InSeconds(), kDimEventDurationMin,
-             kDimEventDurationMax, kDefaultBuckets);
+  SendMetric(event_name, duration.InSeconds(), kHpsEventDurationMin,
+             kHpsEventDurationMax, kDefaultBuckets);
 }
 
 void MetricsCollector::HandlePowerButtonEvent(ButtonState state) {
@@ -450,6 +488,20 @@ bool MetricsCollector::SendEnumMetricWithPowerSource(const std::string& name,
   return SendEnumMetric(full_name, sample, max);
 }
 
+bool MetricsCollector::SendEnumMetricWithPrivacyScreenStatePowerSource(
+    const std::string& name, int sample, int max) {
+  privacy_screen::PrivacyScreenSetting_PrivacyScreenState state =
+      privacy_screen_state_;
+  switch (state) {
+    case privacy_screen::PrivacyScreenSetting_PrivacyScreenState_DISABLED:
+    case privacy_screen::PrivacyScreenSetting_PrivacyScreenState_ENABLED:
+      return SendEnumMetricWithPowerSource(
+          AppendPrivacyScreenStateToEnumName(name, state), sample, max);
+    default:
+      return true;
+  }
+}
+
 void MetricsCollector::GenerateBatteryDischargeRateMetric() {
   // The battery discharge rate metric is relevant and collected only
   // when running on battery.
@@ -501,7 +553,9 @@ void MetricsCollector::GenerateBatteryDischargeRateWhileSuspendedMetric() {
   if (discharge_rate_watts < 0.0)
     return;
 
-  SendMetric(kBatteryDischargeRateWhileSuspendedName,
+  SendMetric(last_suspend_was_hibernate_
+                 ? kBatteryDischargeRateWhileHibernatedName
+                 : kBatteryDischargeRateWhileSuspendedName,
              static_cast<int>(round(discharge_rate_watts * 1000)),
              kBatteryDischargeRateWhileSuspendedMin,
              kBatteryDischargeRateWhileSuspendedMax, kDefaultDischargeBuckets);
@@ -530,6 +584,9 @@ void MetricsCollector::GenerateAdaptiveChargingUnplugMetrics(
       break;
     case AdaptiveChargingState::USER_DISABLED:
       metric_name = kAdaptiveChargingMinutesDeltaUserDisabledName;
+      break;
+    case AdaptiveChargingState::SHUTDOWN:
+      metric_name = kAdaptiveChargingMinutesDeltaShutdownName;
       break;
     case AdaptiveChargingState::NOT_SUPPORTED:
       metric_name = kAdaptiveChargingMinutesDeltaNotSupportedName;

@@ -46,7 +46,8 @@ class Executor final : public mojom::Executor {
                GetInfoCallback callback) override;
   void GetScanDump(const std::string& interface_name,
                    GetScanDumpCallback callback) override;
-  void RunMemtester(RunMemtesterCallback callback) override;
+  void RunMemtester(uint32_t test_mem_kib,
+                    RunMemtesterCallback callback) override;
   void KillMemtester() override;
   void GetProcessIOContents(const uint32_t pid,
                             GetProcessIOContentsCallback callback) override;
@@ -55,6 +56,7 @@ class Executor final : public mojom::Executor {
                ReadMsrCallback callback) override;
   void GetUEFISecureBootContent(
       GetUEFISecureBootContentCallback callback) override;
+  void GetLidAngle(GetLidAngleCallback callback) override;
 
  private:
   // Runs the given binary with the given arguments and sandboxing. If

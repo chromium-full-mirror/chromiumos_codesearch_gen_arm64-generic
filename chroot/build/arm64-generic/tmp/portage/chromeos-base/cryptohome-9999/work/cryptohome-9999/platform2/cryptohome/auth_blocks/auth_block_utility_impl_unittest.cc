@@ -17,13 +17,15 @@
 #include <brillo/secure_blob.h>
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
+#include <libhwsec/factory/tpm2_simulator_factory_for_test.h>
 #include <libhwsec/frontend/cryptohome/mock_frontend.h>
+#include <libhwsec/frontend/pinweaver/mock_frontend.h>
+#include <libhwsec/frontend/recovery_crypto/mock_frontend.h>
 #include <libhwsec-foundation/crypto/rsa.h>
 #include <libhwsec-foundation/crypto/scrypt.h>
 #include <libhwsec-foundation/error/testing_helper.h>
 
 #include "cryptohome/auth_blocks/auth_block.h"
-#include "cryptohome/auth_blocks/auth_block_state.h"
 #include "cryptohome/auth_blocks/auth_block_type.h"
 #include "cryptohome/auth_blocks/challenge_credential_auth_block.h"
 #include "cryptohome/auth_blocks/double_wrapped_compat_auth_block.h"
@@ -37,11 +39,10 @@
 #include "cryptohome/crypto.h"
 #include "cryptohome/crypto_error.h"
 #include "cryptohome/cryptorecovery/fake_recovery_mediator_crypto.h"
-#include "cryptohome/cryptorecovery/recovery_crypto_fake_tpm_backend_impl.h"
 #include "cryptohome/cryptorecovery/recovery_crypto_hsm_cbor_serialization.h"
 #include "cryptohome/cryptorecovery/recovery_crypto_impl.h"
-#include "cryptohome/fake_le_credential_backend.h"
 #include "cryptohome/filesystem_layout.h"
+#include "cryptohome/flatbuffer_schemas/auth_block_state.h"
 #include "cryptohome/key_objects.h"
 #include "cryptohome/le_credential_manager_impl.h"
 #include "cryptohome/mock_cryptohome_keys_manager.h"
@@ -49,7 +50,6 @@
 #include "cryptohome/mock_keyset_management.h"
 #include "cryptohome/mock_le_credential_manager.h"
 #include "cryptohome/mock_platform.h"
-#include "cryptohome/mock_tpm.h"
 #include "cryptohome/mock_vault_keyset.h"
 #include "cryptohome/vault_keyset.h"
 
@@ -78,10 +78,15 @@ constexpr char kUser[] = "Test User";
 
 class AuthBlockUtilityImplTest : public ::testing::Test {
  public:
-  AuthBlockUtilityImplTest() : crypto_(&tpm_, &cryptohome_keys_manager_) {}
+  AuthBlockUtilityImplTest()
+      : recovery_crypto_fake_backend_(
+            hwsec_factory_.GetRecoveryCryptoFrontend()),
+        crypto_(&hwsec_,
+                &pinweaver_,
+                &cryptohome_keys_manager_,
+                recovery_crypto_fake_backend_.get()) {}
   AuthBlockUtilityImplTest(const AuthBlockUtilityImplTest&) = delete;
   AuthBlockUtilityImplTest& operator=(const AuthBlockUtilityImplTest&) = delete;
-  virtual ~AuthBlockUtilityImplTest() {}
 
   void SetUp() override {
     // Setup salt for brillo functions.
@@ -91,21 +96,98 @@ class AuthBlockUtilityImplTest : public ::testing::Test {
         brillo::SecureBlob(*brillo::cryptohome::home::GetSystemSalt());
     ON_CALL(hwsec_, IsEnabled()).WillByDefault(ReturnValue(true));
     ON_CALL(hwsec_, IsReady()).WillByDefault(ReturnValue(true));
+    ON_CALL(hwsec_, IsSealingSupported()).WillByDefault(ReturnValue(true));
     ON_CALL(hwsec_, GetPubkeyHash(_))
         .WillByDefault(ReturnValue(brillo::BlobFromString("public key hash")));
+    ON_CALL(pinweaver_, IsEnabled()).WillByDefault(ReturnValue(true));
   }
 
  protected:
   MockPlatform platform_;
   brillo::SecureBlob system_salt_;
   NiceMock<MockCryptohomeKeysManager> cryptohome_keys_manager_;
-  NiceMock<MockTpm> tpm_;
+  NiceMock<hwsec::MockCryptohomeFrontend> hwsec_;
+  NiceMock<hwsec::MockPinWeaverFrontend> pinweaver_;
+  hwsec::Tpm2SimulatorFactoryForTest hwsec_factory_;
+  std::unique_ptr<hwsec::RecoveryCryptoFrontend> recovery_crypto_fake_backend_;
   Crypto crypto_;
-  hwsec::MockCryptohomeFrontend& hwsec_ = *tpm_.get_mock_hwsec();
   std::unique_ptr<KeysetManagement> keyset_management_;
   std::unique_ptr<AuthBlockUtilityImpl> auth_block_utility_impl_;
   NiceMock<MockChallengeCredentialsHelper> challenge_credentials_helper_;
 };
+
+TEST_F(AuthBlockUtilityImplTest, GetSupportedAuthFactors) {
+  auth_block_utility_impl_ = std::make_unique<AuthBlockUtilityImpl>(
+      keyset_management_.get(), &crypto_, &platform_);
+
+  EXPECT_TRUE(auth_block_utility_impl_->IsAuthFactorSupported(
+      AuthFactorType::kPassword, AuthFactorStorageType::kVaultKeyset, {}));
+  EXPECT_TRUE(auth_block_utility_impl_->IsAuthFactorSupported(
+      AuthFactorType::kPassword, AuthFactorStorageType::kUserSecretStash, {}));
+  EXPECT_TRUE(auth_block_utility_impl_->IsAuthFactorSupported(
+      AuthFactorType::kPassword, AuthFactorStorageType::kUserSecretStash,
+      {AuthFactorType::kPassword}));
+  EXPECT_FALSE(auth_block_utility_impl_->IsAuthFactorSupported(
+      AuthFactorType::kPassword, AuthFactorStorageType::kUserSecretStash,
+      {AuthFactorType::kKiosk}));
+
+  EXPECT_CALL(hwsec_, IsPinWeaverEnabled()).WillOnce(ReturnValue(false));
+  EXPECT_FALSE(auth_block_utility_impl_->IsAuthFactorSupported(
+      AuthFactorType::kPin, AuthFactorStorageType::kVaultKeyset, {}));
+  EXPECT_CALL(hwsec_, IsPinWeaverEnabled()).WillOnce(ReturnValue(true));
+  EXPECT_TRUE(auth_block_utility_impl_->IsAuthFactorSupported(
+      AuthFactorType::kPin, AuthFactorStorageType::kVaultKeyset, {}));
+  EXPECT_CALL(hwsec_, IsPinWeaverEnabled()).WillOnce(ReturnValue(false));
+  EXPECT_FALSE(auth_block_utility_impl_->IsAuthFactorSupported(
+      AuthFactorType::kPin, AuthFactorStorageType::kUserSecretStash, {}));
+  EXPECT_CALL(hwsec_, IsPinWeaverEnabled()).WillOnce(ReturnValue(true));
+  EXPECT_TRUE(auth_block_utility_impl_->IsAuthFactorSupported(
+      AuthFactorType::kPin, AuthFactorStorageType::kUserSecretStash, {}));
+  EXPECT_CALL(hwsec_, IsPinWeaverEnabled()).WillOnce(ReturnValue(true));
+  EXPECT_TRUE(auth_block_utility_impl_->IsAuthFactorSupported(
+      AuthFactorType::kPin, AuthFactorStorageType::kUserSecretStash,
+      {AuthFactorType::kPin}));
+  EXPECT_FALSE(auth_block_utility_impl_->IsAuthFactorSupported(
+      AuthFactorType::kPin, AuthFactorStorageType::kUserSecretStash,
+      {AuthFactorType::kKiosk}));
+
+  EXPECT_FALSE(auth_block_utility_impl_->IsAuthFactorSupported(
+      AuthFactorType::kCryptohomeRecovery, AuthFactorStorageType::kVaultKeyset,
+      {}));
+  EXPECT_TRUE(auth_block_utility_impl_->IsAuthFactorSupported(
+      AuthFactorType::kCryptohomeRecovery,
+      AuthFactorStorageType::kUserSecretStash, {}));
+  EXPECT_TRUE(auth_block_utility_impl_->IsAuthFactorSupported(
+      AuthFactorType::kCryptohomeRecovery,
+      AuthFactorStorageType::kUserSecretStash,
+      {AuthFactorType::kCryptohomeRecovery}));
+  EXPECT_FALSE(auth_block_utility_impl_->IsAuthFactorSupported(
+      AuthFactorType::kCryptohomeRecovery,
+      AuthFactorStorageType::kUserSecretStash, {AuthFactorType::kKiosk}));
+
+  EXPECT_TRUE(auth_block_utility_impl_->IsAuthFactorSupported(
+      AuthFactorType::kKiosk, AuthFactorStorageType::kVaultKeyset, {}));
+  EXPECT_TRUE(auth_block_utility_impl_->IsAuthFactorSupported(
+      AuthFactorType::kKiosk, AuthFactorStorageType::kUserSecretStash, {}));
+  EXPECT_TRUE(auth_block_utility_impl_->IsAuthFactorSupported(
+      AuthFactorType::kKiosk, AuthFactorStorageType::kVaultKeyset,
+      {AuthFactorType::kKiosk}));
+  EXPECT_TRUE(auth_block_utility_impl_->IsAuthFactorSupported(
+      AuthFactorType::kKiosk, AuthFactorStorageType::kUserSecretStash,
+      {AuthFactorType::kKiosk}));
+  EXPECT_FALSE(auth_block_utility_impl_->IsAuthFactorSupported(
+      AuthFactorType::kKiosk, AuthFactorStorageType::kVaultKeyset,
+      {AuthFactorType::kPassword}));
+  EXPECT_FALSE(auth_block_utility_impl_->IsAuthFactorSupported(
+      AuthFactorType::kKiosk, AuthFactorStorageType::kUserSecretStash,
+      {AuthFactorType::kPassword}));
+
+  EXPECT_FALSE(auth_block_utility_impl_->IsAuthFactorSupported(
+      AuthFactorType::kUnspecified, AuthFactorStorageType::kVaultKeyset, {}));
+  EXPECT_FALSE(auth_block_utility_impl_->IsAuthFactorSupported(
+      AuthFactorType::kUnspecified, AuthFactorStorageType::kUserSecretStash,
+      {}));
+}
 
 // Test that CreateKeyBlobsWithAuthBlock creates AuthBlockState and KeyBlobs
 // with PinWeaverAuthBlock when the AuthBlock type is low entropy credential.
@@ -120,7 +202,7 @@ TEST_F(AuthBlockUtilityImplTest, CreatePinweaverAuthBlockTest) {
 
   EXPECT_CALL(*le_cred_manager, InsertCredential(_, _, _, _, _, _))
       .WillOnce(
-          DoAll(SaveArg<0>(&le_secret), ReturnError<CryptohomeLECredError>()));
+          DoAll(SaveArg<1>(&le_secret), ReturnError<CryptohomeLECredError>()));
   crypto_.set_le_manager_for_testing(
       std::unique_ptr<cryptohome::LECredentialManager>(le_cred_manager));
   crypto_.Init();
@@ -1073,9 +1155,8 @@ TEST_F(AuthBlockUtilityImplTest, AsyncChallengeCredentialDerive) {
   auth_block_utility_impl_->SetSingleUseKeyChallengeService(
       std::move(mock_key_challenge_service), credentials.username());
 
-  EXPECT_CALL(challenge_credentials_helper_,
-              Decrypt(kUser, _, _, /*locked_to_single_user=*/false, _, _))
-      .WillOnce([&](auto&&, auto&&, auto&&, auto&&, auto&&, auto&& callback) {
+  EXPECT_CALL(challenge_credentials_helper_, Decrypt(kUser, _, _, _, _))
+      .WillOnce([&](auto&&, auto&&, auto&&, auto&&, auto&& callback) {
         auto passkey = std::make_unique<brillo::SecureBlob>(scrypt_passkey);
         std::move(callback).Run(
             ChallengeCredentialsHelper::GenerateNewOrDecryptResult(
@@ -1091,8 +1172,14 @@ TEST_F(AuthBlockUtilityImplTest, AsyncChallengeCredentialDerive) {
                   blobs->scrypt_wrapped_reset_seed_key->derived_key());
       });
 
-  AuthInput auth_input = {credentials.passkey(),
-                          /*locked_to_single_user=*/std::nullopt};
+  AuthInput auth_input = {
+      credentials.passkey(),
+      /*locked_to_single_user=*/std::nullopt,
+      .challenge_credential_auth_input = ChallengeCredentialAuthInput{
+          .public_key_spki_der = brillo::BlobFromString("public_key_spki_der"),
+          .challenge_signature_algorithms =
+              {structure::ChallengeSignatureAlgorithm::kRsassaPkcs1V15Sha256},
+      }};
   auth_block_utility_impl_->DeriveKeyBlobsWithAuthBlockAsync(
       AuthBlockType::kChallengeCredential, auth_input, auth_state,
       std::move(derive_callback));
@@ -1367,6 +1454,8 @@ TEST_F(AuthBlockUtilityImplTest, MatchAuthBlockForCreation) {
       keyset_management_.get(), &crypto_, &platform_);
 
   // Test for kLibScryptCompat
+  EXPECT_CALL(hwsec_, IsEnabled()).WillRepeatedly(ReturnValue(false));
+  EXPECT_CALL(hwsec_, IsReady()).WillRepeatedly(ReturnValue(false));
   EXPECT_EQ(USE_TPM_INSECURE_FALLBACK ? AuthBlockType::kLibScryptCompat
                                       : AuthBlockType::kMaxValue,
             auth_block_utility_impl_->GetAuthBlockTypeForCreation(
@@ -1375,6 +1464,8 @@ TEST_F(AuthBlockUtilityImplTest, MatchAuthBlockForCreation) {
                 AuthFactorStorageType::kVaultKeyset));
 
   // Test for kScrypt
+  EXPECT_CALL(hwsec_, IsEnabled()).WillRepeatedly(ReturnValue(false));
+  EXPECT_CALL(hwsec_, IsReady()).WillRepeatedly(ReturnValue(false));
   EXPECT_EQ(USE_TPM_INSECURE_FALLBACK ? AuthBlockType::kScrypt
                                       : AuthBlockType::kMaxValue,
             auth_block_utility_impl_->GetAuthBlockTypeForCreation(
@@ -1403,7 +1494,8 @@ TEST_F(AuthBlockUtilityImplTest, MatchAuthBlockForCreation) {
                 AuthFactorStorageType::kVaultKeyset));
 
   // Test for Tpm backed AuthBlock types.
-  ON_CALL(tpm_, IsOwned()).WillByDefault(Return(true));
+  EXPECT_CALL(hwsec_, IsEnabled()).WillRepeatedly(ReturnValue(true));
+  EXPECT_CALL(hwsec_, IsReady()).WillRepeatedly(ReturnValue(true));
   // credentials.key_data type shouldn't be challenge credential any more.
   KeyData key_data3;
   credentials.set_key_data(key_data3);
@@ -1416,7 +1508,7 @@ TEST_F(AuthBlockUtilityImplTest, MatchAuthBlockForCreation) {
                 AuthFactorStorageType::kVaultKeyset));
 
   // Test for kTpmNotBoundToPcr (No TPM or no TPM2.0)
-  EXPECT_CALL(tpm_, GetVersion()).WillOnce(Return(Tpm::TPM_1_2));
+  EXPECT_CALL(hwsec_, IsSealingSupported()).WillOnce(ReturnValue(false));
   EXPECT_EQ(AuthBlockType::kTpmNotBoundToPcr,
             auth_block_utility_impl_->GetAuthBlockTypeForCreation(
                 /*is_le_credential =*/false, /*is_recovery=*/false,
@@ -1424,7 +1516,7 @@ TEST_F(AuthBlockUtilityImplTest, MatchAuthBlockForCreation) {
                 AuthFactorStorageType::kVaultKeyset));
 
   // Test for kTpmBoundToPcr (TPM2.0 but no support for ECC key)
-  EXPECT_CALL(tpm_, GetVersion()).WillOnce(Return(Tpm::TPM_2_0));
+  EXPECT_CALL(hwsec_, IsSealingSupported()).WillOnce(ReturnValue(true));
   EXPECT_CALL(cryptohome_keys_manager_, GetKeyLoader(CryptohomeKeyType::kECC))
       .WillOnce(Return(nullptr));
   EXPECT_EQ(AuthBlockType::kTpmBoundToPcr,
@@ -1439,174 +1531,6 @@ TEST_F(AuthBlockUtilityImplTest, MatchAuthBlockForCreation) {
                 /*is_le_credential =*/false, /*is_recovery=*/true,
                 /*is_challenge_credential =*/false,
                 AuthFactorStorageType::kVaultKeyset));
-}
-
-TEST_F(AuthBlockUtilityImplTest, MatchAuthBlockForDerivation) {
-  // Setup
-  brillo::SecureBlob passkey(20, 'A');
-  Credentials credentials(kUser, passkey);
-
-  SerializedVaultKeyset serialized;
-  auto vk = std::make_unique<VaultKeyset>();
-
-  NiceMock<MockKeysetManagement> keyset_management;
-  auth_block_utility_impl_ = std::make_unique<AuthBlockUtilityImpl>(
-      &keyset_management, &crypto_, &platform_);
-
-  // Test for kLibScryptCompat
-  serialized.set_flags(SerializedVaultKeyset::SCRYPT_WRAPPED);
-  vk->InitializeFromSerialized(serialized);
-  EXPECT_CALL(keyset_management, GetVaultKeyset(_, _))
-      .WillOnce(Return(ByMove(std::move(vk))));
-  EXPECT_EQ(
-      AuthBlockType::kLibScryptCompat,
-      auth_block_utility_impl_->GetAuthBlockTypeForDerivation(
-          credentials.key_data().label(), credentials.GetObfuscatedUsername()));
-  serialized.set_flags(SerializedVaultKeyset::SCRYPT_WRAPPED |
-                       SerializedVaultKeyset::TPM_WRAPPED);
-  vk = std::make_unique<VaultKeyset>();
-  vk->InitializeFromSerialized(serialized);
-  EXPECT_CALL(keyset_management, GetVaultKeyset(_, _))
-      .WillOnce(Return(ByMove(std::move(vk))));
-  EXPECT_NE(
-      AuthBlockType::kLibScryptCompat,
-      auth_block_utility_impl_->GetAuthBlockTypeForDerivation(
-          credentials.key_data().label(), credentials.GetObfuscatedUsername()));
-
-  // Test for DoubleWrappedCompat
-  serialized.set_flags(SerializedVaultKeyset::SCRYPT_WRAPPED |
-                       SerializedVaultKeyset::TPM_WRAPPED);
-  vk = std::make_unique<VaultKeyset>();
-  vk->InitializeFromSerialized(serialized);
-  EXPECT_CALL(keyset_management, GetVaultKeyset(_, _))
-      .WillOnce(Return(ByMove(std::move(vk))));
-  EXPECT_EQ(
-      AuthBlockType::kDoubleWrappedCompat,
-      auth_block_utility_impl_->GetAuthBlockTypeForDerivation(
-          credentials.key_data().label(), credentials.GetObfuscatedUsername()));
-
-  // Test for kPinWeaver
-  serialized.set_flags(SerializedVaultKeyset::LE_CREDENTIAL);
-  vk = std::make_unique<VaultKeyset>();
-  vk->InitializeFromSerialized(serialized);
-  EXPECT_CALL(keyset_management, GetVaultKeyset(_, _))
-      .WillOnce(Return(ByMove(std::move(vk))));
-  EXPECT_EQ(
-      AuthBlockType::kPinWeaver,
-      auth_block_utility_impl_->GetAuthBlockTypeForDerivation(
-          credentials.key_data().label(), credentials.GetObfuscatedUsername()));
-
-  // Test for kChallengeResponse
-  serialized.set_flags(SerializedVaultKeyset::SIGNATURE_CHALLENGE_PROTECTED);
-  vk = std::make_unique<VaultKeyset>();
-  vk->InitializeFromSerialized(serialized);
-  EXPECT_CALL(keyset_management, GetVaultKeyset(_, _))
-      .WillOnce(Return(ByMove(std::move(vk))));
-  EXPECT_EQ(
-      AuthBlockType::kChallengeCredential,
-      auth_block_utility_impl_->GetAuthBlockTypeForDerivation(
-          credentials.key_data().label(), credentials.GetObfuscatedUsername()));
-
-  // Test for kTpmNotBoundToPcrFlags
-  serialized.set_flags(SerializedVaultKeyset::TPM_WRAPPED);
-  vk = std::make_unique<VaultKeyset>();
-  vk->InitializeFromSerialized(serialized);
-  EXPECT_CALL(keyset_management, GetVaultKeyset(_, _))
-      .WillOnce(Return(ByMove(std::move(vk))));
-  EXPECT_EQ(
-      AuthBlockType::kTpmNotBoundToPcr,
-      auth_block_utility_impl_->GetAuthBlockTypeForDerivation(
-          credentials.key_data().label(), credentials.GetObfuscatedUsername()));
-  serialized.set_flags(SerializedVaultKeyset::TPM_WRAPPED |
-                       SerializedVaultKeyset::SCRYPT_WRAPPED);
-  vk = std::make_unique<VaultKeyset>();
-  vk->InitializeFromSerialized(serialized);
-  EXPECT_CALL(keyset_management, GetVaultKeyset(_, _))
-      .WillOnce(Return(ByMove(std::move(vk))));
-  EXPECT_NE(
-      AuthBlockType::kTpmNotBoundToPcr,
-      auth_block_utility_impl_->GetAuthBlockTypeForDerivation(
-          credentials.key_data().label(), credentials.GetObfuscatedUsername()));
-  serialized.set_flags(SerializedVaultKeyset::TPM_WRAPPED |
-                       SerializedVaultKeyset::PCR_BOUND);
-  vk = std::make_unique<VaultKeyset>();
-  vk->InitializeFromSerialized(serialized);
-  EXPECT_CALL(keyset_management, GetVaultKeyset(_, _))
-      .WillOnce(Return(ByMove(std::move(vk))));
-  EXPECT_NE(
-      AuthBlockType::kTpmNotBoundToPcr,
-      auth_block_utility_impl_->GetAuthBlockTypeForDerivation(
-          credentials.key_data().label(), credentials.GetObfuscatedUsername()));
-  serialized.set_flags(SerializedVaultKeyset::TPM_WRAPPED |
-                       SerializedVaultKeyset::ECC);
-  vk = std::make_unique<VaultKeyset>();
-  vk->InitializeFromSerialized(serialized);
-  EXPECT_CALL(keyset_management, GetVaultKeyset(_, _))
-      .WillOnce(Return(ByMove(std::move(vk))));
-  EXPECT_NE(
-      AuthBlockType::kTpmNotBoundToPcr,
-      auth_block_utility_impl_->GetAuthBlockTypeForDerivation(
-          credentials.key_data().label(), credentials.GetObfuscatedUsername()));
-
-  // Test for kTpmEcc
-  serialized.set_flags(SerializedVaultKeyset::TPM_WRAPPED |
-                       SerializedVaultKeyset::SCRYPT_DERIVED |
-                       SerializedVaultKeyset::PCR_BOUND |
-                       SerializedVaultKeyset::ECC);
-  vk = std::make_unique<VaultKeyset>();
-  vk->InitializeFromSerialized(serialized);
-  EXPECT_CALL(keyset_management, GetVaultKeyset(_, _))
-      .WillOnce(Return(ByMove(std::move(vk))));
-  EXPECT_EQ(
-      AuthBlockType::kTpmEcc,
-      auth_block_utility_impl_->GetAuthBlockTypeForDerivation(
-          credentials.key_data().label(), credentials.GetObfuscatedUsername()));
-  serialized.set_flags(
-      SerializedVaultKeyset::TPM_WRAPPED |
-      SerializedVaultKeyset::SCRYPT_DERIVED | SerializedVaultKeyset::PCR_BOUND |
-      SerializedVaultKeyset::ECC | SerializedVaultKeyset::SCRYPT_WRAPPED);
-  vk = std::make_unique<VaultKeyset>();
-  vk->InitializeFromSerialized(serialized);
-  EXPECT_CALL(keyset_management, GetVaultKeyset(_, _))
-      .WillOnce(Return(ByMove(std::move(vk))));
-  EXPECT_NE(
-      AuthBlockType::kTpmEcc,
-      auth_block_utility_impl_->GetAuthBlockTypeForDerivation(
-          credentials.key_data().label(), credentials.GetObfuscatedUsername()));
-
-  // Test for kTpmBoundToPcr
-  serialized.set_flags(SerializedVaultKeyset::TPM_WRAPPED |
-                       SerializedVaultKeyset::PCR_BOUND);
-  vk = std::make_unique<VaultKeyset>();
-  vk->InitializeFromSerialized(serialized);
-  EXPECT_CALL(keyset_management, GetVaultKeyset(_, _))
-      .WillOnce(Return(ByMove(std::move(vk))));
-  EXPECT_EQ(
-      AuthBlockType::kTpmBoundToPcr,
-      auth_block_utility_impl_->GetAuthBlockTypeForDerivation(
-          credentials.key_data().label(), credentials.GetObfuscatedUsername()));
-  serialized.set_flags(SerializedVaultKeyset::TPM_WRAPPED |
-                       SerializedVaultKeyset::PCR_BOUND |
-                       SerializedVaultKeyset::ECC);
-  vk = std::make_unique<VaultKeyset>();
-  vk->InitializeFromSerialized(serialized);
-  EXPECT_CALL(keyset_management, GetVaultKeyset(_, _))
-      .WillOnce(Return(ByMove(std::move(vk))));
-  EXPECT_NE(
-      AuthBlockType::kTpmBoundToPcr,
-      auth_block_utility_impl_->GetAuthBlockTypeForDerivation(
-          credentials.key_data().label(), credentials.GetObfuscatedUsername()));
-  serialized.set_flags(SerializedVaultKeyset::TPM_WRAPPED |
-                       SerializedVaultKeyset::PCR_BOUND |
-                       SerializedVaultKeyset::SCRYPT_WRAPPED);
-  vk = std::make_unique<VaultKeyset>();
-  vk->InitializeFromSerialized(serialized);
-  EXPECT_CALL(keyset_management, GetVaultKeyset(_, _))
-      .WillOnce(Return(ByMove(std::move(vk))));
-  EXPECT_NE(
-      AuthBlockType::kTpmBoundToPcr,
-      auth_block_utility_impl_->GetAuthBlockTypeForDerivation(
-          credentials.key_data().label(), credentials.GetObfuscatedUsername()));
 }
 
 TEST_F(AuthBlockUtilityImplTest, GetAsyncAuthBlockWithType) {
@@ -1647,6 +1571,63 @@ TEST_F(AuthBlockUtilityImplTest, GetAsyncAuthBlockWithTypeFail) {
   EXPECT_FALSE(auth_block.ok());
 }
 
+// Test that PrepareAuthBlockForRemoval succeeds for
+// CryptohomeRecoveryAuthBlock.
+TEST_F(AuthBlockUtilityImplTest,
+       RemoveCryptohomeRecoveryWithoutRevocationAuthBlock) {
+  CryptohomeRecoveryAuthBlockState recovery_state = {
+      .hsm_payload = brillo::SecureBlob("hsm_payload"),
+      .encrypted_destination_share =
+          brillo::SecureBlob("encrypted_destination_share"),
+      .channel_pub_key = brillo::SecureBlob("channel_pub_key"),
+      .encrypted_channel_priv_key =
+          brillo::SecureBlob("encrypted_channel_priv_key"),
+  };
+  AuthBlockState auth_state = {.state = recovery_state};
+
+  auth_block_utility_impl_ = std::make_unique<AuthBlockUtilityImpl>(
+      keyset_management_.get(), &crypto_, &platform_);
+
+  EXPECT_TRUE(
+      auth_block_utility_impl_->PrepareAuthBlockForRemoval(auth_state).ok());
+}
+
+// Test that PrepareAuthBlockForRemoval succeeds for CryptohomeRecoveryAuthBlock
+// with credentials revocation enabled.
+TEST_F(AuthBlockUtilityImplTest,
+       RemoveCryptohomeRecoveryWithRevocationAuthBlock) {
+  ON_CALL(hwsec_, IsPinWeaverEnabled()).WillByDefault(ReturnValue(true));
+  MockLECredentialManager* le_cred_manager = new MockLECredentialManager();
+  uint64_t fake_label = 11;
+  EXPECT_CALL(*le_cred_manager, RemoveCredential(fake_label))
+      .WillOnce(ReturnError<CryptohomeLECredError>());
+  crypto_.set_le_manager_for_testing(
+      std::unique_ptr<cryptohome::LECredentialManager>(le_cred_manager));
+  crypto_.Init();
+
+  CryptohomeRecoveryAuthBlockState recovery_state = {
+      .hsm_payload = brillo::SecureBlob("hsm_payload"),
+      .encrypted_destination_share =
+          brillo::SecureBlob("encrypted_destination_share"),
+      .channel_pub_key = brillo::SecureBlob("channel_pub_key"),
+      .encrypted_channel_priv_key =
+          brillo::SecureBlob("encrypted_channel_priv_key"),
+  };
+  RevocationState revocation_state = {
+      .le_label = fake_label,
+  };
+  AuthBlockState auth_state = {
+      .state = recovery_state,
+      .revocation_state = revocation_state,
+  };
+
+  auth_block_utility_impl_ = std::make_unique<AuthBlockUtilityImpl>(
+      keyset_management_.get(), &crypto_, &platform_);
+
+  EXPECT_TRUE(
+      auth_block_utility_impl_->PrepareAuthBlockForRemoval(auth_state).ok());
+}
+
 class AuthBlockUtilityImplRecoveryTest : public AuthBlockUtilityImplTest {
  public:
   AuthBlockUtilityImplRecoveryTest() = default;
@@ -1654,9 +1635,6 @@ class AuthBlockUtilityImplRecoveryTest : public AuthBlockUtilityImplTest {
 
   void SetUp() override {
     AuthBlockUtilityImplTest::SetUp();
-    EXPECT_CALL(tpm_, GetRecoveryCryptoBackend())
-        .WillRepeatedly(Return(&recovery_crypto_fake_tpm_backend_));
-
     brillo::SecureBlob mediator_pub_key;
     ASSERT_TRUE(
         cryptorecovery::FakeRecoveryMediatorCrypto::GetFakeMediatorPublicKey(
@@ -1667,18 +1645,28 @@ class AuthBlockUtilityImplRecoveryTest : public AuthBlockUtilityImplTest {
             &epoch_response));
     epoch_response_blob_ =
         brillo::BlobFromString(epoch_response.SerializeAsString());
-
     auto recovery = cryptorecovery::RecoveryCryptoImpl::Create(
-        &recovery_crypto_fake_tpm_backend_);
+        recovery_crypto_fake_backend_.get(), &platform_);
     ASSERT_TRUE(recovery);
 
     cryptorecovery::HsmPayload hsm_payload;
     brillo::SecureBlob recovery_key;
-    EXPECT_TRUE(recovery->GenerateHsmPayload(
-        mediator_pub_key, cryptorecovery::OnboardingMetadata{}, &hsm_payload,
-        &rsa_priv_key_, &destination_share_, &recovery_key, &channel_pub_key_,
-        &channel_priv_key_));
-    EXPECT_TRUE(SerializeHsmPayloadToCbor(hsm_payload, &hsm_payload_));
+    cryptorecovery::GenerateHsmPayloadRequest generate_hsm_payload_request(
+        {.mediator_pub_key = mediator_pub_key,
+         .onboarding_metadata = cryptorecovery::OnboardingMetadata{},
+         .obfuscated_username = "obfuscated_username"});
+    cryptorecovery::GenerateHsmPayloadResponse generate_hsm_payload_response;
+    EXPECT_TRUE(recovery->GenerateHsmPayload(generate_hsm_payload_request,
+                                             &generate_hsm_payload_response));
+    rsa_priv_key_ = generate_hsm_payload_response.encrypted_rsa_priv_key;
+    destination_share_ =
+        generate_hsm_payload_response.encrypted_destination_share;
+    channel_pub_key_ = generate_hsm_payload_response.channel_pub_key;
+    channel_priv_key_ =
+        generate_hsm_payload_response.encrypted_channel_priv_key;
+    recovery_key = generate_hsm_payload_response.recovery_key;
+    EXPECT_TRUE(SerializeHsmPayloadToCbor(
+        generate_hsm_payload_response.hsm_payload, &hsm_payload_));
 
     crypto_.Init();
     auth_block_utility_impl_ = std::make_unique<AuthBlockUtilityImpl>(
@@ -1689,7 +1677,6 @@ class AuthBlockUtilityImplRecoveryTest : public AuthBlockUtilityImplTest {
   CryptohomeRecoveryAuthBlockState GetAuthBlockState() {
     return {
         .hsm_payload = hsm_payload_,
-        .salt = brillo::SecureBlob("salt"),
         .encrypted_destination_share = destination_share_,
         .channel_pub_key = channel_pub_key_,
         .encrypted_channel_priv_key = channel_priv_key_,
@@ -1702,18 +1689,15 @@ class AuthBlockUtilityImplRecoveryTest : public AuthBlockUtilityImplTest {
   brillo::SecureBlob channel_priv_key_;
   brillo::SecureBlob destination_share_;
   brillo::Blob epoch_response_blob_;
-
- private:
-  cryptorecovery::RecoveryCryptoFakeTpmBackendImpl
-      recovery_crypto_fake_tpm_backend_;
+  FakePlatform platform_;
 };
 
 TEST_F(AuthBlockUtilityImplRecoveryTest, GenerateRecoveryRequestSuccess) {
   brillo::SecureBlob ephemeral_pub_key, recovery_request;
   CryptoStatus status = auth_block_utility_impl_->GenerateRecoveryRequest(
-      cryptorecovery::RequestMetadata{}, epoch_response_blob_,
-      GetAuthBlockState(), crypto_.tpm(), &recovery_request,
-      &ephemeral_pub_key);
+      "obfuscated_username", cryptorecovery::RequestMetadata{},
+      epoch_response_blob_, GetAuthBlockState(), crypto_.GetRecoveryCrypto(),
+      &recovery_request, &ephemeral_pub_key);
   EXPECT_TRUE(status.ok());
   EXPECT_FALSE(ephemeral_pub_key.empty());
   EXPECT_FALSE(recovery_request.empty());
@@ -1724,8 +1708,9 @@ TEST_F(AuthBlockUtilityImplRecoveryTest, GenerateRecoveryRequestNoHsmPayload) {
   auto state = GetAuthBlockState();
   state.hsm_payload = brillo::SecureBlob();
   CryptoStatus status = auth_block_utility_impl_->GenerateRecoveryRequest(
-      cryptorecovery::RequestMetadata{}, epoch_response_blob_, state,
-      crypto_.tpm(), &recovery_request, &ephemeral_pub_key);
+      "obfuscated_username", cryptorecovery::RequestMetadata{},
+      epoch_response_blob_, state, crypto_.GetRecoveryCrypto(),
+      &recovery_request, &ephemeral_pub_key);
   EXPECT_FALSE(status.ok());
 }
 
@@ -1735,8 +1720,9 @@ TEST_F(AuthBlockUtilityImplRecoveryTest,
   auto state = GetAuthBlockState();
   state.channel_pub_key = brillo::SecureBlob();
   CryptoStatus status = auth_block_utility_impl_->GenerateRecoveryRequest(
-      cryptorecovery::RequestMetadata{}, epoch_response_blob_, state,
-      crypto_.tpm(), &recovery_request, &ephemeral_pub_key);
+      "obfuscated_username", cryptorecovery::RequestMetadata{},
+      epoch_response_blob_, state, crypto_.GetRecoveryCrypto(),
+      &recovery_request, &ephemeral_pub_key);
   EXPECT_FALSE(status.ok());
 }
 
@@ -1746,8 +1732,9 @@ TEST_F(AuthBlockUtilityImplRecoveryTest,
   auto state = GetAuthBlockState();
   state.encrypted_channel_priv_key = brillo::SecureBlob();
   CryptoStatus status = auth_block_utility_impl_->GenerateRecoveryRequest(
-      cryptorecovery::RequestMetadata{}, epoch_response_blob_, state,
-      crypto_.tpm(), &recovery_request, &ephemeral_pub_key);
+      "obfuscated_username", cryptorecovery::RequestMetadata{},
+      epoch_response_blob_, state, crypto_.GetRecoveryCrypto(),
+      &recovery_request, &ephemeral_pub_key);
   EXPECT_FALSE(status.ok());
 }
 
@@ -1755,9 +1742,9 @@ TEST_F(AuthBlockUtilityImplRecoveryTest,
        GenerateRecoveryRequestNoEpochResponse) {
   brillo::SecureBlob ephemeral_pub_key, recovery_request;
   CryptoStatus status = auth_block_utility_impl_->GenerateRecoveryRequest(
-      cryptorecovery::RequestMetadata{},
-      /*epoch_response=*/brillo::Blob(), GetAuthBlockState(), crypto_.tpm(),
-      &recovery_request, &ephemeral_pub_key);
+      "obfuscated_username", cryptorecovery::RequestMetadata{},
+      /*epoch_response=*/brillo::Blob(), GetAuthBlockState(),
+      crypto_.GetRecoveryCrypto(), &recovery_request, &ephemeral_pub_key);
   EXPECT_FALSE(status.ok());
 }
 

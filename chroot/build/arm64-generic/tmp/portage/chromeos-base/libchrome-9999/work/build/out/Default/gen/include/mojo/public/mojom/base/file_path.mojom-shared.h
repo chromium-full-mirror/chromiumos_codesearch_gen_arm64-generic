@@ -21,7 +21,7 @@
 #include "mojo/public/cpp/bindings/map_data_view.h"
 #include "mojo/public/cpp/bindings/string_data_view.h"
 
-#include "base/trace_event/base_tracing.h"
+#include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
 #include "mojo/public/mojom/base/file_path.mojom-shared-internal.h"
 
@@ -72,7 +72,7 @@ class FilePathDataView {
       mojo::StringDataView* output);
 
   template <typename UserType>
-  WARN_UNUSED_RESULT bool ReadPath(UserType* output) {
+  [[nodiscard]] bool ReadPath(UserType* output) {
     
     auto* pointer = data_->path.Get();
     return mojo::internal::Deserialize<mojo::StringDataView>(

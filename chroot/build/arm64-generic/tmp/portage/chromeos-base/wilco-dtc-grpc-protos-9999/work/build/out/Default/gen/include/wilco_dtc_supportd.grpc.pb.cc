@@ -11,8 +11,12 @@
 #include <grpcpp/impl/codegen/channel_interface.h>
 #include <grpcpp/impl/codegen/client_unary_call.h>
 #include <grpcpp/impl/codegen/client_callback.h>
-#include <grpcpp/impl/codegen/method_handler_impl.h>
+#include <grpcpp/impl/codegen/message_allocator.h>
+#include <grpcpp/impl/codegen/method_handler.h>
 #include <grpcpp/impl/codegen/rpc_service_method.h>
+#include <grpcpp/impl/codegen/server_callback.h>
+#include <grpcpp/impl/codegen/server_callback_handlers.h>
+#include <grpcpp/impl/codegen/server_context.h>
 #include <grpcpp/impl/codegen/service_type.h>
 #include <grpcpp/impl/codegen/sync_stream.h>
 namespace diagnostics {
@@ -37,322 +41,490 @@ static const char* WilcoDtcSupportd_method_names[] = {
 
 std::unique_ptr< WilcoDtcSupportd::Stub> WilcoDtcSupportd::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
   (void)options;
-  std::unique_ptr< WilcoDtcSupportd::Stub> stub(new WilcoDtcSupportd::Stub(channel));
+  std::unique_ptr< WilcoDtcSupportd::Stub> stub(new WilcoDtcSupportd::Stub(channel, options));
   return stub;
 }
 
-WilcoDtcSupportd::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel)
-  : channel_(channel), rpcmethod_SendMessageToUi_(WilcoDtcSupportd_method_names[0], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_GetProcData_(WilcoDtcSupportd_method_names[1], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_GetSysfsData_(WilcoDtcSupportd_method_names[2], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_PerformWebRequest_(WilcoDtcSupportd_method_names[3], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_GetEcTelemetry_(WilcoDtcSupportd_method_names[4], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_GetAvailableRoutines_(WilcoDtcSupportd_method_names[5], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_RunRoutine_(WilcoDtcSupportd_method_names[6], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_GetRoutineUpdate_(WilcoDtcSupportd_method_names[7], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_GetConfigurationData_(WilcoDtcSupportd_method_names[8], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_GetOsVersion_(WilcoDtcSupportd_method_names[9], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_GetVpdField_(WilcoDtcSupportd_method_names[10], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_GetDriveSystemData_(WilcoDtcSupportd_method_names[11], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_RequestBluetoothDataNotification_(WilcoDtcSupportd_method_names[12], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_GetStatefulPartitionAvailableCapacity_(WilcoDtcSupportd_method_names[13], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+WilcoDtcSupportd::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options)
+  : channel_(channel), rpcmethod_SendMessageToUi_(WilcoDtcSupportd_method_names[0], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_GetProcData_(WilcoDtcSupportd_method_names[1], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_GetSysfsData_(WilcoDtcSupportd_method_names[2], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_PerformWebRequest_(WilcoDtcSupportd_method_names[3], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_GetEcTelemetry_(WilcoDtcSupportd_method_names[4], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_GetAvailableRoutines_(WilcoDtcSupportd_method_names[5], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_RunRoutine_(WilcoDtcSupportd_method_names[6], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_GetRoutineUpdate_(WilcoDtcSupportd_method_names[7], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_GetConfigurationData_(WilcoDtcSupportd_method_names[8], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_GetOsVersion_(WilcoDtcSupportd_method_names[9], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_GetVpdField_(WilcoDtcSupportd_method_names[10], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_GetDriveSystemData_(WilcoDtcSupportd_method_names[11], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_RequestBluetoothDataNotification_(WilcoDtcSupportd_method_names[12], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_GetStatefulPartitionAvailableCapacity_(WilcoDtcSupportd_method_names[13], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   {}
 
 ::grpc::Status WilcoDtcSupportd::Stub::SendMessageToUi(::grpc::ClientContext* context, const ::diagnostics::grpc_api::SendMessageToUiRequest& request, ::diagnostics::grpc_api::SendMessageToUiResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_SendMessageToUi_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::diagnostics::grpc_api::SendMessageToUiRequest, ::diagnostics::grpc_api::SendMessageToUiResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_SendMessageToUi_, context, request, response);
 }
 
-void WilcoDtcSupportd::Stub::experimental_async::SendMessageToUi(::grpc::ClientContext* context, const ::diagnostics::grpc_api::SendMessageToUiRequest* request, ::diagnostics::grpc_api::SendMessageToUiResponse* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_SendMessageToUi_, context, request, response, std::move(f));
+void WilcoDtcSupportd::Stub::async::SendMessageToUi(::grpc::ClientContext* context, const ::diagnostics::grpc_api::SendMessageToUiRequest* request, ::diagnostics::grpc_api::SendMessageToUiResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::diagnostics::grpc_api::SendMessageToUiRequest, ::diagnostics::grpc_api::SendMessageToUiResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_SendMessageToUi_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::diagnostics::grpc_api::SendMessageToUiResponse>* WilcoDtcSupportd::Stub::AsyncSendMessageToUiRaw(::grpc::ClientContext* context, const ::diagnostics::grpc_api::SendMessageToUiRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::diagnostics::grpc_api::SendMessageToUiResponse>::Create(channel_.get(), cq, rpcmethod_SendMessageToUi_, context, request, true);
+void WilcoDtcSupportd::Stub::async::SendMessageToUi(::grpc::ClientContext* context, const ::diagnostics::grpc_api::SendMessageToUiRequest* request, ::diagnostics::grpc_api::SendMessageToUiResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_SendMessageToUi_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::diagnostics::grpc_api::SendMessageToUiResponse>* WilcoDtcSupportd::Stub::PrepareAsyncSendMessageToUiRaw(::grpc::ClientContext* context, const ::diagnostics::grpc_api::SendMessageToUiRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::diagnostics::grpc_api::SendMessageToUiResponse>::Create(channel_.get(), cq, rpcmethod_SendMessageToUi_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::diagnostics::grpc_api::SendMessageToUiResponse, ::diagnostics::grpc_api::SendMessageToUiRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_SendMessageToUi_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::diagnostics::grpc_api::SendMessageToUiResponse>* WilcoDtcSupportd::Stub::AsyncSendMessageToUiRaw(::grpc::ClientContext* context, const ::diagnostics::grpc_api::SendMessageToUiRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncSendMessageToUiRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 ::grpc::Status WilcoDtcSupportd::Stub::GetProcData(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetProcDataRequest& request, ::diagnostics::grpc_api::GetProcDataResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_GetProcData_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::diagnostics::grpc_api::GetProcDataRequest, ::diagnostics::grpc_api::GetProcDataResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_GetProcData_, context, request, response);
 }
 
-void WilcoDtcSupportd::Stub::experimental_async::GetProcData(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetProcDataRequest* request, ::diagnostics::grpc_api::GetProcDataResponse* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_GetProcData_, context, request, response, std::move(f));
+void WilcoDtcSupportd::Stub::async::GetProcData(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetProcDataRequest* request, ::diagnostics::grpc_api::GetProcDataResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::diagnostics::grpc_api::GetProcDataRequest, ::diagnostics::grpc_api::GetProcDataResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetProcData_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::diagnostics::grpc_api::GetProcDataResponse>* WilcoDtcSupportd::Stub::AsyncGetProcDataRaw(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetProcDataRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::diagnostics::grpc_api::GetProcDataResponse>::Create(channel_.get(), cq, rpcmethod_GetProcData_, context, request, true);
+void WilcoDtcSupportd::Stub::async::GetProcData(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetProcDataRequest* request, ::diagnostics::grpc_api::GetProcDataResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetProcData_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::diagnostics::grpc_api::GetProcDataResponse>* WilcoDtcSupportd::Stub::PrepareAsyncGetProcDataRaw(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetProcDataRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::diagnostics::grpc_api::GetProcDataResponse>::Create(channel_.get(), cq, rpcmethod_GetProcData_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::diagnostics::grpc_api::GetProcDataResponse, ::diagnostics::grpc_api::GetProcDataRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_GetProcData_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::diagnostics::grpc_api::GetProcDataResponse>* WilcoDtcSupportd::Stub::AsyncGetProcDataRaw(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetProcDataRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncGetProcDataRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 ::grpc::Status WilcoDtcSupportd::Stub::GetSysfsData(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetSysfsDataRequest& request, ::diagnostics::grpc_api::GetSysfsDataResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_GetSysfsData_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::diagnostics::grpc_api::GetSysfsDataRequest, ::diagnostics::grpc_api::GetSysfsDataResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_GetSysfsData_, context, request, response);
 }
 
-void WilcoDtcSupportd::Stub::experimental_async::GetSysfsData(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetSysfsDataRequest* request, ::diagnostics::grpc_api::GetSysfsDataResponse* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_GetSysfsData_, context, request, response, std::move(f));
+void WilcoDtcSupportd::Stub::async::GetSysfsData(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetSysfsDataRequest* request, ::diagnostics::grpc_api::GetSysfsDataResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::diagnostics::grpc_api::GetSysfsDataRequest, ::diagnostics::grpc_api::GetSysfsDataResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetSysfsData_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::diagnostics::grpc_api::GetSysfsDataResponse>* WilcoDtcSupportd::Stub::AsyncGetSysfsDataRaw(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetSysfsDataRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::diagnostics::grpc_api::GetSysfsDataResponse>::Create(channel_.get(), cq, rpcmethod_GetSysfsData_, context, request, true);
+void WilcoDtcSupportd::Stub::async::GetSysfsData(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetSysfsDataRequest* request, ::diagnostics::grpc_api::GetSysfsDataResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetSysfsData_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::diagnostics::grpc_api::GetSysfsDataResponse>* WilcoDtcSupportd::Stub::PrepareAsyncGetSysfsDataRaw(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetSysfsDataRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::diagnostics::grpc_api::GetSysfsDataResponse>::Create(channel_.get(), cq, rpcmethod_GetSysfsData_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::diagnostics::grpc_api::GetSysfsDataResponse, ::diagnostics::grpc_api::GetSysfsDataRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_GetSysfsData_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::diagnostics::grpc_api::GetSysfsDataResponse>* WilcoDtcSupportd::Stub::AsyncGetSysfsDataRaw(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetSysfsDataRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncGetSysfsDataRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 ::grpc::Status WilcoDtcSupportd::Stub::PerformWebRequest(::grpc::ClientContext* context, const ::diagnostics::grpc_api::PerformWebRequestParameter& request, ::diagnostics::grpc_api::PerformWebRequestResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_PerformWebRequest_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::diagnostics::grpc_api::PerformWebRequestParameter, ::diagnostics::grpc_api::PerformWebRequestResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_PerformWebRequest_, context, request, response);
 }
 
-void WilcoDtcSupportd::Stub::experimental_async::PerformWebRequest(::grpc::ClientContext* context, const ::diagnostics::grpc_api::PerformWebRequestParameter* request, ::diagnostics::grpc_api::PerformWebRequestResponse* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_PerformWebRequest_, context, request, response, std::move(f));
+void WilcoDtcSupportd::Stub::async::PerformWebRequest(::grpc::ClientContext* context, const ::diagnostics::grpc_api::PerformWebRequestParameter* request, ::diagnostics::grpc_api::PerformWebRequestResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::diagnostics::grpc_api::PerformWebRequestParameter, ::diagnostics::grpc_api::PerformWebRequestResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_PerformWebRequest_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::diagnostics::grpc_api::PerformWebRequestResponse>* WilcoDtcSupportd::Stub::AsyncPerformWebRequestRaw(::grpc::ClientContext* context, const ::diagnostics::grpc_api::PerformWebRequestParameter& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::diagnostics::grpc_api::PerformWebRequestResponse>::Create(channel_.get(), cq, rpcmethod_PerformWebRequest_, context, request, true);
+void WilcoDtcSupportd::Stub::async::PerformWebRequest(::grpc::ClientContext* context, const ::diagnostics::grpc_api::PerformWebRequestParameter* request, ::diagnostics::grpc_api::PerformWebRequestResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_PerformWebRequest_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::diagnostics::grpc_api::PerformWebRequestResponse>* WilcoDtcSupportd::Stub::PrepareAsyncPerformWebRequestRaw(::grpc::ClientContext* context, const ::diagnostics::grpc_api::PerformWebRequestParameter& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::diagnostics::grpc_api::PerformWebRequestResponse>::Create(channel_.get(), cq, rpcmethod_PerformWebRequest_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::diagnostics::grpc_api::PerformWebRequestResponse, ::diagnostics::grpc_api::PerformWebRequestParameter, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_PerformWebRequest_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::diagnostics::grpc_api::PerformWebRequestResponse>* WilcoDtcSupportd::Stub::AsyncPerformWebRequestRaw(::grpc::ClientContext* context, const ::diagnostics::grpc_api::PerformWebRequestParameter& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncPerformWebRequestRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 ::grpc::Status WilcoDtcSupportd::Stub::GetEcTelemetry(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetEcTelemetryRequest& request, ::diagnostics::grpc_api::GetEcTelemetryResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_GetEcTelemetry_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::diagnostics::grpc_api::GetEcTelemetryRequest, ::diagnostics::grpc_api::GetEcTelemetryResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_GetEcTelemetry_, context, request, response);
 }
 
-void WilcoDtcSupportd::Stub::experimental_async::GetEcTelemetry(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetEcTelemetryRequest* request, ::diagnostics::grpc_api::GetEcTelemetryResponse* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_GetEcTelemetry_, context, request, response, std::move(f));
+void WilcoDtcSupportd::Stub::async::GetEcTelemetry(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetEcTelemetryRequest* request, ::diagnostics::grpc_api::GetEcTelemetryResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::diagnostics::grpc_api::GetEcTelemetryRequest, ::diagnostics::grpc_api::GetEcTelemetryResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetEcTelemetry_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::diagnostics::grpc_api::GetEcTelemetryResponse>* WilcoDtcSupportd::Stub::AsyncGetEcTelemetryRaw(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetEcTelemetryRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::diagnostics::grpc_api::GetEcTelemetryResponse>::Create(channel_.get(), cq, rpcmethod_GetEcTelemetry_, context, request, true);
+void WilcoDtcSupportd::Stub::async::GetEcTelemetry(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetEcTelemetryRequest* request, ::diagnostics::grpc_api::GetEcTelemetryResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetEcTelemetry_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::diagnostics::grpc_api::GetEcTelemetryResponse>* WilcoDtcSupportd::Stub::PrepareAsyncGetEcTelemetryRaw(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetEcTelemetryRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::diagnostics::grpc_api::GetEcTelemetryResponse>::Create(channel_.get(), cq, rpcmethod_GetEcTelemetry_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::diagnostics::grpc_api::GetEcTelemetryResponse, ::diagnostics::grpc_api::GetEcTelemetryRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_GetEcTelemetry_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::diagnostics::grpc_api::GetEcTelemetryResponse>* WilcoDtcSupportd::Stub::AsyncGetEcTelemetryRaw(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetEcTelemetryRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncGetEcTelemetryRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 ::grpc::Status WilcoDtcSupportd::Stub::GetAvailableRoutines(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetAvailableRoutinesRequest& request, ::diagnostics::grpc_api::GetAvailableRoutinesResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_GetAvailableRoutines_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::diagnostics::grpc_api::GetAvailableRoutinesRequest, ::diagnostics::grpc_api::GetAvailableRoutinesResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_GetAvailableRoutines_, context, request, response);
 }
 
-void WilcoDtcSupportd::Stub::experimental_async::GetAvailableRoutines(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetAvailableRoutinesRequest* request, ::diagnostics::grpc_api::GetAvailableRoutinesResponse* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_GetAvailableRoutines_, context, request, response, std::move(f));
+void WilcoDtcSupportd::Stub::async::GetAvailableRoutines(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetAvailableRoutinesRequest* request, ::diagnostics::grpc_api::GetAvailableRoutinesResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::diagnostics::grpc_api::GetAvailableRoutinesRequest, ::diagnostics::grpc_api::GetAvailableRoutinesResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetAvailableRoutines_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::diagnostics::grpc_api::GetAvailableRoutinesResponse>* WilcoDtcSupportd::Stub::AsyncGetAvailableRoutinesRaw(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetAvailableRoutinesRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::diagnostics::grpc_api::GetAvailableRoutinesResponse>::Create(channel_.get(), cq, rpcmethod_GetAvailableRoutines_, context, request, true);
+void WilcoDtcSupportd::Stub::async::GetAvailableRoutines(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetAvailableRoutinesRequest* request, ::diagnostics::grpc_api::GetAvailableRoutinesResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetAvailableRoutines_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::diagnostics::grpc_api::GetAvailableRoutinesResponse>* WilcoDtcSupportd::Stub::PrepareAsyncGetAvailableRoutinesRaw(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetAvailableRoutinesRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::diagnostics::grpc_api::GetAvailableRoutinesResponse>::Create(channel_.get(), cq, rpcmethod_GetAvailableRoutines_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::diagnostics::grpc_api::GetAvailableRoutinesResponse, ::diagnostics::grpc_api::GetAvailableRoutinesRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_GetAvailableRoutines_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::diagnostics::grpc_api::GetAvailableRoutinesResponse>* WilcoDtcSupportd::Stub::AsyncGetAvailableRoutinesRaw(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetAvailableRoutinesRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncGetAvailableRoutinesRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 ::grpc::Status WilcoDtcSupportd::Stub::RunRoutine(::grpc::ClientContext* context, const ::diagnostics::grpc_api::RunRoutineRequest& request, ::diagnostics::grpc_api::RunRoutineResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_RunRoutine_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::diagnostics::grpc_api::RunRoutineRequest, ::diagnostics::grpc_api::RunRoutineResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_RunRoutine_, context, request, response);
 }
 
-void WilcoDtcSupportd::Stub::experimental_async::RunRoutine(::grpc::ClientContext* context, const ::diagnostics::grpc_api::RunRoutineRequest* request, ::diagnostics::grpc_api::RunRoutineResponse* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_RunRoutine_, context, request, response, std::move(f));
+void WilcoDtcSupportd::Stub::async::RunRoutine(::grpc::ClientContext* context, const ::diagnostics::grpc_api::RunRoutineRequest* request, ::diagnostics::grpc_api::RunRoutineResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::diagnostics::grpc_api::RunRoutineRequest, ::diagnostics::grpc_api::RunRoutineResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_RunRoutine_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::diagnostics::grpc_api::RunRoutineResponse>* WilcoDtcSupportd::Stub::AsyncRunRoutineRaw(::grpc::ClientContext* context, const ::diagnostics::grpc_api::RunRoutineRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::diagnostics::grpc_api::RunRoutineResponse>::Create(channel_.get(), cq, rpcmethod_RunRoutine_, context, request, true);
+void WilcoDtcSupportd::Stub::async::RunRoutine(::grpc::ClientContext* context, const ::diagnostics::grpc_api::RunRoutineRequest* request, ::diagnostics::grpc_api::RunRoutineResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_RunRoutine_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::diagnostics::grpc_api::RunRoutineResponse>* WilcoDtcSupportd::Stub::PrepareAsyncRunRoutineRaw(::grpc::ClientContext* context, const ::diagnostics::grpc_api::RunRoutineRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::diagnostics::grpc_api::RunRoutineResponse>::Create(channel_.get(), cq, rpcmethod_RunRoutine_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::diagnostics::grpc_api::RunRoutineResponse, ::diagnostics::grpc_api::RunRoutineRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_RunRoutine_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::diagnostics::grpc_api::RunRoutineResponse>* WilcoDtcSupportd::Stub::AsyncRunRoutineRaw(::grpc::ClientContext* context, const ::diagnostics::grpc_api::RunRoutineRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncRunRoutineRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 ::grpc::Status WilcoDtcSupportd::Stub::GetRoutineUpdate(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetRoutineUpdateRequest& request, ::diagnostics::grpc_api::GetRoutineUpdateResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_GetRoutineUpdate_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::diagnostics::grpc_api::GetRoutineUpdateRequest, ::diagnostics::grpc_api::GetRoutineUpdateResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_GetRoutineUpdate_, context, request, response);
 }
 
-void WilcoDtcSupportd::Stub::experimental_async::GetRoutineUpdate(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetRoutineUpdateRequest* request, ::diagnostics::grpc_api::GetRoutineUpdateResponse* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_GetRoutineUpdate_, context, request, response, std::move(f));
+void WilcoDtcSupportd::Stub::async::GetRoutineUpdate(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetRoutineUpdateRequest* request, ::diagnostics::grpc_api::GetRoutineUpdateResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::diagnostics::grpc_api::GetRoutineUpdateRequest, ::diagnostics::grpc_api::GetRoutineUpdateResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetRoutineUpdate_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::diagnostics::grpc_api::GetRoutineUpdateResponse>* WilcoDtcSupportd::Stub::AsyncGetRoutineUpdateRaw(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetRoutineUpdateRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::diagnostics::grpc_api::GetRoutineUpdateResponse>::Create(channel_.get(), cq, rpcmethod_GetRoutineUpdate_, context, request, true);
+void WilcoDtcSupportd::Stub::async::GetRoutineUpdate(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetRoutineUpdateRequest* request, ::diagnostics::grpc_api::GetRoutineUpdateResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetRoutineUpdate_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::diagnostics::grpc_api::GetRoutineUpdateResponse>* WilcoDtcSupportd::Stub::PrepareAsyncGetRoutineUpdateRaw(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetRoutineUpdateRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::diagnostics::grpc_api::GetRoutineUpdateResponse>::Create(channel_.get(), cq, rpcmethod_GetRoutineUpdate_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::diagnostics::grpc_api::GetRoutineUpdateResponse, ::diagnostics::grpc_api::GetRoutineUpdateRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_GetRoutineUpdate_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::diagnostics::grpc_api::GetRoutineUpdateResponse>* WilcoDtcSupportd::Stub::AsyncGetRoutineUpdateRaw(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetRoutineUpdateRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncGetRoutineUpdateRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 ::grpc::Status WilcoDtcSupportd::Stub::GetConfigurationData(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetConfigurationDataRequest& request, ::diagnostics::grpc_api::GetConfigurationDataResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_GetConfigurationData_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::diagnostics::grpc_api::GetConfigurationDataRequest, ::diagnostics::grpc_api::GetConfigurationDataResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_GetConfigurationData_, context, request, response);
 }
 
-void WilcoDtcSupportd::Stub::experimental_async::GetConfigurationData(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetConfigurationDataRequest* request, ::diagnostics::grpc_api::GetConfigurationDataResponse* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_GetConfigurationData_, context, request, response, std::move(f));
+void WilcoDtcSupportd::Stub::async::GetConfigurationData(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetConfigurationDataRequest* request, ::diagnostics::grpc_api::GetConfigurationDataResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::diagnostics::grpc_api::GetConfigurationDataRequest, ::diagnostics::grpc_api::GetConfigurationDataResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetConfigurationData_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::diagnostics::grpc_api::GetConfigurationDataResponse>* WilcoDtcSupportd::Stub::AsyncGetConfigurationDataRaw(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetConfigurationDataRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::diagnostics::grpc_api::GetConfigurationDataResponse>::Create(channel_.get(), cq, rpcmethod_GetConfigurationData_, context, request, true);
+void WilcoDtcSupportd::Stub::async::GetConfigurationData(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetConfigurationDataRequest* request, ::diagnostics::grpc_api::GetConfigurationDataResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetConfigurationData_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::diagnostics::grpc_api::GetConfigurationDataResponse>* WilcoDtcSupportd::Stub::PrepareAsyncGetConfigurationDataRaw(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetConfigurationDataRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::diagnostics::grpc_api::GetConfigurationDataResponse>::Create(channel_.get(), cq, rpcmethod_GetConfigurationData_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::diagnostics::grpc_api::GetConfigurationDataResponse, ::diagnostics::grpc_api::GetConfigurationDataRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_GetConfigurationData_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::diagnostics::grpc_api::GetConfigurationDataResponse>* WilcoDtcSupportd::Stub::AsyncGetConfigurationDataRaw(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetConfigurationDataRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncGetConfigurationDataRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 ::grpc::Status WilcoDtcSupportd::Stub::GetOsVersion(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetOsVersionRequest& request, ::diagnostics::grpc_api::GetOsVersionResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_GetOsVersion_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::diagnostics::grpc_api::GetOsVersionRequest, ::diagnostics::grpc_api::GetOsVersionResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_GetOsVersion_, context, request, response);
 }
 
-void WilcoDtcSupportd::Stub::experimental_async::GetOsVersion(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetOsVersionRequest* request, ::diagnostics::grpc_api::GetOsVersionResponse* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_GetOsVersion_, context, request, response, std::move(f));
+void WilcoDtcSupportd::Stub::async::GetOsVersion(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetOsVersionRequest* request, ::diagnostics::grpc_api::GetOsVersionResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::diagnostics::grpc_api::GetOsVersionRequest, ::diagnostics::grpc_api::GetOsVersionResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetOsVersion_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::diagnostics::grpc_api::GetOsVersionResponse>* WilcoDtcSupportd::Stub::AsyncGetOsVersionRaw(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetOsVersionRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::diagnostics::grpc_api::GetOsVersionResponse>::Create(channel_.get(), cq, rpcmethod_GetOsVersion_, context, request, true);
+void WilcoDtcSupportd::Stub::async::GetOsVersion(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetOsVersionRequest* request, ::diagnostics::grpc_api::GetOsVersionResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetOsVersion_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::diagnostics::grpc_api::GetOsVersionResponse>* WilcoDtcSupportd::Stub::PrepareAsyncGetOsVersionRaw(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetOsVersionRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::diagnostics::grpc_api::GetOsVersionResponse>::Create(channel_.get(), cq, rpcmethod_GetOsVersion_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::diagnostics::grpc_api::GetOsVersionResponse, ::diagnostics::grpc_api::GetOsVersionRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_GetOsVersion_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::diagnostics::grpc_api::GetOsVersionResponse>* WilcoDtcSupportd::Stub::AsyncGetOsVersionRaw(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetOsVersionRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncGetOsVersionRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 ::grpc::Status WilcoDtcSupportd::Stub::GetVpdField(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetVpdFieldRequest& request, ::diagnostics::grpc_api::GetVpdFieldResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_GetVpdField_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::diagnostics::grpc_api::GetVpdFieldRequest, ::diagnostics::grpc_api::GetVpdFieldResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_GetVpdField_, context, request, response);
 }
 
-void WilcoDtcSupportd::Stub::experimental_async::GetVpdField(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetVpdFieldRequest* request, ::diagnostics::grpc_api::GetVpdFieldResponse* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_GetVpdField_, context, request, response, std::move(f));
+void WilcoDtcSupportd::Stub::async::GetVpdField(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetVpdFieldRequest* request, ::diagnostics::grpc_api::GetVpdFieldResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::diagnostics::grpc_api::GetVpdFieldRequest, ::diagnostics::grpc_api::GetVpdFieldResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetVpdField_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::diagnostics::grpc_api::GetVpdFieldResponse>* WilcoDtcSupportd::Stub::AsyncGetVpdFieldRaw(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetVpdFieldRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::diagnostics::grpc_api::GetVpdFieldResponse>::Create(channel_.get(), cq, rpcmethod_GetVpdField_, context, request, true);
+void WilcoDtcSupportd::Stub::async::GetVpdField(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetVpdFieldRequest* request, ::diagnostics::grpc_api::GetVpdFieldResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetVpdField_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::diagnostics::grpc_api::GetVpdFieldResponse>* WilcoDtcSupportd::Stub::PrepareAsyncGetVpdFieldRaw(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetVpdFieldRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::diagnostics::grpc_api::GetVpdFieldResponse>::Create(channel_.get(), cq, rpcmethod_GetVpdField_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::diagnostics::grpc_api::GetVpdFieldResponse, ::diagnostics::grpc_api::GetVpdFieldRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_GetVpdField_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::diagnostics::grpc_api::GetVpdFieldResponse>* WilcoDtcSupportd::Stub::AsyncGetVpdFieldRaw(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetVpdFieldRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncGetVpdFieldRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 ::grpc::Status WilcoDtcSupportd::Stub::GetDriveSystemData(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetDriveSystemDataRequest& request, ::diagnostics::grpc_api::GetDriveSystemDataResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_GetDriveSystemData_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::diagnostics::grpc_api::GetDriveSystemDataRequest, ::diagnostics::grpc_api::GetDriveSystemDataResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_GetDriveSystemData_, context, request, response);
 }
 
-void WilcoDtcSupportd::Stub::experimental_async::GetDriveSystemData(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetDriveSystemDataRequest* request, ::diagnostics::grpc_api::GetDriveSystemDataResponse* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_GetDriveSystemData_, context, request, response, std::move(f));
+void WilcoDtcSupportd::Stub::async::GetDriveSystemData(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetDriveSystemDataRequest* request, ::diagnostics::grpc_api::GetDriveSystemDataResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::diagnostics::grpc_api::GetDriveSystemDataRequest, ::diagnostics::grpc_api::GetDriveSystemDataResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetDriveSystemData_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::diagnostics::grpc_api::GetDriveSystemDataResponse>* WilcoDtcSupportd::Stub::AsyncGetDriveSystemDataRaw(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetDriveSystemDataRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::diagnostics::grpc_api::GetDriveSystemDataResponse>::Create(channel_.get(), cq, rpcmethod_GetDriveSystemData_, context, request, true);
+void WilcoDtcSupportd::Stub::async::GetDriveSystemData(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetDriveSystemDataRequest* request, ::diagnostics::grpc_api::GetDriveSystemDataResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetDriveSystemData_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::diagnostics::grpc_api::GetDriveSystemDataResponse>* WilcoDtcSupportd::Stub::PrepareAsyncGetDriveSystemDataRaw(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetDriveSystemDataRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::diagnostics::grpc_api::GetDriveSystemDataResponse>::Create(channel_.get(), cq, rpcmethod_GetDriveSystemData_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::diagnostics::grpc_api::GetDriveSystemDataResponse, ::diagnostics::grpc_api::GetDriveSystemDataRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_GetDriveSystemData_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::diagnostics::grpc_api::GetDriveSystemDataResponse>* WilcoDtcSupportd::Stub::AsyncGetDriveSystemDataRaw(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetDriveSystemDataRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncGetDriveSystemDataRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 ::grpc::Status WilcoDtcSupportd::Stub::RequestBluetoothDataNotification(::grpc::ClientContext* context, const ::diagnostics::grpc_api::RequestBluetoothDataNotificationRequest& request, ::diagnostics::grpc_api::RequestBluetoothDataNotificationResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_RequestBluetoothDataNotification_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::diagnostics::grpc_api::RequestBluetoothDataNotificationRequest, ::diagnostics::grpc_api::RequestBluetoothDataNotificationResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_RequestBluetoothDataNotification_, context, request, response);
 }
 
-void WilcoDtcSupportd::Stub::experimental_async::RequestBluetoothDataNotification(::grpc::ClientContext* context, const ::diagnostics::grpc_api::RequestBluetoothDataNotificationRequest* request, ::diagnostics::grpc_api::RequestBluetoothDataNotificationResponse* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_RequestBluetoothDataNotification_, context, request, response, std::move(f));
+void WilcoDtcSupportd::Stub::async::RequestBluetoothDataNotification(::grpc::ClientContext* context, const ::diagnostics::grpc_api::RequestBluetoothDataNotificationRequest* request, ::diagnostics::grpc_api::RequestBluetoothDataNotificationResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::diagnostics::grpc_api::RequestBluetoothDataNotificationRequest, ::diagnostics::grpc_api::RequestBluetoothDataNotificationResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_RequestBluetoothDataNotification_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::diagnostics::grpc_api::RequestBluetoothDataNotificationResponse>* WilcoDtcSupportd::Stub::AsyncRequestBluetoothDataNotificationRaw(::grpc::ClientContext* context, const ::diagnostics::grpc_api::RequestBluetoothDataNotificationRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::diagnostics::grpc_api::RequestBluetoothDataNotificationResponse>::Create(channel_.get(), cq, rpcmethod_RequestBluetoothDataNotification_, context, request, true);
+void WilcoDtcSupportd::Stub::async::RequestBluetoothDataNotification(::grpc::ClientContext* context, const ::diagnostics::grpc_api::RequestBluetoothDataNotificationRequest* request, ::diagnostics::grpc_api::RequestBluetoothDataNotificationResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_RequestBluetoothDataNotification_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::diagnostics::grpc_api::RequestBluetoothDataNotificationResponse>* WilcoDtcSupportd::Stub::PrepareAsyncRequestBluetoothDataNotificationRaw(::grpc::ClientContext* context, const ::diagnostics::grpc_api::RequestBluetoothDataNotificationRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::diagnostics::grpc_api::RequestBluetoothDataNotificationResponse>::Create(channel_.get(), cq, rpcmethod_RequestBluetoothDataNotification_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::diagnostics::grpc_api::RequestBluetoothDataNotificationResponse, ::diagnostics::grpc_api::RequestBluetoothDataNotificationRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_RequestBluetoothDataNotification_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::diagnostics::grpc_api::RequestBluetoothDataNotificationResponse>* WilcoDtcSupportd::Stub::AsyncRequestBluetoothDataNotificationRaw(::grpc::ClientContext* context, const ::diagnostics::grpc_api::RequestBluetoothDataNotificationRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncRequestBluetoothDataNotificationRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 ::grpc::Status WilcoDtcSupportd::Stub::GetStatefulPartitionAvailableCapacity(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityRequest& request, ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_GetStatefulPartitionAvailableCapacity_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityRequest, ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_GetStatefulPartitionAvailableCapacity_, context, request, response);
 }
 
-void WilcoDtcSupportd::Stub::experimental_async::GetStatefulPartitionAvailableCapacity(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityRequest* request, ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityResponse* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_GetStatefulPartitionAvailableCapacity_, context, request, response, std::move(f));
+void WilcoDtcSupportd::Stub::async::GetStatefulPartitionAvailableCapacity(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityRequest* request, ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityRequest, ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetStatefulPartitionAvailableCapacity_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityResponse>* WilcoDtcSupportd::Stub::AsyncGetStatefulPartitionAvailableCapacityRaw(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityResponse>::Create(channel_.get(), cq, rpcmethod_GetStatefulPartitionAvailableCapacity_, context, request, true);
+void WilcoDtcSupportd::Stub::async::GetStatefulPartitionAvailableCapacity(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityRequest* request, ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetStatefulPartitionAvailableCapacity_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityResponse>* WilcoDtcSupportd::Stub::PrepareAsyncGetStatefulPartitionAvailableCapacityRaw(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityResponse>::Create(channel_.get(), cq, rpcmethod_GetStatefulPartitionAvailableCapacity_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityResponse, ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_GetStatefulPartitionAvailableCapacity_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityResponse>* WilcoDtcSupportd::Stub::AsyncGetStatefulPartitionAvailableCapacityRaw(::grpc::ClientContext* context, const ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncGetStatefulPartitionAvailableCapacityRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 WilcoDtcSupportd::Service::Service() {
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       WilcoDtcSupportd_method_names[0],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< WilcoDtcSupportd::Service, ::diagnostics::grpc_api::SendMessageToUiRequest, ::diagnostics::grpc_api::SendMessageToUiResponse>(
-          std::mem_fn(&WilcoDtcSupportd::Service::SendMessageToUi), this)));
+      new ::grpc::internal::RpcMethodHandler< WilcoDtcSupportd::Service, ::diagnostics::grpc_api::SendMessageToUiRequest, ::diagnostics::grpc_api::SendMessageToUiResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](WilcoDtcSupportd::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::diagnostics::grpc_api::SendMessageToUiRequest* req,
+             ::diagnostics::grpc_api::SendMessageToUiResponse* resp) {
+               return service->SendMessageToUi(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       WilcoDtcSupportd_method_names[1],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< WilcoDtcSupportd::Service, ::diagnostics::grpc_api::GetProcDataRequest, ::diagnostics::grpc_api::GetProcDataResponse>(
-          std::mem_fn(&WilcoDtcSupportd::Service::GetProcData), this)));
+      new ::grpc::internal::RpcMethodHandler< WilcoDtcSupportd::Service, ::diagnostics::grpc_api::GetProcDataRequest, ::diagnostics::grpc_api::GetProcDataResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](WilcoDtcSupportd::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::diagnostics::grpc_api::GetProcDataRequest* req,
+             ::diagnostics::grpc_api::GetProcDataResponse* resp) {
+               return service->GetProcData(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       WilcoDtcSupportd_method_names[2],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< WilcoDtcSupportd::Service, ::diagnostics::grpc_api::GetSysfsDataRequest, ::diagnostics::grpc_api::GetSysfsDataResponse>(
-          std::mem_fn(&WilcoDtcSupportd::Service::GetSysfsData), this)));
+      new ::grpc::internal::RpcMethodHandler< WilcoDtcSupportd::Service, ::diagnostics::grpc_api::GetSysfsDataRequest, ::diagnostics::grpc_api::GetSysfsDataResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](WilcoDtcSupportd::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::diagnostics::grpc_api::GetSysfsDataRequest* req,
+             ::diagnostics::grpc_api::GetSysfsDataResponse* resp) {
+               return service->GetSysfsData(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       WilcoDtcSupportd_method_names[3],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< WilcoDtcSupportd::Service, ::diagnostics::grpc_api::PerformWebRequestParameter, ::diagnostics::grpc_api::PerformWebRequestResponse>(
-          std::mem_fn(&WilcoDtcSupportd::Service::PerformWebRequest), this)));
+      new ::grpc::internal::RpcMethodHandler< WilcoDtcSupportd::Service, ::diagnostics::grpc_api::PerformWebRequestParameter, ::diagnostics::grpc_api::PerformWebRequestResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](WilcoDtcSupportd::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::diagnostics::grpc_api::PerformWebRequestParameter* req,
+             ::diagnostics::grpc_api::PerformWebRequestResponse* resp) {
+               return service->PerformWebRequest(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       WilcoDtcSupportd_method_names[4],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< WilcoDtcSupportd::Service, ::diagnostics::grpc_api::GetEcTelemetryRequest, ::diagnostics::grpc_api::GetEcTelemetryResponse>(
-          std::mem_fn(&WilcoDtcSupportd::Service::GetEcTelemetry), this)));
+      new ::grpc::internal::RpcMethodHandler< WilcoDtcSupportd::Service, ::diagnostics::grpc_api::GetEcTelemetryRequest, ::diagnostics::grpc_api::GetEcTelemetryResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](WilcoDtcSupportd::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::diagnostics::grpc_api::GetEcTelemetryRequest* req,
+             ::diagnostics::grpc_api::GetEcTelemetryResponse* resp) {
+               return service->GetEcTelemetry(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       WilcoDtcSupportd_method_names[5],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< WilcoDtcSupportd::Service, ::diagnostics::grpc_api::GetAvailableRoutinesRequest, ::diagnostics::grpc_api::GetAvailableRoutinesResponse>(
-          std::mem_fn(&WilcoDtcSupportd::Service::GetAvailableRoutines), this)));
+      new ::grpc::internal::RpcMethodHandler< WilcoDtcSupportd::Service, ::diagnostics::grpc_api::GetAvailableRoutinesRequest, ::diagnostics::grpc_api::GetAvailableRoutinesResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](WilcoDtcSupportd::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::diagnostics::grpc_api::GetAvailableRoutinesRequest* req,
+             ::diagnostics::grpc_api::GetAvailableRoutinesResponse* resp) {
+               return service->GetAvailableRoutines(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       WilcoDtcSupportd_method_names[6],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< WilcoDtcSupportd::Service, ::diagnostics::grpc_api::RunRoutineRequest, ::diagnostics::grpc_api::RunRoutineResponse>(
-          std::mem_fn(&WilcoDtcSupportd::Service::RunRoutine), this)));
+      new ::grpc::internal::RpcMethodHandler< WilcoDtcSupportd::Service, ::diagnostics::grpc_api::RunRoutineRequest, ::diagnostics::grpc_api::RunRoutineResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](WilcoDtcSupportd::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::diagnostics::grpc_api::RunRoutineRequest* req,
+             ::diagnostics::grpc_api::RunRoutineResponse* resp) {
+               return service->RunRoutine(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       WilcoDtcSupportd_method_names[7],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< WilcoDtcSupportd::Service, ::diagnostics::grpc_api::GetRoutineUpdateRequest, ::diagnostics::grpc_api::GetRoutineUpdateResponse>(
-          std::mem_fn(&WilcoDtcSupportd::Service::GetRoutineUpdate), this)));
+      new ::grpc::internal::RpcMethodHandler< WilcoDtcSupportd::Service, ::diagnostics::grpc_api::GetRoutineUpdateRequest, ::diagnostics::grpc_api::GetRoutineUpdateResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](WilcoDtcSupportd::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::diagnostics::grpc_api::GetRoutineUpdateRequest* req,
+             ::diagnostics::grpc_api::GetRoutineUpdateResponse* resp) {
+               return service->GetRoutineUpdate(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       WilcoDtcSupportd_method_names[8],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< WilcoDtcSupportd::Service, ::diagnostics::grpc_api::GetConfigurationDataRequest, ::diagnostics::grpc_api::GetConfigurationDataResponse>(
-          std::mem_fn(&WilcoDtcSupportd::Service::GetConfigurationData), this)));
+      new ::grpc::internal::RpcMethodHandler< WilcoDtcSupportd::Service, ::diagnostics::grpc_api::GetConfigurationDataRequest, ::diagnostics::grpc_api::GetConfigurationDataResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](WilcoDtcSupportd::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::diagnostics::grpc_api::GetConfigurationDataRequest* req,
+             ::diagnostics::grpc_api::GetConfigurationDataResponse* resp) {
+               return service->GetConfigurationData(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       WilcoDtcSupportd_method_names[9],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< WilcoDtcSupportd::Service, ::diagnostics::grpc_api::GetOsVersionRequest, ::diagnostics::grpc_api::GetOsVersionResponse>(
-          std::mem_fn(&WilcoDtcSupportd::Service::GetOsVersion), this)));
+      new ::grpc::internal::RpcMethodHandler< WilcoDtcSupportd::Service, ::diagnostics::grpc_api::GetOsVersionRequest, ::diagnostics::grpc_api::GetOsVersionResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](WilcoDtcSupportd::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::diagnostics::grpc_api::GetOsVersionRequest* req,
+             ::diagnostics::grpc_api::GetOsVersionResponse* resp) {
+               return service->GetOsVersion(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       WilcoDtcSupportd_method_names[10],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< WilcoDtcSupportd::Service, ::diagnostics::grpc_api::GetVpdFieldRequest, ::diagnostics::grpc_api::GetVpdFieldResponse>(
-          std::mem_fn(&WilcoDtcSupportd::Service::GetVpdField), this)));
+      new ::grpc::internal::RpcMethodHandler< WilcoDtcSupportd::Service, ::diagnostics::grpc_api::GetVpdFieldRequest, ::diagnostics::grpc_api::GetVpdFieldResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](WilcoDtcSupportd::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::diagnostics::grpc_api::GetVpdFieldRequest* req,
+             ::diagnostics::grpc_api::GetVpdFieldResponse* resp) {
+               return service->GetVpdField(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       WilcoDtcSupportd_method_names[11],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< WilcoDtcSupportd::Service, ::diagnostics::grpc_api::GetDriveSystemDataRequest, ::diagnostics::grpc_api::GetDriveSystemDataResponse>(
-          std::mem_fn(&WilcoDtcSupportd::Service::GetDriveSystemData), this)));
+      new ::grpc::internal::RpcMethodHandler< WilcoDtcSupportd::Service, ::diagnostics::grpc_api::GetDriveSystemDataRequest, ::diagnostics::grpc_api::GetDriveSystemDataResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](WilcoDtcSupportd::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::diagnostics::grpc_api::GetDriveSystemDataRequest* req,
+             ::diagnostics::grpc_api::GetDriveSystemDataResponse* resp) {
+               return service->GetDriveSystemData(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       WilcoDtcSupportd_method_names[12],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< WilcoDtcSupportd::Service, ::diagnostics::grpc_api::RequestBluetoothDataNotificationRequest, ::diagnostics::grpc_api::RequestBluetoothDataNotificationResponse>(
-          std::mem_fn(&WilcoDtcSupportd::Service::RequestBluetoothDataNotification), this)));
+      new ::grpc::internal::RpcMethodHandler< WilcoDtcSupportd::Service, ::diagnostics::grpc_api::RequestBluetoothDataNotificationRequest, ::diagnostics::grpc_api::RequestBluetoothDataNotificationResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](WilcoDtcSupportd::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::diagnostics::grpc_api::RequestBluetoothDataNotificationRequest* req,
+             ::diagnostics::grpc_api::RequestBluetoothDataNotificationResponse* resp) {
+               return service->RequestBluetoothDataNotification(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       WilcoDtcSupportd_method_names[13],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< WilcoDtcSupportd::Service, ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityRequest, ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityResponse>(
-          std::mem_fn(&WilcoDtcSupportd::Service::GetStatefulPartitionAvailableCapacity), this)));
+      new ::grpc::internal::RpcMethodHandler< WilcoDtcSupportd::Service, ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityRequest, ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](WilcoDtcSupportd::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityRequest* req,
+             ::diagnostics::grpc_api::GetStatefulPartitionAvailableCapacityResponse* resp) {
+               return service->GetStatefulPartitionAvailableCapacity(ctx, req, resp);
+             }, this)));
 }
 
 WilcoDtcSupportd::Service::~Service() {

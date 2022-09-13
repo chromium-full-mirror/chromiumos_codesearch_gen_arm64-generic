@@ -65,6 +65,7 @@ class TestUploadClient : public UploaderInterface {
       : last_record_digest_map_(last_record_digest_map) {}
 
   void ProcessRecord(EncryptedRecord encrypted_record,
+                     ScopedReservation scoped_reservation,
                      base::OnceCallback<void(bool)> processed_cb) override {
     WrappedRecord wrapped_record;
     ASSERT_TRUE(wrapped_record.ParseFromString(
@@ -177,22 +178,6 @@ class StorageQueueStressTest : public ::testing::TestWithParam<size_t> {
     task_environment_.RunUntilIdle();
   }
 
-  QueueOptions BuildStorageQueueOptionsImmediate() const {
-    return QueueOptions(options_)
-        .set_subdirectory("D1")
-        .set_file_prefix("F0001")
-        .set_max_single_file_size(GetParam());
-  }
-
-  QueueOptions BuildStorageQueueOptionsPeriodic(
-      base::TimeDelta upload_period = base::Seconds(1)) const {
-    return BuildStorageQueueOptionsImmediate().set_upload_period(upload_period);
-  }
-
-  QueueOptions BuildStorageQueueOptionsOnlyManual() const {
-    return BuildStorageQueueOptionsPeriodic(base::TimeDelta::Max());
-  }
-
   void AsyncStartTestUploader(
       UploaderInterface::UploadReason reason,
       UploaderInterface::UploaderInterfaceResultCb start_uploader_cb) {
@@ -238,7 +223,14 @@ TEST_P(StorageQueueStressTest,
         &write_waiter);
 
     SCOPED_TRACE(base::StrCat({"Create ", base::NumberToString(iStart)}));
-    CreateTestStorageQueueOrDie(BuildStorageQueueOptionsOnlyManual());
+    CreateTestStorageQueueOrDie(
+        QueueOptions(options_)
+            .set_subdirectory("D1")
+            .set_file_prefix("F0001")
+            .set_max_single_file_size(GetParam())
+            .set_upload_period(base::TimeDelta::Max())
+            .set_upload_retry_delay(
+                base::TimeDelta()));  // No retry by default.
 
     // Write into the queue at random order (simultaneously).
     SCOPED_TRACE(base::StrCat({"Write ", base::NumberToString(iStart)}));

@@ -2,9 +2,13 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#include "libhwsec/backend/tpm2/backend.h"
+#include "libhwsec/backend/tpm2/deriving.h"
 
-#include <functional>
+#include <cstdint>
+#include <memory>
+#include <optional>
+#include <string>
+#include <utility>
 
 #include <base/callback_helpers.h>
 #include <brillo/secure_blob.h>
@@ -15,7 +19,7 @@
 #include <trunks/openssl_utility.h>
 #include <trunks/tpm_utility.h>
 
-#include "libhwsec/error/elliptic_curve_error.h"
+#include "libhwsec/backend/tpm2/backend.h"
 #include "libhwsec/error/tpm2_error.h"
 #include "libhwsec/status.h"
 
@@ -59,8 +63,8 @@ hwsec::StatusOr<trunks::TPMS_ECC_POINT> DeriveTpmEccPointFromSeed(
 
   if (!ec->IsScalarValid(*private_key)) {
     // Generate another blob may resolve this issue.
-    return MakeStatus<EllipticCurveError>(
-        EllipticCurveErrorCode::kScalarOutOfRange);
+    return MakeStatus<TPMError>("ECC scalar out of range",
+                                TPMRetryAction::kEllipticCurveScalarOutOfRange);
   }
 
   crypto::ScopedEC_POINT public_point =
@@ -85,8 +89,6 @@ hwsec::StatusOr<trunks::TPMS_ECC_POINT> DeriveTpmEccPointFromSeed(
 
 }  // namespace
 
-using DerivingTpm2 = BackendTpm2::DerivingTpm2;
-
 StatusOr<Blob> DerivingTpm2::Derive(Key key, const Blob& blob) {
   ASSIGN_OR_RETURN(
       const SecureBlob& result,
@@ -98,7 +100,7 @@ StatusOr<Blob> DerivingTpm2::Derive(Key key, const Blob& blob) {
 StatusOr<SecureBlob> DerivingTpm2::SecureDerive(Key key,
                                                 const SecureBlob& blob) {
   ASSIGN_OR_RETURN(const KeyTpm2& key_data,
-                   backend_.key_managerment_.GetKeyData(key));
+                   backend_.GetKeyManagementTpm2().GetKeyData(key));
 
   switch (key_data.cache.public_area.type) {
     case trunks::TPM_ALG_RSA:
@@ -121,7 +123,7 @@ StatusOr<SecureBlob> DerivingTpm2::DeriveRsaKey(const KeyTpm2& key_data,
         TPMRetryAction::kNoRetry);
   }
 
-  TrunksClientContext& context = backend_.trunks_context_;
+  BackendTpm2::TrunksClientContext& context = backend_.GetTrunksContext();
 
   // To guarantee that pass_blob is lower that public key modulus, just set the
   // first byte to 0.
@@ -157,7 +159,7 @@ StatusOr<SecureBlob> DerivingTpm2::DeriveEccKey(const KeyTpm2& key_data,
       const trunks::TPMS_ECC_POINT& ecc_point, DeriveTpmEccPointFromSeed(blob),
       _.WithStatus<TPMError>("Failed to derive TPM ECC point from seed"));
 
-  TrunksClientContext& context = backend_.trunks_context_;
+  BackendTpm2::TrunksClientContext& context = backend_.GetTrunksContext();
 
   trunks::TPM2B_ECC_POINT in_point = trunks::Make_TPM2B_ECC_POINT(ecc_point);
   trunks::TPM2B_ECC_POINT z_point;

@@ -21,17 +21,13 @@
 #include "mojo/public/cpp/bindings/struct_traits.h"
 #include "mojo/public/cpp/bindings/union_traits.h"
 
-#include "base/trace_event/base_tracing.h"
+#include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
 #include "mojo/public/mojom/base/shared_memory.mojom-shared.h"
 #include "mojo/public/mojom/base/shared_memory.mojom-forward.h"
 #include <string>
 #include <vector>
 
-#include "mojo/public/cpp/bindings/associated_interface_ptr_info.h"
-#include "mojo/public/cpp/bindings/associated_interface_request.h"
-#include "mojo/public/cpp/bindings/interface_ptr.h"
-#include "mojo/public/cpp/bindings/interface_request.h"
 #include "mojo/public/cpp/bindings/lib/control_message_handler.h"
 #include "mojo/public/cpp/bindings/raw_ptr_impl_ref_traits.h"
 
@@ -62,7 +58,7 @@ class  ReadOnlySharedMemoryRegion {
   template <typename... Args>
   static ReadOnlySharedMemoryRegionPtr New(Args&&... args) {
     return ReadOnlySharedMemoryRegionPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -154,7 +150,7 @@ ReadOnlySharedMemoryRegion& operator=(const ReadOnlySharedMemoryRegion&) = delet
   ::mojo::ScopedSharedBufferHandle buffer;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto::libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -196,7 +192,7 @@ class  WritableSharedMemoryRegion {
   template <typename... Args>
   static WritableSharedMemoryRegionPtr New(Args&&... args) {
     return WritableSharedMemoryRegionPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -288,7 +284,7 @@ WritableSharedMemoryRegion& operator=(const WritableSharedMemoryRegion&) = delet
   ::mojo::ScopedSharedBufferHandle buffer;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto::libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,
@@ -330,7 +326,7 @@ class  UnsafeSharedMemoryRegion {
   template <typename... Args>
   static UnsafeSharedMemoryRegionPtr New(Args&&... args) {
     return UnsafeSharedMemoryRegionPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -422,7 +418,7 @@ UnsafeSharedMemoryRegion& operator=(const UnsafeSharedMemoryRegion&) = delete;
   ::mojo::ScopedSharedBufferHandle buffer;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto::libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,

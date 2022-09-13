@@ -11,8 +11,12 @@
 #include <grpcpp/impl/codegen/channel_interface.h>
 #include <grpcpp/impl/codegen/client_unary_call.h>
 #include <grpcpp/impl/codegen/client_callback.h>
-#include <grpcpp/impl/codegen/method_handler_impl.h>
+#include <grpcpp/impl/codegen/message_allocator.h>
+#include <grpcpp/impl/codegen/method_handler.h>
 #include <grpcpp/impl/codegen/rpc_service_method.h>
+#include <grpcpp/impl/codegen/server_callback.h>
+#include <grpcpp/impl/codegen/server_callback_handlers.h>
+#include <grpcpp/impl/codegen/server_context.h>
 #include <grpcpp/impl/codegen/service_type.h>
 #include <grpcpp/impl/codegen/sync_stream.h>
 namespace vm_tools {
@@ -36,392 +40,701 @@ static const char* Tremplin_method_names[] = {
   "/vm_tools.tremplin.Tremplin/CancelUpgradeContainer",
   "/vm_tools.tremplin.Tremplin/HostNetworkChanged",
   "/vm_tools.tremplin.Tremplin/GetDebugInfo",
+  "/vm_tools.tremplin.Tremplin/AttachUsbToContainer",
+  "/vm_tools.tremplin.Tremplin/DetachUsbFromContainer",
+  "/vm_tools.tremplin.Tremplin/UpdateContainerDevices",
 };
 
 std::unique_ptr< Tremplin::Stub> Tremplin::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
   (void)options;
-  std::unique_ptr< Tremplin::Stub> stub(new Tremplin::Stub(channel));
+  std::unique_ptr< Tremplin::Stub> stub(new Tremplin::Stub(channel, options));
   return stub;
 }
 
-Tremplin::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel)
-  : channel_(channel), rpcmethod_StartLxd_(Tremplin_method_names[0], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_CreateContainer_(Tremplin_method_names[1], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_DeleteContainer_(Tremplin_method_names[2], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_StartContainer_(Tremplin_method_names[3], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_StopContainer_(Tremplin_method_names[4], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_GetContainerUsername_(Tremplin_method_names[5], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_SetUpUser_(Tremplin_method_names[6], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_GetContainerInfo_(Tremplin_method_names[7], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_SetTimezone_(Tremplin_method_names[8], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_ExportContainer_(Tremplin_method_names[9], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_CancelExportContainer_(Tremplin_method_names[10], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_ImportContainer_(Tremplin_method_names[11], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_CancelImportContainer_(Tremplin_method_names[12], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_UpgradeContainer_(Tremplin_method_names[13], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_CancelUpgradeContainer_(Tremplin_method_names[14], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_HostNetworkChanged_(Tremplin_method_names[15], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_GetDebugInfo_(Tremplin_method_names[16], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+Tremplin::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options)
+  : channel_(channel), rpcmethod_StartLxd_(Tremplin_method_names[0], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_CreateContainer_(Tremplin_method_names[1], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_DeleteContainer_(Tremplin_method_names[2], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_StartContainer_(Tremplin_method_names[3], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_StopContainer_(Tremplin_method_names[4], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_GetContainerUsername_(Tremplin_method_names[5], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_SetUpUser_(Tremplin_method_names[6], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_GetContainerInfo_(Tremplin_method_names[7], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_SetTimezone_(Tremplin_method_names[8], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_ExportContainer_(Tremplin_method_names[9], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_CancelExportContainer_(Tremplin_method_names[10], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_ImportContainer_(Tremplin_method_names[11], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_CancelImportContainer_(Tremplin_method_names[12], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_UpgradeContainer_(Tremplin_method_names[13], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_CancelUpgradeContainer_(Tremplin_method_names[14], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_HostNetworkChanged_(Tremplin_method_names[15], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_GetDebugInfo_(Tremplin_method_names[16], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_AttachUsbToContainer_(Tremplin_method_names[17], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_DetachUsbFromContainer_(Tremplin_method_names[18], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_UpdateContainerDevices_(Tremplin_method_names[19], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   {}
 
 ::grpc::Status Tremplin::Stub::StartLxd(::grpc::ClientContext* context, const ::vm_tools::tremplin::StartLxdRequest& request, ::vm_tools::tremplin::StartLxdResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_StartLxd_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::tremplin::StartLxdRequest, ::vm_tools::tremplin::StartLxdResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_StartLxd_, context, request, response);
 }
 
-void Tremplin::Stub::experimental_async::StartLxd(::grpc::ClientContext* context, const ::vm_tools::tremplin::StartLxdRequest* request, ::vm_tools::tremplin::StartLxdResponse* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_StartLxd_, context, request, response, std::move(f));
+void Tremplin::Stub::async::StartLxd(::grpc::ClientContext* context, const ::vm_tools::tremplin::StartLxdRequest* request, ::vm_tools::tremplin::StartLxdResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::tremplin::StartLxdRequest, ::vm_tools::tremplin::StartLxdResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_StartLxd_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::StartLxdResponse>* Tremplin::Stub::AsyncStartLxdRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::StartLxdRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::tremplin::StartLxdResponse>::Create(channel_.get(), cq, rpcmethod_StartLxd_, context, request, true);
+void Tremplin::Stub::async::StartLxd(::grpc::ClientContext* context, const ::vm_tools::tremplin::StartLxdRequest* request, ::vm_tools::tremplin::StartLxdResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_StartLxd_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::StartLxdResponse>* Tremplin::Stub::PrepareAsyncStartLxdRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::StartLxdRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::tremplin::StartLxdResponse>::Create(channel_.get(), cq, rpcmethod_StartLxd_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::tremplin::StartLxdResponse, ::vm_tools::tremplin::StartLxdRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_StartLxd_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::StartLxdResponse>* Tremplin::Stub::AsyncStartLxdRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::StartLxdRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncStartLxdRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 ::grpc::Status Tremplin::Stub::CreateContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::CreateContainerRequest& request, ::vm_tools::tremplin::CreateContainerResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_CreateContainer_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::tremplin::CreateContainerRequest, ::vm_tools::tremplin::CreateContainerResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_CreateContainer_, context, request, response);
 }
 
-void Tremplin::Stub::experimental_async::CreateContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::CreateContainerRequest* request, ::vm_tools::tremplin::CreateContainerResponse* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_CreateContainer_, context, request, response, std::move(f));
+void Tremplin::Stub::async::CreateContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::CreateContainerRequest* request, ::vm_tools::tremplin::CreateContainerResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::tremplin::CreateContainerRequest, ::vm_tools::tremplin::CreateContainerResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_CreateContainer_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::CreateContainerResponse>* Tremplin::Stub::AsyncCreateContainerRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::CreateContainerRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::tremplin::CreateContainerResponse>::Create(channel_.get(), cq, rpcmethod_CreateContainer_, context, request, true);
+void Tremplin::Stub::async::CreateContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::CreateContainerRequest* request, ::vm_tools::tremplin::CreateContainerResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_CreateContainer_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::CreateContainerResponse>* Tremplin::Stub::PrepareAsyncCreateContainerRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::CreateContainerRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::tremplin::CreateContainerResponse>::Create(channel_.get(), cq, rpcmethod_CreateContainer_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::tremplin::CreateContainerResponse, ::vm_tools::tremplin::CreateContainerRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_CreateContainer_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::CreateContainerResponse>* Tremplin::Stub::AsyncCreateContainerRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::CreateContainerRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncCreateContainerRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 ::grpc::Status Tremplin::Stub::DeleteContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::DeleteContainerRequest& request, ::vm_tools::tremplin::DeleteContainerResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_DeleteContainer_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::tremplin::DeleteContainerRequest, ::vm_tools::tremplin::DeleteContainerResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_DeleteContainer_, context, request, response);
 }
 
-void Tremplin::Stub::experimental_async::DeleteContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::DeleteContainerRequest* request, ::vm_tools::tremplin::DeleteContainerResponse* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_DeleteContainer_, context, request, response, std::move(f));
+void Tremplin::Stub::async::DeleteContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::DeleteContainerRequest* request, ::vm_tools::tremplin::DeleteContainerResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::tremplin::DeleteContainerRequest, ::vm_tools::tremplin::DeleteContainerResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_DeleteContainer_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::DeleteContainerResponse>* Tremplin::Stub::AsyncDeleteContainerRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::DeleteContainerRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::tremplin::DeleteContainerResponse>::Create(channel_.get(), cq, rpcmethod_DeleteContainer_, context, request, true);
+void Tremplin::Stub::async::DeleteContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::DeleteContainerRequest* request, ::vm_tools::tremplin::DeleteContainerResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_DeleteContainer_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::DeleteContainerResponse>* Tremplin::Stub::PrepareAsyncDeleteContainerRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::DeleteContainerRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::tremplin::DeleteContainerResponse>::Create(channel_.get(), cq, rpcmethod_DeleteContainer_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::tremplin::DeleteContainerResponse, ::vm_tools::tremplin::DeleteContainerRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_DeleteContainer_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::DeleteContainerResponse>* Tremplin::Stub::AsyncDeleteContainerRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::DeleteContainerRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncDeleteContainerRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 ::grpc::Status Tremplin::Stub::StartContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::StartContainerRequest& request, ::vm_tools::tremplin::StartContainerResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_StartContainer_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::tremplin::StartContainerRequest, ::vm_tools::tremplin::StartContainerResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_StartContainer_, context, request, response);
 }
 
-void Tremplin::Stub::experimental_async::StartContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::StartContainerRequest* request, ::vm_tools::tremplin::StartContainerResponse* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_StartContainer_, context, request, response, std::move(f));
+void Tremplin::Stub::async::StartContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::StartContainerRequest* request, ::vm_tools::tremplin::StartContainerResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::tremplin::StartContainerRequest, ::vm_tools::tremplin::StartContainerResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_StartContainer_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::StartContainerResponse>* Tremplin::Stub::AsyncStartContainerRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::StartContainerRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::tremplin::StartContainerResponse>::Create(channel_.get(), cq, rpcmethod_StartContainer_, context, request, true);
+void Tremplin::Stub::async::StartContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::StartContainerRequest* request, ::vm_tools::tremplin::StartContainerResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_StartContainer_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::StartContainerResponse>* Tremplin::Stub::PrepareAsyncStartContainerRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::StartContainerRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::tremplin::StartContainerResponse>::Create(channel_.get(), cq, rpcmethod_StartContainer_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::tremplin::StartContainerResponse, ::vm_tools::tremplin::StartContainerRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_StartContainer_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::StartContainerResponse>* Tremplin::Stub::AsyncStartContainerRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::StartContainerRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncStartContainerRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 ::grpc::Status Tremplin::Stub::StopContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::StopContainerRequest& request, ::vm_tools::tremplin::StopContainerResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_StopContainer_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::tremplin::StopContainerRequest, ::vm_tools::tremplin::StopContainerResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_StopContainer_, context, request, response);
 }
 
-void Tremplin::Stub::experimental_async::StopContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::StopContainerRequest* request, ::vm_tools::tremplin::StopContainerResponse* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_StopContainer_, context, request, response, std::move(f));
+void Tremplin::Stub::async::StopContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::StopContainerRequest* request, ::vm_tools::tremplin::StopContainerResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::tremplin::StopContainerRequest, ::vm_tools::tremplin::StopContainerResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_StopContainer_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::StopContainerResponse>* Tremplin::Stub::AsyncStopContainerRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::StopContainerRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::tremplin::StopContainerResponse>::Create(channel_.get(), cq, rpcmethod_StopContainer_, context, request, true);
+void Tremplin::Stub::async::StopContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::StopContainerRequest* request, ::vm_tools::tremplin::StopContainerResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_StopContainer_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::StopContainerResponse>* Tremplin::Stub::PrepareAsyncStopContainerRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::StopContainerRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::tremplin::StopContainerResponse>::Create(channel_.get(), cq, rpcmethod_StopContainer_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::tremplin::StopContainerResponse, ::vm_tools::tremplin::StopContainerRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_StopContainer_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::StopContainerResponse>* Tremplin::Stub::AsyncStopContainerRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::StopContainerRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncStopContainerRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 ::grpc::Status Tremplin::Stub::GetContainerUsername(::grpc::ClientContext* context, const ::vm_tools::tremplin::GetContainerUsernameRequest& request, ::vm_tools::tremplin::GetContainerUsernameResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_GetContainerUsername_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::tremplin::GetContainerUsernameRequest, ::vm_tools::tremplin::GetContainerUsernameResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_GetContainerUsername_, context, request, response);
 }
 
-void Tremplin::Stub::experimental_async::GetContainerUsername(::grpc::ClientContext* context, const ::vm_tools::tremplin::GetContainerUsernameRequest* request, ::vm_tools::tremplin::GetContainerUsernameResponse* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_GetContainerUsername_, context, request, response, std::move(f));
+void Tremplin::Stub::async::GetContainerUsername(::grpc::ClientContext* context, const ::vm_tools::tremplin::GetContainerUsernameRequest* request, ::vm_tools::tremplin::GetContainerUsernameResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::tremplin::GetContainerUsernameRequest, ::vm_tools::tremplin::GetContainerUsernameResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetContainerUsername_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::GetContainerUsernameResponse>* Tremplin::Stub::AsyncGetContainerUsernameRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::GetContainerUsernameRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::tremplin::GetContainerUsernameResponse>::Create(channel_.get(), cq, rpcmethod_GetContainerUsername_, context, request, true);
+void Tremplin::Stub::async::GetContainerUsername(::grpc::ClientContext* context, const ::vm_tools::tremplin::GetContainerUsernameRequest* request, ::vm_tools::tremplin::GetContainerUsernameResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetContainerUsername_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::GetContainerUsernameResponse>* Tremplin::Stub::PrepareAsyncGetContainerUsernameRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::GetContainerUsernameRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::tremplin::GetContainerUsernameResponse>::Create(channel_.get(), cq, rpcmethod_GetContainerUsername_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::tremplin::GetContainerUsernameResponse, ::vm_tools::tremplin::GetContainerUsernameRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_GetContainerUsername_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::GetContainerUsernameResponse>* Tremplin::Stub::AsyncGetContainerUsernameRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::GetContainerUsernameRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncGetContainerUsernameRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 ::grpc::Status Tremplin::Stub::SetUpUser(::grpc::ClientContext* context, const ::vm_tools::tremplin::SetUpUserRequest& request, ::vm_tools::tremplin::SetUpUserResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_SetUpUser_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::tremplin::SetUpUserRequest, ::vm_tools::tremplin::SetUpUserResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_SetUpUser_, context, request, response);
 }
 
-void Tremplin::Stub::experimental_async::SetUpUser(::grpc::ClientContext* context, const ::vm_tools::tremplin::SetUpUserRequest* request, ::vm_tools::tremplin::SetUpUserResponse* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_SetUpUser_, context, request, response, std::move(f));
+void Tremplin::Stub::async::SetUpUser(::grpc::ClientContext* context, const ::vm_tools::tremplin::SetUpUserRequest* request, ::vm_tools::tremplin::SetUpUserResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::tremplin::SetUpUserRequest, ::vm_tools::tremplin::SetUpUserResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_SetUpUser_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::SetUpUserResponse>* Tremplin::Stub::AsyncSetUpUserRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::SetUpUserRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::tremplin::SetUpUserResponse>::Create(channel_.get(), cq, rpcmethod_SetUpUser_, context, request, true);
+void Tremplin::Stub::async::SetUpUser(::grpc::ClientContext* context, const ::vm_tools::tremplin::SetUpUserRequest* request, ::vm_tools::tremplin::SetUpUserResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_SetUpUser_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::SetUpUserResponse>* Tremplin::Stub::PrepareAsyncSetUpUserRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::SetUpUserRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::tremplin::SetUpUserResponse>::Create(channel_.get(), cq, rpcmethod_SetUpUser_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::tremplin::SetUpUserResponse, ::vm_tools::tremplin::SetUpUserRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_SetUpUser_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::SetUpUserResponse>* Tremplin::Stub::AsyncSetUpUserRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::SetUpUserRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncSetUpUserRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 ::grpc::Status Tremplin::Stub::GetContainerInfo(::grpc::ClientContext* context, const ::vm_tools::tremplin::GetContainerInfoRequest& request, ::vm_tools::tremplin::GetContainerInfoResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_GetContainerInfo_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::tremplin::GetContainerInfoRequest, ::vm_tools::tremplin::GetContainerInfoResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_GetContainerInfo_, context, request, response);
 }
 
-void Tremplin::Stub::experimental_async::GetContainerInfo(::grpc::ClientContext* context, const ::vm_tools::tremplin::GetContainerInfoRequest* request, ::vm_tools::tremplin::GetContainerInfoResponse* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_GetContainerInfo_, context, request, response, std::move(f));
+void Tremplin::Stub::async::GetContainerInfo(::grpc::ClientContext* context, const ::vm_tools::tremplin::GetContainerInfoRequest* request, ::vm_tools::tremplin::GetContainerInfoResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::tremplin::GetContainerInfoRequest, ::vm_tools::tremplin::GetContainerInfoResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetContainerInfo_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::GetContainerInfoResponse>* Tremplin::Stub::AsyncGetContainerInfoRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::GetContainerInfoRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::tremplin::GetContainerInfoResponse>::Create(channel_.get(), cq, rpcmethod_GetContainerInfo_, context, request, true);
+void Tremplin::Stub::async::GetContainerInfo(::grpc::ClientContext* context, const ::vm_tools::tremplin::GetContainerInfoRequest* request, ::vm_tools::tremplin::GetContainerInfoResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetContainerInfo_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::GetContainerInfoResponse>* Tremplin::Stub::PrepareAsyncGetContainerInfoRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::GetContainerInfoRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::tremplin::GetContainerInfoResponse>::Create(channel_.get(), cq, rpcmethod_GetContainerInfo_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::tremplin::GetContainerInfoResponse, ::vm_tools::tremplin::GetContainerInfoRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_GetContainerInfo_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::GetContainerInfoResponse>* Tremplin::Stub::AsyncGetContainerInfoRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::GetContainerInfoRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncGetContainerInfoRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 ::grpc::Status Tremplin::Stub::SetTimezone(::grpc::ClientContext* context, const ::vm_tools::tremplin::SetTimezoneRequest& request, ::vm_tools::tremplin::SetTimezoneResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_SetTimezone_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::tremplin::SetTimezoneRequest, ::vm_tools::tremplin::SetTimezoneResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_SetTimezone_, context, request, response);
 }
 
-void Tremplin::Stub::experimental_async::SetTimezone(::grpc::ClientContext* context, const ::vm_tools::tremplin::SetTimezoneRequest* request, ::vm_tools::tremplin::SetTimezoneResponse* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_SetTimezone_, context, request, response, std::move(f));
+void Tremplin::Stub::async::SetTimezone(::grpc::ClientContext* context, const ::vm_tools::tremplin::SetTimezoneRequest* request, ::vm_tools::tremplin::SetTimezoneResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::tremplin::SetTimezoneRequest, ::vm_tools::tremplin::SetTimezoneResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_SetTimezone_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::SetTimezoneResponse>* Tremplin::Stub::AsyncSetTimezoneRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::SetTimezoneRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::tremplin::SetTimezoneResponse>::Create(channel_.get(), cq, rpcmethod_SetTimezone_, context, request, true);
+void Tremplin::Stub::async::SetTimezone(::grpc::ClientContext* context, const ::vm_tools::tremplin::SetTimezoneRequest* request, ::vm_tools::tremplin::SetTimezoneResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_SetTimezone_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::SetTimezoneResponse>* Tremplin::Stub::PrepareAsyncSetTimezoneRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::SetTimezoneRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::tremplin::SetTimezoneResponse>::Create(channel_.get(), cq, rpcmethod_SetTimezone_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::tremplin::SetTimezoneResponse, ::vm_tools::tremplin::SetTimezoneRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_SetTimezone_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::SetTimezoneResponse>* Tremplin::Stub::AsyncSetTimezoneRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::SetTimezoneRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncSetTimezoneRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 ::grpc::Status Tremplin::Stub::ExportContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::ExportContainerRequest& request, ::vm_tools::tremplin::ExportContainerResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_ExportContainer_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::tremplin::ExportContainerRequest, ::vm_tools::tremplin::ExportContainerResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_ExportContainer_, context, request, response);
 }
 
-void Tremplin::Stub::experimental_async::ExportContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::ExportContainerRequest* request, ::vm_tools::tremplin::ExportContainerResponse* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_ExportContainer_, context, request, response, std::move(f));
+void Tremplin::Stub::async::ExportContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::ExportContainerRequest* request, ::vm_tools::tremplin::ExportContainerResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::tremplin::ExportContainerRequest, ::vm_tools::tremplin::ExportContainerResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_ExportContainer_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::ExportContainerResponse>* Tremplin::Stub::AsyncExportContainerRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::ExportContainerRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::tremplin::ExportContainerResponse>::Create(channel_.get(), cq, rpcmethod_ExportContainer_, context, request, true);
+void Tremplin::Stub::async::ExportContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::ExportContainerRequest* request, ::vm_tools::tremplin::ExportContainerResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_ExportContainer_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::ExportContainerResponse>* Tremplin::Stub::PrepareAsyncExportContainerRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::ExportContainerRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::tremplin::ExportContainerResponse>::Create(channel_.get(), cq, rpcmethod_ExportContainer_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::tremplin::ExportContainerResponse, ::vm_tools::tremplin::ExportContainerRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_ExportContainer_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::ExportContainerResponse>* Tremplin::Stub::AsyncExportContainerRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::ExportContainerRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncExportContainerRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 ::grpc::Status Tremplin::Stub::CancelExportContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::CancelExportContainerRequest& request, ::vm_tools::tremplin::CancelExportContainerResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_CancelExportContainer_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::tremplin::CancelExportContainerRequest, ::vm_tools::tremplin::CancelExportContainerResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_CancelExportContainer_, context, request, response);
 }
 
-void Tremplin::Stub::experimental_async::CancelExportContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::CancelExportContainerRequest* request, ::vm_tools::tremplin::CancelExportContainerResponse* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_CancelExportContainer_, context, request, response, std::move(f));
+void Tremplin::Stub::async::CancelExportContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::CancelExportContainerRequest* request, ::vm_tools::tremplin::CancelExportContainerResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::tremplin::CancelExportContainerRequest, ::vm_tools::tremplin::CancelExportContainerResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_CancelExportContainer_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::CancelExportContainerResponse>* Tremplin::Stub::AsyncCancelExportContainerRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::CancelExportContainerRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::tremplin::CancelExportContainerResponse>::Create(channel_.get(), cq, rpcmethod_CancelExportContainer_, context, request, true);
+void Tremplin::Stub::async::CancelExportContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::CancelExportContainerRequest* request, ::vm_tools::tremplin::CancelExportContainerResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_CancelExportContainer_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::CancelExportContainerResponse>* Tremplin::Stub::PrepareAsyncCancelExportContainerRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::CancelExportContainerRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::tremplin::CancelExportContainerResponse>::Create(channel_.get(), cq, rpcmethod_CancelExportContainer_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::tremplin::CancelExportContainerResponse, ::vm_tools::tremplin::CancelExportContainerRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_CancelExportContainer_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::CancelExportContainerResponse>* Tremplin::Stub::AsyncCancelExportContainerRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::CancelExportContainerRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncCancelExportContainerRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 ::grpc::Status Tremplin::Stub::ImportContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::ImportContainerRequest& request, ::vm_tools::tremplin::ImportContainerResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_ImportContainer_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::tremplin::ImportContainerRequest, ::vm_tools::tremplin::ImportContainerResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_ImportContainer_, context, request, response);
 }
 
-void Tremplin::Stub::experimental_async::ImportContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::ImportContainerRequest* request, ::vm_tools::tremplin::ImportContainerResponse* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_ImportContainer_, context, request, response, std::move(f));
+void Tremplin::Stub::async::ImportContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::ImportContainerRequest* request, ::vm_tools::tremplin::ImportContainerResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::tremplin::ImportContainerRequest, ::vm_tools::tremplin::ImportContainerResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_ImportContainer_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::ImportContainerResponse>* Tremplin::Stub::AsyncImportContainerRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::ImportContainerRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::tremplin::ImportContainerResponse>::Create(channel_.get(), cq, rpcmethod_ImportContainer_, context, request, true);
+void Tremplin::Stub::async::ImportContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::ImportContainerRequest* request, ::vm_tools::tremplin::ImportContainerResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_ImportContainer_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::ImportContainerResponse>* Tremplin::Stub::PrepareAsyncImportContainerRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::ImportContainerRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::tremplin::ImportContainerResponse>::Create(channel_.get(), cq, rpcmethod_ImportContainer_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::tremplin::ImportContainerResponse, ::vm_tools::tremplin::ImportContainerRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_ImportContainer_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::ImportContainerResponse>* Tremplin::Stub::AsyncImportContainerRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::ImportContainerRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncImportContainerRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 ::grpc::Status Tremplin::Stub::CancelImportContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::CancelImportContainerRequest& request, ::vm_tools::tremplin::CancelImportContainerResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_CancelImportContainer_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::tremplin::CancelImportContainerRequest, ::vm_tools::tremplin::CancelImportContainerResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_CancelImportContainer_, context, request, response);
 }
 
-void Tremplin::Stub::experimental_async::CancelImportContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::CancelImportContainerRequest* request, ::vm_tools::tremplin::CancelImportContainerResponse* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_CancelImportContainer_, context, request, response, std::move(f));
+void Tremplin::Stub::async::CancelImportContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::CancelImportContainerRequest* request, ::vm_tools::tremplin::CancelImportContainerResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::tremplin::CancelImportContainerRequest, ::vm_tools::tremplin::CancelImportContainerResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_CancelImportContainer_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::CancelImportContainerResponse>* Tremplin::Stub::AsyncCancelImportContainerRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::CancelImportContainerRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::tremplin::CancelImportContainerResponse>::Create(channel_.get(), cq, rpcmethod_CancelImportContainer_, context, request, true);
+void Tremplin::Stub::async::CancelImportContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::CancelImportContainerRequest* request, ::vm_tools::tremplin::CancelImportContainerResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_CancelImportContainer_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::CancelImportContainerResponse>* Tremplin::Stub::PrepareAsyncCancelImportContainerRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::CancelImportContainerRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::tremplin::CancelImportContainerResponse>::Create(channel_.get(), cq, rpcmethod_CancelImportContainer_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::tremplin::CancelImportContainerResponse, ::vm_tools::tremplin::CancelImportContainerRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_CancelImportContainer_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::CancelImportContainerResponse>* Tremplin::Stub::AsyncCancelImportContainerRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::CancelImportContainerRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncCancelImportContainerRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 ::grpc::Status Tremplin::Stub::UpgradeContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::UpgradeContainerRequest& request, ::vm_tools::tremplin::UpgradeContainerResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_UpgradeContainer_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::tremplin::UpgradeContainerRequest, ::vm_tools::tremplin::UpgradeContainerResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_UpgradeContainer_, context, request, response);
 }
 
-void Tremplin::Stub::experimental_async::UpgradeContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::UpgradeContainerRequest* request, ::vm_tools::tremplin::UpgradeContainerResponse* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_UpgradeContainer_, context, request, response, std::move(f));
+void Tremplin::Stub::async::UpgradeContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::UpgradeContainerRequest* request, ::vm_tools::tremplin::UpgradeContainerResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::tremplin::UpgradeContainerRequest, ::vm_tools::tremplin::UpgradeContainerResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_UpgradeContainer_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::UpgradeContainerResponse>* Tremplin::Stub::AsyncUpgradeContainerRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::UpgradeContainerRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::tremplin::UpgradeContainerResponse>::Create(channel_.get(), cq, rpcmethod_UpgradeContainer_, context, request, true);
+void Tremplin::Stub::async::UpgradeContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::UpgradeContainerRequest* request, ::vm_tools::tremplin::UpgradeContainerResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_UpgradeContainer_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::UpgradeContainerResponse>* Tremplin::Stub::PrepareAsyncUpgradeContainerRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::UpgradeContainerRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::tremplin::UpgradeContainerResponse>::Create(channel_.get(), cq, rpcmethod_UpgradeContainer_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::tremplin::UpgradeContainerResponse, ::vm_tools::tremplin::UpgradeContainerRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_UpgradeContainer_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::UpgradeContainerResponse>* Tremplin::Stub::AsyncUpgradeContainerRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::UpgradeContainerRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncUpgradeContainerRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 ::grpc::Status Tremplin::Stub::CancelUpgradeContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::CancelUpgradeContainerRequest& request, ::vm_tools::tremplin::CancelUpgradeContainerResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_CancelUpgradeContainer_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::tremplin::CancelUpgradeContainerRequest, ::vm_tools::tremplin::CancelUpgradeContainerResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_CancelUpgradeContainer_, context, request, response);
 }
 
-void Tremplin::Stub::experimental_async::CancelUpgradeContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::CancelUpgradeContainerRequest* request, ::vm_tools::tremplin::CancelUpgradeContainerResponse* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_CancelUpgradeContainer_, context, request, response, std::move(f));
+void Tremplin::Stub::async::CancelUpgradeContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::CancelUpgradeContainerRequest* request, ::vm_tools::tremplin::CancelUpgradeContainerResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::tremplin::CancelUpgradeContainerRequest, ::vm_tools::tremplin::CancelUpgradeContainerResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_CancelUpgradeContainer_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::CancelUpgradeContainerResponse>* Tremplin::Stub::AsyncCancelUpgradeContainerRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::CancelUpgradeContainerRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::tremplin::CancelUpgradeContainerResponse>::Create(channel_.get(), cq, rpcmethod_CancelUpgradeContainer_, context, request, true);
+void Tremplin::Stub::async::CancelUpgradeContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::CancelUpgradeContainerRequest* request, ::vm_tools::tremplin::CancelUpgradeContainerResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_CancelUpgradeContainer_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::CancelUpgradeContainerResponse>* Tremplin::Stub::PrepareAsyncCancelUpgradeContainerRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::CancelUpgradeContainerRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::tremplin::CancelUpgradeContainerResponse>::Create(channel_.get(), cq, rpcmethod_CancelUpgradeContainer_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::tremplin::CancelUpgradeContainerResponse, ::vm_tools::tremplin::CancelUpgradeContainerRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_CancelUpgradeContainer_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::CancelUpgradeContainerResponse>* Tremplin::Stub::AsyncCancelUpgradeContainerRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::CancelUpgradeContainerRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncCancelUpgradeContainerRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 ::grpc::Status Tremplin::Stub::HostNetworkChanged(::grpc::ClientContext* context, const ::vm_tools::tremplin::HostNetworkChangedRequest& request, ::vm_tools::tremplin::HostNetworkChangedResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_HostNetworkChanged_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::tremplin::HostNetworkChangedRequest, ::vm_tools::tremplin::HostNetworkChangedResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_HostNetworkChanged_, context, request, response);
 }
 
-void Tremplin::Stub::experimental_async::HostNetworkChanged(::grpc::ClientContext* context, const ::vm_tools::tremplin::HostNetworkChangedRequest* request, ::vm_tools::tremplin::HostNetworkChangedResponse* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_HostNetworkChanged_, context, request, response, std::move(f));
+void Tremplin::Stub::async::HostNetworkChanged(::grpc::ClientContext* context, const ::vm_tools::tremplin::HostNetworkChangedRequest* request, ::vm_tools::tremplin::HostNetworkChangedResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::tremplin::HostNetworkChangedRequest, ::vm_tools::tremplin::HostNetworkChangedResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_HostNetworkChanged_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::HostNetworkChangedResponse>* Tremplin::Stub::AsyncHostNetworkChangedRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::HostNetworkChangedRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::tremplin::HostNetworkChangedResponse>::Create(channel_.get(), cq, rpcmethod_HostNetworkChanged_, context, request, true);
+void Tremplin::Stub::async::HostNetworkChanged(::grpc::ClientContext* context, const ::vm_tools::tremplin::HostNetworkChangedRequest* request, ::vm_tools::tremplin::HostNetworkChangedResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_HostNetworkChanged_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::HostNetworkChangedResponse>* Tremplin::Stub::PrepareAsyncHostNetworkChangedRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::HostNetworkChangedRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::tremplin::HostNetworkChangedResponse>::Create(channel_.get(), cq, rpcmethod_HostNetworkChanged_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::tremplin::HostNetworkChangedResponse, ::vm_tools::tremplin::HostNetworkChangedRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_HostNetworkChanged_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::HostNetworkChangedResponse>* Tremplin::Stub::AsyncHostNetworkChangedRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::HostNetworkChangedRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncHostNetworkChangedRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 ::grpc::Status Tremplin::Stub::GetDebugInfo(::grpc::ClientContext* context, const ::vm_tools::tremplin::GetDebugInfoRequest& request, ::vm_tools::tremplin::GetDebugInfoResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_GetDebugInfo_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::tremplin::GetDebugInfoRequest, ::vm_tools::tremplin::GetDebugInfoResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_GetDebugInfo_, context, request, response);
 }
 
-void Tremplin::Stub::experimental_async::GetDebugInfo(::grpc::ClientContext* context, const ::vm_tools::tremplin::GetDebugInfoRequest* request, ::vm_tools::tremplin::GetDebugInfoResponse* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_GetDebugInfo_, context, request, response, std::move(f));
+void Tremplin::Stub::async::GetDebugInfo(::grpc::ClientContext* context, const ::vm_tools::tremplin::GetDebugInfoRequest* request, ::vm_tools::tremplin::GetDebugInfoResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::tremplin::GetDebugInfoRequest, ::vm_tools::tremplin::GetDebugInfoResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetDebugInfo_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::GetDebugInfoResponse>* Tremplin::Stub::AsyncGetDebugInfoRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::GetDebugInfoRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::tremplin::GetDebugInfoResponse>::Create(channel_.get(), cq, rpcmethod_GetDebugInfo_, context, request, true);
+void Tremplin::Stub::async::GetDebugInfo(::grpc::ClientContext* context, const ::vm_tools::tremplin::GetDebugInfoRequest* request, ::vm_tools::tremplin::GetDebugInfoResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetDebugInfo_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::GetDebugInfoResponse>* Tremplin::Stub::PrepareAsyncGetDebugInfoRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::GetDebugInfoRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::tremplin::GetDebugInfoResponse>::Create(channel_.get(), cq, rpcmethod_GetDebugInfo_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::tremplin::GetDebugInfoResponse, ::vm_tools::tremplin::GetDebugInfoRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_GetDebugInfo_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::GetDebugInfoResponse>* Tremplin::Stub::AsyncGetDebugInfoRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::GetDebugInfoRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncGetDebugInfoRaw(context, request, cq);
+  result->StartCall();
+  return result;
+}
+
+::grpc::Status Tremplin::Stub::AttachUsbToContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::AttachUsbToContainerRequest& request, ::vm_tools::tremplin::AttachUsbToContainerResponse* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::tremplin::AttachUsbToContainerRequest, ::vm_tools::tremplin::AttachUsbToContainerResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_AttachUsbToContainer_, context, request, response);
+}
+
+void Tremplin::Stub::async::AttachUsbToContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::AttachUsbToContainerRequest* request, ::vm_tools::tremplin::AttachUsbToContainerResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::tremplin::AttachUsbToContainerRequest, ::vm_tools::tremplin::AttachUsbToContainerResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_AttachUsbToContainer_, context, request, response, std::move(f));
+}
+
+void Tremplin::Stub::async::AttachUsbToContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::AttachUsbToContainerRequest* request, ::vm_tools::tremplin::AttachUsbToContainerResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_AttachUsbToContainer_, context, request, response, reactor);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::AttachUsbToContainerResponse>* Tremplin::Stub::PrepareAsyncAttachUsbToContainerRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::AttachUsbToContainerRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::tremplin::AttachUsbToContainerResponse, ::vm_tools::tremplin::AttachUsbToContainerRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_AttachUsbToContainer_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::AttachUsbToContainerResponse>* Tremplin::Stub::AsyncAttachUsbToContainerRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::AttachUsbToContainerRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncAttachUsbToContainerRaw(context, request, cq);
+  result->StartCall();
+  return result;
+}
+
+::grpc::Status Tremplin::Stub::DetachUsbFromContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::DetachUsbFromContainerRequest& request, ::vm_tools::tremplin::DetachUsbFromContainerResponse* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::tremplin::DetachUsbFromContainerRequest, ::vm_tools::tremplin::DetachUsbFromContainerResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_DetachUsbFromContainer_, context, request, response);
+}
+
+void Tremplin::Stub::async::DetachUsbFromContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::DetachUsbFromContainerRequest* request, ::vm_tools::tremplin::DetachUsbFromContainerResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::tremplin::DetachUsbFromContainerRequest, ::vm_tools::tremplin::DetachUsbFromContainerResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_DetachUsbFromContainer_, context, request, response, std::move(f));
+}
+
+void Tremplin::Stub::async::DetachUsbFromContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::DetachUsbFromContainerRequest* request, ::vm_tools::tremplin::DetachUsbFromContainerResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_DetachUsbFromContainer_, context, request, response, reactor);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::DetachUsbFromContainerResponse>* Tremplin::Stub::PrepareAsyncDetachUsbFromContainerRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::DetachUsbFromContainerRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::tremplin::DetachUsbFromContainerResponse, ::vm_tools::tremplin::DetachUsbFromContainerRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_DetachUsbFromContainer_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::DetachUsbFromContainerResponse>* Tremplin::Stub::AsyncDetachUsbFromContainerRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::DetachUsbFromContainerRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncDetachUsbFromContainerRaw(context, request, cq);
+  result->StartCall();
+  return result;
+}
+
+::grpc::Status Tremplin::Stub::UpdateContainerDevices(::grpc::ClientContext* context, const ::vm_tools::tremplin::UpdateContainerDevicesRequest& request, ::vm_tools::tremplin::UpdateContainerDevicesResponse* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::tremplin::UpdateContainerDevicesRequest, ::vm_tools::tremplin::UpdateContainerDevicesResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_UpdateContainerDevices_, context, request, response);
+}
+
+void Tremplin::Stub::async::UpdateContainerDevices(::grpc::ClientContext* context, const ::vm_tools::tremplin::UpdateContainerDevicesRequest* request, ::vm_tools::tremplin::UpdateContainerDevicesResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::tremplin::UpdateContainerDevicesRequest, ::vm_tools::tremplin::UpdateContainerDevicesResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_UpdateContainerDevices_, context, request, response, std::move(f));
+}
+
+void Tremplin::Stub::async::UpdateContainerDevices(::grpc::ClientContext* context, const ::vm_tools::tremplin::UpdateContainerDevicesRequest* request, ::vm_tools::tremplin::UpdateContainerDevicesResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_UpdateContainerDevices_, context, request, response, reactor);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::UpdateContainerDevicesResponse>* Tremplin::Stub::PrepareAsyncUpdateContainerDevicesRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::UpdateContainerDevicesRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::tremplin::UpdateContainerDevicesResponse, ::vm_tools::tremplin::UpdateContainerDevicesRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_UpdateContainerDevices_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::UpdateContainerDevicesResponse>* Tremplin::Stub::AsyncUpdateContainerDevicesRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::UpdateContainerDevicesRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncUpdateContainerDevicesRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 Tremplin::Service::Service() {
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Tremplin_method_names[0],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< Tremplin::Service, ::vm_tools::tremplin::StartLxdRequest, ::vm_tools::tremplin::StartLxdResponse>(
-          std::mem_fn(&Tremplin::Service::StartLxd), this)));
+      new ::grpc::internal::RpcMethodHandler< Tremplin::Service, ::vm_tools::tremplin::StartLxdRequest, ::vm_tools::tremplin::StartLxdResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](Tremplin::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::tremplin::StartLxdRequest* req,
+             ::vm_tools::tremplin::StartLxdResponse* resp) {
+               return service->StartLxd(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Tremplin_method_names[1],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< Tremplin::Service, ::vm_tools::tremplin::CreateContainerRequest, ::vm_tools::tremplin::CreateContainerResponse>(
-          std::mem_fn(&Tremplin::Service::CreateContainer), this)));
+      new ::grpc::internal::RpcMethodHandler< Tremplin::Service, ::vm_tools::tremplin::CreateContainerRequest, ::vm_tools::tremplin::CreateContainerResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](Tremplin::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::tremplin::CreateContainerRequest* req,
+             ::vm_tools::tremplin::CreateContainerResponse* resp) {
+               return service->CreateContainer(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Tremplin_method_names[2],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< Tremplin::Service, ::vm_tools::tremplin::DeleteContainerRequest, ::vm_tools::tremplin::DeleteContainerResponse>(
-          std::mem_fn(&Tremplin::Service::DeleteContainer), this)));
+      new ::grpc::internal::RpcMethodHandler< Tremplin::Service, ::vm_tools::tremplin::DeleteContainerRequest, ::vm_tools::tremplin::DeleteContainerResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](Tremplin::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::tremplin::DeleteContainerRequest* req,
+             ::vm_tools::tremplin::DeleteContainerResponse* resp) {
+               return service->DeleteContainer(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Tremplin_method_names[3],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< Tremplin::Service, ::vm_tools::tremplin::StartContainerRequest, ::vm_tools::tremplin::StartContainerResponse>(
-          std::mem_fn(&Tremplin::Service::StartContainer), this)));
+      new ::grpc::internal::RpcMethodHandler< Tremplin::Service, ::vm_tools::tremplin::StartContainerRequest, ::vm_tools::tremplin::StartContainerResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](Tremplin::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::tremplin::StartContainerRequest* req,
+             ::vm_tools::tremplin::StartContainerResponse* resp) {
+               return service->StartContainer(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Tremplin_method_names[4],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< Tremplin::Service, ::vm_tools::tremplin::StopContainerRequest, ::vm_tools::tremplin::StopContainerResponse>(
-          std::mem_fn(&Tremplin::Service::StopContainer), this)));
+      new ::grpc::internal::RpcMethodHandler< Tremplin::Service, ::vm_tools::tremplin::StopContainerRequest, ::vm_tools::tremplin::StopContainerResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](Tremplin::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::tremplin::StopContainerRequest* req,
+             ::vm_tools::tremplin::StopContainerResponse* resp) {
+               return service->StopContainer(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Tremplin_method_names[5],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< Tremplin::Service, ::vm_tools::tremplin::GetContainerUsernameRequest, ::vm_tools::tremplin::GetContainerUsernameResponse>(
-          std::mem_fn(&Tremplin::Service::GetContainerUsername), this)));
+      new ::grpc::internal::RpcMethodHandler< Tremplin::Service, ::vm_tools::tremplin::GetContainerUsernameRequest, ::vm_tools::tremplin::GetContainerUsernameResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](Tremplin::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::tremplin::GetContainerUsernameRequest* req,
+             ::vm_tools::tremplin::GetContainerUsernameResponse* resp) {
+               return service->GetContainerUsername(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Tremplin_method_names[6],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< Tremplin::Service, ::vm_tools::tremplin::SetUpUserRequest, ::vm_tools::tremplin::SetUpUserResponse>(
-          std::mem_fn(&Tremplin::Service::SetUpUser), this)));
+      new ::grpc::internal::RpcMethodHandler< Tremplin::Service, ::vm_tools::tremplin::SetUpUserRequest, ::vm_tools::tremplin::SetUpUserResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](Tremplin::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::tremplin::SetUpUserRequest* req,
+             ::vm_tools::tremplin::SetUpUserResponse* resp) {
+               return service->SetUpUser(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Tremplin_method_names[7],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< Tremplin::Service, ::vm_tools::tremplin::GetContainerInfoRequest, ::vm_tools::tremplin::GetContainerInfoResponse>(
-          std::mem_fn(&Tremplin::Service::GetContainerInfo), this)));
+      new ::grpc::internal::RpcMethodHandler< Tremplin::Service, ::vm_tools::tremplin::GetContainerInfoRequest, ::vm_tools::tremplin::GetContainerInfoResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](Tremplin::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::tremplin::GetContainerInfoRequest* req,
+             ::vm_tools::tremplin::GetContainerInfoResponse* resp) {
+               return service->GetContainerInfo(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Tremplin_method_names[8],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< Tremplin::Service, ::vm_tools::tremplin::SetTimezoneRequest, ::vm_tools::tremplin::SetTimezoneResponse>(
-          std::mem_fn(&Tremplin::Service::SetTimezone), this)));
+      new ::grpc::internal::RpcMethodHandler< Tremplin::Service, ::vm_tools::tremplin::SetTimezoneRequest, ::vm_tools::tremplin::SetTimezoneResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](Tremplin::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::tremplin::SetTimezoneRequest* req,
+             ::vm_tools::tremplin::SetTimezoneResponse* resp) {
+               return service->SetTimezone(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Tremplin_method_names[9],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< Tremplin::Service, ::vm_tools::tremplin::ExportContainerRequest, ::vm_tools::tremplin::ExportContainerResponse>(
-          std::mem_fn(&Tremplin::Service::ExportContainer), this)));
+      new ::grpc::internal::RpcMethodHandler< Tremplin::Service, ::vm_tools::tremplin::ExportContainerRequest, ::vm_tools::tremplin::ExportContainerResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](Tremplin::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::tremplin::ExportContainerRequest* req,
+             ::vm_tools::tremplin::ExportContainerResponse* resp) {
+               return service->ExportContainer(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Tremplin_method_names[10],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< Tremplin::Service, ::vm_tools::tremplin::CancelExportContainerRequest, ::vm_tools::tremplin::CancelExportContainerResponse>(
-          std::mem_fn(&Tremplin::Service::CancelExportContainer), this)));
+      new ::grpc::internal::RpcMethodHandler< Tremplin::Service, ::vm_tools::tremplin::CancelExportContainerRequest, ::vm_tools::tremplin::CancelExportContainerResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](Tremplin::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::tremplin::CancelExportContainerRequest* req,
+             ::vm_tools::tremplin::CancelExportContainerResponse* resp) {
+               return service->CancelExportContainer(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Tremplin_method_names[11],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< Tremplin::Service, ::vm_tools::tremplin::ImportContainerRequest, ::vm_tools::tremplin::ImportContainerResponse>(
-          std::mem_fn(&Tremplin::Service::ImportContainer), this)));
+      new ::grpc::internal::RpcMethodHandler< Tremplin::Service, ::vm_tools::tremplin::ImportContainerRequest, ::vm_tools::tremplin::ImportContainerResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](Tremplin::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::tremplin::ImportContainerRequest* req,
+             ::vm_tools::tremplin::ImportContainerResponse* resp) {
+               return service->ImportContainer(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Tremplin_method_names[12],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< Tremplin::Service, ::vm_tools::tremplin::CancelImportContainerRequest, ::vm_tools::tremplin::CancelImportContainerResponse>(
-          std::mem_fn(&Tremplin::Service::CancelImportContainer), this)));
+      new ::grpc::internal::RpcMethodHandler< Tremplin::Service, ::vm_tools::tremplin::CancelImportContainerRequest, ::vm_tools::tremplin::CancelImportContainerResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](Tremplin::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::tremplin::CancelImportContainerRequest* req,
+             ::vm_tools::tremplin::CancelImportContainerResponse* resp) {
+               return service->CancelImportContainer(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Tremplin_method_names[13],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< Tremplin::Service, ::vm_tools::tremplin::UpgradeContainerRequest, ::vm_tools::tremplin::UpgradeContainerResponse>(
-          std::mem_fn(&Tremplin::Service::UpgradeContainer), this)));
+      new ::grpc::internal::RpcMethodHandler< Tremplin::Service, ::vm_tools::tremplin::UpgradeContainerRequest, ::vm_tools::tremplin::UpgradeContainerResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](Tremplin::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::tremplin::UpgradeContainerRequest* req,
+             ::vm_tools::tremplin::UpgradeContainerResponse* resp) {
+               return service->UpgradeContainer(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Tremplin_method_names[14],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< Tremplin::Service, ::vm_tools::tremplin::CancelUpgradeContainerRequest, ::vm_tools::tremplin::CancelUpgradeContainerResponse>(
-          std::mem_fn(&Tremplin::Service::CancelUpgradeContainer), this)));
+      new ::grpc::internal::RpcMethodHandler< Tremplin::Service, ::vm_tools::tremplin::CancelUpgradeContainerRequest, ::vm_tools::tremplin::CancelUpgradeContainerResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](Tremplin::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::tremplin::CancelUpgradeContainerRequest* req,
+             ::vm_tools::tremplin::CancelUpgradeContainerResponse* resp) {
+               return service->CancelUpgradeContainer(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Tremplin_method_names[15],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< Tremplin::Service, ::vm_tools::tremplin::HostNetworkChangedRequest, ::vm_tools::tremplin::HostNetworkChangedResponse>(
-          std::mem_fn(&Tremplin::Service::HostNetworkChanged), this)));
+      new ::grpc::internal::RpcMethodHandler< Tremplin::Service, ::vm_tools::tremplin::HostNetworkChangedRequest, ::vm_tools::tremplin::HostNetworkChangedResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](Tremplin::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::tremplin::HostNetworkChangedRequest* req,
+             ::vm_tools::tremplin::HostNetworkChangedResponse* resp) {
+               return service->HostNetworkChanged(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Tremplin_method_names[16],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< Tremplin::Service, ::vm_tools::tremplin::GetDebugInfoRequest, ::vm_tools::tremplin::GetDebugInfoResponse>(
-          std::mem_fn(&Tremplin::Service::GetDebugInfo), this)));
+      new ::grpc::internal::RpcMethodHandler< Tremplin::Service, ::vm_tools::tremplin::GetDebugInfoRequest, ::vm_tools::tremplin::GetDebugInfoResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](Tremplin::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::tremplin::GetDebugInfoRequest* req,
+             ::vm_tools::tremplin::GetDebugInfoResponse* resp) {
+               return service->GetDebugInfo(ctx, req, resp);
+             }, this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      Tremplin_method_names[17],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< Tremplin::Service, ::vm_tools::tremplin::AttachUsbToContainerRequest, ::vm_tools::tremplin::AttachUsbToContainerResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](Tremplin::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::tremplin::AttachUsbToContainerRequest* req,
+             ::vm_tools::tremplin::AttachUsbToContainerResponse* resp) {
+               return service->AttachUsbToContainer(ctx, req, resp);
+             }, this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      Tremplin_method_names[18],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< Tremplin::Service, ::vm_tools::tremplin::DetachUsbFromContainerRequest, ::vm_tools::tremplin::DetachUsbFromContainerResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](Tremplin::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::tremplin::DetachUsbFromContainerRequest* req,
+             ::vm_tools::tremplin::DetachUsbFromContainerResponse* resp) {
+               return service->DetachUsbFromContainer(ctx, req, resp);
+             }, this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      Tremplin_method_names[19],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< Tremplin::Service, ::vm_tools::tremplin::UpdateContainerDevicesRequest, ::vm_tools::tremplin::UpdateContainerDevicesResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](Tremplin::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::tremplin::UpdateContainerDevicesRequest* req,
+             ::vm_tools::tremplin::UpdateContainerDevicesResponse* resp) {
+               return service->UpdateContainerDevices(ctx, req, resp);
+             }, this)));
 }
 
 Tremplin::Service::~Service() {
@@ -546,6 +859,27 @@ Tremplin::Service::~Service() {
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
+::grpc::Status Tremplin::Service::AttachUsbToContainer(::grpc::ServerContext* context, const ::vm_tools::tremplin::AttachUsbToContainerRequest* request, ::vm_tools::tremplin::AttachUsbToContainerResponse* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status Tremplin::Service::DetachUsbFromContainer(::grpc::ServerContext* context, const ::vm_tools::tremplin::DetachUsbFromContainerRequest* request, ::vm_tools::tremplin::DetachUsbFromContainerResponse* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status Tremplin::Service::UpdateContainerDevices(::grpc::ServerContext* context, const ::vm_tools::tremplin::UpdateContainerDevicesRequest* request, ::vm_tools::tremplin::UpdateContainerDevicesResponse* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
 
 static const char* TremplinListener_method_names[] = {
   "/vm_tools.tremplin.TremplinListener/TremplinReady",
@@ -563,256 +897,388 @@ static const char* TremplinListener_method_names[] = {
 
 std::unique_ptr< TremplinListener::Stub> TremplinListener::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
   (void)options;
-  std::unique_ptr< TremplinListener::Stub> stub(new TremplinListener::Stub(channel));
+  std::unique_ptr< TremplinListener::Stub> stub(new TremplinListener::Stub(channel, options));
   return stub;
 }
 
-TremplinListener::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel)
-  : channel_(channel), rpcmethod_TremplinReady_(TremplinListener_method_names[0], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_UpdateStartLxdStatus_(TremplinListener_method_names[1], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_UpdateCreateStatus_(TremplinListener_method_names[2], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_UpdateDeletionStatus_(TremplinListener_method_names[3], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_UpdateStartStatus_(TremplinListener_method_names[4], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_UpdateStopStatus_(TremplinListener_method_names[5], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_UpdateExportStatus_(TremplinListener_method_names[6], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_UpdateImportStatus_(TremplinListener_method_names[7], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_ContainerShutdown_(TremplinListener_method_names[8], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_UpdateListeningPorts_(TremplinListener_method_names[9], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_UpgradeContainerStatus_(TremplinListener_method_names[10], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+TremplinListener::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options)
+  : channel_(channel), rpcmethod_TremplinReady_(TremplinListener_method_names[0], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_UpdateStartLxdStatus_(TremplinListener_method_names[1], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_UpdateCreateStatus_(TremplinListener_method_names[2], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_UpdateDeletionStatus_(TremplinListener_method_names[3], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_UpdateStartStatus_(TremplinListener_method_names[4], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_UpdateStopStatus_(TremplinListener_method_names[5], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_UpdateExportStatus_(TremplinListener_method_names[6], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_UpdateImportStatus_(TremplinListener_method_names[7], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_ContainerShutdown_(TremplinListener_method_names[8], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_UpdateListeningPorts_(TremplinListener_method_names[9], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_UpgradeContainerStatus_(TremplinListener_method_names[10], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   {}
 
 ::grpc::Status TremplinListener::Stub::TremplinReady(::grpc::ClientContext* context, const ::vm_tools::tremplin::TremplinStartupInfo& request, ::vm_tools::tremplin::EmptyMessage* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_TremplinReady_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::tremplin::TremplinStartupInfo, ::vm_tools::tremplin::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_TremplinReady_, context, request, response);
 }
 
-void TremplinListener::Stub::experimental_async::TremplinReady(::grpc::ClientContext* context, const ::vm_tools::tremplin::TremplinStartupInfo* request, ::vm_tools::tremplin::EmptyMessage* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_TremplinReady_, context, request, response, std::move(f));
+void TremplinListener::Stub::async::TremplinReady(::grpc::ClientContext* context, const ::vm_tools::tremplin::TremplinStartupInfo* request, ::vm_tools::tremplin::EmptyMessage* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::tremplin::TremplinStartupInfo, ::vm_tools::tremplin::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_TremplinReady_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::EmptyMessage>* TremplinListener::Stub::AsyncTremplinReadyRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::TremplinStartupInfo& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::tremplin::EmptyMessage>::Create(channel_.get(), cq, rpcmethod_TremplinReady_, context, request, true);
+void TremplinListener::Stub::async::TremplinReady(::grpc::ClientContext* context, const ::vm_tools::tremplin::TremplinStartupInfo* request, ::vm_tools::tremplin::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_TremplinReady_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::EmptyMessage>* TremplinListener::Stub::PrepareAsyncTremplinReadyRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::TremplinStartupInfo& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::tremplin::EmptyMessage>::Create(channel_.get(), cq, rpcmethod_TremplinReady_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::tremplin::EmptyMessage, ::vm_tools::tremplin::TremplinStartupInfo, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_TremplinReady_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::EmptyMessage>* TremplinListener::Stub::AsyncTremplinReadyRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::TremplinStartupInfo& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncTremplinReadyRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 ::grpc::Status TremplinListener::Stub::UpdateStartLxdStatus(::grpc::ClientContext* context, const ::vm_tools::tremplin::StartLxdProgress& request, ::vm_tools::tremplin::EmptyMessage* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_UpdateStartLxdStatus_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::tremplin::StartLxdProgress, ::vm_tools::tremplin::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_UpdateStartLxdStatus_, context, request, response);
 }
 
-void TremplinListener::Stub::experimental_async::UpdateStartLxdStatus(::grpc::ClientContext* context, const ::vm_tools::tremplin::StartLxdProgress* request, ::vm_tools::tremplin::EmptyMessage* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_UpdateStartLxdStatus_, context, request, response, std::move(f));
+void TremplinListener::Stub::async::UpdateStartLxdStatus(::grpc::ClientContext* context, const ::vm_tools::tremplin::StartLxdProgress* request, ::vm_tools::tremplin::EmptyMessage* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::tremplin::StartLxdProgress, ::vm_tools::tremplin::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_UpdateStartLxdStatus_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::EmptyMessage>* TremplinListener::Stub::AsyncUpdateStartLxdStatusRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::StartLxdProgress& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::tremplin::EmptyMessage>::Create(channel_.get(), cq, rpcmethod_UpdateStartLxdStatus_, context, request, true);
+void TremplinListener::Stub::async::UpdateStartLxdStatus(::grpc::ClientContext* context, const ::vm_tools::tremplin::StartLxdProgress* request, ::vm_tools::tremplin::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_UpdateStartLxdStatus_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::EmptyMessage>* TremplinListener::Stub::PrepareAsyncUpdateStartLxdStatusRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::StartLxdProgress& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::tremplin::EmptyMessage>::Create(channel_.get(), cq, rpcmethod_UpdateStartLxdStatus_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::tremplin::EmptyMessage, ::vm_tools::tremplin::StartLxdProgress, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_UpdateStartLxdStatus_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::EmptyMessage>* TremplinListener::Stub::AsyncUpdateStartLxdStatusRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::StartLxdProgress& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncUpdateStartLxdStatusRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 ::grpc::Status TremplinListener::Stub::UpdateCreateStatus(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerCreationProgress& request, ::vm_tools::tremplin::EmptyMessage* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_UpdateCreateStatus_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::tremplin::ContainerCreationProgress, ::vm_tools::tremplin::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_UpdateCreateStatus_, context, request, response);
 }
 
-void TremplinListener::Stub::experimental_async::UpdateCreateStatus(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerCreationProgress* request, ::vm_tools::tremplin::EmptyMessage* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_UpdateCreateStatus_, context, request, response, std::move(f));
+void TremplinListener::Stub::async::UpdateCreateStatus(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerCreationProgress* request, ::vm_tools::tremplin::EmptyMessage* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::tremplin::ContainerCreationProgress, ::vm_tools::tremplin::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_UpdateCreateStatus_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::EmptyMessage>* TremplinListener::Stub::AsyncUpdateCreateStatusRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerCreationProgress& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::tremplin::EmptyMessage>::Create(channel_.get(), cq, rpcmethod_UpdateCreateStatus_, context, request, true);
+void TremplinListener::Stub::async::UpdateCreateStatus(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerCreationProgress* request, ::vm_tools::tremplin::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_UpdateCreateStatus_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::EmptyMessage>* TremplinListener::Stub::PrepareAsyncUpdateCreateStatusRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerCreationProgress& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::tremplin::EmptyMessage>::Create(channel_.get(), cq, rpcmethod_UpdateCreateStatus_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::tremplin::EmptyMessage, ::vm_tools::tremplin::ContainerCreationProgress, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_UpdateCreateStatus_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::EmptyMessage>* TremplinListener::Stub::AsyncUpdateCreateStatusRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerCreationProgress& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncUpdateCreateStatusRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 ::grpc::Status TremplinListener::Stub::UpdateDeletionStatus(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerDeletionProgress& request, ::vm_tools::tremplin::EmptyMessage* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_UpdateDeletionStatus_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::tremplin::ContainerDeletionProgress, ::vm_tools::tremplin::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_UpdateDeletionStatus_, context, request, response);
 }
 
-void TremplinListener::Stub::experimental_async::UpdateDeletionStatus(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerDeletionProgress* request, ::vm_tools::tremplin::EmptyMessage* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_UpdateDeletionStatus_, context, request, response, std::move(f));
+void TremplinListener::Stub::async::UpdateDeletionStatus(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerDeletionProgress* request, ::vm_tools::tremplin::EmptyMessage* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::tremplin::ContainerDeletionProgress, ::vm_tools::tremplin::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_UpdateDeletionStatus_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::EmptyMessage>* TremplinListener::Stub::AsyncUpdateDeletionStatusRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerDeletionProgress& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::tremplin::EmptyMessage>::Create(channel_.get(), cq, rpcmethod_UpdateDeletionStatus_, context, request, true);
+void TremplinListener::Stub::async::UpdateDeletionStatus(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerDeletionProgress* request, ::vm_tools::tremplin::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_UpdateDeletionStatus_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::EmptyMessage>* TremplinListener::Stub::PrepareAsyncUpdateDeletionStatusRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerDeletionProgress& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::tremplin::EmptyMessage>::Create(channel_.get(), cq, rpcmethod_UpdateDeletionStatus_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::tremplin::EmptyMessage, ::vm_tools::tremplin::ContainerDeletionProgress, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_UpdateDeletionStatus_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::EmptyMessage>* TremplinListener::Stub::AsyncUpdateDeletionStatusRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerDeletionProgress& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncUpdateDeletionStatusRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 ::grpc::Status TremplinListener::Stub::UpdateStartStatus(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerStartProgress& request, ::vm_tools::tremplin::EmptyMessage* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_UpdateStartStatus_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::tremplin::ContainerStartProgress, ::vm_tools::tremplin::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_UpdateStartStatus_, context, request, response);
 }
 
-void TremplinListener::Stub::experimental_async::UpdateStartStatus(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerStartProgress* request, ::vm_tools::tremplin::EmptyMessage* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_UpdateStartStatus_, context, request, response, std::move(f));
+void TremplinListener::Stub::async::UpdateStartStatus(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerStartProgress* request, ::vm_tools::tremplin::EmptyMessage* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::tremplin::ContainerStartProgress, ::vm_tools::tremplin::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_UpdateStartStatus_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::EmptyMessage>* TremplinListener::Stub::AsyncUpdateStartStatusRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerStartProgress& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::tremplin::EmptyMessage>::Create(channel_.get(), cq, rpcmethod_UpdateStartStatus_, context, request, true);
+void TremplinListener::Stub::async::UpdateStartStatus(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerStartProgress* request, ::vm_tools::tremplin::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_UpdateStartStatus_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::EmptyMessage>* TremplinListener::Stub::PrepareAsyncUpdateStartStatusRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerStartProgress& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::tremplin::EmptyMessage>::Create(channel_.get(), cq, rpcmethod_UpdateStartStatus_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::tremplin::EmptyMessage, ::vm_tools::tremplin::ContainerStartProgress, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_UpdateStartStatus_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::EmptyMessage>* TremplinListener::Stub::AsyncUpdateStartStatusRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerStartProgress& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncUpdateStartStatusRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 ::grpc::Status TremplinListener::Stub::UpdateStopStatus(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerStopProgress& request, ::vm_tools::tremplin::EmptyMessage* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_UpdateStopStatus_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::tremplin::ContainerStopProgress, ::vm_tools::tremplin::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_UpdateStopStatus_, context, request, response);
 }
 
-void TremplinListener::Stub::experimental_async::UpdateStopStatus(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerStopProgress* request, ::vm_tools::tremplin::EmptyMessage* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_UpdateStopStatus_, context, request, response, std::move(f));
+void TremplinListener::Stub::async::UpdateStopStatus(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerStopProgress* request, ::vm_tools::tremplin::EmptyMessage* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::tremplin::ContainerStopProgress, ::vm_tools::tremplin::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_UpdateStopStatus_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::EmptyMessage>* TremplinListener::Stub::AsyncUpdateStopStatusRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerStopProgress& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::tremplin::EmptyMessage>::Create(channel_.get(), cq, rpcmethod_UpdateStopStatus_, context, request, true);
+void TremplinListener::Stub::async::UpdateStopStatus(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerStopProgress* request, ::vm_tools::tremplin::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_UpdateStopStatus_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::EmptyMessage>* TremplinListener::Stub::PrepareAsyncUpdateStopStatusRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerStopProgress& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::tremplin::EmptyMessage>::Create(channel_.get(), cq, rpcmethod_UpdateStopStatus_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::tremplin::EmptyMessage, ::vm_tools::tremplin::ContainerStopProgress, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_UpdateStopStatus_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::EmptyMessage>* TremplinListener::Stub::AsyncUpdateStopStatusRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerStopProgress& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncUpdateStopStatusRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 ::grpc::Status TremplinListener::Stub::UpdateExportStatus(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerExportProgress& request, ::vm_tools::tremplin::EmptyMessage* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_UpdateExportStatus_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::tremplin::ContainerExportProgress, ::vm_tools::tremplin::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_UpdateExportStatus_, context, request, response);
 }
 
-void TremplinListener::Stub::experimental_async::UpdateExportStatus(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerExportProgress* request, ::vm_tools::tremplin::EmptyMessage* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_UpdateExportStatus_, context, request, response, std::move(f));
+void TremplinListener::Stub::async::UpdateExportStatus(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerExportProgress* request, ::vm_tools::tremplin::EmptyMessage* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::tremplin::ContainerExportProgress, ::vm_tools::tremplin::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_UpdateExportStatus_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::EmptyMessage>* TremplinListener::Stub::AsyncUpdateExportStatusRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerExportProgress& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::tremplin::EmptyMessage>::Create(channel_.get(), cq, rpcmethod_UpdateExportStatus_, context, request, true);
+void TremplinListener::Stub::async::UpdateExportStatus(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerExportProgress* request, ::vm_tools::tremplin::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_UpdateExportStatus_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::EmptyMessage>* TremplinListener::Stub::PrepareAsyncUpdateExportStatusRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerExportProgress& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::tremplin::EmptyMessage>::Create(channel_.get(), cq, rpcmethod_UpdateExportStatus_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::tremplin::EmptyMessage, ::vm_tools::tremplin::ContainerExportProgress, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_UpdateExportStatus_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::EmptyMessage>* TremplinListener::Stub::AsyncUpdateExportStatusRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerExportProgress& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncUpdateExportStatusRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 ::grpc::Status TremplinListener::Stub::UpdateImportStatus(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerImportProgress& request, ::vm_tools::tremplin::EmptyMessage* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_UpdateImportStatus_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::tremplin::ContainerImportProgress, ::vm_tools::tremplin::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_UpdateImportStatus_, context, request, response);
 }
 
-void TremplinListener::Stub::experimental_async::UpdateImportStatus(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerImportProgress* request, ::vm_tools::tremplin::EmptyMessage* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_UpdateImportStatus_, context, request, response, std::move(f));
+void TremplinListener::Stub::async::UpdateImportStatus(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerImportProgress* request, ::vm_tools::tremplin::EmptyMessage* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::tremplin::ContainerImportProgress, ::vm_tools::tremplin::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_UpdateImportStatus_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::EmptyMessage>* TremplinListener::Stub::AsyncUpdateImportStatusRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerImportProgress& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::tremplin::EmptyMessage>::Create(channel_.get(), cq, rpcmethod_UpdateImportStatus_, context, request, true);
+void TremplinListener::Stub::async::UpdateImportStatus(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerImportProgress* request, ::vm_tools::tremplin::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_UpdateImportStatus_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::EmptyMessage>* TremplinListener::Stub::PrepareAsyncUpdateImportStatusRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerImportProgress& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::tremplin::EmptyMessage>::Create(channel_.get(), cq, rpcmethod_UpdateImportStatus_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::tremplin::EmptyMessage, ::vm_tools::tremplin::ContainerImportProgress, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_UpdateImportStatus_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::EmptyMessage>* TremplinListener::Stub::AsyncUpdateImportStatusRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerImportProgress& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncUpdateImportStatusRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 ::grpc::Status TremplinListener::Stub::ContainerShutdown(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerShutdownInfo& request, ::vm_tools::tremplin::EmptyMessage* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_ContainerShutdown_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::tremplin::ContainerShutdownInfo, ::vm_tools::tremplin::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_ContainerShutdown_, context, request, response);
 }
 
-void TremplinListener::Stub::experimental_async::ContainerShutdown(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerShutdownInfo* request, ::vm_tools::tremplin::EmptyMessage* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_ContainerShutdown_, context, request, response, std::move(f));
+void TremplinListener::Stub::async::ContainerShutdown(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerShutdownInfo* request, ::vm_tools::tremplin::EmptyMessage* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::tremplin::ContainerShutdownInfo, ::vm_tools::tremplin::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_ContainerShutdown_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::EmptyMessage>* TremplinListener::Stub::AsyncContainerShutdownRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerShutdownInfo& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::tremplin::EmptyMessage>::Create(channel_.get(), cq, rpcmethod_ContainerShutdown_, context, request, true);
+void TremplinListener::Stub::async::ContainerShutdown(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerShutdownInfo* request, ::vm_tools::tremplin::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_ContainerShutdown_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::EmptyMessage>* TremplinListener::Stub::PrepareAsyncContainerShutdownRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerShutdownInfo& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::tremplin::EmptyMessage>::Create(channel_.get(), cq, rpcmethod_ContainerShutdown_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::tremplin::EmptyMessage, ::vm_tools::tremplin::ContainerShutdownInfo, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_ContainerShutdown_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::EmptyMessage>* TremplinListener::Stub::AsyncContainerShutdownRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerShutdownInfo& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncContainerShutdownRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 ::grpc::Status TremplinListener::Stub::UpdateListeningPorts(::grpc::ClientContext* context, const ::vm_tools::tremplin::ListeningPortInfo& request, ::vm_tools::tremplin::EmptyMessage* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_UpdateListeningPorts_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::tremplin::ListeningPortInfo, ::vm_tools::tremplin::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_UpdateListeningPorts_, context, request, response);
 }
 
-void TremplinListener::Stub::experimental_async::UpdateListeningPorts(::grpc::ClientContext* context, const ::vm_tools::tremplin::ListeningPortInfo* request, ::vm_tools::tremplin::EmptyMessage* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_UpdateListeningPorts_, context, request, response, std::move(f));
+void TremplinListener::Stub::async::UpdateListeningPorts(::grpc::ClientContext* context, const ::vm_tools::tremplin::ListeningPortInfo* request, ::vm_tools::tremplin::EmptyMessage* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::tremplin::ListeningPortInfo, ::vm_tools::tremplin::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_UpdateListeningPorts_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::EmptyMessage>* TremplinListener::Stub::AsyncUpdateListeningPortsRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::ListeningPortInfo& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::tremplin::EmptyMessage>::Create(channel_.get(), cq, rpcmethod_UpdateListeningPorts_, context, request, true);
+void TremplinListener::Stub::async::UpdateListeningPorts(::grpc::ClientContext* context, const ::vm_tools::tremplin::ListeningPortInfo* request, ::vm_tools::tremplin::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_UpdateListeningPorts_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::EmptyMessage>* TremplinListener::Stub::PrepareAsyncUpdateListeningPortsRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::ListeningPortInfo& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::tremplin::EmptyMessage>::Create(channel_.get(), cq, rpcmethod_UpdateListeningPorts_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::tremplin::EmptyMessage, ::vm_tools::tremplin::ListeningPortInfo, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_UpdateListeningPorts_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::EmptyMessage>* TremplinListener::Stub::AsyncUpdateListeningPortsRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::ListeningPortInfo& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncUpdateListeningPortsRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 ::grpc::Status TremplinListener::Stub::UpgradeContainerStatus(::grpc::ClientContext* context, const ::vm_tools::tremplin::UpgradeContainerProgress& request, ::vm_tools::tremplin::EmptyMessage* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_UpgradeContainerStatus_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::tremplin::UpgradeContainerProgress, ::vm_tools::tremplin::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_UpgradeContainerStatus_, context, request, response);
 }
 
-void TremplinListener::Stub::experimental_async::UpgradeContainerStatus(::grpc::ClientContext* context, const ::vm_tools::tremplin::UpgradeContainerProgress* request, ::vm_tools::tremplin::EmptyMessage* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_UpgradeContainerStatus_, context, request, response, std::move(f));
+void TremplinListener::Stub::async::UpgradeContainerStatus(::grpc::ClientContext* context, const ::vm_tools::tremplin::UpgradeContainerProgress* request, ::vm_tools::tremplin::EmptyMessage* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::tremplin::UpgradeContainerProgress, ::vm_tools::tremplin::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_UpgradeContainerStatus_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::EmptyMessage>* TremplinListener::Stub::AsyncUpgradeContainerStatusRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::UpgradeContainerProgress& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::tremplin::EmptyMessage>::Create(channel_.get(), cq, rpcmethod_UpgradeContainerStatus_, context, request, true);
+void TremplinListener::Stub::async::UpgradeContainerStatus(::grpc::ClientContext* context, const ::vm_tools::tremplin::UpgradeContainerProgress* request, ::vm_tools::tremplin::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_UpgradeContainerStatus_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::EmptyMessage>* TremplinListener::Stub::PrepareAsyncUpgradeContainerStatusRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::UpgradeContainerProgress& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::tremplin::EmptyMessage>::Create(channel_.get(), cq, rpcmethod_UpgradeContainerStatus_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::tremplin::EmptyMessage, ::vm_tools::tremplin::UpgradeContainerProgress, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_UpgradeContainerStatus_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::EmptyMessage>* TremplinListener::Stub::AsyncUpgradeContainerStatusRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::UpgradeContainerProgress& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncUpgradeContainerStatusRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 TremplinListener::Service::Service() {
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       TremplinListener_method_names[0],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< TremplinListener::Service, ::vm_tools::tremplin::TremplinStartupInfo, ::vm_tools::tremplin::EmptyMessage>(
-          std::mem_fn(&TremplinListener::Service::TremplinReady), this)));
+      new ::grpc::internal::RpcMethodHandler< TremplinListener::Service, ::vm_tools::tremplin::TremplinStartupInfo, ::vm_tools::tremplin::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](TremplinListener::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::tremplin::TremplinStartupInfo* req,
+             ::vm_tools::tremplin::EmptyMessage* resp) {
+               return service->TremplinReady(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       TremplinListener_method_names[1],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< TremplinListener::Service, ::vm_tools::tremplin::StartLxdProgress, ::vm_tools::tremplin::EmptyMessage>(
-          std::mem_fn(&TremplinListener::Service::UpdateStartLxdStatus), this)));
+      new ::grpc::internal::RpcMethodHandler< TremplinListener::Service, ::vm_tools::tremplin::StartLxdProgress, ::vm_tools::tremplin::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](TremplinListener::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::tremplin::StartLxdProgress* req,
+             ::vm_tools::tremplin::EmptyMessage* resp) {
+               return service->UpdateStartLxdStatus(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       TremplinListener_method_names[2],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< TremplinListener::Service, ::vm_tools::tremplin::ContainerCreationProgress, ::vm_tools::tremplin::EmptyMessage>(
-          std::mem_fn(&TremplinListener::Service::UpdateCreateStatus), this)));
+      new ::grpc::internal::RpcMethodHandler< TremplinListener::Service, ::vm_tools::tremplin::ContainerCreationProgress, ::vm_tools::tremplin::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](TremplinListener::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::tremplin::ContainerCreationProgress* req,
+             ::vm_tools::tremplin::EmptyMessage* resp) {
+               return service->UpdateCreateStatus(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       TremplinListener_method_names[3],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< TremplinListener::Service, ::vm_tools::tremplin::ContainerDeletionProgress, ::vm_tools::tremplin::EmptyMessage>(
-          std::mem_fn(&TremplinListener::Service::UpdateDeletionStatus), this)));
+      new ::grpc::internal::RpcMethodHandler< TremplinListener::Service, ::vm_tools::tremplin::ContainerDeletionProgress, ::vm_tools::tremplin::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](TremplinListener::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::tremplin::ContainerDeletionProgress* req,
+             ::vm_tools::tremplin::EmptyMessage* resp) {
+               return service->UpdateDeletionStatus(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       TremplinListener_method_names[4],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< TremplinListener::Service, ::vm_tools::tremplin::ContainerStartProgress, ::vm_tools::tremplin::EmptyMessage>(
-          std::mem_fn(&TremplinListener::Service::UpdateStartStatus), this)));
+      new ::grpc::internal::RpcMethodHandler< TremplinListener::Service, ::vm_tools::tremplin::ContainerStartProgress, ::vm_tools::tremplin::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](TremplinListener::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::tremplin::ContainerStartProgress* req,
+             ::vm_tools::tremplin::EmptyMessage* resp) {
+               return service->UpdateStartStatus(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       TremplinListener_method_names[5],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< TremplinListener::Service, ::vm_tools::tremplin::ContainerStopProgress, ::vm_tools::tremplin::EmptyMessage>(
-          std::mem_fn(&TremplinListener::Service::UpdateStopStatus), this)));
+      new ::grpc::internal::RpcMethodHandler< TremplinListener::Service, ::vm_tools::tremplin::ContainerStopProgress, ::vm_tools::tremplin::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](TremplinListener::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::tremplin::ContainerStopProgress* req,
+             ::vm_tools::tremplin::EmptyMessage* resp) {
+               return service->UpdateStopStatus(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       TremplinListener_method_names[6],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< TremplinListener::Service, ::vm_tools::tremplin::ContainerExportProgress, ::vm_tools::tremplin::EmptyMessage>(
-          std::mem_fn(&TremplinListener::Service::UpdateExportStatus), this)));
+      new ::grpc::internal::RpcMethodHandler< TremplinListener::Service, ::vm_tools::tremplin::ContainerExportProgress, ::vm_tools::tremplin::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](TremplinListener::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::tremplin::ContainerExportProgress* req,
+             ::vm_tools::tremplin::EmptyMessage* resp) {
+               return service->UpdateExportStatus(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       TremplinListener_method_names[7],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< TremplinListener::Service, ::vm_tools::tremplin::ContainerImportProgress, ::vm_tools::tremplin::EmptyMessage>(
-          std::mem_fn(&TremplinListener::Service::UpdateImportStatus), this)));
+      new ::grpc::internal::RpcMethodHandler< TremplinListener::Service, ::vm_tools::tremplin::ContainerImportProgress, ::vm_tools::tremplin::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](TremplinListener::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::tremplin::ContainerImportProgress* req,
+             ::vm_tools::tremplin::EmptyMessage* resp) {
+               return service->UpdateImportStatus(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       TremplinListener_method_names[8],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< TremplinListener::Service, ::vm_tools::tremplin::ContainerShutdownInfo, ::vm_tools::tremplin::EmptyMessage>(
-          std::mem_fn(&TremplinListener::Service::ContainerShutdown), this)));
+      new ::grpc::internal::RpcMethodHandler< TremplinListener::Service, ::vm_tools::tremplin::ContainerShutdownInfo, ::vm_tools::tremplin::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](TremplinListener::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::tremplin::ContainerShutdownInfo* req,
+             ::vm_tools::tremplin::EmptyMessage* resp) {
+               return service->ContainerShutdown(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       TremplinListener_method_names[9],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< TremplinListener::Service, ::vm_tools::tremplin::ListeningPortInfo, ::vm_tools::tremplin::EmptyMessage>(
-          std::mem_fn(&TremplinListener::Service::UpdateListeningPorts), this)));
+      new ::grpc::internal::RpcMethodHandler< TremplinListener::Service, ::vm_tools::tremplin::ListeningPortInfo, ::vm_tools::tremplin::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](TremplinListener::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::tremplin::ListeningPortInfo* req,
+             ::vm_tools::tremplin::EmptyMessage* resp) {
+               return service->UpdateListeningPorts(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       TremplinListener_method_names[10],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< TremplinListener::Service, ::vm_tools::tremplin::UpgradeContainerProgress, ::vm_tools::tremplin::EmptyMessage>(
-          std::mem_fn(&TremplinListener::Service::UpgradeContainerStatus), this)));
+      new ::grpc::internal::RpcMethodHandler< TremplinListener::Service, ::vm_tools::tremplin::UpgradeContainerProgress, ::vm_tools::tremplin::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](TremplinListener::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::tremplin::UpgradeContainerProgress* req,
+             ::vm_tools::tremplin::EmptyMessage* resp) {
+               return service->UpgradeContainerStatus(ctx, req, resp);
+             }, this)));
 }
 
 TremplinListener::Service::~Service() {

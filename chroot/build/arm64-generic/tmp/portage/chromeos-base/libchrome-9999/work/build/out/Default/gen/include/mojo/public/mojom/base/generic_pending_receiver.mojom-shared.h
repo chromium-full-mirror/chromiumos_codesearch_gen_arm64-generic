@@ -21,7 +21,7 @@
 #include "mojo/public/cpp/bindings/map_data_view.h"
 #include "mojo/public/cpp/bindings/string_data_view.h"
 
-#include "base/trace_event/base_tracing.h"
+#include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
 #include "mojo/public/mojom/base/generic_pending_receiver.mojom-shared-internal.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
@@ -72,7 +72,7 @@ class GenericPendingReceiverDataView {
       mojo::StringDataView* output);
 
   template <typename UserType>
-  WARN_UNUSED_RESULT bool ReadInterfaceName(UserType* output) {
+  [[nodiscard]] bool ReadInterfaceName(UserType* output) {
     
     auto* pointer = data_->interface_name.Get();
     return mojo::internal::Deserialize<mojo::StringDataView>(

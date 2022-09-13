@@ -19,7 +19,13 @@
 #include <base/test/test_mock_time_task_runner.h>
 #include <brillo/cryptohome.h>
 #include <chaps/token_manager_client_mock.h>
+#include <cryptohome/proto_bindings/auth_factor.pb.h>
+#include <cryptohome/proto_bindings/UserDataAuth.pb.h>
 #include <dbus/mock_bus.h>
+#include <libhwsec/factory/mock_factory.h>
+#include <libhwsec/frontend/cryptohome/mock_frontend.h>
+#include <libhwsec/frontend/pinweaver/mock_frontend.h>
+#include <libhwsec/frontend/recovery_crypto/mock_frontend.h>
 #include <libhwsec-foundation/crypto/secure_blob_util.h>
 #include <libhwsec-foundation/crypto/sha.h>
 #include <libhwsec-foundation/error/testing_helper.h>
@@ -47,10 +53,8 @@
 #include "cryptohome/mock_key_challenge_service.h"
 #include "cryptohome/mock_key_challenge_service_factory.h"
 #include "cryptohome/mock_keyset_management.h"
-#include "cryptohome/mock_le_credential_backend.h"
 #include "cryptohome/mock_pkcs11_init.h"
 #include "cryptohome/mock_platform.h"
-#include "cryptohome/mock_tpm.h"
 #include "cryptohome/mock_uss_experiment_config_fetcher.h"
 #include "cryptohome/mock_vault_keyset.h"
 #include "cryptohome/pkcs11/fake_pkcs11_token.h"
@@ -60,7 +64,6 @@
 #include "cryptohome/storage/homedirs.h"
 #include "cryptohome/storage/mock_arc_disk_quota.h"
 #include "cryptohome/storage/mock_homedirs.h"
-#include "cryptohome/tpm.h"
 #include "cryptohome/user_session/mock_user_session.h"
 #include "cryptohome/user_session/mock_user_session_factory.h"
 
@@ -80,7 +83,9 @@ using ::hwsec::TPMErrorBase;
 using ::hwsec::TPMRetryAction;
 using ::hwsec_foundation::CreateSecureRandomBlob;
 using ::hwsec_foundation::Sha1;
+using ::hwsec_foundation::error::testing::IsOk;
 using ::hwsec_foundation::error::testing::ReturnError;
+using ::hwsec_foundation::error::testing::ReturnOk;
 using ::hwsec_foundation::error::testing::ReturnValue;
 using ::hwsec_foundation::status::MakeStatus;
 using ::hwsec_foundation::status::OkStatus;
@@ -96,6 +101,7 @@ using ::testing::Eq;
 using ::testing::InSequence;
 using ::testing::Invoke;
 using ::testing::InvokeWithoutArgs;
+using ::testing::IsEmpty;
 using ::testing::IsNull;
 using ::testing::Mock;
 using ::testing::NiceMock;
@@ -107,6 +113,7 @@ using ::testing::ReturnRef;
 using ::testing::SaveArg;
 using ::testing::SaveArgPointee;
 using ::testing::SetArgPointee;
+using ::testing::UnorderedElementsAre;
 using ::testing::WithArgs;
 
 namespace cryptohome {
@@ -145,6 +152,10 @@ class UserDataAuthTestBase : public ::testing::Test {
     options.bus_type = dbus::Bus::SYSTEM;
     bus_ = base::MakeRefCounted<NiceMock<dbus::MockBus>>(options);
     mount_bus_ = base::MakeRefCounted<NiceMock<dbus::MockBus>>(options);
+    ON_CALL(hwsec_, IsEnabled()).WillByDefault(ReturnValue(true));
+    ON_CALL(hwsec_, IsReady()).WillByDefault(ReturnValue(true));
+    ON_CALL(hwsec_, IsSealingSupported()).WillByDefault(ReturnValue(true));
+    ON_CALL(pinweaver_, IsEnabled()).WillByDefault(ReturnValue(true));
 
     if (!userdataauth_) {
       // Note that this branch is usually taken as |userdataauth_| is usually
@@ -161,7 +172,10 @@ class UserDataAuthTestBase : public ::testing::Test {
         &user_activity_timestamp_manager_);
     userdataauth_->set_homedirs(&homedirs_);
     userdataauth_->set_install_attrs(attrs_.get());
-    userdataauth_->set_tpm(&tpm_);
+    userdataauth_->set_hwsec_factory(&hwsec_factory_);
+    userdataauth_->set_hwsec(&hwsec_);
+    userdataauth_->set_pinweaver(&pinweaver_);
+    userdataauth_->set_recovery_crypto(&recovery_crypto_);
     userdataauth_->set_cryptohome_keys_manager(&cryptohome_keys_manager_);
     userdataauth_->set_tpm_manager_util_(&tpm_manager_utility_);
     userdataauth_->set_platform(&platform_);
@@ -201,11 +215,18 @@ class UserDataAuthTestBase : public ::testing::Test {
     EXPECT_CALL(disk_cleanup_, FreeDiskSpaceDuringLogin(_)).Times(0);
   }
 
+  // Create a new session and store an unowned pointer to it in |session_|.
+  std::unique_ptr<NiceMock<MockUserSession>> CreateSessionAndRememberPtr() {
+    auto owned_session = std::make_unique<NiceMock<MockUserSession>>();
+    session_ = owned_session.get();
+    return owned_session;
+  }
+
   // This is a utility function for tests to setup a mount for a particular
   // user. After calling this function, |session_| is available for use.
   void SetupMount(const std::string& username) {
-    session_ = base::MakeRefCounted<NiceMock<MockUserSession>>();
-    userdataauth_->set_session_for_user(username, session_.get());
+    EXPECT_TRUE(userdataauth_->AddUserSessionForTest(
+        username, CreateSessionAndRememberPtr()));
   }
 
   // This is a helper function that compute the obfuscated username with the
@@ -251,15 +272,26 @@ class UserDataAuthTestBase : public ::testing::Test {
   // Mock Platform object, will be passed to UserDataAuth for its internal use.
   NiceMock<MockPlatform> platform_;
 
-  // Mock TPM object, will be passed to UserDataAuth for its internal use.
-  NiceMock<MockTpm> tpm_;
+  // Mock HWSec factory object, will be passed to UserDataAuth for its internal
+  // use.
+  NiceMock<hwsec::MockFactory> hwsec_factory_;
+
+  // Mock HWSec object, will be passed to UserDataAuth for its internal use.
+  NiceMock<hwsec::MockCryptohomeFrontend> hwsec_;
+
+  // Mock pinweaver object, will be passed to UserDataAuth for its internal use.
+  NiceMock<hwsec::MockPinWeaverFrontend> pinweaver_;
+
+  // Mock recovery crypto object, will be passed to UserDataAuth for its
+  // internal use.
+  NiceMock<hwsec::MockRecoveryCryptoFrontend> recovery_crypto_;
 
   // Mock Cryptohome Key Loader object, will be passed to UserDataAuth for its
   // internal use.
   NiceMock<MockCryptohomeKeysManager> cryptohome_keys_manager_;
 
   // Fake Crypto object, will be passed to UserDataAuth for its internal use.
-  Crypto crypto_{&tpm_, &cryptohome_keys_manager_};
+  Crypto crypto_{&hwsec_, &pinweaver_, &cryptohome_keys_manager_, nullptr};
 
   // Mock TPM Manager utility object, will be passed to UserDataAuth for its
   // internal use.
@@ -315,8 +347,8 @@ class UserDataAuthTestBase : public ::testing::Test {
   // internal use.
   scoped_refptr<NiceMock<dbus::MockBus>> mount_bus_;
 
-  // Session object
-  scoped_refptr<NiceMock<MockUserSession>> session_;
+  // Unowned pointer to the session object.
+  NiceMock<MockUserSession>* session_ = nullptr;
 
   // Declare |userdataauth_| last so it gets destroyed before all the mocks.
   // This is important because otherwise the background thread may call into
@@ -362,19 +394,17 @@ class UserDataAuthTestTasked : public UserDataAuthTestBase {
     }));
   }
 
-  void CreatePkcs11TokenInSession(
-      scoped_refptr<NiceMock<MockUserSession>> session) {
+  void CreatePkcs11TokenInSession(NiceMock<MockUserSession>* session) {
     auto token = std::make_unique<FakePkcs11Token>();
     ON_CALL(*session, GetPkcs11Token()).WillByDefault(Return(token.get()));
     tokens_.insert(std::move(token));
   }
 
-  void InitializePkcs11TokenInSession(
-      scoped_refptr<NiceMock<MockUserSession>> session) {
+  void InitializePkcs11TokenInSession(NiceMock<MockUserSession>* session) {
     // PKCS#11 will initialization works only when it's mounted.
     ON_CALL(*session, IsActive()).WillByDefault(Return(true));
 
-    userdataauth_->InitializePkcs11(session.get());
+    userdataauth_->InitializePkcs11(session);
   }
 
   void TearDown() override {
@@ -794,13 +824,56 @@ static_assert(
         static_cast<int>(cryptohome::CRYPTOHOME_ERROR_UNUSABLE_VAULT),
     "Enum member CRYPTOHOME_ERROR_UNUSABLE_VAULT differs between "
     "user_data_auth:: and cryptohome::");
+static_assert(
+    static_cast<int>(user_data_auth::CRYPTOHOME_REMOVE_CREDENTIALS_FAILED) ==
+        static_cast<int>(cryptohome::CRYPTOHOME_REMOVE_CREDENTIALS_FAILED),
+    "Enum member CRYPTOHOME_REMOVE_CREDENTIALS_FAILED differs between "
+    "user_data_auth:: and cryptohome::");
+static_assert(
+    static_cast<int>(user_data_auth::CRYPTOHOME_UPDATE_CREDENTIALS_FAILED) ==
+        static_cast<int>(cryptohome::CRYPTOHOME_UPDATE_CREDENTIALS_FAILED),
+    "Enum member CRYPTOHOME_UPDATE_CREDENTIALS_FAILED differs between "
+    "user_data_auth:: and cryptohome::");
 
 static_assert(
-    user_data_auth::CryptohomeErrorCode_MAX == 53,
-    "user_data_auth::CrytpohomeErrorCode's element count is incorrect");
-static_assert(cryptohome::CryptohomeErrorCode_MAX == 53,
-              "cryptohome::CrytpohomeErrorCode's element count is incorrect");
+    user_data_auth::CryptohomeErrorCode_MAX == 55,
+    "user_data_auth::CryptohomeErrorCode's element count is incorrect");
+static_assert(cryptohome::CryptohomeErrorCode_MAX == 55,
+              "cryptohome::CryptohomeErrorCode's element count is incorrect");
 }  // namespace CryptohomeErrorCodeEquivalenceTest
+
+namespace SignatureAlgorithmEquivalenceTest {
+// This test is completely static, so it is not wrapped in the TEST_F() block.
+static_assert(static_cast<int>(user_data_auth::SmartCardSignatureAlgorithm::
+                                   CHALLENGE_RSASSA_PKCS1_V1_5_SHA1) ==
+                  static_cast<int>(cryptohome::ChallengeSignatureAlgorithm::
+                                       CHALLENGE_RSASSA_PKCS1_V1_5_SHA1),
+              "Enum member CHALLENGE_RSASSA_PKCS1_V1_5_SHA1 differs between "
+              "user_data_auth:: and cryptohome::");
+static_assert(static_cast<int>(user_data_auth::SmartCardSignatureAlgorithm::
+                                   CHALLENGE_RSASSA_PKCS1_V1_5_SHA256) ==
+                  static_cast<int>(cryptohome::ChallengeSignatureAlgorithm::
+                                       CHALLENGE_RSASSA_PKCS1_V1_5_SHA256),
+              "Enum member CHALLENGE_RSASSA_PKCS1_V1_5_SHA256 differs between "
+              "user_data_auth:: and cryptohome::");
+static_assert(static_cast<int>(user_data_auth::SmartCardSignatureAlgorithm::
+                                   CHALLENGE_RSASSA_PKCS1_V1_5_SHA384) ==
+                  static_cast<int>(cryptohome::ChallengeSignatureAlgorithm::
+                                       CHALLENGE_RSASSA_PKCS1_V1_5_SHA384),
+              "Enum member CHALLENGE_RSASSA_PKCS1_V1_5_SHA384 differs between "
+              "user_data_auth:: and cryptohome::");
+static_assert(static_cast<int>(user_data_auth::SmartCardSignatureAlgorithm::
+                                   CHALLENGE_RSASSA_PKCS1_V1_5_SHA512) ==
+                  static_cast<int>(cryptohome::ChallengeSignatureAlgorithm::
+                                       CHALLENGE_RSASSA_PKCS1_V1_5_SHA512),
+              "Enum member CHALLENGE_RSASSA_PKCS1_V1_5_SHA512 differs between "
+              "user_data_auth:: and cryptohome::");
+static_assert(
+    user_data_auth::SmartCardSignatureAlgorithm_MAX == 4,
+    "user_data_auth::CrytpohomeErrorCode's element count is incorrect");
+static_assert(cryptohome::ChallengeSignatureAlgorithm_MAX == 4,
+              "cryptohome::CrytpohomeErrorCode's element count is incorrect");
+}  // namespace SignatureAlgorithmEquivalenceTest
 
 TEST_F(UserDataAuthTest, IsMounted) {
   TaskGuard guard(this, UserDataAuth::TestThreadId::kMountThread);
@@ -842,13 +915,15 @@ TEST_F(UserDataAuthTest, Unmount_AllDespiteFailures) {
   constexpr char kUsername1[] = "foo@gmail.com";
   constexpr char kUsername2[] = "bar@gmail.com";
 
-  scoped_refptr<NiceMock<MockUserSession>> session1 =
-      base::MakeRefCounted<NiceMock<MockUserSession>>();
-  userdataauth_->set_session_for_user(kUsername1, session1.get());
+  auto owned_session1 = std::make_unique<NiceMock<MockUserSession>>();
+  auto* const session1 = owned_session1.get();
+  EXPECT_TRUE(userdataauth_->AddUserSessionForTest(kUsername1,
+                                                   std::move(owned_session1)));
 
-  scoped_refptr<NiceMock<MockUserSession>> session2 =
-      base::MakeRefCounted<NiceMock<MockUserSession>>();
-  userdataauth_->set_session_for_user(kUsername2, session2.get());
+  auto owned_session2 = std::make_unique<NiceMock<MockUserSession>>();
+  auto* const session2 = owned_session2.get();
+  EXPECT_TRUE(userdataauth_->AddUserSessionForTest(kUsername2,
+                                                   std::move(owned_session2)));
 
   InSequence sequence;
   EXPECT_CALL(*session2, IsActive()).WillOnce(Return(true));
@@ -877,7 +952,8 @@ TEST_F(UserDataAuthTest, Unmount_EphemeralNotEnabled) {
   EXPECT_CALL(homedirs_, RemoveNonOwnerCryptohomes()).Times(0);
 
   // Unmount should be successful.
-  EXPECT_TRUE(userdataauth_->Unmount());
+  EXPECT_EQ(userdataauth_->Unmount().error_info().primary_action(),
+            user_data_auth::PrimaryAction::PRIMARY_NO_ERROR);
 
   // It should be unmounted in the end.
   EXPECT_FALSE(userdataauth_->IsMounted());
@@ -895,7 +971,8 @@ TEST_F(UserDataAuthTest, Unmount_EphemeralNotEnabled) {
   EXPECT_CALL(homedirs_, RemoveNonOwnerCryptohomes()).Times(0);
 
   // Unmount should be honest about failures.
-  EXPECT_FALSE(userdataauth_->Unmount());
+  EXPECT_NE(userdataauth_->Unmount().error_info().primary_action(),
+            user_data_auth::PrimaryAction::PRIMARY_NO_ERROR);
 
   // Unmount will remove all mounts even if it failed.
   EXPECT_FALSE(userdataauth_->IsMounted());
@@ -920,7 +997,8 @@ TEST_F(UserDataAuthTest, Unmount_EphemeralEnabled) {
   EXPECT_CALL(homedirs_, RemoveNonOwnerCryptohomes()).Times(1);
 
   // Unmount should be successful.
-  EXPECT_TRUE(userdataauth_->Unmount());
+  EXPECT_EQ(userdataauth_->Unmount().error_info().primary_action(),
+            user_data_auth::PrimaryAction::PRIMARY_NO_ERROR);
 
   // It should be unmounted in the end.
   EXPECT_FALSE(userdataauth_->IsMounted());
@@ -938,7 +1016,8 @@ TEST_F(UserDataAuthTest, Unmount_EphemeralEnabled) {
   EXPECT_CALL(homedirs_, RemoveNonOwnerCryptohomes()).Times(1);
 
   // Unmount should be honest about failures.
-  EXPECT_FALSE(userdataauth_->Unmount());
+  EXPECT_NE(userdataauth_->Unmount().error_info().primary_action(),
+            user_data_auth::PrimaryAction::PRIMARY_NO_ERROR);
 
   // Unmount will remove all mounts even if it failed.
   EXPECT_FALSE(userdataauth_->IsMounted());
@@ -963,42 +1042,6 @@ TEST_F(UserDataAuthTest, InitializePkcs11Success) {
   EXPECT_TRUE(session_->GetPkcs11Token()->IsReady());
 }
 
-TEST_F(UserDataAuthTest, InitializePkcs11TpmNotOwned) {
-  TaskGuard guard(this, UserDataAuth::TestThreadId::kMountThread);
-  // Test when TPM isn't owned.
-
-  // Add a mount associated with foo@gmail.com
-  SetupMount("foo@gmail.com");
-
-  CreatePkcs11TokenInSession(session_);
-
-  // At first the token is not ready
-  EXPECT_FALSE(session_->GetPkcs11Token()->IsReady());
-
-  // TPM is enabled but not owned.
-  ON_CALL(tpm_, IsEnabled()).WillByDefault(Return(true));
-  EXPECT_CALL(tpm_, IsOwned()).Times(AtLeast(1)).WillRepeatedly(Return(false));
-
-  InitializePkcs11TokenInSession(session_);
-
-  // Still not ready because TPM is not owned.
-  EXPECT_FALSE(session_->GetPkcs11Token()->IsReady());
-
-  // We'll need to call Pkcs11Token::Insert() and IsEnabled() later in the test.
-  Mock::VerifyAndClearExpectations(session_.get());
-  Mock::VerifyAndClearExpectations(&tpm_);
-
-  // Next check when the TPM is now owned.
-
-  // TPM is enabled and owned.
-  ON_CALL(tpm_, IsEnabled()).WillByDefault(Return(true));
-  EXPECT_CALL(tpm_, IsOwned()).Times(AtLeast(1)).WillRepeatedly(Return(true));
-
-  InitializePkcs11TokenInSession(session_);
-
-  EXPECT_TRUE(session_->GetPkcs11Token()->IsReady());
-}
-
 TEST_F(UserDataAuthTest, InitializePkcs11Unmounted) {
   TaskGuard guard(this, UserDataAuth::TestThreadId::kMountThread);
   // Add a mount associated with foo@gmail.com
@@ -1015,7 +1058,7 @@ TEST_F(UserDataAuthTest, InitializePkcs11Unmounted) {
       .Times(AtLeast(1))
       .WillRepeatedly(Return(false));
 
-  userdataauth_->InitializePkcs11(session_.get());
+  userdataauth_->InitializePkcs11(session_);
 
   // Still not ready because already unmounted
   EXPECT_FALSE(session_->GetPkcs11Token()->IsReady());
@@ -1029,14 +1072,16 @@ TEST_F(UserDataAuthTest, Pkcs11IsTpmTokenReady) {
   constexpr char kUsername1[] = "foo@gmail.com";
   constexpr char kUsername2[] = "bar@gmail.com";
 
-  scoped_refptr<NiceMock<MockUserSession>> session1 =
-      base::MakeRefCounted<NiceMock<MockUserSession>>();
-  userdataauth_->set_session_for_user(kUsername1, session1.get());
+  auto owned_session1 = std::make_unique<NiceMock<MockUserSession>>();
+  auto* const session1 = owned_session1.get();
+  EXPECT_TRUE(userdataauth_->AddUserSessionForTest(kUsername1,
+                                                   std::move(owned_session1)));
   CreatePkcs11TokenInSession(session1);
 
-  scoped_refptr<NiceMock<MockUserSession>> session2 =
-      base::MakeRefCounted<NiceMock<MockUserSession>>();
-  userdataauth_->set_session_for_user(kUsername2, session2.get());
+  auto owned_session2 = std::make_unique<NiceMock<MockUserSession>>();
+  auto* const session2 = owned_session2.get();
+  EXPECT_TRUE(userdataauth_->AddUserSessionForTest(kUsername2,
+                                                   std::move(owned_session2)));
   CreatePkcs11TokenInSession(session2);
 
   // Both are uninitialized.
@@ -1134,29 +1179,6 @@ TEST_F(UserDataAuthTest, Pkcs11RestoreTpmTokens) {
   EXPECT_TRUE(session_->GetPkcs11Token()->IsReady());
 }
 
-TEST_F(UserDataAuthTest, Pkcs11RestoreTpmTokensTpmNotOwned) {
-  TaskGuard guard(this, UserDataAuth::TestThreadId::kMountThread);
-  // This test the case for PKCS#11 retrieving TPM tokens when TPM isn't ready.
-
-  // Add a mount associated with foo@gmail.com
-  SetupMount("foo@gmail.com");
-
-  CreatePkcs11TokenInSession(session_);
-
-  // It shouldn't call any thing.
-  EXPECT_CALL(*session_, IsActive()).Times(0);
-
-  // TPM is enabled but not owned.
-  ON_CALL(tpm_, IsEnabled()).WillByDefault(Return(true));
-  EXPECT_CALL(tpm_, IsOwned()).Times(AtLeast(1)).WillRepeatedly(Return(false));
-
-  EXPECT_FALSE(session_->GetPkcs11Token()->IsReady());
-
-  userdataauth_->Pkcs11RestoreTpmTokens();
-
-  EXPECT_FALSE(session_->GetPkcs11Token()->IsReady());
-}
-
 TEST_F(UserDataAuthTest, Pkcs11RestoreTpmTokensWaitingOnTPM) {
   TaskGuard guard(this, UserDataAuth::TestThreadId::kMountThread);
   // This test the most common success case for PKCS#11 retrieving TPM tokens
@@ -1183,7 +1205,7 @@ TEST_F(UserDataAuthTest, Pkcs11RestoreTpmTokensWaitingOnTPM) {
 
 TEST_F(UserDataAuthTestNotInitialized, InstallAttributesEnterpriseOwned) {
   TaskGuard guard(this, UserDataAuth::TestThreadId::kMountThread);
-  EXPECT_CALL(*attrs_, Init(_)).WillOnce(Return(true));
+  EXPECT_CALL(*attrs_, Init()).WillOnce(Return(true));
 
   std::string str_true = "true";
   std::vector<uint8_t> blob_true(str_true.begin(), str_true.end());
@@ -1199,7 +1221,7 @@ TEST_F(UserDataAuthTestNotInitialized, InstallAttributesEnterpriseOwned) {
 
 TEST_F(UserDataAuthTestNotInitialized, InstallAttributesNotEnterpriseOwned) {
   TaskGuard guard(this, UserDataAuth::TestThreadId::kMountThread);
-  EXPECT_CALL(*attrs_, Init(_)).WillOnce(Return(true));
+  EXPECT_CALL(*attrs_, Init()).WillOnce(Return(true));
 
   std::string str_true = "false";
   std::vector<uint8_t> blob_true(str_true.begin(), str_true.end());
@@ -1289,11 +1311,11 @@ TEST_F(UserDataAuthTest, InstallAttributesCount) {
 TEST_F(UserDataAuthTest, InstallAttributesIsSecure) {
   TaskGuard guard(this, UserDataAuth::TestThreadId::kMountThread);
   // Test for successful case.
-  EXPECT_CALL(*attrs_, is_secure()).WillOnce(Return(true));
+  EXPECT_CALL(*attrs_, IsSecure()).WillOnce(Return(true));
   EXPECT_TRUE(userdataauth_->InstallAttributesIsSecure());
 
   // Test for unsuccessful case.
-  EXPECT_CALL(*attrs_, is_secure()).WillOnce(Return(false));
+  EXPECT_CALL(*attrs_, IsSecure()).WillOnce(Return(false));
   EXPECT_FALSE(userdataauth_->InstallAttributesIsSecure());
 }
 
@@ -1381,24 +1403,6 @@ TEST_F(UserDataAuthTestNotInitialized, GetCurrentSpaceForArcProjectId) {
             userdataauth_->GetCurrentSpaceForArcProjectId(kProjectId));
 }
 
-TEST_F(UserDataAuthTest, SetProjectId) {
-  TaskGuard guard(this, UserDataAuth::TestThreadId::kOriginThread);
-  constexpr int kProjectId = 1001;
-  const base::FilePath kChildPath = base::FilePath("/child/path");
-  constexpr char kUsername[] = "foo@gmail.com";
-  cryptohome::AccountIdentifier account_id;
-  account_id.set_account_id(kUsername);
-
-  EXPECT_CALL(
-      arc_disk_quota_,
-      SetProjectId(kProjectId, SetProjectIdAllowedPathType::PATH_DOWNLOADS,
-                   kChildPath, GetObfuscatedUsername(kUsername)))
-      .WillOnce(Return(true));
-  EXPECT_TRUE(userdataauth_->SetProjectId(
-      kProjectId, user_data_auth::SetProjectIdAllowedPathType::PATH_DOWNLOADS,
-      kChildPath, account_id));
-}
-
 TEST_F(UserDataAuthTest, SetMediaRWDataFileProjectId) {
   TaskGuard guard(this, UserDataAuth::TestThreadId::kOriginThread);
   constexpr int kProjectId = 1001;
@@ -1425,48 +1429,17 @@ TEST_F(UserDataAuthTest, SetMediaRWDataFileProjectInheritanceFlag) {
       kEnable, kFd, &error));
 }
 
-TEST_F(UserDataAuthTest, LockToSingleUserMountUntilRebootValidity20) {
+TEST_F(UserDataAuthTest, LockToSingleUserMountUntilRebootValidity) {
   TaskGuard guard(this, UserDataAuth::TestThreadId::kOriginThread);
   constexpr char kUsername1[] = "foo@gmail.com";
   cryptohome::AccountIdentifier account_id;
   account_id.set_account_id(kUsername1);
   const std::string kUsername1Obfuscated = GetObfuscatedUsername(kUsername1);
 
-  // We'll test the TPM 2.0 case.
-  ON_CALL(tpm_, GetVersion()).WillByDefault(Return(cryptohome::Tpm::TPM_2_0));
-
   EXPECT_CALL(homedirs_, SetLockedToSingleUser()).WillOnce(Return(true));
-  brillo::Blob empty_pcr = brillo::Blob(32, 0);
-  EXPECT_CALL(tpm_, ReadPCR(kTpmSingleUserPCR, _))
-      .WillOnce(DoAll(SetArgPointee<1>(empty_pcr), Return(true)));
-  brillo::Blob extention_blob(kUsername1Obfuscated.begin(),
-                              kUsername1Obfuscated.end());
-  EXPECT_CALL(tpm_, ExtendPCR(kTpmSingleUserPCR, extention_blob))
-      .WillOnce(Return(true));
-
-  EXPECT_EQ(userdataauth_->LockToSingleUserMountUntilReboot(account_id),
-            user_data_auth::CRYPTOHOME_ERROR_NOT_SET);
-}
-
-TEST_F(UserDataAuthTest, LockToSingleUserMountUntilRebootValidity12) {
-  TaskGuard guard(this, UserDataAuth::TestThreadId::kOriginThread);
-  constexpr char kUsername1[] = "foo@gmail.com";
-  cryptohome::AccountIdentifier account_id;
-  account_id.set_account_id(kUsername1);
-  const std::string kUsername1Obfuscated = GetObfuscatedUsername(kUsername1);
-
-  // We'll test the TPM 1.2 case.
-  ON_CALL(tpm_, GetVersion()).WillByDefault(Return(cryptohome::Tpm::TPM_1_2));
-
-  EXPECT_CALL(homedirs_, SetLockedToSingleUser()).WillOnce(Return(true));
-  brillo::Blob empty_pcr = brillo::Blob(32, 0);
-  EXPECT_CALL(tpm_, ReadPCR(kTpmSingleUserPCR, _))
-      .WillOnce(DoAll(SetArgPointee<1>(empty_pcr), Return(true)));
-  brillo::Blob extention_blob(kUsername1Obfuscated.begin(),
-                              kUsername1Obfuscated.end());
-  extention_blob = Sha1(extention_blob);
-  EXPECT_CALL(tpm_, ExtendPCR(kTpmSingleUserPCR, extention_blob))
-      .WillOnce(Return(true));
+  EXPECT_CALL(hwsec_, IsCurrentUserSet()).WillOnce(ReturnValue(false));
+  EXPECT_CALL(hwsec_, SetCurrentUser(kUsername1Obfuscated))
+      .WillOnce(ReturnOk<TPMError>());
 
   EXPECT_EQ(userdataauth_->LockToSingleUserMountUntilReboot(account_id),
             user_data_auth::CRYPTOHOME_ERROR_NOT_SET);
@@ -1479,7 +1452,8 @@ TEST_F(UserDataAuthTest, LockToSingleUserMountUntilRebootReadPCRFail) {
   account_id.set_account_id(kUsername1);
 
   ON_CALL(homedirs_, SetLockedToSingleUser()).WillByDefault(Return(true));
-  EXPECT_CALL(tpm_, ReadPCR(kTpmSingleUserPCR, _)).WillOnce(Return(false));
+  EXPECT_CALL(hwsec_, IsCurrentUserSet())
+      .WillOnce(ReturnError<TPMError>("fake", TPMRetryAction::kNoRetry));
 
   EXPECT_EQ(userdataauth_->LockToSingleUserMountUntilReboot(account_id),
             user_data_auth::CRYPTOHOME_ERROR_FAILED_TO_READ_PCR);
@@ -1491,14 +1465,8 @@ TEST_F(UserDataAuthTest, LockToSingleUserMountUntilRebootAlreadyExtended) {
   cryptohome::AccountIdentifier account_id;
   account_id.set_account_id(kUsername1);
 
-  // We'll test the TPM 2.0 case.
-  ON_CALL(tpm_, GetVersion()).WillByDefault(Return(cryptohome::Tpm::TPM_2_0));
-
   ON_CALL(homedirs_, SetLockedToSingleUser()).WillByDefault(Return(true));
-  brillo::Blob empty_pcr =
-      brillo::Blob(32, 0x42);  // Incorrect PCR value, should cause it to fail.
-  EXPECT_CALL(tpm_, ReadPCR(kTpmSingleUserPCR, _))
-      .WillOnce(DoAll(SetArgPointee<1>(empty_pcr), Return(true)));
+  EXPECT_CALL(hwsec_, IsCurrentUserSet()).WillOnce(ReturnValue(true));
 
   EXPECT_EQ(userdataauth_->LockToSingleUserMountUntilReboot(account_id),
             user_data_auth::CRYPTOHOME_ERROR_PCR_ALREADY_EXTENDED);
@@ -1511,17 +1479,10 @@ TEST_F(UserDataAuthTest, LockToSingleUserMountUntilRebootExtendFail) {
   account_id.set_account_id(kUsername1);
   const std::string kUsername1Obfuscated = GetObfuscatedUsername(kUsername1);
 
-  // We'll test the TPM 2.0 case.
-  ON_CALL(tpm_, GetVersion()).WillByDefault(Return(cryptohome::Tpm::TPM_2_0));
-
   EXPECT_CALL(homedirs_, SetLockedToSingleUser()).WillOnce(Return(true));
-  brillo::Blob empty_pcr = brillo::Blob(32, 0);
-  EXPECT_CALL(tpm_, ReadPCR(kTpmSingleUserPCR, _))
-      .WillOnce(DoAll(SetArgPointee<1>(empty_pcr), Return(true)));
-  brillo::Blob extention_blob(kUsername1Obfuscated.begin(),
-                              kUsername1Obfuscated.end());
-  EXPECT_CALL(tpm_, ExtendPCR(kTpmSingleUserPCR, extention_blob))
-      .WillOnce(Return(false));
+  EXPECT_CALL(hwsec_, IsCurrentUserSet()).WillOnce(ReturnValue(false));
+  EXPECT_CALL(hwsec_, SetCurrentUser(kUsername1Obfuscated))
+      .WillOnce(ReturnError<TPMError>("fake", TPMRetryAction::kNoRetry));
 
   EXPECT_EQ(userdataauth_->LockToSingleUserMountUntilReboot(account_id),
             user_data_auth::CRYPTOHOME_ERROR_FAILED_TO_EXTEND_PCR);
@@ -1693,7 +1654,7 @@ TEST_F(UserDataAuthTest, OwnershipCallbackRegisterValidity) {
   EXPECT_CALL(cryptohome_keys_manager_, HasAnyCryptohomeKey())
       .WillOnce(Return(true));
   // Called by InitializeInstallAttributes()
-  EXPECT_CALL(*attrs_, Init(_)).WillOnce(Return(true));
+  EXPECT_CALL(*attrs_, Init()).WillOnce(Return(true));
 
   callback.Run();
 }
@@ -1717,7 +1678,7 @@ TEST_F(UserDataAuthTest, OwnershipCallbackRegisterRepeated) {
       .WillOnce(Return(false));
   EXPECT_CALL(cryptohome_keys_manager_, Init()).Times(1);
   // Called by InitializeInstallAttributes()
-  EXPECT_CALL(*attrs_, Init(_)).WillOnce(Return(true));
+  EXPECT_CALL(*attrs_, Init()).WillOnce(Return(true));
 
   // Call OwnershipCallback twice and see if any of the above gets called more
   // than once.
@@ -1741,7 +1702,7 @@ TEST_F(UserDataAuthTest, UpdateCurrentUserActivityTimestampSuccess) {
   EXPECT_TRUE(userdataauth_->UpdateCurrentUserActivityTimestamp(kTimeshift));
 
   // Test case for multiple mounts
-  scoped_refptr<NiceMock<MockUserSession>> prev_session = session_;
+  NiceMock<MockUserSession>* const prev_session = session_;
   SetupMount("bar@gmail.com");
 
   EXPECT_CALL(*session_, IsActive()).WillOnce(Return(true));
@@ -2165,6 +2126,7 @@ TEST_F(UserDataAuthTest, CleanUpStale_EmptyMap_OpenLegacy_ShadowOnly) {
 }
 
 TEST_F(UserDataAuthTest, CleanUpStale_FilledMap_NoOpenFiles_ShadowOnly) {
+  constexpr char kUser[] = "foo@bar.net";
   // Checks that when we have a bunch of stale shadow mounts, some active
   // mounts, and no open filehandles, all inactive mounts are unmounted.
 
@@ -2176,15 +2138,15 @@ TEST_F(UserDataAuthTest, CleanUpStale_FilledMap_NoOpenFiles_ShadowOnly) {
 
   InitializeUserDataAuth();
 
-  session_ = base::MakeRefCounted<NiceMock<MockUserSession>>();
-  EXPECT_CALL(user_session_factory_, New(_, _)).WillOnce(Return(session_));
+  EXPECT_CALL(user_session_factory_, New(kUser, _, _))
+      .WillOnce(Return(ByMove(CreateSessionAndRememberPtr())));
   EXPECT_CALL(homedirs_, CryptohomeExists(_)).WillOnce(ReturnValue(true));
   EXPECT_CALL(keyset_management_, GetVaultKeysetLabels(_, _, _))
       .WillRepeatedly(Return(true));
-  EXPECT_CALL(auth_block_utility_, GetAuthBlockTypeForDerivation(_, _))
-      .WillRepeatedly(Return(AuthBlockType::kTpmNotBoundToPcr));
   EXPECT_CALL(auth_block_utility_, GetAuthBlockStateFromVaultKeyset(_, _, _))
       .WillRepeatedly(Return(true));
+  EXPECT_CALL(auth_block_utility_, GetAuthBlockTypeFromState(_))
+      .WillRepeatedly(Return(AuthBlockType::kTpmBoundToPcr));
   EXPECT_CALL(auth_block_utility_, DeriveKeyBlobsWithAuthBlock(_, _, _, _))
       .WillRepeatedly(ReturnError<CryptohomeCryptoError>());
   auto vk = std::make_unique<VaultKeyset>();
@@ -2201,7 +2163,7 @@ TEST_F(UserDataAuthTest, CleanUpStale_FilledMap_NoOpenFiles_ShadowOnly) {
   EXPECT_CALL(platform_, GetLoopDeviceMounts(_)).WillOnce(Return(false));
 
   user_data_auth::MountRequest mount_req;
-  mount_req.mutable_account()->set_account_id("foo@bar.net");
+  mount_req.mutable_account()->set_account_id(kUser);
   mount_req.mutable_authorization()->mutable_key()->set_secret("key");
   mount_req.mutable_authorization()->mutable_key()->mutable_data()->set_label(
       "password");
@@ -2276,6 +2238,7 @@ TEST_F(UserDataAuthTest, CleanUpStale_FilledMap_NoOpenFiles_ShadowOnly) {
 
 TEST_F(UserDataAuthTest,
        CleanUpStale_FilledMap_NoOpenFiles_ShadowOnly_FirstBoot) {
+  constexpr char kUser[] = "foo@bar.net";
   // Checks that when we have a bunch of stale shadow mounts, some active
   // mounts, and no open filehandles, all inactive mounts are unmounted.
 
@@ -2286,15 +2249,15 @@ TEST_F(UserDataAuthTest,
 
   InitializeUserDataAuth();
 
-  session_ = base::MakeRefCounted<NiceMock<MockUserSession>>();
-  EXPECT_CALL(user_session_factory_, New(_, _)).WillOnce(Return(session_));
+  EXPECT_CALL(user_session_factory_, New(kUser, _, _))
+      .WillOnce(Return(ByMove(CreateSessionAndRememberPtr())));
   EXPECT_CALL(homedirs_, CryptohomeExists(_)).WillOnce(ReturnValue(true));
   EXPECT_CALL(keyset_management_, GetVaultKeysetLabels(_, _, _))
       .WillRepeatedly(Return(true));
-  EXPECT_CALL(auth_block_utility_, GetAuthBlockTypeForDerivation(_, _))
-      .WillRepeatedly(Return(AuthBlockType::kTpmNotBoundToPcr));
   EXPECT_CALL(auth_block_utility_, GetAuthBlockStateFromVaultKeyset(_, _, _))
       .WillRepeatedly(Return(true));
+  EXPECT_CALL(auth_block_utility_, GetAuthBlockTypeFromState(_))
+      .WillRepeatedly(Return(AuthBlockType::kTpmBoundToPcr));
   EXPECT_CALL(auth_block_utility_, DeriveKeyBlobsWithAuthBlock(_, _, _, _))
       .WillRepeatedly(ReturnError<CryptohomeCryptoError>());
   auto vk = std::make_unique<VaultKeyset>();
@@ -2311,7 +2274,7 @@ TEST_F(UserDataAuthTest,
   EXPECT_CALL(platform_, GetLoopDeviceMounts(_)).WillOnce(Return(false));
 
   user_data_auth::MountRequest mount_req;
-  mount_req.mutable_account()->set_account_id("foo@bar.net");
+  mount_req.mutable_account()->set_account_id(kUser);
   mount_req.mutable_authorization()->mutable_key()->set_secret("key");
   mount_req.mutable_authorization()->mutable_key()->mutable_data()->set_label(
       "password");
@@ -2497,19 +2460,10 @@ TEST_F(UserDataAuthTest, NeedsDircryptoMigration) {
 
 TEST_F(UserDataAuthTest, LowEntropyCredentialSupported) {
   TaskGuard guard(this, UserDataAuth::TestThreadId::kOriginThread);
-  // Test when there's no Low Entropy Credential Backend.
-  EXPECT_CALL(tpm_, GetLECredentialBackend()).WillOnce(Return(nullptr));
+  EXPECT_CALL(hwsec_, IsPinWeaverEnabled()).WillRepeatedly(ReturnValue(false));
   EXPECT_FALSE(userdataauth_->IsLowEntropyCredentialSupported());
 
-  NiceMock<MockLECredentialBackend> backend;
-  EXPECT_CALL(tpm_, GetLECredentialBackend()).WillRepeatedly(Return(&backend));
-
-  // Test when the backend says it's not supported.
-  EXPECT_CALL(backend, IsSupported()).WillOnce(Return(false));
-  EXPECT_FALSE(userdataauth_->IsLowEntropyCredentialSupported());
-
-  // Test when it's supported.
-  EXPECT_CALL(backend, IsSupported()).WillOnce(Return(true));
+  EXPECT_CALL(hwsec_, IsPinWeaverEnabled()).WillRepeatedly(ReturnValue(true));
   EXPECT_TRUE(userdataauth_->IsLowEntropyCredentialSupported());
 }
 
@@ -2638,13 +2592,13 @@ TEST_F(UserDataAuthExTest, MountGuestValidity) {
 
   mount_req_->set_guest_mount(true);
 
-  EXPECT_CALL(user_session_factory_, New(_, _))
-      .WillOnce(Invoke([this](bool, bool) {
-        SetupMount(kGuestUserName);
-        EXPECT_CALL(*session_, MountGuest()).WillOnce(Invoke([]() {
+  EXPECT_CALL(user_session_factory_, New(kGuestUserName, _, _))
+      .WillOnce(Invoke([this](const std::string&, bool, bool) {
+        auto session = CreateSessionAndRememberPtr();
+        EXPECT_CALL(*session, MountGuest()).WillOnce(Invoke([]() {
           return OkStatus<CryptohomeMountError>();
         }));
-        return session_;
+        return session;
       }));
 
   bool called = false;
@@ -2663,7 +2617,7 @@ TEST_F(UserDataAuthExTest, MountGuestValidity) {
   }
   EXPECT_TRUE(called);
 
-  EXPECT_NE(userdataauth_->get_session_for_user(kGuestUserName), nullptr);
+  EXPECT_NE(userdataauth_->FindUserSessionForTest(kGuestUserName), nullptr);
 }
 
 TEST_F(UserDataAuthExTest, MountGuestMountPointBusy) {
@@ -2695,7 +2649,7 @@ TEST_F(UserDataAuthExTest, MountGuestMountPointBusy) {
   }
   EXPECT_TRUE(called);
 
-  EXPECT_EQ(userdataauth_->get_session_for_user(kGuestUserName), nullptr);
+  EXPECT_EQ(userdataauth_->FindUserSessionForTest(kGuestUserName), nullptr);
 }
 
 TEST_F(UserDataAuthExTest, MountGuestMountFailed) {
@@ -2703,16 +2657,16 @@ TEST_F(UserDataAuthExTest, MountGuestMountFailed) {
 
   mount_req_->set_guest_mount(true);
 
-  EXPECT_CALL(user_session_factory_, New(_, _))
-      .WillOnce(Invoke([this](bool, bool) {
-        SetupMount(kGuestUserName);
-        EXPECT_CALL(*session_, MountGuest()).WillOnce(Invoke([this]() {
+  EXPECT_CALL(user_session_factory_, New(kGuestUserName, _, _))
+      .WillOnce(Invoke([this](const std::string& username, bool, bool) {
+        auto session = CreateSessionAndRememberPtr();
+        EXPECT_CALL(*session, MountGuest()).WillOnce(Invoke([this]() {
           // |this| is captured for kErrorLocationPlaceholder.
           return MakeStatus<CryptohomeMountError>(
               kErrorLocationPlaceholder, ErrorActionSet({ErrorAction::kReboot}),
               MOUNT_ERROR_FATAL, std::nullopt);
         }));
-        return session_;
+        return session;
       }));
 
   bool called = false;
@@ -2916,8 +2870,8 @@ TEST_F(UserDataAuthExTest, MountPublicWithExistingMounts) {
   mount_req_->mutable_account()->set_account_id(kUser);
   mount_req_->set_public_mount(true);
 
-  session_ = base::MakeRefCounted<NiceMock<MockUserSession>>();
-  EXPECT_CALL(user_session_factory_, New(_, _)).WillOnce(Return(session_));
+  EXPECT_CALL(user_session_factory_, New(kUser, _, _))
+      .WillOnce(Return(ByMove(CreateSessionAndRememberPtr())));
 
   bool called = false;
   EXPECT_CALL(homedirs_, Exists(_)).WillOnce(Return(true));
@@ -2943,29 +2897,32 @@ TEST_F(UserDataAuthExTest, MountPublicUsesPublicMountPasskey) {
   mount_req_->mutable_account()->set_account_id(kUser);
   mount_req_->set_public_mount(true);
 
-  EXPECT_CALL(homedirs_, Exists(_)).WillOnce(testing::InvokeWithoutArgs([&]() {
-    SetupMount(kUser);
-    EXPECT_CALL(homedirs_, CryptohomeExists(_)).WillOnce(ReturnValue(true));
+  EXPECT_CALL(homedirs_, Exists(_))
+      .WillOnce(testing::InvokeWithoutArgs([this, kUser]() {
+        SetupMount(kUser);
+        EXPECT_CALL(homedirs_, CryptohomeExists(_)).WillOnce(ReturnValue(true));
 
-    std::vector<std::string> key_labels;
-    key_labels.push_back("label");
-    EXPECT_CALL(keyset_management_, GetVaultKeysetLabels(_, _, _))
-        .WillRepeatedly(DoAll(SetArgPointee<2>(key_labels), Return(true)));
-    EXPECT_CALL(auth_block_utility_, GetAuthBlockTypeForDerivation(_, _))
-        .WillRepeatedly(Return(AuthBlockType::kTpmNotBoundToPcr));
-    EXPECT_CALL(auth_block_utility_, GetAuthBlockStateFromVaultKeyset(_, _, _))
-        .WillRepeatedly(Return(true));
-    EXPECT_CALL(auth_block_utility_, DeriveKeyBlobsWithAuthBlock(_, _, _, _))
-        .WillRepeatedly(ReturnError<CryptohomeCryptoError>());
-    EXPECT_CALL(keyset_management_, GetValidKeysetWithKeyBlobs(_, _, _))
-        .WillRepeatedly(Return(ByMove(std::make_unique<VaultKeyset>())));
-    EXPECT_CALL(keyset_management_, ShouldReSaveKeyset(_))
-        .WillOnce(Return(false));
-    EXPECT_CALL(disk_cleanup_, FreeDiskSpaceDuringLogin(_));
-    EXPECT_CALL(*session_, MountVault(_, _, _))
-        .WillOnce(ReturnError<CryptohomeMountError>());
-    return true;
-  }));
+        std::vector<std::string> key_labels;
+        key_labels.push_back("label");
+        EXPECT_CALL(keyset_management_, GetVaultKeysetLabels(_, _, _))
+            .WillRepeatedly(DoAll(SetArgPointee<2>(key_labels), Return(true)));
+        EXPECT_CALL(auth_block_utility_,
+                    GetAuthBlockStateFromVaultKeyset(_, _, _))
+            .WillRepeatedly(Return(true));
+        EXPECT_CALL(auth_block_utility_, GetAuthBlockTypeFromState(_))
+            .WillRepeatedly(Return(AuthBlockType::kTpmBoundToPcr));
+        EXPECT_CALL(auth_block_utility_,
+                    DeriveKeyBlobsWithAuthBlock(_, _, _, _))
+            .WillRepeatedly(ReturnError<CryptohomeCryptoError>());
+        EXPECT_CALL(keyset_management_, GetValidKeysetWithKeyBlobs(_, _, _))
+            .WillRepeatedly(Return(ByMove(std::make_unique<VaultKeyset>())));
+        EXPECT_CALL(keyset_management_, ShouldReSaveKeyset(_))
+            .WillOnce(Return(false));
+        EXPECT_CALL(disk_cleanup_, FreeDiskSpaceDuringLogin(_));
+        EXPECT_CALL(*session_, MountVault(_, _, _))
+            .WillOnce(ReturnError<CryptohomeMountError>());
+        return true;
+      }));
   bool called = false;
   {
     TaskGuard guard(this, UserDataAuth::TestThreadId::kMountThread);
@@ -2989,35 +2946,40 @@ TEST_F(UserDataAuthExTest, MountPublicUsesPublicMountPasskeyResave) {
   mount_req_->mutable_account()->set_account_id(kUser);
   mount_req_->set_public_mount(true);
 
-  EXPECT_CALL(homedirs_, Exists(_)).WillOnce(testing::InvokeWithoutArgs([&]() {
-    SetupMount(kUser);
-    EXPECT_CALL(homedirs_, CryptohomeExists(_)).WillOnce(ReturnValue(true));
+  EXPECT_CALL(homedirs_, Exists(_))
+      .WillOnce(testing::InvokeWithoutArgs([this, kUser]() {
+        SetupMount(kUser);
+        EXPECT_CALL(homedirs_, CryptohomeExists(_)).WillOnce(ReturnValue(true));
 
-    std::vector<std::string> key_labels;
-    key_labels.push_back("label");
-    EXPECT_CALL(keyset_management_, GetVaultKeysetLabels(_, _, _))
-        .WillRepeatedly(DoAll(SetArgPointee<2>(key_labels), Return(true)));
-    EXPECT_CALL(auth_block_utility_, GetAuthBlockTypeForDerivation(_, _))
-        .WillRepeatedly(Return(AuthBlockType::kTpmNotBoundToPcr));
-    EXPECT_CALL(auth_block_utility_, GetAuthBlockStateFromVaultKeyset(_, _, _))
-        .WillRepeatedly(Return(true));
-    EXPECT_CALL(auth_block_utility_, DeriveKeyBlobsWithAuthBlock(_, _, _, _))
-        .WillRepeatedly(ReturnError<CryptohomeCryptoError>());
-    EXPECT_CALL(keyset_management_, GetValidKeysetWithKeyBlobs(_, _, _))
-        .WillRepeatedly(Return(ByMove(std::make_unique<VaultKeyset>())));
-    EXPECT_CALL(keyset_management_, ShouldReSaveKeyset(_))
-        .WillOnce(Return(true));
-    EXPECT_CALL(auth_block_utility_, GetAuthBlockTypeForCreation(_, _, _, _))
-        .WillOnce(Return(AuthBlockType::kTpmEcc));
-    EXPECT_CALL(auth_block_utility_, CreateKeyBlobsWithAuthBlock(_, _, _, _, _))
-        .WillOnce(ReturnError<CryptohomeCryptoError>());
-    EXPECT_CALL(keyset_management_, ReSaveKeysetWithKeyBlobs(_, _, _))
-        .WillOnce(ReturnError<CryptohomeError>());
-    EXPECT_CALL(disk_cleanup_, FreeDiskSpaceDuringLogin(_));
-    EXPECT_CALL(*session_, MountVault(_, _, _))
-        .WillOnce(ReturnError<CryptohomeMountError>());
-    return true;
-  }));
+        std::vector<std::string> key_labels;
+        key_labels.push_back("label");
+        EXPECT_CALL(keyset_management_, GetVaultKeysetLabels(_, _, _))
+            .WillRepeatedly(DoAll(SetArgPointee<2>(key_labels), Return(true)));
+        EXPECT_CALL(auth_block_utility_,
+                    GetAuthBlockStateFromVaultKeyset(_, _, _))
+            .WillRepeatedly(Return(true));
+        EXPECT_CALL(auth_block_utility_, GetAuthBlockTypeFromState(_))
+            .WillRepeatedly(Return(AuthBlockType::kTpmBoundToPcr));
+        EXPECT_CALL(auth_block_utility_,
+                    DeriveKeyBlobsWithAuthBlock(_, _, _, _))
+            .WillRepeatedly(ReturnError<CryptohomeCryptoError>());
+        EXPECT_CALL(keyset_management_, GetValidKeysetWithKeyBlobs(_, _, _))
+            .WillRepeatedly(Return(ByMove(std::make_unique<VaultKeyset>())));
+        EXPECT_CALL(keyset_management_, ShouldReSaveKeyset(_))
+            .WillOnce(Return(true));
+        EXPECT_CALL(auth_block_utility_,
+                    GetAuthBlockTypeForCreation(_, _, _, _))
+            .WillOnce(Return(AuthBlockType::kTpmEcc));
+        EXPECT_CALL(auth_block_utility_,
+                    CreateKeyBlobsWithAuthBlock(_, _, _, _, _))
+            .WillOnce(ReturnError<CryptohomeCryptoError>());
+        EXPECT_CALL(keyset_management_, ReSaveKeysetWithKeyBlobs(_, _, _))
+            .WillOnce(ReturnError<CryptohomeError>());
+        EXPECT_CALL(disk_cleanup_, FreeDiskSpaceDuringLogin(_));
+        EXPECT_CALL(*session_, MountVault(_, _, _))
+            .WillOnce(ReturnError<CryptohomeMountError>());
+        return true;
+      }));
   bool called = false;
   {
     TaskGuard guard(this, UserDataAuth::TestThreadId::kMountThread);
@@ -3061,10 +3023,10 @@ TEST_F(UserDataAuthExTest, MountPublicUsesPublicMountPasskeyWithNewUser) {
   key_labels.push_back("label");
   EXPECT_CALL(keyset_management_, GetVaultKeysetLabels(_, _, _))
       .WillRepeatedly(DoAll(SetArgPointee<2>(key_labels), Return(true)));
-  EXPECT_CALL(auth_block_utility_, GetAuthBlockTypeForDerivation(_, _))
-      .WillRepeatedly(Return(AuthBlockType::kTpmNotBoundToPcr));
   EXPECT_CALL(auth_block_utility_, GetAuthBlockStateFromVaultKeyset(_, _, _))
       .WillRepeatedly(Return(true));
+  EXPECT_CALL(auth_block_utility_, GetAuthBlockTypeFromState(_))
+      .WillRepeatedly(Return(AuthBlockType::kTpmBoundToPcr));
   EXPECT_CALL(auth_block_utility_, DeriveKeyBlobsWithAuthBlock(_, _, _, _))
       .WillRepeatedly(ReturnError<CryptohomeCryptoError>());
   EXPECT_CALL(keyset_management_, GetValidKeysetWithKeyBlobs(_, _, _))
@@ -3200,7 +3162,7 @@ TEST_F(UserDataAuthExTest,
   ASSERT_THAT(auth_session, NotNull());
 
   // Migration only happens for authenticated auth session.
-  auth_session->SetAuthSessionAsAuthenticated();
+  auth_session->SetAuthSessionAsAuthenticated(kAllAuthIntents);
 
   user_data_auth::StartMigrateToDircryptoRequest request;
   request.set_auth_session_id(auth_session_reply.auth_session_id());
@@ -3470,12 +3432,29 @@ TEST_F(UserDataAuthExTest, CheckKeyMountCheckSuccess) {
   Credentials credentials(kUser, brillo::SecureBlob(kKey));
   EXPECT_CALL(*session_, VerifyCredentials(CredentialsMatcher(credentials)))
       .WillOnce(Return(true));
+  EXPECT_CALL(keyset_management_, GetValidKeyset(_))
+      .WillOnce(Return(ByMove(std::make_unique<VaultKeyset>())));
 
   // The `unlock_webauthn_secret` is false by default, WebAuthn secret shouldn't
   // be prepared.
   EXPECT_CALL(*session_, PrepareWebAuthnSecret(_, _)).Times(0);
 
   CallCheckKeyAndVerify(user_data_auth::CRYPTOHOME_ERROR_NOT_SET);
+}
+
+TEST_F(UserDataAuthExTest, CheckKeyEphemeralFailed) {
+  TaskGuard guard(this, UserDataAuth::TestThreadId::kMountThread);
+  PrepareArguments();
+  SetupMount(kUser);
+
+  check_req_->mutable_account_id()->set_account_id(kUser);
+  check_req_->mutable_authorization_request()->mutable_key()->set_secret(kKey);
+
+  EXPECT_CALL(*session_, VerifyCredentials(_)).WillOnce(Return(false));
+  EXPECT_CALL(*session_, IsEphemeral()).WillOnce(Return(true));
+
+  CallCheckKeyAndVerify(
+      user_data_auth::CRYPTOHOME_ERROR_AUTHORIZATION_KEY_FAILED);
 }
 
 TEST_F(UserDataAuthExTest, CheckKeyMountCheckFail) {
@@ -3864,39 +3843,43 @@ TEST_F(UserDataAuthExTest, ListKeysValidity) {
         return true;
       }));
 
-  std::vector<std::string> labels;
-  EXPECT_EQ(userdataauth_->ListKeys(*list_keys_req_, &labels),
-            user_data_auth::CRYPTOHOME_ERROR_NOT_SET);
+  user_data_auth::ListKeysReply reply =
+      userdataauth_->ListKeys(*list_keys_req_);
+  EXPECT_EQ(reply.error_info().primary_action(),
+            user_data_auth::PrimaryAction::PRIMARY_NO_ERROR);
 
-  EXPECT_THAT(labels, ElementsAre(ListKeysValidityTest_label1,
-                                  ListKeysValidityTest_label2));
+  EXPECT_THAT(reply.labels(), ElementsAre(ListKeysValidityTest_label1,
+                                          ListKeysValidityTest_label2));
 
   // Test for account not found case.
   EXPECT_CALL(homedirs_, Exists(_)).WillOnce(Return(false));
-  EXPECT_EQ(userdataauth_->ListKeys(*list_keys_req_, &labels),
-            user_data_auth::CRYPTOHOME_ERROR_ACCOUNT_NOT_FOUND);
+  EXPECT_NE(
+      userdataauth_->ListKeys(*list_keys_req_).error_info().primary_action(),
+      user_data_auth::PrimaryAction::PRIMARY_NO_ERROR);
 
   // Test for key not found case.
   EXPECT_CALL(homedirs_, Exists(_)).WillOnce(Return(true));
   EXPECT_CALL(keyset_management_, GetVaultKeysetLabels(_, _, _))
       .WillOnce(Return(false));
-  EXPECT_EQ(userdataauth_->ListKeys(*list_keys_req_, &labels),
-            user_data_auth::CRYPTOHOME_ERROR_KEY_NOT_FOUND);
+  EXPECT_NE(
+      userdataauth_->ListKeys(*list_keys_req_).error_info().primary_action(),
+      user_data_auth::PrimaryAction::PRIMARY_NO_ERROR);
 }
 
 TEST_F(UserDataAuthExTest, ListKeysInvalidArgs) {
   TaskGuard guard(this, UserDataAuth::TestThreadId::kMountThread);
   PrepareArguments();
-  std::vector<std::string> labels;
 
   // No Email.
-  EXPECT_EQ(userdataauth_->ListKeys(*list_keys_req_, &labels),
-            user_data_auth::CRYPTOHOME_ERROR_INVALID_ARGUMENT);
+  EXPECT_NE(
+      userdataauth_->ListKeys(*list_keys_req_).error_info().primary_action(),
+      user_data_auth::PrimaryAction::PRIMARY_NO_ERROR);
 
   // Empty email.
   list_keys_req_->mutable_account_id()->set_account_id("");
-  EXPECT_EQ(userdataauth_->ListKeys(*list_keys_req_, &labels),
-            user_data_auth::CRYPTOHOME_ERROR_INVALID_ARGUMENT);
+  EXPECT_NE(
+      userdataauth_->ListKeys(*list_keys_req_).error_info().primary_action(),
+      user_data_auth::PrimaryAction::PRIMARY_NO_ERROR);
 }
 
 TEST_F(UserDataAuthExTest, GetKeyDataExNoMatch) {
@@ -3925,6 +3908,29 @@ TEST_F(UserDataAuthExTest, GetKeyDataExNoMatch) {
 }
 
 TEST_F(UserDataAuthExTest, GetKeyDataExOneMatch) {
+  TaskGuard guard(this, UserDataAuth::TestThreadId::kMountThread);
+  // Request the single key by label.
+  PrepareArguments();
+
+  get_key_data_req_->mutable_key()->mutable_data()->set_label("");
+  get_key_data_req_->mutable_account_id()->set_account_id(
+      "unittest@example.com");
+
+  auto vk = std::make_unique<VaultKeyset>();
+  EXPECT_CALL(homedirs_, Exists(_)).WillRepeatedly(Return(true));
+  EXPECT_CALL(keyset_management_, GetVaultKeyset(_, _))
+      .WillOnce(Return(ByMove(std::move(vk))));
+
+  cryptohome::KeyData keydata_out;
+  bool found = false;
+  EXPECT_EQ(userdataauth_->GetKeyData(*get_key_data_req_, &keydata_out, &found),
+            user_data_auth::CRYPTOHOME_ERROR_NOT_SET);
+
+  EXPECT_TRUE(found);
+  EXPECT_EQ(keydata_out.type(), KeyData::KEY_TYPE_PASSWORD);
+}
+
+TEST_F(UserDataAuthExTest, GetKeyDataExEmpty) {
   TaskGuard guard(this, UserDataAuth::TestThreadId::kMountThread);
   // Request the single key by label.
   PrepareArguments();
@@ -4030,14 +4036,16 @@ TEST_F(UserDataAuthExTest, RemoveValidity) {
   // Test for successful case.
   EXPECT_CALL(homedirs_, Remove(GetObfuscatedUsername(kUsername1)))
       .WillOnce(Return(true));
-  EXPECT_EQ(userdataauth_->Remove(*remove_homedir_req_),
-            user_data_auth::CRYPTOHOME_ERROR_NOT_SET);
+  EXPECT_EQ(
+      userdataauth_->Remove(*remove_homedir_req_).error_info().primary_action(),
+      user_data_auth::PrimaryAction::PRIMARY_NO_ERROR);
 
   // Test for unsuccessful case.
   EXPECT_CALL(homedirs_, Remove(GetObfuscatedUsername(kUsername1)))
       .WillOnce(Return(false));
-  EXPECT_EQ(userdataauth_->Remove(*remove_homedir_req_),
-            user_data_auth::CRYPTOHOME_ERROR_REMOVE_FAILED);
+  EXPECT_NE(
+      userdataauth_->Remove(*remove_homedir_req_).error_info().primary_action(),
+      user_data_auth::PrimaryAction::PRIMARY_NO_ERROR);
 }
 
 TEST_F(UserDataAuthExTest, RemoveBusyMounted) {
@@ -4046,8 +4054,9 @@ TEST_F(UserDataAuthExTest, RemoveBusyMounted) {
   SetupMount(kUser);
   remove_homedir_req_->mutable_identifier()->set_account_id(kUser);
   EXPECT_CALL(*session_, IsActive()).WillOnce(Return(true));
-  EXPECT_EQ(userdataauth_->Remove(*remove_homedir_req_),
-            user_data_auth::CRYPTOHOME_ERROR_MOUNT_MOUNT_POINT_BUSY);
+  EXPECT_NE(
+      userdataauth_->Remove(*remove_homedir_req_).error_info().primary_action(),
+      user_data_auth::PrimaryAction::PRIMARY_NO_ERROR);
 }
 
 TEST_F(UserDataAuthExTest, RemoveInvalidArguments) {
@@ -4055,13 +4064,15 @@ TEST_F(UserDataAuthExTest, RemoveInvalidArguments) {
   PrepareArguments();
 
   // No account_id and AuthSession ID
-  EXPECT_EQ(userdataauth_->Remove(*remove_homedir_req_),
-            user_data_auth::CRYPTOHOME_ERROR_INVALID_ARGUMENT);
+  EXPECT_NE(
+      userdataauth_->Remove(*remove_homedir_req_).error_info().primary_action(),
+      user_data_auth::PrimaryAction::PRIMARY_NO_ERROR);
 
   // Empty account_id
   remove_homedir_req_->mutable_identifier()->set_account_id("");
-  EXPECT_EQ(userdataauth_->Remove(*remove_homedir_req_),
-            user_data_auth::CRYPTOHOME_ERROR_INVALID_ARGUMENT);
+  EXPECT_NE(
+      userdataauth_->Remove(*remove_homedir_req_).error_info().primary_action(),
+      user_data_auth::PrimaryAction::PRIMARY_NO_ERROR);
 }
 
 TEST_F(UserDataAuthExTest, RemoveInvalidAuthSession) {
@@ -4071,8 +4082,9 @@ TEST_F(UserDataAuthExTest, RemoveInvalidAuthSession) {
   remove_homedir_req_->set_auth_session_id(invalid_token);
 
   // Test.
-  EXPECT_EQ(userdataauth_->Remove(*remove_homedir_req_),
-            user_data_auth::CRYPTOHOME_INVALID_AUTH_SESSION_TOKEN);
+  EXPECT_NE(
+      userdataauth_->Remove(*remove_homedir_req_).error_info().primary_action(),
+      user_data_auth::PrimaryAction::PRIMARY_NO_ERROR);
 }
 
 TEST_F(UserDataAuthExTest, RemoveValidityWithAuthSession) {
@@ -4103,8 +4115,9 @@ TEST_F(UserDataAuthExTest, RemoveValidityWithAuthSession) {
       auth_session_reply.auth_session_id());
   EXPECT_CALL(homedirs_, Remove(GetObfuscatedUsername(kUsername1)))
       .WillOnce(Return(true));
-  EXPECT_EQ(userdataauth_->Remove(*remove_homedir_req_),
-            user_data_auth::CRYPTOHOME_ERROR_NOT_SET);
+  EXPECT_EQ(
+      userdataauth_->Remove(*remove_homedir_req_).error_info().primary_action(),
+      user_data_auth::PrimaryAction::PRIMARY_NO_ERROR);
 
   // Verify
   EXPECT_EQ(userdataauth_->auth_session_manager_->FindAuthSession(
@@ -4346,7 +4359,7 @@ TEST_F(UserDataAuthExTest, ExtendAuthSession) {
   EXPECT_THAT(auth_session, NotNull());
 
   // Extension only happens for authenticated auth session.
-  auth_session->SetAuthSessionAsAuthenticated();
+  auth_session->SetAuthSessionAsAuthenticated(kAllAuthIntents);
 
   // Test.
   user_data_auth::ExtendAuthSessionRequest ext_auth_session_req;
@@ -4374,10 +4387,52 @@ TEST_F(UserDataAuthExTest, ExtendAuthSession) {
   // Verify that timer has changed, within a resaonsable degree of error.
   auth_session = userdataauth_->auth_session_manager_->FindAuthSession(
       auth_session_id.value());
-  auto requested_delay = auth_session->timer_.GetCurrentDelay();
+  auto requested_delay = auth_session->timeout_timer_.GetCurrentDelay();
   auto time_difference =
       (kAuthSessionTimeout + kAuthSessionExtension) - requested_delay;
   EXPECT_LT(time_difference, base::Seconds(1));
+}
+
+TEST_F(UserDataAuthExTest, CheckTimeoutTimerSetAfterAuthentication) {
+  // Setup.
+  PrepareArguments();
+
+  start_auth_session_req_->mutable_account_id()->set_account_id(
+      "foo@example.com");
+  user_data_auth::StartAuthSessionReply auth_session_reply;
+  {
+    TaskGuard guard(this, UserDataAuth::TestThreadId::kMountThread);
+    userdataauth_->StartAuthSession(
+        *start_auth_session_req_,
+        base::BindOnce(
+            [](user_data_auth::StartAuthSessionReply* auth_reply_ptr,
+               const user_data_auth::StartAuthSessionReply& reply) {
+              *auth_reply_ptr = reply;
+            },
+            base::Unretained(&auth_session_reply)));
+  }
+  EXPECT_EQ(auth_session_reply.error(),
+            user_data_auth::CRYPTOHOME_ERROR_NOT_SET);
+  std::optional<base::UnguessableToken> auth_session_id =
+      AuthSession::GetTokenFromSerializedString(
+          auth_session_reply.auth_session_id());
+  EXPECT_TRUE(auth_session_id.has_value());
+
+  AuthSession* auth_session =
+      userdataauth_->auth_session_manager_->FindAuthSession(
+          auth_session_id.value());
+  EXPECT_THAT(auth_session, NotNull());
+
+  // Timer is not set before authentication.
+  EXPECT_FALSE(auth_session->timeout_timer_.IsRunning());
+  EXPECT_EQ(auth_session->timeout_timer_start_time_, base::TimeTicks());
+
+  // Extension only happens for authenticated auth session.
+  auth_session->SetAuthSessionAsAuthenticated(kAllAuthIntents);
+
+  // Test timer is correctly set after authentication.
+  EXPECT_TRUE(auth_session->timeout_timer_.IsRunning());
+  EXPECT_NE(auth_session->timeout_timer_start_time_, base::TimeTicks());
 }
 
 TEST_F(UserDataAuthExTest, StartAuthSessionReplyCheck) {
@@ -4412,6 +4467,352 @@ TEST_F(UserDataAuthExTest, StartAuthSessionReplyCheck) {
               kFakeLabel);
   EXPECT_THAT(auth_session_reply.key_label_data().at(kFakeLabel).type(),
               KeyData::KEY_TYPE_FINGERPRINT);
+}
+
+TEST_F(UserDataAuthExTest, ListAuthFactorsUserDoesNotExist) {
+  EXPECT_CALL(keyset_management_, UserExists(_)).WillOnce(Return(false));
+
+  user_data_auth::ListAuthFactorsRequest list_request;
+  list_request.mutable_account_id()->set_account_id("foo@example.com");
+  user_data_auth::ListAuthFactorsReply list_reply;
+  {
+    TaskGuard guard(this, UserDataAuth::TestThreadId::kMountThread);
+    userdataauth_->ListAuthFactors(
+        list_request,
+        base::BindOnce(
+            [](user_data_auth::ListAuthFactorsReply* list_reply_ptr,
+               const user_data_auth::ListAuthFactorsReply& reply) {
+              *list_reply_ptr = reply;
+            },
+            base::Unretained(&list_reply)));
+  }
+
+  EXPECT_EQ(list_reply.error(),
+            user_data_auth::CRYPTOHOME_ERROR_INVALID_ARGUMENT);
+}
+
+TEST_F(UserDataAuthExTest, ListAuthFactorsUserIsEphemeral) {
+  EXPECT_CALL(keyset_management_, UserExists(_)).WillOnce(Return(false));
+  // Add a mount (and user session) for the ephemeral user.
+  SetupMount("foo@example.com");
+  EXPECT_CALL(*session_, IsEphemeral()).WillRepeatedly(Return(true));
+
+  user_data_auth::ListAuthFactorsRequest list_request;
+  list_request.mutable_account_id()->set_account_id("foo@example.com");
+  user_data_auth::ListAuthFactorsReply list_reply;
+  {
+    TaskGuard guard(this, UserDataAuth::TestThreadId::kMountThread);
+    userdataauth_->ListAuthFactors(
+        list_request,
+        base::BindOnce(
+            [](user_data_auth::ListAuthFactorsReply* list_reply_ptr,
+               const user_data_auth::ListAuthFactorsReply& reply) {
+              *list_reply_ptr = reply;
+            },
+            base::Unretained(&list_reply)));
+  }
+
+  EXPECT_EQ(list_reply.error(), user_data_auth::CRYPTOHOME_ERROR_NOT_SET);
+  EXPECT_THAT(list_reply.configured_auth_factors(), IsEmpty());
+  EXPECT_THAT(list_reply.supported_auth_factors(),
+              UnorderedElementsAre(user_data_auth::AUTH_FACTOR_TYPE_PASSWORD));
+}
+
+TEST_F(UserDataAuthExTest, ListAuthFactorsUserExistsWithoutPinweaver) {
+  EXPECT_CALL(keyset_management_, UserExists(_)).WillOnce(Return(true));
+  EXPECT_CALL(auth_block_utility_, IsAuthFactorSupported(_, _, _))
+      .WillRepeatedly(Return(false));
+  EXPECT_CALL(auth_block_utility_,
+              IsAuthFactorSupported(AuthFactorType::kPassword, _, _))
+      .WillOnce(Return(true));
+  EXPECT_CALL(auth_block_utility_,
+              IsAuthFactorSupported(AuthFactorType::kKiosk, _, _))
+      .WillOnce(Return(true));
+
+  user_data_auth::ListAuthFactorsRequest list_request;
+  list_request.mutable_account_id()->set_account_id("foo@example.com");
+  user_data_auth::ListAuthFactorsReply list_reply;
+  {
+    TaskGuard guard(this, UserDataAuth::TestThreadId::kMountThread);
+    userdataauth_->ListAuthFactors(
+        list_request,
+        base::BindOnce(
+            [](user_data_auth::ListAuthFactorsReply* list_reply_ptr,
+               const user_data_auth::ListAuthFactorsReply& reply) {
+              *list_reply_ptr = reply;
+            },
+            base::Unretained(&list_reply)));
+  }
+
+  EXPECT_EQ(list_reply.error(), user_data_auth::CRYPTOHOME_ERROR_NOT_SET);
+  EXPECT_THAT(list_reply.configured_auth_factors(), IsEmpty());
+  EXPECT_THAT(list_reply.supported_auth_factors(),
+              UnorderedElementsAre(user_data_auth::AUTH_FACTOR_TYPE_PASSWORD,
+                                   user_data_auth::AUTH_FACTOR_TYPE_KIOSK));
+}
+
+TEST_F(UserDataAuthExTest, ListAuthFactorsUserExistsWithPinweaver) {
+  EXPECT_CALL(keyset_management_, UserExists(_)).WillOnce(Return(true));
+  EXPECT_CALL(auth_block_utility_, IsAuthFactorSupported(_, _, _))
+      .WillRepeatedly(Return(false));
+  EXPECT_CALL(auth_block_utility_,
+              IsAuthFactorSupported(AuthFactorType::kPassword, _, _))
+      .WillOnce(Return(true));
+  EXPECT_CALL(auth_block_utility_,
+              IsAuthFactorSupported(AuthFactorType::kPin, _, _))
+      .WillOnce(Return(true));
+  EXPECT_CALL(auth_block_utility_,
+              IsAuthFactorSupported(AuthFactorType::kKiosk, _, _))
+      .WillOnce(Return(true));
+
+  user_data_auth::ListAuthFactorsRequest list_request;
+  list_request.mutable_account_id()->set_account_id("foo@example.com");
+  user_data_auth::ListAuthFactorsReply list_reply;
+  {
+    TaskGuard guard(this, UserDataAuth::TestThreadId::kMountThread);
+    userdataauth_->ListAuthFactors(
+        list_request,
+        base::BindOnce(
+            [](user_data_auth::ListAuthFactorsReply* list_reply_ptr,
+               const user_data_auth::ListAuthFactorsReply& reply) {
+              *list_reply_ptr = reply;
+            },
+            base::Unretained(&list_reply)));
+  }
+
+  EXPECT_EQ(list_reply.error(), user_data_auth::CRYPTOHOME_ERROR_NOT_SET);
+  EXPECT_THAT(list_reply.configured_auth_factors(), IsEmpty());
+  EXPECT_THAT(list_reply.supported_auth_factors(),
+              UnorderedElementsAre(user_data_auth::AUTH_FACTOR_TYPE_PASSWORD,
+                                   user_data_auth::AUTH_FACTOR_TYPE_PIN,
+                                   user_data_auth::AUTH_FACTOR_TYPE_KIOSK));
+}
+
+TEST_F(UserDataAuthExTest,
+       ListAuthFactorsUserExistsWithNoFactorsButUssEnabled) {
+  SetUserSecretStashExperimentForTesting(true);
+  EXPECT_CALL(keyset_management_, UserExists(_)).WillOnce(Return(true));
+  EXPECT_CALL(auth_block_utility_, IsAuthFactorSupported(_, _, _))
+      .WillRepeatedly(Return(false));
+  EXPECT_CALL(auth_block_utility_,
+              IsAuthFactorSupported(AuthFactorType::kPassword, _, _))
+      .WillOnce(Return(true));
+  EXPECT_CALL(auth_block_utility_,
+              IsAuthFactorSupported(AuthFactorType::kPin, _, _))
+      .WillOnce(Return(true));
+  EXPECT_CALL(auth_block_utility_,
+              IsAuthFactorSupported(AuthFactorType::kCryptohomeRecovery,
+                                    AuthFactorStorageType::kUserSecretStash, _))
+      .WillOnce(Return(true));
+  EXPECT_CALL(auth_block_utility_,
+              IsAuthFactorSupported(AuthFactorType::kKiosk, _, _))
+      .WillOnce(Return(true));
+
+  user_data_auth::ListAuthFactorsRequest list_request;
+  list_request.mutable_account_id()->set_account_id("foo@example.com");
+  user_data_auth::ListAuthFactorsReply list_reply;
+  {
+    TaskGuard guard(this, UserDataAuth::TestThreadId::kMountThread);
+    userdataauth_->ListAuthFactors(
+        list_request,
+        base::BindOnce(
+            [](user_data_auth::ListAuthFactorsReply* list_reply_ptr,
+               const user_data_auth::ListAuthFactorsReply& reply) {
+              *list_reply_ptr = reply;
+            },
+            base::Unretained(&list_reply)));
+  }
+
+  EXPECT_EQ(list_reply.error(), user_data_auth::CRYPTOHOME_ERROR_NOT_SET);
+  EXPECT_THAT(list_reply.configured_auth_factors(), IsEmpty());
+  EXPECT_THAT(
+      list_reply.supported_auth_factors(),
+      UnorderedElementsAre(user_data_auth::AUTH_FACTOR_TYPE_PASSWORD,
+                           user_data_auth::AUTH_FACTOR_TYPE_PIN,
+                           user_data_auth::AUTH_FACTOR_TYPE_CRYPTOHOME_RECOVERY,
+                           user_data_auth::AUTH_FACTOR_TYPE_KIOSK));
+  SetUserSecretStashExperimentForTesting(std::nullopt);
+}
+
+TEST_F(UserDataAuthExTest, ListAuthFactorsUserExistsWithFactorsFromVks) {
+  static constexpr char kUser[] = "foo@example.com";
+  const std::string kObfuscatedUser = SanitizeUserName(kUser);
+  EXPECT_CALL(keyset_management_, UserExists(_)).WillOnce(Return(true));
+  EXPECT_CALL(auth_block_utility_, IsAuthFactorSupported(_, _, _))
+      .WillRepeatedly(Return(false));
+  EXPECT_CALL(auth_block_utility_,
+              IsAuthFactorSupported(AuthFactorType::kPassword, _, _))
+      .WillOnce(Return(true));
+
+  // Set up mocks for a few of VKs. We deliberately have the second not work to
+  // test that the listing correctly skips it.
+  std::vector<int> vk_indicies = {0, 1, 2};
+  EXPECT_CALL(keyset_management_, GetVaultKeysets(kObfuscatedUser, _))
+      .WillOnce(DoAll(SetArgPointee<1>(vk_indicies), Return(true)));
+  EXPECT_CALL(keyset_management_, LoadVaultKeysetForUser(kObfuscatedUser, 0))
+      .WillOnce([](const std::string&, int) {
+        auto vk = std::make_unique<VaultKeyset>();
+        vk->SetFlags(SerializedVaultKeyset::TPM_WRAPPED |
+                     SerializedVaultKeyset::PCR_BOUND);
+        KeyData key_data;
+        key_data.set_type(KeyData::KEY_TYPE_PASSWORD);
+        key_data.set_label("password-label");
+        vk->SetKeyData(key_data);
+        vk->SetTPMKey(SecureBlob("fake tpm key"));
+        vk->SetExtendedTPMKey(SecureBlob("fake extended tpm key"));
+        return vk;
+      });
+  EXPECT_CALL(keyset_management_, LoadVaultKeysetForUser(kObfuscatedUser, 1))
+      .WillOnce(Return(ByMove(nullptr)));
+  EXPECT_CALL(keyset_management_, LoadVaultKeysetForUser(kObfuscatedUser, 2))
+      .WillOnce([](const std::string&, int) {
+        auto vk = std::make_unique<VaultKeyset>();
+        vk->SetFlags(SerializedVaultKeyset::SCRYPT_WRAPPED);
+        KeyData key_data;
+        key_data.set_type(KeyData::KEY_TYPE_PASSWORD);
+        key_data.set_label("password-scrypt-label");
+        vk->SetKeyData(key_data);
+        return vk;
+      });
+
+  user_data_auth::ListAuthFactorsRequest list_request;
+  list_request.mutable_account_id()->set_account_id(kUser);
+  user_data_auth::ListAuthFactorsReply list_reply;
+  {
+    TaskGuard guard(this, UserDataAuth::TestThreadId::kMountThread);
+    userdataauth_->ListAuthFactors(
+        list_request,
+        base::BindOnce(
+            [](user_data_auth::ListAuthFactorsReply* list_reply_ptr,
+               const user_data_auth::ListAuthFactorsReply& reply) {
+              *list_reply_ptr = reply;
+            },
+            base::Unretained(&list_reply)));
+  }
+
+  EXPECT_EQ(list_reply.error(), user_data_auth::CRYPTOHOME_ERROR_NOT_SET);
+  ASSERT_EQ(list_reply.configured_auth_factors_size(), 2);
+  EXPECT_EQ(list_reply.configured_auth_factors(0).label(), "password-label");
+  EXPECT_TRUE(list_reply.configured_auth_factors(0).has_password_metadata());
+  EXPECT_EQ(list_reply.configured_auth_factors(1).label(),
+            "password-scrypt-label");
+  EXPECT_TRUE(list_reply.configured_auth_factors(1).has_password_metadata());
+  EXPECT_THAT(list_reply.supported_auth_factors(),
+              UnorderedElementsAre(user_data_auth::AUTH_FACTOR_TYPE_PASSWORD));
+}
+
+TEST_F(UserDataAuthExTest, ListAuthFactorsWithFactorsFromUss) {
+  static constexpr char kUser[] = "foo@example.com";
+  const std::string kObfuscatedUser = SanitizeUserName(kUser);
+  AuthFactorManager manager(&platform_);
+  userdataauth_->set_auth_factor_manager_for_testing(&manager);
+  EXPECT_CALL(keyset_management_, UserExists(_)).WillRepeatedly(Return(true));
+  EXPECT_CALL(auth_block_utility_, IsAuthFactorSupported(_, _, _))
+      .WillRepeatedly(Return(false));
+  EXPECT_CALL(auth_block_utility_,
+              IsAuthFactorSupported(AuthFactorType::kPassword, _, _))
+      .WillRepeatedly(Return(true));
+  EXPECT_CALL(auth_block_utility_,
+              IsAuthFactorSupported(AuthFactorType::kPin, _, _))
+      .WillRepeatedly(Return(true));
+  EXPECT_CALL(auth_block_utility_,
+              IsAuthFactorSupported(AuthFactorType::kCryptohomeRecovery,
+                                    AuthFactorStorageType::kUserSecretStash, _))
+      .WillRepeatedly(Return(true));
+
+  // Set up standard list auth factor parameters, we'll be calling this a few
+  // times during the test.
+  user_data_auth::ListAuthFactorsRequest list_request;
+  list_request.mutable_account_id()->set_account_id(kUser);
+  user_data_auth::ListAuthFactorsReply list_reply;
+  auto save_reply = [](user_data_auth::ListAuthFactorsReply* list_reply_ptr,
+                       const user_data_auth::ListAuthFactorsReply& reply) {
+    *list_reply_ptr = reply;
+  };
+
+  // List all the auth factors, there should be none at the start.
+  {
+    TaskGuard guard(this, UserDataAuth::TestThreadId::kMountThread);
+    userdataauth_->ListAuthFactors(
+        list_request,
+        base::BindOnce(save_reply, base::Unretained(&list_reply)));
+  }
+  EXPECT_EQ(list_reply.error(), user_data_auth::CRYPTOHOME_ERROR_NOT_SET);
+  EXPECT_THAT(list_reply.configured_auth_factors(), IsEmpty());
+  EXPECT_THAT(list_reply.supported_auth_factors(),
+              UnorderedElementsAre(user_data_auth::AUTH_FACTOR_TYPE_PASSWORD,
+                                   user_data_auth::AUTH_FACTOR_TYPE_PIN));
+
+  // Add auth factors, we should be able to list them.
+  auto password_factor = std::make_unique<AuthFactor>(
+      AuthFactorType::kPassword, "password-label",
+      AuthFactorMetadata{.metadata = PasswordAuthFactorMetadata()},
+      AuthBlockState{
+          .state = TpmBoundToPcrAuthBlockState{
+              .scrypt_derived = false,
+              .salt = SecureBlob("fake salt"),
+              .tpm_key = SecureBlob("fake tpm key"),
+              .extended_tpm_key = SecureBlob("fake extended tpm key"),
+              .tpm_public_key_hash = SecureBlob("fake tpm public key hash"),
+          }});
+  ASSERT_THAT(manager.SaveAuthFactor(kObfuscatedUser, *password_factor),
+              IsOk());
+  auto pin_factor = std::make_unique<AuthFactor>(
+      AuthFactorType::kPin, "pin-label",
+      AuthFactorMetadata{.metadata = PinAuthFactorMetadata()},
+      AuthBlockState{.state = PinWeaverAuthBlockState{
+                         .le_label = 0xbaadf00d,
+                         .salt = SecureBlob("fake salt"),
+                         .chaps_iv = SecureBlob("fake chaps IV"),
+                         .fek_iv = SecureBlob("fake file encryption IV"),
+                         .reset_salt = SecureBlob("more fake salt"),
+                     }});
+  ASSERT_THAT(manager.SaveAuthFactor(kObfuscatedUser, *pin_factor), IsOk());
+  list_reply.Clear();
+  {
+    TaskGuard guard(this, UserDataAuth::TestThreadId::kMountThread);
+    userdataauth_->ListAuthFactors(
+        list_request,
+        base::BindOnce(save_reply, base::Unretained(&list_reply)));
+  }
+  EXPECT_EQ(list_reply.error(), user_data_auth::CRYPTOHOME_ERROR_NOT_SET);
+  std::sort(list_reply.mutable_configured_auth_factors()->pointer_begin(),
+            list_reply.mutable_configured_auth_factors()->pointer_end(),
+            [](const user_data_auth::AuthFactor* lhs,
+               const user_data_auth::AuthFactor* rhs) {
+              return lhs->label() < rhs->label();
+            });
+  ASSERT_EQ(list_reply.configured_auth_factors_size(), 2);
+  EXPECT_EQ(list_reply.configured_auth_factors(0).label(), "password-label");
+  EXPECT_TRUE(list_reply.configured_auth_factors(0).has_password_metadata());
+  EXPECT_EQ(list_reply.configured_auth_factors(1).label(), "pin-label");
+  EXPECT_TRUE(list_reply.configured_auth_factors(1).has_pin_metadata());
+  EXPECT_THAT(list_reply.supported_auth_factors(),
+              UnorderedElementsAre(
+                  user_data_auth::AUTH_FACTOR_TYPE_PASSWORD,
+                  user_data_auth::AUTH_FACTOR_TYPE_PIN,
+                  user_data_auth::AUTH_FACTOR_TYPE_CRYPTOHOME_RECOVERY));
+
+  // Remove an auth factor, we should still be able to list the remaining one.
+  ASSERT_THAT(manager.RemoveAuthFactor(kObfuscatedUser, *pin_factor,
+                                       &auth_block_utility_),
+              IsOk());
+  list_reply.Clear();
+  {
+    TaskGuard guard(this, UserDataAuth::TestThreadId::kMountThread);
+    userdataauth_->ListAuthFactors(
+        list_request,
+        base::BindOnce(save_reply, base::Unretained(&list_reply)));
+  }
+  EXPECT_EQ(list_reply.error(), user_data_auth::CRYPTOHOME_ERROR_NOT_SET);
+  ASSERT_EQ(list_reply.configured_auth_factors_size(), 1);
+  EXPECT_EQ(list_reply.configured_auth_factors(0).label(), "password-label");
+  EXPECT_TRUE(list_reply.configured_auth_factors(0).has_password_metadata());
+  EXPECT_THAT(list_reply.supported_auth_factors(),
+              UnorderedElementsAre(
+                  user_data_auth::AUTH_FACTOR_TYPE_PASSWORD,
+                  user_data_auth::AUTH_FACTOR_TYPE_PIN,
+                  user_data_auth::AUTH_FACTOR_TYPE_CRYPTOHOME_RECOVERY));
 }
 
 class ChallengeResponseUserDataAuthExTest : public UserDataAuthExTest {
@@ -4456,7 +4857,6 @@ class ChallengeResponseUserDataAuthExTest : public UserDataAuthExTest {
         const std::string& account_id,
         const structure::ChallengePublicKeyInfo& public_key_info,
         const structure::SignatureChallengeInfo& keyset_challenge_info,
-        bool locked_to_single_user,
         std::unique_ptr<KeyChallengeService> key_challenge_service,
         ChallengeCredentialsHelper::DecryptCallback callback) {
       std::unique_ptr<brillo::SecureBlob> passkey_to_pass;
@@ -4538,7 +4938,7 @@ TEST_F(ChallengeResponseUserDataAuthExTest, FallbackLightweightCheckKey) {
               VerifyKey(kUser, StructureEquals(public_key_info_), _, _))
       .WillOnce(ReplyToVerifyKey{/*is_key_valid=*/false});
   EXPECT_CALL(challenge_credentials_helper_,
-              Decrypt(kUser, StructureEquals(public_key_info_), _, _, _, _))
+              Decrypt(kUser, StructureEquals(public_key_info_), _, _, _))
       .WillOnce(ReplyToDecrypt{SecureBlob(kPasskey)});
 
   CallCheckKeyAndVerify(user_data_auth::CRYPTOHOME_ERROR_NOT_SET);

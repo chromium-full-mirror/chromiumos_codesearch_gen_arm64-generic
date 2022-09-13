@@ -12,10 +12,10 @@
 #include <utility>
 
 #include "base/strings/stringprintf.h"
-#include "base/trace_event/base_tracing.h"
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/lib/validation_util.h"
+#include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
 #include "ml/mojom/handwriting_recognizer.mojom-params-data.h"
 #include "ml/mojom/time_mojom_traits.h"
@@ -546,26 +546,22 @@ HandwritingRecognizer_Recognize_ResponseParams_Data::HandwritingRecognizer_Recog
 }  // namespace machine_learning
 }  // namespace chromeos
 
-namespace perfetto {
-namespace libchrome {
+namespace perfetto_libchrome {
 
 // static
 void TraceFormatTraits<::chromeos::machine_learning::mojom::LoadHandwritingModelResult>::WriteIntoTrace(
-   perfetto::libchrome::TracedValue context, ::chromeos::machine_learning::mojom::LoadHandwritingModelResult value) {
+   perfetto_libchrome::TracedValue context, ::chromeos::machine_learning::mojom::LoadHandwritingModelResult value) {
   return std::move(context).WriteString(::chromeos::machine_learning::mojom::LoadHandwritingModelResultToString(value));
 }
 
-} // namespace libchrome
 } // namespace perfetto
 
-namespace perfetto {
-namespace libchrome {
+namespace perfetto_libchrome {
 
 // static
 void TraceFormatTraits<::chromeos::machine_learning::mojom::HandwritingRecognizerResult_Status>::WriteIntoTrace(
-   perfetto::libchrome::TracedValue context, ::chromeos::machine_learning::mojom::HandwritingRecognizerResult_Status value) {
+   perfetto_libchrome::TracedValue context, ::chromeos::machine_learning::mojom::HandwritingRecognizerResult_Status value) {
   return std::move(context).WriteString(::chromeos::machine_learning::mojom::HandwritingRecognizerResult_StatusToString(value));
 }
 
-} // namespace libchrome
 } // namespace perfetto

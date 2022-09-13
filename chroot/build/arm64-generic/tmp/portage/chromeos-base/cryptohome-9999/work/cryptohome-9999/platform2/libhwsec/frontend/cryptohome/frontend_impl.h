@@ -6,6 +6,7 @@
 #define LIBHWSEC_FRONTEND_CRYPTOHOME_FRONTEND_IMPL_H_
 
 #include <string>
+#include <vector>
 
 #include <brillo/secure_blob.h>
 
@@ -25,6 +26,10 @@ class HWSEC_EXPORT CryptohomeFrontendImpl : public CryptohomeFrontend,
 
   StatusOr<bool> IsEnabled() override;
   StatusOr<bool> IsReady() override;
+  StatusOr<bool> IsDAMitigationReady() override;
+  StatusOr<bool> IsSrkRocaVulnerable() override;
+  Status MitigateDACounter() override;
+  StatusOr<brillo::Blob> GetRsuDeviceId() override;
   StatusOr<absl::flat_hash_set<KeyAlgoType>> GetSupportedAlgo() override;
   StatusOr<CreateKeyResult> CreateCryptohomeKey(KeyAlgoType key_algo) override;
   StatusOr<ScopedKey> LoadKey(const brillo::Blob& key_blob) override;
@@ -32,6 +37,8 @@ class HWSEC_EXPORT CryptohomeFrontendImpl : public CryptohomeFrontend,
   StatusOr<ScopedKey> SideLoadKey(uint32_t key_handle) override;
   StatusOr<uint32_t> GetKeyHandle(Key key) override;
   Status SetCurrentUser(const std::string& current_user) override;
+  StatusOr<bool> IsCurrentUserSet() override;
+  StatusOr<bool> IsSealingSupported() override;
   StatusOr<brillo::Blob> SealWithCurrentUser(
       const std::optional<std::string>& current_user,
       const brillo::SecureBlob& auth_value,
@@ -52,6 +59,24 @@ class HWSEC_EXPORT CryptohomeFrontendImpl : public CryptohomeFrontend,
   StatusOr<brillo::SecureBlob> GetRandomSecureBlob(size_t size) override;
   StatusOr<uint32_t> GetManufacturer() override;
   StatusOr<bool> IsPinWeaverEnabled() override;
+  StatusOr<StorageState> GetSpaceState(Space space) override;
+  Status PrepareSpace(Space space, uint32_t size) override;
+  StatusOr<brillo::Blob> LoadSpace(Space space) override;
+  Status StoreSpace(Space space, const brillo::Blob& blob) override;
+  Status DestroySpace(Space space) override;
+  StatusOr<bool> IsSpaceWriteLocked(Space space) override;
+  Status DeclareTpmFirmwareStable() override;
+  StatusOr<SignatureSealedData> SealWithSignatureAndCurrentUser(
+      const std::string& current_user,
+      const brillo::SecureBlob& unsealed_data,
+      const brillo::Blob& public_key_spki_der,
+      const std::vector<SignatureSealingAlgorithm>& key_algorithms) override;
+  StatusOr<ChallengeResult> ChallengeWithSignatureAndCurrentUser(
+      const SignatureSealedData& sealed_data,
+      const brillo::Blob& public_key_spki_der,
+      const std::vector<SignatureSealingAlgorithm>& key_algorithms) override;
+  StatusOr<brillo::SecureBlob> UnsealWithChallenge(
+      ChallengeID challenge, const brillo::Blob& challenge_response) override;
 };
 
 }  // namespace hwsec

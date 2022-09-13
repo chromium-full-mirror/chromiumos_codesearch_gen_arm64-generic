@@ -6,8 +6,7 @@
 #define CRYPTOHOME_USER_SESSION_MOCK_USER_SESSION_FACTORY_H_
 
 #include <memory>
-
-#include <base/memory/ref_counted.h>
+#include <string>
 
 #include "cryptohome/user_session/user_session.h"
 #include "cryptohome/user_session/user_session_factory.h"
@@ -19,7 +18,10 @@ class MockUserSessionFactory : public UserSessionFactory {
   MockUserSessionFactory() = default;
   ~MockUserSessionFactory() override = default;
 
-  MOCK_METHOD(scoped_refptr<UserSession>, New, (bool, bool), (override));
+  MOCK_METHOD(std::unique_ptr<UserSession>,
+              New,
+              (const std::string&, bool, bool),
+              (override));
 };
 
 }  // namespace cryptohome

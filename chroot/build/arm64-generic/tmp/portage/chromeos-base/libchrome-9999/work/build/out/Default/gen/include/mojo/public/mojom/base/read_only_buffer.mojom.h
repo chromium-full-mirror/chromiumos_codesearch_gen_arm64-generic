@@ -21,7 +21,7 @@
 #include "mojo/public/cpp/bindings/struct_traits.h"
 #include "mojo/public/cpp/bindings/union_traits.h"
 
-#include "base/trace_event/base_tracing.h"
+#include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
 #include "mojo/public/mojom/base/read_only_buffer.mojom-shared.h"
 #include "mojo/public/mojom/base/read_only_buffer.mojom-forward.h"
@@ -55,7 +55,7 @@ class  ReadOnlyBuffer {
   template <typename... Args>
   static ReadOnlyBufferPtr New(Args&&... args) {
     return ReadOnlyBufferPtr(
-        base::in_place, std::forward<Args>(args)...);
+        absl::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -150,7 +150,7 @@ class  ReadOnlyBuffer {
   std::vector<uint8_t> buffer;
 
   // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto::libchrome::TracedValue traced_context) const;
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
 
  private:
   static bool Validate(const void* data,

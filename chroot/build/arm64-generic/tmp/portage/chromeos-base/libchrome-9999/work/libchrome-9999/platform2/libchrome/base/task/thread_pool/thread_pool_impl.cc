@@ -125,6 +125,8 @@ void ThreadPoolImpl::Start(const ThreadPoolInstance::InitParams& init_params,
   DCHECK(!started_);
 
   internal::InitializeThreadPrioritiesFeature();
+  PooledSequencedTaskRunner::InitializeFeatures();
+  task_leeway_.store(kTaskLeewayParam.Get(), std::memory_order_relaxed);
 
   disable_job_yield_ = FeatureList::IsEnabled(kDisableJobYield);
   disable_fair_scheduling_ = FeatureList::IsEnabled(kDisableFairJobScheduling);
@@ -203,10 +205,6 @@ void ThreadPoolImpl::Start(const ThreadPoolInstance::InitParams& init_params,
     case InitParams::CommonThreadPoolEnvironment::COM_MTA:
       worker_environment = ThreadGroup::WorkerEnvironment::COM_MTA;
       break;
-    case InitParams::CommonThreadPoolEnvironment::
-        DEPRECATED_COM_STA_IN_FOREGROUND_GROUP:
-      worker_environment = ThreadGroup::WorkerEnvironment::COM_STA;
-      break;
 #endif
   }
 
@@ -245,15 +243,7 @@ void ThreadPoolImpl::Start(const ThreadPoolInstance::InitParams& init_params,
       static_cast<ThreadGroupImpl*>(background_thread_group_.get())
           ->Start(max_best_effort_tasks, max_best_effort_tasks,
                   suggested_reclaim_time, service_thread_task_runner,
-                  worker_thread_observer,
-#if BUILDFLAG(IS_WIN)
-                  // COM STA is a backward-compatibility feature for the
-                  // foreground thread group only.
-                  worker_environment == ThreadGroup::WorkerEnvironment::COM_STA
-                      ? ThreadGroup::WorkerEnvironment::NONE
-                      :
-#endif
-                      worker_environment,
+                  worker_thread_observer, worker_environment,
                   g_synchronous_thread_start_for_testing);
     }
   }
@@ -268,7 +258,8 @@ bool ThreadPoolImpl::PostDelayedTask(const Location& from_here,
   AssertNoExtensionInTraits(traits);
   // Post |task| as part of a one-off single-task Sequence.
   return PostTaskWithSequence(
-      Task(from_here, std::move(task), TimeTicks::Now(), delay),
+      Task(from_here, std::move(task), TimeTicks::Now(), delay,
+           task_leeway_.load(std::memory_order_relaxed)),
       MakeRefCounted<Sequence>(traits, nullptr,
                                TaskSourceExecutionMode::kParallel));
 }

@@ -32,8 +32,6 @@
 namespace diagnostics {
 namespace {
 
-namespace mojo_ipc = ::chromeos::cros_healthd::mojom;
-
 template <typename T>
 bool HexToUInt(base::StringPiece in, T* out) {
   uint32_t raw;
@@ -66,8 +64,8 @@ std::optional<std::string> GetDriver(const base::FilePath& path) {
   return std::nullopt;
 }
 
-mojo_ipc::PciBusInfoPtr FetchPciInfo(const base::FilePath& path) {
-  auto info = mojo_ipc::PciBusInfo::New();
+mojom::PciBusInfoPtr FetchPciInfo(const base::FilePath& path) {
+  auto info = mojom::PciBusInfo::New();
   uint32_t class_raw;
   if (!ReadInteger(path, kFilePciClass, &base::HexStringToUInt, &class_raw) ||
       !ReadInteger(path, kFilePciDevice, &HexToU16, &info->device_id) ||
@@ -83,55 +81,57 @@ mojo_ipc::PciBusInfoPtr FetchPciInfo(const base::FilePath& path) {
 
 // Some devices cannot be identified by their class id. Try to identify them by
 // checking the sysfs structure.
-mojo_ipc::BusDeviceClass GetDeviceClassBySysfs(const base::FilePath& path) {
-  if (PathExists(path.Append("bluetooth")))
-    return mojo_ipc::BusDeviceClass::kBluetoothAdapter;
+mojom::BusDeviceClass GetDeviceClassBySysfs(const base::FilePath& path) {
+  if (base::PathExists(path.Append("bluetooth")))
+    return mojom::BusDeviceClass::kBluetoothAdapter;
   const auto net = path.Append("net");
-  if (PathExists(net)) {
+  if (base::PathExists(net)) {
     for (const auto& nic_path : ListDirectory(net)) {
       const auto name = nic_path.BaseName().value();
       if (name.find("eth") == 0)
-        return mojo_ipc::BusDeviceClass::kEthernetController;
+        return mojom::BusDeviceClass::kEthernetController;
       if (name.find("wlan") == 0)
-        return mojo_ipc::BusDeviceClass::kWirelessController;
+        return mojom::BusDeviceClass::kWirelessController;
     }
   }
-  return mojo_ipc::BusDeviceClass::kOthers;
+  if (base::PathExists(path.Append("sound")))
+    return mojom::BusDeviceClass::kAudioCard;
+  return mojom::BusDeviceClass::kOthers;
 }
 
-mojo_ipc::BusDeviceClass GetPciDeviceClass(
-    const base::FilePath& path, const mojo_ipc::PciBusInfoPtr& info) {
+mojom::BusDeviceClass GetPciDeviceClass(const base::FilePath& path,
+                                        const mojom::PciBusInfoPtr& info) {
   CHECK(info);
   if (info->class_id == pci_ids::display::kId)
-    return mojo_ipc::BusDeviceClass::kDisplayController;
+    return mojom::BusDeviceClass::kDisplayController;
   if (info->class_id == pci_ids::network::kId) {
     if (info->subclass_id == pci_ids::network::ethernet::kId)
-      return mojo_ipc::BusDeviceClass::kEthernetController;
+      return mojom::BusDeviceClass::kEthernetController;
     if (info->subclass_id == pci_ids::network::network::kId)
-      return mojo_ipc::BusDeviceClass::kWirelessController;
+      return mojom::BusDeviceClass::kWirelessController;
   }
   return GetDeviceClassBySysfs(path);
 }
 
-mojo_ipc::BusDevicePtr FetchPciDevice(
-    const base::FilePath& path, const std::unique_ptr<PciUtil>& pci_util) {
+mojom::BusDevicePtr FetchPciDevice(const base::FilePath& path,
+                                   const std::unique_ptr<PciUtil>& pci_util) {
   auto pci_info = FetchPciInfo(path);
   if (pci_info.is_null())
     return nullptr;
 
-  auto device = mojo_ipc::BusDevice::New();
+  auto device = mojom::BusDevice::New();
   device->vendor_name = pci_util->GetVendorName(pci_info->vendor_id);
   device->product_name =
       pci_util->GetDeviceName(pci_info->vendor_id, pci_info->device_id);
   device->device_class = GetPciDeviceClass(path, pci_info);
 
-  device->bus_info = mojo_ipc::BusInfo::NewPciBusInfo(std::move(pci_info));
+  device->bus_info = mojom::BusInfo::NewPciBusInfo(std::move(pci_info));
   return device;
 }
 
-mojo_ipc::UsbBusInterfaceInfoPtr FetchUsbBusInterfaceInfo(
+mojom::UsbBusInterfaceInfoPtr FetchUsbBusInterfaceInfo(
     const base::FilePath& path) {
-  auto info = mojo_ipc::UsbBusInterfaceInfo::New();
+  auto info = mojom::UsbBusInterfaceInfo::New();
   if (!ReadInteger(path, kFileUsbIFNumber, &HexToU8, &info->interface_number) ||
       !ReadInteger(path, kFileUsbIFClass, &HexToU8, &info->class_id) ||
       !ReadInteger(path, kFileUsbIFSubclass, &HexToU8, &info->subclass_id) ||
@@ -141,7 +141,7 @@ mojo_ipc::UsbBusInterfaceInfoPtr FetchUsbBusInterfaceInfo(
   return info;
 }
 
-mojo_ipc::FwupdFirmwareVersionInfoPtr GetUsbFirmwareVersion(
+mojom::FwupdFirmwareVersionInfoPtr GetUsbFirmwareVersion(
     const base::FilePath& path,
     const fwupd_utils::DeviceList& fwupd_devices,
     uint16_t vendor_id,
@@ -160,9 +160,9 @@ mojo_ipc::FwupdFirmwareVersionInfoPtr GetUsbFirmwareVersion(
   return fwupd_utils::FetchUsbFirmwareVersion(fwupd_devices, usb_device_filter);
 }
 
-mojo_ipc::UsbBusInfoPtr FetchUsbBusInfo(
+mojom::UsbBusInfoPtr FetchUsbBusInfo(
     const base::FilePath& path, const fwupd_utils::DeviceList& fwupd_devices) {
-  auto info = mojo_ipc::UsbBusInfo::New();
+  auto info = mojom::UsbBusInfo::New();
   if (!ReadInteger(path, kFileUsbDevClass, &HexToU8, &info->class_id) ||
       !ReadInteger(path, kFileUsbDevSubclass, &HexToU8, &info->subclass_id) ||
       !ReadInteger(path, kFileUsbDevProtocol, &HexToU8, &info->protocol_id) ||
@@ -178,50 +178,50 @@ mojo_ipc::UsbBusInfoPtr FetchUsbBusInfo(
     }
   }
   sort(info->interfaces.begin(), info->interfaces.end(),
-       [](const mojo_ipc::UsbBusInterfaceInfoPtr& a,
-          const mojo_ipc::UsbBusInterfaceInfoPtr& b) {
+       [](const mojom::UsbBusInterfaceInfoPtr& a,
+          const mojom::UsbBusInterfaceInfoPtr& b) {
          return a->interface_number < b->interface_number;
        });
   return info;
 }
 
-mojo_ipc::BusDeviceClass GetUsbDeviceClass(
-    const base::FilePath& path, const mojo_ipc::UsbBusInfoPtr& info) {
+mojom::BusDeviceClass GetUsbDeviceClass(const base::FilePath& path,
+                                        const mojom::UsbBusInfoPtr& info) {
   CHECK(info);
   if (info->class_id == usb_ids::wireless::kId &&
       info->subclass_id == usb_ids::wireless::radio_frequency::kId &&
       info->protocol_id == usb_ids::wireless::radio_frequency::bluetooth::kId) {
-    return mojo_ipc::BusDeviceClass::kBluetoothAdapter;
+    return mojom::BusDeviceClass::kBluetoothAdapter;
   }
   // Try to get the type by checking the type of each interface.
   for (const auto& if_path : ListDirectory(path)) {
     // |if_path| is an interface if and only if |kFileUsbIFNumber| exist.
-    if (!PathExists(if_path.Append(kFileUsbIFNumber)))
+    if (!base::PathExists(if_path.Append(kFileUsbIFNumber)))
       continue;
     auto type = GetDeviceClassBySysfs(if_path);
-    if (type != mojo_ipc::BusDeviceClass::kOthers)
+    if (type != mojom::BusDeviceClass::kOthers)
       return type;
   }
-  return mojo_ipc::BusDeviceClass::kOthers;
+  return mojom::BusDeviceClass::kOthers;
 }
 
-mojo_ipc::BusDevicePtr FetchUsbDevice(
+mojom::BusDevicePtr FetchUsbDevice(
     const base::FilePath& path,
     const std::unique_ptr<brillo::UdevDevice>& udevice,
     const fwupd_utils::DeviceList& fwupd_devices) {
   auto usb_info = FetchUsbBusInfo(path, fwupd_devices);
   if (usb_info.is_null())
     return nullptr;
-  auto device = mojo_ipc::BusDevice::New();
+  auto device = mojom::BusDevice::New();
   device->vendor_name = GetUsbVendorName(udevice);
   device->product_name = GetUsbProductName(udevice);
   device->device_class = GetUsbDeviceClass(path, usb_info);
 
-  device->bus_info = mojo_ipc::BusInfo::NewUsbBusInfo(std::move(usb_info));
+  device->bus_info = mojom::BusInfo::NewUsbBusInfo(std::move(usb_info));
   return device;
 }
 
-mojo_ipc::ThunderboltBusInterfaceInfoPtr FetchThunderboltBusInterfaceInfo(
+mojom::ThunderboltBusInterfaceInfoPtr FetchThunderboltBusInterfaceInfo(
     const base::FilePath& path, const std::string& domain_id) {
   // Check sysfs directory for interface attached to same domain.
   std::vector<std::string> components = path.GetComponents();
@@ -233,7 +233,7 @@ mojo_ipc::ThunderboltBusInterfaceInfoPtr FetchThunderboltBusInterfaceInfo(
   if (interface_domain_id != domain_id)
     return nullptr;
 
-  auto info = mojo_ipc::ThunderboltBusInterfaceInfo::New();
+  auto info = mojom::ThunderboltBusInterfaceInfo::New();
   std::string rx_speed, tx_speed;
   if (!ReadInteger(path, kFileThunderboltAuthorized, &HexToU8,
                    reinterpret_cast<uint8_t*>(&info->authorized)) ||
@@ -261,27 +261,27 @@ mojo_ipc::ThunderboltBusInterfaceInfoPtr FetchThunderboltBusInterfaceInfo(
   return info;
 }
 
-mojo_ipc::ThunderboltSecurityLevel StrToEnumThunderboltSecurity(
+mojom::ThunderboltSecurityLevel StrToEnumThunderboltSecurity(
     const std::string& str) {
   if (str == "none")
-    return mojo_ipc::ThunderboltSecurityLevel::kNone;
+    return mojom::ThunderboltSecurityLevel::kNone;
   if (str == "user")
-    return mojo_ipc::ThunderboltSecurityLevel::kUserLevel;
+    return mojom::ThunderboltSecurityLevel::kUserLevel;
   if (str == "secure")
-    return mojo_ipc::ThunderboltSecurityLevel::kSecureLevel;
+    return mojom::ThunderboltSecurityLevel::kSecureLevel;
   if (str == "dponly")
-    return mojo_ipc::ThunderboltSecurityLevel::kDpOnlyLevel;
+    return mojom::ThunderboltSecurityLevel::kDpOnlyLevel;
   if (str == "usbonly")
-    return mojo_ipc::ThunderboltSecurityLevel::kUsbOnlyLevel;
+    return mojom::ThunderboltSecurityLevel::kUsbOnlyLevel;
   if (str == "nopcie")
-    return mojo_ipc::ThunderboltSecurityLevel::kNoPcieLevel;
+    return mojom::ThunderboltSecurityLevel::kNoPcieLevel;
 
-  return mojo_ipc::ThunderboltSecurityLevel::kNone;
+  return mojom::ThunderboltSecurityLevel::kNone;
 }
 
-mojo_ipc::ThunderboltBusInfoPtr FetchThunderboltBusInfo(
+mojom::ThunderboltBusInfoPtr FetchThunderboltBusInfo(
     const base::FilePath& thunderbolt_path, const base::FilePath& dev_path) {
-  auto info = mojo_ipc::ThunderboltBusInfo::New();
+  auto info = mojom::ThunderboltBusInfo::New();
   std::string security;
 
   // Since thunderbolt sysfs has controller and connected interfaces in same
@@ -312,22 +312,22 @@ mojo_ipc::ThunderboltBusInfoPtr FetchThunderboltBusInfo(
   return info;
 }
 
-mojo_ipc::BusDevicePtr FetchThunderboltDevice(
+mojom::BusDevicePtr FetchThunderboltDevice(
     const base::FilePath& thunderbolt_path, const base::FilePath& dev_path) {
   auto thunderbolt_bus_info =
       FetchThunderboltBusInfo(thunderbolt_path, dev_path);
   if (thunderbolt_bus_info.is_null())
     return nullptr;
-  auto device = mojo_ipc::BusDevice::New();
-  device->device_class = mojo_ipc::BusDeviceClass::kThunderboltController;
+  auto device = mojom::BusDevice::New();
+  device->device_class = mojom::BusDeviceClass::kThunderboltController;
   device->bus_info =
-      mojo_ipc::BusInfo::NewThunderboltBusInfo(std::move(thunderbolt_bus_info));
+      mojom::BusInfo::NewThunderboltBusInfo(std::move(thunderbolt_bus_info));
   for (const auto& path : ListDirectory(dev_path)) {
-    if (PathExists(path.Append(kFileThunderboltDeviceName))) {
+    if (base::PathExists(path.Append(kFileThunderboltDeviceName))) {
       ReadAndTrimString(path.Append(kFileThunderboltDeviceName),
                         &device->product_name);
     }
-    if (PathExists(path.Append(kFileThunderboltVendorName))) {
+    if (base::PathExists(path.Append(kFileThunderboltVendorName))) {
       ReadAndTrimString(path.Append(kFileThunderboltVendorName),
                         &device->vendor_name);
     }
@@ -344,49 +344,68 @@ fwupd_utils::DeviceList ParseFwupdDevices(
   return fwupd_utils::ParseDbusFwupdDeviceList(response);
 }
 
-}  // namespace
-
-void BusFetcher::FetchBusDevicesWithFwupdInfo(
-    FetchBusDevicesCallback&& callback,
+void FetchBusDevicesWithFwupdInfo(
+    Context* context,
+    FetchSysfsPathsBusDeviceMapCallback callback,
     const fwupd_utils::DeviceList& fwupd_devices) {
-  const auto& root = context_->root_dir();
-  std::vector<mojo_ipc::BusDevicePtr> res;
+  const auto& root = context->root_dir();
+  std::vector<std::pair<base::FilePath, mojom::BusDevicePtr>> res;
 
-  auto pci_util = context_->CreatePciUtil();
+  auto pci_util = context->CreatePciUtil();
   for (const auto& path : ListDirectory(root.Append(kPathSysPci))) {
     auto device = FetchPciDevice(path, pci_util);
     if (device) {
-      res.push_back(std::move(device));
+      res.push_back(
+          std::make_pair(base::MakeAbsoluteFilePath(path), std::move(device)));
     }
   }
   for (const auto& path : ListDirectory(root.Append(kPathSysUsb))) {
     auto udevice =
-        context_->udev()->CreateDeviceFromSysPath(path.value().c_str());
+        context->udev()->CreateDeviceFromSysPath(path.value().c_str());
     auto device = FetchUsbDevice(path, udevice, fwupd_devices);
     if (device) {
-      res.push_back(std::move(device));
+      res.push_back(
+          std::make_pair(base::MakeAbsoluteFilePath(path), std::move(device)));
     }
   }
   auto thunderbolt_path = root.Append(kPathSysThunderbolt);
   for (const auto& dev_path : ListDirectory(thunderbolt_path)) {
     auto device = FetchThunderboltDevice(thunderbolt_path, dev_path);
     if (device) {
-      res.push_back(std::move(device));
+      res.push_back(std::make_pair(base::MakeAbsoluteFilePath(dev_path),
+                                   std::move(device)));
     }
   }
-  std::move(callback).Run(mojo_ipc::BusResult::NewBusDevices(std::move(res)));
+  std::move(callback).Run(
+      base::flat_map<base::FilePath, mojom::BusDevicePtr>{std::move(res)});
 }
 
-void BusFetcher::FetchBusDevices(FetchBusDevicesCallback&& callback) {
-  auto get_devices_cb =
-      base::BindOnce(&ParseFwupdDevices)
-          .Then(base::BindOnce(&BusFetcher::FetchBusDevicesWithFwupdInfo,
-                               weak_factory_.GetWeakPtr(),
-                               std::move(callback)));
+mojom::BusResultPtr ConvertBusDeviceMapToBusResult(
+    base::flat_map<base::FilePath, mojom::BusDevicePtr> bus_device_map) {
+  std::vector<mojom::BusDevicePtr> res;
+  for (auto& item : bus_device_map) {
+    res.push_back(std::move(item.second));
+  }
+  return mojom::BusResult::NewBusDevices(std::move(res));
+}
+
+}  // namespace
+
+void FetchSysfsPathsBusDeviceMap(Context* context,
+                                 FetchSysfsPathsBusDeviceMapCallback callback) {
+  auto get_devices_cb = base::BindOnce(&ParseFwupdDevices)
+                            .Then(base::BindOnce(&FetchBusDevicesWithFwupdInfo,
+                                                 context, std::move(callback)));
 
   auto [on_success, on_error] = SplitDbusCallback(std::move(get_devices_cb));
-  context_->fwupd_proxy()->GetDevicesAsync(std::move(on_success),
-                                           std::move(on_error));
+  context->fwupd_proxy()->GetDevicesAsync(std::move(on_success),
+                                          std::move(on_error));
+}
+
+void FetchBusDevices(Context* context, FetchBusDevicesCallback callback) {
+  FetchSysfsPathsBusDeviceMap(context,
+                              base::BindOnce(&ConvertBusDeviceMapToBusResult)
+                                  .Then(std::move(callback)));
 }
 
 }  // namespace diagnostics

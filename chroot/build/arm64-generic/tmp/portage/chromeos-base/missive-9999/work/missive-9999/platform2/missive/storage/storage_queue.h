@@ -54,11 +54,6 @@ enum class StorageQueueOperationKind {
 // sequencing id to be eliminated.
 class StorageQueue : public base::RefCountedDeleteOnSequence<StorageQueue> {
  public:
-  // Callback type for UploadInterface provider for this queue.
-  using AsyncStartUploaderCb = base::RepeatingCallback<void(
-      UploaderInterface::UploadReason,
-      UploaderInterface::UploaderInterfaceResultCb)>;
-
   // Creates StorageQueue instance with the specified options, and returns it
   // with the |completion_cb| callback. |async_start_upload_cb| is a factory
   // callback that instantiates UploaderInterface every time the queue starts
@@ -66,11 +61,14 @@ class StorageQueue : public base::RefCountedDeleteOnSequence<StorageQueue> {
   // near future - upon explicit Flush request).
   static void Create(
       const QueueOptions& options,
-      AsyncStartUploaderCb async_start_upload_cb,
+      UploaderInterface::AsyncStartUploaderCb async_start_upload_cb,
       scoped_refptr<EncryptionModuleInterface> encryption_module,
       scoped_refptr<CompressionModule> compression_module,
       base::OnceCallback<void(StatusOr<scoped_refptr<StorageQueue>>)>
           completion_cb);
+
+  StorageQueue(const StorageQueue& other) = delete;
+  StorageQueue& operator=(const StorageQueue& other) = delete;
 
   // Wraps and serializes Record (taking ownership of it), encrypts and writes
   // the resulting blob into the StorageQueue (the last file of it) with the
@@ -82,14 +80,19 @@ class StorageQueue : public base::RefCountedDeleteOnSequence<StorageQueue> {
   // WriteMetadata, DeleteOutdatedMetadata.
   void Write(Record record, base::OnceCallback<void(Status)> completion_cb);
 
-  // Confirms acceptance of the records up to |sequencing_id| (inclusively).
-  // All records with sequencing ids <= this one can be removed from
-  // the StorageQueue, and can no longer be uploaded.
-  // If |force| is false (which is used in most cases), |sequencing_id| is
-  // only accepted if no higher ids were confirmed before; otherwise it is
-  // accepted unconditionally.
+  // Confirms acceptance of the records up to
+  // |sequence_information.sequencing_id()| (inclusively), if the
+  // |sequence_information.generation_id()| matches. All records with sequencing
+  // ids <= this one can be removed from the Storage, and can no longer be
+  // uploaded. In order to reset to the very first record (seq_id=0)
+  // |sequence_information.sequencing_id()| should be set to -1.
+  // If |force| is false (which is used in most cases),
+  // |sequence_information.sequencing_id()| is only accepted if no higher ids
+  // were confirmed before; otherwise it is accepted unconditionally.
+  // |sequence_information.priority()| is ignored - should have been used
+  // by Storage when selecting the queue.
   // Helper methods: RemoveConfirmedData.
-  void Confirm(std::optional<int64_t> sequencing_id,
+  void Confirm(SequenceInformation sequence_information,
                bool force,
                base::OnceCallback<void(Status)> completion_cb);
 
@@ -123,9 +126,6 @@ class StorageQueue : public base::RefCountedDeleteOnSequence<StorageQueue> {
 
   // Access queue options.
   const QueueOptions& options() const { return options_; }
-
-  StorageQueue(const StorageQueue& other) = delete;
-  StorageQueue& operator=(const StorageQueue& other) = delete;
 
  protected:
   virtual ~StorageQueue();
@@ -227,7 +227,7 @@ class StorageQueue : public base::RefCountedDeleteOnSequence<StorageQueue> {
   // Private constructor, to be called by Create factory method only.
   StorageQueue(scoped_refptr<base::SequencedTaskRunner> sequenced_task_runner,
                const QueueOptions& options,
-               AsyncStartUploaderCb async_start_upload_cb,
+               UploaderInterface::AsyncStartUploaderCb async_start_upload_cb,
                scoped_refptr<EncryptionModuleInterface> encryption_module,
                scoped_refptr<CompressionModule> compression_module);
 
@@ -301,7 +301,7 @@ class StorageQueue : public base::RefCountedDeleteOnSequence<StorageQueue> {
 
   // Helper method for Write(): deletes meta files up to, but not including
   // |sequencing_id_to_keep|. Any errors are ignored.
-  void DeleteOutdatedMetadata(int64_t sequencing_id_to_keep);
+  void DeleteOutdatedMetadata(int64_t sequencing_id_to_keep) const;
 
   // Helper method for Write(): composes record header and writes it to the
   // file, followed by data. Stores record digest in the queue, increments
@@ -339,8 +339,13 @@ class StorageQueue : public base::RefCountedDeleteOnSequence<StorageQueue> {
 
   // Sequential task runner for all activities in this StorageQueue
   // (must be first member in class).
-  scoped_refptr<base::SequencedTaskRunner> sequenced_task_runner_;
+  const scoped_refptr<base::SequencedTaskRunner> sequenced_task_runner_;
   SEQUENCE_CHECKER(storage_queue_sequence_checker_);
+
+  // Dedicated sequence task runner for low priority actions (which make
+  // no impact on the main activity - e.g., deletion of the outdated metafiles).
+  // Serializeing them should reduce their impact.
+  const scoped_refptr<base::SequencedTaskRunner> low_priority_task_runner_;
 
   // Immutable options, stored at the time of creation.
   const QueueOptions options_;
@@ -393,7 +398,7 @@ class StorageQueue : public base::RefCountedDeleteOnSequence<StorageQueue> {
   base::RepeatingTimer upload_timer_;
 
   // Upload provider callback.
-  const AsyncStartUploaderCb async_start_upload_cb_;
+  const UploaderInterface::AsyncStartUploaderCb async_start_upload_cb_;
 
   // Encryption module.
   scoped_refptr<EncryptionModuleInterface> encryption_module_;

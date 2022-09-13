@@ -5,10 +5,13 @@
 #ifndef CRYPTOHOME_SIGNATURE_SEALING_STRUCTURES_PROTO_H_
 #define CRYPTOHOME_SIGNATURE_SEALING_STRUCTURES_PROTO_H_
 
+#include <optional>
+
+#include <cryptohome/proto_bindings/auth_factor.pb.h>
 #include <cryptohome/proto_bindings/key.pb.h>
 
+#include "cryptohome/flatbuffer_schemas/structures.h"
 #include "cryptohome/signature_sealed_data.pb.h"
-#include "cryptohome/signature_sealing/structures.h"
 #include "cryptohome/vault_keyset.pb.h"
 
 namespace cryptohome {
@@ -18,8 +21,11 @@ ChallengeSignatureAlgorithm ToProto(structure::ChallengeSignatureAlgorithm obj);
 structure::ChallengeSignatureAlgorithm FromProto(
     ChallengeSignatureAlgorithm obj);
 
-SignatureSealedData ToProto(const structure::SignatureSealedData& obj);
-structure::SignatureSealedData FromProto(const SignatureSealedData& obj);
+std::optional<structure::ChallengeSignatureAlgorithm> FromProto(
+    user_data_auth::SmartCardSignatureAlgorithm obj);
+
+SignatureSealedData ToProto(const hwsec::SignatureSealedData& obj);
+hwsec::SignatureSealedData FromProto(const SignatureSealedData& obj);
 
 SerializedVaultKeyset_SignatureChallengeInfo ToProto(
     const structure::SignatureChallengeInfo& obj);

@@ -21,11 +21,11 @@
 #include <base/strings/string_split.h>
 #include <base/strings/string_util.h>
 #include <base/strings/stringprintf.h>
-#include <base/system/sys_info.h>
 #include <re2/re2.h>
 
 #include "diagnostics/common/mojo_utils.h"
 #include "diagnostics/cros_healthd/routines/memory/memory_constants.h"
+#include "diagnostics/cros_healthd/utils/memory_info.h"
 
 namespace diagnostics {
 
@@ -87,25 +87,31 @@ MemoryRoutine::~MemoryRoutine() = default;
 void MemoryRoutine::Start() {
   DCHECK_EQ(status_, mojom::DiagnosticRoutineStatusEnum::kReady);
 
-  // Estimate the routine's duration based on the amount of free memory.
-  expected_duration_us_ =
-      base::SysInfo::AmountOfAvailablePhysicalMemory() * kMicrosecondsPerByte;
-  start_ticks_ = tick_clock_->NowTicks();
+  auto memory_info = MemoryInfo::ParseFrom(context_->root_dir());
+  if (!memory_info.has_value()) {
+    status_ = mojom::DiagnosticRoutineStatusEnum::kFailedToStart;
+    status_message_ = kMemoryRoutineFetchingAvailableMemoryFailureMessage;
+    return;
+  }
+  uint32_t available_mem_kib = memory_info.value().available_memory_kib;
 
   // Ealry check and return if system doesn't have enough memory remains.
-  // Get AvailablePhysicalMemory in MiB.
-  int64_t available_mem = base::SysInfo::AmountOfAvailablePhysicalMemory();
-  available_mem /= (1024 * 1024);
-  if (available_mem <= kMemoryRoutineReservedSizeMiB) {
+  if (available_mem_kib <= kMemoryRoutineReservedSizeKiB) {
     status_ = mojom::DiagnosticRoutineStatusEnum::kFailedToStart;
-    status_message_ = kMemoryRoutineAllocatingLockingInvokingFailureMessage;
+    status_message_ = kMemoryRoutineNotHavingEnoughAvailableMemoryMessage;
     return;
   }
 
+  // Estimate the routine's duration based on the amount of free memory.
+  expected_duration_us_ = available_mem_kib * 1024 * kMicrosecondsPerByte;
+  start_ticks_ = tick_clock_->NowTicks();
+
   status_ = mojom::DiagnosticRoutineStatusEnum::kRunning;
   status_message_ = kMemoryRoutineRunningMessage;
-  context_->executor()->RunMemtester(base::BindOnce(
-      &MemoryRoutine::DetermineRoutineResult, weak_ptr_factory_.GetWeakPtr()));
+  context_->executor()->RunMemtester(
+      available_mem_kib - kMemoryRoutineReservedSizeKiB,
+      base::BindOnce(&MemoryRoutine::DetermineRoutineResult,
+                     weak_ptr_factory_.GetWeakPtr()));
 }
 
 // The memory routine cannot be resumed.
@@ -131,11 +137,12 @@ void MemoryRoutine::PopulateStatusUpdate(mojom::RoutineUpdate* response,
 
   // Because the memory routine is non-interactive, we will never include a user
   // message.
-  mojom::NonInteractiveRoutineUpdate update;
-  update.status = status_;
-  update.status_message = status_message_;
+  auto update = mojom::NonInteractiveRoutineUpdate::New();
+  update->status = status_;
+  update->status_message = status_message_;
 
-  response->routine_update_union->set_noninteractive_update(update.Clone());
+  response->routine_update_union =
+      mojom::RoutineUpdateUnion::NewNoninteractiveUpdate(std::move(update));
 
   if (include_output && !output_dict_.DictEmpty()) {
     std::string json;
@@ -153,7 +160,9 @@ void MemoryRoutine::PopulateStatusUpdate(mojom::RoutineUpdate* response,
     return;
   }
 
-  if (status_ == mojom::DiagnosticRoutineStatusEnum::kReady) {
+  if (status_ == mojom::DiagnosticRoutineStatusEnum::kReady ||
+      status_ == mojom::DiagnosticRoutineStatusEnum::kFailedToStart ||
+      expected_duration_us_ <= 0) {
     // The routine has not started.
     response->progress_percent = 0;
     return;

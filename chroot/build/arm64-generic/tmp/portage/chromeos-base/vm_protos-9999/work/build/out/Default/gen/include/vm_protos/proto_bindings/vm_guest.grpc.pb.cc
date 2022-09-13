@@ -11,8 +11,12 @@
 #include <grpcpp/impl/codegen/channel_interface.h>
 #include <grpcpp/impl/codegen/client_unary_call.h>
 #include <grpcpp/impl/codegen/client_callback.h>
-#include <grpcpp/impl/codegen/method_handler_impl.h>
+#include <grpcpp/impl/codegen/message_allocator.h>
+#include <grpcpp/impl/codegen/method_handler.h>
 #include <grpcpp/impl/codegen/rpc_service_method.h>
+#include <grpcpp/impl/codegen/server_callback.h>
+#include <grpcpp/impl/codegen/server_callback_handlers.h>
+#include <grpcpp/impl/codegen/server_context.h>
 #include <grpcpp/impl/codegen/service_type.h>
 #include <grpcpp/impl/codegen/sync_stream.h>
 namespace vm_tools {
@@ -27,6 +31,7 @@ static const char* Maitred_method_names[] = {
   "/vm_tools.Maitred/Mount",
   "/vm_tools.Maitred/StartTermina",
   "/vm_tools.Maitred/SetTime",
+  "/vm_tools.Maitred/SetTimezone",
   "/vm_tools.Maitred/Mount9P",
   "/vm_tools.Maitred/SetResolvConfig",
   "/vm_tools.Maitred/GetKernelVersion",
@@ -35,392 +40,665 @@ static const char* Maitred_method_names[] = {
   "/vm_tools.Maitred/GetResizeBounds",
   "/vm_tools.Maitred/GetAvailableSpace",
   "/vm_tools.Maitred/PrepareToSuspend",
+  "/vm_tools.Maitred/UpdateStorageBalloon",
 };
 
 std::unique_ptr< Maitred::Stub> Maitred::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
   (void)options;
-  std::unique_ptr< Maitred::Stub> stub(new Maitred::Stub(channel));
+  std::unique_ptr< Maitred::Stub> stub(new Maitred::Stub(channel, options));
   return stub;
 }
 
-Maitred::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel)
-  : channel_(channel), rpcmethod_ConfigureNetwork_(Maitred_method_names[0], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_ConfigureContainerGuest_(Maitred_method_names[1], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_ResetIPv6_(Maitred_method_names[2], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_OnHostNetworkChanged_(Maitred_method_names[3], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_Shutdown_(Maitred_method_names[4], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_LaunchProcess_(Maitred_method_names[5], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_Mount_(Maitred_method_names[6], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_StartTermina_(Maitred_method_names[7], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_SetTime_(Maitred_method_names[8], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_Mount9P_(Maitred_method_names[9], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_SetResolvConfig_(Maitred_method_names[10], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_GetKernelVersion_(Maitred_method_names[11], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_ResizeFilesystem_(Maitred_method_names[12], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_GetResizeStatus_(Maitred_method_names[13], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_GetResizeBounds_(Maitred_method_names[14], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_GetAvailableSpace_(Maitred_method_names[15], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_PrepareToSuspend_(Maitred_method_names[16], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+Maitred::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options)
+  : channel_(channel), rpcmethod_ConfigureNetwork_(Maitred_method_names[0], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_ConfigureContainerGuest_(Maitred_method_names[1], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_ResetIPv6_(Maitred_method_names[2], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_OnHostNetworkChanged_(Maitred_method_names[3], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_Shutdown_(Maitred_method_names[4], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_LaunchProcess_(Maitred_method_names[5], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_Mount_(Maitred_method_names[6], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_StartTermina_(Maitred_method_names[7], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_SetTime_(Maitred_method_names[8], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_SetTimezone_(Maitred_method_names[9], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_Mount9P_(Maitred_method_names[10], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_SetResolvConfig_(Maitred_method_names[11], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_GetKernelVersion_(Maitred_method_names[12], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_ResizeFilesystem_(Maitred_method_names[13], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_GetResizeStatus_(Maitred_method_names[14], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_GetResizeBounds_(Maitred_method_names[15], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_GetAvailableSpace_(Maitred_method_names[16], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_PrepareToSuspend_(Maitred_method_names[17], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_UpdateStorageBalloon_(Maitred_method_names[18], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   {}
 
 ::grpc::Status Maitred::Stub::ConfigureNetwork(::grpc::ClientContext* context, const ::vm_tools::NetworkConfigRequest& request, ::vm_tools::EmptyMessage* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_ConfigureNetwork_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::NetworkConfigRequest, ::vm_tools::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_ConfigureNetwork_, context, request, response);
 }
 
-void Maitred::Stub::experimental_async::ConfigureNetwork(::grpc::ClientContext* context, const ::vm_tools::NetworkConfigRequest* request, ::vm_tools::EmptyMessage* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_ConfigureNetwork_, context, request, response, std::move(f));
+void Maitred::Stub::async::ConfigureNetwork(::grpc::ClientContext* context, const ::vm_tools::NetworkConfigRequest* request, ::vm_tools::EmptyMessage* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::NetworkConfigRequest, ::vm_tools::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_ConfigureNetwork_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>* Maitred::Stub::AsyncConfigureNetworkRaw(::grpc::ClientContext* context, const ::vm_tools::NetworkConfigRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::EmptyMessage>::Create(channel_.get(), cq, rpcmethod_ConfigureNetwork_, context, request, true);
+void Maitred::Stub::async::ConfigureNetwork(::grpc::ClientContext* context, const ::vm_tools::NetworkConfigRequest* request, ::vm_tools::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_ConfigureNetwork_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>* Maitred::Stub::PrepareAsyncConfigureNetworkRaw(::grpc::ClientContext* context, const ::vm_tools::NetworkConfigRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::EmptyMessage>::Create(channel_.get(), cq, rpcmethod_ConfigureNetwork_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::EmptyMessage, ::vm_tools::NetworkConfigRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_ConfigureNetwork_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>* Maitred::Stub::AsyncConfigureNetworkRaw(::grpc::ClientContext* context, const ::vm_tools::NetworkConfigRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncConfigureNetworkRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 ::grpc::Status Maitred::Stub::ConfigureContainerGuest(::grpc::ClientContext* context, const ::vm_tools::ConfigureContainerGuestRequest& request, ::vm_tools::EmptyMessage* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_ConfigureContainerGuest_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::ConfigureContainerGuestRequest, ::vm_tools::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_ConfigureContainerGuest_, context, request, response);
 }
 
-void Maitred::Stub::experimental_async::ConfigureContainerGuest(::grpc::ClientContext* context, const ::vm_tools::ConfigureContainerGuestRequest* request, ::vm_tools::EmptyMessage* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_ConfigureContainerGuest_, context, request, response, std::move(f));
+void Maitred::Stub::async::ConfigureContainerGuest(::grpc::ClientContext* context, const ::vm_tools::ConfigureContainerGuestRequest* request, ::vm_tools::EmptyMessage* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::ConfigureContainerGuestRequest, ::vm_tools::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_ConfigureContainerGuest_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>* Maitred::Stub::AsyncConfigureContainerGuestRaw(::grpc::ClientContext* context, const ::vm_tools::ConfigureContainerGuestRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::EmptyMessage>::Create(channel_.get(), cq, rpcmethod_ConfigureContainerGuest_, context, request, true);
+void Maitred::Stub::async::ConfigureContainerGuest(::grpc::ClientContext* context, const ::vm_tools::ConfigureContainerGuestRequest* request, ::vm_tools::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_ConfigureContainerGuest_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>* Maitred::Stub::PrepareAsyncConfigureContainerGuestRaw(::grpc::ClientContext* context, const ::vm_tools::ConfigureContainerGuestRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::EmptyMessage>::Create(channel_.get(), cq, rpcmethod_ConfigureContainerGuest_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::EmptyMessage, ::vm_tools::ConfigureContainerGuestRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_ConfigureContainerGuest_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>* Maitred::Stub::AsyncConfigureContainerGuestRaw(::grpc::ClientContext* context, const ::vm_tools::ConfigureContainerGuestRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncConfigureContainerGuestRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 ::grpc::Status Maitred::Stub::ResetIPv6(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage& request, ::vm_tools::EmptyMessage* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_ResetIPv6_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::EmptyMessage, ::vm_tools::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_ResetIPv6_, context, request, response);
 }
 
-void Maitred::Stub::experimental_async::ResetIPv6(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::EmptyMessage* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_ResetIPv6_, context, request, response, std::move(f));
+void Maitred::Stub::async::ResetIPv6(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::EmptyMessage* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::EmptyMessage, ::vm_tools::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_ResetIPv6_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>* Maitred::Stub::AsyncResetIPv6Raw(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::EmptyMessage>::Create(channel_.get(), cq, rpcmethod_ResetIPv6_, context, request, true);
+void Maitred::Stub::async::ResetIPv6(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_ResetIPv6_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>* Maitred::Stub::PrepareAsyncResetIPv6Raw(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::EmptyMessage>::Create(channel_.get(), cq, rpcmethod_ResetIPv6_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::EmptyMessage, ::vm_tools::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_ResetIPv6_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>* Maitred::Stub::AsyncResetIPv6Raw(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncResetIPv6Raw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 ::grpc::Status Maitred::Stub::OnHostNetworkChanged(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage& request, ::vm_tools::EmptyMessage* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_OnHostNetworkChanged_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::EmptyMessage, ::vm_tools::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_OnHostNetworkChanged_, context, request, response);
 }
 
-void Maitred::Stub::experimental_async::OnHostNetworkChanged(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::EmptyMessage* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_OnHostNetworkChanged_, context, request, response, std::move(f));
+void Maitred::Stub::async::OnHostNetworkChanged(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::EmptyMessage* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::EmptyMessage, ::vm_tools::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_OnHostNetworkChanged_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>* Maitred::Stub::AsyncOnHostNetworkChangedRaw(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::EmptyMessage>::Create(channel_.get(), cq, rpcmethod_OnHostNetworkChanged_, context, request, true);
+void Maitred::Stub::async::OnHostNetworkChanged(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_OnHostNetworkChanged_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>* Maitred::Stub::PrepareAsyncOnHostNetworkChangedRaw(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::EmptyMessage>::Create(channel_.get(), cq, rpcmethod_OnHostNetworkChanged_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::EmptyMessage, ::vm_tools::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_OnHostNetworkChanged_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>* Maitred::Stub::AsyncOnHostNetworkChangedRaw(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncOnHostNetworkChangedRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 ::grpc::Status Maitred::Stub::Shutdown(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage& request, ::vm_tools::EmptyMessage* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_Shutdown_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::EmptyMessage, ::vm_tools::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_Shutdown_, context, request, response);
 }
 
-void Maitred::Stub::experimental_async::Shutdown(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::EmptyMessage* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_Shutdown_, context, request, response, std::move(f));
+void Maitred::Stub::async::Shutdown(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::EmptyMessage* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::EmptyMessage, ::vm_tools::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_Shutdown_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>* Maitred::Stub::AsyncShutdownRaw(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::EmptyMessage>::Create(channel_.get(), cq, rpcmethod_Shutdown_, context, request, true);
+void Maitred::Stub::async::Shutdown(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_Shutdown_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>* Maitred::Stub::PrepareAsyncShutdownRaw(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::EmptyMessage>::Create(channel_.get(), cq, rpcmethod_Shutdown_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::EmptyMessage, ::vm_tools::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_Shutdown_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>* Maitred::Stub::AsyncShutdownRaw(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncShutdownRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 ::grpc::Status Maitred::Stub::LaunchProcess(::grpc::ClientContext* context, const ::vm_tools::LaunchProcessRequest& request, ::vm_tools::LaunchProcessResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_LaunchProcess_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::LaunchProcessRequest, ::vm_tools::LaunchProcessResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_LaunchProcess_, context, request, response);
 }
 
-void Maitred::Stub::experimental_async::LaunchProcess(::grpc::ClientContext* context, const ::vm_tools::LaunchProcessRequest* request, ::vm_tools::LaunchProcessResponse* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_LaunchProcess_, context, request, response, std::move(f));
+void Maitred::Stub::async::LaunchProcess(::grpc::ClientContext* context, const ::vm_tools::LaunchProcessRequest* request, ::vm_tools::LaunchProcessResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::LaunchProcessRequest, ::vm_tools::LaunchProcessResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_LaunchProcess_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::vm_tools::LaunchProcessResponse>* Maitred::Stub::AsyncLaunchProcessRaw(::grpc::ClientContext* context, const ::vm_tools::LaunchProcessRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::LaunchProcessResponse>::Create(channel_.get(), cq, rpcmethod_LaunchProcess_, context, request, true);
+void Maitred::Stub::async::LaunchProcess(::grpc::ClientContext* context, const ::vm_tools::LaunchProcessRequest* request, ::vm_tools::LaunchProcessResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_LaunchProcess_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::vm_tools::LaunchProcessResponse>* Maitred::Stub::PrepareAsyncLaunchProcessRaw(::grpc::ClientContext* context, const ::vm_tools::LaunchProcessRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::LaunchProcessResponse>::Create(channel_.get(), cq, rpcmethod_LaunchProcess_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::LaunchProcessResponse, ::vm_tools::LaunchProcessRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_LaunchProcess_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::LaunchProcessResponse>* Maitred::Stub::AsyncLaunchProcessRaw(::grpc::ClientContext* context, const ::vm_tools::LaunchProcessRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncLaunchProcessRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 ::grpc::Status Maitred::Stub::Mount(::grpc::ClientContext* context, const ::vm_tools::MountRequest& request, ::vm_tools::MountResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_Mount_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::MountRequest, ::vm_tools::MountResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_Mount_, context, request, response);
 }
 
-void Maitred::Stub::experimental_async::Mount(::grpc::ClientContext* context, const ::vm_tools::MountRequest* request, ::vm_tools::MountResponse* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_Mount_, context, request, response, std::move(f));
+void Maitred::Stub::async::Mount(::grpc::ClientContext* context, const ::vm_tools::MountRequest* request, ::vm_tools::MountResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::MountRequest, ::vm_tools::MountResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_Mount_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::vm_tools::MountResponse>* Maitred::Stub::AsyncMountRaw(::grpc::ClientContext* context, const ::vm_tools::MountRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::MountResponse>::Create(channel_.get(), cq, rpcmethod_Mount_, context, request, true);
+void Maitred::Stub::async::Mount(::grpc::ClientContext* context, const ::vm_tools::MountRequest* request, ::vm_tools::MountResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_Mount_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::vm_tools::MountResponse>* Maitred::Stub::PrepareAsyncMountRaw(::grpc::ClientContext* context, const ::vm_tools::MountRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::MountResponse>::Create(channel_.get(), cq, rpcmethod_Mount_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::MountResponse, ::vm_tools::MountRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_Mount_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::MountResponse>* Maitred::Stub::AsyncMountRaw(::grpc::ClientContext* context, const ::vm_tools::MountRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncMountRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 ::grpc::Status Maitred::Stub::StartTermina(::grpc::ClientContext* context, const ::vm_tools::StartTerminaRequest& request, ::vm_tools::StartTerminaResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_StartTermina_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::StartTerminaRequest, ::vm_tools::StartTerminaResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_StartTermina_, context, request, response);
 }
 
-void Maitred::Stub::experimental_async::StartTermina(::grpc::ClientContext* context, const ::vm_tools::StartTerminaRequest* request, ::vm_tools::StartTerminaResponse* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_StartTermina_, context, request, response, std::move(f));
+void Maitred::Stub::async::StartTermina(::grpc::ClientContext* context, const ::vm_tools::StartTerminaRequest* request, ::vm_tools::StartTerminaResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::StartTerminaRequest, ::vm_tools::StartTerminaResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_StartTermina_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::vm_tools::StartTerminaResponse>* Maitred::Stub::AsyncStartTerminaRaw(::grpc::ClientContext* context, const ::vm_tools::StartTerminaRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::StartTerminaResponse>::Create(channel_.get(), cq, rpcmethod_StartTermina_, context, request, true);
+void Maitred::Stub::async::StartTermina(::grpc::ClientContext* context, const ::vm_tools::StartTerminaRequest* request, ::vm_tools::StartTerminaResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_StartTermina_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::vm_tools::StartTerminaResponse>* Maitred::Stub::PrepareAsyncStartTerminaRaw(::grpc::ClientContext* context, const ::vm_tools::StartTerminaRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::StartTerminaResponse>::Create(channel_.get(), cq, rpcmethod_StartTermina_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::StartTerminaResponse, ::vm_tools::StartTerminaRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_StartTermina_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::StartTerminaResponse>* Maitred::Stub::AsyncStartTerminaRaw(::grpc::ClientContext* context, const ::vm_tools::StartTerminaRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncStartTerminaRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 ::grpc::Status Maitred::Stub::SetTime(::grpc::ClientContext* context, const ::vm_tools::SetTimeRequest& request, ::vm_tools::EmptyMessage* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_SetTime_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::SetTimeRequest, ::vm_tools::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_SetTime_, context, request, response);
 }
 
-void Maitred::Stub::experimental_async::SetTime(::grpc::ClientContext* context, const ::vm_tools::SetTimeRequest* request, ::vm_tools::EmptyMessage* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_SetTime_, context, request, response, std::move(f));
+void Maitred::Stub::async::SetTime(::grpc::ClientContext* context, const ::vm_tools::SetTimeRequest* request, ::vm_tools::EmptyMessage* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::SetTimeRequest, ::vm_tools::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_SetTime_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>* Maitred::Stub::AsyncSetTimeRaw(::grpc::ClientContext* context, const ::vm_tools::SetTimeRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::EmptyMessage>::Create(channel_.get(), cq, rpcmethod_SetTime_, context, request, true);
+void Maitred::Stub::async::SetTime(::grpc::ClientContext* context, const ::vm_tools::SetTimeRequest* request, ::vm_tools::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_SetTime_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>* Maitred::Stub::PrepareAsyncSetTimeRaw(::grpc::ClientContext* context, const ::vm_tools::SetTimeRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::EmptyMessage>::Create(channel_.get(), cq, rpcmethod_SetTime_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::EmptyMessage, ::vm_tools::SetTimeRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_SetTime_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>* Maitred::Stub::AsyncSetTimeRaw(::grpc::ClientContext* context, const ::vm_tools::SetTimeRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncSetTimeRaw(context, request, cq);
+  result->StartCall();
+  return result;
+}
+
+::grpc::Status Maitred::Stub::SetTimezone(::grpc::ClientContext* context, const ::vm_tools::SetTimezoneRequest& request, ::vm_tools::EmptyMessage* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::SetTimezoneRequest, ::vm_tools::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_SetTimezone_, context, request, response);
+}
+
+void Maitred::Stub::async::SetTimezone(::grpc::ClientContext* context, const ::vm_tools::SetTimezoneRequest* request, ::vm_tools::EmptyMessage* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::SetTimezoneRequest, ::vm_tools::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_SetTimezone_, context, request, response, std::move(f));
+}
+
+void Maitred::Stub::async::SetTimezone(::grpc::ClientContext* context, const ::vm_tools::SetTimezoneRequest* request, ::vm_tools::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_SetTimezone_, context, request, response, reactor);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>* Maitred::Stub::PrepareAsyncSetTimezoneRaw(::grpc::ClientContext* context, const ::vm_tools::SetTimezoneRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::EmptyMessage, ::vm_tools::SetTimezoneRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_SetTimezone_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>* Maitred::Stub::AsyncSetTimezoneRaw(::grpc::ClientContext* context, const ::vm_tools::SetTimezoneRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncSetTimezoneRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 ::grpc::Status Maitred::Stub::Mount9P(::grpc::ClientContext* context, const ::vm_tools::Mount9PRequest& request, ::vm_tools::MountResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_Mount9P_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::Mount9PRequest, ::vm_tools::MountResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_Mount9P_, context, request, response);
 }
 
-void Maitred::Stub::experimental_async::Mount9P(::grpc::ClientContext* context, const ::vm_tools::Mount9PRequest* request, ::vm_tools::MountResponse* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_Mount9P_, context, request, response, std::move(f));
+void Maitred::Stub::async::Mount9P(::grpc::ClientContext* context, const ::vm_tools::Mount9PRequest* request, ::vm_tools::MountResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::Mount9PRequest, ::vm_tools::MountResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_Mount9P_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::vm_tools::MountResponse>* Maitred::Stub::AsyncMount9PRaw(::grpc::ClientContext* context, const ::vm_tools::Mount9PRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::MountResponse>::Create(channel_.get(), cq, rpcmethod_Mount9P_, context, request, true);
+void Maitred::Stub::async::Mount9P(::grpc::ClientContext* context, const ::vm_tools::Mount9PRequest* request, ::vm_tools::MountResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_Mount9P_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::vm_tools::MountResponse>* Maitred::Stub::PrepareAsyncMount9PRaw(::grpc::ClientContext* context, const ::vm_tools::Mount9PRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::MountResponse>::Create(channel_.get(), cq, rpcmethod_Mount9P_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::MountResponse, ::vm_tools::Mount9PRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_Mount9P_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::MountResponse>* Maitred::Stub::AsyncMount9PRaw(::grpc::ClientContext* context, const ::vm_tools::Mount9PRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncMount9PRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 ::grpc::Status Maitred::Stub::SetResolvConfig(::grpc::ClientContext* context, const ::vm_tools::SetResolvConfigRequest& request, ::vm_tools::EmptyMessage* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_SetResolvConfig_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::SetResolvConfigRequest, ::vm_tools::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_SetResolvConfig_, context, request, response);
 }
 
-void Maitred::Stub::experimental_async::SetResolvConfig(::grpc::ClientContext* context, const ::vm_tools::SetResolvConfigRequest* request, ::vm_tools::EmptyMessage* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_SetResolvConfig_, context, request, response, std::move(f));
+void Maitred::Stub::async::SetResolvConfig(::grpc::ClientContext* context, const ::vm_tools::SetResolvConfigRequest* request, ::vm_tools::EmptyMessage* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::SetResolvConfigRequest, ::vm_tools::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_SetResolvConfig_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>* Maitred::Stub::AsyncSetResolvConfigRaw(::grpc::ClientContext* context, const ::vm_tools::SetResolvConfigRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::EmptyMessage>::Create(channel_.get(), cq, rpcmethod_SetResolvConfig_, context, request, true);
+void Maitred::Stub::async::SetResolvConfig(::grpc::ClientContext* context, const ::vm_tools::SetResolvConfigRequest* request, ::vm_tools::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_SetResolvConfig_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>* Maitred::Stub::PrepareAsyncSetResolvConfigRaw(::grpc::ClientContext* context, const ::vm_tools::SetResolvConfigRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::EmptyMessage>::Create(channel_.get(), cq, rpcmethod_SetResolvConfig_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::EmptyMessage, ::vm_tools::SetResolvConfigRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_SetResolvConfig_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>* Maitred::Stub::AsyncSetResolvConfigRaw(::grpc::ClientContext* context, const ::vm_tools::SetResolvConfigRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncSetResolvConfigRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 ::grpc::Status Maitred::Stub::GetKernelVersion(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage& request, ::vm_tools::GetKernelVersionResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_GetKernelVersion_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::EmptyMessage, ::vm_tools::GetKernelVersionResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_GetKernelVersion_, context, request, response);
 }
 
-void Maitred::Stub::experimental_async::GetKernelVersion(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::GetKernelVersionResponse* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_GetKernelVersion_, context, request, response, std::move(f));
+void Maitred::Stub::async::GetKernelVersion(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::GetKernelVersionResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::EmptyMessage, ::vm_tools::GetKernelVersionResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetKernelVersion_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::vm_tools::GetKernelVersionResponse>* Maitred::Stub::AsyncGetKernelVersionRaw(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::GetKernelVersionResponse>::Create(channel_.get(), cq, rpcmethod_GetKernelVersion_, context, request, true);
+void Maitred::Stub::async::GetKernelVersion(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::GetKernelVersionResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetKernelVersion_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::vm_tools::GetKernelVersionResponse>* Maitred::Stub::PrepareAsyncGetKernelVersionRaw(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::GetKernelVersionResponse>::Create(channel_.get(), cq, rpcmethod_GetKernelVersion_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::GetKernelVersionResponse, ::vm_tools::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_GetKernelVersion_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::GetKernelVersionResponse>* Maitred::Stub::AsyncGetKernelVersionRaw(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncGetKernelVersionRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 ::grpc::Status Maitred::Stub::ResizeFilesystem(::grpc::ClientContext* context, const ::vm_tools::ResizeFilesystemRequest& request, ::vm_tools::ResizeFilesystemResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_ResizeFilesystem_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::ResizeFilesystemRequest, ::vm_tools::ResizeFilesystemResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_ResizeFilesystem_, context, request, response);
 }
 
-void Maitred::Stub::experimental_async::ResizeFilesystem(::grpc::ClientContext* context, const ::vm_tools::ResizeFilesystemRequest* request, ::vm_tools::ResizeFilesystemResponse* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_ResizeFilesystem_, context, request, response, std::move(f));
+void Maitred::Stub::async::ResizeFilesystem(::grpc::ClientContext* context, const ::vm_tools::ResizeFilesystemRequest* request, ::vm_tools::ResizeFilesystemResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::ResizeFilesystemRequest, ::vm_tools::ResizeFilesystemResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_ResizeFilesystem_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::vm_tools::ResizeFilesystemResponse>* Maitred::Stub::AsyncResizeFilesystemRaw(::grpc::ClientContext* context, const ::vm_tools::ResizeFilesystemRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::ResizeFilesystemResponse>::Create(channel_.get(), cq, rpcmethod_ResizeFilesystem_, context, request, true);
+void Maitred::Stub::async::ResizeFilesystem(::grpc::ClientContext* context, const ::vm_tools::ResizeFilesystemRequest* request, ::vm_tools::ResizeFilesystemResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_ResizeFilesystem_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::vm_tools::ResizeFilesystemResponse>* Maitred::Stub::PrepareAsyncResizeFilesystemRaw(::grpc::ClientContext* context, const ::vm_tools::ResizeFilesystemRequest& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::ResizeFilesystemResponse>::Create(channel_.get(), cq, rpcmethod_ResizeFilesystem_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::ResizeFilesystemResponse, ::vm_tools::ResizeFilesystemRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_ResizeFilesystem_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::ResizeFilesystemResponse>* Maitred::Stub::AsyncResizeFilesystemRaw(::grpc::ClientContext* context, const ::vm_tools::ResizeFilesystemRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncResizeFilesystemRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 ::grpc::Status Maitred::Stub::GetResizeStatus(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage& request, ::vm_tools::GetResizeStatusResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_GetResizeStatus_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::EmptyMessage, ::vm_tools::GetResizeStatusResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_GetResizeStatus_, context, request, response);
 }
 
-void Maitred::Stub::experimental_async::GetResizeStatus(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::GetResizeStatusResponse* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_GetResizeStatus_, context, request, response, std::move(f));
+void Maitred::Stub::async::GetResizeStatus(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::GetResizeStatusResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::EmptyMessage, ::vm_tools::GetResizeStatusResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetResizeStatus_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::vm_tools::GetResizeStatusResponse>* Maitred::Stub::AsyncGetResizeStatusRaw(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::GetResizeStatusResponse>::Create(channel_.get(), cq, rpcmethod_GetResizeStatus_, context, request, true);
+void Maitred::Stub::async::GetResizeStatus(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::GetResizeStatusResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetResizeStatus_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::vm_tools::GetResizeStatusResponse>* Maitred::Stub::PrepareAsyncGetResizeStatusRaw(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::GetResizeStatusResponse>::Create(channel_.get(), cq, rpcmethod_GetResizeStatus_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::GetResizeStatusResponse, ::vm_tools::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_GetResizeStatus_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::GetResizeStatusResponse>* Maitred::Stub::AsyncGetResizeStatusRaw(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncGetResizeStatusRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 ::grpc::Status Maitred::Stub::GetResizeBounds(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage& request, ::vm_tools::GetResizeBoundsResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_GetResizeBounds_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::EmptyMessage, ::vm_tools::GetResizeBoundsResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_GetResizeBounds_, context, request, response);
 }
 
-void Maitred::Stub::experimental_async::GetResizeBounds(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::GetResizeBoundsResponse* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_GetResizeBounds_, context, request, response, std::move(f));
+void Maitred::Stub::async::GetResizeBounds(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::GetResizeBoundsResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::EmptyMessage, ::vm_tools::GetResizeBoundsResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetResizeBounds_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::vm_tools::GetResizeBoundsResponse>* Maitred::Stub::AsyncGetResizeBoundsRaw(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::GetResizeBoundsResponse>::Create(channel_.get(), cq, rpcmethod_GetResizeBounds_, context, request, true);
+void Maitred::Stub::async::GetResizeBounds(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::GetResizeBoundsResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetResizeBounds_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::vm_tools::GetResizeBoundsResponse>* Maitred::Stub::PrepareAsyncGetResizeBoundsRaw(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::GetResizeBoundsResponse>::Create(channel_.get(), cq, rpcmethod_GetResizeBounds_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::GetResizeBoundsResponse, ::vm_tools::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_GetResizeBounds_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::GetResizeBoundsResponse>* Maitred::Stub::AsyncGetResizeBoundsRaw(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncGetResizeBoundsRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 ::grpc::Status Maitred::Stub::GetAvailableSpace(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage& request, ::vm_tools::GetAvailableSpaceResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_GetAvailableSpace_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::EmptyMessage, ::vm_tools::GetAvailableSpaceResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_GetAvailableSpace_, context, request, response);
 }
 
-void Maitred::Stub::experimental_async::GetAvailableSpace(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::GetAvailableSpaceResponse* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_GetAvailableSpace_, context, request, response, std::move(f));
+void Maitred::Stub::async::GetAvailableSpace(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::GetAvailableSpaceResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::EmptyMessage, ::vm_tools::GetAvailableSpaceResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetAvailableSpace_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::vm_tools::GetAvailableSpaceResponse>* Maitred::Stub::AsyncGetAvailableSpaceRaw(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::GetAvailableSpaceResponse>::Create(channel_.get(), cq, rpcmethod_GetAvailableSpace_, context, request, true);
+void Maitred::Stub::async::GetAvailableSpace(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::GetAvailableSpaceResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_GetAvailableSpace_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::vm_tools::GetAvailableSpaceResponse>* Maitred::Stub::PrepareAsyncGetAvailableSpaceRaw(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::GetAvailableSpaceResponse>::Create(channel_.get(), cq, rpcmethod_GetAvailableSpace_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::GetAvailableSpaceResponse, ::vm_tools::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_GetAvailableSpace_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::GetAvailableSpaceResponse>* Maitred::Stub::AsyncGetAvailableSpaceRaw(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncGetAvailableSpaceRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 ::grpc::Status Maitred::Stub::PrepareToSuspend(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage& request, ::vm_tools::EmptyMessage* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_PrepareToSuspend_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::EmptyMessage, ::vm_tools::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_PrepareToSuspend_, context, request, response);
 }
 
-void Maitred::Stub::experimental_async::PrepareToSuspend(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::EmptyMessage* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_PrepareToSuspend_, context, request, response, std::move(f));
+void Maitred::Stub::async::PrepareToSuspend(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::EmptyMessage* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::EmptyMessage, ::vm_tools::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_PrepareToSuspend_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>* Maitred::Stub::AsyncPrepareToSuspendRaw(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::EmptyMessage>::Create(channel_.get(), cq, rpcmethod_PrepareToSuspend_, context, request, true);
+void Maitred::Stub::async::PrepareToSuspend(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_PrepareToSuspend_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>* Maitred::Stub::PrepareAsyncPrepareToSuspendRaw(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::EmptyMessage>::Create(channel_.get(), cq, rpcmethod_PrepareToSuspend_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::EmptyMessage, ::vm_tools::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_PrepareToSuspend_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>* Maitred::Stub::AsyncPrepareToSuspendRaw(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncPrepareToSuspendRaw(context, request, cq);
+  result->StartCall();
+  return result;
+}
+
+::grpc::Status Maitred::Stub::UpdateStorageBalloon(::grpc::ClientContext* context, const ::vm_tools::UpdateStorageBalloonRequest& request, ::vm_tools::UpdateStorageBalloonResponse* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::UpdateStorageBalloonRequest, ::vm_tools::UpdateStorageBalloonResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_UpdateStorageBalloon_, context, request, response);
+}
+
+void Maitred::Stub::async::UpdateStorageBalloon(::grpc::ClientContext* context, const ::vm_tools::UpdateStorageBalloonRequest* request, ::vm_tools::UpdateStorageBalloonResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::UpdateStorageBalloonRequest, ::vm_tools::UpdateStorageBalloonResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_UpdateStorageBalloon_, context, request, response, std::move(f));
+}
+
+void Maitred::Stub::async::UpdateStorageBalloon(::grpc::ClientContext* context, const ::vm_tools::UpdateStorageBalloonRequest* request, ::vm_tools::UpdateStorageBalloonResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_UpdateStorageBalloon_, context, request, response, reactor);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::UpdateStorageBalloonResponse>* Maitred::Stub::PrepareAsyncUpdateStorageBalloonRaw(::grpc::ClientContext* context, const ::vm_tools::UpdateStorageBalloonRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::UpdateStorageBalloonResponse, ::vm_tools::UpdateStorageBalloonRequest, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_UpdateStorageBalloon_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::UpdateStorageBalloonResponse>* Maitred::Stub::AsyncUpdateStorageBalloonRaw(::grpc::ClientContext* context, const ::vm_tools::UpdateStorageBalloonRequest& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncUpdateStorageBalloonRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 Maitred::Service::Service() {
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Maitred_method_names[0],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< Maitred::Service, ::vm_tools::NetworkConfigRequest, ::vm_tools::EmptyMessage>(
-          std::mem_fn(&Maitred::Service::ConfigureNetwork), this)));
+      new ::grpc::internal::RpcMethodHandler< Maitred::Service, ::vm_tools::NetworkConfigRequest, ::vm_tools::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](Maitred::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::NetworkConfigRequest* req,
+             ::vm_tools::EmptyMessage* resp) {
+               return service->ConfigureNetwork(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Maitred_method_names[1],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< Maitred::Service, ::vm_tools::ConfigureContainerGuestRequest, ::vm_tools::EmptyMessage>(
-          std::mem_fn(&Maitred::Service::ConfigureContainerGuest), this)));
+      new ::grpc::internal::RpcMethodHandler< Maitred::Service, ::vm_tools::ConfigureContainerGuestRequest, ::vm_tools::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](Maitred::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::ConfigureContainerGuestRequest* req,
+             ::vm_tools::EmptyMessage* resp) {
+               return service->ConfigureContainerGuest(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Maitred_method_names[2],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< Maitred::Service, ::vm_tools::EmptyMessage, ::vm_tools::EmptyMessage>(
-          std::mem_fn(&Maitred::Service::ResetIPv6), this)));
+      new ::grpc::internal::RpcMethodHandler< Maitred::Service, ::vm_tools::EmptyMessage, ::vm_tools::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](Maitred::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::EmptyMessage* req,
+             ::vm_tools::EmptyMessage* resp) {
+               return service->ResetIPv6(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Maitred_method_names[3],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< Maitred::Service, ::vm_tools::EmptyMessage, ::vm_tools::EmptyMessage>(
-          std::mem_fn(&Maitred::Service::OnHostNetworkChanged), this)));
+      new ::grpc::internal::RpcMethodHandler< Maitred::Service, ::vm_tools::EmptyMessage, ::vm_tools::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](Maitred::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::EmptyMessage* req,
+             ::vm_tools::EmptyMessage* resp) {
+               return service->OnHostNetworkChanged(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Maitred_method_names[4],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< Maitred::Service, ::vm_tools::EmptyMessage, ::vm_tools::EmptyMessage>(
-          std::mem_fn(&Maitred::Service::Shutdown), this)));
+      new ::grpc::internal::RpcMethodHandler< Maitred::Service, ::vm_tools::EmptyMessage, ::vm_tools::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](Maitred::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::EmptyMessage* req,
+             ::vm_tools::EmptyMessage* resp) {
+               return service->Shutdown(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Maitred_method_names[5],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< Maitred::Service, ::vm_tools::LaunchProcessRequest, ::vm_tools::LaunchProcessResponse>(
-          std::mem_fn(&Maitred::Service::LaunchProcess), this)));
+      new ::grpc::internal::RpcMethodHandler< Maitred::Service, ::vm_tools::LaunchProcessRequest, ::vm_tools::LaunchProcessResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](Maitred::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::LaunchProcessRequest* req,
+             ::vm_tools::LaunchProcessResponse* resp) {
+               return service->LaunchProcess(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Maitred_method_names[6],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< Maitred::Service, ::vm_tools::MountRequest, ::vm_tools::MountResponse>(
-          std::mem_fn(&Maitred::Service::Mount), this)));
+      new ::grpc::internal::RpcMethodHandler< Maitred::Service, ::vm_tools::MountRequest, ::vm_tools::MountResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](Maitred::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::MountRequest* req,
+             ::vm_tools::MountResponse* resp) {
+               return service->Mount(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Maitred_method_names[7],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< Maitred::Service, ::vm_tools::StartTerminaRequest, ::vm_tools::StartTerminaResponse>(
-          std::mem_fn(&Maitred::Service::StartTermina), this)));
+      new ::grpc::internal::RpcMethodHandler< Maitred::Service, ::vm_tools::StartTerminaRequest, ::vm_tools::StartTerminaResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](Maitred::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::StartTerminaRequest* req,
+             ::vm_tools::StartTerminaResponse* resp) {
+               return service->StartTermina(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Maitred_method_names[8],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< Maitred::Service, ::vm_tools::SetTimeRequest, ::vm_tools::EmptyMessage>(
-          std::mem_fn(&Maitred::Service::SetTime), this)));
+      new ::grpc::internal::RpcMethodHandler< Maitred::Service, ::vm_tools::SetTimeRequest, ::vm_tools::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](Maitred::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::SetTimeRequest* req,
+             ::vm_tools::EmptyMessage* resp) {
+               return service->SetTime(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Maitred_method_names[9],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< Maitred::Service, ::vm_tools::Mount9PRequest, ::vm_tools::MountResponse>(
-          std::mem_fn(&Maitred::Service::Mount9P), this)));
+      new ::grpc::internal::RpcMethodHandler< Maitred::Service, ::vm_tools::SetTimezoneRequest, ::vm_tools::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](Maitred::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::SetTimezoneRequest* req,
+             ::vm_tools::EmptyMessage* resp) {
+               return service->SetTimezone(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Maitred_method_names[10],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< Maitred::Service, ::vm_tools::SetResolvConfigRequest, ::vm_tools::EmptyMessage>(
-          std::mem_fn(&Maitred::Service::SetResolvConfig), this)));
+      new ::grpc::internal::RpcMethodHandler< Maitred::Service, ::vm_tools::Mount9PRequest, ::vm_tools::MountResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](Maitred::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::Mount9PRequest* req,
+             ::vm_tools::MountResponse* resp) {
+               return service->Mount9P(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Maitred_method_names[11],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< Maitred::Service, ::vm_tools::EmptyMessage, ::vm_tools::GetKernelVersionResponse>(
-          std::mem_fn(&Maitred::Service::GetKernelVersion), this)));
+      new ::grpc::internal::RpcMethodHandler< Maitred::Service, ::vm_tools::SetResolvConfigRequest, ::vm_tools::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](Maitred::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::SetResolvConfigRequest* req,
+             ::vm_tools::EmptyMessage* resp) {
+               return service->SetResolvConfig(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Maitred_method_names[12],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< Maitred::Service, ::vm_tools::ResizeFilesystemRequest, ::vm_tools::ResizeFilesystemResponse>(
-          std::mem_fn(&Maitred::Service::ResizeFilesystem), this)));
+      new ::grpc::internal::RpcMethodHandler< Maitred::Service, ::vm_tools::EmptyMessage, ::vm_tools::GetKernelVersionResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](Maitred::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::EmptyMessage* req,
+             ::vm_tools::GetKernelVersionResponse* resp) {
+               return service->GetKernelVersion(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Maitred_method_names[13],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< Maitred::Service, ::vm_tools::EmptyMessage, ::vm_tools::GetResizeStatusResponse>(
-          std::mem_fn(&Maitred::Service::GetResizeStatus), this)));
+      new ::grpc::internal::RpcMethodHandler< Maitred::Service, ::vm_tools::ResizeFilesystemRequest, ::vm_tools::ResizeFilesystemResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](Maitred::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::ResizeFilesystemRequest* req,
+             ::vm_tools::ResizeFilesystemResponse* resp) {
+               return service->ResizeFilesystem(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Maitred_method_names[14],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< Maitred::Service, ::vm_tools::EmptyMessage, ::vm_tools::GetResizeBoundsResponse>(
-          std::mem_fn(&Maitred::Service::GetResizeBounds), this)));
+      new ::grpc::internal::RpcMethodHandler< Maitred::Service, ::vm_tools::EmptyMessage, ::vm_tools::GetResizeStatusResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](Maitred::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::EmptyMessage* req,
+             ::vm_tools::GetResizeStatusResponse* resp) {
+               return service->GetResizeStatus(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Maitred_method_names[15],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< Maitred::Service, ::vm_tools::EmptyMessage, ::vm_tools::GetAvailableSpaceResponse>(
-          std::mem_fn(&Maitred::Service::GetAvailableSpace), this)));
+      new ::grpc::internal::RpcMethodHandler< Maitred::Service, ::vm_tools::EmptyMessage, ::vm_tools::GetResizeBoundsResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](Maitred::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::EmptyMessage* req,
+             ::vm_tools::GetResizeBoundsResponse* resp) {
+               return service->GetResizeBounds(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Maitred_method_names[16],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< Maitred::Service, ::vm_tools::EmptyMessage, ::vm_tools::EmptyMessage>(
-          std::mem_fn(&Maitred::Service::PrepareToSuspend), this)));
+      new ::grpc::internal::RpcMethodHandler< Maitred::Service, ::vm_tools::EmptyMessage, ::vm_tools::GetAvailableSpaceResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](Maitred::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::EmptyMessage* req,
+             ::vm_tools::GetAvailableSpaceResponse* resp) {
+               return service->GetAvailableSpace(ctx, req, resp);
+             }, this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      Maitred_method_names[17],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< Maitred::Service, ::vm_tools::EmptyMessage, ::vm_tools::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](Maitred::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::EmptyMessage* req,
+             ::vm_tools::EmptyMessage* resp) {
+               return service->PrepareToSuspend(ctx, req, resp);
+             }, this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      Maitred_method_names[18],
+      ::grpc::internal::RpcMethod::NORMAL_RPC,
+      new ::grpc::internal::RpcMethodHandler< Maitred::Service, ::vm_tools::UpdateStorageBalloonRequest, ::vm_tools::UpdateStorageBalloonResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](Maitred::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::UpdateStorageBalloonRequest* req,
+             ::vm_tools::UpdateStorageBalloonResponse* resp) {
+               return service->UpdateStorageBalloon(ctx, req, resp);
+             }, this)));
 }
 
 Maitred::Service::~Service() {
@@ -489,6 +767,13 @@ Maitred::Service::~Service() {
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
+::grpc::Status Maitred::Service::SetTimezone(::grpc::ServerContext* context, const ::vm_tools::SetTimezoneRequest* request, ::vm_tools::EmptyMessage* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
 ::grpc::Status Maitred::Service::Mount9P(::grpc::ServerContext* context, const ::vm_tools::Mount9PRequest* request, ::vm_tools::MountResponse* response) {
   (void) context;
   (void) request;
@@ -539,6 +824,13 @@ Maitred::Service::~Service() {
 }
 
 ::grpc::Status Maitred::Service::PrepareToSuspend(::grpc::ServerContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::EmptyMessage* response) {
+  (void) context;
+  (void) request;
+  (void) response;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+}
+
+::grpc::Status Maitred::Service::UpdateStorageBalloon(::grpc::ServerContext* context, const ::vm_tools::UpdateStorageBalloonRequest* request, ::vm_tools::UpdateStorageBalloonResponse* response) {
   (void) context;
   (void) request;
   (void) response;

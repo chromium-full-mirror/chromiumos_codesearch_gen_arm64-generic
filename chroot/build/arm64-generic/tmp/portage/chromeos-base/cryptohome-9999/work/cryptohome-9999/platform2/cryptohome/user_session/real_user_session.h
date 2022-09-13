@@ -32,6 +32,7 @@ class RealUserSession : public UserSession {
  public:
   RealUserSession();
   RealUserSession(
+      const std::string& username,
       HomeDirs* homedirs,
       KeysetManagement* keyset_management,
       UserOldestActivityTimestampManager* user_activity_timestamp_manager,
@@ -67,12 +68,12 @@ class RealUserSession : public UserSession {
   // Mounts disk backed vault for the given username with the supplied file
   // system keyset.
   MountStatus MountVault(
-      const std::string username,
+      const std::string& username,
       const FileSystemKeyset& fs_keyset,
       const CryptohomeVault::Options& vault_options) override;
 
   // Creates and mounts a ramdisk backed ephemeral session for the given user.
-  MountStatus MountEphemeral(const std::string username) override;
+  MountStatus MountEphemeral(const std::string& username) override;
 
   // Creates and mounts a ramdisk backed ephemeral session for an anonymous
   // user.
@@ -98,10 +99,20 @@ class RealUserSession : public UserSession {
 
   // Sets credentials current session can be re-authenticated with.
   // Returns false in case anything went wrong in setting up new re-auth state.
-  bool SetCredentials(const Credentials& credentials) override;
+  void SetCredentials(const Credentials& credentials) override;
 
   // Sets credentials current session can be re-authenticated with.
   void SetCredentials(AuthSession* auth_session) override;
+
+  // Returns if a |credential_verifier_| is set for this session.
+  bool HasCredentialVerifier() const override {
+    return credential_verifier_ != nullptr;
+  }
+
+  // Removes the credential_verifier if key_label matches the current verifier
+  // label (stored in RealUserSession::key_data_).
+  void RemoveCredentialVerifierForKeyLabel(
+      const std::string& key_label) override;
 
   // Checks that the session belongs to the obfuscated_user.
   bool VerifyUser(const std::string& obfuscated_username) const override;
@@ -125,8 +136,6 @@ class RealUserSession : public UserSession {
                              const brillo::SecureBlob& fnek) override;
 
  private:
-  ~RealUserSession() override;
-
   // Computes a public derivative from |fek| and |fnek|, and store its hash for
   // u2fd to fetch.
   void PrepareWebAuthnSecretHash(const brillo::SecureBlob& fek,
@@ -142,13 +151,14 @@ class RealUserSession : public UserSession {
   // Clears the WebAuthn secret if it's not read yet.
   void ClearHibernateSecret();
 
+  const std::string username_;
+  const std::string obfuscated_username_;
+
   HomeDirs* homedirs_;
   KeysetManagement* keyset_management_;
   UserOldestActivityTimestampManager* user_activity_timestamp_manager_;
   Pkcs11TokenFactory* pkcs11_token_factory_;
 
-  std::string obfuscated_username_;
-  std::string username_;
   std::unique_ptr<CredentialVerifier> credential_verifier_;
   KeyData key_data_;
 

@@ -8,10 +8,15 @@
 #include <string>
 
 #include <base/logging.h>
+#include <brillo/cryptohome.h>
 #include <brillo/secure_blob.h>
 #include <cryptohome/proto_bindings/auth_factor.pb.h>
 
+#include "cryptohome/crypto.h"
+#include "cryptohome/filesystem_layout.h"
 #include "cryptohome/key_objects.h"
+#include "cryptohome/platform.h"
+#include "cryptohome/signature_sealing/structures_proto.h"
 
 using brillo::SecureBlob;
 
@@ -49,14 +54,60 @@ AuthInput FromCryptohomeRecoveryAuthInput(
   return AuthInput{.cryptohome_recovery_auth_input = recovery_auth_input};
 }
 
+AuthInput FromSmartCardAuthInput(
+    const user_data_auth::SmartCardAuthInput& proto,
+    const std::optional<brillo::Blob>& public_key_spki_der) {
+  ChallengeCredentialAuthInput chall_cred_auth_input;
+  for (const auto& content : proto.signature_algorithms()) {
+    std::optional<structure::ChallengeSignatureAlgorithm> signature_algorithm =
+        proto::FromProto(ChallengeSignatureAlgorithm(content));
+    if (signature_algorithm.has_value()) {
+      chall_cred_auth_input.challenge_signature_algorithms.push_back(
+          signature_algorithm.value());
+    } else {
+      // One of the signature algorithm's parsed is CHALLENGE_NOT_SPECIFIED.
+      return AuthInput{
+          .challenge_credential_auth_input = std::nullopt,
+      };
+    }
+  }
+
+  if (public_key_spki_der && !public_key_spki_der->empty()) {
+    chall_cred_auth_input.public_key_spki_der = public_key_spki_der.value();
+  }
+
+  return AuthInput{
+      .challenge_credential_auth_input = chall_cred_auth_input,
+  };
+}
+
+std::optional<AuthInput> FromKioskAuthInput(
+    Platform* platform,
+    const user_data_auth::KioskAuthInput& proto,
+    const std::string& username) {
+  brillo::SecureBlob public_mount_salt;
+  if (!GetPublicMountSalt(platform, &public_mount_salt)) {
+    LOG(ERROR) << "Could not get or create public salt from file";
+    return std::nullopt;
+  }
+  brillo::SecureBlob passkey;
+  Crypto::PasswordToPasskey(username.c_str(), public_mount_salt, &passkey);
+  return AuthInput{
+      .user_input = passkey,
+  };
+}
+
 }  // namespace
 
 std::optional<AuthInput> CreateAuthInput(
+    Platform* platform,
     const user_data_auth::AuthInput& auth_input_proto,
+    const std::string& username,
     const std::string& obfuscated_username,
     bool locked_to_single_user,
     const std::optional<brillo::SecureBlob>&
-        cryptohome_recovery_ephemeral_pub_key) {
+        cryptohome_recovery_ephemeral_pub_key,
+    const AuthFactorMetadata& auth_factor_metadata) {
   std::optional<AuthInput> auth_input;
   switch (auth_input_proto.input_case()) {
     case user_data_auth::AuthInput::kPasswordInput:
@@ -70,6 +121,26 @@ std::optional<AuthInput> CreateAuthInput(
           auth_input_proto.cryptohome_recovery_input(),
           cryptohome_recovery_ephemeral_pub_key);
       break;
+    case user_data_auth::AuthInput::kKioskInput:
+      auth_input = FromKioskAuthInput(platform, auth_input_proto.kiosk_input(),
+                                      username);
+      break;
+    case user_data_auth::AuthInput::kSmartCardInput: {
+      // Check for auth_factor_metadata and add the public_key_spki_der to
+      // AuthInput from the auth_factor_metadata
+      const auto* smart_card_metadata =
+          std::get_if<SmartCardAuthFactorMetadata>(
+              &auth_factor_metadata.metadata);
+      std::optional<brillo::Blob> public_key_spki_der;
+      if (smart_card_metadata) {
+        public_key_spki_der = smart_card_metadata->public_key_spki_der;
+      } else {
+        public_key_spki_der = std::nullopt;
+      }
+      auth_input = FromSmartCardAuthInput(auth_input_proto.smart_card_input(),
+                                          public_key_spki_der);
+      break;
+    }
     case user_data_auth::AuthInput::INPUT_NOT_SET:
       break;
   }

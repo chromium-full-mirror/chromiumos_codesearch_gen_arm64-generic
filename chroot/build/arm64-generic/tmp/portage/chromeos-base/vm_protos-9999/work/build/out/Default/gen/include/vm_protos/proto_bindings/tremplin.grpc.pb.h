@@ -15,20 +15,20 @@
 #include <grpcpp/impl/codegen/async_generic_service.h>
 #include <grpcpp/impl/codegen/async_stream.h>
 #include <grpcpp/impl/codegen/async_unary_call.h>
-#include <grpcpp/impl/codegen/method_handler_impl.h>
+#include <grpcpp/impl/codegen/client_callback.h>
+#include <grpcpp/impl/codegen/client_context.h>
+#include <grpcpp/impl/codegen/completion_queue.h>
+#include <grpcpp/impl/codegen/message_allocator.h>
+#include <grpcpp/impl/codegen/method_handler.h>
 #include <grpcpp/impl/codegen/proto_utils.h>
 #include <grpcpp/impl/codegen/rpc_method.h>
+#include <grpcpp/impl/codegen/server_callback.h>
+#include <grpcpp/impl/codegen/server_callback_handlers.h>
+#include <grpcpp/impl/codegen/server_context.h>
 #include <grpcpp/impl/codegen/service_type.h>
 #include <grpcpp/impl/codegen/status.h>
 #include <grpcpp/impl/codegen/stub_options.h>
 #include <grpcpp/impl/codegen/sync_stream.h>
-
-namespace grpc {
-class CompletionQueue;
-class Channel;
-class ServerCompletionQueue;
-class ServerContext;
-}  // namespace grpc
 
 namespace vm_tools {
 namespace tremplin {
@@ -161,29 +161,75 @@ class Tremplin final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::tremplin::GetDebugInfoResponse>> PrepareAsyncGetDebugInfo(::grpc::ClientContext* context, const ::vm_tools::tremplin::GetDebugInfoRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::tremplin::GetDebugInfoResponse>>(PrepareAsyncGetDebugInfoRaw(context, request, cq));
     }
-    class experimental_async_interface {
+    virtual ::grpc::Status AttachUsbToContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::AttachUsbToContainerRequest& request, ::vm_tools::tremplin::AttachUsbToContainerResponse* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::tremplin::AttachUsbToContainerResponse>> AsyncAttachUsbToContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::AttachUsbToContainerRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::tremplin::AttachUsbToContainerResponse>>(AsyncAttachUsbToContainerRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::tremplin::AttachUsbToContainerResponse>> PrepareAsyncAttachUsbToContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::AttachUsbToContainerRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::tremplin::AttachUsbToContainerResponse>>(PrepareAsyncAttachUsbToContainerRaw(context, request, cq));
+    }
+    virtual ::grpc::Status DetachUsbFromContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::DetachUsbFromContainerRequest& request, ::vm_tools::tremplin::DetachUsbFromContainerResponse* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::tremplin::DetachUsbFromContainerResponse>> AsyncDetachUsbFromContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::DetachUsbFromContainerRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::tremplin::DetachUsbFromContainerResponse>>(AsyncDetachUsbFromContainerRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::tremplin::DetachUsbFromContainerResponse>> PrepareAsyncDetachUsbFromContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::DetachUsbFromContainerRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::tremplin::DetachUsbFromContainerResponse>>(PrepareAsyncDetachUsbFromContainerRaw(context, request, cq));
+    }
+    virtual ::grpc::Status UpdateContainerDevices(::grpc::ClientContext* context, const ::vm_tools::tremplin::UpdateContainerDevicesRequest& request, ::vm_tools::tremplin::UpdateContainerDevicesResponse* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::tremplin::UpdateContainerDevicesResponse>> AsyncUpdateContainerDevices(::grpc::ClientContext* context, const ::vm_tools::tremplin::UpdateContainerDevicesRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::tremplin::UpdateContainerDevicesResponse>>(AsyncUpdateContainerDevicesRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::tremplin::UpdateContainerDevicesResponse>> PrepareAsyncUpdateContainerDevices(::grpc::ClientContext* context, const ::vm_tools::tremplin::UpdateContainerDevicesRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::tremplin::UpdateContainerDevicesResponse>>(PrepareAsyncUpdateContainerDevicesRaw(context, request, cq));
+    }
+    class async_interface {
      public:
-      virtual ~experimental_async_interface() {}
+      virtual ~async_interface() {}
       virtual void StartLxd(::grpc::ClientContext* context, const ::vm_tools::tremplin::StartLxdRequest* request, ::vm_tools::tremplin::StartLxdResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void StartLxd(::grpc::ClientContext* context, const ::vm_tools::tremplin::StartLxdRequest* request, ::vm_tools::tremplin::StartLxdResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       virtual void CreateContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::CreateContainerRequest* request, ::vm_tools::tremplin::CreateContainerResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void CreateContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::CreateContainerRequest* request, ::vm_tools::tremplin::CreateContainerResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       virtual void DeleteContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::DeleteContainerRequest* request, ::vm_tools::tremplin::DeleteContainerResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void DeleteContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::DeleteContainerRequest* request, ::vm_tools::tremplin::DeleteContainerResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       virtual void StartContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::StartContainerRequest* request, ::vm_tools::tremplin::StartContainerResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void StartContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::StartContainerRequest* request, ::vm_tools::tremplin::StartContainerResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       virtual void StopContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::StopContainerRequest* request, ::vm_tools::tremplin::StopContainerResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void StopContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::StopContainerRequest* request, ::vm_tools::tremplin::StopContainerResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       virtual void GetContainerUsername(::grpc::ClientContext* context, const ::vm_tools::tremplin::GetContainerUsernameRequest* request, ::vm_tools::tremplin::GetContainerUsernameResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void GetContainerUsername(::grpc::ClientContext* context, const ::vm_tools::tremplin::GetContainerUsernameRequest* request, ::vm_tools::tremplin::GetContainerUsernameResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       virtual void SetUpUser(::grpc::ClientContext* context, const ::vm_tools::tremplin::SetUpUserRequest* request, ::vm_tools::tremplin::SetUpUserResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void SetUpUser(::grpc::ClientContext* context, const ::vm_tools::tremplin::SetUpUserRequest* request, ::vm_tools::tremplin::SetUpUserResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       virtual void GetContainerInfo(::grpc::ClientContext* context, const ::vm_tools::tremplin::GetContainerInfoRequest* request, ::vm_tools::tremplin::GetContainerInfoResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void GetContainerInfo(::grpc::ClientContext* context, const ::vm_tools::tremplin::GetContainerInfoRequest* request, ::vm_tools::tremplin::GetContainerInfoResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       virtual void SetTimezone(::grpc::ClientContext* context, const ::vm_tools::tremplin::SetTimezoneRequest* request, ::vm_tools::tremplin::SetTimezoneResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void SetTimezone(::grpc::ClientContext* context, const ::vm_tools::tremplin::SetTimezoneRequest* request, ::vm_tools::tremplin::SetTimezoneResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       virtual void ExportContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::ExportContainerRequest* request, ::vm_tools::tremplin::ExportContainerResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void ExportContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::ExportContainerRequest* request, ::vm_tools::tremplin::ExportContainerResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       virtual void CancelExportContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::CancelExportContainerRequest* request, ::vm_tools::tremplin::CancelExportContainerResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void CancelExportContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::CancelExportContainerRequest* request, ::vm_tools::tremplin::CancelExportContainerResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       virtual void ImportContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::ImportContainerRequest* request, ::vm_tools::tremplin::ImportContainerResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void ImportContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::ImportContainerRequest* request, ::vm_tools::tremplin::ImportContainerResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       virtual void CancelImportContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::CancelImportContainerRequest* request, ::vm_tools::tremplin::CancelImportContainerResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void CancelImportContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::CancelImportContainerRequest* request, ::vm_tools::tremplin::CancelImportContainerResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       virtual void UpgradeContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::UpgradeContainerRequest* request, ::vm_tools::tremplin::UpgradeContainerResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void UpgradeContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::UpgradeContainerRequest* request, ::vm_tools::tremplin::UpgradeContainerResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       virtual void CancelUpgradeContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::CancelUpgradeContainerRequest* request, ::vm_tools::tremplin::CancelUpgradeContainerResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void CancelUpgradeContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::CancelUpgradeContainerRequest* request, ::vm_tools::tremplin::CancelUpgradeContainerResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       virtual void HostNetworkChanged(::grpc::ClientContext* context, const ::vm_tools::tremplin::HostNetworkChangedRequest* request, ::vm_tools::tremplin::HostNetworkChangedResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void HostNetworkChanged(::grpc::ClientContext* context, const ::vm_tools::tremplin::HostNetworkChangedRequest* request, ::vm_tools::tremplin::HostNetworkChangedResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       virtual void GetDebugInfo(::grpc::ClientContext* context, const ::vm_tools::tremplin::GetDebugInfoRequest* request, ::vm_tools::tremplin::GetDebugInfoResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void GetDebugInfo(::grpc::ClientContext* context, const ::vm_tools::tremplin::GetDebugInfoRequest* request, ::vm_tools::tremplin::GetDebugInfoResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      virtual void AttachUsbToContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::AttachUsbToContainerRequest* request, ::vm_tools::tremplin::AttachUsbToContainerResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void AttachUsbToContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::AttachUsbToContainerRequest* request, ::vm_tools::tremplin::AttachUsbToContainerResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      virtual void DetachUsbFromContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::DetachUsbFromContainerRequest* request, ::vm_tools::tremplin::DetachUsbFromContainerResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void DetachUsbFromContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::DetachUsbFromContainerRequest* request, ::vm_tools::tremplin::DetachUsbFromContainerResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      virtual void UpdateContainerDevices(::grpc::ClientContext* context, const ::vm_tools::tremplin::UpdateContainerDevicesRequest* request, ::vm_tools::tremplin::UpdateContainerDevicesResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void UpdateContainerDevices(::grpc::ClientContext* context, const ::vm_tools::tremplin::UpdateContainerDevicesRequest* request, ::vm_tools::tremplin::UpdateContainerDevicesResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
     };
-    virtual class experimental_async_interface* experimental_async() { return nullptr; }
-  private:
+    typedef class async_interface experimental_async_interface;
+    virtual class async_interface* async() { return nullptr; }
+    class async_interface* experimental_async() { return async(); }
+   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::tremplin::StartLxdResponse>* AsyncStartLxdRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::StartLxdRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::tremplin::StartLxdResponse>* PrepareAsyncStartLxdRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::StartLxdRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::tremplin::CreateContainerResponse>* AsyncCreateContainerRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::CreateContainerRequest& request, ::grpc::CompletionQueue* cq) = 0;
@@ -218,10 +264,16 @@ class Tremplin final {
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::tremplin::HostNetworkChangedResponse>* PrepareAsyncHostNetworkChangedRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::HostNetworkChangedRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::tremplin::GetDebugInfoResponse>* AsyncGetDebugInfoRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::GetDebugInfoRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::tremplin::GetDebugInfoResponse>* PrepareAsyncGetDebugInfoRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::GetDebugInfoRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::tremplin::AttachUsbToContainerResponse>* AsyncAttachUsbToContainerRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::AttachUsbToContainerRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::tremplin::AttachUsbToContainerResponse>* PrepareAsyncAttachUsbToContainerRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::AttachUsbToContainerRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::tremplin::DetachUsbFromContainerResponse>* AsyncDetachUsbFromContainerRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::DetachUsbFromContainerRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::tremplin::DetachUsbFromContainerResponse>* PrepareAsyncDetachUsbFromContainerRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::DetachUsbFromContainerRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::tremplin::UpdateContainerDevicesResponse>* AsyncUpdateContainerDevicesRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::UpdateContainerDevicesRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::tremplin::UpdateContainerDevicesResponse>* PrepareAsyncUpdateContainerDevicesRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::UpdateContainerDevicesRequest& request, ::grpc::CompletionQueue* cq) = 0;
   };
   class Stub final : public StubInterface {
    public:
-    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel);
+    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
     ::grpc::Status StartLxd(::grpc::ClientContext* context, const ::vm_tools::tremplin::StartLxdRequest& request, ::vm_tools::tremplin::StartLxdResponse* response) override;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::StartLxdResponse>> AsyncStartLxd(::grpc::ClientContext* context, const ::vm_tools::tremplin::StartLxdRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::StartLxdResponse>>(AsyncStartLxdRaw(context, request, cq));
@@ -341,37 +393,81 @@ class Tremplin final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::GetDebugInfoResponse>> PrepareAsyncGetDebugInfo(::grpc::ClientContext* context, const ::vm_tools::tremplin::GetDebugInfoRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::GetDebugInfoResponse>>(PrepareAsyncGetDebugInfoRaw(context, request, cq));
     }
-    class experimental_async final :
-      public StubInterface::experimental_async_interface {
+    ::grpc::Status AttachUsbToContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::AttachUsbToContainerRequest& request, ::vm_tools::tremplin::AttachUsbToContainerResponse* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::AttachUsbToContainerResponse>> AsyncAttachUsbToContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::AttachUsbToContainerRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::AttachUsbToContainerResponse>>(AsyncAttachUsbToContainerRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::AttachUsbToContainerResponse>> PrepareAsyncAttachUsbToContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::AttachUsbToContainerRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::AttachUsbToContainerResponse>>(PrepareAsyncAttachUsbToContainerRaw(context, request, cq));
+    }
+    ::grpc::Status DetachUsbFromContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::DetachUsbFromContainerRequest& request, ::vm_tools::tremplin::DetachUsbFromContainerResponse* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::DetachUsbFromContainerResponse>> AsyncDetachUsbFromContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::DetachUsbFromContainerRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::DetachUsbFromContainerResponse>>(AsyncDetachUsbFromContainerRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::DetachUsbFromContainerResponse>> PrepareAsyncDetachUsbFromContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::DetachUsbFromContainerRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::DetachUsbFromContainerResponse>>(PrepareAsyncDetachUsbFromContainerRaw(context, request, cq));
+    }
+    ::grpc::Status UpdateContainerDevices(::grpc::ClientContext* context, const ::vm_tools::tremplin::UpdateContainerDevicesRequest& request, ::vm_tools::tremplin::UpdateContainerDevicesResponse* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::UpdateContainerDevicesResponse>> AsyncUpdateContainerDevices(::grpc::ClientContext* context, const ::vm_tools::tremplin::UpdateContainerDevicesRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::UpdateContainerDevicesResponse>>(AsyncUpdateContainerDevicesRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::UpdateContainerDevicesResponse>> PrepareAsyncUpdateContainerDevices(::grpc::ClientContext* context, const ::vm_tools::tremplin::UpdateContainerDevicesRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::UpdateContainerDevicesResponse>>(PrepareAsyncUpdateContainerDevicesRaw(context, request, cq));
+    }
+    class async final :
+      public StubInterface::async_interface {
      public:
       void StartLxd(::grpc::ClientContext* context, const ::vm_tools::tremplin::StartLxdRequest* request, ::vm_tools::tremplin::StartLxdResponse* response, std::function<void(::grpc::Status)>) override;
+      void StartLxd(::grpc::ClientContext* context, const ::vm_tools::tremplin::StartLxdRequest* request, ::vm_tools::tremplin::StartLxdResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void CreateContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::CreateContainerRequest* request, ::vm_tools::tremplin::CreateContainerResponse* response, std::function<void(::grpc::Status)>) override;
+      void CreateContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::CreateContainerRequest* request, ::vm_tools::tremplin::CreateContainerResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void DeleteContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::DeleteContainerRequest* request, ::vm_tools::tremplin::DeleteContainerResponse* response, std::function<void(::grpc::Status)>) override;
+      void DeleteContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::DeleteContainerRequest* request, ::vm_tools::tremplin::DeleteContainerResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void StartContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::StartContainerRequest* request, ::vm_tools::tremplin::StartContainerResponse* response, std::function<void(::grpc::Status)>) override;
+      void StartContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::StartContainerRequest* request, ::vm_tools::tremplin::StartContainerResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void StopContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::StopContainerRequest* request, ::vm_tools::tremplin::StopContainerResponse* response, std::function<void(::grpc::Status)>) override;
+      void StopContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::StopContainerRequest* request, ::vm_tools::tremplin::StopContainerResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void GetContainerUsername(::grpc::ClientContext* context, const ::vm_tools::tremplin::GetContainerUsernameRequest* request, ::vm_tools::tremplin::GetContainerUsernameResponse* response, std::function<void(::grpc::Status)>) override;
+      void GetContainerUsername(::grpc::ClientContext* context, const ::vm_tools::tremplin::GetContainerUsernameRequest* request, ::vm_tools::tremplin::GetContainerUsernameResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void SetUpUser(::grpc::ClientContext* context, const ::vm_tools::tremplin::SetUpUserRequest* request, ::vm_tools::tremplin::SetUpUserResponse* response, std::function<void(::grpc::Status)>) override;
+      void SetUpUser(::grpc::ClientContext* context, const ::vm_tools::tremplin::SetUpUserRequest* request, ::vm_tools::tremplin::SetUpUserResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void GetContainerInfo(::grpc::ClientContext* context, const ::vm_tools::tremplin::GetContainerInfoRequest* request, ::vm_tools::tremplin::GetContainerInfoResponse* response, std::function<void(::grpc::Status)>) override;
+      void GetContainerInfo(::grpc::ClientContext* context, const ::vm_tools::tremplin::GetContainerInfoRequest* request, ::vm_tools::tremplin::GetContainerInfoResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void SetTimezone(::grpc::ClientContext* context, const ::vm_tools::tremplin::SetTimezoneRequest* request, ::vm_tools::tremplin::SetTimezoneResponse* response, std::function<void(::grpc::Status)>) override;
+      void SetTimezone(::grpc::ClientContext* context, const ::vm_tools::tremplin::SetTimezoneRequest* request, ::vm_tools::tremplin::SetTimezoneResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void ExportContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::ExportContainerRequest* request, ::vm_tools::tremplin::ExportContainerResponse* response, std::function<void(::grpc::Status)>) override;
+      void ExportContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::ExportContainerRequest* request, ::vm_tools::tremplin::ExportContainerResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void CancelExportContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::CancelExportContainerRequest* request, ::vm_tools::tremplin::CancelExportContainerResponse* response, std::function<void(::grpc::Status)>) override;
+      void CancelExportContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::CancelExportContainerRequest* request, ::vm_tools::tremplin::CancelExportContainerResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void ImportContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::ImportContainerRequest* request, ::vm_tools::tremplin::ImportContainerResponse* response, std::function<void(::grpc::Status)>) override;
+      void ImportContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::ImportContainerRequest* request, ::vm_tools::tremplin::ImportContainerResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void CancelImportContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::CancelImportContainerRequest* request, ::vm_tools::tremplin::CancelImportContainerResponse* response, std::function<void(::grpc::Status)>) override;
+      void CancelImportContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::CancelImportContainerRequest* request, ::vm_tools::tremplin::CancelImportContainerResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void UpgradeContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::UpgradeContainerRequest* request, ::vm_tools::tremplin::UpgradeContainerResponse* response, std::function<void(::grpc::Status)>) override;
+      void UpgradeContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::UpgradeContainerRequest* request, ::vm_tools::tremplin::UpgradeContainerResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void CancelUpgradeContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::CancelUpgradeContainerRequest* request, ::vm_tools::tremplin::CancelUpgradeContainerResponse* response, std::function<void(::grpc::Status)>) override;
+      void CancelUpgradeContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::CancelUpgradeContainerRequest* request, ::vm_tools::tremplin::CancelUpgradeContainerResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void HostNetworkChanged(::grpc::ClientContext* context, const ::vm_tools::tremplin::HostNetworkChangedRequest* request, ::vm_tools::tremplin::HostNetworkChangedResponse* response, std::function<void(::grpc::Status)>) override;
+      void HostNetworkChanged(::grpc::ClientContext* context, const ::vm_tools::tremplin::HostNetworkChangedRequest* request, ::vm_tools::tremplin::HostNetworkChangedResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
       void GetDebugInfo(::grpc::ClientContext* context, const ::vm_tools::tremplin::GetDebugInfoRequest* request, ::vm_tools::tremplin::GetDebugInfoResponse* response, std::function<void(::grpc::Status)>) override;
+      void GetDebugInfo(::grpc::ClientContext* context, const ::vm_tools::tremplin::GetDebugInfoRequest* request, ::vm_tools::tremplin::GetDebugInfoResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void AttachUsbToContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::AttachUsbToContainerRequest* request, ::vm_tools::tremplin::AttachUsbToContainerResponse* response, std::function<void(::grpc::Status)>) override;
+      void AttachUsbToContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::AttachUsbToContainerRequest* request, ::vm_tools::tremplin::AttachUsbToContainerResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void DetachUsbFromContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::DetachUsbFromContainerRequest* request, ::vm_tools::tremplin::DetachUsbFromContainerResponse* response, std::function<void(::grpc::Status)>) override;
+      void DetachUsbFromContainer(::grpc::ClientContext* context, const ::vm_tools::tremplin::DetachUsbFromContainerRequest* request, ::vm_tools::tremplin::DetachUsbFromContainerResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void UpdateContainerDevices(::grpc::ClientContext* context, const ::vm_tools::tremplin::UpdateContainerDevicesRequest* request, ::vm_tools::tremplin::UpdateContainerDevicesResponse* response, std::function<void(::grpc::Status)>) override;
+      void UpdateContainerDevices(::grpc::ClientContext* context, const ::vm_tools::tremplin::UpdateContainerDevicesRequest* request, ::vm_tools::tremplin::UpdateContainerDevicesResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
      private:
       friend class Stub;
-      explicit experimental_async(Stub* stub): stub_(stub) { }
+      explicit async(Stub* stub): stub_(stub) { }
       Stub* stub() { return stub_; }
       Stub* stub_;
     };
-    class experimental_async_interface* experimental_async() override { return &async_stub_; }
+    class async* async() override { return &async_stub_; }
 
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
-    class experimental_async async_stub_{this};
+    class async async_stub_{this};
     ::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::StartLxdResponse>* AsyncStartLxdRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::StartLxdRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::StartLxdResponse>* PrepareAsyncStartLxdRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::StartLxdRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::CreateContainerResponse>* AsyncCreateContainerRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::CreateContainerRequest& request, ::grpc::CompletionQueue* cq) override;
@@ -406,6 +502,12 @@ class Tremplin final {
     ::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::HostNetworkChangedResponse>* PrepareAsyncHostNetworkChangedRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::HostNetworkChangedRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::GetDebugInfoResponse>* AsyncGetDebugInfoRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::GetDebugInfoRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::GetDebugInfoResponse>* PrepareAsyncGetDebugInfoRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::GetDebugInfoRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::AttachUsbToContainerResponse>* AsyncAttachUsbToContainerRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::AttachUsbToContainerRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::AttachUsbToContainerResponse>* PrepareAsyncAttachUsbToContainerRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::AttachUsbToContainerRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::DetachUsbFromContainerResponse>* AsyncDetachUsbFromContainerRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::DetachUsbFromContainerRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::DetachUsbFromContainerResponse>* PrepareAsyncDetachUsbFromContainerRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::DetachUsbFromContainerRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::UpdateContainerDevicesResponse>* AsyncUpdateContainerDevicesRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::UpdateContainerDevicesRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::UpdateContainerDevicesResponse>* PrepareAsyncUpdateContainerDevicesRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::UpdateContainerDevicesRequest& request, ::grpc::CompletionQueue* cq) override;
     const ::grpc::internal::RpcMethod rpcmethod_StartLxd_;
     const ::grpc::internal::RpcMethod rpcmethod_CreateContainer_;
     const ::grpc::internal::RpcMethod rpcmethod_DeleteContainer_;
@@ -423,6 +525,9 @@ class Tremplin final {
     const ::grpc::internal::RpcMethod rpcmethod_CancelUpgradeContainer_;
     const ::grpc::internal::RpcMethod rpcmethod_HostNetworkChanged_;
     const ::grpc::internal::RpcMethod rpcmethod_GetDebugInfo_;
+    const ::grpc::internal::RpcMethod rpcmethod_AttachUsbToContainer_;
+    const ::grpc::internal::RpcMethod rpcmethod_DetachUsbFromContainer_;
+    const ::grpc::internal::RpcMethod rpcmethod_UpdateContainerDevices_;
   };
   static std::unique_ptr<Stub> NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
 
@@ -447,11 +552,14 @@ class Tremplin final {
     virtual ::grpc::Status CancelUpgradeContainer(::grpc::ServerContext* context, const ::vm_tools::tremplin::CancelUpgradeContainerRequest* request, ::vm_tools::tremplin::CancelUpgradeContainerResponse* response);
     virtual ::grpc::Status HostNetworkChanged(::grpc::ServerContext* context, const ::vm_tools::tremplin::HostNetworkChangedRequest* request, ::vm_tools::tremplin::HostNetworkChangedResponse* response);
     virtual ::grpc::Status GetDebugInfo(::grpc::ServerContext* context, const ::vm_tools::tremplin::GetDebugInfoRequest* request, ::vm_tools::tremplin::GetDebugInfoResponse* response);
+    virtual ::grpc::Status AttachUsbToContainer(::grpc::ServerContext* context, const ::vm_tools::tremplin::AttachUsbToContainerRequest* request, ::vm_tools::tremplin::AttachUsbToContainerResponse* response);
+    virtual ::grpc::Status DetachUsbFromContainer(::grpc::ServerContext* context, const ::vm_tools::tremplin::DetachUsbFromContainerRequest* request, ::vm_tools::tremplin::DetachUsbFromContainerResponse* response);
+    virtual ::grpc::Status UpdateContainerDevices(::grpc::ServerContext* context, const ::vm_tools::tremplin::UpdateContainerDevicesRequest* request, ::vm_tools::tremplin::UpdateContainerDevicesResponse* response);
   };
   template <class BaseClass>
   class WithAsyncMethod_StartLxd : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_StartLxd() {
       ::grpc::Service::MarkMethodAsync(0);
@@ -460,7 +568,7 @@ class Tremplin final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status StartLxd(::grpc::ServerContext* context, const ::vm_tools::tremplin::StartLxdRequest* request, ::vm_tools::tremplin::StartLxdResponse* response) override {
+    ::grpc::Status StartLxd(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::StartLxdRequest* /*request*/, ::vm_tools::tremplin::StartLxdResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -471,7 +579,7 @@ class Tremplin final {
   template <class BaseClass>
   class WithAsyncMethod_CreateContainer : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_CreateContainer() {
       ::grpc::Service::MarkMethodAsync(1);
@@ -480,7 +588,7 @@ class Tremplin final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status CreateContainer(::grpc::ServerContext* context, const ::vm_tools::tremplin::CreateContainerRequest* request, ::vm_tools::tremplin::CreateContainerResponse* response) override {
+    ::grpc::Status CreateContainer(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::CreateContainerRequest* /*request*/, ::vm_tools::tremplin::CreateContainerResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -491,7 +599,7 @@ class Tremplin final {
   template <class BaseClass>
   class WithAsyncMethod_DeleteContainer : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_DeleteContainer() {
       ::grpc::Service::MarkMethodAsync(2);
@@ -500,7 +608,7 @@ class Tremplin final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status DeleteContainer(::grpc::ServerContext* context, const ::vm_tools::tremplin::DeleteContainerRequest* request, ::vm_tools::tremplin::DeleteContainerResponse* response) override {
+    ::grpc::Status DeleteContainer(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::DeleteContainerRequest* /*request*/, ::vm_tools::tremplin::DeleteContainerResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -511,7 +619,7 @@ class Tremplin final {
   template <class BaseClass>
   class WithAsyncMethod_StartContainer : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_StartContainer() {
       ::grpc::Service::MarkMethodAsync(3);
@@ -520,7 +628,7 @@ class Tremplin final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status StartContainer(::grpc::ServerContext* context, const ::vm_tools::tremplin::StartContainerRequest* request, ::vm_tools::tremplin::StartContainerResponse* response) override {
+    ::grpc::Status StartContainer(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::StartContainerRequest* /*request*/, ::vm_tools::tremplin::StartContainerResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -531,7 +639,7 @@ class Tremplin final {
   template <class BaseClass>
   class WithAsyncMethod_StopContainer : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_StopContainer() {
       ::grpc::Service::MarkMethodAsync(4);
@@ -540,7 +648,7 @@ class Tremplin final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status StopContainer(::grpc::ServerContext* context, const ::vm_tools::tremplin::StopContainerRequest* request, ::vm_tools::tremplin::StopContainerResponse* response) override {
+    ::grpc::Status StopContainer(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::StopContainerRequest* /*request*/, ::vm_tools::tremplin::StopContainerResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -551,7 +659,7 @@ class Tremplin final {
   template <class BaseClass>
   class WithAsyncMethod_GetContainerUsername : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_GetContainerUsername() {
       ::grpc::Service::MarkMethodAsync(5);
@@ -560,7 +668,7 @@ class Tremplin final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetContainerUsername(::grpc::ServerContext* context, const ::vm_tools::tremplin::GetContainerUsernameRequest* request, ::vm_tools::tremplin::GetContainerUsernameResponse* response) override {
+    ::grpc::Status GetContainerUsername(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::GetContainerUsernameRequest* /*request*/, ::vm_tools::tremplin::GetContainerUsernameResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -571,7 +679,7 @@ class Tremplin final {
   template <class BaseClass>
   class WithAsyncMethod_SetUpUser : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_SetUpUser() {
       ::grpc::Service::MarkMethodAsync(6);
@@ -580,7 +688,7 @@ class Tremplin final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status SetUpUser(::grpc::ServerContext* context, const ::vm_tools::tremplin::SetUpUserRequest* request, ::vm_tools::tremplin::SetUpUserResponse* response) override {
+    ::grpc::Status SetUpUser(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::SetUpUserRequest* /*request*/, ::vm_tools::tremplin::SetUpUserResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -591,7 +699,7 @@ class Tremplin final {
   template <class BaseClass>
   class WithAsyncMethod_GetContainerInfo : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_GetContainerInfo() {
       ::grpc::Service::MarkMethodAsync(7);
@@ -600,7 +708,7 @@ class Tremplin final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetContainerInfo(::grpc::ServerContext* context, const ::vm_tools::tremplin::GetContainerInfoRequest* request, ::vm_tools::tremplin::GetContainerInfoResponse* response) override {
+    ::grpc::Status GetContainerInfo(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::GetContainerInfoRequest* /*request*/, ::vm_tools::tremplin::GetContainerInfoResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -611,7 +719,7 @@ class Tremplin final {
   template <class BaseClass>
   class WithAsyncMethod_SetTimezone : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_SetTimezone() {
       ::grpc::Service::MarkMethodAsync(8);
@@ -620,7 +728,7 @@ class Tremplin final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status SetTimezone(::grpc::ServerContext* context, const ::vm_tools::tremplin::SetTimezoneRequest* request, ::vm_tools::tremplin::SetTimezoneResponse* response) override {
+    ::grpc::Status SetTimezone(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::SetTimezoneRequest* /*request*/, ::vm_tools::tremplin::SetTimezoneResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -631,7 +739,7 @@ class Tremplin final {
   template <class BaseClass>
   class WithAsyncMethod_ExportContainer : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_ExportContainer() {
       ::grpc::Service::MarkMethodAsync(9);
@@ -640,7 +748,7 @@ class Tremplin final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status ExportContainer(::grpc::ServerContext* context, const ::vm_tools::tremplin::ExportContainerRequest* request, ::vm_tools::tremplin::ExportContainerResponse* response) override {
+    ::grpc::Status ExportContainer(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::ExportContainerRequest* /*request*/, ::vm_tools::tremplin::ExportContainerResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -651,7 +759,7 @@ class Tremplin final {
   template <class BaseClass>
   class WithAsyncMethod_CancelExportContainer : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_CancelExportContainer() {
       ::grpc::Service::MarkMethodAsync(10);
@@ -660,7 +768,7 @@ class Tremplin final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status CancelExportContainer(::grpc::ServerContext* context, const ::vm_tools::tremplin::CancelExportContainerRequest* request, ::vm_tools::tremplin::CancelExportContainerResponse* response) override {
+    ::grpc::Status CancelExportContainer(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::CancelExportContainerRequest* /*request*/, ::vm_tools::tremplin::CancelExportContainerResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -671,7 +779,7 @@ class Tremplin final {
   template <class BaseClass>
   class WithAsyncMethod_ImportContainer : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_ImportContainer() {
       ::grpc::Service::MarkMethodAsync(11);
@@ -680,7 +788,7 @@ class Tremplin final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status ImportContainer(::grpc::ServerContext* context, const ::vm_tools::tremplin::ImportContainerRequest* request, ::vm_tools::tremplin::ImportContainerResponse* response) override {
+    ::grpc::Status ImportContainer(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::ImportContainerRequest* /*request*/, ::vm_tools::tremplin::ImportContainerResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -691,7 +799,7 @@ class Tremplin final {
   template <class BaseClass>
   class WithAsyncMethod_CancelImportContainer : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_CancelImportContainer() {
       ::grpc::Service::MarkMethodAsync(12);
@@ -700,7 +808,7 @@ class Tremplin final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status CancelImportContainer(::grpc::ServerContext* context, const ::vm_tools::tremplin::CancelImportContainerRequest* request, ::vm_tools::tremplin::CancelImportContainerResponse* response) override {
+    ::grpc::Status CancelImportContainer(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::CancelImportContainerRequest* /*request*/, ::vm_tools::tremplin::CancelImportContainerResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -711,7 +819,7 @@ class Tremplin final {
   template <class BaseClass>
   class WithAsyncMethod_UpgradeContainer : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_UpgradeContainer() {
       ::grpc::Service::MarkMethodAsync(13);
@@ -720,7 +828,7 @@ class Tremplin final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status UpgradeContainer(::grpc::ServerContext* context, const ::vm_tools::tremplin::UpgradeContainerRequest* request, ::vm_tools::tremplin::UpgradeContainerResponse* response) override {
+    ::grpc::Status UpgradeContainer(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::UpgradeContainerRequest* /*request*/, ::vm_tools::tremplin::UpgradeContainerResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -731,7 +839,7 @@ class Tremplin final {
   template <class BaseClass>
   class WithAsyncMethod_CancelUpgradeContainer : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_CancelUpgradeContainer() {
       ::grpc::Service::MarkMethodAsync(14);
@@ -740,7 +848,7 @@ class Tremplin final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status CancelUpgradeContainer(::grpc::ServerContext* context, const ::vm_tools::tremplin::CancelUpgradeContainerRequest* request, ::vm_tools::tremplin::CancelUpgradeContainerResponse* response) override {
+    ::grpc::Status CancelUpgradeContainer(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::CancelUpgradeContainerRequest* /*request*/, ::vm_tools::tremplin::CancelUpgradeContainerResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -751,7 +859,7 @@ class Tremplin final {
   template <class BaseClass>
   class WithAsyncMethod_HostNetworkChanged : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_HostNetworkChanged() {
       ::grpc::Service::MarkMethodAsync(15);
@@ -760,7 +868,7 @@ class Tremplin final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status HostNetworkChanged(::grpc::ServerContext* context, const ::vm_tools::tremplin::HostNetworkChangedRequest* request, ::vm_tools::tremplin::HostNetworkChangedResponse* response) override {
+    ::grpc::Status HostNetworkChanged(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::HostNetworkChangedRequest* /*request*/, ::vm_tools::tremplin::HostNetworkChangedResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -771,7 +879,7 @@ class Tremplin final {
   template <class BaseClass>
   class WithAsyncMethod_GetDebugInfo : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_GetDebugInfo() {
       ::grpc::Service::MarkMethodAsync(16);
@@ -780,7 +888,7 @@ class Tremplin final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetDebugInfo(::grpc::ServerContext* context, const ::vm_tools::tremplin::GetDebugInfoRequest* request, ::vm_tools::tremplin::GetDebugInfoResponse* response) override {
+    ::grpc::Status GetDebugInfo(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::GetDebugInfoRequest* /*request*/, ::vm_tools::tremplin::GetDebugInfoResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -788,11 +896,613 @@ class Tremplin final {
       ::grpc::Service::RequestAsyncUnary(16, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
-  typedef WithAsyncMethod_StartLxd<WithAsyncMethod_CreateContainer<WithAsyncMethod_DeleteContainer<WithAsyncMethod_StartContainer<WithAsyncMethod_StopContainer<WithAsyncMethod_GetContainerUsername<WithAsyncMethod_SetUpUser<WithAsyncMethod_GetContainerInfo<WithAsyncMethod_SetTimezone<WithAsyncMethod_ExportContainer<WithAsyncMethod_CancelExportContainer<WithAsyncMethod_ImportContainer<WithAsyncMethod_CancelImportContainer<WithAsyncMethod_UpgradeContainer<WithAsyncMethod_CancelUpgradeContainer<WithAsyncMethod_HostNetworkChanged<WithAsyncMethod_GetDebugInfo<Service > > > > > > > > > > > > > > > > > AsyncService;
+  template <class BaseClass>
+  class WithAsyncMethod_AttachUsbToContainer : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_AttachUsbToContainer() {
+      ::grpc::Service::MarkMethodAsync(17);
+    }
+    ~WithAsyncMethod_AttachUsbToContainer() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status AttachUsbToContainer(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::AttachUsbToContainerRequest* /*request*/, ::vm_tools::tremplin::AttachUsbToContainerResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestAttachUsbToContainer(::grpc::ServerContext* context, ::vm_tools::tremplin::AttachUsbToContainerRequest* request, ::grpc::ServerAsyncResponseWriter< ::vm_tools::tremplin::AttachUsbToContainerResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(17, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_DetachUsbFromContainer : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_DetachUsbFromContainer() {
+      ::grpc::Service::MarkMethodAsync(18);
+    }
+    ~WithAsyncMethod_DetachUsbFromContainer() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status DetachUsbFromContainer(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::DetachUsbFromContainerRequest* /*request*/, ::vm_tools::tremplin::DetachUsbFromContainerResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestDetachUsbFromContainer(::grpc::ServerContext* context, ::vm_tools::tremplin::DetachUsbFromContainerRequest* request, ::grpc::ServerAsyncResponseWriter< ::vm_tools::tremplin::DetachUsbFromContainerResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(18, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_UpdateContainerDevices : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_UpdateContainerDevices() {
+      ::grpc::Service::MarkMethodAsync(19);
+    }
+    ~WithAsyncMethod_UpdateContainerDevices() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UpdateContainerDevices(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::UpdateContainerDevicesRequest* /*request*/, ::vm_tools::tremplin::UpdateContainerDevicesResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestUpdateContainerDevices(::grpc::ServerContext* context, ::vm_tools::tremplin::UpdateContainerDevicesRequest* request, ::grpc::ServerAsyncResponseWriter< ::vm_tools::tremplin::UpdateContainerDevicesResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(19, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  typedef WithAsyncMethod_StartLxd<WithAsyncMethod_CreateContainer<WithAsyncMethod_DeleteContainer<WithAsyncMethod_StartContainer<WithAsyncMethod_StopContainer<WithAsyncMethod_GetContainerUsername<WithAsyncMethod_SetUpUser<WithAsyncMethod_GetContainerInfo<WithAsyncMethod_SetTimezone<WithAsyncMethod_ExportContainer<WithAsyncMethod_CancelExportContainer<WithAsyncMethod_ImportContainer<WithAsyncMethod_CancelImportContainer<WithAsyncMethod_UpgradeContainer<WithAsyncMethod_CancelUpgradeContainer<WithAsyncMethod_HostNetworkChanged<WithAsyncMethod_GetDebugInfo<WithAsyncMethod_AttachUsbToContainer<WithAsyncMethod_DetachUsbFromContainer<WithAsyncMethod_UpdateContainerDevices<Service > > > > > > > > > > > > > > > > > > > > AsyncService;
+  template <class BaseClass>
+  class WithCallbackMethod_StartLxd : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_StartLxd() {
+      ::grpc::Service::MarkMethodCallback(0,
+          new ::grpc::internal::CallbackUnaryHandler< ::vm_tools::tremplin::StartLxdRequest, ::vm_tools::tremplin::StartLxdResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::vm_tools::tremplin::StartLxdRequest* request, ::vm_tools::tremplin::StartLxdResponse* response) { return this->StartLxd(context, request, response); }));}
+    void SetMessageAllocatorFor_StartLxd(
+        ::grpc::MessageAllocator< ::vm_tools::tremplin::StartLxdRequest, ::vm_tools::tremplin::StartLxdResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(0);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::vm_tools::tremplin::StartLxdRequest, ::vm_tools::tremplin::StartLxdResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_StartLxd() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status StartLxd(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::StartLxdRequest* /*request*/, ::vm_tools::tremplin::StartLxdResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* StartLxd(
+      ::grpc::CallbackServerContext* /*context*/, const ::vm_tools::tremplin::StartLxdRequest* /*request*/, ::vm_tools::tremplin::StartLxdResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_CreateContainer : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_CreateContainer() {
+      ::grpc::Service::MarkMethodCallback(1,
+          new ::grpc::internal::CallbackUnaryHandler< ::vm_tools::tremplin::CreateContainerRequest, ::vm_tools::tremplin::CreateContainerResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::vm_tools::tremplin::CreateContainerRequest* request, ::vm_tools::tremplin::CreateContainerResponse* response) { return this->CreateContainer(context, request, response); }));}
+    void SetMessageAllocatorFor_CreateContainer(
+        ::grpc::MessageAllocator< ::vm_tools::tremplin::CreateContainerRequest, ::vm_tools::tremplin::CreateContainerResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(1);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::vm_tools::tremplin::CreateContainerRequest, ::vm_tools::tremplin::CreateContainerResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_CreateContainer() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CreateContainer(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::CreateContainerRequest* /*request*/, ::vm_tools::tremplin::CreateContainerResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* CreateContainer(
+      ::grpc::CallbackServerContext* /*context*/, const ::vm_tools::tremplin::CreateContainerRequest* /*request*/, ::vm_tools::tremplin::CreateContainerResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_DeleteContainer : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_DeleteContainer() {
+      ::grpc::Service::MarkMethodCallback(2,
+          new ::grpc::internal::CallbackUnaryHandler< ::vm_tools::tremplin::DeleteContainerRequest, ::vm_tools::tremplin::DeleteContainerResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::vm_tools::tremplin::DeleteContainerRequest* request, ::vm_tools::tremplin::DeleteContainerResponse* response) { return this->DeleteContainer(context, request, response); }));}
+    void SetMessageAllocatorFor_DeleteContainer(
+        ::grpc::MessageAllocator< ::vm_tools::tremplin::DeleteContainerRequest, ::vm_tools::tremplin::DeleteContainerResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(2);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::vm_tools::tremplin::DeleteContainerRequest, ::vm_tools::tremplin::DeleteContainerResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_DeleteContainer() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status DeleteContainer(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::DeleteContainerRequest* /*request*/, ::vm_tools::tremplin::DeleteContainerResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* DeleteContainer(
+      ::grpc::CallbackServerContext* /*context*/, const ::vm_tools::tremplin::DeleteContainerRequest* /*request*/, ::vm_tools::tremplin::DeleteContainerResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_StartContainer : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_StartContainer() {
+      ::grpc::Service::MarkMethodCallback(3,
+          new ::grpc::internal::CallbackUnaryHandler< ::vm_tools::tremplin::StartContainerRequest, ::vm_tools::tremplin::StartContainerResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::vm_tools::tremplin::StartContainerRequest* request, ::vm_tools::tremplin::StartContainerResponse* response) { return this->StartContainer(context, request, response); }));}
+    void SetMessageAllocatorFor_StartContainer(
+        ::grpc::MessageAllocator< ::vm_tools::tremplin::StartContainerRequest, ::vm_tools::tremplin::StartContainerResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(3);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::vm_tools::tremplin::StartContainerRequest, ::vm_tools::tremplin::StartContainerResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_StartContainer() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status StartContainer(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::StartContainerRequest* /*request*/, ::vm_tools::tremplin::StartContainerResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* StartContainer(
+      ::grpc::CallbackServerContext* /*context*/, const ::vm_tools::tremplin::StartContainerRequest* /*request*/, ::vm_tools::tremplin::StartContainerResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_StopContainer : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_StopContainer() {
+      ::grpc::Service::MarkMethodCallback(4,
+          new ::grpc::internal::CallbackUnaryHandler< ::vm_tools::tremplin::StopContainerRequest, ::vm_tools::tremplin::StopContainerResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::vm_tools::tremplin::StopContainerRequest* request, ::vm_tools::tremplin::StopContainerResponse* response) { return this->StopContainer(context, request, response); }));}
+    void SetMessageAllocatorFor_StopContainer(
+        ::grpc::MessageAllocator< ::vm_tools::tremplin::StopContainerRequest, ::vm_tools::tremplin::StopContainerResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(4);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::vm_tools::tremplin::StopContainerRequest, ::vm_tools::tremplin::StopContainerResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_StopContainer() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status StopContainer(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::StopContainerRequest* /*request*/, ::vm_tools::tremplin::StopContainerResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* StopContainer(
+      ::grpc::CallbackServerContext* /*context*/, const ::vm_tools::tremplin::StopContainerRequest* /*request*/, ::vm_tools::tremplin::StopContainerResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_GetContainerUsername : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_GetContainerUsername() {
+      ::grpc::Service::MarkMethodCallback(5,
+          new ::grpc::internal::CallbackUnaryHandler< ::vm_tools::tremplin::GetContainerUsernameRequest, ::vm_tools::tremplin::GetContainerUsernameResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::vm_tools::tremplin::GetContainerUsernameRequest* request, ::vm_tools::tremplin::GetContainerUsernameResponse* response) { return this->GetContainerUsername(context, request, response); }));}
+    void SetMessageAllocatorFor_GetContainerUsername(
+        ::grpc::MessageAllocator< ::vm_tools::tremplin::GetContainerUsernameRequest, ::vm_tools::tremplin::GetContainerUsernameResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(5);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::vm_tools::tremplin::GetContainerUsernameRequest, ::vm_tools::tremplin::GetContainerUsernameResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_GetContainerUsername() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetContainerUsername(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::GetContainerUsernameRequest* /*request*/, ::vm_tools::tremplin::GetContainerUsernameResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetContainerUsername(
+      ::grpc::CallbackServerContext* /*context*/, const ::vm_tools::tremplin::GetContainerUsernameRequest* /*request*/, ::vm_tools::tremplin::GetContainerUsernameResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_SetUpUser : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_SetUpUser() {
+      ::grpc::Service::MarkMethodCallback(6,
+          new ::grpc::internal::CallbackUnaryHandler< ::vm_tools::tremplin::SetUpUserRequest, ::vm_tools::tremplin::SetUpUserResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::vm_tools::tremplin::SetUpUserRequest* request, ::vm_tools::tremplin::SetUpUserResponse* response) { return this->SetUpUser(context, request, response); }));}
+    void SetMessageAllocatorFor_SetUpUser(
+        ::grpc::MessageAllocator< ::vm_tools::tremplin::SetUpUserRequest, ::vm_tools::tremplin::SetUpUserResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(6);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::vm_tools::tremplin::SetUpUserRequest, ::vm_tools::tremplin::SetUpUserResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_SetUpUser() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status SetUpUser(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::SetUpUserRequest* /*request*/, ::vm_tools::tremplin::SetUpUserResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* SetUpUser(
+      ::grpc::CallbackServerContext* /*context*/, const ::vm_tools::tremplin::SetUpUserRequest* /*request*/, ::vm_tools::tremplin::SetUpUserResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_GetContainerInfo : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_GetContainerInfo() {
+      ::grpc::Service::MarkMethodCallback(7,
+          new ::grpc::internal::CallbackUnaryHandler< ::vm_tools::tremplin::GetContainerInfoRequest, ::vm_tools::tremplin::GetContainerInfoResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::vm_tools::tremplin::GetContainerInfoRequest* request, ::vm_tools::tremplin::GetContainerInfoResponse* response) { return this->GetContainerInfo(context, request, response); }));}
+    void SetMessageAllocatorFor_GetContainerInfo(
+        ::grpc::MessageAllocator< ::vm_tools::tremplin::GetContainerInfoRequest, ::vm_tools::tremplin::GetContainerInfoResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(7);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::vm_tools::tremplin::GetContainerInfoRequest, ::vm_tools::tremplin::GetContainerInfoResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_GetContainerInfo() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetContainerInfo(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::GetContainerInfoRequest* /*request*/, ::vm_tools::tremplin::GetContainerInfoResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetContainerInfo(
+      ::grpc::CallbackServerContext* /*context*/, const ::vm_tools::tremplin::GetContainerInfoRequest* /*request*/, ::vm_tools::tremplin::GetContainerInfoResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_SetTimezone : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_SetTimezone() {
+      ::grpc::Service::MarkMethodCallback(8,
+          new ::grpc::internal::CallbackUnaryHandler< ::vm_tools::tremplin::SetTimezoneRequest, ::vm_tools::tremplin::SetTimezoneResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::vm_tools::tremplin::SetTimezoneRequest* request, ::vm_tools::tremplin::SetTimezoneResponse* response) { return this->SetTimezone(context, request, response); }));}
+    void SetMessageAllocatorFor_SetTimezone(
+        ::grpc::MessageAllocator< ::vm_tools::tremplin::SetTimezoneRequest, ::vm_tools::tremplin::SetTimezoneResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(8);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::vm_tools::tremplin::SetTimezoneRequest, ::vm_tools::tremplin::SetTimezoneResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_SetTimezone() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status SetTimezone(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::SetTimezoneRequest* /*request*/, ::vm_tools::tremplin::SetTimezoneResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* SetTimezone(
+      ::grpc::CallbackServerContext* /*context*/, const ::vm_tools::tremplin::SetTimezoneRequest* /*request*/, ::vm_tools::tremplin::SetTimezoneResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_ExportContainer : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_ExportContainer() {
+      ::grpc::Service::MarkMethodCallback(9,
+          new ::grpc::internal::CallbackUnaryHandler< ::vm_tools::tremplin::ExportContainerRequest, ::vm_tools::tremplin::ExportContainerResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::vm_tools::tremplin::ExportContainerRequest* request, ::vm_tools::tremplin::ExportContainerResponse* response) { return this->ExportContainer(context, request, response); }));}
+    void SetMessageAllocatorFor_ExportContainer(
+        ::grpc::MessageAllocator< ::vm_tools::tremplin::ExportContainerRequest, ::vm_tools::tremplin::ExportContainerResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(9);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::vm_tools::tremplin::ExportContainerRequest, ::vm_tools::tremplin::ExportContainerResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_ExportContainer() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ExportContainer(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::ExportContainerRequest* /*request*/, ::vm_tools::tremplin::ExportContainerResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* ExportContainer(
+      ::grpc::CallbackServerContext* /*context*/, const ::vm_tools::tremplin::ExportContainerRequest* /*request*/, ::vm_tools::tremplin::ExportContainerResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_CancelExportContainer : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_CancelExportContainer() {
+      ::grpc::Service::MarkMethodCallback(10,
+          new ::grpc::internal::CallbackUnaryHandler< ::vm_tools::tremplin::CancelExportContainerRequest, ::vm_tools::tremplin::CancelExportContainerResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::vm_tools::tremplin::CancelExportContainerRequest* request, ::vm_tools::tremplin::CancelExportContainerResponse* response) { return this->CancelExportContainer(context, request, response); }));}
+    void SetMessageAllocatorFor_CancelExportContainer(
+        ::grpc::MessageAllocator< ::vm_tools::tremplin::CancelExportContainerRequest, ::vm_tools::tremplin::CancelExportContainerResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(10);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::vm_tools::tremplin::CancelExportContainerRequest, ::vm_tools::tremplin::CancelExportContainerResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_CancelExportContainer() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CancelExportContainer(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::CancelExportContainerRequest* /*request*/, ::vm_tools::tremplin::CancelExportContainerResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* CancelExportContainer(
+      ::grpc::CallbackServerContext* /*context*/, const ::vm_tools::tremplin::CancelExportContainerRequest* /*request*/, ::vm_tools::tremplin::CancelExportContainerResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_ImportContainer : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_ImportContainer() {
+      ::grpc::Service::MarkMethodCallback(11,
+          new ::grpc::internal::CallbackUnaryHandler< ::vm_tools::tremplin::ImportContainerRequest, ::vm_tools::tremplin::ImportContainerResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::vm_tools::tremplin::ImportContainerRequest* request, ::vm_tools::tremplin::ImportContainerResponse* response) { return this->ImportContainer(context, request, response); }));}
+    void SetMessageAllocatorFor_ImportContainer(
+        ::grpc::MessageAllocator< ::vm_tools::tremplin::ImportContainerRequest, ::vm_tools::tremplin::ImportContainerResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(11);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::vm_tools::tremplin::ImportContainerRequest, ::vm_tools::tremplin::ImportContainerResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_ImportContainer() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ImportContainer(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::ImportContainerRequest* /*request*/, ::vm_tools::tremplin::ImportContainerResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* ImportContainer(
+      ::grpc::CallbackServerContext* /*context*/, const ::vm_tools::tremplin::ImportContainerRequest* /*request*/, ::vm_tools::tremplin::ImportContainerResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_CancelImportContainer : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_CancelImportContainer() {
+      ::grpc::Service::MarkMethodCallback(12,
+          new ::grpc::internal::CallbackUnaryHandler< ::vm_tools::tremplin::CancelImportContainerRequest, ::vm_tools::tremplin::CancelImportContainerResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::vm_tools::tremplin::CancelImportContainerRequest* request, ::vm_tools::tremplin::CancelImportContainerResponse* response) { return this->CancelImportContainer(context, request, response); }));}
+    void SetMessageAllocatorFor_CancelImportContainer(
+        ::grpc::MessageAllocator< ::vm_tools::tremplin::CancelImportContainerRequest, ::vm_tools::tremplin::CancelImportContainerResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(12);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::vm_tools::tremplin::CancelImportContainerRequest, ::vm_tools::tremplin::CancelImportContainerResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_CancelImportContainer() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CancelImportContainer(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::CancelImportContainerRequest* /*request*/, ::vm_tools::tremplin::CancelImportContainerResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* CancelImportContainer(
+      ::grpc::CallbackServerContext* /*context*/, const ::vm_tools::tremplin::CancelImportContainerRequest* /*request*/, ::vm_tools::tremplin::CancelImportContainerResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_UpgradeContainer : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_UpgradeContainer() {
+      ::grpc::Service::MarkMethodCallback(13,
+          new ::grpc::internal::CallbackUnaryHandler< ::vm_tools::tremplin::UpgradeContainerRequest, ::vm_tools::tremplin::UpgradeContainerResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::vm_tools::tremplin::UpgradeContainerRequest* request, ::vm_tools::tremplin::UpgradeContainerResponse* response) { return this->UpgradeContainer(context, request, response); }));}
+    void SetMessageAllocatorFor_UpgradeContainer(
+        ::grpc::MessageAllocator< ::vm_tools::tremplin::UpgradeContainerRequest, ::vm_tools::tremplin::UpgradeContainerResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(13);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::vm_tools::tremplin::UpgradeContainerRequest, ::vm_tools::tremplin::UpgradeContainerResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_UpgradeContainer() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UpgradeContainer(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::UpgradeContainerRequest* /*request*/, ::vm_tools::tremplin::UpgradeContainerResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* UpgradeContainer(
+      ::grpc::CallbackServerContext* /*context*/, const ::vm_tools::tremplin::UpgradeContainerRequest* /*request*/, ::vm_tools::tremplin::UpgradeContainerResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_CancelUpgradeContainer : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_CancelUpgradeContainer() {
+      ::grpc::Service::MarkMethodCallback(14,
+          new ::grpc::internal::CallbackUnaryHandler< ::vm_tools::tremplin::CancelUpgradeContainerRequest, ::vm_tools::tremplin::CancelUpgradeContainerResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::vm_tools::tremplin::CancelUpgradeContainerRequest* request, ::vm_tools::tremplin::CancelUpgradeContainerResponse* response) { return this->CancelUpgradeContainer(context, request, response); }));}
+    void SetMessageAllocatorFor_CancelUpgradeContainer(
+        ::grpc::MessageAllocator< ::vm_tools::tremplin::CancelUpgradeContainerRequest, ::vm_tools::tremplin::CancelUpgradeContainerResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(14);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::vm_tools::tremplin::CancelUpgradeContainerRequest, ::vm_tools::tremplin::CancelUpgradeContainerResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_CancelUpgradeContainer() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CancelUpgradeContainer(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::CancelUpgradeContainerRequest* /*request*/, ::vm_tools::tremplin::CancelUpgradeContainerResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* CancelUpgradeContainer(
+      ::grpc::CallbackServerContext* /*context*/, const ::vm_tools::tremplin::CancelUpgradeContainerRequest* /*request*/, ::vm_tools::tremplin::CancelUpgradeContainerResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_HostNetworkChanged : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_HostNetworkChanged() {
+      ::grpc::Service::MarkMethodCallback(15,
+          new ::grpc::internal::CallbackUnaryHandler< ::vm_tools::tremplin::HostNetworkChangedRequest, ::vm_tools::tremplin::HostNetworkChangedResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::vm_tools::tremplin::HostNetworkChangedRequest* request, ::vm_tools::tremplin::HostNetworkChangedResponse* response) { return this->HostNetworkChanged(context, request, response); }));}
+    void SetMessageAllocatorFor_HostNetworkChanged(
+        ::grpc::MessageAllocator< ::vm_tools::tremplin::HostNetworkChangedRequest, ::vm_tools::tremplin::HostNetworkChangedResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(15);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::vm_tools::tremplin::HostNetworkChangedRequest, ::vm_tools::tremplin::HostNetworkChangedResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_HostNetworkChanged() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status HostNetworkChanged(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::HostNetworkChangedRequest* /*request*/, ::vm_tools::tremplin::HostNetworkChangedResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* HostNetworkChanged(
+      ::grpc::CallbackServerContext* /*context*/, const ::vm_tools::tremplin::HostNetworkChangedRequest* /*request*/, ::vm_tools::tremplin::HostNetworkChangedResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_GetDebugInfo : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_GetDebugInfo() {
+      ::grpc::Service::MarkMethodCallback(16,
+          new ::grpc::internal::CallbackUnaryHandler< ::vm_tools::tremplin::GetDebugInfoRequest, ::vm_tools::tremplin::GetDebugInfoResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::vm_tools::tremplin::GetDebugInfoRequest* request, ::vm_tools::tremplin::GetDebugInfoResponse* response) { return this->GetDebugInfo(context, request, response); }));}
+    void SetMessageAllocatorFor_GetDebugInfo(
+        ::grpc::MessageAllocator< ::vm_tools::tremplin::GetDebugInfoRequest, ::vm_tools::tremplin::GetDebugInfoResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(16);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::vm_tools::tremplin::GetDebugInfoRequest, ::vm_tools::tremplin::GetDebugInfoResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_GetDebugInfo() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetDebugInfo(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::GetDebugInfoRequest* /*request*/, ::vm_tools::tremplin::GetDebugInfoResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetDebugInfo(
+      ::grpc::CallbackServerContext* /*context*/, const ::vm_tools::tremplin::GetDebugInfoRequest* /*request*/, ::vm_tools::tremplin::GetDebugInfoResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_AttachUsbToContainer : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_AttachUsbToContainer() {
+      ::grpc::Service::MarkMethodCallback(17,
+          new ::grpc::internal::CallbackUnaryHandler< ::vm_tools::tremplin::AttachUsbToContainerRequest, ::vm_tools::tremplin::AttachUsbToContainerResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::vm_tools::tremplin::AttachUsbToContainerRequest* request, ::vm_tools::tremplin::AttachUsbToContainerResponse* response) { return this->AttachUsbToContainer(context, request, response); }));}
+    void SetMessageAllocatorFor_AttachUsbToContainer(
+        ::grpc::MessageAllocator< ::vm_tools::tremplin::AttachUsbToContainerRequest, ::vm_tools::tremplin::AttachUsbToContainerResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(17);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::vm_tools::tremplin::AttachUsbToContainerRequest, ::vm_tools::tremplin::AttachUsbToContainerResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_AttachUsbToContainer() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status AttachUsbToContainer(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::AttachUsbToContainerRequest* /*request*/, ::vm_tools::tremplin::AttachUsbToContainerResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* AttachUsbToContainer(
+      ::grpc::CallbackServerContext* /*context*/, const ::vm_tools::tremplin::AttachUsbToContainerRequest* /*request*/, ::vm_tools::tremplin::AttachUsbToContainerResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_DetachUsbFromContainer : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_DetachUsbFromContainer() {
+      ::grpc::Service::MarkMethodCallback(18,
+          new ::grpc::internal::CallbackUnaryHandler< ::vm_tools::tremplin::DetachUsbFromContainerRequest, ::vm_tools::tremplin::DetachUsbFromContainerResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::vm_tools::tremplin::DetachUsbFromContainerRequest* request, ::vm_tools::tremplin::DetachUsbFromContainerResponse* response) { return this->DetachUsbFromContainer(context, request, response); }));}
+    void SetMessageAllocatorFor_DetachUsbFromContainer(
+        ::grpc::MessageAllocator< ::vm_tools::tremplin::DetachUsbFromContainerRequest, ::vm_tools::tremplin::DetachUsbFromContainerResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(18);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::vm_tools::tremplin::DetachUsbFromContainerRequest, ::vm_tools::tremplin::DetachUsbFromContainerResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_DetachUsbFromContainer() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status DetachUsbFromContainer(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::DetachUsbFromContainerRequest* /*request*/, ::vm_tools::tremplin::DetachUsbFromContainerResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* DetachUsbFromContainer(
+      ::grpc::CallbackServerContext* /*context*/, const ::vm_tools::tremplin::DetachUsbFromContainerRequest* /*request*/, ::vm_tools::tremplin::DetachUsbFromContainerResponse* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_UpdateContainerDevices : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_UpdateContainerDevices() {
+      ::grpc::Service::MarkMethodCallback(19,
+          new ::grpc::internal::CallbackUnaryHandler< ::vm_tools::tremplin::UpdateContainerDevicesRequest, ::vm_tools::tremplin::UpdateContainerDevicesResponse>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::vm_tools::tremplin::UpdateContainerDevicesRequest* request, ::vm_tools::tremplin::UpdateContainerDevicesResponse* response) { return this->UpdateContainerDevices(context, request, response); }));}
+    void SetMessageAllocatorFor_UpdateContainerDevices(
+        ::grpc::MessageAllocator< ::vm_tools::tremplin::UpdateContainerDevicesRequest, ::vm_tools::tremplin::UpdateContainerDevicesResponse>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(19);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::vm_tools::tremplin::UpdateContainerDevicesRequest, ::vm_tools::tremplin::UpdateContainerDevicesResponse>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_UpdateContainerDevices() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UpdateContainerDevices(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::UpdateContainerDevicesRequest* /*request*/, ::vm_tools::tremplin::UpdateContainerDevicesResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* UpdateContainerDevices(
+      ::grpc::CallbackServerContext* /*context*/, const ::vm_tools::tremplin::UpdateContainerDevicesRequest* /*request*/, ::vm_tools::tremplin::UpdateContainerDevicesResponse* /*response*/)  { return nullptr; }
+  };
+  typedef WithCallbackMethod_StartLxd<WithCallbackMethod_CreateContainer<WithCallbackMethod_DeleteContainer<WithCallbackMethod_StartContainer<WithCallbackMethod_StopContainer<WithCallbackMethod_GetContainerUsername<WithCallbackMethod_SetUpUser<WithCallbackMethod_GetContainerInfo<WithCallbackMethod_SetTimezone<WithCallbackMethod_ExportContainer<WithCallbackMethod_CancelExportContainer<WithCallbackMethod_ImportContainer<WithCallbackMethod_CancelImportContainer<WithCallbackMethod_UpgradeContainer<WithCallbackMethod_CancelUpgradeContainer<WithCallbackMethod_HostNetworkChanged<WithCallbackMethod_GetDebugInfo<WithCallbackMethod_AttachUsbToContainer<WithCallbackMethod_DetachUsbFromContainer<WithCallbackMethod_UpdateContainerDevices<Service > > > > > > > > > > > > > > > > > > > > CallbackService;
+  typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_StartLxd : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_StartLxd() {
       ::grpc::Service::MarkMethodGeneric(0);
@@ -801,7 +1511,7 @@ class Tremplin final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status StartLxd(::grpc::ServerContext* context, const ::vm_tools::tremplin::StartLxdRequest* request, ::vm_tools::tremplin::StartLxdResponse* response) override {
+    ::grpc::Status StartLxd(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::StartLxdRequest* /*request*/, ::vm_tools::tremplin::StartLxdResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -809,7 +1519,7 @@ class Tremplin final {
   template <class BaseClass>
   class WithGenericMethod_CreateContainer : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_CreateContainer() {
       ::grpc::Service::MarkMethodGeneric(1);
@@ -818,7 +1528,7 @@ class Tremplin final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status CreateContainer(::grpc::ServerContext* context, const ::vm_tools::tremplin::CreateContainerRequest* request, ::vm_tools::tremplin::CreateContainerResponse* response) override {
+    ::grpc::Status CreateContainer(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::CreateContainerRequest* /*request*/, ::vm_tools::tremplin::CreateContainerResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -826,7 +1536,7 @@ class Tremplin final {
   template <class BaseClass>
   class WithGenericMethod_DeleteContainer : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_DeleteContainer() {
       ::grpc::Service::MarkMethodGeneric(2);
@@ -835,7 +1545,7 @@ class Tremplin final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status DeleteContainer(::grpc::ServerContext* context, const ::vm_tools::tremplin::DeleteContainerRequest* request, ::vm_tools::tremplin::DeleteContainerResponse* response) override {
+    ::grpc::Status DeleteContainer(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::DeleteContainerRequest* /*request*/, ::vm_tools::tremplin::DeleteContainerResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -843,7 +1553,7 @@ class Tremplin final {
   template <class BaseClass>
   class WithGenericMethod_StartContainer : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_StartContainer() {
       ::grpc::Service::MarkMethodGeneric(3);
@@ -852,7 +1562,7 @@ class Tremplin final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status StartContainer(::grpc::ServerContext* context, const ::vm_tools::tremplin::StartContainerRequest* request, ::vm_tools::tremplin::StartContainerResponse* response) override {
+    ::grpc::Status StartContainer(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::StartContainerRequest* /*request*/, ::vm_tools::tremplin::StartContainerResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -860,7 +1570,7 @@ class Tremplin final {
   template <class BaseClass>
   class WithGenericMethod_StopContainer : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_StopContainer() {
       ::grpc::Service::MarkMethodGeneric(4);
@@ -869,7 +1579,7 @@ class Tremplin final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status StopContainer(::grpc::ServerContext* context, const ::vm_tools::tremplin::StopContainerRequest* request, ::vm_tools::tremplin::StopContainerResponse* response) override {
+    ::grpc::Status StopContainer(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::StopContainerRequest* /*request*/, ::vm_tools::tremplin::StopContainerResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -877,7 +1587,7 @@ class Tremplin final {
   template <class BaseClass>
   class WithGenericMethod_GetContainerUsername : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_GetContainerUsername() {
       ::grpc::Service::MarkMethodGeneric(5);
@@ -886,7 +1596,7 @@ class Tremplin final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetContainerUsername(::grpc::ServerContext* context, const ::vm_tools::tremplin::GetContainerUsernameRequest* request, ::vm_tools::tremplin::GetContainerUsernameResponse* response) override {
+    ::grpc::Status GetContainerUsername(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::GetContainerUsernameRequest* /*request*/, ::vm_tools::tremplin::GetContainerUsernameResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -894,7 +1604,7 @@ class Tremplin final {
   template <class BaseClass>
   class WithGenericMethod_SetUpUser : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_SetUpUser() {
       ::grpc::Service::MarkMethodGeneric(6);
@@ -903,7 +1613,7 @@ class Tremplin final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status SetUpUser(::grpc::ServerContext* context, const ::vm_tools::tremplin::SetUpUserRequest* request, ::vm_tools::tremplin::SetUpUserResponse* response) override {
+    ::grpc::Status SetUpUser(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::SetUpUserRequest* /*request*/, ::vm_tools::tremplin::SetUpUserResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -911,7 +1621,7 @@ class Tremplin final {
   template <class BaseClass>
   class WithGenericMethod_GetContainerInfo : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_GetContainerInfo() {
       ::grpc::Service::MarkMethodGeneric(7);
@@ -920,7 +1630,7 @@ class Tremplin final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetContainerInfo(::grpc::ServerContext* context, const ::vm_tools::tremplin::GetContainerInfoRequest* request, ::vm_tools::tremplin::GetContainerInfoResponse* response) override {
+    ::grpc::Status GetContainerInfo(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::GetContainerInfoRequest* /*request*/, ::vm_tools::tremplin::GetContainerInfoResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -928,7 +1638,7 @@ class Tremplin final {
   template <class BaseClass>
   class WithGenericMethod_SetTimezone : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_SetTimezone() {
       ::grpc::Service::MarkMethodGeneric(8);
@@ -937,7 +1647,7 @@ class Tremplin final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status SetTimezone(::grpc::ServerContext* context, const ::vm_tools::tremplin::SetTimezoneRequest* request, ::vm_tools::tremplin::SetTimezoneResponse* response) override {
+    ::grpc::Status SetTimezone(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::SetTimezoneRequest* /*request*/, ::vm_tools::tremplin::SetTimezoneResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -945,7 +1655,7 @@ class Tremplin final {
   template <class BaseClass>
   class WithGenericMethod_ExportContainer : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_ExportContainer() {
       ::grpc::Service::MarkMethodGeneric(9);
@@ -954,7 +1664,7 @@ class Tremplin final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status ExportContainer(::grpc::ServerContext* context, const ::vm_tools::tremplin::ExportContainerRequest* request, ::vm_tools::tremplin::ExportContainerResponse* response) override {
+    ::grpc::Status ExportContainer(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::ExportContainerRequest* /*request*/, ::vm_tools::tremplin::ExportContainerResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -962,7 +1672,7 @@ class Tremplin final {
   template <class BaseClass>
   class WithGenericMethod_CancelExportContainer : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_CancelExportContainer() {
       ::grpc::Service::MarkMethodGeneric(10);
@@ -971,7 +1681,7 @@ class Tremplin final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status CancelExportContainer(::grpc::ServerContext* context, const ::vm_tools::tremplin::CancelExportContainerRequest* request, ::vm_tools::tremplin::CancelExportContainerResponse* response) override {
+    ::grpc::Status CancelExportContainer(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::CancelExportContainerRequest* /*request*/, ::vm_tools::tremplin::CancelExportContainerResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -979,7 +1689,7 @@ class Tremplin final {
   template <class BaseClass>
   class WithGenericMethod_ImportContainer : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_ImportContainer() {
       ::grpc::Service::MarkMethodGeneric(11);
@@ -988,7 +1698,7 @@ class Tremplin final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status ImportContainer(::grpc::ServerContext* context, const ::vm_tools::tremplin::ImportContainerRequest* request, ::vm_tools::tremplin::ImportContainerResponse* response) override {
+    ::grpc::Status ImportContainer(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::ImportContainerRequest* /*request*/, ::vm_tools::tremplin::ImportContainerResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -996,7 +1706,7 @@ class Tremplin final {
   template <class BaseClass>
   class WithGenericMethod_CancelImportContainer : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_CancelImportContainer() {
       ::grpc::Service::MarkMethodGeneric(12);
@@ -1005,7 +1715,7 @@ class Tremplin final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status CancelImportContainer(::grpc::ServerContext* context, const ::vm_tools::tremplin::CancelImportContainerRequest* request, ::vm_tools::tremplin::CancelImportContainerResponse* response) override {
+    ::grpc::Status CancelImportContainer(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::CancelImportContainerRequest* /*request*/, ::vm_tools::tremplin::CancelImportContainerResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1013,7 +1723,7 @@ class Tremplin final {
   template <class BaseClass>
   class WithGenericMethod_UpgradeContainer : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_UpgradeContainer() {
       ::grpc::Service::MarkMethodGeneric(13);
@@ -1022,7 +1732,7 @@ class Tremplin final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status UpgradeContainer(::grpc::ServerContext* context, const ::vm_tools::tremplin::UpgradeContainerRequest* request, ::vm_tools::tremplin::UpgradeContainerResponse* response) override {
+    ::grpc::Status UpgradeContainer(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::UpgradeContainerRequest* /*request*/, ::vm_tools::tremplin::UpgradeContainerResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1030,7 +1740,7 @@ class Tremplin final {
   template <class BaseClass>
   class WithGenericMethod_CancelUpgradeContainer : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_CancelUpgradeContainer() {
       ::grpc::Service::MarkMethodGeneric(14);
@@ -1039,7 +1749,7 @@ class Tremplin final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status CancelUpgradeContainer(::grpc::ServerContext* context, const ::vm_tools::tremplin::CancelUpgradeContainerRequest* request, ::vm_tools::tremplin::CancelUpgradeContainerResponse* response) override {
+    ::grpc::Status CancelUpgradeContainer(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::CancelUpgradeContainerRequest* /*request*/, ::vm_tools::tremplin::CancelUpgradeContainerResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1047,7 +1757,7 @@ class Tremplin final {
   template <class BaseClass>
   class WithGenericMethod_HostNetworkChanged : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_HostNetworkChanged() {
       ::grpc::Service::MarkMethodGeneric(15);
@@ -1056,7 +1766,7 @@ class Tremplin final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status HostNetworkChanged(::grpc::ServerContext* context, const ::vm_tools::tremplin::HostNetworkChangedRequest* request, ::vm_tools::tremplin::HostNetworkChangedResponse* response) override {
+    ::grpc::Status HostNetworkChanged(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::HostNetworkChangedRequest* /*request*/, ::vm_tools::tremplin::HostNetworkChangedResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1064,7 +1774,7 @@ class Tremplin final {
   template <class BaseClass>
   class WithGenericMethod_GetDebugInfo : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_GetDebugInfo() {
       ::grpc::Service::MarkMethodGeneric(16);
@@ -1073,7 +1783,58 @@ class Tremplin final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetDebugInfo(::grpc::ServerContext* context, const ::vm_tools::tremplin::GetDebugInfoRequest* request, ::vm_tools::tremplin::GetDebugInfoResponse* response) override {
+    ::grpc::Status GetDebugInfo(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::GetDebugInfoRequest* /*request*/, ::vm_tools::tremplin::GetDebugInfoResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_AttachUsbToContainer : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_AttachUsbToContainer() {
+      ::grpc::Service::MarkMethodGeneric(17);
+    }
+    ~WithGenericMethod_AttachUsbToContainer() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status AttachUsbToContainer(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::AttachUsbToContainerRequest* /*request*/, ::vm_tools::tremplin::AttachUsbToContainerResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_DetachUsbFromContainer : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_DetachUsbFromContainer() {
+      ::grpc::Service::MarkMethodGeneric(18);
+    }
+    ~WithGenericMethod_DetachUsbFromContainer() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status DetachUsbFromContainer(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::DetachUsbFromContainerRequest* /*request*/, ::vm_tools::tremplin::DetachUsbFromContainerResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_UpdateContainerDevices : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_UpdateContainerDevices() {
+      ::grpc::Service::MarkMethodGeneric(19);
+    }
+    ~WithGenericMethod_UpdateContainerDevices() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UpdateContainerDevices(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::UpdateContainerDevicesRequest* /*request*/, ::vm_tools::tremplin::UpdateContainerDevicesResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1081,7 +1842,7 @@ class Tremplin final {
   template <class BaseClass>
   class WithRawMethod_StartLxd : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_StartLxd() {
       ::grpc::Service::MarkMethodRaw(0);
@@ -1090,7 +1851,7 @@ class Tremplin final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status StartLxd(::grpc::ServerContext* context, const ::vm_tools::tremplin::StartLxdRequest* request, ::vm_tools::tremplin::StartLxdResponse* response) override {
+    ::grpc::Status StartLxd(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::StartLxdRequest* /*request*/, ::vm_tools::tremplin::StartLxdResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1101,7 +1862,7 @@ class Tremplin final {
   template <class BaseClass>
   class WithRawMethod_CreateContainer : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_CreateContainer() {
       ::grpc::Service::MarkMethodRaw(1);
@@ -1110,7 +1871,7 @@ class Tremplin final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status CreateContainer(::grpc::ServerContext* context, const ::vm_tools::tremplin::CreateContainerRequest* request, ::vm_tools::tremplin::CreateContainerResponse* response) override {
+    ::grpc::Status CreateContainer(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::CreateContainerRequest* /*request*/, ::vm_tools::tremplin::CreateContainerResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1121,7 +1882,7 @@ class Tremplin final {
   template <class BaseClass>
   class WithRawMethod_DeleteContainer : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_DeleteContainer() {
       ::grpc::Service::MarkMethodRaw(2);
@@ -1130,7 +1891,7 @@ class Tremplin final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status DeleteContainer(::grpc::ServerContext* context, const ::vm_tools::tremplin::DeleteContainerRequest* request, ::vm_tools::tremplin::DeleteContainerResponse* response) override {
+    ::grpc::Status DeleteContainer(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::DeleteContainerRequest* /*request*/, ::vm_tools::tremplin::DeleteContainerResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1141,7 +1902,7 @@ class Tremplin final {
   template <class BaseClass>
   class WithRawMethod_StartContainer : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_StartContainer() {
       ::grpc::Service::MarkMethodRaw(3);
@@ -1150,7 +1911,7 @@ class Tremplin final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status StartContainer(::grpc::ServerContext* context, const ::vm_tools::tremplin::StartContainerRequest* request, ::vm_tools::tremplin::StartContainerResponse* response) override {
+    ::grpc::Status StartContainer(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::StartContainerRequest* /*request*/, ::vm_tools::tremplin::StartContainerResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1161,7 +1922,7 @@ class Tremplin final {
   template <class BaseClass>
   class WithRawMethod_StopContainer : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_StopContainer() {
       ::grpc::Service::MarkMethodRaw(4);
@@ -1170,7 +1931,7 @@ class Tremplin final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status StopContainer(::grpc::ServerContext* context, const ::vm_tools::tremplin::StopContainerRequest* request, ::vm_tools::tremplin::StopContainerResponse* response) override {
+    ::grpc::Status StopContainer(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::StopContainerRequest* /*request*/, ::vm_tools::tremplin::StopContainerResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1181,7 +1942,7 @@ class Tremplin final {
   template <class BaseClass>
   class WithRawMethod_GetContainerUsername : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_GetContainerUsername() {
       ::grpc::Service::MarkMethodRaw(5);
@@ -1190,7 +1951,7 @@ class Tremplin final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetContainerUsername(::grpc::ServerContext* context, const ::vm_tools::tremplin::GetContainerUsernameRequest* request, ::vm_tools::tremplin::GetContainerUsernameResponse* response) override {
+    ::grpc::Status GetContainerUsername(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::GetContainerUsernameRequest* /*request*/, ::vm_tools::tremplin::GetContainerUsernameResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1201,7 +1962,7 @@ class Tremplin final {
   template <class BaseClass>
   class WithRawMethod_SetUpUser : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_SetUpUser() {
       ::grpc::Service::MarkMethodRaw(6);
@@ -1210,7 +1971,7 @@ class Tremplin final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status SetUpUser(::grpc::ServerContext* context, const ::vm_tools::tremplin::SetUpUserRequest* request, ::vm_tools::tremplin::SetUpUserResponse* response) override {
+    ::grpc::Status SetUpUser(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::SetUpUserRequest* /*request*/, ::vm_tools::tremplin::SetUpUserResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1221,7 +1982,7 @@ class Tremplin final {
   template <class BaseClass>
   class WithRawMethod_GetContainerInfo : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_GetContainerInfo() {
       ::grpc::Service::MarkMethodRaw(7);
@@ -1230,7 +1991,7 @@ class Tremplin final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetContainerInfo(::grpc::ServerContext* context, const ::vm_tools::tremplin::GetContainerInfoRequest* request, ::vm_tools::tremplin::GetContainerInfoResponse* response) override {
+    ::grpc::Status GetContainerInfo(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::GetContainerInfoRequest* /*request*/, ::vm_tools::tremplin::GetContainerInfoResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1241,7 +2002,7 @@ class Tremplin final {
   template <class BaseClass>
   class WithRawMethod_SetTimezone : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_SetTimezone() {
       ::grpc::Service::MarkMethodRaw(8);
@@ -1250,7 +2011,7 @@ class Tremplin final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status SetTimezone(::grpc::ServerContext* context, const ::vm_tools::tremplin::SetTimezoneRequest* request, ::vm_tools::tremplin::SetTimezoneResponse* response) override {
+    ::grpc::Status SetTimezone(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::SetTimezoneRequest* /*request*/, ::vm_tools::tremplin::SetTimezoneResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1261,7 +2022,7 @@ class Tremplin final {
   template <class BaseClass>
   class WithRawMethod_ExportContainer : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_ExportContainer() {
       ::grpc::Service::MarkMethodRaw(9);
@@ -1270,7 +2031,7 @@ class Tremplin final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status ExportContainer(::grpc::ServerContext* context, const ::vm_tools::tremplin::ExportContainerRequest* request, ::vm_tools::tremplin::ExportContainerResponse* response) override {
+    ::grpc::Status ExportContainer(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::ExportContainerRequest* /*request*/, ::vm_tools::tremplin::ExportContainerResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1281,7 +2042,7 @@ class Tremplin final {
   template <class BaseClass>
   class WithRawMethod_CancelExportContainer : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_CancelExportContainer() {
       ::grpc::Service::MarkMethodRaw(10);
@@ -1290,7 +2051,7 @@ class Tremplin final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status CancelExportContainer(::grpc::ServerContext* context, const ::vm_tools::tremplin::CancelExportContainerRequest* request, ::vm_tools::tremplin::CancelExportContainerResponse* response) override {
+    ::grpc::Status CancelExportContainer(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::CancelExportContainerRequest* /*request*/, ::vm_tools::tremplin::CancelExportContainerResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1301,7 +2062,7 @@ class Tremplin final {
   template <class BaseClass>
   class WithRawMethod_ImportContainer : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_ImportContainer() {
       ::grpc::Service::MarkMethodRaw(11);
@@ -1310,7 +2071,7 @@ class Tremplin final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status ImportContainer(::grpc::ServerContext* context, const ::vm_tools::tremplin::ImportContainerRequest* request, ::vm_tools::tremplin::ImportContainerResponse* response) override {
+    ::grpc::Status ImportContainer(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::ImportContainerRequest* /*request*/, ::vm_tools::tremplin::ImportContainerResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1321,7 +2082,7 @@ class Tremplin final {
   template <class BaseClass>
   class WithRawMethod_CancelImportContainer : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_CancelImportContainer() {
       ::grpc::Service::MarkMethodRaw(12);
@@ -1330,7 +2091,7 @@ class Tremplin final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status CancelImportContainer(::grpc::ServerContext* context, const ::vm_tools::tremplin::CancelImportContainerRequest* request, ::vm_tools::tremplin::CancelImportContainerResponse* response) override {
+    ::grpc::Status CancelImportContainer(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::CancelImportContainerRequest* /*request*/, ::vm_tools::tremplin::CancelImportContainerResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1341,7 +2102,7 @@ class Tremplin final {
   template <class BaseClass>
   class WithRawMethod_UpgradeContainer : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_UpgradeContainer() {
       ::grpc::Service::MarkMethodRaw(13);
@@ -1350,7 +2111,7 @@ class Tremplin final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status UpgradeContainer(::grpc::ServerContext* context, const ::vm_tools::tremplin::UpgradeContainerRequest* request, ::vm_tools::tremplin::UpgradeContainerResponse* response) override {
+    ::grpc::Status UpgradeContainer(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::UpgradeContainerRequest* /*request*/, ::vm_tools::tremplin::UpgradeContainerResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1361,7 +2122,7 @@ class Tremplin final {
   template <class BaseClass>
   class WithRawMethod_CancelUpgradeContainer : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_CancelUpgradeContainer() {
       ::grpc::Service::MarkMethodRaw(14);
@@ -1370,7 +2131,7 @@ class Tremplin final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status CancelUpgradeContainer(::grpc::ServerContext* context, const ::vm_tools::tremplin::CancelUpgradeContainerRequest* request, ::vm_tools::tremplin::CancelUpgradeContainerResponse* response) override {
+    ::grpc::Status CancelUpgradeContainer(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::CancelUpgradeContainerRequest* /*request*/, ::vm_tools::tremplin::CancelUpgradeContainerResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1381,7 +2142,7 @@ class Tremplin final {
   template <class BaseClass>
   class WithRawMethod_HostNetworkChanged : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_HostNetworkChanged() {
       ::grpc::Service::MarkMethodRaw(15);
@@ -1390,7 +2151,7 @@ class Tremplin final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status HostNetworkChanged(::grpc::ServerContext* context, const ::vm_tools::tremplin::HostNetworkChangedRequest* request, ::vm_tools::tremplin::HostNetworkChangedResponse* response) override {
+    ::grpc::Status HostNetworkChanged(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::HostNetworkChangedRequest* /*request*/, ::vm_tools::tremplin::HostNetworkChangedResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1401,7 +2162,7 @@ class Tremplin final {
   template <class BaseClass>
   class WithRawMethod_GetDebugInfo : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_GetDebugInfo() {
       ::grpc::Service::MarkMethodRaw(16);
@@ -1410,7 +2171,7 @@ class Tremplin final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status GetDebugInfo(::grpc::ServerContext* context, const ::vm_tools::tremplin::GetDebugInfoRequest* request, ::vm_tools::tremplin::GetDebugInfoResponse* response) override {
+    ::grpc::Status GetDebugInfo(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::GetDebugInfoRequest* /*request*/, ::vm_tools::tremplin::GetDebugInfoResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1419,19 +2180,526 @@ class Tremplin final {
     }
   };
   template <class BaseClass>
+  class WithRawMethod_AttachUsbToContainer : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_AttachUsbToContainer() {
+      ::grpc::Service::MarkMethodRaw(17);
+    }
+    ~WithRawMethod_AttachUsbToContainer() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status AttachUsbToContainer(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::AttachUsbToContainerRequest* /*request*/, ::vm_tools::tremplin::AttachUsbToContainerResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestAttachUsbToContainer(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(17, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_DetachUsbFromContainer : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_DetachUsbFromContainer() {
+      ::grpc::Service::MarkMethodRaw(18);
+    }
+    ~WithRawMethod_DetachUsbFromContainer() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status DetachUsbFromContainer(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::DetachUsbFromContainerRequest* /*request*/, ::vm_tools::tremplin::DetachUsbFromContainerResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestDetachUsbFromContainer(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(18, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_UpdateContainerDevices : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_UpdateContainerDevices() {
+      ::grpc::Service::MarkMethodRaw(19);
+    }
+    ~WithRawMethod_UpdateContainerDevices() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UpdateContainerDevices(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::UpdateContainerDevicesRequest* /*request*/, ::vm_tools::tremplin::UpdateContainerDevicesResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestUpdateContainerDevices(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(19, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_StartLxd : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_StartLxd() {
+      ::grpc::Service::MarkMethodRawCallback(0,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->StartLxd(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_StartLxd() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status StartLxd(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::StartLxdRequest* /*request*/, ::vm_tools::tremplin::StartLxdResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* StartLxd(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_CreateContainer : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_CreateContainer() {
+      ::grpc::Service::MarkMethodRawCallback(1,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CreateContainer(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_CreateContainer() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CreateContainer(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::CreateContainerRequest* /*request*/, ::vm_tools::tremplin::CreateContainerResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* CreateContainer(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_DeleteContainer : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_DeleteContainer() {
+      ::grpc::Service::MarkMethodRawCallback(2,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteContainer(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_DeleteContainer() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status DeleteContainer(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::DeleteContainerRequest* /*request*/, ::vm_tools::tremplin::DeleteContainerResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* DeleteContainer(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_StartContainer : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_StartContainer() {
+      ::grpc::Service::MarkMethodRawCallback(3,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->StartContainer(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_StartContainer() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status StartContainer(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::StartContainerRequest* /*request*/, ::vm_tools::tremplin::StartContainerResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* StartContainer(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_StopContainer : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_StopContainer() {
+      ::grpc::Service::MarkMethodRawCallback(4,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->StopContainer(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_StopContainer() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status StopContainer(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::StopContainerRequest* /*request*/, ::vm_tools::tremplin::StopContainerResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* StopContainer(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_GetContainerUsername : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_GetContainerUsername() {
+      ::grpc::Service::MarkMethodRawCallback(5,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetContainerUsername(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_GetContainerUsername() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetContainerUsername(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::GetContainerUsernameRequest* /*request*/, ::vm_tools::tremplin::GetContainerUsernameResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetContainerUsername(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_SetUpUser : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_SetUpUser() {
+      ::grpc::Service::MarkMethodRawCallback(6,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->SetUpUser(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_SetUpUser() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status SetUpUser(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::SetUpUserRequest* /*request*/, ::vm_tools::tremplin::SetUpUserResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* SetUpUser(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_GetContainerInfo : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_GetContainerInfo() {
+      ::grpc::Service::MarkMethodRawCallback(7,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetContainerInfo(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_GetContainerInfo() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetContainerInfo(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::GetContainerInfoRequest* /*request*/, ::vm_tools::tremplin::GetContainerInfoResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetContainerInfo(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_SetTimezone : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_SetTimezone() {
+      ::grpc::Service::MarkMethodRawCallback(8,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->SetTimezone(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_SetTimezone() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status SetTimezone(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::SetTimezoneRequest* /*request*/, ::vm_tools::tremplin::SetTimezoneResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* SetTimezone(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_ExportContainer : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_ExportContainer() {
+      ::grpc::Service::MarkMethodRawCallback(9,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ExportContainer(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_ExportContainer() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ExportContainer(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::ExportContainerRequest* /*request*/, ::vm_tools::tremplin::ExportContainerResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* ExportContainer(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_CancelExportContainer : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_CancelExportContainer() {
+      ::grpc::Service::MarkMethodRawCallback(10,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CancelExportContainer(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_CancelExportContainer() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CancelExportContainer(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::CancelExportContainerRequest* /*request*/, ::vm_tools::tremplin::CancelExportContainerResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* CancelExportContainer(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_ImportContainer : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_ImportContainer() {
+      ::grpc::Service::MarkMethodRawCallback(11,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ImportContainer(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_ImportContainer() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ImportContainer(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::ImportContainerRequest* /*request*/, ::vm_tools::tremplin::ImportContainerResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* ImportContainer(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_CancelImportContainer : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_CancelImportContainer() {
+      ::grpc::Service::MarkMethodRawCallback(12,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CancelImportContainer(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_CancelImportContainer() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CancelImportContainer(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::CancelImportContainerRequest* /*request*/, ::vm_tools::tremplin::CancelImportContainerResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* CancelImportContainer(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_UpgradeContainer : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_UpgradeContainer() {
+      ::grpc::Service::MarkMethodRawCallback(13,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpgradeContainer(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_UpgradeContainer() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UpgradeContainer(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::UpgradeContainerRequest* /*request*/, ::vm_tools::tremplin::UpgradeContainerResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* UpgradeContainer(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_CancelUpgradeContainer : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_CancelUpgradeContainer() {
+      ::grpc::Service::MarkMethodRawCallback(14,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->CancelUpgradeContainer(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_CancelUpgradeContainer() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status CancelUpgradeContainer(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::CancelUpgradeContainerRequest* /*request*/, ::vm_tools::tremplin::CancelUpgradeContainerResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* CancelUpgradeContainer(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_HostNetworkChanged : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_HostNetworkChanged() {
+      ::grpc::Service::MarkMethodRawCallback(15,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->HostNetworkChanged(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_HostNetworkChanged() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status HostNetworkChanged(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::HostNetworkChangedRequest* /*request*/, ::vm_tools::tremplin::HostNetworkChangedResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* HostNetworkChanged(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_GetDebugInfo : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_GetDebugInfo() {
+      ::grpc::Service::MarkMethodRawCallback(16,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetDebugInfo(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_GetDebugInfo() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetDebugInfo(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::GetDebugInfoRequest* /*request*/, ::vm_tools::tremplin::GetDebugInfoResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetDebugInfo(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_AttachUsbToContainer : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_AttachUsbToContainer() {
+      ::grpc::Service::MarkMethodRawCallback(17,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->AttachUsbToContainer(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_AttachUsbToContainer() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status AttachUsbToContainer(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::AttachUsbToContainerRequest* /*request*/, ::vm_tools::tremplin::AttachUsbToContainerResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* AttachUsbToContainer(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_DetachUsbFromContainer : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_DetachUsbFromContainer() {
+      ::grpc::Service::MarkMethodRawCallback(18,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DetachUsbFromContainer(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_DetachUsbFromContainer() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status DetachUsbFromContainer(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::DetachUsbFromContainerRequest* /*request*/, ::vm_tools::tremplin::DetachUsbFromContainerResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* DetachUsbFromContainer(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_UpdateContainerDevices : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_UpdateContainerDevices() {
+      ::grpc::Service::MarkMethodRawCallback(19,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateContainerDevices(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_UpdateContainerDevices() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UpdateContainerDevices(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::UpdateContainerDevicesRequest* /*request*/, ::vm_tools::tremplin::UpdateContainerDevicesResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* UpdateContainerDevices(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
   class WithStreamedUnaryMethod_StartLxd : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_StartLxd() {
       ::grpc::Service::MarkMethodStreamed(0,
-        new ::grpc::internal::StreamedUnaryHandler< ::vm_tools::tremplin::StartLxdRequest, ::vm_tools::tremplin::StartLxdResponse>(std::bind(&WithStreamedUnaryMethod_StartLxd<BaseClass>::StreamedStartLxd, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::vm_tools::tremplin::StartLxdRequest, ::vm_tools::tremplin::StartLxdResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::vm_tools::tremplin::StartLxdRequest, ::vm_tools::tremplin::StartLxdResponse>* streamer) {
+                       return this->StreamedStartLxd(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_StartLxd() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status StartLxd(::grpc::ServerContext* context, const ::vm_tools::tremplin::StartLxdRequest* request, ::vm_tools::tremplin::StartLxdResponse* response) override {
+    ::grpc::Status StartLxd(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::StartLxdRequest* /*request*/, ::vm_tools::tremplin::StartLxdResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1441,17 +2709,24 @@ class Tremplin final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_CreateContainer : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_CreateContainer() {
       ::grpc::Service::MarkMethodStreamed(1,
-        new ::grpc::internal::StreamedUnaryHandler< ::vm_tools::tremplin::CreateContainerRequest, ::vm_tools::tremplin::CreateContainerResponse>(std::bind(&WithStreamedUnaryMethod_CreateContainer<BaseClass>::StreamedCreateContainer, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::vm_tools::tremplin::CreateContainerRequest, ::vm_tools::tremplin::CreateContainerResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::vm_tools::tremplin::CreateContainerRequest, ::vm_tools::tremplin::CreateContainerResponse>* streamer) {
+                       return this->StreamedCreateContainer(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_CreateContainer() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status CreateContainer(::grpc::ServerContext* context, const ::vm_tools::tremplin::CreateContainerRequest* request, ::vm_tools::tremplin::CreateContainerResponse* response) override {
+    ::grpc::Status CreateContainer(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::CreateContainerRequest* /*request*/, ::vm_tools::tremplin::CreateContainerResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1461,17 +2736,24 @@ class Tremplin final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_DeleteContainer : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_DeleteContainer() {
       ::grpc::Service::MarkMethodStreamed(2,
-        new ::grpc::internal::StreamedUnaryHandler< ::vm_tools::tremplin::DeleteContainerRequest, ::vm_tools::tremplin::DeleteContainerResponse>(std::bind(&WithStreamedUnaryMethod_DeleteContainer<BaseClass>::StreamedDeleteContainer, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::vm_tools::tremplin::DeleteContainerRequest, ::vm_tools::tremplin::DeleteContainerResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::vm_tools::tremplin::DeleteContainerRequest, ::vm_tools::tremplin::DeleteContainerResponse>* streamer) {
+                       return this->StreamedDeleteContainer(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_DeleteContainer() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status DeleteContainer(::grpc::ServerContext* context, const ::vm_tools::tremplin::DeleteContainerRequest* request, ::vm_tools::tremplin::DeleteContainerResponse* response) override {
+    ::grpc::Status DeleteContainer(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::DeleteContainerRequest* /*request*/, ::vm_tools::tremplin::DeleteContainerResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1481,17 +2763,24 @@ class Tremplin final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_StartContainer : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_StartContainer() {
       ::grpc::Service::MarkMethodStreamed(3,
-        new ::grpc::internal::StreamedUnaryHandler< ::vm_tools::tremplin::StartContainerRequest, ::vm_tools::tremplin::StartContainerResponse>(std::bind(&WithStreamedUnaryMethod_StartContainer<BaseClass>::StreamedStartContainer, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::vm_tools::tremplin::StartContainerRequest, ::vm_tools::tremplin::StartContainerResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::vm_tools::tremplin::StartContainerRequest, ::vm_tools::tremplin::StartContainerResponse>* streamer) {
+                       return this->StreamedStartContainer(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_StartContainer() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status StartContainer(::grpc::ServerContext* context, const ::vm_tools::tremplin::StartContainerRequest* request, ::vm_tools::tremplin::StartContainerResponse* response) override {
+    ::grpc::Status StartContainer(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::StartContainerRequest* /*request*/, ::vm_tools::tremplin::StartContainerResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1501,17 +2790,24 @@ class Tremplin final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_StopContainer : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_StopContainer() {
       ::grpc::Service::MarkMethodStreamed(4,
-        new ::grpc::internal::StreamedUnaryHandler< ::vm_tools::tremplin::StopContainerRequest, ::vm_tools::tremplin::StopContainerResponse>(std::bind(&WithStreamedUnaryMethod_StopContainer<BaseClass>::StreamedStopContainer, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::vm_tools::tremplin::StopContainerRequest, ::vm_tools::tremplin::StopContainerResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::vm_tools::tremplin::StopContainerRequest, ::vm_tools::tremplin::StopContainerResponse>* streamer) {
+                       return this->StreamedStopContainer(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_StopContainer() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status StopContainer(::grpc::ServerContext* context, const ::vm_tools::tremplin::StopContainerRequest* request, ::vm_tools::tremplin::StopContainerResponse* response) override {
+    ::grpc::Status StopContainer(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::StopContainerRequest* /*request*/, ::vm_tools::tremplin::StopContainerResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1521,17 +2817,24 @@ class Tremplin final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_GetContainerUsername : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_GetContainerUsername() {
       ::grpc::Service::MarkMethodStreamed(5,
-        new ::grpc::internal::StreamedUnaryHandler< ::vm_tools::tremplin::GetContainerUsernameRequest, ::vm_tools::tremplin::GetContainerUsernameResponse>(std::bind(&WithStreamedUnaryMethod_GetContainerUsername<BaseClass>::StreamedGetContainerUsername, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::vm_tools::tremplin::GetContainerUsernameRequest, ::vm_tools::tremplin::GetContainerUsernameResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::vm_tools::tremplin::GetContainerUsernameRequest, ::vm_tools::tremplin::GetContainerUsernameResponse>* streamer) {
+                       return this->StreamedGetContainerUsername(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_GetContainerUsername() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status GetContainerUsername(::grpc::ServerContext* context, const ::vm_tools::tremplin::GetContainerUsernameRequest* request, ::vm_tools::tremplin::GetContainerUsernameResponse* response) override {
+    ::grpc::Status GetContainerUsername(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::GetContainerUsernameRequest* /*request*/, ::vm_tools::tremplin::GetContainerUsernameResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1541,17 +2844,24 @@ class Tremplin final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_SetUpUser : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_SetUpUser() {
       ::grpc::Service::MarkMethodStreamed(6,
-        new ::grpc::internal::StreamedUnaryHandler< ::vm_tools::tremplin::SetUpUserRequest, ::vm_tools::tremplin::SetUpUserResponse>(std::bind(&WithStreamedUnaryMethod_SetUpUser<BaseClass>::StreamedSetUpUser, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::vm_tools::tremplin::SetUpUserRequest, ::vm_tools::tremplin::SetUpUserResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::vm_tools::tremplin::SetUpUserRequest, ::vm_tools::tremplin::SetUpUserResponse>* streamer) {
+                       return this->StreamedSetUpUser(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_SetUpUser() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status SetUpUser(::grpc::ServerContext* context, const ::vm_tools::tremplin::SetUpUserRequest* request, ::vm_tools::tremplin::SetUpUserResponse* response) override {
+    ::grpc::Status SetUpUser(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::SetUpUserRequest* /*request*/, ::vm_tools::tremplin::SetUpUserResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1561,17 +2871,24 @@ class Tremplin final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_GetContainerInfo : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_GetContainerInfo() {
       ::grpc::Service::MarkMethodStreamed(7,
-        new ::grpc::internal::StreamedUnaryHandler< ::vm_tools::tremplin::GetContainerInfoRequest, ::vm_tools::tremplin::GetContainerInfoResponse>(std::bind(&WithStreamedUnaryMethod_GetContainerInfo<BaseClass>::StreamedGetContainerInfo, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::vm_tools::tremplin::GetContainerInfoRequest, ::vm_tools::tremplin::GetContainerInfoResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::vm_tools::tremplin::GetContainerInfoRequest, ::vm_tools::tremplin::GetContainerInfoResponse>* streamer) {
+                       return this->StreamedGetContainerInfo(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_GetContainerInfo() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status GetContainerInfo(::grpc::ServerContext* context, const ::vm_tools::tremplin::GetContainerInfoRequest* request, ::vm_tools::tremplin::GetContainerInfoResponse* response) override {
+    ::grpc::Status GetContainerInfo(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::GetContainerInfoRequest* /*request*/, ::vm_tools::tremplin::GetContainerInfoResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1581,17 +2898,24 @@ class Tremplin final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_SetTimezone : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_SetTimezone() {
       ::grpc::Service::MarkMethodStreamed(8,
-        new ::grpc::internal::StreamedUnaryHandler< ::vm_tools::tremplin::SetTimezoneRequest, ::vm_tools::tremplin::SetTimezoneResponse>(std::bind(&WithStreamedUnaryMethod_SetTimezone<BaseClass>::StreamedSetTimezone, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::vm_tools::tremplin::SetTimezoneRequest, ::vm_tools::tremplin::SetTimezoneResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::vm_tools::tremplin::SetTimezoneRequest, ::vm_tools::tremplin::SetTimezoneResponse>* streamer) {
+                       return this->StreamedSetTimezone(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_SetTimezone() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status SetTimezone(::grpc::ServerContext* context, const ::vm_tools::tremplin::SetTimezoneRequest* request, ::vm_tools::tremplin::SetTimezoneResponse* response) override {
+    ::grpc::Status SetTimezone(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::SetTimezoneRequest* /*request*/, ::vm_tools::tremplin::SetTimezoneResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1601,17 +2925,24 @@ class Tremplin final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_ExportContainer : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_ExportContainer() {
       ::grpc::Service::MarkMethodStreamed(9,
-        new ::grpc::internal::StreamedUnaryHandler< ::vm_tools::tremplin::ExportContainerRequest, ::vm_tools::tremplin::ExportContainerResponse>(std::bind(&WithStreamedUnaryMethod_ExportContainer<BaseClass>::StreamedExportContainer, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::vm_tools::tremplin::ExportContainerRequest, ::vm_tools::tremplin::ExportContainerResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::vm_tools::tremplin::ExportContainerRequest, ::vm_tools::tremplin::ExportContainerResponse>* streamer) {
+                       return this->StreamedExportContainer(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_ExportContainer() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status ExportContainer(::grpc::ServerContext* context, const ::vm_tools::tremplin::ExportContainerRequest* request, ::vm_tools::tremplin::ExportContainerResponse* response) override {
+    ::grpc::Status ExportContainer(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::ExportContainerRequest* /*request*/, ::vm_tools::tremplin::ExportContainerResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1621,17 +2952,24 @@ class Tremplin final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_CancelExportContainer : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_CancelExportContainer() {
       ::grpc::Service::MarkMethodStreamed(10,
-        new ::grpc::internal::StreamedUnaryHandler< ::vm_tools::tremplin::CancelExportContainerRequest, ::vm_tools::tremplin::CancelExportContainerResponse>(std::bind(&WithStreamedUnaryMethod_CancelExportContainer<BaseClass>::StreamedCancelExportContainer, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::vm_tools::tremplin::CancelExportContainerRequest, ::vm_tools::tremplin::CancelExportContainerResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::vm_tools::tremplin::CancelExportContainerRequest, ::vm_tools::tremplin::CancelExportContainerResponse>* streamer) {
+                       return this->StreamedCancelExportContainer(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_CancelExportContainer() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status CancelExportContainer(::grpc::ServerContext* context, const ::vm_tools::tremplin::CancelExportContainerRequest* request, ::vm_tools::tremplin::CancelExportContainerResponse* response) override {
+    ::grpc::Status CancelExportContainer(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::CancelExportContainerRequest* /*request*/, ::vm_tools::tremplin::CancelExportContainerResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1641,17 +2979,24 @@ class Tremplin final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_ImportContainer : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_ImportContainer() {
       ::grpc::Service::MarkMethodStreamed(11,
-        new ::grpc::internal::StreamedUnaryHandler< ::vm_tools::tremplin::ImportContainerRequest, ::vm_tools::tremplin::ImportContainerResponse>(std::bind(&WithStreamedUnaryMethod_ImportContainer<BaseClass>::StreamedImportContainer, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::vm_tools::tremplin::ImportContainerRequest, ::vm_tools::tremplin::ImportContainerResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::vm_tools::tremplin::ImportContainerRequest, ::vm_tools::tremplin::ImportContainerResponse>* streamer) {
+                       return this->StreamedImportContainer(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_ImportContainer() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status ImportContainer(::grpc::ServerContext* context, const ::vm_tools::tremplin::ImportContainerRequest* request, ::vm_tools::tremplin::ImportContainerResponse* response) override {
+    ::grpc::Status ImportContainer(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::ImportContainerRequest* /*request*/, ::vm_tools::tremplin::ImportContainerResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1661,17 +3006,24 @@ class Tremplin final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_CancelImportContainer : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_CancelImportContainer() {
       ::grpc::Service::MarkMethodStreamed(12,
-        new ::grpc::internal::StreamedUnaryHandler< ::vm_tools::tremplin::CancelImportContainerRequest, ::vm_tools::tremplin::CancelImportContainerResponse>(std::bind(&WithStreamedUnaryMethod_CancelImportContainer<BaseClass>::StreamedCancelImportContainer, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::vm_tools::tremplin::CancelImportContainerRequest, ::vm_tools::tremplin::CancelImportContainerResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::vm_tools::tremplin::CancelImportContainerRequest, ::vm_tools::tremplin::CancelImportContainerResponse>* streamer) {
+                       return this->StreamedCancelImportContainer(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_CancelImportContainer() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status CancelImportContainer(::grpc::ServerContext* context, const ::vm_tools::tremplin::CancelImportContainerRequest* request, ::vm_tools::tremplin::CancelImportContainerResponse* response) override {
+    ::grpc::Status CancelImportContainer(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::CancelImportContainerRequest* /*request*/, ::vm_tools::tremplin::CancelImportContainerResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1681,17 +3033,24 @@ class Tremplin final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_UpgradeContainer : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_UpgradeContainer() {
       ::grpc::Service::MarkMethodStreamed(13,
-        new ::grpc::internal::StreamedUnaryHandler< ::vm_tools::tremplin::UpgradeContainerRequest, ::vm_tools::tremplin::UpgradeContainerResponse>(std::bind(&WithStreamedUnaryMethod_UpgradeContainer<BaseClass>::StreamedUpgradeContainer, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::vm_tools::tremplin::UpgradeContainerRequest, ::vm_tools::tremplin::UpgradeContainerResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::vm_tools::tremplin::UpgradeContainerRequest, ::vm_tools::tremplin::UpgradeContainerResponse>* streamer) {
+                       return this->StreamedUpgradeContainer(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_UpgradeContainer() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status UpgradeContainer(::grpc::ServerContext* context, const ::vm_tools::tremplin::UpgradeContainerRequest* request, ::vm_tools::tremplin::UpgradeContainerResponse* response) override {
+    ::grpc::Status UpgradeContainer(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::UpgradeContainerRequest* /*request*/, ::vm_tools::tremplin::UpgradeContainerResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1701,17 +3060,24 @@ class Tremplin final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_CancelUpgradeContainer : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_CancelUpgradeContainer() {
       ::grpc::Service::MarkMethodStreamed(14,
-        new ::grpc::internal::StreamedUnaryHandler< ::vm_tools::tremplin::CancelUpgradeContainerRequest, ::vm_tools::tremplin::CancelUpgradeContainerResponse>(std::bind(&WithStreamedUnaryMethod_CancelUpgradeContainer<BaseClass>::StreamedCancelUpgradeContainer, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::vm_tools::tremplin::CancelUpgradeContainerRequest, ::vm_tools::tremplin::CancelUpgradeContainerResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::vm_tools::tremplin::CancelUpgradeContainerRequest, ::vm_tools::tremplin::CancelUpgradeContainerResponse>* streamer) {
+                       return this->StreamedCancelUpgradeContainer(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_CancelUpgradeContainer() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status CancelUpgradeContainer(::grpc::ServerContext* context, const ::vm_tools::tremplin::CancelUpgradeContainerRequest* request, ::vm_tools::tremplin::CancelUpgradeContainerResponse* response) override {
+    ::grpc::Status CancelUpgradeContainer(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::CancelUpgradeContainerRequest* /*request*/, ::vm_tools::tremplin::CancelUpgradeContainerResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1721,17 +3087,24 @@ class Tremplin final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_HostNetworkChanged : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_HostNetworkChanged() {
       ::grpc::Service::MarkMethodStreamed(15,
-        new ::grpc::internal::StreamedUnaryHandler< ::vm_tools::tremplin::HostNetworkChangedRequest, ::vm_tools::tremplin::HostNetworkChangedResponse>(std::bind(&WithStreamedUnaryMethod_HostNetworkChanged<BaseClass>::StreamedHostNetworkChanged, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::vm_tools::tremplin::HostNetworkChangedRequest, ::vm_tools::tremplin::HostNetworkChangedResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::vm_tools::tremplin::HostNetworkChangedRequest, ::vm_tools::tremplin::HostNetworkChangedResponse>* streamer) {
+                       return this->StreamedHostNetworkChanged(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_HostNetworkChanged() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status HostNetworkChanged(::grpc::ServerContext* context, const ::vm_tools::tremplin::HostNetworkChangedRequest* request, ::vm_tools::tremplin::HostNetworkChangedResponse* response) override {
+    ::grpc::Status HostNetworkChanged(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::HostNetworkChangedRequest* /*request*/, ::vm_tools::tremplin::HostNetworkChangedResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -1741,26 +3114,114 @@ class Tremplin final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_GetDebugInfo : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_GetDebugInfo() {
       ::grpc::Service::MarkMethodStreamed(16,
-        new ::grpc::internal::StreamedUnaryHandler< ::vm_tools::tremplin::GetDebugInfoRequest, ::vm_tools::tremplin::GetDebugInfoResponse>(std::bind(&WithStreamedUnaryMethod_GetDebugInfo<BaseClass>::StreamedGetDebugInfo, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::vm_tools::tremplin::GetDebugInfoRequest, ::vm_tools::tremplin::GetDebugInfoResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::vm_tools::tremplin::GetDebugInfoRequest, ::vm_tools::tremplin::GetDebugInfoResponse>* streamer) {
+                       return this->StreamedGetDebugInfo(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_GetDebugInfo() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status GetDebugInfo(::grpc::ServerContext* context, const ::vm_tools::tremplin::GetDebugInfoRequest* request, ::vm_tools::tremplin::GetDebugInfoResponse* response) override {
+    ::grpc::Status GetDebugInfo(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::GetDebugInfoRequest* /*request*/, ::vm_tools::tremplin::GetDebugInfoResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     // replace default version of method with streamed unary
     virtual ::grpc::Status StreamedGetDebugInfo(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::vm_tools::tremplin::GetDebugInfoRequest,::vm_tools::tremplin::GetDebugInfoResponse>* server_unary_streamer) = 0;
   };
-  typedef WithStreamedUnaryMethod_StartLxd<WithStreamedUnaryMethod_CreateContainer<WithStreamedUnaryMethod_DeleteContainer<WithStreamedUnaryMethod_StartContainer<WithStreamedUnaryMethod_StopContainer<WithStreamedUnaryMethod_GetContainerUsername<WithStreamedUnaryMethod_SetUpUser<WithStreamedUnaryMethod_GetContainerInfo<WithStreamedUnaryMethod_SetTimezone<WithStreamedUnaryMethod_ExportContainer<WithStreamedUnaryMethod_CancelExportContainer<WithStreamedUnaryMethod_ImportContainer<WithStreamedUnaryMethod_CancelImportContainer<WithStreamedUnaryMethod_UpgradeContainer<WithStreamedUnaryMethod_CancelUpgradeContainer<WithStreamedUnaryMethod_HostNetworkChanged<WithStreamedUnaryMethod_GetDebugInfo<Service > > > > > > > > > > > > > > > > > StreamedUnaryService;
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_AttachUsbToContainer : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_AttachUsbToContainer() {
+      ::grpc::Service::MarkMethodStreamed(17,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::vm_tools::tremplin::AttachUsbToContainerRequest, ::vm_tools::tremplin::AttachUsbToContainerResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::vm_tools::tremplin::AttachUsbToContainerRequest, ::vm_tools::tremplin::AttachUsbToContainerResponse>* streamer) {
+                       return this->StreamedAttachUsbToContainer(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_AttachUsbToContainer() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status AttachUsbToContainer(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::AttachUsbToContainerRequest* /*request*/, ::vm_tools::tremplin::AttachUsbToContainerResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedAttachUsbToContainer(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::vm_tools::tremplin::AttachUsbToContainerRequest,::vm_tools::tremplin::AttachUsbToContainerResponse>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_DetachUsbFromContainer : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_DetachUsbFromContainer() {
+      ::grpc::Service::MarkMethodStreamed(18,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::vm_tools::tremplin::DetachUsbFromContainerRequest, ::vm_tools::tremplin::DetachUsbFromContainerResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::vm_tools::tremplin::DetachUsbFromContainerRequest, ::vm_tools::tremplin::DetachUsbFromContainerResponse>* streamer) {
+                       return this->StreamedDetachUsbFromContainer(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_DetachUsbFromContainer() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status DetachUsbFromContainer(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::DetachUsbFromContainerRequest* /*request*/, ::vm_tools::tremplin::DetachUsbFromContainerResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedDetachUsbFromContainer(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::vm_tools::tremplin::DetachUsbFromContainerRequest,::vm_tools::tremplin::DetachUsbFromContainerResponse>* server_unary_streamer) = 0;
+  };
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_UpdateContainerDevices : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_UpdateContainerDevices() {
+      ::grpc::Service::MarkMethodStreamed(19,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::vm_tools::tremplin::UpdateContainerDevicesRequest, ::vm_tools::tremplin::UpdateContainerDevicesResponse>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::vm_tools::tremplin::UpdateContainerDevicesRequest, ::vm_tools::tremplin::UpdateContainerDevicesResponse>* streamer) {
+                       return this->StreamedUpdateContainerDevices(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_UpdateContainerDevices() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status UpdateContainerDevices(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::UpdateContainerDevicesRequest* /*request*/, ::vm_tools::tremplin::UpdateContainerDevicesResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedUpdateContainerDevices(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::vm_tools::tremplin::UpdateContainerDevicesRequest,::vm_tools::tremplin::UpdateContainerDevicesResponse>* server_unary_streamer) = 0;
+  };
+  typedef WithStreamedUnaryMethod_StartLxd<WithStreamedUnaryMethod_CreateContainer<WithStreamedUnaryMethod_DeleteContainer<WithStreamedUnaryMethod_StartContainer<WithStreamedUnaryMethod_StopContainer<WithStreamedUnaryMethod_GetContainerUsername<WithStreamedUnaryMethod_SetUpUser<WithStreamedUnaryMethod_GetContainerInfo<WithStreamedUnaryMethod_SetTimezone<WithStreamedUnaryMethod_ExportContainer<WithStreamedUnaryMethod_CancelExportContainer<WithStreamedUnaryMethod_ImportContainer<WithStreamedUnaryMethod_CancelImportContainer<WithStreamedUnaryMethod_UpgradeContainer<WithStreamedUnaryMethod_CancelUpgradeContainer<WithStreamedUnaryMethod_HostNetworkChanged<WithStreamedUnaryMethod_GetDebugInfo<WithStreamedUnaryMethod_AttachUsbToContainer<WithStreamedUnaryMethod_DetachUsbFromContainer<WithStreamedUnaryMethod_UpdateContainerDevices<Service > > > > > > > > > > > > > > > > > > > > StreamedUnaryService;
   typedef Service SplitStreamedService;
-  typedef WithStreamedUnaryMethod_StartLxd<WithStreamedUnaryMethod_CreateContainer<WithStreamedUnaryMethod_DeleteContainer<WithStreamedUnaryMethod_StartContainer<WithStreamedUnaryMethod_StopContainer<WithStreamedUnaryMethod_GetContainerUsername<WithStreamedUnaryMethod_SetUpUser<WithStreamedUnaryMethod_GetContainerInfo<WithStreamedUnaryMethod_SetTimezone<WithStreamedUnaryMethod_ExportContainer<WithStreamedUnaryMethod_CancelExportContainer<WithStreamedUnaryMethod_ImportContainer<WithStreamedUnaryMethod_CancelImportContainer<WithStreamedUnaryMethod_UpgradeContainer<WithStreamedUnaryMethod_CancelUpgradeContainer<WithStreamedUnaryMethod_HostNetworkChanged<WithStreamedUnaryMethod_GetDebugInfo<Service > > > > > > > > > > > > > > > > > StreamedService;
+  typedef WithStreamedUnaryMethod_StartLxd<WithStreamedUnaryMethod_CreateContainer<WithStreamedUnaryMethod_DeleteContainer<WithStreamedUnaryMethod_StartContainer<WithStreamedUnaryMethod_StopContainer<WithStreamedUnaryMethod_GetContainerUsername<WithStreamedUnaryMethod_SetUpUser<WithStreamedUnaryMethod_GetContainerInfo<WithStreamedUnaryMethod_SetTimezone<WithStreamedUnaryMethod_ExportContainer<WithStreamedUnaryMethod_CancelExportContainer<WithStreamedUnaryMethod_ImportContainer<WithStreamedUnaryMethod_CancelImportContainer<WithStreamedUnaryMethod_UpgradeContainer<WithStreamedUnaryMethod_CancelUpgradeContainer<WithStreamedUnaryMethod_HostNetworkChanged<WithStreamedUnaryMethod_GetDebugInfo<WithStreamedUnaryMethod_AttachUsbToContainer<WithStreamedUnaryMethod_DetachUsbFromContainer<WithStreamedUnaryMethod_UpdateContainerDevices<Service > > > > > > > > > > > > > > > > > > > > StreamedService;
 };
 
 // Service that is notified of events from tremplin.
@@ -1849,23 +3310,36 @@ class TremplinListener final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::tremplin::EmptyMessage>> PrepareAsyncUpgradeContainerStatus(::grpc::ClientContext* context, const ::vm_tools::tremplin::UpgradeContainerProgress& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::tremplin::EmptyMessage>>(PrepareAsyncUpgradeContainerStatusRaw(context, request, cq));
     }
-    class experimental_async_interface {
+    class async_interface {
      public:
-      virtual ~experimental_async_interface() {}
+      virtual ~async_interface() {}
       virtual void TremplinReady(::grpc::ClientContext* context, const ::vm_tools::tremplin::TremplinStartupInfo* request, ::vm_tools::tremplin::EmptyMessage* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void TremplinReady(::grpc::ClientContext* context, const ::vm_tools::tremplin::TremplinStartupInfo* request, ::vm_tools::tremplin::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       virtual void UpdateStartLxdStatus(::grpc::ClientContext* context, const ::vm_tools::tremplin::StartLxdProgress* request, ::vm_tools::tremplin::EmptyMessage* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void UpdateStartLxdStatus(::grpc::ClientContext* context, const ::vm_tools::tremplin::StartLxdProgress* request, ::vm_tools::tremplin::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       virtual void UpdateCreateStatus(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerCreationProgress* request, ::vm_tools::tremplin::EmptyMessage* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void UpdateCreateStatus(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerCreationProgress* request, ::vm_tools::tremplin::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       virtual void UpdateDeletionStatus(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerDeletionProgress* request, ::vm_tools::tremplin::EmptyMessage* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void UpdateDeletionStatus(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerDeletionProgress* request, ::vm_tools::tremplin::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       virtual void UpdateStartStatus(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerStartProgress* request, ::vm_tools::tremplin::EmptyMessage* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void UpdateStartStatus(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerStartProgress* request, ::vm_tools::tremplin::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       virtual void UpdateStopStatus(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerStopProgress* request, ::vm_tools::tremplin::EmptyMessage* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void UpdateStopStatus(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerStopProgress* request, ::vm_tools::tremplin::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       virtual void UpdateExportStatus(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerExportProgress* request, ::vm_tools::tremplin::EmptyMessage* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void UpdateExportStatus(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerExportProgress* request, ::vm_tools::tremplin::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       virtual void UpdateImportStatus(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerImportProgress* request, ::vm_tools::tremplin::EmptyMessage* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void UpdateImportStatus(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerImportProgress* request, ::vm_tools::tremplin::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       virtual void ContainerShutdown(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerShutdownInfo* request, ::vm_tools::tremplin::EmptyMessage* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void ContainerShutdown(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerShutdownInfo* request, ::vm_tools::tremplin::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       virtual void UpdateListeningPorts(::grpc::ClientContext* context, const ::vm_tools::tremplin::ListeningPortInfo* request, ::vm_tools::tremplin::EmptyMessage* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void UpdateListeningPorts(::grpc::ClientContext* context, const ::vm_tools::tremplin::ListeningPortInfo* request, ::vm_tools::tremplin::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) = 0;
       virtual void UpgradeContainerStatus(::grpc::ClientContext* context, const ::vm_tools::tremplin::UpgradeContainerProgress* request, ::vm_tools::tremplin::EmptyMessage* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void UpgradeContainerStatus(::grpc::ClientContext* context, const ::vm_tools::tremplin::UpgradeContainerProgress* request, ::vm_tools::tremplin::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) = 0;
     };
-    virtual class experimental_async_interface* experimental_async() { return nullptr; }
-  private:
+    typedef class async_interface experimental_async_interface;
+    virtual class async_interface* async() { return nullptr; }
+    class async_interface* experimental_async() { return async(); }
+   private:
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::tremplin::EmptyMessage>* AsyncTremplinReadyRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::TremplinStartupInfo& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::tremplin::EmptyMessage>* PrepareAsyncTremplinReadyRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::TremplinStartupInfo& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::vm_tools::tremplin::EmptyMessage>* AsyncUpdateStartLxdStatusRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::StartLxdProgress& request, ::grpc::CompletionQueue* cq) = 0;
@@ -1891,7 +3365,7 @@ class TremplinListener final {
   };
   class Stub final : public StubInterface {
    public:
-    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel);
+    Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
     ::grpc::Status TremplinReady(::grpc::ClientContext* context, const ::vm_tools::tremplin::TremplinStartupInfo& request, ::vm_tools::tremplin::EmptyMessage* response) override;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::EmptyMessage>> AsyncTremplinReady(::grpc::ClientContext* context, const ::vm_tools::tremplin::TremplinStartupInfo& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::EmptyMessage>>(AsyncTremplinReadyRaw(context, request, cq));
@@ -1969,31 +3443,42 @@ class TremplinListener final {
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::EmptyMessage>> PrepareAsyncUpgradeContainerStatus(::grpc::ClientContext* context, const ::vm_tools::tremplin::UpgradeContainerProgress& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::EmptyMessage>>(PrepareAsyncUpgradeContainerStatusRaw(context, request, cq));
     }
-    class experimental_async final :
-      public StubInterface::experimental_async_interface {
+    class async final :
+      public StubInterface::async_interface {
      public:
       void TremplinReady(::grpc::ClientContext* context, const ::vm_tools::tremplin::TremplinStartupInfo* request, ::vm_tools::tremplin::EmptyMessage* response, std::function<void(::grpc::Status)>) override;
+      void TremplinReady(::grpc::ClientContext* context, const ::vm_tools::tremplin::TremplinStartupInfo* request, ::vm_tools::tremplin::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) override;
       void UpdateStartLxdStatus(::grpc::ClientContext* context, const ::vm_tools::tremplin::StartLxdProgress* request, ::vm_tools::tremplin::EmptyMessage* response, std::function<void(::grpc::Status)>) override;
+      void UpdateStartLxdStatus(::grpc::ClientContext* context, const ::vm_tools::tremplin::StartLxdProgress* request, ::vm_tools::tremplin::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) override;
       void UpdateCreateStatus(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerCreationProgress* request, ::vm_tools::tremplin::EmptyMessage* response, std::function<void(::grpc::Status)>) override;
+      void UpdateCreateStatus(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerCreationProgress* request, ::vm_tools::tremplin::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) override;
       void UpdateDeletionStatus(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerDeletionProgress* request, ::vm_tools::tremplin::EmptyMessage* response, std::function<void(::grpc::Status)>) override;
+      void UpdateDeletionStatus(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerDeletionProgress* request, ::vm_tools::tremplin::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) override;
       void UpdateStartStatus(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerStartProgress* request, ::vm_tools::tremplin::EmptyMessage* response, std::function<void(::grpc::Status)>) override;
+      void UpdateStartStatus(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerStartProgress* request, ::vm_tools::tremplin::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) override;
       void UpdateStopStatus(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerStopProgress* request, ::vm_tools::tremplin::EmptyMessage* response, std::function<void(::grpc::Status)>) override;
+      void UpdateStopStatus(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerStopProgress* request, ::vm_tools::tremplin::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) override;
       void UpdateExportStatus(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerExportProgress* request, ::vm_tools::tremplin::EmptyMessage* response, std::function<void(::grpc::Status)>) override;
+      void UpdateExportStatus(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerExportProgress* request, ::vm_tools::tremplin::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) override;
       void UpdateImportStatus(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerImportProgress* request, ::vm_tools::tremplin::EmptyMessage* response, std::function<void(::grpc::Status)>) override;
+      void UpdateImportStatus(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerImportProgress* request, ::vm_tools::tremplin::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) override;
       void ContainerShutdown(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerShutdownInfo* request, ::vm_tools::tremplin::EmptyMessage* response, std::function<void(::grpc::Status)>) override;
+      void ContainerShutdown(::grpc::ClientContext* context, const ::vm_tools::tremplin::ContainerShutdownInfo* request, ::vm_tools::tremplin::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) override;
       void UpdateListeningPorts(::grpc::ClientContext* context, const ::vm_tools::tremplin::ListeningPortInfo* request, ::vm_tools::tremplin::EmptyMessage* response, std::function<void(::grpc::Status)>) override;
+      void UpdateListeningPorts(::grpc::ClientContext* context, const ::vm_tools::tremplin::ListeningPortInfo* request, ::vm_tools::tremplin::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) override;
       void UpgradeContainerStatus(::grpc::ClientContext* context, const ::vm_tools::tremplin::UpgradeContainerProgress* request, ::vm_tools::tremplin::EmptyMessage* response, std::function<void(::grpc::Status)>) override;
+      void UpgradeContainerStatus(::grpc::ClientContext* context, const ::vm_tools::tremplin::UpgradeContainerProgress* request, ::vm_tools::tremplin::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) override;
      private:
       friend class Stub;
-      explicit experimental_async(Stub* stub): stub_(stub) { }
+      explicit async(Stub* stub): stub_(stub) { }
       Stub* stub() { return stub_; }
       Stub* stub_;
     };
-    class experimental_async_interface* experimental_async() override { return &async_stub_; }
+    class async* async() override { return &async_stub_; }
 
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
-    class experimental_async async_stub_{this};
+    class async async_stub_{this};
     ::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::EmptyMessage>* AsyncTremplinReadyRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::TremplinStartupInfo& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::EmptyMessage>* PrepareAsyncTremplinReadyRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::TremplinStartupInfo& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::vm_tools::tremplin::EmptyMessage>* AsyncUpdateStartLxdStatusRaw(::grpc::ClientContext* context, const ::vm_tools::tremplin::StartLxdProgress& request, ::grpc::CompletionQueue* cq) override;
@@ -2049,7 +3534,7 @@ class TremplinListener final {
   template <class BaseClass>
   class WithAsyncMethod_TremplinReady : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_TremplinReady() {
       ::grpc::Service::MarkMethodAsync(0);
@@ -2058,7 +3543,7 @@ class TremplinListener final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status TremplinReady(::grpc::ServerContext* context, const ::vm_tools::tremplin::TremplinStartupInfo* request, ::vm_tools::tremplin::EmptyMessage* response) override {
+    ::grpc::Status TremplinReady(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::TremplinStartupInfo* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -2069,7 +3554,7 @@ class TremplinListener final {
   template <class BaseClass>
   class WithAsyncMethod_UpdateStartLxdStatus : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_UpdateStartLxdStatus() {
       ::grpc::Service::MarkMethodAsync(1);
@@ -2078,7 +3563,7 @@ class TremplinListener final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status UpdateStartLxdStatus(::grpc::ServerContext* context, const ::vm_tools::tremplin::StartLxdProgress* request, ::vm_tools::tremplin::EmptyMessage* response) override {
+    ::grpc::Status UpdateStartLxdStatus(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::StartLxdProgress* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -2089,7 +3574,7 @@ class TremplinListener final {
   template <class BaseClass>
   class WithAsyncMethod_UpdateCreateStatus : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_UpdateCreateStatus() {
       ::grpc::Service::MarkMethodAsync(2);
@@ -2098,7 +3583,7 @@ class TremplinListener final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status UpdateCreateStatus(::grpc::ServerContext* context, const ::vm_tools::tremplin::ContainerCreationProgress* request, ::vm_tools::tremplin::EmptyMessage* response) override {
+    ::grpc::Status UpdateCreateStatus(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::ContainerCreationProgress* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -2109,7 +3594,7 @@ class TremplinListener final {
   template <class BaseClass>
   class WithAsyncMethod_UpdateDeletionStatus : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_UpdateDeletionStatus() {
       ::grpc::Service::MarkMethodAsync(3);
@@ -2118,7 +3603,7 @@ class TremplinListener final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status UpdateDeletionStatus(::grpc::ServerContext* context, const ::vm_tools::tremplin::ContainerDeletionProgress* request, ::vm_tools::tremplin::EmptyMessage* response) override {
+    ::grpc::Status UpdateDeletionStatus(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::ContainerDeletionProgress* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -2129,7 +3614,7 @@ class TremplinListener final {
   template <class BaseClass>
   class WithAsyncMethod_UpdateStartStatus : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_UpdateStartStatus() {
       ::grpc::Service::MarkMethodAsync(4);
@@ -2138,7 +3623,7 @@ class TremplinListener final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status UpdateStartStatus(::grpc::ServerContext* context, const ::vm_tools::tremplin::ContainerStartProgress* request, ::vm_tools::tremplin::EmptyMessage* response) override {
+    ::grpc::Status UpdateStartStatus(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::ContainerStartProgress* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -2149,7 +3634,7 @@ class TremplinListener final {
   template <class BaseClass>
   class WithAsyncMethod_UpdateStopStatus : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_UpdateStopStatus() {
       ::grpc::Service::MarkMethodAsync(5);
@@ -2158,7 +3643,7 @@ class TremplinListener final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status UpdateStopStatus(::grpc::ServerContext* context, const ::vm_tools::tremplin::ContainerStopProgress* request, ::vm_tools::tremplin::EmptyMessage* response) override {
+    ::grpc::Status UpdateStopStatus(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::ContainerStopProgress* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -2169,7 +3654,7 @@ class TremplinListener final {
   template <class BaseClass>
   class WithAsyncMethod_UpdateExportStatus : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_UpdateExportStatus() {
       ::grpc::Service::MarkMethodAsync(6);
@@ -2178,7 +3663,7 @@ class TremplinListener final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status UpdateExportStatus(::grpc::ServerContext* context, const ::vm_tools::tremplin::ContainerExportProgress* request, ::vm_tools::tremplin::EmptyMessage* response) override {
+    ::grpc::Status UpdateExportStatus(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::ContainerExportProgress* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -2189,7 +3674,7 @@ class TremplinListener final {
   template <class BaseClass>
   class WithAsyncMethod_UpdateImportStatus : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_UpdateImportStatus() {
       ::grpc::Service::MarkMethodAsync(7);
@@ -2198,7 +3683,7 @@ class TremplinListener final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status UpdateImportStatus(::grpc::ServerContext* context, const ::vm_tools::tremplin::ContainerImportProgress* request, ::vm_tools::tremplin::EmptyMessage* response) override {
+    ::grpc::Status UpdateImportStatus(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::ContainerImportProgress* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -2209,7 +3694,7 @@ class TremplinListener final {
   template <class BaseClass>
   class WithAsyncMethod_ContainerShutdown : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_ContainerShutdown() {
       ::grpc::Service::MarkMethodAsync(8);
@@ -2218,7 +3703,7 @@ class TremplinListener final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status ContainerShutdown(::grpc::ServerContext* context, const ::vm_tools::tremplin::ContainerShutdownInfo* request, ::vm_tools::tremplin::EmptyMessage* response) override {
+    ::grpc::Status ContainerShutdown(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::ContainerShutdownInfo* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -2229,7 +3714,7 @@ class TremplinListener final {
   template <class BaseClass>
   class WithAsyncMethod_UpdateListeningPorts : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_UpdateListeningPorts() {
       ::grpc::Service::MarkMethodAsync(9);
@@ -2238,7 +3723,7 @@ class TremplinListener final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status UpdateListeningPorts(::grpc::ServerContext* context, const ::vm_tools::tremplin::ListeningPortInfo* request, ::vm_tools::tremplin::EmptyMessage* response) override {
+    ::grpc::Status UpdateListeningPorts(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::ListeningPortInfo* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -2249,7 +3734,7 @@ class TremplinListener final {
   template <class BaseClass>
   class WithAsyncMethod_UpgradeContainerStatus : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_UpgradeContainerStatus() {
       ::grpc::Service::MarkMethodAsync(10);
@@ -2258,7 +3743,7 @@ class TremplinListener final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status UpgradeContainerStatus(::grpc::ServerContext* context, const ::vm_tools::tremplin::UpgradeContainerProgress* request, ::vm_tools::tremplin::EmptyMessage* response) override {
+    ::grpc::Status UpgradeContainerStatus(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::UpgradeContainerProgress* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -2268,9 +3753,308 @@ class TremplinListener final {
   };
   typedef WithAsyncMethod_TremplinReady<WithAsyncMethod_UpdateStartLxdStatus<WithAsyncMethod_UpdateCreateStatus<WithAsyncMethod_UpdateDeletionStatus<WithAsyncMethod_UpdateStartStatus<WithAsyncMethod_UpdateStopStatus<WithAsyncMethod_UpdateExportStatus<WithAsyncMethod_UpdateImportStatus<WithAsyncMethod_ContainerShutdown<WithAsyncMethod_UpdateListeningPorts<WithAsyncMethod_UpgradeContainerStatus<Service > > > > > > > > > > > AsyncService;
   template <class BaseClass>
+  class WithCallbackMethod_TremplinReady : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_TremplinReady() {
+      ::grpc::Service::MarkMethodCallback(0,
+          new ::grpc::internal::CallbackUnaryHandler< ::vm_tools::tremplin::TremplinStartupInfo, ::vm_tools::tremplin::EmptyMessage>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::vm_tools::tremplin::TremplinStartupInfo* request, ::vm_tools::tremplin::EmptyMessage* response) { return this->TremplinReady(context, request, response); }));}
+    void SetMessageAllocatorFor_TremplinReady(
+        ::grpc::MessageAllocator< ::vm_tools::tremplin::TremplinStartupInfo, ::vm_tools::tremplin::EmptyMessage>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(0);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::vm_tools::tremplin::TremplinStartupInfo, ::vm_tools::tremplin::EmptyMessage>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_TremplinReady() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status TremplinReady(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::TremplinStartupInfo* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* TremplinReady(
+      ::grpc::CallbackServerContext* /*context*/, const ::vm_tools::tremplin::TremplinStartupInfo* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_UpdateStartLxdStatus : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_UpdateStartLxdStatus() {
+      ::grpc::Service::MarkMethodCallback(1,
+          new ::grpc::internal::CallbackUnaryHandler< ::vm_tools::tremplin::StartLxdProgress, ::vm_tools::tremplin::EmptyMessage>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::vm_tools::tremplin::StartLxdProgress* request, ::vm_tools::tremplin::EmptyMessage* response) { return this->UpdateStartLxdStatus(context, request, response); }));}
+    void SetMessageAllocatorFor_UpdateStartLxdStatus(
+        ::grpc::MessageAllocator< ::vm_tools::tremplin::StartLxdProgress, ::vm_tools::tremplin::EmptyMessage>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(1);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::vm_tools::tremplin::StartLxdProgress, ::vm_tools::tremplin::EmptyMessage>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_UpdateStartLxdStatus() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UpdateStartLxdStatus(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::StartLxdProgress* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* UpdateStartLxdStatus(
+      ::grpc::CallbackServerContext* /*context*/, const ::vm_tools::tremplin::StartLxdProgress* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_UpdateCreateStatus : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_UpdateCreateStatus() {
+      ::grpc::Service::MarkMethodCallback(2,
+          new ::grpc::internal::CallbackUnaryHandler< ::vm_tools::tremplin::ContainerCreationProgress, ::vm_tools::tremplin::EmptyMessage>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::vm_tools::tremplin::ContainerCreationProgress* request, ::vm_tools::tremplin::EmptyMessage* response) { return this->UpdateCreateStatus(context, request, response); }));}
+    void SetMessageAllocatorFor_UpdateCreateStatus(
+        ::grpc::MessageAllocator< ::vm_tools::tremplin::ContainerCreationProgress, ::vm_tools::tremplin::EmptyMessage>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(2);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::vm_tools::tremplin::ContainerCreationProgress, ::vm_tools::tremplin::EmptyMessage>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_UpdateCreateStatus() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UpdateCreateStatus(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::ContainerCreationProgress* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* UpdateCreateStatus(
+      ::grpc::CallbackServerContext* /*context*/, const ::vm_tools::tremplin::ContainerCreationProgress* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_UpdateDeletionStatus : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_UpdateDeletionStatus() {
+      ::grpc::Service::MarkMethodCallback(3,
+          new ::grpc::internal::CallbackUnaryHandler< ::vm_tools::tremplin::ContainerDeletionProgress, ::vm_tools::tremplin::EmptyMessage>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::vm_tools::tremplin::ContainerDeletionProgress* request, ::vm_tools::tremplin::EmptyMessage* response) { return this->UpdateDeletionStatus(context, request, response); }));}
+    void SetMessageAllocatorFor_UpdateDeletionStatus(
+        ::grpc::MessageAllocator< ::vm_tools::tremplin::ContainerDeletionProgress, ::vm_tools::tremplin::EmptyMessage>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(3);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::vm_tools::tremplin::ContainerDeletionProgress, ::vm_tools::tremplin::EmptyMessage>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_UpdateDeletionStatus() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UpdateDeletionStatus(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::ContainerDeletionProgress* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* UpdateDeletionStatus(
+      ::grpc::CallbackServerContext* /*context*/, const ::vm_tools::tremplin::ContainerDeletionProgress* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_UpdateStartStatus : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_UpdateStartStatus() {
+      ::grpc::Service::MarkMethodCallback(4,
+          new ::grpc::internal::CallbackUnaryHandler< ::vm_tools::tremplin::ContainerStartProgress, ::vm_tools::tremplin::EmptyMessage>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::vm_tools::tremplin::ContainerStartProgress* request, ::vm_tools::tremplin::EmptyMessage* response) { return this->UpdateStartStatus(context, request, response); }));}
+    void SetMessageAllocatorFor_UpdateStartStatus(
+        ::grpc::MessageAllocator< ::vm_tools::tremplin::ContainerStartProgress, ::vm_tools::tremplin::EmptyMessage>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(4);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::vm_tools::tremplin::ContainerStartProgress, ::vm_tools::tremplin::EmptyMessage>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_UpdateStartStatus() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UpdateStartStatus(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::ContainerStartProgress* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* UpdateStartStatus(
+      ::grpc::CallbackServerContext* /*context*/, const ::vm_tools::tremplin::ContainerStartProgress* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_UpdateStopStatus : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_UpdateStopStatus() {
+      ::grpc::Service::MarkMethodCallback(5,
+          new ::grpc::internal::CallbackUnaryHandler< ::vm_tools::tremplin::ContainerStopProgress, ::vm_tools::tremplin::EmptyMessage>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::vm_tools::tremplin::ContainerStopProgress* request, ::vm_tools::tremplin::EmptyMessage* response) { return this->UpdateStopStatus(context, request, response); }));}
+    void SetMessageAllocatorFor_UpdateStopStatus(
+        ::grpc::MessageAllocator< ::vm_tools::tremplin::ContainerStopProgress, ::vm_tools::tremplin::EmptyMessage>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(5);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::vm_tools::tremplin::ContainerStopProgress, ::vm_tools::tremplin::EmptyMessage>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_UpdateStopStatus() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UpdateStopStatus(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::ContainerStopProgress* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* UpdateStopStatus(
+      ::grpc::CallbackServerContext* /*context*/, const ::vm_tools::tremplin::ContainerStopProgress* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_UpdateExportStatus : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_UpdateExportStatus() {
+      ::grpc::Service::MarkMethodCallback(6,
+          new ::grpc::internal::CallbackUnaryHandler< ::vm_tools::tremplin::ContainerExportProgress, ::vm_tools::tremplin::EmptyMessage>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::vm_tools::tremplin::ContainerExportProgress* request, ::vm_tools::tremplin::EmptyMessage* response) { return this->UpdateExportStatus(context, request, response); }));}
+    void SetMessageAllocatorFor_UpdateExportStatus(
+        ::grpc::MessageAllocator< ::vm_tools::tremplin::ContainerExportProgress, ::vm_tools::tremplin::EmptyMessage>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(6);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::vm_tools::tremplin::ContainerExportProgress, ::vm_tools::tremplin::EmptyMessage>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_UpdateExportStatus() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UpdateExportStatus(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::ContainerExportProgress* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* UpdateExportStatus(
+      ::grpc::CallbackServerContext* /*context*/, const ::vm_tools::tremplin::ContainerExportProgress* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_UpdateImportStatus : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_UpdateImportStatus() {
+      ::grpc::Service::MarkMethodCallback(7,
+          new ::grpc::internal::CallbackUnaryHandler< ::vm_tools::tremplin::ContainerImportProgress, ::vm_tools::tremplin::EmptyMessage>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::vm_tools::tremplin::ContainerImportProgress* request, ::vm_tools::tremplin::EmptyMessage* response) { return this->UpdateImportStatus(context, request, response); }));}
+    void SetMessageAllocatorFor_UpdateImportStatus(
+        ::grpc::MessageAllocator< ::vm_tools::tremplin::ContainerImportProgress, ::vm_tools::tremplin::EmptyMessage>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(7);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::vm_tools::tremplin::ContainerImportProgress, ::vm_tools::tremplin::EmptyMessage>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_UpdateImportStatus() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UpdateImportStatus(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::ContainerImportProgress* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* UpdateImportStatus(
+      ::grpc::CallbackServerContext* /*context*/, const ::vm_tools::tremplin::ContainerImportProgress* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_ContainerShutdown : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_ContainerShutdown() {
+      ::grpc::Service::MarkMethodCallback(8,
+          new ::grpc::internal::CallbackUnaryHandler< ::vm_tools::tremplin::ContainerShutdownInfo, ::vm_tools::tremplin::EmptyMessage>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::vm_tools::tremplin::ContainerShutdownInfo* request, ::vm_tools::tremplin::EmptyMessage* response) { return this->ContainerShutdown(context, request, response); }));}
+    void SetMessageAllocatorFor_ContainerShutdown(
+        ::grpc::MessageAllocator< ::vm_tools::tremplin::ContainerShutdownInfo, ::vm_tools::tremplin::EmptyMessage>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(8);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::vm_tools::tremplin::ContainerShutdownInfo, ::vm_tools::tremplin::EmptyMessage>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_ContainerShutdown() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ContainerShutdown(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::ContainerShutdownInfo* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* ContainerShutdown(
+      ::grpc::CallbackServerContext* /*context*/, const ::vm_tools::tremplin::ContainerShutdownInfo* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_UpdateListeningPorts : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_UpdateListeningPorts() {
+      ::grpc::Service::MarkMethodCallback(9,
+          new ::grpc::internal::CallbackUnaryHandler< ::vm_tools::tremplin::ListeningPortInfo, ::vm_tools::tremplin::EmptyMessage>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::vm_tools::tremplin::ListeningPortInfo* request, ::vm_tools::tremplin::EmptyMessage* response) { return this->UpdateListeningPorts(context, request, response); }));}
+    void SetMessageAllocatorFor_UpdateListeningPorts(
+        ::grpc::MessageAllocator< ::vm_tools::tremplin::ListeningPortInfo, ::vm_tools::tremplin::EmptyMessage>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(9);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::vm_tools::tremplin::ListeningPortInfo, ::vm_tools::tremplin::EmptyMessage>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_UpdateListeningPorts() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UpdateListeningPorts(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::ListeningPortInfo* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* UpdateListeningPorts(
+      ::grpc::CallbackServerContext* /*context*/, const ::vm_tools::tremplin::ListeningPortInfo* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithCallbackMethod_UpgradeContainerStatus : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_UpgradeContainerStatus() {
+      ::grpc::Service::MarkMethodCallback(10,
+          new ::grpc::internal::CallbackUnaryHandler< ::vm_tools::tremplin::UpgradeContainerProgress, ::vm_tools::tremplin::EmptyMessage>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::vm_tools::tremplin::UpgradeContainerProgress* request, ::vm_tools::tremplin::EmptyMessage* response) { return this->UpgradeContainerStatus(context, request, response); }));}
+    void SetMessageAllocatorFor_UpgradeContainerStatus(
+        ::grpc::MessageAllocator< ::vm_tools::tremplin::UpgradeContainerProgress, ::vm_tools::tremplin::EmptyMessage>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(10);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::vm_tools::tremplin::UpgradeContainerProgress, ::vm_tools::tremplin::EmptyMessage>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_UpgradeContainerStatus() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UpgradeContainerStatus(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::UpgradeContainerProgress* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* UpgradeContainerStatus(
+      ::grpc::CallbackServerContext* /*context*/, const ::vm_tools::tremplin::UpgradeContainerProgress* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/)  { return nullptr; }
+  };
+  typedef WithCallbackMethod_TremplinReady<WithCallbackMethod_UpdateStartLxdStatus<WithCallbackMethod_UpdateCreateStatus<WithCallbackMethod_UpdateDeletionStatus<WithCallbackMethod_UpdateStartStatus<WithCallbackMethod_UpdateStopStatus<WithCallbackMethod_UpdateExportStatus<WithCallbackMethod_UpdateImportStatus<WithCallbackMethod_ContainerShutdown<WithCallbackMethod_UpdateListeningPorts<WithCallbackMethod_UpgradeContainerStatus<Service > > > > > > > > > > > CallbackService;
+  typedef CallbackService ExperimentalCallbackService;
+  template <class BaseClass>
   class WithGenericMethod_TremplinReady : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_TremplinReady() {
       ::grpc::Service::MarkMethodGeneric(0);
@@ -2279,7 +4063,7 @@ class TremplinListener final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status TremplinReady(::grpc::ServerContext* context, const ::vm_tools::tremplin::TremplinStartupInfo* request, ::vm_tools::tremplin::EmptyMessage* response) override {
+    ::grpc::Status TremplinReady(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::TremplinStartupInfo* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -2287,7 +4071,7 @@ class TremplinListener final {
   template <class BaseClass>
   class WithGenericMethod_UpdateStartLxdStatus : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_UpdateStartLxdStatus() {
       ::grpc::Service::MarkMethodGeneric(1);
@@ -2296,7 +4080,7 @@ class TremplinListener final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status UpdateStartLxdStatus(::grpc::ServerContext* context, const ::vm_tools::tremplin::StartLxdProgress* request, ::vm_tools::tremplin::EmptyMessage* response) override {
+    ::grpc::Status UpdateStartLxdStatus(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::StartLxdProgress* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -2304,7 +4088,7 @@ class TremplinListener final {
   template <class BaseClass>
   class WithGenericMethod_UpdateCreateStatus : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_UpdateCreateStatus() {
       ::grpc::Service::MarkMethodGeneric(2);
@@ -2313,7 +4097,7 @@ class TremplinListener final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status UpdateCreateStatus(::grpc::ServerContext* context, const ::vm_tools::tremplin::ContainerCreationProgress* request, ::vm_tools::tremplin::EmptyMessage* response) override {
+    ::grpc::Status UpdateCreateStatus(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::ContainerCreationProgress* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -2321,7 +4105,7 @@ class TremplinListener final {
   template <class BaseClass>
   class WithGenericMethod_UpdateDeletionStatus : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_UpdateDeletionStatus() {
       ::grpc::Service::MarkMethodGeneric(3);
@@ -2330,7 +4114,7 @@ class TremplinListener final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status UpdateDeletionStatus(::grpc::ServerContext* context, const ::vm_tools::tremplin::ContainerDeletionProgress* request, ::vm_tools::tremplin::EmptyMessage* response) override {
+    ::grpc::Status UpdateDeletionStatus(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::ContainerDeletionProgress* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -2338,7 +4122,7 @@ class TremplinListener final {
   template <class BaseClass>
   class WithGenericMethod_UpdateStartStatus : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_UpdateStartStatus() {
       ::grpc::Service::MarkMethodGeneric(4);
@@ -2347,7 +4131,7 @@ class TremplinListener final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status UpdateStartStatus(::grpc::ServerContext* context, const ::vm_tools::tremplin::ContainerStartProgress* request, ::vm_tools::tremplin::EmptyMessage* response) override {
+    ::grpc::Status UpdateStartStatus(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::ContainerStartProgress* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -2355,7 +4139,7 @@ class TremplinListener final {
   template <class BaseClass>
   class WithGenericMethod_UpdateStopStatus : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_UpdateStopStatus() {
       ::grpc::Service::MarkMethodGeneric(5);
@@ -2364,7 +4148,7 @@ class TremplinListener final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status UpdateStopStatus(::grpc::ServerContext* context, const ::vm_tools::tremplin::ContainerStopProgress* request, ::vm_tools::tremplin::EmptyMessage* response) override {
+    ::grpc::Status UpdateStopStatus(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::ContainerStopProgress* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -2372,7 +4156,7 @@ class TremplinListener final {
   template <class BaseClass>
   class WithGenericMethod_UpdateExportStatus : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_UpdateExportStatus() {
       ::grpc::Service::MarkMethodGeneric(6);
@@ -2381,7 +4165,7 @@ class TremplinListener final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status UpdateExportStatus(::grpc::ServerContext* context, const ::vm_tools::tremplin::ContainerExportProgress* request, ::vm_tools::tremplin::EmptyMessage* response) override {
+    ::grpc::Status UpdateExportStatus(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::ContainerExportProgress* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -2389,7 +4173,7 @@ class TremplinListener final {
   template <class BaseClass>
   class WithGenericMethod_UpdateImportStatus : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_UpdateImportStatus() {
       ::grpc::Service::MarkMethodGeneric(7);
@@ -2398,7 +4182,7 @@ class TremplinListener final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status UpdateImportStatus(::grpc::ServerContext* context, const ::vm_tools::tremplin::ContainerImportProgress* request, ::vm_tools::tremplin::EmptyMessage* response) override {
+    ::grpc::Status UpdateImportStatus(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::ContainerImportProgress* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -2406,7 +4190,7 @@ class TremplinListener final {
   template <class BaseClass>
   class WithGenericMethod_ContainerShutdown : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_ContainerShutdown() {
       ::grpc::Service::MarkMethodGeneric(8);
@@ -2415,7 +4199,7 @@ class TremplinListener final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status ContainerShutdown(::grpc::ServerContext* context, const ::vm_tools::tremplin::ContainerShutdownInfo* request, ::vm_tools::tremplin::EmptyMessage* response) override {
+    ::grpc::Status ContainerShutdown(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::ContainerShutdownInfo* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -2423,7 +4207,7 @@ class TremplinListener final {
   template <class BaseClass>
   class WithGenericMethod_UpdateListeningPorts : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_UpdateListeningPorts() {
       ::grpc::Service::MarkMethodGeneric(9);
@@ -2432,7 +4216,7 @@ class TremplinListener final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status UpdateListeningPorts(::grpc::ServerContext* context, const ::vm_tools::tremplin::ListeningPortInfo* request, ::vm_tools::tremplin::EmptyMessage* response) override {
+    ::grpc::Status UpdateListeningPorts(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::ListeningPortInfo* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -2440,7 +4224,7 @@ class TremplinListener final {
   template <class BaseClass>
   class WithGenericMethod_UpgradeContainerStatus : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_UpgradeContainerStatus() {
       ::grpc::Service::MarkMethodGeneric(10);
@@ -2449,7 +4233,7 @@ class TremplinListener final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status UpgradeContainerStatus(::grpc::ServerContext* context, const ::vm_tools::tremplin::UpgradeContainerProgress* request, ::vm_tools::tremplin::EmptyMessage* response) override {
+    ::grpc::Status UpgradeContainerStatus(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::UpgradeContainerProgress* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -2457,7 +4241,7 @@ class TremplinListener final {
   template <class BaseClass>
   class WithRawMethod_TremplinReady : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_TremplinReady() {
       ::grpc::Service::MarkMethodRaw(0);
@@ -2466,7 +4250,7 @@ class TremplinListener final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status TremplinReady(::grpc::ServerContext* context, const ::vm_tools::tremplin::TremplinStartupInfo* request, ::vm_tools::tremplin::EmptyMessage* response) override {
+    ::grpc::Status TremplinReady(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::TremplinStartupInfo* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -2477,7 +4261,7 @@ class TremplinListener final {
   template <class BaseClass>
   class WithRawMethod_UpdateStartLxdStatus : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_UpdateStartLxdStatus() {
       ::grpc::Service::MarkMethodRaw(1);
@@ -2486,7 +4270,7 @@ class TremplinListener final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status UpdateStartLxdStatus(::grpc::ServerContext* context, const ::vm_tools::tremplin::StartLxdProgress* request, ::vm_tools::tremplin::EmptyMessage* response) override {
+    ::grpc::Status UpdateStartLxdStatus(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::StartLxdProgress* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -2497,7 +4281,7 @@ class TremplinListener final {
   template <class BaseClass>
   class WithRawMethod_UpdateCreateStatus : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_UpdateCreateStatus() {
       ::grpc::Service::MarkMethodRaw(2);
@@ -2506,7 +4290,7 @@ class TremplinListener final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status UpdateCreateStatus(::grpc::ServerContext* context, const ::vm_tools::tremplin::ContainerCreationProgress* request, ::vm_tools::tremplin::EmptyMessage* response) override {
+    ::grpc::Status UpdateCreateStatus(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::ContainerCreationProgress* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -2517,7 +4301,7 @@ class TremplinListener final {
   template <class BaseClass>
   class WithRawMethod_UpdateDeletionStatus : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_UpdateDeletionStatus() {
       ::grpc::Service::MarkMethodRaw(3);
@@ -2526,7 +4310,7 @@ class TremplinListener final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status UpdateDeletionStatus(::grpc::ServerContext* context, const ::vm_tools::tremplin::ContainerDeletionProgress* request, ::vm_tools::tremplin::EmptyMessage* response) override {
+    ::grpc::Status UpdateDeletionStatus(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::ContainerDeletionProgress* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -2537,7 +4321,7 @@ class TremplinListener final {
   template <class BaseClass>
   class WithRawMethod_UpdateStartStatus : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_UpdateStartStatus() {
       ::grpc::Service::MarkMethodRaw(4);
@@ -2546,7 +4330,7 @@ class TremplinListener final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status UpdateStartStatus(::grpc::ServerContext* context, const ::vm_tools::tremplin::ContainerStartProgress* request, ::vm_tools::tremplin::EmptyMessage* response) override {
+    ::grpc::Status UpdateStartStatus(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::ContainerStartProgress* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -2557,7 +4341,7 @@ class TremplinListener final {
   template <class BaseClass>
   class WithRawMethod_UpdateStopStatus : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_UpdateStopStatus() {
       ::grpc::Service::MarkMethodRaw(5);
@@ -2566,7 +4350,7 @@ class TremplinListener final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status UpdateStopStatus(::grpc::ServerContext* context, const ::vm_tools::tremplin::ContainerStopProgress* request, ::vm_tools::tremplin::EmptyMessage* response) override {
+    ::grpc::Status UpdateStopStatus(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::ContainerStopProgress* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -2577,7 +4361,7 @@ class TremplinListener final {
   template <class BaseClass>
   class WithRawMethod_UpdateExportStatus : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_UpdateExportStatus() {
       ::grpc::Service::MarkMethodRaw(6);
@@ -2586,7 +4370,7 @@ class TremplinListener final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status UpdateExportStatus(::grpc::ServerContext* context, const ::vm_tools::tremplin::ContainerExportProgress* request, ::vm_tools::tremplin::EmptyMessage* response) override {
+    ::grpc::Status UpdateExportStatus(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::ContainerExportProgress* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -2597,7 +4381,7 @@ class TremplinListener final {
   template <class BaseClass>
   class WithRawMethod_UpdateImportStatus : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_UpdateImportStatus() {
       ::grpc::Service::MarkMethodRaw(7);
@@ -2606,7 +4390,7 @@ class TremplinListener final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status UpdateImportStatus(::grpc::ServerContext* context, const ::vm_tools::tremplin::ContainerImportProgress* request, ::vm_tools::tremplin::EmptyMessage* response) override {
+    ::grpc::Status UpdateImportStatus(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::ContainerImportProgress* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -2617,7 +4401,7 @@ class TremplinListener final {
   template <class BaseClass>
   class WithRawMethod_ContainerShutdown : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_ContainerShutdown() {
       ::grpc::Service::MarkMethodRaw(8);
@@ -2626,7 +4410,7 @@ class TremplinListener final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status ContainerShutdown(::grpc::ServerContext* context, const ::vm_tools::tremplin::ContainerShutdownInfo* request, ::vm_tools::tremplin::EmptyMessage* response) override {
+    ::grpc::Status ContainerShutdown(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::ContainerShutdownInfo* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -2637,7 +4421,7 @@ class TremplinListener final {
   template <class BaseClass>
   class WithRawMethod_UpdateListeningPorts : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_UpdateListeningPorts() {
       ::grpc::Service::MarkMethodRaw(9);
@@ -2646,7 +4430,7 @@ class TremplinListener final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status UpdateListeningPorts(::grpc::ServerContext* context, const ::vm_tools::tremplin::ListeningPortInfo* request, ::vm_tools::tremplin::EmptyMessage* response) override {
+    ::grpc::Status UpdateListeningPorts(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::ListeningPortInfo* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -2657,7 +4441,7 @@ class TremplinListener final {
   template <class BaseClass>
   class WithRawMethod_UpgradeContainerStatus : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_UpgradeContainerStatus() {
       ::grpc::Service::MarkMethodRaw(10);
@@ -2666,7 +4450,7 @@ class TremplinListener final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status UpgradeContainerStatus(::grpc::ServerContext* context, const ::vm_tools::tremplin::UpgradeContainerProgress* request, ::vm_tools::tremplin::EmptyMessage* response) override {
+    ::grpc::Status UpgradeContainerStatus(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::UpgradeContainerProgress* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -2675,19 +4459,268 @@ class TremplinListener final {
     }
   };
   template <class BaseClass>
+  class WithRawCallbackMethod_TremplinReady : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_TremplinReady() {
+      ::grpc::Service::MarkMethodRawCallback(0,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->TremplinReady(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_TremplinReady() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status TremplinReady(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::TremplinStartupInfo* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* TremplinReady(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_UpdateStartLxdStatus : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_UpdateStartLxdStatus() {
+      ::grpc::Service::MarkMethodRawCallback(1,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateStartLxdStatus(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_UpdateStartLxdStatus() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UpdateStartLxdStatus(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::StartLxdProgress* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* UpdateStartLxdStatus(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_UpdateCreateStatus : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_UpdateCreateStatus() {
+      ::grpc::Service::MarkMethodRawCallback(2,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateCreateStatus(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_UpdateCreateStatus() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UpdateCreateStatus(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::ContainerCreationProgress* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* UpdateCreateStatus(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_UpdateDeletionStatus : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_UpdateDeletionStatus() {
+      ::grpc::Service::MarkMethodRawCallback(3,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateDeletionStatus(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_UpdateDeletionStatus() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UpdateDeletionStatus(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::ContainerDeletionProgress* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* UpdateDeletionStatus(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_UpdateStartStatus : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_UpdateStartStatus() {
+      ::grpc::Service::MarkMethodRawCallback(4,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateStartStatus(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_UpdateStartStatus() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UpdateStartStatus(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::ContainerStartProgress* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* UpdateStartStatus(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_UpdateStopStatus : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_UpdateStopStatus() {
+      ::grpc::Service::MarkMethodRawCallback(5,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateStopStatus(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_UpdateStopStatus() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UpdateStopStatus(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::ContainerStopProgress* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* UpdateStopStatus(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_UpdateExportStatus : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_UpdateExportStatus() {
+      ::grpc::Service::MarkMethodRawCallback(6,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateExportStatus(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_UpdateExportStatus() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UpdateExportStatus(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::ContainerExportProgress* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* UpdateExportStatus(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_UpdateImportStatus : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_UpdateImportStatus() {
+      ::grpc::Service::MarkMethodRawCallback(7,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateImportStatus(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_UpdateImportStatus() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UpdateImportStatus(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::ContainerImportProgress* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* UpdateImportStatus(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_ContainerShutdown : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_ContainerShutdown() {
+      ::grpc::Service::MarkMethodRawCallback(8,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->ContainerShutdown(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_ContainerShutdown() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status ContainerShutdown(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::ContainerShutdownInfo* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* ContainerShutdown(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_UpdateListeningPorts : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_UpdateListeningPorts() {
+      ::grpc::Service::MarkMethodRawCallback(9,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateListeningPorts(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_UpdateListeningPorts() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UpdateListeningPorts(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::ListeningPortInfo* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* UpdateListeningPorts(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_UpgradeContainerStatus : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_UpgradeContainerStatus() {
+      ::grpc::Service::MarkMethodRawCallback(10,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpgradeContainerStatus(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_UpgradeContainerStatus() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status UpgradeContainerStatus(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::UpgradeContainerProgress* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* UpgradeContainerStatus(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
   class WithStreamedUnaryMethod_TremplinReady : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_TremplinReady() {
       ::grpc::Service::MarkMethodStreamed(0,
-        new ::grpc::internal::StreamedUnaryHandler< ::vm_tools::tremplin::TremplinStartupInfo, ::vm_tools::tremplin::EmptyMessage>(std::bind(&WithStreamedUnaryMethod_TremplinReady<BaseClass>::StreamedTremplinReady, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::vm_tools::tremplin::TremplinStartupInfo, ::vm_tools::tremplin::EmptyMessage>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::vm_tools::tremplin::TremplinStartupInfo, ::vm_tools::tremplin::EmptyMessage>* streamer) {
+                       return this->StreamedTremplinReady(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_TremplinReady() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status TremplinReady(::grpc::ServerContext* context, const ::vm_tools::tremplin::TremplinStartupInfo* request, ::vm_tools::tremplin::EmptyMessage* response) override {
+    ::grpc::Status TremplinReady(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::TremplinStartupInfo* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -2697,17 +4730,24 @@ class TremplinListener final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_UpdateStartLxdStatus : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_UpdateStartLxdStatus() {
       ::grpc::Service::MarkMethodStreamed(1,
-        new ::grpc::internal::StreamedUnaryHandler< ::vm_tools::tremplin::StartLxdProgress, ::vm_tools::tremplin::EmptyMessage>(std::bind(&WithStreamedUnaryMethod_UpdateStartLxdStatus<BaseClass>::StreamedUpdateStartLxdStatus, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::vm_tools::tremplin::StartLxdProgress, ::vm_tools::tremplin::EmptyMessage>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::vm_tools::tremplin::StartLxdProgress, ::vm_tools::tremplin::EmptyMessage>* streamer) {
+                       return this->StreamedUpdateStartLxdStatus(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_UpdateStartLxdStatus() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status UpdateStartLxdStatus(::grpc::ServerContext* context, const ::vm_tools::tremplin::StartLxdProgress* request, ::vm_tools::tremplin::EmptyMessage* response) override {
+    ::grpc::Status UpdateStartLxdStatus(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::StartLxdProgress* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -2717,17 +4757,24 @@ class TremplinListener final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_UpdateCreateStatus : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_UpdateCreateStatus() {
       ::grpc::Service::MarkMethodStreamed(2,
-        new ::grpc::internal::StreamedUnaryHandler< ::vm_tools::tremplin::ContainerCreationProgress, ::vm_tools::tremplin::EmptyMessage>(std::bind(&WithStreamedUnaryMethod_UpdateCreateStatus<BaseClass>::StreamedUpdateCreateStatus, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::vm_tools::tremplin::ContainerCreationProgress, ::vm_tools::tremplin::EmptyMessage>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::vm_tools::tremplin::ContainerCreationProgress, ::vm_tools::tremplin::EmptyMessage>* streamer) {
+                       return this->StreamedUpdateCreateStatus(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_UpdateCreateStatus() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status UpdateCreateStatus(::grpc::ServerContext* context, const ::vm_tools::tremplin::ContainerCreationProgress* request, ::vm_tools::tremplin::EmptyMessage* response) override {
+    ::grpc::Status UpdateCreateStatus(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::ContainerCreationProgress* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -2737,17 +4784,24 @@ class TremplinListener final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_UpdateDeletionStatus : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_UpdateDeletionStatus() {
       ::grpc::Service::MarkMethodStreamed(3,
-        new ::grpc::internal::StreamedUnaryHandler< ::vm_tools::tremplin::ContainerDeletionProgress, ::vm_tools::tremplin::EmptyMessage>(std::bind(&WithStreamedUnaryMethod_UpdateDeletionStatus<BaseClass>::StreamedUpdateDeletionStatus, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::vm_tools::tremplin::ContainerDeletionProgress, ::vm_tools::tremplin::EmptyMessage>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::vm_tools::tremplin::ContainerDeletionProgress, ::vm_tools::tremplin::EmptyMessage>* streamer) {
+                       return this->StreamedUpdateDeletionStatus(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_UpdateDeletionStatus() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status UpdateDeletionStatus(::grpc::ServerContext* context, const ::vm_tools::tremplin::ContainerDeletionProgress* request, ::vm_tools::tremplin::EmptyMessage* response) override {
+    ::grpc::Status UpdateDeletionStatus(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::ContainerDeletionProgress* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -2757,17 +4811,24 @@ class TremplinListener final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_UpdateStartStatus : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_UpdateStartStatus() {
       ::grpc::Service::MarkMethodStreamed(4,
-        new ::grpc::internal::StreamedUnaryHandler< ::vm_tools::tremplin::ContainerStartProgress, ::vm_tools::tremplin::EmptyMessage>(std::bind(&WithStreamedUnaryMethod_UpdateStartStatus<BaseClass>::StreamedUpdateStartStatus, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::vm_tools::tremplin::ContainerStartProgress, ::vm_tools::tremplin::EmptyMessage>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::vm_tools::tremplin::ContainerStartProgress, ::vm_tools::tremplin::EmptyMessage>* streamer) {
+                       return this->StreamedUpdateStartStatus(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_UpdateStartStatus() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status UpdateStartStatus(::grpc::ServerContext* context, const ::vm_tools::tremplin::ContainerStartProgress* request, ::vm_tools::tremplin::EmptyMessage* response) override {
+    ::grpc::Status UpdateStartStatus(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::ContainerStartProgress* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -2777,17 +4838,24 @@ class TremplinListener final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_UpdateStopStatus : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_UpdateStopStatus() {
       ::grpc::Service::MarkMethodStreamed(5,
-        new ::grpc::internal::StreamedUnaryHandler< ::vm_tools::tremplin::ContainerStopProgress, ::vm_tools::tremplin::EmptyMessage>(std::bind(&WithStreamedUnaryMethod_UpdateStopStatus<BaseClass>::StreamedUpdateStopStatus, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::vm_tools::tremplin::ContainerStopProgress, ::vm_tools::tremplin::EmptyMessage>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::vm_tools::tremplin::ContainerStopProgress, ::vm_tools::tremplin::EmptyMessage>* streamer) {
+                       return this->StreamedUpdateStopStatus(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_UpdateStopStatus() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status UpdateStopStatus(::grpc::ServerContext* context, const ::vm_tools::tremplin::ContainerStopProgress* request, ::vm_tools::tremplin::EmptyMessage* response) override {
+    ::grpc::Status UpdateStopStatus(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::ContainerStopProgress* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -2797,17 +4865,24 @@ class TremplinListener final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_UpdateExportStatus : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_UpdateExportStatus() {
       ::grpc::Service::MarkMethodStreamed(6,
-        new ::grpc::internal::StreamedUnaryHandler< ::vm_tools::tremplin::ContainerExportProgress, ::vm_tools::tremplin::EmptyMessage>(std::bind(&WithStreamedUnaryMethod_UpdateExportStatus<BaseClass>::StreamedUpdateExportStatus, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::vm_tools::tremplin::ContainerExportProgress, ::vm_tools::tremplin::EmptyMessage>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::vm_tools::tremplin::ContainerExportProgress, ::vm_tools::tremplin::EmptyMessage>* streamer) {
+                       return this->StreamedUpdateExportStatus(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_UpdateExportStatus() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status UpdateExportStatus(::grpc::ServerContext* context, const ::vm_tools::tremplin::ContainerExportProgress* request, ::vm_tools::tremplin::EmptyMessage* response) override {
+    ::grpc::Status UpdateExportStatus(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::ContainerExportProgress* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -2817,17 +4892,24 @@ class TremplinListener final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_UpdateImportStatus : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_UpdateImportStatus() {
       ::grpc::Service::MarkMethodStreamed(7,
-        new ::grpc::internal::StreamedUnaryHandler< ::vm_tools::tremplin::ContainerImportProgress, ::vm_tools::tremplin::EmptyMessage>(std::bind(&WithStreamedUnaryMethod_UpdateImportStatus<BaseClass>::StreamedUpdateImportStatus, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::vm_tools::tremplin::ContainerImportProgress, ::vm_tools::tremplin::EmptyMessage>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::vm_tools::tremplin::ContainerImportProgress, ::vm_tools::tremplin::EmptyMessage>* streamer) {
+                       return this->StreamedUpdateImportStatus(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_UpdateImportStatus() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status UpdateImportStatus(::grpc::ServerContext* context, const ::vm_tools::tremplin::ContainerImportProgress* request, ::vm_tools::tremplin::EmptyMessage* response) override {
+    ::grpc::Status UpdateImportStatus(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::ContainerImportProgress* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -2837,17 +4919,24 @@ class TremplinListener final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_ContainerShutdown : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_ContainerShutdown() {
       ::grpc::Service::MarkMethodStreamed(8,
-        new ::grpc::internal::StreamedUnaryHandler< ::vm_tools::tremplin::ContainerShutdownInfo, ::vm_tools::tremplin::EmptyMessage>(std::bind(&WithStreamedUnaryMethod_ContainerShutdown<BaseClass>::StreamedContainerShutdown, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::vm_tools::tremplin::ContainerShutdownInfo, ::vm_tools::tremplin::EmptyMessage>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::vm_tools::tremplin::ContainerShutdownInfo, ::vm_tools::tremplin::EmptyMessage>* streamer) {
+                       return this->StreamedContainerShutdown(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_ContainerShutdown() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status ContainerShutdown(::grpc::ServerContext* context, const ::vm_tools::tremplin::ContainerShutdownInfo* request, ::vm_tools::tremplin::EmptyMessage* response) override {
+    ::grpc::Status ContainerShutdown(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::ContainerShutdownInfo* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -2857,17 +4946,24 @@ class TremplinListener final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_UpdateListeningPorts : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_UpdateListeningPorts() {
       ::grpc::Service::MarkMethodStreamed(9,
-        new ::grpc::internal::StreamedUnaryHandler< ::vm_tools::tremplin::ListeningPortInfo, ::vm_tools::tremplin::EmptyMessage>(std::bind(&WithStreamedUnaryMethod_UpdateListeningPorts<BaseClass>::StreamedUpdateListeningPorts, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::vm_tools::tremplin::ListeningPortInfo, ::vm_tools::tremplin::EmptyMessage>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::vm_tools::tremplin::ListeningPortInfo, ::vm_tools::tremplin::EmptyMessage>* streamer) {
+                       return this->StreamedUpdateListeningPorts(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_UpdateListeningPorts() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status UpdateListeningPorts(::grpc::ServerContext* context, const ::vm_tools::tremplin::ListeningPortInfo* request, ::vm_tools::tremplin::EmptyMessage* response) override {
+    ::grpc::Status UpdateListeningPorts(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::ListeningPortInfo* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -2877,17 +4973,24 @@ class TremplinListener final {
   template <class BaseClass>
   class WithStreamedUnaryMethod_UpgradeContainerStatus : public BaseClass {
    private:
-    void BaseClassMustBeDerivedFromService(const Service *service) {}
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_UpgradeContainerStatus() {
       ::grpc::Service::MarkMethodStreamed(10,
-        new ::grpc::internal::StreamedUnaryHandler< ::vm_tools::tremplin::UpgradeContainerProgress, ::vm_tools::tremplin::EmptyMessage>(std::bind(&WithStreamedUnaryMethod_UpgradeContainerStatus<BaseClass>::StreamedUpgradeContainerStatus, this, std::placeholders::_1, std::placeholders::_2)));
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::vm_tools::tremplin::UpgradeContainerProgress, ::vm_tools::tremplin::EmptyMessage>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::vm_tools::tremplin::UpgradeContainerProgress, ::vm_tools::tremplin::EmptyMessage>* streamer) {
+                       return this->StreamedUpgradeContainerStatus(context,
+                         streamer);
+                  }));
     }
     ~WithStreamedUnaryMethod_UpgradeContainerStatus() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status UpgradeContainerStatus(::grpc::ServerContext* context, const ::vm_tools::tremplin::UpgradeContainerProgress* request, ::vm_tools::tremplin::EmptyMessage* response) override {
+    ::grpc::Status UpgradeContainerStatus(::grpc::ServerContext* /*context*/, const ::vm_tools::tremplin::UpgradeContainerProgress* /*request*/, ::vm_tools::tremplin::EmptyMessage* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }

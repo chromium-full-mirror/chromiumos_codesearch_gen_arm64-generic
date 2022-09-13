@@ -7,13 +7,13 @@
 
 #include <memory>
 #include <optional>
+#include <set>
 #include <string>
 
 #include <brillo/secure_blob.h>
 #include <libhwsec-foundation/status/status_chain_or.h>
 
 #include "cryptohome/auth_blocks/auth_block.h"
-#include "cryptohome/auth_blocks/auth_block_state.h"
 #include "cryptohome/auth_blocks/auth_block_type.h"
 #include "cryptohome/auth_blocks/auth_block_utility.h"
 #include "cryptohome/auth_factor/auth_factor_type.h"
@@ -21,11 +21,11 @@
 #include "cryptohome/credentials.h"
 #include "cryptohome/crypto.h"
 #include "cryptohome/crypto_error.h"
+#include "cryptohome/flatbuffer_schemas/auth_block_state.h"
 #include "cryptohome/key_challenge_service.h"
 #include "cryptohome/key_objects.h"
 #include "cryptohome/keyset_management.h"
 #include "cryptohome/platform.h"
-#include "cryptohome/tpm.h"
 
 namespace cryptohome {
 
@@ -46,6 +46,11 @@ class AuthBlockUtilityImpl final : public AuthBlockUtility {
   ~AuthBlockUtilityImpl() override;
 
   bool GetLockedToSingleUser() const override;
+
+  bool IsAuthFactorSupported(
+      AuthFactorType auth_factor_type,
+      AuthFactorStorageType auth_factor_storage_type,
+      const std::set<AuthFactorType>& configured_factors) const override;
 
   CryptoStatus CreateKeyBlobsWithAuthBlock(
       AuthBlockType auth_block_type,
@@ -83,12 +88,8 @@ class AuthBlockUtilityImpl final : public AuthBlockUtility {
 
   // This function returns the AuthBlock type for
   // AuthBlock::Derive() based on AutBlockState.
-  AuthBlockType GetAuthBlockTypeForDerive(
+  AuthBlockType GetAuthBlockTypeFromState(
       const AuthBlockState& state) const override;
-
-  AuthBlockType GetAuthBlockTypeForDerivation(
-      const std::string& label,
-      const std::string& obfuscated_username) const override;
 
   bool GetAuthBlockStateFromVaultKeyset(
       const std::string& label,
@@ -98,22 +99,15 @@ class AuthBlockUtilityImpl final : public AuthBlockUtility {
   void AssignAuthBlockStateToVaultKeyset(
       const AuthBlockState& state, VaultKeyset& vault_keyset) const override;
 
-  CryptoStatus CreateKeyBlobsWithAuthFactorType(
-      AuthFactorType auth_factor_type,
-      const AuthFactorStorageType auth_factor_storage_type,
-      const AuthInput& auth_input,
-      AuthBlockState& out_auth_block_state,
-      KeyBlobs& out_key_blobs) const override;
-
-  CryptoStatus DeriveKeyBlobs(const AuthInput& auth_input,
-                              const AuthBlockState& auth_block_state,
-                              KeyBlobs& out_key_blobs) const override;
+  CryptoStatus PrepareAuthBlockForRemoval(
+      const AuthBlockState& auth_block_state) override;
 
   CryptoStatus GenerateRecoveryRequest(
+      const std::string& obfuscated_username,
       const cryptorecovery::RequestMetadata& request_metadata,
       const brillo::Blob& epoch_response,
       const CryptohomeRecoveryAuthBlockState& state,
-      Tpm* tpm,
+      hwsec::RecoveryCryptoFrontend* recovery_hwsec,
       brillo::SecureBlob* out_recovery_request,
       brillo::SecureBlob* out_ephemeral_pub_key) const override;
 

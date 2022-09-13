@@ -36,16 +36,21 @@ extern const char kRequestAead[];
 extern const char kRequestRsaSignature[];
 extern const char kEpochPublicKey[];
 extern const char kRequestPayloadSalt[];
-extern const char kResponseAead[];
 extern const char kResponseHsmMetaData[];
 extern const char kResponsePayloadSalt[];
-extern const char kResponseErrorCode[];
-extern const char kResponseErrorString[];
+extern const char kPublicLedgerEntryProof[];
+extern const char kPrivateLogEntryProof[];
+extern const char kLeafIndex[];
+extern const char kCheckpointNote[];
+extern const char kInclusionProof[];
+extern const char kLoggedRecord[];
+extern const char kLedgerSignedProof[];
 extern const char kCryptohomeUser[];
 extern const char kCryptohomeUserType[];
 extern const char kDeviceUserId[];
 extern const char kBoardName[];
-extern const char kModelName[];
+extern const char kFormFactor[];
+extern const char kRlzCode[];
 extern const char kRecoveryId[];
 extern const char kAuthClaim[];
 extern const char kRequestorUser[];
@@ -59,6 +64,8 @@ extern const int kHsmAssociatedDataSchemaVersion;
 extern const int kOnboardingMetaDataSchemaVersion;
 extern const int kRequestMetaDataSchemaVersion;
 extern const int kHsmMetaDataSchemaVersion;
+extern const int kLoggedRecordSchemaVersion;
+extern const int kLedgerSignedProofSchemaVersion;
 
 // Constructs cbor-encoded binary blob for the Recovery Request payload.
 bool SerializeRecoveryRequestPayloadToCbor(
@@ -96,8 +103,8 @@ bool SerializeRecoveryRequestPlainTextToCbor(
     brillo::SecureBlob* plain_text_cbor);
 
 // Constructs cbor-encoded binary blob for the Recovery Response.
-bool SerializeRecoveryResponseToCbor(const RecoveryResponse& response,
-                                     brillo::SecureBlob* response_cbor);
+bool SerializeResponsePayloadToCbor(const ResponsePayload& response,
+                                    brillo::SecureBlob* response_cbor);
 
 // Constructs cbor-encoded binary blob from plain text of data that will
 // be subsequently encrypted and in response payload.
@@ -148,8 +155,8 @@ bool DeserializeHsmResponseAssociatedDataFromCbor(
     HsmResponseAssociatedData* response_ad);
 
 // Extracts data from Recovery Response cbor.
-bool DeserializeRecoveryResponseFromCbor(
-    const brillo::SecureBlob& response_cbor, RecoveryResponse* response);
+bool DeserializeResponsePayloadFromCbor(const brillo::SecureBlob& response_cbor,
+                                        ResponsePayload* response);
 
 // Extracts data from Epoch Metadata cbor.
 bool DeserializeEpochMetadataFromCbor(

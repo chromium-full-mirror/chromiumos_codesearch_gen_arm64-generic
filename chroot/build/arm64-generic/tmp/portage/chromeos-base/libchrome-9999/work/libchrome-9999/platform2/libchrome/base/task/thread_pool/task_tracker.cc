@@ -17,9 +17,11 @@
 #include "base/logging.h"
 #include "base/memory/ptr_util.h"
 #include "base/metrics/histogram_macros.h"
+#include "base/notreached.h"
 #include "base/sequence_token.h"
 #include "base/strings/string_util.h"
 #include "base/synchronization/condition_variable.h"
+#include "base/synchronization/waitable_event.h"
 #include "base/task/scoped_set_task_priority_for_current_thread.h"
 #include "base/task/task_executor.h"
 #include "base/threading/sequence_local_storage_map.h"
@@ -38,14 +40,14 @@ namespace internal {
 namespace {
 
 #if BUILDFLAG(ENABLE_BASE_TRACING)
-using perfetto::libchrome::protos::pbzero::ChromeThreadPoolTask;
-using perfetto::libchrome::protos::pbzero::ChromeTrackEvent;
+using perfetto_libchrome::protos::pbzero::ChromeThreadPoolTask;
+using perfetto_libchrome::protos::pbzero::ChromeTrackEvent;
 #endif  // BUILDFLAG(ENABLE_BASE_TRACING)
 
 constexpr const char* kExecutionModeString[] = {"parallel", "sequenced",
                                                 "single thread", "job"};
 static_assert(
-    size(kExecutionModeString) ==
+    std::size(kExecutionModeString) ==
         static_cast<size_t>(TaskSourceExecutionMode::kMax) + 1,
     "Array kExecutionModeString is out of sync with TaskSourceExecutionMode.");
 
@@ -174,7 +176,7 @@ ChromeThreadPoolTask::ShutdownBehavior ShutdownBehaviorToProto(
 }
 #endif  //  BUILDFLAG(ENABLE_BASE_TRACING)
 
-auto EmitThreadPoolTraceEventMetadata(perfetto::libchrome::EventContext& ctx,
+auto EmitThreadPoolTraceEventMetadata(perfetto_libchrome::EventContext& ctx,
                                       const TaskTraits& traits,
                                       TaskSource* task_source,
                                       const SequenceToken& token) {
@@ -185,7 +187,7 @@ auto EmitThreadPoolTraceEventMetadata(perfetto::libchrome::EventContext& ctx,
 
   if (!*scheduler_category_enabled)
     return;
-  auto* task = ctx.event<perfetto::libchrome::protos::pbzero::ChromeTrackEvent>()
+  auto* task = ctx.event<perfetto_libchrome::protos::pbzero::ChromeTrackEvent>()
                    ->set_thread_pool_task();
   task->set_task_priority(TaskPriorityToProto(traits.priority()));
   task->set_execution_mode(ExecutionModeToProto(task_source->execution_mode()));
@@ -353,6 +355,7 @@ void TaskTracker::CompleteShutdown() {
 }
 
 void TaskTracker::FlushForTesting() {
+  AssertFlushForTestingAllowed();
   CheckedAutoLock auto_lock(flush_lock_);
   while (num_incomplete_task_sources_.load(std::memory_order_acquire) != 0 &&
          !IsShutdownComplete()) {
@@ -446,8 +449,7 @@ bool TaskTracker::CanRunPriority(TaskPriority priority) const {
 }
 
 RegisteredTaskSource TaskTracker::RunAndPopNextTask(
-    RegisteredTaskSource task_source,
-    base::Location* posted_from) {
+    RegisteredTaskSource task_source) {
   DCHECK(task_source);
 
   const bool should_run_tasks = BeforeRunTask(task_source->shutdown_behavior());
@@ -463,8 +465,6 @@ RegisteredTaskSource TaskTracker::RunAndPopNextTask(
   }
 
   if (task) {
-    if (posted_from)
-      *posted_from = task->posted_from;
     // Run the |task| (whether it's a worker task or the Clear() closure).
     RunTask(std::move(task.value()), task_source.get(), traits);
   }
@@ -707,7 +707,7 @@ void TaskTracker::RunTaskImpl(Task& task,
                               TaskSource* task_source,
                               const SequenceToken& token) {
   task_annotator_.RunTask(
-      "ThreadPool_RunTask", task, [&](perfetto::libchrome::EventContext& ctx) {
+      "ThreadPool_RunTask", task, [&](perfetto_libchrome::EventContext& ctx) {
         EmitThreadPoolTraceEventMetadata(ctx, traits, task_source, token);
       });
 }

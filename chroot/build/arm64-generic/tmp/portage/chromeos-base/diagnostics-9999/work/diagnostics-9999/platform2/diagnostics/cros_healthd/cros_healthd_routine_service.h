@@ -14,10 +14,12 @@
 #include <vector>
 
 #include <base/callback.h>
+#include <base/memory/weak_ptr.h>
 
 #include "diagnostics/cros_healthd/cros_healthd_routine_factory.h"
 #include "diagnostics/cros_healthd/routines/diag_routine.h"
 #include "diagnostics/cros_healthd/system/context.h"
+#include "diagnostics/cros_healthd/utils/mojo_service_provider.h"
 #include "diagnostics/mojom/public/cros_healthd.mojom.h"
 #include "diagnostics/mojom/public/cros_healthd_diagnostics.mojom.h"
 
@@ -33,6 +35,10 @@ class CrosHealthdRoutineService final
   CrosHealthdRoutineService& operator=(const CrosHealthdRoutineService&) =
       delete;
   ~CrosHealthdRoutineService() override;
+
+  // Registers |callback| to run when the service is ready. If the service is
+  // already ready, |callback| will be run immediately.
+  void RegisterServiceReadyCallback(base::OnceClosure callback);
 
   // chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService overrides:
   void GetAvailableRoutines(GetAvailableRoutinesCallback callback) override;
@@ -120,10 +126,22 @@ class CrosHealthdRoutineService final
       base::OnceCallback<
           void(chromeos::cros_healthd::mojom::RunRoutineResponsePtr)> callback);
 
-  // Checks what routines are supported on the device and populates the member
-  // available_routines_.
-  void PopulateAvailableRoutines();
+  // Callback for checking whether nvme-self-test is supported.
+  void HandleNvmeSelfTestSupportedResponse(bool supported);
 
+  // Updates |ready_| and runs the elements of |service_ready_callbacks_|.
+  // Called when this service is ready to handle CrosHealthdDiagnosticsService
+  // method calls.
+  void OnServiceReady();
+
+  // Checks what routines are supported on the device and populates the member
+  // available_routines_. Run |completion_callback| when all the checks are
+  // done.
+  void PopulateAvailableRoutines(base::OnceClosure completion_callback);
+
+  // Whether this service is ready to handle CrosHealthdDiagnosticsService
+  // method calls.
+  bool ready_;
   // Map from IDs to instances of diagnostics routines that have
   // been started.
   std::map<int32_t, std::unique_ptr<DiagnosticRoutine>> active_routines_;
@@ -139,6 +157,15 @@ class CrosHealthdRoutineService final
   // Responsible for making the routines. Unowned pointer that should outlive
   // this instance.
   CrosHealthdRoutineFactory* routine_factory_ = nullptr;
+  // The callbacks to run when the service become ready.
+  std::vector<base::OnceClosure> service_ready_callbacks_;
+  // Mojo service provider to provide service to mojo service manager.
+  MojoServiceProvider<
+      chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService>
+      provider_;
+
+  // Must be the last class member.
+  base::WeakPtrFactory<CrosHealthdRoutineService> weak_ptr_factory_{this};
 };
 
 }  // namespace diagnostics

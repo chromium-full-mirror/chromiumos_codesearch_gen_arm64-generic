@@ -21,7 +21,7 @@
 #include "mojo/public/cpp/bindings/map_data_view.h"
 #include "mojo/public/cpp/bindings/string_data_view.h"
 
-#include "base/trace_event/base_tracing.h"
+#include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
 #include "ml/mojom/model.mojom-shared-internal.h"
 #include "ml/mojom/graph_executor.mojom-shared.h"
@@ -193,7 +193,7 @@ class GraphExecutorOptionsDataView {
     return data_->use_gpu;
   }
   template <typename UserType>
-  WARN_UNUSED_RESULT bool ReadGpuDelegateApi(UserType* output) const {
+  [[nodiscard]] bool ReadGpuDelegateApi(UserType* output) const {
     auto data_value = data_->header_.version >= 2
                       ? data_->gpu_delegate_api : 0;
     return mojo::internal::Deserialize<::chromeos::machine_learning::mojom::GpuDelegateApi>(
@@ -222,7 +222,7 @@ class BuiltinModelSpecDataView {
 
   bool is_null() const { return !data_; }
   template <typename UserType>
-  WARN_UNUSED_RESULT bool ReadId(UserType* output) const {
+  [[nodiscard]] bool ReadId(UserType* output) const {
     auto data_value = data_->id;
     return mojo::internal::Deserialize<::chromeos::machine_learning::mojom::BuiltinModelId>(
         data_value, output);
@@ -251,7 +251,7 @@ class FlatBufferModelSpecDataView {
       mojo::StringDataView* output);
 
   template <typename UserType>
-  WARN_UNUSED_RESULT bool ReadModelString(UserType* output) {
+  [[nodiscard]] bool ReadModelString(UserType* output) {
     
     auto* pointer = data_->model_string.Get();
     return mojo::internal::Deserialize<mojo::StringDataView>(
@@ -261,7 +261,7 @@ class FlatBufferModelSpecDataView {
       mojo::MapDataView<mojo::StringDataView, int32_t>* output);
 
   template <typename UserType>
-  WARN_UNUSED_RESULT bool ReadInputs(UserType* output) {
+  [[nodiscard]] bool ReadInputs(UserType* output) {
     
     auto* pointer = data_->inputs.Get();
     return mojo::internal::Deserialize<mojo::MapDataView<mojo::StringDataView, int32_t>>(
@@ -271,7 +271,7 @@ class FlatBufferModelSpecDataView {
       mojo::MapDataView<mojo::StringDataView, int32_t>* output);
 
   template <typename UserType>
-  WARN_UNUSED_RESULT bool ReadOutputs(UserType* output) {
+  [[nodiscard]] bool ReadOutputs(UserType* output) {
     
     auto* pointer = data_->outputs.Get();
     return mojo::internal::Deserialize<mojo::MapDataView<mojo::StringDataView, int32_t>>(
@@ -281,7 +281,7 @@ class FlatBufferModelSpecDataView {
       mojo::StringDataView* output);
 
   template <typename UserType>
-  WARN_UNUSED_RESULT bool ReadMetricsModelName(UserType* output) {
+  [[nodiscard]] bool ReadMetricsModelName(UserType* output) {
     
     auto* pointer = data_->metrics_model_name.Get();
     return mojo::internal::Deserialize<mojo::StringDataView>(
@@ -562,37 +562,31 @@ inline void FlatBufferModelSpecDataView::GetMetricsModelNameDataView(
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.
 
-namespace perfetto {
-namespace libchrome {
+namespace perfetto_libchrome {
 
 template <>
 struct  TraceFormatTraits<::chromeos::machine_learning::mojom::BuiltinModelId> {
- static void WriteIntoTrace(perfetto::libchrome::TracedValue context, ::chromeos::machine_learning::mojom::BuiltinModelId value);
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::chromeos::machine_learning::mojom::BuiltinModelId value);
 };
 
-} // namespace libchrome
 } // namespace perfetto
 
-namespace perfetto {
-namespace libchrome {
+namespace perfetto_libchrome {
 
 template <>
 struct  TraceFormatTraits<::chromeos::machine_learning::mojom::GpuDelegateApi> {
- static void WriteIntoTrace(perfetto::libchrome::TracedValue context, ::chromeos::machine_learning::mojom::GpuDelegateApi value);
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::chromeos::machine_learning::mojom::GpuDelegateApi value);
 };
 
-} // namespace libchrome
 } // namespace perfetto
 
-namespace perfetto {
-namespace libchrome {
+namespace perfetto_libchrome {
 
 template <>
 struct  TraceFormatTraits<::chromeos::machine_learning::mojom::CreateGraphExecutorResult> {
- static void WriteIntoTrace(perfetto::libchrome::TracedValue context, ::chromeos::machine_learning::mojom::CreateGraphExecutorResult value);
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::chromeos::machine_learning::mojom::CreateGraphExecutorResult value);
 };
 
-} // namespace libchrome
 } // namespace perfetto
 
 #endif  // ML_MOJOM_MODEL_MOJOM_SHARED_H_

@@ -12,7 +12,7 @@
 #include "base/task/sequence_manager/tasks.h"
 #include "third_party/abseil-cpp/absl/types/optional.h"
 
-namespace perfetto {
+namespace perfetto_libchrome {
 class EventContext;
 }
 
@@ -26,7 +26,7 @@ class SequencedTaskSource {
   enum class SelectTaskOption { kDefault, kSkipDelayedTask };
 
   using TaskExecutionTraceLogger =
-      RepeatingCallback<void(perfetto::libchrome::EventContext&, const Task&)>;
+      RepeatingCallback<void(perfetto_libchrome::EventContext&, const Task&)>;
 
   struct BASE_EXPORT SelectedTask {
     SelectedTask(const SelectedTask&);
@@ -55,15 +55,15 @@ class SequencedTaskSource {
   virtual void DidRunTask() = 0;
 
   // Removes all canceled delayed tasks from the front of the queue. After
-  // calling this, GetNextTaskTime() is guaranteed to return a ready time for a
+  // calling this, GetPendingWakeUp() is guaranteed to return a ready time for a
   // non-canceled task.
   virtual void RemoveAllCanceledDelayedTasksFromFront(LazyNow* lazy_now) = 0;
 
-  // Returns the ready time for the next pending task, is_null() if the next
-  // task can run immediately, or is_max() if there are no more immediate or
+  // Returns a WakeUp for the next pending task, is_immediate() if the
+  // next task can run immediately, or nullopt if there are no more immediate or
   // delayed tasks. |option| allows control on which kind of tasks can be
   // selected.
-  virtual TimeTicks GetNextTaskTime(
+  virtual absl::optional<WakeUp> GetPendingWakeUp(
       LazyNow* lazy_now,
       SelectTaskOption option = SelectTaskOption::kDefault) const = 0;
 

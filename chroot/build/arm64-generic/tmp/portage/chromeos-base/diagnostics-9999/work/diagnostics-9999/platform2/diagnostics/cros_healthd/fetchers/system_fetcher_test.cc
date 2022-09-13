@@ -46,11 +46,6 @@ void OnGetSystemInfoResponse(mojom::SystemResultPtr* response_update,
   *response_update = std::move(response);
 }
 
-void OnGetSystemInfoV2Response(mojom::SystemResultV2Ptr* response_update,
-                               mojom::SystemResultV2Ptr response) {
-  *response_update = std::move(response);
-}
-
 class SystemUtilsTest : public BaseFileTest {
  protected:
   SystemUtilsTest() = default;
@@ -60,7 +55,7 @@ class SystemUtilsTest : public BaseFileTest {
   void SetUp() override {
     SetTestRoot(mock_context_.root_dir());
 
-    expected_system_info_ = mojom::SystemInfoV2::New();
+    expected_system_info_ = mojom::SystemInfo::New();
     auto& vpd_info = expected_system_info_->vpd_info;
     vpd_info = mojom::VpdInfo::New();
     vpd_info->activate_date = "2020-40";
@@ -99,7 +94,7 @@ class SystemUtilsTest : public BaseFileTest {
     SetHasSkuNumber(true);
   }
 
-  void SetSystemInfo(const mojom::SystemInfoV2Ptr& system_info) {
+  void SetSystemInfo(const mojom::SystemInfoPtr& system_info) {
     SetVpdInfo(system_info->vpd_info);
     SetDmiInfo(system_info->dmi_info);
     SetOsInfo(system_info->os_info);
@@ -182,11 +177,10 @@ class SystemUtilsTest : public BaseFileTest {
     SetMockFile(kFilePathProcCmdline, proc_cmd);
   }
 
-  void SetUEFISceureBootResponse(const std::string& content) {
+  void SetUEFISecureBootResponse(const std::string& content) {
     // Set the mock executor response.
     EXPECT_CALL(*mock_executor(), GetUEFISecureBootContent(_))
-        .Times(2)
-        .WillRepeatedly(WithArg<0>(Invoke(
+        .WillOnce(WithArg<0>(Invoke(
             [content](
                 mojom::Executor::GetUEFISecureBootContentCallback callback) {
               std::move(callback).Run(content);
@@ -218,20 +212,13 @@ class SystemUtilsTest : public BaseFileTest {
   }
 
   void ExpectFetchSystemInfo() {
-    auto system_result = FetchSystemInfoV2();
+    auto system_result = FetchSystemInfo();
     ASSERT_FALSE(system_result.is_null());
     ASSERT_FALSE(system_result->is_error());
-    ASSERT_TRUE(system_result->is_system_info_v2());
-    auto res = std::move(system_result->get_system_info_v2());
+    ASSERT_TRUE(system_result->is_system_info());
+    auto res = std::move(system_result->get_system_info());
     EXPECT_EQ(res, expected_system_info_)
         << GetDiffString(res, expected_system_info_);
-
-    auto system_result_old = FetchSystemInfo();
-    ASSERT_FALSE(system_result_old.is_null());
-    ASSERT_FALSE(system_result_old->is_error());
-    ASSERT_TRUE(system_result_old->is_system_info());
-    EXPECT_EQ(system_result_old->get_system_info(),
-              SystemFetcher::ConvertToSystemInfo(expected_system_info_));
   }
 
   void ExpectFetchProbeError(const mojom::ErrorType& expected) {
@@ -241,21 +228,13 @@ class SystemUtilsTest : public BaseFileTest {
   }
 
  protected:
-  mojom::SystemInfoV2Ptr expected_system_info_;
+  mojom::SystemInfoPtr expected_system_info_;
   MockExecutor* mock_executor() { return mock_context_.mock_executor(); }
   mojom::SystemResultPtr FetchSystemInfo() {
     base::RunLoop run_loop;
     mojom::SystemResultPtr result;
     system_fetcher_.FetchSystemInfo(
         base::BindOnce(&OnGetSystemInfoResponse, &result));
-    run_loop.RunUntilIdle();
-    return result;
-  }
-  mojom::SystemResultV2Ptr FetchSystemInfoV2() {
-    base::RunLoop run_loop;
-    mojom::SystemResultV2Ptr result;
-    system_fetcher_.FetchSystemInfoV2(
-        base::BindOnce(&OnGetSystemInfoV2Response, &result));
     run_loop.RunUntilIdle();
     return result;
   }
@@ -368,7 +347,8 @@ TEST_F(SystemUtilsTest, TestBootMode) {
   ExpectFetchSystemInfo();
 
   expected_system_info_->os_info->boot_mode = mojom::BootMode::kCrosEfi;
-  SetUEFISceureBootResponse("\x00");
+  // Use string constructor to prevent string truncation from null bytes.
+  SetUEFISecureBootResponse(std::string("\x00\x00\x00\x00\x00", 5));
   SetSystemInfo(expected_system_info_);
   ExpectFetchSystemInfo();
 
@@ -381,18 +361,18 @@ TEST_F(SystemUtilsTest, TestBootMode) {
   ExpectFetchSystemInfo();
 
   expected_system_info_->os_info->boot_mode = mojom::BootMode::kCrosEfiSecure;
-  SetUEFISceureBootResponse("\x01");
+  // Use string constructor to prevent string truncation from null bytes.
+  SetUEFISecureBootResponse(std::string("\x00\x00\x00\x00\x01", 5));
   SetSystemInfo(expected_system_info_);
   ExpectFetchSystemInfo();
 }
 
 // Test that the executor fails to read UEFISecureBoot file content and returns
 // kCrosEfi as default value
-TEST_F(SystemUtilsTest, TestUEFISceureBootFailure) {
+TEST_F(SystemUtilsTest, TestUEFISecureBootFailure) {
   expected_system_info_->os_info->boot_mode = mojom::BootMode::kCrosEfi;
   EXPECT_CALL(*mock_executor(), GetUEFISecureBootContent(_))
-      .Times(2)
-      .WillRepeatedly(WithArg<0>(Invoke(
+      .WillOnce(WithArg<0>(Invoke(
           [](mojom::Executor::GetUEFISecureBootContentCallback callback) {
             std::move(callback).Run("");
           })));

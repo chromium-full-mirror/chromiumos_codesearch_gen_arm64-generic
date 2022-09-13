@@ -7,18 +7,20 @@
 
 #include <memory>
 #include <optional>
+#include <set>
 #include <string>
 
 #include <brillo/secure_blob.h>
+#include <libhwsec/frontend/recovery_crypto/frontend.h>
 
 #include "cryptohome/auth_blocks/auth_block.h"
-#include "cryptohome/auth_blocks/auth_block_state.h"
 #include "cryptohome/auth_blocks/auth_block_type.h"
 #include "cryptohome/auth_factor/auth_factor_type.h"
 #include "cryptohome/challenge_credentials/challenge_credentials_helper.h"
 #include "cryptohome/credentials.h"
 #include "cryptohome/crypto_error.h"
 #include "cryptohome/cryptorecovery/recovery_crypto_util.h"
+#include "cryptohome/flatbuffer_schemas/auth_block_state.h"
 #include "cryptohome/key_challenge_service.h"
 #include "cryptohome/key_objects.h"
 
@@ -42,6 +44,16 @@ class AuthBlockUtility {
   // Returns whether the system is locked to only allow authenticating a single
   // user.
   virtual bool GetLockedToSingleUser() const = 0;
+
+  // Given an AuthFactorType, return a boolean indicating if this factor is
+  // supported on the current system for a particular user. In order to make
+  // this decision the function needs several additional pieces of information:
+  //   `auth_factor_storage_type`: the type of backing store being used
+  //   `configured_factors`: the currently configured factors for the user
+  virtual bool IsAuthFactorSupported(
+      AuthFactorType auth_factor_type,
+      AuthFactorStorageType auth_factor_storage_type,
+      const std::set<AuthFactorType>& configured_factors) const = 0;
 
   // Creates KeyBlobs and AuthBlockState with the given type of AuthBlock for
   // the given credentials. Creating KeyBlobs means generating the KeyBlobs from
@@ -91,16 +103,9 @@ class AuthBlockUtility {
       const bool is_challenge_credential,
       const AuthFactorStorageType auth_factor_storage_type) const = 0;
 
-  // This function returns the AuthBlock type for
-  // AuthBlock::Derive() based on AutBlockState.
-  virtual AuthBlockType GetAuthBlockTypeForDerive(
+  // This function returns the AuthBlock type based on AutBlockState.
+  virtual AuthBlockType GetAuthBlockTypeFromState(
       const AuthBlockState& state) const = 0;
-
-  // This function returns the AuthBlock type for AuthBlock::Derive()
-  // based on the vault keyset flags value.
-  virtual AuthBlockType GetAuthBlockTypeForDerivation(
-      const std::string& label,
-      const std::string& obfuscated_username) const = 0;
 
   // This populates an AuthBlockState allocated by the caller.
   virtual bool GetAuthBlockStateFromVaultKeyset(
@@ -113,27 +118,18 @@ class AuthBlockUtility {
   virtual void AssignAuthBlockStateToVaultKeyset(
       const AuthBlockState& state, VaultKeyset& vault_keyset) const = 0;
 
-  // Creates a new auth block state and key blobs using an auth block. On error,
-  // returns the error code.
-  [[nodiscard]] virtual CryptoStatus CreateKeyBlobsWithAuthFactorType(
-      AuthFactorType auth_factor_type,
-      const AuthFactorStorageType auth_factor_storage_type,
-      const AuthInput& auth_input,
-      AuthBlockState& out_auth_block_state,
-      KeyBlobs& out_key_blobs) const = 0;
-
-  // Derives key blobs using the given auth block state and input.
-  [[nodiscard]] virtual CryptoStatus DeriveKeyBlobs(
-      const AuthInput& auth_input,
-      const AuthBlockState& auth_block_state,
-      KeyBlobs& out_key_blobs) const = 0;
+  // Executes additional steps needed for auth block removal, using the given
+  // auth block state.
+  [[nodiscard]] virtual CryptoStatus PrepareAuthBlockForRemoval(
+      const AuthBlockState& auth_block_state) = 0;
 
   // Generates a payload for cryptohome recovery AuthFactor authentication.
   [[nodiscard]] virtual CryptoStatus GenerateRecoveryRequest(
+      const std::string& obfuscated_username,
       const cryptorecovery::RequestMetadata& request_metadata,
       const brillo::Blob& epoch_response,
       const CryptohomeRecoveryAuthBlockState& state,
-      Tpm* tpm,
+      hwsec::RecoveryCryptoFrontend* recovery_hwsec,
       brillo::SecureBlob* out_recovery_request,
       brillo::SecureBlob* out_ephemeral_pub_key) const = 0;
 

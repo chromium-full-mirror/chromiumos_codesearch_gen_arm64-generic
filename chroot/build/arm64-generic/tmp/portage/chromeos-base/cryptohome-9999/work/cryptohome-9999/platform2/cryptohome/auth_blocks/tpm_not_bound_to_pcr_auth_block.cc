@@ -25,7 +25,6 @@
 #include "cryptohome/cryptohome_keys_manager.h"
 #include "cryptohome/cryptohome_metrics.h"
 #include "cryptohome/error/location_utils.h"
-#include "cryptohome/tpm.h"
 #include "cryptohome/vault_keyset.pb.h"
 
 using cryptohome::error::CryptohomeCryptoError;
@@ -276,7 +275,13 @@ CryptoStatus TpmNotBoundToPcrAuthBlock::DecryptTpmNotBoundToPcr(
           CryptoError::CE_OTHER_FATAL);
     }
   } else {
-    PasskeyToAesKey(vault_key, salt, rounds, &aes_skey, NULL);
+    if (!PasskeyToAesKey(vault_key, salt, rounds, &aes_skey, NULL)) {
+      return MakeStatus<CryptohomeCryptoError>(
+          CRYPTOHOME_ERR_LOC(
+              kLocTpmNotBoundToPcrAuthBlockPasskeyToAesKeyFailedInDecrypt),
+          ErrorActionSet({ErrorAction::kDevCheckUnexpectedState}),
+          CryptoError::CE_OTHER_CRYPTO);
+    }
   }
 
   brillo::SecureBlob unobscure_key;

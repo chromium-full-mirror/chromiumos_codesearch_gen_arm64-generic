@@ -18,8 +18,8 @@
 #include "base/hash/md5_constexpr.h"
 #include "base/run_loop.h"
 #include "base/strings/string_number_conversions.h"
-#include "base/task/common/task_annotator.h"
-#include "base/trace_event/base_tracing.h"
+#include "base/trace_event/trace_event.h"
+#include "base/trace_event/typed_macros.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
 #include "mojo/public/cpp/bindings/lib/send_message_helper.h"
@@ -30,6 +30,7 @@
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
+#include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
 #include "ml/mojom/web_platform_model.mojom-params-data.h"
 #include "ml/mojom/web_platform_model.mojom-shared-message-ids.h"
@@ -69,9 +70,9 @@ size_t CreateModelLoaderOptions::Hash(size_t seed) const {
 }
 
 void CreateModelLoaderOptions::WriteIntoTrace(
-    perfetto::libchrome::TracedValue traced_context) const {
-  auto dict = std::move(traced_context).WriteDictionary();
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "num_threads"), this->num_threads,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -80,7 +81,7 @@ void CreateModelLoaderOptions::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "model_format"), this->model_format,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -89,7 +90,7 @@ void CreateModelLoaderOptions::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "device_preference"), this->device_preference,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -121,9 +122,9 @@ TensorInfo::TensorInfo(
 TensorInfo::~TensorInfo() = default;
 
 void TensorInfo::WriteIntoTrace(
-    perfetto::libchrome::TracedValue traced_context) const {
-  auto dict = std::move(traced_context).WriteDictionary();
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "byte_size"), this->byte_size,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -132,7 +133,7 @@ void TensorInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "data_type"), this->data_type,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -141,7 +142,7 @@ void TensorInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "dimensions"), this->dimensions,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -170,9 +171,9 @@ ModelInfo::ModelInfo(
 ModelInfo::~ModelInfo() = default;
 
 void ModelInfo::WriteIntoTrace(
-    perfetto::libchrome::TracedValue traced_context) const {
-  auto dict = std::move(traced_context).WriteDictionary();
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "input_tensor_info"), this->input_tensor_info,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -181,7 +182,7 @@ void ModelInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "output_tensor_info"), this->output_tensor_info,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -198,6 +199,43 @@ bool ModelInfo::Validate(
   return Data_::Validate(data, validation_context);
 }
 const char ModelLoader::Name_[] = "ml.model_loader.mojom.ModelLoader";
+
+uint32_t ModelLoader::MessageToStableIPCHash_(mojo::Message& message) {
+  switch (message.name()) {
+    case internal::kModelLoader_Load_Name: {
+      constexpr uint32_t value = base::MD5Hash32Constexpr(
+              "(Impl)ml::model_loader::mojom::ModelLoader::Load");
+      return value;
+    }
+  }
+  return 0;
+}
+
+
+const char* ModelLoader::MessageToMethodName_(mojo::Message& message) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (!is_response) {
+    switch (message.name()) {
+      case internal::kModelLoader_Load_Name:
+            return "Receive ml::model_loader::mojom::ModelLoader::Load";
+    }
+  } else {
+    switch (message.name()) {
+      case internal::kModelLoader_Load_Name:
+            return "Receive reply ml::model_loader::mojom::ModelLoader::Load";
+    }
+  }
+  return "Receive unknown mojo message";
+#else
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (is_response) {
+    return "Receive mojo reply";
+  } else {
+    return "Receive mojo message";
+  }
+#endif // BUILDFLAG(MOJO_TRACE_ENABLED)
+}
 
 class ModelLoader_Load_ForwardToCallback
     : public mojo::MessageReceiver {
@@ -224,9 +262,9 @@ void ModelLoaderProxy::Load(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ml::model_loader::mojom::ModelLoader::Load", "input_parameters",
-    [&](perfetto::libchrome::TracedValue context){
+    [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto::libchrome::WriteIntoTracedValueWithFallback(
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("model_content"), in_model_content,
                         "<value of type ::mojo_base::mojom::BigBufferPtr>");
    });
@@ -312,10 +350,6 @@ class ModelLoader_Load_ProxyToResponder : public ::mojo::internal::ProxyToRespon
 
 bool ModelLoader_Load_ForwardToCallback::Accept(
     mojo::Message* message) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT("toplevel", "Receive reply ml::model_loader::mojom::ModelLoader::Load",
-               perfetto::libchrome::Flow::Global(message->GetTraceId()));
-#endif
 
   DCHECK(message->is_serialized());
   internal::ModelLoader_Load_ResponseParams_Data* params =
@@ -357,15 +391,15 @@ void ModelLoader_Load_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ml::model_loader::mojom::ModelLoader::Load", "async_response_parameters",
-    [&](perfetto::libchrome::TracedValue context){
+    [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto::libchrome::WriteIntoTracedValueWithFallback(
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("result"), in_result,
                         "<value of type LoadModelResult>");
-      perfetto::libchrome::WriteIntoTracedValueWithFallback(
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("remote"), in_remote,
                         "<value of type ::mojo::PendingRemote<Model>>");
-      perfetto::libchrome::WriteIntoTracedValueWithFallback(
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("model_info"), in_model_info,
                         "<value of type ModelInfoPtr>");
    });
@@ -401,8 +435,11 @@ void ModelLoader_Load_ProxyToResponder::Run(
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
   ::mojo::internal::SendMessage(*responder_, message);
-  // TODO(darin): Accept() returning false indicates a malformed message, and
-  // that may be good reason to close the connection. However, we don't have a
+  // SendMessage fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
@@ -429,15 +466,6 @@ bool ModelLoaderStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const uint64_t request_id = message->request_id();
   switch (message->header()->name) {
     case internal::kModelLoader_Load_Name: {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      TRACE_EVENT(
-          "toplevel",
-          "Receive ml::model_loader::mojom::ModelLoader::Load",
-          perfetto::libchrome::Flow::Global(message->GetTraceId()));
-#endif
-      static constexpr uint32_t kMessageHash = base::MD5Hash32Constexpr(
-              "(Impl)ml::model_loader::mojom::ModelLoader::Load");
-      base::TaskAnnotator::ScopedSetIpcHash scoped_ipc_hash(kMessageHash);
 
       internal::ModelLoader_Load_Params_Data* params =
           reinterpret_cast<
@@ -487,6 +515,43 @@ bool ModelLoaderResponseValidator::Accept(mojo::Message* message) {
 }
 const char Model::Name_[] = "ml.model_loader.mojom.Model";
 
+uint32_t Model::MessageToStableIPCHash_(mojo::Message& message) {
+  switch (message.name()) {
+    case internal::kModel_Compute_Name: {
+      constexpr uint32_t value = base::MD5Hash32Constexpr(
+              "(Impl)ml::model_loader::mojom::Model::Compute");
+      return value;
+    }
+  }
+  return 0;
+}
+
+
+const char* Model::MessageToMethodName_(mojo::Message& message) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (!is_response) {
+    switch (message.name()) {
+      case internal::kModel_Compute_Name:
+            return "Receive ml::model_loader::mojom::Model::Compute";
+    }
+  } else {
+    switch (message.name()) {
+      case internal::kModel_Compute_Name:
+            return "Receive reply ml::model_loader::mojom::Model::Compute";
+    }
+  }
+  return "Receive unknown mojo message";
+#else
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (is_response) {
+    return "Receive mojo reply";
+  } else {
+    return "Receive mojo message";
+  }
+#endif // BUILDFLAG(MOJO_TRACE_ENABLED)
+}
+
 class Model_Compute_ForwardToCallback
     : public mojo::MessageReceiver {
  public:
@@ -512,9 +577,9 @@ void ModelProxy::Compute(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ml::model_loader::mojom::Model::Compute", "input_parameters",
-    [&](perfetto::libchrome::TracedValue context){
+    [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto::libchrome::WriteIntoTracedValueWithFallback(
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("input_tensors"), in_input_tensors,
                         "<value of type const base::flat_map<std::string, std::vector<uint8_t>>&>");
    });
@@ -604,10 +669,6 @@ class Model_Compute_ProxyToResponder : public ::mojo::internal::ProxyToResponder
 
 bool Model_Compute_ForwardToCallback::Accept(
     mojo::Message* message) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT("toplevel", "Receive reply ml::model_loader::mojom::Model::Compute",
-               perfetto::libchrome::Flow::Global(message->GetTraceId()));
-#endif
 
   DCHECK(message->is_serialized());
   internal::Model_Compute_ResponseParams_Data* params =
@@ -643,12 +704,12 @@ void Model_Compute_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply ml::model_loader::mojom::Model::Compute", "async_response_parameters",
-    [&](perfetto::libchrome::TracedValue context){
+    [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto::libchrome::WriteIntoTracedValueWithFallback(
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("result"), in_result,
                         "<value of type ComputeResult>");
-      perfetto::libchrome::WriteIntoTracedValueWithFallback(
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("output_tensors"), in_output_tensors,
                         "<value of type const absl::optional<base::flat_map<std::string, std::vector<uint8_t>>>&>");
    });
@@ -684,8 +745,11 @@ void Model_Compute_ProxyToResponder::Run(
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
   ::mojo::internal::SendMessage(*responder_, message);
-  // TODO(darin): Accept() returning false indicates a malformed message, and
-  // that may be good reason to close the connection. However, we don't have a
+  // SendMessage fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
@@ -712,15 +776,6 @@ bool ModelStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const uint64_t request_id = message->request_id();
   switch (message->header()->name) {
     case internal::kModel_Compute_Name: {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      TRACE_EVENT(
-          "toplevel",
-          "Receive ml::model_loader::mojom::Model::Compute",
-          perfetto::libchrome::Flow::Global(message->GetTraceId()));
-#endif
-      static constexpr uint32_t kMessageHash = base::MD5Hash32Constexpr(
-              "(Impl)ml::model_loader::mojom::Model::Compute");
-      base::TaskAnnotator::ScopedSetIpcHash scoped_ipc_hash(kMessageHash);
 
       internal::Model_Compute_Params_Data* params =
           reinterpret_cast<

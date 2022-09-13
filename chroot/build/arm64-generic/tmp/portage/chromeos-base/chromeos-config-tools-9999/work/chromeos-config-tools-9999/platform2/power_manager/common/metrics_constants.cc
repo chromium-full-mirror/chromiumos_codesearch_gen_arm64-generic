@@ -12,14 +12,21 @@ namespace metrics {
 const char kAcSuffix[] = "OnAC";
 const char kBatterySuffix[] = "OnBattery";
 
+extern const char kPrivacyScreenDisabled[] = "PrivacyScreenDisabled";
+extern const char kPrivacyScreenEnabled[] = "PrivacyScreenEnabled";
+
 const int kMaxPercent = 101;
 const int kDefaultBuckets = 50;
 const int kDefaultDischargeBuckets = 100;
 
 const char kSuspendAttemptsBeforeSuccessName[] =
     "Power.SuspendAttemptsBeforeSuccess";
+const char kHibernateAttemptsBeforeSuccessName[] =
+    "Power.HibernateAttemptsBeforeSuccess";
 const char kSuspendAttemptsBeforeCancelName[] =
     "Power.SuspendAttemptsBeforeCancel";
+const char kHibernateAttemptsBeforeCancelName[] =
+    "Power.HibernateAttemptsBeforeCancel";
 const int kSuspendAttemptsMin = 1;
 const int kSuspendAttemptsMax = 20;
 const int kSuspendAttemptsBuckets =
@@ -55,6 +62,8 @@ const base::TimeDelta kBatteryDischargeRateInterval = base::Seconds(30);
 
 const char kBatteryDischargeRateWhileSuspendedName[] =
     "Power.BatteryDischargeRateWhileSuspended";  // mW
+const char kBatteryDischargeRateWhileHibernatedName[] =
+    "Power.BatteryDischargeRateWhileHibernated";  // mW
 const int kBatteryDischargeRateWhileSuspendedMin = 1;
 const int kBatteryDischargeRateWhileSuspendedMax = 5000;
 const base::TimeDelta kBatteryDischargeRateWhileSuspendedMinSuspend =
@@ -76,6 +85,8 @@ const char kAdaptiveChargingMinutesDeltaUserCanceledName[] =
     "Power.AdaptiveChargingMinutesDelta.UserCanceled";
 const char kAdaptiveChargingMinutesDeltaUserDisabledName[] =
     "Power.AdaptiveChargingMinutesDelta.UserDisabled";
+const char kAdaptiveChargingMinutesDeltaShutdownName[] =
+    "Power.AdaptiveChargingMinutesDelta.Shutdown";
 const char kAdaptiveChargingMinutesDeltaNotSupportedName[] =
     "Power.AdaptiveChargingMinutesDelta.NotSupported";
 
@@ -171,13 +182,17 @@ const int kDarkResumeWakeDurationMsMax = 10 * 60 * 1000;
 const char kS0ixResidencyRateName[] = "Power.S0ixResidencyRate";  // %
 
 const char kDimEvent[] = "Power.DimEvent";
-const int kDimEventDurationMin = 1;        // One second.
-const int kDimEventDurationMax = 60 * 60;  // One Hour.
+const int kHpsEventDurationMin = 1;        // One second.
+const int kHpsEventDurationMax = 60 * 60;  // One Hour.
 const char kQuickDimDurationBeforeRevertedByHpsSec[] =
     "Power.QuickDimRevertedByHps.DurationSeconds";
 const char kQuickDimDurationBeforeRevertedByUserSec[] =
     "Power.QuickDimRevertedByUser.DurationSeconds";
 const char kStandardDimDurationBeforeRevertedByUserSec[] =
     "Power.StandardDimRevertedByUser.DurationSeconds";
+const char kStandardDimDeferredByHpsSec[] =
+    "Power.StandardDimDeferredByHps.DurationSeconds";
+
+const char kLockEvent[] = "Power.LockEvent";
 }  // namespace metrics
 }  // namespace power_manager

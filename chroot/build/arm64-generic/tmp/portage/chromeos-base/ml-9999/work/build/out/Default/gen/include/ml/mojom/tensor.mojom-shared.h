@@ -21,7 +21,7 @@
 #include "mojo/public/cpp/bindings/map_data_view.h"
 #include "mojo/public/cpp/bindings/string_data_view.h"
 
-#include "base/trace_event/base_tracing.h"
+#include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
 #include "ml/mojom/tensor.mojom-shared-internal.h"
 
@@ -110,7 +110,7 @@ class StringListDataView {
       mojo::ArrayDataView<mojo::StringDataView>* output);
 
   template <typename UserType>
-  WARN_UNUSED_RESULT bool ReadValue(UserType* output) {
+  [[nodiscard]] bool ReadValue(UserType* output) {
     
     auto* pointer = data_->value.Get();
     return mojo::internal::Deserialize<mojo::ArrayDataView<mojo::StringDataView>>(
@@ -137,7 +137,7 @@ class FloatListDataView {
       mojo::ArrayDataView<double>* output);
 
   template <typename UserType>
-  WARN_UNUSED_RESULT bool ReadValue(UserType* output) {
+  [[nodiscard]] bool ReadValue(UserType* output) {
     
     auto* pointer = data_->value.Get();
     return mojo::internal::Deserialize<mojo::ArrayDataView<double>>(
@@ -164,7 +164,7 @@ class Int64ListDataView {
       mojo::ArrayDataView<int64_t>* output);
 
   template <typename UserType>
-  WARN_UNUSED_RESULT bool ReadValue(UserType* output) {
+  [[nodiscard]] bool ReadValue(UserType* output) {
     
     auto* pointer = data_->value.Get();
     return mojo::internal::Deserialize<mojo::ArrayDataView<int64_t>>(
@@ -191,7 +191,7 @@ class TensorDataView {
       ValueListDataView* output);
 
   template <typename UserType>
-  WARN_UNUSED_RESULT bool ReadData(UserType* output) {
+  [[nodiscard]] bool ReadData(UserType* output) {
     
     auto* pointer = !data_->data.is_null() ? &data_->data : nullptr;
     return mojo::internal::Deserialize<::chromeos::machine_learning::mojom::ValueListDataView>(
@@ -201,7 +201,7 @@ class TensorDataView {
       Int64ListDataView* output);
 
   template <typename UserType>
-  WARN_UNUSED_RESULT bool ReadShape(UserType* output) {
+  [[nodiscard]] bool ReadShape(UserType* output) {
     
     auto* pointer = data_->shape.Get();
     return mojo::internal::Deserialize<::chromeos::machine_learning::mojom::Int64ListDataView>(
@@ -232,34 +232,34 @@ class ValueListDataView {
   }
 
   Tag tag() const { return data_->tag; }
-  bool is_string_list() const { return data_->tag == Tag::STRING_LIST; }
+  bool is_string_list() const { return data_->tag == Tag::kStringList; }
   inline void GetStringListDataView(
       StringListDataView* output) const;
 
   template <typename UserType>
-  WARN_UNUSED_RESULT bool ReadStringList(UserType* output) const {
+  [[nodiscard]] bool ReadStringList(UserType* output) const {
     
     CHECK(is_string_list());
     return mojo::internal::Deserialize<::chromeos::machine_learning::mojom::StringListDataView>(
         data_->data.f_string_list.Get(), output, message_);
   }
-  bool is_float_list() const { return data_->tag == Tag::FLOAT_LIST; }
+  bool is_float_list() const { return data_->tag == Tag::kFloatList; }
   inline void GetFloatListDataView(
       FloatListDataView* output) const;
 
   template <typename UserType>
-  WARN_UNUSED_RESULT bool ReadFloatList(UserType* output) const {
+  [[nodiscard]] bool ReadFloatList(UserType* output) const {
     
     CHECK(is_float_list());
     return mojo::internal::Deserialize<::chromeos::machine_learning::mojom::FloatListDataView>(
         data_->data.f_float_list.Get(), output, message_);
   }
-  bool is_int64_list() const { return data_->tag == Tag::INT64_LIST; }
+  bool is_int64_list() const { return data_->tag == Tag::kInt64List; }
   inline void GetInt64ListDataView(
       Int64ListDataView* output) const;
 
   template <typename UserType>
-  WARN_UNUSED_RESULT bool ReadInt64List(UserType* output) const {
+  [[nodiscard]] bool ReadInt64List(UserType* output) const {
     
     CHECK(is_int64_list());
     return mojo::internal::Deserialize<::chromeos::machine_learning::mojom::Int64ListDataView>(
@@ -488,7 +488,7 @@ struct Serializer<::chromeos::machine_learning::mojom::ValueListDataView, MaybeC
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::machine_learning::mojom::ValueListDataView::Tag::STRING_LIST: {
+      case ::chromeos::machine_learning::mojom::ValueListDataView::Tag::kStringList: {
         decltype(Traits::string_list(input))
             in_string_list = Traits::string_list(input);
         mojo::internal::MessageFragment<
@@ -504,7 +504,7 @@ struct Serializer<::chromeos::machine_learning::mojom::ValueListDataView, MaybeC
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::machine_learning::mojom::ValueListDataView::Tag::FLOAT_LIST: {
+      case ::chromeos::machine_learning::mojom::ValueListDataView::Tag::kFloatList: {
         decltype(Traits::float_list(input))
             in_float_list = Traits::float_list(input);
         mojo::internal::MessageFragment<
@@ -520,7 +520,7 @@ struct Serializer<::chromeos::machine_learning::mojom::ValueListDataView, MaybeC
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::machine_learning::mojom::ValueListDataView::Tag::INT64_LIST: {
+      case ::chromeos::machine_learning::mojom::ValueListDataView::Tag::kInt64List: {
         decltype(Traits::int64_list(input))
             in_int64_list = Traits::int64_list(input);
         mojo::internal::MessageFragment<

@@ -18,8 +18,8 @@
 #include "base/hash/md5_constexpr.h"
 #include "base/run_loop.h"
 #include "base/strings/string_number_conversions.h"
-#include "base/task/common/task_annotator.h"
-#include "base/trace_event/base_tracing.h"
+#include "base/trace_event/trace_event.h"
+#include "base/trace_event/typed_macros.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
 #include "mojo/public/cpp/bindings/lib/send_message_helper.h"
@@ -30,6 +30,7 @@
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
+#include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
 #include "iioservice/mojo/sensor.mojom-params-data.h"
 #include "iioservice/mojo/sensor.mojom-shared-message-ids.h"
@@ -49,11 +50,15 @@ namespace mojom {
 const char kScale[] = "scale";
 const char kSamplingFrequencyAvailable[] = "sampling_frequency_available";
 const char kLocation[] = "location";
+const char kLabel[] = "label";
 const char kDeviceName[] = "name";
 const char kSysPath[] = "syspath";
+const char kDevlink[] = "devlink";
 const char kLocationBase[] = "base";
 const char kLocationLid[] = "lid";
 const char kLocationCamera[] = "camera";
+const char kLabelBase[] = "accel-base";
+const char kLabelLid[] = "accel-display";
 const char kAccelerometerChannel[] = "accel";
 const char kGyroscopeChannel[] = "anglvel";
 const char kMagnetometerChannel[] = "magn";
@@ -91,9 +96,9 @@ size_t IioEvent::Hash(size_t seed) const {
 }
 
 void IioEvent::WriteIntoTrace(
-    perfetto::libchrome::TracedValue traced_context) const {
-  auto dict = std::move(traced_context).WriteDictionary();
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "chan_type"), this->chan_type,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -102,7 +107,7 @@ void IioEvent::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "event_type"), this->event_type,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -111,7 +116,7 @@ void IioEvent::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "direction"), this->direction,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -120,7 +125,7 @@ void IioEvent::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "channel"), this->channel,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -129,7 +134,7 @@ void IioEvent::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "timestamp"), this->timestamp,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -146,6 +151,70 @@ bool IioEvent::Validate(
   return Data_::Validate(data, validation_context);
 }
 const char SensorService::Name_[] = "cros.mojom.SensorService";
+
+uint32_t SensorService::MessageToStableIPCHash_(mojo::Message& message) {
+  switch (message.name()) {
+    case internal::kSensorService_GetDeviceIds_Name: {
+      constexpr uint32_t value = base::MD5Hash32Constexpr(
+              "(Impl)cros::mojom::SensorService::GetDeviceIds");
+      return value;
+    }
+    case internal::kSensorService_GetAllDeviceIds_Name: {
+      constexpr uint32_t value = base::MD5Hash32Constexpr(
+              "(Impl)cros::mojom::SensorService::GetAllDeviceIds");
+      return value;
+    }
+    case internal::kSensorService_GetDevice_Name: {
+      constexpr uint32_t value = base::MD5Hash32Constexpr(
+              "(Impl)cros::mojom::SensorService::GetDevice");
+      return value;
+    }
+    case internal::kSensorService_RegisterNewDevicesObserver_Name: {
+      constexpr uint32_t value = base::MD5Hash32Constexpr(
+              "(Impl)cros::mojom::SensorService::RegisterNewDevicesObserver");
+      return value;
+    }
+  }
+  return 0;
+}
+
+
+const char* SensorService::MessageToMethodName_(mojo::Message& message) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (!is_response) {
+    switch (message.name()) {
+      case internal::kSensorService_GetDeviceIds_Name:
+            return "Receive cros::mojom::SensorService::GetDeviceIds";
+      case internal::kSensorService_GetAllDeviceIds_Name:
+            return "Receive cros::mojom::SensorService::GetAllDeviceIds";
+      case internal::kSensorService_GetDevice_Name:
+            return "Receive cros::mojom::SensorService::GetDevice";
+      case internal::kSensorService_RegisterNewDevicesObserver_Name:
+            return "Receive cros::mojom::SensorService::RegisterNewDevicesObserver";
+    }
+  } else {
+    switch (message.name()) {
+      case internal::kSensorService_GetDeviceIds_Name:
+            return "Receive reply cros::mojom::SensorService::GetDeviceIds";
+      case internal::kSensorService_GetAllDeviceIds_Name:
+            return "Receive reply cros::mojom::SensorService::GetAllDeviceIds";
+      case internal::kSensorService_GetDevice_Name:
+            return "Receive reply cros::mojom::SensorService::GetDevice";
+      case internal::kSensorService_RegisterNewDevicesObserver_Name:
+            return "Receive reply cros::mojom::SensorService::RegisterNewDevicesObserver";
+    }
+  }
+  return "Receive unknown mojo message";
+#else
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (is_response) {
+    return "Receive mojo reply";
+  } else {
+    return "Receive mojo message";
+  }
+#endif // BUILDFLAG(MOJO_TRACE_ENABLED)
+}
 
 class SensorService_GetDeviceIds_ForwardToCallback
     : public mojo::MessageReceiver {
@@ -188,9 +257,9 @@ void SensorServiceProxy::GetDeviceIds(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send cros::mojom::SensorService::GetDeviceIds", "input_parameters",
-    [&](perfetto::libchrome::TracedValue context){
+    [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto::libchrome::WriteIntoTracedValueWithFallback(
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("type"), in_type,
                         "<value of type DeviceType>");
    });
@@ -259,12 +328,12 @@ void SensorServiceProxy::GetDevice(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send cros::mojom::SensorService::GetDevice", "input_parameters",
-    [&](perfetto::libchrome::TracedValue context){
+    [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto::libchrome::WriteIntoTracedValueWithFallback(
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("iio_device_id"), in_iio_device_id,
                         "<value of type int32_t>");
-      perfetto::libchrome::WriteIntoTracedValueWithFallback(
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("device_request"), in_device_request,
                         "<value of type ::mojo::PendingReceiver<SensorDevice>>");
    });
@@ -306,9 +375,9 @@ void SensorServiceProxy::RegisterNewDevicesObserver(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send cros::mojom::SensorService::RegisterNewDevicesObserver", "input_parameters",
-    [&](perfetto::libchrome::TracedValue context){
+    [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto::libchrome::WriteIntoTracedValueWithFallback(
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("observer"), in_observer,
                         "<value of type ::mojo::PendingRemote<SensorServiceNewDevicesObserver>>");
    });
@@ -390,10 +459,6 @@ class SensorService_GetDeviceIds_ProxyToResponder : public ::mojo::internal::Pro
 
 bool SensorService_GetDeviceIds_ForwardToCallback::Accept(
     mojo::Message* message) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT("toplevel", "Receive reply cros::mojom::SensorService::GetDeviceIds",
-               perfetto::libchrome::Flow::Global(message->GetTraceId()));
-#endif
 
   DCHECK(message->is_serialized());
   internal::SensorService_GetDeviceIds_ResponseParams_Data* params =
@@ -425,9 +490,9 @@ void SensorService_GetDeviceIds_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply cros::mojom::SensorService::GetDeviceIds", "async_response_parameters",
-    [&](perfetto::libchrome::TracedValue context){
+    [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto::libchrome::WriteIntoTracedValueWithFallback(
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("iio_device_ids"), in_iio_device_ids,
                         "<value of type const std::vector<int32_t>&>");
    });
@@ -465,8 +530,11 @@ void SensorService_GetDeviceIds_ProxyToResponder::Run(
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
   ::mojo::internal::SendMessage(*responder_, message);
-  // TODO(darin): Accept() returning false indicates a malformed message, and
-  // that may be good reason to close the connection. However, we don't have a
+  // SendMessage fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
@@ -517,10 +585,6 @@ class SensorService_GetAllDeviceIds_ProxyToResponder : public ::mojo::internal::
 
 bool SensorService_GetAllDeviceIds_ForwardToCallback::Accept(
     mojo::Message* message) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT("toplevel", "Receive reply cros::mojom::SensorService::GetAllDeviceIds",
-               perfetto::libchrome::Flow::Global(message->GetTraceId()));
-#endif
 
   DCHECK(message->is_serialized());
   internal::SensorService_GetAllDeviceIds_ResponseParams_Data* params =
@@ -552,9 +616,9 @@ void SensorService_GetAllDeviceIds_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply cros::mojom::SensorService::GetAllDeviceIds", "async_response_parameters",
-    [&](perfetto::libchrome::TracedValue context){
+    [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto::libchrome::WriteIntoTracedValueWithFallback(
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("iio_device_ids_types"), in_iio_device_ids_types,
                         "<value of type const base::flat_map<int32_t, std::vector<DeviceType>>&>");
    });
@@ -592,8 +656,11 @@ void SensorService_GetAllDeviceIds_ProxyToResponder::Run(
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
   ::mojo::internal::SendMessage(*responder_, message);
-  // TODO(darin): Accept() returning false indicates a malformed message, and
-  // that may be good reason to close the connection. However, we don't have a
+  // SendMessage fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
@@ -610,15 +677,6 @@ bool SensorServiceStubDispatch::Accept(
       break;
     }
     case internal::kSensorService_GetDevice_Name: {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      TRACE_EVENT(
-          "toplevel",
-          "Receive cros::mojom::SensorService::GetDevice",
-          perfetto::libchrome::Flow::Global(message->GetTraceId()));
-#endif
-      static constexpr uint32_t kMessageHash = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::SensorService::GetDevice");
-      base::TaskAnnotator::ScopedSetIpcHash scoped_ipc_hash(kMessageHash);
 
       DCHECK(message->is_serialized());
       internal::SensorService_GetDevice_Params_Data* params =
@@ -651,15 +709,6 @@ std::move(p_device_request));
       return true;
     }
     case internal::kSensorService_RegisterNewDevicesObserver_Name: {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      TRACE_EVENT(
-          "toplevel",
-          "Receive cros::mojom::SensorService::RegisterNewDevicesObserver",
-          perfetto::libchrome::Flow::Global(message->GetTraceId()));
-#endif
-      static constexpr uint32_t kMessageHash = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::SensorService::RegisterNewDevicesObserver");
-      base::TaskAnnotator::ScopedSetIpcHash scoped_ipc_hash(kMessageHash);
 
       DCHECK(message->is_serialized());
       internal::SensorService_RegisterNewDevicesObserver_Params_Data* params =
@@ -701,15 +750,6 @@ bool SensorServiceStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const uint64_t request_id = message->request_id();
   switch (message->header()->name) {
     case internal::kSensorService_GetDeviceIds_Name: {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      TRACE_EVENT(
-          "toplevel",
-          "Receive cros::mojom::SensorService::GetDeviceIds",
-          perfetto::libchrome::Flow::Global(message->GetTraceId()));
-#endif
-      static constexpr uint32_t kMessageHash = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::SensorService::GetDeviceIds");
-      base::TaskAnnotator::ScopedSetIpcHash scoped_ipc_hash(kMessageHash);
 
       internal::SensorService_GetDeviceIds_Params_Data* params =
           reinterpret_cast<
@@ -739,15 +779,6 @@ std::move(p_type), std::move(callback));
       return true;
     }
     case internal::kSensorService_GetAllDeviceIds_Name: {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      TRACE_EVENT(
-          "toplevel",
-          "Receive cros::mojom::SensorService::GetAllDeviceIds",
-          perfetto::libchrome::Flow::Global(message->GetTraceId()));
-#endif
-      static constexpr uint32_t kMessageHash = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::SensorService::GetAllDeviceIds");
-      base::TaskAnnotator::ScopedSetIpcHash scoped_ipc_hash(kMessageHash);
 
       internal::SensorService_GetAllDeviceIds_Params_Data* params =
           reinterpret_cast<
@@ -804,6 +835,169 @@ bool SensorServiceResponseValidator::Accept(mojo::Message* message) {
   return mojo::internal::ValidateResponseGenericPacked(message, name, kSensorServiceValidationInfo);
 }
 const char SensorDevice::Name_[] = "cros.mojom.SensorDevice";
+
+uint32_t SensorDevice::MessageToStableIPCHash_(mojo::Message& message) {
+  switch (message.name()) {
+    case internal::kSensorDevice_SetTimeout_Name: {
+      constexpr uint32_t value = base::MD5Hash32Constexpr(
+              "(Impl)cros::mojom::SensorDevice::SetTimeout");
+      return value;
+    }
+    case internal::kSensorDevice_GetAttributes_Name: {
+      constexpr uint32_t value = base::MD5Hash32Constexpr(
+              "(Impl)cros::mojom::SensorDevice::GetAttributes");
+      return value;
+    }
+    case internal::kSensorDevice_SetFrequency_Name: {
+      constexpr uint32_t value = base::MD5Hash32Constexpr(
+              "(Impl)cros::mojom::SensorDevice::SetFrequency");
+      return value;
+    }
+    case internal::kSensorDevice_StartReadingSamples_Name: {
+      constexpr uint32_t value = base::MD5Hash32Constexpr(
+              "(Impl)cros::mojom::SensorDevice::StartReadingSamples");
+      return value;
+    }
+    case internal::kSensorDevice_StopReadingSamples_Name: {
+      constexpr uint32_t value = base::MD5Hash32Constexpr(
+              "(Impl)cros::mojom::SensorDevice::StopReadingSamples");
+      return value;
+    }
+    case internal::kSensorDevice_GetAllChannelIds_Name: {
+      constexpr uint32_t value = base::MD5Hash32Constexpr(
+              "(Impl)cros::mojom::SensorDevice::GetAllChannelIds");
+      return value;
+    }
+    case internal::kSensorDevice_SetChannelsEnabled_Name: {
+      constexpr uint32_t value = base::MD5Hash32Constexpr(
+              "(Impl)cros::mojom::SensorDevice::SetChannelsEnabled");
+      return value;
+    }
+    case internal::kSensorDevice_GetChannelsEnabled_Name: {
+      constexpr uint32_t value = base::MD5Hash32Constexpr(
+              "(Impl)cros::mojom::SensorDevice::GetChannelsEnabled");
+      return value;
+    }
+    case internal::kSensorDevice_GetChannelsAttributes_Name: {
+      constexpr uint32_t value = base::MD5Hash32Constexpr(
+              "(Impl)cros::mojom::SensorDevice::GetChannelsAttributes");
+      return value;
+    }
+    case internal::kSensorDevice_GetAllEvents_Name: {
+      constexpr uint32_t value = base::MD5Hash32Constexpr(
+              "(Impl)cros::mojom::SensorDevice::GetAllEvents");
+      return value;
+    }
+    case internal::kSensorDevice_SetEventsEnabled_Name: {
+      constexpr uint32_t value = base::MD5Hash32Constexpr(
+              "(Impl)cros::mojom::SensorDevice::SetEventsEnabled");
+      return value;
+    }
+    case internal::kSensorDevice_GetEventsEnabled_Name: {
+      constexpr uint32_t value = base::MD5Hash32Constexpr(
+              "(Impl)cros::mojom::SensorDevice::GetEventsEnabled");
+      return value;
+    }
+    case internal::kSensorDevice_GetEventsAttributes_Name: {
+      constexpr uint32_t value = base::MD5Hash32Constexpr(
+              "(Impl)cros::mojom::SensorDevice::GetEventsAttributes");
+      return value;
+    }
+    case internal::kSensorDevice_StartReadingEvents_Name: {
+      constexpr uint32_t value = base::MD5Hash32Constexpr(
+              "(Impl)cros::mojom::SensorDevice::StartReadingEvents");
+      return value;
+    }
+    case internal::kSensorDevice_StopReadingEvents_Name: {
+      constexpr uint32_t value = base::MD5Hash32Constexpr(
+              "(Impl)cros::mojom::SensorDevice::StopReadingEvents");
+      return value;
+    }
+  }
+  return 0;
+}
+
+
+const char* SensorDevice::MessageToMethodName_(mojo::Message& message) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (!is_response) {
+    switch (message.name()) {
+      case internal::kSensorDevice_SetTimeout_Name:
+            return "Receive cros::mojom::SensorDevice::SetTimeout";
+      case internal::kSensorDevice_GetAttributes_Name:
+            return "Receive cros::mojom::SensorDevice::GetAttributes";
+      case internal::kSensorDevice_SetFrequency_Name:
+            return "Receive cros::mojom::SensorDevice::SetFrequency";
+      case internal::kSensorDevice_StartReadingSamples_Name:
+            return "Receive cros::mojom::SensorDevice::StartReadingSamples";
+      case internal::kSensorDevice_StopReadingSamples_Name:
+            return "Receive cros::mojom::SensorDevice::StopReadingSamples";
+      case internal::kSensorDevice_GetAllChannelIds_Name:
+            return "Receive cros::mojom::SensorDevice::GetAllChannelIds";
+      case internal::kSensorDevice_SetChannelsEnabled_Name:
+            return "Receive cros::mojom::SensorDevice::SetChannelsEnabled";
+      case internal::kSensorDevice_GetChannelsEnabled_Name:
+            return "Receive cros::mojom::SensorDevice::GetChannelsEnabled";
+      case internal::kSensorDevice_GetChannelsAttributes_Name:
+            return "Receive cros::mojom::SensorDevice::GetChannelsAttributes";
+      case internal::kSensorDevice_GetAllEvents_Name:
+            return "Receive cros::mojom::SensorDevice::GetAllEvents";
+      case internal::kSensorDevice_SetEventsEnabled_Name:
+            return "Receive cros::mojom::SensorDevice::SetEventsEnabled";
+      case internal::kSensorDevice_GetEventsEnabled_Name:
+            return "Receive cros::mojom::SensorDevice::GetEventsEnabled";
+      case internal::kSensorDevice_GetEventsAttributes_Name:
+            return "Receive cros::mojom::SensorDevice::GetEventsAttributes";
+      case internal::kSensorDevice_StartReadingEvents_Name:
+            return "Receive cros::mojom::SensorDevice::StartReadingEvents";
+      case internal::kSensorDevice_StopReadingEvents_Name:
+            return "Receive cros::mojom::SensorDevice::StopReadingEvents";
+    }
+  } else {
+    switch (message.name()) {
+      case internal::kSensorDevice_SetTimeout_Name:
+            return "Receive reply cros::mojom::SensorDevice::SetTimeout";
+      case internal::kSensorDevice_GetAttributes_Name:
+            return "Receive reply cros::mojom::SensorDevice::GetAttributes";
+      case internal::kSensorDevice_SetFrequency_Name:
+            return "Receive reply cros::mojom::SensorDevice::SetFrequency";
+      case internal::kSensorDevice_StartReadingSamples_Name:
+            return "Receive reply cros::mojom::SensorDevice::StartReadingSamples";
+      case internal::kSensorDevice_StopReadingSamples_Name:
+            return "Receive reply cros::mojom::SensorDevice::StopReadingSamples";
+      case internal::kSensorDevice_GetAllChannelIds_Name:
+            return "Receive reply cros::mojom::SensorDevice::GetAllChannelIds";
+      case internal::kSensorDevice_SetChannelsEnabled_Name:
+            return "Receive reply cros::mojom::SensorDevice::SetChannelsEnabled";
+      case internal::kSensorDevice_GetChannelsEnabled_Name:
+            return "Receive reply cros::mojom::SensorDevice::GetChannelsEnabled";
+      case internal::kSensorDevice_GetChannelsAttributes_Name:
+            return "Receive reply cros::mojom::SensorDevice::GetChannelsAttributes";
+      case internal::kSensorDevice_GetAllEvents_Name:
+            return "Receive reply cros::mojom::SensorDevice::GetAllEvents";
+      case internal::kSensorDevice_SetEventsEnabled_Name:
+            return "Receive reply cros::mojom::SensorDevice::SetEventsEnabled";
+      case internal::kSensorDevice_GetEventsEnabled_Name:
+            return "Receive reply cros::mojom::SensorDevice::GetEventsEnabled";
+      case internal::kSensorDevice_GetEventsAttributes_Name:
+            return "Receive reply cros::mojom::SensorDevice::GetEventsAttributes";
+      case internal::kSensorDevice_StartReadingEvents_Name:
+            return "Receive reply cros::mojom::SensorDevice::StartReadingEvents";
+      case internal::kSensorDevice_StopReadingEvents_Name:
+            return "Receive reply cros::mojom::SensorDevice::StopReadingEvents";
+    }
+  }
+  return "Receive unknown mojo message";
+#else
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (is_response) {
+    return "Receive mojo reply";
+  } else {
+    return "Receive mojo message";
+  }
+#endif // BUILDFLAG(MOJO_TRACE_ENABLED)
+}
 
 class SensorDevice_GetAttributes_ForwardToCallback
     : public mojo::MessageReceiver {
@@ -974,9 +1168,9 @@ void SensorDeviceProxy::SetTimeout(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send cros::mojom::SensorDevice::SetTimeout", "input_parameters",
-    [&](perfetto::libchrome::TracedValue context){
+    [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto::libchrome::WriteIntoTracedValueWithFallback(
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("timeout"), in_timeout,
                         "<value of type uint32_t>");
    });
@@ -1012,9 +1206,9 @@ void SensorDeviceProxy::GetAttributes(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send cros::mojom::SensorDevice::GetAttributes", "input_parameters",
-    [&](perfetto::libchrome::TracedValue context){
+    [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto::libchrome::WriteIntoTracedValueWithFallback(
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("attr_names"), in_attr_names,
                         "<value of type const std::vector<std::string>&>");
    });
@@ -1063,9 +1257,9 @@ void SensorDeviceProxy::SetFrequency(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send cros::mojom::SensorDevice::SetFrequency", "input_parameters",
-    [&](perfetto::libchrome::TracedValue context){
+    [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto::libchrome::WriteIntoTracedValueWithFallback(
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("frequency"), in_frequency,
                         "<value of type double>");
    });
@@ -1102,9 +1296,9 @@ void SensorDeviceProxy::StartReadingSamples(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send cros::mojom::SensorDevice::StartReadingSamples", "input_parameters",
-    [&](perfetto::libchrome::TracedValue context){
+    [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto::libchrome::WriteIntoTracedValueWithFallback(
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("observer"), in_observer,
                         "<value of type ::mojo::PendingRemote<SensorDeviceSamplesObserver>>");
    });
@@ -1206,12 +1400,12 @@ void SensorDeviceProxy::SetChannelsEnabled(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send cros::mojom::SensorDevice::SetChannelsEnabled", "input_parameters",
-    [&](perfetto::libchrome::TracedValue context){
+    [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto::libchrome::WriteIntoTracedValueWithFallback(
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("iio_chn_indices"), in_iio_chn_indices,
                         "<value of type const std::vector<int32_t>&>");
-      perfetto::libchrome::WriteIntoTracedValueWithFallback(
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("en"), in_en,
                         "<value of type bool>");
    });
@@ -1261,9 +1455,9 @@ void SensorDeviceProxy::GetChannelsEnabled(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send cros::mojom::SensorDevice::GetChannelsEnabled", "input_parameters",
-    [&](perfetto::libchrome::TracedValue context){
+    [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto::libchrome::WriteIntoTracedValueWithFallback(
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("iio_chn_indices"), in_iio_chn_indices,
                         "<value of type const std::vector<int32_t>&>");
    });
@@ -1312,12 +1506,12 @@ void SensorDeviceProxy::GetChannelsAttributes(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send cros::mojom::SensorDevice::GetChannelsAttributes", "input_parameters",
-    [&](perfetto::libchrome::TracedValue context){
+    [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto::libchrome::WriteIntoTracedValueWithFallback(
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("iio_chn_indices"), in_iio_chn_indices,
                         "<value of type const std::vector<int32_t>&>");
-      perfetto::libchrome::WriteIntoTracedValueWithFallback(
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("attr_name"), in_attr_name,
                         "<value of type const std::string&>");
    });
@@ -1408,12 +1602,12 @@ void SensorDeviceProxy::SetEventsEnabled(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send cros::mojom::SensorDevice::SetEventsEnabled", "input_parameters",
-    [&](perfetto::libchrome::TracedValue context){
+    [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto::libchrome::WriteIntoTracedValueWithFallback(
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("iio_event_indices"), in_iio_event_indices,
                         "<value of type const std::vector<int32_t>&>");
-      perfetto::libchrome::WriteIntoTracedValueWithFallback(
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("en"), in_en,
                         "<value of type bool>");
    });
@@ -1463,9 +1657,9 @@ void SensorDeviceProxy::GetEventsEnabled(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send cros::mojom::SensorDevice::GetEventsEnabled", "input_parameters",
-    [&](perfetto::libchrome::TracedValue context){
+    [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto::libchrome::WriteIntoTracedValueWithFallback(
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("iio_event_indices"), in_iio_event_indices,
                         "<value of type const std::vector<int32_t>&>");
    });
@@ -1514,12 +1708,12 @@ void SensorDeviceProxy::GetEventsAttributes(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send cros::mojom::SensorDevice::GetEventsAttributes", "input_parameters",
-    [&](perfetto::libchrome::TracedValue context){
+    [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto::libchrome::WriteIntoTracedValueWithFallback(
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("iio_event_indices"), in_iio_event_indices,
                         "<value of type const std::vector<int32_t>&>");
-      perfetto::libchrome::WriteIntoTracedValueWithFallback(
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("attr_name"), in_attr_name,
                         "<value of type const std::string&>");
    });
@@ -1579,9 +1773,9 @@ void SensorDeviceProxy::StartReadingEvents(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send cros::mojom::SensorDevice::StartReadingEvents", "input_parameters",
-    [&](perfetto::libchrome::TracedValue context){
+    [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto::libchrome::WriteIntoTracedValueWithFallback(
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("observer"), in_observer,
                         "<value of type ::mojo::PendingRemote<SensorDeviceEventsObserver>>");
    });
@@ -1693,10 +1887,6 @@ class SensorDevice_GetAttributes_ProxyToResponder : public ::mojo::internal::Pro
 
 bool SensorDevice_GetAttributes_ForwardToCallback::Accept(
     mojo::Message* message) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT("toplevel", "Receive reply cros::mojom::SensorDevice::GetAttributes",
-               perfetto::libchrome::Flow::Global(message->GetTraceId()));
-#endif
 
   DCHECK(message->is_serialized());
   internal::SensorDevice_GetAttributes_ResponseParams_Data* params =
@@ -1728,9 +1918,9 @@ void SensorDevice_GetAttributes_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply cros::mojom::SensorDevice::GetAttributes", "async_response_parameters",
-    [&](perfetto::libchrome::TracedValue context){
+    [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto::libchrome::WriteIntoTracedValueWithFallback(
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("values"), in_values,
                         "<value of type const std::vector<absl::optional<std::string>>&>");
    });
@@ -1768,8 +1958,11 @@ void SensorDevice_GetAttributes_ProxyToResponder::Run(
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
   ::mojo::internal::SendMessage(*responder_, message);
-  // TODO(darin): Accept() returning false indicates a malformed message, and
-  // that may be good reason to close the connection. However, we don't have a
+  // SendMessage fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
@@ -1820,10 +2013,6 @@ class SensorDevice_SetFrequency_ProxyToResponder : public ::mojo::internal::Prox
 
 bool SensorDevice_SetFrequency_ForwardToCallback::Accept(
     mojo::Message* message) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT("toplevel", "Receive reply cros::mojom::SensorDevice::SetFrequency",
-               perfetto::libchrome::Flow::Global(message->GetTraceId()));
-#endif
 
   DCHECK(message->is_serialized());
   internal::SensorDevice_SetFrequency_ResponseParams_Data* params =
@@ -1855,9 +2044,9 @@ void SensorDevice_SetFrequency_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply cros::mojom::SensorDevice::SetFrequency", "async_response_parameters",
-    [&](perfetto::libchrome::TracedValue context){
+    [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto::libchrome::WriteIntoTracedValueWithFallback(
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("result_freq"), in_result_freq,
                         "<value of type double>");
    });
@@ -1883,8 +2072,11 @@ void SensorDevice_SetFrequency_ProxyToResponder::Run(
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
   ::mojo::internal::SendMessage(*responder_, message);
-  // TODO(darin): Accept() returning false indicates a malformed message, and
-  // that may be good reason to close the connection. However, we don't have a
+  // SendMessage fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
@@ -1935,10 +2127,6 @@ class SensorDevice_GetAllChannelIds_ProxyToResponder : public ::mojo::internal::
 
 bool SensorDevice_GetAllChannelIds_ForwardToCallback::Accept(
     mojo::Message* message) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT("toplevel", "Receive reply cros::mojom::SensorDevice::GetAllChannelIds",
-               perfetto::libchrome::Flow::Global(message->GetTraceId()));
-#endif
 
   DCHECK(message->is_serialized());
   internal::SensorDevice_GetAllChannelIds_ResponseParams_Data* params =
@@ -1970,9 +2158,9 @@ void SensorDevice_GetAllChannelIds_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply cros::mojom::SensorDevice::GetAllChannelIds", "async_response_parameters",
-    [&](perfetto::libchrome::TracedValue context){
+    [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto::libchrome::WriteIntoTracedValueWithFallback(
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("iio_chn_ids"), in_iio_chn_ids,
                         "<value of type const std::vector<std::string>&>");
    });
@@ -2010,8 +2198,11 @@ void SensorDevice_GetAllChannelIds_ProxyToResponder::Run(
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
   ::mojo::internal::SendMessage(*responder_, message);
-  // TODO(darin): Accept() returning false indicates a malformed message, and
-  // that may be good reason to close the connection. However, we don't have a
+  // SendMessage fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
@@ -2062,10 +2253,6 @@ class SensorDevice_SetChannelsEnabled_ProxyToResponder : public ::mojo::internal
 
 bool SensorDevice_SetChannelsEnabled_ForwardToCallback::Accept(
     mojo::Message* message) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT("toplevel", "Receive reply cros::mojom::SensorDevice::SetChannelsEnabled",
-               perfetto::libchrome::Flow::Global(message->GetTraceId()));
-#endif
 
   DCHECK(message->is_serialized());
   internal::SensorDevice_SetChannelsEnabled_ResponseParams_Data* params =
@@ -2097,9 +2284,9 @@ void SensorDevice_SetChannelsEnabled_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply cros::mojom::SensorDevice::SetChannelsEnabled", "async_response_parameters",
-    [&](perfetto::libchrome::TracedValue context){
+    [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto::libchrome::WriteIntoTracedValueWithFallback(
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("failed_indices"), in_failed_indices,
                         "<value of type const std::vector<int32_t>&>");
    });
@@ -2137,8 +2324,11 @@ void SensorDevice_SetChannelsEnabled_ProxyToResponder::Run(
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
   ::mojo::internal::SendMessage(*responder_, message);
-  // TODO(darin): Accept() returning false indicates a malformed message, and
-  // that may be good reason to close the connection. However, we don't have a
+  // SendMessage fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
@@ -2189,10 +2379,6 @@ class SensorDevice_GetChannelsEnabled_ProxyToResponder : public ::mojo::internal
 
 bool SensorDevice_GetChannelsEnabled_ForwardToCallback::Accept(
     mojo::Message* message) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT("toplevel", "Receive reply cros::mojom::SensorDevice::GetChannelsEnabled",
-               perfetto::libchrome::Flow::Global(message->GetTraceId()));
-#endif
 
   DCHECK(message->is_serialized());
   internal::SensorDevice_GetChannelsEnabled_ResponseParams_Data* params =
@@ -2224,9 +2410,9 @@ void SensorDevice_GetChannelsEnabled_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply cros::mojom::SensorDevice::GetChannelsEnabled", "async_response_parameters",
-    [&](perfetto::libchrome::TracedValue context){
+    [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto::libchrome::WriteIntoTracedValueWithFallback(
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("enabled"), in_enabled,
                         "<value of type const std::vector<bool>&>");
    });
@@ -2264,8 +2450,11 @@ void SensorDevice_GetChannelsEnabled_ProxyToResponder::Run(
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
   ::mojo::internal::SendMessage(*responder_, message);
-  // TODO(darin): Accept() returning false indicates a malformed message, and
-  // that may be good reason to close the connection. However, we don't have a
+  // SendMessage fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
@@ -2316,10 +2505,6 @@ class SensorDevice_GetChannelsAttributes_ProxyToResponder : public ::mojo::inter
 
 bool SensorDevice_GetChannelsAttributes_ForwardToCallback::Accept(
     mojo::Message* message) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT("toplevel", "Receive reply cros::mojom::SensorDevice::GetChannelsAttributes",
-               perfetto::libchrome::Flow::Global(message->GetTraceId()));
-#endif
 
   DCHECK(message->is_serialized());
   internal::SensorDevice_GetChannelsAttributes_ResponseParams_Data* params =
@@ -2351,9 +2536,9 @@ void SensorDevice_GetChannelsAttributes_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply cros::mojom::SensorDevice::GetChannelsAttributes", "async_response_parameters",
-    [&](perfetto::libchrome::TracedValue context){
+    [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto::libchrome::WriteIntoTracedValueWithFallback(
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("values"), in_values,
                         "<value of type const std::vector<absl::optional<std::string>>&>");
    });
@@ -2391,8 +2576,11 @@ void SensorDevice_GetChannelsAttributes_ProxyToResponder::Run(
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
   ::mojo::internal::SendMessage(*responder_, message);
-  // TODO(darin): Accept() returning false indicates a malformed message, and
-  // that may be good reason to close the connection. However, we don't have a
+  // SendMessage fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
@@ -2443,10 +2631,6 @@ class SensorDevice_GetAllEvents_ProxyToResponder : public ::mojo::internal::Prox
 
 bool SensorDevice_GetAllEvents_ForwardToCallback::Accept(
     mojo::Message* message) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT("toplevel", "Receive reply cros::mojom::SensorDevice::GetAllEvents",
-               perfetto::libchrome::Flow::Global(message->GetTraceId()));
-#endif
 
   DCHECK(message->is_serialized());
   internal::SensorDevice_GetAllEvents_ResponseParams_Data* params =
@@ -2478,9 +2662,9 @@ void SensorDevice_GetAllEvents_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply cros::mojom::SensorDevice::GetAllEvents", "async_response_parameters",
-    [&](perfetto::libchrome::TracedValue context){
+    [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto::libchrome::WriteIntoTracedValueWithFallback(
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("iio_events"), in_iio_events,
                         "<value of type std::vector<IioEventPtr>>");
    });
@@ -2518,8 +2702,11 @@ void SensorDevice_GetAllEvents_ProxyToResponder::Run(
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
   ::mojo::internal::SendMessage(*responder_, message);
-  // TODO(darin): Accept() returning false indicates a malformed message, and
-  // that may be good reason to close the connection. However, we don't have a
+  // SendMessage fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
@@ -2570,10 +2757,6 @@ class SensorDevice_SetEventsEnabled_ProxyToResponder : public ::mojo::internal::
 
 bool SensorDevice_SetEventsEnabled_ForwardToCallback::Accept(
     mojo::Message* message) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT("toplevel", "Receive reply cros::mojom::SensorDevice::SetEventsEnabled",
-               perfetto::libchrome::Flow::Global(message->GetTraceId()));
-#endif
 
   DCHECK(message->is_serialized());
   internal::SensorDevice_SetEventsEnabled_ResponseParams_Data* params =
@@ -2605,9 +2788,9 @@ void SensorDevice_SetEventsEnabled_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply cros::mojom::SensorDevice::SetEventsEnabled", "async_response_parameters",
-    [&](perfetto::libchrome::TracedValue context){
+    [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto::libchrome::WriteIntoTracedValueWithFallback(
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("failed_indices"), in_failed_indices,
                         "<value of type const std::vector<int32_t>&>");
    });
@@ -2645,8 +2828,11 @@ void SensorDevice_SetEventsEnabled_ProxyToResponder::Run(
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
   ::mojo::internal::SendMessage(*responder_, message);
-  // TODO(darin): Accept() returning false indicates a malformed message, and
-  // that may be good reason to close the connection. However, we don't have a
+  // SendMessage fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
@@ -2697,10 +2883,6 @@ class SensorDevice_GetEventsEnabled_ProxyToResponder : public ::mojo::internal::
 
 bool SensorDevice_GetEventsEnabled_ForwardToCallback::Accept(
     mojo::Message* message) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT("toplevel", "Receive reply cros::mojom::SensorDevice::GetEventsEnabled",
-               perfetto::libchrome::Flow::Global(message->GetTraceId()));
-#endif
 
   DCHECK(message->is_serialized());
   internal::SensorDevice_GetEventsEnabled_ResponseParams_Data* params =
@@ -2732,9 +2914,9 @@ void SensorDevice_GetEventsEnabled_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply cros::mojom::SensorDevice::GetEventsEnabled", "async_response_parameters",
-    [&](perfetto::libchrome::TracedValue context){
+    [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto::libchrome::WriteIntoTracedValueWithFallback(
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("enabled"), in_enabled,
                         "<value of type const std::vector<bool>&>");
    });
@@ -2772,8 +2954,11 @@ void SensorDevice_GetEventsEnabled_ProxyToResponder::Run(
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
   ::mojo::internal::SendMessage(*responder_, message);
-  // TODO(darin): Accept() returning false indicates a malformed message, and
-  // that may be good reason to close the connection. However, we don't have a
+  // SendMessage fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
@@ -2824,10 +3009,6 @@ class SensorDevice_GetEventsAttributes_ProxyToResponder : public ::mojo::interna
 
 bool SensorDevice_GetEventsAttributes_ForwardToCallback::Accept(
     mojo::Message* message) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT("toplevel", "Receive reply cros::mojom::SensorDevice::GetEventsAttributes",
-               perfetto::libchrome::Flow::Global(message->GetTraceId()));
-#endif
 
   DCHECK(message->is_serialized());
   internal::SensorDevice_GetEventsAttributes_ResponseParams_Data* params =
@@ -2859,9 +3040,9 @@ void SensorDevice_GetEventsAttributes_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply cros::mojom::SensorDevice::GetEventsAttributes", "async_response_parameters",
-    [&](perfetto::libchrome::TracedValue context){
+    [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto::libchrome::WriteIntoTracedValueWithFallback(
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("values"), in_values,
                         "<value of type const std::vector<absl::optional<std::string>>&>");
    });
@@ -2899,8 +3080,11 @@ void SensorDevice_GetEventsAttributes_ProxyToResponder::Run(
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
   ::mojo::internal::SendMessage(*responder_, message);
-  // TODO(darin): Accept() returning false indicates a malformed message, and
-  // that may be good reason to close the connection. However, we don't have a
+  // SendMessage fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
@@ -2911,15 +3095,6 @@ bool SensorDeviceStubDispatch::Accept(
     mojo::Message* message) {
   switch (message->header()->name) {
     case internal::kSensorDevice_SetTimeout_Name: {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      TRACE_EVENT(
-          "toplevel",
-          "Receive cros::mojom::SensorDevice::SetTimeout",
-          perfetto::libchrome::Flow::Global(message->GetTraceId()));
-#endif
-      static constexpr uint32_t kMessageHash = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::SensorDevice::SetTimeout");
-      base::TaskAnnotator::ScopedSetIpcHash scoped_ipc_hash(kMessageHash);
 
       DCHECK(message->is_serialized());
       internal::SensorDevice_SetTimeout_Params_Data* params =
@@ -2952,15 +3127,6 @@ std::move(p_timeout));
       break;
     }
     case internal::kSensorDevice_StartReadingSamples_Name: {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      TRACE_EVENT(
-          "toplevel",
-          "Receive cros::mojom::SensorDevice::StartReadingSamples",
-          perfetto::libchrome::Flow::Global(message->GetTraceId()));
-#endif
-      static constexpr uint32_t kMessageHash = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::SensorDevice::StartReadingSamples");
-      base::TaskAnnotator::ScopedSetIpcHash scoped_ipc_hash(kMessageHash);
 
       DCHECK(message->is_serialized());
       internal::SensorDevice_StartReadingSamples_Params_Data* params =
@@ -2989,15 +3155,6 @@ std::move(p_observer));
       return true;
     }
     case internal::kSensorDevice_StopReadingSamples_Name: {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      TRACE_EVENT(
-          "toplevel",
-          "Receive cros::mojom::SensorDevice::StopReadingSamples",
-          perfetto::libchrome::Flow::Global(message->GetTraceId()));
-#endif
-      static constexpr uint32_t kMessageHash = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::SensorDevice::StopReadingSamples");
-      base::TaskAnnotator::ScopedSetIpcHash scoped_ipc_hash(kMessageHash);
 
       DCHECK(message->is_serialized());
       internal::SensorDevice_StopReadingSamples_Params_Data* params =
@@ -3044,15 +3201,6 @@ std::move(p_observer));
       break;
     }
     case internal::kSensorDevice_StartReadingEvents_Name: {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      TRACE_EVENT(
-          "toplevel",
-          "Receive cros::mojom::SensorDevice::StartReadingEvents",
-          perfetto::libchrome::Flow::Global(message->GetTraceId()));
-#endif
-      static constexpr uint32_t kMessageHash = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::SensorDevice::StartReadingEvents");
-      base::TaskAnnotator::ScopedSetIpcHash scoped_ipc_hash(kMessageHash);
 
       DCHECK(message->is_serialized());
       internal::SensorDevice_StartReadingEvents_Params_Data* params =
@@ -3081,15 +3229,6 @@ std::move(p_observer));
       return true;
     }
     case internal::kSensorDevice_StopReadingEvents_Name: {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      TRACE_EVENT(
-          "toplevel",
-          "Receive cros::mojom::SensorDevice::StopReadingEvents",
-          perfetto::libchrome::Flow::Global(message->GetTraceId()));
-#endif
-      static constexpr uint32_t kMessageHash = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::SensorDevice::StopReadingEvents");
-      base::TaskAnnotator::ScopedSetIpcHash scoped_ipc_hash(kMessageHash);
 
       DCHECK(message->is_serialized());
       internal::SensorDevice_StopReadingEvents_Params_Data* params =
@@ -3128,15 +3267,6 @@ bool SensorDeviceStubDispatch::AcceptWithResponder(
       break;
     }
     case internal::kSensorDevice_GetAttributes_Name: {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      TRACE_EVENT(
-          "toplevel",
-          "Receive cros::mojom::SensorDevice::GetAttributes",
-          perfetto::libchrome::Flow::Global(message->GetTraceId()));
-#endif
-      static constexpr uint32_t kMessageHash = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::SensorDevice::GetAttributes");
-      base::TaskAnnotator::ScopedSetIpcHash scoped_ipc_hash(kMessageHash);
 
       internal::SensorDevice_GetAttributes_Params_Data* params =
           reinterpret_cast<
@@ -3166,15 +3296,6 @@ std::move(p_attr_names), std::move(callback));
       return true;
     }
     case internal::kSensorDevice_SetFrequency_Name: {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      TRACE_EVENT(
-          "toplevel",
-          "Receive cros::mojom::SensorDevice::SetFrequency",
-          perfetto::libchrome::Flow::Global(message->GetTraceId()));
-#endif
-      static constexpr uint32_t kMessageHash = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::SensorDevice::SetFrequency");
-      base::TaskAnnotator::ScopedSetIpcHash scoped_ipc_hash(kMessageHash);
 
       internal::SensorDevice_SetFrequency_Params_Data* params =
           reinterpret_cast<
@@ -3210,15 +3331,6 @@ std::move(p_frequency), std::move(callback));
       break;
     }
     case internal::kSensorDevice_GetAllChannelIds_Name: {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      TRACE_EVENT(
-          "toplevel",
-          "Receive cros::mojom::SensorDevice::GetAllChannelIds",
-          perfetto::libchrome::Flow::Global(message->GetTraceId()));
-#endif
-      static constexpr uint32_t kMessageHash = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::SensorDevice::GetAllChannelIds");
-      base::TaskAnnotator::ScopedSetIpcHash scoped_ipc_hash(kMessageHash);
 
       internal::SensorDevice_GetAllChannelIds_Params_Data* params =
           reinterpret_cast<
@@ -3244,15 +3356,6 @@ std::move(p_frequency), std::move(callback));
       return true;
     }
     case internal::kSensorDevice_SetChannelsEnabled_Name: {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      TRACE_EVENT(
-          "toplevel",
-          "Receive cros::mojom::SensorDevice::SetChannelsEnabled",
-          perfetto::libchrome::Flow::Global(message->GetTraceId()));
-#endif
-      static constexpr uint32_t kMessageHash = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::SensorDevice::SetChannelsEnabled");
-      base::TaskAnnotator::ScopedSetIpcHash scoped_ipc_hash(kMessageHash);
 
       internal::SensorDevice_SetChannelsEnabled_Params_Data* params =
           reinterpret_cast<
@@ -3286,15 +3389,6 @@ std::move(p_en), std::move(callback));
       return true;
     }
     case internal::kSensorDevice_GetChannelsEnabled_Name: {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      TRACE_EVENT(
-          "toplevel",
-          "Receive cros::mojom::SensorDevice::GetChannelsEnabled",
-          perfetto::libchrome::Flow::Global(message->GetTraceId()));
-#endif
-      static constexpr uint32_t kMessageHash = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::SensorDevice::GetChannelsEnabled");
-      base::TaskAnnotator::ScopedSetIpcHash scoped_ipc_hash(kMessageHash);
 
       internal::SensorDevice_GetChannelsEnabled_Params_Data* params =
           reinterpret_cast<
@@ -3324,15 +3418,6 @@ std::move(p_iio_chn_indices), std::move(callback));
       return true;
     }
     case internal::kSensorDevice_GetChannelsAttributes_Name: {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      TRACE_EVENT(
-          "toplevel",
-          "Receive cros::mojom::SensorDevice::GetChannelsAttributes",
-          perfetto::libchrome::Flow::Global(message->GetTraceId()));
-#endif
-      static constexpr uint32_t kMessageHash = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::SensorDevice::GetChannelsAttributes");
-      base::TaskAnnotator::ScopedSetIpcHash scoped_ipc_hash(kMessageHash);
 
       internal::SensorDevice_GetChannelsAttributes_Params_Data* params =
           reinterpret_cast<
@@ -3366,15 +3451,6 @@ std::move(p_attr_name), std::move(callback));
       return true;
     }
     case internal::kSensorDevice_GetAllEvents_Name: {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      TRACE_EVENT(
-          "toplevel",
-          "Receive cros::mojom::SensorDevice::GetAllEvents",
-          perfetto::libchrome::Flow::Global(message->GetTraceId()));
-#endif
-      static constexpr uint32_t kMessageHash = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::SensorDevice::GetAllEvents");
-      base::TaskAnnotator::ScopedSetIpcHash scoped_ipc_hash(kMessageHash);
 
       internal::SensorDevice_GetAllEvents_Params_Data* params =
           reinterpret_cast<
@@ -3400,15 +3476,6 @@ std::move(p_attr_name), std::move(callback));
       return true;
     }
     case internal::kSensorDevice_SetEventsEnabled_Name: {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      TRACE_EVENT(
-          "toplevel",
-          "Receive cros::mojom::SensorDevice::SetEventsEnabled",
-          perfetto::libchrome::Flow::Global(message->GetTraceId()));
-#endif
-      static constexpr uint32_t kMessageHash = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::SensorDevice::SetEventsEnabled");
-      base::TaskAnnotator::ScopedSetIpcHash scoped_ipc_hash(kMessageHash);
 
       internal::SensorDevice_SetEventsEnabled_Params_Data* params =
           reinterpret_cast<
@@ -3442,15 +3509,6 @@ std::move(p_en), std::move(callback));
       return true;
     }
     case internal::kSensorDevice_GetEventsEnabled_Name: {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      TRACE_EVENT(
-          "toplevel",
-          "Receive cros::mojom::SensorDevice::GetEventsEnabled",
-          perfetto::libchrome::Flow::Global(message->GetTraceId()));
-#endif
-      static constexpr uint32_t kMessageHash = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::SensorDevice::GetEventsEnabled");
-      base::TaskAnnotator::ScopedSetIpcHash scoped_ipc_hash(kMessageHash);
 
       internal::SensorDevice_GetEventsEnabled_Params_Data* params =
           reinterpret_cast<
@@ -3480,15 +3538,6 @@ std::move(p_iio_event_indices), std::move(callback));
       return true;
     }
     case internal::kSensorDevice_GetEventsAttributes_Name: {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      TRACE_EVENT(
-          "toplevel",
-          "Receive cros::mojom::SensorDevice::GetEventsAttributes",
-          perfetto::libchrome::Flow::Global(message->GetTraceId()));
-#endif
-      static constexpr uint32_t kMessageHash = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::SensorDevice::GetEventsAttributes");
-      base::TaskAnnotator::ScopedSetIpcHash scoped_ipc_hash(kMessageHash);
 
       internal::SensorDevice_GetEventsAttributes_Params_Data* params =
           reinterpret_cast<
@@ -3576,6 +3625,52 @@ bool SensorDeviceResponseValidator::Accept(mojo::Message* message) {
 }
 const char SensorDeviceSamplesObserver::Name_[] = "cros.mojom.SensorDeviceSamplesObserver";
 
+uint32_t SensorDeviceSamplesObserver::MessageToStableIPCHash_(mojo::Message& message) {
+  switch (message.name()) {
+    case internal::kSensorDeviceSamplesObserver_OnSampleUpdated_Name: {
+      constexpr uint32_t value = base::MD5Hash32Constexpr(
+              "(Impl)cros::mojom::SensorDeviceSamplesObserver::OnSampleUpdated");
+      return value;
+    }
+    case internal::kSensorDeviceSamplesObserver_OnErrorOccurred_Name: {
+      constexpr uint32_t value = base::MD5Hash32Constexpr(
+              "(Impl)cros::mojom::SensorDeviceSamplesObserver::OnErrorOccurred");
+      return value;
+    }
+  }
+  return 0;
+}
+
+
+const char* SensorDeviceSamplesObserver::MessageToMethodName_(mojo::Message& message) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (!is_response) {
+    switch (message.name()) {
+      case internal::kSensorDeviceSamplesObserver_OnSampleUpdated_Name:
+            return "Receive cros::mojom::SensorDeviceSamplesObserver::OnSampleUpdated";
+      case internal::kSensorDeviceSamplesObserver_OnErrorOccurred_Name:
+            return "Receive cros::mojom::SensorDeviceSamplesObserver::OnErrorOccurred";
+    }
+  } else {
+    switch (message.name()) {
+      case internal::kSensorDeviceSamplesObserver_OnSampleUpdated_Name:
+            return "Receive reply cros::mojom::SensorDeviceSamplesObserver::OnSampleUpdated";
+      case internal::kSensorDeviceSamplesObserver_OnErrorOccurred_Name:
+            return "Receive reply cros::mojom::SensorDeviceSamplesObserver::OnErrorOccurred";
+    }
+  }
+  return "Receive unknown mojo message";
+#else
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (is_response) {
+    return "Receive mojo reply";
+  } else {
+    return "Receive mojo message";
+  }
+#endif // BUILDFLAG(MOJO_TRACE_ENABLED)
+}
+
 SensorDeviceSamplesObserverProxy::SensorDeviceSamplesObserverProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
 }
@@ -3585,9 +3680,9 @@ void SensorDeviceSamplesObserverProxy::OnSampleUpdated(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send cros::mojom::SensorDeviceSamplesObserver::OnSampleUpdated", "input_parameters",
-    [&](perfetto::libchrome::TracedValue context){
+    [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto::libchrome::WriteIntoTracedValueWithFallback(
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("sample"), in_sample,
                         "<value of type const base::flat_map<int32_t, int64_t>&>");
    });
@@ -3635,9 +3730,9 @@ void SensorDeviceSamplesObserverProxy::OnErrorOccurred(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send cros::mojom::SensorDeviceSamplesObserver::OnErrorOccurred", "input_parameters",
-    [&](perfetto::libchrome::TracedValue context){
+    [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto::libchrome::WriteIntoTracedValueWithFallback(
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("type"), in_type,
                         "<value of type ObserverErrorType>");
    });
@@ -3675,15 +3770,6 @@ bool SensorDeviceSamplesObserverStubDispatch::Accept(
     mojo::Message* message) {
   switch (message->header()->name) {
     case internal::kSensorDeviceSamplesObserver_OnSampleUpdated_Name: {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      TRACE_EVENT(
-          "toplevel",
-          "Receive cros::mojom::SensorDeviceSamplesObserver::OnSampleUpdated",
-          perfetto::libchrome::Flow::Global(message->GetTraceId()));
-#endif
-      static constexpr uint32_t kMessageHash = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::SensorDeviceSamplesObserver::OnSampleUpdated");
-      base::TaskAnnotator::ScopedSetIpcHash scoped_ipc_hash(kMessageHash);
 
       DCHECK(message->is_serialized());
       internal::SensorDeviceSamplesObserver_OnSampleUpdated_Params_Data* params =
@@ -3710,15 +3796,6 @@ std::move(p_sample));
       return true;
     }
     case internal::kSensorDeviceSamplesObserver_OnErrorOccurred_Name: {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      TRACE_EVENT(
-          "toplevel",
-          "Receive cros::mojom::SensorDeviceSamplesObserver::OnErrorOccurred",
-          perfetto::libchrome::Flow::Global(message->GetTraceId()));
-#endif
-      static constexpr uint32_t kMessageHash = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::SensorDeviceSamplesObserver::OnErrorOccurred");
-      base::TaskAnnotator::ScopedSetIpcHash scoped_ipc_hash(kMessageHash);
 
       DCHECK(message->is_serialized());
       internal::SensorDeviceSamplesObserver_OnErrorOccurred_Params_Data* params =
@@ -3782,6 +3859,43 @@ bool SensorDeviceSamplesObserverRequestValidator::Accept(mojo::Message* message)
 
 const char SensorServiceNewDevicesObserver::Name_[] = "cros.mojom.SensorServiceNewDevicesObserver";
 
+uint32_t SensorServiceNewDevicesObserver::MessageToStableIPCHash_(mojo::Message& message) {
+  switch (message.name()) {
+    case internal::kSensorServiceNewDevicesObserver_OnNewDeviceAdded_Name: {
+      constexpr uint32_t value = base::MD5Hash32Constexpr(
+              "(Impl)cros::mojom::SensorServiceNewDevicesObserver::OnNewDeviceAdded");
+      return value;
+    }
+  }
+  return 0;
+}
+
+
+const char* SensorServiceNewDevicesObserver::MessageToMethodName_(mojo::Message& message) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (!is_response) {
+    switch (message.name()) {
+      case internal::kSensorServiceNewDevicesObserver_OnNewDeviceAdded_Name:
+            return "Receive cros::mojom::SensorServiceNewDevicesObserver::OnNewDeviceAdded";
+    }
+  } else {
+    switch (message.name()) {
+      case internal::kSensorServiceNewDevicesObserver_OnNewDeviceAdded_Name:
+            return "Receive reply cros::mojom::SensorServiceNewDevicesObserver::OnNewDeviceAdded";
+    }
+  }
+  return "Receive unknown mojo message";
+#else
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (is_response) {
+    return "Receive mojo reply";
+  } else {
+    return "Receive mojo message";
+  }
+#endif // BUILDFLAG(MOJO_TRACE_ENABLED)
+}
+
 SensorServiceNewDevicesObserverProxy::SensorServiceNewDevicesObserverProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
 }
@@ -3791,12 +3905,12 @@ void SensorServiceNewDevicesObserverProxy::OnNewDeviceAdded(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send cros::mojom::SensorServiceNewDevicesObserver::OnNewDeviceAdded", "input_parameters",
-    [&](perfetto::libchrome::TracedValue context){
+    [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto::libchrome::WriteIntoTracedValueWithFallback(
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("iio_device_id"), in_iio_device_id,
                         "<value of type int32_t>");
-      perfetto::libchrome::WriteIntoTracedValueWithFallback(
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("types"), in_types,
                         "<value of type const std::vector<DeviceType>&>");
    });
@@ -3846,15 +3960,6 @@ bool SensorServiceNewDevicesObserverStubDispatch::Accept(
     mojo::Message* message) {
   switch (message->header()->name) {
     case internal::kSensorServiceNewDevicesObserver_OnNewDeviceAdded_Name: {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      TRACE_EVENT(
-          "toplevel",
-          "Receive cros::mojom::SensorServiceNewDevicesObserver::OnNewDeviceAdded",
-          perfetto::libchrome::Flow::Global(message->GetTraceId()));
-#endif
-      static constexpr uint32_t kMessageHash = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::SensorServiceNewDevicesObserver::OnNewDeviceAdded");
-      base::TaskAnnotator::ScopedSetIpcHash scoped_ipc_hash(kMessageHash);
 
       DCHECK(message->is_serialized());
       internal::SensorServiceNewDevicesObserver_OnNewDeviceAdded_Params_Data* params =
@@ -3917,6 +4022,52 @@ bool SensorServiceNewDevicesObserverRequestValidator::Accept(mojo::Message* mess
 
 const char SensorDeviceEventsObserver::Name_[] = "cros.mojom.SensorDeviceEventsObserver";
 
+uint32_t SensorDeviceEventsObserver::MessageToStableIPCHash_(mojo::Message& message) {
+  switch (message.name()) {
+    case internal::kSensorDeviceEventsObserver_OnEventUpdated_Name: {
+      constexpr uint32_t value = base::MD5Hash32Constexpr(
+              "(Impl)cros::mojom::SensorDeviceEventsObserver::OnEventUpdated");
+      return value;
+    }
+    case internal::kSensorDeviceEventsObserver_OnErrorOccurred_Name: {
+      constexpr uint32_t value = base::MD5Hash32Constexpr(
+              "(Impl)cros::mojom::SensorDeviceEventsObserver::OnErrorOccurred");
+      return value;
+    }
+  }
+  return 0;
+}
+
+
+const char* SensorDeviceEventsObserver::MessageToMethodName_(mojo::Message& message) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (!is_response) {
+    switch (message.name()) {
+      case internal::kSensorDeviceEventsObserver_OnEventUpdated_Name:
+            return "Receive cros::mojom::SensorDeviceEventsObserver::OnEventUpdated";
+      case internal::kSensorDeviceEventsObserver_OnErrorOccurred_Name:
+            return "Receive cros::mojom::SensorDeviceEventsObserver::OnErrorOccurred";
+    }
+  } else {
+    switch (message.name()) {
+      case internal::kSensorDeviceEventsObserver_OnEventUpdated_Name:
+            return "Receive reply cros::mojom::SensorDeviceEventsObserver::OnEventUpdated";
+      case internal::kSensorDeviceEventsObserver_OnErrorOccurred_Name:
+            return "Receive reply cros::mojom::SensorDeviceEventsObserver::OnErrorOccurred";
+    }
+  }
+  return "Receive unknown mojo message";
+#else
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (is_response) {
+    return "Receive mojo reply";
+  } else {
+    return "Receive mojo message";
+  }
+#endif // BUILDFLAG(MOJO_TRACE_ENABLED)
+}
+
 SensorDeviceEventsObserverProxy::SensorDeviceEventsObserverProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
 }
@@ -3926,9 +4077,9 @@ void SensorDeviceEventsObserverProxy::OnEventUpdated(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send cros::mojom::SensorDeviceEventsObserver::OnEventUpdated", "input_parameters",
-    [&](perfetto::libchrome::TracedValue context){
+    [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto::libchrome::WriteIntoTracedValueWithFallback(
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("iio_event"), in_iio_event,
                         "<value of type IioEventPtr>");
    });
@@ -3974,9 +4125,9 @@ void SensorDeviceEventsObserverProxy::OnErrorOccurred(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send cros::mojom::SensorDeviceEventsObserver::OnErrorOccurred", "input_parameters",
-    [&](perfetto::libchrome::TracedValue context){
+    [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto::libchrome::WriteIntoTracedValueWithFallback(
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("type"), in_type,
                         "<value of type ObserverErrorType>");
    });
@@ -4014,15 +4165,6 @@ bool SensorDeviceEventsObserverStubDispatch::Accept(
     mojo::Message* message) {
   switch (message->header()->name) {
     case internal::kSensorDeviceEventsObserver_OnEventUpdated_Name: {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      TRACE_EVENT(
-          "toplevel",
-          "Receive cros::mojom::SensorDeviceEventsObserver::OnEventUpdated",
-          perfetto::libchrome::Flow::Global(message->GetTraceId()));
-#endif
-      static constexpr uint32_t kMessageHash = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::SensorDeviceEventsObserver::OnEventUpdated");
-      base::TaskAnnotator::ScopedSetIpcHash scoped_ipc_hash(kMessageHash);
 
       DCHECK(message->is_serialized());
       internal::SensorDeviceEventsObserver_OnEventUpdated_Params_Data* params =
@@ -4049,15 +4191,6 @@ std::move(p_iio_event));
       return true;
     }
     case internal::kSensorDeviceEventsObserver_OnErrorOccurred_Name: {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      TRACE_EVENT(
-          "toplevel",
-          "Receive cros::mojom::SensorDeviceEventsObserver::OnErrorOccurred",
-          perfetto::libchrome::Flow::Global(message->GetTraceId()));
-#endif
-      static constexpr uint32_t kMessageHash = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::SensorDeviceEventsObserver::OnErrorOccurred");
-      base::TaskAnnotator::ScopedSetIpcHash scoped_ipc_hash(kMessageHash);
 
       DCHECK(message->is_serialized());
       internal::SensorDeviceEventsObserver_OnErrorOccurred_Params_Data* params =

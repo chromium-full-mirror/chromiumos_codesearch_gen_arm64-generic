@@ -80,10 +80,13 @@ class BASE_EXPORT PowerMonitorDeviceSource : public PowerMonitorSource {
                                          UINT message,
                                          WPARAM wparam,
                                          LPARAM lparam);
+
     // Instance of the module containing the window procedure.
     HMODULE instance_;
     // A hidden message-only window.
     HWND message_hwnd_;
+    // A handle, returned when we register for power setting notification
+    HPOWERNOTIFY power_notify_handle_ = nullptr;
   };
 #endif  // BUILDFLAG(IS_WIN)
 
@@ -106,6 +109,7 @@ class BASE_EXPORT PowerMonitorDeviceSource : public PowerMonitorSource {
   bool IsOnBatteryPower() override;
 
 #if BUILDFLAG(IS_ANDROID)
+  PowerThermalObserver::DeviceThermalState GetCurrentThermalState() override;
   int GetRemainingBatteryCapacity() override;
 #endif  // BUILDFLAG(IS_ANDROID)
 

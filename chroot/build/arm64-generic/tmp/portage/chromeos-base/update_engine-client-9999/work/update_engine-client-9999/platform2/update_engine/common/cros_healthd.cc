@@ -56,7 +56,6 @@ static const std::unordered_map<TelemetryCategoryEnum, ProbeCategoryEnum>
         SET_MOJO_VALUE(kStatefulPartition),
         SET_MOJO_VALUE(kBluetooth),
         SET_MOJO_VALUE(kSystem),
-        SET_MOJO_VALUE(kSystem2),
         SET_MOJO_VALUE(kNetwork),
         SET_MOJO_VALUE(kAudio),
         SET_MOJO_VALUE(kBootPerformance),
@@ -184,8 +183,8 @@ void CrosHealthd::OnProbeTelemetryInfo(
     std::move(once_callback).Run({});
     return;
   }
-  if (!ParseSystemResultV2(&result, telemetry_info_.get()))
-    LOG(WARNING) << "Failed to parse system_v2 information.";
+  if (!ParseSystemResult(&result, telemetry_info_.get()))
+    LOG(WARNING) << "Failed to parse system information.";
   if (!ParseMemoryResult(&result, telemetry_info_.get()))
     LOG(WARNING) << "Failed to parse memory information.";
   if (!ParseNonRemovableBlockDeviceResult(&result, telemetry_info_.get()))
@@ -197,37 +196,37 @@ void CrosHealthd::OnProbeTelemetryInfo(
   std::move(once_callback).Run(*telemetry_info_);
 }
 
-bool CrosHealthd::ParseSystemResultV2(
+bool CrosHealthd::ParseSystemResult(
     chromeos::cros_healthd::mojom::TelemetryInfoPtr* result,
     TelemetryInfo* telemetry_info) {
-  const auto& system_result_v2 = (*result)->system_result_v2;
-  if (system_result_v2) {
-    if (system_result_v2->is_error()) {
-      PrintError(system_result_v2->get_error(), "system_v2 information");
+  const auto& system_result = (*result)->system_result;
+  if (system_result) {
+    if (system_result->is_error()) {
+      PrintError(system_result->get_error(), "system information");
       return false;
     }
-    const auto& system_info_v2 = system_result_v2->get_system_info_v2();
+    const auto& system_info = system_result->get_system_info();
 
-    const auto& dmi_info = system_info_v2->dmi_info;
+    const auto& dmi_info = system_info->dmi_info;
     if (dmi_info) {
       if (dmi_info->sys_vendor.has_value())
-        telemetry_info->system_v2_info.dmi_info.sys_vendor =
+        telemetry_info->system_info.dmi_info.sys_vendor =
             dmi_info->sys_vendor.value();
       if (dmi_info->product_name.has_value())
-        telemetry_info->system_v2_info.dmi_info.product_name =
+        telemetry_info->system_info.dmi_info.product_name =
             dmi_info->product_name.value();
       if (dmi_info->product_version.has_value())
-        telemetry_info->system_v2_info.dmi_info.product_version =
+        telemetry_info->system_info.dmi_info.product_version =
             dmi_info->product_version.value();
       if (dmi_info->bios_version.has_value())
-        telemetry_info->system_v2_info.dmi_info.bios_version =
+        telemetry_info->system_info.dmi_info.bios_version =
             dmi_info->bios_version.value();
     }
 
-    const auto& os_info = system_info_v2->os_info;
+    const auto& os_info = system_info->os_info;
     if (os_info) {
-      telemetry_info->system_v2_info.os_info.boot_mode =
-          static_cast<TelemetryInfo::SystemV2Info::OsInfo::BootMode>(
+      telemetry_info->system_info.os_info.boot_mode =
+          static_cast<TelemetryInfo::SystemInfo::OsInfo::BootMode>(
               os_info->boot_mode);
     }
   }
@@ -310,7 +309,7 @@ bool CrosHealthd::ParseBusResult(
       if (!bus_device->bus_info)
         continue;
       switch (bus_device->bus_info->which()) {
-        case chromeos::cros_healthd::mojom::BusInfo::Tag::PCI_BUS_INFO: {
+        case chromeos::cros_healthd::mojom::BusInfo::Tag::kPciBusInfo: {
           const auto& pci_bus_info = bus_device->bus_info->get_pci_bus_info();
           telemetry_info->bus_devices.push_back({
               .device_class =
@@ -327,7 +326,7 @@ bool CrosHealthd::ParseBusResult(
           });
           break;
         }
-        case chromeos::cros_healthd::mojom::BusInfo::Tag::USB_BUS_INFO: {
+        case chromeos::cros_healthd::mojom::BusInfo::Tag::kUsbBusInfo: {
           const auto& usb_bus_info = bus_device->bus_info->get_usb_bus_info();
           telemetry_info->bus_devices.push_back({
               .device_class =
@@ -341,8 +340,12 @@ bool CrosHealthd::ParseBusResult(
           });
           break;
         }
-        case chromeos::cros_healthd::mojom::BusInfo::Tag::
-            THUNDERBOLT_BUS_INFO: {
+        case chromeos::cros_healthd::mojom::BusInfo::Tag::kThunderboltBusInfo: {
+          break;
+        }
+        case chromeos::cros_healthd::mojom::BusInfo::Tag::kUnmappedField: {
+          LOG(ERROR) << "Get unmapped Mojo fields by retrieving bus info from "
+                        "cros_healthd";
           break;
         }
       }

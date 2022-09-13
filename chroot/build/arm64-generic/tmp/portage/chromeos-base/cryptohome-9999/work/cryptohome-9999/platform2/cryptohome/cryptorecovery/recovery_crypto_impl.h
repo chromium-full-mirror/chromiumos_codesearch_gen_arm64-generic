@@ -6,13 +6,17 @@
 #define CRYPTOHOME_CRYPTORECOVERY_RECOVERY_CRYPTO_IMPL_H_
 
 #include <memory>
+#include <string>
 
 #include <brillo/secure_blob.h>
+#include <cryptohome/platform.h>
+#include <libhwsec/frontend/recovery_crypto/frontend.h>
 #include <libhwsec-foundation/crypto/elliptic_curve.h>
 
-#include "cryptohome/cryptorecovery/cryptorecovery.pb.h"
 #include "cryptohome/cryptorecovery/recovery_crypto.h"
 #include "cryptohome/cryptorecovery/recovery_crypto_util.h"
+#include "cryptohome/cryptorecovery/recovery_id_container.pb.h"
+#include "cryptohome/proto_bindings/rpc.pb.h"
 
 namespace cryptohome {
 namespace cryptorecovery {
@@ -22,7 +26,7 @@ class RecoveryCryptoImpl : public RecoveryCrypto {
  public:
   // Creates instance. Returns nullptr if error occurred.
   static std::unique_ptr<RecoveryCryptoImpl> Create(
-      RecoveryCryptoTpmBackend* tpm_backend);
+      hwsec::RecoveryCryptoFrontend* hwsec_backend, Platform* platform);
 
   RecoveryCryptoImpl(const RecoveryCryptoImpl&) = delete;
   RecoveryCryptoImpl& operator=(const RecoveryCryptoImpl&) = delete;
@@ -30,38 +34,43 @@ class RecoveryCryptoImpl : public RecoveryCrypto {
   ~RecoveryCryptoImpl() override;
 
   bool GenerateRecoveryRequest(
-      const HsmPayload& hsm_payload,
-      const RequestMetadata& request_meta_data,
-      const CryptoRecoveryEpochResponse& epoch_response,
-      const brillo::SecureBlob& encrypted_rsa_priv_key,
-      const brillo::SecureBlob& encrypted_channel_priv_key,
-      const brillo::SecureBlob& channel_pub_key,
+      const GenerateRecoveryRequestRequest& request_param,
       CryptoRecoveryRpcRequest* recovery_request,
       brillo::SecureBlob* ephemeral_pub_key) const override;
-  bool GenerateHsmPayload(
-      const brillo::SecureBlob& mediator_pub_key,
-      const OnboardingMetadata& onboarding_metadata,
-      HsmPayload* hsm_payload,
-      brillo::SecureBlob* encrypted_rsa_priv_key,
-      brillo::SecureBlob* encrypted_destination_share,
-      brillo::SecureBlob* recovery_key,
-      brillo::SecureBlob* channel_pub_key,
-      brillo::SecureBlob* encrypted_channel_priv_key) const override;
-  bool RecoverDestination(const brillo::SecureBlob& dealer_pub_key,
-                          const brillo::SecureBlob& key_auth_value,
-                          const brillo::SecureBlob& encrypted_destination_share,
-                          const brillo::SecureBlob& ephemeral_pub_key,
-                          const brillo::SecureBlob& mediated_publisher_pub_key,
+  bool GenerateHsmPayload(const GenerateHsmPayloadRequest& request,
+                          GenerateHsmPayloadResponse* response) const override;
+  bool RecoverDestination(const RecoverDestinationRequest& request,
                           brillo::SecureBlob* destination_dh) const override;
   bool DecryptResponsePayload(
-      const brillo::SecureBlob& encrypted_channel_priv_key,
-      const CryptoRecoveryEpochResponse& epoch_response,
-      const CryptoRecoveryRpcResponse& recovery_response_proto,
+      const DecryptResponsePayloadRequest& request,
       HsmResponsePlainText* response_plain_text) const override;
+
+  void GenerateOnboardingMetadata(
+      const std::string& gaia_id,
+      const std::string& user_device_id,
+      const std::string& recovery_id,
+      OnboardingMetadata* onboarding_metadata) const;
+  // Gets the current serialized value of the Recovery Id from cryptohome or
+  // returns an empty string if it does not exist. It should be called by the
+  // client before GenerateOnboardingMetadata in order to get the recovery_id
+  // that will be passed as an argument.
+  std::string LoadStoredRecoveryIdFromFile(
+      const base::FilePath& recovery_id_path) const;
+  std::string LoadStoredRecoveryId(const AccountIdentifier& account_id) const;
+  // Creates a random seed and computes Recovery Id from it or (if the
+  // Recovery Id already exists) re-hashes and persists it in the cryptohome.
+  // This method should be called on the initial creation of OnboardingMetadata
+  // and after every successful recovery operation to refresh the Recovery Id.
+  // Secrets used to generate Recovery Id are stored in cryptohome but the
+  // resulting Recovery Id is part of OnboardingMetadata stored outside of the
+  // cryptohome.
+  bool GenerateRecoveryIdToFile(const base::FilePath& recovery_id_path) const;
+  bool GenerateRecoveryId(const AccountIdentifier& account_id) const;
 
  private:
   RecoveryCryptoImpl(hwsec_foundation::EllipticCurve ec,
-                     RecoveryCryptoTpmBackend* tpm_backend);
+                     hwsec::RecoveryCryptoFrontend* hwsec_backend,
+                     Platform* platform);
   bool GenerateRecoveryKey(const crypto::ScopedEC_POINT& recovery_pub_point,
                            const crypto::ScopedEC_KEY& dealer_key_pair,
                            brillo::SecureBlob* recovery_key) const;
@@ -73,9 +82,21 @@ class RecoveryCryptoImpl : public RecoveryCrypto {
                                  const crypto::ScopedEC_KEY& publisher_key_pair,
                                  const OnboardingMetadata& onboarding_metadata,
                                  brillo::SecureBlob* hsm_associated_data) const;
+  bool IsRecoveryIdAvailable(const base::FilePath& recovery_id_path) const;
+  bool RotateRecoveryId(CryptoRecoveryIdContainer* recovery_id_pb) const;
+  void GenerateInitialRecoveryId(
+      CryptoRecoveryIdContainer* recovery_id_pb) const;
+  void GenerateRecoveryIdProto(CryptoRecoveryIdContainer* recovery_id_pb) const;
+  bool LoadPersistedRecoveryIdContainer(
+      const base::FilePath& recovery_id_path,
+      CryptoRecoveryIdContainer* recovery_id_pb) const;
+  bool PersistRecoveryIdContainer(
+      const base::FilePath& recovery_id_path,
+      const CryptoRecoveryIdContainer& recovery_id_pb) const;
 
   hwsec_foundation::EllipticCurve ec_;
-  RecoveryCryptoTpmBackend* const tpm_backend_;
+  hwsec::RecoveryCryptoFrontend* const hwsec_backend_;
+  Platform* const platform_;
 };
 
 }  // namespace cryptorecovery

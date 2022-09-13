@@ -31,6 +31,7 @@ using ::testing::_;
 using ::testing::Eq;
 using ::testing::Invoke;
 using ::testing::NotNull;
+using ::testing::StrEq;
 using ::testing::WithArgs;
 
 MATCHER_P(EqualsProto,
@@ -56,13 +57,11 @@ class MockStorageModule : public StorageModuleInterface {
               Flush,
               (Priority, base::OnceCallback<void(Status)>),
               (override));
-  MOCK_METHOD(void, ReportSuccess, (SequenceInformation, bool), (override));
-  MOCK_METHOD(void, UpdateEncryptionKey, (SignedEncryptionInfo), (override));
 };
 
 class EnqueueJobTest : public ::testing::Test {
  public:
-  EnqueueJobTest() : method_call_("org.Test", "TestMethod") {}
+  EnqueueJobTest() = default;
 
  protected:
   void SetUp() override {
@@ -84,8 +83,6 @@ class EnqueueJobTest : public ::testing::Test {
 
   base::test::TaskEnvironment task_environment_;
 
-  dbus::MethodCall method_call_;
-
   std::unique_ptr<
       brillo::dbus_utils::MockDBusMethodResponse<EnqueueRecordResponse>>
       response_;
@@ -96,8 +93,8 @@ class EnqueueJobTest : public ::testing::Test {
 
 TEST_F(EnqueueJobTest, CompletesSuccessfully) {
   response_->set_return_callback(
-      base::BindRepeating([](const EnqueueRecordResponse& response) {
-        EXPECT_EQ(response.status().code(), error::OK);
+      base::BindOnce([](const EnqueueRecordResponse& response) {
+        EXPECT_THAT(response.status().code(), Eq(error::OK));
       }));
   auto delegate = std::make_unique<EnqueueJob::EnqueueResponseDelegate>(
       std::move(response_));
@@ -122,9 +119,11 @@ TEST_F(EnqueueJobTest, CompletesSuccessfully) {
 
 TEST_F(EnqueueJobTest, CancelsSuccessfully) {
   Status failure_status(error::INTERNAL, "Failing for tests");
-  response_->set_return_callback(base::BindRepeating(
-      [](Status status, const EnqueueRecordResponse& response) {
-        EXPECT_TRUE(response.status().code() == status.error_code());
+  response_->set_return_callback(base::BindOnce(
+      [](Status failure_status, const EnqueueRecordResponse& response) {
+        EXPECT_THAT(response.status().code(), Eq(failure_status.error_code()));
+        EXPECT_THAT(response.status().error_message(),
+                    StrEq(std::string(failure_status.error_message())));
       },
       failure_status));
   auto delegate = std::make_unique<EnqueueJob::EnqueueResponseDelegate>(
@@ -137,7 +136,7 @@ TEST_F(EnqueueJobTest, CancelsSuccessfully) {
   auto job = EnqueueJob::Create(storage_module_, request, std::move(delegate));
 
   auto status = job->Cancel(failure_status);
-  EXPECT_TRUE(status.ok());
+  EXPECT_OK(status) << status;
 }
 
 }  // namespace

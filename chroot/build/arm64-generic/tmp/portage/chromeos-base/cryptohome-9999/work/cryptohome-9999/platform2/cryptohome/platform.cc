@@ -51,6 +51,7 @@
 #include <base/files/file.h>
 #include <base/files/file_path.h>
 #include <base/files/file_util.h>
+#include <base/files/scoped_file.h>
 #include <base/location.h>
 #include <base/logging.h>
 #include <base/numerics/safe_conversions.h>
@@ -147,22 +148,6 @@ bool DecodeProcInfoLine(const std::string& line,
     mount_info->mount_source = args[fs_idx + 1];
     return true;
   }
-}
-
-bool SetQuotaProjectIdInternal(int project_id, int fd, int* out_error) {
-  struct fsxattr fsx = {};
-  if (ioctl(fd, FS_IOC_FSGETXATTR, &fsx) < 0) {
-    *out_error = errno;
-    PLOG(ERROR) << "ioctl(FS_IOC_FSGETXATTR) failed";
-    return false;
-  }
-  fsx.fsx_projid = project_id;
-  if (ioctl(fd, FS_IOC_FSSETXATTR, &fsx) < 0) {
-    *out_error = errno;
-    PLOG(ERROR) << "ioctl(FS_IOC_FSSETXATTR) failed";
-    return false;
-  }
-  return true;
 }
 
 }  // namespace
@@ -544,42 +529,22 @@ int64_t Platform::GetQuotaCurrentSpaceForProjectId(const base::FilePath& device,
   return dq.dqb_curspace;
 }
 
-bool Platform::SetQuotaProjectId(int project_id,
-                                 const base::FilePath& path) const {
-  base::stat_wrapper_t stat;
-  if (base::File::Lstat(path.value().c_str(), &stat) != 0) {
-    PLOG(ERROR) << "Failed to stat " << path.value();
-    return false;
-  }
-  brillo::SafeFD fd;
-  brillo::SafeFD::Error err;
-  if (S_ISDIR(stat.st_mode)) {
-    std::tie(fd, err) = brillo::SafeFD::Root().first.OpenExistingDir(path);
-  } else {
-    std::tie(fd, err) = brillo::SafeFD::Root().first.OpenExistingFile(path);
-  }
-  if (brillo::SafeFD::IsError(err)) {
-    PLOG(ERROR) << "Failed to open " << path.value() << " with error "
-                << static_cast<int>(err);
-    return false;
-  }
-  if (!fd.is_valid()) {
-    PLOG(ERROR) << "Failed to open " << path.value();
-    return false;
-  }
-
-  int error = 0;
-  if (!SetQuotaProjectIdInternal(project_id, fd.get(), &error)) {
-    LOG(ERROR) << "Failed to set quota project id: " << path.value();
-    return false;
-  }
-  return true;
-}
-
 bool Platform::SetQuotaProjectIdWithFd(int project_id,
                                        int fd,
                                        int* out_error) const {
-  return SetQuotaProjectIdInternal(project_id, fd, out_error);
+  struct fsxattr fsx = {};
+  if (ioctl(fd, FS_IOC_FSGETXATTR, &fsx) < 0) {
+    *out_error = errno;
+    PLOG(ERROR) << "ioctl(FS_IOC_FSGETXATTR) failed";
+    return false;
+  }
+  fsx.fsx_projid = project_id;
+  if (ioctl(fd, FS_IOC_FSSETXATTR, &fsx) < 0) {
+    *out_error = errno;
+    PLOG(ERROR) << "ioctl(FS_IOC_FSSETXATTR) failed";
+    return false;
+  }
+  return true;
 }
 
 bool Platform::SetQuotaProjectInheritanceFlagWithFd(bool enable,
@@ -1351,6 +1316,31 @@ bool Platform::DetachLoop(const base::FilePath& device_path) {
   }
   // Not found the device
   return false;
+}
+
+bool Platform::DiscardDevice(const base::FilePath& device) {
+  uint64_t size;
+  if (!GetBlkSize(device, &size)) {
+    LOG(ERROR) << "Failed to get device size";
+    return false;
+  }
+
+  uint64_t range[2] = {0, size};
+
+  base::ScopedFD fd(
+      HANDLE_EINTR(open(device.value().c_str(), O_RDWR | O_CLOEXEC)));
+
+  if (!fd.is_valid()) {
+    LOG(ERROR) << "Failed to open device " << device;
+    return false;
+  }
+
+  if (ioctl(fd.get(), BLKDISCARD, &range)) {
+    LOG(ERROR) << "Failed to discard device " << device;
+    return false;
+  }
+
+  return true;
 }
 
 std::vector<Platform::LoopDevice> Platform::GetAttachedLoopDevices() {

@@ -18,8 +18,8 @@
 #include "base/hash/md5_constexpr.h"
 #include "base/run_loop.h"
 #include "base/strings/string_number_conversions.h"
-#include "base/task/common/task_annotator.h"
-#include "base/trace_event/base_tracing.h"
+#include "base/trace_event/trace_event.h"
+#include "base/trace_event/typed_macros.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
 #include "mojo/public/cpp/bindings/lib/send_message_helper.h"
@@ -30,6 +30,7 @@
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
+#include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
 #include "ml/mojom/text_classifier.mojom-params-data.h"
 #include "ml/mojom/text_classifier.mojom-shared-message-ids.h"
@@ -70,9 +71,9 @@ size_t TextEntity::Hash(size_t seed) const {
 }
 
 void TextEntity::WriteIntoTrace(
-    perfetto::libchrome::TracedValue traced_context) const {
-  auto dict = std::move(traced_context).WriteDictionary();
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "name"), this->name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -81,7 +82,7 @@ void TextEntity::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "confidence_score"), this->confidence_score,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -90,7 +91,7 @@ void TextEntity::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "data"), this->data,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -122,9 +123,9 @@ TextAnnotation::TextAnnotation(
 TextAnnotation::~TextAnnotation() = default;
 
 void TextAnnotation::WriteIntoTrace(
-    perfetto::libchrome::TracedValue traced_context) const {
-  auto dict = std::move(traced_context).WriteDictionary();
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "start_offset"), this->start_offset,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -133,7 +134,7 @@ void TextAnnotation::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "end_offset"), this->end_offset,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -142,7 +143,7 @@ void TextAnnotation::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "entities"), this->entities,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -206,9 +207,9 @@ TextAnnotationRequest::TextAnnotationRequest(
 TextAnnotationRequest::~TextAnnotationRequest() = default;
 
 void TextAnnotationRequest::WriteIntoTrace(
-    perfetto::libchrome::TracedValue traced_context) const {
-  auto dict = std::move(traced_context).WriteDictionary();
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "text"), this->text,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -217,7 +218,7 @@ void TextAnnotationRequest::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "default_locales"), this->default_locales,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -226,7 +227,7 @@ void TextAnnotationRequest::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "detected_text_language_tags"), this->detected_text_language_tags,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -235,7 +236,7 @@ void TextAnnotationRequest::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "annotation_usecase"), this->annotation_usecase,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -244,7 +245,7 @@ void TextAnnotationRequest::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "reference_time"), this->reference_time,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -253,7 +254,7 @@ void TextAnnotationRequest::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "reference_timezone"), this->reference_timezone,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -262,7 +263,7 @@ void TextAnnotationRequest::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "enabled_entities"), this->enabled_entities,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -271,7 +272,7 @@ void TextAnnotationRequest::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "trigger_dictionary_on_beginner_words"), this->trigger_dictionary_on_beginner_words,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -305,9 +306,9 @@ size_t CodepointSpan::Hash(size_t seed) const {
 }
 
 void CodepointSpan::WriteIntoTrace(
-    perfetto::libchrome::TracedValue traced_context) const {
-  auto dict = std::move(traced_context).WriteDictionary();
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "start_offset"), this->start_offset,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -316,7 +317,7 @@ void CodepointSpan::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "end_offset"), this->end_offset,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -350,9 +351,9 @@ size_t TextLanguage::Hash(size_t seed) const {
 }
 
 void TextLanguage::WriteIntoTrace(
-    perfetto::libchrome::TracedValue traced_context) const {
-  auto dict = std::move(traced_context).WriteDictionary();
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "locale"), this->locale,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -361,7 +362,7 @@ void TextLanguage::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "confidence"), this->confidence,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -399,9 +400,9 @@ REMOVED_TextSuggestSelectionRequest::REMOVED_TextSuggestSelectionRequest(
 REMOVED_TextSuggestSelectionRequest::~REMOVED_TextSuggestSelectionRequest() = default;
 
 void REMOVED_TextSuggestSelectionRequest::WriteIntoTrace(
-    perfetto::libchrome::TracedValue traced_context) const {
-  auto dict = std::move(traced_context).WriteDictionary();
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "text"), this->text,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -410,7 +411,7 @@ void REMOVED_TextSuggestSelectionRequest::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "user_selection"), this->user_selection,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -419,7 +420,7 @@ void REMOVED_TextSuggestSelectionRequest::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "default_locales"), this->default_locales,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -428,7 +429,7 @@ void REMOVED_TextSuggestSelectionRequest::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "detected_text_language_tags"), this->detected_text_language_tags,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -437,7 +438,7 @@ void REMOVED_TextSuggestSelectionRequest::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "annotation_usecase"), this->annotation_usecase,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -453,7 +454,7 @@ bool REMOVED_TextSuggestSelectionRequest::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
-TextEntityData::TextEntityData() : tag_(Tag::NUMERIC_VALUE) {
+TextEntityData::TextEntityData() : tag_(Tag::kNumericValue) {
   data_.numeric_value = double();
 }
 
@@ -464,19 +465,19 @@ TextEntityData::~TextEntityData() {
 
 void TextEntityData::set_numeric_value(
     double numeric_value) {
-  if (tag_ != Tag::NUMERIC_VALUE) {
+  if (tag_ != Tag::kNumericValue) {
     DestroyActive();
-    tag_ = Tag::NUMERIC_VALUE;
+    tag_ = Tag::kNumericValue;
   }
   data_.numeric_value = numeric_value;
 }
 void TextEntityData::set_string_value(
     const std::string& string_value) {
-  if (tag_ == Tag::STRING_VALUE) {
+  if (tag_ == Tag::kStringValue) {
     *(data_.string_value) = std::move(string_value);
   } else {
     DestroyActive();
-    tag_ = Tag::STRING_VALUE;
+    tag_ = Tag::kStringValue;
     data_.string_value = new std::string(
         std::move(string_value));
   }
@@ -485,10 +486,10 @@ void TextEntityData::set_string_value(
 void TextEntityData::DestroyActive() {
   switch (tag_) {
 
-    case Tag::NUMERIC_VALUE:
+    case Tag::kNumericValue:
 
       break;
-    case Tag::STRING_VALUE:
+    case Tag::kStringValue:
 
       delete data_.string_value;
       break;
@@ -498,9 +499,9 @@ size_t TextEntityData::Hash(size_t seed) const {
   seed = mojo::internal::HashCombine(seed, static_cast<uint32_t>(tag_));
   switch (tag_) {
 
-    case Tag::NUMERIC_VALUE:
+    case Tag::kNumericValue:
       return mojo::internal::Hash(seed, data_.numeric_value);
-    case Tag::STRING_VALUE:
+    case Tag::kStringValue:
       return mojo::internal::Hash(seed, data_.string_value);
     default:
       NOTREACHED();
@@ -514,6 +515,61 @@ bool TextEntityData::Validate(
   return Data_::Validate(data, validation_context, false);
 }
 const char TextClassifier::Name_[] = "chromeos.machine_learning.mojom.TextClassifier";
+
+uint32_t TextClassifier::MessageToStableIPCHash_(mojo::Message& message) {
+  switch (message.name()) {
+    case internal::kTextClassifier_Annotate_Name: {
+      constexpr uint32_t value = base::MD5Hash32Constexpr(
+              "(Impl)chromeos::machine_learning::mojom::TextClassifier::Annotate");
+      return value;
+    }
+    case internal::kTextClassifier_FindLanguages_Name: {
+      constexpr uint32_t value = base::MD5Hash32Constexpr(
+              "(Impl)chromeos::machine_learning::mojom::TextClassifier::FindLanguages");
+      return value;
+    }
+    case internal::kTextClassifier_REMOVED_1_Name: {
+      constexpr uint32_t value = base::MD5Hash32Constexpr(
+              "(Impl)chromeos::machine_learning::mojom::TextClassifier::REMOVED_1");
+      return value;
+    }
+  }
+  return 0;
+}
+
+
+const char* TextClassifier::MessageToMethodName_(mojo::Message& message) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (!is_response) {
+    switch (message.name()) {
+      case internal::kTextClassifier_Annotate_Name:
+            return "Receive chromeos::machine_learning::mojom::TextClassifier::Annotate";
+      case internal::kTextClassifier_FindLanguages_Name:
+            return "Receive chromeos::machine_learning::mojom::TextClassifier::FindLanguages";
+      case internal::kTextClassifier_REMOVED_1_Name:
+            return "Receive chromeos::machine_learning::mojom::TextClassifier::REMOVED_1";
+    }
+  } else {
+    switch (message.name()) {
+      case internal::kTextClassifier_Annotate_Name:
+            return "Receive reply chromeos::machine_learning::mojom::TextClassifier::Annotate";
+      case internal::kTextClassifier_FindLanguages_Name:
+            return "Receive reply chromeos::machine_learning::mojom::TextClassifier::FindLanguages";
+      case internal::kTextClassifier_REMOVED_1_Name:
+            return "Receive reply chromeos::machine_learning::mojom::TextClassifier::REMOVED_1";
+    }
+  }
+  return "Receive unknown mojo message";
+#else
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (is_response) {
+    return "Receive mojo reply";
+  } else {
+    return "Receive mojo message";
+  }
+#endif // BUILDFLAG(MOJO_TRACE_ENABLED)
+}
 
 class TextClassifier_Annotate_ForwardToCallback
     : public mojo::MessageReceiver {
@@ -572,9 +628,9 @@ void TextClassifierProxy::Annotate(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send chromeos::machine_learning::mojom::TextClassifier::Annotate", "input_parameters",
-    [&](perfetto::libchrome::TracedValue context){
+    [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto::libchrome::WriteIntoTracedValueWithFallback(
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("request"), in_request,
                         "<value of type TextAnnotationRequestPtr>");
    });
@@ -621,9 +677,9 @@ void TextClassifierProxy::FindLanguages(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send chromeos::machine_learning::mojom::TextClassifier::FindLanguages", "input_parameters",
-    [&](perfetto::libchrome::TracedValue context){
+    [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto::libchrome::WriteIntoTracedValueWithFallback(
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("text"), in_text,
                         "<value of type const std::string&>");
    });
@@ -670,9 +726,9 @@ void TextClassifierProxy::REMOVED_1(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send chromeos::machine_learning::mojom::TextClassifier::REMOVED_1", "input_parameters",
-    [&](perfetto::libchrome::TracedValue context){
+    [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto::libchrome::WriteIntoTracedValueWithFallback(
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("request"), in_request,
                         "<value of type REMOVED_TextSuggestSelectionRequestPtr>");
    });
@@ -760,10 +816,6 @@ class TextClassifier_Annotate_ProxyToResponder : public ::mojo::internal::ProxyT
 
 bool TextClassifier_Annotate_ForwardToCallback::Accept(
     mojo::Message* message) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT("toplevel", "Receive reply chromeos::machine_learning::mojom::TextClassifier::Annotate",
-               perfetto::libchrome::Flow::Global(message->GetTraceId()));
-#endif
 
   DCHECK(message->is_serialized());
   internal::TextClassifier_Annotate_ResponseParams_Data* params =
@@ -795,9 +847,9 @@ void TextClassifier_Annotate_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply chromeos::machine_learning::mojom::TextClassifier::Annotate", "async_response_parameters",
-    [&](perfetto::libchrome::TracedValue context){
+    [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto::libchrome::WriteIntoTracedValueWithFallback(
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("outputs"), in_outputs,
                         "<value of type std::vector<TextAnnotationPtr>>");
    });
@@ -835,8 +887,11 @@ void TextClassifier_Annotate_ProxyToResponder::Run(
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
   ::mojo::internal::SendMessage(*responder_, message);
-  // TODO(darin): Accept() returning false indicates a malformed message, and
-  // that may be good reason to close the connection. However, we don't have a
+  // SendMessage fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
@@ -887,10 +942,6 @@ class TextClassifier_FindLanguages_ProxyToResponder : public ::mojo::internal::P
 
 bool TextClassifier_FindLanguages_ForwardToCallback::Accept(
     mojo::Message* message) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT("toplevel", "Receive reply chromeos::machine_learning::mojom::TextClassifier::FindLanguages",
-               perfetto::libchrome::Flow::Global(message->GetTraceId()));
-#endif
 
   DCHECK(message->is_serialized());
   internal::TextClassifier_FindLanguages_ResponseParams_Data* params =
@@ -922,9 +973,9 @@ void TextClassifier_FindLanguages_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply chromeos::machine_learning::mojom::TextClassifier::FindLanguages", "async_response_parameters",
-    [&](perfetto::libchrome::TracedValue context){
+    [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto::libchrome::WriteIntoTracedValueWithFallback(
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("outputs"), in_outputs,
                         "<value of type std::vector<TextLanguagePtr>>");
    });
@@ -962,8 +1013,11 @@ void TextClassifier_FindLanguages_ProxyToResponder::Run(
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
   ::mojo::internal::SendMessage(*responder_, message);
-  // TODO(darin): Accept() returning false indicates a malformed message, and
-  // that may be good reason to close the connection. However, we don't have a
+  // SendMessage fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
@@ -1014,10 +1068,6 @@ class TextClassifier_REMOVED_1_ProxyToResponder : public ::mojo::internal::Proxy
 
 bool TextClassifier_REMOVED_1_ForwardToCallback::Accept(
     mojo::Message* message) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT("toplevel", "Receive reply chromeos::machine_learning::mojom::TextClassifier::REMOVED_1",
-               perfetto::libchrome::Flow::Global(message->GetTraceId()));
-#endif
 
   DCHECK(message->is_serialized());
   internal::TextClassifier_REMOVED_1_ResponseParams_Data* params =
@@ -1049,9 +1099,9 @@ void TextClassifier_REMOVED_1_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply chromeos::machine_learning::mojom::TextClassifier::REMOVED_1", "async_response_parameters",
-    [&](perfetto::libchrome::TracedValue context){
+    [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto::libchrome::WriteIntoTracedValueWithFallback(
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("outputs"), in_outputs,
                         "<value of type CodepointSpanPtr>");
    });
@@ -1087,8 +1137,11 @@ void TextClassifier_REMOVED_1_ProxyToResponder::Run(
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
   ::mojo::internal::SendMessage(*responder_, message);
-  // TODO(darin): Accept() returning false indicates a malformed message, and
-  // that may be good reason to close the connection. However, we don't have a
+  // SendMessage fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
@@ -1121,15 +1174,6 @@ bool TextClassifierStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const uint64_t request_id = message->request_id();
   switch (message->header()->name) {
     case internal::kTextClassifier_Annotate_Name: {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      TRACE_EVENT(
-          "toplevel",
-          "Receive chromeos::machine_learning::mojom::TextClassifier::Annotate",
-          perfetto::libchrome::Flow::Global(message->GetTraceId()));
-#endif
-      static constexpr uint32_t kMessageHash = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::machine_learning::mojom::TextClassifier::Annotate");
-      base::TaskAnnotator::ScopedSetIpcHash scoped_ipc_hash(kMessageHash);
 
       internal::TextClassifier_Annotate_Params_Data* params =
           reinterpret_cast<
@@ -1159,15 +1203,6 @@ std::move(p_request), std::move(callback));
       return true;
     }
     case internal::kTextClassifier_FindLanguages_Name: {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      TRACE_EVENT(
-          "toplevel",
-          "Receive chromeos::machine_learning::mojom::TextClassifier::FindLanguages",
-          perfetto::libchrome::Flow::Global(message->GetTraceId()));
-#endif
-      static constexpr uint32_t kMessageHash = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::machine_learning::mojom::TextClassifier::FindLanguages");
-      base::TaskAnnotator::ScopedSetIpcHash scoped_ipc_hash(kMessageHash);
 
       internal::TextClassifier_FindLanguages_Params_Data* params =
           reinterpret_cast<
@@ -1197,15 +1232,6 @@ std::move(p_text), std::move(callback));
       return true;
     }
     case internal::kTextClassifier_REMOVED_1_Name: {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      TRACE_EVENT(
-          "toplevel",
-          "Receive chromeos::machine_learning::mojom::TextClassifier::REMOVED_1",
-          perfetto::libchrome::Flow::Global(message->GetTraceId()));
-#endif
-      static constexpr uint32_t kMessageHash = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::machine_learning::mojom::TextClassifier::REMOVED_1");
-      base::TaskAnnotator::ScopedSetIpcHash scoped_ipc_hash(kMessageHash);
 
       internal::TextClassifier_REMOVED_1_Params_Data* params =
           reinterpret_cast<
@@ -1392,11 +1418,11 @@ bool UnionTraits<::chromeos::machine_learning::mojom::TextEntityData::DataView, 
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
-    case Tag::NUMERIC_VALUE: {
+    case Tag::kNumericValue: {
       *output = UnionType::NewNumericValue(input.numeric_value());
       break;
     }
-    case Tag::STRING_VALUE: {
+    case Tag::kStringValue: {
       std::string result_string_value;
       if (!input.ReadStringValue(&result_string_value))
         return false;

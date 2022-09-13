@@ -9,17 +9,20 @@
 #include <stdint.h>
 
 #include <atomic>
+#include <map>
 #include <memory>
 #include <string>
 #include <unordered_map>
 #include <vector>
 
+#include "base/base_export.h"
 #include "base/containers/stack.h"
 #include "base/gtest_prod_util.h"
 #include "base/memory/scoped_refptr.h"
 #include "base/no_destructor.h"
 #include "base/task/single_thread_task_runner.h"
 #include "base/threading/platform_thread.h"
+#include "base/threading/thread_local.h"
 #include "base/time/time_override.h"
 #include "base/trace_event/category_registry.h"
 #include "base/trace_event/memory_dump_provider.h"
@@ -28,7 +31,7 @@
 #include "build/build_config.h"
 #include "third_party/abseil-cpp/absl/types/optional.h"
 
-namespace perfetto {
+namespace perfetto_libchrome {
 namespace trace_processor {
 class TraceProcessorStorage;
 }  // namespace trace_processor
@@ -60,7 +63,7 @@ struct BASE_EXPORT TraceLogStatus {
 
 class BASE_EXPORT TraceLog :
 #if BUILDFLAG(USE_PERFETTO_CLIENT_LIBRARY)
-    public perfetto::libchrome::TrackEventSessionObserver,
+    public perfetto_libchrome::TrackEventSessionObserver,
 #endif  // BUILDFLAG(USE_PERFETTO_CLIENT_LIBRARY)
     public MemoryDumpProvider {
  public:
@@ -101,7 +104,7 @@ class BASE_EXPORT TraceLog :
   // example, enabling additional data sources and enabling protobuf output
   // instead of the legacy JSON trace format.
   void SetEnabled(const TraceConfig& trace_config,
-                  const perfetto::libchrome::TraceConfig& perfetto_config);
+                  const perfetto_libchrome::TraceConfig& perfetto_config);
 #endif
 
   // TODO(ssid): Remove the default SetEnabled and IsEnabled. They should take
@@ -116,7 +119,7 @@ class BASE_EXPORT TraceLog :
   // Note: Returns false even if FILTERING_MODE is enabled.
   bool IsEnabled() {
 #if BUILDFLAG(USE_PERFETTO_CLIENT_LIBRARY)
-    return perfetto::libchrome::TrackEvent::IsEnabled();
+    return perfetto_libchrome::TrackEvent::IsEnabled();
 #else   // !BUILDFLAG(USE_PERFETTO_CLIENT_LIBRARY)
     AutoLock lock(lock_);
     return enabled_modes_ & RECORDING_MODE;
@@ -133,13 +136,13 @@ class BASE_EXPORT TraceLog :
   // implement the TRACE_EVENT_IS_NEW_TRACE() primitive.
   int GetNumTracesRecorded();
 
-#if defined(OS_ANDROID)
+#if BUILDFLAG(IS_ANDROID)
   void StartATrace(const std::string& category_filter);
   void StopATrace();
   void AddClockSyncMetadataEvent();
   void SetupATraceStartupTrace(const std::string& category_filter);
   absl::optional<TraceConfig> TakeATraceStartupConfig();
-#endif  // defined(OS_ANDROID)
+#endif  // BUILDFLAG(IS_ANDROID)
 
   // Enabled state listeners give a callback when tracing is enabled or
   // disabled. This can be used to tie into other library's tracing systems
@@ -438,7 +441,7 @@ class BASE_EXPORT TraceLog :
   // may not handle the flush request in time causing lost of unflushed events.
   void SetCurrentThreadBlocksMessageLoop();
 
-#if defined(OS_WIN)
+#if BUILDFLAG(IS_WIN)
   // This function is called by the ETW exporting module whenever the ETW
   // keyword (flags) changes. This keyword indicates which categories should be
   // exported, so whenever it changes, we adjust accordingly.
@@ -451,12 +454,12 @@ class BASE_EXPORT TraceLog :
 #if BUILDFLAG(USE_PERFETTO_CLIENT_LIBRARY)
   void InitializePerfettoIfNeeded();
   void SetEnabledImpl(const TraceConfig& trace_config,
-                      const perfetto::libchrome::TraceConfig& perfetto_config);
+                      const perfetto_libchrome::TraceConfig& perfetto_config);
 
-  // perfetto::libchrome::TrackEventSessionObserver implementation.
-  void OnSetup(const perfetto::libchrome::DataSourceBase::SetupArgs&) override;
-  void OnStart(const perfetto::libchrome::DataSourceBase::StartArgs&) override;
-  void OnStop(const perfetto::libchrome::DataSourceBase::StopArgs&) override;
+  // perfetto_libchrome::TrackEventSessionObserver implementation.
+  void OnSetup(const perfetto_libchrome::DataSourceBase::SetupArgs&) override;
+  void OnStart(const perfetto_libchrome::DataSourceBase::StartArgs&) override;
+  void OnStop(const perfetto_libchrome::DataSourceBase::StopArgs&) override;
 #endif  // BUILDFLAG(USE_PERFETTO_CLIENT_LIBRARY)
 
   // Called by the perfetto backend just after incremental state was cleared.
@@ -654,19 +657,19 @@ class BASE_EXPORT TraceLog :
 
 #if BUILDFLAG(USE_PERFETTO_CLIENT_LIBRARY)
   std::unique_ptr<::base::tracing::PerfettoPlatform> perfetto_platform_;
-  std::unique_ptr<perfetto::libchrome::TracingSession> tracing_session_;
-  perfetto::libchrome::TraceConfig perfetto_config_;
-#if !defined(OS_NACL)
-  std::unique_ptr<perfetto::libchrome::trace_processor::TraceProcessorStorage>
+  std::unique_ptr<perfetto_libchrome::TracingSession> tracing_session_;
+  perfetto_libchrome::TraceConfig perfetto_config_;
+#if !BUILDFLAG(IS_NACL)
+  std::unique_ptr<perfetto_libchrome::trace_processor::TraceProcessorStorage>
       trace_processor_;
   std::unique_ptr<JsonStringOutputWriter> json_output_writer_;
   OutputCallback proto_output_callback_;
-#endif  // !defined(OS_NACL)
+#endif  // !BUILDFLAG(IS_NACL)
 #endif  // BUILDFLAG(USE_PERFETTO_CLIENT_LIBRARY)
 
   FilterFactoryForTesting filter_factory_for_testing_ = nullptr;
 
-#if defined(OS_ANDROID)
+#if BUILDFLAG(IS_ANDROID)
   absl::optional<TraceConfig> atrace_startup_config_;
 #endif
 };

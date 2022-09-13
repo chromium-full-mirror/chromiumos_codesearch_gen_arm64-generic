@@ -11,8 +11,12 @@
 #include <grpcpp/impl/codegen/channel_interface.h>
 #include <grpcpp/impl/codegen/client_unary_call.h>
 #include <grpcpp/impl/codegen/client_callback.h>
-#include <grpcpp/impl/codegen/method_handler_impl.h>
+#include <grpcpp/impl/codegen/message_allocator.h>
+#include <grpcpp/impl/codegen/method_handler.h>
 #include <grpcpp/impl/codegen/rpc_service_method.h>
+#include <grpcpp/impl/codegen/server_callback.h>
+#include <grpcpp/impl/codegen/server_callback_handlers.h>
+#include <grpcpp/impl/codegen/server_context.h>
 #include <grpcpp/impl/codegen/service_type.h>
 #include <grpcpp/impl/codegen/sync_stream.h>
 namespace vm_tools {
@@ -26,80 +30,116 @@ static const char* CrashListener_method_names[] = {
 
 std::unique_ptr< CrashListener::Stub> CrashListener::NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options) {
   (void)options;
-  std::unique_ptr< CrashListener::Stub> stub(new CrashListener::Stub(channel));
+  std::unique_ptr< CrashListener::Stub> stub(new CrashListener::Stub(channel, options));
   return stub;
 }
 
-CrashListener::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel)
-  : channel_(channel), rpcmethod_CheckMetricsConsent_(CrashListener_method_names[0], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_SendCrashReport_(CrashListener_method_names[1], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
-  , rpcmethod_SendFailureReport_(CrashListener_method_names[2], ::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+CrashListener::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options)
+  : channel_(channel), rpcmethod_CheckMetricsConsent_(CrashListener_method_names[0], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_SendCrashReport_(CrashListener_method_names[1], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  , rpcmethod_SendFailureReport_(CrashListener_method_names[2], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   {}
 
 ::grpc::Status CrashListener::Stub::CheckMetricsConsent(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage& request, ::vm_tools::cicerone::MetricsConsentResponse* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_CheckMetricsConsent_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::EmptyMessage, ::vm_tools::cicerone::MetricsConsentResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_CheckMetricsConsent_, context, request, response);
 }
 
-void CrashListener::Stub::experimental_async::CheckMetricsConsent(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::cicerone::MetricsConsentResponse* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_CheckMetricsConsent_, context, request, response, std::move(f));
+void CrashListener::Stub::async::CheckMetricsConsent(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::cicerone::MetricsConsentResponse* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::EmptyMessage, ::vm_tools::cicerone::MetricsConsentResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_CheckMetricsConsent_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::vm_tools::cicerone::MetricsConsentResponse>* CrashListener::Stub::AsyncCheckMetricsConsentRaw(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::cicerone::MetricsConsentResponse>::Create(channel_.get(), cq, rpcmethod_CheckMetricsConsent_, context, request, true);
+void CrashListener::Stub::async::CheckMetricsConsent(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage* request, ::vm_tools::cicerone::MetricsConsentResponse* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_CheckMetricsConsent_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::vm_tools::cicerone::MetricsConsentResponse>* CrashListener::Stub::PrepareAsyncCheckMetricsConsentRaw(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::cicerone::MetricsConsentResponse>::Create(channel_.get(), cq, rpcmethod_CheckMetricsConsent_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::cicerone::MetricsConsentResponse, ::vm_tools::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_CheckMetricsConsent_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::cicerone::MetricsConsentResponse>* CrashListener::Stub::AsyncCheckMetricsConsentRaw(::grpc::ClientContext* context, const ::vm_tools::EmptyMessage& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncCheckMetricsConsentRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 ::grpc::Status CrashListener::Stub::SendCrashReport(::grpc::ClientContext* context, const ::vm_tools::cicerone::CrashReport& request, ::vm_tools::EmptyMessage* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_SendCrashReport_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::cicerone::CrashReport, ::vm_tools::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_SendCrashReport_, context, request, response);
 }
 
-void CrashListener::Stub::experimental_async::SendCrashReport(::grpc::ClientContext* context, const ::vm_tools::cicerone::CrashReport* request, ::vm_tools::EmptyMessage* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_SendCrashReport_, context, request, response, std::move(f));
+void CrashListener::Stub::async::SendCrashReport(::grpc::ClientContext* context, const ::vm_tools::cicerone::CrashReport* request, ::vm_tools::EmptyMessage* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::cicerone::CrashReport, ::vm_tools::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_SendCrashReport_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>* CrashListener::Stub::AsyncSendCrashReportRaw(::grpc::ClientContext* context, const ::vm_tools::cicerone::CrashReport& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::EmptyMessage>::Create(channel_.get(), cq, rpcmethod_SendCrashReport_, context, request, true);
+void CrashListener::Stub::async::SendCrashReport(::grpc::ClientContext* context, const ::vm_tools::cicerone::CrashReport* request, ::vm_tools::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_SendCrashReport_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>* CrashListener::Stub::PrepareAsyncSendCrashReportRaw(::grpc::ClientContext* context, const ::vm_tools::cicerone::CrashReport& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::EmptyMessage>::Create(channel_.get(), cq, rpcmethod_SendCrashReport_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::EmptyMessage, ::vm_tools::cicerone::CrashReport, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_SendCrashReport_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>* CrashListener::Stub::AsyncSendCrashReportRaw(::grpc::ClientContext* context, const ::vm_tools::cicerone::CrashReport& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncSendCrashReportRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 ::grpc::Status CrashListener::Stub::SendFailureReport(::grpc::ClientContext* context, const ::vm_tools::cicerone::FailureReport& request, ::vm_tools::EmptyMessage* response) {
-  return ::grpc::internal::BlockingUnaryCall(channel_.get(), rpcmethod_SendFailureReport_, context, request, response);
+  return ::grpc::internal::BlockingUnaryCall< ::vm_tools::cicerone::FailureReport, ::vm_tools::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_SendFailureReport_, context, request, response);
 }
 
-void CrashListener::Stub::experimental_async::SendFailureReport(::grpc::ClientContext* context, const ::vm_tools::cicerone::FailureReport* request, ::vm_tools::EmptyMessage* response, std::function<void(::grpc::Status)> f) {
-  return ::grpc::internal::CallbackUnaryCall(stub_->channel_.get(), stub_->rpcmethod_SendFailureReport_, context, request, response, std::move(f));
+void CrashListener::Stub::async::SendFailureReport(::grpc::ClientContext* context, const ::vm_tools::cicerone::FailureReport* request, ::vm_tools::EmptyMessage* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::vm_tools::cicerone::FailureReport, ::vm_tools::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_SendFailureReport_, context, request, response, std::move(f));
 }
 
-::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>* CrashListener::Stub::AsyncSendFailureReportRaw(::grpc::ClientContext* context, const ::vm_tools::cicerone::FailureReport& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::EmptyMessage>::Create(channel_.get(), cq, rpcmethod_SendFailureReport_, context, request, true);
+void CrashListener::Stub::async::SendFailureReport(::grpc::ClientContext* context, const ::vm_tools::cicerone::FailureReport* request, ::vm_tools::EmptyMessage* response, ::grpc::ClientUnaryReactor* reactor) {
+  ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_SendFailureReport_, context, request, response, reactor);
 }
 
 ::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>* CrashListener::Stub::PrepareAsyncSendFailureReportRaw(::grpc::ClientContext* context, const ::vm_tools::cicerone::FailureReport& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderFactory< ::vm_tools::EmptyMessage>::Create(channel_.get(), cq, rpcmethod_SendFailureReport_, context, request, false);
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::vm_tools::EmptyMessage, ::vm_tools::cicerone::FailureReport, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_SendFailureReport_, context, request);
+}
+
+::grpc::ClientAsyncResponseReader< ::vm_tools::EmptyMessage>* CrashListener::Stub::AsyncSendFailureReportRaw(::grpc::ClientContext* context, const ::vm_tools::cicerone::FailureReport& request, ::grpc::CompletionQueue* cq) {
+  auto* result =
+    this->PrepareAsyncSendFailureReportRaw(context, request, cq);
+  result->StartCall();
+  return result;
 }
 
 CrashListener::Service::Service() {
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       CrashListener_method_names[0],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< CrashListener::Service, ::vm_tools::EmptyMessage, ::vm_tools::cicerone::MetricsConsentResponse>(
-          std::mem_fn(&CrashListener::Service::CheckMetricsConsent), this)));
+      new ::grpc::internal::RpcMethodHandler< CrashListener::Service, ::vm_tools::EmptyMessage, ::vm_tools::cicerone::MetricsConsentResponse, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](CrashListener::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::EmptyMessage* req,
+             ::vm_tools::cicerone::MetricsConsentResponse* resp) {
+               return service->CheckMetricsConsent(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       CrashListener_method_names[1],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< CrashListener::Service, ::vm_tools::cicerone::CrashReport, ::vm_tools::EmptyMessage>(
-          std::mem_fn(&CrashListener::Service::SendCrashReport), this)));
+      new ::grpc::internal::RpcMethodHandler< CrashListener::Service, ::vm_tools::cicerone::CrashReport, ::vm_tools::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](CrashListener::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::cicerone::CrashReport* req,
+             ::vm_tools::EmptyMessage* resp) {
+               return service->SendCrashReport(ctx, req, resp);
+             }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       CrashListener_method_names[2],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< CrashListener::Service, ::vm_tools::cicerone::FailureReport, ::vm_tools::EmptyMessage>(
-          std::mem_fn(&CrashListener::Service::SendFailureReport), this)));
+      new ::grpc::internal::RpcMethodHandler< CrashListener::Service, ::vm_tools::cicerone::FailureReport, ::vm_tools::EmptyMessage, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+          [](CrashListener::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::vm_tools::cicerone::FailureReport* req,
+             ::vm_tools::EmptyMessage* resp) {
+               return service->SendFailureReport(ctx, req, resp);
+             }, this)));
 }
 
 CrashListener::Service::~Service() {

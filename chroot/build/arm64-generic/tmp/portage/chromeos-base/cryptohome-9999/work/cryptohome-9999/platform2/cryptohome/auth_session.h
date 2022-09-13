@@ -11,6 +11,8 @@
 #include <string>
 #include <utility>
 
+#include <base/containers/flat_set.h>
+#include <base/containers/span.h>
 #include <base/memory/weak_ptr.h>
 #include <base/timer/timer.h>
 #include <base/unguessable_token.h>
@@ -22,18 +24,21 @@
 #include "cryptohome/auth_blocks/auth_block_utility.h"
 #include "cryptohome/auth_factor/auth_factor.h"
 #include "cryptohome/auth_factor/auth_factor_manager.h"
-#include "cryptohome/auth_factor/auth_factor_utils.h"
+#include "cryptohome/auth_factor/auth_factor_type.h"
 #include "cryptohome/auth_factor_vault_keyset_converter.h"
 #include "cryptohome/credential_verifier.h"
 #include "cryptohome/credentials.h"
 #include "cryptohome/crypto.h"
 #include "cryptohome/error/cryptohome_crypto_error.h"
+#include "cryptohome/error/cryptohome_error.h"
 #include "cryptohome/error/cryptohome_mount_error.h"
 #include "cryptohome/key_objects.h"
 #include "cryptohome/keyset_management.h"
+#include "cryptohome/platform.h"
 #include "cryptohome/storage/file_system_keyset.h"
 #include "cryptohome/user_secret_stash.h"
 #include "cryptohome/user_secret_stash_storage.h"
+#include "cryptohome/user_session/user_session_map.h"
 
 namespace cryptohome {
 
@@ -53,23 +58,44 @@ enum class AuthStatus {
   // TODO(crbug.com/1154912): Complete the implementation of AuthStatus.
 };
 
+// An intent specifies the set of operations that can be performed after
+// successfully authenticating an Auth Session.
+enum class AuthIntent {
+  // Intent to decrypt the user's file system keys. Authorizing for this intent
+  // allows all privileged operations, e.g., preparing user's vault,
+  // adding/updating/removing factors.
+  kDecrypt,
+  // Intent to simply check whether the authentication succeeds. Authorizing for
+  // this intent doesn't allow any privileged operation.
+  kVerifyOnly,
+};
+
+// The list of all intents. Useful for places that want to set the "fully
+// authenticated" state.
+constexpr AuthIntent kAllAuthIntents[] = {AuthIntent::kDecrypt,
+                                          AuthIntent::kVerifyOnly};
+
 // This class starts a session for the user to authenticate with their
 // credentials.
 class AuthSession final {
  public:
-  // Caller needs to ensure that the KeysetManagement*, AuthBlockUtility*,
-  // AuthFactorManager* and UserSecretStashStorage* outlive the instance of
+  using StatusCallback = base::OnceCallback<void(CryptohomeStatus)>;
+
+  // Caller needs to ensure that the passed raw pointers outlive the instance of
   // AuthSession.
   AuthSession(
       std::string username,
       unsigned int flags,
+      AuthIntent intent,
       base::OnceCallback<void(const base::UnguessableToken&)> on_timeout,
       Crypto* crypto,
+      Platform* platform,
+      UserSessionMap* user_session_map,
       KeysetManagement* keyset_management,
       AuthBlockUtility* auth_block_utility,
       AuthFactorManager* auth_factor_manager,
       UserSecretStashStorage* user_secret_stash_storage);
-  ~AuthSession() = default;
+  ~AuthSession();
 
   // Returns the full unhashed user name.
   const std::string& username() const { return username_; }
@@ -78,6 +104,8 @@ class AuthSession final {
     return obfuscated_username_;
   }
 
+  AuthIntent auth_intent() const { return auth_intent_; }
+
   // Returns the token which is used to identify the current AuthSession.
   const base::UnguessableToken& token() const { return token_; }
   const std::string& serialized_token() const { return serialized_token_; }
@@ -85,38 +113,36 @@ class AuthSession final {
   // This function return the current status of this AuthSession.
   const AuthStatus GetStatus() const { return status_; }
 
+  // Returns the intents that the AuthSession has been authorized for.
+  const base::flat_set<AuthIntent>& authorized_intents() const {
+    return authorized_intents_;
+  }
+
   // OnUserCreated is called when the user and their homedir are newly created.
   // Must be called no more than once.
   CryptohomeStatus OnUserCreated();
 
   // AddCredentials is called when newly created or existing user wants to add
   // new credentials.
-  void AddCredentials(
-      const user_data_auth::AddCredentialsRequest& request,
-      base::OnceCallback<void(const user_data_auth::AddCredentialsReply&)>
-          on_done);
+  void AddCredentials(const user_data_auth::AddCredentialsRequest& request,
+                      StatusCallback on_done);
 
   // UpdateCredential is called when an existing user wants to update
   // an existing credential.
-  void UpdateCredential(
-      const user_data_auth::UpdateCredentialRequest& request,
-      base::OnceCallback<void(const user_data_auth::UpdateCredentialReply&)>
-          on_done);
+  void UpdateCredential(const user_data_auth::UpdateCredentialRequest& request,
+                        StatusCallback on_done);
 
   // AddAuthFactor is called when newly created or existing user wants to add
   // new AuthFactor.
-  void AddAuthFactor(
-      const user_data_auth::AddAuthFactorRequest& request,
-      base::OnceCallback<void(const user_data_auth::AddAuthFactorReply&)>
-          on_done);
+  void AddAuthFactor(const user_data_auth::AddAuthFactorRequest& request,
+                     StatusCallback on_done);
 
   // Authenticate is called when the user wants to authenticate the current
   // AuthSession. It may be called multiple times depending on errors or various
   // steps involved in multi-factor authentication.
   void Authenticate(
       const cryptohome::AuthorizationRequest& authorization_request,
-      base::OnceCallback<
-          void(const user_data_auth::AuthenticateAuthSessionReply&)> on_done);
+      StatusCallback on_done);
 
   // Authenticate is called when the user wants to authenticate the current
   // AuthSession via an auth factor. It may be called multiple times depending
@@ -124,8 +150,18 @@ class AuthSession final {
   // Note: only USS users are supported currently.
   bool AuthenticateAuthFactor(
       const user_data_auth::AuthenticateAuthFactorRequest& request,
-      base::OnceCallback<
-          void(const user_data_auth::AuthenticateAuthFactorReply&)> on_done);
+      StatusCallback on_done);
+
+  // RemoveAuthFactor is called when the user wants to remove auth factor
+  // provided in the `request`. Note: only USS users are supported currently.
+  // TODO(b/236869367): Implement for VaultKeyset users.
+  void RemoveAuthFactor(const user_data_auth::RemoveAuthFactorRequest& request,
+                        StatusCallback on_done);
+
+  // UpdateAuthFactor is called when the user wants to update auth factor
+  // provided in the `request`. Note: only USS users are supported currently.
+  void UpdateAuthFactor(const user_data_auth::UpdateAuthFactorRequest& request,
+                        StatusCallback on_done);
 
   // Generates a payload that will be sent to the server for cryptohome recovery
   // AuthFactor authentication. GetRecoveryRequest saves data in the
@@ -198,6 +234,18 @@ class AuthSession final {
     return cryptohome_recovery_ephemeral_pub_key_;
   }
 
+  // Sets |vault_keyset_| for testing purpose.
+  void set_vault_keyset_for_testing(std::unique_ptr<VaultKeyset> value) {
+    vault_keyset_ = std::move(value);
+  }
+
+  // Sets |label_to_auth_factor_| which maps existing AuthFactor labels to their
+  // corresponding AuthFactors for testing purpose.
+  void set_label_to_auth_factor_for_testing(
+      std::map<std::string, std::unique_ptr<AuthFactor>> value) {
+    label_to_auth_factor_ = std::move(value);
+  }
+
   // Static function which returns a serialized token in a vector format. The
   // token is serialized into two uint64_t values which are stored in string of
   // size 16 bytes. The first 8 bytes represent the high value of the serialized
@@ -211,13 +259,17 @@ class AuthSession final {
       const std::string& serialized_token);
 
   // Extends the timer for the AuthSession by kAuthSessionExtensionInMinutes.
-  CryptohomeStatus ExtendTimer(const base::TimeDelta kAuthSessionExtension);
+  CryptohomeStatus ExtendTimeoutTimer(
+      const base::TimeDelta kAuthSessionExtension);
 
   // Set status for testing only.
   void SetStatus(const AuthStatus status) { status_ = status; }
 
   // Get the time remaining for this AuthSession's life.
   base::TimeDelta GetRemainingTime();
+
+  // Get the hibernate secret, derived from the file system keyset.
+  std::unique_ptr<brillo::SecureBlob> GetHibernateSecret();
 
  private:
   AuthSession() = delete;
@@ -226,24 +278,44 @@ class AuthSession final {
   // this |AuthSession| reference from |UserDataAuth|.
   void AuthSessionTimedOut();
 
-  // SetAuthSessionAsAuthenticated to authenticated sets the status to
-  // authenticated and start the timer.
-  void SetAuthSessionAsAuthenticated();
+  // Emits a debug log message with the session's initial state.
+  void RecordAuthSessionStart() const;
+
+  // Switches the state to authorize the specified intents. Starts or restarts
+  // the timer when applicable.
+  void SetAuthSessionAsAuthenticated(
+      base::span<const AuthIntent> new_authorized_intents);
 
   // This function returns credentials based on the state of the current
   // |AuthSession|.
   MountStatusOr<std::unique_ptr<Credentials>> GetCredentials(
       const cryptohome::AuthorizationRequest& authorization_request);
 
-  // Initializes the auth_input.challenge_credential_auth_input
+  // Converts the D-Bus AuthInput proto into the C++ struct. Returns nullopt on
+  // failure.
+  CryptohomeStatusOr<AuthInput> CreateAuthInputForAuthentication(
+      const user_data_auth::AuthInput& auth_input_proto,
+      const AuthFactorMetadata& auth_factor_metadata);
+  // Same as above, but additionally sets extra fields for resettable factors.
+  CryptohomeStatusOr<AuthInput> CreateAuthInputForAdding(
+      const user_data_auth::AuthInput& auth_input_proto,
+      AuthFactorType auth_factor_type,
+      const AuthFactorMetadata& auth_factor_metadata);
+
+  // Initializes a ChallengeCredentialAuthInput, i.e.
   // {.public_key_spki_der, .challenge_signature_algorithms} from
   // the challenge_response_key values in in authorization
-  bool ConstructAuthInputForChallengeCredentials(
-      const cryptohome::AuthorizationRequest& authorization,
-      AuthInput& auth_input);
+  std::optional<ChallengeCredentialAuthInput>
+  CreateChallengeCredentialAuthInput(
+      const cryptohome::AuthorizationRequest& authorization);
 
   // This function sets the credential_verifier_ based on the passkey parameter.
-  void SetCredentialVerifier(const brillo::SecureBlob& passkey);
+  void SetCredentialVerifier(std::optional<AuthFactorType> auth_factor_type,
+                             const std::string& auth_factor_label,
+                             const brillo::SecureBlob& passkey);
+
+  // Set the timeout timer to now + delay
+  void SetTimeoutTimer(const base::TimeDelta& delay);
 
   // Helper function to update a keyset on disk on KeyBlobs generated. If update
   // succeeds |vault_keyset_| is also updated. Failure doesn't return error and
@@ -257,30 +329,29 @@ class AuthSession final {
   // Determines which AuthBlockType to use, instantiates an AuthBlock of that
   // type, and uses that AuthBlock to derive KeyBlobs for the AuthSession to
   // add a VaultKeyset.
-  template <typename AddKeyReply>
-  void CreateKeyBlobsToAddKeyset(
-      const cryptohome::AuthorizationRequest& authorization,
-      AuthInput auth_input,
-      const KeyData& key_data,
-      bool initial_keyset,
-      base::OnceCallback<void(const AddKeyReply&)> on_done);
+  void CreateKeyBlobsToAddKeyset(const AuthInput& auth_input,
+                                 const KeyData& key_data,
+                                 bool initial_keyset,
+                                 std::unique_ptr<AuthSessionPerformanceTimer>
+                                     auth_session_performance_timer,
+                                 StatusCallback on_done);
 
   // Determines which AuthBlockType to use, instantiates an AuthBlock of that
   // type, and uses that AuthBlock to create KeyBlobs for the AuthSession to
   // update a VaultKeyset.
-  void CreateKeyBlobsToUpdateKeyset(
-      const Credentials& credentials,
-      base::OnceCallback<void(const user_data_auth::UpdateCredentialReply&)>
-          on_done);
+  void CreateKeyBlobsToUpdateKeyset(const Credentials& credentials,
+                                    StatusCallback on_done);
 
   // Adds VaultKeyset for the |obfuscated_username_| by calling
   // KeysetManagement::AddInitialKeyset() or KeysetManagement::AddKeyset()
   // based on whether any keyset is generated for the user or not. This function
   // is needed for processing callback results in an asynchronous manner through
   // |on_done| callback.
-  template <typename AddKeyReply>
   void AddVaultKeyset(const KeyData& key_data,
-                      base::OnceCallback<void(const AddKeyReply&)> on_done,
+                      AuthInput auth_input,
+                      std::unique_ptr<AuthSessionPerformanceTimer>
+                          auth_session_performance_timer,
+                      StatusCallback on_done,
                       CryptoStatus callback_error,
                       std::unique_ptr<KeyBlobs> key_blobs,
                       std::unique_ptr<AuthBlockState> auth_state);
@@ -290,35 +361,88 @@ class AuthSession final {
   // corresponding label are updated through the information provided by
   // |key_data|. This function is needed for processing callback results in an
   // asynchronous manner through |on_done| callback.
-  void UpdateVaultKeyset(
-      const KeyData& key_data,
-      base::OnceCallback<void(const user_data_auth::UpdateCredentialReply&)>
-          on_done,
-      CryptoStatus callback_error,
-      std::unique_ptr<KeyBlobs> key_blobs,
-      std::unique_ptr<AuthBlockState> auth_state);
+  // TODO(b/204482221): Make `auth_factor_type` mandatory.
+  void UpdateVaultKeyset(std::optional<AuthFactorType> auth_factor_type,
+                         const KeyData& key_data,
+                         AuthInput auth_input,
+                         std::unique_ptr<AuthSessionPerformanceTimer>
+                             auth_session_performance_timer,
+                         StatusCallback on_done,
+                         CryptoStatus callback_error,
+                         std::unique_ptr<KeyBlobs> key_blobs,
+                         std::unique_ptr<AuthBlockState> auth_state);
 
-  // Creates a new per-credential secret, adds the key block for the new secret
-  // to the USS and persists it to disk.
-  CryptohomeStatus AddAuthFactorViaUserSecretStash(
+  // Updates a VaultKeyset identified by the |auth_factor_label|. Converts
+  // AuthFactor parameters into KeyData and calls UpdateVaultKeyset to carry
+  // out the update operation.
+  void UpdateAuthFactorViaVaultKeyset(AuthBlockType auth_block_type,
+                                      AuthFactorType auth_factor_type,
+                                      const std::string& auth_factor_label,
+                                      const AuthInput& auth_input,
+                                      StatusCallback on_done);
+
+  // Persists key blocks for a new secret to the USS and onto disk. Upon
+  // completion the |on_done| callback will be called. Designed to be used in
+  // conjunction with an async CreateKeyBlobs call by binding all of the
+  // initial parameters to make an AuthBlock::CreateCallback.
+  void PersistAuthFactorToUserSecretStash(
       AuthFactorType auth_factor_type,
       const std::string& auth_factor_label,
       const AuthFactorMetadata& auth_factor_metadata,
-      const AuthInput& auth_input);
+      const AuthInput& auth_input,
+      std::unique_ptr<AuthSessionPerformanceTimer>
+          auth_session_performance_timer,
+      StatusCallback on_done,
+      CryptoStatus callback_error,
+      std::unique_ptr<KeyBlobs> key_blobs,
+      std::unique_ptr<AuthBlockState> auth_block_state);
+
+  // Add the new factor into the USS in-memory.
+  CryptohomeStatus AddAuthFactorToUssInMemory(
+      AuthFactor& auth_factor,
+      const AuthInput& auth_input,
+      const brillo::SecureBlob& uss_credential_secret);
+
+  // Creates a new per-credential secret, adds the key block for the new secret
+  // to the USS and persists it to disk.
+  void AddAuthFactorViaUserSecretStash(
+      AuthFactorType auth_factor_type,
+      const std::string& auth_factor_label,
+      const AuthFactorMetadata& auth_factor_metadata,
+      const AuthInput& auth_input,
+      std::unique_ptr<AuthSessionPerformanceTimer>
+          auth_session_performance_timer,
+      StatusCallback on_done);
 
   // Adds a new VaultKeyset for the |obfuscated_username_| and persists it to
   // disk.
   void AddAuthFactorViaVaultKeyset(
       AuthFactorType auth_factor_type,
       const std::string& auth_factor_label,
-      AuthInput auth_input,
-      base::OnceCallback<void(const user_data_auth::AddAuthFactorReply&)>
-          on_done);
+      const AuthFactorMetadata& auth_factor_metadata,
+      const AuthInput& auth_input,
+      std::unique_ptr<AuthSessionPerformanceTimer>
+          auth_session_performance_timer,
+      StatusCallback on_done);
+
+  // Adds a credential verifier for the ephemeral user session.
+  void AddAuthFactorForEphemeral(AuthFactorType auth_factor_type,
+                                 const std::string& auth_factor_label,
+                                 const AuthInput& auth_input,
+                                 StatusCallback on_done);
 
   // Loads and decrypts the USS payload with |auth_factor_label| using the
-  // given KeyBlobs.
-  CryptohomeStatus LoadUSSMainKeyAndFsKeyset(
-      const std::string& auth_factor_label, const KeyBlobs& key_blobs);
+  // given KeyBlobs. Designed to be used in conjunction with an async
+  // DeriveKeyBlobs call by binding all of the initial parameters to make an
+  // AuthBlock::DeriveCallback.
+  void LoadUSSMainKeyAndFsKeyset(AuthFactorType auth_factor_type,
+                                 const std::string& auth_factor_label,
+                                 const AuthInput& auth_input,
+                                 std::unique_ptr<AuthSessionPerformanceTimer>
+                                     auth_session_performance_timer,
+                                 StatusCallback on_done,
+                                 CryptoStatus callback_error,
+                                 std::unique_ptr<KeyBlobs> key_blobs);
 
   // This function is used to reset the attempt count for a low entropy
   // credential. Currently, this resets all low entropy credentials. In the
@@ -326,21 +450,28 @@ class AuthSession final {
   // the code will need to reset specific LE credentials.
   void ResetLECredentials();
 
+  // Attempts to authenticate the user using a lightweight check against an
+  // in-memory credential verifier.
+  bool AuthenticateViaCredentialVerifier(const AuthInput& auth_input);
+
   // Authenticates the user using USS with the |auth_factor_label|, |auth_input|
   // and the |auth_factor|.
-  CryptohomeStatus AuthenticateViaUserSecretStash(
+  void AuthenticateViaUserSecretStash(
       const std::string& auth_factor_label,
       const AuthInput auth_input,
-      AuthFactor& auth_factor);
+      std::unique_ptr<AuthSessionPerformanceTimer>
+          auth_session_performance_timer,
+      const AuthFactor& auth_factor,
+      StatusCallback on_done);
 
   // Authenticates the user using VaultKeysets with the given |auth_input|.
-  // TODO(b/232852086) - Once Authentication through AuthSession/
-  // AuthenticateAuthSessionReply is deprecated remove template
-  // AuthenticateReply.
-  template <typename AuthenticateReply>
+  // TODO(b/204482221): Make `request_auth_factor_type` mandatory.
   bool AuthenticateViaVaultKeyset(
+      std::optional<AuthFactorType> request_auth_factor_type,
       const AuthInput& auth_input,
-      base::OnceCallback<void(const AuthenticateReply&)> on_done);
+      std::unique_ptr<AuthSessionPerformanceTimer>
+          auth_session_performance_timer,
+      StatusCallback on_done);
 
   // Fetches a valid VaultKeyset for |obfuscated_username_| that matches the
   // label provided by key_data_.label(). The VaultKeyset is loaded and
@@ -348,11 +479,13 @@ class AuthSession final {
   // KeysetManagement::GetValidKeysetWithKeyBlobs(). This function is needed for
   // processing callback results in an asynchronous manner through the |on_done|
   // callback.
-  template <typename AuthenticateReply>
   void LoadVaultKeysetAndFsKeys(
+      std::optional<AuthFactorType> request_auth_factor_type,
       const std::optional<brillo::SecureBlob> passkey,
       const AuthBlockType& auth_block_type,
-      base::OnceCallback<void(const AuthenticateReply&)> on_done,
+      std::unique_ptr<AuthSessionPerformanceTimer>
+          auth_session_performance_timer,
+      StatusCallback on_done,
       CryptoStatus error,
       std::unique_ptr<KeyBlobs> key_blobs);
 
@@ -362,12 +495,25 @@ class AuthSession final {
   void ResaveVaultKeysetIfNeeded(
       const std::optional<brillo::SecureBlob> user_input);
 
-  // Sets |label_to_auth_factor_| which maps existing AuthFactor labels to their
-  // corresponding AuthFactors for testing purpose.
-  void set_label_to_auth_factor_for_testing(
-      std::map<std::string, std::unique_ptr<AuthFactor>> value) {
-    label_to_auth_factor_ = std::move(value);
-  }
+  // Removes the auth factor with the provided `auth_factor_label` from the USS.
+  CryptohomeStatus RemoveAuthFactorViaUserSecretStash(
+      const std::string& auth_factor_label);
+
+  // Remove the factor from the USS in-memory.
+  CryptohomeStatus RemoveAuthFactorFromUssInMemory(
+      const std::string& auth_factor_label);
+
+  // Creates a new per-credential secret, updates the secret in the USS and
+  // updates the auth block state on disk.
+  void UpdateAuthFactorViaUserSecretStash(
+      AuthFactorType auth_factor_type,
+      const std::string& auth_factor_label,
+      const AuthFactorMetadata& auth_factor_metadata,
+      const AuthInput& auth_input,
+      StatusCallback on_done,
+      CryptoStatus callback_error,
+      std::unique_ptr<KeyBlobs> key_blobs,
+      std::unique_ptr<AuthBlockState> auth_block_state);
 
   const std::string username_;
   const std::string obfuscated_username_;
@@ -376,10 +522,14 @@ class AuthSession final {
 
   // AuthSession's flag configuration.
   const bool is_ephemeral_user_;
+  const AuthIntent auth_intent_;
 
   AuthStatus status_ = AuthStatus::kAuthStatusFurtherFactorRequired;
-  base::OneShotTimer timer_;
-  base::TimeTicks start_time_;
+  base::flat_set<AuthIntent> authorized_intents_;
+  base::OneShotTimer timeout_timer_;
+  base::TimeTicks timeout_timer_start_time_;
+  base::TimeTicks auth_session_creation_time_;
+  base::TimeTicks authenticated_time_;
   base::OnceCallback<void(const base::UnguessableToken&)> on_timeout_;
 
   std::unique_ptr<AuthFactor> auth_factor_;
@@ -391,6 +541,11 @@ class AuthSession final {
   // The creator of the AuthSession object is responsible for the life of
   // Crypto object.
   Crypto* const crypto_;
+  // The creator of the AuthSession object is responsible for the life of
+  // Platform object.
+  Platform* const platform_;
+  // Unowned pointer.
+  UserSessionMap* const user_session_map_;
   // The creator of the AuthSession object is responsible for the life of
   // KeysetManagement object.
   // TODO(crbug.com/1171024): Change KeysetManagement to use AuthBlock.
@@ -432,31 +587,26 @@ class AuthSession final {
   base::WeakPtrFactory<AuthSession> weak_factory_{this};
 
   friend class AuthSessionTest;
+  friend class AuthSessionInterfaceTest;
   friend class AuthSessionManagerTest;
   FRIEND_TEST(AuthSessionManagerTest, CreateExpire);
   FRIEND_TEST(AuthSessionTest, AddCredentialNewUser);
   FRIEND_TEST(AuthSessionTest, AddCredentialNewUserTwice);
   FRIEND_TEST(AuthSessionTest, AddCredentialNewEphemeralUser);
-  FRIEND_TEST(AuthSessionTest, AddAuthFactorNewUser);
-  FRIEND_TEST(AuthSessionTest, AddMultipleAuthFactor);
   FRIEND_TEST(AuthSessionTest, AuthenticateExistingUser);
   FRIEND_TEST(AuthSessionTest, AuthenticateWithPIN);
   FRIEND_TEST(AuthSessionTest, AuthenticateExistingUserFailure);
-  FRIEND_TEST(AuthSessionTest, AuthenticateAuthFactorExistingVKUserAndResave);
-  FRIEND_TEST(AuthSessionTest,
-              AuthenticateAuthFactorExistingVKUserAndResaveForResetSeed);
-  FRIEND_TEST(AuthSessionTest,
-              AuthenticateAuthFactorNotAddingResetSeedToPINVaultKeyset);
-  FRIEND_TEST(AuthSessionTest,
-              AuthenticateAuthFactorExistingVKUserAndResaveForUpdate);
-  FRIEND_TEST(AuthSessionTest, AuthenticateAuthFactorExistingVKUserNoResave);
   FRIEND_TEST(AuthSessionTest, TimeoutTest);
   FRIEND_TEST(AuthSessionTest, GetCredentialRegularUser);
   FRIEND_TEST(AuthSessionTest, GetCredentialKioskUser);
   FRIEND_TEST(AuthSessionWithUssExperimentTest, AddPasswordAuthFactorViaUss);
+  FRIEND_TEST(AuthSessionWithUssExperimentTest,
+              AddPasswordAuthFactorViaAsyncUss);
+  FRIEND_TEST(AuthSessionWithUssExperimentTest, RemoveAuthFactor);
   FRIEND_TEST(UserDataAuthExTest, MountUnauthenticatedAuthSession);
   FRIEND_TEST(UserDataAuthExTest, StartAuthSession);
   FRIEND_TEST(UserDataAuthExTest, ExtendAuthSession);
+  FRIEND_TEST(UserDataAuthExTest, CheckTimeoutTimerSetAfterAuthentication);
   FRIEND_TEST(UserDataAuthExTest,
               StartMigrateToDircryptoWithAuthenticatedAuthSession);
 };

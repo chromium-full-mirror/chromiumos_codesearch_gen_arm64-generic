@@ -18,8 +18,8 @@
 #include "base/hash/md5_constexpr.h"
 #include "base/run_loop.h"
 #include "base/strings/string_number_conversions.h"
-#include "base/task/common/task_annotator.h"
-#include "base/trace_event/base_tracing.h"
+#include "base/trace_event/trace_event.h"
+#include "base/trace_event/typed_macros.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
 #include "mojo/public/cpp/bindings/lib/send_message_helper.h"
@@ -30,6 +30,7 @@
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
+#include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
 #include "ml/mojom/text_suggester.mojom-params-data.h"
 #include "ml/mojom/text_suggester.mojom-shared-message-ids.h"
@@ -65,9 +66,9 @@ size_t NextWordCompletionCandidate::Hash(size_t seed) const {
 }
 
 void NextWordCompletionCandidate::WriteIntoTrace(
-    perfetto::libchrome::TracedValue traced_context) const {
-  auto dict = std::move(traced_context).WriteDictionary();
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "text"), this->text,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -76,7 +77,7 @@ void NextWordCompletionCandidate::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "normalized_score"), this->normalized_score,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -115,9 +116,9 @@ TextSuggesterQuery::TextSuggesterQuery(
 TextSuggesterQuery::~TextSuggesterQuery() = default;
 
 void TextSuggesterQuery::WriteIntoTrace(
-    perfetto::libchrome::TracedValue traced_context) const {
-  auto dict = std::move(traced_context).WriteDictionary();
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "text"), this->text,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -126,7 +127,7 @@ void TextSuggesterQuery::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "next_word_candidates"), this->next_word_candidates,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -135,7 +136,7 @@ void TextSuggesterQuery::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "suggestion_mode"), this->suggestion_mode,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -169,9 +170,9 @@ size_t MultiWordSuggestionCandidate::Hash(size_t seed) const {
 }
 
 void MultiWordSuggestionCandidate::WriteIntoTrace(
-    perfetto::libchrome::TracedValue traced_context) const {
-  auto dict = std::move(traced_context).WriteDictionary();
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "text"), this->text,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -180,7 +181,7 @@ void MultiWordSuggestionCandidate::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "normalized_score"), this->normalized_score,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -209,9 +210,9 @@ TextSuggesterResult::TextSuggesterResult(
 TextSuggesterResult::~TextSuggesterResult() = default;
 
 void TextSuggesterResult::WriteIntoTrace(
-    perfetto::libchrome::TracedValue traced_context) const {
-  auto dict = std::move(traced_context).WriteDictionary();
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "status"), this->status,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -220,7 +221,7 @@ void TextSuggesterResult::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "candidates"), this->candidates,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -250,9 +251,9 @@ size_t TextSuggesterSpec::Hash(size_t seed) const {
 }
 
 void TextSuggesterSpec::WriteIntoTrace(
-    perfetto::libchrome::TracedValue traced_context) const {
-  auto dict = std::move(traced_context).WriteDictionary();
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "multi_word_experiment"), this->multi_word_experiment,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -268,7 +269,7 @@ bool TextSuggesterSpec::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
-TextSuggestionCandidate::TextSuggestionCandidate() : tag_(Tag::MULTI_WORD) {
+TextSuggestionCandidate::TextSuggestionCandidate() : tag_(Tag::kMultiWord) {
   data_.multi_word = new MultiWordSuggestionCandidatePtr;
 }
 
@@ -279,11 +280,11 @@ TextSuggestionCandidate::~TextSuggestionCandidate() {
 
 void TextSuggestionCandidate::set_multi_word(
     MultiWordSuggestionCandidatePtr multi_word) {
-  if (tag_ == Tag::MULTI_WORD) {
+  if (tag_ == Tag::kMultiWord) {
     *(data_.multi_word) = std::move(multi_word);
   } else {
     DestroyActive();
-    tag_ = Tag::MULTI_WORD;
+    tag_ = Tag::kMultiWord;
     data_.multi_word = new MultiWordSuggestionCandidatePtr(
         std::move(multi_word));
   }
@@ -292,7 +293,7 @@ void TextSuggestionCandidate::set_multi_word(
 void TextSuggestionCandidate::DestroyActive() {
   switch (tag_) {
 
-    case Tag::MULTI_WORD:
+    case Tag::kMultiWord:
 
       delete data_.multi_word;
       break;
@@ -302,7 +303,7 @@ size_t TextSuggestionCandidate::Hash(size_t seed) const {
   seed = mojo::internal::HashCombine(seed, static_cast<uint32_t>(tag_));
   switch (tag_) {
 
-    case Tag::MULTI_WORD:
+    case Tag::kMultiWord:
       return mojo::internal::Hash(seed, data_.multi_word);
     default:
       NOTREACHED();
@@ -316,6 +317,43 @@ bool TextSuggestionCandidate::Validate(
   return Data_::Validate(data, validation_context, false);
 }
 const char TextSuggester::Name_[] = "chromeos.machine_learning.mojom.TextSuggester";
+
+uint32_t TextSuggester::MessageToStableIPCHash_(mojo::Message& message) {
+  switch (message.name()) {
+    case internal::kTextSuggester_Suggest_Name: {
+      constexpr uint32_t value = base::MD5Hash32Constexpr(
+              "(Impl)chromeos::machine_learning::mojom::TextSuggester::Suggest");
+      return value;
+    }
+  }
+  return 0;
+}
+
+
+const char* TextSuggester::MessageToMethodName_(mojo::Message& message) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (!is_response) {
+    switch (message.name()) {
+      case internal::kTextSuggester_Suggest_Name:
+            return "Receive chromeos::machine_learning::mojom::TextSuggester::Suggest";
+    }
+  } else {
+    switch (message.name()) {
+      case internal::kTextSuggester_Suggest_Name:
+            return "Receive reply chromeos::machine_learning::mojom::TextSuggester::Suggest";
+    }
+  }
+  return "Receive unknown mojo message";
+#else
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (is_response) {
+    return "Receive mojo reply";
+  } else {
+    return "Receive mojo message";
+  }
+#endif // BUILDFLAG(MOJO_TRACE_ENABLED)
+}
 
 class TextSuggester_Suggest_ForwardToCallback
     : public mojo::MessageReceiver {
@@ -342,9 +380,9 @@ void TextSuggesterProxy::Suggest(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send chromeos::machine_learning::mojom::TextSuggester::Suggest", "input_parameters",
-    [&](perfetto::libchrome::TracedValue context){
+    [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto::libchrome::WriteIntoTracedValueWithFallback(
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("query"), in_query,
                         "<value of type TextSuggesterQueryPtr>");
    });
@@ -432,10 +470,6 @@ class TextSuggester_Suggest_ProxyToResponder : public ::mojo::internal::ProxyToR
 
 bool TextSuggester_Suggest_ForwardToCallback::Accept(
     mojo::Message* message) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT("toplevel", "Receive reply chromeos::machine_learning::mojom::TextSuggester::Suggest",
-               perfetto::libchrome::Flow::Global(message->GetTraceId()));
-#endif
 
   DCHECK(message->is_serialized());
   internal::TextSuggester_Suggest_ResponseParams_Data* params =
@@ -467,9 +501,9 @@ void TextSuggester_Suggest_ProxyToResponder::Run(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply chromeos::machine_learning::mojom::TextSuggester::Suggest", "async_response_parameters",
-    [&](perfetto::libchrome::TracedValue context){
+    [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto::libchrome::WriteIntoTracedValueWithFallback(
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("result"), in_result,
                         "<value of type TextSuggesterResultPtr>");
    });
@@ -505,8 +539,11 @@ void TextSuggester_Suggest_ProxyToResponder::Run(
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
   ::mojo::internal::SendMessage(*responder_, message);
-  // TODO(darin): Accept() returning false indicates a malformed message, and
-  // that may be good reason to close the connection. However, we don't have a
+  // SendMessage fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
@@ -533,15 +570,6 @@ bool TextSuggesterStubDispatch::AcceptWithResponder(
   [[maybe_unused]] const uint64_t request_id = message->request_id();
   switch (message->header()->name) {
     case internal::kTextSuggester_Suggest_Name: {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      TRACE_EVENT(
-          "toplevel",
-          "Receive chromeos::machine_learning::mojom::TextSuggester::Suggest",
-          perfetto::libchrome::Flow::Global(message->GetTraceId()));
-#endif
-      static constexpr uint32_t kMessageHash = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::machine_learning::mojom::TextSuggester::Suggest");
-      base::TaskAnnotator::ScopedSetIpcHash scoped_ipc_hash(kMessageHash);
 
       internal::TextSuggester_Suggest_Params_Data* params =
           reinterpret_cast<
@@ -686,7 +714,7 @@ bool UnionTraits<::chromeos::machine_learning::mojom::TextSuggestionCandidate::D
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
-    case Tag::MULTI_WORD: {
+    case Tag::kMultiWord: {
       ::chromeos::machine_learning::mojom::MultiWordSuggestionCandidatePtr result_multi_word;
       if (!input.ReadMultiWord(&result_multi_word))
         return false;

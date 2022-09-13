@@ -21,7 +21,7 @@
 #include "base/strings/string_piece.h"
 #include "base/threading/thread_task_runner_handle.h"
 #include "base/time/time.h"
-#include "base/trace_event/base_tracing.h"
+#include "base/trace_event/memory_dump_manager.h"
 #include "build/build_config.h"
 #include "mojo/core/channel.h"
 #include "mojo/core/configuration.h"

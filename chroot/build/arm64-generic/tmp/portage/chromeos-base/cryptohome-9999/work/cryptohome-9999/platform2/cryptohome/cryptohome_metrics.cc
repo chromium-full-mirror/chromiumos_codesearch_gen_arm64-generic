@@ -8,6 +8,7 @@
 #include <string>
 
 #include <base/logging.h>
+#include <base/strings/stringprintf.h>
 #include <metrics/metrics_library.h>
 #include <metrics/timer.h>
 
@@ -28,6 +29,8 @@ constexpr char kWrappingKeyDerivationMountHistogram[] =
     "Cryptohome.WrappingKeyDerivation.Mount";
 constexpr char kCryptohomeErrorHistogram[] = "Cryptohome.Errors";
 constexpr char kChecksumStatusHistogram[] = "Cryptohome.ChecksumStatus";
+constexpr char kCredentialRevocationResultHistogram[] =
+    "Cryptohome.%s.CredentialRevocationResult";
 constexpr char kCryptohomeTpmResultsHistogram[] = "Cryptohome.TpmResults";
 constexpr char kCryptohomeDeletedUserProfilesHistogram[] =
     "Cryptohome.DeletedUserProfiles";
@@ -41,6 +44,8 @@ constexpr char kCryptohomeLoginDiskCleanupTotalTime[] =
     "Cryptohome.LoginDiskCleanupTotalTime";
 constexpr char kCryptohomeFreeDiskSpaceTotalFreedInMbHistogram[] =
     "Cryptohome.FreeDiskSpaceTotalFreedInMb";
+constexpr char kCryptohomeFreeDiskSpaceDuringLoginTotalFreedInMbHistogram[] =
+    "Cryptohome.FreeDiskSpaceDuringLoginTotalFreedInMb";
 constexpr char kCryptohomeTimeBetweenFreeDiskSpaceHistogram[] =
     "Cryptohome.TimeBetweenFreeDiskSpace";
 constexpr char kCryptohomeDircryptoMigrationStartStatusHistogram[] =
@@ -92,6 +97,8 @@ constexpr char kOOPMountCleanupResultHistogram[] =
     "Cryptohome.OOPMountCleanupResult";
 constexpr char kInvalidateDirCryptoKeyResultHistogram[] =
     "Cryptohome.InvalidateDirCryptoKeyResult";
+constexpr char kRecoveryPrepareForRemovalResultHistogram[] =
+    "Cryptohome.%s.PrepareForRemovalResult";
 constexpr char kRestoreSELinuxContextResultForHome[] =
     "Cryptohome.RestoreSELinuxContextResultForHome";
 constexpr char kRestoreSELinuxContextResultForShadow[] =
@@ -159,6 +166,40 @@ const TimerHistogramParams kTimerHistogramParams[] = {
     {"Cryptohome.TimeToPerformMount", 0, 3000, 50},
     // The time to generate the ECC auth value in TpmEccAuthBlock.
     {"Cryptohome.TimeToGenerateEccAuthValue", 0, 5000, 50},
+    // The time for AuthSession to add a credential.
+    {"Cryptohome.TimetoAuthSessionAddCredentials", 0, 6000, 60},
+    // The time for AuthSession to add an auth factor with VaultKeyset.
+    {"Cryptohome.TimeToAuthSessionAddAuthFactorVK", 0, 6000, 60},
+    // The time for AuthSession to add an auth factor with USS.
+    {"Cryptohome.TimeToAuthSessionAddAuthFactorUSS", 0, 6000, 60},
+    // The time for AuthSession to authenticate a credential.
+    {"Cryptohome.TimeToAuthSessionAuthenticate", 0, 6000, 60},
+    // The time for AuthSession to authenticate an auth factor with VaultKeyset.
+    {"Cryptohome.TimeToAuthSessionAuthenticateAuthFactorVK", 0, 6000, 60},
+    // The time for AuthSession to authenticate an auth factor with USS.
+    {"Cryptohome.TimeToAuthSessionAuthenticateAuthFactorUSS", 0, 6000, 60},
+    // The time for AuthSession to update a credential.
+    {"Cryptohome.TimeToAuthSessionUpdateCredentials", 0, 6000, 60},
+    // TODO(b/236415538, thomascedeno) - Add metric once UpdateAuthFactor is
+    // implemented.
+    {"Cryptohome.TimeToAuthSessionUpdateAuthFactorVK", 0, 6000, 60},
+    {"Cryptohome.TimeToAuthSessionUpdateAuthFactorUSS", 0, 6000, 60},
+    // TODO(b/236415640, thomascedeno) - Add metric once RemoveAuthFactor is
+    // implemented.
+    {"Cryptohome.TimeToAuthSessionRemoveAuthFactorVK", 0, 6000, 60},
+    {"Cryptohome.TimeToAuthSessionRemoveAuthFactorUSS", 0, 6000, 60},
+    // Time for User Data Auth class to create a persistent user.
+    {"Cryptohome.TimeToCreatePersistentUser", 0, 6000, 60},
+    // Time for overall AuthSession lifetime, which
+    // has a default of 5 minutes but can be optionally extended.
+    {"Cryptohome.AuthSessionTotalLifetime", 0, 3 * 5 * 60 * 1000, 60},
+    // Time AuthSession is alive after it is authenticated, does not
+    // include time AuthSession is initialized but unauthenticated.
+    {"Cryptohome.AuthSessionAuthenticatedLifetime", 0, 3 * 5 * 60 * 1000, 60},
+    // The time to Persist a User Secret Stash to system storage.
+    {"Cryptohome.TimeToUSSPersist", 0, 5000, 50},
+    // The time to Load Persist a User Secret Stash from system storage.
+    {"Cryptohome.TimeToUSSLoadPersisted", 0, 5000, 50},
 };
 
 static_assert(std::size(kTimerHistogramParams) == cryptohome::kNumTimerTypes,
@@ -172,11 +213,20 @@ static_assert(
         static_cast<int>(cryptohome::LegacyCodePathLocation::kMaxValue) + 1,
     "kLegacyCodePathLocations out of sync with enum LegacyCodePathLocation");
 
-// List of strings for a patterned histogram for vault keyset metrics.
-const char* kVaultKeysetMetricType[] = {
-    ".EmptyLabelCount",  ".EmptyLabelPINCount", ".PINCount",
-    ".SmartUnlockCount", ".PasswordCount",      ".SmartCardCount",
-    ".FingerprintCount", ".KioskCount",         ".UnclassifedKeysetCount"};
+// List of strings for corresponding AuthBlockType parameters.
+const char* const kAuthBlockTypeString[] = {".PinWeaver",
+                                            ".ChallengeCredential",
+                                            ".DoubleWrappedCompat",
+                                            ".TpmBoundToPcr",
+                                            ".TpmNotBoundToPcr",
+                                            ".LibScryptCompat",
+                                            ".CryptohomeRecovery",
+                                            ".TpmEcc",
+                                            ".Scrypt"};
+
+static_assert(std::size(kAuthBlockTypeString) ==
+                  static_cast<int>(cryptohome::AuthBlockType::kMaxValue),
+              "kAuthBlockTypeString out of sync with AuthBlockType");
 
 constexpr char kCryptohomeDeprecatedApiHistogramName[] =
     "Cryptohome.DeprecatedApiCalled";
@@ -199,6 +249,35 @@ chromeos_metrics::TimerReporter* GetTimer(cryptohome::TimerType timer_type) {
         kTimerHistogramParams[timer_type].num_buckets);
   }
   return g_timers[timer_type];
+}
+
+// These values are persisted to logs.
+// Keep in sync with respective variant enum in
+// tools/metrics/histograms/metadata/cryptohome/histograms.xml
+char const* GetAuthBlockTypeStringVariant(cryptohome::AuthBlockType type) {
+  switch (type) {
+    case cryptohome::AuthBlockType::kPinWeaver:
+      return "PinWeaver";
+    case cryptohome::AuthBlockType::kChallengeCredential:
+      return "ChallengeCredential";
+    case cryptohome::AuthBlockType::kDoubleWrappedCompat:
+      return "DoubleWrappedCompat";
+    case cryptohome::AuthBlockType::kTpmBoundToPcr:
+      return "TpmBoundToPcr";
+    case cryptohome::AuthBlockType::kTpmNotBoundToPcr:
+      return "TpmNotBoundToPcr";
+    case cryptohome::AuthBlockType::kLibScryptCompat:
+      return "LibScryptCompat";
+    case cryptohome::AuthBlockType::kCryptohomeRecovery:
+      return "CryptohomeRecovery";
+    case cryptohome::AuthBlockType::kTpmEcc:
+      return "TpmEcc";
+    case cryptohome::AuthBlockType::kScrypt:
+      return "Scrypt";
+    case cryptohome::AuthBlockType::kMaxValue:
+      NOTREACHED();
+      return "";
+  }
 }
 
 }  // namespace
@@ -297,12 +376,70 @@ void ReportTimerStop(TimerType timer_type) {
   }
 }
 
+void ReportTimerDuration(
+    const AuthSessionPerformanceTimer* auth_session_performance_timer) {
+  if (!g_metrics) {
+    return;
+  }
+  // Check that timer_type is a valid timer.
+  TimerType timer_type = auth_session_performance_timer->type;
+  DCHECK_LT(timer_type, kNumTimerTypes);
+
+  // Parameterize metric by AuthBlockType if needed.
+  // kMaxValue is an invalid value, showing that
+  // timer_type doesn't need to be parameterized.
+  AuthBlockType auth_block_type =
+      auth_session_performance_timer->auth_block_type;
+  std::string metric_name = kTimerHistogramParams[timer_type].metric_name;
+  if (auth_block_type != cryptohome::AuthBlockType::kMaxValue) {
+    metric_name.append(kAuthBlockTypeString[static_cast<int>(auth_block_type)]);
+  }
+
+  auto duration =
+      base::TimeTicks::Now() - auth_session_performance_timer->start_time;
+  g_metrics->SendToUMA(metric_name, duration.InMilliseconds(),
+                       kTimerHistogramParams[timer_type].min_sample,
+                       kTimerHistogramParams[timer_type].max_sample,
+                       kTimerHistogramParams[timer_type].num_buckets);
+}
+
+void ReportTimerDuration(const TimerType& timer_type,
+                         base::TimeTicks start_time,
+                         const std::string& parameter_string) {
+  if (!g_metrics) {
+    return;
+  }
+  // Check that timer_type is a valid timer.
+  DCHECK_LT(timer_type, kNumTimerTypes);
+
+  std::string metric_name = kTimerHistogramParams[timer_type].metric_name;
+  metric_name.append(parameter_string);
+
+  auto duration = base::TimeTicks::Now() - start_time;
+  g_metrics->SendToUMA(metric_name, duration.InMilliseconds(),
+                       kTimerHistogramParams[timer_type].min_sample,
+                       kTimerHistogramParams[timer_type].max_sample,
+                       kTimerHistogramParams[timer_type].num_buckets);
+}
+
 void ReportChecksum(ChecksumStatus status) {
   if (!g_metrics) {
     return;
   }
   g_metrics->SendEnumToUMA(kChecksumStatusHistogram, status,
                            kChecksumStatusNumBuckets);
+}
+
+void ReportCredentialRevocationResult(AuthBlockType auth_block_type,
+                                      LECredError result) {
+  if (!g_metrics) {
+    return;
+  }
+
+  g_metrics->SendEnumToUMA(
+      base::StringPrintf(kCredentialRevocationResultHistogram,
+                         GetAuthBlockTypeStringVariant(auth_block_type)),
+      result, LE_CRED_ERROR_MAX);
 }
 
 void ReportFreedGCacheDiskSpaceInMb(int mb) {
@@ -367,6 +504,17 @@ void ReportLoginDiskCleanupTotalTime(int ms) {
   }
   g_metrics->SendToUMA(kCryptohomeLoginDiskCleanupTotalTime, ms, 1, 60 * 1000,
                        50);
+}
+
+void ReportFreeDiskSpaceDuringLoginTotalFreedInMb(int mb) {
+  if (!g_metrics) {
+    return;
+  }
+  constexpr int kMin = 1, kMax = 1024 * 10, /* 10 GiB maximum */
+      kNumBuckets = 50;
+  g_metrics->SendToUMA(
+      kCryptohomeFreeDiskSpaceDuringLoginTotalFreedInMbHistogram, mb, kMin,
+      kMax, kNumBuckets);
 }
 
 void ReportDircryptoMigrationStartStatus(MigrationType migration_type,
@@ -518,6 +666,22 @@ void ReportLELogReplayEntryCount(size_t entry_count) {
                        static_cast<int>(entry_count), kMin, kMax, kNumBuckets);
 }
 
+void ReportLEReplayResult(bool is_full_replay, LEReplayError result) {
+  if (!g_metrics) {
+    return;
+  }
+
+  const char* replay_type =
+      is_full_replay ? kLEReplayTypeNormal : kLEReplayTypeFull;
+
+  std::string hist_str = std::string(kCryptohomeLEResultHistogramPrefix)
+                             .append(kLEOpReplay)
+                             .append(replay_type);
+
+  g_metrics->SendEnumToUMA(hist_str, static_cast<int>(result),
+                           static_cast<int>(LEReplayError::kMaxValue));
+}
+
 void ReportDircryptoMigrationFailedNoSpace(int initial_migration_free_space_mb,
                                            int failure_free_space_mb) {
   if (!g_metrics) {
@@ -622,6 +786,18 @@ void ReportAttestationOpsStatus(const std::string& operation,
                            static_cast<int>(AttestationOpsStatus::kMaxValue));
 }
 
+void ReportPrepareForRemovalResult(AuthBlockType auth_block_type,
+                                   CryptoError result) {
+  if (!g_metrics) {
+    return;
+  }
+
+  g_metrics->SendEnumToUMA(
+      base::StringPrintf(kRecoveryPrepareForRemovalResultHistogram,
+                         GetAuthBlockTypeStringVariant(auth_block_type)),
+      static_cast<int>(result), static_cast<int>(CryptoError::CE_MAX_VALUE));
+}
+
 void ReportRestoreSELinuxContextResultForHomeDir(bool success) {
   if (!g_metrics) {
     return;
@@ -692,31 +868,34 @@ void ReportVaultKeysetMetrics(const VaultKeysetMetrics& keyset_metrics) {
 
   constexpr int kMin = 1, kMax = 99, kNumBuckets = 100;
   g_metrics->SendToUMA(
-      std::string(kVaultKeysetMetric).append(kVaultKeysetMetricType[0]),
+      std::string(kVaultKeysetMetric).append(".MissingKeyDataCount"),
+      keyset_metrics.missing_key_data_count, kMin, kMax, kNumBuckets);
+  g_metrics->SendToUMA(
+      std::string(kVaultKeysetMetric).append(".EmptyLabelCount"),
       keyset_metrics.empty_label_count, kMin, kMax, kNumBuckets);
   g_metrics->SendToUMA(
-      std::string(kVaultKeysetMetric).append(kVaultKeysetMetricType[1]),
+      std::string(kVaultKeysetMetric).append(".EmptyLabelPINCount"),
       keyset_metrics.empty_label_le_cred_count, kMin, kMax, kNumBuckets);
+  g_metrics->SendToUMA(std::string(kVaultKeysetMetric).append(".PINCount"),
+                       keyset_metrics.le_cred_count, kMin, kMax, kNumBuckets);
   g_metrics->SendToUMA(
-      std::string(kVaultKeysetMetric).append(kVaultKeysetMetricType[2]),
-      keyset_metrics.le_cred_count, kMin, kMax, kNumBuckets);
+      std::string(kVaultKeysetMetric).append(".UntypedKeysetCount"),
+      keyset_metrics.untyped_count, kMin, kMax, kNumBuckets);
   g_metrics->SendToUMA(
-      std::string(kVaultKeysetMetric).append(kVaultKeysetMetricType[3]),
+      std::string(kVaultKeysetMetric).append(".SmartUnlockCount"),
       keyset_metrics.smart_unlock_count, kMin, kMax, kNumBuckets);
+  g_metrics->SendToUMA(std::string(kVaultKeysetMetric).append(".PasswordCount"),
+                       keyset_metrics.password_count, kMin, kMax, kNumBuckets);
   g_metrics->SendToUMA(
-      std::string(kVaultKeysetMetric).append(kVaultKeysetMetricType[4]),
-      keyset_metrics.password_count, kMin, kMax, kNumBuckets);
-  g_metrics->SendToUMA(
-      std::string(kVaultKeysetMetric).append(kVaultKeysetMetricType[5]),
+      std::string(kVaultKeysetMetric).append(".SmartCardCount"),
       keyset_metrics.smartcard_count, kMin, kMax, kNumBuckets);
   g_metrics->SendToUMA(
-      std::string(kVaultKeysetMetric).append(kVaultKeysetMetricType[6]),
+      std::string(kVaultKeysetMetric).append(".FingerprintCount"),
       keyset_metrics.fingerprint_count, kMin, kMax, kNumBuckets);
+  g_metrics->SendToUMA(std::string(kVaultKeysetMetric).append(".KioskCount"),
+                       keyset_metrics.kiosk_count, kMin, kMax, kNumBuckets);
   g_metrics->SendToUMA(
-      std::string(kVaultKeysetMetric).append(kVaultKeysetMetricType[7]),
-      keyset_metrics.kiosk_count, kMin, kMax, kNumBuckets);
-  g_metrics->SendToUMA(
-      std::string(kVaultKeysetMetric).append(kVaultKeysetMetricType[8]),
+      std::string(kVaultKeysetMetric).append(".UnclassifedKeysetCount"),
       keyset_metrics.unclassified_count, kMin, kMax, kNumBuckets);
 }
 

@@ -6,8 +6,7 @@
 #define CRYPTOHOME_USER_SESSION_USER_SESSION_FACTORY_H_
 
 #include <memory>
-
-#include <base/memory/ref_counted.h>
+#include <string>
 
 #include "cryptohome/user_session/user_session.h"
 
@@ -18,7 +17,9 @@ class UserSessionFactory {
   UserSessionFactory() = default;
   virtual ~UserSessionFactory() = default;
 
-  virtual scoped_refptr<UserSession> New(bool, bool) = 0;
+  virtual std::unique_ptr<UserSession> New(const std::string& username,
+                                           bool legacy_mount,
+                                           bool bind_mount_downloads) = 0;
 };
 
 }  // namespace cryptohome

@@ -5,7 +5,9 @@
 #ifndef LIBHWSEC_BACKEND_TPM1_BACKEND_TEST_BASE_H_
 #define LIBHWSEC_BACKEND_TPM1_BACKEND_TEST_BASE_H_
 
+#include <cstdint>
 #include <memory>
+#include <string>
 #include <utility>
 
 #include <absl/base/attributes.h>
@@ -18,6 +20,19 @@
 #include "libhwsec/status.h"
 
 namespace hwsec {
+
+// TSS UUID matcher.
+MATCHER_P(MatchTssUUID, uuid, "") {
+  return arg.ulTimeLow == uuid.ulTimeLow && arg.usTimeMid == uuid.usTimeMid &&
+         arg.usTimeHigh == uuid.usTimeHigh &&
+         arg.bClockSeqHigh == uuid.bClockSeqHigh &&
+         arg.bClockSeqLow == uuid.bClockSeqLow &&
+         arg.rgbNode[0] == uuid.rgbNode[0] &&
+         arg.rgbNode[1] == uuid.rgbNode[1] &&
+         arg.rgbNode[2] == uuid.rgbNode[2] &&
+         arg.rgbNode[3] == uuid.rgbNode[3] &&
+         arg.rgbNode[4] == uuid.rgbNode[4] && arg.rgbNode[5] == uuid.rgbNode[5];
+}
 
 class BackendTpm1TestBase : public ::testing::Test {
  public:
@@ -69,6 +84,7 @@ class BackendTpm1TestBase : public ::testing::Test {
  protected:
   static inline constexpr TSS_HCONTEXT kDefaultContext = 9876;
   static inline constexpr TSS_HTPM kDefaultTpm = 6543;
+  static inline constexpr TSS_HTPM kDefaultDelegateTpm = 9527;
   static inline constexpr uint32_t kDefaultSrkHandle = 5566123;
 
   void SetupSrk() {
@@ -80,6 +96,7 @@ class BackendTpm1TestBase : public ::testing::Test {
 
     const uint32_t kFakeSrkAuthUsage = 0x9876123;
     const uint32_t kFakeSrkUsagePolicy = 0x1283789;
+    TSS_UUID SRK_UUID = TSS_UUID_SRK;
 
     tpm_manager::GetTpmNonsensitiveStatusReply reply;
     reply.set_status(TpmManagerStatus::STATUS_SUCCESS);
@@ -88,36 +105,91 @@ class BackendTpm1TestBase : public ::testing::Test {
                 GetTpmNonsensitiveStatus(_, _, _, _))
         .WillRepeatedly(DoAll(SetArgPointee<1>(reply), Return(true)));
 
-    EXPECT_CALL(
-        proxy_->GetMock().overalls,
-        Ospi_Context_LoadKeyByUUID(kDefaultContext, TSS_PS_TYPE_SYSTEM, _, _))
-        .WillOnce(
+    EXPECT_CALL(proxy_->GetMock().overalls,
+                Ospi_Context_LoadKeyByUUID(kDefaultContext, TSS_PS_TYPE_SYSTEM,
+                                           MatchTssUUID(SRK_UUID), _))
+        .WillRepeatedly(
             DoAll(SetArgPointee<3>(kDefaultSrkHandle), Return(TPM_SUCCESS)));
 
     EXPECT_CALL(proxy_->GetMock().overalls,
                 Ospi_GetAttribUint32(kDefaultSrkHandle, TSS_TSPATTRIB_KEY_INFO,
                                      TSS_TSPATTRIB_KEYINFO_AUTHUSAGE, _))
-        .WillOnce(
+        .WillRepeatedly(
             DoAll(SetArgPointee<3>(kFakeSrkAuthUsage), Return(TPM_SUCCESS)));
 
     EXPECT_CALL(proxy_->GetMock().overalls,
                 Ospi_GetPolicyObject(kDefaultSrkHandle, TSS_POLICY_USAGE, _))
-        .WillOnce(
+        .WillRepeatedly(
             DoAll(SetArgPointee<2>(kFakeSrkUsagePolicy), Return(TPM_SUCCESS)));
 
     EXPECT_CALL(
         proxy_->GetMock().overalls,
         Ospi_Policy_SetSecret(kFakeSrkUsagePolicy, TSS_SECRET_MODE_PLAIN, _, _))
-        .WillOnce(Return(TPM_SUCCESS));
+        .WillRepeatedly(Return(TPM_SUCCESS));
 
     EXPECT_CALL(proxy_->GetMock().overalls,
                 Ospi_Key_GetPubKey(kDefaultSrkHandle, _, _))
-        .WillOnce(DoAll(SetArgPointee<1>(default_srk_pubkey.size()),
-                        SetArgPointee<2>(default_srk_pubkey.data()),
-                        Return(TPM_SUCCESS)));
+        .WillRepeatedly(DoAll(SetArgPointee<1>(kDefaultSrkPubkey.size()),
+                              SetArgPointee<2>(kDefaultSrkPubkey.data()),
+                              Return(TPM_SUCCESS)));
   }
 
-  brillo::Blob default_srk_pubkey = brillo::BlobFromString("default_srk");
+  void SetupDelegate() {
+    using testing::_;
+    using testing::Args;
+    using testing::AtMost;
+    using testing::DoAll;
+    using testing::ElementsAreArray;
+    using testing::Return;
+    using testing::SetArgPointee;
+    using tpm_manager::TpmManagerStatus;
+
+    // Cache the default user TPM handle.
+    auto user_tpm = backend_->GetUserTpmHandle();
+    ASSERT_TRUE(user_tpm.ok());
+    EXPECT_EQ(*user_tpm, kDefaultTpm);
+
+    TSS_HPOLICY kPolicy1 = 0x9909;
+
+    std::string fake_delegate_blob = "fake_deleagte_blob";
+    std::string fake_delegate_secret = "fake_deleagte_secret";
+
+    tpm_manager::GetTpmStatusReply reply;
+    reply.set_status(TpmManagerStatus::STATUS_SUCCESS);
+    *reply.mutable_local_data()->mutable_owner_delegate()->mutable_blob() =
+        fake_delegate_blob;
+    *reply.mutable_local_data()->mutable_owner_delegate()->mutable_secret() =
+        fake_delegate_secret;
+    EXPECT_CALL(proxy_->GetMock().tpm_manager, GetTpmStatus(_, _, _, _))
+        .Times(AtMost(1))
+        .WillOnce(DoAll(SetArgPointee<1>(reply), Return(true)))
+        .RetiresOnSaturation();
+
+    EXPECT_CALL(proxy_->GetMock().overalls,
+                Ospi_Context_GetTpmObject(kDefaultContext, _))
+        .Times(AtMost(1))
+        .WillOnce(
+            DoAll(SetArgPointee<1>(kDefaultDelegateTpm), Return(TPM_SUCCESS)))
+        .RetiresOnSaturation();
+
+    EXPECT_CALL(proxy_->GetMock().overalls,
+                Ospi_GetPolicyObject(kDefaultDelegateTpm, TSS_POLICY_USAGE, _))
+        .WillRepeatedly(DoAll(SetArgPointee<2>(kPolicy1), Return(TPM_SUCCESS)));
+
+    EXPECT_CALL(proxy_->GetMock().overalls,
+                Ospi_Policy_SetSecret(kPolicy1, TSS_SECRET_MODE_PLAIN, _, _))
+        .With(Args<3, 2>(ElementsAreArray(fake_delegate_secret)))
+        .WillRepeatedly(Return(TPM_SUCCESS));
+
+    EXPECT_CALL(
+        proxy_->GetMock().overalls,
+        Ospi_SetAttribData(kPolicy1, TSS_TSPATTRIB_POLICY_DELEGATION_INFO,
+                           TSS_TSPATTRIB_POLDEL_OWNERBLOB, _, _))
+        .With(Args<4, 3>(ElementsAreArray(fake_delegate_blob)))
+        .WillRepeatedly(Return(TPM_SUCCESS));
+  }
+
+  brillo::Blob kDefaultSrkPubkey = brillo::BlobFromString("default_srk");
   std::unique_ptr<ProxyForTest> proxy_;
   std::unique_ptr<MiddlewareOwner> middleware_owner_;
   std::unique_ptr<Middleware> middleware_;

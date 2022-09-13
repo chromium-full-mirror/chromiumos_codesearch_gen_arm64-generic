@@ -5,250 +5,30 @@
 #ifndef LIBHWSEC_BACKEND_MOCK_BACKEND_H_
 #define LIBHWSEC_BACKEND_MOCK_BACKEND_H_
 
-#include <cstdint>
-#include <optional>
-#include <string>
-#include <type_traits>
-#include <vector>
-
-#include <absl/container/flat_hash_set.h>
-#include <brillo/secure_blob.h>
 #include <gmock/gmock.h>
 
 #include "libhwsec/backend/backend.h"
+#include "libhwsec/backend/mock_config.h"
+#include "libhwsec/backend/mock_da_mitigation.h"
+#include "libhwsec/backend/mock_deriving.h"
+#include "libhwsec/backend/mock_encryption.h"
+#include "libhwsec/backend/mock_key_management.h"
+#include "libhwsec/backend/mock_pinweaver.h"
+#include "libhwsec/backend/mock_random.h"
+#include "libhwsec/backend/mock_recovery_crypto.h"
+#include "libhwsec/backend/mock_ro_data.h"
+#include "libhwsec/backend/mock_sealing.h"
+#include "libhwsec/backend/mock_session_management.h"
+#include "libhwsec/backend/mock_signature_sealing.h"
+#include "libhwsec/backend/mock_signing.h"
+#include "libhwsec/backend/mock_state.h"
+#include "libhwsec/backend/mock_storage.h"
+#include "libhwsec/backend/mock_vendor.h"
 
 namespace hwsec {
 
 class MockBackend : public Backend {
  public:
-  class MockState : public State {
-   public:
-    MOCK_METHOD(StatusOr<bool>, IsEnabled, (), (override));
-    MOCK_METHOD(StatusOr<bool>, IsReady, (), (override));
-    MOCK_METHOD(Status, Prepare, (), (override));
-  };
-
-  class MockDAMitigation : public DAMitigation {
-   public:
-    MOCK_METHOD(StatusOr<bool>, IsReady, (), (override));
-    MOCK_METHOD(StatusOr<DAMitigationStatus>, GetStatus, (), (override));
-    MOCK_METHOD(Status, Mitigate, (), (override));
-  };
-
-  class MockStorage : public Storage {
-   public:
-    MOCK_METHOD(StatusOr<ReadyState>, IsReady, (Space space), (override));
-    MOCK_METHOD(Status, Prepare, (Space space, uint32_t size), (override));
-    MOCK_METHOD(StatusOr<brillo::Blob>, Load, (Space space), (override));
-    MOCK_METHOD(Status,
-                Store,
-                (Space space, const brillo::Blob& blob),
-                (override));
-    MOCK_METHOD(Status, Lock, (Space space, LockOptions options), (override));
-  };
-
-  class MockRoData : public RoData {
-   public:
-    MOCK_METHOD(StatusOr<bool>, IsReady, (RoSpace space), (override));
-    MOCK_METHOD(StatusOr<brillo::Blob>, Read, (RoSpace space), (override));
-    MOCK_METHOD(StatusOr<brillo::Blob>,
-                Certify,
-                (RoSpace space, Key key),
-                (override));
-  };
-
-  class MockSealing : public Sealing {
-   public:
-    MOCK_METHOD(StatusOr<brillo::Blob>,
-                Seal,
-                (const OperationPolicySetting& policy,
-                 const brillo::SecureBlob& unsealed_data),
-                (override));
-    MOCK_METHOD(StatusOr<std::optional<ScopedKey>>,
-                PreloadSealedData,
-                (const OperationPolicy& policy,
-                 const brillo::Blob& sealed_data),
-                (override));
-    MOCK_METHOD(StatusOr<brillo::SecureBlob>,
-                Unseal,
-                (const OperationPolicy& policy,
-                 const brillo::Blob& sealed_data,
-                 UnsealOptions options),
-                (override));
-  };
-
-  class MockSignatureSealing : public SignatureSealing {
-   public:
-    MOCK_METHOD(StatusOr<SealedData>,
-                Seal,
-                (const OperationPolicySetting& policy,
-                 const brillo::SecureBlob& unsealed_data,
-                 const brillo::Blob& public_key_spki_der,
-                 const std::vector<Algorithm>& key_algorithms),
-                (override));
-    MOCK_METHOD(StatusOr<ChallengeResult>,
-                Challenge,
-                (const OperationPolicy& policy,
-                 const SealedData& sealed_data,
-                 const brillo::Blob& public_key_spki_der,
-                 const std::vector<Algorithm>& key_algorithms),
-                (override));
-    MOCK_METHOD(StatusOr<brillo::SecureBlob>,
-                Unseal,
-                (ChallengeID challenge, const brillo::Blob challenge_response),
-                (override));
-  };
-
-  class MockDeriving : public Deriving {
-   public:
-    MOCK_METHOD(StatusOr<brillo::Blob>,
-                Derive,
-                (Key key, const brillo::Blob& blob),
-                (override));
-    MOCK_METHOD(StatusOr<brillo::SecureBlob>,
-                SecureDerive,
-                (Key key, const brillo::SecureBlob& blob),
-                (override));
-  };
-
-  class MockEncryption : public Encryption {
-   public:
-    MOCK_METHOD(StatusOr<brillo::Blob>,
-                Encrypt,
-                (Key key,
-                 const brillo::SecureBlob& plaintext,
-                 EncryptionOptions options),
-                (override));
-    MOCK_METHOD(StatusOr<brillo::SecureBlob>,
-                Decrypt,
-                (Key key,
-                 const brillo::Blob& ciphertext,
-                 EncryptionOptions options),
-                (override));
-  };
-
-  class MockSigning : public Signing {
-   public:
-    MOCK_METHOD(StatusOr<brillo::Blob>,
-                Sign,
-                (const OperationPolicy& policy,
-                 Key key,
-                 const brillo::Blob& data),
-                (override));
-    MOCK_METHOD(Status,
-                Verify,
-                (const OperationPolicy& policy,
-                 Key key,
-                 const brillo::Blob& signed_data),
-                (override));
-  };
-
-  class MockKeyManagerment : public KeyManagerment {
-   public:
-    MOCK_METHOD(StatusOr<absl::flat_hash_set<KeyAlgoType>>,
-                GetSupportedAlgo,
-                (),
-                (override));
-    MOCK_METHOD(StatusOr<CreateKeyResult>,
-                CreateKey,
-                (const OperationPolicySetting& policy,
-                 KeyAlgoType key_algo,
-                 CreateKeyOptions options),
-                (override));
-    MOCK_METHOD(StatusOr<ScopedKey>,
-                LoadKey,
-                (const OperationPolicy& policy, const brillo::Blob& key_blob),
-                (override));
-    MOCK_METHOD(StatusOr<CreateKeyResult>,
-                CreateAutoReloadKey,
-                (const OperationPolicySetting& policy,
-                 KeyAlgoType key_algo,
-                 CreateKeyOptions options),
-                (override));
-    MOCK_METHOD(StatusOr<ScopedKey>,
-                LoadAutoReloadKey,
-                (const OperationPolicy& policy, const brillo::Blob& key_blob),
-                (override));
-    MOCK_METHOD(StatusOr<ScopedKey>,
-                GetPersistentKey,
-                (PersistentKeyType key_type),
-                (override));
-    MOCK_METHOD(StatusOr<brillo::Blob>, GetPubkeyHash, (Key key), (override));
-    MOCK_METHOD(Status, Flush, (Key key), (override));
-    MOCK_METHOD(Status, ReloadIfPossible, (Key key), (override));
-    MOCK_METHOD(StatusOr<ScopedKey>,
-                SideLoadKey,
-                (uint32_t key_handle),
-                (override));
-    MOCK_METHOD(StatusOr<uint32_t>, GetKeyHandle, (Key key), (override));
-  };
-
-  class MockSessionManagerment : public SessionManagerment {
-   public:
-    MOCK_METHOD(StatusOr<ScopedSession>,
-                CreateSession,
-                (const OperationPolicy& policy, CreateSessionOptions options),
-                (override));
-    MOCK_METHOD(Status, Flush, (Session session), (override));
-    MOCK_METHOD(StatusOr<ScopedSession>,
-                SideLoadSession,
-                (uint32_t session_handle),
-                (override));
-  };
-
-  class MockConfig : public Config {
-   public:
-    MOCK_METHOD(StatusOr<OperationPolicy>,
-                ToOperationPolicy,
-                (const OperationPolicySetting& policy),
-                (override));
-    MOCK_METHOD(Status,
-                SetCurrentUser,
-                (const std::string& current_user),
-                (override));
-    MOCK_METHOD(StatusOr<QuoteResult>,
-                Quote,
-                (DeviceConfigs device_config, Key key),
-                (override));
-  };
-
-  class MockRandom : public Random {
-   public:
-    MOCK_METHOD(StatusOr<brillo::Blob>, RandomBlob, (size_t size), (override));
-    MOCK_METHOD(StatusOr<brillo::SecureBlob>,
-                RandomSecureBlob,
-                (size_t size),
-                (override));
-  };
-
-  class MockPinWeaver : public PinWeaver {
-   public:
-    MOCK_METHOD(StatusOr<bool>, IsEnabled, (), (override));
-    MOCK_METHOD(StatusOr<uint8_t>, GetVersion, (), (override));
-    MOCK_METHOD(StatusOr<brillo::Blob>,
-                SendCommand,
-                (const brillo::Blob& command),
-                (override));
-  };
-
-  class MockVendor : public Vendor {
-   public:
-    MOCK_METHOD(StatusOr<uint32_t>, GetFamily, (), (override));
-    MOCK_METHOD(StatusOr<uint64_t>, GetSpecLevel, (), (override));
-    MOCK_METHOD(StatusOr<uint32_t>, GetManufacturer, (), (override));
-    MOCK_METHOD(StatusOr<uint32_t>, GetTpmModel, (), (override));
-    MOCK_METHOD(StatusOr<uint64_t>, GetFirmwareVersion, (), (override));
-    MOCK_METHOD(StatusOr<brillo::Blob>, GetVendorSpecific, (), (override));
-    MOCK_METHOD(StatusOr<int32_t>, GetFingerprint, (), (override));
-    MOCK_METHOD(StatusOr<bool>, IsSrkRocaVulnerable, (), (override));
-    MOCK_METHOD(StatusOr<brillo::Blob>, GetIFXFieldUpgradeInfo, (), (override));
-    MOCK_METHOD(Status, DeclareTpmFirmwareStable, (), (override));
-    MOCK_METHOD(StatusOr<brillo::Blob>,
-                SendRawCommand,
-                (const brillo::Blob& command),
-                (override));
-  };
-
   struct MockBackendData {
     MockState state;
     MockDAMitigation da_mitigation;
@@ -259,12 +39,13 @@ class MockBackend : public Backend {
     MockDeriving deriving;
     MockEncryption encryption;
     MockSigning signing;
-    MockKeyManagerment key_managerment;
-    MockSessionManagerment session_managerment;
+    MockKeyManagement key_management;
+    MockSessionManagement session_management;
     MockConfig config;
     MockRandom random;
     MockPinWeaver pinweaver;
     MockVendor vendor;
+    MockRecoveryCrypto recovery_crypto;
   };
 
   MockBackend() = default;
@@ -284,16 +65,19 @@ class MockBackend : public Backend {
   Deriving* GetDeriving() override { return &mock_data_.deriving; }
   Encryption* GetEncryption() override { return &mock_data_.encryption; }
   Signing* GetSigning() override { return &mock_data_.signing; }
-  KeyManagerment* GetKeyManagerment() override {
-    return &mock_data_.key_managerment;
+  KeyManagement* GetKeyManagement() override {
+    return &mock_data_.key_management;
   }
-  SessionManagerment* GetSessionManagerment() override {
-    return &mock_data_.session_managerment;
+  SessionManagement* GetSessionManagement() override {
+    return &mock_data_.session_management;
   }
   Config* GetConfig() override { return &mock_data_.config; }
   Random* GetRandom() override { return &mock_data_.random; }
   PinWeaver* GetPinWeaver() override { return &mock_data_.pinweaver; }
   Vendor* GetVendor() override { return &mock_data_.vendor; }
+  RecoveryCrypto* GetRecoveryCrypto() override {
+    return &mock_data_.recovery_crypto;
+  }
 
   MockBackendData mock_data_;
 };

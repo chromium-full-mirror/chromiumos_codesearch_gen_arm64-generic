@@ -46,6 +46,9 @@ base::JSONReader::ValueWithError DecodeJSONInRust(const base::StringPiece& json,
     ret.value.reset();
     ret.error_line = error_line;
     ret.error_column = error_column;
+    ret.error.line = error_line;
+    ret.error.column = error_column;
+    ret.error.message = ret.error_message;
   }
   return ret;
 }
@@ -53,6 +56,14 @@ base::JSONReader::ValueWithError DecodeJSONInRust(const base::StringPiece& json,
 }  // anonymous namespace
 
 #endif  // BUILDFLAG(BUILD_RUST_JSON_PARSER)
+
+JSONReader::Error::Error() = default;
+
+JSONReader::Error::Error(Error&& other) = default;
+
+JSONReader::Error::~Error() = default;
+
+JSONReader::Error& JSONReader::Error::operator=(Error&& other) = default;
 
 JSONReader::ValueWithError::ValueWithError() = default;
 

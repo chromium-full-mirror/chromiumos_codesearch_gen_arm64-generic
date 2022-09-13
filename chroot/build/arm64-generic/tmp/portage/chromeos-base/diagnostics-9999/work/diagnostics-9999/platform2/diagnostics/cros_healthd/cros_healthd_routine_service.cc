@@ -13,8 +13,10 @@
 #include <base/check.h>
 #include <base/logging.h>
 #include <base/time/time.h>
+#include <chromeos/mojo/service_constants.h>
 
 #include "diagnostics/cros_healthd/system/system_config.h"
+#include "diagnostics/cros_healthd/utils/callback_barrier.h"
 #include "diagnostics/mojom/public/cros_healthd_diagnostics.mojom.h"
 #include "diagnostics/mojom/public/nullable_primitives.mojom.h"
 
@@ -26,11 +28,12 @@ namespace {
 
 void SetErrorRoutineUpdate(const std::string& status_message,
                            mojo_ipc::RoutineUpdate* response) {
-  mojo_ipc::NonInteractiveRoutineUpdate noninteractive_update;
-  noninteractive_update.status = mojo_ipc::DiagnosticRoutineStatusEnum::kError;
-  noninteractive_update.status_message = status_message;
-  response->routine_update_union->set_noninteractive_update(
-      noninteractive_update.Clone());
+  auto noninteractive_update = mojo_ipc::NonInteractiveRoutineUpdate::New();
+  noninteractive_update->status = mojo_ipc::DiagnosticRoutineStatusEnum::kError;
+  noninteractive_update->status_message = status_message;
+  response->routine_update_union =
+      mojo_ipc::RoutineUpdateUnion::NewNoninteractiveUpdate(
+          std::move(noninteractive_update));
   response->progress_percent = 0;
 }
 
@@ -38,13 +41,26 @@ void SetErrorRoutineUpdate(const std::string& status_message,
 
 CrosHealthdRoutineService::CrosHealthdRoutineService(
     Context* context, CrosHealthdRoutineFactory* routine_factory)
-    : context_(context), routine_factory_(routine_factory) {
+    : context_(context), routine_factory_(routine_factory), provider_(this) {
   DCHECK(context_);
   DCHECK(routine_factory_);
-  PopulateAvailableRoutines();
+
+  // Service is ready after available routines are populated.
+  PopulateAvailableRoutines(
+      base::BindOnce(&CrosHealthdRoutineService::OnServiceReady,
+                     weak_ptr_factory_.GetWeakPtr()));
 }
 
 CrosHealthdRoutineService::~CrosHealthdRoutineService() = default;
+
+void CrosHealthdRoutineService::RegisterServiceReadyCallback(
+    base::OnceClosure callback) {
+  if (ready_) {
+    std::move(callback).Run();
+  } else {
+    service_ready_callbacks_.push_back(std::move(callback));
+  }
+}
 
 void CrosHealthdRoutineService::GetAvailableRoutines(
     GetAvailableRoutinesCallback callback) {
@@ -58,7 +74,7 @@ void CrosHealthdRoutineService::GetRoutineUpdate(
     bool include_output,
     GetRoutineUpdateCallback callback) {
   mojo_ipc::RoutineUpdate update{0, mojo::ScopedHandle(),
-                                 mojo_ipc::RoutineUpdateUnion::New()};
+                                 mojo_ipc::RoutineUpdateUnionPtr()};
 
   auto itr = active_routines_.find(id);
   if (itr == active_routines_.end()) {
@@ -366,7 +382,36 @@ void CrosHealthdRoutineService::RunRoutine(
       mojo_ipc::RunRoutineResponse::New(id, active_routines_[id]->GetStatus()));
 }
 
-void CrosHealthdRoutineService::PopulateAvailableRoutines() {
+void CrosHealthdRoutineService::HandleNvmeSelfTestSupportedResponse(
+    bool supported) {
+  if (supported) {
+    available_routines_.insert(mojo_ipc::DiagnosticRoutineEnum::kNvmeSelfTest);
+  }
+}
+
+void CrosHealthdRoutineService::OnServiceReady() {
+  LOG(INFO) << "CrosHealthdRoutineService is ready.";
+  ready_ = true;
+
+  provider_.Register(context_->mojo_service()->GetServiceManager(),
+                     chromeos::mojo_services::kCrosHealthdDiagnostics);
+
+  // Run all the callbacks.
+  std::vector<base::OnceClosure> callbacks;
+  callbacks.swap(service_ready_callbacks_);
+  for (size_t i = 0; i < callbacks.size(); ++i) {
+    std::move(callbacks[i]).Run();
+  }
+}
+
+void CrosHealthdRoutineService::PopulateAvailableRoutines(
+    base::OnceClosure completion_callback) {
+  // |barreir| will be destructed automatically at the end of this function,
+  // which ensures |completion_callback| will only be run after all the
+  // synchronous and asynchronous availability checks are done.
+  CallbackBarrier barreir{base::BindOnce([](bool _ /* ignored */) {
+                          }).Then(std::move(completion_callback))};
+
   // Routines that are supported on all devices.
   available_routines_ = {
       mojo_ipc::DiagnosticRoutineEnum::kUrandom,
@@ -406,10 +451,11 @@ void CrosHealthdRoutineService::PopulateAvailableRoutines() {
       available_routines_.insert(
           mojo_ipc::DiagnosticRoutineEnum::kNvmeWearLevel);
     }
-    if (context_->system_config()->NvmeSelfTestSupported()) {
-      available_routines_.insert(
-          mojo_ipc::DiagnosticRoutineEnum::kNvmeSelfTest);
-    }
+    auto nvme_self_test_supported_callback = base::BindOnce(
+        &CrosHealthdRoutineService::HandleNvmeSelfTestSupportedResponse,
+        weak_ptr_factory_.GetWeakPtr());
+    context_->system_config()->NvmeSelfTestSupported(
+        barreir.Depend(std::move(nvme_self_test_supported_callback)));
   }
 
   if (context_->system_config()->SmartCtlSupported()) {

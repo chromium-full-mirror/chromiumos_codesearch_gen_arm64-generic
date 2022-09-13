@@ -14,7 +14,6 @@
 #include "cryptohome/auth_blocks/auth_block_type.h"
 #include "cryptohome/le_credential_manager.h"
 #include "cryptohome/migration_type.h"
-#include "cryptohome/tpm.h"
 #include "cryptohome/tpm_metrics.h"
 
 namespace cryptohome {
@@ -127,7 +126,40 @@ enum TimerType {
   kPerformEphemeralMountTimer = 13,
   kPerformMountTimer = 14,
   kGenerateEccAuthValueTimer = 15,
+  kAuthSessionAddCredentialsTimer = 16,
+  kAuthSessionAddAuthFactorVKTimer = 17,
+  kAuthSessionAddAuthFactorUSSTimer = 18,
+  kAuthSessionAuthenticateTimer = 19,
+  kAuthSessionAuthenticateAuthFactorVKTimer = 20,
+  kAuthSessionAuthenticateAuthFactorUSSTimer = 21,
+  kAuthSessionUpdateCredentialsTimer = 22,
+  kAuthSessionUpdateAuthFactorVKTimer = 23,
+  kAuthSessionUpdateAuthFactorUSSTimer = 24,
+  kAuthSessionRemoveAuthFactorVKTimer = 25,
+  kAuthSessionRemoveAuthFactorUSSTimer = 26,
+  kCreatePersistentUserTimer = 27,
+  kAuthSessionTotalLifetimeTimer = 28,
+  kAuthSessionAuthenticatedLifetimeTimer = 29,
+  kUSSPersistTimer = 30,
+  kUSSLoadPersistedTimer = 31,
   kNumTimerTypes  // For the number of timer types.
+};
+
+// Struct for recording metrics on how long certain AuthSession operations take.
+struct AuthSessionPerformanceTimer {
+  TimerType type;
+  base::TimeTicks start_time;
+  AuthBlockType auth_block_type;
+
+  explicit AuthSessionPerformanceTimer(TimerType init_type)
+      : type(init_type),
+        start_time(base::TimeTicks::Now()),
+        auth_block_type(AuthBlockType::kMaxValue) {}
+  AuthSessionPerformanceTimer(TimerType init_type,
+                              AuthBlockType init_auth_block_type)
+      : type(init_type),
+        start_time(base::TimeTicks::Now()),
+        auth_block_type(init_auth_block_type) {}
 };
 
 // These values are persisted to logs. Entries should not be renumbered and
@@ -237,6 +269,7 @@ enum class DiskCleanupProgress {
 enum class LoginDiskCleanupProgress {
   kWholeUserProfilesCleanedAboveTarget = 1,
   kWholeUserProfilesCleaned = 2,
+  kNoUnmountedCryptohomes = 3,
   kNumBuckets
 };
 
@@ -424,11 +457,33 @@ inline constexpr char kLEOpCheck[] = ".Check";
 inline constexpr char kLEOpReset[] = ".Reset";
 inline constexpr char kLEOpRemove[] = ".Remove";
 inline constexpr char kLEOpSync[] = ".Sync";
+inline constexpr char kLEOpGetDelayInSeconds[] = ".GetDelayInSeconds";
+inline constexpr char kLEOpReplay[] = ".Replay";
+inline constexpr char kLEOpReplayResetTree[] = ".ReplayResetTree";
+inline constexpr char kLEOpReplayInsert[] = ".ReplayInsert";
+inline constexpr char kLEOpReplayCheck[] = ".ReplayCheck";
+inline constexpr char kLEOpReplayRemove[] = ".ReplayRemove";
 inline constexpr char kLEActionLoadFromDisk[] = ".LoadFromDisk";
 inline constexpr char kLEActionBackend[] = ".Backend";
 inline constexpr char kLEActionSaveToDisk[] = ".SaveToDisk";
 inline constexpr char kLEActionBackendGetLog[] = ".BackendGetLog";
 inline constexpr char kLEActionBackendReplayLog[] = ".BackendReplayLog";
+inline constexpr char kLEActionBackendReplayLogForFullReplay[] =
+    ".BackendReplayLogForFullReplay";
+inline constexpr char kLEActionBackendRecoverInsert[] = ".BackendRecoverInsert";
+inline constexpr char kLEReplayTypeNormal[] = ".Normal";
+inline constexpr char kLEReplayTypeFull[] = ".Full";
+
+// These values are persisted to logs. Entries should not be renumbered and
+// numeric values should never be reused.
+enum class LEReplayError {
+  kSuccess = 0,
+  kInvalidLogEntry = 1,
+  kOperationError = 2,
+  kHashMismatch = 3,
+  kRemoveInsertedCredentialsError = 4,
+  kMaxValue,
+};
 
 // Attestation-related operations. Those are suffixes of the histogram
 // kAttestationStatusHistogramPrefix defined in the .cc file.
@@ -439,9 +494,11 @@ inline constexpr char kAttestationPrepareForEnrollment[] =
 
 // Various counts for ReportVaultKeysetMetrics.
 struct VaultKeysetMetrics {
+  int missing_key_data_count = 0;
   int empty_label_count = 0;
   int empty_label_le_cred_count = 0;
   int le_cred_count = 0;
+  int untyped_count = 0;
   int password_count = 0;
   int smart_unlock_count = 0;
   int smartcard_count = 0;
@@ -546,7 +603,21 @@ void ReportTimerStart(TimerType timer_type);
 // "Cryptohome.TimeTo*" histograms.
 void ReportTimerStop(TimerType timer_type);
 
+// Reports a timer length in milliseconds, duration is calculated by the time it
+// is called minus the start_time of the reported timer.
+void ReportTimerDuration(
+    const AuthSessionPerformanceTimer* auth_session_performance_timer);
+
+void ReportTimerDuration(const TimerType& timer_type,
+                         base::TimeTicks start_time,
+                         const std::string& parameter_string);
+
 void ReportChecksum(ChecksumStatus status);
+
+// Reports the result of credentials revocation for `auth_block_type` to the
+// "Cryptohome.{AuthBlockType}.CredentialRevocationResult" histogram.
+void ReportCredentialRevocationResult(AuthBlockType auth_block_type,
+                                      LECredError result);
 
 // Reports number of deleted user profiles to the
 // "Cryptohome.DeletedUserProfiles" histogram.
@@ -557,7 +628,7 @@ void ReportDeletedUserProfiles(int user_profile_count);
 void ReportFreeDiskSpaceTotalTime(int ms);
 
 // Reports total space freed by HomeDirs::FreeDiskSpace (in MiB) to
-// the "Cryptohome.FreeDiskSpaceTotalTime" histogram.
+// the "Cryptohome.FreeDiskSpaceTotalFreedInMb" histogram.
 void ReportFreeDiskSpaceTotalFreedInMb(int mb);
 
 // Reports the time between HomeDirs::FreeDiskSpace cleanup calls (seconds) to
@@ -575,6 +646,10 @@ void ReportFreedCacheVaultDiskSpaceInMb(int mb);
 // Reports total time taken by HomeDirs::FreeDiskSpaceDuringLogin cleanup
 // (milliseconds) to the "Cryptohome.LoginDiskCleanupTotalTime" histogram.
 void ReportLoginDiskCleanupTotalTime(int ms);
+
+// Reports total space freed by HomeDirs::FreeDiskSpaceDuringLogin (in MiB) to
+// the "Cryptohome.FreeDiskSpaceDuringLoginTotalFreedInMb" histogram.
+void ReportFreeDiskSpaceDuringLoginTotalFreedInMb(int mb);
 
 // The |status| value is reported to the
 // "Cryptohome.DircryptoMigrationStartStatus" (full migration)
@@ -648,6 +723,14 @@ void ReportLESyncOutcome(LECredError result);
 // entries", reported when none of the log entries matches the root hash.
 void ReportLELogReplayEntryCount(size_t entry_count);
 
+// Reports the log entries replay result. We didn't reuse the LECredError here
+// because the error possibilities are quite different. We separate the
+// results between a normal replay and a full replay because the error
+// distribution in a full replay might be very different (since we're just doing
+// a best-effort attempt hoping that we are only 1 entry behind the first log
+// entry).
+void ReportLEReplayResult(bool is_full_replay, LEReplayError result);
+
 // Reports the free space in MB when the migration fails and what the free space
 // was initially when the migration was started.
 void ReportDircryptoMigrationFailedNoSpace(int initial_migration_free_space_mb,
@@ -688,6 +771,11 @@ void ReportAttestationOpsStatus(const std::string& operation,
 
 // Reports the result of an InvalidateDirCryptoKey operation.
 void ReportInvalidateDirCryptoKeyResult(bool result);
+
+// Reports the result of PrepareForRemoval() for `auth_block_type`
+// to the "Cryptohome.{AuthBlockType}.PrepareForRemovalResult" histogram.
+void ReportPrepareForRemovalResult(AuthBlockType auth_block_type,
+                                   CryptoError result);
 
 // Reports the result of a RestoreSELinuxContexts operation for /home/.shadow.
 void ReportRestoreSELinuxContextResultForShadowDir(bool success);

@@ -19,7 +19,9 @@
 #include "base/memory/ptr_util.h"
 #include "base/numerics/safe_math.h"
 #include "base/threading/sequence_local_storage_slot.h"
-#include "base/trace_event/base_tracing.h"
+#include "base/trace_event/trace_event.h"
+#include "base/trace_event/trace_id_helper.h"
+#include "base/trace_event/typed_macros.h"
 #include "mojo/public/cpp/bindings/associated_group_controller.h"
 #include "mojo/public/cpp/bindings/lib/array_internal.h"
 #include "mojo/public/cpp/bindings/lib/message_fragment.h"
@@ -33,7 +35,7 @@ base::LazyInstance<
     base::SequenceLocalStorageSlot<internal::MessageDispatchContext*>>::Leaky
     g_sls_message_dispatch_context = LAZY_INSTANCE_INITIALIZER;
 
-void DoNotifyBadMessage(Message message, const std::string& error) {
+void DoNotifyBadMessage(Message message, base::StringPiece error) {
   message.NotifyBadMessage(error);
 }
 
@@ -205,7 +207,7 @@ Message::Message(uint32_t name,
   uint32_t trace_nonce =
       static_cast<uint32_t>(base::trace_event::GetNextGlobalTraceId());
   TRACE_EVENT(TRACE_DISABLED_BY_DEFAULT("mojom"), "mojo::Message::Message",
-              perfetto::libchrome::Flow::Global(::mojo::GetTraceId(name, trace_nonce)),
+              perfetto_libchrome::Flow::Global(::mojo::GetTraceId(name, trace_nonce)),
               "name", name, "flags", flags, "trace_nonce", trace_nonce);
 
   CreateSerializedMessageObject(
@@ -234,7 +236,7 @@ Message::Message(ScopedMessageHandle handle,
       static_cast<uint32_t>(base::trace_event::GetNextGlobalTraceId());
   TRACE_EVENT(
       "mojom", "mojo::Message::Message_FromHandle",
-      perfetto::libchrome::Flow::Global(::mojo::GetTraceId(header.name, trace_nonce)),
+      perfetto_libchrome::Flow::Global(::mojo::GetTraceId(header.name, trace_nonce)),
       "this", this);
 
   void* buffer;
@@ -423,7 +425,7 @@ ScopedMessageHandle Message::TakeMojoMessage() {
   return handle;
 }
 
-void Message::NotifyBadMessage(const std::string& error) {
+void Message::NotifyBadMessage(base::StringPiece error) {
   DCHECK(handle_.is_valid());
   mojo::NotifyBadMessage(handle_.get(), error);
 }
@@ -566,8 +568,8 @@ uint64_t Message::GetTraceId() const {
   return ::mojo::GetTraceId(header()->name, header()->trace_nonce);
 }
 
-void Message::WriteIntoTrace(perfetto::libchrome::TracedValue ctx) const {
-  perfetto::libchrome::TracedDictionary dict = std::move(ctx).WriteDictionary();
+void Message::WriteIntoTrace(perfetto_libchrome::TracedValue ctx) const {
+  perfetto_libchrome::TracedDictionary dict = std::move(ctx).WriteDictionary();
 
   if (header()) {
     dict.Add("name", header()->name);
@@ -589,7 +591,7 @@ bool PassThroughFilter::Accept(Message* message) {
   return true;
 }
 
-void ReportBadMessage(const std::string& error) {
+void ReportBadMessage(base::StringPiece error) {
   internal::MessageDispatchContext* context =
       internal::MessageDispatchContext::current();
   DCHECK(context);

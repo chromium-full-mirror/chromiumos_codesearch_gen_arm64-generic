@@ -18,6 +18,7 @@
 #include "diagnostics/cros_healthd/events/power_events.h"
 #include "diagnostics/cros_healthd/events/udev_events.h"
 #include "diagnostics/cros_healthd/fetch_aggregator.h"
+#include "diagnostics/cros_healthd/utils/mojo_service_provider.h"
 #include "diagnostics/mojom/external/network_health.mojom.h"
 #include "diagnostics/mojom/public/cros_healthd.mojom.h"
 
@@ -80,6 +81,10 @@ class CrosHealthdMojoService final
                         ProbeProcessInfoCallback callback) override;
   void ProbeTelemetryInfo(const std::vector<ProbeCategoryEnum>& categories,
                           ProbeTelemetryInfoCallback callback) override;
+  void ProbeMultipleProcessInfo(
+      const std::optional<std::vector<uint32_t>>& process_ids,
+      bool ignore_single_process_info,
+      ProbeMultipleProcessInfoCallback callback) override;
 
   // chromeos::cros_healthd::mojom::CrosHealthdSystemService overrides:
   void GetServiceStatus(GetServiceStatusCallback callback) override;
@@ -104,6 +109,13 @@ class CrosHealthdMojoService final
       event_receiver_set_;
   mojo::ReceiverSet<chromeos::cros_healthd::mojom::CrosHealthdSystemService>
       system_receiver_set_;
+  // Mojo service providers to provide services to mojo service manager.
+  MojoServiceProvider<chromeos::cros_healthd::mojom::CrosHealthdProbeService>
+      probe_provider_;
+  MojoServiceProvider<chromeos::cros_healthd::mojom::CrosHealthdEventService>
+      event_provider_;
+  MojoServiceProvider<chromeos::cros_healthd::mojom::CrosHealthdSystemService>
+      system_provider_;
 
   // Unowned. The following instances should outlive this instance.
   Context* const context_ = nullptr;

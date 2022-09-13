@@ -15,16 +15,19 @@
 #include <base/logging.h>
 #include <base/strings/string_number_conversions.h>
 #include <base/strings/stringprintf.h>
+#include <base/test/task_environment.h>
 #include <brillo/cryptohome.h>
 #include <brillo/data_encoding.h>
 #include <brillo/secure_blob.h>
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
+#include <libhwsec/factory/tpm2_simulator_factory_for_test.h>
+#include <libhwsec/frontend/cryptohome/mock_frontend.h>
+#include <libhwsec/frontend/pinweaver/mock_frontend.h>
 #include <libhwsec-foundation/crypto/hmac.h>
 #include <libhwsec-foundation/crypto/secure_blob_util.h>
 #include <libhwsec-foundation/error/testing_helper.h>
 
-#include "cryptohome/auth_blocks/auth_block_state.h"
 #include "cryptohome/auth_blocks/challenge_credential_auth_block.h"
 #include "cryptohome/auth_blocks/double_wrapped_compat_auth_block.h"
 #include "cryptohome/auth_blocks/libscrypt_compat_auth_block.h"
@@ -34,8 +37,8 @@
 #include "cryptohome/auth_blocks/tpm_not_bound_to_pcr_auth_block.h"
 #include "cryptohome/credentials.h"
 #include "cryptohome/crypto.h"
-#include "cryptohome/fake_le_credential_backend.h"
 #include "cryptohome/filesystem_layout.h"
+#include "cryptohome/flatbuffer_schemas/auth_block_state.h"
 #include "cryptohome/key_objects.h"
 #include "cryptohome/le_credential_manager_impl.h"
 #include "cryptohome/mock_cryptohome_key_loader.h"
@@ -43,7 +46,6 @@
 #include "cryptohome/mock_keyset_management.h"
 #include "cryptohome/mock_le_credential_manager.h"
 #include "cryptohome/mock_platform.h"
-#include "cryptohome/mock_tpm.h"
 #include "cryptohome/mock_vault_keyset.h"
 #include "cryptohome/mock_vault_keyset_factory.h"
 #include "cryptohome/storage/file_system_keyset.h"
@@ -55,6 +57,7 @@ using ::cryptohome::error::CryptohomeError;
 using ::cryptohome::error::ErrorAction;
 using ::cryptohome::error::ErrorActionSet;
 using ::hwsec_foundation::error::testing::ReturnError;
+using ::hwsec_foundation::error::testing::ReturnValue;
 using ::hwsec_foundation::status::StatusChain;
 using ::testing::_;
 using ::testing::ContainerEq;
@@ -94,7 +97,7 @@ constexpr char kNewPasskey[] = "new pass";
 constexpr char kNewLabel[] = "new_label";
 constexpr char kSalt[] = "salt";
 
-constexpr int kWrongAuthAttempts = 6;
+constexpr int kWrongAuthAttempts = 5;
 
 const brillo::SecureBlob kInitialBlob64(64, 'A');
 const brillo::SecureBlob kInitialBlob32(32, 'A');
@@ -123,7 +126,8 @@ class FallbackVaultKeyset : public VaultKeyset {
       return std::make_unique<ChallengeCredentialAuthBlock>();
     }
 
-    bool use_tpm = crypto_->tpm() && crypto_->tpm()->IsOwned();
+    hwsec::StatusOr<bool> is_ready = crypto_->GetHwsec()->IsReady();
+    bool use_tpm = is_ready.ok() && is_ready.value();
     bool with_user_auth = crypto_->CanUnsealWithUserAuth();
     bool has_ecc_key = crypto_->cryptohome_keys_manager() &&
                        crypto_->cryptohome_keys_manager()->HasCryptohomeKey(
@@ -131,17 +135,17 @@ class FallbackVaultKeyset : public VaultKeyset {
 
     if (use_tpm && with_user_auth && has_ecc_key) {
       return std::make_unique<TpmEccAuthBlock>(
-          crypto_->tpm()->GetHwsec(), crypto_->cryptohome_keys_manager());
+          crypto_->GetHwsec(), crypto_->cryptohome_keys_manager());
     }
 
     if (use_tpm && with_user_auth && !has_ecc_key) {
       return std::make_unique<TpmBoundToPcrAuthBlock>(
-          crypto_->tpm()->GetHwsec(), crypto_->cryptohome_keys_manager());
+          crypto_->GetHwsec(), crypto_->cryptohome_keys_manager());
     }
 
     if (use_tpm && !with_user_auth) {
       return std::make_unique<TpmNotBoundToPcrAuthBlock>(
-          crypto_->tpm()->GetHwsec(), crypto_->cryptohome_keys_manager());
+          crypto_->GetHwsec(), crypto_->cryptohome_keys_manager());
     }
 
     return std::make_unique<LibScryptCompatAuthBlock>();
@@ -155,7 +159,8 @@ class FallbackVaultKeyset : public VaultKeyset {
 
 class KeysetManagementTest : public ::testing::Test {
  public:
-  KeysetManagementTest() : crypto_(&tpm_, &cryptohome_keys_manager_) {
+  KeysetManagementTest()
+      : crypto_(&hwsec_, &pinweaver_, &cryptohome_keys_manager_, nullptr) {
     CHECK(temp_dir_.CreateUniqueTempDir());
   }
 
@@ -168,6 +173,12 @@ class KeysetManagementTest : public ::testing::Test {
   KeysetManagementTest& operator=(KeysetManagementTest&&) = delete;
 
   void SetUp() override {
+    EXPECT_CALL(hwsec_, IsEnabled()).WillRepeatedly(ReturnValue(false));
+    EXPECT_CALL(hwsec_, IsReady()).WillRepeatedly(ReturnValue(false));
+    EXPECT_CALL(hwsec_, IsSealingSupported())
+        .WillRepeatedly(ReturnValue(false));
+    EXPECT_CALL(pinweaver_, IsEnabled()).WillRepeatedly(ReturnValue(false));
+
     mock_vault_keyset_factory_ = new NiceMock<MockVaultKeysetFactory>();
     ON_CALL(*mock_vault_keyset_factory_, New(&platform_, &crypto_))
         .WillByDefault([this](auto&&, auto&&) {
@@ -190,8 +201,10 @@ class KeysetManagementTest : public ::testing::Test {
   }
 
  protected:
+  base::test::TaskEnvironment task_environment_;
   NiceMock<MockPlatform> platform_;
-  NiceMock<MockTpm> tpm_;
+  NiceMock<hwsec::MockCryptohomeFrontend> hwsec_;
+  NiceMock<hwsec::MockPinWeaverFrontend> pinweaver_;
   NiceMock<MockCryptohomeKeysManager> cryptohome_keys_manager_;
   Crypto crypto_;
   FileSystemKeyset file_system_keyset_;
@@ -1029,10 +1042,11 @@ TEST_F(KeysetManagementTest, GetVaultKeysetLabels) {
 // List non LE labels.
 TEST_F(KeysetManagementTest, GetNonLEVaultKeysetLabels) {
   // SETUP
-  NiceMock<MockCryptohomeKeysManager> mock_cryptohome_keys_manager;
-  FakeLECredentialBackend fake_backend_;
+  hwsec::Tpm2SimulatorFactoryForTest factory;
+  std::unique_ptr<hwsec::PinWeaverFrontend> pinweaver =
+      factory.GetPinWeaverFrontend();
   auto le_cred_manager =
-      std::make_unique<LECredentialManagerImpl>(&fake_backend_, CredDirPath());
+      std::make_unique<LECredentialManagerImpl>(pinweaver.get(), CredDirPath());
   crypto_.set_le_manager_for_testing(std::move(le_cred_manager));
   crypto_.Init();
 
@@ -1393,8 +1407,9 @@ TEST_F(KeysetManagementTest, ReSaveOnLoadTestRegularCreds) {
       .WillRepeatedly(Return(true));
   EXPECT_CALL(mock_cryptohome_keys_manager, Init()).WillRepeatedly(Return());
 
-  EXPECT_CALL(tpm_, IsEnabled()).WillRepeatedly(Return(true));
-  EXPECT_CALL(tpm_, IsOwned()).WillRepeatedly(Return(true));
+  EXPECT_CALL(hwsec_, IsEnabled()).WillRepeatedly(ReturnValue(true));
+  EXPECT_CALL(hwsec_, IsReady()).WillRepeatedly(ReturnValue(true));
+  EXPECT_CALL(hwsec_, IsSealingSupported()).WillRepeatedly(ReturnValue(true));
 
   crypto_.Init();
 
@@ -1440,10 +1455,11 @@ TEST_F(KeysetManagementTest, ReSaveOnLoadTestRegularCreds) {
 
 TEST_F(KeysetManagementTest, ReSaveOnLoadTestLeCreds) {
   // SETUP
-  NiceMock<MockCryptohomeKeysManager> mock_cryptohome_keys_manager;
-  FakeLECredentialBackend fake_backend_;
+  hwsec::Tpm2SimulatorFactoryForTest factory;
+  std::unique_ptr<hwsec::PinWeaverFrontend> pinweaver =
+      factory.GetPinWeaverFrontend();
   auto le_cred_manager =
-      std::make_unique<LECredentialManagerImpl>(&fake_backend_, CredDirPath());
+      std::make_unique<LECredentialManagerImpl>(pinweaver.get(), CredDirPath());
   crypto_.set_le_manager_for_testing(std::move(le_cred_manager));
   crypto_.Init();
 
@@ -1453,24 +1469,24 @@ TEST_F(KeysetManagementTest, ReSaveOnLoadTestLeCreds) {
       keyset_management_->GetValidKeyset(users_[0].credentials);
   ASSERT_TRUE(vk0_status.ok());
 
-  EXPECT_CALL(mock_cryptohome_keys_manager, HasAnyCryptohomeKey())
+  EXPECT_CALL(cryptohome_keys_manager_, HasAnyCryptohomeKey())
       .WillRepeatedly(Return(true));
-  EXPECT_CALL(mock_cryptohome_keys_manager, Init()).WillRepeatedly(Return());
+  EXPECT_CALL(cryptohome_keys_manager_, Init()).WillRepeatedly(Return());
 
-  EXPECT_CALL(tpm_, IsEnabled()).WillRepeatedly(Return(true));
-  EXPECT_CALL(tpm_, IsOwned()).WillRepeatedly(Return(true));
+  EXPECT_CALL(hwsec_, IsEnabled()).WillRepeatedly(ReturnValue(true));
+  EXPECT_CALL(hwsec_, IsReady()).WillRepeatedly(ReturnValue(true));
 
-  fake_backend_.set_needs_pcr_binding(false);
   EXPECT_FALSE(
       keyset_management_->ShouldReSaveKeyset(vk0_status.value().get()));
 }
 
 TEST_F(KeysetManagementTest, RemoveLECredentials) {
   // SETUP
-  NiceMock<MockCryptohomeKeysManager> mock_cryptohome_keys_manager;
-  FakeLECredentialBackend fake_backend_;
+  hwsec::Tpm2SimulatorFactoryForTest factory;
+  std::unique_ptr<hwsec::PinWeaverFrontend> pinweaver =
+      factory.GetPinWeaverFrontend();
   auto le_cred_manager =
-      std::make_unique<LECredentialManagerImpl>(&fake_backend_, CredDirPath());
+      std::make_unique<LECredentialManagerImpl>(pinweaver.get(), CredDirPath());
   crypto_.set_le_manager_for_testing(std::move(le_cred_manager));
   crypto_.Init();
 
@@ -1546,10 +1562,11 @@ TEST_F(KeysetManagementTest, GetPublicMountPassKeyFail) {
 
 TEST_F(KeysetManagementTest, ResetLECredentialsAuthLocked) {
   // Setup
-  NiceMock<MockCryptohomeKeysManager> mock_cryptohome_keys_manager;
-  FakeLECredentialBackend fake_backend_;
+  hwsec::Tpm2SimulatorFactoryForTest factory;
+  std::unique_ptr<hwsec::PinWeaverFrontend> pinweaver =
+      factory.GetPinWeaverFrontend();
   auto le_cred_manager =
-      std::make_unique<LECredentialManagerImpl>(&fake_backend_, CredDirPath());
+      std::make_unique<LECredentialManagerImpl>(pinweaver.get(), CredDirPath());
   crypto_.set_le_manager_for_testing(std::move(le_cred_manager));
   crypto_.Init();
 
@@ -1577,19 +1594,17 @@ TEST_F(KeysetManagementTest, ResetLECredentialsAuthLocked) {
 
   // Test
   // Manually trigger attempts to set auth_locked to true.
-  // Note: Yes there are 6 wrong attempts, on the 6th attempt
-  // wrong_auth_attempts stops incrementing and sets auth_locked to true.
   brillo::SecureBlob wrong_key(kWrongPasskey);
   for (int iter = 0; iter < kWrongAuthAttempts; iter++) {
     EXPECT_FALSE(le_vk_status.value()->Decrypt(wrong_key, false).ok());
   }
 
   EXPECT_EQ(crypto_.GetWrongAuthAttempts(le_vk_status.value()->GetLELabel()),
-            (kWrongAuthAttempts - 1));
+            kWrongAuthAttempts);
   EXPECT_TRUE(le_vk_status.value()->GetAuthLocked());
 
   // Have a correct attempt that will reset the credentials.
-  keyset_management_->ResetLECredentials(users_[0].credentials, std::nullopt,
+  keyset_management_->ResetLECredentials(users_[0].credentials,
                                          users_[0].obfuscated);
   EXPECT_EQ(crypto_.GetWrongAuthAttempts(le_vk_status.value()->GetLELabel()),
             0);
@@ -1604,10 +1619,11 @@ TEST_F(KeysetManagementTest, ResetLECredentialsNotAuthLocked) {
   // Ensure the wrong_auth_counter is reset to 0 after a correct attempt,
   // even if auth_locked is false.
   // Setup
-  NiceMock<MockCryptohomeKeysManager> mock_cryptohome_keys_manager;
-  FakeLECredentialBackend fake_backend_;
+  hwsec::Tpm2SimulatorFactoryForTest factory;
+  std::unique_ptr<hwsec::PinWeaverFrontend> pinweaver =
+      factory.GetPinWeaverFrontend();
   auto le_cred_manager =
-      std::make_unique<LECredentialManagerImpl>(&fake_backend_, CredDirPath());
+      std::make_unique<LECredentialManagerImpl>(pinweaver.get(), CredDirPath());
   crypto_.set_le_manager_for_testing(std::move(le_cred_manager));
   crypto_.Init();
 
@@ -1645,7 +1661,7 @@ TEST_F(KeysetManagementTest, ResetLECredentialsNotAuthLocked) {
   EXPECT_FALSE(le_vk_status.value()->GetAuthLocked());
 
   // Have a correct attempt that will reset the credentials.
-  keyset_management_->ResetLECredentials(users_[0].credentials, std::nullopt,
+  keyset_management_->ResetLECredentials(users_[0].credentials,
                                          users_[0].obfuscated);
   EXPECT_EQ(crypto_.GetWrongAuthAttempts(le_vk_status.value()->GetLELabel()),
             0);
@@ -1658,10 +1674,11 @@ TEST_F(KeysetManagementTest, ResetLECredentialsNotAuthLocked) {
 
 TEST_F(KeysetManagementTest, ResetLECredentialsWrongCredential) {
   // Setup
-  NiceMock<MockCryptohomeKeysManager> mock_cryptohome_keys_manager;
-  FakeLECredentialBackend fake_backend_;
+  hwsec::Tpm2SimulatorFactoryForTest factory;
+  std::unique_ptr<hwsec::PinWeaverFrontend> pinweaver =
+      factory.GetPinWeaverFrontend();
   auto le_cred_manager =
-      std::make_unique<LECredentialManagerImpl>(&fake_backend_, CredDirPath());
+      std::make_unique<LECredentialManagerImpl>(pinweaver.get(), CredDirPath());
   crypto_.set_le_manager_for_testing(std::move(le_cred_manager));
   crypto_.Init();
 
@@ -1689,23 +1706,21 @@ TEST_F(KeysetManagementTest, ResetLECredentialsWrongCredential) {
               SerializedVaultKeyset::LE_CREDENTIAL);
 
   // Manually trigger attempts to set auth_locked to true.
-  // Note: Yes there are 6 wrong attempts, on the 6th attempt
-  // wrong_auth_attempts stops incrementing and sets auth_locked to true.
   brillo::SecureBlob wrong_key(kWrongPasskey);
   for (int iter = 0; iter < kWrongAuthAttempts; iter++) {
     EXPECT_FALSE(le_vk_status.value()->Decrypt(wrong_key, false).ok());
   }
 
   EXPECT_EQ(crypto_.GetWrongAuthAttempts(le_vk_status.value()->GetLELabel()),
-            (kWrongAuthAttempts - 1));
+            kWrongAuthAttempts);
   EXPECT_TRUE(le_vk_status.value()->GetAuthLocked());
 
   // Have an attempt that will fail to reset the credentials.
   Credentials wrong_credentials(users_[0].name, wrong_key);
-  keyset_management_->ResetLECredentials(wrong_credentials, std::nullopt,
+  keyset_management_->ResetLECredentials(wrong_credentials,
                                          users_[0].obfuscated);
   EXPECT_EQ(crypto_.GetWrongAuthAttempts(le_vk_status.value()->GetLELabel()),
-            (kWrongAuthAttempts - 1));
+            kWrongAuthAttempts);
   le_vk_status =
       keyset_management_->GetVaultKeyset(users_[0].obfuscated, kPinLabel);
   EXPECT_TRUE(le_vk_status.value()->GetFlags() &
@@ -1719,10 +1734,11 @@ TEST_F(KeysetManagementTest, ResetLECredentialsWithPreValidatedKeyset) {
   // Ensure the wrong_auth_counter is reset to 0 after a correct attempt,
   // even if auth_locked is false.
   // Setup
-  NiceMock<MockCryptohomeKeysManager> mock_cryptohome_keys_manager;
-  FakeLECredentialBackend fake_backend_;
+  hwsec::Tpm2SimulatorFactoryForTest factory;
+  std::unique_ptr<hwsec::PinWeaverFrontend> pinweaver =
+      factory.GetPinWeaverFrontend();
   auto le_cred_manager =
-      std::make_unique<LECredentialManagerImpl>(&fake_backend_, CredDirPath());
+      std::make_unique<LECredentialManagerImpl>(pinweaver.get(), CredDirPath());
   crypto_.set_le_manager_for_testing(std::move(le_cred_manager));
   crypto_.Init();
 
@@ -1759,8 +1775,8 @@ TEST_F(KeysetManagementTest, ResetLECredentialsWithPreValidatedKeyset) {
   EXPECT_FALSE(le_vk_status.value()->GetAuthLocked());
 
   // Have a correct attempt that will reset the credentials.
-  keyset_management_->ResetLECredentials(std::nullopt, *vk_status.value().get(),
-                                         users_[0].obfuscated);
+  keyset_management_->ResetLECredentialsWithValidatedVK(*vk_status.value(),
+                                                        users_[0].obfuscated);
   EXPECT_EQ(crypto_.GetWrongAuthAttempts(le_vk_status.value()->GetLELabel()),
             0);
   le_vk_status =
@@ -1776,10 +1792,11 @@ TEST_F(KeysetManagementTest, ResetLECredentialsFailsWithUnValidatedKeyset) {
   // Ensure the wrong_auth_counter is reset to 0 after a correct attempt,
   // even if auth_locked is false.
   // Setup
-  NiceMock<MockCryptohomeKeysManager> mock_cryptohome_keys_manager;
-  FakeLECredentialBackend fake_backend_;
+  hwsec::Tpm2SimulatorFactoryForTest factory;
+  std::unique_ptr<hwsec::PinWeaverFrontend> pinweaver =
+      factory.GetPinWeaverFrontend();
   auto le_cred_manager =
-      std::make_unique<LECredentialManagerImpl>(&fake_backend_, CredDirPath());
+      std::make_unique<LECredentialManagerImpl>(pinweaver.get(), CredDirPath());
   crypto_.set_le_manager_for_testing(std::move(le_cred_manager));
   crypto_.Init();
 
@@ -1817,8 +1834,8 @@ TEST_F(KeysetManagementTest, ResetLECredentialsFailsWithUnValidatedKeyset) {
 
   // Have an attempt that will fail to reset the credentials.
   VaultKeyset wrong_vk;
-  keyset_management_->ResetLECredentials(std::nullopt, wrong_vk,
-                                         users_[0].obfuscated);
+  keyset_management_->ResetLECredentialsWithValidatedVK(wrong_vk,
+                                                        users_[0].obfuscated);
   EXPECT_EQ(crypto_.GetWrongAuthAttempts(le_vk_status.value()->GetLELabel()),
             (kWrongAuthAttempts - 1));
   le_vk_status =
@@ -2239,6 +2256,33 @@ TEST_F(KeysetManagementTest, GetVaultKeysetLabelsAndDataLoadFail) {
       users_[0].obfuscated, &labels_and_data_map));
 
   Mock::VerifyAndClearExpectations(mock_vault_keyset_factory_);
+}
+
+// Test that GetVaultKeysetLabelsAndData() backfills a missing KeyData in
+// keysets, but doesn't populate any fields in it.
+TEST_F(KeysetManagementTest, GetVaultKeysetLabelsAndDataNoKeyData) {
+  constexpr char kFakeLabel[] = "legacy-123";
+  constexpr int kVaultFilePermissions = 0600;
+
+  // Setup a fake vk file, but we will not read the content.
+  platform_.WriteFileAtomicDurable(
+      users_[0].homedir_path.Append(kKeyFile).AddExtension("0"), brillo::Blob(),
+      kVaultFilePermissions);
+
+  auto mock_vk = new NiceMock<MockVaultKeyset>();
+  EXPECT_CALL(*mock_vault_keyset_factory_, New(_, _)).WillOnce(Return(mock_vk));
+  EXPECT_CALL(*mock_vk, Load(_)).WillOnce(Return(true));
+  EXPECT_CALL(*mock_vk, GetLabel()).WillRepeatedly(Return(kFakeLabel));
+
+  // Test
+  std::map<std::string, KeyData> labels_and_data_map;
+  EXPECT_TRUE(keyset_management_->GetVaultKeysetLabelsAndData(
+      users_[0].obfuscated, &labels_and_data_map));
+  ASSERT_EQ(labels_and_data_map.size(), 1);
+  const auto& [label, key_data] = *labels_and_data_map.begin();
+  EXPECT_EQ(label, kFakeLabel);
+  EXPECT_FALSE(key_data.has_type());
+  EXPECT_FALSE(key_data.has_label());
 }
 
 // TODO(b/205759690, dlunev): can be removed after a stepping stone release.

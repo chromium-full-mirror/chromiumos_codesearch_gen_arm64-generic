@@ -18,8 +18,8 @@
 #include "base/hash/md5_constexpr.h"
 #include "base/run_loop.h"
 #include "base/strings/string_number_conversions.h"
-#include "base/task/common/task_annotator.h"
-#include "base/trace_event/base_tracing.h"
+#include "base/trace_event/trace_event.h"
+#include "base/trace_event/typed_macros.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
 #include "mojo/public/cpp/bindings/lib/send_message_helper.h"
@@ -30,6 +30,7 @@
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/mojo_buildflags.h"
 #include "mojo/public/interfaces/bindings/interface_control_messages.mojom.h"
+#include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
 #include "ml/mojom/soda.mojom-params-data.h"
 #include "ml/mojom/soda.mojom-shared-message-ids.h"
@@ -115,9 +116,9 @@ size_t SodaConfig::Hash(size_t seed) const {
 }
 
 void SodaConfig::WriteIntoTrace(
-    perfetto::libchrome::TracedValue traced_context) const {
-  auto dict = std::move(traced_context).WriteDictionary();
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "channel_count"), this->channel_count,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -126,7 +127,7 @@ void SodaConfig::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "sample_rate"), this->sample_rate,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -135,7 +136,7 @@ void SodaConfig::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "api_key"), this->api_key,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -144,7 +145,7 @@ void SodaConfig::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "library_dlc_path"), this->library_dlc_path,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -153,7 +154,7 @@ void SodaConfig::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "language_dlc_path"), this->language_dlc_path,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -162,7 +163,7 @@ void SodaConfig::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "enable_formatting"), this->enable_formatting,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -171,7 +172,7 @@ void SodaConfig::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "recognition_mode"), this->recognition_mode,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -215,9 +216,9 @@ TimingInfo::TimingInfo(
 TimingInfo::~TimingInfo() = default;
 
 void TimingInfo::WriteIntoTrace(
-    perfetto::libchrome::TracedValue traced_context) const {
-  auto dict = std::move(traced_context).WriteDictionary();
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "audio_start_epoch"), this->audio_start_epoch,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -226,7 +227,7 @@ void TimingInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "audio_start_time"), this->audio_start_time,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -235,7 +236,7 @@ void TimingInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "elapsed_wall_time"), this->elapsed_wall_time,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -244,7 +245,7 @@ void TimingInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "event_end_time"), this->event_end_time,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -253,7 +254,7 @@ void TimingInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "latency"), this->latency,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -262,7 +263,7 @@ void TimingInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "normalized_latency"), this->normalized_latency,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -271,7 +272,7 @@ void TimingInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "word_alignments"), this->word_alignments,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -300,9 +301,9 @@ EndpointerEvent::EndpointerEvent(
 EndpointerEvent::~EndpointerEvent() = default;
 
 void EndpointerEvent::WriteIntoTrace(
-    perfetto::libchrome::TracedValue traced_context) const {
-  auto dict = std::move(traced_context).WriteDictionary();
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "endpointer_type"), this->endpointer_type,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -311,7 +312,7 @@ void EndpointerEvent::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "timing_event"), this->timing_event,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -340,9 +341,9 @@ PartialResult::PartialResult(
 PartialResult::~PartialResult() = default;
 
 void PartialResult::WriteIntoTrace(
-    perfetto::libchrome::TracedValue traced_context) const {
-  auto dict = std::move(traced_context).WriteDictionary();
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "partial_text"), this->partial_text,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -351,7 +352,7 @@ void PartialResult::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "timing_event"), this->timing_event,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -380,9 +381,9 @@ HypothesisPartInResult::HypothesisPartInResult(
 HypothesisPartInResult::~HypothesisPartInResult() = default;
 
 void HypothesisPartInResult::WriteIntoTrace(
-    perfetto::libchrome::TracedValue traced_context) const {
-  auto dict = std::move(traced_context).WriteDictionary();
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "text"), this->text,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -391,7 +392,7 @@ void HypothesisPartInResult::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "alignment"), this->alignment,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -435,9 +436,9 @@ FinalResult::FinalResult(
 FinalResult::~FinalResult() = default;
 
 void FinalResult::WriteIntoTrace(
-    perfetto::libchrome::TracedValue traced_context) const {
-  auto dict = std::move(traced_context).WriteDictionary();
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "final_hypotheses"), this->final_hypotheses,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -446,7 +447,7 @@ void FinalResult::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "endpoint_reason"), this->endpoint_reason,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -455,7 +456,7 @@ void FinalResult::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "timing_event"), this->timing_event,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -464,7 +465,7 @@ void FinalResult::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "hypothesis_part"), this->hypothesis_part,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -498,9 +499,9 @@ size_t AudioLevelEvent::Hash(size_t seed) const {
 }
 
 void AudioLevelEvent::WriteIntoTrace(
-    perfetto::libchrome::TracedValue traced_context) const {
-  auto dict = std::move(traced_context).WriteDictionary();
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "rms"), this->rms,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -509,7 +510,7 @@ void AudioLevelEvent::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::libchrome::WriteIntoTracedValueWithFallback(
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "audio_level"), this->audio_level,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -525,7 +526,7 @@ bool AudioLevelEvent::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
-SpeechRecognizerEvent::SpeechRecognizerEvent() : tag_(Tag::AUDIO_EVENT) {
+SpeechRecognizerEvent::SpeechRecognizerEvent() : tag_(Tag::kAudioEvent) {
   data_.audio_event = new AudioLevelEventPtr;
 }
 
@@ -536,44 +537,44 @@ SpeechRecognizerEvent::~SpeechRecognizerEvent() {
 
 void SpeechRecognizerEvent::set_audio_event(
     AudioLevelEventPtr audio_event) {
-  if (tag_ == Tag::AUDIO_EVENT) {
+  if (tag_ == Tag::kAudioEvent) {
     *(data_.audio_event) = std::move(audio_event);
   } else {
     DestroyActive();
-    tag_ = Tag::AUDIO_EVENT;
+    tag_ = Tag::kAudioEvent;
     data_.audio_event = new AudioLevelEventPtr(
         std::move(audio_event));
   }
 }
 void SpeechRecognizerEvent::set_partial_result(
     PartialResultPtr partial_result) {
-  if (tag_ == Tag::PARTIAL_RESULT) {
+  if (tag_ == Tag::kPartialResult) {
     *(data_.partial_result) = std::move(partial_result);
   } else {
     DestroyActive();
-    tag_ = Tag::PARTIAL_RESULT;
+    tag_ = Tag::kPartialResult;
     data_.partial_result = new PartialResultPtr(
         std::move(partial_result));
   }
 }
 void SpeechRecognizerEvent::set_endpointer_event(
     EndpointerEventPtr endpointer_event) {
-  if (tag_ == Tag::ENDPOINTER_EVENT) {
+  if (tag_ == Tag::kEndpointerEvent) {
     *(data_.endpointer_event) = std::move(endpointer_event);
   } else {
     DestroyActive();
-    tag_ = Tag::ENDPOINTER_EVENT;
+    tag_ = Tag::kEndpointerEvent;
     data_.endpointer_event = new EndpointerEventPtr(
         std::move(endpointer_event));
   }
 }
 void SpeechRecognizerEvent::set_final_result(
     FinalResultPtr final_result) {
-  if (tag_ == Tag::FINAL_RESULT) {
+  if (tag_ == Tag::kFinalResult) {
     *(data_.final_result) = std::move(final_result);
   } else {
     DestroyActive();
-    tag_ = Tag::FINAL_RESULT;
+    tag_ = Tag::kFinalResult;
     data_.final_result = new FinalResultPtr(
         std::move(final_result));
   }
@@ -582,19 +583,19 @@ void SpeechRecognizerEvent::set_final_result(
 void SpeechRecognizerEvent::DestroyActive() {
   switch (tag_) {
 
-    case Tag::AUDIO_EVENT:
+    case Tag::kAudioEvent:
 
       delete data_.audio_event;
       break;
-    case Tag::PARTIAL_RESULT:
+    case Tag::kPartialResult:
 
       delete data_.partial_result;
       break;
-    case Tag::ENDPOINTER_EVENT:
+    case Tag::kEndpointerEvent:
 
       delete data_.endpointer_event;
       break;
-    case Tag::FINAL_RESULT:
+    case Tag::kFinalResult:
 
       delete data_.final_result;
       break;
@@ -607,6 +608,61 @@ bool SpeechRecognizerEvent::Validate(
   return Data_::Validate(data, validation_context, false);
 }
 const char SodaClient::Name_[] = "chromeos.machine_learning.mojom.SodaClient";
+
+uint32_t SodaClient::MessageToStableIPCHash_(mojo::Message& message) {
+  switch (message.name()) {
+    case internal::kSodaClient_OnStart_Name: {
+      constexpr uint32_t value = base::MD5Hash32Constexpr(
+              "(Impl)chromeos::machine_learning::mojom::SodaClient::OnStart");
+      return value;
+    }
+    case internal::kSodaClient_OnStop_Name: {
+      constexpr uint32_t value = base::MD5Hash32Constexpr(
+              "(Impl)chromeos::machine_learning::mojom::SodaClient::OnStop");
+      return value;
+    }
+    case internal::kSodaClient_OnSpeechRecognizerEvent_Name: {
+      constexpr uint32_t value = base::MD5Hash32Constexpr(
+              "(Impl)chromeos::machine_learning::mojom::SodaClient::OnSpeechRecognizerEvent");
+      return value;
+    }
+  }
+  return 0;
+}
+
+
+const char* SodaClient::MessageToMethodName_(mojo::Message& message) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (!is_response) {
+    switch (message.name()) {
+      case internal::kSodaClient_OnStart_Name:
+            return "Receive chromeos::machine_learning::mojom::SodaClient::OnStart";
+      case internal::kSodaClient_OnStop_Name:
+            return "Receive chromeos::machine_learning::mojom::SodaClient::OnStop";
+      case internal::kSodaClient_OnSpeechRecognizerEvent_Name:
+            return "Receive chromeos::machine_learning::mojom::SodaClient::OnSpeechRecognizerEvent";
+    }
+  } else {
+    switch (message.name()) {
+      case internal::kSodaClient_OnStart_Name:
+            return "Receive reply chromeos::machine_learning::mojom::SodaClient::OnStart";
+      case internal::kSodaClient_OnStop_Name:
+            return "Receive reply chromeos::machine_learning::mojom::SodaClient::OnStop";
+      case internal::kSodaClient_OnSpeechRecognizerEvent_Name:
+            return "Receive reply chromeos::machine_learning::mojom::SodaClient::OnSpeechRecognizerEvent";
+    }
+  }
+  return "Receive unknown mojo message";
+#else
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (is_response) {
+    return "Receive mojo reply";
+  } else {
+    return "Receive mojo message";
+  }
+#endif // BUILDFLAG(MOJO_TRACE_ENABLED)
+}
 
 SodaClientProxy::SodaClientProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
@@ -677,9 +733,9 @@ void SodaClientProxy::OnSpeechRecognizerEvent(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send chromeos::machine_learning::mojom::SodaClient::OnSpeechRecognizerEvent", "input_parameters",
-    [&](perfetto::libchrome::TracedValue context){
+    [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto::libchrome::WriteIntoTracedValueWithFallback(
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("event"), in_event,
                         "<value of type SpeechRecognizerEventPtr>");
    });
@@ -724,15 +780,6 @@ bool SodaClientStubDispatch::Accept(
     mojo::Message* message) {
   switch (message->header()->name) {
     case internal::kSodaClient_OnStart_Name: {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      TRACE_EVENT(
-          "toplevel",
-          "Receive chromeos::machine_learning::mojom::SodaClient::OnStart",
-          perfetto::libchrome::Flow::Global(message->GetTraceId()));
-#endif
-      static constexpr uint32_t kMessageHash = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::machine_learning::mojom::SodaClient::OnStart");
-      base::TaskAnnotator::ScopedSetIpcHash scoped_ipc_hash(kMessageHash);
 
       DCHECK(message->is_serialized());
       internal::SodaClient_OnStart_Params_Data* params =
@@ -755,15 +802,6 @@ bool SodaClientStubDispatch::Accept(
       return true;
     }
     case internal::kSodaClient_OnStop_Name: {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      TRACE_EVENT(
-          "toplevel",
-          "Receive chromeos::machine_learning::mojom::SodaClient::OnStop",
-          perfetto::libchrome::Flow::Global(message->GetTraceId()));
-#endif
-      static constexpr uint32_t kMessageHash = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::machine_learning::mojom::SodaClient::OnStop");
-      base::TaskAnnotator::ScopedSetIpcHash scoped_ipc_hash(kMessageHash);
 
       DCHECK(message->is_serialized());
       internal::SodaClient_OnStop_Params_Data* params =
@@ -786,15 +824,6 @@ bool SodaClientStubDispatch::Accept(
       return true;
     }
     case internal::kSodaClient_OnSpeechRecognizerEvent_Name: {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      TRACE_EVENT(
-          "toplevel",
-          "Receive chromeos::machine_learning::mojom::SodaClient::OnSpeechRecognizerEvent",
-          perfetto::libchrome::Flow::Global(message->GetTraceId()));
-#endif
-      static constexpr uint32_t kMessageHash = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::machine_learning::mojom::SodaClient::OnSpeechRecognizerEvent");
-      base::TaskAnnotator::ScopedSetIpcHash scoped_ipc_hash(kMessageHash);
 
       DCHECK(message->is_serialized());
       internal::SodaClient_OnSpeechRecognizerEvent_Params_Data* params =
@@ -863,6 +892,70 @@ bool SodaClientRequestValidator::Accept(mojo::Message* message) {
 
 const char SodaRecognizer::Name_[] = "chromeos.machine_learning.mojom.SodaRecognizer";
 
+uint32_t SodaRecognizer::MessageToStableIPCHash_(mojo::Message& message) {
+  switch (message.name()) {
+    case internal::kSodaRecognizer_AddAudio_Name: {
+      constexpr uint32_t value = base::MD5Hash32Constexpr(
+              "(Impl)chromeos::machine_learning::mojom::SodaRecognizer::AddAudio");
+      return value;
+    }
+    case internal::kSodaRecognizer_Stop_Name: {
+      constexpr uint32_t value = base::MD5Hash32Constexpr(
+              "(Impl)chromeos::machine_learning::mojom::SodaRecognizer::Stop");
+      return value;
+    }
+    case internal::kSodaRecognizer_Start_Name: {
+      constexpr uint32_t value = base::MD5Hash32Constexpr(
+              "(Impl)chromeos::machine_learning::mojom::SodaRecognizer::Start");
+      return value;
+    }
+    case internal::kSodaRecognizer_MarkDone_Name: {
+      constexpr uint32_t value = base::MD5Hash32Constexpr(
+              "(Impl)chromeos::machine_learning::mojom::SodaRecognizer::MarkDone");
+      return value;
+    }
+  }
+  return 0;
+}
+
+
+const char* SodaRecognizer::MessageToMethodName_(mojo::Message& message) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (!is_response) {
+    switch (message.name()) {
+      case internal::kSodaRecognizer_AddAudio_Name:
+            return "Receive chromeos::machine_learning::mojom::SodaRecognizer::AddAudio";
+      case internal::kSodaRecognizer_Stop_Name:
+            return "Receive chromeos::machine_learning::mojom::SodaRecognizer::Stop";
+      case internal::kSodaRecognizer_Start_Name:
+            return "Receive chromeos::machine_learning::mojom::SodaRecognizer::Start";
+      case internal::kSodaRecognizer_MarkDone_Name:
+            return "Receive chromeos::machine_learning::mojom::SodaRecognizer::MarkDone";
+    }
+  } else {
+    switch (message.name()) {
+      case internal::kSodaRecognizer_AddAudio_Name:
+            return "Receive reply chromeos::machine_learning::mojom::SodaRecognizer::AddAudio";
+      case internal::kSodaRecognizer_Stop_Name:
+            return "Receive reply chromeos::machine_learning::mojom::SodaRecognizer::Stop";
+      case internal::kSodaRecognizer_Start_Name:
+            return "Receive reply chromeos::machine_learning::mojom::SodaRecognizer::Start";
+      case internal::kSodaRecognizer_MarkDone_Name:
+            return "Receive reply chromeos::machine_learning::mojom::SodaRecognizer::MarkDone";
+    }
+  }
+  return "Receive unknown mojo message";
+#else
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (is_response) {
+    return "Receive mojo reply";
+  } else {
+    return "Receive mojo message";
+  }
+#endif // BUILDFLAG(MOJO_TRACE_ENABLED)
+}
+
 SodaRecognizerProxy::SodaRecognizerProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
 }
@@ -872,9 +965,9 @@ void SodaRecognizerProxy::AddAudio(
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send chromeos::machine_learning::mojom::SodaRecognizer::AddAudio", "input_parameters",
-    [&](perfetto::libchrome::TracedValue context){
+    [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
-      perfetto::libchrome::WriteIntoTracedValueWithFallback(
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("audio"), in_audio,
                         "<value of type const std::vector<uint8_t>&>");
    });
@@ -1013,15 +1106,6 @@ bool SodaRecognizerStubDispatch::Accept(
     mojo::Message* message) {
   switch (message->header()->name) {
     case internal::kSodaRecognizer_AddAudio_Name: {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      TRACE_EVENT(
-          "toplevel",
-          "Receive chromeos::machine_learning::mojom::SodaRecognizer::AddAudio",
-          perfetto::libchrome::Flow::Global(message->GetTraceId()));
-#endif
-      static constexpr uint32_t kMessageHash = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::machine_learning::mojom::SodaRecognizer::AddAudio");
-      base::TaskAnnotator::ScopedSetIpcHash scoped_ipc_hash(kMessageHash);
 
       DCHECK(message->is_serialized());
       internal::SodaRecognizer_AddAudio_Params_Data* params =
@@ -1048,15 +1132,6 @@ std::move(p_audio));
       return true;
     }
     case internal::kSodaRecognizer_Stop_Name: {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      TRACE_EVENT(
-          "toplevel",
-          "Receive chromeos::machine_learning::mojom::SodaRecognizer::Stop",
-          perfetto::libchrome::Flow::Global(message->GetTraceId()));
-#endif
-      static constexpr uint32_t kMessageHash = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::machine_learning::mojom::SodaRecognizer::Stop");
-      base::TaskAnnotator::ScopedSetIpcHash scoped_ipc_hash(kMessageHash);
 
       DCHECK(message->is_serialized());
       internal::SodaRecognizer_Stop_Params_Data* params =
@@ -1079,15 +1154,6 @@ std::move(p_audio));
       return true;
     }
     case internal::kSodaRecognizer_Start_Name: {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      TRACE_EVENT(
-          "toplevel",
-          "Receive chromeos::machine_learning::mojom::SodaRecognizer::Start",
-          perfetto::libchrome::Flow::Global(message->GetTraceId()));
-#endif
-      static constexpr uint32_t kMessageHash = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::machine_learning::mojom::SodaRecognizer::Start");
-      base::TaskAnnotator::ScopedSetIpcHash scoped_ipc_hash(kMessageHash);
 
       DCHECK(message->is_serialized());
       internal::SodaRecognizer_Start_Params_Data* params =
@@ -1110,15 +1176,6 @@ std::move(p_audio));
       return true;
     }
     case internal::kSodaRecognizer_MarkDone_Name: {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      TRACE_EVENT(
-          "toplevel",
-          "Receive chromeos::machine_learning::mojom::SodaRecognizer::MarkDone",
-          perfetto::libchrome::Flow::Global(message->GetTraceId()));
-#endif
-      static constexpr uint32_t kMessageHash = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::machine_learning::mojom::SodaRecognizer::MarkDone");
-      base::TaskAnnotator::ScopedSetIpcHash scoped_ipc_hash(kMessageHash);
 
       DCHECK(message->is_serialized());
       internal::SodaRecognizer_MarkDone_Params_Data* params =
@@ -1339,7 +1396,7 @@ bool UnionTraits<::chromeos::machine_learning::mojom::SpeechRecognizerEvent::Dat
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
-    case Tag::AUDIO_EVENT: {
+    case Tag::kAudioEvent: {
       ::chromeos::machine_learning::mojom::AudioLevelEventPtr result_audio_event;
       if (!input.ReadAudioEvent(&result_audio_event))
         return false;
@@ -1348,7 +1405,7 @@ bool UnionTraits<::chromeos::machine_learning::mojom::SpeechRecognizerEvent::Dat
           std::move(result_audio_event));
       break;
     }
-    case Tag::PARTIAL_RESULT: {
+    case Tag::kPartialResult: {
       ::chromeos::machine_learning::mojom::PartialResultPtr result_partial_result;
       if (!input.ReadPartialResult(&result_partial_result))
         return false;
@@ -1357,7 +1414,7 @@ bool UnionTraits<::chromeos::machine_learning::mojom::SpeechRecognizerEvent::Dat
           std::move(result_partial_result));
       break;
     }
-    case Tag::ENDPOINTER_EVENT: {
+    case Tag::kEndpointerEvent: {
       ::chromeos::machine_learning::mojom::EndpointerEventPtr result_endpointer_event;
       if (!input.ReadEndpointerEvent(&result_endpointer_event))
         return false;
@@ -1366,7 +1423,7 @@ bool UnionTraits<::chromeos::machine_learning::mojom::SpeechRecognizerEvent::Dat
           std::move(result_endpointer_event));
       break;
     }
-    case Tag::FINAL_RESULT: {
+    case Tag::kFinalResult: {
       ::chromeos::machine_learning::mojom::FinalResultPtr result_final_result;
       if (!input.ReadFinalResult(&result_final_result))
         return false;

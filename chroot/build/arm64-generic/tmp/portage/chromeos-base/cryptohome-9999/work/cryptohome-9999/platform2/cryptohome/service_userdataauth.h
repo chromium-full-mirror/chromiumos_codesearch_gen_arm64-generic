@@ -342,6 +342,26 @@ class UserDataAuthAdaptor
           user_data_auth::RemoveAuthFactorReply>> response,
       const user_data_auth::RemoveAuthFactorRequest& in_request);
 
+  void ListAuthFactors(
+      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<
+          user_data_auth::ListAuthFactorsReply>> response,
+      const user_data_auth::ListAuthFactorsRequest& in_request) override;
+
+  void DoListAuthFactors(
+      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<
+          user_data_auth::ListAuthFactorsReply>> response,
+      const user_data_auth::ListAuthFactorsRequest& in_request);
+
+  void PrepareAsyncAuthFactor(
+      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<
+          user_data_auth::PrepareAsyncAuthFactorReply>> response,
+      const user_data_auth::PrepareAsyncAuthFactorRequest& in_request) override;
+
+  void DoPrepareAsyncAuthFactor(
+      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<
+          user_data_auth::PrepareAsyncAuthFactorReply>> response,
+      const user_data_auth::PrepareAsyncAuthFactorRequest& in_request);
+
   void AuthenticateAuthFactor(
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<
           user_data_auth::AuthenticateAuthFactorReply>> response,
@@ -428,10 +448,6 @@ class ArcQuotaAdaptor : public org::chromium::ArcQuotaInterface,
           user_data_auth::GetCurrentSpaceForArcProjectIdReply>> response,
       const user_data_auth::GetCurrentSpaceForArcProjectIdRequest& in_request)
       override;
-  void SetProjectId(
-      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<
-          user_data_auth::SetProjectIdReply>> response,
-      const user_data_auth::SetProjectIdRequest& in_request) override;
   void SetMediaRWDataFileProjectId(
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<
           user_data_auth::SetMediaRWDataFileProjectIdReply>> response,

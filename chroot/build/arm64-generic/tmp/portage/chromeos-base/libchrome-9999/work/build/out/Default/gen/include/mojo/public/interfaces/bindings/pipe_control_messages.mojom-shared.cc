@@ -12,10 +12,10 @@
 #include <utility>
 
 #include "base/strings/stringprintf.h"
-#include "base/trace_event/base_tracing.h"
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/lib/validation_util.h"
+#include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
 #include "mojo/public/interfaces/bindings/pipe_control_messages.mojom-params-data.h"
 namespace mojo {
@@ -49,7 +49,7 @@ bool RunOrClosePipeInput_Data::Validate(
 
   switch (object->tag) {
 
-    case RunOrClosePipeInput_Tag::PEER_ASSOCIATED_ENDPOINT_CLOSED_EVENT: {
+    case RunOrClosePipeInput_Tag::kPeerAssociatedEndpointClosedEvent: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_peer_associated_endpoint_closed_event, 1, validation_context)) {
@@ -59,7 +59,7 @@ bool RunOrClosePipeInput_Data::Validate(
         return false;
       return true;
     }
-    case RunOrClosePipeInput_Tag::PAUSE_UNTIL_FLUSH_COMPLETES: {
+    case RunOrClosePipeInput_Tag::kPauseUntilFlushCompletes: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_pause_until_flush_completes, 2, validation_context)) {
@@ -69,7 +69,7 @@ bool RunOrClosePipeInput_Data::Validate(
         return false;
       return true;
     }
-    case RunOrClosePipeInput_Tag::FLUSH_ASYNC: {
+    case RunOrClosePipeInput_Tag::kFlushAsync: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_flush_async, 3, validation_context)) {

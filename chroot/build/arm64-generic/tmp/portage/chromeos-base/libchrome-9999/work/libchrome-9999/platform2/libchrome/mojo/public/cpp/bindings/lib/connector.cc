@@ -19,10 +19,12 @@
 #include "base/rand_util.h"
 #include "base/run_loop.h"
 #include "base/strings/strcat.h"
+#include "base/strings/string_util.h"
 #include "base/synchronization/lock.h"
 #include "base/task/current_thread.h"
 #include "base/threading/sequence_local_storage_slot.h"
-#include "base/trace_event/base_tracing.h"
+#include "base/trace_event/trace_event.h"
+#include "base/trace_event/typed_macros.h"
 #include "mojo/public/c/system/quota.h"
 #include "mojo/public/cpp/bindings/features.h"
 #include "mojo/public/cpp/bindings/lib/may_auto_lock.h"
@@ -31,9 +33,7 @@
 #include "mojo/public/cpp/bindings/sync_handle_watcher.h"
 #include "mojo/public/cpp/bindings/tracing_helpers.h"
 #include "mojo/public/cpp/system/wait.h"
-#if defined(ENABLE_BASE_TRACING)
 #include "third_party/perfetto/protos/perfetto/trace/track_event/chrome_mojo_event_info.pbzero.h"
-#endif
 
 #if defined(ENABLE_IPC_FUZZER)
 #include "mojo/public/cpp/bindings/message_dumper.h"
@@ -157,7 +157,11 @@ Connector::Connector(ScopedMessagePipeHandle message_pipe,
       force_immediate_dispatch_(!EnableTaskPerMessage()),
       outgoing_serialization_mode_(g_default_outgoing_serialization_mode),
       incoming_serialization_mode_(g_default_incoming_serialization_mode),
-      interface_name_(interface_name) {
+      interface_name_(interface_name),
+      header_validator_(
+          base::JoinString({interface_name ? interface_name : "Generic",
+                            "MessageHeaderValidator"},
+                           "")) {
   if (config == MULTI_THREADED_SEND)
     lock_.emplace();
 
@@ -266,14 +270,13 @@ bool Connector::WaitForIncomingMessage() {
     return false;
   }
 
-  Message message;
-  if ((rv = ReadMessage(&message)) != MOJO_RESULT_OK) {
+  ScopedMessageHandle message;
+  if ((rv = ReadMessage(message)) != MOJO_RESULT_OK) {
     HandleError(rv != MOJO_RESULT_FAILED_PRECONDITION /* force_pipe_reset */,
                 false /* force_async_handler */);
     return false;
   }
 
-  DCHECK(!message.IsNull());
   return DispatchMessage(std::move(message));
 }
 
@@ -411,6 +414,10 @@ void Connector::OverrideDefaultSerializationBehaviorForTesting(
   g_default_incoming_serialization_mode = incoming_mode;
 }
 
+bool Connector::SimulateReadMessage(ScopedMessageHandle message) {
+  return DispatchMessage(std::move(message));
+}
+
 void Connector::OnWatcherHandleReady(MojoResult result) {
   OnHandleReadyInternal(result);
 }
@@ -489,34 +496,29 @@ uint64_t Connector::QueryPendingMessageCount() const {
   return pending_message_count;
 }
 
-MojoResult Connector::ReadMessage(Message* message) {
-  ScopedMessageHandle handle;
-  MojoResult result =
-      ReadMessageNew(message_pipe_.get(), &handle, MOJO_READ_MESSAGE_FLAG_NONE);
-  if (result != MOJO_RESULT_OK)
-    return result;
+MojoResult Connector::ReadMessage(ScopedMessageHandle& message) {
+  return ReadMessageNew(message_pipe_.get(), &message,
+                        MOJO_READ_MESSAGE_FLAG_NONE);
+}
 
-  *message = Message::CreateFromMessageHandle(&handle);
-  if (message->IsNull()) {
-    // Even if the read was successful, the Message may still be null if there
-    // was a problem extracting handles from it. We treat this essentially as
-    // a bad IPC because we don't really have a better option.
-    //
-    // We include |interface_name_| in the error message since it usually
-    // (via this Connector's owner) provides useful information about which
-    // binding interface is using this Connector.
+bool Connector::DispatchMessage(ScopedMessageHandle handle) {
+  DCHECK(!paused_);
+
+  Message message = Message::CreateFromMessageHandle(&handle);
+  if (message.IsNull()) {
+    // If the Message is null, there was a problem extracting handles from it.
     NotifyBadMessage(
         handle.get(),
         base::StrCat({interface_name_,
                       " One or more handle attachments were invalid."}));
-    return MOJO_RESULT_ABORTED;
+    HandleError(/*force_pipe_reset=*/true, /*force_async_handler=*/false);
+    return false;
   }
 
-  return MOJO_RESULT_OK;
-}
-
-bool Connector::DispatchMessage(Message message) {
-  DCHECK(!paused_);
+  if (!header_validator_.Accept(&message)) {
+    HandleError(/*force_pipe_reset=*/true, /*force_async_handler=*/false);
+    return false;
+  }
 
   base::WeakPtr<Connector> weak_self = weak_self_;
   absl::optional<ActiveDispatchTracker> dispatch_tracker;
@@ -537,9 +539,11 @@ bool Connector::DispatchMessage(Message message) {
   // the category is "toplevel" if full tracing isn't available. If it's
   // available, it's emitted under "disabled-by-default-mojom" for debugging
   // purposes.
+  // TODO(altimin): This event is temporarily kept as a debug fallback. Remove
+  // it once the new implementation proves to be stable.
   TRACE_EVENT(
-      TRACE_CATEGORY_OR_DISABLED_BY_DEFAULT_MOJOM("toplevel"),
-      "Connector::DispatchMessage", [&](perfetto::libchrome::EventContext& ctx) {
+      TRACE_DISABLED_BY_DEFAULT("mojom"), "Connector::DispatchMessage",
+      [&](perfetto_libchrome::EventContext& ctx) {
         ctx.event()->set_chrome_mojo_event_info()->set_mojo_interface_tag(
             interface_name_);
 
@@ -548,7 +552,7 @@ bool Connector::DispatchMessage(Message message) {
         if (!*flow_enabled)
           return;
 
-        perfetto::libchrome::Flow::Global(message.GetTraceId())(ctx);
+        perfetto_libchrome::Flow::Global(message.GetTraceId())(ctx);
       });
 
   if (connection_group_)
@@ -606,12 +610,11 @@ void Connector::ReadAllAvailableMessages() {
   base::WeakPtr<Connector> weak_self = weak_self_;
 
   do {
-    Message message;
-    MojoResult rv = ReadMessage(&message);
+    ScopedMessageHandle message;
+    MojoResult rv = ReadMessage(message);
 
     switch (rv) {
       case MOJO_RESULT_OK:
-        DCHECK(!message.IsNull());
         if (!DispatchMessage(std::move(message)) || !weak_self || paused_) {
           return;
         }

@@ -25,7 +25,6 @@
 #include <libhwsec-foundation/crypto/secure_blob_util.h>
 #include <libhwsec-foundation/crypto/sha.h>
 
-#include "cryptohome/auth_blocks/auth_block_state.h"
 #include "cryptohome/auth_blocks/auth_block_utils.h"
 #include "cryptohome/auth_blocks/challenge_credential_auth_block.h"
 #include "cryptohome/auth_blocks/double_wrapped_compat_auth_block.h"
@@ -39,12 +38,12 @@
 #include "cryptohome/cryptohome_metrics.h"
 #include "cryptohome/error/converter.h"
 #include "cryptohome/error/location_utils.h"
+#include "cryptohome/flatbuffer_schemas/auth_block_state.h"
 #include "cryptohome/key_objects.h"
 #include "cryptohome/le_credential_manager.h"
 #include "cryptohome/platform.h"
 #include "cryptohome/signature_sealing/structures_proto.h"
 #include "cryptohome/storage/file_system_keyset.h"
-#include "cryptohome/tpm.h"
 #include "cryptohome/vault_keyset.pb.h"
 
 using base::FilePath;
@@ -194,8 +193,6 @@ void VaultKeyset::CreateRandomResetSeed() {
 
 void VaultKeyset::CreateFromFileSystemKeyset(
     const FileSystemKeyset& file_system_keyset) {
-  CHECK(crypto_);
-
   fek_ = file_system_keyset.Key().fek;
   fek_salt_ = file_system_keyset.Key().fek_salt;
   fnek_ = file_system_keyset.Key().fnek;
@@ -322,8 +319,8 @@ CryptoStatus VaultKeyset::Decrypt(const SecureBlob& key,
 
   if (CryptoStatus status = DecryptVaultKeyset(key, locked_to_single_user);
       !status.ok()) {
-    if (IsLECredential() &&
-        status->local_crypto_error() == CryptoError::CE_TPM_DEFEND_LOCK) {
+    if (status->local_crypto_error() == CryptoError::CE_CREDENTIAL_LOCKED &&
+        !auth_locked_) {
       // For LE credentials, if decrypting the keyset failed due to too many
       // attempts, set auth_locked=true in the keyset. Then save it for future
       // callers who can Load it w/o Decrypt'ing to check that flag.
@@ -719,8 +716,13 @@ CryptoStatus VaultKeyset::UnwrapVaultKeyset(
     const bool tpm_backed =
         (serialized.flags() & SerializedVaultKeyset::TPM_WRAPPED) ||
         (serialized.flags() & SerializedVaultKeyset::LE_CREDENTIAL);
-    if (tpm_backed && crypto_->tpm() != nullptr) {
-      crypto_->tpm()->DeclareTpmFirmwareStable();
+    if (tpm_backed) {
+      if (hwsec::Status status =
+              crypto_->GetHwsec()->DeclareTpmFirmwareStable();
+          !status.ok()) {
+        LOG(WARNING) << "Failed to declare TPM firmware stable: "
+                     << std::move(status);
+      }
     }
   }
   return return_status;
@@ -1134,7 +1136,8 @@ std::unique_ptr<SyncAuthBlock> VaultKeyset::GetAuthBlockForCreation() const {
     ReportCreateAuthBlock(AuthBlockType::kChallengeCredential);
     return std::make_unique<ChallengeCredentialAuthBlock>();
   }
-  bool use_tpm = crypto_->tpm() && crypto_->tpm()->IsOwned();
+  hwsec::StatusOr<bool> is_ready = crypto_->GetHwsec()->IsReady();
+  bool use_tpm = is_ready.ok() && is_ready.value();
   bool with_user_auth = crypto_->CanUnsealWithUserAuth();
   bool has_ecc_key = crypto_->cryptohome_keys_manager() &&
                      crypto_->cryptohome_keys_manager()->HasCryptohomeKey(
@@ -1143,19 +1146,19 @@ std::unique_ptr<SyncAuthBlock> VaultKeyset::GetAuthBlockForCreation() const {
   if (use_tpm && with_user_auth && has_ecc_key) {
     ReportCreateAuthBlock(AuthBlockType::kTpmEcc);
     return std::make_unique<TpmEccAuthBlock>(
-        crypto_->tpm()->GetHwsec(), crypto_->cryptohome_keys_manager());
+        crypto_->GetHwsec(), crypto_->cryptohome_keys_manager());
   }
 
   if (use_tpm && with_user_auth && !has_ecc_key) {
     ReportCreateAuthBlock(AuthBlockType::kTpmBoundToPcr);
     return std::make_unique<TpmBoundToPcrAuthBlock>(
-        crypto_->tpm()->GetHwsec(), crypto_->cryptohome_keys_manager());
+        crypto_->GetHwsec(), crypto_->cryptohome_keys_manager());
   }
 
   if (use_tpm && !with_user_auth) {
     ReportCreateAuthBlock(AuthBlockType::kTpmNotBoundToPcr);
     return std::make_unique<TpmNotBoundToPcrAuthBlock>(
-        crypto_->tpm()->GetHwsec(), crypto_->cryptohome_keys_manager());
+        crypto_->GetHwsec(), crypto_->cryptohome_keys_manager());
   }
 
   if (USE_TPM_INSECURE_FALLBACK) {
@@ -1182,16 +1185,16 @@ std::unique_ptr<SyncAuthBlock> VaultKeyset::GetAuthBlockForDerivation() {
     return std::make_unique<ChallengeCredentialAuthBlock>();
   } else if (auth_block_type == AuthBlockType::kDoubleWrappedCompat) {
     return std::make_unique<DoubleWrappedCompatAuthBlock>(
-        crypto_->tpm()->GetHwsec(), crypto_->cryptohome_keys_manager());
+        crypto_->GetHwsec(), crypto_->cryptohome_keys_manager());
   } else if (auth_block_type == AuthBlockType::kTpmEcc) {
     return std::make_unique<TpmEccAuthBlock>(
-        crypto_->tpm()->GetHwsec(), crypto_->cryptohome_keys_manager());
+        crypto_->GetHwsec(), crypto_->cryptohome_keys_manager());
   } else if (auth_block_type == AuthBlockType::kTpmBoundToPcr) {
     return std::make_unique<TpmBoundToPcrAuthBlock>(
-        crypto_->tpm()->GetHwsec(), crypto_->cryptohome_keys_manager());
+        crypto_->GetHwsec(), crypto_->cryptohome_keys_manager());
   } else if (auth_block_type == AuthBlockType::kTpmNotBoundToPcr) {
     return std::make_unique<TpmNotBoundToPcrAuthBlock>(
-        crypto_->tpm()->GetHwsec(), crypto_->cryptohome_keys_manager());
+        crypto_->GetHwsec(), crypto_->cryptohome_keys_manager());
   } else if (auth_block_type == AuthBlockType::kLibScryptCompat) {
     return std::make_unique<LibScryptCompatAuthBlock>();
   }
@@ -1282,6 +1285,19 @@ void VaultKeyset::ClearKeyData() {
 const KeyData& VaultKeyset::GetKeyData() const {
   DCHECK(key_data_.has_value());
   return key_data_.value();
+}
+
+KeyData VaultKeyset::GetKeyDataOrDefault() const {
+  if (HasKeyData()) {
+    return GetKeyData();
+  }
+
+  // The VK created before M91 may contain empty key data.
+  // We should use default value for that case. Note that we don't populate any
+  // fields, like |type| or |label|, because we can't determine the type
+  // reliably and the "legacy-N" label has never been stored in the key data
+  // explicitly.
+  return KeyData();
 }
 
 void VaultKeyset::SetResetIV(const brillo::SecureBlob& iv) {

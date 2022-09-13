@@ -6,7 +6,7 @@
 #define CRYPTOHOME_AUTH_BLOCKS_PIN_WEAVER_AUTH_BLOCK_H_
 
 #include "cryptohome/auth_blocks/auth_block.h"
-#include "cryptohome/auth_blocks/auth_block_state.h"
+#include "cryptohome/flatbuffer_schemas/auth_block_state.h"
 
 #include "cryptohome/le_credential_manager.h"
 
@@ -28,6 +28,8 @@ class PinWeaverAuthBlock : public SyncAuthBlock {
                       KeyBlobs* key_blobs) override;
 
  private:
+  bool IsLocked(uint64_t label);
+
   // Handler for Low Entropy credentials.
   LECredentialManager* le_manager_;
 

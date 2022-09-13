@@ -11,84 +11,88 @@
 #include <google/protobuf/io/zero_copy_stream_impl_lite.h>
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
-extern PROTOBUF_INTERNAL_EXPORT_update_5fengine_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_Feature_update_5fengine_2eproto;
-extern PROTOBUF_INTERNAL_EXPORT_update_5fengine_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_UpdateFlags_update_5fengine_2eproto;
+
+PROTOBUF_PRAGMA_INIT_SEG
 namespace update_engine {
-class FeatureDefaultTypeInternal {
- public:
-  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<Feature> _instance;
-} _Feature_default_instance_;
-class StatusResultDefaultTypeInternal {
- public:
-  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<StatusResult> _instance;
-} _StatusResult_default_instance_;
-class UpdateFlagsDefaultTypeInternal {
- public:
-  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<UpdateFlags> _instance;
-} _UpdateFlags_default_instance_;
-class UpdateParamsDefaultTypeInternal {
- public:
-  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<UpdateParams> _instance;
-} _UpdateParams_default_instance_;
+constexpr ApplyUpdateConfig::ApplyUpdateConfig(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : done_action_(0)
+{}
+struct ApplyUpdateConfigDefaultTypeInternal {
+  constexpr ApplyUpdateConfigDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~ApplyUpdateConfigDefaultTypeInternal() {}
+  union {
+    ApplyUpdateConfig _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ApplyUpdateConfigDefaultTypeInternal _ApplyUpdateConfig_default_instance_;
+constexpr Feature::Feature(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , enabled_(false){}
+struct FeatureDefaultTypeInternal {
+  constexpr FeatureDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~FeatureDefaultTypeInternal() {}
+  union {
+    Feature _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT FeatureDefaultTypeInternal _Feature_default_instance_;
+constexpr StatusResult::StatusResult(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : features_()
+  , new_version_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , last_checked_time_(int64_t{0})
+  , progress_(0)
+  , new_size_(int64_t{0})
+  , current_operation_(0)
+
+  , is_enterprise_rollback_(false)
+  , is_install_(false)
+  , will_powerwash_after_reboot_(false)
+  , eol_date_(int64_t{0})
+  , last_attempt_error_(0)
+  , update_urgency_(0)
+{}
+struct StatusResultDefaultTypeInternal {
+  constexpr StatusResultDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~StatusResultDefaultTypeInternal() {}
+  union {
+    StatusResult _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT StatusResultDefaultTypeInternal _StatusResult_default_instance_;
+constexpr UpdateFlags::UpdateFlags(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : non_interactive_(false){}
+struct UpdateFlagsDefaultTypeInternal {
+  constexpr UpdateFlagsDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~UpdateFlagsDefaultTypeInternal() {}
+  union {
+    UpdateFlags _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT UpdateFlagsDefaultTypeInternal _UpdateFlags_default_instance_;
+constexpr UpdateParams::UpdateParams(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : app_version_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , omaha_url_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , update_flags_(nullptr)
+  , skip_applying_(false){}
+struct UpdateParamsDefaultTypeInternal {
+  constexpr UpdateParamsDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~UpdateParamsDefaultTypeInternal() {}
+  union {
+    UpdateParams _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT UpdateParamsDefaultTypeInternal _UpdateParams_default_instance_;
 }  // namespace update_engine
-static void InitDefaultsscc_info_Feature_update_5fengine_2eproto() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::update_engine::_Feature_default_instance_;
-    new (ptr) ::update_engine::Feature();
-    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::update_engine::Feature::InitAsDefaultInstance();
-}
-
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_Feature_update_5fengine_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_Feature_update_5fengine_2eproto}, {}};
-
-static void InitDefaultsscc_info_StatusResult_update_5fengine_2eproto() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::update_engine::_StatusResult_default_instance_;
-    new (ptr) ::update_engine::StatusResult();
-    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::update_engine::StatusResult::InitAsDefaultInstance();
-}
-
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_StatusResult_update_5fengine_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 1, 0, InitDefaultsscc_info_StatusResult_update_5fengine_2eproto}, {
-      &scc_info_Feature_update_5fengine_2eproto.base,}};
-
-static void InitDefaultsscc_info_UpdateFlags_update_5fengine_2eproto() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::update_engine::_UpdateFlags_default_instance_;
-    new (ptr) ::update_engine::UpdateFlags();
-    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::update_engine::UpdateFlags::InitAsDefaultInstance();
-}
-
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_UpdateFlags_update_5fengine_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_UpdateFlags_update_5fengine_2eproto}, {}};
-
-static void InitDefaultsscc_info_UpdateParams_update_5fengine_2eproto() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::update_engine::_UpdateParams_default_instance_;
-    new (ptr) ::update_engine::UpdateParams();
-    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::update_engine::UpdateParams::InitAsDefaultInstance();
-}
-
-::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_UpdateParams_update_5fengine_2eproto =
-    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 1, 0, InitDefaultsscc_info_UpdateParams_update_5fengine_2eproto}, {
-      &scc_info_UpdateFlags_update_5fengine_2eproto.base,}};
-
 namespace update_engine {
 bool Operation_IsValid(int value) {
   switch (value) {
@@ -104,17 +108,20 @@ bool Operation_IsValid(int value) {
     case 8:
     case 9:
     case 10:
+    case 11:
+    case 12:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> Operation_strings[12] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> Operation_strings[14] = {};
 
 static const char Operation_names[] =
   "ATTEMPTING_ROLLBACK"
   "CHECKING_FOR_UPDATE"
+  "CLEANUP_PREVIOUS_UPDATE"
   "DISABLED"
   "DOWNLOADING"
   "ERROR"
@@ -122,6 +129,7 @@ static const char Operation_names[] =
   "IDLE"
   "NEED_PERMISSION_TO_UPDATE"
   "REPORTING_ERROR_EVENT"
+  "UPDATED_BUT_DEFERRED"
   "UPDATED_NEED_REBOOT"
   "UPDATE_AVAILABLE"
   "VERIFYING";
@@ -129,31 +137,35 @@ static const char Operation_names[] =
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry Operation_entries[] = {
   { {Operation_names + 0, 19}, 8 },
   { {Operation_names + 19, 19}, 1 },
-  { {Operation_names + 38, 8}, 9 },
-  { {Operation_names + 46, 11}, 3 },
-  { {Operation_names + 57, 5}, -1 },
-  { {Operation_names + 62, 10}, 5 },
-  { {Operation_names + 72, 4}, 0 },
-  { {Operation_names + 76, 25}, 10 },
-  { {Operation_names + 101, 21}, 7 },
-  { {Operation_names + 122, 19}, 6 },
-  { {Operation_names + 141, 16}, 2 },
-  { {Operation_names + 157, 9}, 4 },
+  { {Operation_names + 38, 23}, 11 },
+  { {Operation_names + 61, 8}, 9 },
+  { {Operation_names + 69, 11}, 3 },
+  { {Operation_names + 80, 5}, -1 },
+  { {Operation_names + 85, 10}, 5 },
+  { {Operation_names + 95, 4}, 0 },
+  { {Operation_names + 99, 25}, 10 },
+  { {Operation_names + 124, 21}, 7 },
+  { {Operation_names + 145, 20}, 12 },
+  { {Operation_names + 165, 19}, 6 },
+  { {Operation_names + 184, 16}, 2 },
+  { {Operation_names + 200, 9}, 4 },
 };
 
 static const int Operation_entries_by_number[] = {
-  4, // -1 -> ERROR
-  6, // 0 -> IDLE
+  5, // -1 -> ERROR
+  7, // 0 -> IDLE
   1, // 1 -> CHECKING_FOR_UPDATE
-  10, // 2 -> UPDATE_AVAILABLE
-  3, // 3 -> DOWNLOADING
-  11, // 4 -> VERIFYING
-  5, // 5 -> FINALIZING
-  9, // 6 -> UPDATED_NEED_REBOOT
-  8, // 7 -> REPORTING_ERROR_EVENT
+  12, // 2 -> UPDATE_AVAILABLE
+  4, // 3 -> DOWNLOADING
+  13, // 4 -> VERIFYING
+  6, // 5 -> FINALIZING
+  11, // 6 -> UPDATED_NEED_REBOOT
+  9, // 7 -> REPORTING_ERROR_EVENT
   0, // 8 -> ATTEMPTING_ROLLBACK
-  2, // 9 -> DISABLED
-  7, // 10 -> NEED_PERMISSION_TO_UPDATE
+  3, // 9 -> DISABLED
+  8, // 10 -> NEED_PERMISSION_TO_UPDATE
+  2, // 11 -> CLEANUP_PREVIOUS_UPDATE
+  10, // 12 -> UPDATED_BUT_DEFERRED
 };
 
 const std::string& Operation_Name(
@@ -162,20 +174,20 @@ const std::string& Operation_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           Operation_entries,
           Operation_entries_by_number,
-          12, Operation_strings);
+          14, Operation_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       Operation_entries,
       Operation_entries_by_number,
-      12, value);
+      14, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      Operation_strings[idx].get();
 }
 bool Operation_Parse(
-    const std::string& name, Operation* value) {
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, Operation* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      Operation_entries, 12, name, &int_value);
+      Operation_entries, 14, name, &int_value);
   if (success) {
     *value = static_cast<Operation>(int_value);
   }
@@ -223,7 +235,7 @@ const std::string& UpdateUrgency_Name(
                      UpdateUrgency_strings[idx].get();
 }
 bool UpdateUrgency_Parse(
-    const std::string& name, UpdateUrgency* value) {
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, UpdateUrgency* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
       UpdateUrgency_entries, 2, name, &int_value);
@@ -232,118 +244,362 @@ bool UpdateUrgency_Parse(
   }
   return success;
 }
+bool UpdateDoneAction_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+      return true;
+    default:
+      return false;
+  }
+}
+
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> UpdateDoneAction_strings[2] = {};
+
+static const char UpdateDoneAction_names[] =
+  "REBOOT"
+  "SHUTDOWN";
+
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry UpdateDoneAction_entries[] = {
+  { {UpdateDoneAction_names + 0, 6}, 0 },
+  { {UpdateDoneAction_names + 6, 8}, 1 },
+};
+
+static const int UpdateDoneAction_entries_by_number[] = {
+  0, // 0 -> REBOOT
+  1, // 1 -> SHUTDOWN
+};
+
+const std::string& UpdateDoneAction_Name(
+    UpdateDoneAction value) {
+  static const bool dummy =
+      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
+          UpdateDoneAction_entries,
+          UpdateDoneAction_entries_by_number,
+          2, UpdateDoneAction_strings);
+  (void) dummy;
+  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
+      UpdateDoneAction_entries,
+      UpdateDoneAction_entries_by_number,
+      2, value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
+                     UpdateDoneAction_strings[idx].get();
+}
+bool UpdateDoneAction_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, UpdateDoneAction* value) {
+  int int_value;
+  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
+      UpdateDoneAction_entries, 2, name, &int_value);
+  if (success) {
+    *value = static_cast<UpdateDoneAction>(int_value);
+  }
+  return success;
+}
 
 // ===================================================================
 
-void Feature::InitAsDefaultInstance() {
+class ApplyUpdateConfig::_Internal {
+ public:
+};
+
+ApplyUpdateConfig::ApplyUpdateConfig(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
+  // @@protoc_insertion_point(arena_constructor:update_engine.ApplyUpdateConfig)
 }
+ApplyUpdateConfig::ApplyUpdateConfig(const ApplyUpdateConfig& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  done_action_ = from.done_action_;
+  // @@protoc_insertion_point(copy_constructor:update_engine.ApplyUpdateConfig)
+}
+
+inline void ApplyUpdateConfig::SharedCtor() {
+done_action_ = 0;
+}
+
+ApplyUpdateConfig::~ApplyUpdateConfig() {
+  // @@protoc_insertion_point(destructor:update_engine.ApplyUpdateConfig)
+  if (GetArenaForAllocation() != nullptr) return;
+  SharedDtor();
+  _internal_metadata_.Delete<std::string>();
+}
+
+inline void ApplyUpdateConfig::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void ApplyUpdateConfig::ArenaDtor(void* object) {
+  ApplyUpdateConfig* _this = reinterpret_cast< ApplyUpdateConfig* >(object);
+  (void)_this;
+}
+void ApplyUpdateConfig::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void ApplyUpdateConfig::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void ApplyUpdateConfig::Clear() {
+// @@protoc_insertion_point(message_clear_start:update_engine.ApplyUpdateConfig)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  done_action_ = 0;
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* ApplyUpdateConfig::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // .update_engine.UpdateDoneAction done_action = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_set_done_action(static_cast<::update_engine::UpdateDoneAction>(val));
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* ApplyUpdateConfig::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:update_engine.ApplyUpdateConfig)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // .update_engine.UpdateDoneAction done_action = 1;
+  if (this->_internal_done_action() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+      1, this->_internal_done_action(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:update_engine.ApplyUpdateConfig)
+  return target;
+}
+
+size_t ApplyUpdateConfig::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:update_engine.ApplyUpdateConfig)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // .update_engine.UpdateDoneAction done_action = 1;
+  if (this->_internal_done_action() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_done_action());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void ApplyUpdateConfig::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const ApplyUpdateConfig*>(
+      &from));
+}
+
+void ApplyUpdateConfig::MergeFrom(const ApplyUpdateConfig& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:update_engine.ApplyUpdateConfig)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_done_action() != 0) {
+    _internal_set_done_action(from._internal_done_action());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void ApplyUpdateConfig::CopyFrom(const ApplyUpdateConfig& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:update_engine.ApplyUpdateConfig)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ApplyUpdateConfig::IsInitialized() const {
+  return true;
+}
+
+void ApplyUpdateConfig::InternalSwap(ApplyUpdateConfig* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(done_action_, other->done_action_);
+}
+
+std::string ApplyUpdateConfig::GetTypeName() const {
+  return "update_engine.ApplyUpdateConfig";
+}
+
+
+// ===================================================================
+
 class Feature::_Internal {
  public:
 };
 
-Feature::Feature()
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(), _internal_metadata_(nullptr) {
+Feature::Feature(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:update_engine.Feature)
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
+  // @@protoc_insertion_point(arena_constructor:update_engine.Feature)
 }
 Feature::Feature(const Feature& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _internal_metadata_(nullptr) {
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_name().empty()) {
-    name_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.name_);
+    name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_name(), 
+      GetArenaForAllocation());
   }
   enabled_ = from.enabled_;
   // @@protoc_insertion_point(copy_constructor:update_engine.Feature)
 }
 
-void Feature::SharedCtor() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_Feature_update_5fengine_2eproto.base);
-  name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  enabled_ = false;
+inline void Feature::SharedCtor() {
+name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+enabled_ = false;
 }
 
 Feature::~Feature() {
   // @@protoc_insertion_point(destructor:update_engine.Feature)
+  if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
+  _internal_metadata_.Delete<std::string>();
 }
 
-void Feature::SharedDtor() {
+inline void Feature::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
+void Feature::ArenaDtor(void* object) {
+  Feature* _this = reinterpret_cast< Feature* >(object);
+  (void)_this;
+}
+void Feature::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
 void Feature::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
-const Feature& Feature::default_instance() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_Feature_update_5fengine_2eproto.base);
-  return *internal_default_instance();
-}
-
 
 void Feature::Clear() {
 // @@protoc_insertion_point(message_clear_start:update_engine.Feature)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  name_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  name_.ClearToEmpty();
   enabled_ = false;
-  _internal_metadata_.Clear();
+  _internal_metadata_.Clear<std::string>();
 }
 
 const char* Feature::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    uint32_t tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    CHK_(ptr);
     switch (tag >> 3) {
       // string name = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_name();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // bool enabled = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
-          enabled_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          enabled_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
-      default: {
-      handle_unusual:
-        if ((tag & 7) == 4 || tag == 0) {
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag, &_internal_metadata_, ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
+      default:
+        goto handle_unusual;
     }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
   }  // while
-success:
+message_done:
   return ptr;
 failure:
   ptr = nullptr;
-  goto success;
+  goto message_done;
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* Feature::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+uint8_t* Feature::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:update_engine.Feature)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // string name = 1;
-  if (this->name().size() > 0) {
+  if (!this->_internal_name().empty()) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_name().data(), static_cast<int>(this->_internal_name().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
@@ -353,14 +609,14 @@ failure:
   }
 
   // bool enabled = 2;
-  if (this->enabled() != 0) {
+  if (this->_internal_enabled() != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(2, this->_internal_enabled(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = stream->WriteRaw(_internal_metadata_.unknown_fields().data(),
-        static_cast<int>(_internal_metadata_.unknown_fields().size()), target);
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
   }
   // @@protoc_insertion_point(serialize_to_array_end:update_engine.Feature)
   return target;
@@ -370,24 +626,24 @@ size_t Feature::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:update_engine.Feature)
   size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // string name = 1;
-  if (this->name().size() > 0) {
+  if (!this->_internal_name().empty()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_name());
   }
 
   // bool enabled = 2;
-  if (this->enabled() != 0) {
+  if (this->_internal_enabled() != 0) {
     total_size += 1 + 1;
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    total_size += _internal_metadata_.unknown_fields().size();
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
   int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
   SetCachedSize(cached_size);
@@ -403,17 +659,16 @@ void Feature::CheckTypeAndMergeFrom(
 void Feature::MergeFrom(const Feature& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:update_engine.Feature)
   GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from.name().size() > 0) {
-
-    name_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.name_);
+  if (!from._internal_name().empty()) {
+    _internal_set_name(from._internal_name());
   }
-  if (from.enabled() != 0) {
+  if (from._internal_enabled() != 0) {
     _internal_set_enabled(from._internal_enabled());
   }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void Feature::CopyFrom(const Feature& from) {
@@ -429,9 +684,14 @@ bool Feature::IsInitialized() const {
 
 void Feature::InternalSwap(Feature* other) {
   using std::swap;
-  _internal_metadata_.Swap(&other->_internal_metadata_);
-  name_.Swap(&other->name_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-    GetArenaNoVirtual());
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &name_, lhs_arena,
+      &other->name_, rhs_arena
+  );
   swap(enabled_, other->enabled_);
 }
 
@@ -442,25 +702,31 @@ std::string Feature::GetTypeName() const {
 
 // ===================================================================
 
-void StatusResult::InitAsDefaultInstance() {
-}
 class StatusResult::_Internal {
  public:
 };
 
-StatusResult::StatusResult()
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(), _internal_metadata_(nullptr) {
+StatusResult::StatusResult(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
+  features_(arena) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:update_engine.StatusResult)
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
+  // @@protoc_insertion_point(arena_constructor:update_engine.StatusResult)
 }
 StatusResult::StatusResult(const StatusResult& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _internal_metadata_(nullptr),
       features_(from.features_) {
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   new_version_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    new_version_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_new_version().empty()) {
-    new_version_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.new_version_);
+    new_version_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_new_version(), 
+      GetArenaForAllocation());
   }
   ::memcpy(&last_checked_time_, &from.last_checked_time_,
     static_cast<size_t>(reinterpret_cast<char*>(&update_urgency_) -
@@ -468,137 +734,154 @@ StatusResult::StatusResult(const StatusResult& from)
   // @@protoc_insertion_point(copy_constructor:update_engine.StatusResult)
 }
 
-void StatusResult::SharedCtor() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_StatusResult_update_5fengine_2eproto.base);
-  new_version_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  ::memset(&last_checked_time_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&update_urgency_) -
-      reinterpret_cast<char*>(&last_checked_time_)) + sizeof(update_urgency_));
+inline void StatusResult::SharedCtor() {
+new_version_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  new_version_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&last_checked_time_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&update_urgency_) -
+    reinterpret_cast<char*>(&last_checked_time_)) + sizeof(update_urgency_));
 }
 
 StatusResult::~StatusResult() {
   // @@protoc_insertion_point(destructor:update_engine.StatusResult)
+  if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
+  _internal_metadata_.Delete<std::string>();
 }
 
-void StatusResult::SharedDtor() {
+inline void StatusResult::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   new_version_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
+void StatusResult::ArenaDtor(void* object) {
+  StatusResult* _this = reinterpret_cast< StatusResult* >(object);
+  (void)_this;
+}
+void StatusResult::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
 void StatusResult::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
-const StatusResult& StatusResult::default_instance() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_StatusResult_update_5fengine_2eproto.base);
-  return *internal_default_instance();
-}
-
 
 void StatusResult::Clear() {
 // @@protoc_insertion_point(message_clear_start:update_engine.StatusResult)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   features_.Clear();
-  new_version_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  new_version_.ClearToEmpty();
   ::memset(&last_checked_time_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&update_urgency_) -
       reinterpret_cast<char*>(&last_checked_time_)) + sizeof(update_urgency_));
-  _internal_metadata_.Clear();
+  _internal_metadata_.Clear<std::string>();
 }
 
 const char* StatusResult::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    uint32_t tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    CHK_(ptr);
     switch (tag >> 3) {
       // int64 last_checked_time = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
-          last_checked_time_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          last_checked_time_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // double progress = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 17)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 17)) {
           progress_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
           ptr += sizeof(double);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // .update_engine.Operation current_operation = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 24)) {
-          ::PROTOBUF_NAMESPACE_ID::uint64 val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
           _internal_set_current_operation(static_cast<::update_engine::Operation>(val));
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // string new_version = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 34)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
           auto str = _internal_mutable_new_version();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // int64 new_size = 5;
       case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 40)) {
-          new_size_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+          new_size_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // bool is_enterprise_rollback = 6;
       case 6:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 48)) {
-          is_enterprise_rollback_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 48)) {
+          is_enterprise_rollback_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // bool is_install = 7;
       case 7:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 56)) {
-          is_install_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 56)) {
+          is_install_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // int64 eol_date = 8;
       case 8:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 64)) {
-          eol_date_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 64)) {
+          eol_date_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // bool will_powerwash_after_reboot = 9;
       case 9:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 72)) {
-          will_powerwash_after_reboot_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 72)) {
+          will_powerwash_after_reboot_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // int32 last_attempt_error = 10;
       case 10:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 80)) {
-          last_attempt_error_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 80)) {
+          last_attempt_error_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // .update_engine.UpdateUrgency update_urgency = 12;
       case 12:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 96)) {
-          ::PROTOBUF_NAMESPACE_ID::uint64 val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 96)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
           _internal_set_update_urgency(static_cast<::update_engine::UpdateUrgency>(val));
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // repeated .update_engine.Feature features = 13;
       case 13:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 106)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 106)) {
           ptr -= 1;
           do {
             ptr += 1;
@@ -606,55 +889,63 @@ const char* StatusResult::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_I
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<106>(ptr));
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
-      default: {
-      handle_unusual:
-        if ((tag & 7) == 4 || tag == 0) {
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag, &_internal_metadata_, ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
+      default:
+        goto handle_unusual;
     }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
   }  // while
-success:
+message_done:
   return ptr;
 failure:
   ptr = nullptr;
-  goto success;
+  goto message_done;
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* StatusResult::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+uint8_t* StatusResult::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:update_engine.StatusResult)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // int64 last_checked_time = 1;
-  if (this->last_checked_time() != 0) {
+  if (this->_internal_last_checked_time() != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(1, this->_internal_last_checked_time(), target);
   }
 
   // double progress = 2;
-  if (!(this->progress() <= 0 && this->progress() >= 0)) {
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_progress = this->_internal_progress();
+  uint64_t raw_progress;
+  memcpy(&raw_progress, &tmp_progress, sizeof(tmp_progress));
+  if (raw_progress != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(2, this->_internal_progress(), target);
   }
 
   // .update_engine.Operation current_operation = 3;
-  if (this->current_operation() != 0) {
+  if (this->_internal_current_operation() != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
       3, this->_internal_current_operation(), target);
   }
 
   // string new_version = 4;
-  if (this->new_version().size() > 0) {
+  if (!this->_internal_new_version().empty()) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_new_version().data(), static_cast<int>(this->_internal_new_version().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
@@ -664,43 +955,43 @@ failure:
   }
 
   // int64 new_size = 5;
-  if (this->new_size() != 0) {
+  if (this->_internal_new_size() != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(5, this->_internal_new_size(), target);
   }
 
   // bool is_enterprise_rollback = 6;
-  if (this->is_enterprise_rollback() != 0) {
+  if (this->_internal_is_enterprise_rollback() != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(6, this->_internal_is_enterprise_rollback(), target);
   }
 
   // bool is_install = 7;
-  if (this->is_install() != 0) {
+  if (this->_internal_is_install() != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(7, this->_internal_is_install(), target);
   }
 
   // int64 eol_date = 8;
-  if (this->eol_date() != 0) {
+  if (this->_internal_eol_date() != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(8, this->_internal_eol_date(), target);
   }
 
   // bool will_powerwash_after_reboot = 9;
-  if (this->will_powerwash_after_reboot() != 0) {
+  if (this->_internal_will_powerwash_after_reboot() != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(9, this->_internal_will_powerwash_after_reboot(), target);
   }
 
   // int32 last_attempt_error = 10;
-  if (this->last_attempt_error() != 0) {
+  if (this->_internal_last_attempt_error() != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(10, this->_internal_last_attempt_error(), target);
   }
 
   // .update_engine.UpdateUrgency update_urgency = 12;
-  if (this->update_urgency() != 0) {
+  if (this->_internal_update_urgency() != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
       12, this->_internal_update_urgency(), target);
@@ -715,8 +1006,8 @@ failure:
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = stream->WriteRaw(_internal_metadata_.unknown_fields().data(),
-        static_cast<int>(_internal_metadata_.unknown_fields().size()), target);
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
   }
   // @@protoc_insertion_point(serialize_to_array_end:update_engine.StatusResult)
   return target;
@@ -726,7 +1017,7 @@ size_t StatusResult::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:update_engine.StatusResult)
   size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
@@ -738,74 +1029,70 @@ size_t StatusResult::ByteSizeLong() const {
   }
 
   // string new_version = 4;
-  if (this->new_version().size() > 0) {
+  if (!this->_internal_new_version().empty()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_new_version());
   }
 
   // int64 last_checked_time = 1;
-  if (this->last_checked_time() != 0) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64Size(
-        this->_internal_last_checked_time());
+  if (this->_internal_last_checked_time() != 0) {
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64SizePlusOne(this->_internal_last_checked_time());
   }
 
   // double progress = 2;
-  if (!(this->progress() <= 0 && this->progress() >= 0)) {
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_progress = this->_internal_progress();
+  uint64_t raw_progress;
+  memcpy(&raw_progress, &tmp_progress, sizeof(tmp_progress));
+  if (raw_progress != 0) {
     total_size += 1 + 8;
   }
 
   // int64 new_size = 5;
-  if (this->new_size() != 0) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64Size(
-        this->_internal_new_size());
+  if (this->_internal_new_size() != 0) {
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64SizePlusOne(this->_internal_new_size());
   }
 
   // .update_engine.Operation current_operation = 3;
-  if (this->current_operation() != 0) {
+  if (this->_internal_current_operation() != 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_current_operation());
   }
 
   // bool is_enterprise_rollback = 6;
-  if (this->is_enterprise_rollback() != 0) {
+  if (this->_internal_is_enterprise_rollback() != 0) {
     total_size += 1 + 1;
   }
 
   // bool is_install = 7;
-  if (this->is_install() != 0) {
+  if (this->_internal_is_install() != 0) {
     total_size += 1 + 1;
   }
 
   // bool will_powerwash_after_reboot = 9;
-  if (this->will_powerwash_after_reboot() != 0) {
+  if (this->_internal_will_powerwash_after_reboot() != 0) {
     total_size += 1 + 1;
   }
 
   // int64 eol_date = 8;
-  if (this->eol_date() != 0) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64Size(
-        this->_internal_eol_date());
+  if (this->_internal_eol_date() != 0) {
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64SizePlusOne(this->_internal_eol_date());
   }
 
   // int32 last_attempt_error = 10;
-  if (this->last_attempt_error() != 0) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
-        this->_internal_last_attempt_error());
+  if (this->_internal_last_attempt_error() != 0) {
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_last_attempt_error());
   }
 
   // .update_engine.UpdateUrgency update_urgency = 12;
-  if (this->update_urgency() != 0) {
+  if (this->_internal_update_urgency() != 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_update_urgency());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    total_size += _internal_metadata_.unknown_fields().size();
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
   int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
   SetCachedSize(cached_size);
@@ -821,45 +1108,48 @@ void StatusResult::CheckTypeAndMergeFrom(
 void StatusResult::MergeFrom(const StatusResult& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:update_engine.StatusResult)
   GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   features_.MergeFrom(from.features_);
-  if (from.new_version().size() > 0) {
-
-    new_version_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.new_version_);
+  if (!from._internal_new_version().empty()) {
+    _internal_set_new_version(from._internal_new_version());
   }
-  if (from.last_checked_time() != 0) {
+  if (from._internal_last_checked_time() != 0) {
     _internal_set_last_checked_time(from._internal_last_checked_time());
   }
-  if (!(from.progress() <= 0 && from.progress() >= 0)) {
+  static_assert(sizeof(uint64_t) == sizeof(double), "Code assumes uint64_t and double are the same size.");
+  double tmp_progress = from._internal_progress();
+  uint64_t raw_progress;
+  memcpy(&raw_progress, &tmp_progress, sizeof(tmp_progress));
+  if (raw_progress != 0) {
     _internal_set_progress(from._internal_progress());
   }
-  if (from.new_size() != 0) {
+  if (from._internal_new_size() != 0) {
     _internal_set_new_size(from._internal_new_size());
   }
-  if (from.current_operation() != 0) {
+  if (from._internal_current_operation() != 0) {
     _internal_set_current_operation(from._internal_current_operation());
   }
-  if (from.is_enterprise_rollback() != 0) {
+  if (from._internal_is_enterprise_rollback() != 0) {
     _internal_set_is_enterprise_rollback(from._internal_is_enterprise_rollback());
   }
-  if (from.is_install() != 0) {
+  if (from._internal_is_install() != 0) {
     _internal_set_is_install(from._internal_is_install());
   }
-  if (from.will_powerwash_after_reboot() != 0) {
+  if (from._internal_will_powerwash_after_reboot() != 0) {
     _internal_set_will_powerwash_after_reboot(from._internal_will_powerwash_after_reboot());
   }
-  if (from.eol_date() != 0) {
+  if (from._internal_eol_date() != 0) {
     _internal_set_eol_date(from._internal_eol_date());
   }
-  if (from.last_attempt_error() != 0) {
+  if (from._internal_last_attempt_error() != 0) {
     _internal_set_last_attempt_error(from._internal_last_attempt_error());
   }
-  if (from.update_urgency() != 0) {
+  if (from._internal_update_urgency() != 0) {
     _internal_set_update_urgency(from._internal_update_urgency());
   }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void StatusResult::CopyFrom(const StatusResult& from) {
@@ -875,20 +1165,21 @@ bool StatusResult::IsInitialized() const {
 
 void StatusResult::InternalSwap(StatusResult* other) {
   using std::swap;
-  _internal_metadata_.Swap(&other->_internal_metadata_);
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   features_.InternalSwap(&other->features_);
-  new_version_.Swap(&other->new_version_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-    GetArenaNoVirtual());
-  swap(last_checked_time_, other->last_checked_time_);
-  swap(progress_, other->progress_);
-  swap(new_size_, other->new_size_);
-  swap(current_operation_, other->current_operation_);
-  swap(is_enterprise_rollback_, other->is_enterprise_rollback_);
-  swap(is_install_, other->is_install_);
-  swap(will_powerwash_after_reboot_, other->will_powerwash_after_reboot_);
-  swap(eol_date_, other->eol_date_);
-  swap(last_attempt_error_, other->last_attempt_error_);
-  swap(update_urgency_, other->update_urgency_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &new_version_, lhs_arena,
+      &other->new_version_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(StatusResult, update_urgency_)
+      + sizeof(StatusResult::update_urgency_)
+      - PROTOBUF_FIELD_OFFSET(StatusResult, last_checked_time_)>(
+          reinterpret_cast<char*>(&last_checked_time_),
+          reinterpret_cast<char*>(&other->last_checked_time_));
 }
 
 std::string StatusResult::GetTypeName() const {
@@ -898,105 +1189,113 @@ std::string StatusResult::GetTypeName() const {
 
 // ===================================================================
 
-void UpdateFlags::InitAsDefaultInstance() {
-}
 class UpdateFlags::_Internal {
  public:
 };
 
-UpdateFlags::UpdateFlags()
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(), _internal_metadata_(nullptr) {
+UpdateFlags::UpdateFlags(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:update_engine.UpdateFlags)
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
+  // @@protoc_insertion_point(arena_constructor:update_engine.UpdateFlags)
 }
 UpdateFlags::UpdateFlags(const UpdateFlags& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _internal_metadata_(nullptr) {
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   non_interactive_ = from.non_interactive_;
   // @@protoc_insertion_point(copy_constructor:update_engine.UpdateFlags)
 }
 
-void UpdateFlags::SharedCtor() {
-  non_interactive_ = false;
+inline void UpdateFlags::SharedCtor() {
+non_interactive_ = false;
 }
 
 UpdateFlags::~UpdateFlags() {
   // @@protoc_insertion_point(destructor:update_engine.UpdateFlags)
+  if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
+  _internal_metadata_.Delete<std::string>();
 }
 
-void UpdateFlags::SharedDtor() {
+inline void UpdateFlags::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
+void UpdateFlags::ArenaDtor(void* object) {
+  UpdateFlags* _this = reinterpret_cast< UpdateFlags* >(object);
+  (void)_this;
+}
+void UpdateFlags::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
 void UpdateFlags::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
-const UpdateFlags& UpdateFlags::default_instance() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_UpdateFlags_update_5fengine_2eproto.base);
-  return *internal_default_instance();
-}
-
 
 void UpdateFlags::Clear() {
 // @@protoc_insertion_point(message_clear_start:update_engine.UpdateFlags)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   non_interactive_ = false;
-  _internal_metadata_.Clear();
+  _internal_metadata_.Clear<std::string>();
 }
 
 const char* UpdateFlags::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    uint32_t tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    CHK_(ptr);
     switch (tag >> 3) {
       // bool non_interactive = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
-          non_interactive_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          non_interactive_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
-      default: {
-      handle_unusual:
-        if ((tag & 7) == 4 || tag == 0) {
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag, &_internal_metadata_, ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
+      default:
+        goto handle_unusual;
     }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
   }  // while
-success:
+message_done:
   return ptr;
 failure:
   ptr = nullptr;
-  goto success;
+  goto message_done;
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* UpdateFlags::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+uint8_t* UpdateFlags::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:update_engine.UpdateFlags)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // bool non_interactive = 1;
-  if (this->non_interactive() != 0) {
+  if (this->_internal_non_interactive() != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(1, this->_internal_non_interactive(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = stream->WriteRaw(_internal_metadata_.unknown_fields().data(),
-        static_cast<int>(_internal_metadata_.unknown_fields().size()), target);
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
   }
   // @@protoc_insertion_point(serialize_to_array_end:update_engine.UpdateFlags)
   return target;
@@ -1006,17 +1305,17 @@ size_t UpdateFlags::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:update_engine.UpdateFlags)
   size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // bool non_interactive = 1;
-  if (this->non_interactive() != 0) {
+  if (this->_internal_non_interactive() != 0) {
     total_size += 1 + 1;
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    total_size += _internal_metadata_.unknown_fields().size();
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
   int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
   SetCachedSize(cached_size);
@@ -1032,13 +1331,13 @@ void UpdateFlags::CheckTypeAndMergeFrom(
 void UpdateFlags::MergeFrom(const UpdateFlags& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:update_engine.UpdateFlags)
   GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from.non_interactive() != 0) {
+  if (from._internal_non_interactive() != 0) {
     _internal_set_non_interactive(from._internal_non_interactive());
   }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void UpdateFlags::CopyFrom(const UpdateFlags& from) {
@@ -1054,7 +1353,7 @@ bool UpdateFlags::IsInitialized() const {
 
 void UpdateFlags::InternalSwap(UpdateFlags* other) {
   using std::swap;
-  _internal_metadata_.Swap(&other->_internal_metadata_);
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(non_interactive_, other->non_interactive_);
 }
 
@@ -1065,10 +1364,6 @@ std::string UpdateFlags::GetTypeName() const {
 
 // ===================================================================
 
-void UpdateParams::InitAsDefaultInstance() {
-  ::update_engine::_UpdateParams_default_instance_._instance.get_mutable()->update_flags_ = const_cast< ::update_engine::UpdateFlags*>(
-      ::update_engine::UpdateFlags::internal_default_instance());
-}
 class UpdateParams::_Internal {
  public:
   static const ::update_engine::UpdateFlags& update_flags(const UpdateParams* msg);
@@ -1078,22 +1373,33 @@ const ::update_engine::UpdateFlags&
 UpdateParams::_Internal::update_flags(const UpdateParams* msg) {
   return *msg->update_flags_;
 }
-UpdateParams::UpdateParams()
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(), _internal_metadata_(nullptr) {
+UpdateParams::UpdateParams(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:update_engine.UpdateParams)
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
+  // @@protoc_insertion_point(arena_constructor:update_engine.UpdateParams)
 }
 UpdateParams::UpdateParams(const UpdateParams& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _internal_metadata_(nullptr) {
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   app_version_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    app_version_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_app_version().empty()) {
-    app_version_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.app_version_);
+    app_version_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_app_version(), 
+      GetArenaForAllocation());
   }
   omaha_url_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    omaha_url_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   if (!from._internal_omaha_url().empty()) {
-    omaha_url_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.omaha_url_);
+    omaha_url_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_omaha_url(), 
+      GetArenaForAllocation());
   }
   if (from._internal_has_update_flags()) {
     update_flags_ = new ::update_engine::UpdateFlags(*from.update_flags_);
@@ -1104,118 +1410,134 @@ UpdateParams::UpdateParams(const UpdateParams& from)
   // @@protoc_insertion_point(copy_constructor:update_engine.UpdateParams)
 }
 
-void UpdateParams::SharedCtor() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_UpdateParams_update_5fengine_2eproto.base);
-  app_version_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  omaha_url_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  ::memset(&update_flags_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&skip_applying_) -
-      reinterpret_cast<char*>(&update_flags_)) + sizeof(skip_applying_));
+inline void UpdateParams::SharedCtor() {
+app_version_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  app_version_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+omaha_url_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  omaha_url_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&update_flags_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&skip_applying_) -
+    reinterpret_cast<char*>(&update_flags_)) + sizeof(skip_applying_));
 }
 
 UpdateParams::~UpdateParams() {
   // @@protoc_insertion_point(destructor:update_engine.UpdateParams)
+  if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
+  _internal_metadata_.Delete<std::string>();
 }
 
-void UpdateParams::SharedDtor() {
+inline void UpdateParams::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   app_version_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   omaha_url_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (this != internal_default_instance()) delete update_flags_;
 }
 
+void UpdateParams::ArenaDtor(void* object) {
+  UpdateParams* _this = reinterpret_cast< UpdateParams* >(object);
+  (void)_this;
+}
+void UpdateParams::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
 void UpdateParams::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
-const UpdateParams& UpdateParams::default_instance() {
-  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_UpdateParams_update_5fengine_2eproto.base);
-  return *internal_default_instance();
-}
-
 
 void UpdateParams::Clear() {
 // @@protoc_insertion_point(message_clear_start:update_engine.UpdateParams)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  app_version_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  omaha_url_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (GetArenaNoVirtual() == nullptr && update_flags_ != nullptr) {
+  app_version_.ClearToEmpty();
+  omaha_url_.ClearToEmpty();
+  if (GetArenaForAllocation() == nullptr && update_flags_ != nullptr) {
     delete update_flags_;
   }
   update_flags_ = nullptr;
   skip_applying_ = false;
-  _internal_metadata_.Clear();
+  _internal_metadata_.Clear<std::string>();
 }
 
 const char* UpdateParams::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    uint32_t tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    CHK_(ptr);
     switch (tag >> 3) {
       // string app_version = 1;
       case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
           auto str = _internal_mutable_app_version();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // string omaha_url = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           auto str = _internal_mutable_omaha_url();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // .update_engine.UpdateFlags update_flags = 3;
       case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
           ptr = ctx->ParseMessage(_internal_mutable_update_flags(), ptr);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
       // bool skip_applying = 4;
       case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 32)) {
-          skip_applying_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+          skip_applying_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-        } else goto handle_unusual;
+        } else
+          goto handle_unusual;
         continue;
-      default: {
-      handle_unusual:
-        if ((tag & 7) == 4 || tag == 0) {
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag, &_internal_metadata_, ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
+      default:
+        goto handle_unusual;
     }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
   }  // while
-success:
+message_done:
   return ptr;
 failure:
   ptr = nullptr;
-  goto success;
+  goto message_done;
 #undef CHK_
 }
 
-::PROTOBUF_NAMESPACE_ID::uint8* UpdateParams::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+uint8_t* UpdateParams::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:update_engine.UpdateParams)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   // string app_version = 1;
-  if (this->app_version().size() > 0) {
+  if (!this->_internal_app_version().empty()) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_app_version().data(), static_cast<int>(this->_internal_app_version().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
@@ -1225,7 +1547,7 @@ failure:
   }
 
   // string omaha_url = 2;
-  if (this->omaha_url().size() > 0) {
+  if (!this->_internal_omaha_url().empty()) {
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_omaha_url().data(), static_cast<int>(this->_internal_omaha_url().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
@@ -1235,7 +1557,7 @@ failure:
   }
 
   // .update_engine.UpdateFlags update_flags = 3;
-  if (this->has_update_flags()) {
+  if (this->_internal_has_update_flags()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
@@ -1243,14 +1565,14 @@ failure:
   }
 
   // bool skip_applying = 4;
-  if (this->skip_applying() != 0) {
+  if (this->_internal_skip_applying() != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(4, this->_internal_skip_applying(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = stream->WriteRaw(_internal_metadata_.unknown_fields().data(),
-        static_cast<int>(_internal_metadata_.unknown_fields().size()), target);
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
   }
   // @@protoc_insertion_point(serialize_to_array_end:update_engine.UpdateParams)
   return target;
@@ -1260,38 +1582,38 @@ size_t UpdateParams::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:update_engine.UpdateParams)
   size_t total_size = 0;
 
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   // string app_version = 1;
-  if (this->app_version().size() > 0) {
+  if (!this->_internal_app_version().empty()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_app_version());
   }
 
   // string omaha_url = 2;
-  if (this->omaha_url().size() > 0) {
+  if (!this->_internal_omaha_url().empty()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_omaha_url());
   }
 
   // .update_engine.UpdateFlags update_flags = 3;
-  if (this->has_update_flags()) {
+  if (this->_internal_has_update_flags()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *update_flags_);
   }
 
   // bool skip_applying = 4;
-  if (this->skip_applying() != 0) {
+  if (this->_internal_skip_applying() != 0) {
     total_size += 1 + 1;
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    total_size += _internal_metadata_.unknown_fields().size();
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
   int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
   SetCachedSize(cached_size);
@@ -1307,24 +1629,22 @@ void UpdateParams::CheckTypeAndMergeFrom(
 void UpdateParams::MergeFrom(const UpdateParams& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:update_engine.UpdateParams)
   GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from.app_version().size() > 0) {
-
-    app_version_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.app_version_);
+  if (!from._internal_app_version().empty()) {
+    _internal_set_app_version(from._internal_app_version());
   }
-  if (from.omaha_url().size() > 0) {
-
-    omaha_url_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.omaha_url_);
+  if (!from._internal_omaha_url().empty()) {
+    _internal_set_omaha_url(from._internal_omaha_url());
   }
-  if (from.has_update_flags()) {
+  if (from._internal_has_update_flags()) {
     _internal_mutable_update_flags()->::update_engine::UpdateFlags::MergeFrom(from._internal_update_flags());
   }
-  if (from.skip_applying() != 0) {
+  if (from._internal_skip_applying() != 0) {
     _internal_set_skip_applying(from._internal_skip_applying());
   }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void UpdateParams::CopyFrom(const UpdateParams& from) {
@@ -1340,13 +1660,25 @@ bool UpdateParams::IsInitialized() const {
 
 void UpdateParams::InternalSwap(UpdateParams* other) {
   using std::swap;
-  _internal_metadata_.Swap(&other->_internal_metadata_);
-  app_version_.Swap(&other->app_version_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-    GetArenaNoVirtual());
-  omaha_url_.Swap(&other->omaha_url_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-    GetArenaNoVirtual());
-  swap(update_flags_, other->update_flags_);
-  swap(skip_applying_, other->skip_applying_);
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &app_version_, lhs_arena,
+      &other->app_version_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &omaha_url_, lhs_arena,
+      &other->omaha_url_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(UpdateParams, skip_applying_)
+      + sizeof(UpdateParams::skip_applying_)
+      - PROTOBUF_FIELD_OFFSET(UpdateParams, update_flags_)>(
+          reinterpret_cast<char*>(&update_flags_),
+          reinterpret_cast<char*>(&other->update_flags_));
 }
 
 std::string UpdateParams::GetTypeName() const {
@@ -1357,17 +1689,20 @@ std::string UpdateParams::GetTypeName() const {
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace update_engine
 PROTOBUF_NAMESPACE_OPEN
+template<> PROTOBUF_NOINLINE ::update_engine::ApplyUpdateConfig* Arena::CreateMaybeMessage< ::update_engine::ApplyUpdateConfig >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::update_engine::ApplyUpdateConfig >(arena);
+}
 template<> PROTOBUF_NOINLINE ::update_engine::Feature* Arena::CreateMaybeMessage< ::update_engine::Feature >(Arena* arena) {
-  return Arena::CreateInternal< ::update_engine::Feature >(arena);
+  return Arena::CreateMessageInternal< ::update_engine::Feature >(arena);
 }
 template<> PROTOBUF_NOINLINE ::update_engine::StatusResult* Arena::CreateMaybeMessage< ::update_engine::StatusResult >(Arena* arena) {
-  return Arena::CreateInternal< ::update_engine::StatusResult >(arena);
+  return Arena::CreateMessageInternal< ::update_engine::StatusResult >(arena);
 }
 template<> PROTOBUF_NOINLINE ::update_engine::UpdateFlags* Arena::CreateMaybeMessage< ::update_engine::UpdateFlags >(Arena* arena) {
-  return Arena::CreateInternal< ::update_engine::UpdateFlags >(arena);
+  return Arena::CreateMessageInternal< ::update_engine::UpdateFlags >(arena);
 }
 template<> PROTOBUF_NOINLINE ::update_engine::UpdateParams* Arena::CreateMaybeMessage< ::update_engine::UpdateParams >(Arena* arena) {
-  return Arena::CreateInternal< ::update_engine::UpdateParams >(arena);
+  return Arena::CreateMessageInternal< ::update_engine::UpdateParams >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

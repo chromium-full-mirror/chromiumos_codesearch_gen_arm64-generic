@@ -12,10 +12,10 @@
 #include <utility>
 
 #include "base/strings/stringprintf.h"
-#include "base/trace_event/base_tracing.h"
 #include "mojo/public/cpp/bindings/lib/validate_params.h"
 #include "mojo/public/cpp/bindings/lib/validation_errors.h"
 #include "mojo/public/cpp/bindings/lib/validation_util.h"
+#include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
 #include "ml/mojom/text_suggester.mojom-params-data.h"
 namespace chromeos {
@@ -128,7 +128,7 @@ bool TextSuggestionCandidate_Data::Validate(
 
   switch (object->tag) {
 
-    case TextSuggestionCandidate_Tag::MULTI_WORD: {
+    case TextSuggestionCandidate_Tag::kMultiWord: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
               object->data.f_multi_word, 1, validation_context)) {
@@ -405,38 +405,32 @@ TextSuggester_Suggest_ResponseParams_Data::TextSuggester_Suggest_ResponseParams_
 }  // namespace machine_learning
 }  // namespace chromeos
 
-namespace perfetto {
-namespace libchrome {
+namespace perfetto_libchrome {
 
 // static
 void TraceFormatTraits<::chromeos::machine_learning::mojom::TextSuggestionMode>::WriteIntoTrace(
-   perfetto::libchrome::TracedValue context, ::chromeos::machine_learning::mojom::TextSuggestionMode value) {
+   perfetto_libchrome::TracedValue context, ::chromeos::machine_learning::mojom::TextSuggestionMode value) {
   return std::move(context).WriteString(::chromeos::machine_learning::mojom::TextSuggestionModeToString(value));
 }
 
-} // namespace libchrome
 } // namespace perfetto
 
-namespace perfetto {
-namespace libchrome {
+namespace perfetto_libchrome {
 
 // static
 void TraceFormatTraits<::chromeos::machine_learning::mojom::MultiWordExperimentGroup>::WriteIntoTrace(
-   perfetto::libchrome::TracedValue context, ::chromeos::machine_learning::mojom::MultiWordExperimentGroup value) {
+   perfetto_libchrome::TracedValue context, ::chromeos::machine_learning::mojom::MultiWordExperimentGroup value) {
   return std::move(context).WriteString(::chromeos::machine_learning::mojom::MultiWordExperimentGroupToString(value));
 }
 
-} // namespace libchrome
 } // namespace perfetto
 
-namespace perfetto {
-namespace libchrome {
+namespace perfetto_libchrome {
 
 // static
 void TraceFormatTraits<::chromeos::machine_learning::mojom::TextSuggesterResult_Status>::WriteIntoTrace(
-   perfetto::libchrome::TracedValue context, ::chromeos::machine_learning::mojom::TextSuggesterResult_Status value) {
+   perfetto_libchrome::TracedValue context, ::chromeos::machine_learning::mojom::TextSuggesterResult_Status value) {
   return std::move(context).WriteString(::chromeos::machine_learning::mojom::TextSuggesterResult_StatusToString(value));
 }
 
-} // namespace libchrome
 } // namespace perfetto

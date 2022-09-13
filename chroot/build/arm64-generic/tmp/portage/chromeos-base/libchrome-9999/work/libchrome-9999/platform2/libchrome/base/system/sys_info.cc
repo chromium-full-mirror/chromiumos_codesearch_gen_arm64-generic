@@ -13,18 +13,21 @@
 #include "base/location.h"
 #include "base/notreached.h"
 #include "base/system/sys_info_internal.h"
-#include "base/task/post_task.h"
 #include "base/task/task_traits.h"
 #include "base/task/thread_pool.h"
 #include "base/threading/sequenced_task_runner_handle.h"
 #include "base/time/time.h"
 #include "build/build_config.h"
-#include "build/chromeos_buildflags.h"
 
 namespace base {
 namespace {
+#if BUILDFLAG(IS_IOS)
+// For M99, 45% of devices have 2GB of RAM, and 55% have more.
+constexpr int64_t kLowMemoryDeviceThresholdMB = 1024;
+#else
 // Updated Desktop default threshold to match the Android 2021 definition.
 constexpr int64_t kLowMemoryDeviceThresholdMB = 2048;
+#endif
 }  // namespace
 
 // static
@@ -90,7 +93,7 @@ bool SysInfo::IsLowEndDeviceImpl() {
 #endif
 
 #if !BUILDFLAG(IS_APPLE) && !BUILDFLAG(IS_ANDROID) && !BUILDFLAG(IS_WIN) && \
-    !BUILDFLAG(IS_CHROMEOS_ASH) && !BUILDFLAG(IS_CHROMEOS_LACROS)
+    !BUILDFLAG(IS_CHROMEOS)
 std::string SysInfo::HardwareModelName() {
   return std::string();
 }

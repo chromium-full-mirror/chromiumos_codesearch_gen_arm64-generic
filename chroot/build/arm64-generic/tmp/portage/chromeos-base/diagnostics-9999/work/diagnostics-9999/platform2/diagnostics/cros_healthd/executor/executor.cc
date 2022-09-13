@@ -18,7 +18,6 @@
 #include <base/files/file_util.h>
 #include <base/logging.h>
 #include <base/strings/stringprintf.h>
-#include <base/system/sys_info.h>
 #include <base/task/task_traits.h>
 #include <base/task/thread_pool.h>
 #include <base/time/time.h>
@@ -39,6 +38,7 @@ constexpr base::TimeDelta kTerminationTimeout = base::Seconds(2);
 
 // All SECCOMP policies should live in this directory.
 constexpr char kSandboxDirPath[] = "/usr/share/policy/";
+
 // SECCOMP policy for ectool pwmgetfanrpm:
 constexpr char kFanSpeedSeccompPolicyPath[] =
     "ectool_pwmgetfanrpm-seccomp.policy";
@@ -47,7 +47,14 @@ constexpr char kEctoolBinary[] = "/usr/sbin/ectool";
 // The ectool command used to collect fan speed in RPM.
 constexpr char kGetFanRpmCommand[] = "pwmgetfanrpm";
 
-// The iw command used to collect diffrent wireless data.
+// SECCOMP policy for ectool motionsense lid_angle:
+constexpr char kLidAngleSeccompPolicyPath[] =
+    "ectool_motionsense_lid_angle-seccomp.policy";
+// The ectool commands used to collect lid angle.
+constexpr char kMotionSenseCommand[] = "motionsense";
+constexpr char kLidAngleCommand[] = "lid_angle";
+
+// The iw command used to collect different wireless data.
 constexpr char kIwSeccompPolicyPath[] = "iw-seccomp.policy";
 // constexpr char kIwUserAndGroup[] = "healthd_iw";
 constexpr char kIwBinary[] = "/usr/sbin/iw";
@@ -74,8 +81,7 @@ constexpr uint32_t kMsrAccessAllowList[] = {
 // See also:
 // https://uefi.org/sites/default/files/resources/UEFI_Spec_2_9_2021_03_18.pdf
 constexpr char kUEFISecureBootVarPath[] =
-    "/sys/firmware/efi/vars/SecureBoot-8be4df61-93ca-11d2-aa0d-00e098032b8c/"
-    "data";
+    "/sys/firmware/efi/efivars/SecureBoot-8be4df61-93ca-11d2-aa0d-00e098032b8c";
 
 // All Mojo callbacks need to be ran by the Mojo task runner, so this provides a
 // convenient wrapper that can be bound and ran by that specific task runner.
@@ -260,7 +266,8 @@ void Executor::GetScanDump(const std::string& interface_name,
   base::ThreadPool::PostTask(FROM_HERE, {base::MayBlock()}, std::move(closure));
 }
 
-void Executor::RunMemtester(RunMemtesterCallback callback) {
+void Executor::RunMemtester(uint32_t test_mem_kib,
+                            RunMemtesterCallback callback) {
   mojom::ExecutedProcessResult result;
 
   // TODO(b/193211343): Design a mechanism for multiple resource intensive task.
@@ -270,19 +277,7 @@ void Executor::RunMemtester(RunMemtesterCallback callback) {
   auto itr = processes_.find(kMemtesterBinary);
   if (itr != processes_.end()) {
     result.return_code = MemtesterErrorCodes::kAllocatingLockingInvokingError;
-    result.err = "Memtester process already running.";
-    std::move(callback).Run(result.Clone());
-    return;
-  }
-
-  // Get AvailablePhysicalMemory in MiB.
-  int64_t available_mem = base::SysInfo::AmountOfAvailablePhysicalMemory();
-  available_mem /= (1024 * 1024);
-
-  available_mem -= kMemoryRoutineReservedSizeMiB;
-  if (available_mem <= 0) {
-    result.err = "Not enough available memory to run memtester.";
-    result.return_code = MemtesterErrorCodes::kAllocatingLockingInvokingError;
+    result.err = kMemoryRoutineMemtesterAlreadyRunningMessage;
     std::move(callback).Run(result.Clone());
     return;
   }
@@ -296,7 +291,7 @@ void Executor::RunMemtester(RunMemtesterCallback callback) {
   std::vector<std::string> memtester_args;
   // Run with all free memory, except that which we left to the operating system
   // above.
-  memtester_args.push_back(base::StringPrintf("%" PRId64, available_mem));
+  memtester_args.push_back(base::StringPrintf("%uK", test_mem_kib));
   // Run for one loop.
   memtester_args.push_back("1");
 
@@ -384,6 +379,30 @@ void Executor::GetUEFISecureBootContent(
   }
 
   std::move(callback).Run(content);
+}
+
+void Executor::GetLidAngle(GetLidAngleCallback callback) {
+  mojom::ExecutedProcessResult result;
+
+  const auto seccomp_policy_path =
+      base::FilePath(kSandboxDirPath).Append(kLidAngleSeccompPolicyPath);
+
+  // Minijail setup for ectool.
+  std::vector<std::string> sandboxing_args;
+  sandboxing_args.push_back("-G");
+  sandboxing_args.push_back("-b");
+  sandboxing_args.push_back("/dev/cros_ec");
+
+  std::vector<std::string> binary_args = {kMotionSenseCommand,
+                                          kLidAngleCommand};
+  base::FilePath binary_path = base::FilePath(kEctoolBinary);
+
+  base::OnceClosure closure = base::BindOnce(
+      &Executor::RunUntrackedBinary, weak_factory_.GetWeakPtr(),
+      seccomp_policy_path, sandboxing_args, kEctoolUserAndGroup, binary_path,
+      binary_args, std::move(result), std::move(callback));
+
+  base::ThreadPool::PostTask(FROM_HERE, {base::MayBlock()}, std::move(closure));
 }
 
 void Executor::RunUntrackedBinary(

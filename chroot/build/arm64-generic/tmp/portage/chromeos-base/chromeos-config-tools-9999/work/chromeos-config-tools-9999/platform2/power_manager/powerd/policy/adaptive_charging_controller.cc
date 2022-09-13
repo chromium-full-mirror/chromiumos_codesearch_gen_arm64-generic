@@ -18,6 +18,7 @@
 
 #include "chromeos/dbus/service_constants.h"
 #include "power_manager/common/power_constants.h"
+#include "power_manager/common/util.h"
 #include "power_manager/powerd/policy/adaptive_charging_controller.h"
 
 namespace power_manager {
@@ -27,6 +28,7 @@ namespace {
 const char kDefaultChargeHistoryDir[] =
     "/var/lib/power_manager/charge_history/";
 const char kChargeEventsSubDir[] = "charge_events/";
+const char kHoldTimeOnACSubDir[] = "hold_time_on_ac/";
 const char kTimeFullOnACSubDir[] = "time_full_on_ac/";
 const char kTimeOnACSubDir[] = "time_on_ac/";
 // `kRententionDays`, `kChargeHistoryTimeBucketSize`, and `kMaxChargeEvents`
@@ -61,9 +63,11 @@ void ChargeHistory::Init(const system::PowerStatus& status) {
   CHECK(base::SetPosixFilePermissions(charge_history_dir_, 0700));
 
   charge_events_dir_ = charge_history_dir_.Append(kChargeEventsSubDir);
+  hold_time_on_ac_dir_ = charge_history_dir_.Append(kHoldTimeOnACSubDir);
   time_full_on_ac_dir_ = charge_history_dir_.Append(kTimeFullOnACSubDir);
   time_on_ac_dir_ = charge_history_dir_.Append(kTimeOnACSubDir);
   CHECK(base::CreateDirectory(charge_events_dir_));
+  CHECK(base::CreateDirectory(hold_time_on_ac_dir_));
   CHECK(base::CreateDirectory(time_full_on_ac_dir_));
   CHECK(base::CreateDirectory(time_on_ac_dir_));
 
@@ -75,7 +79,7 @@ void ChargeHistory::Init(const system::PowerStatus& status) {
     base::Time file_time;
     base::TimeDelta duration;
     if (!JSONFileNameToTime(path, &file_time)) {
-      CHECK(base::DeleteFile(path));
+      CHECK(util::DeleteFile(path));
     } else if (events_dir.GetInfo().GetSize() == 0) {
       // Only delete charge events "from the future" if they are incomplete.
       // This is because we don't have a reasonable way to figure out the
@@ -87,7 +91,7 @@ void ChargeHistory::Init(const system::PowerStatus& status) {
         LOG(WARNING) << "AC connect time: " << file_time << " written to disk "
                      << "without duration is in the future. Possibly caused by "
                      << "loss of RTC state. Deleting file";
-        CHECK(base::DeleteFile(path));
+        CHECK(util::DeleteFile(path));
       } else if (ac_connect_time_ != base::Time()) {
         // There should only be up to one empty charge event. If there's more
         // than one, only keep the newest one.
@@ -97,7 +101,7 @@ void ChargeHistory::Init(const system::PowerStatus& status) {
           ac_connect_ticks_ = clock_.GetCurrentBootTime();
           ac_connect_ticks_offset_ = now - file_time;
         } else {
-          CHECK(base::DeleteFile(path));
+          CHECK(util::DeleteFile(path));
         }
       } else if (status.external_power ==
                  PowerSupplyProperties_ExternalPower_AC) {
@@ -106,14 +110,16 @@ void ChargeHistory::Init(const system::PowerStatus& status) {
         ac_connect_ticks_offset_ = now - file_time;
       }
     } else if (!ReadTimeDeltaFromFile(path, &duration)) {
-      CHECK(base::DeleteFile(path));
+      CHECK(util::DeleteFile(path));
     } else if (file_time + duration < now - kRetentionDays) {
-      CHECK(base::DeleteFile(path));
+      CHECK(util::DeleteFile(path));
     } else {
       charge_events_[file_time] = duration;
     }
   }
 
+  ReadChargeDaysFromFiles(hold_time_on_ac_dir_, &hold_time_on_ac_days_,
+                          &hold_duration_on_ac_);
   ReadChargeDaysFromFiles(time_full_on_ac_dir_, &time_full_on_ac_days_,
                           &duration_full_on_ac_);
   ReadChargeDaysFromFiles(time_on_ac_dir_, &time_on_ac_days_, &duration_on_ac_);
@@ -154,6 +160,14 @@ void ChargeHistory::Init(const system::PowerStatus& status) {
     full_charge_time_ = base::Time();
   }
 
+  // We only hold/delay charge when powerd is running, so we don't need to guess
+  // about any missed hold time here.
+  if (status.adaptive_delaying_charge) {
+    hold_charge_time_ = FloorTime(now);
+    hold_charge_ticks_ = clock_.GetCurrentBootTime();
+  }
+
+  AddZeroDurationChargeDays(hold_time_on_ac_dir_, &hold_time_on_ac_days_);
   AddZeroDurationChargeDays(time_full_on_ac_dir_, &time_full_on_ac_days_);
   AddZeroDurationChargeDays(time_on_ac_dir_, &time_on_ac_days_);
   UpdateHistory(status);
@@ -176,12 +190,25 @@ void ChargeHistory::HandlePowerStatusUpdate(const system::PowerStatus& status) {
     return;
   }
 
+  base::Time now = FloorTime(clock_.GetCurrentWallTime());
+  base::TimeTicks ticks = clock_.GetCurrentBootTime();
   if (status.external_power == PowerSupplyProperties_ExternalPower_AC &&
       status.battery_state == PowerSupplyProperties_BatteryState_FULL &&
       full_charge_time_ == base::Time()) {
-    full_charge_time_ = FloorTime(clock_.GetCurrentWallTime());
-    full_charge_ticks_ = clock_.GetCurrentBootTime();
+    full_charge_time_ = now;
+    full_charge_ticks_ = ticks;
     full_charge_ticks_offset_ = base::TimeDelta();
+  }
+
+  if (status.adaptive_delaying_charge && hold_charge_time_ == base::Time()) {
+    hold_charge_time_ = now;
+    hold_charge_ticks_ = ticks;
+  } else if (!status.adaptive_delaying_charge &&
+             hold_charge_time_ != base::Time()) {
+    RecordDurations(hold_time_on_ac_dir_, &hold_time_on_ac_days_,
+                    hold_charge_time_, &hold_duration_on_ac_);
+    hold_charge_time_ = base::Time();
+    hold_charge_ticks_ = base::TimeTicks();
   }
 
   CheckAndFixSystemTimeChange();
@@ -209,6 +236,14 @@ base::TimeDelta ChargeHistory::GetTimeFullOnAC() {
   return duration_full_on_ac.FloorToMultiple(kChargeHistoryTimeInterval);
 }
 
+base::TimeDelta ChargeHistory::GetHoldTimeOnAC() {
+  base::TimeDelta hold_duration_on_ac = hold_duration_on_ac_;
+  if (hold_charge_time_ != base::Time())
+    hold_duration_on_ac += clock_.GetCurrentBootTime() - hold_charge_ticks_;
+
+  return hold_duration_on_ac.FloorToMultiple(kChargeHistoryTimeInterval);
+}
+
 int ChargeHistory::DaysOfHistory() {
   return time_on_ac_days_.size();
 }
@@ -216,17 +251,26 @@ int ChargeHistory::DaysOfHistory() {
 void ChargeHistory::OnEnterLowPowerState() {
   CheckAndFixSystemTimeChange();
 
+  base::Time now = FloorTime(clock_.GetCurrentWallTime());
   // Charge Events and Time on AC don't need to be recorded when entering a low
-  // power state, which we may not return from, but Time Full on AC does, since
-  // it relies on `full_charge_time_`, a variable stored only in memory.
+  // power state, which we may not return from, but Time Full on AC and Time
+  // Hold on AC do, since `full_charge_time_` and `hold_charge_time_`, are
+  // variables stored in only memory.
   if (full_charge_time_ != base::Time()) {
     RecordDurations(time_full_on_ac_dir_, &time_full_on_ac_days_,
                     full_charge_time_, &duration_full_on_ac_);
     // Set `full_charge_time_` to now, so we don't double count if the low
     // power state returns.
-    full_charge_time_ = FloorTime(clock_.GetCurrentWallTime());
+    full_charge_time_ = now;
     full_charge_ticks_ = clock_.GetCurrentBootTime();
     full_charge_ticks_offset_ = base::TimeDelta();
+  }
+
+  if (hold_charge_time_ != base::Time()) {
+    RecordDurations(hold_time_on_ac_dir_, &hold_time_on_ac_days_,
+                    hold_charge_time_, &hold_duration_on_ac_);
+    hold_charge_time_ = now;
+    hold_charge_ticks_ = clock_.GetCurrentBootTime();
   }
 
   rewrite_timer_.Stop();
@@ -236,40 +280,120 @@ void ChargeHistory::OnExitLowPowerState() {
   ScheduleRewrites();
 }
 
+bool ChargeHistory::CopyToProtocolBuffer(ChargeHistoryState* proto) {
+  DCHECK(proto);
+  // If Init wasn't called yet, we have no useful data to return. We need a
+  // valid PowerStatus as well to properly initialize, so we can't do that here.
+  if (!initialized_)
+    return false;
+
+  proto->Clear();
+
+  CheckAndFixSystemTimeChange();
+  for (auto& event : charge_events_) {
+    ChargeHistoryState::ChargeEvent* charge_event = proto->add_charge_event();
+    charge_event->set_start_time(event.first.ToInternalValue());
+    charge_event->set_duration(event.second.ToInternalValue());
+  }
+
+  // Do not set the duration for incomplete ChargeEvents.
+  if (ac_connect_time_ != base::Time()) {
+    ChargeHistoryState::ChargeEvent* charge_event = proto->add_charge_event();
+    charge_event->set_start_time(ac_connect_time_.ToInternalValue());
+  }
+
+  // Add any missing days. This can happen if this function is called after a
+  // new day has started, but before new days are created in these maps.
+  AddZeroDurationChargeDays(hold_time_on_ac_dir_, &hold_time_on_ac_days_);
+  AddZeroDurationChargeDays(time_full_on_ac_dir_, &time_full_on_ac_days_);
+  AddZeroDurationChargeDays(time_on_ac_dir_, &time_on_ac_days_);
+
+  auto time_on_ac_it = time_on_ac_days_.begin();
+  auto time_full_on_ac_it = time_full_on_ac_days_.begin();
+  auto hold_time_on_ac_it = hold_time_on_ac_days_.begin();
+  while (time_on_ac_it != time_on_ac_days_.end()) {
+    ChargeHistoryState::DailyHistory* history = proto->add_daily_history();
+    base::Time day_start = time_on_ac_it->first;
+    history->set_utc_midnight(day_start.ToInternalValue());
+
+    // Add in time for the current time on AC if an AC charger is connected.
+    base::TimeDelta duration = time_on_ac_it->second;
+    duration += DurationForDay(ac_connect_time_, day_start);
+    duration = duration.FloorToMultiple(kChargeHistoryTimeInterval);
+    history->set_time_on_ac(duration.ToInternalValue());
+    time_on_ac_it++;
+
+    // If this happens, we missed calling `AddZeroDurationChargeDays` somewhere.
+    if (time_full_on_ac_it->first != day_start) {
+      LOG(ERROR) << "Missing time_full_on_ac/ entry: " << day_start;
+      history->set_time_full_on_ac(0);
+    } else {
+      duration = time_full_on_ac_it->second;
+      duration += DurationForDay(full_charge_time_, day_start);
+      duration = duration.FloorToMultiple(kChargeHistoryTimeInterval);
+      history->set_time_full_on_ac(duration.ToInternalValue());
+      time_full_on_ac_it++;
+    }
+
+    if (hold_time_on_ac_it->first != day_start) {
+      LOG(ERROR) << "Missing hold_time_on_ac/ entry: " << day_start;
+      history->set_hold_time_on_ac(0);
+    } else {
+      duration = hold_time_on_ac_it->second;
+      duration += DurationForDay(hold_charge_time_, day_start);
+      duration = duration.FloorToMultiple(kChargeHistoryTimeInterval);
+      history->set_hold_time_on_ac(duration.ToInternalValue());
+      hold_time_on_ac_it++;
+    }
+  }
+
+  return true;
+}
+
+bool ChargeHistory::CheckAndFixTimestamp(base::Time* timestamp,
+                                         const base::TimeTicks& ticks,
+                                         const base::TimeDelta& ticks_offset) {
+  base::Time now = FloorTime(clock_.GetCurrentWallTime());
+  base::TimeTicks now_ticks = clock_.GetCurrentBootTime();
+  base::TimeDelta duration =
+      (now - *timestamp).FloorToMultiple(kChargeHistoryTimeInterval);
+  base::TimeDelta ticks_duration =
+      (now_ticks - ticks + ticks_offset)
+          .FloorToMultiple(kChargeHistoryTimeInterval);
+  if ((duration - ticks_duration).magnitude() > kChargeHistoryTimeInterval) {
+    *timestamp = now - ticks_duration;
+    return true;
+  }
+
+  return false;
+}
+
 void ChargeHistory::CheckAndFixSystemTimeChange() {
   // Nothing to do if `ac_connect_time_` is not set.
   if (ac_connect_time_ == base::Time())
     return;
 
-  base::Time now = FloorTime(clock_.GetCurrentWallTime());
-  base::TimeTicks ticks = clock_.GetCurrentBootTime();
-  base::TimeDelta duration =
-      (now - ac_connect_time_).FloorToMultiple(kChargeHistoryTimeInterval);
-  base::TimeDelta ticks_duration =
-      (ticks - ac_connect_ticks_ + ac_connect_ticks_offset_)
-          .FloorToMultiple(kChargeHistoryTimeInterval);
-
   // If we detect a time jump larger than the time interval, remove the
   // existing charge event file.
-  if ((duration - ticks_duration).magnitude() > kChargeHistoryTimeInterval) {
-    DeleteChargeFile(charge_events_dir_, ac_connect_time_);
-    ac_connect_time_ = now - ticks_duration;
+  base::Time old_ac_connect_time = ac_connect_time_;
+  if (CheckAndFixTimestamp(&ac_connect_time_, ac_connect_ticks_,
+                           ac_connect_ticks_offset_)) {
+    DeleteChargeFile(charge_events_dir_, old_ac_connect_time);
     CreateEmptyChargeEventFile(ac_connect_time_);
 
     // The latest days may not be tracked yet, so explicitly add them now.
+    AddZeroDurationChargeDays(hold_time_on_ac_dir_, &hold_time_on_ac_days_);
     AddZeroDurationChargeDays(time_full_on_ac_dir_, &time_full_on_ac_days_);
     AddZeroDurationChargeDays(time_on_ac_dir_, &time_on_ac_days_);
   }
 
-  if (full_charge_time_ == base::Time())
-    return;
-
-  duration =
-      (now - full_charge_time_).FloorToMultiple(kChargeHistoryTimeInterval);
-  ticks_duration = (ticks - full_charge_ticks_ + full_charge_ticks_offset_)
-                       .FloorToMultiple(kChargeHistoryTimeInterval);
-  if ((duration - ticks_duration).magnitude() > kChargeHistoryTimeInterval) {
-    full_charge_time_ = now - ticks_duration;
+  if (full_charge_time_ != base::Time()) {
+    CheckAndFixTimestamp(&full_charge_time_, full_charge_ticks_,
+                         full_charge_ticks_offset_);
+  }
+  if (hold_charge_time_ != base::Time()) {
+    CheckAndFixTimestamp(&hold_charge_time_, hold_charge_ticks_,
+                         base::TimeDelta());
   }
 }
 
@@ -304,16 +428,23 @@ void ChargeHistory::UpdateHistory(const system::PowerStatus& status) {
 
   // On AC disconnect, write the charging duration to the latest charge event
   // file (the name of which will be the connection time), the time_on_ac files,
-  // and the time_full_on_ac files (if we're fully charged).
+  // the time_full_on_ac files (if we're fully charged), and hold_time_on_ac
+  // files (if we held charge).
   if (full_charge_time_ != base::Time())
     RecordDurations(time_full_on_ac_dir_, &time_full_on_ac_days_,
                     full_charge_time_, &duration_full_on_ac_);
+
+  if (hold_charge_time_ != base::Time())
+    RecordDurations(hold_time_on_ac_dir_, &hold_time_on_ac_days_,
+                    hold_charge_time_, &hold_duration_on_ac_);
 
   RecordDurations(time_on_ac_dir_, &time_on_ac_days_, ac_connect_time_,
                   &duration_on_ac_);
   full_charge_time_ = base::Time();
   full_charge_ticks_ = base::TimeTicks();
   full_charge_ticks_offset_ = base::TimeDelta();
+  hold_charge_time_ = base::Time();
+  hold_charge_ticks_ = base::TimeTicks();
 
   base::TimeDelta ticks_duration =
       (clock_.GetCurrentBootTime() - ac_connect_ticks_ +
@@ -370,12 +501,12 @@ void ChargeHistory::ReadChargeDaysFromFiles(
     base::Time file_time;
     base::TimeDelta duration;
     if (!JSONFileNameToTime(path, &file_time)) {
-      CHECK(base::DeleteFile(path));
+      CHECK(util::DeleteFile(path));
     } else if (!ReadTimeDeltaFromFile(path, &duration)) {
-      CHECK(base::DeleteFile(path));
+      CHECK(util::DeleteFile(path));
     } else if (file_time < now - kRetentionDays) {
       // Delete files that are older than our retention limit.
-      CHECK(base::DeleteFile(path));
+      CHECK(util::DeleteFile(path));
     } else {
       days->insert(std::make_pair(file_time, duration));
       *total_duration += duration;
@@ -412,7 +543,7 @@ void ChargeHistory::RemoveOldChargeDays(
       continue;
     }
 
-    CHECK(base::DeleteFile(dir.Append(path)));
+    CHECK(util::DeleteFile(dir.Append(path)));
   }
 }
 
@@ -452,6 +583,8 @@ void ChargeHistory::RemoveOldChargeEvents() {
 
 void ChargeHistory::OnRetentionTimerFired() {
   RemoveOldChargeEvents();
+  RemoveOldChargeDays(hold_time_on_ac_dir_, &hold_time_on_ac_days_,
+                      &hold_duration_on_ac_);
   RemoveOldChargeDays(time_full_on_ac_dir_, &time_full_on_ac_days_,
                       &duration_full_on_ac_);
   RemoveOldChargeDays(time_on_ac_dir_, &time_on_ac_days_, &duration_on_ac_);
@@ -503,6 +636,18 @@ void ChargeHistory::WriteDurationToFile(const base::FilePath& dir,
   }
 }
 
+base::TimeDelta ChargeHistory::DurationForDay(base::Time start,
+                                              base::Time day_start) {
+  DCHECK(day_start == day_start.UTCMidnight());
+  base::Time day_end = day_start + base::Days(1);
+  if (start == base::Time() || start > day_end)
+    return base::TimeDelta();
+
+  base::Time now = FloorTime(clock_.GetCurrentWallTime());
+  return (now < day_end ? now : day_end) -
+         (start > day_start ? start : day_start);
+}
+
 // static
 base::Time ChargeHistory::FloorTime(base::Time time) {
   base::TimeDelta conv = time.ToDeltaSinceWindowsEpoch().FloorToMultiple(
@@ -548,7 +693,7 @@ bool ChargeHistory::WriteTimeDeltaToFile(const base::FilePath& path,
     LOG(ERROR) << "Failed to serialize TimeDelta: " << delta
                << " to a string. Deleting file: " << path
                << " that it would be written to";
-    CHECK(base::DeleteFile(path));
+    CHECK(util::DeleteFile(path));
     return false;
   }
 
@@ -633,6 +778,10 @@ void AdaptiveChargingController::Init(
       kChargeNowForAdaptiveChargingMethod,
       base::BindRepeating(&AdaptiveChargingController::HandleChargeNow,
                           weak_ptr_factory_.GetWeakPtr()));
+  dbus_wrapper->ExportMethod(
+      kGetChargeHistoryMethod,
+      base::BindRepeating(&AdaptiveChargingController::HandleGetChargeHistory,
+                          weak_ptr_factory_.GetWeakPtr()));
 
   int64_t alarm_seconds;
   if (prefs_->GetInt64(kAdaptiveChargingAlarmSecPref, &alarm_seconds)) {
@@ -654,12 +803,15 @@ void AdaptiveChargingController::Init(
   // enabled.
   adaptive_charging_supported_ = SetSustain(100, 100);
   if (!adaptive_charging_supported_) {
+    // AdaptiveChargingController still runs the predictions to report how well
+    // the ML model performs, even if the system isn't supported.
     adaptive_charging_enabled_ = false;
     state_ = AdaptiveChargingState::NOT_SUPPORTED;
+  } else if (adaptive_charging_enabled_) {
+    state_ = AdaptiveChargingState::INACTIVE;
+  } else {
+    state_ = AdaptiveChargingState::USER_DISABLED;
   }
-
-  state_ = adaptive_charging_enabled_ ? AdaptiveChargingState::INACTIVE
-                                      : AdaptiveChargingState::USER_DISABLED;
 
   LOG(INFO) << "Adaptive Charging is "
             << (adaptive_charging_supported_ ? "supported" : "not supported")
@@ -674,6 +826,9 @@ void AdaptiveChargingController::Init(
 
 void AdaptiveChargingController::HandlePolicyChange(
     const PowerManagementPolicy& policy) {
+  if (state_ == AdaptiveChargingState::SHUTDOWN)
+    return;
+
   bool restart_adaptive = false;
   if (policy.has_adaptive_charging_hold_percent() &&
       policy.adaptive_charging_hold_percent() != hold_percent_) {
@@ -737,6 +892,7 @@ void AdaptiveChargingController::HandleFullResume() {
 
 void AdaptiveChargingController::HandleShutdown() {
   adaptive_charging_enabled_ = false;
+  state_ = AdaptiveChargingState::SHUTDOWN;
   StopAdaptiveCharging();
   charge_history_.OnEnterLowPowerState();
 }
@@ -766,7 +922,12 @@ void AdaptiveChargingController::OnPredictionResponse(
   // model not having enough confidence in the prediction to delay charging.
   if (result[hour] < min_probability_) {
     StopAdaptiveCharging();
-    target_full_charge_time_ = base::TimeTicks::Now();
+    // If charging was delayed already, treat this as an unplug prediction for
+    // `kFinishChargingDelay` time from now.
+    if (hold_percent_start_time_ != base::TimeTicks())
+      target_full_charge_time_ = base::TimeTicks::Now() + kFinishChargingDelay;
+    else
+      target_full_charge_time_ = base::TimeTicks::Now();
     return;
   }
 
@@ -775,7 +936,11 @@ void AdaptiveChargingController::OnPredictionResponse(
   base::TimeDelta target_delay = base::Hours(hour);
   if (target_delay <= kFinishChargingDelay) {
     StopAdaptiveCharging();
-    target_full_charge_time_ = base::TimeTicks::Now() + target_delay;
+    if (hold_percent_start_time_ != base::TimeTicks())
+      target_full_charge_time_ = base::TimeTicks::Now() + kFinishChargingDelay;
+    else
+      target_full_charge_time_ = base::TimeTicks::Now() + target_delay;
+
     return;
   }
 
@@ -907,6 +1072,27 @@ void AdaptiveChargingController::HandleChargeNow(
   std::move(response_sender).Run(dbus::Response::FromMethodCall(method_call));
 }
 
+void AdaptiveChargingController::HandleGetChargeHistory(
+    dbus::MethodCall* method_call,
+    dbus::ExportedObject::ResponseSender response_sender) {
+  ChargeHistoryState protobuf;
+  if (!charge_history_.CopyToProtocolBuffer(&protobuf)) {
+    LOG(INFO) << "GetChargeHistory DBus method called before ChargeHistory was"
+              << " initialized";
+    std::move(response_sender)
+        .Run(
+            std::unique_ptr<dbus::Response>(dbus::ErrorResponse::FromMethodCall(
+                method_call, DBUS_ERROR_FAILED,
+                "ChargeHistory not initialized yet")));
+    return;
+  }
+  std::unique_ptr<dbus::Response> response =
+      dbus::Response::FromMethodCall(method_call);
+  dbus::MessageWriter writer(response.get());
+  writer.AppendProtoAsArrayOfBytes(protobuf);
+  std::move(response_sender).Run(std::move(response));
+}
+
 bool AdaptiveChargingController::SetSustain(int64_t lower, int64_t upper) {
   bool success = delegate_->SetBatterySustain(lower, upper);
   if (!success) {
@@ -919,6 +1105,11 @@ bool AdaptiveChargingController::SetSustain(int64_t lower, int64_t upper) {
 
 bool AdaptiveChargingController::StartAdaptiveCharging(
     const UserChargingEvent::Event::Reason& reason) {
+  // Keep the current value of `started_` just in case AC unplug happens right
+  // before shutdown.
+  if (state_ == AdaptiveChargingState::SHUTDOWN)
+    return false;
+
   const system::PowerStatus status = power_supply_->GetPowerStatus();
   if (status.battery_state == PowerSupplyProperties_BatteryState_FULL) {
     started_ = false;
@@ -927,23 +1118,29 @@ bool AdaptiveChargingController::StartAdaptiveCharging(
 
   started_ = true;
   report_charge_time_ = status.display_battery_percentage <= hold_percent_;
-  if (adaptive_charging_enabled_) {
-    base::TimeDelta time_full_on_ac = charge_history_.GetTimeFullOnAC();
-    base::TimeDelta time_on_ac = charge_history_.GetTimeOnAC();
-    double ratio =
-        time_on_ac == base::TimeDelta() ? 0.0 : time_full_on_ac / time_on_ac;
-    if (charge_history_.DaysOfHistory() < kHeuristicMinDaysHistory ||
-        ratio < kHeuristicMinFullOnACRatio) {
-      LOG(INFO) << "Adaptive Charging not started due to heuristic. "
-                << charge_history_.DaysOfHistory()
-                << " days of charge history and " << ratio
-                << " time on AC with full charge over time on AC ratio.";
-      state_ = AdaptiveChargingState::HEURISTIC_DISABLED;
+  base::TimeDelta hold_time_on_ac = charge_history_.GetHoldTimeOnAC();
+  base::TimeDelta time_full_on_ac = charge_history_.GetTimeFullOnAC();
+  base::TimeDelta time_on_ac = charge_history_.GetTimeOnAC();
+  double ratio = 0.0;
+  if (time_on_ac != base::TimeDelta())
+    ratio = (hold_time_on_ac + time_full_on_ac) / time_on_ac;
+
+  if (charge_history_.DaysOfHistory() < kHeuristicMinDaysHistory ||
+      ratio < kHeuristicMinFullOnACRatio) {
+    LOG(INFO) << "Adaptive Charging not started due to heuristic. "
+              << charge_history_.DaysOfHistory()
+              << " days of charge history and " << ratio
+              << " time on AC with full charge over time on AC ratio.";
+    state_ = AdaptiveChargingState::HEURISTIC_DISABLED;
+    if (adaptive_charging_enabled_)
       power_supply_->SetAdaptiveChargingHeuristicEnabled(false);
-    } else {
-      state_ = AdaptiveChargingState::ACTIVE;
-      power_supply_->SetAdaptiveChargingHeuristicEnabled(true);
-    }
+  } else if (!adaptive_charging_supported_) {
+    state_ = AdaptiveChargingState::NOT_SUPPORTED;
+  } else if (adaptive_charging_enabled_) {
+    state_ = AdaptiveChargingState::ACTIVE;
+    power_supply_->SetAdaptiveChargingHeuristicEnabled(true);
+  } else {
+    state_ = AdaptiveChargingState::USER_DISABLED;
   }
 
   UpdateAdaptiveCharging(reason, true /* async */);

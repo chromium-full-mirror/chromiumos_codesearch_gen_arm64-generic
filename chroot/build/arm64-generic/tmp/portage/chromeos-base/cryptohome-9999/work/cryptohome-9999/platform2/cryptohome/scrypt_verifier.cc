@@ -4,10 +4,14 @@
 
 #include "cryptohome/scrypt_verifier.h"
 
+#include <string>
+
 #include <base/logging.h>
 #include <brillo/secure_blob.h>
 #include <libhwsec-foundation/crypto/scrypt.h>
 #include <libhwsec-foundation/crypto/secure_blob_util.h>
+
+#include "cryptohome/auth_factor/auth_factor_type.h"
 
 using ::hwsec_foundation::CreateSecureRandomBlob;
 using ::hwsec_foundation::Scrypt;
@@ -23,6 +27,9 @@ constexpr int kScryptSaltSize = 256 / CHAR_BIT;
 constexpr int kScryptOutputSize = 256 / CHAR_BIT;
 
 }  // namespace
+
+ScryptVerifier::ScryptVerifier(const std::string& auth_factor_label)
+    : CredentialVerifier(AuthFactorType::kPassword, auth_factor_label) {}
 
 bool ScryptVerifier::Set(const brillo::SecureBlob& secret) {
   verifier_.clear();

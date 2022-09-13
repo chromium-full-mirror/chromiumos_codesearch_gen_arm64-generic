@@ -19,29 +19,21 @@ class SystemFetcher final : public BaseFetcher {
  public:
   using FetchSystemInfoCallback =
       base::OnceCallback<void(chromeos::cros_healthd::mojom::SystemResultPtr)>;
-  using FetchSystemInfoV2Callback = base::OnceCallback<void(
-      chromeos::cros_healthd::mojom::SystemResultV2Ptr)>;
 
   using BaseFetcher::BaseFetcher;
 
-  // DEPRECATED(b/188508561): Use SystemInfoV2 instead.
-  void FetchSystemInfo(FetchSystemInfoCallback callback);
   // Returns either a structure with the system information or the error that
   // occurred fetching the information.
-  void FetchSystemInfoV2(FetchSystemInfoV2Callback callback);
-  // Converts SystemInfoV2 to SystemInfo
-  static chromeos::cros_healthd::mojom::SystemInfoPtr ConvertToSystemInfo(
-      const chromeos::cros_healthd::mojom::SystemInfoV2Ptr& system_info_v2);
+  void FetchSystemInfo(FetchSystemInfoCallback callback);
 
  private:
   bool FetchOsInfoWithoutBootMode(
       chromeos::cros_healthd::mojom::OsInfoPtr* out_os_info,
       chromeos::cros_healthd::mojom::ProbeErrorPtr* out_error);
 
-  void FetchBootMode(
-      chromeos::cros_healthd::mojom::SystemInfoV2Ptr system_info_v2,
-      const base::FilePath& root_dir,
-      FetchSystemInfoV2Callback callback);
+  void FetchBootMode(chromeos::cros_healthd::mojom::SystemInfoPtr system_info,
+                     const base::FilePath& root_dir,
+                     FetchSystemInfoCallback callback);
 };
 
 }  // namespace diagnostics

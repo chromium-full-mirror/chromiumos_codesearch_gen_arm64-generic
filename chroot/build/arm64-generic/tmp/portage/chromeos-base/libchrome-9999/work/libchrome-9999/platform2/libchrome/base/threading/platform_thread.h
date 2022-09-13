@@ -124,6 +124,12 @@ class BASE_EXPORT PlatformThread {
   static PlatformThreadHandle CurrentHandle();
 
   // Yield the current thread so another thread can be scheduled.
+  //
+  // Note: this is likely not the right call to make in most situations. If this
+  // is part of a spin loop, consider base::Lock, which likely has better tail
+  // latency. Yielding the thread has different effects depending on the
+  // platform, system load, etc., and can result in yielding the CPU for less
+  // than 1us, or many tens of ms.
   static void YieldCurrentThread();
 
   // Sleeps for the specified duration (real-time; ignores time overrides).
@@ -220,7 +226,7 @@ class BASE_EXPORT PlatformThread {
                                 ThreadPriority priority);
 #endif
 
-#if BUILDFLAG(IS_CHROMEOS_ASH) || BUILDFLAG(IS_CHROMEOS_LACROS)
+#if BUILDFLAG(IS_CHROMEOS)
   // Signals that the feature list has been initialized which allows to check
   // the feature's value now and initialize state. This prevents race
   // conditions where the feature is being checked while it is being
