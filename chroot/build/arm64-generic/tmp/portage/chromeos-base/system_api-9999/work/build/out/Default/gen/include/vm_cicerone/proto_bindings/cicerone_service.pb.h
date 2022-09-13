@@ -29,6 +29,9 @@
 #include <google/protobuf/message_lite.h>
 #include <google/protobuf/repeated_field.h>  // IWYU pragma: export
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
+#include <google/protobuf/map.h>  // IWYU pragma: export
+#include <google/protobuf/map_entry_lite.h>
+#include <google/protobuf/map_field_lite.h>
 #include <google/protobuf/generated_enum_util.h>
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
@@ -45,7 +48,7 @@ struct TableStruct_cicerone_5fservice_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[93]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[97]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -323,6 +326,18 @@ extern UninstallPackageOwningFileResponseDefaultTypeInternal _UninstallPackageOw
 class UninstallPackageProgressSignal;
 struct UninstallPackageProgressSignalDefaultTypeInternal;
 extern UninstallPackageProgressSignalDefaultTypeInternal _UninstallPackageProgressSignal_default_instance_;
+class UpdateContainerDevicesRequest;
+struct UpdateContainerDevicesRequestDefaultTypeInternal;
+extern UpdateContainerDevicesRequestDefaultTypeInternal _UpdateContainerDevicesRequest_default_instance_;
+class UpdateContainerDevicesRequest_UpdatesEntry_DoNotUse;
+struct UpdateContainerDevicesRequest_UpdatesEntry_DoNotUseDefaultTypeInternal;
+extern UpdateContainerDevicesRequest_UpdatesEntry_DoNotUseDefaultTypeInternal _UpdateContainerDevicesRequest_UpdatesEntry_DoNotUse_default_instance_;
+class UpdateContainerDevicesResponse;
+struct UpdateContainerDevicesResponseDefaultTypeInternal;
+extern UpdateContainerDevicesResponseDefaultTypeInternal _UpdateContainerDevicesResponse_default_instance_;
+class UpdateContainerDevicesResponse_ResultsEntry_DoNotUse;
+struct UpdateContainerDevicesResponse_ResultsEntry_DoNotUseDefaultTypeInternal;
+extern UpdateContainerDevicesResponse_ResultsEntry_DoNotUseDefaultTypeInternal _UpdateContainerDevicesResponse_ResultsEntry_DoNotUse_default_instance_;
 class UpgradeContainerProgressSignal;
 struct UpgradeContainerProgressSignalDefaultTypeInternal;
 extern UpgradeContainerProgressSignalDefaultTypeInternal _UpgradeContainerProgressSignal_default_instance_;
@@ -425,6 +440,10 @@ template<> ::vm_tools::cicerone::UninhibitScreensaverSignal* Arena::CreateMaybeM
 template<> ::vm_tools::cicerone::UninstallPackageOwningFileRequest* Arena::CreateMaybeMessage<::vm_tools::cicerone::UninstallPackageOwningFileRequest>(Arena*);
 template<> ::vm_tools::cicerone::UninstallPackageOwningFileResponse* Arena::CreateMaybeMessage<::vm_tools::cicerone::UninstallPackageOwningFileResponse>(Arena*);
 template<> ::vm_tools::cicerone::UninstallPackageProgressSignal* Arena::CreateMaybeMessage<::vm_tools::cicerone::UninstallPackageProgressSignal>(Arena*);
+template<> ::vm_tools::cicerone::UpdateContainerDevicesRequest* Arena::CreateMaybeMessage<::vm_tools::cicerone::UpdateContainerDevicesRequest>(Arena*);
+template<> ::vm_tools::cicerone::UpdateContainerDevicesRequest_UpdatesEntry_DoNotUse* Arena::CreateMaybeMessage<::vm_tools::cicerone::UpdateContainerDevicesRequest_UpdatesEntry_DoNotUse>(Arena*);
+template<> ::vm_tools::cicerone::UpdateContainerDevicesResponse* Arena::CreateMaybeMessage<::vm_tools::cicerone::UpdateContainerDevicesResponse>(Arena*);
+template<> ::vm_tools::cicerone::UpdateContainerDevicesResponse_ResultsEntry_DoNotUse* Arena::CreateMaybeMessage<::vm_tools::cicerone::UpdateContainerDevicesResponse_ResultsEntry_DoNotUse>(Arena*);
 template<> ::vm_tools::cicerone::UpgradeContainerProgressSignal* Arena::CreateMaybeMessage<::vm_tools::cicerone::UpgradeContainerProgressSignal>(Arena*);
 template<> ::vm_tools::cicerone::UpgradeContainerRequest* Arena::CreateMaybeMessage<::vm_tools::cicerone::UpgradeContainerRequest>(Arena*);
 template<> ::vm_tools::cicerone::UpgradeContainerResponse* Arena::CreateMaybeMessage<::vm_tools::cicerone::UpgradeContainerResponse>(Arena*);
@@ -1310,6 +1329,51 @@ inline const std::string& GetGarconSessionInfoResponse_Status_Name(T enum_t_valu
 }
 bool GetGarconSessionInfoResponse_Status_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, GetGarconSessionInfoResponse_Status* value);
+enum UpdateContainerDevicesResponse_Status : int {
+  UpdateContainerDevicesResponse_Status_UNKNOWN = 0,
+  UpdateContainerDevicesResponse_Status_OK = 1,
+  UpdateContainerDevicesResponse_Status_NO_SUCH_CONTAINER = 2,
+  UpdateContainerDevicesResponse_Status_FAILED = 3,
+  UpdateContainerDevicesResponse_Status_UpdateContainerDevicesResponse_Status_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  UpdateContainerDevicesResponse_Status_UpdateContainerDevicesResponse_Status_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+};
+bool UpdateContainerDevicesResponse_Status_IsValid(int value);
+constexpr UpdateContainerDevicesResponse_Status UpdateContainerDevicesResponse_Status_Status_MIN = UpdateContainerDevicesResponse_Status_UNKNOWN;
+constexpr UpdateContainerDevicesResponse_Status UpdateContainerDevicesResponse_Status_Status_MAX = UpdateContainerDevicesResponse_Status_FAILED;
+constexpr int UpdateContainerDevicesResponse_Status_Status_ARRAYSIZE = UpdateContainerDevicesResponse_Status_Status_MAX + 1;
+
+const std::string& UpdateContainerDevicesResponse_Status_Name(UpdateContainerDevicesResponse_Status value);
+template<typename T>
+inline const std::string& UpdateContainerDevicesResponse_Status_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, UpdateContainerDevicesResponse_Status>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function UpdateContainerDevicesResponse_Status_Name.");
+  return UpdateContainerDevicesResponse_Status_Name(static_cast<UpdateContainerDevicesResponse_Status>(enum_t_value));
+}
+bool UpdateContainerDevicesResponse_Status_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, UpdateContainerDevicesResponse_Status* value);
+enum UpdateContainerDevicesResponse_UpdateResult : int {
+  UpdateContainerDevicesResponse_UpdateResult_SUCCESS = 0,
+  UpdateContainerDevicesResponse_UpdateResult_NO_SUCH_VM_DEVICE = 1,
+  UpdateContainerDevicesResponse_UpdateResult_ACTION_FAILED = 2,
+  UpdateContainerDevicesResponse_UpdateResult_UpdateContainerDevicesResponse_UpdateResult_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  UpdateContainerDevicesResponse_UpdateResult_UpdateContainerDevicesResponse_UpdateResult_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+};
+bool UpdateContainerDevicesResponse_UpdateResult_IsValid(int value);
+constexpr UpdateContainerDevicesResponse_UpdateResult UpdateContainerDevicesResponse_UpdateResult_UpdateResult_MIN = UpdateContainerDevicesResponse_UpdateResult_SUCCESS;
+constexpr UpdateContainerDevicesResponse_UpdateResult UpdateContainerDevicesResponse_UpdateResult_UpdateResult_MAX = UpdateContainerDevicesResponse_UpdateResult_ACTION_FAILED;
+constexpr int UpdateContainerDevicesResponse_UpdateResult_UpdateResult_ARRAYSIZE = UpdateContainerDevicesResponse_UpdateResult_UpdateResult_MAX + 1;
+
+const std::string& UpdateContainerDevicesResponse_UpdateResult_Name(UpdateContainerDevicesResponse_UpdateResult value);
+template<typename T>
+inline const std::string& UpdateContainerDevicesResponse_UpdateResult_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, UpdateContainerDevicesResponse_UpdateResult>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function UpdateContainerDevicesResponse_UpdateResult_Name.");
+  return UpdateContainerDevicesResponse_UpdateResult_Name(static_cast<UpdateContainerDevicesResponse_UpdateResult>(enum_t_value));
+}
+bool UpdateContainerDevicesResponse_UpdateResult_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, UpdateContainerDevicesResponse_UpdateResult* value);
 enum ContainerFeature : int {
   UNKNOWN = 0,
   ENABLE_GTK3_IME_SUPPORT = 1,
@@ -1332,6 +1396,48 @@ inline const std::string& ContainerFeature_Name(T enum_t_value) {
 }
 bool ContainerFeature_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, ContainerFeature* value);
+enum VmDevice : int {
+  MICROPHONE = 0,
+  CAMERA = 1,
+  VmDevice_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  VmDevice_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+};
+bool VmDevice_IsValid(int value);
+constexpr VmDevice VmDevice_MIN = MICROPHONE;
+constexpr VmDevice VmDevice_MAX = CAMERA;
+constexpr int VmDevice_ARRAYSIZE = VmDevice_MAX + 1;
+
+const std::string& VmDevice_Name(VmDevice value);
+template<typename T>
+inline const std::string& VmDevice_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, VmDevice>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function VmDevice_Name.");
+  return VmDevice_Name(static_cast<VmDevice>(enum_t_value));
+}
+bool VmDevice_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, VmDevice* value);
+enum VmDeviceAction : int {
+  ENABLE = 0,
+  DISABLE = 1,
+  VmDeviceAction_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  VmDeviceAction_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+};
+bool VmDeviceAction_IsValid(int value);
+constexpr VmDeviceAction VmDeviceAction_MIN = ENABLE;
+constexpr VmDeviceAction VmDeviceAction_MAX = DISABLE;
+constexpr int VmDeviceAction_ARRAYSIZE = VmDeviceAction_MAX + 1;
+
+const std::string& VmDeviceAction_Name(VmDeviceAction value);
+template<typename T>
+inline const std::string& VmDeviceAction_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, VmDeviceAction>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function VmDeviceAction_Name.");
+  return VmDeviceAction_Name(static_cast<VmDeviceAction>(enum_t_value));
+}
+bool VmDeviceAction_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, VmDeviceAction* value);
 // ===================================================================
 
 class NotifyVmStartedRequest final :
@@ -7454,6 +7560,7 @@ class StartLxdContainerRequest final :
     kOwnerIdFieldNumber = 3,
     kDrivefsMountPathFieldNumber = 5,
     kAsyncFieldNumber = 4,
+    kDisableAudioCaptureFieldNumber = 7,
     kPrivilegeLevelFieldNumber = 6,
   };
   // string vm_name = 1;
@@ -7521,6 +7628,15 @@ class StartLxdContainerRequest final :
   void _internal_set_async(bool value);
   public:
 
+  // bool disable_audio_capture = 7;
+  void clear_disable_audio_capture();
+  bool disable_audio_capture() const;
+  void set_disable_audio_capture(bool value);
+  private:
+  bool _internal_disable_audio_capture() const;
+  void _internal_set_disable_audio_capture(bool value);
+  public:
+
   // .vm_tools.cicerone.StartLxdContainerRequest.PrivilegeLevel privilege_level = 6;
   void clear_privilege_level();
   ::vm_tools::cicerone::StartLxdContainerRequest_PrivilegeLevel privilege_level() const;
@@ -7542,6 +7658,7 @@ class StartLxdContainerRequest final :
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr owner_id_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr drivefs_mount_path_;
   bool async_;
+  bool disable_audio_capture_;
   int privilege_level_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_cicerone_5fservice_2eproto;
@@ -18663,6 +18780,471 @@ class UninhibitScreensaverSignal final :
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_cicerone_5fservice_2eproto;
 };
+// -------------------------------------------------------------------
+
+class UpdateContainerDevicesRequest_UpdatesEntry_DoNotUse : public ::PROTOBUF_NAMESPACE_ID::internal::MapEntryLite<UpdateContainerDevicesRequest_UpdatesEntry_DoNotUse, 
+    std::string, ::vm_tools::cicerone::VmDeviceAction,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_ENUM> {
+public:
+  typedef ::PROTOBUF_NAMESPACE_ID::internal::MapEntryLite<UpdateContainerDevicesRequest_UpdatesEntry_DoNotUse, 
+    std::string, ::vm_tools::cicerone::VmDeviceAction,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_ENUM> SuperType;
+  UpdateContainerDevicesRequest_UpdatesEntry_DoNotUse();
+  explicit constexpr UpdateContainerDevicesRequest_UpdatesEntry_DoNotUse(
+      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  explicit UpdateContainerDevicesRequest_UpdatesEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  void MergeFrom(const UpdateContainerDevicesRequest_UpdatesEntry_DoNotUse& other);
+  static const UpdateContainerDevicesRequest_UpdatesEntry_DoNotUse* internal_default_instance() { return reinterpret_cast<const UpdateContainerDevicesRequest_UpdatesEntry_DoNotUse*>(&_UpdateContainerDevicesRequest_UpdatesEntry_DoNotUse_default_instance_); }
+  static bool ValidateKey(std::string* s) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(s->data(), static_cast<int>(s->size()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::PARSE, "vm_tools.cicerone.UpdateContainerDevicesRequest.UpdatesEntry.key");
+ }
+  static bool ValidateValue(void*) { return true; }
+};
+
+// -------------------------------------------------------------------
+
+class UpdateContainerDevicesRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:vm_tools.cicerone.UpdateContainerDevicesRequest) */ {
+ public:
+  inline UpdateContainerDevicesRequest() : UpdateContainerDevicesRequest(nullptr) {}
+  ~UpdateContainerDevicesRequest() override;
+  explicit constexpr UpdateContainerDevicesRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  UpdateContainerDevicesRequest(const UpdateContainerDevicesRequest& from);
+  UpdateContainerDevicesRequest(UpdateContainerDevicesRequest&& from) noexcept
+    : UpdateContainerDevicesRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline UpdateContainerDevicesRequest& operator=(const UpdateContainerDevicesRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline UpdateContainerDevicesRequest& operator=(UpdateContainerDevicesRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const UpdateContainerDevicesRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const UpdateContainerDevicesRequest* internal_default_instance() {
+    return reinterpret_cast<const UpdateContainerDevicesRequest*>(
+               &_UpdateContainerDevicesRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    94;
+
+  friend void swap(UpdateContainerDevicesRequest& a, UpdateContainerDevicesRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(UpdateContainerDevicesRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(UpdateContainerDevicesRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  UpdateContainerDevicesRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<UpdateContainerDevicesRequest>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const UpdateContainerDevicesRequest& from);
+  void MergeFrom(const UpdateContainerDevicesRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(UpdateContainerDevicesRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "vm_tools.cicerone.UpdateContainerDevicesRequest";
+  }
+  protected:
+  explicit UpdateContainerDevicesRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kUpdatesFieldNumber = 4,
+    kVmNameFieldNumber = 1,
+    kContainerNameFieldNumber = 2,
+    kOwnerIdFieldNumber = 3,
+  };
+  // map<string, .vm_tools.cicerone.VmDeviceAction> updates = 4;
+  int updates_size() const;
+  private:
+  int _internal_updates_size() const;
+  public:
+  void clear_updates();
+  private:
+  const ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::vm_tools::cicerone::VmDeviceAction >&
+      _internal_updates() const;
+  ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::vm_tools::cicerone::VmDeviceAction >*
+      _internal_mutable_updates();
+  public:
+  const ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::vm_tools::cicerone::VmDeviceAction >&
+      updates() const;
+  ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::vm_tools::cicerone::VmDeviceAction >*
+      mutable_updates();
+
+  // string vm_name = 1;
+  void clear_vm_name();
+  const std::string& vm_name() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_vm_name(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_vm_name();
+  PROTOBUF_NODISCARD std::string* release_vm_name();
+  void set_allocated_vm_name(std::string* vm_name);
+  private:
+  const std::string& _internal_vm_name() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_vm_name(const std::string& value);
+  std::string* _internal_mutable_vm_name();
+  public:
+
+  // string container_name = 2;
+  void clear_container_name();
+  const std::string& container_name() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_container_name(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_container_name();
+  PROTOBUF_NODISCARD std::string* release_container_name();
+  void set_allocated_container_name(std::string* container_name);
+  private:
+  const std::string& _internal_container_name() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_container_name(const std::string& value);
+  std::string* _internal_mutable_container_name();
+  public:
+
+  // string owner_id = 3;
+  void clear_owner_id();
+  const std::string& owner_id() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_owner_id(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_owner_id();
+  PROTOBUF_NODISCARD std::string* release_owner_id();
+  void set_allocated_owner_id(std::string* owner_id);
+  private:
+  const std::string& _internal_owner_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_owner_id(const std::string& value);
+  std::string* _internal_mutable_owner_id();
+  public:
+
+  // @@protoc_insertion_point(class_scope:vm_tools.cicerone.UpdateContainerDevicesRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::MapFieldLite<
+      UpdateContainerDevicesRequest_UpdatesEntry_DoNotUse,
+      std::string, ::vm_tools::cicerone::VmDeviceAction,
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_ENUM> updates_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr vm_name_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr container_name_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr owner_id_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_cicerone_5fservice_2eproto;
+};
+// -------------------------------------------------------------------
+
+class UpdateContainerDevicesResponse_ResultsEntry_DoNotUse : public ::PROTOBUF_NAMESPACE_ID::internal::MapEntryLite<UpdateContainerDevicesResponse_ResultsEntry_DoNotUse, 
+    std::string, ::vm_tools::cicerone::UpdateContainerDevicesResponse_UpdateResult,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_ENUM> {
+public:
+  typedef ::PROTOBUF_NAMESPACE_ID::internal::MapEntryLite<UpdateContainerDevicesResponse_ResultsEntry_DoNotUse, 
+    std::string, ::vm_tools::cicerone::UpdateContainerDevicesResponse_UpdateResult,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_ENUM> SuperType;
+  UpdateContainerDevicesResponse_ResultsEntry_DoNotUse();
+  explicit constexpr UpdateContainerDevicesResponse_ResultsEntry_DoNotUse(
+      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  explicit UpdateContainerDevicesResponse_ResultsEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  void MergeFrom(const UpdateContainerDevicesResponse_ResultsEntry_DoNotUse& other);
+  static const UpdateContainerDevicesResponse_ResultsEntry_DoNotUse* internal_default_instance() { return reinterpret_cast<const UpdateContainerDevicesResponse_ResultsEntry_DoNotUse*>(&_UpdateContainerDevicesResponse_ResultsEntry_DoNotUse_default_instance_); }
+  static bool ValidateKey(std::string* s) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(s->data(), static_cast<int>(s->size()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::PARSE, "vm_tools.cicerone.UpdateContainerDevicesResponse.ResultsEntry.key");
+ }
+  static bool ValidateValue(void*) { return true; }
+};
+
+// -------------------------------------------------------------------
+
+class UpdateContainerDevicesResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:vm_tools.cicerone.UpdateContainerDevicesResponse) */ {
+ public:
+  inline UpdateContainerDevicesResponse() : UpdateContainerDevicesResponse(nullptr) {}
+  ~UpdateContainerDevicesResponse() override;
+  explicit constexpr UpdateContainerDevicesResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  UpdateContainerDevicesResponse(const UpdateContainerDevicesResponse& from);
+  UpdateContainerDevicesResponse(UpdateContainerDevicesResponse&& from) noexcept
+    : UpdateContainerDevicesResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline UpdateContainerDevicesResponse& operator=(const UpdateContainerDevicesResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline UpdateContainerDevicesResponse& operator=(UpdateContainerDevicesResponse&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const UpdateContainerDevicesResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const UpdateContainerDevicesResponse* internal_default_instance() {
+    return reinterpret_cast<const UpdateContainerDevicesResponse*>(
+               &_UpdateContainerDevicesResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    96;
+
+  friend void swap(UpdateContainerDevicesResponse& a, UpdateContainerDevicesResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(UpdateContainerDevicesResponse* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(UpdateContainerDevicesResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  UpdateContainerDevicesResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<UpdateContainerDevicesResponse>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const UpdateContainerDevicesResponse& from);
+  void MergeFrom(const UpdateContainerDevicesResponse& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(UpdateContainerDevicesResponse* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "vm_tools.cicerone.UpdateContainerDevicesResponse";
+  }
+  protected:
+  explicit UpdateContainerDevicesResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+
+  typedef UpdateContainerDevicesResponse_Status Status;
+  static constexpr Status UNKNOWN =
+    UpdateContainerDevicesResponse_Status_UNKNOWN;
+  static constexpr Status OK =
+    UpdateContainerDevicesResponse_Status_OK;
+  static constexpr Status NO_SUCH_CONTAINER =
+    UpdateContainerDevicesResponse_Status_NO_SUCH_CONTAINER;
+  static constexpr Status FAILED =
+    UpdateContainerDevicesResponse_Status_FAILED;
+  static inline bool Status_IsValid(int value) {
+    return UpdateContainerDevicesResponse_Status_IsValid(value);
+  }
+  static constexpr Status Status_MIN =
+    UpdateContainerDevicesResponse_Status_Status_MIN;
+  static constexpr Status Status_MAX =
+    UpdateContainerDevicesResponse_Status_Status_MAX;
+  static constexpr int Status_ARRAYSIZE =
+    UpdateContainerDevicesResponse_Status_Status_ARRAYSIZE;
+  template<typename T>
+  static inline const std::string& Status_Name(T enum_t_value) {
+    static_assert(::std::is_same<T, Status>::value ||
+      ::std::is_integral<T>::value,
+      "Incorrect type passed to function Status_Name.");
+    return UpdateContainerDevicesResponse_Status_Name(enum_t_value);
+  }
+  static inline bool Status_Parse(::PROTOBUF_NAMESPACE_ID::ConstStringParam name,
+      Status* value) {
+    return UpdateContainerDevicesResponse_Status_Parse(name, value);
+  }
+
+  typedef UpdateContainerDevicesResponse_UpdateResult UpdateResult;
+  static constexpr UpdateResult SUCCESS =
+    UpdateContainerDevicesResponse_UpdateResult_SUCCESS;
+  static constexpr UpdateResult NO_SUCH_VM_DEVICE =
+    UpdateContainerDevicesResponse_UpdateResult_NO_SUCH_VM_DEVICE;
+  static constexpr UpdateResult ACTION_FAILED =
+    UpdateContainerDevicesResponse_UpdateResult_ACTION_FAILED;
+  static inline bool UpdateResult_IsValid(int value) {
+    return UpdateContainerDevicesResponse_UpdateResult_IsValid(value);
+  }
+  static constexpr UpdateResult UpdateResult_MIN =
+    UpdateContainerDevicesResponse_UpdateResult_UpdateResult_MIN;
+  static constexpr UpdateResult UpdateResult_MAX =
+    UpdateContainerDevicesResponse_UpdateResult_UpdateResult_MAX;
+  static constexpr int UpdateResult_ARRAYSIZE =
+    UpdateContainerDevicesResponse_UpdateResult_UpdateResult_ARRAYSIZE;
+  template<typename T>
+  static inline const std::string& UpdateResult_Name(T enum_t_value) {
+    static_assert(::std::is_same<T, UpdateResult>::value ||
+      ::std::is_integral<T>::value,
+      "Incorrect type passed to function UpdateResult_Name.");
+    return UpdateContainerDevicesResponse_UpdateResult_Name(enum_t_value);
+  }
+  static inline bool UpdateResult_Parse(::PROTOBUF_NAMESPACE_ID::ConstStringParam name,
+      UpdateResult* value) {
+    return UpdateContainerDevicesResponse_UpdateResult_Parse(name, value);
+  }
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kResultsFieldNumber = 3,
+    kFailureReasonFieldNumber = 2,
+    kStatusFieldNumber = 1,
+  };
+  // map<string, .vm_tools.cicerone.UpdateContainerDevicesResponse.UpdateResult> results = 3;
+  int results_size() const;
+  private:
+  int _internal_results_size() const;
+  public:
+  void clear_results();
+  private:
+  const ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::vm_tools::cicerone::UpdateContainerDevicesResponse_UpdateResult >&
+      _internal_results() const;
+  ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::vm_tools::cicerone::UpdateContainerDevicesResponse_UpdateResult >*
+      _internal_mutable_results();
+  public:
+  const ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::vm_tools::cicerone::UpdateContainerDevicesResponse_UpdateResult >&
+      results() const;
+  ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::vm_tools::cicerone::UpdateContainerDevicesResponse_UpdateResult >*
+      mutable_results();
+
+  // string failure_reason = 2;
+  void clear_failure_reason();
+  const std::string& failure_reason() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_failure_reason(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_failure_reason();
+  PROTOBUF_NODISCARD std::string* release_failure_reason();
+  void set_allocated_failure_reason(std::string* failure_reason);
+  private:
+  const std::string& _internal_failure_reason() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_failure_reason(const std::string& value);
+  std::string* _internal_mutable_failure_reason();
+  public:
+
+  // .vm_tools.cicerone.UpdateContainerDevicesResponse.Status status = 1;
+  void clear_status();
+  ::vm_tools::cicerone::UpdateContainerDevicesResponse_Status status() const;
+  void set_status(::vm_tools::cicerone::UpdateContainerDevicesResponse_Status value);
+  private:
+  ::vm_tools::cicerone::UpdateContainerDevicesResponse_Status _internal_status() const;
+  void _internal_set_status(::vm_tools::cicerone::UpdateContainerDevicesResponse_Status value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:vm_tools.cicerone.UpdateContainerDevicesResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::MapFieldLite<
+      UpdateContainerDevicesResponse_ResultsEntry_DoNotUse,
+      std::string, ::vm_tools::cicerone::UpdateContainerDevicesResponse_UpdateResult,
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_ENUM> results_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr failure_reason_;
+  int status_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_cicerone_5fservice_2eproto;
+};
 // ===================================================================
 
 
@@ -24587,6 +25169,26 @@ inline void StartLxdContainerRequest::_internal_set_privilege_level(::vm_tools::
 inline void StartLxdContainerRequest::set_privilege_level(::vm_tools::cicerone::StartLxdContainerRequest_PrivilegeLevel value) {
   _internal_set_privilege_level(value);
   // @@protoc_insertion_point(field_set:vm_tools.cicerone.StartLxdContainerRequest.privilege_level)
+}
+
+// bool disable_audio_capture = 7;
+inline void StartLxdContainerRequest::clear_disable_audio_capture() {
+  disable_audio_capture_ = false;
+}
+inline bool StartLxdContainerRequest::_internal_disable_audio_capture() const {
+  return disable_audio_capture_;
+}
+inline bool StartLxdContainerRequest::disable_audio_capture() const {
+  // @@protoc_insertion_point(field_get:vm_tools.cicerone.StartLxdContainerRequest.disable_audio_capture)
+  return _internal_disable_audio_capture();
+}
+inline void StartLxdContainerRequest::_internal_set_disable_audio_capture(bool value) {
+  
+  disable_audio_capture_ = value;
+}
+inline void StartLxdContainerRequest::set_disable_audio_capture(bool value) {
+  _internal_set_disable_audio_capture(value);
+  // @@protoc_insertion_point(field_set:vm_tools.cicerone.StartLxdContainerRequest.disable_audio_capture)
 }
 
 // -------------------------------------------------------------------
@@ -34063,9 +34665,311 @@ inline void UninhibitScreensaverSignal::set_cookie(uint32_t value) {
   // @@protoc_insertion_point(field_set:vm_tools.cicerone.UninhibitScreensaverSignal.cookie)
 }
 
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// UpdateContainerDevicesRequest
+
+// string vm_name = 1;
+inline void UpdateContainerDevicesRequest::clear_vm_name() {
+  vm_name_.ClearToEmpty();
+}
+inline const std::string& UpdateContainerDevicesRequest::vm_name() const {
+  // @@protoc_insertion_point(field_get:vm_tools.cicerone.UpdateContainerDevicesRequest.vm_name)
+  return _internal_vm_name();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void UpdateContainerDevicesRequest::set_vm_name(ArgT0&& arg0, ArgT... args) {
+ 
+ vm_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:vm_tools.cicerone.UpdateContainerDevicesRequest.vm_name)
+}
+inline std::string* UpdateContainerDevicesRequest::mutable_vm_name() {
+  std::string* _s = _internal_mutable_vm_name();
+  // @@protoc_insertion_point(field_mutable:vm_tools.cicerone.UpdateContainerDevicesRequest.vm_name)
+  return _s;
+}
+inline const std::string& UpdateContainerDevicesRequest::_internal_vm_name() const {
+  return vm_name_.Get();
+}
+inline void UpdateContainerDevicesRequest::_internal_set_vm_name(const std::string& value) {
+  
+  vm_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* UpdateContainerDevicesRequest::_internal_mutable_vm_name() {
+  
+  return vm_name_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* UpdateContainerDevicesRequest::release_vm_name() {
+  // @@protoc_insertion_point(field_release:vm_tools.cicerone.UpdateContainerDevicesRequest.vm_name)
+  return vm_name_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void UpdateContainerDevicesRequest::set_allocated_vm_name(std::string* vm_name) {
+  if (vm_name != nullptr) {
+    
+  } else {
+    
+  }
+  vm_name_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), vm_name,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (vm_name_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    vm_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:vm_tools.cicerone.UpdateContainerDevicesRequest.vm_name)
+}
+
+// string container_name = 2;
+inline void UpdateContainerDevicesRequest::clear_container_name() {
+  container_name_.ClearToEmpty();
+}
+inline const std::string& UpdateContainerDevicesRequest::container_name() const {
+  // @@protoc_insertion_point(field_get:vm_tools.cicerone.UpdateContainerDevicesRequest.container_name)
+  return _internal_container_name();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void UpdateContainerDevicesRequest::set_container_name(ArgT0&& arg0, ArgT... args) {
+ 
+ container_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:vm_tools.cicerone.UpdateContainerDevicesRequest.container_name)
+}
+inline std::string* UpdateContainerDevicesRequest::mutable_container_name() {
+  std::string* _s = _internal_mutable_container_name();
+  // @@protoc_insertion_point(field_mutable:vm_tools.cicerone.UpdateContainerDevicesRequest.container_name)
+  return _s;
+}
+inline const std::string& UpdateContainerDevicesRequest::_internal_container_name() const {
+  return container_name_.Get();
+}
+inline void UpdateContainerDevicesRequest::_internal_set_container_name(const std::string& value) {
+  
+  container_name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* UpdateContainerDevicesRequest::_internal_mutable_container_name() {
+  
+  return container_name_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* UpdateContainerDevicesRequest::release_container_name() {
+  // @@protoc_insertion_point(field_release:vm_tools.cicerone.UpdateContainerDevicesRequest.container_name)
+  return container_name_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void UpdateContainerDevicesRequest::set_allocated_container_name(std::string* container_name) {
+  if (container_name != nullptr) {
+    
+  } else {
+    
+  }
+  container_name_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), container_name,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (container_name_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    container_name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:vm_tools.cicerone.UpdateContainerDevicesRequest.container_name)
+}
+
+// string owner_id = 3;
+inline void UpdateContainerDevicesRequest::clear_owner_id() {
+  owner_id_.ClearToEmpty();
+}
+inline const std::string& UpdateContainerDevicesRequest::owner_id() const {
+  // @@protoc_insertion_point(field_get:vm_tools.cicerone.UpdateContainerDevicesRequest.owner_id)
+  return _internal_owner_id();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void UpdateContainerDevicesRequest::set_owner_id(ArgT0&& arg0, ArgT... args) {
+ 
+ owner_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:vm_tools.cicerone.UpdateContainerDevicesRequest.owner_id)
+}
+inline std::string* UpdateContainerDevicesRequest::mutable_owner_id() {
+  std::string* _s = _internal_mutable_owner_id();
+  // @@protoc_insertion_point(field_mutable:vm_tools.cicerone.UpdateContainerDevicesRequest.owner_id)
+  return _s;
+}
+inline const std::string& UpdateContainerDevicesRequest::_internal_owner_id() const {
+  return owner_id_.Get();
+}
+inline void UpdateContainerDevicesRequest::_internal_set_owner_id(const std::string& value) {
+  
+  owner_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* UpdateContainerDevicesRequest::_internal_mutable_owner_id() {
+  
+  return owner_id_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* UpdateContainerDevicesRequest::release_owner_id() {
+  // @@protoc_insertion_point(field_release:vm_tools.cicerone.UpdateContainerDevicesRequest.owner_id)
+  return owner_id_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void UpdateContainerDevicesRequest::set_allocated_owner_id(std::string* owner_id) {
+  if (owner_id != nullptr) {
+    
+  } else {
+    
+  }
+  owner_id_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), owner_id,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (owner_id_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    owner_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:vm_tools.cicerone.UpdateContainerDevicesRequest.owner_id)
+}
+
+// map<string, .vm_tools.cicerone.VmDeviceAction> updates = 4;
+inline int UpdateContainerDevicesRequest::_internal_updates_size() const {
+  return updates_.size();
+}
+inline int UpdateContainerDevicesRequest::updates_size() const {
+  return _internal_updates_size();
+}
+inline void UpdateContainerDevicesRequest::clear_updates() {
+  updates_.Clear();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::vm_tools::cicerone::VmDeviceAction >&
+UpdateContainerDevicesRequest::_internal_updates() const {
+  return updates_.GetMap();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::vm_tools::cicerone::VmDeviceAction >&
+UpdateContainerDevicesRequest::updates() const {
+  // @@protoc_insertion_point(field_map:vm_tools.cicerone.UpdateContainerDevicesRequest.updates)
+  return _internal_updates();
+}
+inline ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::vm_tools::cicerone::VmDeviceAction >*
+UpdateContainerDevicesRequest::_internal_mutable_updates() {
+  return updates_.MutableMap();
+}
+inline ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::vm_tools::cicerone::VmDeviceAction >*
+UpdateContainerDevicesRequest::mutable_updates() {
+  // @@protoc_insertion_point(field_mutable_map:vm_tools.cicerone.UpdateContainerDevicesRequest.updates)
+  return _internal_mutable_updates();
+}
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// UpdateContainerDevicesResponse
+
+// .vm_tools.cicerone.UpdateContainerDevicesResponse.Status status = 1;
+inline void UpdateContainerDevicesResponse::clear_status() {
+  status_ = 0;
+}
+inline ::vm_tools::cicerone::UpdateContainerDevicesResponse_Status UpdateContainerDevicesResponse::_internal_status() const {
+  return static_cast< ::vm_tools::cicerone::UpdateContainerDevicesResponse_Status >(status_);
+}
+inline ::vm_tools::cicerone::UpdateContainerDevicesResponse_Status UpdateContainerDevicesResponse::status() const {
+  // @@protoc_insertion_point(field_get:vm_tools.cicerone.UpdateContainerDevicesResponse.status)
+  return _internal_status();
+}
+inline void UpdateContainerDevicesResponse::_internal_set_status(::vm_tools::cicerone::UpdateContainerDevicesResponse_Status value) {
+  
+  status_ = value;
+}
+inline void UpdateContainerDevicesResponse::set_status(::vm_tools::cicerone::UpdateContainerDevicesResponse_Status value) {
+  _internal_set_status(value);
+  // @@protoc_insertion_point(field_set:vm_tools.cicerone.UpdateContainerDevicesResponse.status)
+}
+
+// string failure_reason = 2;
+inline void UpdateContainerDevicesResponse::clear_failure_reason() {
+  failure_reason_.ClearToEmpty();
+}
+inline const std::string& UpdateContainerDevicesResponse::failure_reason() const {
+  // @@protoc_insertion_point(field_get:vm_tools.cicerone.UpdateContainerDevicesResponse.failure_reason)
+  return _internal_failure_reason();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void UpdateContainerDevicesResponse::set_failure_reason(ArgT0&& arg0, ArgT... args) {
+ 
+ failure_reason_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:vm_tools.cicerone.UpdateContainerDevicesResponse.failure_reason)
+}
+inline std::string* UpdateContainerDevicesResponse::mutable_failure_reason() {
+  std::string* _s = _internal_mutable_failure_reason();
+  // @@protoc_insertion_point(field_mutable:vm_tools.cicerone.UpdateContainerDevicesResponse.failure_reason)
+  return _s;
+}
+inline const std::string& UpdateContainerDevicesResponse::_internal_failure_reason() const {
+  return failure_reason_.Get();
+}
+inline void UpdateContainerDevicesResponse::_internal_set_failure_reason(const std::string& value) {
+  
+  failure_reason_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* UpdateContainerDevicesResponse::_internal_mutable_failure_reason() {
+  
+  return failure_reason_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* UpdateContainerDevicesResponse::release_failure_reason() {
+  // @@protoc_insertion_point(field_release:vm_tools.cicerone.UpdateContainerDevicesResponse.failure_reason)
+  return failure_reason_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void UpdateContainerDevicesResponse::set_allocated_failure_reason(std::string* failure_reason) {
+  if (failure_reason != nullptr) {
+    
+  } else {
+    
+  }
+  failure_reason_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), failure_reason,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (failure_reason_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    failure_reason_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:vm_tools.cicerone.UpdateContainerDevicesResponse.failure_reason)
+}
+
+// map<string, .vm_tools.cicerone.UpdateContainerDevicesResponse.UpdateResult> results = 3;
+inline int UpdateContainerDevicesResponse::_internal_results_size() const {
+  return results_.size();
+}
+inline int UpdateContainerDevicesResponse::results_size() const {
+  return _internal_results_size();
+}
+inline void UpdateContainerDevicesResponse::clear_results() {
+  results_.Clear();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::vm_tools::cicerone::UpdateContainerDevicesResponse_UpdateResult >&
+UpdateContainerDevicesResponse::_internal_results() const {
+  return results_.GetMap();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::vm_tools::cicerone::UpdateContainerDevicesResponse_UpdateResult >&
+UpdateContainerDevicesResponse::results() const {
+  // @@protoc_insertion_point(field_map:vm_tools.cicerone.UpdateContainerDevicesResponse.results)
+  return _internal_results();
+}
+inline ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::vm_tools::cicerone::UpdateContainerDevicesResponse_UpdateResult >*
+UpdateContainerDevicesResponse::_internal_mutable_results() {
+  return results_.MutableMap();
+}
+inline ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::vm_tools::cicerone::UpdateContainerDevicesResponse_UpdateResult >*
+UpdateContainerDevicesResponse::mutable_results() {
+  // @@protoc_insertion_point(field_mutable_map:vm_tools.cicerone.UpdateContainerDevicesResponse.results)
+  return _internal_mutable_results();
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
@@ -34296,7 +35200,11 @@ template <> struct is_proto_enum< ::vm_tools::cicerone::RemoveFileWatchResponse_
 template <> struct is_proto_enum< ::vm_tools::cicerone::AttachUsbToContainerResponse_Status> : ::std::true_type {};
 template <> struct is_proto_enum< ::vm_tools::cicerone::DetachUsbFromContainerResponse_Status> : ::std::true_type {};
 template <> struct is_proto_enum< ::vm_tools::cicerone::GetGarconSessionInfoResponse_Status> : ::std::true_type {};
+template <> struct is_proto_enum< ::vm_tools::cicerone::UpdateContainerDevicesResponse_Status> : ::std::true_type {};
+template <> struct is_proto_enum< ::vm_tools::cicerone::UpdateContainerDevicesResponse_UpdateResult> : ::std::true_type {};
 template <> struct is_proto_enum< ::vm_tools::cicerone::ContainerFeature> : ::std::true_type {};
+template <> struct is_proto_enum< ::vm_tools::cicerone::VmDevice> : ::std::true_type {};
+template <> struct is_proto_enum< ::vm_tools::cicerone::VmDeviceAction> : ::std::true_type {};
 
 PROTOBUF_NAMESPACE_CLOSE
 

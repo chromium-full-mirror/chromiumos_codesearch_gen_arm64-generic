@@ -92,6 +92,7 @@ constexpr StartVmRequest::StartVmRequest(
   , kernel_params_()
   , features_()
   , _features_cached_byte_size_(0)
+  , oem_strings_()
   , shared_directory_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
   , name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
   , owner_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
@@ -3365,7 +3366,8 @@ StartVmRequest::StartVmRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
   disks_(arena),
   fds_(arena),
   kernel_params_(arena),
-  features_(arena) {
+  features_(arena),
+  oem_strings_(arena) {
   SharedCtor();
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
@@ -3377,7 +3379,8 @@ StartVmRequest::StartVmRequest(const StartVmRequest& from)
       disks_(from.disks_),
       fds_(from.fds_),
       kernel_params_(from.kernel_params_),
-      features_(from.features_) {
+      features_(from.features_),
+      oem_strings_(from.oem_strings_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   shared_directory_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
@@ -3468,6 +3471,7 @@ void StartVmRequest::Clear() {
   fds_.Clear();
   kernel_params_.Clear();
   features_.Clear();
+  oem_strings_.Clear();
   shared_directory_.ClearToEmpty();
   name_.ClearToEmpty();
   owner_id_.ClearToEmpty();
@@ -3673,6 +3677,21 @@ const char* StartVmRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         } else
           goto handle_unusual;
         continue;
+      // repeated string oem_strings = 24;
+      case 24:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 194)) {
+          ptr -= 2;
+          do {
+            ptr += 2;
+            auto str = _internal_add_oem_strings();
+            ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+            CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<194>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -3848,6 +3867,16 @@ uint8_t* StartVmRequest::_InternalSerialize(
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(23, this->_internal_storage_ballooning(), target);
   }
 
+  // repeated string oem_strings = 24;
+  for (int i = 0, n = this->_internal_oem_strings_size(); i < n; i++) {
+    const auto& s = this->_internal_oem_strings(i);
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      s.data(), static_cast<int>(s.length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "vm_tools.concierge.StartVmRequest.oem_strings");
+    target = stream->WriteString(24, s, target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -3913,6 +3942,14 @@ size_t StartVmRequest::ByteSizeLong() const {
     _features_cached_byte_size_.store(cached_size,
                                     std::memory_order_relaxed);
     total_size += data_size;
+  }
+
+  // repeated string oem_strings = 24;
+  total_size += 2 *
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(oem_strings_.size());
+  for (int i = 0, n = oem_strings_.size(); i < n; i++) {
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+      oem_strings_.Get(i));
   }
 
   // string shared_directory = 3 [deprecated = true];
@@ -4029,6 +4066,7 @@ void StartVmRequest::MergeFrom(const StartVmRequest& from) {
   fds_.MergeFrom(from.fds_);
   kernel_params_.MergeFrom(from.kernel_params_);
   features_.MergeFrom(from.features_);
+  oem_strings_.MergeFrom(from.oem_strings_);
   if (!from._internal_shared_directory().empty()) {
     _internal_set_shared_directory(from._internal_shared_directory());
   }
@@ -4100,6 +4138,7 @@ void StartVmRequest::InternalSwap(StartVmRequest* other) {
   fds_.InternalSwap(&other->fds_);
   kernel_params_.InternalSwap(&other->kernel_params_);
   features_.InternalSwap(&other->features_);
+  oem_strings_.InternalSwap(&other->oem_strings_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       &shared_directory_, lhs_arena,

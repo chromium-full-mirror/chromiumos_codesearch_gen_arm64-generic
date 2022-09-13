@@ -1603,114 +1603,114 @@ const char descriptor_table_protodef_tremplin_2eproto[] PROTOBUF_SECTION_VARIABL
   "tatus\030\001 \001(\01628.vm_tools.tremplin.DetachUs"
   "bFromContainerResponse.Status\022\026\n\016failure"
   "_reason\030\002 \001(\t\")\n\006Status\022\013\n\007UNKNOWN\020\000\022\006\n\002"
-  "OK\020\001\022\n\n\006FAILED\020\002\"\223\002\n\035UpdateContainerDevi"
+  "OK\020\001\022\n\n\006FAILED\020\002\"\332\001\n\035UpdateContainerDevi"
   "cesRequest\022\026\n\016container_name\030\001 \001(\t\022N\n\007up"
   "dates\030\002 \003(\0132=.vm_tools.tremplin.UpdateCo"
-  "ntainerDevicesRequest.UpdatesEntry\032g\n\014Up"
-  "datesEntry\022\013\n\003key\030\001 \001(\005\022F\n\005value\030\002 \001(\01627"
-  ".vm_tools.tremplin.UpdateContainerDevice"
-  "sRequest.Action:\0028\001\"!\n\006Action\022\n\n\006ENABLE\020"
-  "\000\022\013\n\007DISABLE\020\001\"\271\003\n\036UpdateContainerDevice"
-  "sResponse\022H\n\006status\030\001 \001(\01628.vm_tools.tre"
-  "mplin.UpdateContainerDevicesResponse.Sta"
-  "tus\022\026\n\016failure_reason\030\002 \001(\t\022O\n\007results\030\003"
-  " \003(\0132>.vm_tools.tremplin.UpdateContainer"
-  "DevicesResponse.ResultsEntry\032n\n\014ResultsE"
-  "ntry\022\013\n\003key\030\001 \001(\005\022M\n\005value\030\002 \001(\0162>.vm_to"
-  "ols.tremplin.UpdateContainerDevicesRespo"
-  "nse.UpdateResult:\0028\001\"4\n\006Status\022\013\n\007UNKNOW"
-  "N\020\000\022\006\n\002OK\020\001\022\025\n\021NO_SUCH_CONTAINER\020\002\">\n\014Up"
-  "dateResult\022\013\n\007SUCCESS\020\000\022\025\n\021NO_SUCH_VM_DE"
-  "VICE\020\001\022\n\n\006FAILED\020\002*&\n\010VmDevice\022\016\n\nMICROP"
-  "HONE\020\000\022\n\n\006CAMERA\020\0012\235\021\n\010Tremplin\022S\n\010Start"
-  "Lxd\022\".vm_tools.tremplin.StartLxdRequest\032"
-  "#.vm_tools.tremplin.StartLxdResponse\022h\n\017"
-  "CreateContainer\022).vm_tools.tremplin.Crea"
-  "teContainerRequest\032*.vm_tools.tremplin.C"
-  "reateContainerResponse\022h\n\017DeleteContaine"
-  "r\022).vm_tools.tremplin.DeleteContainerReq"
-  "uest\032*.vm_tools.tremplin.DeleteContainer"
-  "Response\022e\n\016StartContainer\022(.vm_tools.tr"
-  "emplin.StartContainerRequest\032).vm_tools."
-  "tremplin.StartContainerResponse\022b\n\rStopC"
-  "ontainer\022\'.vm_tools.tremplin.StopContain"
-  "erRequest\032(.vm_tools.tremplin.StopContai"
-  "nerResponse\022w\n\024GetContainerUsername\022..vm"
-  "_tools.tremplin.GetContainerUsernameRequ"
-  "est\032/.vm_tools.tremplin.GetContainerUser"
-  "nameResponse\022V\n\tSetUpUser\022#.vm_tools.tre"
-  "mplin.SetUpUserRequest\032$.vm_tools.trempl"
-  "in.SetUpUserResponse\022k\n\020GetContainerInfo"
-  "\022*.vm_tools.tremplin.GetContainerInfoReq"
-  "uest\032+.vm_tools.tremplin.GetContainerInf"
-  "oResponse\022\\\n\013SetTimezone\022%.vm_tools.trem"
-  "plin.SetTimezoneRequest\032&.vm_tools.tremp"
-  "lin.SetTimezoneResponse\022h\n\017ExportContain"
-  "er\022).vm_tools.tremplin.ExportContainerRe"
-  "quest\032*.vm_tools.tremplin.ExportContaine"
-  "rResponse\022z\n\025CancelExportContainer\022/.vm_"
-  "tools.tremplin.CancelExportContainerRequ"
-  "est\0320.vm_tools.tremplin.CancelExportCont"
-  "ainerResponse\022h\n\017ImportContainer\022).vm_to"
-  "ols.tremplin.ImportContainerRequest\032*.vm"
-  "_tools.tremplin.ImportContainerResponse\022"
-  "z\n\025CancelImportContainer\022/.vm_tools.trem"
-  "plin.CancelImportContainerRequest\0320.vm_t"
-  "ools.tremplin.CancelImportContainerRespo"
-  "nse\022k\n\020UpgradeContainer\022*.vm_tools.tremp"
-  "lin.UpgradeContainerRequest\032+.vm_tools.t"
-  "remplin.UpgradeContainerResponse\022}\n\026Canc"
-  "elUpgradeContainer\0220.vm_tools.tremplin.C"
-  "ancelUpgradeContainerRequest\0321.vm_tools."
-  "tremplin.CancelUpgradeContainerResponse\022"
-  "q\n\022HostNetworkChanged\022,.vm_tools.trempli"
-  "n.HostNetworkChangedRequest\032-.vm_tools.t"
-  "remplin.HostNetworkChangedResponse\022_\n\014Ge"
-  "tDebugInfo\022&.vm_tools.tremplin.GetDebugI"
-  "nfoRequest\032\'.vm_tools.tremplin.GetDebugI"
-  "nfoResponse\022w\n\024AttachUsbToContainer\022..vm"
-  "_tools.tremplin.AttachUsbToContainerRequ"
-  "est\032/.vm_tools.tremplin.AttachUsbToConta"
-  "inerResponse\022}\n\026DetachUsbFromContainer\0220"
-  ".vm_tools.tremplin.DetachUsbFromContaine"
-  "rRequest\0321.vm_tools.tremplin.DetachUsbFr"
-  "omContainerResponse\022}\n\026UpdateContainerDe"
-  "vices\0220.vm_tools.tremplin.UpdateContaine"
-  "rDevicesRequest\0321.vm_tools.tremplin.Upda"
-  "teContainerDevicesResponse2\303\010\n\020TremplinL"
-  "istener\022X\n\rTremplinReady\022&.vm_tools.trem"
-  "plin.TremplinStartupInfo\032\037.vm_tools.trem"
-  "plin.EmptyMessage\022\\\n\024UpdateStartLxdStatu"
-  "s\022#.vm_tools.tremplin.StartLxdProgress\032\037"
-  ".vm_tools.tremplin.EmptyMessage\022c\n\022Updat"
-  "eCreateStatus\022,.vm_tools.tremplin.Contai"
-  "nerCreationProgress\032\037.vm_tools.tremplin."
-  "EmptyMessage\022e\n\024UpdateDeletionStatus\022,.v"
-  "m_tools.tremplin.ContainerDeletionProgre"
-  "ss\032\037.vm_tools.tremplin.EmptyMessage\022_\n\021U"
-  "pdateStartStatus\022).vm_tools.tremplin.Con"
-  "tainerStartProgress\032\037.vm_tools.tremplin."
-  "EmptyMessage\022]\n\020UpdateStopStatus\022(.vm_to"
-  "ols.tremplin.ContainerStopProgress\032\037.vm_"
-  "tools.tremplin.EmptyMessage\022a\n\022UpdateExp"
-  "ortStatus\022*.vm_tools.tremplin.ContainerE"
-  "xportProgress\032\037.vm_tools.tremplin.EmptyM"
-  "essage\022a\n\022UpdateImportStatus\022*.vm_tools."
-  "tremplin.ContainerImportProgress\032\037.vm_to"
-  "ols.tremplin.EmptyMessage\022^\n\021ContainerSh"
-  "utdown\022(.vm_tools.tremplin.ContainerShut"
-  "downInfo\032\037.vm_tools.tremplin.EmptyMessag"
-  "e\022]\n\024UpdateListeningPorts\022$.vm_tools.tre"
-  "mplin.ListeningPortInfo\032\037.vm_tools.tremp"
-  "lin.EmptyMessage\022f\n\026UpgradeContainerStat"
-  "us\022+.vm_tools.tremplin.UpgradeContainerP"
+  "ntainerDevicesRequest.UpdatesEntry\032Q\n\014Up"
+  "datesEntry\022\013\n\003key\030\001 \001(\t\0220\n\005value\030\002 \001(\0162!"
+  ".vm_tools.tremplin.VmDeviceAction:\0028\001\"\314\003"
+  "\n\036UpdateContainerDevicesResponse\022H\n\006stat"
+  "us\030\001 \001(\01628.vm_tools.tremplin.UpdateConta"
+  "inerDevicesResponse.Status\022\026\n\016failure_re"
+  "ason\030\002 \001(\t\022O\n\007results\030\003 \003(\0132>.vm_tools.t"
+  "remplin.UpdateContainerDevicesResponse.R"
+  "esultsEntry\032n\n\014ResultsEntry\022\013\n\003key\030\001 \001(\t"
+  "\022M\n\005value\030\002 \001(\0162>.vm_tools.tremplin.Upda"
+  "teContainerDevicesResponse.UpdateResult:"
+  "\0028\001\"@\n\006Status\022\013\n\007UNKNOWN\020\000\022\006\n\002OK\020\001\022\025\n\021NO"
+  "_SUCH_CONTAINER\020\002\022\n\n\006FAILED\020\003\"E\n\014UpdateR"
+  "esult\022\013\n\007SUCCESS\020\000\022\025\n\021NO_SUCH_VM_DEVICE\020"
+  "\001\022\021\n\rUPDATE_FAILED\020\002*&\n\010VmDevice\022\016\n\nMICR"
+  "OPHONE\020\000\022\n\n\006CAMERA\020\001*)\n\016VmDeviceAction\022\n"
+  "\n\006ENABLE\020\000\022\013\n\007DISABLE\020\0012\235\021\n\010Tremplin\022S\n\010"
+  "StartLxd\022\".vm_tools.tremplin.StartLxdReq"
+  "uest\032#.vm_tools.tremplin.StartLxdRespons"
+  "e\022h\n\017CreateContainer\022).vm_tools.tremplin"
+  ".CreateContainerRequest\032*.vm_tools.tremp"
+  "lin.CreateContainerResponse\022h\n\017DeleteCon"
+  "tainer\022).vm_tools.tremplin.DeleteContain"
+  "erRequest\032*.vm_tools.tremplin.DeleteCont"
+  "ainerResponse\022e\n\016StartContainer\022(.vm_too"
+  "ls.tremplin.StartContainerRequest\032).vm_t"
+  "ools.tremplin.StartContainerResponse\022b\n\r"
+  "StopContainer\022\'.vm_tools.tremplin.StopCo"
+  "ntainerRequest\032(.vm_tools.tremplin.StopC"
+  "ontainerResponse\022w\n\024GetContainerUsername"
+  "\022..vm_tools.tremplin.GetContainerUsernam"
+  "eRequest\032/.vm_tools.tremplin.GetContaine"
+  "rUsernameResponse\022V\n\tSetUpUser\022#.vm_tool"
+  "s.tremplin.SetUpUserRequest\032$.vm_tools.t"
+  "remplin.SetUpUserResponse\022k\n\020GetContaine"
+  "rInfo\022*.vm_tools.tremplin.GetContainerIn"
+  "foRequest\032+.vm_tools.tremplin.GetContain"
+  "erInfoResponse\022\\\n\013SetTimezone\022%.vm_tools"
+  ".tremplin.SetTimezoneRequest\032&.vm_tools."
+  "tremplin.SetTimezoneResponse\022h\n\017ExportCo"
+  "ntainer\022).vm_tools.tremplin.ExportContai"
+  "nerRequest\032*.vm_tools.tremplin.ExportCon"
+  "tainerResponse\022z\n\025CancelExportContainer\022"
+  "/.vm_tools.tremplin.CancelExportContaine"
+  "rRequest\0320.vm_tools.tremplin.CancelExpor"
+  "tContainerResponse\022h\n\017ImportContainer\022)."
+  "vm_tools.tremplin.ImportContainerRequest"
+  "\032*.vm_tools.tremplin.ImportContainerResp"
+  "onse\022z\n\025CancelImportContainer\022/.vm_tools"
+  ".tremplin.CancelImportContainerRequest\0320"
+  ".vm_tools.tremplin.CancelImportContainer"
+  "Response\022k\n\020UpgradeContainer\022*.vm_tools."
+  "tremplin.UpgradeContainerRequest\032+.vm_to"
+  "ols.tremplin.UpgradeContainerResponse\022}\n"
+  "\026CancelUpgradeContainer\0220.vm_tools.tremp"
+  "lin.CancelUpgradeContainerRequest\0321.vm_t"
+  "ools.tremplin.CancelUpgradeContainerResp"
+  "onse\022q\n\022HostNetworkChanged\022,.vm_tools.tr"
+  "emplin.HostNetworkChangedRequest\032-.vm_to"
+  "ols.tremplin.HostNetworkChangedResponse\022"
+  "_\n\014GetDebugInfo\022&.vm_tools.tremplin.GetD"
+  "ebugInfoRequest\032\'.vm_tools.tremplin.GetD"
+  "ebugInfoResponse\022w\n\024AttachUsbToContainer"
+  "\022..vm_tools.tremplin.AttachUsbToContaine"
+  "rRequest\032/.vm_tools.tremplin.AttachUsbTo"
+  "ContainerResponse\022}\n\026DetachUsbFromContai"
+  "ner\0220.vm_tools.tremplin.DetachUsbFromCon"
+  "tainerRequest\0321.vm_tools.tremplin.Detach"
+  "UsbFromContainerResponse\022}\n\026UpdateContai"
+  "nerDevices\0220.vm_tools.tremplin.UpdateCon"
+  "tainerDevicesRequest\0321.vm_tools.tremplin"
+  ".UpdateContainerDevicesResponse2\303\010\n\020Trem"
+  "plinListener\022X\n\rTremplinReady\022&.vm_tools"
+  ".tremplin.TremplinStartupInfo\032\037.vm_tools"
+  ".tremplin.EmptyMessage\022\\\n\024UpdateStartLxd"
+  "Status\022#.vm_tools.tremplin.StartLxdProgr"
+  "ess\032\037.vm_tools.tremplin.EmptyMessage\022c\n\022"
+  "UpdateCreateStatus\022,.vm_tools.tremplin.C"
+  "ontainerCreationProgress\032\037.vm_tools.trem"
+  "plin.EmptyMessage\022e\n\024UpdateDeletionStatu"
+  "s\022,.vm_tools.tremplin.ContainerDeletionP"
   "rogress\032\037.vm_tools.tremplin.EmptyMessage"
-  "B\'Z\"chromiumos/vm_tools/tremplin_proto\370\001"
-  "\001b\006proto3"
+  "\022_\n\021UpdateStartStatus\022).vm_tools.trempli"
+  "n.ContainerStartProgress\032\037.vm_tools.trem"
+  "plin.EmptyMessage\022]\n\020UpdateStopStatus\022(."
+  "vm_tools.tremplin.ContainerStopProgress\032"
+  "\037.vm_tools.tremplin.EmptyMessage\022a\n\022Upda"
+  "teExportStatus\022*.vm_tools.tremplin.Conta"
+  "inerExportProgress\032\037.vm_tools.tremplin.E"
+  "mptyMessage\022a\n\022UpdateImportStatus\022*.vm_t"
+  "ools.tremplin.ContainerImportProgress\032\037."
+  "vm_tools.tremplin.EmptyMessage\022^\n\021Contai"
+  "nerShutdown\022(.vm_tools.tremplin.Containe"
+  "rShutdownInfo\032\037.vm_tools.tremplin.EmptyM"
+  "essage\022]\n\024UpdateListeningPorts\022$.vm_tool"
+  "s.tremplin.ListeningPortInfo\032\037.vm_tools."
+  "tremplin.EmptyMessage\022f\n\026UpgradeContaine"
+  "rStatus\022+.vm_tools.tremplin.UpgradeConta"
+  "inerProgress\032\037.vm_tools.tremplin.EmptyMe"
+  "ssageB\'Z\"chromiumos/vm_tools/tremplin_pr"
+  "oto\370\001\001b\006proto3"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_tremplin_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_tremplin_2eproto = {
-  false, false, 11969, descriptor_table_protodef_tremplin_2eproto, "tremplin.proto", 
+  false, false, 11974, descriptor_table_protodef_tremplin_2eproto, "tremplin.proto", 
   &descriptor_table_tremplin_2eproto_once, nullptr, 0, 57,
   schemas, file_default_instances, TableStruct_tremplin_2eproto::offsets,
   file_level_metadata_tremplin_2eproto, file_level_enum_descriptors_tremplin_2eproto, file_level_service_descriptors_tremplin_2eproto,
@@ -2405,36 +2405,16 @@ constexpr DetachUsbFromContainerResponse_Status DetachUsbFromContainerResponse::
 constexpr DetachUsbFromContainerResponse_Status DetachUsbFromContainerResponse::Status_MAX;
 constexpr int DetachUsbFromContainerResponse::Status_ARRAYSIZE;
 #endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
-const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* UpdateContainerDevicesRequest_Action_descriptor() {
-  ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_tremplin_2eproto);
-  return file_level_enum_descriptors_tremplin_2eproto[26];
-}
-bool UpdateContainerDevicesRequest_Action_IsValid(int value) {
-  switch (value) {
-    case 0:
-    case 1:
-      return true;
-    default:
-      return false;
-  }
-}
-
-#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
-constexpr UpdateContainerDevicesRequest_Action UpdateContainerDevicesRequest::ENABLE;
-constexpr UpdateContainerDevicesRequest_Action UpdateContainerDevicesRequest::DISABLE;
-constexpr UpdateContainerDevicesRequest_Action UpdateContainerDevicesRequest::Action_MIN;
-constexpr UpdateContainerDevicesRequest_Action UpdateContainerDevicesRequest::Action_MAX;
-constexpr int UpdateContainerDevicesRequest::Action_ARRAYSIZE;
-#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* UpdateContainerDevicesResponse_Status_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_tremplin_2eproto);
-  return file_level_enum_descriptors_tremplin_2eproto[27];
+  return file_level_enum_descriptors_tremplin_2eproto[26];
 }
 bool UpdateContainerDevicesResponse_Status_IsValid(int value) {
   switch (value) {
     case 0:
     case 1:
     case 2:
+    case 3:
       return true;
     default:
       return false;
@@ -2445,13 +2425,14 @@ bool UpdateContainerDevicesResponse_Status_IsValid(int value) {
 constexpr UpdateContainerDevicesResponse_Status UpdateContainerDevicesResponse::UNKNOWN;
 constexpr UpdateContainerDevicesResponse_Status UpdateContainerDevicesResponse::OK;
 constexpr UpdateContainerDevicesResponse_Status UpdateContainerDevicesResponse::NO_SUCH_CONTAINER;
+constexpr UpdateContainerDevicesResponse_Status UpdateContainerDevicesResponse::FAILED;
 constexpr UpdateContainerDevicesResponse_Status UpdateContainerDevicesResponse::Status_MIN;
 constexpr UpdateContainerDevicesResponse_Status UpdateContainerDevicesResponse::Status_MAX;
 constexpr int UpdateContainerDevicesResponse::Status_ARRAYSIZE;
 #endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* UpdateContainerDevicesResponse_UpdateResult_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_tremplin_2eproto);
-  return file_level_enum_descriptors_tremplin_2eproto[28];
+  return file_level_enum_descriptors_tremplin_2eproto[27];
 }
 bool UpdateContainerDevicesResponse_UpdateResult_IsValid(int value) {
   switch (value) {
@@ -2467,16 +2448,30 @@ bool UpdateContainerDevicesResponse_UpdateResult_IsValid(int value) {
 #if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 constexpr UpdateContainerDevicesResponse_UpdateResult UpdateContainerDevicesResponse::SUCCESS;
 constexpr UpdateContainerDevicesResponse_UpdateResult UpdateContainerDevicesResponse::NO_SUCH_VM_DEVICE;
-constexpr UpdateContainerDevicesResponse_UpdateResult UpdateContainerDevicesResponse::FAILED;
+constexpr UpdateContainerDevicesResponse_UpdateResult UpdateContainerDevicesResponse::UPDATE_FAILED;
 constexpr UpdateContainerDevicesResponse_UpdateResult UpdateContainerDevicesResponse::UpdateResult_MIN;
 constexpr UpdateContainerDevicesResponse_UpdateResult UpdateContainerDevicesResponse::UpdateResult_MAX;
 constexpr int UpdateContainerDevicesResponse::UpdateResult_ARRAYSIZE;
 #endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* VmDevice_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_tremplin_2eproto);
-  return file_level_enum_descriptors_tremplin_2eproto[29];
+  return file_level_enum_descriptors_tremplin_2eproto[28];
 }
 bool VmDevice_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+      return true;
+    default:
+      return false;
+  }
+}
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* VmDeviceAction_descriptor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_tremplin_2eproto);
+  return file_level_enum_descriptors_tremplin_2eproto[29];
+}
+bool VmDeviceAction_IsValid(int value) {
   switch (value) {
     case 0:
     case 1:
@@ -14895,7 +14890,7 @@ const char* UpdateContainerDevicesRequest::_InternalParse(const char* ptr, ::PRO
         } else
           goto handle_unusual;
         continue;
-      // map<int32, .vm_tools.tremplin.UpdateContainerDevicesRequest.Action> updates = 2;
+      // map<string, .vm_tools.tremplin.VmDeviceAction> updates = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           ptr -= 1;
@@ -14947,33 +14942,44 @@ uint8_t* UpdateContainerDevicesRequest::_InternalSerialize(
         1, this->_internal_container_name(), target);
   }
 
-  // map<int32, .vm_tools.tremplin.UpdateContainerDevicesRequest.Action> updates = 2;
+  // map<string, .vm_tools.tremplin.VmDeviceAction> updates = 2;
   if (!this->_internal_updates().empty()) {
-    typedef ::PROTOBUF_NAMESPACE_ID::Map< int32_t, ::vm_tools::tremplin::UpdateContainerDevicesRequest_Action >::const_pointer
+    typedef ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::vm_tools::tremplin::VmDeviceAction >::const_pointer
         ConstPtr;
-    typedef ::PROTOBUF_NAMESPACE_ID::internal::SortItem< int32_t, ConstPtr > SortItem;
-    typedef ::PROTOBUF_NAMESPACE_ID::internal::CompareByFirstField<SortItem> Less;
+    typedef ConstPtr SortItem;
+    typedef ::PROTOBUF_NAMESPACE_ID::internal::CompareByDerefFirst<SortItem> Less;
+    struct Utf8Check {
+      static void Check(ConstPtr p) {
+        (void)p;
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+          p->first.data(), static_cast<int>(p->first.length()),
+          ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+          "vm_tools.tremplin.UpdateContainerDevicesRequest.UpdatesEntry.key");
+      }
+    };
 
     if (stream->IsSerializationDeterministic() &&
         this->_internal_updates().size() > 1) {
       ::std::unique_ptr<SortItem[]> items(
           new SortItem[this->_internal_updates().size()]);
-      typedef ::PROTOBUF_NAMESPACE_ID::Map< int32_t, ::vm_tools::tremplin::UpdateContainerDevicesRequest_Action >::size_type size_type;
+      typedef ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::vm_tools::tremplin::VmDeviceAction >::size_type size_type;
       size_type n = 0;
-      for (::PROTOBUF_NAMESPACE_ID::Map< int32_t, ::vm_tools::tremplin::UpdateContainerDevicesRequest_Action >::const_iterator
+      for (::PROTOBUF_NAMESPACE_ID::Map< std::string, ::vm_tools::tremplin::VmDeviceAction >::const_iterator
           it = this->_internal_updates().begin();
           it != this->_internal_updates().end(); ++it, ++n) {
         items[static_cast<ptrdiff_t>(n)] = SortItem(&*it);
       }
       ::std::sort(&items[0], &items[static_cast<ptrdiff_t>(n)], Less());
       for (size_type i = 0; i < n; i++) {
-        target = UpdateContainerDevicesRequest_UpdatesEntry_DoNotUse::Funcs::InternalSerialize(2, items[static_cast<ptrdiff_t>(i)].second->first, items[static_cast<ptrdiff_t>(i)].second->second, target, stream);
+        target = UpdateContainerDevicesRequest_UpdatesEntry_DoNotUse::Funcs::InternalSerialize(2, items[static_cast<ptrdiff_t>(i)]->first, items[static_cast<ptrdiff_t>(i)]->second, target, stream);
+        Utf8Check::Check(&(*items[static_cast<ptrdiff_t>(i)]));
       }
     } else {
-      for (::PROTOBUF_NAMESPACE_ID::Map< int32_t, ::vm_tools::tremplin::UpdateContainerDevicesRequest_Action >::const_iterator
+      for (::PROTOBUF_NAMESPACE_ID::Map< std::string, ::vm_tools::tremplin::VmDeviceAction >::const_iterator
           it = this->_internal_updates().begin();
           it != this->_internal_updates().end(); ++it) {
         target = UpdateContainerDevicesRequest_UpdatesEntry_DoNotUse::Funcs::InternalSerialize(2, it->first, it->second, target, stream);
+        Utf8Check::Check(&(*it));
       }
     }
   }
@@ -14994,10 +15000,10 @@ size_t UpdateContainerDevicesRequest::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // map<int32, .vm_tools.tremplin.UpdateContainerDevicesRequest.Action> updates = 2;
+  // map<string, .vm_tools.tremplin.VmDeviceAction> updates = 2;
   total_size += 1 *
       ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(this->_internal_updates_size());
-  for (::PROTOBUF_NAMESPACE_ID::Map< int32_t, ::vm_tools::tremplin::UpdateContainerDevicesRequest_Action >::const_iterator
+  for (::PROTOBUF_NAMESPACE_ID::Map< std::string, ::vm_tools::tremplin::VmDeviceAction >::const_iterator
       it = this->_internal_updates().begin();
       it != this->_internal_updates().end(); ++it) {
     total_size += UpdateContainerDevicesRequest_UpdatesEntry_DoNotUse::Funcs::ByteSizeLong(it->first, it->second);
@@ -15186,7 +15192,7 @@ const char* UpdateContainerDevicesResponse::_InternalParse(const char* ptr, ::PR
         } else
           goto handle_unusual;
         continue;
-      // map<int32, .vm_tools.tremplin.UpdateContainerDevicesResponse.UpdateResult> results = 3;
+      // map<string, .vm_tools.tremplin.UpdateContainerDevicesResponse.UpdateResult> results = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
           ptr -= 1;
@@ -15245,33 +15251,44 @@ uint8_t* UpdateContainerDevicesResponse::_InternalSerialize(
         2, this->_internal_failure_reason(), target);
   }
 
-  // map<int32, .vm_tools.tremplin.UpdateContainerDevicesResponse.UpdateResult> results = 3;
+  // map<string, .vm_tools.tremplin.UpdateContainerDevicesResponse.UpdateResult> results = 3;
   if (!this->_internal_results().empty()) {
-    typedef ::PROTOBUF_NAMESPACE_ID::Map< int32_t, ::vm_tools::tremplin::UpdateContainerDevicesResponse_UpdateResult >::const_pointer
+    typedef ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::vm_tools::tremplin::UpdateContainerDevicesResponse_UpdateResult >::const_pointer
         ConstPtr;
-    typedef ::PROTOBUF_NAMESPACE_ID::internal::SortItem< int32_t, ConstPtr > SortItem;
-    typedef ::PROTOBUF_NAMESPACE_ID::internal::CompareByFirstField<SortItem> Less;
+    typedef ConstPtr SortItem;
+    typedef ::PROTOBUF_NAMESPACE_ID::internal::CompareByDerefFirst<SortItem> Less;
+    struct Utf8Check {
+      static void Check(ConstPtr p) {
+        (void)p;
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+          p->first.data(), static_cast<int>(p->first.length()),
+          ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+          "vm_tools.tremplin.UpdateContainerDevicesResponse.ResultsEntry.key");
+      }
+    };
 
     if (stream->IsSerializationDeterministic() &&
         this->_internal_results().size() > 1) {
       ::std::unique_ptr<SortItem[]> items(
           new SortItem[this->_internal_results().size()]);
-      typedef ::PROTOBUF_NAMESPACE_ID::Map< int32_t, ::vm_tools::tremplin::UpdateContainerDevicesResponse_UpdateResult >::size_type size_type;
+      typedef ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::vm_tools::tremplin::UpdateContainerDevicesResponse_UpdateResult >::size_type size_type;
       size_type n = 0;
-      for (::PROTOBUF_NAMESPACE_ID::Map< int32_t, ::vm_tools::tremplin::UpdateContainerDevicesResponse_UpdateResult >::const_iterator
+      for (::PROTOBUF_NAMESPACE_ID::Map< std::string, ::vm_tools::tremplin::UpdateContainerDevicesResponse_UpdateResult >::const_iterator
           it = this->_internal_results().begin();
           it != this->_internal_results().end(); ++it, ++n) {
         items[static_cast<ptrdiff_t>(n)] = SortItem(&*it);
       }
       ::std::sort(&items[0], &items[static_cast<ptrdiff_t>(n)], Less());
       for (size_type i = 0; i < n; i++) {
-        target = UpdateContainerDevicesResponse_ResultsEntry_DoNotUse::Funcs::InternalSerialize(3, items[static_cast<ptrdiff_t>(i)].second->first, items[static_cast<ptrdiff_t>(i)].second->second, target, stream);
+        target = UpdateContainerDevicesResponse_ResultsEntry_DoNotUse::Funcs::InternalSerialize(3, items[static_cast<ptrdiff_t>(i)]->first, items[static_cast<ptrdiff_t>(i)]->second, target, stream);
+        Utf8Check::Check(&(*items[static_cast<ptrdiff_t>(i)]));
       }
     } else {
-      for (::PROTOBUF_NAMESPACE_ID::Map< int32_t, ::vm_tools::tremplin::UpdateContainerDevicesResponse_UpdateResult >::const_iterator
+      for (::PROTOBUF_NAMESPACE_ID::Map< std::string, ::vm_tools::tremplin::UpdateContainerDevicesResponse_UpdateResult >::const_iterator
           it = this->_internal_results().begin();
           it != this->_internal_results().end(); ++it) {
         target = UpdateContainerDevicesResponse_ResultsEntry_DoNotUse::Funcs::InternalSerialize(3, it->first, it->second, target, stream);
+        Utf8Check::Check(&(*it));
       }
     }
   }
@@ -15292,10 +15309,10 @@ size_t UpdateContainerDevicesResponse::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // map<int32, .vm_tools.tremplin.UpdateContainerDevicesResponse.UpdateResult> results = 3;
+  // map<string, .vm_tools.tremplin.UpdateContainerDevicesResponse.UpdateResult> results = 3;
   total_size += 1 *
       ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(this->_internal_results_size());
-  for (::PROTOBUF_NAMESPACE_ID::Map< int32_t, ::vm_tools::tremplin::UpdateContainerDevicesResponse_UpdateResult >::const_iterator
+  for (::PROTOBUF_NAMESPACE_ID::Map< std::string, ::vm_tools::tremplin::UpdateContainerDevicesResponse_UpdateResult >::const_iterator
       it = this->_internal_results().begin();
       it != this->_internal_results().end(); ++it) {
     total_size += UpdateContainerDevicesResponse_ResultsEntry_DoNotUse::Funcs::ByteSizeLong(it->first, it->second);
