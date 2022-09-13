@@ -558,8 +558,8 @@ ShimlessRmaReport& ShimlessRmaReport::SetIsComplete(const int64_t value) {
   return *this;
 }
 
-ShimlessRmaReport& ShimlessRmaReport::SetRoVerification(const int64_t value) {
-  AddIntMetric(kRoVerificationNameHash, value);
+ShimlessRmaReport& ShimlessRmaReport::SetRoVerificationStatus(const int64_t value) {
+  AddIntMetric(kRoVerificationStatusNameHash, value);
   return *this;
 }
 

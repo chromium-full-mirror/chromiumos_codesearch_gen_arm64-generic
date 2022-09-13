@@ -523,8 +523,8 @@ class BRILLO_EXPORT ShimlessRmaReport final : public ::metrics::structured::Even
   static constexpr uint64_t kIsCompleteNameHash = UINT64_C(13430706429255306620);
   ShimlessRmaReport& SetIsComplete(const int64_t value);
 
-  static constexpr uint64_t kRoVerificationNameHash = UINT64_C(18221210148763351576);
-  ShimlessRmaReport& SetRoVerification(const int64_t value);
+  static constexpr uint64_t kRoVerificationStatusNameHash = UINT64_C(13707564053607163786);
+  ShimlessRmaReport& SetRoVerificationStatus(const int64_t value);
 
   static constexpr uint64_t kReturningOwnerNameHash = UINT64_C(12951406561128878647);
   ShimlessRmaReport& SetReturningOwner(const int64_t value);

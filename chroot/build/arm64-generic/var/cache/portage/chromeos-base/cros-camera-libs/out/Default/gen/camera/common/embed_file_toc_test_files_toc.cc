@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 The Chromium OS Authors. All rights reserved.
+ * Copyright 2021 The ChromiumOS Authors
  * Use of this source code is governed by a BSD-style license that can be
  * found in the LICENSE file.
  */
@@ -9,7 +9,7 @@
 namespace cros {
 
 const char embed_file_toc_cc[] = R"cc_embed_data(/*
- * Copyright 2021 The Chromium OS Authors. All rights reserved.
+ * Copyright 2021 The ChromiumOS Authors
  * Use of this source code is governed by a BSD-style license that can be
  * found in the LICENSE file.
  */
@@ -38,7 +38,7 @@ base::span<const char> EmbeddedFileToc::Get(const std::string& key) const {
 )cc_embed_data";
 
 const char embed_file_toc_h[] = R"cc_embed_data(/*
- * Copyright 2021 The Chromium OS Authors. All rights reserved.
+ * Copyright 2021 The ChromiumOS Authors
  * Use of this source code is governed by a BSD-style license that can be
  * found in the LICENSE file.
  */

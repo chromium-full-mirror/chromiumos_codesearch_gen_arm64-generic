@@ -1,4 +1,4 @@
-// Copyright (c) 2012 The Chromium OS Authors. All rights reserved.
+// Copyright 2012 The ChromiumOS Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -405,13 +405,14 @@ class DaemonDelegateImpl : public DaemonDelegate {
   int Run(const std::string& command) override {
     LOG(INFO) << "Running \"" << command << "\"";
     int return_value = ::system(command.c_str());
+    int exit_status = WEXITSTATUS(return_value);
     if (return_value == -1) {
       PLOG(ERROR) << "fork() failed";
-    } else if (WEXITSTATUS(return_value)) {
-      LOG(ERROR) << "Command failed with exit status "
-                 << WEXITSTATUS(return_value);
+      return return_value;
+    } else if (exit_status) {
+      LOG(ERROR) << "Command failed with exit status " << exit_status;
     }
-    return return_value;
+    return exit_status;
   }
 
  private:

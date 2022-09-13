@@ -780,28 +780,32 @@ inline const std::string& CalibrationOverallStatus_Name(T enum_t_value) {
 }
 bool CalibrationOverallStatus_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, CalibrationOverallStatus* value);
-enum RoVerification : int {
+enum RoVerificationStatus : int {
   RMAD_RO_VERIFICATION_UNKNOWN = 0,
   RMAD_RO_VERIFICATION_PASS = 1,
   RMAD_RO_VERIFICATION_UNSUPPORTED = 2,
-  RoVerification_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
-  RoVerification_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+  RMAD_RO_VERIFICATION_NOT_TRIGGERED = 3,
+  RMAD_RO_VERIFICATION_FAIL = 4,
+  RMAD_RO_VERIFICATION_UNSUPPORTED_NOT_TRIGGERED = 5,
+  RMAD_RO_VERIFICATION_UNSUPPORTED_TRIGGERED = 6,
+  RoVerificationStatus_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  RoVerificationStatus_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
-bool RoVerification_IsValid(int value);
-constexpr RoVerification RoVerification_MIN = RMAD_RO_VERIFICATION_UNKNOWN;
-constexpr RoVerification RoVerification_MAX = RMAD_RO_VERIFICATION_UNSUPPORTED;
-constexpr int RoVerification_ARRAYSIZE = RoVerification_MAX + 1;
+bool RoVerificationStatus_IsValid(int value);
+constexpr RoVerificationStatus RoVerificationStatus_MIN = RMAD_RO_VERIFICATION_UNKNOWN;
+constexpr RoVerificationStatus RoVerificationStatus_MAX = RMAD_RO_VERIFICATION_UNSUPPORTED_TRIGGERED;
+constexpr int RoVerificationStatus_ARRAYSIZE = RoVerificationStatus_MAX + 1;
 
-const std::string& RoVerification_Name(RoVerification value);
+const std::string& RoVerificationStatus_Name(RoVerificationStatus value);
 template<typename T>
-inline const std::string& RoVerification_Name(T enum_t_value) {
-  static_assert(::std::is_same<T, RoVerification>::value ||
+inline const std::string& RoVerificationStatus_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, RoVerificationStatus>::value ||
     ::std::is_integral<T>::value,
-    "Incorrect type passed to function RoVerification_Name.");
-  return RoVerification_Name(static_cast<RoVerification>(enum_t_value));
+    "Incorrect type passed to function RoVerificationStatus_Name.");
+  return RoVerificationStatus_Name(static_cast<RoVerificationStatus>(enum_t_value));
 }
-bool RoVerification_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, RoVerification* value);
+bool RoVerificationStatus_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, RoVerificationStatus* value);
 enum ReturningOwner : int {
   RMAD_RETURNING_OWNER_UNKNOWN = 0,
   RMAD_RETURNING_OWNER_SAME_OWNER = 1,
@@ -10212,7 +10216,7 @@ template <> struct is_proto_enum< ::rmad::RmadComponent> : ::std::true_type {};
 template <> struct is_proto_enum< ::rmad::UpdateRoFirmwareStatus> : ::std::true_type {};
 template <> struct is_proto_enum< ::rmad::CalibrationSetupInstruction> : ::std::true_type {};
 template <> struct is_proto_enum< ::rmad::CalibrationOverallStatus> : ::std::true_type {};
-template <> struct is_proto_enum< ::rmad::RoVerification> : ::std::true_type {};
+template <> struct is_proto_enum< ::rmad::RoVerificationStatus> : ::std::true_type {};
 template <> struct is_proto_enum< ::rmad::ReturningOwner> : ::std::true_type {};
 template <> struct is_proto_enum< ::rmad::MainboardReplacement> : ::std::true_type {};
 template <> struct is_proto_enum< ::rmad::AdditionalActivity> : ::std::true_type {};

@@ -6,8 +6,8 @@
 
 #include "flatbuffers/flatbuffers.h"
 
-#include "libhwsec/structures/signature_sealed_data_generated.h"
 #include "structures_generated.h"
+#include "libhwsec/structures/signature_sealed_data_generated.h"
 
 namespace cryptohome {
 namespace _serialized_ {
