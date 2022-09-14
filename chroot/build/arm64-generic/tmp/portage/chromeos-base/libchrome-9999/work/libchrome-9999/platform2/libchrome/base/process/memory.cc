@@ -33,18 +33,6 @@ namespace internal {
 // Crash server classifies base::internal::OnNoMemoryInternal as OOM.
 NOINLINE void OnNoMemoryInternal(size_t size) {
   g_oom_size = size;
-#if BUILDFLAG(IS_WIN)
-  // Kill the process. This is important for security since most of code
-  // does not check the result of memory allocation.
-  // https://msdn.microsoft.com/en-us/library/het71c37.aspx
-  // Pass the size of the failed request in an exception argument.
-  ULONG_PTR exception_args[] = {size};
-  ::RaiseException(base::win::kOomExceptionCode, EXCEPTION_NONCONTINUABLE,
-                   std::size(exception_args), exception_args);
-
-  // Safety check, make sure process exits here.
-  _exit(win::kOomExceptionCode);
-#else
   size_t tmp_size = size;
   base::debug::Alias(&tmp_size);
 
@@ -60,7 +48,6 @@ NOINLINE void OnNoMemoryInternal(size_t size) {
   // to be able to successfully unwind through libc to get to the correct
   // address, which is particularly an issue on Android.
   IMMEDIATE_CRASH();
-#endif  // BUILDFLAG(IS_WIN)
 }
 
 }  // namespace internal

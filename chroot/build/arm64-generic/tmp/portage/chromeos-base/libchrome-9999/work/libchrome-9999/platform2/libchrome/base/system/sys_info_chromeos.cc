@@ -308,4 +308,25 @@ int64_t SysInfo::GetTotalDiskSpaceFromSpaced(const base::FilePath& path) {
   return GetInfoFromSpaced(kSpacedGetTotalDiskSpaceAction, path);
 }
 
+SysInfo::HardwareInfo SysInfo::GetHardwareInfoSync() {
+  HardwareInfo info;
+  // Manufacturer of ChromeOS device is always Google so hardcode it.
+  info.manufacturer = "Google";
+  if (IsRunningOnChromeOS()) {
+    // Read the model name from cros-configfs.
+    constexpr char kModelNamePath[] = "/run/chromeos-config/v1/name";
+    constexpr size_t kMaxStringSize = 100u;
+    std::string data;
+    if (ReadFileToStringWithMaxSize(FilePath(kModelNamePath), &data,
+                                    kMaxStringSize)) {
+      TrimWhitespaceASCII(data, TrimPositions::TRIM_ALL, &info.model);
+    }
+    DCHECK(IsStringUTF8(info.model));
+  } else {
+    // Fake model name on chromeos linux-emulator (for both linux/ash).
+    info.model = "linux-emulator";
+  }
+  return info;
+}
+
 }  // namespace base

@@ -55,13 +55,7 @@ bool ReleaseAddressSpaceReservation();
 #if BUILDFLAG(IS_WIN)
 namespace win {
 
-// Custom Windows exception code chosen to indicate an out of memory error.
-// See https://msdn.microsoft.com/en-us/library/het71c37.aspx.
-// "To make sure that you do not define a code that conflicts with an existing
-// exception code" ... "The resulting error code should therefore have the
-// highest four bits set to hexadecimal E."
-// 0xe0000008 was chosen arbitrarily, as 0x00000008 is ERROR_NOT_ENOUGH_MEMORY.
-const DWORD kOomExceptionCode = 0xe0000008;
+using partition_alloc::win::kOomExceptionCode;
 
 }  // namespace win
 #endif
