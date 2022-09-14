@@ -578,6 +578,34 @@ std::ostream& operator<<(std::ostream& os, CpuVirtualizationInfo_Type value) {
   return os << CpuVirtualizationInfo_TypeToString(value);
 }
 
+static NOINLINE const char* OsInfo_EfiPlatformSizeToStringHelper(OsInfo_EfiPlatformSize value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case OsInfo_EfiPlatformSize::kUnmappedEnumField:
+      return "kUnmappedEnumField";
+    case OsInfo_EfiPlatformSize::kUnknown:
+      return "kUnknown";
+    case OsInfo_EfiPlatformSize::k64:
+      return "k64";
+    case OsInfo_EfiPlatformSize::k32:
+      return "k32";
+    default:
+      return nullptr;
+  }
+}
+
+std::string OsInfo_EfiPlatformSizeToString(OsInfo_EfiPlatformSize value) {
+  const char *str = OsInfo_EfiPlatformSizeToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown OsInfo_EfiPlatformSize value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, OsInfo_EfiPlatformSize value) {
+  return os << OsInfo_EfiPlatformSizeToString(value);
+}
+
 static NOINLINE const char* InputDevice_ConnectionTypeToStringHelper(InputDevice_ConnectionType value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
@@ -3436,6 +3464,7 @@ bool OsInfo_Data::Validate(
   static constexpr mojo::internal::StructVersionSize kVersionSizes[] = {
     { 0, 40 },
     { 1, 48 },
+    { 2, 48 },
   };
   if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
           data, kVersionSizes, validation_context)) {
@@ -3485,12 +3514,19 @@ bool OsInfo_Data::Validate(
                                          &oem_name_validate_params)) {
     return false;
   }
+  if (object->header_.version < 2)
+    return true;
+
+
+  if (!::chromeos::cros_healthd::mojom::internal::OsInfo_EfiPlatformSize_Data
+        ::Validate(object->efi_platform_size, validation_context))
+    return false;
 
   return true;
 }
 
 OsInfo_Data::OsInfo_Data()
-    : header_({sizeof(*this), 1}) {}
+    : header_({sizeof(*this), 2}) {}
 
 
 // static
@@ -5404,6 +5440,16 @@ namespace perfetto_libchrome {
 void TraceFormatTraits<::chromeos::cros_healthd::mojom::CpuVirtualizationInfo_Type>::WriteIntoTrace(
    perfetto_libchrome::TracedValue context, ::chromeos::cros_healthd::mojom::CpuVirtualizationInfo_Type value) {
   return std::move(context).WriteString(::chromeos::cros_healthd::mojom::CpuVirtualizationInfo_TypeToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto_libchrome {
+
+// static
+void TraceFormatTraits<::chromeos::cros_healthd::mojom::OsInfo_EfiPlatformSize>::WriteIntoTrace(
+   perfetto_libchrome::TracedValue context, ::chromeos::cros_healthd::mojom::OsInfo_EfiPlatformSize value) {
+  return std::move(context).WriteString(::chromeos::cros_healthd::mojom::OsInfo_EfiPlatformSizeToString(value));
 }
 
 } // namespace perfetto

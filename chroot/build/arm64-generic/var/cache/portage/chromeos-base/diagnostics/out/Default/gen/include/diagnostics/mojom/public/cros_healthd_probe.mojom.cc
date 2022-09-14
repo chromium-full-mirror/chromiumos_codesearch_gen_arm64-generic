@@ -2273,7 +2273,8 @@ OsInfo::OsInfo()
       marketing_name(),
       os_version(),
       boot_mode(),
-      oem_name() {}
+      oem_name(),
+      efi_platform_size() {}
 
 OsInfo::OsInfo(
     const std::string& code_name_in,
@@ -2284,7 +2285,8 @@ OsInfo::OsInfo(
       marketing_name(std::move(marketing_name_in)),
       os_version(std::move(os_version_in)),
       boot_mode(std::move(boot_mode_in)),
-      oem_name() {}
+      oem_name(),
+      efi_platform_size() {}
 
 OsInfo::OsInfo(
     const std::string& code_name_in,
@@ -2296,7 +2298,22 @@ OsInfo::OsInfo(
       marketing_name(std::move(marketing_name_in)),
       os_version(std::move(os_version_in)),
       boot_mode(std::move(boot_mode_in)),
-      oem_name(std::move(oem_name_in)) {}
+      oem_name(std::move(oem_name_in)),
+      efi_platform_size() {}
+
+OsInfo::OsInfo(
+    const std::string& code_name_in,
+    const absl::optional<std::string>& marketing_name_in,
+    OsVersionPtr os_version_in,
+    BootMode boot_mode_in,
+    const absl::optional<std::string>& oem_name_in,
+    OsInfo::EfiPlatformSize efi_platform_size_in)
+    : code_name(std::move(code_name_in)),
+      marketing_name(std::move(marketing_name_in)),
+      os_version(std::move(os_version_in)),
+      boot_mode(std::move(boot_mode_in)),
+      oem_name(std::move(oem_name_in)),
+      efi_platform_size(std::move(efi_platform_size_in)) {}
 
 OsInfo::~OsInfo() = default;
 
@@ -2344,6 +2361,15 @@ void OsInfo::WriteIntoTrace(
       "oem_name"), this->oem_name,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type const absl::optional<std::string>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "efi_platform_size"), this->efi_platform_size,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type OsInfo::EfiPlatformSize>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -7850,6 +7876,8 @@ bool StructTraits<::chromeos::cros_healthd::mojom::OsInfo::DataView, ::chromeos:
       if (success && !input.ReadBootMode(&result->boot_mode))
         success = false;
       if (success && !input.ReadOemName(&result->oem_name))
+        success = false;
+      if (success && !input.ReadEfiPlatformSize(&result->efi_platform_size))
         success = false;
   *output = std::move(result);
   return success;

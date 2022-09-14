@@ -598,6 +598,32 @@ struct CpuVirtualizationInfo_Type_Data {
   }
 };
 
+struct OsInfo_EfiPlatformSize_Data {
+ public:
+  static bool constexpr kIsExtensible = true;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+      case 3:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
 struct InputDevice_ConnectionType_Data {
  public:
   static bool constexpr kIsExtensible = true;
@@ -3505,7 +3531,7 @@ class  OsInfo_Data {
   mojo::internal::Pointer<mojo::internal::String_Data> marketing_name;
   mojo::internal::Pointer<internal::OsVersion_Data> os_version;
   int32_t boot_mode;
-  uint8_t pad3_[4];
+  int32_t efi_platform_size;
   mojo::internal::Pointer<mojo::internal::String_Data> oem_name;
 
  private:

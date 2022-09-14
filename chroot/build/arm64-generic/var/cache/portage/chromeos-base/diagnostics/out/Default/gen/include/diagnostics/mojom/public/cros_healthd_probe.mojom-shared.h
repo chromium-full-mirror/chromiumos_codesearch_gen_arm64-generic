@@ -1365,6 +1365,33 @@ inline CpuVirtualizationInfo_Type ToKnownEnumValue(CpuVirtualizationInfo_Type va
 }
 
 
+enum class OsInfo_EfiPlatformSize : int32_t {
+  
+  kUnmappedEnumField = 0,
+  
+  kUnknown = 1,
+  
+  k64 = 2,
+  
+  k32 = 3,
+  kMinValue = 0,
+  kMaxValue = 3,
+  kDefaultValue = 0
+};
+
+ std::ostream& operator<<(std::ostream& os, OsInfo_EfiPlatformSize value);
+inline bool IsKnownEnumValue(OsInfo_EfiPlatformSize value) {
+  return internal::OsInfo_EfiPlatformSize_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+inline OsInfo_EfiPlatformSize ToKnownEnumValue(OsInfo_EfiPlatformSize value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return OsInfo_EfiPlatformSize::kDefaultValue;
+}
+
+
 enum class InputDevice_ConnectionType : int32_t {
   
   kUnmappedEnumField = 0,
@@ -3058,6 +3085,19 @@ static_assert(
                     ? data_->oem_name.Get() : nullptr;
     return mojo::internal::Deserialize<mojo::StringDataView>(
         pointer, output, message_);
+  }
+  template <typename UserType>
+  [[nodiscard]] bool ReadEfiPlatformSize(UserType* output) const {
+    auto data_value = data_->header_.version >= 2
+                      ? data_->efi_platform_size : 0;
+    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::OsInfo_EfiPlatformSize>(
+        data_value, output);
+  }
+  OsInfo_EfiPlatformSize efi_platform_size() const {
+    if (data_->header_.version < 2)
+      return OsInfo_EfiPlatformSize{};
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::chromeos::cros_healthd::mojom::OsInfo_EfiPlatformSize>(data_->efi_platform_size));
   }
  private:
   internal::OsInfo_Data* data_ = nullptr;
@@ -7369,6 +7409,10 @@ struct hash<::chromeos::cros_healthd::mojom::CpuVirtualizationInfo_Type>
     : public mojo::internal::EnumHashImpl<::chromeos::cros_healthd::mojom::CpuVirtualizationInfo_Type> {};
 
 template <>
+struct hash<::chromeos::cros_healthd::mojom::OsInfo_EfiPlatformSize>
+    : public mojo::internal::EnumHashImpl<::chromeos::cros_healthd::mojom::OsInfo_EfiPlatformSize> {};
+
+template <>
 struct hash<::chromeos::cros_healthd::mojom::InputDevice_ConnectionType>
     : public mojo::internal::EnumHashImpl<::chromeos::cros_healthd::mojom::InputDevice_ConnectionType> {};
 
@@ -7719,6 +7763,26 @@ struct Serializer<::chromeos::cros_healthd::mojom::CpuVirtualizationInfo_Type, M
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
         static_cast<::chromeos::cros_healthd::mojom::CpuVirtualizationInfo_Type>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::chromeos::cros_healthd::mojom::OsInfo_EfiPlatformSize, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::chromeos::cros_healthd::mojom::OsInfo_EfiPlatformSize, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::chromeos::cros_healthd::mojom::OsInfo_EfiPlatformSize>(input)), output);
   }
 };
 
@@ -9230,6 +9294,8 @@ struct Serializer<::chromeos::cros_healthd::mojom::OsInfoDataView, MaybeConstUse
         in_oem_name, oem_name_fragment);
     fragment->oem_name.Set(
         oem_name_fragment.is_null() ? nullptr : oem_name_fragment.data());
+    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::OsInfo_EfiPlatformSize>(
+        Traits::efi_platform_size(input), &fragment->efi_platform_size);
   }
 
   static bool Deserialize(::chromeos::cros_healthd::mojom::internal::OsInfo_Data* input,
@@ -15052,6 +15118,15 @@ namespace perfetto_libchrome {
 template <>
 struct  TraceFormatTraits<::chromeos::cros_healthd::mojom::CpuVirtualizationInfo_Type> {
  static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::chromeos::cros_healthd::mojom::CpuVirtualizationInfo_Type value);
+};
+
+} // namespace perfetto
+
+namespace perfetto_libchrome {
+
+template <>
+struct  TraceFormatTraits<::chromeos::cros_healthd::mojom::OsInfo_EfiPlatformSize> {
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::chromeos::cros_healthd::mojom::OsInfo_EfiPlatformSize value);
 };
 
 } // namespace perfetto

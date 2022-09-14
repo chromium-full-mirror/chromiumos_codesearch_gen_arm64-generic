@@ -1292,6 +1292,7 @@ class Battery_Fields final :
     kSerialNumberFieldNumber = 4,
     kPathFieldNumber = 13,
     kTechnologyFieldNumber = 15,
+    kChemistryFieldNumber = 16,
     kIndexFieldNumber = 1,
     kChargeFullDesignFieldNumber = 5,
     kChargeFullFieldNumber = 6,
@@ -1371,6 +1372,20 @@ class Battery_Fields final :
   const std::string& _internal_technology() const;
   inline PROTOBUF_ALWAYS_INLINE void _internal_set_technology(const std::string& value);
   std::string* _internal_mutable_technology();
+  public:
+
+  // string chemistry = 16;
+  void clear_chemistry();
+  const std::string& chemistry() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_chemistry(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_chemistry();
+  PROTOBUF_NODISCARD std::string* release_chemistry();
+  void set_allocated_chemistry(std::string* chemistry);
+  private:
+  const std::string& _internal_chemistry() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_chemistry(const std::string& value);
+  std::string* _internal_mutable_chemistry();
   public:
 
   // int32 index = 1;
@@ -1475,6 +1490,7 @@ class Battery_Fields final :
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr serial_number_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr path_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr technology_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr chemistry_;
   int32_t index_;
   int32_t charge_full_design_;
   int32_t charge_full_;
@@ -7092,6 +7108,57 @@ inline void Battery_Fields::set_allocated_technology(std::string* technology) {
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   // @@protoc_insertion_point(field_set_allocated:runtime_probe.Battery.Fields.technology)
+}
+
+// string chemistry = 16;
+inline void Battery_Fields::clear_chemistry() {
+  chemistry_.ClearToEmpty();
+}
+inline const std::string& Battery_Fields::chemistry() const {
+  // @@protoc_insertion_point(field_get:runtime_probe.Battery.Fields.chemistry)
+  return _internal_chemistry();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void Battery_Fields::set_chemistry(ArgT0&& arg0, ArgT... args) {
+ 
+ chemistry_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:runtime_probe.Battery.Fields.chemistry)
+}
+inline std::string* Battery_Fields::mutable_chemistry() {
+  std::string* _s = _internal_mutable_chemistry();
+  // @@protoc_insertion_point(field_mutable:runtime_probe.Battery.Fields.chemistry)
+  return _s;
+}
+inline const std::string& Battery_Fields::_internal_chemistry() const {
+  return chemistry_.Get();
+}
+inline void Battery_Fields::_internal_set_chemistry(const std::string& value) {
+  
+  chemistry_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* Battery_Fields::_internal_mutable_chemistry() {
+  
+  return chemistry_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* Battery_Fields::release_chemistry() {
+  // @@protoc_insertion_point(field_release:runtime_probe.Battery.Fields.chemistry)
+  return chemistry_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void Battery_Fields::set_allocated_chemistry(std::string* chemistry) {
+  if (chemistry != nullptr) {
+    
+  } else {
+    
+  }
+  chemistry_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), chemistry,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (chemistry_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    chemistry_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:runtime_probe.Battery.Fields.chemistry)
 }
 
 // -------------------------------------------------------------------

@@ -27,6 +27,7 @@ class  ExecutorInterceptorForTesting : public Executor {
   void GetProcessIOContents(uint32_t pid, GetProcessIOContentsCallback callback) override;
   void ReadMsr(uint32_t msr_reg, uint32_t cpu_index, ReadMsrCallback callback) override;
   void GetUEFISecureBootContent(GetUEFISecureBootContentCallback callback) override;
+  void GetUEFIPlatformSizeContent(GetUEFIPlatformSizeContentCallback callback) override;
   void GetLidAngle(GetLidAngleCallback callback) override;
 };
 class  ExecutorAsyncWaiter {
@@ -54,6 +55,8 @@ class  ExecutorAsyncWaiter {
   void ReadMsr(
       uint32_t msr_reg, uint32_t cpu_index, ::chromeos::cros_healthd::mojom::NullableUint64Ptr* out_value);
   void GetUEFISecureBootContent(
+      std::string* out_contents);
+  void GetUEFIPlatformSizeContent(
       std::string* out_contents);
   void GetLidAngle(
       ExecutedProcessResultPtr* out_result);

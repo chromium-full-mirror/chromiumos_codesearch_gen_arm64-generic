@@ -208,6 +208,8 @@ enum class VulnerabilityInfo_Status : int32_t;
 
 enum class CpuVirtualizationInfo_Type : int32_t;
 
+enum class OsInfo_EfiPlatformSize : int32_t;
+
 enum class InputDevice_ConnectionType : int32_t;
 
 enum class Sensor_Type : int32_t;

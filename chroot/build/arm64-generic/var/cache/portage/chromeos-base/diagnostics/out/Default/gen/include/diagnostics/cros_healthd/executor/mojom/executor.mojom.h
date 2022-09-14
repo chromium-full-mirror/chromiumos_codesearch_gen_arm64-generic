@@ -80,6 +80,7 @@ class  Executor
     kGetProcessIOContentsMinVersion = 0,
     kReadMsrMinVersion = 0,
     kGetUEFISecureBootContentMinVersion = 0,
+    kGetUEFIPlatformSizeContentMinVersion = 0,
     kGetLidAngleMinVersion = 0,
   };
   virtual ~Executor() = default;
@@ -133,6 +134,11 @@ class  Executor
   virtual void GetUEFISecureBootContent(GetUEFISecureBootContentCallback callback) = 0;
 
 
+  using GetUEFIPlatformSizeContentCallback = base::OnceCallback<void(const std::string&)>;
+  
+  virtual void GetUEFIPlatformSizeContent(GetUEFIPlatformSizeContentCallback callback) = 0;
+
+
   using GetLidAngleCallback = base::OnceCallback<void(ExecutedProcessResultPtr)>;
   
   virtual void GetLidAngle(GetLidAngleCallback callback) = 0;
@@ -166,6 +172,8 @@ class  ExecutorProxy
   void ReadMsr(uint32_t msr_reg, uint32_t cpu_index, ReadMsrCallback callback) final;
   
   void GetUEFISecureBootContent(GetUEFISecureBootContentCallback callback) final;
+  
+  void GetUEFIPlatformSizeContent(GetUEFIPlatformSizeContentCallback callback) final;
   
   void GetLidAngle(GetLidAngleCallback callback) final;
 

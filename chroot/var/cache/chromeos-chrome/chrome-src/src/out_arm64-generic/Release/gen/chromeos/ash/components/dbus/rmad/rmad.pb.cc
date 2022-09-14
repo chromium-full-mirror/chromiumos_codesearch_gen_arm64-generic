@@ -2265,58 +2265,74 @@ bool CalibrationOverallStatus_Parse(
   }
   return success;
 }
-bool RoVerification_IsValid(int value) {
+bool RoVerificationStatus_IsValid(int value) {
   switch (value) {
     case 0:
     case 1:
     case 2:
+    case 3:
+    case 4:
+    case 5:
+    case 6:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> RoVerification_strings[3] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> RoVerificationStatus_strings[7] = {};
 
-static const char RoVerification_names[] =
+static const char RoVerificationStatus_names[] =
+  "RMAD_RO_VERIFICATION_FAIL"
+  "RMAD_RO_VERIFICATION_NOT_TRIGGERED"
   "RMAD_RO_VERIFICATION_PASS"
   "RMAD_RO_VERIFICATION_UNKNOWN"
-  "RMAD_RO_VERIFICATION_UNSUPPORTED";
+  "RMAD_RO_VERIFICATION_UNSUPPORTED"
+  "RMAD_RO_VERIFICATION_UNSUPPORTED_NOT_TRIGGERED"
+  "RMAD_RO_VERIFICATION_UNSUPPORTED_TRIGGERED";
 
-static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry RoVerification_entries[] = {
-  { {RoVerification_names + 0, 25}, 1 },
-  { {RoVerification_names + 25, 28}, 0 },
-  { {RoVerification_names + 53, 32}, 2 },
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry RoVerificationStatus_entries[] = {
+  { {RoVerificationStatus_names + 0, 25}, 4 },
+  { {RoVerificationStatus_names + 25, 34}, 3 },
+  { {RoVerificationStatus_names + 59, 25}, 1 },
+  { {RoVerificationStatus_names + 84, 28}, 0 },
+  { {RoVerificationStatus_names + 112, 32}, 2 },
+  { {RoVerificationStatus_names + 144, 46}, 5 },
+  { {RoVerificationStatus_names + 190, 42}, 6 },
 };
 
-static const int RoVerification_entries_by_number[] = {
-  1, // 0 -> RMAD_RO_VERIFICATION_UNKNOWN
-  0, // 1 -> RMAD_RO_VERIFICATION_PASS
-  2, // 2 -> RMAD_RO_VERIFICATION_UNSUPPORTED
+static const int RoVerificationStatus_entries_by_number[] = {
+  3, // 0 -> RMAD_RO_VERIFICATION_UNKNOWN
+  2, // 1 -> RMAD_RO_VERIFICATION_PASS
+  4, // 2 -> RMAD_RO_VERIFICATION_UNSUPPORTED
+  1, // 3 -> RMAD_RO_VERIFICATION_NOT_TRIGGERED
+  0, // 4 -> RMAD_RO_VERIFICATION_FAIL
+  5, // 5 -> RMAD_RO_VERIFICATION_UNSUPPORTED_NOT_TRIGGERED
+  6, // 6 -> RMAD_RO_VERIFICATION_UNSUPPORTED_TRIGGERED
 };
 
-const std::string& RoVerification_Name(
-    RoVerification value) {
+const std::string& RoVerificationStatus_Name(
+    RoVerificationStatus value) {
   static const bool dummy =
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
-          RoVerification_entries,
-          RoVerification_entries_by_number,
-          3, RoVerification_strings);
+          RoVerificationStatus_entries,
+          RoVerificationStatus_entries_by_number,
+          7, RoVerificationStatus_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
-      RoVerification_entries,
-      RoVerification_entries_by_number,
-      3, value);
+      RoVerificationStatus_entries,
+      RoVerificationStatus_entries_by_number,
+      7, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
-                     RoVerification_strings[idx].get();
+                     RoVerificationStatus_strings[idx].get();
 }
-bool RoVerification_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, RoVerification* value) {
+bool RoVerificationStatus_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, RoVerificationStatus* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      RoVerification_entries, 3, name, &int_value);
+      RoVerificationStatus_entries, 7, name, &int_value);
   if (success) {
-    *value = static_cast<RoVerification>(int_value);
+    *value = static_cast<RoVerificationStatus>(int_value);
   }
   return success;
 }

@@ -82,6 +82,8 @@ constexpr uint32_t kMsrAccessAllowList[] = {
 // https://uefi.org/sites/default/files/resources/UEFI_Spec_2_9_2021_03_18.pdf
 constexpr char kUEFISecureBootVarPath[] =
     "/sys/firmware/efi/efivars/SecureBoot-8be4df61-93ca-11d2-aa0d-00e098032b8c";
+// Path to the UEFI platform size file.
+constexpr char kUEFIPlatformSizeFile[] = "/sys/firmware/efi/fw_platform_size";
 
 // All Mojo callbacks need to be ran by the Mojo task runner, so this provides a
 // convenient wrapper that can be bound and ran by that specific task runner.
@@ -89,6 +91,27 @@ void RunMojoProcessResultCallback(
     mojom::ExecutedProcessResult mojo_result,
     base::OnceCallback<void(mojom::ExecutedProcessResultPtr)> callback) {
   std::move(callback).Run(mojo_result.Clone());
+}
+
+// Reads file and reply the result to a callback. Will reply empty string if
+// cannot read the file.
+void ReadRawFileAndReplyCallback(
+    const base::FilePath& file,
+    base::OnceCallback<void(const std::string&)> callback) {
+  std::string content = "";
+  LOG_IF(ERROR, !base::ReadFileToString(file, &content))
+      << "Failed to read file: " << file;
+  std::move(callback).Run(content);
+}
+
+// Same as above but also trim the string.
+void ReadTrimFileAndReplyCallback(
+    const base::FilePath& file,
+    base::OnceCallback<void(const std::string&)> callback) {
+  std::string content = "";
+  LOG_IF(ERROR, !ReadAndTrimString(file, &content))
+      << "Failed to read or trim file: " << file;
+  std::move(callback).Run(content);
 }
 
 }  // namespace
@@ -326,14 +349,10 @@ void Executor::KillMemtester() {
 
 void Executor::GetProcessIOContents(const uint32_t pid,
                                     GetProcessIOContentsCallback callback) {
-  std::string result;
-
-  ReadAndTrimString(base::FilePath("/proc/")
-                        .Append(base::StringPrintf("%" PRId32, pid))
-                        .AppendASCII("io"),
-                    &result);
-
-  std::move(callback).Run(result);
+  ReadTrimFileAndReplyCallback(base::FilePath("/proc/")
+                                   .Append(base::StringPrintf("%" PRId32, pid))
+                                   .AppendASCII("io"),
+                               std::move(callback));
 }
 
 void Executor::ReadMsr(const uint32_t msr_reg,
@@ -369,16 +388,14 @@ void Executor::ReadMsr(const uint32_t msr_reg,
 
 void Executor::GetUEFISecureBootContent(
     GetUEFISecureBootContentCallback callback) {
-  std::string content;
+  ReadRawFileAndReplyCallback(base::FilePath(kUEFISecureBootVarPath),
+                              std::move(callback));
+}
 
-  base::FilePath f = base::FilePath(kUEFISecureBootVarPath);
-  if (!base::ReadFileToString(f, &content)) {
-    LOG(ERROR) << "Failed to read file: " << f.value();
-    std::move(callback).Run("");
-    return;
-  }
-
-  std::move(callback).Run(content);
+void Executor::GetUEFIPlatformSizeContent(
+    GetUEFIPlatformSizeContentCallback callback) {
+  ReadTrimFileAndReplyCallback(base::FilePath{kUEFIPlatformSizeFile},
+                               std::move(callback));
 }
 
 void Executor::GetLidAngle(GetLidAngleCallback callback) {

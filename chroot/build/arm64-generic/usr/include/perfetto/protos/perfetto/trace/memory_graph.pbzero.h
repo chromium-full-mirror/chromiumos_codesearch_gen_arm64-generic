@@ -22,10 +22,12 @@ class MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode;
 class MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode_MemoryNodeEntry;
 namespace perfetto_pbzero_enum_MemoryTrackerSnapshot {
 enum LevelOfDetail : int32_t;
-}  // namespace perfetto_pbzero_enum_MemoryTrackerSnapshot 
+}  // namespace perfetto_pbzero_enum_MemoryTrackerSnapshot
+using MemoryTrackerSnapshot_LevelOfDetail = perfetto_pbzero_enum_MemoryTrackerSnapshot::LevelOfDetail;
 namespace perfetto_pbzero_enum_MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode_MemoryNodeEntry {
 enum Units : int32_t;
-}  // namespace perfetto_pbzero_enum_MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode_MemoryNodeEntry 
+}  // namespace perfetto_pbzero_enum_MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode_MemoryNodeEntry
+using MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode_MemoryNodeEntry_Units = perfetto_pbzero_enum_MemoryTrackerSnapshot_ProcessSnapshot_MemoryNode_MemoryNodeEntry::Units;
 
 namespace perfetto_pbzero_enum_MemoryTrackerSnapshot {
 enum LevelOfDetail : int32_t {

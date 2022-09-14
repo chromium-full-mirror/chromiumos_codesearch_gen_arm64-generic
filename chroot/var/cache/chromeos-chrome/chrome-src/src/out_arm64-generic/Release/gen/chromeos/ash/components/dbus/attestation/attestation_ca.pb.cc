@@ -119,7 +119,7 @@ PROTOBUF_CONSTEXPR DeviceSetupCertificateMetadata::DeviceSetupCertificateMetadat
     ::_pbi::ConstantInitialized)
   : id_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , content_binding_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , timestamp_(uint64_t{0u}){}
+  , timestamp_seconds_(uint64_t{0u}){}
 struct DeviceSetupCertificateMetadataDefaultTypeInternal {
   PROTOBUF_CONSTEXPR DeviceSetupCertificateMetadataDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -2898,7 +2898,7 @@ class DeviceSetupCertificateMetadata::_Internal {
   static void set_has_id(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
-  static void set_has_timestamp(HasBits* has_bits) {
+  static void set_has_timestamp_seconds(HasBits* has_bits) {
     (*has_bits)[0] |= 4u;
   }
   static void set_has_content_binding(HasBits* has_bits) {
@@ -2932,7 +2932,7 @@ DeviceSetupCertificateMetadata::DeviceSetupCertificateMetadata(const DeviceSetup
     content_binding_.Set(from._internal_content_binding(), 
       GetArenaForAllocation());
   }
-  timestamp_ = from.timestamp_;
+  timestamp_seconds_ = from.timestamp_seconds_;
   // @@protoc_insertion_point(copy_constructor:attestation.DeviceSetupCertificateMetadata)
 }
 
@@ -2945,7 +2945,7 @@ content_binding_.InitDefault();
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   content_binding_.Set("", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-timestamp_ = uint64_t{0u};
+timestamp_seconds_ = uint64_t{0u};
 }
 
 DeviceSetupCertificateMetadata::~DeviceSetupCertificateMetadata() {
@@ -2982,7 +2982,7 @@ void DeviceSetupCertificateMetadata::Clear() {
       content_binding_.ClearNonDefaultToEmpty();
     }
   }
-  timestamp_ = uint64_t{0u};
+  timestamp_seconds_ = uint64_t{0u};
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
@@ -3003,11 +3003,11 @@ const char* DeviceSetupCertificateMetadata::_InternalParse(const char* ptr, ::_p
         } else
           goto handle_unusual;
         continue;
-      // optional uint64 timestamp = 2;
+      // optional uint64 timestamp_seconds = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          _Internal::set_has_timestamp(&has_bits);
-          timestamp_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          _Internal::set_has_timestamp_seconds(&has_bits);
+          timestamp_seconds_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -3058,10 +3058,10 @@ uint8_t* DeviceSetupCertificateMetadata::_InternalSerialize(
         1, this->_internal_id(), target);
   }
 
-  // optional uint64 timestamp = 2;
+  // optional uint64 timestamp_seconds = 2;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(2, this->_internal_timestamp(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(2, this->_internal_timestamp_seconds(), target);
   }
 
   // optional string content_binding = 3;
@@ -3102,9 +3102,9 @@ size_t DeviceSetupCertificateMetadata::ByteSizeLong() const {
           this->_internal_content_binding());
     }
 
-    // optional uint64 timestamp = 2;
+    // optional uint64 timestamp_seconds = 2;
     if (cached_has_bits & 0x00000004u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_timestamp());
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_timestamp_seconds());
     }
 
   }
@@ -3137,7 +3137,7 @@ void DeviceSetupCertificateMetadata::MergeFrom(const DeviceSetupCertificateMetad
       _internal_set_content_binding(from._internal_content_binding());
     }
     if (cached_has_bits & 0x00000004u) {
-      timestamp_ = from.timestamp_;
+      timestamp_seconds_ = from.timestamp_seconds_;
     }
     _has_bits_[0] |= cached_has_bits;
   }
@@ -3169,7 +3169,7 @@ void DeviceSetupCertificateMetadata::InternalSwap(DeviceSetupCertificateMetadata
       &content_binding_, lhs_arena,
       &other->content_binding_, rhs_arena
   );
-  swap(timestamp_, other->timestamp_);
+  swap(timestamp_seconds_, other->timestamp_seconds_);
 }
 
 std::string DeviceSetupCertificateMetadata::GetTypeName() const {

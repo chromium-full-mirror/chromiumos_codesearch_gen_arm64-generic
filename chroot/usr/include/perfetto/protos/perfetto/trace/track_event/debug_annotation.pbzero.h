@@ -20,7 +20,8 @@ class DebugAnnotation;
 class DebugAnnotation_NestedValue;
 namespace perfetto_pbzero_enum_DebugAnnotation_NestedValue {
 enum NestedType : int32_t;
-}  // namespace perfetto_pbzero_enum_DebugAnnotation_NestedValue 
+}  // namespace perfetto_pbzero_enum_DebugAnnotation_NestedValue
+using DebugAnnotation_NestedValue_NestedType = perfetto_pbzero_enum_DebugAnnotation_NestedValue::NestedType;
 
 namespace perfetto_pbzero_enum_DebugAnnotation_NestedValue {
 enum NestedType : int32_t {

@@ -25,7 +25,8 @@ constexpr uint32_t kExecutor_KillMemtester_Name = 6;
 constexpr uint32_t kExecutor_GetProcessIOContents_Name = 7;
 constexpr uint32_t kExecutor_ReadMsr_Name = 8;
 constexpr uint32_t kExecutor_GetUEFISecureBootContent_Name = 9;
-constexpr uint32_t kExecutor_GetLidAngle_Name = 10;
+constexpr uint32_t kExecutor_GetUEFIPlatformSizeContent_Name = 10;
+constexpr uint32_t kExecutor_GetLidAngle_Name = 11;
 
 }  // namespace internal
 }  // namespace mojom

@@ -36,13 +36,16 @@ class TaskExecution;
 class TrackEvent_LegacyEvent;
 namespace perfetto_pbzero_enum_TrackEvent_LegacyEvent {
 enum FlowDirection : int32_t;
-}  // namespace perfetto_pbzero_enum_TrackEvent_LegacyEvent 
+}  // namespace perfetto_pbzero_enum_TrackEvent_LegacyEvent
+using TrackEvent_LegacyEvent_FlowDirection = perfetto_pbzero_enum_TrackEvent_LegacyEvent::FlowDirection;
 namespace perfetto_pbzero_enum_TrackEvent_LegacyEvent {
 enum InstantEventScope : int32_t;
-}  // namespace perfetto_pbzero_enum_TrackEvent_LegacyEvent 
+}  // namespace perfetto_pbzero_enum_TrackEvent_LegacyEvent
+using TrackEvent_LegacyEvent_InstantEventScope = perfetto_pbzero_enum_TrackEvent_LegacyEvent::InstantEventScope;
 namespace perfetto_pbzero_enum_TrackEvent {
 enum Type : int32_t;
-}  // namespace perfetto_pbzero_enum_TrackEvent 
+}  // namespace perfetto_pbzero_enum_TrackEvent
+using TrackEvent_Type = perfetto_pbzero_enum_TrackEvent::Type;
 
 namespace perfetto_pbzero_enum_TrackEvent {
 enum Type : int32_t {

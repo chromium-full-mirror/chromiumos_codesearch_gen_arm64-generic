@@ -323,6 +323,37 @@ class  Executor_GetUEFISecureBootContent_ResponseParams_Data {
 };
 static_assert(sizeof(Executor_GetUEFISecureBootContent_ResponseParams_Data) == 16,
               "Bad sizeof(Executor_GetUEFISecureBootContent_ResponseParams_Data)");
+class  Executor_GetUEFIPlatformSizeContent_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<Executor_GetUEFIPlatformSizeContent_Params_Data>;
+
+  Executor_GetUEFIPlatformSizeContent_Params_Data();
+  ~Executor_GetUEFIPlatformSizeContent_Params_Data() = delete;
+};
+static_assert(sizeof(Executor_GetUEFIPlatformSizeContent_Params_Data) == 8,
+              "Bad sizeof(Executor_GetUEFIPlatformSizeContent_Params_Data)");
+class  Executor_GetUEFIPlatformSizeContent_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> contents;
+
+ private:
+  friend class mojo::internal::MessageFragment<Executor_GetUEFIPlatformSizeContent_ResponseParams_Data>;
+
+  Executor_GetUEFIPlatformSizeContent_ResponseParams_Data();
+  ~Executor_GetUEFIPlatformSizeContent_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(Executor_GetUEFIPlatformSizeContent_ResponseParams_Data) == 16,
+              "Bad sizeof(Executor_GetUEFIPlatformSizeContent_ResponseParams_Data)");
 class  Executor_GetLidAngle_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -816,6 +847,49 @@ class Executor_GetUEFISecureBootContent_ResponseParamsDataView {
 
 
 
+class Executor_GetUEFIPlatformSizeContent_ParamsDataView {
+ public:
+  Executor_GetUEFIPlatformSizeContent_ParamsDataView() = default;
+
+  Executor_GetUEFIPlatformSizeContent_ParamsDataView(
+      internal::Executor_GetUEFIPlatformSizeContent_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::Executor_GetUEFIPlatformSizeContent_Params_Data* data_ = nullptr;
+};
+
+
+
+class Executor_GetUEFIPlatformSizeContent_ResponseParamsDataView {
+ public:
+  Executor_GetUEFIPlatformSizeContent_ResponseParamsDataView() = default;
+
+  Executor_GetUEFIPlatformSizeContent_ResponseParamsDataView(
+      internal::Executor_GetUEFIPlatformSizeContent_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetContentsDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadContents(UserType* output) {
+    
+    auto* pointer = data_->contents.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::Executor_GetUEFIPlatformSizeContent_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
 class Executor_GetLidAngle_ParamsDataView {
  public:
   Executor_GetLidAngle_ParamsDataView() = default;
@@ -950,6 +1024,15 @@ inline void Executor_ReadMsr_ResponseParamsDataView::GetValueDataView(
 
 
 inline void Executor_GetUEFISecureBootContent_ResponseParamsDataView::GetContentsDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->contents.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
+
+
+inline void Executor_GetUEFIPlatformSizeContent_ResponseParamsDataView::GetContentsDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->contents.Get();
   *output = mojo::StringDataView(pointer, message_);

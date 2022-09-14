@@ -8986,6 +8986,7 @@ class  OsInfo {
   using EnableIfSame = std::enable_if_t<std::is_same<OsInfo, T>::value>;
   using DataView = OsInfoDataView;
   using Data_ = internal::OsInfo_Data;
+  using EfiPlatformSize = OsInfo_EfiPlatformSize;
 
   template <typename... Args>
   static OsInfoPtr New(Args&&... args) {
@@ -9018,6 +9019,14 @@ class  OsInfo {
       OsVersionPtr os_version,
       BootMode boot_mode,
       const absl::optional<std::string>& oem_name);
+
+  OsInfo(
+      const std::string& code_name,
+      const absl::optional<std::string>& marketing_name,
+      OsVersionPtr os_version,
+      BootMode boot_mode,
+      const absl::optional<std::string>& oem_name,
+      OsInfo::EfiPlatformSize efi_platform_size);
 
 OsInfo(const OsInfo&) = delete;
 OsInfo& operator=(const OsInfo&) = delete;
@@ -9103,6 +9112,8 @@ OsInfo& operator=(const OsInfo&) = delete;
   BootMode boot_mode;
   
   absl::optional<std::string> oem_name;
+  
+  OsInfo::EfiPlatformSize efi_platform_size;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
@@ -15471,7 +15482,8 @@ OsInfoPtr OsInfo::Clone() const {
       mojo::Clone(marketing_name),
       mojo::Clone(os_version),
       mojo::Clone(boot_mode),
-      mojo::Clone(oem_name)
+      mojo::Clone(oem_name),
+      mojo::Clone(efi_platform_size)
   );
 }
 
@@ -15486,6 +15498,8 @@ bool OsInfo::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->boot_mode, other_struct.boot_mode))
     return false;
   if (!mojo::Equals(this->oem_name, other_struct.oem_name))
+    return false;
+  if (!mojo::Equals(this->efi_platform_size, other_struct.efi_platform_size))
     return false;
   return true;
 }
@@ -15511,6 +15525,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.oem_name < rhs.oem_name)
     return true;
   if (rhs.oem_name < lhs.oem_name)
+    return false;
+  if (lhs.efi_platform_size < rhs.efi_platform_size)
+    return true;
+  if (rhs.efi_platform_size < lhs.efi_platform_size)
     return false;
   return false;
 }
@@ -18305,6 +18323,11 @@ struct  StructTraits<::chromeos::cros_healthd::mojom::OsInfo::DataView,
   static const decltype(::chromeos::cros_healthd::mojom::OsInfo::oem_name)& oem_name(
       const ::chromeos::cros_healthd::mojom::OsInfoPtr& input) {
     return input->oem_name;
+  }
+
+  static decltype(::chromeos::cros_healthd::mojom::OsInfo::efi_platform_size) efi_platform_size(
+      const ::chromeos::cros_healthd::mojom::OsInfoPtr& input) {
+    return input->efi_platform_size;
   }
 
   static bool Read(::chromeos::cros_healthd::mojom::OsInfo::DataView input, ::chromeos::cros_healthd::mojom::OsInfoPtr* output);

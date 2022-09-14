@@ -160,6 +160,11 @@ uint32_t Executor::MessageToStableIPCHash_(mojo::Message& message) {
               "(Impl)chromeos::cros_healthd::mojom::Executor::GetUEFISecureBootContent");
       return value;
     }
+    case internal::kExecutor_GetUEFIPlatformSizeContent_Name: {
+      constexpr uint32_t value = base::MD5Hash32Constexpr(
+              "(Impl)chromeos::cros_healthd::mojom::Executor::GetUEFIPlatformSizeContent");
+      return value;
+    }
     case internal::kExecutor_GetLidAngle_Name: {
       constexpr uint32_t value = base::MD5Hash32Constexpr(
               "(Impl)chromeos::cros_healthd::mojom::Executor::GetLidAngle");
@@ -195,6 +200,8 @@ const char* Executor::MessageToMethodName_(mojo::Message& message) {
             return "Receive chromeos::cros_healthd::mojom::Executor::ReadMsr";
       case internal::kExecutor_GetUEFISecureBootContent_Name:
             return "Receive chromeos::cros_healthd::mojom::Executor::GetUEFISecureBootContent";
+      case internal::kExecutor_GetUEFIPlatformSizeContent_Name:
+            return "Receive chromeos::cros_healthd::mojom::Executor::GetUEFIPlatformSizeContent";
       case internal::kExecutor_GetLidAngle_Name:
             return "Receive chromeos::cros_healthd::mojom::Executor::GetLidAngle";
     }
@@ -220,6 +227,8 @@ const char* Executor::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply chromeos::cros_healthd::mojom::Executor::ReadMsr";
       case internal::kExecutor_GetUEFISecureBootContent_Name:
             return "Receive reply chromeos::cros_healthd::mojom::Executor::GetUEFISecureBootContent";
+      case internal::kExecutor_GetUEFIPlatformSizeContent_Name:
+            return "Receive reply chromeos::cros_healthd::mojom::Executor::GetUEFIPlatformSizeContent";
       case internal::kExecutor_GetLidAngle_Name:
             return "Receive reply chromeos::cros_healthd::mojom::Executor::GetLidAngle";
     }
@@ -377,6 +386,22 @@ class Executor_GetUEFISecureBootContent_ForwardToCallback
   bool Accept(mojo::Message* message) override;
  private:
   Executor::GetUEFISecureBootContentCallback callback_;
+};
+
+class Executor_GetUEFIPlatformSizeContent_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  Executor_GetUEFIPlatformSizeContent_ForwardToCallback(
+      Executor::GetUEFIPlatformSizeContentCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  Executor_GetUEFIPlatformSizeContent_ForwardToCallback(const Executor_GetUEFIPlatformSizeContent_ForwardToCallback&) = delete;
+  Executor_GetUEFIPlatformSizeContent_ForwardToCallback& operator=(const Executor_GetUEFIPlatformSizeContent_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  Executor::GetUEFIPlatformSizeContentCallback callback_;
 };
 
 class Executor_GetLidAngle_ForwardToCallback
@@ -786,6 +811,37 @@ void ExecutorProxy::GetUEFISecureBootContent(
 #endif
   std::unique_ptr<mojo::MessageReceiver> responder(
       new Executor_GetUEFISecureBootContent_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+}
+
+void ExecutorProxy::GetUEFIPlatformSizeContent(
+    GetUEFIPlatformSizeContentCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send chromeos::cros_healthd::mojom::Executor::GetUEFIPlatformSizeContent");
+#endif
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kExecutor_GetUEFIPlatformSizeContent_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::chromeos::cros_healthd::mojom::internal::Executor_GetUEFIPlatformSizeContent_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Executor::Name_);
+  message.set_method_name("GetUEFIPlatformSizeContent");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new Executor_GetUEFIPlatformSizeContent_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
 }
@@ -1932,6 +1988,130 @@ void Executor_GetUEFISecureBootContent_ProxyToResponder::Run(
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
+class Executor_GetUEFIPlatformSizeContent_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static Executor::GetUEFIPlatformSizeContentCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<Executor_GetUEFIPlatformSizeContent_ProxyToResponder> proxy(
+        new Executor_GetUEFIPlatformSizeContent_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&Executor_GetUEFIPlatformSizeContent_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~Executor_GetUEFIPlatformSizeContent_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  Executor_GetUEFIPlatformSizeContent_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "Executor::GetUEFIPlatformSizeContentCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      const std::string& in_contents);
+};
+
+bool Executor_GetUEFIPlatformSizeContent_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::Executor_GetUEFIPlatformSizeContent_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::Executor_GetUEFIPlatformSizeContent_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  std::string p_contents{};
+  Executor_GetUEFIPlatformSizeContent_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadContents(&p_contents))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        Executor::Name_, 10, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_contents));
+  return true;
+}
+
+void Executor_GetUEFIPlatformSizeContent_ProxyToResponder::Run(
+    const std::string& in_contents) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply chromeos::cros_healthd::mojom::Executor::GetUEFIPlatformSizeContent", "async_response_parameters",
+    [&](perfetto_libchrome::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("contents"), in_contents,
+                        "<value of type const std::string&>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kExecutor_GetUEFIPlatformSizeContent_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::chromeos::cros_healthd::mojom::internal::Executor_GetUEFIPlatformSizeContent_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->contents)::BaseType> contents_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_contents, contents_fragment);
+  params->contents.Set(
+      contents_fragment.is_null() ? nullptr : contents_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->contents.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null contents in ");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Executor::Name_);
+  message.set_method_name("GetUEFIPlatformSizeContent");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMessage(*responder_, message);
+  // SendMessage fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
 class Executor_GetLidAngle_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
   static Executor::GetLidAngleCallback CreateCallback(
@@ -1996,7 +2176,7 @@ bool Executor_GetLidAngle_ForwardToCallback::Accept(
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        Executor::Name_, 10, true);
+        Executor::Name_, 11, true);
     return false;
   }
   if (!callback_.is_null())
@@ -2109,6 +2289,9 @@ bool ExecutorStubDispatch::Accept(
       break;
     }
     case internal::kExecutor_GetUEFISecureBootContent_Name: {
+      break;
+    }
+    case internal::kExecutor_GetUEFIPlatformSizeContent_Name: {
       break;
     }
     case internal::kExecutor_GetLidAngle_Name: {
@@ -2383,6 +2566,31 @@ std::move(p_cpu_index), std::move(callback));
       impl->GetUEFISecureBootContent(std::move(callback));
       return true;
     }
+    case internal::kExecutor_GetUEFIPlatformSizeContent_Name: {
+
+      internal::Executor_GetUEFIPlatformSizeContent_Params_Data* params =
+          reinterpret_cast<
+              internal::Executor_GetUEFIPlatformSizeContent_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      Executor_GetUEFIPlatformSizeContent_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            Executor::Name_, 10, false);
+        return false;
+      }
+      Executor::GetUEFIPlatformSizeContentCallback callback =
+          Executor_GetUEFIPlatformSizeContent_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->GetUEFIPlatformSizeContent(std::move(callback));
+      return true;
+    }
     case internal::kExecutor_GetLidAngle_Name: {
 
       internal::Executor_GetLidAngle_Params_Data* params =
@@ -2397,7 +2605,7 @@ std::move(p_cpu_index), std::move(callback));
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            Executor::Name_, 10, false);
+            Executor::Name_, 11, false);
         return false;
       }
       Executor::GetLidAngleCallback callback =
@@ -2434,6 +2642,8 @@ static const mojo::internal::GenericValidationInfo kExecutorValidationInfo[] = {
      &internal::Executor_ReadMsr_ResponseParams_Data::Validate},
     {&internal::Executor_GetUEFISecureBootContent_Params_Data::Validate,
      &internal::Executor_GetUEFISecureBootContent_ResponseParams_Data::Validate},
+    {&internal::Executor_GetUEFIPlatformSizeContent_Params_Data::Validate,
+     &internal::Executor_GetUEFIPlatformSizeContent_ResponseParams_Data::Validate},
     {&internal::Executor_GetLidAngle_Params_Data::Validate,
      &internal::Executor_GetLidAngle_ResponseParams_Data::Validate},
 };
@@ -2515,6 +2725,9 @@ void ExecutorInterceptorForTesting::ReadMsr(uint32_t msr_reg, uint32_t cpu_index
 }
 void ExecutorInterceptorForTesting::GetUEFISecureBootContent(GetUEFISecureBootContentCallback callback) {
   GetForwardingInterface()->GetUEFISecureBootContent(std::move(callback));
+}
+void ExecutorInterceptorForTesting::GetUEFIPlatformSizeContent(GetUEFIPlatformSizeContentCallback callback) {
+  GetForwardingInterface()->GetUEFIPlatformSizeContent(std::move(callback));
 }
 void ExecutorInterceptorForTesting::GetLidAngle(GetLidAngleCallback callback) {
   GetForwardingInterface()->GetLidAngle(std::move(callback));
@@ -2648,6 +2861,21 @@ void ExecutorAsyncWaiter::GetUEFISecureBootContent(
     std::string* out_contents) {
   base::RunLoop loop;
   proxy_->GetUEFISecureBootContent(
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             std::string* out_contents
+,
+             const std::string& contents) {*out_contents = std::move(contents);
+            loop->Quit();
+          },
+          &loop,
+          out_contents));
+  loop.Run();
+}
+void ExecutorAsyncWaiter::GetUEFIPlatformSizeContent(
+    std::string* out_contents) {
+  base::RunLoop loop;
+  proxy_->GetUEFIPlatformSizeContent(
       base::BindOnce(
           [](base::RunLoop* loop,
              std::string* out_contents

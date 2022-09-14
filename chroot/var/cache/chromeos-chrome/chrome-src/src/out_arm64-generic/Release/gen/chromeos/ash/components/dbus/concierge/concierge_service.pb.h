@@ -1614,6 +1614,7 @@ class StartVmRequest final :
     kFdsFieldNumber = 16,
     kKernelParamsFieldNumber = 17,
     kFeaturesFieldNumber = 21,
+    kOemStringsFieldNumber = 24,
     kSharedDirectoryFieldNumber = 3,
     kNameFieldNumber = 4,
     kOwnerIdFieldNumber = 7,
@@ -1706,6 +1707,30 @@ class StartVmRequest final :
   void add_features(::vm_tools::concierge::StartVmRequest_TerminaFeature value);
   const ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>& features() const;
   ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>* mutable_features();
+
+  // repeated string oem_strings = 24;
+  int oem_strings_size() const;
+  private:
+  int _internal_oem_strings_size() const;
+  public:
+  void clear_oem_strings();
+  const std::string& oem_strings(int index) const;
+  std::string* mutable_oem_strings(int index);
+  void set_oem_strings(int index, const std::string& value);
+  void set_oem_strings(int index, std::string&& value);
+  void set_oem_strings(int index, const char* value);
+  void set_oem_strings(int index, const char* value, size_t size);
+  std::string* add_oem_strings();
+  void add_oem_strings(const std::string& value);
+  void add_oem_strings(std::string&& value);
+  void add_oem_strings(const char* value);
+  void add_oem_strings(const char* value, size_t size);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& oem_strings() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* mutable_oem_strings();
+  private:
+  const std::string& _internal_oem_strings(int index) const;
+  std::string* _internal_add_oem_strings();
+  public:
 
   // string shared_directory = 3 [deprecated = true];
   PROTOBUF_DEPRECATED void clear_shared_directory();
@@ -1888,6 +1913,7 @@ class StartVmRequest final :
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> kernel_params_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedField<int> features_;
   mutable std::atomic<int> _features_cached_byte_size_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> oem_strings_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr shared_directory_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr owner_id_;
@@ -13255,6 +13281,81 @@ inline void StartVmRequest::_internal_set_storage_ballooning(bool value) {
 inline void StartVmRequest::set_storage_ballooning(bool value) {
   _internal_set_storage_ballooning(value);
   // @@protoc_insertion_point(field_set:vm_tools.concierge.StartVmRequest.storage_ballooning)
+}
+
+// repeated string oem_strings = 24;
+inline int StartVmRequest::_internal_oem_strings_size() const {
+  return oem_strings_.size();
+}
+inline int StartVmRequest::oem_strings_size() const {
+  return _internal_oem_strings_size();
+}
+inline void StartVmRequest::clear_oem_strings() {
+  oem_strings_.Clear();
+}
+inline std::string* StartVmRequest::add_oem_strings() {
+  std::string* _s = _internal_add_oem_strings();
+  // @@protoc_insertion_point(field_add_mutable:vm_tools.concierge.StartVmRequest.oem_strings)
+  return _s;
+}
+inline const std::string& StartVmRequest::_internal_oem_strings(int index) const {
+  return oem_strings_.Get(index);
+}
+inline const std::string& StartVmRequest::oem_strings(int index) const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.StartVmRequest.oem_strings)
+  return _internal_oem_strings(index);
+}
+inline std::string* StartVmRequest::mutable_oem_strings(int index) {
+  // @@protoc_insertion_point(field_mutable:vm_tools.concierge.StartVmRequest.oem_strings)
+  return oem_strings_.Mutable(index);
+}
+inline void StartVmRequest::set_oem_strings(int index, const std::string& value) {
+  oem_strings_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.StartVmRequest.oem_strings)
+}
+inline void StartVmRequest::set_oem_strings(int index, std::string&& value) {
+  oem_strings_.Mutable(index)->assign(std::move(value));
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.StartVmRequest.oem_strings)
+}
+inline void StartVmRequest::set_oem_strings(int index, const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  oem_strings_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:vm_tools.concierge.StartVmRequest.oem_strings)
+}
+inline void StartVmRequest::set_oem_strings(int index, const char* value, size_t size) {
+  oem_strings_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:vm_tools.concierge.StartVmRequest.oem_strings)
+}
+inline std::string* StartVmRequest::_internal_add_oem_strings() {
+  return oem_strings_.Add();
+}
+inline void StartVmRequest::add_oem_strings(const std::string& value) {
+  oem_strings_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:vm_tools.concierge.StartVmRequest.oem_strings)
+}
+inline void StartVmRequest::add_oem_strings(std::string&& value) {
+  oem_strings_.Add(std::move(value));
+  // @@protoc_insertion_point(field_add:vm_tools.concierge.StartVmRequest.oem_strings)
+}
+inline void StartVmRequest::add_oem_strings(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  oem_strings_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:vm_tools.concierge.StartVmRequest.oem_strings)
+}
+inline void StartVmRequest::add_oem_strings(const char* value, size_t size) {
+  oem_strings_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:vm_tools.concierge.StartVmRequest.oem_strings)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
+StartVmRequest::oem_strings() const {
+  // @@protoc_insertion_point(field_list:vm_tools.concierge.StartVmRequest.oem_strings)
+  return oem_strings_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
+StartVmRequest::mutable_oem_strings() {
+  // @@protoc_insertion_point(field_mutable_list:vm_tools.concierge.StartVmRequest.oem_strings)
+  return &oem_strings_;
 }
 
 // -------------------------------------------------------------------

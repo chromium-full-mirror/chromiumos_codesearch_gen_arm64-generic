@@ -1630,7 +1630,7 @@ class DeviceSetupCertificateMetadata final :
   enum : int {
     kIdFieldNumber = 1,
     kContentBindingFieldNumber = 3,
-    kTimestampFieldNumber = 2,
+    kTimestampSecondsFieldNumber = 2,
   };
   // optional string id = 1;
   bool has_id() const;
@@ -1668,17 +1668,17 @@ class DeviceSetupCertificateMetadata final :
   std::string* _internal_mutable_content_binding();
   public:
 
-  // optional uint64 timestamp = 2;
-  bool has_timestamp() const;
+  // optional uint64 timestamp_seconds = 2;
+  bool has_timestamp_seconds() const;
   private:
-  bool _internal_has_timestamp() const;
+  bool _internal_has_timestamp_seconds() const;
   public:
-  void clear_timestamp();
-  uint64_t timestamp() const;
-  void set_timestamp(uint64_t value);
+  void clear_timestamp_seconds();
+  uint64_t timestamp_seconds() const;
+  void set_timestamp_seconds(uint64_t value);
   private:
-  uint64_t _internal_timestamp() const;
-  void _internal_set_timestamp(uint64_t value);
+  uint64_t _internal_timestamp_seconds() const;
+  void _internal_set_timestamp_seconds(uint64_t value);
   public:
 
   // @@protoc_insertion_point(class_scope:attestation.DeviceSetupCertificateMetadata)
@@ -1692,7 +1692,7 @@ class DeviceSetupCertificateMetadata final :
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr id_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr content_binding_;
-  uint64_t timestamp_;
+  uint64_t timestamp_seconds_;
   friend struct ::TableStruct_attestation_5fca_2eproto;
 };
 // -------------------------------------------------------------------
@@ -6075,32 +6075,32 @@ inline void DeviceSetupCertificateMetadata::set_allocated_id(std::string* id) {
   // @@protoc_insertion_point(field_set_allocated:attestation.DeviceSetupCertificateMetadata.id)
 }
 
-// optional uint64 timestamp = 2;
-inline bool DeviceSetupCertificateMetadata::_internal_has_timestamp() const {
+// optional uint64 timestamp_seconds = 2;
+inline bool DeviceSetupCertificateMetadata::_internal_has_timestamp_seconds() const {
   bool value = (_has_bits_[0] & 0x00000004u) != 0;
   return value;
 }
-inline bool DeviceSetupCertificateMetadata::has_timestamp() const {
-  return _internal_has_timestamp();
+inline bool DeviceSetupCertificateMetadata::has_timestamp_seconds() const {
+  return _internal_has_timestamp_seconds();
 }
-inline void DeviceSetupCertificateMetadata::clear_timestamp() {
-  timestamp_ = uint64_t{0u};
+inline void DeviceSetupCertificateMetadata::clear_timestamp_seconds() {
+  timestamp_seconds_ = uint64_t{0u};
   _has_bits_[0] &= ~0x00000004u;
 }
-inline uint64_t DeviceSetupCertificateMetadata::_internal_timestamp() const {
-  return timestamp_;
+inline uint64_t DeviceSetupCertificateMetadata::_internal_timestamp_seconds() const {
+  return timestamp_seconds_;
 }
-inline uint64_t DeviceSetupCertificateMetadata::timestamp() const {
-  // @@protoc_insertion_point(field_get:attestation.DeviceSetupCertificateMetadata.timestamp)
-  return _internal_timestamp();
+inline uint64_t DeviceSetupCertificateMetadata::timestamp_seconds() const {
+  // @@protoc_insertion_point(field_get:attestation.DeviceSetupCertificateMetadata.timestamp_seconds)
+  return _internal_timestamp_seconds();
 }
-inline void DeviceSetupCertificateMetadata::_internal_set_timestamp(uint64_t value) {
+inline void DeviceSetupCertificateMetadata::_internal_set_timestamp_seconds(uint64_t value) {
   _has_bits_[0] |= 0x00000004u;
-  timestamp_ = value;
+  timestamp_seconds_ = value;
 }
-inline void DeviceSetupCertificateMetadata::set_timestamp(uint64_t value) {
-  _internal_set_timestamp(value);
-  // @@protoc_insertion_point(field_set:attestation.DeviceSetupCertificateMetadata.timestamp)
+inline void DeviceSetupCertificateMetadata::set_timestamp_seconds(uint64_t value) {
+  _internal_set_timestamp_seconds(value);
+  // @@protoc_insertion_point(field_set:attestation.DeviceSetupCertificateMetadata.timestamp_seconds)
 }
 
 // optional string content_binding = 3;

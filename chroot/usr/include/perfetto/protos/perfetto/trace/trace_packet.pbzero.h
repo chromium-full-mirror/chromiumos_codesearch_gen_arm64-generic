@@ -242,6 +242,8 @@ class TracePacket_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID
   ::protozero::ConstBytes trace_packet_defaults() const { return at<59>().as_bytes(); }
   bool has_previous_packet_dropped() const { return at<42>().valid(); }
   bool previous_packet_dropped() const { return at<42>().as_bool(); }
+  bool has_first_packet_on_sequence() const { return at<87>().valid(); }
+  bool first_packet_on_sequence() const { return at<87>().as_bool(); }
 };
 
 class TracePacket : public ::protozero::Message {
@@ -315,6 +317,7 @@ class TracePacket : public ::protozero::Message {
     kIncrementalStateClearedFieldNumber = 41,
     kTracePacketDefaultsFieldNumber = 59,
     kPreviousPacketDroppedFieldNumber = 42,
+    kFirstPacketOnSequenceFieldNumber = 87,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.TracePacket"; }
 
@@ -1779,6 +1782,31 @@ class TracePacket : public ::protozero::Message {
   static constexpr FieldMetadata_PreviousPacketDropped kPreviousPacketDropped() { return {}; }
   void set_previous_packet_dropped(bool value) {
     static constexpr uint32_t field_id = FieldMetadata_PreviousPacketDropped::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kBool>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_FirstPacketOnSequence =
+    ::protozero::proto_utils::FieldMetadata<
+      87,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kBool,
+      bool,
+      TracePacket>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_FirstPacketOnSequence kFirstPacketOnSequence() { return {}; }
+  void set_first_packet_on_sequence(bool value) {
+    static constexpr uint32_t field_id = FieldMetadata_FirstPacketOnSequence::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.
     ::protozero::internal::FieldWriter<
