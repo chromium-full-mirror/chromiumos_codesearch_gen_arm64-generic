@@ -144,6 +144,9 @@ class UserDataAuthInterfaceInterface {
   virtual void GetRecoveryRequest(
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::GetRecoveryRequestReply>> response,
       const user_data_auth::GetRecoveryRequestRequest& in_request) = 0;
+  virtual void ResetApplicationContainer(
+      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::ResetApplicationContainerReply>> response,
+      const user_data_auth::ResetApplicationContainerRequest& in_request) = 0;
 };
 
 // Interface adaptor for org::chromium::UserDataAuthInterface.
@@ -313,6 +316,10 @@ class UserDataAuthInterfaceAdaptor {
         "GetRecoveryRequest",
         base::Unretained(interface_),
         &UserDataAuthInterfaceInterface::GetRecoveryRequest);
+    itf->AddMethodHandler(
+        "ResetApplicationContainer",
+        base::Unretained(interface_),
+        &UserDataAuthInterfaceInterface::ResetApplicationContainer);
 
     signal_DircryptoMigrationProgress_ = itf->RegisterSignalOfType<SignalDircryptoMigrationProgressType>("DircryptoMigrationProgress");
     signal_LowDiskSpace_ = itf->RegisterSignalOfType<SignalLowDiskSpaceType>("LowDiskSpace");
@@ -491,6 +498,10 @@ class UserDataAuthInterfaceAdaptor {
         "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"
         "    <method name=\"GetRecoveryRequest\">\n"
+        "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
+        "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
+        "    </method>\n"
+        "    <method name=\"ResetApplicationContainer\">\n"
         "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
         "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"

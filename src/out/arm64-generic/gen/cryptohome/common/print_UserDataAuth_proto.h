@@ -572,6 +572,16 @@ std::string GetProtoDebugStringWithIndent(const CheckHealthReply& value,
                                           int indent_size);
 BRILLO_EXPORT std::string GetProtoDebugString(const CheckHealthReply& value);
 std::string GetProtoDebugStringWithIndent(
+    const ResetApplicationContainerRequest& value,
+    int indent_size);
+BRILLO_EXPORT std::string GetProtoDebugString(
+    const ResetApplicationContainerRequest& value);
+std::string GetProtoDebugStringWithIndent(
+    const ResetApplicationContainerReply& value,
+    int indent_size);
+BRILLO_EXPORT std::string GetProtoDebugString(
+    const ResetApplicationContainerReply& value);
+std::string GetProtoDebugStringWithIndent(
     const FidoMakeCredentialRequest& value,
     int indent_size);
 BRILLO_EXPORT std::string GetProtoDebugString(

@@ -3344,6 +3344,60 @@ std::string GetProtoDebugStringWithIndent(const CheckHealthReply& value,
   return output;
 }
 
+std::string GetProtoDebugString(const ResetApplicationContainerRequest& value) {
+  return GetProtoDebugStringWithIndent(value, 0);
+}
+
+std::string GetProtoDebugStringWithIndent(
+    const ResetApplicationContainerRequest& value,
+    int indent_size) {
+  std::string indent(indent_size, ' ');
+  std::string output =
+      base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
+
+  output += indent + "  account_id: ";
+  base::StringAppendF(
+      &output, "%s",
+      GetProtoDebugStringWithIndent(value.account_id(), indent_size + 2)
+          .c_str());
+  output += "\n";
+
+  output += indent + "  application_name: ";
+  base::StringAppendF(&output, "%s", value.application_name().c_str());
+  output += "\n";
+
+  output += indent + "}\n";
+  return output;
+}
+
+std::string GetProtoDebugString(const ResetApplicationContainerReply& value) {
+  return GetProtoDebugStringWithIndent(value, 0);
+}
+
+std::string GetProtoDebugStringWithIndent(
+    const ResetApplicationContainerReply& value,
+    int indent_size) {
+  std::string indent(indent_size, ' ');
+  std::string output =
+      base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
+
+  output += indent + "  error: ";
+  base::StringAppendF(
+      &output, "%s",
+      GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
+  output += "\n";
+
+  output += indent + "  error_info: ";
+  base::StringAppendF(
+      &output, "%s",
+      GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
+          .c_str());
+  output += "\n";
+
+  output += indent + "}\n";
+  return output;
+}
+
 std::string GetProtoDebugString(const FidoMakeCredentialRequest& value) {
   return GetProtoDebugStringWithIndent(value, 0);
 }
