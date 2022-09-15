@@ -534,17 +534,6 @@ class SessionManagerInterfaceProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
-  virtual bool StartBrowserDataBackwardMigration(
-      const std::string& in_account_id,
-      brillo::ErrorPtr* error,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
-
-  virtual void StartBrowserDataBackwardMigrationAsync(
-      const std::string& in_account_id,
-      base::OnceCallback<void()> success_callback,
-      base::OnceCallback<void(brillo::Error*)> error_callback,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
-
   virtual bool UnblockDevModeForInitialStateDetermination(
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
@@ -2069,36 +2058,6 @@ class SessionManagerInterfaceProxy final : public SessionManagerInterfaceProxyIn
         std::move(error_callback),
         in_account_id,
         in_mode);
-  }
-
-  bool StartBrowserDataBackwardMigration(
-      const std::string& in_account_id,
-      brillo::ErrorPtr* error,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
-    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
-        timeout_ms,
-        dbus_object_proxy_,
-        "org.chromium.SessionManagerInterface",
-        "StartBrowserDataBackwardMigration",
-        error,
-        in_account_id);
-    return response && brillo::dbus_utils::ExtractMethodCallResults(
-        response.get(), error);
-  }
-
-  void StartBrowserDataBackwardMigrationAsync(
-      const std::string& in_account_id,
-      base::OnceCallback<void()> success_callback,
-      base::OnceCallback<void(brillo::Error*)> error_callback,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
-    brillo::dbus_utils::CallMethodWithTimeout(
-        timeout_ms,
-        dbus_object_proxy_,
-        "org.chromium.SessionManagerInterface",
-        "StartBrowserDataBackwardMigration",
-        std::move(success_callback),
-        std::move(error_callback),
-        in_account_id);
   }
 
   bool UnblockDevModeForInitialStateDetermination(

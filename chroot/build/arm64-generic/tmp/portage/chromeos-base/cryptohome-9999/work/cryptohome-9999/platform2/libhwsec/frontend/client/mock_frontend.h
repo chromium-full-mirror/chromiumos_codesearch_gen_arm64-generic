@@ -2,41 +2,39 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#ifndef LIBHWSEC_BACKEND_MOCK_VENDOR_H_
-#define LIBHWSEC_BACKEND_MOCK_VENDOR_H_
+#ifndef LIBHWSEC_FRONTEND_CLIENT_MOCK_FRONTEND_H_
+#define LIBHWSEC_FRONTEND_CLIENT_MOCK_FRONTEND_H_
 
-#include <cstdint>
+#include <optional>
+#include <vector>
 
 #include <brillo/secure_blob.h>
 #include <gmock/gmock.h>
 
-#include "libhwsec/backend/vendor.h"
-#include "libhwsec/status.h"
+#include "libhwsec/frontend/client/frontend.h"
+#include "libhwsec/frontend/mock_frontend.h"
 
 namespace hwsec {
 
-class MockVendor : public Vendor {
+class MockClientFrontend : public MockFrontend, public ClientFrontend {
  public:
+  MockClientFrontend() = default;
+  ~MockClientFrontend() override = default;
+
+  MOCK_METHOD(StatusOr<brillo::Blob>, GetRandomBlob, (size_t size), (override));
+  MOCK_METHOD(StatusOr<bool>, IsSrkRocaVulnerable, (), (override));
   MOCK_METHOD(StatusOr<uint32_t>, GetFamily, (), (override));
   MOCK_METHOD(StatusOr<uint64_t>, GetSpecLevel, (), (override));
   MOCK_METHOD(StatusOr<uint32_t>, GetManufacturer, (), (override));
   MOCK_METHOD(StatusOr<uint32_t>, GetTpmModel, (), (override));
   MOCK_METHOD(StatusOr<uint64_t>, GetFirmwareVersion, (), (override));
   MOCK_METHOD(StatusOr<brillo::Blob>, GetVendorSpecific, (), (override));
-  MOCK_METHOD(StatusOr<int32_t>, GetFingerprint, (), (override));
-  MOCK_METHOD(StatusOr<bool>, IsSrkRocaVulnerable, (), (override));
-  MOCK_METHOD(StatusOr<brillo::Blob>, GetRsuDeviceId, (), (override));
   MOCK_METHOD(StatusOr<IFXFieldUpgradeInfo>,
               GetIFXFieldUpgradeInfo,
               (),
-              (override));
-  MOCK_METHOD(Status, DeclareTpmFirmwareStable, (), (override));
-  MOCK_METHOD(StatusOr<brillo::Blob>,
-              SendRawCommand,
-              (const brillo::Blob& command),
               (override));
 };
 
 }  // namespace hwsec
 
-#endif  // LIBHWSEC_BACKEND_MOCK_VENDOR_H_
+#endif  // LIBHWSEC_FRONTEND_CLIENT_MOCK_FRONTEND_H_

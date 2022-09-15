@@ -146,9 +146,22 @@ struct SmartCardMetadataDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT SmartCardMetadataDefaultTypeInternal _SmartCardMetadata_default_instance_;
+constexpr CommonMetadata::CommonMetadata(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : version_last_updated_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+struct CommonMetadataDefaultTypeInternal {
+  constexpr CommonMetadataDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~CommonMetadataDefaultTypeInternal() {}
+  union {
+    CommonMetadata _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT CommonMetadataDefaultTypeInternal _CommonMetadata_default_instance_;
 constexpr AuthFactor::AuthFactor(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : label_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , common_metadata_(nullptr)
   , type_(0)
 
   , is_active_for_login_(false)
@@ -2683,8 +2696,204 @@ std::string SmartCardMetadata::GetTypeName() const {
 
 // ===================================================================
 
+class CommonMetadata::_Internal {
+ public:
+};
+
+CommonMetadata::CommonMetadata(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
+  // @@protoc_insertion_point(arena_constructor:user_data_auth.CommonMetadata)
+}
+CommonMetadata::CommonMetadata(const CommonMetadata& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  version_last_updated_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    version_last_updated_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_version_last_updated().empty()) {
+    version_last_updated_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_version_last_updated(), 
+      GetArenaForAllocation());
+  }
+  // @@protoc_insertion_point(copy_constructor:user_data_auth.CommonMetadata)
+}
+
+inline void CommonMetadata::SharedCtor() {
+version_last_updated_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  version_last_updated_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+}
+
+CommonMetadata::~CommonMetadata() {
+  // @@protoc_insertion_point(destructor:user_data_auth.CommonMetadata)
+  if (GetArenaForAllocation() != nullptr) return;
+  SharedDtor();
+  _internal_metadata_.Delete<std::string>();
+}
+
+inline void CommonMetadata::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  version_last_updated_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+void CommonMetadata::ArenaDtor(void* object) {
+  CommonMetadata* _this = reinterpret_cast< CommonMetadata* >(object);
+  (void)_this;
+}
+void CommonMetadata::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void CommonMetadata::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void CommonMetadata::Clear() {
+// @@protoc_insertion_point(message_clear_start:user_data_auth.CommonMetadata)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  version_last_updated_.ClearToEmpty();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* CommonMetadata::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // bytes version_last_updated = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_version_last_updated();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* CommonMetadata::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:user_data_auth.CommonMetadata)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // bytes version_last_updated = 1;
+  if (!this->_internal_version_last_updated().empty()) {
+    target = stream->WriteBytesMaybeAliased(
+        1, this->_internal_version_last_updated(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:user_data_auth.CommonMetadata)
+  return target;
+}
+
+size_t CommonMetadata::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:user_data_auth.CommonMetadata)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // bytes version_last_updated = 1;
+  if (!this->_internal_version_last_updated().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+        this->_internal_version_last_updated());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void CommonMetadata::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const CommonMetadata*>(
+      &from));
+}
+
+void CommonMetadata::MergeFrom(const CommonMetadata& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:user_data_auth.CommonMetadata)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (!from._internal_version_last_updated().empty()) {
+    _internal_set_version_last_updated(from._internal_version_last_updated());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void CommonMetadata::CopyFrom(const CommonMetadata& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:user_data_auth.CommonMetadata)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool CommonMetadata::IsInitialized() const {
+  return true;
+}
+
+void CommonMetadata::InternalSwap(CommonMetadata* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &version_last_updated_, lhs_arena,
+      &other->version_last_updated_, rhs_arena
+  );
+}
+
+std::string CommonMetadata::GetTypeName() const {
+  return "user_data_auth.CommonMetadata";
+}
+
+
+// ===================================================================
+
 class AuthFactor::_Internal {
  public:
+  static const ::user_data_auth::CommonMetadata& common_metadata(const AuthFactor* msg);
   static const ::user_data_auth::PasswordMetadata& password_metadata(const AuthFactor* msg);
   static const ::user_data_auth::PinMetadata& pin_metadata(const AuthFactor* msg);
   static const ::user_data_auth::CryptohomeRecoveryMetadata& cryptohome_recovery_metadata(const AuthFactor* msg);
@@ -2692,6 +2901,10 @@ class AuthFactor::_Internal {
   static const ::user_data_auth::SmartCardMetadata& smart_card_metadata(const AuthFactor* msg);
 };
 
+const ::user_data_auth::CommonMetadata&
+AuthFactor::_Internal::common_metadata(const AuthFactor* msg) {
+  return *msg->common_metadata_;
+}
 const ::user_data_auth::PasswordMetadata&
 AuthFactor::_Internal::password_metadata(const AuthFactor* msg) {
   return *msg->metadata_.password_metadata_;
@@ -2807,6 +3020,11 @@ AuthFactor::AuthFactor(const AuthFactor& from)
     label_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_label(), 
       GetArenaForAllocation());
   }
+  if (from._internal_has_common_metadata()) {
+    common_metadata_ = new ::user_data_auth::CommonMetadata(*from.common_metadata_);
+  } else {
+    common_metadata_ = nullptr;
+  }
   ::memcpy(&type_, &from.type_,
     static_cast<size_t>(reinterpret_cast<char*>(&is_active_for_login_) -
     reinterpret_cast<char*>(&type_)) + sizeof(is_active_for_login_));
@@ -2845,9 +3063,9 @@ label_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlread
   label_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&type_) - reinterpret_cast<char*>(this)),
+    reinterpret_cast<char*>(&common_metadata_) - reinterpret_cast<char*>(this)),
     0, static_cast<size_t>(reinterpret_cast<char*>(&is_active_for_login_) -
-    reinterpret_cast<char*>(&type_)) + sizeof(is_active_for_login_));
+    reinterpret_cast<char*>(&common_metadata_)) + sizeof(is_active_for_login_));
 clear_has_metadata();
 }
 
@@ -2861,6 +3079,7 @@ AuthFactor::~AuthFactor() {
 inline void AuthFactor::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   label_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (this != internal_default_instance()) delete common_metadata_;
   if (has_metadata()) {
     clear_metadata();
   }
@@ -2924,6 +3143,10 @@ void AuthFactor::Clear() {
   (void) cached_has_bits;
 
   label_.ClearToEmpty();
+  if (GetArenaForAllocation() == nullptr && common_metadata_ != nullptr) {
+    delete common_metadata_;
+  }
+  common_metadata_ = nullptr;
   ::memset(&type_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&is_active_for_login_) -
       reinterpret_cast<char*>(&type_)) + sizeof(is_active_for_login_));
@@ -3000,6 +3223,14 @@ const char* AuthFactor::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID:
       case 8:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 66)) {
           ptr = ctx->ParseMessage(_internal_mutable_smart_card_metadata(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .user_data_auth.CommonMetadata common_metadata = 9;
+      case 9:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 74)) {
+          ptr = ctx->ParseMessage(_internal_mutable_common_metadata(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -3096,6 +3327,14 @@ uint8_t* AuthFactor::_InternalSerialize(
         8, _Internal::smart_card_metadata(this), target, stream);
   }
 
+  // .user_data_auth.CommonMetadata common_metadata = 9;
+  if (this->_internal_has_common_metadata()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(
+        9, _Internal::common_metadata(this), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -3117,6 +3356,13 @@ size_t AuthFactor::ByteSizeLong() const {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_label());
+  }
+
+  // .user_data_auth.CommonMetadata common_metadata = 9;
+  if (this->_internal_has_common_metadata()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *common_metadata_);
   }
 
   // .user_data_auth.AuthFactorType type = 1;
@@ -3193,6 +3439,9 @@ void AuthFactor::MergeFrom(const AuthFactor& from) {
   if (!from._internal_label().empty()) {
     _internal_set_label(from._internal_label());
   }
+  if (from._internal_has_common_metadata()) {
+    _internal_mutable_common_metadata()->::user_data_auth::CommonMetadata::MergeFrom(from._internal_common_metadata());
+  }
   if (from._internal_type() != 0) {
     _internal_set_type(from._internal_type());
   }
@@ -3251,9 +3500,9 @@ void AuthFactor::InternalSwap(AuthFactor* other) {
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(AuthFactor, is_active_for_login_)
       + sizeof(AuthFactor::is_active_for_login_)
-      - PROTOBUF_FIELD_OFFSET(AuthFactor, type_)>(
-          reinterpret_cast<char*>(&type_),
-          reinterpret_cast<char*>(&other->type_));
+      - PROTOBUF_FIELD_OFFSET(AuthFactor, common_metadata_)>(
+          reinterpret_cast<char*>(&common_metadata_),
+          reinterpret_cast<char*>(&other->common_metadata_));
   swap(metadata_, other->metadata_);
   swap(_oneof_case_[0], other->_oneof_case_[0]);
 }
@@ -3298,6 +3547,9 @@ template<> PROTOBUF_NOINLINE ::user_data_auth::KioskMetadata* Arena::CreateMaybe
 }
 template<> PROTOBUF_NOINLINE ::user_data_auth::SmartCardMetadata* Arena::CreateMaybeMessage< ::user_data_auth::SmartCardMetadata >(Arena* arena) {
   return Arena::CreateMessageInternal< ::user_data_auth::SmartCardMetadata >(arena);
+}
+template<> PROTOBUF_NOINLINE ::user_data_auth::CommonMetadata* Arena::CreateMaybeMessage< ::user_data_auth::CommonMetadata >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::user_data_auth::CommonMetadata >(arena);
 }
 template<> PROTOBUF_NOINLINE ::user_data_auth::AuthFactor* Arena::CreateMaybeMessage< ::user_data_auth::AuthFactor >(Arena* arena) {
   return Arena::CreateMessageInternal< ::user_data_auth::AuthFactor >(arena);

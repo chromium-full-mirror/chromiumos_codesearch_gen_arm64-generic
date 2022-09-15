@@ -45,7 +45,7 @@ struct TableStruct_auth_5ffactor_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[12]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[13]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -58,6 +58,9 @@ extern AuthFactorDefaultTypeInternal _AuthFactor_default_instance_;
 class AuthInput;
 struct AuthInputDefaultTypeInternal;
 extern AuthInputDefaultTypeInternal _AuthInput_default_instance_;
+class CommonMetadata;
+struct CommonMetadataDefaultTypeInternal;
+extern CommonMetadataDefaultTypeInternal _CommonMetadata_default_instance_;
 class CryptohomeRecoveryAuthInput;
 struct CryptohomeRecoveryAuthInputDefaultTypeInternal;
 extern CryptohomeRecoveryAuthInputDefaultTypeInternal _CryptohomeRecoveryAuthInput_default_instance_;
@@ -92,6 +95,7 @@ extern SmartCardMetadataDefaultTypeInternal _SmartCardMetadata_default_instance_
 PROTOBUF_NAMESPACE_OPEN
 template<> ::user_data_auth::AuthFactor* Arena::CreateMaybeMessage<::user_data_auth::AuthFactor>(Arena*);
 template<> ::user_data_auth::AuthInput* Arena::CreateMaybeMessage<::user_data_auth::AuthInput>(Arena*);
+template<> ::user_data_auth::CommonMetadata* Arena::CreateMaybeMessage<::user_data_auth::CommonMetadata>(Arena*);
 template<> ::user_data_auth::CryptohomeRecoveryAuthInput* Arena::CreateMaybeMessage<::user_data_auth::CryptohomeRecoveryAuthInput>(Arena*);
 template<> ::user_data_auth::CryptohomeRecoveryMetadata* Arena::CreateMaybeMessage<::user_data_auth::CryptohomeRecoveryMetadata>(Arena*);
 template<> ::user_data_auth::KioskAuthInput* Arena::CreateMaybeMessage<::user_data_auth::KioskAuthInput>(Arena*);
@@ -1747,6 +1751,141 @@ class SmartCardMetadata final :
 };
 // -------------------------------------------------------------------
 
+class CommonMetadata final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:user_data_auth.CommonMetadata) */ {
+ public:
+  inline CommonMetadata() : CommonMetadata(nullptr) {}
+  ~CommonMetadata() override;
+  explicit constexpr CommonMetadata(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  CommonMetadata(const CommonMetadata& from);
+  CommonMetadata(CommonMetadata&& from) noexcept
+    : CommonMetadata() {
+    *this = ::std::move(from);
+  }
+
+  inline CommonMetadata& operator=(const CommonMetadata& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline CommonMetadata& operator=(CommonMetadata&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const CommonMetadata& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const CommonMetadata* internal_default_instance() {
+    return reinterpret_cast<const CommonMetadata*>(
+               &_CommonMetadata_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    11;
+
+  friend void swap(CommonMetadata& a, CommonMetadata& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(CommonMetadata* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(CommonMetadata* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  CommonMetadata* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<CommonMetadata>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const CommonMetadata& from);
+  void MergeFrom(const CommonMetadata& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(CommonMetadata* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "user_data_auth.CommonMetadata";
+  }
+  protected:
+  explicit CommonMetadata(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kVersionLastUpdatedFieldNumber = 1,
+  };
+  // bytes version_last_updated = 1;
+  void clear_version_last_updated();
+  const std::string& version_last_updated() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_version_last_updated(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_version_last_updated();
+  PROTOBUF_NODISCARD std::string* release_version_last_updated();
+  void set_allocated_version_last_updated(std::string* version_last_updated);
+  private:
+  const std::string& _internal_version_last_updated() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_version_last_updated(const std::string& value);
+  std::string* _internal_mutable_version_last_updated();
+  public:
+
+  // @@protoc_insertion_point(class_scope:user_data_auth.CommonMetadata)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr version_last_updated_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_auth_5ffactor_2eproto;
+};
+// -------------------------------------------------------------------
+
 class AuthFactor final :
     public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:user_data_auth.AuthFactor) */ {
  public:
@@ -1795,7 +1934,7 @@ class AuthFactor final :
                &_AuthFactor_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    11;
+    12;
 
   friend void swap(AuthFactor& a, AuthFactor& b) {
     a.Swap(&b);
@@ -1863,6 +2002,7 @@ class AuthFactor final :
 
   enum : int {
     kLabelFieldNumber = 2,
+    kCommonMetadataFieldNumber = 9,
     kTypeFieldNumber = 1,
     kIsActiveForLoginFieldNumber = 3,
     kPasswordMetadataFieldNumber = 4,
@@ -1884,6 +2024,24 @@ class AuthFactor final :
   inline PROTOBUF_ALWAYS_INLINE void _internal_set_label(const std::string& value);
   std::string* _internal_mutable_label();
   public:
+
+  // .user_data_auth.CommonMetadata common_metadata = 9;
+  bool has_common_metadata() const;
+  private:
+  bool _internal_has_common_metadata() const;
+  public:
+  void clear_common_metadata();
+  const ::user_data_auth::CommonMetadata& common_metadata() const;
+  PROTOBUF_NODISCARD ::user_data_auth::CommonMetadata* release_common_metadata();
+  ::user_data_auth::CommonMetadata* mutable_common_metadata();
+  void set_allocated_common_metadata(::user_data_auth::CommonMetadata* common_metadata);
+  private:
+  const ::user_data_auth::CommonMetadata& _internal_common_metadata() const;
+  ::user_data_auth::CommonMetadata* _internal_mutable_common_metadata();
+  public:
+  void unsafe_arena_set_allocated_common_metadata(
+      ::user_data_auth::CommonMetadata* common_metadata);
+  ::user_data_auth::CommonMetadata* unsafe_arena_release_common_metadata();
 
   // .user_data_auth.AuthFactorType type = 1;
   void clear_type();
@@ -2011,6 +2169,7 @@ class AuthFactor final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr label_;
+  ::user_data_auth::CommonMetadata* common_metadata_;
   int type_;
   bool is_active_for_login_;
   union MetadataUnion {
@@ -2879,6 +3038,61 @@ inline void SmartCardMetadata::set_allocated_public_key_spki_der(std::string* pu
 
 // -------------------------------------------------------------------
 
+// CommonMetadata
+
+// bytes version_last_updated = 1;
+inline void CommonMetadata::clear_version_last_updated() {
+  version_last_updated_.ClearToEmpty();
+}
+inline const std::string& CommonMetadata::version_last_updated() const {
+  // @@protoc_insertion_point(field_get:user_data_auth.CommonMetadata.version_last_updated)
+  return _internal_version_last_updated();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void CommonMetadata::set_version_last_updated(ArgT0&& arg0, ArgT... args) {
+ 
+ version_last_updated_.SetBytes(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:user_data_auth.CommonMetadata.version_last_updated)
+}
+inline std::string* CommonMetadata::mutable_version_last_updated() {
+  std::string* _s = _internal_mutable_version_last_updated();
+  // @@protoc_insertion_point(field_mutable:user_data_auth.CommonMetadata.version_last_updated)
+  return _s;
+}
+inline const std::string& CommonMetadata::_internal_version_last_updated() const {
+  return version_last_updated_.Get();
+}
+inline void CommonMetadata::_internal_set_version_last_updated(const std::string& value) {
+  
+  version_last_updated_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* CommonMetadata::_internal_mutable_version_last_updated() {
+  
+  return version_last_updated_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* CommonMetadata::release_version_last_updated() {
+  // @@protoc_insertion_point(field_release:user_data_auth.CommonMetadata.version_last_updated)
+  return version_last_updated_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void CommonMetadata::set_allocated_version_last_updated(std::string* version_last_updated) {
+  if (version_last_updated != nullptr) {
+    
+  } else {
+    
+  }
+  version_last_updated_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), version_last_updated,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (version_last_updated_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    version_last_updated_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:user_data_auth.CommonMetadata.version_last_updated)
+}
+
+// -------------------------------------------------------------------
+
 // AuthFactor
 
 // .user_data_auth.AuthFactorType type = 1;
@@ -2970,6 +3184,96 @@ inline void AuthFactor::_internal_set_is_active_for_login(bool value) {
 inline void AuthFactor::set_is_active_for_login(bool value) {
   _internal_set_is_active_for_login(value);
   // @@protoc_insertion_point(field_set:user_data_auth.AuthFactor.is_active_for_login)
+}
+
+// .user_data_auth.CommonMetadata common_metadata = 9;
+inline bool AuthFactor::_internal_has_common_metadata() const {
+  return this != internal_default_instance() && common_metadata_ != nullptr;
+}
+inline bool AuthFactor::has_common_metadata() const {
+  return _internal_has_common_metadata();
+}
+inline void AuthFactor::clear_common_metadata() {
+  if (GetArenaForAllocation() == nullptr && common_metadata_ != nullptr) {
+    delete common_metadata_;
+  }
+  common_metadata_ = nullptr;
+}
+inline const ::user_data_auth::CommonMetadata& AuthFactor::_internal_common_metadata() const {
+  const ::user_data_auth::CommonMetadata* p = common_metadata_;
+  return p != nullptr ? *p : reinterpret_cast<const ::user_data_auth::CommonMetadata&>(
+      ::user_data_auth::_CommonMetadata_default_instance_);
+}
+inline const ::user_data_auth::CommonMetadata& AuthFactor::common_metadata() const {
+  // @@protoc_insertion_point(field_get:user_data_auth.AuthFactor.common_metadata)
+  return _internal_common_metadata();
+}
+inline void AuthFactor::unsafe_arena_set_allocated_common_metadata(
+    ::user_data_auth::CommonMetadata* common_metadata) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(common_metadata_);
+  }
+  common_metadata_ = common_metadata;
+  if (common_metadata) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:user_data_auth.AuthFactor.common_metadata)
+}
+inline ::user_data_auth::CommonMetadata* AuthFactor::release_common_metadata() {
+  
+  ::user_data_auth::CommonMetadata* temp = common_metadata_;
+  common_metadata_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::user_data_auth::CommonMetadata* AuthFactor::unsafe_arena_release_common_metadata() {
+  // @@protoc_insertion_point(field_release:user_data_auth.AuthFactor.common_metadata)
+  
+  ::user_data_auth::CommonMetadata* temp = common_metadata_;
+  common_metadata_ = nullptr;
+  return temp;
+}
+inline ::user_data_auth::CommonMetadata* AuthFactor::_internal_mutable_common_metadata() {
+  
+  if (common_metadata_ == nullptr) {
+    auto* p = CreateMaybeMessage<::user_data_auth::CommonMetadata>(GetArenaForAllocation());
+    common_metadata_ = p;
+  }
+  return common_metadata_;
+}
+inline ::user_data_auth::CommonMetadata* AuthFactor::mutable_common_metadata() {
+  ::user_data_auth::CommonMetadata* _msg = _internal_mutable_common_metadata();
+  // @@protoc_insertion_point(field_mutable:user_data_auth.AuthFactor.common_metadata)
+  return _msg;
+}
+inline void AuthFactor::set_allocated_common_metadata(::user_data_auth::CommonMetadata* common_metadata) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete common_metadata_;
+  }
+  if (common_metadata) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::user_data_auth::CommonMetadata>::GetOwningArena(common_metadata);
+    if (message_arena != submessage_arena) {
+      common_metadata = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, common_metadata, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  common_metadata_ = common_metadata;
+  // @@protoc_insertion_point(field_set_allocated:user_data_auth.AuthFactor.common_metadata)
 }
 
 // .user_data_auth.PasswordMetadata password_metadata = 4;
@@ -3354,6 +3658,8 @@ inline AuthFactor::MetadataCase AuthFactor::metadata_case() const {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

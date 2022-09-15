@@ -72,6 +72,9 @@ BRILLO_EXPORT std::string GetProtoDebugString(const KioskMetadata& value);
 std::string GetProtoDebugStringWithIndent(const SmartCardMetadata& value,
                                           int indent_size);
 BRILLO_EXPORT std::string GetProtoDebugString(const SmartCardMetadata& value);
+std::string GetProtoDebugStringWithIndent(const CommonMetadata& value,
+                                          int indent_size);
+BRILLO_EXPORT std::string GetProtoDebugString(const CommonMetadata& value);
 std::string GetProtoDebugStringWithIndent(const AuthFactor& value,
                                           int indent_size);
 BRILLO_EXPORT std::string GetProtoDebugString(const AuthFactor& value);

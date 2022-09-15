@@ -2,21 +2,31 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#ifndef LIBHWSEC_BACKEND_VENDOR_H_
-#define LIBHWSEC_BACKEND_VENDOR_H_
+#ifndef LIBHWSEC_FRONTEND_CLIENT_FRONTEND_H_
+#define LIBHWSEC_FRONTEND_CLIENT_FRONTEND_H_
 
-#include <cstdint>
+#include <optional>
+#include <vector>
 
 #include <brillo/secure_blob.h>
 
+#include "libhwsec/frontend/frontend.h"
+#include "libhwsec/hwsec_export.h"
 #include "libhwsec/status.h"
 #include "libhwsec/structures/ifx_info.h"
 
 namespace hwsec {
 
-// Vendor provide the vendor specific commands.
-class Vendor {
+class HWSEC_EXPORT ClientFrontend : public Frontend {
  public:
+  ~ClientFrontend() override = default;
+
+  // Generates random blob with |size|.
+  virtual StatusOr<brillo::Blob> GetRandomBlob(size_t size) = 0;
+
+  // Is the SRK ROCA vulnerable or not.
+  virtual StatusOr<bool> IsSrkRocaVulnerable() = 0;
+
   // Gets the family.
   virtual StatusOr<uint32_t> GetFamily() = 0;
 
@@ -35,30 +45,10 @@ class Vendor {
   // Gets the vendor specific string.
   virtual StatusOr<brillo::Blob> GetVendorSpecific() = 0;
 
-  // Gets the TPM fingerprint.
-  virtual StatusOr<int32_t> GetFingerprint() = 0;
-
-  // Is the SRK ROCA vulnerable or not.
-  virtual StatusOr<bool> IsSrkRocaVulnerable() = 0;
-
-  // Gets the lookup key for Remote Server Unlock.
-  virtual StatusOr<brillo::Blob> GetRsuDeviceId() = 0;
-
   // Gets the IFX upgrade information.
   virtual StatusOr<IFXFieldUpgradeInfo> GetIFXFieldUpgradeInfo() = 0;
-
-  // Declares the TPM firmware is stable.
-  virtual Status DeclareTpmFirmwareStable() = 0;
-
-  // Sends the raw |command|.
-  virtual StatusOr<brillo::Blob> SendRawCommand(
-      const brillo::Blob& command) = 0;
-
- protected:
-  Vendor() = default;
-  ~Vendor() = default;
 };
 
 }  // namespace hwsec
 
-#endif  // LIBHWSEC_BACKEND_VENDOR_H_
+#endif  // LIBHWSEC_FRONTEND_CLIENT_FRONTEND_H_

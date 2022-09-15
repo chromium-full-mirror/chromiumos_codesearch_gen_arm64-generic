@@ -697,7 +697,8 @@ constexpr AuthenticateAuthSessionReply::AuthenticateAuthSessionReply(
   : error_info_(nullptr)
   , error_(0)
 
-  , authenticated_(false){}
+  , authenticated_(false)
+  , seconds_left_(0u){}
 struct AuthenticateAuthSessionReplyDefaultTypeInternal {
   constexpr AuthenticateAuthSessionReplyDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -750,7 +751,8 @@ constexpr ExtendAuthSessionReply::ExtendAuthSessionReply(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : error_info_(nullptr)
   , error_(0)
-{}
+
+  , seconds_left_(0u){}
 struct ExtendAuthSessionReplyDefaultTypeInternal {
   constexpr ExtendAuthSessionReplyDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -14163,16 +14165,16 @@ AuthenticateAuthSessionReply::AuthenticateAuthSessionReply(const AuthenticateAut
     error_info_ = nullptr;
   }
   ::memcpy(&error_, &from.error_,
-    static_cast<size_t>(reinterpret_cast<char*>(&authenticated_) -
-    reinterpret_cast<char*>(&error_)) + sizeof(authenticated_));
+    static_cast<size_t>(reinterpret_cast<char*>(&seconds_left_) -
+    reinterpret_cast<char*>(&error_)) + sizeof(seconds_left_));
   // @@protoc_insertion_point(copy_constructor:user_data_auth.AuthenticateAuthSessionReply)
 }
 
 inline void AuthenticateAuthSessionReply::SharedCtor() {
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&error_info_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&authenticated_) -
-    reinterpret_cast<char*>(&error_info_)) + sizeof(authenticated_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&seconds_left_) -
+    reinterpret_cast<char*>(&error_info_)) + sizeof(seconds_left_));
 }
 
 AuthenticateAuthSessionReply::~AuthenticateAuthSessionReply() {
@@ -14208,8 +14210,8 @@ void AuthenticateAuthSessionReply::Clear() {
   }
   error_info_ = nullptr;
   ::memset(&error_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&authenticated_) -
-      reinterpret_cast<char*>(&error_)) + sizeof(authenticated_));
+      reinterpret_cast<char*>(&seconds_left_) -
+      reinterpret_cast<char*>(&error_)) + sizeof(seconds_left_));
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -14240,6 +14242,14 @@ const char* AuthenticateAuthSessionReply::_InternalParse(const char* ptr, ::PROT
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
           ptr = ctx->ParseMessage(_internal_mutable_error_info(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // uint32 seconds_left = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+          seconds_left_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -14294,6 +14304,12 @@ uint8_t* AuthenticateAuthSessionReply::_InternalSerialize(
         3, _Internal::error_info(this), target, stream);
   }
 
+  // uint32 seconds_left = 4;
+  if (this->_internal_seconds_left() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(4, this->_internal_seconds_left(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -14328,6 +14344,11 @@ size_t AuthenticateAuthSessionReply::ByteSizeLong() const {
     total_size += 1 + 1;
   }
 
+  // uint32 seconds_left = 4;
+  if (this->_internal_seconds_left() != 0) {
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32SizePlusOne(this->_internal_seconds_left());
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -14357,6 +14378,9 @@ void AuthenticateAuthSessionReply::MergeFrom(const AuthenticateAuthSessionReply&
   if (from._internal_authenticated() != 0) {
     _internal_set_authenticated(from._internal_authenticated());
   }
+  if (from._internal_seconds_left() != 0) {
+    _internal_set_seconds_left(from._internal_seconds_left());
+  }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
@@ -14375,8 +14399,8 @@ void AuthenticateAuthSessionReply::InternalSwap(AuthenticateAuthSessionReply* ot
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(AuthenticateAuthSessionReply, authenticated_)
-      + sizeof(AuthenticateAuthSessionReply::authenticated_)
+      PROTOBUF_FIELD_OFFSET(AuthenticateAuthSessionReply, seconds_left_)
+      + sizeof(AuthenticateAuthSessionReply::seconds_left_)
       - PROTOBUF_FIELD_OFFSET(AuthenticateAuthSessionReply, error_info_)>(
           reinterpret_cast<char*>(&error_info_),
           reinterpret_cast<char*>(&other->error_info_));
@@ -15058,15 +15082,17 @@ ExtendAuthSessionReply::ExtendAuthSessionReply(const ExtendAuthSessionReply& fro
   } else {
     error_info_ = nullptr;
   }
-  error_ = from.error_;
+  ::memcpy(&error_, &from.error_,
+    static_cast<size_t>(reinterpret_cast<char*>(&seconds_left_) -
+    reinterpret_cast<char*>(&error_)) + sizeof(seconds_left_));
   // @@protoc_insertion_point(copy_constructor:user_data_auth.ExtendAuthSessionReply)
 }
 
 inline void ExtendAuthSessionReply::SharedCtor() {
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&error_info_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&error_) -
-    reinterpret_cast<char*>(&error_info_)) + sizeof(error_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&seconds_left_) -
+    reinterpret_cast<char*>(&error_info_)) + sizeof(seconds_left_));
 }
 
 ExtendAuthSessionReply::~ExtendAuthSessionReply() {
@@ -15101,7 +15127,9 @@ void ExtendAuthSessionReply::Clear() {
     delete error_info_;
   }
   error_info_ = nullptr;
-  error_ = 0;
+  ::memset(&error_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&seconds_left_) -
+      reinterpret_cast<char*>(&error_)) + sizeof(seconds_left_));
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -15124,6 +15152,14 @@ const char* ExtendAuthSessionReply::_InternalParse(const char* ptr, ::PROTOBUF_N
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_error_info(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // uint32 seconds_left = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+          seconds_left_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -15172,6 +15208,12 @@ uint8_t* ExtendAuthSessionReply::_InternalSerialize(
         2, _Internal::error_info(this), target, stream);
   }
 
+  // uint32 seconds_left = 3;
+  if (this->_internal_seconds_left() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(3, this->_internal_seconds_left(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -15201,6 +15243,11 @@ size_t ExtendAuthSessionReply::ByteSizeLong() const {
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_error());
   }
 
+  // uint32 seconds_left = 3;
+  if (this->_internal_seconds_left() != 0) {
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32SizePlusOne(this->_internal_seconds_left());
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -15227,6 +15274,9 @@ void ExtendAuthSessionReply::MergeFrom(const ExtendAuthSessionReply& from) {
   if (from._internal_error() != 0) {
     _internal_set_error(from._internal_error());
   }
+  if (from._internal_seconds_left() != 0) {
+    _internal_set_seconds_left(from._internal_seconds_left());
+  }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
@@ -15245,8 +15295,8 @@ void ExtendAuthSessionReply::InternalSwap(ExtendAuthSessionReply* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(ExtendAuthSessionReply, error_)
-      + sizeof(ExtendAuthSessionReply::error_)
+      PROTOBUF_FIELD_OFFSET(ExtendAuthSessionReply, seconds_left_)
+      + sizeof(ExtendAuthSessionReply::seconds_left_)
       - PROTOBUF_FIELD_OFFSET(ExtendAuthSessionReply, error_info_)>(
           reinterpret_cast<char*>(&error_info_),
           reinterpret_cast<char*>(&other->error_info_));

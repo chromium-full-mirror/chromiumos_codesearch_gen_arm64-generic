@@ -8500,6 +8500,7 @@ class AuthenticateAuthSessionReply final :
     kErrorInfoFieldNumber = 3,
     kErrorFieldNumber = 1,
     kAuthenticatedFieldNumber = 2,
+    kSecondsLeftFieldNumber = 4,
   };
   // .user_data_auth.CryptohomeErrorInfo error_info = 3;
   bool has_error_info() const;
@@ -8537,6 +8538,15 @@ class AuthenticateAuthSessionReply final :
   void _internal_set_authenticated(bool value);
   public:
 
+  // uint32 seconds_left = 4;
+  void clear_seconds_left();
+  uint32_t seconds_left() const;
+  void set_seconds_left(uint32_t value);
+  private:
+  uint32_t _internal_seconds_left() const;
+  void _internal_set_seconds_left(uint32_t value);
+  public:
+
   // @@protoc_insertion_point(class_scope:user_data_auth.AuthenticateAuthSessionReply)
  private:
   class _Internal;
@@ -8547,6 +8557,7 @@ class AuthenticateAuthSessionReply final :
   ::user_data_auth::CryptohomeErrorInfo* error_info_;
   int error_;
   bool authenticated_;
+  uint32_t seconds_left_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_UserDataAuth_2eproto;
 };
@@ -9091,6 +9102,7 @@ class ExtendAuthSessionReply final :
   enum : int {
     kErrorInfoFieldNumber = 2,
     kErrorFieldNumber = 1,
+    kSecondsLeftFieldNumber = 3,
   };
   // .user_data_auth.CryptohomeErrorInfo error_info = 2;
   bool has_error_info() const;
@@ -9119,6 +9131,15 @@ class ExtendAuthSessionReply final :
   void _internal_set_error(::user_data_auth::CryptohomeErrorCode value);
   public:
 
+  // uint32 seconds_left = 3;
+  void clear_seconds_left();
+  uint32_t seconds_left() const;
+  void set_seconds_left(uint32_t value);
+  private:
+  uint32_t _internal_seconds_left() const;
+  void _internal_set_seconds_left(uint32_t value);
+  public:
+
   // @@protoc_insertion_point(class_scope:user_data_auth.ExtendAuthSessionReply)
  private:
   class _Internal;
@@ -9128,6 +9149,7 @@ class ExtendAuthSessionReply final :
   typedef void DestructorSkippable_;
   ::user_data_auth::CryptohomeErrorInfo* error_info_;
   int error_;
+  uint32_t seconds_left_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_UserDataAuth_2eproto;
 };
@@ -26888,6 +26910,26 @@ inline void AuthenticateAuthSessionReply::set_allocated_error_info(::user_data_a
   // @@protoc_insertion_point(field_set_allocated:user_data_auth.AuthenticateAuthSessionReply.error_info)
 }
 
+// uint32 seconds_left = 4;
+inline void AuthenticateAuthSessionReply::clear_seconds_left() {
+  seconds_left_ = 0u;
+}
+inline uint32_t AuthenticateAuthSessionReply::_internal_seconds_left() const {
+  return seconds_left_;
+}
+inline uint32_t AuthenticateAuthSessionReply::seconds_left() const {
+  // @@protoc_insertion_point(field_get:user_data_auth.AuthenticateAuthSessionReply.seconds_left)
+  return _internal_seconds_left();
+}
+inline void AuthenticateAuthSessionReply::_internal_set_seconds_left(uint32_t value) {
+  
+  seconds_left_ = value;
+}
+inline void AuthenticateAuthSessionReply::set_seconds_left(uint32_t value) {
+  _internal_set_seconds_left(value);
+  // @@protoc_insertion_point(field_set:user_data_auth.AuthenticateAuthSessionReply.seconds_left)
+}
+
 // -------------------------------------------------------------------
 
 // InvalidateAuthSessionRequest
@@ -27244,6 +27286,26 @@ inline void ExtendAuthSessionReply::set_allocated_error_info(::user_data_auth::C
   }
   error_info_ = error_info;
   // @@protoc_insertion_point(field_set_allocated:user_data_auth.ExtendAuthSessionReply.error_info)
+}
+
+// uint32 seconds_left = 3;
+inline void ExtendAuthSessionReply::clear_seconds_left() {
+  seconds_left_ = 0u;
+}
+inline uint32_t ExtendAuthSessionReply::_internal_seconds_left() const {
+  return seconds_left_;
+}
+inline uint32_t ExtendAuthSessionReply::seconds_left() const {
+  // @@protoc_insertion_point(field_get:user_data_auth.ExtendAuthSessionReply.seconds_left)
+  return _internal_seconds_left();
+}
+inline void ExtendAuthSessionReply::_internal_set_seconds_left(uint32_t value) {
+  
+  seconds_left_ = value;
+}
+inline void ExtendAuthSessionReply::set_seconds_left(uint32_t value) {
+  _internal_set_seconds_left(value);
+  // @@protoc_insertion_point(field_set:user_data_auth.ExtendAuthSessionReply.seconds_left)
 }
 
 // -------------------------------------------------------------------

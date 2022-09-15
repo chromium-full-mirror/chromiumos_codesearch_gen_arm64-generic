@@ -1796,6 +1796,11 @@ std::string GetProtoDebugStringWithIndent(
           .c_str());
   output += "\n";
 
+  output += indent + "  seconds_left: ";
+  base::StringAppendF(&output, "%" PRIu32 " (0x%08" PRIX32 ")",
+                      value.seconds_left(), value.seconds_left());
+  output += "\n";
+
   output += indent + "}\n";
   return output;
 }
@@ -1897,6 +1902,11 @@ std::string GetProtoDebugStringWithIndent(const ExtendAuthSessionReply& value,
       &output, "%s",
       GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
           .c_str());
+  output += "\n";
+
+  output += indent + "  seconds_left: ";
+  base::StringAppendF(&output, "%" PRIu32 " (0x%08" PRIX32 ")",
+                      value.seconds_left(), value.seconds_left());
   output += "\n";
 
   output += indent + "}\n";

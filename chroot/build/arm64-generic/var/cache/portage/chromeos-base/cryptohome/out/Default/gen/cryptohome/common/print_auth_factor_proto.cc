@@ -345,6 +345,27 @@ std::string GetProtoDebugStringWithIndent(const SmartCardMetadata& value,
   return output;
 }
 
+std::string GetProtoDebugString(const CommonMetadata& value) {
+  return GetProtoDebugStringWithIndent(value, 0);
+}
+
+std::string GetProtoDebugStringWithIndent(const CommonMetadata& value,
+                                          int indent_size) {
+  std::string indent(indent_size, ' ');
+  std::string output =
+      base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
+
+  output += indent + "  version_last_updated: ";
+  base::StringAppendF(&output, "%s",
+                      base::HexEncode(value.version_last_updated().data(),
+                                      value.version_last_updated().size())
+                          .c_str());
+  output += "\n";
+
+  output += indent + "}\n";
+  return output;
+}
+
 std::string GetProtoDebugString(const AuthFactor& value) {
   return GetProtoDebugStringWithIndent(value, 0);
 }
@@ -368,6 +389,13 @@ std::string GetProtoDebugStringWithIndent(const AuthFactor& value,
   output += indent + "  is_active_for_login: ";
   base::StringAppendF(&output, "%s",
                       value.is_active_for_login() ? "true" : "false");
+  output += "\n";
+
+  output += indent + "  common_metadata: ";
+  base::StringAppendF(
+      &output, "%s",
+      GetProtoDebugStringWithIndent(value.common_metadata(), indent_size + 2)
+          .c_str());
   output += "\n";
 
   output += indent + "  password_metadata: ";
