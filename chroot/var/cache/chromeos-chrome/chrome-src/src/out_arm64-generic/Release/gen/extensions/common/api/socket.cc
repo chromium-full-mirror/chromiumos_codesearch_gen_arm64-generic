@@ -78,9 +78,8 @@ std::unique_ptr<CreateOptions> CreateOptions::FromValue(const base::Value& value
   return out;
 }
 
-std::unique_ptr<base::DictionaryValue> CreateOptions::ToValue() const {
-  auto to_value_result =
-      std::make_unique<base::DictionaryValue>();
+base::Value::Dict CreateOptions::ToValue() const {
+  base::Value::Dict to_value_result;
 
 
   return to_value_result;
@@ -99,8 +98,8 @@ bool CreateInfo::Populate(
   if (!value.is_dict()) {
     return false;
   }
-  const auto* dict = static_cast<const base::DictionaryValue*>(&value);
-  const base::Value* socket_id_value = dict->FindKey("socketId");
+  const base::Value::Dict& dict = value.GetDict();
+  const base::Value* socket_id_value = dict.Find("socketId");
   if (!socket_id_value) {
     return false;
   }
@@ -124,11 +123,10 @@ std::unique_ptr<CreateInfo> CreateInfo::FromValue(const base::Value& value) {
   return out;
 }
 
-std::unique_ptr<base::DictionaryValue> CreateInfo::ToValue() const {
-  auto to_value_result =
-      std::make_unique<base::DictionaryValue>();
+base::Value::Dict CreateInfo::ToValue() const {
+  base::Value::Dict to_value_result;
 
-  to_value_result->GetDict().Set("socketId", std::move(*std::make_unique<base::Value>(this->socket_id)));
+  to_value_result.Set("socketId", this->socket_id);
 
 
   return to_value_result;
@@ -147,8 +145,8 @@ bool AcceptInfo::Populate(
   if (!value.is_dict()) {
     return false;
   }
-  const auto* dict = static_cast<const base::DictionaryValue*>(&value);
-  const base::Value* result_code_value = dict->FindKey("resultCode");
+  const base::Value::Dict& dict = value.GetDict();
+  const base::Value* result_code_value = dict.Find("resultCode");
   if (!result_code_value) {
     return false;
   }
@@ -160,7 +158,7 @@ bool AcceptInfo::Populate(
     out->result_code = *temp;
   }
 
-  const base::Value* socket_id_value = dict->FindKey("socketId");
+  const base::Value* socket_id_value = dict.Find("socketId");
   if (socket_id_value) {
     {
       auto temp = (*socket_id_value).GetIfInt();
@@ -184,14 +182,13 @@ std::unique_ptr<AcceptInfo> AcceptInfo::FromValue(const base::Value& value) {
   return out;
 }
 
-std::unique_ptr<base::DictionaryValue> AcceptInfo::ToValue() const {
-  auto to_value_result =
-      std::make_unique<base::DictionaryValue>();
+base::Value::Dict AcceptInfo::ToValue() const {
+  base::Value::Dict to_value_result;
 
-  to_value_result->GetDict().Set("resultCode", std::move(*std::make_unique<base::Value>(this->result_code)));
+  to_value_result.Set("resultCode", this->result_code);
 
   if (this->socket_id) {
-    to_value_result->GetDict().Set("socketId", std::move(*std::make_unique<base::Value>(*this->socket_id)));
+    to_value_result.Set("socketId", *this->socket_id);
 
   }
 
@@ -211,8 +208,8 @@ bool ReadInfo::Populate(
   if (!value.is_dict()) {
     return false;
   }
-  const auto* dict = static_cast<const base::DictionaryValue*>(&value);
-  const base::Value* result_code_value = dict->FindKey("resultCode");
+  const base::Value::Dict& dict = value.GetDict();
+  const base::Value* result_code_value = dict.Find("resultCode");
   if (!result_code_value) {
     return false;
   }
@@ -224,7 +221,7 @@ bool ReadInfo::Populate(
     out->result_code = *temp;
   }
 
-  const base::Value* data_value = dict->FindKey("data");
+  const base::Value* data_value = dict.Find("data");
   if (!data_value) {
     return false;
   }
@@ -249,13 +246,12 @@ std::unique_ptr<ReadInfo> ReadInfo::FromValue(const base::Value& value) {
   return out;
 }
 
-std::unique_ptr<base::DictionaryValue> ReadInfo::ToValue() const {
-  auto to_value_result =
-      std::make_unique<base::DictionaryValue>();
+base::Value::Dict ReadInfo::ToValue() const {
+  base::Value::Dict to_value_result;
 
-  to_value_result->GetDict().Set("resultCode", std::move(*std::make_unique<base::Value>(this->result_code)));
+  to_value_result.Set("resultCode", this->result_code);
 
-  to_value_result->GetDict().Set("data", std::move(*std::make_unique<base::Value>(this->data)));
+  to_value_result.Set("data", base::Value(this->data));
 
 
   return to_value_result;
@@ -274,8 +270,8 @@ bool WriteInfo::Populate(
   if (!value.is_dict()) {
     return false;
   }
-  const auto* dict = static_cast<const base::DictionaryValue*>(&value);
-  const base::Value* bytes_written_value = dict->FindKey("bytesWritten");
+  const base::Value::Dict& dict = value.GetDict();
+  const base::Value* bytes_written_value = dict.Find("bytesWritten");
   if (!bytes_written_value) {
     return false;
   }
@@ -299,11 +295,10 @@ std::unique_ptr<WriteInfo> WriteInfo::FromValue(const base::Value& value) {
   return out;
 }
 
-std::unique_ptr<base::DictionaryValue> WriteInfo::ToValue() const {
-  auto to_value_result =
-      std::make_unique<base::DictionaryValue>();
+base::Value::Dict WriteInfo::ToValue() const {
+  base::Value::Dict to_value_result;
 
-  to_value_result->GetDict().Set("bytesWritten", std::move(*std::make_unique<base::Value>(this->bytes_written)));
+  to_value_result.Set("bytesWritten", this->bytes_written);
 
 
   return to_value_result;
@@ -323,8 +318,8 @@ bool RecvFromInfo::Populate(
   if (!value.is_dict()) {
     return false;
   }
-  const auto* dict = static_cast<const base::DictionaryValue*>(&value);
-  const base::Value* result_code_value = dict->FindKey("resultCode");
+  const base::Value::Dict& dict = value.GetDict();
+  const base::Value* result_code_value = dict.Find("resultCode");
   if (!result_code_value) {
     return false;
   }
@@ -336,7 +331,7 @@ bool RecvFromInfo::Populate(
     out->result_code = *temp;
   }
 
-  const base::Value* data_value = dict->FindKey("data");
+  const base::Value* data_value = dict.Find("data");
   if (!data_value) {
     return false;
   }
@@ -349,7 +344,7 @@ bool RecvFromInfo::Populate(
     }
   }
 
-  const base::Value* address_value = dict->FindKey("address");
+  const base::Value* address_value = dict.Find("address");
   if (!address_value) {
     return false;
   }
@@ -361,7 +356,7 @@ bool RecvFromInfo::Populate(
     out->address = *temp;
   }
 
-  const base::Value* port_value = dict->FindKey("port");
+  const base::Value* port_value = dict.Find("port");
   if (!port_value) {
     return false;
   }
@@ -385,17 +380,16 @@ std::unique_ptr<RecvFromInfo> RecvFromInfo::FromValue(const base::Value& value) 
   return out;
 }
 
-std::unique_ptr<base::DictionaryValue> RecvFromInfo::ToValue() const {
-  auto to_value_result =
-      std::make_unique<base::DictionaryValue>();
+base::Value::Dict RecvFromInfo::ToValue() const {
+  base::Value::Dict to_value_result;
 
-  to_value_result->GetDict().Set("resultCode", std::move(*std::make_unique<base::Value>(this->result_code)));
+  to_value_result.Set("resultCode", this->result_code);
 
-  to_value_result->GetDict().Set("data", std::move(*std::make_unique<base::Value>(this->data)));
+  to_value_result.Set("data", base::Value(this->data));
 
-  to_value_result->GetDict().Set("address", std::move(*std::make_unique<base::Value>(this->address)));
+  to_value_result.Set("address", this->address);
 
-  to_value_result->GetDict().Set("port", std::move(*std::make_unique<base::Value>(this->port)));
+  to_value_result.Set("port", this->port);
 
 
   return to_value_result;
@@ -415,8 +409,8 @@ bool SocketInfo::Populate(
   if (!value.is_dict()) {
     return false;
   }
-  const auto* dict = static_cast<const base::DictionaryValue*>(&value);
-  const base::Value* socket_type_value = dict->FindKey("socketType");
+  const base::Value::Dict& dict = value.GetDict();
+  const base::Value* socket_type_value = dict.Find("socketType");
   if (!socket_type_value) {
     return false;
   }
@@ -431,7 +425,7 @@ bool SocketInfo::Populate(
     }
   }
 
-  const base::Value* connected_value = dict->FindKey("connected");
+  const base::Value* connected_value = dict.Find("connected");
   if (!connected_value) {
     return false;
   }
@@ -443,7 +437,7 @@ bool SocketInfo::Populate(
     out->connected = *temp;
   }
 
-  const base::Value* peer_address_value = dict->FindKey("peerAddress");
+  const base::Value* peer_address_value = dict.Find("peerAddress");
   if (peer_address_value) {
     {
       auto* temp = (*peer_address_value).GetIfString();
@@ -455,7 +449,7 @@ bool SocketInfo::Populate(
     }
   }
 
-  const base::Value* peer_port_value = dict->FindKey("peerPort");
+  const base::Value* peer_port_value = dict.Find("peerPort");
   if (peer_port_value) {
     {
       auto temp = (*peer_port_value).GetIfInt();
@@ -467,7 +461,7 @@ bool SocketInfo::Populate(
     }
   }
 
-  const base::Value* local_address_value = dict->FindKey("localAddress");
+  const base::Value* local_address_value = dict.Find("localAddress");
   if (local_address_value) {
     {
       auto* temp = (*local_address_value).GetIfString();
@@ -479,7 +473,7 @@ bool SocketInfo::Populate(
     }
   }
 
-  const base::Value* local_port_value = dict->FindKey("localPort");
+  const base::Value* local_port_value = dict.Find("localPort");
   if (local_port_value) {
     {
       auto temp = (*local_port_value).GetIfInt();
@@ -503,28 +497,27 @@ std::unique_ptr<SocketInfo> SocketInfo::FromValue(const base::Value& value) {
   return out;
 }
 
-std::unique_ptr<base::DictionaryValue> SocketInfo::ToValue() const {
-  auto to_value_result =
-      std::make_unique<base::DictionaryValue>();
+base::Value::Dict SocketInfo::ToValue() const {
+  base::Value::Dict to_value_result;
 
-  to_value_result->GetDict().Set("socketType", std::move(*std::make_unique<base::Value>(socket::ToString(this->socket_type))));
+  to_value_result.Set("socketType", socket::ToString(this->socket_type));
 
-  to_value_result->GetDict().Set("connected", std::move(*std::make_unique<base::Value>(this->connected)));
+  to_value_result.Set("connected", this->connected);
 
   if (this->peer_address) {
-    to_value_result->GetDict().Set("peerAddress", std::move(*std::make_unique<base::Value>(*this->peer_address)));
+    to_value_result.Set("peerAddress", *this->peer_address);
 
   }
   if (this->peer_port) {
-    to_value_result->GetDict().Set("peerPort", std::move(*std::make_unique<base::Value>(*this->peer_port)));
+    to_value_result.Set("peerPort", *this->peer_port);
 
   }
   if (this->local_address) {
-    to_value_result->GetDict().Set("localAddress", std::move(*std::make_unique<base::Value>(*this->local_address)));
+    to_value_result.Set("localAddress", *this->local_address);
 
   }
   if (this->local_port) {
-    to_value_result->GetDict().Set("localPort", std::move(*std::make_unique<base::Value>(*this->local_port)));
+    to_value_result.Set("localPort", *this->local_port);
 
   }
 
@@ -544,8 +537,8 @@ bool NetworkInterface::Populate(
   if (!value.is_dict()) {
     return false;
   }
-  const auto* dict = static_cast<const base::DictionaryValue*>(&value);
-  const base::Value* name_value = dict->FindKey("name");
+  const base::Value::Dict& dict = value.GetDict();
+  const base::Value* name_value = dict.Find("name");
   if (!name_value) {
     return false;
   }
@@ -557,7 +550,7 @@ bool NetworkInterface::Populate(
     out->name = *temp;
   }
 
-  const base::Value* address_value = dict->FindKey("address");
+  const base::Value* address_value = dict.Find("address");
   if (!address_value) {
     return false;
   }
@@ -569,7 +562,7 @@ bool NetworkInterface::Populate(
     out->address = *temp;
   }
 
-  const base::Value* prefix_length_value = dict->FindKey("prefixLength");
+  const base::Value* prefix_length_value = dict.Find("prefixLength");
   if (!prefix_length_value) {
     return false;
   }
@@ -593,15 +586,14 @@ std::unique_ptr<NetworkInterface> NetworkInterface::FromValue(const base::Value&
   return out;
 }
 
-std::unique_ptr<base::DictionaryValue> NetworkInterface::ToValue() const {
-  auto to_value_result =
-      std::make_unique<base::DictionaryValue>();
+base::Value::Dict NetworkInterface::ToValue() const {
+  base::Value::Dict to_value_result;
 
-  to_value_result->GetDict().Set("name", std::move(*std::make_unique<base::Value>(this->name)));
+  to_value_result.Set("name", this->name);
 
-  to_value_result->GetDict().Set("address", std::move(*std::make_unique<base::Value>(this->address)));
+  to_value_result.Set("address", this->address);
 
-  to_value_result->GetDict().Set("prefixLength", std::move(*std::make_unique<base::Value>(this->prefix_length)));
+  to_value_result.Set("prefixLength", this->prefix_length);
 
 
   return to_value_result;
@@ -620,8 +612,8 @@ bool TLSVersionConstraints::Populate(
   if (!value.is_dict()) {
     return false;
   }
-  const auto* dict = static_cast<const base::DictionaryValue*>(&value);
-  const base::Value* min_value = dict->FindKey("min");
+  const base::Value::Dict& dict = value.GetDict();
+  const base::Value* min_value = dict.Find("min");
   if (min_value) {
     {
       auto* temp = (*min_value).GetIfString();
@@ -633,7 +625,7 @@ bool TLSVersionConstraints::Populate(
     }
   }
 
-  const base::Value* max_value = dict->FindKey("max");
+  const base::Value* max_value = dict.Find("max");
   if (max_value) {
     {
       auto* temp = (*max_value).GetIfString();
@@ -657,16 +649,15 @@ std::unique_ptr<TLSVersionConstraints> TLSVersionConstraints::FromValue(const ba
   return out;
 }
 
-std::unique_ptr<base::DictionaryValue> TLSVersionConstraints::ToValue() const {
-  auto to_value_result =
-      std::make_unique<base::DictionaryValue>();
+base::Value::Dict TLSVersionConstraints::ToValue() const {
+  base::Value::Dict to_value_result;
 
   if (this->min) {
-    to_value_result->GetDict().Set("min", std::move(*std::make_unique<base::Value>(*this->min)));
+    to_value_result.Set("min", *this->min);
 
   }
   if (this->max) {
-    to_value_result->GetDict().Set("max", std::move(*std::make_unique<base::Value>(*this->max)));
+    to_value_result.Set("max", *this->max);
 
   }
 
@@ -686,8 +677,8 @@ bool SecureOptions::Populate(
   if (!value.is_dict()) {
     return false;
   }
-  const auto* dict = static_cast<const base::DictionaryValue*>(&value);
-  const base::Value* tls_version_value = dict->FindKey("tlsVersion");
+  const base::Value::Dict& dict = value.GetDict();
+  const base::Value* tls_version_value = dict.Find("tlsVersion");
   if (tls_version_value) {
     {
       if (!(*tls_version_value).is_dict()) {
@@ -716,12 +707,11 @@ std::unique_ptr<SecureOptions> SecureOptions::FromValue(const base::Value& value
   return out;
 }
 
-std::unique_ptr<base::DictionaryValue> SecureOptions::ToValue() const {
-  auto to_value_result =
-      std::make_unique<base::DictionaryValue>();
+base::Value::Dict SecureOptions::ToValue() const {
+  base::Value::Dict to_value_result;
 
   if (this->tls_version) {
-    to_value_result->GetDict().Set("tlsVersion", std::move(*(this->tls_version)->ToValue()));
+    to_value_result.Set("tlsVersion", (this->tls_version)->ToValue());
 
   }
 
@@ -789,7 +779,7 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
 base::Value::List Results::Create(const CreateInfo& create_info) {
   base::Value::List create_results;
   create_results.reserve(1);
-  create_results.Append(base::Value::FromUniquePtrValue((create_info).ToValue()));
+  create_results.Append((create_info).ToValue());
 
   return create_results;
 }
@@ -892,7 +882,7 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
 base::Value::List Results::Create(int result) {
   base::Value::List create_results;
   create_results.reserve(1);
-  create_results.Append(base::Value::FromUniquePtrValue(std::make_unique<base::Value>(result)));
+  create_results.Append(result);
 
   return create_results;
 }
@@ -962,7 +952,7 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
 base::Value::List Results::Create(int result) {
   base::Value::List create_results;
   create_results.reserve(1);
-  create_results.Append(base::Value::FromUniquePtrValue(std::make_unique<base::Value>(result)));
+  create_results.Append(result);
 
   return create_results;
 }
@@ -1048,7 +1038,7 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
 base::Value::List Results::Create(const ReadInfo& read_info) {
   base::Value::List create_results;
   create_results.reserve(1);
-  create_results.Append(base::Value::FromUniquePtrValue((read_info).ToValue()));
+  create_results.Append((read_info).ToValue());
 
   return create_results;
 }
@@ -1104,7 +1094,7 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
 base::Value::List Results::Create(const WriteInfo& write_info) {
   base::Value::List create_results;
   create_results.reserve(1);
-  create_results.Append(base::Value::FromUniquePtrValue((write_info).ToValue()));
+  create_results.Append((write_info).ToValue());
 
   return create_results;
 }
@@ -1157,7 +1147,7 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
 base::Value::List Results::Create(const RecvFromInfo& recv_from_info) {
   base::Value::List create_results;
   create_results.reserve(1);
-  create_results.Append(base::Value::FromUniquePtrValue((recv_from_info).ToValue()));
+  create_results.Append((recv_from_info).ToValue());
 
   return create_results;
 }
@@ -1243,7 +1233,7 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
 base::Value::List Results::Create(const WriteInfo& write_info) {
   base::Value::List create_results;
   create_results.reserve(1);
-  create_results.Append(base::Value::FromUniquePtrValue((write_info).ToValue()));
+  create_results.Append((write_info).ToValue());
 
   return create_results;
 }
@@ -1326,7 +1316,7 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
 base::Value::List Results::Create(int result) {
   base::Value::List create_results;
   create_results.reserve(1);
-  create_results.Append(base::Value::FromUniquePtrValue(std::make_unique<base::Value>(result)));
+  create_results.Append(result);
 
   return create_results;
 }
@@ -1366,7 +1356,7 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
 base::Value::List Results::Create(const AcceptInfo& accept_info) {
   base::Value::List create_results;
   create_results.reserve(1);
-  create_results.Append(base::Value::FromUniquePtrValue((accept_info).ToValue()));
+  create_results.Append((accept_info).ToValue());
 
   return create_results;
 }
@@ -1434,7 +1424,7 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
 base::Value::List Results::Create(bool result) {
   base::Value::List create_results;
   create_results.reserve(1);
-  create_results.Append(base::Value::FromUniquePtrValue(std::make_unique<base::Value>(result)));
+  create_results.Append(result);
 
   return create_results;
 }
@@ -1489,7 +1479,7 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
 base::Value::List Results::Create(bool result) {
   base::Value::List create_results;
   create_results.reserve(1);
-  create_results.Append(base::Value::FromUniquePtrValue(std::make_unique<base::Value>(result)));
+  create_results.Append(result);
 
   return create_results;
 }
@@ -1529,7 +1519,7 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
 base::Value::List Results::Create(const SocketInfo& result) {
   base::Value::List create_results;
   create_results.reserve(1);
-  create_results.Append(base::Value::FromUniquePtrValue((result).ToValue()));
+  create_results.Append((result).ToValue());
 
   return create_results;
 }
@@ -1540,7 +1530,7 @@ namespace GetNetworkList {
 base::Value::List Results::Create(const std::vector<NetworkInterface>& result) {
   base::Value::List create_results;
   create_results.reserve(1);
-  create_results.Append(base::Value::FromUniquePtrValue(json_schema_compiler::util::CreateValueFromArray(result)));
+  create_results.Append(json_schema_compiler::util::CreateValueFromArray(result));
 
   return create_results;
 }
@@ -1595,7 +1585,7 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
 base::Value::List Results::Create(int result) {
   base::Value::List create_results;
   create_results.reserve(1);
-  create_results.Append(base::Value::FromUniquePtrValue(std::make_unique<base::Value>(result)));
+  create_results.Append(result);
 
   return create_results;
 }
@@ -1650,7 +1640,7 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
 base::Value::List Results::Create(int result) {
   base::Value::List create_results;
   create_results.reserve(1);
-  create_results.Append(base::Value::FromUniquePtrValue(std::make_unique<base::Value>(result)));
+  create_results.Append(result);
 
   return create_results;
 }
@@ -1705,7 +1695,7 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
 base::Value::List Results::Create(int result) {
   base::Value::List create_results;
   create_results.reserve(1);
-  create_results.Append(base::Value::FromUniquePtrValue(std::make_unique<base::Value>(result)));
+  create_results.Append(result);
 
   return create_results;
 }
@@ -1760,7 +1750,7 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
 base::Value::List Results::Create(int result) {
   base::Value::List create_results;
   create_results.reserve(1);
-  create_results.Append(base::Value::FromUniquePtrValue(std::make_unique<base::Value>(result)));
+  create_results.Append(result);
 
   return create_results;
 }
@@ -1800,7 +1790,7 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
 base::Value::List Results::Create(const std::vector<std::string>& groups) {
   base::Value::List create_results;
   create_results.reserve(1);
-  create_results.Append(base::Value::FromUniquePtrValue(json_schema_compiler::util::CreateValueFromArray(groups)));
+  create_results.Append(json_schema_compiler::util::CreateValueFromArray(groups));
 
   return create_results;
 }
@@ -1858,7 +1848,7 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
 base::Value::List Results::Create(int result) {
   base::Value::List create_results;
   create_results.reserve(1);
-  create_results.Append(base::Value::FromUniquePtrValue(std::make_unique<base::Value>(result)));
+  create_results.Append(result);
 
   return create_results;
 }

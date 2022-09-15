@@ -42,9 +42,9 @@ struct Parameters {
   // Creates a Parameters object from a base::Value, or NULL on failure.
   static std::unique_ptr<Parameters> FromValue(const base::Value& value);
 
-  // Returns a new base::DictionaryValue representing the serialized form of
-  // this Parameters object.
-  std::unique_ptr<base::DictionaryValue> ToValue() const;
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisParameters object.
+  base::Value::Dict ToValue() const;
 
   // IP address for the VPN interface in CIDR notation. IPv4 is currently the only
   // supported mode.
@@ -306,11 +306,11 @@ struct Data {
   Data(Data&& rhs);
   Data& operator=(Data&& rhs);
 
-  // Returns a new base::DictionaryValue representing the serialized form of
-  // this Data object.
-  std::unique_ptr<base::DictionaryValue> ToValue() const;
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisData object.
+  base::Value::Dict ToValue() const;
 
-  base::DictionaryValue additional_properties;
+  base::Value::Dict additional_properties;
 };
 
 

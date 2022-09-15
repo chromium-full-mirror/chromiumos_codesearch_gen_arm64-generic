@@ -54,9 +54,9 @@ struct QueryInfo {
   // Creates a QueryInfo object from a base::Value, or NULL on failure.
   static std::unique_ptr<QueryInfo> FromValue(const base::Value& value);
 
-  // Returns a new base::DictionaryValue representing the serialized form of
-  // this QueryInfo object.
-  std::unique_ptr<base::DictionaryValue> ToValue() const;
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisQueryInfo object.
+  base::Value::Dict ToValue() const;
 
   // String to query with the default search provider.
   std::string text;

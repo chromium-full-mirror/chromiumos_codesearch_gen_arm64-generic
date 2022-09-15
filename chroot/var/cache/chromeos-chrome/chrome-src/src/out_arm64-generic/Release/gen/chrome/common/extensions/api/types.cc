@@ -116,9 +116,8 @@ std::unique_ptr<ChromeSetting> ChromeSetting::FromValue(const base::Value& value
   return out;
 }
 
-std::unique_ptr<base::DictionaryValue> ChromeSetting::ToValue() const {
-  auto to_value_result =
-      std::make_unique<base::DictionaryValue>();
+base::Value::Dict ChromeSetting::ToValue() const {
+  base::Value::Dict to_value_result;
 
 
   return to_value_result;

@@ -87,15 +87,15 @@ bool StorageChange::Populate(
   if (!value.is_dict()) {
     return false;
   }
-  const auto* dict = static_cast<const base::DictionaryValue*>(&value);
-  const base::Value* old_value_value = dict->FindKey("oldValue");
+  const base::Value::Dict& dict = value.GetDict();
+  const base::Value* old_value_value = dict.Find("oldValue");
   if (old_value_value) {
     {
       out->old_value = (*old_value_value).Clone();
     }
   }
 
-  const base::Value* new_value_value = dict->FindKey("newValue");
+  const base::Value* new_value_value = dict.Find("newValue");
   if (new_value_value) {
     {
       out->new_value = (*new_value_value).Clone();
@@ -114,16 +114,15 @@ std::unique_ptr<StorageChange> StorageChange::FromValue(const base::Value& value
   return out;
 }
 
-std::unique_ptr<base::DictionaryValue> StorageChange::ToValue() const {
-  auto to_value_result =
-      std::make_unique<base::DictionaryValue>();
+base::Value::Dict StorageChange::ToValue() const {
+  base::Value::Dict to_value_result;
 
   if (this->old_value) {
-    to_value_result->GetDict().Set("oldValue", std::move(*(this->old_value)->CreateDeepCopy()));
+    to_value_result.Set("oldValue", (this->old_value)->Clone());
 
   }
   if (this->new_value) {
-    to_value_result->GetDict().Set("newValue", std::move(*(this->new_value)->CreateDeepCopy()));
+    to_value_result.Set("newValue", (this->new_value)->Clone());
 
   }
 
@@ -147,8 +146,8 @@ bool Params::Keys::Object::Populate(
   if (!value.is_dict()) {
     return false;
   }
-  const auto* dict = static_cast<const base::DictionaryValue*>(&value);
-  out->additional_properties.MergeDictionary(dict);
+  const base::Value::Dict& dict = value.GetDict();
+  out->additional_properties.Merge(dict.Clone());
   return true;
 }
 
@@ -238,11 +237,10 @@ Results::Items::Items()
 Results::Items::~Items() = default;
 Results::Items::Items(Items&& rhs) = default;
 Results::Items& Results::Items::operator=(Items&& rhs) = default;
-std::unique_ptr<base::DictionaryValue> Results::Items::ToValue() const {
-  auto to_value_result =
-      std::make_unique<base::DictionaryValue>();
+base::Value::Dict Results::Items::ToValue() const {
+  base::Value::Dict to_value_result;
 
-  to_value_result->MergeDictionary(&additional_properties);
+  to_value_result.Merge(additional_properties.Clone());
 
   return to_value_result;
 }
@@ -251,7 +249,7 @@ std::unique_ptr<base::DictionaryValue> Results::Items::ToValue() const {
 base::Value::List Results::Create(const Items& items) {
   base::Value::List create_results;
   create_results.reserve(1);
-  create_results.Append(base::Value::FromUniquePtrValue((items).ToValue()));
+  create_results.Append((items).ToValue());
 
   return create_results;
 }
@@ -324,7 +322,7 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
 base::Value::List Results::Create(int bytes_in_use) {
   base::Value::List create_results;
   create_results.reserve(1);
-  create_results.Append(base::Value::FromUniquePtrValue(std::make_unique<base::Value>(bytes_in_use)));
+  create_results.Append(bytes_in_use);
 
   return create_results;
 }
@@ -344,8 +342,8 @@ bool Params::Items::Populate(
   if (!value.is_dict()) {
     return false;
   }
-  const auto* dict = static_cast<const base::DictionaryValue*>(&value);
-  out->additional_properties.MergeDictionary(dict);
+  const base::Value::Dict& dict = value.GetDict();
+  out->additional_properties.Merge(dict.Clone());
   return true;
 }
 
@@ -482,8 +480,8 @@ bool Params::AccessOptions::Populate(
   if (!value.is_dict()) {
     return false;
   }
-  const auto* dict = static_cast<const base::DictionaryValue*>(&value);
-  const base::Value* access_level_value = dict->FindKey("accessLevel");
+  const base::Value::Dict& dict = value.GetDict();
+  const base::Value* access_level_value = dict.Find("accessLevel");
   if (!access_level_value) {
     return false;
   }
@@ -556,12 +554,11 @@ Changes::Changes()
 Changes::~Changes() = default;
 Changes::Changes(Changes&& rhs) = default;
 Changes& Changes::operator=(Changes&& rhs) = default;
-std::unique_ptr<base::DictionaryValue> Changes::ToValue() const {
-  auto to_value_result =
-      std::make_unique<base::DictionaryValue>();
+base::Value::Dict Changes::ToValue() const {
+  base::Value::Dict to_value_result;
 
   for (const auto& it : additional_properties) {
-    to_value_result->GetDict().Set(it.first, std::move(*(it.second).ToValue()));
+    to_value_result.Set(it.first, (it.second).ToValue());
 
   }
 
@@ -572,9 +569,9 @@ std::unique_ptr<base::DictionaryValue> Changes::ToValue() const {
 base::Value::List Create(const Changes& changes, const std::string& area_name) {
   base::Value::List create_results;
   create_results.reserve(2);
-  create_results.Append(base::Value::FromUniquePtrValue((changes).ToValue()));
+  create_results.Append((changes).ToValue());
 
-  create_results.Append(base::Value::FromUniquePtrValue(std::make_unique<base::Value>(area_name)));
+  create_results.Append(area_name);
 
   return create_results;
 }

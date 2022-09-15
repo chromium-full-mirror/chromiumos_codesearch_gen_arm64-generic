@@ -44,8 +44,8 @@ bool Parameters::Populate(
   if (!value.is_dict()) {
     return false;
   }
-  const auto* dict = static_cast<const base::DictionaryValue*>(&value);
-  const base::Value* address_value = dict->FindKey("address");
+  const base::Value::Dict& dict = value.GetDict();
+  const base::Value* address_value = dict.Find("address");
   if (!address_value) {
     return false;
   }
@@ -57,7 +57,7 @@ bool Parameters::Populate(
     out->address = *temp;
   }
 
-  const base::Value* broadcast_address_value = dict->FindKey("broadcastAddress");
+  const base::Value* broadcast_address_value = dict.Find("broadcastAddress");
   if (broadcast_address_value) {
     {
       auto* temp = (*broadcast_address_value).GetIfString();
@@ -69,7 +69,7 @@ bool Parameters::Populate(
     }
   }
 
-  const base::Value* mtu_value = dict->FindKey("mtu");
+  const base::Value* mtu_value = dict.Find("mtu");
   if (mtu_value) {
     {
       auto* temp = (*mtu_value).GetIfString();
@@ -81,7 +81,7 @@ bool Parameters::Populate(
     }
   }
 
-  const base::Value* exclusion_list_value = dict->FindKey("exclusionList");
+  const base::Value* exclusion_list_value = dict.Find("exclusionList");
   if (!exclusion_list_value) {
     return false;
   }
@@ -96,7 +96,7 @@ bool Parameters::Populate(
     }
   }
 
-  const base::Value* inclusion_list_value = dict->FindKey("inclusionList");
+  const base::Value* inclusion_list_value = dict.Find("inclusionList");
   if (!inclusion_list_value) {
     return false;
   }
@@ -111,7 +111,7 @@ bool Parameters::Populate(
     }
   }
 
-  const base::Value* domain_search_value = dict->FindKey("domainSearch");
+  const base::Value* domain_search_value = dict.Find("domainSearch");
   if (domain_search_value) {
     {
       if (!(*domain_search_value).is_list()) {
@@ -125,7 +125,7 @@ bool Parameters::Populate(
     }
   }
 
-  const base::Value* dns_servers_value = dict->FindKey("dnsServers");
+  const base::Value* dns_servers_value = dict.Find("dnsServers");
   if (!dns_servers_value) {
     return false;
   }
@@ -140,7 +140,7 @@ bool Parameters::Populate(
     }
   }
 
-  const base::Value* reconnect_value = dict->FindKey("reconnect");
+  const base::Value* reconnect_value = dict.Find("reconnect");
   if (reconnect_value) {
     {
       auto* temp = (*reconnect_value).GetIfString();
@@ -164,32 +164,31 @@ std::unique_ptr<Parameters> Parameters::FromValue(const base::Value& value) {
   return out;
 }
 
-std::unique_ptr<base::DictionaryValue> Parameters::ToValue() const {
-  auto to_value_result =
-      std::make_unique<base::DictionaryValue>();
+base::Value::Dict Parameters::ToValue() const {
+  base::Value::Dict to_value_result;
 
-  to_value_result->GetDict().Set("address", std::move(*std::make_unique<base::Value>(this->address)));
+  to_value_result.Set("address", this->address);
 
   if (this->broadcast_address) {
-    to_value_result->GetDict().Set("broadcastAddress", std::move(*std::make_unique<base::Value>(*this->broadcast_address)));
+    to_value_result.Set("broadcastAddress", *this->broadcast_address);
 
   }
   if (this->mtu) {
-    to_value_result->GetDict().Set("mtu", std::move(*std::make_unique<base::Value>(*this->mtu)));
+    to_value_result.Set("mtu", *this->mtu);
 
   }
-  to_value_result->GetDict().Set("exclusionList", std::move(*json_schema_compiler::util::CreateValueFromArray(this->exclusion_list)));
+  to_value_result.Set("exclusionList", json_schema_compiler::util::CreateValueFromArray(this->exclusion_list));
 
-  to_value_result->GetDict().Set("inclusionList", std::move(*json_schema_compiler::util::CreateValueFromArray(this->inclusion_list)));
+  to_value_result.Set("inclusionList", json_schema_compiler::util::CreateValueFromArray(this->inclusion_list));
 
   if (this->domain_search) {
-    to_value_result->GetDict().Set("domainSearch", std::move(*json_schema_compiler::util::CreateValueFromArray(*this->domain_search)));
+    to_value_result.Set("domainSearch", json_schema_compiler::util::CreateValueFromArray(*this->domain_search));
 
   }
-  to_value_result->GetDict().Set("dnsServers", std::move(*json_schema_compiler::util::CreateValueFromArray(this->dns_servers)));
+  to_value_result.Set("dnsServers", json_schema_compiler::util::CreateValueFromArray(this->dns_servers));
 
   if (this->reconnect) {
-    to_value_result->GetDict().Set("reconnect", std::move(*std::make_unique<base::Value>(*this->reconnect)));
+    to_value_result.Set("reconnect", *this->reconnect);
 
   }
 
@@ -326,7 +325,7 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
 base::Value::List Results::Create(const std::string& id) {
   base::Value::List create_results;
   create_results.reserve(1);
-  create_results.Append(base::Value::FromUniquePtrValue(std::make_unique<base::Value>(id)));
+  create_results.Append(id);
 
   return create_results;
 }
@@ -500,11 +499,11 @@ const char kEventName[] = "vpnProvider.onPlatformMessage";
 base::Value::List Create(const std::string& id, const PlatformMessage& message, const std::string& error) {
   base::Value::List create_results;
   create_results.reserve(3);
-  create_results.Append(base::Value::FromUniquePtrValue(std::make_unique<base::Value>(id)));
+  create_results.Append(id);
 
-  create_results.Append(base::Value::FromUniquePtrValue(std::make_unique<base::Value>(vpn_provider::ToString(message))));
+  create_results.Append(vpn_provider::ToString(message));
 
-  create_results.Append(base::Value::FromUniquePtrValue(std::make_unique<base::Value>(error)));
+  create_results.Append(error);
 
   return create_results;
 }
@@ -518,7 +517,7 @@ const char kEventName[] = "vpnProvider.onPacketReceived";
 base::Value::List Create(const std::vector<uint8_t>& data) {
   base::Value::List create_results;
   create_results.reserve(1);
-  create_results.Append(base::Value::FromUniquePtrValue(std::make_unique<base::Value>(data)));
+  create_results.Append(base::Value(data));
 
   return create_results;
 }
@@ -532,7 +531,7 @@ const char kEventName[] = "vpnProvider.onConfigRemoved";
 base::Value::List Create(const std::string& id) {
   base::Value::List create_results;
   create_results.reserve(1);
-  create_results.Append(base::Value::FromUniquePtrValue(std::make_unique<base::Value>(id)));
+  create_results.Append(id);
 
   return create_results;
 }
@@ -549,11 +548,10 @@ Data::Data()
 Data::~Data() = default;
 Data::Data(Data&& rhs) = default;
 Data& Data::operator=(Data&& rhs) = default;
-std::unique_ptr<base::DictionaryValue> Data::ToValue() const {
-  auto to_value_result =
-      std::make_unique<base::DictionaryValue>();
+base::Value::Dict Data::ToValue() const {
+  base::Value::Dict to_value_result;
 
-  to_value_result->MergeDictionary(&additional_properties);
+  to_value_result.Merge(additional_properties.Clone());
 
   return to_value_result;
 }
@@ -562,11 +560,11 @@ std::unique_ptr<base::DictionaryValue> Data::ToValue() const {
 base::Value::List Create(const std::string& id, const std::string& name, const Data& data) {
   base::Value::List create_results;
   create_results.reserve(3);
-  create_results.Append(base::Value::FromUniquePtrValue(std::make_unique<base::Value>(id)));
+  create_results.Append(id);
 
-  create_results.Append(base::Value::FromUniquePtrValue(std::make_unique<base::Value>(name)));
+  create_results.Append(name);
 
-  create_results.Append(base::Value::FromUniquePtrValue((data).ToValue()));
+  create_results.Append((data).ToValue());
 
   return create_results;
 }
@@ -580,9 +578,9 @@ const char kEventName[] = "vpnProvider.onUIEvent";
 base::Value::List Create(const UIEvent& event, const std::string& id) {
   base::Value::List create_results;
   create_results.reserve(2);
-  create_results.Append(base::Value::FromUniquePtrValue(std::make_unique<base::Value>(vpn_provider::ToString(event))));
+  create_results.Append(vpn_provider::ToString(event));
 
-  create_results.Append(base::Value::FromUniquePtrValue(std::make_unique<base::Value>(id)));
+  create_results.Append(id);
 
   return create_results;
 }

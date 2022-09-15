@@ -44,8 +44,8 @@ bool Debuggee::Populate(
   if (!value.is_dict()) {
     return false;
   }
-  const auto* dict = static_cast<const base::DictionaryValue*>(&value);
-  const base::Value* tab_id_value = dict->FindKey("tabId");
+  const base::Value::Dict& dict = value.GetDict();
+  const base::Value* tab_id_value = dict.Find("tabId");
   if (tab_id_value) {
     {
       auto temp = (*tab_id_value).GetIfInt();
@@ -57,7 +57,7 @@ bool Debuggee::Populate(
     }
   }
 
-  const base::Value* extension_id_value = dict->FindKey("extensionId");
+  const base::Value* extension_id_value = dict.Find("extensionId");
   if (extension_id_value) {
     {
       auto* temp = (*extension_id_value).GetIfString();
@@ -69,7 +69,7 @@ bool Debuggee::Populate(
     }
   }
 
-  const base::Value* target_id_value = dict->FindKey("targetId");
+  const base::Value* target_id_value = dict.Find("targetId");
   if (target_id_value) {
     {
       auto* temp = (*target_id_value).GetIfString();
@@ -93,20 +93,19 @@ std::unique_ptr<Debuggee> Debuggee::FromValue(const base::Value& value) {
   return out;
 }
 
-std::unique_ptr<base::DictionaryValue> Debuggee::ToValue() const {
-  auto to_value_result =
-      std::make_unique<base::DictionaryValue>();
+base::Value::Dict Debuggee::ToValue() const {
+  base::Value::Dict to_value_result;
 
   if (this->tab_id) {
-    to_value_result->GetDict().Set("tabId", std::move(*std::make_unique<base::Value>(*this->tab_id)));
+    to_value_result.Set("tabId", *this->tab_id);
 
   }
   if (this->extension_id) {
-    to_value_result->GetDict().Set("extensionId", std::move(*std::make_unique<base::Value>(*this->extension_id)));
+    to_value_result.Set("extensionId", *this->extension_id);
 
   }
   if (this->target_id) {
-    to_value_result->GetDict().Set("targetId", std::move(*std::make_unique<base::Value>(*this->target_id)));
+    to_value_result.Set("targetId", *this->target_id);
 
   }
 
@@ -179,8 +178,8 @@ bool TargetInfo::Populate(
   if (!value.is_dict()) {
     return false;
   }
-  const auto* dict = static_cast<const base::DictionaryValue*>(&value);
-  const base::Value* type_value = dict->FindKey("type");
+  const base::Value::Dict& dict = value.GetDict();
+  const base::Value* type_value = dict.Find("type");
   if (!type_value) {
     return false;
   }
@@ -195,7 +194,7 @@ bool TargetInfo::Populate(
     }
   }
 
-  const base::Value* id_value = dict->FindKey("id");
+  const base::Value* id_value = dict.Find("id");
   if (!id_value) {
     return false;
   }
@@ -207,7 +206,7 @@ bool TargetInfo::Populate(
     out->id = *temp;
   }
 
-  const base::Value* tab_id_value = dict->FindKey("tabId");
+  const base::Value* tab_id_value = dict.Find("tabId");
   if (tab_id_value) {
     {
       auto temp = (*tab_id_value).GetIfInt();
@@ -219,7 +218,7 @@ bool TargetInfo::Populate(
     }
   }
 
-  const base::Value* extension_id_value = dict->FindKey("extensionId");
+  const base::Value* extension_id_value = dict.Find("extensionId");
   if (extension_id_value) {
     {
       auto* temp = (*extension_id_value).GetIfString();
@@ -231,7 +230,7 @@ bool TargetInfo::Populate(
     }
   }
 
-  const base::Value* attached_value = dict->FindKey("attached");
+  const base::Value* attached_value = dict.Find("attached");
   if (!attached_value) {
     return false;
   }
@@ -243,7 +242,7 @@ bool TargetInfo::Populate(
     out->attached = *temp;
   }
 
-  const base::Value* title_value = dict->FindKey("title");
+  const base::Value* title_value = dict.Find("title");
   if (!title_value) {
     return false;
   }
@@ -255,7 +254,7 @@ bool TargetInfo::Populate(
     out->title = *temp;
   }
 
-  const base::Value* url_value = dict->FindKey("url");
+  const base::Value* url_value = dict.Find("url");
   if (!url_value) {
     return false;
   }
@@ -267,7 +266,7 @@ bool TargetInfo::Populate(
     out->url = *temp;
   }
 
-  const base::Value* favicon_url_value = dict->FindKey("faviconUrl");
+  const base::Value* favicon_url_value = dict.Find("faviconUrl");
   if (favicon_url_value) {
     {
       auto* temp = (*favicon_url_value).GetIfString();
@@ -291,30 +290,29 @@ std::unique_ptr<TargetInfo> TargetInfo::FromValue(const base::Value& value) {
   return out;
 }
 
-std::unique_ptr<base::DictionaryValue> TargetInfo::ToValue() const {
-  auto to_value_result =
-      std::make_unique<base::DictionaryValue>();
+base::Value::Dict TargetInfo::ToValue() const {
+  base::Value::Dict to_value_result;
 
-  to_value_result->GetDict().Set("type", std::move(*std::make_unique<base::Value>(debugger::ToString(this->type))));
+  to_value_result.Set("type", debugger::ToString(this->type));
 
-  to_value_result->GetDict().Set("id", std::move(*std::make_unique<base::Value>(this->id)));
+  to_value_result.Set("id", this->id);
 
   if (this->tab_id) {
-    to_value_result->GetDict().Set("tabId", std::move(*std::make_unique<base::Value>(*this->tab_id)));
+    to_value_result.Set("tabId", *this->tab_id);
 
   }
   if (this->extension_id) {
-    to_value_result->GetDict().Set("extensionId", std::move(*std::make_unique<base::Value>(*this->extension_id)));
+    to_value_result.Set("extensionId", *this->extension_id);
 
   }
-  to_value_result->GetDict().Set("attached", std::move(*std::make_unique<base::Value>(this->attached)));
+  to_value_result.Set("attached", this->attached);
 
-  to_value_result->GetDict().Set("title", std::move(*std::make_unique<base::Value>(this->title)));
+  to_value_result.Set("title", this->title);
 
-  to_value_result->GetDict().Set("url", std::move(*std::make_unique<base::Value>(this->url)));
+  to_value_result.Set("url", this->url);
 
   if (this->favicon_url) {
-    to_value_result->GetDict().Set("faviconUrl", std::move(*std::make_unique<base::Value>(*this->favicon_url)));
+    to_value_result.Set("faviconUrl", *this->favicon_url);
 
   }
 
@@ -434,8 +432,8 @@ bool Params::CommandParams::Populate(
   if (!value.is_dict()) {
     return false;
   }
-  const auto* dict = static_cast<const base::DictionaryValue*>(&value);
-  out->additional_properties.MergeDictionary(dict);
+  const base::Value::Dict& dict = value.GetDict();
+  out->additional_properties.Merge(dict.Clone());
   return true;
 }
 
@@ -509,11 +507,10 @@ Results::Result::Result()
 Results::Result::~Result() = default;
 Results::Result::Result(Result&& rhs) = default;
 Results::Result& Results::Result::operator=(Result&& rhs) = default;
-std::unique_ptr<base::DictionaryValue> Results::Result::ToValue() const {
-  auto to_value_result =
-      std::make_unique<base::DictionaryValue>();
+base::Value::Dict Results::Result::ToValue() const {
+  base::Value::Dict to_value_result;
 
-  to_value_result->MergeDictionary(&additional_properties);
+  to_value_result.Merge(additional_properties.Clone());
 
   return to_value_result;
 }
@@ -522,7 +519,7 @@ std::unique_ptr<base::DictionaryValue> Results::Result::ToValue() const {
 base::Value::List Results::Create(const Result& result) {
   base::Value::List create_results;
   create_results.reserve(1);
-  create_results.Append(base::Value::FromUniquePtrValue((result).ToValue()));
+  create_results.Append((result).ToValue());
 
   return create_results;
 }
@@ -533,7 +530,7 @@ namespace GetTargets {
 base::Value::List Results::Create(const std::vector<TargetInfo>& result) {
   base::Value::List create_results;
   create_results.reserve(1);
-  create_results.Append(base::Value::FromUniquePtrValue(json_schema_compiler::util::CreateValueFromArray(result)));
+  create_results.Append(json_schema_compiler::util::CreateValueFromArray(result));
 
   return create_results;
 }
@@ -553,11 +550,10 @@ Params::Params()
 Params::~Params() = default;
 Params::Params(Params&& rhs) = default;
 Params& Params::operator=(Params&& rhs) = default;
-std::unique_ptr<base::DictionaryValue> Params::ToValue() const {
-  auto to_value_result =
-      std::make_unique<base::DictionaryValue>();
+base::Value::Dict Params::ToValue() const {
+  base::Value::Dict to_value_result;
 
-  to_value_result->MergeDictionary(&additional_properties);
+  to_value_result.Merge(additional_properties.Clone());
 
   return to_value_result;
 }
@@ -566,11 +562,11 @@ std::unique_ptr<base::DictionaryValue> Params::ToValue() const {
 base::Value::List Create(const Debuggee& source, const std::string& method, const Params& params) {
   base::Value::List create_results;
   create_results.reserve(3);
-  create_results.Append(base::Value::FromUniquePtrValue((source).ToValue()));
+  create_results.Append((source).ToValue());
 
-  create_results.Append(base::Value::FromUniquePtrValue(std::make_unique<base::Value>(method)));
+  create_results.Append(method);
 
-  create_results.Append(base::Value::FromUniquePtrValue((params).ToValue()));
+  create_results.Append((params).ToValue());
 
   return create_results;
 }
@@ -584,9 +580,9 @@ const char kEventName[] = "debugger.onDetach";
 base::Value::List Create(const Debuggee& source, const DetachReason& reason) {
   base::Value::List create_results;
   create_results.reserve(2);
-  create_results.Append(base::Value::FromUniquePtrValue((source).ToValue()));
+  create_results.Append((source).ToValue());
 
-  create_results.Append(base::Value::FromUniquePtrValue(std::make_unique<base::Value>(debugger::ToString(reason))));
+  create_results.Append(debugger::ToString(reason));
 
   return create_results;
 }

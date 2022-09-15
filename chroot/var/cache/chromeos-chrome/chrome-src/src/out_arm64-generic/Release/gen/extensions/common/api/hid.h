@@ -42,9 +42,9 @@ struct HidCollectionInfo {
   // Creates a HidCollectionInfo object from a base::Value, or NULL on failure.
   static std::unique_ptr<HidCollectionInfo> FromValue(const base::Value& value);
 
-  // Returns a new base::DictionaryValue representing the serialized form of
-  // this HidCollectionInfo object.
-  std::unique_ptr<base::DictionaryValue> ToValue() const;
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisHidCollectionInfo object.
+  base::Value::Dict ToValue() const;
 
   // HID usage page identifier.
   int usage_page;
@@ -72,9 +72,9 @@ struct HidDeviceInfo {
   // Creates a HidDeviceInfo object from a base::Value, or NULL on failure.
   static std::unique_ptr<HidDeviceInfo> FromValue(const base::Value& value);
 
-  // Returns a new base::DictionaryValue representing the serialized form of
-  // this HidDeviceInfo object.
-  std::unique_ptr<base::DictionaryValue> ToValue() const;
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisHidDeviceInfo object.
+  base::Value::Dict ToValue() const;
 
   // Opaque device ID.
   int device_id;
@@ -123,9 +123,9 @@ struct HidConnectInfo {
   // Creates a HidConnectInfo object from a base::Value, or NULL on failure.
   static std::unique_ptr<HidConnectInfo> FromValue(const base::Value& value);
 
-  // Returns a new base::DictionaryValue representing the serialized form of
-  // this HidConnectInfo object.
-  std::unique_ptr<base::DictionaryValue> ToValue() const;
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisHidConnectInfo object.
+  base::Value::Dict ToValue() const;
 
   // The opaque ID used to identify this connection in all other functions.
   int connection_id;
@@ -147,9 +147,9 @@ struct DeviceFilter {
   // Creates a DeviceFilter object from a base::Value, or NULL on failure.
   static std::unique_ptr<DeviceFilter> FromValue(const base::Value& value);
 
-  // Returns a new base::DictionaryValue representing the serialized form of
-  // this DeviceFilter object.
-  std::unique_ptr<base::DictionaryValue> ToValue() const;
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisDeviceFilter object.
+  base::Value::Dict ToValue() const;
 
   // Device vendor ID.
   absl::optional<int> vendor_id;
@@ -180,9 +180,9 @@ struct GetDevicesOptions {
   // Creates a GetDevicesOptions object from a base::Value, or NULL on failure.
   static std::unique_ptr<GetDevicesOptions> FromValue(const base::Value& value);
 
-  // Returns a new base::DictionaryValue representing the serialized form of
-  // this GetDevicesOptions object.
-  std::unique_ptr<base::DictionaryValue> ToValue() const;
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisGetDevicesOptions object.
+  base::Value::Dict ToValue() const;
 
   absl::optional<int> vendor_id;
 
@@ -210,9 +210,9 @@ struct DevicePromptOptions {
   // failure.
   static std::unique_ptr<DevicePromptOptions> FromValue(const base::Value& value);
 
-  // Returns a new base::DictionaryValue representing the serialized form of
-  // this DevicePromptOptions object.
-  std::unique_ptr<base::DictionaryValue> ToValue() const;
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisDevicePromptOptions object.
+  base::Value::Dict ToValue() const;
 
   // Allow the user to select multiple devices.
   absl::optional<bool> multiple;

@@ -110,9 +110,9 @@ struct StorageChange {
   // Creates a StorageChange object from a base::Value, or NULL on failure.
   static std::unique_ptr<StorageChange> FromValue(const base::Value& value);
 
-  // Returns a new base::DictionaryValue representing the serialized form of
-  // this StorageChange object.
-  std::unique_ptr<base::DictionaryValue> ToValue() const;
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisStorageChange object.
+  base::Value::Dict ToValue() const;
 
   // The old value of the item, if there was an old value.
   absl::optional<base::Value> old_value;
@@ -161,7 +161,7 @@ struct Params {
       // successfully populated.
       static bool Populate(const base::Value& value, Object* out);
 
-      base::DictionaryValue additional_properties;
+      base::Value::Dict additional_properties;
     };
 
 
@@ -194,11 +194,11 @@ struct Items {
   Items(Items&& rhs);
   Items& operator=(Items&& rhs);
 
-  // Returns a new base::DictionaryValue representing the serialized form of
-  // this Items object.
-  std::unique_ptr<base::DictionaryValue> ToValue() const;
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisItems object.
+  base::Value::Dict ToValue() const;
 
-  base::DictionaryValue additional_properties;
+  base::Value::Dict additional_properties;
 };
 
 
@@ -279,7 +279,7 @@ struct Params {
     // successfully populated.
     static bool Populate(const base::Value& value, Items* out);
 
-    base::DictionaryValue additional_properties;
+    base::Value::Dict additional_properties;
   };
 
 
@@ -415,9 +415,9 @@ struct Changes {
   Changes(Changes&& rhs);
   Changes& operator=(Changes&& rhs);
 
-  // Returns a new base::DictionaryValue representing the serialized form of
-  // this Changes object.
-  std::unique_ptr<base::DictionaryValue> ToValue() const;
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisChanges object.
+  base::Value::Dict ToValue() const;
 
   std::map<std::string, StorageChange> additional_properties;
 };

@@ -102,8 +102,8 @@ bool TaskInfo::Populate(
   if (!value.is_dict()) {
     return false;
   }
-  const auto* dict = static_cast<const base::DictionaryValue*>(&value);
-  const base::Value* title_value = dict->FindKey("title");
+  const base::Value::Dict& dict = value.GetDict();
+  const base::Value* title_value = dict.Find("title");
   if (!title_value) {
     return false;
   }
@@ -115,7 +115,7 @@ bool TaskInfo::Populate(
     out->title = *temp;
   }
 
-  const base::Value* tab_id_value = dict->FindKey("tabId");
+  const base::Value* tab_id_value = dict.Find("tabId");
   if (tab_id_value) {
     {
       auto temp = (*tab_id_value).GetIfInt();
@@ -139,14 +139,13 @@ std::unique_ptr<TaskInfo> TaskInfo::FromValue(const base::Value& value) {
   return out;
 }
 
-std::unique_ptr<base::DictionaryValue> TaskInfo::ToValue() const {
-  auto to_value_result =
-      std::make_unique<base::DictionaryValue>();
+base::Value::Dict TaskInfo::ToValue() const {
+  base::Value::Dict to_value_result;
 
-  to_value_result->GetDict().Set("title", std::move(*std::make_unique<base::Value>(this->title)));
+  to_value_result.Set("title", this->title);
 
   if (this->tab_id) {
-    to_value_result->GetDict().Set("tabId", std::move(*std::make_unique<base::Value>(*this->tab_id)));
+    to_value_result.Set("tabId", *this->tab_id);
 
   }
 
@@ -167,8 +166,8 @@ bool Cache::Populate(
   if (!value.is_dict()) {
     return false;
   }
-  const auto* dict = static_cast<const base::DictionaryValue*>(&value);
-  const base::Value* size_value = dict->FindKey("size");
+  const base::Value::Dict& dict = value.GetDict();
+  const base::Value* size_value = dict.Find("size");
   if (!size_value) {
     return false;
   }
@@ -180,7 +179,7 @@ bool Cache::Populate(
     out->size = *temp;
   }
 
-  const base::Value* live_size_value = dict->FindKey("liveSize");
+  const base::Value* live_size_value = dict.Find("liveSize");
   if (!live_size_value) {
     return false;
   }
@@ -204,13 +203,12 @@ std::unique_ptr<Cache> Cache::FromValue(const base::Value& value) {
   return out;
 }
 
-std::unique_ptr<base::DictionaryValue> Cache::ToValue() const {
-  auto to_value_result =
-      std::make_unique<base::DictionaryValue>();
+base::Value::Dict Cache::ToValue() const {
+  base::Value::Dict to_value_result;
 
-  to_value_result->GetDict().Set("size", std::move(*std::make_unique<base::Value>(this->size)));
+  to_value_result.Set("size", this->size);
 
-  to_value_result->GetDict().Set("liveSize", std::move(*std::make_unique<base::Value>(this->live_size)));
+  to_value_result.Set("liveSize", this->live_size);
 
 
   return to_value_result;
@@ -232,8 +230,8 @@ bool Process::Populate(
   if (!value.is_dict()) {
     return false;
   }
-  const auto* dict = static_cast<const base::DictionaryValue*>(&value);
-  const base::Value* id_value = dict->FindKey("id");
+  const base::Value::Dict& dict = value.GetDict();
+  const base::Value* id_value = dict.Find("id");
   if (!id_value) {
     return false;
   }
@@ -245,7 +243,7 @@ bool Process::Populate(
     out->id = *temp;
   }
 
-  const base::Value* os_process_id_value = dict->FindKey("osProcessId");
+  const base::Value* os_process_id_value = dict.Find("osProcessId");
   if (!os_process_id_value) {
     return false;
   }
@@ -257,7 +255,7 @@ bool Process::Populate(
     out->os_process_id = *temp;
   }
 
-  const base::Value* type_value = dict->FindKey("type");
+  const base::Value* type_value = dict.Find("type");
   if (!type_value) {
     return false;
   }
@@ -272,7 +270,7 @@ bool Process::Populate(
     }
   }
 
-  const base::Value* profile_value = dict->FindKey("profile");
+  const base::Value* profile_value = dict.Find("profile");
   if (!profile_value) {
     return false;
   }
@@ -284,7 +282,7 @@ bool Process::Populate(
     out->profile = *temp;
   }
 
-  const base::Value* nacl_debug_port_value = dict->FindKey("naclDebugPort");
+  const base::Value* nacl_debug_port_value = dict.Find("naclDebugPort");
   if (!nacl_debug_port_value) {
     return false;
   }
@@ -296,7 +294,7 @@ bool Process::Populate(
     out->nacl_debug_port = *temp;
   }
 
-  const base::Value* tasks_value = dict->FindKey("tasks");
+  const base::Value* tasks_value = dict.Find("tasks");
   if (!tasks_value) {
     return false;
   }
@@ -311,7 +309,7 @@ bool Process::Populate(
     }
   }
 
-  const base::Value* cpu_value = dict->FindKey("cpu");
+  const base::Value* cpu_value = dict.Find("cpu");
   if (cpu_value) {
     {
       auto temp = (*cpu_value).GetIfDouble();
@@ -323,7 +321,7 @@ bool Process::Populate(
     }
   }
 
-  const base::Value* network_value = dict->FindKey("network");
+  const base::Value* network_value = dict.Find("network");
   if (network_value) {
     {
       auto temp = (*network_value).GetIfDouble();
@@ -335,7 +333,7 @@ bool Process::Populate(
     }
   }
 
-  const base::Value* private_memory_value = dict->FindKey("privateMemory");
+  const base::Value* private_memory_value = dict.Find("privateMemory");
   if (private_memory_value) {
     {
       auto temp = (*private_memory_value).GetIfDouble();
@@ -347,7 +345,7 @@ bool Process::Populate(
     }
   }
 
-  const base::Value* js_memory_allocated_value = dict->FindKey("jsMemoryAllocated");
+  const base::Value* js_memory_allocated_value = dict.Find("jsMemoryAllocated");
   if (js_memory_allocated_value) {
     {
       auto temp = (*js_memory_allocated_value).GetIfDouble();
@@ -359,7 +357,7 @@ bool Process::Populate(
     }
   }
 
-  const base::Value* js_memory_used_value = dict->FindKey("jsMemoryUsed");
+  const base::Value* js_memory_used_value = dict.Find("jsMemoryUsed");
   if (js_memory_used_value) {
     {
       auto temp = (*js_memory_used_value).GetIfDouble();
@@ -371,7 +369,7 @@ bool Process::Populate(
     }
   }
 
-  const base::Value* sqlite_memory_value = dict->FindKey("sqliteMemory");
+  const base::Value* sqlite_memory_value = dict.Find("sqliteMemory");
   if (sqlite_memory_value) {
     {
       auto temp = (*sqlite_memory_value).GetIfDouble();
@@ -383,7 +381,7 @@ bool Process::Populate(
     }
   }
 
-  const base::Value* image_cache_value = dict->FindKey("imageCache");
+  const base::Value* image_cache_value = dict.Find("imageCache");
   if (image_cache_value) {
     {
       if (!(*image_cache_value).is_dict()) {
@@ -400,7 +398,7 @@ bool Process::Populate(
     }
   }
 
-  const base::Value* script_cache_value = dict->FindKey("scriptCache");
+  const base::Value* script_cache_value = dict.Find("scriptCache");
   if (script_cache_value) {
     {
       if (!(*script_cache_value).is_dict()) {
@@ -417,7 +415,7 @@ bool Process::Populate(
     }
   }
 
-  const base::Value* css_cache_value = dict->FindKey("cssCache");
+  const base::Value* css_cache_value = dict.Find("cssCache");
   if (css_cache_value) {
     {
       if (!(*css_cache_value).is_dict()) {
@@ -446,56 +444,55 @@ std::unique_ptr<Process> Process::FromValue(const base::Value& value) {
   return out;
 }
 
-std::unique_ptr<base::DictionaryValue> Process::ToValue() const {
-  auto to_value_result =
-      std::make_unique<base::DictionaryValue>();
+base::Value::Dict Process::ToValue() const {
+  base::Value::Dict to_value_result;
 
-  to_value_result->GetDict().Set("id", std::move(*std::make_unique<base::Value>(this->id)));
+  to_value_result.Set("id", this->id);
 
-  to_value_result->GetDict().Set("osProcessId", std::move(*std::make_unique<base::Value>(this->os_process_id)));
+  to_value_result.Set("osProcessId", this->os_process_id);
 
-  to_value_result->GetDict().Set("type", std::move(*std::make_unique<base::Value>(processes::ToString(this->type))));
+  to_value_result.Set("type", processes::ToString(this->type));
 
-  to_value_result->GetDict().Set("profile", std::move(*std::make_unique<base::Value>(this->profile)));
+  to_value_result.Set("profile", this->profile);
 
-  to_value_result->GetDict().Set("naclDebugPort", std::move(*std::make_unique<base::Value>(this->nacl_debug_port)));
+  to_value_result.Set("naclDebugPort", this->nacl_debug_port);
 
-  to_value_result->GetDict().Set("tasks", std::move(*json_schema_compiler::util::CreateValueFromArray(this->tasks)));
+  to_value_result.Set("tasks", json_schema_compiler::util::CreateValueFromArray(this->tasks));
 
   if (this->cpu) {
-    to_value_result->GetDict().Set("cpu", std::move(*std::make_unique<base::Value>(*this->cpu)));
+    to_value_result.Set("cpu", *this->cpu);
 
   }
   if (this->network) {
-    to_value_result->GetDict().Set("network", std::move(*std::make_unique<base::Value>(*this->network)));
+    to_value_result.Set("network", *this->network);
 
   }
   if (this->private_memory) {
-    to_value_result->GetDict().Set("privateMemory", std::move(*std::make_unique<base::Value>(*this->private_memory)));
+    to_value_result.Set("privateMemory", *this->private_memory);
 
   }
   if (this->js_memory_allocated) {
-    to_value_result->GetDict().Set("jsMemoryAllocated", std::move(*std::make_unique<base::Value>(*this->js_memory_allocated)));
+    to_value_result.Set("jsMemoryAllocated", *this->js_memory_allocated);
 
   }
   if (this->js_memory_used) {
-    to_value_result->GetDict().Set("jsMemoryUsed", std::move(*std::make_unique<base::Value>(*this->js_memory_used)));
+    to_value_result.Set("jsMemoryUsed", *this->js_memory_used);
 
   }
   if (this->sqlite_memory) {
-    to_value_result->GetDict().Set("sqliteMemory", std::move(*std::make_unique<base::Value>(*this->sqlite_memory)));
+    to_value_result.Set("sqliteMemory", *this->sqlite_memory);
 
   }
   if (this->image_cache) {
-    to_value_result->GetDict().Set("imageCache", std::move(*(this->image_cache)->ToValue()));
+    to_value_result.Set("imageCache", (this->image_cache)->ToValue());
 
   }
   if (this->script_cache) {
-    to_value_result->GetDict().Set("scriptCache", std::move(*(this->script_cache)->ToValue()));
+    to_value_result.Set("scriptCache", (this->script_cache)->ToValue());
 
   }
   if (this->css_cache) {
-    to_value_result->GetDict().Set("cssCache", std::move(*(this->css_cache)->ToValue()));
+    to_value_result.Set("cssCache", (this->css_cache)->ToValue());
 
   }
 
@@ -542,7 +539,7 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
 base::Value::List Results::Create(int process_id) {
   base::Value::List create_results;
   create_results.reserve(1);
-  create_results.Append(base::Value::FromUniquePtrValue(std::make_unique<base::Value>(process_id)));
+  create_results.Append(process_id);
 
   return create_results;
 }
@@ -582,7 +579,7 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
 base::Value::List Results::Create(bool did_terminate) {
   base::Value::List create_results;
   create_results.reserve(1);
-  create_results.Append(base::Value::FromUniquePtrValue(std::make_unique<base::Value>(did_terminate)));
+  create_results.Append(did_terminate);
 
   return create_results;
 }
@@ -674,11 +671,10 @@ Results::Processes::Processes()
 Results::Processes::~Processes() = default;
 Results::Processes::Processes(Processes&& rhs) = default;
 Results::Processes& Results::Processes::operator=(Processes&& rhs) = default;
-std::unique_ptr<base::DictionaryValue> Results::Processes::ToValue() const {
-  auto to_value_result =
-      std::make_unique<base::DictionaryValue>();
+base::Value::Dict Results::Processes::ToValue() const {
+  base::Value::Dict to_value_result;
 
-  to_value_result->MergeDictionary(&additional_properties);
+  to_value_result.Merge(additional_properties.Clone());
 
   return to_value_result;
 }
@@ -687,7 +683,7 @@ std::unique_ptr<base::DictionaryValue> Results::Processes::ToValue() const {
 base::Value::List Results::Create(const Processes& processes) {
   base::Value::List create_results;
   create_results.reserve(1);
-  create_results.Append(base::Value::FromUniquePtrValue((processes).ToValue()));
+  create_results.Append((processes).ToValue());
 
   return create_results;
 }
@@ -707,11 +703,10 @@ Processes::Processes()
 Processes::~Processes() = default;
 Processes::Processes(Processes&& rhs) = default;
 Processes& Processes::operator=(Processes&& rhs) = default;
-std::unique_ptr<base::DictionaryValue> Processes::ToValue() const {
-  auto to_value_result =
-      std::make_unique<base::DictionaryValue>();
+base::Value::Dict Processes::ToValue() const {
+  base::Value::Dict to_value_result;
 
-  to_value_result->MergeDictionary(&additional_properties);
+  to_value_result.Merge(additional_properties.Clone());
 
   return to_value_result;
 }
@@ -720,7 +715,7 @@ std::unique_ptr<base::DictionaryValue> Processes::ToValue() const {
 base::Value::List Create(const Processes& processes) {
   base::Value::List create_results;
   create_results.reserve(1);
-  create_results.Append(base::Value::FromUniquePtrValue((processes).ToValue()));
+  create_results.Append((processes).ToValue());
 
   return create_results;
 }
@@ -737,11 +732,10 @@ Processes::Processes()
 Processes::~Processes() = default;
 Processes::Processes(Processes&& rhs) = default;
 Processes& Processes::operator=(Processes&& rhs) = default;
-std::unique_ptr<base::DictionaryValue> Processes::ToValue() const {
-  auto to_value_result =
-      std::make_unique<base::DictionaryValue>();
+base::Value::Dict Processes::ToValue() const {
+  base::Value::Dict to_value_result;
 
-  to_value_result->MergeDictionary(&additional_properties);
+  to_value_result.Merge(additional_properties.Clone());
 
   return to_value_result;
 }
@@ -750,7 +744,7 @@ std::unique_ptr<base::DictionaryValue> Processes::ToValue() const {
 base::Value::List Create(const Processes& processes) {
   base::Value::List create_results;
   create_results.reserve(1);
-  create_results.Append(base::Value::FromUniquePtrValue((processes).ToValue()));
+  create_results.Append((processes).ToValue());
 
   return create_results;
 }
@@ -764,7 +758,7 @@ const char kEventName[] = "processes.onCreated";
 base::Value::List Create(const Process& process) {
   base::Value::List create_results;
   create_results.reserve(1);
-  create_results.Append(base::Value::FromUniquePtrValue((process).ToValue()));
+  create_results.Append((process).ToValue());
 
   return create_results;
 }
@@ -778,7 +772,7 @@ const char kEventName[] = "processes.onUnresponsive";
 base::Value::List Create(const Process& process) {
   base::Value::List create_results;
   create_results.reserve(1);
-  create_results.Append(base::Value::FromUniquePtrValue((process).ToValue()));
+  create_results.Append((process).ToValue());
 
   return create_results;
 }
@@ -792,11 +786,11 @@ const char kEventName[] = "processes.onExited";
 base::Value::List Create(int process_id, int exit_type, int exit_code) {
   base::Value::List create_results;
   create_results.reserve(3);
-  create_results.Append(base::Value::FromUniquePtrValue(std::make_unique<base::Value>(process_id)));
+  create_results.Append(process_id);
 
-  create_results.Append(base::Value::FromUniquePtrValue(std::make_unique<base::Value>(exit_type)));
+  create_results.Append(exit_type);
 
-  create_results.Append(base::Value::FromUniquePtrValue(std::make_unique<base::Value>(exit_code)));
+  create_results.Append(exit_code);
 
   return create_results;
 }

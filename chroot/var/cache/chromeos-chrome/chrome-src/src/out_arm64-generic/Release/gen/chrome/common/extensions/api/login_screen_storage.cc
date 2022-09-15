@@ -122,7 +122,7 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
 base::Value::List Results::Create(const std::string& data) {
   base::Value::List create_results;
   create_results.reserve(1);
-  create_results.Append(base::Value::FromUniquePtrValue(std::make_unique<base::Value>(data)));
+  create_results.Append(data);
 
   return create_results;
 }
@@ -186,7 +186,7 @@ namespace RetrieveCredentials {
 base::Value::List Results::Create(const std::string& data) {
   base::Value::List create_results;
   create_results.reserve(1);
-  create_results.Append(base::Value::FromUniquePtrValue(std::make_unique<base::Value>(data)));
+  create_results.Append(data);
 
   return create_results;
 }

@@ -5306,7 +5306,7 @@ class ChromeWebAppBadNavigate : public ::protozero::Message {
   }
 };
 
-class ChromeSqlDiagnostics_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/9, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
+class ChromeSqlDiagnostics_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/10, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
  public:
   ChromeSqlDiagnostics_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit ChromeSqlDiagnostics_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
@@ -5329,6 +5329,8 @@ class ChromeSqlDiagnostics_Decoder : public ::protozero::TypedProtoDecoder</*MAX
   bool has_valid_header() const { return at<8>().as_bool(); }
   bool has_has_valid_schema() const { return at<9>().valid(); }
   bool has_valid_schema() const { return at<9>().as_bool(); }
+  bool has_error_message() const { return at<10>().valid(); }
+  ::protozero::ConstChars error_message() const { return at<10>().as_string(); }
 };
 
 class ChromeSqlDiagnostics : public ::protozero::Message {
@@ -5344,6 +5346,7 @@ class ChromeSqlDiagnostics : public ::protozero::Message {
     kSchemaOtherRowNamesFieldNumber = 7,
     kHasValidHeaderFieldNumber = 8,
     kHasValidSchemaFieldNumber = 9,
+    kErrorMessageFieldNumber = 10,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.ChromeSqlDiagnostics"; }
 
@@ -5588,6 +5591,37 @@ class ChromeSqlDiagnostics : public ::protozero::Message {
     // method based on the type of the field.
     ::protozero::internal::FieldWriter<
       ::protozero::proto_utils::ProtoSchemaType::kBool>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_ErrorMessage =
+    ::protozero::proto_utils::FieldMetadata<
+      10,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kString,
+      std::string,
+      ChromeSqlDiagnostics>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_ErrorMessage kErrorMessage() { return {}; }
+  void set_error_message(const char* data, size_t size) {
+    AppendBytes(FieldMetadata_ErrorMessage::kFieldId, data, size);
+  }
+  void set_error_message(::protozero::ConstChars chars) {
+    AppendBytes(FieldMetadata_ErrorMessage::kFieldId, chars.data, chars.size);
+  }
+  void set_error_message(std::string value) {
+    static constexpr uint32_t field_id = FieldMetadata_ErrorMessage::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kString>
         ::Append(*this, field_id, value);
   }
 };

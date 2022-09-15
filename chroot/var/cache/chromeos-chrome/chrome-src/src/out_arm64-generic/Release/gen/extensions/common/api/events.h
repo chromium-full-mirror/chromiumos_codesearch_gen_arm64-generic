@@ -43,9 +43,9 @@ struct Rule {
   // Creates a Rule object from a base::Value, or NULL on failure.
   static std::unique_ptr<Rule> FromValue(const base::Value& value);
 
-  // Returns a new base::DictionaryValue representing the serialized form of
-  // this Rule object.
-  std::unique_ptr<base::DictionaryValue> ToValue() const;
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisRule object.
+  base::Value::Dict ToValue() const;
 
   // Optional identifier that allows referencing this rule.
   absl::optional<std::string> id;

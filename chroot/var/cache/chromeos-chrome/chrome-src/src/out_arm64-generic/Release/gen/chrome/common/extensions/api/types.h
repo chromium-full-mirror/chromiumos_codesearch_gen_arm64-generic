@@ -86,9 +86,9 @@ struct ChromeSetting {
   // Creates a ChromeSetting object from a base::Value, or NULL on failure.
   static std::unique_ptr<ChromeSetting> FromValue(const base::Value& value);
 
-  // Returns a new base::DictionaryValue representing the serialized form of
-  // this ChromeSetting object.
-  std::unique_ptr<base::DictionaryValue> ToValue() const;
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisChromeSetting object.
+  base::Value::Dict ToValue() const;
 
 };
 

@@ -53,9 +53,9 @@ struct CreateOptions {
   // Creates a CreateOptions object from a base::Value, or NULL on failure.
   static std::unique_ptr<CreateOptions> FromValue(const base::Value& value);
 
-  // Returns a new base::DictionaryValue representing the serialized form of
-  // this CreateOptions object.
-  std::unique_ptr<base::DictionaryValue> ToValue() const;
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisCreateOptions object.
+  base::Value::Dict ToValue() const;
 
 };
 
@@ -74,9 +74,9 @@ struct CreateInfo {
   // Creates a CreateInfo object from a base::Value, or NULL on failure.
   static std::unique_ptr<CreateInfo> FromValue(const base::Value& value);
 
-  // Returns a new base::DictionaryValue representing the serialized form of
-  // this CreateInfo object.
-  std::unique_ptr<base::DictionaryValue> ToValue() const;
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisCreateInfo object.
+  base::Value::Dict ToValue() const;
 
   // The id of the newly created socket.
   int socket_id;
@@ -98,9 +98,9 @@ struct AcceptInfo {
   // Creates a AcceptInfo object from a base::Value, or NULL on failure.
   static std::unique_ptr<AcceptInfo> FromValue(const base::Value& value);
 
-  // Returns a new base::DictionaryValue representing the serialized form of
-  // this AcceptInfo object.
-  std::unique_ptr<base::DictionaryValue> ToValue() const;
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisAcceptInfo object.
+  base::Value::Dict ToValue() const;
 
   int result_code;
 
@@ -124,9 +124,9 @@ struct ReadInfo {
   // Creates a ReadInfo object from a base::Value, or NULL on failure.
   static std::unique_ptr<ReadInfo> FromValue(const base::Value& value);
 
-  // Returns a new base::DictionaryValue representing the serialized form of
-  // this ReadInfo object.
-  std::unique_ptr<base::DictionaryValue> ToValue() const;
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisReadInfo object.
+  base::Value::Dict ToValue() const;
 
   // The resultCode returned from the underlying read() call.
   int result_code;
@@ -150,9 +150,9 @@ struct WriteInfo {
   // Creates a WriteInfo object from a base::Value, or NULL on failure.
   static std::unique_ptr<WriteInfo> FromValue(const base::Value& value);
 
-  // Returns a new base::DictionaryValue representing the serialized form of
-  // this WriteInfo object.
-  std::unique_ptr<base::DictionaryValue> ToValue() const;
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisWriteInfo object.
+  base::Value::Dict ToValue() const;
 
   // The number of bytes sent, or a negative error code.
   int bytes_written;
@@ -174,9 +174,9 @@ struct RecvFromInfo {
   // Creates a RecvFromInfo object from a base::Value, or NULL on failure.
   static std::unique_ptr<RecvFromInfo> FromValue(const base::Value& value);
 
-  // Returns a new base::DictionaryValue representing the serialized form of
-  // this RecvFromInfo object.
-  std::unique_ptr<base::DictionaryValue> ToValue() const;
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisRecvFromInfo object.
+  base::Value::Dict ToValue() const;
 
   // The resultCode returned from the underlying recvfrom() call.
   int result_code;
@@ -205,9 +205,9 @@ struct SocketInfo {
   // Creates a SocketInfo object from a base::Value, or NULL on failure.
   static std::unique_ptr<SocketInfo> FromValue(const base::Value& value);
 
-  // Returns a new base::DictionaryValue representing the serialized form of
-  // this SocketInfo object.
-  std::unique_ptr<base::DictionaryValue> ToValue() const;
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisSocketInfo object.
+  base::Value::Dict ToValue() const;
 
   // The type of the passed socket. This will be <code>tcp</code> or
   // <code>udp</code>.
@@ -254,9 +254,9 @@ struct NetworkInterface {
   // Creates a NetworkInterface object from a base::Value, or NULL on failure.
   static std::unique_ptr<NetworkInterface> FromValue(const base::Value& value);
 
-  // Returns a new base::DictionaryValue representing the serialized form of
-  // this NetworkInterface object.
-  std::unique_ptr<base::DictionaryValue> ToValue() const;
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisNetworkInterface object.
+  base::Value::Dict ToValue() const;
 
   // The underlying name of the adapter. On *nix, this will typically be "eth0",
   // "lo", etc.
@@ -286,9 +286,9 @@ struct TLSVersionConstraints {
   // failure.
   static std::unique_ptr<TLSVersionConstraints> FromValue(const base::Value& value);
 
-  // Returns a new base::DictionaryValue representing the serialized form of
-  // this TLSVersionConstraints object.
-  std::unique_ptr<base::DictionaryValue> ToValue() const;
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisTLSVersionConstraints object.
+  base::Value::Dict ToValue() const;
 
   // The minimum and maximum acceptable versions of TLS. These will be
   // <code>tls1</code>, <code>tls1.1</code>, <code>tls1.2</code>, or
@@ -314,9 +314,9 @@ struct SecureOptions {
   // Creates a SecureOptions object from a base::Value, or NULL on failure.
   static std::unique_ptr<SecureOptions> FromValue(const base::Value& value);
 
-  // Returns a new base::DictionaryValue representing the serialized form of
-  // this SecureOptions object.
-  std::unique_ptr<base::DictionaryValue> ToValue() const;
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisSecureOptions object.
+  base::Value::Dict ToValue() const;
 
   std::unique_ptr<TLSVersionConstraints> tls_version;
 

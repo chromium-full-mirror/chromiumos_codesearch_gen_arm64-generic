@@ -43,9 +43,9 @@ struct Debuggee {
   // Creates a Debuggee object from a base::Value, or NULL on failure.
   static std::unique_ptr<Debuggee> FromValue(const base::Value& value);
 
-  // Returns a new base::DictionaryValue representing the serialized form of
-  // this Debuggee object.
-  std::unique_ptr<base::DictionaryValue> ToValue() const;
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisDebuggee object.
+  base::Value::Dict ToValue() const;
 
   // The id of the tab which you intend to debug.
   absl::optional<int> tab_id;
@@ -102,9 +102,9 @@ struct TargetInfo {
   // Creates a TargetInfo object from a base::Value, or NULL on failure.
   static std::unique_ptr<TargetInfo> FromValue(const base::Value& value);
 
-  // Returns a new base::DictionaryValue representing the serialized form of
-  // this TargetInfo object.
-  std::unique_ptr<base::DictionaryValue> ToValue() const;
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisTargetInfo object.
+  base::Value::Dict ToValue() const;
 
   // Target type.
   TargetInfoType type;
@@ -211,7 +211,7 @@ struct Params {
     // was successfully populated.
     static bool Populate(const base::Value& value, CommandParams* out);
 
-    base::DictionaryValue additional_properties;
+    base::Value::Dict additional_properties;
   };
 
 
@@ -245,11 +245,11 @@ struct Result {
   Result(Result&& rhs);
   Result& operator=(Result&& rhs);
 
-  // Returns a new base::DictionaryValue representing the serialized form of
-  // this Result object.
-  std::unique_ptr<base::DictionaryValue> ToValue() const;
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisResult object.
+  base::Value::Dict ToValue() const;
 
-  base::DictionaryValue additional_properties;
+  base::Value::Dict additional_properties;
 };
 
 
@@ -290,11 +290,11 @@ struct Params {
   Params(Params&& rhs);
   Params& operator=(Params&& rhs);
 
-  // Returns a new base::DictionaryValue representing the serialized form of
-  // this Params object.
-  std::unique_ptr<base::DictionaryValue> ToValue() const;
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisParams object.
+  base::Value::Dict ToValue() const;
 
-  base::DictionaryValue additional_properties;
+  base::Value::Dict additional_properties;
 };
 
 

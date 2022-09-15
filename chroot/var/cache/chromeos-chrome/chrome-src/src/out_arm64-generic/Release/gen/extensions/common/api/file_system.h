@@ -42,9 +42,9 @@ struct AcceptOption {
   // Creates a AcceptOption object from a base::Value, or NULL on failure.
   static std::unique_ptr<AcceptOption> FromValue(const base::Value& value);
 
-  // Returns a new base::DictionaryValue representing the serialized form of
-  // this AcceptOption object.
-  std::unique_ptr<base::DictionaryValue> ToValue() const;
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisAcceptOption object.
+  base::Value::Dict ToValue() const;
 
   // This is the optional text description for this option. If not present, a
   // description will be automatically generated; typically containing an expanded
@@ -88,9 +88,9 @@ struct ChooseEntryOptions {
   // Creates a ChooseEntryOptions object from a base::Value, or NULL on failure.
   static std::unique_ptr<ChooseEntryOptions> FromValue(const base::Value& value);
 
-  // Returns a new base::DictionaryValue representing the serialized form of
-  // this ChooseEntryOptions object.
-  std::unique_ptr<base::DictionaryValue> ToValue() const;
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisChooseEntryOptions object.
+  base::Value::Dict ToValue() const;
 
   // Type of the prompt to show. The default is 'openFile'.
   ChooseEntryType type;
@@ -132,9 +132,9 @@ struct RequestFileSystemOptions {
   // failure.
   static std::unique_ptr<RequestFileSystemOptions> FromValue(const base::Value& value);
 
-  // Returns a new base::DictionaryValue representing the serialized form of
-  // this RequestFileSystemOptions object.
-  std::unique_ptr<base::DictionaryValue> ToValue() const;
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisRequestFileSystemOptions object.
+  base::Value::Dict ToValue() const;
 
   // The ID of the requested volume.
   std::string volume_id;
@@ -160,9 +160,9 @@ struct Volume {
   // Creates a Volume object from a base::Value, or NULL on failure.
   static std::unique_ptr<Volume> FromValue(const base::Value& value);
 
-  // Returns a new base::DictionaryValue representing the serialized form of
-  // this Volume object.
-  std::unique_ptr<base::DictionaryValue> ToValue() const;
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisVolume object.
+  base::Value::Dict ToValue() const;
 
   std::string volume_id;
 
@@ -186,9 +186,9 @@ struct VolumeListChangedEvent {
   // failure.
   static std::unique_ptr<VolumeListChangedEvent> FromValue(const base::Value& value);
 
-  // Returns a new base::DictionaryValue representing the serialized form of
-  // this VolumeListChangedEvent object.
-  std::unique_ptr<base::DictionaryValue> ToValue() const;
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisVolumeListChangedEvent object.
+  base::Value::Dict ToValue() const;
 
   std::vector<Volume> volumes;
 
@@ -219,7 +219,7 @@ struct Params {
     // successfully populated.
     static bool Populate(const base::Value& value, Entry* out);
 
-    base::DictionaryValue additional_properties;
+    base::Value::Dict additional_properties;
   };
 
 
@@ -257,7 +257,7 @@ struct Params {
     // successfully populated.
     static bool Populate(const base::Value& value, Entry* out);
 
-    base::DictionaryValue additional_properties;
+    base::Value::Dict additional_properties;
   };
 
 
@@ -278,11 +278,11 @@ struct Entry {
   Entry(Entry&& rhs);
   Entry& operator=(Entry&& rhs);
 
-  // Returns a new base::DictionaryValue representing the serialized form of
-  // this Entry object.
-  std::unique_ptr<base::DictionaryValue> ToValue() const;
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisEntry object.
+  base::Value::Dict ToValue() const;
 
-  base::DictionaryValue additional_properties;
+  base::Value::Dict additional_properties;
 };
 
 
@@ -311,7 +311,7 @@ struct Params {
     // successfully populated.
     static bool Populate(const base::Value& value, Entry* out);
 
-    base::DictionaryValue additional_properties;
+    base::Value::Dict additional_properties;
   };
 
 
@@ -354,11 +354,11 @@ struct Entry {
   Entry(Entry&& rhs);
   Entry& operator=(Entry&& rhs);
 
-  // Returns a new base::DictionaryValue representing the serialized form of
-  // this Entry object.
-  std::unique_ptr<base::DictionaryValue> ToValue() const;
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisEntry object.
+  base::Value::Dict ToValue() const;
 
-  base::DictionaryValue additional_properties;
+  base::Value::Dict additional_properties;
 };
 
 struct FileEntriesType {
@@ -369,11 +369,11 @@ struct FileEntriesType {
   FileEntriesType(FileEntriesType&& rhs);
   FileEntriesType& operator=(FileEntriesType&& rhs);
 
-  // Returns a new base::DictionaryValue representing the serialized form of
-  // this FileEntriesType object.
-  std::unique_ptr<base::DictionaryValue> ToValue() const;
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisFileEntriesType object.
+  base::Value::Dict ToValue() const;
 
-  base::DictionaryValue additional_properties;
+  base::Value::Dict additional_properties;
 };
 
 
@@ -408,11 +408,11 @@ struct Entry {
   Entry(Entry&& rhs);
   Entry& operator=(Entry&& rhs);
 
-  // Returns a new base::DictionaryValue representing the serialized form of
-  // this Entry object.
-  std::unique_ptr<base::DictionaryValue> ToValue() const;
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisEntry object.
+  base::Value::Dict ToValue() const;
 
-  base::DictionaryValue additional_properties;
+  base::Value::Dict additional_properties;
 };
 
 
@@ -463,7 +463,7 @@ struct Params {
     // successfully populated.
     static bool Populate(const base::Value& value, Entry* out);
 
-    base::DictionaryValue additional_properties;
+    base::Value::Dict additional_properties;
   };
 
 
@@ -501,11 +501,11 @@ struct FileSystem {
   FileSystem(FileSystem&& rhs);
   FileSystem& operator=(FileSystem&& rhs);
 
-  // Returns a new base::DictionaryValue representing the serialized form of
-  // this FileSystem object.
-  std::unique_ptr<base::DictionaryValue> ToValue() const;
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisFileSystem object.
+  base::Value::Dict ToValue() const;
 
-  base::DictionaryValue additional_properties;
+  base::Value::Dict additional_properties;
 };
 
 

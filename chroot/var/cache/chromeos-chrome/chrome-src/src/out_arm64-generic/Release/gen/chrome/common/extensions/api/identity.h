@@ -42,9 +42,9 @@ struct AccountInfo {
   // Creates a AccountInfo object from a base::Value, or NULL on failure.
   static std::unique_ptr<AccountInfo> FromValue(const base::Value& value);
 
-  // Returns a new base::DictionaryValue representing the serialized form of
-  // this AccountInfo object.
-  std::unique_ptr<base::DictionaryValue> ToValue() const;
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisAccountInfo object.
+  base::Value::Dict ToValue() const;
 
   // A unique identifier for the account. This ID will not change for the lifetime
   // of the account.
@@ -78,9 +78,9 @@ struct ProfileDetails {
   // Creates a ProfileDetails object from a base::Value, or NULL on failure.
   static std::unique_ptr<ProfileDetails> FromValue(const base::Value& value);
 
-  // Returns a new base::DictionaryValue representing the serialized form of
-  // this ProfileDetails object.
-  std::unique_ptr<base::DictionaryValue> ToValue() const;
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisProfileDetails object.
+  base::Value::Dict ToValue() const;
 
   // A status of the primary account signed into a profile whose
   // <code>ProfileUserInfo</code> should be returned. Defaults to
@@ -104,9 +104,9 @@ struct ProfileUserInfo {
   // Creates a ProfileUserInfo object from a base::Value, or NULL on failure.
   static std::unique_ptr<ProfileUserInfo> FromValue(const base::Value& value);
 
-  // Returns a new base::DictionaryValue representing the serialized form of
-  // this ProfileUserInfo object.
-  std::unique_ptr<base::DictionaryValue> ToValue() const;
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisProfileUserInfo object.
+  base::Value::Dict ToValue() const;
 
   // An email address for the user account signed into the current profile. Empty
   // if the user is not signed in or the <code>identity.email</code> manifest
@@ -135,9 +135,9 @@ struct TokenDetails {
   // Creates a TokenDetails object from a base::Value, or NULL on failure.
   static std::unique_ptr<TokenDetails> FromValue(const base::Value& value);
 
-  // Returns a new base::DictionaryValue representing the serialized form of
-  // this TokenDetails object.
-  std::unique_ptr<base::DictionaryValue> ToValue() const;
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisTokenDetails object.
+  base::Value::Dict ToValue() const;
 
   // Fetching a token may require the user to sign-in to Chrome, or approve the
   // application's requested scopes. If the interactive flag is <code>true</code>,
@@ -179,9 +179,9 @@ struct InvalidTokenDetails {
   // failure.
   static std::unique_ptr<InvalidTokenDetails> FromValue(const base::Value& value);
 
-  // Returns a new base::DictionaryValue representing the serialized form of
-  // this InvalidTokenDetails object.
-  std::unique_ptr<base::DictionaryValue> ToValue() const;
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisInvalidTokenDetails object.
+  base::Value::Dict ToValue() const;
 
   // The specific token that should be removed from the cache.
   std::string token;
@@ -203,9 +203,9 @@ struct WebAuthFlowDetails {
   // Creates a WebAuthFlowDetails object from a base::Value, or NULL on failure.
   static std::unique_ptr<WebAuthFlowDetails> FromValue(const base::Value& value);
 
-  // Returns a new base::DictionaryValue representing the serialized form of
-  // this WebAuthFlowDetails object.
-  std::unique_ptr<base::DictionaryValue> ToValue() const;
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisWebAuthFlowDetails object.
+  base::Value::Dict ToValue() const;
 
   // The URL that initiates the auth flow.
   std::string url;
@@ -237,9 +237,9 @@ struct GetAuthTokenResult {
   // Creates a GetAuthTokenResult object from a base::Value, or NULL on failure.
   static std::unique_ptr<GetAuthTokenResult> FromValue(const base::Value& value);
 
-  // Returns a new base::DictionaryValue representing the serialized form of
-  // this GetAuthTokenResult object.
-  std::unique_ptr<base::DictionaryValue> ToValue() const;
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisGetAuthTokenResult object.
+  base::Value::Dict ToValue() const;
 
   // The specific token associated with the request.
   absl::optional<std::string> token;

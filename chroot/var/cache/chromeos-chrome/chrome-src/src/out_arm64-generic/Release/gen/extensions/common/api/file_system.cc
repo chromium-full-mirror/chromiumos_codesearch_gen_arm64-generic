@@ -44,8 +44,8 @@ bool AcceptOption::Populate(
   if (!value.is_dict()) {
     return false;
   }
-  const auto* dict = static_cast<const base::DictionaryValue*>(&value);
-  const base::Value* description_value = dict->FindKey("description");
+  const base::Value::Dict& dict = value.GetDict();
+  const base::Value* description_value = dict.Find("description");
   if (description_value) {
     {
       auto* temp = (*description_value).GetIfString();
@@ -57,7 +57,7 @@ bool AcceptOption::Populate(
     }
   }
 
-  const base::Value* mime_types_value = dict->FindKey("mimeTypes");
+  const base::Value* mime_types_value = dict.Find("mimeTypes");
   if (mime_types_value) {
     {
       if (!(*mime_types_value).is_list()) {
@@ -71,7 +71,7 @@ bool AcceptOption::Populate(
     }
   }
 
-  const base::Value* extensions_value = dict->FindKey("extensions");
+  const base::Value* extensions_value = dict.Find("extensions");
   if (extensions_value) {
     {
       if (!(*extensions_value).is_list()) {
@@ -97,20 +97,19 @@ std::unique_ptr<AcceptOption> AcceptOption::FromValue(const base::Value& value) 
   return out;
 }
 
-std::unique_ptr<base::DictionaryValue> AcceptOption::ToValue() const {
-  auto to_value_result =
-      std::make_unique<base::DictionaryValue>();
+base::Value::Dict AcceptOption::ToValue() const {
+  base::Value::Dict to_value_result;
 
   if (this->description) {
-    to_value_result->GetDict().Set("description", std::move(*std::make_unique<base::Value>(*this->description)));
+    to_value_result.Set("description", *this->description);
 
   }
   if (this->mime_types) {
-    to_value_result->GetDict().Set("mimeTypes", std::move(*json_schema_compiler::util::CreateValueFromArray(*this->mime_types)));
+    to_value_result.Set("mimeTypes", json_schema_compiler::util::CreateValueFromArray(*this->mime_types));
 
   }
   if (this->extensions) {
-    to_value_result->GetDict().Set("extensions", std::move(*json_schema_compiler::util::CreateValueFromArray(*this->extensions)));
+    to_value_result.Set("extensions", json_schema_compiler::util::CreateValueFromArray(*this->extensions));
 
   }
 
@@ -160,9 +159,9 @@ bool ChooseEntryOptions::Populate(
   if (!value.is_dict()) {
     return false;
   }
-  const auto* dict = static_cast<const base::DictionaryValue*>(&value);
+  const base::Value::Dict& dict = value.GetDict();
   out->type = CHOOSE_ENTRY_TYPE_NONE;
-  const base::Value* type_value = dict->FindKey("type");
+  const base::Value* type_value = dict.Find("type");
   if (type_value) {
     {
       const std::string* choose_entry_type_as_string = (*type_value).GetIfString();
@@ -178,7 +177,7 @@ bool ChooseEntryOptions::Populate(
     out->type = CHOOSE_ENTRY_TYPE_NONE;
   }
 
-  const base::Value* suggested_name_value = dict->FindKey("suggestedName");
+  const base::Value* suggested_name_value = dict.Find("suggestedName");
   if (suggested_name_value) {
     {
       auto* temp = (*suggested_name_value).GetIfString();
@@ -190,7 +189,7 @@ bool ChooseEntryOptions::Populate(
     }
   }
 
-  const base::Value* accepts_value = dict->FindKey("accepts");
+  const base::Value* accepts_value = dict.Find("accepts");
   if (accepts_value) {
     {
       if (!(*accepts_value).is_list()) {
@@ -204,7 +203,7 @@ bool ChooseEntryOptions::Populate(
     }
   }
 
-  const base::Value* accepts_all_types_value = dict->FindKey("acceptsAllTypes");
+  const base::Value* accepts_all_types_value = dict.Find("acceptsAllTypes");
   if (accepts_all_types_value) {
     {
       auto temp = (*accepts_all_types_value).GetIfBool();
@@ -216,7 +215,7 @@ bool ChooseEntryOptions::Populate(
     }
   }
 
-  const base::Value* accepts_multiple_value = dict->FindKey("acceptsMultiple");
+  const base::Value* accepts_multiple_value = dict.Find("acceptsMultiple");
   if (accepts_multiple_value) {
     {
       auto temp = (*accepts_multiple_value).GetIfBool();
@@ -240,28 +239,27 @@ std::unique_ptr<ChooseEntryOptions> ChooseEntryOptions::FromValue(const base::Va
   return out;
 }
 
-std::unique_ptr<base::DictionaryValue> ChooseEntryOptions::ToValue() const {
-  auto to_value_result =
-      std::make_unique<base::DictionaryValue>();
+base::Value::Dict ChooseEntryOptions::ToValue() const {
+  base::Value::Dict to_value_result;
 
   if (this->type != CHOOSE_ENTRY_TYPE_NONE) {
-    to_value_result->GetDict().Set("type", std::move(*std::make_unique<base::Value>(file_system::ToString(this->type))));
+    to_value_result.Set("type", file_system::ToString(this->type));
 
   }
   if (this->suggested_name) {
-    to_value_result->GetDict().Set("suggestedName", std::move(*std::make_unique<base::Value>(*this->suggested_name)));
+    to_value_result.Set("suggestedName", *this->suggested_name);
 
   }
   if (this->accepts) {
-    to_value_result->GetDict().Set("accepts", std::move(*json_schema_compiler::util::CreateValueFromArray(*this->accepts)));
+    to_value_result.Set("accepts", json_schema_compiler::util::CreateValueFromArray(*this->accepts));
 
   }
   if (this->accepts_all_types) {
-    to_value_result->GetDict().Set("acceptsAllTypes", std::move(*std::make_unique<base::Value>(*this->accepts_all_types)));
+    to_value_result.Set("acceptsAllTypes", *this->accepts_all_types);
 
   }
   if (this->accepts_multiple) {
-    to_value_result->GetDict().Set("acceptsMultiple", std::move(*std::make_unique<base::Value>(*this->accepts_multiple)));
+    to_value_result.Set("acceptsMultiple", *this->accepts_multiple);
 
   }
 
@@ -281,8 +279,8 @@ bool RequestFileSystemOptions::Populate(
   if (!value.is_dict()) {
     return false;
   }
-  const auto* dict = static_cast<const base::DictionaryValue*>(&value);
-  const base::Value* volume_id_value = dict->FindKey("volumeId");
+  const base::Value::Dict& dict = value.GetDict();
+  const base::Value* volume_id_value = dict.Find("volumeId");
   if (!volume_id_value) {
     return false;
   }
@@ -294,7 +292,7 @@ bool RequestFileSystemOptions::Populate(
     out->volume_id = *temp;
   }
 
-  const base::Value* writable_value = dict->FindKey("writable");
+  const base::Value* writable_value = dict.Find("writable");
   if (writable_value) {
     {
       auto temp = (*writable_value).GetIfBool();
@@ -318,14 +316,13 @@ std::unique_ptr<RequestFileSystemOptions> RequestFileSystemOptions::FromValue(co
   return out;
 }
 
-std::unique_ptr<base::DictionaryValue> RequestFileSystemOptions::ToValue() const {
-  auto to_value_result =
-      std::make_unique<base::DictionaryValue>();
+base::Value::Dict RequestFileSystemOptions::ToValue() const {
+  base::Value::Dict to_value_result;
 
-  to_value_result->GetDict().Set("volumeId", std::move(*std::make_unique<base::Value>(this->volume_id)));
+  to_value_result.Set("volumeId", this->volume_id);
 
   if (this->writable) {
-    to_value_result->GetDict().Set("writable", std::move(*std::make_unique<base::Value>(*this->writable)));
+    to_value_result.Set("writable", *this->writable);
 
   }
 
@@ -345,8 +342,8 @@ bool Volume::Populate(
   if (!value.is_dict()) {
     return false;
   }
-  const auto* dict = static_cast<const base::DictionaryValue*>(&value);
-  const base::Value* volume_id_value = dict->FindKey("volumeId");
+  const base::Value::Dict& dict = value.GetDict();
+  const base::Value* volume_id_value = dict.Find("volumeId");
   if (!volume_id_value) {
     return false;
   }
@@ -358,7 +355,7 @@ bool Volume::Populate(
     out->volume_id = *temp;
   }
 
-  const base::Value* writable_value = dict->FindKey("writable");
+  const base::Value* writable_value = dict.Find("writable");
   if (!writable_value) {
     return false;
   }
@@ -382,13 +379,12 @@ std::unique_ptr<Volume> Volume::FromValue(const base::Value& value) {
   return out;
 }
 
-std::unique_ptr<base::DictionaryValue> Volume::ToValue() const {
-  auto to_value_result =
-      std::make_unique<base::DictionaryValue>();
+base::Value::Dict Volume::ToValue() const {
+  base::Value::Dict to_value_result;
 
-  to_value_result->GetDict().Set("volumeId", std::move(*std::make_unique<base::Value>(this->volume_id)));
+  to_value_result.Set("volumeId", this->volume_id);
 
-  to_value_result->GetDict().Set("writable", std::move(*std::make_unique<base::Value>(this->writable)));
+  to_value_result.Set("writable", this->writable);
 
 
   return to_value_result;
@@ -407,8 +403,8 @@ bool VolumeListChangedEvent::Populate(
   if (!value.is_dict()) {
     return false;
   }
-  const auto* dict = static_cast<const base::DictionaryValue*>(&value);
-  const base::Value* volumes_value = dict->FindKey("volumes");
+  const base::Value::Dict& dict = value.GetDict();
+  const base::Value* volumes_value = dict.Find("volumes");
   if (!volumes_value) {
     return false;
   }
@@ -435,11 +431,10 @@ std::unique_ptr<VolumeListChangedEvent> VolumeListChangedEvent::FromValue(const 
   return out;
 }
 
-std::unique_ptr<base::DictionaryValue> VolumeListChangedEvent::ToValue() const {
-  auto to_value_result =
-      std::make_unique<base::DictionaryValue>();
+base::Value::Dict VolumeListChangedEvent::ToValue() const {
+  base::Value::Dict to_value_result;
 
-  to_value_result->GetDict().Set("volumes", std::move(*json_schema_compiler::util::CreateValueFromArray(this->volumes)));
+  to_value_result.Set("volumes", json_schema_compiler::util::CreateValueFromArray(this->volumes));
 
 
   return to_value_result;
@@ -465,8 +460,8 @@ bool Params::Entry::Populate(
   if (!value.is_dict()) {
     return false;
   }
-  const auto* dict = static_cast<const base::DictionaryValue*>(&value);
-  out->additional_properties.MergeDictionary(dict);
+  const base::Value::Dict& dict = value.GetDict();
+  out->additional_properties.Merge(dict.Clone());
   return true;
 }
 
@@ -504,7 +499,7 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
 base::Value::List Results::Create(const std::string& display_path) {
   base::Value::List create_results;
   create_results.reserve(1);
-  create_results.Append(base::Value::FromUniquePtrValue(std::make_unique<base::Value>(display_path)));
+  create_results.Append(display_path);
 
   return create_results;
 }
@@ -524,8 +519,8 @@ bool Params::Entry::Populate(
   if (!value.is_dict()) {
     return false;
   }
-  const auto* dict = static_cast<const base::DictionaryValue*>(&value);
-  out->additional_properties.MergeDictionary(dict);
+  const base::Value::Dict& dict = value.GetDict();
+  out->additional_properties.Merge(dict.Clone());
   return true;
 }
 
@@ -566,11 +561,10 @@ Results::Entry::Entry()
 Results::Entry::~Entry() = default;
 Results::Entry::Entry(Entry&& rhs) = default;
 Results::Entry& Results::Entry::operator=(Entry&& rhs) = default;
-std::unique_ptr<base::DictionaryValue> Results::Entry::ToValue() const {
-  auto to_value_result =
-      std::make_unique<base::DictionaryValue>();
+base::Value::Dict Results::Entry::ToValue() const {
+  base::Value::Dict to_value_result;
 
-  to_value_result->MergeDictionary(&additional_properties);
+  to_value_result.Merge(additional_properties.Clone());
 
   return to_value_result;
 }
@@ -579,7 +573,7 @@ std::unique_ptr<base::DictionaryValue> Results::Entry::ToValue() const {
 base::Value::List Results::Create(const Entry& entry) {
   base::Value::List create_results;
   create_results.reserve(1);
-  create_results.Append(base::Value::FromUniquePtrValue((entry).ToValue()));
+  create_results.Append((entry).ToValue());
 
   return create_results;
 }
@@ -599,8 +593,8 @@ bool Params::Entry::Populate(
   if (!value.is_dict()) {
     return false;
   }
-  const auto* dict = static_cast<const base::DictionaryValue*>(&value);
-  out->additional_properties.MergeDictionary(dict);
+  const base::Value::Dict& dict = value.GetDict();
+  out->additional_properties.Merge(dict.Clone());
   return true;
 }
 
@@ -638,7 +632,7 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
 base::Value::List Results::Create(bool is_writable) {
   base::Value::List create_results;
   create_results.reserve(1);
-  create_results.Append(base::Value::FromUniquePtrValue(std::make_unique<base::Value>(is_writable)));
+  create_results.Append(is_writable);
 
   return create_results;
 }
@@ -684,11 +678,10 @@ Results::Entry::Entry()
 Results::Entry::~Entry() = default;
 Results::Entry::Entry(Entry&& rhs) = default;
 Results::Entry& Results::Entry::operator=(Entry&& rhs) = default;
-std::unique_ptr<base::DictionaryValue> Results::Entry::ToValue() const {
-  auto to_value_result =
-      std::make_unique<base::DictionaryValue>();
+base::Value::Dict Results::Entry::ToValue() const {
+  base::Value::Dict to_value_result;
 
-  to_value_result->MergeDictionary(&additional_properties);
+  to_value_result.Merge(additional_properties.Clone());
 
   return to_value_result;
 }
@@ -700,11 +693,10 @@ Results::FileEntriesType::FileEntriesType()
 Results::FileEntriesType::~FileEntriesType() = default;
 Results::FileEntriesType::FileEntriesType(FileEntriesType&& rhs) = default;
 Results::FileEntriesType& Results::FileEntriesType::operator=(FileEntriesType&& rhs) = default;
-std::unique_ptr<base::DictionaryValue> Results::FileEntriesType::ToValue() const {
-  auto to_value_result =
-      std::make_unique<base::DictionaryValue>();
+base::Value::Dict Results::FileEntriesType::ToValue() const {
+  base::Value::Dict to_value_result;
 
-  to_value_result->MergeDictionary(&additional_properties);
+  to_value_result.Merge(additional_properties.Clone());
 
   return to_value_result;
 }
@@ -714,9 +706,9 @@ std::unique_ptr<base::DictionaryValue> Results::FileEntriesType::ToValue() const
 base::Value::List Results::Create(const Entry& entry, const std::vector<FileEntriesType>& file_entries) {
   base::Value::List create_results;
   create_results.reserve(2);
-  create_results.Append(base::Value::FromUniquePtrValue((entry).ToValue()));
+  create_results.Append((entry).ToValue());
 
-  create_results.Append(base::Value::FromUniquePtrValue(json_schema_compiler::util::CreateValueFromArray(file_entries)));
+  create_results.Append(json_schema_compiler::util::CreateValueFromArray(file_entries));
 
   return create_results;
 }
@@ -759,11 +751,10 @@ Results::Entry::Entry()
 Results::Entry::~Entry() = default;
 Results::Entry::Entry(Entry&& rhs) = default;
 Results::Entry& Results::Entry::operator=(Entry&& rhs) = default;
-std::unique_ptr<base::DictionaryValue> Results::Entry::ToValue() const {
-  auto to_value_result =
-      std::make_unique<base::DictionaryValue>();
+base::Value::Dict Results::Entry::ToValue() const {
+  base::Value::Dict to_value_result;
 
-  to_value_result->MergeDictionary(&additional_properties);
+  to_value_result.Merge(additional_properties.Clone());
 
   return to_value_result;
 }
@@ -772,7 +763,7 @@ std::unique_ptr<base::DictionaryValue> Results::Entry::ToValue() const {
 base::Value::List Results::Create(const Entry& entry) {
   base::Value::List create_results;
   create_results.reserve(1);
-  create_results.Append(base::Value::FromUniquePtrValue((entry).ToValue()));
+  create_results.Append((entry).ToValue());
 
   return create_results;
 }
@@ -812,7 +803,7 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
 base::Value::List Results::Create(bool is_restorable) {
   base::Value::List create_results;
   create_results.reserve(1);
-  create_results.Append(base::Value::FromUniquePtrValue(std::make_unique<base::Value>(is_restorable)));
+  create_results.Append(is_restorable);
 
   return create_results;
 }
@@ -832,8 +823,8 @@ bool Params::Entry::Populate(
   if (!value.is_dict()) {
     return false;
   }
-  const auto* dict = static_cast<const base::DictionaryValue*>(&value);
-  out->additional_properties.MergeDictionary(dict);
+  const base::Value::Dict& dict = value.GetDict();
+  out->additional_properties.Merge(dict.Clone());
   return true;
 }
 
@@ -908,11 +899,10 @@ Results::FileSystem::FileSystem()
 Results::FileSystem::~FileSystem() = default;
 Results::FileSystem::FileSystem(FileSystem&& rhs) = default;
 Results::FileSystem& Results::FileSystem::operator=(FileSystem&& rhs) = default;
-std::unique_ptr<base::DictionaryValue> Results::FileSystem::ToValue() const {
-  auto to_value_result =
-      std::make_unique<base::DictionaryValue>();
+base::Value::Dict Results::FileSystem::ToValue() const {
+  base::Value::Dict to_value_result;
 
-  to_value_result->MergeDictionary(&additional_properties);
+  to_value_result.Merge(additional_properties.Clone());
 
   return to_value_result;
 }
@@ -921,7 +911,7 @@ std::unique_ptr<base::DictionaryValue> Results::FileSystem::ToValue() const {
 base::Value::List Results::Create(const FileSystem& file_system) {
   base::Value::List create_results;
   create_results.reserve(1);
-  create_results.Append(base::Value::FromUniquePtrValue((file_system).ToValue()));
+  create_results.Append((file_system).ToValue());
 
   return create_results;
 }
@@ -932,7 +922,7 @@ namespace GetVolumeList {
 base::Value::List Results::Create(const std::vector<Volume>& volumes) {
   base::Value::List create_results;
   create_results.reserve(1);
-  create_results.Append(base::Value::FromUniquePtrValue(json_schema_compiler::util::CreateValueFromArray(volumes)));
+  create_results.Append(json_schema_compiler::util::CreateValueFromArray(volumes));
 
   return create_results;
 }
@@ -949,7 +939,7 @@ const char kEventName[] = "fileSystem.onVolumeListChanged";
 base::Value::List Create(const VolumeListChangedEvent& event) {
   base::Value::List create_results;
   create_results.reserve(1);
-  create_results.Append(base::Value::FromUniquePtrValue((event).ToValue()));
+  create_results.Append((event).ToValue());
 
   return create_results;
 }

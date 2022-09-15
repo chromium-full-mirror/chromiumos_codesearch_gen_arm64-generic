@@ -63,9 +63,9 @@ struct TaskInfo {
   // Creates a TaskInfo object from a base::Value, or NULL on failure.
   static std::unique_ptr<TaskInfo> FromValue(const base::Value& value);
 
-  // Returns a new base::DictionaryValue representing the serialized form of
-  // this TaskInfo object.
-  std::unique_ptr<base::DictionaryValue> ToValue() const;
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisTaskInfo object.
+  base::Value::Dict ToValue() const;
 
   // The title of the task.
   std::string title;
@@ -90,9 +90,9 @@ struct Cache {
   // Creates a Cache object from a base::Value, or NULL on failure.
   static std::unique_ptr<Cache> FromValue(const base::Value& value);
 
-  // Returns a new base::DictionaryValue representing the serialized form of
-  // this Cache object.
-  std::unique_ptr<base::DictionaryValue> ToValue() const;
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisCache object.
+  base::Value::Dict ToValue() const;
 
   // The size of the cache, in bytes.
   double size;
@@ -117,9 +117,9 @@ struct Process {
   // Creates a Process object from a base::Value, or NULL on failure.
   static std::unique_ptr<Process> FromValue(const base::Value& value);
 
-  // Returns a new base::DictionaryValue representing the serialized form of
-  // this Process object.
-  std::unique_ptr<base::DictionaryValue> ToValue() const;
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisProcess object.
+  base::Value::Dict ToValue() const;
 
   // Unique ID of the process provided by the browser.
   int id;
@@ -297,11 +297,11 @@ struct Processes {
   Processes(Processes&& rhs);
   Processes& operator=(Processes&& rhs);
 
-  // Returns a new base::DictionaryValue representing the serialized form of
-  // this Processes object.
-  std::unique_ptr<base::DictionaryValue> ToValue() const;
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisProcesses object.
+  base::Value::Dict ToValue() const;
 
-  base::DictionaryValue additional_properties;
+  base::Value::Dict additional_properties;
 };
 
 
@@ -333,11 +333,11 @@ struct Processes {
   Processes(Processes&& rhs);
   Processes& operator=(Processes&& rhs);
 
-  // Returns a new base::DictionaryValue representing the serialized form of
-  // this Processes object.
-  std::unique_ptr<base::DictionaryValue> ToValue() const;
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisProcesses object.
+  base::Value::Dict ToValue() const;
 
-  base::DictionaryValue additional_properties;
+  base::Value::Dict additional_properties;
 };
 
 
@@ -362,11 +362,11 @@ struct Processes {
   Processes(Processes&& rhs);
   Processes& operator=(Processes&& rhs);
 
-  // Returns a new base::DictionaryValue representing the serialized form of
-  // this Processes object.
-  std::unique_ptr<base::DictionaryValue> ToValue() const;
+  // Returns a new base::Value::Dict representing the serialized form of
+  // thisProcesses object.
+  base::Value::Dict ToValue() const;
 
-  base::DictionaryValue additional_properties;
+  base::Value::Dict additional_properties;
 };
 
 
