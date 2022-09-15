@@ -82,21 +82,6 @@ struct GuestMessageDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT GuestMessageDefaultTypeInternal _GuestMessage_default_instance_;
-constexpr NDProxyMessage::NDProxyMessage(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : ifname_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , ip6addr_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , type_(0)
-{}
-struct NDProxyMessageDefaultTypeInternal {
-  constexpr NDProxyMessageDefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~NDProxyMessageDefaultTypeInternal() {}
-  union {
-    NDProxyMessage _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT NDProxyMessageDefaultTypeInternal _NDProxyMessage_default_instance_;
 constexpr NDProxyControlMessage::NDProxyControlMessage(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : type_(0)
@@ -112,6 +97,45 @@ struct NDProxyControlMessageDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT NDProxyControlMessageDefaultTypeInternal _NDProxyControlMessage_default_instance_;
+constexpr NDProxySignalMessage::NDProxySignalMessage(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : _oneof_case_{}{}
+struct NDProxySignalMessageDefaultTypeInternal {
+  constexpr NDProxySignalMessageDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~NDProxySignalMessageDefaultTypeInternal() {}
+  union {
+    NDProxySignalMessage _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT NDProxySignalMessageDefaultTypeInternal _NDProxySignalMessage_default_instance_;
+constexpr NeighborDetectedSignal::NeighborDetectedSignal(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : ip_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , if_id_(0){}
+struct NeighborDetectedSignalDefaultTypeInternal {
+  constexpr NeighborDetectedSignalDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~NeighborDetectedSignalDefaultTypeInternal() {}
+  union {
+    NeighborDetectedSignal _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT NeighborDetectedSignalDefaultTypeInternal _NeighborDetectedSignal_default_instance_;
+constexpr RouterDetectedSignal::RouterDetectedSignal(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : ip_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , if_id_(0)
+  , prefix_len_(0){}
+struct RouterDetectedSignalDefaultTypeInternal {
+  constexpr RouterDetectedSignalDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~RouterDetectedSignalDefaultTypeInternal() {}
+  union {
+    RouterDetectedSignal _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT RouterDetectedSignalDefaultTypeInternal _RouterDetectedSignal_default_instance_;
 }  // namespace patchpanel
 namespace patchpanel {
 bool GuestMessage_GuestType_IsValid(int value) {
@@ -249,74 +273,6 @@ constexpr GuestMessage_GuestEvent GuestMessage::STOP;
 constexpr GuestMessage_GuestEvent GuestMessage::GuestEvent_MIN;
 constexpr GuestMessage_GuestEvent GuestMessage::GuestEvent_MAX;
 constexpr int GuestMessage::GuestEvent_ARRAYSIZE;
-#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
-bool NDProxyMessage_NDProxyEventType_IsValid(int value) {
-  switch (value) {
-    case 0:
-    case 1:
-    case 2:
-    case 3:
-      return true;
-    default:
-      return false;
-  }
-}
-
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> NDProxyMessage_NDProxyEventType_strings[4] = {};
-
-static const char NDProxyMessage_NDProxyEventType_names[] =
-  "ADD_ADDR"
-  "ADD_ROUTE"
-  "DEL_ADDR"
-  "UNKNOWN";
-
-static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry NDProxyMessage_NDProxyEventType_entries[] = {
-  { {NDProxyMessage_NDProxyEventType_names + 0, 8}, 2 },
-  { {NDProxyMessage_NDProxyEventType_names + 8, 9}, 1 },
-  { {NDProxyMessage_NDProxyEventType_names + 17, 8}, 3 },
-  { {NDProxyMessage_NDProxyEventType_names + 25, 7}, 0 },
-};
-
-static const int NDProxyMessage_NDProxyEventType_entries_by_number[] = {
-  3, // 0 -> UNKNOWN
-  1, // 1 -> ADD_ROUTE
-  0, // 2 -> ADD_ADDR
-  2, // 3 -> DEL_ADDR
-};
-
-const std::string& NDProxyMessage_NDProxyEventType_Name(
-    NDProxyMessage_NDProxyEventType value) {
-  static const bool dummy =
-      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
-          NDProxyMessage_NDProxyEventType_entries,
-          NDProxyMessage_NDProxyEventType_entries_by_number,
-          4, NDProxyMessage_NDProxyEventType_strings);
-  (void) dummy;
-  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
-      NDProxyMessage_NDProxyEventType_entries,
-      NDProxyMessage_NDProxyEventType_entries_by_number,
-      4, value);
-  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
-                     NDProxyMessage_NDProxyEventType_strings[idx].get();
-}
-bool NDProxyMessage_NDProxyEventType_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, NDProxyMessage_NDProxyEventType* value) {
-  int int_value;
-  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      NDProxyMessage_NDProxyEventType_entries, 4, name, &int_value);
-  if (success) {
-    *value = static_cast<NDProxyMessage_NDProxyEventType>(int_value);
-  }
-  return success;
-}
-#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
-constexpr NDProxyMessage_NDProxyEventType NDProxyMessage::UNKNOWN;
-constexpr NDProxyMessage_NDProxyEventType NDProxyMessage::ADD_ROUTE;
-constexpr NDProxyMessage_NDProxyEventType NDProxyMessage::ADD_ADDR;
-constexpr NDProxyMessage_NDProxyEventType NDProxyMessage::DEL_ADDR;
-constexpr NDProxyMessage_NDProxyEventType NDProxyMessage::NDProxyEventType_MIN;
-constexpr NDProxyMessage_NDProxyEventType NDProxyMessage::NDProxyEventType_MAX;
-constexpr int NDProxyMessage::NDProxyEventType_ARRAYSIZE;
 #endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 bool NDProxyControlMessage_NDProxyRequestType_IsValid(int value) {
   switch (value) {
@@ -1088,27 +1044,27 @@ std::string ControlMessage::GetTypeName() const {
 
 class FeedbackMessage::_Internal {
  public:
-  static const ::patchpanel::NDProxyMessage& ndproxy_message(const FeedbackMessage* msg);
+  static const ::patchpanel::NDProxySignalMessage& ndproxy_signal(const FeedbackMessage* msg);
 };
 
-const ::patchpanel::NDProxyMessage&
-FeedbackMessage::_Internal::ndproxy_message(const FeedbackMessage* msg) {
-  return *msg->message_type_.ndproxy_message_;
+const ::patchpanel::NDProxySignalMessage&
+FeedbackMessage::_Internal::ndproxy_signal(const FeedbackMessage* msg) {
+  return *msg->message_type_.ndproxy_signal_;
 }
-void FeedbackMessage::set_allocated_ndproxy_message(::patchpanel::NDProxyMessage* ndproxy_message) {
+void FeedbackMessage::set_allocated_ndproxy_signal(::patchpanel::NDProxySignalMessage* ndproxy_signal) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   clear_message_type();
-  if (ndproxy_message) {
+  if (ndproxy_signal) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::patchpanel::NDProxyMessage>::GetOwningArena(ndproxy_message);
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::patchpanel::NDProxySignalMessage>::GetOwningArena(ndproxy_signal);
     if (message_arena != submessage_arena) {
-      ndproxy_message = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, ndproxy_message, submessage_arena);
+      ndproxy_signal = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, ndproxy_signal, submessage_arena);
     }
-    set_has_ndproxy_message();
-    message_type_.ndproxy_message_ = ndproxy_message;
+    set_has_ndproxy_signal();
+    message_type_.ndproxy_signal_ = ndproxy_signal;
   }
-  // @@protoc_insertion_point(field_set_allocated:patchpanel.FeedbackMessage.ndproxy_message)
+  // @@protoc_insertion_point(field_set_allocated:patchpanel.FeedbackMessage.ndproxy_signal)
 }
 FeedbackMessage::FeedbackMessage(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
@@ -1124,8 +1080,8 @@ FeedbackMessage::FeedbackMessage(const FeedbackMessage& from)
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   clear_has_message_type();
   switch (from.message_type_case()) {
-    case kNdproxyMessage: {
-      _internal_mutable_ndproxy_message()->::patchpanel::NDProxyMessage::MergeFrom(from._internal_ndproxy_message());
+    case kNdproxySignal: {
+      _internal_mutable_ndproxy_signal()->::patchpanel::NDProxySignalMessage::MergeFrom(from._internal_ndproxy_signal());
       break;
     }
     case MESSAGE_TYPE_NOT_SET: {
@@ -1166,9 +1122,9 @@ void FeedbackMessage::SetCachedSize(int size) const {
 void FeedbackMessage::clear_message_type() {
 // @@protoc_insertion_point(one_of_clear_start:patchpanel.FeedbackMessage)
   switch (message_type_case()) {
-    case kNdproxyMessage: {
+    case kNdproxySignal: {
       if (GetArenaForAllocation() == nullptr) {
-        delete message_type_.ndproxy_message_;
+        delete message_type_.ndproxy_signal_;
       }
       break;
     }
@@ -1196,10 +1152,10 @@ const char* FeedbackMessage::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPAC
     uint32_t tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // .patchpanel.NDProxyMessage ndproxy_message = 1;
+      // .patchpanel.NDProxySignalMessage ndproxy_signal = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
-          ptr = ctx->ParseMessage(_internal_mutable_ndproxy_message(), ptr);
+          ptr = ctx->ParseMessage(_internal_mutable_ndproxy_signal(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -1233,12 +1189,12 @@ uint8_t* FeedbackMessage::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // .patchpanel.NDProxyMessage ndproxy_message = 1;
-  if (_internal_has_ndproxy_message()) {
+  // .patchpanel.NDProxySignalMessage ndproxy_signal = 1;
+  if (_internal_has_ndproxy_signal()) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
-        1, _Internal::ndproxy_message(this), target, stream);
+        1, _Internal::ndproxy_signal(this), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1258,11 +1214,11 @@ size_t FeedbackMessage::ByteSizeLong() const {
   (void) cached_has_bits;
 
   switch (message_type_case()) {
-    // .patchpanel.NDProxyMessage ndproxy_message = 1;
-    case kNdproxyMessage: {
+    // .patchpanel.NDProxySignalMessage ndproxy_signal = 1;
+    case kNdproxySignal: {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *message_type_.ndproxy_message_);
+          *message_type_.ndproxy_signal_);
       break;
     }
     case MESSAGE_TYPE_NOT_SET: {
@@ -1290,8 +1246,8 @@ void FeedbackMessage::MergeFrom(const FeedbackMessage& from) {
   (void) cached_has_bits;
 
   switch (from.message_type_case()) {
-    case kNdproxyMessage: {
-      _internal_mutable_ndproxy_message()->::patchpanel::NDProxyMessage::MergeFrom(from._internal_ndproxy_message());
+    case kNdproxySignal: {
+      _internal_mutable_ndproxy_signal()->::patchpanel::NDProxySignalMessage::MergeFrom(from._internal_ndproxy_signal());
       break;
     }
     case MESSAGE_TYPE_NOT_SET: {
@@ -1310,9 +1266,9 @@ void FeedbackMessage::CopyFrom(const FeedbackMessage& from) {
 
 bool FeedbackMessage::IsInitialized() const {
   switch (message_type_case()) {
-    case kNdproxyMessage: {
-      if (_internal_has_ndproxy_message()) {
-        if (!message_type_.ndproxy_message_->IsInitialized()) return false;
+    case kNdproxySignal: {
+      if (_internal_has_ndproxy_signal()) {
+        if (!message_type_.ndproxy_signal_->IsInitialized()) return false;
       }
       break;
     }
@@ -1994,329 +1950,6 @@ std::string GuestMessage::GetTypeName() const {
 
 // ===================================================================
 
-class NDProxyMessage::_Internal {
- public:
-  using HasBits = decltype(std::declval<NDProxyMessage>()._has_bits_);
-  static void set_has_type(HasBits* has_bits) {
-    (*has_bits)[0] |= 4u;
-  }
-  static void set_has_ifname(HasBits* has_bits) {
-    (*has_bits)[0] |= 1u;
-  }
-  static void set_has_ip6addr(HasBits* has_bits) {
-    (*has_bits)[0] |= 2u;
-  }
-  static bool MissingRequiredFields(const HasBits& has_bits) {
-    return ((has_bits[0] & 0x00000005) ^ 0x00000005) != 0;
-  }
-};
-
-NDProxyMessage::NDProxyMessage(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
-  // @@protoc_insertion_point(arena_constructor:patchpanel.NDProxyMessage)
-}
-NDProxyMessage::NDProxyMessage(const NDProxyMessage& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
-      _has_bits_(from._has_bits_) {
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  ifname_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    ifname_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_ifname()) {
-    ifname_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_ifname(), 
-      GetArenaForAllocation());
-  }
-  ip6addr_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-    ip6addr_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  if (from._internal_has_ip6addr()) {
-    ip6addr_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_ip6addr(), 
-      GetArenaForAllocation());
-  }
-  type_ = from.type_;
-  // @@protoc_insertion_point(copy_constructor:patchpanel.NDProxyMessage)
-}
-
-inline void NDProxyMessage::SharedCtor() {
-ifname_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  ifname_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-ip6addr_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  ip6addr_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
-#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-type_ = 0;
-}
-
-NDProxyMessage::~NDProxyMessage() {
-  // @@protoc_insertion_point(destructor:patchpanel.NDProxyMessage)
-  if (GetArenaForAllocation() != nullptr) return;
-  SharedDtor();
-  _internal_metadata_.Delete<std::string>();
-}
-
-inline void NDProxyMessage::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  ifname_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  ip6addr_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-}
-
-void NDProxyMessage::ArenaDtor(void* object) {
-  NDProxyMessage* _this = reinterpret_cast< NDProxyMessage* >(object);
-  (void)_this;
-}
-void NDProxyMessage::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
-void NDProxyMessage::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
-}
-
-void NDProxyMessage::Clear() {
-// @@protoc_insertion_point(message_clear_start:patchpanel.NDProxyMessage)
-  uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
-    if (cached_has_bits & 0x00000001u) {
-      ifname_.ClearNonDefaultToEmpty();
-    }
-    if (cached_has_bits & 0x00000002u) {
-      ip6addr_.ClearNonDefaultToEmpty();
-    }
-  }
-  type_ = 0;
-  _has_bits_.Clear();
-  _internal_metadata_.Clear<std::string>();
-}
-
-const char* NDProxyMessage::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  _Internal::HasBits has_bits{};
-  while (!ctx->Done(&ptr)) {
-    uint32_t tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    switch (tag >> 3) {
-      // required .patchpanel.NDProxyMessage.NDProxyEventType type = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
-          CHK_(ptr);
-          if (PROTOBUF_PREDICT_TRUE(::patchpanel::NDProxyMessage_NDProxyEventType_IsValid(val))) {
-            _internal_set_type(static_cast<::patchpanel::NDProxyMessage_NDProxyEventType>(val));
-          } else {
-            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(1, val, mutable_unknown_fields());
-          }
-        } else
-          goto handle_unusual;
-        continue;
-      // required string ifname = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
-          auto str = _internal_mutable_ifname();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // optional string ip6addr = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
-          auto str = _internal_mutable_ip6addr();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      default:
-        goto handle_unusual;
-    }  // switch
-  handle_unusual:
-    if ((tag == 0) || ((tag & 7) == 4)) {
-      CHK_(ptr);
-      ctx->SetLastTag(tag);
-      goto message_done;
-    }
-    ptr = UnknownFieldParse(
-        tag,
-        _internal_metadata_.mutable_unknown_fields<std::string>(),
-        ptr, ctx);
-    CHK_(ptr != nullptr);
-  }  // while
-message_done:
-  _has_bits_.Or(has_bits);
-  return ptr;
-failure:
-  ptr = nullptr;
-  goto message_done;
-#undef CHK_
-}
-
-uint8_t* NDProxyMessage::_InternalSerialize(
-    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:patchpanel.NDProxyMessage)
-  uint32_t cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  cached_has_bits = _has_bits_[0];
-  // required .patchpanel.NDProxyMessage.NDProxyEventType type = 1;
-  if (cached_has_bits & 0x00000004u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
-      1, this->_internal_type(), target);
-  }
-
-  // required string ifname = 2;
-  if (cached_has_bits & 0x00000001u) {
-    target = stream->WriteStringMaybeAliased(
-        2, this->_internal_ifname(), target);
-  }
-
-  // optional string ip6addr = 3;
-  if (cached_has_bits & 0x00000002u) {
-    target = stream->WriteStringMaybeAliased(
-        3, this->_internal_ip6addr(), target);
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
-        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
-  }
-  // @@protoc_insertion_point(serialize_to_array_end:patchpanel.NDProxyMessage)
-  return target;
-}
-
-size_t NDProxyMessage::RequiredFieldsByteSizeFallback() const {
-// @@protoc_insertion_point(required_fields_byte_size_fallback_start:patchpanel.NDProxyMessage)
-  size_t total_size = 0;
-
-  if (_internal_has_ifname()) {
-    // required string ifname = 2;
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_ifname());
-  }
-
-  if (_internal_has_type()) {
-    // required .patchpanel.NDProxyMessage.NDProxyEventType type = 1;
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_type());
-  }
-
-  return total_size;
-}
-size_t NDProxyMessage::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:patchpanel.NDProxyMessage)
-  size_t total_size = 0;
-
-  if (((_has_bits_[0] & 0x00000005) ^ 0x00000005) == 0) {  // All required fields are present.
-    // required string ifname = 2;
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_ifname());
-
-    // required .patchpanel.NDProxyMessage.NDProxyEventType type = 1;
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_type());
-
-  } else {
-    total_size += RequiredFieldsByteSizeFallback();
-  }
-  uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  // optional string ip6addr = 3;
-  cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000002u) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_ip6addr());
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
-}
-
-void NDProxyMessage::CheckTypeAndMergeFrom(
-    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const NDProxyMessage*>(
-      &from));
-}
-
-void NDProxyMessage::MergeFrom(const NDProxyMessage& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:patchpanel.NDProxyMessage)
-  GOOGLE_DCHECK_NE(&from, this);
-  uint32_t cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
-    if (cached_has_bits & 0x00000001u) {
-      _internal_set_ifname(from._internal_ifname());
-    }
-    if (cached_has_bits & 0x00000002u) {
-      _internal_set_ip6addr(from._internal_ip6addr());
-    }
-    if (cached_has_bits & 0x00000004u) {
-      type_ = from.type_;
-    }
-    _has_bits_[0] |= cached_has_bits;
-  }
-  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-}
-
-void NDProxyMessage::CopyFrom(const NDProxyMessage& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:patchpanel.NDProxyMessage)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool NDProxyMessage::IsInitialized() const {
-  if (_Internal::MissingRequiredFields(_has_bits_)) return false;
-  return true;
-}
-
-void NDProxyMessage::InternalSwap(NDProxyMessage* other) {
-  using std::swap;
-  auto* lhs_arena = GetArenaForAllocation();
-  auto* rhs_arena = other->GetArenaForAllocation();
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_has_bits_[0], other->_has_bits_[0]);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &ifname_, lhs_arena,
-      &other->ifname_, rhs_arena
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &ip6addr_, lhs_arena,
-      &other->ip6addr_, rhs_arena
-  );
-  swap(type_, other->type_);
-}
-
-std::string NDProxyMessage::GetTypeName() const {
-  return "patchpanel.NDProxyMessage";
-}
-
-
-// ===================================================================
-
 class NDProxyControlMessage::_Internal {
  public:
   using HasBits = decltype(std::declval<NDProxyControlMessage>()._has_bits_);
@@ -2600,6 +2233,892 @@ std::string NDProxyControlMessage::GetTypeName() const {
 }
 
 
+// ===================================================================
+
+class NDProxySignalMessage::_Internal {
+ public:
+  static const ::patchpanel::NeighborDetectedSignal& neighbor_detected_signal(const NDProxySignalMessage* msg);
+  static const ::patchpanel::RouterDetectedSignal& router_detected_signal(const NDProxySignalMessage* msg);
+};
+
+const ::patchpanel::NeighborDetectedSignal&
+NDProxySignalMessage::_Internal::neighbor_detected_signal(const NDProxySignalMessage* msg) {
+  return *msg->event_type_.neighbor_detected_signal_;
+}
+const ::patchpanel::RouterDetectedSignal&
+NDProxySignalMessage::_Internal::router_detected_signal(const NDProxySignalMessage* msg) {
+  return *msg->event_type_.router_detected_signal_;
+}
+void NDProxySignalMessage::set_allocated_neighbor_detected_signal(::patchpanel::NeighborDetectedSignal* neighbor_detected_signal) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  clear_event_type();
+  if (neighbor_detected_signal) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::patchpanel::NeighborDetectedSignal>::GetOwningArena(neighbor_detected_signal);
+    if (message_arena != submessage_arena) {
+      neighbor_detected_signal = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, neighbor_detected_signal, submessage_arena);
+    }
+    set_has_neighbor_detected_signal();
+    event_type_.neighbor_detected_signal_ = neighbor_detected_signal;
+  }
+  // @@protoc_insertion_point(field_set_allocated:patchpanel.NDProxySignalMessage.neighbor_detected_signal)
+}
+void NDProxySignalMessage::set_allocated_router_detected_signal(::patchpanel::RouterDetectedSignal* router_detected_signal) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  clear_event_type();
+  if (router_detected_signal) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::patchpanel::RouterDetectedSignal>::GetOwningArena(router_detected_signal);
+    if (message_arena != submessage_arena) {
+      router_detected_signal = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, router_detected_signal, submessage_arena);
+    }
+    set_has_router_detected_signal();
+    event_type_.router_detected_signal_ = router_detected_signal;
+  }
+  // @@protoc_insertion_point(field_set_allocated:patchpanel.NDProxySignalMessage.router_detected_signal)
+}
+NDProxySignalMessage::NDProxySignalMessage(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
+  // @@protoc_insertion_point(arena_constructor:patchpanel.NDProxySignalMessage)
+}
+NDProxySignalMessage::NDProxySignalMessage(const NDProxySignalMessage& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  clear_has_event_type();
+  switch (from.event_type_case()) {
+    case kNeighborDetectedSignal: {
+      _internal_mutable_neighbor_detected_signal()->::patchpanel::NeighborDetectedSignal::MergeFrom(from._internal_neighbor_detected_signal());
+      break;
+    }
+    case kRouterDetectedSignal: {
+      _internal_mutable_router_detected_signal()->::patchpanel::RouterDetectedSignal::MergeFrom(from._internal_router_detected_signal());
+      break;
+    }
+    case EVENT_TYPE_NOT_SET: {
+      break;
+    }
+  }
+  // @@protoc_insertion_point(copy_constructor:patchpanel.NDProxySignalMessage)
+}
+
+inline void NDProxySignalMessage::SharedCtor() {
+clear_has_event_type();
+}
+
+NDProxySignalMessage::~NDProxySignalMessage() {
+  // @@protoc_insertion_point(destructor:patchpanel.NDProxySignalMessage)
+  if (GetArenaForAllocation() != nullptr) return;
+  SharedDtor();
+  _internal_metadata_.Delete<std::string>();
+}
+
+inline void NDProxySignalMessage::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  if (has_event_type()) {
+    clear_event_type();
+  }
+}
+
+void NDProxySignalMessage::ArenaDtor(void* object) {
+  NDProxySignalMessage* _this = reinterpret_cast< NDProxySignalMessage* >(object);
+  (void)_this;
+}
+void NDProxySignalMessage::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void NDProxySignalMessage::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void NDProxySignalMessage::clear_event_type() {
+// @@protoc_insertion_point(one_of_clear_start:patchpanel.NDProxySignalMessage)
+  switch (event_type_case()) {
+    case kNeighborDetectedSignal: {
+      if (GetArenaForAllocation() == nullptr) {
+        delete event_type_.neighbor_detected_signal_;
+      }
+      break;
+    }
+    case kRouterDetectedSignal: {
+      if (GetArenaForAllocation() == nullptr) {
+        delete event_type_.router_detected_signal_;
+      }
+      break;
+    }
+    case EVENT_TYPE_NOT_SET: {
+      break;
+    }
+  }
+  _oneof_case_[0] = EVENT_TYPE_NOT_SET;
+}
+
+
+void NDProxySignalMessage::Clear() {
+// @@protoc_insertion_point(message_clear_start:patchpanel.NDProxySignalMessage)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  clear_event_type();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* NDProxySignalMessage::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // .patchpanel.NeighborDetectedSignal neighbor_detected_signal = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          ptr = ctx->ParseMessage(_internal_mutable_neighbor_detected_signal(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .patchpanel.RouterDetectedSignal router_detected_signal = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          ptr = ctx->ParseMessage(_internal_mutable_router_detected_signal(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* NDProxySignalMessage::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:patchpanel.NDProxySignalMessage)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  switch (event_type_case()) {
+    case kNeighborDetectedSignal: {
+      target = stream->EnsureSpace(target);
+      target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(
+          1, _Internal::neighbor_detected_signal(this), target, stream);
+      break;
+    }
+    case kRouterDetectedSignal: {
+      target = stream->EnsureSpace(target);
+      target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(
+          2, _Internal::router_detected_signal(this), target, stream);
+      break;
+    }
+    default: ;
+  }
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:patchpanel.NDProxySignalMessage)
+  return target;
+}
+
+size_t NDProxySignalMessage::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:patchpanel.NDProxySignalMessage)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  switch (event_type_case()) {
+    // .patchpanel.NeighborDetectedSignal neighbor_detected_signal = 1;
+    case kNeighborDetectedSignal: {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *event_type_.neighbor_detected_signal_);
+      break;
+    }
+    // .patchpanel.RouterDetectedSignal router_detected_signal = 2;
+    case kRouterDetectedSignal: {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *event_type_.router_detected_signal_);
+      break;
+    }
+    case EVENT_TYPE_NOT_SET: {
+      break;
+    }
+  }
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void NDProxySignalMessage::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const NDProxySignalMessage*>(
+      &from));
+}
+
+void NDProxySignalMessage::MergeFrom(const NDProxySignalMessage& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:patchpanel.NDProxySignalMessage)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  switch (from.event_type_case()) {
+    case kNeighborDetectedSignal: {
+      _internal_mutable_neighbor_detected_signal()->::patchpanel::NeighborDetectedSignal::MergeFrom(from._internal_neighbor_detected_signal());
+      break;
+    }
+    case kRouterDetectedSignal: {
+      _internal_mutable_router_detected_signal()->::patchpanel::RouterDetectedSignal::MergeFrom(from._internal_router_detected_signal());
+      break;
+    }
+    case EVENT_TYPE_NOT_SET: {
+      break;
+    }
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void NDProxySignalMessage::CopyFrom(const NDProxySignalMessage& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:patchpanel.NDProxySignalMessage)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool NDProxySignalMessage::IsInitialized() const {
+  switch (event_type_case()) {
+    case kNeighborDetectedSignal: {
+      if (_internal_has_neighbor_detected_signal()) {
+        if (!event_type_.neighbor_detected_signal_->IsInitialized()) return false;
+      }
+      break;
+    }
+    case kRouterDetectedSignal: {
+      if (_internal_has_router_detected_signal()) {
+        if (!event_type_.router_detected_signal_->IsInitialized()) return false;
+      }
+      break;
+    }
+    case EVENT_TYPE_NOT_SET: {
+      break;
+    }
+  }
+  return true;
+}
+
+void NDProxySignalMessage::InternalSwap(NDProxySignalMessage* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(event_type_, other->event_type_);
+  swap(_oneof_case_[0], other->_oneof_case_[0]);
+}
+
+std::string NDProxySignalMessage::GetTypeName() const {
+  return "patchpanel.NDProxySignalMessage";
+}
+
+
+// ===================================================================
+
+class NeighborDetectedSignal::_Internal {
+ public:
+  using HasBits = decltype(std::declval<NeighborDetectedSignal>()._has_bits_);
+  static void set_has_if_id(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
+  static void set_has_ip(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+  static bool MissingRequiredFields(const HasBits& has_bits) {
+    return ((has_bits[0] & 0x00000003) ^ 0x00000003) != 0;
+  }
+};
+
+NeighborDetectedSignal::NeighborDetectedSignal(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
+  // @@protoc_insertion_point(arena_constructor:patchpanel.NeighborDetectedSignal)
+}
+NeighborDetectedSignal::NeighborDetectedSignal(const NeighborDetectedSignal& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      _has_bits_(from._has_bits_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  ip_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    ip_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_ip()) {
+    ip_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_ip(), 
+      GetArenaForAllocation());
+  }
+  if_id_ = from.if_id_;
+  // @@protoc_insertion_point(copy_constructor:patchpanel.NeighborDetectedSignal)
+}
+
+inline void NeighborDetectedSignal::SharedCtor() {
+ip_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  ip_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+if_id_ = 0;
+}
+
+NeighborDetectedSignal::~NeighborDetectedSignal() {
+  // @@protoc_insertion_point(destructor:patchpanel.NeighborDetectedSignal)
+  if (GetArenaForAllocation() != nullptr) return;
+  SharedDtor();
+  _internal_metadata_.Delete<std::string>();
+}
+
+inline void NeighborDetectedSignal::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ip_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+void NeighborDetectedSignal::ArenaDtor(void* object) {
+  NeighborDetectedSignal* _this = reinterpret_cast< NeighborDetectedSignal* >(object);
+  (void)_this;
+}
+void NeighborDetectedSignal::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void NeighborDetectedSignal::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void NeighborDetectedSignal::Clear() {
+// @@protoc_insertion_point(message_clear_start:patchpanel.NeighborDetectedSignal)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    ip_.ClearNonDefaultToEmpty();
+  }
+  if_id_ = 0;
+  _has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* NeighborDetectedSignal::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // required int32 if_id = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _Internal::set_has_if_id(&has_bits);
+          if_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // required bytes ip = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          auto str = _internal_mutable_ip();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* NeighborDetectedSignal::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:patchpanel.NeighborDetectedSignal)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // required int32 if_id = 1;
+  if (cached_has_bits & 0x00000002u) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(1, this->_internal_if_id(), target);
+  }
+
+  // required bytes ip = 2;
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->WriteBytesMaybeAliased(
+        2, this->_internal_ip(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:patchpanel.NeighborDetectedSignal)
+  return target;
+}
+
+size_t NeighborDetectedSignal::RequiredFieldsByteSizeFallback() const {
+// @@protoc_insertion_point(required_fields_byte_size_fallback_start:patchpanel.NeighborDetectedSignal)
+  size_t total_size = 0;
+
+  if (_internal_has_ip()) {
+    // required bytes ip = 2;
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+        this->_internal_ip());
+  }
+
+  if (_internal_has_if_id()) {
+    // required int32 if_id = 1;
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_if_id());
+  }
+
+  return total_size;
+}
+size_t NeighborDetectedSignal::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:patchpanel.NeighborDetectedSignal)
+  size_t total_size = 0;
+
+  if (((_has_bits_[0] & 0x00000003) ^ 0x00000003) == 0) {  // All required fields are present.
+    // required bytes ip = 2;
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+        this->_internal_ip());
+
+    // required int32 if_id = 1;
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_if_id());
+
+  } else {
+    total_size += RequiredFieldsByteSizeFallback();
+  }
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void NeighborDetectedSignal::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const NeighborDetectedSignal*>(
+      &from));
+}
+
+void NeighborDetectedSignal::MergeFrom(const NeighborDetectedSignal& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:patchpanel.NeighborDetectedSignal)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = from._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      _internal_set_ip(from._internal_ip());
+    }
+    if (cached_has_bits & 0x00000002u) {
+      if_id_ = from.if_id_;
+    }
+    _has_bits_[0] |= cached_has_bits;
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void NeighborDetectedSignal::CopyFrom(const NeighborDetectedSignal& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:patchpanel.NeighborDetectedSignal)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool NeighborDetectedSignal::IsInitialized() const {
+  if (_Internal::MissingRequiredFields(_has_bits_)) return false;
+  return true;
+}
+
+void NeighborDetectedSignal::InternalSwap(NeighborDetectedSignal* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &ip_, lhs_arena,
+      &other->ip_, rhs_arena
+  );
+  swap(if_id_, other->if_id_);
+}
+
+std::string NeighborDetectedSignal::GetTypeName() const {
+  return "patchpanel.NeighborDetectedSignal";
+}
+
+
+// ===================================================================
+
+class RouterDetectedSignal::_Internal {
+ public:
+  using HasBits = decltype(std::declval<RouterDetectedSignal>()._has_bits_);
+  static void set_has_if_id(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
+  static void set_has_ip(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+  static void set_has_prefix_len(HasBits* has_bits) {
+    (*has_bits)[0] |= 4u;
+  }
+  static bool MissingRequiredFields(const HasBits& has_bits) {
+    return ((has_bits[0] & 0x00000007) ^ 0x00000007) != 0;
+  }
+};
+
+RouterDetectedSignal::RouterDetectedSignal(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
+  // @@protoc_insertion_point(arena_constructor:patchpanel.RouterDetectedSignal)
+}
+RouterDetectedSignal::RouterDetectedSignal(const RouterDetectedSignal& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      _has_bits_(from._has_bits_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  ip_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    ip_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_ip()) {
+    ip_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_ip(), 
+      GetArenaForAllocation());
+  }
+  ::memcpy(&if_id_, &from.if_id_,
+    static_cast<size_t>(reinterpret_cast<char*>(&prefix_len_) -
+    reinterpret_cast<char*>(&if_id_)) + sizeof(prefix_len_));
+  // @@protoc_insertion_point(copy_constructor:patchpanel.RouterDetectedSignal)
+}
+
+inline void RouterDetectedSignal::SharedCtor() {
+ip_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  ip_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&if_id_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&prefix_len_) -
+    reinterpret_cast<char*>(&if_id_)) + sizeof(prefix_len_));
+}
+
+RouterDetectedSignal::~RouterDetectedSignal() {
+  // @@protoc_insertion_point(destructor:patchpanel.RouterDetectedSignal)
+  if (GetArenaForAllocation() != nullptr) return;
+  SharedDtor();
+  _internal_metadata_.Delete<std::string>();
+}
+
+inline void RouterDetectedSignal::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  ip_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+void RouterDetectedSignal::ArenaDtor(void* object) {
+  RouterDetectedSignal* _this = reinterpret_cast< RouterDetectedSignal* >(object);
+  (void)_this;
+}
+void RouterDetectedSignal::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void RouterDetectedSignal::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void RouterDetectedSignal::Clear() {
+// @@protoc_insertion_point(message_clear_start:patchpanel.RouterDetectedSignal)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    ip_.ClearNonDefaultToEmpty();
+  }
+  if (cached_has_bits & 0x00000006u) {
+    ::memset(&if_id_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&prefix_len_) -
+        reinterpret_cast<char*>(&if_id_)) + sizeof(prefix_len_));
+  }
+  _has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* RouterDetectedSignal::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // required int32 if_id = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _Internal::set_has_if_id(&has_bits);
+          if_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // required bytes ip = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          auto str = _internal_mutable_ip();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // required int32 prefix_len = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+          _Internal::set_has_prefix_len(&has_bits);
+          prefix_len_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* RouterDetectedSignal::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:patchpanel.RouterDetectedSignal)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // required int32 if_id = 1;
+  if (cached_has_bits & 0x00000002u) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(1, this->_internal_if_id(), target);
+  }
+
+  // required bytes ip = 2;
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->WriteBytesMaybeAliased(
+        2, this->_internal_ip(), target);
+  }
+
+  // required int32 prefix_len = 3;
+  if (cached_has_bits & 0x00000004u) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(3, this->_internal_prefix_len(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:patchpanel.RouterDetectedSignal)
+  return target;
+}
+
+size_t RouterDetectedSignal::RequiredFieldsByteSizeFallback() const {
+// @@protoc_insertion_point(required_fields_byte_size_fallback_start:patchpanel.RouterDetectedSignal)
+  size_t total_size = 0;
+
+  if (_internal_has_ip()) {
+    // required bytes ip = 2;
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+        this->_internal_ip());
+  }
+
+  if (_internal_has_if_id()) {
+    // required int32 if_id = 1;
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_if_id());
+  }
+
+  if (_internal_has_prefix_len()) {
+    // required int32 prefix_len = 3;
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_prefix_len());
+  }
+
+  return total_size;
+}
+size_t RouterDetectedSignal::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:patchpanel.RouterDetectedSignal)
+  size_t total_size = 0;
+
+  if (((_has_bits_[0] & 0x00000007) ^ 0x00000007) == 0) {  // All required fields are present.
+    // required bytes ip = 2;
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+        this->_internal_ip());
+
+    // required int32 if_id = 1;
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_if_id());
+
+    // required int32 prefix_len = 3;
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_prefix_len());
+
+  } else {
+    total_size += RequiredFieldsByteSizeFallback();
+  }
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void RouterDetectedSignal::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const RouterDetectedSignal*>(
+      &from));
+}
+
+void RouterDetectedSignal::MergeFrom(const RouterDetectedSignal& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:patchpanel.RouterDetectedSignal)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = from._has_bits_[0];
+  if (cached_has_bits & 0x00000007u) {
+    if (cached_has_bits & 0x00000001u) {
+      _internal_set_ip(from._internal_ip());
+    }
+    if (cached_has_bits & 0x00000002u) {
+      if_id_ = from.if_id_;
+    }
+    if (cached_has_bits & 0x00000004u) {
+      prefix_len_ = from.prefix_len_;
+    }
+    _has_bits_[0] |= cached_has_bits;
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void RouterDetectedSignal::CopyFrom(const RouterDetectedSignal& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:patchpanel.RouterDetectedSignal)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool RouterDetectedSignal::IsInitialized() const {
+  if (_Internal::MissingRequiredFields(_has_bits_)) return false;
+  return true;
+}
+
+void RouterDetectedSignal::InternalSwap(RouterDetectedSignal* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &ip_, lhs_arena,
+      &other->ip_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(RouterDetectedSignal, prefix_len_)
+      + sizeof(RouterDetectedSignal::prefix_len_)
+      - PROTOBUF_FIELD_OFFSET(RouterDetectedSignal, if_id_)>(
+          reinterpret_cast<char*>(&if_id_),
+          reinterpret_cast<char*>(&other->if_id_));
+}
+
+std::string RouterDetectedSignal::GetTypeName() const {
+  return "patchpanel.RouterDetectedSignal";
+}
+
+
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace patchpanel
 PROTOBUF_NAMESPACE_OPEN
@@ -2618,11 +3137,17 @@ template<> PROTOBUF_NOINLINE ::patchpanel::DeviceMessage* Arena::CreateMaybeMess
 template<> PROTOBUF_NOINLINE ::patchpanel::GuestMessage* Arena::CreateMaybeMessage< ::patchpanel::GuestMessage >(Arena* arena) {
   return Arena::CreateMessageInternal< ::patchpanel::GuestMessage >(arena);
 }
-template<> PROTOBUF_NOINLINE ::patchpanel::NDProxyMessage* Arena::CreateMaybeMessage< ::patchpanel::NDProxyMessage >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::patchpanel::NDProxyMessage >(arena);
-}
 template<> PROTOBUF_NOINLINE ::patchpanel::NDProxyControlMessage* Arena::CreateMaybeMessage< ::patchpanel::NDProxyControlMessage >(Arena* arena) {
   return Arena::CreateMessageInternal< ::patchpanel::NDProxyControlMessage >(arena);
+}
+template<> PROTOBUF_NOINLINE ::patchpanel::NDProxySignalMessage* Arena::CreateMaybeMessage< ::patchpanel::NDProxySignalMessage >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::patchpanel::NDProxySignalMessage >(arena);
+}
+template<> PROTOBUF_NOINLINE ::patchpanel::NeighborDetectedSignal* Arena::CreateMaybeMessage< ::patchpanel::NeighborDetectedSignal >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::patchpanel::NeighborDetectedSignal >(arena);
+}
+template<> PROTOBUF_NOINLINE ::patchpanel::RouterDetectedSignal* Arena::CreateMaybeMessage< ::patchpanel::RouterDetectedSignal >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::patchpanel::RouterDetectedSignal >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

@@ -27,17 +27,14 @@
 #include "cryptohome/auth_session_manager.h"
 #include "cryptohome/cleanup/mock_user_oldest_activity_timestamp_manager.h"
 #include "cryptohome/credentials.h"
-#include "cryptohome/credentials_test_util.h"
 #include "cryptohome/crypto.h"
 #include "cryptohome/crypto_error.h"
 #include "cryptohome/error/cryptohome_crypto_error.h"
 #include "cryptohome/error/cryptohome_error.h"
-#include "cryptohome/filesystem_layout.h"
 #include "cryptohome/mock_cryptohome_keys_manager.h"
 #include "cryptohome/mock_install_attributes.h"
 #include "cryptohome/mock_keyset_management.h"
 #include "cryptohome/mock_le_credential_manager.h"
-#include "cryptohome/mock_pkcs11_init.h"
 #include "cryptohome/mock_platform.h"
 #include "cryptohome/pkcs11/mock_pkcs11_token_factory.h"
 #include "cryptohome/storage/error.h"
@@ -265,6 +262,11 @@ void MockKeysetLoadingViaBlobs(const std::string& obfuscated_username,
           });
 }
 
+void MockOwnerUser(const std::string& username, MockHomeDirs& homedirs) {
+  EXPECT_CALL(homedirs, GetPlainOwner(_))
+      .WillRepeatedly(DoAll(SetArgPointee<0>(username), Return(true)));
+}
+
 }  // namespace
 
 class AuthSessionInterfaceTestBase : public ::testing::Test {
@@ -284,6 +286,7 @@ class AuthSessionInterfaceTestBase : public ::testing::Test {
     userdataauth_.set_auth_factor_manager_for_testing(&auth_factor_manager_);
     userdataauth_.set_user_secret_stash_storage_for_testing(
         &user_secret_stash_storage_);
+    userdataauth_.set_user_session_map_for_testing(&user_session_map_);
     userdataauth_.set_pkcs11_token_factory(&pkcs11_token_factory_);
     userdataauth_.set_user_activity_timestamp_manager(
         &user_activity_timestamp_manager_);
@@ -497,9 +500,7 @@ TEST_F(AuthSessionInterfaceTest, PrepareGuestVault) {
 }
 
 TEST_F(AuthSessionInterfaceTest, PrepareEphemeralVault) {
-  EXPECT_CALL(homedirs_, GetPlainOwner(_))
-      .WillRepeatedly(
-          DoAll(SetArgPointee<0>(std::string("whoever")), Return(true)));
+  MockOwnerUser("whoever", homedirs_);
 
   // No auth session.
   CryptohomeStatus status = PrepareEphemeralVaultImpl("");
@@ -507,10 +508,11 @@ TEST_F(AuthSessionInterfaceTest, PrepareEphemeralVault) {
   ASSERT_EQ(status->local_legacy_error(),
             user_data_auth::CRYPTOHOME_INVALID_AUTH_SESSION_TOKEN);
 
-  // Auth session is authed for ephemeral users.
+  // Auth session is initially not authenticated for ephemeral users.
   AuthSession* auth_session = auth_session_manager_->CreateAuthSession(
       kUsername, AUTH_SESSION_FLAGS_EPHEMERAL_USER, AuthIntent::kDecrypt);
-  EXPECT_THAT(auth_session->GetStatus(), AuthStatus::kAuthStatusAuthenticated);
+  EXPECT_THAT(auth_session->GetStatus(),
+              AuthStatus::kAuthStatusFurtherFactorRequired);
 
   // User authed and exists.
   auto user_session = std::make_unique<MockUserSession>();
@@ -526,6 +528,7 @@ TEST_F(AuthSessionInterfaceTest, PrepareEphemeralVault) {
       .WillOnce(Return(ByMove(std::move(user_session))));
 
   ASSERT_TRUE(PrepareEphemeralVaultImpl(auth_session->serialized_token()).ok());
+  EXPECT_THAT(auth_session->GetStatus(), AuthStatus::kAuthStatusAuthenticated);
 
   // Set up expectation for add credential callback success.
   user_data_auth::AddCredentialsRequest request;
@@ -631,9 +634,7 @@ TEST_F(AuthSessionInterfaceTest, PreparePersistentVaultNoShadowDir) {
 // Test to check if PreparePersistentVaultImpl will succeed in happy case and
 // calls the required functions.
 TEST_F(AuthSessionInterfaceTest, PreparePersistentVaultRegularCase) {
-  EXPECT_CALL(homedirs_, GetPlainOwner(_))
-      .WillRepeatedly(
-          DoAll(SetArgPointee<0>(std::string("whoever")), Return(true)));
+  MockOwnerUser("whoever", homedirs_);
 
   AuthSession* auth_session = auth_session_manager_->CreateAuthSession(
       kUsername, 0, AuthIntent::kDecrypt);
@@ -675,9 +676,7 @@ TEST_F(AuthSessionInterfaceTest, PreparePersistentVaultRegularCase) {
 // Test to check if PreparePersistentVaultImpl will succeed, call required
 // functions and not succeed when PreparePersistentVault is called twice.
 TEST_F(AuthSessionInterfaceTest, PreparePersistentVaultSecondMountPointBusy) {
-  EXPECT_CALL(homedirs_, GetPlainOwner(_))
-      .WillRepeatedly(
-          DoAll(SetArgPointee<0>(std::string("whoever")), Return(true)));
+  MockOwnerUser("whoever", homedirs_);
 
   AuthSession* auth_session = auth_session_manager_->CreateAuthSession(
       kUsername, 0, AuthIntent::kDecrypt);
@@ -727,9 +726,7 @@ TEST_F(AuthSessionInterfaceTest, PreparePersistentVaultSecondMountPointBusy) {
 TEST_F(AuthSessionInterfaceTest, PreparePersistentVaultAndThenGuestFail) {
   // Test to check if PreparePersistentVaultImpl will succeed, call required
   // functions and mounting guest would not succeed.
-  EXPECT_CALL(homedirs_, GetPlainOwner(_))
-      .WillRepeatedly(
-          DoAll(SetArgPointee<0>(std::string("whoever")), Return(true)));
+  MockOwnerUser("whoever", homedirs_);
   AuthSession* auth_session = auth_session_manager_->CreateAuthSession(
       kUsername, 0, AuthIntent::kDecrypt);
 
@@ -771,9 +768,7 @@ TEST_F(AuthSessionInterfaceTest, PreparePersistentVaultAndEphemeral) {
   // Test to check if PreparePersistentVaultImpl will succeed, call required
   // functions and mounting ephemeral will succeed as we support multi mount for
   // that.
-  EXPECT_CALL(homedirs_, GetPlainOwner(_))
-      .WillRepeatedly(
-          DoAll(SetArgPointee<0>(std::string("whoever")), Return(true)));
+  MockOwnerUser("whoever", homedirs_);
 
   // Setup regular user.
   AuthSession* auth_session = auth_session_manager_->CreateAuthSession(
@@ -1101,6 +1096,22 @@ class AuthSessionInterfaceMockAuthTest : public AuthSessionInterfaceTestBase {
     return reply_future.Get();
   }
 
+  user_data_auth::AddAuthFactorReply AddPasswordAuthFactor(
+      const AuthSession& auth_session,
+      const std::string& auth_factor_label,
+      const std::string& password) {
+    user_data_auth::AddAuthFactorRequest add_request;
+    add_request.set_auth_session_id(auth_session.serialized_token());
+    user_data_auth::AuthFactor& request_factor =
+        *add_request.mutable_auth_factor();
+    request_factor.set_type(user_data_auth::AUTH_FACTOR_TYPE_PASSWORD);
+    request_factor.set_label(auth_factor_label);
+    request_factor.mutable_password_metadata();
+    add_request.mutable_auth_input()->mutable_password_input()->set_secret(
+        password);
+    return AddAuthFactor(add_request);
+  }
+
   user_data_auth::AuthenticateAuthFactorReply AuthenticateAuthFactor(
       const user_data_auth::AuthenticateAuthFactorRequest& request) {
     TestFuture<user_data_auth::AuthenticateAuthFactorReply> reply_future;
@@ -1109,6 +1120,18 @@ class AuthSessionInterfaceMockAuthTest : public AuthSessionInterfaceTestBase {
         reply_future
             .GetCallback<const user_data_auth::AuthenticateAuthFactorReply&>());
     return reply_future.Get();
+  }
+
+  user_data_auth::AuthenticateAuthFactorReply AuthenticatePasswordAuthFactor(
+      const AuthSession& auth_session,
+      const std::string& auth_factor_label,
+      const std::string& password) {
+    user_data_auth::AuthenticateAuthFactorRequest request;
+    request.set_auth_session_id(auth_session.serialized_token());
+    request.set_auth_factor_label(auth_factor_label);
+    request.mutable_auth_input()->mutable_password_input()->set_secret(
+        password);
+    return AuthenticateAuthFactor(request);
   }
 
   // Simulates a new user creation flow by running `CreatePersistentUser` and
@@ -1147,6 +1170,32 @@ class AuthSessionInterfaceMockAuthTest : public AuthSessionInterfaceTestBase {
                                            /*vault_options=*/{}),
                 IsOk());
 
+    return auth_session;
+  }
+
+  AuthSession* PrepareEphemeralUser() {
+    AuthSession* auth_session = auth_session_manager_->CreateAuthSession(
+        kUsername, AUTH_SESSION_FLAGS_EPHEMERAL_USER, AuthIntent::kDecrypt);
+    if (!auth_session)
+      return nullptr;
+
+    // Set up mocks for the user session creation. Use the real user session
+    // class to exercise internal state transitions.
+    auto mount = base::MakeRefCounted<MockMount>();
+    EXPECT_CALL(*mount, IsMounted())
+        .WillOnce(Return(false))
+        .WillRepeatedly(Return(true));
+    EXPECT_CALL(*mount, MountEphemeralCryptohome(kUsername))
+        .WillOnce(ReturnOk<StorageError>());
+    EXPECT_CALL(*mount, IsEphemeral()).WillRepeatedly(Return(true));
+    auto user_session = std::make_unique<RealUserSession>(
+        kUsername, &homedirs_, &keyset_management_,
+        &user_activity_timestamp_manager_, &pkcs11_token_factory_, mount);
+    EXPECT_CALL(user_session_factory_, New(kUsername, _, _))
+        .WillOnce(Return(ByMove(std::move(user_session))));
+
+    EXPECT_THAT(PrepareEphemeralVaultImpl(auth_session->serialized_token()),
+                IsOk());
     return auth_session;
   }
 
@@ -1365,7 +1414,6 @@ TEST_F(AuthSessionInterfaceMockAuthTest, AuthenticateAuthFactorLightweight) {
   EXPECT_FALSE(reply.authenticated());
   EXPECT_THAT(reply.authorized_for(),
               UnorderedElementsAre(AUTH_INTENT_VERIFY_ONLY));
-  EXPECT_EQ(userdataauth_.FindUserSessionForTest(kUsername), nullptr);
 }
 
 // Test that AuthenticateAuthFactor fails in case the AuthSession ID is missing.
@@ -1645,29 +1693,10 @@ TEST_F(AuthSessionInterfaceMockAuthTest,
   // Arrange.
   // Pretend to have a different owner user, because otherwise the ephemeral
   // login is disallowed.
-  EXPECT_CALL(homedirs_, GetPlainOwner(_))
-      .WillRepeatedly(
-          DoAll(SetArgPointee<0>(std::string("whoever")), Return(true)));
-  // Set up mocks for the user session creation. Use the real user session class
-  // in order to check session state transitions.
-  auto mount = base::MakeRefCounted<MockMount>();
-  EXPECT_CALL(*mount, IsMounted())
-      .WillOnce(Return(false))
-      .WillRepeatedly(Return(true));
-  EXPECT_CALL(*mount, MountEphemeralCryptohome(kUsername))
-      .WillOnce(ReturnOk<StorageError>());
-  EXPECT_CALL(*mount, IsEphemeral()).WillRepeatedly(Return(true));
-  auto user_session = std::make_unique<RealUserSession>(
-      kUsername, &homedirs_, &keyset_management_,
-      &user_activity_timestamp_manager_, &pkcs11_token_factory_, mount);
-  EXPECT_CALL(user_session_factory_, New(kUsername, _, _))
-      .WillOnce(Return(ByMove(std::move(user_session))));
+  MockOwnerUser("whoever", homedirs_);
   // Prepare the ephemeral vault, which should also create the session.
-  AuthSession* auth_session = auth_session_manager_->CreateAuthSession(
-      kUsername, AUTH_SESSION_FLAGS_EPHEMERAL_USER, AuthIntent::kDecrypt);
+  AuthSession* const auth_session = PrepareEphemeralUser();
   ASSERT_TRUE(auth_session);
-  EXPECT_THAT(PrepareEphemeralVaultImpl(auth_session->serialized_token()),
-              IsOk());
   UserSession* found_user_session =
       userdataauth_.FindUserSessionForTest(kUsername);
   ASSERT_TRUE(found_user_session);
@@ -1675,14 +1704,8 @@ TEST_F(AuthSessionInterfaceMockAuthTest,
   EXPECT_FALSE(found_user_session->HasCredentialVerifier());
 
   // Act.
-  user_data_auth::AddAuthFactorRequest request;
-  request.set_auth_session_id(auth_session->serialized_token());
-  user_data_auth::AuthFactor& request_factor = *request.mutable_auth_factor();
-  request_factor.set_type(user_data_auth::AUTH_FACTOR_TYPE_PASSWORD);
-  request_factor.set_label(kPasswordLabel);
-  request_factor.mutable_password_metadata();
-  request.mutable_auth_input()->mutable_password_input()->set_secret(kPassword);
-  user_data_auth::AddAuthFactorReply reply = AddAuthFactor(request);
+  user_data_auth::AddAuthFactorReply reply =
+      AddPasswordAuthFactor(*auth_session, kPasswordLabel, kPassword);
 
   // Assert.
   EXPECT_EQ(reply.error(), user_data_auth::CRYPTOHOME_ERROR_NOT_SET);
@@ -1690,6 +1713,96 @@ TEST_F(AuthSessionInterfaceMockAuthTest,
   EXPECT_TRUE(found_user_session->HasCredentialVerifier());
   Credentials credentials(kUsername, brillo::SecureBlob(kPassword));
   EXPECT_TRUE(found_user_session->VerifyCredentials(credentials));
+  EXPECT_THAT(
+      auth_session->authorized_intents(),
+      UnorderedElementsAre(AuthIntent::kDecrypt, AuthIntent::kVerifyOnly));
+}
+
+// Test that AuthenticateAuthFactor succeeds for a freshly prepared ephemeral
+// user who has a password added.
+TEST_F(AuthSessionInterfaceMockAuthTest,
+       AuthenticatePasswordFactorForEphemeral) {
+  // Arrange.
+  // Pretend to have a different owner user, because otherwise the ephemeral
+  // login is disallowed.
+  MockOwnerUser("whoever", homedirs_);
+  AuthSession* const first_auth_session = PrepareEphemeralUser();
+  ASSERT_TRUE(first_auth_session);
+  EXPECT_EQ(
+      AddPasswordAuthFactor(*first_auth_session, kPasswordLabel, kPassword)
+          .error(),
+      user_data_auth::CRYPTOHOME_ERROR_NOT_SET);
+
+  // Act.
+  AuthSession* const second_auth_session =
+      auth_session_manager_->CreateAuthSession(
+          kUsername, AUTH_SESSION_FLAGS_EPHEMERAL_USER,
+          AuthIntent::kVerifyOnly);
+  ASSERT_TRUE(second_auth_session);
+  user_data_auth::AuthenticateAuthFactorReply reply =
+      AuthenticatePasswordAuthFactor(*second_auth_session, kPasswordLabel,
+                                     kPassword);
+
+  // Assert.
+  EXPECT_EQ(reply.error(), user_data_auth::CRYPTOHOME_ERROR_NOT_SET);
+  EXPECT_THAT(second_auth_session->authorized_intents(),
+              UnorderedElementsAre(AuthIntent::kVerifyOnly));
+}
+
+// Test that AuthenticateAuthFactor fails for a freshly prepared ephemeral user
+// if a wrong password is provided.
+TEST_F(AuthSessionInterfaceMockAuthTest,
+       AuthenticatePasswordFactorForEphemeralWrongPassword) {
+  // Arrange.
+  // Pretend to have a different owner user, because otherwise the ephemeral
+  // login is disallowed.
+  MockOwnerUser("whoever", homedirs_);
+  // Prepare the ephemeral user with a password configured.
+  AuthSession* const first_auth_session = PrepareEphemeralUser();
+  ASSERT_TRUE(first_auth_session);
+  EXPECT_EQ(
+      AddPasswordAuthFactor(*first_auth_session, kPasswordLabel, kPassword)
+          .error(),
+      user_data_auth::CRYPTOHOME_ERROR_NOT_SET);
+
+  // Act.
+  AuthSession* const second_auth_session =
+      auth_session_manager_->CreateAuthSession(
+          kUsername, AUTH_SESSION_FLAGS_EPHEMERAL_USER,
+          AuthIntent::kVerifyOnly);
+  ASSERT_TRUE(second_auth_session);
+  user_data_auth::AuthenticateAuthFactorReply reply =
+      AuthenticatePasswordAuthFactor(*second_auth_session, kPasswordLabel,
+                                     kPassword2);
+
+  // Assert. The error code is such because AuthSession falls back to checking
+  // persistent auth factors.
+  EXPECT_EQ(reply.error(), user_data_auth::CRYPTOHOME_ERROR_KEY_NOT_FOUND);
+  EXPECT_THAT(second_auth_session->authorized_intents(), IsEmpty());
+}
+
+// Test that AuthenticateAuthFactor fails for a freshly prepared ephemeral user
+// if no password was configured.
+TEST_F(AuthSessionInterfaceMockAuthTest,
+       AuthenticatePasswordFactorForEphemeralNoPassword) {
+  // Arrange.
+  // Pretend to have a different owner user, because otherwise the ephemeral
+  // login is disallowed.
+  MockOwnerUser("whoever", homedirs_);
+  // Prepare the ephemeral user without any factor configured.
+  EXPECT_TRUE(PrepareEphemeralUser());
+
+  // Act.
+  AuthSession* const auth_session = auth_session_manager_->CreateAuthSession(
+      kUsername, AUTH_SESSION_FLAGS_EPHEMERAL_USER, AuthIntent::kVerifyOnly);
+  ASSERT_TRUE(auth_session);
+  user_data_auth::AuthenticateAuthFactorReply reply =
+      AuthenticatePasswordAuthFactor(*auth_session, kPasswordLabel, kPassword);
+
+  // Assert. The error code is such because AuthSession falls back to checking
+  // persistent auth factors.
+  EXPECT_EQ(reply.error(), user_data_auth::CRYPTOHOME_ERROR_KEY_NOT_FOUND);
+  EXPECT_THAT(auth_session->authorized_intents(), IsEmpty());
 }
 
 }  // namespace
