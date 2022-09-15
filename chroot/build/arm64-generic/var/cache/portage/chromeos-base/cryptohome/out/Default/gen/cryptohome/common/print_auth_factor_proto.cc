@@ -61,11 +61,11 @@ std::string GetProtoDebugStringWithIndent(AuthFactorPreparePurpose value,
   if (value == PURPOSE_UNSPECIFIED) {
     return "PURPOSE_UNSPECIFIED";
   }
-  if (value == ADD_AUTH_FACTOR) {
-    return "ADD_AUTH_FACTOR";
+  if (value == PURPOSE_ADD_AUTH_FACTOR) {
+    return "PURPOSE_ADD_AUTH_FACTOR";
   }
-  if (value == AUTHENTICATE_AUTH_FACTOR) {
-    return "AUTHENTICATE_AUTH_FACTOR";
+  if (value == PURPOSE_AUTHENTICATE_AUTH_FACTOR) {
+    return "PURPOSE_AUTHENTICATE_AUTH_FACTOR";
   }
   return "<unknown>";
 }

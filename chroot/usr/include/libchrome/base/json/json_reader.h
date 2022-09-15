@@ -42,6 +42,7 @@
 #include "base/base_export.h"
 #include "base/json/json_common.h"
 #include "base/strings/string_piece.h"
+#include "base/types/expected.h"
 #include "base/values.h"
 #include "third_party/abseil-cpp/absl/types/optional.h"
 
@@ -101,59 +102,7 @@ class BASE_EXPORT JSONReader {
     int column = 0;
   };
 
-  struct BASE_EXPORT ValueWithError {
-    ValueWithError();
-    ValueWithError(ValueWithError&& other);
-    ValueWithError& operator=(ValueWithError&& other);
-
-    ValueWithError(const ValueWithError&) = delete;
-    ValueWithError& operator=(const ValueWithError&) = delete;
-
-    ~ValueWithError();
-
-    absl::optional<Value> value;
-
-    constexpr Error& error() {
-      CHECK(!value);
-      return error_;
-    }
-
-    constexpr bool has_value() const noexcept { return value.has_value(); }
-
-    constexpr Value* operator->() noexcept {
-      CHECK(value);
-      return std::addressof(*value);
-    }
-    constexpr const Value* operator->() const noexcept {
-      CHECK(value);
-      return std::addressof(*value);
-    }
-
-    constexpr Value& operator*() & noexcept {
-      CHECK(value);
-      return *value;
-    }
-    constexpr const Value& operator*() const& noexcept {
-      CHECK(value);
-      return *value;
-    }
-    constexpr Value&& operator*() && noexcept {
-      CHECK(value);
-      return std::move(*value);
-    }
-    constexpr const Value&& operator*() const&& noexcept {
-      CHECK(value);
-      return std::move(*value);
-    }
-
-    // Contains default values if |value| exists, or the error status if |value|
-    // is absl::nullopt.
-    std::string error_message;
-    int error_line = 0;
-    int error_column = 0;
-
-    Error error_;
-  };
+  using Result = base::expected<Value, Error>;
 
   // This class contains only static methods.
   JSONReader() = delete;
@@ -177,10 +126,11 @@ class BASE_EXPORT JSONReader {
       int options = JSON_PARSE_CHROMIUM_EXTENSIONS,
       size_t max_depth = internal::kAbsoluteMaxDepth);
 
-  // Reads and parses |json| like Read(). Returns a ValueWithError, which on
-  // error, will be populated with a formatted error message, an error code, and
-  // the error location if appropriate.
-  static ValueWithError ReadAndReturnValueWithError(
+  // Reads and parses |json| like Read(). On success returns a Value as the
+  // expected value. Otherwise, it returns an Error instance, populated with a
+  // formatted error message, an error code, and the error location if
+  // appropriate as the error value of the expected type.
+  static Result ReadAndReturnValueWithError(
       StringPiece json,
       int options = JSON_PARSE_CHROMIUM_EXTENSIONS);
 };

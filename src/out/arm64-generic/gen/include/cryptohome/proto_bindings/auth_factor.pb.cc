@@ -258,20 +258,20 @@ bool AuthFactorPreparePurpose_IsValid(int value) {
 static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> AuthFactorPreparePurpose_strings[3] = {};
 
 static const char AuthFactorPreparePurpose_names[] =
-  "ADD_AUTH_FACTOR"
-  "AUTHENTICATE_AUTH_FACTOR"
+  "PURPOSE_ADD_AUTH_FACTOR"
+  "PURPOSE_AUTHENTICATE_AUTH_FACTOR"
   "PURPOSE_UNSPECIFIED";
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry AuthFactorPreparePurpose_entries[] = {
-  { {AuthFactorPreparePurpose_names + 0, 15}, 1 },
-  { {AuthFactorPreparePurpose_names + 15, 24}, 2 },
-  { {AuthFactorPreparePurpose_names + 39, 19}, 0 },
+  { {AuthFactorPreparePurpose_names + 0, 23}, 1 },
+  { {AuthFactorPreparePurpose_names + 23, 32}, 2 },
+  { {AuthFactorPreparePurpose_names + 55, 19}, 0 },
 };
 
 static const int AuthFactorPreparePurpose_entries_by_number[] = {
   2, // 0 -> PURPOSE_UNSPECIFIED
-  0, // 1 -> ADD_AUTH_FACTOR
-  1, // 2 -> AUTHENTICATE_AUTH_FACTOR
+  0, // 1 -> PURPOSE_ADD_AUTH_FACTOR
+  1, // 2 -> PURPOSE_AUTHENTICATE_AUTH_FACTOR
 };
 
 const std::string& AuthFactorPreparePurpose_Name(

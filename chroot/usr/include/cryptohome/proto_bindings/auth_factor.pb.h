@@ -136,14 +136,14 @@ bool AuthFactorType_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, AuthFactorType* value);
 enum AuthFactorPreparePurpose : int {
   PURPOSE_UNSPECIFIED = 0,
-  ADD_AUTH_FACTOR = 1,
-  AUTHENTICATE_AUTH_FACTOR = 2,
+  PURPOSE_ADD_AUTH_FACTOR = 1,
+  PURPOSE_AUTHENTICATE_AUTH_FACTOR = 2,
   AuthFactorPreparePurpose_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   AuthFactorPreparePurpose_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool AuthFactorPreparePurpose_IsValid(int value);
 constexpr AuthFactorPreparePurpose AuthFactorPreparePurpose_MIN = PURPOSE_UNSPECIFIED;
-constexpr AuthFactorPreparePurpose AuthFactorPreparePurpose_MAX = AUTHENTICATE_AUTH_FACTOR;
+constexpr AuthFactorPreparePurpose AuthFactorPreparePurpose_MAX = PURPOSE_AUTHENTICATE_AUTH_FACTOR;
 constexpr int AuthFactorPreparePurpose_ARRAYSIZE = AuthFactorPreparePurpose_MAX + 1;
 
 const std::string& AuthFactorPreparePurpose_Name(AuthFactorPreparePurpose value);
