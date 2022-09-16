@@ -4143,7 +4143,7 @@ void UserDataAuth::SetCredentialVerifierForUserSession(
     return;
   }
 
-  if (!session->HasCredentialVerifier() ||
+  if (session->GetCredentialVerifier() == nullptr ||
       override_existing_credential_verifier) {
     session->SetCredentials(auth_session);
   }
@@ -4913,7 +4913,8 @@ void UserDataAuth::ListAuthFactors(
   UserSession* user_session = sessions_->Find(username);  // May be null!
 
   // If the user does not exist, we cannot return auth factors for it.
-  bool is_persistent_user = keyset_management_->UserExists(obfuscated_username);
+  bool is_persistent_user = (user_session && !user_session->IsEphemeral()) ||
+                            keyset_management_->UserExists(obfuscated_username);
   bool is_ephemeral_user = user_session && user_session->IsEphemeral();
   if (!is_persistent_user && !is_ephemeral_user) {
     ReplyWithError(std::move(on_done), reply,
@@ -4985,6 +4986,19 @@ void UserDataAuth::ListAuthFactors(
       }
     }
   } else if (is_ephemeral_user) {
+    // Use the credential verifier for the session to determine what types of
+    // factors are configured.
+    if (user_session) {
+      if (CredentialVerifier* verifier =
+              user_session->GetCredentialVerifier()) {
+        if (auto proto_factor = GetAuthFactorProto(
+                verifier->auth_factor_metadata(), verifier->auth_factor_type(),
+                verifier->auth_factor_label())) {
+          *reply.add_configured_auth_factors() = std::move(*proto_factor);
+        }
+      }
+    }
+
     // Determine what auth factors are supported by going through the entire set
     // of auth factor types and checking each one.
     for (int raw_type = user_data_auth::AuthFactorType_MIN;
