@@ -180,6 +180,28 @@ inline const std::string& SmartCardSignatureAlgorithm_Name(T enum_t_value) {
 }
 bool SmartCardSignatureAlgorithm_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, SmartCardSignatureAlgorithm* value);
+enum AuthIntent : int {
+  AUTH_INTENT_UNSPECIFIED = 0,
+  AUTH_INTENT_DECRYPT = 1,
+  AUTH_INTENT_VERIFY_ONLY = 2,
+  AuthIntent_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  AuthIntent_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+};
+bool AuthIntent_IsValid(int value);
+constexpr AuthIntent AuthIntent_MIN = AUTH_INTENT_UNSPECIFIED;
+constexpr AuthIntent AuthIntent_MAX = AUTH_INTENT_VERIFY_ONLY;
+constexpr int AuthIntent_ARRAYSIZE = AuthIntent_MAX + 1;
+
+const std::string& AuthIntent_Name(AuthIntent value);
+template<typename T>
+inline const std::string& AuthIntent_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, AuthIntent>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function AuthIntent_Name.");
+  return AuthIntent_Name(static_cast<AuthIntent>(enum_t_value));
+}
+bool AuthIntent_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, AuthIntent* value);
 // ===================================================================
 
 class PasswordAuthInput final :
@@ -2001,16 +2023,33 @@ class AuthFactor final :
   // accessors -------------------------------------------------------
 
   enum : int {
+    kSupportedIntentsFieldNumber = 10,
     kLabelFieldNumber = 2,
     kCommonMetadataFieldNumber = 9,
     kTypeFieldNumber = 1,
-    kIsActiveForLoginFieldNumber = 3,
     kPasswordMetadataFieldNumber = 4,
     kPinMetadataFieldNumber = 5,
     kCryptohomeRecoveryMetadataFieldNumber = 6,
     kKioskMetadataFieldNumber = 7,
     kSmartCardMetadataFieldNumber = 8,
   };
+  // repeated .user_data_auth.AuthIntent supported_intents = 10;
+  int supported_intents_size() const;
+  private:
+  int _internal_supported_intents_size() const;
+  public:
+  void clear_supported_intents();
+  private:
+  ::user_data_auth::AuthIntent _internal_supported_intents(int index) const;
+  void _internal_add_supported_intents(::user_data_auth::AuthIntent value);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>* _internal_mutable_supported_intents();
+  public:
+  ::user_data_auth::AuthIntent supported_intents(int index) const;
+  void set_supported_intents(int index, ::user_data_auth::AuthIntent value);
+  void add_supported_intents(::user_data_auth::AuthIntent value);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>& supported_intents() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>* mutable_supported_intents();
+
   // string label = 2;
   void clear_label();
   const std::string& label() const;
@@ -2050,15 +2089,6 @@ class AuthFactor final :
   private:
   ::user_data_auth::AuthFactorType _internal_type() const;
   void _internal_set_type(::user_data_auth::AuthFactorType value);
-  public:
-
-  // bool is_active_for_login = 3;
-  void clear_is_active_for_login();
-  bool is_active_for_login() const;
-  void set_is_active_for_login(bool value);
-  private:
-  bool _internal_is_active_for_login() const;
-  void _internal_set_is_active_for_login(bool value);
   public:
 
   // .user_data_auth.PasswordMetadata password_metadata = 4;
@@ -2168,10 +2198,11 @@ class AuthFactor final :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedField<int> supported_intents_;
+  mutable std::atomic<int> _supported_intents_cached_byte_size_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr label_;
   ::user_data_auth::CommonMetadata* common_metadata_;
   int type_;
-  bool is_active_for_login_;
   union MetadataUnion {
     constexpr MetadataUnion() : _constinit_{} {}
       ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
@@ -3166,26 +3197,6 @@ inline void AuthFactor::set_allocated_label(std::string* label) {
   // @@protoc_insertion_point(field_set_allocated:user_data_auth.AuthFactor.label)
 }
 
-// bool is_active_for_login = 3;
-inline void AuthFactor::clear_is_active_for_login() {
-  is_active_for_login_ = false;
-}
-inline bool AuthFactor::_internal_is_active_for_login() const {
-  return is_active_for_login_;
-}
-inline bool AuthFactor::is_active_for_login() const {
-  // @@protoc_insertion_point(field_get:user_data_auth.AuthFactor.is_active_for_login)
-  return _internal_is_active_for_login();
-}
-inline void AuthFactor::_internal_set_is_active_for_login(bool value) {
-  
-  is_active_for_login_ = value;
-}
-inline void AuthFactor::set_is_active_for_login(bool value) {
-  _internal_set_is_active_for_login(value);
-  // @@protoc_insertion_point(field_set:user_data_auth.AuthFactor.is_active_for_login)
-}
-
 // .user_data_auth.CommonMetadata common_metadata = 9;
 inline bool AuthFactor::_internal_has_common_metadata() const {
   return this != internal_default_instance() && common_metadata_ != nullptr;
@@ -3274,6 +3285,49 @@ inline void AuthFactor::set_allocated_common_metadata(::user_data_auth::CommonMe
   }
   common_metadata_ = common_metadata;
   // @@protoc_insertion_point(field_set_allocated:user_data_auth.AuthFactor.common_metadata)
+}
+
+// repeated .user_data_auth.AuthIntent supported_intents = 10;
+inline int AuthFactor::_internal_supported_intents_size() const {
+  return supported_intents_.size();
+}
+inline int AuthFactor::supported_intents_size() const {
+  return _internal_supported_intents_size();
+}
+inline void AuthFactor::clear_supported_intents() {
+  supported_intents_.Clear();
+}
+inline ::user_data_auth::AuthIntent AuthFactor::_internal_supported_intents(int index) const {
+  return static_cast< ::user_data_auth::AuthIntent >(supported_intents_.Get(index));
+}
+inline ::user_data_auth::AuthIntent AuthFactor::supported_intents(int index) const {
+  // @@protoc_insertion_point(field_get:user_data_auth.AuthFactor.supported_intents)
+  return _internal_supported_intents(index);
+}
+inline void AuthFactor::set_supported_intents(int index, ::user_data_auth::AuthIntent value) {
+  supported_intents_.Set(index, value);
+  // @@protoc_insertion_point(field_set:user_data_auth.AuthFactor.supported_intents)
+}
+inline void AuthFactor::_internal_add_supported_intents(::user_data_auth::AuthIntent value) {
+  supported_intents_.Add(value);
+}
+inline void AuthFactor::add_supported_intents(::user_data_auth::AuthIntent value) {
+  _internal_add_supported_intents(value);
+  // @@protoc_insertion_point(field_add:user_data_auth.AuthFactor.supported_intents)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>&
+AuthFactor::supported_intents() const {
+  // @@protoc_insertion_point(field_list:user_data_auth.AuthFactor.supported_intents)
+  return supported_intents_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>*
+AuthFactor::_internal_mutable_supported_intents() {
+  return &supported_intents_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>*
+AuthFactor::mutable_supported_intents() {
+  // @@protoc_insertion_point(field_mutable_list:user_data_auth.AuthFactor.supported_intents)
+  return _internal_mutable_supported_intents();
 }
 
 // .user_data_auth.PasswordMetadata password_metadata = 4;
@@ -3692,6 +3746,7 @@ PROTOBUF_NAMESPACE_OPEN
 template <> struct is_proto_enum< ::user_data_auth::AuthFactorType> : ::std::true_type {};
 template <> struct is_proto_enum< ::user_data_auth::AuthFactorPreparePurpose> : ::std::true_type {};
 template <> struct is_proto_enum< ::user_data_auth::SmartCardSignatureAlgorithm> : ::std::true_type {};
+template <> struct is_proto_enum< ::user_data_auth::AuthIntent> : ::std::true_type {};
 
 PROTOBUF_NAMESPACE_CLOSE
 

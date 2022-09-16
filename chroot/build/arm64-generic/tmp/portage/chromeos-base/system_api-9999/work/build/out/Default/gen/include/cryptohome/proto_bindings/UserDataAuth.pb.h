@@ -824,28 +824,6 @@ inline const std::string& AuthSessionFlags_Name(T enum_t_value) {
 }
 bool AuthSessionFlags_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, AuthSessionFlags* value);
-enum AuthIntent : int {
-  AUTH_INTENT_UNSPECIFIED = 0,
-  AUTH_INTENT_DECRYPT = 1,
-  AUTH_INTENT_VERIFY_ONLY = 2,
-  AuthIntent_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
-  AuthIntent_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
-};
-bool AuthIntent_IsValid(int value);
-constexpr AuthIntent AuthIntent_MIN = AUTH_INTENT_UNSPECIFIED;
-constexpr AuthIntent AuthIntent_MAX = AUTH_INTENT_VERIFY_ONLY;
-constexpr int AuthIntent_ARRAYSIZE = AuthIntent_MAX + 1;
-
-const std::string& AuthIntent_Name(AuthIntent value);
-template<typename T>
-inline const std::string& AuthIntent_Name(T enum_t_value) {
-  static_assert(::std::is_same<T, AuthIntent>::value ||
-    ::std::is_integral<T>::value,
-    "Incorrect type passed to function AuthIntent_Name.");
-  return AuthIntent_Name(static_cast<AuthIntent>(enum_t_value));
-}
-bool AuthIntent_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, AuthIntent* value);
 enum AuthSessionStatus : int {
   AUTH_SESSION_STATUS_NOT_SET = 0,
   AUTH_SESSION_STATUS_FURTHER_FACTOR_REQUIRED = 1,
@@ -34170,7 +34148,6 @@ template <> struct is_proto_enum< ::user_data_auth::PrimaryAction> : ::std::true
 template <> struct is_proto_enum< ::user_data_auth::PossibleAction> : ::std::true_type {};
 template <> struct is_proto_enum< ::user_data_auth::DircryptoMigrationStatus> : ::std::true_type {};
 template <> struct is_proto_enum< ::user_data_auth::AuthSessionFlags> : ::std::true_type {};
-template <> struct is_proto_enum< ::user_data_auth::AuthIntent> : ::std::true_type {};
 template <> struct is_proto_enum< ::user_data_auth::AuthSessionStatus> : ::std::true_type {};
 template <> struct is_proto_enum< ::user_data_auth::VaultEncryptionType> : ::std::true_type {};
 template <> struct is_proto_enum< ::user_data_auth::InstallAttributesState> : ::std::true_type {};

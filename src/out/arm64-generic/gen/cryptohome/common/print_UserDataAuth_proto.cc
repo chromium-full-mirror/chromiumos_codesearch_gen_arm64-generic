@@ -315,23 +315,6 @@ std::string GetProtoDebugStringWithIndent(AuthSessionFlags value,
   return "<unknown>";
 }
 
-std::string GetProtoDebugString(AuthIntent value) {
-  return GetProtoDebugStringWithIndent(value, 0);
-}
-
-std::string GetProtoDebugStringWithIndent(AuthIntent value, int indent_size) {
-  if (value == AUTH_INTENT_UNSPECIFIED) {
-    return "AUTH_INTENT_UNSPECIFIED";
-  }
-  if (value == AUTH_INTENT_DECRYPT) {
-    return "AUTH_INTENT_DECRYPT";
-  }
-  if (value == AUTH_INTENT_VERIFY_ONLY) {
-    return "AUTH_INTENT_VERIFY_ONLY";
-  }
-  return "<unknown>";
-}
-
 std::string GetProtoDebugString(AuthSessionStatus value) {
   return GetProtoDebugStringWithIndent(value, 0);
 }

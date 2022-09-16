@@ -160,11 +160,12 @@ struct CommonMetadataDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT CommonMetadataDefaultTypeInternal _CommonMetadata_default_instance_;
 constexpr AuthFactor::AuthFactor(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : label_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  : supported_intents_()
+  , _supported_intents_cached_byte_size_(0)
+  , label_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
   , common_metadata_(nullptr)
   , type_(0)
 
-  , is_active_for_login_(false)
   , _oneof_case_{}{}
 struct AuthFactorDefaultTypeInternal {
   constexpr AuthFactorDefaultTypeInternal()
@@ -359,6 +360,61 @@ bool SmartCardSignatureAlgorithm_Parse(
       SmartCardSignatureAlgorithm_entries, 5, name, &int_value);
   if (success) {
     *value = static_cast<SmartCardSignatureAlgorithm>(int_value);
+  }
+  return success;
+}
+bool AuthIntent_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+      return true;
+    default:
+      return false;
+  }
+}
+
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> AuthIntent_strings[3] = {};
+
+static const char AuthIntent_names[] =
+  "AUTH_INTENT_DECRYPT"
+  "AUTH_INTENT_UNSPECIFIED"
+  "AUTH_INTENT_VERIFY_ONLY";
+
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry AuthIntent_entries[] = {
+  { {AuthIntent_names + 0, 19}, 1 },
+  { {AuthIntent_names + 19, 23}, 0 },
+  { {AuthIntent_names + 42, 23}, 2 },
+};
+
+static const int AuthIntent_entries_by_number[] = {
+  1, // 0 -> AUTH_INTENT_UNSPECIFIED
+  0, // 1 -> AUTH_INTENT_DECRYPT
+  2, // 2 -> AUTH_INTENT_VERIFY_ONLY
+};
+
+const std::string& AuthIntent_Name(
+    AuthIntent value) {
+  static const bool dummy =
+      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
+          AuthIntent_entries,
+          AuthIntent_entries_by_number,
+          3, AuthIntent_strings);
+  (void) dummy;
+  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
+      AuthIntent_entries,
+      AuthIntent_entries_by_number,
+      3, value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
+                     AuthIntent_strings[idx].get();
+}
+bool AuthIntent_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, AuthIntent* value) {
+  int int_value;
+  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
+      AuthIntent_entries, 3, name, &int_value);
+  if (success) {
+    *value = static_cast<AuthIntent>(int_value);
   }
   return success;
 }
@@ -3002,7 +3058,8 @@ void AuthFactor::set_allocated_smart_card_metadata(::user_data_auth::SmartCardMe
 }
 AuthFactor::AuthFactor(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
+  supported_intents_(arena) {
   SharedCtor();
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
@@ -3010,7 +3067,8 @@ AuthFactor::AuthFactor(::PROTOBUF_NAMESPACE_ID::Arena* arena,
   // @@protoc_insertion_point(arena_constructor:user_data_auth.AuthFactor)
 }
 AuthFactor::AuthFactor(const AuthFactor& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      supported_intents_(from.supported_intents_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   label_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
@@ -3025,9 +3083,7 @@ AuthFactor::AuthFactor(const AuthFactor& from)
   } else {
     common_metadata_ = nullptr;
   }
-  ::memcpy(&type_, &from.type_,
-    static_cast<size_t>(reinterpret_cast<char*>(&is_active_for_login_) -
-    reinterpret_cast<char*>(&type_)) + sizeof(is_active_for_login_));
+  type_ = from.type_;
   clear_has_metadata();
   switch (from.metadata_case()) {
     case kPasswordMetadata: {
@@ -3064,8 +3120,8 @@ label_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlread
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&common_metadata_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&is_active_for_login_) -
-    reinterpret_cast<char*>(&common_metadata_)) + sizeof(is_active_for_login_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&type_) -
+    reinterpret_cast<char*>(&common_metadata_)) + sizeof(type_));
 clear_has_metadata();
 }
 
@@ -3142,14 +3198,13 @@ void AuthFactor::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  supported_intents_.Clear();
   label_.ClearToEmpty();
   if (GetArenaForAllocation() == nullptr && common_metadata_ != nullptr) {
     delete common_metadata_;
   }
   common_metadata_ = nullptr;
-  ::memset(&type_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&is_active_for_login_) -
-      reinterpret_cast<char*>(&type_)) + sizeof(is_active_for_login_));
+  type_ = 0;
   clear_metadata();
   _internal_metadata_.Clear<std::string>();
 }
@@ -3175,14 +3230,6 @@ const char* AuthFactor::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID:
           auto str = _internal_mutable_label();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // bool is_active_for_login = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
-          is_active_for_login_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -3235,6 +3282,18 @@ const char* AuthFactor::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID:
         } else
           goto handle_unusual;
         continue;
+      // repeated .user_data_auth.AuthIntent supported_intents = 10;
+      case 10:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 82)) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedEnumParser(_internal_mutable_supported_intents(), ptr, ctx);
+          CHK_(ptr);
+        } else if (static_cast<uint8_t>(tag) == 80) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_add_supported_intents(static_cast<::user_data_auth::AuthIntent>(val));
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -3279,12 +3338,6 @@ uint8_t* AuthFactor::_InternalSerialize(
       "user_data_auth.AuthFactor.label");
     target = stream->WriteStringMaybeAliased(
         2, this->_internal_label(), target);
-  }
-
-  // bool is_active_for_login = 3;
-  if (this->_internal_is_active_for_login() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(3, this->_internal_is_active_for_login(), target);
   }
 
   // .user_data_auth.PasswordMetadata password_metadata = 4;
@@ -3335,6 +3388,15 @@ uint8_t* AuthFactor::_InternalSerialize(
         9, _Internal::common_metadata(this), target, stream);
   }
 
+  // repeated .user_data_auth.AuthIntent supported_intents = 10;
+  {
+    int byte_size = _supported_intents_cached_byte_size_.load(std::memory_order_relaxed);
+    if (byte_size > 0) {
+      target = stream->WriteEnumPacked(
+          10, supported_intents_, byte_size, target);
+    }
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -3350,6 +3412,24 @@ size_t AuthFactor::ByteSizeLong() const {
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
+
+  // repeated .user_data_auth.AuthIntent supported_intents = 10;
+  {
+    size_t data_size = 0;
+    unsigned int count = static_cast<unsigned int>(this->_internal_supported_intents_size());for (unsigned int i = 0; i < count; i++) {
+      data_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(
+        this->_internal_supported_intents(static_cast<int>(i)));
+    }
+    if (data_size > 0) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+            static_cast<int32_t>(data_size));
+    }
+    int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(data_size);
+    _supported_intents_cached_byte_size_.store(cached_size,
+                                    std::memory_order_relaxed);
+    total_size += data_size;
+  }
 
   // string label = 2;
   if (!this->_internal_label().empty()) {
@@ -3369,11 +3449,6 @@ size_t AuthFactor::ByteSizeLong() const {
   if (this->_internal_type() != 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_type());
-  }
-
-  // bool is_active_for_login = 3;
-  if (this->_internal_is_active_for_login() != 0) {
-    total_size += 1 + 1;
   }
 
   switch (metadata_case()) {
@@ -3436,6 +3511,7 @@ void AuthFactor::MergeFrom(const AuthFactor& from) {
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
+  supported_intents_.MergeFrom(from.supported_intents_);
   if (!from._internal_label().empty()) {
     _internal_set_label(from._internal_label());
   }
@@ -3444,9 +3520,6 @@ void AuthFactor::MergeFrom(const AuthFactor& from) {
   }
   if (from._internal_type() != 0) {
     _internal_set_type(from._internal_type());
-  }
-  if (from._internal_is_active_for_login() != 0) {
-    _internal_set_is_active_for_login(from._internal_is_active_for_login());
   }
   switch (from.metadata_case()) {
     case kPasswordMetadata: {
@@ -3492,14 +3565,15 @@ void AuthFactor::InternalSwap(AuthFactor* other) {
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  supported_intents_.InternalSwap(&other->supported_intents_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       &label_, lhs_arena,
       &other->label_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(AuthFactor, is_active_for_login_)
-      + sizeof(AuthFactor::is_active_for_login_)
+      PROTOBUF_FIELD_OFFSET(AuthFactor, type_)
+      + sizeof(AuthFactor::type_)
       - PROTOBUF_FIELD_OFFSET(AuthFactor, common_metadata_)>(
           reinterpret_cast<char*>(&common_metadata_),
           reinterpret_cast<char*>(&other->common_metadata_));

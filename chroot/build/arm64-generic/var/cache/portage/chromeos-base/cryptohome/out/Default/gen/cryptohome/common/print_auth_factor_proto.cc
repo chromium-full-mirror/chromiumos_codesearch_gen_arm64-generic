@@ -94,6 +94,23 @@ std::string GetProtoDebugStringWithIndent(SmartCardSignatureAlgorithm value,
   return "<unknown>";
 }
 
+std::string GetProtoDebugString(AuthIntent value) {
+  return GetProtoDebugStringWithIndent(value, 0);
+}
+
+std::string GetProtoDebugStringWithIndent(AuthIntent value, int indent_size) {
+  if (value == AUTH_INTENT_UNSPECIFIED) {
+    return "AUTH_INTENT_UNSPECIFIED";
+  }
+  if (value == AUTH_INTENT_DECRYPT) {
+    return "AUTH_INTENT_DECRYPT";
+  }
+  if (value == AUTH_INTENT_VERIFY_ONLY) {
+    return "AUTH_INTENT_VERIFY_ONLY";
+  }
+  return "<unknown>";
+}
+
 std::string GetProtoDebugString(const PasswordAuthInput& value) {
   return GetProtoDebugStringWithIndent(value, 0);
 }
@@ -386,11 +403,6 @@ std::string GetProtoDebugStringWithIndent(const AuthFactor& value,
   base::StringAppendF(&output, "%s", value.label().c_str());
   output += "\n";
 
-  output += indent + "  is_active_for_login: ";
-  base::StringAppendF(&output, "%s",
-                      value.is_active_for_login() ? "true" : "false");
-  output += "\n";
-
   output += indent + "  common_metadata: ";
   base::StringAppendF(
       &output, "%s",
@@ -398,6 +410,17 @@ std::string GetProtoDebugStringWithIndent(const AuthFactor& value,
           .c_str());
   output += "\n";
 
+  output += indent + "  supported_intents: {";
+  for (int i = 0; i < value.supported_intents_size(); ++i) {
+    if (i > 0) {
+      base::StringAppendF(&output, ", ");
+    }
+    base::StringAppendF(&output, "%s",
+                        GetProtoDebugStringWithIndent(
+                            value.supported_intents(i), indent_size + 2)
+                            .c_str());
+  }
+  output += "}\n";
   output += indent + "  password_metadata: ";
   base::StringAppendF(
       &output, "%s",

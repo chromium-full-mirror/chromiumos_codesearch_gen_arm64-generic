@@ -2476,61 +2476,6 @@ bool AuthSessionFlags_Parse(
   }
   return success;
 }
-bool AuthIntent_IsValid(int value) {
-  switch (value) {
-    case 0:
-    case 1:
-    case 2:
-      return true;
-    default:
-      return false;
-  }
-}
-
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> AuthIntent_strings[3] = {};
-
-static const char AuthIntent_names[] =
-  "AUTH_INTENT_DECRYPT"
-  "AUTH_INTENT_UNSPECIFIED"
-  "AUTH_INTENT_VERIFY_ONLY";
-
-static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry AuthIntent_entries[] = {
-  { {AuthIntent_names + 0, 19}, 1 },
-  { {AuthIntent_names + 19, 23}, 0 },
-  { {AuthIntent_names + 42, 23}, 2 },
-};
-
-static const int AuthIntent_entries_by_number[] = {
-  1, // 0 -> AUTH_INTENT_UNSPECIFIED
-  0, // 1 -> AUTH_INTENT_DECRYPT
-  2, // 2 -> AUTH_INTENT_VERIFY_ONLY
-};
-
-const std::string& AuthIntent_Name(
-    AuthIntent value) {
-  static const bool dummy =
-      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
-          AuthIntent_entries,
-          AuthIntent_entries_by_number,
-          3, AuthIntent_strings);
-  (void) dummy;
-  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
-      AuthIntent_entries,
-      AuthIntent_entries_by_number,
-      3, value);
-  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
-                     AuthIntent_strings[idx].get();
-}
-bool AuthIntent_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, AuthIntent* value) {
-  int int_value;
-  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      AuthIntent_entries, 3, name, &int_value);
-  if (success) {
-    *value = static_cast<AuthIntent>(int_value);
-  }
-  return success;
-}
 bool AuthSessionStatus_IsValid(int value) {
   switch (value) {
     case 0:
