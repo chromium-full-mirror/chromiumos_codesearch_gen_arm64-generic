@@ -78,11 +78,13 @@ struct PinWeaverAuthBlockState {
 
 namespace cryptohome {
 
-struct LibScryptCompatAuthBlockState {
-  std::optional<brillo::SecureBlob> wrapped_keyset;
-  std::optional<brillo::SecureBlob> wrapped_chaps_key;
-  std::optional<brillo::SecureBlob> wrapped_reset_seed;
+struct ScryptAuthBlockState {
   std::optional<brillo::SecureBlob> salt;
+  std::optional<brillo::SecureBlob> chaps_salt;
+  std::optional<brillo::SecureBlob> reset_seed_salt;
+  std::optional<int32_t> work_factor;
+  std::optional<uint32_t> block_size;
+  std::optional<uint32_t> parallel_factor;
 };
 
 }  // namespace cryptohome
@@ -90,7 +92,7 @@ struct LibScryptCompatAuthBlockState {
 namespace cryptohome {
 
 struct ChallengeCredentialAuthBlockState {
-  ::cryptohome::LibScryptCompatAuthBlockState scrypt_state;
+  ::cryptohome::ScryptAuthBlockState scrypt_state;
   std::optional<::cryptohome::structure::SignatureChallengeInfo>
       keyset_challenge_info;
 };
@@ -100,7 +102,7 @@ struct ChallengeCredentialAuthBlockState {
 namespace cryptohome {
 
 struct DoubleWrappedCompatAuthBlockState {
-  ::cryptohome::LibScryptCompatAuthBlockState scrypt_state;
+  ::cryptohome::ScryptAuthBlockState scrypt_state;
   ::cryptohome::TpmNotBoundToPcrAuthBlockState tpm_state;
 };
 
@@ -135,23 +137,11 @@ struct TpmEccAuthBlockState {
 
 namespace cryptohome {
 
-struct ScryptAuthBlockState {
-  std::optional<brillo::SecureBlob> salt;
-  std::optional<int32_t> work_factor;
-  std::optional<uint32_t> block_size;
-  std::optional<uint32_t> parallel_factor;
-};
-
-}  // namespace cryptohome
-
-namespace cryptohome {
-
 using AuthBlockStateUnion =
     std::variant<std::monostate,
                  ::cryptohome::TpmBoundToPcrAuthBlockState,
                  ::cryptohome::TpmNotBoundToPcrAuthBlockState,
                  ::cryptohome::PinWeaverAuthBlockState,
-                 ::cryptohome::LibScryptCompatAuthBlockState,
                  ::cryptohome::ChallengeCredentialAuthBlockState,
                  ::cryptohome::DoubleWrappedCompatAuthBlockState,
                  ::cryptohome::CryptohomeRecoveryAuthBlockState,

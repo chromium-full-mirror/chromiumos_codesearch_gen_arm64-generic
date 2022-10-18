@@ -82,15 +82,16 @@ inline bool operator!=(const PinWeaverAuthBlockState& lhs,
 
 namespace cryptohome {
 
-inline bool operator==(const LibScryptCompatAuthBlockState& lhs,
-                       const LibScryptCompatAuthBlockState& rhs) {
-  return true && lhs.wrapped_keyset == rhs.wrapped_keyset &&
-         lhs.wrapped_chaps_key == rhs.wrapped_chaps_key &&
-         lhs.wrapped_reset_seed == rhs.wrapped_reset_seed &&
-         lhs.salt == rhs.salt;
+inline bool operator==(const ScryptAuthBlockState& lhs,
+                       const ScryptAuthBlockState& rhs) {
+  return true && lhs.salt == rhs.salt && lhs.chaps_salt == rhs.chaps_salt &&
+         lhs.reset_seed_salt == rhs.reset_seed_salt &&
+         lhs.work_factor == rhs.work_factor &&
+         lhs.block_size == rhs.block_size &&
+         lhs.parallel_factor == rhs.parallel_factor;
 }
-inline bool operator!=(const LibScryptCompatAuthBlockState& lhs,
-                       const LibScryptCompatAuthBlockState& rhs) {
+inline bool operator!=(const ScryptAuthBlockState& lhs,
+                       const ScryptAuthBlockState& rhs) {
   return !(lhs == rhs);
 }
 
@@ -156,21 +157,6 @@ inline bool operator==(const TpmEccAuthBlockState& lhs,
 }
 inline bool operator!=(const TpmEccAuthBlockState& lhs,
                        const TpmEccAuthBlockState& rhs) {
-  return !(lhs == rhs);
-}
-
-}  // namespace cryptohome
-
-namespace cryptohome {
-
-inline bool operator==(const ScryptAuthBlockState& lhs,
-                       const ScryptAuthBlockState& rhs) {
-  return true && lhs.salt == rhs.salt && lhs.work_factor == rhs.work_factor &&
-         lhs.block_size == rhs.block_size &&
-         lhs.parallel_factor == rhs.parallel_factor;
-}
-inline bool operator!=(const ScryptAuthBlockState& lhs,
-                       const ScryptAuthBlockState& rhs) {
   return !(lhs == rhs);
 }
 

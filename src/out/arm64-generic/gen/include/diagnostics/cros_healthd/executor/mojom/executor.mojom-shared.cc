@@ -18,7 +18,7 @@
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
 #include "diagnostics/cros_healthd/executor/mojom/executor.mojom-params-data.h"
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace mojom {
 
@@ -460,6 +460,17 @@ bool Executor_GetProcessIOContents_Params_Data::Validate(
   [[maybe_unused]] const Executor_GetProcessIOContents_Params_Data* object =
       static_cast<const Executor_GetProcessIOContents_Params_Data*>(data);
 
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->pids, 1, validation_context)) {
+    return false;
+  }
+  const mojo::internal::ContainerValidateParams pids_validate_params(
+      0, false, nullptr);
+  if (!mojo::internal::ValidateContainer(object->pids, validation_context,
+                                         &pids_validate_params)) {
+    return false;
+  }
+
   return true;
 }
 
@@ -488,7 +499,7 @@ bool Executor_GetProcessIOContents_ResponseParams_Data::Validate(
     return false;
   }
   const mojo::internal::ContainerValidateParams contents_validate_params(
-      0, false, nullptr);
+      new mojo::internal::ContainerValidateParams(0, false, nullptr), new mojo::internal::ContainerValidateParams(0, false, new mojo::internal::ContainerValidateParams(0, false, nullptr)));
   if (!mojo::internal::ValidateContainer(object->contents, validation_context,
                                          &contents_validate_params)) {
     return false;
@@ -719,4 +730,4 @@ Executor_GetLidAngle_ResponseParams_Data::Executor_GetLidAngle_ResponseParams_Da
 }  // namespace internal
 }  // namespace mojom
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash

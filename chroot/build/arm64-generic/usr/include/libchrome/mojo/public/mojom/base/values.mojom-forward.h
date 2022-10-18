@@ -29,8 +29,6 @@ class ListValueDataView;
 
 class DeprecatedDictionaryValueDataView;
 
-class DeprecatedListValueDataView;
-
 class ValueDataView;
 class DictionaryValue;
 using DictionaryValuePtr = mojo::StructPtr<DictionaryValue>;
@@ -40,9 +38,6 @@ using ListValuePtr = mojo::StructPtr<ListValue>;
 
 class DeprecatedDictionaryValue;
 using DeprecatedDictionaryValuePtr = mojo::StructPtr<DeprecatedDictionaryValue>;
-
-class DeprecatedListValue;
-using DeprecatedListValuePtr = mojo::StructPtr<DeprecatedListValue>;
 
 class Value;
 

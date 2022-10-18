@@ -142,10 +142,6 @@ base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<T
       base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<StartPreciseCoverageResult>)> callback,
       const MessageDispatcher::ReplyStatus& reply_status,
       const base::Value& response);
-  static void HandleStartTypeProfileResponse(
-      base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<StartTypeProfileResult>)> callback,
-      const MessageDispatcher::ReplyStatus& reply_status,
-      const base::Value& response);
   static void HandleStopResponse(
       base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<StopResult>)> callback,
       const MessageDispatcher::ReplyStatus& reply_status,
@@ -154,16 +150,8 @@ base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<T
       base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<StopPreciseCoverageResult>)> callback,
       const MessageDispatcher::ReplyStatus& reply_status,
       const base::Value& response);
-  static void HandleStopTypeProfileResponse(
-      base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<StopTypeProfileResult>)> callback,
-      const MessageDispatcher::ReplyStatus& reply_status,
-      const base::Value& response);
   static void HandleTakePreciseCoverageResponse(
       base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<TakePreciseCoverageResult>)> callback,
-      const MessageDispatcher::ReplyStatus& reply_status,
-      const base::Value& response);
-  static void HandleTakeTypeProfileResponse(
-      base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<TakeTypeProfileResult>)> callback,
       const MessageDispatcher::ReplyStatus& reply_status,
       const base::Value& response);
 
@@ -195,15 +183,6 @@ class ExperimentalDomain : public Domain {
   // destroyed.
   void AddObserver(ExperimentalObserver* observer);
   void RemoveObserver(ExperimentalObserver* observer);
-
-  // Enable type profile.
-  void StartTypeProfile(std::unique_ptr<StartTypeProfileParams> params, const std::string& optional_node_frame_id, base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<StartTypeProfileResult>)> callback = base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<StartTypeProfileResult>)>());
-
-  // Disable type profile. Disabling releases type profile data collected so far.
-  void StopTypeProfile(std::unique_ptr<StopTypeProfileParams> params, const std::string& optional_node_frame_id, base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<StopTypeProfileResult>)> callback = base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<StopTypeProfileResult>)>());
-
-  // Collect type profile.
-  void TakeTypeProfile(std::unique_ptr<TakeTypeProfileParams> params, const std::string& optional_node_frame_id, base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<TakeTypeProfileResult>)> callback = base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<TakeTypeProfileResult>)>());
 
 };
 

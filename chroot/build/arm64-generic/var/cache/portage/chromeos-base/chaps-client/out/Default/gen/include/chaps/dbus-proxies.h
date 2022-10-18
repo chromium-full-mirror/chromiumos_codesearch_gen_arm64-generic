@@ -147,22 +147,6 @@ class ChapsProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
-  virtual bool ChangeTokenAuthData(
-      const std::string& in_path,
-      const std::vector<uint8_t>& in_old_auth_data,
-      const std::vector<uint8_t>& in_new_auth_data,
-      bool* out_result,
-      brillo::ErrorPtr* error,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
-
-  virtual void ChangeTokenAuthDataAsync(
-      const std::string& in_path,
-      const std::vector<uint8_t>& in_old_auth_data,
-      const std::vector<uint8_t>& in_new_auth_data,
-      base::OnceCallback<void(bool /*result*/)> success_callback,
-      base::OnceCallback<void(brillo::Error*)> error_callback,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
-
   virtual bool GetTokenPath(
       const std::vector<uint8_t>& in_isolate_credential,
       uint64_t in_slot_id,
@@ -1536,45 +1520,6 @@ class ChapsProxy final : public ChapsProxyInterface {
         std::move(error_callback),
         in_isolate_credential,
         in_path);
-  }
-
-  bool ChangeTokenAuthData(
-      const std::string& in_path,
-      const std::vector<uint8_t>& in_old_auth_data,
-      const std::vector<uint8_t>& in_new_auth_data,
-      bool* out_result,
-      brillo::ErrorPtr* error,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
-    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
-        timeout_ms,
-        dbus_object_proxy_,
-        "org.chromium.Chaps",
-        "ChangeTokenAuthData",
-        error,
-        in_path,
-        in_old_auth_data,
-        in_new_auth_data);
-    return response && brillo::dbus_utils::ExtractMethodCallResults(
-        response.get(), error, out_result);
-  }
-
-  void ChangeTokenAuthDataAsync(
-      const std::string& in_path,
-      const std::vector<uint8_t>& in_old_auth_data,
-      const std::vector<uint8_t>& in_new_auth_data,
-      base::OnceCallback<void(bool /*result*/)> success_callback,
-      base::OnceCallback<void(brillo::Error*)> error_callback,
-      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
-    brillo::dbus_utils::CallMethodWithTimeout(
-        timeout_ms,
-        dbus_object_proxy_,
-        "org.chromium.Chaps",
-        "ChangeTokenAuthData",
-        std::move(success_callback),
-        std::move(error_callback),
-        in_path,
-        in_old_auth_data,
-        in_new_auth_data);
   }
 
   bool GetTokenPath(

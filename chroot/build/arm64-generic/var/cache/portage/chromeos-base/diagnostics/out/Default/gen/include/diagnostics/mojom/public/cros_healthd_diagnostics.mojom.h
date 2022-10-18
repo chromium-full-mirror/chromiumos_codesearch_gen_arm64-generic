@@ -36,7 +36,7 @@
 
 
 
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace mojom {
 
@@ -881,110 +881,110 @@ bool operator<(const T& lhs, const T& rhs) {
 
 }  // namespace mojom
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 namespace mojo {
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::RunRoutineResponse::DataView,
-                                         ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::RunRoutineResponse::DataView,
+                                         ::ash::cros_healthd::mojom::RunRoutineResponsePtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::RunRoutineResponsePtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::RunRoutineResponsePtr* output) { output->reset(); }
 
-  static decltype(::chromeos::cros_healthd::mojom::RunRoutineResponse::id) id(
-      const ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr& input) {
+  static decltype(::ash::cros_healthd::mojom::RunRoutineResponse::id) id(
+      const ::ash::cros_healthd::mojom::RunRoutineResponsePtr& input) {
     return input->id;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::RunRoutineResponse::status) status(
-      const ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr& input) {
+  static decltype(::ash::cros_healthd::mojom::RunRoutineResponse::status) status(
+      const ::ash::cros_healthd::mojom::RunRoutineResponsePtr& input) {
     return input->status;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::RunRoutineResponse::DataView input, ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* output);
+  static bool Read(::ash::cros_healthd::mojom::RunRoutineResponse::DataView input, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* output);
 };
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::InteractiveRoutineUpdate::DataView,
-                                         ::chromeos::cros_healthd::mojom::InteractiveRoutineUpdatePtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::InteractiveRoutineUpdatePtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::InteractiveRoutineUpdatePtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::InteractiveRoutineUpdate::DataView,
+                                         ::ash::cros_healthd::mojom::InteractiveRoutineUpdatePtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::InteractiveRoutineUpdatePtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::InteractiveRoutineUpdatePtr* output) { output->reset(); }
 
-  static decltype(::chromeos::cros_healthd::mojom::InteractiveRoutineUpdate::user_message) user_message(
-      const ::chromeos::cros_healthd::mojom::InteractiveRoutineUpdatePtr& input) {
+  static decltype(::ash::cros_healthd::mojom::InteractiveRoutineUpdate::user_message) user_message(
+      const ::ash::cros_healthd::mojom::InteractiveRoutineUpdatePtr& input) {
     return input->user_message;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::InteractiveRoutineUpdate::DataView input, ::chromeos::cros_healthd::mojom::InteractiveRoutineUpdatePtr* output);
+  static bool Read(::ash::cros_healthd::mojom::InteractiveRoutineUpdate::DataView input, ::ash::cros_healthd::mojom::InteractiveRoutineUpdatePtr* output);
 };
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::NonInteractiveRoutineUpdate::DataView,
-                                         ::chromeos::cros_healthd::mojom::NonInteractiveRoutineUpdatePtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::NonInteractiveRoutineUpdatePtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::NonInteractiveRoutineUpdatePtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::NonInteractiveRoutineUpdate::DataView,
+                                         ::ash::cros_healthd::mojom::NonInteractiveRoutineUpdatePtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::NonInteractiveRoutineUpdatePtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::NonInteractiveRoutineUpdatePtr* output) { output->reset(); }
 
-  static decltype(::chromeos::cros_healthd::mojom::NonInteractiveRoutineUpdate::status) status(
-      const ::chromeos::cros_healthd::mojom::NonInteractiveRoutineUpdatePtr& input) {
+  static decltype(::ash::cros_healthd::mojom::NonInteractiveRoutineUpdate::status) status(
+      const ::ash::cros_healthd::mojom::NonInteractiveRoutineUpdatePtr& input) {
     return input->status;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::NonInteractiveRoutineUpdate::status_message)& status_message(
-      const ::chromeos::cros_healthd::mojom::NonInteractiveRoutineUpdatePtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::NonInteractiveRoutineUpdate::status_message)& status_message(
+      const ::ash::cros_healthd::mojom::NonInteractiveRoutineUpdatePtr& input) {
     return input->status_message;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::NonInteractiveRoutineUpdate::DataView input, ::chromeos::cros_healthd::mojom::NonInteractiveRoutineUpdatePtr* output);
+  static bool Read(::ash::cros_healthd::mojom::NonInteractiveRoutineUpdate::DataView input, ::ash::cros_healthd::mojom::NonInteractiveRoutineUpdatePtr* output);
 };
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::RoutineUpdate::DataView,
-                                         ::chromeos::cros_healthd::mojom::RoutineUpdatePtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::RoutineUpdatePtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::RoutineUpdatePtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::RoutineUpdate::DataView,
+                                         ::ash::cros_healthd::mojom::RoutineUpdatePtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::RoutineUpdatePtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::RoutineUpdatePtr* output) { output->reset(); }
 
-  static decltype(::chromeos::cros_healthd::mojom::RoutineUpdate::progress_percent) progress_percent(
-      const ::chromeos::cros_healthd::mojom::RoutineUpdatePtr& input) {
+  static decltype(::ash::cros_healthd::mojom::RoutineUpdate::progress_percent) progress_percent(
+      const ::ash::cros_healthd::mojom::RoutineUpdatePtr& input) {
     return input->progress_percent;
   }
 
-  static  decltype(::chromeos::cros_healthd::mojom::RoutineUpdate::output)& output(
-       ::chromeos::cros_healthd::mojom::RoutineUpdatePtr& input) {
+  static  decltype(::ash::cros_healthd::mojom::RoutineUpdate::output)& output(
+       ::ash::cros_healthd::mojom::RoutineUpdatePtr& input) {
     return input->output;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::RoutineUpdate::routine_update_union)& routine_update_union(
-      const ::chromeos::cros_healthd::mojom::RoutineUpdatePtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::RoutineUpdate::routine_update_union)& routine_update_union(
+      const ::ash::cros_healthd::mojom::RoutineUpdatePtr& input) {
     return input->routine_update_union;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::RoutineUpdate::DataView input, ::chromeos::cros_healthd::mojom::RoutineUpdatePtr* output);
+  static bool Read(::ash::cros_healthd::mojom::RoutineUpdate::DataView input, ::ash::cros_healthd::mojom::RoutineUpdatePtr* output);
 };
 
 
 template <>
-struct  UnionTraits<::chromeos::cros_healthd::mojom::RoutineUpdateUnion::DataView,
-                                        ::chromeos::cros_healthd::mojom::RoutineUpdateUnionPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::RoutineUpdateUnionPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::RoutineUpdateUnionPtr* output) { output->reset(); }
+struct  UnionTraits<::ash::cros_healthd::mojom::RoutineUpdateUnion::DataView,
+                                        ::ash::cros_healthd::mojom::RoutineUpdateUnionPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::RoutineUpdateUnionPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::RoutineUpdateUnionPtr* output) { output->reset(); }
 
-  static ::chromeos::cros_healthd::mojom::RoutineUpdateUnion::Tag GetTag(const ::chromeos::cros_healthd::mojom::RoutineUpdateUnionPtr& input) {
+  static ::ash::cros_healthd::mojom::RoutineUpdateUnion::Tag GetTag(const ::ash::cros_healthd::mojom::RoutineUpdateUnionPtr& input) {
     return input->which();
   }
 
-  static const ::chromeos::cros_healthd::mojom::InteractiveRoutineUpdatePtr& interactive_update(const ::chromeos::cros_healthd::mojom::RoutineUpdateUnionPtr& input) {
+  static const ::ash::cros_healthd::mojom::InteractiveRoutineUpdatePtr& interactive_update(const ::ash::cros_healthd::mojom::RoutineUpdateUnionPtr& input) {
     return input->get_interactive_update();
   }
 
-  static const ::chromeos::cros_healthd::mojom::NonInteractiveRoutineUpdatePtr& noninteractive_update(const ::chromeos::cros_healthd::mojom::RoutineUpdateUnionPtr& input) {
+  static const ::ash::cros_healthd::mojom::NonInteractiveRoutineUpdatePtr& noninteractive_update(const ::ash::cros_healthd::mojom::RoutineUpdateUnionPtr& input) {
     return input->get_noninteractive_update();
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::RoutineUpdateUnion::DataView input, ::chromeos::cros_healthd::mojom::RoutineUpdateUnionPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::RoutineUpdateUnion::DataView input, ::ash::cros_healthd::mojom::RoutineUpdateUnionPtr* output);
 };
 
 }  // namespace mojo

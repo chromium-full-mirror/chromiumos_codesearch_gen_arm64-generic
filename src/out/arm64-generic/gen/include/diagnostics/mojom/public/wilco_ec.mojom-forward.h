@@ -21,7 +21,7 @@
 
 
 
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace mojom {
 class EcEventDataView;
@@ -47,6 +47,6 @@ class WilcoEcObserver;
 
 }  // namespace mojom
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 #endif  // DIAGNOSTICS_MOJOM_PUBLIC_WILCO_EC_MOJOM_FORWARD_H_

@@ -24,6 +24,7 @@
 #  pragma GCC system_header
 #endif
 
+_LIBCPP_DISABLE_DEBUG_INFO
 _LIBCPP_BEGIN_NAMESPACE_STD
 
 #if defined(_LIBCPP_DEPRECATED_ABI_DISABLE_PAIR_TRIVIAL_COPY_CTOR)
@@ -621,5 +622,6 @@ constexpr _T1 const && get(pair<_T2, _T1> const&& __p) _NOEXCEPT
 #endif
 
 _LIBCPP_END_NAMESPACE_STD
+_LIBCPP_ENABLE_DEBUG_INFO
 
 #endif // _LIBCPP___UTILITY_PAIR_H

@@ -18,7 +18,7 @@
 #include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
 #include "diagnostics/mojom/public/cros_healthd.mojom-params-data.h"
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace mojom {
 
@@ -316,7 +316,7 @@ bool CrosHealthdDiagnosticsService_GetAvailableRoutines_ResponseParams_Data::Val
     return false;
   }
   const mojo::internal::ContainerValidateParams available_routines_validate_params(
-      0, ::chromeos::cros_healthd::mojom::internal::DiagnosticRoutineEnum_Data::Validate);
+      0, ::ash::cros_healthd::mojom::internal::DiagnosticRoutineEnum_Data::Validate);
   if (!mojo::internal::ValidateContainer(object->available_routines, validation_context,
                                          &available_routines_validate_params)) {
     return false;
@@ -346,7 +346,7 @@ bool CrosHealthdDiagnosticsService_GetRoutineUpdate_Params_Data::Validate(
       static_cast<const CrosHealthdDiagnosticsService_GetRoutineUpdate_Params_Data*>(data);
 
 
-  if (!::chromeos::cros_healthd::mojom::internal::DiagnosticRoutineCommandEnum_Data
+  if (!::ash::cros_healthd::mojom::internal::DiagnosticRoutineCommandEnum_Data
         ::Validate(object->command, validation_context))
     return false;
 
@@ -619,7 +619,7 @@ bool CrosHealthdDiagnosticsService_RunAcPowerRoutine_Params_Data::Validate(
       static_cast<const CrosHealthdDiagnosticsService_RunAcPowerRoutine_Params_Data*>(data);
 
 
-  if (!::chromeos::cros_healthd::mojom::internal::AcPowerStatusEnum_Data
+  if (!::ash::cros_healthd::mojom::internal::AcPowerStatusEnum_Data
         ::Validate(object->expected_status, validation_context))
     return false;
 
@@ -836,6 +836,59 @@ CrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_ResponseParams_Dat
 
 
 // static
+bool CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_Params_Data* object =
+      static_cast<const CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_Params_Data*>(data);
+
+  return true;
+}
+
+CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_Params_Data::CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ResponseParams_Data* object =
+      static_cast<const CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ResponseParams_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->response, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->response, validation_context))
+    return false;
+
+  return true;
+}
+
+CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ResponseParams_Data::CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -850,6 +903,9 @@ bool CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_Params_Data::Validate
   // the message comes from an older version.
   [[maybe_unused]] const CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_Params_Data* object =
       static_cast<const CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_Params_Data*>(data);
+
+  if (!mojo::internal::ValidateStruct(object->wear_level_threshold, validation_context))
+    return false;
 
   return true;
 }
@@ -905,7 +961,7 @@ bool CrosHealthdDiagnosticsService_RunNvmeSelfTestRoutine_Params_Data::Validate(
       static_cast<const CrosHealthdDiagnosticsService_RunNvmeSelfTestRoutine_Params_Data*>(data);
 
 
-  if (!::chromeos::cros_healthd::mojom::internal::NvmeSelfTestTypeEnum_Data
+  if (!::ash::cros_healthd::mojom::internal::NvmeSelfTestTypeEnum_Data
         ::Validate(object->nvme_self_test_type, validation_context))
     return false;
 
@@ -963,7 +1019,7 @@ bool CrosHealthdDiagnosticsService_RunDiskReadRoutine_Params_Data::Validate(
       static_cast<const CrosHealthdDiagnosticsService_RunDiskReadRoutine_Params_Data*>(data);
 
 
-  if (!::chromeos::cros_healthd::mojom::internal::DiskReadRoutineTypeEnum_Data
+  if (!::ash::cros_healthd::mojom::internal::DiskReadRoutineTypeEnum_Data
         ::Validate(object->type, validation_context))
     return false;
 
@@ -2022,6 +2078,59 @@ CrosHealthdDiagnosticsService_RunArcDnsResolutionRoutine_ResponseParams_Data::Cr
 
 
 // static
+bool CrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const CrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_Params_Data* object =
+      static_cast<const CrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_Params_Data*>(data);
+
+  return true;
+}
+
+CrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_Params_Data::CrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool CrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const CrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_ResponseParams_Data* object =
+      static_cast<const CrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_ResponseParams_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->response, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->response, validation_context))
+    return false;
+
+  return true;
+}
+
+CrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_ResponseParams_Data::CrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool CrosHealthdEventService_AddBluetoothObserver_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -2319,7 +2428,7 @@ bool CrosHealthdProbeService_ProbeTelemetryInfo_Params_Data::Validate(
     return false;
   }
   const mojo::internal::ContainerValidateParams categories_validate_params(
-      0, ::chromeos::cros_healthd::mojom::internal::ProbeCategoryEnum_Data::Validate);
+      0, ::ash::cros_healthd::mojom::internal::ProbeCategoryEnum_Data::Validate);
   if (!mojo::internal::ValidateContainer(object->categories, validation_context,
                                          &categories_validate_params)) {
     return false;
@@ -2619,4 +2728,4 @@ WilcoEcServiceController_ShutdownEcService_Params_Data::WilcoEcServiceController
 }  // namespace internal
 }  // namespace mojom
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash

@@ -15,6 +15,7 @@
 #include <stdint.h>
 #include <utility>
 
+#include "base/debug/alias.h"
 #include "base/hash/md5_constexpr.h"
 #include "base/run_loop.h"
 #include "base/strings/string_number_conversions.h"
@@ -319,20 +320,18 @@ bool NetworkHealthState::Validate(
 }
 const char NetworkEventsObserver::Name_[] = "chromeos.network_health.mojom.NetworkEventsObserver";
 
-uint32_t NetworkEventsObserver::MessageToStableIPCHash_(mojo::Message& message) {
+NetworkEventsObserver::IPCStableHashFunction NetworkEventsObserver::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
   switch (message.name()) {
     case internal::kNetworkEventsObserver_OnConnectionStateChanged_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::network_health::mojom::NetworkEventsObserver::OnConnectionStateChanged");
-      return value;
+      return &NetworkEventsObserver::OnConnectionStateChanged_Sym::IPCStableHash;
     }
     case internal::kNetworkEventsObserver_OnSignalStrengthChanged_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::network_health::mojom::NetworkEventsObserver::OnSignalStrengthChanged");
-      return value;
+      return &NetworkEventsObserver::OnSignalStrengthChanged_Sym::IPCStableHash;
     }
   }
-  return 0;
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
 }
 
 
@@ -364,6 +363,35 @@ const char* NetworkEventsObserver::MessageToMethodName_(mojo::Message& message) 
   }
 #endif // BUILDFLAG(MOJO_TRACE_ENABLED)
 }
+
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t NetworkEventsObserver::OnConnectionStateChanged_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)chromeos::network_health::mojom::NetworkEventsObserver::OnConnectionStateChanged");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t NetworkEventsObserver::OnSignalStrengthChanged_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)chromeos::network_health::mojom::NetworkEventsObserver::OnSignalStrengthChanged");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
 
 NetworkEventsObserverProxy::NetworkEventsObserverProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
@@ -419,7 +447,7 @@ void NetworkEventsObserverProxy::OnConnectionStateChanged(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 void NetworkEventsObserverProxy::OnSignalStrengthChanged(
@@ -481,7 +509,7 @@ void NetworkEventsObserverProxy::OnSignalStrengthChanged(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 // static
@@ -587,25 +615,21 @@ bool NetworkEventsObserverRequestValidator::Accept(mojo::Message* message) {
 
 const char NetworkHealthService::Name_[] = "chromeos.network_health.mojom.NetworkHealthService";
 
-uint32_t NetworkHealthService::MessageToStableIPCHash_(mojo::Message& message) {
+NetworkHealthService::IPCStableHashFunction NetworkHealthService::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
   switch (message.name()) {
     case internal::kNetworkHealthService_AddObserver_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::network_health::mojom::NetworkHealthService::AddObserver");
-      return value;
+      return &NetworkHealthService::AddObserver_Sym::IPCStableHash;
     }
     case internal::kNetworkHealthService_GetNetworkList_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::network_health::mojom::NetworkHealthService::GetNetworkList");
-      return value;
+      return &NetworkHealthService::GetNetworkList_Sym::IPCStableHash;
     }
     case internal::kNetworkHealthService_GetHealthSnapshot_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::network_health::mojom::NetworkHealthService::GetHealthSnapshot");
-      return value;
+      return &NetworkHealthService::GetHealthSnapshot_Sym::IPCStableHash;
     }
   }
-  return 0;
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
 }
 
 
@@ -641,6 +665,48 @@ const char* NetworkHealthService::MessageToMethodName_(mojo::Message& message) {
   }
 #endif // BUILDFLAG(MOJO_TRACE_ENABLED)
 }
+
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t NetworkHealthService::AddObserver_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)chromeos::network_health::mojom::NetworkHealthService::AddObserver");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t NetworkHealthService::GetNetworkList_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)chromeos::network_health::mojom::NetworkHealthService::GetNetworkList");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t NetworkHealthService::GetHealthSnapshot_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)chromeos::network_health::mojom::NetworkHealthService::GetHealthSnapshot");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
 
 class NetworkHealthService_GetNetworkList_ForwardToCallback
     : public mojo::MessageReceiver {
@@ -718,7 +784,7 @@ void NetworkHealthServiceProxy::AddObserver(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 void NetworkHealthServiceProxy::GetNetworkList(
@@ -749,7 +815,7 @@ void NetworkHealthServiceProxy::GetNetworkList(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new NetworkHealthService_GetNetworkList_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void NetworkHealthServiceProxy::GetHealthSnapshot(
@@ -780,7 +846,7 @@ void NetworkHealthServiceProxy::GetHealthSnapshot(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new NetworkHealthService_GetHealthSnapshot_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 class NetworkHealthService_GetNetworkList_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
@@ -899,8 +965,8 @@ void NetworkHealthService_GetNetworkList_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -1023,8 +1089,8 @@ void NetworkHealthService_GetHealthSnapshot_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that

@@ -8,7 +8,7 @@
 #define DIAGNOSTICS_CROS_HEALTHD_EXECUTOR_MOJOM_EXECUTOR_MOJOM_SHARED_MESSAGE_IDS_H_
 
 #include <stdint.h>
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace mojom {
 
@@ -31,6 +31,6 @@ constexpr uint32_t kExecutor_GetLidAngle_Name = 11;
 }  // namespace internal
 }  // namespace mojom
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 #endif  // DIAGNOSTICS_CROS_HEALTHD_EXECUTOR_MOJOM_EXECUTOR_MOJOM_SHARED_MESSAGE_IDS_H_

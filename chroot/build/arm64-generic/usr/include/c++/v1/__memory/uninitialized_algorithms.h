@@ -25,6 +25,7 @@
 #  pragma GCC system_header
 #endif
 
+_LIBCPP_DISABLE_DEBUG_INFO
 _LIBCPP_BEGIN_NAMESPACE_STD
 
 // This is a simplified version of C++20 `unreachable_sentinel` that doesn't use concepts and thus can be used in any
@@ -497,5 +498,6 @@ constexpr void __uninitialized_allocator_value_construct_n(_Alloc& __alloc, _Bid
 #endif // _LIBCPP_STD_VER > 17
 
 _LIBCPP_END_NAMESPACE_STD
+_LIBCPP_ENABLE_DEBUG_INFO
 
 #endif // _LIBCPP___MEMORY_UNINITIALIZED_ALGORITHMS_H

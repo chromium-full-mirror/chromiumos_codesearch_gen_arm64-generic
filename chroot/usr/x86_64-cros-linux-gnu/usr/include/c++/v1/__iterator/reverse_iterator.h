@@ -30,6 +30,7 @@
 #  pragma GCC system_header
 #endif
 
+_LIBCPP_DISABLE_DEBUG_INFO
 _LIBCPP_BEGIN_NAMESPACE_STD
 
 _LIBCPP_SUPPRESS_DEPRECATED_PUSH
@@ -322,5 +323,6 @@ reverse_iterator<_Iter> make_reverse_iterator(_Iter __i)
 #endif
 
 _LIBCPP_END_NAMESPACE_STD
+_LIBCPP_ENABLE_DEBUG_INFO
 
 #endif // _LIBCPP___ITERATOR_REVERSE_ITERATOR_H

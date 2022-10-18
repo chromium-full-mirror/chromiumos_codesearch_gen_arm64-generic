@@ -813,6 +813,7 @@ class UploadEncryptedRecordRequest final :
 
   enum : int {
     kEncryptedRecordFieldNumber = 1,
+    kPipelineIdFieldNumber = 5,
     kRemainingStorageCapacityFieldNumber = 3,
     kNewEventsRateFieldNumber = 4,
     kNeedEncryptionKeysFieldNumber = 2,
@@ -834,6 +835,24 @@ class UploadEncryptedRecordRequest final :
   ::reporting::EncryptedRecord* add_encrypted_record();
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::reporting::EncryptedRecord >&
       encrypted_record() const;
+
+  // optional string pipeline_id = 5;
+  bool has_pipeline_id() const;
+  private:
+  bool _internal_has_pipeline_id() const;
+  public:
+  void clear_pipeline_id();
+  const std::string& pipeline_id() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_pipeline_id(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_pipeline_id();
+  PROTOBUF_NODISCARD std::string* release_pipeline_id();
+  void set_allocated_pipeline_id(std::string* pipeline_id);
+  private:
+  const std::string& _internal_pipeline_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_pipeline_id(const std::string& value);
+  std::string* _internal_mutable_pipeline_id();
+  public:
 
   // optional uint64 remaining_storage_capacity = 3;
   bool has_remaining_storage_capacity() const;
@@ -884,6 +903,7 @@ class UploadEncryptedRecordRequest final :
   ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::reporting::EncryptedRecord > encrypted_record_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr pipeline_id_;
   uint64_t remaining_storage_capacity_;
   uint64_t new_events_rate_;
   bool need_encryption_keys_;
@@ -2027,7 +2047,7 @@ UploadEncryptedRecordRequest::encrypted_record() const {
 
 // optional bool need_encryption_keys = 2;
 inline bool UploadEncryptedRecordRequest::_internal_has_need_encryption_keys() const {
-  bool value = (_has_bits_[0] & 0x00000004u) != 0;
+  bool value = (_has_bits_[0] & 0x00000008u) != 0;
   return value;
 }
 inline bool UploadEncryptedRecordRequest::has_need_encryption_keys() const {
@@ -2035,7 +2055,7 @@ inline bool UploadEncryptedRecordRequest::has_need_encryption_keys() const {
 }
 inline void UploadEncryptedRecordRequest::clear_need_encryption_keys() {
   need_encryption_keys_ = false;
-  _has_bits_[0] &= ~0x00000004u;
+  _has_bits_[0] &= ~0x00000008u;
 }
 inline bool UploadEncryptedRecordRequest::_internal_need_encryption_keys() const {
   return need_encryption_keys_;
@@ -2045,7 +2065,7 @@ inline bool UploadEncryptedRecordRequest::need_encryption_keys() const {
   return _internal_need_encryption_keys();
 }
 inline void UploadEncryptedRecordRequest::_internal_set_need_encryption_keys(bool value) {
-  _has_bits_[0] |= 0x00000004u;
+  _has_bits_[0] |= 0x00000008u;
   need_encryption_keys_ = value;
 }
 inline void UploadEncryptedRecordRequest::set_need_encryption_keys(bool value) {
@@ -2055,7 +2075,7 @@ inline void UploadEncryptedRecordRequest::set_need_encryption_keys(bool value) {
 
 // optional uint64 remaining_storage_capacity = 3;
 inline bool UploadEncryptedRecordRequest::_internal_has_remaining_storage_capacity() const {
-  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
   return value;
 }
 inline bool UploadEncryptedRecordRequest::has_remaining_storage_capacity() const {
@@ -2063,7 +2083,7 @@ inline bool UploadEncryptedRecordRequest::has_remaining_storage_capacity() const
 }
 inline void UploadEncryptedRecordRequest::clear_remaining_storage_capacity() {
   remaining_storage_capacity_ = uint64_t{0u};
-  _has_bits_[0] &= ~0x00000001u;
+  _has_bits_[0] &= ~0x00000002u;
 }
 inline uint64_t UploadEncryptedRecordRequest::_internal_remaining_storage_capacity() const {
   return remaining_storage_capacity_;
@@ -2073,7 +2093,7 @@ inline uint64_t UploadEncryptedRecordRequest::remaining_storage_capacity() const
   return _internal_remaining_storage_capacity();
 }
 inline void UploadEncryptedRecordRequest::_internal_set_remaining_storage_capacity(uint64_t value) {
-  _has_bits_[0] |= 0x00000001u;
+  _has_bits_[0] |= 0x00000002u;
   remaining_storage_capacity_ = value;
 }
 inline void UploadEncryptedRecordRequest::set_remaining_storage_capacity(uint64_t value) {
@@ -2083,7 +2103,7 @@ inline void UploadEncryptedRecordRequest::set_remaining_storage_capacity(uint64_
 
 // optional uint64 new_events_rate = 4;
 inline bool UploadEncryptedRecordRequest::_internal_has_new_events_rate() const {
-  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  bool value = (_has_bits_[0] & 0x00000004u) != 0;
   return value;
 }
 inline bool UploadEncryptedRecordRequest::has_new_events_rate() const {
@@ -2091,7 +2111,7 @@ inline bool UploadEncryptedRecordRequest::has_new_events_rate() const {
 }
 inline void UploadEncryptedRecordRequest::clear_new_events_rate() {
   new_events_rate_ = uint64_t{0u};
-  _has_bits_[0] &= ~0x00000002u;
+  _has_bits_[0] &= ~0x00000004u;
 }
 inline uint64_t UploadEncryptedRecordRequest::_internal_new_events_rate() const {
   return new_events_rate_;
@@ -2101,12 +2121,81 @@ inline uint64_t UploadEncryptedRecordRequest::new_events_rate() const {
   return _internal_new_events_rate();
 }
 inline void UploadEncryptedRecordRequest::_internal_set_new_events_rate(uint64_t value) {
-  _has_bits_[0] |= 0x00000002u;
+  _has_bits_[0] |= 0x00000004u;
   new_events_rate_ = value;
 }
 inline void UploadEncryptedRecordRequest::set_new_events_rate(uint64_t value) {
   _internal_set_new_events_rate(value);
   // @@protoc_insertion_point(field_set:reporting.UploadEncryptedRecordRequest.new_events_rate)
+}
+
+// optional string pipeline_id = 5;
+inline bool UploadEncryptedRecordRequest::_internal_has_pipeline_id() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool UploadEncryptedRecordRequest::has_pipeline_id() const {
+  return _internal_has_pipeline_id();
+}
+inline void UploadEncryptedRecordRequest::clear_pipeline_id() {
+  pipeline_id_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline const std::string& UploadEncryptedRecordRequest::pipeline_id() const {
+  // @@protoc_insertion_point(field_get:reporting.UploadEncryptedRecordRequest.pipeline_id)
+  return _internal_pipeline_id();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void UploadEncryptedRecordRequest::set_pipeline_id(ArgT0&& arg0, ArgT... args) {
+ _has_bits_[0] |= 0x00000001u;
+ pipeline_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:reporting.UploadEncryptedRecordRequest.pipeline_id)
+}
+inline std::string* UploadEncryptedRecordRequest::mutable_pipeline_id() {
+  std::string* _s = _internal_mutable_pipeline_id();
+  // @@protoc_insertion_point(field_mutable:reporting.UploadEncryptedRecordRequest.pipeline_id)
+  return _s;
+}
+inline const std::string& UploadEncryptedRecordRequest::_internal_pipeline_id() const {
+  return pipeline_id_.Get();
+}
+inline void UploadEncryptedRecordRequest::_internal_set_pipeline_id(const std::string& value) {
+  _has_bits_[0] |= 0x00000001u;
+  pipeline_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* UploadEncryptedRecordRequest::_internal_mutable_pipeline_id() {
+  _has_bits_[0] |= 0x00000001u;
+  return pipeline_id_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* UploadEncryptedRecordRequest::release_pipeline_id() {
+  // @@protoc_insertion_point(field_release:reporting.UploadEncryptedRecordRequest.pipeline_id)
+  if (!_internal_has_pipeline_id()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000001u;
+  auto* p = pipeline_id_.ReleaseNonDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (pipeline_id_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    pipeline_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void UploadEncryptedRecordRequest::set_allocated_pipeline_id(std::string* pipeline_id) {
+  if (pipeline_id != nullptr) {
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  pipeline_id_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), pipeline_id,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (pipeline_id_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    pipeline_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:reporting.UploadEncryptedRecordRequest.pipeline_id)
 }
 
 // -------------------------------------------------------------------

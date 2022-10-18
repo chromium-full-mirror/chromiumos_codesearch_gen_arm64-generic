@@ -16,6 +16,7 @@
 #  pragma GCC system_header
 #endif
 
+_LIBCPP_DISABLE_DEBUG_INFO
 _LIBCPP_BEGIN_NAMESPACE_STD
 
 _LIBCPP_NORETURN _LIBCPP_HIDE_FROM_ABI inline void __libcpp_unreachable()
@@ -34,5 +35,6 @@ _LIBCPP_NORETURN _LIBCPP_HIDE_FROM_ABI inline void __libcpp_unreachable()
 #endif // _LIBCPP_STD_VER > 20
 
 _LIBCPP_END_NAMESPACE_STD
+_LIBCPP_ENABLE_DEBUG_INFO
 
 #endif

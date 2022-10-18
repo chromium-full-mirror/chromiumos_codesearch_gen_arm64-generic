@@ -16,6 +16,7 @@
 #  pragma GCC system_header
 #endif
 
+_LIBCPP_DISABLE_DEBUG_INFO
 _LIBCPP_BEGIN_NAMESPACE_STD
 
 template <class _Container, class _Predicate>
@@ -36,5 +37,6 @@ __libcpp_erase_if_container(_Container& __c, _Predicate& __pred) {
 }
 
 _LIBCPP_END_NAMESPACE_STD
+_LIBCPP_ENABLE_DEBUG_INFO
 
 #endif // _LIBCPP___ITERATOR_ERASE_IF_CONTAINER_H

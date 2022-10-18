@@ -22,7 +22,7 @@ namespace internal {
 class ValidationContext;
 }
 }
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace mojom {
 namespace internal {
@@ -663,6 +663,7 @@ struct Sensor_Type_Data {
       case 3:
       case 4:
       case 5:
+      case 6:
         return true;
     }
     return false;
@@ -2432,7 +2433,7 @@ class  BatteryInfo_Data {
   mojo::internal::Pointer<mojo::internal::String_Data> technology;
   mojo::internal::Pointer<mojo::internal::String_Data> status;
   mojo::internal::Pointer<mojo::internal::String_Data> manufacture_date;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::NullableUint64_Data> temperature;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint64_Data> temperature;
 
  private:
   friend class mojo::internal::MessageFragment<BatteryInfo_Data>;
@@ -2485,7 +2486,7 @@ class  NonRemovableBlockDeviceInfo_Data {
   uint64_t read_time_seconds_since_last_boot;
   uint64_t write_time_seconds_since_last_boot;
   uint64_t io_time_seconds_since_last_boot;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::NullableUint64_Data> discard_time_seconds_since_last_boot;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint64_Data> discard_time_seconds_since_last_boot;
   internal::BlockDeviceVendor_Data vendor_id;
   internal::BlockDeviceProduct_Data product_id;
   internal::BlockDeviceRevision_Data revision;
@@ -3372,12 +3373,12 @@ class  BluetoothDeviceInfo_Data {
   mojo::internal::Pointer<mojo::internal::String_Data> name;
   int32_t type;
   uint8_t pad2_[4];
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::NullableUint16_Data> appearance;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint16_Data> appearance;
   mojo::internal::Pointer<mojo::internal::String_Data> modalias;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::NullableInt16_Data> rssi;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::NullableUint16_Data> mtu;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableInt16_Data> rssi;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint16_Data> mtu;
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<mojo::internal::String_Data>>> uuids;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::NullableUint8_Data> battery_percentage;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint8_Data> battery_percentage;
 
  private:
   friend class mojo::internal::MessageFragment<BluetoothDeviceInfo_Data>;
@@ -3584,6 +3585,7 @@ class  OsVersion_Data {
   mojo::internal::Pointer<mojo::internal::String_Data> build_number;
   mojo::internal::Pointer<mojo::internal::String_Data> patch_number;
   mojo::internal::Pointer<mojo::internal::String_Data> release_channel;
+  mojo::internal::Pointer<mojo::internal::String_Data> branch_number;
 
  private:
   friend class mojo::internal::MessageFragment<OsVersion_Data>;
@@ -3591,7 +3593,7 @@ class  OsVersion_Data {
   OsVersion_Data();
   ~OsVersion_Data() = delete;
 };
-static_assert(sizeof(OsVersion_Data) == 40,
+static_assert(sizeof(OsVersion_Data) == 48,
               "Bad sizeof(OsVersion_Data)");
 // Used by OsVersion::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>
@@ -3637,6 +3639,7 @@ class  VpdInfo_Data {
   mojo::internal::Pointer<mojo::internal::String_Data> activate_date;
   mojo::internal::Pointer<mojo::internal::String_Data> sku_number;
   mojo::internal::Pointer<mojo::internal::String_Data> model_name;
+  mojo::internal::Pointer<mojo::internal::String_Data> oem_name;
 
  private:
   friend class mojo::internal::MessageFragment<VpdInfo_Data>;
@@ -3644,7 +3647,7 @@ class  VpdInfo_Data {
   VpdInfo_Data();
   ~VpdInfo_Data() = delete;
 };
-static_assert(sizeof(VpdInfo_Data) == 56,
+static_assert(sizeof(VpdInfo_Data) == 64,
               "Bad sizeof(VpdInfo_Data)");
 // Used by VpdInfo::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>
@@ -3690,7 +3693,7 @@ class  DmiInfo_Data {
   mojo::internal::Pointer<mojo::internal::String_Data> board_vendor;
   mojo::internal::Pointer<mojo::internal::String_Data> board_version;
   mojo::internal::Pointer<mojo::internal::String_Data> chassis_vendor;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::NullableUint64_Data> chassis_type;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint64_Data> chassis_type;
   mojo::internal::Pointer<mojo::internal::String_Data> product_family;
   mojo::internal::Pointer<mojo::internal::String_Data> product_name;
   mojo::internal::Pointer<mojo::internal::String_Data> product_version;
@@ -4885,16 +4888,16 @@ class  EmbeddedDisplayInfo_Data {
   uint8_t privacy_screen_enabled : 1;
   uint8_t pad1_[3];
   int32_t input_type;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::NullableUint32_Data> display_width;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::NullableUint32_Data> display_height;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::NullableUint32_Data> resolution_horizontal;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::NullableUint32_Data> resolution_vertical;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::NullableDouble_Data> refresh_rate;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint32_Data> display_width;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint32_Data> display_height;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint32_Data> resolution_horizontal;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint32_Data> resolution_vertical;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableDouble_Data> refresh_rate;
   mojo::internal::Pointer<mojo::internal::String_Data> manufacturer;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::NullableUint16_Data> model_id;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::NullableUint32_Data> serial_number;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::NullableUint8_Data> manufacture_week;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::NullableUint16_Data> manufacture_year;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint16_Data> model_id;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint32_Data> serial_number;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint8_Data> manufacture_week;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint16_Data> manufacture_year;
   mojo::internal::Pointer<mojo::internal::String_Data> edid_version;
   mojo::internal::Pointer<mojo::internal::String_Data> display_name;
 
@@ -4944,16 +4947,16 @@ class  ExternalDisplayInfo_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::NullableUint32_Data> display_width;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::NullableUint32_Data> display_height;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::NullableUint32_Data> resolution_horizontal;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::NullableUint32_Data> resolution_vertical;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::NullableDouble_Data> refresh_rate;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint32_Data> display_width;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint32_Data> display_height;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint32_Data> resolution_horizontal;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint32_Data> resolution_vertical;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableDouble_Data> refresh_rate;
   mojo::internal::Pointer<mojo::internal::String_Data> manufacturer;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::NullableUint16_Data> model_id;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::NullableUint32_Data> serial_number;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::NullableUint8_Data> manufacture_week;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::NullableUint16_Data> manufacture_year;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint16_Data> model_id;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint32_Data> serial_number;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint8_Data> manufacture_week;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint16_Data> manufacture_year;
   mojo::internal::Pointer<mojo::internal::String_Data> edid_version;
   int32_t input_type;
   uint8_t pad11_[4];
@@ -5264,7 +5267,7 @@ class  SensorInfo_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::NullableUint16_Data> lid_angle;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint16_Data> lid_angle;
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::Sensor_Data>>> sensors;
 
  private:
@@ -5434,6 +5437,6 @@ const mojo::internal::UnserializedMessageContext::Tag
 }  // namespace internal
 }  // namespace mojom
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 #endif  // DIAGNOSTICS_MOJOM_PUBLIC_CROS_HEALTHD_PROBE_MOJOM_SHARED_INTERNAL_H_

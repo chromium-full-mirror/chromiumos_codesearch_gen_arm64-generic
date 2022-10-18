@@ -4,7 +4,7 @@
 #ifndef LIBCHROME_BASE_TRACING_BUILDFLAGS_H_
 #define LIBCHROME_BASE_TRACING_BUILDFLAGS_H_
 
-#include "build/buildflag.h"
+#include "build/buildflag.h" // IWYU pragma: export
 
 #define BUILDFLAG_INTERNAL_ENABLE_BASE_TRACING() (1)
 #define BUILDFLAG_INTERNAL_USE_PERFETTO_CLIENT_LIBRARY() (0)

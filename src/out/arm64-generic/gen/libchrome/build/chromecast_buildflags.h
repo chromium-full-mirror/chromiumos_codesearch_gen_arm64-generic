@@ -4,7 +4,7 @@
 #ifndef LIBCHROME_BUILD_CHROMECAST_BUILDFLAGS_H_
 #define LIBCHROME_BUILD_CHROMECAST_BUILDFLAGS_H_
 
-#include "build/buildflag.h"
+#include "build/buildflag.h" // IWYU pragma: export
 
 #define BUILDFLAG_INTERNAL_IS_CHROME_CAST() (0)
 

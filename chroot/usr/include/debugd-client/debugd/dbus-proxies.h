@@ -362,6 +362,29 @@ class debugdProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
+  // Fills the system logs for feedback reports in the file whose file
+  // descriptor is given. This is used for logs that are so big that they
+  // exceed the limits of D-Bus returning them. Provides options to change
+  // the scope of the collected logs.
+  virtual bool GetFeedbackLogsV2(
+      const brillo::dbus_utils::FileDescriptor& in_outfd,
+      const std::string& in_username,
+      const std::vector<int32_t>& in_requested_logs,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Fills the system logs for feedback reports in the file whose file
+  // descriptor is given. This is used for logs that are so big that they
+  // exceed the limits of D-Bus returning them. Provides options to change
+  // the scope of the collected logs.
+  virtual void GetFeedbackLogsV2Async(
+      const brillo::dbus_utils::FileDescriptor& in_outfd,
+      const std::string& in_username,
+      const std::vector<int32_t>& in_requested_logs,
+      base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
   // Retrieves the ARC bug report and saves it in debugd daemon store.
   // If a backup already exists, it is over-written.
   // If backup operation fails, an error is logged.
@@ -457,6 +480,22 @@ class debugdProxyInterface {
   virtual void CupsRemovePrinterAsync(
       const std::string& in_name,
       base::OnceCallback<void(bool /*result*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Retrieve the PPD from CUPS for a given printer.  On success, returns the
+  // PPD as a vector of bytes.  On error, returns an empty vector.
+  virtual bool CupsRetrievePpd(
+      const std::string& in_name,
+      std::vector<uint8_t>* out_ppd,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Retrieve the PPD from CUPS for a given printer.  On success, returns the
+  // PPD as a vector of bytes.  On error, returns an empty vector.
+  virtual void CupsRetrievePpdAsync(
+      const std::string& in_name,
+      base::OnceCallback<void(const std::vector<uint8_t>& /*ppd*/)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
@@ -2259,6 +2298,52 @@ class debugdProxy final : public debugdProxyInterface {
         in_username);
   }
 
+  // Fills the system logs for feedback reports in the file whose file
+  // descriptor is given. This is used for logs that are so big that they
+  // exceed the limits of D-Bus returning them. Provides options to change
+  // the scope of the collected logs.
+  bool GetFeedbackLogsV2(
+      const brillo::dbus_utils::FileDescriptor& in_outfd,
+      const std::string& in_username,
+      const std::vector<int32_t>& in_requested_logs,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.debugd",
+        "GetFeedbackLogsV2",
+        error,
+        in_outfd,
+        in_username,
+        in_requested_logs);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error);
+  }
+
+  // Fills the system logs for feedback reports in the file whose file
+  // descriptor is given. This is used for logs that are so big that they
+  // exceed the limits of D-Bus returning them. Provides options to change
+  // the scope of the collected logs.
+  void GetFeedbackLogsV2Async(
+      const brillo::dbus_utils::FileDescriptor& in_outfd,
+      const std::string& in_username,
+      const std::vector<int32_t>& in_requested_logs,
+      base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.debugd",
+        "GetFeedbackLogsV2",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_outfd,
+        in_username,
+        in_requested_logs);
+  }
+
   // Retrieves the ARC bug report and saves it in debugd daemon store.
   // If a backup already exists, it is over-written.
   // If backup operation fails, an error is logged.
@@ -2470,6 +2555,41 @@ class debugdProxy final : public debugdProxyInterface {
         dbus_object_proxy_,
         "org.chromium.debugd",
         "CupsRemovePrinter",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_name);
+  }
+
+  // Retrieve the PPD from CUPS for a given printer.  On success, returns the
+  // PPD as a vector of bytes.  On error, returns an empty vector.
+  bool CupsRetrievePpd(
+      const std::string& in_name,
+      std::vector<uint8_t>* out_ppd,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.debugd",
+        "CupsRetrievePpd",
+        error,
+        in_name);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_ppd);
+  }
+
+  // Retrieve the PPD from CUPS for a given printer.  On success, returns the
+  // PPD as a vector of bytes.  On error, returns an empty vector.
+  void CupsRetrievePpdAsync(
+      const std::string& in_name,
+      base::OnceCallback<void(const std::vector<uint8_t>& /*ppd*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.debugd",
+        "CupsRetrievePpd",
         std::move(success_callback),
         std::move(error_callback),
         in_name);

@@ -49,6 +49,9 @@ std::string GetProtoDebugStringWithIndent(AuthFactorType value,
   if (value == AUTH_FACTOR_TYPE_SMART_CARD) {
     return "AUTH_FACTOR_TYPE_SMART_CARD";
   }
+  if (value == AUTH_FACTOR_TYPE_LEGACY_FINGERPRINT) {
+    return "AUTH_FACTOR_TYPE_LEGACY_FINGERPRINT";
+  }
   return "<unknown>";
 }
 
@@ -107,6 +110,9 @@ std::string GetProtoDebugStringWithIndent(AuthIntent value, int indent_size) {
   }
   if (value == AUTH_INTENT_VERIFY_ONLY) {
     return "AUTH_INTENT_VERIFY_ONLY";
+  }
+  if (value == AUTH_INTENT_WEBAUTHN) {
+    return "AUTH_INTENT_WEBAUTHN";
   }
   return "<unknown>";
 }
@@ -231,6 +237,21 @@ std::string GetProtoDebugStringWithIndent(const SmartCardAuthInput& value,
   return output;
 }
 
+std::string GetProtoDebugString(const LegacyFingerprintAuthInput& value) {
+  return GetProtoDebugStringWithIndent(value, 0);
+}
+
+std::string GetProtoDebugStringWithIndent(
+    const LegacyFingerprintAuthInput& value,
+    int indent_size) {
+  std::string indent(indent_size, ' ');
+  std::string output =
+      base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
+
+  output += indent + "}\n";
+  return output;
+}
+
 std::string GetProtoDebugString(const AuthInput& value) {
   return GetProtoDebugStringWithIndent(value, 0);
 }
@@ -274,6 +295,13 @@ std::string GetProtoDebugStringWithIndent(const AuthInput& value,
       &output, "%s",
       GetProtoDebugStringWithIndent(value.smart_card_input(), indent_size + 2)
           .c_str());
+  output += "\n";
+
+  output += indent + "  legacy_fingerprint_input: ";
+  base::StringAppendF(&output, "%s",
+                      GetProtoDebugStringWithIndent(
+                          value.legacy_fingerprint_input(), indent_size + 2)
+                          .c_str());
   output += "\n";
 
   output += indent + "}\n";
@@ -372,12 +400,30 @@ std::string GetProtoDebugStringWithIndent(const CommonMetadata& value,
   std::string output =
       base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
-  output += indent + "  version_last_updated: ";
+  output += indent + "  chromeos_version_last_updated: ";
   base::StringAppendF(&output, "%s",
-                      base::HexEncode(value.version_last_updated().data(),
-                                      value.version_last_updated().size())
-                          .c_str());
+                      value.chromeos_version_last_updated().c_str());
   output += "\n";
+
+  output += indent + "  chrome_version_last_updated: ";
+  base::StringAppendF(&output, "%s",
+                      value.chrome_version_last_updated().c_str());
+  output += "\n";
+
+  output += indent + "}\n";
+  return output;
+}
+
+std::string GetProtoDebugString(const LegacyFingerprintMetadata& value) {
+  return GetProtoDebugStringWithIndent(value, 0);
+}
+
+std::string GetProtoDebugStringWithIndent(
+    const LegacyFingerprintMetadata& value,
+    int indent_size) {
+  std::string indent(indent_size, ' ');
+  std::string output =
+      base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
 
   output += indent + "}\n";
   return output;
@@ -410,17 +456,6 @@ std::string GetProtoDebugStringWithIndent(const AuthFactor& value,
           .c_str());
   output += "\n";
 
-  output += indent + "  supported_intents: {";
-  for (int i = 0; i < value.supported_intents_size(); ++i) {
-    if (i > 0) {
-      base::StringAppendF(&output, ", ");
-    }
-    base::StringAppendF(&output, "%s",
-                        GetProtoDebugStringWithIndent(
-                            value.supported_intents(i), indent_size + 2)
-                            .c_str());
-  }
-  output += "}\n";
   output += indent + "  password_metadata: ";
   base::StringAppendF(
       &output, "%s",
@@ -453,6 +488,13 @@ std::string GetProtoDebugStringWithIndent(const AuthFactor& value,
   base::StringAppendF(&output, "%s",
                       GetProtoDebugStringWithIndent(value.smart_card_metadata(),
                                                     indent_size + 2)
+                          .c_str());
+  output += "\n";
+
+  output += indent + "  legacy_fingerprint_metadata: ";
+  base::StringAppendF(&output, "%s",
+                      GetProtoDebugStringWithIndent(
+                          value.legacy_fingerprint_metadata(), indent_size + 2)
                           .c_str());
   output += "\n";
 

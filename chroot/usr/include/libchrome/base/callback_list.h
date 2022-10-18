@@ -340,12 +340,12 @@ class RepeatingCallbackList
   }
 };
 
-template <typename Signature>
-using CallbackList = RepeatingCallbackList<Signature>;
-
 // Syntactic sugar to parallel that used for {Once,Repeating}Callbacks.
 using OnceClosureList = OnceCallbackList<void()>;
 using RepeatingClosureList = RepeatingCallbackList<void()>;
+
+template <typename Signature>
+using CallbackList = RepeatingCallbackList<Signature>;
 
 }  // namespace base
 

@@ -128,6 +128,14 @@ class debugdInterface {
   virtual void GetBigFeedbackLogs(
       const base::ScopedFD& in_outfd,
       const std::string& in_username) = 0;
+  // Fills the system logs for feedback reports in the file whose file
+  // descriptor is given. This is used for logs that are so big that they
+  // exceed the limits of D-Bus returning them. Provides options to change
+  // the scope of the collected logs.
+  virtual void GetFeedbackLogsV2(
+      const base::ScopedFD& in_outfd,
+      const std::string& in_username,
+      const std::vector<int32_t>& in_requested_logs) = 0;
   // Retrieves the ARC bug report and saves it in debugd daemon store.
   // If a backup already exists, it is over-written.
   // If backup operation fails, an error is logged.
@@ -153,6 +161,10 @@ class debugdInterface {
   // Remove a printer from CUPS.  Returns true if the printer was removed
   // successfully.
   virtual bool CupsRemovePrinter(
+      const std::string& in_name) = 0;
+  // Retrieve the PPD from CUPS for a given printer.  On success, returns the
+  // PPD as a vector of bytes.  On error, returns an empty vector.
+  virtual std::vector<uint8_t> CupsRetrievePpd(
       const std::string& in_name) = 0;
   // Returns information about network interfaces as a JSON string.
   virtual std::string GetInterfaces() = 0;
@@ -553,6 +565,10 @@ class debugdAdaptor {
         base::Unretained(interface_),
         &debugdInterface::GetBigFeedbackLogs);
     itf->AddSimpleMethodHandler(
+        "GetFeedbackLogsV2",
+        base::Unretained(interface_),
+        &debugdInterface::GetFeedbackLogsV2);
+    itf->AddSimpleMethodHandler(
         "BackupArcBugReport",
         base::Unretained(interface_),
         &debugdInterface::BackupArcBugReport);
@@ -576,6 +592,10 @@ class debugdAdaptor {
         "CupsRemovePrinter",
         base::Unretained(interface_),
         &debugdInterface::CupsRemovePrinter);
+    itf->AddSimpleMethodHandler(
+        "CupsRetrievePpd",
+        base::Unretained(interface_),
+        &debugdInterface::CupsRetrievePpd);
     itf->AddSimpleMethodHandler(
         "GetInterfaces",
         base::Unretained(interface_),
@@ -951,6 +971,11 @@ class debugdAdaptor {
         "      <arg name=\"outfd\" type=\"h\" direction=\"in\"/>\n"
         "      <arg name=\"username\" type=\"s\" direction=\"in\"/>\n"
         "    </method>\n"
+        "    <method name=\"GetFeedbackLogsV2\">\n"
+        "      <arg name=\"outfd\" type=\"h\" direction=\"in\"/>\n"
+        "      <arg name=\"username\" type=\"s\" direction=\"in\"/>\n"
+        "      <arg name=\"requested_logs\" type=\"ai\" direction=\"in\"/>\n"
+        "    </method>\n"
         "    <method name=\"BackupArcBugReport\">\n"
         "      <arg name=\"username\" type=\"s\" direction=\"in\"/>\n"
         "    </method>\n"
@@ -974,6 +999,10 @@ class debugdAdaptor {
         "    <method name=\"CupsRemovePrinter\">\n"
         "      <arg name=\"name\" type=\"s\" direction=\"in\"/>\n"
         "      <arg name=\"result\" type=\"b\" direction=\"out\"/>\n"
+        "    </method>\n"
+        "    <method name=\"CupsRetrievePpd\">\n"
+        "      <arg name=\"name\" type=\"s\" direction=\"in\"/>\n"
+        "      <arg name=\"ppd\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"
         "    <method name=\"GetInterfaces\">\n"
         "      <arg name=\"result\" type=\"s\" direction=\"out\"/>\n"

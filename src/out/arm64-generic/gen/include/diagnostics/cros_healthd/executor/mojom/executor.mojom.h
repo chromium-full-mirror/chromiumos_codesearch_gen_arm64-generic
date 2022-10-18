@@ -37,7 +37,7 @@
 
 
 
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace mojom {
 
@@ -53,8 +53,10 @@ class ExecutorResponseValidator;
 class  Executor
     : public ExecutorInterfaceBase {
  public:
+  using IPCStableHashFunction = uint32_t(*)();
+
   static const char Name_[];
-  static uint32_t MessageToStableIPCHash_(mojo::Message& message);
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 0;
   static constexpr bool PassesAssociatedKinds_ = false;
@@ -83,6 +85,47 @@ class  Executor
     kGetUEFIPlatformSizeContentMinVersion = 0,
     kGetLidAngleMinVersion = 0,
   };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+  struct GetFanSpeed_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct GetInterfaces_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct GetLink_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct GetInfo_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct GetScanDump_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct RunMemtester_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct KillMemtester_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct GetProcessIOContents_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct ReadMsr_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct GetUEFISecureBootContent_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct GetUEFIPlatformSizeContent_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct GetLidAngle_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+#endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~Executor() = default;
 
 
@@ -119,12 +162,12 @@ class  Executor
   virtual void KillMemtester() = 0;
 
 
-  using GetProcessIOContentsCallback = base::OnceCallback<void(const std::string&)>;
+  using GetProcessIOContentsCallback = base::OnceCallback<void(const base::flat_map<uint32_t, std::string>&)>;
   
-  virtual void GetProcessIOContents(uint32_t pid, GetProcessIOContentsCallback callback) = 0;
+  virtual void GetProcessIOContents(const std::vector<uint32_t>& pids, GetProcessIOContentsCallback callback) = 0;
 
 
-  using ReadMsrCallback = base::OnceCallback<void(::chromeos::cros_healthd::mojom::NullableUint64Ptr)>;
+  using ReadMsrCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::NullableUint64Ptr)>;
   
   virtual void ReadMsr(uint32_t msr_reg, uint32_t cpu_index, ReadMsrCallback callback) = 0;
 
@@ -167,7 +210,7 @@ class  ExecutorProxy
   
   void KillMemtester() final;
   
-  void GetProcessIOContents(uint32_t pid, GetProcessIOContentsCallback callback) final;
+  void GetProcessIOContents(const std::vector<uint32_t>& pids, GetProcessIOContentsCallback callback) final;
   
   void ReadMsr(uint32_t msr_reg, uint32_t cpu_index, ReadMsrCallback callback) final;
   
@@ -417,33 +460,33 @@ bool operator<(const T& lhs, const T& rhs) {
 
 }  // namespace mojom
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 namespace mojo {
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::ExecutedProcessResult::DataView,
-                                         ::chromeos::cros_healthd::mojom::ExecutedProcessResultPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::ExecutedProcessResultPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::ExecutedProcessResultPtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::ExecutedProcessResult::DataView,
+                                         ::ash::cros_healthd::mojom::ExecutedProcessResultPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::ExecutedProcessResultPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::ExecutedProcessResultPtr* output) { output->reset(); }
 
-  static decltype(::chromeos::cros_healthd::mojom::ExecutedProcessResult::return_code) return_code(
-      const ::chromeos::cros_healthd::mojom::ExecutedProcessResultPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::ExecutedProcessResult::return_code) return_code(
+      const ::ash::cros_healthd::mojom::ExecutedProcessResultPtr& input) {
     return input->return_code;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::ExecutedProcessResult::out)& out(
-      const ::chromeos::cros_healthd::mojom::ExecutedProcessResultPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::ExecutedProcessResult::out)& out(
+      const ::ash::cros_healthd::mojom::ExecutedProcessResultPtr& input) {
     return input->out;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::ExecutedProcessResult::err)& err(
-      const ::chromeos::cros_healthd::mojom::ExecutedProcessResultPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::ExecutedProcessResult::err)& err(
+      const ::ash::cros_healthd::mojom::ExecutedProcessResultPtr& input) {
     return input->err;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::ExecutedProcessResult::DataView input, ::chromeos::cros_healthd::mojom::ExecutedProcessResultPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::ExecutedProcessResult::DataView input, ::ash::cros_healthd::mojom::ExecutedProcessResultPtr* output);
 };
 
 }  // namespace mojo

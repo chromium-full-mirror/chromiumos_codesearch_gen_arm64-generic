@@ -9,7 +9,7 @@
 // TODO(dcheng): Consider omitting this somehow if not needed.
 
 
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace mojom {
 
@@ -18,6 +18,6 @@ namespace internal {
 }  // namespace internal
 }  // namespace mojom
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 // Includes removed due to no code being generated.

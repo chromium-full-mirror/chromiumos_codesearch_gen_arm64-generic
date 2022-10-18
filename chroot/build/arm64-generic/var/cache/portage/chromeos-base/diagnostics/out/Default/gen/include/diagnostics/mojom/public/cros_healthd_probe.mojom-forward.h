@@ -21,7 +21,7 @@
 
 
 
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace mojom {
 class ProbeErrorDataView;
@@ -291,7 +291,7 @@ class OsInfo;
 using OsInfoPtr = mojo::StructPtr<OsInfo>;
 
 class OsVersion;
-using OsVersionPtr = mojo::InlinedStructPtr<OsVersion>;
+using OsVersionPtr = mojo::StructPtr<OsVersion>;
 
 class VpdInfo;
 using VpdInfoPtr = mojo::StructPtr<VpdInfo>;
@@ -516,6 +516,6 @@ using SensorResultPtr = mojo::StructPtr<SensorResult>;
 
 }  // namespace mojom
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 #endif  // DIAGNOSTICS_MOJOM_PUBLIC_CROS_HEALTHD_PROBE_MOJOM_FORWARD_H_

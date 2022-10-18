@@ -1,4 +1,4 @@
-// Copyright 2022 The Chromium Authors. All rights reserved.
+// Copyright 2022 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -149,7 +149,7 @@ struct TokenDetails {
   // The account ID whose token should be returned. If not specified, the function
   // will use an account from the Chrome profile: the Sync account if there is
   // one, or otherwise the first Google web account.
-  std::unique_ptr<AccountInfo> account;
+  absl::optional<AccountInfo> account;
 
   // <p>A list of OAuth2 scopes to request.</p><p>When the <code>scopes</code>
   // field is present, it overrides the list of scopes specified in
@@ -272,7 +272,7 @@ struct Params {
   ~Params();
 
   // Token options.
-  std::unique_ptr<TokenDetails> details;
+  absl::optional<TokenDetails> details;
 
 
  private:
@@ -295,7 +295,7 @@ struct Params {
   ~Params();
 
   // Profile options.
-  std::unique_ptr<ProfileDetails> details;
+  absl::optional<ProfileDetails> details;
 
 
  private:

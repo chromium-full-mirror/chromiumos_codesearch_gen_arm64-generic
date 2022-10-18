@@ -15,6 +15,7 @@
 #include <stdint.h>
 #include <utility>
 
+#include "base/debug/alias.h"
 #include "base/hash/md5_constexpr.h"
 #include "base/run_loop.h"
 #include "base/strings/string_number_conversions.h"
@@ -49,15 +50,15 @@ namespace cros {
 namespace mojom {
 const char SensorHalServer::Name_[] = "cros.mojom.SensorHalServer";
 
-uint32_t SensorHalServer::MessageToStableIPCHash_(mojo::Message& message) {
+SensorHalServer::IPCStableHashFunction SensorHalServer::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
   switch (message.name()) {
     case internal::kSensorHalServer_CreateChannel_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::SensorHalServer::CreateChannel");
-      return value;
+      return &SensorHalServer::CreateChannel_Sym::IPCStableHash;
     }
   }
-  return 0;
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
 }
 
 
@@ -85,6 +86,22 @@ const char* SensorHalServer::MessageToMethodName_(mojo::Message& message) {
   }
 #endif // BUILDFLAG(MOJO_TRACE_ENABLED)
 }
+
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t SensorHalServer::CreateChannel_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::SensorHalServer::CreateChannel");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
 
 SensorHalServerProxy::SensorHalServerProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
@@ -130,7 +147,7 @@ void SensorHalServerProxy::CreateChannel(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 // static
@@ -199,15 +216,15 @@ bool SensorHalServerRequestValidator::Accept(mojo::Message* message) {
 
 const char SensorHalClient::Name_[] = "cros.mojom.SensorHalClient";
 
-uint32_t SensorHalClient::MessageToStableIPCHash_(mojo::Message& message) {
+SensorHalClient::IPCStableHashFunction SensorHalClient::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
   switch (message.name()) {
     case internal::kSensorHalClient_SetUpChannel_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::SensorHalClient::SetUpChannel");
-      return value;
+      return &SensorHalClient::SetUpChannel_Sym::IPCStableHash;
     }
   }
-  return 0;
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
 }
 
 
@@ -235,6 +252,22 @@ const char* SensorHalClient::MessageToMethodName_(mojo::Message& message) {
   }
 #endif // BUILDFLAG(MOJO_TRACE_ENABLED)
 }
+
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t SensorHalClient::SetUpChannel_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::SensorHalClient::SetUpChannel");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
 
 SensorHalClientProxy::SensorHalClientProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
@@ -280,7 +313,7 @@ void SensorHalClientProxy::SetUpChannel(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 // static

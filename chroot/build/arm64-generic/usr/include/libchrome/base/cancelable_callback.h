@@ -148,7 +148,7 @@ using CancelableRepeatingClosure = CancelableRepeatingCallback<void()>;
 
 template <typename Signature>
 using CancelableCallback = CancelableRepeatingCallback<Signature>;
-using CancelableClosure = CancelableCallback<void()>;
+using CancelableClosure = CancelableRepeatingClosure;
 
 }  // namespace base
 

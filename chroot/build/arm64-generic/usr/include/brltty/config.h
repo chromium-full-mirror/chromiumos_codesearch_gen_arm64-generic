@@ -242,7 +242,7 @@ extern "C" {
 /* #undef HAVE_SHL_LOAD */
 
 /* Define this if the function shm_open exists. */
-/* #undef HAVE_SHM_OPEN */
+#define HAVE_SHM_OPEN 1
 
 /* Define this if the function shmget exists. */
 #define HAVE_SHMGET 1

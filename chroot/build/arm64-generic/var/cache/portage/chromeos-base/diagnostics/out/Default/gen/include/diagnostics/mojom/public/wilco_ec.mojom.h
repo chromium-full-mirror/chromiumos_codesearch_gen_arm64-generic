@@ -36,7 +36,7 @@
 
 
 
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace mojom {
 
@@ -51,8 +51,10 @@ class WilcoEcObserverRequestValidator;
 class  WilcoEcObserver
     : public WilcoEcObserverInterfaceBase {
  public:
+  using IPCStableHashFunction = uint32_t(*)();
+
   static const char Name_[];
-  static uint32_t MessageToStableIPCHash_(mojo::Message& message);
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 0;
   static constexpr bool PassesAssociatedKinds_ = false;
@@ -70,6 +72,14 @@ class  WilcoEcObserver
   enum MethodMinVersions : uint32_t {
     kOnEcEventMinVersion = 0,
   };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+  struct OnEcEvent_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+#endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~WilcoEcObserver() = default;
 
   
@@ -496,53 +506,53 @@ bool operator<(const T& lhs, const T& rhs) {
 
 }  // namespace mojom
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 namespace mojo {
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::EcEvent::DataView,
-                                         ::chromeos::cros_healthd::mojom::EcEventPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::EcEventPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::EcEventPtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::EcEvent::DataView,
+                                         ::ash::cros_healthd::mojom::EcEventPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::EcEventPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::EcEventPtr* output) { output->reset(); }
 
-  static decltype(::chromeos::cros_healthd::mojom::EcEvent::type) type(
-      const ::chromeos::cros_healthd::mojom::EcEventPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::EcEvent::type) type(
+      const ::ash::cros_healthd::mojom::EcEventPtr& input) {
     return input->type;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::EcEvent::payload)& payload(
-      const ::chromeos::cros_healthd::mojom::EcEventPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::EcEvent::payload)& payload(
+      const ::ash::cros_healthd::mojom::EcEventPtr& input) {
     return input->payload;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::EcEvent::reason) reason(
-      const ::chromeos::cros_healthd::mojom::EcEventPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::EcEvent::reason) reason(
+      const ::ash::cros_healthd::mojom::EcEventPtr& input) {
     return input->reason;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::EcEvent::DataView input, ::chromeos::cros_healthd::mojom::EcEventPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::EcEvent::DataView input, ::ash::cros_healthd::mojom::EcEventPtr* output);
 };
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::GetEcTelemetryResponse::DataView,
-                                         ::chromeos::cros_healthd::mojom::GetEcTelemetryResponsePtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::GetEcTelemetryResponsePtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::GetEcTelemetryResponsePtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::GetEcTelemetryResponse::DataView,
+                                         ::ash::cros_healthd::mojom::GetEcTelemetryResponsePtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::GetEcTelemetryResponsePtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::GetEcTelemetryResponsePtr* output) { output->reset(); }
 
-  static decltype(::chromeos::cros_healthd::mojom::GetEcTelemetryResponse::status) status(
-      const ::chromeos::cros_healthd::mojom::GetEcTelemetryResponsePtr& input) {
+  static decltype(::ash::cros_healthd::mojom::GetEcTelemetryResponse::status) status(
+      const ::ash::cros_healthd::mojom::GetEcTelemetryResponsePtr& input) {
     return input->status;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::GetEcTelemetryResponse::payload)& payload(
-      const ::chromeos::cros_healthd::mojom::GetEcTelemetryResponsePtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::GetEcTelemetryResponse::payload)& payload(
+      const ::ash::cros_healthd::mojom::GetEcTelemetryResponsePtr& input) {
     return input->payload;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::GetEcTelemetryResponse::DataView input, ::chromeos::cros_healthd::mojom::GetEcTelemetryResponsePtr* output);
+  static bool Read(::ash::cros_healthd::mojom::GetEcTelemetryResponse::DataView input, ::ash::cros_healthd::mojom::GetEcTelemetryResponsePtr* output);
 };
 
 }  // namespace mojo

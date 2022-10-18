@@ -23,6 +23,7 @@
 _LIBCPP_PUSH_MACROS
 #include <__undef_macros>
 
+_LIBCPP_DISABLE_DEBUG_INFO
 _LIBCPP_BEGIN_NAMESPACE_STD
 
 template<class _RealType = double>
@@ -158,6 +159,7 @@ operator>>(basic_istream<_CharT, _Traits>& __is,
 }
 
 _LIBCPP_END_NAMESPACE_STD
+_LIBCPP_ENABLE_DEBUG_INFO
 
 _LIBCPP_POP_MACROS
 

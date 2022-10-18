@@ -8,7 +8,7 @@
 #define DIAGNOSTICS_MOJOM_EXTERNAL_TIME_MOJOM_SHARED_MESSAGE_IDS_H_
 
 #include <stdint.h>
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace internal {
 namespace mojo_base {
@@ -23,6 +23,6 @@ namespace internal {
 }  // namespace mojo_base
 }  // namespace internal
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 #endif  // DIAGNOSTICS_MOJOM_EXTERNAL_TIME_MOJOM_SHARED_MESSAGE_IDS_H_

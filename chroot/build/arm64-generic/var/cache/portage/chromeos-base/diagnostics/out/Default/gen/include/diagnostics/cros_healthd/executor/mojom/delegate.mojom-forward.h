@@ -20,7 +20,7 @@
 
 
 
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace mojom {
 class Delegate;
@@ -30,6 +30,6 @@ class Delegate;
 
 }  // namespace mojom
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 #endif  // DIAGNOSTICS_CROS_HEALTHD_EXECUTOR_MOJOM_DELEGATE_MOJOM_FORWARD_H_

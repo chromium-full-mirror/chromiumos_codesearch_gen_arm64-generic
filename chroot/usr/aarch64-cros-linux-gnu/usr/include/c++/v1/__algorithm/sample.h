@@ -22,6 +22,7 @@
 _LIBCPP_PUSH_MACROS
 #include <__undef_macros>
 
+_LIBCPP_DISABLE_DEBUG_INFO
 _LIBCPP_BEGIN_NAMESPACE_STD
 
 template <class _PopulationIterator, class _SampleIterator, class _Distance,
@@ -96,6 +97,7 @@ _SampleIterator sample(_PopulationIterator __first,
 #endif // _LIBCPP_STD_VER > 14
 
 _LIBCPP_END_NAMESPACE_STD
+_LIBCPP_ENABLE_DEBUG_INFO
 
 _LIBCPP_POP_MACROS
 

@@ -1,4 +1,4 @@
-// Copyright 2022 The Chromium Authors. All rights reserved.
+// Copyright 2022 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -168,7 +168,7 @@ struct Params {
     // Choices:
     absl::optional<std::string> as_string;
     absl::optional<std::vector<std::string>> as_strings;
-    std::unique_ptr<Object> as_object;
+    absl::optional<Object> as_object;
   };
 
 
@@ -176,7 +176,7 @@ struct Params {
   // values (see description of the object).  An empty list or object will return
   // an empty result object.  Pass in <code>null</code> to get the entire contents
   // of storage.
-  std::unique_ptr<Keys> keys;
+  absl::optional<Keys> keys;
 
 
  private:
@@ -237,7 +237,7 @@ struct Params {
 
   // A single key or list of keys to get the total usage for. An empty list will
   // return 0. Pass in <code>null</code> to get the total usage of all of storage.
-  std::unique_ptr<Keys> keys;
+  absl::optional<Keys> keys;
 
 
  private:

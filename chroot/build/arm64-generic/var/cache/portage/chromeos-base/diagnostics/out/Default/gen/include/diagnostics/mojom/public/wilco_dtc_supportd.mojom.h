@@ -53,8 +53,10 @@ class WilcoDtcSupportdServiceFactoryResponseValidator;
 class  WilcoDtcSupportdServiceFactory
     : public WilcoDtcSupportdServiceFactoryInterfaceBase {
  public:
+  using IPCStableHashFunction = uint32_t(*)();
+
   static const char Name_[];
-  static uint32_t MessageToStableIPCHash_(mojo::Message& message);
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 0;
   static constexpr bool PassesAssociatedKinds_ = false;
@@ -72,6 +74,14 @@ class  WilcoDtcSupportdServiceFactory
   enum MethodMinVersions : uint32_t {
     kGetServiceMinVersion = 0,
   };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+  struct GetService_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+#endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~WilcoDtcSupportdServiceFactory() = default;
 
 
@@ -92,8 +102,10 @@ class WilcoDtcSupportdServiceResponseValidator;
 class  WilcoDtcSupportdService
     : public WilcoDtcSupportdServiceInterfaceBase {
  public:
+  using IPCStableHashFunction = uint32_t(*)();
+
   static const char Name_[];
-  static uint32_t MessageToStableIPCHash_(mojo::Message& message);
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 0;
   static constexpr bool PassesAssociatedKinds_ = false;
@@ -112,6 +124,17 @@ class  WilcoDtcSupportdService
     kSendUiMessageToWilcoDtcMinVersion = 0,
     kNotifyConfigurationDataChangedMinVersion = 0,
   };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+  struct SendUiMessageToWilcoDtc_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct NotifyConfigurationDataChanged_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+#endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~WilcoDtcSupportdService() = default;
 
 
@@ -135,8 +158,10 @@ class WilcoDtcSupportdClientResponseValidator;
 class  WilcoDtcSupportdClient
     : public WilcoDtcSupportdClientInterfaceBase {
  public:
+  using IPCStableHashFunction = uint32_t(*)();
+
   static const char Name_[];
-  static uint32_t MessageToStableIPCHash_(mojo::Message& message);
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 0;
   static constexpr bool PassesAssociatedKinds_ = false;
@@ -159,6 +184,29 @@ class  WilcoDtcSupportdClient
     kGetCrosHealthdDiagnosticsServiceMinVersion = 0,
     kGetCrosHealthdProbeServiceMinVersion = 0,
   };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+  struct PerformWebRequest_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct SendWilcoDtcMessageToUi_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct GetConfigurationData_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct HandleEvent_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct GetCrosHealthdDiagnosticsService_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct GetCrosHealthdProbeService_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+#endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~WilcoDtcSupportdClient() = default;
 
 
@@ -180,10 +228,10 @@ class  WilcoDtcSupportdClient
   virtual void HandleEvent(WilcoDtcSupportdEvent event) = 0;
 
   
-  virtual void GetCrosHealthdDiagnosticsService(::mojo::PendingReceiver<::chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService> service) = 0;
+  virtual void GetCrosHealthdDiagnosticsService(::mojo::PendingReceiver<::ash::cros_healthd::mojom::CrosHealthdDiagnosticsService> service) = 0;
 
   
-  virtual void GetCrosHealthdProbeService(::mojo::PendingReceiver<::chromeos::cros_healthd::mojom::CrosHealthdProbeService> service) = 0;
+  virtual void GetCrosHealthdProbeService(::mojo::PendingReceiver<::ash::cros_healthd::mojom::CrosHealthdProbeService> service) = 0;
 };
 
 
@@ -235,9 +283,9 @@ class  WilcoDtcSupportdClientProxy
   
   void HandleEvent(WilcoDtcSupportdEvent event) final;
   
-  void GetCrosHealthdDiagnosticsService(::mojo::PendingReceiver<::chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService> service) final;
+  void GetCrosHealthdDiagnosticsService(::mojo::PendingReceiver<::ash::cros_healthd::mojom::CrosHealthdDiagnosticsService> service) final;
   
-  void GetCrosHealthdProbeService(::mojo::PendingReceiver<::chromeos::cros_healthd::mojom::CrosHealthdProbeService> service) final;
+  void GetCrosHealthdProbeService(::mojo::PendingReceiver<::ash::cros_healthd::mojom::CrosHealthdProbeService> service) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

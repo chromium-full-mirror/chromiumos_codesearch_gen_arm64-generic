@@ -782,11 +782,12 @@ enum LicenseType_LicenseTypeEnum : int {
   LicenseType_LicenseTypeEnum_UNDEFINED = 0,
   LicenseType_LicenseTypeEnum_CDM_PERPETUAL = 1,
   LicenseType_LicenseTypeEnum_CDM_ANNUAL = 2,
-  LicenseType_LicenseTypeEnum_KIOSK = 3
+  LicenseType_LicenseTypeEnum_KIOSK = 3,
+  LicenseType_LicenseTypeEnum_CDM_PACKAGED = 4
 };
 bool LicenseType_LicenseTypeEnum_IsValid(int value);
 constexpr LicenseType_LicenseTypeEnum LicenseType_LicenseTypeEnum_LicenseTypeEnum_MIN = LicenseType_LicenseTypeEnum_UNDEFINED;
-constexpr LicenseType_LicenseTypeEnum LicenseType_LicenseTypeEnum_LicenseTypeEnum_MAX = LicenseType_LicenseTypeEnum_KIOSK;
+constexpr LicenseType_LicenseTypeEnum LicenseType_LicenseTypeEnum_LicenseTypeEnum_MAX = LicenseType_LicenseTypeEnum_CDM_PACKAGED;
 constexpr int LicenseType_LicenseTypeEnum_LicenseTypeEnum_ARRAYSIZE = LicenseType_LicenseTypeEnum_LicenseTypeEnum_MAX + 1;
 
 const std::string& LicenseType_LicenseTypeEnum_Name(LicenseType_LicenseTypeEnum value);
@@ -2772,6 +2773,8 @@ class LicenseType final :
     LicenseType_LicenseTypeEnum_CDM_ANNUAL;
   static constexpr LicenseTypeEnum KIOSK =
     LicenseType_LicenseTypeEnum_KIOSK;
+  static constexpr LicenseTypeEnum CDM_PACKAGED =
+    LicenseType_LicenseTypeEnum_CDM_PACKAGED;
   static inline bool LicenseTypeEnum_IsValid(int value) {
     return LicenseType_LicenseTypeEnum_IsValid(value);
   }
@@ -25697,6 +25700,7 @@ class DeviceStateRetrievalResponse final :
     kManagementDomainFieldNumber = 2,
     kDisabledStateFieldNumber = 3,
     kInitialStateResponseFieldNumber = 4,
+    kLicenseTypeFieldNumber = 5,
     kRestoreModeFieldNumber = 1,
   };
   // optional string management_domain = 2;
@@ -25753,6 +25757,24 @@ class DeviceStateRetrievalResponse final :
       ::enterprise_management::DeviceInitialEnrollmentStateResponse* initial_state_response);
   ::enterprise_management::DeviceInitialEnrollmentStateResponse* unsafe_arena_release_initial_state_response();
 
+  // optional .enterprise_management.LicenseType license_type = 5;
+  bool has_license_type() const;
+  private:
+  bool _internal_has_license_type() const;
+  public:
+  void clear_license_type();
+  const ::enterprise_management::LicenseType& license_type() const;
+  PROTOBUF_NODISCARD ::enterprise_management::LicenseType* release_license_type();
+  ::enterprise_management::LicenseType* mutable_license_type();
+  void set_allocated_license_type(::enterprise_management::LicenseType* license_type);
+  private:
+  const ::enterprise_management::LicenseType& _internal_license_type() const;
+  ::enterprise_management::LicenseType* _internal_mutable_license_type();
+  public:
+  void unsafe_arena_set_allocated_license_type(
+      ::enterprise_management::LicenseType* license_type);
+  ::enterprise_management::LicenseType* unsafe_arena_release_license_type();
+
   // optional .enterprise_management.DeviceStateRetrievalResponse.RestoreMode restore_mode = 1 [default = RESTORE_MODE_NONE];
   bool has_restore_mode() const;
   private:
@@ -25778,6 +25800,7 @@ class DeviceStateRetrievalResponse final :
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr management_domain_;
   ::enterprise_management::DisabledState* disabled_state_;
   ::enterprise_management::DeviceInitialEnrollmentStateResponse* initial_state_response_;
+  ::enterprise_management::LicenseType* license_type_;
   int restore_mode_;
   friend struct ::TableStruct_device_5fmanagement_5fbackend_2eproto;
 };
@@ -66922,7 +66945,7 @@ DeviceStateKeyUpdateRequest::mutable_server_backed_state_keys() {
 
 // optional .enterprise_management.DeviceStateRetrievalResponse.RestoreMode restore_mode = 1 [default = RESTORE_MODE_NONE];
 inline bool DeviceStateRetrievalResponse::_internal_has_restore_mode() const {
-  bool value = (_has_bits_[0] & 0x00000008u) != 0;
+  bool value = (_has_bits_[0] & 0x00000010u) != 0;
   return value;
 }
 inline bool DeviceStateRetrievalResponse::has_restore_mode() const {
@@ -66930,7 +66953,7 @@ inline bool DeviceStateRetrievalResponse::has_restore_mode() const {
 }
 inline void DeviceStateRetrievalResponse::clear_restore_mode() {
   restore_mode_ = 0;
-  _has_bits_[0] &= ~0x00000008u;
+  _has_bits_[0] &= ~0x00000010u;
 }
 inline ::enterprise_management::DeviceStateRetrievalResponse_RestoreMode DeviceStateRetrievalResponse::_internal_restore_mode() const {
   return static_cast< ::enterprise_management::DeviceStateRetrievalResponse_RestoreMode >(restore_mode_);
@@ -66941,7 +66964,7 @@ inline ::enterprise_management::DeviceStateRetrievalResponse_RestoreMode DeviceS
 }
 inline void DeviceStateRetrievalResponse::_internal_set_restore_mode(::enterprise_management::DeviceStateRetrievalResponse_RestoreMode value) {
   assert(::enterprise_management::DeviceStateRetrievalResponse_RestoreMode_IsValid(value));
-  _has_bits_[0] |= 0x00000008u;
+  _has_bits_[0] |= 0x00000010u;
   restore_mode_ = value;
 }
 inline void DeviceStateRetrievalResponse::set_restore_mode(::enterprise_management::DeviceStateRetrievalResponse_RestoreMode value) {
@@ -67196,6 +67219,96 @@ inline void DeviceStateRetrievalResponse::set_allocated_initial_state_response(:
   }
   initial_state_response_ = initial_state_response;
   // @@protoc_insertion_point(field_set_allocated:enterprise_management.DeviceStateRetrievalResponse.initial_state_response)
+}
+
+// optional .enterprise_management.LicenseType license_type = 5;
+inline bool DeviceStateRetrievalResponse::_internal_has_license_type() const {
+  bool value = (_has_bits_[0] & 0x00000008u) != 0;
+  PROTOBUF_ASSUME(!value || license_type_ != nullptr);
+  return value;
+}
+inline bool DeviceStateRetrievalResponse::has_license_type() const {
+  return _internal_has_license_type();
+}
+inline void DeviceStateRetrievalResponse::clear_license_type() {
+  if (license_type_ != nullptr) license_type_->Clear();
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline const ::enterprise_management::LicenseType& DeviceStateRetrievalResponse::_internal_license_type() const {
+  const ::enterprise_management::LicenseType* p = license_type_;
+  return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::LicenseType&>(
+      ::enterprise_management::_LicenseType_default_instance_);
+}
+inline const ::enterprise_management::LicenseType& DeviceStateRetrievalResponse::license_type() const {
+  // @@protoc_insertion_point(field_get:enterprise_management.DeviceStateRetrievalResponse.license_type)
+  return _internal_license_type();
+}
+inline void DeviceStateRetrievalResponse::unsafe_arena_set_allocated_license_type(
+    ::enterprise_management::LicenseType* license_type) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(license_type_);
+  }
+  license_type_ = license_type;
+  if (license_type) {
+    _has_bits_[0] |= 0x00000008u;
+  } else {
+    _has_bits_[0] &= ~0x00000008u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.DeviceStateRetrievalResponse.license_type)
+}
+inline ::enterprise_management::LicenseType* DeviceStateRetrievalResponse::release_license_type() {
+  _has_bits_[0] &= ~0x00000008u;
+  ::enterprise_management::LicenseType* temp = license_type_;
+  license_type_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::enterprise_management::LicenseType* DeviceStateRetrievalResponse::unsafe_arena_release_license_type() {
+  // @@protoc_insertion_point(field_release:enterprise_management.DeviceStateRetrievalResponse.license_type)
+  _has_bits_[0] &= ~0x00000008u;
+  ::enterprise_management::LicenseType* temp = license_type_;
+  license_type_ = nullptr;
+  return temp;
+}
+inline ::enterprise_management::LicenseType* DeviceStateRetrievalResponse::_internal_mutable_license_type() {
+  _has_bits_[0] |= 0x00000008u;
+  if (license_type_ == nullptr) {
+    auto* p = CreateMaybeMessage<::enterprise_management::LicenseType>(GetArenaForAllocation());
+    license_type_ = p;
+  }
+  return license_type_;
+}
+inline ::enterprise_management::LicenseType* DeviceStateRetrievalResponse::mutable_license_type() {
+  ::enterprise_management::LicenseType* _msg = _internal_mutable_license_type();
+  // @@protoc_insertion_point(field_mutable:enterprise_management.DeviceStateRetrievalResponse.license_type)
+  return _msg;
+}
+inline void DeviceStateRetrievalResponse::set_allocated_license_type(::enterprise_management::LicenseType* license_type) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete license_type_;
+  }
+  if (license_type) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::enterprise_management::LicenseType>::GetOwningArena(license_type);
+    if (message_arena != submessage_arena) {
+      license_type = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, license_type, submessage_arena);
+    }
+    _has_bits_[0] |= 0x00000008u;
+  } else {
+    _has_bits_[0] &= ~0x00000008u;
+  }
+  license_type_ = license_type;
+  // @@protoc_insertion_point(field_set_allocated:enterprise_management.DeviceStateRetrievalResponse.license_type)
 }
 
 // -------------------------------------------------------------------

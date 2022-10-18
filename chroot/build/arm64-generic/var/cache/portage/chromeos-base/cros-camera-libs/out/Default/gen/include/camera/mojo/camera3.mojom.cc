@@ -15,6 +15,7 @@
 #include <stdint.h>
 #include <utility>
 
+#include "base/debug/alias.h"
 #include "base/hash/md5_constexpr.h"
 #include "base/run_loop.h"
 #include "base/strings/string_number_conversions.h"
@@ -1014,20 +1015,18 @@ bool Camera3NotifyMsgMessage::Validate(
 }
 const char Camera3CallbackOps::Name_[] = "cros.mojom.Camera3CallbackOps";
 
-uint32_t Camera3CallbackOps::MessageToStableIPCHash_(mojo::Message& message) {
+Camera3CallbackOps::IPCStableHashFunction Camera3CallbackOps::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
   switch (message.name()) {
     case internal::kCamera3CallbackOps_ProcessCaptureResult_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::Camera3CallbackOps::ProcessCaptureResult");
-      return value;
+      return &Camera3CallbackOps::ProcessCaptureResult_Sym::IPCStableHash;
     }
     case internal::kCamera3CallbackOps_Notify_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::Camera3CallbackOps::Notify");
-      return value;
+      return &Camera3CallbackOps::Notify_Sym::IPCStableHash;
     }
   }
-  return 0;
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
 }
 
 
@@ -1059,6 +1058,35 @@ const char* Camera3CallbackOps::MessageToMethodName_(mojo::Message& message) {
   }
 #endif // BUILDFLAG(MOJO_TRACE_ENABLED)
 }
+
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t Camera3CallbackOps::ProcessCaptureResult_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::Camera3CallbackOps::ProcessCaptureResult");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t Camera3CallbackOps::Notify_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::Camera3CallbackOps::Notify");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
 
 Camera3CallbackOpsProxy::Camera3CallbackOpsProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
@@ -1109,7 +1137,7 @@ void Camera3CallbackOpsProxy::ProcessCaptureResult(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 void Camera3CallbackOpsProxy::Notify(
@@ -1157,7 +1185,7 @@ void Camera3CallbackOpsProxy::Notify(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 // static
@@ -1255,55 +1283,39 @@ bool Camera3CallbackOpsRequestValidator::Accept(mojo::Message* message) {
 
 const char Camera3DeviceOps::Name_[] = "cros.mojom.Camera3DeviceOps";
 
-uint32_t Camera3DeviceOps::MessageToStableIPCHash_(mojo::Message& message) {
+Camera3DeviceOps::IPCStableHashFunction Camera3DeviceOps::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
   switch (message.name()) {
     case internal::kCamera3DeviceOps_Initialize_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::Camera3DeviceOps::Initialize");
-      return value;
+      return &Camera3DeviceOps::Initialize_Sym::IPCStableHash;
     }
     case internal::kCamera3DeviceOps_ConfigureStreams_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::Camera3DeviceOps::ConfigureStreams");
-      return value;
+      return &Camera3DeviceOps::ConfigureStreams_Sym::IPCStableHash;
     }
     case internal::kCamera3DeviceOps_ConstructDefaultRequestSettings_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::Camera3DeviceOps::ConstructDefaultRequestSettings");
-      return value;
+      return &Camera3DeviceOps::ConstructDefaultRequestSettings_Sym::IPCStableHash;
     }
     case internal::kCamera3DeviceOps_ProcessCaptureRequest_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::Camera3DeviceOps::ProcessCaptureRequest");
-      return value;
+      return &Camera3DeviceOps::ProcessCaptureRequest_Sym::IPCStableHash;
     }
     case internal::kCamera3DeviceOps_Dump_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::Camera3DeviceOps::Dump");
-      return value;
+      return &Camera3DeviceOps::Dump_Sym::IPCStableHash;
     }
     case internal::kCamera3DeviceOps_Flush_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::Camera3DeviceOps::Flush");
-      return value;
+      return &Camera3DeviceOps::Flush_Sym::IPCStableHash;
     }
     case internal::kCamera3DeviceOps_RegisterBuffer_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::Camera3DeviceOps::RegisterBuffer");
-      return value;
+      return &Camera3DeviceOps::RegisterBuffer_Sym::IPCStableHash;
     }
     case internal::kCamera3DeviceOps_Close_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::Camera3DeviceOps::Close");
-      return value;
+      return &Camera3DeviceOps::Close_Sym::IPCStableHash;
     }
     case internal::kCamera3DeviceOps_ConfigureStreamsAndGetAllocatedBuffers_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::Camera3DeviceOps::ConfigureStreamsAndGetAllocatedBuffers");
-      return value;
+      return &Camera3DeviceOps::ConfigureStreamsAndGetAllocatedBuffers_Sym::IPCStableHash;
     }
   }
-  return 0;
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
 }
 
 
@@ -1363,6 +1375,126 @@ const char* Camera3DeviceOps::MessageToMethodName_(mojo::Message& message) {
   }
 #endif // BUILDFLAG(MOJO_TRACE_ENABLED)
 }
+
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t Camera3DeviceOps::Initialize_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::Camera3DeviceOps::Initialize");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t Camera3DeviceOps::ConfigureStreams_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::Camera3DeviceOps::ConfigureStreams");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t Camera3DeviceOps::ConstructDefaultRequestSettings_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::Camera3DeviceOps::ConstructDefaultRequestSettings");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t Camera3DeviceOps::ProcessCaptureRequest_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::Camera3DeviceOps::ProcessCaptureRequest");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t Camera3DeviceOps::Dump_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::Camera3DeviceOps::Dump");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t Camera3DeviceOps::Flush_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::Camera3DeviceOps::Flush");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t Camera3DeviceOps::RegisterBuffer_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::Camera3DeviceOps::RegisterBuffer");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t Camera3DeviceOps::Close_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::Camera3DeviceOps::Close");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t Camera3DeviceOps::ConfigureStreamsAndGetAllocatedBuffers_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::Camera3DeviceOps::ConfigureStreamsAndGetAllocatedBuffers");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
 
 class Camera3DeviceOps_Initialize_ForwardToCallback
     : public mojo::MessageReceiver {
@@ -1537,7 +1669,7 @@ void Camera3DeviceOpsProxy::Initialize(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new Camera3DeviceOps_Initialize_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void Camera3DeviceOpsProxy::ConfigureStreams(
@@ -1586,7 +1718,7 @@ void Camera3DeviceOpsProxy::ConfigureStreams(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new Camera3DeviceOps_ConfigureStreams_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void Camera3DeviceOpsProxy::ConstructDefaultRequestSettings(
@@ -1626,7 +1758,7 @@ void Camera3DeviceOpsProxy::ConstructDefaultRequestSettings(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new Camera3DeviceOps_ConstructDefaultRequestSettings_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void Camera3DeviceOpsProxy::ProcessCaptureRequest(
@@ -1675,7 +1807,7 @@ void Camera3DeviceOpsProxy::ProcessCaptureRequest(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new Camera3DeviceOps_ProcessCaptureRequest_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void Camera3DeviceOpsProxy::Dump(
@@ -1718,7 +1850,7 @@ void Camera3DeviceOpsProxy::Dump(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 void Camera3DeviceOpsProxy::Flush(
@@ -1749,7 +1881,7 @@ void Camera3DeviceOpsProxy::Flush(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new Camera3DeviceOps_Flush_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void Camera3DeviceOpsProxy::RegisterBuffer(
@@ -1858,7 +1990,7 @@ void Camera3DeviceOpsProxy::RegisterBuffer(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new Camera3DeviceOps_RegisterBuffer_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void Camera3DeviceOpsProxy::Close(
@@ -1889,7 +2021,7 @@ void Camera3DeviceOpsProxy::Close(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new Camera3DeviceOps_Close_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void Camera3DeviceOpsProxy::ConfigureStreamsAndGetAllocatedBuffers(
@@ -1938,7 +2070,7 @@ void Camera3DeviceOpsProxy::ConfigureStreamsAndGetAllocatedBuffers(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new Camera3DeviceOps_ConfigureStreamsAndGetAllocatedBuffers_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 class Camera3DeviceOps_Initialize_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
@@ -2045,8 +2177,8 @@ void Camera3DeviceOps_Initialize_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -2173,8 +2305,8 @@ void Camera3DeviceOps_ConfigureStreams_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -2293,8 +2425,8 @@ void Camera3DeviceOps_ConstructDefaultRequestSettings_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -2407,8 +2539,8 @@ void Camera3DeviceOps_ProcessCaptureRequest_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -2521,8 +2653,8 @@ void Camera3DeviceOps_Flush_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -2635,8 +2767,8 @@ void Camera3DeviceOps_RegisterBuffer_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -2749,8 +2881,8 @@ void Camera3DeviceOps_Close_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -2897,8 +3029,8 @@ void Camera3DeviceOps_ConfigureStreamsAndGetAllocatedBuffers_ProxyToResponder::R
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that

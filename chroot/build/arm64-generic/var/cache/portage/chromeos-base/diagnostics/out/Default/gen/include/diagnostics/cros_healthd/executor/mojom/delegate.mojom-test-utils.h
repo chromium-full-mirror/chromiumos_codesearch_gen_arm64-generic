@@ -10,7 +10,7 @@
 #include "diagnostics/cros_healthd/executor/mojom/delegate.mojom.h"
 
 
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace mojom {
 
@@ -36,6 +36,6 @@ class  DelegateAsyncWaiter {
 
 }  // namespace mojom
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 #endif  // DIAGNOSTICS_CROS_HEALTHD_EXECUTOR_MOJOM_DELEGATE_MOJOM_TEST_UTILS_H_

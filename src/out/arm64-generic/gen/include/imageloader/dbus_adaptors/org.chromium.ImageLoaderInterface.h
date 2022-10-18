@@ -57,6 +57,11 @@ class ImageLoaderInterfaceInterface {
       const std::string& in_package,
       const std::string& in_a_or_b,
       std::string* out_mount_point) = 0;
+  // Loads a DLC image.
+  virtual bool LoadDlc(
+      brillo::ErrorPtr* error,
+      const imageloader::LoadDlcRequest& in_load_request,
+      std::string* out_mount_point) = 0;
   // Remove all versions of a component if removable.
   virtual bool RemoveComponent(
       brillo::ErrorPtr* error,
@@ -112,6 +117,10 @@ class ImageLoaderInterfaceAdaptor {
         base::Unretained(interface_),
         &ImageLoaderInterfaceInterface::LoadDlcImage);
     itf->AddSimpleMethodHandlerWithError(
+        "LoadDlc",
+        base::Unretained(interface_),
+        &ImageLoaderInterfaceInterface::LoadDlc);
+    itf->AddSimpleMethodHandlerWithError(
         "RemoveComponent",
         base::Unretained(interface_),
         &ImageLoaderInterfaceInterface::RemoveComponent);
@@ -159,6 +168,10 @@ class ImageLoaderInterfaceAdaptor {
         "      <arg name=\"id\" type=\"s\" direction=\"in\"/>\n"
         "      <arg name=\"package\" type=\"s\" direction=\"in\"/>\n"
         "      <arg name=\"a_or_b\" type=\"s\" direction=\"in\"/>\n"
+        "      <arg name=\"mount_point\" type=\"s\" direction=\"out\"/>\n"
+        "    </method>\n"
+        "    <method name=\"LoadDlc\">\n"
+        "      <arg name=\"load_request\" type=\"ay\" direction=\"in\"/>\n"
         "      <arg name=\"mount_point\" type=\"s\" direction=\"out\"/>\n"
         "    </method>\n"
         "    <method name=\"RemoveComponent\">\n"

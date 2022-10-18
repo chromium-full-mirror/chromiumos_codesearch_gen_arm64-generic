@@ -18,6 +18,7 @@
 #  pragma GCC system_header
 #endif
 
+_LIBCPP_DISABLE_DEBUG_INFO
 _LIBCPP_BEGIN_NAMESPACE_STD
 
 template <class _ForwardIterator1, class _ForwardIterator2, class _BinaryPredicate>
@@ -48,5 +49,6 @@ _LIBCPP_NODISCARD_EXT inline _LIBCPP_INLINE_VISIBILITY _LIBCPP_CONSTEXPR_AFTER_C
 }
 
 _LIBCPP_END_NAMESPACE_STD
+_LIBCPP_ENABLE_DEBUG_INFO
 
 #endif // _LIBCPP___ALGORITHM_FIND_FIRST_OF_H

@@ -91,20 +91,6 @@ class ChapsProxyMock : public ChapsProxyInterface {
                     base::OnceCallback<void(bool /*result*/)> /*success_callback*/,
                     base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
                     int /*timeout_ms*/));
-  MOCK_METHOD6(ChangeTokenAuthData,
-               bool(const std::string& /*in_path*/,
-                    const std::vector<uint8_t>& /*in_old_auth_data*/,
-                    const std::vector<uint8_t>& /*in_new_auth_data*/,
-                    bool* /*out_result*/,
-                    brillo::ErrorPtr* /*error*/,
-                    int /*timeout_ms*/));
-  MOCK_METHOD6(ChangeTokenAuthDataAsync,
-               void(const std::string& /*in_path*/,
-                    const std::vector<uint8_t>& /*in_old_auth_data*/,
-                    const std::vector<uint8_t>& /*in_new_auth_data*/,
-                    base::OnceCallback<void(bool /*result*/)> /*success_callback*/,
-                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
-                    int /*timeout_ms*/));
   MOCK_METHOD6(GetTokenPath,
                bool(const std::vector<uint8_t>& /*in_isolate_credential*/,
                     uint64_t /*in_slot_id*/,

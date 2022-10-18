@@ -21,9 +21,6 @@ struct TpmBoundToPcrAuthBlockStateBuilder;
 struct PinWeaverAuthBlockState;
 struct PinWeaverAuthBlockStateBuilder;
 
-struct LibScryptCompatAuthBlockState;
-struct LibScryptCompatAuthBlockStateBuilder;
-
 struct ChallengeCredentialAuthBlockState;
 struct ChallengeCredentialAuthBlockStateBuilder;
 
@@ -50,23 +47,21 @@ enum class AuthBlockStateUnion : uint8_t {
   TpmBoundToPcrAuthBlockState = 1,
   TpmNotBoundToPcrAuthBlockState = 2,
   PinWeaverAuthBlockState = 3,
-  LibScryptCompatAuthBlockState = 4,
-  ChallengeCredentialAuthBlockState = 5,
-  DoubleWrappedCompatAuthBlockState = 6,
-  CryptohomeRecoveryAuthBlockState = 7,
-  TpmEccAuthBlockState = 8,
-  ScryptAuthBlockState = 9,
+  ChallengeCredentialAuthBlockState = 4,
+  DoubleWrappedCompatAuthBlockState = 5,
+  CryptohomeRecoveryAuthBlockState = 6,
+  TpmEccAuthBlockState = 7,
+  ScryptAuthBlockState = 8,
   MIN = NONE,
   MAX = ScryptAuthBlockState
 };
 
-inline const AuthBlockStateUnion (&EnumValuesAuthBlockStateUnion())[10] {
+inline const AuthBlockStateUnion (&EnumValuesAuthBlockStateUnion())[9] {
   static const AuthBlockStateUnion values[] = {
     AuthBlockStateUnion::NONE,
     AuthBlockStateUnion::TpmBoundToPcrAuthBlockState,
     AuthBlockStateUnion::TpmNotBoundToPcrAuthBlockState,
     AuthBlockStateUnion::PinWeaverAuthBlockState,
-    AuthBlockStateUnion::LibScryptCompatAuthBlockState,
     AuthBlockStateUnion::ChallengeCredentialAuthBlockState,
     AuthBlockStateUnion::DoubleWrappedCompatAuthBlockState,
     AuthBlockStateUnion::CryptohomeRecoveryAuthBlockState,
@@ -77,12 +72,11 @@ inline const AuthBlockStateUnion (&EnumValuesAuthBlockStateUnion())[10] {
 }
 
 inline const char * const *EnumNamesAuthBlockStateUnion() {
-  static const char * const names[11] = {
+  static const char * const names[10] = {
     "NONE",
     "TpmBoundToPcrAuthBlockState",
     "TpmNotBoundToPcrAuthBlockState",
     "PinWeaverAuthBlockState",
-    "LibScryptCompatAuthBlockState",
     "ChallengeCredentialAuthBlockState",
     "DoubleWrappedCompatAuthBlockState",
     "CryptohomeRecoveryAuthBlockState",
@@ -113,10 +107,6 @@ template<> struct AuthBlockStateUnionTraits<cryptohome::_serialized_::TpmNotBoun
 
 template<> struct AuthBlockStateUnionTraits<cryptohome::_serialized_::PinWeaverAuthBlockState> {
   static const AuthBlockStateUnion enum_value = AuthBlockStateUnion::PinWeaverAuthBlockState;
-};
-
-template<> struct AuthBlockStateUnionTraits<cryptohome::_serialized_::LibScryptCompatAuthBlockState> {
-  static const AuthBlockStateUnion enum_value = AuthBlockStateUnion::LibScryptCompatAuthBlockState;
 };
 
 template<> struct AuthBlockStateUnionTraits<cryptohome::_serialized_::ChallengeCredentialAuthBlockState> {
@@ -455,107 +445,14 @@ inline flatbuffers::Offset<PinWeaverAuthBlockState> CreatePinWeaverAuthBlockStat
       reset_salt__);
 }
 
-struct LibScryptCompatAuthBlockState FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  typedef LibScryptCompatAuthBlockStateBuilder Builder;
-  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
-    VT_WRAPPED_KEYSET = 4,
-    VT_WRAPPED_CHAPS_KEY = 6,
-    VT_WRAPPED_RESET_SEED = 8,
-    VT_SALT = 10
-  };
-  const flatbuffers::Vector<uint8_t> *wrapped_keyset() const {
-    return GetPointer<const flatbuffers::Vector<uint8_t> *>(VT_WRAPPED_KEYSET);
-  }
-  const flatbuffers::Vector<uint8_t> *wrapped_chaps_key() const {
-    return GetPointer<const flatbuffers::Vector<uint8_t> *>(VT_WRAPPED_CHAPS_KEY);
-  }
-  const flatbuffers::Vector<uint8_t> *wrapped_reset_seed() const {
-    return GetPointer<const flatbuffers::Vector<uint8_t> *>(VT_WRAPPED_RESET_SEED);
-  }
-  const flatbuffers::Vector<uint8_t> *salt() const {
-    return GetPointer<const flatbuffers::Vector<uint8_t> *>(VT_SALT);
-  }
-  bool Verify(flatbuffers::Verifier &verifier) const {
-    return VerifyTableStart(verifier) &&
-           VerifyOffset(verifier, VT_WRAPPED_KEYSET) &&
-           verifier.VerifyVector(wrapped_keyset()) &&
-           VerifyOffset(verifier, VT_WRAPPED_CHAPS_KEY) &&
-           verifier.VerifyVector(wrapped_chaps_key()) &&
-           VerifyOffset(verifier, VT_WRAPPED_RESET_SEED) &&
-           verifier.VerifyVector(wrapped_reset_seed()) &&
-           VerifyOffset(verifier, VT_SALT) &&
-           verifier.VerifyVector(salt()) &&
-           verifier.EndTable();
-  }
-};
-
-struct LibScryptCompatAuthBlockStateBuilder {
-  typedef LibScryptCompatAuthBlockState Table;
-  flatbuffers::FlatBufferBuilder &fbb_;
-  flatbuffers::uoffset_t start_;
-  void add_wrapped_keyset(flatbuffers::Offset<flatbuffers::Vector<uint8_t>> wrapped_keyset) {
-    fbb_.AddOffset(LibScryptCompatAuthBlockState::VT_WRAPPED_KEYSET, wrapped_keyset);
-  }
-  void add_wrapped_chaps_key(flatbuffers::Offset<flatbuffers::Vector<uint8_t>> wrapped_chaps_key) {
-    fbb_.AddOffset(LibScryptCompatAuthBlockState::VT_WRAPPED_CHAPS_KEY, wrapped_chaps_key);
-  }
-  void add_wrapped_reset_seed(flatbuffers::Offset<flatbuffers::Vector<uint8_t>> wrapped_reset_seed) {
-    fbb_.AddOffset(LibScryptCompatAuthBlockState::VT_WRAPPED_RESET_SEED, wrapped_reset_seed);
-  }
-  void add_salt(flatbuffers::Offset<flatbuffers::Vector<uint8_t>> salt) {
-    fbb_.AddOffset(LibScryptCompatAuthBlockState::VT_SALT, salt);
-  }
-  explicit LibScryptCompatAuthBlockStateBuilder(flatbuffers::FlatBufferBuilder &_fbb)
-        : fbb_(_fbb) {
-    start_ = fbb_.StartTable();
-  }
-  flatbuffers::Offset<LibScryptCompatAuthBlockState> Finish() {
-    const auto end = fbb_.EndTable(start_);
-    auto o = flatbuffers::Offset<LibScryptCompatAuthBlockState>(end);
-    return o;
-  }
-};
-
-inline flatbuffers::Offset<LibScryptCompatAuthBlockState> CreateLibScryptCompatAuthBlockState(
-    flatbuffers::FlatBufferBuilder &_fbb,
-    flatbuffers::Offset<flatbuffers::Vector<uint8_t>> wrapped_keyset = 0,
-    flatbuffers::Offset<flatbuffers::Vector<uint8_t>> wrapped_chaps_key = 0,
-    flatbuffers::Offset<flatbuffers::Vector<uint8_t>> wrapped_reset_seed = 0,
-    flatbuffers::Offset<flatbuffers::Vector<uint8_t>> salt = 0) {
-  LibScryptCompatAuthBlockStateBuilder builder_(_fbb);
-  builder_.add_salt(salt);
-  builder_.add_wrapped_reset_seed(wrapped_reset_seed);
-  builder_.add_wrapped_chaps_key(wrapped_chaps_key);
-  builder_.add_wrapped_keyset(wrapped_keyset);
-  return builder_.Finish();
-}
-
-inline flatbuffers::Offset<LibScryptCompatAuthBlockState> CreateLibScryptCompatAuthBlockStateDirect(
-    flatbuffers::FlatBufferBuilder &_fbb,
-    const std::vector<uint8_t> *wrapped_keyset = nullptr,
-    const std::vector<uint8_t> *wrapped_chaps_key = nullptr,
-    const std::vector<uint8_t> *wrapped_reset_seed = nullptr,
-    const std::vector<uint8_t> *salt = nullptr) {
-  auto wrapped_keyset__ = wrapped_keyset ? _fbb.CreateVector<uint8_t>(*wrapped_keyset) : 0;
-  auto wrapped_chaps_key__ = wrapped_chaps_key ? _fbb.CreateVector<uint8_t>(*wrapped_chaps_key) : 0;
-  auto wrapped_reset_seed__ = wrapped_reset_seed ? _fbb.CreateVector<uint8_t>(*wrapped_reset_seed) : 0;
-  auto salt__ = salt ? _fbb.CreateVector<uint8_t>(*salt) : 0;
-  return cryptohome::_serialized_::CreateLibScryptCompatAuthBlockState(
-      _fbb,
-      wrapped_keyset__,
-      wrapped_chaps_key__,
-      wrapped_reset_seed__,
-      salt__);
-}
-
 struct ChallengeCredentialAuthBlockState FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   typedef ChallengeCredentialAuthBlockStateBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_SCRYPT_STATE = 4,
     VT_KEYSET_CHALLENGE_INFO = 6
   };
-  const cryptohome::_serialized_::LibScryptCompatAuthBlockState *scrypt_state() const {
-    return GetPointer<const cryptohome::_serialized_::LibScryptCompatAuthBlockState *>(VT_SCRYPT_STATE);
+  const cryptohome::_serialized_::ScryptAuthBlockState *scrypt_state() const {
+    return GetPointer<const cryptohome::_serialized_::ScryptAuthBlockState *>(VT_SCRYPT_STATE);
   }
   const cryptohome::structure::_serialized_::SignatureChallengeInfo *keyset_challenge_info() const {
     return GetPointer<const cryptohome::structure::_serialized_::SignatureChallengeInfo *>(VT_KEYSET_CHALLENGE_INFO);
@@ -574,7 +471,7 @@ struct ChallengeCredentialAuthBlockStateBuilder {
   typedef ChallengeCredentialAuthBlockState Table;
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
-  void add_scrypt_state(flatbuffers::Offset<cryptohome::_serialized_::LibScryptCompatAuthBlockState> scrypt_state) {
+  void add_scrypt_state(flatbuffers::Offset<cryptohome::_serialized_::ScryptAuthBlockState> scrypt_state) {
     fbb_.AddOffset(ChallengeCredentialAuthBlockState::VT_SCRYPT_STATE, scrypt_state);
   }
   void add_keyset_challenge_info(flatbuffers::Offset<cryptohome::structure::_serialized_::SignatureChallengeInfo> keyset_challenge_info) {
@@ -593,7 +490,7 @@ struct ChallengeCredentialAuthBlockStateBuilder {
 
 inline flatbuffers::Offset<ChallengeCredentialAuthBlockState> CreateChallengeCredentialAuthBlockState(
     flatbuffers::FlatBufferBuilder &_fbb,
-    flatbuffers::Offset<cryptohome::_serialized_::LibScryptCompatAuthBlockState> scrypt_state = 0,
+    flatbuffers::Offset<cryptohome::_serialized_::ScryptAuthBlockState> scrypt_state = 0,
     flatbuffers::Offset<cryptohome::structure::_serialized_::SignatureChallengeInfo> keyset_challenge_info = 0) {
   ChallengeCredentialAuthBlockStateBuilder builder_(_fbb);
   builder_.add_keyset_challenge_info(keyset_challenge_info);
@@ -607,8 +504,8 @@ struct DoubleWrappedCompatAuthBlockState FLATBUFFERS_FINAL_CLASS : private flatb
     VT_SCRYPT_STATE = 4,
     VT_TPM_STATE = 6
   };
-  const cryptohome::_serialized_::LibScryptCompatAuthBlockState *scrypt_state() const {
-    return GetPointer<const cryptohome::_serialized_::LibScryptCompatAuthBlockState *>(VT_SCRYPT_STATE);
+  const cryptohome::_serialized_::ScryptAuthBlockState *scrypt_state() const {
+    return GetPointer<const cryptohome::_serialized_::ScryptAuthBlockState *>(VT_SCRYPT_STATE);
   }
   const cryptohome::_serialized_::TpmNotBoundToPcrAuthBlockState *tpm_state() const {
     return GetPointer<const cryptohome::_serialized_::TpmNotBoundToPcrAuthBlockState *>(VT_TPM_STATE);
@@ -627,7 +524,7 @@ struct DoubleWrappedCompatAuthBlockStateBuilder {
   typedef DoubleWrappedCompatAuthBlockState Table;
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
-  void add_scrypt_state(flatbuffers::Offset<cryptohome::_serialized_::LibScryptCompatAuthBlockState> scrypt_state) {
+  void add_scrypt_state(flatbuffers::Offset<cryptohome::_serialized_::ScryptAuthBlockState> scrypt_state) {
     fbb_.AddOffset(DoubleWrappedCompatAuthBlockState::VT_SCRYPT_STATE, scrypt_state);
   }
   void add_tpm_state(flatbuffers::Offset<cryptohome::_serialized_::TpmNotBoundToPcrAuthBlockState> tpm_state) {
@@ -646,7 +543,7 @@ struct DoubleWrappedCompatAuthBlockStateBuilder {
 
 inline flatbuffers::Offset<DoubleWrappedCompatAuthBlockState> CreateDoubleWrappedCompatAuthBlockState(
     flatbuffers::FlatBufferBuilder &_fbb,
-    flatbuffers::Offset<cryptohome::_serialized_::LibScryptCompatAuthBlockState> scrypt_state = 0,
+    flatbuffers::Offset<cryptohome::_serialized_::ScryptAuthBlockState> scrypt_state = 0,
     flatbuffers::Offset<cryptohome::_serialized_::TpmNotBoundToPcrAuthBlockState> tpm_state = 0) {
   DoubleWrappedCompatAuthBlockStateBuilder builder_(_fbb);
   builder_.add_tpm_state(tpm_state);
@@ -912,12 +809,20 @@ struct ScryptAuthBlockState FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table
   typedef ScryptAuthBlockStateBuilder Builder;
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_SALT = 4,
-    VT_WORK_FACTOR = 6,
-    VT_BLOCK_SIZE = 8,
-    VT_PARALLEL_FACTOR = 10
+    VT_CHAPS_SALT = 6,
+    VT_RESET_SEED_SALT = 8,
+    VT_WORK_FACTOR = 10,
+    VT_BLOCK_SIZE = 12,
+    VT_PARALLEL_FACTOR = 14
   };
   const flatbuffers::Vector<uint8_t> *salt() const {
     return GetPointer<const flatbuffers::Vector<uint8_t> *>(VT_SALT);
+  }
+  const flatbuffers::Vector<uint8_t> *chaps_salt() const {
+    return GetPointer<const flatbuffers::Vector<uint8_t> *>(VT_CHAPS_SALT);
+  }
+  const flatbuffers::Vector<uint8_t> *reset_seed_salt() const {
+    return GetPointer<const flatbuffers::Vector<uint8_t> *>(VT_RESET_SEED_SALT);
   }
   flatbuffers::Optional<int32_t> work_factor() const {
     return GetOptional<int32_t, int32_t>(VT_WORK_FACTOR);
@@ -932,6 +837,10 @@ struct ScryptAuthBlockState FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table
     return VerifyTableStart(verifier) &&
            VerifyOffset(verifier, VT_SALT) &&
            verifier.VerifyVector(salt()) &&
+           VerifyOffset(verifier, VT_CHAPS_SALT) &&
+           verifier.VerifyVector(chaps_salt()) &&
+           VerifyOffset(verifier, VT_RESET_SEED_SALT) &&
+           verifier.VerifyVector(reset_seed_salt()) &&
            VerifyField<int32_t>(verifier, VT_WORK_FACTOR) &&
            VerifyField<uint32_t>(verifier, VT_BLOCK_SIZE) &&
            VerifyField<uint32_t>(verifier, VT_PARALLEL_FACTOR) &&
@@ -945,6 +854,12 @@ struct ScryptAuthBlockStateBuilder {
   flatbuffers::uoffset_t start_;
   void add_salt(flatbuffers::Offset<flatbuffers::Vector<uint8_t>> salt) {
     fbb_.AddOffset(ScryptAuthBlockState::VT_SALT, salt);
+  }
+  void add_chaps_salt(flatbuffers::Offset<flatbuffers::Vector<uint8_t>> chaps_salt) {
+    fbb_.AddOffset(ScryptAuthBlockState::VT_CHAPS_SALT, chaps_salt);
+  }
+  void add_reset_seed_salt(flatbuffers::Offset<flatbuffers::Vector<uint8_t>> reset_seed_salt) {
+    fbb_.AddOffset(ScryptAuthBlockState::VT_RESET_SEED_SALT, reset_seed_salt);
   }
   void add_work_factor(int32_t work_factor) {
     fbb_.AddElement<int32_t>(ScryptAuthBlockState::VT_WORK_FACTOR, work_factor);
@@ -969,6 +884,8 @@ struct ScryptAuthBlockStateBuilder {
 inline flatbuffers::Offset<ScryptAuthBlockState> CreateScryptAuthBlockState(
     flatbuffers::FlatBufferBuilder &_fbb,
     flatbuffers::Offset<flatbuffers::Vector<uint8_t>> salt = 0,
+    flatbuffers::Offset<flatbuffers::Vector<uint8_t>> chaps_salt = 0,
+    flatbuffers::Offset<flatbuffers::Vector<uint8_t>> reset_seed_salt = 0,
     flatbuffers::Optional<int32_t> work_factor = flatbuffers::nullopt,
     flatbuffers::Optional<uint32_t> block_size = flatbuffers::nullopt,
     flatbuffers::Optional<uint32_t> parallel_factor = flatbuffers::nullopt) {
@@ -976,6 +893,8 @@ inline flatbuffers::Offset<ScryptAuthBlockState> CreateScryptAuthBlockState(
   if(parallel_factor) { builder_.add_parallel_factor(*parallel_factor); }
   if(block_size) { builder_.add_block_size(*block_size); }
   if(work_factor) { builder_.add_work_factor(*work_factor); }
+  builder_.add_reset_seed_salt(reset_seed_salt);
+  builder_.add_chaps_salt(chaps_salt);
   builder_.add_salt(salt);
   return builder_.Finish();
 }
@@ -983,13 +902,19 @@ inline flatbuffers::Offset<ScryptAuthBlockState> CreateScryptAuthBlockState(
 inline flatbuffers::Offset<ScryptAuthBlockState> CreateScryptAuthBlockStateDirect(
     flatbuffers::FlatBufferBuilder &_fbb,
     const std::vector<uint8_t> *salt = nullptr,
+    const std::vector<uint8_t> *chaps_salt = nullptr,
+    const std::vector<uint8_t> *reset_seed_salt = nullptr,
     flatbuffers::Optional<int32_t> work_factor = flatbuffers::nullopt,
     flatbuffers::Optional<uint32_t> block_size = flatbuffers::nullopt,
     flatbuffers::Optional<uint32_t> parallel_factor = flatbuffers::nullopt) {
   auto salt__ = salt ? _fbb.CreateVector<uint8_t>(*salt) : 0;
+  auto chaps_salt__ = chaps_salt ? _fbb.CreateVector<uint8_t>(*chaps_salt) : 0;
+  auto reset_seed_salt__ = reset_seed_salt ? _fbb.CreateVector<uint8_t>(*reset_seed_salt) : 0;
   return cryptohome::_serialized_::CreateScryptAuthBlockState(
       _fbb,
       salt__,
+      chaps_salt__,
+      reset_seed_salt__,
       work_factor,
       block_size,
       parallel_factor);
@@ -1059,9 +984,6 @@ struct AuthBlockState FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   const cryptohome::_serialized_::PinWeaverAuthBlockState *state_as_PinWeaverAuthBlockState() const {
     return state_type() == cryptohome::_serialized_::AuthBlockStateUnion::PinWeaverAuthBlockState ? static_cast<const cryptohome::_serialized_::PinWeaverAuthBlockState *>(state()) : nullptr;
   }
-  const cryptohome::_serialized_::LibScryptCompatAuthBlockState *state_as_LibScryptCompatAuthBlockState() const {
-    return state_type() == cryptohome::_serialized_::AuthBlockStateUnion::LibScryptCompatAuthBlockState ? static_cast<const cryptohome::_serialized_::LibScryptCompatAuthBlockState *>(state()) : nullptr;
-  }
   const cryptohome::_serialized_::ChallengeCredentialAuthBlockState *state_as_ChallengeCredentialAuthBlockState() const {
     return state_type() == cryptohome::_serialized_::AuthBlockStateUnion::ChallengeCredentialAuthBlockState ? static_cast<const cryptohome::_serialized_::ChallengeCredentialAuthBlockState *>(state()) : nullptr;
   }
@@ -1101,10 +1023,6 @@ template<> inline const cryptohome::_serialized_::TpmNotBoundToPcrAuthBlockState
 
 template<> inline const cryptohome::_serialized_::PinWeaverAuthBlockState *AuthBlockState::state_as<cryptohome::_serialized_::PinWeaverAuthBlockState>() const {
   return state_as_PinWeaverAuthBlockState();
-}
-
-template<> inline const cryptohome::_serialized_::LibScryptCompatAuthBlockState *AuthBlockState::state_as<cryptohome::_serialized_::LibScryptCompatAuthBlockState>() const {
-  return state_as_LibScryptCompatAuthBlockState();
 }
 
 template<> inline const cryptohome::_serialized_::ChallengeCredentialAuthBlockState *AuthBlockState::state_as<cryptohome::_serialized_::ChallengeCredentialAuthBlockState>() const {
@@ -1178,10 +1096,6 @@ inline bool VerifyAuthBlockStateUnion(flatbuffers::Verifier &verifier, const voi
     }
     case AuthBlockStateUnion::PinWeaverAuthBlockState: {
       auto ptr = reinterpret_cast<const cryptohome::_serialized_::PinWeaverAuthBlockState *>(obj);
-      return verifier.VerifyTable(ptr);
-    }
-    case AuthBlockStateUnion::LibScryptCompatAuthBlockState: {
-      auto ptr = reinterpret_cast<const cryptohome::_serialized_::LibScryptCompatAuthBlockState *>(obj);
       return verifier.VerifyTable(ptr);
     }
     case AuthBlockStateUnion::ChallengeCredentialAuthBlockState: {

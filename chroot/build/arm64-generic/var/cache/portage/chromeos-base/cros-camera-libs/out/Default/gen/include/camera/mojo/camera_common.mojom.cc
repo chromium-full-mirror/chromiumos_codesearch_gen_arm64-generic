@@ -15,6 +15,7 @@
 #include <stdint.h>
 #include <utility>
 
+#include "base/debug/alias.h"
 #include "base/hash/md5_constexpr.h"
 #include "base/run_loop.h"
 #include "base/strings/string_number_conversions.h"
@@ -181,20 +182,18 @@ bool CameraInfo::Validate(
 }
 const char CameraModuleCallbacks::Name_[] = "cros.mojom.CameraModuleCallbacks";
 
-uint32_t CameraModuleCallbacks::MessageToStableIPCHash_(mojo::Message& message) {
+CameraModuleCallbacks::IPCStableHashFunction CameraModuleCallbacks::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
   switch (message.name()) {
     case internal::kCameraModuleCallbacks_CameraDeviceStatusChange_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::CameraModuleCallbacks::CameraDeviceStatusChange");
-      return value;
+      return &CameraModuleCallbacks::CameraDeviceStatusChange_Sym::IPCStableHash;
     }
     case internal::kCameraModuleCallbacks_TorchModeStatusChange_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::CameraModuleCallbacks::TorchModeStatusChange");
-      return value;
+      return &CameraModuleCallbacks::TorchModeStatusChange_Sym::IPCStableHash;
     }
   }
-  return 0;
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
 }
 
 
@@ -226,6 +225,35 @@ const char* CameraModuleCallbacks::MessageToMethodName_(mojo::Message& message) 
   }
 #endif // BUILDFLAG(MOJO_TRACE_ENABLED)
 }
+
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t CameraModuleCallbacks::CameraDeviceStatusChange_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::CameraModuleCallbacks::CameraDeviceStatusChange");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t CameraModuleCallbacks::TorchModeStatusChange_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::CameraModuleCallbacks::TorchModeStatusChange");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
 
 CameraModuleCallbacksProxy::CameraModuleCallbacksProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
@@ -271,7 +299,7 @@ void CameraModuleCallbacksProxy::CameraDeviceStatusChange(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 void CameraModuleCallbacksProxy::TorchModeStatusChange(
@@ -314,7 +342,7 @@ void CameraModuleCallbacksProxy::TorchModeStatusChange(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 // static
@@ -420,35 +448,27 @@ bool CameraModuleCallbacksRequestValidator::Accept(mojo::Message* message) {
 
 const char VendorTagOps::Name_[] = "cros.mojom.VendorTagOps";
 
-uint32_t VendorTagOps::MessageToStableIPCHash_(mojo::Message& message) {
+VendorTagOps::IPCStableHashFunction VendorTagOps::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
   switch (message.name()) {
     case internal::kVendorTagOps_GetTagCount_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::VendorTagOps::GetTagCount");
-      return value;
+      return &VendorTagOps::GetTagCount_Sym::IPCStableHash;
     }
     case internal::kVendorTagOps_GetAllTags_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::VendorTagOps::GetAllTags");
-      return value;
+      return &VendorTagOps::GetAllTags_Sym::IPCStableHash;
     }
     case internal::kVendorTagOps_GetSectionName_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::VendorTagOps::GetSectionName");
-      return value;
+      return &VendorTagOps::GetSectionName_Sym::IPCStableHash;
     }
     case internal::kVendorTagOps_GetTagName_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::VendorTagOps::GetTagName");
-      return value;
+      return &VendorTagOps::GetTagName_Sym::IPCStableHash;
     }
     case internal::kVendorTagOps_GetTagType_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::VendorTagOps::GetTagType");
-      return value;
+      return &VendorTagOps::GetTagType_Sym::IPCStableHash;
     }
   }
-  return 0;
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
 }
 
 
@@ -492,6 +512,74 @@ const char* VendorTagOps::MessageToMethodName_(mojo::Message& message) {
   }
 #endif // BUILDFLAG(MOJO_TRACE_ENABLED)
 }
+
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t VendorTagOps::GetTagCount_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::VendorTagOps::GetTagCount");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t VendorTagOps::GetAllTags_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::VendorTagOps::GetAllTags");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t VendorTagOps::GetSectionName_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::VendorTagOps::GetSectionName");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t VendorTagOps::GetTagName_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::VendorTagOps::GetTagName");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t VendorTagOps::GetTagType_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::VendorTagOps::GetTagType");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
 
 class VendorTagOps_GetTagCount_ForwardToCallback
     : public mojo::MessageReceiver {
@@ -605,7 +693,7 @@ void VendorTagOpsProxy::GetTagCount(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new VendorTagOps_GetTagCount_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void VendorTagOpsProxy::GetAllTags(
@@ -636,7 +724,7 @@ void VendorTagOpsProxy::GetAllTags(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new VendorTagOps_GetAllTags_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void VendorTagOpsProxy::GetSectionName(
@@ -675,7 +763,7 @@ void VendorTagOpsProxy::GetSectionName(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new VendorTagOps_GetSectionName_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void VendorTagOpsProxy::GetTagName(
@@ -714,7 +802,7 @@ void VendorTagOpsProxy::GetTagName(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new VendorTagOps_GetTagName_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void VendorTagOpsProxy::GetTagType(
@@ -753,7 +841,7 @@ void VendorTagOpsProxy::GetTagType(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new VendorTagOps_GetTagType_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 class VendorTagOps_GetTagCount_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
@@ -860,8 +948,8 @@ void VendorTagOps_GetTagCount_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -986,8 +1074,8 @@ void VendorTagOps_GetAllTags_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -1106,8 +1194,8 @@ void VendorTagOps_GetSectionName_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -1226,8 +1314,8 @@ void VendorTagOps_GetTagName_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -1340,8 +1428,8 @@ void VendorTagOps_GetTagType_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -1549,50 +1637,36 @@ bool VendorTagOpsResponseValidator::Accept(mojo::Message* message) {
 }
 const char CameraModule::Name_[] = "cros.mojom.CameraModule";
 
-uint32_t CameraModule::MessageToStableIPCHash_(mojo::Message& message) {
+CameraModule::IPCStableHashFunction CameraModule::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
   switch (message.name()) {
     case internal::kCameraModule_OpenDevice_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::CameraModule::OpenDevice");
-      return value;
+      return &CameraModule::OpenDevice_Sym::IPCStableHash;
     }
     case internal::kCameraModule_GetNumberOfCameras_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::CameraModule::GetNumberOfCameras");
-      return value;
+      return &CameraModule::GetNumberOfCameras_Sym::IPCStableHash;
     }
     case internal::kCameraModule_GetCameraInfo_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::CameraModule::GetCameraInfo");
-      return value;
+      return &CameraModule::GetCameraInfo_Sym::IPCStableHash;
     }
     case internal::kCameraModule_SetCallbacks_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::CameraModule::SetCallbacks");
-      return value;
+      return &CameraModule::SetCallbacks_Sym::IPCStableHash;
     }
     case internal::kCameraModule_SetTorchMode_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::CameraModule::SetTorchMode");
-      return value;
+      return &CameraModule::SetTorchMode_Sym::IPCStableHash;
     }
     case internal::kCameraModule_Init_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::CameraModule::Init");
-      return value;
+      return &CameraModule::Init_Sym::IPCStableHash;
     }
     case internal::kCameraModule_GetVendorTagOps_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::CameraModule::GetVendorTagOps");
-      return value;
+      return &CameraModule::GetVendorTagOps_Sym::IPCStableHash;
     }
     case internal::kCameraModule_SetCallbacksAssociated_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::CameraModule::SetCallbacksAssociated");
-      return value;
+      return &CameraModule::SetCallbacksAssociated_Sym::IPCStableHash;
     }
   }
-  return 0;
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
 }
 
 
@@ -1648,6 +1722,113 @@ const char* CameraModule::MessageToMethodName_(mojo::Message& message) {
   }
 #endif // BUILDFLAG(MOJO_TRACE_ENABLED)
 }
+
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t CameraModule::OpenDevice_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::CameraModule::OpenDevice");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t CameraModule::GetNumberOfCameras_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::CameraModule::GetNumberOfCameras");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t CameraModule::GetCameraInfo_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::CameraModule::GetCameraInfo");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t CameraModule::SetCallbacks_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::CameraModule::SetCallbacks");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t CameraModule::SetTorchMode_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::CameraModule::SetTorchMode");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t CameraModule::Init_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::CameraModule::Init");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t CameraModule::GetVendorTagOps_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::CameraModule::GetVendorTagOps");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t CameraModule::SetCallbacksAssociated_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::CameraModule::SetCallbacksAssociated");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
 
 class CameraModule_OpenDevice_ForwardToCallback
     : public mojo::MessageReceiver {
@@ -1826,7 +2007,7 @@ void CameraModuleProxy::OpenDevice(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new CameraModule_OpenDevice_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void CameraModuleProxy::GetNumberOfCameras(
@@ -1857,7 +2038,7 @@ void CameraModuleProxy::GetNumberOfCameras(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new CameraModule_GetNumberOfCameras_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void CameraModuleProxy::GetCameraInfo(
@@ -1896,7 +2077,7 @@ void CameraModuleProxy::GetCameraInfo(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new CameraModule_GetCameraInfo_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void CameraModuleProxy::SetCallbacks(
@@ -1940,7 +2121,7 @@ void CameraModuleProxy::SetCallbacks(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new CameraModule_SetCallbacks_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void CameraModuleProxy::SetTorchMode(
@@ -1983,7 +2164,7 @@ void CameraModuleProxy::SetTorchMode(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new CameraModule_SetTorchMode_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void CameraModuleProxy::Init(
@@ -2014,7 +2195,7 @@ void CameraModuleProxy::Init(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new CameraModule_Init_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void CameraModuleProxy::GetVendorTagOps(
@@ -2058,7 +2239,7 @@ void CameraModuleProxy::GetVendorTagOps(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new CameraModule_GetVendorTagOps_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void CameraModuleProxy::SetCallbacksAssociated(
@@ -2102,7 +2283,7 @@ void CameraModuleProxy::SetCallbacksAssociated(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new CameraModule_SetCallbacksAssociated_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 class CameraModule_OpenDevice_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
@@ -2209,8 +2390,8 @@ void CameraModule_OpenDevice_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -2323,8 +2504,8 @@ void CameraModule_GetNumberOfCameras_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -2451,8 +2632,8 @@ void CameraModule_GetCameraInfo_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -2565,8 +2746,8 @@ void CameraModule_SetCallbacks_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -2679,8 +2860,8 @@ void CameraModule_SetTorchMode_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -2793,8 +2974,8 @@ void CameraModule_Init_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -2895,8 +3076,8 @@ void CameraModule_GetVendorTagOps_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -3009,8 +3190,8 @@ void CameraModule_SetCallbacksAssociated_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that

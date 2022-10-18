@@ -1388,6 +1388,7 @@ class PowerManagementPolicy final :
     kSendFeedbackIfUndimmedFieldNumber = 26,
     kAdaptiveChargingEnabledFieldNumber = 27,
     kAdaptiveChargingMinProbabilityFieldNumber = 29,
+    kAdaptiveChargingMaxDelayPercentileFieldNumber = 30,
     kAdaptiveChargingHoldPercentFieldNumber = 28,
   };
   // repeated .power_manager.PowerManagementPolicy.PeakShiftDayConfig peak_shift_day_configs = 20;
@@ -1771,6 +1772,19 @@ class PowerManagementPolicy final :
   void _internal_set_adaptive_charging_min_probability(double value);
   public:
 
+  // optional double adaptive_charging_max_delay_percentile = 30;
+  bool has_adaptive_charging_max_delay_percentile() const;
+  private:
+  bool _internal_has_adaptive_charging_max_delay_percentile() const;
+  public:
+  void clear_adaptive_charging_max_delay_percentile();
+  double adaptive_charging_max_delay_percentile() const;
+  void set_adaptive_charging_max_delay_percentile(double value);
+  private:
+  double _internal_adaptive_charging_max_delay_percentile() const;
+  void _internal_set_adaptive_charging_max_delay_percentile(double value);
+  public:
+
   // optional int32 adaptive_charging_hold_percent = 28;
   bool has_adaptive_charging_hold_percent() const;
   private:
@@ -1820,6 +1834,7 @@ class PowerManagementPolicy final :
   bool send_feedback_if_undimmed_;
   bool adaptive_charging_enabled_;
   double adaptive_charging_min_probability_;
+  double adaptive_charging_max_delay_percentile_;
   int32_t adaptive_charging_hold_percent_;
   friend struct ::TableStruct_policy_2eproto;
 };
@@ -3826,7 +3841,7 @@ inline void PowerManagementPolicy::set_adaptive_charging_enabled(bool value) {
 
 // optional int32 adaptive_charging_hold_percent = 28;
 inline bool PowerManagementPolicy::_internal_has_adaptive_charging_hold_percent() const {
-  bool value = (_has_bits_[0] & 0x02000000u) != 0;
+  bool value = (_has_bits_[0] & 0x04000000u) != 0;
   return value;
 }
 inline bool PowerManagementPolicy::has_adaptive_charging_hold_percent() const {
@@ -3834,7 +3849,7 @@ inline bool PowerManagementPolicy::has_adaptive_charging_hold_percent() const {
 }
 inline void PowerManagementPolicy::clear_adaptive_charging_hold_percent() {
   adaptive_charging_hold_percent_ = 0;
-  _has_bits_[0] &= ~0x02000000u;
+  _has_bits_[0] &= ~0x04000000u;
 }
 inline int32_t PowerManagementPolicy::_internal_adaptive_charging_hold_percent() const {
   return adaptive_charging_hold_percent_;
@@ -3844,7 +3859,7 @@ inline int32_t PowerManagementPolicy::adaptive_charging_hold_percent() const {
   return _internal_adaptive_charging_hold_percent();
 }
 inline void PowerManagementPolicy::_internal_set_adaptive_charging_hold_percent(int32_t value) {
-  _has_bits_[0] |= 0x02000000u;
+  _has_bits_[0] |= 0x04000000u;
   adaptive_charging_hold_percent_ = value;
 }
 inline void PowerManagementPolicy::set_adaptive_charging_hold_percent(int32_t value) {
@@ -3878,6 +3893,34 @@ inline void PowerManagementPolicy::_internal_set_adaptive_charging_min_probabili
 inline void PowerManagementPolicy::set_adaptive_charging_min_probability(double value) {
   _internal_set_adaptive_charging_min_probability(value);
   // @@protoc_insertion_point(field_set:power_manager.PowerManagementPolicy.adaptive_charging_min_probability)
+}
+
+// optional double adaptive_charging_max_delay_percentile = 30;
+inline bool PowerManagementPolicy::_internal_has_adaptive_charging_max_delay_percentile() const {
+  bool value = (_has_bits_[0] & 0x02000000u) != 0;
+  return value;
+}
+inline bool PowerManagementPolicy::has_adaptive_charging_max_delay_percentile() const {
+  return _internal_has_adaptive_charging_max_delay_percentile();
+}
+inline void PowerManagementPolicy::clear_adaptive_charging_max_delay_percentile() {
+  adaptive_charging_max_delay_percentile_ = 0;
+  _has_bits_[0] &= ~0x02000000u;
+}
+inline double PowerManagementPolicy::_internal_adaptive_charging_max_delay_percentile() const {
+  return adaptive_charging_max_delay_percentile_;
+}
+inline double PowerManagementPolicy::adaptive_charging_max_delay_percentile() const {
+  // @@protoc_insertion_point(field_get:power_manager.PowerManagementPolicy.adaptive_charging_max_delay_percentile)
+  return _internal_adaptive_charging_max_delay_percentile();
+}
+inline void PowerManagementPolicy::_internal_set_adaptive_charging_max_delay_percentile(double value) {
+  _has_bits_[0] |= 0x02000000u;
+  adaptive_charging_max_delay_percentile_ = value;
+}
+inline void PowerManagementPolicy::set_adaptive_charging_max_delay_percentile(double value) {
+  _internal_set_adaptive_charging_max_delay_percentile(value);
+  // @@protoc_insertion_point(field_set:power_manager.PowerManagementPolicy.adaptive_charging_max_delay_percentile)
 }
 
 // -------------------------------------------------------------------

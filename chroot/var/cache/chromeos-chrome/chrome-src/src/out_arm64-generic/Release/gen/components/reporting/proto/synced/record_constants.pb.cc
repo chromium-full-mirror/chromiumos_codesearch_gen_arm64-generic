@@ -163,19 +163,21 @@ bool Priority_IsValid(int value) {
     case 4:
     case 5:
     case 6:
+    case 7:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> Priority_strings[7] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> Priority_strings[8] = {};
 
 static const char Priority_names[] =
   "BACKGROUND_BATCH"
   "FAST_BATCH"
   "IMMEDIATE"
   "MANUAL_BATCH"
+  "MANUAL_BATCH_LACROS"
   "SECURITY"
   "SLOW_BATCH"
   "UNDEFINED_PRIORITY";
@@ -185,19 +187,21 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry Priority_entries[] = {
   { {Priority_names + 16, 10}, 2 },
   { {Priority_names + 26, 9}, 1 },
   { {Priority_names + 35, 12}, 5 },
-  { {Priority_names + 47, 8}, 6 },
-  { {Priority_names + 55, 10}, 3 },
-  { {Priority_names + 65, 18}, 0 },
+  { {Priority_names + 47, 19}, 7 },
+  { {Priority_names + 66, 8}, 6 },
+  { {Priority_names + 74, 10}, 3 },
+  { {Priority_names + 84, 18}, 0 },
 };
 
 static const int Priority_entries_by_number[] = {
-  6, // 0 -> UNDEFINED_PRIORITY
+  7, // 0 -> UNDEFINED_PRIORITY
   2, // 1 -> IMMEDIATE
   1, // 2 -> FAST_BATCH
-  5, // 3 -> SLOW_BATCH
+  6, // 3 -> SLOW_BATCH
   0, // 4 -> BACKGROUND_BATCH
   3, // 5 -> MANUAL_BATCH
-  4, // 6 -> SECURITY
+  5, // 6 -> SECURITY
+  4, // 7 -> MANUAL_BATCH_LACROS
 };
 
 const std::string& Priority_Name(
@@ -206,12 +210,12 @@ const std::string& Priority_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           Priority_entries,
           Priority_entries_by_number,
-          7, Priority_strings);
+          8, Priority_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       Priority_entries,
       Priority_entries_by_number,
-      7, value);
+      8, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      Priority_strings[idx].get();
 }
@@ -219,7 +223,7 @@ bool Priority_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, Priority* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      Priority_entries, 7, name, &int_value);
+      Priority_entries, 8, name, &int_value);
   if (success) {
     *value = static_cast<Priority>(int_value);
   }

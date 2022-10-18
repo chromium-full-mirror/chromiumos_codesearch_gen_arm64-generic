@@ -15,6 +15,7 @@
 #include <stdint.h>
 #include <utility>
 
+#include "base/debug/alias.h"
 #include "base/hash/md5_constexpr.h"
 #include "base/run_loop.h"
 #include "base/strings/string_number_conversions.h"
@@ -45,7 +46,7 @@
 
 
 
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace mojom {
 NullableUint8::NullableUint8()
@@ -244,18 +245,18 @@ bool NullableDouble::Validate(
 
 }  // namespace mojom
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 
 namespace mojo {
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::mojom::NullableUint8::DataView, ::chromeos::cros_healthd::mojom::NullableUint8Ptr>::Read(
-    ::chromeos::cros_healthd::mojom::NullableUint8::DataView input,
-    ::chromeos::cros_healthd::mojom::NullableUint8Ptr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::NullableUint8::DataView, ::ash::cros_healthd::mojom::NullableUint8Ptr>::Read(
+    ::ash::cros_healthd::mojom::NullableUint8::DataView input,
+    ::ash::cros_healthd::mojom::NullableUint8Ptr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::mojom::NullableUint8Ptr result(::chromeos::cros_healthd::mojom::NullableUint8::New());
+  ::ash::cros_healthd::mojom::NullableUint8Ptr result(::ash::cros_healthd::mojom::NullableUint8::New());
   
       if (success)
         result->value = input.value();
@@ -265,11 +266,11 @@ bool StructTraits<::chromeos::cros_healthd::mojom::NullableUint8::DataView, ::ch
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::mojom::NullableInt16::DataView, ::chromeos::cros_healthd::mojom::NullableInt16Ptr>::Read(
-    ::chromeos::cros_healthd::mojom::NullableInt16::DataView input,
-    ::chromeos::cros_healthd::mojom::NullableInt16Ptr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::NullableInt16::DataView, ::ash::cros_healthd::mojom::NullableInt16Ptr>::Read(
+    ::ash::cros_healthd::mojom::NullableInt16::DataView input,
+    ::ash::cros_healthd::mojom::NullableInt16Ptr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::mojom::NullableInt16Ptr result(::chromeos::cros_healthd::mojom::NullableInt16::New());
+  ::ash::cros_healthd::mojom::NullableInt16Ptr result(::ash::cros_healthd::mojom::NullableInt16::New());
   
       if (success)
         result->value = input.value();
@@ -279,11 +280,11 @@ bool StructTraits<::chromeos::cros_healthd::mojom::NullableInt16::DataView, ::ch
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::mojom::NullableUint16::DataView, ::chromeos::cros_healthd::mojom::NullableUint16Ptr>::Read(
-    ::chromeos::cros_healthd::mojom::NullableUint16::DataView input,
-    ::chromeos::cros_healthd::mojom::NullableUint16Ptr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::NullableUint16::DataView, ::ash::cros_healthd::mojom::NullableUint16Ptr>::Read(
+    ::ash::cros_healthd::mojom::NullableUint16::DataView input,
+    ::ash::cros_healthd::mojom::NullableUint16Ptr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::mojom::NullableUint16Ptr result(::chromeos::cros_healthd::mojom::NullableUint16::New());
+  ::ash::cros_healthd::mojom::NullableUint16Ptr result(::ash::cros_healthd::mojom::NullableUint16::New());
   
       if (success)
         result->value = input.value();
@@ -293,11 +294,11 @@ bool StructTraits<::chromeos::cros_healthd::mojom::NullableUint16::DataView, ::c
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::mojom::NullableUint32::DataView, ::chromeos::cros_healthd::mojom::NullableUint32Ptr>::Read(
-    ::chromeos::cros_healthd::mojom::NullableUint32::DataView input,
-    ::chromeos::cros_healthd::mojom::NullableUint32Ptr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::NullableUint32::DataView, ::ash::cros_healthd::mojom::NullableUint32Ptr>::Read(
+    ::ash::cros_healthd::mojom::NullableUint32::DataView input,
+    ::ash::cros_healthd::mojom::NullableUint32Ptr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::mojom::NullableUint32Ptr result(::chromeos::cros_healthd::mojom::NullableUint32::New());
+  ::ash::cros_healthd::mojom::NullableUint32Ptr result(::ash::cros_healthd::mojom::NullableUint32::New());
   
       if (success)
         result->value = input.value();
@@ -307,11 +308,11 @@ bool StructTraits<::chromeos::cros_healthd::mojom::NullableUint32::DataView, ::c
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::mojom::NullableUint64::DataView, ::chromeos::cros_healthd::mojom::NullableUint64Ptr>::Read(
-    ::chromeos::cros_healthd::mojom::NullableUint64::DataView input,
-    ::chromeos::cros_healthd::mojom::NullableUint64Ptr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::NullableUint64::DataView, ::ash::cros_healthd::mojom::NullableUint64Ptr>::Read(
+    ::ash::cros_healthd::mojom::NullableUint64::DataView input,
+    ::ash::cros_healthd::mojom::NullableUint64Ptr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::mojom::NullableUint64Ptr result(::chromeos::cros_healthd::mojom::NullableUint64::New());
+  ::ash::cros_healthd::mojom::NullableUint64Ptr result(::ash::cros_healthd::mojom::NullableUint64::New());
   
       if (success)
         result->value = input.value();
@@ -321,11 +322,11 @@ bool StructTraits<::chromeos::cros_healthd::mojom::NullableUint64::DataView, ::c
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::mojom::NullableDouble::DataView, ::chromeos::cros_healthd::mojom::NullableDoublePtr>::Read(
-    ::chromeos::cros_healthd::mojom::NullableDouble::DataView input,
-    ::chromeos::cros_healthd::mojom::NullableDoublePtr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::NullableDouble::DataView, ::ash::cros_healthd::mojom::NullableDoublePtr>::Read(
+    ::ash::cros_healthd::mojom::NullableDouble::DataView input,
+    ::ash::cros_healthd::mojom::NullableDoublePtr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::mojom::NullableDoublePtr result(::chromeos::cros_healthd::mojom::NullableDouble::New());
+  ::ash::cros_healthd::mojom::NullableDoublePtr result(::ash::cros_healthd::mojom::NullableDouble::New());
   
       if (success)
         result->value = input.value();
@@ -340,7 +341,7 @@ bool StructTraits<::chromeos::cros_healthd::mojom::NullableDouble::DataView, ::c
 // separate .cc file to save compile time.
 
 
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace mojom {
 
@@ -349,7 +350,7 @@ namespace mojom {
 
 }  // namespace mojom
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 
 #if defined(__clang__)

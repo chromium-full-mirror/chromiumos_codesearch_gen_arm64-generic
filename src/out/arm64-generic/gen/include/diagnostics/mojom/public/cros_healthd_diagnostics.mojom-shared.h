@@ -31,7 +31,7 @@
 
 
 
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace mojom {
 class RunRoutineResponseDataView;
@@ -47,42 +47,42 @@ class RoutineUpdateUnionDataView;
 
 }  // namespace mojom
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 namespace mojo {
 namespace internal {
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::RunRoutineResponseDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::RunRoutineResponse_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::RunRoutineResponseDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::RunRoutineResponse_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::InteractiveRoutineUpdateDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::InteractiveRoutineUpdate_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::InteractiveRoutineUpdateDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::InteractiveRoutineUpdate_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::NonInteractiveRoutineUpdateDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::NonInteractiveRoutineUpdate_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::NonInteractiveRoutineUpdateDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::NonInteractiveRoutineUpdate_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::RoutineUpdateDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::RoutineUpdate_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::RoutineUpdateDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::RoutineUpdate_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::RoutineUpdateUnionDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::RoutineUpdateUnion_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::RoutineUpdateUnionDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::RoutineUpdateUnion_Data;
   using DataAsArrayElement = Data;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kUnion;
 };
@@ -91,7 +91,7 @@ struct MojomTypeTraits<::chromeos::cros_healthd::mojom::RoutineUpdateUnionDataVi
 }  // namespace mojo
 
 
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace mojom {
 
@@ -159,8 +159,10 @@ enum class DiagnosticRoutineEnum : int32_t {
   kArcPing = 28,
   
   kArcDnsResolution = 29,
+  
+  kSensitiveSensor = 31,
   kMinValue = 0,
-  kMaxValue = 30,
+  kMaxValue = 31,
   kDefaultValue = 30
 };
 
@@ -367,12 +369,12 @@ class RunRoutineResponseDataView {
   template <typename UserType>
   [[nodiscard]] bool ReadStatus(UserType* output) const {
     auto data_value = data_->status;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::DiagnosticRoutineStatusEnum>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::DiagnosticRoutineStatusEnum>(
         data_value, output);
   }
   DiagnosticRoutineStatusEnum status() const {
     return ::mojo::internal::ToKnownEnumValueHelper(
-          static_cast<::chromeos::cros_healthd::mojom::DiagnosticRoutineStatusEnum>(data_->status));
+          static_cast<::ash::cros_healthd::mojom::DiagnosticRoutineStatusEnum>(data_->status));
   }
  private:
   internal::RunRoutineResponse_Data* data_ = nullptr;
@@ -393,12 +395,12 @@ class InteractiveRoutineUpdateDataView {
   template <typename UserType>
   [[nodiscard]] bool ReadUserMessage(UserType* output) const {
     auto data_value = data_->user_message;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::DiagnosticRoutineUserMessageEnum>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::DiagnosticRoutineUserMessageEnum>(
         data_value, output);
   }
   DiagnosticRoutineUserMessageEnum user_message() const {
     return ::mojo::internal::ToKnownEnumValueHelper(
-          static_cast<::chromeos::cros_healthd::mojom::DiagnosticRoutineUserMessageEnum>(data_->user_message));
+          static_cast<::ash::cros_healthd::mojom::DiagnosticRoutineUserMessageEnum>(data_->user_message));
   }
  private:
   internal::InteractiveRoutineUpdate_Data* data_ = nullptr;
@@ -419,12 +421,12 @@ class NonInteractiveRoutineUpdateDataView {
   template <typename UserType>
   [[nodiscard]] bool ReadStatus(UserType* output) const {
     auto data_value = data_->status;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::DiagnosticRoutineStatusEnum>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::DiagnosticRoutineStatusEnum>(
         data_value, output);
   }
   DiagnosticRoutineStatusEnum status() const {
     return ::mojo::internal::ToKnownEnumValueHelper(
-          static_cast<::chromeos::cros_healthd::mojom::DiagnosticRoutineStatusEnum>(data_->status));
+          static_cast<::ash::cros_healthd::mojom::DiagnosticRoutineStatusEnum>(data_->status));
   }
   inline void GetStatusMessageDataView(
       mojo::StringDataView* output);
@@ -471,7 +473,7 @@ class RoutineUpdateDataView {
   [[nodiscard]] bool ReadRoutineUpdateUnion(UserType* output) {
     
     auto* pointer = !data_->routine_update_union.is_null() ? &data_->routine_update_union : nullptr;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::RoutineUpdateUnionDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::RoutineUpdateUnionDataView>(
         pointer, output, message_);
   }
  private:
@@ -507,7 +509,7 @@ class RoutineUpdateUnionDataView {
   [[nodiscard]] bool ReadInteractiveUpdate(UserType* output) const {
     
     CHECK(is_interactive_update());
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::InteractiveRoutineUpdateDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::InteractiveRoutineUpdateDataView>(
         data_->data.f_interactive_update.Get(), output, message_);
   }
   bool is_noninteractive_update() const { return data_->tag == Tag::kNoninteractiveUpdate; }
@@ -518,7 +520,7 @@ class RoutineUpdateUnionDataView {
   [[nodiscard]] bool ReadNoninteractiveUpdate(UserType* output) const {
     
     CHECK(is_noninteractive_update());
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::NonInteractiveRoutineUpdateDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::NonInteractiveRoutineUpdateDataView>(
         data_->data.f_noninteractive_update.Get(), output, message_);
   }
 
@@ -531,37 +533,37 @@ class RoutineUpdateUnionDataView {
 
 }  // namespace mojom
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 namespace std {
 
 template <>
-struct hash<::chromeos::cros_healthd::mojom::DiagnosticRoutineEnum>
-    : public mojo::internal::EnumHashImpl<::chromeos::cros_healthd::mojom::DiagnosticRoutineEnum> {};
+struct hash<::ash::cros_healthd::mojom::DiagnosticRoutineEnum>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::DiagnosticRoutineEnum> {};
 
 template <>
-struct hash<::chromeos::cros_healthd::mojom::DiskReadRoutineTypeEnum>
-    : public mojo::internal::EnumHashImpl<::chromeos::cros_healthd::mojom::DiskReadRoutineTypeEnum> {};
+struct hash<::ash::cros_healthd::mojom::DiskReadRoutineTypeEnum>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::DiskReadRoutineTypeEnum> {};
 
 template <>
-struct hash<::chromeos::cros_healthd::mojom::DiagnosticRoutineStatusEnum>
-    : public mojo::internal::EnumHashImpl<::chromeos::cros_healthd::mojom::DiagnosticRoutineStatusEnum> {};
+struct hash<::ash::cros_healthd::mojom::DiagnosticRoutineStatusEnum>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::DiagnosticRoutineStatusEnum> {};
 
 template <>
-struct hash<::chromeos::cros_healthd::mojom::DiagnosticRoutineUserMessageEnum>
-    : public mojo::internal::EnumHashImpl<::chromeos::cros_healthd::mojom::DiagnosticRoutineUserMessageEnum> {};
+struct hash<::ash::cros_healthd::mojom::DiagnosticRoutineUserMessageEnum>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::DiagnosticRoutineUserMessageEnum> {};
 
 template <>
-struct hash<::chromeos::cros_healthd::mojom::DiagnosticRoutineCommandEnum>
-    : public mojo::internal::EnumHashImpl<::chromeos::cros_healthd::mojom::DiagnosticRoutineCommandEnum> {};
+struct hash<::ash::cros_healthd::mojom::DiagnosticRoutineCommandEnum>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::DiagnosticRoutineCommandEnum> {};
 
 template <>
-struct hash<::chromeos::cros_healthd::mojom::AcPowerStatusEnum>
-    : public mojo::internal::EnumHashImpl<::chromeos::cros_healthd::mojom::AcPowerStatusEnum> {};
+struct hash<::ash::cros_healthd::mojom::AcPowerStatusEnum>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::AcPowerStatusEnum> {};
 
 template <>
-struct hash<::chromeos::cros_healthd::mojom::NvmeSelfTestTypeEnum>
-    : public mojo::internal::EnumHashImpl<::chromeos::cros_healthd::mojom::NvmeSelfTestTypeEnum> {};
+struct hash<::ash::cros_healthd::mojom::NvmeSelfTestTypeEnum>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::NvmeSelfTestTypeEnum> {};
 
 }  // namespace std
 
@@ -571,9 +573,9 @@ namespace mojo {
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::DiagnosticRoutineEnum, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::DiagnosticRoutineEnum, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = EnumTraits<::chromeos::cros_healthd::mojom::DiagnosticRoutineEnum, UserType>;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::DiagnosticRoutineEnum, UserType>;
 
   static void Serialize(UserType input, int32_t* output) {
     *output = static_cast<int32_t>(Traits::ToMojom(input));
@@ -581,7 +583,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::DiagnosticRoutineEnum, MaybeC
 
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
-        static_cast<::chromeos::cros_healthd::mojom::DiagnosticRoutineEnum>(input)), output);
+        static_cast<::ash::cros_healthd::mojom::DiagnosticRoutineEnum>(input)), output);
   }
 };
 
@@ -591,9 +593,9 @@ struct Serializer<::chromeos::cros_healthd::mojom::DiagnosticRoutineEnum, MaybeC
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::DiskReadRoutineTypeEnum, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::DiskReadRoutineTypeEnum, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = EnumTraits<::chromeos::cros_healthd::mojom::DiskReadRoutineTypeEnum, UserType>;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::DiskReadRoutineTypeEnum, UserType>;
 
   static void Serialize(UserType input, int32_t* output) {
     *output = static_cast<int32_t>(Traits::ToMojom(input));
@@ -601,7 +603,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::DiskReadRoutineTypeEnum, Mayb
 
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
-        static_cast<::chromeos::cros_healthd::mojom::DiskReadRoutineTypeEnum>(input)), output);
+        static_cast<::ash::cros_healthd::mojom::DiskReadRoutineTypeEnum>(input)), output);
   }
 };
 
@@ -611,9 +613,9 @@ struct Serializer<::chromeos::cros_healthd::mojom::DiskReadRoutineTypeEnum, Mayb
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::DiagnosticRoutineStatusEnum, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::DiagnosticRoutineStatusEnum, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = EnumTraits<::chromeos::cros_healthd::mojom::DiagnosticRoutineStatusEnum, UserType>;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::DiagnosticRoutineStatusEnum, UserType>;
 
   static void Serialize(UserType input, int32_t* output) {
     *output = static_cast<int32_t>(Traits::ToMojom(input));
@@ -621,7 +623,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::DiagnosticRoutineStatusEnum, 
 
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
-        static_cast<::chromeos::cros_healthd::mojom::DiagnosticRoutineStatusEnum>(input)), output);
+        static_cast<::ash::cros_healthd::mojom::DiagnosticRoutineStatusEnum>(input)), output);
   }
 };
 
@@ -631,9 +633,9 @@ struct Serializer<::chromeos::cros_healthd::mojom::DiagnosticRoutineStatusEnum, 
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::DiagnosticRoutineUserMessageEnum, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::DiagnosticRoutineUserMessageEnum, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = EnumTraits<::chromeos::cros_healthd::mojom::DiagnosticRoutineUserMessageEnum, UserType>;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::DiagnosticRoutineUserMessageEnum, UserType>;
 
   static void Serialize(UserType input, int32_t* output) {
     *output = static_cast<int32_t>(Traits::ToMojom(input));
@@ -641,7 +643,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::DiagnosticRoutineUserMessageE
 
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
-        static_cast<::chromeos::cros_healthd::mojom::DiagnosticRoutineUserMessageEnum>(input)), output);
+        static_cast<::ash::cros_healthd::mojom::DiagnosticRoutineUserMessageEnum>(input)), output);
   }
 };
 
@@ -651,9 +653,9 @@ struct Serializer<::chromeos::cros_healthd::mojom::DiagnosticRoutineUserMessageE
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::DiagnosticRoutineCommandEnum, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::DiagnosticRoutineCommandEnum, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = EnumTraits<::chromeos::cros_healthd::mojom::DiagnosticRoutineCommandEnum, UserType>;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::DiagnosticRoutineCommandEnum, UserType>;
 
   static void Serialize(UserType input, int32_t* output) {
     *output = static_cast<int32_t>(Traits::ToMojom(input));
@@ -661,7 +663,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::DiagnosticRoutineCommandEnum,
 
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
-        static_cast<::chromeos::cros_healthd::mojom::DiagnosticRoutineCommandEnum>(input)), output);
+        static_cast<::ash::cros_healthd::mojom::DiagnosticRoutineCommandEnum>(input)), output);
   }
 };
 
@@ -671,9 +673,9 @@ struct Serializer<::chromeos::cros_healthd::mojom::DiagnosticRoutineCommandEnum,
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::AcPowerStatusEnum, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::AcPowerStatusEnum, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = EnumTraits<::chromeos::cros_healthd::mojom::AcPowerStatusEnum, UserType>;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::AcPowerStatusEnum, UserType>;
 
   static void Serialize(UserType input, int32_t* output) {
     *output = static_cast<int32_t>(Traits::ToMojom(input));
@@ -681,7 +683,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::AcPowerStatusEnum, MaybeConst
 
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
-        static_cast<::chromeos::cros_healthd::mojom::AcPowerStatusEnum>(input)), output);
+        static_cast<::ash::cros_healthd::mojom::AcPowerStatusEnum>(input)), output);
   }
 };
 
@@ -691,9 +693,9 @@ struct Serializer<::chromeos::cros_healthd::mojom::AcPowerStatusEnum, MaybeConst
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::NvmeSelfTestTypeEnum, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::NvmeSelfTestTypeEnum, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = EnumTraits<::chromeos::cros_healthd::mojom::NvmeSelfTestTypeEnum, UserType>;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::NvmeSelfTestTypeEnum, UserType>;
 
   static void Serialize(UserType input, int32_t* output) {
     *output = static_cast<int32_t>(Traits::ToMojom(input));
@@ -701,7 +703,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::NvmeSelfTestTypeEnum, MaybeCo
 
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
-        static_cast<::chromeos::cros_healthd::mojom::NvmeSelfTestTypeEnum>(input)), output);
+        static_cast<::ash::cros_healthd::mojom::NvmeSelfTestTypeEnum>(input)), output);
   }
 };
 
@@ -711,28 +713,28 @@ struct Serializer<::chromeos::cros_healthd::mojom::NvmeSelfTestTypeEnum, MaybeCo
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::RunRoutineResponseDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::RunRoutineResponseDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::RunRoutineResponseDataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::RunRoutineResponseDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::RunRoutineResponse_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::RunRoutineResponse_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
     fragment->id = Traits::id(input);
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::DiagnosticRoutineStatusEnum>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::DiagnosticRoutineStatusEnum>(
         Traits::status(input), &fragment->status);
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::RunRoutineResponse_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::RunRoutineResponse_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::RunRoutineResponseDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -743,27 +745,27 @@ struct Serializer<::chromeos::cros_healthd::mojom::RunRoutineResponseDataView, M
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::InteractiveRoutineUpdateDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::InteractiveRoutineUpdateDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::InteractiveRoutineUpdateDataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::InteractiveRoutineUpdateDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::InteractiveRoutineUpdate_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::InteractiveRoutineUpdate_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::DiagnosticRoutineUserMessageEnum>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::DiagnosticRoutineUserMessageEnum>(
         Traits::user_message(input), &fragment->user_message);
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::InteractiveRoutineUpdate_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::InteractiveRoutineUpdate_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::InteractiveRoutineUpdateDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::InteractiveRoutineUpdateDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -774,17 +776,17 @@ struct Serializer<::chromeos::cros_healthd::mojom::InteractiveRoutineUpdateDataV
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::NonInteractiveRoutineUpdateDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::NonInteractiveRoutineUpdateDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::NonInteractiveRoutineUpdateDataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::NonInteractiveRoutineUpdateDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::NonInteractiveRoutineUpdate_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::NonInteractiveRoutineUpdate_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::DiagnosticRoutineStatusEnum>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::DiagnosticRoutineStatusEnum>(
         Traits::status(input), &fragment->status);
     decltype(Traits::status_message(input)) in_status_message = Traits::status_message(input);
     mojo::internal::MessageFragment<
@@ -800,13 +802,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::NonInteractiveRoutineUpdateDa
         "null status_message in NonInteractiveRoutineUpdate struct");
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::NonInteractiveRoutineUpdate_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::NonInteractiveRoutineUpdate_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::NonInteractiveRoutineUpdateDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::NonInteractiveRoutineUpdateDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -817,13 +819,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::NonInteractiveRoutineUpdateDa
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::RoutineUpdateDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::RoutineUpdateDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::RoutineUpdateDataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::RoutineUpdateDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::RoutineUpdate_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::RoutineUpdate_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
@@ -835,7 +837,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::RoutineUpdateDataView, MaybeC
     mojo::internal::MessageFragment<decltype(fragment->routine_update_union)>
         routine_update_union_fragment(fragment.message());
     routine_update_union_fragment.Claim(&fragment->routine_update_union);
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::RoutineUpdateUnionDataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::RoutineUpdateUnionDataView>(
         in_routine_update_union, routine_update_union_fragment, true);
     MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
         fragment->routine_update_union.is_null(),
@@ -843,13 +845,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::RoutineUpdateDataView, MaybeC
         "null routine_update_union in RoutineUpdate struct");
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::RoutineUpdate_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::RoutineUpdate_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::RoutineUpdateDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::RoutineUpdateDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -860,12 +862,12 @@ struct Serializer<::chromeos::cros_healthd::mojom::RoutineUpdateDataView, MaybeC
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::RoutineUpdateUnionDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::RoutineUpdateUnionDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = UnionTraits<::chromeos::cros_healthd::mojom::RoutineUpdateUnionDataView, UserType>;
+  using Traits = UnionTraits<::ash::cros_healthd::mojom::RoutineUpdateUnionDataView, UserType>;
 
   static void Serialize(MaybeConstUserType& input,
-                        MessageFragment<::chromeos::cros_healthd::mojom::internal::RoutineUpdateUnion_Data>& fragment,
+                        MessageFragment<::ash::cros_healthd::mojom::internal::RoutineUpdateUnion_Data>& fragment,
                         bool inlined) {
     if (CallIsNullIfExists<Traits>(input)) {
        if (inlined)
@@ -881,13 +883,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::RoutineUpdateUnionDataView, M
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::cros_healthd::mojom::RoutineUpdateUnionDataView::Tag::kInteractiveUpdate: {
+      case ::ash::cros_healthd::mojom::RoutineUpdateUnionDataView::Tag::kInteractiveUpdate: {
         decltype(Traits::interactive_update(input))
             in_interactive_update = Traits::interactive_update(input);
         mojo::internal::MessageFragment<
             typename decltype(fragment->data.f_interactive_update)::BaseType>
             value_fragment(fragment.message());
-        mojo::internal::Serialize<::chromeos::cros_healthd::mojom::InteractiveRoutineUpdateDataView>(
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::InteractiveRoutineUpdateDataView>(
             in_interactive_update, value_fragment);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
             value_fragment.is_null(),
@@ -897,13 +899,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::RoutineUpdateUnionDataView, M
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::cros_healthd::mojom::RoutineUpdateUnionDataView::Tag::kNoninteractiveUpdate: {
+      case ::ash::cros_healthd::mojom::RoutineUpdateUnionDataView::Tag::kNoninteractiveUpdate: {
         decltype(Traits::noninteractive_update(input))
             in_noninteractive_update = Traits::noninteractive_update(input);
         mojo::internal::MessageFragment<
             typename decltype(fragment->data.f_noninteractive_update)::BaseType>
             value_fragment(fragment.message());
-        mojo::internal::Serialize<::chromeos::cros_healthd::mojom::NonInteractiveRoutineUpdateDataView>(
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::NonInteractiveRoutineUpdateDataView>(
             in_noninteractive_update, value_fragment);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
             value_fragment.is_null(),
@@ -916,13 +918,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::RoutineUpdateUnionDataView, M
     }
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::RoutineUpdateUnion_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::RoutineUpdateUnion_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input || input->is_null())
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::RoutineUpdateUnionDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::RoutineUpdateUnionDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -932,7 +934,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::RoutineUpdateUnionDataView, M
 }  // namespace mojo
 
 
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace mojom {
 
@@ -968,7 +970,7 @@ inline void RoutineUpdateUnionDataView::GetNoninteractiveUpdateDataView(
 
 }  // namespace mojom
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.
@@ -976,8 +978,8 @@ inline void RoutineUpdateUnionDataView::GetNoninteractiveUpdateDataView(
 namespace perfetto_libchrome {
 
 template <>
-struct  TraceFormatTraits<::chromeos::cros_healthd::mojom::DiagnosticRoutineEnum> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::chromeos::cros_healthd::mojom::DiagnosticRoutineEnum value);
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::DiagnosticRoutineEnum> {
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::DiagnosticRoutineEnum value);
 };
 
 } // namespace perfetto
@@ -985,8 +987,8 @@ struct  TraceFormatTraits<::chromeos::cros_healthd::mojom::DiagnosticRoutineEnum
 namespace perfetto_libchrome {
 
 template <>
-struct  TraceFormatTraits<::chromeos::cros_healthd::mojom::DiskReadRoutineTypeEnum> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::chromeos::cros_healthd::mojom::DiskReadRoutineTypeEnum value);
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::DiskReadRoutineTypeEnum> {
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::DiskReadRoutineTypeEnum value);
 };
 
 } // namespace perfetto
@@ -994,8 +996,8 @@ struct  TraceFormatTraits<::chromeos::cros_healthd::mojom::DiskReadRoutineTypeEn
 namespace perfetto_libchrome {
 
 template <>
-struct  TraceFormatTraits<::chromeos::cros_healthd::mojom::DiagnosticRoutineStatusEnum> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::chromeos::cros_healthd::mojom::DiagnosticRoutineStatusEnum value);
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::DiagnosticRoutineStatusEnum> {
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::DiagnosticRoutineStatusEnum value);
 };
 
 } // namespace perfetto
@@ -1003,8 +1005,8 @@ struct  TraceFormatTraits<::chromeos::cros_healthd::mojom::DiagnosticRoutineStat
 namespace perfetto_libchrome {
 
 template <>
-struct  TraceFormatTraits<::chromeos::cros_healthd::mojom::DiagnosticRoutineUserMessageEnum> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::chromeos::cros_healthd::mojom::DiagnosticRoutineUserMessageEnum value);
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::DiagnosticRoutineUserMessageEnum> {
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::DiagnosticRoutineUserMessageEnum value);
 };
 
 } // namespace perfetto
@@ -1012,8 +1014,8 @@ struct  TraceFormatTraits<::chromeos::cros_healthd::mojom::DiagnosticRoutineUser
 namespace perfetto_libchrome {
 
 template <>
-struct  TraceFormatTraits<::chromeos::cros_healthd::mojom::DiagnosticRoutineCommandEnum> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::chromeos::cros_healthd::mojom::DiagnosticRoutineCommandEnum value);
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::DiagnosticRoutineCommandEnum> {
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::DiagnosticRoutineCommandEnum value);
 };
 
 } // namespace perfetto
@@ -1021,8 +1023,8 @@ struct  TraceFormatTraits<::chromeos::cros_healthd::mojom::DiagnosticRoutineComm
 namespace perfetto_libchrome {
 
 template <>
-struct  TraceFormatTraits<::chromeos::cros_healthd::mojom::AcPowerStatusEnum> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::chromeos::cros_healthd::mojom::AcPowerStatusEnum value);
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::AcPowerStatusEnum> {
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::AcPowerStatusEnum value);
 };
 
 } // namespace perfetto
@@ -1030,8 +1032,8 @@ struct  TraceFormatTraits<::chromeos::cros_healthd::mojom::AcPowerStatusEnum> {
 namespace perfetto_libchrome {
 
 template <>
-struct  TraceFormatTraits<::chromeos::cros_healthd::mojom::NvmeSelfTestTypeEnum> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::chromeos::cros_healthd::mojom::NvmeSelfTestTypeEnum value);
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::NvmeSelfTestTypeEnum> {
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::NvmeSelfTestTypeEnum value);
 };
 
 } // namespace perfetto

@@ -10,7 +10,7 @@
 #include "diagnostics/mojom/external/time.mojom.h"
 
 
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace internal {
 namespace mojo_base {
@@ -23,6 +23,6 @@ namespace mojom {
 }  // namespace mojo_base
 }  // namespace internal
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 #endif  // DIAGNOSTICS_MOJOM_EXTERNAL_TIME_MOJOM_TEST_UTILS_H_

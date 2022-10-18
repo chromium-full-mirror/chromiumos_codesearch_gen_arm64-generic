@@ -15,6 +15,7 @@
 #include <stdint.h>
 #include <utility>
 
+#include "base/debug/alias.h"
 #include "base/hash/md5_constexpr.h"
 #include "base/run_loop.h"
 #include "base/strings/string_number_conversions.h"
@@ -45,7 +46,7 @@
 
 
 
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace mojom {
 EcEvent::EcEvent()
@@ -145,17 +146,17 @@ bool GetEcTelemetryResponse::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
-const char WilcoEcObserver::Name_[] = "chromeos.cros_healthd.mojom.WilcoEcObserver";
+const char WilcoEcObserver::Name_[] = "ash.cros_healthd.mojom.WilcoEcObserver";
 
-uint32_t WilcoEcObserver::MessageToStableIPCHash_(mojo::Message& message) {
+WilcoEcObserver::IPCStableHashFunction WilcoEcObserver::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
   switch (message.name()) {
     case internal::kWilcoEcObserver_OnEcEvent_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::cros_healthd::mojom::WilcoEcObserver::OnEcEvent");
-      return value;
+      return &WilcoEcObserver::OnEcEvent_Sym::IPCStableHash;
     }
   }
-  return 0;
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
 }
 
 
@@ -165,12 +166,12 @@ const char* WilcoEcObserver::MessageToMethodName_(mojo::Message& message) {
   if (!is_response) {
     switch (message.name()) {
       case internal::kWilcoEcObserver_OnEcEvent_Name:
-            return "Receive chromeos::cros_healthd::mojom::WilcoEcObserver::OnEcEvent";
+            return "Receive ash::cros_healthd::mojom::WilcoEcObserver::OnEcEvent";
     }
   } else {
     switch (message.name()) {
       case internal::kWilcoEcObserver_OnEcEvent_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::WilcoEcObserver::OnEcEvent";
+            return "Receive reply ash::cros_healthd::mojom::WilcoEcObserver::OnEcEvent";
     }
   }
   return "Receive unknown mojo message";
@@ -184,6 +185,22 @@ const char* WilcoEcObserver::MessageToMethodName_(mojo::Message& message) {
 #endif // BUILDFLAG(MOJO_TRACE_ENABLED)
 }
 
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t WilcoEcObserver::OnEcEvent_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::WilcoEcObserver::OnEcEvent");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
+
 WilcoEcObserverProxy::WilcoEcObserverProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
 }
@@ -192,7 +209,7 @@ void WilcoEcObserverProxy::OnEcEvent(
     EcEventPtr in_ec_event) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send chromeos::cros_healthd::mojom::WilcoEcObserver::OnEcEvent", "input_parameters",
+    "mojom", "Send ash::cros_healthd::mojom::WilcoEcObserver::OnEcEvent", "input_parameters",
     [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto_libchrome::WriteIntoTracedValueWithFallback(
@@ -212,13 +229,13 @@ void WilcoEcObserverProxy::OnEcEvent(
   mojo::Message message(
       internal::kWilcoEcObserver_OnEcEvent_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::WilcoEcObserver_OnEcEvent_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::WilcoEcObserver_OnEcEvent_Params_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
       typename decltype(params->ec_event)::BaseType> ec_event_fragment(
           params.message());
-  mojo::internal::Serialize<::chromeos::cros_healthd::mojom::EcEventDataView>(
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::EcEventDataView>(
       in_ec_event, ec_event_fragment);
   params->ec_event.Set(
       ec_event_fragment.is_null() ? nullptr : ec_event_fragment.data());
@@ -233,7 +250,7 @@ void WilcoEcObserverProxy::OnEcEvent(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 // static
@@ -294,7 +311,7 @@ static const mojo::internal::GenericValidationInfo kWilcoEcObserverValidationInf
 };
 
 bool WilcoEcObserverRequestValidator::Accept(mojo::Message* message) {
-  const char* name = ::chromeos::cros_healthd::mojom::WilcoEcObserver::Name_;
+  const char* name = ::ash::cros_healthd::mojom::WilcoEcObserver::Name_;
   return mojo::internal::ValidateRequestGenericPacked(message, name, kWilcoEcObserverValidationInfo);
 }
 
@@ -302,18 +319,18 @@ bool WilcoEcObserverRequestValidator::Accept(mojo::Message* message) {
 
 }  // namespace mojom
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 
 namespace mojo {
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::mojom::EcEvent::DataView, ::chromeos::cros_healthd::mojom::EcEventPtr>::Read(
-    ::chromeos::cros_healthd::mojom::EcEvent::DataView input,
-    ::chromeos::cros_healthd::mojom::EcEventPtr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::EcEvent::DataView, ::ash::cros_healthd::mojom::EcEventPtr>::Read(
+    ::ash::cros_healthd::mojom::EcEvent::DataView input,
+    ::ash::cros_healthd::mojom::EcEventPtr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::mojom::EcEventPtr result(::chromeos::cros_healthd::mojom::EcEvent::New());
+  ::ash::cros_healthd::mojom::EcEventPtr result(::ash::cros_healthd::mojom::EcEvent::New());
   
       if (success && !input.ReadType(&result->type))
         success = false;
@@ -327,11 +344,11 @@ bool StructTraits<::chromeos::cros_healthd::mojom::EcEvent::DataView, ::chromeos
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::mojom::GetEcTelemetryResponse::DataView, ::chromeos::cros_healthd::mojom::GetEcTelemetryResponsePtr>::Read(
-    ::chromeos::cros_healthd::mojom::GetEcTelemetryResponse::DataView input,
-    ::chromeos::cros_healthd::mojom::GetEcTelemetryResponsePtr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::GetEcTelemetryResponse::DataView, ::ash::cros_healthd::mojom::GetEcTelemetryResponsePtr>::Read(
+    ::ash::cros_healthd::mojom::GetEcTelemetryResponse::DataView input,
+    ::ash::cros_healthd::mojom::GetEcTelemetryResponsePtr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::mojom::GetEcTelemetryResponsePtr result(::chromeos::cros_healthd::mojom::GetEcTelemetryResponse::New());
+  ::ash::cros_healthd::mojom::GetEcTelemetryResponsePtr result(::ash::cros_healthd::mojom::GetEcTelemetryResponse::New());
   
       if (success && !input.ReadStatus(&result->status))
         success = false;
@@ -348,7 +365,7 @@ bool StructTraits<::chromeos::cros_healthd::mojom::GetEcTelemetryResponse::DataV
 // separate .cc file to save compile time.
 
 
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace mojom {
 
@@ -368,7 +385,7 @@ WilcoEcObserverAsyncWaiter::~WilcoEcObserverAsyncWaiter() = default;
 
 }  // namespace mojom
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 
 #if defined(__clang__)

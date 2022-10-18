@@ -10,7 +10,7 @@
 #include "diagnostics/mojom/external/cros_healthd_internal.mojom.h"
 
 
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace internal {
 namespace mojom {
@@ -44,6 +44,6 @@ class  ChromiumDataCollectorAsyncWaiter {
 }  // namespace mojom
 }  // namespace internal
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 #endif  // DIAGNOSTICS_MOJOM_EXTERNAL_CROS_HEALTHD_INTERNAL_MOJOM_TEST_UTILS_H_

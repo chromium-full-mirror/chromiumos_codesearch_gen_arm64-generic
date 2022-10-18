@@ -46,7 +46,7 @@ struct TableStruct_health_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[9]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[12]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -80,6 +80,15 @@ extern StorageQueueActionDefaultTypeInternal _StorageQueueAction_default_instanc
 class UploadEncryptedRecordCall;
 struct UploadEncryptedRecordCallDefaultTypeInternal;
 extern UploadEncryptedRecordCallDefaultTypeInternal _UploadEncryptedRecordCall_default_instance_;
+class UploadGapItem;
+struct UploadGapItemDefaultTypeInternal;
+extern UploadGapItemDefaultTypeInternal _UploadGapItem_default_instance_;
+class UploadItem;
+struct UploadItemDefaultTypeInternal;
+extern UploadItemDefaultTypeInternal _UploadItem_default_instance_;
+class UploadRecordItem;
+struct UploadRecordItemDefaultTypeInternal;
+extern UploadRecordItemDefaultTypeInternal _UploadRecordItem_default_instance_;
 }  // namespace reporting
 PROTOBUF_NAMESPACE_OPEN
 template<> ::reporting::ConfirmRecordUploadCall* Arena::CreateMaybeMessage<::reporting::ConfirmRecordUploadCall>(Arena*);
@@ -91,6 +100,9 @@ template<> ::reporting::StorageDequeue* Arena::CreateMaybeMessage<::reporting::S
 template<> ::reporting::StorageEnqueue* Arena::CreateMaybeMessage<::reporting::StorageEnqueue>(Arena*);
 template<> ::reporting::StorageQueueAction* Arena::CreateMaybeMessage<::reporting::StorageQueueAction>(Arena*);
 template<> ::reporting::UploadEncryptedRecordCall* Arena::CreateMaybeMessage<::reporting::UploadEncryptedRecordCall>(Arena*);
+template<> ::reporting::UploadGapItem* Arena::CreateMaybeMessage<::reporting::UploadGapItem>(Arena*);
+template<> ::reporting::UploadItem* Arena::CreateMaybeMessage<::reporting::UploadItem>(Arena*);
+template<> ::reporting::UploadRecordItem* Arena::CreateMaybeMessage<::reporting::UploadRecordItem>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace reporting {
 
@@ -514,11 +526,12 @@ class StorageQueueAction final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kStatusFieldNumber = 3,
+    kStatusFieldNumber = 4,
+    kPriorityFieldNumber = 3,
     kStorageDequeueFieldNumber = 1,
     kStorageEnqueueFieldNumber = 2,
   };
-  // optional .reporting.StatusProto status = 3;
+  // optional .reporting.StatusProto status = 4;
   bool has_status() const;
   private:
   bool _internal_has_status() const;
@@ -535,6 +548,19 @@ class StorageQueueAction final :
   void unsafe_arena_set_allocated_status(
       ::reporting::StatusProto* status);
   ::reporting::StatusProto* unsafe_arena_release_status();
+
+  // optional .reporting.Priority priority = 3;
+  bool has_priority() const;
+  private:
+  bool _internal_has_priority() const;
+  public:
+  void clear_priority();
+  ::reporting::Priority priority() const;
+  void set_priority(::reporting::Priority value);
+  private:
+  ::reporting::Priority _internal_priority() const;
+  void _internal_set_priority(::reporting::Priority value);
+  public:
 
   // .reporting.StorageDequeue storage_dequeue = 1;
   bool has_storage_dequeue() const;
@@ -589,6 +615,7 @@ class StorageQueueAction final :
   ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   ::reporting::StatusProto* status_;
+  int priority_;
   union ActionUnion {
     constexpr ActionUnion() : _constinit_{} {}
       ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
@@ -714,10 +741,11 @@ class EnqueueRecordCall final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kStatusFieldNumber = 2,
+    kStatusFieldNumber = 3,
     kPriorityFieldNumber = 1,
+    kDestinationFieldNumber = 2,
   };
-  // optional .reporting.StatusProto status = 2;
+  // optional .reporting.StatusProto status = 3;
   bool has_status() const;
   private:
   bool _internal_has_status() const;
@@ -748,6 +776,19 @@ class EnqueueRecordCall final :
   void _internal_set_priority(::reporting::Priority value);
   public:
 
+  // optional .reporting.Destination destination = 2;
+  bool has_destination() const;
+  private:
+  bool _internal_has_destination() const;
+  public:
+  void clear_destination();
+  ::reporting::Destination destination() const;
+  void set_destination(::reporting::Destination value);
+  private:
+  ::reporting::Destination _internal_destination() const;
+  void _internal_set_destination(::reporting::Destination value);
+  public:
+
   // @@protoc_insertion_point(class_scope:reporting.EnqueueRecordCall)
  private:
   class _Internal;
@@ -759,6 +800,7 @@ class EnqueueRecordCall final :
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   ::reporting::StatusProto* status_;
   int priority_;
+  int destination_;
   friend struct ::TableStruct_health_2eproto;
 };
 // -------------------------------------------------------------------
@@ -925,6 +967,490 @@ class FlushPriorityCall final :
 };
 // -------------------------------------------------------------------
 
+class UploadRecordItem final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:reporting.UploadRecordItem) */ {
+ public:
+  inline UploadRecordItem() : UploadRecordItem(nullptr) {}
+  ~UploadRecordItem() override;
+  explicit constexpr UploadRecordItem(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  UploadRecordItem(const UploadRecordItem& from);
+  UploadRecordItem(UploadRecordItem&& from) noexcept
+    : UploadRecordItem() {
+    *this = ::std::move(from);
+  }
+
+  inline UploadRecordItem& operator=(const UploadRecordItem& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline UploadRecordItem& operator=(UploadRecordItem&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const UploadRecordItem& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const UploadRecordItem* internal_default_instance() {
+    return reinterpret_cast<const UploadRecordItem*>(
+               &_UploadRecordItem_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    5;
+
+  friend void swap(UploadRecordItem& a, UploadRecordItem& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(UploadRecordItem* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(UploadRecordItem* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  UploadRecordItem* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<UploadRecordItem>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const UploadRecordItem& from);
+  void MergeFrom(const UploadRecordItem& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(UploadRecordItem* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "reporting.UploadRecordItem";
+  }
+  protected:
+  explicit UploadRecordItem(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kSequencingIdFieldNumber = 1,
+  };
+  // optional int64 sequencing_id = 1;
+  bool has_sequencing_id() const;
+  private:
+  bool _internal_has_sequencing_id() const;
+  public:
+  void clear_sequencing_id();
+  int64_t sequencing_id() const;
+  void set_sequencing_id(int64_t value);
+  private:
+  int64_t _internal_sequencing_id() const;
+  void _internal_set_sequencing_id(int64_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:reporting.UploadRecordItem)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  int64_t sequencing_id_;
+  friend struct ::TableStruct_health_2eproto;
+};
+// -------------------------------------------------------------------
+
+class UploadGapItem final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:reporting.UploadGapItem) */ {
+ public:
+  inline UploadGapItem() : UploadGapItem(nullptr) {}
+  ~UploadGapItem() override;
+  explicit constexpr UploadGapItem(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  UploadGapItem(const UploadGapItem& from);
+  UploadGapItem(UploadGapItem&& from) noexcept
+    : UploadGapItem() {
+    *this = ::std::move(from);
+  }
+
+  inline UploadGapItem& operator=(const UploadGapItem& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline UploadGapItem& operator=(UploadGapItem&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const UploadGapItem& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const UploadGapItem* internal_default_instance() {
+    return reinterpret_cast<const UploadGapItem*>(
+               &_UploadGapItem_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    6;
+
+  friend void swap(UploadGapItem& a, UploadGapItem& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(UploadGapItem* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(UploadGapItem* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  UploadGapItem* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<UploadGapItem>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const UploadGapItem& from);
+  void MergeFrom(const UploadGapItem& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(UploadGapItem* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "reporting.UploadGapItem";
+  }
+  protected:
+  explicit UploadGapItem(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kSequencingIdFieldNumber = 1,
+    kCountFieldNumber = 2,
+  };
+  // optional int64 sequencing_id = 1;
+  bool has_sequencing_id() const;
+  private:
+  bool _internal_has_sequencing_id() const;
+  public:
+  void clear_sequencing_id();
+  int64_t sequencing_id() const;
+  void set_sequencing_id(int64_t value);
+  private:
+  int64_t _internal_sequencing_id() const;
+  void _internal_set_sequencing_id(int64_t value);
+  public:
+
+  // optional int64 count = 2;
+  bool has_count() const;
+  private:
+  bool _internal_has_count() const;
+  public:
+  void clear_count();
+  int64_t count() const;
+  void set_count(int64_t value);
+  private:
+  int64_t _internal_count() const;
+  void _internal_set_count(int64_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:reporting.UploadGapItem)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  int64_t sequencing_id_;
+  int64_t count_;
+  friend struct ::TableStruct_health_2eproto;
+};
+// -------------------------------------------------------------------
+
+class UploadItem final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:reporting.UploadItem) */ {
+ public:
+  inline UploadItem() : UploadItem(nullptr) {}
+  ~UploadItem() override;
+  explicit constexpr UploadItem(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  UploadItem(const UploadItem& from);
+  UploadItem(UploadItem&& from) noexcept
+    : UploadItem() {
+    *this = ::std::move(from);
+  }
+
+  inline UploadItem& operator=(const UploadItem& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline UploadItem& operator=(UploadItem&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const UploadItem& default_instance() {
+    return *internal_default_instance();
+  }
+  enum ItemCase {
+    kRecord = 1,
+    kGap = 2,
+    ITEM_NOT_SET = 0,
+  };
+
+  static inline const UploadItem* internal_default_instance() {
+    return reinterpret_cast<const UploadItem*>(
+               &_UploadItem_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    7;
+
+  friend void swap(UploadItem& a, UploadItem& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(UploadItem* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(UploadItem* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  UploadItem* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<UploadItem>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const UploadItem& from);
+  void MergeFrom(const UploadItem& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(UploadItem* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "reporting.UploadItem";
+  }
+  protected:
+  explicit UploadItem(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kRecordFieldNumber = 1,
+    kGapFieldNumber = 2,
+  };
+  // .reporting.UploadRecordItem record = 1;
+  bool has_record() const;
+  private:
+  bool _internal_has_record() const;
+  public:
+  void clear_record();
+  const ::reporting::UploadRecordItem& record() const;
+  PROTOBUF_NODISCARD ::reporting::UploadRecordItem* release_record();
+  ::reporting::UploadRecordItem* mutable_record();
+  void set_allocated_record(::reporting::UploadRecordItem* record);
+  private:
+  const ::reporting::UploadRecordItem& _internal_record() const;
+  ::reporting::UploadRecordItem* _internal_mutable_record();
+  public:
+  void unsafe_arena_set_allocated_record(
+      ::reporting::UploadRecordItem* record);
+  ::reporting::UploadRecordItem* unsafe_arena_release_record();
+
+  // .reporting.UploadGapItem gap = 2;
+  bool has_gap() const;
+  private:
+  bool _internal_has_gap() const;
+  public:
+  void clear_gap();
+  const ::reporting::UploadGapItem& gap() const;
+  PROTOBUF_NODISCARD ::reporting::UploadGapItem* release_gap();
+  ::reporting::UploadGapItem* mutable_gap();
+  void set_allocated_gap(::reporting::UploadGapItem* gap);
+  private:
+  const ::reporting::UploadGapItem& _internal_gap() const;
+  ::reporting::UploadGapItem* _internal_mutable_gap();
+  public:
+  void unsafe_arena_set_allocated_gap(
+      ::reporting::UploadGapItem* gap);
+  ::reporting::UploadGapItem* unsafe_arena_release_gap();
+
+  void clear_item();
+  ItemCase item_case() const;
+  // @@protoc_insertion_point(class_scope:reporting.UploadItem)
+ private:
+  class _Internal;
+  void set_has_record();
+  void set_has_gap();
+
+  inline bool has_item() const;
+  inline void clear_has_item();
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  union ItemUnion {
+    constexpr ItemUnion() : _constinit_{} {}
+      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
+    ::reporting::UploadRecordItem* record_;
+    ::reporting::UploadGapItem* gap_;
+  } item_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  uint32_t _oneof_case_[1];
+
+  friend struct ::TableStruct_health_2eproto;
+};
+// -------------------------------------------------------------------
+
 class UploadEncryptedRecordCall final :
     public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:reporting.UploadEncryptedRecordCall) */ {
  public:
@@ -971,7 +1497,7 @@ class UploadEncryptedRecordCall final :
                &_UploadEncryptedRecordCall_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    5;
+    8;
 
   friend void swap(UploadEncryptedRecordCall& a, UploadEncryptedRecordCall& b) {
     a.Swap(&b);
@@ -1038,11 +1564,48 @@ class UploadEncryptedRecordCall final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kStatusFieldNumber = 3,
-    kSequencingIdFieldNumber = 1,
-    kEncryptionKeyRequestedFieldNumber = 2,
+    kItemsFieldNumber = 1,
+    kUploadReasonFieldNumber = 2,
+    kStatusFieldNumber = 4,
+    kPriorityFieldNumber = 3,
   };
-  // optional .reporting.StatusProto status = 3;
+  // repeated .reporting.UploadItem items = 1;
+  int items_size() const;
+  private:
+  int _internal_items_size() const;
+  public:
+  void clear_items();
+  ::reporting::UploadItem* mutable_items(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::reporting::UploadItem >*
+      mutable_items();
+  private:
+  const ::reporting::UploadItem& _internal_items(int index) const;
+  ::reporting::UploadItem* _internal_add_items();
+  public:
+  const ::reporting::UploadItem& items(int index) const;
+  ::reporting::UploadItem* add_items();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::reporting::UploadItem >&
+      items() const;
+
+  // optional string upload_reason = 2;
+  bool has_upload_reason() const;
+  private:
+  bool _internal_has_upload_reason() const;
+  public:
+  void clear_upload_reason();
+  const std::string& upload_reason() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_upload_reason(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_upload_reason();
+  PROTOBUF_NODISCARD std::string* release_upload_reason();
+  void set_allocated_upload_reason(std::string* upload_reason);
+  private:
+  const std::string& _internal_upload_reason() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_upload_reason(const std::string& value);
+  std::string* _internal_mutable_upload_reason();
+  public:
+
+  // optional .reporting.StatusProto status = 4;
   bool has_status() const;
   private:
   bool _internal_has_status() const;
@@ -1060,30 +1623,17 @@ class UploadEncryptedRecordCall final :
       ::reporting::StatusProto* status);
   ::reporting::StatusProto* unsafe_arena_release_status();
 
-  // optional int64 sequencing_id = 1;
-  bool has_sequencing_id() const;
+  // optional .reporting.Priority priority = 3;
+  bool has_priority() const;
   private:
-  bool _internal_has_sequencing_id() const;
+  bool _internal_has_priority() const;
   public:
-  void clear_sequencing_id();
-  int64_t sequencing_id() const;
-  void set_sequencing_id(int64_t value);
+  void clear_priority();
+  ::reporting::Priority priority() const;
+  void set_priority(::reporting::Priority value);
   private:
-  int64_t _internal_sequencing_id() const;
-  void _internal_set_sequencing_id(int64_t value);
-  public:
-
-  // optional bool encryption_key_requested = 2;
-  bool has_encryption_key_requested() const;
-  private:
-  bool _internal_has_encryption_key_requested() const;
-  public:
-  void clear_encryption_key_requested();
-  bool encryption_key_requested() const;
-  void set_encryption_key_requested(bool value);
-  private:
-  bool _internal_encryption_key_requested() const;
-  void _internal_set_encryption_key_requested(bool value);
+  ::reporting::Priority _internal_priority() const;
+  void _internal_set_priority(::reporting::Priority value);
   public:
 
   // @@protoc_insertion_point(class_scope:reporting.UploadEncryptedRecordCall)
@@ -1095,9 +1645,10 @@ class UploadEncryptedRecordCall final :
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::reporting::UploadItem > items_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr upload_reason_;
   ::reporting::StatusProto* status_;
-  int64_t sequencing_id_;
-  bool encryption_key_requested_;
+  int priority_;
   friend struct ::TableStruct_health_2eproto;
 };
 // -------------------------------------------------------------------
@@ -1148,7 +1699,7 @@ class ConfirmRecordUploadCall final :
                &_ConfirmRecordUploadCall_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    6;
+    9;
 
   friend void swap(ConfirmRecordUploadCall& a, ConfirmRecordUploadCall& b) {
     a.Swap(&b);
@@ -1215,9 +1766,29 @@ class ConfirmRecordUploadCall final :
   // accessors -------------------------------------------------------
 
   enum : int {
+    kStatusFieldNumber = 4,
     kSequencingIdFieldNumber = 1,
     kForceConfirmFieldNumber = 2,
+    kPriorityFieldNumber = 3,
   };
+  // optional .reporting.StatusProto status = 4;
+  bool has_status() const;
+  private:
+  bool _internal_has_status() const;
+  public:
+  void clear_status();
+  const ::reporting::StatusProto& status() const;
+  PROTOBUF_NODISCARD ::reporting::StatusProto* release_status();
+  ::reporting::StatusProto* mutable_status();
+  void set_allocated_status(::reporting::StatusProto* status);
+  private:
+  const ::reporting::StatusProto& _internal_status() const;
+  ::reporting::StatusProto* _internal_mutable_status();
+  public:
+  void unsafe_arena_set_allocated_status(
+      ::reporting::StatusProto* status);
+  ::reporting::StatusProto* unsafe_arena_release_status();
+
   // optional int64 sequencing_id = 1;
   bool has_sequencing_id() const;
   private:
@@ -1244,6 +1815,19 @@ class ConfirmRecordUploadCall final :
   void _internal_set_force_confirm(bool value);
   public:
 
+  // optional .reporting.Priority priority = 3;
+  bool has_priority() const;
+  private:
+  bool _internal_has_priority() const;
+  public:
+  void clear_priority();
+  ::reporting::Priority priority() const;
+  void set_priority(::reporting::Priority value);
+  private:
+  ::reporting::Priority _internal_priority() const;
+  void _internal_set_priority(::reporting::Priority value);
+  public:
+
   // @@protoc_insertion_point(class_scope:reporting.ConfirmRecordUploadCall)
  private:
   class _Internal;
@@ -1253,8 +1837,10 @@ class ConfirmRecordUploadCall final :
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::reporting::StatusProto* status_;
   int64_t sequencing_id_;
   bool force_confirm_;
+  int priority_;
   friend struct ::TableStruct_health_2eproto;
 };
 // -------------------------------------------------------------------
@@ -1314,7 +1900,7 @@ class HealthDataHistory final :
                &_HealthDataHistory_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    7;
+    10;
 
   friend void swap(HealthDataHistory& a, HealthDataHistory& b) {
     a.Swap(&b);
@@ -1572,7 +2158,7 @@ class ERPHealthData final :
                &_ERPHealthData_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    8;
+    11;
 
   friend void swap(ERPHealthData& a, ERPHealthData& b) {
     a.Swap(&b);
@@ -1921,7 +2507,36 @@ inline ::reporting::StorageEnqueue* StorageQueueAction::mutable_storage_enqueue(
   return _msg;
 }
 
-// optional .reporting.StatusProto status = 3;
+// optional .reporting.Priority priority = 3;
+inline bool StorageQueueAction::_internal_has_priority() const {
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  return value;
+}
+inline bool StorageQueueAction::has_priority() const {
+  return _internal_has_priority();
+}
+inline void StorageQueueAction::clear_priority() {
+  priority_ = 0;
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline ::reporting::Priority StorageQueueAction::_internal_priority() const {
+  return static_cast< ::reporting::Priority >(priority_);
+}
+inline ::reporting::Priority StorageQueueAction::priority() const {
+  // @@protoc_insertion_point(field_get:reporting.StorageQueueAction.priority)
+  return _internal_priority();
+}
+inline void StorageQueueAction::_internal_set_priority(::reporting::Priority value) {
+  assert(::reporting::Priority_IsValid(value));
+  _has_bits_[0] |= 0x00000002u;
+  priority_ = value;
+}
+inline void StorageQueueAction::set_priority(::reporting::Priority value) {
+  _internal_set_priority(value);
+  // @@protoc_insertion_point(field_set:reporting.StorageQueueAction.priority)
+}
+
+// optional .reporting.StatusProto status = 4;
 inline bool StorageQueueAction::_internal_has_status() const {
   bool value = (_has_bits_[0] & 0x00000001u) != 0;
   PROTOBUF_ASSUME(!value || status_ != nullptr);
@@ -2051,7 +2666,36 @@ inline void EnqueueRecordCall::set_priority(::reporting::Priority value) {
   // @@protoc_insertion_point(field_set:reporting.EnqueueRecordCall.priority)
 }
 
-// optional .reporting.StatusProto status = 2;
+// optional .reporting.Destination destination = 2;
+inline bool EnqueueRecordCall::_internal_has_destination() const {
+  bool value = (_has_bits_[0] & 0x00000004u) != 0;
+  return value;
+}
+inline bool EnqueueRecordCall::has_destination() const {
+  return _internal_has_destination();
+}
+inline void EnqueueRecordCall::clear_destination() {
+  destination_ = 0;
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline ::reporting::Destination EnqueueRecordCall::_internal_destination() const {
+  return static_cast< ::reporting::Destination >(destination_);
+}
+inline ::reporting::Destination EnqueueRecordCall::destination() const {
+  // @@protoc_insertion_point(field_get:reporting.EnqueueRecordCall.destination)
+  return _internal_destination();
+}
+inline void EnqueueRecordCall::_internal_set_destination(::reporting::Destination value) {
+  assert(::reporting::Destination_IsValid(value));
+  _has_bits_[0] |= 0x00000004u;
+  destination_ = value;
+}
+inline void EnqueueRecordCall::set_destination(::reporting::Destination value) {
+  _internal_set_destination(value);
+  // @@protoc_insertion_point(field_set:reporting.EnqueueRecordCall.destination)
+}
+
+// optional .reporting.StatusProto status = 3;
 inline bool EnqueueRecordCall::_internal_has_status() const {
   bool value = (_has_bits_[0] & 0x00000001u) != 0;
   PROTOBUF_ASSUME(!value || status_ != nullptr);
@@ -2262,67 +2906,402 @@ inline void FlushPriorityCall::set_allocated_status(::reporting::StatusProto* st
 
 // -------------------------------------------------------------------
 
-// UploadEncryptedRecordCall
+// UploadRecordItem
 
 // optional int64 sequencing_id = 1;
-inline bool UploadEncryptedRecordCall::_internal_has_sequencing_id() const {
+inline bool UploadRecordItem::_internal_has_sequencing_id() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool UploadRecordItem::has_sequencing_id() const {
+  return _internal_has_sequencing_id();
+}
+inline void UploadRecordItem::clear_sequencing_id() {
+  sequencing_id_ = int64_t{0};
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline int64_t UploadRecordItem::_internal_sequencing_id() const {
+  return sequencing_id_;
+}
+inline int64_t UploadRecordItem::sequencing_id() const {
+  // @@protoc_insertion_point(field_get:reporting.UploadRecordItem.sequencing_id)
+  return _internal_sequencing_id();
+}
+inline void UploadRecordItem::_internal_set_sequencing_id(int64_t value) {
+  _has_bits_[0] |= 0x00000001u;
+  sequencing_id_ = value;
+}
+inline void UploadRecordItem::set_sequencing_id(int64_t value) {
+  _internal_set_sequencing_id(value);
+  // @@protoc_insertion_point(field_set:reporting.UploadRecordItem.sequencing_id)
+}
+
+// -------------------------------------------------------------------
+
+// UploadGapItem
+
+// optional int64 sequencing_id = 1;
+inline bool UploadGapItem::_internal_has_sequencing_id() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool UploadGapItem::has_sequencing_id() const {
+  return _internal_has_sequencing_id();
+}
+inline void UploadGapItem::clear_sequencing_id() {
+  sequencing_id_ = int64_t{0};
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline int64_t UploadGapItem::_internal_sequencing_id() const {
+  return sequencing_id_;
+}
+inline int64_t UploadGapItem::sequencing_id() const {
+  // @@protoc_insertion_point(field_get:reporting.UploadGapItem.sequencing_id)
+  return _internal_sequencing_id();
+}
+inline void UploadGapItem::_internal_set_sequencing_id(int64_t value) {
+  _has_bits_[0] |= 0x00000001u;
+  sequencing_id_ = value;
+}
+inline void UploadGapItem::set_sequencing_id(int64_t value) {
+  _internal_set_sequencing_id(value);
+  // @@protoc_insertion_point(field_set:reporting.UploadGapItem.sequencing_id)
+}
+
+// optional int64 count = 2;
+inline bool UploadGapItem::_internal_has_count() const {
   bool value = (_has_bits_[0] & 0x00000002u) != 0;
   return value;
 }
-inline bool UploadEncryptedRecordCall::has_sequencing_id() const {
-  return _internal_has_sequencing_id();
+inline bool UploadGapItem::has_count() const {
+  return _internal_has_count();
 }
-inline void UploadEncryptedRecordCall::clear_sequencing_id() {
-  sequencing_id_ = int64_t{0};
+inline void UploadGapItem::clear_count() {
+  count_ = int64_t{0};
   _has_bits_[0] &= ~0x00000002u;
 }
-inline int64_t UploadEncryptedRecordCall::_internal_sequencing_id() const {
-  return sequencing_id_;
+inline int64_t UploadGapItem::_internal_count() const {
+  return count_;
 }
-inline int64_t UploadEncryptedRecordCall::sequencing_id() const {
-  // @@protoc_insertion_point(field_get:reporting.UploadEncryptedRecordCall.sequencing_id)
-  return _internal_sequencing_id();
+inline int64_t UploadGapItem::count() const {
+  // @@protoc_insertion_point(field_get:reporting.UploadGapItem.count)
+  return _internal_count();
 }
-inline void UploadEncryptedRecordCall::_internal_set_sequencing_id(int64_t value) {
+inline void UploadGapItem::_internal_set_count(int64_t value) {
   _has_bits_[0] |= 0x00000002u;
-  sequencing_id_ = value;
+  count_ = value;
 }
-inline void UploadEncryptedRecordCall::set_sequencing_id(int64_t value) {
-  _internal_set_sequencing_id(value);
-  // @@protoc_insertion_point(field_set:reporting.UploadEncryptedRecordCall.sequencing_id)
+inline void UploadGapItem::set_count(int64_t value) {
+  _internal_set_count(value);
+  // @@protoc_insertion_point(field_set:reporting.UploadGapItem.count)
 }
 
-// optional bool encryption_key_requested = 2;
-inline bool UploadEncryptedRecordCall::_internal_has_encryption_key_requested() const {
+// -------------------------------------------------------------------
+
+// UploadItem
+
+// .reporting.UploadRecordItem record = 1;
+inline bool UploadItem::_internal_has_record() const {
+  return item_case() == kRecord;
+}
+inline bool UploadItem::has_record() const {
+  return _internal_has_record();
+}
+inline void UploadItem::set_has_record() {
+  _oneof_case_[0] = kRecord;
+}
+inline void UploadItem::clear_record() {
+  if (_internal_has_record()) {
+    if (GetArenaForAllocation() == nullptr) {
+      delete item_.record_;
+    }
+    clear_has_item();
+  }
+}
+inline ::reporting::UploadRecordItem* UploadItem::release_record() {
+  // @@protoc_insertion_point(field_release:reporting.UploadItem.record)
+  if (_internal_has_record()) {
+    clear_has_item();
+      ::reporting::UploadRecordItem* temp = item_.record_;
+    if (GetArenaForAllocation() != nullptr) {
+      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+    }
+    item_.record_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline const ::reporting::UploadRecordItem& UploadItem::_internal_record() const {
+  return _internal_has_record()
+      ? *item_.record_
+      : reinterpret_cast< ::reporting::UploadRecordItem&>(::reporting::_UploadRecordItem_default_instance_);
+}
+inline const ::reporting::UploadRecordItem& UploadItem::record() const {
+  // @@protoc_insertion_point(field_get:reporting.UploadItem.record)
+  return _internal_record();
+}
+inline ::reporting::UploadRecordItem* UploadItem::unsafe_arena_release_record() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:reporting.UploadItem.record)
+  if (_internal_has_record()) {
+    clear_has_item();
+    ::reporting::UploadRecordItem* temp = item_.record_;
+    item_.record_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline void UploadItem::unsafe_arena_set_allocated_record(::reporting::UploadRecordItem* record) {
+  clear_item();
+  if (record) {
+    set_has_record();
+    item_.record_ = record;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:reporting.UploadItem.record)
+}
+inline ::reporting::UploadRecordItem* UploadItem::_internal_mutable_record() {
+  if (!_internal_has_record()) {
+    clear_item();
+    set_has_record();
+    item_.record_ = CreateMaybeMessage< ::reporting::UploadRecordItem >(GetArenaForAllocation());
+  }
+  return item_.record_;
+}
+inline ::reporting::UploadRecordItem* UploadItem::mutable_record() {
+  ::reporting::UploadRecordItem* _msg = _internal_mutable_record();
+  // @@protoc_insertion_point(field_mutable:reporting.UploadItem.record)
+  return _msg;
+}
+
+// .reporting.UploadGapItem gap = 2;
+inline bool UploadItem::_internal_has_gap() const {
+  return item_case() == kGap;
+}
+inline bool UploadItem::has_gap() const {
+  return _internal_has_gap();
+}
+inline void UploadItem::set_has_gap() {
+  _oneof_case_[0] = kGap;
+}
+inline void UploadItem::clear_gap() {
+  if (_internal_has_gap()) {
+    if (GetArenaForAllocation() == nullptr) {
+      delete item_.gap_;
+    }
+    clear_has_item();
+  }
+}
+inline ::reporting::UploadGapItem* UploadItem::release_gap() {
+  // @@protoc_insertion_point(field_release:reporting.UploadItem.gap)
+  if (_internal_has_gap()) {
+    clear_has_item();
+      ::reporting::UploadGapItem* temp = item_.gap_;
+    if (GetArenaForAllocation() != nullptr) {
+      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+    }
+    item_.gap_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline const ::reporting::UploadGapItem& UploadItem::_internal_gap() const {
+  return _internal_has_gap()
+      ? *item_.gap_
+      : reinterpret_cast< ::reporting::UploadGapItem&>(::reporting::_UploadGapItem_default_instance_);
+}
+inline const ::reporting::UploadGapItem& UploadItem::gap() const {
+  // @@protoc_insertion_point(field_get:reporting.UploadItem.gap)
+  return _internal_gap();
+}
+inline ::reporting::UploadGapItem* UploadItem::unsafe_arena_release_gap() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:reporting.UploadItem.gap)
+  if (_internal_has_gap()) {
+    clear_has_item();
+    ::reporting::UploadGapItem* temp = item_.gap_;
+    item_.gap_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline void UploadItem::unsafe_arena_set_allocated_gap(::reporting::UploadGapItem* gap) {
+  clear_item();
+  if (gap) {
+    set_has_gap();
+    item_.gap_ = gap;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:reporting.UploadItem.gap)
+}
+inline ::reporting::UploadGapItem* UploadItem::_internal_mutable_gap() {
+  if (!_internal_has_gap()) {
+    clear_item();
+    set_has_gap();
+    item_.gap_ = CreateMaybeMessage< ::reporting::UploadGapItem >(GetArenaForAllocation());
+  }
+  return item_.gap_;
+}
+inline ::reporting::UploadGapItem* UploadItem::mutable_gap() {
+  ::reporting::UploadGapItem* _msg = _internal_mutable_gap();
+  // @@protoc_insertion_point(field_mutable:reporting.UploadItem.gap)
+  return _msg;
+}
+
+inline bool UploadItem::has_item() const {
+  return item_case() != ITEM_NOT_SET;
+}
+inline void UploadItem::clear_has_item() {
+  _oneof_case_[0] = ITEM_NOT_SET;
+}
+inline UploadItem::ItemCase UploadItem::item_case() const {
+  return UploadItem::ItemCase(_oneof_case_[0]);
+}
+// -------------------------------------------------------------------
+
+// UploadEncryptedRecordCall
+
+// repeated .reporting.UploadItem items = 1;
+inline int UploadEncryptedRecordCall::_internal_items_size() const {
+  return items_.size();
+}
+inline int UploadEncryptedRecordCall::items_size() const {
+  return _internal_items_size();
+}
+inline void UploadEncryptedRecordCall::clear_items() {
+  items_.Clear();
+}
+inline ::reporting::UploadItem* UploadEncryptedRecordCall::mutable_items(int index) {
+  // @@protoc_insertion_point(field_mutable:reporting.UploadEncryptedRecordCall.items)
+  return items_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::reporting::UploadItem >*
+UploadEncryptedRecordCall::mutable_items() {
+  // @@protoc_insertion_point(field_mutable_list:reporting.UploadEncryptedRecordCall.items)
+  return &items_;
+}
+inline const ::reporting::UploadItem& UploadEncryptedRecordCall::_internal_items(int index) const {
+  return items_.Get(index);
+}
+inline const ::reporting::UploadItem& UploadEncryptedRecordCall::items(int index) const {
+  // @@protoc_insertion_point(field_get:reporting.UploadEncryptedRecordCall.items)
+  return _internal_items(index);
+}
+inline ::reporting::UploadItem* UploadEncryptedRecordCall::_internal_add_items() {
+  return items_.Add();
+}
+inline ::reporting::UploadItem* UploadEncryptedRecordCall::add_items() {
+  ::reporting::UploadItem* _add = _internal_add_items();
+  // @@protoc_insertion_point(field_add:reporting.UploadEncryptedRecordCall.items)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::reporting::UploadItem >&
+UploadEncryptedRecordCall::items() const {
+  // @@protoc_insertion_point(field_list:reporting.UploadEncryptedRecordCall.items)
+  return items_;
+}
+
+// optional string upload_reason = 2;
+inline bool UploadEncryptedRecordCall::_internal_has_upload_reason() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool UploadEncryptedRecordCall::has_upload_reason() const {
+  return _internal_has_upload_reason();
+}
+inline void UploadEncryptedRecordCall::clear_upload_reason() {
+  upload_reason_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline const std::string& UploadEncryptedRecordCall::upload_reason() const {
+  // @@protoc_insertion_point(field_get:reporting.UploadEncryptedRecordCall.upload_reason)
+  return _internal_upload_reason();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void UploadEncryptedRecordCall::set_upload_reason(ArgT0&& arg0, ArgT... args) {
+ _has_bits_[0] |= 0x00000001u;
+ upload_reason_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:reporting.UploadEncryptedRecordCall.upload_reason)
+}
+inline std::string* UploadEncryptedRecordCall::mutable_upload_reason() {
+  std::string* _s = _internal_mutable_upload_reason();
+  // @@protoc_insertion_point(field_mutable:reporting.UploadEncryptedRecordCall.upload_reason)
+  return _s;
+}
+inline const std::string& UploadEncryptedRecordCall::_internal_upload_reason() const {
+  return upload_reason_.Get();
+}
+inline void UploadEncryptedRecordCall::_internal_set_upload_reason(const std::string& value) {
+  _has_bits_[0] |= 0x00000001u;
+  upload_reason_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* UploadEncryptedRecordCall::_internal_mutable_upload_reason() {
+  _has_bits_[0] |= 0x00000001u;
+  return upload_reason_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* UploadEncryptedRecordCall::release_upload_reason() {
+  // @@protoc_insertion_point(field_release:reporting.UploadEncryptedRecordCall.upload_reason)
+  if (!_internal_has_upload_reason()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000001u;
+  auto* p = upload_reason_.ReleaseNonDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (upload_reason_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    upload_reason_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return p;
+}
+inline void UploadEncryptedRecordCall::set_allocated_upload_reason(std::string* upload_reason) {
+  if (upload_reason != nullptr) {
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  upload_reason_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), upload_reason,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (upload_reason_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    upload_reason_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:reporting.UploadEncryptedRecordCall.upload_reason)
+}
+
+// optional .reporting.Priority priority = 3;
+inline bool UploadEncryptedRecordCall::_internal_has_priority() const {
   bool value = (_has_bits_[0] & 0x00000004u) != 0;
   return value;
 }
-inline bool UploadEncryptedRecordCall::has_encryption_key_requested() const {
-  return _internal_has_encryption_key_requested();
+inline bool UploadEncryptedRecordCall::has_priority() const {
+  return _internal_has_priority();
 }
-inline void UploadEncryptedRecordCall::clear_encryption_key_requested() {
-  encryption_key_requested_ = false;
+inline void UploadEncryptedRecordCall::clear_priority() {
+  priority_ = 0;
   _has_bits_[0] &= ~0x00000004u;
 }
-inline bool UploadEncryptedRecordCall::_internal_encryption_key_requested() const {
-  return encryption_key_requested_;
+inline ::reporting::Priority UploadEncryptedRecordCall::_internal_priority() const {
+  return static_cast< ::reporting::Priority >(priority_);
 }
-inline bool UploadEncryptedRecordCall::encryption_key_requested() const {
-  // @@protoc_insertion_point(field_get:reporting.UploadEncryptedRecordCall.encryption_key_requested)
-  return _internal_encryption_key_requested();
+inline ::reporting::Priority UploadEncryptedRecordCall::priority() const {
+  // @@protoc_insertion_point(field_get:reporting.UploadEncryptedRecordCall.priority)
+  return _internal_priority();
 }
-inline void UploadEncryptedRecordCall::_internal_set_encryption_key_requested(bool value) {
+inline void UploadEncryptedRecordCall::_internal_set_priority(::reporting::Priority value) {
+  assert(::reporting::Priority_IsValid(value));
   _has_bits_[0] |= 0x00000004u;
-  encryption_key_requested_ = value;
+  priority_ = value;
 }
-inline void UploadEncryptedRecordCall::set_encryption_key_requested(bool value) {
-  _internal_set_encryption_key_requested(value);
-  // @@protoc_insertion_point(field_set:reporting.UploadEncryptedRecordCall.encryption_key_requested)
+inline void UploadEncryptedRecordCall::set_priority(::reporting::Priority value) {
+  _internal_set_priority(value);
+  // @@protoc_insertion_point(field_set:reporting.UploadEncryptedRecordCall.priority)
 }
 
-// optional .reporting.StatusProto status = 3;
+// optional .reporting.StatusProto status = 4;
 inline bool UploadEncryptedRecordCall::_internal_has_status() const {
-  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
   PROTOBUF_ASSUME(!value || status_ != nullptr);
   return value;
 }
@@ -2345,14 +3324,14 @@ inline void UploadEncryptedRecordCall::unsafe_arena_set_allocated_status(
   }
   status_ = status;
   if (status) {
-    _has_bits_[0] |= 0x00000001u;
+    _has_bits_[0] |= 0x00000002u;
   } else {
-    _has_bits_[0] &= ~0x00000001u;
+    _has_bits_[0] &= ~0x00000002u;
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:reporting.UploadEncryptedRecordCall.status)
 }
 inline ::reporting::StatusProto* UploadEncryptedRecordCall::release_status() {
-  _has_bits_[0] &= ~0x00000001u;
+  _has_bits_[0] &= ~0x00000002u;
   ::reporting::StatusProto* temp = status_;
   status_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -2368,13 +3347,13 @@ inline ::reporting::StatusProto* UploadEncryptedRecordCall::release_status() {
 }
 inline ::reporting::StatusProto* UploadEncryptedRecordCall::unsafe_arena_release_status() {
   // @@protoc_insertion_point(field_release:reporting.UploadEncryptedRecordCall.status)
-  _has_bits_[0] &= ~0x00000001u;
+  _has_bits_[0] &= ~0x00000002u;
   ::reporting::StatusProto* temp = status_;
   status_ = nullptr;
   return temp;
 }
 inline ::reporting::StatusProto* UploadEncryptedRecordCall::_internal_mutable_status() {
-  _has_bits_[0] |= 0x00000001u;
+  _has_bits_[0] |= 0x00000002u;
   if (status_ == nullptr) {
     auto* p = CreateMaybeMessage<::reporting::StatusProto>(GetArenaForAllocation());
     status_ = p;
@@ -2400,9 +3379,9 @@ inline void UploadEncryptedRecordCall::set_allocated_status(::reporting::StatusP
       status = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, status, submessage_arena);
     }
-    _has_bits_[0] |= 0x00000001u;
+    _has_bits_[0] |= 0x00000002u;
   } else {
-    _has_bits_[0] &= ~0x00000001u;
+    _has_bits_[0] &= ~0x00000002u;
   }
   status_ = status;
   // @@protoc_insertion_point(field_set_allocated:reporting.UploadEncryptedRecordCall.status)
@@ -2414,7 +3393,7 @@ inline void UploadEncryptedRecordCall::set_allocated_status(::reporting::StatusP
 
 // optional int64 sequencing_id = 1;
 inline bool ConfirmRecordUploadCall::_internal_has_sequencing_id() const {
-  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
   return value;
 }
 inline bool ConfirmRecordUploadCall::has_sequencing_id() const {
@@ -2422,7 +3401,7 @@ inline bool ConfirmRecordUploadCall::has_sequencing_id() const {
 }
 inline void ConfirmRecordUploadCall::clear_sequencing_id() {
   sequencing_id_ = int64_t{0};
-  _has_bits_[0] &= ~0x00000001u;
+  _has_bits_[0] &= ~0x00000002u;
 }
 inline int64_t ConfirmRecordUploadCall::_internal_sequencing_id() const {
   return sequencing_id_;
@@ -2432,7 +3411,7 @@ inline int64_t ConfirmRecordUploadCall::sequencing_id() const {
   return _internal_sequencing_id();
 }
 inline void ConfirmRecordUploadCall::_internal_set_sequencing_id(int64_t value) {
-  _has_bits_[0] |= 0x00000001u;
+  _has_bits_[0] |= 0x00000002u;
   sequencing_id_ = value;
 }
 inline void ConfirmRecordUploadCall::set_sequencing_id(int64_t value) {
@@ -2442,7 +3421,7 @@ inline void ConfirmRecordUploadCall::set_sequencing_id(int64_t value) {
 
 // optional bool force_confirm = 2;
 inline bool ConfirmRecordUploadCall::_internal_has_force_confirm() const {
-  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  bool value = (_has_bits_[0] & 0x00000004u) != 0;
   return value;
 }
 inline bool ConfirmRecordUploadCall::has_force_confirm() const {
@@ -2450,7 +3429,7 @@ inline bool ConfirmRecordUploadCall::has_force_confirm() const {
 }
 inline void ConfirmRecordUploadCall::clear_force_confirm() {
   force_confirm_ = false;
-  _has_bits_[0] &= ~0x00000002u;
+  _has_bits_[0] &= ~0x00000004u;
 }
 inline bool ConfirmRecordUploadCall::_internal_force_confirm() const {
   return force_confirm_;
@@ -2460,12 +3439,129 @@ inline bool ConfirmRecordUploadCall::force_confirm() const {
   return _internal_force_confirm();
 }
 inline void ConfirmRecordUploadCall::_internal_set_force_confirm(bool value) {
-  _has_bits_[0] |= 0x00000002u;
+  _has_bits_[0] |= 0x00000004u;
   force_confirm_ = value;
 }
 inline void ConfirmRecordUploadCall::set_force_confirm(bool value) {
   _internal_set_force_confirm(value);
   // @@protoc_insertion_point(field_set:reporting.ConfirmRecordUploadCall.force_confirm)
+}
+
+// optional .reporting.Priority priority = 3;
+inline bool ConfirmRecordUploadCall::_internal_has_priority() const {
+  bool value = (_has_bits_[0] & 0x00000008u) != 0;
+  return value;
+}
+inline bool ConfirmRecordUploadCall::has_priority() const {
+  return _internal_has_priority();
+}
+inline void ConfirmRecordUploadCall::clear_priority() {
+  priority_ = 0;
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline ::reporting::Priority ConfirmRecordUploadCall::_internal_priority() const {
+  return static_cast< ::reporting::Priority >(priority_);
+}
+inline ::reporting::Priority ConfirmRecordUploadCall::priority() const {
+  // @@protoc_insertion_point(field_get:reporting.ConfirmRecordUploadCall.priority)
+  return _internal_priority();
+}
+inline void ConfirmRecordUploadCall::_internal_set_priority(::reporting::Priority value) {
+  assert(::reporting::Priority_IsValid(value));
+  _has_bits_[0] |= 0x00000008u;
+  priority_ = value;
+}
+inline void ConfirmRecordUploadCall::set_priority(::reporting::Priority value) {
+  _internal_set_priority(value);
+  // @@protoc_insertion_point(field_set:reporting.ConfirmRecordUploadCall.priority)
+}
+
+// optional .reporting.StatusProto status = 4;
+inline bool ConfirmRecordUploadCall::_internal_has_status() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  PROTOBUF_ASSUME(!value || status_ != nullptr);
+  return value;
+}
+inline bool ConfirmRecordUploadCall::has_status() const {
+  return _internal_has_status();
+}
+inline const ::reporting::StatusProto& ConfirmRecordUploadCall::_internal_status() const {
+  const ::reporting::StatusProto* p = status_;
+  return p != nullptr ? *p : reinterpret_cast<const ::reporting::StatusProto&>(
+      ::reporting::_StatusProto_default_instance_);
+}
+inline const ::reporting::StatusProto& ConfirmRecordUploadCall::status() const {
+  // @@protoc_insertion_point(field_get:reporting.ConfirmRecordUploadCall.status)
+  return _internal_status();
+}
+inline void ConfirmRecordUploadCall::unsafe_arena_set_allocated_status(
+    ::reporting::StatusProto* status) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(status_);
+  }
+  status_ = status;
+  if (status) {
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:reporting.ConfirmRecordUploadCall.status)
+}
+inline ::reporting::StatusProto* ConfirmRecordUploadCall::release_status() {
+  _has_bits_[0] &= ~0x00000001u;
+  ::reporting::StatusProto* temp = status_;
+  status_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::reporting::StatusProto* ConfirmRecordUploadCall::unsafe_arena_release_status() {
+  // @@protoc_insertion_point(field_release:reporting.ConfirmRecordUploadCall.status)
+  _has_bits_[0] &= ~0x00000001u;
+  ::reporting::StatusProto* temp = status_;
+  status_ = nullptr;
+  return temp;
+}
+inline ::reporting::StatusProto* ConfirmRecordUploadCall::_internal_mutable_status() {
+  _has_bits_[0] |= 0x00000001u;
+  if (status_ == nullptr) {
+    auto* p = CreateMaybeMessage<::reporting::StatusProto>(GetArenaForAllocation());
+    status_ = p;
+  }
+  return status_;
+}
+inline ::reporting::StatusProto* ConfirmRecordUploadCall::mutable_status() {
+  ::reporting::StatusProto* _msg = _internal_mutable_status();
+  // @@protoc_insertion_point(field_mutable:reporting.ConfirmRecordUploadCall.status)
+  return _msg;
+}
+inline void ConfirmRecordUploadCall::set_allocated_status(::reporting::StatusProto* status) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(status_);
+  }
+  if (status) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<
+            ::PROTOBUF_NAMESPACE_ID::MessageLite>::GetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(status));
+    if (message_arena != submessage_arena) {
+      status = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, status, submessage_arena);
+    }
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  status_ = status;
+  // @@protoc_insertion_point(field_set_allocated:reporting.ConfirmRecordUploadCall.status)
 }
 
 // -------------------------------------------------------------------
@@ -2926,6 +4022,12 @@ ERPHealthData::history() const {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

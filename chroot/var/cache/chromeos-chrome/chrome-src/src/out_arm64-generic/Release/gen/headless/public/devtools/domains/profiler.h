@@ -114,12 +114,9 @@ class HEADLESS_EXPORT Domain {
   static void HandleSetSamplingIntervalResponse(base::OnceCallback<void(std::unique_ptr<SetSamplingIntervalResult>)> callback, const base::Value& response);
   static void HandleStartResponse(base::OnceCallback<void(std::unique_ptr<StartResult>)> callback, const base::Value& response);
   static void HandleStartPreciseCoverageResponse(base::OnceCallback<void(std::unique_ptr<StartPreciseCoverageResult>)> callback, const base::Value& response);
-  static void HandleStartTypeProfileResponse(base::OnceCallback<void(std::unique_ptr<StartTypeProfileResult>)> callback, const base::Value& response);
   static void HandleStopResponse(base::OnceCallback<void(std::unique_ptr<StopResult>)> callback, const base::Value& response);
   static void HandleStopPreciseCoverageResponse(base::OnceCallback<void(std::unique_ptr<StopPreciseCoverageResult>)> callback, const base::Value& response);
-  static void HandleStopTypeProfileResponse(base::OnceCallback<void(std::unique_ptr<StopTypeProfileResult>)> callback, const base::Value& response);
   static void HandleTakePreciseCoverageResponse(base::OnceCallback<void(std::unique_ptr<TakePreciseCoverageResult>)> callback, const base::Value& response);
-  static void HandleTakeTypeProfileResponse(base::OnceCallback<void(std::unique_ptr<TakeTypeProfileResult>)> callback, const base::Value& response);
 
   void DispatchConsoleProfileFinishedEvent(const base::Value& params);
   void DispatchConsoleProfileStartedEvent(const base::Value& params);
@@ -149,15 +146,6 @@ class ExperimentalDomain : public Domain {
   // destroyed.
   void AddObserver(ExperimentalObserver* observer);
   void RemoveObserver(ExperimentalObserver* observer);
-
-  // Enable type profile.
-  void StartTypeProfile(std::unique_ptr<StartTypeProfileParams> params, base::OnceCallback<void(std::unique_ptr<StartTypeProfileResult>)> callback = base::OnceCallback<void(std::unique_ptr<StartTypeProfileResult>)>());
-
-  // Disable type profile. Disabling releases type profile data collected so far.
-  void StopTypeProfile(std::unique_ptr<StopTypeProfileParams> params, base::OnceCallback<void(std::unique_ptr<StopTypeProfileResult>)> callback = base::OnceCallback<void(std::unique_ptr<StopTypeProfileResult>)>());
-
-  // Collect type profile.
-  void TakeTypeProfile(std::unique_ptr<TakeTypeProfileParams> params, base::OnceCallback<void(std::unique_ptr<TakeTypeProfileResult>)> callback = base::OnceCallback<void(std::unique_ptr<TakeTypeProfileResult>)>());
 
 };
 

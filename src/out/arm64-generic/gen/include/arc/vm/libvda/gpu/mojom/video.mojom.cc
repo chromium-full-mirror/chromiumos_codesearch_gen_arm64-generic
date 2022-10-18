@@ -15,6 +15,7 @@
 #include <stdint.h>
 #include <utility>
 
+#include "base/debug/alias.h"
 #include "base/hash/md5_constexpr.h"
 #include "base/run_loop.h"
 #include "base/strings/string_number_conversions.h"
@@ -49,15 +50,15 @@ namespace arc {
 namespace mojom {
 const char VideoHost::Name_[] = "arc.mojom.VideoHost";
 
-uint32_t VideoHost::MessageToStableIPCHash_(mojo::Message& message) {
+VideoHost::IPCStableHashFunction VideoHost::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
   switch (message.name()) {
     case internal::kVideoHost_OnBootstrapVideoAcceleratorFactory_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)arc::mojom::VideoHost::OnBootstrapVideoAcceleratorFactory");
-      return value;
+      return &VideoHost::OnBootstrapVideoAcceleratorFactory_Sym::IPCStableHash;
     }
   }
-  return 0;
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
 }
 
 
@@ -85,6 +86,22 @@ const char* VideoHost::MessageToMethodName_(mojo::Message& message) {
   }
 #endif // BUILDFLAG(MOJO_TRACE_ENABLED)
 }
+
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t VideoHost::OnBootstrapVideoAcceleratorFactory_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)arc::mojom::VideoHost::OnBootstrapVideoAcceleratorFactory");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
 
 class VideoHost_OnBootstrapVideoAcceleratorFactory_ForwardToCallback
     : public mojo::MessageReceiver {
@@ -134,7 +151,7 @@ void VideoHostProxy::OnBootstrapVideoAcceleratorFactory(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new VideoHost_OnBootstrapVideoAcceleratorFactory_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 class VideoHost_OnBootstrapVideoAcceleratorFactory_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
@@ -264,8 +281,8 @@ void VideoHost_OnBootstrapVideoAcceleratorFactory_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -342,15 +359,15 @@ bool VideoHostResponseValidator::Accept(mojo::Message* message) {
 }
 const char VideoInstance::Name_[] = "arc.mojom.VideoInstance";
 
-uint32_t VideoInstance::MessageToStableIPCHash_(mojo::Message& message) {
+VideoInstance::IPCStableHashFunction VideoInstance::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
   switch (message.name()) {
     case internal::kVideoInstance_Init_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)arc::mojom::VideoInstance::Init");
-      return value;
+      return &VideoInstance::Init_Sym::IPCStableHash;
     }
   }
-  return 0;
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
 }
 
 
@@ -378,6 +395,22 @@ const char* VideoInstance::MessageToMethodName_(mojo::Message& message) {
   }
 #endif // BUILDFLAG(MOJO_TRACE_ENABLED)
 }
+
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t VideoInstance::Init_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)arc::mojom::VideoInstance::Init");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
 
 class VideoInstance_Init_ForwardToCallback
     : public mojo::MessageReceiver {
@@ -440,7 +473,7 @@ void VideoInstanceProxy::Init(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new VideoInstance_Init_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 class VideoInstance_Init_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
@@ -535,8 +568,8 @@ void VideoInstance_Init_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -619,30 +652,24 @@ bool VideoInstanceResponseValidator::Accept(mojo::Message* message) {
 }
 const char VideoAcceleratorFactory::Name_[] = "arc.mojom.VideoAcceleratorFactory";
 
-uint32_t VideoAcceleratorFactory::MessageToStableIPCHash_(mojo::Message& message) {
+VideoAcceleratorFactory::IPCStableHashFunction VideoAcceleratorFactory::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
   switch (message.name()) {
     case internal::kVideoAcceleratorFactory_CreateEncodeAccelerator_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)arc::mojom::VideoAcceleratorFactory::CreateEncodeAccelerator");
-      return value;
+      return &VideoAcceleratorFactory::CreateEncodeAccelerator_Sym::IPCStableHash;
     }
     case internal::kVideoAcceleratorFactory_CreateDecodeAccelerator_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)arc::mojom::VideoAcceleratorFactory::CreateDecodeAccelerator");
-      return value;
+      return &VideoAcceleratorFactory::CreateDecodeAccelerator_Sym::IPCStableHash;
     }
     case internal::kVideoAcceleratorFactory_CreateVideoDecoder_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)arc::mojom::VideoAcceleratorFactory::CreateVideoDecoder");
-      return value;
+      return &VideoAcceleratorFactory::CreateVideoDecoder_Sym::IPCStableHash;
     }
     case internal::kVideoAcceleratorFactory_CreateProtectedBufferAllocator_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)arc::mojom::VideoAcceleratorFactory::CreateProtectedBufferAllocator");
-      return value;
+      return &VideoAcceleratorFactory::CreateProtectedBufferAllocator_Sym::IPCStableHash;
     }
   }
-  return 0;
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
 }
 
 
@@ -682,6 +709,61 @@ const char* VideoAcceleratorFactory::MessageToMethodName_(mojo::Message& message
   }
 #endif // BUILDFLAG(MOJO_TRACE_ENABLED)
 }
+
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t VideoAcceleratorFactory::CreateEncodeAccelerator_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)arc::mojom::VideoAcceleratorFactory::CreateEncodeAccelerator");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t VideoAcceleratorFactory::CreateDecodeAccelerator_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)arc::mojom::VideoAcceleratorFactory::CreateDecodeAccelerator");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t VideoAcceleratorFactory::CreateVideoDecoder_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)arc::mojom::VideoAcceleratorFactory::CreateVideoDecoder");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t VideoAcceleratorFactory::CreateProtectedBufferAllocator_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)arc::mojom::VideoAcceleratorFactory::CreateProtectedBufferAllocator");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
 
 VideoAcceleratorFactoryProxy::VideoAcceleratorFactoryProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
@@ -727,7 +809,7 @@ void VideoAcceleratorFactoryProxy::CreateEncodeAccelerator(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 void VideoAcceleratorFactoryProxy::CreateDecodeAccelerator(
@@ -770,7 +852,7 @@ void VideoAcceleratorFactoryProxy::CreateDecodeAccelerator(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 void VideoAcceleratorFactoryProxy::CreateVideoDecoder(
@@ -813,7 +895,7 @@ void VideoAcceleratorFactoryProxy::CreateVideoDecoder(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 void VideoAcceleratorFactoryProxy::CreateProtectedBufferAllocator(
@@ -856,7 +938,7 @@ void VideoAcceleratorFactoryProxy::CreateProtectedBufferAllocator(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 // static

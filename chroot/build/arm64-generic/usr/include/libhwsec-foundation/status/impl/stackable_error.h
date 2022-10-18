@@ -23,38 +23,6 @@ namespace hwsec_foundation {
 namespace status {
 namespace __impl {
 
-namespace RTTI {
-
-// Check if an error pointer is of a certain type. Uses RTTI and relies on
-// 'one-definition' rule to work correctly.
-template <typename _Dt>
-static bool Is(Error* error) {
-  _Dt* cast = dynamic_cast<_Dt*>(error);
-  return (cast != nullptr);
-}
-
-// Const overload for |Is<_Dt>|
-template <typename _Dt>
-static bool Is(const Error* error) {
-  const _Dt* cast = dynamic_cast<const _Dt*>(error);
-  return (cast != nullptr);
-}
-
-// Converts the pointer a certain type. Uses RTTI and relies on
-// 'one-definition' rule to work correctly. Returns error if casting fails.
-template <typename _Dt>
-static _Dt* Cast(Error* error) {
-  return dynamic_cast<_Dt*>(error);
-}
-
-// Const overload for |Cast<_Dt>|
-template <typename _Dt>
-static const _Dt* Cast(const Error* error) {
-  return dynamic_cast<const _Dt*>(error);
-}
-
-}  // namespace RTTI
-
 // Type trait checkers to determine if the class, intended to use with the
 // status chain, is well-formed.
 // TODO(dlunev): add a trait to verify callability of MakeStatusTrait.
@@ -183,11 +151,12 @@ class [[nodiscard]] StackableError {
   // Backend interface.
 
   // Resets the stack.
+  void ResetInternal() { error_stack_.clear(); }
+
   void ResetInternal(pointer ptr) {
+    DCHECK_NE(ptr, pointer()) << " Reset with |nullptr|";
     error_stack_.clear();
-    if (ptr != pointer()) {
-      error_stack_.emplace_back(std::move(ptr));
-    }
+    error_stack_.emplace_back(std::move(ptr));
   }
 
   // Swaps the stacks of two chains.
@@ -209,7 +178,7 @@ class [[nodiscard]] StackableError {
 
     // It is an invariant that the type of the head can cast to |pointer|. This
     // cast allows us to keep a uniformly typed internal stack across
-    // polimorphic type specializations of the |StackableError| container -
+    // polymorphic type specializations of the |StackableError| container -
     // since type casting a "list"-like container of "unique_ptr"-like objects
     // is expensive. We check the invariant in the debug builds.
     DCHECK_NE(error_stack_.front().get(), pointer())
@@ -262,7 +231,7 @@ class [[nodiscard]] StackableError {
   // only use the backend interface methods.
 
   // Creates a chain that represents an Ok result.
-  static StackableError<_Et> Ok() { return StackableError<_Et>(nullptr); }
+  static StackableError<_Et> Ok() { return StackableError<_Et>(); }
 
   // Creates a chain that represents an error case. Delegates Status creation to
   // the class'es trait.
@@ -275,13 +244,7 @@ class [[nodiscard]] StackableError {
   // Default constructor creates an empty stack to represent success.
   constexpr StackableError() noexcept : error_stack_() {}
 
-  // |nullptr_t| constructor creates an empty stack to represent success.
-  // We need an implicit conversion from |nullptr| to preserve the semantics of
-  // the existing code, where returning |nullptr| represents success.
-  // TODO(dlunev): disable implicit |nullptr| conversion when the codebase
-  // adopts |OkStatus<T>|.
-  constexpr StackableError(nullptr_t) noexcept  // NOLINT smart ptr nullptr
-      : error_stack_() {}
+  StackableError(nullptr_t) = delete;
 
   // Constructor from a raw pointer takes ownership of the pointer and puts it
   // on top of the stack.
@@ -412,11 +375,11 @@ class [[nodiscard]] StackableError {
     return get();
   }
 
-  // Resets current stack as ok status.
-  void reset(nullptr_t) noexcept { ResetInternal(pointer()); }
+  // Resets current stack.
+  void reset() { ResetInternal(); }
 
-  // Resets current stack with a new error or ok status.
-  void reset(pointer ptr = pointer()) { ResetInternal(std::move(ptr)); }
+  // Resets current stack with a new error.
+  void reset(pointer ptr) { ResetInternal(std::move(ptr)); }
 
   // Swaps two stacks.
   void swap(StackableError& other) noexcept { SwapInternal(other); }
@@ -567,73 +530,6 @@ class [[nodiscard]] StackableError {
     UnwrapInternal();
     return std::move(*this);
   }
-
-  // Check if the head was created as a down type.
-  template <typename _Dt>
-  bool Is() const noexcept {
-    static_assert(std::is_base_of_v<base_element_type, _Dt> ||
-                      std::is_same_v<base_element_type, _Dt>,
-                  "Supplied type is not derived from the |Base| type.");
-    return RTTI::Is<_Dt>(get());
-  }
-
-  // Returns head as a down type. The validity of the operation MUST be checked
-  // by the prior call to Is<_Dt>.
-  template <typename _Dt>
-  _Dt* Cast() noexcept {
-    static_assert(std::is_base_of_v<base_element_type, _Dt> ||
-                      std::is_same_v<base_element_type, _Dt>,
-                  "Supplied type is not derived from the |Base| type.");
-    return RTTI::Cast<_Dt>(get());
-  }
-
-  // Const overload for |Cast<_Dt>| operation.
-  template <typename _Dt>
-  const _Dt* Cast() const noexcept {
-    static_assert(std::is_base_of_v<base_element_type, _Dt> ||
-                      std::is_same_v<base_element_type, _Dt>,
-                  "Supplied type is not derived from the |Base| type.");
-    return RTTI::Cast<_Dt>(get());
-  }
-
-  // Find returns a pointer to the first object of the specified kind in the
-  // stack.
-  template <typename _Dt>
-  _Dt* Find() noexcept {
-    static_assert(std::is_base_of_v<base_element_type, _Dt> ||
-                      std::is_same_v<base_element_type, _Dt>,
-                  "Supplied type is not derived from the |Base| type.");
-    for (auto error_obj_ptr : range()) {
-      // Use |decltype| to deduce the correct type of the pointer for the
-      // typesafe comparison. See explanation for the typesafe comparison
-      // at |pointer| alias declaration.
-      DCHECK_NE(error_obj_ptr, decltype(error_obj_ptr)())
-          << " |nullptr| in the chain";
-      if (RTTI::Is<_Dt>(error_obj_ptr)) {
-        return RTTI::Cast<_Dt>(error_obj_ptr);
-      }
-    }
-    return nullptr;
-  }
-
-  // Const overload for |Find<_Dt>| operation.
-  template <typename _Dt>
-  const _Dt* Find() const noexcept {
-    static_assert(std::is_base_of_v<base_element_type, _Dt> ||
-                      std::is_same_v<base_element_type, _Dt>,
-                  "Supplied type is not derived from the |Base| type.");
-    for (const auto error_obj_ptr : const_range()) {
-      // Use |decltype| to deduce the correct type of the pointer for the
-      // typesafe comparison. See explanation for the typesafe comparison
-      // at |pointer| alias declaration.
-      DCHECK_NE(error_obj_ptr, decltype(error_obj_ptr)())
-          << " |nullptr| in the chain";
-      if (RTTI::Is<_Dt>(error_obj_ptr)) {
-        return RTTI::Cast<_Dt>(error_obj_ptr);
-      }
-    }
-    return nullptr;
-  }
 };
 
 // Make |StackableError| printable.
@@ -641,32 +537,6 @@ template <typename _Et>
 std::ostream& operator<<(std::ostream& os, const StackableError<_Et>& error) {
   os << error.ToFullString();
   return os;
-}
-
-// StackableError is only comparable to nullptr. This is required to preserve
-// the behaviour of the current code, where comparing to nullptr may be used as
-// a mean to check for success/failure.
-// TODO(dlunev): remove this once the code base is converted to use |ok|
-// instead of implicit nullptr/bool checks.
-
-template <typename _Et>
-inline bool operator==(const StackableError<_Et>& error, nullptr_t) {
-  return error.get() == typename StackableError<_Et>::pointer();
-}
-
-template <typename _Et>
-inline bool operator!=(const StackableError<_Et>& error, nullptr_t) {
-  return error.get() != typename StackableError<_Et>::pointer();
-}
-
-template <typename _Et>
-inline bool operator==(nullptr_t, const StackableError<_Et>& error) {
-  return error.get() == typename StackableError<_Et>::pointer();
-}
-
-template <typename _Et>
-inline bool operator!=(nullptr_t, const StackableError<_Et>& error) {
-  return error.get() != typename StackableError<_Et>::pointer();
 }
 
 }  // namespace __impl

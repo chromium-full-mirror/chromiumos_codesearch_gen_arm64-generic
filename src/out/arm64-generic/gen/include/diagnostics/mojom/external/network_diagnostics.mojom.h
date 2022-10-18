@@ -53,8 +53,10 @@ class NetworkDiagnosticsRoutinesResponseValidator;
 class  NetworkDiagnosticsRoutines
     : public NetworkDiagnosticsRoutinesInterfaceBase {
  public:
+  using IPCStableHashFunction = uint32_t(*)();
+
   static const char Name_[];
-  static uint32_t MessageToStableIPCHash_(mojo::Message& message);
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 0;
   static constexpr bool PassesAssociatedKinds_ = false;
@@ -88,6 +90,62 @@ class  NetworkDiagnosticsRoutines
     kRunArcPingMinVersion = 0,
     kRunArcDnsResolutionMinVersion = 0,
   };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+  struct GetResult_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct GetAllResults_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct RunLanConnectivity_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct RunSignalStrength_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct RunGatewayCanBePinged_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct RunHasSecureWiFiConnection_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct RunDnsResolverPresent_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct RunDnsLatency_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct RunDnsResolution_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct RunCaptivePortal_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct RunHttpFirewall_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct RunHttpsFirewall_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct RunHttpsLatency_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct RunVideoConferencing_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct RunArcHttp_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct RunArcPing_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct RunArcDnsResolution_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+#endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~NetworkDiagnosticsRoutines() = default;
 
 

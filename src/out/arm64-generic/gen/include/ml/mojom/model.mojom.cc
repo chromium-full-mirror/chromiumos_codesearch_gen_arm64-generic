@@ -15,6 +15,7 @@
 #include <stdint.h>
 #include <utility>
 
+#include "base/debug/alias.h"
 #include "base/hash/md5_constexpr.h"
 #include "base/run_loop.h"
 #include "base/strings/string_number_conversions.h"
@@ -217,20 +218,18 @@ bool FlatBufferModelSpec::Validate(
 }
 const char Model::Name_[] = "chromeos.machine_learning.mojom.Model";
 
-uint32_t Model::MessageToStableIPCHash_(mojo::Message& message) {
+Model::IPCStableHashFunction Model::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
   switch (message.name()) {
     case internal::kModel_REMOVED_0_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::machine_learning::mojom::Model::REMOVED_0");
-      return value;
+      return &Model::REMOVED_0_Sym::IPCStableHash;
     }
     case internal::kModel_CreateGraphExecutor_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::machine_learning::mojom::Model::CreateGraphExecutor");
-      return value;
+      return &Model::CreateGraphExecutor_Sym::IPCStableHash;
     }
   }
-  return 0;
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
 }
 
 
@@ -262,6 +261,35 @@ const char* Model::MessageToMethodName_(mojo::Message& message) {
   }
 #endif // BUILDFLAG(MOJO_TRACE_ENABLED)
 }
+
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t Model::REMOVED_0_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)chromeos::machine_learning::mojom::Model::REMOVED_0");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t Model::CreateGraphExecutor_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)chromeos::machine_learning::mojom::Model::CreateGraphExecutor");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
 
 class Model_REMOVED_0_ForwardToCallback
     : public mojo::MessageReceiver {
@@ -340,7 +368,7 @@ void ModelProxy::REMOVED_0(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new Model_REMOVED_0_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void ModelProxy::CreateGraphExecutor(
@@ -398,7 +426,7 @@ void ModelProxy::CreateGraphExecutor(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new Model_CreateGraphExecutor_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 class Model_REMOVED_0_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
@@ -506,8 +534,8 @@ void Model_REMOVED_0_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -621,8 +649,8 @@ void Model_CreateGraphExecutor_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that

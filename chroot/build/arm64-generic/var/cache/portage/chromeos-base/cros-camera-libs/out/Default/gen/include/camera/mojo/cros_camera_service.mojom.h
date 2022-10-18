@@ -30,6 +30,7 @@
 #include "camera/mojo/gpu/jpeg_encode_accelerator.mojom-forward.h"
 #include "camera/mojo/gpu/mjpeg_decode_accelerator.mojom-forward.h"
 #include "camera/mojo/unguessable_token.mojom-forward.h"
+#include "ml_core/mojo/effects_pipeline.mojom-forward.h"
 #include <string>
 #include <vector>
 
@@ -56,8 +57,10 @@ class CameraHalDispatcherResponseValidator;
 class  CameraHalDispatcher
     : public CameraHalDispatcherInterfaceBase {
  public:
+  using IPCStableHashFunction = uint32_t(*)();
+
   static const char Name_[];
-  static uint32_t MessageToStableIPCHash_(mojo::Message& message);
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 6;
   static constexpr bool PassesAssociatedKinds_ = false;
@@ -81,6 +84,32 @@ class  CameraHalDispatcher
     kRegisterClientWithTokenMinVersion = 4,
     kRegisterSensorClientWithTokenMinVersion = 6,
   };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+  struct RegisterServer_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct RegisterClient_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct GetMjpegDecodeAccelerator_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct GetJpegEncodeAccelerator_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct RegisterServerWithToken_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct RegisterClientWithToken_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct RegisterSensorClientWithToken_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+#endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~CameraHalDispatcher() = default;
 
   
@@ -123,10 +152,12 @@ class CameraHalServerResponseValidator;
 class  CameraHalServer
     : public CameraHalServerInterfaceBase {
  public:
+  using IPCStableHashFunction = uint32_t(*)();
+
   static const char Name_[];
-  static uint32_t MessageToStableIPCHash_(mojo::Message& message);
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
-  static constexpr uint32_t Version_ = 9;
+  static constexpr uint32_t Version_ = 10;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasSyncMethods_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
@@ -146,7 +177,34 @@ class  CameraHalServer
     kGetCameraSWPrivacySwitchStateMinVersion = 8,
     kSetCameraSWPrivacySwitchStateMinVersion = 8,
     kGetAutoFramingSupportedMinVersion = 9,
+    kSetCameraEffectMinVersion = 10,
   };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+  struct CreateChannel_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct SetTracingEnabled_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct SetAutoFramingState_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct GetCameraSWPrivacySwitchState_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct SetCameraSWPrivacySwitchState_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct GetAutoFramingSupported_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct SetCameraEffect_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+#endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~CameraHalServer() = default;
 
   
@@ -170,6 +228,11 @@ class  CameraHalServer
   using GetAutoFramingSupportedCallback = base::OnceCallback<void(bool)>;
   
   virtual void GetAutoFramingSupported(GetAutoFramingSupportedCallback callback) = 0;
+
+
+  using SetCameraEffectCallback = base::OnceCallback<void(::cros::mojom::SetEffectResult)>;
+  
+  virtual void SetCameraEffect(::cros::mojom::EffectsConfigPtr config, SetCameraEffectCallback callback) = 0;
 };
 
 class CameraHalServerCallbacksProxy;
@@ -183,8 +246,10 @@ class CameraHalServerCallbacksRequestValidator;
 class  CameraHalServerCallbacks
     : public CameraHalServerCallbacksInterfaceBase {
  public:
+  using IPCStableHashFunction = uint32_t(*)();
+
   static const char Name_[];
-  static uint32_t MessageToStableIPCHash_(mojo::Message& message);
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 9;
   static constexpr bool PassesAssociatedKinds_ = false;
@@ -204,6 +269,20 @@ class  CameraHalServerCallbacks
     kCameraPrivacySwitchStateChangeMinVersion = 5,
     kCameraSWPrivacySwitchStateChangeMinVersion = 8,
   };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+  struct CameraDeviceActivityChange_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct CameraPrivacySwitchStateChange_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct CameraSWPrivacySwitchStateChange_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+#endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~CameraHalServerCallbacks() = default;
 
   
@@ -227,8 +306,10 @@ class CameraHalClientRequestValidator;
 class  CameraHalClient
     : public CameraHalClientInterfaceBase {
  public:
+  using IPCStableHashFunction = uint32_t(*)();
+
   static const char Name_[];
-  static uint32_t MessageToStableIPCHash_(mojo::Message& message);
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 0;
   static constexpr bool PassesAssociatedKinds_ = false;
@@ -246,6 +327,14 @@ class  CameraHalClient
   enum MethodMinVersions : uint32_t {
     kSetUpChannelMinVersion = 0,
   };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+  struct SetUpChannel_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+#endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~CameraHalClient() = default;
 
   
@@ -299,6 +388,8 @@ class  CameraHalServerProxy
   void SetCameraSWPrivacySwitchState(CameraPrivacySwitchState state) final;
   
   void GetAutoFramingSupported(GetAutoFramingSupportedCallback callback) final;
+  
+  void SetCameraEffect(::cros::mojom::EffectsConfigPtr config, SetCameraEffectCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

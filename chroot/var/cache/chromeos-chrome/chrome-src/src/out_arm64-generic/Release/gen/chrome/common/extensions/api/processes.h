@@ -1,4 +1,4 @@
-// Copyright 2022 The Chromium Authors. All rights reserved.
+// Copyright 2022 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -175,17 +175,17 @@ struct Process {
   // The most recent information about the image cache for the process. Only
   // available when receiving the object as part of a callback from onUpdated or
   // onUpdatedWithMemory.
-  std::unique_ptr<Cache> image_cache;
+  absl::optional<Cache> image_cache;
 
   // The most recent information about the script cache for the process. Only
   // available when receiving the object as part of a callback from onUpdated or
   // onUpdatedWithMemory.
-  std::unique_ptr<Cache> script_cache;
+  absl::optional<Cache> script_cache;
 
   // The most recent information about the CSS cache for the process. Only
   // available when receiving the object as part of a callback from onUpdated or
   // onUpdatedWithMemory.
-  std::unique_ptr<Cache> css_cache;
+  absl::optional<Cache> css_cache;
 
 };
 

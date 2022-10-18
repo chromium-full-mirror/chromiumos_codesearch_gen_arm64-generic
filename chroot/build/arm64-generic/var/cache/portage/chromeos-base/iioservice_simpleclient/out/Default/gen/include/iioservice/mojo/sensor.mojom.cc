@@ -15,6 +15,7 @@
 #include <stdint.h>
 #include <utility>
 
+#include "base/debug/alias.h"
 #include "base/hash/md5_constexpr.h"
 #include "base/run_loop.h"
 #include "base/strings/string_number_conversions.h"
@@ -152,30 +153,24 @@ bool IioEvent::Validate(
 }
 const char SensorService::Name_[] = "cros.mojom.SensorService";
 
-uint32_t SensorService::MessageToStableIPCHash_(mojo::Message& message) {
+SensorService::IPCStableHashFunction SensorService::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
   switch (message.name()) {
     case internal::kSensorService_GetDeviceIds_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::SensorService::GetDeviceIds");
-      return value;
+      return &SensorService::GetDeviceIds_Sym::IPCStableHash;
     }
     case internal::kSensorService_GetAllDeviceIds_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::SensorService::GetAllDeviceIds");
-      return value;
+      return &SensorService::GetAllDeviceIds_Sym::IPCStableHash;
     }
     case internal::kSensorService_GetDevice_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::SensorService::GetDevice");
-      return value;
+      return &SensorService::GetDevice_Sym::IPCStableHash;
     }
     case internal::kSensorService_RegisterNewDevicesObserver_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::SensorService::RegisterNewDevicesObserver");
-      return value;
+      return &SensorService::RegisterNewDevicesObserver_Sym::IPCStableHash;
     }
   }
-  return 0;
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
 }
 
 
@@ -215,6 +210,61 @@ const char* SensorService::MessageToMethodName_(mojo::Message& message) {
   }
 #endif // BUILDFLAG(MOJO_TRACE_ENABLED)
 }
+
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t SensorService::GetDeviceIds_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::SensorService::GetDeviceIds");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t SensorService::GetAllDeviceIds_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::SensorService::GetAllDeviceIds");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t SensorService::GetDevice_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::SensorService::GetDevice");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t SensorService::RegisterNewDevicesObserver_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::SensorService::RegisterNewDevicesObserver");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
 
 class SensorService_GetDeviceIds_ForwardToCallback
     : public mojo::MessageReceiver {
@@ -289,7 +339,7 @@ void SensorServiceProxy::GetDeviceIds(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new SensorService_GetDeviceIds_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void SensorServiceProxy::GetAllDeviceIds(
@@ -320,7 +370,7 @@ void SensorServiceProxy::GetAllDeviceIds(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new SensorService_GetAllDeviceIds_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void SensorServiceProxy::GetDevice(
@@ -367,7 +417,7 @@ void SensorServiceProxy::GetDevice(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 void SensorServiceProxy::RegisterNewDevicesObserver(
@@ -410,7 +460,7 @@ void SensorServiceProxy::RegisterNewDevicesObserver(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 class SensorService_GetDeviceIds_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
@@ -529,8 +579,8 @@ void SensorService_GetDeviceIds_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -655,8 +705,8 @@ void SensorService_GetAllDeviceIds_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -836,85 +886,57 @@ bool SensorServiceResponseValidator::Accept(mojo::Message* message) {
 }
 const char SensorDevice::Name_[] = "cros.mojom.SensorDevice";
 
-uint32_t SensorDevice::MessageToStableIPCHash_(mojo::Message& message) {
+SensorDevice::IPCStableHashFunction SensorDevice::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
   switch (message.name()) {
     case internal::kSensorDevice_SetTimeout_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::SensorDevice::SetTimeout");
-      return value;
+      return &SensorDevice::SetTimeout_Sym::IPCStableHash;
     }
     case internal::kSensorDevice_GetAttributes_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::SensorDevice::GetAttributes");
-      return value;
+      return &SensorDevice::GetAttributes_Sym::IPCStableHash;
     }
     case internal::kSensorDevice_SetFrequency_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::SensorDevice::SetFrequency");
-      return value;
+      return &SensorDevice::SetFrequency_Sym::IPCStableHash;
     }
     case internal::kSensorDevice_StartReadingSamples_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::SensorDevice::StartReadingSamples");
-      return value;
+      return &SensorDevice::StartReadingSamples_Sym::IPCStableHash;
     }
     case internal::kSensorDevice_StopReadingSamples_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::SensorDevice::StopReadingSamples");
-      return value;
+      return &SensorDevice::StopReadingSamples_Sym::IPCStableHash;
     }
     case internal::kSensorDevice_GetAllChannelIds_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::SensorDevice::GetAllChannelIds");
-      return value;
+      return &SensorDevice::GetAllChannelIds_Sym::IPCStableHash;
     }
     case internal::kSensorDevice_SetChannelsEnabled_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::SensorDevice::SetChannelsEnabled");
-      return value;
+      return &SensorDevice::SetChannelsEnabled_Sym::IPCStableHash;
     }
     case internal::kSensorDevice_GetChannelsEnabled_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::SensorDevice::GetChannelsEnabled");
-      return value;
+      return &SensorDevice::GetChannelsEnabled_Sym::IPCStableHash;
     }
     case internal::kSensorDevice_GetChannelsAttributes_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::SensorDevice::GetChannelsAttributes");
-      return value;
+      return &SensorDevice::GetChannelsAttributes_Sym::IPCStableHash;
     }
     case internal::kSensorDevice_GetAllEvents_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::SensorDevice::GetAllEvents");
-      return value;
+      return &SensorDevice::GetAllEvents_Sym::IPCStableHash;
     }
     case internal::kSensorDevice_SetEventsEnabled_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::SensorDevice::SetEventsEnabled");
-      return value;
+      return &SensorDevice::SetEventsEnabled_Sym::IPCStableHash;
     }
     case internal::kSensorDevice_GetEventsEnabled_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::SensorDevice::GetEventsEnabled");
-      return value;
+      return &SensorDevice::GetEventsEnabled_Sym::IPCStableHash;
     }
     case internal::kSensorDevice_GetEventsAttributes_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::SensorDevice::GetEventsAttributes");
-      return value;
+      return &SensorDevice::GetEventsAttributes_Sym::IPCStableHash;
     }
     case internal::kSensorDevice_StartReadingEvents_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::SensorDevice::StartReadingEvents");
-      return value;
+      return &SensorDevice::StartReadingEvents_Sym::IPCStableHash;
     }
     case internal::kSensorDevice_StopReadingEvents_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::SensorDevice::StopReadingEvents");
-      return value;
+      return &SensorDevice::StopReadingEvents_Sym::IPCStableHash;
     }
   }
-  return 0;
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
 }
 
 
@@ -998,6 +1020,204 @@ const char* SensorDevice::MessageToMethodName_(mojo::Message& message) {
   }
 #endif // BUILDFLAG(MOJO_TRACE_ENABLED)
 }
+
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t SensorDevice::SetTimeout_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::SensorDevice::SetTimeout");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t SensorDevice::GetAttributes_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::SensorDevice::GetAttributes");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t SensorDevice::SetFrequency_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::SensorDevice::SetFrequency");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t SensorDevice::StartReadingSamples_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::SensorDevice::StartReadingSamples");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t SensorDevice::StopReadingSamples_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::SensorDevice::StopReadingSamples");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t SensorDevice::GetAllChannelIds_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::SensorDevice::GetAllChannelIds");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t SensorDevice::SetChannelsEnabled_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::SensorDevice::SetChannelsEnabled");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t SensorDevice::GetChannelsEnabled_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::SensorDevice::GetChannelsEnabled");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t SensorDevice::GetChannelsAttributes_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::SensorDevice::GetChannelsAttributes");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t SensorDevice::GetAllEvents_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::SensorDevice::GetAllEvents");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t SensorDevice::SetEventsEnabled_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::SensorDevice::SetEventsEnabled");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t SensorDevice::GetEventsEnabled_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::SensorDevice::GetEventsEnabled");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t SensorDevice::GetEventsAttributes_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::SensorDevice::GetEventsAttributes");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t SensorDevice::StartReadingEvents_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::SensorDevice::StartReadingEvents");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t SensorDevice::StopReadingEvents_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::SensorDevice::StopReadingEvents");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
 
 class SensorDevice_GetAttributes_ForwardToCallback
     : public mojo::MessageReceiver {
@@ -1198,7 +1418,7 @@ void SensorDeviceProxy::SetTimeout(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 void SensorDeviceProxy::GetAttributes(
@@ -1249,7 +1469,7 @@ void SensorDeviceProxy::GetAttributes(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new SensorDevice_GetAttributes_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void SensorDeviceProxy::SetFrequency(
@@ -1288,7 +1508,7 @@ void SensorDeviceProxy::SetFrequency(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new SensorDevice_SetFrequency_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void SensorDeviceProxy::StartReadingSamples(
@@ -1331,7 +1551,7 @@ void SensorDeviceProxy::StartReadingSamples(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 void SensorDeviceProxy::StopReadingSamples(
@@ -1361,7 +1581,7 @@ void SensorDeviceProxy::StopReadingSamples(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 void SensorDeviceProxy::GetAllChannelIds(
@@ -1392,7 +1612,7 @@ void SensorDeviceProxy::GetAllChannelIds(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new SensorDevice_GetAllChannelIds_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void SensorDeviceProxy::SetChannelsEnabled(
@@ -1447,7 +1667,7 @@ void SensorDeviceProxy::SetChannelsEnabled(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new SensorDevice_SetChannelsEnabled_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void SensorDeviceProxy::GetChannelsEnabled(
@@ -1498,7 +1718,7 @@ void SensorDeviceProxy::GetChannelsEnabled(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new SensorDevice_GetChannelsEnabled_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void SensorDeviceProxy::GetChannelsAttributes(
@@ -1563,7 +1783,7 @@ void SensorDeviceProxy::GetChannelsAttributes(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new SensorDevice_GetChannelsAttributes_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void SensorDeviceProxy::GetAllEvents(
@@ -1594,7 +1814,7 @@ void SensorDeviceProxy::GetAllEvents(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new SensorDevice_GetAllEvents_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void SensorDeviceProxy::SetEventsEnabled(
@@ -1649,7 +1869,7 @@ void SensorDeviceProxy::SetEventsEnabled(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new SensorDevice_SetEventsEnabled_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void SensorDeviceProxy::GetEventsEnabled(
@@ -1700,7 +1920,7 @@ void SensorDeviceProxy::GetEventsEnabled(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new SensorDevice_GetEventsEnabled_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void SensorDeviceProxy::GetEventsAttributes(
@@ -1765,7 +1985,7 @@ void SensorDeviceProxy::GetEventsAttributes(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new SensorDevice_GetEventsAttributes_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void SensorDeviceProxy::StartReadingEvents(
@@ -1808,7 +2028,7 @@ void SensorDeviceProxy::StartReadingEvents(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 void SensorDeviceProxy::StopReadingEvents(
@@ -1838,7 +2058,7 @@ void SensorDeviceProxy::StopReadingEvents(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 class SensorDevice_GetAttributes_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
@@ -1957,8 +2177,8 @@ void SensorDevice_GetAttributes_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -2071,8 +2291,8 @@ void SensorDevice_SetFrequency_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -2197,8 +2417,8 @@ void SensorDevice_GetAllChannelIds_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -2323,8 +2543,8 @@ void SensorDevice_SetChannelsEnabled_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -2449,8 +2669,8 @@ void SensorDevice_GetChannelsEnabled_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -2575,8 +2795,8 @@ void SensorDevice_GetChannelsAttributes_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -2701,8 +2921,8 @@ void SensorDevice_GetAllEvents_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -2827,8 +3047,8 @@ void SensorDevice_SetEventsEnabled_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -2953,8 +3173,8 @@ void SensorDevice_GetEventsEnabled_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -3079,8 +3299,8 @@ void SensorDevice_GetEventsAttributes_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -3625,20 +3845,18 @@ bool SensorDeviceResponseValidator::Accept(mojo::Message* message) {
 }
 const char SensorDeviceSamplesObserver::Name_[] = "cros.mojom.SensorDeviceSamplesObserver";
 
-uint32_t SensorDeviceSamplesObserver::MessageToStableIPCHash_(mojo::Message& message) {
+SensorDeviceSamplesObserver::IPCStableHashFunction SensorDeviceSamplesObserver::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
   switch (message.name()) {
     case internal::kSensorDeviceSamplesObserver_OnSampleUpdated_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::SensorDeviceSamplesObserver::OnSampleUpdated");
-      return value;
+      return &SensorDeviceSamplesObserver::OnSampleUpdated_Sym::IPCStableHash;
     }
     case internal::kSensorDeviceSamplesObserver_OnErrorOccurred_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::SensorDeviceSamplesObserver::OnErrorOccurred");
-      return value;
+      return &SensorDeviceSamplesObserver::OnErrorOccurred_Sym::IPCStableHash;
     }
   }
-  return 0;
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
 }
 
 
@@ -3670,6 +3888,35 @@ const char* SensorDeviceSamplesObserver::MessageToMethodName_(mojo::Message& mes
   }
 #endif // BUILDFLAG(MOJO_TRACE_ENABLED)
 }
+
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t SensorDeviceSamplesObserver::OnSampleUpdated_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::SensorDeviceSamplesObserver::OnSampleUpdated");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t SensorDeviceSamplesObserver::OnErrorOccurred_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::SensorDeviceSamplesObserver::OnErrorOccurred");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
 
 SensorDeviceSamplesObserverProxy::SensorDeviceSamplesObserverProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
@@ -3722,7 +3969,7 @@ void SensorDeviceSamplesObserverProxy::OnSampleUpdated(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 void SensorDeviceSamplesObserverProxy::OnErrorOccurred(
@@ -3761,7 +4008,7 @@ void SensorDeviceSamplesObserverProxy::OnErrorOccurred(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 // static
@@ -3859,15 +4106,15 @@ bool SensorDeviceSamplesObserverRequestValidator::Accept(mojo::Message* message)
 
 const char SensorServiceNewDevicesObserver::Name_[] = "cros.mojom.SensorServiceNewDevicesObserver";
 
-uint32_t SensorServiceNewDevicesObserver::MessageToStableIPCHash_(mojo::Message& message) {
+SensorServiceNewDevicesObserver::IPCStableHashFunction SensorServiceNewDevicesObserver::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
   switch (message.name()) {
     case internal::kSensorServiceNewDevicesObserver_OnNewDeviceAdded_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::SensorServiceNewDevicesObserver::OnNewDeviceAdded");
-      return value;
+      return &SensorServiceNewDevicesObserver::OnNewDeviceAdded_Sym::IPCStableHash;
     }
   }
-  return 0;
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
 }
 
 
@@ -3895,6 +4142,22 @@ const char* SensorServiceNewDevicesObserver::MessageToMethodName_(mojo::Message&
   }
 #endif // BUILDFLAG(MOJO_TRACE_ENABLED)
 }
+
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t SensorServiceNewDevicesObserver::OnNewDeviceAdded_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::SensorServiceNewDevicesObserver::OnNewDeviceAdded");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
 
 SensorServiceNewDevicesObserverProxy::SensorServiceNewDevicesObserverProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
@@ -3951,7 +4214,7 @@ void SensorServiceNewDevicesObserverProxy::OnNewDeviceAdded(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 // static
@@ -4022,20 +4285,18 @@ bool SensorServiceNewDevicesObserverRequestValidator::Accept(mojo::Message* mess
 
 const char SensorDeviceEventsObserver::Name_[] = "cros.mojom.SensorDeviceEventsObserver";
 
-uint32_t SensorDeviceEventsObserver::MessageToStableIPCHash_(mojo::Message& message) {
+SensorDeviceEventsObserver::IPCStableHashFunction SensorDeviceEventsObserver::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
   switch (message.name()) {
     case internal::kSensorDeviceEventsObserver_OnEventUpdated_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::SensorDeviceEventsObserver::OnEventUpdated");
-      return value;
+      return &SensorDeviceEventsObserver::OnEventUpdated_Sym::IPCStableHash;
     }
     case internal::kSensorDeviceEventsObserver_OnErrorOccurred_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::SensorDeviceEventsObserver::OnErrorOccurred");
-      return value;
+      return &SensorDeviceEventsObserver::OnErrorOccurred_Sym::IPCStableHash;
     }
   }
-  return 0;
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
 }
 
 
@@ -4067,6 +4328,35 @@ const char* SensorDeviceEventsObserver::MessageToMethodName_(mojo::Message& mess
   }
 #endif // BUILDFLAG(MOJO_TRACE_ENABLED)
 }
+
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t SensorDeviceEventsObserver::OnEventUpdated_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::SensorDeviceEventsObserver::OnEventUpdated");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t SensorDeviceEventsObserver::OnErrorOccurred_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::SensorDeviceEventsObserver::OnErrorOccurred");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
 
 SensorDeviceEventsObserverProxy::SensorDeviceEventsObserverProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
@@ -4117,7 +4407,7 @@ void SensorDeviceEventsObserverProxy::OnEventUpdated(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 void SensorDeviceEventsObserverProxy::OnErrorOccurred(
@@ -4156,7 +4446,7 @@ void SensorDeviceEventsObserverProxy::OnErrorOccurred(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 // static

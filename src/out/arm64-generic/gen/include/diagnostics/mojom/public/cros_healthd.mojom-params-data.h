@@ -14,7 +14,7 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunused-private-field"
 #endif
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace mojom {
 namespace internal {
@@ -192,7 +192,7 @@ class  CrosHealthdDiagnosticsService_GetRoutineUpdate_ResponseParams_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::RoutineUpdate_Data> routine_update;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::RoutineUpdate_Data> routine_update;
 
  private:
   friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_GetRoutineUpdate_ResponseParams_Data>;
@@ -208,7 +208,7 @@ class  CrosHealthdDiagnosticsService_RunUrandomRoutine_Params_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::NullableUint32_Data> length_seconds;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint32_Data> length_seconds;
 
  private:
   friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_RunUrandomRoutine_Params_Data>;
@@ -224,7 +224,7 @@ class  CrosHealthdDiagnosticsService_RunUrandomRoutine_ResponseParams_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
 
  private:
   friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_RunUrandomRoutine_ResponseParams_Data>;
@@ -255,7 +255,7 @@ class  CrosHealthdDiagnosticsService_RunBatteryCapacityRoutine_ResponseParams_Da
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
 
  private:
   friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_RunBatteryCapacityRoutine_ResponseParams_Data>;
@@ -286,7 +286,7 @@ class  CrosHealthdDiagnosticsService_RunBatteryHealthRoutine_ResponseParams_Data
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
 
  private:
   friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_RunBatteryHealthRoutine_ResponseParams_Data>;
@@ -317,7 +317,7 @@ class  CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_ResponseParams_Data
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
 
  private:
   friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_ResponseParams_Data>;
@@ -351,7 +351,7 @@ class  CrosHealthdDiagnosticsService_RunAcPowerRoutine_ResponseParams_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
 
  private:
   friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_RunAcPowerRoutine_ResponseParams_Data>;
@@ -367,7 +367,7 @@ class  CrosHealthdDiagnosticsService_RunCpuCacheRoutine_Params_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::NullableUint32_Data> length_seconds;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint32_Data> length_seconds;
 
  private:
   friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_RunCpuCacheRoutine_Params_Data>;
@@ -383,7 +383,7 @@ class  CrosHealthdDiagnosticsService_RunCpuCacheRoutine_ResponseParams_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
 
  private:
   friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_RunCpuCacheRoutine_ResponseParams_Data>;
@@ -399,7 +399,7 @@ class  CrosHealthdDiagnosticsService_RunCpuStressRoutine_Params_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::NullableUint32_Data> length_seconds;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint32_Data> length_seconds;
 
  private:
   friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_RunCpuStressRoutine_Params_Data>;
@@ -415,7 +415,7 @@ class  CrosHealthdDiagnosticsService_RunCpuStressRoutine_ResponseParams_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
 
  private:
   friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_RunCpuStressRoutine_ResponseParams_Data>;
@@ -431,7 +431,7 @@ class  CrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_Params_Data
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::NullableUint32_Data> length_seconds;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint32_Data> length_seconds;
 
  private:
   friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_Params_Data>;
@@ -447,7 +447,7 @@ class  CrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_ResponsePar
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
 
  private:
   friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_ResponseParams_Data>;
@@ -457,7 +457,7 @@ class  CrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_ResponsePar
 };
 static_assert(sizeof(CrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_ResponseParams_Data) == 16,
               "Bad sizeof(CrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_ResponseParams_Data)");
-class  CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_Params_Data {
+class  CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_Params_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
@@ -465,6 +465,38 @@ class  CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_Params_Data {
   mojo::internal::StructHeader header_;
   uint32_t wear_level_threshold;
   uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_Params_Data>;
+
+  CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_Params_Data();
+  ~CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_Params_Data() = delete;
+};
+static_assert(sizeof(CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_Params_Data) == 16,
+              "Bad sizeof(CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_Params_Data)");
+class  CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
+
+ private:
+  friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ResponseParams_Data>;
+
+  CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ResponseParams_Data();
+  ~CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ResponseParams_Data) == 16,
+              "Bad sizeof(CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ResponseParams_Data)");
+class  CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint32_Data> wear_level_threshold;
 
  private:
   friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_Params_Data>;
@@ -480,7 +512,7 @@ class  CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_ResponseParams_Data
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
 
  private:
   friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_ResponseParams_Data>;
@@ -513,7 +545,7 @@ class  CrosHealthdDiagnosticsService_RunNvmeSelfTestRoutine_ResponseParams_Data 
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
 
  private:
   friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_RunNvmeSelfTestRoutine_ResponseParams_Data>;
@@ -548,7 +580,7 @@ class  CrosHealthdDiagnosticsService_RunDiskReadRoutine_ResponseParams_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
 
  private:
   friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_RunDiskReadRoutine_ResponseParams_Data>;
@@ -564,7 +596,7 @@ class  CrosHealthdDiagnosticsService_RunPrimeSearchRoutine_Params_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::NullableUint32_Data> length_seconds;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint32_Data> length_seconds;
 
  private:
   friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_RunPrimeSearchRoutine_Params_Data>;
@@ -580,7 +612,7 @@ class  CrosHealthdDiagnosticsService_RunPrimeSearchRoutine_ResponseParams_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
 
  private:
   friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_RunPrimeSearchRoutine_ResponseParams_Data>;
@@ -613,7 +645,7 @@ class  CrosHealthdDiagnosticsService_RunBatteryDischargeRoutine_ResponseParams_D
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
 
  private:
   friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_RunBatteryDischargeRoutine_ResponseParams_Data>;
@@ -646,7 +678,7 @@ class  CrosHealthdDiagnosticsService_RunBatteryChargeRoutine_ResponseParams_Data
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
 
  private:
   friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_RunBatteryChargeRoutine_ResponseParams_Data>;
@@ -677,7 +709,7 @@ class  CrosHealthdDiagnosticsService_RunMemoryRoutine_ResponseParams_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
 
  private:
   friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_RunMemoryRoutine_ResponseParams_Data>;
@@ -708,7 +740,7 @@ class  CrosHealthdDiagnosticsService_RunLanConnectivityRoutine_ResponseParams_Da
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
 
  private:
   friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_RunLanConnectivityRoutine_ResponseParams_Data>;
@@ -739,7 +771,7 @@ class  CrosHealthdDiagnosticsService_RunSignalStrengthRoutine_ResponseParams_Dat
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
 
  private:
   friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_RunSignalStrengthRoutine_ResponseParams_Data>;
@@ -770,7 +802,7 @@ class  CrosHealthdDiagnosticsService_RunGatewayCanBePingedRoutine_ResponseParams
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
 
  private:
   friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_RunGatewayCanBePingedRoutine_ResponseParams_Data>;
@@ -801,7 +833,7 @@ class  CrosHealthdDiagnosticsService_RunHasSecureWiFiConnectionRoutine_ResponseP
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
 
  private:
   friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_RunHasSecureWiFiConnectionRoutine_ResponseParams_Data>;
@@ -832,7 +864,7 @@ class  CrosHealthdDiagnosticsService_RunDnsResolverPresentRoutine_ResponseParams
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
 
  private:
   friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_RunDnsResolverPresentRoutine_ResponseParams_Data>;
@@ -863,7 +895,7 @@ class  CrosHealthdDiagnosticsService_RunDnsLatencyRoutine_ResponseParams_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
 
  private:
   friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_RunDnsLatencyRoutine_ResponseParams_Data>;
@@ -894,7 +926,7 @@ class  CrosHealthdDiagnosticsService_RunDnsResolutionRoutine_ResponseParams_Data
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
 
  private:
   friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_RunDnsResolutionRoutine_ResponseParams_Data>;
@@ -925,7 +957,7 @@ class  CrosHealthdDiagnosticsService_RunCaptivePortalRoutine_ResponseParams_Data
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
 
  private:
   friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_RunCaptivePortalRoutine_ResponseParams_Data>;
@@ -956,7 +988,7 @@ class  CrosHealthdDiagnosticsService_RunHttpFirewallRoutine_ResponseParams_Data 
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
 
  private:
   friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_RunHttpFirewallRoutine_ResponseParams_Data>;
@@ -987,7 +1019,7 @@ class  CrosHealthdDiagnosticsService_RunHttpsFirewallRoutine_ResponseParams_Data
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
 
  private:
   friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_RunHttpsFirewallRoutine_ResponseParams_Data>;
@@ -1018,7 +1050,7 @@ class  CrosHealthdDiagnosticsService_RunHttpsLatencyRoutine_ResponseParams_Data 
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
 
  private:
   friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_RunHttpsLatencyRoutine_ResponseParams_Data>;
@@ -1050,7 +1082,7 @@ class  CrosHealthdDiagnosticsService_RunVideoConferencingRoutine_ResponseParams_
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
 
  private:
   friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_RunVideoConferencingRoutine_ResponseParams_Data>;
@@ -1081,7 +1113,7 @@ class  CrosHealthdDiagnosticsService_RunArcHttpRoutine_ResponseParams_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
 
  private:
   friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_RunArcHttpRoutine_ResponseParams_Data>;
@@ -1112,7 +1144,7 @@ class  CrosHealthdDiagnosticsService_RunArcPingRoutine_ResponseParams_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
 
  private:
   friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_RunArcPingRoutine_ResponseParams_Data>;
@@ -1143,7 +1175,7 @@ class  CrosHealthdDiagnosticsService_RunArcDnsResolutionRoutine_ResponseParams_D
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
 
  private:
   friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_RunArcDnsResolutionRoutine_ResponseParams_Data>;
@@ -1153,6 +1185,37 @@ class  CrosHealthdDiagnosticsService_RunArcDnsResolutionRoutine_ResponseParams_D
 };
 static_assert(sizeof(CrosHealthdDiagnosticsService_RunArcDnsResolutionRoutine_ResponseParams_Data) == 16,
               "Bad sizeof(CrosHealthdDiagnosticsService_RunArcDnsResolutionRoutine_ResponseParams_Data)");
+class  CrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_Params_Data>;
+
+  CrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_Params_Data();
+  ~CrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_Params_Data() = delete;
+};
+static_assert(sizeof(CrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_Params_Data) == 8,
+              "Bad sizeof(CrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_Params_Data)");
+class  CrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
+
+ private:
+  friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_ResponseParams_Data>;
+
+  CrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_ResponseParams_Data();
+  ~CrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(CrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_ResponseParams_Data) == 16,
+              "Bad sizeof(CrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_ResponseParams_Data)");
 class  CrosHealthdEventService_AddBluetoothObserver_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -1288,7 +1351,7 @@ class  CrosHealthdProbeService_ProbeProcessInfo_ResponseParams_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  ::chromeos::cros_healthd::mojom::internal::ProcessResult_Data process_info;
+  ::ash::cros_healthd::mojom::internal::ProcessResult_Data process_info;
 
  private:
   friend class mojo::internal::MessageFragment<CrosHealthdProbeService_ProbeProcessInfo_ResponseParams_Data>;
@@ -1320,7 +1383,7 @@ class  CrosHealthdProbeService_ProbeTelemetryInfo_ResponseParams_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::TelemetryInfo_Data> telemetry_info;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::TelemetryInfo_Data> telemetry_info;
 
  private:
   friend class mojo::internal::MessageFragment<CrosHealthdProbeService_ProbeTelemetryInfo_ResponseParams_Data>;
@@ -1354,7 +1417,7 @@ class  CrosHealthdProbeService_ProbeMultipleProcessInfo_ResponseParams_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::MultipleProcessResult_Data> multiple_process_info;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::MultipleProcessResult_Data> multiple_process_info;
 
  private:
   friend class mojo::internal::MessageFragment<CrosHealthdProbeService_ProbeMultipleProcessInfo_ResponseParams_Data>;
@@ -1433,7 +1496,7 @@ class  WilcoEcServiceController_GetEcTelemetry_ResponseParams_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::GetEcTelemetryResponse_Data> response;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::GetEcTelemetryResponse_Data> response;
 
  private:
   friend class mojo::internal::MessageFragment<WilcoEcServiceController_GetEcTelemetry_ResponseParams_Data>;
@@ -1491,7 +1554,7 @@ class CrosHealthdServiceFactory_GetDiagnosticsService_ParamsDataView {
   UserType TakeService() {
     UserType result;
     bool ret =
-        mojo::internal::Deserialize<mojo::InterfaceRequestDataView<::chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsServiceInterfaceBase>>(
+        mojo::internal::Deserialize<mojo::InterfaceRequestDataView<::ash::cros_healthd::mojom::CrosHealthdDiagnosticsServiceInterfaceBase>>(
             &data_->service, &result, message_);
     DCHECK(ret);
     return result;
@@ -1517,7 +1580,7 @@ class CrosHealthdServiceFactory_GetEventService_ParamsDataView {
   UserType TakeService() {
     UserType result;
     bool ret =
-        mojo::internal::Deserialize<mojo::InterfaceRequestDataView<::chromeos::cros_healthd::mojom::CrosHealthdEventServiceInterfaceBase>>(
+        mojo::internal::Deserialize<mojo::InterfaceRequestDataView<::ash::cros_healthd::mojom::CrosHealthdEventServiceInterfaceBase>>(
             &data_->service, &result, message_);
     DCHECK(ret);
     return result;
@@ -1543,7 +1606,7 @@ class CrosHealthdServiceFactory_GetProbeService_ParamsDataView {
   UserType TakeService() {
     UserType result;
     bool ret =
-        mojo::internal::Deserialize<mojo::InterfaceRequestDataView<::chromeos::cros_healthd::mojom::CrosHealthdProbeServiceInterfaceBase>>(
+        mojo::internal::Deserialize<mojo::InterfaceRequestDataView<::ash::cros_healthd::mojom::CrosHealthdProbeServiceInterfaceBase>>(
             &data_->service, &result, message_);
     DCHECK(ret);
     return result;
@@ -1621,7 +1684,7 @@ class CrosHealthdServiceFactory_GetSystemService_ParamsDataView {
   UserType TakeService() {
     UserType result;
     bool ret =
-        mojo::internal::Deserialize<mojo::InterfaceRequestDataView<::chromeos::cros_healthd::mojom::CrosHealthdSystemServiceInterfaceBase>>(
+        mojo::internal::Deserialize<mojo::InterfaceRequestDataView<::ash::cros_healthd::mojom::CrosHealthdSystemServiceInterfaceBase>>(
             &data_->service, &result, message_);
     DCHECK(ret);
     return result;
@@ -1647,7 +1710,7 @@ class CrosHealthdServiceFactory_SendChromiumDataCollector_ParamsDataView {
   UserType TakeRemote() {
     UserType result;
     bool ret =
-        mojo::internal::Deserialize<mojo::InterfacePtrDataView<::chromeos::cros_healthd::internal::mojom::ChromiumDataCollectorInterfaceBase>>(
+        mojo::internal::Deserialize<mojo::InterfacePtrDataView<::ash::cros_healthd::internal::mojom::ChromiumDataCollectorInterfaceBase>>(
             &data_->remote, &result, message_);
     DCHECK(ret);
     return result;
@@ -1686,13 +1749,13 @@ class CrosHealthdDiagnosticsService_GetAvailableRoutines_ResponseParamsDataView 
 
   bool is_null() const { return !data_; }
   inline void GetAvailableRoutinesDataView(
-      mojo::ArrayDataView<::chromeos::cros_healthd::mojom::DiagnosticRoutineEnum>* output);
+      mojo::ArrayDataView<::ash::cros_healthd::mojom::DiagnosticRoutineEnum>* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadAvailableRoutines(UserType* output) {
     
     auto* pointer = data_->available_routines.Get();
-    return mojo::internal::Deserialize<mojo::ArrayDataView<::chromeos::cros_healthd::mojom::DiagnosticRoutineEnum>>(
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::DiagnosticRoutineEnum>>(
         pointer, output, message_);
   }
  private:
@@ -1718,12 +1781,12 @@ class CrosHealthdDiagnosticsService_GetRoutineUpdate_ParamsDataView {
   template <typename UserType>
   [[nodiscard]] bool ReadCommand(UserType* output) const {
     auto data_value = data_->command;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::DiagnosticRoutineCommandEnum>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::DiagnosticRoutineCommandEnum>(
         data_value, output);
   }
-  ::chromeos::cros_healthd::mojom::DiagnosticRoutineCommandEnum command() const {
+  ::ash::cros_healthd::mojom::DiagnosticRoutineCommandEnum command() const {
     return ::mojo::internal::ToKnownEnumValueHelper(
-          static_cast<::chromeos::cros_healthd::mojom::DiagnosticRoutineCommandEnum>(data_->command));
+          static_cast<::ash::cros_healthd::mojom::DiagnosticRoutineCommandEnum>(data_->command));
   }
   bool include_output() const {
     return data_->include_output;
@@ -1745,13 +1808,13 @@ class CrosHealthdDiagnosticsService_GetRoutineUpdate_ResponseParamsDataView {
 
   bool is_null() const { return !data_; }
   inline void GetRoutineUpdateDataView(
-      ::chromeos::cros_healthd::mojom::RoutineUpdateDataView* output);
+      ::ash::cros_healthd::mojom::RoutineUpdateDataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadRoutineUpdate(UserType* output) {
     
     auto* pointer = data_->routine_update.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::RoutineUpdateDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::RoutineUpdateDataView>(
         pointer, output, message_);
   }
  private:
@@ -1772,14 +1835,14 @@ class CrosHealthdDiagnosticsService_RunUrandomRoutine_ParamsDataView {
 
   bool is_null() const { return !data_; }
   inline void GetLengthSecondsDataView(
-      ::chromeos::cros_healthd::mojom::NullableUint32DataView* output);
+      ::ash::cros_healthd::mojom::NullableUint32DataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadLengthSeconds(UserType* output) {
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        ::chromeos::cros_healthd::mojom::NullableUint32DataView, UserType>(),
+        ::ash::cros_healthd::mojom::NullableUint32DataView, UserType>(),
     "Attempting to read the optional `length_seconds` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
@@ -1788,7 +1851,7 @@ static_assert(
     "of `ReadLengthSeconds if you're fine with null values being "
     "silently ignored in this case.");
     auto* pointer = data_->length_seconds.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::NullableUint32DataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::NullableUint32DataView>(
         pointer, output, message_);
   }
  private:
@@ -1809,13 +1872,13 @@ class CrosHealthdDiagnosticsService_RunUrandomRoutine_ResponseParamsDataView {
 
   bool is_null() const { return !data_; }
   inline void GetResponseDataView(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView* output);
+      ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadResponse(UserType* output) {
     
     auto* pointer = data_->response.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::RunRoutineResponseDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
         pointer, output, message_);
   }
  private:
@@ -1852,13 +1915,13 @@ class CrosHealthdDiagnosticsService_RunBatteryCapacityRoutine_ResponseParamsData
 
   bool is_null() const { return !data_; }
   inline void GetResponseDataView(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView* output);
+      ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadResponse(UserType* output) {
     
     auto* pointer = data_->response.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::RunRoutineResponseDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
         pointer, output, message_);
   }
  private:
@@ -1895,13 +1958,13 @@ class CrosHealthdDiagnosticsService_RunBatteryHealthRoutine_ResponseParamsDataVi
 
   bool is_null() const { return !data_; }
   inline void GetResponseDataView(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView* output);
+      ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadResponse(UserType* output) {
     
     auto* pointer = data_->response.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::RunRoutineResponseDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
         pointer, output, message_);
   }
  private:
@@ -1938,13 +2001,13 @@ class CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_ResponseParamsDataVi
 
   bool is_null() const { return !data_; }
   inline void GetResponseDataView(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView* output);
+      ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadResponse(UserType* output) {
     
     auto* pointer = data_->response.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::RunRoutineResponseDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
         pointer, output, message_);
   }
  private:
@@ -1967,12 +2030,12 @@ class CrosHealthdDiagnosticsService_RunAcPowerRoutine_ParamsDataView {
   template <typename UserType>
   [[nodiscard]] bool ReadExpectedStatus(UserType* output) const {
     auto data_value = data_->expected_status;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::AcPowerStatusEnum>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::AcPowerStatusEnum>(
         data_value, output);
   }
-  ::chromeos::cros_healthd::mojom::AcPowerStatusEnum expected_status() const {
+  ::ash::cros_healthd::mojom::AcPowerStatusEnum expected_status() const {
     return ::mojo::internal::ToKnownEnumValueHelper(
-          static_cast<::chromeos::cros_healthd::mojom::AcPowerStatusEnum>(data_->expected_status));
+          static_cast<::ash::cros_healthd::mojom::AcPowerStatusEnum>(data_->expected_status));
   }
   inline void GetExpectedPowerTypeDataView(
       mojo::StringDataView* output);
@@ -2012,13 +2075,13 @@ class CrosHealthdDiagnosticsService_RunAcPowerRoutine_ResponseParamsDataView {
 
   bool is_null() const { return !data_; }
   inline void GetResponseDataView(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView* output);
+      ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadResponse(UserType* output) {
     
     auto* pointer = data_->response.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::RunRoutineResponseDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
         pointer, output, message_);
   }
  private:
@@ -2039,14 +2102,14 @@ class CrosHealthdDiagnosticsService_RunCpuCacheRoutine_ParamsDataView {
 
   bool is_null() const { return !data_; }
   inline void GetLengthSecondsDataView(
-      ::chromeos::cros_healthd::mojom::NullableUint32DataView* output);
+      ::ash::cros_healthd::mojom::NullableUint32DataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadLengthSeconds(UserType* output) {
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        ::chromeos::cros_healthd::mojom::NullableUint32DataView, UserType>(),
+        ::ash::cros_healthd::mojom::NullableUint32DataView, UserType>(),
     "Attempting to read the optional `length_seconds` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
@@ -2055,7 +2118,7 @@ static_assert(
     "of `ReadLengthSeconds if you're fine with null values being "
     "silently ignored in this case.");
     auto* pointer = data_->length_seconds.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::NullableUint32DataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::NullableUint32DataView>(
         pointer, output, message_);
   }
  private:
@@ -2076,13 +2139,13 @@ class CrosHealthdDiagnosticsService_RunCpuCacheRoutine_ResponseParamsDataView {
 
   bool is_null() const { return !data_; }
   inline void GetResponseDataView(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView* output);
+      ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadResponse(UserType* output) {
     
     auto* pointer = data_->response.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::RunRoutineResponseDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
         pointer, output, message_);
   }
  private:
@@ -2103,14 +2166,14 @@ class CrosHealthdDiagnosticsService_RunCpuStressRoutine_ParamsDataView {
 
   bool is_null() const { return !data_; }
   inline void GetLengthSecondsDataView(
-      ::chromeos::cros_healthd::mojom::NullableUint32DataView* output);
+      ::ash::cros_healthd::mojom::NullableUint32DataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadLengthSeconds(UserType* output) {
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        ::chromeos::cros_healthd::mojom::NullableUint32DataView, UserType>(),
+        ::ash::cros_healthd::mojom::NullableUint32DataView, UserType>(),
     "Attempting to read the optional `length_seconds` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
@@ -2119,7 +2182,7 @@ static_assert(
     "of `ReadLengthSeconds if you're fine with null values being "
     "silently ignored in this case.");
     auto* pointer = data_->length_seconds.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::NullableUint32DataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::NullableUint32DataView>(
         pointer, output, message_);
   }
  private:
@@ -2140,13 +2203,13 @@ class CrosHealthdDiagnosticsService_RunCpuStressRoutine_ResponseParamsDataView {
 
   bool is_null() const { return !data_; }
   inline void GetResponseDataView(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView* output);
+      ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadResponse(UserType* output) {
     
     auto* pointer = data_->response.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::RunRoutineResponseDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
         pointer, output, message_);
   }
  private:
@@ -2167,14 +2230,14 @@ class CrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_ParamsDataVi
 
   bool is_null() const { return !data_; }
   inline void GetLengthSecondsDataView(
-      ::chromeos::cros_healthd::mojom::NullableUint32DataView* output);
+      ::ash::cros_healthd::mojom::NullableUint32DataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadLengthSeconds(UserType* output) {
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        ::chromeos::cros_healthd::mojom::NullableUint32DataView, UserType>(),
+        ::ash::cros_healthd::mojom::NullableUint32DataView, UserType>(),
     "Attempting to read the optional `length_seconds` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
@@ -2183,7 +2246,7 @@ static_assert(
     "of `ReadLengthSeconds if you're fine with null values being "
     "silently ignored in this case.");
     auto* pointer = data_->length_seconds.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::NullableUint32DataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::NullableUint32DataView>(
         pointer, output, message_);
   }
  private:
@@ -2204,17 +2267,63 @@ class CrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_ResponsePara
 
   bool is_null() const { return !data_; }
   inline void GetResponseDataView(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView* output);
+      ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadResponse(UserType* output) {
     
     auto* pointer = data_->response.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::RunRoutineResponseDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
         pointer, output, message_);
   }
  private:
   internal::CrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
+class CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ParamsDataView {
+ public:
+  CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ParamsDataView() = default;
+
+  CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ParamsDataView(
+      internal::CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  uint32_t wear_level_threshold() const {
+    return data_->wear_level_threshold;
+  }
+ private:
+  internal::CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_Params_Data* data_ = nullptr;
+};
+
+
+
+class CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ResponseParamsDataView {
+ public:
+  CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ResponseParamsDataView() = default;
+
+  CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ResponseParamsDataView(
+      internal::CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetResponseDataView(
+      ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadResponse(UserType* output) {
+    
+    auto* pointer = data_->response.Get();
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -2227,14 +2336,32 @@ class CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_ParamsDataView {
   CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_ParamsDataView(
       internal::CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_Params_Data* data,
       mojo::Message* message)
-      : data_(data) {}
+      : data_(data), message_(message) {}
 
   bool is_null() const { return !data_; }
-  uint32_t wear_level_threshold() const {
-    return data_->wear_level_threshold;
+  inline void GetWearLevelThresholdDataView(
+      ::ash::cros_healthd::mojom::NullableUint32DataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadWearLevelThreshold(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::ash::cros_healthd::mojom::NullableUint32DataView, UserType>(),
+    "Attempting to read the optional `wear_level_threshold` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadWearLevelThreshold` instead "
+    "of `ReadWearLevelThreshold if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->wear_level_threshold.Get();
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::NullableUint32DataView>(
+        pointer, output, message_);
   }
  private:
   internal::CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
 };
 
 
@@ -2250,13 +2377,13 @@ class CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_ResponseParamsDataVi
 
   bool is_null() const { return !data_; }
   inline void GetResponseDataView(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView* output);
+      ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadResponse(UserType* output) {
     
     auto* pointer = data_->response.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::RunRoutineResponseDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
         pointer, output, message_);
   }
  private:
@@ -2279,12 +2406,12 @@ class CrosHealthdDiagnosticsService_RunNvmeSelfTestRoutine_ParamsDataView {
   template <typename UserType>
   [[nodiscard]] bool ReadNvmeSelfTestType(UserType* output) const {
     auto data_value = data_->nvme_self_test_type;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::NvmeSelfTestTypeEnum>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::NvmeSelfTestTypeEnum>(
         data_value, output);
   }
-  ::chromeos::cros_healthd::mojom::NvmeSelfTestTypeEnum nvme_self_test_type() const {
+  ::ash::cros_healthd::mojom::NvmeSelfTestTypeEnum nvme_self_test_type() const {
     return ::mojo::internal::ToKnownEnumValueHelper(
-          static_cast<::chromeos::cros_healthd::mojom::NvmeSelfTestTypeEnum>(data_->nvme_self_test_type));
+          static_cast<::ash::cros_healthd::mojom::NvmeSelfTestTypeEnum>(data_->nvme_self_test_type));
   }
  private:
   internal::CrosHealthdDiagnosticsService_RunNvmeSelfTestRoutine_Params_Data* data_ = nullptr;
@@ -2303,13 +2430,13 @@ class CrosHealthdDiagnosticsService_RunNvmeSelfTestRoutine_ResponseParamsDataVie
 
   bool is_null() const { return !data_; }
   inline void GetResponseDataView(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView* output);
+      ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadResponse(UserType* output) {
     
     auto* pointer = data_->response.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::RunRoutineResponseDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
         pointer, output, message_);
   }
  private:
@@ -2332,12 +2459,12 @@ class CrosHealthdDiagnosticsService_RunDiskReadRoutine_ParamsDataView {
   template <typename UserType>
   [[nodiscard]] bool ReadType(UserType* output) const {
     auto data_value = data_->type;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::DiskReadRoutineTypeEnum>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::DiskReadRoutineTypeEnum>(
         data_value, output);
   }
-  ::chromeos::cros_healthd::mojom::DiskReadRoutineTypeEnum type() const {
+  ::ash::cros_healthd::mojom::DiskReadRoutineTypeEnum type() const {
     return ::mojo::internal::ToKnownEnumValueHelper(
-          static_cast<::chromeos::cros_healthd::mojom::DiskReadRoutineTypeEnum>(data_->type));
+          static_cast<::ash::cros_healthd::mojom::DiskReadRoutineTypeEnum>(data_->type));
   }
   uint32_t length_seconds() const {
     return data_->length_seconds;
@@ -2362,13 +2489,13 @@ class CrosHealthdDiagnosticsService_RunDiskReadRoutine_ResponseParamsDataView {
 
   bool is_null() const { return !data_; }
   inline void GetResponseDataView(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView* output);
+      ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadResponse(UserType* output) {
     
     auto* pointer = data_->response.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::RunRoutineResponseDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
         pointer, output, message_);
   }
  private:
@@ -2389,14 +2516,14 @@ class CrosHealthdDiagnosticsService_RunPrimeSearchRoutine_ParamsDataView {
 
   bool is_null() const { return !data_; }
   inline void GetLengthSecondsDataView(
-      ::chromeos::cros_healthd::mojom::NullableUint32DataView* output);
+      ::ash::cros_healthd::mojom::NullableUint32DataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadLengthSeconds(UserType* output) {
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        ::chromeos::cros_healthd::mojom::NullableUint32DataView, UserType>(),
+        ::ash::cros_healthd::mojom::NullableUint32DataView, UserType>(),
     "Attempting to read the optional `length_seconds` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
@@ -2405,7 +2532,7 @@ static_assert(
     "of `ReadLengthSeconds if you're fine with null values being "
     "silently ignored in this case.");
     auto* pointer = data_->length_seconds.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::NullableUint32DataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::NullableUint32DataView>(
         pointer, output, message_);
   }
  private:
@@ -2426,13 +2553,13 @@ class CrosHealthdDiagnosticsService_RunPrimeSearchRoutine_ResponseParamsDataView
 
   bool is_null() const { return !data_; }
   inline void GetResponseDataView(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView* output);
+      ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadResponse(UserType* output) {
     
     auto* pointer = data_->response.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::RunRoutineResponseDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
         pointer, output, message_);
   }
  private:
@@ -2475,13 +2602,13 @@ class CrosHealthdDiagnosticsService_RunBatteryDischargeRoutine_ResponseParamsDat
 
   bool is_null() const { return !data_; }
   inline void GetResponseDataView(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView* output);
+      ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadResponse(UserType* output) {
     
     auto* pointer = data_->response.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::RunRoutineResponseDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
         pointer, output, message_);
   }
  private:
@@ -2524,13 +2651,13 @@ class CrosHealthdDiagnosticsService_RunBatteryChargeRoutine_ResponseParamsDataVi
 
   bool is_null() const { return !data_; }
   inline void GetResponseDataView(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView* output);
+      ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadResponse(UserType* output) {
     
     auto* pointer = data_->response.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::RunRoutineResponseDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
         pointer, output, message_);
   }
  private:
@@ -2567,13 +2694,13 @@ class CrosHealthdDiagnosticsService_RunMemoryRoutine_ResponseParamsDataView {
 
   bool is_null() const { return !data_; }
   inline void GetResponseDataView(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView* output);
+      ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadResponse(UserType* output) {
     
     auto* pointer = data_->response.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::RunRoutineResponseDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
         pointer, output, message_);
   }
  private:
@@ -2610,13 +2737,13 @@ class CrosHealthdDiagnosticsService_RunLanConnectivityRoutine_ResponseParamsData
 
   bool is_null() const { return !data_; }
   inline void GetResponseDataView(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView* output);
+      ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadResponse(UserType* output) {
     
     auto* pointer = data_->response.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::RunRoutineResponseDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
         pointer, output, message_);
   }
  private:
@@ -2653,13 +2780,13 @@ class CrosHealthdDiagnosticsService_RunSignalStrengthRoutine_ResponseParamsDataV
 
   bool is_null() const { return !data_; }
   inline void GetResponseDataView(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView* output);
+      ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadResponse(UserType* output) {
     
     auto* pointer = data_->response.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::RunRoutineResponseDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
         pointer, output, message_);
   }
  private:
@@ -2696,13 +2823,13 @@ class CrosHealthdDiagnosticsService_RunGatewayCanBePingedRoutine_ResponseParamsD
 
   bool is_null() const { return !data_; }
   inline void GetResponseDataView(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView* output);
+      ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadResponse(UserType* output) {
     
     auto* pointer = data_->response.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::RunRoutineResponseDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
         pointer, output, message_);
   }
  private:
@@ -2739,13 +2866,13 @@ class CrosHealthdDiagnosticsService_RunHasSecureWiFiConnectionRoutine_ResponsePa
 
   bool is_null() const { return !data_; }
   inline void GetResponseDataView(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView* output);
+      ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadResponse(UserType* output) {
     
     auto* pointer = data_->response.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::RunRoutineResponseDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
         pointer, output, message_);
   }
  private:
@@ -2782,13 +2909,13 @@ class CrosHealthdDiagnosticsService_RunDnsResolverPresentRoutine_ResponseParamsD
 
   bool is_null() const { return !data_; }
   inline void GetResponseDataView(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView* output);
+      ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadResponse(UserType* output) {
     
     auto* pointer = data_->response.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::RunRoutineResponseDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
         pointer, output, message_);
   }
  private:
@@ -2825,13 +2952,13 @@ class CrosHealthdDiagnosticsService_RunDnsLatencyRoutine_ResponseParamsDataView 
 
   bool is_null() const { return !data_; }
   inline void GetResponseDataView(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView* output);
+      ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadResponse(UserType* output) {
     
     auto* pointer = data_->response.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::RunRoutineResponseDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
         pointer, output, message_);
   }
  private:
@@ -2868,13 +2995,13 @@ class CrosHealthdDiagnosticsService_RunDnsResolutionRoutine_ResponseParamsDataVi
 
   bool is_null() const { return !data_; }
   inline void GetResponseDataView(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView* output);
+      ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadResponse(UserType* output) {
     
     auto* pointer = data_->response.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::RunRoutineResponseDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
         pointer, output, message_);
   }
  private:
@@ -2911,13 +3038,13 @@ class CrosHealthdDiagnosticsService_RunCaptivePortalRoutine_ResponseParamsDataVi
 
   bool is_null() const { return !data_; }
   inline void GetResponseDataView(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView* output);
+      ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadResponse(UserType* output) {
     
     auto* pointer = data_->response.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::RunRoutineResponseDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
         pointer, output, message_);
   }
  private:
@@ -2954,13 +3081,13 @@ class CrosHealthdDiagnosticsService_RunHttpFirewallRoutine_ResponseParamsDataVie
 
   bool is_null() const { return !data_; }
   inline void GetResponseDataView(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView* output);
+      ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadResponse(UserType* output) {
     
     auto* pointer = data_->response.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::RunRoutineResponseDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
         pointer, output, message_);
   }
  private:
@@ -2997,13 +3124,13 @@ class CrosHealthdDiagnosticsService_RunHttpsFirewallRoutine_ResponseParamsDataVi
 
   bool is_null() const { return !data_; }
   inline void GetResponseDataView(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView* output);
+      ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadResponse(UserType* output) {
     
     auto* pointer = data_->response.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::RunRoutineResponseDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
         pointer, output, message_);
   }
  private:
@@ -3040,13 +3167,13 @@ class CrosHealthdDiagnosticsService_RunHttpsLatencyRoutine_ResponseParamsDataVie
 
   bool is_null() const { return !data_; }
   inline void GetResponseDataView(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView* output);
+      ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadResponse(UserType* output) {
     
     auto* pointer = data_->response.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::RunRoutineResponseDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
         pointer, output, message_);
   }
  private:
@@ -3104,13 +3231,13 @@ class CrosHealthdDiagnosticsService_RunVideoConferencingRoutine_ResponseParamsDa
 
   bool is_null() const { return !data_; }
   inline void GetResponseDataView(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView* output);
+      ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadResponse(UserType* output) {
     
     auto* pointer = data_->response.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::RunRoutineResponseDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
         pointer, output, message_);
   }
  private:
@@ -3147,13 +3274,13 @@ class CrosHealthdDiagnosticsService_RunArcHttpRoutine_ResponseParamsDataView {
 
   bool is_null() const { return !data_; }
   inline void GetResponseDataView(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView* output);
+      ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadResponse(UserType* output) {
     
     auto* pointer = data_->response.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::RunRoutineResponseDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
         pointer, output, message_);
   }
  private:
@@ -3190,13 +3317,13 @@ class CrosHealthdDiagnosticsService_RunArcPingRoutine_ResponseParamsDataView {
 
   bool is_null() const { return !data_; }
   inline void GetResponseDataView(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView* output);
+      ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadResponse(UserType* output) {
     
     auto* pointer = data_->response.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::RunRoutineResponseDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
         pointer, output, message_);
   }
  private:
@@ -3233,17 +3360,60 @@ class CrosHealthdDiagnosticsService_RunArcDnsResolutionRoutine_ResponseParamsDat
 
   bool is_null() const { return !data_; }
   inline void GetResponseDataView(
-      ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView* output);
+      ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadResponse(UserType* output) {
     
     auto* pointer = data_->response.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::RunRoutineResponseDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
         pointer, output, message_);
   }
  private:
   internal::CrosHealthdDiagnosticsService_RunArcDnsResolutionRoutine_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
+class CrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_ParamsDataView {
+ public:
+  CrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_ParamsDataView() = default;
+
+  CrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_ParamsDataView(
+      internal::CrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::CrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_Params_Data* data_ = nullptr;
+};
+
+
+
+class CrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_ResponseParamsDataView {
+ public:
+  CrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_ResponseParamsDataView() = default;
+
+  CrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_ResponseParamsDataView(
+      internal::CrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetResponseDataView(
+      ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadResponse(UserType* output) {
+    
+    auto* pointer = data_->response.Get();
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::CrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_ResponseParams_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -3263,7 +3433,7 @@ class CrosHealthdEventService_AddBluetoothObserver_ParamsDataView {
   UserType TakeObserver() {
     UserType result;
     bool ret =
-        mojo::internal::Deserialize<mojo::InterfacePtrDataView<::chromeos::cros_healthd::mojom::CrosHealthdBluetoothObserverInterfaceBase>>(
+        mojo::internal::Deserialize<mojo::InterfacePtrDataView<::ash::cros_healthd::mojom::CrosHealthdBluetoothObserverInterfaceBase>>(
             &data_->observer, &result, message_);
     DCHECK(ret);
     return result;
@@ -3289,7 +3459,7 @@ class CrosHealthdEventService_AddLidObserver_ParamsDataView {
   UserType TakeObserver() {
     UserType result;
     bool ret =
-        mojo::internal::Deserialize<mojo::InterfacePtrDataView<::chromeos::cros_healthd::mojom::CrosHealthdLidObserverInterfaceBase>>(
+        mojo::internal::Deserialize<mojo::InterfacePtrDataView<::ash::cros_healthd::mojom::CrosHealthdLidObserverInterfaceBase>>(
             &data_->observer, &result, message_);
     DCHECK(ret);
     return result;
@@ -3315,7 +3485,7 @@ class CrosHealthdEventService_AddPowerObserver_ParamsDataView {
   UserType TakeObserver() {
     UserType result;
     bool ret =
-        mojo::internal::Deserialize<mojo::InterfacePtrDataView<::chromeos::cros_healthd::mojom::CrosHealthdPowerObserverInterfaceBase>>(
+        mojo::internal::Deserialize<mojo::InterfacePtrDataView<::ash::cros_healthd::mojom::CrosHealthdPowerObserverInterfaceBase>>(
             &data_->observer, &result, message_);
     DCHECK(ret);
     return result;
@@ -3367,7 +3537,7 @@ class CrosHealthdEventService_AddAudioObserver_ParamsDataView {
   UserType TakeObserver() {
     UserType result;
     bool ret =
-        mojo::internal::Deserialize<mojo::InterfacePtrDataView<::chromeos::cros_healthd::mojom::CrosHealthdAudioObserverInterfaceBase>>(
+        mojo::internal::Deserialize<mojo::InterfacePtrDataView<::ash::cros_healthd::mojom::CrosHealthdAudioObserverInterfaceBase>>(
             &data_->observer, &result, message_);
     DCHECK(ret);
     return result;
@@ -3393,7 +3563,7 @@ class CrosHealthdEventService_AddThunderboltObserver_ParamsDataView {
   UserType TakeObserver() {
     UserType result;
     bool ret =
-        mojo::internal::Deserialize<mojo::InterfacePtrDataView<::chromeos::cros_healthd::mojom::CrosHealthdThunderboltObserverInterfaceBase>>(
+        mojo::internal::Deserialize<mojo::InterfacePtrDataView<::ash::cros_healthd::mojom::CrosHealthdThunderboltObserverInterfaceBase>>(
             &data_->observer, &result, message_);
     DCHECK(ret);
     return result;
@@ -3419,7 +3589,7 @@ class CrosHealthdEventService_AddUsbObserver_ParamsDataView {
   UserType TakeObserver() {
     UserType result;
     bool ret =
-        mojo::internal::Deserialize<mojo::InterfacePtrDataView<::chromeos::cros_healthd::mojom::CrosHealthdUsbObserverInterfaceBase>>(
+        mojo::internal::Deserialize<mojo::InterfacePtrDataView<::ash::cros_healthd::mojom::CrosHealthdUsbObserverInterfaceBase>>(
             &data_->observer, &result, message_);
     DCHECK(ret);
     return result;
@@ -3461,13 +3631,13 @@ class CrosHealthdProbeService_ProbeProcessInfo_ResponseParamsDataView {
 
   bool is_null() const { return !data_; }
   inline void GetProcessInfoDataView(
-      ::chromeos::cros_healthd::mojom::ProcessResultDataView* output);
+      ::ash::cros_healthd::mojom::ProcessResultDataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadProcessInfo(UserType* output) {
     
     auto* pointer = !data_->process_info.is_null() ? &data_->process_info : nullptr;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::ProcessResultDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::ProcessResultDataView>(
         pointer, output, message_);
   }
  private:
@@ -3488,13 +3658,13 @@ class CrosHealthdProbeService_ProbeTelemetryInfo_ParamsDataView {
 
   bool is_null() const { return !data_; }
   inline void GetCategoriesDataView(
-      mojo::ArrayDataView<::chromeos::cros_healthd::mojom::ProbeCategoryEnum>* output);
+      mojo::ArrayDataView<::ash::cros_healthd::mojom::ProbeCategoryEnum>* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadCategories(UserType* output) {
     
     auto* pointer = data_->categories.Get();
-    return mojo::internal::Deserialize<mojo::ArrayDataView<::chromeos::cros_healthd::mojom::ProbeCategoryEnum>>(
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::ProbeCategoryEnum>>(
         pointer, output, message_);
   }
  private:
@@ -3515,13 +3685,13 @@ class CrosHealthdProbeService_ProbeTelemetryInfo_ResponseParamsDataView {
 
   bool is_null() const { return !data_; }
   inline void GetTelemetryInfoDataView(
-      ::chromeos::cros_healthd::mojom::TelemetryInfoDataView* output);
+      ::ash::cros_healthd::mojom::TelemetryInfoDataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadTelemetryInfo(UserType* output) {
     
     auto* pointer = data_->telemetry_info.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::TelemetryInfoDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::TelemetryInfoDataView>(
         pointer, output, message_);
   }
  private:
@@ -3582,13 +3752,13 @@ class CrosHealthdProbeService_ProbeMultipleProcessInfo_ResponseParamsDataView {
 
   bool is_null() const { return !data_; }
   inline void GetMultipleProcessInfoDataView(
-      ::chromeos::cros_healthd::mojom::MultipleProcessResultDataView* output);
+      ::ash::cros_healthd::mojom::MultipleProcessResultDataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadMultipleProcessInfo(UserType* output) {
     
     auto* pointer = data_->multiple_process_info.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::MultipleProcessResultDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::MultipleProcessResultDataView>(
         pointer, output, message_);
   }
  private:
@@ -3631,7 +3801,7 @@ class CrosHealthdSystemService_GetServiceStatus_ResponseParamsDataView {
   [[nodiscard]] bool ReadResponse(UserType* output) {
     
     auto* pointer = data_->response.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::ServiceStatusDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::ServiceStatusDataView>(
         pointer, output, message_);
   }
  private:
@@ -3655,7 +3825,7 @@ class WilcoEcServiceController_AddEcObserver_ParamsDataView {
   UserType TakeObserver() {
     UserType result;
     bool ret =
-        mojo::internal::Deserialize<mojo::InterfacePtrDataView<::chromeos::cros_healthd::mojom::WilcoEcObserverInterfaceBase>>(
+        mojo::internal::Deserialize<mojo::InterfacePtrDataView<::ash::cros_healthd::mojom::WilcoEcObserverInterfaceBase>>(
             &data_->observer, &result, message_);
     DCHECK(ret);
     return result;
@@ -3705,13 +3875,13 @@ class WilcoEcServiceController_GetEcTelemetry_ResponseParamsDataView {
 
   bool is_null() const { return !data_; }
   inline void GetResponseDataView(
-      ::chromeos::cros_healthd::mojom::GetEcTelemetryResponseDataView* output);
+      ::ash::cros_healthd::mojom::GetEcTelemetryResponseDataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadResponse(UserType* output) {
     
     auto* pointer = data_->response.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::GetEcTelemetryResponseDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::GetEcTelemetryResponseDataView>(
         pointer, output, message_);
   }
  private:
@@ -3769,59 +3939,59 @@ class WilcoEcServiceController_ShutdownEcService_ParamsDataView {
 
 
 inline void CrosHealthdDiagnosticsService_GetAvailableRoutines_ResponseParamsDataView::GetAvailableRoutinesDataView(
-    mojo::ArrayDataView<::chromeos::cros_healthd::mojom::DiagnosticRoutineEnum>* output) {
+    mojo::ArrayDataView<::ash::cros_healthd::mojom::DiagnosticRoutineEnum>* output) {
   auto pointer = data_->available_routines.Get();
-  *output = mojo::ArrayDataView<::chromeos::cros_healthd::mojom::DiagnosticRoutineEnum>(pointer, message_);
+  *output = mojo::ArrayDataView<::ash::cros_healthd::mojom::DiagnosticRoutineEnum>(pointer, message_);
 }
 
 
 
 
 inline void CrosHealthdDiagnosticsService_GetRoutineUpdate_ResponseParamsDataView::GetRoutineUpdateDataView(
-    ::chromeos::cros_healthd::mojom::RoutineUpdateDataView* output) {
+    ::ash::cros_healthd::mojom::RoutineUpdateDataView* output) {
   auto pointer = data_->routine_update.Get();
-  *output = ::chromeos::cros_healthd::mojom::RoutineUpdateDataView(pointer, message_);
+  *output = ::ash::cros_healthd::mojom::RoutineUpdateDataView(pointer, message_);
 }
 
 
 inline void CrosHealthdDiagnosticsService_RunUrandomRoutine_ParamsDataView::GetLengthSecondsDataView(
-    ::chromeos::cros_healthd::mojom::NullableUint32DataView* output) {
+    ::ash::cros_healthd::mojom::NullableUint32DataView* output) {
   auto pointer = data_->length_seconds.Get();
-  *output = ::chromeos::cros_healthd::mojom::NullableUint32DataView(pointer, message_);
+  *output = ::ash::cros_healthd::mojom::NullableUint32DataView(pointer, message_);
 }
 
 
 inline void CrosHealthdDiagnosticsService_RunUrandomRoutine_ResponseParamsDataView::GetResponseDataView(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView* output) {
+    ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output) {
   auto pointer = data_->response.Get();
-  *output = ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
+  *output = ::ash::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
 }
 
 
 
 
 inline void CrosHealthdDiagnosticsService_RunBatteryCapacityRoutine_ResponseParamsDataView::GetResponseDataView(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView* output) {
+    ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output) {
   auto pointer = data_->response.Get();
-  *output = ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
+  *output = ::ash::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
 }
 
 
 
 
 inline void CrosHealthdDiagnosticsService_RunBatteryHealthRoutine_ResponseParamsDataView::GetResponseDataView(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView* output) {
+    ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output) {
   auto pointer = data_->response.Get();
-  *output = ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
+  *output = ::ash::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
 }
 
 
 
 
 inline void CrosHealthdDiagnosticsService_RunSmartctlCheckRoutine_ResponseParamsDataView::GetResponseDataView(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView* output) {
+    ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output) {
   auto pointer = data_->response.Get();
-  *output = ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
+  *output = ::ash::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
 }
 
 
@@ -3833,218 +4003,232 @@ inline void CrosHealthdDiagnosticsService_RunAcPowerRoutine_ParamsDataView::GetE
 
 
 inline void CrosHealthdDiagnosticsService_RunAcPowerRoutine_ResponseParamsDataView::GetResponseDataView(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView* output) {
+    ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output) {
   auto pointer = data_->response.Get();
-  *output = ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
+  *output = ::ash::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
 }
 
 
 inline void CrosHealthdDiagnosticsService_RunCpuCacheRoutine_ParamsDataView::GetLengthSecondsDataView(
-    ::chromeos::cros_healthd::mojom::NullableUint32DataView* output) {
+    ::ash::cros_healthd::mojom::NullableUint32DataView* output) {
   auto pointer = data_->length_seconds.Get();
-  *output = ::chromeos::cros_healthd::mojom::NullableUint32DataView(pointer, message_);
+  *output = ::ash::cros_healthd::mojom::NullableUint32DataView(pointer, message_);
 }
 
 
 inline void CrosHealthdDiagnosticsService_RunCpuCacheRoutine_ResponseParamsDataView::GetResponseDataView(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView* output) {
+    ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output) {
   auto pointer = data_->response.Get();
-  *output = ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
+  *output = ::ash::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
 }
 
 
 inline void CrosHealthdDiagnosticsService_RunCpuStressRoutine_ParamsDataView::GetLengthSecondsDataView(
-    ::chromeos::cros_healthd::mojom::NullableUint32DataView* output) {
+    ::ash::cros_healthd::mojom::NullableUint32DataView* output) {
   auto pointer = data_->length_seconds.Get();
-  *output = ::chromeos::cros_healthd::mojom::NullableUint32DataView(pointer, message_);
+  *output = ::ash::cros_healthd::mojom::NullableUint32DataView(pointer, message_);
 }
 
 
 inline void CrosHealthdDiagnosticsService_RunCpuStressRoutine_ResponseParamsDataView::GetResponseDataView(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView* output) {
+    ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output) {
   auto pointer = data_->response.Get();
-  *output = ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
+  *output = ::ash::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
 }
 
 
 inline void CrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_ParamsDataView::GetLengthSecondsDataView(
-    ::chromeos::cros_healthd::mojom::NullableUint32DataView* output) {
+    ::ash::cros_healthd::mojom::NullableUint32DataView* output) {
   auto pointer = data_->length_seconds.Get();
-  *output = ::chromeos::cros_healthd::mojom::NullableUint32DataView(pointer, message_);
+  *output = ::ash::cros_healthd::mojom::NullableUint32DataView(pointer, message_);
 }
 
 
 inline void CrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_ResponseParamsDataView::GetResponseDataView(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView* output) {
+    ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output) {
   auto pointer = data_->response.Get();
-  *output = ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
+  *output = ::ash::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
 }
 
 
 
 
-inline void CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_ResponseParamsDataView::GetResponseDataView(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView* output) {
+inline void CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ResponseParamsDataView::GetResponseDataView(
+    ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output) {
   auto pointer = data_->response.Get();
-  *output = ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
+  *output = ::ash::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
+}
+
+
+inline void CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_ParamsDataView::GetWearLevelThresholdDataView(
+    ::ash::cros_healthd::mojom::NullableUint32DataView* output) {
+  auto pointer = data_->wear_level_threshold.Get();
+  *output = ::ash::cros_healthd::mojom::NullableUint32DataView(pointer, message_);
+}
+
+
+inline void CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_ResponseParamsDataView::GetResponseDataView(
+    ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output) {
+  auto pointer = data_->response.Get();
+  *output = ::ash::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
 }
 
 
 
 
 inline void CrosHealthdDiagnosticsService_RunNvmeSelfTestRoutine_ResponseParamsDataView::GetResponseDataView(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView* output) {
+    ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output) {
   auto pointer = data_->response.Get();
-  *output = ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
+  *output = ::ash::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
 }
 
 
 
 
 inline void CrosHealthdDiagnosticsService_RunDiskReadRoutine_ResponseParamsDataView::GetResponseDataView(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView* output) {
+    ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output) {
   auto pointer = data_->response.Get();
-  *output = ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
+  *output = ::ash::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
 }
 
 
 inline void CrosHealthdDiagnosticsService_RunPrimeSearchRoutine_ParamsDataView::GetLengthSecondsDataView(
-    ::chromeos::cros_healthd::mojom::NullableUint32DataView* output) {
+    ::ash::cros_healthd::mojom::NullableUint32DataView* output) {
   auto pointer = data_->length_seconds.Get();
-  *output = ::chromeos::cros_healthd::mojom::NullableUint32DataView(pointer, message_);
+  *output = ::ash::cros_healthd::mojom::NullableUint32DataView(pointer, message_);
 }
 
 
 inline void CrosHealthdDiagnosticsService_RunPrimeSearchRoutine_ResponseParamsDataView::GetResponseDataView(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView* output) {
+    ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output) {
   auto pointer = data_->response.Get();
-  *output = ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
+  *output = ::ash::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
 }
 
 
 
 
 inline void CrosHealthdDiagnosticsService_RunBatteryDischargeRoutine_ResponseParamsDataView::GetResponseDataView(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView* output) {
+    ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output) {
   auto pointer = data_->response.Get();
-  *output = ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
+  *output = ::ash::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
 }
 
 
 
 
 inline void CrosHealthdDiagnosticsService_RunBatteryChargeRoutine_ResponseParamsDataView::GetResponseDataView(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView* output) {
+    ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output) {
   auto pointer = data_->response.Get();
-  *output = ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
+  *output = ::ash::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
 }
 
 
 
 
 inline void CrosHealthdDiagnosticsService_RunMemoryRoutine_ResponseParamsDataView::GetResponseDataView(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView* output) {
+    ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output) {
   auto pointer = data_->response.Get();
-  *output = ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
+  *output = ::ash::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
 }
 
 
 
 
 inline void CrosHealthdDiagnosticsService_RunLanConnectivityRoutine_ResponseParamsDataView::GetResponseDataView(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView* output) {
+    ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output) {
   auto pointer = data_->response.Get();
-  *output = ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
+  *output = ::ash::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
 }
 
 
 
 
 inline void CrosHealthdDiagnosticsService_RunSignalStrengthRoutine_ResponseParamsDataView::GetResponseDataView(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView* output) {
+    ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output) {
   auto pointer = data_->response.Get();
-  *output = ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
+  *output = ::ash::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
 }
 
 
 
 
 inline void CrosHealthdDiagnosticsService_RunGatewayCanBePingedRoutine_ResponseParamsDataView::GetResponseDataView(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView* output) {
+    ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output) {
   auto pointer = data_->response.Get();
-  *output = ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
+  *output = ::ash::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
 }
 
 
 
 
 inline void CrosHealthdDiagnosticsService_RunHasSecureWiFiConnectionRoutine_ResponseParamsDataView::GetResponseDataView(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView* output) {
+    ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output) {
   auto pointer = data_->response.Get();
-  *output = ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
+  *output = ::ash::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
 }
 
 
 
 
 inline void CrosHealthdDiagnosticsService_RunDnsResolverPresentRoutine_ResponseParamsDataView::GetResponseDataView(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView* output) {
+    ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output) {
   auto pointer = data_->response.Get();
-  *output = ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
+  *output = ::ash::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
 }
 
 
 
 
 inline void CrosHealthdDiagnosticsService_RunDnsLatencyRoutine_ResponseParamsDataView::GetResponseDataView(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView* output) {
+    ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output) {
   auto pointer = data_->response.Get();
-  *output = ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
+  *output = ::ash::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
 }
 
 
 
 
 inline void CrosHealthdDiagnosticsService_RunDnsResolutionRoutine_ResponseParamsDataView::GetResponseDataView(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView* output) {
+    ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output) {
   auto pointer = data_->response.Get();
-  *output = ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
+  *output = ::ash::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
 }
 
 
 
 
 inline void CrosHealthdDiagnosticsService_RunCaptivePortalRoutine_ResponseParamsDataView::GetResponseDataView(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView* output) {
+    ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output) {
   auto pointer = data_->response.Get();
-  *output = ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
+  *output = ::ash::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
 }
 
 
 
 
 inline void CrosHealthdDiagnosticsService_RunHttpFirewallRoutine_ResponseParamsDataView::GetResponseDataView(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView* output) {
+    ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output) {
   auto pointer = data_->response.Get();
-  *output = ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
+  *output = ::ash::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
 }
 
 
 
 
 inline void CrosHealthdDiagnosticsService_RunHttpsFirewallRoutine_ResponseParamsDataView::GetResponseDataView(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView* output) {
+    ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output) {
   auto pointer = data_->response.Get();
-  *output = ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
+  *output = ::ash::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
 }
 
 
 
 
 inline void CrosHealthdDiagnosticsService_RunHttpsLatencyRoutine_ResponseParamsDataView::GetResponseDataView(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView* output) {
+    ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output) {
   auto pointer = data_->response.Get();
-  *output = ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
+  *output = ::ash::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
 }
 
 
@@ -4056,36 +4240,45 @@ inline void CrosHealthdDiagnosticsService_RunVideoConferencingRoutine_ParamsData
 
 
 inline void CrosHealthdDiagnosticsService_RunVideoConferencingRoutine_ResponseParamsDataView::GetResponseDataView(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView* output) {
+    ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output) {
   auto pointer = data_->response.Get();
-  *output = ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
+  *output = ::ash::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
 }
 
 
 
 
 inline void CrosHealthdDiagnosticsService_RunArcHttpRoutine_ResponseParamsDataView::GetResponseDataView(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView* output) {
+    ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output) {
   auto pointer = data_->response.Get();
-  *output = ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
+  *output = ::ash::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
 }
 
 
 
 
 inline void CrosHealthdDiagnosticsService_RunArcPingRoutine_ResponseParamsDataView::GetResponseDataView(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView* output) {
+    ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output) {
   auto pointer = data_->response.Get();
-  *output = ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
+  *output = ::ash::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
 }
 
 
 
 
 inline void CrosHealthdDiagnosticsService_RunArcDnsResolutionRoutine_ResponseParamsDataView::GetResponseDataView(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView* output) {
+    ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output) {
   auto pointer = data_->response.Get();
-  *output = ::chromeos::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
+  *output = ::ash::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
+}
+
+
+
+
+inline void CrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_ResponseParamsDataView::GetResponseDataView(
+    ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output) {
+  auto pointer = data_->response.Get();
+  *output = ::ash::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
 }
 
 
@@ -4106,23 +4299,23 @@ inline void CrosHealthdDiagnosticsService_RunArcDnsResolutionRoutine_ResponsePar
 
 
 inline void CrosHealthdProbeService_ProbeProcessInfo_ResponseParamsDataView::GetProcessInfoDataView(
-    ::chromeos::cros_healthd::mojom::ProcessResultDataView* output) {
+    ::ash::cros_healthd::mojom::ProcessResultDataView* output) {
   auto pointer = &data_->process_info;
-  *output = ::chromeos::cros_healthd::mojom::ProcessResultDataView(pointer, message_);
+  *output = ::ash::cros_healthd::mojom::ProcessResultDataView(pointer, message_);
 }
 
 
 inline void CrosHealthdProbeService_ProbeTelemetryInfo_ParamsDataView::GetCategoriesDataView(
-    mojo::ArrayDataView<::chromeos::cros_healthd::mojom::ProbeCategoryEnum>* output) {
+    mojo::ArrayDataView<::ash::cros_healthd::mojom::ProbeCategoryEnum>* output) {
   auto pointer = data_->categories.Get();
-  *output = mojo::ArrayDataView<::chromeos::cros_healthd::mojom::ProbeCategoryEnum>(pointer, message_);
+  *output = mojo::ArrayDataView<::ash::cros_healthd::mojom::ProbeCategoryEnum>(pointer, message_);
 }
 
 
 inline void CrosHealthdProbeService_ProbeTelemetryInfo_ResponseParamsDataView::GetTelemetryInfoDataView(
-    ::chromeos::cros_healthd::mojom::TelemetryInfoDataView* output) {
+    ::ash::cros_healthd::mojom::TelemetryInfoDataView* output) {
   auto pointer = data_->telemetry_info.Get();
-  *output = ::chromeos::cros_healthd::mojom::TelemetryInfoDataView(pointer, message_);
+  *output = ::ash::cros_healthd::mojom::TelemetryInfoDataView(pointer, message_);
 }
 
 
@@ -4134,9 +4327,9 @@ inline void CrosHealthdProbeService_ProbeMultipleProcessInfo_ParamsDataView::Get
 
 
 inline void CrosHealthdProbeService_ProbeMultipleProcessInfo_ResponseParamsDataView::GetMultipleProcessInfoDataView(
-    ::chromeos::cros_healthd::mojom::MultipleProcessResultDataView* output) {
+    ::ash::cros_healthd::mojom::MultipleProcessResultDataView* output) {
   auto pointer = data_->multiple_process_info.Get();
-  *output = ::chromeos::cros_healthd::mojom::MultipleProcessResultDataView(pointer, message_);
+  *output = ::ash::cros_healthd::mojom::MultipleProcessResultDataView(pointer, message_);
 }
 
 
@@ -4159,9 +4352,9 @@ inline void WilcoEcServiceController_GetEcTelemetry_ParamsDataView::GetPayloadSt
 
 
 inline void WilcoEcServiceController_GetEcTelemetry_ResponseParamsDataView::GetResponseDataView(
-    ::chromeos::cros_healthd::mojom::GetEcTelemetryResponseDataView* output) {
+    ::ash::cros_healthd::mojom::GetEcTelemetryResponseDataView* output) {
   auto pointer = data_->response.Get();
-  *output = ::chromeos::cros_healthd::mojom::GetEcTelemetryResponseDataView(pointer, message_);
+  *output = ::ash::cros_healthd::mojom::GetEcTelemetryResponseDataView(pointer, message_);
 }
 
 
@@ -4170,7 +4363,7 @@ inline void WilcoEcServiceController_GetEcTelemetry_ResponseParamsDataView::GetR
 
 }  // namespace mojom
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 #if defined(__clang__)
 #pragma clang diagnostic pop

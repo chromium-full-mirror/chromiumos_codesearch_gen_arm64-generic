@@ -224,6 +224,19 @@ class debugdProxyMock : public debugdProxyInterface {
                     base::OnceCallback<void()> /*success_callback*/,
                     base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
                     int /*timeout_ms*/));
+  MOCK_METHOD5(GetFeedbackLogsV2,
+               bool(const brillo::dbus_utils::FileDescriptor& /*in_outfd*/,
+                    const std::string& /*in_username*/,
+                    const std::vector<int32_t>& /*in_requested_logs*/,
+                    brillo::ErrorPtr* /*error*/,
+                    int /*timeout_ms*/));
+  MOCK_METHOD6(GetFeedbackLogsV2Async,
+               void(const brillo::dbus_utils::FileDescriptor& /*in_outfd*/,
+                    const std::string& /*in_username*/,
+                    const std::vector<int32_t>& /*in_requested_logs*/,
+                    base::OnceCallback<void()> /*success_callback*/,
+                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+                    int /*timeout_ms*/));
   MOCK_METHOD3(BackupArcBugReport,
                bool(const std::string& /*in_username*/,
                     brillo::ErrorPtr* /*error*/,
@@ -284,6 +297,16 @@ class debugdProxyMock : public debugdProxyInterface {
   MOCK_METHOD4(CupsRemovePrinterAsync,
                void(const std::string& /*in_name*/,
                     base::OnceCallback<void(bool /*result*/)> /*success_callback*/,
+                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+                    int /*timeout_ms*/));
+  MOCK_METHOD4(CupsRetrievePpd,
+               bool(const std::string& /*in_name*/,
+                    std::vector<uint8_t>* /*out_ppd*/,
+                    brillo::ErrorPtr* /*error*/,
+                    int /*timeout_ms*/));
+  MOCK_METHOD4(CupsRetrievePpdAsync,
+               void(const std::string& /*in_name*/,
+                    base::OnceCallback<void(const std::vector<uint8_t>& /*ppd*/)> /*success_callback*/,
                     base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
                     int /*timeout_ms*/));
   MOCK_METHOD3(GetInterfaces,

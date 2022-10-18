@@ -45,12 +45,13 @@ struct TableStruct_security_5fxdr_5fevents_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[10]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[12]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
   static const uint32_t offsets[];
 };
+namespace cros_xdr {
 namespace reporting {
 class AgentHeartbeatEvent;
 struct AgentHeartbeatEventDefaultTypeInternal;
@@ -82,19 +83,29 @@ extern TcbAttributesDefaultTypeInternal _TcbAttributes_default_instance_;
 class TcbAttributes_SecurityChip;
 struct TcbAttributes_SecurityChipDefaultTypeInternal;
 extern TcbAttributes_SecurityChipDefaultTypeInternal _TcbAttributes_SecurityChip_default_instance_;
+class XdrAgentEvent;
+struct XdrAgentEventDefaultTypeInternal;
+extern XdrAgentEventDefaultTypeInternal _XdrAgentEvent_default_instance_;
+class XdrProcessEvent;
+struct XdrProcessEventDefaultTypeInternal;
+extern XdrProcessEventDefaultTypeInternal _XdrProcessEvent_default_instance_;
 }  // namespace reporting
+}  // namespace cros_xdr
 PROTOBUF_NAMESPACE_OPEN
-template<> ::reporting::AgentHeartbeatEvent* Arena::CreateMaybeMessage<::reporting::AgentHeartbeatEvent>(Arena*);
-template<> ::reporting::AgentStartEvent* Arena::CreateMaybeMessage<::reporting::AgentStartEvent>(Arena*);
-template<> ::reporting::CommonEventDataFields* Arena::CreateMaybeMessage<::reporting::CommonEventDataFields>(Arena*);
-template<> ::reporting::FileImage* Arena::CreateMaybeMessage<::reporting::FileImage>(Arena*);
-template<> ::reporting::Namespaces* Arena::CreateMaybeMessage<::reporting::Namespaces>(Arena*);
-template<> ::reporting::Process* Arena::CreateMaybeMessage<::reporting::Process>(Arena*);
-template<> ::reporting::ProcessExecEvent* Arena::CreateMaybeMessage<::reporting::ProcessExecEvent>(Arena*);
-template<> ::reporting::ProcessTerminateEvent* Arena::CreateMaybeMessage<::reporting::ProcessTerminateEvent>(Arena*);
-template<> ::reporting::TcbAttributes* Arena::CreateMaybeMessage<::reporting::TcbAttributes>(Arena*);
-template<> ::reporting::TcbAttributes_SecurityChip* Arena::CreateMaybeMessage<::reporting::TcbAttributes_SecurityChip>(Arena*);
+template<> ::cros_xdr::reporting::AgentHeartbeatEvent* Arena::CreateMaybeMessage<::cros_xdr::reporting::AgentHeartbeatEvent>(Arena*);
+template<> ::cros_xdr::reporting::AgentStartEvent* Arena::CreateMaybeMessage<::cros_xdr::reporting::AgentStartEvent>(Arena*);
+template<> ::cros_xdr::reporting::CommonEventDataFields* Arena::CreateMaybeMessage<::cros_xdr::reporting::CommonEventDataFields>(Arena*);
+template<> ::cros_xdr::reporting::FileImage* Arena::CreateMaybeMessage<::cros_xdr::reporting::FileImage>(Arena*);
+template<> ::cros_xdr::reporting::Namespaces* Arena::CreateMaybeMessage<::cros_xdr::reporting::Namespaces>(Arena*);
+template<> ::cros_xdr::reporting::Process* Arena::CreateMaybeMessage<::cros_xdr::reporting::Process>(Arena*);
+template<> ::cros_xdr::reporting::ProcessExecEvent* Arena::CreateMaybeMessage<::cros_xdr::reporting::ProcessExecEvent>(Arena*);
+template<> ::cros_xdr::reporting::ProcessTerminateEvent* Arena::CreateMaybeMessage<::cros_xdr::reporting::ProcessTerminateEvent>(Arena*);
+template<> ::cros_xdr::reporting::TcbAttributes* Arena::CreateMaybeMessage<::cros_xdr::reporting::TcbAttributes>(Arena*);
+template<> ::cros_xdr::reporting::TcbAttributes_SecurityChip* Arena::CreateMaybeMessage<::cros_xdr::reporting::TcbAttributes_SecurityChip>(Arena*);
+template<> ::cros_xdr::reporting::XdrAgentEvent* Arena::CreateMaybeMessage<::cros_xdr::reporting::XdrAgentEvent>(Arena*);
+template<> ::cros_xdr::reporting::XdrProcessEvent* Arena::CreateMaybeMessage<::cros_xdr::reporting::XdrProcessEvent>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
+namespace cros_xdr {
 namespace reporting {
 
 enum TcbAttributes_SecurityChip_Kind : int {
@@ -140,7 +151,7 @@ bool TcbAttributes_FirmwareSecureBoot_Parse(
 // ===================================================================
 
 class CommonEventDataFields final :
-    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:reporting.CommonEventDataFields) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:cros_xdr.reporting.CommonEventDataFields) */ {
  public:
   inline CommonEventDataFields() : CommonEventDataFields(nullptr) {}
   ~CommonEventDataFields() override;
@@ -235,7 +246,7 @@ class CommonEventDataFields final :
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "reporting.CommonEventDataFields";
+    return "cros_xdr.reporting.CommonEventDataFields";
   }
   protected:
   explicit CommonEventDataFields(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -286,7 +297,7 @@ class CommonEventDataFields final :
   void _internal_set_device_boot_time(int64_t value);
   public:
 
-  // @@protoc_insertion_point(class_scope:reporting.CommonEventDataFields)
+  // @@protoc_insertion_point(class_scope:cros_xdr.reporting.CommonEventDataFields)
  private:
   class _Internal;
 
@@ -302,7 +313,7 @@ class CommonEventDataFields final :
 // -------------------------------------------------------------------
 
 class TcbAttributes_SecurityChip final :
-    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:reporting.TcbAttributes.SecurityChip) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:cros_xdr.reporting.TcbAttributes.SecurityChip) */ {
  public:
   inline TcbAttributes_SecurityChip() : TcbAttributes_SecurityChip(nullptr) {}
   ~TcbAttributes_SecurityChip() override;
@@ -397,7 +408,7 @@ class TcbAttributes_SecurityChip final :
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "reporting.TcbAttributes.SecurityChip";
+    return "cros_xdr.reporting.TcbAttributes.SecurityChip";
   }
   protected:
   explicit TcbAttributes_SecurityChip(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -577,20 +588,20 @@ class TcbAttributes_SecurityChip final :
   std::string* _internal_mutable_firmware_version();
   public:
 
-  // optional .reporting.TcbAttributes.SecurityChip.Kind kind = 1;
+  // optional .cros_xdr.reporting.TcbAttributes.SecurityChip.Kind kind = 1;
   bool has_kind() const;
   private:
   bool _internal_has_kind() const;
   public:
   void clear_kind();
-  ::reporting::TcbAttributes_SecurityChip_Kind kind() const;
-  void set_kind(::reporting::TcbAttributes_SecurityChip_Kind value);
+  ::cros_xdr::reporting::TcbAttributes_SecurityChip_Kind kind() const;
+  void set_kind(::cros_xdr::reporting::TcbAttributes_SecurityChip_Kind value);
   private:
-  ::reporting::TcbAttributes_SecurityChip_Kind _internal_kind() const;
-  void _internal_set_kind(::reporting::TcbAttributes_SecurityChip_Kind value);
+  ::cros_xdr::reporting::TcbAttributes_SecurityChip_Kind _internal_kind() const;
+  void _internal_set_kind(::cros_xdr::reporting::TcbAttributes_SecurityChip_Kind value);
   public:
 
-  // @@protoc_insertion_point(class_scope:reporting.TcbAttributes.SecurityChip)
+  // @@protoc_insertion_point(class_scope:cros_xdr.reporting.TcbAttributes.SecurityChip)
  private:
   class _Internal;
 
@@ -612,7 +623,7 @@ class TcbAttributes_SecurityChip final :
 // -------------------------------------------------------------------
 
 class TcbAttributes final :
-    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:reporting.TcbAttributes) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:cros_xdr.reporting.TcbAttributes) */ {
  public:
   inline TcbAttributes() : TcbAttributes(nullptr) {}
   ~TcbAttributes() override;
@@ -707,7 +718,7 @@ class TcbAttributes final :
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "reporting.TcbAttributes";
+    return "cros_xdr.reporting.TcbAttributes";
   }
   protected:
   explicit TcbAttributes(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -795,38 +806,38 @@ class TcbAttributes final :
   std::string* _internal_mutable_linux_kernel_version();
   public:
 
-  // optional .reporting.TcbAttributes.SecurityChip security_chip = 3;
+  // optional .cros_xdr.reporting.TcbAttributes.SecurityChip security_chip = 3;
   bool has_security_chip() const;
   private:
   bool _internal_has_security_chip() const;
   public:
   void clear_security_chip();
-  const ::reporting::TcbAttributes_SecurityChip& security_chip() const;
-  PROTOBUF_NODISCARD ::reporting::TcbAttributes_SecurityChip* release_security_chip();
-  ::reporting::TcbAttributes_SecurityChip* mutable_security_chip();
-  void set_allocated_security_chip(::reporting::TcbAttributes_SecurityChip* security_chip);
+  const ::cros_xdr::reporting::TcbAttributes_SecurityChip& security_chip() const;
+  PROTOBUF_NODISCARD ::cros_xdr::reporting::TcbAttributes_SecurityChip* release_security_chip();
+  ::cros_xdr::reporting::TcbAttributes_SecurityChip* mutable_security_chip();
+  void set_allocated_security_chip(::cros_xdr::reporting::TcbAttributes_SecurityChip* security_chip);
   private:
-  const ::reporting::TcbAttributes_SecurityChip& _internal_security_chip() const;
-  ::reporting::TcbAttributes_SecurityChip* _internal_mutable_security_chip();
+  const ::cros_xdr::reporting::TcbAttributes_SecurityChip& _internal_security_chip() const;
+  ::cros_xdr::reporting::TcbAttributes_SecurityChip* _internal_mutable_security_chip();
   public:
   void unsafe_arena_set_allocated_security_chip(
-      ::reporting::TcbAttributes_SecurityChip* security_chip);
-  ::reporting::TcbAttributes_SecurityChip* unsafe_arena_release_security_chip();
+      ::cros_xdr::reporting::TcbAttributes_SecurityChip* security_chip);
+  ::cros_xdr::reporting::TcbAttributes_SecurityChip* unsafe_arena_release_security_chip();
 
-  // optional .reporting.TcbAttributes.FirmwareSecureBoot firmware_secure_boot = 2;
+  // optional .cros_xdr.reporting.TcbAttributes.FirmwareSecureBoot firmware_secure_boot = 2;
   bool has_firmware_secure_boot() const;
   private:
   bool _internal_has_firmware_secure_boot() const;
   public:
   void clear_firmware_secure_boot();
-  ::reporting::TcbAttributes_FirmwareSecureBoot firmware_secure_boot() const;
-  void set_firmware_secure_boot(::reporting::TcbAttributes_FirmwareSecureBoot value);
+  ::cros_xdr::reporting::TcbAttributes_FirmwareSecureBoot firmware_secure_boot() const;
+  void set_firmware_secure_boot(::cros_xdr::reporting::TcbAttributes_FirmwareSecureBoot value);
   private:
-  ::reporting::TcbAttributes_FirmwareSecureBoot _internal_firmware_secure_boot() const;
-  void _internal_set_firmware_secure_boot(::reporting::TcbAttributes_FirmwareSecureBoot value);
+  ::cros_xdr::reporting::TcbAttributes_FirmwareSecureBoot _internal_firmware_secure_boot() const;
+  void _internal_set_firmware_secure_boot(::cros_xdr::reporting::TcbAttributes_FirmwareSecureBoot value);
   public:
 
-  // @@protoc_insertion_point(class_scope:reporting.TcbAttributes)
+  // @@protoc_insertion_point(class_scope:cros_xdr.reporting.TcbAttributes)
  private:
   class _Internal;
 
@@ -837,14 +848,14 @@ class TcbAttributes final :
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr system_firmware_version_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr linux_kernel_version_;
-  ::reporting::TcbAttributes_SecurityChip* security_chip_;
+  ::cros_xdr::reporting::TcbAttributes_SecurityChip* security_chip_;
   int firmware_secure_boot_;
   friend struct ::TableStruct_security_5fxdr_5fevents_2eproto;
 };
 // -------------------------------------------------------------------
 
 class FileImage final :
-    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:reporting.FileImage) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:cros_xdr.reporting.FileImage) */ {
  public:
   inline FileImage() : FileImage(nullptr) {}
   ~FileImage() override;
@@ -939,7 +950,7 @@ class FileImage final :
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "reporting.FileImage";
+    return "cros_xdr.reporting.FileImage";
   }
   protected:
   explicit FileImage(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -1079,7 +1090,7 @@ class FileImage final :
   void _internal_set_mode(uint32_t value);
   public:
 
-  // @@protoc_insertion_point(class_scope:reporting.FileImage)
+  // @@protoc_insertion_point(class_scope:cros_xdr.reporting.FileImage)
  private:
   class _Internal;
 
@@ -1101,7 +1112,7 @@ class FileImage final :
 // -------------------------------------------------------------------
 
 class Process final :
-    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:reporting.Process) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:cros_xdr.reporting.Process) */ {
  public:
   inline Process() : Process(nullptr) {}
   ~Process() override;
@@ -1196,7 +1207,7 @@ class Process final :
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "reporting.Process";
+    return "cros_xdr.reporting.Process";
   }
   protected:
   explicit Process(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -1255,23 +1266,23 @@ class Process final :
   std::string* _internal_mutable_commandline();
   public:
 
-  // optional .reporting.FileImage image = 5;
+  // optional .cros_xdr.reporting.FileImage image = 5;
   bool has_image() const;
   private:
   bool _internal_has_image() const;
   public:
   void clear_image();
-  const ::reporting::FileImage& image() const;
-  PROTOBUF_NODISCARD ::reporting::FileImage* release_image();
-  ::reporting::FileImage* mutable_image();
-  void set_allocated_image(::reporting::FileImage* image);
+  const ::cros_xdr::reporting::FileImage& image() const;
+  PROTOBUF_NODISCARD ::cros_xdr::reporting::FileImage* release_image();
+  ::cros_xdr::reporting::FileImage* mutable_image();
+  void set_allocated_image(::cros_xdr::reporting::FileImage* image);
   private:
-  const ::reporting::FileImage& _internal_image() const;
-  ::reporting::FileImage* _internal_mutable_image();
+  const ::cros_xdr::reporting::FileImage& _internal_image() const;
+  ::cros_xdr::reporting::FileImage* _internal_mutable_image();
   public:
   void unsafe_arena_set_allocated_image(
-      ::reporting::FileImage* image);
-  ::reporting::FileImage* unsafe_arena_release_image();
+      ::cros_xdr::reporting::FileImage* image);
+  ::cros_xdr::reporting::FileImage* unsafe_arena_release_image();
 
   // optional uint64 canonical_pid = 2;
   bool has_canonical_pid() const;
@@ -1299,7 +1310,7 @@ class Process final :
   void _internal_set_canonical_uid(uint64_t value);
   public:
 
-  // @@protoc_insertion_point(class_scope:reporting.Process)
+  // @@protoc_insertion_point(class_scope:cros_xdr.reporting.Process)
  private:
   class _Internal;
 
@@ -1310,7 +1321,7 @@ class Process final :
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr process_uuid_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr commandline_;
-  ::reporting::FileImage* image_;
+  ::cros_xdr::reporting::FileImage* image_;
   uint64_t canonical_pid_;
   uint64_t canonical_uid_;
   friend struct ::TableStruct_security_5fxdr_5fevents_2eproto;
@@ -1318,7 +1329,7 @@ class Process final :
 // -------------------------------------------------------------------
 
 class Namespaces final :
-    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:reporting.Namespaces) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:cros_xdr.reporting.Namespaces) */ {
  public:
   inline Namespaces() : Namespaces(nullptr) {}
   ~Namespaces() override;
@@ -1413,7 +1424,7 @@ class Namespaces final :
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "reporting.Namespaces";
+    return "cros_xdr.reporting.Namespaces";
   }
   protected:
   explicit Namespaces(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -1529,7 +1540,7 @@ class Namespaces final :
   void _internal_set_net_ns(uint64_t value);
   public:
 
-  // @@protoc_insertion_point(class_scope:reporting.Namespaces)
+  // @@protoc_insertion_point(class_scope:cros_xdr.reporting.Namespaces)
  private:
   class _Internal;
 
@@ -1550,7 +1561,7 @@ class Namespaces final :
 // -------------------------------------------------------------------
 
 class AgentStartEvent final :
-    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:reporting.AgentStartEvent) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:cros_xdr.reporting.AgentStartEvent) */ {
  public:
   inline AgentStartEvent() : AgentStartEvent(nullptr) {}
   ~AgentStartEvent() override;
@@ -1645,7 +1656,7 @@ class AgentStartEvent final :
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "reporting.AgentStartEvent";
+    return "cros_xdr.reporting.AgentStartEvent";
   }
   protected:
   explicit AgentStartEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -1662,46 +1673,27 @@ class AgentStartEvent final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kCommonFieldNumber = 1,
-    kTcbFieldNumber = 2,
+    kTcbFieldNumber = 1,
   };
-  // optional .reporting.CommonEventDataFields common = 1;
-  bool has_common() const;
-  private:
-  bool _internal_has_common() const;
-  public:
-  void clear_common();
-  const ::reporting::CommonEventDataFields& common() const;
-  PROTOBUF_NODISCARD ::reporting::CommonEventDataFields* release_common();
-  ::reporting::CommonEventDataFields* mutable_common();
-  void set_allocated_common(::reporting::CommonEventDataFields* common);
-  private:
-  const ::reporting::CommonEventDataFields& _internal_common() const;
-  ::reporting::CommonEventDataFields* _internal_mutable_common();
-  public:
-  void unsafe_arena_set_allocated_common(
-      ::reporting::CommonEventDataFields* common);
-  ::reporting::CommonEventDataFields* unsafe_arena_release_common();
-
-  // optional .reporting.TcbAttributes tcb = 2;
+  // optional .cros_xdr.reporting.TcbAttributes tcb = 1;
   bool has_tcb() const;
   private:
   bool _internal_has_tcb() const;
   public:
   void clear_tcb();
-  const ::reporting::TcbAttributes& tcb() const;
-  PROTOBUF_NODISCARD ::reporting::TcbAttributes* release_tcb();
-  ::reporting::TcbAttributes* mutable_tcb();
-  void set_allocated_tcb(::reporting::TcbAttributes* tcb);
+  const ::cros_xdr::reporting::TcbAttributes& tcb() const;
+  PROTOBUF_NODISCARD ::cros_xdr::reporting::TcbAttributes* release_tcb();
+  ::cros_xdr::reporting::TcbAttributes* mutable_tcb();
+  void set_allocated_tcb(::cros_xdr::reporting::TcbAttributes* tcb);
   private:
-  const ::reporting::TcbAttributes& _internal_tcb() const;
-  ::reporting::TcbAttributes* _internal_mutable_tcb();
+  const ::cros_xdr::reporting::TcbAttributes& _internal_tcb() const;
+  ::cros_xdr::reporting::TcbAttributes* _internal_mutable_tcb();
   public:
   void unsafe_arena_set_allocated_tcb(
-      ::reporting::TcbAttributes* tcb);
-  ::reporting::TcbAttributes* unsafe_arena_release_tcb();
+      ::cros_xdr::reporting::TcbAttributes* tcb);
+  ::cros_xdr::reporting::TcbAttributes* unsafe_arena_release_tcb();
 
-  // @@protoc_insertion_point(class_scope:reporting.AgentStartEvent)
+  // @@protoc_insertion_point(class_scope:cros_xdr.reporting.AgentStartEvent)
  private:
   class _Internal;
 
@@ -1710,14 +1702,13 @@ class AgentStartEvent final :
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  ::reporting::CommonEventDataFields* common_;
-  ::reporting::TcbAttributes* tcb_;
+  ::cros_xdr::reporting::TcbAttributes* tcb_;
   friend struct ::TableStruct_security_5fxdr_5fevents_2eproto;
 };
 // -------------------------------------------------------------------
 
 class AgentHeartbeatEvent final :
-    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:reporting.AgentHeartbeatEvent) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:cros_xdr.reporting.AgentHeartbeatEvent) */ {
  public:
   inline AgentHeartbeatEvent() : AgentHeartbeatEvent(nullptr) {}
   ~AgentHeartbeatEvent() override;
@@ -1812,7 +1803,7 @@ class AgentHeartbeatEvent final :
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "reporting.AgentHeartbeatEvent";
+    return "cros_xdr.reporting.AgentHeartbeatEvent";
   }
   protected:
   explicit AgentHeartbeatEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -1829,46 +1820,27 @@ class AgentHeartbeatEvent final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kCommonFieldNumber = 1,
-    kTcbFieldNumber = 2,
+    kTcbFieldNumber = 1,
   };
-  // optional .reporting.CommonEventDataFields common = 1;
-  bool has_common() const;
-  private:
-  bool _internal_has_common() const;
-  public:
-  void clear_common();
-  const ::reporting::CommonEventDataFields& common() const;
-  PROTOBUF_NODISCARD ::reporting::CommonEventDataFields* release_common();
-  ::reporting::CommonEventDataFields* mutable_common();
-  void set_allocated_common(::reporting::CommonEventDataFields* common);
-  private:
-  const ::reporting::CommonEventDataFields& _internal_common() const;
-  ::reporting::CommonEventDataFields* _internal_mutable_common();
-  public:
-  void unsafe_arena_set_allocated_common(
-      ::reporting::CommonEventDataFields* common);
-  ::reporting::CommonEventDataFields* unsafe_arena_release_common();
-
-  // optional .reporting.TcbAttributes tcb = 2;
+  // optional .cros_xdr.reporting.TcbAttributes tcb = 1;
   bool has_tcb() const;
   private:
   bool _internal_has_tcb() const;
   public:
   void clear_tcb();
-  const ::reporting::TcbAttributes& tcb() const;
-  PROTOBUF_NODISCARD ::reporting::TcbAttributes* release_tcb();
-  ::reporting::TcbAttributes* mutable_tcb();
-  void set_allocated_tcb(::reporting::TcbAttributes* tcb);
+  const ::cros_xdr::reporting::TcbAttributes& tcb() const;
+  PROTOBUF_NODISCARD ::cros_xdr::reporting::TcbAttributes* release_tcb();
+  ::cros_xdr::reporting::TcbAttributes* mutable_tcb();
+  void set_allocated_tcb(::cros_xdr::reporting::TcbAttributes* tcb);
   private:
-  const ::reporting::TcbAttributes& _internal_tcb() const;
-  ::reporting::TcbAttributes* _internal_mutable_tcb();
+  const ::cros_xdr::reporting::TcbAttributes& _internal_tcb() const;
+  ::cros_xdr::reporting::TcbAttributes* _internal_mutable_tcb();
   public:
   void unsafe_arena_set_allocated_tcb(
-      ::reporting::TcbAttributes* tcb);
-  ::reporting::TcbAttributes* unsafe_arena_release_tcb();
+      ::cros_xdr::reporting::TcbAttributes* tcb);
+  ::cros_xdr::reporting::TcbAttributes* unsafe_arena_release_tcb();
 
-  // @@protoc_insertion_point(class_scope:reporting.AgentHeartbeatEvent)
+  // @@protoc_insertion_point(class_scope:cros_xdr.reporting.AgentHeartbeatEvent)
  private:
   class _Internal;
 
@@ -1877,14 +1849,219 @@ class AgentHeartbeatEvent final :
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  ::reporting::CommonEventDataFields* common_;
-  ::reporting::TcbAttributes* tcb_;
+  ::cros_xdr::reporting::TcbAttributes* tcb_;
+  friend struct ::TableStruct_security_5fxdr_5fevents_2eproto;
+};
+// -------------------------------------------------------------------
+
+class XdrAgentEvent final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:cros_xdr.reporting.XdrAgentEvent) */ {
+ public:
+  inline XdrAgentEvent() : XdrAgentEvent(nullptr) {}
+  ~XdrAgentEvent() override;
+  explicit constexpr XdrAgentEvent(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  XdrAgentEvent(const XdrAgentEvent& from);
+  XdrAgentEvent(XdrAgentEvent&& from) noexcept
+    : XdrAgentEvent() {
+    *this = ::std::move(from);
+  }
+
+  inline XdrAgentEvent& operator=(const XdrAgentEvent& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline XdrAgentEvent& operator=(XdrAgentEvent&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const XdrAgentEvent& default_instance() {
+    return *internal_default_instance();
+  }
+  enum MessageTypeCase {
+    kAgentStart = 2,
+    kAgentHeartbeat = 3,
+    MESSAGE_TYPE_NOT_SET = 0,
+  };
+
+  static inline const XdrAgentEvent* internal_default_instance() {
+    return reinterpret_cast<const XdrAgentEvent*>(
+               &_XdrAgentEvent_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    8;
+
+  friend void swap(XdrAgentEvent& a, XdrAgentEvent& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(XdrAgentEvent* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(XdrAgentEvent* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  XdrAgentEvent* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<XdrAgentEvent>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const XdrAgentEvent& from);
+  void MergeFrom(const XdrAgentEvent& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(XdrAgentEvent* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "cros_xdr.reporting.XdrAgentEvent";
+  }
+  protected:
+  explicit XdrAgentEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kCommonFieldNumber = 1,
+    kAgentStartFieldNumber = 2,
+    kAgentHeartbeatFieldNumber = 3,
+  };
+  // optional .cros_xdr.reporting.CommonEventDataFields common = 1;
+  bool has_common() const;
+  private:
+  bool _internal_has_common() const;
+  public:
+  void clear_common();
+  const ::cros_xdr::reporting::CommonEventDataFields& common() const;
+  PROTOBUF_NODISCARD ::cros_xdr::reporting::CommonEventDataFields* release_common();
+  ::cros_xdr::reporting::CommonEventDataFields* mutable_common();
+  void set_allocated_common(::cros_xdr::reporting::CommonEventDataFields* common);
+  private:
+  const ::cros_xdr::reporting::CommonEventDataFields& _internal_common() const;
+  ::cros_xdr::reporting::CommonEventDataFields* _internal_mutable_common();
+  public:
+  void unsafe_arena_set_allocated_common(
+      ::cros_xdr::reporting::CommonEventDataFields* common);
+  ::cros_xdr::reporting::CommonEventDataFields* unsafe_arena_release_common();
+
+  // .cros_xdr.reporting.AgentStartEvent agent_start = 2;
+  bool has_agent_start() const;
+  private:
+  bool _internal_has_agent_start() const;
+  public:
+  void clear_agent_start();
+  const ::cros_xdr::reporting::AgentStartEvent& agent_start() const;
+  PROTOBUF_NODISCARD ::cros_xdr::reporting::AgentStartEvent* release_agent_start();
+  ::cros_xdr::reporting::AgentStartEvent* mutable_agent_start();
+  void set_allocated_agent_start(::cros_xdr::reporting::AgentStartEvent* agent_start);
+  private:
+  const ::cros_xdr::reporting::AgentStartEvent& _internal_agent_start() const;
+  ::cros_xdr::reporting::AgentStartEvent* _internal_mutable_agent_start();
+  public:
+  void unsafe_arena_set_allocated_agent_start(
+      ::cros_xdr::reporting::AgentStartEvent* agent_start);
+  ::cros_xdr::reporting::AgentStartEvent* unsafe_arena_release_agent_start();
+
+  // .cros_xdr.reporting.AgentHeartbeatEvent agent_heartbeat = 3;
+  bool has_agent_heartbeat() const;
+  private:
+  bool _internal_has_agent_heartbeat() const;
+  public:
+  void clear_agent_heartbeat();
+  const ::cros_xdr::reporting::AgentHeartbeatEvent& agent_heartbeat() const;
+  PROTOBUF_NODISCARD ::cros_xdr::reporting::AgentHeartbeatEvent* release_agent_heartbeat();
+  ::cros_xdr::reporting::AgentHeartbeatEvent* mutable_agent_heartbeat();
+  void set_allocated_agent_heartbeat(::cros_xdr::reporting::AgentHeartbeatEvent* agent_heartbeat);
+  private:
+  const ::cros_xdr::reporting::AgentHeartbeatEvent& _internal_agent_heartbeat() const;
+  ::cros_xdr::reporting::AgentHeartbeatEvent* _internal_mutable_agent_heartbeat();
+  public:
+  void unsafe_arena_set_allocated_agent_heartbeat(
+      ::cros_xdr::reporting::AgentHeartbeatEvent* agent_heartbeat);
+  ::cros_xdr::reporting::AgentHeartbeatEvent* unsafe_arena_release_agent_heartbeat();
+
+  void clear_message_type();
+  MessageTypeCase message_type_case() const;
+  // @@protoc_insertion_point(class_scope:cros_xdr.reporting.XdrAgentEvent)
+ private:
+  class _Internal;
+  void set_has_agent_start();
+  void set_has_agent_heartbeat();
+
+  inline bool has_message_type() const;
+  inline void clear_has_message_type();
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::cros_xdr::reporting::CommonEventDataFields* common_;
+  union MessageTypeUnion {
+    constexpr MessageTypeUnion() : _constinit_{} {}
+      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
+    ::cros_xdr::reporting::AgentStartEvent* agent_start_;
+    ::cros_xdr::reporting::AgentHeartbeatEvent* agent_heartbeat_;
+  } message_type_;
+  uint32_t _oneof_case_[1];
+
   friend struct ::TableStruct_security_5fxdr_5fevents_2eproto;
 };
 // -------------------------------------------------------------------
 
 class ProcessExecEvent final :
-    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:reporting.ProcessExecEvent) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:cros_xdr.reporting.ProcessExecEvent) */ {
  public:
   inline ProcessExecEvent() : ProcessExecEvent(nullptr) {}
   ~ProcessExecEvent() override;
@@ -1929,7 +2106,7 @@ class ProcessExecEvent final :
                &_ProcessExecEvent_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    8;
+    9;
 
   friend void swap(ProcessExecEvent& a, ProcessExecEvent& b) {
     a.Swap(&b);
@@ -1979,7 +2156,7 @@ class ProcessExecEvent final :
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "reporting.ProcessExecEvent";
+    return "cros_xdr.reporting.ProcessExecEvent";
   }
   protected:
   explicit ProcessExecEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -1996,103 +2173,84 @@ class ProcessExecEvent final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kCommonFieldNumber = 1,
-    kParentProcessFieldNumber = 2,
-    kProcessFieldNumber = 3,
-    kSpawnProcessFieldNumber = 4,
-    kSpawnNamespacesFieldNumber = 5,
+    kParentProcessFieldNumber = 1,
+    kProcessFieldNumber = 2,
+    kSpawnProcessFieldNumber = 3,
+    kSpawnNamespacesFieldNumber = 4,
   };
-  // optional .reporting.CommonEventDataFields common = 1;
-  bool has_common() const;
-  private:
-  bool _internal_has_common() const;
-  public:
-  void clear_common();
-  const ::reporting::CommonEventDataFields& common() const;
-  PROTOBUF_NODISCARD ::reporting::CommonEventDataFields* release_common();
-  ::reporting::CommonEventDataFields* mutable_common();
-  void set_allocated_common(::reporting::CommonEventDataFields* common);
-  private:
-  const ::reporting::CommonEventDataFields& _internal_common() const;
-  ::reporting::CommonEventDataFields* _internal_mutable_common();
-  public:
-  void unsafe_arena_set_allocated_common(
-      ::reporting::CommonEventDataFields* common);
-  ::reporting::CommonEventDataFields* unsafe_arena_release_common();
-
-  // optional .reporting.Process parent_process = 2;
+  // optional .cros_xdr.reporting.Process parent_process = 1;
   bool has_parent_process() const;
   private:
   bool _internal_has_parent_process() const;
   public:
   void clear_parent_process();
-  const ::reporting::Process& parent_process() const;
-  PROTOBUF_NODISCARD ::reporting::Process* release_parent_process();
-  ::reporting::Process* mutable_parent_process();
-  void set_allocated_parent_process(::reporting::Process* parent_process);
+  const ::cros_xdr::reporting::Process& parent_process() const;
+  PROTOBUF_NODISCARD ::cros_xdr::reporting::Process* release_parent_process();
+  ::cros_xdr::reporting::Process* mutable_parent_process();
+  void set_allocated_parent_process(::cros_xdr::reporting::Process* parent_process);
   private:
-  const ::reporting::Process& _internal_parent_process() const;
-  ::reporting::Process* _internal_mutable_parent_process();
+  const ::cros_xdr::reporting::Process& _internal_parent_process() const;
+  ::cros_xdr::reporting::Process* _internal_mutable_parent_process();
   public:
   void unsafe_arena_set_allocated_parent_process(
-      ::reporting::Process* parent_process);
-  ::reporting::Process* unsafe_arena_release_parent_process();
+      ::cros_xdr::reporting::Process* parent_process);
+  ::cros_xdr::reporting::Process* unsafe_arena_release_parent_process();
 
-  // optional .reporting.Process process = 3;
+  // optional .cros_xdr.reporting.Process process = 2;
   bool has_process() const;
   private:
   bool _internal_has_process() const;
   public:
   void clear_process();
-  const ::reporting::Process& process() const;
-  PROTOBUF_NODISCARD ::reporting::Process* release_process();
-  ::reporting::Process* mutable_process();
-  void set_allocated_process(::reporting::Process* process);
+  const ::cros_xdr::reporting::Process& process() const;
+  PROTOBUF_NODISCARD ::cros_xdr::reporting::Process* release_process();
+  ::cros_xdr::reporting::Process* mutable_process();
+  void set_allocated_process(::cros_xdr::reporting::Process* process);
   private:
-  const ::reporting::Process& _internal_process() const;
-  ::reporting::Process* _internal_mutable_process();
+  const ::cros_xdr::reporting::Process& _internal_process() const;
+  ::cros_xdr::reporting::Process* _internal_mutable_process();
   public:
   void unsafe_arena_set_allocated_process(
-      ::reporting::Process* process);
-  ::reporting::Process* unsafe_arena_release_process();
+      ::cros_xdr::reporting::Process* process);
+  ::cros_xdr::reporting::Process* unsafe_arena_release_process();
 
-  // optional .reporting.Process spawn_process = 4;
+  // optional .cros_xdr.reporting.Process spawn_process = 3;
   bool has_spawn_process() const;
   private:
   bool _internal_has_spawn_process() const;
   public:
   void clear_spawn_process();
-  const ::reporting::Process& spawn_process() const;
-  PROTOBUF_NODISCARD ::reporting::Process* release_spawn_process();
-  ::reporting::Process* mutable_spawn_process();
-  void set_allocated_spawn_process(::reporting::Process* spawn_process);
+  const ::cros_xdr::reporting::Process& spawn_process() const;
+  PROTOBUF_NODISCARD ::cros_xdr::reporting::Process* release_spawn_process();
+  ::cros_xdr::reporting::Process* mutable_spawn_process();
+  void set_allocated_spawn_process(::cros_xdr::reporting::Process* spawn_process);
   private:
-  const ::reporting::Process& _internal_spawn_process() const;
-  ::reporting::Process* _internal_mutable_spawn_process();
+  const ::cros_xdr::reporting::Process& _internal_spawn_process() const;
+  ::cros_xdr::reporting::Process* _internal_mutable_spawn_process();
   public:
   void unsafe_arena_set_allocated_spawn_process(
-      ::reporting::Process* spawn_process);
-  ::reporting::Process* unsafe_arena_release_spawn_process();
+      ::cros_xdr::reporting::Process* spawn_process);
+  ::cros_xdr::reporting::Process* unsafe_arena_release_spawn_process();
 
-  // optional .reporting.Namespaces spawn_namespaces = 5;
+  // optional .cros_xdr.reporting.Namespaces spawn_namespaces = 4;
   bool has_spawn_namespaces() const;
   private:
   bool _internal_has_spawn_namespaces() const;
   public:
   void clear_spawn_namespaces();
-  const ::reporting::Namespaces& spawn_namespaces() const;
-  PROTOBUF_NODISCARD ::reporting::Namespaces* release_spawn_namespaces();
-  ::reporting::Namespaces* mutable_spawn_namespaces();
-  void set_allocated_spawn_namespaces(::reporting::Namespaces* spawn_namespaces);
+  const ::cros_xdr::reporting::Namespaces& spawn_namespaces() const;
+  PROTOBUF_NODISCARD ::cros_xdr::reporting::Namespaces* release_spawn_namespaces();
+  ::cros_xdr::reporting::Namespaces* mutable_spawn_namespaces();
+  void set_allocated_spawn_namespaces(::cros_xdr::reporting::Namespaces* spawn_namespaces);
   private:
-  const ::reporting::Namespaces& _internal_spawn_namespaces() const;
-  ::reporting::Namespaces* _internal_mutable_spawn_namespaces();
+  const ::cros_xdr::reporting::Namespaces& _internal_spawn_namespaces() const;
+  ::cros_xdr::reporting::Namespaces* _internal_mutable_spawn_namespaces();
   public:
   void unsafe_arena_set_allocated_spawn_namespaces(
-      ::reporting::Namespaces* spawn_namespaces);
-  ::reporting::Namespaces* unsafe_arena_release_spawn_namespaces();
+      ::cros_xdr::reporting::Namespaces* spawn_namespaces);
+  ::cros_xdr::reporting::Namespaces* unsafe_arena_release_spawn_namespaces();
 
-  // @@protoc_insertion_point(class_scope:reporting.ProcessExecEvent)
+  // @@protoc_insertion_point(class_scope:cros_xdr.reporting.ProcessExecEvent)
  private:
   class _Internal;
 
@@ -2101,17 +2259,16 @@ class ProcessExecEvent final :
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  ::reporting::CommonEventDataFields* common_;
-  ::reporting::Process* parent_process_;
-  ::reporting::Process* process_;
-  ::reporting::Process* spawn_process_;
-  ::reporting::Namespaces* spawn_namespaces_;
+  ::cros_xdr::reporting::Process* parent_process_;
+  ::cros_xdr::reporting::Process* process_;
+  ::cros_xdr::reporting::Process* spawn_process_;
+  ::cros_xdr::reporting::Namespaces* spawn_namespaces_;
   friend struct ::TableStruct_security_5fxdr_5fevents_2eproto;
 };
 // -------------------------------------------------------------------
 
 class ProcessTerminateEvent final :
-    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:reporting.ProcessTerminateEvent) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:cros_xdr.reporting.ProcessTerminateEvent) */ {
  public:
   inline ProcessTerminateEvent() : ProcessTerminateEvent(nullptr) {}
   ~ProcessTerminateEvent() override;
@@ -2156,7 +2313,7 @@ class ProcessTerminateEvent final :
                &_ProcessTerminateEvent_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    9;
+    10;
 
   friend void swap(ProcessTerminateEvent& a, ProcessTerminateEvent& b) {
     a.Swap(&b);
@@ -2206,7 +2363,7 @@ class ProcessTerminateEvent final :
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "reporting.ProcessTerminateEvent";
+    return "cros_xdr.reporting.ProcessTerminateEvent";
   }
   protected:
   explicit ProcessTerminateEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -2223,65 +2380,46 @@ class ProcessTerminateEvent final :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kCommonFieldNumber = 1,
-    kParentProcessFieldNumber = 2,
-    kProcessFieldNumber = 3,
+    kParentProcessFieldNumber = 1,
+    kProcessFieldNumber = 2,
   };
-  // optional .reporting.CommonEventDataFields common = 1;
-  bool has_common() const;
-  private:
-  bool _internal_has_common() const;
-  public:
-  void clear_common();
-  const ::reporting::CommonEventDataFields& common() const;
-  PROTOBUF_NODISCARD ::reporting::CommonEventDataFields* release_common();
-  ::reporting::CommonEventDataFields* mutable_common();
-  void set_allocated_common(::reporting::CommonEventDataFields* common);
-  private:
-  const ::reporting::CommonEventDataFields& _internal_common() const;
-  ::reporting::CommonEventDataFields* _internal_mutable_common();
-  public:
-  void unsafe_arena_set_allocated_common(
-      ::reporting::CommonEventDataFields* common);
-  ::reporting::CommonEventDataFields* unsafe_arena_release_common();
-
-  // optional .reporting.Process parent_process = 2;
+  // optional .cros_xdr.reporting.Process parent_process = 1;
   bool has_parent_process() const;
   private:
   bool _internal_has_parent_process() const;
   public:
   void clear_parent_process();
-  const ::reporting::Process& parent_process() const;
-  PROTOBUF_NODISCARD ::reporting::Process* release_parent_process();
-  ::reporting::Process* mutable_parent_process();
-  void set_allocated_parent_process(::reporting::Process* parent_process);
+  const ::cros_xdr::reporting::Process& parent_process() const;
+  PROTOBUF_NODISCARD ::cros_xdr::reporting::Process* release_parent_process();
+  ::cros_xdr::reporting::Process* mutable_parent_process();
+  void set_allocated_parent_process(::cros_xdr::reporting::Process* parent_process);
   private:
-  const ::reporting::Process& _internal_parent_process() const;
-  ::reporting::Process* _internal_mutable_parent_process();
+  const ::cros_xdr::reporting::Process& _internal_parent_process() const;
+  ::cros_xdr::reporting::Process* _internal_mutable_parent_process();
   public:
   void unsafe_arena_set_allocated_parent_process(
-      ::reporting::Process* parent_process);
-  ::reporting::Process* unsafe_arena_release_parent_process();
+      ::cros_xdr::reporting::Process* parent_process);
+  ::cros_xdr::reporting::Process* unsafe_arena_release_parent_process();
 
-  // optional .reporting.Process process = 3;
+  // optional .cros_xdr.reporting.Process process = 2;
   bool has_process() const;
   private:
   bool _internal_has_process() const;
   public:
   void clear_process();
-  const ::reporting::Process& process() const;
-  PROTOBUF_NODISCARD ::reporting::Process* release_process();
-  ::reporting::Process* mutable_process();
-  void set_allocated_process(::reporting::Process* process);
+  const ::cros_xdr::reporting::Process& process() const;
+  PROTOBUF_NODISCARD ::cros_xdr::reporting::Process* release_process();
+  ::cros_xdr::reporting::Process* mutable_process();
+  void set_allocated_process(::cros_xdr::reporting::Process* process);
   private:
-  const ::reporting::Process& _internal_process() const;
-  ::reporting::Process* _internal_mutable_process();
+  const ::cros_xdr::reporting::Process& _internal_process() const;
+  ::cros_xdr::reporting::Process* _internal_mutable_process();
   public:
   void unsafe_arena_set_allocated_process(
-      ::reporting::Process* process);
-  ::reporting::Process* unsafe_arena_release_process();
+      ::cros_xdr::reporting::Process* process);
+  ::cros_xdr::reporting::Process* unsafe_arena_release_process();
 
-  // @@protoc_insertion_point(class_scope:reporting.ProcessTerminateEvent)
+  // @@protoc_insertion_point(class_scope:cros_xdr.reporting.ProcessTerminateEvent)
  private:
   class _Internal;
 
@@ -2290,9 +2428,214 @@ class ProcessTerminateEvent final :
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  ::reporting::CommonEventDataFields* common_;
-  ::reporting::Process* parent_process_;
-  ::reporting::Process* process_;
+  ::cros_xdr::reporting::Process* parent_process_;
+  ::cros_xdr::reporting::Process* process_;
+  friend struct ::TableStruct_security_5fxdr_5fevents_2eproto;
+};
+// -------------------------------------------------------------------
+
+class XdrProcessEvent final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:cros_xdr.reporting.XdrProcessEvent) */ {
+ public:
+  inline XdrProcessEvent() : XdrProcessEvent(nullptr) {}
+  ~XdrProcessEvent() override;
+  explicit constexpr XdrProcessEvent(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  XdrProcessEvent(const XdrProcessEvent& from);
+  XdrProcessEvent(XdrProcessEvent&& from) noexcept
+    : XdrProcessEvent() {
+    *this = ::std::move(from);
+  }
+
+  inline XdrProcessEvent& operator=(const XdrProcessEvent& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline XdrProcessEvent& operator=(XdrProcessEvent&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const XdrProcessEvent& default_instance() {
+    return *internal_default_instance();
+  }
+  enum MessageTypeCase {
+    kProcessExec = 2,
+    kProcessTerminate = 3,
+    MESSAGE_TYPE_NOT_SET = 0,
+  };
+
+  static inline const XdrProcessEvent* internal_default_instance() {
+    return reinterpret_cast<const XdrProcessEvent*>(
+               &_XdrProcessEvent_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    11;
+
+  friend void swap(XdrProcessEvent& a, XdrProcessEvent& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(XdrProcessEvent* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(XdrProcessEvent* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  XdrProcessEvent* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<XdrProcessEvent>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const XdrProcessEvent& from);
+  void MergeFrom(const XdrProcessEvent& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(XdrProcessEvent* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "cros_xdr.reporting.XdrProcessEvent";
+  }
+  protected:
+  explicit XdrProcessEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kCommonFieldNumber = 1,
+    kProcessExecFieldNumber = 2,
+    kProcessTerminateFieldNumber = 3,
+  };
+  // optional .cros_xdr.reporting.CommonEventDataFields common = 1;
+  bool has_common() const;
+  private:
+  bool _internal_has_common() const;
+  public:
+  void clear_common();
+  const ::cros_xdr::reporting::CommonEventDataFields& common() const;
+  PROTOBUF_NODISCARD ::cros_xdr::reporting::CommonEventDataFields* release_common();
+  ::cros_xdr::reporting::CommonEventDataFields* mutable_common();
+  void set_allocated_common(::cros_xdr::reporting::CommonEventDataFields* common);
+  private:
+  const ::cros_xdr::reporting::CommonEventDataFields& _internal_common() const;
+  ::cros_xdr::reporting::CommonEventDataFields* _internal_mutable_common();
+  public:
+  void unsafe_arena_set_allocated_common(
+      ::cros_xdr::reporting::CommonEventDataFields* common);
+  ::cros_xdr::reporting::CommonEventDataFields* unsafe_arena_release_common();
+
+  // .cros_xdr.reporting.ProcessExecEvent process_exec = 2;
+  bool has_process_exec() const;
+  private:
+  bool _internal_has_process_exec() const;
+  public:
+  void clear_process_exec();
+  const ::cros_xdr::reporting::ProcessExecEvent& process_exec() const;
+  PROTOBUF_NODISCARD ::cros_xdr::reporting::ProcessExecEvent* release_process_exec();
+  ::cros_xdr::reporting::ProcessExecEvent* mutable_process_exec();
+  void set_allocated_process_exec(::cros_xdr::reporting::ProcessExecEvent* process_exec);
+  private:
+  const ::cros_xdr::reporting::ProcessExecEvent& _internal_process_exec() const;
+  ::cros_xdr::reporting::ProcessExecEvent* _internal_mutable_process_exec();
+  public:
+  void unsafe_arena_set_allocated_process_exec(
+      ::cros_xdr::reporting::ProcessExecEvent* process_exec);
+  ::cros_xdr::reporting::ProcessExecEvent* unsafe_arena_release_process_exec();
+
+  // .cros_xdr.reporting.ProcessTerminateEvent process_terminate = 3;
+  bool has_process_terminate() const;
+  private:
+  bool _internal_has_process_terminate() const;
+  public:
+  void clear_process_terminate();
+  const ::cros_xdr::reporting::ProcessTerminateEvent& process_terminate() const;
+  PROTOBUF_NODISCARD ::cros_xdr::reporting::ProcessTerminateEvent* release_process_terminate();
+  ::cros_xdr::reporting::ProcessTerminateEvent* mutable_process_terminate();
+  void set_allocated_process_terminate(::cros_xdr::reporting::ProcessTerminateEvent* process_terminate);
+  private:
+  const ::cros_xdr::reporting::ProcessTerminateEvent& _internal_process_terminate() const;
+  ::cros_xdr::reporting::ProcessTerminateEvent* _internal_mutable_process_terminate();
+  public:
+  void unsafe_arena_set_allocated_process_terminate(
+      ::cros_xdr::reporting::ProcessTerminateEvent* process_terminate);
+  ::cros_xdr::reporting::ProcessTerminateEvent* unsafe_arena_release_process_terminate();
+
+  void clear_message_type();
+  MessageTypeCase message_type_case() const;
+  // @@protoc_insertion_point(class_scope:cros_xdr.reporting.XdrProcessEvent)
+ private:
+  class _Internal;
+  void set_has_process_exec();
+  void set_has_process_terminate();
+
+  inline bool has_message_type() const;
+  inline void clear_has_message_type();
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::cros_xdr::reporting::CommonEventDataFields* common_;
+  union MessageTypeUnion {
+    constexpr MessageTypeUnion() : _constinit_{} {}
+      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
+    ::cros_xdr::reporting::ProcessExecEvent* process_exec_;
+    ::cros_xdr::reporting::ProcessTerminateEvent* process_terminate_;
+  } message_type_;
+  uint32_t _oneof_case_[1];
+
   friend struct ::TableStruct_security_5fxdr_5fevents_2eproto;
 };
 // ===================================================================
@@ -2319,7 +2662,7 @@ inline void CommonEventDataFields::clear_local_timezone() {
   _has_bits_[0] &= ~0x00000001u;
 }
 inline const std::string& CommonEventDataFields::local_timezone() const {
-  // @@protoc_insertion_point(field_get:reporting.CommonEventDataFields.local_timezone)
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.CommonEventDataFields.local_timezone)
   return _internal_local_timezone();
 }
 template <typename ArgT0, typename... ArgT>
@@ -2327,11 +2670,11 @@ inline PROTOBUF_ALWAYS_INLINE
 void CommonEventDataFields::set_local_timezone(ArgT0&& arg0, ArgT... args) {
  _has_bits_[0] |= 0x00000001u;
  local_timezone_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:reporting.CommonEventDataFields.local_timezone)
+  // @@protoc_insertion_point(field_set:cros_xdr.reporting.CommonEventDataFields.local_timezone)
 }
 inline std::string* CommonEventDataFields::mutable_local_timezone() {
   std::string* _s = _internal_mutable_local_timezone();
-  // @@protoc_insertion_point(field_mutable:reporting.CommonEventDataFields.local_timezone)
+  // @@protoc_insertion_point(field_mutable:cros_xdr.reporting.CommonEventDataFields.local_timezone)
   return _s;
 }
 inline const std::string& CommonEventDataFields::_internal_local_timezone() const {
@@ -2346,7 +2689,7 @@ inline std::string* CommonEventDataFields::_internal_mutable_local_timezone() {
   return local_timezone_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
 }
 inline std::string* CommonEventDataFields::release_local_timezone() {
-  // @@protoc_insertion_point(field_release:reporting.CommonEventDataFields.local_timezone)
+  // @@protoc_insertion_point(field_release:cros_xdr.reporting.CommonEventDataFields.local_timezone)
   if (!_internal_has_local_timezone()) {
     return nullptr;
   }
@@ -2372,7 +2715,7 @@ inline void CommonEventDataFields::set_allocated_local_timezone(std::string* loc
     local_timezone_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:reporting.CommonEventDataFields.local_timezone)
+  // @@protoc_insertion_point(field_set_allocated:cros_xdr.reporting.CommonEventDataFields.local_timezone)
 }
 
 // optional int64 device_boot_time = 2;
@@ -2391,7 +2734,7 @@ inline int64_t CommonEventDataFields::_internal_device_boot_time() const {
   return device_boot_time_;
 }
 inline int64_t CommonEventDataFields::device_boot_time() const {
-  // @@protoc_insertion_point(field_get:reporting.CommonEventDataFields.device_boot_time)
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.CommonEventDataFields.device_boot_time)
   return _internal_device_boot_time();
 }
 inline void CommonEventDataFields::_internal_set_device_boot_time(int64_t value) {
@@ -2400,14 +2743,14 @@ inline void CommonEventDataFields::_internal_set_device_boot_time(int64_t value)
 }
 inline void CommonEventDataFields::set_device_boot_time(int64_t value) {
   _internal_set_device_boot_time(value);
-  // @@protoc_insertion_point(field_set:reporting.CommonEventDataFields.device_boot_time)
+  // @@protoc_insertion_point(field_set:cros_xdr.reporting.CommonEventDataFields.device_boot_time)
 }
 
 // -------------------------------------------------------------------
 
 // TcbAttributes_SecurityChip
 
-// optional .reporting.TcbAttributes.SecurityChip.Kind kind = 1;
+// optional .cros_xdr.reporting.TcbAttributes.SecurityChip.Kind kind = 1;
 inline bool TcbAttributes_SecurityChip::_internal_has_kind() const {
   bool value = (_has_bits_[0] & 0x00000080u) != 0;
   return value;
@@ -2419,21 +2762,21 @@ inline void TcbAttributes_SecurityChip::clear_kind() {
   kind_ = 0;
   _has_bits_[0] &= ~0x00000080u;
 }
-inline ::reporting::TcbAttributes_SecurityChip_Kind TcbAttributes_SecurityChip::_internal_kind() const {
-  return static_cast< ::reporting::TcbAttributes_SecurityChip_Kind >(kind_);
+inline ::cros_xdr::reporting::TcbAttributes_SecurityChip_Kind TcbAttributes_SecurityChip::_internal_kind() const {
+  return static_cast< ::cros_xdr::reporting::TcbAttributes_SecurityChip_Kind >(kind_);
 }
-inline ::reporting::TcbAttributes_SecurityChip_Kind TcbAttributes_SecurityChip::kind() const {
-  // @@protoc_insertion_point(field_get:reporting.TcbAttributes.SecurityChip.kind)
+inline ::cros_xdr::reporting::TcbAttributes_SecurityChip_Kind TcbAttributes_SecurityChip::kind() const {
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.TcbAttributes.SecurityChip.kind)
   return _internal_kind();
 }
-inline void TcbAttributes_SecurityChip::_internal_set_kind(::reporting::TcbAttributes_SecurityChip_Kind value) {
-  assert(::reporting::TcbAttributes_SecurityChip_Kind_IsValid(value));
+inline void TcbAttributes_SecurityChip::_internal_set_kind(::cros_xdr::reporting::TcbAttributes_SecurityChip_Kind value) {
+  assert(::cros_xdr::reporting::TcbAttributes_SecurityChip_Kind_IsValid(value));
   _has_bits_[0] |= 0x00000080u;
   kind_ = value;
 }
-inline void TcbAttributes_SecurityChip::set_kind(::reporting::TcbAttributes_SecurityChip_Kind value) {
+inline void TcbAttributes_SecurityChip::set_kind(::cros_xdr::reporting::TcbAttributes_SecurityChip_Kind value) {
   _internal_set_kind(value);
-  // @@protoc_insertion_point(field_set:reporting.TcbAttributes.SecurityChip.kind)
+  // @@protoc_insertion_point(field_set:cros_xdr.reporting.TcbAttributes.SecurityChip.kind)
 }
 
 // optional string chip_version = 2;
@@ -2449,7 +2792,7 @@ inline void TcbAttributes_SecurityChip::clear_chip_version() {
   _has_bits_[0] &= ~0x00000001u;
 }
 inline const std::string& TcbAttributes_SecurityChip::chip_version() const {
-  // @@protoc_insertion_point(field_get:reporting.TcbAttributes.SecurityChip.chip_version)
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.TcbAttributes.SecurityChip.chip_version)
   return _internal_chip_version();
 }
 template <typename ArgT0, typename... ArgT>
@@ -2457,11 +2800,11 @@ inline PROTOBUF_ALWAYS_INLINE
 void TcbAttributes_SecurityChip::set_chip_version(ArgT0&& arg0, ArgT... args) {
  _has_bits_[0] |= 0x00000001u;
  chip_version_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:reporting.TcbAttributes.SecurityChip.chip_version)
+  // @@protoc_insertion_point(field_set:cros_xdr.reporting.TcbAttributes.SecurityChip.chip_version)
 }
 inline std::string* TcbAttributes_SecurityChip::mutable_chip_version() {
   std::string* _s = _internal_mutable_chip_version();
-  // @@protoc_insertion_point(field_mutable:reporting.TcbAttributes.SecurityChip.chip_version)
+  // @@protoc_insertion_point(field_mutable:cros_xdr.reporting.TcbAttributes.SecurityChip.chip_version)
   return _s;
 }
 inline const std::string& TcbAttributes_SecurityChip::_internal_chip_version() const {
@@ -2476,7 +2819,7 @@ inline std::string* TcbAttributes_SecurityChip::_internal_mutable_chip_version()
   return chip_version_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
 }
 inline std::string* TcbAttributes_SecurityChip::release_chip_version() {
-  // @@protoc_insertion_point(field_release:reporting.TcbAttributes.SecurityChip.chip_version)
+  // @@protoc_insertion_point(field_release:cros_xdr.reporting.TcbAttributes.SecurityChip.chip_version)
   if (!_internal_has_chip_version()) {
     return nullptr;
   }
@@ -2502,7 +2845,7 @@ inline void TcbAttributes_SecurityChip::set_allocated_chip_version(std::string* 
     chip_version_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:reporting.TcbAttributes.SecurityChip.chip_version)
+  // @@protoc_insertion_point(field_set_allocated:cros_xdr.reporting.TcbAttributes.SecurityChip.chip_version)
 }
 
 // optional string spec_family = 3;
@@ -2518,7 +2861,7 @@ inline void TcbAttributes_SecurityChip::clear_spec_family() {
   _has_bits_[0] &= ~0x00000002u;
 }
 inline const std::string& TcbAttributes_SecurityChip::spec_family() const {
-  // @@protoc_insertion_point(field_get:reporting.TcbAttributes.SecurityChip.spec_family)
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.TcbAttributes.SecurityChip.spec_family)
   return _internal_spec_family();
 }
 template <typename ArgT0, typename... ArgT>
@@ -2526,11 +2869,11 @@ inline PROTOBUF_ALWAYS_INLINE
 void TcbAttributes_SecurityChip::set_spec_family(ArgT0&& arg0, ArgT... args) {
  _has_bits_[0] |= 0x00000002u;
  spec_family_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:reporting.TcbAttributes.SecurityChip.spec_family)
+  // @@protoc_insertion_point(field_set:cros_xdr.reporting.TcbAttributes.SecurityChip.spec_family)
 }
 inline std::string* TcbAttributes_SecurityChip::mutable_spec_family() {
   std::string* _s = _internal_mutable_spec_family();
-  // @@protoc_insertion_point(field_mutable:reporting.TcbAttributes.SecurityChip.spec_family)
+  // @@protoc_insertion_point(field_mutable:cros_xdr.reporting.TcbAttributes.SecurityChip.spec_family)
   return _s;
 }
 inline const std::string& TcbAttributes_SecurityChip::_internal_spec_family() const {
@@ -2545,7 +2888,7 @@ inline std::string* TcbAttributes_SecurityChip::_internal_mutable_spec_family() 
   return spec_family_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
 }
 inline std::string* TcbAttributes_SecurityChip::release_spec_family() {
-  // @@protoc_insertion_point(field_release:reporting.TcbAttributes.SecurityChip.spec_family)
+  // @@protoc_insertion_point(field_release:cros_xdr.reporting.TcbAttributes.SecurityChip.spec_family)
   if (!_internal_has_spec_family()) {
     return nullptr;
   }
@@ -2571,7 +2914,7 @@ inline void TcbAttributes_SecurityChip::set_allocated_spec_family(std::string* s
     spec_family_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:reporting.TcbAttributes.SecurityChip.spec_family)
+  // @@protoc_insertion_point(field_set_allocated:cros_xdr.reporting.TcbAttributes.SecurityChip.spec_family)
 }
 
 // optional string spec_level = 4;
@@ -2587,7 +2930,7 @@ inline void TcbAttributes_SecurityChip::clear_spec_level() {
   _has_bits_[0] &= ~0x00000004u;
 }
 inline const std::string& TcbAttributes_SecurityChip::spec_level() const {
-  // @@protoc_insertion_point(field_get:reporting.TcbAttributes.SecurityChip.spec_level)
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.TcbAttributes.SecurityChip.spec_level)
   return _internal_spec_level();
 }
 template <typename ArgT0, typename... ArgT>
@@ -2595,11 +2938,11 @@ inline PROTOBUF_ALWAYS_INLINE
 void TcbAttributes_SecurityChip::set_spec_level(ArgT0&& arg0, ArgT... args) {
  _has_bits_[0] |= 0x00000004u;
  spec_level_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:reporting.TcbAttributes.SecurityChip.spec_level)
+  // @@protoc_insertion_point(field_set:cros_xdr.reporting.TcbAttributes.SecurityChip.spec_level)
 }
 inline std::string* TcbAttributes_SecurityChip::mutable_spec_level() {
   std::string* _s = _internal_mutable_spec_level();
-  // @@protoc_insertion_point(field_mutable:reporting.TcbAttributes.SecurityChip.spec_level)
+  // @@protoc_insertion_point(field_mutable:cros_xdr.reporting.TcbAttributes.SecurityChip.spec_level)
   return _s;
 }
 inline const std::string& TcbAttributes_SecurityChip::_internal_spec_level() const {
@@ -2614,7 +2957,7 @@ inline std::string* TcbAttributes_SecurityChip::_internal_mutable_spec_level() {
   return spec_level_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
 }
 inline std::string* TcbAttributes_SecurityChip::release_spec_level() {
-  // @@protoc_insertion_point(field_release:reporting.TcbAttributes.SecurityChip.spec_level)
+  // @@protoc_insertion_point(field_release:cros_xdr.reporting.TcbAttributes.SecurityChip.spec_level)
   if (!_internal_has_spec_level()) {
     return nullptr;
   }
@@ -2640,7 +2983,7 @@ inline void TcbAttributes_SecurityChip::set_allocated_spec_level(std::string* sp
     spec_level_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:reporting.TcbAttributes.SecurityChip.spec_level)
+  // @@protoc_insertion_point(field_set_allocated:cros_xdr.reporting.TcbAttributes.SecurityChip.spec_level)
 }
 
 // optional string manufacturer = 5;
@@ -2656,7 +2999,7 @@ inline void TcbAttributes_SecurityChip::clear_manufacturer() {
   _has_bits_[0] &= ~0x00000008u;
 }
 inline const std::string& TcbAttributes_SecurityChip::manufacturer() const {
-  // @@protoc_insertion_point(field_get:reporting.TcbAttributes.SecurityChip.manufacturer)
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.TcbAttributes.SecurityChip.manufacturer)
   return _internal_manufacturer();
 }
 template <typename ArgT0, typename... ArgT>
@@ -2664,11 +3007,11 @@ inline PROTOBUF_ALWAYS_INLINE
 void TcbAttributes_SecurityChip::set_manufacturer(ArgT0&& arg0, ArgT... args) {
  _has_bits_[0] |= 0x00000008u;
  manufacturer_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:reporting.TcbAttributes.SecurityChip.manufacturer)
+  // @@protoc_insertion_point(field_set:cros_xdr.reporting.TcbAttributes.SecurityChip.manufacturer)
 }
 inline std::string* TcbAttributes_SecurityChip::mutable_manufacturer() {
   std::string* _s = _internal_mutable_manufacturer();
-  // @@protoc_insertion_point(field_mutable:reporting.TcbAttributes.SecurityChip.manufacturer)
+  // @@protoc_insertion_point(field_mutable:cros_xdr.reporting.TcbAttributes.SecurityChip.manufacturer)
   return _s;
 }
 inline const std::string& TcbAttributes_SecurityChip::_internal_manufacturer() const {
@@ -2683,7 +3026,7 @@ inline std::string* TcbAttributes_SecurityChip::_internal_mutable_manufacturer()
   return manufacturer_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
 }
 inline std::string* TcbAttributes_SecurityChip::release_manufacturer() {
-  // @@protoc_insertion_point(field_release:reporting.TcbAttributes.SecurityChip.manufacturer)
+  // @@protoc_insertion_point(field_release:cros_xdr.reporting.TcbAttributes.SecurityChip.manufacturer)
   if (!_internal_has_manufacturer()) {
     return nullptr;
   }
@@ -2709,7 +3052,7 @@ inline void TcbAttributes_SecurityChip::set_allocated_manufacturer(std::string* 
     manufacturer_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:reporting.TcbAttributes.SecurityChip.manufacturer)
+  // @@protoc_insertion_point(field_set_allocated:cros_xdr.reporting.TcbAttributes.SecurityChip.manufacturer)
 }
 
 // optional string vendor_id = 6;
@@ -2725,7 +3068,7 @@ inline void TcbAttributes_SecurityChip::clear_vendor_id() {
   _has_bits_[0] &= ~0x00000010u;
 }
 inline const std::string& TcbAttributes_SecurityChip::vendor_id() const {
-  // @@protoc_insertion_point(field_get:reporting.TcbAttributes.SecurityChip.vendor_id)
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.TcbAttributes.SecurityChip.vendor_id)
   return _internal_vendor_id();
 }
 template <typename ArgT0, typename... ArgT>
@@ -2733,11 +3076,11 @@ inline PROTOBUF_ALWAYS_INLINE
 void TcbAttributes_SecurityChip::set_vendor_id(ArgT0&& arg0, ArgT... args) {
  _has_bits_[0] |= 0x00000010u;
  vendor_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:reporting.TcbAttributes.SecurityChip.vendor_id)
+  // @@protoc_insertion_point(field_set:cros_xdr.reporting.TcbAttributes.SecurityChip.vendor_id)
 }
 inline std::string* TcbAttributes_SecurityChip::mutable_vendor_id() {
   std::string* _s = _internal_mutable_vendor_id();
-  // @@protoc_insertion_point(field_mutable:reporting.TcbAttributes.SecurityChip.vendor_id)
+  // @@protoc_insertion_point(field_mutable:cros_xdr.reporting.TcbAttributes.SecurityChip.vendor_id)
   return _s;
 }
 inline const std::string& TcbAttributes_SecurityChip::_internal_vendor_id() const {
@@ -2752,7 +3095,7 @@ inline std::string* TcbAttributes_SecurityChip::_internal_mutable_vendor_id() {
   return vendor_id_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
 }
 inline std::string* TcbAttributes_SecurityChip::release_vendor_id() {
-  // @@protoc_insertion_point(field_release:reporting.TcbAttributes.SecurityChip.vendor_id)
+  // @@protoc_insertion_point(field_release:cros_xdr.reporting.TcbAttributes.SecurityChip.vendor_id)
   if (!_internal_has_vendor_id()) {
     return nullptr;
   }
@@ -2778,7 +3121,7 @@ inline void TcbAttributes_SecurityChip::set_allocated_vendor_id(std::string* ven
     vendor_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:reporting.TcbAttributes.SecurityChip.vendor_id)
+  // @@protoc_insertion_point(field_set_allocated:cros_xdr.reporting.TcbAttributes.SecurityChip.vendor_id)
 }
 
 // optional string tpm_model = 7;
@@ -2794,7 +3137,7 @@ inline void TcbAttributes_SecurityChip::clear_tpm_model() {
   _has_bits_[0] &= ~0x00000020u;
 }
 inline const std::string& TcbAttributes_SecurityChip::tpm_model() const {
-  // @@protoc_insertion_point(field_get:reporting.TcbAttributes.SecurityChip.tpm_model)
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.TcbAttributes.SecurityChip.tpm_model)
   return _internal_tpm_model();
 }
 template <typename ArgT0, typename... ArgT>
@@ -2802,11 +3145,11 @@ inline PROTOBUF_ALWAYS_INLINE
 void TcbAttributes_SecurityChip::set_tpm_model(ArgT0&& arg0, ArgT... args) {
  _has_bits_[0] |= 0x00000020u;
  tpm_model_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:reporting.TcbAttributes.SecurityChip.tpm_model)
+  // @@protoc_insertion_point(field_set:cros_xdr.reporting.TcbAttributes.SecurityChip.tpm_model)
 }
 inline std::string* TcbAttributes_SecurityChip::mutable_tpm_model() {
   std::string* _s = _internal_mutable_tpm_model();
-  // @@protoc_insertion_point(field_mutable:reporting.TcbAttributes.SecurityChip.tpm_model)
+  // @@protoc_insertion_point(field_mutable:cros_xdr.reporting.TcbAttributes.SecurityChip.tpm_model)
   return _s;
 }
 inline const std::string& TcbAttributes_SecurityChip::_internal_tpm_model() const {
@@ -2821,7 +3164,7 @@ inline std::string* TcbAttributes_SecurityChip::_internal_mutable_tpm_model() {
   return tpm_model_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
 }
 inline std::string* TcbAttributes_SecurityChip::release_tpm_model() {
-  // @@protoc_insertion_point(field_release:reporting.TcbAttributes.SecurityChip.tpm_model)
+  // @@protoc_insertion_point(field_release:cros_xdr.reporting.TcbAttributes.SecurityChip.tpm_model)
   if (!_internal_has_tpm_model()) {
     return nullptr;
   }
@@ -2847,7 +3190,7 @@ inline void TcbAttributes_SecurityChip::set_allocated_tpm_model(std::string* tpm
     tpm_model_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:reporting.TcbAttributes.SecurityChip.tpm_model)
+  // @@protoc_insertion_point(field_set_allocated:cros_xdr.reporting.TcbAttributes.SecurityChip.tpm_model)
 }
 
 // optional string firmware_version = 8;
@@ -2863,7 +3206,7 @@ inline void TcbAttributes_SecurityChip::clear_firmware_version() {
   _has_bits_[0] &= ~0x00000040u;
 }
 inline const std::string& TcbAttributes_SecurityChip::firmware_version() const {
-  // @@protoc_insertion_point(field_get:reporting.TcbAttributes.SecurityChip.firmware_version)
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.TcbAttributes.SecurityChip.firmware_version)
   return _internal_firmware_version();
 }
 template <typename ArgT0, typename... ArgT>
@@ -2871,11 +3214,11 @@ inline PROTOBUF_ALWAYS_INLINE
 void TcbAttributes_SecurityChip::set_firmware_version(ArgT0&& arg0, ArgT... args) {
  _has_bits_[0] |= 0x00000040u;
  firmware_version_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:reporting.TcbAttributes.SecurityChip.firmware_version)
+  // @@protoc_insertion_point(field_set:cros_xdr.reporting.TcbAttributes.SecurityChip.firmware_version)
 }
 inline std::string* TcbAttributes_SecurityChip::mutable_firmware_version() {
   std::string* _s = _internal_mutable_firmware_version();
-  // @@protoc_insertion_point(field_mutable:reporting.TcbAttributes.SecurityChip.firmware_version)
+  // @@protoc_insertion_point(field_mutable:cros_xdr.reporting.TcbAttributes.SecurityChip.firmware_version)
   return _s;
 }
 inline const std::string& TcbAttributes_SecurityChip::_internal_firmware_version() const {
@@ -2890,7 +3233,7 @@ inline std::string* TcbAttributes_SecurityChip::_internal_mutable_firmware_versi
   return firmware_version_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
 }
 inline std::string* TcbAttributes_SecurityChip::release_firmware_version() {
-  // @@protoc_insertion_point(field_release:reporting.TcbAttributes.SecurityChip.firmware_version)
+  // @@protoc_insertion_point(field_release:cros_xdr.reporting.TcbAttributes.SecurityChip.firmware_version)
   if (!_internal_has_firmware_version()) {
     return nullptr;
   }
@@ -2916,7 +3259,7 @@ inline void TcbAttributes_SecurityChip::set_allocated_firmware_version(std::stri
     firmware_version_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:reporting.TcbAttributes.SecurityChip.firmware_version)
+  // @@protoc_insertion_point(field_set_allocated:cros_xdr.reporting.TcbAttributes.SecurityChip.firmware_version)
 }
 
 // -------------------------------------------------------------------
@@ -2936,7 +3279,7 @@ inline void TcbAttributes::clear_system_firmware_version() {
   _has_bits_[0] &= ~0x00000001u;
 }
 inline const std::string& TcbAttributes::system_firmware_version() const {
-  // @@protoc_insertion_point(field_get:reporting.TcbAttributes.system_firmware_version)
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.TcbAttributes.system_firmware_version)
   return _internal_system_firmware_version();
 }
 template <typename ArgT0, typename... ArgT>
@@ -2944,11 +3287,11 @@ inline PROTOBUF_ALWAYS_INLINE
 void TcbAttributes::set_system_firmware_version(ArgT0&& arg0, ArgT... args) {
  _has_bits_[0] |= 0x00000001u;
  system_firmware_version_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:reporting.TcbAttributes.system_firmware_version)
+  // @@protoc_insertion_point(field_set:cros_xdr.reporting.TcbAttributes.system_firmware_version)
 }
 inline std::string* TcbAttributes::mutable_system_firmware_version() {
   std::string* _s = _internal_mutable_system_firmware_version();
-  // @@protoc_insertion_point(field_mutable:reporting.TcbAttributes.system_firmware_version)
+  // @@protoc_insertion_point(field_mutable:cros_xdr.reporting.TcbAttributes.system_firmware_version)
   return _s;
 }
 inline const std::string& TcbAttributes::_internal_system_firmware_version() const {
@@ -2963,7 +3306,7 @@ inline std::string* TcbAttributes::_internal_mutable_system_firmware_version() {
   return system_firmware_version_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
 }
 inline std::string* TcbAttributes::release_system_firmware_version() {
-  // @@protoc_insertion_point(field_release:reporting.TcbAttributes.system_firmware_version)
+  // @@protoc_insertion_point(field_release:cros_xdr.reporting.TcbAttributes.system_firmware_version)
   if (!_internal_has_system_firmware_version()) {
     return nullptr;
   }
@@ -2989,10 +3332,10 @@ inline void TcbAttributes::set_allocated_system_firmware_version(std::string* sy
     system_firmware_version_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:reporting.TcbAttributes.system_firmware_version)
+  // @@protoc_insertion_point(field_set_allocated:cros_xdr.reporting.TcbAttributes.system_firmware_version)
 }
 
-// optional .reporting.TcbAttributes.FirmwareSecureBoot firmware_secure_boot = 2;
+// optional .cros_xdr.reporting.TcbAttributes.FirmwareSecureBoot firmware_secure_boot = 2;
 inline bool TcbAttributes::_internal_has_firmware_secure_boot() const {
   bool value = (_has_bits_[0] & 0x00000008u) != 0;
   return value;
@@ -3004,24 +3347,24 @@ inline void TcbAttributes::clear_firmware_secure_boot() {
   firmware_secure_boot_ = 0;
   _has_bits_[0] &= ~0x00000008u;
 }
-inline ::reporting::TcbAttributes_FirmwareSecureBoot TcbAttributes::_internal_firmware_secure_boot() const {
-  return static_cast< ::reporting::TcbAttributes_FirmwareSecureBoot >(firmware_secure_boot_);
+inline ::cros_xdr::reporting::TcbAttributes_FirmwareSecureBoot TcbAttributes::_internal_firmware_secure_boot() const {
+  return static_cast< ::cros_xdr::reporting::TcbAttributes_FirmwareSecureBoot >(firmware_secure_boot_);
 }
-inline ::reporting::TcbAttributes_FirmwareSecureBoot TcbAttributes::firmware_secure_boot() const {
-  // @@protoc_insertion_point(field_get:reporting.TcbAttributes.firmware_secure_boot)
+inline ::cros_xdr::reporting::TcbAttributes_FirmwareSecureBoot TcbAttributes::firmware_secure_boot() const {
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.TcbAttributes.firmware_secure_boot)
   return _internal_firmware_secure_boot();
 }
-inline void TcbAttributes::_internal_set_firmware_secure_boot(::reporting::TcbAttributes_FirmwareSecureBoot value) {
-  assert(::reporting::TcbAttributes_FirmwareSecureBoot_IsValid(value));
+inline void TcbAttributes::_internal_set_firmware_secure_boot(::cros_xdr::reporting::TcbAttributes_FirmwareSecureBoot value) {
+  assert(::cros_xdr::reporting::TcbAttributes_FirmwareSecureBoot_IsValid(value));
   _has_bits_[0] |= 0x00000008u;
   firmware_secure_boot_ = value;
 }
-inline void TcbAttributes::set_firmware_secure_boot(::reporting::TcbAttributes_FirmwareSecureBoot value) {
+inline void TcbAttributes::set_firmware_secure_boot(::cros_xdr::reporting::TcbAttributes_FirmwareSecureBoot value) {
   _internal_set_firmware_secure_boot(value);
-  // @@protoc_insertion_point(field_set:reporting.TcbAttributes.firmware_secure_boot)
+  // @@protoc_insertion_point(field_set:cros_xdr.reporting.TcbAttributes.firmware_secure_boot)
 }
 
-// optional .reporting.TcbAttributes.SecurityChip security_chip = 3;
+// optional .cros_xdr.reporting.TcbAttributes.SecurityChip security_chip = 3;
 inline bool TcbAttributes::_internal_has_security_chip() const {
   bool value = (_has_bits_[0] & 0x00000004u) != 0;
   PROTOBUF_ASSUME(!value || security_chip_ != nullptr);
@@ -3034,17 +3377,17 @@ inline void TcbAttributes::clear_security_chip() {
   if (security_chip_ != nullptr) security_chip_->Clear();
   _has_bits_[0] &= ~0x00000004u;
 }
-inline const ::reporting::TcbAttributes_SecurityChip& TcbAttributes::_internal_security_chip() const {
-  const ::reporting::TcbAttributes_SecurityChip* p = security_chip_;
-  return p != nullptr ? *p : reinterpret_cast<const ::reporting::TcbAttributes_SecurityChip&>(
-      ::reporting::_TcbAttributes_SecurityChip_default_instance_);
+inline const ::cros_xdr::reporting::TcbAttributes_SecurityChip& TcbAttributes::_internal_security_chip() const {
+  const ::cros_xdr::reporting::TcbAttributes_SecurityChip* p = security_chip_;
+  return p != nullptr ? *p : reinterpret_cast<const ::cros_xdr::reporting::TcbAttributes_SecurityChip&>(
+      ::cros_xdr::reporting::_TcbAttributes_SecurityChip_default_instance_);
 }
-inline const ::reporting::TcbAttributes_SecurityChip& TcbAttributes::security_chip() const {
-  // @@protoc_insertion_point(field_get:reporting.TcbAttributes.security_chip)
+inline const ::cros_xdr::reporting::TcbAttributes_SecurityChip& TcbAttributes::security_chip() const {
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.TcbAttributes.security_chip)
   return _internal_security_chip();
 }
 inline void TcbAttributes::unsafe_arena_set_allocated_security_chip(
-    ::reporting::TcbAttributes_SecurityChip* security_chip) {
+    ::cros_xdr::reporting::TcbAttributes_SecurityChip* security_chip) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(security_chip_);
   }
@@ -3054,11 +3397,11 @@ inline void TcbAttributes::unsafe_arena_set_allocated_security_chip(
   } else {
     _has_bits_[0] &= ~0x00000004u;
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:reporting.TcbAttributes.security_chip)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:cros_xdr.reporting.TcbAttributes.security_chip)
 }
-inline ::reporting::TcbAttributes_SecurityChip* TcbAttributes::release_security_chip() {
+inline ::cros_xdr::reporting::TcbAttributes_SecurityChip* TcbAttributes::release_security_chip() {
   _has_bits_[0] &= ~0x00000004u;
-  ::reporting::TcbAttributes_SecurityChip* temp = security_chip_;
+  ::cros_xdr::reporting::TcbAttributes_SecurityChip* temp = security_chip_;
   security_chip_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -3071,34 +3414,34 @@ inline ::reporting::TcbAttributes_SecurityChip* TcbAttributes::release_security_
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::reporting::TcbAttributes_SecurityChip* TcbAttributes::unsafe_arena_release_security_chip() {
-  // @@protoc_insertion_point(field_release:reporting.TcbAttributes.security_chip)
+inline ::cros_xdr::reporting::TcbAttributes_SecurityChip* TcbAttributes::unsafe_arena_release_security_chip() {
+  // @@protoc_insertion_point(field_release:cros_xdr.reporting.TcbAttributes.security_chip)
   _has_bits_[0] &= ~0x00000004u;
-  ::reporting::TcbAttributes_SecurityChip* temp = security_chip_;
+  ::cros_xdr::reporting::TcbAttributes_SecurityChip* temp = security_chip_;
   security_chip_ = nullptr;
   return temp;
 }
-inline ::reporting::TcbAttributes_SecurityChip* TcbAttributes::_internal_mutable_security_chip() {
+inline ::cros_xdr::reporting::TcbAttributes_SecurityChip* TcbAttributes::_internal_mutable_security_chip() {
   _has_bits_[0] |= 0x00000004u;
   if (security_chip_ == nullptr) {
-    auto* p = CreateMaybeMessage<::reporting::TcbAttributes_SecurityChip>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::cros_xdr::reporting::TcbAttributes_SecurityChip>(GetArenaForAllocation());
     security_chip_ = p;
   }
   return security_chip_;
 }
-inline ::reporting::TcbAttributes_SecurityChip* TcbAttributes::mutable_security_chip() {
-  ::reporting::TcbAttributes_SecurityChip* _msg = _internal_mutable_security_chip();
-  // @@protoc_insertion_point(field_mutable:reporting.TcbAttributes.security_chip)
+inline ::cros_xdr::reporting::TcbAttributes_SecurityChip* TcbAttributes::mutable_security_chip() {
+  ::cros_xdr::reporting::TcbAttributes_SecurityChip* _msg = _internal_mutable_security_chip();
+  // @@protoc_insertion_point(field_mutable:cros_xdr.reporting.TcbAttributes.security_chip)
   return _msg;
 }
-inline void TcbAttributes::set_allocated_security_chip(::reporting::TcbAttributes_SecurityChip* security_chip) {
+inline void TcbAttributes::set_allocated_security_chip(::cros_xdr::reporting::TcbAttributes_SecurityChip* security_chip) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete security_chip_;
   }
   if (security_chip) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::reporting::TcbAttributes_SecurityChip>::GetOwningArena(security_chip);
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::cros_xdr::reporting::TcbAttributes_SecurityChip>::GetOwningArena(security_chip);
     if (message_arena != submessage_arena) {
       security_chip = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, security_chip, submessage_arena);
@@ -3108,7 +3451,7 @@ inline void TcbAttributes::set_allocated_security_chip(::reporting::TcbAttribute
     _has_bits_[0] &= ~0x00000004u;
   }
   security_chip_ = security_chip;
-  // @@protoc_insertion_point(field_set_allocated:reporting.TcbAttributes.security_chip)
+  // @@protoc_insertion_point(field_set_allocated:cros_xdr.reporting.TcbAttributes.security_chip)
 }
 
 // optional string linux_kernel_version = 4;
@@ -3124,7 +3467,7 @@ inline void TcbAttributes::clear_linux_kernel_version() {
   _has_bits_[0] &= ~0x00000002u;
 }
 inline const std::string& TcbAttributes::linux_kernel_version() const {
-  // @@protoc_insertion_point(field_get:reporting.TcbAttributes.linux_kernel_version)
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.TcbAttributes.linux_kernel_version)
   return _internal_linux_kernel_version();
 }
 template <typename ArgT0, typename... ArgT>
@@ -3132,11 +3475,11 @@ inline PROTOBUF_ALWAYS_INLINE
 void TcbAttributes::set_linux_kernel_version(ArgT0&& arg0, ArgT... args) {
  _has_bits_[0] |= 0x00000002u;
  linux_kernel_version_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:reporting.TcbAttributes.linux_kernel_version)
+  // @@protoc_insertion_point(field_set:cros_xdr.reporting.TcbAttributes.linux_kernel_version)
 }
 inline std::string* TcbAttributes::mutable_linux_kernel_version() {
   std::string* _s = _internal_mutable_linux_kernel_version();
-  // @@protoc_insertion_point(field_mutable:reporting.TcbAttributes.linux_kernel_version)
+  // @@protoc_insertion_point(field_mutable:cros_xdr.reporting.TcbAttributes.linux_kernel_version)
   return _s;
 }
 inline const std::string& TcbAttributes::_internal_linux_kernel_version() const {
@@ -3151,7 +3494,7 @@ inline std::string* TcbAttributes::_internal_mutable_linux_kernel_version() {
   return linux_kernel_version_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
 }
 inline std::string* TcbAttributes::release_linux_kernel_version() {
-  // @@protoc_insertion_point(field_release:reporting.TcbAttributes.linux_kernel_version)
+  // @@protoc_insertion_point(field_release:cros_xdr.reporting.TcbAttributes.linux_kernel_version)
   if (!_internal_has_linux_kernel_version()) {
     return nullptr;
   }
@@ -3177,7 +3520,7 @@ inline void TcbAttributes::set_allocated_linux_kernel_version(std::string* linux
     linux_kernel_version_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:reporting.TcbAttributes.linux_kernel_version)
+  // @@protoc_insertion_point(field_set_allocated:cros_xdr.reporting.TcbAttributes.linux_kernel_version)
 }
 
 // -------------------------------------------------------------------
@@ -3197,7 +3540,7 @@ inline void FileImage::clear_pathname() {
   _has_bits_[0] &= ~0x00000001u;
 }
 inline const std::string& FileImage::pathname() const {
-  // @@protoc_insertion_point(field_get:reporting.FileImage.pathname)
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.FileImage.pathname)
   return _internal_pathname();
 }
 template <typename ArgT0, typename... ArgT>
@@ -3205,11 +3548,11 @@ inline PROTOBUF_ALWAYS_INLINE
 void FileImage::set_pathname(ArgT0&& arg0, ArgT... args) {
  _has_bits_[0] |= 0x00000001u;
  pathname_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:reporting.FileImage.pathname)
+  // @@protoc_insertion_point(field_set:cros_xdr.reporting.FileImage.pathname)
 }
 inline std::string* FileImage::mutable_pathname() {
   std::string* _s = _internal_mutable_pathname();
-  // @@protoc_insertion_point(field_mutable:reporting.FileImage.pathname)
+  // @@protoc_insertion_point(field_mutable:cros_xdr.reporting.FileImage.pathname)
   return _s;
 }
 inline const std::string& FileImage::_internal_pathname() const {
@@ -3224,7 +3567,7 @@ inline std::string* FileImage::_internal_mutable_pathname() {
   return pathname_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
 }
 inline std::string* FileImage::release_pathname() {
-  // @@protoc_insertion_point(field_release:reporting.FileImage.pathname)
+  // @@protoc_insertion_point(field_release:cros_xdr.reporting.FileImage.pathname)
   if (!_internal_has_pathname()) {
     return nullptr;
   }
@@ -3250,7 +3593,7 @@ inline void FileImage::set_allocated_pathname(std::string* pathname) {
     pathname_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:reporting.FileImage.pathname)
+  // @@protoc_insertion_point(field_set_allocated:cros_xdr.reporting.FileImage.pathname)
 }
 
 // optional uint64 mnt_ns = 2;
@@ -3269,7 +3612,7 @@ inline uint64_t FileImage::_internal_mnt_ns() const {
   return mnt_ns_;
 }
 inline uint64_t FileImage::mnt_ns() const {
-  // @@protoc_insertion_point(field_get:reporting.FileImage.mnt_ns)
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.FileImage.mnt_ns)
   return _internal_mnt_ns();
 }
 inline void FileImage::_internal_set_mnt_ns(uint64_t value) {
@@ -3278,7 +3621,7 @@ inline void FileImage::_internal_set_mnt_ns(uint64_t value) {
 }
 inline void FileImage::set_mnt_ns(uint64_t value) {
   _internal_set_mnt_ns(value);
-  // @@protoc_insertion_point(field_set:reporting.FileImage.mnt_ns)
+  // @@protoc_insertion_point(field_set:cros_xdr.reporting.FileImage.mnt_ns)
 }
 
 // optional uint64 inode_device_id = 3;
@@ -3297,7 +3640,7 @@ inline uint64_t FileImage::_internal_inode_device_id() const {
   return inode_device_id_;
 }
 inline uint64_t FileImage::inode_device_id() const {
-  // @@protoc_insertion_point(field_get:reporting.FileImage.inode_device_id)
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.FileImage.inode_device_id)
   return _internal_inode_device_id();
 }
 inline void FileImage::_internal_set_inode_device_id(uint64_t value) {
@@ -3306,7 +3649,7 @@ inline void FileImage::_internal_set_inode_device_id(uint64_t value) {
 }
 inline void FileImage::set_inode_device_id(uint64_t value) {
   _internal_set_inode_device_id(value);
-  // @@protoc_insertion_point(field_set:reporting.FileImage.inode_device_id)
+  // @@protoc_insertion_point(field_set:cros_xdr.reporting.FileImage.inode_device_id)
 }
 
 // optional uint64 inode = 4;
@@ -3325,7 +3668,7 @@ inline uint64_t FileImage::_internal_inode() const {
   return inode_;
 }
 inline uint64_t FileImage::inode() const {
-  // @@protoc_insertion_point(field_get:reporting.FileImage.inode)
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.FileImage.inode)
   return _internal_inode();
 }
 inline void FileImage::_internal_set_inode(uint64_t value) {
@@ -3334,7 +3677,7 @@ inline void FileImage::_internal_set_inode(uint64_t value) {
 }
 inline void FileImage::set_inode(uint64_t value) {
   _internal_set_inode(value);
-  // @@protoc_insertion_point(field_set:reporting.FileImage.inode)
+  // @@protoc_insertion_point(field_set:cros_xdr.reporting.FileImage.inode)
 }
 
 // optional string sha256 = 5;
@@ -3350,7 +3693,7 @@ inline void FileImage::clear_sha256() {
   _has_bits_[0] &= ~0x00000002u;
 }
 inline const std::string& FileImage::sha256() const {
-  // @@protoc_insertion_point(field_get:reporting.FileImage.sha256)
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.FileImage.sha256)
   return _internal_sha256();
 }
 template <typename ArgT0, typename... ArgT>
@@ -3358,11 +3701,11 @@ inline PROTOBUF_ALWAYS_INLINE
 void FileImage::set_sha256(ArgT0&& arg0, ArgT... args) {
  _has_bits_[0] |= 0x00000002u;
  sha256_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:reporting.FileImage.sha256)
+  // @@protoc_insertion_point(field_set:cros_xdr.reporting.FileImage.sha256)
 }
 inline std::string* FileImage::mutable_sha256() {
   std::string* _s = _internal_mutable_sha256();
-  // @@protoc_insertion_point(field_mutable:reporting.FileImage.sha256)
+  // @@protoc_insertion_point(field_mutable:cros_xdr.reporting.FileImage.sha256)
   return _s;
 }
 inline const std::string& FileImage::_internal_sha256() const {
@@ -3377,7 +3720,7 @@ inline std::string* FileImage::_internal_mutable_sha256() {
   return sha256_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
 }
 inline std::string* FileImage::release_sha256() {
-  // @@protoc_insertion_point(field_release:reporting.FileImage.sha256)
+  // @@protoc_insertion_point(field_release:cros_xdr.reporting.FileImage.sha256)
   if (!_internal_has_sha256()) {
     return nullptr;
   }
@@ -3403,7 +3746,7 @@ inline void FileImage::set_allocated_sha256(std::string* sha256) {
     sha256_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:reporting.FileImage.sha256)
+  // @@protoc_insertion_point(field_set_allocated:cros_xdr.reporting.FileImage.sha256)
 }
 
 // optional uint64 canonical_uid = 6;
@@ -3422,7 +3765,7 @@ inline uint64_t FileImage::_internal_canonical_uid() const {
   return canonical_uid_;
 }
 inline uint64_t FileImage::canonical_uid() const {
-  // @@protoc_insertion_point(field_get:reporting.FileImage.canonical_uid)
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.FileImage.canonical_uid)
   return _internal_canonical_uid();
 }
 inline void FileImage::_internal_set_canonical_uid(uint64_t value) {
@@ -3431,7 +3774,7 @@ inline void FileImage::_internal_set_canonical_uid(uint64_t value) {
 }
 inline void FileImage::set_canonical_uid(uint64_t value) {
   _internal_set_canonical_uid(value);
-  // @@protoc_insertion_point(field_set:reporting.FileImage.canonical_uid)
+  // @@protoc_insertion_point(field_set:cros_xdr.reporting.FileImage.canonical_uid)
 }
 
 // optional uint64 canonical_gid = 7;
@@ -3450,7 +3793,7 @@ inline uint64_t FileImage::_internal_canonical_gid() const {
   return canonical_gid_;
 }
 inline uint64_t FileImage::canonical_gid() const {
-  // @@protoc_insertion_point(field_get:reporting.FileImage.canonical_gid)
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.FileImage.canonical_gid)
   return _internal_canonical_gid();
 }
 inline void FileImage::_internal_set_canonical_gid(uint64_t value) {
@@ -3459,7 +3802,7 @@ inline void FileImage::_internal_set_canonical_gid(uint64_t value) {
 }
 inline void FileImage::set_canonical_gid(uint64_t value) {
   _internal_set_canonical_gid(value);
-  // @@protoc_insertion_point(field_set:reporting.FileImage.canonical_gid)
+  // @@protoc_insertion_point(field_set:cros_xdr.reporting.FileImage.canonical_gid)
 }
 
 // optional uint32 mode = 8;
@@ -3478,7 +3821,7 @@ inline uint32_t FileImage::_internal_mode() const {
   return mode_;
 }
 inline uint32_t FileImage::mode() const {
-  // @@protoc_insertion_point(field_get:reporting.FileImage.mode)
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.FileImage.mode)
   return _internal_mode();
 }
 inline void FileImage::_internal_set_mode(uint32_t value) {
@@ -3487,7 +3830,7 @@ inline void FileImage::_internal_set_mode(uint32_t value) {
 }
 inline void FileImage::set_mode(uint32_t value) {
   _internal_set_mode(value);
-  // @@protoc_insertion_point(field_set:reporting.FileImage.mode)
+  // @@protoc_insertion_point(field_set:cros_xdr.reporting.FileImage.mode)
 }
 
 // -------------------------------------------------------------------
@@ -3507,7 +3850,7 @@ inline void Process::clear_process_uuid() {
   _has_bits_[0] &= ~0x00000001u;
 }
 inline const std::string& Process::process_uuid() const {
-  // @@protoc_insertion_point(field_get:reporting.Process.process_uuid)
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.Process.process_uuid)
   return _internal_process_uuid();
 }
 template <typename ArgT0, typename... ArgT>
@@ -3515,11 +3858,11 @@ inline PROTOBUF_ALWAYS_INLINE
 void Process::set_process_uuid(ArgT0&& arg0, ArgT... args) {
  _has_bits_[0] |= 0x00000001u;
  process_uuid_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:reporting.Process.process_uuid)
+  // @@protoc_insertion_point(field_set:cros_xdr.reporting.Process.process_uuid)
 }
 inline std::string* Process::mutable_process_uuid() {
   std::string* _s = _internal_mutable_process_uuid();
-  // @@protoc_insertion_point(field_mutable:reporting.Process.process_uuid)
+  // @@protoc_insertion_point(field_mutable:cros_xdr.reporting.Process.process_uuid)
   return _s;
 }
 inline const std::string& Process::_internal_process_uuid() const {
@@ -3534,7 +3877,7 @@ inline std::string* Process::_internal_mutable_process_uuid() {
   return process_uuid_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
 }
 inline std::string* Process::release_process_uuid() {
-  // @@protoc_insertion_point(field_release:reporting.Process.process_uuid)
+  // @@protoc_insertion_point(field_release:cros_xdr.reporting.Process.process_uuid)
   if (!_internal_has_process_uuid()) {
     return nullptr;
   }
@@ -3560,7 +3903,7 @@ inline void Process::set_allocated_process_uuid(std::string* process_uuid) {
     process_uuid_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:reporting.Process.process_uuid)
+  // @@protoc_insertion_point(field_set_allocated:cros_xdr.reporting.Process.process_uuid)
 }
 
 // optional uint64 canonical_pid = 2;
@@ -3579,7 +3922,7 @@ inline uint64_t Process::_internal_canonical_pid() const {
   return canonical_pid_;
 }
 inline uint64_t Process::canonical_pid() const {
-  // @@protoc_insertion_point(field_get:reporting.Process.canonical_pid)
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.Process.canonical_pid)
   return _internal_canonical_pid();
 }
 inline void Process::_internal_set_canonical_pid(uint64_t value) {
@@ -3588,7 +3931,7 @@ inline void Process::_internal_set_canonical_pid(uint64_t value) {
 }
 inline void Process::set_canonical_pid(uint64_t value) {
   _internal_set_canonical_pid(value);
-  // @@protoc_insertion_point(field_set:reporting.Process.canonical_pid)
+  // @@protoc_insertion_point(field_set:cros_xdr.reporting.Process.canonical_pid)
 }
 
 // optional uint64 canonical_uid = 3;
@@ -3607,7 +3950,7 @@ inline uint64_t Process::_internal_canonical_uid() const {
   return canonical_uid_;
 }
 inline uint64_t Process::canonical_uid() const {
-  // @@protoc_insertion_point(field_get:reporting.Process.canonical_uid)
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.Process.canonical_uid)
   return _internal_canonical_uid();
 }
 inline void Process::_internal_set_canonical_uid(uint64_t value) {
@@ -3616,7 +3959,7 @@ inline void Process::_internal_set_canonical_uid(uint64_t value) {
 }
 inline void Process::set_canonical_uid(uint64_t value) {
   _internal_set_canonical_uid(value);
-  // @@protoc_insertion_point(field_set:reporting.Process.canonical_uid)
+  // @@protoc_insertion_point(field_set:cros_xdr.reporting.Process.canonical_uid)
 }
 
 // optional string commandline = 4;
@@ -3632,7 +3975,7 @@ inline void Process::clear_commandline() {
   _has_bits_[0] &= ~0x00000002u;
 }
 inline const std::string& Process::commandline() const {
-  // @@protoc_insertion_point(field_get:reporting.Process.commandline)
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.Process.commandline)
   return _internal_commandline();
 }
 template <typename ArgT0, typename... ArgT>
@@ -3640,11 +3983,11 @@ inline PROTOBUF_ALWAYS_INLINE
 void Process::set_commandline(ArgT0&& arg0, ArgT... args) {
  _has_bits_[0] |= 0x00000002u;
  commandline_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:reporting.Process.commandline)
+  // @@protoc_insertion_point(field_set:cros_xdr.reporting.Process.commandline)
 }
 inline std::string* Process::mutable_commandline() {
   std::string* _s = _internal_mutable_commandline();
-  // @@protoc_insertion_point(field_mutable:reporting.Process.commandline)
+  // @@protoc_insertion_point(field_mutable:cros_xdr.reporting.Process.commandline)
   return _s;
 }
 inline const std::string& Process::_internal_commandline() const {
@@ -3659,7 +4002,7 @@ inline std::string* Process::_internal_mutable_commandline() {
   return commandline_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
 }
 inline std::string* Process::release_commandline() {
-  // @@protoc_insertion_point(field_release:reporting.Process.commandline)
+  // @@protoc_insertion_point(field_release:cros_xdr.reporting.Process.commandline)
   if (!_internal_has_commandline()) {
     return nullptr;
   }
@@ -3685,10 +4028,10 @@ inline void Process::set_allocated_commandline(std::string* commandline) {
     commandline_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:reporting.Process.commandline)
+  // @@protoc_insertion_point(field_set_allocated:cros_xdr.reporting.Process.commandline)
 }
 
-// optional .reporting.FileImage image = 5;
+// optional .cros_xdr.reporting.FileImage image = 5;
 inline bool Process::_internal_has_image() const {
   bool value = (_has_bits_[0] & 0x00000004u) != 0;
   PROTOBUF_ASSUME(!value || image_ != nullptr);
@@ -3701,17 +4044,17 @@ inline void Process::clear_image() {
   if (image_ != nullptr) image_->Clear();
   _has_bits_[0] &= ~0x00000004u;
 }
-inline const ::reporting::FileImage& Process::_internal_image() const {
-  const ::reporting::FileImage* p = image_;
-  return p != nullptr ? *p : reinterpret_cast<const ::reporting::FileImage&>(
-      ::reporting::_FileImage_default_instance_);
+inline const ::cros_xdr::reporting::FileImage& Process::_internal_image() const {
+  const ::cros_xdr::reporting::FileImage* p = image_;
+  return p != nullptr ? *p : reinterpret_cast<const ::cros_xdr::reporting::FileImage&>(
+      ::cros_xdr::reporting::_FileImage_default_instance_);
 }
-inline const ::reporting::FileImage& Process::image() const {
-  // @@protoc_insertion_point(field_get:reporting.Process.image)
+inline const ::cros_xdr::reporting::FileImage& Process::image() const {
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.Process.image)
   return _internal_image();
 }
 inline void Process::unsafe_arena_set_allocated_image(
-    ::reporting::FileImage* image) {
+    ::cros_xdr::reporting::FileImage* image) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(image_);
   }
@@ -3721,11 +4064,11 @@ inline void Process::unsafe_arena_set_allocated_image(
   } else {
     _has_bits_[0] &= ~0x00000004u;
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:reporting.Process.image)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:cros_xdr.reporting.Process.image)
 }
-inline ::reporting::FileImage* Process::release_image() {
+inline ::cros_xdr::reporting::FileImage* Process::release_image() {
   _has_bits_[0] &= ~0x00000004u;
-  ::reporting::FileImage* temp = image_;
+  ::cros_xdr::reporting::FileImage* temp = image_;
   image_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -3738,34 +4081,34 @@ inline ::reporting::FileImage* Process::release_image() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::reporting::FileImage* Process::unsafe_arena_release_image() {
-  // @@protoc_insertion_point(field_release:reporting.Process.image)
+inline ::cros_xdr::reporting::FileImage* Process::unsafe_arena_release_image() {
+  // @@protoc_insertion_point(field_release:cros_xdr.reporting.Process.image)
   _has_bits_[0] &= ~0x00000004u;
-  ::reporting::FileImage* temp = image_;
+  ::cros_xdr::reporting::FileImage* temp = image_;
   image_ = nullptr;
   return temp;
 }
-inline ::reporting::FileImage* Process::_internal_mutable_image() {
+inline ::cros_xdr::reporting::FileImage* Process::_internal_mutable_image() {
   _has_bits_[0] |= 0x00000004u;
   if (image_ == nullptr) {
-    auto* p = CreateMaybeMessage<::reporting::FileImage>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::cros_xdr::reporting::FileImage>(GetArenaForAllocation());
     image_ = p;
   }
   return image_;
 }
-inline ::reporting::FileImage* Process::mutable_image() {
-  ::reporting::FileImage* _msg = _internal_mutable_image();
-  // @@protoc_insertion_point(field_mutable:reporting.Process.image)
+inline ::cros_xdr::reporting::FileImage* Process::mutable_image() {
+  ::cros_xdr::reporting::FileImage* _msg = _internal_mutable_image();
+  // @@protoc_insertion_point(field_mutable:cros_xdr.reporting.Process.image)
   return _msg;
 }
-inline void Process::set_allocated_image(::reporting::FileImage* image) {
+inline void Process::set_allocated_image(::cros_xdr::reporting::FileImage* image) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete image_;
   }
   if (image) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::reporting::FileImage>::GetOwningArena(image);
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::cros_xdr::reporting::FileImage>::GetOwningArena(image);
     if (message_arena != submessage_arena) {
       image = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, image, submessage_arena);
@@ -3775,7 +4118,7 @@ inline void Process::set_allocated_image(::reporting::FileImage* image) {
     _has_bits_[0] &= ~0x00000004u;
   }
   image_ = image;
-  // @@protoc_insertion_point(field_set_allocated:reporting.Process.image)
+  // @@protoc_insertion_point(field_set_allocated:cros_xdr.reporting.Process.image)
 }
 
 // -------------------------------------------------------------------
@@ -3798,7 +4141,7 @@ inline uint64_t Namespaces::_internal_cgroup_ns() const {
   return cgroup_ns_;
 }
 inline uint64_t Namespaces::cgroup_ns() const {
-  // @@protoc_insertion_point(field_get:reporting.Namespaces.cgroup_ns)
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.Namespaces.cgroup_ns)
   return _internal_cgroup_ns();
 }
 inline void Namespaces::_internal_set_cgroup_ns(uint64_t value) {
@@ -3807,7 +4150,7 @@ inline void Namespaces::_internal_set_cgroup_ns(uint64_t value) {
 }
 inline void Namespaces::set_cgroup_ns(uint64_t value) {
   _internal_set_cgroup_ns(value);
-  // @@protoc_insertion_point(field_set:reporting.Namespaces.cgroup_ns)
+  // @@protoc_insertion_point(field_set:cros_xdr.reporting.Namespaces.cgroup_ns)
 }
 
 // optional uint64 ipc_ns = 2;
@@ -3826,7 +4169,7 @@ inline uint64_t Namespaces::_internal_ipc_ns() const {
   return ipc_ns_;
 }
 inline uint64_t Namespaces::ipc_ns() const {
-  // @@protoc_insertion_point(field_get:reporting.Namespaces.ipc_ns)
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.Namespaces.ipc_ns)
   return _internal_ipc_ns();
 }
 inline void Namespaces::_internal_set_ipc_ns(uint64_t value) {
@@ -3835,7 +4178,7 @@ inline void Namespaces::_internal_set_ipc_ns(uint64_t value) {
 }
 inline void Namespaces::set_ipc_ns(uint64_t value) {
   _internal_set_ipc_ns(value);
-  // @@protoc_insertion_point(field_set:reporting.Namespaces.ipc_ns)
+  // @@protoc_insertion_point(field_set:cros_xdr.reporting.Namespaces.ipc_ns)
 }
 
 // optional uint64 pid_ns = 3;
@@ -3854,7 +4197,7 @@ inline uint64_t Namespaces::_internal_pid_ns() const {
   return pid_ns_;
 }
 inline uint64_t Namespaces::pid_ns() const {
-  // @@protoc_insertion_point(field_get:reporting.Namespaces.pid_ns)
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.Namespaces.pid_ns)
   return _internal_pid_ns();
 }
 inline void Namespaces::_internal_set_pid_ns(uint64_t value) {
@@ -3863,7 +4206,7 @@ inline void Namespaces::_internal_set_pid_ns(uint64_t value) {
 }
 inline void Namespaces::set_pid_ns(uint64_t value) {
   _internal_set_pid_ns(value);
-  // @@protoc_insertion_point(field_set:reporting.Namespaces.pid_ns)
+  // @@protoc_insertion_point(field_set:cros_xdr.reporting.Namespaces.pid_ns)
 }
 
 // optional uint64 user_ns = 4;
@@ -3882,7 +4225,7 @@ inline uint64_t Namespaces::_internal_user_ns() const {
   return user_ns_;
 }
 inline uint64_t Namespaces::user_ns() const {
-  // @@protoc_insertion_point(field_get:reporting.Namespaces.user_ns)
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.Namespaces.user_ns)
   return _internal_user_ns();
 }
 inline void Namespaces::_internal_set_user_ns(uint64_t value) {
@@ -3891,7 +4234,7 @@ inline void Namespaces::_internal_set_user_ns(uint64_t value) {
 }
 inline void Namespaces::set_user_ns(uint64_t value) {
   _internal_set_user_ns(value);
-  // @@protoc_insertion_point(field_set:reporting.Namespaces.user_ns)
+  // @@protoc_insertion_point(field_set:cros_xdr.reporting.Namespaces.user_ns)
 }
 
 // optional uint64 uts_ns = 5;
@@ -3910,7 +4253,7 @@ inline uint64_t Namespaces::_internal_uts_ns() const {
   return uts_ns_;
 }
 inline uint64_t Namespaces::uts_ns() const {
-  // @@protoc_insertion_point(field_get:reporting.Namespaces.uts_ns)
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.Namespaces.uts_ns)
   return _internal_uts_ns();
 }
 inline void Namespaces::_internal_set_uts_ns(uint64_t value) {
@@ -3919,7 +4262,7 @@ inline void Namespaces::_internal_set_uts_ns(uint64_t value) {
 }
 inline void Namespaces::set_uts_ns(uint64_t value) {
   _internal_set_uts_ns(value);
-  // @@protoc_insertion_point(field_set:reporting.Namespaces.uts_ns)
+  // @@protoc_insertion_point(field_set:cros_xdr.reporting.Namespaces.uts_ns)
 }
 
 // optional uint64 mnt_ns = 6;
@@ -3938,7 +4281,7 @@ inline uint64_t Namespaces::_internal_mnt_ns() const {
   return mnt_ns_;
 }
 inline uint64_t Namespaces::mnt_ns() const {
-  // @@protoc_insertion_point(field_get:reporting.Namespaces.mnt_ns)
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.Namespaces.mnt_ns)
   return _internal_mnt_ns();
 }
 inline void Namespaces::_internal_set_mnt_ns(uint64_t value) {
@@ -3947,7 +4290,7 @@ inline void Namespaces::_internal_set_mnt_ns(uint64_t value) {
 }
 inline void Namespaces::set_mnt_ns(uint64_t value) {
   _internal_set_mnt_ns(value);
-  // @@protoc_insertion_point(field_set:reporting.Namespaces.mnt_ns)
+  // @@protoc_insertion_point(field_set:cros_xdr.reporting.Namespaces.mnt_ns)
 }
 
 // optional uint64 net_ns = 7;
@@ -3966,7 +4309,7 @@ inline uint64_t Namespaces::_internal_net_ns() const {
   return net_ns_;
 }
 inline uint64_t Namespaces::net_ns() const {
-  // @@protoc_insertion_point(field_get:reporting.Namespaces.net_ns)
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.Namespaces.net_ns)
   return _internal_net_ns();
 }
 inline void Namespaces::_internal_set_net_ns(uint64_t value) {
@@ -3975,106 +4318,16 @@ inline void Namespaces::_internal_set_net_ns(uint64_t value) {
 }
 inline void Namespaces::set_net_ns(uint64_t value) {
   _internal_set_net_ns(value);
-  // @@protoc_insertion_point(field_set:reporting.Namespaces.net_ns)
+  // @@protoc_insertion_point(field_set:cros_xdr.reporting.Namespaces.net_ns)
 }
 
 // -------------------------------------------------------------------
 
 // AgentStartEvent
 
-// optional .reporting.CommonEventDataFields common = 1;
-inline bool AgentStartEvent::_internal_has_common() const {
-  bool value = (_has_bits_[0] & 0x00000001u) != 0;
-  PROTOBUF_ASSUME(!value || common_ != nullptr);
-  return value;
-}
-inline bool AgentStartEvent::has_common() const {
-  return _internal_has_common();
-}
-inline void AgentStartEvent::clear_common() {
-  if (common_ != nullptr) common_->Clear();
-  _has_bits_[0] &= ~0x00000001u;
-}
-inline const ::reporting::CommonEventDataFields& AgentStartEvent::_internal_common() const {
-  const ::reporting::CommonEventDataFields* p = common_;
-  return p != nullptr ? *p : reinterpret_cast<const ::reporting::CommonEventDataFields&>(
-      ::reporting::_CommonEventDataFields_default_instance_);
-}
-inline const ::reporting::CommonEventDataFields& AgentStartEvent::common() const {
-  // @@protoc_insertion_point(field_get:reporting.AgentStartEvent.common)
-  return _internal_common();
-}
-inline void AgentStartEvent::unsafe_arena_set_allocated_common(
-    ::reporting::CommonEventDataFields* common) {
-  if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(common_);
-  }
-  common_ = common;
-  if (common) {
-    _has_bits_[0] |= 0x00000001u;
-  } else {
-    _has_bits_[0] &= ~0x00000001u;
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:reporting.AgentStartEvent.common)
-}
-inline ::reporting::CommonEventDataFields* AgentStartEvent::release_common() {
-  _has_bits_[0] &= ~0x00000001u;
-  ::reporting::CommonEventDataFields* temp = common_;
-  common_ = nullptr;
-#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
-  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
-  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  if (GetArenaForAllocation() == nullptr) { delete old; }
-#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
-  if (GetArenaForAllocation() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
-  return temp;
-}
-inline ::reporting::CommonEventDataFields* AgentStartEvent::unsafe_arena_release_common() {
-  // @@protoc_insertion_point(field_release:reporting.AgentStartEvent.common)
-  _has_bits_[0] &= ~0x00000001u;
-  ::reporting::CommonEventDataFields* temp = common_;
-  common_ = nullptr;
-  return temp;
-}
-inline ::reporting::CommonEventDataFields* AgentStartEvent::_internal_mutable_common() {
-  _has_bits_[0] |= 0x00000001u;
-  if (common_ == nullptr) {
-    auto* p = CreateMaybeMessage<::reporting::CommonEventDataFields>(GetArenaForAllocation());
-    common_ = p;
-  }
-  return common_;
-}
-inline ::reporting::CommonEventDataFields* AgentStartEvent::mutable_common() {
-  ::reporting::CommonEventDataFields* _msg = _internal_mutable_common();
-  // @@protoc_insertion_point(field_mutable:reporting.AgentStartEvent.common)
-  return _msg;
-}
-inline void AgentStartEvent::set_allocated_common(::reporting::CommonEventDataFields* common) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  if (message_arena == nullptr) {
-    delete common_;
-  }
-  if (common) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::reporting::CommonEventDataFields>::GetOwningArena(common);
-    if (message_arena != submessage_arena) {
-      common = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, common, submessage_arena);
-    }
-    _has_bits_[0] |= 0x00000001u;
-  } else {
-    _has_bits_[0] &= ~0x00000001u;
-  }
-  common_ = common;
-  // @@protoc_insertion_point(field_set_allocated:reporting.AgentStartEvent.common)
-}
-
-// optional .reporting.TcbAttributes tcb = 2;
+// optional .cros_xdr.reporting.TcbAttributes tcb = 1;
 inline bool AgentStartEvent::_internal_has_tcb() const {
-  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
   PROTOBUF_ASSUME(!value || tcb_ != nullptr);
   return value;
 }
@@ -4083,33 +4336,33 @@ inline bool AgentStartEvent::has_tcb() const {
 }
 inline void AgentStartEvent::clear_tcb() {
   if (tcb_ != nullptr) tcb_->Clear();
-  _has_bits_[0] &= ~0x00000002u;
+  _has_bits_[0] &= ~0x00000001u;
 }
-inline const ::reporting::TcbAttributes& AgentStartEvent::_internal_tcb() const {
-  const ::reporting::TcbAttributes* p = tcb_;
-  return p != nullptr ? *p : reinterpret_cast<const ::reporting::TcbAttributes&>(
-      ::reporting::_TcbAttributes_default_instance_);
+inline const ::cros_xdr::reporting::TcbAttributes& AgentStartEvent::_internal_tcb() const {
+  const ::cros_xdr::reporting::TcbAttributes* p = tcb_;
+  return p != nullptr ? *p : reinterpret_cast<const ::cros_xdr::reporting::TcbAttributes&>(
+      ::cros_xdr::reporting::_TcbAttributes_default_instance_);
 }
-inline const ::reporting::TcbAttributes& AgentStartEvent::tcb() const {
-  // @@protoc_insertion_point(field_get:reporting.AgentStartEvent.tcb)
+inline const ::cros_xdr::reporting::TcbAttributes& AgentStartEvent::tcb() const {
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.AgentStartEvent.tcb)
   return _internal_tcb();
 }
 inline void AgentStartEvent::unsafe_arena_set_allocated_tcb(
-    ::reporting::TcbAttributes* tcb) {
+    ::cros_xdr::reporting::TcbAttributes* tcb) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(tcb_);
   }
   tcb_ = tcb;
   if (tcb) {
-    _has_bits_[0] |= 0x00000002u;
+    _has_bits_[0] |= 0x00000001u;
   } else {
-    _has_bits_[0] &= ~0x00000002u;
+    _has_bits_[0] &= ~0x00000001u;
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:reporting.AgentStartEvent.tcb)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:cros_xdr.reporting.AgentStartEvent.tcb)
 }
-inline ::reporting::TcbAttributes* AgentStartEvent::release_tcb() {
-  _has_bits_[0] &= ~0x00000002u;
-  ::reporting::TcbAttributes* temp = tcb_;
+inline ::cros_xdr::reporting::TcbAttributes* AgentStartEvent::release_tcb() {
+  _has_bits_[0] &= ~0x00000001u;
+  ::cros_xdr::reporting::TcbAttributes* temp = tcb_;
   tcb_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -4122,143 +4375,53 @@ inline ::reporting::TcbAttributes* AgentStartEvent::release_tcb() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::reporting::TcbAttributes* AgentStartEvent::unsafe_arena_release_tcb() {
-  // @@protoc_insertion_point(field_release:reporting.AgentStartEvent.tcb)
-  _has_bits_[0] &= ~0x00000002u;
-  ::reporting::TcbAttributes* temp = tcb_;
+inline ::cros_xdr::reporting::TcbAttributes* AgentStartEvent::unsafe_arena_release_tcb() {
+  // @@protoc_insertion_point(field_release:cros_xdr.reporting.AgentStartEvent.tcb)
+  _has_bits_[0] &= ~0x00000001u;
+  ::cros_xdr::reporting::TcbAttributes* temp = tcb_;
   tcb_ = nullptr;
   return temp;
 }
-inline ::reporting::TcbAttributes* AgentStartEvent::_internal_mutable_tcb() {
-  _has_bits_[0] |= 0x00000002u;
+inline ::cros_xdr::reporting::TcbAttributes* AgentStartEvent::_internal_mutable_tcb() {
+  _has_bits_[0] |= 0x00000001u;
   if (tcb_ == nullptr) {
-    auto* p = CreateMaybeMessage<::reporting::TcbAttributes>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::cros_xdr::reporting::TcbAttributes>(GetArenaForAllocation());
     tcb_ = p;
   }
   return tcb_;
 }
-inline ::reporting::TcbAttributes* AgentStartEvent::mutable_tcb() {
-  ::reporting::TcbAttributes* _msg = _internal_mutable_tcb();
-  // @@protoc_insertion_point(field_mutable:reporting.AgentStartEvent.tcb)
+inline ::cros_xdr::reporting::TcbAttributes* AgentStartEvent::mutable_tcb() {
+  ::cros_xdr::reporting::TcbAttributes* _msg = _internal_mutable_tcb();
+  // @@protoc_insertion_point(field_mutable:cros_xdr.reporting.AgentStartEvent.tcb)
   return _msg;
 }
-inline void AgentStartEvent::set_allocated_tcb(::reporting::TcbAttributes* tcb) {
+inline void AgentStartEvent::set_allocated_tcb(::cros_xdr::reporting::TcbAttributes* tcb) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete tcb_;
   }
   if (tcb) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::reporting::TcbAttributes>::GetOwningArena(tcb);
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::cros_xdr::reporting::TcbAttributes>::GetOwningArena(tcb);
     if (message_arena != submessage_arena) {
       tcb = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, tcb, submessage_arena);
     }
-    _has_bits_[0] |= 0x00000002u;
+    _has_bits_[0] |= 0x00000001u;
   } else {
-    _has_bits_[0] &= ~0x00000002u;
+    _has_bits_[0] &= ~0x00000001u;
   }
   tcb_ = tcb;
-  // @@protoc_insertion_point(field_set_allocated:reporting.AgentStartEvent.tcb)
+  // @@protoc_insertion_point(field_set_allocated:cros_xdr.reporting.AgentStartEvent.tcb)
 }
 
 // -------------------------------------------------------------------
 
 // AgentHeartbeatEvent
 
-// optional .reporting.CommonEventDataFields common = 1;
-inline bool AgentHeartbeatEvent::_internal_has_common() const {
-  bool value = (_has_bits_[0] & 0x00000001u) != 0;
-  PROTOBUF_ASSUME(!value || common_ != nullptr);
-  return value;
-}
-inline bool AgentHeartbeatEvent::has_common() const {
-  return _internal_has_common();
-}
-inline void AgentHeartbeatEvent::clear_common() {
-  if (common_ != nullptr) common_->Clear();
-  _has_bits_[0] &= ~0x00000001u;
-}
-inline const ::reporting::CommonEventDataFields& AgentHeartbeatEvent::_internal_common() const {
-  const ::reporting::CommonEventDataFields* p = common_;
-  return p != nullptr ? *p : reinterpret_cast<const ::reporting::CommonEventDataFields&>(
-      ::reporting::_CommonEventDataFields_default_instance_);
-}
-inline const ::reporting::CommonEventDataFields& AgentHeartbeatEvent::common() const {
-  // @@protoc_insertion_point(field_get:reporting.AgentHeartbeatEvent.common)
-  return _internal_common();
-}
-inline void AgentHeartbeatEvent::unsafe_arena_set_allocated_common(
-    ::reporting::CommonEventDataFields* common) {
-  if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(common_);
-  }
-  common_ = common;
-  if (common) {
-    _has_bits_[0] |= 0x00000001u;
-  } else {
-    _has_bits_[0] &= ~0x00000001u;
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:reporting.AgentHeartbeatEvent.common)
-}
-inline ::reporting::CommonEventDataFields* AgentHeartbeatEvent::release_common() {
-  _has_bits_[0] &= ~0x00000001u;
-  ::reporting::CommonEventDataFields* temp = common_;
-  common_ = nullptr;
-#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
-  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
-  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  if (GetArenaForAllocation() == nullptr) { delete old; }
-#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
-  if (GetArenaForAllocation() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  }
-#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
-  return temp;
-}
-inline ::reporting::CommonEventDataFields* AgentHeartbeatEvent::unsafe_arena_release_common() {
-  // @@protoc_insertion_point(field_release:reporting.AgentHeartbeatEvent.common)
-  _has_bits_[0] &= ~0x00000001u;
-  ::reporting::CommonEventDataFields* temp = common_;
-  common_ = nullptr;
-  return temp;
-}
-inline ::reporting::CommonEventDataFields* AgentHeartbeatEvent::_internal_mutable_common() {
-  _has_bits_[0] |= 0x00000001u;
-  if (common_ == nullptr) {
-    auto* p = CreateMaybeMessage<::reporting::CommonEventDataFields>(GetArenaForAllocation());
-    common_ = p;
-  }
-  return common_;
-}
-inline ::reporting::CommonEventDataFields* AgentHeartbeatEvent::mutable_common() {
-  ::reporting::CommonEventDataFields* _msg = _internal_mutable_common();
-  // @@protoc_insertion_point(field_mutable:reporting.AgentHeartbeatEvent.common)
-  return _msg;
-}
-inline void AgentHeartbeatEvent::set_allocated_common(::reporting::CommonEventDataFields* common) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  if (message_arena == nullptr) {
-    delete common_;
-  }
-  if (common) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::reporting::CommonEventDataFields>::GetOwningArena(common);
-    if (message_arena != submessage_arena) {
-      common = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, common, submessage_arena);
-    }
-    _has_bits_[0] |= 0x00000001u;
-  } else {
-    _has_bits_[0] &= ~0x00000001u;
-  }
-  common_ = common;
-  // @@protoc_insertion_point(field_set_allocated:reporting.AgentHeartbeatEvent.common)
-}
-
-// optional .reporting.TcbAttributes tcb = 2;
+// optional .cros_xdr.reporting.TcbAttributes tcb = 1;
 inline bool AgentHeartbeatEvent::_internal_has_tcb() const {
-  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
   PROTOBUF_ASSUME(!value || tcb_ != nullptr);
   return value;
 }
@@ -4267,33 +4430,33 @@ inline bool AgentHeartbeatEvent::has_tcb() const {
 }
 inline void AgentHeartbeatEvent::clear_tcb() {
   if (tcb_ != nullptr) tcb_->Clear();
-  _has_bits_[0] &= ~0x00000002u;
+  _has_bits_[0] &= ~0x00000001u;
 }
-inline const ::reporting::TcbAttributes& AgentHeartbeatEvent::_internal_tcb() const {
-  const ::reporting::TcbAttributes* p = tcb_;
-  return p != nullptr ? *p : reinterpret_cast<const ::reporting::TcbAttributes&>(
-      ::reporting::_TcbAttributes_default_instance_);
+inline const ::cros_xdr::reporting::TcbAttributes& AgentHeartbeatEvent::_internal_tcb() const {
+  const ::cros_xdr::reporting::TcbAttributes* p = tcb_;
+  return p != nullptr ? *p : reinterpret_cast<const ::cros_xdr::reporting::TcbAttributes&>(
+      ::cros_xdr::reporting::_TcbAttributes_default_instance_);
 }
-inline const ::reporting::TcbAttributes& AgentHeartbeatEvent::tcb() const {
-  // @@protoc_insertion_point(field_get:reporting.AgentHeartbeatEvent.tcb)
+inline const ::cros_xdr::reporting::TcbAttributes& AgentHeartbeatEvent::tcb() const {
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.AgentHeartbeatEvent.tcb)
   return _internal_tcb();
 }
 inline void AgentHeartbeatEvent::unsafe_arena_set_allocated_tcb(
-    ::reporting::TcbAttributes* tcb) {
+    ::cros_xdr::reporting::TcbAttributes* tcb) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(tcb_);
   }
   tcb_ = tcb;
   if (tcb) {
-    _has_bits_[0] |= 0x00000002u;
+    _has_bits_[0] |= 0x00000001u;
   } else {
-    _has_bits_[0] &= ~0x00000002u;
+    _has_bits_[0] &= ~0x00000001u;
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:reporting.AgentHeartbeatEvent.tcb)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:cros_xdr.reporting.AgentHeartbeatEvent.tcb)
 }
-inline ::reporting::TcbAttributes* AgentHeartbeatEvent::release_tcb() {
-  _has_bits_[0] &= ~0x00000002u;
-  ::reporting::TcbAttributes* temp = tcb_;
+inline ::cros_xdr::reporting::TcbAttributes* AgentHeartbeatEvent::release_tcb() {
+  _has_bits_[0] &= ~0x00000001u;
+  ::cros_xdr::reporting::TcbAttributes* temp = tcb_;
   tcb_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -4306,74 +4469,74 @@ inline ::reporting::TcbAttributes* AgentHeartbeatEvent::release_tcb() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::reporting::TcbAttributes* AgentHeartbeatEvent::unsafe_arena_release_tcb() {
-  // @@protoc_insertion_point(field_release:reporting.AgentHeartbeatEvent.tcb)
-  _has_bits_[0] &= ~0x00000002u;
-  ::reporting::TcbAttributes* temp = tcb_;
+inline ::cros_xdr::reporting::TcbAttributes* AgentHeartbeatEvent::unsafe_arena_release_tcb() {
+  // @@protoc_insertion_point(field_release:cros_xdr.reporting.AgentHeartbeatEvent.tcb)
+  _has_bits_[0] &= ~0x00000001u;
+  ::cros_xdr::reporting::TcbAttributes* temp = tcb_;
   tcb_ = nullptr;
   return temp;
 }
-inline ::reporting::TcbAttributes* AgentHeartbeatEvent::_internal_mutable_tcb() {
-  _has_bits_[0] |= 0x00000002u;
+inline ::cros_xdr::reporting::TcbAttributes* AgentHeartbeatEvent::_internal_mutable_tcb() {
+  _has_bits_[0] |= 0x00000001u;
   if (tcb_ == nullptr) {
-    auto* p = CreateMaybeMessage<::reporting::TcbAttributes>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::cros_xdr::reporting::TcbAttributes>(GetArenaForAllocation());
     tcb_ = p;
   }
   return tcb_;
 }
-inline ::reporting::TcbAttributes* AgentHeartbeatEvent::mutable_tcb() {
-  ::reporting::TcbAttributes* _msg = _internal_mutable_tcb();
-  // @@protoc_insertion_point(field_mutable:reporting.AgentHeartbeatEvent.tcb)
+inline ::cros_xdr::reporting::TcbAttributes* AgentHeartbeatEvent::mutable_tcb() {
+  ::cros_xdr::reporting::TcbAttributes* _msg = _internal_mutable_tcb();
+  // @@protoc_insertion_point(field_mutable:cros_xdr.reporting.AgentHeartbeatEvent.tcb)
   return _msg;
 }
-inline void AgentHeartbeatEvent::set_allocated_tcb(::reporting::TcbAttributes* tcb) {
+inline void AgentHeartbeatEvent::set_allocated_tcb(::cros_xdr::reporting::TcbAttributes* tcb) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete tcb_;
   }
   if (tcb) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::reporting::TcbAttributes>::GetOwningArena(tcb);
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::cros_xdr::reporting::TcbAttributes>::GetOwningArena(tcb);
     if (message_arena != submessage_arena) {
       tcb = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, tcb, submessage_arena);
     }
-    _has_bits_[0] |= 0x00000002u;
+    _has_bits_[0] |= 0x00000001u;
   } else {
-    _has_bits_[0] &= ~0x00000002u;
+    _has_bits_[0] &= ~0x00000001u;
   }
   tcb_ = tcb;
-  // @@protoc_insertion_point(field_set_allocated:reporting.AgentHeartbeatEvent.tcb)
+  // @@protoc_insertion_point(field_set_allocated:cros_xdr.reporting.AgentHeartbeatEvent.tcb)
 }
 
 // -------------------------------------------------------------------
 
-// ProcessExecEvent
+// XdrAgentEvent
 
-// optional .reporting.CommonEventDataFields common = 1;
-inline bool ProcessExecEvent::_internal_has_common() const {
+// optional .cros_xdr.reporting.CommonEventDataFields common = 1;
+inline bool XdrAgentEvent::_internal_has_common() const {
   bool value = (_has_bits_[0] & 0x00000001u) != 0;
   PROTOBUF_ASSUME(!value || common_ != nullptr);
   return value;
 }
-inline bool ProcessExecEvent::has_common() const {
+inline bool XdrAgentEvent::has_common() const {
   return _internal_has_common();
 }
-inline void ProcessExecEvent::clear_common() {
+inline void XdrAgentEvent::clear_common() {
   if (common_ != nullptr) common_->Clear();
   _has_bits_[0] &= ~0x00000001u;
 }
-inline const ::reporting::CommonEventDataFields& ProcessExecEvent::_internal_common() const {
-  const ::reporting::CommonEventDataFields* p = common_;
-  return p != nullptr ? *p : reinterpret_cast<const ::reporting::CommonEventDataFields&>(
-      ::reporting::_CommonEventDataFields_default_instance_);
+inline const ::cros_xdr::reporting::CommonEventDataFields& XdrAgentEvent::_internal_common() const {
+  const ::cros_xdr::reporting::CommonEventDataFields* p = common_;
+  return p != nullptr ? *p : reinterpret_cast<const ::cros_xdr::reporting::CommonEventDataFields&>(
+      ::cros_xdr::reporting::_CommonEventDataFields_default_instance_);
 }
-inline const ::reporting::CommonEventDataFields& ProcessExecEvent::common() const {
-  // @@protoc_insertion_point(field_get:reporting.ProcessExecEvent.common)
+inline const ::cros_xdr::reporting::CommonEventDataFields& XdrAgentEvent::common() const {
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.XdrAgentEvent.common)
   return _internal_common();
 }
-inline void ProcessExecEvent::unsafe_arena_set_allocated_common(
-    ::reporting::CommonEventDataFields* common) {
+inline void XdrAgentEvent::unsafe_arena_set_allocated_common(
+    ::cros_xdr::reporting::CommonEventDataFields* common) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(common_);
   }
@@ -4383,11 +4546,11 @@ inline void ProcessExecEvent::unsafe_arena_set_allocated_common(
   } else {
     _has_bits_[0] &= ~0x00000001u;
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:reporting.ProcessExecEvent.common)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:cros_xdr.reporting.XdrAgentEvent.common)
 }
-inline ::reporting::CommonEventDataFields* ProcessExecEvent::release_common() {
+inline ::cros_xdr::reporting::CommonEventDataFields* XdrAgentEvent::release_common() {
   _has_bits_[0] &= ~0x00000001u;
-  ::reporting::CommonEventDataFields* temp = common_;
+  ::cros_xdr::reporting::CommonEventDataFields* temp = common_;
   common_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -4400,34 +4563,34 @@ inline ::reporting::CommonEventDataFields* ProcessExecEvent::release_common() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::reporting::CommonEventDataFields* ProcessExecEvent::unsafe_arena_release_common() {
-  // @@protoc_insertion_point(field_release:reporting.ProcessExecEvent.common)
+inline ::cros_xdr::reporting::CommonEventDataFields* XdrAgentEvent::unsafe_arena_release_common() {
+  // @@protoc_insertion_point(field_release:cros_xdr.reporting.XdrAgentEvent.common)
   _has_bits_[0] &= ~0x00000001u;
-  ::reporting::CommonEventDataFields* temp = common_;
+  ::cros_xdr::reporting::CommonEventDataFields* temp = common_;
   common_ = nullptr;
   return temp;
 }
-inline ::reporting::CommonEventDataFields* ProcessExecEvent::_internal_mutable_common() {
+inline ::cros_xdr::reporting::CommonEventDataFields* XdrAgentEvent::_internal_mutable_common() {
   _has_bits_[0] |= 0x00000001u;
   if (common_ == nullptr) {
-    auto* p = CreateMaybeMessage<::reporting::CommonEventDataFields>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::cros_xdr::reporting::CommonEventDataFields>(GetArenaForAllocation());
     common_ = p;
   }
   return common_;
 }
-inline ::reporting::CommonEventDataFields* ProcessExecEvent::mutable_common() {
-  ::reporting::CommonEventDataFields* _msg = _internal_mutable_common();
-  // @@protoc_insertion_point(field_mutable:reporting.ProcessExecEvent.common)
+inline ::cros_xdr::reporting::CommonEventDataFields* XdrAgentEvent::mutable_common() {
+  ::cros_xdr::reporting::CommonEventDataFields* _msg = _internal_mutable_common();
+  // @@protoc_insertion_point(field_mutable:cros_xdr.reporting.XdrAgentEvent.common)
   return _msg;
 }
-inline void ProcessExecEvent::set_allocated_common(::reporting::CommonEventDataFields* common) {
+inline void XdrAgentEvent::set_allocated_common(::cros_xdr::reporting::CommonEventDataFields* common) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete common_;
   }
   if (common) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::reporting::CommonEventDataFields>::GetOwningArena(common);
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::cros_xdr::reporting::CommonEventDataFields>::GetOwningArena(common);
     if (message_arena != submessage_arena) {
       common = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, common, submessage_arena);
@@ -4437,12 +4600,173 @@ inline void ProcessExecEvent::set_allocated_common(::reporting::CommonEventDataF
     _has_bits_[0] &= ~0x00000001u;
   }
   common_ = common;
-  // @@protoc_insertion_point(field_set_allocated:reporting.ProcessExecEvent.common)
+  // @@protoc_insertion_point(field_set_allocated:cros_xdr.reporting.XdrAgentEvent.common)
 }
 
-// optional .reporting.Process parent_process = 2;
+// .cros_xdr.reporting.AgentStartEvent agent_start = 2;
+inline bool XdrAgentEvent::_internal_has_agent_start() const {
+  return message_type_case() == kAgentStart;
+}
+inline bool XdrAgentEvent::has_agent_start() const {
+  return _internal_has_agent_start();
+}
+inline void XdrAgentEvent::set_has_agent_start() {
+  _oneof_case_[0] = kAgentStart;
+}
+inline void XdrAgentEvent::clear_agent_start() {
+  if (_internal_has_agent_start()) {
+    if (GetArenaForAllocation() == nullptr) {
+      delete message_type_.agent_start_;
+    }
+    clear_has_message_type();
+  }
+}
+inline ::cros_xdr::reporting::AgentStartEvent* XdrAgentEvent::release_agent_start() {
+  // @@protoc_insertion_point(field_release:cros_xdr.reporting.XdrAgentEvent.agent_start)
+  if (_internal_has_agent_start()) {
+    clear_has_message_type();
+      ::cros_xdr::reporting::AgentStartEvent* temp = message_type_.agent_start_;
+    if (GetArenaForAllocation() != nullptr) {
+      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+    }
+    message_type_.agent_start_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline const ::cros_xdr::reporting::AgentStartEvent& XdrAgentEvent::_internal_agent_start() const {
+  return _internal_has_agent_start()
+      ? *message_type_.agent_start_
+      : reinterpret_cast< ::cros_xdr::reporting::AgentStartEvent&>(::cros_xdr::reporting::_AgentStartEvent_default_instance_);
+}
+inline const ::cros_xdr::reporting::AgentStartEvent& XdrAgentEvent::agent_start() const {
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.XdrAgentEvent.agent_start)
+  return _internal_agent_start();
+}
+inline ::cros_xdr::reporting::AgentStartEvent* XdrAgentEvent::unsafe_arena_release_agent_start() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:cros_xdr.reporting.XdrAgentEvent.agent_start)
+  if (_internal_has_agent_start()) {
+    clear_has_message_type();
+    ::cros_xdr::reporting::AgentStartEvent* temp = message_type_.agent_start_;
+    message_type_.agent_start_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline void XdrAgentEvent::unsafe_arena_set_allocated_agent_start(::cros_xdr::reporting::AgentStartEvent* agent_start) {
+  clear_message_type();
+  if (agent_start) {
+    set_has_agent_start();
+    message_type_.agent_start_ = agent_start;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:cros_xdr.reporting.XdrAgentEvent.agent_start)
+}
+inline ::cros_xdr::reporting::AgentStartEvent* XdrAgentEvent::_internal_mutable_agent_start() {
+  if (!_internal_has_agent_start()) {
+    clear_message_type();
+    set_has_agent_start();
+    message_type_.agent_start_ = CreateMaybeMessage< ::cros_xdr::reporting::AgentStartEvent >(GetArenaForAllocation());
+  }
+  return message_type_.agent_start_;
+}
+inline ::cros_xdr::reporting::AgentStartEvent* XdrAgentEvent::mutable_agent_start() {
+  ::cros_xdr::reporting::AgentStartEvent* _msg = _internal_mutable_agent_start();
+  // @@protoc_insertion_point(field_mutable:cros_xdr.reporting.XdrAgentEvent.agent_start)
+  return _msg;
+}
+
+// .cros_xdr.reporting.AgentHeartbeatEvent agent_heartbeat = 3;
+inline bool XdrAgentEvent::_internal_has_agent_heartbeat() const {
+  return message_type_case() == kAgentHeartbeat;
+}
+inline bool XdrAgentEvent::has_agent_heartbeat() const {
+  return _internal_has_agent_heartbeat();
+}
+inline void XdrAgentEvent::set_has_agent_heartbeat() {
+  _oneof_case_[0] = kAgentHeartbeat;
+}
+inline void XdrAgentEvent::clear_agent_heartbeat() {
+  if (_internal_has_agent_heartbeat()) {
+    if (GetArenaForAllocation() == nullptr) {
+      delete message_type_.agent_heartbeat_;
+    }
+    clear_has_message_type();
+  }
+}
+inline ::cros_xdr::reporting::AgentHeartbeatEvent* XdrAgentEvent::release_agent_heartbeat() {
+  // @@protoc_insertion_point(field_release:cros_xdr.reporting.XdrAgentEvent.agent_heartbeat)
+  if (_internal_has_agent_heartbeat()) {
+    clear_has_message_type();
+      ::cros_xdr::reporting::AgentHeartbeatEvent* temp = message_type_.agent_heartbeat_;
+    if (GetArenaForAllocation() != nullptr) {
+      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+    }
+    message_type_.agent_heartbeat_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline const ::cros_xdr::reporting::AgentHeartbeatEvent& XdrAgentEvent::_internal_agent_heartbeat() const {
+  return _internal_has_agent_heartbeat()
+      ? *message_type_.agent_heartbeat_
+      : reinterpret_cast< ::cros_xdr::reporting::AgentHeartbeatEvent&>(::cros_xdr::reporting::_AgentHeartbeatEvent_default_instance_);
+}
+inline const ::cros_xdr::reporting::AgentHeartbeatEvent& XdrAgentEvent::agent_heartbeat() const {
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.XdrAgentEvent.agent_heartbeat)
+  return _internal_agent_heartbeat();
+}
+inline ::cros_xdr::reporting::AgentHeartbeatEvent* XdrAgentEvent::unsafe_arena_release_agent_heartbeat() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:cros_xdr.reporting.XdrAgentEvent.agent_heartbeat)
+  if (_internal_has_agent_heartbeat()) {
+    clear_has_message_type();
+    ::cros_xdr::reporting::AgentHeartbeatEvent* temp = message_type_.agent_heartbeat_;
+    message_type_.agent_heartbeat_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline void XdrAgentEvent::unsafe_arena_set_allocated_agent_heartbeat(::cros_xdr::reporting::AgentHeartbeatEvent* agent_heartbeat) {
+  clear_message_type();
+  if (agent_heartbeat) {
+    set_has_agent_heartbeat();
+    message_type_.agent_heartbeat_ = agent_heartbeat;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:cros_xdr.reporting.XdrAgentEvent.agent_heartbeat)
+}
+inline ::cros_xdr::reporting::AgentHeartbeatEvent* XdrAgentEvent::_internal_mutable_agent_heartbeat() {
+  if (!_internal_has_agent_heartbeat()) {
+    clear_message_type();
+    set_has_agent_heartbeat();
+    message_type_.agent_heartbeat_ = CreateMaybeMessage< ::cros_xdr::reporting::AgentHeartbeatEvent >(GetArenaForAllocation());
+  }
+  return message_type_.agent_heartbeat_;
+}
+inline ::cros_xdr::reporting::AgentHeartbeatEvent* XdrAgentEvent::mutable_agent_heartbeat() {
+  ::cros_xdr::reporting::AgentHeartbeatEvent* _msg = _internal_mutable_agent_heartbeat();
+  // @@protoc_insertion_point(field_mutable:cros_xdr.reporting.XdrAgentEvent.agent_heartbeat)
+  return _msg;
+}
+
+inline bool XdrAgentEvent::has_message_type() const {
+  return message_type_case() != MESSAGE_TYPE_NOT_SET;
+}
+inline void XdrAgentEvent::clear_has_message_type() {
+  _oneof_case_[0] = MESSAGE_TYPE_NOT_SET;
+}
+inline XdrAgentEvent::MessageTypeCase XdrAgentEvent::message_type_case() const {
+  return XdrAgentEvent::MessageTypeCase(_oneof_case_[0]);
+}
+// -------------------------------------------------------------------
+
+// ProcessExecEvent
+
+// optional .cros_xdr.reporting.Process parent_process = 1;
 inline bool ProcessExecEvent::_internal_has_parent_process() const {
-  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
   PROTOBUF_ASSUME(!value || parent_process_ != nullptr);
   return value;
 }
@@ -4451,33 +4775,33 @@ inline bool ProcessExecEvent::has_parent_process() const {
 }
 inline void ProcessExecEvent::clear_parent_process() {
   if (parent_process_ != nullptr) parent_process_->Clear();
-  _has_bits_[0] &= ~0x00000002u;
+  _has_bits_[0] &= ~0x00000001u;
 }
-inline const ::reporting::Process& ProcessExecEvent::_internal_parent_process() const {
-  const ::reporting::Process* p = parent_process_;
-  return p != nullptr ? *p : reinterpret_cast<const ::reporting::Process&>(
-      ::reporting::_Process_default_instance_);
+inline const ::cros_xdr::reporting::Process& ProcessExecEvent::_internal_parent_process() const {
+  const ::cros_xdr::reporting::Process* p = parent_process_;
+  return p != nullptr ? *p : reinterpret_cast<const ::cros_xdr::reporting::Process&>(
+      ::cros_xdr::reporting::_Process_default_instance_);
 }
-inline const ::reporting::Process& ProcessExecEvent::parent_process() const {
-  // @@protoc_insertion_point(field_get:reporting.ProcessExecEvent.parent_process)
+inline const ::cros_xdr::reporting::Process& ProcessExecEvent::parent_process() const {
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.ProcessExecEvent.parent_process)
   return _internal_parent_process();
 }
 inline void ProcessExecEvent::unsafe_arena_set_allocated_parent_process(
-    ::reporting::Process* parent_process) {
+    ::cros_xdr::reporting::Process* parent_process) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(parent_process_);
   }
   parent_process_ = parent_process;
   if (parent_process) {
-    _has_bits_[0] |= 0x00000002u;
+    _has_bits_[0] |= 0x00000001u;
   } else {
-    _has_bits_[0] &= ~0x00000002u;
+    _has_bits_[0] &= ~0x00000001u;
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:reporting.ProcessExecEvent.parent_process)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:cros_xdr.reporting.ProcessExecEvent.parent_process)
 }
-inline ::reporting::Process* ProcessExecEvent::release_parent_process() {
-  _has_bits_[0] &= ~0x00000002u;
-  ::reporting::Process* temp = parent_process_;
+inline ::cros_xdr::reporting::Process* ProcessExecEvent::release_parent_process() {
+  _has_bits_[0] &= ~0x00000001u;
+  ::cros_xdr::reporting::Process* temp = parent_process_;
   parent_process_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -4490,49 +4814,49 @@ inline ::reporting::Process* ProcessExecEvent::release_parent_process() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::reporting::Process* ProcessExecEvent::unsafe_arena_release_parent_process() {
-  // @@protoc_insertion_point(field_release:reporting.ProcessExecEvent.parent_process)
-  _has_bits_[0] &= ~0x00000002u;
-  ::reporting::Process* temp = parent_process_;
+inline ::cros_xdr::reporting::Process* ProcessExecEvent::unsafe_arena_release_parent_process() {
+  // @@protoc_insertion_point(field_release:cros_xdr.reporting.ProcessExecEvent.parent_process)
+  _has_bits_[0] &= ~0x00000001u;
+  ::cros_xdr::reporting::Process* temp = parent_process_;
   parent_process_ = nullptr;
   return temp;
 }
-inline ::reporting::Process* ProcessExecEvent::_internal_mutable_parent_process() {
-  _has_bits_[0] |= 0x00000002u;
+inline ::cros_xdr::reporting::Process* ProcessExecEvent::_internal_mutable_parent_process() {
+  _has_bits_[0] |= 0x00000001u;
   if (parent_process_ == nullptr) {
-    auto* p = CreateMaybeMessage<::reporting::Process>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::cros_xdr::reporting::Process>(GetArenaForAllocation());
     parent_process_ = p;
   }
   return parent_process_;
 }
-inline ::reporting::Process* ProcessExecEvent::mutable_parent_process() {
-  ::reporting::Process* _msg = _internal_mutable_parent_process();
-  // @@protoc_insertion_point(field_mutable:reporting.ProcessExecEvent.parent_process)
+inline ::cros_xdr::reporting::Process* ProcessExecEvent::mutable_parent_process() {
+  ::cros_xdr::reporting::Process* _msg = _internal_mutable_parent_process();
+  // @@protoc_insertion_point(field_mutable:cros_xdr.reporting.ProcessExecEvent.parent_process)
   return _msg;
 }
-inline void ProcessExecEvent::set_allocated_parent_process(::reporting::Process* parent_process) {
+inline void ProcessExecEvent::set_allocated_parent_process(::cros_xdr::reporting::Process* parent_process) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete parent_process_;
   }
   if (parent_process) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::reporting::Process>::GetOwningArena(parent_process);
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::cros_xdr::reporting::Process>::GetOwningArena(parent_process);
     if (message_arena != submessage_arena) {
       parent_process = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, parent_process, submessage_arena);
     }
-    _has_bits_[0] |= 0x00000002u;
+    _has_bits_[0] |= 0x00000001u;
   } else {
-    _has_bits_[0] &= ~0x00000002u;
+    _has_bits_[0] &= ~0x00000001u;
   }
   parent_process_ = parent_process;
-  // @@protoc_insertion_point(field_set_allocated:reporting.ProcessExecEvent.parent_process)
+  // @@protoc_insertion_point(field_set_allocated:cros_xdr.reporting.ProcessExecEvent.parent_process)
 }
 
-// optional .reporting.Process process = 3;
+// optional .cros_xdr.reporting.Process process = 2;
 inline bool ProcessExecEvent::_internal_has_process() const {
-  bool value = (_has_bits_[0] & 0x00000004u) != 0;
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
   PROTOBUF_ASSUME(!value || process_ != nullptr);
   return value;
 }
@@ -4541,33 +4865,33 @@ inline bool ProcessExecEvent::has_process() const {
 }
 inline void ProcessExecEvent::clear_process() {
   if (process_ != nullptr) process_->Clear();
-  _has_bits_[0] &= ~0x00000004u;
+  _has_bits_[0] &= ~0x00000002u;
 }
-inline const ::reporting::Process& ProcessExecEvent::_internal_process() const {
-  const ::reporting::Process* p = process_;
-  return p != nullptr ? *p : reinterpret_cast<const ::reporting::Process&>(
-      ::reporting::_Process_default_instance_);
+inline const ::cros_xdr::reporting::Process& ProcessExecEvent::_internal_process() const {
+  const ::cros_xdr::reporting::Process* p = process_;
+  return p != nullptr ? *p : reinterpret_cast<const ::cros_xdr::reporting::Process&>(
+      ::cros_xdr::reporting::_Process_default_instance_);
 }
-inline const ::reporting::Process& ProcessExecEvent::process() const {
-  // @@protoc_insertion_point(field_get:reporting.ProcessExecEvent.process)
+inline const ::cros_xdr::reporting::Process& ProcessExecEvent::process() const {
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.ProcessExecEvent.process)
   return _internal_process();
 }
 inline void ProcessExecEvent::unsafe_arena_set_allocated_process(
-    ::reporting::Process* process) {
+    ::cros_xdr::reporting::Process* process) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(process_);
   }
   process_ = process;
   if (process) {
-    _has_bits_[0] |= 0x00000004u;
+    _has_bits_[0] |= 0x00000002u;
   } else {
-    _has_bits_[0] &= ~0x00000004u;
+    _has_bits_[0] &= ~0x00000002u;
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:reporting.ProcessExecEvent.process)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:cros_xdr.reporting.ProcessExecEvent.process)
 }
-inline ::reporting::Process* ProcessExecEvent::release_process() {
-  _has_bits_[0] &= ~0x00000004u;
-  ::reporting::Process* temp = process_;
+inline ::cros_xdr::reporting::Process* ProcessExecEvent::release_process() {
+  _has_bits_[0] &= ~0x00000002u;
+  ::cros_xdr::reporting::Process* temp = process_;
   process_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -4580,49 +4904,49 @@ inline ::reporting::Process* ProcessExecEvent::release_process() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::reporting::Process* ProcessExecEvent::unsafe_arena_release_process() {
-  // @@protoc_insertion_point(field_release:reporting.ProcessExecEvent.process)
-  _has_bits_[0] &= ~0x00000004u;
-  ::reporting::Process* temp = process_;
+inline ::cros_xdr::reporting::Process* ProcessExecEvent::unsafe_arena_release_process() {
+  // @@protoc_insertion_point(field_release:cros_xdr.reporting.ProcessExecEvent.process)
+  _has_bits_[0] &= ~0x00000002u;
+  ::cros_xdr::reporting::Process* temp = process_;
   process_ = nullptr;
   return temp;
 }
-inline ::reporting::Process* ProcessExecEvent::_internal_mutable_process() {
-  _has_bits_[0] |= 0x00000004u;
+inline ::cros_xdr::reporting::Process* ProcessExecEvent::_internal_mutable_process() {
+  _has_bits_[0] |= 0x00000002u;
   if (process_ == nullptr) {
-    auto* p = CreateMaybeMessage<::reporting::Process>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::cros_xdr::reporting::Process>(GetArenaForAllocation());
     process_ = p;
   }
   return process_;
 }
-inline ::reporting::Process* ProcessExecEvent::mutable_process() {
-  ::reporting::Process* _msg = _internal_mutable_process();
-  // @@protoc_insertion_point(field_mutable:reporting.ProcessExecEvent.process)
+inline ::cros_xdr::reporting::Process* ProcessExecEvent::mutable_process() {
+  ::cros_xdr::reporting::Process* _msg = _internal_mutable_process();
+  // @@protoc_insertion_point(field_mutable:cros_xdr.reporting.ProcessExecEvent.process)
   return _msg;
 }
-inline void ProcessExecEvent::set_allocated_process(::reporting::Process* process) {
+inline void ProcessExecEvent::set_allocated_process(::cros_xdr::reporting::Process* process) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete process_;
   }
   if (process) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::reporting::Process>::GetOwningArena(process);
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::cros_xdr::reporting::Process>::GetOwningArena(process);
     if (message_arena != submessage_arena) {
       process = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, process, submessage_arena);
     }
-    _has_bits_[0] |= 0x00000004u;
+    _has_bits_[0] |= 0x00000002u;
   } else {
-    _has_bits_[0] &= ~0x00000004u;
+    _has_bits_[0] &= ~0x00000002u;
   }
   process_ = process;
-  // @@protoc_insertion_point(field_set_allocated:reporting.ProcessExecEvent.process)
+  // @@protoc_insertion_point(field_set_allocated:cros_xdr.reporting.ProcessExecEvent.process)
 }
 
-// optional .reporting.Process spawn_process = 4;
+// optional .cros_xdr.reporting.Process spawn_process = 3;
 inline bool ProcessExecEvent::_internal_has_spawn_process() const {
-  bool value = (_has_bits_[0] & 0x00000008u) != 0;
+  bool value = (_has_bits_[0] & 0x00000004u) != 0;
   PROTOBUF_ASSUME(!value || spawn_process_ != nullptr);
   return value;
 }
@@ -4631,33 +4955,33 @@ inline bool ProcessExecEvent::has_spawn_process() const {
 }
 inline void ProcessExecEvent::clear_spawn_process() {
   if (spawn_process_ != nullptr) spawn_process_->Clear();
-  _has_bits_[0] &= ~0x00000008u;
+  _has_bits_[0] &= ~0x00000004u;
 }
-inline const ::reporting::Process& ProcessExecEvent::_internal_spawn_process() const {
-  const ::reporting::Process* p = spawn_process_;
-  return p != nullptr ? *p : reinterpret_cast<const ::reporting::Process&>(
-      ::reporting::_Process_default_instance_);
+inline const ::cros_xdr::reporting::Process& ProcessExecEvent::_internal_spawn_process() const {
+  const ::cros_xdr::reporting::Process* p = spawn_process_;
+  return p != nullptr ? *p : reinterpret_cast<const ::cros_xdr::reporting::Process&>(
+      ::cros_xdr::reporting::_Process_default_instance_);
 }
-inline const ::reporting::Process& ProcessExecEvent::spawn_process() const {
-  // @@protoc_insertion_point(field_get:reporting.ProcessExecEvent.spawn_process)
+inline const ::cros_xdr::reporting::Process& ProcessExecEvent::spawn_process() const {
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.ProcessExecEvent.spawn_process)
   return _internal_spawn_process();
 }
 inline void ProcessExecEvent::unsafe_arena_set_allocated_spawn_process(
-    ::reporting::Process* spawn_process) {
+    ::cros_xdr::reporting::Process* spawn_process) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(spawn_process_);
   }
   spawn_process_ = spawn_process;
   if (spawn_process) {
-    _has_bits_[0] |= 0x00000008u;
+    _has_bits_[0] |= 0x00000004u;
   } else {
-    _has_bits_[0] &= ~0x00000008u;
+    _has_bits_[0] &= ~0x00000004u;
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:reporting.ProcessExecEvent.spawn_process)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:cros_xdr.reporting.ProcessExecEvent.spawn_process)
 }
-inline ::reporting::Process* ProcessExecEvent::release_spawn_process() {
-  _has_bits_[0] &= ~0x00000008u;
-  ::reporting::Process* temp = spawn_process_;
+inline ::cros_xdr::reporting::Process* ProcessExecEvent::release_spawn_process() {
+  _has_bits_[0] &= ~0x00000004u;
+  ::cros_xdr::reporting::Process* temp = spawn_process_;
   spawn_process_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -4670,49 +4994,49 @@ inline ::reporting::Process* ProcessExecEvent::release_spawn_process() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::reporting::Process* ProcessExecEvent::unsafe_arena_release_spawn_process() {
-  // @@protoc_insertion_point(field_release:reporting.ProcessExecEvent.spawn_process)
-  _has_bits_[0] &= ~0x00000008u;
-  ::reporting::Process* temp = spawn_process_;
+inline ::cros_xdr::reporting::Process* ProcessExecEvent::unsafe_arena_release_spawn_process() {
+  // @@protoc_insertion_point(field_release:cros_xdr.reporting.ProcessExecEvent.spawn_process)
+  _has_bits_[0] &= ~0x00000004u;
+  ::cros_xdr::reporting::Process* temp = spawn_process_;
   spawn_process_ = nullptr;
   return temp;
 }
-inline ::reporting::Process* ProcessExecEvent::_internal_mutable_spawn_process() {
-  _has_bits_[0] |= 0x00000008u;
+inline ::cros_xdr::reporting::Process* ProcessExecEvent::_internal_mutable_spawn_process() {
+  _has_bits_[0] |= 0x00000004u;
   if (spawn_process_ == nullptr) {
-    auto* p = CreateMaybeMessage<::reporting::Process>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::cros_xdr::reporting::Process>(GetArenaForAllocation());
     spawn_process_ = p;
   }
   return spawn_process_;
 }
-inline ::reporting::Process* ProcessExecEvent::mutable_spawn_process() {
-  ::reporting::Process* _msg = _internal_mutable_spawn_process();
-  // @@protoc_insertion_point(field_mutable:reporting.ProcessExecEvent.spawn_process)
+inline ::cros_xdr::reporting::Process* ProcessExecEvent::mutable_spawn_process() {
+  ::cros_xdr::reporting::Process* _msg = _internal_mutable_spawn_process();
+  // @@protoc_insertion_point(field_mutable:cros_xdr.reporting.ProcessExecEvent.spawn_process)
   return _msg;
 }
-inline void ProcessExecEvent::set_allocated_spawn_process(::reporting::Process* spawn_process) {
+inline void ProcessExecEvent::set_allocated_spawn_process(::cros_xdr::reporting::Process* spawn_process) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete spawn_process_;
   }
   if (spawn_process) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::reporting::Process>::GetOwningArena(spawn_process);
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::cros_xdr::reporting::Process>::GetOwningArena(spawn_process);
     if (message_arena != submessage_arena) {
       spawn_process = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, spawn_process, submessage_arena);
     }
-    _has_bits_[0] |= 0x00000008u;
+    _has_bits_[0] |= 0x00000004u;
   } else {
-    _has_bits_[0] &= ~0x00000008u;
+    _has_bits_[0] &= ~0x00000004u;
   }
   spawn_process_ = spawn_process;
-  // @@protoc_insertion_point(field_set_allocated:reporting.ProcessExecEvent.spawn_process)
+  // @@protoc_insertion_point(field_set_allocated:cros_xdr.reporting.ProcessExecEvent.spawn_process)
 }
 
-// optional .reporting.Namespaces spawn_namespaces = 5;
+// optional .cros_xdr.reporting.Namespaces spawn_namespaces = 4;
 inline bool ProcessExecEvent::_internal_has_spawn_namespaces() const {
-  bool value = (_has_bits_[0] & 0x00000010u) != 0;
+  bool value = (_has_bits_[0] & 0x00000008u) != 0;
   PROTOBUF_ASSUME(!value || spawn_namespaces_ != nullptr);
   return value;
 }
@@ -4721,33 +5045,33 @@ inline bool ProcessExecEvent::has_spawn_namespaces() const {
 }
 inline void ProcessExecEvent::clear_spawn_namespaces() {
   if (spawn_namespaces_ != nullptr) spawn_namespaces_->Clear();
-  _has_bits_[0] &= ~0x00000010u;
+  _has_bits_[0] &= ~0x00000008u;
 }
-inline const ::reporting::Namespaces& ProcessExecEvent::_internal_spawn_namespaces() const {
-  const ::reporting::Namespaces* p = spawn_namespaces_;
-  return p != nullptr ? *p : reinterpret_cast<const ::reporting::Namespaces&>(
-      ::reporting::_Namespaces_default_instance_);
+inline const ::cros_xdr::reporting::Namespaces& ProcessExecEvent::_internal_spawn_namespaces() const {
+  const ::cros_xdr::reporting::Namespaces* p = spawn_namespaces_;
+  return p != nullptr ? *p : reinterpret_cast<const ::cros_xdr::reporting::Namespaces&>(
+      ::cros_xdr::reporting::_Namespaces_default_instance_);
 }
-inline const ::reporting::Namespaces& ProcessExecEvent::spawn_namespaces() const {
-  // @@protoc_insertion_point(field_get:reporting.ProcessExecEvent.spawn_namespaces)
+inline const ::cros_xdr::reporting::Namespaces& ProcessExecEvent::spawn_namespaces() const {
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.ProcessExecEvent.spawn_namespaces)
   return _internal_spawn_namespaces();
 }
 inline void ProcessExecEvent::unsafe_arena_set_allocated_spawn_namespaces(
-    ::reporting::Namespaces* spawn_namespaces) {
+    ::cros_xdr::reporting::Namespaces* spawn_namespaces) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(spawn_namespaces_);
   }
   spawn_namespaces_ = spawn_namespaces;
   if (spawn_namespaces) {
-    _has_bits_[0] |= 0x00000010u;
+    _has_bits_[0] |= 0x00000008u;
   } else {
-    _has_bits_[0] &= ~0x00000010u;
+    _has_bits_[0] &= ~0x00000008u;
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:reporting.ProcessExecEvent.spawn_namespaces)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:cros_xdr.reporting.ProcessExecEvent.spawn_namespaces)
 }
-inline ::reporting::Namespaces* ProcessExecEvent::release_spawn_namespaces() {
-  _has_bits_[0] &= ~0x00000010u;
-  ::reporting::Namespaces* temp = spawn_namespaces_;
+inline ::cros_xdr::reporting::Namespaces* ProcessExecEvent::release_spawn_namespaces() {
+  _has_bits_[0] &= ~0x00000008u;
+  ::cros_xdr::reporting::Namespaces* temp = spawn_namespaces_;
   spawn_namespaces_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -4760,74 +5084,258 @@ inline ::reporting::Namespaces* ProcessExecEvent::release_spawn_namespaces() {
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::reporting::Namespaces* ProcessExecEvent::unsafe_arena_release_spawn_namespaces() {
-  // @@protoc_insertion_point(field_release:reporting.ProcessExecEvent.spawn_namespaces)
-  _has_bits_[0] &= ~0x00000010u;
-  ::reporting::Namespaces* temp = spawn_namespaces_;
+inline ::cros_xdr::reporting::Namespaces* ProcessExecEvent::unsafe_arena_release_spawn_namespaces() {
+  // @@protoc_insertion_point(field_release:cros_xdr.reporting.ProcessExecEvent.spawn_namespaces)
+  _has_bits_[0] &= ~0x00000008u;
+  ::cros_xdr::reporting::Namespaces* temp = spawn_namespaces_;
   spawn_namespaces_ = nullptr;
   return temp;
 }
-inline ::reporting::Namespaces* ProcessExecEvent::_internal_mutable_spawn_namespaces() {
-  _has_bits_[0] |= 0x00000010u;
+inline ::cros_xdr::reporting::Namespaces* ProcessExecEvent::_internal_mutable_spawn_namespaces() {
+  _has_bits_[0] |= 0x00000008u;
   if (spawn_namespaces_ == nullptr) {
-    auto* p = CreateMaybeMessage<::reporting::Namespaces>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::cros_xdr::reporting::Namespaces>(GetArenaForAllocation());
     spawn_namespaces_ = p;
   }
   return spawn_namespaces_;
 }
-inline ::reporting::Namespaces* ProcessExecEvent::mutable_spawn_namespaces() {
-  ::reporting::Namespaces* _msg = _internal_mutable_spawn_namespaces();
-  // @@protoc_insertion_point(field_mutable:reporting.ProcessExecEvent.spawn_namespaces)
+inline ::cros_xdr::reporting::Namespaces* ProcessExecEvent::mutable_spawn_namespaces() {
+  ::cros_xdr::reporting::Namespaces* _msg = _internal_mutable_spawn_namespaces();
+  // @@protoc_insertion_point(field_mutable:cros_xdr.reporting.ProcessExecEvent.spawn_namespaces)
   return _msg;
 }
-inline void ProcessExecEvent::set_allocated_spawn_namespaces(::reporting::Namespaces* spawn_namespaces) {
+inline void ProcessExecEvent::set_allocated_spawn_namespaces(::cros_xdr::reporting::Namespaces* spawn_namespaces) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete spawn_namespaces_;
   }
   if (spawn_namespaces) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::reporting::Namespaces>::GetOwningArena(spawn_namespaces);
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::cros_xdr::reporting::Namespaces>::GetOwningArena(spawn_namespaces);
     if (message_arena != submessage_arena) {
       spawn_namespaces = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, spawn_namespaces, submessage_arena);
     }
-    _has_bits_[0] |= 0x00000010u;
+    _has_bits_[0] |= 0x00000008u;
   } else {
-    _has_bits_[0] &= ~0x00000010u;
+    _has_bits_[0] &= ~0x00000008u;
   }
   spawn_namespaces_ = spawn_namespaces;
-  // @@protoc_insertion_point(field_set_allocated:reporting.ProcessExecEvent.spawn_namespaces)
+  // @@protoc_insertion_point(field_set_allocated:cros_xdr.reporting.ProcessExecEvent.spawn_namespaces)
 }
 
 // -------------------------------------------------------------------
 
 // ProcessTerminateEvent
 
-// optional .reporting.CommonEventDataFields common = 1;
-inline bool ProcessTerminateEvent::_internal_has_common() const {
+// optional .cros_xdr.reporting.Process parent_process = 1;
+inline bool ProcessTerminateEvent::_internal_has_parent_process() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  PROTOBUF_ASSUME(!value || parent_process_ != nullptr);
+  return value;
+}
+inline bool ProcessTerminateEvent::has_parent_process() const {
+  return _internal_has_parent_process();
+}
+inline void ProcessTerminateEvent::clear_parent_process() {
+  if (parent_process_ != nullptr) parent_process_->Clear();
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline const ::cros_xdr::reporting::Process& ProcessTerminateEvent::_internal_parent_process() const {
+  const ::cros_xdr::reporting::Process* p = parent_process_;
+  return p != nullptr ? *p : reinterpret_cast<const ::cros_xdr::reporting::Process&>(
+      ::cros_xdr::reporting::_Process_default_instance_);
+}
+inline const ::cros_xdr::reporting::Process& ProcessTerminateEvent::parent_process() const {
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.ProcessTerminateEvent.parent_process)
+  return _internal_parent_process();
+}
+inline void ProcessTerminateEvent::unsafe_arena_set_allocated_parent_process(
+    ::cros_xdr::reporting::Process* parent_process) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(parent_process_);
+  }
+  parent_process_ = parent_process;
+  if (parent_process) {
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:cros_xdr.reporting.ProcessTerminateEvent.parent_process)
+}
+inline ::cros_xdr::reporting::Process* ProcessTerminateEvent::release_parent_process() {
+  _has_bits_[0] &= ~0x00000001u;
+  ::cros_xdr::reporting::Process* temp = parent_process_;
+  parent_process_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::cros_xdr::reporting::Process* ProcessTerminateEvent::unsafe_arena_release_parent_process() {
+  // @@protoc_insertion_point(field_release:cros_xdr.reporting.ProcessTerminateEvent.parent_process)
+  _has_bits_[0] &= ~0x00000001u;
+  ::cros_xdr::reporting::Process* temp = parent_process_;
+  parent_process_ = nullptr;
+  return temp;
+}
+inline ::cros_xdr::reporting::Process* ProcessTerminateEvent::_internal_mutable_parent_process() {
+  _has_bits_[0] |= 0x00000001u;
+  if (parent_process_ == nullptr) {
+    auto* p = CreateMaybeMessage<::cros_xdr::reporting::Process>(GetArenaForAllocation());
+    parent_process_ = p;
+  }
+  return parent_process_;
+}
+inline ::cros_xdr::reporting::Process* ProcessTerminateEvent::mutable_parent_process() {
+  ::cros_xdr::reporting::Process* _msg = _internal_mutable_parent_process();
+  // @@protoc_insertion_point(field_mutable:cros_xdr.reporting.ProcessTerminateEvent.parent_process)
+  return _msg;
+}
+inline void ProcessTerminateEvent::set_allocated_parent_process(::cros_xdr::reporting::Process* parent_process) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete parent_process_;
+  }
+  if (parent_process) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::cros_xdr::reporting::Process>::GetOwningArena(parent_process);
+    if (message_arena != submessage_arena) {
+      parent_process = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, parent_process, submessage_arena);
+    }
+    _has_bits_[0] |= 0x00000001u;
+  } else {
+    _has_bits_[0] &= ~0x00000001u;
+  }
+  parent_process_ = parent_process;
+  // @@protoc_insertion_point(field_set_allocated:cros_xdr.reporting.ProcessTerminateEvent.parent_process)
+}
+
+// optional .cros_xdr.reporting.Process process = 2;
+inline bool ProcessTerminateEvent::_internal_has_process() const {
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  PROTOBUF_ASSUME(!value || process_ != nullptr);
+  return value;
+}
+inline bool ProcessTerminateEvent::has_process() const {
+  return _internal_has_process();
+}
+inline void ProcessTerminateEvent::clear_process() {
+  if (process_ != nullptr) process_->Clear();
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline const ::cros_xdr::reporting::Process& ProcessTerminateEvent::_internal_process() const {
+  const ::cros_xdr::reporting::Process* p = process_;
+  return p != nullptr ? *p : reinterpret_cast<const ::cros_xdr::reporting::Process&>(
+      ::cros_xdr::reporting::_Process_default_instance_);
+}
+inline const ::cros_xdr::reporting::Process& ProcessTerminateEvent::process() const {
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.ProcessTerminateEvent.process)
+  return _internal_process();
+}
+inline void ProcessTerminateEvent::unsafe_arena_set_allocated_process(
+    ::cros_xdr::reporting::Process* process) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(process_);
+  }
+  process_ = process;
+  if (process) {
+    _has_bits_[0] |= 0x00000002u;
+  } else {
+    _has_bits_[0] &= ~0x00000002u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:cros_xdr.reporting.ProcessTerminateEvent.process)
+}
+inline ::cros_xdr::reporting::Process* ProcessTerminateEvent::release_process() {
+  _has_bits_[0] &= ~0x00000002u;
+  ::cros_xdr::reporting::Process* temp = process_;
+  process_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::cros_xdr::reporting::Process* ProcessTerminateEvent::unsafe_arena_release_process() {
+  // @@protoc_insertion_point(field_release:cros_xdr.reporting.ProcessTerminateEvent.process)
+  _has_bits_[0] &= ~0x00000002u;
+  ::cros_xdr::reporting::Process* temp = process_;
+  process_ = nullptr;
+  return temp;
+}
+inline ::cros_xdr::reporting::Process* ProcessTerminateEvent::_internal_mutable_process() {
+  _has_bits_[0] |= 0x00000002u;
+  if (process_ == nullptr) {
+    auto* p = CreateMaybeMessage<::cros_xdr::reporting::Process>(GetArenaForAllocation());
+    process_ = p;
+  }
+  return process_;
+}
+inline ::cros_xdr::reporting::Process* ProcessTerminateEvent::mutable_process() {
+  ::cros_xdr::reporting::Process* _msg = _internal_mutable_process();
+  // @@protoc_insertion_point(field_mutable:cros_xdr.reporting.ProcessTerminateEvent.process)
+  return _msg;
+}
+inline void ProcessTerminateEvent::set_allocated_process(::cros_xdr::reporting::Process* process) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete process_;
+  }
+  if (process) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::cros_xdr::reporting::Process>::GetOwningArena(process);
+    if (message_arena != submessage_arena) {
+      process = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, process, submessage_arena);
+    }
+    _has_bits_[0] |= 0x00000002u;
+  } else {
+    _has_bits_[0] &= ~0x00000002u;
+  }
+  process_ = process;
+  // @@protoc_insertion_point(field_set_allocated:cros_xdr.reporting.ProcessTerminateEvent.process)
+}
+
+// -------------------------------------------------------------------
+
+// XdrProcessEvent
+
+// optional .cros_xdr.reporting.CommonEventDataFields common = 1;
+inline bool XdrProcessEvent::_internal_has_common() const {
   bool value = (_has_bits_[0] & 0x00000001u) != 0;
   PROTOBUF_ASSUME(!value || common_ != nullptr);
   return value;
 }
-inline bool ProcessTerminateEvent::has_common() const {
+inline bool XdrProcessEvent::has_common() const {
   return _internal_has_common();
 }
-inline void ProcessTerminateEvent::clear_common() {
+inline void XdrProcessEvent::clear_common() {
   if (common_ != nullptr) common_->Clear();
   _has_bits_[0] &= ~0x00000001u;
 }
-inline const ::reporting::CommonEventDataFields& ProcessTerminateEvent::_internal_common() const {
-  const ::reporting::CommonEventDataFields* p = common_;
-  return p != nullptr ? *p : reinterpret_cast<const ::reporting::CommonEventDataFields&>(
-      ::reporting::_CommonEventDataFields_default_instance_);
+inline const ::cros_xdr::reporting::CommonEventDataFields& XdrProcessEvent::_internal_common() const {
+  const ::cros_xdr::reporting::CommonEventDataFields* p = common_;
+  return p != nullptr ? *p : reinterpret_cast<const ::cros_xdr::reporting::CommonEventDataFields&>(
+      ::cros_xdr::reporting::_CommonEventDataFields_default_instance_);
 }
-inline const ::reporting::CommonEventDataFields& ProcessTerminateEvent::common() const {
-  // @@protoc_insertion_point(field_get:reporting.ProcessTerminateEvent.common)
+inline const ::cros_xdr::reporting::CommonEventDataFields& XdrProcessEvent::common() const {
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.XdrProcessEvent.common)
   return _internal_common();
 }
-inline void ProcessTerminateEvent::unsafe_arena_set_allocated_common(
-    ::reporting::CommonEventDataFields* common) {
+inline void XdrProcessEvent::unsafe_arena_set_allocated_common(
+    ::cros_xdr::reporting::CommonEventDataFields* common) {
   if (GetArenaForAllocation() == nullptr) {
     delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(common_);
   }
@@ -4837,11 +5345,11 @@ inline void ProcessTerminateEvent::unsafe_arena_set_allocated_common(
   } else {
     _has_bits_[0] &= ~0x00000001u;
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:reporting.ProcessTerminateEvent.common)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:cros_xdr.reporting.XdrProcessEvent.common)
 }
-inline ::reporting::CommonEventDataFields* ProcessTerminateEvent::release_common() {
+inline ::cros_xdr::reporting::CommonEventDataFields* XdrProcessEvent::release_common() {
   _has_bits_[0] &= ~0x00000001u;
-  ::reporting::CommonEventDataFields* temp = common_;
+  ::cros_xdr::reporting::CommonEventDataFields* temp = common_;
   common_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
   auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
@@ -4854,34 +5362,34 @@ inline ::reporting::CommonEventDataFields* ProcessTerminateEvent::release_common
 #endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
   return temp;
 }
-inline ::reporting::CommonEventDataFields* ProcessTerminateEvent::unsafe_arena_release_common() {
-  // @@protoc_insertion_point(field_release:reporting.ProcessTerminateEvent.common)
+inline ::cros_xdr::reporting::CommonEventDataFields* XdrProcessEvent::unsafe_arena_release_common() {
+  // @@protoc_insertion_point(field_release:cros_xdr.reporting.XdrProcessEvent.common)
   _has_bits_[0] &= ~0x00000001u;
-  ::reporting::CommonEventDataFields* temp = common_;
+  ::cros_xdr::reporting::CommonEventDataFields* temp = common_;
   common_ = nullptr;
   return temp;
 }
-inline ::reporting::CommonEventDataFields* ProcessTerminateEvent::_internal_mutable_common() {
+inline ::cros_xdr::reporting::CommonEventDataFields* XdrProcessEvent::_internal_mutable_common() {
   _has_bits_[0] |= 0x00000001u;
   if (common_ == nullptr) {
-    auto* p = CreateMaybeMessage<::reporting::CommonEventDataFields>(GetArenaForAllocation());
+    auto* p = CreateMaybeMessage<::cros_xdr::reporting::CommonEventDataFields>(GetArenaForAllocation());
     common_ = p;
   }
   return common_;
 }
-inline ::reporting::CommonEventDataFields* ProcessTerminateEvent::mutable_common() {
-  ::reporting::CommonEventDataFields* _msg = _internal_mutable_common();
-  // @@protoc_insertion_point(field_mutable:reporting.ProcessTerminateEvent.common)
+inline ::cros_xdr::reporting::CommonEventDataFields* XdrProcessEvent::mutable_common() {
+  ::cros_xdr::reporting::CommonEventDataFields* _msg = _internal_mutable_common();
+  // @@protoc_insertion_point(field_mutable:cros_xdr.reporting.XdrProcessEvent.common)
   return _msg;
 }
-inline void ProcessTerminateEvent::set_allocated_common(::reporting::CommonEventDataFields* common) {
+inline void XdrProcessEvent::set_allocated_common(::cros_xdr::reporting::CommonEventDataFields* common) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   if (message_arena == nullptr) {
     delete common_;
   }
   if (common) {
     ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::reporting::CommonEventDataFields>::GetOwningArena(common);
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::cros_xdr::reporting::CommonEventDataFields>::GetOwningArena(common);
     if (message_arena != submessage_arena) {
       common = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, common, submessage_arena);
@@ -4891,192 +5399,173 @@ inline void ProcessTerminateEvent::set_allocated_common(::reporting::CommonEvent
     _has_bits_[0] &= ~0x00000001u;
   }
   common_ = common;
-  // @@protoc_insertion_point(field_set_allocated:reporting.ProcessTerminateEvent.common)
+  // @@protoc_insertion_point(field_set_allocated:cros_xdr.reporting.XdrProcessEvent.common)
 }
 
-// optional .reporting.Process parent_process = 2;
-inline bool ProcessTerminateEvent::_internal_has_parent_process() const {
-  bool value = (_has_bits_[0] & 0x00000002u) != 0;
-  PROTOBUF_ASSUME(!value || parent_process_ != nullptr);
-  return value;
+// .cros_xdr.reporting.ProcessExecEvent process_exec = 2;
+inline bool XdrProcessEvent::_internal_has_process_exec() const {
+  return message_type_case() == kProcessExec;
 }
-inline bool ProcessTerminateEvent::has_parent_process() const {
-  return _internal_has_parent_process();
+inline bool XdrProcessEvent::has_process_exec() const {
+  return _internal_has_process_exec();
 }
-inline void ProcessTerminateEvent::clear_parent_process() {
-  if (parent_process_ != nullptr) parent_process_->Clear();
-  _has_bits_[0] &= ~0x00000002u;
+inline void XdrProcessEvent::set_has_process_exec() {
+  _oneof_case_[0] = kProcessExec;
 }
-inline const ::reporting::Process& ProcessTerminateEvent::_internal_parent_process() const {
-  const ::reporting::Process* p = parent_process_;
-  return p != nullptr ? *p : reinterpret_cast<const ::reporting::Process&>(
-      ::reporting::_Process_default_instance_);
-}
-inline const ::reporting::Process& ProcessTerminateEvent::parent_process() const {
-  // @@protoc_insertion_point(field_get:reporting.ProcessTerminateEvent.parent_process)
-  return _internal_parent_process();
-}
-inline void ProcessTerminateEvent::unsafe_arena_set_allocated_parent_process(
-    ::reporting::Process* parent_process) {
-  if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(parent_process_);
+inline void XdrProcessEvent::clear_process_exec() {
+  if (_internal_has_process_exec()) {
+    if (GetArenaForAllocation() == nullptr) {
+      delete message_type_.process_exec_;
+    }
+    clear_has_message_type();
   }
-  parent_process_ = parent_process;
-  if (parent_process) {
-    _has_bits_[0] |= 0x00000002u;
+}
+inline ::cros_xdr::reporting::ProcessExecEvent* XdrProcessEvent::release_process_exec() {
+  // @@protoc_insertion_point(field_release:cros_xdr.reporting.XdrProcessEvent.process_exec)
+  if (_internal_has_process_exec()) {
+    clear_has_message_type();
+      ::cros_xdr::reporting::ProcessExecEvent* temp = message_type_.process_exec_;
+    if (GetArenaForAllocation() != nullptr) {
+      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+    }
+    message_type_.process_exec_ = nullptr;
+    return temp;
   } else {
-    _has_bits_[0] &= ~0x00000002u;
+    return nullptr;
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:reporting.ProcessTerminateEvent.parent_process)
 }
-inline ::reporting::Process* ProcessTerminateEvent::release_parent_process() {
-  _has_bits_[0] &= ~0x00000002u;
-  ::reporting::Process* temp = parent_process_;
-  parent_process_ = nullptr;
-#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
-  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
-  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  if (GetArenaForAllocation() == nullptr) { delete old; }
-#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
-  if (GetArenaForAllocation() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+inline const ::cros_xdr::reporting::ProcessExecEvent& XdrProcessEvent::_internal_process_exec() const {
+  return _internal_has_process_exec()
+      ? *message_type_.process_exec_
+      : reinterpret_cast< ::cros_xdr::reporting::ProcessExecEvent&>(::cros_xdr::reporting::_ProcessExecEvent_default_instance_);
+}
+inline const ::cros_xdr::reporting::ProcessExecEvent& XdrProcessEvent::process_exec() const {
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.XdrProcessEvent.process_exec)
+  return _internal_process_exec();
+}
+inline ::cros_xdr::reporting::ProcessExecEvent* XdrProcessEvent::unsafe_arena_release_process_exec() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:cros_xdr.reporting.XdrProcessEvent.process_exec)
+  if (_internal_has_process_exec()) {
+    clear_has_message_type();
+    ::cros_xdr::reporting::ProcessExecEvent* temp = message_type_.process_exec_;
+    message_type_.process_exec_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
   }
-#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
-  return temp;
 }
-inline ::reporting::Process* ProcessTerminateEvent::unsafe_arena_release_parent_process() {
-  // @@protoc_insertion_point(field_release:reporting.ProcessTerminateEvent.parent_process)
-  _has_bits_[0] &= ~0x00000002u;
-  ::reporting::Process* temp = parent_process_;
-  parent_process_ = nullptr;
-  return temp;
-}
-inline ::reporting::Process* ProcessTerminateEvent::_internal_mutable_parent_process() {
-  _has_bits_[0] |= 0x00000002u;
-  if (parent_process_ == nullptr) {
-    auto* p = CreateMaybeMessage<::reporting::Process>(GetArenaForAllocation());
-    parent_process_ = p;
+inline void XdrProcessEvent::unsafe_arena_set_allocated_process_exec(::cros_xdr::reporting::ProcessExecEvent* process_exec) {
+  clear_message_type();
+  if (process_exec) {
+    set_has_process_exec();
+    message_type_.process_exec_ = process_exec;
   }
-  return parent_process_;
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:cros_xdr.reporting.XdrProcessEvent.process_exec)
 }
-inline ::reporting::Process* ProcessTerminateEvent::mutable_parent_process() {
-  ::reporting::Process* _msg = _internal_mutable_parent_process();
-  // @@protoc_insertion_point(field_mutable:reporting.ProcessTerminateEvent.parent_process)
+inline ::cros_xdr::reporting::ProcessExecEvent* XdrProcessEvent::_internal_mutable_process_exec() {
+  if (!_internal_has_process_exec()) {
+    clear_message_type();
+    set_has_process_exec();
+    message_type_.process_exec_ = CreateMaybeMessage< ::cros_xdr::reporting::ProcessExecEvent >(GetArenaForAllocation());
+  }
+  return message_type_.process_exec_;
+}
+inline ::cros_xdr::reporting::ProcessExecEvent* XdrProcessEvent::mutable_process_exec() {
+  ::cros_xdr::reporting::ProcessExecEvent* _msg = _internal_mutable_process_exec();
+  // @@protoc_insertion_point(field_mutable:cros_xdr.reporting.XdrProcessEvent.process_exec)
   return _msg;
 }
-inline void ProcessTerminateEvent::set_allocated_parent_process(::reporting::Process* parent_process) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  if (message_arena == nullptr) {
-    delete parent_process_;
-  }
-  if (parent_process) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::reporting::Process>::GetOwningArena(parent_process);
-    if (message_arena != submessage_arena) {
-      parent_process = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, parent_process, submessage_arena);
-    }
-    _has_bits_[0] |= 0x00000002u;
-  } else {
-    _has_bits_[0] &= ~0x00000002u;
-  }
-  parent_process_ = parent_process;
-  // @@protoc_insertion_point(field_set_allocated:reporting.ProcessTerminateEvent.parent_process)
-}
 
-// optional .reporting.Process process = 3;
-inline bool ProcessTerminateEvent::_internal_has_process() const {
-  bool value = (_has_bits_[0] & 0x00000004u) != 0;
-  PROTOBUF_ASSUME(!value || process_ != nullptr);
-  return value;
+// .cros_xdr.reporting.ProcessTerminateEvent process_terminate = 3;
+inline bool XdrProcessEvent::_internal_has_process_terminate() const {
+  return message_type_case() == kProcessTerminate;
 }
-inline bool ProcessTerminateEvent::has_process() const {
-  return _internal_has_process();
+inline bool XdrProcessEvent::has_process_terminate() const {
+  return _internal_has_process_terminate();
 }
-inline void ProcessTerminateEvent::clear_process() {
-  if (process_ != nullptr) process_->Clear();
-  _has_bits_[0] &= ~0x00000004u;
+inline void XdrProcessEvent::set_has_process_terminate() {
+  _oneof_case_[0] = kProcessTerminate;
 }
-inline const ::reporting::Process& ProcessTerminateEvent::_internal_process() const {
-  const ::reporting::Process* p = process_;
-  return p != nullptr ? *p : reinterpret_cast<const ::reporting::Process&>(
-      ::reporting::_Process_default_instance_);
-}
-inline const ::reporting::Process& ProcessTerminateEvent::process() const {
-  // @@protoc_insertion_point(field_get:reporting.ProcessTerminateEvent.process)
-  return _internal_process();
-}
-inline void ProcessTerminateEvent::unsafe_arena_set_allocated_process(
-    ::reporting::Process* process) {
-  if (GetArenaForAllocation() == nullptr) {
-    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(process_);
+inline void XdrProcessEvent::clear_process_terminate() {
+  if (_internal_has_process_terminate()) {
+    if (GetArenaForAllocation() == nullptr) {
+      delete message_type_.process_terminate_;
+    }
+    clear_has_message_type();
   }
-  process_ = process;
-  if (process) {
-    _has_bits_[0] |= 0x00000004u;
+}
+inline ::cros_xdr::reporting::ProcessTerminateEvent* XdrProcessEvent::release_process_terminate() {
+  // @@protoc_insertion_point(field_release:cros_xdr.reporting.XdrProcessEvent.process_terminate)
+  if (_internal_has_process_terminate()) {
+    clear_has_message_type();
+      ::cros_xdr::reporting::ProcessTerminateEvent* temp = message_type_.process_terminate_;
+    if (GetArenaForAllocation() != nullptr) {
+      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+    }
+    message_type_.process_terminate_ = nullptr;
+    return temp;
   } else {
-    _has_bits_[0] &= ~0x00000004u;
+    return nullptr;
   }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:reporting.ProcessTerminateEvent.process)
 }
-inline ::reporting::Process* ProcessTerminateEvent::release_process() {
-  _has_bits_[0] &= ~0x00000004u;
-  ::reporting::Process* temp = process_;
-  process_ = nullptr;
-#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
-  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
-  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
-  if (GetArenaForAllocation() == nullptr) { delete old; }
-#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
-  if (GetArenaForAllocation() != nullptr) {
-    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+inline const ::cros_xdr::reporting::ProcessTerminateEvent& XdrProcessEvent::_internal_process_terminate() const {
+  return _internal_has_process_terminate()
+      ? *message_type_.process_terminate_
+      : reinterpret_cast< ::cros_xdr::reporting::ProcessTerminateEvent&>(::cros_xdr::reporting::_ProcessTerminateEvent_default_instance_);
+}
+inline const ::cros_xdr::reporting::ProcessTerminateEvent& XdrProcessEvent::process_terminate() const {
+  // @@protoc_insertion_point(field_get:cros_xdr.reporting.XdrProcessEvent.process_terminate)
+  return _internal_process_terminate();
+}
+inline ::cros_xdr::reporting::ProcessTerminateEvent* XdrProcessEvent::unsafe_arena_release_process_terminate() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:cros_xdr.reporting.XdrProcessEvent.process_terminate)
+  if (_internal_has_process_terminate()) {
+    clear_has_message_type();
+    ::cros_xdr::reporting::ProcessTerminateEvent* temp = message_type_.process_terminate_;
+    message_type_.process_terminate_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
   }
-#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
-  return temp;
 }
-inline ::reporting::Process* ProcessTerminateEvent::unsafe_arena_release_process() {
-  // @@protoc_insertion_point(field_release:reporting.ProcessTerminateEvent.process)
-  _has_bits_[0] &= ~0x00000004u;
-  ::reporting::Process* temp = process_;
-  process_ = nullptr;
-  return temp;
-}
-inline ::reporting::Process* ProcessTerminateEvent::_internal_mutable_process() {
-  _has_bits_[0] |= 0x00000004u;
-  if (process_ == nullptr) {
-    auto* p = CreateMaybeMessage<::reporting::Process>(GetArenaForAllocation());
-    process_ = p;
+inline void XdrProcessEvent::unsafe_arena_set_allocated_process_terminate(::cros_xdr::reporting::ProcessTerminateEvent* process_terminate) {
+  clear_message_type();
+  if (process_terminate) {
+    set_has_process_terminate();
+    message_type_.process_terminate_ = process_terminate;
   }
-  return process_;
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:cros_xdr.reporting.XdrProcessEvent.process_terminate)
 }
-inline ::reporting::Process* ProcessTerminateEvent::mutable_process() {
-  ::reporting::Process* _msg = _internal_mutable_process();
-  // @@protoc_insertion_point(field_mutable:reporting.ProcessTerminateEvent.process)
+inline ::cros_xdr::reporting::ProcessTerminateEvent* XdrProcessEvent::_internal_mutable_process_terminate() {
+  if (!_internal_has_process_terminate()) {
+    clear_message_type();
+    set_has_process_terminate();
+    message_type_.process_terminate_ = CreateMaybeMessage< ::cros_xdr::reporting::ProcessTerminateEvent >(GetArenaForAllocation());
+  }
+  return message_type_.process_terminate_;
+}
+inline ::cros_xdr::reporting::ProcessTerminateEvent* XdrProcessEvent::mutable_process_terminate() {
+  ::cros_xdr::reporting::ProcessTerminateEvent* _msg = _internal_mutable_process_terminate();
+  // @@protoc_insertion_point(field_mutable:cros_xdr.reporting.XdrProcessEvent.process_terminate)
   return _msg;
 }
-inline void ProcessTerminateEvent::set_allocated_process(::reporting::Process* process) {
-  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
-  if (message_arena == nullptr) {
-    delete process_;
-  }
-  if (process) {
-    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
-        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::reporting::Process>::GetOwningArena(process);
-    if (message_arena != submessage_arena) {
-      process = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
-          message_arena, process, submessage_arena);
-    }
-    _has_bits_[0] |= 0x00000004u;
-  } else {
-    _has_bits_[0] &= ~0x00000004u;
-  }
-  process_ = process;
-  // @@protoc_insertion_point(field_set_allocated:reporting.ProcessTerminateEvent.process)
-}
 
+inline bool XdrProcessEvent::has_message_type() const {
+  return message_type_case() != MESSAGE_TYPE_NOT_SET;
+}
+inline void XdrProcessEvent::clear_has_message_type() {
+  _oneof_case_[0] = MESSAGE_TYPE_NOT_SET;
+}
+inline XdrProcessEvent::MessageTypeCase XdrProcessEvent::message_type_case() const {
+  return XdrProcessEvent::MessageTypeCase(_oneof_case_[0]);
+}
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
@@ -5099,11 +5588,12 @@ inline void ProcessTerminateEvent::set_allocated_process(::reporting::Process* p
 // @@protoc_insertion_point(namespace_scope)
 
 }  // namespace reporting
+}  // namespace cros_xdr
 
 PROTOBUF_NAMESPACE_OPEN
 
-template <> struct is_proto_enum< ::reporting::TcbAttributes_SecurityChip_Kind> : ::std::true_type {};
-template <> struct is_proto_enum< ::reporting::TcbAttributes_FirmwareSecureBoot> : ::std::true_type {};
+template <> struct is_proto_enum< ::cros_xdr::reporting::TcbAttributes_SecurityChip_Kind> : ::std::true_type {};
+template <> struct is_proto_enum< ::cros_xdr::reporting::TcbAttributes_FirmwareSecureBoot> : ::std::true_type {};
 
 PROTOBUF_NAMESPACE_CLOSE
 

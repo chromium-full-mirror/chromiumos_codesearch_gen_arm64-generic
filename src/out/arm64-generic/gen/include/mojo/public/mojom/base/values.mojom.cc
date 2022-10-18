@@ -15,6 +15,7 @@
 #include <stdint.h>
 #include <utility>
 
+#include "base/debug/alias.h"
 #include "base/hash/md5_constexpr.h"
 #include "base/run_loop.h"
 #include "base/strings/string_number_conversions.h"
@@ -127,34 +128,6 @@ void DeprecatedDictionaryValue::WriteIntoTrace(
 }
 
 bool DeprecatedDictionaryValue::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  return Data_::Validate(data, validation_context);
-}
-DeprecatedListValue::DeprecatedListValue()
-    : storage() {}
-
-DeprecatedListValue::DeprecatedListValue(
-    std::vector<ValuePtr> storage_in)
-    : storage(std::move(storage_in)) {}
-
-DeprecatedListValue::~DeprecatedListValue() = default;
-
-void DeprecatedListValue::WriteIntoTrace(
-    perfetto_libchrome::TracedValue traced_context) const {
-  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
-  perfetto_libchrome::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "storage"), this->storage,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type std::vector<ValuePtr>>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-}
-
-bool DeprecatedListValue::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
@@ -327,20 +300,6 @@ bool StructTraits<::mojo_base::mojom::DeprecatedDictionaryValue::DataView, ::moj
     ::mojo_base::mojom::DeprecatedDictionaryValuePtr* output) {
   bool success = true;
   ::mojo_base::mojom::DeprecatedDictionaryValuePtr result(::mojo_base::mojom::DeprecatedDictionaryValue::New());
-  
-      if (success && !input.ReadStorage(&result->storage))
-        success = false;
-  *output = std::move(result);
-  return success;
-}
-
-
-// static
-bool StructTraits<::mojo_base::mojom::DeprecatedListValue::DataView, ::mojo_base::mojom::DeprecatedListValuePtr>::Read(
-    ::mojo_base::mojom::DeprecatedListValue::DataView input,
-    ::mojo_base::mojom::DeprecatedListValuePtr* output) {
-  bool success = true;
-  ::mojo_base::mojom::DeprecatedListValuePtr result(::mojo_base::mojom::DeprecatedListValue::New());
   
       if (success && !input.ReadStorage(&result->storage))
         success = false;

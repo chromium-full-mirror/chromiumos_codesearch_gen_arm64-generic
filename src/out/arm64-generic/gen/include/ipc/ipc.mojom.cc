@@ -15,6 +15,7 @@
 #include <stdint.h>
 #include <utility>
 
+#include "base/debug/alias.h"
 #include "base/hash/md5_constexpr.h"
 #include "base/run_loop.h"
 #include "base/strings/string_number_conversions.h"
@@ -89,25 +90,21 @@ bool Message::Validate(
 }
 const char Channel::Name_[] = "IPC.mojom.Channel";
 
-uint32_t Channel::MessageToStableIPCHash_(mojo::Message& message) {
+Channel::IPCStableHashFunction Channel::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
   switch (message.name()) {
     case internal::kChannel_SetPeerPid_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)IPC::mojom::Channel::SetPeerPid");
-      return value;
+      return &Channel::SetPeerPid_Sym::IPCStableHash;
     }
     case internal::kChannel_Receive_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)IPC::mojom::Channel::Receive");
-      return value;
+      return &Channel::Receive_Sym::IPCStableHash;
     }
     case internal::kChannel_GetAssociatedInterface_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)IPC::mojom::Channel::GetAssociatedInterface");
-      return value;
+      return &Channel::GetAssociatedInterface_Sym::IPCStableHash;
     }
   }
-  return 0;
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
 }
 
 
@@ -143,6 +140,48 @@ const char* Channel::MessageToMethodName_(mojo::Message& message) {
   }
 #endif // BUILDFLAG(MOJO_TRACE_ENABLED)
 }
+
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t Channel::SetPeerPid_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)IPC::mojom::Channel::SetPeerPid");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t Channel::Receive_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)IPC::mojom::Channel::Receive");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t Channel::GetAssociatedInterface_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)IPC::mojom::Channel::GetAssociatedInterface");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
 
 ChannelProxy::ChannelProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
@@ -183,7 +222,7 @@ void ChannelProxy::SetPeerPid(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 void ChannelProxy::Receive(
@@ -232,7 +271,7 @@ void ChannelProxy::Receive(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 void ChannelProxy::GetAssociatedInterface(
@@ -280,7 +319,7 @@ void ChannelProxy::GetAssociatedInterface(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 // static
@@ -409,8 +448,10 @@ bool ChannelRequestValidator::Accept(mojo::Message* message) {
 
 const char ChannelBootstrap::Name_[] = "IPC.mojom.ChannelBootstrap";
 
-uint32_t ChannelBootstrap::MessageToStableIPCHash_(mojo::Message& message) {
-  return 0;
+ChannelBootstrap::IPCStableHashFunction ChannelBootstrap::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
 }
 
 
@@ -426,6 +467,9 @@ const char* ChannelBootstrap::MessageToMethodName_(mojo::Message& message) {
   }
 #endif // BUILDFLAG(MOJO_TRACE_ENABLED)
 }
+
+#if !BUILDFLAG(IS_FUCHSIA)
+# endif // !BUILDFLAG(IS_FUCHSIA)
 
 ChannelBootstrapProxy::ChannelBootstrapProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {

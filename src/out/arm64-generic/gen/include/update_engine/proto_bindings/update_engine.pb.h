@@ -545,9 +545,11 @@ class StatusResult final :
     kIsEnterpriseRollbackFieldNumber = 6,
     kIsInstallFieldNumber = 7,
     kWillPowerwashAfterRebootFieldNumber = 9,
+    kIsInteractiveFieldNumber = 14,
     kEolDateFieldNumber = 8,
     kLastAttemptErrorFieldNumber = 10,
     kUpdateUrgencyFieldNumber = 12,
+    kWillDeferUpdateFieldNumber = 15,
   };
   // repeated .update_engine.Feature features = 13;
   int features_size() const;
@@ -644,6 +646,15 @@ class StatusResult final :
   void _internal_set_will_powerwash_after_reboot(bool value);
   public:
 
+  // bool is_interactive = 14;
+  void clear_is_interactive();
+  bool is_interactive() const;
+  void set_is_interactive(bool value);
+  private:
+  bool _internal_is_interactive() const;
+  void _internal_set_is_interactive(bool value);
+  public:
+
   // int64 eol_date = 8;
   void clear_eol_date();
   int64_t eol_date() const;
@@ -671,6 +682,15 @@ class StatusResult final :
   void _internal_set_update_urgency(::update_engine::UpdateUrgency value);
   public:
 
+  // bool will_defer_update = 15;
+  void clear_will_defer_update();
+  bool will_defer_update() const;
+  void set_will_defer_update(bool value);
+  private:
+  bool _internal_will_defer_update() const;
+  void _internal_set_will_defer_update(bool value);
+  public:
+
   // @@protoc_insertion_point(class_scope:update_engine.StatusResult)
  private:
   class _Internal;
@@ -687,9 +707,11 @@ class StatusResult final :
   bool is_enterprise_rollback_;
   bool is_install_;
   bool will_powerwash_after_reboot_;
+  bool is_interactive_;
   int64_t eol_date_;
   int32_t last_attempt_error_;
   int update_urgency_;
+  bool will_defer_update_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_update_5fengine_2eproto;
 };
@@ -1404,6 +1426,46 @@ inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::update_engine::Feature
 StatusResult::features() const {
   // @@protoc_insertion_point(field_list:update_engine.StatusResult.features)
   return features_;
+}
+
+// bool is_interactive = 14;
+inline void StatusResult::clear_is_interactive() {
+  is_interactive_ = false;
+}
+inline bool StatusResult::_internal_is_interactive() const {
+  return is_interactive_;
+}
+inline bool StatusResult::is_interactive() const {
+  // @@protoc_insertion_point(field_get:update_engine.StatusResult.is_interactive)
+  return _internal_is_interactive();
+}
+inline void StatusResult::_internal_set_is_interactive(bool value) {
+  
+  is_interactive_ = value;
+}
+inline void StatusResult::set_is_interactive(bool value) {
+  _internal_set_is_interactive(value);
+  // @@protoc_insertion_point(field_set:update_engine.StatusResult.is_interactive)
+}
+
+// bool will_defer_update = 15;
+inline void StatusResult::clear_will_defer_update() {
+  will_defer_update_ = false;
+}
+inline bool StatusResult::_internal_will_defer_update() const {
+  return will_defer_update_;
+}
+inline bool StatusResult::will_defer_update() const {
+  // @@protoc_insertion_point(field_get:update_engine.StatusResult.will_defer_update)
+  return _internal_will_defer_update();
+}
+inline void StatusResult::_internal_set_will_defer_update(bool value) {
+  
+  will_defer_update_ = value;
+}
+inline void StatusResult::set_will_defer_update(bool value) {
+  _internal_set_will_defer_update(value);
+  // @@protoc_insertion_point(field_set:update_engine.StatusResult.will_defer_update)
 }
 
 // -------------------------------------------------------------------

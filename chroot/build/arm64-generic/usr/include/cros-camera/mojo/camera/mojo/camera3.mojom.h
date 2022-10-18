@@ -51,8 +51,10 @@ class Camera3CallbackOpsRequestValidator;
 class  Camera3CallbackOps
     : public Camera3CallbackOpsInterfaceBase {
  public:
+  using IPCStableHashFunction = uint32_t(*)();
+
   static const char Name_[];
-  static uint32_t MessageToStableIPCHash_(mojo::Message& message);
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 0;
   static constexpr bool PassesAssociatedKinds_ = false;
@@ -71,6 +73,17 @@ class  Camera3CallbackOps
     kProcessCaptureResultMinVersion = 0,
     kNotifyMinVersion = 0,
   };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+  struct ProcessCaptureResult_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct Notify_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+#endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~Camera3CallbackOps() = default;
 
   
@@ -92,8 +105,10 @@ class Camera3DeviceOpsResponseValidator;
 class  Camera3DeviceOps
     : public Camera3DeviceOpsInterfaceBase {
  public:
+  using IPCStableHashFunction = uint32_t(*)();
+
   static const char Name_[];
-  static uint32_t MessageToStableIPCHash_(mojo::Message& message);
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 3;
   static constexpr bool PassesAssociatedKinds_ = false;
@@ -119,6 +134,38 @@ class  Camera3DeviceOps
     kCloseMinVersion = 0,
     kConfigureStreamsAndGetAllocatedBuffersMinVersion = 3,
   };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+  struct Initialize_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct ConfigureStreams_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct ConstructDefaultRequestSettings_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct ProcessCaptureRequest_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct Dump_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct Flush_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct RegisterBuffer_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct Close_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct ConfigureStreamsAndGetAllocatedBuffers_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+#endif // !BUILDFLAG(IS_FUCHSIA)
   
   using BufferType = Camera3DeviceOps_BufferType;
   virtual ~Camera3DeviceOps() = default;

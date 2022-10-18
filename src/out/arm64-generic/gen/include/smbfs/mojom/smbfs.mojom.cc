@@ -15,6 +15,7 @@
 #include <stdint.h>
 #include <utility>
 
+#include "base/debug/alias.h"
 #include "base/hash/md5_constexpr.h"
 #include "base/run_loop.h"
 #include "base/strings/string_number_conversions.h"
@@ -374,15 +375,15 @@ bool Credentials::Validate(
 }
 const char SmbFsBootstrap::Name_[] = "smbfs.mojom.SmbFsBootstrap";
 
-uint32_t SmbFsBootstrap::MessageToStableIPCHash_(mojo::Message& message) {
+SmbFsBootstrap::IPCStableHashFunction SmbFsBootstrap::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
   switch (message.name()) {
     case internal::kSmbFsBootstrap_MountShare_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)smbfs::mojom::SmbFsBootstrap::MountShare");
-      return value;
+      return &SmbFsBootstrap::MountShare_Sym::IPCStableHash;
     }
   }
-  return 0;
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
 }
 
 
@@ -410,6 +411,22 @@ const char* SmbFsBootstrap::MessageToMethodName_(mojo::Message& message) {
   }
 #endif // BUILDFLAG(MOJO_TRACE_ENABLED)
 }
+
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t SmbFsBootstrap::MountShare_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)smbfs::mojom::SmbFsBootstrap::MountShare");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
 
 class SmbFsBootstrap_MountShare_ForwardToCallback
     : public mojo::MessageReceiver {
@@ -486,7 +503,7 @@ void SmbFsBootstrapProxy::MountShare(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new SmbFsBootstrap_MountShare_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 class SmbFsBootstrap_MountShare_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
@@ -605,8 +622,8 @@ void SmbFsBootstrap_MountShare_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -692,20 +709,18 @@ bool SmbFsBootstrapResponseValidator::Accept(mojo::Message* message) {
 }
 const char SmbFs::Name_[] = "smbfs.mojom.SmbFs";
 
-uint32_t SmbFs::MessageToStableIPCHash_(mojo::Message& message) {
+SmbFs::IPCStableHashFunction SmbFs::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
   switch (message.name()) {
     case internal::kSmbFs_RemoveSavedCredentials_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)smbfs::mojom::SmbFs::RemoveSavedCredentials");
-      return value;
+      return &SmbFs::RemoveSavedCredentials_Sym::IPCStableHash;
     }
     case internal::kSmbFs_DeleteRecursively_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)smbfs::mojom::SmbFs::DeleteRecursively");
-      return value;
+      return &SmbFs::DeleteRecursively_Sym::IPCStableHash;
     }
   }
-  return 0;
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
 }
 
 
@@ -737,6 +752,35 @@ const char* SmbFs::MessageToMethodName_(mojo::Message& message) {
   }
 #endif // BUILDFLAG(MOJO_TRACE_ENABLED)
 }
+
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t SmbFs::RemoveSavedCredentials_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)smbfs::mojom::SmbFs::RemoveSavedCredentials");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t SmbFs::DeleteRecursively_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)smbfs::mojom::SmbFs::DeleteRecursively");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
 
 class SmbFs_RemoveSavedCredentials_ForwardToCallback
     : public mojo::MessageReceiver {
@@ -802,7 +846,7 @@ void SmbFsProxy::RemoveSavedCredentials(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new SmbFs_RemoveSavedCredentials_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void SmbFsProxy::DeleteRecursively(
@@ -851,7 +895,7 @@ void SmbFsProxy::DeleteRecursively(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new SmbFs_DeleteRecursively_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 class SmbFs_RemoveSavedCredentials_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
@@ -958,8 +1002,8 @@ void SmbFs_RemoveSavedCredentials_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -1073,8 +1117,8 @@ void SmbFs_DeleteRecursively_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -1184,15 +1228,15 @@ bool SmbFsResponseValidator::Accept(mojo::Message* message) {
 }
 const char SmbFsDelegate::Name_[] = "smbfs.mojom.SmbFsDelegate";
 
-uint32_t SmbFsDelegate::MessageToStableIPCHash_(mojo::Message& message) {
+SmbFsDelegate::IPCStableHashFunction SmbFsDelegate::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
   switch (message.name()) {
     case internal::kSmbFsDelegate_RequestCredentials_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)smbfs::mojom::SmbFsDelegate::RequestCredentials");
-      return value;
+      return &SmbFsDelegate::RequestCredentials_Sym::IPCStableHash;
     }
   }
-  return 0;
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
 }
 
 
@@ -1220,6 +1264,22 @@ const char* SmbFsDelegate::MessageToMethodName_(mojo::Message& message) {
   }
 #endif // BUILDFLAG(MOJO_TRACE_ENABLED)
 }
+
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t SmbFsDelegate::RequestCredentials_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)smbfs::mojom::SmbFsDelegate::RequestCredentials");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
 
 class SmbFsDelegate_RequestCredentials_ForwardToCallback
     : public mojo::MessageReceiver {
@@ -1269,7 +1329,7 @@ void SmbFsDelegateProxy::RequestCredentials(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new SmbFsDelegate_RequestCredentials_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 class SmbFsDelegate_RequestCredentials_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
@@ -1382,8 +1442,8 @@ void SmbFsDelegate_RequestCredentials_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that

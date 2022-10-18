@@ -15,6 +15,7 @@
 #include <stdint.h>
 #include <utility>
 
+#include "base/debug/alias.h"
 #include "base/hash/md5_constexpr.h"
 #include "base/run_loop.h"
 #include "base/strings/string_number_conversions.h"
@@ -49,25 +50,21 @@ namespace arc {
 namespace mojom {
 const char VideoProtectedBufferAllocator::Name_[] = "arc.mojom.VideoProtectedBufferAllocator";
 
-uint32_t VideoProtectedBufferAllocator::MessageToStableIPCHash_(mojo::Message& message) {
+VideoProtectedBufferAllocator::IPCStableHashFunction VideoProtectedBufferAllocator::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
   switch (message.name()) {
     case internal::kVideoProtectedBufferAllocator_AllocateProtectedSharedMemory_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)arc::mojom::VideoProtectedBufferAllocator::AllocateProtectedSharedMemory");
-      return value;
+      return &VideoProtectedBufferAllocator::AllocateProtectedSharedMemory_Sym::IPCStableHash;
     }
     case internal::kVideoProtectedBufferAllocator_AllocateProtectedNativePixmap_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)arc::mojom::VideoProtectedBufferAllocator::AllocateProtectedNativePixmap");
-      return value;
+      return &VideoProtectedBufferAllocator::AllocateProtectedNativePixmap_Sym::IPCStableHash;
     }
     case internal::kVideoProtectedBufferAllocator_ReleaseProtectedBuffer_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)arc::mojom::VideoProtectedBufferAllocator::ReleaseProtectedBuffer");
-      return value;
+      return &VideoProtectedBufferAllocator::ReleaseProtectedBuffer_Sym::IPCStableHash;
     }
   }
-  return 0;
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
 }
 
 
@@ -103,6 +100,48 @@ const char* VideoProtectedBufferAllocator::MessageToMethodName_(mojo::Message& m
   }
 #endif // BUILDFLAG(MOJO_TRACE_ENABLED)
 }
+
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t VideoProtectedBufferAllocator::AllocateProtectedSharedMemory_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)arc::mojom::VideoProtectedBufferAllocator::AllocateProtectedSharedMemory");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t VideoProtectedBufferAllocator::AllocateProtectedNativePixmap_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)arc::mojom::VideoProtectedBufferAllocator::AllocateProtectedNativePixmap");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t VideoProtectedBufferAllocator::ReleaseProtectedBuffer_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)arc::mojom::VideoProtectedBufferAllocator::ReleaseProtectedBuffer");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
 
 class VideoProtectedBufferAllocator_AllocateProtectedSharedMemory_ForwardToCallback
     : public mojo::MessageReceiver {
@@ -185,7 +224,7 @@ void VideoProtectedBufferAllocatorProxy::AllocateProtectedSharedMemory(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new VideoProtectedBufferAllocator_AllocateProtectedSharedMemory_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void VideoProtectedBufferAllocatorProxy::AllocateProtectedNativePixmap(
@@ -248,7 +287,7 @@ void VideoProtectedBufferAllocatorProxy::AllocateProtectedNativePixmap(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new VideoProtectedBufferAllocator_AllocateProtectedNativePixmap_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void VideoProtectedBufferAllocatorProxy::ReleaseProtectedBuffer(
@@ -291,7 +330,7 @@ void VideoProtectedBufferAllocatorProxy::ReleaseProtectedBuffer(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 class VideoProtectedBufferAllocator_AllocateProtectedSharedMemory_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
@@ -398,8 +437,8 @@ void VideoProtectedBufferAllocator_AllocateProtectedSharedMemory_ProxyToResponde
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -512,8 +551,8 @@ void VideoProtectedBufferAllocator_AllocateProtectedNativePixmap_ProxyToResponde
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that

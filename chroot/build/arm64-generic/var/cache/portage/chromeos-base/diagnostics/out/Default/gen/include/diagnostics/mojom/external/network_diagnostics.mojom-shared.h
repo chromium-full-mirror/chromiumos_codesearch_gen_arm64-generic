@@ -459,13 +459,13 @@ class HttpsLatencyResultValueDataView {
 
   bool is_null() const { return !data_; }
   inline void GetLatencyDataView(
-      ::chromeos::cros_healthd::internal::mojo_base::mojom::TimeDeltaDataView* output);
+      ::ash::cros_healthd::internal::mojo_base::mojom::TimeDeltaDataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadLatency(UserType* output) {
     
     auto* pointer = data_->latency.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::internal::mojo_base::mojom::TimeDeltaDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::internal::mojo_base::mojom::TimeDeltaDataView>(
         pointer, output, message_);
   }
  private:
@@ -506,13 +506,13 @@ class RoutineResultDataView {
         pointer, output, message_);
   }
   inline void GetTimestampDataView(
-      ::chromeos::cros_healthd::internal::mojo_base::mojom::TimeDataView* output);
+      ::ash::cros_healthd::internal::mojo_base::mojom::TimeDataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadTimestamp(UserType* output) {
     
     auto* pointer = data_->timestamp.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::internal::mojo_base::mojom::TimeDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::internal::mojo_base::mojom::TimeDataView>(
         pointer, output, message_);
   }
   inline void GetResultValueDataView(
@@ -1207,7 +1207,7 @@ struct Serializer<::chromeos::network_diagnostics::mojom::HttpsLatencyResultValu
     mojo::internal::MessageFragment<
         typename decltype(fragment->latency)::BaseType> latency_fragment(
             fragment.message());
-    mojo::internal::Serialize<::chromeos::cros_healthd::internal::mojo_base::mojom::TimeDeltaDataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::internal::mojo_base::mojom::TimeDeltaDataView>(
         in_latency, latency_fragment);
     fragment->latency.Set(
         latency_fragment.is_null() ? nullptr : latency_fragment.data());
@@ -1260,7 +1260,7 @@ struct Serializer<::chromeos::network_diagnostics::mojom::RoutineResultDataView,
     mojo::internal::MessageFragment<
         typename decltype(fragment->timestamp)::BaseType> timestamp_fragment(
             fragment.message());
-    mojo::internal::Serialize<::chromeos::cros_healthd::internal::mojo_base::mojom::TimeDataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::internal::mojo_base::mojom::TimeDataView>(
         in_timestamp, timestamp_fragment);
     fragment->timestamp.Set(
         timestamp_fragment.is_null() ? nullptr : timestamp_fragment.data());
@@ -1665,9 +1665,9 @@ namespace network_diagnostics {
 namespace mojom {
 
 inline void HttpsLatencyResultValueDataView::GetLatencyDataView(
-    ::chromeos::cros_healthd::internal::mojo_base::mojom::TimeDeltaDataView* output) {
+    ::ash::cros_healthd::internal::mojo_base::mojom::TimeDeltaDataView* output) {
   auto pointer = data_->latency.Get();
-  *output = ::chromeos::cros_healthd::internal::mojo_base::mojom::TimeDeltaDataView(pointer, message_);
+  *output = ::ash::cros_healthd::internal::mojo_base::mojom::TimeDeltaDataView(pointer, message_);
 }
 
 
@@ -1677,9 +1677,9 @@ inline void RoutineResultDataView::GetProblemsDataView(
   *output = RoutineProblemsDataView(pointer, message_);
 }
 inline void RoutineResultDataView::GetTimestampDataView(
-    ::chromeos::cros_healthd::internal::mojo_base::mojom::TimeDataView* output) {
+    ::ash::cros_healthd::internal::mojo_base::mojom::TimeDataView* output) {
   auto pointer = data_->timestamp.Get();
-  *output = ::chromeos::cros_healthd::internal::mojo_base::mojom::TimeDataView(pointer, message_);
+  *output = ::ash::cros_healthd::internal::mojo_base::mojom::TimeDataView(pointer, message_);
 }
 inline void RoutineResultDataView::GetResultValueDataView(
     RoutineResultValueDataView* output) {

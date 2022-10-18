@@ -10,7 +10,7 @@
 #include "diagnostics/cros_healthd/executor/mojom/executor.mojom.h"
 
 
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace mojom {
 
@@ -24,7 +24,7 @@ class  ExecutorInterceptorForTesting : public Executor {
   void GetScanDump(const std::string& interface_name, GetScanDumpCallback callback) override;
   void RunMemtester(uint32_t test_mem_kib, RunMemtesterCallback callback) override;
   void KillMemtester() override;
-  void GetProcessIOContents(uint32_t pid, GetProcessIOContentsCallback callback) override;
+  void GetProcessIOContents(const std::vector<uint32_t>& pids, GetProcessIOContentsCallback callback) override;
   void ReadMsr(uint32_t msr_reg, uint32_t cpu_index, ReadMsrCallback callback) override;
   void GetUEFISecureBootContent(GetUEFISecureBootContentCallback callback) override;
   void GetUEFIPlatformSizeContent(GetUEFIPlatformSizeContentCallback callback) override;
@@ -51,9 +51,9 @@ class  ExecutorAsyncWaiter {
   void RunMemtester(
       uint32_t test_mem_kib, ExecutedProcessResultPtr* out_result);
   void GetProcessIOContents(
-      uint32_t pid, std::string* out_contents);
+      const std::vector<uint32_t>& pids, base::flat_map<uint32_t, std::string>* out_contents);
   void ReadMsr(
-      uint32_t msr_reg, uint32_t cpu_index, ::chromeos::cros_healthd::mojom::NullableUint64Ptr* out_value);
+      uint32_t msr_reg, uint32_t cpu_index, ::ash::cros_healthd::mojom::NullableUint64Ptr* out_value);
   void GetUEFISecureBootContent(
       std::string* out_contents);
   void GetUEFIPlatformSizeContent(
@@ -70,6 +70,6 @@ class  ExecutorAsyncWaiter {
 
 }  // namespace mojom
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 #endif  // DIAGNOSTICS_CROS_HEALTHD_EXECUTOR_MOJOM_EXECUTOR_MOJOM_TEST_UTILS_H_

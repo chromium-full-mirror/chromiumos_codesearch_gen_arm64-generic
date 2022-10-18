@@ -15,6 +15,7 @@
 #include <stdint.h>
 #include <utility>
 
+#include "base/debug/alias.h"
 #include "base/hash/md5_constexpr.h"
 #include "base/run_loop.h"
 #include "base/strings/string_number_conversions.h"
@@ -45,7 +46,7 @@
 
 
 
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace internal {
 namespace mojom {
@@ -204,22 +205,20 @@ bool InputDevice::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
-const char ChromiumDataCollector::Name_[] = "chromeos.cros_healthd.internal.mojom.ChromiumDataCollector";
+const char ChromiumDataCollector::Name_[] = "ash.cros_healthd.internal.mojom.ChromiumDataCollector";
 
-uint32_t ChromiumDataCollector::MessageToStableIPCHash_(mojo::Message& message) {
+ChromiumDataCollector::IPCStableHashFunction ChromiumDataCollector::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
   switch (message.name()) {
     case internal::kChromiumDataCollector_GetTouchscreenDevices_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::cros_healthd::internal::mojom::ChromiumDataCollector::GetTouchscreenDevices");
-      return value;
+      return &ChromiumDataCollector::GetTouchscreenDevices_Sym::IPCStableHash;
     }
     case internal::kChromiumDataCollector_GetTouchpadLibraryName_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::cros_healthd::internal::mojom::ChromiumDataCollector::GetTouchpadLibraryName");
-      return value;
+      return &ChromiumDataCollector::GetTouchpadLibraryName_Sym::IPCStableHash;
     }
   }
-  return 0;
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
 }
 
 
@@ -229,16 +228,16 @@ const char* ChromiumDataCollector::MessageToMethodName_(mojo::Message& message) 
   if (!is_response) {
     switch (message.name()) {
       case internal::kChromiumDataCollector_GetTouchscreenDevices_Name:
-            return "Receive chromeos::cros_healthd::internal::mojom::ChromiumDataCollector::GetTouchscreenDevices";
+            return "Receive ash::cros_healthd::internal::mojom::ChromiumDataCollector::GetTouchscreenDevices";
       case internal::kChromiumDataCollector_GetTouchpadLibraryName_Name:
-            return "Receive chromeos::cros_healthd::internal::mojom::ChromiumDataCollector::GetTouchpadLibraryName";
+            return "Receive ash::cros_healthd::internal::mojom::ChromiumDataCollector::GetTouchpadLibraryName";
     }
   } else {
     switch (message.name()) {
       case internal::kChromiumDataCollector_GetTouchscreenDevices_Name:
-            return "Receive reply chromeos::cros_healthd::internal::mojom::ChromiumDataCollector::GetTouchscreenDevices";
+            return "Receive reply ash::cros_healthd::internal::mojom::ChromiumDataCollector::GetTouchscreenDevices";
       case internal::kChromiumDataCollector_GetTouchpadLibraryName_Name:
-            return "Receive reply chromeos::cros_healthd::internal::mojom::ChromiumDataCollector::GetTouchpadLibraryName";
+            return "Receive reply ash::cros_healthd::internal::mojom::ChromiumDataCollector::GetTouchpadLibraryName";
     }
   }
   return "Receive unknown mojo message";
@@ -251,6 +250,35 @@ const char* ChromiumDataCollector::MessageToMethodName_(mojo::Message& message) 
   }
 #endif // BUILDFLAG(MOJO_TRACE_ENABLED)
 }
+
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t ChromiumDataCollector::GetTouchscreenDevices_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::internal::mojom::ChromiumDataCollector::GetTouchscreenDevices");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t ChromiumDataCollector::GetTouchpadLibraryName_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::internal::mojom::ChromiumDataCollector::GetTouchpadLibraryName");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
 
 class ChromiumDataCollector_GetTouchscreenDevices_ForwardToCallback
     : public mojo::MessageReceiver {
@@ -291,7 +319,7 @@ ChromiumDataCollectorProxy::ChromiumDataCollectorProxy(mojo::MessageReceiverWith
 void ChromiumDataCollectorProxy::GetTouchscreenDevices(
     GetTouchscreenDevicesCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send chromeos::cros_healthd::internal::mojom::ChromiumDataCollector::GetTouchscreenDevices");
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::internal::mojom::ChromiumDataCollector::GetTouchscreenDevices");
 #endif
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
@@ -305,7 +333,7 @@ void ChromiumDataCollectorProxy::GetTouchscreenDevices(
   mojo::Message message(
       internal::kChromiumDataCollector_GetTouchscreenDevices_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::internal::mojom::internal::ChromiumDataCollector_GetTouchscreenDevices_Params_Data> params(
+      ::ash::cros_healthd::internal::mojom::internal::ChromiumDataCollector_GetTouchscreenDevices_Params_Data> params(
           message);
   params.Allocate();
 
@@ -316,13 +344,13 @@ void ChromiumDataCollectorProxy::GetTouchscreenDevices(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new ChromiumDataCollector_GetTouchscreenDevices_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void ChromiumDataCollectorProxy::GetTouchpadLibraryName(
     GetTouchpadLibraryNameCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send chromeos::cros_healthd::internal::mojom::ChromiumDataCollector::GetTouchpadLibraryName");
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::internal::mojom::ChromiumDataCollector::GetTouchpadLibraryName");
 #endif
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
@@ -336,7 +364,7 @@ void ChromiumDataCollectorProxy::GetTouchpadLibraryName(
   mojo::Message message(
       internal::kChromiumDataCollector_GetTouchpadLibraryName_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::internal::mojom::internal::ChromiumDataCollector_GetTouchpadLibraryName_Params_Data> params(
+      ::ash::cros_healthd::internal::mojom::internal::ChromiumDataCollector_GetTouchpadLibraryName_Params_Data> params(
           message);
   params.Allocate();
 
@@ -347,7 +375,7 @@ void ChromiumDataCollectorProxy::GetTouchpadLibraryName(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new ChromiumDataCollector_GetTouchpadLibraryName_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 class ChromiumDataCollector_GetTouchscreenDevices_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
@@ -426,7 +454,7 @@ void ChromiumDataCollector_GetTouchscreenDevices_ProxyToResponder::Run(
     std::vector<TouchscreenDevicePtr> in_devices) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send reply chromeos::cros_healthd::internal::mojom::ChromiumDataCollector::GetTouchscreenDevices", "async_response_parameters",
+    "mojom", "Send reply ash::cros_healthd::internal::mojom::ChromiumDataCollector::GetTouchscreenDevices", "async_response_parameters",
     [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto_libchrome::WriteIntoTracedValueWithFallback(
@@ -442,7 +470,7 @@ void ChromiumDataCollector_GetTouchscreenDevices_ProxyToResponder::Run(
   mojo::Message message(
       internal::kChromiumDataCollector_GetTouchscreenDevices_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::internal::mojom::internal::ChromiumDataCollector_GetTouchscreenDevices_ResponseParams_Data> params(
+      ::ash::cros_healthd::internal::mojom::internal::ChromiumDataCollector_GetTouchscreenDevices_ResponseParams_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
@@ -450,7 +478,7 @@ void ChromiumDataCollector_GetTouchscreenDevices_ProxyToResponder::Run(
       devices_fragment(params.message());
   const mojo::internal::ContainerValidateParams devices_validate_params(
       0, false, nullptr);
-  mojo::internal::Serialize<mojo::ArrayDataView<::chromeos::cros_healthd::internal::mojom::TouchscreenDeviceDataView>>(
+  mojo::internal::Serialize<mojo::ArrayDataView<::ash::cros_healthd::internal::mojom::TouchscreenDeviceDataView>>(
       in_devices, devices_fragment, &devices_validate_params);
   params->devices.Set(
       devices_fragment.is_null() ? nullptr : devices_fragment.data());
@@ -466,8 +494,8 @@ void ChromiumDataCollector_GetTouchscreenDevices_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -552,7 +580,7 @@ void ChromiumDataCollector_GetTouchpadLibraryName_ProxyToResponder::Run(
     const std::string& in_library_name) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send reply chromeos::cros_healthd::internal::mojom::ChromiumDataCollector::GetTouchpadLibraryName", "async_response_parameters",
+    "mojom", "Send reply ash::cros_healthd::internal::mojom::ChromiumDataCollector::GetTouchpadLibraryName", "async_response_parameters",
     [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto_libchrome::WriteIntoTracedValueWithFallback(
@@ -568,7 +596,7 @@ void ChromiumDataCollector_GetTouchpadLibraryName_ProxyToResponder::Run(
   mojo::Message message(
       internal::kChromiumDataCollector_GetTouchpadLibraryName_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::internal::mojom::internal::ChromiumDataCollector_GetTouchpadLibraryName_ResponseParams_Data> params(
+      ::ash::cros_healthd::internal::mojom::internal::ChromiumDataCollector_GetTouchpadLibraryName_ResponseParams_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
@@ -590,8 +618,8 @@ void ChromiumDataCollector_GetTouchpadLibraryName_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -687,12 +715,12 @@ static const mojo::internal::GenericValidationInfo kChromiumDataCollectorValidat
 };
 
 bool ChromiumDataCollectorRequestValidator::Accept(mojo::Message* message) {
-  const char* name = ::chromeos::cros_healthd::internal::mojom::ChromiumDataCollector::Name_;
+  const char* name = ::ash::cros_healthd::internal::mojom::ChromiumDataCollector::Name_;
   return mojo::internal::ValidateRequestGenericPacked(message, name, kChromiumDataCollectorValidationInfo);
 }
 
 bool ChromiumDataCollectorResponseValidator::Accept(mojo::Message* message) {
-  const char* name = ::chromeos::cros_healthd::internal::mojom::ChromiumDataCollector::Name_;
+  const char* name = ::ash::cros_healthd::internal::mojom::ChromiumDataCollector::Name_;
   return mojo::internal::ValidateResponseGenericPacked(message, name, kChromiumDataCollectorValidationInfo);
 }
 
@@ -700,18 +728,18 @@ bool ChromiumDataCollectorResponseValidator::Accept(mojo::Message* message) {
 }  // namespace mojom
 }  // namespace internal
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 
 namespace mojo {
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::internal::mojom::TouchscreenDevice::DataView, ::chromeos::cros_healthd::internal::mojom::TouchscreenDevicePtr>::Read(
-    ::chromeos::cros_healthd::internal::mojom::TouchscreenDevice::DataView input,
-    ::chromeos::cros_healthd::internal::mojom::TouchscreenDevicePtr* output) {
+bool StructTraits<::ash::cros_healthd::internal::mojom::TouchscreenDevice::DataView, ::ash::cros_healthd::internal::mojom::TouchscreenDevicePtr>::Read(
+    ::ash::cros_healthd::internal::mojom::TouchscreenDevice::DataView input,
+    ::ash::cros_healthd::internal::mojom::TouchscreenDevicePtr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::internal::mojom::TouchscreenDevicePtr result(::chromeos::cros_healthd::internal::mojom::TouchscreenDevice::New());
+  ::ash::cros_healthd::internal::mojom::TouchscreenDevicePtr result(::ash::cros_healthd::internal::mojom::TouchscreenDevice::New());
   
       if (success && !input.ReadInputDevice(&result->input_device))
         success = false;
@@ -727,11 +755,11 @@ bool StructTraits<::chromeos::cros_healthd::internal::mojom::TouchscreenDevice::
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::internal::mojom::InputDevice::DataView, ::chromeos::cros_healthd::internal::mojom::InputDevicePtr>::Read(
-    ::chromeos::cros_healthd::internal::mojom::InputDevice::DataView input,
-    ::chromeos::cros_healthd::internal::mojom::InputDevicePtr* output) {
+bool StructTraits<::ash::cros_healthd::internal::mojom::InputDevice::DataView, ::ash::cros_healthd::internal::mojom::InputDevicePtr>::Read(
+    ::ash::cros_healthd::internal::mojom::InputDevice::DataView input,
+    ::ash::cros_healthd::internal::mojom::InputDevicePtr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::internal::mojom::InputDevicePtr result(::chromeos::cros_healthd::internal::mojom::InputDevice::New());
+  ::ash::cros_healthd::internal::mojom::InputDevicePtr result(::ash::cros_healthd::internal::mojom::InputDevice::New());
   
       if (success && !input.ReadName(&result->name))
         success = false;
@@ -754,7 +782,7 @@ bool StructTraits<::chromeos::cros_healthd::internal::mojom::InputDevice::DataVi
 // separate .cc file to save compile time.
 
 
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace internal {
 namespace mojom {
@@ -809,7 +837,7 @@ void ChromiumDataCollectorAsyncWaiter::GetTouchpadLibraryName(
 }  // namespace mojom
 }  // namespace internal
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 
 #if defined(__clang__)

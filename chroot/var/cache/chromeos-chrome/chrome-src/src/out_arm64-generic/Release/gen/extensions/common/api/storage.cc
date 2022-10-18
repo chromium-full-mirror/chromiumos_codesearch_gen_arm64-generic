@@ -1,4 +1,4 @@
-// Copyright 2022 The Chromium Authors. All rights reserved.
+// Copyright 2022 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -192,12 +192,10 @@ bool Params::Keys::Populate(
         return false;
       }
       else {
-        auto temp = std::make_unique<Object>();
-        if (!Object::Populate(value, temp.get())) {
+        Object temp;
+        if (!Object::Populate(value, &temp))
           return false;
-        }
-        else
-          out->as_object = std::move(temp);
+        out->as_object = std::move(temp);
       }
     }
     return true;
@@ -220,8 +218,8 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
       !args[0].is_none()) {
     const base::Value& keys_value = args[0];
     {
-      auto temp = std::make_unique<Keys>();
-      if (!Keys::Populate(keys_value, temp.get()))
+      Keys temp;
+      if (!Keys::Populate(keys_value, &temp))
         return std::unique_ptr<Params>();
       params->keys = std::move(temp);
     }
@@ -308,8 +306,8 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
       !args[0].is_none()) {
     const base::Value& keys_value = args[0];
     {
-      auto temp = std::make_unique<Keys>();
-      if (!Keys::Populate(keys_value, temp.get()))
+      Keys temp;
+      if (!Keys::Populate(keys_value, &temp))
         return std::unique_ptr<Params>();
       params->keys = std::move(temp);
     }

@@ -4,7 +4,7 @@
 #ifndef LIBCHROME_IPC_IPC_BUILDFLAGS_H_
 #define LIBCHROME_IPC_IPC_BUILDFLAGS_H_
 
-#include "build/buildflag.h"
+#include "build/buildflag.h" // IWYU pragma: export
 
 #define BUILDFLAG_INTERNAL_IPC_MESSAGE_LOG_ENABLED() (0)
 

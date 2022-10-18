@@ -39,7 +39,7 @@
 
 
 
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace mojom {
 class ServiceStatusDataView;
@@ -48,14 +48,14 @@ class ServiceStatusDataView;
 
 }  // namespace mojom
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 namespace mojo {
 namespace internal {
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::ServiceStatusDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::ServiceStatus_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::ServiceStatusDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::ServiceStatus_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -64,7 +64,7 @@ struct MojomTypeTraits<::chromeos::cros_healthd::mojom::ServiceStatusDataView> {
 }  // namespace mojo
 
 
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace mojom {
 // Interface base classes. They are used for type safety check.
@@ -154,7 +154,7 @@ class ServiceStatusDataView {
 
 }  // namespace mojom
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 namespace std {
 
@@ -166,13 +166,13 @@ namespace mojo {
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::ServiceStatusDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::ServiceStatusDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::ServiceStatusDataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::ServiceStatusDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::ServiceStatus_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::ServiceStatus_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
@@ -180,13 +180,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::ServiceStatusDataView, MaybeC
     fragment->network_diagnostics_bound = Traits::network_diagnostics_bound(input);
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::ServiceStatus_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::ServiceStatus_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::ServiceStatusDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::ServiceStatusDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -196,7 +196,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::ServiceStatusDataView, MaybeC
 }  // namespace mojo
 
 
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace mojom {
 
@@ -205,7 +205,7 @@ namespace mojom {
 
 }  // namespace mojom
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

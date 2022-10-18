@@ -21,7 +21,7 @@
 
 
 
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace mojom {
 class NullableUint8DataView;
@@ -59,6 +59,6 @@ using NullableDoublePtr = mojo::InlinedStructPtr<NullableDouble>;
 
 }  // namespace mojom
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 #endif  // DIAGNOSTICS_MOJOM_PUBLIC_NULLABLE_PRIMITIVES_MOJOM_FORWARD_H_

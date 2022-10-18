@@ -33,7 +33,7 @@
 
 
 
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace mojom {
 class ProbeErrorDataView;
@@ -189,630 +189,630 @@ class SensorResultDataView;
 
 }  // namespace mojom
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 namespace mojo {
 namespace internal {
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::ProbeErrorDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::ProbeError_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::ProbeErrorDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::ProbeError_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::MultipleProcessResultDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::MultipleProcessResult_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::MultipleProcessResultDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::MultipleProcessResult_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::ProcessInfoDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::ProcessInfo_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::ProcessInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::ProcessInfo_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::BatteryInfoDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::BatteryInfo_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::BatteryInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::BatteryInfo_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceInfoDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::NonRemovableBlockDeviceInfo_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::NonRemovableBlockDeviceInfo_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::CpuInfoDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::CpuInfo_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::CpuInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::CpuInfo_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::VirtualizationInfoDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::VirtualizationInfo_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::VirtualizationInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::VirtualizationInfo_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::VulnerabilityInfoDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::VulnerabilityInfo_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::VulnerabilityInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::VulnerabilityInfo_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::KeylockerInfoDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::KeylockerInfo_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::KeylockerInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::KeylockerInfo_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::PhysicalCpuInfoDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::PhysicalCpuInfo_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::PhysicalCpuInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::PhysicalCpuInfo_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::CpuVirtualizationInfoDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::CpuVirtualizationInfo_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::CpuVirtualizationInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::CpuVirtualizationInfo_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::LogicalCpuInfoDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::LogicalCpuInfo_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::LogicalCpuInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::LogicalCpuInfo_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::CpuCStateInfoDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::CpuCStateInfo_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::CpuCStateInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::CpuCStateInfo_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::CpuTemperatureChannelDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::CpuTemperatureChannel_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::CpuTemperatureChannelDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::CpuTemperatureChannel_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::TimezoneInfoDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::TimezoneInfo_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::TimezoneInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::TimezoneInfo_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::MemoryInfoDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::MemoryInfo_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::MemoryInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::MemoryInfo_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::MemoryEncryptionInfoDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::MemoryEncryptionInfo_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::MemoryEncryptionInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::MemoryEncryptionInfo_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::BacklightInfoDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::BacklightInfo_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::BacklightInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::BacklightInfo_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::FanInfoDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::FanInfo_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::FanInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::FanInfo_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::StatefulPartitionInfoDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::StatefulPartitionInfo_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::StatefulPartitionInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::StatefulPartitionInfo_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::BluetoothAdapterInfoDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::BluetoothAdapterInfo_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::BluetoothAdapterInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::BluetoothAdapterInfo_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::BluetoothDeviceInfoDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::BluetoothDeviceInfo_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::BluetoothDeviceInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::BluetoothDeviceInfo_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::SupportedCapabilitiesDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::SupportedCapabilities_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::SupportedCapabilitiesDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::SupportedCapabilities_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::SystemInfoDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::SystemInfo_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::SystemInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::SystemInfo_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::OsInfoDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::OsInfo_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::OsInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::OsInfo_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::OsVersionDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::OsVersion_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::OsVersionDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::OsVersion_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::VpdInfoDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::VpdInfo_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::VpdInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::VpdInfo_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::DmiInfoDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::DmiInfo_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::DmiInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::DmiInfo_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::WirelessInterfaceInfoDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::WirelessInterfaceInfo_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::WirelessInterfaceInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::WirelessInterfaceInfo_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::WirelessLinkInfoDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::WirelessLinkInfo_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::WirelessLinkInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::WirelessLinkInfo_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::AudioInfoDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::AudioInfo_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::AudioInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::AudioInfo_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::AudioHardwareInfoDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::AudioHardwareInfo_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::AudioHardwareInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::AudioHardwareInfo_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::AudioCardDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::AudioCard_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::AudioCardDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::AudioCard_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::HDAudioCodecDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::HDAudioCodec_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::HDAudioCodecDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::HDAudioCodec_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::BootPerformanceInfoDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::BootPerformanceInfo_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::BootPerformanceInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::BootPerformanceInfo_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::BusDeviceDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::BusDevice_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::BusDeviceDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::BusDevice_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::PciBusInfoDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::PciBusInfo_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::PciBusInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::PciBusInfo_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::UsbBusInfoDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::UsbBusInfo_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::UsbBusInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::UsbBusInfo_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::FwupdFirmwareVersionInfoDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::FwupdFirmwareVersionInfo_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::FwupdFirmwareVersionInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::FwupdFirmwareVersionInfo_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::UsbBusInterfaceInfoDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::UsbBusInterfaceInfo_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::UsbBusInterfaceInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::UsbBusInterfaceInfo_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::TpmInfoDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::TpmInfo_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::TpmInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::TpmInfo_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::TpmVersionDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::TpmVersion_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::TpmVersionDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::TpmVersion_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::TpmStatusDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::TpmStatus_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::TpmStatusDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::TpmStatus_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::TpmDictionaryAttackDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::TpmDictionaryAttack_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::TpmDictionaryAttackDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::TpmDictionaryAttack_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::TpmAttestationDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::TpmAttestation_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::TpmAttestationDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::TpmAttestation_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::TpmSupportedFeaturesDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::TpmSupportedFeatures_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::TpmSupportedFeaturesDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::TpmSupportedFeatures_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::GraphicsInfoDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::GraphicsInfo_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::GraphicsInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::GraphicsInfo_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::GLESInfoDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::GLESInfo_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::GLESInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::GLESInfo_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::EGLInfoDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::EGLInfo_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::EGLInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::EGLInfo_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::DisplayInfoDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::DisplayInfo_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::DisplayInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::DisplayInfo_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::EmbeddedDisplayInfoDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::EmbeddedDisplayInfo_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::EmbeddedDisplayInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::EmbeddedDisplayInfo_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::ExternalDisplayInfoDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::ExternalDisplayInfo_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::ExternalDisplayInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::ExternalDisplayInfo_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::ThunderboltBusInterfaceInfoDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::ThunderboltBusInterfaceInfo_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::ThunderboltBusInterfaceInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::ThunderboltBusInterfaceInfo_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::ThunderboltBusInfoDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::ThunderboltBusInfo_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::ThunderboltBusInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::ThunderboltBusInfo_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::InputInfoDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::InputInfo_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::InputInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::InputInfo_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::TouchscreenDeviceDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::TouchscreenDevice_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::TouchscreenDeviceDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::TouchscreenDevice_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::InputDeviceDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::InputDevice_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::InputDeviceDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::InputDevice_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::SensorInfoDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::SensorInfo_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::SensorInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::SensorInfo_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::SensorDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::Sensor_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::SensorDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::Sensor_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::TelemetryInfoDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::TelemetryInfo_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::TelemetryInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::TelemetryInfo_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::ProcessResultDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::ProcessResult_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::ProcessResultDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::ProcessResult_Data;
   using DataAsArrayElement = Data;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kUnion;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::BatteryResultDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::BatteryResult_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::BatteryResultDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::BatteryResult_Data;
   using DataAsArrayElement = Data;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kUnion;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceResultDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::NonRemovableBlockDeviceResult_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::NonRemovableBlockDeviceResultDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::NonRemovableBlockDeviceResult_Data;
   using DataAsArrayElement = Data;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kUnion;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::BlockDeviceVendorDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::BlockDeviceVendor_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::BlockDeviceVendorDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::BlockDeviceVendor_Data;
   using DataAsArrayElement = Data;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kUnion;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::BlockDeviceProductDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::BlockDeviceProduct_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::BlockDeviceProductDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::BlockDeviceProduct_Data;
   using DataAsArrayElement = Data;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kUnion;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::BlockDeviceRevisionDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::BlockDeviceRevision_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::BlockDeviceRevisionDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::BlockDeviceRevision_Data;
   using DataAsArrayElement = Data;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kUnion;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::BlockDeviceFirmwareDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::BlockDeviceFirmware_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::BlockDeviceFirmwareDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::BlockDeviceFirmware_Data;
   using DataAsArrayElement = Data;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kUnion;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::CpuResultDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::CpuResult_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::CpuResultDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::CpuResult_Data;
   using DataAsArrayElement = Data;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kUnion;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::TimezoneResultDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::TimezoneResult_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::TimezoneResultDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::TimezoneResult_Data;
   using DataAsArrayElement = Data;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kUnion;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::MemoryResultDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::MemoryResult_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::MemoryResultDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::MemoryResult_Data;
   using DataAsArrayElement = Data;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kUnion;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::BacklightResultDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::BacklightResult_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::BacklightResultDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::BacklightResult_Data;
   using DataAsArrayElement = Data;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kUnion;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::FanResultDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::FanResult_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::FanResultDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::FanResult_Data;
   using DataAsArrayElement = Data;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kUnion;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::StatefulPartitionResultDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::StatefulPartitionResult_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::StatefulPartitionResultDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::StatefulPartitionResult_Data;
   using DataAsArrayElement = Data;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kUnion;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::BluetoothResultDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::BluetoothResult_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::BluetoothResultDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::BluetoothResult_Data;
   using DataAsArrayElement = Data;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kUnion;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::DEPRECATE_SystemResultDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::DEPRECATE_SystemResult_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::DEPRECATE_SystemResultDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::DEPRECATE_SystemResult_Data;
   using DataAsArrayElement = Data;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kUnion;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::SystemResultDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::SystemResult_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::SystemResultDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::SystemResult_Data;
   using DataAsArrayElement = Data;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kUnion;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::NetworkResultDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::NetworkResult_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::NetworkResultDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::NetworkResult_Data;
   using DataAsArrayElement = Data;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kUnion;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::NetworkInterfaceResultDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::NetworkInterfaceResult_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::NetworkInterfaceResultDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::NetworkInterfaceResult_Data;
   using DataAsArrayElement = Data;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kUnion;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::NetworkInterfaceInfoDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::NetworkInterfaceInfo_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::NetworkInterfaceInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::NetworkInterfaceInfo_Data;
   using DataAsArrayElement = Data;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kUnion;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::AudioResultDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::AudioResult_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::AudioResultDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::AudioResult_Data;
   using DataAsArrayElement = Data;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kUnion;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::AudioHardwareResultDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::AudioHardwareResult_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::AudioHardwareResultDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::AudioHardwareResult_Data;
   using DataAsArrayElement = Data;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kUnion;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::BootPerformanceResultDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::BootPerformanceResult_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::BootPerformanceResultDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::BootPerformanceResult_Data;
   using DataAsArrayElement = Data;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kUnion;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::BusResultDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::BusResult_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::BusResultDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::BusResult_Data;
   using DataAsArrayElement = Data;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kUnion;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::BusInfoDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::BusInfo_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::BusInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::BusInfo_Data;
   using DataAsArrayElement = Data;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kUnion;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::TpmResultDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::TpmResult_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::TpmResultDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::TpmResult_Data;
   using DataAsArrayElement = Data;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kUnion;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::GraphicsResultDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::GraphicsResult_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::GraphicsResultDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::GraphicsResult_Data;
   using DataAsArrayElement = Data;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kUnion;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::DisplayResultDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::DisplayResult_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::DisplayResultDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::DisplayResult_Data;
   using DataAsArrayElement = Data;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kUnion;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::InputResultDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::InputResult_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::InputResultDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::InputResult_Data;
   using DataAsArrayElement = Data;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kUnion;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::SensorResultDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::SensorResult_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::SensorResultDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::SensorResult_Data;
   using DataAsArrayElement = Data;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kUnion;
 };
@@ -821,7 +821,7 @@ struct MojomTypeTraits<::chromeos::cros_healthd::mojom::SensorResultDataView> {
 }  // namespace mojo
 
 
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace mojom {
 
@@ -1434,8 +1434,10 @@ enum class Sensor_Type : int32_t {
   kAngle = 4,
   
   kGravity = 5,
+  
+  kMagn = 6,
   kMinValue = 0,
-  kMaxValue = 5,
+  kMaxValue = 6,
   kDefaultValue = 0
 };
 
@@ -1494,12 +1496,12 @@ class ProbeErrorDataView {
   template <typename UserType>
   [[nodiscard]] bool ReadType(UserType* output) const {
     auto data_value = data_->type;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::ErrorType>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::ErrorType>(
         data_value, output);
   }
   ErrorType type() const {
     return ::mojo::internal::ToKnownEnumValueHelper(
-          static_cast<::chromeos::cros_healthd::mojom::ErrorType>(data_->type));
+          static_cast<::ash::cros_healthd::mojom::ErrorType>(data_->type));
   }
   inline void GetMsgDataView(
       mojo::StringDataView* output);
@@ -1535,7 +1537,7 @@ class MultipleProcessResultDataView {
   [[nodiscard]] bool ReadProcessInfos(UserType* output) {
     
     auto* pointer = data_->process_infos.Get();
-    return mojo::internal::Deserialize<mojo::MapDataView<uint32_t, ::chromeos::cros_healthd::mojom::ProcessInfoDataView>>(
+    return mojo::internal::Deserialize<mojo::MapDataView<uint32_t, ::ash::cros_healthd::mojom::ProcessInfoDataView>>(
         pointer, output, message_);
   }
   inline void GetErrorsDataView(
@@ -1545,7 +1547,7 @@ class MultipleProcessResultDataView {
   [[nodiscard]] bool ReadErrors(UserType* output) {
     
     auto* pointer = data_->errors.Get();
-    return mojo::internal::Deserialize<mojo::MapDataView<uint32_t, ::chromeos::cros_healthd::mojom::ProbeErrorDataView>>(
+    return mojo::internal::Deserialize<mojo::MapDataView<uint32_t, ::ash::cros_healthd::mojom::ProbeErrorDataView>>(
         pointer, output, message_);
   }
  private:
@@ -1590,12 +1592,12 @@ class ProcessInfoDataView {
   template <typename UserType>
   [[nodiscard]] bool ReadState(UserType* output) const {
     auto data_value = data_->state;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::ProcessState>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::ProcessState>(
         data_value, output);
   }
   ProcessState state() const {
     return ::mojo::internal::ToKnownEnumValueHelper(
-          static_cast<::chromeos::cros_healthd::mojom::ProcessState>(data_->state));
+          static_cast<::ash::cros_healthd::mojom::ProcessState>(data_->state));
   }
   uint32_t total_memory_kib() const {
     return data_->total_memory_kib;
@@ -1777,14 +1779,14 @@ static_assert(
         pointer, output, message_);
   }
   inline void GetTemperatureDataView(
-      ::chromeos::cros_healthd::mojom::NullableUint64DataView* output);
+      ::ash::cros_healthd::mojom::NullableUint64DataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadTemperature(UserType* output) {
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        ::chromeos::cros_healthd::mojom::NullableUint64DataView, UserType>(),
+        ::ash::cros_healthd::mojom::NullableUint64DataView, UserType>(),
     "Attempting to read the optional `temperature` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
@@ -1793,7 +1795,7 @@ static_assert(
     "of `ReadTemperature if you're fine with null values being "
     "silently ignored in this case.");
     auto* pointer = data_->temperature.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::NullableUint64DataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::NullableUint64DataView>(
         pointer, output, message_);
   }
  private:
@@ -1829,14 +1831,14 @@ class NonRemovableBlockDeviceInfoDataView {
     return data_->io_time_seconds_since_last_boot;
   }
   inline void GetDiscardTimeSecondsSinceLastBootDataView(
-      ::chromeos::cros_healthd::mojom::NullableUint64DataView* output);
+      ::ash::cros_healthd::mojom::NullableUint64DataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadDiscardTimeSecondsSinceLastBoot(UserType* output) {
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        ::chromeos::cros_healthd::mojom::NullableUint64DataView, UserType>(),
+        ::ash::cros_healthd::mojom::NullableUint64DataView, UserType>(),
     "Attempting to read the optional `discard_time_seconds_since_last_boot` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
@@ -1845,7 +1847,7 @@ static_assert(
     "of `ReadDiscardTimeSecondsSinceLastBoot if you're fine with null values being "
     "silently ignored in this case.");
     auto* pointer = data_->discard_time_seconds_since_last_boot.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::NullableUint64DataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::NullableUint64DataView>(
         pointer, output, message_);
   }
   inline void GetVendorIdDataView(
@@ -1855,7 +1857,7 @@ static_assert(
   [[nodiscard]] bool ReadVendorId(UserType* output) {
     
     auto* pointer = !data_->vendor_id.is_null() ? &data_->vendor_id : nullptr;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::BlockDeviceVendorDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::BlockDeviceVendorDataView>(
         pointer, output, message_);
   }
   inline void GetProductIdDataView(
@@ -1865,7 +1867,7 @@ static_assert(
   [[nodiscard]] bool ReadProductId(UserType* output) {
     
     auto* pointer = !data_->product_id.is_null() ? &data_->product_id : nullptr;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::BlockDeviceProductDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::BlockDeviceProductDataView>(
         pointer, output, message_);
   }
   inline void GetRevisionDataView(
@@ -1875,7 +1877,7 @@ static_assert(
   [[nodiscard]] bool ReadRevision(UserType* output) {
     
     auto* pointer = !data_->revision.is_null() ? &data_->revision : nullptr;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::BlockDeviceRevisionDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::BlockDeviceRevisionDataView>(
         pointer, output, message_);
   }
   inline void GetNameDataView(
@@ -1898,7 +1900,7 @@ static_assert(
   [[nodiscard]] bool ReadFirmwareVersion(UserType* output) {
     
     auto* pointer = !data_->firmware_version.is_null() ? &data_->firmware_version : nullptr;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::BlockDeviceFirmwareDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::BlockDeviceFirmwareDataView>(
         pointer, output, message_);
   }
   inline void GetTypeDataView(
@@ -1914,12 +1916,12 @@ static_assert(
   template <typename UserType>
   [[nodiscard]] bool ReadPurpose(UserType* output) const {
     auto data_value = data_->purpose;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::StorageDevicePurpose>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::StorageDevicePurpose>(
         data_value, output);
   }
   StorageDevicePurpose purpose() const {
     return ::mojo::internal::ToKnownEnumValueHelper(
-          static_cast<::chromeos::cros_healthd::mojom::StorageDevicePurpose>(data_->purpose));
+          static_cast<::ash::cros_healthd::mojom::StorageDevicePurpose>(data_->purpose));
   }
   inline void GetPathDataView(
       mojo::StringDataView* output);
@@ -1960,12 +1962,12 @@ class CpuInfoDataView {
   template <typename UserType>
   [[nodiscard]] bool ReadArchitecture(UserType* output) const {
     auto data_value = data_->architecture;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::CpuArchitectureEnum>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::CpuArchitectureEnum>(
         data_value, output);
   }
   CpuArchitectureEnum architecture() const {
     return ::mojo::internal::ToKnownEnumValueHelper(
-          static_cast<::chromeos::cros_healthd::mojom::CpuArchitectureEnum>(data_->architecture));
+          static_cast<::ash::cros_healthd::mojom::CpuArchitectureEnum>(data_->architecture));
   }
   inline void GetPhysicalCpusDataView(
       mojo::ArrayDataView<PhysicalCpuInfoDataView>* output);
@@ -1974,7 +1976,7 @@ class CpuInfoDataView {
   [[nodiscard]] bool ReadPhysicalCpus(UserType* output) {
     
     auto* pointer = data_->physical_cpus.Get();
-    return mojo::internal::Deserialize<mojo::ArrayDataView<::chromeos::cros_healthd::mojom::PhysicalCpuInfoDataView>>(
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::PhysicalCpuInfoDataView>>(
         pointer, output, message_);
   }
   inline void GetTemperatureChannelsDataView(
@@ -1984,7 +1986,7 @@ class CpuInfoDataView {
   [[nodiscard]] bool ReadTemperatureChannels(UserType* output) {
     
     auto* pointer = data_->temperature_channels.Get();
-    return mojo::internal::Deserialize<mojo::ArrayDataView<::chromeos::cros_healthd::mojom::CpuTemperatureChannelDataView>>(
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::CpuTemperatureChannelDataView>>(
         pointer, output, message_);
   }
   inline void GetKeylockerInfoDataView(
@@ -1995,7 +1997,7 @@ class CpuInfoDataView {
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        ::chromeos::cros_healthd::mojom::KeylockerInfoDataView, UserType>(),
+        ::ash::cros_healthd::mojom::KeylockerInfoDataView, UserType>(),
     "Attempting to read the optional `keylocker_info` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
@@ -2004,7 +2006,7 @@ static_assert(
     "of `ReadKeylockerInfo if you're fine with null values being "
     "silently ignored in this case.");
     auto* pointer = data_->keylocker_info.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::KeylockerInfoDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::KeylockerInfoDataView>(
         pointer, output, message_);
   }
   inline void GetVirtualizationDataView(
@@ -2015,7 +2017,7 @@ static_assert(
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        ::chromeos::cros_healthd::mojom::VirtualizationInfoDataView, UserType>(),
+        ::ash::cros_healthd::mojom::VirtualizationInfoDataView, UserType>(),
     "Attempting to read the optional `virtualization` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
@@ -2025,7 +2027,7 @@ static_assert(
     "silently ignored in this case.");
     auto* pointer = data_->header_.version >= 1
                     ? data_->virtualization.Get() : nullptr;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::VirtualizationInfoDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::VirtualizationInfoDataView>(
         pointer, output, message_);
   }
   inline void GetVulnerabilitiesDataView(
@@ -2036,7 +2038,7 @@ static_assert(
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        mojo::MapDataView<mojo::StringDataView, ::chromeos::cros_healthd::mojom::VulnerabilityInfoDataView>, UserType>(),
+        mojo::MapDataView<mojo::StringDataView, ::ash::cros_healthd::mojom::VulnerabilityInfoDataView>, UserType>(),
     "Attempting to read the optional `vulnerabilities` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
@@ -2046,7 +2048,7 @@ static_assert(
     "silently ignored in this case.");
     auto* pointer = data_->header_.version >= 1
                     ? data_->vulnerabilities.Get() : nullptr;
-    return mojo::internal::Deserialize<mojo::MapDataView<mojo::StringDataView, ::chromeos::cros_healthd::mojom::VulnerabilityInfoDataView>>(
+    return mojo::internal::Deserialize<mojo::MapDataView<mojo::StringDataView, ::ash::cros_healthd::mojom::VulnerabilityInfoDataView>>(
         pointer, output, message_);
   }
  private:
@@ -2075,12 +2077,12 @@ class VirtualizationInfoDataView {
   template <typename UserType>
   [[nodiscard]] bool ReadSmtControl(UserType* output) const {
     auto data_value = data_->smt_control;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::VirtualizationInfo_SMTControl>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::VirtualizationInfo_SMTControl>(
         data_value, output);
   }
   VirtualizationInfo_SMTControl smt_control() const {
     return ::mojo::internal::ToKnownEnumValueHelper(
-          static_cast<::chromeos::cros_healthd::mojom::VirtualizationInfo_SMTControl>(data_->smt_control));
+          static_cast<::ash::cros_healthd::mojom::VirtualizationInfo_SMTControl>(data_->smt_control));
   }
  private:
   internal::VirtualizationInfo_Data* data_ = nullptr;
@@ -2101,12 +2103,12 @@ class VulnerabilityInfoDataView {
   template <typename UserType>
   [[nodiscard]] bool ReadStatus(UserType* output) const {
     auto data_value = data_->status;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::VulnerabilityInfo_Status>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::VulnerabilityInfo_Status>(
         data_value, output);
   }
   VulnerabilityInfo_Status status() const {
     return ::mojo::internal::ToKnownEnumValueHelper(
-          static_cast<::chromeos::cros_healthd::mojom::VulnerabilityInfo_Status>(data_->status));
+          static_cast<::ash::cros_healthd::mojom::VulnerabilityInfo_Status>(data_->status));
   }
   inline void GetMessageDataView(
       mojo::StringDataView* output);
@@ -2181,7 +2183,7 @@ static_assert(
   [[nodiscard]] bool ReadLogicalCpus(UserType* output) {
     
     auto* pointer = data_->logical_cpus.Get();
-    return mojo::internal::Deserialize<mojo::ArrayDataView<::chromeos::cros_healthd::mojom::LogicalCpuInfoDataView>>(
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::LogicalCpuInfoDataView>>(
         pointer, output, message_);
   }
   inline void GetFlagsDataView(
@@ -2213,7 +2215,7 @@ static_assert(
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        ::chromeos::cros_healthd::mojom::CpuVirtualizationInfoDataView, UserType>(),
+        ::ash::cros_healthd::mojom::CpuVirtualizationInfoDataView, UserType>(),
     "Attempting to read the optional `virtualization` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
@@ -2223,7 +2225,7 @@ static_assert(
     "silently ignored in this case.");
     auto* pointer = data_->header_.version >= 1
                     ? data_->virtualization.Get() : nullptr;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::CpuVirtualizationInfoDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::CpuVirtualizationInfoDataView>(
         pointer, output, message_);
   }
  private:
@@ -2246,12 +2248,12 @@ class CpuVirtualizationInfoDataView {
   template <typename UserType>
   [[nodiscard]] bool ReadType(UserType* output) const {
     auto data_value = data_->type;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::CpuVirtualizationInfo_Type>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::CpuVirtualizationInfo_Type>(
         data_value, output);
   }
   CpuVirtualizationInfo_Type type() const {
     return ::mojo::internal::ToKnownEnumValueHelper(
-          static_cast<::chromeos::cros_healthd::mojom::CpuVirtualizationInfo_Type>(data_->type));
+          static_cast<::ash::cros_healthd::mojom::CpuVirtualizationInfo_Type>(data_->type));
   }
   bool is_enabled() const {
     return data_->is_enabled;
@@ -2300,7 +2302,7 @@ class LogicalCpuInfoDataView {
   [[nodiscard]] bool ReadCStates(UserType* output) {
     
     auto* pointer = data_->c_states.Get();
-    return mojo::internal::Deserialize<mojo::ArrayDataView<::chromeos::cros_healthd::mojom::CpuCStateInfoDataView>>(
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::CpuCStateInfoDataView>>(
         pointer, output, message_);
   }
  private:
@@ -2447,7 +2449,7 @@ class MemoryInfoDataView {
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        ::chromeos::cros_healthd::mojom::MemoryEncryptionInfoDataView, UserType>(),
+        ::ash::cros_healthd::mojom::MemoryEncryptionInfoDataView, UserType>(),
     "Attempting to read the optional `memory_encryption_info` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
@@ -2457,7 +2459,7 @@ static_assert(
     "silently ignored in this case.");
     auto* pointer = data_->header_.version >= 1
                     ? data_->memory_encryption_info.Get() : nullptr;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::MemoryEncryptionInfoDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::MemoryEncryptionInfoDataView>(
         pointer, output, message_);
   }
  private:
@@ -2480,12 +2482,12 @@ class MemoryEncryptionInfoDataView {
   template <typename UserType>
   [[nodiscard]] bool ReadEncryptionState(UserType* output) const {
     auto data_value = data_->encryption_state;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::EncryptionState>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::EncryptionState>(
         data_value, output);
   }
   EncryptionState encryption_state() const {
     return ::mojo::internal::ToKnownEnumValueHelper(
-          static_cast<::chromeos::cros_healthd::mojom::EncryptionState>(data_->encryption_state));
+          static_cast<::ash::cros_healthd::mojom::EncryptionState>(data_->encryption_state));
   }
   uint32_t max_key_number() const {
     return data_->max_key_number;
@@ -2496,12 +2498,12 @@ class MemoryEncryptionInfoDataView {
   template <typename UserType>
   [[nodiscard]] bool ReadActiveAlgorithm(UserType* output) const {
     auto data_value = data_->active_algorithm;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::CryptoAlgorithm>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::CryptoAlgorithm>(
         data_value, output);
   }
   CryptoAlgorithm active_algorithm() const {
     return ::mojo::internal::ToKnownEnumValueHelper(
-          static_cast<::chromeos::cros_healthd::mojom::CryptoAlgorithm>(data_->active_algorithm));
+          static_cast<::ash::cros_healthd::mojom::CryptoAlgorithm>(data_->active_algorithm));
   }
  private:
   internal::MemoryEncryptionInfo_Data* data_ = nullptr;
@@ -2648,7 +2650,7 @@ class BluetoothAdapterInfoDataView {
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        mojo::ArrayDataView<::chromeos::cros_healthd::mojom::BluetoothDeviceInfoDataView>, UserType>(),
+        mojo::ArrayDataView<::ash::cros_healthd::mojom::BluetoothDeviceInfoDataView>, UserType>(),
     "Attempting to read the optional `connected_devices` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
@@ -2658,7 +2660,7 @@ static_assert(
     "silently ignored in this case.");
     auto* pointer = data_->header_.version >= 1
                     ? data_->connected_devices.Get() : nullptr;
-    return mojo::internal::Deserialize<mojo::ArrayDataView<::chromeos::cros_healthd::mojom::BluetoothDeviceInfoDataView>>(
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::BluetoothDeviceInfoDataView>>(
         pointer, output, message_);
   }
   bool discoverable() const {
@@ -2742,7 +2744,7 @@ static_assert(
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        ::chromeos::cros_healthd::mojom::SupportedCapabilitiesDataView, UserType>(),
+        ::ash::cros_healthd::mojom::SupportedCapabilitiesDataView, UserType>(),
     "Attempting to read the optional `supported_capabilities` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
@@ -2752,7 +2754,7 @@ static_assert(
     "silently ignored in this case.");
     auto* pointer = data_->header_.version >= 2
                     ? data_->supported_capabilities.Get() : nullptr;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::SupportedCapabilitiesDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::SupportedCapabilitiesDataView>(
         pointer, output, message_);
   }
  private:
@@ -2805,21 +2807,21 @@ static_assert(
   template <typename UserType>
   [[nodiscard]] bool ReadType(UserType* output) const {
     auto data_value = data_->type;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::BluetoothDeviceType>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::BluetoothDeviceType>(
         data_value, output);
   }
   BluetoothDeviceType type() const {
     return ::mojo::internal::ToKnownEnumValueHelper(
-          static_cast<::chromeos::cros_healthd::mojom::BluetoothDeviceType>(data_->type));
+          static_cast<::ash::cros_healthd::mojom::BluetoothDeviceType>(data_->type));
   }
   inline void GetAppearanceDataView(
-      ::chromeos::cros_healthd::mojom::NullableUint16DataView* output);
+      ::ash::cros_healthd::mojom::NullableUint16DataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadAppearance(UserType* output) {
     
     auto* pointer = data_->appearance.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::NullableUint16DataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::NullableUint16DataView>(
         pointer, output, message_);
   }
   inline void GetModaliasDataView(
@@ -2843,23 +2845,23 @@ static_assert(
         pointer, output, message_);
   }
   inline void GetRssiDataView(
-      ::chromeos::cros_healthd::mojom::NullableInt16DataView* output);
+      ::ash::cros_healthd::mojom::NullableInt16DataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadRssi(UserType* output) {
     
     auto* pointer = data_->rssi.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::NullableInt16DataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::NullableInt16DataView>(
         pointer, output, message_);
   }
   inline void GetMtuDataView(
-      ::chromeos::cros_healthd::mojom::NullableUint16DataView* output);
+      ::ash::cros_healthd::mojom::NullableUint16DataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadMtu(UserType* output) {
     
     auto* pointer = data_->mtu.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::NullableUint16DataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::NullableUint16DataView>(
         pointer, output, message_);
   }
   inline void GetUuidsDataView(
@@ -2883,14 +2885,14 @@ static_assert(
         pointer, output, message_);
   }
   inline void GetBatteryPercentageDataView(
-      ::chromeos::cros_healthd::mojom::NullableUint8DataView* output);
+      ::ash::cros_healthd::mojom::NullableUint8DataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadBatteryPercentage(UserType* output) {
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        ::chromeos::cros_healthd::mojom::NullableUint8DataView, UserType>(),
+        ::ash::cros_healthd::mojom::NullableUint8DataView, UserType>(),
     "Attempting to read the optional `battery_percentage` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
@@ -2900,7 +2902,7 @@ static_assert(
     "silently ignored in this case.");
     auto* pointer = data_->header_.version >= 1
                     ? data_->battery_percentage.Get() : nullptr;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::NullableUint8DataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::NullableUint8DataView>(
         pointer, output, message_);
   }
  private:
@@ -2955,7 +2957,7 @@ class SystemInfoDataView {
   [[nodiscard]] bool ReadOsInfo(UserType* output) {
     
     auto* pointer = data_->os_info.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::OsInfoDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::OsInfoDataView>(
         pointer, output, message_);
   }
   inline void GetVpdInfoDataView(
@@ -2966,7 +2968,7 @@ class SystemInfoDataView {
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        ::chromeos::cros_healthd::mojom::VpdInfoDataView, UserType>(),
+        ::ash::cros_healthd::mojom::VpdInfoDataView, UserType>(),
     "Attempting to read the optional `vpd_info` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
@@ -2975,7 +2977,7 @@ static_assert(
     "of `ReadVpdInfo if you're fine with null values being "
     "silently ignored in this case.");
     auto* pointer = data_->vpd_info.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::VpdInfoDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::VpdInfoDataView>(
         pointer, output, message_);
   }
   inline void GetDmiInfoDataView(
@@ -2986,7 +2988,7 @@ static_assert(
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        ::chromeos::cros_healthd::mojom::DmiInfoDataView, UserType>(),
+        ::ash::cros_healthd::mojom::DmiInfoDataView, UserType>(),
     "Attempting to read the optional `dmi_info` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
@@ -2995,7 +2997,7 @@ static_assert(
     "of `ReadDmiInfo if you're fine with null values being "
     "silently ignored in this case.");
     auto* pointer = data_->dmi_info.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::DmiInfoDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::DmiInfoDataView>(
         pointer, output, message_);
   }
  private:
@@ -3052,18 +3054,18 @@ static_assert(
   [[nodiscard]] bool ReadOsVersion(UserType* output) {
     
     auto* pointer = data_->os_version.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::OsVersionDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::OsVersionDataView>(
         pointer, output, message_);
   }
   template <typename UserType>
   [[nodiscard]] bool ReadBootMode(UserType* output) const {
     auto data_value = data_->boot_mode;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::BootMode>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::BootMode>(
         data_value, output);
   }
   BootMode boot_mode() const {
     return ::mojo::internal::ToKnownEnumValueHelper(
-          static_cast<::chromeos::cros_healthd::mojom::BootMode>(data_->boot_mode));
+          static_cast<::ash::cros_healthd::mojom::BootMode>(data_->boot_mode));
   }
   inline void GetOemNameDataView(
       mojo::StringDataView* output);
@@ -3090,14 +3092,14 @@ static_assert(
   [[nodiscard]] bool ReadEfiPlatformSize(UserType* output) const {
     auto data_value = data_->header_.version >= 2
                       ? data_->efi_platform_size : 0;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::OsInfo_EfiPlatformSize>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::OsInfo_EfiPlatformSize>(
         data_value, output);
   }
   OsInfo_EfiPlatformSize efi_platform_size() const {
     if (data_->header_.version < 2)
       return OsInfo_EfiPlatformSize{};
     return ::mojo::internal::ToKnownEnumValueHelper(
-          static_cast<::chromeos::cros_healthd::mojom::OsInfo_EfiPlatformSize>(data_->efi_platform_size));
+          static_cast<::ash::cros_healthd::mojom::OsInfo_EfiPlatformSize>(data_->efi_platform_size));
   }
  private:
   internal::OsInfo_Data* data_ = nullptr;
@@ -3153,6 +3155,27 @@ class OsVersionDataView {
   [[nodiscard]] bool ReadReleaseChannel(UserType* output) {
     
     auto* pointer = data_->release_channel.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetBranchNumberDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadBranchNumber(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::StringDataView, UserType>(),
+    "Attempting to read the optional `branch_number` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadBranchNumber` instead "
+    "of `ReadBranchNumber if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->header_.version >= 1
+                    ? data_->branch_number.Get() : nullptr;
     return mojo::internal::Deserialize<mojo::StringDataView>(
         pointer, output, message_);
   }
@@ -3290,6 +3313,27 @@ static_assert(
     "of `ReadModelName if you're fine with null values being "
     "silently ignored in this case.");
     auto* pointer = data_->model_name.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetOemNameDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadOemName(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::StringDataView, UserType>(),
+    "Attempting to read the optional `oem_name` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadOemName` instead "
+    "of `ReadOemName if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->header_.version >= 1
+                    ? data_->oem_name.Get() : nullptr;
     return mojo::internal::Deserialize<mojo::StringDataView>(
         pointer, output, message_);
   }
@@ -3431,14 +3475,14 @@ static_assert(
         pointer, output, message_);
   }
   inline void GetChassisTypeDataView(
-      ::chromeos::cros_healthd::mojom::NullableUint64DataView* output);
+      ::ash::cros_healthd::mojom::NullableUint64DataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadChassisType(UserType* output) {
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        ::chromeos::cros_healthd::mojom::NullableUint64DataView, UserType>(),
+        ::ash::cros_healthd::mojom::NullableUint64DataView, UserType>(),
     "Attempting to read the optional `chassis_type` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
@@ -3447,7 +3491,7 @@ static_assert(
     "of `ReadChassisType if you're fine with null values being "
     "silently ignored in this case.");
     auto* pointer = data_->chassis_type.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::NullableUint64DataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::NullableUint64DataView>(
         pointer, output, message_);
   }
   inline void GetProductFamilyDataView(
@@ -3568,7 +3612,7 @@ class WirelessInterfaceInfoDataView {
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        ::chromeos::cros_healthd::mojom::WirelessLinkInfoDataView, UserType>(),
+        ::ash::cros_healthd::mojom::WirelessLinkInfoDataView, UserType>(),
     "Attempting to read the optional `wireless_link_info` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
@@ -3577,7 +3621,7 @@ static_assert(
     "of `ReadWirelessLinkInfo if you're fine with null values being "
     "silently ignored in this case.");
     auto* pointer = data_->wireless_link_info.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::WirelessLinkInfoDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::WirelessLinkInfoDataView>(
         pointer, output, message_);
   }
  private:
@@ -3704,7 +3748,7 @@ class AudioHardwareInfoDataView {
   [[nodiscard]] bool ReadAudioCards(UserType* output) {
     
     auto* pointer = data_->audio_cards.Get();
-    return mojo::internal::Deserialize<mojo::ArrayDataView<::chromeos::cros_healthd::mojom::AudioCardDataView>>(
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::AudioCardDataView>>(
         pointer, output, message_);
   }
  private:
@@ -3742,7 +3786,7 @@ class AudioCardDataView {
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        ::chromeos::cros_healthd::mojom::BusDeviceDataView, UserType>(),
+        ::ash::cros_healthd::mojom::BusDeviceDataView, UserType>(),
     "Attempting to read the optional `bus_device` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
@@ -3751,7 +3795,7 @@ static_assert(
     "of `ReadBusDevice if you're fine with null values being "
     "silently ignored in this case.");
     auto* pointer = data_->bus_device.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::BusDeviceDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::BusDeviceDataView>(
         pointer, output, message_);
   }
   inline void GetHdAudioCodecsDataView(
@@ -3761,7 +3805,7 @@ static_assert(
   [[nodiscard]] bool ReadHdAudioCodecs(UserType* output) {
     
     auto* pointer = data_->hd_audio_codecs.Get();
-    return mojo::internal::Deserialize<mojo::ArrayDataView<::chromeos::cros_healthd::mojom::HDAudioCodecDataView>>(
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::HDAudioCodecDataView>>(
         pointer, output, message_);
   }
  private:
@@ -3873,12 +3917,12 @@ class BusDeviceDataView {
   template <typename UserType>
   [[nodiscard]] bool ReadDeviceClass(UserType* output) const {
     auto data_value = data_->device_class;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::BusDeviceClass>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::BusDeviceClass>(
         data_value, output);
   }
   BusDeviceClass device_class() const {
     return ::mojo::internal::ToKnownEnumValueHelper(
-          static_cast<::chromeos::cros_healthd::mojom::BusDeviceClass>(data_->device_class));
+          static_cast<::ash::cros_healthd::mojom::BusDeviceClass>(data_->device_class));
   }
   inline void GetBusInfoDataView(
       BusInfoDataView* output);
@@ -3887,7 +3931,7 @@ class BusDeviceDataView {
   [[nodiscard]] bool ReadBusInfo(UserType* output) {
     
     auto* pointer = !data_->bus_info.is_null() ? &data_->bus_info : nullptr;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::BusInfoDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::BusInfoDataView>(
         pointer, output, message_);
   }
  private:
@@ -3981,7 +4025,7 @@ class UsbBusInfoDataView {
   [[nodiscard]] bool ReadInterfaces(UserType* output) {
     
     auto* pointer = data_->interfaces.Get();
-    return mojo::internal::Deserialize<mojo::ArrayDataView<::chromeos::cros_healthd::mojom::UsbBusInterfaceInfoDataView>>(
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::UsbBusInterfaceInfoDataView>>(
         pointer, output, message_);
   }
   inline void GetFwupdFirmwareVersionInfoDataView(
@@ -3992,7 +4036,7 @@ class UsbBusInfoDataView {
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        ::chromeos::cros_healthd::mojom::FwupdFirmwareVersionInfoDataView, UserType>(),
+        ::ash::cros_healthd::mojom::FwupdFirmwareVersionInfoDataView, UserType>(),
     "Attempting to read the optional `fwupd_firmware_version_info` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
@@ -4002,7 +4046,7 @@ static_assert(
     "silently ignored in this case.");
     auto* pointer = data_->header_.version >= 1
                     ? data_->fwupd_firmware_version_info.Get() : nullptr;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::FwupdFirmwareVersionInfoDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::FwupdFirmwareVersionInfoDataView>(
         pointer, output, message_);
   }
  private:
@@ -4035,12 +4079,12 @@ class FwupdFirmwareVersionInfoDataView {
   template <typename UserType>
   [[nodiscard]] bool ReadVersionFormat(UserType* output) const {
     auto data_value = data_->version_format;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::FwupdVersionFormat>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::FwupdVersionFormat>(
         data_value, output);
   }
   FwupdVersionFormat version_format() const {
     return ::mojo::internal::ToKnownEnumValueHelper(
-          static_cast<::chromeos::cros_healthd::mojom::FwupdVersionFormat>(data_->version_format));
+          static_cast<::ash::cros_healthd::mojom::FwupdVersionFormat>(data_->version_format));
   }
  private:
   internal::FwupdFirmwareVersionInfo_Data* data_ = nullptr;
@@ -4115,7 +4159,7 @@ class TpmInfoDataView {
   [[nodiscard]] bool ReadVersion(UserType* output) {
     
     auto* pointer = data_->version.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::TpmVersionDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::TpmVersionDataView>(
         pointer, output, message_);
   }
   inline void GetStatusDataView(
@@ -4125,7 +4169,7 @@ class TpmInfoDataView {
   [[nodiscard]] bool ReadStatus(UserType* output) {
     
     auto* pointer = data_->status.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::TpmStatusDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::TpmStatusDataView>(
         pointer, output, message_);
   }
   inline void GetDictionaryAttackDataView(
@@ -4135,7 +4179,7 @@ class TpmInfoDataView {
   [[nodiscard]] bool ReadDictionaryAttack(UserType* output) {
     
     auto* pointer = data_->dictionary_attack.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::TpmDictionaryAttackDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::TpmDictionaryAttackDataView>(
         pointer, output, message_);
   }
   inline void GetAttestationDataView(
@@ -4145,7 +4189,7 @@ class TpmInfoDataView {
   [[nodiscard]] bool ReadAttestation(UserType* output) {
     
     auto* pointer = data_->attestation.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::TpmAttestationDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::TpmAttestationDataView>(
         pointer, output, message_);
   }
   inline void GetSupportedFeaturesDataView(
@@ -4155,7 +4199,7 @@ class TpmInfoDataView {
   [[nodiscard]] bool ReadSupportedFeatures(UserType* output) {
     
     auto* pointer = data_->supported_features.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::TpmSupportedFeaturesDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::TpmSupportedFeaturesDataView>(
         pointer, output, message_);
   }
   inline void GetDidVidDataView(
@@ -4198,12 +4242,12 @@ class TpmVersionDataView {
   template <typename UserType>
   [[nodiscard]] bool ReadGscVersion(UserType* output) const {
     auto data_value = data_->gsc_version;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::TpmGSCVersion>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::TpmGSCVersion>(
         data_value, output);
   }
   TpmGSCVersion gsc_version() const {
     return ::mojo::internal::ToKnownEnumValueHelper(
-          static_cast<::chromeos::cros_healthd::mojom::TpmGSCVersion>(data_->gsc_version));
+          static_cast<::ash::cros_healthd::mojom::TpmGSCVersion>(data_->gsc_version));
   }
   uint32_t family() const {
     return data_->family;
@@ -4367,7 +4411,7 @@ class GraphicsInfoDataView {
   [[nodiscard]] bool ReadGlesInfo(UserType* output) {
     
     auto* pointer = data_->gles_info.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::GLESInfoDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::GLESInfoDataView>(
         pointer, output, message_);
   }
   inline void GetEglInfoDataView(
@@ -4377,7 +4421,7 @@ class GraphicsInfoDataView {
   [[nodiscard]] bool ReadEglInfo(UserType* output) {
     
     auto* pointer = data_->egl_info.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::EGLInfoDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::EGLInfoDataView>(
         pointer, output, message_);
   }
  private:
@@ -4528,7 +4572,7 @@ class DisplayInfoDataView {
   [[nodiscard]] bool ReadEdpInfo(UserType* output) {
     
     auto* pointer = data_->edp_info.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::EmbeddedDisplayInfoDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::EmbeddedDisplayInfoDataView>(
         pointer, output, message_);
   }
   inline void GetDpInfosDataView(
@@ -4539,7 +4583,7 @@ class DisplayInfoDataView {
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        mojo::ArrayDataView<::chromeos::cros_healthd::mojom::ExternalDisplayInfoDataView>, UserType>(),
+        mojo::ArrayDataView<::ash::cros_healthd::mojom::ExternalDisplayInfoDataView>, UserType>(),
     "Attempting to read the optional `dp_infos` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
@@ -4549,7 +4593,7 @@ static_assert(
     "silently ignored in this case.");
     auto* pointer = data_->header_.version >= 1
                     ? data_->dp_infos.Get() : nullptr;
-    return mojo::internal::Deserialize<mojo::ArrayDataView<::chromeos::cros_healthd::mojom::ExternalDisplayInfoDataView>>(
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::ExternalDisplayInfoDataView>>(
         pointer, output, message_);
   }
  private:
@@ -4576,14 +4620,14 @@ class EmbeddedDisplayInfoDataView {
     return data_->privacy_screen_enabled;
   }
   inline void GetDisplayWidthDataView(
-      ::chromeos::cros_healthd::mojom::NullableUint32DataView* output);
+      ::ash::cros_healthd::mojom::NullableUint32DataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadDisplayWidth(UserType* output) {
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        ::chromeos::cros_healthd::mojom::NullableUint32DataView, UserType>(),
+        ::ash::cros_healthd::mojom::NullableUint32DataView, UserType>(),
     "Attempting to read the optional `display_width` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
@@ -4593,18 +4637,18 @@ static_assert(
     "silently ignored in this case.");
     auto* pointer = data_->header_.version >= 1
                     ? data_->display_width.Get() : nullptr;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::NullableUint32DataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::NullableUint32DataView>(
         pointer, output, message_);
   }
   inline void GetDisplayHeightDataView(
-      ::chromeos::cros_healthd::mojom::NullableUint32DataView* output);
+      ::ash::cros_healthd::mojom::NullableUint32DataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadDisplayHeight(UserType* output) {
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        ::chromeos::cros_healthd::mojom::NullableUint32DataView, UserType>(),
+        ::ash::cros_healthd::mojom::NullableUint32DataView, UserType>(),
     "Attempting to read the optional `display_height` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
@@ -4614,18 +4658,18 @@ static_assert(
     "silently ignored in this case.");
     auto* pointer = data_->header_.version >= 1
                     ? data_->display_height.Get() : nullptr;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::NullableUint32DataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::NullableUint32DataView>(
         pointer, output, message_);
   }
   inline void GetResolutionHorizontalDataView(
-      ::chromeos::cros_healthd::mojom::NullableUint32DataView* output);
+      ::ash::cros_healthd::mojom::NullableUint32DataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadResolutionHorizontal(UserType* output) {
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        ::chromeos::cros_healthd::mojom::NullableUint32DataView, UserType>(),
+        ::ash::cros_healthd::mojom::NullableUint32DataView, UserType>(),
     "Attempting to read the optional `resolution_horizontal` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
@@ -4635,18 +4679,18 @@ static_assert(
     "silently ignored in this case.");
     auto* pointer = data_->header_.version >= 1
                     ? data_->resolution_horizontal.Get() : nullptr;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::NullableUint32DataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::NullableUint32DataView>(
         pointer, output, message_);
   }
   inline void GetResolutionVerticalDataView(
-      ::chromeos::cros_healthd::mojom::NullableUint32DataView* output);
+      ::ash::cros_healthd::mojom::NullableUint32DataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadResolutionVertical(UserType* output) {
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        ::chromeos::cros_healthd::mojom::NullableUint32DataView, UserType>(),
+        ::ash::cros_healthd::mojom::NullableUint32DataView, UserType>(),
     "Attempting to read the optional `resolution_vertical` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
@@ -4656,18 +4700,18 @@ static_assert(
     "silently ignored in this case.");
     auto* pointer = data_->header_.version >= 1
                     ? data_->resolution_vertical.Get() : nullptr;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::NullableUint32DataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::NullableUint32DataView>(
         pointer, output, message_);
   }
   inline void GetRefreshRateDataView(
-      ::chromeos::cros_healthd::mojom::NullableDoubleDataView* output);
+      ::ash::cros_healthd::mojom::NullableDoubleDataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadRefreshRate(UserType* output) {
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        ::chromeos::cros_healthd::mojom::NullableDoubleDataView, UserType>(),
+        ::ash::cros_healthd::mojom::NullableDoubleDataView, UserType>(),
     "Attempting to read the optional `refresh_rate` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
@@ -4677,7 +4721,7 @@ static_assert(
     "silently ignored in this case.");
     auto* pointer = data_->header_.version >= 1
                     ? data_->refresh_rate.Get() : nullptr;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::NullableDoubleDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::NullableDoubleDataView>(
         pointer, output, message_);
   }
   inline void GetManufacturerDataView(
@@ -4702,14 +4746,14 @@ static_assert(
         pointer, output, message_);
   }
   inline void GetModelIdDataView(
-      ::chromeos::cros_healthd::mojom::NullableUint16DataView* output);
+      ::ash::cros_healthd::mojom::NullableUint16DataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadModelId(UserType* output) {
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        ::chromeos::cros_healthd::mojom::NullableUint16DataView, UserType>(),
+        ::ash::cros_healthd::mojom::NullableUint16DataView, UserType>(),
     "Attempting to read the optional `model_id` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
@@ -4719,18 +4763,18 @@ static_assert(
     "silently ignored in this case.");
     auto* pointer = data_->header_.version >= 2
                     ? data_->model_id.Get() : nullptr;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::NullableUint16DataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::NullableUint16DataView>(
         pointer, output, message_);
   }
   inline void GetSerialNumberDataView(
-      ::chromeos::cros_healthd::mojom::NullableUint32DataView* output);
+      ::ash::cros_healthd::mojom::NullableUint32DataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadSerialNumber(UserType* output) {
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        ::chromeos::cros_healthd::mojom::NullableUint32DataView, UserType>(),
+        ::ash::cros_healthd::mojom::NullableUint32DataView, UserType>(),
     "Attempting to read the optional `serial_number` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
@@ -4740,18 +4784,18 @@ static_assert(
     "silently ignored in this case.");
     auto* pointer = data_->header_.version >= 2
                     ? data_->serial_number.Get() : nullptr;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::NullableUint32DataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::NullableUint32DataView>(
         pointer, output, message_);
   }
   inline void GetManufactureWeekDataView(
-      ::chromeos::cros_healthd::mojom::NullableUint8DataView* output);
+      ::ash::cros_healthd::mojom::NullableUint8DataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadManufactureWeek(UserType* output) {
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        ::chromeos::cros_healthd::mojom::NullableUint8DataView, UserType>(),
+        ::ash::cros_healthd::mojom::NullableUint8DataView, UserType>(),
     "Attempting to read the optional `manufacture_week` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
@@ -4761,18 +4805,18 @@ static_assert(
     "silently ignored in this case.");
     auto* pointer = data_->header_.version >= 2
                     ? data_->manufacture_week.Get() : nullptr;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::NullableUint8DataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::NullableUint8DataView>(
         pointer, output, message_);
   }
   inline void GetManufactureYearDataView(
-      ::chromeos::cros_healthd::mojom::NullableUint16DataView* output);
+      ::ash::cros_healthd::mojom::NullableUint16DataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadManufactureYear(UserType* output) {
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        ::chromeos::cros_healthd::mojom::NullableUint16DataView, UserType>(),
+        ::ash::cros_healthd::mojom::NullableUint16DataView, UserType>(),
     "Attempting to read the optional `manufacture_year` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
@@ -4782,7 +4826,7 @@ static_assert(
     "silently ignored in this case.");
     auto* pointer = data_->header_.version >= 2
                     ? data_->manufacture_year.Get() : nullptr;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::NullableUint16DataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::NullableUint16DataView>(
         pointer, output, message_);
   }
   inline void GetEdidVersionDataView(
@@ -4810,14 +4854,14 @@ static_assert(
   [[nodiscard]] bool ReadInputType(UserType* output) const {
     auto data_value = data_->header_.version >= 2
                       ? data_->input_type : 0;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::DisplayInputType>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::DisplayInputType>(
         data_value, output);
   }
   DisplayInputType input_type() const {
     if (data_->header_.version < 2)
       return DisplayInputType{};
     return ::mojo::internal::ToKnownEnumValueHelper(
-          static_cast<::chromeos::cros_healthd::mojom::DisplayInputType>(data_->input_type));
+          static_cast<::ash::cros_healthd::mojom::DisplayInputType>(data_->input_type));
   }
   inline void GetDisplayNameDataView(
       mojo::StringDataView* output);
@@ -4858,14 +4902,14 @@ class ExternalDisplayInfoDataView {
 
   bool is_null() const { return !data_; }
   inline void GetDisplayWidthDataView(
-      ::chromeos::cros_healthd::mojom::NullableUint32DataView* output);
+      ::ash::cros_healthd::mojom::NullableUint32DataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadDisplayWidth(UserType* output) {
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        ::chromeos::cros_healthd::mojom::NullableUint32DataView, UserType>(),
+        ::ash::cros_healthd::mojom::NullableUint32DataView, UserType>(),
     "Attempting to read the optional `display_width` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
@@ -4874,18 +4918,18 @@ static_assert(
     "of `ReadDisplayWidth if you're fine with null values being "
     "silently ignored in this case.");
     auto* pointer = data_->display_width.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::NullableUint32DataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::NullableUint32DataView>(
         pointer, output, message_);
   }
   inline void GetDisplayHeightDataView(
-      ::chromeos::cros_healthd::mojom::NullableUint32DataView* output);
+      ::ash::cros_healthd::mojom::NullableUint32DataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadDisplayHeight(UserType* output) {
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        ::chromeos::cros_healthd::mojom::NullableUint32DataView, UserType>(),
+        ::ash::cros_healthd::mojom::NullableUint32DataView, UserType>(),
     "Attempting to read the optional `display_height` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
@@ -4894,18 +4938,18 @@ static_assert(
     "of `ReadDisplayHeight if you're fine with null values being "
     "silently ignored in this case.");
     auto* pointer = data_->display_height.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::NullableUint32DataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::NullableUint32DataView>(
         pointer, output, message_);
   }
   inline void GetResolutionHorizontalDataView(
-      ::chromeos::cros_healthd::mojom::NullableUint32DataView* output);
+      ::ash::cros_healthd::mojom::NullableUint32DataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadResolutionHorizontal(UserType* output) {
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        ::chromeos::cros_healthd::mojom::NullableUint32DataView, UserType>(),
+        ::ash::cros_healthd::mojom::NullableUint32DataView, UserType>(),
     "Attempting to read the optional `resolution_horizontal` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
@@ -4914,18 +4958,18 @@ static_assert(
     "of `ReadResolutionHorizontal if you're fine with null values being "
     "silently ignored in this case.");
     auto* pointer = data_->resolution_horizontal.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::NullableUint32DataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::NullableUint32DataView>(
         pointer, output, message_);
   }
   inline void GetResolutionVerticalDataView(
-      ::chromeos::cros_healthd::mojom::NullableUint32DataView* output);
+      ::ash::cros_healthd::mojom::NullableUint32DataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadResolutionVertical(UserType* output) {
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        ::chromeos::cros_healthd::mojom::NullableUint32DataView, UserType>(),
+        ::ash::cros_healthd::mojom::NullableUint32DataView, UserType>(),
     "Attempting to read the optional `resolution_vertical` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
@@ -4934,18 +4978,18 @@ static_assert(
     "of `ReadResolutionVertical if you're fine with null values being "
     "silently ignored in this case.");
     auto* pointer = data_->resolution_vertical.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::NullableUint32DataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::NullableUint32DataView>(
         pointer, output, message_);
   }
   inline void GetRefreshRateDataView(
-      ::chromeos::cros_healthd::mojom::NullableDoubleDataView* output);
+      ::ash::cros_healthd::mojom::NullableDoubleDataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadRefreshRate(UserType* output) {
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        ::chromeos::cros_healthd::mojom::NullableDoubleDataView, UserType>(),
+        ::ash::cros_healthd::mojom::NullableDoubleDataView, UserType>(),
     "Attempting to read the optional `refresh_rate` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
@@ -4954,7 +4998,7 @@ static_assert(
     "of `ReadRefreshRate if you're fine with null values being "
     "silently ignored in this case.");
     auto* pointer = data_->refresh_rate.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::NullableDoubleDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::NullableDoubleDataView>(
         pointer, output, message_);
   }
   inline void GetManufacturerDataView(
@@ -4979,14 +5023,14 @@ static_assert(
         pointer, output, message_);
   }
   inline void GetModelIdDataView(
-      ::chromeos::cros_healthd::mojom::NullableUint16DataView* output);
+      ::ash::cros_healthd::mojom::NullableUint16DataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadModelId(UserType* output) {
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        ::chromeos::cros_healthd::mojom::NullableUint16DataView, UserType>(),
+        ::ash::cros_healthd::mojom::NullableUint16DataView, UserType>(),
     "Attempting to read the optional `model_id` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
@@ -4996,18 +5040,18 @@ static_assert(
     "silently ignored in this case.");
     auto* pointer = data_->header_.version >= 1
                     ? data_->model_id.Get() : nullptr;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::NullableUint16DataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::NullableUint16DataView>(
         pointer, output, message_);
   }
   inline void GetSerialNumberDataView(
-      ::chromeos::cros_healthd::mojom::NullableUint32DataView* output);
+      ::ash::cros_healthd::mojom::NullableUint32DataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadSerialNumber(UserType* output) {
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        ::chromeos::cros_healthd::mojom::NullableUint32DataView, UserType>(),
+        ::ash::cros_healthd::mojom::NullableUint32DataView, UserType>(),
     "Attempting to read the optional `serial_number` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
@@ -5017,18 +5061,18 @@ static_assert(
     "silently ignored in this case.");
     auto* pointer = data_->header_.version >= 1
                     ? data_->serial_number.Get() : nullptr;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::NullableUint32DataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::NullableUint32DataView>(
         pointer, output, message_);
   }
   inline void GetManufactureWeekDataView(
-      ::chromeos::cros_healthd::mojom::NullableUint8DataView* output);
+      ::ash::cros_healthd::mojom::NullableUint8DataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadManufactureWeek(UserType* output) {
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        ::chromeos::cros_healthd::mojom::NullableUint8DataView, UserType>(),
+        ::ash::cros_healthd::mojom::NullableUint8DataView, UserType>(),
     "Attempting to read the optional `manufacture_week` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
@@ -5038,18 +5082,18 @@ static_assert(
     "silently ignored in this case.");
     auto* pointer = data_->header_.version >= 1
                     ? data_->manufacture_week.Get() : nullptr;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::NullableUint8DataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::NullableUint8DataView>(
         pointer, output, message_);
   }
   inline void GetManufactureYearDataView(
-      ::chromeos::cros_healthd::mojom::NullableUint16DataView* output);
+      ::ash::cros_healthd::mojom::NullableUint16DataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadManufactureYear(UserType* output) {
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        ::chromeos::cros_healthd::mojom::NullableUint16DataView, UserType>(),
+        ::ash::cros_healthd::mojom::NullableUint16DataView, UserType>(),
     "Attempting to read the optional `manufacture_year` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
@@ -5059,7 +5103,7 @@ static_assert(
     "silently ignored in this case.");
     auto* pointer = data_->header_.version >= 1
                     ? data_->manufacture_year.Get() : nullptr;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::NullableUint16DataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::NullableUint16DataView>(
         pointer, output, message_);
   }
   inline void GetEdidVersionDataView(
@@ -5087,14 +5131,14 @@ static_assert(
   [[nodiscard]] bool ReadInputType(UserType* output) const {
     auto data_value = data_->header_.version >= 1
                       ? data_->input_type : 0;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::DisplayInputType>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::DisplayInputType>(
         data_value, output);
   }
   DisplayInputType input_type() const {
     if (data_->header_.version < 1)
       return DisplayInputType{};
     return ::mojo::internal::ToKnownEnumValueHelper(
-          static_cast<::chromeos::cros_healthd::mojom::DisplayInputType>(data_->input_type));
+          static_cast<::ash::cros_healthd::mojom::DisplayInputType>(data_->input_type));
   }
   inline void GetDisplayNameDataView(
       mojo::StringDataView* output);
@@ -5213,12 +5257,12 @@ class ThunderboltBusInfoDataView {
   template <typename UserType>
   [[nodiscard]] bool ReadSecurityLevel(UserType* output) const {
     auto data_value = data_->security_level;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::ThunderboltSecurityLevel>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::ThunderboltSecurityLevel>(
         data_value, output);
   }
   ThunderboltSecurityLevel security_level() const {
     return ::mojo::internal::ToKnownEnumValueHelper(
-          static_cast<::chromeos::cros_healthd::mojom::ThunderboltSecurityLevel>(data_->security_level));
+          static_cast<::ash::cros_healthd::mojom::ThunderboltSecurityLevel>(data_->security_level));
   }
   inline void GetThunderboltInterfacesDataView(
       mojo::ArrayDataView<ThunderboltBusInterfaceInfoDataView>* output);
@@ -5227,7 +5271,7 @@ class ThunderboltBusInfoDataView {
   [[nodiscard]] bool ReadThunderboltInterfaces(UserType* output) {
     
     auto* pointer = data_->thunderbolt_interfaces.Get();
-    return mojo::internal::Deserialize<mojo::ArrayDataView<::chromeos::cros_healthd::mojom::ThunderboltBusInterfaceInfoDataView>>(
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::ThunderboltBusInterfaceInfoDataView>>(
         pointer, output, message_);
   }
  private:
@@ -5264,7 +5308,7 @@ class InputInfoDataView {
   [[nodiscard]] bool ReadTouchscreenDevices(UserType* output) {
     
     auto* pointer = data_->touchscreen_devices.Get();
-    return mojo::internal::Deserialize<mojo::ArrayDataView<::chromeos::cros_healthd::mojom::TouchscreenDeviceDataView>>(
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::TouchscreenDeviceDataView>>(
         pointer, output, message_);
   }
  private:
@@ -5291,7 +5335,7 @@ class TouchscreenDeviceDataView {
   [[nodiscard]] bool ReadInputDevice(UserType* output) {
     
     auto* pointer = data_->input_device.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::InputDeviceDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::InputDeviceDataView>(
         pointer, output, message_);
   }
   int32_t touch_points() const {
@@ -5333,12 +5377,12 @@ class InputDeviceDataView {
   template <typename UserType>
   [[nodiscard]] bool ReadConnectionType(UserType* output) const {
     auto data_value = data_->connection_type;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::InputDevice_ConnectionType>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::InputDevice_ConnectionType>(
         data_value, output);
   }
   InputDevice_ConnectionType connection_type() const {
     return ::mojo::internal::ToKnownEnumValueHelper(
-          static_cast<::chromeos::cros_healthd::mojom::InputDevice_ConnectionType>(data_->connection_type));
+          static_cast<::ash::cros_healthd::mojom::InputDevice_ConnectionType>(data_->connection_type));
   }
   inline void GetPhysicalLocationDataView(
       mojo::StringDataView* output);
@@ -5371,14 +5415,14 @@ class SensorInfoDataView {
 
   bool is_null() const { return !data_; }
   inline void GetLidAngleDataView(
-      ::chromeos::cros_healthd::mojom::NullableUint16DataView* output);
+      ::ash::cros_healthd::mojom::NullableUint16DataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadLidAngle(UserType* output) {
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        ::chromeos::cros_healthd::mojom::NullableUint16DataView, UserType>(),
+        ::ash::cros_healthd::mojom::NullableUint16DataView, UserType>(),
     "Attempting to read the optional `lid_angle` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
@@ -5387,7 +5431,7 @@ static_assert(
     "of `ReadLidAngle if you're fine with null values being "
     "silently ignored in this case.");
     auto* pointer = data_->lid_angle.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::NullableUint16DataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::NullableUint16DataView>(
         pointer, output, message_);
   }
   inline void GetSensorsDataView(
@@ -5398,7 +5442,7 @@ static_assert(
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        mojo::ArrayDataView<::chromeos::cros_healthd::mojom::SensorDataView>, UserType>(),
+        mojo::ArrayDataView<::ash::cros_healthd::mojom::SensorDataView>, UserType>(),
     "Attempting to read the optional `sensors` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
@@ -5408,7 +5452,7 @@ static_assert(
     "silently ignored in this case.");
     auto* pointer = data_->header_.version >= 1
                     ? data_->sensors.Get() : nullptr;
-    return mojo::internal::Deserialize<mojo::ArrayDataView<::chromeos::cros_healthd::mojom::SensorDataView>>(
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::SensorDataView>>(
         pointer, output, message_);
   }
  private:
@@ -5454,22 +5498,22 @@ static_assert(
   template <typename UserType>
   [[nodiscard]] bool ReadType(UserType* output) const {
     auto data_value = data_->type;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::Sensor_Type>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::Sensor_Type>(
         data_value, output);
   }
   Sensor_Type type() const {
     return ::mojo::internal::ToKnownEnumValueHelper(
-          static_cast<::chromeos::cros_healthd::mojom::Sensor_Type>(data_->type));
+          static_cast<::ash::cros_healthd::mojom::Sensor_Type>(data_->type));
   }
   template <typename UserType>
   [[nodiscard]] bool ReadLocation(UserType* output) const {
     auto data_value = data_->location;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::Sensor_Location>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::Sensor_Location>(
         data_value, output);
   }
   Sensor_Location location() const {
     return ::mojo::internal::ToKnownEnumValueHelper(
-          static_cast<::chromeos::cros_healthd::mojom::Sensor_Location>(data_->location));
+          static_cast<::ash::cros_healthd::mojom::Sensor_Location>(data_->location));
   }
  private:
   internal::Sensor_Data* data_ = nullptr;
@@ -5496,7 +5540,7 @@ class TelemetryInfoDataView {
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        ::chromeos::cros_healthd::mojom::BatteryResultDataView, UserType>(),
+        ::ash::cros_healthd::mojom::BatteryResultDataView, UserType>(),
     "Attempting to read the optional `battery_result` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
@@ -5505,7 +5549,7 @@ static_assert(
     "of `ReadBatteryResult if you're fine with null values being "
     "silently ignored in this case.");
     auto* pointer = !data_->battery_result.is_null() ? &data_->battery_result : nullptr;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::BatteryResultDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::BatteryResultDataView>(
         pointer, output, message_);
   }
   inline void GetBlockDeviceResultDataView(
@@ -5516,7 +5560,7 @@ static_assert(
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        ::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceResultDataView, UserType>(),
+        ::ash::cros_healthd::mojom::NonRemovableBlockDeviceResultDataView, UserType>(),
     "Attempting to read the optional `block_device_result` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
@@ -5525,7 +5569,7 @@ static_assert(
     "of `ReadBlockDeviceResult if you're fine with null values being "
     "silently ignored in this case.");
     auto* pointer = !data_->block_device_result.is_null() ? &data_->block_device_result : nullptr;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceResultDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::NonRemovableBlockDeviceResultDataView>(
         pointer, output, message_);
   }
   inline void GetCpuResultDataView(
@@ -5536,7 +5580,7 @@ static_assert(
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        ::chromeos::cros_healthd::mojom::CpuResultDataView, UserType>(),
+        ::ash::cros_healthd::mojom::CpuResultDataView, UserType>(),
     "Attempting to read the optional `cpu_result` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
@@ -5545,7 +5589,7 @@ static_assert(
     "of `ReadCpuResult if you're fine with null values being "
     "silently ignored in this case.");
     auto* pointer = !data_->cpu_result.is_null() ? &data_->cpu_result : nullptr;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::CpuResultDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::CpuResultDataView>(
         pointer, output, message_);
   }
   inline void GetTimezoneResultDataView(
@@ -5556,7 +5600,7 @@ static_assert(
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        ::chromeos::cros_healthd::mojom::TimezoneResultDataView, UserType>(),
+        ::ash::cros_healthd::mojom::TimezoneResultDataView, UserType>(),
     "Attempting to read the optional `timezone_result` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
@@ -5565,7 +5609,7 @@ static_assert(
     "of `ReadTimezoneResult if you're fine with null values being "
     "silently ignored in this case.");
     auto* pointer = !data_->timezone_result.is_null() ? &data_->timezone_result : nullptr;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::TimezoneResultDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::TimezoneResultDataView>(
         pointer, output, message_);
   }
   inline void GetMemoryResultDataView(
@@ -5576,7 +5620,7 @@ static_assert(
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        ::chromeos::cros_healthd::mojom::MemoryResultDataView, UserType>(),
+        ::ash::cros_healthd::mojom::MemoryResultDataView, UserType>(),
     "Attempting to read the optional `memory_result` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
@@ -5585,7 +5629,7 @@ static_assert(
     "of `ReadMemoryResult if you're fine with null values being "
     "silently ignored in this case.");
     auto* pointer = !data_->memory_result.is_null() ? &data_->memory_result : nullptr;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::MemoryResultDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::MemoryResultDataView>(
         pointer, output, message_);
   }
   inline void GetBacklightResultDataView(
@@ -5596,7 +5640,7 @@ static_assert(
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        ::chromeos::cros_healthd::mojom::BacklightResultDataView, UserType>(),
+        ::ash::cros_healthd::mojom::BacklightResultDataView, UserType>(),
     "Attempting to read the optional `backlight_result` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
@@ -5605,7 +5649,7 @@ static_assert(
     "of `ReadBacklightResult if you're fine with null values being "
     "silently ignored in this case.");
     auto* pointer = !data_->backlight_result.is_null() ? &data_->backlight_result : nullptr;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::BacklightResultDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::BacklightResultDataView>(
         pointer, output, message_);
   }
   inline void GetFanResultDataView(
@@ -5616,7 +5660,7 @@ static_assert(
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        ::chromeos::cros_healthd::mojom::FanResultDataView, UserType>(),
+        ::ash::cros_healthd::mojom::FanResultDataView, UserType>(),
     "Attempting to read the optional `fan_result` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
@@ -5625,7 +5669,7 @@ static_assert(
     "of `ReadFanResult if you're fine with null values being "
     "silently ignored in this case.");
     auto* pointer = !data_->fan_result.is_null() ? &data_->fan_result : nullptr;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::FanResultDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::FanResultDataView>(
         pointer, output, message_);
   }
   inline void GetStatefulPartitionResultDataView(
@@ -5636,7 +5680,7 @@ static_assert(
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        ::chromeos::cros_healthd::mojom::StatefulPartitionResultDataView, UserType>(),
+        ::ash::cros_healthd::mojom::StatefulPartitionResultDataView, UserType>(),
     "Attempting to read the optional `stateful_partition_result` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
@@ -5645,7 +5689,7 @@ static_assert(
     "of `ReadStatefulPartitionResult if you're fine with null values being "
     "silently ignored in this case.");
     auto* pointer = !data_->stateful_partition_result.is_null() ? &data_->stateful_partition_result : nullptr;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::StatefulPartitionResultDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::StatefulPartitionResultDataView>(
         pointer, output, message_);
   }
   inline void GetBluetoothResultDataView(
@@ -5656,7 +5700,7 @@ static_assert(
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        ::chromeos::cros_healthd::mojom::BluetoothResultDataView, UserType>(),
+        ::ash::cros_healthd::mojom::BluetoothResultDataView, UserType>(),
     "Attempting to read the optional `bluetooth_result` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
@@ -5665,7 +5709,7 @@ static_assert(
     "of `ReadBluetoothResult if you're fine with null values being "
     "silently ignored in this case.");
     auto* pointer = !data_->bluetooth_result.is_null() ? &data_->bluetooth_result : nullptr;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::BluetoothResultDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::BluetoothResultDataView>(
         pointer, output, message_);
   }
   inline void GetDeprecateSystemResultDataView(
@@ -5676,7 +5720,7 @@ static_assert(
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        ::chromeos::cros_healthd::mojom::DEPRECATE_SystemResultDataView, UserType>(),
+        ::ash::cros_healthd::mojom::DEPRECATE_SystemResultDataView, UserType>(),
     "Attempting to read the optional `deprecate_system_result` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
@@ -5685,7 +5729,7 @@ static_assert(
     "of `ReadDeprecateSystemResult if you're fine with null values being "
     "silently ignored in this case.");
     auto* pointer = !data_->deprecate_system_result.is_null() ? &data_->deprecate_system_result : nullptr;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::DEPRECATE_SystemResultDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::DEPRECATE_SystemResultDataView>(
         pointer, output, message_);
   }
   inline void GetNetworkResultDataView(
@@ -5696,7 +5740,7 @@ static_assert(
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        ::chromeos::cros_healthd::mojom::NetworkResultDataView, UserType>(),
+        ::ash::cros_healthd::mojom::NetworkResultDataView, UserType>(),
     "Attempting to read the optional `network_result` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
@@ -5705,7 +5749,7 @@ static_assert(
     "of `ReadNetworkResult if you're fine with null values being "
     "silently ignored in this case.");
     auto* pointer = !data_->network_result.is_null() ? &data_->network_result : nullptr;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::NetworkResultDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::NetworkResultDataView>(
         pointer, output, message_);
   }
   inline void GetAudioResultDataView(
@@ -5716,7 +5760,7 @@ static_assert(
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        ::chromeos::cros_healthd::mojom::AudioResultDataView, UserType>(),
+        ::ash::cros_healthd::mojom::AudioResultDataView, UserType>(),
     "Attempting to read the optional `audio_result` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
@@ -5725,7 +5769,7 @@ static_assert(
     "of `ReadAudioResult if you're fine with null values being "
     "silently ignored in this case.");
     auto* pointer = !data_->audio_result.is_null() ? &data_->audio_result : nullptr;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::AudioResultDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::AudioResultDataView>(
         pointer, output, message_);
   }
   inline void GetBootPerformanceResultDataView(
@@ -5736,7 +5780,7 @@ static_assert(
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        ::chromeos::cros_healthd::mojom::BootPerformanceResultDataView, UserType>(),
+        ::ash::cros_healthd::mojom::BootPerformanceResultDataView, UserType>(),
     "Attempting to read the optional `boot_performance_result` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
@@ -5745,7 +5789,7 @@ static_assert(
     "of `ReadBootPerformanceResult if you're fine with null values being "
     "silently ignored in this case.");
     auto* pointer = !data_->boot_performance_result.is_null() ? &data_->boot_performance_result : nullptr;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::BootPerformanceResultDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::BootPerformanceResultDataView>(
         pointer, output, message_);
   }
   inline void GetBusResultDataView(
@@ -5756,7 +5800,7 @@ static_assert(
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        ::chromeos::cros_healthd::mojom::BusResultDataView, UserType>(),
+        ::ash::cros_healthd::mojom::BusResultDataView, UserType>(),
     "Attempting to read the optional `bus_result` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
@@ -5765,7 +5809,7 @@ static_assert(
     "of `ReadBusResult if you're fine with null values being "
     "silently ignored in this case.");
     auto* pointer = !data_->bus_result.is_null() ? &data_->bus_result : nullptr;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::BusResultDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::BusResultDataView>(
         pointer, output, message_);
   }
   inline void GetSystemResultDataView(
@@ -5776,7 +5820,7 @@ static_assert(
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        ::chromeos::cros_healthd::mojom::SystemResultDataView, UserType>(),
+        ::ash::cros_healthd::mojom::SystemResultDataView, UserType>(),
     "Attempting to read the optional `system_result` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
@@ -5785,7 +5829,7 @@ static_assert(
     "of `ReadSystemResult if you're fine with null values being "
     "silently ignored in this case.");
     auto* pointer = !data_->system_result.is_null() ? &data_->system_result : nullptr;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::SystemResultDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::SystemResultDataView>(
         pointer, output, message_);
   }
   inline void GetTpmResultDataView(
@@ -5796,7 +5840,7 @@ static_assert(
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        ::chromeos::cros_healthd::mojom::TpmResultDataView, UserType>(),
+        ::ash::cros_healthd::mojom::TpmResultDataView, UserType>(),
     "Attempting to read the optional `tpm_result` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
@@ -5805,7 +5849,7 @@ static_assert(
     "of `ReadTpmResult if you're fine with null values being "
     "silently ignored in this case.");
     auto* pointer = !data_->tpm_result.is_null() ? &data_->tpm_result : nullptr;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::TpmResultDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::TpmResultDataView>(
         pointer, output, message_);
   }
   inline void GetGraphicsResultDataView(
@@ -5816,7 +5860,7 @@ static_assert(
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        ::chromeos::cros_healthd::mojom::GraphicsResultDataView, UserType>(),
+        ::ash::cros_healthd::mojom::GraphicsResultDataView, UserType>(),
     "Attempting to read the optional `graphics_result` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
@@ -5825,7 +5869,7 @@ static_assert(
     "of `ReadGraphicsResult if you're fine with null values being "
     "silently ignored in this case.");
     auto* pointer = !data_->graphics_result.is_null() ? &data_->graphics_result : nullptr;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::GraphicsResultDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::GraphicsResultDataView>(
         pointer, output, message_);
   }
   inline void GetDisplayResultDataView(
@@ -5836,7 +5880,7 @@ static_assert(
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        ::chromeos::cros_healthd::mojom::DisplayResultDataView, UserType>(),
+        ::ash::cros_healthd::mojom::DisplayResultDataView, UserType>(),
     "Attempting to read the optional `display_result` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
@@ -5846,7 +5890,7 @@ static_assert(
     "silently ignored in this case.");
     auto* pointer = data_->header_.version >= 1 && !data_->display_result.is_null()
                     ? &data_->display_result : nullptr;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::DisplayResultDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::DisplayResultDataView>(
         pointer, output, message_);
   }
   inline void GetNetworkInterfaceResultDataView(
@@ -5857,7 +5901,7 @@ static_assert(
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        ::chromeos::cros_healthd::mojom::NetworkInterfaceResultDataView, UserType>(),
+        ::ash::cros_healthd::mojom::NetworkInterfaceResultDataView, UserType>(),
     "Attempting to read the optional `network_interface_result` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
@@ -5867,7 +5911,7 @@ static_assert(
     "silently ignored in this case.");
     auto* pointer = data_->header_.version >= 2 && !data_->network_interface_result.is_null()
                     ? &data_->network_interface_result : nullptr;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::NetworkInterfaceResultDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::NetworkInterfaceResultDataView>(
         pointer, output, message_);
   }
   inline void GetInputResultDataView(
@@ -5878,7 +5922,7 @@ static_assert(
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        ::chromeos::cros_healthd::mojom::InputResultDataView, UserType>(),
+        ::ash::cros_healthd::mojom::InputResultDataView, UserType>(),
     "Attempting to read the optional `input_result` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
@@ -5888,7 +5932,7 @@ static_assert(
     "silently ignored in this case.");
     auto* pointer = data_->header_.version >= 3 && !data_->input_result.is_null()
                     ? &data_->input_result : nullptr;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::InputResultDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::InputResultDataView>(
         pointer, output, message_);
   }
   inline void GetAudioHardwareResultDataView(
@@ -5899,7 +5943,7 @@ static_assert(
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        ::chromeos::cros_healthd::mojom::AudioHardwareResultDataView, UserType>(),
+        ::ash::cros_healthd::mojom::AudioHardwareResultDataView, UserType>(),
     "Attempting to read the optional `audio_hardware_result` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
@@ -5909,7 +5953,7 @@ static_assert(
     "silently ignored in this case.");
     auto* pointer = data_->header_.version >= 4 && !data_->audio_hardware_result.is_null()
                     ? &data_->audio_hardware_result : nullptr;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::AudioHardwareResultDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::AudioHardwareResultDataView>(
         pointer, output, message_);
   }
   inline void GetSensorResultDataView(
@@ -5920,7 +5964,7 @@ static_assert(
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        ::chromeos::cros_healthd::mojom::SensorResultDataView, UserType>(),
+        ::ash::cros_healthd::mojom::SensorResultDataView, UserType>(),
     "Attempting to read the optional `sensor_result` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
@@ -5930,7 +5974,7 @@ static_assert(
     "silently ignored in this case.");
     auto* pointer = data_->header_.version >= 5 && !data_->sensor_result.is_null()
                     ? &data_->sensor_result : nullptr;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::SensorResultDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::SensorResultDataView>(
         pointer, output, message_);
   }
  private:
@@ -5966,7 +6010,7 @@ class ProcessResultDataView {
   [[nodiscard]] bool ReadProcessInfo(UserType* output) const {
     
     CHECK(is_process_info());
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::ProcessInfoDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::ProcessInfoDataView>(
         data_->data.f_process_info.Get(), output, message_);
   }
   bool is_error() const { return data_->tag == Tag::kError; }
@@ -5977,7 +6021,7 @@ class ProcessResultDataView {
   [[nodiscard]] bool ReadError(UserType* output) const {
     
     CHECK(is_error());
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::ProbeErrorDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::ProbeErrorDataView>(
         data_->data.f_error.Get(), output, message_);
   }
 
@@ -6015,7 +6059,7 @@ class BatteryResultDataView {
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        ::chromeos::cros_healthd::mojom::BatteryInfoDataView, UserType>(),
+        ::ash::cros_healthd::mojom::BatteryInfoDataView, UserType>(),
     "Attempting to read the optional `battery_info` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
@@ -6024,7 +6068,7 @@ static_assert(
     "of `ReadBatteryInfo if you're fine with null values being "
     "silently ignored in this case.");
     CHECK(is_battery_info());
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::BatteryInfoDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::BatteryInfoDataView>(
         data_->data.f_battery_info.Get(), output, message_);
   }
   bool is_error() const { return data_->tag == Tag::kError; }
@@ -6035,7 +6079,7 @@ static_assert(
   [[nodiscard]] bool ReadError(UserType* output) const {
     
     CHECK(is_error());
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::ProbeErrorDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::ProbeErrorDataView>(
         data_->data.f_error.Get(), output, message_);
   }
 
@@ -6072,7 +6116,7 @@ class NonRemovableBlockDeviceResultDataView {
   [[nodiscard]] bool ReadBlockDeviceInfo(UserType* output) const {
     
     CHECK(is_block_device_info());
-    return mojo::internal::Deserialize<mojo::ArrayDataView<::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceInfoDataView>>(
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfoDataView>>(
         data_->data.f_block_device_info.Get(), output, message_);
   }
   bool is_error() const { return data_->tag == Tag::kError; }
@@ -6083,7 +6127,7 @@ class NonRemovableBlockDeviceResultDataView {
   [[nodiscard]] bool ReadError(UserType* output) const {
     
     CHECK(is_error());
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::ProbeErrorDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::ProbeErrorDataView>(
         data_->data.f_error.Get(), output, message_);
   }
 
@@ -6310,7 +6354,7 @@ class CpuResultDataView {
   [[nodiscard]] bool ReadCpuInfo(UserType* output) const {
     
     CHECK(is_cpu_info());
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::CpuInfoDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::CpuInfoDataView>(
         data_->data.f_cpu_info.Get(), output, message_);
   }
   bool is_error() const { return data_->tag == Tag::kError; }
@@ -6321,7 +6365,7 @@ class CpuResultDataView {
   [[nodiscard]] bool ReadError(UserType* output) const {
     
     CHECK(is_error());
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::ProbeErrorDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::ProbeErrorDataView>(
         data_->data.f_error.Get(), output, message_);
   }
 
@@ -6358,7 +6402,7 @@ class TimezoneResultDataView {
   [[nodiscard]] bool ReadTimezoneInfo(UserType* output) const {
     
     CHECK(is_timezone_info());
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::TimezoneInfoDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::TimezoneInfoDataView>(
         data_->data.f_timezone_info.Get(), output, message_);
   }
   bool is_error() const { return data_->tag == Tag::kError; }
@@ -6369,7 +6413,7 @@ class TimezoneResultDataView {
   [[nodiscard]] bool ReadError(UserType* output) const {
     
     CHECK(is_error());
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::ProbeErrorDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::ProbeErrorDataView>(
         data_->data.f_error.Get(), output, message_);
   }
 
@@ -6406,7 +6450,7 @@ class MemoryResultDataView {
   [[nodiscard]] bool ReadMemoryInfo(UserType* output) const {
     
     CHECK(is_memory_info());
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::MemoryInfoDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::MemoryInfoDataView>(
         data_->data.f_memory_info.Get(), output, message_);
   }
   bool is_error() const { return data_->tag == Tag::kError; }
@@ -6417,7 +6461,7 @@ class MemoryResultDataView {
   [[nodiscard]] bool ReadError(UserType* output) const {
     
     CHECK(is_error());
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::ProbeErrorDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::ProbeErrorDataView>(
         data_->data.f_error.Get(), output, message_);
   }
 
@@ -6454,7 +6498,7 @@ class BacklightResultDataView {
   [[nodiscard]] bool ReadBacklightInfo(UserType* output) const {
     
     CHECK(is_backlight_info());
-    return mojo::internal::Deserialize<mojo::ArrayDataView<::chromeos::cros_healthd::mojom::BacklightInfoDataView>>(
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::BacklightInfoDataView>>(
         data_->data.f_backlight_info.Get(), output, message_);
   }
   bool is_error() const { return data_->tag == Tag::kError; }
@@ -6465,7 +6509,7 @@ class BacklightResultDataView {
   [[nodiscard]] bool ReadError(UserType* output) const {
     
     CHECK(is_error());
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::ProbeErrorDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::ProbeErrorDataView>(
         data_->data.f_error.Get(), output, message_);
   }
 
@@ -6502,7 +6546,7 @@ class FanResultDataView {
   [[nodiscard]] bool ReadFanInfo(UserType* output) const {
     
     CHECK(is_fan_info());
-    return mojo::internal::Deserialize<mojo::ArrayDataView<::chromeos::cros_healthd::mojom::FanInfoDataView>>(
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::FanInfoDataView>>(
         data_->data.f_fan_info.Get(), output, message_);
   }
   bool is_error() const { return data_->tag == Tag::kError; }
@@ -6513,7 +6557,7 @@ class FanResultDataView {
   [[nodiscard]] bool ReadError(UserType* output) const {
     
     CHECK(is_error());
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::ProbeErrorDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::ProbeErrorDataView>(
         data_->data.f_error.Get(), output, message_);
   }
 
@@ -6550,7 +6594,7 @@ class StatefulPartitionResultDataView {
   [[nodiscard]] bool ReadPartitionInfo(UserType* output) const {
     
     CHECK(is_partition_info());
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::StatefulPartitionInfoDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::StatefulPartitionInfoDataView>(
         data_->data.f_partition_info.Get(), output, message_);
   }
   bool is_error() const { return data_->tag == Tag::kError; }
@@ -6561,7 +6605,7 @@ class StatefulPartitionResultDataView {
   [[nodiscard]] bool ReadError(UserType* output) const {
     
     CHECK(is_error());
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::ProbeErrorDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::ProbeErrorDataView>(
         data_->data.f_error.Get(), output, message_);
   }
 
@@ -6598,7 +6642,7 @@ class BluetoothResultDataView {
   [[nodiscard]] bool ReadBluetoothAdapterInfo(UserType* output) const {
     
     CHECK(is_bluetooth_adapter_info());
-    return mojo::internal::Deserialize<mojo::ArrayDataView<::chromeos::cros_healthd::mojom::BluetoothAdapterInfoDataView>>(
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::BluetoothAdapterInfoDataView>>(
         data_->data.f_bluetooth_adapter_info.Get(), output, message_);
   }
   bool is_error() const { return data_->tag == Tag::kError; }
@@ -6609,7 +6653,7 @@ class BluetoothResultDataView {
   [[nodiscard]] bool ReadError(UserType* output) const {
     
     CHECK(is_error());
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::ProbeErrorDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::ProbeErrorDataView>(
         data_->data.f_error.Get(), output, message_);
   }
 
@@ -6646,7 +6690,7 @@ class DEPRECATE_SystemResultDataView {
   [[nodiscard]] bool ReadError(UserType* output) const {
     
     CHECK(is_error());
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::ProbeErrorDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::ProbeErrorDataView>(
         data_->data.f_error.Get(), output, message_);
   }
 
@@ -6683,7 +6727,7 @@ class SystemResultDataView {
   [[nodiscard]] bool ReadSystemInfo(UserType* output) const {
     
     CHECK(is_system_info());
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::SystemInfoDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::SystemInfoDataView>(
         data_->data.f_system_info.Get(), output, message_);
   }
   bool is_error() const { return data_->tag == Tag::kError; }
@@ -6694,7 +6738,7 @@ class SystemResultDataView {
   [[nodiscard]] bool ReadError(UserType* output) const {
     
     CHECK(is_error());
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::ProbeErrorDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::ProbeErrorDataView>(
         data_->data.f_error.Get(), output, message_);
   }
 
@@ -6742,7 +6786,7 @@ class NetworkResultDataView {
   [[nodiscard]] bool ReadError(UserType* output) const {
     
     CHECK(is_error());
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::ProbeErrorDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::ProbeErrorDataView>(
         data_->data.f_error.Get(), output, message_);
   }
 
@@ -6779,7 +6823,7 @@ class NetworkInterfaceResultDataView {
   [[nodiscard]] bool ReadNetworkInterfaceInfo(UserType* output) const {
     
     CHECK(is_network_interface_info());
-    return mojo::internal::Deserialize<mojo::ArrayDataView<::chromeos::cros_healthd::mojom::NetworkInterfaceInfoDataView>>(
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::NetworkInterfaceInfoDataView>>(
         data_->data.f_network_interface_info.Get(), output, message_);
   }
   bool is_error() const { return data_->tag == Tag::kError; }
@@ -6790,7 +6834,7 @@ class NetworkInterfaceResultDataView {
   [[nodiscard]] bool ReadError(UserType* output) const {
     
     CHECK(is_error());
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::ProbeErrorDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::ProbeErrorDataView>(
         data_->data.f_error.Get(), output, message_);
   }
 
@@ -6827,7 +6871,7 @@ class NetworkInterfaceInfoDataView {
   [[nodiscard]] bool ReadWirelessInterfaceInfo(UserType* output) const {
     
     CHECK(is_wireless_interface_info());
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::WirelessInterfaceInfoDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::WirelessInterfaceInfoDataView>(
         data_->data.f_wireless_interface_info.Get(), output, message_);
   }
 
@@ -6864,7 +6908,7 @@ class AudioResultDataView {
   [[nodiscard]] bool ReadAudioInfo(UserType* output) const {
     
     CHECK(is_audio_info());
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::AudioInfoDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::AudioInfoDataView>(
         data_->data.f_audio_info.Get(), output, message_);
   }
   bool is_error() const { return data_->tag == Tag::kError; }
@@ -6875,7 +6919,7 @@ class AudioResultDataView {
   [[nodiscard]] bool ReadError(UserType* output) const {
     
     CHECK(is_error());
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::ProbeErrorDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::ProbeErrorDataView>(
         data_->data.f_error.Get(), output, message_);
   }
 
@@ -6912,7 +6956,7 @@ class AudioHardwareResultDataView {
   [[nodiscard]] bool ReadAudioHardwareInfo(UserType* output) const {
     
     CHECK(is_audio_hardware_info());
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::AudioHardwareInfoDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::AudioHardwareInfoDataView>(
         data_->data.f_audio_hardware_info.Get(), output, message_);
   }
   bool is_error() const { return data_->tag == Tag::kError; }
@@ -6923,7 +6967,7 @@ class AudioHardwareResultDataView {
   [[nodiscard]] bool ReadError(UserType* output) const {
     
     CHECK(is_error());
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::ProbeErrorDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::ProbeErrorDataView>(
         data_->data.f_error.Get(), output, message_);
   }
 
@@ -6960,7 +7004,7 @@ class BootPerformanceResultDataView {
   [[nodiscard]] bool ReadBootPerformanceInfo(UserType* output) const {
     
     CHECK(is_boot_performance_info());
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::BootPerformanceInfoDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::BootPerformanceInfoDataView>(
         data_->data.f_boot_performance_info.Get(), output, message_);
   }
   bool is_error() const { return data_->tag == Tag::kError; }
@@ -6971,7 +7015,7 @@ class BootPerformanceResultDataView {
   [[nodiscard]] bool ReadError(UserType* output) const {
     
     CHECK(is_error());
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::ProbeErrorDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::ProbeErrorDataView>(
         data_->data.f_error.Get(), output, message_);
   }
 
@@ -7008,7 +7052,7 @@ class BusResultDataView {
   [[nodiscard]] bool ReadBusDevices(UserType* output) const {
     
     CHECK(is_bus_devices());
-    return mojo::internal::Deserialize<mojo::ArrayDataView<::chromeos::cros_healthd::mojom::BusDeviceDataView>>(
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::BusDeviceDataView>>(
         data_->data.f_bus_devices.Get(), output, message_);
   }
   bool is_error() const { return data_->tag == Tag::kError; }
@@ -7019,7 +7063,7 @@ class BusResultDataView {
   [[nodiscard]] bool ReadError(UserType* output) const {
     
     CHECK(is_error());
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::ProbeErrorDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::ProbeErrorDataView>(
         data_->data.f_error.Get(), output, message_);
   }
 
@@ -7056,7 +7100,7 @@ class BusInfoDataView {
   [[nodiscard]] bool ReadPciBusInfo(UserType* output) const {
     
     CHECK(is_pci_bus_info());
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::PciBusInfoDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::PciBusInfoDataView>(
         data_->data.f_pci_bus_info.Get(), output, message_);
   }
   bool is_usb_bus_info() const { return data_->tag == Tag::kUsbBusInfo; }
@@ -7067,7 +7111,7 @@ class BusInfoDataView {
   [[nodiscard]] bool ReadUsbBusInfo(UserType* output) const {
     
     CHECK(is_usb_bus_info());
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::UsbBusInfoDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::UsbBusInfoDataView>(
         data_->data.f_usb_bus_info.Get(), output, message_);
   }
   bool is_thunderbolt_bus_info() const { return data_->tag == Tag::kThunderboltBusInfo; }
@@ -7078,7 +7122,7 @@ class BusInfoDataView {
   [[nodiscard]] bool ReadThunderboltBusInfo(UserType* output) const {
     
     CHECK(is_thunderbolt_bus_info());
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::ThunderboltBusInfoDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::ThunderboltBusInfoDataView>(
         data_->data.f_thunderbolt_bus_info.Get(), output, message_);
   }
   bool is_unmapped_field() const { return data_->tag == Tag::kUnmappedField; }
@@ -7120,7 +7164,7 @@ class TpmResultDataView {
   [[nodiscard]] bool ReadTpmInfo(UserType* output) const {
     
     CHECK(is_tpm_info());
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::TpmInfoDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::TpmInfoDataView>(
         data_->data.f_tpm_info.Get(), output, message_);
   }
   bool is_error() const { return data_->tag == Tag::kError; }
@@ -7131,7 +7175,7 @@ class TpmResultDataView {
   [[nodiscard]] bool ReadError(UserType* output) const {
     
     CHECK(is_error());
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::ProbeErrorDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::ProbeErrorDataView>(
         data_->data.f_error.Get(), output, message_);
   }
 
@@ -7168,7 +7212,7 @@ class GraphicsResultDataView {
   [[nodiscard]] bool ReadGraphicsInfo(UserType* output) const {
     
     CHECK(is_graphics_info());
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::GraphicsInfoDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::GraphicsInfoDataView>(
         data_->data.f_graphics_info.Get(), output, message_);
   }
   bool is_error() const { return data_->tag == Tag::kError; }
@@ -7179,7 +7223,7 @@ class GraphicsResultDataView {
   [[nodiscard]] bool ReadError(UserType* output) const {
     
     CHECK(is_error());
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::ProbeErrorDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::ProbeErrorDataView>(
         data_->data.f_error.Get(), output, message_);
   }
 
@@ -7216,7 +7260,7 @@ class DisplayResultDataView {
   [[nodiscard]] bool ReadDisplayInfo(UserType* output) const {
     
     CHECK(is_display_info());
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::DisplayInfoDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::DisplayInfoDataView>(
         data_->data.f_display_info.Get(), output, message_);
   }
   bool is_error() const { return data_->tag == Tag::kError; }
@@ -7227,7 +7271,7 @@ class DisplayResultDataView {
   [[nodiscard]] bool ReadError(UserType* output) const {
     
     CHECK(is_error());
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::ProbeErrorDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::ProbeErrorDataView>(
         data_->data.f_error.Get(), output, message_);
   }
 
@@ -7264,7 +7308,7 @@ class InputResultDataView {
   [[nodiscard]] bool ReadInputInfo(UserType* output) const {
     
     CHECK(is_input_info());
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::InputInfoDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::InputInfoDataView>(
         data_->data.f_input_info.Get(), output, message_);
   }
   bool is_error() const { return data_->tag == Tag::kError; }
@@ -7275,7 +7319,7 @@ class InputResultDataView {
   [[nodiscard]] bool ReadError(UserType* output) const {
     
     CHECK(is_error());
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::ProbeErrorDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::ProbeErrorDataView>(
         data_->data.f_error.Get(), output, message_);
   }
 
@@ -7312,7 +7356,7 @@ class SensorResultDataView {
   [[nodiscard]] bool ReadSensorInfo(UserType* output) const {
     
     CHECK(is_sensor_info());
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::SensorInfoDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::SensorInfoDataView>(
         data_->data.f_sensor_info.Get(), output, message_);
   }
   bool is_error() const { return data_->tag == Tag::kError; }
@@ -7323,7 +7367,7 @@ class SensorResultDataView {
   [[nodiscard]] bool ReadError(UserType* output) const {
     
     CHECK(is_error());
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::ProbeErrorDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::ProbeErrorDataView>(
         data_->data.f_error.Get(), output, message_);
   }
 
@@ -7336,93 +7380,93 @@ class SensorResultDataView {
 
 }  // namespace mojom
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 namespace std {
 
 template <>
-struct hash<::chromeos::cros_healthd::mojom::CpuArchitectureEnum>
-    : public mojo::internal::EnumHashImpl<::chromeos::cros_healthd::mojom::CpuArchitectureEnum> {};
+struct hash<::ash::cros_healthd::mojom::CpuArchitectureEnum>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::CpuArchitectureEnum> {};
 
 template <>
-struct hash<::chromeos::cros_healthd::mojom::ProbeCategoryEnum>
-    : public mojo::internal::EnumHashImpl<::chromeos::cros_healthd::mojom::ProbeCategoryEnum> {};
+struct hash<::ash::cros_healthd::mojom::ProbeCategoryEnum>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::ProbeCategoryEnum> {};
 
 template <>
-struct hash<::chromeos::cros_healthd::mojom::ErrorType>
-    : public mojo::internal::EnumHashImpl<::chromeos::cros_healthd::mojom::ErrorType> {};
+struct hash<::ash::cros_healthd::mojom::ErrorType>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::ErrorType> {};
 
 template <>
-struct hash<::chromeos::cros_healthd::mojom::ProcessState>
-    : public mojo::internal::EnumHashImpl<::chromeos::cros_healthd::mojom::ProcessState> {};
+struct hash<::ash::cros_healthd::mojom::ProcessState>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::ProcessState> {};
 
 template <>
-struct hash<::chromeos::cros_healthd::mojom::StorageDevicePurpose>
-    : public mojo::internal::EnumHashImpl<::chromeos::cros_healthd::mojom::StorageDevicePurpose> {};
+struct hash<::ash::cros_healthd::mojom::StorageDevicePurpose>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::StorageDevicePurpose> {};
 
 template <>
-struct hash<::chromeos::cros_healthd::mojom::EncryptionState>
-    : public mojo::internal::EnumHashImpl<::chromeos::cros_healthd::mojom::EncryptionState> {};
+struct hash<::ash::cros_healthd::mojom::EncryptionState>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::EncryptionState> {};
 
 template <>
-struct hash<::chromeos::cros_healthd::mojom::CryptoAlgorithm>
-    : public mojo::internal::EnumHashImpl<::chromeos::cros_healthd::mojom::CryptoAlgorithm> {};
+struct hash<::ash::cros_healthd::mojom::CryptoAlgorithm>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::CryptoAlgorithm> {};
 
 template <>
-struct hash<::chromeos::cros_healthd::mojom::BluetoothDeviceType>
-    : public mojo::internal::EnumHashImpl<::chromeos::cros_healthd::mojom::BluetoothDeviceType> {};
+struct hash<::ash::cros_healthd::mojom::BluetoothDeviceType>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::BluetoothDeviceType> {};
 
 template <>
-struct hash<::chromeos::cros_healthd::mojom::BootMode>
-    : public mojo::internal::EnumHashImpl<::chromeos::cros_healthd::mojom::BootMode> {};
+struct hash<::ash::cros_healthd::mojom::BootMode>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::BootMode> {};
 
 template <>
-struct hash<::chromeos::cros_healthd::mojom::BusDeviceClass>
-    : public mojo::internal::EnumHashImpl<::chromeos::cros_healthd::mojom::BusDeviceClass> {};
+struct hash<::ash::cros_healthd::mojom::BusDeviceClass>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::BusDeviceClass> {};
 
 template <>
-struct hash<::chromeos::cros_healthd::mojom::FwupdVersionFormat>
-    : public mojo::internal::EnumHashImpl<::chromeos::cros_healthd::mojom::FwupdVersionFormat> {};
+struct hash<::ash::cros_healthd::mojom::FwupdVersionFormat>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::FwupdVersionFormat> {};
 
 template <>
-struct hash<::chromeos::cros_healthd::mojom::TpmGSCVersion>
-    : public mojo::internal::EnumHashImpl<::chromeos::cros_healthd::mojom::TpmGSCVersion> {};
+struct hash<::ash::cros_healthd::mojom::TpmGSCVersion>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::TpmGSCVersion> {};
 
 template <>
-struct hash<::chromeos::cros_healthd::mojom::DisplayInputType>
-    : public mojo::internal::EnumHashImpl<::chromeos::cros_healthd::mojom::DisplayInputType> {};
+struct hash<::ash::cros_healthd::mojom::DisplayInputType>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::DisplayInputType> {};
 
 template <>
-struct hash<::chromeos::cros_healthd::mojom::ThunderboltSecurityLevel>
-    : public mojo::internal::EnumHashImpl<::chromeos::cros_healthd::mojom::ThunderboltSecurityLevel> {};
+struct hash<::ash::cros_healthd::mojom::ThunderboltSecurityLevel>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::ThunderboltSecurityLevel> {};
 
 template <>
-struct hash<::chromeos::cros_healthd::mojom::VirtualizationInfo_SMTControl>
-    : public mojo::internal::EnumHashImpl<::chromeos::cros_healthd::mojom::VirtualizationInfo_SMTControl> {};
+struct hash<::ash::cros_healthd::mojom::VirtualizationInfo_SMTControl>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::VirtualizationInfo_SMTControl> {};
 
 template <>
-struct hash<::chromeos::cros_healthd::mojom::VulnerabilityInfo_Status>
-    : public mojo::internal::EnumHashImpl<::chromeos::cros_healthd::mojom::VulnerabilityInfo_Status> {};
+struct hash<::ash::cros_healthd::mojom::VulnerabilityInfo_Status>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::VulnerabilityInfo_Status> {};
 
 template <>
-struct hash<::chromeos::cros_healthd::mojom::CpuVirtualizationInfo_Type>
-    : public mojo::internal::EnumHashImpl<::chromeos::cros_healthd::mojom::CpuVirtualizationInfo_Type> {};
+struct hash<::ash::cros_healthd::mojom::CpuVirtualizationInfo_Type>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::CpuVirtualizationInfo_Type> {};
 
 template <>
-struct hash<::chromeos::cros_healthd::mojom::OsInfo_EfiPlatformSize>
-    : public mojo::internal::EnumHashImpl<::chromeos::cros_healthd::mojom::OsInfo_EfiPlatformSize> {};
+struct hash<::ash::cros_healthd::mojom::OsInfo_EfiPlatformSize>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::OsInfo_EfiPlatformSize> {};
 
 template <>
-struct hash<::chromeos::cros_healthd::mojom::InputDevice_ConnectionType>
-    : public mojo::internal::EnumHashImpl<::chromeos::cros_healthd::mojom::InputDevice_ConnectionType> {};
+struct hash<::ash::cros_healthd::mojom::InputDevice_ConnectionType>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::InputDevice_ConnectionType> {};
 
 template <>
-struct hash<::chromeos::cros_healthd::mojom::Sensor_Type>
-    : public mojo::internal::EnumHashImpl<::chromeos::cros_healthd::mojom::Sensor_Type> {};
+struct hash<::ash::cros_healthd::mojom::Sensor_Type>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::Sensor_Type> {};
 
 template <>
-struct hash<::chromeos::cros_healthd::mojom::Sensor_Location>
-    : public mojo::internal::EnumHashImpl<::chromeos::cros_healthd::mojom::Sensor_Location> {};
+struct hash<::ash::cros_healthd::mojom::Sensor_Location>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::Sensor_Location> {};
 
 }  // namespace std
 
@@ -7432,9 +7476,9 @@ namespace mojo {
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::CpuArchitectureEnum, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::CpuArchitectureEnum, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = EnumTraits<::chromeos::cros_healthd::mojom::CpuArchitectureEnum, UserType>;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::CpuArchitectureEnum, UserType>;
 
   static void Serialize(UserType input, int32_t* output) {
     *output = static_cast<int32_t>(Traits::ToMojom(input));
@@ -7442,7 +7486,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::CpuArchitectureEnum, MaybeCon
 
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
-        static_cast<::chromeos::cros_healthd::mojom::CpuArchitectureEnum>(input)), output);
+        static_cast<::ash::cros_healthd::mojom::CpuArchitectureEnum>(input)), output);
   }
 };
 
@@ -7452,9 +7496,9 @@ struct Serializer<::chromeos::cros_healthd::mojom::CpuArchitectureEnum, MaybeCon
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::ProbeCategoryEnum, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::ProbeCategoryEnum, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = EnumTraits<::chromeos::cros_healthd::mojom::ProbeCategoryEnum, UserType>;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::ProbeCategoryEnum, UserType>;
 
   static void Serialize(UserType input, int32_t* output) {
     *output = static_cast<int32_t>(Traits::ToMojom(input));
@@ -7462,7 +7506,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::ProbeCategoryEnum, MaybeConst
 
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
-        static_cast<::chromeos::cros_healthd::mojom::ProbeCategoryEnum>(input)), output);
+        static_cast<::ash::cros_healthd::mojom::ProbeCategoryEnum>(input)), output);
   }
 };
 
@@ -7472,9 +7516,9 @@ struct Serializer<::chromeos::cros_healthd::mojom::ProbeCategoryEnum, MaybeConst
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::ErrorType, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::ErrorType, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = EnumTraits<::chromeos::cros_healthd::mojom::ErrorType, UserType>;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::ErrorType, UserType>;
 
   static void Serialize(UserType input, int32_t* output) {
     *output = static_cast<int32_t>(Traits::ToMojom(input));
@@ -7482,7 +7526,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::ErrorType, MaybeConstUserType
 
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
-        static_cast<::chromeos::cros_healthd::mojom::ErrorType>(input)), output);
+        static_cast<::ash::cros_healthd::mojom::ErrorType>(input)), output);
   }
 };
 
@@ -7492,9 +7536,9 @@ struct Serializer<::chromeos::cros_healthd::mojom::ErrorType, MaybeConstUserType
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::ProcessState, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::ProcessState, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = EnumTraits<::chromeos::cros_healthd::mojom::ProcessState, UserType>;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::ProcessState, UserType>;
 
   static void Serialize(UserType input, int32_t* output) {
     *output = static_cast<int32_t>(Traits::ToMojom(input));
@@ -7502,7 +7546,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::ProcessState, MaybeConstUserT
 
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
-        static_cast<::chromeos::cros_healthd::mojom::ProcessState>(input)), output);
+        static_cast<::ash::cros_healthd::mojom::ProcessState>(input)), output);
   }
 };
 
@@ -7512,9 +7556,9 @@ struct Serializer<::chromeos::cros_healthd::mojom::ProcessState, MaybeConstUserT
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::StorageDevicePurpose, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::StorageDevicePurpose, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = EnumTraits<::chromeos::cros_healthd::mojom::StorageDevicePurpose, UserType>;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::StorageDevicePurpose, UserType>;
 
   static void Serialize(UserType input, int32_t* output) {
     *output = static_cast<int32_t>(Traits::ToMojom(input));
@@ -7522,7 +7566,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::StorageDevicePurpose, MaybeCo
 
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
-        static_cast<::chromeos::cros_healthd::mojom::StorageDevicePurpose>(input)), output);
+        static_cast<::ash::cros_healthd::mojom::StorageDevicePurpose>(input)), output);
   }
 };
 
@@ -7532,9 +7576,9 @@ struct Serializer<::chromeos::cros_healthd::mojom::StorageDevicePurpose, MaybeCo
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::EncryptionState, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::EncryptionState, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = EnumTraits<::chromeos::cros_healthd::mojom::EncryptionState, UserType>;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::EncryptionState, UserType>;
 
   static void Serialize(UserType input, int32_t* output) {
     *output = static_cast<int32_t>(Traits::ToMojom(input));
@@ -7542,7 +7586,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::EncryptionState, MaybeConstUs
 
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
-        static_cast<::chromeos::cros_healthd::mojom::EncryptionState>(input)), output);
+        static_cast<::ash::cros_healthd::mojom::EncryptionState>(input)), output);
   }
 };
 
@@ -7552,9 +7596,9 @@ struct Serializer<::chromeos::cros_healthd::mojom::EncryptionState, MaybeConstUs
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::CryptoAlgorithm, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::CryptoAlgorithm, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = EnumTraits<::chromeos::cros_healthd::mojom::CryptoAlgorithm, UserType>;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::CryptoAlgorithm, UserType>;
 
   static void Serialize(UserType input, int32_t* output) {
     *output = static_cast<int32_t>(Traits::ToMojom(input));
@@ -7562,7 +7606,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::CryptoAlgorithm, MaybeConstUs
 
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
-        static_cast<::chromeos::cros_healthd::mojom::CryptoAlgorithm>(input)), output);
+        static_cast<::ash::cros_healthd::mojom::CryptoAlgorithm>(input)), output);
   }
 };
 
@@ -7572,9 +7616,9 @@ struct Serializer<::chromeos::cros_healthd::mojom::CryptoAlgorithm, MaybeConstUs
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::BluetoothDeviceType, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::BluetoothDeviceType, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = EnumTraits<::chromeos::cros_healthd::mojom::BluetoothDeviceType, UserType>;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::BluetoothDeviceType, UserType>;
 
   static void Serialize(UserType input, int32_t* output) {
     *output = static_cast<int32_t>(Traits::ToMojom(input));
@@ -7582,7 +7626,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::BluetoothDeviceType, MaybeCon
 
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
-        static_cast<::chromeos::cros_healthd::mojom::BluetoothDeviceType>(input)), output);
+        static_cast<::ash::cros_healthd::mojom::BluetoothDeviceType>(input)), output);
   }
 };
 
@@ -7592,9 +7636,9 @@ struct Serializer<::chromeos::cros_healthd::mojom::BluetoothDeviceType, MaybeCon
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::BootMode, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::BootMode, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = EnumTraits<::chromeos::cros_healthd::mojom::BootMode, UserType>;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::BootMode, UserType>;
 
   static void Serialize(UserType input, int32_t* output) {
     *output = static_cast<int32_t>(Traits::ToMojom(input));
@@ -7602,7 +7646,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::BootMode, MaybeConstUserType>
 
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
-        static_cast<::chromeos::cros_healthd::mojom::BootMode>(input)), output);
+        static_cast<::ash::cros_healthd::mojom::BootMode>(input)), output);
   }
 };
 
@@ -7612,9 +7656,9 @@ struct Serializer<::chromeos::cros_healthd::mojom::BootMode, MaybeConstUserType>
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::BusDeviceClass, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::BusDeviceClass, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = EnumTraits<::chromeos::cros_healthd::mojom::BusDeviceClass, UserType>;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::BusDeviceClass, UserType>;
 
   static void Serialize(UserType input, int32_t* output) {
     *output = static_cast<int32_t>(Traits::ToMojom(input));
@@ -7622,7 +7666,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::BusDeviceClass, MaybeConstUse
 
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
-        static_cast<::chromeos::cros_healthd::mojom::BusDeviceClass>(input)), output);
+        static_cast<::ash::cros_healthd::mojom::BusDeviceClass>(input)), output);
   }
 };
 
@@ -7632,9 +7676,9 @@ struct Serializer<::chromeos::cros_healthd::mojom::BusDeviceClass, MaybeConstUse
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::FwupdVersionFormat, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::FwupdVersionFormat, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = EnumTraits<::chromeos::cros_healthd::mojom::FwupdVersionFormat, UserType>;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::FwupdVersionFormat, UserType>;
 
   static void Serialize(UserType input, int32_t* output) {
     *output = static_cast<int32_t>(Traits::ToMojom(input));
@@ -7642,7 +7686,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::FwupdVersionFormat, MaybeCons
 
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
-        static_cast<::chromeos::cros_healthd::mojom::FwupdVersionFormat>(input)), output);
+        static_cast<::ash::cros_healthd::mojom::FwupdVersionFormat>(input)), output);
   }
 };
 
@@ -7652,9 +7696,9 @@ struct Serializer<::chromeos::cros_healthd::mojom::FwupdVersionFormat, MaybeCons
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::TpmGSCVersion, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::TpmGSCVersion, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = EnumTraits<::chromeos::cros_healthd::mojom::TpmGSCVersion, UserType>;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::TpmGSCVersion, UserType>;
 
   static void Serialize(UserType input, int32_t* output) {
     *output = static_cast<int32_t>(Traits::ToMojom(input));
@@ -7662,7 +7706,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::TpmGSCVersion, MaybeConstUser
 
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
-        static_cast<::chromeos::cros_healthd::mojom::TpmGSCVersion>(input)), output);
+        static_cast<::ash::cros_healthd::mojom::TpmGSCVersion>(input)), output);
   }
 };
 
@@ -7672,9 +7716,9 @@ struct Serializer<::chromeos::cros_healthd::mojom::TpmGSCVersion, MaybeConstUser
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::DisplayInputType, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::DisplayInputType, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = EnumTraits<::chromeos::cros_healthd::mojom::DisplayInputType, UserType>;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::DisplayInputType, UserType>;
 
   static void Serialize(UserType input, int32_t* output) {
     *output = static_cast<int32_t>(Traits::ToMojom(input));
@@ -7682,7 +7726,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::DisplayInputType, MaybeConstU
 
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
-        static_cast<::chromeos::cros_healthd::mojom::DisplayInputType>(input)), output);
+        static_cast<::ash::cros_healthd::mojom::DisplayInputType>(input)), output);
   }
 };
 
@@ -7692,9 +7736,9 @@ struct Serializer<::chromeos::cros_healthd::mojom::DisplayInputType, MaybeConstU
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::ThunderboltSecurityLevel, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::ThunderboltSecurityLevel, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = EnumTraits<::chromeos::cros_healthd::mojom::ThunderboltSecurityLevel, UserType>;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::ThunderboltSecurityLevel, UserType>;
 
   static void Serialize(UserType input, int32_t* output) {
     *output = static_cast<int32_t>(Traits::ToMojom(input));
@@ -7702,7 +7746,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::ThunderboltSecurityLevel, May
 
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
-        static_cast<::chromeos::cros_healthd::mojom::ThunderboltSecurityLevel>(input)), output);
+        static_cast<::ash::cros_healthd::mojom::ThunderboltSecurityLevel>(input)), output);
   }
 };
 
@@ -7712,9 +7756,9 @@ struct Serializer<::chromeos::cros_healthd::mojom::ThunderboltSecurityLevel, May
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::VirtualizationInfo_SMTControl, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::VirtualizationInfo_SMTControl, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = EnumTraits<::chromeos::cros_healthd::mojom::VirtualizationInfo_SMTControl, UserType>;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::VirtualizationInfo_SMTControl, UserType>;
 
   static void Serialize(UserType input, int32_t* output) {
     *output = static_cast<int32_t>(Traits::ToMojom(input));
@@ -7722,7 +7766,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::VirtualizationInfo_SMTControl
 
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
-        static_cast<::chromeos::cros_healthd::mojom::VirtualizationInfo_SMTControl>(input)), output);
+        static_cast<::ash::cros_healthd::mojom::VirtualizationInfo_SMTControl>(input)), output);
   }
 };
 
@@ -7732,9 +7776,9 @@ struct Serializer<::chromeos::cros_healthd::mojom::VirtualizationInfo_SMTControl
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::VulnerabilityInfo_Status, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::VulnerabilityInfo_Status, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = EnumTraits<::chromeos::cros_healthd::mojom::VulnerabilityInfo_Status, UserType>;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::VulnerabilityInfo_Status, UserType>;
 
   static void Serialize(UserType input, int32_t* output) {
     *output = static_cast<int32_t>(Traits::ToMojom(input));
@@ -7742,7 +7786,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::VulnerabilityInfo_Status, May
 
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
-        static_cast<::chromeos::cros_healthd::mojom::VulnerabilityInfo_Status>(input)), output);
+        static_cast<::ash::cros_healthd::mojom::VulnerabilityInfo_Status>(input)), output);
   }
 };
 
@@ -7752,9 +7796,9 @@ struct Serializer<::chromeos::cros_healthd::mojom::VulnerabilityInfo_Status, May
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::CpuVirtualizationInfo_Type, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::CpuVirtualizationInfo_Type, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = EnumTraits<::chromeos::cros_healthd::mojom::CpuVirtualizationInfo_Type, UserType>;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::CpuVirtualizationInfo_Type, UserType>;
 
   static void Serialize(UserType input, int32_t* output) {
     *output = static_cast<int32_t>(Traits::ToMojom(input));
@@ -7762,7 +7806,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::CpuVirtualizationInfo_Type, M
 
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
-        static_cast<::chromeos::cros_healthd::mojom::CpuVirtualizationInfo_Type>(input)), output);
+        static_cast<::ash::cros_healthd::mojom::CpuVirtualizationInfo_Type>(input)), output);
   }
 };
 
@@ -7772,9 +7816,9 @@ struct Serializer<::chromeos::cros_healthd::mojom::CpuVirtualizationInfo_Type, M
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::OsInfo_EfiPlatformSize, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::OsInfo_EfiPlatformSize, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = EnumTraits<::chromeos::cros_healthd::mojom::OsInfo_EfiPlatformSize, UserType>;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::OsInfo_EfiPlatformSize, UserType>;
 
   static void Serialize(UserType input, int32_t* output) {
     *output = static_cast<int32_t>(Traits::ToMojom(input));
@@ -7782,7 +7826,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::OsInfo_EfiPlatformSize, Maybe
 
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
-        static_cast<::chromeos::cros_healthd::mojom::OsInfo_EfiPlatformSize>(input)), output);
+        static_cast<::ash::cros_healthd::mojom::OsInfo_EfiPlatformSize>(input)), output);
   }
 };
 
@@ -7792,9 +7836,9 @@ struct Serializer<::chromeos::cros_healthd::mojom::OsInfo_EfiPlatformSize, Maybe
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::InputDevice_ConnectionType, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::InputDevice_ConnectionType, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = EnumTraits<::chromeos::cros_healthd::mojom::InputDevice_ConnectionType, UserType>;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::InputDevice_ConnectionType, UserType>;
 
   static void Serialize(UserType input, int32_t* output) {
     *output = static_cast<int32_t>(Traits::ToMojom(input));
@@ -7802,7 +7846,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::InputDevice_ConnectionType, M
 
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
-        static_cast<::chromeos::cros_healthd::mojom::InputDevice_ConnectionType>(input)), output);
+        static_cast<::ash::cros_healthd::mojom::InputDevice_ConnectionType>(input)), output);
   }
 };
 
@@ -7812,9 +7856,9 @@ struct Serializer<::chromeos::cros_healthd::mojom::InputDevice_ConnectionType, M
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::Sensor_Type, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::Sensor_Type, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = EnumTraits<::chromeos::cros_healthd::mojom::Sensor_Type, UserType>;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::Sensor_Type, UserType>;
 
   static void Serialize(UserType input, int32_t* output) {
     *output = static_cast<int32_t>(Traits::ToMojom(input));
@@ -7822,7 +7866,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::Sensor_Type, MaybeConstUserTy
 
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
-        static_cast<::chromeos::cros_healthd::mojom::Sensor_Type>(input)), output);
+        static_cast<::ash::cros_healthd::mojom::Sensor_Type>(input)), output);
   }
 };
 
@@ -7832,9 +7876,9 @@ struct Serializer<::chromeos::cros_healthd::mojom::Sensor_Type, MaybeConstUserTy
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::Sensor_Location, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::Sensor_Location, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = EnumTraits<::chromeos::cros_healthd::mojom::Sensor_Location, UserType>;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::Sensor_Location, UserType>;
 
   static void Serialize(UserType input, int32_t* output) {
     *output = static_cast<int32_t>(Traits::ToMojom(input));
@@ -7842,7 +7886,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::Sensor_Location, MaybeConstUs
 
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
-        static_cast<::chromeos::cros_healthd::mojom::Sensor_Location>(input)), output);
+        static_cast<::ash::cros_healthd::mojom::Sensor_Location>(input)), output);
   }
 };
 
@@ -7852,17 +7896,17 @@ struct Serializer<::chromeos::cros_healthd::mojom::Sensor_Location, MaybeConstUs
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::ProbeErrorDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::ProbeErrorDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::ProbeErrorDataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::ProbeErrorDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::ProbeError_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::ProbeError_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::ErrorType>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::ErrorType>(
         Traits::type(input), &fragment->type);
     decltype(Traits::msg(input)) in_msg = Traits::msg(input);
     mojo::internal::MessageFragment<
@@ -7878,13 +7922,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::ProbeErrorDataView, MaybeCons
         "null msg in ProbeError struct");
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::ProbeError_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::ProbeError_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::ProbeErrorDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::ProbeErrorDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -7895,13 +7939,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::ProbeErrorDataView, MaybeCons
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::MultipleProcessResultDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::MultipleProcessResultDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::MultipleProcessResultDataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::MultipleProcessResultDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::MultipleProcessResult_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::MultipleProcessResult_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
@@ -7911,7 +7955,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::MultipleProcessResultDataView
         process_infos_fragment(fragment.message());
     const mojo::internal::ContainerValidateParams process_infos_validate_params(
         new mojo::internal::ContainerValidateParams(0, false, nullptr), new mojo::internal::ContainerValidateParams(0, false, nullptr));
-    mojo::internal::Serialize<mojo::MapDataView<uint32_t, ::chromeos::cros_healthd::mojom::ProcessInfoDataView>>(
+    mojo::internal::Serialize<mojo::MapDataView<uint32_t, ::ash::cros_healthd::mojom::ProcessInfoDataView>>(
         in_process_infos, process_infos_fragment, &process_infos_validate_params);
     fragment->process_infos.Set(
         process_infos_fragment.is_null() ? nullptr : process_infos_fragment.data());
@@ -7925,7 +7969,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::MultipleProcessResultDataView
         errors_fragment(fragment.message());
     const mojo::internal::ContainerValidateParams errors_validate_params(
         new mojo::internal::ContainerValidateParams(0, false, nullptr), new mojo::internal::ContainerValidateParams(0, false, nullptr));
-    mojo::internal::Serialize<mojo::MapDataView<uint32_t, ::chromeos::cros_healthd::mojom::ProbeErrorDataView>>(
+    mojo::internal::Serialize<mojo::MapDataView<uint32_t, ::ash::cros_healthd::mojom::ProbeErrorDataView>>(
         in_errors, errors_fragment, &errors_validate_params);
     fragment->errors.Set(
         errors_fragment.is_null() ? nullptr : errors_fragment.data());
@@ -7935,13 +7979,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::MultipleProcessResultDataView
         "null errors in MultipleProcessResult struct");
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::MultipleProcessResult_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::MultipleProcessResult_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::MultipleProcessResultDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::MultipleProcessResultDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -7952,13 +7996,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::MultipleProcessResultDataView
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::ProcessInfoDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::ProcessInfoDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::ProcessInfoDataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::ProcessInfoDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::ProcessInfo_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::ProcessInfo_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
@@ -7978,7 +8022,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::ProcessInfoDataView, MaybeCon
     fragment->priority = Traits::priority(input);
     fragment->nice = Traits::nice(input);
     fragment->uptime_ticks = Traits::uptime_ticks(input);
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::ProcessState>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::ProcessState>(
         Traits::state(input), &fragment->state);
     fragment->total_memory_kib = Traits::total_memory_kib(input);
     fragment->resident_memory_kib = Traits::resident_memory_kib(input);
@@ -8004,13 +8048,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::ProcessInfoDataView, MaybeCon
     fragment->process_id = Traits::process_id(input);
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::ProcessInfo_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::ProcessInfo_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::ProcessInfoDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::ProcessInfoDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -8021,13 +8065,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::ProcessInfoDataView, MaybeCon
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::BatteryInfoDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::BatteryInfoDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::BatteryInfoDataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::BatteryInfoDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::BatteryInfo_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::BatteryInfo_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
@@ -8110,19 +8154,19 @@ struct Serializer<::chromeos::cros_healthd::mojom::BatteryInfoDataView, MaybeCon
     mojo::internal::MessageFragment<
         typename decltype(fragment->temperature)::BaseType> temperature_fragment(
             fragment.message());
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::NullableUint64DataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::NullableUint64DataView>(
         in_temperature, temperature_fragment);
     fragment->temperature.Set(
         temperature_fragment.is_null() ? nullptr : temperature_fragment.data());
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::BatteryInfo_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::BatteryInfo_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::BatteryInfoDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::BatteryInfoDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -8133,13 +8177,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::BatteryInfoDataView, MaybeCon
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceInfoDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfoDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceInfoDataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfoDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::NonRemovableBlockDeviceInfo_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::NonRemovableBlockDeviceInfo_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
@@ -8152,7 +8196,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceInfoDa
     mojo::internal::MessageFragment<
         typename decltype(fragment->discard_time_seconds_since_last_boot)::BaseType> discard_time_seconds_since_last_boot_fragment(
             fragment.message());
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::NullableUint64DataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::NullableUint64DataView>(
         in_discard_time_seconds_since_last_boot, discard_time_seconds_since_last_boot_fragment);
     fragment->discard_time_seconds_since_last_boot.Set(
         discard_time_seconds_since_last_boot_fragment.is_null() ? nullptr : discard_time_seconds_since_last_boot_fragment.data());
@@ -8160,7 +8204,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceInfoDa
     mojo::internal::MessageFragment<decltype(fragment->vendor_id)>
         vendor_id_fragment(fragment.message());
     vendor_id_fragment.Claim(&fragment->vendor_id);
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::BlockDeviceVendorDataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::BlockDeviceVendorDataView>(
         in_vendor_id, vendor_id_fragment, true);
     MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
         fragment->vendor_id.is_null(),
@@ -8170,7 +8214,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceInfoDa
     mojo::internal::MessageFragment<decltype(fragment->product_id)>
         product_id_fragment(fragment.message());
     product_id_fragment.Claim(&fragment->product_id);
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::BlockDeviceProductDataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::BlockDeviceProductDataView>(
         in_product_id, product_id_fragment, true);
     MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
         fragment->product_id.is_null(),
@@ -8180,7 +8224,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceInfoDa
     mojo::internal::MessageFragment<decltype(fragment->revision)>
         revision_fragment(fragment.message());
     revision_fragment.Claim(&fragment->revision);
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::BlockDeviceRevisionDataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::BlockDeviceRevisionDataView>(
         in_revision, revision_fragment, true);
     MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
         fragment->revision.is_null(),
@@ -8203,7 +8247,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceInfoDa
     mojo::internal::MessageFragment<decltype(fragment->firmware_version)>
         firmware_version_fragment(fragment.message());
     firmware_version_fragment.Claim(&fragment->firmware_version);
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::BlockDeviceFirmwareDataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::BlockDeviceFirmwareDataView>(
         in_firmware_version, firmware_version_fragment, true);
     MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
         fragment->firmware_version.is_null(),
@@ -8221,7 +8265,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceInfoDa
         fragment->type.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null type in NonRemovableBlockDeviceInfo struct");
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::StorageDevicePurpose>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::StorageDevicePurpose>(
         Traits::purpose(input), &fragment->purpose);
     decltype(Traits::path(input)) in_path = Traits::path(input);
     mojo::internal::MessageFragment<
@@ -8239,13 +8283,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceInfoDa
     fragment->serial = Traits::serial(input);
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::NonRemovableBlockDeviceInfo_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::NonRemovableBlockDeviceInfo_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceInfoDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfoDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -8256,18 +8300,18 @@ struct Serializer<::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceInfoDa
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::CpuInfoDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::CpuInfoDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::CpuInfoDataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::CpuInfoDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::CpuInfo_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::CpuInfo_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
     fragment->num_total_threads = Traits::num_total_threads(input);
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::CpuArchitectureEnum>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::CpuArchitectureEnum>(
         Traits::architecture(input), &fragment->architecture);
     decltype(Traits::physical_cpus(input)) in_physical_cpus = Traits::physical_cpus(input);
     mojo::internal::MessageFragment<
@@ -8275,7 +8319,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::CpuInfoDataView, MaybeConstUs
         physical_cpus_fragment(fragment.message());
     const mojo::internal::ContainerValidateParams physical_cpus_validate_params(
         0, false, nullptr);
-    mojo::internal::Serialize<mojo::ArrayDataView<::chromeos::cros_healthd::mojom::PhysicalCpuInfoDataView>>(
+    mojo::internal::Serialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::PhysicalCpuInfoDataView>>(
         in_physical_cpus, physical_cpus_fragment, &physical_cpus_validate_params);
     fragment->physical_cpus.Set(
         physical_cpus_fragment.is_null() ? nullptr : physical_cpus_fragment.data());
@@ -8289,7 +8333,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::CpuInfoDataView, MaybeConstUs
         temperature_channels_fragment(fragment.message());
     const mojo::internal::ContainerValidateParams temperature_channels_validate_params(
         0, false, nullptr);
-    mojo::internal::Serialize<mojo::ArrayDataView<::chromeos::cros_healthd::mojom::CpuTemperatureChannelDataView>>(
+    mojo::internal::Serialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::CpuTemperatureChannelDataView>>(
         in_temperature_channels, temperature_channels_fragment, &temperature_channels_validate_params);
     fragment->temperature_channels.Set(
         temperature_channels_fragment.is_null() ? nullptr : temperature_channels_fragment.data());
@@ -8301,7 +8345,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::CpuInfoDataView, MaybeConstUs
     mojo::internal::MessageFragment<
         typename decltype(fragment->keylocker_info)::BaseType> keylocker_info_fragment(
             fragment.message());
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::KeylockerInfoDataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::KeylockerInfoDataView>(
         in_keylocker_info, keylocker_info_fragment);
     fragment->keylocker_info.Set(
         keylocker_info_fragment.is_null() ? nullptr : keylocker_info_fragment.data());
@@ -8309,7 +8353,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::CpuInfoDataView, MaybeConstUs
     mojo::internal::MessageFragment<
         typename decltype(fragment->virtualization)::BaseType> virtualization_fragment(
             fragment.message());
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::VirtualizationInfoDataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::VirtualizationInfoDataView>(
         in_virtualization, virtualization_fragment);
     fragment->virtualization.Set(
         virtualization_fragment.is_null() ? nullptr : virtualization_fragment.data());
@@ -8319,19 +8363,19 @@ struct Serializer<::chromeos::cros_healthd::mojom::CpuInfoDataView, MaybeConstUs
         vulnerabilities_fragment(fragment.message());
     const mojo::internal::ContainerValidateParams vulnerabilities_validate_params(
         new mojo::internal::ContainerValidateParams(0, false, new mojo::internal::ContainerValidateParams(0, false, nullptr)), new mojo::internal::ContainerValidateParams(0, false, nullptr));
-    mojo::internal::Serialize<mojo::MapDataView<mojo::StringDataView, ::chromeos::cros_healthd::mojom::VulnerabilityInfoDataView>>(
+    mojo::internal::Serialize<mojo::MapDataView<mojo::StringDataView, ::ash::cros_healthd::mojom::VulnerabilityInfoDataView>>(
         in_vulnerabilities, vulnerabilities_fragment, &vulnerabilities_validate_params);
     fragment->vulnerabilities.Set(
         vulnerabilities_fragment.is_null() ? nullptr : vulnerabilities_fragment.data());
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::CpuInfo_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::CpuInfo_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::CpuInfoDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::CpuInfoDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -8342,29 +8386,29 @@ struct Serializer<::chromeos::cros_healthd::mojom::CpuInfoDataView, MaybeConstUs
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::VirtualizationInfoDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::VirtualizationInfoDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::VirtualizationInfoDataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::VirtualizationInfoDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::VirtualizationInfo_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::VirtualizationInfo_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
     fragment->has_kvm_device = Traits::has_kvm_device(input);
     fragment->is_smt_active = Traits::is_smt_active(input);
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::VirtualizationInfo_SMTControl>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::VirtualizationInfo_SMTControl>(
         Traits::smt_control(input), &fragment->smt_control);
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::VirtualizationInfo_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::VirtualizationInfo_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::VirtualizationInfoDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::VirtualizationInfoDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -8375,17 +8419,17 @@ struct Serializer<::chromeos::cros_healthd::mojom::VirtualizationInfoDataView, M
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::VulnerabilityInfoDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::VulnerabilityInfoDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::VulnerabilityInfoDataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::VulnerabilityInfoDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::VulnerabilityInfo_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::VulnerabilityInfo_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::VulnerabilityInfo_Status>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::VulnerabilityInfo_Status>(
         Traits::status(input), &fragment->status);
     decltype(Traits::message(input)) in_message = Traits::message(input);
     mojo::internal::MessageFragment<
@@ -8401,13 +8445,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::VulnerabilityInfoDataView, Ma
         "null message in VulnerabilityInfo struct");
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::VulnerabilityInfo_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::VulnerabilityInfo_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::VulnerabilityInfoDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::VulnerabilityInfoDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -8418,26 +8462,26 @@ struct Serializer<::chromeos::cros_healthd::mojom::VulnerabilityInfoDataView, Ma
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::KeylockerInfoDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::KeylockerInfoDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::KeylockerInfoDataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::KeylockerInfoDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::KeylockerInfo_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::KeylockerInfo_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
     fragment->keylocker_configured = Traits::keylocker_configured(input);
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::KeylockerInfo_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::KeylockerInfo_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::KeylockerInfoDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::KeylockerInfoDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -8448,13 +8492,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::KeylockerInfoDataView, MaybeC
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::PhysicalCpuInfoDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::PhysicalCpuInfoDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::PhysicalCpuInfoDataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::PhysicalCpuInfoDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::PhysicalCpuInfo_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::PhysicalCpuInfo_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
@@ -8472,7 +8516,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::PhysicalCpuInfoDataView, Mayb
         logical_cpus_fragment(fragment.message());
     const mojo::internal::ContainerValidateParams logical_cpus_validate_params(
         0, false, nullptr);
-    mojo::internal::Serialize<mojo::ArrayDataView<::chromeos::cros_healthd::mojom::LogicalCpuInfoDataView>>(
+    mojo::internal::Serialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::LogicalCpuInfoDataView>>(
         in_logical_cpus, logical_cpus_fragment, &logical_cpus_validate_params);
     fragment->logical_cpus.Set(
         logical_cpus_fragment.is_null() ? nullptr : logical_cpus_fragment.data());
@@ -8494,19 +8538,19 @@ struct Serializer<::chromeos::cros_healthd::mojom::PhysicalCpuInfoDataView, Mayb
     mojo::internal::MessageFragment<
         typename decltype(fragment->virtualization)::BaseType> virtualization_fragment(
             fragment.message());
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::CpuVirtualizationInfoDataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::CpuVirtualizationInfoDataView>(
         in_virtualization, virtualization_fragment);
     fragment->virtualization.Set(
         virtualization_fragment.is_null() ? nullptr : virtualization_fragment.data());
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::PhysicalCpuInfo_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::PhysicalCpuInfo_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::PhysicalCpuInfoDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::PhysicalCpuInfoDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -8517,29 +8561,29 @@ struct Serializer<::chromeos::cros_healthd::mojom::PhysicalCpuInfoDataView, Mayb
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::CpuVirtualizationInfoDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::CpuVirtualizationInfoDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::CpuVirtualizationInfoDataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::CpuVirtualizationInfoDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::CpuVirtualizationInfo_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::CpuVirtualizationInfo_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::CpuVirtualizationInfo_Type>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::CpuVirtualizationInfo_Type>(
         Traits::type(input), &fragment->type);
     fragment->is_enabled = Traits::is_enabled(input);
     fragment->is_locked = Traits::is_locked(input);
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::CpuVirtualizationInfo_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::CpuVirtualizationInfo_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::CpuVirtualizationInfoDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::CpuVirtualizationInfoDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -8550,13 +8594,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::CpuVirtualizationInfoDataView
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::LogicalCpuInfoDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::LogicalCpuInfoDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::LogicalCpuInfoDataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::LogicalCpuInfoDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::LogicalCpuInfo_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::LogicalCpuInfo_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
@@ -8572,7 +8616,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::LogicalCpuInfoDataView, Maybe
         c_states_fragment(fragment.message());
     const mojo::internal::ContainerValidateParams c_states_validate_params(
         0, false, nullptr);
-    mojo::internal::Serialize<mojo::ArrayDataView<::chromeos::cros_healthd::mojom::CpuCStateInfoDataView>>(
+    mojo::internal::Serialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::CpuCStateInfoDataView>>(
         in_c_states, c_states_fragment, &c_states_validate_params);
     fragment->c_states.Set(
         c_states_fragment.is_null() ? nullptr : c_states_fragment.data());
@@ -8582,13 +8626,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::LogicalCpuInfoDataView, Maybe
         "null c_states in LogicalCpuInfo struct");
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::LogicalCpuInfo_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::LogicalCpuInfo_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::LogicalCpuInfoDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::LogicalCpuInfoDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -8599,13 +8643,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::LogicalCpuInfoDataView, Maybe
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::CpuCStateInfoDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::CpuCStateInfoDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::CpuCStateInfoDataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::CpuCStateInfoDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::CpuCStateInfo_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::CpuCStateInfo_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
@@ -8624,13 +8668,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::CpuCStateInfoDataView, MaybeC
     fragment->time_in_state_since_last_boot_us = Traits::time_in_state_since_last_boot_us(input);
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::CpuCStateInfo_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::CpuCStateInfo_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::CpuCStateInfoDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::CpuCStateInfoDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -8641,13 +8685,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::CpuCStateInfoDataView, MaybeC
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::CpuTemperatureChannelDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::CpuTemperatureChannelDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::CpuTemperatureChannelDataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::CpuTemperatureChannelDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::CpuTemperatureChannel_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::CpuTemperatureChannel_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
@@ -8662,13 +8706,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::CpuTemperatureChannelDataView
     fragment->temperature_celsius = Traits::temperature_celsius(input);
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::CpuTemperatureChannel_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::CpuTemperatureChannel_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::CpuTemperatureChannelDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::CpuTemperatureChannelDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -8679,13 +8723,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::CpuTemperatureChannelDataView
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::TimezoneInfoDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::TimezoneInfoDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::TimezoneInfoDataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::TimezoneInfoDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::TimezoneInfo_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::TimezoneInfo_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
@@ -8715,13 +8759,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::TimezoneInfoDataView, MaybeCo
         "null region in TimezoneInfo struct");
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::TimezoneInfo_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::TimezoneInfo_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::TimezoneInfoDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::TimezoneInfoDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -8732,13 +8776,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::TimezoneInfoDataView, MaybeCo
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::MemoryInfoDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::MemoryInfoDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::MemoryInfoDataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::MemoryInfoDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::MemoryInfo_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::MemoryInfo_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
@@ -8750,19 +8794,19 @@ struct Serializer<::chromeos::cros_healthd::mojom::MemoryInfoDataView, MaybeCons
     mojo::internal::MessageFragment<
         typename decltype(fragment->memory_encryption_info)::BaseType> memory_encryption_info_fragment(
             fragment.message());
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::MemoryEncryptionInfoDataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::MemoryEncryptionInfoDataView>(
         in_memory_encryption_info, memory_encryption_info_fragment);
     fragment->memory_encryption_info.Set(
         memory_encryption_info_fragment.is_null() ? nullptr : memory_encryption_info_fragment.data());
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::MemoryInfo_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::MemoryInfo_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::MemoryInfoDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::MemoryInfoDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -8773,31 +8817,31 @@ struct Serializer<::chromeos::cros_healthd::mojom::MemoryInfoDataView, MaybeCons
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::MemoryEncryptionInfoDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::MemoryEncryptionInfoDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::MemoryEncryptionInfoDataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::MemoryEncryptionInfoDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::MemoryEncryptionInfo_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::MemoryEncryptionInfo_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::EncryptionState>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::EncryptionState>(
         Traits::encryption_state(input), &fragment->encryption_state);
     fragment->max_key_number = Traits::max_key_number(input);
     fragment->key_length = Traits::key_length(input);
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::CryptoAlgorithm>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::CryptoAlgorithm>(
         Traits::active_algorithm(input), &fragment->active_algorithm);
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::MemoryEncryptionInfo_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::MemoryEncryptionInfo_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::MemoryEncryptionInfoDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::MemoryEncryptionInfoDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -8808,13 +8852,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::MemoryEncryptionInfoDataView,
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::BacklightInfoDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::BacklightInfoDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::BacklightInfoDataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::BacklightInfoDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::BacklightInfo_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::BacklightInfo_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
@@ -8834,13 +8878,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::BacklightInfoDataView, MaybeC
     fragment->brightness = Traits::brightness(input);
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::BacklightInfo_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::BacklightInfo_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::BacklightInfoDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::BacklightInfoDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -8851,26 +8895,26 @@ struct Serializer<::chromeos::cros_healthd::mojom::BacklightInfoDataView, MaybeC
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::FanInfoDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::FanInfoDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::FanInfoDataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::FanInfoDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::FanInfo_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::FanInfo_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
     fragment->speed_rpm = Traits::speed_rpm(input);
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::FanInfo_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::FanInfo_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::FanInfoDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::FanInfoDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -8881,13 +8925,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::FanInfoDataView, MaybeConstUs
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::StatefulPartitionInfoDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::StatefulPartitionInfoDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::StatefulPartitionInfoDataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::StatefulPartitionInfoDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::StatefulPartitionInfo_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::StatefulPartitionInfo_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
@@ -8919,13 +8963,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::StatefulPartitionInfoDataView
         "null mount_source in StatefulPartitionInfo struct");
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::StatefulPartitionInfo_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::StatefulPartitionInfo_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::StatefulPartitionInfoDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::StatefulPartitionInfoDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -8936,13 +8980,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::StatefulPartitionInfoDataView
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::BluetoothAdapterInfoDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::BluetoothAdapterInfoDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::BluetoothAdapterInfoDataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::BluetoothAdapterInfoDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::BluetoothAdapterInfo_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::BluetoothAdapterInfo_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
@@ -8978,7 +9022,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::BluetoothAdapterInfoDataView,
         connected_devices_fragment(fragment.message());
     const mojo::internal::ContainerValidateParams connected_devices_validate_params(
         0, false, nullptr);
-    mojo::internal::Serialize<mojo::ArrayDataView<::chromeos::cros_healthd::mojom::BluetoothDeviceInfoDataView>>(
+    mojo::internal::Serialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::BluetoothDeviceInfoDataView>>(
         in_connected_devices, connected_devices_fragment, &connected_devices_validate_params);
     fragment->connected_devices.Set(
         connected_devices_fragment.is_null() ? nullptr : connected_devices_fragment.data());
@@ -9016,19 +9060,19 @@ struct Serializer<::chromeos::cros_healthd::mojom::BluetoothAdapterInfoDataView,
     mojo::internal::MessageFragment<
         typename decltype(fragment->supported_capabilities)::BaseType> supported_capabilities_fragment(
             fragment.message());
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::SupportedCapabilitiesDataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::SupportedCapabilitiesDataView>(
         in_supported_capabilities, supported_capabilities_fragment);
     fragment->supported_capabilities.Set(
         supported_capabilities_fragment.is_null() ? nullptr : supported_capabilities_fragment.data());
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::BluetoothAdapterInfo_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::BluetoothAdapterInfo_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::BluetoothAdapterInfoDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::BluetoothAdapterInfoDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -9039,13 +9083,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::BluetoothAdapterInfoDataView,
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::BluetoothDeviceInfoDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::BluetoothDeviceInfoDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::BluetoothDeviceInfoDataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::BluetoothDeviceInfoDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::BluetoothDeviceInfo_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::BluetoothDeviceInfo_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
@@ -9069,13 +9113,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::BluetoothDeviceInfoDataView, 
         in_name, name_fragment);
     fragment->name.Set(
         name_fragment.is_null() ? nullptr : name_fragment.data());
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::BluetoothDeviceType>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::BluetoothDeviceType>(
         Traits::type(input), &fragment->type);
     decltype(Traits::appearance(input)) in_appearance = Traits::appearance(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->appearance)::BaseType> appearance_fragment(
             fragment.message());
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::NullableUint16DataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::NullableUint16DataView>(
         in_appearance, appearance_fragment);
     fragment->appearance.Set(
         appearance_fragment.is_null() ? nullptr : appearance_fragment.data());
@@ -9095,7 +9139,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::BluetoothDeviceInfoDataView, 
     mojo::internal::MessageFragment<
         typename decltype(fragment->rssi)::BaseType> rssi_fragment(
             fragment.message());
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::NullableInt16DataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::NullableInt16DataView>(
         in_rssi, rssi_fragment);
     fragment->rssi.Set(
         rssi_fragment.is_null() ? nullptr : rssi_fragment.data());
@@ -9107,7 +9151,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::BluetoothDeviceInfoDataView, 
     mojo::internal::MessageFragment<
         typename decltype(fragment->mtu)::BaseType> mtu_fragment(
             fragment.message());
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::NullableUint16DataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::NullableUint16DataView>(
         in_mtu, mtu_fragment);
     fragment->mtu.Set(
         mtu_fragment.is_null() ? nullptr : mtu_fragment.data());
@@ -9129,19 +9173,19 @@ struct Serializer<::chromeos::cros_healthd::mojom::BluetoothDeviceInfoDataView, 
     mojo::internal::MessageFragment<
         typename decltype(fragment->battery_percentage)::BaseType> battery_percentage_fragment(
             fragment.message());
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::NullableUint8DataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::NullableUint8DataView>(
         in_battery_percentage, battery_percentage_fragment);
     fragment->battery_percentage.Set(
         battery_percentage_fragment.is_null() ? nullptr : battery_percentage_fragment.data());
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::BluetoothDeviceInfo_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::BluetoothDeviceInfo_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::BluetoothDeviceInfoDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::BluetoothDeviceInfoDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -9152,13 +9196,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::BluetoothDeviceInfoDataView, 
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::SupportedCapabilitiesDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::SupportedCapabilitiesDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::SupportedCapabilitiesDataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::SupportedCapabilitiesDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::SupportedCapabilities_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::SupportedCapabilities_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
@@ -9168,13 +9212,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::SupportedCapabilitiesDataView
     fragment->max_tx_power = Traits::max_tx_power(input);
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::SupportedCapabilities_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::SupportedCapabilities_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::SupportedCapabilitiesDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::SupportedCapabilitiesDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -9185,13 +9229,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::SupportedCapabilitiesDataView
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::SystemInfoDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::SystemInfoDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::SystemInfoDataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::SystemInfoDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::SystemInfo_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::SystemInfo_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
@@ -9199,7 +9243,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::SystemInfoDataView, MaybeCons
     mojo::internal::MessageFragment<
         typename decltype(fragment->os_info)::BaseType> os_info_fragment(
             fragment.message());
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::OsInfoDataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::OsInfoDataView>(
         in_os_info, os_info_fragment);
     fragment->os_info.Set(
         os_info_fragment.is_null() ? nullptr : os_info_fragment.data());
@@ -9211,7 +9255,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::SystemInfoDataView, MaybeCons
     mojo::internal::MessageFragment<
         typename decltype(fragment->vpd_info)::BaseType> vpd_info_fragment(
             fragment.message());
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::VpdInfoDataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::VpdInfoDataView>(
         in_vpd_info, vpd_info_fragment);
     fragment->vpd_info.Set(
         vpd_info_fragment.is_null() ? nullptr : vpd_info_fragment.data());
@@ -9219,19 +9263,19 @@ struct Serializer<::chromeos::cros_healthd::mojom::SystemInfoDataView, MaybeCons
     mojo::internal::MessageFragment<
         typename decltype(fragment->dmi_info)::BaseType> dmi_info_fragment(
             fragment.message());
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::DmiInfoDataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::DmiInfoDataView>(
         in_dmi_info, dmi_info_fragment);
     fragment->dmi_info.Set(
         dmi_info_fragment.is_null() ? nullptr : dmi_info_fragment.data());
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::SystemInfo_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::SystemInfo_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::SystemInfoDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::SystemInfoDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -9242,13 +9286,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::SystemInfoDataView, MaybeCons
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::OsInfoDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::OsInfoDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::OsInfoDataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::OsInfoDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::OsInfo_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::OsInfo_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
@@ -9276,7 +9320,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::OsInfoDataView, MaybeConstUse
     mojo::internal::MessageFragment<
         typename decltype(fragment->os_version)::BaseType> os_version_fragment(
             fragment.message());
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::OsVersionDataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::OsVersionDataView>(
         in_os_version, os_version_fragment);
     fragment->os_version.Set(
         os_version_fragment.is_null() ? nullptr : os_version_fragment.data());
@@ -9284,7 +9328,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::OsInfoDataView, MaybeConstUse
         fragment->os_version.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null os_version in OsInfo struct");
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::BootMode>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::BootMode>(
         Traits::boot_mode(input), &fragment->boot_mode);
     decltype(Traits::oem_name(input)) in_oem_name = Traits::oem_name(input);
     mojo::internal::MessageFragment<
@@ -9294,17 +9338,17 @@ struct Serializer<::chromeos::cros_healthd::mojom::OsInfoDataView, MaybeConstUse
         in_oem_name, oem_name_fragment);
     fragment->oem_name.Set(
         oem_name_fragment.is_null() ? nullptr : oem_name_fragment.data());
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::OsInfo_EfiPlatformSize>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::OsInfo_EfiPlatformSize>(
         Traits::efi_platform_size(input), &fragment->efi_platform_size);
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::OsInfo_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::OsInfo_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::OsInfoDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::OsInfoDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -9315,13 +9359,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::OsInfoDataView, MaybeConstUse
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::OsVersionDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::OsVersionDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::OsVersionDataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::OsVersionDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::OsVersion_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::OsVersion_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
@@ -9373,15 +9417,23 @@ struct Serializer<::chromeos::cros_healthd::mojom::OsVersionDataView, MaybeConst
         fragment->release_channel.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null release_channel in OsVersion struct");
+    decltype(Traits::branch_number(input)) in_branch_number = Traits::branch_number(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->branch_number)::BaseType> branch_number_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_branch_number, branch_number_fragment);
+    fragment->branch_number.Set(
+        branch_number_fragment.is_null() ? nullptr : branch_number_fragment.data());
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::OsVersion_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::OsVersion_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::OsVersionDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::OsVersionDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -9392,13 +9444,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::OsVersionDataView, MaybeConst
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::VpdInfoDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::VpdInfoDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::VpdInfoDataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::VpdInfoDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::VpdInfo_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::VpdInfo_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
@@ -9450,15 +9502,23 @@ struct Serializer<::chromeos::cros_healthd::mojom::VpdInfoDataView, MaybeConstUs
         in_model_name, model_name_fragment);
     fragment->model_name.Set(
         model_name_fragment.is_null() ? nullptr : model_name_fragment.data());
+    decltype(Traits::oem_name(input)) in_oem_name = Traits::oem_name(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->oem_name)::BaseType> oem_name_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_oem_name, oem_name_fragment);
+    fragment->oem_name.Set(
+        oem_name_fragment.is_null() ? nullptr : oem_name_fragment.data());
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::VpdInfo_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::VpdInfo_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::VpdInfoDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::VpdInfoDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -9469,13 +9529,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::VpdInfoDataView, MaybeConstUs
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::DmiInfoDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::DmiInfoDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::DmiInfoDataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::DmiInfoDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::DmiInfo_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::DmiInfo_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
@@ -9531,7 +9591,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::DmiInfoDataView, MaybeConstUs
     mojo::internal::MessageFragment<
         typename decltype(fragment->chassis_type)::BaseType> chassis_type_fragment(
             fragment.message());
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::NullableUint64DataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::NullableUint64DataView>(
         in_chassis_type, chassis_type_fragment);
     fragment->chassis_type.Set(
         chassis_type_fragment.is_null() ? nullptr : chassis_type_fragment.data());
@@ -9569,13 +9629,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::DmiInfoDataView, MaybeConstUs
         sys_vendor_fragment.is_null() ? nullptr : sys_vendor_fragment.data());
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::DmiInfo_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::DmiInfo_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::DmiInfoDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::DmiInfoDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -9586,13 +9646,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::DmiInfoDataView, MaybeConstUs
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::WirelessInterfaceInfoDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::WirelessInterfaceInfoDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::WirelessInterfaceInfoDataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::WirelessInterfaceInfoDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::WirelessInterfaceInfo_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::WirelessInterfaceInfo_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
@@ -9613,19 +9673,19 @@ struct Serializer<::chromeos::cros_healthd::mojom::WirelessInterfaceInfoDataView
     mojo::internal::MessageFragment<
         typename decltype(fragment->wireless_link_info)::BaseType> wireless_link_info_fragment(
             fragment.message());
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::WirelessLinkInfoDataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::WirelessLinkInfoDataView>(
         in_wireless_link_info, wireless_link_info_fragment);
     fragment->wireless_link_info.Set(
         wireless_link_info_fragment.is_null() ? nullptr : wireless_link_info_fragment.data());
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::WirelessInterfaceInfo_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::WirelessInterfaceInfo_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::WirelessInterfaceInfoDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::WirelessInterfaceInfoDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -9636,13 +9696,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::WirelessInterfaceInfoDataView
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::WirelessLinkInfoDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::WirelessLinkInfoDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::WirelessLinkInfoDataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::WirelessLinkInfoDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::WirelessLinkInfo_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::WirelessLinkInfo_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
@@ -9666,13 +9726,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::WirelessLinkInfoDataView, May
     fragment->signal_level_dBm = Traits::signal_level_dBm(input);
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::WirelessLinkInfo_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::WirelessLinkInfo_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::WirelessLinkInfoDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::WirelessLinkInfoDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -9683,13 +9743,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::WirelessLinkInfoDataView, May
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::AudioInfoDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::AudioInfoDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::AudioInfoDataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::AudioInfoDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::AudioInfo_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::AudioInfo_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
@@ -9725,13 +9785,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::AudioInfoDataView, MaybeConst
     fragment->severe_underruns = Traits::severe_underruns(input);
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::AudioInfo_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::AudioInfo_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::AudioInfoDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::AudioInfoDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -9742,13 +9802,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::AudioInfoDataView, MaybeConst
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::AudioHardwareInfoDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::AudioHardwareInfoDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::AudioHardwareInfoDataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::AudioHardwareInfoDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::AudioHardwareInfo_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::AudioHardwareInfo_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
@@ -9758,7 +9818,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::AudioHardwareInfoDataView, Ma
         audio_cards_fragment(fragment.message());
     const mojo::internal::ContainerValidateParams audio_cards_validate_params(
         0, false, nullptr);
-    mojo::internal::Serialize<mojo::ArrayDataView<::chromeos::cros_healthd::mojom::AudioCardDataView>>(
+    mojo::internal::Serialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::AudioCardDataView>>(
         in_audio_cards, audio_cards_fragment, &audio_cards_validate_params);
     fragment->audio_cards.Set(
         audio_cards_fragment.is_null() ? nullptr : audio_cards_fragment.data());
@@ -9768,13 +9828,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::AudioHardwareInfoDataView, Ma
         "null audio_cards in AudioHardwareInfo struct");
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::AudioHardwareInfo_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::AudioHardwareInfo_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::AudioHardwareInfoDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::AudioHardwareInfoDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -9785,13 +9845,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::AudioHardwareInfoDataView, Ma
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::AudioCardDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::AudioCardDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::AudioCardDataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::AudioCardDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::AudioCard_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::AudioCard_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
@@ -9811,7 +9871,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::AudioCardDataView, MaybeConst
     mojo::internal::MessageFragment<
         typename decltype(fragment->bus_device)::BaseType> bus_device_fragment(
             fragment.message());
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::BusDeviceDataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::BusDeviceDataView>(
         in_bus_device, bus_device_fragment);
     fragment->bus_device.Set(
         bus_device_fragment.is_null() ? nullptr : bus_device_fragment.data());
@@ -9821,7 +9881,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::AudioCardDataView, MaybeConst
         hd_audio_codecs_fragment(fragment.message());
     const mojo::internal::ContainerValidateParams hd_audio_codecs_validate_params(
         0, false, nullptr);
-    mojo::internal::Serialize<mojo::ArrayDataView<::chromeos::cros_healthd::mojom::HDAudioCodecDataView>>(
+    mojo::internal::Serialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::HDAudioCodecDataView>>(
         in_hd_audio_codecs, hd_audio_codecs_fragment, &hd_audio_codecs_validate_params);
     fragment->hd_audio_codecs.Set(
         hd_audio_codecs_fragment.is_null() ? nullptr : hd_audio_codecs_fragment.data());
@@ -9831,13 +9891,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::AudioCardDataView, MaybeConst
         "null hd_audio_codecs in AudioCard struct");
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::AudioCard_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::AudioCard_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::AudioCardDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::AudioCardDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -9848,13 +9908,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::AudioCardDataView, MaybeConst
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::HDAudioCodecDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::HDAudioCodecDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::HDAudioCodecDataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::HDAudioCodecDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::HDAudioCodec_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::HDAudioCodec_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
@@ -9873,13 +9933,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::HDAudioCodecDataView, MaybeCo
     fragment->address = Traits::address(input);
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::HDAudioCodec_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::HDAudioCodec_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::HDAudioCodecDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::HDAudioCodecDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -9890,13 +9950,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::HDAudioCodecDataView, MaybeCo
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::BootPerformanceInfoDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::BootPerformanceInfoDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::BootPerformanceInfoDataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::BootPerformanceInfoDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::BootPerformanceInfo_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::BootPerformanceInfo_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
@@ -9918,13 +9978,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::BootPerformanceInfoDataView, 
         "null shutdown_reason in BootPerformanceInfo struct");
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::BootPerformanceInfo_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::BootPerformanceInfo_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::BootPerformanceInfoDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::BootPerformanceInfoDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -9935,13 +9995,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::BootPerformanceInfoDataView, 
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::BusDeviceDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::BusDeviceDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::BusDeviceDataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::BusDeviceDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::BusDevice_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::BusDevice_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
@@ -9969,13 +10029,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::BusDeviceDataView, MaybeConst
         fragment->product_name.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null product_name in BusDevice struct");
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::BusDeviceClass>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::BusDeviceClass>(
         Traits::device_class(input), &fragment->device_class);
     decltype(Traits::bus_info(input)) in_bus_info = Traits::bus_info(input);
     mojo::internal::MessageFragment<decltype(fragment->bus_info)>
         bus_info_fragment(fragment.message());
     bus_info_fragment.Claim(&fragment->bus_info);
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::BusInfoDataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::BusInfoDataView>(
         in_bus_info, bus_info_fragment, true);
     MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
         fragment->bus_info.is_null(),
@@ -9983,13 +10043,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::BusDeviceDataView, MaybeConst
         "null bus_info in BusDevice struct");
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::BusDevice_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::BusDevice_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::BusDeviceDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::BusDeviceDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -10000,13 +10060,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::BusDeviceDataView, MaybeConst
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::PciBusInfoDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::PciBusInfoDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::PciBusInfoDataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::PciBusInfoDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::PciBusInfo_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::PciBusInfo_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
@@ -10025,13 +10085,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::PciBusInfoDataView, MaybeCons
         driver_fragment.is_null() ? nullptr : driver_fragment.data());
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::PciBusInfo_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::PciBusInfo_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::PciBusInfoDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::PciBusInfoDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -10042,13 +10102,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::PciBusInfoDataView, MaybeCons
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::UsbBusInfoDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::UsbBusInfoDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::UsbBusInfoDataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::UsbBusInfoDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::UsbBusInfo_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::UsbBusInfo_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
@@ -10063,7 +10123,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::UsbBusInfoDataView, MaybeCons
         interfaces_fragment(fragment.message());
     const mojo::internal::ContainerValidateParams interfaces_validate_params(
         0, false, nullptr);
-    mojo::internal::Serialize<mojo::ArrayDataView<::chromeos::cros_healthd::mojom::UsbBusInterfaceInfoDataView>>(
+    mojo::internal::Serialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::UsbBusInterfaceInfoDataView>>(
         in_interfaces, interfaces_fragment, &interfaces_validate_params);
     fragment->interfaces.Set(
         interfaces_fragment.is_null() ? nullptr : interfaces_fragment.data());
@@ -10075,19 +10135,19 @@ struct Serializer<::chromeos::cros_healthd::mojom::UsbBusInfoDataView, MaybeCons
     mojo::internal::MessageFragment<
         typename decltype(fragment->fwupd_firmware_version_info)::BaseType> fwupd_firmware_version_info_fragment(
             fragment.message());
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::FwupdFirmwareVersionInfoDataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::FwupdFirmwareVersionInfoDataView>(
         in_fwupd_firmware_version_info, fwupd_firmware_version_info_fragment);
     fragment->fwupd_firmware_version_info.Set(
         fwupd_firmware_version_info_fragment.is_null() ? nullptr : fwupd_firmware_version_info_fragment.data());
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::UsbBusInfo_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::UsbBusInfo_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::UsbBusInfoDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::UsbBusInfoDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -10098,13 +10158,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::UsbBusInfoDataView, MaybeCons
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::FwupdFirmwareVersionInfoDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::FwupdFirmwareVersionInfoDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::FwupdFirmwareVersionInfoDataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::FwupdFirmwareVersionInfoDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::FwupdFirmwareVersionInfo_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::FwupdFirmwareVersionInfo_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
@@ -10120,17 +10180,17 @@ struct Serializer<::chromeos::cros_healthd::mojom::FwupdFirmwareVersionInfoDataV
         fragment->version.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null version in FwupdFirmwareVersionInfo struct");
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::FwupdVersionFormat>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::FwupdVersionFormat>(
         Traits::version_format(input), &fragment->version_format);
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::FwupdFirmwareVersionInfo_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::FwupdFirmwareVersionInfo_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::FwupdFirmwareVersionInfoDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::FwupdFirmwareVersionInfoDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -10141,13 +10201,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::FwupdFirmwareVersionInfoDataV
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::UsbBusInterfaceInfoDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::UsbBusInterfaceInfoDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::UsbBusInterfaceInfoDataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::UsbBusInterfaceInfoDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::UsbBusInterfaceInfo_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::UsbBusInterfaceInfo_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
@@ -10165,13 +10225,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::UsbBusInterfaceInfoDataView, 
         driver_fragment.is_null() ? nullptr : driver_fragment.data());
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::UsbBusInterfaceInfo_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::UsbBusInterfaceInfo_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::UsbBusInterfaceInfoDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::UsbBusInterfaceInfoDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -10182,13 +10242,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::UsbBusInterfaceInfoDataView, 
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::TpmInfoDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::TpmInfoDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::TpmInfoDataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::TpmInfoDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::TpmInfo_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::TpmInfo_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
@@ -10196,7 +10256,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::TpmInfoDataView, MaybeConstUs
     mojo::internal::MessageFragment<
         typename decltype(fragment->version)::BaseType> version_fragment(
             fragment.message());
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::TpmVersionDataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::TpmVersionDataView>(
         in_version, version_fragment);
     fragment->version.Set(
         version_fragment.is_null() ? nullptr : version_fragment.data());
@@ -10208,7 +10268,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::TpmInfoDataView, MaybeConstUs
     mojo::internal::MessageFragment<
         typename decltype(fragment->status)::BaseType> status_fragment(
             fragment.message());
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::TpmStatusDataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::TpmStatusDataView>(
         in_status, status_fragment);
     fragment->status.Set(
         status_fragment.is_null() ? nullptr : status_fragment.data());
@@ -10220,7 +10280,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::TpmInfoDataView, MaybeConstUs
     mojo::internal::MessageFragment<
         typename decltype(fragment->dictionary_attack)::BaseType> dictionary_attack_fragment(
             fragment.message());
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::TpmDictionaryAttackDataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::TpmDictionaryAttackDataView>(
         in_dictionary_attack, dictionary_attack_fragment);
     fragment->dictionary_attack.Set(
         dictionary_attack_fragment.is_null() ? nullptr : dictionary_attack_fragment.data());
@@ -10232,7 +10292,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::TpmInfoDataView, MaybeConstUs
     mojo::internal::MessageFragment<
         typename decltype(fragment->attestation)::BaseType> attestation_fragment(
             fragment.message());
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::TpmAttestationDataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::TpmAttestationDataView>(
         in_attestation, attestation_fragment);
     fragment->attestation.Set(
         attestation_fragment.is_null() ? nullptr : attestation_fragment.data());
@@ -10244,7 +10304,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::TpmInfoDataView, MaybeConstUs
     mojo::internal::MessageFragment<
         typename decltype(fragment->supported_features)::BaseType> supported_features_fragment(
             fragment.message());
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::TpmSupportedFeaturesDataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::TpmSupportedFeaturesDataView>(
         in_supported_features, supported_features_fragment);
     fragment->supported_features.Set(
         supported_features_fragment.is_null() ? nullptr : supported_features_fragment.data());
@@ -10262,13 +10322,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::TpmInfoDataView, MaybeConstUs
         did_vid_fragment.is_null() ? nullptr : did_vid_fragment.data());
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::TpmInfo_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::TpmInfo_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::TpmInfoDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::TpmInfoDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -10279,17 +10339,17 @@ struct Serializer<::chromeos::cros_healthd::mojom::TpmInfoDataView, MaybeConstUs
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::TpmVersionDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::TpmVersionDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::TpmVersionDataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::TpmVersionDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::TpmVersion_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::TpmVersion_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::TpmGSCVersion>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::TpmGSCVersion>(
         Traits::gsc_version(input), &fragment->gsc_version);
     fragment->family = Traits::family(input);
     fragment->spec_level = Traits::spec_level(input);
@@ -10306,13 +10366,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::TpmVersionDataView, MaybeCons
         vendor_specific_fragment.is_null() ? nullptr : vendor_specific_fragment.data());
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::TpmVersion_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::TpmVersion_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::TpmVersionDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::TpmVersionDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -10323,13 +10383,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::TpmVersionDataView, MaybeCons
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::TpmStatusDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::TpmStatusDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::TpmStatusDataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::TpmStatusDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::TpmStatus_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::TpmStatus_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
@@ -10338,13 +10398,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::TpmStatusDataView, MaybeConst
     fragment->owner_password_is_present = Traits::owner_password_is_present(input);
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::TpmStatus_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::TpmStatus_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::TpmStatusDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::TpmStatusDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -10355,13 +10415,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::TpmStatusDataView, MaybeConst
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::TpmDictionaryAttackDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::TpmDictionaryAttackDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::TpmDictionaryAttackDataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::TpmDictionaryAttackDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::TpmDictionaryAttack_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::TpmDictionaryAttack_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
@@ -10371,13 +10431,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::TpmDictionaryAttackDataView, 
     fragment->lockout_seconds_remaining = Traits::lockout_seconds_remaining(input);
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::TpmDictionaryAttack_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::TpmDictionaryAttack_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::TpmDictionaryAttackDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::TpmDictionaryAttackDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -10388,13 +10448,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::TpmDictionaryAttackDataView, 
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::TpmAttestationDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::TpmAttestationDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::TpmAttestationDataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::TpmAttestationDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::TpmAttestation_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::TpmAttestation_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
@@ -10402,13 +10462,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::TpmAttestationDataView, Maybe
     fragment->enrolled = Traits::enrolled(input);
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::TpmAttestation_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::TpmAttestation_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::TpmAttestationDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::TpmAttestationDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -10419,13 +10479,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::TpmAttestationDataView, Maybe
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::TpmSupportedFeaturesDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::TpmSupportedFeaturesDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::TpmSupportedFeaturesDataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::TpmSupportedFeaturesDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::TpmSupportedFeatures_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::TpmSupportedFeatures_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
@@ -10435,13 +10495,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::TpmSupportedFeaturesDataView,
     fragment->is_allowed = Traits::is_allowed(input);
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::TpmSupportedFeatures_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::TpmSupportedFeatures_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::TpmSupportedFeaturesDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::TpmSupportedFeaturesDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -10452,13 +10512,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::TpmSupportedFeaturesDataView,
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::GraphicsInfoDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::GraphicsInfoDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::GraphicsInfoDataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::GraphicsInfoDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::GraphicsInfo_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::GraphicsInfo_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
@@ -10466,7 +10526,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::GraphicsInfoDataView, MaybeCo
     mojo::internal::MessageFragment<
         typename decltype(fragment->gles_info)::BaseType> gles_info_fragment(
             fragment.message());
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::GLESInfoDataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::GLESInfoDataView>(
         in_gles_info, gles_info_fragment);
     fragment->gles_info.Set(
         gles_info_fragment.is_null() ? nullptr : gles_info_fragment.data());
@@ -10478,7 +10538,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::GraphicsInfoDataView, MaybeCo
     mojo::internal::MessageFragment<
         typename decltype(fragment->egl_info)::BaseType> egl_info_fragment(
             fragment.message());
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::EGLInfoDataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::EGLInfoDataView>(
         in_egl_info, egl_info_fragment);
     fragment->egl_info.Set(
         egl_info_fragment.is_null() ? nullptr : egl_info_fragment.data());
@@ -10488,13 +10548,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::GraphicsInfoDataView, MaybeCo
         "null egl_info in GraphicsInfo struct");
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::GraphicsInfo_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::GraphicsInfo_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::GraphicsInfoDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::GraphicsInfoDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -10505,13 +10565,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::GraphicsInfoDataView, MaybeCo
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::GLESInfoDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::GLESInfoDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::GLESInfoDataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::GLESInfoDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::GLESInfo_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::GLESInfo_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
@@ -10579,13 +10639,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::GLESInfoDataView, MaybeConstU
         "null extensions in GLESInfo struct");
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::GLESInfo_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::GLESInfo_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::GLESInfoDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::GLESInfoDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -10596,13 +10656,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::GLESInfoDataView, MaybeConstU
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::EGLInfoDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::EGLInfoDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::EGLInfoDataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::EGLInfoDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::EGLInfo_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::EGLInfo_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
@@ -10658,13 +10718,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::EGLInfoDataView, MaybeConstUs
         "null extensions in EGLInfo struct");
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::EGLInfo_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::EGLInfo_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::EGLInfoDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::EGLInfoDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -10675,13 +10735,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::EGLInfoDataView, MaybeConstUs
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::DisplayInfoDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::DisplayInfoDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::DisplayInfoDataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::DisplayInfoDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::DisplayInfo_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::DisplayInfo_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
@@ -10689,7 +10749,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::DisplayInfoDataView, MaybeCon
     mojo::internal::MessageFragment<
         typename decltype(fragment->edp_info)::BaseType> edp_info_fragment(
             fragment.message());
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::EmbeddedDisplayInfoDataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::EmbeddedDisplayInfoDataView>(
         in_edp_info, edp_info_fragment);
     fragment->edp_info.Set(
         edp_info_fragment.is_null() ? nullptr : edp_info_fragment.data());
@@ -10703,19 +10763,19 @@ struct Serializer<::chromeos::cros_healthd::mojom::DisplayInfoDataView, MaybeCon
         dp_infos_fragment(fragment.message());
     const mojo::internal::ContainerValidateParams dp_infos_validate_params(
         0, false, nullptr);
-    mojo::internal::Serialize<mojo::ArrayDataView<::chromeos::cros_healthd::mojom::ExternalDisplayInfoDataView>>(
+    mojo::internal::Serialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::ExternalDisplayInfoDataView>>(
         in_dp_infos, dp_infos_fragment, &dp_infos_validate_params);
     fragment->dp_infos.Set(
         dp_infos_fragment.is_null() ? nullptr : dp_infos_fragment.data());
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::DisplayInfo_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::DisplayInfo_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::DisplayInfoDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::DisplayInfoDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -10726,13 +10786,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::DisplayInfoDataView, MaybeCon
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::EmbeddedDisplayInfoDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::EmbeddedDisplayInfoDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::EmbeddedDisplayInfoDataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::EmbeddedDisplayInfoDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::EmbeddedDisplayInfo_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::EmbeddedDisplayInfo_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
@@ -10742,7 +10802,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::EmbeddedDisplayInfoDataView, 
     mojo::internal::MessageFragment<
         typename decltype(fragment->display_width)::BaseType> display_width_fragment(
             fragment.message());
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::NullableUint32DataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::NullableUint32DataView>(
         in_display_width, display_width_fragment);
     fragment->display_width.Set(
         display_width_fragment.is_null() ? nullptr : display_width_fragment.data());
@@ -10750,7 +10810,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::EmbeddedDisplayInfoDataView, 
     mojo::internal::MessageFragment<
         typename decltype(fragment->display_height)::BaseType> display_height_fragment(
             fragment.message());
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::NullableUint32DataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::NullableUint32DataView>(
         in_display_height, display_height_fragment);
     fragment->display_height.Set(
         display_height_fragment.is_null() ? nullptr : display_height_fragment.data());
@@ -10758,7 +10818,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::EmbeddedDisplayInfoDataView, 
     mojo::internal::MessageFragment<
         typename decltype(fragment->resolution_horizontal)::BaseType> resolution_horizontal_fragment(
             fragment.message());
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::NullableUint32DataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::NullableUint32DataView>(
         in_resolution_horizontal, resolution_horizontal_fragment);
     fragment->resolution_horizontal.Set(
         resolution_horizontal_fragment.is_null() ? nullptr : resolution_horizontal_fragment.data());
@@ -10766,7 +10826,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::EmbeddedDisplayInfoDataView, 
     mojo::internal::MessageFragment<
         typename decltype(fragment->resolution_vertical)::BaseType> resolution_vertical_fragment(
             fragment.message());
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::NullableUint32DataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::NullableUint32DataView>(
         in_resolution_vertical, resolution_vertical_fragment);
     fragment->resolution_vertical.Set(
         resolution_vertical_fragment.is_null() ? nullptr : resolution_vertical_fragment.data());
@@ -10774,7 +10834,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::EmbeddedDisplayInfoDataView, 
     mojo::internal::MessageFragment<
         typename decltype(fragment->refresh_rate)::BaseType> refresh_rate_fragment(
             fragment.message());
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::NullableDoubleDataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::NullableDoubleDataView>(
         in_refresh_rate, refresh_rate_fragment);
     fragment->refresh_rate.Set(
         refresh_rate_fragment.is_null() ? nullptr : refresh_rate_fragment.data());
@@ -10790,7 +10850,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::EmbeddedDisplayInfoDataView, 
     mojo::internal::MessageFragment<
         typename decltype(fragment->model_id)::BaseType> model_id_fragment(
             fragment.message());
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::NullableUint16DataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::NullableUint16DataView>(
         in_model_id, model_id_fragment);
     fragment->model_id.Set(
         model_id_fragment.is_null() ? nullptr : model_id_fragment.data());
@@ -10798,7 +10858,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::EmbeddedDisplayInfoDataView, 
     mojo::internal::MessageFragment<
         typename decltype(fragment->serial_number)::BaseType> serial_number_fragment(
             fragment.message());
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::NullableUint32DataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::NullableUint32DataView>(
         in_serial_number, serial_number_fragment);
     fragment->serial_number.Set(
         serial_number_fragment.is_null() ? nullptr : serial_number_fragment.data());
@@ -10806,7 +10866,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::EmbeddedDisplayInfoDataView, 
     mojo::internal::MessageFragment<
         typename decltype(fragment->manufacture_week)::BaseType> manufacture_week_fragment(
             fragment.message());
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::NullableUint8DataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::NullableUint8DataView>(
         in_manufacture_week, manufacture_week_fragment);
     fragment->manufacture_week.Set(
         manufacture_week_fragment.is_null() ? nullptr : manufacture_week_fragment.data());
@@ -10814,7 +10874,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::EmbeddedDisplayInfoDataView, 
     mojo::internal::MessageFragment<
         typename decltype(fragment->manufacture_year)::BaseType> manufacture_year_fragment(
             fragment.message());
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::NullableUint16DataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::NullableUint16DataView>(
         in_manufacture_year, manufacture_year_fragment);
     fragment->manufacture_year.Set(
         manufacture_year_fragment.is_null() ? nullptr : manufacture_year_fragment.data());
@@ -10826,7 +10886,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::EmbeddedDisplayInfoDataView, 
         in_edid_version, edid_version_fragment);
     fragment->edid_version.Set(
         edid_version_fragment.is_null() ? nullptr : edid_version_fragment.data());
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::DisplayInputType>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::DisplayInputType>(
         Traits::input_type(input), &fragment->input_type);
     decltype(Traits::display_name(input)) in_display_name = Traits::display_name(input);
     mojo::internal::MessageFragment<
@@ -10838,13 +10898,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::EmbeddedDisplayInfoDataView, 
         display_name_fragment.is_null() ? nullptr : display_name_fragment.data());
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::EmbeddedDisplayInfo_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::EmbeddedDisplayInfo_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::EmbeddedDisplayInfoDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::EmbeddedDisplayInfoDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -10855,13 +10915,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::EmbeddedDisplayInfoDataView, 
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::ExternalDisplayInfoDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::ExternalDisplayInfoDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::ExternalDisplayInfoDataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::ExternalDisplayInfoDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::ExternalDisplayInfo_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::ExternalDisplayInfo_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
@@ -10869,7 +10929,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::ExternalDisplayInfoDataView, 
     mojo::internal::MessageFragment<
         typename decltype(fragment->display_width)::BaseType> display_width_fragment(
             fragment.message());
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::NullableUint32DataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::NullableUint32DataView>(
         in_display_width, display_width_fragment);
     fragment->display_width.Set(
         display_width_fragment.is_null() ? nullptr : display_width_fragment.data());
@@ -10877,7 +10937,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::ExternalDisplayInfoDataView, 
     mojo::internal::MessageFragment<
         typename decltype(fragment->display_height)::BaseType> display_height_fragment(
             fragment.message());
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::NullableUint32DataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::NullableUint32DataView>(
         in_display_height, display_height_fragment);
     fragment->display_height.Set(
         display_height_fragment.is_null() ? nullptr : display_height_fragment.data());
@@ -10885,7 +10945,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::ExternalDisplayInfoDataView, 
     mojo::internal::MessageFragment<
         typename decltype(fragment->resolution_horizontal)::BaseType> resolution_horizontal_fragment(
             fragment.message());
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::NullableUint32DataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::NullableUint32DataView>(
         in_resolution_horizontal, resolution_horizontal_fragment);
     fragment->resolution_horizontal.Set(
         resolution_horizontal_fragment.is_null() ? nullptr : resolution_horizontal_fragment.data());
@@ -10893,7 +10953,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::ExternalDisplayInfoDataView, 
     mojo::internal::MessageFragment<
         typename decltype(fragment->resolution_vertical)::BaseType> resolution_vertical_fragment(
             fragment.message());
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::NullableUint32DataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::NullableUint32DataView>(
         in_resolution_vertical, resolution_vertical_fragment);
     fragment->resolution_vertical.Set(
         resolution_vertical_fragment.is_null() ? nullptr : resolution_vertical_fragment.data());
@@ -10901,7 +10961,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::ExternalDisplayInfoDataView, 
     mojo::internal::MessageFragment<
         typename decltype(fragment->refresh_rate)::BaseType> refresh_rate_fragment(
             fragment.message());
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::NullableDoubleDataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::NullableDoubleDataView>(
         in_refresh_rate, refresh_rate_fragment);
     fragment->refresh_rate.Set(
         refresh_rate_fragment.is_null() ? nullptr : refresh_rate_fragment.data());
@@ -10917,7 +10977,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::ExternalDisplayInfoDataView, 
     mojo::internal::MessageFragment<
         typename decltype(fragment->model_id)::BaseType> model_id_fragment(
             fragment.message());
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::NullableUint16DataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::NullableUint16DataView>(
         in_model_id, model_id_fragment);
     fragment->model_id.Set(
         model_id_fragment.is_null() ? nullptr : model_id_fragment.data());
@@ -10925,7 +10985,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::ExternalDisplayInfoDataView, 
     mojo::internal::MessageFragment<
         typename decltype(fragment->serial_number)::BaseType> serial_number_fragment(
             fragment.message());
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::NullableUint32DataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::NullableUint32DataView>(
         in_serial_number, serial_number_fragment);
     fragment->serial_number.Set(
         serial_number_fragment.is_null() ? nullptr : serial_number_fragment.data());
@@ -10933,7 +10993,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::ExternalDisplayInfoDataView, 
     mojo::internal::MessageFragment<
         typename decltype(fragment->manufacture_week)::BaseType> manufacture_week_fragment(
             fragment.message());
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::NullableUint8DataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::NullableUint8DataView>(
         in_manufacture_week, manufacture_week_fragment);
     fragment->manufacture_week.Set(
         manufacture_week_fragment.is_null() ? nullptr : manufacture_week_fragment.data());
@@ -10941,7 +11001,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::ExternalDisplayInfoDataView, 
     mojo::internal::MessageFragment<
         typename decltype(fragment->manufacture_year)::BaseType> manufacture_year_fragment(
             fragment.message());
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::NullableUint16DataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::NullableUint16DataView>(
         in_manufacture_year, manufacture_year_fragment);
     fragment->manufacture_year.Set(
         manufacture_year_fragment.is_null() ? nullptr : manufacture_year_fragment.data());
@@ -10953,7 +11013,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::ExternalDisplayInfoDataView, 
         in_edid_version, edid_version_fragment);
     fragment->edid_version.Set(
         edid_version_fragment.is_null() ? nullptr : edid_version_fragment.data());
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::DisplayInputType>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::DisplayInputType>(
         Traits::input_type(input), &fragment->input_type);
     decltype(Traits::display_name(input)) in_display_name = Traits::display_name(input);
     mojo::internal::MessageFragment<
@@ -10965,13 +11025,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::ExternalDisplayInfoDataView, 
         display_name_fragment.is_null() ? nullptr : display_name_fragment.data());
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::ExternalDisplayInfo_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::ExternalDisplayInfo_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::ExternalDisplayInfoDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::ExternalDisplayInfoDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -10982,13 +11042,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::ExternalDisplayInfoDataView, 
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::ThunderboltBusInterfaceInfoDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::ThunderboltBusInterfaceInfoDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::ThunderboltBusInterfaceInfoDataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::ThunderboltBusInterfaceInfoDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::ThunderboltBusInterfaceInfo_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::ThunderboltBusInterfaceInfo_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
@@ -11057,13 +11117,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::ThunderboltBusInterfaceInfoDa
         "null device_fw_version in ThunderboltBusInterfaceInfo struct");
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::ThunderboltBusInterfaceInfo_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::ThunderboltBusInterfaceInfo_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::ThunderboltBusInterfaceInfoDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::ThunderboltBusInterfaceInfoDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -11074,17 +11134,17 @@ struct Serializer<::chromeos::cros_healthd::mojom::ThunderboltBusInterfaceInfoDa
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::ThunderboltBusInfoDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::ThunderboltBusInfoDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::ThunderboltBusInfoDataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::ThunderboltBusInfoDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::ThunderboltBusInfo_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::ThunderboltBusInfo_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::ThunderboltSecurityLevel>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::ThunderboltSecurityLevel>(
         Traits::security_level(input), &fragment->security_level);
     decltype(Traits::thunderbolt_interfaces(input)) in_thunderbolt_interfaces = Traits::thunderbolt_interfaces(input);
     mojo::internal::MessageFragment<
@@ -11092,7 +11152,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::ThunderboltBusInfoDataView, M
         thunderbolt_interfaces_fragment(fragment.message());
     const mojo::internal::ContainerValidateParams thunderbolt_interfaces_validate_params(
         0, false, nullptr);
-    mojo::internal::Serialize<mojo::ArrayDataView<::chromeos::cros_healthd::mojom::ThunderboltBusInterfaceInfoDataView>>(
+    mojo::internal::Serialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::ThunderboltBusInterfaceInfoDataView>>(
         in_thunderbolt_interfaces, thunderbolt_interfaces_fragment, &thunderbolt_interfaces_validate_params);
     fragment->thunderbolt_interfaces.Set(
         thunderbolt_interfaces_fragment.is_null() ? nullptr : thunderbolt_interfaces_fragment.data());
@@ -11102,13 +11162,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::ThunderboltBusInfoDataView, M
         "null thunderbolt_interfaces in ThunderboltBusInfo struct");
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::ThunderboltBusInfo_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::ThunderboltBusInfo_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::ThunderboltBusInfoDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::ThunderboltBusInfoDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -11119,13 +11179,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::ThunderboltBusInfoDataView, M
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::InputInfoDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::InputInfoDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::InputInfoDataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::InputInfoDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::InputInfo_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::InputInfo_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
@@ -11147,7 +11207,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::InputInfoDataView, MaybeConst
         touchscreen_devices_fragment(fragment.message());
     const mojo::internal::ContainerValidateParams touchscreen_devices_validate_params(
         0, false, nullptr);
-    mojo::internal::Serialize<mojo::ArrayDataView<::chromeos::cros_healthd::mojom::TouchscreenDeviceDataView>>(
+    mojo::internal::Serialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::TouchscreenDeviceDataView>>(
         in_touchscreen_devices, touchscreen_devices_fragment, &touchscreen_devices_validate_params);
     fragment->touchscreen_devices.Set(
         touchscreen_devices_fragment.is_null() ? nullptr : touchscreen_devices_fragment.data());
@@ -11157,13 +11217,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::InputInfoDataView, MaybeConst
         "null touchscreen_devices in InputInfo struct");
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::InputInfo_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::InputInfo_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::InputInfoDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::InputInfoDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -11174,13 +11234,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::InputInfoDataView, MaybeConst
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::TouchscreenDeviceDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::TouchscreenDeviceDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::TouchscreenDeviceDataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::TouchscreenDeviceDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::TouchscreenDevice_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::TouchscreenDevice_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
@@ -11188,7 +11248,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::TouchscreenDeviceDataView, Ma
     mojo::internal::MessageFragment<
         typename decltype(fragment->input_device)::BaseType> input_device_fragment(
             fragment.message());
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::InputDeviceDataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::InputDeviceDataView>(
         in_input_device, input_device_fragment);
     fragment->input_device.Set(
         input_device_fragment.is_null() ? nullptr : input_device_fragment.data());
@@ -11201,13 +11261,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::TouchscreenDeviceDataView, Ma
     fragment->has_stylus_garage_switch = Traits::has_stylus_garage_switch(input);
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::TouchscreenDevice_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::TouchscreenDevice_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::TouchscreenDeviceDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::TouchscreenDeviceDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -11218,13 +11278,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::TouchscreenDeviceDataView, Ma
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::InputDeviceDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::InputDeviceDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::InputDeviceDataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::InputDeviceDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::InputDevice_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::InputDevice_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
@@ -11240,7 +11300,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::InputDeviceDataView, MaybeCon
         fragment->name.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null name in InputDevice struct");
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::InputDevice_ConnectionType>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::InputDevice_ConnectionType>(
         Traits::connection_type(input), &fragment->connection_type);
     decltype(Traits::physical_location(input)) in_physical_location = Traits::physical_location(input);
     mojo::internal::MessageFragment<
@@ -11257,13 +11317,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::InputDeviceDataView, MaybeCon
     fragment->is_enabled = Traits::is_enabled(input);
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::InputDevice_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::InputDevice_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::InputDeviceDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::InputDeviceDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -11274,13 +11334,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::InputDeviceDataView, MaybeCon
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::SensorInfoDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::SensorInfoDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::SensorInfoDataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::SensorInfoDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::SensorInfo_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::SensorInfo_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
@@ -11288,7 +11348,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::SensorInfoDataView, MaybeCons
     mojo::internal::MessageFragment<
         typename decltype(fragment->lid_angle)::BaseType> lid_angle_fragment(
             fragment.message());
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::NullableUint16DataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::NullableUint16DataView>(
         in_lid_angle, lid_angle_fragment);
     fragment->lid_angle.Set(
         lid_angle_fragment.is_null() ? nullptr : lid_angle_fragment.data());
@@ -11298,19 +11358,19 @@ struct Serializer<::chromeos::cros_healthd::mojom::SensorInfoDataView, MaybeCons
         sensors_fragment(fragment.message());
     const mojo::internal::ContainerValidateParams sensors_validate_params(
         0, false, nullptr);
-    mojo::internal::Serialize<mojo::ArrayDataView<::chromeos::cros_healthd::mojom::SensorDataView>>(
+    mojo::internal::Serialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::SensorDataView>>(
         in_sensors, sensors_fragment, &sensors_validate_params);
     fragment->sensors.Set(
         sensors_fragment.is_null() ? nullptr : sensors_fragment.data());
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::SensorInfo_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::SensorInfo_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::SensorInfoDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::SensorInfoDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -11321,13 +11381,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::SensorInfoDataView, MaybeCons
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::SensorDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::SensorDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::SensorDataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::SensorDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::Sensor_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::Sensor_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
@@ -11340,19 +11400,19 @@ struct Serializer<::chromeos::cros_healthd::mojom::SensorDataView, MaybeConstUse
     fragment->name.Set(
         name_fragment.is_null() ? nullptr : name_fragment.data());
     fragment->device_id = Traits::device_id(input);
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::Sensor_Type>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::Sensor_Type>(
         Traits::type(input), &fragment->type);
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::Sensor_Location>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::Sensor_Location>(
         Traits::location(input), &fragment->location);
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::Sensor_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::Sensor_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::SensorDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::SensorDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -11363,13 +11423,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::SensorDataView, MaybeConstUse
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::TelemetryInfoDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::TelemetryInfoDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::TelemetryInfoDataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::TelemetryInfoDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::TelemetryInfo_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::TelemetryInfo_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
@@ -11377,143 +11437,143 @@ struct Serializer<::chromeos::cros_healthd::mojom::TelemetryInfoDataView, MaybeC
     mojo::internal::MessageFragment<decltype(fragment->battery_result)>
         battery_result_fragment(fragment.message());
     battery_result_fragment.Claim(&fragment->battery_result);
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::BatteryResultDataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::BatteryResultDataView>(
         in_battery_result, battery_result_fragment, true);
     decltype(Traits::block_device_result(input)) in_block_device_result = Traits::block_device_result(input);
     mojo::internal::MessageFragment<decltype(fragment->block_device_result)>
         block_device_result_fragment(fragment.message());
     block_device_result_fragment.Claim(&fragment->block_device_result);
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceResultDataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::NonRemovableBlockDeviceResultDataView>(
         in_block_device_result, block_device_result_fragment, true);
     decltype(Traits::cpu_result(input)) in_cpu_result = Traits::cpu_result(input);
     mojo::internal::MessageFragment<decltype(fragment->cpu_result)>
         cpu_result_fragment(fragment.message());
     cpu_result_fragment.Claim(&fragment->cpu_result);
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::CpuResultDataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::CpuResultDataView>(
         in_cpu_result, cpu_result_fragment, true);
     decltype(Traits::timezone_result(input)) in_timezone_result = Traits::timezone_result(input);
     mojo::internal::MessageFragment<decltype(fragment->timezone_result)>
         timezone_result_fragment(fragment.message());
     timezone_result_fragment.Claim(&fragment->timezone_result);
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::TimezoneResultDataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::TimezoneResultDataView>(
         in_timezone_result, timezone_result_fragment, true);
     decltype(Traits::memory_result(input)) in_memory_result = Traits::memory_result(input);
     mojo::internal::MessageFragment<decltype(fragment->memory_result)>
         memory_result_fragment(fragment.message());
     memory_result_fragment.Claim(&fragment->memory_result);
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::MemoryResultDataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::MemoryResultDataView>(
         in_memory_result, memory_result_fragment, true);
     decltype(Traits::backlight_result(input)) in_backlight_result = Traits::backlight_result(input);
     mojo::internal::MessageFragment<decltype(fragment->backlight_result)>
         backlight_result_fragment(fragment.message());
     backlight_result_fragment.Claim(&fragment->backlight_result);
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::BacklightResultDataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::BacklightResultDataView>(
         in_backlight_result, backlight_result_fragment, true);
     decltype(Traits::fan_result(input)) in_fan_result = Traits::fan_result(input);
     mojo::internal::MessageFragment<decltype(fragment->fan_result)>
         fan_result_fragment(fragment.message());
     fan_result_fragment.Claim(&fragment->fan_result);
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::FanResultDataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::FanResultDataView>(
         in_fan_result, fan_result_fragment, true);
     decltype(Traits::stateful_partition_result(input)) in_stateful_partition_result = Traits::stateful_partition_result(input);
     mojo::internal::MessageFragment<decltype(fragment->stateful_partition_result)>
         stateful_partition_result_fragment(fragment.message());
     stateful_partition_result_fragment.Claim(&fragment->stateful_partition_result);
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::StatefulPartitionResultDataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::StatefulPartitionResultDataView>(
         in_stateful_partition_result, stateful_partition_result_fragment, true);
     decltype(Traits::bluetooth_result(input)) in_bluetooth_result = Traits::bluetooth_result(input);
     mojo::internal::MessageFragment<decltype(fragment->bluetooth_result)>
         bluetooth_result_fragment(fragment.message());
     bluetooth_result_fragment.Claim(&fragment->bluetooth_result);
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::BluetoothResultDataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::BluetoothResultDataView>(
         in_bluetooth_result, bluetooth_result_fragment, true);
     decltype(Traits::deprecate_system_result(input)) in_deprecate_system_result = Traits::deprecate_system_result(input);
     mojo::internal::MessageFragment<decltype(fragment->deprecate_system_result)>
         deprecate_system_result_fragment(fragment.message());
     deprecate_system_result_fragment.Claim(&fragment->deprecate_system_result);
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::DEPRECATE_SystemResultDataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::DEPRECATE_SystemResultDataView>(
         in_deprecate_system_result, deprecate_system_result_fragment, true);
     decltype(Traits::network_result(input)) in_network_result = Traits::network_result(input);
     mojo::internal::MessageFragment<decltype(fragment->network_result)>
         network_result_fragment(fragment.message());
     network_result_fragment.Claim(&fragment->network_result);
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::NetworkResultDataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::NetworkResultDataView>(
         in_network_result, network_result_fragment, true);
     decltype(Traits::audio_result(input)) in_audio_result = Traits::audio_result(input);
     mojo::internal::MessageFragment<decltype(fragment->audio_result)>
         audio_result_fragment(fragment.message());
     audio_result_fragment.Claim(&fragment->audio_result);
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::AudioResultDataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::AudioResultDataView>(
         in_audio_result, audio_result_fragment, true);
     decltype(Traits::boot_performance_result(input)) in_boot_performance_result = Traits::boot_performance_result(input);
     mojo::internal::MessageFragment<decltype(fragment->boot_performance_result)>
         boot_performance_result_fragment(fragment.message());
     boot_performance_result_fragment.Claim(&fragment->boot_performance_result);
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::BootPerformanceResultDataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::BootPerformanceResultDataView>(
         in_boot_performance_result, boot_performance_result_fragment, true);
     decltype(Traits::bus_result(input)) in_bus_result = Traits::bus_result(input);
     mojo::internal::MessageFragment<decltype(fragment->bus_result)>
         bus_result_fragment(fragment.message());
     bus_result_fragment.Claim(&fragment->bus_result);
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::BusResultDataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::BusResultDataView>(
         in_bus_result, bus_result_fragment, true);
     decltype(Traits::system_result(input)) in_system_result = Traits::system_result(input);
     mojo::internal::MessageFragment<decltype(fragment->system_result)>
         system_result_fragment(fragment.message());
     system_result_fragment.Claim(&fragment->system_result);
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::SystemResultDataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::SystemResultDataView>(
         in_system_result, system_result_fragment, true);
     decltype(Traits::tpm_result(input)) in_tpm_result = Traits::tpm_result(input);
     mojo::internal::MessageFragment<decltype(fragment->tpm_result)>
         tpm_result_fragment(fragment.message());
     tpm_result_fragment.Claim(&fragment->tpm_result);
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::TpmResultDataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::TpmResultDataView>(
         in_tpm_result, tpm_result_fragment, true);
     decltype(Traits::graphics_result(input)) in_graphics_result = Traits::graphics_result(input);
     mojo::internal::MessageFragment<decltype(fragment->graphics_result)>
         graphics_result_fragment(fragment.message());
     graphics_result_fragment.Claim(&fragment->graphics_result);
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::GraphicsResultDataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::GraphicsResultDataView>(
         in_graphics_result, graphics_result_fragment, true);
     decltype(Traits::display_result(input)) in_display_result = Traits::display_result(input);
     mojo::internal::MessageFragment<decltype(fragment->display_result)>
         display_result_fragment(fragment.message());
     display_result_fragment.Claim(&fragment->display_result);
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::DisplayResultDataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::DisplayResultDataView>(
         in_display_result, display_result_fragment, true);
     decltype(Traits::network_interface_result(input)) in_network_interface_result = Traits::network_interface_result(input);
     mojo::internal::MessageFragment<decltype(fragment->network_interface_result)>
         network_interface_result_fragment(fragment.message());
     network_interface_result_fragment.Claim(&fragment->network_interface_result);
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::NetworkInterfaceResultDataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::NetworkInterfaceResultDataView>(
         in_network_interface_result, network_interface_result_fragment, true);
     decltype(Traits::input_result(input)) in_input_result = Traits::input_result(input);
     mojo::internal::MessageFragment<decltype(fragment->input_result)>
         input_result_fragment(fragment.message());
     input_result_fragment.Claim(&fragment->input_result);
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::InputResultDataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::InputResultDataView>(
         in_input_result, input_result_fragment, true);
     decltype(Traits::audio_hardware_result(input)) in_audio_hardware_result = Traits::audio_hardware_result(input);
     mojo::internal::MessageFragment<decltype(fragment->audio_hardware_result)>
         audio_hardware_result_fragment(fragment.message());
     audio_hardware_result_fragment.Claim(&fragment->audio_hardware_result);
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::AudioHardwareResultDataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::AudioHardwareResultDataView>(
         in_audio_hardware_result, audio_hardware_result_fragment, true);
     decltype(Traits::sensor_result(input)) in_sensor_result = Traits::sensor_result(input);
     mojo::internal::MessageFragment<decltype(fragment->sensor_result)>
         sensor_result_fragment(fragment.message());
     sensor_result_fragment.Claim(&fragment->sensor_result);
-    mojo::internal::Serialize<::chromeos::cros_healthd::mojom::SensorResultDataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::SensorResultDataView>(
         in_sensor_result, sensor_result_fragment, true);
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::TelemetryInfo_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::TelemetryInfo_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::TelemetryInfoDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::TelemetryInfoDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -11524,12 +11584,12 @@ struct Serializer<::chromeos::cros_healthd::mojom::TelemetryInfoDataView, MaybeC
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::ProcessResultDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::ProcessResultDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = UnionTraits<::chromeos::cros_healthd::mojom::ProcessResultDataView, UserType>;
+  using Traits = UnionTraits<::ash::cros_healthd::mojom::ProcessResultDataView, UserType>;
 
   static void Serialize(MaybeConstUserType& input,
-                        MessageFragment<::chromeos::cros_healthd::mojom::internal::ProcessResult_Data>& fragment,
+                        MessageFragment<::ash::cros_healthd::mojom::internal::ProcessResult_Data>& fragment,
                         bool inlined) {
     if (CallIsNullIfExists<Traits>(input)) {
        if (inlined)
@@ -11545,13 +11605,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::ProcessResultDataView, MaybeC
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::cros_healthd::mojom::ProcessResultDataView::Tag::kProcessInfo: {
+      case ::ash::cros_healthd::mojom::ProcessResultDataView::Tag::kProcessInfo: {
         decltype(Traits::process_info(input))
             in_process_info = Traits::process_info(input);
         mojo::internal::MessageFragment<
             typename decltype(fragment->data.f_process_info)::BaseType>
             value_fragment(fragment.message());
-        mojo::internal::Serialize<::chromeos::cros_healthd::mojom::ProcessInfoDataView>(
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::ProcessInfoDataView>(
             in_process_info, value_fragment);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
             value_fragment.is_null(),
@@ -11561,13 +11621,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::ProcessResultDataView, MaybeC
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::cros_healthd::mojom::ProcessResultDataView::Tag::kError: {
+      case ::ash::cros_healthd::mojom::ProcessResultDataView::Tag::kError: {
         decltype(Traits::error(input))
             in_error = Traits::error(input);
         mojo::internal::MessageFragment<
             typename decltype(fragment->data.f_error)::BaseType>
             value_fragment(fragment.message());
-        mojo::internal::Serialize<::chromeos::cros_healthd::mojom::ProbeErrorDataView>(
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::ProbeErrorDataView>(
             in_error, value_fragment);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
             value_fragment.is_null(),
@@ -11580,13 +11640,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::ProcessResultDataView, MaybeC
     }
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::ProcessResult_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::ProcessResult_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input || input->is_null())
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::ProcessResultDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::ProcessResultDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -11597,12 +11657,12 @@ struct Serializer<::chromeos::cros_healthd::mojom::ProcessResultDataView, MaybeC
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::BatteryResultDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::BatteryResultDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = UnionTraits<::chromeos::cros_healthd::mojom::BatteryResultDataView, UserType>;
+  using Traits = UnionTraits<::ash::cros_healthd::mojom::BatteryResultDataView, UserType>;
 
   static void Serialize(MaybeConstUserType& input,
-                        MessageFragment<::chromeos::cros_healthd::mojom::internal::BatteryResult_Data>& fragment,
+                        MessageFragment<::ash::cros_healthd::mojom::internal::BatteryResult_Data>& fragment,
                         bool inlined) {
     if (CallIsNullIfExists<Traits>(input)) {
        if (inlined)
@@ -11618,25 +11678,25 @@ struct Serializer<::chromeos::cros_healthd::mojom::BatteryResultDataView, MaybeC
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::cros_healthd::mojom::BatteryResultDataView::Tag::kBatteryInfo: {
+      case ::ash::cros_healthd::mojom::BatteryResultDataView::Tag::kBatteryInfo: {
         decltype(Traits::battery_info(input))
             in_battery_info = Traits::battery_info(input);
         mojo::internal::MessageFragment<
             typename decltype(fragment->data.f_battery_info)::BaseType>
             value_fragment(fragment.message());
-        mojo::internal::Serialize<::chromeos::cros_healthd::mojom::BatteryInfoDataView>(
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::BatteryInfoDataView>(
             in_battery_info, value_fragment);
         fragment->data.f_battery_info.Set(
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::cros_healthd::mojom::BatteryResultDataView::Tag::kError: {
+      case ::ash::cros_healthd::mojom::BatteryResultDataView::Tag::kError: {
         decltype(Traits::error(input))
             in_error = Traits::error(input);
         mojo::internal::MessageFragment<
             typename decltype(fragment->data.f_error)::BaseType>
             value_fragment(fragment.message());
-        mojo::internal::Serialize<::chromeos::cros_healthd::mojom::ProbeErrorDataView>(
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::ProbeErrorDataView>(
             in_error, value_fragment);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
             value_fragment.is_null(),
@@ -11649,13 +11709,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::BatteryResultDataView, MaybeC
     }
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::BatteryResult_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::BatteryResult_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input || input->is_null())
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::BatteryResultDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::BatteryResultDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -11666,12 +11726,12 @@ struct Serializer<::chromeos::cros_healthd::mojom::BatteryResultDataView, MaybeC
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceResultDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::NonRemovableBlockDeviceResultDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = UnionTraits<::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceResultDataView, UserType>;
+  using Traits = UnionTraits<::ash::cros_healthd::mojom::NonRemovableBlockDeviceResultDataView, UserType>;
 
   static void Serialize(MaybeConstUserType& input,
-                        MessageFragment<::chromeos::cros_healthd::mojom::internal::NonRemovableBlockDeviceResult_Data>& fragment,
+                        MessageFragment<::ash::cros_healthd::mojom::internal::NonRemovableBlockDeviceResult_Data>& fragment,
                         bool inlined) {
     if (CallIsNullIfExists<Traits>(input)) {
        if (inlined)
@@ -11687,7 +11747,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceResult
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceResultDataView::Tag::kBlockDeviceInfo: {
+      case ::ash::cros_healthd::mojom::NonRemovableBlockDeviceResultDataView::Tag::kBlockDeviceInfo: {
         decltype(Traits::block_device_info(input))
             in_block_device_info = Traits::block_device_info(input);
         mojo::internal::MessageFragment<
@@ -11695,7 +11755,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceResult
             value_fragment(fragment.message());
         const ContainerValidateParams block_device_info_validate_params(
             0, false, nullptr);
-        mojo::internal::Serialize<mojo::ArrayDataView<::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceInfoDataView>>(
+        mojo::internal::Serialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfoDataView>>(
             in_block_device_info, value_fragment, &block_device_info_validate_params);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
             value_fragment.is_null(),
@@ -11705,13 +11765,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceResult
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceResultDataView::Tag::kError: {
+      case ::ash::cros_healthd::mojom::NonRemovableBlockDeviceResultDataView::Tag::kError: {
         decltype(Traits::error(input))
             in_error = Traits::error(input);
         mojo::internal::MessageFragment<
             typename decltype(fragment->data.f_error)::BaseType>
             value_fragment(fragment.message());
-        mojo::internal::Serialize<::chromeos::cros_healthd::mojom::ProbeErrorDataView>(
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::ProbeErrorDataView>(
             in_error, value_fragment);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
             value_fragment.is_null(),
@@ -11724,13 +11784,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceResult
     }
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::NonRemovableBlockDeviceResult_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::NonRemovableBlockDeviceResult_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input || input->is_null())
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceResultDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::NonRemovableBlockDeviceResultDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -11741,12 +11801,12 @@ struct Serializer<::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceResult
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::BlockDeviceVendorDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::BlockDeviceVendorDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = UnionTraits<::chromeos::cros_healthd::mojom::BlockDeviceVendorDataView, UserType>;
+  using Traits = UnionTraits<::ash::cros_healthd::mojom::BlockDeviceVendorDataView, UserType>;
 
   static void Serialize(MaybeConstUserType& input,
-                        MessageFragment<::chromeos::cros_healthd::mojom::internal::BlockDeviceVendor_Data>& fragment,
+                        MessageFragment<::ash::cros_healthd::mojom::internal::BlockDeviceVendor_Data>& fragment,
                         bool inlined) {
     if (CallIsNullIfExists<Traits>(input)) {
        if (inlined)
@@ -11762,31 +11822,31 @@ struct Serializer<::chromeos::cros_healthd::mojom::BlockDeviceVendorDataView, Ma
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::cros_healthd::mojom::BlockDeviceVendorDataView::Tag::kNvmeSubsystemVendor: {
+      case ::ash::cros_healthd::mojom::BlockDeviceVendorDataView::Tag::kNvmeSubsystemVendor: {
         decltype(Traits::nvme_subsystem_vendor(input))
             in_nvme_subsystem_vendor = Traits::nvme_subsystem_vendor(input);
         fragment->data.f_nvme_subsystem_vendor = in_nvme_subsystem_vendor;
         break;
       }
-      case ::chromeos::cros_healthd::mojom::BlockDeviceVendorDataView::Tag::kEmmcOemid: {
+      case ::ash::cros_healthd::mojom::BlockDeviceVendorDataView::Tag::kEmmcOemid: {
         decltype(Traits::emmc_oemid(input))
             in_emmc_oemid = Traits::emmc_oemid(input);
         fragment->data.f_emmc_oemid = in_emmc_oemid;
         break;
       }
-      case ::chromeos::cros_healthd::mojom::BlockDeviceVendorDataView::Tag::kOther: {
+      case ::ash::cros_healthd::mojom::BlockDeviceVendorDataView::Tag::kOther: {
         decltype(Traits::other(input))
             in_other = Traits::other(input);
         fragment->data.f_other = in_other;
         break;
       }
-      case ::chromeos::cros_healthd::mojom::BlockDeviceVendorDataView::Tag::kUnknown: {
+      case ::ash::cros_healthd::mojom::BlockDeviceVendorDataView::Tag::kUnknown: {
         decltype(Traits::unknown(input))
             in_unknown = Traits::unknown(input);
         fragment->data.f_unknown = in_unknown;
         break;
       }
-      case ::chromeos::cros_healthd::mojom::BlockDeviceVendorDataView::Tag::kJedecManfid: {
+      case ::ash::cros_healthd::mojom::BlockDeviceVendorDataView::Tag::kJedecManfid: {
         decltype(Traits::jedec_manfid(input))
             in_jedec_manfid = Traits::jedec_manfid(input);
         fragment->data.f_jedec_manfid = in_jedec_manfid;
@@ -11795,13 +11855,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::BlockDeviceVendorDataView, Ma
     }
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::BlockDeviceVendor_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::BlockDeviceVendor_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input || input->is_null())
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::BlockDeviceVendorDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::BlockDeviceVendorDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -11812,12 +11872,12 @@ struct Serializer<::chromeos::cros_healthd::mojom::BlockDeviceVendorDataView, Ma
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::BlockDeviceProductDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::BlockDeviceProductDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = UnionTraits<::chromeos::cros_healthd::mojom::BlockDeviceProductDataView, UserType>;
+  using Traits = UnionTraits<::ash::cros_healthd::mojom::BlockDeviceProductDataView, UserType>;
 
   static void Serialize(MaybeConstUserType& input,
-                        MessageFragment<::chromeos::cros_healthd::mojom::internal::BlockDeviceProduct_Data>& fragment,
+                        MessageFragment<::ash::cros_healthd::mojom::internal::BlockDeviceProduct_Data>& fragment,
                         bool inlined) {
     if (CallIsNullIfExists<Traits>(input)) {
        if (inlined)
@@ -11833,25 +11893,25 @@ struct Serializer<::chromeos::cros_healthd::mojom::BlockDeviceProductDataView, M
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::cros_healthd::mojom::BlockDeviceProductDataView::Tag::kNvmeSubsystemDevice: {
+      case ::ash::cros_healthd::mojom::BlockDeviceProductDataView::Tag::kNvmeSubsystemDevice: {
         decltype(Traits::nvme_subsystem_device(input))
             in_nvme_subsystem_device = Traits::nvme_subsystem_device(input);
         fragment->data.f_nvme_subsystem_device = in_nvme_subsystem_device;
         break;
       }
-      case ::chromeos::cros_healthd::mojom::BlockDeviceProductDataView::Tag::kEmmcPnm: {
+      case ::ash::cros_healthd::mojom::BlockDeviceProductDataView::Tag::kEmmcPnm: {
         decltype(Traits::emmc_pnm(input))
             in_emmc_pnm = Traits::emmc_pnm(input);
         fragment->data.f_emmc_pnm = in_emmc_pnm;
         break;
       }
-      case ::chromeos::cros_healthd::mojom::BlockDeviceProductDataView::Tag::kOther: {
+      case ::ash::cros_healthd::mojom::BlockDeviceProductDataView::Tag::kOther: {
         decltype(Traits::other(input))
             in_other = Traits::other(input);
         fragment->data.f_other = in_other;
         break;
       }
-      case ::chromeos::cros_healthd::mojom::BlockDeviceProductDataView::Tag::kUnknown: {
+      case ::ash::cros_healthd::mojom::BlockDeviceProductDataView::Tag::kUnknown: {
         decltype(Traits::unknown(input))
             in_unknown = Traits::unknown(input);
         fragment->data.f_unknown = in_unknown;
@@ -11860,13 +11920,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::BlockDeviceProductDataView, M
     }
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::BlockDeviceProduct_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::BlockDeviceProduct_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input || input->is_null())
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::BlockDeviceProductDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::BlockDeviceProductDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -11877,12 +11937,12 @@ struct Serializer<::chromeos::cros_healthd::mojom::BlockDeviceProductDataView, M
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::BlockDeviceRevisionDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::BlockDeviceRevisionDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = UnionTraits<::chromeos::cros_healthd::mojom::BlockDeviceRevisionDataView, UserType>;
+  using Traits = UnionTraits<::ash::cros_healthd::mojom::BlockDeviceRevisionDataView, UserType>;
 
   static void Serialize(MaybeConstUserType& input,
-                        MessageFragment<::chromeos::cros_healthd::mojom::internal::BlockDeviceRevision_Data>& fragment,
+                        MessageFragment<::ash::cros_healthd::mojom::internal::BlockDeviceRevision_Data>& fragment,
                         bool inlined) {
     if (CallIsNullIfExists<Traits>(input)) {
        if (inlined)
@@ -11898,25 +11958,25 @@ struct Serializer<::chromeos::cros_healthd::mojom::BlockDeviceRevisionDataView, 
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::cros_healthd::mojom::BlockDeviceRevisionDataView::Tag::kNvmePcieRev: {
+      case ::ash::cros_healthd::mojom::BlockDeviceRevisionDataView::Tag::kNvmePcieRev: {
         decltype(Traits::nvme_pcie_rev(input))
             in_nvme_pcie_rev = Traits::nvme_pcie_rev(input);
         fragment->data.f_nvme_pcie_rev = in_nvme_pcie_rev;
         break;
       }
-      case ::chromeos::cros_healthd::mojom::BlockDeviceRevisionDataView::Tag::kEmmcPrv: {
+      case ::ash::cros_healthd::mojom::BlockDeviceRevisionDataView::Tag::kEmmcPrv: {
         decltype(Traits::emmc_prv(input))
             in_emmc_prv = Traits::emmc_prv(input);
         fragment->data.f_emmc_prv = in_emmc_prv;
         break;
       }
-      case ::chromeos::cros_healthd::mojom::BlockDeviceRevisionDataView::Tag::kOther: {
+      case ::ash::cros_healthd::mojom::BlockDeviceRevisionDataView::Tag::kOther: {
         decltype(Traits::other(input))
             in_other = Traits::other(input);
         fragment->data.f_other = in_other;
         break;
       }
-      case ::chromeos::cros_healthd::mojom::BlockDeviceRevisionDataView::Tag::kUnknown: {
+      case ::ash::cros_healthd::mojom::BlockDeviceRevisionDataView::Tag::kUnknown: {
         decltype(Traits::unknown(input))
             in_unknown = Traits::unknown(input);
         fragment->data.f_unknown = in_unknown;
@@ -11925,13 +11985,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::BlockDeviceRevisionDataView, 
     }
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::BlockDeviceRevision_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::BlockDeviceRevision_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input || input->is_null())
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::BlockDeviceRevisionDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::BlockDeviceRevisionDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -11942,12 +12002,12 @@ struct Serializer<::chromeos::cros_healthd::mojom::BlockDeviceRevisionDataView, 
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::BlockDeviceFirmwareDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::BlockDeviceFirmwareDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = UnionTraits<::chromeos::cros_healthd::mojom::BlockDeviceFirmwareDataView, UserType>;
+  using Traits = UnionTraits<::ash::cros_healthd::mojom::BlockDeviceFirmwareDataView, UserType>;
 
   static void Serialize(MaybeConstUserType& input,
-                        MessageFragment<::chromeos::cros_healthd::mojom::internal::BlockDeviceFirmware_Data>& fragment,
+                        MessageFragment<::ash::cros_healthd::mojom::internal::BlockDeviceFirmware_Data>& fragment,
                         bool inlined) {
     if (CallIsNullIfExists<Traits>(input)) {
        if (inlined)
@@ -11963,31 +12023,31 @@ struct Serializer<::chromeos::cros_healthd::mojom::BlockDeviceFirmwareDataView, 
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::cros_healthd::mojom::BlockDeviceFirmwareDataView::Tag::kNvmeFirmwareRev: {
+      case ::ash::cros_healthd::mojom::BlockDeviceFirmwareDataView::Tag::kNvmeFirmwareRev: {
         decltype(Traits::nvme_firmware_rev(input))
             in_nvme_firmware_rev = Traits::nvme_firmware_rev(input);
         fragment->data.f_nvme_firmware_rev = in_nvme_firmware_rev;
         break;
       }
-      case ::chromeos::cros_healthd::mojom::BlockDeviceFirmwareDataView::Tag::kEmmcFwrev: {
+      case ::ash::cros_healthd::mojom::BlockDeviceFirmwareDataView::Tag::kEmmcFwrev: {
         decltype(Traits::emmc_fwrev(input))
             in_emmc_fwrev = Traits::emmc_fwrev(input);
         fragment->data.f_emmc_fwrev = in_emmc_fwrev;
         break;
       }
-      case ::chromeos::cros_healthd::mojom::BlockDeviceFirmwareDataView::Tag::kOther: {
+      case ::ash::cros_healthd::mojom::BlockDeviceFirmwareDataView::Tag::kOther: {
         decltype(Traits::other(input))
             in_other = Traits::other(input);
         fragment->data.f_other = in_other;
         break;
       }
-      case ::chromeos::cros_healthd::mojom::BlockDeviceFirmwareDataView::Tag::kUnknown: {
+      case ::ash::cros_healthd::mojom::BlockDeviceFirmwareDataView::Tag::kUnknown: {
         decltype(Traits::unknown(input))
             in_unknown = Traits::unknown(input);
         fragment->data.f_unknown = in_unknown;
         break;
       }
-      case ::chromeos::cros_healthd::mojom::BlockDeviceFirmwareDataView::Tag::kUfsFwrev: {
+      case ::ash::cros_healthd::mojom::BlockDeviceFirmwareDataView::Tag::kUfsFwrev: {
         decltype(Traits::ufs_fwrev(input))
             in_ufs_fwrev = Traits::ufs_fwrev(input);
         fragment->data.f_ufs_fwrev = in_ufs_fwrev;
@@ -11996,13 +12056,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::BlockDeviceFirmwareDataView, 
     }
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::BlockDeviceFirmware_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::BlockDeviceFirmware_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input || input->is_null())
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::BlockDeviceFirmwareDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::BlockDeviceFirmwareDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -12013,12 +12073,12 @@ struct Serializer<::chromeos::cros_healthd::mojom::BlockDeviceFirmwareDataView, 
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::CpuResultDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::CpuResultDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = UnionTraits<::chromeos::cros_healthd::mojom::CpuResultDataView, UserType>;
+  using Traits = UnionTraits<::ash::cros_healthd::mojom::CpuResultDataView, UserType>;
 
   static void Serialize(MaybeConstUserType& input,
-                        MessageFragment<::chromeos::cros_healthd::mojom::internal::CpuResult_Data>& fragment,
+                        MessageFragment<::ash::cros_healthd::mojom::internal::CpuResult_Data>& fragment,
                         bool inlined) {
     if (CallIsNullIfExists<Traits>(input)) {
        if (inlined)
@@ -12034,13 +12094,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::CpuResultDataView, MaybeConst
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::cros_healthd::mojom::CpuResultDataView::Tag::kCpuInfo: {
+      case ::ash::cros_healthd::mojom::CpuResultDataView::Tag::kCpuInfo: {
         decltype(Traits::cpu_info(input))
             in_cpu_info = Traits::cpu_info(input);
         mojo::internal::MessageFragment<
             typename decltype(fragment->data.f_cpu_info)::BaseType>
             value_fragment(fragment.message());
-        mojo::internal::Serialize<::chromeos::cros_healthd::mojom::CpuInfoDataView>(
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::CpuInfoDataView>(
             in_cpu_info, value_fragment);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
             value_fragment.is_null(),
@@ -12050,13 +12110,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::CpuResultDataView, MaybeConst
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::cros_healthd::mojom::CpuResultDataView::Tag::kError: {
+      case ::ash::cros_healthd::mojom::CpuResultDataView::Tag::kError: {
         decltype(Traits::error(input))
             in_error = Traits::error(input);
         mojo::internal::MessageFragment<
             typename decltype(fragment->data.f_error)::BaseType>
             value_fragment(fragment.message());
-        mojo::internal::Serialize<::chromeos::cros_healthd::mojom::ProbeErrorDataView>(
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::ProbeErrorDataView>(
             in_error, value_fragment);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
             value_fragment.is_null(),
@@ -12069,13 +12129,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::CpuResultDataView, MaybeConst
     }
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::CpuResult_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::CpuResult_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input || input->is_null())
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::CpuResultDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::CpuResultDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -12086,12 +12146,12 @@ struct Serializer<::chromeos::cros_healthd::mojom::CpuResultDataView, MaybeConst
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::TimezoneResultDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::TimezoneResultDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = UnionTraits<::chromeos::cros_healthd::mojom::TimezoneResultDataView, UserType>;
+  using Traits = UnionTraits<::ash::cros_healthd::mojom::TimezoneResultDataView, UserType>;
 
   static void Serialize(MaybeConstUserType& input,
-                        MessageFragment<::chromeos::cros_healthd::mojom::internal::TimezoneResult_Data>& fragment,
+                        MessageFragment<::ash::cros_healthd::mojom::internal::TimezoneResult_Data>& fragment,
                         bool inlined) {
     if (CallIsNullIfExists<Traits>(input)) {
        if (inlined)
@@ -12107,13 +12167,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::TimezoneResultDataView, Maybe
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::cros_healthd::mojom::TimezoneResultDataView::Tag::kTimezoneInfo: {
+      case ::ash::cros_healthd::mojom::TimezoneResultDataView::Tag::kTimezoneInfo: {
         decltype(Traits::timezone_info(input))
             in_timezone_info = Traits::timezone_info(input);
         mojo::internal::MessageFragment<
             typename decltype(fragment->data.f_timezone_info)::BaseType>
             value_fragment(fragment.message());
-        mojo::internal::Serialize<::chromeos::cros_healthd::mojom::TimezoneInfoDataView>(
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::TimezoneInfoDataView>(
             in_timezone_info, value_fragment);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
             value_fragment.is_null(),
@@ -12123,13 +12183,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::TimezoneResultDataView, Maybe
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::cros_healthd::mojom::TimezoneResultDataView::Tag::kError: {
+      case ::ash::cros_healthd::mojom::TimezoneResultDataView::Tag::kError: {
         decltype(Traits::error(input))
             in_error = Traits::error(input);
         mojo::internal::MessageFragment<
             typename decltype(fragment->data.f_error)::BaseType>
             value_fragment(fragment.message());
-        mojo::internal::Serialize<::chromeos::cros_healthd::mojom::ProbeErrorDataView>(
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::ProbeErrorDataView>(
             in_error, value_fragment);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
             value_fragment.is_null(),
@@ -12142,13 +12202,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::TimezoneResultDataView, Maybe
     }
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::TimezoneResult_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::TimezoneResult_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input || input->is_null())
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::TimezoneResultDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::TimezoneResultDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -12159,12 +12219,12 @@ struct Serializer<::chromeos::cros_healthd::mojom::TimezoneResultDataView, Maybe
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::MemoryResultDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::MemoryResultDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = UnionTraits<::chromeos::cros_healthd::mojom::MemoryResultDataView, UserType>;
+  using Traits = UnionTraits<::ash::cros_healthd::mojom::MemoryResultDataView, UserType>;
 
   static void Serialize(MaybeConstUserType& input,
-                        MessageFragment<::chromeos::cros_healthd::mojom::internal::MemoryResult_Data>& fragment,
+                        MessageFragment<::ash::cros_healthd::mojom::internal::MemoryResult_Data>& fragment,
                         bool inlined) {
     if (CallIsNullIfExists<Traits>(input)) {
        if (inlined)
@@ -12180,13 +12240,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::MemoryResultDataView, MaybeCo
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::cros_healthd::mojom::MemoryResultDataView::Tag::kMemoryInfo: {
+      case ::ash::cros_healthd::mojom::MemoryResultDataView::Tag::kMemoryInfo: {
         decltype(Traits::memory_info(input))
             in_memory_info = Traits::memory_info(input);
         mojo::internal::MessageFragment<
             typename decltype(fragment->data.f_memory_info)::BaseType>
             value_fragment(fragment.message());
-        mojo::internal::Serialize<::chromeos::cros_healthd::mojom::MemoryInfoDataView>(
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::MemoryInfoDataView>(
             in_memory_info, value_fragment);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
             value_fragment.is_null(),
@@ -12196,13 +12256,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::MemoryResultDataView, MaybeCo
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::cros_healthd::mojom::MemoryResultDataView::Tag::kError: {
+      case ::ash::cros_healthd::mojom::MemoryResultDataView::Tag::kError: {
         decltype(Traits::error(input))
             in_error = Traits::error(input);
         mojo::internal::MessageFragment<
             typename decltype(fragment->data.f_error)::BaseType>
             value_fragment(fragment.message());
-        mojo::internal::Serialize<::chromeos::cros_healthd::mojom::ProbeErrorDataView>(
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::ProbeErrorDataView>(
             in_error, value_fragment);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
             value_fragment.is_null(),
@@ -12215,13 +12275,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::MemoryResultDataView, MaybeCo
     }
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::MemoryResult_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::MemoryResult_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input || input->is_null())
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::MemoryResultDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::MemoryResultDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -12232,12 +12292,12 @@ struct Serializer<::chromeos::cros_healthd::mojom::MemoryResultDataView, MaybeCo
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::BacklightResultDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::BacklightResultDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = UnionTraits<::chromeos::cros_healthd::mojom::BacklightResultDataView, UserType>;
+  using Traits = UnionTraits<::ash::cros_healthd::mojom::BacklightResultDataView, UserType>;
 
   static void Serialize(MaybeConstUserType& input,
-                        MessageFragment<::chromeos::cros_healthd::mojom::internal::BacklightResult_Data>& fragment,
+                        MessageFragment<::ash::cros_healthd::mojom::internal::BacklightResult_Data>& fragment,
                         bool inlined) {
     if (CallIsNullIfExists<Traits>(input)) {
        if (inlined)
@@ -12253,7 +12313,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::BacklightResultDataView, Mayb
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::cros_healthd::mojom::BacklightResultDataView::Tag::kBacklightInfo: {
+      case ::ash::cros_healthd::mojom::BacklightResultDataView::Tag::kBacklightInfo: {
         decltype(Traits::backlight_info(input))
             in_backlight_info = Traits::backlight_info(input);
         mojo::internal::MessageFragment<
@@ -12261,7 +12321,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::BacklightResultDataView, Mayb
             value_fragment(fragment.message());
         const ContainerValidateParams backlight_info_validate_params(
             0, false, nullptr);
-        mojo::internal::Serialize<mojo::ArrayDataView<::chromeos::cros_healthd::mojom::BacklightInfoDataView>>(
+        mojo::internal::Serialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::BacklightInfoDataView>>(
             in_backlight_info, value_fragment, &backlight_info_validate_params);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
             value_fragment.is_null(),
@@ -12271,13 +12331,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::BacklightResultDataView, Mayb
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::cros_healthd::mojom::BacklightResultDataView::Tag::kError: {
+      case ::ash::cros_healthd::mojom::BacklightResultDataView::Tag::kError: {
         decltype(Traits::error(input))
             in_error = Traits::error(input);
         mojo::internal::MessageFragment<
             typename decltype(fragment->data.f_error)::BaseType>
             value_fragment(fragment.message());
-        mojo::internal::Serialize<::chromeos::cros_healthd::mojom::ProbeErrorDataView>(
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::ProbeErrorDataView>(
             in_error, value_fragment);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
             value_fragment.is_null(),
@@ -12290,13 +12350,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::BacklightResultDataView, Mayb
     }
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::BacklightResult_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::BacklightResult_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input || input->is_null())
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::BacklightResultDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::BacklightResultDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -12307,12 +12367,12 @@ struct Serializer<::chromeos::cros_healthd::mojom::BacklightResultDataView, Mayb
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::FanResultDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::FanResultDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = UnionTraits<::chromeos::cros_healthd::mojom::FanResultDataView, UserType>;
+  using Traits = UnionTraits<::ash::cros_healthd::mojom::FanResultDataView, UserType>;
 
   static void Serialize(MaybeConstUserType& input,
-                        MessageFragment<::chromeos::cros_healthd::mojom::internal::FanResult_Data>& fragment,
+                        MessageFragment<::ash::cros_healthd::mojom::internal::FanResult_Data>& fragment,
                         bool inlined) {
     if (CallIsNullIfExists<Traits>(input)) {
        if (inlined)
@@ -12328,7 +12388,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::FanResultDataView, MaybeConst
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::cros_healthd::mojom::FanResultDataView::Tag::kFanInfo: {
+      case ::ash::cros_healthd::mojom::FanResultDataView::Tag::kFanInfo: {
         decltype(Traits::fan_info(input))
             in_fan_info = Traits::fan_info(input);
         mojo::internal::MessageFragment<
@@ -12336,7 +12396,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::FanResultDataView, MaybeConst
             value_fragment(fragment.message());
         const ContainerValidateParams fan_info_validate_params(
             0, false, nullptr);
-        mojo::internal::Serialize<mojo::ArrayDataView<::chromeos::cros_healthd::mojom::FanInfoDataView>>(
+        mojo::internal::Serialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::FanInfoDataView>>(
             in_fan_info, value_fragment, &fan_info_validate_params);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
             value_fragment.is_null(),
@@ -12346,13 +12406,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::FanResultDataView, MaybeConst
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::cros_healthd::mojom::FanResultDataView::Tag::kError: {
+      case ::ash::cros_healthd::mojom::FanResultDataView::Tag::kError: {
         decltype(Traits::error(input))
             in_error = Traits::error(input);
         mojo::internal::MessageFragment<
             typename decltype(fragment->data.f_error)::BaseType>
             value_fragment(fragment.message());
-        mojo::internal::Serialize<::chromeos::cros_healthd::mojom::ProbeErrorDataView>(
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::ProbeErrorDataView>(
             in_error, value_fragment);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
             value_fragment.is_null(),
@@ -12365,13 +12425,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::FanResultDataView, MaybeConst
     }
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::FanResult_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::FanResult_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input || input->is_null())
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::FanResultDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::FanResultDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -12382,12 +12442,12 @@ struct Serializer<::chromeos::cros_healthd::mojom::FanResultDataView, MaybeConst
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::StatefulPartitionResultDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::StatefulPartitionResultDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = UnionTraits<::chromeos::cros_healthd::mojom::StatefulPartitionResultDataView, UserType>;
+  using Traits = UnionTraits<::ash::cros_healthd::mojom::StatefulPartitionResultDataView, UserType>;
 
   static void Serialize(MaybeConstUserType& input,
-                        MessageFragment<::chromeos::cros_healthd::mojom::internal::StatefulPartitionResult_Data>& fragment,
+                        MessageFragment<::ash::cros_healthd::mojom::internal::StatefulPartitionResult_Data>& fragment,
                         bool inlined) {
     if (CallIsNullIfExists<Traits>(input)) {
        if (inlined)
@@ -12403,13 +12463,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::StatefulPartitionResultDataVi
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::cros_healthd::mojom::StatefulPartitionResultDataView::Tag::kPartitionInfo: {
+      case ::ash::cros_healthd::mojom::StatefulPartitionResultDataView::Tag::kPartitionInfo: {
         decltype(Traits::partition_info(input))
             in_partition_info = Traits::partition_info(input);
         mojo::internal::MessageFragment<
             typename decltype(fragment->data.f_partition_info)::BaseType>
             value_fragment(fragment.message());
-        mojo::internal::Serialize<::chromeos::cros_healthd::mojom::StatefulPartitionInfoDataView>(
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::StatefulPartitionInfoDataView>(
             in_partition_info, value_fragment);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
             value_fragment.is_null(),
@@ -12419,13 +12479,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::StatefulPartitionResultDataVi
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::cros_healthd::mojom::StatefulPartitionResultDataView::Tag::kError: {
+      case ::ash::cros_healthd::mojom::StatefulPartitionResultDataView::Tag::kError: {
         decltype(Traits::error(input))
             in_error = Traits::error(input);
         mojo::internal::MessageFragment<
             typename decltype(fragment->data.f_error)::BaseType>
             value_fragment(fragment.message());
-        mojo::internal::Serialize<::chromeos::cros_healthd::mojom::ProbeErrorDataView>(
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::ProbeErrorDataView>(
             in_error, value_fragment);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
             value_fragment.is_null(),
@@ -12438,13 +12498,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::StatefulPartitionResultDataVi
     }
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::StatefulPartitionResult_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::StatefulPartitionResult_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input || input->is_null())
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::StatefulPartitionResultDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::StatefulPartitionResultDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -12455,12 +12515,12 @@ struct Serializer<::chromeos::cros_healthd::mojom::StatefulPartitionResultDataVi
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::BluetoothResultDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::BluetoothResultDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = UnionTraits<::chromeos::cros_healthd::mojom::BluetoothResultDataView, UserType>;
+  using Traits = UnionTraits<::ash::cros_healthd::mojom::BluetoothResultDataView, UserType>;
 
   static void Serialize(MaybeConstUserType& input,
-                        MessageFragment<::chromeos::cros_healthd::mojom::internal::BluetoothResult_Data>& fragment,
+                        MessageFragment<::ash::cros_healthd::mojom::internal::BluetoothResult_Data>& fragment,
                         bool inlined) {
     if (CallIsNullIfExists<Traits>(input)) {
        if (inlined)
@@ -12476,7 +12536,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::BluetoothResultDataView, Mayb
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::cros_healthd::mojom::BluetoothResultDataView::Tag::kBluetoothAdapterInfo: {
+      case ::ash::cros_healthd::mojom::BluetoothResultDataView::Tag::kBluetoothAdapterInfo: {
         decltype(Traits::bluetooth_adapter_info(input))
             in_bluetooth_adapter_info = Traits::bluetooth_adapter_info(input);
         mojo::internal::MessageFragment<
@@ -12484,7 +12544,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::BluetoothResultDataView, Mayb
             value_fragment(fragment.message());
         const ContainerValidateParams bluetooth_adapter_info_validate_params(
             0, false, nullptr);
-        mojo::internal::Serialize<mojo::ArrayDataView<::chromeos::cros_healthd::mojom::BluetoothAdapterInfoDataView>>(
+        mojo::internal::Serialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::BluetoothAdapterInfoDataView>>(
             in_bluetooth_adapter_info, value_fragment, &bluetooth_adapter_info_validate_params);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
             value_fragment.is_null(),
@@ -12494,13 +12554,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::BluetoothResultDataView, Mayb
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::cros_healthd::mojom::BluetoothResultDataView::Tag::kError: {
+      case ::ash::cros_healthd::mojom::BluetoothResultDataView::Tag::kError: {
         decltype(Traits::error(input))
             in_error = Traits::error(input);
         mojo::internal::MessageFragment<
             typename decltype(fragment->data.f_error)::BaseType>
             value_fragment(fragment.message());
-        mojo::internal::Serialize<::chromeos::cros_healthd::mojom::ProbeErrorDataView>(
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::ProbeErrorDataView>(
             in_error, value_fragment);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
             value_fragment.is_null(),
@@ -12513,13 +12573,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::BluetoothResultDataView, Mayb
     }
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::BluetoothResult_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::BluetoothResult_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input || input->is_null())
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::BluetoothResultDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::BluetoothResultDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -12530,12 +12590,12 @@ struct Serializer<::chromeos::cros_healthd::mojom::BluetoothResultDataView, Mayb
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::DEPRECATE_SystemResultDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::DEPRECATE_SystemResultDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = UnionTraits<::chromeos::cros_healthd::mojom::DEPRECATE_SystemResultDataView, UserType>;
+  using Traits = UnionTraits<::ash::cros_healthd::mojom::DEPRECATE_SystemResultDataView, UserType>;
 
   static void Serialize(MaybeConstUserType& input,
-                        MessageFragment<::chromeos::cros_healthd::mojom::internal::DEPRECATE_SystemResult_Data>& fragment,
+                        MessageFragment<::ash::cros_healthd::mojom::internal::DEPRECATE_SystemResult_Data>& fragment,
                         bool inlined) {
     if (CallIsNullIfExists<Traits>(input)) {
        if (inlined)
@@ -12551,13 +12611,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::DEPRECATE_SystemResultDataVie
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::cros_healthd::mojom::DEPRECATE_SystemResultDataView::Tag::kError: {
+      case ::ash::cros_healthd::mojom::DEPRECATE_SystemResultDataView::Tag::kError: {
         decltype(Traits::error(input))
             in_error = Traits::error(input);
         mojo::internal::MessageFragment<
             typename decltype(fragment->data.f_error)::BaseType>
             value_fragment(fragment.message());
-        mojo::internal::Serialize<::chromeos::cros_healthd::mojom::ProbeErrorDataView>(
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::ProbeErrorDataView>(
             in_error, value_fragment);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
             value_fragment.is_null(),
@@ -12570,13 +12630,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::DEPRECATE_SystemResultDataVie
     }
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::DEPRECATE_SystemResult_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::DEPRECATE_SystemResult_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input || input->is_null())
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::DEPRECATE_SystemResultDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::DEPRECATE_SystemResultDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -12587,12 +12647,12 @@ struct Serializer<::chromeos::cros_healthd::mojom::DEPRECATE_SystemResultDataVie
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::SystemResultDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::SystemResultDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = UnionTraits<::chromeos::cros_healthd::mojom::SystemResultDataView, UserType>;
+  using Traits = UnionTraits<::ash::cros_healthd::mojom::SystemResultDataView, UserType>;
 
   static void Serialize(MaybeConstUserType& input,
-                        MessageFragment<::chromeos::cros_healthd::mojom::internal::SystemResult_Data>& fragment,
+                        MessageFragment<::ash::cros_healthd::mojom::internal::SystemResult_Data>& fragment,
                         bool inlined) {
     if (CallIsNullIfExists<Traits>(input)) {
        if (inlined)
@@ -12608,13 +12668,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::SystemResultDataView, MaybeCo
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::cros_healthd::mojom::SystemResultDataView::Tag::kSystemInfo: {
+      case ::ash::cros_healthd::mojom::SystemResultDataView::Tag::kSystemInfo: {
         decltype(Traits::system_info(input))
             in_system_info = Traits::system_info(input);
         mojo::internal::MessageFragment<
             typename decltype(fragment->data.f_system_info)::BaseType>
             value_fragment(fragment.message());
-        mojo::internal::Serialize<::chromeos::cros_healthd::mojom::SystemInfoDataView>(
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::SystemInfoDataView>(
             in_system_info, value_fragment);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
             value_fragment.is_null(),
@@ -12624,13 +12684,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::SystemResultDataView, MaybeCo
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::cros_healthd::mojom::SystemResultDataView::Tag::kError: {
+      case ::ash::cros_healthd::mojom::SystemResultDataView::Tag::kError: {
         decltype(Traits::error(input))
             in_error = Traits::error(input);
         mojo::internal::MessageFragment<
             typename decltype(fragment->data.f_error)::BaseType>
             value_fragment(fragment.message());
-        mojo::internal::Serialize<::chromeos::cros_healthd::mojom::ProbeErrorDataView>(
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::ProbeErrorDataView>(
             in_error, value_fragment);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
             value_fragment.is_null(),
@@ -12643,13 +12703,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::SystemResultDataView, MaybeCo
     }
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::SystemResult_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::SystemResult_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input || input->is_null())
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::SystemResultDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::SystemResultDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -12660,12 +12720,12 @@ struct Serializer<::chromeos::cros_healthd::mojom::SystemResultDataView, MaybeCo
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::NetworkResultDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::NetworkResultDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = UnionTraits<::chromeos::cros_healthd::mojom::NetworkResultDataView, UserType>;
+  using Traits = UnionTraits<::ash::cros_healthd::mojom::NetworkResultDataView, UserType>;
 
   static void Serialize(MaybeConstUserType& input,
-                        MessageFragment<::chromeos::cros_healthd::mojom::internal::NetworkResult_Data>& fragment,
+                        MessageFragment<::ash::cros_healthd::mojom::internal::NetworkResult_Data>& fragment,
                         bool inlined) {
     if (CallIsNullIfExists<Traits>(input)) {
        if (inlined)
@@ -12681,7 +12741,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::NetworkResultDataView, MaybeC
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::cros_healthd::mojom::NetworkResultDataView::Tag::kNetworkHealth: {
+      case ::ash::cros_healthd::mojom::NetworkResultDataView::Tag::kNetworkHealth: {
         decltype(Traits::network_health(input))
             in_network_health = Traits::network_health(input);
         mojo::internal::MessageFragment<
@@ -12697,13 +12757,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::NetworkResultDataView, MaybeC
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::cros_healthd::mojom::NetworkResultDataView::Tag::kError: {
+      case ::ash::cros_healthd::mojom::NetworkResultDataView::Tag::kError: {
         decltype(Traits::error(input))
             in_error = Traits::error(input);
         mojo::internal::MessageFragment<
             typename decltype(fragment->data.f_error)::BaseType>
             value_fragment(fragment.message());
-        mojo::internal::Serialize<::chromeos::cros_healthd::mojom::ProbeErrorDataView>(
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::ProbeErrorDataView>(
             in_error, value_fragment);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
             value_fragment.is_null(),
@@ -12716,13 +12776,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::NetworkResultDataView, MaybeC
     }
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::NetworkResult_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::NetworkResult_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input || input->is_null())
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::NetworkResultDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::NetworkResultDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -12733,12 +12793,12 @@ struct Serializer<::chromeos::cros_healthd::mojom::NetworkResultDataView, MaybeC
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::NetworkInterfaceResultDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::NetworkInterfaceResultDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = UnionTraits<::chromeos::cros_healthd::mojom::NetworkInterfaceResultDataView, UserType>;
+  using Traits = UnionTraits<::ash::cros_healthd::mojom::NetworkInterfaceResultDataView, UserType>;
 
   static void Serialize(MaybeConstUserType& input,
-                        MessageFragment<::chromeos::cros_healthd::mojom::internal::NetworkInterfaceResult_Data>& fragment,
+                        MessageFragment<::ash::cros_healthd::mojom::internal::NetworkInterfaceResult_Data>& fragment,
                         bool inlined) {
     if (CallIsNullIfExists<Traits>(input)) {
        if (inlined)
@@ -12754,7 +12814,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::NetworkInterfaceResultDataVie
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::cros_healthd::mojom::NetworkInterfaceResultDataView::Tag::kNetworkInterfaceInfo: {
+      case ::ash::cros_healthd::mojom::NetworkInterfaceResultDataView::Tag::kNetworkInterfaceInfo: {
         decltype(Traits::network_interface_info(input))
             in_network_interface_info = Traits::network_interface_info(input);
         mojo::internal::MessageFragment<
@@ -12762,7 +12822,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::NetworkInterfaceResultDataVie
             value_fragment(fragment.message());
         const ContainerValidateParams network_interface_info_validate_params(
             0, false, nullptr);
-        mojo::internal::Serialize<mojo::ArrayDataView<::chromeos::cros_healthd::mojom::NetworkInterfaceInfoDataView>>(
+        mojo::internal::Serialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::NetworkInterfaceInfoDataView>>(
             in_network_interface_info, value_fragment, &network_interface_info_validate_params);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
             value_fragment.is_null(),
@@ -12772,13 +12832,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::NetworkInterfaceResultDataVie
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::cros_healthd::mojom::NetworkInterfaceResultDataView::Tag::kError: {
+      case ::ash::cros_healthd::mojom::NetworkInterfaceResultDataView::Tag::kError: {
         decltype(Traits::error(input))
             in_error = Traits::error(input);
         mojo::internal::MessageFragment<
             typename decltype(fragment->data.f_error)::BaseType>
             value_fragment(fragment.message());
-        mojo::internal::Serialize<::chromeos::cros_healthd::mojom::ProbeErrorDataView>(
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::ProbeErrorDataView>(
             in_error, value_fragment);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
             value_fragment.is_null(),
@@ -12791,13 +12851,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::NetworkInterfaceResultDataVie
     }
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::NetworkInterfaceResult_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::NetworkInterfaceResult_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input || input->is_null())
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::NetworkInterfaceResultDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::NetworkInterfaceResultDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -12808,12 +12868,12 @@ struct Serializer<::chromeos::cros_healthd::mojom::NetworkInterfaceResultDataVie
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::NetworkInterfaceInfoDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::NetworkInterfaceInfoDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = UnionTraits<::chromeos::cros_healthd::mojom::NetworkInterfaceInfoDataView, UserType>;
+  using Traits = UnionTraits<::ash::cros_healthd::mojom::NetworkInterfaceInfoDataView, UserType>;
 
   static void Serialize(MaybeConstUserType& input,
-                        MessageFragment<::chromeos::cros_healthd::mojom::internal::NetworkInterfaceInfo_Data>& fragment,
+                        MessageFragment<::ash::cros_healthd::mojom::internal::NetworkInterfaceInfo_Data>& fragment,
                         bool inlined) {
     if (CallIsNullIfExists<Traits>(input)) {
        if (inlined)
@@ -12829,13 +12889,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::NetworkInterfaceInfoDataView,
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::cros_healthd::mojom::NetworkInterfaceInfoDataView::Tag::kWirelessInterfaceInfo: {
+      case ::ash::cros_healthd::mojom::NetworkInterfaceInfoDataView::Tag::kWirelessInterfaceInfo: {
         decltype(Traits::wireless_interface_info(input))
             in_wireless_interface_info = Traits::wireless_interface_info(input);
         mojo::internal::MessageFragment<
             typename decltype(fragment->data.f_wireless_interface_info)::BaseType>
             value_fragment(fragment.message());
-        mojo::internal::Serialize<::chromeos::cros_healthd::mojom::WirelessInterfaceInfoDataView>(
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::WirelessInterfaceInfoDataView>(
             in_wireless_interface_info, value_fragment);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
             value_fragment.is_null(),
@@ -12848,13 +12908,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::NetworkInterfaceInfoDataView,
     }
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::NetworkInterfaceInfo_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::NetworkInterfaceInfo_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input || input->is_null())
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::NetworkInterfaceInfoDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::NetworkInterfaceInfoDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -12865,12 +12925,12 @@ struct Serializer<::chromeos::cros_healthd::mojom::NetworkInterfaceInfoDataView,
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::AudioResultDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::AudioResultDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = UnionTraits<::chromeos::cros_healthd::mojom::AudioResultDataView, UserType>;
+  using Traits = UnionTraits<::ash::cros_healthd::mojom::AudioResultDataView, UserType>;
 
   static void Serialize(MaybeConstUserType& input,
-                        MessageFragment<::chromeos::cros_healthd::mojom::internal::AudioResult_Data>& fragment,
+                        MessageFragment<::ash::cros_healthd::mojom::internal::AudioResult_Data>& fragment,
                         bool inlined) {
     if (CallIsNullIfExists<Traits>(input)) {
        if (inlined)
@@ -12886,13 +12946,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::AudioResultDataView, MaybeCon
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::cros_healthd::mojom::AudioResultDataView::Tag::kAudioInfo: {
+      case ::ash::cros_healthd::mojom::AudioResultDataView::Tag::kAudioInfo: {
         decltype(Traits::audio_info(input))
             in_audio_info = Traits::audio_info(input);
         mojo::internal::MessageFragment<
             typename decltype(fragment->data.f_audio_info)::BaseType>
             value_fragment(fragment.message());
-        mojo::internal::Serialize<::chromeos::cros_healthd::mojom::AudioInfoDataView>(
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::AudioInfoDataView>(
             in_audio_info, value_fragment);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
             value_fragment.is_null(),
@@ -12902,13 +12962,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::AudioResultDataView, MaybeCon
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::cros_healthd::mojom::AudioResultDataView::Tag::kError: {
+      case ::ash::cros_healthd::mojom::AudioResultDataView::Tag::kError: {
         decltype(Traits::error(input))
             in_error = Traits::error(input);
         mojo::internal::MessageFragment<
             typename decltype(fragment->data.f_error)::BaseType>
             value_fragment(fragment.message());
-        mojo::internal::Serialize<::chromeos::cros_healthd::mojom::ProbeErrorDataView>(
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::ProbeErrorDataView>(
             in_error, value_fragment);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
             value_fragment.is_null(),
@@ -12921,13 +12981,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::AudioResultDataView, MaybeCon
     }
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::AudioResult_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::AudioResult_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input || input->is_null())
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::AudioResultDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::AudioResultDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -12938,12 +12998,12 @@ struct Serializer<::chromeos::cros_healthd::mojom::AudioResultDataView, MaybeCon
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::AudioHardwareResultDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::AudioHardwareResultDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = UnionTraits<::chromeos::cros_healthd::mojom::AudioHardwareResultDataView, UserType>;
+  using Traits = UnionTraits<::ash::cros_healthd::mojom::AudioHardwareResultDataView, UserType>;
 
   static void Serialize(MaybeConstUserType& input,
-                        MessageFragment<::chromeos::cros_healthd::mojom::internal::AudioHardwareResult_Data>& fragment,
+                        MessageFragment<::ash::cros_healthd::mojom::internal::AudioHardwareResult_Data>& fragment,
                         bool inlined) {
     if (CallIsNullIfExists<Traits>(input)) {
        if (inlined)
@@ -12959,13 +13019,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::AudioHardwareResultDataView, 
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::cros_healthd::mojom::AudioHardwareResultDataView::Tag::kAudioHardwareInfo: {
+      case ::ash::cros_healthd::mojom::AudioHardwareResultDataView::Tag::kAudioHardwareInfo: {
         decltype(Traits::audio_hardware_info(input))
             in_audio_hardware_info = Traits::audio_hardware_info(input);
         mojo::internal::MessageFragment<
             typename decltype(fragment->data.f_audio_hardware_info)::BaseType>
             value_fragment(fragment.message());
-        mojo::internal::Serialize<::chromeos::cros_healthd::mojom::AudioHardwareInfoDataView>(
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::AudioHardwareInfoDataView>(
             in_audio_hardware_info, value_fragment);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
             value_fragment.is_null(),
@@ -12975,13 +13035,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::AudioHardwareResultDataView, 
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::cros_healthd::mojom::AudioHardwareResultDataView::Tag::kError: {
+      case ::ash::cros_healthd::mojom::AudioHardwareResultDataView::Tag::kError: {
         decltype(Traits::error(input))
             in_error = Traits::error(input);
         mojo::internal::MessageFragment<
             typename decltype(fragment->data.f_error)::BaseType>
             value_fragment(fragment.message());
-        mojo::internal::Serialize<::chromeos::cros_healthd::mojom::ProbeErrorDataView>(
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::ProbeErrorDataView>(
             in_error, value_fragment);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
             value_fragment.is_null(),
@@ -12994,13 +13054,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::AudioHardwareResultDataView, 
     }
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::AudioHardwareResult_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::AudioHardwareResult_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input || input->is_null())
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::AudioHardwareResultDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::AudioHardwareResultDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -13011,12 +13071,12 @@ struct Serializer<::chromeos::cros_healthd::mojom::AudioHardwareResultDataView, 
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::BootPerformanceResultDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::BootPerformanceResultDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = UnionTraits<::chromeos::cros_healthd::mojom::BootPerformanceResultDataView, UserType>;
+  using Traits = UnionTraits<::ash::cros_healthd::mojom::BootPerformanceResultDataView, UserType>;
 
   static void Serialize(MaybeConstUserType& input,
-                        MessageFragment<::chromeos::cros_healthd::mojom::internal::BootPerformanceResult_Data>& fragment,
+                        MessageFragment<::ash::cros_healthd::mojom::internal::BootPerformanceResult_Data>& fragment,
                         bool inlined) {
     if (CallIsNullIfExists<Traits>(input)) {
        if (inlined)
@@ -13032,13 +13092,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::BootPerformanceResultDataView
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::cros_healthd::mojom::BootPerformanceResultDataView::Tag::kBootPerformanceInfo: {
+      case ::ash::cros_healthd::mojom::BootPerformanceResultDataView::Tag::kBootPerformanceInfo: {
         decltype(Traits::boot_performance_info(input))
             in_boot_performance_info = Traits::boot_performance_info(input);
         mojo::internal::MessageFragment<
             typename decltype(fragment->data.f_boot_performance_info)::BaseType>
             value_fragment(fragment.message());
-        mojo::internal::Serialize<::chromeos::cros_healthd::mojom::BootPerformanceInfoDataView>(
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::BootPerformanceInfoDataView>(
             in_boot_performance_info, value_fragment);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
             value_fragment.is_null(),
@@ -13048,13 +13108,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::BootPerformanceResultDataView
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::cros_healthd::mojom::BootPerformanceResultDataView::Tag::kError: {
+      case ::ash::cros_healthd::mojom::BootPerformanceResultDataView::Tag::kError: {
         decltype(Traits::error(input))
             in_error = Traits::error(input);
         mojo::internal::MessageFragment<
             typename decltype(fragment->data.f_error)::BaseType>
             value_fragment(fragment.message());
-        mojo::internal::Serialize<::chromeos::cros_healthd::mojom::ProbeErrorDataView>(
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::ProbeErrorDataView>(
             in_error, value_fragment);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
             value_fragment.is_null(),
@@ -13067,13 +13127,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::BootPerformanceResultDataView
     }
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::BootPerformanceResult_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::BootPerformanceResult_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input || input->is_null())
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::BootPerformanceResultDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::BootPerformanceResultDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -13084,12 +13144,12 @@ struct Serializer<::chromeos::cros_healthd::mojom::BootPerformanceResultDataView
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::BusResultDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::BusResultDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = UnionTraits<::chromeos::cros_healthd::mojom::BusResultDataView, UserType>;
+  using Traits = UnionTraits<::ash::cros_healthd::mojom::BusResultDataView, UserType>;
 
   static void Serialize(MaybeConstUserType& input,
-                        MessageFragment<::chromeos::cros_healthd::mojom::internal::BusResult_Data>& fragment,
+                        MessageFragment<::ash::cros_healthd::mojom::internal::BusResult_Data>& fragment,
                         bool inlined) {
     if (CallIsNullIfExists<Traits>(input)) {
        if (inlined)
@@ -13105,7 +13165,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::BusResultDataView, MaybeConst
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::cros_healthd::mojom::BusResultDataView::Tag::kBusDevices: {
+      case ::ash::cros_healthd::mojom::BusResultDataView::Tag::kBusDevices: {
         decltype(Traits::bus_devices(input))
             in_bus_devices = Traits::bus_devices(input);
         mojo::internal::MessageFragment<
@@ -13113,7 +13173,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::BusResultDataView, MaybeConst
             value_fragment(fragment.message());
         const ContainerValidateParams bus_devices_validate_params(
             0, false, nullptr);
-        mojo::internal::Serialize<mojo::ArrayDataView<::chromeos::cros_healthd::mojom::BusDeviceDataView>>(
+        mojo::internal::Serialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::BusDeviceDataView>>(
             in_bus_devices, value_fragment, &bus_devices_validate_params);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
             value_fragment.is_null(),
@@ -13123,13 +13183,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::BusResultDataView, MaybeConst
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::cros_healthd::mojom::BusResultDataView::Tag::kError: {
+      case ::ash::cros_healthd::mojom::BusResultDataView::Tag::kError: {
         decltype(Traits::error(input))
             in_error = Traits::error(input);
         mojo::internal::MessageFragment<
             typename decltype(fragment->data.f_error)::BaseType>
             value_fragment(fragment.message());
-        mojo::internal::Serialize<::chromeos::cros_healthd::mojom::ProbeErrorDataView>(
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::ProbeErrorDataView>(
             in_error, value_fragment);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
             value_fragment.is_null(),
@@ -13142,13 +13202,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::BusResultDataView, MaybeConst
     }
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::BusResult_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::BusResult_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input || input->is_null())
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::BusResultDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::BusResultDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -13159,12 +13219,12 @@ struct Serializer<::chromeos::cros_healthd::mojom::BusResultDataView, MaybeConst
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::BusInfoDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::BusInfoDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = UnionTraits<::chromeos::cros_healthd::mojom::BusInfoDataView, UserType>;
+  using Traits = UnionTraits<::ash::cros_healthd::mojom::BusInfoDataView, UserType>;
 
   static void Serialize(MaybeConstUserType& input,
-                        MessageFragment<::chromeos::cros_healthd::mojom::internal::BusInfo_Data>& fragment,
+                        MessageFragment<::ash::cros_healthd::mojom::internal::BusInfo_Data>& fragment,
                         bool inlined) {
     if (CallIsNullIfExists<Traits>(input)) {
        if (inlined)
@@ -13180,13 +13240,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::BusInfoDataView, MaybeConstUs
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::cros_healthd::mojom::BusInfoDataView::Tag::kPciBusInfo: {
+      case ::ash::cros_healthd::mojom::BusInfoDataView::Tag::kPciBusInfo: {
         decltype(Traits::pci_bus_info(input))
             in_pci_bus_info = Traits::pci_bus_info(input);
         mojo::internal::MessageFragment<
             typename decltype(fragment->data.f_pci_bus_info)::BaseType>
             value_fragment(fragment.message());
-        mojo::internal::Serialize<::chromeos::cros_healthd::mojom::PciBusInfoDataView>(
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::PciBusInfoDataView>(
             in_pci_bus_info, value_fragment);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
             value_fragment.is_null(),
@@ -13196,13 +13256,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::BusInfoDataView, MaybeConstUs
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::cros_healthd::mojom::BusInfoDataView::Tag::kUsbBusInfo: {
+      case ::ash::cros_healthd::mojom::BusInfoDataView::Tag::kUsbBusInfo: {
         decltype(Traits::usb_bus_info(input))
             in_usb_bus_info = Traits::usb_bus_info(input);
         mojo::internal::MessageFragment<
             typename decltype(fragment->data.f_usb_bus_info)::BaseType>
             value_fragment(fragment.message());
-        mojo::internal::Serialize<::chromeos::cros_healthd::mojom::UsbBusInfoDataView>(
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::UsbBusInfoDataView>(
             in_usb_bus_info, value_fragment);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
             value_fragment.is_null(),
@@ -13212,13 +13272,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::BusInfoDataView, MaybeConstUs
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::cros_healthd::mojom::BusInfoDataView::Tag::kThunderboltBusInfo: {
+      case ::ash::cros_healthd::mojom::BusInfoDataView::Tag::kThunderboltBusInfo: {
         decltype(Traits::thunderbolt_bus_info(input))
             in_thunderbolt_bus_info = Traits::thunderbolt_bus_info(input);
         mojo::internal::MessageFragment<
             typename decltype(fragment->data.f_thunderbolt_bus_info)::BaseType>
             value_fragment(fragment.message());
-        mojo::internal::Serialize<::chromeos::cros_healthd::mojom::ThunderboltBusInfoDataView>(
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::ThunderboltBusInfoDataView>(
             in_thunderbolt_bus_info, value_fragment);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
             value_fragment.is_null(),
@@ -13228,7 +13288,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::BusInfoDataView, MaybeConstUs
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::cros_healthd::mojom::BusInfoDataView::Tag::kUnmappedField: {
+      case ::ash::cros_healthd::mojom::BusInfoDataView::Tag::kUnmappedField: {
         decltype(Traits::unmapped_field(input))
             in_unmapped_field = Traits::unmapped_field(input);
         fragment->data.f_unmapped_field = in_unmapped_field;
@@ -13237,13 +13297,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::BusInfoDataView, MaybeConstUs
     }
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::BusInfo_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::BusInfo_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input || input->is_null())
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::BusInfoDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::BusInfoDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -13254,12 +13314,12 @@ struct Serializer<::chromeos::cros_healthd::mojom::BusInfoDataView, MaybeConstUs
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::TpmResultDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::TpmResultDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = UnionTraits<::chromeos::cros_healthd::mojom::TpmResultDataView, UserType>;
+  using Traits = UnionTraits<::ash::cros_healthd::mojom::TpmResultDataView, UserType>;
 
   static void Serialize(MaybeConstUserType& input,
-                        MessageFragment<::chromeos::cros_healthd::mojom::internal::TpmResult_Data>& fragment,
+                        MessageFragment<::ash::cros_healthd::mojom::internal::TpmResult_Data>& fragment,
                         bool inlined) {
     if (CallIsNullIfExists<Traits>(input)) {
        if (inlined)
@@ -13275,13 +13335,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::TpmResultDataView, MaybeConst
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::cros_healthd::mojom::TpmResultDataView::Tag::kTpmInfo: {
+      case ::ash::cros_healthd::mojom::TpmResultDataView::Tag::kTpmInfo: {
         decltype(Traits::tpm_info(input))
             in_tpm_info = Traits::tpm_info(input);
         mojo::internal::MessageFragment<
             typename decltype(fragment->data.f_tpm_info)::BaseType>
             value_fragment(fragment.message());
-        mojo::internal::Serialize<::chromeos::cros_healthd::mojom::TpmInfoDataView>(
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::TpmInfoDataView>(
             in_tpm_info, value_fragment);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
             value_fragment.is_null(),
@@ -13291,13 +13351,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::TpmResultDataView, MaybeConst
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::cros_healthd::mojom::TpmResultDataView::Tag::kError: {
+      case ::ash::cros_healthd::mojom::TpmResultDataView::Tag::kError: {
         decltype(Traits::error(input))
             in_error = Traits::error(input);
         mojo::internal::MessageFragment<
             typename decltype(fragment->data.f_error)::BaseType>
             value_fragment(fragment.message());
-        mojo::internal::Serialize<::chromeos::cros_healthd::mojom::ProbeErrorDataView>(
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::ProbeErrorDataView>(
             in_error, value_fragment);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
             value_fragment.is_null(),
@@ -13310,13 +13370,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::TpmResultDataView, MaybeConst
     }
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::TpmResult_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::TpmResult_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input || input->is_null())
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::TpmResultDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::TpmResultDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -13327,12 +13387,12 @@ struct Serializer<::chromeos::cros_healthd::mojom::TpmResultDataView, MaybeConst
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::GraphicsResultDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::GraphicsResultDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = UnionTraits<::chromeos::cros_healthd::mojom::GraphicsResultDataView, UserType>;
+  using Traits = UnionTraits<::ash::cros_healthd::mojom::GraphicsResultDataView, UserType>;
 
   static void Serialize(MaybeConstUserType& input,
-                        MessageFragment<::chromeos::cros_healthd::mojom::internal::GraphicsResult_Data>& fragment,
+                        MessageFragment<::ash::cros_healthd::mojom::internal::GraphicsResult_Data>& fragment,
                         bool inlined) {
     if (CallIsNullIfExists<Traits>(input)) {
        if (inlined)
@@ -13348,13 +13408,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::GraphicsResultDataView, Maybe
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::cros_healthd::mojom::GraphicsResultDataView::Tag::kGraphicsInfo: {
+      case ::ash::cros_healthd::mojom::GraphicsResultDataView::Tag::kGraphicsInfo: {
         decltype(Traits::graphics_info(input))
             in_graphics_info = Traits::graphics_info(input);
         mojo::internal::MessageFragment<
             typename decltype(fragment->data.f_graphics_info)::BaseType>
             value_fragment(fragment.message());
-        mojo::internal::Serialize<::chromeos::cros_healthd::mojom::GraphicsInfoDataView>(
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::GraphicsInfoDataView>(
             in_graphics_info, value_fragment);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
             value_fragment.is_null(),
@@ -13364,13 +13424,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::GraphicsResultDataView, Maybe
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::cros_healthd::mojom::GraphicsResultDataView::Tag::kError: {
+      case ::ash::cros_healthd::mojom::GraphicsResultDataView::Tag::kError: {
         decltype(Traits::error(input))
             in_error = Traits::error(input);
         mojo::internal::MessageFragment<
             typename decltype(fragment->data.f_error)::BaseType>
             value_fragment(fragment.message());
-        mojo::internal::Serialize<::chromeos::cros_healthd::mojom::ProbeErrorDataView>(
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::ProbeErrorDataView>(
             in_error, value_fragment);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
             value_fragment.is_null(),
@@ -13383,13 +13443,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::GraphicsResultDataView, Maybe
     }
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::GraphicsResult_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::GraphicsResult_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input || input->is_null())
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::GraphicsResultDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::GraphicsResultDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -13400,12 +13460,12 @@ struct Serializer<::chromeos::cros_healthd::mojom::GraphicsResultDataView, Maybe
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::DisplayResultDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::DisplayResultDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = UnionTraits<::chromeos::cros_healthd::mojom::DisplayResultDataView, UserType>;
+  using Traits = UnionTraits<::ash::cros_healthd::mojom::DisplayResultDataView, UserType>;
 
   static void Serialize(MaybeConstUserType& input,
-                        MessageFragment<::chromeos::cros_healthd::mojom::internal::DisplayResult_Data>& fragment,
+                        MessageFragment<::ash::cros_healthd::mojom::internal::DisplayResult_Data>& fragment,
                         bool inlined) {
     if (CallIsNullIfExists<Traits>(input)) {
        if (inlined)
@@ -13421,13 +13481,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::DisplayResultDataView, MaybeC
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::cros_healthd::mojom::DisplayResultDataView::Tag::kDisplayInfo: {
+      case ::ash::cros_healthd::mojom::DisplayResultDataView::Tag::kDisplayInfo: {
         decltype(Traits::display_info(input))
             in_display_info = Traits::display_info(input);
         mojo::internal::MessageFragment<
             typename decltype(fragment->data.f_display_info)::BaseType>
             value_fragment(fragment.message());
-        mojo::internal::Serialize<::chromeos::cros_healthd::mojom::DisplayInfoDataView>(
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::DisplayInfoDataView>(
             in_display_info, value_fragment);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
             value_fragment.is_null(),
@@ -13437,13 +13497,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::DisplayResultDataView, MaybeC
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::cros_healthd::mojom::DisplayResultDataView::Tag::kError: {
+      case ::ash::cros_healthd::mojom::DisplayResultDataView::Tag::kError: {
         decltype(Traits::error(input))
             in_error = Traits::error(input);
         mojo::internal::MessageFragment<
             typename decltype(fragment->data.f_error)::BaseType>
             value_fragment(fragment.message());
-        mojo::internal::Serialize<::chromeos::cros_healthd::mojom::ProbeErrorDataView>(
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::ProbeErrorDataView>(
             in_error, value_fragment);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
             value_fragment.is_null(),
@@ -13456,13 +13516,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::DisplayResultDataView, MaybeC
     }
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::DisplayResult_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::DisplayResult_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input || input->is_null())
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::DisplayResultDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::DisplayResultDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -13473,12 +13533,12 @@ struct Serializer<::chromeos::cros_healthd::mojom::DisplayResultDataView, MaybeC
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::InputResultDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::InputResultDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = UnionTraits<::chromeos::cros_healthd::mojom::InputResultDataView, UserType>;
+  using Traits = UnionTraits<::ash::cros_healthd::mojom::InputResultDataView, UserType>;
 
   static void Serialize(MaybeConstUserType& input,
-                        MessageFragment<::chromeos::cros_healthd::mojom::internal::InputResult_Data>& fragment,
+                        MessageFragment<::ash::cros_healthd::mojom::internal::InputResult_Data>& fragment,
                         bool inlined) {
     if (CallIsNullIfExists<Traits>(input)) {
        if (inlined)
@@ -13494,13 +13554,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::InputResultDataView, MaybeCon
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::cros_healthd::mojom::InputResultDataView::Tag::kInputInfo: {
+      case ::ash::cros_healthd::mojom::InputResultDataView::Tag::kInputInfo: {
         decltype(Traits::input_info(input))
             in_input_info = Traits::input_info(input);
         mojo::internal::MessageFragment<
             typename decltype(fragment->data.f_input_info)::BaseType>
             value_fragment(fragment.message());
-        mojo::internal::Serialize<::chromeos::cros_healthd::mojom::InputInfoDataView>(
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::InputInfoDataView>(
             in_input_info, value_fragment);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
             value_fragment.is_null(),
@@ -13510,13 +13570,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::InputResultDataView, MaybeCon
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::cros_healthd::mojom::InputResultDataView::Tag::kError: {
+      case ::ash::cros_healthd::mojom::InputResultDataView::Tag::kError: {
         decltype(Traits::error(input))
             in_error = Traits::error(input);
         mojo::internal::MessageFragment<
             typename decltype(fragment->data.f_error)::BaseType>
             value_fragment(fragment.message());
-        mojo::internal::Serialize<::chromeos::cros_healthd::mojom::ProbeErrorDataView>(
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::ProbeErrorDataView>(
             in_error, value_fragment);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
             value_fragment.is_null(),
@@ -13529,13 +13589,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::InputResultDataView, MaybeCon
     }
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::InputResult_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::InputResult_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input || input->is_null())
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::InputResultDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::InputResultDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -13546,12 +13606,12 @@ struct Serializer<::chromeos::cros_healthd::mojom::InputResultDataView, MaybeCon
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::SensorResultDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::SensorResultDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = UnionTraits<::chromeos::cros_healthd::mojom::SensorResultDataView, UserType>;
+  using Traits = UnionTraits<::ash::cros_healthd::mojom::SensorResultDataView, UserType>;
 
   static void Serialize(MaybeConstUserType& input,
-                        MessageFragment<::chromeos::cros_healthd::mojom::internal::SensorResult_Data>& fragment,
+                        MessageFragment<::ash::cros_healthd::mojom::internal::SensorResult_Data>& fragment,
                         bool inlined) {
     if (CallIsNullIfExists<Traits>(input)) {
        if (inlined)
@@ -13567,13 +13627,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::SensorResultDataView, MaybeCo
     fragment->size = kUnionDataSize;
     fragment->tag = Traits::GetTag(input);
     switch (fragment->tag) {
-      case ::chromeos::cros_healthd::mojom::SensorResultDataView::Tag::kSensorInfo: {
+      case ::ash::cros_healthd::mojom::SensorResultDataView::Tag::kSensorInfo: {
         decltype(Traits::sensor_info(input))
             in_sensor_info = Traits::sensor_info(input);
         mojo::internal::MessageFragment<
             typename decltype(fragment->data.f_sensor_info)::BaseType>
             value_fragment(fragment.message());
-        mojo::internal::Serialize<::chromeos::cros_healthd::mojom::SensorInfoDataView>(
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::SensorInfoDataView>(
             in_sensor_info, value_fragment);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
             value_fragment.is_null(),
@@ -13583,13 +13643,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::SensorResultDataView, MaybeCo
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
-      case ::chromeos::cros_healthd::mojom::SensorResultDataView::Tag::kError: {
+      case ::ash::cros_healthd::mojom::SensorResultDataView::Tag::kError: {
         decltype(Traits::error(input))
             in_error = Traits::error(input);
         mojo::internal::MessageFragment<
             typename decltype(fragment->data.f_error)::BaseType>
             value_fragment(fragment.message());
-        mojo::internal::Serialize<::chromeos::cros_healthd::mojom::ProbeErrorDataView>(
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::ProbeErrorDataView>(
             in_error, value_fragment);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
             value_fragment.is_null(),
@@ -13602,13 +13662,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::SensorResultDataView, MaybeCo
     }
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::SensorResult_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::SensorResult_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input || input->is_null())
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::SensorResultDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::SensorResultDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -13618,7 +13678,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::SensorResultDataView, MaybeCo
 }  // namespace mojo
 
 
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace mojom {
 
@@ -13685,16 +13745,16 @@ inline void BatteryInfoDataView::GetManufactureDateDataView(
   *output = mojo::StringDataView(pointer, message_);
 }
 inline void BatteryInfoDataView::GetTemperatureDataView(
-    ::chromeos::cros_healthd::mojom::NullableUint64DataView* output) {
+    ::ash::cros_healthd::mojom::NullableUint64DataView* output) {
   auto pointer = data_->temperature.Get();
-  *output = ::chromeos::cros_healthd::mojom::NullableUint64DataView(pointer, message_);
+  *output = ::ash::cros_healthd::mojom::NullableUint64DataView(pointer, message_);
 }
 
 
 inline void NonRemovableBlockDeviceInfoDataView::GetDiscardTimeSecondsSinceLastBootDataView(
-    ::chromeos::cros_healthd::mojom::NullableUint64DataView* output) {
+    ::ash::cros_healthd::mojom::NullableUint64DataView* output) {
   auto pointer = data_->discard_time_seconds_since_last_boot.Get();
-  *output = ::chromeos::cros_healthd::mojom::NullableUint64DataView(pointer, message_);
+  *output = ::ash::cros_healthd::mojom::NullableUint64DataView(pointer, message_);
 }
 inline void NonRemovableBlockDeviceInfoDataView::GetVendorIdDataView(
     BlockDeviceVendorDataView* output) {
@@ -13916,9 +13976,9 @@ inline void BluetoothDeviceInfoDataView::GetNameDataView(
   *output = mojo::StringDataView(pointer, message_);
 }
 inline void BluetoothDeviceInfoDataView::GetAppearanceDataView(
-    ::chromeos::cros_healthd::mojom::NullableUint16DataView* output) {
+    ::ash::cros_healthd::mojom::NullableUint16DataView* output) {
   auto pointer = data_->appearance.Get();
-  *output = ::chromeos::cros_healthd::mojom::NullableUint16DataView(pointer, message_);
+  *output = ::ash::cros_healthd::mojom::NullableUint16DataView(pointer, message_);
 }
 inline void BluetoothDeviceInfoDataView::GetModaliasDataView(
     mojo::StringDataView* output) {
@@ -13926,14 +13986,14 @@ inline void BluetoothDeviceInfoDataView::GetModaliasDataView(
   *output = mojo::StringDataView(pointer, message_);
 }
 inline void BluetoothDeviceInfoDataView::GetRssiDataView(
-    ::chromeos::cros_healthd::mojom::NullableInt16DataView* output) {
+    ::ash::cros_healthd::mojom::NullableInt16DataView* output) {
   auto pointer = data_->rssi.Get();
-  *output = ::chromeos::cros_healthd::mojom::NullableInt16DataView(pointer, message_);
+  *output = ::ash::cros_healthd::mojom::NullableInt16DataView(pointer, message_);
 }
 inline void BluetoothDeviceInfoDataView::GetMtuDataView(
-    ::chromeos::cros_healthd::mojom::NullableUint16DataView* output) {
+    ::ash::cros_healthd::mojom::NullableUint16DataView* output) {
   auto pointer = data_->mtu.Get();
-  *output = ::chromeos::cros_healthd::mojom::NullableUint16DataView(pointer, message_);
+  *output = ::ash::cros_healthd::mojom::NullableUint16DataView(pointer, message_);
 }
 inline void BluetoothDeviceInfoDataView::GetUuidsDataView(
     mojo::ArrayDataView<mojo::StringDataView>* output) {
@@ -13941,10 +14001,10 @@ inline void BluetoothDeviceInfoDataView::GetUuidsDataView(
   *output = mojo::ArrayDataView<mojo::StringDataView>(pointer, message_);
 }
 inline void BluetoothDeviceInfoDataView::GetBatteryPercentageDataView(
-    ::chromeos::cros_healthd::mojom::NullableUint8DataView* output) {
+    ::ash::cros_healthd::mojom::NullableUint8DataView* output) {
   auto pointer = data_->header_.version >= 1
                  ? data_->battery_percentage.Get() : nullptr;
-  *output = ::chromeos::cros_healthd::mojom::NullableUint8DataView(pointer, message_);
+  *output = ::ash::cros_healthd::mojom::NullableUint8DataView(pointer, message_);
 }
 
 
@@ -14010,6 +14070,12 @@ inline void OsVersionDataView::GetReleaseChannelDataView(
   auto pointer = data_->release_channel.Get();
   *output = mojo::StringDataView(pointer, message_);
 }
+inline void OsVersionDataView::GetBranchNumberDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->header_.version >= 1
+                 ? data_->branch_number.Get() : nullptr;
+  *output = mojo::StringDataView(pointer, message_);
+}
 
 
 inline void VpdInfoDataView::GetSerialNumberDataView(
@@ -14040,6 +14106,12 @@ inline void VpdInfoDataView::GetSkuNumberDataView(
 inline void VpdInfoDataView::GetModelNameDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->model_name.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void VpdInfoDataView::GetOemNameDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->header_.version >= 1
+                 ? data_->oem_name.Get() : nullptr;
   *output = mojo::StringDataView(pointer, message_);
 }
 
@@ -14075,9 +14147,9 @@ inline void DmiInfoDataView::GetChassisVendorDataView(
   *output = mojo::StringDataView(pointer, message_);
 }
 inline void DmiInfoDataView::GetChassisTypeDataView(
-    ::chromeos::cros_healthd::mojom::NullableUint64DataView* output) {
+    ::ash::cros_healthd::mojom::NullableUint64DataView* output) {
   auto pointer = data_->chassis_type.Get();
-  *output = ::chromeos::cros_healthd::mojom::NullableUint64DataView(pointer, message_);
+  *output = ::ash::cros_healthd::mojom::NullableUint64DataView(pointer, message_);
 }
 inline void DmiInfoDataView::GetProductFamilyDataView(
     mojo::StringDataView* output) {
@@ -14343,34 +14415,34 @@ inline void DisplayInfoDataView::GetDpInfosDataView(
 
 
 inline void EmbeddedDisplayInfoDataView::GetDisplayWidthDataView(
-    ::chromeos::cros_healthd::mojom::NullableUint32DataView* output) {
+    ::ash::cros_healthd::mojom::NullableUint32DataView* output) {
   auto pointer = data_->header_.version >= 1
                  ? data_->display_width.Get() : nullptr;
-  *output = ::chromeos::cros_healthd::mojom::NullableUint32DataView(pointer, message_);
+  *output = ::ash::cros_healthd::mojom::NullableUint32DataView(pointer, message_);
 }
 inline void EmbeddedDisplayInfoDataView::GetDisplayHeightDataView(
-    ::chromeos::cros_healthd::mojom::NullableUint32DataView* output) {
+    ::ash::cros_healthd::mojom::NullableUint32DataView* output) {
   auto pointer = data_->header_.version >= 1
                  ? data_->display_height.Get() : nullptr;
-  *output = ::chromeos::cros_healthd::mojom::NullableUint32DataView(pointer, message_);
+  *output = ::ash::cros_healthd::mojom::NullableUint32DataView(pointer, message_);
 }
 inline void EmbeddedDisplayInfoDataView::GetResolutionHorizontalDataView(
-    ::chromeos::cros_healthd::mojom::NullableUint32DataView* output) {
+    ::ash::cros_healthd::mojom::NullableUint32DataView* output) {
   auto pointer = data_->header_.version >= 1
                  ? data_->resolution_horizontal.Get() : nullptr;
-  *output = ::chromeos::cros_healthd::mojom::NullableUint32DataView(pointer, message_);
+  *output = ::ash::cros_healthd::mojom::NullableUint32DataView(pointer, message_);
 }
 inline void EmbeddedDisplayInfoDataView::GetResolutionVerticalDataView(
-    ::chromeos::cros_healthd::mojom::NullableUint32DataView* output) {
+    ::ash::cros_healthd::mojom::NullableUint32DataView* output) {
   auto pointer = data_->header_.version >= 1
                  ? data_->resolution_vertical.Get() : nullptr;
-  *output = ::chromeos::cros_healthd::mojom::NullableUint32DataView(pointer, message_);
+  *output = ::ash::cros_healthd::mojom::NullableUint32DataView(pointer, message_);
 }
 inline void EmbeddedDisplayInfoDataView::GetRefreshRateDataView(
-    ::chromeos::cros_healthd::mojom::NullableDoubleDataView* output) {
+    ::ash::cros_healthd::mojom::NullableDoubleDataView* output) {
   auto pointer = data_->header_.version >= 1
                  ? data_->refresh_rate.Get() : nullptr;
-  *output = ::chromeos::cros_healthd::mojom::NullableDoubleDataView(pointer, message_);
+  *output = ::ash::cros_healthd::mojom::NullableDoubleDataView(pointer, message_);
 }
 inline void EmbeddedDisplayInfoDataView::GetManufacturerDataView(
     mojo::StringDataView* output) {
@@ -14379,28 +14451,28 @@ inline void EmbeddedDisplayInfoDataView::GetManufacturerDataView(
   *output = mojo::StringDataView(pointer, message_);
 }
 inline void EmbeddedDisplayInfoDataView::GetModelIdDataView(
-    ::chromeos::cros_healthd::mojom::NullableUint16DataView* output) {
+    ::ash::cros_healthd::mojom::NullableUint16DataView* output) {
   auto pointer = data_->header_.version >= 2
                  ? data_->model_id.Get() : nullptr;
-  *output = ::chromeos::cros_healthd::mojom::NullableUint16DataView(pointer, message_);
+  *output = ::ash::cros_healthd::mojom::NullableUint16DataView(pointer, message_);
 }
 inline void EmbeddedDisplayInfoDataView::GetSerialNumberDataView(
-    ::chromeos::cros_healthd::mojom::NullableUint32DataView* output) {
+    ::ash::cros_healthd::mojom::NullableUint32DataView* output) {
   auto pointer = data_->header_.version >= 2
                  ? data_->serial_number.Get() : nullptr;
-  *output = ::chromeos::cros_healthd::mojom::NullableUint32DataView(pointer, message_);
+  *output = ::ash::cros_healthd::mojom::NullableUint32DataView(pointer, message_);
 }
 inline void EmbeddedDisplayInfoDataView::GetManufactureWeekDataView(
-    ::chromeos::cros_healthd::mojom::NullableUint8DataView* output) {
+    ::ash::cros_healthd::mojom::NullableUint8DataView* output) {
   auto pointer = data_->header_.version >= 2
                  ? data_->manufacture_week.Get() : nullptr;
-  *output = ::chromeos::cros_healthd::mojom::NullableUint8DataView(pointer, message_);
+  *output = ::ash::cros_healthd::mojom::NullableUint8DataView(pointer, message_);
 }
 inline void EmbeddedDisplayInfoDataView::GetManufactureYearDataView(
-    ::chromeos::cros_healthd::mojom::NullableUint16DataView* output) {
+    ::ash::cros_healthd::mojom::NullableUint16DataView* output) {
   auto pointer = data_->header_.version >= 2
                  ? data_->manufacture_year.Get() : nullptr;
-  *output = ::chromeos::cros_healthd::mojom::NullableUint16DataView(pointer, message_);
+  *output = ::ash::cros_healthd::mojom::NullableUint16DataView(pointer, message_);
 }
 inline void EmbeddedDisplayInfoDataView::GetEdidVersionDataView(
     mojo::StringDataView* output) {
@@ -14417,29 +14489,29 @@ inline void EmbeddedDisplayInfoDataView::GetDisplayNameDataView(
 
 
 inline void ExternalDisplayInfoDataView::GetDisplayWidthDataView(
-    ::chromeos::cros_healthd::mojom::NullableUint32DataView* output) {
+    ::ash::cros_healthd::mojom::NullableUint32DataView* output) {
   auto pointer = data_->display_width.Get();
-  *output = ::chromeos::cros_healthd::mojom::NullableUint32DataView(pointer, message_);
+  *output = ::ash::cros_healthd::mojom::NullableUint32DataView(pointer, message_);
 }
 inline void ExternalDisplayInfoDataView::GetDisplayHeightDataView(
-    ::chromeos::cros_healthd::mojom::NullableUint32DataView* output) {
+    ::ash::cros_healthd::mojom::NullableUint32DataView* output) {
   auto pointer = data_->display_height.Get();
-  *output = ::chromeos::cros_healthd::mojom::NullableUint32DataView(pointer, message_);
+  *output = ::ash::cros_healthd::mojom::NullableUint32DataView(pointer, message_);
 }
 inline void ExternalDisplayInfoDataView::GetResolutionHorizontalDataView(
-    ::chromeos::cros_healthd::mojom::NullableUint32DataView* output) {
+    ::ash::cros_healthd::mojom::NullableUint32DataView* output) {
   auto pointer = data_->resolution_horizontal.Get();
-  *output = ::chromeos::cros_healthd::mojom::NullableUint32DataView(pointer, message_);
+  *output = ::ash::cros_healthd::mojom::NullableUint32DataView(pointer, message_);
 }
 inline void ExternalDisplayInfoDataView::GetResolutionVerticalDataView(
-    ::chromeos::cros_healthd::mojom::NullableUint32DataView* output) {
+    ::ash::cros_healthd::mojom::NullableUint32DataView* output) {
   auto pointer = data_->resolution_vertical.Get();
-  *output = ::chromeos::cros_healthd::mojom::NullableUint32DataView(pointer, message_);
+  *output = ::ash::cros_healthd::mojom::NullableUint32DataView(pointer, message_);
 }
 inline void ExternalDisplayInfoDataView::GetRefreshRateDataView(
-    ::chromeos::cros_healthd::mojom::NullableDoubleDataView* output) {
+    ::ash::cros_healthd::mojom::NullableDoubleDataView* output) {
   auto pointer = data_->refresh_rate.Get();
-  *output = ::chromeos::cros_healthd::mojom::NullableDoubleDataView(pointer, message_);
+  *output = ::ash::cros_healthd::mojom::NullableDoubleDataView(pointer, message_);
 }
 inline void ExternalDisplayInfoDataView::GetManufacturerDataView(
     mojo::StringDataView* output) {
@@ -14448,28 +14520,28 @@ inline void ExternalDisplayInfoDataView::GetManufacturerDataView(
   *output = mojo::StringDataView(pointer, message_);
 }
 inline void ExternalDisplayInfoDataView::GetModelIdDataView(
-    ::chromeos::cros_healthd::mojom::NullableUint16DataView* output) {
+    ::ash::cros_healthd::mojom::NullableUint16DataView* output) {
   auto pointer = data_->header_.version >= 1
                  ? data_->model_id.Get() : nullptr;
-  *output = ::chromeos::cros_healthd::mojom::NullableUint16DataView(pointer, message_);
+  *output = ::ash::cros_healthd::mojom::NullableUint16DataView(pointer, message_);
 }
 inline void ExternalDisplayInfoDataView::GetSerialNumberDataView(
-    ::chromeos::cros_healthd::mojom::NullableUint32DataView* output) {
+    ::ash::cros_healthd::mojom::NullableUint32DataView* output) {
   auto pointer = data_->header_.version >= 1
                  ? data_->serial_number.Get() : nullptr;
-  *output = ::chromeos::cros_healthd::mojom::NullableUint32DataView(pointer, message_);
+  *output = ::ash::cros_healthd::mojom::NullableUint32DataView(pointer, message_);
 }
 inline void ExternalDisplayInfoDataView::GetManufactureWeekDataView(
-    ::chromeos::cros_healthd::mojom::NullableUint8DataView* output) {
+    ::ash::cros_healthd::mojom::NullableUint8DataView* output) {
   auto pointer = data_->header_.version >= 1
                  ? data_->manufacture_week.Get() : nullptr;
-  *output = ::chromeos::cros_healthd::mojom::NullableUint8DataView(pointer, message_);
+  *output = ::ash::cros_healthd::mojom::NullableUint8DataView(pointer, message_);
 }
 inline void ExternalDisplayInfoDataView::GetManufactureYearDataView(
-    ::chromeos::cros_healthd::mojom::NullableUint16DataView* output) {
+    ::ash::cros_healthd::mojom::NullableUint16DataView* output) {
   auto pointer = data_->header_.version >= 1
                  ? data_->manufacture_year.Get() : nullptr;
-  *output = ::chromeos::cros_healthd::mojom::NullableUint16DataView(pointer, message_);
+  *output = ::ash::cros_healthd::mojom::NullableUint16DataView(pointer, message_);
 }
 inline void ExternalDisplayInfoDataView::GetEdidVersionDataView(
     mojo::StringDataView* output) {
@@ -14551,9 +14623,9 @@ inline void InputDeviceDataView::GetPhysicalLocationDataView(
 
 
 inline void SensorInfoDataView::GetLidAngleDataView(
-    ::chromeos::cros_healthd::mojom::NullableUint16DataView* output) {
+    ::ash::cros_healthd::mojom::NullableUint16DataView* output) {
   auto pointer = data_->lid_angle.Get();
-  *output = ::chromeos::cros_healthd::mojom::NullableUint16DataView(pointer, message_);
+  *output = ::ash::cros_healthd::mojom::NullableUint16DataView(pointer, message_);
 }
 inline void SensorInfoDataView::GetSensorsDataView(
     mojo::ArrayDataView<SensorDataView>* output) {
@@ -14964,7 +15036,7 @@ inline void SensorResultDataView::GetErrorDataView(
 
 }  // namespace mojom
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.
@@ -14972,8 +15044,8 @@ inline void SensorResultDataView::GetErrorDataView(
 namespace perfetto_libchrome {
 
 template <>
-struct  TraceFormatTraits<::chromeos::cros_healthd::mojom::CpuArchitectureEnum> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::chromeos::cros_healthd::mojom::CpuArchitectureEnum value);
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::CpuArchitectureEnum> {
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::CpuArchitectureEnum value);
 };
 
 } // namespace perfetto
@@ -14981,8 +15053,8 @@ struct  TraceFormatTraits<::chromeos::cros_healthd::mojom::CpuArchitectureEnum> 
 namespace perfetto_libchrome {
 
 template <>
-struct  TraceFormatTraits<::chromeos::cros_healthd::mojom::ProbeCategoryEnum> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::chromeos::cros_healthd::mojom::ProbeCategoryEnum value);
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::ProbeCategoryEnum> {
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::ProbeCategoryEnum value);
 };
 
 } // namespace perfetto
@@ -14990,8 +15062,8 @@ struct  TraceFormatTraits<::chromeos::cros_healthd::mojom::ProbeCategoryEnum> {
 namespace perfetto_libchrome {
 
 template <>
-struct  TraceFormatTraits<::chromeos::cros_healthd::mojom::ErrorType> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::chromeos::cros_healthd::mojom::ErrorType value);
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::ErrorType> {
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::ErrorType value);
 };
 
 } // namespace perfetto
@@ -14999,8 +15071,8 @@ struct  TraceFormatTraits<::chromeos::cros_healthd::mojom::ErrorType> {
 namespace perfetto_libchrome {
 
 template <>
-struct  TraceFormatTraits<::chromeos::cros_healthd::mojom::ProcessState> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::chromeos::cros_healthd::mojom::ProcessState value);
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::ProcessState> {
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::ProcessState value);
 };
 
 } // namespace perfetto
@@ -15008,8 +15080,8 @@ struct  TraceFormatTraits<::chromeos::cros_healthd::mojom::ProcessState> {
 namespace perfetto_libchrome {
 
 template <>
-struct  TraceFormatTraits<::chromeos::cros_healthd::mojom::StorageDevicePurpose> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::chromeos::cros_healthd::mojom::StorageDevicePurpose value);
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::StorageDevicePurpose> {
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::StorageDevicePurpose value);
 };
 
 } // namespace perfetto
@@ -15017,8 +15089,8 @@ struct  TraceFormatTraits<::chromeos::cros_healthd::mojom::StorageDevicePurpose>
 namespace perfetto_libchrome {
 
 template <>
-struct  TraceFormatTraits<::chromeos::cros_healthd::mojom::EncryptionState> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::chromeos::cros_healthd::mojom::EncryptionState value);
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::EncryptionState> {
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::EncryptionState value);
 };
 
 } // namespace perfetto
@@ -15026,8 +15098,8 @@ struct  TraceFormatTraits<::chromeos::cros_healthd::mojom::EncryptionState> {
 namespace perfetto_libchrome {
 
 template <>
-struct  TraceFormatTraits<::chromeos::cros_healthd::mojom::CryptoAlgorithm> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::chromeos::cros_healthd::mojom::CryptoAlgorithm value);
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::CryptoAlgorithm> {
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::CryptoAlgorithm value);
 };
 
 } // namespace perfetto
@@ -15035,8 +15107,8 @@ struct  TraceFormatTraits<::chromeos::cros_healthd::mojom::CryptoAlgorithm> {
 namespace perfetto_libchrome {
 
 template <>
-struct  TraceFormatTraits<::chromeos::cros_healthd::mojom::BluetoothDeviceType> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::chromeos::cros_healthd::mojom::BluetoothDeviceType value);
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::BluetoothDeviceType> {
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::BluetoothDeviceType value);
 };
 
 } // namespace perfetto
@@ -15044,8 +15116,8 @@ struct  TraceFormatTraits<::chromeos::cros_healthd::mojom::BluetoothDeviceType> 
 namespace perfetto_libchrome {
 
 template <>
-struct  TraceFormatTraits<::chromeos::cros_healthd::mojom::BootMode> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::chromeos::cros_healthd::mojom::BootMode value);
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::BootMode> {
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::BootMode value);
 };
 
 } // namespace perfetto
@@ -15053,8 +15125,8 @@ struct  TraceFormatTraits<::chromeos::cros_healthd::mojom::BootMode> {
 namespace perfetto_libchrome {
 
 template <>
-struct  TraceFormatTraits<::chromeos::cros_healthd::mojom::BusDeviceClass> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::chromeos::cros_healthd::mojom::BusDeviceClass value);
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::BusDeviceClass> {
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::BusDeviceClass value);
 };
 
 } // namespace perfetto
@@ -15062,8 +15134,8 @@ struct  TraceFormatTraits<::chromeos::cros_healthd::mojom::BusDeviceClass> {
 namespace perfetto_libchrome {
 
 template <>
-struct  TraceFormatTraits<::chromeos::cros_healthd::mojom::FwupdVersionFormat> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::chromeos::cros_healthd::mojom::FwupdVersionFormat value);
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::FwupdVersionFormat> {
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::FwupdVersionFormat value);
 };
 
 } // namespace perfetto
@@ -15071,8 +15143,8 @@ struct  TraceFormatTraits<::chromeos::cros_healthd::mojom::FwupdVersionFormat> {
 namespace perfetto_libchrome {
 
 template <>
-struct  TraceFormatTraits<::chromeos::cros_healthd::mojom::TpmGSCVersion> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::chromeos::cros_healthd::mojom::TpmGSCVersion value);
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::TpmGSCVersion> {
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::TpmGSCVersion value);
 };
 
 } // namespace perfetto
@@ -15080,8 +15152,8 @@ struct  TraceFormatTraits<::chromeos::cros_healthd::mojom::TpmGSCVersion> {
 namespace perfetto_libchrome {
 
 template <>
-struct  TraceFormatTraits<::chromeos::cros_healthd::mojom::DisplayInputType> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::chromeos::cros_healthd::mojom::DisplayInputType value);
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::DisplayInputType> {
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::DisplayInputType value);
 };
 
 } // namespace perfetto
@@ -15089,8 +15161,8 @@ struct  TraceFormatTraits<::chromeos::cros_healthd::mojom::DisplayInputType> {
 namespace perfetto_libchrome {
 
 template <>
-struct  TraceFormatTraits<::chromeos::cros_healthd::mojom::ThunderboltSecurityLevel> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::chromeos::cros_healthd::mojom::ThunderboltSecurityLevel value);
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::ThunderboltSecurityLevel> {
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::ThunderboltSecurityLevel value);
 };
 
 } // namespace perfetto
@@ -15098,8 +15170,8 @@ struct  TraceFormatTraits<::chromeos::cros_healthd::mojom::ThunderboltSecurityLe
 namespace perfetto_libchrome {
 
 template <>
-struct  TraceFormatTraits<::chromeos::cros_healthd::mojom::VirtualizationInfo_SMTControl> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::chromeos::cros_healthd::mojom::VirtualizationInfo_SMTControl value);
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::VirtualizationInfo_SMTControl> {
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::VirtualizationInfo_SMTControl value);
 };
 
 } // namespace perfetto
@@ -15107,8 +15179,8 @@ struct  TraceFormatTraits<::chromeos::cros_healthd::mojom::VirtualizationInfo_SM
 namespace perfetto_libchrome {
 
 template <>
-struct  TraceFormatTraits<::chromeos::cros_healthd::mojom::VulnerabilityInfo_Status> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::chromeos::cros_healthd::mojom::VulnerabilityInfo_Status value);
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::VulnerabilityInfo_Status> {
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::VulnerabilityInfo_Status value);
 };
 
 } // namespace perfetto
@@ -15116,8 +15188,8 @@ struct  TraceFormatTraits<::chromeos::cros_healthd::mojom::VulnerabilityInfo_Sta
 namespace perfetto_libchrome {
 
 template <>
-struct  TraceFormatTraits<::chromeos::cros_healthd::mojom::CpuVirtualizationInfo_Type> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::chromeos::cros_healthd::mojom::CpuVirtualizationInfo_Type value);
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::CpuVirtualizationInfo_Type> {
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::CpuVirtualizationInfo_Type value);
 };
 
 } // namespace perfetto
@@ -15125,8 +15197,8 @@ struct  TraceFormatTraits<::chromeos::cros_healthd::mojom::CpuVirtualizationInfo
 namespace perfetto_libchrome {
 
 template <>
-struct  TraceFormatTraits<::chromeos::cros_healthd::mojom::OsInfo_EfiPlatformSize> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::chromeos::cros_healthd::mojom::OsInfo_EfiPlatformSize value);
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::OsInfo_EfiPlatformSize> {
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::OsInfo_EfiPlatformSize value);
 };
 
 } // namespace perfetto
@@ -15134,8 +15206,8 @@ struct  TraceFormatTraits<::chromeos::cros_healthd::mojom::OsInfo_EfiPlatformSiz
 namespace perfetto_libchrome {
 
 template <>
-struct  TraceFormatTraits<::chromeos::cros_healthd::mojom::InputDevice_ConnectionType> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::chromeos::cros_healthd::mojom::InputDevice_ConnectionType value);
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::InputDevice_ConnectionType> {
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::InputDevice_ConnectionType value);
 };
 
 } // namespace perfetto
@@ -15143,8 +15215,8 @@ struct  TraceFormatTraits<::chromeos::cros_healthd::mojom::InputDevice_Connectio
 namespace perfetto_libchrome {
 
 template <>
-struct  TraceFormatTraits<::chromeos::cros_healthd::mojom::Sensor_Type> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::chromeos::cros_healthd::mojom::Sensor_Type value);
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::Sensor_Type> {
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::Sensor_Type value);
 };
 
 } // namespace perfetto
@@ -15152,8 +15224,8 @@ struct  TraceFormatTraits<::chromeos::cros_healthd::mojom::Sensor_Type> {
 namespace perfetto_libchrome {
 
 template <>
-struct  TraceFormatTraits<::chromeos::cros_healthd::mojom::Sensor_Location> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::chromeos::cros_healthd::mojom::Sensor_Location value);
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::Sensor_Location> {
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::Sensor_Location value);
 };
 
 } // namespace perfetto

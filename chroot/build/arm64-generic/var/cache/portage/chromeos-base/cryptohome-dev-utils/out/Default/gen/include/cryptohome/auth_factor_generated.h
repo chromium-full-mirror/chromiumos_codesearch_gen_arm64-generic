@@ -7,10 +7,13 @@
 #include "flatbuffers/flatbuffers.h"
 
 #include "structures_generated.h"
-#include "libhwsec/structures/signature_sealed_data_generated.h"
 #include "auth_block_state_generated.h"
+#include "libhwsec/structures/signature_sealed_data_generated.h"
 
 namespace cryptohome {
+
+struct SerializedCommonMetadata;
+struct SerializedCommonMetadataBuilder;
 
 struct SerializedPasswordMetadata;
 struct SerializedPasswordMetadataBuilder;
@@ -98,6 +101,71 @@ template<> struct SerializedAuthFactorMetadataTraits<cryptohome::SerializedSmart
 
 bool VerifySerializedAuthFactorMetadata(flatbuffers::Verifier &verifier, const void *obj, SerializedAuthFactorMetadata type);
 bool VerifySerializedAuthFactorMetadataVector(flatbuffers::Verifier &verifier, const flatbuffers::Vector<flatbuffers::Offset<void>> *values, const flatbuffers::Vector<uint8_t> *types);
+
+struct SerializedCommonMetadata FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
+  typedef SerializedCommonMetadataBuilder Builder;
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
+    VT_CHROMEOS_VERSION_LAST_UPDATED = 4,
+    VT_CHROME_VERSION_LAST_UPDATED = 6
+  };
+  const flatbuffers::String *chromeos_version_last_updated() const {
+    return GetPointer<const flatbuffers::String *>(VT_CHROMEOS_VERSION_LAST_UPDATED);
+  }
+  const flatbuffers::String *chrome_version_last_updated() const {
+    return GetPointer<const flatbuffers::String *>(VT_CHROME_VERSION_LAST_UPDATED);
+  }
+  bool Verify(flatbuffers::Verifier &verifier) const {
+    return VerifyTableStart(verifier) &&
+           VerifyOffset(verifier, VT_CHROMEOS_VERSION_LAST_UPDATED) &&
+           verifier.VerifyString(chromeos_version_last_updated()) &&
+           VerifyOffset(verifier, VT_CHROME_VERSION_LAST_UPDATED) &&
+           verifier.VerifyString(chrome_version_last_updated()) &&
+           verifier.EndTable();
+  }
+};
+
+struct SerializedCommonMetadataBuilder {
+  typedef SerializedCommonMetadata Table;
+  flatbuffers::FlatBufferBuilder &fbb_;
+  flatbuffers::uoffset_t start_;
+  void add_chromeos_version_last_updated(flatbuffers::Offset<flatbuffers::String> chromeos_version_last_updated) {
+    fbb_.AddOffset(SerializedCommonMetadata::VT_CHROMEOS_VERSION_LAST_UPDATED, chromeos_version_last_updated);
+  }
+  void add_chrome_version_last_updated(flatbuffers::Offset<flatbuffers::String> chrome_version_last_updated) {
+    fbb_.AddOffset(SerializedCommonMetadata::VT_CHROME_VERSION_LAST_UPDATED, chrome_version_last_updated);
+  }
+  explicit SerializedCommonMetadataBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+        : fbb_(_fbb) {
+    start_ = fbb_.StartTable();
+  }
+  flatbuffers::Offset<SerializedCommonMetadata> Finish() {
+    const auto end = fbb_.EndTable(start_);
+    auto o = flatbuffers::Offset<SerializedCommonMetadata>(end);
+    return o;
+  }
+};
+
+inline flatbuffers::Offset<SerializedCommonMetadata> CreateSerializedCommonMetadata(
+    flatbuffers::FlatBufferBuilder &_fbb,
+    flatbuffers::Offset<flatbuffers::String> chromeos_version_last_updated = 0,
+    flatbuffers::Offset<flatbuffers::String> chrome_version_last_updated = 0) {
+  SerializedCommonMetadataBuilder builder_(_fbb);
+  builder_.add_chrome_version_last_updated(chrome_version_last_updated);
+  builder_.add_chromeos_version_last_updated(chromeos_version_last_updated);
+  return builder_.Finish();
+}
+
+inline flatbuffers::Offset<SerializedCommonMetadata> CreateSerializedCommonMetadataDirect(
+    flatbuffers::FlatBufferBuilder &_fbb,
+    const char *chromeos_version_last_updated = nullptr,
+    const char *chrome_version_last_updated = nullptr) {
+  auto chromeos_version_last_updated__ = chromeos_version_last_updated ? _fbb.CreateString(chromeos_version_last_updated) : 0;
+  auto chrome_version_last_updated__ = chrome_version_last_updated ? _fbb.CreateString(chrome_version_last_updated) : 0;
+  return cryptohome::CreateSerializedCommonMetadata(
+      _fbb,
+      chromeos_version_last_updated__,
+      chrome_version_last_updated__);
+}
 
 struct SerializedPasswordMetadata FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   typedef SerializedPasswordMetadataBuilder Builder;
@@ -271,7 +339,8 @@ struct SerializedAuthFactor FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_AUTH_BLOCK_STATE = 4,
     VT_METADATA_TYPE = 6,
-    VT_METADATA = 8
+    VT_METADATA = 8,
+    VT_COMMON_METADATA = 10
   };
   const cryptohome::_serialized_::AuthBlockState *auth_block_state() const {
     return GetPointer<const cryptohome::_serialized_::AuthBlockState *>(VT_AUTH_BLOCK_STATE);
@@ -298,6 +367,9 @@ struct SerializedAuthFactor FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table
   const cryptohome::SerializedSmartCardMetadata *metadata_as_SerializedSmartCardMetadata() const {
     return metadata_type() == cryptohome::SerializedAuthFactorMetadata::SerializedSmartCardMetadata ? static_cast<const cryptohome::SerializedSmartCardMetadata *>(metadata()) : nullptr;
   }
+  const cryptohome::SerializedCommonMetadata *common_metadata() const {
+    return GetPointer<const cryptohome::SerializedCommonMetadata *>(VT_COMMON_METADATA);
+  }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyOffset(verifier, VT_AUTH_BLOCK_STATE) &&
@@ -305,6 +377,8 @@ struct SerializedAuthFactor FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table
            VerifyField<uint8_t>(verifier, VT_METADATA_TYPE) &&
            VerifyOffset(verifier, VT_METADATA) &&
            VerifySerializedAuthFactorMetadata(verifier, metadata(), metadata_type()) &&
+           VerifyOffset(verifier, VT_COMMON_METADATA) &&
+           verifier.VerifyTable(common_metadata()) &&
            verifier.EndTable();
   }
 };
@@ -342,6 +416,9 @@ struct SerializedAuthFactorBuilder {
   void add_metadata(flatbuffers::Offset<void> metadata) {
     fbb_.AddOffset(SerializedAuthFactor::VT_METADATA, metadata);
   }
+  void add_common_metadata(flatbuffers::Offset<cryptohome::SerializedCommonMetadata> common_metadata) {
+    fbb_.AddOffset(SerializedAuthFactor::VT_COMMON_METADATA, common_metadata);
+  }
   explicit SerializedAuthFactorBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
@@ -357,8 +434,10 @@ inline flatbuffers::Offset<SerializedAuthFactor> CreateSerializedAuthFactor(
     flatbuffers::FlatBufferBuilder &_fbb,
     flatbuffers::Offset<cryptohome::_serialized_::AuthBlockState> auth_block_state = 0,
     cryptohome::SerializedAuthFactorMetadata metadata_type = cryptohome::SerializedAuthFactorMetadata::NONE,
-    flatbuffers::Offset<void> metadata = 0) {
+    flatbuffers::Offset<void> metadata = 0,
+    flatbuffers::Offset<cryptohome::SerializedCommonMetadata> common_metadata = 0) {
   SerializedAuthFactorBuilder builder_(_fbb);
+  builder_.add_common_metadata(common_metadata);
   builder_.add_metadata(metadata);
   builder_.add_auth_block_state(auth_block_state);
   builder_.add_metadata_type(metadata_type);

@@ -15,6 +15,7 @@
 #include <stdint.h>
 #include <utility>
 
+#include "base/debug/alias.h"
 #include "base/hash/md5_constexpr.h"
 #include "base/run_loop.h"
 #include "base/strings/string_number_conversions.h"
@@ -50,20 +51,18 @@ namespace rollback_network_config {
 namespace mojom {
 const char RollbackNetworkConfig::Name_[] = "chromeos.rollback_network_config.mojom.RollbackNetworkConfig";
 
-uint32_t RollbackNetworkConfig::MessageToStableIPCHash_(mojo::Message& message) {
+RollbackNetworkConfig::IPCStableHashFunction RollbackNetworkConfig::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
   switch (message.name()) {
     case internal::kRollbackNetworkConfig_RollbackConfigImport_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::rollback_network_config::mojom::RollbackNetworkConfig::RollbackConfigImport");
-      return value;
+      return &RollbackNetworkConfig::RollbackConfigImport_Sym::IPCStableHash;
     }
     case internal::kRollbackNetworkConfig_RollbackConfigExport_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::rollback_network_config::mojom::RollbackNetworkConfig::RollbackConfigExport");
-      return value;
+      return &RollbackNetworkConfig::RollbackConfigExport_Sym::IPCStableHash;
     }
   }
-  return 0;
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
 }
 
 
@@ -95,6 +94,35 @@ const char* RollbackNetworkConfig::MessageToMethodName_(mojo::Message& message) 
   }
 #endif // BUILDFLAG(MOJO_TRACE_ENABLED)
 }
+
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t RollbackNetworkConfig::RollbackConfigImport_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)chromeos::rollback_network_config::mojom::RollbackNetworkConfig::RollbackConfigImport");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t RollbackNetworkConfig::RollbackConfigExport_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)chromeos::rollback_network_config::mojom::RollbackNetworkConfig::RollbackConfigExport");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
 
 class RollbackNetworkConfig_RollbackConfigImport_ForwardToCallback
     : public mojo::MessageReceiver {
@@ -178,7 +206,7 @@ void RollbackNetworkConfigProxy::RollbackConfigImport(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new RollbackNetworkConfig_RollbackConfigImport_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void RollbackNetworkConfigProxy::RollbackConfigExport(
@@ -209,7 +237,7 @@ void RollbackNetworkConfigProxy::RollbackConfigExport(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new RollbackNetworkConfig_RollbackConfigExport_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 class RollbackNetworkConfig_RollbackConfigImport_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
@@ -316,8 +344,8 @@ void RollbackNetworkConfig_RollbackConfigImport_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -440,8 +468,8 @@ void RollbackNetworkConfig_RollbackConfigExport_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that

@@ -52,10 +52,12 @@ constexpr StatusResult::StatusResult(
   , is_enterprise_rollback_(false)
   , is_install_(false)
   , will_powerwash_after_reboot_(false)
+  , is_interactive_(false)
   , eol_date_(int64_t{0})
   , last_attempt_error_(0)
   , update_urgency_(0)
-{}
+
+  , will_defer_update_(false){}
 struct StatusResultDefaultTypeInternal {
   constexpr StatusResultDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -729,8 +731,8 @@ StatusResult::StatusResult(const StatusResult& from)
       GetArenaForAllocation());
   }
   ::memcpy(&last_checked_time_, &from.last_checked_time_,
-    static_cast<size_t>(reinterpret_cast<char*>(&update_urgency_) -
-    reinterpret_cast<char*>(&last_checked_time_)) + sizeof(update_urgency_));
+    static_cast<size_t>(reinterpret_cast<char*>(&will_defer_update_) -
+    reinterpret_cast<char*>(&last_checked_time_)) + sizeof(will_defer_update_));
   // @@protoc_insertion_point(copy_constructor:update_engine.StatusResult)
 }
 
@@ -741,8 +743,8 @@ new_version_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&last_checked_time_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&update_urgency_) -
-    reinterpret_cast<char*>(&last_checked_time_)) + sizeof(update_urgency_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&will_defer_update_) -
+    reinterpret_cast<char*>(&last_checked_time_)) + sizeof(will_defer_update_));
 }
 
 StatusResult::~StatusResult() {
@@ -776,8 +778,8 @@ void StatusResult::Clear() {
   features_.Clear();
   new_version_.ClearToEmpty();
   ::memset(&last_checked_time_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&update_urgency_) -
-      reinterpret_cast<char*>(&last_checked_time_)) + sizeof(update_urgency_));
+      reinterpret_cast<char*>(&will_defer_update_) -
+      reinterpret_cast<char*>(&last_checked_time_)) + sizeof(will_defer_update_));
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -889,6 +891,22 @@ const char* StatusResult::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_I
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<106>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // bool is_interactive = 14;
+      case 14:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 112)) {
+          is_interactive_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bool will_defer_update = 15;
+      case 15:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 120)) {
+          will_defer_update_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
@@ -1005,6 +1023,18 @@ uint8_t* StatusResult::_InternalSerialize(
       InternalWriteMessage(13, this->_internal_features(i), target, stream);
   }
 
+  // bool is_interactive = 14;
+  if (this->_internal_is_interactive() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(14, this->_internal_is_interactive(), target);
+  }
+
+  // bool will_defer_update = 15;
+  if (this->_internal_will_defer_update() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(15, this->_internal_will_defer_update(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -1075,6 +1105,11 @@ size_t StatusResult::ByteSizeLong() const {
     total_size += 1 + 1;
   }
 
+  // bool is_interactive = 14;
+  if (this->_internal_is_interactive() != 0) {
+    total_size += 1 + 1;
+  }
+
   // int64 eol_date = 8;
   if (this->_internal_eol_date() != 0) {
     total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64SizePlusOne(this->_internal_eol_date());
@@ -1089,6 +1124,11 @@ size_t StatusResult::ByteSizeLong() const {
   if (this->_internal_update_urgency() != 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_update_urgency());
+  }
+
+  // bool will_defer_update = 15;
+  if (this->_internal_will_defer_update() != 0) {
+    total_size += 1 + 1;
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1140,6 +1180,9 @@ void StatusResult::MergeFrom(const StatusResult& from) {
   if (from._internal_will_powerwash_after_reboot() != 0) {
     _internal_set_will_powerwash_after_reboot(from._internal_will_powerwash_after_reboot());
   }
+  if (from._internal_is_interactive() != 0) {
+    _internal_set_is_interactive(from._internal_is_interactive());
+  }
   if (from._internal_eol_date() != 0) {
     _internal_set_eol_date(from._internal_eol_date());
   }
@@ -1148,6 +1191,9 @@ void StatusResult::MergeFrom(const StatusResult& from) {
   }
   if (from._internal_update_urgency() != 0) {
     _internal_set_update_urgency(from._internal_update_urgency());
+  }
+  if (from._internal_will_defer_update() != 0) {
+    _internal_set_will_defer_update(from._internal_will_defer_update());
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -1175,8 +1221,8 @@ void StatusResult::InternalSwap(StatusResult* other) {
       &other->new_version_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(StatusResult, update_urgency_)
-      + sizeof(StatusResult::update_urgency_)
+      PROTOBUF_FIELD_OFFSET(StatusResult, will_defer_update_)
+      + sizeof(StatusResult::will_defer_update_)
       - PROTOBUF_FIELD_OFFSET(StatusResult, last_checked_time_)>(
           reinterpret_cast<char*>(&last_checked_time_),
           reinterpret_cast<char*>(&other->last_checked_time_));

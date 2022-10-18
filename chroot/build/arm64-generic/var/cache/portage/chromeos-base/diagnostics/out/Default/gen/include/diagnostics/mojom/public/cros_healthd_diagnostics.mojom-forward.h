@@ -21,7 +21,7 @@
 
 
 
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace mojom {
 class RunRoutineResponseDataView;
@@ -70,6 +70,6 @@ using RoutineUpdateUnionPtr = mojo::StructPtr<RoutineUpdateUnion>;
 
 }  // namespace mojom
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 #endif  // DIAGNOSTICS_MOJOM_PUBLIC_CROS_HEALTHD_DIAGNOSTICS_MOJOM_FORWARD_H_

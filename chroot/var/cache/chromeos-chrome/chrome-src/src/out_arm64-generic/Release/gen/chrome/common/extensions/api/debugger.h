@@ -1,4 +1,4 @@
-// Copyright 2022 The Chromium Authors. All rights reserved.
+// Copyright 2022 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -225,7 +225,7 @@ struct Params {
 
   // JSON object with request parameters. This object must conform to the remote
   // debugging params scheme for given method.
-  std::unique_ptr<CommandParams> command_params;
+  absl::optional<CommandParams> command_params;
 
 
  private:

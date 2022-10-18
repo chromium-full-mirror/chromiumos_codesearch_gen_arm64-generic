@@ -13,6 +13,7 @@
 #include <google/protobuf/port_def.inc>
 
 PROTOBUF_PRAGMA_INIT_SEG
+namespace cros_xdr {
 namespace reporting {
 constexpr CommonEventDataFields::CommonEventDataFields(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
@@ -118,8 +119,7 @@ struct NamespacesDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT NamespacesDefaultTypeInternal _Namespaces_default_instance_;
 constexpr AgentStartEvent::AgentStartEvent(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : common_(nullptr)
-  , tcb_(nullptr){}
+  : tcb_(nullptr){}
 struct AgentStartEventDefaultTypeInternal {
   constexpr AgentStartEventDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -131,8 +131,7 @@ struct AgentStartEventDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT AgentStartEventDefaultTypeInternal _AgentStartEvent_default_instance_;
 constexpr AgentHeartbeatEvent::AgentHeartbeatEvent(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : common_(nullptr)
-  , tcb_(nullptr){}
+  : tcb_(nullptr){}
 struct AgentHeartbeatEventDefaultTypeInternal {
   constexpr AgentHeartbeatEventDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -142,10 +141,22 @@ struct AgentHeartbeatEventDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT AgentHeartbeatEventDefaultTypeInternal _AgentHeartbeatEvent_default_instance_;
-constexpr ProcessExecEvent::ProcessExecEvent(
+constexpr XdrAgentEvent::XdrAgentEvent(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : common_(nullptr)
-  , parent_process_(nullptr)
+  , _oneof_case_{}{}
+struct XdrAgentEventDefaultTypeInternal {
+  constexpr XdrAgentEventDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~XdrAgentEventDefaultTypeInternal() {}
+  union {
+    XdrAgentEvent _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT XdrAgentEventDefaultTypeInternal _XdrAgentEvent_default_instance_;
+constexpr ProcessExecEvent::ProcessExecEvent(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : parent_process_(nullptr)
   , process_(nullptr)
   , spawn_process_(nullptr)
   , spawn_namespaces_(nullptr){}
@@ -160,8 +171,7 @@ struct ProcessExecEventDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ProcessExecEventDefaultTypeInternal _ProcessExecEvent_default_instance_;
 constexpr ProcessTerminateEvent::ProcessTerminateEvent(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : common_(nullptr)
-  , parent_process_(nullptr)
+  : parent_process_(nullptr)
   , process_(nullptr){}
 struct ProcessTerminateEventDefaultTypeInternal {
   constexpr ProcessTerminateEventDefaultTypeInternal()
@@ -172,7 +182,22 @@ struct ProcessTerminateEventDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ProcessTerminateEventDefaultTypeInternal _ProcessTerminateEvent_default_instance_;
+constexpr XdrProcessEvent::XdrProcessEvent(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : common_(nullptr)
+  , _oneof_case_{}{}
+struct XdrProcessEventDefaultTypeInternal {
+  constexpr XdrProcessEventDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~XdrProcessEventDefaultTypeInternal() {}
+  union {
+    XdrProcessEvent _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT XdrProcessEventDefaultTypeInternal _XdrProcessEvent_default_instance_;
 }  // namespace reporting
+}  // namespace cros_xdr
+namespace cros_xdr {
 namespace reporting {
 bool TcbAttributes_SecurityChip_Kind_IsValid(int value) {
   switch (value) {
@@ -321,7 +346,7 @@ CommonEventDataFields::CommonEventDataFields(::PROTOBUF_NAMESPACE_ID::Arena* are
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
   }
-  // @@protoc_insertion_point(arena_constructor:reporting.CommonEventDataFields)
+  // @@protoc_insertion_point(arena_constructor:cros_xdr.reporting.CommonEventDataFields)
 }
 CommonEventDataFields::CommonEventDataFields(const CommonEventDataFields& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
@@ -336,7 +361,7 @@ CommonEventDataFields::CommonEventDataFields(const CommonEventDataFields& from)
       GetArenaForAllocation());
   }
   device_boot_time_ = from.device_boot_time_;
-  // @@protoc_insertion_point(copy_constructor:reporting.CommonEventDataFields)
+  // @@protoc_insertion_point(copy_constructor:cros_xdr.reporting.CommonEventDataFields)
 }
 
 inline void CommonEventDataFields::SharedCtor() {
@@ -348,7 +373,7 @@ device_boot_time_ = int64_t{0};
 }
 
 CommonEventDataFields::~CommonEventDataFields() {
-  // @@protoc_insertion_point(destructor:reporting.CommonEventDataFields)
+  // @@protoc_insertion_point(destructor:cros_xdr.reporting.CommonEventDataFields)
   if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<std::string>();
@@ -370,7 +395,7 @@ void CommonEventDataFields::SetCachedSize(int size) const {
 }
 
 void CommonEventDataFields::Clear() {
-// @@protoc_insertion_point(message_clear_start:reporting.CommonEventDataFields)
+// @@protoc_insertion_point(message_clear_start:cros_xdr.reporting.CommonEventDataFields)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -435,7 +460,7 @@ failure:
 
 uint8_t* CommonEventDataFields::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:reporting.CommonEventDataFields)
+  // @@protoc_insertion_point(serialize_to_array_start:cros_xdr.reporting.CommonEventDataFields)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -456,12 +481,12 @@ uint8_t* CommonEventDataFields::_InternalSerialize(
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:reporting.CommonEventDataFields)
+  // @@protoc_insertion_point(serialize_to_array_end:cros_xdr.reporting.CommonEventDataFields)
   return target;
 }
 
 size_t CommonEventDataFields::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:reporting.CommonEventDataFields)
+// @@protoc_insertion_point(message_byte_size_start:cros_xdr.reporting.CommonEventDataFields)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
@@ -498,7 +523,7 @@ void CommonEventDataFields::CheckTypeAndMergeFrom(
 }
 
 void CommonEventDataFields::MergeFrom(const CommonEventDataFields& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:reporting.CommonEventDataFields)
+// @@protoc_insertion_point(class_specific_merge_from_start:cros_xdr.reporting.CommonEventDataFields)
   GOOGLE_DCHECK_NE(&from, this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -517,7 +542,7 @@ void CommonEventDataFields::MergeFrom(const CommonEventDataFields& from) {
 }
 
 void CommonEventDataFields::CopyFrom(const CommonEventDataFields& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:reporting.CommonEventDataFields)
+// @@protoc_insertion_point(class_specific_copy_from_start:cros_xdr.reporting.CommonEventDataFields)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -542,7 +567,7 @@ void CommonEventDataFields::InternalSwap(CommonEventDataFields* other) {
 }
 
 std::string CommonEventDataFields::GetTypeName() const {
-  return "reporting.CommonEventDataFields";
+  return "cros_xdr.reporting.CommonEventDataFields";
 }
 
 
@@ -584,7 +609,7 @@ TcbAttributes_SecurityChip::TcbAttributes_SecurityChip(::PROTOBUF_NAMESPACE_ID::
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
   }
-  // @@protoc_insertion_point(arena_constructor:reporting.TcbAttributes.SecurityChip)
+  // @@protoc_insertion_point(arena_constructor:cros_xdr.reporting.TcbAttributes.SecurityChip)
 }
 TcbAttributes_SecurityChip::TcbAttributes_SecurityChip(const TcbAttributes_SecurityChip& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
@@ -647,7 +672,7 @@ TcbAttributes_SecurityChip::TcbAttributes_SecurityChip(const TcbAttributes_Secur
       GetArenaForAllocation());
   }
   kind_ = from.kind_;
-  // @@protoc_insertion_point(copy_constructor:reporting.TcbAttributes.SecurityChip)
+  // @@protoc_insertion_point(copy_constructor:cros_xdr.reporting.TcbAttributes.SecurityChip)
 }
 
 inline void TcbAttributes_SecurityChip::SharedCtor() {
@@ -683,7 +708,7 @@ kind_ = 0;
 }
 
 TcbAttributes_SecurityChip::~TcbAttributes_SecurityChip() {
-  // @@protoc_insertion_point(destructor:reporting.TcbAttributes.SecurityChip)
+  // @@protoc_insertion_point(destructor:cros_xdr.reporting.TcbAttributes.SecurityChip)
   if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<std::string>();
@@ -711,7 +736,7 @@ void TcbAttributes_SecurityChip::SetCachedSize(int size) const {
 }
 
 void TcbAttributes_SecurityChip::Clear() {
-// @@protoc_insertion_point(message_clear_start:reporting.TcbAttributes.SecurityChip)
+// @@protoc_insertion_point(message_clear_start:cros_xdr.reporting.TcbAttributes.SecurityChip)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -752,13 +777,13 @@ const char* TcbAttributes_SecurityChip::_InternalParse(const char* ptr, ::PROTOB
     uint32_t tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // optional .reporting.TcbAttributes.SecurityChip.Kind kind = 1;
+      // optional .cros_xdr.reporting.TcbAttributes.SecurityChip.Kind kind = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
           uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-          if (PROTOBUF_PREDICT_TRUE(::reporting::TcbAttributes_SecurityChip_Kind_IsValid(val))) {
-            _internal_set_kind(static_cast<::reporting::TcbAttributes_SecurityChip_Kind>(val));
+          if (PROTOBUF_PREDICT_TRUE(::cros_xdr::reporting::TcbAttributes_SecurityChip_Kind_IsValid(val))) {
+            _internal_set_kind(static_cast<::cros_xdr::reporting::TcbAttributes_SecurityChip_Kind>(val));
           } else {
             ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(1, val, mutable_unknown_fields());
           }
@@ -854,12 +879,12 @@ failure:
 
 uint8_t* TcbAttributes_SecurityChip::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:reporting.TcbAttributes.SecurityChip)
+  // @@protoc_insertion_point(serialize_to_array_start:cros_xdr.reporting.TcbAttributes.SecurityChip)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  // optional .reporting.TcbAttributes.SecurityChip.Kind kind = 1;
+  // optional .cros_xdr.reporting.TcbAttributes.SecurityChip.Kind kind = 1;
   if (cached_has_bits & 0x00000080u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
@@ -912,12 +937,12 @@ uint8_t* TcbAttributes_SecurityChip::_InternalSerialize(
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:reporting.TcbAttributes.SecurityChip)
+  // @@protoc_insertion_point(serialize_to_array_end:cros_xdr.reporting.TcbAttributes.SecurityChip)
   return target;
 }
 
 size_t TcbAttributes_SecurityChip::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:reporting.TcbAttributes.SecurityChip)
+// @@protoc_insertion_point(message_byte_size_start:cros_xdr.reporting.TcbAttributes.SecurityChip)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
@@ -975,7 +1000,7 @@ size_t TcbAttributes_SecurityChip::ByteSizeLong() const {
           this->_internal_firmware_version());
     }
 
-    // optional .reporting.TcbAttributes.SecurityChip.Kind kind = 1;
+    // optional .cros_xdr.reporting.TcbAttributes.SecurityChip.Kind kind = 1;
     if (cached_has_bits & 0x00000080u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_kind());
@@ -997,7 +1022,7 @@ void TcbAttributes_SecurityChip::CheckTypeAndMergeFrom(
 }
 
 void TcbAttributes_SecurityChip::MergeFrom(const TcbAttributes_SecurityChip& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:reporting.TcbAttributes.SecurityChip)
+// @@protoc_insertion_point(class_specific_merge_from_start:cros_xdr.reporting.TcbAttributes.SecurityChip)
   GOOGLE_DCHECK_NE(&from, this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -1034,7 +1059,7 @@ void TcbAttributes_SecurityChip::MergeFrom(const TcbAttributes_SecurityChip& fro
 }
 
 void TcbAttributes_SecurityChip::CopyFrom(const TcbAttributes_SecurityChip& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:reporting.TcbAttributes.SecurityChip)
+// @@protoc_insertion_point(class_specific_copy_from_start:cros_xdr.reporting.TcbAttributes.SecurityChip)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -1089,7 +1114,7 @@ void TcbAttributes_SecurityChip::InternalSwap(TcbAttributes_SecurityChip* other)
 }
 
 std::string TcbAttributes_SecurityChip::GetTypeName() const {
-  return "reporting.TcbAttributes.SecurityChip";
+  return "cros_xdr.reporting.TcbAttributes.SecurityChip";
 }
 
 
@@ -1104,7 +1129,7 @@ class TcbAttributes::_Internal {
   static void set_has_firmware_secure_boot(HasBits* has_bits) {
     (*has_bits)[0] |= 8u;
   }
-  static const ::reporting::TcbAttributes_SecurityChip& security_chip(const TcbAttributes* msg);
+  static const ::cros_xdr::reporting::TcbAttributes_SecurityChip& security_chip(const TcbAttributes* msg);
   static void set_has_security_chip(HasBits* has_bits) {
     (*has_bits)[0] |= 4u;
   }
@@ -1113,7 +1138,7 @@ class TcbAttributes::_Internal {
   }
 };
 
-const ::reporting::TcbAttributes_SecurityChip&
+const ::cros_xdr::reporting::TcbAttributes_SecurityChip&
 TcbAttributes::_Internal::security_chip(const TcbAttributes* msg) {
   return *msg->security_chip_;
 }
@@ -1124,7 +1149,7 @@ TcbAttributes::TcbAttributes(::PROTOBUF_NAMESPACE_ID::Arena* arena,
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
   }
-  // @@protoc_insertion_point(arena_constructor:reporting.TcbAttributes)
+  // @@protoc_insertion_point(arena_constructor:cros_xdr.reporting.TcbAttributes)
 }
 TcbAttributes::TcbAttributes(const TcbAttributes& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
@@ -1147,12 +1172,12 @@ TcbAttributes::TcbAttributes(const TcbAttributes& from)
       GetArenaForAllocation());
   }
   if (from._internal_has_security_chip()) {
-    security_chip_ = new ::reporting::TcbAttributes_SecurityChip(*from.security_chip_);
+    security_chip_ = new ::cros_xdr::reporting::TcbAttributes_SecurityChip(*from.security_chip_);
   } else {
     security_chip_ = nullptr;
   }
   firmware_secure_boot_ = from.firmware_secure_boot_;
-  // @@protoc_insertion_point(copy_constructor:reporting.TcbAttributes)
+  // @@protoc_insertion_point(copy_constructor:cros_xdr.reporting.TcbAttributes)
 }
 
 inline void TcbAttributes::SharedCtor() {
@@ -1171,7 +1196,7 @@ linux_kernel_version_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEm
 }
 
 TcbAttributes::~TcbAttributes() {
-  // @@protoc_insertion_point(destructor:reporting.TcbAttributes)
+  // @@protoc_insertion_point(destructor:cros_xdr.reporting.TcbAttributes)
   if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<std::string>();
@@ -1195,7 +1220,7 @@ void TcbAttributes::SetCachedSize(int size) const {
 }
 
 void TcbAttributes::Clear() {
-// @@protoc_insertion_point(message_clear_start:reporting.TcbAttributes)
+// @@protoc_insertion_point(message_clear_start:cros_xdr.reporting.TcbAttributes)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -1234,20 +1259,20 @@ const char* TcbAttributes::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_
         } else
           goto handle_unusual;
         continue;
-      // optional .reporting.TcbAttributes.FirmwareSecureBoot firmware_secure_boot = 2;
+      // optional .cros_xdr.reporting.TcbAttributes.FirmwareSecureBoot firmware_secure_boot = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
           uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-          if (PROTOBUF_PREDICT_TRUE(::reporting::TcbAttributes_FirmwareSecureBoot_IsValid(val))) {
-            _internal_set_firmware_secure_boot(static_cast<::reporting::TcbAttributes_FirmwareSecureBoot>(val));
+          if (PROTOBUF_PREDICT_TRUE(::cros_xdr::reporting::TcbAttributes_FirmwareSecureBoot_IsValid(val))) {
+            _internal_set_firmware_secure_boot(static_cast<::cros_xdr::reporting::TcbAttributes_FirmwareSecureBoot>(val));
           } else {
             ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(2, val, mutable_unknown_fields());
           }
         } else
           goto handle_unusual;
         continue;
-      // optional .reporting.TcbAttributes.SecurityChip security_chip = 3;
+      // optional .cros_xdr.reporting.TcbAttributes.SecurityChip security_chip = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
           ptr = ctx->ParseMessage(_internal_mutable_security_chip(), ptr);
@@ -1290,7 +1315,7 @@ failure:
 
 uint8_t* TcbAttributes::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:reporting.TcbAttributes)
+  // @@protoc_insertion_point(serialize_to_array_start:cros_xdr.reporting.TcbAttributes)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -1301,14 +1326,14 @@ uint8_t* TcbAttributes::_InternalSerialize(
         1, this->_internal_system_firmware_version(), target);
   }
 
-  // optional .reporting.TcbAttributes.FirmwareSecureBoot firmware_secure_boot = 2;
+  // optional .cros_xdr.reporting.TcbAttributes.FirmwareSecureBoot firmware_secure_boot = 2;
   if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
       2, this->_internal_firmware_secure_boot(), target);
   }
 
-  // optional .reporting.TcbAttributes.SecurityChip security_chip = 3;
+  // optional .cros_xdr.reporting.TcbAttributes.SecurityChip security_chip = 3;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
@@ -1326,12 +1351,12 @@ uint8_t* TcbAttributes::_InternalSerialize(
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:reporting.TcbAttributes)
+  // @@protoc_insertion_point(serialize_to_array_end:cros_xdr.reporting.TcbAttributes)
   return target;
 }
 
 size_t TcbAttributes::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:reporting.TcbAttributes)
+// @@protoc_insertion_point(message_byte_size_start:cros_xdr.reporting.TcbAttributes)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
@@ -1354,14 +1379,14 @@ size_t TcbAttributes::ByteSizeLong() const {
           this->_internal_linux_kernel_version());
     }
 
-    // optional .reporting.TcbAttributes.SecurityChip security_chip = 3;
+    // optional .cros_xdr.reporting.TcbAttributes.SecurityChip security_chip = 3;
     if (cached_has_bits & 0x00000004u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *security_chip_);
     }
 
-    // optional .reporting.TcbAttributes.FirmwareSecureBoot firmware_secure_boot = 2;
+    // optional .cros_xdr.reporting.TcbAttributes.FirmwareSecureBoot firmware_secure_boot = 2;
     if (cached_has_bits & 0x00000008u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_firmware_secure_boot());
@@ -1383,7 +1408,7 @@ void TcbAttributes::CheckTypeAndMergeFrom(
 }
 
 void TcbAttributes::MergeFrom(const TcbAttributes& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:reporting.TcbAttributes)
+// @@protoc_insertion_point(class_specific_merge_from_start:cros_xdr.reporting.TcbAttributes)
   GOOGLE_DCHECK_NE(&from, this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -1397,7 +1422,7 @@ void TcbAttributes::MergeFrom(const TcbAttributes& from) {
       _internal_set_linux_kernel_version(from._internal_linux_kernel_version());
     }
     if (cached_has_bits & 0x00000004u) {
-      _internal_mutable_security_chip()->::reporting::TcbAttributes_SecurityChip::MergeFrom(from._internal_security_chip());
+      _internal_mutable_security_chip()->::cros_xdr::reporting::TcbAttributes_SecurityChip::MergeFrom(from._internal_security_chip());
     }
     if (cached_has_bits & 0x00000008u) {
       firmware_secure_boot_ = from.firmware_secure_boot_;
@@ -1408,7 +1433,7 @@ void TcbAttributes::MergeFrom(const TcbAttributes& from) {
 }
 
 void TcbAttributes::CopyFrom(const TcbAttributes& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:reporting.TcbAttributes)
+// @@protoc_insertion_point(class_specific_copy_from_start:cros_xdr.reporting.TcbAttributes)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -1443,7 +1468,7 @@ void TcbAttributes::InternalSwap(TcbAttributes* other) {
 }
 
 std::string TcbAttributes::GetTypeName() const {
-  return "reporting.TcbAttributes";
+  return "cros_xdr.reporting.TcbAttributes";
 }
 
 
@@ -1485,7 +1510,7 @@ FileImage::FileImage(::PROTOBUF_NAMESPACE_ID::Arena* arena,
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
   }
-  // @@protoc_insertion_point(arena_constructor:reporting.FileImage)
+  // @@protoc_insertion_point(arena_constructor:cros_xdr.reporting.FileImage)
 }
 FileImage::FileImage(const FileImage& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
@@ -1510,7 +1535,7 @@ FileImage::FileImage(const FileImage& from)
   ::memcpy(&mnt_ns_, &from.mnt_ns_,
     static_cast<size_t>(reinterpret_cast<char*>(&mode_) -
     reinterpret_cast<char*>(&mnt_ns_)) + sizeof(mode_));
-  // @@protoc_insertion_point(copy_constructor:reporting.FileImage)
+  // @@protoc_insertion_point(copy_constructor:cros_xdr.reporting.FileImage)
 }
 
 inline void FileImage::SharedCtor() {
@@ -1529,7 +1554,7 @@ sha256_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlrea
 }
 
 FileImage::~FileImage() {
-  // @@protoc_insertion_point(destructor:reporting.FileImage)
+  // @@protoc_insertion_point(destructor:cros_xdr.reporting.FileImage)
   if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<std::string>();
@@ -1552,7 +1577,7 @@ void FileImage::SetCachedSize(int size) const {
 }
 
 void FileImage::Clear() {
-// @@protoc_insertion_point(message_clear_start:reporting.FileImage)
+// @@protoc_insertion_point(message_clear_start:cros_xdr.reporting.FileImage)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -1680,7 +1705,7 @@ failure:
 
 uint8_t* FileImage::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:reporting.FileImage)
+  // @@protoc_insertion_point(serialize_to_array_start:cros_xdr.reporting.FileImage)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -1737,12 +1762,12 @@ uint8_t* FileImage::_InternalSerialize(
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:reporting.FileImage)
+  // @@protoc_insertion_point(serialize_to_array_end:cros_xdr.reporting.FileImage)
   return target;
 }
 
 size_t FileImage::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:reporting.FileImage)
+// @@protoc_insertion_point(message_byte_size_start:cros_xdr.reporting.FileImage)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
@@ -1811,7 +1836,7 @@ void FileImage::CheckTypeAndMergeFrom(
 }
 
 void FileImage::MergeFrom(const FileImage& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:reporting.FileImage)
+// @@protoc_insertion_point(class_specific_merge_from_start:cros_xdr.reporting.FileImage)
   GOOGLE_DCHECK_NE(&from, this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -1848,7 +1873,7 @@ void FileImage::MergeFrom(const FileImage& from) {
 }
 
 void FileImage::CopyFrom(const FileImage& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:reporting.FileImage)
+// @@protoc_insertion_point(class_specific_copy_from_start:cros_xdr.reporting.FileImage)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -1883,7 +1908,7 @@ void FileImage::InternalSwap(FileImage* other) {
 }
 
 std::string FileImage::GetTypeName() const {
-  return "reporting.FileImage";
+  return "cros_xdr.reporting.FileImage";
 }
 
 
@@ -1904,13 +1929,13 @@ class Process::_Internal {
   static void set_has_commandline(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
-  static const ::reporting::FileImage& image(const Process* msg);
+  static const ::cros_xdr::reporting::FileImage& image(const Process* msg);
   static void set_has_image(HasBits* has_bits) {
     (*has_bits)[0] |= 4u;
   }
 };
 
-const ::reporting::FileImage&
+const ::cros_xdr::reporting::FileImage&
 Process::_Internal::image(const Process* msg) {
   return *msg->image_;
 }
@@ -1921,7 +1946,7 @@ Process::Process(::PROTOBUF_NAMESPACE_ID::Arena* arena,
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
   }
-  // @@protoc_insertion_point(arena_constructor:reporting.Process)
+  // @@protoc_insertion_point(arena_constructor:cros_xdr.reporting.Process)
 }
 Process::Process(const Process& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
@@ -1944,14 +1969,14 @@ Process::Process(const Process& from)
       GetArenaForAllocation());
   }
   if (from._internal_has_image()) {
-    image_ = new ::reporting::FileImage(*from.image_);
+    image_ = new ::cros_xdr::reporting::FileImage(*from.image_);
   } else {
     image_ = nullptr;
   }
   ::memcpy(&canonical_pid_, &from.canonical_pid_,
     static_cast<size_t>(reinterpret_cast<char*>(&canonical_uid_) -
     reinterpret_cast<char*>(&canonical_pid_)) + sizeof(canonical_uid_));
-  // @@protoc_insertion_point(copy_constructor:reporting.Process)
+  // @@protoc_insertion_point(copy_constructor:cros_xdr.reporting.Process)
 }
 
 inline void Process::SharedCtor() {
@@ -1970,7 +1995,7 @@ commandline_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString
 }
 
 Process::~Process() {
-  // @@protoc_insertion_point(destructor:reporting.Process)
+  // @@protoc_insertion_point(destructor:cros_xdr.reporting.Process)
   if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<std::string>();
@@ -1994,7 +2019,7 @@ void Process::SetCachedSize(int size) const {
 }
 
 void Process::Clear() {
-// @@protoc_insertion_point(message_clear_start:reporting.Process)
+// @@protoc_insertion_point(message_clear_start:cros_xdr.reporting.Process)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -2064,7 +2089,7 @@ const char* Process::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::in
         } else
           goto handle_unusual;
         continue;
-      // optional .reporting.FileImage image = 5;
+      // optional .cros_xdr.reporting.FileImage image = 5;
       case 5:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
           ptr = ctx->ParseMessage(_internal_mutable_image(), ptr);
@@ -2098,7 +2123,7 @@ failure:
 
 uint8_t* Process::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:reporting.Process)
+  // @@protoc_insertion_point(serialize_to_array_start:cros_xdr.reporting.Process)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -2127,7 +2152,7 @@ uint8_t* Process::_InternalSerialize(
         4, this->_internal_commandline(), target);
   }
 
-  // optional .reporting.FileImage image = 5;
+  // optional .cros_xdr.reporting.FileImage image = 5;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
@@ -2139,12 +2164,12 @@ uint8_t* Process::_InternalSerialize(
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:reporting.Process)
+  // @@protoc_insertion_point(serialize_to_array_end:cros_xdr.reporting.Process)
   return target;
 }
 
 size_t Process::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:reporting.Process)
+// @@protoc_insertion_point(message_byte_size_start:cros_xdr.reporting.Process)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
@@ -2167,7 +2192,7 @@ size_t Process::ByteSizeLong() const {
           this->_internal_commandline());
     }
 
-    // optional .reporting.FileImage image = 5;
+    // optional .cros_xdr.reporting.FileImage image = 5;
     if (cached_has_bits & 0x00000004u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
@@ -2200,7 +2225,7 @@ void Process::CheckTypeAndMergeFrom(
 }
 
 void Process::MergeFrom(const Process& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:reporting.Process)
+// @@protoc_insertion_point(class_specific_merge_from_start:cros_xdr.reporting.Process)
   GOOGLE_DCHECK_NE(&from, this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -2214,7 +2239,7 @@ void Process::MergeFrom(const Process& from) {
       _internal_set_commandline(from._internal_commandline());
     }
     if (cached_has_bits & 0x00000004u) {
-      _internal_mutable_image()->::reporting::FileImage::MergeFrom(from._internal_image());
+      _internal_mutable_image()->::cros_xdr::reporting::FileImage::MergeFrom(from._internal_image());
     }
     if (cached_has_bits & 0x00000008u) {
       canonical_pid_ = from.canonical_pid_;
@@ -2228,7 +2253,7 @@ void Process::MergeFrom(const Process& from) {
 }
 
 void Process::CopyFrom(const Process& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:reporting.Process)
+// @@protoc_insertion_point(class_specific_copy_from_start:cros_xdr.reporting.Process)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -2263,7 +2288,7 @@ void Process::InternalSwap(Process* other) {
 }
 
 std::string Process::GetTypeName() const {
-  return "reporting.Process";
+  return "cros_xdr.reporting.Process";
 }
 
 
@@ -2302,7 +2327,7 @@ Namespaces::Namespaces(::PROTOBUF_NAMESPACE_ID::Arena* arena,
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
   }
-  // @@protoc_insertion_point(arena_constructor:reporting.Namespaces)
+  // @@protoc_insertion_point(arena_constructor:cros_xdr.reporting.Namespaces)
 }
 Namespaces::Namespaces(const Namespaces& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
@@ -2311,7 +2336,7 @@ Namespaces::Namespaces(const Namespaces& from)
   ::memcpy(&cgroup_ns_, &from.cgroup_ns_,
     static_cast<size_t>(reinterpret_cast<char*>(&net_ns_) -
     reinterpret_cast<char*>(&cgroup_ns_)) + sizeof(net_ns_));
-  // @@protoc_insertion_point(copy_constructor:reporting.Namespaces)
+  // @@protoc_insertion_point(copy_constructor:cros_xdr.reporting.Namespaces)
 }
 
 inline void Namespaces::SharedCtor() {
@@ -2322,7 +2347,7 @@ inline void Namespaces::SharedCtor() {
 }
 
 Namespaces::~Namespaces() {
-  // @@protoc_insertion_point(destructor:reporting.Namespaces)
+  // @@protoc_insertion_point(destructor:cros_xdr.reporting.Namespaces)
   if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<std::string>();
@@ -2343,7 +2368,7 @@ void Namespaces::SetCachedSize(int size) const {
 }
 
 void Namespaces::Clear() {
-// @@protoc_insertion_point(message_clear_start:reporting.Namespaces)
+// @@protoc_insertion_point(message_clear_start:cros_xdr.reporting.Namespaces)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -2454,7 +2479,7 @@ failure:
 
 uint8_t* Namespaces::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:reporting.Namespaces)
+  // @@protoc_insertion_point(serialize_to_array_start:cros_xdr.reporting.Namespaces)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -2505,12 +2530,12 @@ uint8_t* Namespaces::_InternalSerialize(
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:reporting.Namespaces)
+  // @@protoc_insertion_point(serialize_to_array_end:cros_xdr.reporting.Namespaces)
   return target;
 }
 
 size_t Namespaces::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:reporting.Namespaces)
+// @@protoc_insertion_point(message_byte_size_start:cros_xdr.reporting.Namespaces)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
@@ -2570,7 +2595,7 @@ void Namespaces::CheckTypeAndMergeFrom(
 }
 
 void Namespaces::MergeFrom(const Namespaces& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:reporting.Namespaces)
+// @@protoc_insertion_point(class_specific_merge_from_start:cros_xdr.reporting.Namespaces)
   GOOGLE_DCHECK_NE(&from, this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -2604,7 +2629,7 @@ void Namespaces::MergeFrom(const Namespaces& from) {
 }
 
 void Namespaces::CopyFrom(const Namespaces& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:reporting.Namespaces)
+// @@protoc_insertion_point(class_specific_copy_from_start:cros_xdr.reporting.Namespaces)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -2627,7 +2652,7 @@ void Namespaces::InternalSwap(Namespaces* other) {
 }
 
 std::string Namespaces::GetTypeName() const {
-  return "reporting.Namespaces";
+  return "cros_xdr.reporting.Namespaces";
 }
 
 
@@ -2636,21 +2661,13 @@ std::string Namespaces::GetTypeName() const {
 class AgentStartEvent::_Internal {
  public:
   using HasBits = decltype(std::declval<AgentStartEvent>()._has_bits_);
-  static const ::reporting::CommonEventDataFields& common(const AgentStartEvent* msg);
-  static void set_has_common(HasBits* has_bits) {
-    (*has_bits)[0] |= 1u;
-  }
-  static const ::reporting::TcbAttributes& tcb(const AgentStartEvent* msg);
+  static const ::cros_xdr::reporting::TcbAttributes& tcb(const AgentStartEvent* msg);
   static void set_has_tcb(HasBits* has_bits) {
-    (*has_bits)[0] |= 2u;
+    (*has_bits)[0] |= 1u;
   }
 };
 
-const ::reporting::CommonEventDataFields&
-AgentStartEvent::_Internal::common(const AgentStartEvent* msg) {
-  return *msg->common_;
-}
-const ::reporting::TcbAttributes&
+const ::cros_xdr::reporting::TcbAttributes&
 AgentStartEvent::_Internal::tcb(const AgentStartEvent* msg) {
   return *msg->tcb_;
 }
@@ -2661,34 +2678,26 @@ AgentStartEvent::AgentStartEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena,
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
   }
-  // @@protoc_insertion_point(arena_constructor:reporting.AgentStartEvent)
+  // @@protoc_insertion_point(arena_constructor:cros_xdr.reporting.AgentStartEvent)
 }
 AgentStartEvent::AgentStartEvent(const AgentStartEvent& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
       _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  if (from._internal_has_common()) {
-    common_ = new ::reporting::CommonEventDataFields(*from.common_);
-  } else {
-    common_ = nullptr;
-  }
   if (from._internal_has_tcb()) {
-    tcb_ = new ::reporting::TcbAttributes(*from.tcb_);
+    tcb_ = new ::cros_xdr::reporting::TcbAttributes(*from.tcb_);
   } else {
     tcb_ = nullptr;
   }
-  // @@protoc_insertion_point(copy_constructor:reporting.AgentStartEvent)
+  // @@protoc_insertion_point(copy_constructor:cros_xdr.reporting.AgentStartEvent)
 }
 
 inline void AgentStartEvent::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&common_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&tcb_) -
-    reinterpret_cast<char*>(&common_)) + sizeof(tcb_));
+tcb_ = nullptr;
 }
 
 AgentStartEvent::~AgentStartEvent() {
-  // @@protoc_insertion_point(destructor:reporting.AgentStartEvent)
+  // @@protoc_insertion_point(destructor:cros_xdr.reporting.AgentStartEvent)
   if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<std::string>();
@@ -2696,7 +2705,6 @@ AgentStartEvent::~AgentStartEvent() {
 
 inline void AgentStartEvent::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  if (this != internal_default_instance()) delete common_;
   if (this != internal_default_instance()) delete tcb_;
 }
 
@@ -2711,21 +2719,15 @@ void AgentStartEvent::SetCachedSize(int size) const {
 }
 
 void AgentStartEvent::Clear() {
-// @@protoc_insertion_point(message_clear_start:reporting.AgentStartEvent)
+// @@protoc_insertion_point(message_clear_start:cros_xdr.reporting.AgentStartEvent)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
-    if (cached_has_bits & 0x00000001u) {
-      GOOGLE_DCHECK(common_ != nullptr);
-      common_->Clear();
-    }
-    if (cached_has_bits & 0x00000002u) {
-      GOOGLE_DCHECK(tcb_ != nullptr);
-      tcb_->Clear();
-    }
+  if (cached_has_bits & 0x00000001u) {
+    GOOGLE_DCHECK(tcb_ != nullptr);
+    tcb_->Clear();
   }
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
@@ -2738,17 +2740,9 @@ const char* AgentStartEvent::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPAC
     uint32_t tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // optional .reporting.CommonEventDataFields common = 1;
+      // optional .cros_xdr.reporting.TcbAttributes tcb = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
-          ptr = ctx->ParseMessage(_internal_mutable_common(), ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // optional .reporting.TcbAttributes tcb = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_tcb(), ptr);
           CHK_(ptr);
         } else
@@ -2780,60 +2774,43 @@ failure:
 
 uint8_t* AgentStartEvent::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:reporting.AgentStartEvent)
+  // @@protoc_insertion_point(serialize_to_array_start:cros_xdr.reporting.AgentStartEvent)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  // optional .reporting.CommonEventDataFields common = 1;
+  // optional .cros_xdr.reporting.TcbAttributes tcb = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
-        1, _Internal::common(this), target, stream);
-  }
-
-  // optional .reporting.TcbAttributes tcb = 2;
-  if (cached_has_bits & 0x00000002u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        2, _Internal::tcb(this), target, stream);
+        1, _Internal::tcb(this), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:reporting.AgentStartEvent)
+  // @@protoc_insertion_point(serialize_to_array_end:cros_xdr.reporting.AgentStartEvent)
   return target;
 }
 
 size_t AgentStartEvent::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:reporting.AgentStartEvent)
+// @@protoc_insertion_point(message_byte_size_start:cros_xdr.reporting.AgentStartEvent)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  // optional .cros_xdr.reporting.TcbAttributes tcb = 1;
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
-    // optional .reporting.CommonEventDataFields common = 1;
-    if (cached_has_bits & 0x00000001u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *common_);
-    }
-
-    // optional .reporting.TcbAttributes tcb = 2;
-    if (cached_has_bits & 0x00000002u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *tcb_);
-    }
-
+  if (cached_has_bits & 0x00000001u) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *tcb_);
   }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -2849,25 +2826,19 @@ void AgentStartEvent::CheckTypeAndMergeFrom(
 }
 
 void AgentStartEvent::MergeFrom(const AgentStartEvent& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:reporting.AgentStartEvent)
+// @@protoc_insertion_point(class_specific_merge_from_start:cros_xdr.reporting.AgentStartEvent)
   GOOGLE_DCHECK_NE(&from, this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
-    if (cached_has_bits & 0x00000001u) {
-      _internal_mutable_common()->::reporting::CommonEventDataFields::MergeFrom(from._internal_common());
-    }
-    if (cached_has_bits & 0x00000002u) {
-      _internal_mutable_tcb()->::reporting::TcbAttributes::MergeFrom(from._internal_tcb());
-    }
+  if (from._internal_has_tcb()) {
+    _internal_mutable_tcb()->::cros_xdr::reporting::TcbAttributes::MergeFrom(from._internal_tcb());
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void AgentStartEvent::CopyFrom(const AgentStartEvent& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:reporting.AgentStartEvent)
+// @@protoc_insertion_point(class_specific_copy_from_start:cros_xdr.reporting.AgentStartEvent)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -2881,16 +2852,11 @@ void AgentStartEvent::InternalSwap(AgentStartEvent* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
-  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(AgentStartEvent, tcb_)
-      + sizeof(AgentStartEvent::tcb_)
-      - PROTOBUF_FIELD_OFFSET(AgentStartEvent, common_)>(
-          reinterpret_cast<char*>(&common_),
-          reinterpret_cast<char*>(&other->common_));
+  swap(tcb_, other->tcb_);
 }
 
 std::string AgentStartEvent::GetTypeName() const {
-  return "reporting.AgentStartEvent";
+  return "cros_xdr.reporting.AgentStartEvent";
 }
 
 
@@ -2899,21 +2865,13 @@ std::string AgentStartEvent::GetTypeName() const {
 class AgentHeartbeatEvent::_Internal {
  public:
   using HasBits = decltype(std::declval<AgentHeartbeatEvent>()._has_bits_);
-  static const ::reporting::CommonEventDataFields& common(const AgentHeartbeatEvent* msg);
-  static void set_has_common(HasBits* has_bits) {
-    (*has_bits)[0] |= 1u;
-  }
-  static const ::reporting::TcbAttributes& tcb(const AgentHeartbeatEvent* msg);
+  static const ::cros_xdr::reporting::TcbAttributes& tcb(const AgentHeartbeatEvent* msg);
   static void set_has_tcb(HasBits* has_bits) {
-    (*has_bits)[0] |= 2u;
+    (*has_bits)[0] |= 1u;
   }
 };
 
-const ::reporting::CommonEventDataFields&
-AgentHeartbeatEvent::_Internal::common(const AgentHeartbeatEvent* msg) {
-  return *msg->common_;
-}
-const ::reporting::TcbAttributes&
+const ::cros_xdr::reporting::TcbAttributes&
 AgentHeartbeatEvent::_Internal::tcb(const AgentHeartbeatEvent* msg) {
   return *msg->tcb_;
 }
@@ -2924,34 +2882,26 @@ AgentHeartbeatEvent::AgentHeartbeatEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena,
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
   }
-  // @@protoc_insertion_point(arena_constructor:reporting.AgentHeartbeatEvent)
+  // @@protoc_insertion_point(arena_constructor:cros_xdr.reporting.AgentHeartbeatEvent)
 }
 AgentHeartbeatEvent::AgentHeartbeatEvent(const AgentHeartbeatEvent& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
       _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  if (from._internal_has_common()) {
-    common_ = new ::reporting::CommonEventDataFields(*from.common_);
-  } else {
-    common_ = nullptr;
-  }
   if (from._internal_has_tcb()) {
-    tcb_ = new ::reporting::TcbAttributes(*from.tcb_);
+    tcb_ = new ::cros_xdr::reporting::TcbAttributes(*from.tcb_);
   } else {
     tcb_ = nullptr;
   }
-  // @@protoc_insertion_point(copy_constructor:reporting.AgentHeartbeatEvent)
+  // @@protoc_insertion_point(copy_constructor:cros_xdr.reporting.AgentHeartbeatEvent)
 }
 
 inline void AgentHeartbeatEvent::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&common_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&tcb_) -
-    reinterpret_cast<char*>(&common_)) + sizeof(tcb_));
+tcb_ = nullptr;
 }
 
 AgentHeartbeatEvent::~AgentHeartbeatEvent() {
-  // @@protoc_insertion_point(destructor:reporting.AgentHeartbeatEvent)
+  // @@protoc_insertion_point(destructor:cros_xdr.reporting.AgentHeartbeatEvent)
   if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<std::string>();
@@ -2959,7 +2909,6 @@ AgentHeartbeatEvent::~AgentHeartbeatEvent() {
 
 inline void AgentHeartbeatEvent::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  if (this != internal_default_instance()) delete common_;
   if (this != internal_default_instance()) delete tcb_;
 }
 
@@ -2974,21 +2923,15 @@ void AgentHeartbeatEvent::SetCachedSize(int size) const {
 }
 
 void AgentHeartbeatEvent::Clear() {
-// @@protoc_insertion_point(message_clear_start:reporting.AgentHeartbeatEvent)
+// @@protoc_insertion_point(message_clear_start:cros_xdr.reporting.AgentHeartbeatEvent)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
-    if (cached_has_bits & 0x00000001u) {
-      GOOGLE_DCHECK(common_ != nullptr);
-      common_->Clear();
-    }
-    if (cached_has_bits & 0x00000002u) {
-      GOOGLE_DCHECK(tcb_ != nullptr);
-      tcb_->Clear();
-    }
+  if (cached_has_bits & 0x00000001u) {
+    GOOGLE_DCHECK(tcb_ != nullptr);
+    tcb_->Clear();
   }
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
@@ -3001,17 +2944,9 @@ const char* AgentHeartbeatEvent::_InternalParse(const char* ptr, ::PROTOBUF_NAME
     uint32_t tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // optional .reporting.CommonEventDataFields common = 1;
+      // optional .cros_xdr.reporting.TcbAttributes tcb = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
-          ptr = ctx->ParseMessage(_internal_mutable_common(), ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // optional .reporting.TcbAttributes tcb = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_tcb(), ptr);
           CHK_(ptr);
         } else
@@ -3043,60 +2978,43 @@ failure:
 
 uint8_t* AgentHeartbeatEvent::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:reporting.AgentHeartbeatEvent)
+  // @@protoc_insertion_point(serialize_to_array_start:cros_xdr.reporting.AgentHeartbeatEvent)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  // optional .reporting.CommonEventDataFields common = 1;
+  // optional .cros_xdr.reporting.TcbAttributes tcb = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
-        1, _Internal::common(this), target, stream);
-  }
-
-  // optional .reporting.TcbAttributes tcb = 2;
-  if (cached_has_bits & 0x00000002u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        2, _Internal::tcb(this), target, stream);
+        1, _Internal::tcb(this), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:reporting.AgentHeartbeatEvent)
+  // @@protoc_insertion_point(serialize_to_array_end:cros_xdr.reporting.AgentHeartbeatEvent)
   return target;
 }
 
 size_t AgentHeartbeatEvent::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:reporting.AgentHeartbeatEvent)
+// @@protoc_insertion_point(message_byte_size_start:cros_xdr.reporting.AgentHeartbeatEvent)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  // optional .cros_xdr.reporting.TcbAttributes tcb = 1;
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
-    // optional .reporting.CommonEventDataFields common = 1;
-    if (cached_has_bits & 0x00000001u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *common_);
-    }
-
-    // optional .reporting.TcbAttributes tcb = 2;
-    if (cached_has_bits & 0x00000002u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *tcb_);
-    }
-
+  if (cached_has_bits & 0x00000001u) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *tcb_);
   }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -3112,25 +3030,19 @@ void AgentHeartbeatEvent::CheckTypeAndMergeFrom(
 }
 
 void AgentHeartbeatEvent::MergeFrom(const AgentHeartbeatEvent& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:reporting.AgentHeartbeatEvent)
+// @@protoc_insertion_point(class_specific_merge_from_start:cros_xdr.reporting.AgentHeartbeatEvent)
   GOOGLE_DCHECK_NE(&from, this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
-    if (cached_has_bits & 0x00000001u) {
-      _internal_mutable_common()->::reporting::CommonEventDataFields::MergeFrom(from._internal_common());
-    }
-    if (cached_has_bits & 0x00000002u) {
-      _internal_mutable_tcb()->::reporting::TcbAttributes::MergeFrom(from._internal_tcb());
-    }
+  if (from._internal_has_tcb()) {
+    _internal_mutable_tcb()->::cros_xdr::reporting::TcbAttributes::MergeFrom(from._internal_tcb());
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void AgentHeartbeatEvent::CopyFrom(const AgentHeartbeatEvent& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:reporting.AgentHeartbeatEvent)
+// @@protoc_insertion_point(class_specific_copy_from_start:cros_xdr.reporting.AgentHeartbeatEvent)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -3144,16 +3056,364 @@ void AgentHeartbeatEvent::InternalSwap(AgentHeartbeatEvent* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
-  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(AgentHeartbeatEvent, tcb_)
-      + sizeof(AgentHeartbeatEvent::tcb_)
-      - PROTOBUF_FIELD_OFFSET(AgentHeartbeatEvent, common_)>(
-          reinterpret_cast<char*>(&common_),
-          reinterpret_cast<char*>(&other->common_));
+  swap(tcb_, other->tcb_);
 }
 
 std::string AgentHeartbeatEvent::GetTypeName() const {
-  return "reporting.AgentHeartbeatEvent";
+  return "cros_xdr.reporting.AgentHeartbeatEvent";
+}
+
+
+// ===================================================================
+
+class XdrAgentEvent::_Internal {
+ public:
+  using HasBits = decltype(std::declval<XdrAgentEvent>()._has_bits_);
+  static const ::cros_xdr::reporting::CommonEventDataFields& common(const XdrAgentEvent* msg);
+  static void set_has_common(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+  static const ::cros_xdr::reporting::AgentStartEvent& agent_start(const XdrAgentEvent* msg);
+  static const ::cros_xdr::reporting::AgentHeartbeatEvent& agent_heartbeat(const XdrAgentEvent* msg);
+};
+
+const ::cros_xdr::reporting::CommonEventDataFields&
+XdrAgentEvent::_Internal::common(const XdrAgentEvent* msg) {
+  return *msg->common_;
+}
+const ::cros_xdr::reporting::AgentStartEvent&
+XdrAgentEvent::_Internal::agent_start(const XdrAgentEvent* msg) {
+  return *msg->message_type_.agent_start_;
+}
+const ::cros_xdr::reporting::AgentHeartbeatEvent&
+XdrAgentEvent::_Internal::agent_heartbeat(const XdrAgentEvent* msg) {
+  return *msg->message_type_.agent_heartbeat_;
+}
+void XdrAgentEvent::set_allocated_agent_start(::cros_xdr::reporting::AgentStartEvent* agent_start) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  clear_message_type();
+  if (agent_start) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::cros_xdr::reporting::AgentStartEvent>::GetOwningArena(agent_start);
+    if (message_arena != submessage_arena) {
+      agent_start = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, agent_start, submessage_arena);
+    }
+    set_has_agent_start();
+    message_type_.agent_start_ = agent_start;
+  }
+  // @@protoc_insertion_point(field_set_allocated:cros_xdr.reporting.XdrAgentEvent.agent_start)
+}
+void XdrAgentEvent::set_allocated_agent_heartbeat(::cros_xdr::reporting::AgentHeartbeatEvent* agent_heartbeat) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  clear_message_type();
+  if (agent_heartbeat) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::cros_xdr::reporting::AgentHeartbeatEvent>::GetOwningArena(agent_heartbeat);
+    if (message_arena != submessage_arena) {
+      agent_heartbeat = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, agent_heartbeat, submessage_arena);
+    }
+    set_has_agent_heartbeat();
+    message_type_.agent_heartbeat_ = agent_heartbeat;
+  }
+  // @@protoc_insertion_point(field_set_allocated:cros_xdr.reporting.XdrAgentEvent.agent_heartbeat)
+}
+XdrAgentEvent::XdrAgentEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
+  // @@protoc_insertion_point(arena_constructor:cros_xdr.reporting.XdrAgentEvent)
+}
+XdrAgentEvent::XdrAgentEvent(const XdrAgentEvent& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      _has_bits_(from._has_bits_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  if (from._internal_has_common()) {
+    common_ = new ::cros_xdr::reporting::CommonEventDataFields(*from.common_);
+  } else {
+    common_ = nullptr;
+  }
+  clear_has_message_type();
+  switch (from.message_type_case()) {
+    case kAgentStart: {
+      _internal_mutable_agent_start()->::cros_xdr::reporting::AgentStartEvent::MergeFrom(from._internal_agent_start());
+      break;
+    }
+    case kAgentHeartbeat: {
+      _internal_mutable_agent_heartbeat()->::cros_xdr::reporting::AgentHeartbeatEvent::MergeFrom(from._internal_agent_heartbeat());
+      break;
+    }
+    case MESSAGE_TYPE_NOT_SET: {
+      break;
+    }
+  }
+  // @@protoc_insertion_point(copy_constructor:cros_xdr.reporting.XdrAgentEvent)
+}
+
+inline void XdrAgentEvent::SharedCtor() {
+common_ = nullptr;
+clear_has_message_type();
+}
+
+XdrAgentEvent::~XdrAgentEvent() {
+  // @@protoc_insertion_point(destructor:cros_xdr.reporting.XdrAgentEvent)
+  if (GetArenaForAllocation() != nullptr) return;
+  SharedDtor();
+  _internal_metadata_.Delete<std::string>();
+}
+
+inline void XdrAgentEvent::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  if (this != internal_default_instance()) delete common_;
+  if (has_message_type()) {
+    clear_message_type();
+  }
+}
+
+void XdrAgentEvent::ArenaDtor(void* object) {
+  XdrAgentEvent* _this = reinterpret_cast< XdrAgentEvent* >(object);
+  (void)_this;
+}
+void XdrAgentEvent::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void XdrAgentEvent::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void XdrAgentEvent::clear_message_type() {
+// @@protoc_insertion_point(one_of_clear_start:cros_xdr.reporting.XdrAgentEvent)
+  switch (message_type_case()) {
+    case kAgentStart: {
+      if (GetArenaForAllocation() == nullptr) {
+        delete message_type_.agent_start_;
+      }
+      break;
+    }
+    case kAgentHeartbeat: {
+      if (GetArenaForAllocation() == nullptr) {
+        delete message_type_.agent_heartbeat_;
+      }
+      break;
+    }
+    case MESSAGE_TYPE_NOT_SET: {
+      break;
+    }
+  }
+  _oneof_case_[0] = MESSAGE_TYPE_NOT_SET;
+}
+
+
+void XdrAgentEvent::Clear() {
+// @@protoc_insertion_point(message_clear_start:cros_xdr.reporting.XdrAgentEvent)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    GOOGLE_DCHECK(common_ != nullptr);
+    common_->Clear();
+  }
+  clear_message_type();
+  _has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* XdrAgentEvent::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional .cros_xdr.reporting.CommonEventDataFields common = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          ptr = ctx->ParseMessage(_internal_mutable_common(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .cros_xdr.reporting.AgentStartEvent agent_start = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          ptr = ctx->ParseMessage(_internal_mutable_agent_start(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .cros_xdr.reporting.AgentHeartbeatEvent agent_heartbeat = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          ptr = ctx->ParseMessage(_internal_mutable_agent_heartbeat(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* XdrAgentEvent::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:cros_xdr.reporting.XdrAgentEvent)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // optional .cros_xdr.reporting.CommonEventDataFields common = 1;
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(
+        1, _Internal::common(this), target, stream);
+  }
+
+  switch (message_type_case()) {
+    case kAgentStart: {
+      target = stream->EnsureSpace(target);
+      target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(
+          2, _Internal::agent_start(this), target, stream);
+      break;
+    }
+    case kAgentHeartbeat: {
+      target = stream->EnsureSpace(target);
+      target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(
+          3, _Internal::agent_heartbeat(this), target, stream);
+      break;
+    }
+    default: ;
+  }
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:cros_xdr.reporting.XdrAgentEvent)
+  return target;
+}
+
+size_t XdrAgentEvent::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:cros_xdr.reporting.XdrAgentEvent)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // optional .cros_xdr.reporting.CommonEventDataFields common = 1;
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *common_);
+  }
+
+  switch (message_type_case()) {
+    // .cros_xdr.reporting.AgentStartEvent agent_start = 2;
+    case kAgentStart: {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *message_type_.agent_start_);
+      break;
+    }
+    // .cros_xdr.reporting.AgentHeartbeatEvent agent_heartbeat = 3;
+    case kAgentHeartbeat: {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *message_type_.agent_heartbeat_);
+      break;
+    }
+    case MESSAGE_TYPE_NOT_SET: {
+      break;
+    }
+  }
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void XdrAgentEvent::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const XdrAgentEvent*>(
+      &from));
+}
+
+void XdrAgentEvent::MergeFrom(const XdrAgentEvent& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:cros_xdr.reporting.XdrAgentEvent)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_has_common()) {
+    _internal_mutable_common()->::cros_xdr::reporting::CommonEventDataFields::MergeFrom(from._internal_common());
+  }
+  switch (from.message_type_case()) {
+    case kAgentStart: {
+      _internal_mutable_agent_start()->::cros_xdr::reporting::AgentStartEvent::MergeFrom(from._internal_agent_start());
+      break;
+    }
+    case kAgentHeartbeat: {
+      _internal_mutable_agent_heartbeat()->::cros_xdr::reporting::AgentHeartbeatEvent::MergeFrom(from._internal_agent_heartbeat());
+      break;
+    }
+    case MESSAGE_TYPE_NOT_SET: {
+      break;
+    }
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void XdrAgentEvent::CopyFrom(const XdrAgentEvent& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:cros_xdr.reporting.XdrAgentEvent)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool XdrAgentEvent::IsInitialized() const {
+  return true;
+}
+
+void XdrAgentEvent::InternalSwap(XdrAgentEvent* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(common_, other->common_);
+  swap(message_type_, other->message_type_);
+  swap(_oneof_case_[0], other->_oneof_case_[0]);
+}
+
+std::string XdrAgentEvent::GetTypeName() const {
+  return "cros_xdr.reporting.XdrAgentEvent";
 }
 
 
@@ -3162,45 +3422,37 @@ std::string AgentHeartbeatEvent::GetTypeName() const {
 class ProcessExecEvent::_Internal {
  public:
   using HasBits = decltype(std::declval<ProcessExecEvent>()._has_bits_);
-  static const ::reporting::CommonEventDataFields& common(const ProcessExecEvent* msg);
-  static void set_has_common(HasBits* has_bits) {
+  static const ::cros_xdr::reporting::Process& parent_process(const ProcessExecEvent* msg);
+  static void set_has_parent_process(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
-  static const ::reporting::Process& parent_process(const ProcessExecEvent* msg);
-  static void set_has_parent_process(HasBits* has_bits) {
+  static const ::cros_xdr::reporting::Process& process(const ProcessExecEvent* msg);
+  static void set_has_process(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
-  static const ::reporting::Process& process(const ProcessExecEvent* msg);
-  static void set_has_process(HasBits* has_bits) {
+  static const ::cros_xdr::reporting::Process& spawn_process(const ProcessExecEvent* msg);
+  static void set_has_spawn_process(HasBits* has_bits) {
     (*has_bits)[0] |= 4u;
   }
-  static const ::reporting::Process& spawn_process(const ProcessExecEvent* msg);
-  static void set_has_spawn_process(HasBits* has_bits) {
-    (*has_bits)[0] |= 8u;
-  }
-  static const ::reporting::Namespaces& spawn_namespaces(const ProcessExecEvent* msg);
+  static const ::cros_xdr::reporting::Namespaces& spawn_namespaces(const ProcessExecEvent* msg);
   static void set_has_spawn_namespaces(HasBits* has_bits) {
-    (*has_bits)[0] |= 16u;
+    (*has_bits)[0] |= 8u;
   }
 };
 
-const ::reporting::CommonEventDataFields&
-ProcessExecEvent::_Internal::common(const ProcessExecEvent* msg) {
-  return *msg->common_;
-}
-const ::reporting::Process&
+const ::cros_xdr::reporting::Process&
 ProcessExecEvent::_Internal::parent_process(const ProcessExecEvent* msg) {
   return *msg->parent_process_;
 }
-const ::reporting::Process&
+const ::cros_xdr::reporting::Process&
 ProcessExecEvent::_Internal::process(const ProcessExecEvent* msg) {
   return *msg->process_;
 }
-const ::reporting::Process&
+const ::cros_xdr::reporting::Process&
 ProcessExecEvent::_Internal::spawn_process(const ProcessExecEvent* msg) {
   return *msg->spawn_process_;
 }
-const ::reporting::Namespaces&
+const ::cros_xdr::reporting::Namespaces&
 ProcessExecEvent::_Internal::spawn_namespaces(const ProcessExecEvent* msg) {
   return *msg->spawn_namespaces_;
 }
@@ -3211,49 +3463,44 @@ ProcessExecEvent::ProcessExecEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena,
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
   }
-  // @@protoc_insertion_point(arena_constructor:reporting.ProcessExecEvent)
+  // @@protoc_insertion_point(arena_constructor:cros_xdr.reporting.ProcessExecEvent)
 }
 ProcessExecEvent::ProcessExecEvent(const ProcessExecEvent& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
       _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  if (from._internal_has_common()) {
-    common_ = new ::reporting::CommonEventDataFields(*from.common_);
-  } else {
-    common_ = nullptr;
-  }
   if (from._internal_has_parent_process()) {
-    parent_process_ = new ::reporting::Process(*from.parent_process_);
+    parent_process_ = new ::cros_xdr::reporting::Process(*from.parent_process_);
   } else {
     parent_process_ = nullptr;
   }
   if (from._internal_has_process()) {
-    process_ = new ::reporting::Process(*from.process_);
+    process_ = new ::cros_xdr::reporting::Process(*from.process_);
   } else {
     process_ = nullptr;
   }
   if (from._internal_has_spawn_process()) {
-    spawn_process_ = new ::reporting::Process(*from.spawn_process_);
+    spawn_process_ = new ::cros_xdr::reporting::Process(*from.spawn_process_);
   } else {
     spawn_process_ = nullptr;
   }
   if (from._internal_has_spawn_namespaces()) {
-    spawn_namespaces_ = new ::reporting::Namespaces(*from.spawn_namespaces_);
+    spawn_namespaces_ = new ::cros_xdr::reporting::Namespaces(*from.spawn_namespaces_);
   } else {
     spawn_namespaces_ = nullptr;
   }
-  // @@protoc_insertion_point(copy_constructor:reporting.ProcessExecEvent)
+  // @@protoc_insertion_point(copy_constructor:cros_xdr.reporting.ProcessExecEvent)
 }
 
 inline void ProcessExecEvent::SharedCtor() {
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&common_) - reinterpret_cast<char*>(this)),
+    reinterpret_cast<char*>(&parent_process_) - reinterpret_cast<char*>(this)),
     0, static_cast<size_t>(reinterpret_cast<char*>(&spawn_namespaces_) -
-    reinterpret_cast<char*>(&common_)) + sizeof(spawn_namespaces_));
+    reinterpret_cast<char*>(&parent_process_)) + sizeof(spawn_namespaces_));
 }
 
 ProcessExecEvent::~ProcessExecEvent() {
-  // @@protoc_insertion_point(destructor:reporting.ProcessExecEvent)
+  // @@protoc_insertion_point(destructor:cros_xdr.reporting.ProcessExecEvent)
   if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<std::string>();
@@ -3261,7 +3508,6 @@ ProcessExecEvent::~ProcessExecEvent() {
 
 inline void ProcessExecEvent::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  if (this != internal_default_instance()) delete common_;
   if (this != internal_default_instance()) delete parent_process_;
   if (this != internal_default_instance()) delete process_;
   if (this != internal_default_instance()) delete spawn_process_;
@@ -3279,30 +3525,26 @@ void ProcessExecEvent::SetCachedSize(int size) const {
 }
 
 void ProcessExecEvent::Clear() {
-// @@protoc_insertion_point(message_clear_start:reporting.ProcessExecEvent)
+// @@protoc_insertion_point(message_clear_start:cros_xdr.reporting.ProcessExecEvent)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x0000001fu) {
+  if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
-      GOOGLE_DCHECK(common_ != nullptr);
-      common_->Clear();
-    }
-    if (cached_has_bits & 0x00000002u) {
       GOOGLE_DCHECK(parent_process_ != nullptr);
       parent_process_->Clear();
     }
-    if (cached_has_bits & 0x00000004u) {
+    if (cached_has_bits & 0x00000002u) {
       GOOGLE_DCHECK(process_ != nullptr);
       process_->Clear();
     }
-    if (cached_has_bits & 0x00000008u) {
+    if (cached_has_bits & 0x00000004u) {
       GOOGLE_DCHECK(spawn_process_ != nullptr);
       spawn_process_->Clear();
     }
-    if (cached_has_bits & 0x00000010u) {
+    if (cached_has_bits & 0x00000008u) {
       GOOGLE_DCHECK(spawn_namespaces_ != nullptr);
       spawn_namespaces_->Clear();
     }
@@ -3318,41 +3560,33 @@ const char* ProcessExecEvent::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPA
     uint32_t tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // optional .reporting.CommonEventDataFields common = 1;
+      // optional .cros_xdr.reporting.Process parent_process = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
-          ptr = ctx->ParseMessage(_internal_mutable_common(), ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // optional .reporting.Process parent_process = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_parent_process(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // optional .reporting.Process process = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+      // optional .cros_xdr.reporting.Process process = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_process(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // optional .reporting.Process spawn_process = 4;
-      case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+      // optional .cros_xdr.reporting.Process spawn_process = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
           ptr = ctx->ParseMessage(_internal_mutable_spawn_process(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // optional .reporting.Namespaces spawn_namespaces = 5;
-      case 5:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
+      // optional .cros_xdr.reporting.Namespaces spawn_namespaces = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
           ptr = ctx->ParseMessage(_internal_mutable_spawn_namespaces(), ptr);
           CHK_(ptr);
         } else
@@ -3384,61 +3618,53 @@ failure:
 
 uint8_t* ProcessExecEvent::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:reporting.ProcessExecEvent)
+  // @@protoc_insertion_point(serialize_to_array_start:cros_xdr.reporting.ProcessExecEvent)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  // optional .reporting.CommonEventDataFields common = 1;
+  // optional .cros_xdr.reporting.Process parent_process = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
-        1, _Internal::common(this), target, stream);
+        1, _Internal::parent_process(this), target, stream);
   }
 
-  // optional .reporting.Process parent_process = 2;
+  // optional .cros_xdr.reporting.Process process = 2;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
-        2, _Internal::parent_process(this), target, stream);
+        2, _Internal::process(this), target, stream);
   }
 
-  // optional .reporting.Process process = 3;
+  // optional .cros_xdr.reporting.Process spawn_process = 3;
   if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
-        3, _Internal::process(this), target, stream);
+        3, _Internal::spawn_process(this), target, stream);
   }
 
-  // optional .reporting.Process spawn_process = 4;
+  // optional .cros_xdr.reporting.Namespaces spawn_namespaces = 4;
   if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
-        4, _Internal::spawn_process(this), target, stream);
-  }
-
-  // optional .reporting.Namespaces spawn_namespaces = 5;
-  if (cached_has_bits & 0x00000010u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        5, _Internal::spawn_namespaces(this), target, stream);
+        4, _Internal::spawn_namespaces(this), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:reporting.ProcessExecEvent)
+  // @@protoc_insertion_point(serialize_to_array_end:cros_xdr.reporting.ProcessExecEvent)
   return target;
 }
 
 size_t ProcessExecEvent::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:reporting.ProcessExecEvent)
+// @@protoc_insertion_point(message_byte_size_start:cros_xdr.reporting.ProcessExecEvent)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
@@ -3446,37 +3672,30 @@ size_t ProcessExecEvent::ByteSizeLong() const {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x0000001fu) {
-    // optional .reporting.CommonEventDataFields common = 1;
+  if (cached_has_bits & 0x0000000fu) {
+    // optional .cros_xdr.reporting.Process parent_process = 1;
     if (cached_has_bits & 0x00000001u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *common_);
-    }
-
-    // optional .reporting.Process parent_process = 2;
-    if (cached_has_bits & 0x00000002u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *parent_process_);
     }
 
-    // optional .reporting.Process process = 3;
-    if (cached_has_bits & 0x00000004u) {
+    // optional .cros_xdr.reporting.Process process = 2;
+    if (cached_has_bits & 0x00000002u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *process_);
     }
 
-    // optional .reporting.Process spawn_process = 4;
-    if (cached_has_bits & 0x00000008u) {
+    // optional .cros_xdr.reporting.Process spawn_process = 3;
+    if (cached_has_bits & 0x00000004u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *spawn_process_);
     }
 
-    // optional .reporting.Namespaces spawn_namespaces = 5;
-    if (cached_has_bits & 0x00000010u) {
+    // optional .cros_xdr.reporting.Namespaces spawn_namespaces = 4;
+    if (cached_has_bits & 0x00000008u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *spawn_namespaces_);
@@ -3498,34 +3717,31 @@ void ProcessExecEvent::CheckTypeAndMergeFrom(
 }
 
 void ProcessExecEvent::MergeFrom(const ProcessExecEvent& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:reporting.ProcessExecEvent)
+// @@protoc_insertion_point(class_specific_merge_from_start:cros_xdr.reporting.ProcessExecEvent)
   GOOGLE_DCHECK_NE(&from, this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x0000001fu) {
+  if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_mutable_common()->::reporting::CommonEventDataFields::MergeFrom(from._internal_common());
+      _internal_mutable_parent_process()->::cros_xdr::reporting::Process::MergeFrom(from._internal_parent_process());
     }
     if (cached_has_bits & 0x00000002u) {
-      _internal_mutable_parent_process()->::reporting::Process::MergeFrom(from._internal_parent_process());
+      _internal_mutable_process()->::cros_xdr::reporting::Process::MergeFrom(from._internal_process());
     }
     if (cached_has_bits & 0x00000004u) {
-      _internal_mutable_process()->::reporting::Process::MergeFrom(from._internal_process());
+      _internal_mutable_spawn_process()->::cros_xdr::reporting::Process::MergeFrom(from._internal_spawn_process());
     }
     if (cached_has_bits & 0x00000008u) {
-      _internal_mutable_spawn_process()->::reporting::Process::MergeFrom(from._internal_spawn_process());
-    }
-    if (cached_has_bits & 0x00000010u) {
-      _internal_mutable_spawn_namespaces()->::reporting::Namespaces::MergeFrom(from._internal_spawn_namespaces());
+      _internal_mutable_spawn_namespaces()->::cros_xdr::reporting::Namespaces::MergeFrom(from._internal_spawn_namespaces());
     }
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void ProcessExecEvent::CopyFrom(const ProcessExecEvent& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:reporting.ProcessExecEvent)
+// @@protoc_insertion_point(class_specific_copy_from_start:cros_xdr.reporting.ProcessExecEvent)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -3542,13 +3758,13 @@ void ProcessExecEvent::InternalSwap(ProcessExecEvent* other) {
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(ProcessExecEvent, spawn_namespaces_)
       + sizeof(ProcessExecEvent::spawn_namespaces_)
-      - PROTOBUF_FIELD_OFFSET(ProcessExecEvent, common_)>(
-          reinterpret_cast<char*>(&common_),
-          reinterpret_cast<char*>(&other->common_));
+      - PROTOBUF_FIELD_OFFSET(ProcessExecEvent, parent_process_)>(
+          reinterpret_cast<char*>(&parent_process_),
+          reinterpret_cast<char*>(&other->parent_process_));
 }
 
 std::string ProcessExecEvent::GetTypeName() const {
-  return "reporting.ProcessExecEvent";
+  return "cros_xdr.reporting.ProcessExecEvent";
 }
 
 
@@ -3557,29 +3773,21 @@ std::string ProcessExecEvent::GetTypeName() const {
 class ProcessTerminateEvent::_Internal {
  public:
   using HasBits = decltype(std::declval<ProcessTerminateEvent>()._has_bits_);
-  static const ::reporting::CommonEventDataFields& common(const ProcessTerminateEvent* msg);
-  static void set_has_common(HasBits* has_bits) {
+  static const ::cros_xdr::reporting::Process& parent_process(const ProcessTerminateEvent* msg);
+  static void set_has_parent_process(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
-  static const ::reporting::Process& parent_process(const ProcessTerminateEvent* msg);
-  static void set_has_parent_process(HasBits* has_bits) {
-    (*has_bits)[0] |= 2u;
-  }
-  static const ::reporting::Process& process(const ProcessTerminateEvent* msg);
+  static const ::cros_xdr::reporting::Process& process(const ProcessTerminateEvent* msg);
   static void set_has_process(HasBits* has_bits) {
-    (*has_bits)[0] |= 4u;
+    (*has_bits)[0] |= 2u;
   }
 };
 
-const ::reporting::CommonEventDataFields&
-ProcessTerminateEvent::_Internal::common(const ProcessTerminateEvent* msg) {
-  return *msg->common_;
-}
-const ::reporting::Process&
+const ::cros_xdr::reporting::Process&
 ProcessTerminateEvent::_Internal::parent_process(const ProcessTerminateEvent* msg) {
   return *msg->parent_process_;
 }
-const ::reporting::Process&
+const ::cros_xdr::reporting::Process&
 ProcessTerminateEvent::_Internal::process(const ProcessTerminateEvent* msg) {
   return *msg->process_;
 }
@@ -3590,39 +3798,34 @@ ProcessTerminateEvent::ProcessTerminateEvent(::PROTOBUF_NAMESPACE_ID::Arena* are
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
   }
-  // @@protoc_insertion_point(arena_constructor:reporting.ProcessTerminateEvent)
+  // @@protoc_insertion_point(arena_constructor:cros_xdr.reporting.ProcessTerminateEvent)
 }
 ProcessTerminateEvent::ProcessTerminateEvent(const ProcessTerminateEvent& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
       _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  if (from._internal_has_common()) {
-    common_ = new ::reporting::CommonEventDataFields(*from.common_);
-  } else {
-    common_ = nullptr;
-  }
   if (from._internal_has_parent_process()) {
-    parent_process_ = new ::reporting::Process(*from.parent_process_);
+    parent_process_ = new ::cros_xdr::reporting::Process(*from.parent_process_);
   } else {
     parent_process_ = nullptr;
   }
   if (from._internal_has_process()) {
-    process_ = new ::reporting::Process(*from.process_);
+    process_ = new ::cros_xdr::reporting::Process(*from.process_);
   } else {
     process_ = nullptr;
   }
-  // @@protoc_insertion_point(copy_constructor:reporting.ProcessTerminateEvent)
+  // @@protoc_insertion_point(copy_constructor:cros_xdr.reporting.ProcessTerminateEvent)
 }
 
 inline void ProcessTerminateEvent::SharedCtor() {
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&common_) - reinterpret_cast<char*>(this)),
+    reinterpret_cast<char*>(&parent_process_) - reinterpret_cast<char*>(this)),
     0, static_cast<size_t>(reinterpret_cast<char*>(&process_) -
-    reinterpret_cast<char*>(&common_)) + sizeof(process_));
+    reinterpret_cast<char*>(&parent_process_)) + sizeof(process_));
 }
 
 ProcessTerminateEvent::~ProcessTerminateEvent() {
-  // @@protoc_insertion_point(destructor:reporting.ProcessTerminateEvent)
+  // @@protoc_insertion_point(destructor:cros_xdr.reporting.ProcessTerminateEvent)
   if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<std::string>();
@@ -3630,7 +3833,6 @@ ProcessTerminateEvent::~ProcessTerminateEvent() {
 
 inline void ProcessTerminateEvent::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  if (this != internal_default_instance()) delete common_;
   if (this != internal_default_instance()) delete parent_process_;
   if (this != internal_default_instance()) delete process_;
 }
@@ -3646,22 +3848,18 @@ void ProcessTerminateEvent::SetCachedSize(int size) const {
 }
 
 void ProcessTerminateEvent::Clear() {
-// @@protoc_insertion_point(message_clear_start:reporting.ProcessTerminateEvent)
+// @@protoc_insertion_point(message_clear_start:cros_xdr.reporting.ProcessTerminateEvent)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
+  if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      GOOGLE_DCHECK(common_ != nullptr);
-      common_->Clear();
-    }
-    if (cached_has_bits & 0x00000002u) {
       GOOGLE_DCHECK(parent_process_ != nullptr);
       parent_process_->Clear();
     }
-    if (cached_has_bits & 0x00000004u) {
+    if (cached_has_bits & 0x00000002u) {
       GOOGLE_DCHECK(process_ != nullptr);
       process_->Clear();
     }
@@ -3677,25 +3875,17 @@ const char* ProcessTerminateEvent::_InternalParse(const char* ptr, ::PROTOBUF_NA
     uint32_t tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // optional .reporting.CommonEventDataFields common = 1;
+      // optional .cros_xdr.reporting.Process parent_process = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
-          ptr = ctx->ParseMessage(_internal_mutable_common(), ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // optional .reporting.Process parent_process = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_parent_process(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // optional .reporting.Process process = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+      // optional .cros_xdr.reporting.Process process = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
           ptr = ctx->ParseMessage(_internal_mutable_process(), ptr);
           CHK_(ptr);
         } else
@@ -3727,45 +3917,37 @@ failure:
 
 uint8_t* ProcessTerminateEvent::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:reporting.ProcessTerminateEvent)
+  // @@protoc_insertion_point(serialize_to_array_start:cros_xdr.reporting.ProcessTerminateEvent)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  // optional .reporting.CommonEventDataFields common = 1;
+  // optional .cros_xdr.reporting.Process parent_process = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
-        1, _Internal::common(this), target, stream);
+        1, _Internal::parent_process(this), target, stream);
   }
 
-  // optional .reporting.Process parent_process = 2;
+  // optional .cros_xdr.reporting.Process process = 2;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(
-        2, _Internal::parent_process(this), target, stream);
-  }
-
-  // optional .reporting.Process process = 3;
-  if (cached_has_bits & 0x00000004u) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        3, _Internal::process(this), target, stream);
+        2, _Internal::process(this), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:reporting.ProcessTerminateEvent)
+  // @@protoc_insertion_point(serialize_to_array_end:cros_xdr.reporting.ProcessTerminateEvent)
   return target;
 }
 
 size_t ProcessTerminateEvent::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:reporting.ProcessTerminateEvent)
+// @@protoc_insertion_point(message_byte_size_start:cros_xdr.reporting.ProcessTerminateEvent)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
@@ -3773,23 +3955,16 @@ size_t ProcessTerminateEvent::ByteSizeLong() const {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
-    // optional .reporting.CommonEventDataFields common = 1;
+  if (cached_has_bits & 0x00000003u) {
+    // optional .cros_xdr.reporting.Process parent_process = 1;
     if (cached_has_bits & 0x00000001u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *common_);
-    }
-
-    // optional .reporting.Process parent_process = 2;
-    if (cached_has_bits & 0x00000002u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *parent_process_);
     }
 
-    // optional .reporting.Process process = 3;
-    if (cached_has_bits & 0x00000004u) {
+    // optional .cros_xdr.reporting.Process process = 2;
+    if (cached_has_bits & 0x00000002u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *process_);
@@ -3811,28 +3986,25 @@ void ProcessTerminateEvent::CheckTypeAndMergeFrom(
 }
 
 void ProcessTerminateEvent::MergeFrom(const ProcessTerminateEvent& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:reporting.ProcessTerminateEvent)
+// @@protoc_insertion_point(class_specific_merge_from_start:cros_xdr.reporting.ProcessTerminateEvent)
   GOOGLE_DCHECK_NE(&from, this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
+  if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_mutable_common()->::reporting::CommonEventDataFields::MergeFrom(from._internal_common());
+      _internal_mutable_parent_process()->::cros_xdr::reporting::Process::MergeFrom(from._internal_parent_process());
     }
     if (cached_has_bits & 0x00000002u) {
-      _internal_mutable_parent_process()->::reporting::Process::MergeFrom(from._internal_parent_process());
-    }
-    if (cached_has_bits & 0x00000004u) {
-      _internal_mutable_process()->::reporting::Process::MergeFrom(from._internal_process());
+      _internal_mutable_process()->::cros_xdr::reporting::Process::MergeFrom(from._internal_process());
     }
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
 void ProcessTerminateEvent::CopyFrom(const ProcessTerminateEvent& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:reporting.ProcessTerminateEvent)
+// @@protoc_insertion_point(class_specific_copy_from_start:cros_xdr.reporting.ProcessTerminateEvent)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -3849,48 +4021,408 @@ void ProcessTerminateEvent::InternalSwap(ProcessTerminateEvent* other) {
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(ProcessTerminateEvent, process_)
       + sizeof(ProcessTerminateEvent::process_)
-      - PROTOBUF_FIELD_OFFSET(ProcessTerminateEvent, common_)>(
-          reinterpret_cast<char*>(&common_),
-          reinterpret_cast<char*>(&other->common_));
+      - PROTOBUF_FIELD_OFFSET(ProcessTerminateEvent, parent_process_)>(
+          reinterpret_cast<char*>(&parent_process_),
+          reinterpret_cast<char*>(&other->parent_process_));
 }
 
 std::string ProcessTerminateEvent::GetTypeName() const {
-  return "reporting.ProcessTerminateEvent";
+  return "cros_xdr.reporting.ProcessTerminateEvent";
+}
+
+
+// ===================================================================
+
+class XdrProcessEvent::_Internal {
+ public:
+  using HasBits = decltype(std::declval<XdrProcessEvent>()._has_bits_);
+  static const ::cros_xdr::reporting::CommonEventDataFields& common(const XdrProcessEvent* msg);
+  static void set_has_common(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+  static const ::cros_xdr::reporting::ProcessExecEvent& process_exec(const XdrProcessEvent* msg);
+  static const ::cros_xdr::reporting::ProcessTerminateEvent& process_terminate(const XdrProcessEvent* msg);
+};
+
+const ::cros_xdr::reporting::CommonEventDataFields&
+XdrProcessEvent::_Internal::common(const XdrProcessEvent* msg) {
+  return *msg->common_;
+}
+const ::cros_xdr::reporting::ProcessExecEvent&
+XdrProcessEvent::_Internal::process_exec(const XdrProcessEvent* msg) {
+  return *msg->message_type_.process_exec_;
+}
+const ::cros_xdr::reporting::ProcessTerminateEvent&
+XdrProcessEvent::_Internal::process_terminate(const XdrProcessEvent* msg) {
+  return *msg->message_type_.process_terminate_;
+}
+void XdrProcessEvent::set_allocated_process_exec(::cros_xdr::reporting::ProcessExecEvent* process_exec) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  clear_message_type();
+  if (process_exec) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::cros_xdr::reporting::ProcessExecEvent>::GetOwningArena(process_exec);
+    if (message_arena != submessage_arena) {
+      process_exec = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, process_exec, submessage_arena);
+    }
+    set_has_process_exec();
+    message_type_.process_exec_ = process_exec;
+  }
+  // @@protoc_insertion_point(field_set_allocated:cros_xdr.reporting.XdrProcessEvent.process_exec)
+}
+void XdrProcessEvent::set_allocated_process_terminate(::cros_xdr::reporting::ProcessTerminateEvent* process_terminate) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  clear_message_type();
+  if (process_terminate) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::cros_xdr::reporting::ProcessTerminateEvent>::GetOwningArena(process_terminate);
+    if (message_arena != submessage_arena) {
+      process_terminate = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, process_terminate, submessage_arena);
+    }
+    set_has_process_terminate();
+    message_type_.process_terminate_ = process_terminate;
+  }
+  // @@protoc_insertion_point(field_set_allocated:cros_xdr.reporting.XdrProcessEvent.process_terminate)
+}
+XdrProcessEvent::XdrProcessEvent(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
+  // @@protoc_insertion_point(arena_constructor:cros_xdr.reporting.XdrProcessEvent)
+}
+XdrProcessEvent::XdrProcessEvent(const XdrProcessEvent& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      _has_bits_(from._has_bits_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  if (from._internal_has_common()) {
+    common_ = new ::cros_xdr::reporting::CommonEventDataFields(*from.common_);
+  } else {
+    common_ = nullptr;
+  }
+  clear_has_message_type();
+  switch (from.message_type_case()) {
+    case kProcessExec: {
+      _internal_mutable_process_exec()->::cros_xdr::reporting::ProcessExecEvent::MergeFrom(from._internal_process_exec());
+      break;
+    }
+    case kProcessTerminate: {
+      _internal_mutable_process_terminate()->::cros_xdr::reporting::ProcessTerminateEvent::MergeFrom(from._internal_process_terminate());
+      break;
+    }
+    case MESSAGE_TYPE_NOT_SET: {
+      break;
+    }
+  }
+  // @@protoc_insertion_point(copy_constructor:cros_xdr.reporting.XdrProcessEvent)
+}
+
+inline void XdrProcessEvent::SharedCtor() {
+common_ = nullptr;
+clear_has_message_type();
+}
+
+XdrProcessEvent::~XdrProcessEvent() {
+  // @@protoc_insertion_point(destructor:cros_xdr.reporting.XdrProcessEvent)
+  if (GetArenaForAllocation() != nullptr) return;
+  SharedDtor();
+  _internal_metadata_.Delete<std::string>();
+}
+
+inline void XdrProcessEvent::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  if (this != internal_default_instance()) delete common_;
+  if (has_message_type()) {
+    clear_message_type();
+  }
+}
+
+void XdrProcessEvent::ArenaDtor(void* object) {
+  XdrProcessEvent* _this = reinterpret_cast< XdrProcessEvent* >(object);
+  (void)_this;
+}
+void XdrProcessEvent::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void XdrProcessEvent::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void XdrProcessEvent::clear_message_type() {
+// @@protoc_insertion_point(one_of_clear_start:cros_xdr.reporting.XdrProcessEvent)
+  switch (message_type_case()) {
+    case kProcessExec: {
+      if (GetArenaForAllocation() == nullptr) {
+        delete message_type_.process_exec_;
+      }
+      break;
+    }
+    case kProcessTerminate: {
+      if (GetArenaForAllocation() == nullptr) {
+        delete message_type_.process_terminate_;
+      }
+      break;
+    }
+    case MESSAGE_TYPE_NOT_SET: {
+      break;
+    }
+  }
+  _oneof_case_[0] = MESSAGE_TYPE_NOT_SET;
+}
+
+
+void XdrProcessEvent::Clear() {
+// @@protoc_insertion_point(message_clear_start:cros_xdr.reporting.XdrProcessEvent)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    GOOGLE_DCHECK(common_ != nullptr);
+    common_->Clear();
+  }
+  clear_message_type();
+  _has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* XdrProcessEvent::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional .cros_xdr.reporting.CommonEventDataFields common = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          ptr = ctx->ParseMessage(_internal_mutable_common(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .cros_xdr.reporting.ProcessExecEvent process_exec = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          ptr = ctx->ParseMessage(_internal_mutable_process_exec(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .cros_xdr.reporting.ProcessTerminateEvent process_terminate = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          ptr = ctx->ParseMessage(_internal_mutable_process_terminate(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* XdrProcessEvent::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:cros_xdr.reporting.XdrProcessEvent)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // optional .cros_xdr.reporting.CommonEventDataFields common = 1;
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(
+        1, _Internal::common(this), target, stream);
+  }
+
+  switch (message_type_case()) {
+    case kProcessExec: {
+      target = stream->EnsureSpace(target);
+      target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(
+          2, _Internal::process_exec(this), target, stream);
+      break;
+    }
+    case kProcessTerminate: {
+      target = stream->EnsureSpace(target);
+      target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(
+          3, _Internal::process_terminate(this), target, stream);
+      break;
+    }
+    default: ;
+  }
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:cros_xdr.reporting.XdrProcessEvent)
+  return target;
+}
+
+size_t XdrProcessEvent::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:cros_xdr.reporting.XdrProcessEvent)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // optional .cros_xdr.reporting.CommonEventDataFields common = 1;
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *common_);
+  }
+
+  switch (message_type_case()) {
+    // .cros_xdr.reporting.ProcessExecEvent process_exec = 2;
+    case kProcessExec: {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *message_type_.process_exec_);
+      break;
+    }
+    // .cros_xdr.reporting.ProcessTerminateEvent process_terminate = 3;
+    case kProcessTerminate: {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *message_type_.process_terminate_);
+      break;
+    }
+    case MESSAGE_TYPE_NOT_SET: {
+      break;
+    }
+  }
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void XdrProcessEvent::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const XdrProcessEvent*>(
+      &from));
+}
+
+void XdrProcessEvent::MergeFrom(const XdrProcessEvent& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:cros_xdr.reporting.XdrProcessEvent)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_has_common()) {
+    _internal_mutable_common()->::cros_xdr::reporting::CommonEventDataFields::MergeFrom(from._internal_common());
+  }
+  switch (from.message_type_case()) {
+    case kProcessExec: {
+      _internal_mutable_process_exec()->::cros_xdr::reporting::ProcessExecEvent::MergeFrom(from._internal_process_exec());
+      break;
+    }
+    case kProcessTerminate: {
+      _internal_mutable_process_terminate()->::cros_xdr::reporting::ProcessTerminateEvent::MergeFrom(from._internal_process_terminate());
+      break;
+    }
+    case MESSAGE_TYPE_NOT_SET: {
+      break;
+    }
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void XdrProcessEvent::CopyFrom(const XdrProcessEvent& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:cros_xdr.reporting.XdrProcessEvent)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool XdrProcessEvent::IsInitialized() const {
+  return true;
+}
+
+void XdrProcessEvent::InternalSwap(XdrProcessEvent* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(common_, other->common_);
+  swap(message_type_, other->message_type_);
+  swap(_oneof_case_[0], other->_oneof_case_[0]);
+}
+
+std::string XdrProcessEvent::GetTypeName() const {
+  return "cros_xdr.reporting.XdrProcessEvent";
 }
 
 
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace reporting
+}  // namespace cros_xdr
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::reporting::CommonEventDataFields* Arena::CreateMaybeMessage< ::reporting::CommonEventDataFields >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::reporting::CommonEventDataFields >(arena);
+template<> PROTOBUF_NOINLINE ::cros_xdr::reporting::CommonEventDataFields* Arena::CreateMaybeMessage< ::cros_xdr::reporting::CommonEventDataFields >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::cros_xdr::reporting::CommonEventDataFields >(arena);
 }
-template<> PROTOBUF_NOINLINE ::reporting::TcbAttributes_SecurityChip* Arena::CreateMaybeMessage< ::reporting::TcbAttributes_SecurityChip >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::reporting::TcbAttributes_SecurityChip >(arena);
+template<> PROTOBUF_NOINLINE ::cros_xdr::reporting::TcbAttributes_SecurityChip* Arena::CreateMaybeMessage< ::cros_xdr::reporting::TcbAttributes_SecurityChip >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::cros_xdr::reporting::TcbAttributes_SecurityChip >(arena);
 }
-template<> PROTOBUF_NOINLINE ::reporting::TcbAttributes* Arena::CreateMaybeMessage< ::reporting::TcbAttributes >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::reporting::TcbAttributes >(arena);
+template<> PROTOBUF_NOINLINE ::cros_xdr::reporting::TcbAttributes* Arena::CreateMaybeMessage< ::cros_xdr::reporting::TcbAttributes >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::cros_xdr::reporting::TcbAttributes >(arena);
 }
-template<> PROTOBUF_NOINLINE ::reporting::FileImage* Arena::CreateMaybeMessage< ::reporting::FileImage >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::reporting::FileImage >(arena);
+template<> PROTOBUF_NOINLINE ::cros_xdr::reporting::FileImage* Arena::CreateMaybeMessage< ::cros_xdr::reporting::FileImage >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::cros_xdr::reporting::FileImage >(arena);
 }
-template<> PROTOBUF_NOINLINE ::reporting::Process* Arena::CreateMaybeMessage< ::reporting::Process >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::reporting::Process >(arena);
+template<> PROTOBUF_NOINLINE ::cros_xdr::reporting::Process* Arena::CreateMaybeMessage< ::cros_xdr::reporting::Process >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::cros_xdr::reporting::Process >(arena);
 }
-template<> PROTOBUF_NOINLINE ::reporting::Namespaces* Arena::CreateMaybeMessage< ::reporting::Namespaces >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::reporting::Namespaces >(arena);
+template<> PROTOBUF_NOINLINE ::cros_xdr::reporting::Namespaces* Arena::CreateMaybeMessage< ::cros_xdr::reporting::Namespaces >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::cros_xdr::reporting::Namespaces >(arena);
 }
-template<> PROTOBUF_NOINLINE ::reporting::AgentStartEvent* Arena::CreateMaybeMessage< ::reporting::AgentStartEvent >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::reporting::AgentStartEvent >(arena);
+template<> PROTOBUF_NOINLINE ::cros_xdr::reporting::AgentStartEvent* Arena::CreateMaybeMessage< ::cros_xdr::reporting::AgentStartEvent >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::cros_xdr::reporting::AgentStartEvent >(arena);
 }
-template<> PROTOBUF_NOINLINE ::reporting::AgentHeartbeatEvent* Arena::CreateMaybeMessage< ::reporting::AgentHeartbeatEvent >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::reporting::AgentHeartbeatEvent >(arena);
+template<> PROTOBUF_NOINLINE ::cros_xdr::reporting::AgentHeartbeatEvent* Arena::CreateMaybeMessage< ::cros_xdr::reporting::AgentHeartbeatEvent >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::cros_xdr::reporting::AgentHeartbeatEvent >(arena);
 }
-template<> PROTOBUF_NOINLINE ::reporting::ProcessExecEvent* Arena::CreateMaybeMessage< ::reporting::ProcessExecEvent >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::reporting::ProcessExecEvent >(arena);
+template<> PROTOBUF_NOINLINE ::cros_xdr::reporting::XdrAgentEvent* Arena::CreateMaybeMessage< ::cros_xdr::reporting::XdrAgentEvent >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::cros_xdr::reporting::XdrAgentEvent >(arena);
 }
-template<> PROTOBUF_NOINLINE ::reporting::ProcessTerminateEvent* Arena::CreateMaybeMessage< ::reporting::ProcessTerminateEvent >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::reporting::ProcessTerminateEvent >(arena);
+template<> PROTOBUF_NOINLINE ::cros_xdr::reporting::ProcessExecEvent* Arena::CreateMaybeMessage< ::cros_xdr::reporting::ProcessExecEvent >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::cros_xdr::reporting::ProcessExecEvent >(arena);
+}
+template<> PROTOBUF_NOINLINE ::cros_xdr::reporting::ProcessTerminateEvent* Arena::CreateMaybeMessage< ::cros_xdr::reporting::ProcessTerminateEvent >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::cros_xdr::reporting::ProcessTerminateEvent >(arena);
+}
+template<> PROTOBUF_NOINLINE ::cros_xdr::reporting::XdrProcessEvent* Arena::CreateMaybeMessage< ::cros_xdr::reporting::XdrProcessEvent >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::cros_xdr::reporting::XdrProcessEvent >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

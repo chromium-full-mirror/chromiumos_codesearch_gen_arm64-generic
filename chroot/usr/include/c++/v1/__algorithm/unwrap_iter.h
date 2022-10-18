@@ -18,6 +18,7 @@
 #  pragma GCC system_header
 #endif
 
+_LIBCPP_DISABLE_DEBUG_INFO
 _LIBCPP_BEGIN_NAMESPACE_STD
 
 // The job of __unwrap_iter is to lower contiguous iterators (such as
@@ -80,5 +81,6 @@ _OrigIter __rewrap_iter(_OrigIter __first, _UnwrappedIter __result)
 }
 
 _LIBCPP_END_NAMESPACE_STD
+_LIBCPP_ENABLE_DEBUG_INFO
 
 #endif // _LIBCPP___ALGORITHM_UNWRAP_ITER_H

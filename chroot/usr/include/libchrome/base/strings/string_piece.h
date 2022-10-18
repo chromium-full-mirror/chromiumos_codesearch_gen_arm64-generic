@@ -33,7 +33,7 @@
 #include "base/check.h"
 #include "base/check_op.h"
 #include "base/compiler_specific.h"
-#include "base/strings/string_piece_forward.h"
+#include "base/strings/string_piece_forward.h"  // IWYU pragma: export
 #include "build/build_config.h"
 
 namespace base {
@@ -607,10 +607,10 @@ struct StringPieceHashImpl {
   // This is a custom hash function. We don't use the ones already defined for
   // string and std::u16string directly because it would require the string
   // constructors to be called, which we don't want.
-  std::size_t operator()(StringPieceType sp) const {
-    std::size_t result = 0;
+  size_t operator()(StringPieceType sp) const {
+    size_t result = 0;
     for (auto c : sp)
-      result = (result * 131) + c;
+      result = (result * 131) + static_cast<size_t>(c);
     return result;
   }
 };

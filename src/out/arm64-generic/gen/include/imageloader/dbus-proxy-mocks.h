@@ -84,6 +84,16 @@ class ImageLoaderInterfaceProxyMock : public ImageLoaderInterfaceProxyInterface 
                     base::OnceCallback<void(const std::string& /*mount_point*/)> /*success_callback*/,
                     base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
                     int /*timeout_ms*/));
+  MOCK_METHOD4(LoadDlc,
+               bool(const imageloader::LoadDlcRequest& /*in_load_request*/,
+                    std::string* /*out_mount_point*/,
+                    brillo::ErrorPtr* /*error*/,
+                    int /*timeout_ms*/));
+  MOCK_METHOD4(LoadDlcAsync,
+               void(const imageloader::LoadDlcRequest& /*in_load_request*/,
+                    base::OnceCallback<void(const std::string& /*mount_point*/)> /*success_callback*/,
+                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+                    int /*timeout_ms*/));
   MOCK_METHOD4(RemoveComponent,
                bool(const std::string& /*in_name*/,
                     bool* /*out_success*/,

@@ -55,8 +55,10 @@ class VideoHostResponseValidator;
 class  VideoHost
     : public VideoHostInterfaceBase {
  public:
+  using IPCStableHashFunction = uint32_t(*)();
+
   static const char Name_[];
-  static uint32_t MessageToStableIPCHash_(mojo::Message& message);
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 4;
   static constexpr bool PassesAssociatedKinds_ = false;
@@ -74,6 +76,14 @@ class  VideoHost
   enum MethodMinVersions : uint32_t {
     kOnBootstrapVideoAcceleratorFactoryMinVersion = 4,
   };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+  struct OnBootstrapVideoAcceleratorFactory_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+#endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~VideoHost() = default;
 
 
@@ -94,8 +104,10 @@ class VideoInstanceResponseValidator;
 class  VideoInstance
     : public VideoInstanceInterfaceBase {
  public:
+  using IPCStableHashFunction = uint32_t(*)();
+
   static const char Name_[];
-  static uint32_t MessageToStableIPCHash_(mojo::Message& message);
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 5;
   static constexpr bool PassesAssociatedKinds_ = false;
@@ -113,6 +125,14 @@ class  VideoInstance
   enum MethodMinVersions : uint32_t {
     kInitMinVersion = 5,
   };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+  struct Init_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+#endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~VideoInstance() = default;
 
 
@@ -132,8 +152,10 @@ class VideoAcceleratorFactoryRequestValidator;
 class  VideoAcceleratorFactory
     : public VideoAcceleratorFactoryInterfaceBase {
  public:
+  using IPCStableHashFunction = uint32_t(*)();
+
   static const char Name_[];
-  static uint32_t MessageToStableIPCHash_(mojo::Message& message);
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 9;
   static constexpr bool PassesAssociatedKinds_ = false;
@@ -154,6 +176,23 @@ class  VideoAcceleratorFactory
     kCreateVideoDecoderMinVersion = 9,
     kCreateProtectedBufferAllocatorMinVersion = 7,
   };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+  struct CreateEncodeAccelerator_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct CreateDecodeAccelerator_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct CreateVideoDecoder_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct CreateProtectedBufferAllocator_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+#endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~VideoAcceleratorFactory() = default;
 
   

@@ -468,6 +468,7 @@ class SerializedVaultKeyset final :
     kLastActivityTimestampFieldNumber = 8,
     kLeLabelFieldNumber = 13,
     kFscryptPolicyVersionFieldNumber = 20,
+    kBackupVkFieldNumber = 22,
   };
   // required bytes salt = 2;
   bool has_salt() const;
@@ -786,6 +787,19 @@ class SerializedVaultKeyset final :
   void _internal_set_fscrypt_policy_version(int32_t value);
   public:
 
+  // optional bool backup_vk = 22;
+  bool has_backup_vk() const;
+  private:
+  bool _internal_has_backup_vk() const;
+  public:
+  void clear_backup_vk();
+  bool backup_vk() const;
+  void set_backup_vk(bool value);
+  private:
+  bool _internal_backup_vk() const;
+  void _internal_set_backup_vk(bool value);
+  public:
+
   // @@protoc_insertion_point(class_scope:cryptohome.SerializedVaultKeyset)
  private:
   class _Internal;
@@ -817,6 +831,7 @@ class SerializedVaultKeyset final :
   int64_t last_activity_timestamp_;
   uint64_t le_label_;
   int32_t fscrypt_policy_version_;
+  bool backup_vk_;
   friend struct ::TableStruct_vault_5fkeyset_2eproto;
 };
 // ===================================================================
@@ -2233,6 +2248,34 @@ inline void SerializedVaultKeyset::set_allocated_vkk_iv(std::string* vkk_iv) {
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   // @@protoc_insertion_point(field_set_allocated:cryptohome.SerializedVaultKeyset.vkk_iv)
+}
+
+// optional bool backup_vk = 22;
+inline bool SerializedVaultKeyset::_internal_has_backup_vk() const {
+  bool value = (_has_bits_[0] & 0x00080000u) != 0;
+  return value;
+}
+inline bool SerializedVaultKeyset::has_backup_vk() const {
+  return _internal_has_backup_vk();
+}
+inline void SerializedVaultKeyset::clear_backup_vk() {
+  backup_vk_ = false;
+  _has_bits_[0] &= ~0x00080000u;
+}
+inline bool SerializedVaultKeyset::_internal_backup_vk() const {
+  return backup_vk_;
+}
+inline bool SerializedVaultKeyset::backup_vk() const {
+  // @@protoc_insertion_point(field_get:cryptohome.SerializedVaultKeyset.backup_vk)
+  return _internal_backup_vk();
+}
+inline void SerializedVaultKeyset::_internal_set_backup_vk(bool value) {
+  _has_bits_[0] |= 0x00080000u;
+  backup_vk_ = value;
+}
+inline void SerializedVaultKeyset::set_backup_vk(bool value) {
+  _internal_set_backup_vk(value);
+  // @@protoc_insertion_point(field_set:cryptohome.SerializedVaultKeyset.backup_vk)
 }
 
 #ifdef __GNUC__

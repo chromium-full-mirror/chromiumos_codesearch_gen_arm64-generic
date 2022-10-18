@@ -53,6 +53,9 @@ std::string GetProtoDebugStringWithIndent(
     int indent_size);
 BRILLO_EXPORT std::string GetProtoDebugString(
     GetRecoveryRequestRequest_UserType value);
+std::string GetProtoDebugStringWithIndent(FingerprintScanResult value,
+                                          int indent_size);
+BRILLO_EXPORT std::string GetProtoDebugString(FingerprintScanResult value);
 std::string GetProtoDebugStringWithIndent(const CreateRequest& value,
                                           int indent_size);
 BRILLO_EXPORT std::string GetProtoDebugString(const CreateRequest& value);
@@ -224,6 +227,10 @@ std::string GetProtoDebugStringWithIndent(const StartAuthSessionRequest& value,
                                           int indent_size);
 BRILLO_EXPORT std::string GetProtoDebugString(
     const StartAuthSessionRequest& value);
+std::string GetProtoDebugStringWithIndent(const AuthFactorWithStatus& value,
+                                          int indent_size);
+BRILLO_EXPORT std::string GetProtoDebugString(
+    const AuthFactorWithStatus& value);
 std::string GetProtoDebugStringWithIndent(const StartAuthSessionReply& value,
                                           int indent_size);
 BRILLO_EXPORT std::string GetProtoDebugString(
@@ -646,16 +653,35 @@ std::string GetProtoDebugStringWithIndent(const GetRecoveryRequestReply& value,
                                           int indent_size);
 BRILLO_EXPORT std::string GetProtoDebugString(
     const GetRecoveryRequestReply& value);
+std::string GetProtoDebugStringWithIndent(const PrepareAuthFactorRequest& value,
+                                          int indent_size);
+BRILLO_EXPORT std::string GetProtoDebugString(
+    const PrepareAuthFactorRequest& value);
+std::string GetProtoDebugStringWithIndent(const PrepareAuthFactorReply& value,
+                                          int indent_size);
+BRILLO_EXPORT std::string GetProtoDebugString(
+    const PrepareAuthFactorReply& value);
 std::string GetProtoDebugStringWithIndent(
-    const PrepareAsyncAuthFactorRequest& value,
+    const TerminateAuthFactorRequest& value,
     int indent_size);
 BRILLO_EXPORT std::string GetProtoDebugString(
-    const PrepareAsyncAuthFactorRequest& value);
+    const TerminateAuthFactorRequest& value);
+std::string GetProtoDebugStringWithIndent(const TerminateAuthFactorReply& value,
+                                          int indent_size);
+BRILLO_EXPORT std::string GetProtoDebugString(
+    const TerminateAuthFactorReply& value);
+std::string GetProtoDebugStringWithIndent(const AuthScanResult& value,
+                                          int indent_size);
+BRILLO_EXPORT std::string GetProtoDebugString(const AuthScanResult& value);
 std::string GetProtoDebugStringWithIndent(
-    const PrepareAsyncAuthFactorReply& value,
+    const FingerprintEnrollmentProgress& value,
     int indent_size);
 BRILLO_EXPORT std::string GetProtoDebugString(
-    const PrepareAsyncAuthFactorReply& value);
+    const FingerprintEnrollmentProgress& value);
+std::string GetProtoDebugStringWithIndent(const AuthEnrollmentProgress& value,
+                                          int indent_size);
+BRILLO_EXPORT std::string GetProtoDebugString(
+    const AuthEnrollmentProgress& value);
 
 }  // namespace user_data_auth
 

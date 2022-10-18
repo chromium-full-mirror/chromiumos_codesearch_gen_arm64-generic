@@ -15,6 +15,7 @@
 #include <stdint.h>
 #include <utility>
 
+#include "base/debug/alias.h"
 #include "base/hash/md5_constexpr.h"
 #include "base/run_loop.h"
 #include "base/strings/string_number_conversions.h"
@@ -45,7 +46,7 @@
 
 
 
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace mojom {
 ExecutedProcessResult::ExecutedProcessResult()
@@ -106,72 +107,50 @@ bool ExecutedProcessResult::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
-const char Executor::Name_[] = "chromeos.cros_healthd.mojom.Executor";
+const char Executor::Name_[] = "ash.cros_healthd.mojom.Executor";
 
-uint32_t Executor::MessageToStableIPCHash_(mojo::Message& message) {
+Executor::IPCStableHashFunction Executor::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
   switch (message.name()) {
     case internal::kExecutor_GetFanSpeed_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::cros_healthd::mojom::Executor::GetFanSpeed");
-      return value;
+      return &Executor::GetFanSpeed_Sym::IPCStableHash;
     }
     case internal::kExecutor_GetInterfaces_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::cros_healthd::mojom::Executor::GetInterfaces");
-      return value;
+      return &Executor::GetInterfaces_Sym::IPCStableHash;
     }
     case internal::kExecutor_GetLink_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::cros_healthd::mojom::Executor::GetLink");
-      return value;
+      return &Executor::GetLink_Sym::IPCStableHash;
     }
     case internal::kExecutor_GetInfo_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::cros_healthd::mojom::Executor::GetInfo");
-      return value;
+      return &Executor::GetInfo_Sym::IPCStableHash;
     }
     case internal::kExecutor_GetScanDump_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::cros_healthd::mojom::Executor::GetScanDump");
-      return value;
+      return &Executor::GetScanDump_Sym::IPCStableHash;
     }
     case internal::kExecutor_RunMemtester_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::cros_healthd::mojom::Executor::RunMemtester");
-      return value;
+      return &Executor::RunMemtester_Sym::IPCStableHash;
     }
     case internal::kExecutor_KillMemtester_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::cros_healthd::mojom::Executor::KillMemtester");
-      return value;
+      return &Executor::KillMemtester_Sym::IPCStableHash;
     }
     case internal::kExecutor_GetProcessIOContents_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::cros_healthd::mojom::Executor::GetProcessIOContents");
-      return value;
+      return &Executor::GetProcessIOContents_Sym::IPCStableHash;
     }
     case internal::kExecutor_ReadMsr_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::cros_healthd::mojom::Executor::ReadMsr");
-      return value;
+      return &Executor::ReadMsr_Sym::IPCStableHash;
     }
     case internal::kExecutor_GetUEFISecureBootContent_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::cros_healthd::mojom::Executor::GetUEFISecureBootContent");
-      return value;
+      return &Executor::GetUEFISecureBootContent_Sym::IPCStableHash;
     }
     case internal::kExecutor_GetUEFIPlatformSizeContent_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::cros_healthd::mojom::Executor::GetUEFIPlatformSizeContent");
-      return value;
+      return &Executor::GetUEFIPlatformSizeContent_Sym::IPCStableHash;
     }
     case internal::kExecutor_GetLidAngle_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::cros_healthd::mojom::Executor::GetLidAngle");
-      return value;
+      return &Executor::GetLidAngle_Sym::IPCStableHash;
     }
   }
-  return 0;
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
 }
 
 
@@ -181,56 +160,56 @@ const char* Executor::MessageToMethodName_(mojo::Message& message) {
   if (!is_response) {
     switch (message.name()) {
       case internal::kExecutor_GetFanSpeed_Name:
-            return "Receive chromeos::cros_healthd::mojom::Executor::GetFanSpeed";
+            return "Receive ash::cros_healthd::mojom::Executor::GetFanSpeed";
       case internal::kExecutor_GetInterfaces_Name:
-            return "Receive chromeos::cros_healthd::mojom::Executor::GetInterfaces";
+            return "Receive ash::cros_healthd::mojom::Executor::GetInterfaces";
       case internal::kExecutor_GetLink_Name:
-            return "Receive chromeos::cros_healthd::mojom::Executor::GetLink";
+            return "Receive ash::cros_healthd::mojom::Executor::GetLink";
       case internal::kExecutor_GetInfo_Name:
-            return "Receive chromeos::cros_healthd::mojom::Executor::GetInfo";
+            return "Receive ash::cros_healthd::mojom::Executor::GetInfo";
       case internal::kExecutor_GetScanDump_Name:
-            return "Receive chromeos::cros_healthd::mojom::Executor::GetScanDump";
+            return "Receive ash::cros_healthd::mojom::Executor::GetScanDump";
       case internal::kExecutor_RunMemtester_Name:
-            return "Receive chromeos::cros_healthd::mojom::Executor::RunMemtester";
+            return "Receive ash::cros_healthd::mojom::Executor::RunMemtester";
       case internal::kExecutor_KillMemtester_Name:
-            return "Receive chromeos::cros_healthd::mojom::Executor::KillMemtester";
+            return "Receive ash::cros_healthd::mojom::Executor::KillMemtester";
       case internal::kExecutor_GetProcessIOContents_Name:
-            return "Receive chromeos::cros_healthd::mojom::Executor::GetProcessIOContents";
+            return "Receive ash::cros_healthd::mojom::Executor::GetProcessIOContents";
       case internal::kExecutor_ReadMsr_Name:
-            return "Receive chromeos::cros_healthd::mojom::Executor::ReadMsr";
+            return "Receive ash::cros_healthd::mojom::Executor::ReadMsr";
       case internal::kExecutor_GetUEFISecureBootContent_Name:
-            return "Receive chromeos::cros_healthd::mojom::Executor::GetUEFISecureBootContent";
+            return "Receive ash::cros_healthd::mojom::Executor::GetUEFISecureBootContent";
       case internal::kExecutor_GetUEFIPlatformSizeContent_Name:
-            return "Receive chromeos::cros_healthd::mojom::Executor::GetUEFIPlatformSizeContent";
+            return "Receive ash::cros_healthd::mojom::Executor::GetUEFIPlatformSizeContent";
       case internal::kExecutor_GetLidAngle_Name:
-            return "Receive chromeos::cros_healthd::mojom::Executor::GetLidAngle";
+            return "Receive ash::cros_healthd::mojom::Executor::GetLidAngle";
     }
   } else {
     switch (message.name()) {
       case internal::kExecutor_GetFanSpeed_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::Executor::GetFanSpeed";
+            return "Receive reply ash::cros_healthd::mojom::Executor::GetFanSpeed";
       case internal::kExecutor_GetInterfaces_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::Executor::GetInterfaces";
+            return "Receive reply ash::cros_healthd::mojom::Executor::GetInterfaces";
       case internal::kExecutor_GetLink_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::Executor::GetLink";
+            return "Receive reply ash::cros_healthd::mojom::Executor::GetLink";
       case internal::kExecutor_GetInfo_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::Executor::GetInfo";
+            return "Receive reply ash::cros_healthd::mojom::Executor::GetInfo";
       case internal::kExecutor_GetScanDump_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::Executor::GetScanDump";
+            return "Receive reply ash::cros_healthd::mojom::Executor::GetScanDump";
       case internal::kExecutor_RunMemtester_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::Executor::RunMemtester";
+            return "Receive reply ash::cros_healthd::mojom::Executor::RunMemtester";
       case internal::kExecutor_KillMemtester_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::Executor::KillMemtester";
+            return "Receive reply ash::cros_healthd::mojom::Executor::KillMemtester";
       case internal::kExecutor_GetProcessIOContents_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::Executor::GetProcessIOContents";
+            return "Receive reply ash::cros_healthd::mojom::Executor::GetProcessIOContents";
       case internal::kExecutor_ReadMsr_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::Executor::ReadMsr";
+            return "Receive reply ash::cros_healthd::mojom::Executor::ReadMsr";
       case internal::kExecutor_GetUEFISecureBootContent_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::Executor::GetUEFISecureBootContent";
+            return "Receive reply ash::cros_healthd::mojom::Executor::GetUEFISecureBootContent";
       case internal::kExecutor_GetUEFIPlatformSizeContent_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::Executor::GetUEFIPlatformSizeContent";
+            return "Receive reply ash::cros_healthd::mojom::Executor::GetUEFIPlatformSizeContent";
       case internal::kExecutor_GetLidAngle_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::Executor::GetLidAngle";
+            return "Receive reply ash::cros_healthd::mojom::Executor::GetLidAngle";
     }
   }
   return "Receive unknown mojo message";
@@ -243,6 +222,165 @@ const char* Executor::MessageToMethodName_(mojo::Message& message) {
   }
 #endif // BUILDFLAG(MOJO_TRACE_ENABLED)
 }
+
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t Executor::GetFanSpeed_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::Executor::GetFanSpeed");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t Executor::GetInterfaces_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::Executor::GetInterfaces");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t Executor::GetLink_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::Executor::GetLink");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t Executor::GetInfo_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::Executor::GetInfo");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t Executor::GetScanDump_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::Executor::GetScanDump");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t Executor::RunMemtester_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::Executor::RunMemtester");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t Executor::KillMemtester_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::Executor::KillMemtester");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t Executor::GetProcessIOContents_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::Executor::GetProcessIOContents");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t Executor::ReadMsr_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::Executor::ReadMsr");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t Executor::GetUEFISecureBootContent_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::Executor::GetUEFISecureBootContent");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t Executor::GetUEFIPlatformSizeContent_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::Executor::GetUEFIPlatformSizeContent");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t Executor::GetLidAngle_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::Executor::GetLidAngle");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
 
 class Executor_GetFanSpeed_ForwardToCallback
     : public mojo::MessageReceiver {
@@ -427,7 +565,7 @@ ExecutorProxy::ExecutorProxy(mojo::MessageReceiverWithResponder* receiver)
 void ExecutorProxy::GetFanSpeed(
     GetFanSpeedCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send chromeos::cros_healthd::mojom::Executor::GetFanSpeed");
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::Executor::GetFanSpeed");
 #endif
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
@@ -441,7 +579,7 @@ void ExecutorProxy::GetFanSpeed(
   mojo::Message message(
       internal::kExecutor_GetFanSpeed_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::Executor_GetFanSpeed_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::Executor_GetFanSpeed_Params_Data> params(
           message);
   params.Allocate();
 
@@ -452,13 +590,13 @@ void ExecutorProxy::GetFanSpeed(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new Executor_GetFanSpeed_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void ExecutorProxy::GetInterfaces(
     GetInterfacesCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send chromeos::cros_healthd::mojom::Executor::GetInterfaces");
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::Executor::GetInterfaces");
 #endif
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
@@ -472,7 +610,7 @@ void ExecutorProxy::GetInterfaces(
   mojo::Message message(
       internal::kExecutor_GetInterfaces_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::Executor_GetInterfaces_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::Executor_GetInterfaces_Params_Data> params(
           message);
   params.Allocate();
 
@@ -483,14 +621,14 @@ void ExecutorProxy::GetInterfaces(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new Executor_GetInterfaces_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void ExecutorProxy::GetLink(
     const std::string& in_interface_name, GetLinkCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send chromeos::cros_healthd::mojom::Executor::GetLink", "input_parameters",
+    "mojom", "Send ash::cros_healthd::mojom::Executor::GetLink", "input_parameters",
     [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto_libchrome::WriteIntoTracedValueWithFallback(
@@ -510,7 +648,7 @@ void ExecutorProxy::GetLink(
   mojo::Message message(
       internal::kExecutor_GetLink_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::Executor_GetLink_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::Executor_GetLink_Params_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
@@ -532,14 +670,14 @@ void ExecutorProxy::GetLink(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new Executor_GetLink_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void ExecutorProxy::GetInfo(
     const std::string& in_interface_name, GetInfoCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send chromeos::cros_healthd::mojom::Executor::GetInfo", "input_parameters",
+    "mojom", "Send ash::cros_healthd::mojom::Executor::GetInfo", "input_parameters",
     [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto_libchrome::WriteIntoTracedValueWithFallback(
@@ -559,7 +697,7 @@ void ExecutorProxy::GetInfo(
   mojo::Message message(
       internal::kExecutor_GetInfo_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::Executor_GetInfo_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::Executor_GetInfo_Params_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
@@ -581,14 +719,14 @@ void ExecutorProxy::GetInfo(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new Executor_GetInfo_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void ExecutorProxy::GetScanDump(
     const std::string& in_interface_name, GetScanDumpCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send chromeos::cros_healthd::mojom::Executor::GetScanDump", "input_parameters",
+    "mojom", "Send ash::cros_healthd::mojom::Executor::GetScanDump", "input_parameters",
     [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto_libchrome::WriteIntoTracedValueWithFallback(
@@ -608,7 +746,7 @@ void ExecutorProxy::GetScanDump(
   mojo::Message message(
       internal::kExecutor_GetScanDump_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::Executor_GetScanDump_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::Executor_GetScanDump_Params_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
@@ -630,14 +768,14 @@ void ExecutorProxy::GetScanDump(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new Executor_GetScanDump_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void ExecutorProxy::RunMemtester(
     uint32_t in_test_mem_kib, RunMemtesterCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send chromeos::cros_healthd::mojom::Executor::RunMemtester", "input_parameters",
+    "mojom", "Send ash::cros_healthd::mojom::Executor::RunMemtester", "input_parameters",
     [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto_libchrome::WriteIntoTracedValueWithFallback(
@@ -657,7 +795,7 @@ void ExecutorProxy::RunMemtester(
   mojo::Message message(
       internal::kExecutor_RunMemtester_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::Executor_RunMemtester_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::Executor_RunMemtester_Params_Data> params(
           message);
   params.Allocate();
   params->test_mem_kib = in_test_mem_kib;
@@ -669,13 +807,13 @@ void ExecutorProxy::RunMemtester(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new Executor_RunMemtester_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void ExecutorProxy::KillMemtester(
     ) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send chromeos::cros_healthd::mojom::Executor::KillMemtester");
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::Executor::KillMemtester");
 #endif
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
@@ -689,7 +827,7 @@ void ExecutorProxy::KillMemtester(
   mojo::Message message(
       internal::kExecutor_KillMemtester_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::Executor_KillMemtester_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::Executor_KillMemtester_Params_Data> params(
           message);
   params.Allocate();
 
@@ -699,19 +837,19 @@ void ExecutorProxy::KillMemtester(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 void ExecutorProxy::GetProcessIOContents(
-    uint32_t in_pid, GetProcessIOContentsCallback callback) {
+    const std::vector<uint32_t>& in_pids, GetProcessIOContentsCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send chromeos::cros_healthd::mojom::Executor::GetProcessIOContents", "input_parameters",
+    "mojom", "Send ash::cros_healthd::mojom::Executor::GetProcessIOContents", "input_parameters",
     [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto_libchrome::WriteIntoTracedValueWithFallback(
-           dict.AddItem("pid"), in_pid,
-                        "<value of type uint32_t>");
+           dict.AddItem("pids"), in_pids,
+                        "<value of type const std::vector<uint32_t>&>");
    });
 #endif
   const bool kExpectsResponse = true;
@@ -726,10 +864,22 @@ void ExecutorProxy::GetProcessIOContents(
   mojo::Message message(
       internal::kExecutor_GetProcessIOContents_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::Executor_GetProcessIOContents_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::Executor_GetProcessIOContents_Params_Data> params(
           message);
   params.Allocate();
-  params->pid = in_pid;
+  mojo::internal::MessageFragment<
+      typename decltype(params->pids)::BaseType>
+      pids_fragment(params.message());
+  const mojo::internal::ContainerValidateParams pids_validate_params(
+      0, false, nullptr);
+  mojo::internal::Serialize<mojo::ArrayDataView<uint32_t>>(
+      in_pids, pids_fragment, &pids_validate_params);
+  params->pids.Set(
+      pids_fragment.is_null() ? nullptr : pids_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->pids.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null pids in Executor.GetProcessIOContents request");
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(Executor::Name_);
@@ -738,14 +888,14 @@ void ExecutorProxy::GetProcessIOContents(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new Executor_GetProcessIOContents_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void ExecutorProxy::ReadMsr(
     uint32_t in_msr_reg, uint32_t in_cpu_index, ReadMsrCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send chromeos::cros_healthd::mojom::Executor::ReadMsr", "input_parameters",
+    "mojom", "Send ash::cros_healthd::mojom::Executor::ReadMsr", "input_parameters",
     [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto_libchrome::WriteIntoTracedValueWithFallback(
@@ -768,7 +918,7 @@ void ExecutorProxy::ReadMsr(
   mojo::Message message(
       internal::kExecutor_ReadMsr_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::Executor_ReadMsr_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::Executor_ReadMsr_Params_Data> params(
           message);
   params.Allocate();
   params->msr_reg = in_msr_reg;
@@ -781,13 +931,13 @@ void ExecutorProxy::ReadMsr(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new Executor_ReadMsr_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void ExecutorProxy::GetUEFISecureBootContent(
     GetUEFISecureBootContentCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send chromeos::cros_healthd::mojom::Executor::GetUEFISecureBootContent");
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::Executor::GetUEFISecureBootContent");
 #endif
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
@@ -801,7 +951,7 @@ void ExecutorProxy::GetUEFISecureBootContent(
   mojo::Message message(
       internal::kExecutor_GetUEFISecureBootContent_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::Executor_GetUEFISecureBootContent_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::Executor_GetUEFISecureBootContent_Params_Data> params(
           message);
   params.Allocate();
 
@@ -812,13 +962,13 @@ void ExecutorProxy::GetUEFISecureBootContent(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new Executor_GetUEFISecureBootContent_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void ExecutorProxy::GetUEFIPlatformSizeContent(
     GetUEFIPlatformSizeContentCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send chromeos::cros_healthd::mojom::Executor::GetUEFIPlatformSizeContent");
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::Executor::GetUEFIPlatformSizeContent");
 #endif
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
@@ -832,7 +982,7 @@ void ExecutorProxy::GetUEFIPlatformSizeContent(
   mojo::Message message(
       internal::kExecutor_GetUEFIPlatformSizeContent_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::Executor_GetUEFIPlatformSizeContent_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::Executor_GetUEFIPlatformSizeContent_Params_Data> params(
           message);
   params.Allocate();
 
@@ -843,13 +993,13 @@ void ExecutorProxy::GetUEFIPlatformSizeContent(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new Executor_GetUEFIPlatformSizeContent_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void ExecutorProxy::GetLidAngle(
     GetLidAngleCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send chromeos::cros_healthd::mojom::Executor::GetLidAngle");
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::Executor::GetLidAngle");
 #endif
   const bool kExpectsResponse = true;
   const bool kIsSync = false;
@@ -863,7 +1013,7 @@ void ExecutorProxy::GetLidAngle(
   mojo::Message message(
       internal::kExecutor_GetLidAngle_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::Executor_GetLidAngle_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::Executor_GetLidAngle_Params_Data> params(
           message);
   params.Allocate();
 
@@ -874,7 +1024,7 @@ void ExecutorProxy::GetLidAngle(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new Executor_GetLidAngle_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 class Executor_GetFanSpeed_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
@@ -953,7 +1103,7 @@ void Executor_GetFanSpeed_ProxyToResponder::Run(
     ExecutedProcessResultPtr in_result) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send reply chromeos::cros_healthd::mojom::Executor::GetFanSpeed", "async_response_parameters",
+    "mojom", "Send reply ash::cros_healthd::mojom::Executor::GetFanSpeed", "async_response_parameters",
     [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto_libchrome::WriteIntoTracedValueWithFallback(
@@ -969,13 +1119,13 @@ void Executor_GetFanSpeed_ProxyToResponder::Run(
   mojo::Message message(
       internal::kExecutor_GetFanSpeed_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::Executor_GetFanSpeed_ResponseParams_Data> params(
+      ::ash::cros_healthd::mojom::internal::Executor_GetFanSpeed_ResponseParams_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
       typename decltype(params->result)::BaseType> result_fragment(
           params.message());
-  mojo::internal::Serialize<::chromeos::cros_healthd::mojom::ExecutedProcessResultDataView>(
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::ExecutedProcessResultDataView>(
       in_result, result_fragment);
   params->result.Set(
       result_fragment.is_null() ? nullptr : result_fragment.data());
@@ -991,8 +1141,8 @@ void Executor_GetFanSpeed_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -1077,7 +1227,7 @@ void Executor_GetInterfaces_ProxyToResponder::Run(
     ExecutedProcessResultPtr in_result) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send reply chromeos::cros_healthd::mojom::Executor::GetInterfaces", "async_response_parameters",
+    "mojom", "Send reply ash::cros_healthd::mojom::Executor::GetInterfaces", "async_response_parameters",
     [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto_libchrome::WriteIntoTracedValueWithFallback(
@@ -1093,13 +1243,13 @@ void Executor_GetInterfaces_ProxyToResponder::Run(
   mojo::Message message(
       internal::kExecutor_GetInterfaces_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::Executor_GetInterfaces_ResponseParams_Data> params(
+      ::ash::cros_healthd::mojom::internal::Executor_GetInterfaces_ResponseParams_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
       typename decltype(params->result)::BaseType> result_fragment(
           params.message());
-  mojo::internal::Serialize<::chromeos::cros_healthd::mojom::ExecutedProcessResultDataView>(
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::ExecutedProcessResultDataView>(
       in_result, result_fragment);
   params->result.Set(
       result_fragment.is_null() ? nullptr : result_fragment.data());
@@ -1115,8 +1265,8 @@ void Executor_GetInterfaces_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -1201,7 +1351,7 @@ void Executor_GetLink_ProxyToResponder::Run(
     ExecutedProcessResultPtr in_result) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send reply chromeos::cros_healthd::mojom::Executor::GetLink", "async_response_parameters",
+    "mojom", "Send reply ash::cros_healthd::mojom::Executor::GetLink", "async_response_parameters",
     [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto_libchrome::WriteIntoTracedValueWithFallback(
@@ -1217,13 +1367,13 @@ void Executor_GetLink_ProxyToResponder::Run(
   mojo::Message message(
       internal::kExecutor_GetLink_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::Executor_GetLink_ResponseParams_Data> params(
+      ::ash::cros_healthd::mojom::internal::Executor_GetLink_ResponseParams_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
       typename decltype(params->result)::BaseType> result_fragment(
           params.message());
-  mojo::internal::Serialize<::chromeos::cros_healthd::mojom::ExecutedProcessResultDataView>(
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::ExecutedProcessResultDataView>(
       in_result, result_fragment);
   params->result.Set(
       result_fragment.is_null() ? nullptr : result_fragment.data());
@@ -1239,8 +1389,8 @@ void Executor_GetLink_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -1325,7 +1475,7 @@ void Executor_GetInfo_ProxyToResponder::Run(
     ExecutedProcessResultPtr in_result) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send reply chromeos::cros_healthd::mojom::Executor::GetInfo", "async_response_parameters",
+    "mojom", "Send reply ash::cros_healthd::mojom::Executor::GetInfo", "async_response_parameters",
     [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto_libchrome::WriteIntoTracedValueWithFallback(
@@ -1341,13 +1491,13 @@ void Executor_GetInfo_ProxyToResponder::Run(
   mojo::Message message(
       internal::kExecutor_GetInfo_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::Executor_GetInfo_ResponseParams_Data> params(
+      ::ash::cros_healthd::mojom::internal::Executor_GetInfo_ResponseParams_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
       typename decltype(params->result)::BaseType> result_fragment(
           params.message());
-  mojo::internal::Serialize<::chromeos::cros_healthd::mojom::ExecutedProcessResultDataView>(
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::ExecutedProcessResultDataView>(
       in_result, result_fragment);
   params->result.Set(
       result_fragment.is_null() ? nullptr : result_fragment.data());
@@ -1363,8 +1513,8 @@ void Executor_GetInfo_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -1449,7 +1599,7 @@ void Executor_GetScanDump_ProxyToResponder::Run(
     ExecutedProcessResultPtr in_result) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send reply chromeos::cros_healthd::mojom::Executor::GetScanDump", "async_response_parameters",
+    "mojom", "Send reply ash::cros_healthd::mojom::Executor::GetScanDump", "async_response_parameters",
     [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto_libchrome::WriteIntoTracedValueWithFallback(
@@ -1465,13 +1615,13 @@ void Executor_GetScanDump_ProxyToResponder::Run(
   mojo::Message message(
       internal::kExecutor_GetScanDump_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::Executor_GetScanDump_ResponseParams_Data> params(
+      ::ash::cros_healthd::mojom::internal::Executor_GetScanDump_ResponseParams_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
       typename decltype(params->result)::BaseType> result_fragment(
           params.message());
-  mojo::internal::Serialize<::chromeos::cros_healthd::mojom::ExecutedProcessResultDataView>(
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::ExecutedProcessResultDataView>(
       in_result, result_fragment);
   params->result.Set(
       result_fragment.is_null() ? nullptr : result_fragment.data());
@@ -1487,8 +1637,8 @@ void Executor_GetScanDump_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -1573,7 +1723,7 @@ void Executor_RunMemtester_ProxyToResponder::Run(
     ExecutedProcessResultPtr in_result) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send reply chromeos::cros_healthd::mojom::Executor::RunMemtester", "async_response_parameters",
+    "mojom", "Send reply ash::cros_healthd::mojom::Executor::RunMemtester", "async_response_parameters",
     [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto_libchrome::WriteIntoTracedValueWithFallback(
@@ -1589,13 +1739,13 @@ void Executor_RunMemtester_ProxyToResponder::Run(
   mojo::Message message(
       internal::kExecutor_RunMemtester_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::Executor_RunMemtester_ResponseParams_Data> params(
+      ::ash::cros_healthd::mojom::internal::Executor_RunMemtester_ResponseParams_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
       typename decltype(params->result)::BaseType> result_fragment(
           params.message());
-  mojo::internal::Serialize<::chromeos::cros_healthd::mojom::ExecutedProcessResultDataView>(
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::ExecutedProcessResultDataView>(
       in_result, result_fragment);
   params->result.Set(
       result_fragment.is_null() ? nullptr : result_fragment.data());
@@ -1611,8 +1761,8 @@ void Executor_RunMemtester_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -1662,7 +1812,7 @@ class Executor_GetProcessIOContents_ProxyToResponder : public ::mojo::internal::
 #endif
 
   void Run(
-      const std::string& in_contents);
+      const base::flat_map<uint32_t, std::string>& in_contents);
 };
 
 bool Executor_GetProcessIOContents_ForwardToCallback::Accept(
@@ -1675,7 +1825,7 @@ bool Executor_GetProcessIOContents_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  std::string p_contents{};
+  base::flat_map<uint32_t, std::string> p_contents{};
   Executor_GetProcessIOContents_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadContents(&p_contents))
@@ -1694,15 +1844,15 @@ std::move(p_contents));
 }
 
 void Executor_GetProcessIOContents_ProxyToResponder::Run(
-    const std::string& in_contents) {
+    const base::flat_map<uint32_t, std::string>& in_contents) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send reply chromeos::cros_healthd::mojom::Executor::GetProcessIOContents", "async_response_parameters",
+    "mojom", "Send reply ash::cros_healthd::mojom::Executor::GetProcessIOContents", "async_response_parameters",
     [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("contents"), in_contents,
-                        "<value of type const std::string&>");
+                        "<value of type const base::flat_map<uint32_t, std::string>&>");
    });
 #endif
   
@@ -1713,14 +1863,16 @@ void Executor_GetProcessIOContents_ProxyToResponder::Run(
   mojo::Message message(
       internal::kExecutor_GetProcessIOContents_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::Executor_GetProcessIOContents_ResponseParams_Data> params(
+      ::ash::cros_healthd::mojom::internal::Executor_GetProcessIOContents_ResponseParams_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
-      typename decltype(params->contents)::BaseType> contents_fragment(
-          params.message());
-  mojo::internal::Serialize<mojo::StringDataView>(
-      in_contents, contents_fragment);
+      typename decltype(params->contents)::BaseType>
+      contents_fragment(params.message());
+  const mojo::internal::ContainerValidateParams contents_validate_params(
+      new mojo::internal::ContainerValidateParams(0, false, nullptr), new mojo::internal::ContainerValidateParams(0, false, new mojo::internal::ContainerValidateParams(0, false, nullptr)));
+  mojo::internal::Serialize<mojo::MapDataView<uint32_t, mojo::StringDataView>>(
+      in_contents, contents_fragment, &contents_validate_params);
   params->contents.Set(
       contents_fragment.is_null() ? nullptr : contents_fragment.data());
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
@@ -1735,8 +1887,8 @@ void Executor_GetProcessIOContents_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -1786,7 +1938,7 @@ class Executor_ReadMsr_ProxyToResponder : public ::mojo::internal::ProxyToRespon
 #endif
 
   void Run(
-      ::chromeos::cros_healthd::mojom::NullableUint64Ptr in_value);
+      ::ash::cros_healthd::mojom::NullableUint64Ptr in_value);
 };
 
 bool Executor_ReadMsr_ForwardToCallback::Accept(
@@ -1799,7 +1951,7 @@ bool Executor_ReadMsr_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  ::chromeos::cros_healthd::mojom::NullableUint64Ptr p_value{};
+  ::ash::cros_healthd::mojom::NullableUint64Ptr p_value{};
   Executor_ReadMsr_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadValue(&p_value))
@@ -1818,15 +1970,15 @@ std::move(p_value));
 }
 
 void Executor_ReadMsr_ProxyToResponder::Run(
-    ::chromeos::cros_healthd::mojom::NullableUint64Ptr in_value) {
+    ::ash::cros_healthd::mojom::NullableUint64Ptr in_value) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send reply chromeos::cros_healthd::mojom::Executor::ReadMsr", "async_response_parameters",
+    "mojom", "Send reply ash::cros_healthd::mojom::Executor::ReadMsr", "async_response_parameters",
     [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("value"), in_value,
-                        "<value of type ::chromeos::cros_healthd::mojom::NullableUint64Ptr>");
+                        "<value of type ::ash::cros_healthd::mojom::NullableUint64Ptr>");
    });
 #endif
   
@@ -1837,13 +1989,13 @@ void Executor_ReadMsr_ProxyToResponder::Run(
   mojo::Message message(
       internal::kExecutor_ReadMsr_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::Executor_ReadMsr_ResponseParams_Data> params(
+      ::ash::cros_healthd::mojom::internal::Executor_ReadMsr_ResponseParams_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
       typename decltype(params->value)::BaseType> value_fragment(
           params.message());
-  mojo::internal::Serialize<::chromeos::cros_healthd::mojom::NullableUint64DataView>(
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::NullableUint64DataView>(
       in_value, value_fragment);
   params->value.Set(
       value_fragment.is_null() ? nullptr : value_fragment.data());
@@ -1855,8 +2007,8 @@ void Executor_ReadMsr_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -1941,7 +2093,7 @@ void Executor_GetUEFISecureBootContent_ProxyToResponder::Run(
     const std::string& in_contents) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send reply chromeos::cros_healthd::mojom::Executor::GetUEFISecureBootContent", "async_response_parameters",
+    "mojom", "Send reply ash::cros_healthd::mojom::Executor::GetUEFISecureBootContent", "async_response_parameters",
     [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto_libchrome::WriteIntoTracedValueWithFallback(
@@ -1957,7 +2109,7 @@ void Executor_GetUEFISecureBootContent_ProxyToResponder::Run(
   mojo::Message message(
       internal::kExecutor_GetUEFISecureBootContent_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::Executor_GetUEFISecureBootContent_ResponseParams_Data> params(
+      ::ash::cros_healthd::mojom::internal::Executor_GetUEFISecureBootContent_ResponseParams_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
@@ -1979,8 +2131,8 @@ void Executor_GetUEFISecureBootContent_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -2065,7 +2217,7 @@ void Executor_GetUEFIPlatformSizeContent_ProxyToResponder::Run(
     const std::string& in_contents) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send reply chromeos::cros_healthd::mojom::Executor::GetUEFIPlatformSizeContent", "async_response_parameters",
+    "mojom", "Send reply ash::cros_healthd::mojom::Executor::GetUEFIPlatformSizeContent", "async_response_parameters",
     [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto_libchrome::WriteIntoTracedValueWithFallback(
@@ -2081,7 +2233,7 @@ void Executor_GetUEFIPlatformSizeContent_ProxyToResponder::Run(
   mojo::Message message(
       internal::kExecutor_GetUEFIPlatformSizeContent_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::Executor_GetUEFIPlatformSizeContent_ResponseParams_Data> params(
+      ::ash::cros_healthd::mojom::internal::Executor_GetUEFIPlatformSizeContent_ResponseParams_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
@@ -2103,8 +2255,8 @@ void Executor_GetUEFIPlatformSizeContent_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -2189,7 +2341,7 @@ void Executor_GetLidAngle_ProxyToResponder::Run(
     ExecutedProcessResultPtr in_result) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send reply chromeos::cros_healthd::mojom::Executor::GetLidAngle", "async_response_parameters",
+    "mojom", "Send reply ash::cros_healthd::mojom::Executor::GetLidAngle", "async_response_parameters",
     [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto_libchrome::WriteIntoTracedValueWithFallback(
@@ -2205,13 +2357,13 @@ void Executor_GetLidAngle_ProxyToResponder::Run(
   mojo::Message message(
       internal::kExecutor_GetLidAngle_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::Executor_GetLidAngle_ResponseParams_Data> params(
+      ::ash::cros_healthd::mojom::internal::Executor_GetLidAngle_ResponseParams_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
       typename decltype(params->result)::BaseType> result_fragment(
           params.message());
-  mojo::internal::Serialize<::chromeos::cros_healthd::mojom::ExecutedProcessResultDataView>(
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::ExecutedProcessResultDataView>(
       in_result, result_fragment);
   params->result.Set(
       result_fragment.is_null() ? nullptr : result_fragment.data());
@@ -2227,8 +2379,8 @@ void Executor_GetLidAngle_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -2487,11 +2639,11 @@ std::move(p_test_mem_kib), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      uint32_t p_pid{};
+      std::vector<uint32_t> p_pids{};
       Executor_GetProcessIOContents_ParamsDataView input_data_view(params, message);
       
-      if (success)
-        p_pid = input_data_view.pid();
+      if (success && !input_data_view.ReadPids(&p_pids))
+        success = false;
       if (!success) {
         ReportValidationErrorForMessage(
             message,
@@ -2505,7 +2657,7 @@ std::move(p_test_mem_kib), std::move(callback));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
       impl->GetProcessIOContents(
-std::move(p_pid), std::move(callback));
+std::move(p_pids), std::move(callback));
       return true;
     }
     case internal::kExecutor_ReadMsr_Name: {
@@ -2649,30 +2801,30 @@ static const mojo::internal::GenericValidationInfo kExecutorValidationInfo[] = {
 };
 
 bool ExecutorRequestValidator::Accept(mojo::Message* message) {
-  const char* name = ::chromeos::cros_healthd::mojom::Executor::Name_;
+  const char* name = ::ash::cros_healthd::mojom::Executor::Name_;
   return mojo::internal::ValidateRequestGenericPacked(message, name, kExecutorValidationInfo);
 }
 
 bool ExecutorResponseValidator::Accept(mojo::Message* message) {
-  const char* name = ::chromeos::cros_healthd::mojom::Executor::Name_;
+  const char* name = ::ash::cros_healthd::mojom::Executor::Name_;
   return mojo::internal::ValidateResponseGenericPacked(message, name, kExecutorValidationInfo);
 }
 
 
 }  // namespace mojom
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 
 namespace mojo {
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::mojom::ExecutedProcessResult::DataView, ::chromeos::cros_healthd::mojom::ExecutedProcessResultPtr>::Read(
-    ::chromeos::cros_healthd::mojom::ExecutedProcessResult::DataView input,
-    ::chromeos::cros_healthd::mojom::ExecutedProcessResultPtr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::ExecutedProcessResult::DataView, ::ash::cros_healthd::mojom::ExecutedProcessResultPtr>::Read(
+    ::ash::cros_healthd::mojom::ExecutedProcessResult::DataView input,
+    ::ash::cros_healthd::mojom::ExecutedProcessResultPtr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::mojom::ExecutedProcessResultPtr result(::chromeos::cros_healthd::mojom::ExecutedProcessResult::New());
+  ::ash::cros_healthd::mojom::ExecutedProcessResultPtr result(::ash::cros_healthd::mojom::ExecutedProcessResult::New());
   
       if (success)
         result->return_code = input.return_code();
@@ -2691,7 +2843,7 @@ bool StructTraits<::chromeos::cros_healthd::mojom::ExecutedProcessResult::DataVi
 // separate .cc file to save compile time.
 
 
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace mojom {
 
@@ -2717,8 +2869,8 @@ void ExecutorInterceptorForTesting::RunMemtester(uint32_t test_mem_kib, RunMemte
 void ExecutorInterceptorForTesting::KillMemtester() {
   GetForwardingInterface()->KillMemtester();
 }
-void ExecutorInterceptorForTesting::GetProcessIOContents(uint32_t pid, GetProcessIOContentsCallback callback) {
-  GetForwardingInterface()->GetProcessIOContents(std::move(pid), std::move(callback));
+void ExecutorInterceptorForTesting::GetProcessIOContents(const std::vector<uint32_t>& pids, GetProcessIOContentsCallback callback) {
+  GetForwardingInterface()->GetProcessIOContents(std::move(pids), std::move(callback));
 }
 void ExecutorInterceptorForTesting::ReadMsr(uint32_t msr_reg, uint32_t cpu_index, ReadMsrCallback callback) {
   GetForwardingInterface()->ReadMsr(std::move(msr_reg), std::move(cpu_index), std::move(callback));
@@ -2828,14 +2980,14 @@ void ExecutorAsyncWaiter::RunMemtester(
   loop.Run();
 }
 void ExecutorAsyncWaiter::GetProcessIOContents(
-    uint32_t pid, std::string* out_contents) {
+    const std::vector<uint32_t>& pids, base::flat_map<uint32_t, std::string>* out_contents) {
   base::RunLoop loop;
-  proxy_->GetProcessIOContents(std::move(pid),
+  proxy_->GetProcessIOContents(std::move(pids),
       base::BindOnce(
           [](base::RunLoop* loop,
-             std::string* out_contents
+             base::flat_map<uint32_t, std::string>* out_contents
 ,
-             const std::string& contents) {*out_contents = std::move(contents);
+             const base::flat_map<uint32_t, std::string>& contents) {*out_contents = std::move(contents);
             loop->Quit();
           },
           &loop,
@@ -2843,14 +2995,14 @@ void ExecutorAsyncWaiter::GetProcessIOContents(
   loop.Run();
 }
 void ExecutorAsyncWaiter::ReadMsr(
-    uint32_t msr_reg, uint32_t cpu_index, ::chromeos::cros_healthd::mojom::NullableUint64Ptr* out_value) {
+    uint32_t msr_reg, uint32_t cpu_index, ::ash::cros_healthd::mojom::NullableUint64Ptr* out_value) {
   base::RunLoop loop;
   proxy_->ReadMsr(std::move(msr_reg),std::move(cpu_index),
       base::BindOnce(
           [](base::RunLoop* loop,
-             ::chromeos::cros_healthd::mojom::NullableUint64Ptr* out_value
+             ::ash::cros_healthd::mojom::NullableUint64Ptr* out_value
 ,
-             ::chromeos::cros_healthd::mojom::NullableUint64Ptr value) {*out_value = std::move(value);
+             ::ash::cros_healthd::mojom::NullableUint64Ptr value) {*out_value = std::move(value);
             loop->Quit();
           },
           &loop,
@@ -2909,7 +3061,7 @@ void ExecutorAsyncWaiter::GetLidAngle(
 
 }  // namespace mojom
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 
 #if defined(__clang__)

@@ -15,6 +15,7 @@
 #include <stdint.h>
 #include <utility>
 
+#include "base/debug/alias.h"
 #include "base/hash/md5_constexpr.h"
 #include "base/run_loop.h"
 #include "base/strings/string_number_conversions.h"
@@ -50,15 +51,15 @@ namespace wilco_dtc_supportd {
 namespace mojom {
 const char WilcoDtcSupportdServiceFactory::Name_[] = "chromeos.wilco_dtc_supportd.mojom.WilcoDtcSupportdServiceFactory";
 
-uint32_t WilcoDtcSupportdServiceFactory::MessageToStableIPCHash_(mojo::Message& message) {
+WilcoDtcSupportdServiceFactory::IPCStableHashFunction WilcoDtcSupportdServiceFactory::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
   switch (message.name()) {
     case internal::kWilcoDtcSupportdServiceFactory_GetService_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::wilco_dtc_supportd::mojom::WilcoDtcSupportdServiceFactory::GetService");
-      return value;
+      return &WilcoDtcSupportdServiceFactory::GetService_Sym::IPCStableHash;
     }
   }
-  return 0;
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
 }
 
 
@@ -86,6 +87,22 @@ const char* WilcoDtcSupportdServiceFactory::MessageToMethodName_(mojo::Message& 
   }
 #endif // BUILDFLAG(MOJO_TRACE_ENABLED)
 }
+
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t WilcoDtcSupportdServiceFactory::GetService_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)chromeos::wilco_dtc_supportd::mojom::WilcoDtcSupportdServiceFactory::GetService");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
 
 class WilcoDtcSupportdServiceFactory_GetService_ForwardToCallback
     : public mojo::MessageReceiver {
@@ -157,7 +174,7 @@ void WilcoDtcSupportdServiceFactoryProxy::GetService(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new WilcoDtcSupportdServiceFactory_GetService_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 class WilcoDtcSupportdServiceFactory_GetService_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
@@ -252,8 +269,8 @@ void WilcoDtcSupportdServiceFactory_GetService_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -341,20 +358,18 @@ bool WilcoDtcSupportdServiceFactoryResponseValidator::Accept(mojo::Message* mess
 }
 const char WilcoDtcSupportdService::Name_[] = "chromeos.wilco_dtc_supportd.mojom.WilcoDtcSupportdService";
 
-uint32_t WilcoDtcSupportdService::MessageToStableIPCHash_(mojo::Message& message) {
+WilcoDtcSupportdService::IPCStableHashFunction WilcoDtcSupportdService::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
   switch (message.name()) {
     case internal::kWilcoDtcSupportdService_SendUiMessageToWilcoDtc_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::wilco_dtc_supportd::mojom::WilcoDtcSupportdService::SendUiMessageToWilcoDtc");
-      return value;
+      return &WilcoDtcSupportdService::SendUiMessageToWilcoDtc_Sym::IPCStableHash;
     }
     case internal::kWilcoDtcSupportdService_NotifyConfigurationDataChanged_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::wilco_dtc_supportd::mojom::WilcoDtcSupportdService::NotifyConfigurationDataChanged");
-      return value;
+      return &WilcoDtcSupportdService::NotifyConfigurationDataChanged_Sym::IPCStableHash;
     }
   }
-  return 0;
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
 }
 
 
@@ -386,6 +401,35 @@ const char* WilcoDtcSupportdService::MessageToMethodName_(mojo::Message& message
   }
 #endif // BUILDFLAG(MOJO_TRACE_ENABLED)
 }
+
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t WilcoDtcSupportdService::SendUiMessageToWilcoDtc_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)chromeos::wilco_dtc_supportd::mojom::WilcoDtcSupportdService::SendUiMessageToWilcoDtc");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t WilcoDtcSupportdService::NotifyConfigurationDataChanged_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)chromeos::wilco_dtc_supportd::mojom::WilcoDtcSupportdService::NotifyConfigurationDataChanged");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
 
 class WilcoDtcSupportdService_SendUiMessageToWilcoDtc_ForwardToCallback
     : public mojo::MessageReceiver {
@@ -448,7 +492,7 @@ void WilcoDtcSupportdServiceProxy::SendUiMessageToWilcoDtc(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new WilcoDtcSupportdService_SendUiMessageToWilcoDtc_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void WilcoDtcSupportdServiceProxy::NotifyConfigurationDataChanged(
@@ -478,7 +522,7 @@ void WilcoDtcSupportdServiceProxy::NotifyConfigurationDataChanged(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 class WilcoDtcSupportdService_SendUiMessageToWilcoDtc_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
@@ -586,8 +630,8 @@ void WilcoDtcSupportdService_SendUiMessageToWilcoDtc_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -694,40 +738,30 @@ bool WilcoDtcSupportdServiceResponseValidator::Accept(mojo::Message* message) {
 }
 const char WilcoDtcSupportdClient::Name_[] = "chromeos.wilco_dtc_supportd.mojom.WilcoDtcSupportdClient";
 
-uint32_t WilcoDtcSupportdClient::MessageToStableIPCHash_(mojo::Message& message) {
+WilcoDtcSupportdClient::IPCStableHashFunction WilcoDtcSupportdClient::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
   switch (message.name()) {
     case internal::kWilcoDtcSupportdClient_PerformWebRequest_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::wilco_dtc_supportd::mojom::WilcoDtcSupportdClient::PerformWebRequest");
-      return value;
+      return &WilcoDtcSupportdClient::PerformWebRequest_Sym::IPCStableHash;
     }
     case internal::kWilcoDtcSupportdClient_SendWilcoDtcMessageToUi_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::wilco_dtc_supportd::mojom::WilcoDtcSupportdClient::SendWilcoDtcMessageToUi");
-      return value;
+      return &WilcoDtcSupportdClient::SendWilcoDtcMessageToUi_Sym::IPCStableHash;
     }
     case internal::kWilcoDtcSupportdClient_GetConfigurationData_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::wilco_dtc_supportd::mojom::WilcoDtcSupportdClient::GetConfigurationData");
-      return value;
+      return &WilcoDtcSupportdClient::GetConfigurationData_Sym::IPCStableHash;
     }
     case internal::kWilcoDtcSupportdClient_HandleEvent_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::wilco_dtc_supportd::mojom::WilcoDtcSupportdClient::HandleEvent");
-      return value;
+      return &WilcoDtcSupportdClient::HandleEvent_Sym::IPCStableHash;
     }
     case internal::kWilcoDtcSupportdClient_GetCrosHealthdDiagnosticsService_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::wilco_dtc_supportd::mojom::WilcoDtcSupportdClient::GetCrosHealthdDiagnosticsService");
-      return value;
+      return &WilcoDtcSupportdClient::GetCrosHealthdDiagnosticsService_Sym::IPCStableHash;
     }
     case internal::kWilcoDtcSupportdClient_GetCrosHealthdProbeService_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::wilco_dtc_supportd::mojom::WilcoDtcSupportdClient::GetCrosHealthdProbeService");
-      return value;
+      return &WilcoDtcSupportdClient::GetCrosHealthdProbeService_Sym::IPCStableHash;
     }
   }
-  return 0;
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
 }
 
 
@@ -775,6 +809,87 @@ const char* WilcoDtcSupportdClient::MessageToMethodName_(mojo::Message& message)
   }
 #endif // BUILDFLAG(MOJO_TRACE_ENABLED)
 }
+
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t WilcoDtcSupportdClient::PerformWebRequest_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)chromeos::wilco_dtc_supportd::mojom::WilcoDtcSupportdClient::PerformWebRequest");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t WilcoDtcSupportdClient::SendWilcoDtcMessageToUi_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)chromeos::wilco_dtc_supportd::mojom::WilcoDtcSupportdClient::SendWilcoDtcMessageToUi");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t WilcoDtcSupportdClient::GetConfigurationData_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)chromeos::wilco_dtc_supportd::mojom::WilcoDtcSupportdClient::GetConfigurationData");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t WilcoDtcSupportdClient::HandleEvent_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)chromeos::wilco_dtc_supportd::mojom::WilcoDtcSupportdClient::HandleEvent");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t WilcoDtcSupportdClient::GetCrosHealthdDiagnosticsService_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)chromeos::wilco_dtc_supportd::mojom::WilcoDtcSupportdClient::GetCrosHealthdDiagnosticsService");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t WilcoDtcSupportdClient::GetCrosHealthdProbeService_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)chromeos::wilco_dtc_supportd::mojom::WilcoDtcSupportdClient::GetCrosHealthdProbeService");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
 
 class WilcoDtcSupportdClient_PerformWebRequest_ForwardToCallback
     : public mojo::MessageReceiver {
@@ -895,7 +1010,7 @@ void WilcoDtcSupportdClientProxy::PerformWebRequest(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new WilcoDtcSupportdClient_PerformWebRequest_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void WilcoDtcSupportdClientProxy::SendWilcoDtcMessageToUi(
@@ -939,7 +1054,7 @@ void WilcoDtcSupportdClientProxy::SendWilcoDtcMessageToUi(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new WilcoDtcSupportdClient_SendWilcoDtcMessageToUi_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void WilcoDtcSupportdClientProxy::GetConfigurationData(
@@ -970,7 +1085,7 @@ void WilcoDtcSupportdClientProxy::GetConfigurationData(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new WilcoDtcSupportdClient_GetConfigurationData_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void WilcoDtcSupportdClientProxy::HandleEvent(
@@ -1009,11 +1124,11 @@ void WilcoDtcSupportdClientProxy::HandleEvent(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 void WilcoDtcSupportdClientProxy::GetCrosHealthdDiagnosticsService(
-    ::mojo::PendingReceiver<::chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService> in_service) {
+    ::mojo::PendingReceiver<::ash::cros_healthd::mojom::CrosHealthdDiagnosticsService> in_service) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send chromeos::wilco_dtc_supportd::mojom::WilcoDtcSupportdClient::GetCrosHealthdDiagnosticsService", "input_parameters",
@@ -1021,7 +1136,7 @@ void WilcoDtcSupportdClientProxy::GetCrosHealthdDiagnosticsService(
       auto dict = std::move(context).WriteDictionary();
       perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("service"), in_service,
-                        "<value of type ::mojo::PendingReceiver<::chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService>>");
+                        "<value of type ::mojo::PendingReceiver<::ash::cros_healthd::mojom::CrosHealthdDiagnosticsService>>");
    });
 #endif
   const bool kExpectsResponse = false;
@@ -1039,7 +1154,7 @@ void WilcoDtcSupportdClientProxy::GetCrosHealthdDiagnosticsService(
       ::chromeos::wilco_dtc_supportd::mojom::internal::WilcoDtcSupportdClient_GetCrosHealthdDiagnosticsService_Params_Data> params(
           message);
   params.Allocate();
-  mojo::internal::Serialize<mojo::InterfaceRequestDataView<::chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsServiceInterfaceBase>>(
+  mojo::internal::Serialize<mojo::InterfaceRequestDataView<::ash::cros_healthd::mojom::CrosHealthdDiagnosticsServiceInterfaceBase>>(
       in_service, &params->service, &params.message());
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
       !mojo::internal::IsHandleOrInterfaceValid(params->service),
@@ -1052,11 +1167,11 @@ void WilcoDtcSupportdClientProxy::GetCrosHealthdDiagnosticsService(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 void WilcoDtcSupportdClientProxy::GetCrosHealthdProbeService(
-    ::mojo::PendingReceiver<::chromeos::cros_healthd::mojom::CrosHealthdProbeService> in_service) {
+    ::mojo::PendingReceiver<::ash::cros_healthd::mojom::CrosHealthdProbeService> in_service) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send chromeos::wilco_dtc_supportd::mojom::WilcoDtcSupportdClient::GetCrosHealthdProbeService", "input_parameters",
@@ -1064,7 +1179,7 @@ void WilcoDtcSupportdClientProxy::GetCrosHealthdProbeService(
       auto dict = std::move(context).WriteDictionary();
       perfetto_libchrome::WriteIntoTracedValueWithFallback(
            dict.AddItem("service"), in_service,
-                        "<value of type ::mojo::PendingReceiver<::chromeos::cros_healthd::mojom::CrosHealthdProbeService>>");
+                        "<value of type ::mojo::PendingReceiver<::ash::cros_healthd::mojom::CrosHealthdProbeService>>");
    });
 #endif
   const bool kExpectsResponse = false;
@@ -1082,7 +1197,7 @@ void WilcoDtcSupportdClientProxy::GetCrosHealthdProbeService(
       ::chromeos::wilco_dtc_supportd::mojom::internal::WilcoDtcSupportdClient_GetCrosHealthdProbeService_Params_Data> params(
           message);
   params.Allocate();
-  mojo::internal::Serialize<mojo::InterfaceRequestDataView<::chromeos::cros_healthd::mojom::CrosHealthdProbeServiceInterfaceBase>>(
+  mojo::internal::Serialize<mojo::InterfaceRequestDataView<::ash::cros_healthd::mojom::CrosHealthdProbeServiceInterfaceBase>>(
       in_service, &params->service, &params.message());
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
       !mojo::internal::IsHandleOrInterfaceValid(params->service),
@@ -1095,7 +1210,7 @@ void WilcoDtcSupportdClientProxy::GetCrosHealthdProbeService(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 class WilcoDtcSupportdClient_PerformWebRequest_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
@@ -1220,8 +1335,8 @@ void WilcoDtcSupportdClient_PerformWebRequest_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -1335,8 +1450,8 @@ void WilcoDtcSupportdClient_SendWilcoDtcMessageToUi_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -1459,8 +1574,8 @@ void WilcoDtcSupportdClient_GetConfigurationData_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -1517,7 +1632,7 @@ std::move(p_event));
               message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingReceiver<::chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService> p_service{};
+      ::mojo::PendingReceiver<::ash::cros_healthd::mojom::CrosHealthdDiagnosticsService> p_service{};
       WilcoDtcSupportdClient_GetCrosHealthdDiagnosticsService_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -1545,7 +1660,7 @@ std::move(p_service));
               message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingReceiver<::chromeos::cros_healthd::mojom::CrosHealthdProbeService> p_service{};
+      ::mojo::PendingReceiver<::ash::cros_healthd::mojom::CrosHealthdProbeService> p_service{};
       WilcoDtcSupportdClient_GetCrosHealthdProbeService_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -1795,10 +1910,10 @@ void WilcoDtcSupportdClientInterceptorForTesting::GetConfigurationData(GetConfig
 void WilcoDtcSupportdClientInterceptorForTesting::HandleEvent(WilcoDtcSupportdEvent event) {
   GetForwardingInterface()->HandleEvent(std::move(event));
 }
-void WilcoDtcSupportdClientInterceptorForTesting::GetCrosHealthdDiagnosticsService(::mojo::PendingReceiver<::chromeos::cros_healthd::mojom::CrosHealthdDiagnosticsService> service) {
+void WilcoDtcSupportdClientInterceptorForTesting::GetCrosHealthdDiagnosticsService(::mojo::PendingReceiver<::ash::cros_healthd::mojom::CrosHealthdDiagnosticsService> service) {
   GetForwardingInterface()->GetCrosHealthdDiagnosticsService(std::move(service));
 }
-void WilcoDtcSupportdClientInterceptorForTesting::GetCrosHealthdProbeService(::mojo::PendingReceiver<::chromeos::cros_healthd::mojom::CrosHealthdProbeService> service) {
+void WilcoDtcSupportdClientInterceptorForTesting::GetCrosHealthdProbeService(::mojo::PendingReceiver<::ash::cros_healthd::mojom::CrosHealthdProbeService> service) {
   GetForwardingInterface()->GetCrosHealthdProbeService(std::move(service));
 }
 WilcoDtcSupportdClientAsyncWaiter::WilcoDtcSupportdClientAsyncWaiter(

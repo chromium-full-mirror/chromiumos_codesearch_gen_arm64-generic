@@ -19,6 +19,7 @@
 #  pragma GCC system_header
 #endif
 
+_LIBCPP_DISABLE_DEBUG_INFO
 _LIBCPP_BEGIN_NAMESPACE_STD
 
 struct _LIBCPP_TEMPLATE_VIS allocator_arg_t { explicit allocator_arg_t() = default; };
@@ -74,5 +75,6 @@ void __user_alloc_construct_impl (integral_constant<int, 2>, _Tp *__storage, con
 #endif // _LIBCPP_CXX03_LANG
 
 _LIBCPP_END_NAMESPACE_STD
+_LIBCPP_ENABLE_DEBUG_INFO
 
 #endif // _LIBCPP___FUNCTIONAL_ALLOCATOR_ARG_T_H

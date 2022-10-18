@@ -45,9 +45,6 @@
 //   auto cb = base::BindOnce(&C::F, instance);
 //   std::move(cb).Run();  // Identical to instance->F()
 //
-// base::Bind is currently a type alias for base::BindRepeating(). In the
-// future, we expect to flip this to default to base::BindOnce().
-//
 // See //docs/callback.md for the full documentation.
 //
 // -----------------------------------------------------------------------------
@@ -119,44 +116,10 @@ struct BindFailedCheckPreviousErrors {};
 BindFailedCheckPreviousErrors BindOnce(...);
 BindFailedCheckPreviousErrors BindRepeating(...);
 
-// Unannotated Bind.
-// TODO(tzik): Deprecate this and migrate to OnceCallback and
-// RepeatingCallback, once they get ready.
 template <typename Functor, typename... Args>
-inline Callback<internal::MakeUnboundRunType<Functor, Args...>> Bind(
-    Functor&& functor,
-    Args&&... args) {
-  return base::BindRepeating(std::forward<Functor>(functor),
-                             std::forward<Args>(args)...);
-}
-
-// Special cases for binding to a base::{Once, Repeating}Callback without extra
-// bound arguments. We CHECK() the validity of callback to guard against null
-// pointers accidentally ending up in posted tasks, causing hard-to-debug
-// crashes.
-template <typename Signature>
-OnceCallback<Signature> BindOnce(OnceCallback<Signature> callback) {
-  CHECK(callback);
-  return callback;
-}
-
-template <typename Signature>
-OnceCallback<Signature> BindOnce(RepeatingCallback<Signature> callback) {
-  CHECK(callback);
-  return callback;
-}
-
-template <typename Signature>
-RepeatingCallback<Signature> BindRepeating(
-    RepeatingCallback<Signature> callback) {
-  CHECK(callback);
-  return callback;
-}
-
-template <typename Signature>
-Callback<Signature> Bind(Callback<Signature> callback) {
-  CHECK(callback);
-  return callback;
+decltype(auto) Bind(Functor &&functor, Args &&...args) {
+  return BindRepeating(std::forward<Functor>(functor),
+                       std::forward<Args>(args)...);
 }
 
 // Unretained() allows binding a non-refcounted class, and to disable
@@ -182,9 +145,24 @@ inline internal::UnretainedWrapper<T> Unretained(T* o) {
   return internal::UnretainedWrapper<T>(o);
 }
 
-template <typename T>
-inline internal::UnretainedWrapper<T> Unretained(const raw_ptr<T>& o) {
+template <typename T, typename I>
+inline internal::UnretainedWrapper<T> Unretained(const raw_ptr<T, I>& o) {
   return internal::UnretainedWrapper<T>(o);
+}
+
+template <typename T, typename I>
+inline internal::UnretainedWrapper<T> Unretained(raw_ptr<T, I>&& o) {
+  return internal::UnretainedWrapper<T>(std::move(o));
+}
+
+template <typename T, typename I>
+inline auto Unretained(const raw_ref<T, I>& o) {
+  return internal::UnretainedRefWrapper(o);
+}
+
+template <typename T, typename I>
+inline auto Unretained(raw_ref<T, I>&& o) {
+  return internal::UnretainedRefWrapper(std::move(o));
 }
 
 // RetainedRef() accepts a ref counted object and retains a reference to it.

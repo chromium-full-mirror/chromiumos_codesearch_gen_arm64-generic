@@ -53,8 +53,10 @@ class VideoEncodeAcceleratorResponseValidator;
 class  VideoEncodeAccelerator
     : public VideoEncodeAcceleratorInterfaceBase {
  public:
+  using IPCStableHashFunction = uint32_t(*)();
+
   static const char Name_[];
-  static uint32_t MessageToStableIPCHash_(mojo::Message& message);
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 5;
   static constexpr bool PassesAssociatedKinds_ = false;
@@ -79,6 +81,35 @@ class  VideoEncodeAccelerator
     kRequestEncodingParametersChangeDeprecatedMinVersion = 0,
     kFlushMinVersion = 0,
   };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+  struct GetSupportedProfiles_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct Initialize_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct InitializeDeprecated_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct Encode_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct UseBitstreamBuffer_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct RequestEncodingParametersChange_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct RequestEncodingParametersChangeDeprecated_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct Flush_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+#endif // !BUILDFLAG(IS_FUCHSIA)
   
   using Error = VideoEncodeAccelerator_Error;
   
@@ -133,8 +164,10 @@ class VideoEncodeClientRequestValidator;
 class  VideoEncodeClient
     : public VideoEncodeClientInterfaceBase {
  public:
+  using IPCStableHashFunction = uint32_t(*)();
+
   static const char Name_[];
-  static uint32_t MessageToStableIPCHash_(mojo::Message& message);
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 0;
   static constexpr bool PassesAssociatedKinds_ = false;
@@ -153,6 +186,17 @@ class  VideoEncodeClient
     kRequireBitstreamBuffersMinVersion = 0,
     kNotifyErrorMinVersion = 0,
   };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+  struct RequireBitstreamBuffers_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct NotifyError_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+#endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~VideoEncodeClient() = default;
 
   

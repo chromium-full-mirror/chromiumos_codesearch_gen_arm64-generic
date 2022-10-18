@@ -4,7 +4,7 @@
 #ifndef LIBCHROME_BASE_PARSING_BUILDFLAGS_H_
 #define LIBCHROME_BASE_PARSING_BUILDFLAGS_H_
 
-#include "build/buildflag.h"
+#include "build/buildflag.h" // IWYU pragma: export
 
 #define BUILDFLAG_INTERNAL_BUILD_RUST_JSON_PARSER() (0)
 

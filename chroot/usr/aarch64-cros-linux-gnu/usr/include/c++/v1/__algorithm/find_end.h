@@ -18,6 +18,7 @@
 #  pragma GCC system_header
 #endif
 
+_LIBCPP_DISABLE_DEBUG_INFO
 _LIBCPP_BEGIN_NAMESPACE_STD
 
 template <class _BinaryPredicate, class _ForwardIterator1, class _ForwardIterator2>
@@ -146,5 +147,6 @@ find_end(_ForwardIterator1 __first1, _ForwardIterator1 __last1, _ForwardIterator
 }
 
 _LIBCPP_END_NAMESPACE_STD
+_LIBCPP_ENABLE_DEBUG_INFO
 
 #endif // _LIBCPP___ALGORITHM_FIND_END_OF_H

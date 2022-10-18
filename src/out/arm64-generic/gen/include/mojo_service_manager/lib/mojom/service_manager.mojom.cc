@@ -15,6 +15,7 @@
 #include <stdint.h>
 #include <utility>
 
+#include "base/debug/alias.h"
 #include "base/hash/md5_constexpr.h"
 #include "base/run_loop.h"
 #include "base/strings/string_number_conversions.h"
@@ -428,30 +429,24 @@ bool ServiceState::Validate(
 }
 const char ServiceManager::Name_[] = "chromeos.mojo_service_manager.mojom.ServiceManager";
 
-uint32_t ServiceManager::MessageToStableIPCHash_(mojo::Message& message) {
+ServiceManager::IPCStableHashFunction ServiceManager::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
   switch (message.name()) {
     case internal::kServiceManager_Register_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::mojo_service_manager::mojom::ServiceManager::Register");
-      return value;
+      return &ServiceManager::Register_Sym::IPCStableHash;
     }
     case internal::kServiceManager_Request_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::mojo_service_manager::mojom::ServiceManager::Request");
-      return value;
+      return &ServiceManager::Request_Sym::IPCStableHash;
     }
     case internal::kServiceManager_Query_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::mojo_service_manager::mojom::ServiceManager::Query");
-      return value;
+      return &ServiceManager::Query_Sym::IPCStableHash;
     }
     case internal::kServiceManager_AddServiceObserver_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::mojo_service_manager::mojom::ServiceManager::AddServiceObserver");
-      return value;
+      return &ServiceManager::AddServiceObserver_Sym::IPCStableHash;
     }
   }
-  return 0;
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
 }
 
 
@@ -491,6 +486,61 @@ const char* ServiceManager::MessageToMethodName_(mojo::Message& message) {
   }
 #endif // BUILDFLAG(MOJO_TRACE_ENABLED)
 }
+
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t ServiceManager::Register_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)chromeos::mojo_service_manager::mojom::ServiceManager::Register");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t ServiceManager::Request_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)chromeos::mojo_service_manager::mojom::ServiceManager::Request");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t ServiceManager::Query_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)chromeos::mojo_service_manager::mojom::ServiceManager::Query");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t ServiceManager::AddServiceObserver_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)chromeos::mojo_service_manager::mojom::ServiceManager::AddServiceObserver");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
 
 class ServiceManager_Query_ForwardToCallback
     : public mojo::MessageReceiver {
@@ -566,7 +616,7 @@ void ServiceManagerProxy::Register(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 void ServiceManagerProxy::Request(
@@ -633,7 +683,7 @@ void ServiceManagerProxy::Request(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 void ServiceManagerProxy::Query(
@@ -682,7 +732,7 @@ void ServiceManagerProxy::Query(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new ServiceManager_Query_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void ServiceManagerProxy::AddServiceObserver(
@@ -725,7 +775,7 @@ void ServiceManagerProxy::AddServiceObserver(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 class ServiceManager_Query_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
@@ -840,8 +890,8 @@ void ServiceManager_Query_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -1030,15 +1080,15 @@ bool ServiceManagerResponseValidator::Accept(mojo::Message* message) {
 }
 const char ServiceProvider::Name_[] = "chromeos.mojo_service_manager.mojom.ServiceProvider";
 
-uint32_t ServiceProvider::MessageToStableIPCHash_(mojo::Message& message) {
+ServiceProvider::IPCStableHashFunction ServiceProvider::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
   switch (message.name()) {
     case internal::kServiceProvider_Request_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::mojo_service_manager::mojom::ServiceProvider::Request");
-      return value;
+      return &ServiceProvider::Request_Sym::IPCStableHash;
     }
   }
-  return 0;
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
 }
 
 
@@ -1066,6 +1116,22 @@ const char* ServiceProvider::MessageToMethodName_(mojo::Message& message) {
   }
 #endif // BUILDFLAG(MOJO_TRACE_ENABLED)
 }
+
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t ServiceProvider::Request_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)chromeos::mojo_service_manager::mojom::ServiceProvider::Request");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
 
 ServiceProviderProxy::ServiceProviderProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
@@ -1125,7 +1191,7 @@ void ServiceProviderProxy::Request(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 // static
@@ -1196,15 +1262,15 @@ bool ServiceProviderRequestValidator::Accept(mojo::Message* message) {
 
 const char ServiceObserver::Name_[] = "chromeos.mojo_service_manager.mojom.ServiceObserver";
 
-uint32_t ServiceObserver::MessageToStableIPCHash_(mojo::Message& message) {
+ServiceObserver::IPCStableHashFunction ServiceObserver::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
   switch (message.name()) {
     case internal::kServiceObserver_OnServiceEvent_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::mojo_service_manager::mojom::ServiceObserver::OnServiceEvent");
-      return value;
+      return &ServiceObserver::OnServiceEvent_Sym::IPCStableHash;
     }
   }
-  return 0;
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
 }
 
 
@@ -1232,6 +1298,22 @@ const char* ServiceObserver::MessageToMethodName_(mojo::Message& message) {
   }
 #endif // BUILDFLAG(MOJO_TRACE_ENABLED)
 }
+
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t ServiceObserver::OnServiceEvent_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)chromeos::mojo_service_manager::mojom::ServiceObserver::OnServiceEvent");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
 
 ServiceObserverProxy::ServiceObserverProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
@@ -1282,7 +1364,7 @@ void ServiceObserverProxy::OnServiceEvent(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 // static

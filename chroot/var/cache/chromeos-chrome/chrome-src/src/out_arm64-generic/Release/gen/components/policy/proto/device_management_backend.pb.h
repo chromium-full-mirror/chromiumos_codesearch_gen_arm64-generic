@@ -774,11 +774,12 @@ enum LicenseType_LicenseTypeEnum : int {
 LicenseType_LicenseTypeEnum_UNDEFINED = 0,
 LicenseType_LicenseTypeEnum_CDM_PERPETUAL = 1,
 LicenseType_LicenseTypeEnum_CDM_ANNUAL = 2,
-LicenseType_LicenseTypeEnum_KIOSK = 3
+LicenseType_LicenseTypeEnum_KIOSK = 3,
+LicenseType_LicenseTypeEnum_CDM_PACKAGED = 4
 };
 POLICY_PROTO_EXPORT bool LicenseType_LicenseTypeEnum_IsValid(int value);
 constexpr LicenseType_LicenseTypeEnum LicenseType_LicenseTypeEnum_LicenseTypeEnum_MIN = LicenseType_LicenseTypeEnum_UNDEFINED;
-constexpr LicenseType_LicenseTypeEnum LicenseType_LicenseTypeEnum_LicenseTypeEnum_MAX = LicenseType_LicenseTypeEnum_KIOSK;
+constexpr LicenseType_LicenseTypeEnum LicenseType_LicenseTypeEnum_LicenseTypeEnum_MAX = LicenseType_LicenseTypeEnum_CDM_PACKAGED;
 constexpr int LicenseType_LicenseTypeEnum_LicenseTypeEnum_ARRAYSIZE = LicenseType_LicenseTypeEnum_LicenseTypeEnum_MAX + 1;
 
 const std::string& LicenseType_LicenseTypeEnum_Name(LicenseType_LicenseTypeEnum value);
@@ -1516,6 +1517,30 @@ return Policy_PolicySource_Name(static_cast<Policy_PolicySource>(enum_t_value));
 }
 bool Policy_PolicySource_Parse(
 ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, Policy_PolicySource* value);
+enum OSReport_VersionType : int {
+OSReport_VersionType_UNKNOWN = 0,
+OSReport_VersionType_HOME = 1,
+OSReport_VersionType_PROFESSIONAL = 2,
+OSReport_VersionType_SERVER = 3,
+OSReport_VersionType_ENTERPRISE = 4,
+OSReport_VersionType_EDUCATION = 5,
+OSReport_VersionType_EDUCATION_PRO = 6
+};
+POLICY_PROTO_EXPORT bool OSReport_VersionType_IsValid(int value);
+constexpr OSReport_VersionType OSReport_VersionType_VersionType_MIN = OSReport_VersionType_UNKNOWN;
+constexpr OSReport_VersionType OSReport_VersionType_VersionType_MAX = OSReport_VersionType_EDUCATION_PRO;
+constexpr int OSReport_VersionType_VersionType_ARRAYSIZE = OSReport_VersionType_VersionType_MAX + 1;
+
+const std::string& OSReport_VersionType_Name(OSReport_VersionType value);
+template<typename T>
+inline const std::string& OSReport_VersionType_Name(T enum_t_value) {
+static_assert(::std::is_same<T, OSReport_VersionType>::value ||
+::std::is_integral<T>::value,
+"Incorrect type passed to function OSReport_VersionType_Name.");
+return OSReport_VersionType_Name(static_cast<OSReport_VersionType>(enum_t_value));
+}
+bool OSReport_VersionType_Parse(
+::PROTOBUF_NAMESPACE_ID::ConstStringParam name, OSReport_VersionType* value);
 enum PolicyValueValidationIssue_ValueValidationIssueSeverity : int {
 PolicyValueValidationIssue_ValueValidationIssueSeverity_VALUE_VALIDATION_ISSUE_SEVERITY_UNSPECIFIED = 0,
 PolicyValueValidationIssue_ValueValidationIssueSeverity_VALUE_VALIDATION_ISSUE_SEVERITY_WARNING = 1,
@@ -2761,6 +2786,8 @@ static constexpr LicenseTypeEnum CDM_ANNUAL =
 LicenseType_LicenseTypeEnum_CDM_ANNUAL;
 static constexpr LicenseTypeEnum KIOSK =
 LicenseType_LicenseTypeEnum_KIOSK;
+static constexpr LicenseTypeEnum CDM_PACKAGED =
+LicenseType_LicenseTypeEnum_CDM_PACKAGED;
 static inline bool LicenseTypeEnum_IsValid(int value) {
 return LicenseType_LicenseTypeEnum_IsValid(value);
 }
@@ -21028,12 +21055,49 @@ std::string GetTypeName() const final;
 
 // nested types ----------------------------------------------------
 
+typedef OSReport_VersionType VersionType;
+static constexpr VersionType UNKNOWN =
+OSReport_VersionType_UNKNOWN;
+static constexpr VersionType HOME =
+OSReport_VersionType_HOME;
+static constexpr VersionType PROFESSIONAL =
+OSReport_VersionType_PROFESSIONAL;
+static constexpr VersionType SERVER =
+OSReport_VersionType_SERVER;
+static constexpr VersionType ENTERPRISE =
+OSReport_VersionType_ENTERPRISE;
+static constexpr VersionType EDUCATION =
+OSReport_VersionType_EDUCATION;
+static constexpr VersionType EDUCATION_PRO =
+OSReport_VersionType_EDUCATION_PRO;
+static inline bool VersionType_IsValid(int value) {
+return OSReport_VersionType_IsValid(value);
+}
+static constexpr VersionType VersionType_MIN =
+OSReport_VersionType_VersionType_MIN;
+static constexpr VersionType VersionType_MAX =
+OSReport_VersionType_VersionType_MAX;
+static constexpr int VersionType_ARRAYSIZE =
+OSReport_VersionType_VersionType_ARRAYSIZE;
+template<typename T>
+static inline const std::string& VersionType_Name(T enum_t_value) {
+static_assert(::std::is_same<T, VersionType>::value ||
+::std::is_integral<T>::value,
+"Incorrect type passed to function VersionType_Name.");
+return OSReport_VersionType_Name(enum_t_value);
+}
+static inline bool VersionType_Parse(::PROTOBUF_NAMESPACE_ID::ConstStringParam name,
+VersionType* value) {
+return OSReport_VersionType_Parse(name, value);
+}
+
 // accessors -------------------------------------------------------
 
 enum : int {
 kNameFieldNumber = 1,
 kArchFieldNumber = 2,
 kVersionFieldNumber = 3,
+kVersionTypeFieldNumber = 4,
 };
 // optional string name = 1;
 bool has_name() const;
@@ -21089,6 +21153,19 @@ inline PROTOBUF_ALWAYS_INLINE void _internal_set_version(const std::string& valu
 std::string* _internal_mutable_version();
 public:
 
+// optional .enterprise_management.OSReport.VersionType version_type = 4;
+bool has_version_type() const;
+private:
+bool _internal_has_version_type() const;
+public:
+void clear_version_type();
+::enterprise_management::OSReport_VersionType version_type() const;
+void set_version_type(::enterprise_management::OSReport_VersionType value);
+private:
+::enterprise_management::OSReport_VersionType _internal_version_type() const;
+void _internal_set_version_type(::enterprise_management::OSReport_VersionType value);
+public:
+
 // @@protoc_insertion_point(class_scope:enterprise_management.OSReport)
 private:
 class _Internal;
@@ -21101,6 +21178,7 @@ mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
 ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
 ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr arch_;
 ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr version_;
+int version_type_;
 friend struct ::TableStruct_device_5fmanagement_5fbackend_2eproto;
 };
 // -------------------------------------------------------------------
@@ -25374,6 +25452,7 @@ enum : int {
 kManagementDomainFieldNumber = 2,
 kDisabledStateFieldNumber = 3,
 kInitialStateResponseFieldNumber = 4,
+kLicenseTypeFieldNumber = 5,
 kRestoreModeFieldNumber = 1,
 };
 // optional string management_domain = 2;
@@ -25430,6 +25509,24 @@ void unsafe_arena_set_allocated_initial_state_response(
 ::enterprise_management::DeviceInitialEnrollmentStateResponse* initial_state_response);
 ::enterprise_management::DeviceInitialEnrollmentStateResponse* unsafe_arena_release_initial_state_response();
 
+// optional .enterprise_management.LicenseType license_type = 5;
+bool has_license_type() const;
+private:
+bool _internal_has_license_type() const;
+public:
+void clear_license_type();
+const ::enterprise_management::LicenseType& license_type() const;
+PROTOBUF_NODISCARD ::enterprise_management::LicenseType* release_license_type();
+::enterprise_management::LicenseType* mutable_license_type();
+void set_allocated_license_type(::enterprise_management::LicenseType* license_type);
+private:
+const ::enterprise_management::LicenseType& _internal_license_type() const;
+::enterprise_management::LicenseType* _internal_mutable_license_type();
+public:
+void unsafe_arena_set_allocated_license_type(
+::enterprise_management::LicenseType* license_type);
+::enterprise_management::LicenseType* unsafe_arena_release_license_type();
+
 // optional .enterprise_management.DeviceStateRetrievalResponse.RestoreMode restore_mode = 1 [default = RESTORE_MODE_NONE];
 bool has_restore_mode() const;
 private:
@@ -25455,6 +25552,7 @@ mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
 ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr management_domain_;
 ::enterprise_management::DisabledState* disabled_state_;
 ::enterprise_management::DeviceInitialEnrollmentStateResponse* initial_state_response_;
+::enterprise_management::LicenseType* license_type_;
 int restore_mode_;
 friend struct ::TableStruct_device_5fmanagement_5fbackend_2eproto;
 };
@@ -62241,6 +62339,35 @@ version_.Set("", GetArenaForAllocation());
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.OSReport.version)
 }
 
+// optional .enterprise_management.OSReport.VersionType version_type = 4;
+inline bool OSReport::_internal_has_version_type() const {
+bool value = (_has_bits_[0] & 0x00000008u) != 0;
+return value;
+}
+inline bool OSReport::has_version_type() const {
+return _internal_has_version_type();
+}
+inline void OSReport::clear_version_type() {
+version_type_ = 0;
+_has_bits_[0] &= ~0x00000008u;
+}
+inline ::enterprise_management::OSReport_VersionType OSReport::_internal_version_type() const {
+return static_cast< ::enterprise_management::OSReport_VersionType >(version_type_);
+}
+inline ::enterprise_management::OSReport_VersionType OSReport::version_type() const {
+// @@protoc_insertion_point(field_get:enterprise_management.OSReport.version_type)
+return _internal_version_type();
+}
+inline void OSReport::_internal_set_version_type(::enterprise_management::OSReport_VersionType value) {
+assert(::enterprise_management::OSReport_VersionType_IsValid(value));
+_has_bits_[0] |= 0x00000008u;
+version_type_ = value;
+}
+inline void OSReport::set_version_type(::enterprise_management::OSReport_VersionType value) {
+_internal_set_version_type(value);
+// @@protoc_insertion_point(field_set:enterprise_management.OSReport.version_type)
+}
+
 // -------------------------------------------------------------------
 
 // ChromeDesktopReportRequest
@@ -66175,7 +66302,7 @@ return &server_backed_state_keys_;
 
 // optional .enterprise_management.DeviceStateRetrievalResponse.RestoreMode restore_mode = 1 [default = RESTORE_MODE_NONE];
 inline bool DeviceStateRetrievalResponse::_internal_has_restore_mode() const {
-bool value = (_has_bits_[0] & 0x00000008u) != 0;
+bool value = (_has_bits_[0] & 0x00000010u) != 0;
 return value;
 }
 inline bool DeviceStateRetrievalResponse::has_restore_mode() const {
@@ -66183,7 +66310,7 @@ return _internal_has_restore_mode();
 }
 inline void DeviceStateRetrievalResponse::clear_restore_mode() {
 restore_mode_ = 0;
-_has_bits_[0] &= ~0x00000008u;
+_has_bits_[0] &= ~0x00000010u;
 }
 inline ::enterprise_management::DeviceStateRetrievalResponse_RestoreMode DeviceStateRetrievalResponse::_internal_restore_mode() const {
 return static_cast< ::enterprise_management::DeviceStateRetrievalResponse_RestoreMode >(restore_mode_);
@@ -66194,7 +66321,7 @@ return _internal_restore_mode();
 }
 inline void DeviceStateRetrievalResponse::_internal_set_restore_mode(::enterprise_management::DeviceStateRetrievalResponse_RestoreMode value) {
 assert(::enterprise_management::DeviceStateRetrievalResponse_RestoreMode_IsValid(value));
-_has_bits_[0] |= 0x00000008u;
+_has_bits_[0] |= 0x00000010u;
 restore_mode_ = value;
 }
 inline void DeviceStateRetrievalResponse::set_restore_mode(::enterprise_management::DeviceStateRetrievalResponse_RestoreMode value) {
@@ -66448,6 +66575,96 @@ _has_bits_[0] &= ~0x00000004u;
 }
 initial_state_response_ = initial_state_response;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.DeviceStateRetrievalResponse.initial_state_response)
+}
+
+// optional .enterprise_management.LicenseType license_type = 5;
+inline bool DeviceStateRetrievalResponse::_internal_has_license_type() const {
+bool value = (_has_bits_[0] & 0x00000008u) != 0;
+PROTOBUF_ASSUME(!value || license_type_ != nullptr);
+return value;
+}
+inline bool DeviceStateRetrievalResponse::has_license_type() const {
+return _internal_has_license_type();
+}
+inline void DeviceStateRetrievalResponse::clear_license_type() {
+if (license_type_ != nullptr) license_type_->Clear();
+_has_bits_[0] &= ~0x00000008u;
+}
+inline const ::enterprise_management::LicenseType& DeviceStateRetrievalResponse::_internal_license_type() const {
+const ::enterprise_management::LicenseType* p = license_type_;
+return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::LicenseType&>(
+::enterprise_management::_LicenseType_default_instance_);
+}
+inline const ::enterprise_management::LicenseType& DeviceStateRetrievalResponse::license_type() const {
+// @@protoc_insertion_point(field_get:enterprise_management.DeviceStateRetrievalResponse.license_type)
+return _internal_license_type();
+}
+inline void DeviceStateRetrievalResponse::unsafe_arena_set_allocated_license_type(
+::enterprise_management::LicenseType* license_type) {
+if (GetArenaForAllocation() == nullptr) {
+delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(license_type_);
+}
+license_type_ = license_type;
+if (license_type) {
+_has_bits_[0] |= 0x00000008u;
+} else {
+_has_bits_[0] &= ~0x00000008u;
+}
+// @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.DeviceStateRetrievalResponse.license_type)
+}
+inline ::enterprise_management::LicenseType* DeviceStateRetrievalResponse::release_license_type() {
+_has_bits_[0] &= ~0x00000008u;
+::enterprise_management::LicenseType* temp = license_type_;
+license_type_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+if (GetArenaForAllocation() != nullptr) {
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+}
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+return temp;
+}
+inline ::enterprise_management::LicenseType* DeviceStateRetrievalResponse::unsafe_arena_release_license_type() {
+// @@protoc_insertion_point(field_release:enterprise_management.DeviceStateRetrievalResponse.license_type)
+_has_bits_[0] &= ~0x00000008u;
+::enterprise_management::LicenseType* temp = license_type_;
+license_type_ = nullptr;
+return temp;
+}
+inline ::enterprise_management::LicenseType* DeviceStateRetrievalResponse::_internal_mutable_license_type() {
+_has_bits_[0] |= 0x00000008u;
+if (license_type_ == nullptr) {
+auto* p = CreateMaybeMessage<::enterprise_management::LicenseType>(GetArenaForAllocation());
+license_type_ = p;
+}
+return license_type_;
+}
+inline ::enterprise_management::LicenseType* DeviceStateRetrievalResponse::mutable_license_type() {
+::enterprise_management::LicenseType* _msg = _internal_mutable_license_type();
+// @@protoc_insertion_point(field_mutable:enterprise_management.DeviceStateRetrievalResponse.license_type)
+return _msg;
+}
+inline void DeviceStateRetrievalResponse::set_allocated_license_type(::enterprise_management::LicenseType* license_type) {
+::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+if (message_arena == nullptr) {
+delete license_type_;
+}
+if (license_type) {
+::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(license_type);
+if (message_arena != submessage_arena) {
+license_type = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+message_arena, license_type, submessage_arena);
+}
+_has_bits_[0] |= 0x00000008u;
+} else {
+_has_bits_[0] &= ~0x00000008u;
+}
+license_type_ = license_type;
+// @@protoc_insertion_point(field_set_allocated:enterprise_management.DeviceStateRetrievalResponse.license_type)
 }
 
 // -------------------------------------------------------------------
@@ -83470,6 +83687,7 @@ template <> struct is_proto_enum< ::enterprise_management::Extension_InstallType
 template <> struct is_proto_enum< ::enterprise_management::Policy_PolicyLevel> : ::std::true_type {};
 template <> struct is_proto_enum< ::enterprise_management::Policy_PolicyScope> : ::std::true_type {};
 template <> struct is_proto_enum< ::enterprise_management::Policy_PolicySource> : ::std::true_type {};
+template <> struct is_proto_enum< ::enterprise_management::OSReport_VersionType> : ::std::true_type {};
 template <> struct is_proto_enum< ::enterprise_management::PolicyValueValidationIssue_ValueValidationIssueSeverity> : ::std::true_type {};
 template <> struct is_proto_enum< ::enterprise_management::PolicyValidationReportRequest_ValidationResultType> : ::std::true_type {};
 template <> struct is_proto_enum< ::enterprise_management::DeviceAutoEnrollmentRequest_EnrollmentCheckType> : ::std::true_type {};

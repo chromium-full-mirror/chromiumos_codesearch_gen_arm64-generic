@@ -51,8 +51,10 @@ class SensorServiceResponseValidator;
 class  SensorService
     : public SensorServiceInterfaceBase {
  public:
+  using IPCStableHashFunction = uint32_t(*)();
+
   static const char Name_[];
-  static uint32_t MessageToStableIPCHash_(mojo::Message& message);
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 0;
   static constexpr bool PassesAssociatedKinds_ = false;
@@ -73,6 +75,23 @@ class  SensorService
     kGetDeviceMinVersion = 0,
     kRegisterNewDevicesObserverMinVersion = 0,
   };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+  struct GetDeviceIds_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct GetAllDeviceIds_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct GetDevice_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct RegisterNewDevicesObserver_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+#endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~SensorService() = default;
 
 
@@ -104,8 +123,10 @@ class SensorDeviceResponseValidator;
 class  SensorDevice
     : public SensorDeviceInterfaceBase {
  public:
+  using IPCStableHashFunction = uint32_t(*)();
+
   static const char Name_[];
-  static uint32_t MessageToStableIPCHash_(mojo::Message& message);
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 0;
   static constexpr bool PassesAssociatedKinds_ = false;
@@ -137,6 +158,56 @@ class  SensorDevice
     kStartReadingEventsMinVersion = 0,
     kStopReadingEventsMinVersion = 0,
   };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+  struct SetTimeout_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct GetAttributes_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct SetFrequency_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct StartReadingSamples_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct StopReadingSamples_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct GetAllChannelIds_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct SetChannelsEnabled_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct GetChannelsEnabled_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct GetChannelsAttributes_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct GetAllEvents_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct SetEventsEnabled_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct GetEventsEnabled_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct GetEventsAttributes_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct StartReadingEvents_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct StopReadingEvents_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+#endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~SensorDevice() = default;
 
   
@@ -216,8 +287,10 @@ class SensorDeviceSamplesObserverRequestValidator;
 class  SensorDeviceSamplesObserver
     : public SensorDeviceSamplesObserverInterfaceBase {
  public:
+  using IPCStableHashFunction = uint32_t(*)();
+
   static const char Name_[];
-  static uint32_t MessageToStableIPCHash_(mojo::Message& message);
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 0;
   static constexpr bool PassesAssociatedKinds_ = false;
@@ -236,6 +309,17 @@ class  SensorDeviceSamplesObserver
     kOnSampleUpdatedMinVersion = 0,
     kOnErrorOccurredMinVersion = 0,
   };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+  struct OnSampleUpdated_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct OnErrorOccurred_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+#endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~SensorDeviceSamplesObserver() = default;
 
   
@@ -256,8 +340,10 @@ class SensorServiceNewDevicesObserverRequestValidator;
 class  SensorServiceNewDevicesObserver
     : public SensorServiceNewDevicesObserverInterfaceBase {
  public:
+  using IPCStableHashFunction = uint32_t(*)();
+
   static const char Name_[];
-  static uint32_t MessageToStableIPCHash_(mojo::Message& message);
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 0;
   static constexpr bool PassesAssociatedKinds_ = false;
@@ -275,6 +361,14 @@ class  SensorServiceNewDevicesObserver
   enum MethodMinVersions : uint32_t {
     kOnNewDeviceAddedMinVersion = 0,
   };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+  struct OnNewDeviceAdded_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+#endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~SensorServiceNewDevicesObserver() = default;
 
   
@@ -292,8 +386,10 @@ class SensorDeviceEventsObserverRequestValidator;
 class  SensorDeviceEventsObserver
     : public SensorDeviceEventsObserverInterfaceBase {
  public:
+  using IPCStableHashFunction = uint32_t(*)();
+
   static const char Name_[];
-  static uint32_t MessageToStableIPCHash_(mojo::Message& message);
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 0;
   static constexpr bool PassesAssociatedKinds_ = false;
@@ -312,6 +408,17 @@ class  SensorDeviceEventsObserver
     kOnEventUpdatedMinVersion = 0,
     kOnErrorOccurredMinVersion = 0,
   };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+  struct OnEventUpdated_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct OnErrorOccurred_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+#endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~SensorDeviceEventsObserver() = default;
 
   

@@ -13,10 +13,12 @@
 #include <utility>
 
 #include "base/bind.h"
-#include "base/callback_forward.h"
+#include "base/callback_forward.h"  // IWYU pragma: export
 #include "base/callback_internal.h"
 #include "base/check.h"
+#include "base/functional/function_ref.h"
 #include "base/notreached.h"
+#include "base/types/always_false.h"
 
 // -----------------------------------------------------------------------------
 // Usage documentation
@@ -49,9 +51,6 @@
 // object as a WeakPtr<T>. If that weak pointer is invalidated, calling Run()
 // will be a no-op. Note that |IsCancelled()| and |is_null()| are distinct:
 // simply cancelling a callback will not also make it null.
-//
-// base::Callback is currently a type alias for base::RepeatingCallback. In the
-// future, we expect to flip this to default to base::OnceCallback.
 //
 // See //docs/callback.md for the full documentation.
 
@@ -178,6 +177,25 @@ class OnceCallback<R(Args...)> : public internal::CallbackBase {
             RepeatingCallback<ThenR(ThenArgs...)>>::CreateTrampoline(),
         std::move(*this), std::move(then));
   }
+
+  template <typename Signature>
+  // NOLINTNEXTLINE(google-explicit-constructor)
+  operator FunctionRef<Signature>() & {
+    static_assert(
+        AlwaysFalse<Signature>,
+        "need to convert a base::OnceCallback to base::FunctionRef? "
+        "Please bring up this use case on #cxx (Slack) or cxx@chromium.org.");
+  }
+
+  template <typename Signature>
+  // NOLINTNEXTLINE(google-explicit-constructor)
+  operator FunctionRef<Signature>() && {
+    static_assert(
+        AlwaysFalse<Signature>,
+        "using base::BindOnce() is not necessary with base::FunctionRef; is it "
+        "possible to use a capturing lambda directly? If not, please bring up "
+        "this use case on #cxx (Slack) or cxx@chromium.org.");
+  }
 };
 
 template <typename R, typename... Args>
@@ -288,6 +306,25 @@ class RepeatingCallback<R(Args...)> : public internal::CallbackBaseCopyable {
             RepeatingCallback,
             RepeatingCallback<ThenR(ThenArgs...)>>::CreateTrampoline(),
         std::move(*this), std::move(then));
+  }
+
+  template <typename Signature>
+  // NOLINTNEXTLINE(google-explicit-constructor)
+  operator FunctionRef<Signature>() & {
+    static_assert(
+        AlwaysFalse<Signature>,
+        "need to convert a base::RepeatingCallback to base::FunctionRef? "
+        "Please bring up this use case on #cxx (Slack) or cxx@chromium.org.");
+  }
+
+  template <typename Signature>
+  // NOLINTNEXTLINE(google-explicit-constructor)
+  operator FunctionRef<Signature>() && {
+    static_assert(
+        AlwaysFalse<Signature>,
+        "using base::BindRepeating() is not necessary with base::FunctionRef; "
+        "is it possible to use a capturing lambda directly? If not, please "
+        "bring up this use case on #cxx (Slack) or cxx@chromium.org.");
   }
 };
 

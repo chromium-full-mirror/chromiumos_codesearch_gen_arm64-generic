@@ -52,8 +52,10 @@ class CameraModuleCallbacksRequestValidator;
 class  CameraModuleCallbacks
     : public CameraModuleCallbacksInterfaceBase {
  public:
+  using IPCStableHashFunction = uint32_t(*)();
+
   static const char Name_[];
-  static uint32_t MessageToStableIPCHash_(mojo::Message& message);
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 1;
   static constexpr bool PassesAssociatedKinds_ = false;
@@ -72,6 +74,17 @@ class  CameraModuleCallbacks
     kCameraDeviceStatusChangeMinVersion = 0,
     kTorchModeStatusChangeMinVersion = 1,
   };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+  struct CameraDeviceStatusChange_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct TorchModeStatusChange_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+#endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~CameraModuleCallbacks() = default;
 
   
@@ -93,8 +106,10 @@ class VendorTagOpsResponseValidator;
 class  VendorTagOps
     : public VendorTagOpsInterfaceBase {
  public:
+  using IPCStableHashFunction = uint32_t(*)();
+
   static const char Name_[];
-  static uint32_t MessageToStableIPCHash_(mojo::Message& message);
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 0;
   static constexpr bool PassesAssociatedKinds_ = false;
@@ -116,6 +131,26 @@ class  VendorTagOps
     kGetTagNameMinVersion = 0,
     kGetTagTypeMinVersion = 0,
   };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+  struct GetTagCount_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct GetAllTags_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct GetSectionName_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct GetTagName_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct GetTagType_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+#endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~VendorTagOps() = default;
 
 
@@ -156,8 +191,10 @@ class CameraModuleResponseValidator;
 class  CameraModule
     : public CameraModuleInterfaceBase {
  public:
+  using IPCStableHashFunction = uint32_t(*)();
+
   static const char Name_[];
-  static uint32_t MessageToStableIPCHash_(mojo::Message& message);
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 3;
   static constexpr bool PassesAssociatedKinds_ = true;
@@ -182,6 +219,35 @@ class  CameraModule
     kGetVendorTagOpsMinVersion = 2,
     kSetCallbacksAssociatedMinVersion = 3,
   };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+  struct OpenDevice_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct GetNumberOfCameras_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct GetCameraInfo_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct SetCallbacks_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct SetTorchMode_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct Init_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct GetVendorTagOps_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct SetCallbacksAssociated_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+#endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~CameraModule() = default;
 
 

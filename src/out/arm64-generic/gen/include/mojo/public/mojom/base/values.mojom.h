@@ -45,7 +45,6 @@ namespace mojom {
 
 
 
-
 class  Value {
  public:
   using DataView = ValueDataView;
@@ -712,145 +711,6 @@ bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
 
-
-
-
-
-class  DeprecatedListValue {
- public:
-  template <typename T>
-  using EnableIfSame = std::enable_if_t<std::is_same<DeprecatedListValue, T>::value>;
-  using DataView = DeprecatedListValueDataView;
-  using Data_ = internal::DeprecatedListValue_Data;
-
-  template <typename... Args>
-  static DeprecatedListValuePtr New(Args&&... args) {
-    return DeprecatedListValuePtr(
-        absl::in_place, std::forward<Args>(args)...);
-  }
-
-  template <typename U>
-  static DeprecatedListValuePtr From(const U& u) {
-    return mojo::TypeConverter<DeprecatedListValuePtr, U>::Convert(u);
-  }
-
-  template <typename U>
-  U To() const {
-    return mojo::TypeConverter<U, DeprecatedListValue>::Convert(*this);
-  }
-
-
-  DeprecatedListValue();
-
-  explicit DeprecatedListValue(
-      std::vector<ValuePtr> storage);
-
-DeprecatedListValue(const DeprecatedListValue&) = delete;
-DeprecatedListValue& operator=(const DeprecatedListValue&) = delete;
-
-  ~DeprecatedListValue();
-
-  // Clone() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Clone() or copy
-  // constructor/assignment are available for members.
-  template <typename StructPtrType = DeprecatedListValuePtr>
-  DeprecatedListValuePtr Clone() const;
-
-  // Equals() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Equals() or == operator
-  // are available for members.
-  template <typename T, DeprecatedListValue::EnableIfSame<T>* = nullptr>
-  bool Equals(const T& other) const;
-
-  template <typename T, DeprecatedListValue::EnableIfSame<T>* = nullptr>
-  bool operator==(const T& rhs) const { return Equals(rhs); }
-  template <typename UserType>
-  static std::vector<uint8_t> Serialize(UserType* input) {
-    return mojo::internal::SerializeImpl<
-        DeprecatedListValue::DataView, std::vector<uint8_t>>(input);
-  }
-
-  template <typename UserType>
-  static mojo::Message SerializeAsMessage(UserType* input) {
-    return mojo::internal::SerializeAsMessageImpl<
-        DeprecatedListValue::DataView>(input);
-  }
-
-  // The returned Message is serialized only if the message is moved
-  // cross-process or cross-language. Otherwise if the message is Deserialized
-  // as the same UserType |input| will just be moved to |output| in
-  // DeserializeFromMessage.
-  template <typename UserType>
-  static mojo::Message WrapAsMessage(UserType input) {
-    return mojo::Message(std::make_unique<
-        internal::DeprecatedListValue_UnserializedMessageContext<
-            UserType, DeprecatedListValue::DataView>>(0, 0, std::move(input)),
-        MOJO_CREATE_MESSAGE_FLAG_NONE);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const void* data,
-                          size_t data_num_bytes,
-                          UserType* output) {
-    mojo::Message message;
-    return mojo::internal::DeserializeImpl<DeprecatedListValue::DataView>(
-        message, data, data_num_bytes, output, Validate);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const std::vector<uint8_t>& input,
-                          UserType* output) {
-    return DeprecatedListValue::Deserialize(
-        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
-  }
-
-  template <typename UserType>
-  static bool DeserializeFromMessage(mojo::Message input,
-                                     UserType* output) {
-    auto context = input.TakeUnserializedContext<
-        internal::DeprecatedListValue_UnserializedMessageContext<
-            UserType, DeprecatedListValue::DataView>>();
-    if (context) {
-      *output = std::move(context->TakeData());
-      return true;
-    }
-    input.SerializeIfNecessary();
-    return mojo::internal::DeserializeImpl<DeprecatedListValue::DataView>(
-        input, input.payload(), input.payload_num_bytes(), output, Validate);
-  }
-
-  
-  std::vector<ValuePtr> storage;
-
-  // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
-
- private:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-};
-
-// The comparison operators are templates, so they are only instantiated if they
-// are used. Thus, the bindings generator does not need to know whether
-// comparison operators are available for members.
-template <typename T, DeprecatedListValue::EnableIfSame<T>* = nullptr>
-bool operator<(const T& lhs, const T& rhs);
-
-template <typename T, DeprecatedListValue::EnableIfSame<T>* = nullptr>
-bool operator<=(const T& lhs, const T& rhs) {
-  return !(rhs < lhs);
-}
-
-template <typename T, DeprecatedListValue::EnableIfSame<T>* = nullptr>
-bool operator>(const T& lhs, const T& rhs) {
-  return rhs < lhs;
-}
-
-template <typename T, DeprecatedListValue::EnableIfSame<T>* = nullptr>
-bool operator>=(const T& lhs, const T& rhs) {
-  return !(lhs < rhs);
-}
-
 template <typename UnionPtrType>
 ValuePtr Value::Clone() const {
   switch (tag_) {
@@ -976,28 +836,6 @@ bool operator<(const T& lhs, const T& rhs) {
     return false;
   return false;
 }
-template <typename StructPtrType>
-DeprecatedListValuePtr DeprecatedListValue::Clone() const {
-  return New(
-      mojo::Clone(storage)
-  );
-}
-
-template <typename T, DeprecatedListValue::EnableIfSame<T>*>
-bool DeprecatedListValue::Equals(const T& other_struct) const {
-  if (!mojo::Equals(this->storage, other_struct.storage))
-    return false;
-  return true;
-}
-
-template <typename T, DeprecatedListValue::EnableIfSame<T>*>
-bool operator<(const T& lhs, const T& rhs) {
-  if (lhs.storage < rhs.storage)
-    return true;
-  if (rhs.storage < lhs.storage)
-    return false;
-  return false;
-}
 
 
 }  // namespace mojom
@@ -1048,21 +886,6 @@ struct  StructTraits<::mojo_base::mojom::DeprecatedDictionaryValue::DataView,
   }
 
   static bool Read(::mojo_base::mojom::DeprecatedDictionaryValue::DataView input, ::mojo_base::mojom::DeprecatedDictionaryValuePtr* output);
-};
-
-
-template <>
-struct  StructTraits<::mojo_base::mojom::DeprecatedListValue::DataView,
-                                         ::mojo_base::mojom::DeprecatedListValuePtr> {
-  static bool IsNull(const ::mojo_base::mojom::DeprecatedListValuePtr& input) { return !input; }
-  static void SetToNull(::mojo_base::mojom::DeprecatedListValuePtr* output) { output->reset(); }
-
-  static const decltype(::mojo_base::mojom::DeprecatedListValue::storage)& storage(
-      const ::mojo_base::mojom::DeprecatedListValuePtr& input) {
-    return input->storage;
-  }
-
-  static bool Read(::mojo_base::mojom::DeprecatedListValue::DataView input, ::mojo_base::mojom::DeprecatedListValuePtr* output);
 };
 
 

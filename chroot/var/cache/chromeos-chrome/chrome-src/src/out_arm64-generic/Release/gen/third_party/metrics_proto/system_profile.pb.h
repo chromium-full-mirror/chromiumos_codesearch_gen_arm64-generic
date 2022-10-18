@@ -167,6 +167,57 @@ inline const std::string& SystemProfileProto_OS_DarkModeState_Name(T enum_t_valu
 }
 bool SystemProfileProto_OS_DarkModeState_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, SystemProfileProto_OS_DarkModeState* value);
+enum SystemProfileProto_OS_XdgSessionType : int {
+  SystemProfileProto_OS_XdgSessionType_UNSET = 0,
+  SystemProfileProto_OS_XdgSessionType_OTHER_SESSION_TYPE = 1,
+  SystemProfileProto_OS_XdgSessionType_UNSPECIFIED = 2,
+  SystemProfileProto_OS_XdgSessionType_TTY = 3,
+  SystemProfileProto_OS_XdgSessionType_X11 = 4,
+  SystemProfileProto_OS_XdgSessionType_WAYLAND = 5,
+  SystemProfileProto_OS_XdgSessionType_MIR = 6
+};
+bool SystemProfileProto_OS_XdgSessionType_IsValid(int value);
+constexpr SystemProfileProto_OS_XdgSessionType SystemProfileProto_OS_XdgSessionType_XdgSessionType_MIN = SystemProfileProto_OS_XdgSessionType_UNSET;
+constexpr SystemProfileProto_OS_XdgSessionType SystemProfileProto_OS_XdgSessionType_XdgSessionType_MAX = SystemProfileProto_OS_XdgSessionType_MIR;
+constexpr int SystemProfileProto_OS_XdgSessionType_XdgSessionType_ARRAYSIZE = SystemProfileProto_OS_XdgSessionType_XdgSessionType_MAX + 1;
+
+const std::string& SystemProfileProto_OS_XdgSessionType_Name(SystemProfileProto_OS_XdgSessionType value);
+template<typename T>
+inline const std::string& SystemProfileProto_OS_XdgSessionType_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, SystemProfileProto_OS_XdgSessionType>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function SystemProfileProto_OS_XdgSessionType_Name.");
+  return SystemProfileProto_OS_XdgSessionType_Name(static_cast<SystemProfileProto_OS_XdgSessionType>(enum_t_value));
+}
+bool SystemProfileProto_OS_XdgSessionType_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, SystemProfileProto_OS_XdgSessionType* value);
+enum SystemProfileProto_OS_XdgCurrentDesktop : int {
+  SystemProfileProto_OS_XdgCurrentDesktop_OTHER = 0,
+  SystemProfileProto_OS_XdgCurrentDesktop_CINNAMON = 1,
+  SystemProfileProto_OS_XdgCurrentDesktop_DEEPIN = 2,
+  SystemProfileProto_OS_XdgCurrentDesktop_GNOME = 3,
+  SystemProfileProto_OS_XdgCurrentDesktop_KDE = 4,
+  SystemProfileProto_OS_XdgCurrentDesktop_PANTHEON = 5,
+  SystemProfileProto_OS_XdgCurrentDesktop_UKUI = 6,
+  SystemProfileProto_OS_XdgCurrentDesktop_UNITY = 7,
+  SystemProfileProto_OS_XdgCurrentDesktop_XFCE = 8,
+  SystemProfileProto_OS_XdgCurrentDesktop_LXQT = 9
+};
+bool SystemProfileProto_OS_XdgCurrentDesktop_IsValid(int value);
+constexpr SystemProfileProto_OS_XdgCurrentDesktop SystemProfileProto_OS_XdgCurrentDesktop_XdgCurrentDesktop_MIN = SystemProfileProto_OS_XdgCurrentDesktop_OTHER;
+constexpr SystemProfileProto_OS_XdgCurrentDesktop SystemProfileProto_OS_XdgCurrentDesktop_XdgCurrentDesktop_MAX = SystemProfileProto_OS_XdgCurrentDesktop_LXQT;
+constexpr int SystemProfileProto_OS_XdgCurrentDesktop_XdgCurrentDesktop_ARRAYSIZE = SystemProfileProto_OS_XdgCurrentDesktop_XdgCurrentDesktop_MAX + 1;
+
+const std::string& SystemProfileProto_OS_XdgCurrentDesktop_Name(SystemProfileProto_OS_XdgCurrentDesktop value);
+template<typename T>
+inline const std::string& SystemProfileProto_OS_XdgCurrentDesktop_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, SystemProfileProto_OS_XdgCurrentDesktop>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function SystemProfileProto_OS_XdgCurrentDesktop_Name.");
+  return SystemProfileProto_OS_XdgCurrentDesktop_Name(static_cast<SystemProfileProto_OS_XdgCurrentDesktop>(enum_t_value));
+}
+bool SystemProfileProto_OS_XdgCurrentDesktop_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, SystemProfileProto_OS_XdgCurrentDesktop* value);
 enum SystemProfileProto_Hardware_InternalStorageDevice_Type : int {
   SystemProfileProto_Hardware_InternalStorageDevice_Type_TYPE_UNKNOWN = 0,
   SystemProfileProto_Hardware_InternalStorageDevice_Type_TYPE_EMMC = 1,
@@ -1113,6 +1164,84 @@ class SystemProfileProto_OS final :
     return SystemProfileProto_OS_DarkModeState_Parse(name, value);
   }
 
+  typedef SystemProfileProto_OS_XdgSessionType XdgSessionType;
+  static constexpr XdgSessionType UNSET =
+    SystemProfileProto_OS_XdgSessionType_UNSET;
+  static constexpr XdgSessionType OTHER_SESSION_TYPE =
+    SystemProfileProto_OS_XdgSessionType_OTHER_SESSION_TYPE;
+  static constexpr XdgSessionType UNSPECIFIED =
+    SystemProfileProto_OS_XdgSessionType_UNSPECIFIED;
+  static constexpr XdgSessionType TTY =
+    SystemProfileProto_OS_XdgSessionType_TTY;
+  static constexpr XdgSessionType X11 =
+    SystemProfileProto_OS_XdgSessionType_X11;
+  static constexpr XdgSessionType WAYLAND =
+    SystemProfileProto_OS_XdgSessionType_WAYLAND;
+  static constexpr XdgSessionType MIR =
+    SystemProfileProto_OS_XdgSessionType_MIR;
+  static inline bool XdgSessionType_IsValid(int value) {
+    return SystemProfileProto_OS_XdgSessionType_IsValid(value);
+  }
+  static constexpr XdgSessionType XdgSessionType_MIN =
+    SystemProfileProto_OS_XdgSessionType_XdgSessionType_MIN;
+  static constexpr XdgSessionType XdgSessionType_MAX =
+    SystemProfileProto_OS_XdgSessionType_XdgSessionType_MAX;
+  static constexpr int XdgSessionType_ARRAYSIZE =
+    SystemProfileProto_OS_XdgSessionType_XdgSessionType_ARRAYSIZE;
+  template<typename T>
+  static inline const std::string& XdgSessionType_Name(T enum_t_value) {
+    static_assert(::std::is_same<T, XdgSessionType>::value ||
+      ::std::is_integral<T>::value,
+      "Incorrect type passed to function XdgSessionType_Name.");
+    return SystemProfileProto_OS_XdgSessionType_Name(enum_t_value);
+  }
+  static inline bool XdgSessionType_Parse(::PROTOBUF_NAMESPACE_ID::ConstStringParam name,
+      XdgSessionType* value) {
+    return SystemProfileProto_OS_XdgSessionType_Parse(name, value);
+  }
+
+  typedef SystemProfileProto_OS_XdgCurrentDesktop XdgCurrentDesktop;
+  static constexpr XdgCurrentDesktop OTHER =
+    SystemProfileProto_OS_XdgCurrentDesktop_OTHER;
+  static constexpr XdgCurrentDesktop CINNAMON =
+    SystemProfileProto_OS_XdgCurrentDesktop_CINNAMON;
+  static constexpr XdgCurrentDesktop DEEPIN =
+    SystemProfileProto_OS_XdgCurrentDesktop_DEEPIN;
+  static constexpr XdgCurrentDesktop GNOME =
+    SystemProfileProto_OS_XdgCurrentDesktop_GNOME;
+  static constexpr XdgCurrentDesktop KDE =
+    SystemProfileProto_OS_XdgCurrentDesktop_KDE;
+  static constexpr XdgCurrentDesktop PANTHEON =
+    SystemProfileProto_OS_XdgCurrentDesktop_PANTHEON;
+  static constexpr XdgCurrentDesktop UKUI =
+    SystemProfileProto_OS_XdgCurrentDesktop_UKUI;
+  static constexpr XdgCurrentDesktop UNITY =
+    SystemProfileProto_OS_XdgCurrentDesktop_UNITY;
+  static constexpr XdgCurrentDesktop XFCE =
+    SystemProfileProto_OS_XdgCurrentDesktop_XFCE;
+  static constexpr XdgCurrentDesktop LXQT =
+    SystemProfileProto_OS_XdgCurrentDesktop_LXQT;
+  static inline bool XdgCurrentDesktop_IsValid(int value) {
+    return SystemProfileProto_OS_XdgCurrentDesktop_IsValid(value);
+  }
+  static constexpr XdgCurrentDesktop XdgCurrentDesktop_MIN =
+    SystemProfileProto_OS_XdgCurrentDesktop_XdgCurrentDesktop_MIN;
+  static constexpr XdgCurrentDesktop XdgCurrentDesktop_MAX =
+    SystemProfileProto_OS_XdgCurrentDesktop_XdgCurrentDesktop_MAX;
+  static constexpr int XdgCurrentDesktop_ARRAYSIZE =
+    SystemProfileProto_OS_XdgCurrentDesktop_XdgCurrentDesktop_ARRAYSIZE;
+  template<typename T>
+  static inline const std::string& XdgCurrentDesktop_Name(T enum_t_value) {
+    static_assert(::std::is_same<T, XdgCurrentDesktop>::value ||
+      ::std::is_integral<T>::value,
+      "Incorrect type passed to function XdgCurrentDesktop_Name.");
+    return SystemProfileProto_OS_XdgCurrentDesktop_Name(enum_t_value);
+  }
+  static inline bool XdgCurrentDesktop_Parse(::PROTOBUF_NAMESPACE_ID::ConstStringParam name,
+      XdgCurrentDesktop* value) {
+    return SystemProfileProto_OS_XdgCurrentDesktop_Parse(name, value);
+  }
+
   // accessors -------------------------------------------------------
 
   enum : int {
@@ -1124,6 +1253,8 @@ class SystemProfileProto_OS final :
     kArcFieldNumber = 7,
     kIsJailbrokenFieldNumber = 4,
     kDarkModeStateFieldNumber = 8,
+    kXdgSessionTypeFieldNumber = 9,
+    kXdgCurrentDesktopFieldNumber = 10,
   };
   // optional string name = 1;
   bool has_name() const;
@@ -1259,6 +1390,32 @@ class SystemProfileProto_OS final :
   void _internal_set_dark_mode_state(::metrics::SystemProfileProto_OS_DarkModeState value);
   public:
 
+  // optional .metrics.SystemProfileProto.OS.XdgSessionType xdg_session_type = 9;
+  bool has_xdg_session_type() const;
+  private:
+  bool _internal_has_xdg_session_type() const;
+  public:
+  void clear_xdg_session_type();
+  ::metrics::SystemProfileProto_OS_XdgSessionType xdg_session_type() const;
+  void set_xdg_session_type(::metrics::SystemProfileProto_OS_XdgSessionType value);
+  private:
+  ::metrics::SystemProfileProto_OS_XdgSessionType _internal_xdg_session_type() const;
+  void _internal_set_xdg_session_type(::metrics::SystemProfileProto_OS_XdgSessionType value);
+  public:
+
+  // optional .metrics.SystemProfileProto.OS.XdgCurrentDesktop xdg_current_desktop = 10;
+  bool has_xdg_current_desktop() const;
+  private:
+  bool _internal_has_xdg_current_desktop() const;
+  public:
+  void clear_xdg_current_desktop();
+  ::metrics::SystemProfileProto_OS_XdgCurrentDesktop xdg_current_desktop() const;
+  void set_xdg_current_desktop(::metrics::SystemProfileProto_OS_XdgCurrentDesktop value);
+  private:
+  ::metrics::SystemProfileProto_OS_XdgCurrentDesktop _internal_xdg_current_desktop() const;
+  void _internal_set_xdg_current_desktop(::metrics::SystemProfileProto_OS_XdgCurrentDesktop value);
+  public:
+
   // @@protoc_insertion_point(class_scope:metrics.SystemProfileProto.OS)
  private:
   class _Internal;
@@ -1276,6 +1433,8 @@ class SystemProfileProto_OS final :
   ::metrics::SystemProfileProto_OS_Arc* arc_;
   bool is_jailbroken_;
   int dark_mode_state_;
+  int xdg_session_type_;
+  int xdg_current_desktop_;
   friend struct ::TableStruct_system_5fprofile_2eproto;
 };
 // -------------------------------------------------------------------
@@ -8174,6 +8333,64 @@ inline void SystemProfileProto_OS::_internal_set_dark_mode_state(::metrics::Syst
 inline void SystemProfileProto_OS::set_dark_mode_state(::metrics::SystemProfileProto_OS_DarkModeState value) {
   _internal_set_dark_mode_state(value);
   // @@protoc_insertion_point(field_set:metrics.SystemProfileProto.OS.dark_mode_state)
+}
+
+// optional .metrics.SystemProfileProto.OS.XdgSessionType xdg_session_type = 9;
+inline bool SystemProfileProto_OS::_internal_has_xdg_session_type() const {
+  bool value = (_has_bits_[0] & 0x00000100u) != 0;
+  return value;
+}
+inline bool SystemProfileProto_OS::has_xdg_session_type() const {
+  return _internal_has_xdg_session_type();
+}
+inline void SystemProfileProto_OS::clear_xdg_session_type() {
+  xdg_session_type_ = 0;
+  _has_bits_[0] &= ~0x00000100u;
+}
+inline ::metrics::SystemProfileProto_OS_XdgSessionType SystemProfileProto_OS::_internal_xdg_session_type() const {
+  return static_cast< ::metrics::SystemProfileProto_OS_XdgSessionType >(xdg_session_type_);
+}
+inline ::metrics::SystemProfileProto_OS_XdgSessionType SystemProfileProto_OS::xdg_session_type() const {
+  // @@protoc_insertion_point(field_get:metrics.SystemProfileProto.OS.xdg_session_type)
+  return _internal_xdg_session_type();
+}
+inline void SystemProfileProto_OS::_internal_set_xdg_session_type(::metrics::SystemProfileProto_OS_XdgSessionType value) {
+  assert(::metrics::SystemProfileProto_OS_XdgSessionType_IsValid(value));
+  _has_bits_[0] |= 0x00000100u;
+  xdg_session_type_ = value;
+}
+inline void SystemProfileProto_OS::set_xdg_session_type(::metrics::SystemProfileProto_OS_XdgSessionType value) {
+  _internal_set_xdg_session_type(value);
+  // @@protoc_insertion_point(field_set:metrics.SystemProfileProto.OS.xdg_session_type)
+}
+
+// optional .metrics.SystemProfileProto.OS.XdgCurrentDesktop xdg_current_desktop = 10;
+inline bool SystemProfileProto_OS::_internal_has_xdg_current_desktop() const {
+  bool value = (_has_bits_[0] & 0x00000200u) != 0;
+  return value;
+}
+inline bool SystemProfileProto_OS::has_xdg_current_desktop() const {
+  return _internal_has_xdg_current_desktop();
+}
+inline void SystemProfileProto_OS::clear_xdg_current_desktop() {
+  xdg_current_desktop_ = 0;
+  _has_bits_[0] &= ~0x00000200u;
+}
+inline ::metrics::SystemProfileProto_OS_XdgCurrentDesktop SystemProfileProto_OS::_internal_xdg_current_desktop() const {
+  return static_cast< ::metrics::SystemProfileProto_OS_XdgCurrentDesktop >(xdg_current_desktop_);
+}
+inline ::metrics::SystemProfileProto_OS_XdgCurrentDesktop SystemProfileProto_OS::xdg_current_desktop() const {
+  // @@protoc_insertion_point(field_get:metrics.SystemProfileProto.OS.xdg_current_desktop)
+  return _internal_xdg_current_desktop();
+}
+inline void SystemProfileProto_OS::_internal_set_xdg_current_desktop(::metrics::SystemProfileProto_OS_XdgCurrentDesktop value) {
+  assert(::metrics::SystemProfileProto_OS_XdgCurrentDesktop_IsValid(value));
+  _has_bits_[0] |= 0x00000200u;
+  xdg_current_desktop_ = value;
+}
+inline void SystemProfileProto_OS::set_xdg_current_desktop(::metrics::SystemProfileProto_OS_XdgCurrentDesktop value) {
+  _internal_set_xdg_current_desktop(value);
+  // @@protoc_insertion_point(field_set:metrics.SystemProfileProto.OS.xdg_current_desktop)
 }
 
 // -------------------------------------------------------------------
@@ -15706,6 +15923,8 @@ inline void SystemProfileProto::set_allocated_demo_mode_dimensions(::metrics::Sy
 PROTOBUF_NAMESPACE_OPEN
 
 template <> struct is_proto_enum< ::metrics::SystemProfileProto_OS_DarkModeState> : ::std::true_type {};
+template <> struct is_proto_enum< ::metrics::SystemProfileProto_OS_XdgSessionType> : ::std::true_type {};
+template <> struct is_proto_enum< ::metrics::SystemProfileProto_OS_XdgCurrentDesktop> : ::std::true_type {};
 template <> struct is_proto_enum< ::metrics::SystemProfileProto_Hardware_InternalStorageDevice_Type> : ::std::true_type {};
 template <> struct is_proto_enum< ::metrics::SystemProfileProto_Hardware_InternalStorageDevice_Purpose> : ::std::true_type {};
 template <> struct is_proto_enum< ::metrics::SystemProfileProto_Hardware_FormFactor> : ::std::true_type {};

@@ -15,6 +15,7 @@
 #include <stdint.h>
 #include <utility>
 
+#include "base/debug/alias.h"
 #include "base/hash/md5_constexpr.h"
 #include "base/run_loop.h"
 #include "base/strings/string_number_conversions.h"
@@ -434,95 +435,63 @@ bool RoutineResultValue::Validate(
 }
 const char NetworkDiagnosticsRoutines::Name_[] = "chromeos.network_diagnostics.mojom.NetworkDiagnosticsRoutines";
 
-uint32_t NetworkDiagnosticsRoutines::MessageToStableIPCHash_(mojo::Message& message) {
+NetworkDiagnosticsRoutines::IPCStableHashFunction NetworkDiagnosticsRoutines::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
   switch (message.name()) {
     case internal::kNetworkDiagnosticsRoutines_GetResult_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::GetResult");
-      return value;
+      return &NetworkDiagnosticsRoutines::GetResult_Sym::IPCStableHash;
     }
     case internal::kNetworkDiagnosticsRoutines_GetAllResults_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::GetAllResults");
-      return value;
+      return &NetworkDiagnosticsRoutines::GetAllResults_Sym::IPCStableHash;
     }
     case internal::kNetworkDiagnosticsRoutines_RunLanConnectivity_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunLanConnectivity");
-      return value;
+      return &NetworkDiagnosticsRoutines::RunLanConnectivity_Sym::IPCStableHash;
     }
     case internal::kNetworkDiagnosticsRoutines_RunSignalStrength_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunSignalStrength");
-      return value;
+      return &NetworkDiagnosticsRoutines::RunSignalStrength_Sym::IPCStableHash;
     }
     case internal::kNetworkDiagnosticsRoutines_RunGatewayCanBePinged_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunGatewayCanBePinged");
-      return value;
+      return &NetworkDiagnosticsRoutines::RunGatewayCanBePinged_Sym::IPCStableHash;
     }
     case internal::kNetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunHasSecureWiFiConnection");
-      return value;
+      return &NetworkDiagnosticsRoutines::RunHasSecureWiFiConnection_Sym::IPCStableHash;
     }
     case internal::kNetworkDiagnosticsRoutines_RunDnsResolverPresent_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunDnsResolverPresent");
-      return value;
+      return &NetworkDiagnosticsRoutines::RunDnsResolverPresent_Sym::IPCStableHash;
     }
     case internal::kNetworkDiagnosticsRoutines_RunDnsLatency_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunDnsLatency");
-      return value;
+      return &NetworkDiagnosticsRoutines::RunDnsLatency_Sym::IPCStableHash;
     }
     case internal::kNetworkDiagnosticsRoutines_RunDnsResolution_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunDnsResolution");
-      return value;
+      return &NetworkDiagnosticsRoutines::RunDnsResolution_Sym::IPCStableHash;
     }
     case internal::kNetworkDiagnosticsRoutines_RunCaptivePortal_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunCaptivePortal");
-      return value;
+      return &NetworkDiagnosticsRoutines::RunCaptivePortal_Sym::IPCStableHash;
     }
     case internal::kNetworkDiagnosticsRoutines_RunHttpFirewall_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunHttpFirewall");
-      return value;
+      return &NetworkDiagnosticsRoutines::RunHttpFirewall_Sym::IPCStableHash;
     }
     case internal::kNetworkDiagnosticsRoutines_RunHttpsFirewall_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunHttpsFirewall");
-      return value;
+      return &NetworkDiagnosticsRoutines::RunHttpsFirewall_Sym::IPCStableHash;
     }
     case internal::kNetworkDiagnosticsRoutines_RunHttpsLatency_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunHttpsLatency");
-      return value;
+      return &NetworkDiagnosticsRoutines::RunHttpsLatency_Sym::IPCStableHash;
     }
     case internal::kNetworkDiagnosticsRoutines_RunVideoConferencing_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunVideoConferencing");
-      return value;
+      return &NetworkDiagnosticsRoutines::RunVideoConferencing_Sym::IPCStableHash;
     }
     case internal::kNetworkDiagnosticsRoutines_RunArcHttp_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunArcHttp");
-      return value;
+      return &NetworkDiagnosticsRoutines::RunArcHttp_Sym::IPCStableHash;
     }
     case internal::kNetworkDiagnosticsRoutines_RunArcPing_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunArcPing");
-      return value;
+      return &NetworkDiagnosticsRoutines::RunArcPing_Sym::IPCStableHash;
     }
     case internal::kNetworkDiagnosticsRoutines_RunArcDnsResolution_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunArcDnsResolution");
-      return value;
+      return &NetworkDiagnosticsRoutines::RunArcDnsResolution_Sym::IPCStableHash;
     }
   }
-  return 0;
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
 }
 
 
@@ -614,6 +583,230 @@ const char* NetworkDiagnosticsRoutines::MessageToMethodName_(mojo::Message& mess
   }
 #endif // BUILDFLAG(MOJO_TRACE_ENABLED)
 }
+
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t NetworkDiagnosticsRoutines::GetResult_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::GetResult");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t NetworkDiagnosticsRoutines::GetAllResults_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::GetAllResults");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t NetworkDiagnosticsRoutines::RunLanConnectivity_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunLanConnectivity");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t NetworkDiagnosticsRoutines::RunSignalStrength_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunSignalStrength");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t NetworkDiagnosticsRoutines::RunGatewayCanBePinged_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunGatewayCanBePinged");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t NetworkDiagnosticsRoutines::RunHasSecureWiFiConnection_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunHasSecureWiFiConnection");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t NetworkDiagnosticsRoutines::RunDnsResolverPresent_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunDnsResolverPresent");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t NetworkDiagnosticsRoutines::RunDnsLatency_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunDnsLatency");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t NetworkDiagnosticsRoutines::RunDnsResolution_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunDnsResolution");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t NetworkDiagnosticsRoutines::RunCaptivePortal_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunCaptivePortal");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t NetworkDiagnosticsRoutines::RunHttpFirewall_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunHttpFirewall");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t NetworkDiagnosticsRoutines::RunHttpsFirewall_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunHttpsFirewall");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t NetworkDiagnosticsRoutines::RunHttpsLatency_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunHttpsLatency");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t NetworkDiagnosticsRoutines::RunVideoConferencing_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunVideoConferencing");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t NetworkDiagnosticsRoutines::RunArcHttp_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunArcHttp");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t NetworkDiagnosticsRoutines::RunArcPing_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunArcPing");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t NetworkDiagnosticsRoutines::RunArcDnsResolution_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunArcDnsResolution");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
 
 class NetworkDiagnosticsRoutines_GetResult_ForwardToCallback
     : public mojo::MessageReceiver {
@@ -928,7 +1121,7 @@ void NetworkDiagnosticsRoutinesProxy::GetResult(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new NetworkDiagnosticsRoutines_GetResult_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void NetworkDiagnosticsRoutinesProxy::GetAllResults(
@@ -959,7 +1152,7 @@ void NetworkDiagnosticsRoutinesProxy::GetAllResults(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new NetworkDiagnosticsRoutines_GetAllResults_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void NetworkDiagnosticsRoutinesProxy::RunLanConnectivity(
@@ -990,7 +1183,7 @@ void NetworkDiagnosticsRoutinesProxy::RunLanConnectivity(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new NetworkDiagnosticsRoutines_RunLanConnectivity_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void NetworkDiagnosticsRoutinesProxy::RunSignalStrength(
@@ -1021,7 +1214,7 @@ void NetworkDiagnosticsRoutinesProxy::RunSignalStrength(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new NetworkDiagnosticsRoutines_RunSignalStrength_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void NetworkDiagnosticsRoutinesProxy::RunGatewayCanBePinged(
@@ -1052,7 +1245,7 @@ void NetworkDiagnosticsRoutinesProxy::RunGatewayCanBePinged(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new NetworkDiagnosticsRoutines_RunGatewayCanBePinged_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void NetworkDiagnosticsRoutinesProxy::RunHasSecureWiFiConnection(
@@ -1083,7 +1276,7 @@ void NetworkDiagnosticsRoutinesProxy::RunHasSecureWiFiConnection(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void NetworkDiagnosticsRoutinesProxy::RunDnsResolverPresent(
@@ -1114,7 +1307,7 @@ void NetworkDiagnosticsRoutinesProxy::RunDnsResolverPresent(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new NetworkDiagnosticsRoutines_RunDnsResolverPresent_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void NetworkDiagnosticsRoutinesProxy::RunDnsLatency(
@@ -1145,7 +1338,7 @@ void NetworkDiagnosticsRoutinesProxy::RunDnsLatency(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new NetworkDiagnosticsRoutines_RunDnsLatency_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void NetworkDiagnosticsRoutinesProxy::RunDnsResolution(
@@ -1176,7 +1369,7 @@ void NetworkDiagnosticsRoutinesProxy::RunDnsResolution(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new NetworkDiagnosticsRoutines_RunDnsResolution_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void NetworkDiagnosticsRoutinesProxy::RunCaptivePortal(
@@ -1207,7 +1400,7 @@ void NetworkDiagnosticsRoutinesProxy::RunCaptivePortal(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new NetworkDiagnosticsRoutines_RunCaptivePortal_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void NetworkDiagnosticsRoutinesProxy::RunHttpFirewall(
@@ -1238,7 +1431,7 @@ void NetworkDiagnosticsRoutinesProxy::RunHttpFirewall(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new NetworkDiagnosticsRoutines_RunHttpFirewall_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void NetworkDiagnosticsRoutinesProxy::RunHttpsFirewall(
@@ -1269,7 +1462,7 @@ void NetworkDiagnosticsRoutinesProxy::RunHttpsFirewall(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new NetworkDiagnosticsRoutines_RunHttpsFirewall_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void NetworkDiagnosticsRoutinesProxy::RunHttpsLatency(
@@ -1300,7 +1493,7 @@ void NetworkDiagnosticsRoutinesProxy::RunHttpsLatency(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new NetworkDiagnosticsRoutines_RunHttpsLatency_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void NetworkDiagnosticsRoutinesProxy::RunVideoConferencing(
@@ -1345,7 +1538,7 @@ void NetworkDiagnosticsRoutinesProxy::RunVideoConferencing(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new NetworkDiagnosticsRoutines_RunVideoConferencing_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void NetworkDiagnosticsRoutinesProxy::RunArcHttp(
@@ -1376,7 +1569,7 @@ void NetworkDiagnosticsRoutinesProxy::RunArcHttp(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new NetworkDiagnosticsRoutines_RunArcHttp_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void NetworkDiagnosticsRoutinesProxy::RunArcPing(
@@ -1407,7 +1600,7 @@ void NetworkDiagnosticsRoutinesProxy::RunArcPing(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new NetworkDiagnosticsRoutines_RunArcPing_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void NetworkDiagnosticsRoutinesProxy::RunArcDnsResolution(
@@ -1438,7 +1631,7 @@ void NetworkDiagnosticsRoutinesProxy::RunArcDnsResolution(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new NetworkDiagnosticsRoutines_RunArcDnsResolution_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 class NetworkDiagnosticsRoutines_GetResult_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
@@ -1551,8 +1744,8 @@ void NetworkDiagnosticsRoutines_GetResult_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -1677,8 +1870,8 @@ void NetworkDiagnosticsRoutines_GetAllResults_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -1801,8 +1994,8 @@ void NetworkDiagnosticsRoutines_RunLanConnectivity_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -1925,8 +2118,8 @@ void NetworkDiagnosticsRoutines_RunSignalStrength_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -2049,8 +2242,8 @@ void NetworkDiagnosticsRoutines_RunGatewayCanBePinged_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -2173,8 +2366,8 @@ void NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_ProxyToResponder::Run
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -2297,8 +2490,8 @@ void NetworkDiagnosticsRoutines_RunDnsResolverPresent_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -2421,8 +2614,8 @@ void NetworkDiagnosticsRoutines_RunDnsLatency_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -2545,8 +2738,8 @@ void NetworkDiagnosticsRoutines_RunDnsResolution_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -2669,8 +2862,8 @@ void NetworkDiagnosticsRoutines_RunCaptivePortal_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -2793,8 +2986,8 @@ void NetworkDiagnosticsRoutines_RunHttpFirewall_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -2917,8 +3110,8 @@ void NetworkDiagnosticsRoutines_RunHttpsFirewall_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -3041,8 +3234,8 @@ void NetworkDiagnosticsRoutines_RunHttpsLatency_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -3165,8 +3358,8 @@ void NetworkDiagnosticsRoutines_RunVideoConferencing_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -3289,8 +3482,8 @@ void NetworkDiagnosticsRoutines_RunArcHttp_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -3413,8 +3606,8 @@ void NetworkDiagnosticsRoutines_RunArcPing_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -3537,8 +3730,8 @@ void NetworkDiagnosticsRoutines_RunArcDnsResolution_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that

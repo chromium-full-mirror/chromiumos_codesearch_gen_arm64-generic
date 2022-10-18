@@ -22,6 +22,7 @@
 _LIBCPP_PUSH_MACROS
 #include <__undef_macros>
 
+_LIBCPP_DISABLE_DEBUG_INFO
 _LIBCPP_BEGIN_NAMESPACE_STD
 
 template <unsigned long long __a, unsigned long long __c,
@@ -392,6 +393,7 @@ typedef linear_congruential_engine<uint_fast32_t, 48271, 0, 2147483647>
                                                                     minstd_rand;
 
 _LIBCPP_END_NAMESPACE_STD
+_LIBCPP_ENABLE_DEBUG_INFO
 
 _LIBCPP_POP_MACROS
 

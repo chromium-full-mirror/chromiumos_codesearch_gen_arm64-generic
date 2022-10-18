@@ -15,6 +15,7 @@
 #include <stdint.h>
 #include <utility>
 
+#include "base/debug/alias.h"
 #include "base/hash/md5_constexpr.h"
 #include "base/run_loop.h"
 #include "base/strings/string_number_conversions.h"
@@ -49,45 +50,33 @@ namespace cros {
 namespace mojom {
 const char CameraHalDispatcher::Name_[] = "cros.mojom.CameraHalDispatcher";
 
-uint32_t CameraHalDispatcher::MessageToStableIPCHash_(mojo::Message& message) {
+CameraHalDispatcher::IPCStableHashFunction CameraHalDispatcher::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
   switch (message.name()) {
     case internal::kCameraHalDispatcher_RegisterServer_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::CameraHalDispatcher::RegisterServer");
-      return value;
+      return &CameraHalDispatcher::RegisterServer_Sym::IPCStableHash;
     }
     case internal::kCameraHalDispatcher_RegisterClient_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::CameraHalDispatcher::RegisterClient");
-      return value;
+      return &CameraHalDispatcher::RegisterClient_Sym::IPCStableHash;
     }
     case internal::kCameraHalDispatcher_GetMjpegDecodeAccelerator_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::CameraHalDispatcher::GetMjpegDecodeAccelerator");
-      return value;
+      return &CameraHalDispatcher::GetMjpegDecodeAccelerator_Sym::IPCStableHash;
     }
     case internal::kCameraHalDispatcher_GetJpegEncodeAccelerator_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::CameraHalDispatcher::GetJpegEncodeAccelerator");
-      return value;
+      return &CameraHalDispatcher::GetJpegEncodeAccelerator_Sym::IPCStableHash;
     }
     case internal::kCameraHalDispatcher_RegisterServerWithToken_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::CameraHalDispatcher::RegisterServerWithToken");
-      return value;
+      return &CameraHalDispatcher::RegisterServerWithToken_Sym::IPCStableHash;
     }
     case internal::kCameraHalDispatcher_RegisterClientWithToken_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::CameraHalDispatcher::RegisterClientWithToken");
-      return value;
+      return &CameraHalDispatcher::RegisterClientWithToken_Sym::IPCStableHash;
     }
     case internal::kCameraHalDispatcher_RegisterSensorClientWithToken_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::CameraHalDispatcher::RegisterSensorClientWithToken");
-      return value;
+      return &CameraHalDispatcher::RegisterSensorClientWithToken_Sym::IPCStableHash;
     }
   }
-  return 0;
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
 }
 
 
@@ -139,6 +128,100 @@ const char* CameraHalDispatcher::MessageToMethodName_(mojo::Message& message) {
   }
 #endif // BUILDFLAG(MOJO_TRACE_ENABLED)
 }
+
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t CameraHalDispatcher::RegisterServer_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::CameraHalDispatcher::RegisterServer");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t CameraHalDispatcher::RegisterClient_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::CameraHalDispatcher::RegisterClient");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t CameraHalDispatcher::GetMjpegDecodeAccelerator_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::CameraHalDispatcher::GetMjpegDecodeAccelerator");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t CameraHalDispatcher::GetJpegEncodeAccelerator_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::CameraHalDispatcher::GetJpegEncodeAccelerator");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t CameraHalDispatcher::RegisterServerWithToken_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::CameraHalDispatcher::RegisterServerWithToken");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t CameraHalDispatcher::RegisterClientWithToken_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::CameraHalDispatcher::RegisterClientWithToken");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t CameraHalDispatcher::RegisterSensorClientWithToken_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::CameraHalDispatcher::RegisterSensorClientWithToken");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
 
 class CameraHalDispatcher_RegisterServerWithToken_ForwardToCallback
     : public mojo::MessageReceiver {
@@ -232,7 +315,7 @@ void CameraHalDispatcherProxy::RegisterServer(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 void CameraHalDispatcherProxy::RegisterClient(
@@ -275,7 +358,7 @@ void CameraHalDispatcherProxy::RegisterClient(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 void CameraHalDispatcherProxy::GetMjpegDecodeAccelerator(
@@ -318,7 +401,7 @@ void CameraHalDispatcherProxy::GetMjpegDecodeAccelerator(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 void CameraHalDispatcherProxy::GetJpegEncodeAccelerator(
@@ -361,7 +444,7 @@ void CameraHalDispatcherProxy::GetJpegEncodeAccelerator(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 void CameraHalDispatcherProxy::RegisterServerWithToken(
@@ -419,7 +502,7 @@ void CameraHalDispatcherProxy::RegisterServerWithToken(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new CameraHalDispatcher_RegisterServerWithToken_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void CameraHalDispatcherProxy::RegisterClientWithToken(
@@ -482,7 +565,7 @@ void CameraHalDispatcherProxy::RegisterClientWithToken(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new CameraHalDispatcher_RegisterClientWithToken_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void CameraHalDispatcherProxy::RegisterSensorClientWithToken(
@@ -540,7 +623,7 @@ void CameraHalDispatcherProxy::RegisterSensorClientWithToken(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new CameraHalDispatcher_RegisterSensorClientWithToken_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 class CameraHalDispatcher_RegisterServerWithToken_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
@@ -662,8 +745,8 @@ void CameraHalDispatcher_RegisterServerWithToken_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -776,8 +859,8 @@ void CameraHalDispatcher_RegisterClientWithToken_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -890,8 +973,8 @@ void CameraHalDispatcher_RegisterSensorClientWithToken_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -1193,40 +1276,33 @@ bool CameraHalDispatcherResponseValidator::Accept(mojo::Message* message) {
 }
 const char CameraHalServer::Name_[] = "cros.mojom.CameraHalServer";
 
-uint32_t CameraHalServer::MessageToStableIPCHash_(mojo::Message& message) {
+CameraHalServer::IPCStableHashFunction CameraHalServer::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
   switch (message.name()) {
     case internal::kCameraHalServer_CreateChannel_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::CameraHalServer::CreateChannel");
-      return value;
+      return &CameraHalServer::CreateChannel_Sym::IPCStableHash;
     }
     case internal::kCameraHalServer_SetTracingEnabled_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::CameraHalServer::SetTracingEnabled");
-      return value;
+      return &CameraHalServer::SetTracingEnabled_Sym::IPCStableHash;
     }
     case internal::kCameraHalServer_SetAutoFramingState_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::CameraHalServer::SetAutoFramingState");
-      return value;
+      return &CameraHalServer::SetAutoFramingState_Sym::IPCStableHash;
     }
     case internal::kCameraHalServer_GetCameraSWPrivacySwitchState_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::CameraHalServer::GetCameraSWPrivacySwitchState");
-      return value;
+      return &CameraHalServer::GetCameraSWPrivacySwitchState_Sym::IPCStableHash;
     }
     case internal::kCameraHalServer_SetCameraSWPrivacySwitchState_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::CameraHalServer::SetCameraSWPrivacySwitchState");
-      return value;
+      return &CameraHalServer::SetCameraSWPrivacySwitchState_Sym::IPCStableHash;
     }
     case internal::kCameraHalServer_GetAutoFramingSupported_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::CameraHalServer::GetAutoFramingSupported");
-      return value;
+      return &CameraHalServer::GetAutoFramingSupported_Sym::IPCStableHash;
+    }
+    case internal::kCameraHalServer_SetCameraEffect_Name: {
+      return &CameraHalServer::SetCameraEffect_Sym::IPCStableHash;
     }
   }
-  return 0;
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
 }
 
 
@@ -1247,6 +1323,8 @@ const char* CameraHalServer::MessageToMethodName_(mojo::Message& message) {
             return "Receive cros::mojom::CameraHalServer::SetCameraSWPrivacySwitchState";
       case internal::kCameraHalServer_GetAutoFramingSupported_Name:
             return "Receive cros::mojom::CameraHalServer::GetAutoFramingSupported";
+      case internal::kCameraHalServer_SetCameraEffect_Name:
+            return "Receive cros::mojom::CameraHalServer::SetCameraEffect";
     }
   } else {
     switch (message.name()) {
@@ -1262,6 +1340,8 @@ const char* CameraHalServer::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply cros::mojom::CameraHalServer::SetCameraSWPrivacySwitchState";
       case internal::kCameraHalServer_GetAutoFramingSupported_Name:
             return "Receive reply cros::mojom::CameraHalServer::GetAutoFramingSupported";
+      case internal::kCameraHalServer_SetCameraEffect_Name:
+            return "Receive reply cros::mojom::CameraHalServer::SetCameraEffect";
     }
   }
   return "Receive unknown mojo message";
@@ -1274,6 +1354,100 @@ const char* CameraHalServer::MessageToMethodName_(mojo::Message& message) {
   }
 #endif // BUILDFLAG(MOJO_TRACE_ENABLED)
 }
+
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t CameraHalServer::CreateChannel_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::CameraHalServer::CreateChannel");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t CameraHalServer::SetTracingEnabled_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::CameraHalServer::SetTracingEnabled");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t CameraHalServer::SetAutoFramingState_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::CameraHalServer::SetAutoFramingState");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t CameraHalServer::GetCameraSWPrivacySwitchState_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::CameraHalServer::GetCameraSWPrivacySwitchState");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t CameraHalServer::SetCameraSWPrivacySwitchState_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::CameraHalServer::SetCameraSWPrivacySwitchState");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t CameraHalServer::GetAutoFramingSupported_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::CameraHalServer::GetAutoFramingSupported");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t CameraHalServer::SetCameraEffect_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::CameraHalServer::SetCameraEffect");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
 
 class CameraHalServer_GetCameraSWPrivacySwitchState_ForwardToCallback
     : public mojo::MessageReceiver {
@@ -1305,6 +1479,22 @@ class CameraHalServer_GetAutoFramingSupported_ForwardToCallback
   bool Accept(mojo::Message* message) override;
  private:
   CameraHalServer::GetAutoFramingSupportedCallback callback_;
+};
+
+class CameraHalServer_SetCameraEffect_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  CameraHalServer_SetCameraEffect_ForwardToCallback(
+      CameraHalServer::SetCameraEffectCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  CameraHalServer_SetCameraEffect_ForwardToCallback(const CameraHalServer_SetCameraEffect_ForwardToCallback&) = delete;
+  CameraHalServer_SetCameraEffect_ForwardToCallback& operator=(const CameraHalServer_SetCameraEffect_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  CameraHalServer::SetCameraEffectCallback callback_;
 };
 
 CameraHalServerProxy::CameraHalServerProxy(mojo::MessageReceiverWithResponder* receiver)
@@ -1356,7 +1546,7 @@ void CameraHalServerProxy::CreateChannel(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 void CameraHalServerProxy::SetTracingEnabled(
@@ -1394,7 +1584,7 @@ void CameraHalServerProxy::SetTracingEnabled(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 void CameraHalServerProxy::SetAutoFramingState(
@@ -1433,7 +1623,7 @@ void CameraHalServerProxy::SetAutoFramingState(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 void CameraHalServerProxy::GetCameraSWPrivacySwitchState(
@@ -1464,7 +1654,7 @@ void CameraHalServerProxy::GetCameraSWPrivacySwitchState(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new CameraHalServer_GetCameraSWPrivacySwitchState_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void CameraHalServerProxy::SetCameraSWPrivacySwitchState(
@@ -1503,7 +1693,7 @@ void CameraHalServerProxy::SetCameraSWPrivacySwitchState(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 void CameraHalServerProxy::GetAutoFramingSupported(
@@ -1534,7 +1724,56 @@ void CameraHalServerProxy::GetAutoFramingSupported(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new CameraHalServer_GetAutoFramingSupported_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void CameraHalServerProxy::SetCameraEffect(
+    ::cros::mojom::EffectsConfigPtr in_config, SetCameraEffectCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send cros::mojom::CameraHalServer::SetCameraEffect", "input_parameters",
+    [&](perfetto_libchrome::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("config"), in_config,
+                        "<value of type ::cros::mojom::EffectsConfigPtr>");
+   });
+#endif
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kCameraHalServer_SetCameraEffect_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::cros::mojom::internal::CameraHalServer_SetCameraEffect_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->config)::BaseType> config_fragment(
+          params.message());
+  mojo::internal::Serialize<::cros::mojom::EffectsConfigDataView>(
+      in_config, config_fragment);
+  params->config.Set(
+      config_fragment.is_null() ? nullptr : config_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->config.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null config in CameraHalServer.SetCameraEffect request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(CameraHalServer::Name_);
+  message.set_method_name("SetCameraEffect");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new CameraHalServer_SetCameraEffect_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 class CameraHalServer_GetCameraSWPrivacySwitchState_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
@@ -1642,8 +1881,8 @@ void CameraHalServer_GetCameraSWPrivacySwitchState_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -1756,8 +1995,123 @@ void CameraHalServer_GetAutoFramingSupported_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class CameraHalServer_SetCameraEffect_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static CameraHalServer::SetCameraEffectCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<CameraHalServer_SetCameraEffect_ProxyToResponder> proxy(
+        new CameraHalServer_SetCameraEffect_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&CameraHalServer_SetCameraEffect_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~CameraHalServer_SetCameraEffect_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  CameraHalServer_SetCameraEffect_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "CameraHalServer::SetCameraEffectCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      ::cros::mojom::SetEffectResult in_result);
+};
+
+bool CameraHalServer_SetCameraEffect_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::CameraHalServer_SetCameraEffect_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::CameraHalServer_SetCameraEffect_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  ::cros::mojom::SetEffectResult p_result{};
+  CameraHalServer_SetCameraEffect_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadResult(&p_result))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        CameraHalServer::Name_, 6, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_result));
+  return true;
+}
+
+void CameraHalServer_SetCameraEffect_ProxyToResponder::Run(
+    ::cros::mojom::SetEffectResult in_result) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply cros::mojom::CameraHalServer::SetCameraEffect", "async_response_parameters",
+    [&](perfetto_libchrome::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("result"), in_result,
+                        "<value of type ::cros::mojom::SetEffectResult>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kCameraHalServer_SetCameraEffect_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::cros::mojom::internal::CameraHalServer_SetCameraEffect_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<::cros::mojom::SetEffectResult>(
+      in_result, &params->result);
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(CameraHalServer::Name_);
+  message.set_method_name("SetCameraEffect");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -1887,6 +2241,9 @@ std::move(p_state));
     case internal::kCameraHalServer_GetAutoFramingSupported_Name: {
       break;
     }
+    case internal::kCameraHalServer_SetCameraEffect_Name: {
+      break;
+    }
   }
   return false;
 }
@@ -1962,6 +2319,35 @@ bool CameraHalServerStubDispatch::AcceptWithResponder(
       impl->GetAutoFramingSupported(std::move(callback));
       return true;
     }
+    case internal::kCameraHalServer_SetCameraEffect_Name: {
+
+      internal::CameraHalServer_SetCameraEffect_Params_Data* params =
+          reinterpret_cast<
+              internal::CameraHalServer_SetCameraEffect_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      ::cros::mojom::EffectsConfigPtr p_config{};
+      CameraHalServer_SetCameraEffect_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadConfig(&p_config))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            CameraHalServer::Name_, 6, false);
+        return false;
+      }
+      CameraHalServer::SetCameraEffectCallback callback =
+          CameraHalServer_SetCameraEffect_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->SetCameraEffect(
+std::move(p_config), std::move(callback));
+      return true;
+    }
   }
   return false;
 }
@@ -1980,6 +2366,8 @@ static const mojo::internal::GenericValidationInfo kCameraHalServerValidationInf
      nullptr /* no response */},
     {&internal::CameraHalServer_GetAutoFramingSupported_Params_Data::Validate,
      &internal::CameraHalServer_GetAutoFramingSupported_ResponseParams_Data::Validate},
+    {&internal::CameraHalServer_SetCameraEffect_Params_Data::Validate,
+     &internal::CameraHalServer_SetCameraEffect_ResponseParams_Data::Validate},
 };
 
 bool CameraHalServerRequestValidator::Accept(mojo::Message* message) {
@@ -1993,25 +2381,21 @@ bool CameraHalServerResponseValidator::Accept(mojo::Message* message) {
 }
 const char CameraHalServerCallbacks::Name_[] = "cros.mojom.CameraHalServerCallbacks";
 
-uint32_t CameraHalServerCallbacks::MessageToStableIPCHash_(mojo::Message& message) {
+CameraHalServerCallbacks::IPCStableHashFunction CameraHalServerCallbacks::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
   switch (message.name()) {
     case internal::kCameraHalServerCallbacks_CameraDeviceActivityChange_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::CameraHalServerCallbacks::CameraDeviceActivityChange");
-      return value;
+      return &CameraHalServerCallbacks::CameraDeviceActivityChange_Sym::IPCStableHash;
     }
     case internal::kCameraHalServerCallbacks_CameraPrivacySwitchStateChange_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::CameraHalServerCallbacks::CameraPrivacySwitchStateChange");
-      return value;
+      return &CameraHalServerCallbacks::CameraPrivacySwitchStateChange_Sym::IPCStableHash;
     }
     case internal::kCameraHalServerCallbacks_CameraSWPrivacySwitchStateChange_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::CameraHalServerCallbacks::CameraSWPrivacySwitchStateChange");
-      return value;
+      return &CameraHalServerCallbacks::CameraSWPrivacySwitchStateChange_Sym::IPCStableHash;
     }
   }
-  return 0;
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
 }
 
 
@@ -2047,6 +2431,48 @@ const char* CameraHalServerCallbacks::MessageToMethodName_(mojo::Message& messag
   }
 #endif // BUILDFLAG(MOJO_TRACE_ENABLED)
 }
+
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t CameraHalServerCallbacks::CameraDeviceActivityChange_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::CameraHalServerCallbacks::CameraDeviceActivityChange");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t CameraHalServerCallbacks::CameraPrivacySwitchStateChange_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::CameraHalServerCallbacks::CameraPrivacySwitchStateChange");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t CameraHalServerCallbacks::CameraSWPrivacySwitchStateChange_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::CameraHalServerCallbacks::CameraSWPrivacySwitchStateChange");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
 
 CameraHalServerCallbacksProxy::CameraHalServerCallbacksProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
@@ -2096,7 +2522,7 @@ void CameraHalServerCallbacksProxy::CameraDeviceActivityChange(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 void CameraHalServerCallbacksProxy::CameraPrivacySwitchStateChange(
@@ -2139,7 +2565,7 @@ void CameraHalServerCallbacksProxy::CameraPrivacySwitchStateChange(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 void CameraHalServerCallbacksProxy::CameraSWPrivacySwitchStateChange(
@@ -2178,7 +2604,7 @@ void CameraHalServerCallbacksProxy::CameraSWPrivacySwitchStateChange(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 // static
@@ -2319,15 +2745,15 @@ bool CameraHalServerCallbacksRequestValidator::Accept(mojo::Message* message) {
 
 const char CameraHalClient::Name_[] = "cros.mojom.CameraHalClient";
 
-uint32_t CameraHalClient::MessageToStableIPCHash_(mojo::Message& message) {
+CameraHalClient::IPCStableHashFunction CameraHalClient::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
   switch (message.name()) {
     case internal::kCameraHalClient_SetUpChannel_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::CameraHalClient::SetUpChannel");
-      return value;
+      return &CameraHalClient::SetUpChannel_Sym::IPCStableHash;
     }
   }
-  return 0;
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
 }
 
 
@@ -2355,6 +2781,22 @@ const char* CameraHalClient::MessageToMethodName_(mojo::Message& message) {
   }
 #endif // BUILDFLAG(MOJO_TRACE_ENABLED)
 }
+
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t CameraHalClient::SetUpChannel_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::CameraHalClient::SetUpChannel");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
 
 CameraHalClientProxy::CameraHalClientProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
@@ -2400,7 +2842,7 @@ void CameraHalClientProxy::SetUpChannel(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 // static
@@ -2582,6 +3024,9 @@ void CameraHalServerInterceptorForTesting::SetCameraSWPrivacySwitchState(CameraP
 void CameraHalServerInterceptorForTesting::GetAutoFramingSupported(GetAutoFramingSupportedCallback callback) {
   GetForwardingInterface()->GetAutoFramingSupported(std::move(callback));
 }
+void CameraHalServerInterceptorForTesting::SetCameraEffect(::cros::mojom::EffectsConfigPtr config, SetCameraEffectCallback callback) {
+  GetForwardingInterface()->SetCameraEffect(std::move(config), std::move(callback));
+}
 CameraHalServerAsyncWaiter::CameraHalServerAsyncWaiter(
     CameraHalServer* proxy) : proxy_(proxy) {}
 
@@ -2615,6 +3060,21 @@ void CameraHalServerAsyncWaiter::GetAutoFramingSupported(
           },
           &loop,
           out_supported));
+  loop.Run();
+}
+void CameraHalServerAsyncWaiter::SetCameraEffect(
+    ::cros::mojom::EffectsConfigPtr config, ::cros::mojom::SetEffectResult* out_result) {
+  base::RunLoop loop;
+  proxy_->SetCameraEffect(std::move(config),
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             ::cros::mojom::SetEffectResult* out_result
+,
+             ::cros::mojom::SetEffectResult result) {*out_result = std::move(result);
+            loop->Quit();
+          },
+          &loop,
+          out_result));
   loop.Run();
 }
 

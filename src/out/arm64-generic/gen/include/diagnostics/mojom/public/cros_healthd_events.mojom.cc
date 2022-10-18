@@ -15,6 +15,7 @@
 #include <stdint.h>
 #include <utility>
 
+#include "base/debug/alias.h"
 #include "base/hash/md5_constexpr.h"
 #include "base/run_loop.h"
 #include "base/strings/string_number_conversions.h"
@@ -45,7 +46,7 @@
 
 
 
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace mojom {
 UsbEventInfo::UsbEventInfo()
@@ -124,42 +125,32 @@ bool UsbEventInfo::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
-const char CrosHealthdBluetoothObserver::Name_[] = "chromeos.cros_healthd.mojom.CrosHealthdBluetoothObserver";
+const char CrosHealthdBluetoothObserver::Name_[] = "ash.cros_healthd.mojom.CrosHealthdBluetoothObserver";
 
-uint32_t CrosHealthdBluetoothObserver::MessageToStableIPCHash_(mojo::Message& message) {
+CrosHealthdBluetoothObserver::IPCStableHashFunction CrosHealthdBluetoothObserver::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
   switch (message.name()) {
     case internal::kCrosHealthdBluetoothObserver_OnAdapterAdded_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::cros_healthd::mojom::CrosHealthdBluetoothObserver::OnAdapterAdded");
-      return value;
+      return &CrosHealthdBluetoothObserver::OnAdapterAdded_Sym::IPCStableHash;
     }
     case internal::kCrosHealthdBluetoothObserver_OnAdapterRemoved_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::cros_healthd::mojom::CrosHealthdBluetoothObserver::OnAdapterRemoved");
-      return value;
+      return &CrosHealthdBluetoothObserver::OnAdapterRemoved_Sym::IPCStableHash;
     }
     case internal::kCrosHealthdBluetoothObserver_OnAdapterPropertyChanged_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::cros_healthd::mojom::CrosHealthdBluetoothObserver::OnAdapterPropertyChanged");
-      return value;
+      return &CrosHealthdBluetoothObserver::OnAdapterPropertyChanged_Sym::IPCStableHash;
     }
     case internal::kCrosHealthdBluetoothObserver_OnDeviceAdded_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::cros_healthd::mojom::CrosHealthdBluetoothObserver::OnDeviceAdded");
-      return value;
+      return &CrosHealthdBluetoothObserver::OnDeviceAdded_Sym::IPCStableHash;
     }
     case internal::kCrosHealthdBluetoothObserver_OnDeviceRemoved_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::cros_healthd::mojom::CrosHealthdBluetoothObserver::OnDeviceRemoved");
-      return value;
+      return &CrosHealthdBluetoothObserver::OnDeviceRemoved_Sym::IPCStableHash;
     }
     case internal::kCrosHealthdBluetoothObserver_OnDevicePropertyChanged_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::cros_healthd::mojom::CrosHealthdBluetoothObserver::OnDevicePropertyChanged");
-      return value;
+      return &CrosHealthdBluetoothObserver::OnDevicePropertyChanged_Sym::IPCStableHash;
     }
   }
-  return 0;
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
 }
 
 
@@ -169,32 +160,32 @@ const char* CrosHealthdBluetoothObserver::MessageToMethodName_(mojo::Message& me
   if (!is_response) {
     switch (message.name()) {
       case internal::kCrosHealthdBluetoothObserver_OnAdapterAdded_Name:
-            return "Receive chromeos::cros_healthd::mojom::CrosHealthdBluetoothObserver::OnAdapterAdded";
+            return "Receive ash::cros_healthd::mojom::CrosHealthdBluetoothObserver::OnAdapterAdded";
       case internal::kCrosHealthdBluetoothObserver_OnAdapterRemoved_Name:
-            return "Receive chromeos::cros_healthd::mojom::CrosHealthdBluetoothObserver::OnAdapterRemoved";
+            return "Receive ash::cros_healthd::mojom::CrosHealthdBluetoothObserver::OnAdapterRemoved";
       case internal::kCrosHealthdBluetoothObserver_OnAdapterPropertyChanged_Name:
-            return "Receive chromeos::cros_healthd::mojom::CrosHealthdBluetoothObserver::OnAdapterPropertyChanged";
+            return "Receive ash::cros_healthd::mojom::CrosHealthdBluetoothObserver::OnAdapterPropertyChanged";
       case internal::kCrosHealthdBluetoothObserver_OnDeviceAdded_Name:
-            return "Receive chromeos::cros_healthd::mojom::CrosHealthdBluetoothObserver::OnDeviceAdded";
+            return "Receive ash::cros_healthd::mojom::CrosHealthdBluetoothObserver::OnDeviceAdded";
       case internal::kCrosHealthdBluetoothObserver_OnDeviceRemoved_Name:
-            return "Receive chromeos::cros_healthd::mojom::CrosHealthdBluetoothObserver::OnDeviceRemoved";
+            return "Receive ash::cros_healthd::mojom::CrosHealthdBluetoothObserver::OnDeviceRemoved";
       case internal::kCrosHealthdBluetoothObserver_OnDevicePropertyChanged_Name:
-            return "Receive chromeos::cros_healthd::mojom::CrosHealthdBluetoothObserver::OnDevicePropertyChanged";
+            return "Receive ash::cros_healthd::mojom::CrosHealthdBluetoothObserver::OnDevicePropertyChanged";
     }
   } else {
     switch (message.name()) {
       case internal::kCrosHealthdBluetoothObserver_OnAdapterAdded_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::CrosHealthdBluetoothObserver::OnAdapterAdded";
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdBluetoothObserver::OnAdapterAdded";
       case internal::kCrosHealthdBluetoothObserver_OnAdapterRemoved_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::CrosHealthdBluetoothObserver::OnAdapterRemoved";
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdBluetoothObserver::OnAdapterRemoved";
       case internal::kCrosHealthdBluetoothObserver_OnAdapterPropertyChanged_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::CrosHealthdBluetoothObserver::OnAdapterPropertyChanged";
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdBluetoothObserver::OnAdapterPropertyChanged";
       case internal::kCrosHealthdBluetoothObserver_OnDeviceAdded_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::CrosHealthdBluetoothObserver::OnDeviceAdded";
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdBluetoothObserver::OnDeviceAdded";
       case internal::kCrosHealthdBluetoothObserver_OnDeviceRemoved_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::CrosHealthdBluetoothObserver::OnDeviceRemoved";
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdBluetoothObserver::OnDeviceRemoved";
       case internal::kCrosHealthdBluetoothObserver_OnDevicePropertyChanged_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::CrosHealthdBluetoothObserver::OnDevicePropertyChanged";
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdBluetoothObserver::OnDevicePropertyChanged";
     }
   }
   return "Receive unknown mojo message";
@@ -208,6 +199,87 @@ const char* CrosHealthdBluetoothObserver::MessageToMethodName_(mojo::Message& me
 #endif // BUILDFLAG(MOJO_TRACE_ENABLED)
 }
 
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t CrosHealthdBluetoothObserver::OnAdapterAdded_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdBluetoothObserver::OnAdapterAdded");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t CrosHealthdBluetoothObserver::OnAdapterRemoved_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdBluetoothObserver::OnAdapterRemoved");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t CrosHealthdBluetoothObserver::OnAdapterPropertyChanged_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdBluetoothObserver::OnAdapterPropertyChanged");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t CrosHealthdBluetoothObserver::OnDeviceAdded_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdBluetoothObserver::OnDeviceAdded");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t CrosHealthdBluetoothObserver::OnDeviceRemoved_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdBluetoothObserver::OnDeviceRemoved");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t CrosHealthdBluetoothObserver::OnDevicePropertyChanged_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdBluetoothObserver::OnDevicePropertyChanged");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
+
 CrosHealthdBluetoothObserverProxy::CrosHealthdBluetoothObserverProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
 }
@@ -215,7 +287,7 @@ CrosHealthdBluetoothObserverProxy::CrosHealthdBluetoothObserverProxy(mojo::Messa
 void CrosHealthdBluetoothObserverProxy::OnAdapterAdded(
     ) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send chromeos::cros_healthd::mojom::CrosHealthdBluetoothObserver::OnAdapterAdded");
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdBluetoothObserver::OnAdapterAdded");
 #endif
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
@@ -229,7 +301,7 @@ void CrosHealthdBluetoothObserverProxy::OnAdapterAdded(
   mojo::Message message(
       internal::kCrosHealthdBluetoothObserver_OnAdapterAdded_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdBluetoothObserver_OnAdapterAdded_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdBluetoothObserver_OnAdapterAdded_Params_Data> params(
           message);
   params.Allocate();
 
@@ -239,13 +311,13 @@ void CrosHealthdBluetoothObserverProxy::OnAdapterAdded(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 void CrosHealthdBluetoothObserverProxy::OnAdapterRemoved(
     ) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send chromeos::cros_healthd::mojom::CrosHealthdBluetoothObserver::OnAdapterRemoved");
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdBluetoothObserver::OnAdapterRemoved");
 #endif
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
@@ -259,7 +331,7 @@ void CrosHealthdBluetoothObserverProxy::OnAdapterRemoved(
   mojo::Message message(
       internal::kCrosHealthdBluetoothObserver_OnAdapterRemoved_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdBluetoothObserver_OnAdapterRemoved_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdBluetoothObserver_OnAdapterRemoved_Params_Data> params(
           message);
   params.Allocate();
 
@@ -269,13 +341,13 @@ void CrosHealthdBluetoothObserverProxy::OnAdapterRemoved(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 void CrosHealthdBluetoothObserverProxy::OnAdapterPropertyChanged(
     ) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send chromeos::cros_healthd::mojom::CrosHealthdBluetoothObserver::OnAdapterPropertyChanged");
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdBluetoothObserver::OnAdapterPropertyChanged");
 #endif
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
@@ -289,7 +361,7 @@ void CrosHealthdBluetoothObserverProxy::OnAdapterPropertyChanged(
   mojo::Message message(
       internal::kCrosHealthdBluetoothObserver_OnAdapterPropertyChanged_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdBluetoothObserver_OnAdapterPropertyChanged_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdBluetoothObserver_OnAdapterPropertyChanged_Params_Data> params(
           message);
   params.Allocate();
 
@@ -299,13 +371,13 @@ void CrosHealthdBluetoothObserverProxy::OnAdapterPropertyChanged(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 void CrosHealthdBluetoothObserverProxy::OnDeviceAdded(
     ) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send chromeos::cros_healthd::mojom::CrosHealthdBluetoothObserver::OnDeviceAdded");
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdBluetoothObserver::OnDeviceAdded");
 #endif
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
@@ -319,7 +391,7 @@ void CrosHealthdBluetoothObserverProxy::OnDeviceAdded(
   mojo::Message message(
       internal::kCrosHealthdBluetoothObserver_OnDeviceAdded_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdBluetoothObserver_OnDeviceAdded_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdBluetoothObserver_OnDeviceAdded_Params_Data> params(
           message);
   params.Allocate();
 
@@ -329,13 +401,13 @@ void CrosHealthdBluetoothObserverProxy::OnDeviceAdded(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 void CrosHealthdBluetoothObserverProxy::OnDeviceRemoved(
     ) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send chromeos::cros_healthd::mojom::CrosHealthdBluetoothObserver::OnDeviceRemoved");
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdBluetoothObserver::OnDeviceRemoved");
 #endif
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
@@ -349,7 +421,7 @@ void CrosHealthdBluetoothObserverProxy::OnDeviceRemoved(
   mojo::Message message(
       internal::kCrosHealthdBluetoothObserver_OnDeviceRemoved_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdBluetoothObserver_OnDeviceRemoved_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdBluetoothObserver_OnDeviceRemoved_Params_Data> params(
           message);
   params.Allocate();
 
@@ -359,13 +431,13 @@ void CrosHealthdBluetoothObserverProxy::OnDeviceRemoved(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 void CrosHealthdBluetoothObserverProxy::OnDevicePropertyChanged(
     ) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send chromeos::cros_healthd::mojom::CrosHealthdBluetoothObserver::OnDevicePropertyChanged");
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdBluetoothObserver::OnDevicePropertyChanged");
 #endif
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
@@ -379,7 +451,7 @@ void CrosHealthdBluetoothObserverProxy::OnDevicePropertyChanged(
   mojo::Message message(
       internal::kCrosHealthdBluetoothObserver_OnDevicePropertyChanged_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdBluetoothObserver_OnDevicePropertyChanged_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdBluetoothObserver_OnDevicePropertyChanged_Params_Data> params(
           message);
   params.Allocate();
 
@@ -389,7 +461,7 @@ void CrosHealthdBluetoothObserverProxy::OnDevicePropertyChanged(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 // static
@@ -581,26 +653,24 @@ static const mojo::internal::GenericValidationInfo kCrosHealthdBluetoothObserver
 };
 
 bool CrosHealthdBluetoothObserverRequestValidator::Accept(mojo::Message* message) {
-  const char* name = ::chromeos::cros_healthd::mojom::CrosHealthdBluetoothObserver::Name_;
+  const char* name = ::ash::cros_healthd::mojom::CrosHealthdBluetoothObserver::Name_;
   return mojo::internal::ValidateRequestGenericPacked(message, name, kCrosHealthdBluetoothObserverValidationInfo);
 }
 
-const char CrosHealthdLidObserver::Name_[] = "chromeos.cros_healthd.mojom.CrosHealthdLidObserver";
+const char CrosHealthdLidObserver::Name_[] = "ash.cros_healthd.mojom.CrosHealthdLidObserver";
 
-uint32_t CrosHealthdLidObserver::MessageToStableIPCHash_(mojo::Message& message) {
+CrosHealthdLidObserver::IPCStableHashFunction CrosHealthdLidObserver::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
   switch (message.name()) {
     case internal::kCrosHealthdLidObserver_OnLidClosed_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::cros_healthd::mojom::CrosHealthdLidObserver::OnLidClosed");
-      return value;
+      return &CrosHealthdLidObserver::OnLidClosed_Sym::IPCStableHash;
     }
     case internal::kCrosHealthdLidObserver_OnLidOpened_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::cros_healthd::mojom::CrosHealthdLidObserver::OnLidOpened");
-      return value;
+      return &CrosHealthdLidObserver::OnLidOpened_Sym::IPCStableHash;
     }
   }
-  return 0;
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
 }
 
 
@@ -610,16 +680,16 @@ const char* CrosHealthdLidObserver::MessageToMethodName_(mojo::Message& message)
   if (!is_response) {
     switch (message.name()) {
       case internal::kCrosHealthdLidObserver_OnLidClosed_Name:
-            return "Receive chromeos::cros_healthd::mojom::CrosHealthdLidObserver::OnLidClosed";
+            return "Receive ash::cros_healthd::mojom::CrosHealthdLidObserver::OnLidClosed";
       case internal::kCrosHealthdLidObserver_OnLidOpened_Name:
-            return "Receive chromeos::cros_healthd::mojom::CrosHealthdLidObserver::OnLidOpened";
+            return "Receive ash::cros_healthd::mojom::CrosHealthdLidObserver::OnLidOpened";
     }
   } else {
     switch (message.name()) {
       case internal::kCrosHealthdLidObserver_OnLidClosed_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::CrosHealthdLidObserver::OnLidClosed";
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdLidObserver::OnLidClosed";
       case internal::kCrosHealthdLidObserver_OnLidOpened_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::CrosHealthdLidObserver::OnLidOpened";
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdLidObserver::OnLidOpened";
     }
   }
   return "Receive unknown mojo message";
@@ -633,6 +703,35 @@ const char* CrosHealthdLidObserver::MessageToMethodName_(mojo::Message& message)
 #endif // BUILDFLAG(MOJO_TRACE_ENABLED)
 }
 
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t CrosHealthdLidObserver::OnLidClosed_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdLidObserver::OnLidClosed");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t CrosHealthdLidObserver::OnLidOpened_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdLidObserver::OnLidOpened");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
+
 CrosHealthdLidObserverProxy::CrosHealthdLidObserverProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
 }
@@ -640,7 +739,7 @@ CrosHealthdLidObserverProxy::CrosHealthdLidObserverProxy(mojo::MessageReceiverWi
 void CrosHealthdLidObserverProxy::OnLidClosed(
     ) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send chromeos::cros_healthd::mojom::CrosHealthdLidObserver::OnLidClosed");
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdLidObserver::OnLidClosed");
 #endif
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
@@ -654,7 +753,7 @@ void CrosHealthdLidObserverProxy::OnLidClosed(
   mojo::Message message(
       internal::kCrosHealthdLidObserver_OnLidClosed_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdLidObserver_OnLidClosed_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdLidObserver_OnLidClosed_Params_Data> params(
           message);
   params.Allocate();
 
@@ -664,13 +763,13 @@ void CrosHealthdLidObserverProxy::OnLidClosed(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 void CrosHealthdLidObserverProxy::OnLidOpened(
     ) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send chromeos::cros_healthd::mojom::CrosHealthdLidObserver::OnLidOpened");
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdLidObserver::OnLidOpened");
 #endif
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
@@ -684,7 +783,7 @@ void CrosHealthdLidObserverProxy::OnLidOpened(
   mojo::Message message(
       internal::kCrosHealthdLidObserver_OnLidOpened_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdLidObserver_OnLidOpened_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdLidObserver_OnLidOpened_Params_Data> params(
           message);
   params.Allocate();
 
@@ -694,7 +793,7 @@ void CrosHealthdLidObserverProxy::OnLidOpened(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 // static
@@ -778,36 +877,30 @@ static const mojo::internal::GenericValidationInfo kCrosHealthdLidObserverValida
 };
 
 bool CrosHealthdLidObserverRequestValidator::Accept(mojo::Message* message) {
-  const char* name = ::chromeos::cros_healthd::mojom::CrosHealthdLidObserver::Name_;
+  const char* name = ::ash::cros_healthd::mojom::CrosHealthdLidObserver::Name_;
   return mojo::internal::ValidateRequestGenericPacked(message, name, kCrosHealthdLidObserverValidationInfo);
 }
 
-const char CrosHealthdPowerObserver::Name_[] = "chromeos.cros_healthd.mojom.CrosHealthdPowerObserver";
+const char CrosHealthdPowerObserver::Name_[] = "ash.cros_healthd.mojom.CrosHealthdPowerObserver";
 
-uint32_t CrosHealthdPowerObserver::MessageToStableIPCHash_(mojo::Message& message) {
+CrosHealthdPowerObserver::IPCStableHashFunction CrosHealthdPowerObserver::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
   switch (message.name()) {
     case internal::kCrosHealthdPowerObserver_OnAcInserted_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::cros_healthd::mojom::CrosHealthdPowerObserver::OnAcInserted");
-      return value;
+      return &CrosHealthdPowerObserver::OnAcInserted_Sym::IPCStableHash;
     }
     case internal::kCrosHealthdPowerObserver_OnAcRemoved_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::cros_healthd::mojom::CrosHealthdPowerObserver::OnAcRemoved");
-      return value;
+      return &CrosHealthdPowerObserver::OnAcRemoved_Sym::IPCStableHash;
     }
     case internal::kCrosHealthdPowerObserver_OnOsSuspend_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::cros_healthd::mojom::CrosHealthdPowerObserver::OnOsSuspend");
-      return value;
+      return &CrosHealthdPowerObserver::OnOsSuspend_Sym::IPCStableHash;
     }
     case internal::kCrosHealthdPowerObserver_OnOsResume_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::cros_healthd::mojom::CrosHealthdPowerObserver::OnOsResume");
-      return value;
+      return &CrosHealthdPowerObserver::OnOsResume_Sym::IPCStableHash;
     }
   }
-  return 0;
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
 }
 
 
@@ -817,24 +910,24 @@ const char* CrosHealthdPowerObserver::MessageToMethodName_(mojo::Message& messag
   if (!is_response) {
     switch (message.name()) {
       case internal::kCrosHealthdPowerObserver_OnAcInserted_Name:
-            return "Receive chromeos::cros_healthd::mojom::CrosHealthdPowerObserver::OnAcInserted";
+            return "Receive ash::cros_healthd::mojom::CrosHealthdPowerObserver::OnAcInserted";
       case internal::kCrosHealthdPowerObserver_OnAcRemoved_Name:
-            return "Receive chromeos::cros_healthd::mojom::CrosHealthdPowerObserver::OnAcRemoved";
+            return "Receive ash::cros_healthd::mojom::CrosHealthdPowerObserver::OnAcRemoved";
       case internal::kCrosHealthdPowerObserver_OnOsSuspend_Name:
-            return "Receive chromeos::cros_healthd::mojom::CrosHealthdPowerObserver::OnOsSuspend";
+            return "Receive ash::cros_healthd::mojom::CrosHealthdPowerObserver::OnOsSuspend";
       case internal::kCrosHealthdPowerObserver_OnOsResume_Name:
-            return "Receive chromeos::cros_healthd::mojom::CrosHealthdPowerObserver::OnOsResume";
+            return "Receive ash::cros_healthd::mojom::CrosHealthdPowerObserver::OnOsResume";
     }
   } else {
     switch (message.name()) {
       case internal::kCrosHealthdPowerObserver_OnAcInserted_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::CrosHealthdPowerObserver::OnAcInserted";
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdPowerObserver::OnAcInserted";
       case internal::kCrosHealthdPowerObserver_OnAcRemoved_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::CrosHealthdPowerObserver::OnAcRemoved";
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdPowerObserver::OnAcRemoved";
       case internal::kCrosHealthdPowerObserver_OnOsSuspend_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::CrosHealthdPowerObserver::OnOsSuspend";
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdPowerObserver::OnOsSuspend";
       case internal::kCrosHealthdPowerObserver_OnOsResume_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::CrosHealthdPowerObserver::OnOsResume";
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdPowerObserver::OnOsResume";
     }
   }
   return "Receive unknown mojo message";
@@ -848,6 +941,61 @@ const char* CrosHealthdPowerObserver::MessageToMethodName_(mojo::Message& messag
 #endif // BUILDFLAG(MOJO_TRACE_ENABLED)
 }
 
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t CrosHealthdPowerObserver::OnAcInserted_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdPowerObserver::OnAcInserted");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t CrosHealthdPowerObserver::OnAcRemoved_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdPowerObserver::OnAcRemoved");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t CrosHealthdPowerObserver::OnOsSuspend_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdPowerObserver::OnOsSuspend");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t CrosHealthdPowerObserver::OnOsResume_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdPowerObserver::OnOsResume");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
+
 CrosHealthdPowerObserverProxy::CrosHealthdPowerObserverProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
 }
@@ -855,7 +1003,7 @@ CrosHealthdPowerObserverProxy::CrosHealthdPowerObserverProxy(mojo::MessageReceiv
 void CrosHealthdPowerObserverProxy::OnAcInserted(
     ) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send chromeos::cros_healthd::mojom::CrosHealthdPowerObserver::OnAcInserted");
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdPowerObserver::OnAcInserted");
 #endif
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
@@ -869,7 +1017,7 @@ void CrosHealthdPowerObserverProxy::OnAcInserted(
   mojo::Message message(
       internal::kCrosHealthdPowerObserver_OnAcInserted_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdPowerObserver_OnAcInserted_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdPowerObserver_OnAcInserted_Params_Data> params(
           message);
   params.Allocate();
 
@@ -879,13 +1027,13 @@ void CrosHealthdPowerObserverProxy::OnAcInserted(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 void CrosHealthdPowerObserverProxy::OnAcRemoved(
     ) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send chromeos::cros_healthd::mojom::CrosHealthdPowerObserver::OnAcRemoved");
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdPowerObserver::OnAcRemoved");
 #endif
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
@@ -899,7 +1047,7 @@ void CrosHealthdPowerObserverProxy::OnAcRemoved(
   mojo::Message message(
       internal::kCrosHealthdPowerObserver_OnAcRemoved_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdPowerObserver_OnAcRemoved_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdPowerObserver_OnAcRemoved_Params_Data> params(
           message);
   params.Allocate();
 
@@ -909,13 +1057,13 @@ void CrosHealthdPowerObserverProxy::OnAcRemoved(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 void CrosHealthdPowerObserverProxy::OnOsSuspend(
     ) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send chromeos::cros_healthd::mojom::CrosHealthdPowerObserver::OnOsSuspend");
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdPowerObserver::OnOsSuspend");
 #endif
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
@@ -929,7 +1077,7 @@ void CrosHealthdPowerObserverProxy::OnOsSuspend(
   mojo::Message message(
       internal::kCrosHealthdPowerObserver_OnOsSuspend_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdPowerObserver_OnOsSuspend_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdPowerObserver_OnOsSuspend_Params_Data> params(
           message);
   params.Allocate();
 
@@ -939,13 +1087,13 @@ void CrosHealthdPowerObserverProxy::OnOsSuspend(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 void CrosHealthdPowerObserverProxy::OnOsResume(
     ) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send chromeos::cros_healthd::mojom::CrosHealthdPowerObserver::OnOsResume");
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdPowerObserver::OnOsResume");
 #endif
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
@@ -959,7 +1107,7 @@ void CrosHealthdPowerObserverProxy::OnOsResume(
   mojo::Message message(
       internal::kCrosHealthdPowerObserver_OnOsResume_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdPowerObserver_OnOsResume_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdPowerObserver_OnOsResume_Params_Data> params(
           message);
   params.Allocate();
 
@@ -969,7 +1117,7 @@ void CrosHealthdPowerObserverProxy::OnOsResume(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 // static
@@ -1107,26 +1255,24 @@ static const mojo::internal::GenericValidationInfo kCrosHealthdPowerObserverVali
 };
 
 bool CrosHealthdPowerObserverRequestValidator::Accept(mojo::Message* message) {
-  const char* name = ::chromeos::cros_healthd::mojom::CrosHealthdPowerObserver::Name_;
+  const char* name = ::ash::cros_healthd::mojom::CrosHealthdPowerObserver::Name_;
   return mojo::internal::ValidateRequestGenericPacked(message, name, kCrosHealthdPowerObserverValidationInfo);
 }
 
-const char CrosHealthdAudioObserver::Name_[] = "chromeos.cros_healthd.mojom.CrosHealthdAudioObserver";
+const char CrosHealthdAudioObserver::Name_[] = "ash.cros_healthd.mojom.CrosHealthdAudioObserver";
 
-uint32_t CrosHealthdAudioObserver::MessageToStableIPCHash_(mojo::Message& message) {
+CrosHealthdAudioObserver::IPCStableHashFunction CrosHealthdAudioObserver::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
   switch (message.name()) {
     case internal::kCrosHealthdAudioObserver_OnUnderrun_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::cros_healthd::mojom::CrosHealthdAudioObserver::OnUnderrun");
-      return value;
+      return &CrosHealthdAudioObserver::OnUnderrun_Sym::IPCStableHash;
     }
     case internal::kCrosHealthdAudioObserver_OnSevereUnderrun_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::cros_healthd::mojom::CrosHealthdAudioObserver::OnSevereUnderrun");
-      return value;
+      return &CrosHealthdAudioObserver::OnSevereUnderrun_Sym::IPCStableHash;
     }
   }
-  return 0;
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
 }
 
 
@@ -1136,16 +1282,16 @@ const char* CrosHealthdAudioObserver::MessageToMethodName_(mojo::Message& messag
   if (!is_response) {
     switch (message.name()) {
       case internal::kCrosHealthdAudioObserver_OnUnderrun_Name:
-            return "Receive chromeos::cros_healthd::mojom::CrosHealthdAudioObserver::OnUnderrun";
+            return "Receive ash::cros_healthd::mojom::CrosHealthdAudioObserver::OnUnderrun";
       case internal::kCrosHealthdAudioObserver_OnSevereUnderrun_Name:
-            return "Receive chromeos::cros_healthd::mojom::CrosHealthdAudioObserver::OnSevereUnderrun";
+            return "Receive ash::cros_healthd::mojom::CrosHealthdAudioObserver::OnSevereUnderrun";
     }
   } else {
     switch (message.name()) {
       case internal::kCrosHealthdAudioObserver_OnUnderrun_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::CrosHealthdAudioObserver::OnUnderrun";
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdAudioObserver::OnUnderrun";
       case internal::kCrosHealthdAudioObserver_OnSevereUnderrun_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::CrosHealthdAudioObserver::OnSevereUnderrun";
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdAudioObserver::OnSevereUnderrun";
     }
   }
   return "Receive unknown mojo message";
@@ -1159,6 +1305,35 @@ const char* CrosHealthdAudioObserver::MessageToMethodName_(mojo::Message& messag
 #endif // BUILDFLAG(MOJO_TRACE_ENABLED)
 }
 
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t CrosHealthdAudioObserver::OnUnderrun_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdAudioObserver::OnUnderrun");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t CrosHealthdAudioObserver::OnSevereUnderrun_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdAudioObserver::OnSevereUnderrun");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
+
 CrosHealthdAudioObserverProxy::CrosHealthdAudioObserverProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
 }
@@ -1166,7 +1341,7 @@ CrosHealthdAudioObserverProxy::CrosHealthdAudioObserverProxy(mojo::MessageReceiv
 void CrosHealthdAudioObserverProxy::OnUnderrun(
     ) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send chromeos::cros_healthd::mojom::CrosHealthdAudioObserver::OnUnderrun");
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdAudioObserver::OnUnderrun");
 #endif
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
@@ -1180,7 +1355,7 @@ void CrosHealthdAudioObserverProxy::OnUnderrun(
   mojo::Message message(
       internal::kCrosHealthdAudioObserver_OnUnderrun_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdAudioObserver_OnUnderrun_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdAudioObserver_OnUnderrun_Params_Data> params(
           message);
   params.Allocate();
 
@@ -1190,13 +1365,13 @@ void CrosHealthdAudioObserverProxy::OnUnderrun(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 void CrosHealthdAudioObserverProxy::OnSevereUnderrun(
     ) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send chromeos::cros_healthd::mojom::CrosHealthdAudioObserver::OnSevereUnderrun");
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdAudioObserver::OnSevereUnderrun");
 #endif
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
@@ -1210,7 +1385,7 @@ void CrosHealthdAudioObserverProxy::OnSevereUnderrun(
   mojo::Message message(
       internal::kCrosHealthdAudioObserver_OnSevereUnderrun_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdAudioObserver_OnSevereUnderrun_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdAudioObserver_OnSevereUnderrun_Params_Data> params(
           message);
   params.Allocate();
 
@@ -1220,7 +1395,7 @@ void CrosHealthdAudioObserverProxy::OnSevereUnderrun(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 // static
@@ -1304,36 +1479,30 @@ static const mojo::internal::GenericValidationInfo kCrosHealthdAudioObserverVali
 };
 
 bool CrosHealthdAudioObserverRequestValidator::Accept(mojo::Message* message) {
-  const char* name = ::chromeos::cros_healthd::mojom::CrosHealthdAudioObserver::Name_;
+  const char* name = ::ash::cros_healthd::mojom::CrosHealthdAudioObserver::Name_;
   return mojo::internal::ValidateRequestGenericPacked(message, name, kCrosHealthdAudioObserverValidationInfo);
 }
 
-const char CrosHealthdThunderboltObserver::Name_[] = "chromeos.cros_healthd.mojom.CrosHealthdThunderboltObserver";
+const char CrosHealthdThunderboltObserver::Name_[] = "ash.cros_healthd.mojom.CrosHealthdThunderboltObserver";
 
-uint32_t CrosHealthdThunderboltObserver::MessageToStableIPCHash_(mojo::Message& message) {
+CrosHealthdThunderboltObserver::IPCStableHashFunction CrosHealthdThunderboltObserver::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
   switch (message.name()) {
     case internal::kCrosHealthdThunderboltObserver_OnAdd_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::cros_healthd::mojom::CrosHealthdThunderboltObserver::OnAdd");
-      return value;
+      return &CrosHealthdThunderboltObserver::OnAdd_Sym::IPCStableHash;
     }
     case internal::kCrosHealthdThunderboltObserver_OnRemove_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::cros_healthd::mojom::CrosHealthdThunderboltObserver::OnRemove");
-      return value;
+      return &CrosHealthdThunderboltObserver::OnRemove_Sym::IPCStableHash;
     }
     case internal::kCrosHealthdThunderboltObserver_OnAuthorized_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::cros_healthd::mojom::CrosHealthdThunderboltObserver::OnAuthorized");
-      return value;
+      return &CrosHealthdThunderboltObserver::OnAuthorized_Sym::IPCStableHash;
     }
     case internal::kCrosHealthdThunderboltObserver_OnUnAuthorized_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::cros_healthd::mojom::CrosHealthdThunderboltObserver::OnUnAuthorized");
-      return value;
+      return &CrosHealthdThunderboltObserver::OnUnAuthorized_Sym::IPCStableHash;
     }
   }
-  return 0;
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
 }
 
 
@@ -1343,24 +1512,24 @@ const char* CrosHealthdThunderboltObserver::MessageToMethodName_(mojo::Message& 
   if (!is_response) {
     switch (message.name()) {
       case internal::kCrosHealthdThunderboltObserver_OnAdd_Name:
-            return "Receive chromeos::cros_healthd::mojom::CrosHealthdThunderboltObserver::OnAdd";
+            return "Receive ash::cros_healthd::mojom::CrosHealthdThunderboltObserver::OnAdd";
       case internal::kCrosHealthdThunderboltObserver_OnRemove_Name:
-            return "Receive chromeos::cros_healthd::mojom::CrosHealthdThunderboltObserver::OnRemove";
+            return "Receive ash::cros_healthd::mojom::CrosHealthdThunderboltObserver::OnRemove";
       case internal::kCrosHealthdThunderboltObserver_OnAuthorized_Name:
-            return "Receive chromeos::cros_healthd::mojom::CrosHealthdThunderboltObserver::OnAuthorized";
+            return "Receive ash::cros_healthd::mojom::CrosHealthdThunderboltObserver::OnAuthorized";
       case internal::kCrosHealthdThunderboltObserver_OnUnAuthorized_Name:
-            return "Receive chromeos::cros_healthd::mojom::CrosHealthdThunderboltObserver::OnUnAuthorized";
+            return "Receive ash::cros_healthd::mojom::CrosHealthdThunderboltObserver::OnUnAuthorized";
     }
   } else {
     switch (message.name()) {
       case internal::kCrosHealthdThunderboltObserver_OnAdd_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::CrosHealthdThunderboltObserver::OnAdd";
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdThunderboltObserver::OnAdd";
       case internal::kCrosHealthdThunderboltObserver_OnRemove_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::CrosHealthdThunderboltObserver::OnRemove";
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdThunderboltObserver::OnRemove";
       case internal::kCrosHealthdThunderboltObserver_OnAuthorized_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::CrosHealthdThunderboltObserver::OnAuthorized";
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdThunderboltObserver::OnAuthorized";
       case internal::kCrosHealthdThunderboltObserver_OnUnAuthorized_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::CrosHealthdThunderboltObserver::OnUnAuthorized";
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdThunderboltObserver::OnUnAuthorized";
     }
   }
   return "Receive unknown mojo message";
@@ -1374,6 +1543,61 @@ const char* CrosHealthdThunderboltObserver::MessageToMethodName_(mojo::Message& 
 #endif // BUILDFLAG(MOJO_TRACE_ENABLED)
 }
 
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t CrosHealthdThunderboltObserver::OnAdd_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdThunderboltObserver::OnAdd");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t CrosHealthdThunderboltObserver::OnRemove_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdThunderboltObserver::OnRemove");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t CrosHealthdThunderboltObserver::OnAuthorized_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdThunderboltObserver::OnAuthorized");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t CrosHealthdThunderboltObserver::OnUnAuthorized_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdThunderboltObserver::OnUnAuthorized");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
+
 CrosHealthdThunderboltObserverProxy::CrosHealthdThunderboltObserverProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
 }
@@ -1381,7 +1605,7 @@ CrosHealthdThunderboltObserverProxy::CrosHealthdThunderboltObserverProxy(mojo::M
 void CrosHealthdThunderboltObserverProxy::OnAdd(
     ) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send chromeos::cros_healthd::mojom::CrosHealthdThunderboltObserver::OnAdd");
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdThunderboltObserver::OnAdd");
 #endif
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
@@ -1395,7 +1619,7 @@ void CrosHealthdThunderboltObserverProxy::OnAdd(
   mojo::Message message(
       internal::kCrosHealthdThunderboltObserver_OnAdd_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdThunderboltObserver_OnAdd_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdThunderboltObserver_OnAdd_Params_Data> params(
           message);
   params.Allocate();
 
@@ -1405,13 +1629,13 @@ void CrosHealthdThunderboltObserverProxy::OnAdd(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 void CrosHealthdThunderboltObserverProxy::OnRemove(
     ) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send chromeos::cros_healthd::mojom::CrosHealthdThunderboltObserver::OnRemove");
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdThunderboltObserver::OnRemove");
 #endif
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
@@ -1425,7 +1649,7 @@ void CrosHealthdThunderboltObserverProxy::OnRemove(
   mojo::Message message(
       internal::kCrosHealthdThunderboltObserver_OnRemove_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdThunderboltObserver_OnRemove_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdThunderboltObserver_OnRemove_Params_Data> params(
           message);
   params.Allocate();
 
@@ -1435,13 +1659,13 @@ void CrosHealthdThunderboltObserverProxy::OnRemove(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 void CrosHealthdThunderboltObserverProxy::OnAuthorized(
     ) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send chromeos::cros_healthd::mojom::CrosHealthdThunderboltObserver::OnAuthorized");
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdThunderboltObserver::OnAuthorized");
 #endif
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
@@ -1455,7 +1679,7 @@ void CrosHealthdThunderboltObserverProxy::OnAuthorized(
   mojo::Message message(
       internal::kCrosHealthdThunderboltObserver_OnAuthorized_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdThunderboltObserver_OnAuthorized_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdThunderboltObserver_OnAuthorized_Params_Data> params(
           message);
   params.Allocate();
 
@@ -1465,13 +1689,13 @@ void CrosHealthdThunderboltObserverProxy::OnAuthorized(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 void CrosHealthdThunderboltObserverProxy::OnUnAuthorized(
     ) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send chromeos::cros_healthd::mojom::CrosHealthdThunderboltObserver::OnUnAuthorized");
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::CrosHealthdThunderboltObserver::OnUnAuthorized");
 #endif
   const bool kExpectsResponse = false;
   const bool kIsSync = false;
@@ -1485,7 +1709,7 @@ void CrosHealthdThunderboltObserverProxy::OnUnAuthorized(
   mojo::Message message(
       internal::kCrosHealthdThunderboltObserver_OnUnAuthorized_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdThunderboltObserver_OnUnAuthorized_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdThunderboltObserver_OnUnAuthorized_Params_Data> params(
           message);
   params.Allocate();
 
@@ -1495,7 +1719,7 @@ void CrosHealthdThunderboltObserverProxy::OnUnAuthorized(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 // static
@@ -1633,26 +1857,24 @@ static const mojo::internal::GenericValidationInfo kCrosHealthdThunderboltObserv
 };
 
 bool CrosHealthdThunderboltObserverRequestValidator::Accept(mojo::Message* message) {
-  const char* name = ::chromeos::cros_healthd::mojom::CrosHealthdThunderboltObserver::Name_;
+  const char* name = ::ash::cros_healthd::mojom::CrosHealthdThunderboltObserver::Name_;
   return mojo::internal::ValidateRequestGenericPacked(message, name, kCrosHealthdThunderboltObserverValidationInfo);
 }
 
-const char CrosHealthdUsbObserver::Name_[] = "chromeos.cros_healthd.mojom.CrosHealthdUsbObserver";
+const char CrosHealthdUsbObserver::Name_[] = "ash.cros_healthd.mojom.CrosHealthdUsbObserver";
 
-uint32_t CrosHealthdUsbObserver::MessageToStableIPCHash_(mojo::Message& message) {
+CrosHealthdUsbObserver::IPCStableHashFunction CrosHealthdUsbObserver::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
   switch (message.name()) {
     case internal::kCrosHealthdUsbObserver_OnAdd_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::cros_healthd::mojom::CrosHealthdUsbObserver::OnAdd");
-      return value;
+      return &CrosHealthdUsbObserver::OnAdd_Sym::IPCStableHash;
     }
     case internal::kCrosHealthdUsbObserver_OnRemove_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::cros_healthd::mojom::CrosHealthdUsbObserver::OnRemove");
-      return value;
+      return &CrosHealthdUsbObserver::OnRemove_Sym::IPCStableHash;
     }
   }
-  return 0;
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
 }
 
 
@@ -1662,16 +1884,16 @@ const char* CrosHealthdUsbObserver::MessageToMethodName_(mojo::Message& message)
   if (!is_response) {
     switch (message.name()) {
       case internal::kCrosHealthdUsbObserver_OnAdd_Name:
-            return "Receive chromeos::cros_healthd::mojom::CrosHealthdUsbObserver::OnAdd";
+            return "Receive ash::cros_healthd::mojom::CrosHealthdUsbObserver::OnAdd";
       case internal::kCrosHealthdUsbObserver_OnRemove_Name:
-            return "Receive chromeos::cros_healthd::mojom::CrosHealthdUsbObserver::OnRemove";
+            return "Receive ash::cros_healthd::mojom::CrosHealthdUsbObserver::OnRemove";
     }
   } else {
     switch (message.name()) {
       case internal::kCrosHealthdUsbObserver_OnAdd_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::CrosHealthdUsbObserver::OnAdd";
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdUsbObserver::OnAdd";
       case internal::kCrosHealthdUsbObserver_OnRemove_Name:
-            return "Receive reply chromeos::cros_healthd::mojom::CrosHealthdUsbObserver::OnRemove";
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdUsbObserver::OnRemove";
     }
   }
   return "Receive unknown mojo message";
@@ -1685,6 +1907,35 @@ const char* CrosHealthdUsbObserver::MessageToMethodName_(mojo::Message& message)
 #endif // BUILDFLAG(MOJO_TRACE_ENABLED)
 }
 
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t CrosHealthdUsbObserver::OnAdd_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdUsbObserver::OnAdd");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t CrosHealthdUsbObserver::OnRemove_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdUsbObserver::OnRemove");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
+
 CrosHealthdUsbObserverProxy::CrosHealthdUsbObserverProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
 }
@@ -1693,7 +1944,7 @@ void CrosHealthdUsbObserverProxy::OnAdd(
     UsbEventInfoPtr in_info) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send chromeos::cros_healthd::mojom::CrosHealthdUsbObserver::OnAdd", "input_parameters",
+    "mojom", "Send ash::cros_healthd::mojom::CrosHealthdUsbObserver::OnAdd", "input_parameters",
     [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto_libchrome::WriteIntoTracedValueWithFallback(
@@ -1713,13 +1964,13 @@ void CrosHealthdUsbObserverProxy::OnAdd(
   mojo::Message message(
       internal::kCrosHealthdUsbObserver_OnAdd_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdUsbObserver_OnAdd_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdUsbObserver_OnAdd_Params_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
       typename decltype(params->info)::BaseType> info_fragment(
           params.message());
-  mojo::internal::Serialize<::chromeos::cros_healthd::mojom::UsbEventInfoDataView>(
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::UsbEventInfoDataView>(
       in_info, info_fragment);
   params->info.Set(
       info_fragment.is_null() ? nullptr : info_fragment.data());
@@ -1734,14 +1985,14 @@ void CrosHealthdUsbObserverProxy::OnAdd(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 void CrosHealthdUsbObserverProxy::OnRemove(
     UsbEventInfoPtr in_info) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send chromeos::cros_healthd::mojom::CrosHealthdUsbObserver::OnRemove", "input_parameters",
+    "mojom", "Send ash::cros_healthd::mojom::CrosHealthdUsbObserver::OnRemove", "input_parameters",
     [&](perfetto_libchrome::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto_libchrome::WriteIntoTracedValueWithFallback(
@@ -1761,13 +2012,13 @@ void CrosHealthdUsbObserverProxy::OnRemove(
   mojo::Message message(
       internal::kCrosHealthdUsbObserver_OnRemove_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::chromeos::cros_healthd::mojom::internal::CrosHealthdUsbObserver_OnRemove_Params_Data> params(
+      ::ash::cros_healthd::mojom::internal::CrosHealthdUsbObserver_OnRemove_Params_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
       typename decltype(params->info)::BaseType> info_fragment(
           params.message());
-  mojo::internal::Serialize<::chromeos::cros_healthd::mojom::UsbEventInfoDataView>(
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::UsbEventInfoDataView>(
       in_info, info_fragment);
   params->info.Set(
       info_fragment.is_null() ? nullptr : info_fragment.data());
@@ -1782,7 +2033,7 @@ void CrosHealthdUsbObserverProxy::OnRemove(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 // static
@@ -1874,7 +2125,7 @@ static const mojo::internal::GenericValidationInfo kCrosHealthdUsbObserverValida
 };
 
 bool CrosHealthdUsbObserverRequestValidator::Accept(mojo::Message* message) {
-  const char* name = ::chromeos::cros_healthd::mojom::CrosHealthdUsbObserver::Name_;
+  const char* name = ::ash::cros_healthd::mojom::CrosHealthdUsbObserver::Name_;
   return mojo::internal::ValidateRequestGenericPacked(message, name, kCrosHealthdUsbObserverValidationInfo);
 }
 
@@ -1882,18 +2133,18 @@ bool CrosHealthdUsbObserverRequestValidator::Accept(mojo::Message* message) {
 
 }  // namespace mojom
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 
 namespace mojo {
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::mojom::UsbEventInfo::DataView, ::chromeos::cros_healthd::mojom::UsbEventInfoPtr>::Read(
-    ::chromeos::cros_healthd::mojom::UsbEventInfo::DataView input,
-    ::chromeos::cros_healthd::mojom::UsbEventInfoPtr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::UsbEventInfo::DataView, ::ash::cros_healthd::mojom::UsbEventInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::UsbEventInfo::DataView input,
+    ::ash::cros_healthd::mojom::UsbEventInfoPtr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::mojom::UsbEventInfoPtr result(::chromeos::cros_healthd::mojom::UsbEventInfo::New());
+  ::ash::cros_healthd::mojom::UsbEventInfoPtr result(::ash::cros_healthd::mojom::UsbEventInfo::New());
   
       if (success && !input.ReadVendor(&result->vendor))
         success = false;
@@ -1916,7 +2167,7 @@ bool StructTraits<::chromeos::cros_healthd::mojom::UsbEventInfo::DataView, ::chr
 // separate .cc file to save compile time.
 
 
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace mojom {
 
@@ -2033,7 +2284,7 @@ CrosHealthdUsbObserverAsyncWaiter::~CrosHealthdUsbObserverAsyncWaiter() = defaul
 
 }  // namespace mojom
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 
 #if defined(__clang__)

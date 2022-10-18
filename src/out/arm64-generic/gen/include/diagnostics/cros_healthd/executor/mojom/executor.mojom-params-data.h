@@ -14,7 +14,7 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunused-private-field"
 #endif
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace mojom {
 namespace internal {
@@ -232,8 +232,7 @@ class  Executor_GetProcessIOContents_Params_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  uint32_t pid;
-  uint8_t padfinal_[4];
+  mojo::internal::Pointer<mojo::internal::Array_Data<uint32_t>> pids;
 
  private:
   friend class mojo::internal::MessageFragment<Executor_GetProcessIOContents_Params_Data>;
@@ -249,7 +248,7 @@ class  Executor_GetProcessIOContents_ResponseParams_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<mojo::internal::String_Data> contents;
+  mojo::internal::Pointer<mojo::internal::Map_Data<uint32_t, mojo::internal::Pointer<mojo::internal::String_Data>>> contents;
 
  private:
   friend class mojo::internal::MessageFragment<Executor_GetProcessIOContents_ResponseParams_Data>;
@@ -282,7 +281,7 @@ class  Executor_ReadMsr_ResponseParams_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::chromeos::cros_healthd::mojom::internal::NullableUint64_Data> value;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint64_Data> value;
 
  private:
   friend class mojo::internal::MessageFragment<Executor_ReadMsr_ResponseParams_Data>;
@@ -422,7 +421,7 @@ class Executor_GetFanSpeed_ResponseParamsDataView {
   [[nodiscard]] bool ReadResult(UserType* output) {
     
     auto* pointer = data_->result.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::ExecutedProcessResultDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::ExecutedProcessResultDataView>(
         pointer, output, message_);
   }
  private:
@@ -465,7 +464,7 @@ class Executor_GetInterfaces_ResponseParamsDataView {
   [[nodiscard]] bool ReadResult(UserType* output) {
     
     auto* pointer = data_->result.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::ExecutedProcessResultDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::ExecutedProcessResultDataView>(
         pointer, output, message_);
   }
  private:
@@ -519,7 +518,7 @@ class Executor_GetLink_ResponseParamsDataView {
   [[nodiscard]] bool ReadResult(UserType* output) {
     
     auto* pointer = data_->result.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::ExecutedProcessResultDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::ExecutedProcessResultDataView>(
         pointer, output, message_);
   }
  private:
@@ -573,7 +572,7 @@ class Executor_GetInfo_ResponseParamsDataView {
   [[nodiscard]] bool ReadResult(UserType* output) {
     
     auto* pointer = data_->result.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::ExecutedProcessResultDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::ExecutedProcessResultDataView>(
         pointer, output, message_);
   }
  private:
@@ -627,7 +626,7 @@ class Executor_GetScanDump_ResponseParamsDataView {
   [[nodiscard]] bool ReadResult(UserType* output) {
     
     auto* pointer = data_->result.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::ExecutedProcessResultDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::ExecutedProcessResultDataView>(
         pointer, output, message_);
   }
  private:
@@ -673,7 +672,7 @@ class Executor_RunMemtester_ResponseParamsDataView {
   [[nodiscard]] bool ReadResult(UserType* output) {
     
     auto* pointer = data_->result.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::ExecutedProcessResultDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::ExecutedProcessResultDataView>(
         pointer, output, message_);
   }
  private:
@@ -706,14 +705,22 @@ class Executor_GetProcessIOContents_ParamsDataView {
   Executor_GetProcessIOContents_ParamsDataView(
       internal::Executor_GetProcessIOContents_Params_Data* data,
       mojo::Message* message)
-      : data_(data) {}
+      : data_(data), message_(message) {}
 
   bool is_null() const { return !data_; }
-  uint32_t pid() const {
-    return data_->pid;
+  inline void GetPidsDataView(
+      mojo::ArrayDataView<uint32_t>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadPids(UserType* output) {
+    
+    auto* pointer = data_->pids.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<uint32_t>>(
+        pointer, output, message_);
   }
  private:
   internal::Executor_GetProcessIOContents_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
 };
 
 
@@ -729,13 +736,13 @@ class Executor_GetProcessIOContents_ResponseParamsDataView {
 
   bool is_null() const { return !data_; }
   inline void GetContentsDataView(
-      mojo::StringDataView* output);
+      mojo::MapDataView<uint32_t, mojo::StringDataView>* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadContents(UserType* output) {
     
     auto* pointer = data_->contents.Get();
-    return mojo::internal::Deserialize<mojo::StringDataView>(
+    return mojo::internal::Deserialize<mojo::MapDataView<uint32_t, mojo::StringDataView>>(
         pointer, output, message_);
   }
  private:
@@ -778,14 +785,14 @@ class Executor_ReadMsr_ResponseParamsDataView {
 
   bool is_null() const { return !data_; }
   inline void GetValueDataView(
-      ::chromeos::cros_healthd::mojom::NullableUint64DataView* output);
+      ::ash::cros_healthd::mojom::NullableUint64DataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadValue(UserType* output) {
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        ::chromeos::cros_healthd::mojom::NullableUint64DataView, UserType>(),
+        ::ash::cros_healthd::mojom::NullableUint64DataView, UserType>(),
     "Attempting to read the optional `value` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with absl::optional, ensure that any corresponding "
@@ -794,7 +801,7 @@ static_assert(
     "of `ReadValue if you're fine with null values being "
     "silently ignored in this case.");
     auto* pointer = data_->value.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::NullableUint64DataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::NullableUint64DataView>(
         pointer, output, message_);
   }
  private:
@@ -923,7 +930,7 @@ class Executor_GetLidAngle_ResponseParamsDataView {
   [[nodiscard]] bool ReadResult(UserType* output) {
     
     auto* pointer = data_->result.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::ExecutedProcessResultDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::ExecutedProcessResultDataView>(
         pointer, output, message_);
   }
  private:
@@ -1003,21 +1010,26 @@ inline void Executor_RunMemtester_ResponseParamsDataView::GetResultDataView(
 
 
 
+inline void Executor_GetProcessIOContents_ParamsDataView::GetPidsDataView(
+    mojo::ArrayDataView<uint32_t>* output) {
+  auto pointer = data_->pids.Get();
+  *output = mojo::ArrayDataView<uint32_t>(pointer, message_);
+}
 
 
 inline void Executor_GetProcessIOContents_ResponseParamsDataView::GetContentsDataView(
-    mojo::StringDataView* output) {
+    mojo::MapDataView<uint32_t, mojo::StringDataView>* output) {
   auto pointer = data_->contents.Get();
-  *output = mojo::StringDataView(pointer, message_);
+  *output = mojo::MapDataView<uint32_t, mojo::StringDataView>(pointer, message_);
 }
 
 
 
 
 inline void Executor_ReadMsr_ResponseParamsDataView::GetValueDataView(
-    ::chromeos::cros_healthd::mojom::NullableUint64DataView* output) {
+    ::ash::cros_healthd::mojom::NullableUint64DataView* output) {
   auto pointer = data_->value.Get();
-  *output = ::chromeos::cros_healthd::mojom::NullableUint64DataView(pointer, message_);
+  *output = ::ash::cros_healthd::mojom::NullableUint64DataView(pointer, message_);
 }
 
 
@@ -1049,7 +1061,7 @@ inline void Executor_GetLidAngle_ResponseParamsDataView::GetResultDataView(
 
 }  // namespace mojom
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 #if defined(__clang__)
 #pragma clang diagnostic pop

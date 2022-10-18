@@ -15,6 +15,7 @@
 #include <stdint.h>
 #include <utility>
 
+#include "base/debug/alias.h"
 #include "base/hash/md5_constexpr.h"
 #include "base/run_loop.h"
 #include "base/strings/string_number_conversions.h"
@@ -89,8 +90,10 @@ bool GenericPendingAssociatedReceiver::Validate(
 }
 const char GenericAssociatedInterface::Name_[] = "mojo_base.mojom.GenericAssociatedInterface";
 
-uint32_t GenericAssociatedInterface::MessageToStableIPCHash_(mojo::Message& message) {
-  return 0;
+GenericAssociatedInterface::IPCStableHashFunction GenericAssociatedInterface::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
 }
 
 
@@ -106,6 +109,9 @@ const char* GenericAssociatedInterface::MessageToMethodName_(mojo::Message& mess
   }
 #endif // BUILDFLAG(MOJO_TRACE_ENABLED)
 }
+
+#if !BUILDFLAG(IS_FUCHSIA)
+# endif // !BUILDFLAG(IS_FUCHSIA)
 
 GenericAssociatedInterfaceProxy::GenericAssociatedInterfaceProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {

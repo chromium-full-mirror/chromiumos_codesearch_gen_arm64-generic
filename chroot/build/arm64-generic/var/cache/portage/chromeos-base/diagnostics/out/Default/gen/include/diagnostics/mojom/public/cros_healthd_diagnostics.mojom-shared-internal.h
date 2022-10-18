@@ -20,7 +20,7 @@ namespace internal {
 class ValidationContext;
 }
 }
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace mojom {
 namespace internal {
@@ -67,6 +67,7 @@ struct DiagnosticRoutineEnum_Data {
       case 28:
       case 29:
       case 30:
+      case 31:
         return true;
     }
     return false;
@@ -502,6 +503,6 @@ const mojo::internal::UnserializedMessageContext::Tag
 }  // namespace internal
 }  // namespace mojom
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 #endif  // DIAGNOSTICS_MOJOM_PUBLIC_CROS_HEALTHD_DIAGNOSTICS_MOJOM_SHARED_INTERNAL_H_

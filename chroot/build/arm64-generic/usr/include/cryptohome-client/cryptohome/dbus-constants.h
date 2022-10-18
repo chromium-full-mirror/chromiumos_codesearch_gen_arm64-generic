@@ -58,6 +58,8 @@ inline constexpr char kPrepareGuestVault[] = "PrepareGuestVault";
 inline constexpr char kPrepareEphemeralVault[] = "PrepareEphemeralVault";
 inline constexpr char kPreparePersistentVault[] = "PreparePersistentVault";
 inline constexpr char kPrepareVaultForMigration[] = "PrepareVaultForMigration";
+inline constexpr char kPrepareAuthFactor[] = "PrepareAuthFactor";
+inline constexpr char kTerminateAuthFactor[] = "TerminateAuthFactor";
 inline constexpr char kAddAuthFactor[] = "AddAuthFactor";
 inline constexpr char kAuthenticateAuthFactor[] = "AuthenticateAuthFactor";
 inline constexpr char kUpdateAuthFactor[] = "UpdateAuthFactor";
@@ -110,6 +112,9 @@ inline constexpr char kCheckHealth[] = "CheckHealth";
 inline constexpr char kDircryptoMigrationProgress[] =
     "DircryptoMigrationProgress";
 inline constexpr char kLowDiskSpace[] = "LowDiskSpace";
+inline constexpr char kAuthScanResultSignal[] = "AuthScanResult";
+inline constexpr char kAuthEnrollmentProgressSignal[] =
+    "AuthEnrollmentProgress";
 
 }  // namespace user_data_auth
 

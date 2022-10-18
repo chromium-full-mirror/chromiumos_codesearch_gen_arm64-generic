@@ -31,7 +31,7 @@
 
 
 
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace mojom {
 class NullableUint8DataView;
@@ -50,49 +50,49 @@ class NullableDoubleDataView;
 
 }  // namespace mojom
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 namespace mojo {
 namespace internal {
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::NullableUint8DataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::NullableUint8_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::NullableUint8DataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::NullableUint8_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::NullableInt16DataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::NullableInt16_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::NullableInt16DataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::NullableInt16_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::NullableUint16DataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::NullableUint16_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::NullableUint16DataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::NullableUint16_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::NullableUint32DataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::NullableUint32_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::NullableUint32DataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::NullableUint32_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::NullableUint64DataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::NullableUint64_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::NullableUint64DataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::NullableUint64_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::NullableDoubleDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::NullableDouble_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::NullableDoubleDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::NullableDouble_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -101,7 +101,7 @@ struct MojomTypeTraits<::chromeos::cros_healthd::mojom::NullableDoubleDataView> 
 }  // namespace mojo
 
 
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace mojom {
 
@@ -222,7 +222,7 @@ class NullableDoubleDataView {
 
 }  // namespace mojom
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 namespace std {
 
@@ -234,26 +234,26 @@ namespace mojo {
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::NullableUint8DataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::NullableUint8DataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::NullableUint8DataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::NullableUint8DataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::NullableUint8_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::NullableUint8_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
     fragment->value = Traits::value(input);
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::NullableUint8_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::NullableUint8_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::NullableUint8DataView data_view(input, message);
+    ::ash::cros_healthd::mojom::NullableUint8DataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -264,26 +264,26 @@ struct Serializer<::chromeos::cros_healthd::mojom::NullableUint8DataView, MaybeC
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::NullableInt16DataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::NullableInt16DataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::NullableInt16DataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::NullableInt16DataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::NullableInt16_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::NullableInt16_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
     fragment->value = Traits::value(input);
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::NullableInt16_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::NullableInt16_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::NullableInt16DataView data_view(input, message);
+    ::ash::cros_healthd::mojom::NullableInt16DataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -294,26 +294,26 @@ struct Serializer<::chromeos::cros_healthd::mojom::NullableInt16DataView, MaybeC
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::NullableUint16DataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::NullableUint16DataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::NullableUint16DataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::NullableUint16DataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::NullableUint16_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::NullableUint16_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
     fragment->value = Traits::value(input);
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::NullableUint16_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::NullableUint16_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::NullableUint16DataView data_view(input, message);
+    ::ash::cros_healthd::mojom::NullableUint16DataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -324,26 +324,26 @@ struct Serializer<::chromeos::cros_healthd::mojom::NullableUint16DataView, Maybe
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::NullableUint32DataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::NullableUint32DataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::NullableUint32DataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::NullableUint32DataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::NullableUint32_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::NullableUint32_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
     fragment->value = Traits::value(input);
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::NullableUint32_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::NullableUint32_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::NullableUint32DataView data_view(input, message);
+    ::ash::cros_healthd::mojom::NullableUint32DataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -354,26 +354,26 @@ struct Serializer<::chromeos::cros_healthd::mojom::NullableUint32DataView, Maybe
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::NullableUint64DataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::NullableUint64DataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::NullableUint64DataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::NullableUint64DataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::NullableUint64_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::NullableUint64_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
     fragment->value = Traits::value(input);
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::NullableUint64_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::NullableUint64_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::NullableUint64DataView data_view(input, message);
+    ::ash::cros_healthd::mojom::NullableUint64DataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -384,26 +384,26 @@ struct Serializer<::chromeos::cros_healthd::mojom::NullableUint64DataView, Maybe
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::NullableDoubleDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::NullableDoubleDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::NullableDoubleDataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::NullableDoubleDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::NullableDouble_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::NullableDouble_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
     fragment->value = Traits::value(input);
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::NullableDouble_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::NullableDouble_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::NullableDoubleDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::NullableDoubleDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -413,7 +413,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::NullableDoubleDataView, Maybe
 }  // namespace mojo
 
 
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace mojom {
 
@@ -432,7 +432,7 @@ namespace mojom {
 
 }  // namespace mojom
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

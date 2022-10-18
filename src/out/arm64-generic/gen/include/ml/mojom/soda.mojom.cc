@@ -15,6 +15,7 @@
 #include <stdint.h>
 #include <utility>
 
+#include "base/debug/alias.h"
 #include "base/hash/md5_constexpr.h"
 #include "base/run_loop.h"
 #include "base/strings/string_number_conversions.h"
@@ -609,25 +610,21 @@ bool SpeechRecognizerEvent::Validate(
 }
 const char SodaClient::Name_[] = "chromeos.machine_learning.mojom.SodaClient";
 
-uint32_t SodaClient::MessageToStableIPCHash_(mojo::Message& message) {
+SodaClient::IPCStableHashFunction SodaClient::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
   switch (message.name()) {
     case internal::kSodaClient_OnStart_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::machine_learning::mojom::SodaClient::OnStart");
-      return value;
+      return &SodaClient::OnStart_Sym::IPCStableHash;
     }
     case internal::kSodaClient_OnStop_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::machine_learning::mojom::SodaClient::OnStop");
-      return value;
+      return &SodaClient::OnStop_Sym::IPCStableHash;
     }
     case internal::kSodaClient_OnSpeechRecognizerEvent_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::machine_learning::mojom::SodaClient::OnSpeechRecognizerEvent");
-      return value;
+      return &SodaClient::OnSpeechRecognizerEvent_Sym::IPCStableHash;
     }
   }
-  return 0;
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
 }
 
 
@@ -664,6 +661,48 @@ const char* SodaClient::MessageToMethodName_(mojo::Message& message) {
 #endif // BUILDFLAG(MOJO_TRACE_ENABLED)
 }
 
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t SodaClient::OnStart_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)chromeos::machine_learning::mojom::SodaClient::OnStart");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t SodaClient::OnStop_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)chromeos::machine_learning::mojom::SodaClient::OnStop");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t SodaClient::OnSpeechRecognizerEvent_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)chromeos::machine_learning::mojom::SodaClient::OnSpeechRecognizerEvent");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
+
 SodaClientProxy::SodaClientProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
 }
@@ -695,7 +734,7 @@ void SodaClientProxy::OnStart(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 void SodaClientProxy::OnStop(
@@ -725,7 +764,7 @@ void SodaClientProxy::OnStop(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 void SodaClientProxy::OnSpeechRecognizerEvent(
@@ -771,7 +810,7 @@ void SodaClientProxy::OnSpeechRecognizerEvent(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 // static
@@ -892,30 +931,24 @@ bool SodaClientRequestValidator::Accept(mojo::Message* message) {
 
 const char SodaRecognizer::Name_[] = "chromeos.machine_learning.mojom.SodaRecognizer";
 
-uint32_t SodaRecognizer::MessageToStableIPCHash_(mojo::Message& message) {
+SodaRecognizer::IPCStableHashFunction SodaRecognizer::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
   switch (message.name()) {
     case internal::kSodaRecognizer_AddAudio_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::machine_learning::mojom::SodaRecognizer::AddAudio");
-      return value;
+      return &SodaRecognizer::AddAudio_Sym::IPCStableHash;
     }
     case internal::kSodaRecognizer_Stop_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::machine_learning::mojom::SodaRecognizer::Stop");
-      return value;
+      return &SodaRecognizer::Stop_Sym::IPCStableHash;
     }
     case internal::kSodaRecognizer_Start_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::machine_learning::mojom::SodaRecognizer::Start");
-      return value;
+      return &SodaRecognizer::Start_Sym::IPCStableHash;
     }
     case internal::kSodaRecognizer_MarkDone_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::machine_learning::mojom::SodaRecognizer::MarkDone");
-      return value;
+      return &SodaRecognizer::MarkDone_Sym::IPCStableHash;
     }
   }
-  return 0;
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
 }
 
 
@@ -955,6 +988,61 @@ const char* SodaRecognizer::MessageToMethodName_(mojo::Message& message) {
   }
 #endif // BUILDFLAG(MOJO_TRACE_ENABLED)
 }
+
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t SodaRecognizer::AddAudio_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)chromeos::machine_learning::mojom::SodaRecognizer::AddAudio");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t SodaRecognizer::Stop_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)chromeos::machine_learning::mojom::SodaRecognizer::Stop");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t SodaRecognizer::Start_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)chromeos::machine_learning::mojom::SodaRecognizer::Start");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t SodaRecognizer::MarkDone_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)chromeos::machine_learning::mojom::SodaRecognizer::MarkDone");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
 
 SodaRecognizerProxy::SodaRecognizerProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
@@ -1007,7 +1095,7 @@ void SodaRecognizerProxy::AddAudio(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 void SodaRecognizerProxy::Stop(
@@ -1037,7 +1125,7 @@ void SodaRecognizerProxy::Stop(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 void SodaRecognizerProxy::Start(
@@ -1067,7 +1155,7 @@ void SodaRecognizerProxy::Start(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 void SodaRecognizerProxy::MarkDone(
@@ -1097,7 +1185,7 @@ void SodaRecognizerProxy::MarkDone(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 // static

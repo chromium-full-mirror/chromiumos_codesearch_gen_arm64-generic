@@ -4,7 +4,7 @@
 #ifndef LIBCHROME_BUILD_BRANDING_BUILDFLAGS_H_
 #define LIBCHROME_BUILD_BRANDING_BUILDFLAGS_H_
 
-#include "build/buildflag.h"
+#include "build/buildflag.h" // IWYU pragma: export
 
 #define BUILDFLAG_INTERNAL_CHROMIUM_BRANDING() (1)
 #define BUILDFLAG_INTERNAL_GOOGLE_CHROME_BRANDING() (0)

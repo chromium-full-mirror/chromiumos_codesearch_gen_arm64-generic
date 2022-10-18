@@ -17,6 +17,7 @@
 #  pragma GCC system_header
 #endif
 
+_LIBCPP_DISABLE_DEBUG_INFO
 _LIBCPP_BEGIN_NAMESPACE_STD
 
 #if _LIBCPP_STD_VER > 11
@@ -32,5 +33,6 @@ struct __is_transparent<_Tp, _Up,
 #endif
 
 _LIBCPP_END_NAMESPACE_STD
+_LIBCPP_ENABLE_DEBUG_INFO
 
 #endif // _LIBCPP___FUNCTIONAL_IS_TRANSPARENT

@@ -14,7 +14,7 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunused-private-field"
 #endif
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace mojom {
 namespace internal {
@@ -57,7 +57,7 @@ class WilcoEcObserver_OnEcEvent_ParamsDataView {
   [[nodiscard]] bool ReadEcEvent(UserType* output) {
     
     auto* pointer = data_->ec_event.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::mojom::EcEventDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::EcEventDataView>(
         pointer, output, message_);
   }
  private:
@@ -74,7 +74,7 @@ inline void WilcoEcObserver_OnEcEvent_ParamsDataView::GetEcEventDataView(
 
 }  // namespace mojom
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 #if defined(__clang__)
 #pragma clang diagnostic pop

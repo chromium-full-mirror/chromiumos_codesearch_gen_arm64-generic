@@ -29,6 +29,7 @@
 
 #if _LIBCPP_STD_VER > 17
 
+_LIBCPP_DISABLE_DEBUG_INFO
 _LIBCPP_BEGIN_NAMESPACE_STD
 
 namespace chrono
@@ -249,6 +250,7 @@ _LIBCPP_HIDE_FROM_ABI inline constexpr year_month_weekday_last& year_month_weekd
 } // namespace chrono
 
 _LIBCPP_END_NAMESPACE_STD
+_LIBCPP_ENABLE_DEBUG_INFO
 
 #endif // _LIBCPP_STD_VER > 17
 

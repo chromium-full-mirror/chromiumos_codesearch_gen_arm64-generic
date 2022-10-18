@@ -322,6 +322,39 @@ class  CameraHalServer_GetAutoFramingSupported_ResponseParams_Data {
 };
 static_assert(sizeof(CameraHalServer_GetAutoFramingSupported_ResponseParams_Data) == 16,
               "Bad sizeof(CameraHalServer_GetAutoFramingSupported_ResponseParams_Data)");
+class  CameraHalServer_SetCameraEffect_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::cros::mojom::internal::EffectsConfig_Data> config;
+
+ private:
+  friend class mojo::internal::MessageFragment<CameraHalServer_SetCameraEffect_Params_Data>;
+
+  CameraHalServer_SetCameraEffect_Params_Data();
+  ~CameraHalServer_SetCameraEffect_Params_Data() = delete;
+};
+static_assert(sizeof(CameraHalServer_SetCameraEffect_Params_Data) == 16,
+              "Bad sizeof(CameraHalServer_SetCameraEffect_Params_Data)");
+class  CameraHalServer_SetCameraEffect_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t result;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<CameraHalServer_SetCameraEffect_ResponseParams_Data>;
+
+  CameraHalServer_SetCameraEffect_ResponseParams_Data();
+  ~CameraHalServer_SetCameraEffect_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(CameraHalServer_SetCameraEffect_ResponseParams_Data) == 16,
+              "Bad sizeof(CameraHalServer_SetCameraEffect_ResponseParams_Data)");
 class  CameraHalServerCallbacks_CameraDeviceActivityChange_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -872,6 +905,59 @@ class CameraHalServer_GetAutoFramingSupported_ResponseParamsDataView {
 
 
 
+class CameraHalServer_SetCameraEffect_ParamsDataView {
+ public:
+  CameraHalServer_SetCameraEffect_ParamsDataView() = default;
+
+  CameraHalServer_SetCameraEffect_ParamsDataView(
+      internal::CameraHalServer_SetCameraEffect_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetConfigDataView(
+      ::cros::mojom::EffectsConfigDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadConfig(UserType* output) {
+    
+    auto* pointer = data_->config.Get();
+    return mojo::internal::Deserialize<::cros::mojom::EffectsConfigDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::CameraHalServer_SetCameraEffect_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
+class CameraHalServer_SetCameraEffect_ResponseParamsDataView {
+ public:
+  CameraHalServer_SetCameraEffect_ResponseParamsDataView() = default;
+
+  CameraHalServer_SetCameraEffect_ResponseParamsDataView(
+      internal::CameraHalServer_SetCameraEffect_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadResult(UserType* output) const {
+    auto data_value = data_->result;
+    return mojo::internal::Deserialize<::cros::mojom::SetEffectResult>(
+        data_value, output);
+  }
+  ::cros::mojom::SetEffectResult result() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::cros::mojom::SetEffectResult>(data_->result));
+  }
+ private:
+  internal::CameraHalServer_SetCameraEffect_ResponseParams_Data* data_ = nullptr;
+};
+
+
+
 class CameraHalServerCallbacks_CameraDeviceActivityChange_ParamsDataView {
  public:
   CameraHalServerCallbacks_CameraDeviceActivityChange_ParamsDataView() = default;
@@ -1033,6 +1119,15 @@ inline void CameraHalDispatcher_RegisterSensorClientWithToken_ParamsDataView::Ge
 
 
 
+
+
+
+
+inline void CameraHalServer_SetCameraEffect_ParamsDataView::GetConfigDataView(
+    ::cros::mojom::EffectsConfigDataView* output) {
+  auto pointer = data_->config.Get();
+  *output = ::cros::mojom::EffectsConfigDataView(pointer, message_);
+}
 
 
 

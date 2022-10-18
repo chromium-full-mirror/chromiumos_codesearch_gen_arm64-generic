@@ -32,7 +32,7 @@ class CrosDisksInterface {
       const std::vector<std::string>& in_options) = 0;
   virtual void UnmountAll() = 0;
   virtual std::vector<std::string> EnumerateDevices() = 0;
-  virtual std::vector<std::tuple<uint32_t, std::string, uint32_t, std::string>> EnumerateMountEntries() = 0;
+  virtual std::vector<std::tuple<uint32_t, std::string, uint32_t, std::string, bool>> EnumerateMountEntries() = 0;
   virtual bool GetDeviceProperties(
       brillo::ErrorPtr* error,
       const std::string& in_device_path,
@@ -162,27 +162,30 @@ class CrosDisksAdaptor {
       uint32_t in_percent,
       const std::string& in_source_path,
       uint32_t in_source_type,
-      const std::string& in_mount_path) {
+      const std::string& in_mount_path,
+      bool in_read_only) {
     auto signal = signal_MountProgress_.lock();
     if (signal)
-      signal->Send(in_percent, in_source_path, in_source_type, in_mount_path);
+      signal->Send(in_percent, in_source_path, in_source_type, in_mount_path, in_read_only);
   }
   void SendMountCompletedSignal(
       uint32_t in_status,
       const std::string& in_source_path,
       uint32_t in_source_type,
-      const std::string& in_mount_path) {
+      const std::string& in_mount_path,
+      bool in_read_only) {
     auto signal = signal_MountCompleted_.lock();
     if (signal)
-      signal->Send(in_status, in_source_path, in_source_type, in_mount_path);
+      signal->Send(in_status, in_source_path, in_source_type, in_mount_path, in_read_only);
   }
   void SendUnmountedSignal(
       const std::string& in_source_path,
       uint32_t in_source_type,
-      const std::string& in_mount_path) {
+      const std::string& in_mount_path,
+      bool in_read_only) {
     auto signal = signal_Unmounted_.lock();
     if (signal)
-      signal->Send(in_source_path, in_source_type, in_mount_path);
+      signal->Send(in_source_path, in_source_type, in_mount_path, in_read_only);
   }
   void SendFormatCompletedSignal(
       uint32_t in_status,
@@ -218,7 +221,7 @@ class CrosDisksAdaptor {
         "      <arg name=\"devices\" type=\"as\" direction=\"out\"/>\n"
         "    </method>\n"
         "    <method name=\"EnumerateMountEntries\">\n"
-        "      <arg name=\"mount_entries\" type=\"a(usus)\" direction=\"out\"/>\n"
+        "      <arg name=\"mount_entries\" type=\"a(ususb)\" direction=\"out\"/>\n"
         "    </method>\n"
         "    <method name=\"GetDeviceProperties\">\n"
         "      <arg name=\"device_path\" type=\"s\" direction=\"in\"/>\n"
@@ -266,17 +269,20 @@ class CrosDisksAdaptor {
         "      <arg name=\"source_path\" type=\"s\"/>\n"
         "      <arg name=\"source_type\" type=\"u\"/>\n"
         "      <arg name=\"mount_path\" type=\"s\"/>\n"
+        "      <arg name=\"read_only\" type=\"b\"/>\n"
         "    </signal>\n"
         "    <signal name=\"MountCompleted\">\n"
         "      <arg name=\"status\" type=\"u\"/>\n"
         "      <arg name=\"source_path\" type=\"s\"/>\n"
         "      <arg name=\"source_type\" type=\"u\"/>\n"
         "      <arg name=\"mount_path\" type=\"s\"/>\n"
+        "      <arg name=\"read_only\" type=\"b\"/>\n"
         "    </signal>\n"
         "    <signal name=\"Unmounted\">\n"
         "      <arg name=\"source_path\" type=\"s\"/>\n"
         "      <arg name=\"source_type\" type=\"u\"/>\n"
         "      <arg name=\"mount_path\" type=\"s\"/>\n"
+        "      <arg name=\"read_only\" type=\"b\"/>\n"
         "    </signal>\n"
         "    <signal name=\"FormatCompleted\">\n"
         "      <arg name=\"status\" type=\"u\"/>\n"
@@ -318,20 +324,23 @@ class CrosDisksAdaptor {
       uint32_t /*percent*/,
       std::string /*source_path*/,
       uint32_t /*source_type*/,
-      std::string /*mount_path*/>;
+      std::string /*mount_path*/,
+      bool /*read_only*/>;
   std::weak_ptr<SignalMountProgressType> signal_MountProgress_;
 
   using SignalMountCompletedType = brillo::dbus_utils::DBusSignal<
       uint32_t /*status*/,
       std::string /*source_path*/,
       uint32_t /*source_type*/,
-      std::string /*mount_path*/>;
+      std::string /*mount_path*/,
+      bool /*read_only*/>;
   std::weak_ptr<SignalMountCompletedType> signal_MountCompleted_;
 
   using SignalUnmountedType = brillo::dbus_utils::DBusSignal<
       std::string /*source_path*/,
       uint32_t /*source_type*/,
-      std::string /*mount_path*/>;
+      std::string /*mount_path*/,
+      bool /*read_only*/>;
   std::weak_ptr<SignalUnmountedType> signal_Unmounted_;
 
   using SignalFormatCompletedType = brillo::dbus_utils::DBusSignal<

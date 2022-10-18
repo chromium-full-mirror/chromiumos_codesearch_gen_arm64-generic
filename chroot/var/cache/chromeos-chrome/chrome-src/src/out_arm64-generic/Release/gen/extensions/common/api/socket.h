@@ -1,4 +1,4 @@
-// Copyright 2022 The Chromium Authors. All rights reserved.
+// Copyright 2022 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -318,7 +318,7 @@ struct SecureOptions {
   // thisSecureOptions object.
   base::Value::Dict ToValue() const;
 
-  std::unique_ptr<TLSVersionConstraints> tls_version;
+  absl::optional<TLSVersionConstraints> tls_version;
 
 };
 
@@ -339,7 +339,7 @@ struct Params {
   SocketType type;
 
   // The socket options.
-  std::unique_ptr<CreateOptions> options;
+  absl::optional<CreateOptions> options;
 
 
  private:
@@ -839,7 +839,7 @@ struct Params {
   int socket_id;
 
   // Constraints and parameters for the TLS connection.
-  std::unique_ptr<SecureOptions> options;
+  absl::optional<SecureOptions> options;
 
 
  private:

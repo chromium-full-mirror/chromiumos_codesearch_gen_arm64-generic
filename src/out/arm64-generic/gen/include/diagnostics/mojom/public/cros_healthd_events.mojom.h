@@ -36,7 +36,7 @@
 
 
 
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace mojom {
 
@@ -51,8 +51,10 @@ class CrosHealthdBluetoothObserverRequestValidator;
 class  CrosHealthdBluetoothObserver
     : public CrosHealthdBluetoothObserverInterfaceBase {
  public:
+  using IPCStableHashFunction = uint32_t(*)();
+
   static const char Name_[];
-  static uint32_t MessageToStableIPCHash_(mojo::Message& message);
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 0;
   static constexpr bool PassesAssociatedKinds_ = false;
@@ -75,6 +77,29 @@ class  CrosHealthdBluetoothObserver
     kOnDeviceRemovedMinVersion = 0,
     kOnDevicePropertyChangedMinVersion = 0,
   };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+  struct OnAdapterAdded_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct OnAdapterRemoved_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct OnAdapterPropertyChanged_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct OnDeviceAdded_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct OnDeviceRemoved_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct OnDevicePropertyChanged_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+#endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~CrosHealthdBluetoothObserver() = default;
 
   
@@ -107,8 +132,10 @@ class CrosHealthdLidObserverRequestValidator;
 class  CrosHealthdLidObserver
     : public CrosHealthdLidObserverInterfaceBase {
  public:
+  using IPCStableHashFunction = uint32_t(*)();
+
   static const char Name_[];
-  static uint32_t MessageToStableIPCHash_(mojo::Message& message);
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 0;
   static constexpr bool PassesAssociatedKinds_ = false;
@@ -127,6 +154,17 @@ class  CrosHealthdLidObserver
     kOnLidClosedMinVersion = 0,
     kOnLidOpenedMinVersion = 0,
   };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+  struct OnLidClosed_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct OnLidOpened_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+#endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~CrosHealthdLidObserver() = default;
 
   
@@ -147,8 +185,10 @@ class CrosHealthdPowerObserverRequestValidator;
 class  CrosHealthdPowerObserver
     : public CrosHealthdPowerObserverInterfaceBase {
  public:
+  using IPCStableHashFunction = uint32_t(*)();
+
   static const char Name_[];
-  static uint32_t MessageToStableIPCHash_(mojo::Message& message);
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 0;
   static constexpr bool PassesAssociatedKinds_ = false;
@@ -169,6 +209,23 @@ class  CrosHealthdPowerObserver
     kOnOsSuspendMinVersion = 0,
     kOnOsResumeMinVersion = 0,
   };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+  struct OnAcInserted_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct OnAcRemoved_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct OnOsSuspend_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct OnOsResume_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+#endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~CrosHealthdPowerObserver() = default;
 
   
@@ -195,8 +252,10 @@ class CrosHealthdAudioObserverRequestValidator;
 class  CrosHealthdAudioObserver
     : public CrosHealthdAudioObserverInterfaceBase {
  public:
+  using IPCStableHashFunction = uint32_t(*)();
+
   static const char Name_[];
-  static uint32_t MessageToStableIPCHash_(mojo::Message& message);
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 0;
   static constexpr bool PassesAssociatedKinds_ = false;
@@ -215,6 +274,17 @@ class  CrosHealthdAudioObserver
     kOnUnderrunMinVersion = 0,
     kOnSevereUnderrunMinVersion = 0,
   };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+  struct OnUnderrun_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct OnSevereUnderrun_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+#endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~CrosHealthdAudioObserver() = default;
 
   
@@ -235,8 +305,10 @@ class CrosHealthdThunderboltObserverRequestValidator;
 class  CrosHealthdThunderboltObserver
     : public CrosHealthdThunderboltObserverInterfaceBase {
  public:
+  using IPCStableHashFunction = uint32_t(*)();
+
   static const char Name_[];
-  static uint32_t MessageToStableIPCHash_(mojo::Message& message);
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 0;
   static constexpr bool PassesAssociatedKinds_ = false;
@@ -257,6 +329,23 @@ class  CrosHealthdThunderboltObserver
     kOnAuthorizedMinVersion = 0,
     kOnUnAuthorizedMinVersion = 0,
   };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+  struct OnAdd_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct OnRemove_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct OnAuthorized_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct OnUnAuthorized_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+#endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~CrosHealthdThunderboltObserver() = default;
 
   
@@ -283,8 +372,10 @@ class CrosHealthdUsbObserverRequestValidator;
 class  CrosHealthdUsbObserver
     : public CrosHealthdUsbObserverInterfaceBase {
  public:
+  using IPCStableHashFunction = uint32_t(*)();
+
   static const char Name_[];
-  static uint32_t MessageToStableIPCHash_(mojo::Message& message);
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 0;
   static constexpr bool PassesAssociatedKinds_ = false;
@@ -303,6 +394,17 @@ class  CrosHealthdUsbObserver
     kOnAddMinVersion = 0,
     kOnRemoveMinVersion = 0,
   };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+  struct OnAdd_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct OnRemove_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+#endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~CrosHealthdUsbObserver() = default;
 
   
@@ -906,43 +1008,43 @@ bool operator<(const T& lhs, const T& rhs) {
 
 }  // namespace mojom
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 namespace mojo {
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::UsbEventInfo::DataView,
-                                         ::chromeos::cros_healthd::mojom::UsbEventInfoPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::UsbEventInfoPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::UsbEventInfoPtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::UsbEventInfo::DataView,
+                                         ::ash::cros_healthd::mojom::UsbEventInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::UsbEventInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::UsbEventInfoPtr* output) { output->reset(); }
 
-  static const decltype(::chromeos::cros_healthd::mojom::UsbEventInfo::vendor)& vendor(
-      const ::chromeos::cros_healthd::mojom::UsbEventInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::UsbEventInfo::vendor)& vendor(
+      const ::ash::cros_healthd::mojom::UsbEventInfoPtr& input) {
     return input->vendor;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::UsbEventInfo::name)& name(
-      const ::chromeos::cros_healthd::mojom::UsbEventInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::UsbEventInfo::name)& name(
+      const ::ash::cros_healthd::mojom::UsbEventInfoPtr& input) {
     return input->name;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::UsbEventInfo::vid) vid(
-      const ::chromeos::cros_healthd::mojom::UsbEventInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::UsbEventInfo::vid) vid(
+      const ::ash::cros_healthd::mojom::UsbEventInfoPtr& input) {
     return input->vid;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::UsbEventInfo::pid) pid(
-      const ::chromeos::cros_healthd::mojom::UsbEventInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::UsbEventInfo::pid) pid(
+      const ::ash::cros_healthd::mojom::UsbEventInfoPtr& input) {
     return input->pid;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::UsbEventInfo::categories)& categories(
-      const ::chromeos::cros_healthd::mojom::UsbEventInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::UsbEventInfo::categories)& categories(
+      const ::ash::cros_healthd::mojom::UsbEventInfoPtr& input) {
     return input->categories;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::UsbEventInfo::DataView input, ::chromeos::cros_healthd::mojom::UsbEventInfoPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::UsbEventInfo::DataView input, ::ash::cros_healthd::mojom::UsbEventInfoPtr* output);
 };
 
 }  // namespace mojo

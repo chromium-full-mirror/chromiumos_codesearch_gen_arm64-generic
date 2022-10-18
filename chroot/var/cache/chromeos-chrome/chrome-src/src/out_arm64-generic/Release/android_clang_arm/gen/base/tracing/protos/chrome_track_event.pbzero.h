@@ -28,10 +28,26 @@ class RenderFrameHost;
 class RenderProcessHost;
 class SiteInstance;
 class SiteInstanceGroup;
+namespace perfetto_pbzero_enum_AndroidToolbar {
+enum AllowCaptureReason : int32_t;
+}  // namespace perfetto_pbzero_enum_AndroidToolbar
+using AndroidToolbar_AllowCaptureReason = perfetto_pbzero_enum_AndroidToolbar::AllowCaptureReason;
+namespace perfetto_pbzero_enum_AndroidToolbar {
+enum BlockCaptureReason : int32_t;
+}  // namespace perfetto_pbzero_enum_AndroidToolbar
+using AndroidToolbar_BlockCaptureReason = perfetto_pbzero_enum_AndroidToolbar::BlockCaptureReason;
+namespace perfetto_pbzero_enum_AndroidToolbar {
+enum SnapshotDifference : int32_t;
+}  // namespace perfetto_pbzero_enum_AndroidToolbar
+using AndroidToolbar_SnapshotDifference = perfetto_pbzero_enum_AndroidToolbar::SnapshotDifference;
 namespace perfetto_pbzero_enum_BackForwardCacheCanStoreDocumentResult {
 enum BackForwardCacheNotRestoredReason : int32_t;
 }  // namespace perfetto_pbzero_enum_BackForwardCacheCanStoreDocumentResult
 using BackForwardCacheCanStoreDocumentResult_BackForwardCacheNotRestoredReason = perfetto_pbzero_enum_BackForwardCacheCanStoreDocumentResult::BackForwardCacheNotRestoredReason;
+namespace perfetto_pbzero_enum_BlinkTaskScope {
+enum TaskScopeType : int32_t;
+}  // namespace perfetto_pbzero_enum_BlinkTaskScope
+using BlinkTaskScope_TaskScopeType = perfetto_pbzero_enum_BlinkTaskScope::TaskScopeType;
 namespace perfetto_pbzero_enum_ChildProcessLauncherPriority {
 enum Importance : int32_t;
 }  // namespace perfetto_pbzero_enum_ChildProcessLauncherPriority
@@ -57,6 +73,10 @@ enum EventType : int32_t;
 }  // namespace perfetto_pbzero_enum_EventLatency
 using EventLatency_EventType = perfetto_pbzero_enum_EventLatency::EventType;
 enum FrameDeleteIntention : int32_t;
+namespace perfetto_pbzero_enum_FrameTreeNodeInfo {
+enum FrameType : int32_t;
+}  // namespace perfetto_pbzero_enum_FrameTreeNodeInfo
+using FrameTreeNodeInfo_FrameType = perfetto_pbzero_enum_FrameTreeNodeInfo::FrameType;
 enum MemoryPressureLevel : int32_t;
 namespace perfetto_pbzero_enum_ProcessSingleton {
 enum RemoteHungProcessTerminateReason : int32_t;
@@ -82,6 +102,10 @@ namespace perfetto_pbzero_enum_SequenceManagerTask {
 enum Priority : int32_t;
 }  // namespace perfetto_pbzero_enum_SequenceManagerTask
 using SequenceManagerTask_Priority = perfetto_pbzero_enum_SequenceManagerTask::Priority;
+namespace perfetto_pbzero_enum_SequenceManagerTask {
+enum QueueName : int32_t;
+}  // namespace perfetto_pbzero_enum_SequenceManagerTask
+using SequenceManagerTask_QueueName = perfetto_pbzero_enum_SequenceManagerTask::QueueName;
 enum ShouldSwapBrowsingInstance : int32_t;
 
 enum ChromeAppState : int32_t {
@@ -293,6 +317,169 @@ const char* DeviceThermalState_Name(::perfetto::protos::pbzero::DeviceThermalSta
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
 
+namespace perfetto_pbzero_enum_AndroidToolbar {
+enum BlockCaptureReason : int32_t {
+  BLOCKED_UNKNOWN = 0,
+  BLOCKED_TOOLBAR_OR_RESULT_NULL = 1,
+  BLOCKED_VIEW_NOT_DIRTY = 2,
+  BLOCKED_SNAPSHOT_SAME = 3,
+  BLOCKED_URL_BAR_HAS_FOCUS = 4,
+  BLOCKED_URL_BAR_FOCUS_IN_PROGRESS = 5,
+  BLOCKED_OPTIONAL_BUTTON_ANIMATION_IN_PROGRESS = 6,
+  BLOCKED_STATUS_ICON_ANIMATION_IN_PROGRESS = 7,
+  BLOCKED_SCROLL_ABLATION = 8,
+  BLOCKED_BROWSER_CONTROLS_LOCKED = 9,
+};
+} // namespace perfetto_pbzero_enum_AndroidToolbar
+using AndroidToolbar_BlockCaptureReason = perfetto_pbzero_enum_AndroidToolbar::BlockCaptureReason;
+
+
+constexpr AndroidToolbar_BlockCaptureReason AndroidToolbar_BlockCaptureReason_MIN = AndroidToolbar_BlockCaptureReason::BLOCKED_UNKNOWN;
+constexpr AndroidToolbar_BlockCaptureReason AndroidToolbar_BlockCaptureReason_MAX = AndroidToolbar_BlockCaptureReason::BLOCKED_BROWSER_CONTROLS_LOCKED;
+
+
+PERFETTO_PROTOZERO_CONSTEXPR14_OR_INLINE
+const char* AndroidToolbar_BlockCaptureReason_Name(::perfetto::protos::pbzero::AndroidToolbar_BlockCaptureReason value) {
+  switch (value) {
+  case ::perfetto::protos::pbzero::AndroidToolbar_BlockCaptureReason::BLOCKED_UNKNOWN:
+    return "BLOCKED_UNKNOWN";
+
+  case ::perfetto::protos::pbzero::AndroidToolbar_BlockCaptureReason::BLOCKED_TOOLBAR_OR_RESULT_NULL:
+    return "BLOCKED_TOOLBAR_OR_RESULT_NULL";
+
+  case ::perfetto::protos::pbzero::AndroidToolbar_BlockCaptureReason::BLOCKED_VIEW_NOT_DIRTY:
+    return "BLOCKED_VIEW_NOT_DIRTY";
+
+  case ::perfetto::protos::pbzero::AndroidToolbar_BlockCaptureReason::BLOCKED_SNAPSHOT_SAME:
+    return "BLOCKED_SNAPSHOT_SAME";
+
+  case ::perfetto::protos::pbzero::AndroidToolbar_BlockCaptureReason::BLOCKED_URL_BAR_HAS_FOCUS:
+    return "BLOCKED_URL_BAR_HAS_FOCUS";
+
+  case ::perfetto::protos::pbzero::AndroidToolbar_BlockCaptureReason::BLOCKED_URL_BAR_FOCUS_IN_PROGRESS:
+    return "BLOCKED_URL_BAR_FOCUS_IN_PROGRESS";
+
+  case ::perfetto::protos::pbzero::AndroidToolbar_BlockCaptureReason::BLOCKED_OPTIONAL_BUTTON_ANIMATION_IN_PROGRESS:
+    return "BLOCKED_OPTIONAL_BUTTON_ANIMATION_IN_PROGRESS";
+
+  case ::perfetto::protos::pbzero::AndroidToolbar_BlockCaptureReason::BLOCKED_STATUS_ICON_ANIMATION_IN_PROGRESS:
+    return "BLOCKED_STATUS_ICON_ANIMATION_IN_PROGRESS";
+
+  case ::perfetto::protos::pbzero::AndroidToolbar_BlockCaptureReason::BLOCKED_SCROLL_ABLATION:
+    return "BLOCKED_SCROLL_ABLATION";
+
+  case ::perfetto::protos::pbzero::AndroidToolbar_BlockCaptureReason::BLOCKED_BROWSER_CONTROLS_LOCKED:
+    return "BLOCKED_BROWSER_CONTROLS_LOCKED";
+  }
+  return "PBZERO_UNKNOWN_ENUM_VALUE";
+}
+
+namespace perfetto_pbzero_enum_AndroidToolbar {
+enum AllowCaptureReason : int32_t {
+  ALLOWED_UNKNOWN = 0,
+  ALLOWED_FORCE_CAPTURE = 1,
+  ALLOWED_SNAPSHOT_DIFFERENCE = 2,
+};
+} // namespace perfetto_pbzero_enum_AndroidToolbar
+using AndroidToolbar_AllowCaptureReason = perfetto_pbzero_enum_AndroidToolbar::AllowCaptureReason;
+
+
+constexpr AndroidToolbar_AllowCaptureReason AndroidToolbar_AllowCaptureReason_MIN = AndroidToolbar_AllowCaptureReason::ALLOWED_UNKNOWN;
+constexpr AndroidToolbar_AllowCaptureReason AndroidToolbar_AllowCaptureReason_MAX = AndroidToolbar_AllowCaptureReason::ALLOWED_SNAPSHOT_DIFFERENCE;
+
+
+PERFETTO_PROTOZERO_CONSTEXPR14_OR_INLINE
+const char* AndroidToolbar_AllowCaptureReason_Name(::perfetto::protos::pbzero::AndroidToolbar_AllowCaptureReason value) {
+  switch (value) {
+  case ::perfetto::protos::pbzero::AndroidToolbar_AllowCaptureReason::ALLOWED_UNKNOWN:
+    return "ALLOWED_UNKNOWN";
+
+  case ::perfetto::protos::pbzero::AndroidToolbar_AllowCaptureReason::ALLOWED_FORCE_CAPTURE:
+    return "ALLOWED_FORCE_CAPTURE";
+
+  case ::perfetto::protos::pbzero::AndroidToolbar_AllowCaptureReason::ALLOWED_SNAPSHOT_DIFFERENCE:
+    return "ALLOWED_SNAPSHOT_DIFFERENCE";
+  }
+  return "PBZERO_UNKNOWN_ENUM_VALUE";
+}
+
+namespace perfetto_pbzero_enum_AndroidToolbar {
+enum SnapshotDifference : int32_t {
+  DIFF_NONE = 0,
+  DIFF_NULL = 1,
+  DIFF_TINT = 2,
+  DIFF_TAB_COUNT = 3,
+  DIFF_OPTIONAL_BUTTON_DATA = 4,
+  DIFF_VISUAL_STATE = 5,
+  DIFF_SECURITY_ICON = 6,
+  DIFF_SHOWING_UPDATE_BADGE = 7,
+  DIFF_PAINT_PREVIEW = 8,
+  DIFF_PROGRESS = 9,
+  DIFF_LOCATION_BAR_WIDTH = 10,
+  DIFF_URL_TEXT = 11,
+  DIFF_HOME_BUTTON_COLOR = 12,
+  TITLE_TEXT = 13,
+  CCT_ANIMATION = 14,
+};
+} // namespace perfetto_pbzero_enum_AndroidToolbar
+using AndroidToolbar_SnapshotDifference = perfetto_pbzero_enum_AndroidToolbar::SnapshotDifference;
+
+
+constexpr AndroidToolbar_SnapshotDifference AndroidToolbar_SnapshotDifference_MIN = AndroidToolbar_SnapshotDifference::DIFF_NONE;
+constexpr AndroidToolbar_SnapshotDifference AndroidToolbar_SnapshotDifference_MAX = AndroidToolbar_SnapshotDifference::CCT_ANIMATION;
+
+
+PERFETTO_PROTOZERO_CONSTEXPR14_OR_INLINE
+const char* AndroidToolbar_SnapshotDifference_Name(::perfetto::protos::pbzero::AndroidToolbar_SnapshotDifference value) {
+  switch (value) {
+  case ::perfetto::protos::pbzero::AndroidToolbar_SnapshotDifference::DIFF_NONE:
+    return "DIFF_NONE";
+
+  case ::perfetto::protos::pbzero::AndroidToolbar_SnapshotDifference::DIFF_NULL:
+    return "DIFF_NULL";
+
+  case ::perfetto::protos::pbzero::AndroidToolbar_SnapshotDifference::DIFF_TINT:
+    return "DIFF_TINT";
+
+  case ::perfetto::protos::pbzero::AndroidToolbar_SnapshotDifference::DIFF_TAB_COUNT:
+    return "DIFF_TAB_COUNT";
+
+  case ::perfetto::protos::pbzero::AndroidToolbar_SnapshotDifference::DIFF_OPTIONAL_BUTTON_DATA:
+    return "DIFF_OPTIONAL_BUTTON_DATA";
+
+  case ::perfetto::protos::pbzero::AndroidToolbar_SnapshotDifference::DIFF_VISUAL_STATE:
+    return "DIFF_VISUAL_STATE";
+
+  case ::perfetto::protos::pbzero::AndroidToolbar_SnapshotDifference::DIFF_SECURITY_ICON:
+    return "DIFF_SECURITY_ICON";
+
+  case ::perfetto::protos::pbzero::AndroidToolbar_SnapshotDifference::DIFF_SHOWING_UPDATE_BADGE:
+    return "DIFF_SHOWING_UPDATE_BADGE";
+
+  case ::perfetto::protos::pbzero::AndroidToolbar_SnapshotDifference::DIFF_PAINT_PREVIEW:
+    return "DIFF_PAINT_PREVIEW";
+
+  case ::perfetto::protos::pbzero::AndroidToolbar_SnapshotDifference::DIFF_PROGRESS:
+    return "DIFF_PROGRESS";
+
+  case ::perfetto::protos::pbzero::AndroidToolbar_SnapshotDifference::DIFF_LOCATION_BAR_WIDTH:
+    return "DIFF_LOCATION_BAR_WIDTH";
+
+  case ::perfetto::protos::pbzero::AndroidToolbar_SnapshotDifference::DIFF_URL_TEXT:
+    return "DIFF_URL_TEXT";
+
+  case ::perfetto::protos::pbzero::AndroidToolbar_SnapshotDifference::DIFF_HOME_BUTTON_COLOR:
+    return "DIFF_HOME_BUTTON_COLOR";
+
+  case ::perfetto::protos::pbzero::AndroidToolbar_SnapshotDifference::TITLE_TEXT:
+    return "TITLE_TEXT";
+
+  case ::perfetto::protos::pbzero::AndroidToolbar_SnapshotDifference::CCT_ANIMATION:
+    return "CCT_ANIMATION";
+  }
+  return "PBZERO_UNKNOWN_ENUM_VALUE";
+}
+
 namespace perfetto_pbzero_enum_SequenceManagerTask {
 enum Priority : int32_t {
   UNKNOWN = 0,
@@ -338,6 +525,231 @@ const char* SequenceManagerTask_Priority_Name(::perfetto::protos::pbzero::Sequen
 
   case ::perfetto::protos::pbzero::SequenceManagerTask_Priority::BEST_EFFORT_PRIORITY:
     return "BEST_EFFORT_PRIORITY";
+  }
+  return "PBZERO_UNKNOWN_ENUM_VALUE";
+}
+
+namespace perfetto_pbzero_enum_SequenceManagerTask {
+enum QueueName : int32_t {
+  UNKNOWN_TQ = 0,
+  DEFAULT_TQ = 1,
+  TASK_ENVIRONMENT_DEFAULT_TQ = 2,
+  TEST2_TQ = 3,
+  TEST_TQ = 4,
+  CONTROL_TQ = 5,
+  SUBTHREAD_CONTROL_TQ = 6,
+  SUBTHREAD_DEFAULT_TQ = 7,
+  SUBTHREAD_INPUT_TQ = 8,
+  UI_BEST_EFFORT_TQ = 9,
+  UI_BOOTSTRAP_TQ = 10,
+  UI_CONTROL_TQ = 11,
+  UI_DEFAULT_TQ = 12,
+  UI_NAVIGATION_NETWORK_RESPONSE_TQ = 13,
+  UI_RUN_ALL_PENDING_TQ = 14,
+  UI_SERVICE_WORKER_STORAGE_CONTROL_RESPONSE_TQ = 15,
+  UI_THREAD_TQ = 16,
+  UI_USER_BLOCKING_TQ = 17,
+  UI_USER_INPUT_TQ = 18,
+  UI_USER_VISIBLE_TQ = 19,
+  IO_BEST_EFFORT_TQ = 20,
+  IO_BOOTSTRAP_TQ = 21,
+  IO_CONTROL_TQ = 22,
+  IO_DEFAULT_TQ = 23,
+  IO_NAVIGATION_NETWORK_RESPONSE_TQ = 24,
+  IO_RUN_ALL_PENDING_TQ = 25,
+  IO_SERVICE_WORKER_STORAGE_CONTROL_RESPONSE_TQ = 26,
+  IO_THREAD_TQ = 27,
+  IO_USER_BLOCKING_TQ = 28,
+  IO_USER_INPUT_TQ = 29,
+  IO_USER_VISIBLE_TQ = 30,
+  COMPOSITOR_TQ = 31,
+  DETACHED_TQ = 32,
+  FRAME_DEFERRABLE_TQ = 33,
+  FRAME_LOADING_CONTROL_TQ = 34,
+  FRAME_LOADING_TQ = 35,
+  FRAME_PAUSABLE_TQ = 36,
+  FRAME_THROTTLEABLE_TQ = 37,
+  FRAME_UNPAUSABLE_TQ = 38,
+  IDLE_TQ = 39,
+  INPUT_TQ = 40,
+  IPC_TRACKING_FOR_CACHED_PAGES_TQ = 41,
+  NON_WAKING_TQ = 42,
+  OTHER_TQ = 43,
+  V8_TQ = 44,
+  WEB_SCHEDULING_TQ = 45,
+  WORKER_IDLE_TQ = 46,
+  WORKER_PAUSABLE_TQ = 47,
+  WORKER_THREAD_INTERNAL_TQ = 48,
+  WORKER_THROTTLEABLE_TQ = 49,
+  WORKER_UNPAUSABLE_TQ = 50,
+  WORKER_WEB_SCHEDULING_TQ = 51,
+};
+} // namespace perfetto_pbzero_enum_SequenceManagerTask
+using SequenceManagerTask_QueueName = perfetto_pbzero_enum_SequenceManagerTask::QueueName;
+
+
+constexpr SequenceManagerTask_QueueName SequenceManagerTask_QueueName_MIN = SequenceManagerTask_QueueName::UNKNOWN_TQ;
+constexpr SequenceManagerTask_QueueName SequenceManagerTask_QueueName_MAX = SequenceManagerTask_QueueName::WORKER_WEB_SCHEDULING_TQ;
+
+
+PERFETTO_PROTOZERO_CONSTEXPR14_OR_INLINE
+const char* SequenceManagerTask_QueueName_Name(::perfetto::protos::pbzero::SequenceManagerTask_QueueName value) {
+  switch (value) {
+  case ::perfetto::protos::pbzero::SequenceManagerTask_QueueName::UNKNOWN_TQ:
+    return "UNKNOWN_TQ";
+
+  case ::perfetto::protos::pbzero::SequenceManagerTask_QueueName::DEFAULT_TQ:
+    return "DEFAULT_TQ";
+
+  case ::perfetto::protos::pbzero::SequenceManagerTask_QueueName::TASK_ENVIRONMENT_DEFAULT_TQ:
+    return "TASK_ENVIRONMENT_DEFAULT_TQ";
+
+  case ::perfetto::protos::pbzero::SequenceManagerTask_QueueName::TEST2_TQ:
+    return "TEST2_TQ";
+
+  case ::perfetto::protos::pbzero::SequenceManagerTask_QueueName::TEST_TQ:
+    return "TEST_TQ";
+
+  case ::perfetto::protos::pbzero::SequenceManagerTask_QueueName::CONTROL_TQ:
+    return "CONTROL_TQ";
+
+  case ::perfetto::protos::pbzero::SequenceManagerTask_QueueName::SUBTHREAD_CONTROL_TQ:
+    return "SUBTHREAD_CONTROL_TQ";
+
+  case ::perfetto::protos::pbzero::SequenceManagerTask_QueueName::SUBTHREAD_DEFAULT_TQ:
+    return "SUBTHREAD_DEFAULT_TQ";
+
+  case ::perfetto::protos::pbzero::SequenceManagerTask_QueueName::SUBTHREAD_INPUT_TQ:
+    return "SUBTHREAD_INPUT_TQ";
+
+  case ::perfetto::protos::pbzero::SequenceManagerTask_QueueName::UI_BEST_EFFORT_TQ:
+    return "UI_BEST_EFFORT_TQ";
+
+  case ::perfetto::protos::pbzero::SequenceManagerTask_QueueName::UI_BOOTSTRAP_TQ:
+    return "UI_BOOTSTRAP_TQ";
+
+  case ::perfetto::protos::pbzero::SequenceManagerTask_QueueName::UI_CONTROL_TQ:
+    return "UI_CONTROL_TQ";
+
+  case ::perfetto::protos::pbzero::SequenceManagerTask_QueueName::UI_DEFAULT_TQ:
+    return "UI_DEFAULT_TQ";
+
+  case ::perfetto::protos::pbzero::SequenceManagerTask_QueueName::UI_NAVIGATION_NETWORK_RESPONSE_TQ:
+    return "UI_NAVIGATION_NETWORK_RESPONSE_TQ";
+
+  case ::perfetto::protos::pbzero::SequenceManagerTask_QueueName::UI_RUN_ALL_PENDING_TQ:
+    return "UI_RUN_ALL_PENDING_TQ";
+
+  case ::perfetto::protos::pbzero::SequenceManagerTask_QueueName::UI_SERVICE_WORKER_STORAGE_CONTROL_RESPONSE_TQ:
+    return "UI_SERVICE_WORKER_STORAGE_CONTROL_RESPONSE_TQ";
+
+  case ::perfetto::protos::pbzero::SequenceManagerTask_QueueName::UI_THREAD_TQ:
+    return "UI_THREAD_TQ";
+
+  case ::perfetto::protos::pbzero::SequenceManagerTask_QueueName::UI_USER_BLOCKING_TQ:
+    return "UI_USER_BLOCKING_TQ";
+
+  case ::perfetto::protos::pbzero::SequenceManagerTask_QueueName::UI_USER_INPUT_TQ:
+    return "UI_USER_INPUT_TQ";
+
+  case ::perfetto::protos::pbzero::SequenceManagerTask_QueueName::UI_USER_VISIBLE_TQ:
+    return "UI_USER_VISIBLE_TQ";
+
+  case ::perfetto::protos::pbzero::SequenceManagerTask_QueueName::IO_BEST_EFFORT_TQ:
+    return "IO_BEST_EFFORT_TQ";
+
+  case ::perfetto::protos::pbzero::SequenceManagerTask_QueueName::IO_BOOTSTRAP_TQ:
+    return "IO_BOOTSTRAP_TQ";
+
+  case ::perfetto::protos::pbzero::SequenceManagerTask_QueueName::IO_CONTROL_TQ:
+    return "IO_CONTROL_TQ";
+
+  case ::perfetto::protos::pbzero::SequenceManagerTask_QueueName::IO_DEFAULT_TQ:
+    return "IO_DEFAULT_TQ";
+
+  case ::perfetto::protos::pbzero::SequenceManagerTask_QueueName::IO_NAVIGATION_NETWORK_RESPONSE_TQ:
+    return "IO_NAVIGATION_NETWORK_RESPONSE_TQ";
+
+  case ::perfetto::protos::pbzero::SequenceManagerTask_QueueName::IO_RUN_ALL_PENDING_TQ:
+    return "IO_RUN_ALL_PENDING_TQ";
+
+  case ::perfetto::protos::pbzero::SequenceManagerTask_QueueName::IO_SERVICE_WORKER_STORAGE_CONTROL_RESPONSE_TQ:
+    return "IO_SERVICE_WORKER_STORAGE_CONTROL_RESPONSE_TQ";
+
+  case ::perfetto::protos::pbzero::SequenceManagerTask_QueueName::IO_THREAD_TQ:
+    return "IO_THREAD_TQ";
+
+  case ::perfetto::protos::pbzero::SequenceManagerTask_QueueName::IO_USER_BLOCKING_TQ:
+    return "IO_USER_BLOCKING_TQ";
+
+  case ::perfetto::protos::pbzero::SequenceManagerTask_QueueName::IO_USER_INPUT_TQ:
+    return "IO_USER_INPUT_TQ";
+
+  case ::perfetto::protos::pbzero::SequenceManagerTask_QueueName::IO_USER_VISIBLE_TQ:
+    return "IO_USER_VISIBLE_TQ";
+
+  case ::perfetto::protos::pbzero::SequenceManagerTask_QueueName::COMPOSITOR_TQ:
+    return "COMPOSITOR_TQ";
+
+  case ::perfetto::protos::pbzero::SequenceManagerTask_QueueName::DETACHED_TQ:
+    return "DETACHED_TQ";
+
+  case ::perfetto::protos::pbzero::SequenceManagerTask_QueueName::FRAME_DEFERRABLE_TQ:
+    return "FRAME_DEFERRABLE_TQ";
+
+  case ::perfetto::protos::pbzero::SequenceManagerTask_QueueName::FRAME_LOADING_CONTROL_TQ:
+    return "FRAME_LOADING_CONTROL_TQ";
+
+  case ::perfetto::protos::pbzero::SequenceManagerTask_QueueName::FRAME_LOADING_TQ:
+    return "FRAME_LOADING_TQ";
+
+  case ::perfetto::protos::pbzero::SequenceManagerTask_QueueName::FRAME_PAUSABLE_TQ:
+    return "FRAME_PAUSABLE_TQ";
+
+  case ::perfetto::protos::pbzero::SequenceManagerTask_QueueName::FRAME_THROTTLEABLE_TQ:
+    return "FRAME_THROTTLEABLE_TQ";
+
+  case ::perfetto::protos::pbzero::SequenceManagerTask_QueueName::FRAME_UNPAUSABLE_TQ:
+    return "FRAME_UNPAUSABLE_TQ";
+
+  case ::perfetto::protos::pbzero::SequenceManagerTask_QueueName::IDLE_TQ:
+    return "IDLE_TQ";
+
+  case ::perfetto::protos::pbzero::SequenceManagerTask_QueueName::INPUT_TQ:
+    return "INPUT_TQ";
+
+  case ::perfetto::protos::pbzero::SequenceManagerTask_QueueName::IPC_TRACKING_FOR_CACHED_PAGES_TQ:
+    return "IPC_TRACKING_FOR_CACHED_PAGES_TQ";
+
+  case ::perfetto::protos::pbzero::SequenceManagerTask_QueueName::NON_WAKING_TQ:
+    return "NON_WAKING_TQ";
+
+  case ::perfetto::protos::pbzero::SequenceManagerTask_QueueName::OTHER_TQ:
+    return "OTHER_TQ";
+
+  case ::perfetto::protos::pbzero::SequenceManagerTask_QueueName::V8_TQ:
+    return "V8_TQ";
+
+  case ::perfetto::protos::pbzero::SequenceManagerTask_QueueName::WEB_SCHEDULING_TQ:
+    return "WEB_SCHEDULING_TQ";
+
+  case ::perfetto::protos::pbzero::SequenceManagerTask_QueueName::WORKER_IDLE_TQ:
+    return "WORKER_IDLE_TQ";
+
+  case ::perfetto::protos::pbzero::SequenceManagerTask_QueueName::WORKER_PAUSABLE_TQ:
+    return "WORKER_PAUSABLE_TQ";
+
+  case ::perfetto::protos::pbzero::SequenceManagerTask_QueueName::WORKER_THREAD_INTERNAL_TQ:
+    return "WORKER_THREAD_INTERNAL_TQ";
+
+  case ::perfetto::protos::pbzero::SequenceManagerTask_QueueName::WORKER_THROTTLEABLE_TQ:
+    return "WORKER_THROTTLEABLE_TQ";
+
+  case ::perfetto::protos::pbzero::SequenceManagerTask_QueueName::WORKER_UNPAUSABLE_TQ:
+    return "WORKER_UNPAUSABLE_TQ";
+
+  case ::perfetto::protos::pbzero::SequenceManagerTask_QueueName::WORKER_WEB_SCHEDULING_TQ:
+    return "WORKER_WEB_SCHEDULING_TQ";
   }
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
@@ -1374,13 +1786,438 @@ const char* ChildProcessLauncherPriority_Importance_Name(::perfetto::protos::pbz
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
 
-class SequenceManagerTask_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/1, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+namespace perfetto_pbzero_enum_FrameTreeNodeInfo {
+enum FrameType : int32_t {
+  UNSPECIFIED_FRAME_TYPE = 0,
+  SUBFRAME = 1,
+  PRIMARY_MAIN_FRAME = 2,
+  PRERENDER_MAIN_FRAME = 3,
+  FENCED_FRAME_ROOT = 4,
+};
+} // namespace perfetto_pbzero_enum_FrameTreeNodeInfo
+using FrameTreeNodeInfo_FrameType = perfetto_pbzero_enum_FrameTreeNodeInfo::FrameType;
+
+
+constexpr FrameTreeNodeInfo_FrameType FrameTreeNodeInfo_FrameType_MIN = FrameTreeNodeInfo_FrameType::UNSPECIFIED_FRAME_TYPE;
+constexpr FrameTreeNodeInfo_FrameType FrameTreeNodeInfo_FrameType_MAX = FrameTreeNodeInfo_FrameType::FENCED_FRAME_ROOT;
+
+
+PERFETTO_PROTOZERO_CONSTEXPR14_OR_INLINE
+const char* FrameTreeNodeInfo_FrameType_Name(::perfetto::protos::pbzero::FrameTreeNodeInfo_FrameType value) {
+  switch (value) {
+  case ::perfetto::protos::pbzero::FrameTreeNodeInfo_FrameType::UNSPECIFIED_FRAME_TYPE:
+    return "UNSPECIFIED_FRAME_TYPE";
+
+  case ::perfetto::protos::pbzero::FrameTreeNodeInfo_FrameType::SUBFRAME:
+    return "SUBFRAME";
+
+  case ::perfetto::protos::pbzero::FrameTreeNodeInfo_FrameType::PRIMARY_MAIN_FRAME:
+    return "PRIMARY_MAIN_FRAME";
+
+  case ::perfetto::protos::pbzero::FrameTreeNodeInfo_FrameType::PRERENDER_MAIN_FRAME:
+    return "PRERENDER_MAIN_FRAME";
+
+  case ::perfetto::protos::pbzero::FrameTreeNodeInfo_FrameType::FENCED_FRAME_ROOT:
+    return "FENCED_FRAME_ROOT";
+  }
+  return "PBZERO_UNKNOWN_ENUM_VALUE";
+}
+
+namespace perfetto_pbzero_enum_BlinkTaskScope {
+enum TaskScopeType : int32_t {
+  TASK_SCOPE_UNKNOWN = 0,
+  TASK_SCOPE_CALLBACK = 1,
+  TASK_SCOPE_SCHEDULED_ACTION = 2,
+  TASK_SCOPE_SCRIPT_EXECUTION = 3,
+  TASK_SCOPE_POST_MESSAGE = 4,
+};
+} // namespace perfetto_pbzero_enum_BlinkTaskScope
+using BlinkTaskScope_TaskScopeType = perfetto_pbzero_enum_BlinkTaskScope::TaskScopeType;
+
+
+constexpr BlinkTaskScope_TaskScopeType BlinkTaskScope_TaskScopeType_MIN = BlinkTaskScope_TaskScopeType::TASK_SCOPE_UNKNOWN;
+constexpr BlinkTaskScope_TaskScopeType BlinkTaskScope_TaskScopeType_MAX = BlinkTaskScope_TaskScopeType::TASK_SCOPE_POST_MESSAGE;
+
+
+PERFETTO_PROTOZERO_CONSTEXPR14_OR_INLINE
+const char* BlinkTaskScope_TaskScopeType_Name(::perfetto::protos::pbzero::BlinkTaskScope_TaskScopeType value) {
+  switch (value) {
+  case ::perfetto::protos::pbzero::BlinkTaskScope_TaskScopeType::TASK_SCOPE_UNKNOWN:
+    return "TASK_SCOPE_UNKNOWN";
+
+  case ::perfetto::protos::pbzero::BlinkTaskScope_TaskScopeType::TASK_SCOPE_CALLBACK:
+    return "TASK_SCOPE_CALLBACK";
+
+  case ::perfetto::protos::pbzero::BlinkTaskScope_TaskScopeType::TASK_SCOPE_SCHEDULED_ACTION:
+    return "TASK_SCOPE_SCHEDULED_ACTION";
+
+  case ::perfetto::protos::pbzero::BlinkTaskScope_TaskScopeType::TASK_SCOPE_SCRIPT_EXECUTION:
+    return "TASK_SCOPE_SCRIPT_EXECUTION";
+
+  case ::perfetto::protos::pbzero::BlinkTaskScope_TaskScopeType::TASK_SCOPE_POST_MESSAGE:
+    return "TASK_SCOPE_POST_MESSAGE";
+  }
+  return "PBZERO_UNKNOWN_ENUM_VALUE";
+}
+
+class UkmPageLoadTimingUpdate_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/5, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+ public:
+  UkmPageLoadTimingUpdate_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
+  explicit UkmPageLoadTimingUpdate_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
+  explicit UkmPageLoadTimingUpdate_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
+  bool has_ukm_source_id() const { return at<1>().valid(); }
+  int64_t ukm_source_id() const { return at<1>().as_int64(); }
+  bool has_latest_url() const { return at<2>().valid(); }
+  ::protozero::ConstChars latest_url() const { return at<2>().as_string(); }
+  bool has_latest_cumulative_layout_shift() const { return at<3>().valid(); }
+  float latest_cumulative_layout_shift() const { return at<3>().as_float(); }
+  bool has_latest_largest_contentful_paint_ms() const { return at<4>().valid(); }
+  double latest_largest_contentful_paint_ms() const { return at<4>().as_double(); }
+  bool has_first_contentful_paint_ms() const { return at<5>().valid(); }
+  double first_contentful_paint_ms() const { return at<5>().as_double(); }
+};
+
+class UkmPageLoadTimingUpdate : public ::protozero::Message {
+ public:
+  using Decoder = UkmPageLoadTimingUpdate_Decoder;
+  enum : int32_t {
+    kUkmSourceIdFieldNumber = 1,
+    kLatestUrlFieldNumber = 2,
+    kLatestCumulativeLayoutShiftFieldNumber = 3,
+    kLatestLargestContentfulPaintMsFieldNumber = 4,
+    kFirstContentfulPaintMsFieldNumber = 5,
+  };
+  static constexpr const char* GetName() { return ".perfetto.protos.UkmPageLoadTimingUpdate"; }
+
+
+  using FieldMetadata_UkmSourceId =
+    ::protozero::proto_utils::FieldMetadata<
+      1,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      UkmPageLoadTimingUpdate>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_UkmSourceId kUkmSourceId() { return {}; }
+  void set_ukm_source_id(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_UkmSourceId::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_LatestUrl =
+    ::protozero::proto_utils::FieldMetadata<
+      2,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kString,
+      std::string,
+      UkmPageLoadTimingUpdate>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_LatestUrl kLatestUrl() { return {}; }
+  void set_latest_url(const char* data, size_t size) {
+    AppendBytes(FieldMetadata_LatestUrl::kFieldId, data, size);
+  }
+  void set_latest_url(::protozero::ConstChars chars) {
+    AppendBytes(FieldMetadata_LatestUrl::kFieldId, chars.data, chars.size);
+  }
+  void set_latest_url(std::string value) {
+    static constexpr uint32_t field_id = FieldMetadata_LatestUrl::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kString>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_LatestCumulativeLayoutShift =
+    ::protozero::proto_utils::FieldMetadata<
+      3,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kFloat,
+      float,
+      UkmPageLoadTimingUpdate>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_LatestCumulativeLayoutShift kLatestCumulativeLayoutShift() { return {}; }
+  void set_latest_cumulative_layout_shift(float value) {
+    static constexpr uint32_t field_id = FieldMetadata_LatestCumulativeLayoutShift::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kFloat>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_LatestLargestContentfulPaintMs =
+    ::protozero::proto_utils::FieldMetadata<
+      4,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kDouble,
+      double,
+      UkmPageLoadTimingUpdate>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_LatestLargestContentfulPaintMs kLatestLargestContentfulPaintMs() { return {}; }
+  void set_latest_largest_contentful_paint_ms(double value) {
+    static constexpr uint32_t field_id = FieldMetadata_LatestLargestContentfulPaintMs::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kDouble>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_FirstContentfulPaintMs =
+    ::protozero::proto_utils::FieldMetadata<
+      5,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kDouble,
+      double,
+      UkmPageLoadTimingUpdate>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_FirstContentfulPaintMs kFirstContentfulPaintMs() { return {}; }
+  void set_first_contentful_paint_ms(double value) {
+    static constexpr uint32_t field_id = FieldMetadata_FirstContentfulPaintMs::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kDouble>
+        ::Append(*this, field_id, value);
+  }
+};
+
+class ActiveProcesses_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/1, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
+ public:
+  ActiveProcesses_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
+  explicit ActiveProcesses_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
+  explicit ActiveProcesses_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
+  bool has_pid() const { return at<1>().valid(); }
+  ::protozero::RepeatedFieldIterator<int32_t> pid() const { return GetRepeated<int32_t>(1); }
+};
+
+class ActiveProcesses : public ::protozero::Message {
+ public:
+  using Decoder = ActiveProcesses_Decoder;
+  enum : int32_t {
+    kPidFieldNumber = 1,
+  };
+  static constexpr const char* GetName() { return ".perfetto.protos.ActiveProcesses"; }
+
+
+  using FieldMetadata_Pid =
+    ::protozero::proto_utils::FieldMetadata<
+      1,
+      ::protozero::proto_utils::RepetitionType::kRepeatedNotPacked,
+      ::protozero::proto_utils::ProtoSchemaType::kInt32,
+      int32_t,
+      ActiveProcesses>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_Pid kPid() { return {}; }
+  void add_pid(int32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_Pid::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt32>
+        ::Append(*this, field_id, value);
+  }
+};
+
+class AndroidToolbar_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/3, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+ public:
+  AndroidToolbar_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
+  explicit AndroidToolbar_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
+  explicit AndroidToolbar_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
+  bool has_block_capture_reason() const { return at<1>().valid(); }
+  int32_t block_capture_reason() const { return at<1>().as_int32(); }
+  bool has_allow_capture_reason() const { return at<2>().valid(); }
+  int32_t allow_capture_reason() const { return at<2>().as_int32(); }
+  bool has_snapshot_difference() const { return at<3>().valid(); }
+  int32_t snapshot_difference() const { return at<3>().as_int32(); }
+};
+
+class AndroidToolbar : public ::protozero::Message {
+ public:
+  using Decoder = AndroidToolbar_Decoder;
+  enum : int32_t {
+    kBlockCaptureReasonFieldNumber = 1,
+    kAllowCaptureReasonFieldNumber = 2,
+    kSnapshotDifferenceFieldNumber = 3,
+  };
+  static constexpr const char* GetName() { return ".perfetto.protos.AndroidToolbar"; }
+
+
+  using BlockCaptureReason = ::perfetto::protos::pbzero::AndroidToolbar_BlockCaptureReason;
+  static inline const char* BlockCaptureReason_Name(BlockCaptureReason value) {
+    return ::perfetto::protos::pbzero::AndroidToolbar_BlockCaptureReason_Name(value);
+  }
+
+  using AllowCaptureReason = ::perfetto::protos::pbzero::AndroidToolbar_AllowCaptureReason;
+  static inline const char* AllowCaptureReason_Name(AllowCaptureReason value) {
+    return ::perfetto::protos::pbzero::AndroidToolbar_AllowCaptureReason_Name(value);
+  }
+
+  using SnapshotDifference = ::perfetto::protos::pbzero::AndroidToolbar_SnapshotDifference;
+  static inline const char* SnapshotDifference_Name(SnapshotDifference value) {
+    return ::perfetto::protos::pbzero::AndroidToolbar_SnapshotDifference_Name(value);
+  }
+  static const BlockCaptureReason BLOCKED_UNKNOWN = BlockCaptureReason::BLOCKED_UNKNOWN;
+  static const BlockCaptureReason BLOCKED_TOOLBAR_OR_RESULT_NULL = BlockCaptureReason::BLOCKED_TOOLBAR_OR_RESULT_NULL;
+  static const BlockCaptureReason BLOCKED_VIEW_NOT_DIRTY = BlockCaptureReason::BLOCKED_VIEW_NOT_DIRTY;
+  static const BlockCaptureReason BLOCKED_SNAPSHOT_SAME = BlockCaptureReason::BLOCKED_SNAPSHOT_SAME;
+  static const BlockCaptureReason BLOCKED_URL_BAR_HAS_FOCUS = BlockCaptureReason::BLOCKED_URL_BAR_HAS_FOCUS;
+  static const BlockCaptureReason BLOCKED_URL_BAR_FOCUS_IN_PROGRESS = BlockCaptureReason::BLOCKED_URL_BAR_FOCUS_IN_PROGRESS;
+  static const BlockCaptureReason BLOCKED_OPTIONAL_BUTTON_ANIMATION_IN_PROGRESS = BlockCaptureReason::BLOCKED_OPTIONAL_BUTTON_ANIMATION_IN_PROGRESS;
+  static const BlockCaptureReason BLOCKED_STATUS_ICON_ANIMATION_IN_PROGRESS = BlockCaptureReason::BLOCKED_STATUS_ICON_ANIMATION_IN_PROGRESS;
+  static const BlockCaptureReason BLOCKED_SCROLL_ABLATION = BlockCaptureReason::BLOCKED_SCROLL_ABLATION;
+  static const BlockCaptureReason BLOCKED_BROWSER_CONTROLS_LOCKED = BlockCaptureReason::BLOCKED_BROWSER_CONTROLS_LOCKED;
+  static const AllowCaptureReason ALLOWED_UNKNOWN = AllowCaptureReason::ALLOWED_UNKNOWN;
+  static const AllowCaptureReason ALLOWED_FORCE_CAPTURE = AllowCaptureReason::ALLOWED_FORCE_CAPTURE;
+  static const AllowCaptureReason ALLOWED_SNAPSHOT_DIFFERENCE = AllowCaptureReason::ALLOWED_SNAPSHOT_DIFFERENCE;
+  static const SnapshotDifference DIFF_NONE = SnapshotDifference::DIFF_NONE;
+  static const SnapshotDifference DIFF_NULL = SnapshotDifference::DIFF_NULL;
+  static const SnapshotDifference DIFF_TINT = SnapshotDifference::DIFF_TINT;
+  static const SnapshotDifference DIFF_TAB_COUNT = SnapshotDifference::DIFF_TAB_COUNT;
+  static const SnapshotDifference DIFF_OPTIONAL_BUTTON_DATA = SnapshotDifference::DIFF_OPTIONAL_BUTTON_DATA;
+  static const SnapshotDifference DIFF_VISUAL_STATE = SnapshotDifference::DIFF_VISUAL_STATE;
+  static const SnapshotDifference DIFF_SECURITY_ICON = SnapshotDifference::DIFF_SECURITY_ICON;
+  static const SnapshotDifference DIFF_SHOWING_UPDATE_BADGE = SnapshotDifference::DIFF_SHOWING_UPDATE_BADGE;
+  static const SnapshotDifference DIFF_PAINT_PREVIEW = SnapshotDifference::DIFF_PAINT_PREVIEW;
+  static const SnapshotDifference DIFF_PROGRESS = SnapshotDifference::DIFF_PROGRESS;
+  static const SnapshotDifference DIFF_LOCATION_BAR_WIDTH = SnapshotDifference::DIFF_LOCATION_BAR_WIDTH;
+  static const SnapshotDifference DIFF_URL_TEXT = SnapshotDifference::DIFF_URL_TEXT;
+  static const SnapshotDifference DIFF_HOME_BUTTON_COLOR = SnapshotDifference::DIFF_HOME_BUTTON_COLOR;
+  static const SnapshotDifference TITLE_TEXT = SnapshotDifference::TITLE_TEXT;
+  static const SnapshotDifference CCT_ANIMATION = SnapshotDifference::CCT_ANIMATION;
+
+  using FieldMetadata_BlockCaptureReason =
+    ::protozero::proto_utils::FieldMetadata<
+      1,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kEnum,
+      ::perfetto::protos::pbzero::AndroidToolbar_BlockCaptureReason,
+      AndroidToolbar>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_BlockCaptureReason kBlockCaptureReason() { return {}; }
+  void set_block_capture_reason(::perfetto::protos::pbzero::AndroidToolbar_BlockCaptureReason value) {
+    static constexpr uint32_t field_id = FieldMetadata_BlockCaptureReason::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kEnum>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_AllowCaptureReason =
+    ::protozero::proto_utils::FieldMetadata<
+      2,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kEnum,
+      ::perfetto::protos::pbzero::AndroidToolbar_AllowCaptureReason,
+      AndroidToolbar>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_AllowCaptureReason kAllowCaptureReason() { return {}; }
+  void set_allow_capture_reason(::perfetto::protos::pbzero::AndroidToolbar_AllowCaptureReason value) {
+    static constexpr uint32_t field_id = FieldMetadata_AllowCaptureReason::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kEnum>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_SnapshotDifference =
+    ::protozero::proto_utils::FieldMetadata<
+      3,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kEnum,
+      ::perfetto::protos::pbzero::AndroidToolbar_SnapshotDifference,
+      AndroidToolbar>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_SnapshotDifference kSnapshotDifference() { return {}; }
+  void set_snapshot_difference(::perfetto::protos::pbzero::AndroidToolbar_SnapshotDifference value) {
+    static constexpr uint32_t field_id = FieldMetadata_SnapshotDifference::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kEnum>
+        ::Append(*this, field_id, value);
+  }
+};
+
+class SequenceManagerTask_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/2, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
  public:
   SequenceManagerTask_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit SequenceManagerTask_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
   explicit SequenceManagerTask_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
   bool has_priority() const { return at<1>().valid(); }
   int32_t priority() const { return at<1>().as_int32(); }
+  bool has_queue_name() const { return at<2>().valid(); }
+  int32_t queue_name() const { return at<2>().as_int32(); }
 };
 
 class SequenceManagerTask : public ::protozero::Message {
@@ -1388,6 +2225,7 @@ class SequenceManagerTask : public ::protozero::Message {
   using Decoder = SequenceManagerTask_Decoder;
   enum : int32_t {
     kPriorityFieldNumber = 1,
+    kQueueNameFieldNumber = 2,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.SequenceManagerTask"; }
 
@@ -1395,6 +2233,11 @@ class SequenceManagerTask : public ::protozero::Message {
   using Priority = ::perfetto::protos::pbzero::SequenceManagerTask_Priority;
   static inline const char* Priority_Name(Priority value) {
     return ::perfetto::protos::pbzero::SequenceManagerTask_Priority_Name(value);
+  }
+
+  using QueueName = ::perfetto::protos::pbzero::SequenceManagerTask_QueueName;
+  static inline const char* QueueName_Name(QueueName value) {
+    return ::perfetto::protos::pbzero::SequenceManagerTask_QueueName_Name(value);
   }
   static const Priority UNKNOWN = Priority::UNKNOWN;
   static const Priority CONTROL_PRIORITY = Priority::CONTROL_PRIORITY;
@@ -1404,6 +2247,58 @@ class SequenceManagerTask : public ::protozero::Message {
   static const Priority NORMAL_PRIORITY = Priority::NORMAL_PRIORITY;
   static const Priority LOW_PRIORITY = Priority::LOW_PRIORITY;
   static const Priority BEST_EFFORT_PRIORITY = Priority::BEST_EFFORT_PRIORITY;
+  static const QueueName UNKNOWN_TQ = QueueName::UNKNOWN_TQ;
+  static const QueueName DEFAULT_TQ = QueueName::DEFAULT_TQ;
+  static const QueueName TASK_ENVIRONMENT_DEFAULT_TQ = QueueName::TASK_ENVIRONMENT_DEFAULT_TQ;
+  static const QueueName TEST2_TQ = QueueName::TEST2_TQ;
+  static const QueueName TEST_TQ = QueueName::TEST_TQ;
+  static const QueueName CONTROL_TQ = QueueName::CONTROL_TQ;
+  static const QueueName SUBTHREAD_CONTROL_TQ = QueueName::SUBTHREAD_CONTROL_TQ;
+  static const QueueName SUBTHREAD_DEFAULT_TQ = QueueName::SUBTHREAD_DEFAULT_TQ;
+  static const QueueName SUBTHREAD_INPUT_TQ = QueueName::SUBTHREAD_INPUT_TQ;
+  static const QueueName UI_BEST_EFFORT_TQ = QueueName::UI_BEST_EFFORT_TQ;
+  static const QueueName UI_BOOTSTRAP_TQ = QueueName::UI_BOOTSTRAP_TQ;
+  static const QueueName UI_CONTROL_TQ = QueueName::UI_CONTROL_TQ;
+  static const QueueName UI_DEFAULT_TQ = QueueName::UI_DEFAULT_TQ;
+  static const QueueName UI_NAVIGATION_NETWORK_RESPONSE_TQ = QueueName::UI_NAVIGATION_NETWORK_RESPONSE_TQ;
+  static const QueueName UI_RUN_ALL_PENDING_TQ = QueueName::UI_RUN_ALL_PENDING_TQ;
+  static const QueueName UI_SERVICE_WORKER_STORAGE_CONTROL_RESPONSE_TQ = QueueName::UI_SERVICE_WORKER_STORAGE_CONTROL_RESPONSE_TQ;
+  static const QueueName UI_THREAD_TQ = QueueName::UI_THREAD_TQ;
+  static const QueueName UI_USER_BLOCKING_TQ = QueueName::UI_USER_BLOCKING_TQ;
+  static const QueueName UI_USER_INPUT_TQ = QueueName::UI_USER_INPUT_TQ;
+  static const QueueName UI_USER_VISIBLE_TQ = QueueName::UI_USER_VISIBLE_TQ;
+  static const QueueName IO_BEST_EFFORT_TQ = QueueName::IO_BEST_EFFORT_TQ;
+  static const QueueName IO_BOOTSTRAP_TQ = QueueName::IO_BOOTSTRAP_TQ;
+  static const QueueName IO_CONTROL_TQ = QueueName::IO_CONTROL_TQ;
+  static const QueueName IO_DEFAULT_TQ = QueueName::IO_DEFAULT_TQ;
+  static const QueueName IO_NAVIGATION_NETWORK_RESPONSE_TQ = QueueName::IO_NAVIGATION_NETWORK_RESPONSE_TQ;
+  static const QueueName IO_RUN_ALL_PENDING_TQ = QueueName::IO_RUN_ALL_PENDING_TQ;
+  static const QueueName IO_SERVICE_WORKER_STORAGE_CONTROL_RESPONSE_TQ = QueueName::IO_SERVICE_WORKER_STORAGE_CONTROL_RESPONSE_TQ;
+  static const QueueName IO_THREAD_TQ = QueueName::IO_THREAD_TQ;
+  static const QueueName IO_USER_BLOCKING_TQ = QueueName::IO_USER_BLOCKING_TQ;
+  static const QueueName IO_USER_INPUT_TQ = QueueName::IO_USER_INPUT_TQ;
+  static const QueueName IO_USER_VISIBLE_TQ = QueueName::IO_USER_VISIBLE_TQ;
+  static const QueueName COMPOSITOR_TQ = QueueName::COMPOSITOR_TQ;
+  static const QueueName DETACHED_TQ = QueueName::DETACHED_TQ;
+  static const QueueName FRAME_DEFERRABLE_TQ = QueueName::FRAME_DEFERRABLE_TQ;
+  static const QueueName FRAME_LOADING_CONTROL_TQ = QueueName::FRAME_LOADING_CONTROL_TQ;
+  static const QueueName FRAME_LOADING_TQ = QueueName::FRAME_LOADING_TQ;
+  static const QueueName FRAME_PAUSABLE_TQ = QueueName::FRAME_PAUSABLE_TQ;
+  static const QueueName FRAME_THROTTLEABLE_TQ = QueueName::FRAME_THROTTLEABLE_TQ;
+  static const QueueName FRAME_UNPAUSABLE_TQ = QueueName::FRAME_UNPAUSABLE_TQ;
+  static const QueueName IDLE_TQ = QueueName::IDLE_TQ;
+  static const QueueName INPUT_TQ = QueueName::INPUT_TQ;
+  static const QueueName IPC_TRACKING_FOR_CACHED_PAGES_TQ = QueueName::IPC_TRACKING_FOR_CACHED_PAGES_TQ;
+  static const QueueName NON_WAKING_TQ = QueueName::NON_WAKING_TQ;
+  static const QueueName OTHER_TQ = QueueName::OTHER_TQ;
+  static const QueueName V8_TQ = QueueName::V8_TQ;
+  static const QueueName WEB_SCHEDULING_TQ = QueueName::WEB_SCHEDULING_TQ;
+  static const QueueName WORKER_IDLE_TQ = QueueName::WORKER_IDLE_TQ;
+  static const QueueName WORKER_PAUSABLE_TQ = QueueName::WORKER_PAUSABLE_TQ;
+  static const QueueName WORKER_THREAD_INTERNAL_TQ = QueueName::WORKER_THREAD_INTERNAL_TQ;
+  static const QueueName WORKER_THROTTLEABLE_TQ = QueueName::WORKER_THROTTLEABLE_TQ;
+  static const QueueName WORKER_UNPAUSABLE_TQ = QueueName::WORKER_UNPAUSABLE_TQ;
+  static const QueueName WORKER_WEB_SCHEDULING_TQ = QueueName::WORKER_WEB_SCHEDULING_TQ;
 
   using FieldMetadata_Priority =
     ::protozero::proto_utils::FieldMetadata<
@@ -1423,6 +2318,31 @@ class SequenceManagerTask : public ::protozero::Message {
   static constexpr FieldMetadata_Priority kPriority() { return {}; }
   void set_priority(::perfetto::protos::pbzero::SequenceManagerTask_Priority value) {
     static constexpr uint32_t field_id = FieldMetadata_Priority::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kEnum>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_QueueName =
+    ::protozero::proto_utils::FieldMetadata<
+      2,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kEnum,
+      ::perfetto::protos::pbzero::SequenceManagerTask_QueueName,
+      SequenceManagerTask>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_QueueName kQueueName() { return {}; }
+  void set_queue_name(::perfetto::protos::pbzero::SequenceManagerTask_QueueName value) {
+    static constexpr uint32_t field_id = FieldMetadata_QueueName::kFieldId;
     // Call the appropriate protozero::Message::Append(field_id, ...)
     // method based on the type of the field.
     ::protozero::internal::FieldWriter<
@@ -2451,6 +3371,8 @@ class RenderFrameHost_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIEL
   ::protozero::ConstBytes embedder() const { return at<10>().as_bytes(); }
   bool has_browsing_context_state() const { return at<11>().valid(); }
   ::protozero::ConstBytes browsing_context_state() const { return at<11>().as_bytes(); }
+  bool has_frame_type() const { return at<12>().valid(); }
+  int32_t frame_type() const { return at<12>().as_int32(); }
   bool has_debug_annotations() const { return at<99>().valid(); }
   ::protozero::RepeatedFieldIterator<::protozero::ConstBytes> debug_annotations() const { return GetRepeated<::protozero::ConstBytes>(99); }
 };
@@ -2470,6 +3392,7 @@ class RenderFrameHost : public ::protozero::Message {
     kOuterDocumentFieldNumber = 9,
     kEmbedderFieldNumber = 10,
     kBrowsingContextStateFieldNumber = 11,
+    kFrameTypeFieldNumber = 12,
     kDebugAnnotationsFieldNumber = 99,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.RenderFrameHost"; }
@@ -2746,6 +3669,31 @@ class RenderFrameHost : public ::protozero::Message {
     return BeginNestedMessage<T>(11);
   }
 
+
+  using FieldMetadata_FrameType =
+    ::protozero::proto_utils::FieldMetadata<
+      12,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kEnum,
+      ::perfetto::protos::pbzero::FrameTreeNodeInfo_FrameType,
+      RenderFrameHost>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_FrameType kFrameType() { return {}; }
+  void set_frame_type(::perfetto::protos::pbzero::FrameTreeNodeInfo_FrameType value) {
+    static constexpr uint32_t field_id = FieldMetadata_FrameType::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kEnum>
+        ::Append(*this, field_id, value);
+  }
 
   using FieldMetadata_DebugAnnotations =
     ::protozero::proto_utils::FieldMetadata<
@@ -5837,6 +6785,8 @@ class FrameTreeNodeInfo_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FI
   ::protozero::ConstBytes current_frame_host() const { return at<4>().as_bytes(); }
   bool has_speculative_frame_host() const { return at<5>().valid(); }
   ::protozero::ConstBytes speculative_frame_host() const { return at<5>().as_bytes(); }
+  bool has_frame_type() const { return at<6>().valid(); }
+  int32_t frame_type() const { return at<6>().as_int32(); }
   bool has_debug_annotations() const { return at<99>().valid(); }
   ::protozero::RepeatedFieldIterator<::protozero::ConstBytes> debug_annotations() const { return GetRepeated<::protozero::ConstBytes>(99); }
 };
@@ -5850,10 +6800,21 @@ class FrameTreeNodeInfo : public ::protozero::Message {
     kHasSpeculativeRenderFrameHostFieldNumber = 3,
     kCurrentFrameHostFieldNumber = 4,
     kSpeculativeFrameHostFieldNumber = 5,
+    kFrameTypeFieldNumber = 6,
     kDebugAnnotationsFieldNumber = 99,
   };
   static constexpr const char* GetName() { return ".perfetto.protos.FrameTreeNodeInfo"; }
 
+
+  using FrameType = ::perfetto::protos::pbzero::FrameTreeNodeInfo_FrameType;
+  static inline const char* FrameType_Name(FrameType value) {
+    return ::perfetto::protos::pbzero::FrameTreeNodeInfo_FrameType_Name(value);
+  }
+  static const FrameType UNSPECIFIED_FRAME_TYPE = FrameType::UNSPECIFIED_FRAME_TYPE;
+  static const FrameType SUBFRAME = FrameType::SUBFRAME;
+  static const FrameType PRIMARY_MAIN_FRAME = FrameType::PRIMARY_MAIN_FRAME;
+  static const FrameType PRERENDER_MAIN_FRAME = FrameType::PRERENDER_MAIN_FRAME;
+  static const FrameType FENCED_FRAME_ROOT = FrameType::FENCED_FRAME_ROOT;
 
   using FieldMetadata_FrameTreeNodeId =
     ::protozero::proto_utils::FieldMetadata<
@@ -5971,6 +6932,31 @@ class FrameTreeNodeInfo : public ::protozero::Message {
     return BeginNestedMessage<T>(5);
   }
 
+
+  using FieldMetadata_FrameType =
+    ::protozero::proto_utils::FieldMetadata<
+      6,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kEnum,
+      ::perfetto::protos::pbzero::FrameTreeNodeInfo_FrameType,
+      FrameTreeNodeInfo>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_FrameType kFrameType() { return {}; }
+  void set_frame_type(::perfetto::protos::pbzero::FrameTreeNodeInfo_FrameType value) {
+    static constexpr uint32_t field_id = FieldMetadata_FrameType::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kEnum>
+        ::Append(*this, field_id, value);
+  }
 
   using FieldMetadata_DebugAnnotations =
     ::protozero::proto_utils::FieldMetadata<
@@ -6724,6 +7710,172 @@ class ChromeTaskAnnotator : public ::protozero::Message {
     // method based on the type of the field.
     ::protozero::internal::FieldWriter<
       ::protozero::proto_utils::ProtoSchemaType::kUint64>
+        ::Append(*this, field_id, value);
+  }
+};
+
+class BlinkTaskScope_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/5, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+ public:
+  BlinkTaskScope_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
+  explicit BlinkTaskScope_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
+  explicit BlinkTaskScope_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
+  bool has_type() const { return at<1>().valid(); }
+  int32_t type() const { return at<1>().as_int32(); }
+  bool has_scope_task_id() const { return at<2>().valid(); }
+  int64_t scope_task_id() const { return at<2>().as_int64(); }
+  bool has_running_task_id_to_be_restored() const { return at<3>().valid(); }
+  int64_t running_task_id_to_be_restored() const { return at<3>().as_int64(); }
+  bool has_continuation_task_id_to_be_restored() const { return at<4>().valid(); }
+  int64_t continuation_task_id_to_be_restored() const { return at<4>().as_int64(); }
+  bool has_parent_task_id() const { return at<5>().valid(); }
+  int64_t parent_task_id() const { return at<5>().as_int64(); }
+};
+
+class BlinkTaskScope : public ::protozero::Message {
+ public:
+  using Decoder = BlinkTaskScope_Decoder;
+  enum : int32_t {
+    kTypeFieldNumber = 1,
+    kScopeTaskIdFieldNumber = 2,
+    kRunningTaskIdToBeRestoredFieldNumber = 3,
+    kContinuationTaskIdToBeRestoredFieldNumber = 4,
+    kParentTaskIdFieldNumber = 5,
+  };
+  static constexpr const char* GetName() { return ".perfetto.protos.BlinkTaskScope"; }
+
+
+  using TaskScopeType = ::perfetto::protos::pbzero::BlinkTaskScope_TaskScopeType;
+  static inline const char* TaskScopeType_Name(TaskScopeType value) {
+    return ::perfetto::protos::pbzero::BlinkTaskScope_TaskScopeType_Name(value);
+  }
+  static const TaskScopeType TASK_SCOPE_UNKNOWN = TaskScopeType::TASK_SCOPE_UNKNOWN;
+  static const TaskScopeType TASK_SCOPE_CALLBACK = TaskScopeType::TASK_SCOPE_CALLBACK;
+  static const TaskScopeType TASK_SCOPE_SCHEDULED_ACTION = TaskScopeType::TASK_SCOPE_SCHEDULED_ACTION;
+  static const TaskScopeType TASK_SCOPE_SCRIPT_EXECUTION = TaskScopeType::TASK_SCOPE_SCRIPT_EXECUTION;
+  static const TaskScopeType TASK_SCOPE_POST_MESSAGE = TaskScopeType::TASK_SCOPE_POST_MESSAGE;
+
+  using FieldMetadata_Type =
+    ::protozero::proto_utils::FieldMetadata<
+      1,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kEnum,
+      ::perfetto::protos::pbzero::BlinkTaskScope_TaskScopeType,
+      BlinkTaskScope>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_Type kType() { return {}; }
+  void set_type(::perfetto::protos::pbzero::BlinkTaskScope_TaskScopeType value) {
+    static constexpr uint32_t field_id = FieldMetadata_Type::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kEnum>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_ScopeTaskId =
+    ::protozero::proto_utils::FieldMetadata<
+      2,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      BlinkTaskScope>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_ScopeTaskId kScopeTaskId() { return {}; }
+  void set_scope_task_id(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_ScopeTaskId::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_RunningTaskIdToBeRestored =
+    ::protozero::proto_utils::FieldMetadata<
+      3,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      BlinkTaskScope>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_RunningTaskIdToBeRestored kRunningTaskIdToBeRestored() { return {}; }
+  void set_running_task_id_to_be_restored(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_RunningTaskIdToBeRestored::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_ContinuationTaskIdToBeRestored =
+    ::protozero::proto_utils::FieldMetadata<
+      4,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      BlinkTaskScope>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_ContinuationTaskIdToBeRestored kContinuationTaskIdToBeRestored() { return {}; }
+  void set_continuation_task_id_to_be_restored(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_ContinuationTaskIdToBeRestored::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_ParentTaskId =
+    ::protozero::proto_utils::FieldMetadata<
+      5,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt64,
+      int64_t,
+      BlinkTaskScope>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_ParentTaskId kParentTaskId() { return {}; }
+  void set_parent_task_id(int64_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_ParentTaskId::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt64>
         ::Append(*this, field_id, value);
   }
 };
@@ -7669,6 +8821,90 @@ class ChromeTrackEvent : public ::perfetto::protos::pbzero::TrackEvent {
   static constexpr FieldMetadata_SequenceManagerTask kSequenceManagerTask() { return {}; }
   template <typename T = SequenceManagerTask> T* set_sequence_manager_task() {
     return BeginNestedMessage<T>(1040);
+  }
+
+
+  using FieldMetadata_AndroidToolbar =
+    ::protozero::proto_utils::FieldMetadata<
+      1041,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      AndroidToolbar,
+      ChromeTrackEvent>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_AndroidToolbar kAndroidToolbar() { return {}; }
+  template <typename T = AndroidToolbar> T* set_android_toolbar() {
+    return BeginNestedMessage<T>(1041);
+  }
+
+
+  using FieldMetadata_ActiveProcesses =
+    ::protozero::proto_utils::FieldMetadata<
+      1042,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      ActiveProcesses,
+      ChromeTrackEvent>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_ActiveProcesses kActiveProcesses() { return {}; }
+  template <typename T = ActiveProcesses> T* set_active_processes() {
+    return BeginNestedMessage<T>(1042);
+  }
+
+
+  using FieldMetadata_BlinkTaskScope =
+    ::protozero::proto_utils::FieldMetadata<
+      1043,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      BlinkTaskScope,
+      ChromeTrackEvent>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_BlinkTaskScope kBlinkTaskScope() { return {}; }
+  template <typename T = BlinkTaskScope> T* set_blink_task_scope() {
+    return BeginNestedMessage<T>(1043);
+  }
+
+
+  using FieldMetadata_UkmPageLoadTimingUpdate =
+    ::protozero::proto_utils::FieldMetadata<
+      1044,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      UkmPageLoadTimingUpdate,
+      ChromeTrackEvent>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_UkmPageLoadTimingUpdate kUkmPageLoadTimingUpdate() { return {}; }
+  template <typename T = UkmPageLoadTimingUpdate> T* set_ukm_page_load_timing_update() {
+    return BeginNestedMessage<T>(1044);
   }
 
 };

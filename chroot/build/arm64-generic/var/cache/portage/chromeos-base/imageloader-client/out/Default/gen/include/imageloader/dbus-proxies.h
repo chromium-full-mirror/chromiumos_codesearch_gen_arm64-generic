@@ -120,6 +120,20 @@ class ImageLoaderInterfaceProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
+  // Loads a DLC image.
+  virtual bool LoadDlc(
+      const imageloader::LoadDlcRequest& in_load_request,
+      std::string* out_mount_point,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Loads a DLC image.
+  virtual void LoadDlcAsync(
+      const imageloader::LoadDlcRequest& in_load_request,
+      base::OnceCallback<void(const std::string& /*mount_point*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
   // Remove all versions of a component if removable.
   virtual bool RemoveComponent(
       const std::string& in_name,
@@ -406,6 +420,39 @@ class ImageLoaderInterfaceProxy final : public ImageLoaderInterfaceProxyInterfac
         in_id,
         in_package,
         in_a_or_b);
+  }
+
+  // Loads a DLC image.
+  bool LoadDlc(
+      const imageloader::LoadDlcRequest& in_load_request,
+      std::string* out_mount_point,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.ImageLoaderInterface",
+        "LoadDlc",
+        error,
+        in_load_request);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_mount_point);
+  }
+
+  // Loads a DLC image.
+  void LoadDlcAsync(
+      const imageloader::LoadDlcRequest& in_load_request,
+      base::OnceCallback<void(const std::string& /*mount_point*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.ImageLoaderInterface",
+        "LoadDlc",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_load_request);
   }
 
   // Remove all versions of a component if removable.

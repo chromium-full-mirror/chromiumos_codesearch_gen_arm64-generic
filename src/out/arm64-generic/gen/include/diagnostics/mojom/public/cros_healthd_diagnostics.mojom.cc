@@ -15,6 +15,7 @@
 #include <stdint.h>
 #include <utility>
 
+#include "base/debug/alias.h"
 #include "base/hash/md5_constexpr.h"
 #include "base/run_loop.h"
 #include "base/strings/string_number_conversions.h"
@@ -45,7 +46,7 @@
 
 
 
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace mojom {
 RunRoutineResponse::RunRoutineResponse()
@@ -290,18 +291,18 @@ bool RoutineUpdateUnion::Validate(
 
 }  // namespace mojom
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 
 namespace mojo {
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::mojom::RunRoutineResponse::DataView, ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr>::Read(
-    ::chromeos::cros_healthd::mojom::RunRoutineResponse::DataView input,
-    ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::RunRoutineResponse::DataView, ::ash::cros_healthd::mojom::RunRoutineResponsePtr>::Read(
+    ::ash::cros_healthd::mojom::RunRoutineResponse::DataView input,
+    ::ash::cros_healthd::mojom::RunRoutineResponsePtr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::mojom::RunRoutineResponsePtr result(::chromeos::cros_healthd::mojom::RunRoutineResponse::New());
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr result(::ash::cros_healthd::mojom::RunRoutineResponse::New());
   
       if (success)
         result->id = input.id();
@@ -313,11 +314,11 @@ bool StructTraits<::chromeos::cros_healthd::mojom::RunRoutineResponse::DataView,
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::mojom::InteractiveRoutineUpdate::DataView, ::chromeos::cros_healthd::mojom::InteractiveRoutineUpdatePtr>::Read(
-    ::chromeos::cros_healthd::mojom::InteractiveRoutineUpdate::DataView input,
-    ::chromeos::cros_healthd::mojom::InteractiveRoutineUpdatePtr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::InteractiveRoutineUpdate::DataView, ::ash::cros_healthd::mojom::InteractiveRoutineUpdatePtr>::Read(
+    ::ash::cros_healthd::mojom::InteractiveRoutineUpdate::DataView input,
+    ::ash::cros_healthd::mojom::InteractiveRoutineUpdatePtr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::mojom::InteractiveRoutineUpdatePtr result(::chromeos::cros_healthd::mojom::InteractiveRoutineUpdate::New());
+  ::ash::cros_healthd::mojom::InteractiveRoutineUpdatePtr result(::ash::cros_healthd::mojom::InteractiveRoutineUpdate::New());
   
       if (success && !input.ReadUserMessage(&result->user_message))
         success = false;
@@ -327,11 +328,11 @@ bool StructTraits<::chromeos::cros_healthd::mojom::InteractiveRoutineUpdate::Dat
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::mojom::NonInteractiveRoutineUpdate::DataView, ::chromeos::cros_healthd::mojom::NonInteractiveRoutineUpdatePtr>::Read(
-    ::chromeos::cros_healthd::mojom::NonInteractiveRoutineUpdate::DataView input,
-    ::chromeos::cros_healthd::mojom::NonInteractiveRoutineUpdatePtr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::NonInteractiveRoutineUpdate::DataView, ::ash::cros_healthd::mojom::NonInteractiveRoutineUpdatePtr>::Read(
+    ::ash::cros_healthd::mojom::NonInteractiveRoutineUpdate::DataView input,
+    ::ash::cros_healthd::mojom::NonInteractiveRoutineUpdatePtr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::mojom::NonInteractiveRoutineUpdatePtr result(::chromeos::cros_healthd::mojom::NonInteractiveRoutineUpdate::New());
+  ::ash::cros_healthd::mojom::NonInteractiveRoutineUpdatePtr result(::ash::cros_healthd::mojom::NonInteractiveRoutineUpdate::New());
   
       if (success && !input.ReadStatus(&result->status))
         success = false;
@@ -343,11 +344,11 @@ bool StructTraits<::chromeos::cros_healthd::mojom::NonInteractiveRoutineUpdate::
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::mojom::RoutineUpdate::DataView, ::chromeos::cros_healthd::mojom::RoutineUpdatePtr>::Read(
-    ::chromeos::cros_healthd::mojom::RoutineUpdate::DataView input,
-    ::chromeos::cros_healthd::mojom::RoutineUpdatePtr* output) {
+bool StructTraits<::ash::cros_healthd::mojom::RoutineUpdate::DataView, ::ash::cros_healthd::mojom::RoutineUpdatePtr>::Read(
+    ::ash::cros_healthd::mojom::RoutineUpdate::DataView input,
+    ::ash::cros_healthd::mojom::RoutineUpdatePtr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::mojom::RoutineUpdatePtr result(::chromeos::cros_healthd::mojom::RoutineUpdate::New());
+  ::ash::cros_healthd::mojom::RoutineUpdatePtr result(::ash::cros_healthd::mojom::RoutineUpdate::New());
   
       if (success)
         result->progress_percent = input.progress_percent();
@@ -360,15 +361,15 @@ bool StructTraits<::chromeos::cros_healthd::mojom::RoutineUpdate::DataView, ::ch
 }
 
 // static
-bool UnionTraits<::chromeos::cros_healthd::mojom::RoutineUpdateUnion::DataView, ::chromeos::cros_healthd::mojom::RoutineUpdateUnionPtr>::Read(
-    ::chromeos::cros_healthd::mojom::RoutineUpdateUnion::DataView input,
-    ::chromeos::cros_healthd::mojom::RoutineUpdateUnionPtr* output) {
-  using UnionType = ::chromeos::cros_healthd::mojom::RoutineUpdateUnion;
+bool UnionTraits<::ash::cros_healthd::mojom::RoutineUpdateUnion::DataView, ::ash::cros_healthd::mojom::RoutineUpdateUnionPtr>::Read(
+    ::ash::cros_healthd::mojom::RoutineUpdateUnion::DataView input,
+    ::ash::cros_healthd::mojom::RoutineUpdateUnionPtr* output) {
+  using UnionType = ::ash::cros_healthd::mojom::RoutineUpdateUnion;
   using Tag = UnionType::Tag;
 
   switch (input.tag()) {
     case Tag::kInteractiveUpdate: {
-      ::chromeos::cros_healthd::mojom::InteractiveRoutineUpdatePtr result_interactive_update;
+      ::ash::cros_healthd::mojom::InteractiveRoutineUpdatePtr result_interactive_update;
       if (!input.ReadInteractiveUpdate(&result_interactive_update))
         return false;
 
@@ -377,7 +378,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::RoutineUpdateUnion::DataView, 
       break;
     }
     case Tag::kNoninteractiveUpdate: {
-      ::chromeos::cros_healthd::mojom::NonInteractiveRoutineUpdatePtr result_noninteractive_update;
+      ::ash::cros_healthd::mojom::NonInteractiveRoutineUpdatePtr result_noninteractive_update;
       if (!input.ReadNoninteractiveUpdate(&result_noninteractive_update))
         return false;
 
@@ -399,7 +400,7 @@ bool UnionTraits<::chromeos::cros_healthd::mojom::RoutineUpdateUnion::DataView, 
 // separate .cc file to save compile time.
 
 
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace mojom {
 
@@ -408,7 +409,7 @@ namespace mojom {
 
 }  // namespace mojom
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 
 #if defined(__clang__)

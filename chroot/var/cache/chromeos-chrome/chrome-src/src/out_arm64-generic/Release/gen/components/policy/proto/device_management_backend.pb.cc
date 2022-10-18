@@ -1323,7 +1323,9 @@ PROTOBUF_CONSTEXPR OSReport::OSReport(
     ::_pbi::ConstantInitialized)
   : name_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , arch_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , version_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}){}
+  , version_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , version_type_(0)
+{}
 struct OSReportDefaultTypeInternal {
   PROTOBUF_CONSTEXPR OSReportDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -1656,6 +1658,7 @@ PROTOBUF_CONSTEXPR DeviceStateRetrievalResponse::DeviceStateRetrievalResponse(
   : management_domain_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , disabled_state_(nullptr)
   , initial_state_response_(nullptr)
+  , license_type_(nullptr)
   , restore_mode_(0)
 {}
 struct DeviceStateRetrievalResponseDefaultTypeInternal {
@@ -2805,32 +2808,36 @@ bool LicenseType_LicenseTypeEnum_IsValid(int value) {
     case 1:
     case 2:
     case 3:
+    case 4:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> LicenseType_LicenseTypeEnum_strings[4] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> LicenseType_LicenseTypeEnum_strings[5] = {};
 
 static const char LicenseType_LicenseTypeEnum_names[] =
   "CDM_ANNUAL"
+  "CDM_PACKAGED"
   "CDM_PERPETUAL"
   "KIOSK"
   "UNDEFINED";
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry LicenseType_LicenseTypeEnum_entries[] = {
   { {LicenseType_LicenseTypeEnum_names + 0, 10}, 2 },
-  { {LicenseType_LicenseTypeEnum_names + 10, 13}, 1 },
-  { {LicenseType_LicenseTypeEnum_names + 23, 5}, 3 },
-  { {LicenseType_LicenseTypeEnum_names + 28, 9}, 0 },
+  { {LicenseType_LicenseTypeEnum_names + 10, 12}, 4 },
+  { {LicenseType_LicenseTypeEnum_names + 22, 13}, 1 },
+  { {LicenseType_LicenseTypeEnum_names + 35, 5}, 3 },
+  { {LicenseType_LicenseTypeEnum_names + 40, 9}, 0 },
 };
 
 static const int LicenseType_LicenseTypeEnum_entries_by_number[] = {
-  3, // 0 -> UNDEFINED
-  1, // 1 -> CDM_PERPETUAL
+  4, // 0 -> UNDEFINED
+  2, // 1 -> CDM_PERPETUAL
   0, // 2 -> CDM_ANNUAL
-  2, // 3 -> KIOSK
+  3, // 3 -> KIOSK
+  1, // 4 -> CDM_PACKAGED
 };
 
 const std::string& LicenseType_LicenseTypeEnum_Name(
@@ -2839,12 +2846,12 @@ const std::string& LicenseType_LicenseTypeEnum_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           LicenseType_LicenseTypeEnum_entries,
           LicenseType_LicenseTypeEnum_entries_by_number,
-          4, LicenseType_LicenseTypeEnum_strings);
+          5, LicenseType_LicenseTypeEnum_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       LicenseType_LicenseTypeEnum_entries,
       LicenseType_LicenseTypeEnum_entries_by_number,
-      4, value);
+      5, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      LicenseType_LicenseTypeEnum_strings[idx].get();
 }
@@ -2852,7 +2859,7 @@ bool LicenseType_LicenseTypeEnum_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, LicenseType_LicenseTypeEnum* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      LicenseType_LicenseTypeEnum_entries, 4, name, &int_value);
+      LicenseType_LicenseTypeEnum_entries, 5, name, &int_value);
   if (success) {
     *value = static_cast<LicenseType_LicenseTypeEnum>(int_value);
   }
@@ -2863,6 +2870,7 @@ constexpr LicenseType_LicenseTypeEnum LicenseType::UNDEFINED;
 constexpr LicenseType_LicenseTypeEnum LicenseType::CDM_PERPETUAL;
 constexpr LicenseType_LicenseTypeEnum LicenseType::CDM_ANNUAL;
 constexpr LicenseType_LicenseTypeEnum LicenseType::KIOSK;
+constexpr LicenseType_LicenseTypeEnum LicenseType::CDM_PACKAGED;
 constexpr LicenseType_LicenseTypeEnum LicenseType::LicenseTypeEnum_MIN;
 constexpr LicenseType_LicenseTypeEnum LicenseType::LicenseTypeEnum_MAX;
 constexpr int LicenseType::LicenseTypeEnum_ARRAYSIZE;
@@ -5270,6 +5278,89 @@ constexpr Policy_PolicySource Policy::SOURCE_RESTRICTED_MANAGED_GUEST_SESSION_OV
 constexpr Policy_PolicySource Policy::PolicySource_MIN;
 constexpr Policy_PolicySource Policy::PolicySource_MAX;
 constexpr int Policy::PolicySource_ARRAYSIZE;
+#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+bool OSReport_VersionType_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+    case 5:
+    case 6:
+      return true;
+    default:
+      return false;
+  }
+}
+
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> OSReport_VersionType_strings[7] = {};
+
+static const char OSReport_VersionType_names[] =
+  "EDUCATION"
+  "EDUCATION_PRO"
+  "ENTERPRISE"
+  "HOME"
+  "PROFESSIONAL"
+  "SERVER"
+  "UNKNOWN";
+
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry OSReport_VersionType_entries[] = {
+  { {OSReport_VersionType_names + 0, 9}, 5 },
+  { {OSReport_VersionType_names + 9, 13}, 6 },
+  { {OSReport_VersionType_names + 22, 10}, 4 },
+  { {OSReport_VersionType_names + 32, 4}, 1 },
+  { {OSReport_VersionType_names + 36, 12}, 2 },
+  { {OSReport_VersionType_names + 48, 6}, 3 },
+  { {OSReport_VersionType_names + 54, 7}, 0 },
+};
+
+static const int OSReport_VersionType_entries_by_number[] = {
+  6, // 0 -> UNKNOWN
+  3, // 1 -> HOME
+  4, // 2 -> PROFESSIONAL
+  5, // 3 -> SERVER
+  2, // 4 -> ENTERPRISE
+  0, // 5 -> EDUCATION
+  1, // 6 -> EDUCATION_PRO
+};
+
+const std::string& OSReport_VersionType_Name(
+    OSReport_VersionType value) {
+  static const bool dummy =
+      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
+          OSReport_VersionType_entries,
+          OSReport_VersionType_entries_by_number,
+          7, OSReport_VersionType_strings);
+  (void) dummy;
+  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
+      OSReport_VersionType_entries,
+      OSReport_VersionType_entries_by_number,
+      7, value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
+                     OSReport_VersionType_strings[idx].get();
+}
+bool OSReport_VersionType_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, OSReport_VersionType* value) {
+  int int_value;
+  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
+      OSReport_VersionType_entries, 7, name, &int_value);
+  if (success) {
+    *value = static_cast<OSReport_VersionType>(int_value);
+  }
+  return success;
+}
+#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+constexpr OSReport_VersionType OSReport::UNKNOWN;
+constexpr OSReport_VersionType OSReport::HOME;
+constexpr OSReport_VersionType OSReport::PROFESSIONAL;
+constexpr OSReport_VersionType OSReport::SERVER;
+constexpr OSReport_VersionType OSReport::ENTERPRISE;
+constexpr OSReport_VersionType OSReport::EDUCATION;
+constexpr OSReport_VersionType OSReport::EDUCATION_PRO;
+constexpr OSReport_VersionType OSReport::VersionType_MIN;
+constexpr OSReport_VersionType OSReport::VersionType_MAX;
+constexpr int OSReport::VersionType_ARRAYSIZE;
 #endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 bool PolicyValueValidationIssue_ValueValidationIssueSeverity_IsValid(int value) {
   switch (value) {
@@ -37774,6 +37865,9 @@ class OSReport::_Internal {
   static void set_has_version(HasBits* has_bits) {
     (*has_bits)[0] |= 4u;
   }
+  static void set_has_version_type(HasBits* has_bits) {
+    (*has_bits)[0] |= 8u;
+  }
 };
 
 OSReport::OSReport(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -37810,6 +37904,7 @@ OSReport::OSReport(const OSReport& from)
     version_.Set(from._internal_version(), 
       GetArenaForAllocation());
   }
+  version_type_ = from.version_type_;
   // @@protoc_insertion_point(copy_constructor:enterprise_management.OSReport)
 }
 
@@ -37826,6 +37921,7 @@ version_.InitDefault();
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   version_.Set("", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+version_type_ = 0;
 }
 
 OSReport::~OSReport() {
@@ -37866,6 +37962,7 @@ void OSReport::Clear() {
       version_.ClearNonDefaultToEmpty();
     }
   }
+  version_type_ = 0;
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
@@ -37901,6 +37998,19 @@ const char* OSReport::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx)
           auto str = _internal_mutable_version();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional .enterprise_management.OSReport.VersionType version_type = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          if (PROTOBUF_PREDICT_TRUE(::enterprise_management::OSReport_VersionType_IsValid(val))) {
+            _internal_set_version_type(static_cast<::enterprise_management::OSReport_VersionType>(val));
+          } else {
+            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(4, val, mutable_unknown_fields());
+          }
         } else
           goto handle_unusual;
         continue;
@@ -37953,6 +38063,13 @@ uint8_t* OSReport::_InternalSerialize(
         3, this->_internal_version(), target);
   }
 
+  // optional .enterprise_management.OSReport.VersionType version_type = 4;
+  if (cached_has_bits & 0x00000008u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      4, this->_internal_version_type(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -37970,7 +38087,7 @@ size_t OSReport::ByteSizeLong() const {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
+  if (cached_has_bits & 0x0000000fu) {
     // optional string name = 1;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
@@ -37990,6 +38107,12 @@ size_t OSReport::ByteSizeLong() const {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
           this->_internal_version());
+    }
+
+    // optional .enterprise_management.OSReport.VersionType version_type = 4;
+    if (cached_has_bits & 0x00000008u) {
+      total_size += 1 +
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_version_type());
     }
 
   }
@@ -38014,7 +38137,7 @@ void OSReport::MergeFrom(const OSReport& from) {
   (void) cached_has_bits;
 
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
+  if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
       _internal_set_name(from._internal_name());
     }
@@ -38024,6 +38147,10 @@ void OSReport::MergeFrom(const OSReport& from) {
     if (cached_has_bits & 0x00000004u) {
       _internal_set_version(from._internal_version());
     }
+    if (cached_has_bits & 0x00000008u) {
+      version_type_ = from.version_type_;
+    }
+    _has_bits_[0] |= cached_has_bits;
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -38057,6 +38184,7 @@ void OSReport::InternalSwap(OSReport* other) {
       &version_, lhs_arena,
       &other->version_, rhs_arena
   );
+  swap(version_type_, other->version_type_);
 }
 
 std::string OSReport::GetTypeName() const {
@@ -44255,7 +44383,7 @@ class DeviceStateRetrievalResponse::_Internal {
  public:
   using HasBits = decltype(std::declval<DeviceStateRetrievalResponse>()._has_bits_);
   static void set_has_restore_mode(HasBits* has_bits) {
-    (*has_bits)[0] |= 8u;
+    (*has_bits)[0] |= 16u;
   }
   static void set_has_management_domain(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
@@ -44268,6 +44396,10 @@ class DeviceStateRetrievalResponse::_Internal {
   static void set_has_initial_state_response(HasBits* has_bits) {
     (*has_bits)[0] |= 4u;
   }
+  static const ::enterprise_management::LicenseType& license_type(const DeviceStateRetrievalResponse* msg);
+  static void set_has_license_type(HasBits* has_bits) {
+    (*has_bits)[0] |= 8u;
+  }
 };
 
 const ::enterprise_management::DisabledState&
@@ -44277,6 +44409,10 @@ DeviceStateRetrievalResponse::_Internal::disabled_state(const DeviceStateRetriev
 const ::enterprise_management::DeviceInitialEnrollmentStateResponse&
 DeviceStateRetrievalResponse::_Internal::initial_state_response(const DeviceStateRetrievalResponse* msg) {
   return *msg->initial_state_response_;
+}
+const ::enterprise_management::LicenseType&
+DeviceStateRetrievalResponse::_Internal::license_type(const DeviceStateRetrievalResponse* msg) {
+  return *msg->license_type_;
 }
 DeviceStateRetrievalResponse::DeviceStateRetrievalResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
@@ -44305,6 +44441,11 @@ DeviceStateRetrievalResponse::DeviceStateRetrievalResponse(const DeviceStateRetr
     initial_state_response_ = new ::enterprise_management::DeviceInitialEnrollmentStateResponse(*from.initial_state_response_);
   } else {
     initial_state_response_ = nullptr;
+  }
+  if (from._internal_has_license_type()) {
+    license_type_ = new ::enterprise_management::LicenseType(*from.license_type_);
+  } else {
+    license_type_ = nullptr;
   }
   restore_mode_ = from.restore_mode_;
   // @@protoc_insertion_point(copy_constructor:enterprise_management.DeviceStateRetrievalResponse)
@@ -44335,6 +44476,7 @@ inline void DeviceStateRetrievalResponse::SharedDtor() {
   management_domain_.Destroy();
   if (this != internal_default_instance()) delete disabled_state_;
   if (this != internal_default_instance()) delete initial_state_response_;
+  if (this != internal_default_instance()) delete license_type_;
 }
 
 void DeviceStateRetrievalResponse::SetCachedSize(int size) const {
@@ -44348,7 +44490,7 @@ void DeviceStateRetrievalResponse::Clear() {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
+  if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
       management_domain_.ClearNonDefaultToEmpty();
     }
@@ -44359,6 +44501,10 @@ void DeviceStateRetrievalResponse::Clear() {
     if (cached_has_bits & 0x00000004u) {
       GOOGLE_DCHECK(initial_state_response_ != nullptr);
       initial_state_response_->Clear();
+    }
+    if (cached_has_bits & 0x00000008u) {
+      GOOGLE_DCHECK(license_type_ != nullptr);
+      license_type_->Clear();
     }
   }
   restore_mode_ = 0;
@@ -44411,6 +44557,14 @@ const char* DeviceStateRetrievalResponse::_InternalParse(const char* ptr, ::_pbi
         } else
           goto handle_unusual;
         continue;
+      // optional .enterprise_management.LicenseType license_type = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
+          ptr = ctx->ParseMessage(_internal_mutable_license_type(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -44443,7 +44597,7 @@ uint8_t* DeviceStateRetrievalResponse::_InternalSerialize(
 
   cached_has_bits = _has_bits_[0];
   // optional .enterprise_management.DeviceStateRetrievalResponse.RestoreMode restore_mode = 1 [default = RESTORE_MODE_NONE];
-  if (cached_has_bits & 0x00000008u) {
+  if (cached_has_bits & 0x00000010u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       1, this->_internal_restore_mode(), target);
@@ -44469,6 +44623,13 @@ uint8_t* DeviceStateRetrievalResponse::_InternalSerialize(
         _Internal::initial_state_response(this).GetCachedSize(), target, stream);
   }
 
+  // optional .enterprise_management.LicenseType license_type = 5;
+  if (cached_has_bits & 0x00000008u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(5, _Internal::license_type(this),
+        _Internal::license_type(this).GetCachedSize(), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -44486,7 +44647,7 @@ size_t DeviceStateRetrievalResponse::ByteSizeLong() const {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x0000000fu) {
+  if (cached_has_bits & 0x0000001fu) {
     // optional string management_domain = 2;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
@@ -44508,8 +44669,15 @@ size_t DeviceStateRetrievalResponse::ByteSizeLong() const {
           *initial_state_response_);
     }
 
-    // optional .enterprise_management.DeviceStateRetrievalResponse.RestoreMode restore_mode = 1 [default = RESTORE_MODE_NONE];
+    // optional .enterprise_management.LicenseType license_type = 5;
     if (cached_has_bits & 0x00000008u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *license_type_);
+    }
+
+    // optional .enterprise_management.DeviceStateRetrievalResponse.RestoreMode restore_mode = 1 [default = RESTORE_MODE_NONE];
+    if (cached_has_bits & 0x00000010u) {
       total_size += 1 +
         ::_pbi::WireFormatLite::EnumSize(this->_internal_restore_mode());
     }
@@ -44536,7 +44704,7 @@ void DeviceStateRetrievalResponse::MergeFrom(const DeviceStateRetrievalResponse&
   (void) cached_has_bits;
 
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x0000000fu) {
+  if (cached_has_bits & 0x0000001fu) {
     if (cached_has_bits & 0x00000001u) {
       _internal_set_management_domain(from._internal_management_domain());
     }
@@ -44547,6 +44715,9 @@ void DeviceStateRetrievalResponse::MergeFrom(const DeviceStateRetrievalResponse&
       _internal_mutable_initial_state_response()->::enterprise_management::DeviceInitialEnrollmentStateResponse::MergeFrom(from._internal_initial_state_response());
     }
     if (cached_has_bits & 0x00000008u) {
+      _internal_mutable_license_type()->::enterprise_management::LicenseType::MergeFrom(from._internal_license_type());
+    }
+    if (cached_has_bits & 0x00000010u) {
       restore_mode_ = from.restore_mode_;
     }
     _has_bits_[0] |= cached_has_bits;

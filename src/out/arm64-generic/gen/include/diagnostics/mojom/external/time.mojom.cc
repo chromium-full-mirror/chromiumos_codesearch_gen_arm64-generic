@@ -15,6 +15,7 @@
 #include <stdint.h>
 #include <utility>
 
+#include "base/debug/alias.h"
 #include "base/hash/md5_constexpr.h"
 #include "base/run_loop.h"
 #include "base/strings/string_number_conversions.h"
@@ -45,7 +46,7 @@
 
 
 
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace internal {
 namespace mojo_base {
@@ -144,18 +145,18 @@ bool TimeTicks::Validate(
 }  // namespace mojo_base
 }  // namespace internal
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 
 namespace mojo {
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::internal::mojo_base::mojom::Time::DataView, ::chromeos::cros_healthd::internal::mojo_base::mojom::TimePtr>::Read(
-    ::chromeos::cros_healthd::internal::mojo_base::mojom::Time::DataView input,
-    ::chromeos::cros_healthd::internal::mojo_base::mojom::TimePtr* output) {
+bool StructTraits<::ash::cros_healthd::internal::mojo_base::mojom::Time::DataView, ::ash::cros_healthd::internal::mojo_base::mojom::TimePtr>::Read(
+    ::ash::cros_healthd::internal::mojo_base::mojom::Time::DataView input,
+    ::ash::cros_healthd::internal::mojo_base::mojom::TimePtr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::internal::mojo_base::mojom::TimePtr result(::chromeos::cros_healthd::internal::mojo_base::mojom::Time::New());
+  ::ash::cros_healthd::internal::mojo_base::mojom::TimePtr result(::ash::cros_healthd::internal::mojo_base::mojom::Time::New());
   
       if (success)
         result->internal_value = input.internal_value();
@@ -165,11 +166,11 @@ bool StructTraits<::chromeos::cros_healthd::internal::mojo_base::mojom::Time::Da
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::internal::mojo_base::mojom::TimeDelta::DataView, ::chromeos::cros_healthd::internal::mojo_base::mojom::TimeDeltaPtr>::Read(
-    ::chromeos::cros_healthd::internal::mojo_base::mojom::TimeDelta::DataView input,
-    ::chromeos::cros_healthd::internal::mojo_base::mojom::TimeDeltaPtr* output) {
+bool StructTraits<::ash::cros_healthd::internal::mojo_base::mojom::TimeDelta::DataView, ::ash::cros_healthd::internal::mojo_base::mojom::TimeDeltaPtr>::Read(
+    ::ash::cros_healthd::internal::mojo_base::mojom::TimeDelta::DataView input,
+    ::ash::cros_healthd::internal::mojo_base::mojom::TimeDeltaPtr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::internal::mojo_base::mojom::TimeDeltaPtr result(::chromeos::cros_healthd::internal::mojo_base::mojom::TimeDelta::New());
+  ::ash::cros_healthd::internal::mojo_base::mojom::TimeDeltaPtr result(::ash::cros_healthd::internal::mojo_base::mojom::TimeDelta::New());
   
       if (success)
         result->microseconds = input.microseconds();
@@ -179,11 +180,11 @@ bool StructTraits<::chromeos::cros_healthd::internal::mojo_base::mojom::TimeDelt
 
 
 // static
-bool StructTraits<::chromeos::cros_healthd::internal::mojo_base::mojom::TimeTicks::DataView, ::chromeos::cros_healthd::internal::mojo_base::mojom::TimeTicksPtr>::Read(
-    ::chromeos::cros_healthd::internal::mojo_base::mojom::TimeTicks::DataView input,
-    ::chromeos::cros_healthd::internal::mojo_base::mojom::TimeTicksPtr* output) {
+bool StructTraits<::ash::cros_healthd::internal::mojo_base::mojom::TimeTicks::DataView, ::ash::cros_healthd::internal::mojo_base::mojom::TimeTicksPtr>::Read(
+    ::ash::cros_healthd::internal::mojo_base::mojom::TimeTicks::DataView input,
+    ::ash::cros_healthd::internal::mojo_base::mojom::TimeTicksPtr* output) {
   bool success = true;
-  ::chromeos::cros_healthd::internal::mojo_base::mojom::TimeTicksPtr result(::chromeos::cros_healthd::internal::mojo_base::mojom::TimeTicks::New());
+  ::ash::cros_healthd::internal::mojo_base::mojom::TimeTicksPtr result(::ash::cros_healthd::internal::mojo_base::mojom::TimeTicks::New());
   
       if (success)
         result->internal_value = input.internal_value();
@@ -198,7 +199,7 @@ bool StructTraits<::chromeos::cros_healthd::internal::mojo_base::mojom::TimeTick
 // separate .cc file to save compile time.
 
 
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace internal {
 namespace mojo_base {
@@ -211,7 +212,7 @@ namespace mojom {
 }  // namespace mojo_base
 }  // namespace internal
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 
 #if defined(__clang__)

@@ -15,6 +15,7 @@
 #include <stdint.h>
 #include <utility>
 
+#include "base/debug/alias.h"
 #include "base/hash/md5_constexpr.h"
 #include "base/run_loop.h"
 #include "base/strings/string_number_conversions.h"
@@ -205,30 +206,24 @@ bool DecoderBuffer::Validate(
 }
 const char VideoDecoder::Name_[] = "arc.mojom.VideoDecoder";
 
-uint32_t VideoDecoder::MessageToStableIPCHash_(mojo::Message& message) {
+VideoDecoder::IPCStableHashFunction VideoDecoder::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
   switch (message.name()) {
     case internal::kVideoDecoder_Initialize_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)arc::mojom::VideoDecoder::Initialize");
-      return value;
+      return &VideoDecoder::Initialize_Sym::IPCStableHash;
     }
     case internal::kVideoDecoder_Decode_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)arc::mojom::VideoDecoder::Decode");
-      return value;
+      return &VideoDecoder::Decode_Sym::IPCStableHash;
     }
     case internal::kVideoDecoder_Reset_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)arc::mojom::VideoDecoder::Reset");
-      return value;
+      return &VideoDecoder::Reset_Sym::IPCStableHash;
     }
     case internal::kVideoDecoder_ReleaseVideoFrame_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)arc::mojom::VideoDecoder::ReleaseVideoFrame");
-      return value;
+      return &VideoDecoder::ReleaseVideoFrame_Sym::IPCStableHash;
     }
   }
-  return 0;
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
 }
 
 
@@ -268,6 +263,61 @@ const char* VideoDecoder::MessageToMethodName_(mojo::Message& message) {
   }
 #endif // BUILDFLAG(MOJO_TRACE_ENABLED)
 }
+
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t VideoDecoder::Initialize_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)arc::mojom::VideoDecoder::Initialize");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t VideoDecoder::Decode_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)arc::mojom::VideoDecoder::Decode");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t VideoDecoder::Reset_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)arc::mojom::VideoDecoder::Reset");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t VideoDecoder::ReleaseVideoFrame_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)arc::mojom::VideoDecoder::ReleaseVideoFrame");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
 
 class VideoDecoder_Initialize_ForwardToCallback
     : public mojo::MessageReceiver {
@@ -385,7 +435,7 @@ void VideoDecoderProxy::Initialize(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new VideoDecoder_Initialize_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void VideoDecoderProxy::Decode(
@@ -432,7 +482,7 @@ void VideoDecoderProxy::Decode(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new VideoDecoder_Decode_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void VideoDecoderProxy::Reset(
@@ -463,7 +513,7 @@ void VideoDecoderProxy::Reset(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new VideoDecoder_Reset_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void VideoDecoderProxy::ReleaseVideoFrame(
@@ -501,7 +551,7 @@ void VideoDecoderProxy::ReleaseVideoFrame(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 class VideoDecoder_Initialize_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
@@ -609,8 +659,8 @@ void VideoDecoder_Initialize_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -724,8 +774,8 @@ void VideoDecoder_Decode_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -826,8 +876,8 @@ void VideoDecoder_Reset_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -1014,20 +1064,18 @@ bool VideoDecoderResponseValidator::Accept(mojo::Message* message) {
 }
 const char VideoDecoderClient::Name_[] = "arc.mojom.VideoDecoderClient";
 
-uint32_t VideoDecoderClient::MessageToStableIPCHash_(mojo::Message& message) {
+VideoDecoderClient::IPCStableHashFunction VideoDecoderClient::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
   switch (message.name()) {
     case internal::kVideoDecoderClient_OnVideoFrameDecoded_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)arc::mojom::VideoDecoderClient::OnVideoFrameDecoded");
-      return value;
+      return &VideoDecoderClient::OnVideoFrameDecoded_Sym::IPCStableHash;
     }
     case internal::kVideoDecoderClient_OnError_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)arc::mojom::VideoDecoderClient::OnError");
-      return value;
+      return &VideoDecoderClient::OnError_Sym::IPCStableHash;
     }
   }
-  return 0;
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
 }
 
 
@@ -1059,6 +1107,35 @@ const char* VideoDecoderClient::MessageToMethodName_(mojo::Message& message) {
   }
 #endif // BUILDFLAG(MOJO_TRACE_ENABLED)
 }
+
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t VideoDecoderClient::OnVideoFrameDecoded_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)arc::mojom::VideoDecoderClient::OnVideoFrameDecoded");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t VideoDecoderClient::OnError_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)arc::mojom::VideoDecoderClient::OnError");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
 
 VideoDecoderClientProxy::VideoDecoderClientProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
@@ -1117,7 +1194,7 @@ void VideoDecoderClientProxy::OnVideoFrameDecoded(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 void VideoDecoderClientProxy::OnError(
@@ -1156,7 +1233,7 @@ void VideoDecoderClientProxy::OnError(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 // static

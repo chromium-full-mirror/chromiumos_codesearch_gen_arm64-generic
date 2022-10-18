@@ -218,24 +218,29 @@ struct FromFlatBuffer<::cryptohome::PinWeaverAuthBlockState> {
 namespace hwsec_foundation {
 
 template <>
-struct ToFlatBuffer<::cryptohome::LibScryptCompatAuthBlockState> {
-  using ResultType = flatbuffers::Offset<
-      ::cryptohome::_serialized_::LibScryptCompatAuthBlockState>;
+struct ToFlatBuffer<::cryptohome::ScryptAuthBlockState> {
+  using ResultType =
+      flatbuffers::Offset<::cryptohome::_serialized_::ScryptAuthBlockState>;
 
   ResultType operator()(
       flatbuffers::FlatBufferBuilder* builder,
-      const ::cryptohome::LibScryptCompatAuthBlockState& object) const {
-    auto wrapped_keyset = ToFlatBuffer<std::optional<brillo::SecureBlob>>()(
-        builder, object.wrapped_keyset);
-    auto wrapped_chaps_key = ToFlatBuffer<std::optional<brillo::SecureBlob>>()(
-        builder, object.wrapped_chaps_key);
-    auto wrapped_reset_seed = ToFlatBuffer<std::optional<brillo::SecureBlob>>()(
-        builder, object.wrapped_reset_seed);
+      const ::cryptohome::ScryptAuthBlockState& object) const {
     auto salt =
         ToFlatBuffer<std::optional<brillo::SecureBlob>>()(builder, object.salt);
+    auto chaps_salt = ToFlatBuffer<std::optional<brillo::SecureBlob>>()(
+        builder, object.chaps_salt);
+    auto reset_seed_salt = ToFlatBuffer<std::optional<brillo::SecureBlob>>()(
+        builder, object.reset_seed_salt);
+    auto work_factor =
+        ToFlatBuffer<std::optional<int32_t>>()(builder, object.work_factor);
+    auto block_size =
+        ToFlatBuffer<std::optional<uint32_t>>()(builder, object.block_size);
+    auto parallel_factor = ToFlatBuffer<std::optional<uint32_t>>()(
+        builder, object.parallel_factor);
 
-    return ::cryptohome::_serialized_::CreateLibScryptCompatAuthBlockState(
-        *builder, wrapped_keyset, wrapped_chaps_key, wrapped_reset_seed, salt);
+    return ::cryptohome::_serialized_::CreateScryptAuthBlockState(
+        *builder, salt, chaps_salt, reset_seed_salt, work_factor, block_size,
+        parallel_factor);
   }
 };
 
@@ -244,24 +249,25 @@ struct ToFlatBuffer<::cryptohome::LibScryptCompatAuthBlockState> {
 namespace hwsec_foundation {
 
 template <>
-struct FromFlatBuffer<::cryptohome::LibScryptCompatAuthBlockState> {
-  ::cryptohome::LibScryptCompatAuthBlockState operator()(
-      const ::cryptohome::_serialized_::LibScryptCompatAuthBlockState* object)
-      const {
+struct FromFlatBuffer<::cryptohome::ScryptAuthBlockState> {
+  ::cryptohome::ScryptAuthBlockState operator()(
+      const ::cryptohome::_serialized_::ScryptAuthBlockState* object) const {
     if (object == nullptr) {
-      return ::cryptohome::LibScryptCompatAuthBlockState();
+      return ::cryptohome::ScryptAuthBlockState();
     }
-    return ::cryptohome::LibScryptCompatAuthBlockState{
-        .wrapped_keyset = FromFlatBuffer<std::optional<brillo::SecureBlob>>()(
-            object->wrapped_keyset()),
-        .wrapped_chaps_key =
-            FromFlatBuffer<std::optional<brillo::SecureBlob>>()(
-                object->wrapped_chaps_key()),
-        .wrapped_reset_seed =
-            FromFlatBuffer<std::optional<brillo::SecureBlob>>()(
-                object->wrapped_reset_seed()),
+    return ::cryptohome::ScryptAuthBlockState{
         .salt =
             FromFlatBuffer<std::optional<brillo::SecureBlob>>()(object->salt()),
+        .chaps_salt = FromFlatBuffer<std::optional<brillo::SecureBlob>>()(
+            object->chaps_salt()),
+        .reset_seed_salt = FromFlatBuffer<std::optional<brillo::SecureBlob>>()(
+            object->reset_seed_salt()),
+        .work_factor =
+            FromFlatBuffer<std::optional<int32_t>>()(object->work_factor()),
+        .block_size =
+            FromFlatBuffer<std::optional<uint32_t>>()(object->block_size()),
+        .parallel_factor = FromFlatBuffer<std::optional<uint32_t>>()(
+            object->parallel_factor()),
     };
   }
 };
@@ -278,9 +284,8 @@ struct ToFlatBuffer<::cryptohome::ChallengeCredentialAuthBlockState> {
   ResultType operator()(
       flatbuffers::FlatBufferBuilder* builder,
       const ::cryptohome::ChallengeCredentialAuthBlockState& object) const {
-    auto scrypt_state =
-        ToFlatBuffer<::cryptohome::LibScryptCompatAuthBlockState>()(
-            builder, object.scrypt_state);
+    auto scrypt_state = ToFlatBuffer<::cryptohome::ScryptAuthBlockState>()(
+        builder, object.scrypt_state);
     auto keyset_challenge_info = ToFlatBuffer<
         std::optional<::cryptohome::structure::SignatureChallengeInfo>>()(
         builder, object.keyset_challenge_info);
@@ -303,9 +308,8 @@ struct FromFlatBuffer<::cryptohome::ChallengeCredentialAuthBlockState> {
       return ::cryptohome::ChallengeCredentialAuthBlockState();
     }
     return ::cryptohome::ChallengeCredentialAuthBlockState{
-        .scrypt_state =
-            FromFlatBuffer<::cryptohome::LibScryptCompatAuthBlockState>()(
-                object->scrypt_state()),
+        .scrypt_state = FromFlatBuffer<::cryptohome::ScryptAuthBlockState>()(
+            object->scrypt_state()),
         .keyset_challenge_info = FromFlatBuffer<
             std::optional<::cryptohome::structure::SignatureChallengeInfo>>()(
             object->keyset_challenge_info()),
@@ -325,9 +329,8 @@ struct ToFlatBuffer<::cryptohome::DoubleWrappedCompatAuthBlockState> {
   ResultType operator()(
       flatbuffers::FlatBufferBuilder* builder,
       const ::cryptohome::DoubleWrappedCompatAuthBlockState& object) const {
-    auto scrypt_state =
-        ToFlatBuffer<::cryptohome::LibScryptCompatAuthBlockState>()(
-            builder, object.scrypt_state);
+    auto scrypt_state = ToFlatBuffer<::cryptohome::ScryptAuthBlockState>()(
+        builder, object.scrypt_state);
     auto tpm_state =
         ToFlatBuffer<::cryptohome::TpmNotBoundToPcrAuthBlockState>()(
             builder, object.tpm_state);
@@ -350,9 +353,8 @@ struct FromFlatBuffer<::cryptohome::DoubleWrappedCompatAuthBlockState> {
       return ::cryptohome::DoubleWrappedCompatAuthBlockState();
     }
     return ::cryptohome::DoubleWrappedCompatAuthBlockState{
-        .scrypt_state =
-            FromFlatBuffer<::cryptohome::LibScryptCompatAuthBlockState>()(
-                object->scrypt_state()),
+        .scrypt_state = FromFlatBuffer<::cryptohome::ScryptAuthBlockState>()(
+            object->scrypt_state()),
         .tpm_state =
             FromFlatBuffer<::cryptohome::TpmNotBoundToPcrAuthBlockState>()(
                 object->tpm_state()),
@@ -496,56 +498,6 @@ struct FromFlatBuffer<::cryptohome::TpmEccAuthBlockState> {
 namespace hwsec_foundation {
 
 template <>
-struct ToFlatBuffer<::cryptohome::ScryptAuthBlockState> {
-  using ResultType =
-      flatbuffers::Offset<::cryptohome::_serialized_::ScryptAuthBlockState>;
-
-  ResultType operator()(
-      flatbuffers::FlatBufferBuilder* builder,
-      const ::cryptohome::ScryptAuthBlockState& object) const {
-    auto salt =
-        ToFlatBuffer<std::optional<brillo::SecureBlob>>()(builder, object.salt);
-    auto work_factor =
-        ToFlatBuffer<std::optional<int32_t>>()(builder, object.work_factor);
-    auto block_size =
-        ToFlatBuffer<std::optional<uint32_t>>()(builder, object.block_size);
-    auto parallel_factor = ToFlatBuffer<std::optional<uint32_t>>()(
-        builder, object.parallel_factor);
-
-    return ::cryptohome::_serialized_::CreateScryptAuthBlockState(
-        *builder, salt, work_factor, block_size, parallel_factor);
-  }
-};
-
-}  // namespace hwsec_foundation
-
-namespace hwsec_foundation {
-
-template <>
-struct FromFlatBuffer<::cryptohome::ScryptAuthBlockState> {
-  ::cryptohome::ScryptAuthBlockState operator()(
-      const ::cryptohome::_serialized_::ScryptAuthBlockState* object) const {
-    if (object == nullptr) {
-      return ::cryptohome::ScryptAuthBlockState();
-    }
-    return ::cryptohome::ScryptAuthBlockState{
-        .salt =
-            FromFlatBuffer<std::optional<brillo::SecureBlob>>()(object->salt()),
-        .work_factor =
-            FromFlatBuffer<std::optional<int32_t>>()(object->work_factor()),
-        .block_size =
-            FromFlatBuffer<std::optional<uint32_t>>()(object->block_size()),
-        .parallel_factor = FromFlatBuffer<std::optional<uint32_t>>()(
-            object->parallel_factor()),
-    };
-  }
-};
-
-}  // namespace hwsec_foundation
-
-namespace hwsec_foundation {
-
-template <>
 struct ToFlatBuffer<::cryptohome::AuthBlockStateUnion, IsUnionEnum> {
   using ResultType = ::cryptohome::_serialized_::AuthBlockStateUnion;
 
@@ -569,11 +521,6 @@ struct ToFlatBuffer<::cryptohome::AuthBlockStateUnion, IsUnionEnum> {
                                  T, ::cryptohome::PinWeaverAuthBlockState>)
             return ::cryptohome::_serialized_::AuthBlockStateUnion::
                 PinWeaverAuthBlockState;
-          else if constexpr (std::is_same_v<
-                                 T,
-                                 ::cryptohome::LibScryptCompatAuthBlockState>)
-            return ::cryptohome::_serialized_::AuthBlockStateUnion::
-                LibScryptCompatAuthBlockState;
           else if constexpr (std::is_same_v<
                                  T, ::cryptohome::
                                         ChallengeCredentialAuthBlockState>)
@@ -636,12 +583,6 @@ struct FromFlatBuffer<::cryptohome::AuthBlockStateUnion> {
             static_cast<
                 const ::cryptohome::_serialized_::PinWeaverAuthBlockState*>(
                 object));
-      }
-      case ::cryptohome::_serialized_::AuthBlockStateUnion::
-          LibScryptCompatAuthBlockState: {
-        return FromFlatBuffer<::cryptohome::LibScryptCompatAuthBlockState>()(
-            static_cast<const ::cryptohome::_serialized_::
-                            LibScryptCompatAuthBlockState*>(object));
       }
       case ::cryptohome::_serialized_::AuthBlockStateUnion::
           ChallengeCredentialAuthBlockState: {

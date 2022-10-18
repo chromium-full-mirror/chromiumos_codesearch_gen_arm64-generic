@@ -8,7 +8,7 @@
 #define DIAGNOSTICS_MOJOM_PUBLIC_CROS_HEALTHD_MOJOM_SHARED_MESSAGE_IDS_H_
 
 #include <stdint.h>
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace mojom {
 
@@ -32,7 +32,8 @@ constexpr uint32_t kCrosHealthdDiagnosticsService_RunAcPowerRoutine_Name = 6;
 constexpr uint32_t kCrosHealthdDiagnosticsService_RunCpuCacheRoutine_Name = 7;
 constexpr uint32_t kCrosHealthdDiagnosticsService_RunCpuStressRoutine_Name = 8;
 constexpr uint32_t kCrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_Name = 9;
-constexpr uint32_t kCrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_Name = 10;
+constexpr uint32_t kCrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_Name = 10;
+constexpr uint32_t kCrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_Name = 32;
 constexpr uint32_t kCrosHealthdDiagnosticsService_RunNvmeSelfTestRoutine_Name = 11;
 constexpr uint32_t kCrosHealthdDiagnosticsService_RunDiskReadRoutine_Name = 12;
 constexpr uint32_t kCrosHealthdDiagnosticsService_RunPrimeSearchRoutine_Name = 13;
@@ -54,6 +55,7 @@ constexpr uint32_t kCrosHealthdDiagnosticsService_RunVideoConferencingRoutine_Na
 constexpr uint32_t kCrosHealthdDiagnosticsService_RunArcHttpRoutine_Name = 29;
 constexpr uint32_t kCrosHealthdDiagnosticsService_RunArcPingRoutine_Name = 30;
 constexpr uint32_t kCrosHealthdDiagnosticsService_RunArcDnsResolutionRoutine_Name = 31;
+constexpr uint32_t kCrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_Name = 33;
 constexpr uint32_t kCrosHealthdEventService_AddBluetoothObserver_Name = 0;
 constexpr uint32_t kCrosHealthdEventService_AddLidObserver_Name = 1;
 constexpr uint32_t kCrosHealthdEventService_AddPowerObserver_Name = 2;
@@ -73,6 +75,6 @@ constexpr uint32_t kWilcoEcServiceController_ShutdownEcService_Name = 3;
 }  // namespace internal
 }  // namespace mojom
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 #endif  // DIAGNOSTICS_MOJOM_PUBLIC_CROS_HEALTHD_MOJOM_SHARED_MESSAGE_IDS_H_

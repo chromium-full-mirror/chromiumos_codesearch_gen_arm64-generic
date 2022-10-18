@@ -14,7 +14,7 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunused-private-field"
 #endif
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace internal {
 namespace mojom {
@@ -120,7 +120,7 @@ class ChromiumDataCollector_GetTouchscreenDevices_ResponseParamsDataView {
   [[nodiscard]] bool ReadDevices(UserType* output) {
     
     auto* pointer = data_->devices.Get();
-    return mojo::internal::Deserialize<mojo::ArrayDataView<::chromeos::cros_healthd::internal::mojom::TouchscreenDeviceDataView>>(
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::ash::cros_healthd::internal::mojom::TouchscreenDeviceDataView>>(
         pointer, output, message_);
   }
  private:
@@ -192,7 +192,7 @@ inline void ChromiumDataCollector_GetTouchpadLibraryName_ResponseParamsDataView:
 }  // namespace mojom
 }  // namespace internal
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 #if defined(__clang__)
 #pragma clang diagnostic pop

@@ -624,7 +624,7 @@ class  HttpsLatencyResultValue_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::chromeos::cros_healthd::internal::mojo_base::mojom::internal::TimeDelta_Data> latency;
+  mojo::internal::Pointer<::ash::cros_healthd::internal::mojo_base::mojom::internal::TimeDelta_Data> latency;
 
  private:
   friend class mojo::internal::MessageFragment<HttpsLatencyResultValue_Data>;
@@ -675,7 +675,7 @@ class  RoutineResult_Data {
   int32_t verdict;
   uint8_t pad0_[4];
   internal::RoutineProblems_Data problems;
-  mojo::internal::Pointer<::chromeos::cros_healthd::internal::mojo_base::mojom::internal::Time_Data> timestamp;
+  mojo::internal::Pointer<::ash::cros_healthd::internal::mojo_base::mojom::internal::Time_Data> timestamp;
   internal::RoutineResultValue_Data result_value;
 
  private:

@@ -32,7 +32,7 @@
 
 
 
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace mojom {
 class ExecutedProcessResultDataView;
@@ -41,14 +41,14 @@ class ExecutedProcessResultDataView;
 
 }  // namespace mojom
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 namespace mojo {
 namespace internal {
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::mojom::ExecutedProcessResultDataView> {
-  using Data = ::chromeos::cros_healthd::mojom::internal::ExecutedProcessResult_Data;
+struct MojomTypeTraits<::ash::cros_healthd::mojom::ExecutedProcessResultDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::ExecutedProcessResult_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -57,7 +57,7 @@ struct MojomTypeTraits<::chromeos::cros_healthd::mojom::ExecutedProcessResultDat
 }  // namespace mojo
 
 
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace mojom {
 // Interface base classes. They are used for type safety check.
@@ -115,7 +115,7 @@ class ExecutedProcessResultDataView {
 
 }  // namespace mojom
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 namespace std {
 
@@ -127,13 +127,13 @@ namespace mojo {
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::mojom::ExecutedProcessResultDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::mojom::ExecutedProcessResultDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::mojom::ExecutedProcessResultDataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::ExecutedProcessResultDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::mojom::internal::ExecutedProcessResult_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::ExecutedProcessResult_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
@@ -164,13 +164,13 @@ struct Serializer<::chromeos::cros_healthd::mojom::ExecutedProcessResultDataView
         "null err in ExecutedProcessResult struct");
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::mojom::internal::ExecutedProcessResult_Data* input,
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::ExecutedProcessResult_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::mojom::ExecutedProcessResultDataView data_view(input, message);
+    ::ash::cros_healthd::mojom::ExecutedProcessResultDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -180,7 +180,7 @@ struct Serializer<::chromeos::cros_healthd::mojom::ExecutedProcessResultDataView
 }  // namespace mojo
 
 
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace mojom {
 
@@ -199,7 +199,7 @@ inline void ExecutedProcessResultDataView::GetErrDataView(
 
 }  // namespace mojom
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.

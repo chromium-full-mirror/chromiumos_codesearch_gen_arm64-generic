@@ -146,6 +146,9 @@ class SessionManagerInterfaceInterface {
       brillo::ErrorPtr* error,
       const std::string& in_account_id,
       const std::string& in_mode) = 0;
+  virtual bool StartBrowserDataBackwardMigration(
+      brillo::ErrorPtr* error,
+      const std::string& in_account_id) = 0;
   virtual void UnblockDevModeForInitialStateDetermination(
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<>> response) = 0;
   virtual void UnblockDevModeForEnrollment(
@@ -347,6 +350,10 @@ class SessionManagerInterfaceAdaptor {
         "StartBrowserDataMigration",
         base::Unretained(interface_),
         &SessionManagerInterfaceInterface::StartBrowserDataMigration);
+    itf->AddSimpleMethodHandlerWithError(
+        "StartBrowserDataBackwardMigration",
+        base::Unretained(interface_),
+        &SessionManagerInterfaceInterface::StartBrowserDataBackwardMigration);
     itf->AddMethodHandler(
         "UnblockDevModeForInitialStateDetermination",
         base::Unretained(interface_),
@@ -566,6 +573,9 @@ class SessionManagerInterfaceAdaptor {
         "    <method name=\"StartBrowserDataMigration\">\n"
         "      <arg name=\"account_id\" type=\"s\" direction=\"in\"/>\n"
         "      <arg name=\"mode\" type=\"s\" direction=\"in\"/>\n"
+        "    </method>\n"
+        "    <method name=\"StartBrowserDataBackwardMigration\">\n"
+        "      <arg name=\"account_id\" type=\"s\" direction=\"in\"/>\n"
         "    </method>\n"
         "    <method name=\"UnblockDevModeForInitialStateDetermination\">\n"
         "    </method>\n"

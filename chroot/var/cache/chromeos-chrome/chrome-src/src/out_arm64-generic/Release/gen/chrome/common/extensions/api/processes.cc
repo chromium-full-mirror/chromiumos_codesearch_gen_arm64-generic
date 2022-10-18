@@ -1,4 +1,4 @@
-// Copyright 2022 The Chromium Authors. All rights reserved.
+// Copyright 2022 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -388,12 +388,10 @@ bool Process::Populate(
         return false;
       }
       else {
-        auto temp = std::make_unique<Cache>();
-        if (!Cache::Populate((*image_cache_value), temp.get())) {
+        Cache temp;
+        if (!Cache::Populate((*image_cache_value), &temp))
           return false;
-        }
-        else
-          out->image_cache = std::move(temp);
+        out->image_cache = std::move(temp);
       }
     }
   }
@@ -405,12 +403,10 @@ bool Process::Populate(
         return false;
       }
       else {
-        auto temp = std::make_unique<Cache>();
-        if (!Cache::Populate((*script_cache_value), temp.get())) {
+        Cache temp;
+        if (!Cache::Populate((*script_cache_value), &temp))
           return false;
-        }
-        else
-          out->script_cache = std::move(temp);
+        out->script_cache = std::move(temp);
       }
     }
   }
@@ -422,12 +418,10 @@ bool Process::Populate(
         return false;
       }
       else {
-        auto temp = std::make_unique<Cache>();
-        if (!Cache::Populate((*css_cache_value), temp.get())) {
+        Cache temp;
+        if (!Cache::Populate((*css_cache_value), &temp))
           return false;
-        }
-        else
-          out->css_cache = std::move(temp);
+        out->css_cache = std::move(temp);
       }
     }
   }

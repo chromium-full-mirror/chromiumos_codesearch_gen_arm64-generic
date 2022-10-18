@@ -16,5 +16,7 @@
 #include "camera/mojo/gpu/mjpeg_decode_accelerator.mojom-import-headers.h"
 #include "camera/mojo/unguessable_token.mojom.h"
 #include "camera/mojo/unguessable_token.mojom-import-headers.h"
+#include "ml_core/mojo/effects_pipeline.mojom.h"
+#include "ml_core/mojo/effects_pipeline.mojom-import-headers.h"
 
 #endif  // CAMERA_MOJO_CROS_CAMERA_SERVICE_MOJOM_IMPORT_HEADERS_H_

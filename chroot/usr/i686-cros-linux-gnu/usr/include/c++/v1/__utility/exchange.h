@@ -18,6 +18,7 @@
 #  pragma GCC system_header
 #endif
 
+_LIBCPP_DISABLE_DEBUG_INFO
 _LIBCPP_BEGIN_NAMESPACE_STD
 
 #if _LIBCPP_STD_VER > 11
@@ -33,5 +34,6 @@ _T1 exchange(_T1& __obj, _T2&& __new_value)
 #endif // _LIBCPP_STD_VER > 11
 
 _LIBCPP_END_NAMESPACE_STD
+_LIBCPP_ENABLE_DEBUG_INFO
 
 #endif // _LIBCPP___UTILITY_EXCHANGE_H

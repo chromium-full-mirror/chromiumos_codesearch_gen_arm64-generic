@@ -35,7 +35,7 @@
 
 
 
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace mojom {
 
@@ -1011,98 +1011,98 @@ bool operator<(const T& lhs, const T& rhs) {
 
 }  // namespace mojom
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 namespace mojo {
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::NullableUint8::DataView,
-                                         ::chromeos::cros_healthd::mojom::NullableUint8Ptr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::NullableUint8Ptr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::NullableUint8Ptr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::NullableUint8::DataView,
+                                         ::ash::cros_healthd::mojom::NullableUint8Ptr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::NullableUint8Ptr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::NullableUint8Ptr* output) { output->reset(); }
 
-  static decltype(::chromeos::cros_healthd::mojom::NullableUint8::value) value(
-      const ::chromeos::cros_healthd::mojom::NullableUint8Ptr& input) {
+  static decltype(::ash::cros_healthd::mojom::NullableUint8::value) value(
+      const ::ash::cros_healthd::mojom::NullableUint8Ptr& input) {
     return input->value;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::NullableUint8::DataView input, ::chromeos::cros_healthd::mojom::NullableUint8Ptr* output);
+  static bool Read(::ash::cros_healthd::mojom::NullableUint8::DataView input, ::ash::cros_healthd::mojom::NullableUint8Ptr* output);
 };
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::NullableInt16::DataView,
-                                         ::chromeos::cros_healthd::mojom::NullableInt16Ptr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::NullableInt16Ptr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::NullableInt16Ptr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::NullableInt16::DataView,
+                                         ::ash::cros_healthd::mojom::NullableInt16Ptr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::NullableInt16Ptr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::NullableInt16Ptr* output) { output->reset(); }
 
-  static decltype(::chromeos::cros_healthd::mojom::NullableInt16::value) value(
-      const ::chromeos::cros_healthd::mojom::NullableInt16Ptr& input) {
+  static decltype(::ash::cros_healthd::mojom::NullableInt16::value) value(
+      const ::ash::cros_healthd::mojom::NullableInt16Ptr& input) {
     return input->value;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::NullableInt16::DataView input, ::chromeos::cros_healthd::mojom::NullableInt16Ptr* output);
+  static bool Read(::ash::cros_healthd::mojom::NullableInt16::DataView input, ::ash::cros_healthd::mojom::NullableInt16Ptr* output);
 };
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::NullableUint16::DataView,
-                                         ::chromeos::cros_healthd::mojom::NullableUint16Ptr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::NullableUint16Ptr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::NullableUint16Ptr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::NullableUint16::DataView,
+                                         ::ash::cros_healthd::mojom::NullableUint16Ptr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::NullableUint16Ptr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::NullableUint16Ptr* output) { output->reset(); }
 
-  static decltype(::chromeos::cros_healthd::mojom::NullableUint16::value) value(
-      const ::chromeos::cros_healthd::mojom::NullableUint16Ptr& input) {
+  static decltype(::ash::cros_healthd::mojom::NullableUint16::value) value(
+      const ::ash::cros_healthd::mojom::NullableUint16Ptr& input) {
     return input->value;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::NullableUint16::DataView input, ::chromeos::cros_healthd::mojom::NullableUint16Ptr* output);
+  static bool Read(::ash::cros_healthd::mojom::NullableUint16::DataView input, ::ash::cros_healthd::mojom::NullableUint16Ptr* output);
 };
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::NullableUint32::DataView,
-                                         ::chromeos::cros_healthd::mojom::NullableUint32Ptr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::NullableUint32Ptr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::NullableUint32Ptr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::NullableUint32::DataView,
+                                         ::ash::cros_healthd::mojom::NullableUint32Ptr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::NullableUint32Ptr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::NullableUint32Ptr* output) { output->reset(); }
 
-  static decltype(::chromeos::cros_healthd::mojom::NullableUint32::value) value(
-      const ::chromeos::cros_healthd::mojom::NullableUint32Ptr& input) {
+  static decltype(::ash::cros_healthd::mojom::NullableUint32::value) value(
+      const ::ash::cros_healthd::mojom::NullableUint32Ptr& input) {
     return input->value;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::NullableUint32::DataView input, ::chromeos::cros_healthd::mojom::NullableUint32Ptr* output);
+  static bool Read(::ash::cros_healthd::mojom::NullableUint32::DataView input, ::ash::cros_healthd::mojom::NullableUint32Ptr* output);
 };
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::NullableUint64::DataView,
-                                         ::chromeos::cros_healthd::mojom::NullableUint64Ptr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::NullableUint64Ptr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::NullableUint64Ptr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::NullableUint64::DataView,
+                                         ::ash::cros_healthd::mojom::NullableUint64Ptr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::NullableUint64Ptr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::NullableUint64Ptr* output) { output->reset(); }
 
-  static decltype(::chromeos::cros_healthd::mojom::NullableUint64::value) value(
-      const ::chromeos::cros_healthd::mojom::NullableUint64Ptr& input) {
+  static decltype(::ash::cros_healthd::mojom::NullableUint64::value) value(
+      const ::ash::cros_healthd::mojom::NullableUint64Ptr& input) {
     return input->value;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::NullableUint64::DataView input, ::chromeos::cros_healthd::mojom::NullableUint64Ptr* output);
+  static bool Read(::ash::cros_healthd::mojom::NullableUint64::DataView input, ::ash::cros_healthd::mojom::NullableUint64Ptr* output);
 };
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::NullableDouble::DataView,
-                                         ::chromeos::cros_healthd::mojom::NullableDoublePtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::NullableDoublePtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::NullableDoublePtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::NullableDouble::DataView,
+                                         ::ash::cros_healthd::mojom::NullableDoublePtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::NullableDoublePtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::NullableDoublePtr* output) { output->reset(); }
 
-  static decltype(::chromeos::cros_healthd::mojom::NullableDouble::value) value(
-      const ::chromeos::cros_healthd::mojom::NullableDoublePtr& input) {
+  static decltype(::ash::cros_healthd::mojom::NullableDouble::value) value(
+      const ::ash::cros_healthd::mojom::NullableDoublePtr& input) {
     return input->value;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::NullableDouble::DataView input, ::chromeos::cros_healthd::mojom::NullableDoublePtr* output);
+  static bool Read(::ash::cros_healthd::mojom::NullableDouble::DataView input, ::ash::cros_healthd::mojom::NullableDoublePtr* output);
 };
 
 }  // namespace mojo

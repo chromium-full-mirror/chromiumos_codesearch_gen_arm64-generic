@@ -8,7 +8,7 @@
 #define DIAGNOSTICS_MOJOM_EXTERNAL_CROS_HEALTHD_INTERNAL_MOJOM_SHARED_MESSAGE_IDS_H_
 
 #include <stdint.h>
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace internal {
 namespace mojom {
@@ -23,6 +23,6 @@ constexpr uint32_t kChromiumDataCollector_GetTouchpadLibraryName_Name = 1;
 }  // namespace mojom
 }  // namespace internal
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 #endif  // DIAGNOSTICS_MOJOM_EXTERNAL_CROS_HEALTHD_INTERNAL_MOJOM_SHARED_MESSAGE_IDS_H_

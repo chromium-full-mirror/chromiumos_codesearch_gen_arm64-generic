@@ -5,7 +5,8 @@
 #ifndef BASE_ALLOCATOR_PARTITION_ALLOCATOR_PARTITION_ALLOC_CONFIG_H_
 #define BASE_ALLOCATOR_PARTITION_ALLOCATOR_PARTITION_ALLOC_CONFIG_H_
 
-#include "base/allocator/buildflags.h"
+#include "base/allocator/partition_allocator/partition_alloc_base/debug/debugging_buildflags.h"
+#include "base/allocator/partition_allocator/partition_alloc_buildflags.h"
 #include "build/build_config.h"
 
 // ARCH_CPU_64_BITS implies 64-bit instruction set, but not necessarily 64-bit
@@ -17,7 +18,7 @@
 static_assert(sizeof(void*) == 8, "");
 #else
 static_assert(sizeof(void*) != 8, "");
-#endif
+#endif  // defined(ARCH_CPU_64_BITS) && !BUILDFLAG(IS_NACL)
 
 // PCScan supports 64 bits only.
 #if defined(PA_HAS_64_BITS_POINTERS)
@@ -29,13 +30,21 @@ static_assert(sizeof(void*) != 8, "");
 #define PA_STARSCAN_NEON_SUPPORTED
 #endif
 
-#if BUILDFLAG(IS_IOS)
+#if defined(PA_HAS_64_BITS_POINTERS) && (BUILDFLAG(IS_IOS) || BUILDFLAG(IS_WIN))
 // Use dynamically sized GigaCage. This allows to query the size at run-time,
-// before initialization, instead of using a hardcoded constexpr. This is needed
-// on iOS because iOS test processes can't handle a large cage (see
-// crbug.com/1250788).
+// before initialization, instead of using a hardcoded constexpr.
+//
+// This is needed on iOS because iOS test processes can't handle a large cage
+// (see crbug.com/1250788).
+//
+// This is needed on Windows, because OS versions <8.1 incur commit charge even
+// on reserved address space, thus don't handle large cage well (see
+// crbug.com/1101421 and crbug.com/1217759).
+//
+// This setting is specific to 64-bit, as 32-bit has a different implementation.
 #define PA_USE_DYNAMICALLY_SIZED_GIGA_CAGE
-#endif
+#endif  // defined(PA_HAS_64_BITS_POINTERS) &&
+        // (BUILDFLAG(IS_IOS) || BUILDFLAG(IS_WIN))
 
 #if defined(PA_HAS_64_BITS_POINTERS) && \
     (BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_ANDROID))
@@ -77,20 +86,19 @@ static_assert(sizeof(void*) != 8, "");
 // - On Linux, futex(2)
 // - On Windows, a fast userspace "try" operation which is available
 //   with SRWLock
-// - Otherwise, a fast userspace pthread_mutex_trylock().
-//
-// On macOS, pthread_mutex_trylock() is fast by default starting with macOS
-// 10.14. Chromium targets an earlier version, so it cannot be known at
-// compile-time. So we use something different. On other POSIX systems, we
-// assume that pthread_mutex_trylock() is suitable.
+// - On macOS, pthread_mutex_trylock() is fast by default starting with macOS
+//   10.14. Chromium targets an earlier version, so it cannot be known at
+//   compile-time. So we use something different.
+// - Otherwise, on POSIX we assume that a fast userspace pthread_mutex_trylock()
+//   is available.
 //
 // Otherwise, a userspace spinlock implementation is used.
 #if defined(PA_HAS_LINUX_KERNEL) || BUILDFLAG(IS_WIN) || \
-    (BUILDFLAG(IS_POSIX) && !BUILDFLAG(IS_APPLE)) || BUILDFLAG(IS_FUCHSIA)
+    BUILDFLAG(IS_APPLE) || BUILDFLAG(IS_POSIX) || BUILDFLAG(IS_FUCHSIA)
 #define PA_HAS_FAST_MUTEX
 #endif
 
-// If set to 1, enables zeroing memory on Free() with roughly 1% probability.
+// If defined, enables zeroing memory on Free() with roughly 1% probability.
 // This applies only to normal buckets, as direct-map allocations are always
 // decommitted.
 // TODO(bartekn): Re-enable once PartitionAlloc-Everywhere evaluation is done.
@@ -229,7 +237,7 @@ constexpr bool kUseLazyCommit = false;
 // larger slot spans.
 #if BUILDFLAG(IS_LINUX) || (BUILDFLAG(IS_MAC) && defined(ARCH_CPU_ARM64))
 #define PA_PREFER_SMALLER_SLOT_SPANS
-#endif  // BUILDFLAG(IS_LINUX)
+#endif  // BUILDFLAG(IS_LINUX) || (BUILDFLAG(IS_MAC) && defined(ARCH_CPU_ARM64))
 
 // Build MTECheckedPtr code.
 //

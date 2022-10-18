@@ -1,4 +1,4 @@
-// Copyright 2022 The Chromium Authors. All rights reserved.
+// Copyright 2022 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -658,12 +658,10 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
         return std::unique_ptr<Params>();
       }
       else {
-        auto temp = std::make_unique<ChooseEntryOptions>();
-        if (!ChooseEntryOptions::Populate(options_value, temp.get())) {
+        ChooseEntryOptions temp;
+        if (!ChooseEntryOptions::Populate(options_value, &temp))
           return std::unique_ptr<Params>();
-        }
-        else
-          params->options = std::move(temp);
+        params->options = std::move(temp);
       }
     }
   }

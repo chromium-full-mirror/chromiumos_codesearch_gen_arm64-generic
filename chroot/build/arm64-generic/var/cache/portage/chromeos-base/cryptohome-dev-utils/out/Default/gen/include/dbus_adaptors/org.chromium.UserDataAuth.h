@@ -138,9 +138,9 @@ class UserDataAuthInterfaceInterface {
   virtual void ListAuthFactors(
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::ListAuthFactorsReply>> response,
       const user_data_auth::ListAuthFactorsRequest& in_request) = 0;
-  virtual void PrepareAsyncAuthFactor(
-      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::PrepareAsyncAuthFactorReply>> response,
-      const user_data_auth::PrepareAsyncAuthFactorRequest& in_request) = 0;
+  virtual void PrepareAuthFactor(
+      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::PrepareAuthFactorReply>> response,
+      const user_data_auth::PrepareAuthFactorRequest& in_request) = 0;
   virtual void GetRecoveryRequest(
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::GetRecoveryRequestReply>> response,
       const user_data_auth::GetRecoveryRequestRequest& in_request) = 0;
@@ -309,9 +309,9 @@ class UserDataAuthInterfaceAdaptor {
         base::Unretained(interface_),
         &UserDataAuthInterfaceInterface::ListAuthFactors);
     itf->AddMethodHandler(
-        "PrepareAsyncAuthFactor",
+        "PrepareAuthFactor",
         base::Unretained(interface_),
-        &UserDataAuthInterfaceInterface::PrepareAsyncAuthFactor);
+        &UserDataAuthInterfaceInterface::PrepareAuthFactor);
     itf->AddMethodHandler(
         "GetRecoveryRequest",
         base::Unretained(interface_),
@@ -493,7 +493,7 @@ class UserDataAuthInterfaceAdaptor {
         "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
         "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"
-        "    <method name=\"PrepareAsyncAuthFactor\">\n"
+        "    <method name=\"PrepareAuthFactor\">\n"
         "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
         "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"

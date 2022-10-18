@@ -1,4 +1,4 @@
-// Copyright 2022 The Chromium Authors. All rights reserved.
+// Copyright 2022 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -685,12 +685,10 @@ bool SecureOptions::Populate(
         return false;
       }
       else {
-        auto temp = std::make_unique<TLSVersionConstraints>();
-        if (!TLSVersionConstraints::Populate((*tls_version_value), temp.get())) {
+        TLSVersionConstraints temp;
+        if (!TLSVersionConstraints::Populate((*tls_version_value), &temp))
           return false;
-        }
-        else
-          out->tls_version = std::move(temp);
+        out->tls_version = std::move(temp);
       }
     }
   }
@@ -762,12 +760,10 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
         return std::unique_ptr<Params>();
       }
       else {
-        auto temp = std::make_unique<CreateOptions>();
-        if (!CreateOptions::Populate(options_value, temp.get())) {
+        CreateOptions temp;
+        if (!CreateOptions::Populate(options_value, &temp))
           return std::unique_ptr<Params>();
-        }
-        else
-          params->options = std::move(temp);
+        params->options = std::move(temp);
       }
     }
   }
@@ -1831,12 +1827,10 @@ std::unique_ptr<Params> Params::Create(const base::Value::List& args) {
         return std::unique_ptr<Params>();
       }
       else {
-        auto temp = std::make_unique<SecureOptions>();
-        if (!SecureOptions::Populate(options_value, temp.get())) {
+        SecureOptions temp;
+        if (!SecureOptions::Populate(options_value, &temp))
           return std::unique_ptr<Params>();
-        }
-        else
-          params->options = std::move(temp);
+        params->options = std::move(temp);
       }
     }
   }

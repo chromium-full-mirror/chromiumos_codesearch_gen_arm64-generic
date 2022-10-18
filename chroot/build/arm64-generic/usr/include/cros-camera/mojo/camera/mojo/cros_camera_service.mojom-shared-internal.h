@@ -15,6 +15,7 @@
 #include "camera/mojo/gpu/jpeg_encode_accelerator.mojom-shared-internal.h"
 #include "camera/mojo/gpu/mjpeg_decode_accelerator.mojom-shared-internal.h"
 #include "camera/mojo/unguessable_token.mojom-shared-internal.h"
+#include "ml_core/mojo/effects_pipeline.mojom-shared-internal.h"
 #include "mojo/public/cpp/bindings/lib/native_enum_data.h"
 #include "mojo/public/interfaces/bindings/native_struct.mojom-shared-internal.h"
 

@@ -14,10 +14,10 @@ namespace core {
 // Initializes the global Core object.
 MOJO_SYSTEM_IMPL_EXPORT void InitializeCore();
 
-// Returns a MojoSystemThunks struct populated with the EDK's implementation of
-// each function. This may be used by embedders to populate thunks for
+// Returns a MojoSystemThunks2 struct populated with the EDK's implementation
+// of each function. This may be used by embedders to populate thunks for
 // application loading.
-MOJO_SYSTEM_IMPL_EXPORT const MojoSystemThunks& GetSystemThunks();
+MOJO_SYSTEM_IMPL_EXPORT const MojoSystemThunks2& GetSystemThunks();
 
 }  // namespace core
 }  // namespace mojo

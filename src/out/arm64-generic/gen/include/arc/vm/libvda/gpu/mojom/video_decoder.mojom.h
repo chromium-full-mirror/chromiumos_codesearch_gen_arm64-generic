@@ -54,8 +54,10 @@ class VideoDecoderResponseValidator;
 class  VideoDecoder
     : public VideoDecoderInterfaceBase {
  public:
+  using IPCStableHashFunction = uint32_t(*)();
+
   static const char Name_[];
-  static uint32_t MessageToStableIPCHash_(mojo::Message& message);
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 0;
   static constexpr bool PassesAssociatedKinds_ = true;
@@ -76,6 +78,23 @@ class  VideoDecoder
     kResetMinVersion = 0,
     kReleaseVideoFrameMinVersion = 0,
   };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+  struct Initialize_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct Decode_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct Reset_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct ReleaseVideoFrame_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+#endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~VideoDecoder() = default;
 
 
@@ -108,8 +127,10 @@ class VideoDecoderClientRequestValidator;
 class  VideoDecoderClient
     : public VideoDecoderClientInterfaceBase {
  public:
+  using IPCStableHashFunction = uint32_t(*)();
+
   static const char Name_[];
-  static uint32_t MessageToStableIPCHash_(mojo::Message& message);
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 0;
   static constexpr bool PassesAssociatedKinds_ = false;
@@ -128,6 +149,17 @@ class  VideoDecoderClient
     kOnVideoFrameDecodedMinVersion = 0,
     kOnErrorMinVersion = 0,
   };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+  struct OnVideoFrameDecoded_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct OnError_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+#endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~VideoDecoderClient() = default;
 
   

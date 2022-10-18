@@ -1716,6 +1716,18 @@ struct EncryptedReportingPipelineConfigurationProtoDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 EncryptedReportingPipelineConfigurationProtoDefaultTypeInternal _EncryptedReportingPipelineConfigurationProto_default_instance_;
+PROTOBUF_CONSTEXPR DeviceReportXDREventsProto::DeviceReportXDREventsProto(
+    ::_pbi::ConstantInitialized)
+  : enabled_(false){}
+struct DeviceReportXDREventsProtoDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR DeviceReportXDREventsProtoDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~DeviceReportXDREventsProtoDefaultTypeInternal() {}
+  union {
+    DeviceReportXDREventsProto _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DeviceReportXDREventsProtoDefaultTypeInternal _DeviceReportXDREventsProto_default_instance_;
 PROTOBUF_CONSTEXPR ChromeDeviceSettingsProto::ChromeDeviceSettingsProto(
     ::_pbi::ConstantInitialized)
   : device_policy_refresh_rate_(nullptr)
@@ -1851,7 +1863,8 @@ PROTOBUF_CONSTEXPR ChromeDeviceSettingsProto::ChromeDeviceSettingsProto(
   , device_encrypted_reporting_pipeline_enabled_(nullptr)
   , saml_username_(nullptr)
   , device_login_screen_context_aware_access_signals_allowlist_(nullptr)
-  , device_printing_client_name_template_(nullptr){}
+  , device_printing_client_name_template_(nullptr)
+  , device_report_xdr_events_(nullptr){}
 struct ChromeDeviceSettingsProtoDefaultTypeInternal {
   PROTOBUF_CONSTEXPR ChromeDeviceSettingsProtoDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -6586,7 +6599,7 @@ const char* DeviceReportingProto::_InternalParse(const char* ptr, ::_pbi::ParseC
         } else
           goto handle_unusual;
         continue;
-      // optional bool enable_granular_reporting = 32 [default = true];
+      // optional bool enable_granular_reporting = 32 [default = true, deprecated = true];
       case 32:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 0)) {
           _Internal::set_has_enable_granular_reporting(&_has_bits_);
@@ -6868,7 +6881,7 @@ uint8_t* DeviceReportingProto::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteBoolToArray(31, this->_internal_report_security_status(), target);
   }
 
-  // optional bool enable_granular_reporting = 32 [default = true];
+  // optional bool enable_granular_reporting = 32 [default = true, deprecated = true];
   if (cached_has_bits & 0x02000000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(32, this->_internal_enable_granular_reporting(), target);
@@ -7064,7 +7077,7 @@ size_t DeviceReportingProto::ByteSizeLong() const {
       total_size += 2 + 1;
     }
 
-    // optional bool enable_granular_reporting = 32 [default = true];
+    // optional bool enable_granular_reporting = 32 [default = true, deprecated = true];
     if (cached_has_bits & 0x02000000u) {
       total_size += 2 + 1;
     }
@@ -32104,6 +32117,186 @@ std::string EncryptedReportingPipelineConfigurationProto::GetTypeName() const {
 
 // ===================================================================
 
+class DeviceReportXDREventsProto::_Internal {
+ public:
+  using HasBits = decltype(std::declval<DeviceReportXDREventsProto>()._has_bits_);
+  static void set_has_enabled(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+};
+
+DeviceReportXDREventsProto::DeviceReportXDREventsProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:enterprise_management.DeviceReportXDREventsProto)
+}
+DeviceReportXDREventsProto::DeviceReportXDREventsProto(const DeviceReportXDREventsProto& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      _has_bits_(from._has_bits_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  enabled_ = from.enabled_;
+  // @@protoc_insertion_point(copy_constructor:enterprise_management.DeviceReportXDREventsProto)
+}
+
+inline void DeviceReportXDREventsProto::SharedCtor() {
+enabled_ = false;
+}
+
+DeviceReportXDREventsProto::~DeviceReportXDREventsProto() {
+  // @@protoc_insertion_point(destructor:enterprise_management.DeviceReportXDREventsProto)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void DeviceReportXDREventsProto::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void DeviceReportXDREventsProto::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void DeviceReportXDREventsProto::Clear() {
+// @@protoc_insertion_point(message_clear_start:enterprise_management.DeviceReportXDREventsProto)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  enabled_ = false;
+  _has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* DeviceReportXDREventsProto::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional bool enabled = 1 [default = false];
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _Internal::set_has_enabled(&has_bits);
+          enabled_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* DeviceReportXDREventsProto::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:enterprise_management.DeviceReportXDREventsProto)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // optional bool enabled = 1 [default = false];
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(1, this->_internal_enabled(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:enterprise_management.DeviceReportXDREventsProto)
+  return target;
+}
+
+size_t DeviceReportXDREventsProto::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:enterprise_management.DeviceReportXDREventsProto)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // optional bool enabled = 1 [default = false];
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    total_size += 1 + 1;
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void DeviceReportXDREventsProto::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const DeviceReportXDREventsProto*>(
+      &from));
+}
+
+void DeviceReportXDREventsProto::MergeFrom(const DeviceReportXDREventsProto& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:enterprise_management.DeviceReportXDREventsProto)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_has_enabled()) {
+    _internal_set_enabled(from._internal_enabled());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void DeviceReportXDREventsProto::CopyFrom(const DeviceReportXDREventsProto& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:enterprise_management.DeviceReportXDREventsProto)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool DeviceReportXDREventsProto::IsInitialized() const {
+  return true;
+}
+
+void DeviceReportXDREventsProto::InternalSwap(DeviceReportXDREventsProto* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(enabled_, other->enabled_);
+}
+
+std::string DeviceReportXDREventsProto::GetTypeName() const {
+  return "enterprise_management.DeviceReportXDREventsProto";
+}
+
+
+// ===================================================================
+
 class ChromeDeviceSettingsProto::_Internal {
  public:
   using HasBits = decltype(std::declval<ChromeDeviceSettingsProto>()._has_bits_);
@@ -32643,6 +32836,10 @@ class ChromeDeviceSettingsProto::_Internal {
   static void set_has_device_printing_client_name_template(HasBits* has_bits) {
     (*has_bits)[4] |= 32u;
   }
+  static const ::enterprise_management::DeviceReportXDREventsProto& device_report_xdr_events(const ChromeDeviceSettingsProto* msg);
+  static void set_has_device_report_xdr_events(HasBits* has_bits) {
+    (*has_bits)[4] |= 64u;
+  }
 };
 
 const ::enterprise_management::DevicePolicyRefreshRateProto&
@@ -33180,6 +33377,10 @@ ChromeDeviceSettingsProto::_Internal::device_login_screen_context_aware_access_s
 const ::enterprise_management::StringPolicyProto&
 ChromeDeviceSettingsProto::_Internal::device_printing_client_name_template(const ChromeDeviceSettingsProto* msg) {
   return *msg->device_printing_client_name_template_;
+}
+const ::enterprise_management::DeviceReportXDREventsProto&
+ChromeDeviceSettingsProto::_Internal::device_report_xdr_events(const ChromeDeviceSettingsProto* msg) {
+  return *msg->device_report_xdr_events_;
 }
 void ChromeDeviceSettingsProto::clear_device_login_screen_system_info_enforced() {
   if (device_login_screen_system_info_enforced_ != nullptr) device_login_screen_system_info_enforced_->Clear();
@@ -33917,14 +34118,19 @@ ChromeDeviceSettingsProto::ChromeDeviceSettingsProto(const ChromeDeviceSettingsP
   } else {
     device_printing_client_name_template_ = nullptr;
   }
+  if (from._internal_has_device_report_xdr_events()) {
+    device_report_xdr_events_ = new ::enterprise_management::DeviceReportXDREventsProto(*from.device_report_xdr_events_);
+  } else {
+    device_report_xdr_events_ = nullptr;
+  }
   // @@protoc_insertion_point(copy_constructor:enterprise_management.ChromeDeviceSettingsProto)
 }
 
 inline void ChromeDeviceSettingsProto::SharedCtor() {
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&device_policy_refresh_rate_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&device_printing_client_name_template_) -
-    reinterpret_cast<char*>(&device_policy_refresh_rate_)) + sizeof(device_printing_client_name_template_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&device_report_xdr_events_) -
+    reinterpret_cast<char*>(&device_policy_refresh_rate_)) + sizeof(device_report_xdr_events_));
 }
 
 ChromeDeviceSettingsProto::~ChromeDeviceSettingsProto() {
@@ -34072,6 +34278,7 @@ inline void ChromeDeviceSettingsProto::SharedDtor() {
   if (this != internal_default_instance()) delete saml_username_;
   if (this != internal_default_instance()) delete device_login_screen_context_aware_access_signals_allowlist_;
   if (this != internal_default_instance()) delete device_printing_client_name_template_;
+  if (this != internal_default_instance()) delete device_report_xdr_events_;
 }
 
 void ChromeDeviceSettingsProto::SetCachedSize(int size) const {
@@ -34633,7 +34840,7 @@ void ChromeDeviceSettingsProto::Clear() {
     }
   }
   cached_has_bits = _has_bits_[4];
-  if (cached_has_bits & 0x0000003fu) {
+  if (cached_has_bits & 0x0000007fu) {
     if (cached_has_bits & 0x00000001u) {
       GOOGLE_DCHECK(keylocker_for_storage_encryption_enabled_ != nullptr);
       keylocker_for_storage_encryption_enabled_->Clear();
@@ -34657,6 +34864,10 @@ void ChromeDeviceSettingsProto::Clear() {
     if (cached_has_bits & 0x00000020u) {
       GOOGLE_DCHECK(device_printing_client_name_template_ != nullptr);
       device_printing_client_name_template_->Clear();
+    }
+    if (cached_has_bits & 0x00000040u) {
+      GOOGLE_DCHECK(device_report_xdr_events_ != nullptr);
+      device_report_xdr_events_->Clear();
     }
   }
   _has_bits_.Clear();
@@ -35741,6 +35952,14 @@ const char* ChromeDeviceSettingsProto::_InternalParse(const char* ptr, ::_pbi::P
         } else
           goto handle_unusual;
         continue;
+      // optional .enterprise_management.DeviceReportXDREventsProto device_report_xdr_events = 138;
+      case 138:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 82)) {
+          ptr = ctx->ParseMessage(_internal_mutable_device_report_xdr_events(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -36713,6 +36932,13 @@ uint8_t* ChromeDeviceSettingsProto::_InternalSerialize(
         _Internal::device_printing_client_name_template(this).GetCachedSize(), target, stream);
   }
 
+  // optional .enterprise_management.DeviceReportXDREventsProto device_report_xdr_events = 138;
+  if (cached_has_bits & 0x00000040u) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(138, _Internal::device_report_xdr_events(this),
+        _Internal::device_report_xdr_events(this).GetCachedSize(), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -37662,7 +37888,7 @@ size_t ChromeDeviceSettingsProto::ByteSizeLong() const {
 
   }
   cached_has_bits = _has_bits_[4];
-  if (cached_has_bits & 0x0000003fu) {
+  if (cached_has_bits & 0x0000007fu) {
     // optional .enterprise_management.DeviceKeylockerForStorageEncryptionEnabledProto keylocker_for_storage_encryption_enabled = 132;
     if (cached_has_bits & 0x00000001u) {
       total_size += 2 +
@@ -37703,6 +37929,13 @@ size_t ChromeDeviceSettingsProto::ByteSizeLong() const {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *device_printing_client_name_template_);
+    }
+
+    // optional .enterprise_management.DeviceReportXDREventsProto device_report_xdr_events = 138;
+    if (cached_has_bits & 0x00000040u) {
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *device_report_xdr_events_);
     }
 
   }
@@ -38147,7 +38380,7 @@ void ChromeDeviceSettingsProto::MergeFrom(const ChromeDeviceSettingsProto& from)
     }
   }
   cached_has_bits = from._has_bits_[4];
-  if (cached_has_bits & 0x0000003fu) {
+  if (cached_has_bits & 0x0000007fu) {
     if (cached_has_bits & 0x00000001u) {
       _internal_mutable_keylocker_for_storage_encryption_enabled()->::enterprise_management::DeviceKeylockerForStorageEncryptionEnabledProto::MergeFrom(from._internal_keylocker_for_storage_encryption_enabled());
     }
@@ -38165,6 +38398,9 @@ void ChromeDeviceSettingsProto::MergeFrom(const ChromeDeviceSettingsProto& from)
     }
     if (cached_has_bits & 0x00000020u) {
       _internal_mutable_device_printing_client_name_template()->::enterprise_management::StringPolicyProto::MergeFrom(from._internal_device_printing_client_name_template());
+    }
+    if (cached_has_bits & 0x00000040u) {
+      _internal_mutable_device_report_xdr_events()->::enterprise_management::DeviceReportXDREventsProto::MergeFrom(from._internal_device_report_xdr_events());
     }
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
@@ -38190,8 +38426,8 @@ void ChromeDeviceSettingsProto::InternalSwap(ChromeDeviceSettingsProto* other) {
   swap(_has_bits_[3], other->_has_bits_[3]);
   swap(_has_bits_[4], other->_has_bits_[4]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(ChromeDeviceSettingsProto, device_printing_client_name_template_)
-      + sizeof(ChromeDeviceSettingsProto::device_printing_client_name_template_)
+      PROTOBUF_FIELD_OFFSET(ChromeDeviceSettingsProto, device_report_xdr_events_)
+      + sizeof(ChromeDeviceSettingsProto::device_report_xdr_events_)
       - PROTOBUF_FIELD_OFFSET(ChromeDeviceSettingsProto, device_policy_refresh_rate_)>(
           reinterpret_cast<char*>(&device_policy_refresh_rate_),
           reinterpret_cast<char*>(&other->device_policy_refresh_rate_));
@@ -38720,6 +38956,10 @@ Arena::CreateMaybeMessage< ::enterprise_management::DeviceLoginScreenWebUILazyLo
 template<> PROTOBUF_NOINLINE ::enterprise_management::EncryptedReportingPipelineConfigurationProto*
 Arena::CreateMaybeMessage< ::enterprise_management::EncryptedReportingPipelineConfigurationProto >(Arena* arena) {
   return Arena::CreateMessageInternal< ::enterprise_management::EncryptedReportingPipelineConfigurationProto >(arena);
+}
+template<> PROTOBUF_NOINLINE ::enterprise_management::DeviceReportXDREventsProto*
+Arena::CreateMaybeMessage< ::enterprise_management::DeviceReportXDREventsProto >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::enterprise_management::DeviceReportXDREventsProto >(arena);
 }
 template<> PROTOBUF_NOINLINE ::enterprise_management::ChromeDeviceSettingsProto*
 Arena::CreateMaybeMessage< ::enterprise_management::ChromeDeviceSettingsProto >(Arena* arena) {

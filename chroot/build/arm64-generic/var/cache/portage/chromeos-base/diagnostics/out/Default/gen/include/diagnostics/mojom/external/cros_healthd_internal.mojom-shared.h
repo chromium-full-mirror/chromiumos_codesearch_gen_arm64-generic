@@ -31,7 +31,7 @@
 
 
 
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace internal {
 namespace mojom {
@@ -44,21 +44,21 @@ class InputDeviceDataView;
 }  // namespace mojom
 }  // namespace internal
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 namespace mojo {
 namespace internal {
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::internal::mojom::TouchscreenDeviceDataView> {
-  using Data = ::chromeos::cros_healthd::internal::mojom::internal::TouchscreenDevice_Data;
+struct MojomTypeTraits<::ash::cros_healthd::internal::mojom::TouchscreenDeviceDataView> {
+  using Data = ::ash::cros_healthd::internal::mojom::internal::TouchscreenDevice_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
 template <>
-struct MojomTypeTraits<::chromeos::cros_healthd::internal::mojom::InputDeviceDataView> {
-  using Data = ::chromeos::cros_healthd::internal::mojom::internal::InputDevice_Data;
+struct MojomTypeTraits<::ash::cros_healthd::internal::mojom::InputDeviceDataView> {
+  using Data = ::ash::cros_healthd::internal::mojom::internal::InputDevice_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -67,7 +67,7 @@ struct MojomTypeTraits<::chromeos::cros_healthd::internal::mojom::InputDeviceDat
 }  // namespace mojo
 
 
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace internal {
 namespace mojom {
@@ -130,7 +130,7 @@ class TouchscreenDeviceDataView {
   [[nodiscard]] bool ReadInputDevice(UserType* output) {
     
     auto* pointer = data_->input_device.Get();
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::internal::mojom::InputDeviceDataView>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::internal::mojom::InputDeviceDataView>(
         pointer, output, message_);
   }
   int32_t touch_points() const {
@@ -172,12 +172,12 @@ class InputDeviceDataView {
   template <typename UserType>
   [[nodiscard]] bool ReadConnectionType(UserType* output) const {
     auto data_value = data_->connection_type;
-    return mojo::internal::Deserialize<::chromeos::cros_healthd::internal::mojom::InputDevice_ConnectionType>(
+    return mojo::internal::Deserialize<::ash::cros_healthd::internal::mojom::InputDevice_ConnectionType>(
         data_value, output);
   }
   InputDevice_ConnectionType connection_type() const {
     return ::mojo::internal::ToKnownEnumValueHelper(
-          static_cast<::chromeos::cros_healthd::internal::mojom::InputDevice_ConnectionType>(data_->connection_type));
+          static_cast<::ash::cros_healthd::internal::mojom::InputDevice_ConnectionType>(data_->connection_type));
   }
   inline void GetPhysicalLocationDataView(
       mojo::StringDataView* output);
@@ -212,13 +212,13 @@ class InputDeviceDataView {
 }  // namespace mojom
 }  // namespace internal
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 namespace std {
 
 template <>
-struct hash<::chromeos::cros_healthd::internal::mojom::InputDevice_ConnectionType>
-    : public mojo::internal::EnumHashImpl<::chromeos::cros_healthd::internal::mojom::InputDevice_ConnectionType> {};
+struct hash<::ash::cros_healthd::internal::mojom::InputDevice_ConnectionType>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::internal::mojom::InputDevice_ConnectionType> {};
 
 }  // namespace std
 
@@ -228,9 +228,9 @@ namespace mojo {
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::internal::mojom::InputDevice_ConnectionType, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::internal::mojom::InputDevice_ConnectionType, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = EnumTraits<::chromeos::cros_healthd::internal::mojom::InputDevice_ConnectionType, UserType>;
+  using Traits = EnumTraits<::ash::cros_healthd::internal::mojom::InputDevice_ConnectionType, UserType>;
 
   static void Serialize(UserType input, int32_t* output) {
     *output = static_cast<int32_t>(Traits::ToMojom(input));
@@ -238,7 +238,7 @@ struct Serializer<::chromeos::cros_healthd::internal::mojom::InputDevice_Connect
 
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
-        static_cast<::chromeos::cros_healthd::internal::mojom::InputDevice_ConnectionType>(input)), output);
+        static_cast<::ash::cros_healthd::internal::mojom::InputDevice_ConnectionType>(input)), output);
   }
 };
 
@@ -248,13 +248,13 @@ struct Serializer<::chromeos::cros_healthd::internal::mojom::InputDevice_Connect
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::internal::mojom::TouchscreenDeviceDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::internal::mojom::TouchscreenDeviceDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::internal::mojom::TouchscreenDeviceDataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::internal::mojom::TouchscreenDeviceDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::internal::mojom::internal::TouchscreenDevice_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::internal::mojom::internal::TouchscreenDevice_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
@@ -262,7 +262,7 @@ struct Serializer<::chromeos::cros_healthd::internal::mojom::TouchscreenDeviceDa
     mojo::internal::MessageFragment<
         typename decltype(fragment->input_device)::BaseType> input_device_fragment(
             fragment.message());
-    mojo::internal::Serialize<::chromeos::cros_healthd::internal::mojom::InputDeviceDataView>(
+    mojo::internal::Serialize<::ash::cros_healthd::internal::mojom::InputDeviceDataView>(
         in_input_device, input_device_fragment);
     fragment->input_device.Set(
         input_device_fragment.is_null() ? nullptr : input_device_fragment.data());
@@ -275,13 +275,13 @@ struct Serializer<::chromeos::cros_healthd::internal::mojom::TouchscreenDeviceDa
     fragment->has_stylus_garage_switch = Traits::has_stylus_garage_switch(input);
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::internal::mojom::internal::TouchscreenDevice_Data* input,
+  static bool Deserialize(::ash::cros_healthd::internal::mojom::internal::TouchscreenDevice_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::internal::mojom::TouchscreenDeviceDataView data_view(input, message);
+    ::ash::cros_healthd::internal::mojom::TouchscreenDeviceDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -292,13 +292,13 @@ struct Serializer<::chromeos::cros_healthd::internal::mojom::TouchscreenDeviceDa
 namespace internal {
 
 template <typename MaybeConstUserType>
-struct Serializer<::chromeos::cros_healthd::internal::mojom::InputDeviceDataView, MaybeConstUserType> {
+struct Serializer<::ash::cros_healthd::internal::mojom::InputDeviceDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
-  using Traits = StructTraits<::chromeos::cros_healthd::internal::mojom::InputDeviceDataView, UserType>;
+  using Traits = StructTraits<::ash::cros_healthd::internal::mojom::InputDeviceDataView, UserType>;
 
   static void Serialize(
       MaybeConstUserType& input,
-      mojo::internal::MessageFragment<::chromeos::cros_healthd::internal::mojom::internal::InputDevice_Data>& fragment) {
+      mojo::internal::MessageFragment<::ash::cros_healthd::internal::mojom::internal::InputDevice_Data>& fragment) {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
@@ -314,7 +314,7 @@ struct Serializer<::chromeos::cros_healthd::internal::mojom::InputDeviceDataView
         fragment->name.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null name in InputDevice struct");
-    mojo::internal::Serialize<::chromeos::cros_healthd::internal::mojom::InputDevice_ConnectionType>(
+    mojo::internal::Serialize<::ash::cros_healthd::internal::mojom::InputDevice_ConnectionType>(
         Traits::connection_type(input), &fragment->connection_type);
     decltype(Traits::physical_location(input)) in_physical_location = Traits::physical_location(input);
     mojo::internal::MessageFragment<
@@ -343,13 +343,13 @@ struct Serializer<::chromeos::cros_healthd::internal::mojom::InputDeviceDataView
         "null sysfs_path in InputDevice struct");
   }
 
-  static bool Deserialize(::chromeos::cros_healthd::internal::mojom::internal::InputDevice_Data* input,
+  static bool Deserialize(::ash::cros_healthd::internal::mojom::internal::InputDevice_Data* input,
                           UserType* output,
                           Message* message) {
     if (!input)
       return CallSetToNullIfExists<Traits>(output);
 
-    ::chromeos::cros_healthd::internal::mojom::InputDeviceDataView data_view(input, message);
+    ::ash::cros_healthd::internal::mojom::InputDeviceDataView data_view(input, message);
     return Traits::Read(data_view, output);
   }
 };
@@ -359,7 +359,7 @@ struct Serializer<::chromeos::cros_healthd::internal::mojom::InputDeviceDataView
 }  // namespace mojo
 
 
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace internal {
 namespace mojom {
@@ -392,7 +392,7 @@ inline void InputDeviceDataView::GetSysfsPathDataView(
 }  // namespace mojom
 }  // namespace internal
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.
@@ -400,8 +400,8 @@ inline void InputDeviceDataView::GetSysfsPathDataView(
 namespace perfetto_libchrome {
 
 template <>
-struct  TraceFormatTraits<::chromeos::cros_healthd::internal::mojom::InputDevice_ConnectionType> {
- static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::chromeos::cros_healthd::internal::mojom::InputDevice_ConnectionType value);
+struct  TraceFormatTraits<::ash::cros_healthd::internal::mojom::InputDevice_ConnectionType> {
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::internal::mojom::InputDevice_ConnectionType value);
 };
 
 } // namespace perfetto

@@ -101,11 +101,12 @@ enum Priority : int {
   SLOW_BATCH = 3,
   BACKGROUND_BATCH = 4,
   MANUAL_BATCH = 5,
-  SECURITY = 6
+  SECURITY = 6,
+  MANUAL_BATCH_LACROS = 7
 };
 bool Priority_IsValid(int value);
 constexpr Priority Priority_MIN = UNDEFINED_PRIORITY;
-constexpr Priority Priority_MAX = SECURITY;
+constexpr Priority Priority_MAX = MANUAL_BATCH_LACROS;
 constexpr int Priority_ARRAYSIZE = Priority_MAX + 1;
 
 const std::string& Priority_Name(Priority value);

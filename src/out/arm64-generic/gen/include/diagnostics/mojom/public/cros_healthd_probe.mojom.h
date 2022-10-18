@@ -37,7 +37,7 @@
 
 
 
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace mojom {
 
@@ -1909,152 +1909,6 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
-
-
-
-
-class  OsVersion {
- public:
-  template <typename T>
-  using EnableIfSame = std::enable_if_t<std::is_same<OsVersion, T>::value>;
-  using DataView = OsVersionDataView;
-  using Data_ = internal::OsVersion_Data;
-
-  template <typename... Args>
-  static OsVersionPtr New(Args&&... args) {
-    return OsVersionPtr(
-        absl::in_place, std::forward<Args>(args)...);
-  }
-
-  template <typename U>
-  static OsVersionPtr From(const U& u) {
-    return mojo::TypeConverter<OsVersionPtr, U>::Convert(u);
-  }
-
-  template <typename U>
-  U To() const {
-    return mojo::TypeConverter<U, OsVersion>::Convert(*this);
-  }
-
-
-  OsVersion();
-
-  OsVersion(
-      const std::string& release_milestone,
-      const std::string& build_number,
-      const std::string& patch_number,
-      const std::string& release_channel);
-
-
-  ~OsVersion();
-
-  // Clone() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Clone() or copy
-  // constructor/assignment are available for members.
-  template <typename StructPtrType = OsVersionPtr>
-  OsVersionPtr Clone() const;
-
-  // Equals() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Equals() or == operator
-  // are available for members.
-  template <typename T, OsVersion::EnableIfSame<T>* = nullptr>
-  bool Equals(const T& other) const;
-
-  template <typename T, OsVersion::EnableIfSame<T>* = nullptr>
-  bool operator==(const T& rhs) const { return Equals(rhs); }
-  size_t Hash(size_t seed) const;
-  template <typename UserType>
-  static std::vector<uint8_t> Serialize(UserType* input) {
-    return mojo::internal::SerializeImpl<
-        OsVersion::DataView, std::vector<uint8_t>>(input);
-  }
-
-  template <typename UserType>
-  static mojo::Message SerializeAsMessage(UserType* input) {
-    return mojo::internal::SerializeAsMessageImpl<
-        OsVersion::DataView>(input);
-  }
-
-  // The returned Message is serialized only if the message is moved
-  // cross-process or cross-language. Otherwise if the message is Deserialized
-  // as the same UserType |input| will just be moved to |output| in
-  // DeserializeFromMessage.
-  template <typename UserType>
-  static mojo::Message WrapAsMessage(UserType input) {
-    return mojo::Message(std::make_unique<
-        internal::OsVersion_UnserializedMessageContext<
-            UserType, OsVersion::DataView>>(0, 0, std::move(input)),
-        MOJO_CREATE_MESSAGE_FLAG_NONE);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const void* data,
-                          size_t data_num_bytes,
-                          UserType* output) {
-    mojo::Message message;
-    return mojo::internal::DeserializeImpl<OsVersion::DataView>(
-        message, data, data_num_bytes, output, Validate);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const std::vector<uint8_t>& input,
-                          UserType* output) {
-    return OsVersion::Deserialize(
-        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
-  }
-
-  template <typename UserType>
-  static bool DeserializeFromMessage(mojo::Message input,
-                                     UserType* output) {
-    auto context = input.TakeUnserializedContext<
-        internal::OsVersion_UnserializedMessageContext<
-            UserType, OsVersion::DataView>>();
-    if (context) {
-      *output = std::move(context->TakeData());
-      return true;
-    }
-    input.SerializeIfNecessary();
-    return mojo::internal::DeserializeImpl<OsVersion::DataView>(
-        input, input.payload(), input.payload_num_bytes(), output, Validate);
-  }
-
-  
-  std::string release_milestone;
-  
-  std::string build_number;
-  
-  std::string patch_number;
-  
-  std::string release_channel;
-
-  // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
-
- private:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-};
-
-// The comparison operators are templates, so they are only instantiated if they
-// are used. Thus, the bindings generator does not need to know whether
-// comparison operators are available for members.
-template <typename T, OsVersion::EnableIfSame<T>* = nullptr>
-bool operator<(const T& lhs, const T& rhs);
-
-template <typename T, OsVersion::EnableIfSame<T>* = nullptr>
-bool operator<=(const T& lhs, const T& rhs) {
-  return !(rhs < lhs);
-}
-
-template <typename T, OsVersion::EnableIfSame<T>* = nullptr>
-bool operator>(const T& lhs, const T& rhs) {
-  return rhs < lhs;
-}
-
-template <typename T, OsVersion::EnableIfSame<T>* = nullptr>
-bool operator>=(const T& lhs, const T& rhs) {
-  return !(lhs < rhs);
-}
 
 
 
@@ -7509,7 +7363,7 @@ class  BatteryInfo {
       const std::string& technology,
       const std::string& status,
       const absl::optional<std::string>& manufacture_date,
-      ::chromeos::cros_healthd::mojom::NullableUint64Ptr temperature);
+      ::ash::cros_healthd::mojom::NullableUint64Ptr temperature);
 
 BatteryInfo(const BatteryInfo&) = delete;
 BatteryInfo& operator=(const BatteryInfo&) = delete;
@@ -7612,7 +7466,7 @@ BatteryInfo& operator=(const BatteryInfo&) = delete;
   
   absl::optional<std::string> manufacture_date;
   
-  ::chromeos::cros_healthd::mojom::NullableUint64Ptr temperature;
+  ::ash::cros_healthd::mojom::NullableUint64Ptr temperature;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
@@ -7679,7 +7533,7 @@ class  NonRemovableBlockDeviceInfo {
       uint64_t read_time_seconds_since_last_boot,
       uint64_t write_time_seconds_since_last_boot,
       uint64_t io_time_seconds_since_last_boot,
-      ::chromeos::cros_healthd::mojom::NullableUint64Ptr discard_time_seconds_since_last_boot,
+      ::ash::cros_healthd::mojom::NullableUint64Ptr discard_time_seconds_since_last_boot,
       BlockDeviceVendorPtr vendor_id,
       BlockDeviceProductPtr product_id,
       BlockDeviceRevisionPtr revision,
@@ -7777,7 +7631,7 @@ NonRemovableBlockDeviceInfo& operator=(const NonRemovableBlockDeviceInfo&) = del
   
   uint64_t io_time_seconds_since_last_boot;
   
-  ::chromeos::cros_healthd::mojom::NullableUint64Ptr discard_time_seconds_since_last_boot;
+  ::ash::cros_healthd::mojom::NullableUint64Ptr discard_time_seconds_since_last_boot;
   
   BlockDeviceVendorPtr vendor_id;
   
@@ -8691,22 +8545,22 @@ class  BluetoothDeviceInfo {
       const std::string& address,
       const absl::optional<std::string>& name,
       BluetoothDeviceType type,
-      ::chromeos::cros_healthd::mojom::NullableUint16Ptr appearance,
+      ::ash::cros_healthd::mojom::NullableUint16Ptr appearance,
       const absl::optional<std::string>& modalias,
-      ::chromeos::cros_healthd::mojom::NullableInt16Ptr rssi,
-      ::chromeos::cros_healthd::mojom::NullableUint16Ptr mtu,
+      ::ash::cros_healthd::mojom::NullableInt16Ptr rssi,
+      ::ash::cros_healthd::mojom::NullableUint16Ptr mtu,
       absl::optional<std::vector<std::string>> uuids);
 
   BluetoothDeviceInfo(
       const std::string& address,
       const absl::optional<std::string>& name,
       BluetoothDeviceType type,
-      ::chromeos::cros_healthd::mojom::NullableUint16Ptr appearance,
+      ::ash::cros_healthd::mojom::NullableUint16Ptr appearance,
       const absl::optional<std::string>& modalias,
-      ::chromeos::cros_healthd::mojom::NullableInt16Ptr rssi,
-      ::chromeos::cros_healthd::mojom::NullableUint16Ptr mtu,
+      ::ash::cros_healthd::mojom::NullableInt16Ptr rssi,
+      ::ash::cros_healthd::mojom::NullableUint16Ptr mtu,
       absl::optional<std::vector<std::string>> uuids,
-      ::chromeos::cros_healthd::mojom::NullableUint8Ptr battery_percentage);
+      ::ash::cros_healthd::mojom::NullableUint8Ptr battery_percentage);
 
 BluetoothDeviceInfo(const BluetoothDeviceInfo&) = delete;
 BluetoothDeviceInfo& operator=(const BluetoothDeviceInfo&) = delete;
@@ -8789,17 +8643,17 @@ BluetoothDeviceInfo& operator=(const BluetoothDeviceInfo&) = delete;
   
   BluetoothDeviceType type;
   
-  ::chromeos::cros_healthd::mojom::NullableUint16Ptr appearance;
+  ::ash::cros_healthd::mojom::NullableUint16Ptr appearance;
   
   absl::optional<std::string> modalias;
   
-  ::chromeos::cros_healthd::mojom::NullableInt16Ptr rssi;
+  ::ash::cros_healthd::mojom::NullableInt16Ptr rssi;
   
-  ::chromeos::cros_healthd::mojom::NullableUint16Ptr mtu;
+  ::ash::cros_healthd::mojom::NullableUint16Ptr mtu;
   
   absl::optional<std::vector<std::string>> uuids;
   
-  ::chromeos::cros_healthd::mojom::NullableUint8Ptr battery_percentage;
+  ::ash::cros_healthd::mojom::NullableUint8Ptr battery_percentage;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
@@ -9148,6 +9002,160 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+class  OsVersion {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<OsVersion, T>::value>;
+  using DataView = OsVersionDataView;
+  using Data_ = internal::OsVersion_Data;
+
+  template <typename... Args>
+  static OsVersionPtr New(Args&&... args) {
+    return OsVersionPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static OsVersionPtr From(const U& u) {
+    return mojo::TypeConverter<OsVersionPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, OsVersion>::Convert(*this);
+  }
+
+
+  OsVersion();
+
+  OsVersion(
+      const std::string& release_milestone,
+      const std::string& build_number,
+      const std::string& patch_number,
+      const std::string& release_channel);
+
+  OsVersion(
+      const std::string& release_milestone,
+      const std::string& build_number,
+      const absl::optional<std::string>& branch_number,
+      const std::string& patch_number,
+      const std::string& release_channel);
+
+
+  ~OsVersion();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = OsVersionPtr>
+  OsVersionPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, OsVersion::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, OsVersion::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        OsVersion::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        OsVersion::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::OsVersion_UnserializedMessageContext<
+            UserType, OsVersion::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<OsVersion::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return OsVersion::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::OsVersion_UnserializedMessageContext<
+            UserType, OsVersion::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<OsVersion::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  std::string release_milestone;
+  
+  std::string build_number;
+  
+  absl::optional<std::string> branch_number;
+  
+  std::string patch_number;
+  
+  std::string release_channel;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, OsVersion::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, OsVersion::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, OsVersion::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, OsVersion::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
 
 class  VpdInfo {
  public:
@@ -9182,6 +9190,15 @@ class  VpdInfo {
       const absl::optional<std::string>& activate_date,
       const absl::optional<std::string>& sku_number,
       const absl::optional<std::string>& model_name);
+
+  VpdInfo(
+      const absl::optional<std::string>& serial_number,
+      const absl::optional<std::string>& region,
+      const absl::optional<std::string>& mfg_date,
+      const absl::optional<std::string>& activate_date,
+      const absl::optional<std::string>& sku_number,
+      const absl::optional<std::string>& model_name,
+      const absl::optional<std::string>& oem_name);
 
 
   ~VpdInfo();
@@ -9267,6 +9284,8 @@ class  VpdInfo {
   absl::optional<std::string> sku_number;
   
   absl::optional<std::string> model_name;
+  
+  absl::optional<std::string> oem_name;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
@@ -9334,7 +9353,7 @@ class  DmiInfo {
       const absl::optional<std::string>& board_vendor,
       const absl::optional<std::string>& board_version,
       const absl::optional<std::string>& chassis_vendor,
-      ::chromeos::cros_healthd::mojom::NullableUint64Ptr chassis_type,
+      ::ash::cros_healthd::mojom::NullableUint64Ptr chassis_type,
       const absl::optional<std::string>& product_family,
       const absl::optional<std::string>& product_name,
       const absl::optional<std::string>& product_version,
@@ -9427,7 +9446,7 @@ DmiInfo& operator=(const DmiInfo&) = delete;
   
   absl::optional<std::string> chassis_vendor;
   
-  ::chromeos::cros_healthd::mojom::NullableUint64Ptr chassis_type;
+  ::ash::cros_healthd::mojom::NullableUint64Ptr chassis_type;
   
   absl::optional<std::string> product_family;
   
@@ -11908,25 +11927,25 @@ class  EmbeddedDisplayInfo {
   EmbeddedDisplayInfo(
       bool privacy_screen_supported,
       bool privacy_screen_enabled,
-      ::chromeos::cros_healthd::mojom::NullableUint32Ptr display_width,
-      ::chromeos::cros_healthd::mojom::NullableUint32Ptr display_height,
-      ::chromeos::cros_healthd::mojom::NullableUint32Ptr resolution_horizontal,
-      ::chromeos::cros_healthd::mojom::NullableUint32Ptr resolution_vertical,
-      ::chromeos::cros_healthd::mojom::NullableDoublePtr refresh_rate);
+      ::ash::cros_healthd::mojom::NullableUint32Ptr display_width,
+      ::ash::cros_healthd::mojom::NullableUint32Ptr display_height,
+      ::ash::cros_healthd::mojom::NullableUint32Ptr resolution_horizontal,
+      ::ash::cros_healthd::mojom::NullableUint32Ptr resolution_vertical,
+      ::ash::cros_healthd::mojom::NullableDoublePtr refresh_rate);
 
   EmbeddedDisplayInfo(
       bool privacy_screen_supported,
       bool privacy_screen_enabled,
-      ::chromeos::cros_healthd::mojom::NullableUint32Ptr display_width,
-      ::chromeos::cros_healthd::mojom::NullableUint32Ptr display_height,
-      ::chromeos::cros_healthd::mojom::NullableUint32Ptr resolution_horizontal,
-      ::chromeos::cros_healthd::mojom::NullableUint32Ptr resolution_vertical,
-      ::chromeos::cros_healthd::mojom::NullableDoublePtr refresh_rate,
+      ::ash::cros_healthd::mojom::NullableUint32Ptr display_width,
+      ::ash::cros_healthd::mojom::NullableUint32Ptr display_height,
+      ::ash::cros_healthd::mojom::NullableUint32Ptr resolution_horizontal,
+      ::ash::cros_healthd::mojom::NullableUint32Ptr resolution_vertical,
+      ::ash::cros_healthd::mojom::NullableDoublePtr refresh_rate,
       const absl::optional<std::string>& manufacturer,
-      ::chromeos::cros_healthd::mojom::NullableUint16Ptr model_id,
-      ::chromeos::cros_healthd::mojom::NullableUint32Ptr serial_number,
-      ::chromeos::cros_healthd::mojom::NullableUint8Ptr manufacture_week,
-      ::chromeos::cros_healthd::mojom::NullableUint16Ptr manufacture_year,
+      ::ash::cros_healthd::mojom::NullableUint16Ptr model_id,
+      ::ash::cros_healthd::mojom::NullableUint32Ptr serial_number,
+      ::ash::cros_healthd::mojom::NullableUint8Ptr manufacture_week,
+      ::ash::cros_healthd::mojom::NullableUint16Ptr manufacture_year,
       const absl::optional<std::string>& edid_version,
       DisplayInputType input_type,
       const absl::optional<std::string>& display_name);
@@ -12010,25 +12029,25 @@ EmbeddedDisplayInfo& operator=(const EmbeddedDisplayInfo&) = delete;
   
   bool privacy_screen_enabled;
   
-  ::chromeos::cros_healthd::mojom::NullableUint32Ptr display_width;
+  ::ash::cros_healthd::mojom::NullableUint32Ptr display_width;
   
-  ::chromeos::cros_healthd::mojom::NullableUint32Ptr display_height;
+  ::ash::cros_healthd::mojom::NullableUint32Ptr display_height;
   
-  ::chromeos::cros_healthd::mojom::NullableUint32Ptr resolution_horizontal;
+  ::ash::cros_healthd::mojom::NullableUint32Ptr resolution_horizontal;
   
-  ::chromeos::cros_healthd::mojom::NullableUint32Ptr resolution_vertical;
+  ::ash::cros_healthd::mojom::NullableUint32Ptr resolution_vertical;
   
-  ::chromeos::cros_healthd::mojom::NullableDoublePtr refresh_rate;
+  ::ash::cros_healthd::mojom::NullableDoublePtr refresh_rate;
   
   absl::optional<std::string> manufacturer;
   
-  ::chromeos::cros_healthd::mojom::NullableUint16Ptr model_id;
+  ::ash::cros_healthd::mojom::NullableUint16Ptr model_id;
   
-  ::chromeos::cros_healthd::mojom::NullableUint32Ptr serial_number;
+  ::ash::cros_healthd::mojom::NullableUint32Ptr serial_number;
   
-  ::chromeos::cros_healthd::mojom::NullableUint8Ptr manufacture_week;
+  ::ash::cros_healthd::mojom::NullableUint8Ptr manufacture_week;
   
-  ::chromeos::cros_healthd::mojom::NullableUint16Ptr manufacture_year;
+  ::ash::cros_healthd::mojom::NullableUint16Ptr manufacture_year;
   
   absl::optional<std::string> edid_version;
   
@@ -12096,23 +12115,23 @@ class  ExternalDisplayInfo {
   ExternalDisplayInfo();
 
   ExternalDisplayInfo(
-      ::chromeos::cros_healthd::mojom::NullableUint32Ptr display_width,
-      ::chromeos::cros_healthd::mojom::NullableUint32Ptr display_height,
-      ::chromeos::cros_healthd::mojom::NullableUint32Ptr resolution_horizontal,
-      ::chromeos::cros_healthd::mojom::NullableUint32Ptr resolution_vertical,
-      ::chromeos::cros_healthd::mojom::NullableDoublePtr refresh_rate);
+      ::ash::cros_healthd::mojom::NullableUint32Ptr display_width,
+      ::ash::cros_healthd::mojom::NullableUint32Ptr display_height,
+      ::ash::cros_healthd::mojom::NullableUint32Ptr resolution_horizontal,
+      ::ash::cros_healthd::mojom::NullableUint32Ptr resolution_vertical,
+      ::ash::cros_healthd::mojom::NullableDoublePtr refresh_rate);
 
   ExternalDisplayInfo(
-      ::chromeos::cros_healthd::mojom::NullableUint32Ptr display_width,
-      ::chromeos::cros_healthd::mojom::NullableUint32Ptr display_height,
-      ::chromeos::cros_healthd::mojom::NullableUint32Ptr resolution_horizontal,
-      ::chromeos::cros_healthd::mojom::NullableUint32Ptr resolution_vertical,
-      ::chromeos::cros_healthd::mojom::NullableDoublePtr refresh_rate,
+      ::ash::cros_healthd::mojom::NullableUint32Ptr display_width,
+      ::ash::cros_healthd::mojom::NullableUint32Ptr display_height,
+      ::ash::cros_healthd::mojom::NullableUint32Ptr resolution_horizontal,
+      ::ash::cros_healthd::mojom::NullableUint32Ptr resolution_vertical,
+      ::ash::cros_healthd::mojom::NullableDoublePtr refresh_rate,
       const absl::optional<std::string>& manufacturer,
-      ::chromeos::cros_healthd::mojom::NullableUint16Ptr model_id,
-      ::chromeos::cros_healthd::mojom::NullableUint32Ptr serial_number,
-      ::chromeos::cros_healthd::mojom::NullableUint8Ptr manufacture_week,
-      ::chromeos::cros_healthd::mojom::NullableUint16Ptr manufacture_year,
+      ::ash::cros_healthd::mojom::NullableUint16Ptr model_id,
+      ::ash::cros_healthd::mojom::NullableUint32Ptr serial_number,
+      ::ash::cros_healthd::mojom::NullableUint8Ptr manufacture_week,
+      ::ash::cros_healthd::mojom::NullableUint16Ptr manufacture_year,
       const absl::optional<std::string>& edid_version,
       DisplayInputType input_type,
       const absl::optional<std::string>& display_name);
@@ -12192,25 +12211,25 @@ ExternalDisplayInfo& operator=(const ExternalDisplayInfo&) = delete;
   }
 
   
-  ::chromeos::cros_healthd::mojom::NullableUint32Ptr display_width;
+  ::ash::cros_healthd::mojom::NullableUint32Ptr display_width;
   
-  ::chromeos::cros_healthd::mojom::NullableUint32Ptr display_height;
+  ::ash::cros_healthd::mojom::NullableUint32Ptr display_height;
   
-  ::chromeos::cros_healthd::mojom::NullableUint32Ptr resolution_horizontal;
+  ::ash::cros_healthd::mojom::NullableUint32Ptr resolution_horizontal;
   
-  ::chromeos::cros_healthd::mojom::NullableUint32Ptr resolution_vertical;
+  ::ash::cros_healthd::mojom::NullableUint32Ptr resolution_vertical;
   
-  ::chromeos::cros_healthd::mojom::NullableDoublePtr refresh_rate;
+  ::ash::cros_healthd::mojom::NullableDoublePtr refresh_rate;
   
   absl::optional<std::string> manufacturer;
   
-  ::chromeos::cros_healthd::mojom::NullableUint16Ptr model_id;
+  ::ash::cros_healthd::mojom::NullableUint16Ptr model_id;
   
-  ::chromeos::cros_healthd::mojom::NullableUint32Ptr serial_number;
+  ::ash::cros_healthd::mojom::NullableUint32Ptr serial_number;
   
-  ::chromeos::cros_healthd::mojom::NullableUint8Ptr manufacture_week;
+  ::ash::cros_healthd::mojom::NullableUint8Ptr manufacture_week;
   
-  ::chromeos::cros_healthd::mojom::NullableUint16Ptr manufacture_year;
+  ::ash::cros_healthd::mojom::NullableUint16Ptr manufacture_year;
   
   absl::optional<std::string> edid_version;
   
@@ -12871,10 +12890,10 @@ class  SensorInfo {
   SensorInfo();
 
   explicit SensorInfo(
-      ::chromeos::cros_healthd::mojom::NullableUint16Ptr lid_angle);
+      ::ash::cros_healthd::mojom::NullableUint16Ptr lid_angle);
 
   SensorInfo(
-      ::chromeos::cros_healthd::mojom::NullableUint16Ptr lid_angle,
+      ::ash::cros_healthd::mojom::NullableUint16Ptr lid_angle,
       absl::optional<std::vector<SensorPtr>> sensors);
 
 SensorInfo(const SensorInfo&) = delete;
@@ -12952,7 +12971,7 @@ SensorInfo& operator=(const SensorInfo&) = delete;
   }
 
   
-  ::chromeos::cros_healthd::mojom::NullableUint16Ptr lid_angle;
+  ::ash::cros_healthd::mojom::NullableUint16Ptr lid_angle;
   
   absl::optional<std::vector<SensorPtr>> sensors;
 
@@ -15537,6 +15556,7 @@ OsVersionPtr OsVersion::Clone() const {
   return New(
       mojo::Clone(release_milestone),
       mojo::Clone(build_number),
+      mojo::Clone(branch_number),
       mojo::Clone(patch_number),
       mojo::Clone(release_channel)
   );
@@ -15547,6 +15567,8 @@ bool OsVersion::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->release_milestone, other_struct.release_milestone))
     return false;
   if (!mojo::Equals(this->build_number, other_struct.build_number))
+    return false;
+  if (!mojo::Equals(this->branch_number, other_struct.branch_number))
     return false;
   if (!mojo::Equals(this->patch_number, other_struct.patch_number))
     return false;
@@ -15564,6 +15586,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.build_number < rhs.build_number)
     return true;
   if (rhs.build_number < lhs.build_number)
+    return false;
+  if (lhs.branch_number < rhs.branch_number)
+    return true;
+  if (rhs.branch_number < lhs.branch_number)
     return false;
   if (lhs.patch_number < rhs.patch_number)
     return true;
@@ -15583,7 +15609,8 @@ VpdInfoPtr VpdInfo::Clone() const {
       mojo::Clone(mfg_date),
       mojo::Clone(activate_date),
       mojo::Clone(sku_number),
-      mojo::Clone(model_name)
+      mojo::Clone(model_name),
+      mojo::Clone(oem_name)
   );
 }
 
@@ -15600,6 +15627,8 @@ bool VpdInfo::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->sku_number, other_struct.sku_number))
     return false;
   if (!mojo::Equals(this->model_name, other_struct.model_name))
+    return false;
+  if (!mojo::Equals(this->oem_name, other_struct.oem_name))
     return false;
   return true;
 }
@@ -15629,6 +15658,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.model_name < rhs.model_name)
     return true;
   if (rhs.model_name < lhs.model_name)
+    return false;
+  if (lhs.oem_name < rhs.oem_name)
+    return true;
+  if (rhs.oem_name < lhs.oem_name)
     return false;
   return false;
 }
@@ -17384,2926 +17417,2936 @@ bool operator<(const T& lhs, const T& rhs) {
 
 }  // namespace mojom
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 namespace mojo {
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::ProbeError::DataView,
-                                         ::chromeos::cros_healthd::mojom::ProbeErrorPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::ProbeErrorPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::ProbeErrorPtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::ProbeError::DataView,
+                                         ::ash::cros_healthd::mojom::ProbeErrorPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::ProbeErrorPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::ProbeErrorPtr* output) { output->reset(); }
 
-  static decltype(::chromeos::cros_healthd::mojom::ProbeError::type) type(
-      const ::chromeos::cros_healthd::mojom::ProbeErrorPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::ProbeError::type) type(
+      const ::ash::cros_healthd::mojom::ProbeErrorPtr& input) {
     return input->type;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::ProbeError::msg)& msg(
-      const ::chromeos::cros_healthd::mojom::ProbeErrorPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::ProbeError::msg)& msg(
+      const ::ash::cros_healthd::mojom::ProbeErrorPtr& input) {
     return input->msg;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::ProbeError::DataView input, ::chromeos::cros_healthd::mojom::ProbeErrorPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::ProbeError::DataView input, ::ash::cros_healthd::mojom::ProbeErrorPtr* output);
 };
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::MultipleProcessResult::DataView,
-                                         ::chromeos::cros_healthd::mojom::MultipleProcessResultPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::MultipleProcessResultPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::MultipleProcessResultPtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::MultipleProcessResult::DataView,
+                                         ::ash::cros_healthd::mojom::MultipleProcessResultPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::MultipleProcessResultPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::MultipleProcessResultPtr* output) { output->reset(); }
 
-  static const decltype(::chromeos::cros_healthd::mojom::MultipleProcessResult::process_infos)& process_infos(
-      const ::chromeos::cros_healthd::mojom::MultipleProcessResultPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::MultipleProcessResult::process_infos)& process_infos(
+      const ::ash::cros_healthd::mojom::MultipleProcessResultPtr& input) {
     return input->process_infos;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::MultipleProcessResult::errors)& errors(
-      const ::chromeos::cros_healthd::mojom::MultipleProcessResultPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::MultipleProcessResult::errors)& errors(
+      const ::ash::cros_healthd::mojom::MultipleProcessResultPtr& input) {
     return input->errors;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::MultipleProcessResult::DataView input, ::chromeos::cros_healthd::mojom::MultipleProcessResultPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::MultipleProcessResult::DataView input, ::ash::cros_healthd::mojom::MultipleProcessResultPtr* output);
 };
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::ProcessInfo::DataView,
-                                         ::chromeos::cros_healthd::mojom::ProcessInfoPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::ProcessInfoPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::ProcessInfoPtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::ProcessInfo::DataView,
+                                         ::ash::cros_healthd::mojom::ProcessInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::ProcessInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::ProcessInfoPtr* output) { output->reset(); }
 
-  static const decltype(::chromeos::cros_healthd::mojom::ProcessInfo::command)& command(
-      const ::chromeos::cros_healthd::mojom::ProcessInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::ProcessInfo::command)& command(
+      const ::ash::cros_healthd::mojom::ProcessInfoPtr& input) {
     return input->command;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::ProcessInfo::user_id) user_id(
-      const ::chromeos::cros_healthd::mojom::ProcessInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::ProcessInfo::user_id) user_id(
+      const ::ash::cros_healthd::mojom::ProcessInfoPtr& input) {
     return input->user_id;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::ProcessInfo::priority) priority(
-      const ::chromeos::cros_healthd::mojom::ProcessInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::ProcessInfo::priority) priority(
+      const ::ash::cros_healthd::mojom::ProcessInfoPtr& input) {
     return input->priority;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::ProcessInfo::nice) nice(
-      const ::chromeos::cros_healthd::mojom::ProcessInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::ProcessInfo::nice) nice(
+      const ::ash::cros_healthd::mojom::ProcessInfoPtr& input) {
     return input->nice;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::ProcessInfo::uptime_ticks) uptime_ticks(
-      const ::chromeos::cros_healthd::mojom::ProcessInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::ProcessInfo::uptime_ticks) uptime_ticks(
+      const ::ash::cros_healthd::mojom::ProcessInfoPtr& input) {
     return input->uptime_ticks;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::ProcessInfo::state) state(
-      const ::chromeos::cros_healthd::mojom::ProcessInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::ProcessInfo::state) state(
+      const ::ash::cros_healthd::mojom::ProcessInfoPtr& input) {
     return input->state;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::ProcessInfo::total_memory_kib) total_memory_kib(
-      const ::chromeos::cros_healthd::mojom::ProcessInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::ProcessInfo::total_memory_kib) total_memory_kib(
+      const ::ash::cros_healthd::mojom::ProcessInfoPtr& input) {
     return input->total_memory_kib;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::ProcessInfo::resident_memory_kib) resident_memory_kib(
-      const ::chromeos::cros_healthd::mojom::ProcessInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::ProcessInfo::resident_memory_kib) resident_memory_kib(
+      const ::ash::cros_healthd::mojom::ProcessInfoPtr& input) {
     return input->resident_memory_kib;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::ProcessInfo::free_memory_kib) free_memory_kib(
-      const ::chromeos::cros_healthd::mojom::ProcessInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::ProcessInfo::free_memory_kib) free_memory_kib(
+      const ::ash::cros_healthd::mojom::ProcessInfoPtr& input) {
     return input->free_memory_kib;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::ProcessInfo::bytes_read) bytes_read(
-      const ::chromeos::cros_healthd::mojom::ProcessInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::ProcessInfo::bytes_read) bytes_read(
+      const ::ash::cros_healthd::mojom::ProcessInfoPtr& input) {
     return input->bytes_read;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::ProcessInfo::bytes_written) bytes_written(
-      const ::chromeos::cros_healthd::mojom::ProcessInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::ProcessInfo::bytes_written) bytes_written(
+      const ::ash::cros_healthd::mojom::ProcessInfoPtr& input) {
     return input->bytes_written;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::ProcessInfo::read_system_calls) read_system_calls(
-      const ::chromeos::cros_healthd::mojom::ProcessInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::ProcessInfo::read_system_calls) read_system_calls(
+      const ::ash::cros_healthd::mojom::ProcessInfoPtr& input) {
     return input->read_system_calls;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::ProcessInfo::write_system_calls) write_system_calls(
-      const ::chromeos::cros_healthd::mojom::ProcessInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::ProcessInfo::write_system_calls) write_system_calls(
+      const ::ash::cros_healthd::mojom::ProcessInfoPtr& input) {
     return input->write_system_calls;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::ProcessInfo::physical_bytes_read) physical_bytes_read(
-      const ::chromeos::cros_healthd::mojom::ProcessInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::ProcessInfo::physical_bytes_read) physical_bytes_read(
+      const ::ash::cros_healthd::mojom::ProcessInfoPtr& input) {
     return input->physical_bytes_read;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::ProcessInfo::physical_bytes_written) physical_bytes_written(
-      const ::chromeos::cros_healthd::mojom::ProcessInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::ProcessInfo::physical_bytes_written) physical_bytes_written(
+      const ::ash::cros_healthd::mojom::ProcessInfoPtr& input) {
     return input->physical_bytes_written;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::ProcessInfo::cancelled_bytes_written) cancelled_bytes_written(
-      const ::chromeos::cros_healthd::mojom::ProcessInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::ProcessInfo::cancelled_bytes_written) cancelled_bytes_written(
+      const ::ash::cros_healthd::mojom::ProcessInfoPtr& input) {
     return input->cancelled_bytes_written;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::ProcessInfo::name)& name(
-      const ::chromeos::cros_healthd::mojom::ProcessInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::ProcessInfo::name)& name(
+      const ::ash::cros_healthd::mojom::ProcessInfoPtr& input) {
     return input->name;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::ProcessInfo::parent_process_id) parent_process_id(
-      const ::chromeos::cros_healthd::mojom::ProcessInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::ProcessInfo::parent_process_id) parent_process_id(
+      const ::ash::cros_healthd::mojom::ProcessInfoPtr& input) {
     return input->parent_process_id;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::ProcessInfo::process_group_id) process_group_id(
-      const ::chromeos::cros_healthd::mojom::ProcessInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::ProcessInfo::process_group_id) process_group_id(
+      const ::ash::cros_healthd::mojom::ProcessInfoPtr& input) {
     return input->process_group_id;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::ProcessInfo::threads) threads(
-      const ::chromeos::cros_healthd::mojom::ProcessInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::ProcessInfo::threads) threads(
+      const ::ash::cros_healthd::mojom::ProcessInfoPtr& input) {
     return input->threads;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::ProcessInfo::process_id) process_id(
-      const ::chromeos::cros_healthd::mojom::ProcessInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::ProcessInfo::process_id) process_id(
+      const ::ash::cros_healthd::mojom::ProcessInfoPtr& input) {
     return input->process_id;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::ProcessInfo::DataView input, ::chromeos::cros_healthd::mojom::ProcessInfoPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::ProcessInfo::DataView input, ::ash::cros_healthd::mojom::ProcessInfoPtr* output);
 };
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::BatteryInfo::DataView,
-                                         ::chromeos::cros_healthd::mojom::BatteryInfoPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::BatteryInfoPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::BatteryInfoPtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::BatteryInfo::DataView,
+                                         ::ash::cros_healthd::mojom::BatteryInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::BatteryInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::BatteryInfoPtr* output) { output->reset(); }
 
-  static decltype(::chromeos::cros_healthd::mojom::BatteryInfo::cycle_count) cycle_count(
-      const ::chromeos::cros_healthd::mojom::BatteryInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::BatteryInfo::cycle_count) cycle_count(
+      const ::ash::cros_healthd::mojom::BatteryInfoPtr& input) {
     return input->cycle_count;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::BatteryInfo::voltage_now) voltage_now(
-      const ::chromeos::cros_healthd::mojom::BatteryInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::BatteryInfo::voltage_now) voltage_now(
+      const ::ash::cros_healthd::mojom::BatteryInfoPtr& input) {
     return input->voltage_now;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::BatteryInfo::vendor)& vendor(
-      const ::chromeos::cros_healthd::mojom::BatteryInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::BatteryInfo::vendor)& vendor(
+      const ::ash::cros_healthd::mojom::BatteryInfoPtr& input) {
     return input->vendor;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::BatteryInfo::serial_number)& serial_number(
-      const ::chromeos::cros_healthd::mojom::BatteryInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::BatteryInfo::serial_number)& serial_number(
+      const ::ash::cros_healthd::mojom::BatteryInfoPtr& input) {
     return input->serial_number;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::BatteryInfo::charge_full_design) charge_full_design(
-      const ::chromeos::cros_healthd::mojom::BatteryInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::BatteryInfo::charge_full_design) charge_full_design(
+      const ::ash::cros_healthd::mojom::BatteryInfoPtr& input) {
     return input->charge_full_design;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::BatteryInfo::charge_full) charge_full(
-      const ::chromeos::cros_healthd::mojom::BatteryInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::BatteryInfo::charge_full) charge_full(
+      const ::ash::cros_healthd::mojom::BatteryInfoPtr& input) {
     return input->charge_full;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::BatteryInfo::voltage_min_design) voltage_min_design(
-      const ::chromeos::cros_healthd::mojom::BatteryInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::BatteryInfo::voltage_min_design) voltage_min_design(
+      const ::ash::cros_healthd::mojom::BatteryInfoPtr& input) {
     return input->voltage_min_design;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::BatteryInfo::model_name)& model_name(
-      const ::chromeos::cros_healthd::mojom::BatteryInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::BatteryInfo::model_name)& model_name(
+      const ::ash::cros_healthd::mojom::BatteryInfoPtr& input) {
     return input->model_name;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::BatteryInfo::charge_now) charge_now(
-      const ::chromeos::cros_healthd::mojom::BatteryInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::BatteryInfo::charge_now) charge_now(
+      const ::ash::cros_healthd::mojom::BatteryInfoPtr& input) {
     return input->charge_now;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::BatteryInfo::current_now) current_now(
-      const ::chromeos::cros_healthd::mojom::BatteryInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::BatteryInfo::current_now) current_now(
+      const ::ash::cros_healthd::mojom::BatteryInfoPtr& input) {
     return input->current_now;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::BatteryInfo::technology)& technology(
-      const ::chromeos::cros_healthd::mojom::BatteryInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::BatteryInfo::technology)& technology(
+      const ::ash::cros_healthd::mojom::BatteryInfoPtr& input) {
     return input->technology;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::BatteryInfo::status)& status(
-      const ::chromeos::cros_healthd::mojom::BatteryInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::BatteryInfo::status)& status(
+      const ::ash::cros_healthd::mojom::BatteryInfoPtr& input) {
     return input->status;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::BatteryInfo::manufacture_date)& manufacture_date(
-      const ::chromeos::cros_healthd::mojom::BatteryInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::BatteryInfo::manufacture_date)& manufacture_date(
+      const ::ash::cros_healthd::mojom::BatteryInfoPtr& input) {
     return input->manufacture_date;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::BatteryInfo::temperature)& temperature(
-      const ::chromeos::cros_healthd::mojom::BatteryInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::BatteryInfo::temperature)& temperature(
+      const ::ash::cros_healthd::mojom::BatteryInfoPtr& input) {
     return input->temperature;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::BatteryInfo::DataView input, ::chromeos::cros_healthd::mojom::BatteryInfoPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::BatteryInfo::DataView input, ::ash::cros_healthd::mojom::BatteryInfoPtr* output);
 };
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceInfo::DataView,
-                                         ::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceInfoPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceInfoPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceInfoPtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfo::DataView,
+                                         ::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfoPtr* output) { output->reset(); }
 
-  static decltype(::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceInfo::bytes_read_since_last_boot) bytes_read_since_last_boot(
-      const ::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfo::bytes_read_since_last_boot) bytes_read_since_last_boot(
+      const ::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfoPtr& input) {
     return input->bytes_read_since_last_boot;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceInfo::bytes_written_since_last_boot) bytes_written_since_last_boot(
-      const ::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfo::bytes_written_since_last_boot) bytes_written_since_last_boot(
+      const ::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfoPtr& input) {
     return input->bytes_written_since_last_boot;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceInfo::read_time_seconds_since_last_boot) read_time_seconds_since_last_boot(
-      const ::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfo::read_time_seconds_since_last_boot) read_time_seconds_since_last_boot(
+      const ::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfoPtr& input) {
     return input->read_time_seconds_since_last_boot;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceInfo::write_time_seconds_since_last_boot) write_time_seconds_since_last_boot(
-      const ::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfo::write_time_seconds_since_last_boot) write_time_seconds_since_last_boot(
+      const ::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfoPtr& input) {
     return input->write_time_seconds_since_last_boot;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceInfo::io_time_seconds_since_last_boot) io_time_seconds_since_last_boot(
-      const ::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfo::io_time_seconds_since_last_boot) io_time_seconds_since_last_boot(
+      const ::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfoPtr& input) {
     return input->io_time_seconds_since_last_boot;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceInfo::discard_time_seconds_since_last_boot)& discard_time_seconds_since_last_boot(
-      const ::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfo::discard_time_seconds_since_last_boot)& discard_time_seconds_since_last_boot(
+      const ::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfoPtr& input) {
     return input->discard_time_seconds_since_last_boot;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceInfo::vendor_id)& vendor_id(
-      const ::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfo::vendor_id)& vendor_id(
+      const ::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfoPtr& input) {
     return input->vendor_id;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceInfo::product_id)& product_id(
-      const ::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfo::product_id)& product_id(
+      const ::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfoPtr& input) {
     return input->product_id;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceInfo::revision)& revision(
-      const ::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfo::revision)& revision(
+      const ::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfoPtr& input) {
     return input->revision;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceInfo::name)& name(
-      const ::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfo::name)& name(
+      const ::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfoPtr& input) {
     return input->name;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceInfo::size) size(
-      const ::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfo::size) size(
+      const ::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfoPtr& input) {
     return input->size;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceInfo::firmware_version)& firmware_version(
-      const ::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfo::firmware_version)& firmware_version(
+      const ::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfoPtr& input) {
     return input->firmware_version;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceInfo::type)& type(
-      const ::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfo::type)& type(
+      const ::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfoPtr& input) {
     return input->type;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceInfo::purpose) purpose(
-      const ::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfo::purpose) purpose(
+      const ::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfoPtr& input) {
     return input->purpose;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceInfo::path)& path(
-      const ::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfo::path)& path(
+      const ::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfoPtr& input) {
     return input->path;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceInfo::manufacturer_id) manufacturer_id(
-      const ::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfo::manufacturer_id) manufacturer_id(
+      const ::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfoPtr& input) {
     return input->manufacturer_id;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceInfo::serial) serial(
-      const ::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfo::serial) serial(
+      const ::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfoPtr& input) {
     return input->serial;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceInfo::DataView input, ::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceInfoPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfo::DataView input, ::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfoPtr* output);
 };
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::CpuInfo::DataView,
-                                         ::chromeos::cros_healthd::mojom::CpuInfoPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::CpuInfoPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::CpuInfoPtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::CpuInfo::DataView,
+                                         ::ash::cros_healthd::mojom::CpuInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::CpuInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::CpuInfoPtr* output) { output->reset(); }
 
-  static decltype(::chromeos::cros_healthd::mojom::CpuInfo::num_total_threads) num_total_threads(
-      const ::chromeos::cros_healthd::mojom::CpuInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::CpuInfo::num_total_threads) num_total_threads(
+      const ::ash::cros_healthd::mojom::CpuInfoPtr& input) {
     return input->num_total_threads;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::CpuInfo::architecture) architecture(
-      const ::chromeos::cros_healthd::mojom::CpuInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::CpuInfo::architecture) architecture(
+      const ::ash::cros_healthd::mojom::CpuInfoPtr& input) {
     return input->architecture;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::CpuInfo::physical_cpus)& physical_cpus(
-      const ::chromeos::cros_healthd::mojom::CpuInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::CpuInfo::physical_cpus)& physical_cpus(
+      const ::ash::cros_healthd::mojom::CpuInfoPtr& input) {
     return input->physical_cpus;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::CpuInfo::temperature_channels)& temperature_channels(
-      const ::chromeos::cros_healthd::mojom::CpuInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::CpuInfo::temperature_channels)& temperature_channels(
+      const ::ash::cros_healthd::mojom::CpuInfoPtr& input) {
     return input->temperature_channels;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::CpuInfo::keylocker_info)& keylocker_info(
-      const ::chromeos::cros_healthd::mojom::CpuInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::CpuInfo::keylocker_info)& keylocker_info(
+      const ::ash::cros_healthd::mojom::CpuInfoPtr& input) {
     return input->keylocker_info;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::CpuInfo::virtualization)& virtualization(
-      const ::chromeos::cros_healthd::mojom::CpuInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::CpuInfo::virtualization)& virtualization(
+      const ::ash::cros_healthd::mojom::CpuInfoPtr& input) {
     return input->virtualization;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::CpuInfo::vulnerabilities)& vulnerabilities(
-      const ::chromeos::cros_healthd::mojom::CpuInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::CpuInfo::vulnerabilities)& vulnerabilities(
+      const ::ash::cros_healthd::mojom::CpuInfoPtr& input) {
     return input->vulnerabilities;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::CpuInfo::DataView input, ::chromeos::cros_healthd::mojom::CpuInfoPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::CpuInfo::DataView input, ::ash::cros_healthd::mojom::CpuInfoPtr* output);
 };
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::VirtualizationInfo::DataView,
-                                         ::chromeos::cros_healthd::mojom::VirtualizationInfoPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::VirtualizationInfoPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::VirtualizationInfoPtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::VirtualizationInfo::DataView,
+                                         ::ash::cros_healthd::mojom::VirtualizationInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::VirtualizationInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::VirtualizationInfoPtr* output) { output->reset(); }
 
-  static decltype(::chromeos::cros_healthd::mojom::VirtualizationInfo::has_kvm_device) has_kvm_device(
-      const ::chromeos::cros_healthd::mojom::VirtualizationInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::VirtualizationInfo::has_kvm_device) has_kvm_device(
+      const ::ash::cros_healthd::mojom::VirtualizationInfoPtr& input) {
     return input->has_kvm_device;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::VirtualizationInfo::is_smt_active) is_smt_active(
-      const ::chromeos::cros_healthd::mojom::VirtualizationInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::VirtualizationInfo::is_smt_active) is_smt_active(
+      const ::ash::cros_healthd::mojom::VirtualizationInfoPtr& input) {
     return input->is_smt_active;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::VirtualizationInfo::smt_control) smt_control(
-      const ::chromeos::cros_healthd::mojom::VirtualizationInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::VirtualizationInfo::smt_control) smt_control(
+      const ::ash::cros_healthd::mojom::VirtualizationInfoPtr& input) {
     return input->smt_control;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::VirtualizationInfo::DataView input, ::chromeos::cros_healthd::mojom::VirtualizationInfoPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::VirtualizationInfo::DataView input, ::ash::cros_healthd::mojom::VirtualizationInfoPtr* output);
 };
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::VulnerabilityInfo::DataView,
-                                         ::chromeos::cros_healthd::mojom::VulnerabilityInfoPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::VulnerabilityInfoPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::VulnerabilityInfoPtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::VulnerabilityInfo::DataView,
+                                         ::ash::cros_healthd::mojom::VulnerabilityInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::VulnerabilityInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::VulnerabilityInfoPtr* output) { output->reset(); }
 
-  static decltype(::chromeos::cros_healthd::mojom::VulnerabilityInfo::status) status(
-      const ::chromeos::cros_healthd::mojom::VulnerabilityInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::VulnerabilityInfo::status) status(
+      const ::ash::cros_healthd::mojom::VulnerabilityInfoPtr& input) {
     return input->status;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::VulnerabilityInfo::message)& message(
-      const ::chromeos::cros_healthd::mojom::VulnerabilityInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::VulnerabilityInfo::message)& message(
+      const ::ash::cros_healthd::mojom::VulnerabilityInfoPtr& input) {
     return input->message;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::VulnerabilityInfo::DataView input, ::chromeos::cros_healthd::mojom::VulnerabilityInfoPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::VulnerabilityInfo::DataView input, ::ash::cros_healthd::mojom::VulnerabilityInfoPtr* output);
 };
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::KeylockerInfo::DataView,
-                                         ::chromeos::cros_healthd::mojom::KeylockerInfoPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::KeylockerInfoPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::KeylockerInfoPtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::KeylockerInfo::DataView,
+                                         ::ash::cros_healthd::mojom::KeylockerInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::KeylockerInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::KeylockerInfoPtr* output) { output->reset(); }
 
-  static decltype(::chromeos::cros_healthd::mojom::KeylockerInfo::keylocker_configured) keylocker_configured(
-      const ::chromeos::cros_healthd::mojom::KeylockerInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::KeylockerInfo::keylocker_configured) keylocker_configured(
+      const ::ash::cros_healthd::mojom::KeylockerInfoPtr& input) {
     return input->keylocker_configured;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::KeylockerInfo::DataView input, ::chromeos::cros_healthd::mojom::KeylockerInfoPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::KeylockerInfo::DataView input, ::ash::cros_healthd::mojom::KeylockerInfoPtr* output);
 };
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::PhysicalCpuInfo::DataView,
-                                         ::chromeos::cros_healthd::mojom::PhysicalCpuInfoPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::PhysicalCpuInfoPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::PhysicalCpuInfoPtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::PhysicalCpuInfo::DataView,
+                                         ::ash::cros_healthd::mojom::PhysicalCpuInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::PhysicalCpuInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::PhysicalCpuInfoPtr* output) { output->reset(); }
 
-  static const decltype(::chromeos::cros_healthd::mojom::PhysicalCpuInfo::model_name)& model_name(
-      const ::chromeos::cros_healthd::mojom::PhysicalCpuInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::PhysicalCpuInfo::model_name)& model_name(
+      const ::ash::cros_healthd::mojom::PhysicalCpuInfoPtr& input) {
     return input->model_name;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::PhysicalCpuInfo::logical_cpus)& logical_cpus(
-      const ::chromeos::cros_healthd::mojom::PhysicalCpuInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::PhysicalCpuInfo::logical_cpus)& logical_cpus(
+      const ::ash::cros_healthd::mojom::PhysicalCpuInfoPtr& input) {
     return input->logical_cpus;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::PhysicalCpuInfo::flags)& flags(
-      const ::chromeos::cros_healthd::mojom::PhysicalCpuInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::PhysicalCpuInfo::flags)& flags(
+      const ::ash::cros_healthd::mojom::PhysicalCpuInfoPtr& input) {
     return input->flags;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::PhysicalCpuInfo::virtualization)& virtualization(
-      const ::chromeos::cros_healthd::mojom::PhysicalCpuInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::PhysicalCpuInfo::virtualization)& virtualization(
+      const ::ash::cros_healthd::mojom::PhysicalCpuInfoPtr& input) {
     return input->virtualization;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::PhysicalCpuInfo::DataView input, ::chromeos::cros_healthd::mojom::PhysicalCpuInfoPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::PhysicalCpuInfo::DataView input, ::ash::cros_healthd::mojom::PhysicalCpuInfoPtr* output);
 };
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::CpuVirtualizationInfo::DataView,
-                                         ::chromeos::cros_healthd::mojom::CpuVirtualizationInfoPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::CpuVirtualizationInfoPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::CpuVirtualizationInfoPtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::CpuVirtualizationInfo::DataView,
+                                         ::ash::cros_healthd::mojom::CpuVirtualizationInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::CpuVirtualizationInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::CpuVirtualizationInfoPtr* output) { output->reset(); }
 
-  static decltype(::chromeos::cros_healthd::mojom::CpuVirtualizationInfo::type) type(
-      const ::chromeos::cros_healthd::mojom::CpuVirtualizationInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::CpuVirtualizationInfo::type) type(
+      const ::ash::cros_healthd::mojom::CpuVirtualizationInfoPtr& input) {
     return input->type;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::CpuVirtualizationInfo::is_enabled) is_enabled(
-      const ::chromeos::cros_healthd::mojom::CpuVirtualizationInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::CpuVirtualizationInfo::is_enabled) is_enabled(
+      const ::ash::cros_healthd::mojom::CpuVirtualizationInfoPtr& input) {
     return input->is_enabled;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::CpuVirtualizationInfo::is_locked) is_locked(
-      const ::chromeos::cros_healthd::mojom::CpuVirtualizationInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::CpuVirtualizationInfo::is_locked) is_locked(
+      const ::ash::cros_healthd::mojom::CpuVirtualizationInfoPtr& input) {
     return input->is_locked;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::CpuVirtualizationInfo::DataView input, ::chromeos::cros_healthd::mojom::CpuVirtualizationInfoPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::CpuVirtualizationInfo::DataView input, ::ash::cros_healthd::mojom::CpuVirtualizationInfoPtr* output);
 };
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::LogicalCpuInfo::DataView,
-                                         ::chromeos::cros_healthd::mojom::LogicalCpuInfoPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::LogicalCpuInfoPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::LogicalCpuInfoPtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::LogicalCpuInfo::DataView,
+                                         ::ash::cros_healthd::mojom::LogicalCpuInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::LogicalCpuInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::LogicalCpuInfoPtr* output) { output->reset(); }
 
-  static decltype(::chromeos::cros_healthd::mojom::LogicalCpuInfo::max_clock_speed_khz) max_clock_speed_khz(
-      const ::chromeos::cros_healthd::mojom::LogicalCpuInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::LogicalCpuInfo::max_clock_speed_khz) max_clock_speed_khz(
+      const ::ash::cros_healthd::mojom::LogicalCpuInfoPtr& input) {
     return input->max_clock_speed_khz;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::LogicalCpuInfo::scaling_max_frequency_khz) scaling_max_frequency_khz(
-      const ::chromeos::cros_healthd::mojom::LogicalCpuInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::LogicalCpuInfo::scaling_max_frequency_khz) scaling_max_frequency_khz(
+      const ::ash::cros_healthd::mojom::LogicalCpuInfoPtr& input) {
     return input->scaling_max_frequency_khz;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::LogicalCpuInfo::scaling_current_frequency_khz) scaling_current_frequency_khz(
-      const ::chromeos::cros_healthd::mojom::LogicalCpuInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::LogicalCpuInfo::scaling_current_frequency_khz) scaling_current_frequency_khz(
+      const ::ash::cros_healthd::mojom::LogicalCpuInfoPtr& input) {
     return input->scaling_current_frequency_khz;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::LogicalCpuInfo::user_time_user_hz) user_time_user_hz(
-      const ::chromeos::cros_healthd::mojom::LogicalCpuInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::LogicalCpuInfo::user_time_user_hz) user_time_user_hz(
+      const ::ash::cros_healthd::mojom::LogicalCpuInfoPtr& input) {
     return input->user_time_user_hz;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::LogicalCpuInfo::system_time_user_hz) system_time_user_hz(
-      const ::chromeos::cros_healthd::mojom::LogicalCpuInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::LogicalCpuInfo::system_time_user_hz) system_time_user_hz(
+      const ::ash::cros_healthd::mojom::LogicalCpuInfoPtr& input) {
     return input->system_time_user_hz;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::LogicalCpuInfo::idle_time_user_hz) idle_time_user_hz(
-      const ::chromeos::cros_healthd::mojom::LogicalCpuInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::LogicalCpuInfo::idle_time_user_hz) idle_time_user_hz(
+      const ::ash::cros_healthd::mojom::LogicalCpuInfoPtr& input) {
     return input->idle_time_user_hz;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::LogicalCpuInfo::c_states)& c_states(
-      const ::chromeos::cros_healthd::mojom::LogicalCpuInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::LogicalCpuInfo::c_states)& c_states(
+      const ::ash::cros_healthd::mojom::LogicalCpuInfoPtr& input) {
     return input->c_states;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::LogicalCpuInfo::DataView input, ::chromeos::cros_healthd::mojom::LogicalCpuInfoPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::LogicalCpuInfo::DataView input, ::ash::cros_healthd::mojom::LogicalCpuInfoPtr* output);
 };
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::CpuCStateInfo::DataView,
-                                         ::chromeos::cros_healthd::mojom::CpuCStateInfoPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::CpuCStateInfoPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::CpuCStateInfoPtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::CpuCStateInfo::DataView,
+                                         ::ash::cros_healthd::mojom::CpuCStateInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::CpuCStateInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::CpuCStateInfoPtr* output) { output->reset(); }
 
-  static const decltype(::chromeos::cros_healthd::mojom::CpuCStateInfo::name)& name(
-      const ::chromeos::cros_healthd::mojom::CpuCStateInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::CpuCStateInfo::name)& name(
+      const ::ash::cros_healthd::mojom::CpuCStateInfoPtr& input) {
     return input->name;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::CpuCStateInfo::time_in_state_since_last_boot_us) time_in_state_since_last_boot_us(
-      const ::chromeos::cros_healthd::mojom::CpuCStateInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::CpuCStateInfo::time_in_state_since_last_boot_us) time_in_state_since_last_boot_us(
+      const ::ash::cros_healthd::mojom::CpuCStateInfoPtr& input) {
     return input->time_in_state_since_last_boot_us;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::CpuCStateInfo::DataView input, ::chromeos::cros_healthd::mojom::CpuCStateInfoPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::CpuCStateInfo::DataView input, ::ash::cros_healthd::mojom::CpuCStateInfoPtr* output);
 };
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::CpuTemperatureChannel::DataView,
-                                         ::chromeos::cros_healthd::mojom::CpuTemperatureChannelPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::CpuTemperatureChannelPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::CpuTemperatureChannelPtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::CpuTemperatureChannel::DataView,
+                                         ::ash::cros_healthd::mojom::CpuTemperatureChannelPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::CpuTemperatureChannelPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::CpuTemperatureChannelPtr* output) { output->reset(); }
 
-  static const decltype(::chromeos::cros_healthd::mojom::CpuTemperatureChannel::label)& label(
-      const ::chromeos::cros_healthd::mojom::CpuTemperatureChannelPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::CpuTemperatureChannel::label)& label(
+      const ::ash::cros_healthd::mojom::CpuTemperatureChannelPtr& input) {
     return input->label;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::CpuTemperatureChannel::temperature_celsius) temperature_celsius(
-      const ::chromeos::cros_healthd::mojom::CpuTemperatureChannelPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::CpuTemperatureChannel::temperature_celsius) temperature_celsius(
+      const ::ash::cros_healthd::mojom::CpuTemperatureChannelPtr& input) {
     return input->temperature_celsius;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::CpuTemperatureChannel::DataView input, ::chromeos::cros_healthd::mojom::CpuTemperatureChannelPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::CpuTemperatureChannel::DataView input, ::ash::cros_healthd::mojom::CpuTemperatureChannelPtr* output);
 };
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::TimezoneInfo::DataView,
-                                         ::chromeos::cros_healthd::mojom::TimezoneInfoPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::TimezoneInfoPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::TimezoneInfoPtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::TimezoneInfo::DataView,
+                                         ::ash::cros_healthd::mojom::TimezoneInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::TimezoneInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::TimezoneInfoPtr* output) { output->reset(); }
 
-  static const decltype(::chromeos::cros_healthd::mojom::TimezoneInfo::posix)& posix(
-      const ::chromeos::cros_healthd::mojom::TimezoneInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::TimezoneInfo::posix)& posix(
+      const ::ash::cros_healthd::mojom::TimezoneInfoPtr& input) {
     return input->posix;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::TimezoneInfo::region)& region(
-      const ::chromeos::cros_healthd::mojom::TimezoneInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::TimezoneInfo::region)& region(
+      const ::ash::cros_healthd::mojom::TimezoneInfoPtr& input) {
     return input->region;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::TimezoneInfo::DataView input, ::chromeos::cros_healthd::mojom::TimezoneInfoPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::TimezoneInfo::DataView input, ::ash::cros_healthd::mojom::TimezoneInfoPtr* output);
 };
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::MemoryInfo::DataView,
-                                         ::chromeos::cros_healthd::mojom::MemoryInfoPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::MemoryInfoPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::MemoryInfoPtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::MemoryInfo::DataView,
+                                         ::ash::cros_healthd::mojom::MemoryInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::MemoryInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::MemoryInfoPtr* output) { output->reset(); }
 
-  static decltype(::chromeos::cros_healthd::mojom::MemoryInfo::total_memory_kib) total_memory_kib(
-      const ::chromeos::cros_healthd::mojom::MemoryInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::MemoryInfo::total_memory_kib) total_memory_kib(
+      const ::ash::cros_healthd::mojom::MemoryInfoPtr& input) {
     return input->total_memory_kib;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::MemoryInfo::free_memory_kib) free_memory_kib(
-      const ::chromeos::cros_healthd::mojom::MemoryInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::MemoryInfo::free_memory_kib) free_memory_kib(
+      const ::ash::cros_healthd::mojom::MemoryInfoPtr& input) {
     return input->free_memory_kib;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::MemoryInfo::available_memory_kib) available_memory_kib(
-      const ::chromeos::cros_healthd::mojom::MemoryInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::MemoryInfo::available_memory_kib) available_memory_kib(
+      const ::ash::cros_healthd::mojom::MemoryInfoPtr& input) {
     return input->available_memory_kib;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::MemoryInfo::page_faults_since_last_boot) page_faults_since_last_boot(
-      const ::chromeos::cros_healthd::mojom::MemoryInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::MemoryInfo::page_faults_since_last_boot) page_faults_since_last_boot(
+      const ::ash::cros_healthd::mojom::MemoryInfoPtr& input) {
     return input->page_faults_since_last_boot;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::MemoryInfo::memory_encryption_info)& memory_encryption_info(
-      const ::chromeos::cros_healthd::mojom::MemoryInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::MemoryInfo::memory_encryption_info)& memory_encryption_info(
+      const ::ash::cros_healthd::mojom::MemoryInfoPtr& input) {
     return input->memory_encryption_info;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::MemoryInfo::DataView input, ::chromeos::cros_healthd::mojom::MemoryInfoPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::MemoryInfo::DataView input, ::ash::cros_healthd::mojom::MemoryInfoPtr* output);
 };
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::MemoryEncryptionInfo::DataView,
-                                         ::chromeos::cros_healthd::mojom::MemoryEncryptionInfoPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::MemoryEncryptionInfoPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::MemoryEncryptionInfoPtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::MemoryEncryptionInfo::DataView,
+                                         ::ash::cros_healthd::mojom::MemoryEncryptionInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::MemoryEncryptionInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::MemoryEncryptionInfoPtr* output) { output->reset(); }
 
-  static decltype(::chromeos::cros_healthd::mojom::MemoryEncryptionInfo::encryption_state) encryption_state(
-      const ::chromeos::cros_healthd::mojom::MemoryEncryptionInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::MemoryEncryptionInfo::encryption_state) encryption_state(
+      const ::ash::cros_healthd::mojom::MemoryEncryptionInfoPtr& input) {
     return input->encryption_state;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::MemoryEncryptionInfo::max_key_number) max_key_number(
-      const ::chromeos::cros_healthd::mojom::MemoryEncryptionInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::MemoryEncryptionInfo::max_key_number) max_key_number(
+      const ::ash::cros_healthd::mojom::MemoryEncryptionInfoPtr& input) {
     return input->max_key_number;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::MemoryEncryptionInfo::key_length) key_length(
-      const ::chromeos::cros_healthd::mojom::MemoryEncryptionInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::MemoryEncryptionInfo::key_length) key_length(
+      const ::ash::cros_healthd::mojom::MemoryEncryptionInfoPtr& input) {
     return input->key_length;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::MemoryEncryptionInfo::active_algorithm) active_algorithm(
-      const ::chromeos::cros_healthd::mojom::MemoryEncryptionInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::MemoryEncryptionInfo::active_algorithm) active_algorithm(
+      const ::ash::cros_healthd::mojom::MemoryEncryptionInfoPtr& input) {
     return input->active_algorithm;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::MemoryEncryptionInfo::DataView input, ::chromeos::cros_healthd::mojom::MemoryEncryptionInfoPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::MemoryEncryptionInfo::DataView input, ::ash::cros_healthd::mojom::MemoryEncryptionInfoPtr* output);
 };
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::BacklightInfo::DataView,
-                                         ::chromeos::cros_healthd::mojom::BacklightInfoPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::BacklightInfoPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::BacklightInfoPtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::BacklightInfo::DataView,
+                                         ::ash::cros_healthd::mojom::BacklightInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::BacklightInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::BacklightInfoPtr* output) { output->reset(); }
 
-  static const decltype(::chromeos::cros_healthd::mojom::BacklightInfo::path)& path(
-      const ::chromeos::cros_healthd::mojom::BacklightInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::BacklightInfo::path)& path(
+      const ::ash::cros_healthd::mojom::BacklightInfoPtr& input) {
     return input->path;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::BacklightInfo::max_brightness) max_brightness(
-      const ::chromeos::cros_healthd::mojom::BacklightInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::BacklightInfo::max_brightness) max_brightness(
+      const ::ash::cros_healthd::mojom::BacklightInfoPtr& input) {
     return input->max_brightness;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::BacklightInfo::brightness) brightness(
-      const ::chromeos::cros_healthd::mojom::BacklightInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::BacklightInfo::brightness) brightness(
+      const ::ash::cros_healthd::mojom::BacklightInfoPtr& input) {
     return input->brightness;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::BacklightInfo::DataView input, ::chromeos::cros_healthd::mojom::BacklightInfoPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::BacklightInfo::DataView input, ::ash::cros_healthd::mojom::BacklightInfoPtr* output);
 };
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::FanInfo::DataView,
-                                         ::chromeos::cros_healthd::mojom::FanInfoPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::FanInfoPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::FanInfoPtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::FanInfo::DataView,
+                                         ::ash::cros_healthd::mojom::FanInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::FanInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::FanInfoPtr* output) { output->reset(); }
 
-  static decltype(::chromeos::cros_healthd::mojom::FanInfo::speed_rpm) speed_rpm(
-      const ::chromeos::cros_healthd::mojom::FanInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::FanInfo::speed_rpm) speed_rpm(
+      const ::ash::cros_healthd::mojom::FanInfoPtr& input) {
     return input->speed_rpm;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::FanInfo::DataView input, ::chromeos::cros_healthd::mojom::FanInfoPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::FanInfo::DataView input, ::ash::cros_healthd::mojom::FanInfoPtr* output);
 };
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::StatefulPartitionInfo::DataView,
-                                         ::chromeos::cros_healthd::mojom::StatefulPartitionInfoPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::StatefulPartitionInfoPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::StatefulPartitionInfoPtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::StatefulPartitionInfo::DataView,
+                                         ::ash::cros_healthd::mojom::StatefulPartitionInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::StatefulPartitionInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::StatefulPartitionInfoPtr* output) { output->reset(); }
 
-  static decltype(::chromeos::cros_healthd::mojom::StatefulPartitionInfo::available_space) available_space(
-      const ::chromeos::cros_healthd::mojom::StatefulPartitionInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::StatefulPartitionInfo::available_space) available_space(
+      const ::ash::cros_healthd::mojom::StatefulPartitionInfoPtr& input) {
     return input->available_space;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::StatefulPartitionInfo::total_space) total_space(
-      const ::chromeos::cros_healthd::mojom::StatefulPartitionInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::StatefulPartitionInfo::total_space) total_space(
+      const ::ash::cros_healthd::mojom::StatefulPartitionInfoPtr& input) {
     return input->total_space;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::StatefulPartitionInfo::filesystem)& filesystem(
-      const ::chromeos::cros_healthd::mojom::StatefulPartitionInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::StatefulPartitionInfo::filesystem)& filesystem(
+      const ::ash::cros_healthd::mojom::StatefulPartitionInfoPtr& input) {
     return input->filesystem;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::StatefulPartitionInfo::mount_source)& mount_source(
-      const ::chromeos::cros_healthd::mojom::StatefulPartitionInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::StatefulPartitionInfo::mount_source)& mount_source(
+      const ::ash::cros_healthd::mojom::StatefulPartitionInfoPtr& input) {
     return input->mount_source;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::StatefulPartitionInfo::DataView input, ::chromeos::cros_healthd::mojom::StatefulPartitionInfoPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::StatefulPartitionInfo::DataView input, ::ash::cros_healthd::mojom::StatefulPartitionInfoPtr* output);
 };
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::BluetoothAdapterInfo::DataView,
-                                         ::chromeos::cros_healthd::mojom::BluetoothAdapterInfoPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::BluetoothAdapterInfoPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::BluetoothAdapterInfoPtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::BluetoothAdapterInfo::DataView,
+                                         ::ash::cros_healthd::mojom::BluetoothAdapterInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::BluetoothAdapterInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::BluetoothAdapterInfoPtr* output) { output->reset(); }
 
-  static const decltype(::chromeos::cros_healthd::mojom::BluetoothAdapterInfo::name)& name(
-      const ::chromeos::cros_healthd::mojom::BluetoothAdapterInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::BluetoothAdapterInfo::name)& name(
+      const ::ash::cros_healthd::mojom::BluetoothAdapterInfoPtr& input) {
     return input->name;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::BluetoothAdapterInfo::address)& address(
-      const ::chromeos::cros_healthd::mojom::BluetoothAdapterInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::BluetoothAdapterInfo::address)& address(
+      const ::ash::cros_healthd::mojom::BluetoothAdapterInfoPtr& input) {
     return input->address;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::BluetoothAdapterInfo::powered) powered(
-      const ::chromeos::cros_healthd::mojom::BluetoothAdapterInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::BluetoothAdapterInfo::powered) powered(
+      const ::ash::cros_healthd::mojom::BluetoothAdapterInfoPtr& input) {
     return input->powered;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::BluetoothAdapterInfo::num_connected_devices) num_connected_devices(
-      const ::chromeos::cros_healthd::mojom::BluetoothAdapterInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::BluetoothAdapterInfo::num_connected_devices) num_connected_devices(
+      const ::ash::cros_healthd::mojom::BluetoothAdapterInfoPtr& input) {
     return input->num_connected_devices;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::BluetoothAdapterInfo::connected_devices)& connected_devices(
-      const ::chromeos::cros_healthd::mojom::BluetoothAdapterInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::BluetoothAdapterInfo::connected_devices)& connected_devices(
+      const ::ash::cros_healthd::mojom::BluetoothAdapterInfoPtr& input) {
     return input->connected_devices;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::BluetoothAdapterInfo::discoverable) discoverable(
-      const ::chromeos::cros_healthd::mojom::BluetoothAdapterInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::BluetoothAdapterInfo::discoverable) discoverable(
+      const ::ash::cros_healthd::mojom::BluetoothAdapterInfoPtr& input) {
     return input->discoverable;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::BluetoothAdapterInfo::discovering) discovering(
-      const ::chromeos::cros_healthd::mojom::BluetoothAdapterInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::BluetoothAdapterInfo::discovering) discovering(
+      const ::ash::cros_healthd::mojom::BluetoothAdapterInfoPtr& input) {
     return input->discovering;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::BluetoothAdapterInfo::uuids)& uuids(
-      const ::chromeos::cros_healthd::mojom::BluetoothAdapterInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::BluetoothAdapterInfo::uuids)& uuids(
+      const ::ash::cros_healthd::mojom::BluetoothAdapterInfoPtr& input) {
     return input->uuids;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::BluetoothAdapterInfo::modalias)& modalias(
-      const ::chromeos::cros_healthd::mojom::BluetoothAdapterInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::BluetoothAdapterInfo::modalias)& modalias(
+      const ::ash::cros_healthd::mojom::BluetoothAdapterInfoPtr& input) {
     return input->modalias;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::BluetoothAdapterInfo::service_allow_list)& service_allow_list(
-      const ::chromeos::cros_healthd::mojom::BluetoothAdapterInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::BluetoothAdapterInfo::service_allow_list)& service_allow_list(
+      const ::ash::cros_healthd::mojom::BluetoothAdapterInfoPtr& input) {
     return input->service_allow_list;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::BluetoothAdapterInfo::supported_capabilities)& supported_capabilities(
-      const ::chromeos::cros_healthd::mojom::BluetoothAdapterInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::BluetoothAdapterInfo::supported_capabilities)& supported_capabilities(
+      const ::ash::cros_healthd::mojom::BluetoothAdapterInfoPtr& input) {
     return input->supported_capabilities;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::BluetoothAdapterInfo::DataView input, ::chromeos::cros_healthd::mojom::BluetoothAdapterInfoPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::BluetoothAdapterInfo::DataView input, ::ash::cros_healthd::mojom::BluetoothAdapterInfoPtr* output);
 };
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::BluetoothDeviceInfo::DataView,
-                                         ::chromeos::cros_healthd::mojom::BluetoothDeviceInfoPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::BluetoothDeviceInfoPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::BluetoothDeviceInfoPtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::BluetoothDeviceInfo::DataView,
+                                         ::ash::cros_healthd::mojom::BluetoothDeviceInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::BluetoothDeviceInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::BluetoothDeviceInfoPtr* output) { output->reset(); }
 
-  static const decltype(::chromeos::cros_healthd::mojom::BluetoothDeviceInfo::address)& address(
-      const ::chromeos::cros_healthd::mojom::BluetoothDeviceInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::BluetoothDeviceInfo::address)& address(
+      const ::ash::cros_healthd::mojom::BluetoothDeviceInfoPtr& input) {
     return input->address;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::BluetoothDeviceInfo::name)& name(
-      const ::chromeos::cros_healthd::mojom::BluetoothDeviceInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::BluetoothDeviceInfo::name)& name(
+      const ::ash::cros_healthd::mojom::BluetoothDeviceInfoPtr& input) {
     return input->name;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::BluetoothDeviceInfo::type) type(
-      const ::chromeos::cros_healthd::mojom::BluetoothDeviceInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::BluetoothDeviceInfo::type) type(
+      const ::ash::cros_healthd::mojom::BluetoothDeviceInfoPtr& input) {
     return input->type;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::BluetoothDeviceInfo::appearance)& appearance(
-      const ::chromeos::cros_healthd::mojom::BluetoothDeviceInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::BluetoothDeviceInfo::appearance)& appearance(
+      const ::ash::cros_healthd::mojom::BluetoothDeviceInfoPtr& input) {
     return input->appearance;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::BluetoothDeviceInfo::modalias)& modalias(
-      const ::chromeos::cros_healthd::mojom::BluetoothDeviceInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::BluetoothDeviceInfo::modalias)& modalias(
+      const ::ash::cros_healthd::mojom::BluetoothDeviceInfoPtr& input) {
     return input->modalias;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::BluetoothDeviceInfo::rssi)& rssi(
-      const ::chromeos::cros_healthd::mojom::BluetoothDeviceInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::BluetoothDeviceInfo::rssi)& rssi(
+      const ::ash::cros_healthd::mojom::BluetoothDeviceInfoPtr& input) {
     return input->rssi;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::BluetoothDeviceInfo::mtu)& mtu(
-      const ::chromeos::cros_healthd::mojom::BluetoothDeviceInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::BluetoothDeviceInfo::mtu)& mtu(
+      const ::ash::cros_healthd::mojom::BluetoothDeviceInfoPtr& input) {
     return input->mtu;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::BluetoothDeviceInfo::uuids)& uuids(
-      const ::chromeos::cros_healthd::mojom::BluetoothDeviceInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::BluetoothDeviceInfo::uuids)& uuids(
+      const ::ash::cros_healthd::mojom::BluetoothDeviceInfoPtr& input) {
     return input->uuids;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::BluetoothDeviceInfo::battery_percentage)& battery_percentage(
-      const ::chromeos::cros_healthd::mojom::BluetoothDeviceInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::BluetoothDeviceInfo::battery_percentage)& battery_percentage(
+      const ::ash::cros_healthd::mojom::BluetoothDeviceInfoPtr& input) {
     return input->battery_percentage;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::BluetoothDeviceInfo::DataView input, ::chromeos::cros_healthd::mojom::BluetoothDeviceInfoPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::BluetoothDeviceInfo::DataView input, ::ash::cros_healthd::mojom::BluetoothDeviceInfoPtr* output);
 };
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::SupportedCapabilities::DataView,
-                                         ::chromeos::cros_healthd::mojom::SupportedCapabilitiesPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::SupportedCapabilitiesPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::SupportedCapabilitiesPtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::SupportedCapabilities::DataView,
+                                         ::ash::cros_healthd::mojom::SupportedCapabilitiesPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::SupportedCapabilitiesPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::SupportedCapabilitiesPtr* output) { output->reset(); }
 
-  static decltype(::chromeos::cros_healthd::mojom::SupportedCapabilities::max_adv_len) max_adv_len(
-      const ::chromeos::cros_healthd::mojom::SupportedCapabilitiesPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::SupportedCapabilities::max_adv_len) max_adv_len(
+      const ::ash::cros_healthd::mojom::SupportedCapabilitiesPtr& input) {
     return input->max_adv_len;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::SupportedCapabilities::max_scn_rsp_len) max_scn_rsp_len(
-      const ::chromeos::cros_healthd::mojom::SupportedCapabilitiesPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::SupportedCapabilities::max_scn_rsp_len) max_scn_rsp_len(
+      const ::ash::cros_healthd::mojom::SupportedCapabilitiesPtr& input) {
     return input->max_scn_rsp_len;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::SupportedCapabilities::min_tx_power) min_tx_power(
-      const ::chromeos::cros_healthd::mojom::SupportedCapabilitiesPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::SupportedCapabilities::min_tx_power) min_tx_power(
+      const ::ash::cros_healthd::mojom::SupportedCapabilitiesPtr& input) {
     return input->min_tx_power;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::SupportedCapabilities::max_tx_power) max_tx_power(
-      const ::chromeos::cros_healthd::mojom::SupportedCapabilitiesPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::SupportedCapabilities::max_tx_power) max_tx_power(
+      const ::ash::cros_healthd::mojom::SupportedCapabilitiesPtr& input) {
     return input->max_tx_power;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::SupportedCapabilities::DataView input, ::chromeos::cros_healthd::mojom::SupportedCapabilitiesPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::SupportedCapabilities::DataView input, ::ash::cros_healthd::mojom::SupportedCapabilitiesPtr* output);
 };
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::SystemInfo::DataView,
-                                         ::chromeos::cros_healthd::mojom::SystemInfoPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::SystemInfoPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::SystemInfoPtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::SystemInfo::DataView,
+                                         ::ash::cros_healthd::mojom::SystemInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::SystemInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::SystemInfoPtr* output) { output->reset(); }
 
-  static const decltype(::chromeos::cros_healthd::mojom::SystemInfo::os_info)& os_info(
-      const ::chromeos::cros_healthd::mojom::SystemInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::SystemInfo::os_info)& os_info(
+      const ::ash::cros_healthd::mojom::SystemInfoPtr& input) {
     return input->os_info;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::SystemInfo::vpd_info)& vpd_info(
-      const ::chromeos::cros_healthd::mojom::SystemInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::SystemInfo::vpd_info)& vpd_info(
+      const ::ash::cros_healthd::mojom::SystemInfoPtr& input) {
     return input->vpd_info;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::SystemInfo::dmi_info)& dmi_info(
-      const ::chromeos::cros_healthd::mojom::SystemInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::SystemInfo::dmi_info)& dmi_info(
+      const ::ash::cros_healthd::mojom::SystemInfoPtr& input) {
     return input->dmi_info;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::SystemInfo::DataView input, ::chromeos::cros_healthd::mojom::SystemInfoPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::SystemInfo::DataView input, ::ash::cros_healthd::mojom::SystemInfoPtr* output);
 };
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::OsInfo::DataView,
-                                         ::chromeos::cros_healthd::mojom::OsInfoPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::OsInfoPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::OsInfoPtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::OsInfo::DataView,
+                                         ::ash::cros_healthd::mojom::OsInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::OsInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::OsInfoPtr* output) { output->reset(); }
 
-  static const decltype(::chromeos::cros_healthd::mojom::OsInfo::code_name)& code_name(
-      const ::chromeos::cros_healthd::mojom::OsInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::OsInfo::code_name)& code_name(
+      const ::ash::cros_healthd::mojom::OsInfoPtr& input) {
     return input->code_name;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::OsInfo::marketing_name)& marketing_name(
-      const ::chromeos::cros_healthd::mojom::OsInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::OsInfo::marketing_name)& marketing_name(
+      const ::ash::cros_healthd::mojom::OsInfoPtr& input) {
     return input->marketing_name;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::OsInfo::os_version)& os_version(
-      const ::chromeos::cros_healthd::mojom::OsInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::OsInfo::os_version)& os_version(
+      const ::ash::cros_healthd::mojom::OsInfoPtr& input) {
     return input->os_version;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::OsInfo::boot_mode) boot_mode(
-      const ::chromeos::cros_healthd::mojom::OsInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::OsInfo::boot_mode) boot_mode(
+      const ::ash::cros_healthd::mojom::OsInfoPtr& input) {
     return input->boot_mode;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::OsInfo::oem_name)& oem_name(
-      const ::chromeos::cros_healthd::mojom::OsInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::OsInfo::oem_name)& oem_name(
+      const ::ash::cros_healthd::mojom::OsInfoPtr& input) {
     return input->oem_name;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::OsInfo::efi_platform_size) efi_platform_size(
-      const ::chromeos::cros_healthd::mojom::OsInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::OsInfo::efi_platform_size) efi_platform_size(
+      const ::ash::cros_healthd::mojom::OsInfoPtr& input) {
     return input->efi_platform_size;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::OsInfo::DataView input, ::chromeos::cros_healthd::mojom::OsInfoPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::OsInfo::DataView input, ::ash::cros_healthd::mojom::OsInfoPtr* output);
 };
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::OsVersion::DataView,
-                                         ::chromeos::cros_healthd::mojom::OsVersionPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::OsVersionPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::OsVersionPtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::OsVersion::DataView,
+                                         ::ash::cros_healthd::mojom::OsVersionPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::OsVersionPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::OsVersionPtr* output) { output->reset(); }
 
-  static const decltype(::chromeos::cros_healthd::mojom::OsVersion::release_milestone)& release_milestone(
-      const ::chromeos::cros_healthd::mojom::OsVersionPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::OsVersion::release_milestone)& release_milestone(
+      const ::ash::cros_healthd::mojom::OsVersionPtr& input) {
     return input->release_milestone;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::OsVersion::build_number)& build_number(
-      const ::chromeos::cros_healthd::mojom::OsVersionPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::OsVersion::build_number)& build_number(
+      const ::ash::cros_healthd::mojom::OsVersionPtr& input) {
     return input->build_number;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::OsVersion::patch_number)& patch_number(
-      const ::chromeos::cros_healthd::mojom::OsVersionPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::OsVersion::branch_number)& branch_number(
+      const ::ash::cros_healthd::mojom::OsVersionPtr& input) {
+    return input->branch_number;
+  }
+
+  static const decltype(::ash::cros_healthd::mojom::OsVersion::patch_number)& patch_number(
+      const ::ash::cros_healthd::mojom::OsVersionPtr& input) {
     return input->patch_number;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::OsVersion::release_channel)& release_channel(
-      const ::chromeos::cros_healthd::mojom::OsVersionPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::OsVersion::release_channel)& release_channel(
+      const ::ash::cros_healthd::mojom::OsVersionPtr& input) {
     return input->release_channel;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::OsVersion::DataView input, ::chromeos::cros_healthd::mojom::OsVersionPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::OsVersion::DataView input, ::ash::cros_healthd::mojom::OsVersionPtr* output);
 };
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::VpdInfo::DataView,
-                                         ::chromeos::cros_healthd::mojom::VpdInfoPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::VpdInfoPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::VpdInfoPtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::VpdInfo::DataView,
+                                         ::ash::cros_healthd::mojom::VpdInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::VpdInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::VpdInfoPtr* output) { output->reset(); }
 
-  static const decltype(::chromeos::cros_healthd::mojom::VpdInfo::serial_number)& serial_number(
-      const ::chromeos::cros_healthd::mojom::VpdInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::VpdInfo::serial_number)& serial_number(
+      const ::ash::cros_healthd::mojom::VpdInfoPtr& input) {
     return input->serial_number;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::VpdInfo::region)& region(
-      const ::chromeos::cros_healthd::mojom::VpdInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::VpdInfo::region)& region(
+      const ::ash::cros_healthd::mojom::VpdInfoPtr& input) {
     return input->region;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::VpdInfo::mfg_date)& mfg_date(
-      const ::chromeos::cros_healthd::mojom::VpdInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::VpdInfo::mfg_date)& mfg_date(
+      const ::ash::cros_healthd::mojom::VpdInfoPtr& input) {
     return input->mfg_date;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::VpdInfo::activate_date)& activate_date(
-      const ::chromeos::cros_healthd::mojom::VpdInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::VpdInfo::activate_date)& activate_date(
+      const ::ash::cros_healthd::mojom::VpdInfoPtr& input) {
     return input->activate_date;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::VpdInfo::sku_number)& sku_number(
-      const ::chromeos::cros_healthd::mojom::VpdInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::VpdInfo::sku_number)& sku_number(
+      const ::ash::cros_healthd::mojom::VpdInfoPtr& input) {
     return input->sku_number;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::VpdInfo::model_name)& model_name(
-      const ::chromeos::cros_healthd::mojom::VpdInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::VpdInfo::model_name)& model_name(
+      const ::ash::cros_healthd::mojom::VpdInfoPtr& input) {
     return input->model_name;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::VpdInfo::DataView input, ::chromeos::cros_healthd::mojom::VpdInfoPtr* output);
+  static const decltype(::ash::cros_healthd::mojom::VpdInfo::oem_name)& oem_name(
+      const ::ash::cros_healthd::mojom::VpdInfoPtr& input) {
+    return input->oem_name;
+  }
+
+  static bool Read(::ash::cros_healthd::mojom::VpdInfo::DataView input, ::ash::cros_healthd::mojom::VpdInfoPtr* output);
 };
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::DmiInfo::DataView,
-                                         ::chromeos::cros_healthd::mojom::DmiInfoPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::DmiInfoPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::DmiInfoPtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::DmiInfo::DataView,
+                                         ::ash::cros_healthd::mojom::DmiInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::DmiInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::DmiInfoPtr* output) { output->reset(); }
 
-  static const decltype(::chromeos::cros_healthd::mojom::DmiInfo::bios_vendor)& bios_vendor(
-      const ::chromeos::cros_healthd::mojom::DmiInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::DmiInfo::bios_vendor)& bios_vendor(
+      const ::ash::cros_healthd::mojom::DmiInfoPtr& input) {
     return input->bios_vendor;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::DmiInfo::bios_version)& bios_version(
-      const ::chromeos::cros_healthd::mojom::DmiInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::DmiInfo::bios_version)& bios_version(
+      const ::ash::cros_healthd::mojom::DmiInfoPtr& input) {
     return input->bios_version;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::DmiInfo::board_name)& board_name(
-      const ::chromeos::cros_healthd::mojom::DmiInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::DmiInfo::board_name)& board_name(
+      const ::ash::cros_healthd::mojom::DmiInfoPtr& input) {
     return input->board_name;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::DmiInfo::board_vendor)& board_vendor(
-      const ::chromeos::cros_healthd::mojom::DmiInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::DmiInfo::board_vendor)& board_vendor(
+      const ::ash::cros_healthd::mojom::DmiInfoPtr& input) {
     return input->board_vendor;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::DmiInfo::board_version)& board_version(
-      const ::chromeos::cros_healthd::mojom::DmiInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::DmiInfo::board_version)& board_version(
+      const ::ash::cros_healthd::mojom::DmiInfoPtr& input) {
     return input->board_version;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::DmiInfo::chassis_vendor)& chassis_vendor(
-      const ::chromeos::cros_healthd::mojom::DmiInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::DmiInfo::chassis_vendor)& chassis_vendor(
+      const ::ash::cros_healthd::mojom::DmiInfoPtr& input) {
     return input->chassis_vendor;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::DmiInfo::chassis_type)& chassis_type(
-      const ::chromeos::cros_healthd::mojom::DmiInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::DmiInfo::chassis_type)& chassis_type(
+      const ::ash::cros_healthd::mojom::DmiInfoPtr& input) {
     return input->chassis_type;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::DmiInfo::product_family)& product_family(
-      const ::chromeos::cros_healthd::mojom::DmiInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::DmiInfo::product_family)& product_family(
+      const ::ash::cros_healthd::mojom::DmiInfoPtr& input) {
     return input->product_family;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::DmiInfo::product_name)& product_name(
-      const ::chromeos::cros_healthd::mojom::DmiInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::DmiInfo::product_name)& product_name(
+      const ::ash::cros_healthd::mojom::DmiInfoPtr& input) {
     return input->product_name;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::DmiInfo::product_version)& product_version(
-      const ::chromeos::cros_healthd::mojom::DmiInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::DmiInfo::product_version)& product_version(
+      const ::ash::cros_healthd::mojom::DmiInfoPtr& input) {
     return input->product_version;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::DmiInfo::sys_vendor)& sys_vendor(
-      const ::chromeos::cros_healthd::mojom::DmiInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::DmiInfo::sys_vendor)& sys_vendor(
+      const ::ash::cros_healthd::mojom::DmiInfoPtr& input) {
     return input->sys_vendor;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::DmiInfo::DataView input, ::chromeos::cros_healthd::mojom::DmiInfoPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::DmiInfo::DataView input, ::ash::cros_healthd::mojom::DmiInfoPtr* output);
 };
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::WirelessInterfaceInfo::DataView,
-                                         ::chromeos::cros_healthd::mojom::WirelessInterfaceInfoPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::WirelessInterfaceInfoPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::WirelessInterfaceInfoPtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::WirelessInterfaceInfo::DataView,
+                                         ::ash::cros_healthd::mojom::WirelessInterfaceInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::WirelessInterfaceInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::WirelessInterfaceInfoPtr* output) { output->reset(); }
 
-  static const decltype(::chromeos::cros_healthd::mojom::WirelessInterfaceInfo::interface_name)& interface_name(
-      const ::chromeos::cros_healthd::mojom::WirelessInterfaceInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::WirelessInterfaceInfo::interface_name)& interface_name(
+      const ::ash::cros_healthd::mojom::WirelessInterfaceInfoPtr& input) {
     return input->interface_name;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::WirelessInterfaceInfo::power_management_on) power_management_on(
-      const ::chromeos::cros_healthd::mojom::WirelessInterfaceInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::WirelessInterfaceInfo::power_management_on) power_management_on(
+      const ::ash::cros_healthd::mojom::WirelessInterfaceInfoPtr& input) {
     return input->power_management_on;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::WirelessInterfaceInfo::wireless_link_info)& wireless_link_info(
-      const ::chromeos::cros_healthd::mojom::WirelessInterfaceInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::WirelessInterfaceInfo::wireless_link_info)& wireless_link_info(
+      const ::ash::cros_healthd::mojom::WirelessInterfaceInfoPtr& input) {
     return input->wireless_link_info;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::WirelessInterfaceInfo::DataView input, ::chromeos::cros_healthd::mojom::WirelessInterfaceInfoPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::WirelessInterfaceInfo::DataView input, ::ash::cros_healthd::mojom::WirelessInterfaceInfoPtr* output);
 };
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::WirelessLinkInfo::DataView,
-                                         ::chromeos::cros_healthd::mojom::WirelessLinkInfoPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::WirelessLinkInfoPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::WirelessLinkInfoPtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::WirelessLinkInfo::DataView,
+                                         ::ash::cros_healthd::mojom::WirelessLinkInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::WirelessLinkInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::WirelessLinkInfoPtr* output) { output->reset(); }
 
-  static const decltype(::chromeos::cros_healthd::mojom::WirelessLinkInfo::access_point_address_str)& access_point_address_str(
-      const ::chromeos::cros_healthd::mojom::WirelessLinkInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::WirelessLinkInfo::access_point_address_str)& access_point_address_str(
+      const ::ash::cros_healthd::mojom::WirelessLinkInfoPtr& input) {
     return input->access_point_address_str;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::WirelessLinkInfo::tx_bit_rate_mbps) tx_bit_rate_mbps(
-      const ::chromeos::cros_healthd::mojom::WirelessLinkInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::WirelessLinkInfo::tx_bit_rate_mbps) tx_bit_rate_mbps(
+      const ::ash::cros_healthd::mojom::WirelessLinkInfoPtr& input) {
     return input->tx_bit_rate_mbps;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::WirelessLinkInfo::rx_bit_rate_mbps) rx_bit_rate_mbps(
-      const ::chromeos::cros_healthd::mojom::WirelessLinkInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::WirelessLinkInfo::rx_bit_rate_mbps) rx_bit_rate_mbps(
+      const ::ash::cros_healthd::mojom::WirelessLinkInfoPtr& input) {
     return input->rx_bit_rate_mbps;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::WirelessLinkInfo::tx_power_dBm) tx_power_dBm(
-      const ::chromeos::cros_healthd::mojom::WirelessLinkInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::WirelessLinkInfo::tx_power_dBm) tx_power_dBm(
+      const ::ash::cros_healthd::mojom::WirelessLinkInfoPtr& input) {
     return input->tx_power_dBm;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::WirelessLinkInfo::encyption_on) encyption_on(
-      const ::chromeos::cros_healthd::mojom::WirelessLinkInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::WirelessLinkInfo::encyption_on) encyption_on(
+      const ::ash::cros_healthd::mojom::WirelessLinkInfoPtr& input) {
     return input->encyption_on;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::WirelessLinkInfo::link_quality) link_quality(
-      const ::chromeos::cros_healthd::mojom::WirelessLinkInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::WirelessLinkInfo::link_quality) link_quality(
+      const ::ash::cros_healthd::mojom::WirelessLinkInfoPtr& input) {
     return input->link_quality;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::WirelessLinkInfo::signal_level_dBm) signal_level_dBm(
-      const ::chromeos::cros_healthd::mojom::WirelessLinkInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::WirelessLinkInfo::signal_level_dBm) signal_level_dBm(
+      const ::ash::cros_healthd::mojom::WirelessLinkInfoPtr& input) {
     return input->signal_level_dBm;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::WirelessLinkInfo::DataView input, ::chromeos::cros_healthd::mojom::WirelessLinkInfoPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::WirelessLinkInfo::DataView input, ::ash::cros_healthd::mojom::WirelessLinkInfoPtr* output);
 };
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::AudioInfo::DataView,
-                                         ::chromeos::cros_healthd::mojom::AudioInfoPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::AudioInfoPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::AudioInfoPtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::AudioInfo::DataView,
+                                         ::ash::cros_healthd::mojom::AudioInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::AudioInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::AudioInfoPtr* output) { output->reset(); }
 
-  static decltype(::chromeos::cros_healthd::mojom::AudioInfo::output_mute) output_mute(
-      const ::chromeos::cros_healthd::mojom::AudioInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::AudioInfo::output_mute) output_mute(
+      const ::ash::cros_healthd::mojom::AudioInfoPtr& input) {
     return input->output_mute;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::AudioInfo::input_mute) input_mute(
-      const ::chromeos::cros_healthd::mojom::AudioInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::AudioInfo::input_mute) input_mute(
+      const ::ash::cros_healthd::mojom::AudioInfoPtr& input) {
     return input->input_mute;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::AudioInfo::output_volume) output_volume(
-      const ::chromeos::cros_healthd::mojom::AudioInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::AudioInfo::output_volume) output_volume(
+      const ::ash::cros_healthd::mojom::AudioInfoPtr& input) {
     return input->output_volume;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::AudioInfo::output_device_name)& output_device_name(
-      const ::chromeos::cros_healthd::mojom::AudioInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::AudioInfo::output_device_name)& output_device_name(
+      const ::ash::cros_healthd::mojom::AudioInfoPtr& input) {
     return input->output_device_name;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::AudioInfo::input_gain) input_gain(
-      const ::chromeos::cros_healthd::mojom::AudioInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::AudioInfo::input_gain) input_gain(
+      const ::ash::cros_healthd::mojom::AudioInfoPtr& input) {
     return input->input_gain;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::AudioInfo::input_device_name)& input_device_name(
-      const ::chromeos::cros_healthd::mojom::AudioInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::AudioInfo::input_device_name)& input_device_name(
+      const ::ash::cros_healthd::mojom::AudioInfoPtr& input) {
     return input->input_device_name;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::AudioInfo::underruns) underruns(
-      const ::chromeos::cros_healthd::mojom::AudioInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::AudioInfo::underruns) underruns(
+      const ::ash::cros_healthd::mojom::AudioInfoPtr& input) {
     return input->underruns;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::AudioInfo::severe_underruns) severe_underruns(
-      const ::chromeos::cros_healthd::mojom::AudioInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::AudioInfo::severe_underruns) severe_underruns(
+      const ::ash::cros_healthd::mojom::AudioInfoPtr& input) {
     return input->severe_underruns;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::AudioInfo::DataView input, ::chromeos::cros_healthd::mojom::AudioInfoPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::AudioInfo::DataView input, ::ash::cros_healthd::mojom::AudioInfoPtr* output);
 };
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::AudioHardwareInfo::DataView,
-                                         ::chromeos::cros_healthd::mojom::AudioHardwareInfoPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::AudioHardwareInfoPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::AudioHardwareInfoPtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::AudioHardwareInfo::DataView,
+                                         ::ash::cros_healthd::mojom::AudioHardwareInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::AudioHardwareInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::AudioHardwareInfoPtr* output) { output->reset(); }
 
-  static const decltype(::chromeos::cros_healthd::mojom::AudioHardwareInfo::audio_cards)& audio_cards(
-      const ::chromeos::cros_healthd::mojom::AudioHardwareInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::AudioHardwareInfo::audio_cards)& audio_cards(
+      const ::ash::cros_healthd::mojom::AudioHardwareInfoPtr& input) {
     return input->audio_cards;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::AudioHardwareInfo::DataView input, ::chromeos::cros_healthd::mojom::AudioHardwareInfoPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::AudioHardwareInfo::DataView input, ::ash::cros_healthd::mojom::AudioHardwareInfoPtr* output);
 };
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::AudioCard::DataView,
-                                         ::chromeos::cros_healthd::mojom::AudioCardPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::AudioCardPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::AudioCardPtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::AudioCard::DataView,
+                                         ::ash::cros_healthd::mojom::AudioCardPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::AudioCardPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::AudioCardPtr* output) { output->reset(); }
 
-  static const decltype(::chromeos::cros_healthd::mojom::AudioCard::alsa_id)& alsa_id(
-      const ::chromeos::cros_healthd::mojom::AudioCardPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::AudioCard::alsa_id)& alsa_id(
+      const ::ash::cros_healthd::mojom::AudioCardPtr& input) {
     return input->alsa_id;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::AudioCard::bus_device)& bus_device(
-      const ::chromeos::cros_healthd::mojom::AudioCardPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::AudioCard::bus_device)& bus_device(
+      const ::ash::cros_healthd::mojom::AudioCardPtr& input) {
     return input->bus_device;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::AudioCard::hd_audio_codecs)& hd_audio_codecs(
-      const ::chromeos::cros_healthd::mojom::AudioCardPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::AudioCard::hd_audio_codecs)& hd_audio_codecs(
+      const ::ash::cros_healthd::mojom::AudioCardPtr& input) {
     return input->hd_audio_codecs;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::AudioCard::DataView input, ::chromeos::cros_healthd::mojom::AudioCardPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::AudioCard::DataView input, ::ash::cros_healthd::mojom::AudioCardPtr* output);
 };
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::HDAudioCodec::DataView,
-                                         ::chromeos::cros_healthd::mojom::HDAudioCodecPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::HDAudioCodecPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::HDAudioCodecPtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::HDAudioCodec::DataView,
+                                         ::ash::cros_healthd::mojom::HDAudioCodecPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::HDAudioCodecPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::HDAudioCodecPtr* output) { output->reset(); }
 
-  static const decltype(::chromeos::cros_healthd::mojom::HDAudioCodec::name)& name(
-      const ::chromeos::cros_healthd::mojom::HDAudioCodecPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::HDAudioCodec::name)& name(
+      const ::ash::cros_healthd::mojom::HDAudioCodecPtr& input) {
     return input->name;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::HDAudioCodec::address) address(
-      const ::chromeos::cros_healthd::mojom::HDAudioCodecPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::HDAudioCodec::address) address(
+      const ::ash::cros_healthd::mojom::HDAudioCodecPtr& input) {
     return input->address;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::HDAudioCodec::DataView input, ::chromeos::cros_healthd::mojom::HDAudioCodecPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::HDAudioCodec::DataView input, ::ash::cros_healthd::mojom::HDAudioCodecPtr* output);
 };
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::BootPerformanceInfo::DataView,
-                                         ::chromeos::cros_healthd::mojom::BootPerformanceInfoPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::BootPerformanceInfoPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::BootPerformanceInfoPtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::BootPerformanceInfo::DataView,
+                                         ::ash::cros_healthd::mojom::BootPerformanceInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::BootPerformanceInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::BootPerformanceInfoPtr* output) { output->reset(); }
 
-  static decltype(::chromeos::cros_healthd::mojom::BootPerformanceInfo::boot_up_seconds) boot_up_seconds(
-      const ::chromeos::cros_healthd::mojom::BootPerformanceInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::BootPerformanceInfo::boot_up_seconds) boot_up_seconds(
+      const ::ash::cros_healthd::mojom::BootPerformanceInfoPtr& input) {
     return input->boot_up_seconds;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::BootPerformanceInfo::boot_up_timestamp) boot_up_timestamp(
-      const ::chromeos::cros_healthd::mojom::BootPerformanceInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::BootPerformanceInfo::boot_up_timestamp) boot_up_timestamp(
+      const ::ash::cros_healthd::mojom::BootPerformanceInfoPtr& input) {
     return input->boot_up_timestamp;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::BootPerformanceInfo::shutdown_seconds) shutdown_seconds(
-      const ::chromeos::cros_healthd::mojom::BootPerformanceInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::BootPerformanceInfo::shutdown_seconds) shutdown_seconds(
+      const ::ash::cros_healthd::mojom::BootPerformanceInfoPtr& input) {
     return input->shutdown_seconds;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::BootPerformanceInfo::shutdown_timestamp) shutdown_timestamp(
-      const ::chromeos::cros_healthd::mojom::BootPerformanceInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::BootPerformanceInfo::shutdown_timestamp) shutdown_timestamp(
+      const ::ash::cros_healthd::mojom::BootPerformanceInfoPtr& input) {
     return input->shutdown_timestamp;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::BootPerformanceInfo::shutdown_reason)& shutdown_reason(
-      const ::chromeos::cros_healthd::mojom::BootPerformanceInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::BootPerformanceInfo::shutdown_reason)& shutdown_reason(
+      const ::ash::cros_healthd::mojom::BootPerformanceInfoPtr& input) {
     return input->shutdown_reason;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::BootPerformanceInfo::DataView input, ::chromeos::cros_healthd::mojom::BootPerformanceInfoPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::BootPerformanceInfo::DataView input, ::ash::cros_healthd::mojom::BootPerformanceInfoPtr* output);
 };
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::BusDevice::DataView,
-                                         ::chromeos::cros_healthd::mojom::BusDevicePtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::BusDevicePtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::BusDevicePtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::BusDevice::DataView,
+                                         ::ash::cros_healthd::mojom::BusDevicePtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::BusDevicePtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::BusDevicePtr* output) { output->reset(); }
 
-  static const decltype(::chromeos::cros_healthd::mojom::BusDevice::vendor_name)& vendor_name(
-      const ::chromeos::cros_healthd::mojom::BusDevicePtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::BusDevice::vendor_name)& vendor_name(
+      const ::ash::cros_healthd::mojom::BusDevicePtr& input) {
     return input->vendor_name;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::BusDevice::product_name)& product_name(
-      const ::chromeos::cros_healthd::mojom::BusDevicePtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::BusDevice::product_name)& product_name(
+      const ::ash::cros_healthd::mojom::BusDevicePtr& input) {
     return input->product_name;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::BusDevice::device_class) device_class(
-      const ::chromeos::cros_healthd::mojom::BusDevicePtr& input) {
+  static decltype(::ash::cros_healthd::mojom::BusDevice::device_class) device_class(
+      const ::ash::cros_healthd::mojom::BusDevicePtr& input) {
     return input->device_class;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::BusDevice::bus_info)& bus_info(
-      const ::chromeos::cros_healthd::mojom::BusDevicePtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::BusDevice::bus_info)& bus_info(
+      const ::ash::cros_healthd::mojom::BusDevicePtr& input) {
     return input->bus_info;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::BusDevice::DataView input, ::chromeos::cros_healthd::mojom::BusDevicePtr* output);
+  static bool Read(::ash::cros_healthd::mojom::BusDevice::DataView input, ::ash::cros_healthd::mojom::BusDevicePtr* output);
 };
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::PciBusInfo::DataView,
-                                         ::chromeos::cros_healthd::mojom::PciBusInfoPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::PciBusInfoPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::PciBusInfoPtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::PciBusInfo::DataView,
+                                         ::ash::cros_healthd::mojom::PciBusInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::PciBusInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::PciBusInfoPtr* output) { output->reset(); }
 
-  static decltype(::chromeos::cros_healthd::mojom::PciBusInfo::class_id) class_id(
-      const ::chromeos::cros_healthd::mojom::PciBusInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::PciBusInfo::class_id) class_id(
+      const ::ash::cros_healthd::mojom::PciBusInfoPtr& input) {
     return input->class_id;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::PciBusInfo::subclass_id) subclass_id(
-      const ::chromeos::cros_healthd::mojom::PciBusInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::PciBusInfo::subclass_id) subclass_id(
+      const ::ash::cros_healthd::mojom::PciBusInfoPtr& input) {
     return input->subclass_id;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::PciBusInfo::prog_if_id) prog_if_id(
-      const ::chromeos::cros_healthd::mojom::PciBusInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::PciBusInfo::prog_if_id) prog_if_id(
+      const ::ash::cros_healthd::mojom::PciBusInfoPtr& input) {
     return input->prog_if_id;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::PciBusInfo::vendor_id) vendor_id(
-      const ::chromeos::cros_healthd::mojom::PciBusInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::PciBusInfo::vendor_id) vendor_id(
+      const ::ash::cros_healthd::mojom::PciBusInfoPtr& input) {
     return input->vendor_id;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::PciBusInfo::device_id) device_id(
-      const ::chromeos::cros_healthd::mojom::PciBusInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::PciBusInfo::device_id) device_id(
+      const ::ash::cros_healthd::mojom::PciBusInfoPtr& input) {
     return input->device_id;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::PciBusInfo::driver)& driver(
-      const ::chromeos::cros_healthd::mojom::PciBusInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::PciBusInfo::driver)& driver(
+      const ::ash::cros_healthd::mojom::PciBusInfoPtr& input) {
     return input->driver;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::PciBusInfo::DataView input, ::chromeos::cros_healthd::mojom::PciBusInfoPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::PciBusInfo::DataView input, ::ash::cros_healthd::mojom::PciBusInfoPtr* output);
 };
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::UsbBusInfo::DataView,
-                                         ::chromeos::cros_healthd::mojom::UsbBusInfoPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::UsbBusInfoPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::UsbBusInfoPtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::UsbBusInfo::DataView,
+                                         ::ash::cros_healthd::mojom::UsbBusInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::UsbBusInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::UsbBusInfoPtr* output) { output->reset(); }
 
-  static decltype(::chromeos::cros_healthd::mojom::UsbBusInfo::class_id) class_id(
-      const ::chromeos::cros_healthd::mojom::UsbBusInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::UsbBusInfo::class_id) class_id(
+      const ::ash::cros_healthd::mojom::UsbBusInfoPtr& input) {
     return input->class_id;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::UsbBusInfo::subclass_id) subclass_id(
-      const ::chromeos::cros_healthd::mojom::UsbBusInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::UsbBusInfo::subclass_id) subclass_id(
+      const ::ash::cros_healthd::mojom::UsbBusInfoPtr& input) {
     return input->subclass_id;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::UsbBusInfo::protocol_id) protocol_id(
-      const ::chromeos::cros_healthd::mojom::UsbBusInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::UsbBusInfo::protocol_id) protocol_id(
+      const ::ash::cros_healthd::mojom::UsbBusInfoPtr& input) {
     return input->protocol_id;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::UsbBusInfo::vendor_id) vendor_id(
-      const ::chromeos::cros_healthd::mojom::UsbBusInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::UsbBusInfo::vendor_id) vendor_id(
+      const ::ash::cros_healthd::mojom::UsbBusInfoPtr& input) {
     return input->vendor_id;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::UsbBusInfo::product_id) product_id(
-      const ::chromeos::cros_healthd::mojom::UsbBusInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::UsbBusInfo::product_id) product_id(
+      const ::ash::cros_healthd::mojom::UsbBusInfoPtr& input) {
     return input->product_id;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::UsbBusInfo::interfaces)& interfaces(
-      const ::chromeos::cros_healthd::mojom::UsbBusInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::UsbBusInfo::interfaces)& interfaces(
+      const ::ash::cros_healthd::mojom::UsbBusInfoPtr& input) {
     return input->interfaces;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::UsbBusInfo::fwupd_firmware_version_info)& fwupd_firmware_version_info(
-      const ::chromeos::cros_healthd::mojom::UsbBusInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::UsbBusInfo::fwupd_firmware_version_info)& fwupd_firmware_version_info(
+      const ::ash::cros_healthd::mojom::UsbBusInfoPtr& input) {
     return input->fwupd_firmware_version_info;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::UsbBusInfo::DataView input, ::chromeos::cros_healthd::mojom::UsbBusInfoPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::UsbBusInfo::DataView input, ::ash::cros_healthd::mojom::UsbBusInfoPtr* output);
 };
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::FwupdFirmwareVersionInfo::DataView,
-                                         ::chromeos::cros_healthd::mojom::FwupdFirmwareVersionInfoPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::FwupdFirmwareVersionInfoPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::FwupdFirmwareVersionInfoPtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::FwupdFirmwareVersionInfo::DataView,
+                                         ::ash::cros_healthd::mojom::FwupdFirmwareVersionInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::FwupdFirmwareVersionInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::FwupdFirmwareVersionInfoPtr* output) { output->reset(); }
 
-  static const decltype(::chromeos::cros_healthd::mojom::FwupdFirmwareVersionInfo::version)& version(
-      const ::chromeos::cros_healthd::mojom::FwupdFirmwareVersionInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::FwupdFirmwareVersionInfo::version)& version(
+      const ::ash::cros_healthd::mojom::FwupdFirmwareVersionInfoPtr& input) {
     return input->version;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::FwupdFirmwareVersionInfo::version_format) version_format(
-      const ::chromeos::cros_healthd::mojom::FwupdFirmwareVersionInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::FwupdFirmwareVersionInfo::version_format) version_format(
+      const ::ash::cros_healthd::mojom::FwupdFirmwareVersionInfoPtr& input) {
     return input->version_format;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::FwupdFirmwareVersionInfo::DataView input, ::chromeos::cros_healthd::mojom::FwupdFirmwareVersionInfoPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::FwupdFirmwareVersionInfo::DataView input, ::ash::cros_healthd::mojom::FwupdFirmwareVersionInfoPtr* output);
 };
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::UsbBusInterfaceInfo::DataView,
-                                         ::chromeos::cros_healthd::mojom::UsbBusInterfaceInfoPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::UsbBusInterfaceInfoPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::UsbBusInterfaceInfoPtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::UsbBusInterfaceInfo::DataView,
+                                         ::ash::cros_healthd::mojom::UsbBusInterfaceInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::UsbBusInterfaceInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::UsbBusInterfaceInfoPtr* output) { output->reset(); }
 
-  static decltype(::chromeos::cros_healthd::mojom::UsbBusInterfaceInfo::interface_number) interface_number(
-      const ::chromeos::cros_healthd::mojom::UsbBusInterfaceInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::UsbBusInterfaceInfo::interface_number) interface_number(
+      const ::ash::cros_healthd::mojom::UsbBusInterfaceInfoPtr& input) {
     return input->interface_number;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::UsbBusInterfaceInfo::class_id) class_id(
-      const ::chromeos::cros_healthd::mojom::UsbBusInterfaceInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::UsbBusInterfaceInfo::class_id) class_id(
+      const ::ash::cros_healthd::mojom::UsbBusInterfaceInfoPtr& input) {
     return input->class_id;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::UsbBusInterfaceInfo::subclass_id) subclass_id(
-      const ::chromeos::cros_healthd::mojom::UsbBusInterfaceInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::UsbBusInterfaceInfo::subclass_id) subclass_id(
+      const ::ash::cros_healthd::mojom::UsbBusInterfaceInfoPtr& input) {
     return input->subclass_id;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::UsbBusInterfaceInfo::protocol_id) protocol_id(
-      const ::chromeos::cros_healthd::mojom::UsbBusInterfaceInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::UsbBusInterfaceInfo::protocol_id) protocol_id(
+      const ::ash::cros_healthd::mojom::UsbBusInterfaceInfoPtr& input) {
     return input->protocol_id;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::UsbBusInterfaceInfo::driver)& driver(
-      const ::chromeos::cros_healthd::mojom::UsbBusInterfaceInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::UsbBusInterfaceInfo::driver)& driver(
+      const ::ash::cros_healthd::mojom::UsbBusInterfaceInfoPtr& input) {
     return input->driver;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::UsbBusInterfaceInfo::DataView input, ::chromeos::cros_healthd::mojom::UsbBusInterfaceInfoPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::UsbBusInterfaceInfo::DataView input, ::ash::cros_healthd::mojom::UsbBusInterfaceInfoPtr* output);
 };
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::TpmInfo::DataView,
-                                         ::chromeos::cros_healthd::mojom::TpmInfoPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::TpmInfoPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::TpmInfoPtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::TpmInfo::DataView,
+                                         ::ash::cros_healthd::mojom::TpmInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::TpmInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::TpmInfoPtr* output) { output->reset(); }
 
-  static const decltype(::chromeos::cros_healthd::mojom::TpmInfo::version)& version(
-      const ::chromeos::cros_healthd::mojom::TpmInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::TpmInfo::version)& version(
+      const ::ash::cros_healthd::mojom::TpmInfoPtr& input) {
     return input->version;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::TpmInfo::status)& status(
-      const ::chromeos::cros_healthd::mojom::TpmInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::TpmInfo::status)& status(
+      const ::ash::cros_healthd::mojom::TpmInfoPtr& input) {
     return input->status;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::TpmInfo::dictionary_attack)& dictionary_attack(
-      const ::chromeos::cros_healthd::mojom::TpmInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::TpmInfo::dictionary_attack)& dictionary_attack(
+      const ::ash::cros_healthd::mojom::TpmInfoPtr& input) {
     return input->dictionary_attack;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::TpmInfo::attestation)& attestation(
-      const ::chromeos::cros_healthd::mojom::TpmInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::TpmInfo::attestation)& attestation(
+      const ::ash::cros_healthd::mojom::TpmInfoPtr& input) {
     return input->attestation;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::TpmInfo::supported_features)& supported_features(
-      const ::chromeos::cros_healthd::mojom::TpmInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::TpmInfo::supported_features)& supported_features(
+      const ::ash::cros_healthd::mojom::TpmInfoPtr& input) {
     return input->supported_features;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::TpmInfo::did_vid)& did_vid(
-      const ::chromeos::cros_healthd::mojom::TpmInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::TpmInfo::did_vid)& did_vid(
+      const ::ash::cros_healthd::mojom::TpmInfoPtr& input) {
     return input->did_vid;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::TpmInfo::DataView input, ::chromeos::cros_healthd::mojom::TpmInfoPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::TpmInfo::DataView input, ::ash::cros_healthd::mojom::TpmInfoPtr* output);
 };
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::TpmVersion::DataView,
-                                         ::chromeos::cros_healthd::mojom::TpmVersionPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::TpmVersionPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::TpmVersionPtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::TpmVersion::DataView,
+                                         ::ash::cros_healthd::mojom::TpmVersionPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::TpmVersionPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::TpmVersionPtr* output) { output->reset(); }
 
-  static decltype(::chromeos::cros_healthd::mojom::TpmVersion::gsc_version) gsc_version(
-      const ::chromeos::cros_healthd::mojom::TpmVersionPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::TpmVersion::gsc_version) gsc_version(
+      const ::ash::cros_healthd::mojom::TpmVersionPtr& input) {
     return input->gsc_version;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::TpmVersion::family) family(
-      const ::chromeos::cros_healthd::mojom::TpmVersionPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::TpmVersion::family) family(
+      const ::ash::cros_healthd::mojom::TpmVersionPtr& input) {
     return input->family;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::TpmVersion::spec_level) spec_level(
-      const ::chromeos::cros_healthd::mojom::TpmVersionPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::TpmVersion::spec_level) spec_level(
+      const ::ash::cros_healthd::mojom::TpmVersionPtr& input) {
     return input->spec_level;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::TpmVersion::manufacturer) manufacturer(
-      const ::chromeos::cros_healthd::mojom::TpmVersionPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::TpmVersion::manufacturer) manufacturer(
+      const ::ash::cros_healthd::mojom::TpmVersionPtr& input) {
     return input->manufacturer;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::TpmVersion::tpm_model) tpm_model(
-      const ::chromeos::cros_healthd::mojom::TpmVersionPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::TpmVersion::tpm_model) tpm_model(
+      const ::ash::cros_healthd::mojom::TpmVersionPtr& input) {
     return input->tpm_model;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::TpmVersion::firmware_version) firmware_version(
-      const ::chromeos::cros_healthd::mojom::TpmVersionPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::TpmVersion::firmware_version) firmware_version(
+      const ::ash::cros_healthd::mojom::TpmVersionPtr& input) {
     return input->firmware_version;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::TpmVersion::vendor_specific)& vendor_specific(
-      const ::chromeos::cros_healthd::mojom::TpmVersionPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::TpmVersion::vendor_specific)& vendor_specific(
+      const ::ash::cros_healthd::mojom::TpmVersionPtr& input) {
     return input->vendor_specific;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::TpmVersion::DataView input, ::chromeos::cros_healthd::mojom::TpmVersionPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::TpmVersion::DataView input, ::ash::cros_healthd::mojom::TpmVersionPtr* output);
 };
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::TpmStatus::DataView,
-                                         ::chromeos::cros_healthd::mojom::TpmStatusPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::TpmStatusPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::TpmStatusPtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::TpmStatus::DataView,
+                                         ::ash::cros_healthd::mojom::TpmStatusPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::TpmStatusPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::TpmStatusPtr* output) { output->reset(); }
 
-  static decltype(::chromeos::cros_healthd::mojom::TpmStatus::enabled) enabled(
-      const ::chromeos::cros_healthd::mojom::TpmStatusPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::TpmStatus::enabled) enabled(
+      const ::ash::cros_healthd::mojom::TpmStatusPtr& input) {
     return input->enabled;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::TpmStatus::owned) owned(
-      const ::chromeos::cros_healthd::mojom::TpmStatusPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::TpmStatus::owned) owned(
+      const ::ash::cros_healthd::mojom::TpmStatusPtr& input) {
     return input->owned;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::TpmStatus::owner_password_is_present) owner_password_is_present(
-      const ::chromeos::cros_healthd::mojom::TpmStatusPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::TpmStatus::owner_password_is_present) owner_password_is_present(
+      const ::ash::cros_healthd::mojom::TpmStatusPtr& input) {
     return input->owner_password_is_present;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::TpmStatus::DataView input, ::chromeos::cros_healthd::mojom::TpmStatusPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::TpmStatus::DataView input, ::ash::cros_healthd::mojom::TpmStatusPtr* output);
 };
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::TpmDictionaryAttack::DataView,
-                                         ::chromeos::cros_healthd::mojom::TpmDictionaryAttackPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::TpmDictionaryAttackPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::TpmDictionaryAttackPtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::TpmDictionaryAttack::DataView,
+                                         ::ash::cros_healthd::mojom::TpmDictionaryAttackPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::TpmDictionaryAttackPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::TpmDictionaryAttackPtr* output) { output->reset(); }
 
-  static decltype(::chromeos::cros_healthd::mojom::TpmDictionaryAttack::counter) counter(
-      const ::chromeos::cros_healthd::mojom::TpmDictionaryAttackPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::TpmDictionaryAttack::counter) counter(
+      const ::ash::cros_healthd::mojom::TpmDictionaryAttackPtr& input) {
     return input->counter;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::TpmDictionaryAttack::threshold) threshold(
-      const ::chromeos::cros_healthd::mojom::TpmDictionaryAttackPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::TpmDictionaryAttack::threshold) threshold(
+      const ::ash::cros_healthd::mojom::TpmDictionaryAttackPtr& input) {
     return input->threshold;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::TpmDictionaryAttack::lockout_in_effect) lockout_in_effect(
-      const ::chromeos::cros_healthd::mojom::TpmDictionaryAttackPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::TpmDictionaryAttack::lockout_in_effect) lockout_in_effect(
+      const ::ash::cros_healthd::mojom::TpmDictionaryAttackPtr& input) {
     return input->lockout_in_effect;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::TpmDictionaryAttack::lockout_seconds_remaining) lockout_seconds_remaining(
-      const ::chromeos::cros_healthd::mojom::TpmDictionaryAttackPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::TpmDictionaryAttack::lockout_seconds_remaining) lockout_seconds_remaining(
+      const ::ash::cros_healthd::mojom::TpmDictionaryAttackPtr& input) {
     return input->lockout_seconds_remaining;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::TpmDictionaryAttack::DataView input, ::chromeos::cros_healthd::mojom::TpmDictionaryAttackPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::TpmDictionaryAttack::DataView input, ::ash::cros_healthd::mojom::TpmDictionaryAttackPtr* output);
 };
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::TpmAttestation::DataView,
-                                         ::chromeos::cros_healthd::mojom::TpmAttestationPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::TpmAttestationPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::TpmAttestationPtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::TpmAttestation::DataView,
+                                         ::ash::cros_healthd::mojom::TpmAttestationPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::TpmAttestationPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::TpmAttestationPtr* output) { output->reset(); }
 
-  static decltype(::chromeos::cros_healthd::mojom::TpmAttestation::prepared_for_enrollment) prepared_for_enrollment(
-      const ::chromeos::cros_healthd::mojom::TpmAttestationPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::TpmAttestation::prepared_for_enrollment) prepared_for_enrollment(
+      const ::ash::cros_healthd::mojom::TpmAttestationPtr& input) {
     return input->prepared_for_enrollment;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::TpmAttestation::enrolled) enrolled(
-      const ::chromeos::cros_healthd::mojom::TpmAttestationPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::TpmAttestation::enrolled) enrolled(
+      const ::ash::cros_healthd::mojom::TpmAttestationPtr& input) {
     return input->enrolled;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::TpmAttestation::DataView input, ::chromeos::cros_healthd::mojom::TpmAttestationPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::TpmAttestation::DataView input, ::ash::cros_healthd::mojom::TpmAttestationPtr* output);
 };
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::TpmSupportedFeatures::DataView,
-                                         ::chromeos::cros_healthd::mojom::TpmSupportedFeaturesPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::TpmSupportedFeaturesPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::TpmSupportedFeaturesPtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::TpmSupportedFeatures::DataView,
+                                         ::ash::cros_healthd::mojom::TpmSupportedFeaturesPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::TpmSupportedFeaturesPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::TpmSupportedFeaturesPtr* output) { output->reset(); }
 
-  static decltype(::chromeos::cros_healthd::mojom::TpmSupportedFeatures::support_u2f) support_u2f(
-      const ::chromeos::cros_healthd::mojom::TpmSupportedFeaturesPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::TpmSupportedFeatures::support_u2f) support_u2f(
+      const ::ash::cros_healthd::mojom::TpmSupportedFeaturesPtr& input) {
     return input->support_u2f;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::TpmSupportedFeatures::support_pinweaver) support_pinweaver(
-      const ::chromeos::cros_healthd::mojom::TpmSupportedFeaturesPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::TpmSupportedFeatures::support_pinweaver) support_pinweaver(
+      const ::ash::cros_healthd::mojom::TpmSupportedFeaturesPtr& input) {
     return input->support_pinweaver;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::TpmSupportedFeatures::support_runtime_selection) support_runtime_selection(
-      const ::chromeos::cros_healthd::mojom::TpmSupportedFeaturesPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::TpmSupportedFeatures::support_runtime_selection) support_runtime_selection(
+      const ::ash::cros_healthd::mojom::TpmSupportedFeaturesPtr& input) {
     return input->support_runtime_selection;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::TpmSupportedFeatures::is_allowed) is_allowed(
-      const ::chromeos::cros_healthd::mojom::TpmSupportedFeaturesPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::TpmSupportedFeatures::is_allowed) is_allowed(
+      const ::ash::cros_healthd::mojom::TpmSupportedFeaturesPtr& input) {
     return input->is_allowed;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::TpmSupportedFeatures::DataView input, ::chromeos::cros_healthd::mojom::TpmSupportedFeaturesPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::TpmSupportedFeatures::DataView input, ::ash::cros_healthd::mojom::TpmSupportedFeaturesPtr* output);
 };
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::GraphicsInfo::DataView,
-                                         ::chromeos::cros_healthd::mojom::GraphicsInfoPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::GraphicsInfoPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::GraphicsInfoPtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::GraphicsInfo::DataView,
+                                         ::ash::cros_healthd::mojom::GraphicsInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::GraphicsInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::GraphicsInfoPtr* output) { output->reset(); }
 
-  static const decltype(::chromeos::cros_healthd::mojom::GraphicsInfo::gles_info)& gles_info(
-      const ::chromeos::cros_healthd::mojom::GraphicsInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::GraphicsInfo::gles_info)& gles_info(
+      const ::ash::cros_healthd::mojom::GraphicsInfoPtr& input) {
     return input->gles_info;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::GraphicsInfo::egl_info)& egl_info(
-      const ::chromeos::cros_healthd::mojom::GraphicsInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::GraphicsInfo::egl_info)& egl_info(
+      const ::ash::cros_healthd::mojom::GraphicsInfoPtr& input) {
     return input->egl_info;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::GraphicsInfo::DataView input, ::chromeos::cros_healthd::mojom::GraphicsInfoPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::GraphicsInfo::DataView input, ::ash::cros_healthd::mojom::GraphicsInfoPtr* output);
 };
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::GLESInfo::DataView,
-                                         ::chromeos::cros_healthd::mojom::GLESInfoPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::GLESInfoPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::GLESInfoPtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::GLESInfo::DataView,
+                                         ::ash::cros_healthd::mojom::GLESInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::GLESInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::GLESInfoPtr* output) { output->reset(); }
 
-  static const decltype(::chromeos::cros_healthd::mojom::GLESInfo::version)& version(
-      const ::chromeos::cros_healthd::mojom::GLESInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::GLESInfo::version)& version(
+      const ::ash::cros_healthd::mojom::GLESInfoPtr& input) {
     return input->version;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::GLESInfo::shading_version)& shading_version(
-      const ::chromeos::cros_healthd::mojom::GLESInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::GLESInfo::shading_version)& shading_version(
+      const ::ash::cros_healthd::mojom::GLESInfoPtr& input) {
     return input->shading_version;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::GLESInfo::vendor)& vendor(
-      const ::chromeos::cros_healthd::mojom::GLESInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::GLESInfo::vendor)& vendor(
+      const ::ash::cros_healthd::mojom::GLESInfoPtr& input) {
     return input->vendor;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::GLESInfo::renderer)& renderer(
-      const ::chromeos::cros_healthd::mojom::GLESInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::GLESInfo::renderer)& renderer(
+      const ::ash::cros_healthd::mojom::GLESInfoPtr& input) {
     return input->renderer;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::GLESInfo::extensions)& extensions(
-      const ::chromeos::cros_healthd::mojom::GLESInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::GLESInfo::extensions)& extensions(
+      const ::ash::cros_healthd::mojom::GLESInfoPtr& input) {
     return input->extensions;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::GLESInfo::DataView input, ::chromeos::cros_healthd::mojom::GLESInfoPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::GLESInfo::DataView input, ::ash::cros_healthd::mojom::GLESInfoPtr* output);
 };
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::EGLInfo::DataView,
-                                         ::chromeos::cros_healthd::mojom::EGLInfoPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::EGLInfoPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::EGLInfoPtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::EGLInfo::DataView,
+                                         ::ash::cros_healthd::mojom::EGLInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::EGLInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::EGLInfoPtr* output) { output->reset(); }
 
-  static const decltype(::chromeos::cros_healthd::mojom::EGLInfo::version)& version(
-      const ::chromeos::cros_healthd::mojom::EGLInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::EGLInfo::version)& version(
+      const ::ash::cros_healthd::mojom::EGLInfoPtr& input) {
     return input->version;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::EGLInfo::vendor)& vendor(
-      const ::chromeos::cros_healthd::mojom::EGLInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::EGLInfo::vendor)& vendor(
+      const ::ash::cros_healthd::mojom::EGLInfoPtr& input) {
     return input->vendor;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::EGLInfo::client_api)& client_api(
-      const ::chromeos::cros_healthd::mojom::EGLInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::EGLInfo::client_api)& client_api(
+      const ::ash::cros_healthd::mojom::EGLInfoPtr& input) {
     return input->client_api;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::EGLInfo::extensions)& extensions(
-      const ::chromeos::cros_healthd::mojom::EGLInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::EGLInfo::extensions)& extensions(
+      const ::ash::cros_healthd::mojom::EGLInfoPtr& input) {
     return input->extensions;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::EGLInfo::DataView input, ::chromeos::cros_healthd::mojom::EGLInfoPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::EGLInfo::DataView input, ::ash::cros_healthd::mojom::EGLInfoPtr* output);
 };
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::DisplayInfo::DataView,
-                                         ::chromeos::cros_healthd::mojom::DisplayInfoPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::DisplayInfoPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::DisplayInfoPtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::DisplayInfo::DataView,
+                                         ::ash::cros_healthd::mojom::DisplayInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::DisplayInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::DisplayInfoPtr* output) { output->reset(); }
 
-  static const decltype(::chromeos::cros_healthd::mojom::DisplayInfo::edp_info)& edp_info(
-      const ::chromeos::cros_healthd::mojom::DisplayInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::DisplayInfo::edp_info)& edp_info(
+      const ::ash::cros_healthd::mojom::DisplayInfoPtr& input) {
     return input->edp_info;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::DisplayInfo::dp_infos)& dp_infos(
-      const ::chromeos::cros_healthd::mojom::DisplayInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::DisplayInfo::dp_infos)& dp_infos(
+      const ::ash::cros_healthd::mojom::DisplayInfoPtr& input) {
     return input->dp_infos;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::DisplayInfo::DataView input, ::chromeos::cros_healthd::mojom::DisplayInfoPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::DisplayInfo::DataView input, ::ash::cros_healthd::mojom::DisplayInfoPtr* output);
 };
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::EmbeddedDisplayInfo::DataView,
-                                         ::chromeos::cros_healthd::mojom::EmbeddedDisplayInfoPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::EmbeddedDisplayInfoPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::EmbeddedDisplayInfoPtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::EmbeddedDisplayInfo::DataView,
+                                         ::ash::cros_healthd::mojom::EmbeddedDisplayInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::EmbeddedDisplayInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::EmbeddedDisplayInfoPtr* output) { output->reset(); }
 
-  static decltype(::chromeos::cros_healthd::mojom::EmbeddedDisplayInfo::privacy_screen_supported) privacy_screen_supported(
-      const ::chromeos::cros_healthd::mojom::EmbeddedDisplayInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::EmbeddedDisplayInfo::privacy_screen_supported) privacy_screen_supported(
+      const ::ash::cros_healthd::mojom::EmbeddedDisplayInfoPtr& input) {
     return input->privacy_screen_supported;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::EmbeddedDisplayInfo::privacy_screen_enabled) privacy_screen_enabled(
-      const ::chromeos::cros_healthd::mojom::EmbeddedDisplayInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::EmbeddedDisplayInfo::privacy_screen_enabled) privacy_screen_enabled(
+      const ::ash::cros_healthd::mojom::EmbeddedDisplayInfoPtr& input) {
     return input->privacy_screen_enabled;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::EmbeddedDisplayInfo::display_width)& display_width(
-      const ::chromeos::cros_healthd::mojom::EmbeddedDisplayInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::EmbeddedDisplayInfo::display_width)& display_width(
+      const ::ash::cros_healthd::mojom::EmbeddedDisplayInfoPtr& input) {
     return input->display_width;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::EmbeddedDisplayInfo::display_height)& display_height(
-      const ::chromeos::cros_healthd::mojom::EmbeddedDisplayInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::EmbeddedDisplayInfo::display_height)& display_height(
+      const ::ash::cros_healthd::mojom::EmbeddedDisplayInfoPtr& input) {
     return input->display_height;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::EmbeddedDisplayInfo::resolution_horizontal)& resolution_horizontal(
-      const ::chromeos::cros_healthd::mojom::EmbeddedDisplayInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::EmbeddedDisplayInfo::resolution_horizontal)& resolution_horizontal(
+      const ::ash::cros_healthd::mojom::EmbeddedDisplayInfoPtr& input) {
     return input->resolution_horizontal;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::EmbeddedDisplayInfo::resolution_vertical)& resolution_vertical(
-      const ::chromeos::cros_healthd::mojom::EmbeddedDisplayInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::EmbeddedDisplayInfo::resolution_vertical)& resolution_vertical(
+      const ::ash::cros_healthd::mojom::EmbeddedDisplayInfoPtr& input) {
     return input->resolution_vertical;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::EmbeddedDisplayInfo::refresh_rate)& refresh_rate(
-      const ::chromeos::cros_healthd::mojom::EmbeddedDisplayInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::EmbeddedDisplayInfo::refresh_rate)& refresh_rate(
+      const ::ash::cros_healthd::mojom::EmbeddedDisplayInfoPtr& input) {
     return input->refresh_rate;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::EmbeddedDisplayInfo::manufacturer)& manufacturer(
-      const ::chromeos::cros_healthd::mojom::EmbeddedDisplayInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::EmbeddedDisplayInfo::manufacturer)& manufacturer(
+      const ::ash::cros_healthd::mojom::EmbeddedDisplayInfoPtr& input) {
     return input->manufacturer;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::EmbeddedDisplayInfo::model_id)& model_id(
-      const ::chromeos::cros_healthd::mojom::EmbeddedDisplayInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::EmbeddedDisplayInfo::model_id)& model_id(
+      const ::ash::cros_healthd::mojom::EmbeddedDisplayInfoPtr& input) {
     return input->model_id;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::EmbeddedDisplayInfo::serial_number)& serial_number(
-      const ::chromeos::cros_healthd::mojom::EmbeddedDisplayInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::EmbeddedDisplayInfo::serial_number)& serial_number(
+      const ::ash::cros_healthd::mojom::EmbeddedDisplayInfoPtr& input) {
     return input->serial_number;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::EmbeddedDisplayInfo::manufacture_week)& manufacture_week(
-      const ::chromeos::cros_healthd::mojom::EmbeddedDisplayInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::EmbeddedDisplayInfo::manufacture_week)& manufacture_week(
+      const ::ash::cros_healthd::mojom::EmbeddedDisplayInfoPtr& input) {
     return input->manufacture_week;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::EmbeddedDisplayInfo::manufacture_year)& manufacture_year(
-      const ::chromeos::cros_healthd::mojom::EmbeddedDisplayInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::EmbeddedDisplayInfo::manufacture_year)& manufacture_year(
+      const ::ash::cros_healthd::mojom::EmbeddedDisplayInfoPtr& input) {
     return input->manufacture_year;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::EmbeddedDisplayInfo::edid_version)& edid_version(
-      const ::chromeos::cros_healthd::mojom::EmbeddedDisplayInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::EmbeddedDisplayInfo::edid_version)& edid_version(
+      const ::ash::cros_healthd::mojom::EmbeddedDisplayInfoPtr& input) {
     return input->edid_version;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::EmbeddedDisplayInfo::input_type) input_type(
-      const ::chromeos::cros_healthd::mojom::EmbeddedDisplayInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::EmbeddedDisplayInfo::input_type) input_type(
+      const ::ash::cros_healthd::mojom::EmbeddedDisplayInfoPtr& input) {
     return input->input_type;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::EmbeddedDisplayInfo::display_name)& display_name(
-      const ::chromeos::cros_healthd::mojom::EmbeddedDisplayInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::EmbeddedDisplayInfo::display_name)& display_name(
+      const ::ash::cros_healthd::mojom::EmbeddedDisplayInfoPtr& input) {
     return input->display_name;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::EmbeddedDisplayInfo::DataView input, ::chromeos::cros_healthd::mojom::EmbeddedDisplayInfoPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::EmbeddedDisplayInfo::DataView input, ::ash::cros_healthd::mojom::EmbeddedDisplayInfoPtr* output);
 };
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::ExternalDisplayInfo::DataView,
-                                         ::chromeos::cros_healthd::mojom::ExternalDisplayInfoPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::ExternalDisplayInfoPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::ExternalDisplayInfoPtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::ExternalDisplayInfo::DataView,
+                                         ::ash::cros_healthd::mojom::ExternalDisplayInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::ExternalDisplayInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::ExternalDisplayInfoPtr* output) { output->reset(); }
 
-  static const decltype(::chromeos::cros_healthd::mojom::ExternalDisplayInfo::display_width)& display_width(
-      const ::chromeos::cros_healthd::mojom::ExternalDisplayInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::ExternalDisplayInfo::display_width)& display_width(
+      const ::ash::cros_healthd::mojom::ExternalDisplayInfoPtr& input) {
     return input->display_width;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::ExternalDisplayInfo::display_height)& display_height(
-      const ::chromeos::cros_healthd::mojom::ExternalDisplayInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::ExternalDisplayInfo::display_height)& display_height(
+      const ::ash::cros_healthd::mojom::ExternalDisplayInfoPtr& input) {
     return input->display_height;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::ExternalDisplayInfo::resolution_horizontal)& resolution_horizontal(
-      const ::chromeos::cros_healthd::mojom::ExternalDisplayInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::ExternalDisplayInfo::resolution_horizontal)& resolution_horizontal(
+      const ::ash::cros_healthd::mojom::ExternalDisplayInfoPtr& input) {
     return input->resolution_horizontal;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::ExternalDisplayInfo::resolution_vertical)& resolution_vertical(
-      const ::chromeos::cros_healthd::mojom::ExternalDisplayInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::ExternalDisplayInfo::resolution_vertical)& resolution_vertical(
+      const ::ash::cros_healthd::mojom::ExternalDisplayInfoPtr& input) {
     return input->resolution_vertical;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::ExternalDisplayInfo::refresh_rate)& refresh_rate(
-      const ::chromeos::cros_healthd::mojom::ExternalDisplayInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::ExternalDisplayInfo::refresh_rate)& refresh_rate(
+      const ::ash::cros_healthd::mojom::ExternalDisplayInfoPtr& input) {
     return input->refresh_rate;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::ExternalDisplayInfo::manufacturer)& manufacturer(
-      const ::chromeos::cros_healthd::mojom::ExternalDisplayInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::ExternalDisplayInfo::manufacturer)& manufacturer(
+      const ::ash::cros_healthd::mojom::ExternalDisplayInfoPtr& input) {
     return input->manufacturer;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::ExternalDisplayInfo::model_id)& model_id(
-      const ::chromeos::cros_healthd::mojom::ExternalDisplayInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::ExternalDisplayInfo::model_id)& model_id(
+      const ::ash::cros_healthd::mojom::ExternalDisplayInfoPtr& input) {
     return input->model_id;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::ExternalDisplayInfo::serial_number)& serial_number(
-      const ::chromeos::cros_healthd::mojom::ExternalDisplayInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::ExternalDisplayInfo::serial_number)& serial_number(
+      const ::ash::cros_healthd::mojom::ExternalDisplayInfoPtr& input) {
     return input->serial_number;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::ExternalDisplayInfo::manufacture_week)& manufacture_week(
-      const ::chromeos::cros_healthd::mojom::ExternalDisplayInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::ExternalDisplayInfo::manufacture_week)& manufacture_week(
+      const ::ash::cros_healthd::mojom::ExternalDisplayInfoPtr& input) {
     return input->manufacture_week;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::ExternalDisplayInfo::manufacture_year)& manufacture_year(
-      const ::chromeos::cros_healthd::mojom::ExternalDisplayInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::ExternalDisplayInfo::manufacture_year)& manufacture_year(
+      const ::ash::cros_healthd::mojom::ExternalDisplayInfoPtr& input) {
     return input->manufacture_year;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::ExternalDisplayInfo::edid_version)& edid_version(
-      const ::chromeos::cros_healthd::mojom::ExternalDisplayInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::ExternalDisplayInfo::edid_version)& edid_version(
+      const ::ash::cros_healthd::mojom::ExternalDisplayInfoPtr& input) {
     return input->edid_version;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::ExternalDisplayInfo::input_type) input_type(
-      const ::chromeos::cros_healthd::mojom::ExternalDisplayInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::ExternalDisplayInfo::input_type) input_type(
+      const ::ash::cros_healthd::mojom::ExternalDisplayInfoPtr& input) {
     return input->input_type;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::ExternalDisplayInfo::display_name)& display_name(
-      const ::chromeos::cros_healthd::mojom::ExternalDisplayInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::ExternalDisplayInfo::display_name)& display_name(
+      const ::ash::cros_healthd::mojom::ExternalDisplayInfoPtr& input) {
     return input->display_name;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::ExternalDisplayInfo::DataView input, ::chromeos::cros_healthd::mojom::ExternalDisplayInfoPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::ExternalDisplayInfo::DataView input, ::ash::cros_healthd::mojom::ExternalDisplayInfoPtr* output);
 };
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::ThunderboltBusInterfaceInfo::DataView,
-                                         ::chromeos::cros_healthd::mojom::ThunderboltBusInterfaceInfoPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::ThunderboltBusInterfaceInfoPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::ThunderboltBusInterfaceInfoPtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::ThunderboltBusInterfaceInfo::DataView,
+                                         ::ash::cros_healthd::mojom::ThunderboltBusInterfaceInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::ThunderboltBusInterfaceInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::ThunderboltBusInterfaceInfoPtr* output) { output->reset(); }
 
-  static const decltype(::chromeos::cros_healthd::mojom::ThunderboltBusInterfaceInfo::vendor_name)& vendor_name(
-      const ::chromeos::cros_healthd::mojom::ThunderboltBusInterfaceInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::ThunderboltBusInterfaceInfo::vendor_name)& vendor_name(
+      const ::ash::cros_healthd::mojom::ThunderboltBusInterfaceInfoPtr& input) {
     return input->vendor_name;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::ThunderboltBusInterfaceInfo::device_name)& device_name(
-      const ::chromeos::cros_healthd::mojom::ThunderboltBusInterfaceInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::ThunderboltBusInterfaceInfo::device_name)& device_name(
+      const ::ash::cros_healthd::mojom::ThunderboltBusInterfaceInfoPtr& input) {
     return input->device_name;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::ThunderboltBusInterfaceInfo::device_type)& device_type(
-      const ::chromeos::cros_healthd::mojom::ThunderboltBusInterfaceInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::ThunderboltBusInterfaceInfo::device_type)& device_type(
+      const ::ash::cros_healthd::mojom::ThunderboltBusInterfaceInfoPtr& input) {
     return input->device_type;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::ThunderboltBusInterfaceInfo::device_uuid)& device_uuid(
-      const ::chromeos::cros_healthd::mojom::ThunderboltBusInterfaceInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::ThunderboltBusInterfaceInfo::device_uuid)& device_uuid(
+      const ::ash::cros_healthd::mojom::ThunderboltBusInterfaceInfoPtr& input) {
     return input->device_uuid;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::ThunderboltBusInterfaceInfo::tx_speed_gbs) tx_speed_gbs(
-      const ::chromeos::cros_healthd::mojom::ThunderboltBusInterfaceInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::ThunderboltBusInterfaceInfo::tx_speed_gbs) tx_speed_gbs(
+      const ::ash::cros_healthd::mojom::ThunderboltBusInterfaceInfoPtr& input) {
     return input->tx_speed_gbs;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::ThunderboltBusInterfaceInfo::rx_speed_gbs) rx_speed_gbs(
-      const ::chromeos::cros_healthd::mojom::ThunderboltBusInterfaceInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::ThunderboltBusInterfaceInfo::rx_speed_gbs) rx_speed_gbs(
+      const ::ash::cros_healthd::mojom::ThunderboltBusInterfaceInfoPtr& input) {
     return input->rx_speed_gbs;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::ThunderboltBusInterfaceInfo::authorized) authorized(
-      const ::chromeos::cros_healthd::mojom::ThunderboltBusInterfaceInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::ThunderboltBusInterfaceInfo::authorized) authorized(
+      const ::ash::cros_healthd::mojom::ThunderboltBusInterfaceInfoPtr& input) {
     return input->authorized;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::ThunderboltBusInterfaceInfo::device_fw_version)& device_fw_version(
-      const ::chromeos::cros_healthd::mojom::ThunderboltBusInterfaceInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::ThunderboltBusInterfaceInfo::device_fw_version)& device_fw_version(
+      const ::ash::cros_healthd::mojom::ThunderboltBusInterfaceInfoPtr& input) {
     return input->device_fw_version;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::ThunderboltBusInterfaceInfo::DataView input, ::chromeos::cros_healthd::mojom::ThunderboltBusInterfaceInfoPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::ThunderboltBusInterfaceInfo::DataView input, ::ash::cros_healthd::mojom::ThunderboltBusInterfaceInfoPtr* output);
 };
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::ThunderboltBusInfo::DataView,
-                                         ::chromeos::cros_healthd::mojom::ThunderboltBusInfoPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::ThunderboltBusInfoPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::ThunderboltBusInfoPtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::ThunderboltBusInfo::DataView,
+                                         ::ash::cros_healthd::mojom::ThunderboltBusInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::ThunderboltBusInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::ThunderboltBusInfoPtr* output) { output->reset(); }
 
-  static decltype(::chromeos::cros_healthd::mojom::ThunderboltBusInfo::security_level) security_level(
-      const ::chromeos::cros_healthd::mojom::ThunderboltBusInfoPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::ThunderboltBusInfo::security_level) security_level(
+      const ::ash::cros_healthd::mojom::ThunderboltBusInfoPtr& input) {
     return input->security_level;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::ThunderboltBusInfo::thunderbolt_interfaces)& thunderbolt_interfaces(
-      const ::chromeos::cros_healthd::mojom::ThunderboltBusInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::ThunderboltBusInfo::thunderbolt_interfaces)& thunderbolt_interfaces(
+      const ::ash::cros_healthd::mojom::ThunderboltBusInfoPtr& input) {
     return input->thunderbolt_interfaces;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::ThunderboltBusInfo::DataView input, ::chromeos::cros_healthd::mojom::ThunderboltBusInfoPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::ThunderboltBusInfo::DataView input, ::ash::cros_healthd::mojom::ThunderboltBusInfoPtr* output);
 };
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::InputInfo::DataView,
-                                         ::chromeos::cros_healthd::mojom::InputInfoPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::InputInfoPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::InputInfoPtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::InputInfo::DataView,
+                                         ::ash::cros_healthd::mojom::InputInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::InputInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::InputInfoPtr* output) { output->reset(); }
 
-  static const decltype(::chromeos::cros_healthd::mojom::InputInfo::touchpad_library_name)& touchpad_library_name(
-      const ::chromeos::cros_healthd::mojom::InputInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::InputInfo::touchpad_library_name)& touchpad_library_name(
+      const ::ash::cros_healthd::mojom::InputInfoPtr& input) {
     return input->touchpad_library_name;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::InputInfo::touchscreen_devices)& touchscreen_devices(
-      const ::chromeos::cros_healthd::mojom::InputInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::InputInfo::touchscreen_devices)& touchscreen_devices(
+      const ::ash::cros_healthd::mojom::InputInfoPtr& input) {
     return input->touchscreen_devices;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::InputInfo::DataView input, ::chromeos::cros_healthd::mojom::InputInfoPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::InputInfo::DataView input, ::ash::cros_healthd::mojom::InputInfoPtr* output);
 };
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::TouchscreenDevice::DataView,
-                                         ::chromeos::cros_healthd::mojom::TouchscreenDevicePtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::TouchscreenDevicePtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::TouchscreenDevicePtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::TouchscreenDevice::DataView,
+                                         ::ash::cros_healthd::mojom::TouchscreenDevicePtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::TouchscreenDevicePtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::TouchscreenDevicePtr* output) { output->reset(); }
 
-  static const decltype(::chromeos::cros_healthd::mojom::TouchscreenDevice::input_device)& input_device(
-      const ::chromeos::cros_healthd::mojom::TouchscreenDevicePtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::TouchscreenDevice::input_device)& input_device(
+      const ::ash::cros_healthd::mojom::TouchscreenDevicePtr& input) {
     return input->input_device;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::TouchscreenDevice::touch_points) touch_points(
-      const ::chromeos::cros_healthd::mojom::TouchscreenDevicePtr& input) {
+  static decltype(::ash::cros_healthd::mojom::TouchscreenDevice::touch_points) touch_points(
+      const ::ash::cros_healthd::mojom::TouchscreenDevicePtr& input) {
     return input->touch_points;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::TouchscreenDevice::has_stylus) has_stylus(
-      const ::chromeos::cros_healthd::mojom::TouchscreenDevicePtr& input) {
+  static decltype(::ash::cros_healthd::mojom::TouchscreenDevice::has_stylus) has_stylus(
+      const ::ash::cros_healthd::mojom::TouchscreenDevicePtr& input) {
     return input->has_stylus;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::TouchscreenDevice::has_stylus_garage_switch) has_stylus_garage_switch(
-      const ::chromeos::cros_healthd::mojom::TouchscreenDevicePtr& input) {
+  static decltype(::ash::cros_healthd::mojom::TouchscreenDevice::has_stylus_garage_switch) has_stylus_garage_switch(
+      const ::ash::cros_healthd::mojom::TouchscreenDevicePtr& input) {
     return input->has_stylus_garage_switch;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::TouchscreenDevice::DataView input, ::chromeos::cros_healthd::mojom::TouchscreenDevicePtr* output);
+  static bool Read(::ash::cros_healthd::mojom::TouchscreenDevice::DataView input, ::ash::cros_healthd::mojom::TouchscreenDevicePtr* output);
 };
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::InputDevice::DataView,
-                                         ::chromeos::cros_healthd::mojom::InputDevicePtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::InputDevicePtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::InputDevicePtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::InputDevice::DataView,
+                                         ::ash::cros_healthd::mojom::InputDevicePtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::InputDevicePtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::InputDevicePtr* output) { output->reset(); }
 
-  static const decltype(::chromeos::cros_healthd::mojom::InputDevice::name)& name(
-      const ::chromeos::cros_healthd::mojom::InputDevicePtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::InputDevice::name)& name(
+      const ::ash::cros_healthd::mojom::InputDevicePtr& input) {
     return input->name;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::InputDevice::connection_type) connection_type(
-      const ::chromeos::cros_healthd::mojom::InputDevicePtr& input) {
+  static decltype(::ash::cros_healthd::mojom::InputDevice::connection_type) connection_type(
+      const ::ash::cros_healthd::mojom::InputDevicePtr& input) {
     return input->connection_type;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::InputDevice::physical_location)& physical_location(
-      const ::chromeos::cros_healthd::mojom::InputDevicePtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::InputDevice::physical_location)& physical_location(
+      const ::ash::cros_healthd::mojom::InputDevicePtr& input) {
     return input->physical_location;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::InputDevice::is_enabled) is_enabled(
-      const ::chromeos::cros_healthd::mojom::InputDevicePtr& input) {
+  static decltype(::ash::cros_healthd::mojom::InputDevice::is_enabled) is_enabled(
+      const ::ash::cros_healthd::mojom::InputDevicePtr& input) {
     return input->is_enabled;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::InputDevice::DataView input, ::chromeos::cros_healthd::mojom::InputDevicePtr* output);
+  static bool Read(::ash::cros_healthd::mojom::InputDevice::DataView input, ::ash::cros_healthd::mojom::InputDevicePtr* output);
 };
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::SensorInfo::DataView,
-                                         ::chromeos::cros_healthd::mojom::SensorInfoPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::SensorInfoPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::SensorInfoPtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::SensorInfo::DataView,
+                                         ::ash::cros_healthd::mojom::SensorInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::SensorInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::SensorInfoPtr* output) { output->reset(); }
 
-  static const decltype(::chromeos::cros_healthd::mojom::SensorInfo::lid_angle)& lid_angle(
-      const ::chromeos::cros_healthd::mojom::SensorInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::SensorInfo::lid_angle)& lid_angle(
+      const ::ash::cros_healthd::mojom::SensorInfoPtr& input) {
     return input->lid_angle;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::SensorInfo::sensors)& sensors(
-      const ::chromeos::cros_healthd::mojom::SensorInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::SensorInfo::sensors)& sensors(
+      const ::ash::cros_healthd::mojom::SensorInfoPtr& input) {
     return input->sensors;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::SensorInfo::DataView input, ::chromeos::cros_healthd::mojom::SensorInfoPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::SensorInfo::DataView input, ::ash::cros_healthd::mojom::SensorInfoPtr* output);
 };
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::Sensor::DataView,
-                                         ::chromeos::cros_healthd::mojom::SensorPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::SensorPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::SensorPtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::Sensor::DataView,
+                                         ::ash::cros_healthd::mojom::SensorPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::SensorPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::SensorPtr* output) { output->reset(); }
 
-  static const decltype(::chromeos::cros_healthd::mojom::Sensor::name)& name(
-      const ::chromeos::cros_healthd::mojom::SensorPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::Sensor::name)& name(
+      const ::ash::cros_healthd::mojom::SensorPtr& input) {
     return input->name;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::Sensor::device_id) device_id(
-      const ::chromeos::cros_healthd::mojom::SensorPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::Sensor::device_id) device_id(
+      const ::ash::cros_healthd::mojom::SensorPtr& input) {
     return input->device_id;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::Sensor::type) type(
-      const ::chromeos::cros_healthd::mojom::SensorPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::Sensor::type) type(
+      const ::ash::cros_healthd::mojom::SensorPtr& input) {
     return input->type;
   }
 
-  static decltype(::chromeos::cros_healthd::mojom::Sensor::location) location(
-      const ::chromeos::cros_healthd::mojom::SensorPtr& input) {
+  static decltype(::ash::cros_healthd::mojom::Sensor::location) location(
+      const ::ash::cros_healthd::mojom::SensorPtr& input) {
     return input->location;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::Sensor::DataView input, ::chromeos::cros_healthd::mojom::SensorPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::Sensor::DataView input, ::ash::cros_healthd::mojom::SensorPtr* output);
 };
 
 
 template <>
-struct  StructTraits<::chromeos::cros_healthd::mojom::TelemetryInfo::DataView,
-                                         ::chromeos::cros_healthd::mojom::TelemetryInfoPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::TelemetryInfoPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::TelemetryInfoPtr* output) { output->reset(); }
+struct  StructTraits<::ash::cros_healthd::mojom::TelemetryInfo::DataView,
+                                         ::ash::cros_healthd::mojom::TelemetryInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::TelemetryInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::TelemetryInfoPtr* output) { output->reset(); }
 
-  static const decltype(::chromeos::cros_healthd::mojom::TelemetryInfo::battery_result)& battery_result(
-      const ::chromeos::cros_healthd::mojom::TelemetryInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::TelemetryInfo::battery_result)& battery_result(
+      const ::ash::cros_healthd::mojom::TelemetryInfoPtr& input) {
     return input->battery_result;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::TelemetryInfo::block_device_result)& block_device_result(
-      const ::chromeos::cros_healthd::mojom::TelemetryInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::TelemetryInfo::block_device_result)& block_device_result(
+      const ::ash::cros_healthd::mojom::TelemetryInfoPtr& input) {
     return input->block_device_result;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::TelemetryInfo::cpu_result)& cpu_result(
-      const ::chromeos::cros_healthd::mojom::TelemetryInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::TelemetryInfo::cpu_result)& cpu_result(
+      const ::ash::cros_healthd::mojom::TelemetryInfoPtr& input) {
     return input->cpu_result;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::TelemetryInfo::timezone_result)& timezone_result(
-      const ::chromeos::cros_healthd::mojom::TelemetryInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::TelemetryInfo::timezone_result)& timezone_result(
+      const ::ash::cros_healthd::mojom::TelemetryInfoPtr& input) {
     return input->timezone_result;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::TelemetryInfo::memory_result)& memory_result(
-      const ::chromeos::cros_healthd::mojom::TelemetryInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::TelemetryInfo::memory_result)& memory_result(
+      const ::ash::cros_healthd::mojom::TelemetryInfoPtr& input) {
     return input->memory_result;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::TelemetryInfo::backlight_result)& backlight_result(
-      const ::chromeos::cros_healthd::mojom::TelemetryInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::TelemetryInfo::backlight_result)& backlight_result(
+      const ::ash::cros_healthd::mojom::TelemetryInfoPtr& input) {
     return input->backlight_result;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::TelemetryInfo::fan_result)& fan_result(
-      const ::chromeos::cros_healthd::mojom::TelemetryInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::TelemetryInfo::fan_result)& fan_result(
+      const ::ash::cros_healthd::mojom::TelemetryInfoPtr& input) {
     return input->fan_result;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::TelemetryInfo::stateful_partition_result)& stateful_partition_result(
-      const ::chromeos::cros_healthd::mojom::TelemetryInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::TelemetryInfo::stateful_partition_result)& stateful_partition_result(
+      const ::ash::cros_healthd::mojom::TelemetryInfoPtr& input) {
     return input->stateful_partition_result;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::TelemetryInfo::bluetooth_result)& bluetooth_result(
-      const ::chromeos::cros_healthd::mojom::TelemetryInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::TelemetryInfo::bluetooth_result)& bluetooth_result(
+      const ::ash::cros_healthd::mojom::TelemetryInfoPtr& input) {
     return input->bluetooth_result;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::TelemetryInfo::deprecate_system_result)& deprecate_system_result(
-      const ::chromeos::cros_healthd::mojom::TelemetryInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::TelemetryInfo::deprecate_system_result)& deprecate_system_result(
+      const ::ash::cros_healthd::mojom::TelemetryInfoPtr& input) {
     return input->deprecate_system_result;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::TelemetryInfo::network_result)& network_result(
-      const ::chromeos::cros_healthd::mojom::TelemetryInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::TelemetryInfo::network_result)& network_result(
+      const ::ash::cros_healthd::mojom::TelemetryInfoPtr& input) {
     return input->network_result;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::TelemetryInfo::audio_result)& audio_result(
-      const ::chromeos::cros_healthd::mojom::TelemetryInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::TelemetryInfo::audio_result)& audio_result(
+      const ::ash::cros_healthd::mojom::TelemetryInfoPtr& input) {
     return input->audio_result;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::TelemetryInfo::boot_performance_result)& boot_performance_result(
-      const ::chromeos::cros_healthd::mojom::TelemetryInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::TelemetryInfo::boot_performance_result)& boot_performance_result(
+      const ::ash::cros_healthd::mojom::TelemetryInfoPtr& input) {
     return input->boot_performance_result;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::TelemetryInfo::bus_result)& bus_result(
-      const ::chromeos::cros_healthd::mojom::TelemetryInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::TelemetryInfo::bus_result)& bus_result(
+      const ::ash::cros_healthd::mojom::TelemetryInfoPtr& input) {
     return input->bus_result;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::TelemetryInfo::system_result)& system_result(
-      const ::chromeos::cros_healthd::mojom::TelemetryInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::TelemetryInfo::system_result)& system_result(
+      const ::ash::cros_healthd::mojom::TelemetryInfoPtr& input) {
     return input->system_result;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::TelemetryInfo::tpm_result)& tpm_result(
-      const ::chromeos::cros_healthd::mojom::TelemetryInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::TelemetryInfo::tpm_result)& tpm_result(
+      const ::ash::cros_healthd::mojom::TelemetryInfoPtr& input) {
     return input->tpm_result;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::TelemetryInfo::graphics_result)& graphics_result(
-      const ::chromeos::cros_healthd::mojom::TelemetryInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::TelemetryInfo::graphics_result)& graphics_result(
+      const ::ash::cros_healthd::mojom::TelemetryInfoPtr& input) {
     return input->graphics_result;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::TelemetryInfo::display_result)& display_result(
-      const ::chromeos::cros_healthd::mojom::TelemetryInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::TelemetryInfo::display_result)& display_result(
+      const ::ash::cros_healthd::mojom::TelemetryInfoPtr& input) {
     return input->display_result;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::TelemetryInfo::network_interface_result)& network_interface_result(
-      const ::chromeos::cros_healthd::mojom::TelemetryInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::TelemetryInfo::network_interface_result)& network_interface_result(
+      const ::ash::cros_healthd::mojom::TelemetryInfoPtr& input) {
     return input->network_interface_result;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::TelemetryInfo::input_result)& input_result(
-      const ::chromeos::cros_healthd::mojom::TelemetryInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::TelemetryInfo::input_result)& input_result(
+      const ::ash::cros_healthd::mojom::TelemetryInfoPtr& input) {
     return input->input_result;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::TelemetryInfo::audio_hardware_result)& audio_hardware_result(
-      const ::chromeos::cros_healthd::mojom::TelemetryInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::TelemetryInfo::audio_hardware_result)& audio_hardware_result(
+      const ::ash::cros_healthd::mojom::TelemetryInfoPtr& input) {
     return input->audio_hardware_result;
   }
 
-  static const decltype(::chromeos::cros_healthd::mojom::TelemetryInfo::sensor_result)& sensor_result(
-      const ::chromeos::cros_healthd::mojom::TelemetryInfoPtr& input) {
+  static const decltype(::ash::cros_healthd::mojom::TelemetryInfo::sensor_result)& sensor_result(
+      const ::ash::cros_healthd::mojom::TelemetryInfoPtr& input) {
     return input->sensor_result;
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::TelemetryInfo::DataView input, ::chromeos::cros_healthd::mojom::TelemetryInfoPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::TelemetryInfo::DataView input, ::ash::cros_healthd::mojom::TelemetryInfoPtr* output);
 };
 
 
 template <>
-struct  UnionTraits<::chromeos::cros_healthd::mojom::ProcessResult::DataView,
-                                        ::chromeos::cros_healthd::mojom::ProcessResultPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::ProcessResultPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::ProcessResultPtr* output) { output->reset(); }
+struct  UnionTraits<::ash::cros_healthd::mojom::ProcessResult::DataView,
+                                        ::ash::cros_healthd::mojom::ProcessResultPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::ProcessResultPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::ProcessResultPtr* output) { output->reset(); }
 
-  static ::chromeos::cros_healthd::mojom::ProcessResult::Tag GetTag(const ::chromeos::cros_healthd::mojom::ProcessResultPtr& input) {
+  static ::ash::cros_healthd::mojom::ProcessResult::Tag GetTag(const ::ash::cros_healthd::mojom::ProcessResultPtr& input) {
     return input->which();
   }
 
-  static const ::chromeos::cros_healthd::mojom::ProcessInfoPtr& process_info(const ::chromeos::cros_healthd::mojom::ProcessResultPtr& input) {
+  static const ::ash::cros_healthd::mojom::ProcessInfoPtr& process_info(const ::ash::cros_healthd::mojom::ProcessResultPtr& input) {
     return input->get_process_info();
   }
 
-  static const ::chromeos::cros_healthd::mojom::ProbeErrorPtr& error(const ::chromeos::cros_healthd::mojom::ProcessResultPtr& input) {
+  static const ::ash::cros_healthd::mojom::ProbeErrorPtr& error(const ::ash::cros_healthd::mojom::ProcessResultPtr& input) {
     return input->get_error();
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::ProcessResult::DataView input, ::chromeos::cros_healthd::mojom::ProcessResultPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::ProcessResult::DataView input, ::ash::cros_healthd::mojom::ProcessResultPtr* output);
 };
 
 
 template <>
-struct  UnionTraits<::chromeos::cros_healthd::mojom::BatteryResult::DataView,
-                                        ::chromeos::cros_healthd::mojom::BatteryResultPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::BatteryResultPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::BatteryResultPtr* output) { output->reset(); }
+struct  UnionTraits<::ash::cros_healthd::mojom::BatteryResult::DataView,
+                                        ::ash::cros_healthd::mojom::BatteryResultPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::BatteryResultPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::BatteryResultPtr* output) { output->reset(); }
 
-  static ::chromeos::cros_healthd::mojom::BatteryResult::Tag GetTag(const ::chromeos::cros_healthd::mojom::BatteryResultPtr& input) {
+  static ::ash::cros_healthd::mojom::BatteryResult::Tag GetTag(const ::ash::cros_healthd::mojom::BatteryResultPtr& input) {
     return input->which();
   }
 
-  static const ::chromeos::cros_healthd::mojom::BatteryInfoPtr& battery_info(const ::chromeos::cros_healthd::mojom::BatteryResultPtr& input) {
+  static const ::ash::cros_healthd::mojom::BatteryInfoPtr& battery_info(const ::ash::cros_healthd::mojom::BatteryResultPtr& input) {
     return input->get_battery_info();
   }
 
-  static const ::chromeos::cros_healthd::mojom::ProbeErrorPtr& error(const ::chromeos::cros_healthd::mojom::BatteryResultPtr& input) {
+  static const ::ash::cros_healthd::mojom::ProbeErrorPtr& error(const ::ash::cros_healthd::mojom::BatteryResultPtr& input) {
     return input->get_error();
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::BatteryResult::DataView input, ::chromeos::cros_healthd::mojom::BatteryResultPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::BatteryResult::DataView input, ::ash::cros_healthd::mojom::BatteryResultPtr* output);
 };
 
 
 template <>
-struct  UnionTraits<::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceResult::DataView,
-                                        ::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceResultPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceResultPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceResultPtr* output) { output->reset(); }
+struct  UnionTraits<::ash::cros_healthd::mojom::NonRemovableBlockDeviceResult::DataView,
+                                        ::ash::cros_healthd::mojom::NonRemovableBlockDeviceResultPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::NonRemovableBlockDeviceResultPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::NonRemovableBlockDeviceResultPtr* output) { output->reset(); }
 
-  static ::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceResult::Tag GetTag(const ::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceResultPtr& input) {
+  static ::ash::cros_healthd::mojom::NonRemovableBlockDeviceResult::Tag GetTag(const ::ash::cros_healthd::mojom::NonRemovableBlockDeviceResultPtr& input) {
     return input->which();
   }
 
-  static const std::vector<::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceInfoPtr>& block_device_info(const ::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceResultPtr& input) {
+  static const std::vector<::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfoPtr>& block_device_info(const ::ash::cros_healthd::mojom::NonRemovableBlockDeviceResultPtr& input) {
     return input->get_block_device_info();
   }
 
-  static const ::chromeos::cros_healthd::mojom::ProbeErrorPtr& error(const ::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceResultPtr& input) {
+  static const ::ash::cros_healthd::mojom::ProbeErrorPtr& error(const ::ash::cros_healthd::mojom::NonRemovableBlockDeviceResultPtr& input) {
     return input->get_error();
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceResult::DataView input, ::chromeos::cros_healthd::mojom::NonRemovableBlockDeviceResultPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::NonRemovableBlockDeviceResult::DataView input, ::ash::cros_healthd::mojom::NonRemovableBlockDeviceResultPtr* output);
 };
 
 
 template <>
-struct  UnionTraits<::chromeos::cros_healthd::mojom::BlockDeviceVendor::DataView,
-                                        ::chromeos::cros_healthd::mojom::BlockDeviceVendorPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::BlockDeviceVendorPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::BlockDeviceVendorPtr* output) { output->reset(); }
+struct  UnionTraits<::ash::cros_healthd::mojom::BlockDeviceVendor::DataView,
+                                        ::ash::cros_healthd::mojom::BlockDeviceVendorPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::BlockDeviceVendorPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::BlockDeviceVendorPtr* output) { output->reset(); }
 
-  static ::chromeos::cros_healthd::mojom::BlockDeviceVendor::Tag GetTag(const ::chromeos::cros_healthd::mojom::BlockDeviceVendorPtr& input) {
+  static ::ash::cros_healthd::mojom::BlockDeviceVendor::Tag GetTag(const ::ash::cros_healthd::mojom::BlockDeviceVendorPtr& input) {
     return input->which();
   }
 
-  static  uint32_t nvme_subsystem_vendor(const ::chromeos::cros_healthd::mojom::BlockDeviceVendorPtr& input) {
+  static  uint32_t nvme_subsystem_vendor(const ::ash::cros_healthd::mojom::BlockDeviceVendorPtr& input) {
     return input->get_nvme_subsystem_vendor();
   }
 
-  static  uint16_t emmc_oemid(const ::chromeos::cros_healthd::mojom::BlockDeviceVendorPtr& input) {
+  static  uint16_t emmc_oemid(const ::ash::cros_healthd::mojom::BlockDeviceVendorPtr& input) {
     return input->get_emmc_oemid();
   }
 
-  static  uint16_t other(const ::chromeos::cros_healthd::mojom::BlockDeviceVendorPtr& input) {
+  static  uint16_t other(const ::ash::cros_healthd::mojom::BlockDeviceVendorPtr& input) {
     return input->get_other();
   }
 
-  static  uint64_t unknown(const ::chromeos::cros_healthd::mojom::BlockDeviceVendorPtr& input) {
+  static  uint64_t unknown(const ::ash::cros_healthd::mojom::BlockDeviceVendorPtr& input) {
     return input->get_unknown();
   }
 
-  static  uint16_t jedec_manfid(const ::chromeos::cros_healthd::mojom::BlockDeviceVendorPtr& input) {
+  static  uint16_t jedec_manfid(const ::ash::cros_healthd::mojom::BlockDeviceVendorPtr& input) {
     return input->get_jedec_manfid();
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::BlockDeviceVendor::DataView input, ::chromeos::cros_healthd::mojom::BlockDeviceVendorPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::BlockDeviceVendor::DataView input, ::ash::cros_healthd::mojom::BlockDeviceVendorPtr* output);
 };
 
 
 template <>
-struct  UnionTraits<::chromeos::cros_healthd::mojom::BlockDeviceProduct::DataView,
-                                        ::chromeos::cros_healthd::mojom::BlockDeviceProductPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::BlockDeviceProductPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::BlockDeviceProductPtr* output) { output->reset(); }
+struct  UnionTraits<::ash::cros_healthd::mojom::BlockDeviceProduct::DataView,
+                                        ::ash::cros_healthd::mojom::BlockDeviceProductPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::BlockDeviceProductPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::BlockDeviceProductPtr* output) { output->reset(); }
 
-  static ::chromeos::cros_healthd::mojom::BlockDeviceProduct::Tag GetTag(const ::chromeos::cros_healthd::mojom::BlockDeviceProductPtr& input) {
+  static ::ash::cros_healthd::mojom::BlockDeviceProduct::Tag GetTag(const ::ash::cros_healthd::mojom::BlockDeviceProductPtr& input) {
     return input->which();
   }
 
-  static  uint32_t nvme_subsystem_device(const ::chromeos::cros_healthd::mojom::BlockDeviceProductPtr& input) {
+  static  uint32_t nvme_subsystem_device(const ::ash::cros_healthd::mojom::BlockDeviceProductPtr& input) {
     return input->get_nvme_subsystem_device();
   }
 
-  static  uint64_t emmc_pnm(const ::chromeos::cros_healthd::mojom::BlockDeviceProductPtr& input) {
+  static  uint64_t emmc_pnm(const ::ash::cros_healthd::mojom::BlockDeviceProductPtr& input) {
     return input->get_emmc_pnm();
   }
 
-  static  uint16_t other(const ::chromeos::cros_healthd::mojom::BlockDeviceProductPtr& input) {
+  static  uint16_t other(const ::ash::cros_healthd::mojom::BlockDeviceProductPtr& input) {
     return input->get_other();
   }
 
-  static  uint64_t unknown(const ::chromeos::cros_healthd::mojom::BlockDeviceProductPtr& input) {
+  static  uint64_t unknown(const ::ash::cros_healthd::mojom::BlockDeviceProductPtr& input) {
     return input->get_unknown();
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::BlockDeviceProduct::DataView input, ::chromeos::cros_healthd::mojom::BlockDeviceProductPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::BlockDeviceProduct::DataView input, ::ash::cros_healthd::mojom::BlockDeviceProductPtr* output);
 };
 
 
 template <>
-struct  UnionTraits<::chromeos::cros_healthd::mojom::BlockDeviceRevision::DataView,
-                                        ::chromeos::cros_healthd::mojom::BlockDeviceRevisionPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::BlockDeviceRevisionPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::BlockDeviceRevisionPtr* output) { output->reset(); }
+struct  UnionTraits<::ash::cros_healthd::mojom::BlockDeviceRevision::DataView,
+                                        ::ash::cros_healthd::mojom::BlockDeviceRevisionPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::BlockDeviceRevisionPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::BlockDeviceRevisionPtr* output) { output->reset(); }
 
-  static ::chromeos::cros_healthd::mojom::BlockDeviceRevision::Tag GetTag(const ::chromeos::cros_healthd::mojom::BlockDeviceRevisionPtr& input) {
+  static ::ash::cros_healthd::mojom::BlockDeviceRevision::Tag GetTag(const ::ash::cros_healthd::mojom::BlockDeviceRevisionPtr& input) {
     return input->which();
   }
 
-  static  uint8_t nvme_pcie_rev(const ::chromeos::cros_healthd::mojom::BlockDeviceRevisionPtr& input) {
+  static  uint8_t nvme_pcie_rev(const ::ash::cros_healthd::mojom::BlockDeviceRevisionPtr& input) {
     return input->get_nvme_pcie_rev();
   }
 
-  static  uint8_t emmc_prv(const ::chromeos::cros_healthd::mojom::BlockDeviceRevisionPtr& input) {
+  static  uint8_t emmc_prv(const ::ash::cros_healthd::mojom::BlockDeviceRevisionPtr& input) {
     return input->get_emmc_prv();
   }
 
-  static  uint16_t other(const ::chromeos::cros_healthd::mojom::BlockDeviceRevisionPtr& input) {
+  static  uint16_t other(const ::ash::cros_healthd::mojom::BlockDeviceRevisionPtr& input) {
     return input->get_other();
   }
 
-  static  uint64_t unknown(const ::chromeos::cros_healthd::mojom::BlockDeviceRevisionPtr& input) {
+  static  uint64_t unknown(const ::ash::cros_healthd::mojom::BlockDeviceRevisionPtr& input) {
     return input->get_unknown();
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::BlockDeviceRevision::DataView input, ::chromeos::cros_healthd::mojom::BlockDeviceRevisionPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::BlockDeviceRevision::DataView input, ::ash::cros_healthd::mojom::BlockDeviceRevisionPtr* output);
 };
 
 
 template <>
-struct  UnionTraits<::chromeos::cros_healthd::mojom::BlockDeviceFirmware::DataView,
-                                        ::chromeos::cros_healthd::mojom::BlockDeviceFirmwarePtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::BlockDeviceFirmwarePtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::BlockDeviceFirmwarePtr* output) { output->reset(); }
+struct  UnionTraits<::ash::cros_healthd::mojom::BlockDeviceFirmware::DataView,
+                                        ::ash::cros_healthd::mojom::BlockDeviceFirmwarePtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::BlockDeviceFirmwarePtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::BlockDeviceFirmwarePtr* output) { output->reset(); }
 
-  static ::chromeos::cros_healthd::mojom::BlockDeviceFirmware::Tag GetTag(const ::chromeos::cros_healthd::mojom::BlockDeviceFirmwarePtr& input) {
+  static ::ash::cros_healthd::mojom::BlockDeviceFirmware::Tag GetTag(const ::ash::cros_healthd::mojom::BlockDeviceFirmwarePtr& input) {
     return input->which();
   }
 
-  static  uint64_t nvme_firmware_rev(const ::chromeos::cros_healthd::mojom::BlockDeviceFirmwarePtr& input) {
+  static  uint64_t nvme_firmware_rev(const ::ash::cros_healthd::mojom::BlockDeviceFirmwarePtr& input) {
     return input->get_nvme_firmware_rev();
   }
 
-  static  uint64_t emmc_fwrev(const ::chromeos::cros_healthd::mojom::BlockDeviceFirmwarePtr& input) {
+  static  uint64_t emmc_fwrev(const ::ash::cros_healthd::mojom::BlockDeviceFirmwarePtr& input) {
     return input->get_emmc_fwrev();
   }
 
-  static  uint16_t other(const ::chromeos::cros_healthd::mojom::BlockDeviceFirmwarePtr& input) {
+  static  uint16_t other(const ::ash::cros_healthd::mojom::BlockDeviceFirmwarePtr& input) {
     return input->get_other();
   }
 
-  static  uint64_t unknown(const ::chromeos::cros_healthd::mojom::BlockDeviceFirmwarePtr& input) {
+  static  uint64_t unknown(const ::ash::cros_healthd::mojom::BlockDeviceFirmwarePtr& input) {
     return input->get_unknown();
   }
 
-  static  uint64_t ufs_fwrev(const ::chromeos::cros_healthd::mojom::BlockDeviceFirmwarePtr& input) {
+  static  uint64_t ufs_fwrev(const ::ash::cros_healthd::mojom::BlockDeviceFirmwarePtr& input) {
     return input->get_ufs_fwrev();
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::BlockDeviceFirmware::DataView input, ::chromeos::cros_healthd::mojom::BlockDeviceFirmwarePtr* output);
+  static bool Read(::ash::cros_healthd::mojom::BlockDeviceFirmware::DataView input, ::ash::cros_healthd::mojom::BlockDeviceFirmwarePtr* output);
 };
 
 
 template <>
-struct  UnionTraits<::chromeos::cros_healthd::mojom::CpuResult::DataView,
-                                        ::chromeos::cros_healthd::mojom::CpuResultPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::CpuResultPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::CpuResultPtr* output) { output->reset(); }
+struct  UnionTraits<::ash::cros_healthd::mojom::CpuResult::DataView,
+                                        ::ash::cros_healthd::mojom::CpuResultPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::CpuResultPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::CpuResultPtr* output) { output->reset(); }
 
-  static ::chromeos::cros_healthd::mojom::CpuResult::Tag GetTag(const ::chromeos::cros_healthd::mojom::CpuResultPtr& input) {
+  static ::ash::cros_healthd::mojom::CpuResult::Tag GetTag(const ::ash::cros_healthd::mojom::CpuResultPtr& input) {
     return input->which();
   }
 
-  static const ::chromeos::cros_healthd::mojom::CpuInfoPtr& cpu_info(const ::chromeos::cros_healthd::mojom::CpuResultPtr& input) {
+  static const ::ash::cros_healthd::mojom::CpuInfoPtr& cpu_info(const ::ash::cros_healthd::mojom::CpuResultPtr& input) {
     return input->get_cpu_info();
   }
 
-  static const ::chromeos::cros_healthd::mojom::ProbeErrorPtr& error(const ::chromeos::cros_healthd::mojom::CpuResultPtr& input) {
+  static const ::ash::cros_healthd::mojom::ProbeErrorPtr& error(const ::ash::cros_healthd::mojom::CpuResultPtr& input) {
     return input->get_error();
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::CpuResult::DataView input, ::chromeos::cros_healthd::mojom::CpuResultPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::CpuResult::DataView input, ::ash::cros_healthd::mojom::CpuResultPtr* output);
 };
 
 
 template <>
-struct  UnionTraits<::chromeos::cros_healthd::mojom::TimezoneResult::DataView,
-                                        ::chromeos::cros_healthd::mojom::TimezoneResultPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::TimezoneResultPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::TimezoneResultPtr* output) { output->reset(); }
+struct  UnionTraits<::ash::cros_healthd::mojom::TimezoneResult::DataView,
+                                        ::ash::cros_healthd::mojom::TimezoneResultPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::TimezoneResultPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::TimezoneResultPtr* output) { output->reset(); }
 
-  static ::chromeos::cros_healthd::mojom::TimezoneResult::Tag GetTag(const ::chromeos::cros_healthd::mojom::TimezoneResultPtr& input) {
+  static ::ash::cros_healthd::mojom::TimezoneResult::Tag GetTag(const ::ash::cros_healthd::mojom::TimezoneResultPtr& input) {
     return input->which();
   }
 
-  static const ::chromeos::cros_healthd::mojom::TimezoneInfoPtr& timezone_info(const ::chromeos::cros_healthd::mojom::TimezoneResultPtr& input) {
+  static const ::ash::cros_healthd::mojom::TimezoneInfoPtr& timezone_info(const ::ash::cros_healthd::mojom::TimezoneResultPtr& input) {
     return input->get_timezone_info();
   }
 
-  static const ::chromeos::cros_healthd::mojom::ProbeErrorPtr& error(const ::chromeos::cros_healthd::mojom::TimezoneResultPtr& input) {
+  static const ::ash::cros_healthd::mojom::ProbeErrorPtr& error(const ::ash::cros_healthd::mojom::TimezoneResultPtr& input) {
     return input->get_error();
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::TimezoneResult::DataView input, ::chromeos::cros_healthd::mojom::TimezoneResultPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::TimezoneResult::DataView input, ::ash::cros_healthd::mojom::TimezoneResultPtr* output);
 };
 
 
 template <>
-struct  UnionTraits<::chromeos::cros_healthd::mojom::MemoryResult::DataView,
-                                        ::chromeos::cros_healthd::mojom::MemoryResultPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::MemoryResultPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::MemoryResultPtr* output) { output->reset(); }
+struct  UnionTraits<::ash::cros_healthd::mojom::MemoryResult::DataView,
+                                        ::ash::cros_healthd::mojom::MemoryResultPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::MemoryResultPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::MemoryResultPtr* output) { output->reset(); }
 
-  static ::chromeos::cros_healthd::mojom::MemoryResult::Tag GetTag(const ::chromeos::cros_healthd::mojom::MemoryResultPtr& input) {
+  static ::ash::cros_healthd::mojom::MemoryResult::Tag GetTag(const ::ash::cros_healthd::mojom::MemoryResultPtr& input) {
     return input->which();
   }
 
-  static const ::chromeos::cros_healthd::mojom::MemoryInfoPtr& memory_info(const ::chromeos::cros_healthd::mojom::MemoryResultPtr& input) {
+  static const ::ash::cros_healthd::mojom::MemoryInfoPtr& memory_info(const ::ash::cros_healthd::mojom::MemoryResultPtr& input) {
     return input->get_memory_info();
   }
 
-  static const ::chromeos::cros_healthd::mojom::ProbeErrorPtr& error(const ::chromeos::cros_healthd::mojom::MemoryResultPtr& input) {
+  static const ::ash::cros_healthd::mojom::ProbeErrorPtr& error(const ::ash::cros_healthd::mojom::MemoryResultPtr& input) {
     return input->get_error();
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::MemoryResult::DataView input, ::chromeos::cros_healthd::mojom::MemoryResultPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::MemoryResult::DataView input, ::ash::cros_healthd::mojom::MemoryResultPtr* output);
 };
 
 
 template <>
-struct  UnionTraits<::chromeos::cros_healthd::mojom::BacklightResult::DataView,
-                                        ::chromeos::cros_healthd::mojom::BacklightResultPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::BacklightResultPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::BacklightResultPtr* output) { output->reset(); }
+struct  UnionTraits<::ash::cros_healthd::mojom::BacklightResult::DataView,
+                                        ::ash::cros_healthd::mojom::BacklightResultPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::BacklightResultPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::BacklightResultPtr* output) { output->reset(); }
 
-  static ::chromeos::cros_healthd::mojom::BacklightResult::Tag GetTag(const ::chromeos::cros_healthd::mojom::BacklightResultPtr& input) {
+  static ::ash::cros_healthd::mojom::BacklightResult::Tag GetTag(const ::ash::cros_healthd::mojom::BacklightResultPtr& input) {
     return input->which();
   }
 
-  static const std::vector<::chromeos::cros_healthd::mojom::BacklightInfoPtr>& backlight_info(const ::chromeos::cros_healthd::mojom::BacklightResultPtr& input) {
+  static const std::vector<::ash::cros_healthd::mojom::BacklightInfoPtr>& backlight_info(const ::ash::cros_healthd::mojom::BacklightResultPtr& input) {
     return input->get_backlight_info();
   }
 
-  static const ::chromeos::cros_healthd::mojom::ProbeErrorPtr& error(const ::chromeos::cros_healthd::mojom::BacklightResultPtr& input) {
+  static const ::ash::cros_healthd::mojom::ProbeErrorPtr& error(const ::ash::cros_healthd::mojom::BacklightResultPtr& input) {
     return input->get_error();
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::BacklightResult::DataView input, ::chromeos::cros_healthd::mojom::BacklightResultPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::BacklightResult::DataView input, ::ash::cros_healthd::mojom::BacklightResultPtr* output);
 };
 
 
 template <>
-struct  UnionTraits<::chromeos::cros_healthd::mojom::FanResult::DataView,
-                                        ::chromeos::cros_healthd::mojom::FanResultPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::FanResultPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::FanResultPtr* output) { output->reset(); }
+struct  UnionTraits<::ash::cros_healthd::mojom::FanResult::DataView,
+                                        ::ash::cros_healthd::mojom::FanResultPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::FanResultPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::FanResultPtr* output) { output->reset(); }
 
-  static ::chromeos::cros_healthd::mojom::FanResult::Tag GetTag(const ::chromeos::cros_healthd::mojom::FanResultPtr& input) {
+  static ::ash::cros_healthd::mojom::FanResult::Tag GetTag(const ::ash::cros_healthd::mojom::FanResultPtr& input) {
     return input->which();
   }
 
-  static const std::vector<::chromeos::cros_healthd::mojom::FanInfoPtr>& fan_info(const ::chromeos::cros_healthd::mojom::FanResultPtr& input) {
+  static const std::vector<::ash::cros_healthd::mojom::FanInfoPtr>& fan_info(const ::ash::cros_healthd::mojom::FanResultPtr& input) {
     return input->get_fan_info();
   }
 
-  static const ::chromeos::cros_healthd::mojom::ProbeErrorPtr& error(const ::chromeos::cros_healthd::mojom::FanResultPtr& input) {
+  static const ::ash::cros_healthd::mojom::ProbeErrorPtr& error(const ::ash::cros_healthd::mojom::FanResultPtr& input) {
     return input->get_error();
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::FanResult::DataView input, ::chromeos::cros_healthd::mojom::FanResultPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::FanResult::DataView input, ::ash::cros_healthd::mojom::FanResultPtr* output);
 };
 
 
 template <>
-struct  UnionTraits<::chromeos::cros_healthd::mojom::StatefulPartitionResult::DataView,
-                                        ::chromeos::cros_healthd::mojom::StatefulPartitionResultPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::StatefulPartitionResultPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::StatefulPartitionResultPtr* output) { output->reset(); }
+struct  UnionTraits<::ash::cros_healthd::mojom::StatefulPartitionResult::DataView,
+                                        ::ash::cros_healthd::mojom::StatefulPartitionResultPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::StatefulPartitionResultPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::StatefulPartitionResultPtr* output) { output->reset(); }
 
-  static ::chromeos::cros_healthd::mojom::StatefulPartitionResult::Tag GetTag(const ::chromeos::cros_healthd::mojom::StatefulPartitionResultPtr& input) {
+  static ::ash::cros_healthd::mojom::StatefulPartitionResult::Tag GetTag(const ::ash::cros_healthd::mojom::StatefulPartitionResultPtr& input) {
     return input->which();
   }
 
-  static const ::chromeos::cros_healthd::mojom::StatefulPartitionInfoPtr& partition_info(const ::chromeos::cros_healthd::mojom::StatefulPartitionResultPtr& input) {
+  static const ::ash::cros_healthd::mojom::StatefulPartitionInfoPtr& partition_info(const ::ash::cros_healthd::mojom::StatefulPartitionResultPtr& input) {
     return input->get_partition_info();
   }
 
-  static const ::chromeos::cros_healthd::mojom::ProbeErrorPtr& error(const ::chromeos::cros_healthd::mojom::StatefulPartitionResultPtr& input) {
+  static const ::ash::cros_healthd::mojom::ProbeErrorPtr& error(const ::ash::cros_healthd::mojom::StatefulPartitionResultPtr& input) {
     return input->get_error();
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::StatefulPartitionResult::DataView input, ::chromeos::cros_healthd::mojom::StatefulPartitionResultPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::StatefulPartitionResult::DataView input, ::ash::cros_healthd::mojom::StatefulPartitionResultPtr* output);
 };
 
 
 template <>
-struct  UnionTraits<::chromeos::cros_healthd::mojom::BluetoothResult::DataView,
-                                        ::chromeos::cros_healthd::mojom::BluetoothResultPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::BluetoothResultPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::BluetoothResultPtr* output) { output->reset(); }
+struct  UnionTraits<::ash::cros_healthd::mojom::BluetoothResult::DataView,
+                                        ::ash::cros_healthd::mojom::BluetoothResultPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::BluetoothResultPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::BluetoothResultPtr* output) { output->reset(); }
 
-  static ::chromeos::cros_healthd::mojom::BluetoothResult::Tag GetTag(const ::chromeos::cros_healthd::mojom::BluetoothResultPtr& input) {
+  static ::ash::cros_healthd::mojom::BluetoothResult::Tag GetTag(const ::ash::cros_healthd::mojom::BluetoothResultPtr& input) {
     return input->which();
   }
 
-  static const std::vector<::chromeos::cros_healthd::mojom::BluetoothAdapterInfoPtr>& bluetooth_adapter_info(const ::chromeos::cros_healthd::mojom::BluetoothResultPtr& input) {
+  static const std::vector<::ash::cros_healthd::mojom::BluetoothAdapterInfoPtr>& bluetooth_adapter_info(const ::ash::cros_healthd::mojom::BluetoothResultPtr& input) {
     return input->get_bluetooth_adapter_info();
   }
 
-  static const ::chromeos::cros_healthd::mojom::ProbeErrorPtr& error(const ::chromeos::cros_healthd::mojom::BluetoothResultPtr& input) {
+  static const ::ash::cros_healthd::mojom::ProbeErrorPtr& error(const ::ash::cros_healthd::mojom::BluetoothResultPtr& input) {
     return input->get_error();
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::BluetoothResult::DataView input, ::chromeos::cros_healthd::mojom::BluetoothResultPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::BluetoothResult::DataView input, ::ash::cros_healthd::mojom::BluetoothResultPtr* output);
 };
 
 
 template <>
-struct  UnionTraits<::chromeos::cros_healthd::mojom::DEPRECATE_SystemResult::DataView,
-                                        ::chromeos::cros_healthd::mojom::DEPRECATE_SystemResultPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::DEPRECATE_SystemResultPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::DEPRECATE_SystemResultPtr* output) { output->reset(); }
+struct  UnionTraits<::ash::cros_healthd::mojom::DEPRECATE_SystemResult::DataView,
+                                        ::ash::cros_healthd::mojom::DEPRECATE_SystemResultPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::DEPRECATE_SystemResultPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::DEPRECATE_SystemResultPtr* output) { output->reset(); }
 
-  static ::chromeos::cros_healthd::mojom::DEPRECATE_SystemResult::Tag GetTag(const ::chromeos::cros_healthd::mojom::DEPRECATE_SystemResultPtr& input) {
+  static ::ash::cros_healthd::mojom::DEPRECATE_SystemResult::Tag GetTag(const ::ash::cros_healthd::mojom::DEPRECATE_SystemResultPtr& input) {
     return input->which();
   }
 
-  static const ::chromeos::cros_healthd::mojom::ProbeErrorPtr& error(const ::chromeos::cros_healthd::mojom::DEPRECATE_SystemResultPtr& input) {
+  static const ::ash::cros_healthd::mojom::ProbeErrorPtr& error(const ::ash::cros_healthd::mojom::DEPRECATE_SystemResultPtr& input) {
     return input->get_error();
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::DEPRECATE_SystemResult::DataView input, ::chromeos::cros_healthd::mojom::DEPRECATE_SystemResultPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::DEPRECATE_SystemResult::DataView input, ::ash::cros_healthd::mojom::DEPRECATE_SystemResultPtr* output);
 };
 
 
 template <>
-struct  UnionTraits<::chromeos::cros_healthd::mojom::SystemResult::DataView,
-                                        ::chromeos::cros_healthd::mojom::SystemResultPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::SystemResultPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::SystemResultPtr* output) { output->reset(); }
+struct  UnionTraits<::ash::cros_healthd::mojom::SystemResult::DataView,
+                                        ::ash::cros_healthd::mojom::SystemResultPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::SystemResultPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::SystemResultPtr* output) { output->reset(); }
 
-  static ::chromeos::cros_healthd::mojom::SystemResult::Tag GetTag(const ::chromeos::cros_healthd::mojom::SystemResultPtr& input) {
+  static ::ash::cros_healthd::mojom::SystemResult::Tag GetTag(const ::ash::cros_healthd::mojom::SystemResultPtr& input) {
     return input->which();
   }
 
-  static const ::chromeos::cros_healthd::mojom::SystemInfoPtr& system_info(const ::chromeos::cros_healthd::mojom::SystemResultPtr& input) {
+  static const ::ash::cros_healthd::mojom::SystemInfoPtr& system_info(const ::ash::cros_healthd::mojom::SystemResultPtr& input) {
     return input->get_system_info();
   }
 
-  static const ::chromeos::cros_healthd::mojom::ProbeErrorPtr& error(const ::chromeos::cros_healthd::mojom::SystemResultPtr& input) {
+  static const ::ash::cros_healthd::mojom::ProbeErrorPtr& error(const ::ash::cros_healthd::mojom::SystemResultPtr& input) {
     return input->get_error();
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::SystemResult::DataView input, ::chromeos::cros_healthd::mojom::SystemResultPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::SystemResult::DataView input, ::ash::cros_healthd::mojom::SystemResultPtr* output);
 };
 
 
 template <>
-struct  UnionTraits<::chromeos::cros_healthd::mojom::NetworkResult::DataView,
-                                        ::chromeos::cros_healthd::mojom::NetworkResultPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::NetworkResultPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::NetworkResultPtr* output) { output->reset(); }
+struct  UnionTraits<::ash::cros_healthd::mojom::NetworkResult::DataView,
+                                        ::ash::cros_healthd::mojom::NetworkResultPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::NetworkResultPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::NetworkResultPtr* output) { output->reset(); }
 
-  static ::chromeos::cros_healthd::mojom::NetworkResult::Tag GetTag(const ::chromeos::cros_healthd::mojom::NetworkResultPtr& input) {
+  static ::ash::cros_healthd::mojom::NetworkResult::Tag GetTag(const ::ash::cros_healthd::mojom::NetworkResultPtr& input) {
     return input->which();
   }
 
-  static const ::chromeos::network_health::mojom::NetworkHealthStatePtr& network_health(const ::chromeos::cros_healthd::mojom::NetworkResultPtr& input) {
+  static const ::chromeos::network_health::mojom::NetworkHealthStatePtr& network_health(const ::ash::cros_healthd::mojom::NetworkResultPtr& input) {
     return input->get_network_health();
   }
 
-  static const ::chromeos::cros_healthd::mojom::ProbeErrorPtr& error(const ::chromeos::cros_healthd::mojom::NetworkResultPtr& input) {
+  static const ::ash::cros_healthd::mojom::ProbeErrorPtr& error(const ::ash::cros_healthd::mojom::NetworkResultPtr& input) {
     return input->get_error();
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::NetworkResult::DataView input, ::chromeos::cros_healthd::mojom::NetworkResultPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::NetworkResult::DataView input, ::ash::cros_healthd::mojom::NetworkResultPtr* output);
 };
 
 
 template <>
-struct  UnionTraits<::chromeos::cros_healthd::mojom::NetworkInterfaceResult::DataView,
-                                        ::chromeos::cros_healthd::mojom::NetworkInterfaceResultPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::NetworkInterfaceResultPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::NetworkInterfaceResultPtr* output) { output->reset(); }
+struct  UnionTraits<::ash::cros_healthd::mojom::NetworkInterfaceResult::DataView,
+                                        ::ash::cros_healthd::mojom::NetworkInterfaceResultPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::NetworkInterfaceResultPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::NetworkInterfaceResultPtr* output) { output->reset(); }
 
-  static ::chromeos::cros_healthd::mojom::NetworkInterfaceResult::Tag GetTag(const ::chromeos::cros_healthd::mojom::NetworkInterfaceResultPtr& input) {
+  static ::ash::cros_healthd::mojom::NetworkInterfaceResult::Tag GetTag(const ::ash::cros_healthd::mojom::NetworkInterfaceResultPtr& input) {
     return input->which();
   }
 
-  static const std::vector<::chromeos::cros_healthd::mojom::NetworkInterfaceInfoPtr>& network_interface_info(const ::chromeos::cros_healthd::mojom::NetworkInterfaceResultPtr& input) {
+  static const std::vector<::ash::cros_healthd::mojom::NetworkInterfaceInfoPtr>& network_interface_info(const ::ash::cros_healthd::mojom::NetworkInterfaceResultPtr& input) {
     return input->get_network_interface_info();
   }
 
-  static const ::chromeos::cros_healthd::mojom::ProbeErrorPtr& error(const ::chromeos::cros_healthd::mojom::NetworkInterfaceResultPtr& input) {
+  static const ::ash::cros_healthd::mojom::ProbeErrorPtr& error(const ::ash::cros_healthd::mojom::NetworkInterfaceResultPtr& input) {
     return input->get_error();
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::NetworkInterfaceResult::DataView input, ::chromeos::cros_healthd::mojom::NetworkInterfaceResultPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::NetworkInterfaceResult::DataView input, ::ash::cros_healthd::mojom::NetworkInterfaceResultPtr* output);
 };
 
 
 template <>
-struct  UnionTraits<::chromeos::cros_healthd::mojom::NetworkInterfaceInfo::DataView,
-                                        ::chromeos::cros_healthd::mojom::NetworkInterfaceInfoPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::NetworkInterfaceInfoPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::NetworkInterfaceInfoPtr* output) { output->reset(); }
+struct  UnionTraits<::ash::cros_healthd::mojom::NetworkInterfaceInfo::DataView,
+                                        ::ash::cros_healthd::mojom::NetworkInterfaceInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::NetworkInterfaceInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::NetworkInterfaceInfoPtr* output) { output->reset(); }
 
-  static ::chromeos::cros_healthd::mojom::NetworkInterfaceInfo::Tag GetTag(const ::chromeos::cros_healthd::mojom::NetworkInterfaceInfoPtr& input) {
+  static ::ash::cros_healthd::mojom::NetworkInterfaceInfo::Tag GetTag(const ::ash::cros_healthd::mojom::NetworkInterfaceInfoPtr& input) {
     return input->which();
   }
 
-  static const ::chromeos::cros_healthd::mojom::WirelessInterfaceInfoPtr& wireless_interface_info(const ::chromeos::cros_healthd::mojom::NetworkInterfaceInfoPtr& input) {
+  static const ::ash::cros_healthd::mojom::WirelessInterfaceInfoPtr& wireless_interface_info(const ::ash::cros_healthd::mojom::NetworkInterfaceInfoPtr& input) {
     return input->get_wireless_interface_info();
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::NetworkInterfaceInfo::DataView input, ::chromeos::cros_healthd::mojom::NetworkInterfaceInfoPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::NetworkInterfaceInfo::DataView input, ::ash::cros_healthd::mojom::NetworkInterfaceInfoPtr* output);
 };
 
 
 template <>
-struct  UnionTraits<::chromeos::cros_healthd::mojom::AudioResult::DataView,
-                                        ::chromeos::cros_healthd::mojom::AudioResultPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::AudioResultPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::AudioResultPtr* output) { output->reset(); }
+struct  UnionTraits<::ash::cros_healthd::mojom::AudioResult::DataView,
+                                        ::ash::cros_healthd::mojom::AudioResultPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::AudioResultPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::AudioResultPtr* output) { output->reset(); }
 
-  static ::chromeos::cros_healthd::mojom::AudioResult::Tag GetTag(const ::chromeos::cros_healthd::mojom::AudioResultPtr& input) {
+  static ::ash::cros_healthd::mojom::AudioResult::Tag GetTag(const ::ash::cros_healthd::mojom::AudioResultPtr& input) {
     return input->which();
   }
 
-  static const ::chromeos::cros_healthd::mojom::AudioInfoPtr& audio_info(const ::chromeos::cros_healthd::mojom::AudioResultPtr& input) {
+  static const ::ash::cros_healthd::mojom::AudioInfoPtr& audio_info(const ::ash::cros_healthd::mojom::AudioResultPtr& input) {
     return input->get_audio_info();
   }
 
-  static const ::chromeos::cros_healthd::mojom::ProbeErrorPtr& error(const ::chromeos::cros_healthd::mojom::AudioResultPtr& input) {
+  static const ::ash::cros_healthd::mojom::ProbeErrorPtr& error(const ::ash::cros_healthd::mojom::AudioResultPtr& input) {
     return input->get_error();
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::AudioResult::DataView input, ::chromeos::cros_healthd::mojom::AudioResultPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::AudioResult::DataView input, ::ash::cros_healthd::mojom::AudioResultPtr* output);
 };
 
 
 template <>
-struct  UnionTraits<::chromeos::cros_healthd::mojom::AudioHardwareResult::DataView,
-                                        ::chromeos::cros_healthd::mojom::AudioHardwareResultPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::AudioHardwareResultPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::AudioHardwareResultPtr* output) { output->reset(); }
+struct  UnionTraits<::ash::cros_healthd::mojom::AudioHardwareResult::DataView,
+                                        ::ash::cros_healthd::mojom::AudioHardwareResultPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::AudioHardwareResultPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::AudioHardwareResultPtr* output) { output->reset(); }
 
-  static ::chromeos::cros_healthd::mojom::AudioHardwareResult::Tag GetTag(const ::chromeos::cros_healthd::mojom::AudioHardwareResultPtr& input) {
+  static ::ash::cros_healthd::mojom::AudioHardwareResult::Tag GetTag(const ::ash::cros_healthd::mojom::AudioHardwareResultPtr& input) {
     return input->which();
   }
 
-  static const ::chromeos::cros_healthd::mojom::AudioHardwareInfoPtr& audio_hardware_info(const ::chromeos::cros_healthd::mojom::AudioHardwareResultPtr& input) {
+  static const ::ash::cros_healthd::mojom::AudioHardwareInfoPtr& audio_hardware_info(const ::ash::cros_healthd::mojom::AudioHardwareResultPtr& input) {
     return input->get_audio_hardware_info();
   }
 
-  static const ::chromeos::cros_healthd::mojom::ProbeErrorPtr& error(const ::chromeos::cros_healthd::mojom::AudioHardwareResultPtr& input) {
+  static const ::ash::cros_healthd::mojom::ProbeErrorPtr& error(const ::ash::cros_healthd::mojom::AudioHardwareResultPtr& input) {
     return input->get_error();
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::AudioHardwareResult::DataView input, ::chromeos::cros_healthd::mojom::AudioHardwareResultPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::AudioHardwareResult::DataView input, ::ash::cros_healthd::mojom::AudioHardwareResultPtr* output);
 };
 
 
 template <>
-struct  UnionTraits<::chromeos::cros_healthd::mojom::BootPerformanceResult::DataView,
-                                        ::chromeos::cros_healthd::mojom::BootPerformanceResultPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::BootPerformanceResultPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::BootPerformanceResultPtr* output) { output->reset(); }
+struct  UnionTraits<::ash::cros_healthd::mojom::BootPerformanceResult::DataView,
+                                        ::ash::cros_healthd::mojom::BootPerformanceResultPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::BootPerformanceResultPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::BootPerformanceResultPtr* output) { output->reset(); }
 
-  static ::chromeos::cros_healthd::mojom::BootPerformanceResult::Tag GetTag(const ::chromeos::cros_healthd::mojom::BootPerformanceResultPtr& input) {
+  static ::ash::cros_healthd::mojom::BootPerformanceResult::Tag GetTag(const ::ash::cros_healthd::mojom::BootPerformanceResultPtr& input) {
     return input->which();
   }
 
-  static const ::chromeos::cros_healthd::mojom::BootPerformanceInfoPtr& boot_performance_info(const ::chromeos::cros_healthd::mojom::BootPerformanceResultPtr& input) {
+  static const ::ash::cros_healthd::mojom::BootPerformanceInfoPtr& boot_performance_info(const ::ash::cros_healthd::mojom::BootPerformanceResultPtr& input) {
     return input->get_boot_performance_info();
   }
 
-  static const ::chromeos::cros_healthd::mojom::ProbeErrorPtr& error(const ::chromeos::cros_healthd::mojom::BootPerformanceResultPtr& input) {
+  static const ::ash::cros_healthd::mojom::ProbeErrorPtr& error(const ::ash::cros_healthd::mojom::BootPerformanceResultPtr& input) {
     return input->get_error();
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::BootPerformanceResult::DataView input, ::chromeos::cros_healthd::mojom::BootPerformanceResultPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::BootPerformanceResult::DataView input, ::ash::cros_healthd::mojom::BootPerformanceResultPtr* output);
 };
 
 
 template <>
-struct  UnionTraits<::chromeos::cros_healthd::mojom::BusResult::DataView,
-                                        ::chromeos::cros_healthd::mojom::BusResultPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::BusResultPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::BusResultPtr* output) { output->reset(); }
+struct  UnionTraits<::ash::cros_healthd::mojom::BusResult::DataView,
+                                        ::ash::cros_healthd::mojom::BusResultPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::BusResultPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::BusResultPtr* output) { output->reset(); }
 
-  static ::chromeos::cros_healthd::mojom::BusResult::Tag GetTag(const ::chromeos::cros_healthd::mojom::BusResultPtr& input) {
+  static ::ash::cros_healthd::mojom::BusResult::Tag GetTag(const ::ash::cros_healthd::mojom::BusResultPtr& input) {
     return input->which();
   }
 
-  static const std::vector<::chromeos::cros_healthd::mojom::BusDevicePtr>& bus_devices(const ::chromeos::cros_healthd::mojom::BusResultPtr& input) {
+  static const std::vector<::ash::cros_healthd::mojom::BusDevicePtr>& bus_devices(const ::ash::cros_healthd::mojom::BusResultPtr& input) {
     return input->get_bus_devices();
   }
 
-  static const ::chromeos::cros_healthd::mojom::ProbeErrorPtr& error(const ::chromeos::cros_healthd::mojom::BusResultPtr& input) {
+  static const ::ash::cros_healthd::mojom::ProbeErrorPtr& error(const ::ash::cros_healthd::mojom::BusResultPtr& input) {
     return input->get_error();
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::BusResult::DataView input, ::chromeos::cros_healthd::mojom::BusResultPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::BusResult::DataView input, ::ash::cros_healthd::mojom::BusResultPtr* output);
 };
 
 
 template <>
-struct  UnionTraits<::chromeos::cros_healthd::mojom::BusInfo::DataView,
-                                        ::chromeos::cros_healthd::mojom::BusInfoPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::BusInfoPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::BusInfoPtr* output) { output->reset(); }
+struct  UnionTraits<::ash::cros_healthd::mojom::BusInfo::DataView,
+                                        ::ash::cros_healthd::mojom::BusInfoPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::BusInfoPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::BusInfoPtr* output) { output->reset(); }
 
-  static ::chromeos::cros_healthd::mojom::BusInfo::Tag GetTag(const ::chromeos::cros_healthd::mojom::BusInfoPtr& input) {
+  static ::ash::cros_healthd::mojom::BusInfo::Tag GetTag(const ::ash::cros_healthd::mojom::BusInfoPtr& input) {
     return input->which();
   }
 
-  static const ::chromeos::cros_healthd::mojom::PciBusInfoPtr& pci_bus_info(const ::chromeos::cros_healthd::mojom::BusInfoPtr& input) {
+  static const ::ash::cros_healthd::mojom::PciBusInfoPtr& pci_bus_info(const ::ash::cros_healthd::mojom::BusInfoPtr& input) {
     return input->get_pci_bus_info();
   }
 
-  static const ::chromeos::cros_healthd::mojom::UsbBusInfoPtr& usb_bus_info(const ::chromeos::cros_healthd::mojom::BusInfoPtr& input) {
+  static const ::ash::cros_healthd::mojom::UsbBusInfoPtr& usb_bus_info(const ::ash::cros_healthd::mojom::BusInfoPtr& input) {
     return input->get_usb_bus_info();
   }
 
-  static const ::chromeos::cros_healthd::mojom::ThunderboltBusInfoPtr& thunderbolt_bus_info(const ::chromeos::cros_healthd::mojom::BusInfoPtr& input) {
+  static const ::ash::cros_healthd::mojom::ThunderboltBusInfoPtr& thunderbolt_bus_info(const ::ash::cros_healthd::mojom::BusInfoPtr& input) {
     return input->get_thunderbolt_bus_info();
   }
 
-  static  bool unmapped_field(const ::chromeos::cros_healthd::mojom::BusInfoPtr& input) {
+  static  bool unmapped_field(const ::ash::cros_healthd::mojom::BusInfoPtr& input) {
     return input->get_unmapped_field();
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::BusInfo::DataView input, ::chromeos::cros_healthd::mojom::BusInfoPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::BusInfo::DataView input, ::ash::cros_healthd::mojom::BusInfoPtr* output);
 };
 
 
 template <>
-struct  UnionTraits<::chromeos::cros_healthd::mojom::TpmResult::DataView,
-                                        ::chromeos::cros_healthd::mojom::TpmResultPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::TpmResultPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::TpmResultPtr* output) { output->reset(); }
+struct  UnionTraits<::ash::cros_healthd::mojom::TpmResult::DataView,
+                                        ::ash::cros_healthd::mojom::TpmResultPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::TpmResultPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::TpmResultPtr* output) { output->reset(); }
 
-  static ::chromeos::cros_healthd::mojom::TpmResult::Tag GetTag(const ::chromeos::cros_healthd::mojom::TpmResultPtr& input) {
+  static ::ash::cros_healthd::mojom::TpmResult::Tag GetTag(const ::ash::cros_healthd::mojom::TpmResultPtr& input) {
     return input->which();
   }
 
-  static const ::chromeos::cros_healthd::mojom::TpmInfoPtr& tpm_info(const ::chromeos::cros_healthd::mojom::TpmResultPtr& input) {
+  static const ::ash::cros_healthd::mojom::TpmInfoPtr& tpm_info(const ::ash::cros_healthd::mojom::TpmResultPtr& input) {
     return input->get_tpm_info();
   }
 
-  static const ::chromeos::cros_healthd::mojom::ProbeErrorPtr& error(const ::chromeos::cros_healthd::mojom::TpmResultPtr& input) {
+  static const ::ash::cros_healthd::mojom::ProbeErrorPtr& error(const ::ash::cros_healthd::mojom::TpmResultPtr& input) {
     return input->get_error();
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::TpmResult::DataView input, ::chromeos::cros_healthd::mojom::TpmResultPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::TpmResult::DataView input, ::ash::cros_healthd::mojom::TpmResultPtr* output);
 };
 
 
 template <>
-struct  UnionTraits<::chromeos::cros_healthd::mojom::GraphicsResult::DataView,
-                                        ::chromeos::cros_healthd::mojom::GraphicsResultPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::GraphicsResultPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::GraphicsResultPtr* output) { output->reset(); }
+struct  UnionTraits<::ash::cros_healthd::mojom::GraphicsResult::DataView,
+                                        ::ash::cros_healthd::mojom::GraphicsResultPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::GraphicsResultPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::GraphicsResultPtr* output) { output->reset(); }
 
-  static ::chromeos::cros_healthd::mojom::GraphicsResult::Tag GetTag(const ::chromeos::cros_healthd::mojom::GraphicsResultPtr& input) {
+  static ::ash::cros_healthd::mojom::GraphicsResult::Tag GetTag(const ::ash::cros_healthd::mojom::GraphicsResultPtr& input) {
     return input->which();
   }
 
-  static const ::chromeos::cros_healthd::mojom::GraphicsInfoPtr& graphics_info(const ::chromeos::cros_healthd::mojom::GraphicsResultPtr& input) {
+  static const ::ash::cros_healthd::mojom::GraphicsInfoPtr& graphics_info(const ::ash::cros_healthd::mojom::GraphicsResultPtr& input) {
     return input->get_graphics_info();
   }
 
-  static const ::chromeos::cros_healthd::mojom::ProbeErrorPtr& error(const ::chromeos::cros_healthd::mojom::GraphicsResultPtr& input) {
+  static const ::ash::cros_healthd::mojom::ProbeErrorPtr& error(const ::ash::cros_healthd::mojom::GraphicsResultPtr& input) {
     return input->get_error();
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::GraphicsResult::DataView input, ::chromeos::cros_healthd::mojom::GraphicsResultPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::GraphicsResult::DataView input, ::ash::cros_healthd::mojom::GraphicsResultPtr* output);
 };
 
 
 template <>
-struct  UnionTraits<::chromeos::cros_healthd::mojom::DisplayResult::DataView,
-                                        ::chromeos::cros_healthd::mojom::DisplayResultPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::DisplayResultPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::DisplayResultPtr* output) { output->reset(); }
+struct  UnionTraits<::ash::cros_healthd::mojom::DisplayResult::DataView,
+                                        ::ash::cros_healthd::mojom::DisplayResultPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::DisplayResultPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::DisplayResultPtr* output) { output->reset(); }
 
-  static ::chromeos::cros_healthd::mojom::DisplayResult::Tag GetTag(const ::chromeos::cros_healthd::mojom::DisplayResultPtr& input) {
+  static ::ash::cros_healthd::mojom::DisplayResult::Tag GetTag(const ::ash::cros_healthd::mojom::DisplayResultPtr& input) {
     return input->which();
   }
 
-  static const ::chromeos::cros_healthd::mojom::DisplayInfoPtr& display_info(const ::chromeos::cros_healthd::mojom::DisplayResultPtr& input) {
+  static const ::ash::cros_healthd::mojom::DisplayInfoPtr& display_info(const ::ash::cros_healthd::mojom::DisplayResultPtr& input) {
     return input->get_display_info();
   }
 
-  static const ::chromeos::cros_healthd::mojom::ProbeErrorPtr& error(const ::chromeos::cros_healthd::mojom::DisplayResultPtr& input) {
+  static const ::ash::cros_healthd::mojom::ProbeErrorPtr& error(const ::ash::cros_healthd::mojom::DisplayResultPtr& input) {
     return input->get_error();
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::DisplayResult::DataView input, ::chromeos::cros_healthd::mojom::DisplayResultPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::DisplayResult::DataView input, ::ash::cros_healthd::mojom::DisplayResultPtr* output);
 };
 
 
 template <>
-struct  UnionTraits<::chromeos::cros_healthd::mojom::InputResult::DataView,
-                                        ::chromeos::cros_healthd::mojom::InputResultPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::InputResultPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::InputResultPtr* output) { output->reset(); }
+struct  UnionTraits<::ash::cros_healthd::mojom::InputResult::DataView,
+                                        ::ash::cros_healthd::mojom::InputResultPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::InputResultPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::InputResultPtr* output) { output->reset(); }
 
-  static ::chromeos::cros_healthd::mojom::InputResult::Tag GetTag(const ::chromeos::cros_healthd::mojom::InputResultPtr& input) {
+  static ::ash::cros_healthd::mojom::InputResult::Tag GetTag(const ::ash::cros_healthd::mojom::InputResultPtr& input) {
     return input->which();
   }
 
-  static const ::chromeos::cros_healthd::mojom::InputInfoPtr& input_info(const ::chromeos::cros_healthd::mojom::InputResultPtr& input) {
+  static const ::ash::cros_healthd::mojom::InputInfoPtr& input_info(const ::ash::cros_healthd::mojom::InputResultPtr& input) {
     return input->get_input_info();
   }
 
-  static const ::chromeos::cros_healthd::mojom::ProbeErrorPtr& error(const ::chromeos::cros_healthd::mojom::InputResultPtr& input) {
+  static const ::ash::cros_healthd::mojom::ProbeErrorPtr& error(const ::ash::cros_healthd::mojom::InputResultPtr& input) {
     return input->get_error();
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::InputResult::DataView input, ::chromeos::cros_healthd::mojom::InputResultPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::InputResult::DataView input, ::ash::cros_healthd::mojom::InputResultPtr* output);
 };
 
 
 template <>
-struct  UnionTraits<::chromeos::cros_healthd::mojom::SensorResult::DataView,
-                                        ::chromeos::cros_healthd::mojom::SensorResultPtr> {
-  static bool IsNull(const ::chromeos::cros_healthd::mojom::SensorResultPtr& input) { return !input; }
-  static void SetToNull(::chromeos::cros_healthd::mojom::SensorResultPtr* output) { output->reset(); }
+struct  UnionTraits<::ash::cros_healthd::mojom::SensorResult::DataView,
+                                        ::ash::cros_healthd::mojom::SensorResultPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::SensorResultPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::SensorResultPtr* output) { output->reset(); }
 
-  static ::chromeos::cros_healthd::mojom::SensorResult::Tag GetTag(const ::chromeos::cros_healthd::mojom::SensorResultPtr& input) {
+  static ::ash::cros_healthd::mojom::SensorResult::Tag GetTag(const ::ash::cros_healthd::mojom::SensorResultPtr& input) {
     return input->which();
   }
 
-  static const ::chromeos::cros_healthd::mojom::SensorInfoPtr& sensor_info(const ::chromeos::cros_healthd::mojom::SensorResultPtr& input) {
+  static const ::ash::cros_healthd::mojom::SensorInfoPtr& sensor_info(const ::ash::cros_healthd::mojom::SensorResultPtr& input) {
     return input->get_sensor_info();
   }
 
-  static const ::chromeos::cros_healthd::mojom::ProbeErrorPtr& error(const ::chromeos::cros_healthd::mojom::SensorResultPtr& input) {
+  static const ::ash::cros_healthd::mojom::ProbeErrorPtr& error(const ::ash::cros_healthd::mojom::SensorResultPtr& input) {
     return input->get_error();
   }
 
-  static bool Read(::chromeos::cros_healthd::mojom::SensorResult::DataView input, ::chromeos::cros_healthd::mojom::SensorResultPtr* output);
+  static bool Read(::ash::cros_healthd::mojom::SensorResult::DataView input, ::ash::cros_healthd::mojom::SensorResultPtr* output);
 };
 
 }  // namespace mojo

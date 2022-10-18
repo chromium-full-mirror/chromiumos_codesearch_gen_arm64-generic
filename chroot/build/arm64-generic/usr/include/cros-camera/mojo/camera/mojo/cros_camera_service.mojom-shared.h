@@ -29,6 +29,7 @@
 #include "camera/mojo/gpu/jpeg_encode_accelerator.mojom-shared.h"
 #include "camera/mojo/gpu/mjpeg_decode_accelerator.mojom-shared.h"
 #include "camera/mojo/unguessable_token.mojom-shared.h"
+#include "ml_core/mojo/effects_pipeline.mojom-shared.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
 
 

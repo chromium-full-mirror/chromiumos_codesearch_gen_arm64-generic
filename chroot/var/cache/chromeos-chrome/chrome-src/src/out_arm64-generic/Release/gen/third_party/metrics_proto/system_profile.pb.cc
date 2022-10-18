@@ -55,6 +55,10 @@ PROTOBUF_CONSTEXPR SystemProfileProto_OS::SystemProfileProto_OS(
   , arc_(nullptr)
   , is_jailbroken_(false)
   , dark_mode_state_(0)
+
+  , xdg_session_type_(0)
+
+  , xdg_current_desktop_(0)
 {}
 struct SystemProfileProto_OSDefaultTypeInternal {
   PROTOBUF_CONSTEXPR SystemProfileProto_OSDefaultTypeInternal()
@@ -559,6 +563,187 @@ constexpr SystemProfileProto_OS_DarkModeState SystemProfileProto_OS::LIGHT_MODE_
 constexpr SystemProfileProto_OS_DarkModeState SystemProfileProto_OS::DarkModeState_MIN;
 constexpr SystemProfileProto_OS_DarkModeState SystemProfileProto_OS::DarkModeState_MAX;
 constexpr int SystemProfileProto_OS::DarkModeState_ARRAYSIZE;
+#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+bool SystemProfileProto_OS_XdgSessionType_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+    case 5:
+    case 6:
+      return true;
+    default:
+      return false;
+  }
+}
+
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> SystemProfileProto_OS_XdgSessionType_strings[7] = {};
+
+static const char SystemProfileProto_OS_XdgSessionType_names[] =
+  "MIR"
+  "OTHER_SESSION_TYPE"
+  "TTY"
+  "UNSET"
+  "UNSPECIFIED"
+  "WAYLAND"
+  "X11";
+
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry SystemProfileProto_OS_XdgSessionType_entries[] = {
+  { {SystemProfileProto_OS_XdgSessionType_names + 0, 3}, 6 },
+  { {SystemProfileProto_OS_XdgSessionType_names + 3, 18}, 1 },
+  { {SystemProfileProto_OS_XdgSessionType_names + 21, 3}, 3 },
+  { {SystemProfileProto_OS_XdgSessionType_names + 24, 5}, 0 },
+  { {SystemProfileProto_OS_XdgSessionType_names + 29, 11}, 2 },
+  { {SystemProfileProto_OS_XdgSessionType_names + 40, 7}, 5 },
+  { {SystemProfileProto_OS_XdgSessionType_names + 47, 3}, 4 },
+};
+
+static const int SystemProfileProto_OS_XdgSessionType_entries_by_number[] = {
+  3, // 0 -> UNSET
+  1, // 1 -> OTHER_SESSION_TYPE
+  4, // 2 -> UNSPECIFIED
+  2, // 3 -> TTY
+  6, // 4 -> X11
+  5, // 5 -> WAYLAND
+  0, // 6 -> MIR
+};
+
+const std::string& SystemProfileProto_OS_XdgSessionType_Name(
+    SystemProfileProto_OS_XdgSessionType value) {
+  static const bool dummy =
+      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
+          SystemProfileProto_OS_XdgSessionType_entries,
+          SystemProfileProto_OS_XdgSessionType_entries_by_number,
+          7, SystemProfileProto_OS_XdgSessionType_strings);
+  (void) dummy;
+  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
+      SystemProfileProto_OS_XdgSessionType_entries,
+      SystemProfileProto_OS_XdgSessionType_entries_by_number,
+      7, value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
+                     SystemProfileProto_OS_XdgSessionType_strings[idx].get();
+}
+bool SystemProfileProto_OS_XdgSessionType_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, SystemProfileProto_OS_XdgSessionType* value) {
+  int int_value;
+  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
+      SystemProfileProto_OS_XdgSessionType_entries, 7, name, &int_value);
+  if (success) {
+    *value = static_cast<SystemProfileProto_OS_XdgSessionType>(int_value);
+  }
+  return success;
+}
+#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+constexpr SystemProfileProto_OS_XdgSessionType SystemProfileProto_OS::UNSET;
+constexpr SystemProfileProto_OS_XdgSessionType SystemProfileProto_OS::OTHER_SESSION_TYPE;
+constexpr SystemProfileProto_OS_XdgSessionType SystemProfileProto_OS::UNSPECIFIED;
+constexpr SystemProfileProto_OS_XdgSessionType SystemProfileProto_OS::TTY;
+constexpr SystemProfileProto_OS_XdgSessionType SystemProfileProto_OS::X11;
+constexpr SystemProfileProto_OS_XdgSessionType SystemProfileProto_OS::WAYLAND;
+constexpr SystemProfileProto_OS_XdgSessionType SystemProfileProto_OS::MIR;
+constexpr SystemProfileProto_OS_XdgSessionType SystemProfileProto_OS::XdgSessionType_MIN;
+constexpr SystemProfileProto_OS_XdgSessionType SystemProfileProto_OS::XdgSessionType_MAX;
+constexpr int SystemProfileProto_OS::XdgSessionType_ARRAYSIZE;
+#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+bool SystemProfileProto_OS_XdgCurrentDesktop_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+    case 5:
+    case 6:
+    case 7:
+    case 8:
+    case 9:
+      return true;
+    default:
+      return false;
+  }
+}
+
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> SystemProfileProto_OS_XdgCurrentDesktop_strings[10] = {};
+
+static const char SystemProfileProto_OS_XdgCurrentDesktop_names[] =
+  "CINNAMON"
+  "DEEPIN"
+  "GNOME"
+  "KDE"
+  "LXQT"
+  "OTHER"
+  "PANTHEON"
+  "UKUI"
+  "UNITY"
+  "XFCE";
+
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry SystemProfileProto_OS_XdgCurrentDesktop_entries[] = {
+  { {SystemProfileProto_OS_XdgCurrentDesktop_names + 0, 8}, 1 },
+  { {SystemProfileProto_OS_XdgCurrentDesktop_names + 8, 6}, 2 },
+  { {SystemProfileProto_OS_XdgCurrentDesktop_names + 14, 5}, 3 },
+  { {SystemProfileProto_OS_XdgCurrentDesktop_names + 19, 3}, 4 },
+  { {SystemProfileProto_OS_XdgCurrentDesktop_names + 22, 4}, 9 },
+  { {SystemProfileProto_OS_XdgCurrentDesktop_names + 26, 5}, 0 },
+  { {SystemProfileProto_OS_XdgCurrentDesktop_names + 31, 8}, 5 },
+  { {SystemProfileProto_OS_XdgCurrentDesktop_names + 39, 4}, 6 },
+  { {SystemProfileProto_OS_XdgCurrentDesktop_names + 43, 5}, 7 },
+  { {SystemProfileProto_OS_XdgCurrentDesktop_names + 48, 4}, 8 },
+};
+
+static const int SystemProfileProto_OS_XdgCurrentDesktop_entries_by_number[] = {
+  5, // 0 -> OTHER
+  0, // 1 -> CINNAMON
+  1, // 2 -> DEEPIN
+  2, // 3 -> GNOME
+  3, // 4 -> KDE
+  6, // 5 -> PANTHEON
+  7, // 6 -> UKUI
+  8, // 7 -> UNITY
+  9, // 8 -> XFCE
+  4, // 9 -> LXQT
+};
+
+const std::string& SystemProfileProto_OS_XdgCurrentDesktop_Name(
+    SystemProfileProto_OS_XdgCurrentDesktop value) {
+  static const bool dummy =
+      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
+          SystemProfileProto_OS_XdgCurrentDesktop_entries,
+          SystemProfileProto_OS_XdgCurrentDesktop_entries_by_number,
+          10, SystemProfileProto_OS_XdgCurrentDesktop_strings);
+  (void) dummy;
+  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
+      SystemProfileProto_OS_XdgCurrentDesktop_entries,
+      SystemProfileProto_OS_XdgCurrentDesktop_entries_by_number,
+      10, value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
+                     SystemProfileProto_OS_XdgCurrentDesktop_strings[idx].get();
+}
+bool SystemProfileProto_OS_XdgCurrentDesktop_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, SystemProfileProto_OS_XdgCurrentDesktop* value) {
+  int int_value;
+  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
+      SystemProfileProto_OS_XdgCurrentDesktop_entries, 10, name, &int_value);
+  if (success) {
+    *value = static_cast<SystemProfileProto_OS_XdgCurrentDesktop>(int_value);
+  }
+  return success;
+}
+#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+constexpr SystemProfileProto_OS_XdgCurrentDesktop SystemProfileProto_OS::OTHER;
+constexpr SystemProfileProto_OS_XdgCurrentDesktop SystemProfileProto_OS::CINNAMON;
+constexpr SystemProfileProto_OS_XdgCurrentDesktop SystemProfileProto_OS::DEEPIN;
+constexpr SystemProfileProto_OS_XdgCurrentDesktop SystemProfileProto_OS::GNOME;
+constexpr SystemProfileProto_OS_XdgCurrentDesktop SystemProfileProto_OS::KDE;
+constexpr SystemProfileProto_OS_XdgCurrentDesktop SystemProfileProto_OS::PANTHEON;
+constexpr SystemProfileProto_OS_XdgCurrentDesktop SystemProfileProto_OS::UKUI;
+constexpr SystemProfileProto_OS_XdgCurrentDesktop SystemProfileProto_OS::UNITY;
+constexpr SystemProfileProto_OS_XdgCurrentDesktop SystemProfileProto_OS::XFCE;
+constexpr SystemProfileProto_OS_XdgCurrentDesktop SystemProfileProto_OS::LXQT;
+constexpr SystemProfileProto_OS_XdgCurrentDesktop SystemProfileProto_OS::XdgCurrentDesktop_MIN;
+constexpr SystemProfileProto_OS_XdgCurrentDesktop SystemProfileProto_OS::XdgCurrentDesktop_MAX;
+constexpr int SystemProfileProto_OS::XdgCurrentDesktop_ARRAYSIZE;
 #endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 bool SystemProfileProto_Hardware_InternalStorageDevice_Type_IsValid(int value) {
   switch (value) {
@@ -2706,6 +2891,12 @@ class SystemProfileProto_OS::_Internal {
   static void set_has_dark_mode_state(HasBits* has_bits) {
     (*has_bits)[0] |= 128u;
   }
+  static void set_has_xdg_session_type(HasBits* has_bits) {
+    (*has_bits)[0] |= 256u;
+  }
+  static void set_has_xdg_current_desktop(HasBits* has_bits) {
+    (*has_bits)[0] |= 512u;
+  }
 };
 
 const ::metrics::SystemProfileProto_OS_Arc&
@@ -2768,8 +2959,8 @@ SystemProfileProto_OS::SystemProfileProto_OS(const SystemProfileProto_OS& from)
     arc_ = nullptr;
   }
   ::memcpy(&is_jailbroken_, &from.is_jailbroken_,
-    static_cast<size_t>(reinterpret_cast<char*>(&dark_mode_state_) -
-    reinterpret_cast<char*>(&is_jailbroken_)) + sizeof(dark_mode_state_));
+    static_cast<size_t>(reinterpret_cast<char*>(&xdg_current_desktop_) -
+    reinterpret_cast<char*>(&is_jailbroken_)) + sizeof(xdg_current_desktop_));
   // @@protoc_insertion_point(copy_constructor:metrics.SystemProfileProto.OS)
 }
 
@@ -2796,8 +2987,8 @@ kernel_version_.InitDefault();
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&arc_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&dark_mode_state_) -
-    reinterpret_cast<char*>(&arc_)) + sizeof(dark_mode_state_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&xdg_current_desktop_) -
+    reinterpret_cast<char*>(&arc_)) + sizeof(xdg_current_desktop_));
 }
 
 SystemProfileProto_OS::~SystemProfileProto_OS() {
@@ -2855,6 +3046,11 @@ void SystemProfileProto_OS::Clear() {
     ::memset(&is_jailbroken_, 0, static_cast<size_t>(
         reinterpret_cast<char*>(&dark_mode_state_) -
         reinterpret_cast<char*>(&is_jailbroken_)) + sizeof(dark_mode_state_));
+  }
+  if (cached_has_bits & 0x00000300u) {
+    ::memset(&xdg_session_type_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&xdg_current_desktop_) -
+        reinterpret_cast<char*>(&xdg_session_type_)) + sizeof(xdg_current_desktop_));
   }
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
@@ -2942,6 +3138,32 @@ const char* SystemProfileProto_OS::_InternalParse(const char* ptr, ::_pbi::Parse
         } else
           goto handle_unusual;
         continue;
+      // optional .metrics.SystemProfileProto.OS.XdgSessionType xdg_session_type = 9;
+      case 9:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 72)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          if (PROTOBUF_PREDICT_TRUE(::metrics::SystemProfileProto_OS_XdgSessionType_IsValid(val))) {
+            _internal_set_xdg_session_type(static_cast<::metrics::SystemProfileProto_OS_XdgSessionType>(val));
+          } else {
+            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(9, val, mutable_unknown_fields());
+          }
+        } else
+          goto handle_unusual;
+        continue;
+      // optional .metrics.SystemProfileProto.OS.XdgCurrentDesktop xdg_current_desktop = 10;
+      case 10:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 80)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          if (PROTOBUF_PREDICT_TRUE(::metrics::SystemProfileProto_OS_XdgCurrentDesktop_IsValid(val))) {
+            _internal_set_xdg_current_desktop(static_cast<::metrics::SystemProfileProto_OS_XdgCurrentDesktop>(val));
+          } else {
+            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(10, val, mutable_unknown_fields());
+          }
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -3023,6 +3245,20 @@ uint8_t* SystemProfileProto_OS::_InternalSerialize(
       8, this->_internal_dark_mode_state(), target);
   }
 
+  // optional .metrics.SystemProfileProto.OS.XdgSessionType xdg_session_type = 9;
+  if (cached_has_bits & 0x00000100u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      9, this->_internal_xdg_session_type(), target);
+  }
+
+  // optional .metrics.SystemProfileProto.OS.XdgCurrentDesktop xdg_current_desktop = 10;
+  if (cached_has_bits & 0x00000200u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      10, this->_internal_xdg_current_desktop(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -3095,6 +3331,20 @@ size_t SystemProfileProto_OS::ByteSizeLong() const {
     }
 
   }
+  if (cached_has_bits & 0x00000300u) {
+    // optional .metrics.SystemProfileProto.OS.XdgSessionType xdg_session_type = 9;
+    if (cached_has_bits & 0x00000100u) {
+      total_size += 1 +
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_xdg_session_type());
+    }
+
+    // optional .metrics.SystemProfileProto.OS.XdgCurrentDesktop xdg_current_desktop = 10;
+    if (cached_has_bits & 0x00000200u) {
+      total_size += 1 +
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_xdg_current_desktop());
+    }
+
+  }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -3143,6 +3393,15 @@ void SystemProfileProto_OS::MergeFrom(const SystemProfileProto_OS& from) {
     }
     _has_bits_[0] |= cached_has_bits;
   }
+  if (cached_has_bits & 0x00000300u) {
+    if (cached_has_bits & 0x00000100u) {
+      xdg_session_type_ = from.xdg_session_type_;
+    }
+    if (cached_has_bits & 0x00000200u) {
+      xdg_current_desktop_ = from.xdg_current_desktop_;
+    }
+    _has_bits_[0] |= cached_has_bits;
+  }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
@@ -3184,8 +3443,8 @@ void SystemProfileProto_OS::InternalSwap(SystemProfileProto_OS* other) {
       &other->kernel_version_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(SystemProfileProto_OS, dark_mode_state_)
-      + sizeof(SystemProfileProto_OS::dark_mode_state_)
+      PROTOBUF_FIELD_OFFSET(SystemProfileProto_OS, xdg_current_desktop_)
+      + sizeof(SystemProfileProto_OS::xdg_current_desktop_)
       - PROTOBUF_FIELD_OFFSET(SystemProfileProto_OS, arc_)>(
           reinterpret_cast<char*>(&arc_),
           reinterpret_cast<char*>(&other->arc_));

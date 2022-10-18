@@ -15,6 +15,7 @@
 #include <stdint.h>
 #include <utility>
 
+#include "base/debug/alias.h"
 #include "base/hash/md5_constexpr.h"
 #include "base/run_loop.h"
 #include "base/strings/string_number_conversions.h"
@@ -49,35 +50,27 @@ namespace cros {
 namespace mojom {
 const char CameraAlgorithmOps::Name_[] = "cros.mojom.CameraAlgorithmOps";
 
-uint32_t CameraAlgorithmOps::MessageToStableIPCHash_(mojo::Message& message) {
+CameraAlgorithmOps::IPCStableHashFunction CameraAlgorithmOps::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
   switch (message.name()) {
     case internal::kCameraAlgorithmOps_Initialize_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::CameraAlgorithmOps::Initialize");
-      return value;
+      return &CameraAlgorithmOps::Initialize_Sym::IPCStableHash;
     }
     case internal::kCameraAlgorithmOps_RegisterBuffer_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::CameraAlgorithmOps::RegisterBuffer");
-      return value;
+      return &CameraAlgorithmOps::RegisterBuffer_Sym::IPCStableHash;
     }
     case internal::kCameraAlgorithmOps_Request_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::CameraAlgorithmOps::Request");
-      return value;
+      return &CameraAlgorithmOps::Request_Sym::IPCStableHash;
     }
     case internal::kCameraAlgorithmOps_DeregisterBuffers_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::CameraAlgorithmOps::DeregisterBuffers");
-      return value;
+      return &CameraAlgorithmOps::DeregisterBuffers_Sym::IPCStableHash;
     }
     case internal::kCameraAlgorithmOps_UpdateReturn_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::CameraAlgorithmOps::UpdateReturn");
-      return value;
+      return &CameraAlgorithmOps::UpdateReturn_Sym::IPCStableHash;
     }
   }
-  return 0;
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
 }
 
 
@@ -121,6 +114,74 @@ const char* CameraAlgorithmOps::MessageToMethodName_(mojo::Message& message) {
   }
 #endif // BUILDFLAG(MOJO_TRACE_ENABLED)
 }
+
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t CameraAlgorithmOps::Initialize_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::CameraAlgorithmOps::Initialize");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t CameraAlgorithmOps::RegisterBuffer_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::CameraAlgorithmOps::RegisterBuffer");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t CameraAlgorithmOps::Request_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::CameraAlgorithmOps::Request");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t CameraAlgorithmOps::DeregisterBuffers_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::CameraAlgorithmOps::DeregisterBuffers");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t CameraAlgorithmOps::UpdateReturn_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::CameraAlgorithmOps::UpdateReturn");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
 
 class CameraAlgorithmOps_Initialize_ForwardToCallback
     : public mojo::MessageReceiver {
@@ -199,7 +260,7 @@ void CameraAlgorithmOpsProxy::Initialize(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new CameraAlgorithmOps_Initialize_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void CameraAlgorithmOpsProxy::RegisterBuffer(
@@ -243,7 +304,7 @@ void CameraAlgorithmOpsProxy::RegisterBuffer(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new CameraAlgorithmOps_RegisterBuffer_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void CameraAlgorithmOpsProxy::Request(
@@ -301,7 +362,7 @@ void CameraAlgorithmOpsProxy::Request(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 void CameraAlgorithmOpsProxy::DeregisterBuffers(
@@ -351,7 +412,7 @@ void CameraAlgorithmOpsProxy::DeregisterBuffers(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 void CameraAlgorithmOpsProxy::UpdateReturn(
@@ -402,7 +463,7 @@ void CameraAlgorithmOpsProxy::UpdateReturn(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 class CameraAlgorithmOps_Initialize_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
@@ -509,8 +570,8 @@ void CameraAlgorithmOps_Initialize_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -623,8 +684,8 @@ void CameraAlgorithmOps_RegisterBuffer_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -849,20 +910,18 @@ bool CameraAlgorithmOpsResponseValidator::Accept(mojo::Message* message) {
 }
 const char CameraAlgorithmCallbackOps::Name_[] = "cros.mojom.CameraAlgorithmCallbackOps";
 
-uint32_t CameraAlgorithmCallbackOps::MessageToStableIPCHash_(mojo::Message& message) {
+CameraAlgorithmCallbackOps::IPCStableHashFunction CameraAlgorithmCallbackOps::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
   switch (message.name()) {
     case internal::kCameraAlgorithmCallbackOps_Return_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::CameraAlgorithmCallbackOps::Return");
-      return value;
+      return &CameraAlgorithmCallbackOps::Return_Sym::IPCStableHash;
     }
     case internal::kCameraAlgorithmCallbackOps_Update_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)cros::mojom::CameraAlgorithmCallbackOps::Update");
-      return value;
+      return &CameraAlgorithmCallbackOps::Update_Sym::IPCStableHash;
     }
   }
-  return 0;
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
 }
 
 
@@ -894,6 +953,35 @@ const char* CameraAlgorithmCallbackOps::MessageToMethodName_(mojo::Message& mess
   }
 #endif // BUILDFLAG(MOJO_TRACE_ENABLED)
 }
+
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t CameraAlgorithmCallbackOps::Return_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::CameraAlgorithmCallbackOps::Return");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t CameraAlgorithmCallbackOps::Update_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::CameraAlgorithmCallbackOps::Update");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
 
 CameraAlgorithmCallbackOpsProxy::CameraAlgorithmCallbackOpsProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
@@ -942,7 +1030,7 @@ void CameraAlgorithmCallbackOpsProxy::Return(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 void CameraAlgorithmCallbackOpsProxy::Update(
@@ -1005,7 +1093,7 @@ void CameraAlgorithmCallbackOpsProxy::Update(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 // static

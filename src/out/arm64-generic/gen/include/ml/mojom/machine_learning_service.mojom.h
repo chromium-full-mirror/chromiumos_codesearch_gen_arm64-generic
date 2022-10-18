@@ -62,8 +62,10 @@ class MachineLearningServiceResponseValidator;
 class  MachineLearningService
     : public MachineLearningServiceInterfaceBase {
  public:
+  using IPCStableHashFunction = uint32_t(*)();
+
   static const char Name_[];
-  static uint32_t MessageToStableIPCHash_(mojo::Message& message);
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr base::Token Uuid_{ 11411636915813502682ULL,
                                       12396497001077425579ULL };
@@ -94,6 +96,47 @@ class  MachineLearningService
     kCreateWebPlatformModelLoaderMinVersion = 5,
     kREMOVED_4MinVersion = 0,
   };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+  struct Clone_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct LoadBuiltinModel_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct LoadFlatBufferModel_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct LoadTextClassifier_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct LoadHandwritingModel_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct LoadSpeechRecognizer_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct LoadGrammarChecker_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct LoadTextSuggester_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct LoadWebPlatformHandwritingModel_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct LoadDocumentScanner_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct CreateWebPlatformModelLoader_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct REMOVED_4_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+#endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~MachineLearningService() = default;
 
   

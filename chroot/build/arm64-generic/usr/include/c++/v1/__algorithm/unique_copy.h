@@ -17,6 +17,7 @@
 #  pragma GCC system_header
 #endif
 
+_LIBCPP_DISABLE_DEBUG_INFO
 _LIBCPP_BEGIN_NAMESPACE_STD
 
 template <class _BinaryPredicate, class _InputIterator, class _OutputIterator>
@@ -102,5 +103,6 @@ unique_copy(_InputIterator __first, _InputIterator __last, _OutputIterator __res
 
 
 _LIBCPP_END_NAMESPACE_STD
+_LIBCPP_ENABLE_DEBUG_INFO
 
 #endif // _LIBCPP___ALGORITHM_UNIQUE_COPY_H

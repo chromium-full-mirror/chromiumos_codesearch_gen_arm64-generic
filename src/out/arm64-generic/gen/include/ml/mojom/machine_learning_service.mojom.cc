@@ -15,6 +15,7 @@
 #include <stdint.h>
 #include <utility>
 
+#include "base/debug/alias.h"
 #include "base/hash/md5_constexpr.h"
 #include "base/run_loop.h"
 #include "base/strings/string_number_conversions.h"
@@ -51,70 +52,48 @@ namespace mojom {
 const char MachineLearningService::Name_[] = "chromeos.machine_learning.mojom.MachineLearningService";
 constexpr base::Token MachineLearningService::Uuid_;
 
-uint32_t MachineLearningService::MessageToStableIPCHash_(mojo::Message& message) {
+MachineLearningService::IPCStableHashFunction MachineLearningService::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
   switch (message.name()) {
     case internal::kMachineLearningService_Clone_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::machine_learning::mojom::MachineLearningService::Clone");
-      return value;
+      return &MachineLearningService::Clone_Sym::IPCStableHash;
     }
     case internal::kMachineLearningService_LoadBuiltinModel_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::machine_learning::mojom::MachineLearningService::LoadBuiltinModel");
-      return value;
+      return &MachineLearningService::LoadBuiltinModel_Sym::IPCStableHash;
     }
     case internal::kMachineLearningService_LoadFlatBufferModel_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::machine_learning::mojom::MachineLearningService::LoadFlatBufferModel");
-      return value;
+      return &MachineLearningService::LoadFlatBufferModel_Sym::IPCStableHash;
     }
     case internal::kMachineLearningService_LoadTextClassifier_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::machine_learning::mojom::MachineLearningService::LoadTextClassifier");
-      return value;
+      return &MachineLearningService::LoadTextClassifier_Sym::IPCStableHash;
     }
     case internal::kMachineLearningService_LoadHandwritingModel_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::machine_learning::mojom::MachineLearningService::LoadHandwritingModel");
-      return value;
+      return &MachineLearningService::LoadHandwritingModel_Sym::IPCStableHash;
     }
     case internal::kMachineLearningService_LoadSpeechRecognizer_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::machine_learning::mojom::MachineLearningService::LoadSpeechRecognizer");
-      return value;
+      return &MachineLearningService::LoadSpeechRecognizer_Sym::IPCStableHash;
     }
     case internal::kMachineLearningService_LoadGrammarChecker_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::machine_learning::mojom::MachineLearningService::LoadGrammarChecker");
-      return value;
+      return &MachineLearningService::LoadGrammarChecker_Sym::IPCStableHash;
     }
     case internal::kMachineLearningService_LoadTextSuggester_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::machine_learning::mojom::MachineLearningService::LoadTextSuggester");
-      return value;
+      return &MachineLearningService::LoadTextSuggester_Sym::IPCStableHash;
     }
     case internal::kMachineLearningService_LoadWebPlatformHandwritingModel_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::machine_learning::mojom::MachineLearningService::LoadWebPlatformHandwritingModel");
-      return value;
+      return &MachineLearningService::LoadWebPlatformHandwritingModel_Sym::IPCStableHash;
     }
     case internal::kMachineLearningService_LoadDocumentScanner_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::machine_learning::mojom::MachineLearningService::LoadDocumentScanner");
-      return value;
+      return &MachineLearningService::LoadDocumentScanner_Sym::IPCStableHash;
     }
     case internal::kMachineLearningService_CreateWebPlatformModelLoader_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::machine_learning::mojom::MachineLearningService::CreateWebPlatformModelLoader");
-      return value;
+      return &MachineLearningService::CreateWebPlatformModelLoader_Sym::IPCStableHash;
     }
     case internal::kMachineLearningService_REMOVED_4_Name: {
-      constexpr uint32_t value = base::MD5Hash32Constexpr(
-              "(Impl)chromeos::machine_learning::mojom::MachineLearningService::REMOVED_4");
-      return value;
+      return &MachineLearningService::REMOVED_4_Sym::IPCStableHash;
     }
   }
-  return 0;
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
 }
 
 
@@ -186,6 +165,165 @@ const char* MachineLearningService::MessageToMethodName_(mojo::Message& message)
   }
 #endif // BUILDFLAG(MOJO_TRACE_ENABLED)
 }
+
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t MachineLearningService::Clone_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)chromeos::machine_learning::mojom::MachineLearningService::Clone");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t MachineLearningService::LoadBuiltinModel_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)chromeos::machine_learning::mojom::MachineLearningService::LoadBuiltinModel");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t MachineLearningService::LoadFlatBufferModel_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)chromeos::machine_learning::mojom::MachineLearningService::LoadFlatBufferModel");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t MachineLearningService::LoadTextClassifier_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)chromeos::machine_learning::mojom::MachineLearningService::LoadTextClassifier");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t MachineLearningService::LoadHandwritingModel_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)chromeos::machine_learning::mojom::MachineLearningService::LoadHandwritingModel");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t MachineLearningService::LoadSpeechRecognizer_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)chromeos::machine_learning::mojom::MachineLearningService::LoadSpeechRecognizer");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t MachineLearningService::LoadGrammarChecker_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)chromeos::machine_learning::mojom::MachineLearningService::LoadGrammarChecker");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t MachineLearningService::LoadTextSuggester_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)chromeos::machine_learning::mojom::MachineLearningService::LoadTextSuggester");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t MachineLearningService::LoadWebPlatformHandwritingModel_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)chromeos::machine_learning::mojom::MachineLearningService::LoadWebPlatformHandwritingModel");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t MachineLearningService::LoadDocumentScanner_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)chromeos::machine_learning::mojom::MachineLearningService::LoadDocumentScanner");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t MachineLearningService::CreateWebPlatformModelLoader_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)chromeos::machine_learning::mojom::MachineLearningService::CreateWebPlatformModelLoader");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t MachineLearningService::REMOVED_4_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)chromeos::machine_learning::mojom::MachineLearningService::REMOVED_4");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
 
 class MachineLearningService_LoadBuiltinModel_ForwardToCallback
     : public mojo::MessageReceiver {
@@ -407,7 +545,7 @@ void MachineLearningServiceProxy::Clone(
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMessage(*receiver_, message);
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 void MachineLearningServiceProxy::LoadBuiltinModel(
@@ -465,7 +603,7 @@ void MachineLearningServiceProxy::LoadBuiltinModel(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new MachineLearningService_LoadBuiltinModel_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void MachineLearningServiceProxy::LoadFlatBufferModel(
@@ -523,7 +661,7 @@ void MachineLearningServiceProxy::LoadFlatBufferModel(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new MachineLearningService_LoadFlatBufferModel_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void MachineLearningServiceProxy::LoadTextClassifier(
@@ -567,7 +705,7 @@ void MachineLearningServiceProxy::LoadTextClassifier(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new MachineLearningService_LoadTextClassifier_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void MachineLearningServiceProxy::LoadHandwritingModel(
@@ -625,7 +763,7 @@ void MachineLearningServiceProxy::LoadHandwritingModel(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new MachineLearningService_LoadHandwritingModel_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void MachineLearningServiceProxy::LoadSpeechRecognizer(
@@ -692,7 +830,7 @@ void MachineLearningServiceProxy::LoadSpeechRecognizer(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new MachineLearningService_LoadSpeechRecognizer_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void MachineLearningServiceProxy::LoadGrammarChecker(
@@ -736,7 +874,7 @@ void MachineLearningServiceProxy::LoadGrammarChecker(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new MachineLearningService_LoadGrammarChecker_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void MachineLearningServiceProxy::LoadTextSuggester(
@@ -790,7 +928,7 @@ void MachineLearningServiceProxy::LoadTextSuggester(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new MachineLearningService_LoadTextSuggester_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void MachineLearningServiceProxy::LoadWebPlatformHandwritingModel(
@@ -848,7 +986,7 @@ void MachineLearningServiceProxy::LoadWebPlatformHandwritingModel(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new MachineLearningService_LoadWebPlatformHandwritingModel_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void MachineLearningServiceProxy::LoadDocumentScanner(
@@ -902,7 +1040,7 @@ void MachineLearningServiceProxy::LoadDocumentScanner(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new MachineLearningService_LoadDocumentScanner_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void MachineLearningServiceProxy::CreateWebPlatformModelLoader(
@@ -960,7 +1098,7 @@ void MachineLearningServiceProxy::CreateWebPlatformModelLoader(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new MachineLearningService_CreateWebPlatformModelLoader_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
 void MachineLearningServiceProxy::REMOVED_4(
@@ -1018,7 +1156,7 @@ void MachineLearningServiceProxy::REMOVED_4(
   std::unique_ptr<mojo::MessageReceiver> responder(
       new MachineLearningService_REMOVED_4_ForwardToCallback(
           std::move(callback)));
-  ::mojo::internal::SendMessage(*receiver_, message, std::move(responder));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 class MachineLearningService_LoadBuiltinModel_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
@@ -1126,8 +1264,8 @@ void MachineLearningService_LoadBuiltinModel_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -1241,8 +1379,8 @@ void MachineLearningService_LoadFlatBufferModel_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -1356,8 +1494,8 @@ void MachineLearningService_LoadTextClassifier_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -1471,8 +1609,8 @@ void MachineLearningService_LoadHandwritingModel_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -1586,8 +1724,8 @@ void MachineLearningService_LoadSpeechRecognizer_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -1701,8 +1839,8 @@ void MachineLearningService_LoadGrammarChecker_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -1816,8 +1954,8 @@ void MachineLearningService_LoadTextSuggester_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -1931,8 +2069,8 @@ void MachineLearningService_LoadWebPlatformHandwritingModel_ProxyToResponder::Ru
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -2046,8 +2184,8 @@ void MachineLearningService_LoadDocumentScanner_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -2161,8 +2299,8 @@ void MachineLearningService_CreateWebPlatformModelLoader_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that
@@ -2276,8 +2414,8 @@ void MachineLearningService_REMOVED_4_ProxyToResponder::Run(
 
   message.set_request_id(request_id_);
   message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMessage(*responder_, message);
-  // SendMessage fails silently if the responder connection is closed,
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
   // or if the message is malformed.
   //
   // TODO(darin): If Accept() returns false due to a malformed message, that

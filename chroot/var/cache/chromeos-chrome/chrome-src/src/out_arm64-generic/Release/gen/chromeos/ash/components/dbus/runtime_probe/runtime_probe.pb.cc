@@ -78,6 +78,7 @@ PROTOBUF_CONSTEXPR Battery_Fields::Battery_Fields(
   , serial_number_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , path_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , technology_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , chemistry_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , index_(0)
   , charge_full_design_(0)
   , charge_full_(0)
@@ -2429,6 +2430,14 @@ Battery_Fields::Battery_Fields(const Battery_Fields& from)
     technology_.Set(from._internal_technology(), 
       GetArenaForAllocation());
   }
+  chemistry_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    chemistry_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_chemistry().empty()) {
+    chemistry_.Set(from._internal_chemistry(), 
+      GetArenaForAllocation());
+  }
   ::memcpy(&index_, &from.index_,
     static_cast<size_t>(reinterpret_cast<char*>(&manufacture_date_smart_) -
     reinterpret_cast<char*>(&index_)) + sizeof(manufacture_date_smart_));
@@ -2456,6 +2465,10 @@ technology_.InitDefault();
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   technology_.Set("", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+chemistry_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  chemistry_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&index_) - reinterpret_cast<char*>(this)),
     0, static_cast<size_t>(reinterpret_cast<char*>(&manufacture_date_smart_) -
@@ -2478,6 +2491,7 @@ inline void Battery_Fields::SharedDtor() {
   serial_number_.Destroy();
   path_.Destroy();
   technology_.Destroy();
+  chemistry_.Destroy();
 }
 
 void Battery_Fields::SetCachedSize(int size) const {
@@ -2495,6 +2509,7 @@ void Battery_Fields::Clear() {
   serial_number_.ClearToEmpty();
   path_.ClearToEmpty();
   technology_.ClearToEmpty();
+  chemistry_.ClearToEmpty();
   ::memset(&index_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&manufacture_date_smart_) -
       reinterpret_cast<char*>(&index_)) + sizeof(manufacture_date_smart_));
@@ -2631,6 +2646,16 @@ const char* Battery_Fields::_InternalParse(const char* ptr, ::_pbi::ParseContext
       case 15:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 122)) {
           auto str = _internal_mutable_technology();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // string chemistry = 16;
+      case 16:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 130)) {
+          auto str = _internal_mutable_chemistry();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
           CHK_(::_pbi::VerifyUTF8(str, nullptr));
@@ -2776,6 +2801,16 @@ uint8_t* Battery_Fields::_InternalSerialize(
         15, this->_internal_technology(), target);
   }
 
+  // string chemistry = 16;
+  if (!this->_internal_chemistry().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_chemistry().data(), static_cast<int>(this->_internal_chemistry().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "runtime_probe.Battery.Fields.chemistry");
+    target = stream->WriteStringMaybeAliased(
+        16, this->_internal_chemistry(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -2825,6 +2860,13 @@ size_t Battery_Fields::ByteSizeLong() const {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_technology());
+  }
+
+  // string chemistry = 16;
+  if (!this->_internal_chemistry().empty()) {
+    total_size += 2 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_chemistry());
   }
 
   // int32 index = 1;
@@ -2912,6 +2954,9 @@ void Battery_Fields::MergeFrom(const Battery_Fields& from) {
   if (!from._internal_technology().empty()) {
     _internal_set_technology(from._internal_technology());
   }
+  if (!from._internal_chemistry().empty()) {
+    _internal_set_chemistry(from._internal_chemistry());
+  }
   if (from._internal_index() != 0) {
     _internal_set_index(from._internal_index());
   }
@@ -2980,6 +3025,10 @@ void Battery_Fields::InternalSwap(Battery_Fields* other) {
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &technology_, lhs_arena,
       &other->technology_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &chemistry_, lhs_arena,
+      &other->chemistry_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(Battery_Fields, manufacture_date_smart_)

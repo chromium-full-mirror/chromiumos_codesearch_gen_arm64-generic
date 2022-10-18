@@ -52,8 +52,10 @@ class SodaClientRequestValidator;
 class  SodaClient
     : public SodaClientInterfaceBase {
  public:
+  using IPCStableHashFunction = uint32_t(*)();
+
   static const char Name_[];
-  static uint32_t MessageToStableIPCHash_(mojo::Message& message);
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 0;
   static constexpr bool PassesAssociatedKinds_ = false;
@@ -73,6 +75,20 @@ class  SodaClient
     kOnStopMinVersion = 0,
     kOnSpeechRecognizerEventMinVersion = 0,
   };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+  struct OnStart_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct OnStop_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct OnSpeechRecognizerEvent_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+#endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~SodaClient() = default;
 
   
@@ -96,8 +112,10 @@ class SodaRecognizerRequestValidator;
 class  SodaRecognizer
     : public SodaRecognizerInterfaceBase {
  public:
+  using IPCStableHashFunction = uint32_t(*)();
+
   static const char Name_[];
-  static uint32_t MessageToStableIPCHash_(mojo::Message& message);
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr uint32_t Version_ = 0;
   static constexpr bool PassesAssociatedKinds_ = false;
@@ -118,6 +136,23 @@ class  SodaRecognizer
     kStartMinVersion = 0,
     kMarkDoneMinVersion = 0,
   };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+  struct AddAudio_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct Stop_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct Start_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct MarkDone_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+#endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~SodaRecognizer() = default;
 
   

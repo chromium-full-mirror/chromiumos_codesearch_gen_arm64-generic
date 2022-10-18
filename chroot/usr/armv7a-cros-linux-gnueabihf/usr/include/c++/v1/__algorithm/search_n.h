@@ -19,6 +19,7 @@
 #  pragma GCC system_header
 #endif
 
+_LIBCPP_DISABLE_DEBUG_INFO
 _LIBCPP_BEGIN_NAMESPACE_STD
 
 template <class _BinaryPredicate, class _ForwardIterator, class _Size, class _Tp>
@@ -108,5 +109,6 @@ search_n(_ForwardIterator __first, _ForwardIterator __last, _Size __count, const
 }
 
 _LIBCPP_END_NAMESPACE_STD
+_LIBCPP_ENABLE_DEBUG_INFO
 
 #endif // _LIBCPP___ALGORITHM_SEARCH_N_H

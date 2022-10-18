@@ -15,6 +15,7 @@
 #include <stdint.h>
 #include <utility>
 
+#include "base/debug/alias.h"
 #include "base/hash/md5_constexpr.h"
 #include "base/run_loop.h"
 #include "base/strings/string_number_conversions.h"
@@ -45,13 +46,15 @@
 
 
 
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace mojom {
-const char Delegate::Name_[] = "chromeos.cros_healthd.mojom.Delegate";
+const char Delegate::Name_[] = "ash.cros_healthd.mojom.Delegate";
 
-uint32_t Delegate::MessageToStableIPCHash_(mojo::Message& message) {
-  return 0;
+Delegate::IPCStableHashFunction Delegate::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
 }
 
 
@@ -67,6 +70,9 @@ const char* Delegate::MessageToMethodName_(mojo::Message& message) {
   }
 #endif // BUILDFLAG(MOJO_TRACE_ENABLED)
 }
+
+#if !BUILDFLAG(IS_FUCHSIA)
+# endif // !BUILDFLAG(IS_FUCHSIA)
 
 DelegateProxy::DelegateProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
@@ -90,7 +96,7 @@ bool DelegateStubDispatch::AcceptWithResponder(
 
 
 bool DelegateRequestValidator::Accept(mojo::Message* message) {
-  const char* name = ::chromeos::cros_healthd::mojom::Delegate::Name_;
+  const char* name = ::ash::cros_healthd::mojom::Delegate::Name_;
   return mojo::internal::ValidateRequestGeneric(message, name, {});
 }
 
@@ -98,7 +104,7 @@ bool DelegateRequestValidator::Accept(mojo::Message* message) {
 
 }  // namespace mojom
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 
 namespace mojo {
@@ -110,7 +116,7 @@ namespace mojo {
 // separate .cc file to save compile time.
 
 
-namespace chromeos {
+namespace ash {
 namespace cros_healthd {
 namespace mojom {
 
@@ -127,7 +133,7 @@ DelegateAsyncWaiter::~DelegateAsyncWaiter() = default;
 
 }  // namespace mojom
 }  // namespace cros_healthd
-}  // namespace chromeos
+}  // namespace ash
 
 
 #if defined(__clang__)

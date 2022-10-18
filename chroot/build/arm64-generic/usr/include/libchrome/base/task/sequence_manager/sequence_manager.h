@@ -133,8 +133,7 @@ class BASE_EXPORT SequenceManager {
     // If not zero this seeds a PRNG used by the task selection logic to choose
     // a random TaskQueue for a given priority rather than the TaskQueue with
     // the oldest EnqueueOrder.
-    int random_task_selection_seed = 0;
-
+    uint64_t random_task_selection_seed = 0;
 #endif  // DCHECK_IS_ON()
   };
 
@@ -316,8 +315,7 @@ class BASE_EXPORT SequenceManager::Settings::Builder {
   // If not zero this seeds a PRNG used by the task selection logic to choose a
   // random TaskQueue for a given priority rather than the TaskQueue with the
   // oldest EnqueueOrder.
-  Builder& SetRandomTaskSelectionSeed(int random_task_selection_seed);
-
+  Builder& SetRandomTaskSelectionSeed(uint64_t random_task_selection_seed);
 #endif  // DCHECK_IS_ON()
 
   Settings Build();

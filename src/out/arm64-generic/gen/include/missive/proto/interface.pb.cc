@@ -68,6 +68,7 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT FlushPriorityResponseDefaultTyp
 constexpr UploadEncryptedRecordRequest::UploadEncryptedRecordRequest(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : encrypted_record_()
+  , pipeline_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
   , remaining_storage_capacity_(uint64_t{0u})
   , new_events_rate_(uint64_t{0u})
   , need_encryption_keys_(false){}
@@ -1015,13 +1016,16 @@ class UploadEncryptedRecordRequest::_Internal {
  public:
   using HasBits = decltype(std::declval<UploadEncryptedRecordRequest>()._has_bits_);
   static void set_has_need_encryption_keys(HasBits* has_bits) {
-    (*has_bits)[0] |= 4u;
+    (*has_bits)[0] |= 8u;
   }
   static void set_has_remaining_storage_capacity(HasBits* has_bits) {
-    (*has_bits)[0] |= 1u;
+    (*has_bits)[0] |= 2u;
   }
   static void set_has_new_events_rate(HasBits* has_bits) {
-    (*has_bits)[0] |= 2u;
+    (*has_bits)[0] |= 4u;
+  }
+  static void set_has_pipeline_id(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
   }
 };
 
@@ -1043,6 +1047,14 @@ UploadEncryptedRecordRequest::UploadEncryptedRecordRequest(const UploadEncrypted
       _has_bits_(from._has_bits_),
       encrypted_record_(from.encrypted_record_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  pipeline_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    pipeline_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_pipeline_id()) {
+    pipeline_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_pipeline_id(), 
+      GetArenaForAllocation());
+  }
   ::memcpy(&remaining_storage_capacity_, &from.remaining_storage_capacity_,
     static_cast<size_t>(reinterpret_cast<char*>(&need_encryption_keys_) -
     reinterpret_cast<char*>(&remaining_storage_capacity_)) + sizeof(need_encryption_keys_));
@@ -1050,6 +1062,10 @@ UploadEncryptedRecordRequest::UploadEncryptedRecordRequest(const UploadEncrypted
 }
 
 inline void UploadEncryptedRecordRequest::SharedCtor() {
+pipeline_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  pipeline_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&remaining_storage_capacity_) - reinterpret_cast<char*>(this)),
     0, static_cast<size_t>(reinterpret_cast<char*>(&need_encryption_keys_) -
@@ -1065,6 +1081,7 @@ UploadEncryptedRecordRequest::~UploadEncryptedRecordRequest() {
 
 inline void UploadEncryptedRecordRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  pipeline_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
 void UploadEncryptedRecordRequest::ArenaDtor(void* object) {
@@ -1085,7 +1102,10 @@ void UploadEncryptedRecordRequest::Clear() {
 
   encrypted_record_.Clear();
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
+  if (cached_has_bits & 0x00000001u) {
+    pipeline_id_.ClearNonDefaultToEmpty();
+  }
+  if (cached_has_bits & 0x0000000eu) {
     ::memset(&remaining_storage_capacity_, 0, static_cast<size_t>(
         reinterpret_cast<char*>(&need_encryption_keys_) -
         reinterpret_cast<char*>(&remaining_storage_capacity_)) + sizeof(need_encryption_keys_));
@@ -1141,6 +1161,15 @@ const char* UploadEncryptedRecordRequest::_InternalParse(const char* ptr, ::PROT
         } else
           goto handle_unusual;
         continue;
+      // optional string pipeline_id = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
+          auto str = _internal_mutable_pipeline_id();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -1181,21 +1210,27 @@ uint8_t* UploadEncryptedRecordRequest::_InternalSerialize(
 
   cached_has_bits = _has_bits_[0];
   // optional bool need_encryption_keys = 2;
-  if (cached_has_bits & 0x00000004u) {
+  if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(2, this->_internal_need_encryption_keys(), target);
   }
 
   // optional uint64 remaining_storage_capacity = 3;
-  if (cached_has_bits & 0x00000001u) {
+  if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(3, this->_internal_remaining_storage_capacity(), target);
   }
 
   // optional uint64 new_events_rate = 4;
-  if (cached_has_bits & 0x00000002u) {
+  if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(4, this->_internal_new_events_rate(), target);
+  }
+
+  // optional string pipeline_id = 5;
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->WriteStringMaybeAliased(
+        5, this->_internal_pipeline_id(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1222,19 +1257,26 @@ size_t UploadEncryptedRecordRequest::ByteSizeLong() const {
   }
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
-    // optional uint64 remaining_storage_capacity = 3;
+  if (cached_has_bits & 0x0000000fu) {
+    // optional string pipeline_id = 5;
     if (cached_has_bits & 0x00000001u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_pipeline_id());
+    }
+
+    // optional uint64 remaining_storage_capacity = 3;
+    if (cached_has_bits & 0x00000002u) {
       total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt64SizePlusOne(this->_internal_remaining_storage_capacity());
     }
 
     // optional uint64 new_events_rate = 4;
-    if (cached_has_bits & 0x00000002u) {
+    if (cached_has_bits & 0x00000004u) {
       total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt64SizePlusOne(this->_internal_new_events_rate());
     }
 
     // optional bool need_encryption_keys = 2;
-    if (cached_has_bits & 0x00000004u) {
+    if (cached_has_bits & 0x00000008u) {
       total_size += 1 + 1;
     }
 
@@ -1261,14 +1303,17 @@ void UploadEncryptedRecordRequest::MergeFrom(const UploadEncryptedRecordRequest&
 
   encrypted_record_.MergeFrom(from.encrypted_record_);
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
+  if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
-      remaining_storage_capacity_ = from.remaining_storage_capacity_;
+      _internal_set_pipeline_id(from._internal_pipeline_id());
     }
     if (cached_has_bits & 0x00000002u) {
-      new_events_rate_ = from.new_events_rate_;
+      remaining_storage_capacity_ = from.remaining_storage_capacity_;
     }
     if (cached_has_bits & 0x00000004u) {
+      new_events_rate_ = from.new_events_rate_;
+    }
+    if (cached_has_bits & 0x00000008u) {
       need_encryption_keys_ = from.need_encryption_keys_;
     }
     _has_bits_[0] |= cached_has_bits;
@@ -1289,9 +1334,16 @@ bool UploadEncryptedRecordRequest::IsInitialized() const {
 
 void UploadEncryptedRecordRequest::InternalSwap(UploadEncryptedRecordRequest* other) {
   using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
   encrypted_record_.InternalSwap(&other->encrypted_record_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &pipeline_id_, lhs_arena,
+      &other->pipeline_id_, rhs_arena
+  );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(UploadEncryptedRecordRequest, need_encryption_keys_)
       + sizeof(UploadEncryptedRecordRequest::need_encryption_keys_)
