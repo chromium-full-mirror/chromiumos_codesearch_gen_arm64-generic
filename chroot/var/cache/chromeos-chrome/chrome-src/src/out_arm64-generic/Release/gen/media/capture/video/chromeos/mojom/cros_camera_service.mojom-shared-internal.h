@@ -15,6 +15,7 @@
 #include "components/chromeos_camera/common/mjpeg_decode_accelerator.mojom-shared-internal.h"
 #include "media/capture/video/chromeos/mojom/camera_common.mojom-shared-internal.h"
 #include "media/capture/video/chromeos/mojom/cros_camera_client.mojom-shared-internal.h"
+#include "media/capture/video/chromeos/mojom/effects_pipeline.mojom-shared-internal.h"
 #include "mojo/public/mojom/base/unguessable_token.mojom-shared-internal.h"
 #include "mojo/public/cpp/bindings/lib/native_enum_data.h"
 #include "mojo/public/interfaces/bindings/native_struct.mojom-shared-internal.h"

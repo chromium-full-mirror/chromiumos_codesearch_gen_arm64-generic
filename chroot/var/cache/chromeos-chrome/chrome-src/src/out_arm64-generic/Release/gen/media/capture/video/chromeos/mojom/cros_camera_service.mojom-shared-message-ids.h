@@ -27,6 +27,7 @@ constexpr uint32_t kCameraHalServer_SetAutoFramingState_Name = 2;
 constexpr uint32_t kCameraHalServer_GetCameraSWPrivacySwitchState_Name = 3;
 constexpr uint32_t kCameraHalServer_SetCameraSWPrivacySwitchState_Name = 4;
 constexpr uint32_t kCameraHalServer_GetAutoFramingSupported_Name = 5;
+constexpr uint32_t kCameraHalServer_SetCameraEffect_Name = 6;
 constexpr uint32_t kCameraHalServerCallbacks_CameraDeviceActivityChange_Name = 0;
 constexpr uint32_t kCameraHalServerCallbacks_CameraPrivacySwitchStateChange_Name = 1;
 constexpr uint32_t kCameraHalServerCallbacks_CameraSWPrivacySwitchStateChange_Name = 2;

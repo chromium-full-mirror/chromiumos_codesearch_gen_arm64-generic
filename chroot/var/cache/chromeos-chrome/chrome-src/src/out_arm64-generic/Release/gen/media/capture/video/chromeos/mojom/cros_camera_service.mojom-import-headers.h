@@ -16,6 +16,8 @@
 #include "media/capture/video/chromeos/mojom/camera_common.mojom-import-headers.h"
 #include "media/capture/video/chromeos/mojom/cros_camera_client.mojom.h"
 #include "media/capture/video/chromeos/mojom/cros_camera_client.mojom-import-headers.h"
+#include "media/capture/video/chromeos/mojom/effects_pipeline.mojom.h"
+#include "media/capture/video/chromeos/mojom/effects_pipeline.mojom-import-headers.h"
 #include "mojo/public/mojom/base/unguessable_token.mojom.h"
 #include "mojo/public/mojom/base/unguessable_token.mojom-import-headers.h"
 

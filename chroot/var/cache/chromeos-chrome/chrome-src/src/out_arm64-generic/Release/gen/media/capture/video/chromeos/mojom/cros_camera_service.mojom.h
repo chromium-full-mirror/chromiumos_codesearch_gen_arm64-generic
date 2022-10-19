@@ -30,6 +30,7 @@
 #include "components/chromeos_camera/common/mjpeg_decode_accelerator.mojom-forward.h"
 #include "media/capture/video/chromeos/mojom/camera_common.mojom-forward.h"
 #include "media/capture/video/chromeos/mojom/cros_camera_client.mojom-forward.h"
+#include "media/capture/video/chromeos/mojom/effects_pipeline.mojom-forward.h"
 #include "mojo/public/mojom/base/unguessable_token.mojom.h"
 #include <string>
 #include <vector>
@@ -157,7 +158,7 @@ class  CameraHalServer
   static const char Name_[];
   static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
-  static constexpr uint32_t Version_ = 9;
+  static constexpr uint32_t Version_ = 10;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasSyncMethods_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
@@ -177,6 +178,7 @@ class  CameraHalServer
     kGetCameraSWPrivacySwitchStateMinVersion = 8,
     kSetCameraSWPrivacySwitchStateMinVersion = 8,
     kGetAutoFramingSupportedMinVersion = 9,
+    kSetCameraEffectMinVersion = 10,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -198,6 +200,9 @@ class  CameraHalServer
     NOINLINE static uint32_t IPCStableHash();
   };
   struct GetAutoFramingSupported_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct SetCameraEffect_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -224,6 +229,11 @@ class  CameraHalServer
   using GetAutoFramingSupportedCallback = base::OnceCallback<void(bool)>;
   
   virtual void GetAutoFramingSupported(GetAutoFramingSupportedCallback callback) = 0;
+
+
+  using SetCameraEffectCallback = base::OnceCallback<void(::cros::mojom::SetEffectResult)>;
+  
+  virtual void SetCameraEffect(::cros::mojom::EffectsConfigPtr config, SetCameraEffectCallback callback) = 0;
 };
 
 class CameraHalServerCallbacksProxy;
@@ -333,6 +343,8 @@ class  CameraHalServerProxy
   void SetCameraSWPrivacySwitchState(CameraPrivacySwitchState state) final;
   
   void GetAutoFramingSupported(GetAutoFramingSupportedCallback callback) final;
+  
+  void SetCameraEffect(::cros::mojom::EffectsConfigPtr config, SetCameraEffectCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

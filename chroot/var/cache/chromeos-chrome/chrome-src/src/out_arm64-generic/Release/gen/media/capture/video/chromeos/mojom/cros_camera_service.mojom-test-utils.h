@@ -55,6 +55,7 @@ class  CameraHalServerInterceptorForTesting : public CameraHalServer {
   void GetCameraSWPrivacySwitchState(GetCameraSWPrivacySwitchStateCallback callback) override;
   void SetCameraSWPrivacySwitchState(CameraPrivacySwitchState state) override;
   void GetAutoFramingSupported(GetAutoFramingSupportedCallback callback) override;
+  void SetCameraEffect(::cros::mojom::EffectsConfigPtr config, SetCameraEffectCallback callback) override;
 };
 class  CameraHalServerAsyncWaiter {
  public:
@@ -70,6 +71,9 @@ class  CameraHalServerAsyncWaiter {
   void GetAutoFramingSupported(
       bool* out_supported);
   bool GetAutoFramingSupported();
+  void SetCameraEffect(
+      ::cros::mojom::EffectsConfigPtr config, ::cros::mojom::SetEffectResult* out_result);
+  ::cros::mojom::SetEffectResult SetCameraEffect(::cros::mojom::EffectsConfigPtr config);
 
  private:
   CameraHalServer* const proxy_;
