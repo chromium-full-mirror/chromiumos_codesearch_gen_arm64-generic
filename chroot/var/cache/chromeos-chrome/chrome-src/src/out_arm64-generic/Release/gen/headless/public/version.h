@@ -7,7 +7,7 @@
 #ifndef HEADLESS_PUBLIC_VERSION_H_
 #define HEADLESS_PUBLIC_VERSION_H_
 
-#define PRODUCT_VERSION "109.0.5366.0"
-#define LAST_CHANGE "7c4a19abc49c009cf44a97b746aa4e703bce84b5-refs/branch-heads/5366@{#1}"
+#define PRODUCT_VERSION "109.0.5367.0"
+#define LAST_CHANGE "bd48cf0b0e0ad50077f7af9ca7dd30d3d3568f8d-refs/branch-heads/5367@{#1}"
 
 #endif  // HEADLESS_PUBLIC_VERSION_H_

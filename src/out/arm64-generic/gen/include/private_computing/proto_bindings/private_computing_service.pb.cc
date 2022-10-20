@@ -28,43 +28,43 @@ struct ActiveStatusDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ActiveStatusDefaultTypeInternal _ActiveStatus_default_instance_;
-constexpr SaveStatusToPreservedFileRequest::SaveStatusToPreservedFileRequest(
+constexpr SaveStatusRequest::SaveStatusRequest(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : active_status_(){}
-struct SaveStatusToPreservedFileRequestDefaultTypeInternal {
-  constexpr SaveStatusToPreservedFileRequestDefaultTypeInternal()
+struct SaveStatusRequestDefaultTypeInternal {
+  constexpr SaveStatusRequestDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~SaveStatusToPreservedFileRequestDefaultTypeInternal() {}
+  ~SaveStatusRequestDefaultTypeInternal() {}
   union {
-    SaveStatusToPreservedFileRequest _instance;
+    SaveStatusRequest _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT SaveStatusToPreservedFileRequestDefaultTypeInternal _SaveStatusToPreservedFileRequest_default_instance_;
-constexpr SaveStatusToPreservedFileResponse::SaveStatusToPreservedFileResponse(
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT SaveStatusRequestDefaultTypeInternal _SaveStatusRequest_default_instance_;
+constexpr SaveStatusResponse::SaveStatusResponse(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : error_message_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
-struct SaveStatusToPreservedFileResponseDefaultTypeInternal {
-  constexpr SaveStatusToPreservedFileResponseDefaultTypeInternal()
+struct SaveStatusResponseDefaultTypeInternal {
+  constexpr SaveStatusResponseDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~SaveStatusToPreservedFileResponseDefaultTypeInternal() {}
+  ~SaveStatusResponseDefaultTypeInternal() {}
   union {
-    SaveStatusToPreservedFileResponse _instance;
+    SaveStatusResponse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT SaveStatusToPreservedFileResponseDefaultTypeInternal _SaveStatusToPreservedFileResponse_default_instance_;
-constexpr GetStatusFromPreservedFileResponse::GetStatusFromPreservedFileResponse(
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT SaveStatusResponseDefaultTypeInternal _SaveStatusResponse_default_instance_;
+constexpr GetStatusResponse::GetStatusResponse(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : active_status_()
   , error_message_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
-struct GetStatusFromPreservedFileResponseDefaultTypeInternal {
-  constexpr GetStatusFromPreservedFileResponseDefaultTypeInternal()
+struct GetStatusResponseDefaultTypeInternal {
+  constexpr GetStatusResponseDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~GetStatusFromPreservedFileResponseDefaultTypeInternal() {}
+  ~GetStatusResponseDefaultTypeInternal() {}
   union {
-    GetStatusFromPreservedFileResponse _instance;
+    GetStatusResponse _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT GetStatusFromPreservedFileResponseDefaultTypeInternal _GetStatusFromPreservedFileResponse_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT GetStatusResponseDefaultTypeInternal _GetStatusResponse_default_instance_;
 }  // namespace private_computing
 namespace private_computing {
 bool PrivateComputingUseCase_IsValid(int value) {
@@ -380,11 +380,11 @@ std::string ActiveStatus::GetTypeName() const {
 
 // ===================================================================
 
-class SaveStatusToPreservedFileRequest::_Internal {
+class SaveStatusRequest::_Internal {
  public:
 };
 
-SaveStatusToPreservedFileRequest::SaveStatusToPreservedFileRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+SaveStatusRequest::SaveStatusRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
   active_status_(arena) {
@@ -392,41 +392,41 @@ SaveStatusToPreservedFileRequest::SaveStatusToPreservedFileRequest(::PROTOBUF_NA
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
   }
-  // @@protoc_insertion_point(arena_constructor:private_computing.SaveStatusToPreservedFileRequest)
+  // @@protoc_insertion_point(arena_constructor:private_computing.SaveStatusRequest)
 }
-SaveStatusToPreservedFileRequest::SaveStatusToPreservedFileRequest(const SaveStatusToPreservedFileRequest& from)
+SaveStatusRequest::SaveStatusRequest(const SaveStatusRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
       active_status_(from.active_status_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  // @@protoc_insertion_point(copy_constructor:private_computing.SaveStatusToPreservedFileRequest)
+  // @@protoc_insertion_point(copy_constructor:private_computing.SaveStatusRequest)
 }
 
-inline void SaveStatusToPreservedFileRequest::SharedCtor() {
+inline void SaveStatusRequest::SharedCtor() {
 }
 
-SaveStatusToPreservedFileRequest::~SaveStatusToPreservedFileRequest() {
-  // @@protoc_insertion_point(destructor:private_computing.SaveStatusToPreservedFileRequest)
+SaveStatusRequest::~SaveStatusRequest() {
+  // @@protoc_insertion_point(destructor:private_computing.SaveStatusRequest)
   if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<std::string>();
 }
 
-inline void SaveStatusToPreservedFileRequest::SharedDtor() {
+inline void SaveStatusRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
 }
 
-void SaveStatusToPreservedFileRequest::ArenaDtor(void* object) {
-  SaveStatusToPreservedFileRequest* _this = reinterpret_cast< SaveStatusToPreservedFileRequest* >(object);
+void SaveStatusRequest::ArenaDtor(void* object) {
+  SaveStatusRequest* _this = reinterpret_cast< SaveStatusRequest* >(object);
   (void)_this;
 }
-void SaveStatusToPreservedFileRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+void SaveStatusRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 }
-void SaveStatusToPreservedFileRequest::SetCachedSize(int size) const {
+void SaveStatusRequest::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
 
-void SaveStatusToPreservedFileRequest::Clear() {
-// @@protoc_insertion_point(message_clear_start:private_computing.SaveStatusToPreservedFileRequest)
+void SaveStatusRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:private_computing.SaveStatusRequest)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -435,7 +435,7 @@ void SaveStatusToPreservedFileRequest::Clear() {
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* SaveStatusToPreservedFileRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* SaveStatusRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
@@ -477,9 +477,9 @@ failure:
 #undef CHK_
 }
 
-uint8_t* SaveStatusToPreservedFileRequest::_InternalSerialize(
+uint8_t* SaveStatusRequest::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:private_computing.SaveStatusToPreservedFileRequest)
+  // @@protoc_insertion_point(serialize_to_array_start:private_computing.SaveStatusRequest)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -495,12 +495,12 @@ uint8_t* SaveStatusToPreservedFileRequest::_InternalSerialize(
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:private_computing.SaveStatusToPreservedFileRequest)
+  // @@protoc_insertion_point(serialize_to_array_end:private_computing.SaveStatusRequest)
   return target;
 }
 
-size_t SaveStatusToPreservedFileRequest::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:private_computing.SaveStatusToPreservedFileRequest)
+size_t SaveStatusRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:private_computing.SaveStatusRequest)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
@@ -522,14 +522,14 @@ size_t SaveStatusToPreservedFileRequest::ByteSizeLong() const {
   return total_size;
 }
 
-void SaveStatusToPreservedFileRequest::CheckTypeAndMergeFrom(
+void SaveStatusRequest::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const SaveStatusToPreservedFileRequest*>(
+  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const SaveStatusRequest*>(
       &from));
 }
 
-void SaveStatusToPreservedFileRequest::MergeFrom(const SaveStatusToPreservedFileRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:private_computing.SaveStatusToPreservedFileRequest)
+void SaveStatusRequest::MergeFrom(const SaveStatusRequest& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:private_computing.SaveStatusRequest)
   GOOGLE_DCHECK_NE(&from, this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -538,48 +538,48 @@ void SaveStatusToPreservedFileRequest::MergeFrom(const SaveStatusToPreservedFile
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
-void SaveStatusToPreservedFileRequest::CopyFrom(const SaveStatusToPreservedFileRequest& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:private_computing.SaveStatusToPreservedFileRequest)
+void SaveStatusRequest::CopyFrom(const SaveStatusRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:private_computing.SaveStatusRequest)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool SaveStatusToPreservedFileRequest::IsInitialized() const {
+bool SaveStatusRequest::IsInitialized() const {
   return true;
 }
 
-void SaveStatusToPreservedFileRequest::InternalSwap(SaveStatusToPreservedFileRequest* other) {
+void SaveStatusRequest::InternalSwap(SaveStatusRequest* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   active_status_.InternalSwap(&other->active_status_);
 }
 
-std::string SaveStatusToPreservedFileRequest::GetTypeName() const {
-  return "private_computing.SaveStatusToPreservedFileRequest";
+std::string SaveStatusRequest::GetTypeName() const {
+  return "private_computing.SaveStatusRequest";
 }
 
 
 // ===================================================================
 
-class SaveStatusToPreservedFileResponse::_Internal {
+class SaveStatusResponse::_Internal {
  public:
-  using HasBits = decltype(std::declval<SaveStatusToPreservedFileResponse>()._has_bits_);
+  using HasBits = decltype(std::declval<SaveStatusResponse>()._has_bits_);
   static void set_has_error_message(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
 };
 
-SaveStatusToPreservedFileResponse::SaveStatusToPreservedFileResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+SaveStatusResponse::SaveStatusResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
   SharedCtor();
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
   }
-  // @@protoc_insertion_point(arena_constructor:private_computing.SaveStatusToPreservedFileResponse)
+  // @@protoc_insertion_point(arena_constructor:private_computing.SaveStatusResponse)
 }
-SaveStatusToPreservedFileResponse::SaveStatusToPreservedFileResponse(const SaveStatusToPreservedFileResponse& from)
+SaveStatusResponse::SaveStatusResponse(const SaveStatusResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
       _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
@@ -591,40 +591,40 @@ SaveStatusToPreservedFileResponse::SaveStatusToPreservedFileResponse(const SaveS
     error_message_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_error_message(), 
       GetArenaForAllocation());
   }
-  // @@protoc_insertion_point(copy_constructor:private_computing.SaveStatusToPreservedFileResponse)
+  // @@protoc_insertion_point(copy_constructor:private_computing.SaveStatusResponse)
 }
 
-inline void SaveStatusToPreservedFileResponse::SharedCtor() {
+inline void SaveStatusResponse::SharedCtor() {
 error_message_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   error_message_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
-SaveStatusToPreservedFileResponse::~SaveStatusToPreservedFileResponse() {
-  // @@protoc_insertion_point(destructor:private_computing.SaveStatusToPreservedFileResponse)
+SaveStatusResponse::~SaveStatusResponse() {
+  // @@protoc_insertion_point(destructor:private_computing.SaveStatusResponse)
   if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<std::string>();
 }
 
-inline void SaveStatusToPreservedFileResponse::SharedDtor() {
+inline void SaveStatusResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   error_message_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
-void SaveStatusToPreservedFileResponse::ArenaDtor(void* object) {
-  SaveStatusToPreservedFileResponse* _this = reinterpret_cast< SaveStatusToPreservedFileResponse* >(object);
+void SaveStatusResponse::ArenaDtor(void* object) {
+  SaveStatusResponse* _this = reinterpret_cast< SaveStatusResponse* >(object);
   (void)_this;
 }
-void SaveStatusToPreservedFileResponse::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+void SaveStatusResponse::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 }
-void SaveStatusToPreservedFileResponse::SetCachedSize(int size) const {
+void SaveStatusResponse::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
 
-void SaveStatusToPreservedFileResponse::Clear() {
-// @@protoc_insertion_point(message_clear_start:private_computing.SaveStatusToPreservedFileResponse)
+void SaveStatusResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:private_computing.SaveStatusResponse)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -637,7 +637,7 @@ void SaveStatusToPreservedFileResponse::Clear() {
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* SaveStatusToPreservedFileResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* SaveStatusResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
@@ -677,9 +677,9 @@ failure:
 #undef CHK_
 }
 
-uint8_t* SaveStatusToPreservedFileResponse::_InternalSerialize(
+uint8_t* SaveStatusResponse::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:private_computing.SaveStatusToPreservedFileResponse)
+  // @@protoc_insertion_point(serialize_to_array_start:private_computing.SaveStatusResponse)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -694,12 +694,12 @@ uint8_t* SaveStatusToPreservedFileResponse::_InternalSerialize(
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:private_computing.SaveStatusToPreservedFileResponse)
+  // @@protoc_insertion_point(serialize_to_array_end:private_computing.SaveStatusResponse)
   return target;
 }
 
-size_t SaveStatusToPreservedFileResponse::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:private_computing.SaveStatusToPreservedFileResponse)
+size_t SaveStatusResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:private_computing.SaveStatusResponse)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
@@ -722,14 +722,14 @@ size_t SaveStatusToPreservedFileResponse::ByteSizeLong() const {
   return total_size;
 }
 
-void SaveStatusToPreservedFileResponse::CheckTypeAndMergeFrom(
+void SaveStatusResponse::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const SaveStatusToPreservedFileResponse*>(
+  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const SaveStatusResponse*>(
       &from));
 }
 
-void SaveStatusToPreservedFileResponse::MergeFrom(const SaveStatusToPreservedFileResponse& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:private_computing.SaveStatusToPreservedFileResponse)
+void SaveStatusResponse::MergeFrom(const SaveStatusResponse& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:private_computing.SaveStatusResponse)
   GOOGLE_DCHECK_NE(&from, this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -740,18 +740,18 @@ void SaveStatusToPreservedFileResponse::MergeFrom(const SaveStatusToPreservedFil
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
-void SaveStatusToPreservedFileResponse::CopyFrom(const SaveStatusToPreservedFileResponse& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:private_computing.SaveStatusToPreservedFileResponse)
+void SaveStatusResponse::CopyFrom(const SaveStatusResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:private_computing.SaveStatusResponse)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool SaveStatusToPreservedFileResponse::IsInitialized() const {
+bool SaveStatusResponse::IsInitialized() const {
   return true;
 }
 
-void SaveStatusToPreservedFileResponse::InternalSwap(SaveStatusToPreservedFileResponse* other) {
+void SaveStatusResponse::InternalSwap(SaveStatusResponse* other) {
   using std::swap;
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
@@ -764,22 +764,22 @@ void SaveStatusToPreservedFileResponse::InternalSwap(SaveStatusToPreservedFileRe
   );
 }
 
-std::string SaveStatusToPreservedFileResponse::GetTypeName() const {
-  return "private_computing.SaveStatusToPreservedFileResponse";
+std::string SaveStatusResponse::GetTypeName() const {
+  return "private_computing.SaveStatusResponse";
 }
 
 
 // ===================================================================
 
-class GetStatusFromPreservedFileResponse::_Internal {
+class GetStatusResponse::_Internal {
  public:
-  using HasBits = decltype(std::declval<GetStatusFromPreservedFileResponse>()._has_bits_);
+  using HasBits = decltype(std::declval<GetStatusResponse>()._has_bits_);
   static void set_has_error_message(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
 };
 
-GetStatusFromPreservedFileResponse::GetStatusFromPreservedFileResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+GetStatusResponse::GetStatusResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
   active_status_(arena) {
@@ -787,9 +787,9 @@ GetStatusFromPreservedFileResponse::GetStatusFromPreservedFileResponse(::PROTOBU
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
   }
-  // @@protoc_insertion_point(arena_constructor:private_computing.GetStatusFromPreservedFileResponse)
+  // @@protoc_insertion_point(arena_constructor:private_computing.GetStatusResponse)
 }
-GetStatusFromPreservedFileResponse::GetStatusFromPreservedFileResponse(const GetStatusFromPreservedFileResponse& from)
+GetStatusResponse::GetStatusResponse(const GetStatusResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
       _has_bits_(from._has_bits_),
       active_status_(from.active_status_) {
@@ -802,40 +802,40 @@ GetStatusFromPreservedFileResponse::GetStatusFromPreservedFileResponse(const Get
     error_message_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_error_message(), 
       GetArenaForAllocation());
   }
-  // @@protoc_insertion_point(copy_constructor:private_computing.GetStatusFromPreservedFileResponse)
+  // @@protoc_insertion_point(copy_constructor:private_computing.GetStatusResponse)
 }
 
-inline void GetStatusFromPreservedFileResponse::SharedCtor() {
+inline void GetStatusResponse::SharedCtor() {
 error_message_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   error_message_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
-GetStatusFromPreservedFileResponse::~GetStatusFromPreservedFileResponse() {
-  // @@protoc_insertion_point(destructor:private_computing.GetStatusFromPreservedFileResponse)
+GetStatusResponse::~GetStatusResponse() {
+  // @@protoc_insertion_point(destructor:private_computing.GetStatusResponse)
   if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<std::string>();
 }
 
-inline void GetStatusFromPreservedFileResponse::SharedDtor() {
+inline void GetStatusResponse::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   error_message_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
-void GetStatusFromPreservedFileResponse::ArenaDtor(void* object) {
-  GetStatusFromPreservedFileResponse* _this = reinterpret_cast< GetStatusFromPreservedFileResponse* >(object);
+void GetStatusResponse::ArenaDtor(void* object) {
+  GetStatusResponse* _this = reinterpret_cast< GetStatusResponse* >(object);
   (void)_this;
 }
-void GetStatusFromPreservedFileResponse::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+void GetStatusResponse::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 }
-void GetStatusFromPreservedFileResponse::SetCachedSize(int size) const {
+void GetStatusResponse::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
 
-void GetStatusFromPreservedFileResponse::Clear() {
-// @@protoc_insertion_point(message_clear_start:private_computing.GetStatusFromPreservedFileResponse)
+void GetStatusResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:private_computing.GetStatusResponse)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -849,7 +849,7 @@ void GetStatusFromPreservedFileResponse::Clear() {
   _internal_metadata_.Clear<std::string>();
 }
 
-const char* GetStatusFromPreservedFileResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+const char* GetStatusResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
@@ -902,9 +902,9 @@ failure:
 #undef CHK_
 }
 
-uint8_t* GetStatusFromPreservedFileResponse::_InternalSerialize(
+uint8_t* GetStatusResponse::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:private_computing.GetStatusFromPreservedFileResponse)
+  // @@protoc_insertion_point(serialize_to_array_start:private_computing.GetStatusResponse)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -927,12 +927,12 @@ uint8_t* GetStatusFromPreservedFileResponse::_InternalSerialize(
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:private_computing.GetStatusFromPreservedFileResponse)
+  // @@protoc_insertion_point(serialize_to_array_end:private_computing.GetStatusResponse)
   return target;
 }
 
-size_t GetStatusFromPreservedFileResponse::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:private_computing.GetStatusFromPreservedFileResponse)
+size_t GetStatusResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:private_computing.GetStatusResponse)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
@@ -962,14 +962,14 @@ size_t GetStatusFromPreservedFileResponse::ByteSizeLong() const {
   return total_size;
 }
 
-void GetStatusFromPreservedFileResponse::CheckTypeAndMergeFrom(
+void GetStatusResponse::CheckTypeAndMergeFrom(
     const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
-  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const GetStatusFromPreservedFileResponse*>(
+  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const GetStatusResponse*>(
       &from));
 }
 
-void GetStatusFromPreservedFileResponse::MergeFrom(const GetStatusFromPreservedFileResponse& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:private_computing.GetStatusFromPreservedFileResponse)
+void GetStatusResponse::MergeFrom(const GetStatusResponse& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:private_computing.GetStatusResponse)
   GOOGLE_DCHECK_NE(&from, this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -981,18 +981,18 @@ void GetStatusFromPreservedFileResponse::MergeFrom(const GetStatusFromPreservedF
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
-void GetStatusFromPreservedFileResponse::CopyFrom(const GetStatusFromPreservedFileResponse& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:private_computing.GetStatusFromPreservedFileResponse)
+void GetStatusResponse::CopyFrom(const GetStatusResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:private_computing.GetStatusResponse)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool GetStatusFromPreservedFileResponse::IsInitialized() const {
+bool GetStatusResponse::IsInitialized() const {
   return true;
 }
 
-void GetStatusFromPreservedFileResponse::InternalSwap(GetStatusFromPreservedFileResponse* other) {
+void GetStatusResponse::InternalSwap(GetStatusResponse* other) {
   using std::swap;
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
@@ -1006,8 +1006,8 @@ void GetStatusFromPreservedFileResponse::InternalSwap(GetStatusFromPreservedFile
   );
 }
 
-std::string GetStatusFromPreservedFileResponse::GetTypeName() const {
-  return "private_computing.GetStatusFromPreservedFileResponse";
+std::string GetStatusResponse::GetTypeName() const {
+  return "private_computing.GetStatusResponse";
 }
 
 
@@ -1017,14 +1017,14 @@ PROTOBUF_NAMESPACE_OPEN
 template<> PROTOBUF_NOINLINE ::private_computing::ActiveStatus* Arena::CreateMaybeMessage< ::private_computing::ActiveStatus >(Arena* arena) {
   return Arena::CreateMessageInternal< ::private_computing::ActiveStatus >(arena);
 }
-template<> PROTOBUF_NOINLINE ::private_computing::SaveStatusToPreservedFileRequest* Arena::CreateMaybeMessage< ::private_computing::SaveStatusToPreservedFileRequest >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::private_computing::SaveStatusToPreservedFileRequest >(arena);
+template<> PROTOBUF_NOINLINE ::private_computing::SaveStatusRequest* Arena::CreateMaybeMessage< ::private_computing::SaveStatusRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::private_computing::SaveStatusRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::private_computing::SaveStatusToPreservedFileResponse* Arena::CreateMaybeMessage< ::private_computing::SaveStatusToPreservedFileResponse >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::private_computing::SaveStatusToPreservedFileResponse >(arena);
+template<> PROTOBUF_NOINLINE ::private_computing::SaveStatusResponse* Arena::CreateMaybeMessage< ::private_computing::SaveStatusResponse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::private_computing::SaveStatusResponse >(arena);
 }
-template<> PROTOBUF_NOINLINE ::private_computing::GetStatusFromPreservedFileResponse* Arena::CreateMaybeMessage< ::private_computing::GetStatusFromPreservedFileResponse >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::private_computing::GetStatusFromPreservedFileResponse >(arena);
+template<> PROTOBUF_NOINLINE ::private_computing::GetStatusResponse* Arena::CreateMaybeMessage< ::private_computing::GetStatusResponse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::private_computing::GetStatusResponse >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

@@ -55,21 +55,21 @@ namespace private_computing {
 class ActiveStatus;
 struct ActiveStatusDefaultTypeInternal;
 extern ActiveStatusDefaultTypeInternal _ActiveStatus_default_instance_;
-class GetStatusFromPreservedFileResponse;
-struct GetStatusFromPreservedFileResponseDefaultTypeInternal;
-extern GetStatusFromPreservedFileResponseDefaultTypeInternal _GetStatusFromPreservedFileResponse_default_instance_;
-class SaveStatusToPreservedFileRequest;
-struct SaveStatusToPreservedFileRequestDefaultTypeInternal;
-extern SaveStatusToPreservedFileRequestDefaultTypeInternal _SaveStatusToPreservedFileRequest_default_instance_;
-class SaveStatusToPreservedFileResponse;
-struct SaveStatusToPreservedFileResponseDefaultTypeInternal;
-extern SaveStatusToPreservedFileResponseDefaultTypeInternal _SaveStatusToPreservedFileResponse_default_instance_;
+class GetStatusResponse;
+struct GetStatusResponseDefaultTypeInternal;
+extern GetStatusResponseDefaultTypeInternal _GetStatusResponse_default_instance_;
+class SaveStatusRequest;
+struct SaveStatusRequestDefaultTypeInternal;
+extern SaveStatusRequestDefaultTypeInternal _SaveStatusRequest_default_instance_;
+class SaveStatusResponse;
+struct SaveStatusResponseDefaultTypeInternal;
+extern SaveStatusResponseDefaultTypeInternal _SaveStatusResponse_default_instance_;
 }  // namespace private_computing
 PROTOBUF_NAMESPACE_OPEN
 template<> ::private_computing::ActiveStatus* Arena::CreateMaybeMessage<::private_computing::ActiveStatus>(Arena*);
-template<> ::private_computing::GetStatusFromPreservedFileResponse* Arena::CreateMaybeMessage<::private_computing::GetStatusFromPreservedFileResponse>(Arena*);
-template<> ::private_computing::SaveStatusToPreservedFileRequest* Arena::CreateMaybeMessage<::private_computing::SaveStatusToPreservedFileRequest>(Arena*);
-template<> ::private_computing::SaveStatusToPreservedFileResponse* Arena::CreateMaybeMessage<::private_computing::SaveStatusToPreservedFileResponse>(Arena*);
+template<> ::private_computing::GetStatusResponse* Arena::CreateMaybeMessage<::private_computing::GetStatusResponse>(Arena*);
+template<> ::private_computing::SaveStatusRequest* Arena::CreateMaybeMessage<::private_computing::SaveStatusRequest>(Arena*);
+template<> ::private_computing::SaveStatusResponse* Arena::CreateMaybeMessage<::private_computing::SaveStatusResponse>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace private_computing {
 
@@ -258,24 +258,24 @@ class ActiveStatus final :
 };
 // -------------------------------------------------------------------
 
-class SaveStatusToPreservedFileRequest final :
-    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:private_computing.SaveStatusToPreservedFileRequest) */ {
+class SaveStatusRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:private_computing.SaveStatusRequest) */ {
  public:
-  inline SaveStatusToPreservedFileRequest() : SaveStatusToPreservedFileRequest(nullptr) {}
-  ~SaveStatusToPreservedFileRequest() override;
-  explicit constexpr SaveStatusToPreservedFileRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline SaveStatusRequest() : SaveStatusRequest(nullptr) {}
+  ~SaveStatusRequest() override;
+  explicit constexpr SaveStatusRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  SaveStatusToPreservedFileRequest(const SaveStatusToPreservedFileRequest& from);
-  SaveStatusToPreservedFileRequest(SaveStatusToPreservedFileRequest&& from) noexcept
-    : SaveStatusToPreservedFileRequest() {
+  SaveStatusRequest(const SaveStatusRequest& from);
+  SaveStatusRequest(SaveStatusRequest&& from) noexcept
+    : SaveStatusRequest() {
     *this = ::std::move(from);
   }
 
-  inline SaveStatusToPreservedFileRequest& operator=(const SaveStatusToPreservedFileRequest& from) {
+  inline SaveStatusRequest& operator=(const SaveStatusRequest& from) {
     CopyFrom(from);
     return *this;
   }
-  inline SaveStatusToPreservedFileRequest& operator=(SaveStatusToPreservedFileRequest&& from) noexcept {
+  inline SaveStatusRequest& operator=(SaveStatusRequest&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -296,20 +296,20 @@ class SaveStatusToPreservedFileRequest final :
     return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const SaveStatusToPreservedFileRequest& default_instance() {
+  static const SaveStatusRequest& default_instance() {
     return *internal_default_instance();
   }
-  static inline const SaveStatusToPreservedFileRequest* internal_default_instance() {
-    return reinterpret_cast<const SaveStatusToPreservedFileRequest*>(
-               &_SaveStatusToPreservedFileRequest_default_instance_);
+  static inline const SaveStatusRequest* internal_default_instance() {
+    return reinterpret_cast<const SaveStatusRequest*>(
+               &_SaveStatusRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     1;
 
-  friend void swap(SaveStatusToPreservedFileRequest& a, SaveStatusToPreservedFileRequest& b) {
+  friend void swap(SaveStatusRequest& a, SaveStatusRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(SaveStatusToPreservedFileRequest* other) {
+  inline void Swap(SaveStatusRequest* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -322,7 +322,7 @@ class SaveStatusToPreservedFileRequest final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(SaveStatusToPreservedFileRequest* other) {
+  void UnsafeArenaSwap(SaveStatusRequest* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -330,12 +330,12 @@ class SaveStatusToPreservedFileRequest final :
 
   // implements Message ----------------------------------------------
 
-  SaveStatusToPreservedFileRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<SaveStatusToPreservedFileRequest>(arena);
+  SaveStatusRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<SaveStatusRequest>(arena);
   }
   void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
-  void CopyFrom(const SaveStatusToPreservedFileRequest& from);
-  void MergeFrom(const SaveStatusToPreservedFileRequest& from);
+  void CopyFrom(const SaveStatusRequest& from);
+  void MergeFrom(const SaveStatusRequest& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
   bool IsInitialized() const final;
 
@@ -349,15 +349,15 @@ class SaveStatusToPreservedFileRequest final :
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const;
-  void InternalSwap(SaveStatusToPreservedFileRequest* other);
+  void InternalSwap(SaveStatusRequest* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "private_computing.SaveStatusToPreservedFileRequest";
+    return "private_computing.SaveStatusRequest";
   }
   protected:
-  explicit SaveStatusToPreservedFileRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit SaveStatusRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   private:
   static void ArenaDtor(void* object);
@@ -391,7 +391,7 @@ class SaveStatusToPreservedFileRequest final :
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::private_computing::ActiveStatus >&
       active_status() const;
 
-  // @@protoc_insertion_point(class_scope:private_computing.SaveStatusToPreservedFileRequest)
+  // @@protoc_insertion_point(class_scope:private_computing.SaveStatusRequest)
  private:
   class _Internal;
 
@@ -404,24 +404,24 @@ class SaveStatusToPreservedFileRequest final :
 };
 // -------------------------------------------------------------------
 
-class SaveStatusToPreservedFileResponse final :
-    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:private_computing.SaveStatusToPreservedFileResponse) */ {
+class SaveStatusResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:private_computing.SaveStatusResponse) */ {
  public:
-  inline SaveStatusToPreservedFileResponse() : SaveStatusToPreservedFileResponse(nullptr) {}
-  ~SaveStatusToPreservedFileResponse() override;
-  explicit constexpr SaveStatusToPreservedFileResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline SaveStatusResponse() : SaveStatusResponse(nullptr) {}
+  ~SaveStatusResponse() override;
+  explicit constexpr SaveStatusResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  SaveStatusToPreservedFileResponse(const SaveStatusToPreservedFileResponse& from);
-  SaveStatusToPreservedFileResponse(SaveStatusToPreservedFileResponse&& from) noexcept
-    : SaveStatusToPreservedFileResponse() {
+  SaveStatusResponse(const SaveStatusResponse& from);
+  SaveStatusResponse(SaveStatusResponse&& from) noexcept
+    : SaveStatusResponse() {
     *this = ::std::move(from);
   }
 
-  inline SaveStatusToPreservedFileResponse& operator=(const SaveStatusToPreservedFileResponse& from) {
+  inline SaveStatusResponse& operator=(const SaveStatusResponse& from) {
     CopyFrom(from);
     return *this;
   }
-  inline SaveStatusToPreservedFileResponse& operator=(SaveStatusToPreservedFileResponse&& from) noexcept {
+  inline SaveStatusResponse& operator=(SaveStatusResponse&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -442,20 +442,20 @@ class SaveStatusToPreservedFileResponse final :
     return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const SaveStatusToPreservedFileResponse& default_instance() {
+  static const SaveStatusResponse& default_instance() {
     return *internal_default_instance();
   }
-  static inline const SaveStatusToPreservedFileResponse* internal_default_instance() {
-    return reinterpret_cast<const SaveStatusToPreservedFileResponse*>(
-               &_SaveStatusToPreservedFileResponse_default_instance_);
+  static inline const SaveStatusResponse* internal_default_instance() {
+    return reinterpret_cast<const SaveStatusResponse*>(
+               &_SaveStatusResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     2;
 
-  friend void swap(SaveStatusToPreservedFileResponse& a, SaveStatusToPreservedFileResponse& b) {
+  friend void swap(SaveStatusResponse& a, SaveStatusResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(SaveStatusToPreservedFileResponse* other) {
+  inline void Swap(SaveStatusResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -468,7 +468,7 @@ class SaveStatusToPreservedFileResponse final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(SaveStatusToPreservedFileResponse* other) {
+  void UnsafeArenaSwap(SaveStatusResponse* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -476,12 +476,12 @@ class SaveStatusToPreservedFileResponse final :
 
   // implements Message ----------------------------------------------
 
-  SaveStatusToPreservedFileResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<SaveStatusToPreservedFileResponse>(arena);
+  SaveStatusResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<SaveStatusResponse>(arena);
   }
   void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
-  void CopyFrom(const SaveStatusToPreservedFileResponse& from);
-  void MergeFrom(const SaveStatusToPreservedFileResponse& from);
+  void CopyFrom(const SaveStatusResponse& from);
+  void MergeFrom(const SaveStatusResponse& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
   bool IsInitialized() const final;
 
@@ -495,15 +495,15 @@ class SaveStatusToPreservedFileResponse final :
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const;
-  void InternalSwap(SaveStatusToPreservedFileResponse* other);
+  void InternalSwap(SaveStatusResponse* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "private_computing.SaveStatusToPreservedFileResponse";
+    return "private_computing.SaveStatusResponse";
   }
   protected:
-  explicit SaveStatusToPreservedFileResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit SaveStatusResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   private:
   static void ArenaDtor(void* object);
@@ -537,7 +537,7 @@ class SaveStatusToPreservedFileResponse final :
   std::string* _internal_mutable_error_message();
   public:
 
-  // @@protoc_insertion_point(class_scope:private_computing.SaveStatusToPreservedFileResponse)
+  // @@protoc_insertion_point(class_scope:private_computing.SaveStatusResponse)
  private:
   class _Internal;
 
@@ -551,24 +551,24 @@ class SaveStatusToPreservedFileResponse final :
 };
 // -------------------------------------------------------------------
 
-class GetStatusFromPreservedFileResponse final :
-    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:private_computing.GetStatusFromPreservedFileResponse) */ {
+class GetStatusResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:private_computing.GetStatusResponse) */ {
  public:
-  inline GetStatusFromPreservedFileResponse() : GetStatusFromPreservedFileResponse(nullptr) {}
-  ~GetStatusFromPreservedFileResponse() override;
-  explicit constexpr GetStatusFromPreservedFileResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline GetStatusResponse() : GetStatusResponse(nullptr) {}
+  ~GetStatusResponse() override;
+  explicit constexpr GetStatusResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  GetStatusFromPreservedFileResponse(const GetStatusFromPreservedFileResponse& from);
-  GetStatusFromPreservedFileResponse(GetStatusFromPreservedFileResponse&& from) noexcept
-    : GetStatusFromPreservedFileResponse() {
+  GetStatusResponse(const GetStatusResponse& from);
+  GetStatusResponse(GetStatusResponse&& from) noexcept
+    : GetStatusResponse() {
     *this = ::std::move(from);
   }
 
-  inline GetStatusFromPreservedFileResponse& operator=(const GetStatusFromPreservedFileResponse& from) {
+  inline GetStatusResponse& operator=(const GetStatusResponse& from) {
     CopyFrom(from);
     return *this;
   }
-  inline GetStatusFromPreservedFileResponse& operator=(GetStatusFromPreservedFileResponse&& from) noexcept {
+  inline GetStatusResponse& operator=(GetStatusResponse&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -589,20 +589,20 @@ class GetStatusFromPreservedFileResponse final :
     return _internal_metadata_.mutable_unknown_fields<std::string>();
   }
 
-  static const GetStatusFromPreservedFileResponse& default_instance() {
+  static const GetStatusResponse& default_instance() {
     return *internal_default_instance();
   }
-  static inline const GetStatusFromPreservedFileResponse* internal_default_instance() {
-    return reinterpret_cast<const GetStatusFromPreservedFileResponse*>(
-               &_GetStatusFromPreservedFileResponse_default_instance_);
+  static inline const GetStatusResponse* internal_default_instance() {
+    return reinterpret_cast<const GetStatusResponse*>(
+               &_GetStatusResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     3;
 
-  friend void swap(GetStatusFromPreservedFileResponse& a, GetStatusFromPreservedFileResponse& b) {
+  friend void swap(GetStatusResponse& a, GetStatusResponse& b) {
     a.Swap(&b);
   }
-  inline void Swap(GetStatusFromPreservedFileResponse* other) {
+  inline void Swap(GetStatusResponse* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -615,7 +615,7 @@ class GetStatusFromPreservedFileResponse final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(GetStatusFromPreservedFileResponse* other) {
+  void UnsafeArenaSwap(GetStatusResponse* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -623,12 +623,12 @@ class GetStatusFromPreservedFileResponse final :
 
   // implements Message ----------------------------------------------
 
-  GetStatusFromPreservedFileResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<GetStatusFromPreservedFileResponse>(arena);
+  GetStatusResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<GetStatusResponse>(arena);
   }
   void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
-  void CopyFrom(const GetStatusFromPreservedFileResponse& from);
-  void MergeFrom(const GetStatusFromPreservedFileResponse& from);
+  void CopyFrom(const GetStatusResponse& from);
+  void MergeFrom(const GetStatusResponse& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
   bool IsInitialized() const final;
 
@@ -642,15 +642,15 @@ class GetStatusFromPreservedFileResponse final :
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const;
-  void InternalSwap(GetStatusFromPreservedFileResponse* other);
+  void InternalSwap(GetStatusResponse* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "private_computing.GetStatusFromPreservedFileResponse";
+    return "private_computing.GetStatusResponse";
   }
   protected:
-  explicit GetStatusFromPreservedFileResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit GetStatusResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   private:
   static void ArenaDtor(void* object);
@@ -703,7 +703,7 @@ class GetStatusFromPreservedFileResponse final :
   std::string* _internal_mutable_error_message();
   public:
 
-  // @@protoc_insertion_point(class_scope:private_computing.GetStatusFromPreservedFileResponse)
+  // @@protoc_insertion_point(class_scope:private_computing.GetStatusResponse)
  private:
   class _Internal;
 
@@ -827,93 +827,93 @@ inline void ActiveStatus::set_allocated_last_ping_utc_date(std::string* last_pin
 
 // -------------------------------------------------------------------
 
-// SaveStatusToPreservedFileRequest
+// SaveStatusRequest
 
 // repeated .private_computing.ActiveStatus active_status = 1;
-inline int SaveStatusToPreservedFileRequest::_internal_active_status_size() const {
+inline int SaveStatusRequest::_internal_active_status_size() const {
   return active_status_.size();
 }
-inline int SaveStatusToPreservedFileRequest::active_status_size() const {
+inline int SaveStatusRequest::active_status_size() const {
   return _internal_active_status_size();
 }
-inline void SaveStatusToPreservedFileRequest::clear_active_status() {
+inline void SaveStatusRequest::clear_active_status() {
   active_status_.Clear();
 }
-inline ::private_computing::ActiveStatus* SaveStatusToPreservedFileRequest::mutable_active_status(int index) {
-  // @@protoc_insertion_point(field_mutable:private_computing.SaveStatusToPreservedFileRequest.active_status)
+inline ::private_computing::ActiveStatus* SaveStatusRequest::mutable_active_status(int index) {
+  // @@protoc_insertion_point(field_mutable:private_computing.SaveStatusRequest.active_status)
   return active_status_.Mutable(index);
 }
 inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::private_computing::ActiveStatus >*
-SaveStatusToPreservedFileRequest::mutable_active_status() {
-  // @@protoc_insertion_point(field_mutable_list:private_computing.SaveStatusToPreservedFileRequest.active_status)
+SaveStatusRequest::mutable_active_status() {
+  // @@protoc_insertion_point(field_mutable_list:private_computing.SaveStatusRequest.active_status)
   return &active_status_;
 }
-inline const ::private_computing::ActiveStatus& SaveStatusToPreservedFileRequest::_internal_active_status(int index) const {
+inline const ::private_computing::ActiveStatus& SaveStatusRequest::_internal_active_status(int index) const {
   return active_status_.Get(index);
 }
-inline const ::private_computing::ActiveStatus& SaveStatusToPreservedFileRequest::active_status(int index) const {
-  // @@protoc_insertion_point(field_get:private_computing.SaveStatusToPreservedFileRequest.active_status)
+inline const ::private_computing::ActiveStatus& SaveStatusRequest::active_status(int index) const {
+  // @@protoc_insertion_point(field_get:private_computing.SaveStatusRequest.active_status)
   return _internal_active_status(index);
 }
-inline ::private_computing::ActiveStatus* SaveStatusToPreservedFileRequest::_internal_add_active_status() {
+inline ::private_computing::ActiveStatus* SaveStatusRequest::_internal_add_active_status() {
   return active_status_.Add();
 }
-inline ::private_computing::ActiveStatus* SaveStatusToPreservedFileRequest::add_active_status() {
+inline ::private_computing::ActiveStatus* SaveStatusRequest::add_active_status() {
   ::private_computing::ActiveStatus* _add = _internal_add_active_status();
-  // @@protoc_insertion_point(field_add:private_computing.SaveStatusToPreservedFileRequest.active_status)
+  // @@protoc_insertion_point(field_add:private_computing.SaveStatusRequest.active_status)
   return _add;
 }
 inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::private_computing::ActiveStatus >&
-SaveStatusToPreservedFileRequest::active_status() const {
-  // @@protoc_insertion_point(field_list:private_computing.SaveStatusToPreservedFileRequest.active_status)
+SaveStatusRequest::active_status() const {
+  // @@protoc_insertion_point(field_list:private_computing.SaveStatusRequest.active_status)
   return active_status_;
 }
 
 // -------------------------------------------------------------------
 
-// SaveStatusToPreservedFileResponse
+// SaveStatusResponse
 
 // optional string error_message = 1;
-inline bool SaveStatusToPreservedFileResponse::_internal_has_error_message() const {
+inline bool SaveStatusResponse::_internal_has_error_message() const {
   bool value = (_has_bits_[0] & 0x00000001u) != 0;
   return value;
 }
-inline bool SaveStatusToPreservedFileResponse::has_error_message() const {
+inline bool SaveStatusResponse::has_error_message() const {
   return _internal_has_error_message();
 }
-inline void SaveStatusToPreservedFileResponse::clear_error_message() {
+inline void SaveStatusResponse::clear_error_message() {
   error_message_.ClearToEmpty();
   _has_bits_[0] &= ~0x00000001u;
 }
-inline const std::string& SaveStatusToPreservedFileResponse::error_message() const {
-  // @@protoc_insertion_point(field_get:private_computing.SaveStatusToPreservedFileResponse.error_message)
+inline const std::string& SaveStatusResponse::error_message() const {
+  // @@protoc_insertion_point(field_get:private_computing.SaveStatusResponse.error_message)
   return _internal_error_message();
 }
 template <typename ArgT0, typename... ArgT>
 inline PROTOBUF_ALWAYS_INLINE
-void SaveStatusToPreservedFileResponse::set_error_message(ArgT0&& arg0, ArgT... args) {
+void SaveStatusResponse::set_error_message(ArgT0&& arg0, ArgT... args) {
  _has_bits_[0] |= 0x00000001u;
  error_message_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:private_computing.SaveStatusToPreservedFileResponse.error_message)
+  // @@protoc_insertion_point(field_set:private_computing.SaveStatusResponse.error_message)
 }
-inline std::string* SaveStatusToPreservedFileResponse::mutable_error_message() {
+inline std::string* SaveStatusResponse::mutable_error_message() {
   std::string* _s = _internal_mutable_error_message();
-  // @@protoc_insertion_point(field_mutable:private_computing.SaveStatusToPreservedFileResponse.error_message)
+  // @@protoc_insertion_point(field_mutable:private_computing.SaveStatusResponse.error_message)
   return _s;
 }
-inline const std::string& SaveStatusToPreservedFileResponse::_internal_error_message() const {
+inline const std::string& SaveStatusResponse::_internal_error_message() const {
   return error_message_.Get();
 }
-inline void SaveStatusToPreservedFileResponse::_internal_set_error_message(const std::string& value) {
+inline void SaveStatusResponse::_internal_set_error_message(const std::string& value) {
   _has_bits_[0] |= 0x00000001u;
   error_message_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
 }
-inline std::string* SaveStatusToPreservedFileResponse::_internal_mutable_error_message() {
+inline std::string* SaveStatusResponse::_internal_mutable_error_message() {
   _has_bits_[0] |= 0x00000001u;
   return error_message_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
 }
-inline std::string* SaveStatusToPreservedFileResponse::release_error_message() {
-  // @@protoc_insertion_point(field_release:private_computing.SaveStatusToPreservedFileResponse.error_message)
+inline std::string* SaveStatusResponse::release_error_message() {
+  // @@protoc_insertion_point(field_release:private_computing.SaveStatusResponse.error_message)
   if (!_internal_has_error_message()) {
     return nullptr;
   }
@@ -926,7 +926,7 @@ inline std::string* SaveStatusToPreservedFileResponse::release_error_message() {
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   return p;
 }
-inline void SaveStatusToPreservedFileResponse::set_allocated_error_message(std::string* error_message) {
+inline void SaveStatusResponse::set_allocated_error_message(std::string* error_message) {
   if (error_message != nullptr) {
     _has_bits_[0] |= 0x00000001u;
   } else {
@@ -939,54 +939,54 @@ inline void SaveStatusToPreservedFileResponse::set_allocated_error_message(std::
     error_message_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:private_computing.SaveStatusToPreservedFileResponse.error_message)
+  // @@protoc_insertion_point(field_set_allocated:private_computing.SaveStatusResponse.error_message)
 }
 
 // -------------------------------------------------------------------
 
-// GetStatusFromPreservedFileResponse
+// GetStatusResponse
 
 // optional string error_message = 1;
-inline bool GetStatusFromPreservedFileResponse::_internal_has_error_message() const {
+inline bool GetStatusResponse::_internal_has_error_message() const {
   bool value = (_has_bits_[0] & 0x00000001u) != 0;
   return value;
 }
-inline bool GetStatusFromPreservedFileResponse::has_error_message() const {
+inline bool GetStatusResponse::has_error_message() const {
   return _internal_has_error_message();
 }
-inline void GetStatusFromPreservedFileResponse::clear_error_message() {
+inline void GetStatusResponse::clear_error_message() {
   error_message_.ClearToEmpty();
   _has_bits_[0] &= ~0x00000001u;
 }
-inline const std::string& GetStatusFromPreservedFileResponse::error_message() const {
-  // @@protoc_insertion_point(field_get:private_computing.GetStatusFromPreservedFileResponse.error_message)
+inline const std::string& GetStatusResponse::error_message() const {
+  // @@protoc_insertion_point(field_get:private_computing.GetStatusResponse.error_message)
   return _internal_error_message();
 }
 template <typename ArgT0, typename... ArgT>
 inline PROTOBUF_ALWAYS_INLINE
-void GetStatusFromPreservedFileResponse::set_error_message(ArgT0&& arg0, ArgT... args) {
+void GetStatusResponse::set_error_message(ArgT0&& arg0, ArgT... args) {
  _has_bits_[0] |= 0x00000001u;
  error_message_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:private_computing.GetStatusFromPreservedFileResponse.error_message)
+  // @@protoc_insertion_point(field_set:private_computing.GetStatusResponse.error_message)
 }
-inline std::string* GetStatusFromPreservedFileResponse::mutable_error_message() {
+inline std::string* GetStatusResponse::mutable_error_message() {
   std::string* _s = _internal_mutable_error_message();
-  // @@protoc_insertion_point(field_mutable:private_computing.GetStatusFromPreservedFileResponse.error_message)
+  // @@protoc_insertion_point(field_mutable:private_computing.GetStatusResponse.error_message)
   return _s;
 }
-inline const std::string& GetStatusFromPreservedFileResponse::_internal_error_message() const {
+inline const std::string& GetStatusResponse::_internal_error_message() const {
   return error_message_.Get();
 }
-inline void GetStatusFromPreservedFileResponse::_internal_set_error_message(const std::string& value) {
+inline void GetStatusResponse::_internal_set_error_message(const std::string& value) {
   _has_bits_[0] |= 0x00000001u;
   error_message_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
 }
-inline std::string* GetStatusFromPreservedFileResponse::_internal_mutable_error_message() {
+inline std::string* GetStatusResponse::_internal_mutable_error_message() {
   _has_bits_[0] |= 0x00000001u;
   return error_message_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
 }
-inline std::string* GetStatusFromPreservedFileResponse::release_error_message() {
-  // @@protoc_insertion_point(field_release:private_computing.GetStatusFromPreservedFileResponse.error_message)
+inline std::string* GetStatusResponse::release_error_message() {
+  // @@protoc_insertion_point(field_release:private_computing.GetStatusResponse.error_message)
   if (!_internal_has_error_message()) {
     return nullptr;
   }
@@ -999,7 +999,7 @@ inline std::string* GetStatusFromPreservedFileResponse::release_error_message() 
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   return p;
 }
-inline void GetStatusFromPreservedFileResponse::set_allocated_error_message(std::string* error_message) {
+inline void GetStatusResponse::set_allocated_error_message(std::string* error_message) {
   if (error_message != nullptr) {
     _has_bits_[0] |= 0x00000001u;
   } else {
@@ -1012,46 +1012,46 @@ inline void GetStatusFromPreservedFileResponse::set_allocated_error_message(std:
     error_message_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:private_computing.GetStatusFromPreservedFileResponse.error_message)
+  // @@protoc_insertion_point(field_set_allocated:private_computing.GetStatusResponse.error_message)
 }
 
 // repeated .private_computing.ActiveStatus active_status = 2;
-inline int GetStatusFromPreservedFileResponse::_internal_active_status_size() const {
+inline int GetStatusResponse::_internal_active_status_size() const {
   return active_status_.size();
 }
-inline int GetStatusFromPreservedFileResponse::active_status_size() const {
+inline int GetStatusResponse::active_status_size() const {
   return _internal_active_status_size();
 }
-inline void GetStatusFromPreservedFileResponse::clear_active_status() {
+inline void GetStatusResponse::clear_active_status() {
   active_status_.Clear();
 }
-inline ::private_computing::ActiveStatus* GetStatusFromPreservedFileResponse::mutable_active_status(int index) {
-  // @@protoc_insertion_point(field_mutable:private_computing.GetStatusFromPreservedFileResponse.active_status)
+inline ::private_computing::ActiveStatus* GetStatusResponse::mutable_active_status(int index) {
+  // @@protoc_insertion_point(field_mutable:private_computing.GetStatusResponse.active_status)
   return active_status_.Mutable(index);
 }
 inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::private_computing::ActiveStatus >*
-GetStatusFromPreservedFileResponse::mutable_active_status() {
-  // @@protoc_insertion_point(field_mutable_list:private_computing.GetStatusFromPreservedFileResponse.active_status)
+GetStatusResponse::mutable_active_status() {
+  // @@protoc_insertion_point(field_mutable_list:private_computing.GetStatusResponse.active_status)
   return &active_status_;
 }
-inline const ::private_computing::ActiveStatus& GetStatusFromPreservedFileResponse::_internal_active_status(int index) const {
+inline const ::private_computing::ActiveStatus& GetStatusResponse::_internal_active_status(int index) const {
   return active_status_.Get(index);
 }
-inline const ::private_computing::ActiveStatus& GetStatusFromPreservedFileResponse::active_status(int index) const {
-  // @@protoc_insertion_point(field_get:private_computing.GetStatusFromPreservedFileResponse.active_status)
+inline const ::private_computing::ActiveStatus& GetStatusResponse::active_status(int index) const {
+  // @@protoc_insertion_point(field_get:private_computing.GetStatusResponse.active_status)
   return _internal_active_status(index);
 }
-inline ::private_computing::ActiveStatus* GetStatusFromPreservedFileResponse::_internal_add_active_status() {
+inline ::private_computing::ActiveStatus* GetStatusResponse::_internal_add_active_status() {
   return active_status_.Add();
 }
-inline ::private_computing::ActiveStatus* GetStatusFromPreservedFileResponse::add_active_status() {
+inline ::private_computing::ActiveStatus* GetStatusResponse::add_active_status() {
   ::private_computing::ActiveStatus* _add = _internal_add_active_status();
-  // @@protoc_insertion_point(field_add:private_computing.GetStatusFromPreservedFileResponse.active_status)
+  // @@protoc_insertion_point(field_add:private_computing.GetStatusResponse.active_status)
   return _add;
 }
 inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::private_computing::ActiveStatus >&
-GetStatusFromPreservedFileResponse::active_status() const {
-  // @@protoc_insertion_point(field_list:private_computing.GetStatusFromPreservedFileResponse.active_status)
+GetStatusResponse::active_status() const {
+  // @@protoc_insertion_point(field_list:private_computing.GetStatusResponse.active_status)
   return active_status_;
 }
 
