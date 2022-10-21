@@ -80,16 +80,18 @@ bool RecoveryError_IsValid(int value) {
     case 2:
     case 3:
     case 4:
+    case 5:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> RecoveryError_strings[5] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> RecoveryError_strings[6] = {};
 
 static const char RecoveryError_names[] =
   "RECOVERY_ERROR_AUTH"
+  "RECOVERY_ERROR_AUTH_EXPIRED"
   "RECOVERY_ERROR_EPOCH"
   "RECOVERY_ERROR_FATAL"
   "RECOVERY_ERROR_TRANSIENT"
@@ -97,18 +99,20 @@ static const char RecoveryError_names[] =
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry RecoveryError_entries[] = {
   { {RecoveryError_names + 0, 19}, 3 },
-  { {RecoveryError_names + 19, 20}, 4 },
-  { {RecoveryError_names + 39, 20}, 1 },
-  { {RecoveryError_names + 59, 24}, 2 },
-  { {RecoveryError_names + 83, 26}, 0 },
+  { {RecoveryError_names + 19, 27}, 5 },
+  { {RecoveryError_names + 46, 20}, 4 },
+  { {RecoveryError_names + 66, 20}, 1 },
+  { {RecoveryError_names + 86, 24}, 2 },
+  { {RecoveryError_names + 110, 26}, 0 },
 };
 
 static const int RecoveryError_entries_by_number[] = {
-  4, // 0 -> RECOVERY_ERROR_UNSPECIFIED
-  2, // 1 -> RECOVERY_ERROR_FATAL
-  3, // 2 -> RECOVERY_ERROR_TRANSIENT
+  5, // 0 -> RECOVERY_ERROR_UNSPECIFIED
+  3, // 1 -> RECOVERY_ERROR_FATAL
+  4, // 2 -> RECOVERY_ERROR_TRANSIENT
   0, // 3 -> RECOVERY_ERROR_AUTH
-  1, // 4 -> RECOVERY_ERROR_EPOCH
+  2, // 4 -> RECOVERY_ERROR_EPOCH
+  1, // 5 -> RECOVERY_ERROR_AUTH_EXPIRED
 };
 
 const std::string& RecoveryError_Name(
@@ -117,12 +121,12 @@ const std::string& RecoveryError_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           RecoveryError_entries,
           RecoveryError_entries_by_number,
-          5, RecoveryError_strings);
+          6, RecoveryError_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       RecoveryError_entries,
       RecoveryError_entries_by_number,
-      5, value);
+      6, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      RecoveryError_strings[idx].get();
 }
@@ -130,7 +134,7 @@ bool RecoveryError_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, RecoveryError* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      RecoveryError_entries, 5, name, &int_value);
+      RecoveryError_entries, 6, name, &int_value);
   if (success) {
     *value = static_cast<RecoveryError>(int_value);
   }

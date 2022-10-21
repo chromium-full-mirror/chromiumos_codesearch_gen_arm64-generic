@@ -81,11 +81,12 @@ enum RecoveryError : int {
   RECOVERY_ERROR_FATAL = 1,
   RECOVERY_ERROR_TRANSIENT = 2,
   RECOVERY_ERROR_AUTH = 3,
-  RECOVERY_ERROR_EPOCH = 4
+  RECOVERY_ERROR_EPOCH = 4,
+  RECOVERY_ERROR_AUTH_EXPIRED = 5
 };
 bool RecoveryError_IsValid(int value);
 constexpr RecoveryError RecoveryError_MIN = RECOVERY_ERROR_UNSPECIFIED;
-constexpr RecoveryError RecoveryError_MAX = RECOVERY_ERROR_EPOCH;
+constexpr RecoveryError RecoveryError_MAX = RECOVERY_ERROR_AUTH_EXPIRED;
 constexpr int RecoveryError_ARRAYSIZE = RecoveryError_MAX + 1;
 
 const std::string& RecoveryError_Name(RecoveryError value);
