@@ -20,6 +20,10 @@ namespace pbzero {
 
 class AndroidActivity;
 class AndroidView;
+class BlinkExecutionContext;
+class BlinkHighEntropyAPI_CalledJsApi;
+class BlinkHighEntropyAPI_JSFunctionArgument;
+class BlinkSourceLocation;
 class BrowsingContextState;
 class ChromeBrowserContext;
 class FrameTreeNodeInfo;
@@ -44,6 +48,14 @@ namespace perfetto_pbzero_enum_BackForwardCacheCanStoreDocumentResult {
 enum BackForwardCacheNotRestoredReason : int32_t;
 }  // namespace perfetto_pbzero_enum_BackForwardCacheCanStoreDocumentResult
 using BackForwardCacheCanStoreDocumentResult_BackForwardCacheNotRestoredReason = perfetto_pbzero_enum_BackForwardCacheCanStoreDocumentResult::BackForwardCacheNotRestoredReason;
+namespace perfetto_pbzero_enum_BlinkExecutionContext {
+enum ContextType : int32_t;
+}  // namespace perfetto_pbzero_enum_BlinkExecutionContext
+using BlinkExecutionContext_ContextType = perfetto_pbzero_enum_BlinkExecutionContext::ContextType;
+namespace perfetto_pbzero_enum_BlinkHighEntropyAPI_JSFunctionArgument {
+enum ArgumentType : int32_t;
+}  // namespace perfetto_pbzero_enum_BlinkHighEntropyAPI_JSFunctionArgument
+using BlinkHighEntropyAPI_JSFunctionArgument_ArgumentType = perfetto_pbzero_enum_BlinkHighEntropyAPI_JSFunctionArgument::ArgumentType;
 namespace perfetto_pbzero_enum_BlinkTaskScope {
 enum TaskScopeType : int32_t;
 }  // namespace perfetto_pbzero_enum_BlinkTaskScope
@@ -313,6 +325,104 @@ const char* DeviceThermalState_Name(::perfetto::protos::pbzero::DeviceThermalSta
 
   case ::perfetto::protos::pbzero::DeviceThermalState::DEVICE_THERMAL_STATE_CRITICAL:
     return "DEVICE_THERMAL_STATE_CRITICAL";
+  }
+  return "PBZERO_UNKNOWN_ENUM_VALUE";
+}
+
+namespace perfetto_pbzero_enum_BlinkHighEntropyAPI_JSFunctionArgument {
+enum ArgumentType : int32_t {
+  UNKNOWN_TYPE = 0,
+  NULL_TYPE = 1,
+  UNDEFINED = 2,
+  BIGINT = 3,
+  BOOLEAN = 4,
+  FUNCTION = 5,
+  NUMBER = 6,
+  STRING = 7,
+  SYMBOL = 8,
+  OBJECT = 9,
+};
+} // namespace perfetto_pbzero_enum_BlinkHighEntropyAPI_JSFunctionArgument
+using BlinkHighEntropyAPI_JSFunctionArgument_ArgumentType = perfetto_pbzero_enum_BlinkHighEntropyAPI_JSFunctionArgument::ArgumentType;
+
+
+constexpr BlinkHighEntropyAPI_JSFunctionArgument_ArgumentType BlinkHighEntropyAPI_JSFunctionArgument_ArgumentType_MIN = BlinkHighEntropyAPI_JSFunctionArgument_ArgumentType::UNKNOWN_TYPE;
+constexpr BlinkHighEntropyAPI_JSFunctionArgument_ArgumentType BlinkHighEntropyAPI_JSFunctionArgument_ArgumentType_MAX = BlinkHighEntropyAPI_JSFunctionArgument_ArgumentType::OBJECT;
+
+
+PERFETTO_PROTOZERO_CONSTEXPR14_OR_INLINE
+const char* BlinkHighEntropyAPI_JSFunctionArgument_ArgumentType_Name(::perfetto::protos::pbzero::BlinkHighEntropyAPI_JSFunctionArgument_ArgumentType value) {
+  switch (value) {
+  case ::perfetto::protos::pbzero::BlinkHighEntropyAPI_JSFunctionArgument_ArgumentType::UNKNOWN_TYPE:
+    return "UNKNOWN_TYPE";
+
+  case ::perfetto::protos::pbzero::BlinkHighEntropyAPI_JSFunctionArgument_ArgumentType::NULL_TYPE:
+    return "NULL_TYPE";
+
+  case ::perfetto::protos::pbzero::BlinkHighEntropyAPI_JSFunctionArgument_ArgumentType::UNDEFINED:
+    return "UNDEFINED";
+
+  case ::perfetto::protos::pbzero::BlinkHighEntropyAPI_JSFunctionArgument_ArgumentType::BIGINT:
+    return "BIGINT";
+
+  case ::perfetto::protos::pbzero::BlinkHighEntropyAPI_JSFunctionArgument_ArgumentType::BOOLEAN:
+    return "BOOLEAN";
+
+  case ::perfetto::protos::pbzero::BlinkHighEntropyAPI_JSFunctionArgument_ArgumentType::FUNCTION:
+    return "FUNCTION";
+
+  case ::perfetto::protos::pbzero::BlinkHighEntropyAPI_JSFunctionArgument_ArgumentType::NUMBER:
+    return "NUMBER";
+
+  case ::perfetto::protos::pbzero::BlinkHighEntropyAPI_JSFunctionArgument_ArgumentType::STRING:
+    return "STRING";
+
+  case ::perfetto::protos::pbzero::BlinkHighEntropyAPI_JSFunctionArgument_ArgumentType::SYMBOL:
+    return "SYMBOL";
+
+  case ::perfetto::protos::pbzero::BlinkHighEntropyAPI_JSFunctionArgument_ArgumentType::OBJECT:
+    return "OBJECT";
+  }
+  return "PBZERO_UNKNOWN_ENUM_VALUE";
+}
+
+namespace perfetto_pbzero_enum_BlinkExecutionContext {
+enum ContextType : int32_t {
+  UNKNOWN_CONTEXT = 0,
+  WINDOW = 1,
+  WORKLET = 2,
+  DEDICATED_WORKER = 3,
+  SHARED_WORKER = 4,
+  SERVICE_WORKER = 5,
+};
+} // namespace perfetto_pbzero_enum_BlinkExecutionContext
+using BlinkExecutionContext_ContextType = perfetto_pbzero_enum_BlinkExecutionContext::ContextType;
+
+
+constexpr BlinkExecutionContext_ContextType BlinkExecutionContext_ContextType_MIN = BlinkExecutionContext_ContextType::UNKNOWN_CONTEXT;
+constexpr BlinkExecutionContext_ContextType BlinkExecutionContext_ContextType_MAX = BlinkExecutionContext_ContextType::SERVICE_WORKER;
+
+
+PERFETTO_PROTOZERO_CONSTEXPR14_OR_INLINE
+const char* BlinkExecutionContext_ContextType_Name(::perfetto::protos::pbzero::BlinkExecutionContext_ContextType value) {
+  switch (value) {
+  case ::perfetto::protos::pbzero::BlinkExecutionContext_ContextType::UNKNOWN_CONTEXT:
+    return "UNKNOWN_CONTEXT";
+
+  case ::perfetto::protos::pbzero::BlinkExecutionContext_ContextType::WINDOW:
+    return "WINDOW";
+
+  case ::perfetto::protos::pbzero::BlinkExecutionContext_ContextType::WORKLET:
+    return "WORKLET";
+
+  case ::perfetto::protos::pbzero::BlinkExecutionContext_ContextType::DEDICATED_WORKER:
+    return "DEDICATED_WORKER";
+
+  case ::perfetto::protos::pbzero::BlinkExecutionContext_ContextType::SHARED_WORKER:
+    return "SHARED_WORKER";
+
+  case ::perfetto::protos::pbzero::BlinkExecutionContext_ContextType::SERVICE_WORKER:
+    return "SERVICE_WORKER";
   }
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
@@ -1859,6 +1969,588 @@ const char* BlinkTaskScope_TaskScopeType_Name(::perfetto::protos::pbzero::BlinkT
   }
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
+
+class BlinkHighEntropyAPI_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/2, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+ public:
+  BlinkHighEntropyAPI_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
+  explicit BlinkHighEntropyAPI_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
+  explicit BlinkHighEntropyAPI_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
+  bool has_execution_context() const { return at<1>().valid(); }
+  ::protozero::ConstBytes execution_context() const { return at<1>().as_bytes(); }
+  bool has_called_api() const { return at<2>().valid(); }
+  ::protozero::ConstBytes called_api() const { return at<2>().as_bytes(); }
+};
+
+class BlinkHighEntropyAPI : public ::protozero::Message {
+ public:
+  using Decoder = BlinkHighEntropyAPI_Decoder;
+  enum : int32_t {
+    kExecutionContextFieldNumber = 1,
+    kCalledApiFieldNumber = 2,
+  };
+  static constexpr const char* GetName() { return ".perfetto.protos.BlinkHighEntropyAPI"; }
+
+  using JSFunctionArgument = ::perfetto::protos::pbzero::BlinkHighEntropyAPI_JSFunctionArgument;
+  using CalledJsApi = ::perfetto::protos::pbzero::BlinkHighEntropyAPI_CalledJsApi;
+
+  using FieldMetadata_ExecutionContext =
+    ::protozero::proto_utils::FieldMetadata<
+      1,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      BlinkExecutionContext,
+      BlinkHighEntropyAPI>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_ExecutionContext kExecutionContext() { return {}; }
+  template <typename T = BlinkExecutionContext> T* set_execution_context() {
+    return BeginNestedMessage<T>(1);
+  }
+
+
+  using FieldMetadata_CalledApi =
+    ::protozero::proto_utils::FieldMetadata<
+      2,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      BlinkHighEntropyAPI_CalledJsApi,
+      BlinkHighEntropyAPI>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_CalledApi kCalledApi() { return {}; }
+  template <typename T = BlinkHighEntropyAPI_CalledJsApi> T* set_called_api() {
+    return BeginNestedMessage<T>(2);
+  }
+
+};
+
+class BlinkHighEntropyAPI_CalledJsApi_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/3, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
+ public:
+  BlinkHighEntropyAPI_CalledJsApi_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
+  explicit BlinkHighEntropyAPI_CalledJsApi_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
+  explicit BlinkHighEntropyAPI_CalledJsApi_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
+  bool has_identifier() const { return at<1>().valid(); }
+  ::protozero::ConstChars identifier() const { return at<1>().as_string(); }
+  bool has_func_arguments() const { return at<2>().valid(); }
+  ::protozero::RepeatedFieldIterator<::protozero::ConstBytes> func_arguments() const { return GetRepeated<::protozero::ConstBytes>(2); }
+  bool has_source_location() const { return at<3>().valid(); }
+  ::protozero::ConstBytes source_location() const { return at<3>().as_bytes(); }
+};
+
+class BlinkHighEntropyAPI_CalledJsApi : public ::protozero::Message {
+ public:
+  using Decoder = BlinkHighEntropyAPI_CalledJsApi_Decoder;
+  enum : int32_t {
+    kIdentifierFieldNumber = 1,
+    kFuncArgumentsFieldNumber = 2,
+    kSourceLocationFieldNumber = 3,
+  };
+  static constexpr const char* GetName() { return ".perfetto.protos.BlinkHighEntropyAPI.CalledJsApi"; }
+
+
+  using FieldMetadata_Identifier =
+    ::protozero::proto_utils::FieldMetadata<
+      1,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kString,
+      std::string,
+      BlinkHighEntropyAPI_CalledJsApi>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_Identifier kIdentifier() { return {}; }
+  void set_identifier(const char* data, size_t size) {
+    AppendBytes(FieldMetadata_Identifier::kFieldId, data, size);
+  }
+  void set_identifier(::protozero::ConstChars chars) {
+    AppendBytes(FieldMetadata_Identifier::kFieldId, chars.data, chars.size);
+  }
+  void set_identifier(std::string value) {
+    static constexpr uint32_t field_id = FieldMetadata_Identifier::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kString>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_FuncArguments =
+    ::protozero::proto_utils::FieldMetadata<
+      2,
+      ::protozero::proto_utils::RepetitionType::kRepeatedNotPacked,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      BlinkHighEntropyAPI_JSFunctionArgument,
+      BlinkHighEntropyAPI_CalledJsApi>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_FuncArguments kFuncArguments() { return {}; }
+  template <typename T = BlinkHighEntropyAPI_JSFunctionArgument> T* add_func_arguments() {
+    return BeginNestedMessage<T>(2);
+  }
+
+
+  using FieldMetadata_SourceLocation =
+    ::protozero::proto_utils::FieldMetadata<
+      3,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      BlinkSourceLocation,
+      BlinkHighEntropyAPI_CalledJsApi>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_SourceLocation kSourceLocation() { return {}; }
+  template <typename T = BlinkSourceLocation> T* set_source_location() {
+    return BeginNestedMessage<T>(3);
+  }
+
+};
+
+class BlinkHighEntropyAPI_JSFunctionArgument_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/2, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+ public:
+  BlinkHighEntropyAPI_JSFunctionArgument_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
+  explicit BlinkHighEntropyAPI_JSFunctionArgument_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
+  explicit BlinkHighEntropyAPI_JSFunctionArgument_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
+  bool has_type() const { return at<1>().valid(); }
+  int32_t type() const { return at<1>().as_int32(); }
+  bool has_value() const { return at<2>().valid(); }
+  ::protozero::ConstChars value() const { return at<2>().as_string(); }
+};
+
+class BlinkHighEntropyAPI_JSFunctionArgument : public ::protozero::Message {
+ public:
+  using Decoder = BlinkHighEntropyAPI_JSFunctionArgument_Decoder;
+  enum : int32_t {
+    kTypeFieldNumber = 1,
+    kValueFieldNumber = 2,
+  };
+  static constexpr const char* GetName() { return ".perfetto.protos.BlinkHighEntropyAPI.JSFunctionArgument"; }
+
+
+  using ArgumentType = ::perfetto::protos::pbzero::BlinkHighEntropyAPI_JSFunctionArgument_ArgumentType;
+  static inline const char* ArgumentType_Name(ArgumentType value) {
+    return ::perfetto::protos::pbzero::BlinkHighEntropyAPI_JSFunctionArgument_ArgumentType_Name(value);
+  }
+  static const ArgumentType UNKNOWN_TYPE = ArgumentType::UNKNOWN_TYPE;
+  static const ArgumentType NULL_TYPE = ArgumentType::NULL_TYPE;
+  static const ArgumentType UNDEFINED = ArgumentType::UNDEFINED;
+  static const ArgumentType BIGINT = ArgumentType::BIGINT;
+  static const ArgumentType BOOLEAN = ArgumentType::BOOLEAN;
+  static const ArgumentType FUNCTION = ArgumentType::FUNCTION;
+  static const ArgumentType NUMBER = ArgumentType::NUMBER;
+  static const ArgumentType STRING = ArgumentType::STRING;
+  static const ArgumentType SYMBOL = ArgumentType::SYMBOL;
+  static const ArgumentType OBJECT = ArgumentType::OBJECT;
+
+  using FieldMetadata_Type =
+    ::protozero::proto_utils::FieldMetadata<
+      1,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kEnum,
+      ::perfetto::protos::pbzero::BlinkHighEntropyAPI_JSFunctionArgument_ArgumentType,
+      BlinkHighEntropyAPI_JSFunctionArgument>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_Type kType() { return {}; }
+  void set_type(::perfetto::protos::pbzero::BlinkHighEntropyAPI_JSFunctionArgument_ArgumentType value) {
+    static constexpr uint32_t field_id = FieldMetadata_Type::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kEnum>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_Value =
+    ::protozero::proto_utils::FieldMetadata<
+      2,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kString,
+      std::string,
+      BlinkHighEntropyAPI_JSFunctionArgument>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_Value kValue() { return {}; }
+  void set_value(const char* data, size_t size) {
+    AppendBytes(FieldMetadata_Value::kFieldId, data, size);
+  }
+  void set_value(::protozero::ConstChars chars) {
+    AppendBytes(FieldMetadata_Value::kFieldId, chars.data, chars.size);
+  }
+  void set_value(std::string value) {
+    static constexpr uint32_t field_id = FieldMetadata_Value::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kString>
+        ::Append(*this, field_id, value);
+  }
+};
+
+class BlinkSourceLocation_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/6, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+ public:
+  BlinkSourceLocation_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
+  explicit BlinkSourceLocation_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
+  explicit BlinkSourceLocation_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
+  bool has_function_name() const { return at<1>().valid(); }
+  ::protozero::ConstChars function_name() const { return at<1>().as_string(); }
+  bool has_script_id() const { return at<2>().valid(); }
+  int32_t script_id() const { return at<2>().as_int32(); }
+  bool has_url() const { return at<3>().valid(); }
+  ::protozero::ConstChars url() const { return at<3>().as_string(); }
+  bool has_line_number() const { return at<4>().valid(); }
+  int32_t line_number() const { return at<4>().as_int32(); }
+  bool has_column_number() const { return at<5>().valid(); }
+  int32_t column_number() const { return at<5>().as_int32(); }
+  bool has_stack_trace() const { return at<6>().valid(); }
+  ::protozero::ConstChars stack_trace() const { return at<6>().as_string(); }
+};
+
+class BlinkSourceLocation : public ::protozero::Message {
+ public:
+  using Decoder = BlinkSourceLocation_Decoder;
+  enum : int32_t {
+    kFunctionNameFieldNumber = 1,
+    kScriptIdFieldNumber = 2,
+    kUrlFieldNumber = 3,
+    kLineNumberFieldNumber = 4,
+    kColumnNumberFieldNumber = 5,
+    kStackTraceFieldNumber = 6,
+  };
+  static constexpr const char* GetName() { return ".perfetto.protos.BlinkSourceLocation"; }
+
+
+  using FieldMetadata_FunctionName =
+    ::protozero::proto_utils::FieldMetadata<
+      1,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kString,
+      std::string,
+      BlinkSourceLocation>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_FunctionName kFunctionName() { return {}; }
+  void set_function_name(const char* data, size_t size) {
+    AppendBytes(FieldMetadata_FunctionName::kFieldId, data, size);
+  }
+  void set_function_name(::protozero::ConstChars chars) {
+    AppendBytes(FieldMetadata_FunctionName::kFieldId, chars.data, chars.size);
+  }
+  void set_function_name(std::string value) {
+    static constexpr uint32_t field_id = FieldMetadata_FunctionName::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kString>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_ScriptId =
+    ::protozero::proto_utils::FieldMetadata<
+      2,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt32,
+      int32_t,
+      BlinkSourceLocation>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_ScriptId kScriptId() { return {}; }
+  void set_script_id(int32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_ScriptId::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_Url =
+    ::protozero::proto_utils::FieldMetadata<
+      3,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kString,
+      std::string,
+      BlinkSourceLocation>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_Url kUrl() { return {}; }
+  void set_url(const char* data, size_t size) {
+    AppendBytes(FieldMetadata_Url::kFieldId, data, size);
+  }
+  void set_url(::protozero::ConstChars chars) {
+    AppendBytes(FieldMetadata_Url::kFieldId, chars.data, chars.size);
+  }
+  void set_url(std::string value) {
+    static constexpr uint32_t field_id = FieldMetadata_Url::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kString>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_LineNumber =
+    ::protozero::proto_utils::FieldMetadata<
+      4,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt32,
+      int32_t,
+      BlinkSourceLocation>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_LineNumber kLineNumber() { return {}; }
+  void set_line_number(int32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_LineNumber::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_ColumnNumber =
+    ::protozero::proto_utils::FieldMetadata<
+      5,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kInt32,
+      int32_t,
+      BlinkSourceLocation>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_ColumnNumber kColumnNumber() { return {}; }
+  void set_column_number(int32_t value) {
+    static constexpr uint32_t field_id = FieldMetadata_ColumnNumber::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kInt32>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_StackTrace =
+    ::protozero::proto_utils::FieldMetadata<
+      6,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kString,
+      std::string,
+      BlinkSourceLocation>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_StackTrace kStackTrace() { return {}; }
+  void set_stack_trace(const char* data, size_t size) {
+    AppendBytes(FieldMetadata_StackTrace::kFieldId, data, size);
+  }
+  void set_stack_trace(::protozero::ConstChars chars) {
+    AppendBytes(FieldMetadata_StackTrace::kFieldId, chars.data, chars.size);
+  }
+  void set_stack_trace(std::string value) {
+    static constexpr uint32_t field_id = FieldMetadata_StackTrace::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kString>
+        ::Append(*this, field_id, value);
+  }
+};
+
+class BlinkExecutionContext_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/3, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
+ public:
+  BlinkExecutionContext_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
+  explicit BlinkExecutionContext_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
+  explicit BlinkExecutionContext_Decoder(const ::protozero::ConstBytes& raw) : TypedProtoDecoder(raw.data, raw.size) {}
+  bool has_type() const { return at<1>().valid(); }
+  int32_t type() const { return at<1>().as_int32(); }
+  bool has_url() const { return at<2>().valid(); }
+  ::protozero::ConstChars url() const { return at<2>().as_string(); }
+  bool has_origin() const { return at<3>().valid(); }
+  ::protozero::ConstChars origin() const { return at<3>().as_string(); }
+};
+
+class BlinkExecutionContext : public ::protozero::Message {
+ public:
+  using Decoder = BlinkExecutionContext_Decoder;
+  enum : int32_t {
+    kTypeFieldNumber = 1,
+    kUrlFieldNumber = 2,
+    kOriginFieldNumber = 3,
+  };
+  static constexpr const char* GetName() { return ".perfetto.protos.BlinkExecutionContext"; }
+
+
+  using ContextType = ::perfetto::protos::pbzero::BlinkExecutionContext_ContextType;
+  static inline const char* ContextType_Name(ContextType value) {
+    return ::perfetto::protos::pbzero::BlinkExecutionContext_ContextType_Name(value);
+  }
+  static const ContextType UNKNOWN_CONTEXT = ContextType::UNKNOWN_CONTEXT;
+  static const ContextType WINDOW = ContextType::WINDOW;
+  static const ContextType WORKLET = ContextType::WORKLET;
+  static const ContextType DEDICATED_WORKER = ContextType::DEDICATED_WORKER;
+  static const ContextType SHARED_WORKER = ContextType::SHARED_WORKER;
+  static const ContextType SERVICE_WORKER = ContextType::SERVICE_WORKER;
+
+  using FieldMetadata_Type =
+    ::protozero::proto_utils::FieldMetadata<
+      1,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kEnum,
+      ::perfetto::protos::pbzero::BlinkExecutionContext_ContextType,
+      BlinkExecutionContext>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_Type kType() { return {}; }
+  void set_type(::perfetto::protos::pbzero::BlinkExecutionContext_ContextType value) {
+    static constexpr uint32_t field_id = FieldMetadata_Type::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kEnum>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_Url =
+    ::protozero::proto_utils::FieldMetadata<
+      2,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kString,
+      std::string,
+      BlinkExecutionContext>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_Url kUrl() { return {}; }
+  void set_url(const char* data, size_t size) {
+    AppendBytes(FieldMetadata_Url::kFieldId, data, size);
+  }
+  void set_url(::protozero::ConstChars chars) {
+    AppendBytes(FieldMetadata_Url::kFieldId, chars.data, chars.size);
+  }
+  void set_url(std::string value) {
+    static constexpr uint32_t field_id = FieldMetadata_Url::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kString>
+        ::Append(*this, field_id, value);
+  }
+
+  using FieldMetadata_Origin =
+    ::protozero::proto_utils::FieldMetadata<
+      3,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kString,
+      std::string,
+      BlinkExecutionContext>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_Origin kOrigin() { return {}; }
+  void set_origin(const char* data, size_t size) {
+    AppendBytes(FieldMetadata_Origin::kFieldId, data, size);
+  }
+  void set_origin(::protozero::ConstChars chars) {
+    AppendBytes(FieldMetadata_Origin::kFieldId, chars.data, chars.size);
+  }
+  void set_origin(std::string value) {
+    static constexpr uint32_t field_id = FieldMetadata_Origin::kFieldId;
+    // Call the appropriate protozero::Message::Append(field_id, ...)
+    // method based on the type of the field.
+    ::protozero::internal::FieldWriter<
+      ::protozero::proto_utils::ProtoSchemaType::kString>
+        ::Append(*this, field_id, value);
+  }
+};
 
 class UkmPageLoadTimingUpdate_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/5, /*HAS_NONPACKED_REPEATED_FIELDS=*/false> {
  public:
@@ -8905,6 +9597,27 @@ class ChromeTrackEvent : public ::perfetto::protos::pbzero::TrackEvent {
   static constexpr FieldMetadata_UkmPageLoadTimingUpdate kUkmPageLoadTimingUpdate() { return {}; }
   template <typename T = UkmPageLoadTimingUpdate> T* set_ukm_page_load_timing_update() {
     return BeginNestedMessage<T>(1044);
+  }
+
+
+  using FieldMetadata_HighEntropyApi =
+    ::protozero::proto_utils::FieldMetadata<
+      1045,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      BlinkHighEntropyAPI,
+      ChromeTrackEvent>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_HighEntropyApi kHighEntropyApi() { return {}; }
+  template <typename T = BlinkHighEntropyAPI> T* set_high_entropy_api() {
+    return BeginNestedMessage<T>(1045);
   }
 
 };

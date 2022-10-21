@@ -16,7 +16,6 @@
 #  pragma GCC system_header
 #endif
 
-_LIBCPP_DISABLE_DEBUG_INFO
 _LIBCPP_BEGIN_NAMESPACE_STD
 
 // [rand.req.genl]/1.5:
@@ -55,6 +54,5 @@ template<class _Gp> struct __libcpp_random_is_valid_urng<_Gp, __enable_if_t<
 > > : true_type {};
 
 _LIBCPP_END_NAMESPACE_STD
-_LIBCPP_ENABLE_DEBUG_INFO
 
 #endif // _LIBCPP___RANDOM_IS_VALID_H

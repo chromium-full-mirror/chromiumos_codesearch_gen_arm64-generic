@@ -271,7 +271,7 @@ class HEADLESS_EXPORT Domain {
 
   // Specifies whether to always send extra HTTP headers with the requests from this page.
   void SetExtraHTTPHeaders(std::unique_ptr<SetExtraHTTPHeadersParams> params, base::OnceCallback<void(std::unique_ptr<SetExtraHTTPHeadersResult>)> callback = base::OnceCallback<void(std::unique_ptr<SetExtraHTTPHeadersResult>)>());
-  void SetExtraHTTPHeaders(std::unique_ptr<base::DictionaryValue> headers, base::OnceClosure callback = base::OnceClosure());
+  void SetExtraHTTPHeaders(absl::optional<base::Value::Dict> headers, base::OnceClosure callback = base::OnceClosure());
   void SetExtraHTTPHeaders(std::unique_ptr<SetExtraHTTPHeadersParams> params, base::OnceClosure callback);
 
   // Allows overriding user agent with the given string.

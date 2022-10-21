@@ -365,7 +365,7 @@ void Domain::SetExtraHTTPHeaders(std::unique_ptr<SetExtraHTTPHeadersParams> para
   dispatcher_->SendMessage("Network.setExtraHTTPHeaders", params->Serialize(), base::BindOnce(&Domain::HandleSetExtraHTTPHeadersResponse, std::move(callback)));
 }
 
-void Domain::SetExtraHTTPHeaders(std::unique_ptr<base::DictionaryValue> headers, base::OnceClosure callback) {
+void Domain::SetExtraHTTPHeaders(absl::optional<base::Value::Dict> headers, base::OnceClosure callback) {
   std::unique_ptr<SetExtraHTTPHeadersParams> params = SetExtraHTTPHeadersParams::Builder()
       .SetHeaders(std::move(headers))
       .Build();

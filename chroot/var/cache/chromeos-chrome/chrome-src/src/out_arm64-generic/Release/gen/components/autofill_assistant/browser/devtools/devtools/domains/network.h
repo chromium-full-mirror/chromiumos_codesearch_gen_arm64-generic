@@ -288,7 +288,7 @@ base::OnceClosure callback = base::OnceClosure());
 
   // Specifies whether to always send extra HTTP headers with the requests from this page.
   void SetExtraHTTPHeaders(std::unique_ptr<SetExtraHTTPHeadersParams> params, const std::string& optional_node_frame_id, base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<SetExtraHTTPHeadersResult>)> callback = base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<SetExtraHTTPHeadersResult>)>());
-  void SetExtraHTTPHeaders(std::unique_ptr<base::DictionaryValue> headers, const std::string& optional_node_frame_id,
+  void SetExtraHTTPHeaders(absl::optional<base::Value::Dict> headers, const std::string& optional_node_frame_id,
 base::OnceClosure callback = base::OnceClosure());
   void SetExtraHTTPHeaders(std::unique_ptr<SetExtraHTTPHeadersParams> params, const std::string& optional_node_frame_id, base::OnceClosure callback);
 
