@@ -647,12 +647,13 @@ enum RmadErrorCode : int {
   RMAD_ERROR_CANNOT_WRITE = 42,
   RMAD_ERROR_CANNOT_SAVE_LOG = 43,
   RMAD_ERROR_CANNOT_RECORD_BROWSER_ACTION = 44,
+  RMAD_ERROR_USB_NOT_FOUND = 45,
   RmadErrorCode_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   RmadErrorCode_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool RmadErrorCode_IsValid(int value);
 constexpr RmadErrorCode RmadErrorCode_MIN = RMAD_ERROR_NOT_SET;
-constexpr RmadErrorCode RmadErrorCode_MAX = RMAD_ERROR_CANNOT_RECORD_BROWSER_ACTION;
+constexpr RmadErrorCode RmadErrorCode_MAX = RMAD_ERROR_USB_NOT_FOUND;
 constexpr int RmadErrorCode_ARRAYSIZE = RmadErrorCode_MAX + 1;
 
 const std::string& RmadErrorCode_Name(RmadErrorCode value);

@@ -1757,13 +1757,14 @@ bool RmadErrorCode_IsValid(int value) {
     case 42:
     case 43:
     case 44:
+    case 45:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> RmadErrorCode_strings[45] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> RmadErrorCode_strings[46] = {};
 
 static const char RmadErrorCode_names[] =
   "RMAD_ERROR_ABORT_FAILED"
@@ -1805,6 +1806,7 @@ static const char RmadErrorCode_names[] =
   "RMAD_ERROR_STATE_HANDLER_MISSING"
   "RMAD_ERROR_TRANSITION_FAILED"
   "RMAD_ERROR_UPDATE_RO_FIRMWARE_FAILED"
+  "RMAD_ERROR_USB_NOT_FOUND"
   "RMAD_ERROR_WAIT"
   "RMAD_ERROR_WP_ENABLED"
   "RMAD_ERROR_WRITE_PROTECT_DISABLE_BATTERY_NOT_DISCONNECTED"
@@ -1852,18 +1854,19 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry RmadErrorCode_entries[
   { {RmadErrorCode_names + 1189, 32}, 6 },
   { {RmadErrorCode_names + 1221, 28}, 11 },
   { {RmadErrorCode_names + 1249, 36}, 40 },
-  { {RmadErrorCode_names + 1285, 15}, 2 },
-  { {RmadErrorCode_names + 1300, 21}, 41 },
-  { {RmadErrorCode_names + 1321, 57}, 16 },
-  { {RmadErrorCode_names + 1378, 49}, 15 },
-  { {RmadErrorCode_names + 1427, 49}, 14 },
-  { {RmadErrorCode_names + 1476, 52}, 17 },
+  { {RmadErrorCode_names + 1285, 24}, 45 },
+  { {RmadErrorCode_names + 1309, 15}, 2 },
+  { {RmadErrorCode_names + 1324, 21}, 41 },
+  { {RmadErrorCode_names + 1345, 57}, 16 },
+  { {RmadErrorCode_names + 1402, 49}, 15 },
+  { {RmadErrorCode_names + 1451, 49}, 14 },
+  { {RmadErrorCode_names + 1500, 52}, 17 },
 };
 
 static const int RmadErrorCode_entries_by_number[] = {
   19, // 0 -> RMAD_ERROR_NOT_SET
   20, // 1 -> RMAD_ERROR_OK
-  39, // 2 -> RMAD_ERROR_WAIT
+  40, // 2 -> RMAD_ERROR_WAIT
   12, // 3 -> RMAD_ERROR_EXPECT_REBOOT
   13, // 4 -> RMAD_ERROR_EXPECT_SHUTDOWN
   34, // 5 -> RMAD_ERROR_RMA_NOT_REQUIRED
@@ -1875,10 +1878,10 @@ static const int RmadErrorCode_entries_by_number[] = {
   37, // 11 -> RMAD_ERROR_TRANSITION_FAILED
   0, // 12 -> RMAD_ERROR_ABORT_FAILED
   18, // 13 -> RMAD_ERROR_MISSING_COMPONENT
-  43, // 14 -> RMAD_ERROR_WRITE_PROTECT_DISABLE_RSU_NO_CHALLENGE
-  42, // 15 -> RMAD_ERROR_WRITE_PROTECT_DISABLE_RSU_CODE_INVALID
-  41, // 16 -> RMAD_ERROR_WRITE_PROTECT_DISABLE_BATTERY_NOT_DISCONNECTED
-  44, // 17 -> RMAD_ERROR_WRITE_PROTECT_DISABLE_SIGNAL_NOT_DETECTED
+  44, // 14 -> RMAD_ERROR_WRITE_PROTECT_DISABLE_RSU_NO_CHALLENGE
+  43, // 15 -> RMAD_ERROR_WRITE_PROTECT_DISABLE_RSU_CODE_INVALID
+  42, // 16 -> RMAD_ERROR_WRITE_PROTECT_DISABLE_BATTERY_NOT_DISCONNECTED
+  45, // 17 -> RMAD_ERROR_WRITE_PROTECT_DISABLE_SIGNAL_NOT_DETECTED
   25, // 18 -> RMAD_ERROR_REIMAGING_DOWNLOAD_NO_NETWORK
   24, // 19 -> RMAD_ERROR_REIMAGING_DOWNLOAD_NETWORK_ERROR
   23, // 20 -> RMAD_ERROR_REIMAGING_DOWNLOAD_CANCELLED
@@ -1902,10 +1905,11 @@ static const int RmadErrorCode_entries_by_number[] = {
   6, // 38 -> RMAD_ERROR_CANNOT_GET_LOG
   10, // 39 -> RMAD_ERROR_DAEMON_INITIALIZATION_FAILED
   38, // 40 -> RMAD_ERROR_UPDATE_RO_FIRMWARE_FAILED
-  40, // 41 -> RMAD_ERROR_WP_ENABLED
+  41, // 41 -> RMAD_ERROR_WP_ENABLED
   9, // 42 -> RMAD_ERROR_CANNOT_WRITE
   8, // 43 -> RMAD_ERROR_CANNOT_SAVE_LOG
   7, // 44 -> RMAD_ERROR_CANNOT_RECORD_BROWSER_ACTION
+  39, // 45 -> RMAD_ERROR_USB_NOT_FOUND
 };
 
 const std::string& RmadErrorCode_Name(
@@ -1914,12 +1918,12 @@ const std::string& RmadErrorCode_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           RmadErrorCode_entries,
           RmadErrorCode_entries_by_number,
-          45, RmadErrorCode_strings);
+          46, RmadErrorCode_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       RmadErrorCode_entries,
       RmadErrorCode_entries_by_number,
-      45, value);
+      46, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      RmadErrorCode_strings[idx].get();
 }
@@ -1927,7 +1931,7 @@ bool RmadErrorCode_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, RmadErrorCode* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      RmadErrorCode_entries, 45, name, &int_value);
+      RmadErrorCode_entries, 46, name, &int_value);
   if (success) {
     *value = static_cast<RmadErrorCode>(int_value);
   }
