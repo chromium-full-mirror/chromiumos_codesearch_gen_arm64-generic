@@ -175,6 +175,14 @@ std::string GetProtoDebugStringWithIndent(
                           .c_str());
   output += "\n";
 
+  output += indent + "  user_gaia_id: ";
+  base::StringAppendF(&output, "%s", value.user_gaia_id().c_str());
+  output += "\n";
+
+  output += indent + "  device_user_id: ";
+  base::StringAppendF(&output, "%s", value.device_user_id().c_str());
+  output += "\n";
+
   output += indent + "  epoch_response: ";
   base::StringAppendF(&output, "%s",
                       base::HexEncode(value.epoch_response().data(),
