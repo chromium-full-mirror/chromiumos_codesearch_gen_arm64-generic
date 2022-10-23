@@ -11,19 +11,20 @@
 #define _LIBCPP___MEMORY_RAW_STORAGE_ITERATOR_H
 
 #include <__config>
+#include <__iterator/iterator.h>
+#include <__iterator/iterator_traits.h>
 #include <__memory/addressof.h>
 #include <__utility/move.h>
 #include <cstddef>
-#include <iterator>
 
 #if !defined(_LIBCPP_HAS_NO_PRAGMA_SYSTEM_HEADER)
 #  pragma GCC system_header
 #endif
 
-_LIBCPP_DISABLE_DEBUG_INFO
 _LIBCPP_BEGIN_NAMESPACE_STD
 
 #if _LIBCPP_STD_VER <= 17 || defined(_LIBCPP_ENABLE_CXX20_REMOVED_RAW_STORAGE_ITERATOR)
+_LIBCPP_DISABLE_DEBUG_INFO
 
 _LIBCPP_SUPPRESS_DEPRECATED_PUSH
 template <class _OutputIterator, class _Tp>
@@ -62,9 +63,9 @@ public:
 #endif
 };
 
+_LIBCPP_ENABLE_DEBUG_INFO
 #endif // _LIBCPP_STD_VER <= 17 || defined(_LIBCPP_ENABLE_CXX20_REMOVED_RAW_STORAGE_ITERATOR)
 
 _LIBCPP_END_NAMESPACE_STD
-_LIBCPP_ENABLE_DEBUG_INFO
 
 #endif // _LIBCPP___MEMORY_RAW_STORAGE_ITERATOR_H
