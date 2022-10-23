@@ -31,10 +31,13 @@ class  VideoDecoderAsyncWaiter {
   ~VideoDecoderAsyncWaiter();
   void Initialize(
       VideoDecoderConfigPtr config, ::mojo::PendingRemote<VideoDecoderClient> client, ::mojo::PendingAssociatedReceiver<::arc::mojom::VideoFramePool> video_frame_pool, DecoderStatus* out_status);
+  DecoderStatus Initialize(VideoDecoderConfigPtr config, ::mojo::PendingRemote<VideoDecoderClient> client, ::mojo::PendingAssociatedReceiver<::arc::mojom::VideoFramePool> video_frame_pool);
   void Decode(
       DecoderBufferPtr buffer, DecoderStatus* out_status);
+  DecoderStatus Decode(DecoderBufferPtr buffer);
   void Reset(
       );
+  
 
  private:
   VideoDecoder* const proxy_;

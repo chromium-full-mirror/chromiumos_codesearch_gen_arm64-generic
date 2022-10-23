@@ -29,6 +29,7 @@ class  FooAsyncWaiter {
   ~FooAsyncWaiter();
   void Ping(
       );
+  
 
  private:
   Foo* const proxy_;

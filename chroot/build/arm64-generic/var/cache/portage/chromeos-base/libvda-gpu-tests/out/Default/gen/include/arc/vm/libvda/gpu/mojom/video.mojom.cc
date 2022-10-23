@@ -1154,6 +1154,9 @@ void VideoHostAsyncWaiter::OnBootstrapVideoAcceleratorFactory(
 
 
 
+
+
+
 void VideoInstanceInterceptorForTesting::Init(::mojo::PendingRemote<VideoHost> host_remote, InitCallback callback) {
   GetForwardingInterface()->Init(std::move(host_remote), std::move(callback));
 }
@@ -1173,6 +1176,9 @@ void VideoInstanceAsyncWaiter::Init(
           &loop));
   loop.Run();
 }
+
+
+
 
 
 

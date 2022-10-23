@@ -1123,6 +1123,14 @@ void HandwritingRecognizerAsyncWaiter::Recognize(
   loop.Run();
 }
 
+HandwritingRecognizerResultPtr HandwritingRecognizerAsyncWaiter::Recognize(
+    HandwritingRecognitionQueryPtr query) {
+  HandwritingRecognizerResultPtr async_wait_result;
+  Recognize(std::move(query),&async_wait_result);
+  return async_wait_result;
+}
+
+
 
 
 

@@ -3757,6 +3757,14 @@ void Camera3DeviceOpsAsyncWaiter::Initialize(
           out_result));
   loop.Run();
 }
+
+int32_t Camera3DeviceOpsAsyncWaiter::Initialize(
+    ::mojo::PendingRemote<Camera3CallbackOps> callback_ops) {
+  int32_t async_wait_result;
+  Initialize(std::move(callback_ops),&async_wait_result);
+  return async_wait_result;
+}
+
 void Camera3DeviceOpsAsyncWaiter::ConfigureStreams(
     Camera3StreamConfigurationPtr config, int32_t* out_result, Camera3StreamConfigurationPtr* out_updated_config) {
   base::RunLoop loop;
@@ -3776,6 +3784,9 @@ void Camera3DeviceOpsAsyncWaiter::ConfigureStreams(
           out_updated_config));
   loop.Run();
 }
+
+
+
 void Camera3DeviceOpsAsyncWaiter::ConstructDefaultRequestSettings(
     Camera3RequestTemplate type, ::cros::mojom::CameraMetadataPtr* out_settings) {
   base::RunLoop loop;
@@ -3791,6 +3802,14 @@ void Camera3DeviceOpsAsyncWaiter::ConstructDefaultRequestSettings(
           out_settings));
   loop.Run();
 }
+
+::cros::mojom::CameraMetadataPtr Camera3DeviceOpsAsyncWaiter::ConstructDefaultRequestSettings(
+    Camera3RequestTemplate type) {
+  ::cros::mojom::CameraMetadataPtr async_wait_result;
+  ConstructDefaultRequestSettings(std::move(type),&async_wait_result);
+  return async_wait_result;
+}
+
 void Camera3DeviceOpsAsyncWaiter::ProcessCaptureRequest(
     Camera3CaptureRequestPtr request, int32_t* out_result) {
   base::RunLoop loop;
@@ -3806,6 +3825,14 @@ void Camera3DeviceOpsAsyncWaiter::ProcessCaptureRequest(
           out_result));
   loop.Run();
 }
+
+int32_t Camera3DeviceOpsAsyncWaiter::ProcessCaptureRequest(
+    Camera3CaptureRequestPtr request) {
+  int32_t async_wait_result;
+  ProcessCaptureRequest(std::move(request),&async_wait_result);
+  return async_wait_result;
+}
+
 void Camera3DeviceOpsAsyncWaiter::Flush(
     int32_t* out_result) {
   base::RunLoop loop;
@@ -3821,6 +3848,14 @@ void Camera3DeviceOpsAsyncWaiter::Flush(
           out_result));
   loop.Run();
 }
+
+int32_t Camera3DeviceOpsAsyncWaiter::Flush(
+    ) {
+  int32_t async_wait_result;
+  Flush(&async_wait_result);
+  return async_wait_result;
+}
+
 void Camera3DeviceOpsAsyncWaiter::RegisterBuffer(
     uint64_t buffer_id, Camera3DeviceOps::BufferType type, std::vector<::mojo::ScopedHandle> fds, uint32_t drm_format, HalPixelFormat hal_pixel_format, uint32_t width, uint32_t height, const std::vector<uint32_t>& strides, const std::vector<uint32_t>& offsets, int32_t* out_result) {
   base::RunLoop loop;
@@ -3836,6 +3871,14 @@ void Camera3DeviceOpsAsyncWaiter::RegisterBuffer(
           out_result));
   loop.Run();
 }
+
+int32_t Camera3DeviceOpsAsyncWaiter::RegisterBuffer(
+    uint64_t buffer_id, Camera3DeviceOps::BufferType type, std::vector<::mojo::ScopedHandle> fds, uint32_t drm_format, HalPixelFormat hal_pixel_format, uint32_t width, uint32_t height, const std::vector<uint32_t>& strides, const std::vector<uint32_t>& offsets) {
+  int32_t async_wait_result;
+  RegisterBuffer(std::move(buffer_id),std::move(type),std::move(fds),std::move(drm_format),std::move(hal_pixel_format),std::move(width),std::move(height),std::move(strides),std::move(offsets),&async_wait_result);
+  return async_wait_result;
+}
+
 void Camera3DeviceOpsAsyncWaiter::Close(
     int32_t* out_result) {
   base::RunLoop loop;
@@ -3851,6 +3894,14 @@ void Camera3DeviceOpsAsyncWaiter::Close(
           out_result));
   loop.Run();
 }
+
+int32_t Camera3DeviceOpsAsyncWaiter::Close(
+    ) {
+  int32_t async_wait_result;
+  Close(&async_wait_result);
+  return async_wait_result;
+}
+
 void Camera3DeviceOpsAsyncWaiter::ConfigureStreamsAndGetAllocatedBuffers(
     Camera3StreamConfigurationPtr config, int32_t* out_result, Camera3StreamConfigurationPtr* out_updated_config, base::flat_map<uint64_t, std::vector<Camera3StreamBufferPtr>>* out_allocated_buffers) {
   base::RunLoop loop;
@@ -3874,6 +3925,9 @@ void Camera3DeviceOpsAsyncWaiter::ConfigureStreamsAndGetAllocatedBuffers(
           out_allocated_buffers));
   loop.Run();
 }
+
+
+
 
 
 

@@ -29,6 +29,7 @@ class  VideoFramePoolAsyncWaiter {
   ~VideoFramePoolAsyncWaiter();
   void AddVideoFrame(
       VideoFramePtr video_frame, bool* out_result);
+  bool AddVideoFrame(VideoFramePtr video_frame);
 
  private:
   VideoFramePool* const proxy_;

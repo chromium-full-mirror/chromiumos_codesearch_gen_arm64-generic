@@ -29,6 +29,7 @@ class  ModelLoaderAsyncWaiter {
   ~ModelLoaderAsyncWaiter();
   void Load(
       ::mojo_base::mojom::BigBufferPtr model_content, LoadModelResult* out_result, ::mojo::PendingRemote<Model>* out_remote, ModelInfoPtr* out_model_info);
+  
 
  private:
   ModelLoader* const proxy_;
@@ -49,6 +50,7 @@ class  ModelAsyncWaiter {
   ~ModelAsyncWaiter();
   void Compute(
       const base::flat_map<std::string, std::vector<uint8_t>>& input_tensors, ComputeResult* out_result, absl::optional<base::flat_map<std::string, std::vector<uint8_t>>>* out_output_tensors);
+  
 
  private:
   Model* const proxy_;

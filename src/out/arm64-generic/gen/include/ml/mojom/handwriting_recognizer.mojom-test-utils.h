@@ -29,6 +29,7 @@ class  HandwritingRecognizerAsyncWaiter {
   ~HandwritingRecognizerAsyncWaiter();
   void Recognize(
       HandwritingRecognitionQueryPtr query, HandwritingRecognizerResultPtr* out_result);
+  HandwritingRecognizerResultPtr Recognize(HandwritingRecognitionQueryPtr query);
 
  private:
   HandwritingRecognizer* const proxy_;

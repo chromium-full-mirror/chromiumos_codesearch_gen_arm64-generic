@@ -783,6 +783,14 @@ void TextSuggesterAsyncWaiter::Suggest(
   loop.Run();
 }
 
+TextSuggesterResultPtr TextSuggesterAsyncWaiter::Suggest(
+    TextSuggesterQueryPtr query) {
+  TextSuggesterResultPtr async_wait_result;
+  Suggest(std::move(query),&async_wait_result);
+  return async_wait_result;
+}
+
+
 
 
 

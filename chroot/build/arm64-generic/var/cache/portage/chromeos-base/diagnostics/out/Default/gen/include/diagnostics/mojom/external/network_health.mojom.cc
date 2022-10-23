@@ -1369,6 +1369,14 @@ void NetworkHealthServiceAsyncWaiter::GetNetworkList(
           out_networks));
   loop.Run();
 }
+
+std::vector<NetworkPtr> NetworkHealthServiceAsyncWaiter::GetNetworkList(
+    ) {
+  std::vector<NetworkPtr> async_wait_result;
+  GetNetworkList(&async_wait_result);
+  return async_wait_result;
+}
+
 void NetworkHealthServiceAsyncWaiter::GetHealthSnapshot(
     NetworkHealthStatePtr* out_state) {
   base::RunLoop loop;
@@ -1384,6 +1392,14 @@ void NetworkHealthServiceAsyncWaiter::GetHealthSnapshot(
           out_state));
   loop.Run();
 }
+
+NetworkHealthStatePtr NetworkHealthServiceAsyncWaiter::GetHealthSnapshot(
+    ) {
+  NetworkHealthStatePtr async_wait_result;
+  GetHealthSnapshot(&async_wait_result);
+  return async_wait_result;
+}
+
 
 
 

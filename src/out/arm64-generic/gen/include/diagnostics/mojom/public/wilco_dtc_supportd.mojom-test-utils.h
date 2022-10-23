@@ -29,6 +29,7 @@ class  WilcoDtcSupportdServiceFactoryAsyncWaiter {
   ~WilcoDtcSupportdServiceFactoryAsyncWaiter();
   void GetService(
       ::mojo::PendingReceiver<WilcoDtcSupportdService> service, ::mojo::PendingRemote<WilcoDtcSupportdClient> client);
+  
 
  private:
   WilcoDtcSupportdServiceFactory* const proxy_;
@@ -50,6 +51,7 @@ class  WilcoDtcSupportdServiceAsyncWaiter {
   ~WilcoDtcSupportdServiceAsyncWaiter();
   void SendUiMessageToWilcoDtc(
       ::mojo::ScopedHandle json_message, ::mojo::ScopedHandle* out_response_json_message);
+  ::mojo::ScopedHandle SendUiMessageToWilcoDtc(::mojo::ScopedHandle json_message);
 
  private:
   WilcoDtcSupportdService* const proxy_;
@@ -75,10 +77,13 @@ class  WilcoDtcSupportdClientAsyncWaiter {
   ~WilcoDtcSupportdClientAsyncWaiter();
   void PerformWebRequest(
       WilcoDtcSupportdWebRequestHttpMethod http_method, ::mojo::ScopedHandle url, std::vector<::mojo::ScopedHandle> headers, ::mojo::ScopedHandle request_body, WilcoDtcSupportdWebRequestStatus* out_status, int32_t* out_http_status, ::mojo::ScopedHandle* out_response_body);
+  
   void SendWilcoDtcMessageToUi(
       ::mojo::ScopedHandle json_message, ::mojo::ScopedHandle* out_response_json_message);
+  ::mojo::ScopedHandle SendWilcoDtcMessageToUi(::mojo::ScopedHandle json_message);
   void GetConfigurationData(
       std::string* out_json_configuration_data);
+  std::string GetConfigurationData();
 
  private:
   WilcoDtcSupportdClient* const proxy_;

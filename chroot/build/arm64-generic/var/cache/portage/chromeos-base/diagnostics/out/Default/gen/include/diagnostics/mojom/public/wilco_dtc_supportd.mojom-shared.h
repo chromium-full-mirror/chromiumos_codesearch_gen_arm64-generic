@@ -26,6 +26,7 @@
 #include "diagnostics/mojom/public/wilco_dtc_supportd.mojom-shared-internal.h"
 #include "diagnostics/mojom/public/cros_healthd.mojom-shared.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
+#include "mojo/public/cpp/system/data_pipe.h"
 
 
 

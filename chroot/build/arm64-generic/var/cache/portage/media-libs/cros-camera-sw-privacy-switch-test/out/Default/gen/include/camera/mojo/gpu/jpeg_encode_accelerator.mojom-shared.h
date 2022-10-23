@@ -26,6 +26,7 @@
 #include "camera/mojo/gpu/jpeg_encode_accelerator.mojom-shared-internal.h"
 #include "camera/mojo/gpu/dmabuf.mojom-shared.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
+#include "mojo/public/cpp/system/data_pipe.h"
 
 
 

@@ -31,8 +31,10 @@ class  SensorServiceAsyncWaiter {
   ~SensorServiceAsyncWaiter();
   void GetDeviceIds(
       DeviceType type, std::vector<int32_t>* out_iio_device_ids);
+  std::vector<int32_t> GetDeviceIds(DeviceType type);
   void GetAllDeviceIds(
       base::flat_map<int32_t, std::vector<DeviceType>>* out_iio_device_ids_types);
+  base::flat_map<int32_t, std::vector<DeviceType>> GetAllDeviceIds();
 
  private:
   SensorService* const proxy_;
@@ -67,24 +69,34 @@ class  SensorDeviceAsyncWaiter {
   ~SensorDeviceAsyncWaiter();
   void GetAttributes(
       const std::vector<std::string>& attr_names, std::vector<absl::optional<std::string>>* out_values);
+  std::vector<absl::optional<std::string>> GetAttributes(const std::vector<std::string>& attr_names);
   void SetFrequency(
       double frequency, double* out_result_freq);
+  double SetFrequency(double frequency);
   void GetAllChannelIds(
       std::vector<std::string>* out_iio_chn_ids);
+  std::vector<std::string> GetAllChannelIds();
   void SetChannelsEnabled(
       const std::vector<int32_t>& iio_chn_indices, bool en, std::vector<int32_t>* out_failed_indices);
+  std::vector<int32_t> SetChannelsEnabled(const std::vector<int32_t>& iio_chn_indices, bool en);
   void GetChannelsEnabled(
       const std::vector<int32_t>& iio_chn_indices, std::vector<bool>* out_enabled);
+  std::vector<bool> GetChannelsEnabled(const std::vector<int32_t>& iio_chn_indices);
   void GetChannelsAttributes(
       const std::vector<int32_t>& iio_chn_indices, const std::string& attr_name, std::vector<absl::optional<std::string>>* out_values);
+  std::vector<absl::optional<std::string>> GetChannelsAttributes(const std::vector<int32_t>& iio_chn_indices, const std::string& attr_name);
   void GetAllEvents(
       std::vector<IioEventPtr>* out_iio_events);
+  std::vector<IioEventPtr> GetAllEvents();
   void SetEventsEnabled(
       const std::vector<int32_t>& iio_event_indices, bool en, std::vector<int32_t>* out_failed_indices);
+  std::vector<int32_t> SetEventsEnabled(const std::vector<int32_t>& iio_event_indices, bool en);
   void GetEventsEnabled(
       const std::vector<int32_t>& iio_event_indices, std::vector<bool>* out_enabled);
+  std::vector<bool> GetEventsEnabled(const std::vector<int32_t>& iio_event_indices);
   void GetEventsAttributes(
       const std::vector<int32_t>& iio_event_indices, const std::string& attr_name, std::vector<absl::optional<std::string>>* out_values);
+  std::vector<absl::optional<std::string>> GetEventsAttributes(const std::vector<int32_t>& iio_event_indices, const std::string& attr_name);
 
  private:
   SensorDevice* const proxy_;

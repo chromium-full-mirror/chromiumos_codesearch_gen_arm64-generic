@@ -50,8 +50,10 @@ class  NetworkHealthServiceAsyncWaiter {
   ~NetworkHealthServiceAsyncWaiter();
   void GetNetworkList(
       std::vector<NetworkPtr>* out_networks);
+  std::vector<NetworkPtr> GetNetworkList();
   void GetHealthSnapshot(
       NetworkHealthStatePtr* out_state);
+  NetworkHealthStatePtr GetHealthSnapshot();
 
  private:
   NetworkHealthService* const proxy_;

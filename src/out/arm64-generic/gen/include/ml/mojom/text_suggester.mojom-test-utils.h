@@ -29,6 +29,7 @@ class  TextSuggesterAsyncWaiter {
   ~TextSuggesterAsyncWaiter();
   void Suggest(
       TextSuggesterQueryPtr query, TextSuggesterResultPtr* out_result);
+  TextSuggesterResultPtr Suggest(TextSuggesterQueryPtr query);
 
  private:
   TextSuggester* const proxy_;

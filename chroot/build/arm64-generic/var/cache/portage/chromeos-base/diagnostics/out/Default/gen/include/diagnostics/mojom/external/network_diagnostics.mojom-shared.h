@@ -26,6 +26,7 @@
 #include "diagnostics/mojom/external/network_diagnostics.mojom-shared-internal.h"
 #include "diagnostics/mojom/external/time.mojom-shared.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
+#include "mojo/public/cpp/system/data_pipe.h"
 
 
 

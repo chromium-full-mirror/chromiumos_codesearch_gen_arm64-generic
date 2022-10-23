@@ -27,6 +27,7 @@
 #include "smbfs/mojom/file_path.mojom-shared.h"
 #include "smbfs/mojom/ip_address.mojom-shared.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
+#include "mojo/public/cpp/system/data_pipe.h"
 
 
 

@@ -27,6 +27,7 @@
 #include "mojo/public/interfaces/bindings/native_struct.mojom-shared.h"
 #include "mojo/public/mojom/base/generic_pending_associated_receiver.mojom-shared.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
+#include "mojo/public/cpp/system/data_pipe.h"
 
 
 

@@ -674,6 +674,14 @@ void GrammarCheckerAsyncWaiter::Check(
   loop.Run();
 }
 
+GrammarCheckerResultPtr GrammarCheckerAsyncWaiter::Check(
+    GrammarCheckerQueryPtr query) {
+  GrammarCheckerResultPtr async_wait_result;
+  Check(std::move(query),&async_wait_result);
+  return async_wait_result;
+}
+
+
 
 
 

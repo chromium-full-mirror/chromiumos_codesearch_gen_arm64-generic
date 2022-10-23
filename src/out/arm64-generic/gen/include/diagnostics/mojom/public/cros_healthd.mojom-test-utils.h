@@ -86,72 +86,106 @@ class  CrosHealthdDiagnosticsServiceAsyncWaiter {
   ~CrosHealthdDiagnosticsServiceAsyncWaiter();
   void GetAvailableRoutines(
       std::vector<::ash::cros_healthd::mojom::DiagnosticRoutineEnum>* out_available_routines);
+  std::vector<::ash::cros_healthd::mojom::DiagnosticRoutineEnum> GetAvailableRoutines();
   void GetRoutineUpdate(
       int32_t id, ::ash::cros_healthd::mojom::DiagnosticRoutineCommandEnum command, bool include_output, ::ash::cros_healthd::mojom::RoutineUpdatePtr* out_routine_update);
+  ::ash::cros_healthd::mojom::RoutineUpdatePtr GetRoutineUpdate(int32_t id, ::ash::cros_healthd::mojom::DiagnosticRoutineCommandEnum command, bool include_output);
   void RunUrandomRoutine(
       ::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunUrandomRoutine(::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds);
   void RunBatteryCapacityRoutine(
       ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunBatteryCapacityRoutine();
   void RunBatteryHealthRoutine(
       ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunBatteryHealthRoutine();
   void RunSmartctlCheckRoutine(
       ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunSmartctlCheckRoutine();
   void RunAcPowerRoutine(
       ::ash::cros_healthd::mojom::AcPowerStatusEnum expected_status, const absl::optional<std::string>& expected_power_type, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunAcPowerRoutine(::ash::cros_healthd::mojom::AcPowerStatusEnum expected_status, const absl::optional<std::string>& expected_power_type);
   void RunCpuCacheRoutine(
       ::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunCpuCacheRoutine(::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds);
   void RunCpuStressRoutine(
       ::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunCpuStressRoutine(::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds);
   void RunFloatingPointAccuracyRoutine(
       ::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunFloatingPointAccuracyRoutine(::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds);
   void DEPRECATED_RunNvmeWearLevelRoutine(
       uint32_t wear_level_threshold, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr DEPRECATED_RunNvmeWearLevelRoutine(uint32_t wear_level_threshold);
   void RunNvmeWearLevelRoutine(
       ::ash::cros_healthd::mojom::NullableUint32Ptr wear_level_threshold, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunNvmeWearLevelRoutine(::ash::cros_healthd::mojom::NullableUint32Ptr wear_level_threshold);
   void RunNvmeSelfTestRoutine(
       ::ash::cros_healthd::mojom::NvmeSelfTestTypeEnum nvme_self_test_type, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunNvmeSelfTestRoutine(::ash::cros_healthd::mojom::NvmeSelfTestTypeEnum nvme_self_test_type);
   void RunDiskReadRoutine(
       ::ash::cros_healthd::mojom::DiskReadRoutineTypeEnum type, uint32_t length_seconds, uint32_t file_size_mb, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunDiskReadRoutine(::ash::cros_healthd::mojom::DiskReadRoutineTypeEnum type, uint32_t length_seconds, uint32_t file_size_mb);
   void RunPrimeSearchRoutine(
       ::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunPrimeSearchRoutine(::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds);
   void RunBatteryDischargeRoutine(
       uint32_t length_seconds, uint32_t maximum_discharge_percent_allowed, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunBatteryDischargeRoutine(uint32_t length_seconds, uint32_t maximum_discharge_percent_allowed);
   void RunBatteryChargeRoutine(
       uint32_t length_seconds, uint32_t minimum_charge_percent_required, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunBatteryChargeRoutine(uint32_t length_seconds, uint32_t minimum_charge_percent_required);
   void RunMemoryRoutine(
       ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunMemoryRoutine();
   void RunLanConnectivityRoutine(
       ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunLanConnectivityRoutine();
   void RunSignalStrengthRoutine(
       ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunSignalStrengthRoutine();
   void RunGatewayCanBePingedRoutine(
       ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunGatewayCanBePingedRoutine();
   void RunHasSecureWiFiConnectionRoutine(
       ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunHasSecureWiFiConnectionRoutine();
   void RunDnsResolverPresentRoutine(
       ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunDnsResolverPresentRoutine();
   void RunDnsLatencyRoutine(
       ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunDnsLatencyRoutine();
   void RunDnsResolutionRoutine(
       ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunDnsResolutionRoutine();
   void RunCaptivePortalRoutine(
       ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunCaptivePortalRoutine();
   void RunHttpFirewallRoutine(
       ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunHttpFirewallRoutine();
   void RunHttpsFirewallRoutine(
       ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunHttpsFirewallRoutine();
   void RunHttpsLatencyRoutine(
       ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunHttpsLatencyRoutine();
   void RunVideoConferencingRoutine(
       const absl::optional<std::string>& stun_server_hostname, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunVideoConferencingRoutine(const absl::optional<std::string>& stun_server_hostname);
   void RunArcHttpRoutine(
       ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunArcHttpRoutine();
   void RunArcPingRoutine(
       ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunArcPingRoutine();
   void RunArcDnsResolutionRoutine(
       ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunArcDnsResolutionRoutine();
   void RunSensitiveSensorRoutine(
       ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunSensitiveSensorRoutine();
 
  private:
   CrosHealthdDiagnosticsService* const proxy_;
@@ -198,10 +232,13 @@ class  CrosHealthdProbeServiceAsyncWaiter {
   ~CrosHealthdProbeServiceAsyncWaiter();
   void ProbeProcessInfo(
       uint32_t process_id, ::ash::cros_healthd::mojom::ProcessResultPtr* out_process_info);
+  ::ash::cros_healthd::mojom::ProcessResultPtr ProbeProcessInfo(uint32_t process_id);
   void ProbeTelemetryInfo(
       const std::vector<::ash::cros_healthd::mojom::ProbeCategoryEnum>& categories, ::ash::cros_healthd::mojom::TelemetryInfoPtr* out_telemetry_info);
+  ::ash::cros_healthd::mojom::TelemetryInfoPtr ProbeTelemetryInfo(const std::vector<::ash::cros_healthd::mojom::ProbeCategoryEnum>& categories);
   void ProbeMultipleProcessInfo(
       const absl::optional<std::vector<uint32_t>>& process_ids, bool ignore_single_process_error, ::ash::cros_healthd::mojom::MultipleProcessResultPtr* out_multiple_process_info);
+  ::ash::cros_healthd::mojom::MultipleProcessResultPtr ProbeMultipleProcessInfo(const absl::optional<std::vector<uint32_t>>& process_ids, bool ignore_single_process_error);
 
  private:
   CrosHealthdProbeService* const proxy_;
@@ -222,6 +259,7 @@ class  CrosHealthdSystemServiceAsyncWaiter {
   ~CrosHealthdSystemServiceAsyncWaiter();
   void GetServiceStatus(
       ServiceStatusPtr* out_response);
+  ServiceStatusPtr GetServiceStatus();
 
  private:
   CrosHealthdSystemService* const proxy_;
@@ -245,6 +283,7 @@ class  WilcoEcServiceControllerAsyncWaiter {
   ~WilcoEcServiceControllerAsyncWaiter();
   void GetEcTelemetry(
       const std::string& payload_string, ::ash::cros_healthd::mojom::GetEcTelemetryResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::GetEcTelemetryResponsePtr GetEcTelemetry(const std::string& payload_string);
 
  private:
   WilcoEcServiceController* const proxy_;

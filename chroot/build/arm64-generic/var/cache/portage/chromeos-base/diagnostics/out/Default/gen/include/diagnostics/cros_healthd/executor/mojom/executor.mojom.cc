@@ -2904,6 +2904,14 @@ void ExecutorAsyncWaiter::GetFanSpeed(
           out_result));
   loop.Run();
 }
+
+ExecutedProcessResultPtr ExecutorAsyncWaiter::GetFanSpeed(
+    ) {
+  ExecutedProcessResultPtr async_wait_result;
+  GetFanSpeed(&async_wait_result);
+  return async_wait_result;
+}
+
 void ExecutorAsyncWaiter::GetInterfaces(
     ExecutedProcessResultPtr* out_result) {
   base::RunLoop loop;
@@ -2919,6 +2927,14 @@ void ExecutorAsyncWaiter::GetInterfaces(
           out_result));
   loop.Run();
 }
+
+ExecutedProcessResultPtr ExecutorAsyncWaiter::GetInterfaces(
+    ) {
+  ExecutedProcessResultPtr async_wait_result;
+  GetInterfaces(&async_wait_result);
+  return async_wait_result;
+}
+
 void ExecutorAsyncWaiter::GetLink(
     const std::string& interface_name, ExecutedProcessResultPtr* out_result) {
   base::RunLoop loop;
@@ -2934,6 +2950,14 @@ void ExecutorAsyncWaiter::GetLink(
           out_result));
   loop.Run();
 }
+
+ExecutedProcessResultPtr ExecutorAsyncWaiter::GetLink(
+    const std::string& interface_name) {
+  ExecutedProcessResultPtr async_wait_result;
+  GetLink(std::move(interface_name),&async_wait_result);
+  return async_wait_result;
+}
+
 void ExecutorAsyncWaiter::GetInfo(
     const std::string& interface_name, ExecutedProcessResultPtr* out_result) {
   base::RunLoop loop;
@@ -2949,6 +2973,14 @@ void ExecutorAsyncWaiter::GetInfo(
           out_result));
   loop.Run();
 }
+
+ExecutedProcessResultPtr ExecutorAsyncWaiter::GetInfo(
+    const std::string& interface_name) {
+  ExecutedProcessResultPtr async_wait_result;
+  GetInfo(std::move(interface_name),&async_wait_result);
+  return async_wait_result;
+}
+
 void ExecutorAsyncWaiter::GetScanDump(
     const std::string& interface_name, ExecutedProcessResultPtr* out_result) {
   base::RunLoop loop;
@@ -2964,6 +2996,14 @@ void ExecutorAsyncWaiter::GetScanDump(
           out_result));
   loop.Run();
 }
+
+ExecutedProcessResultPtr ExecutorAsyncWaiter::GetScanDump(
+    const std::string& interface_name) {
+  ExecutedProcessResultPtr async_wait_result;
+  GetScanDump(std::move(interface_name),&async_wait_result);
+  return async_wait_result;
+}
+
 void ExecutorAsyncWaiter::RunMemtester(
     uint32_t test_mem_kib, ExecutedProcessResultPtr* out_result) {
   base::RunLoop loop;
@@ -2979,6 +3019,14 @@ void ExecutorAsyncWaiter::RunMemtester(
           out_result));
   loop.Run();
 }
+
+ExecutedProcessResultPtr ExecutorAsyncWaiter::RunMemtester(
+    uint32_t test_mem_kib) {
+  ExecutedProcessResultPtr async_wait_result;
+  RunMemtester(std::move(test_mem_kib),&async_wait_result);
+  return async_wait_result;
+}
+
 void ExecutorAsyncWaiter::GetProcessIOContents(
     const std::vector<uint32_t>& pids, base::flat_map<uint32_t, std::string>* out_contents) {
   base::RunLoop loop;
@@ -2994,6 +3042,14 @@ void ExecutorAsyncWaiter::GetProcessIOContents(
           out_contents));
   loop.Run();
 }
+
+base::flat_map<uint32_t, std::string> ExecutorAsyncWaiter::GetProcessIOContents(
+    const std::vector<uint32_t>& pids) {
+  base::flat_map<uint32_t, std::string> async_wait_result;
+  GetProcessIOContents(std::move(pids),&async_wait_result);
+  return async_wait_result;
+}
+
 void ExecutorAsyncWaiter::ReadMsr(
     uint32_t msr_reg, uint32_t cpu_index, ::ash::cros_healthd::mojom::NullableUint64Ptr* out_value) {
   base::RunLoop loop;
@@ -3009,6 +3065,14 @@ void ExecutorAsyncWaiter::ReadMsr(
           out_value));
   loop.Run();
 }
+
+::ash::cros_healthd::mojom::NullableUint64Ptr ExecutorAsyncWaiter::ReadMsr(
+    uint32_t msr_reg, uint32_t cpu_index) {
+  ::ash::cros_healthd::mojom::NullableUint64Ptr async_wait_result;
+  ReadMsr(std::move(msr_reg),std::move(cpu_index),&async_wait_result);
+  return async_wait_result;
+}
+
 void ExecutorAsyncWaiter::GetUEFISecureBootContent(
     std::string* out_contents) {
   base::RunLoop loop;
@@ -3024,6 +3088,14 @@ void ExecutorAsyncWaiter::GetUEFISecureBootContent(
           out_contents));
   loop.Run();
 }
+
+std::string ExecutorAsyncWaiter::GetUEFISecureBootContent(
+    ) {
+  std::string async_wait_result;
+  GetUEFISecureBootContent(&async_wait_result);
+  return async_wait_result;
+}
+
 void ExecutorAsyncWaiter::GetUEFIPlatformSizeContent(
     std::string* out_contents) {
   base::RunLoop loop;
@@ -3039,6 +3111,14 @@ void ExecutorAsyncWaiter::GetUEFIPlatformSizeContent(
           out_contents));
   loop.Run();
 }
+
+std::string ExecutorAsyncWaiter::GetUEFIPlatformSizeContent(
+    ) {
+  std::string async_wait_result;
+  GetUEFIPlatformSizeContent(&async_wait_result);
+  return async_wait_result;
+}
+
 void ExecutorAsyncWaiter::GetLidAngle(
     ExecutedProcessResultPtr* out_result) {
   base::RunLoop loop;
@@ -3054,6 +3134,14 @@ void ExecutorAsyncWaiter::GetLidAngle(
           out_result));
   loop.Run();
 }
+
+ExecutedProcessResultPtr ExecutorAsyncWaiter::GetLidAngle(
+    ) {
+  ExecutedProcessResultPtr async_wait_result;
+  GetLidAngle(&async_wait_result);
+  return async_wait_result;
+}
+
 
 
 

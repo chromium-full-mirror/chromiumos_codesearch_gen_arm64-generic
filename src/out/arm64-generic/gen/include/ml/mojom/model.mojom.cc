@@ -869,6 +869,14 @@ void ModelAsyncWaiter::REMOVED_0(
           out_result));
   loop.Run();
 }
+
+CreateGraphExecutorResult ModelAsyncWaiter::REMOVED_0(
+    ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::GraphExecutor> receiver) {
+  CreateGraphExecutorResult async_wait_result;
+  REMOVED_0(std::move(receiver),&async_wait_result);
+  return async_wait_result;
+}
+
 void ModelAsyncWaiter::CreateGraphExecutor(
     GraphExecutorOptionsPtr options, ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::GraphExecutor> receiver, CreateGraphExecutorResult* out_result) {
   base::RunLoop loop;
@@ -884,6 +892,14 @@ void ModelAsyncWaiter::CreateGraphExecutor(
           out_result));
   loop.Run();
 }
+
+CreateGraphExecutorResult ModelAsyncWaiter::CreateGraphExecutor(
+    GraphExecutorOptionsPtr options, ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::GraphExecutor> receiver) {
+  CreateGraphExecutorResult async_wait_result;
+  CreateGraphExecutor(std::move(options),std::move(receiver),&async_wait_result);
+  return async_wait_result;
+}
+
 
 
 

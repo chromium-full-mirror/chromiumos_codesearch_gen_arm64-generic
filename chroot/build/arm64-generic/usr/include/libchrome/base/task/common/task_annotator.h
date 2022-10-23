@@ -43,11 +43,15 @@ class BASE_EXPORT TaskAnnotator {
 
   // Called to indicate that a task is about to be queued to run in the future,
   // giving one last chance for this TaskAnnotator to add metadata to
-  // |pending_task| before it is moved into the queue. |task_queue_name| must
-  // live for the duration of the process.
+  // |pending_task| before it is moved into the queue.
   void WillQueueTask(perfetto_libchrome::StaticString trace_event_name,
-                     PendingTask* pending_task,
-                     const char* task_queue_name);
+                     PendingTask* pending_task);
+  [[deprecated("unused argument task_queue_name will be "
+               "removed.")]] inline void
+  WillQueueTask(perfetto_libchrome::StaticString trace_event_name,
+                PendingTask *pending_task, const char *) {
+    WillQueueTask(trace_event_name, pending_task);
+  }
 
   // Creates a process-wide unique ID to represent this task in trace events.
   // This will be mangled with a Process ID hash to reduce the likelyhood of

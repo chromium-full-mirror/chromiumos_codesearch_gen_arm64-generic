@@ -731,6 +731,14 @@ void MjpegDecodeAcceleratorAsyncWaiter::Initialize(
           out_success));
   loop.Run();
 }
+
+bool MjpegDecodeAcceleratorAsyncWaiter::Initialize(
+    ) {
+  bool async_wait_result;
+  Initialize(&async_wait_result);
+  return async_wait_result;
+}
+
 void MjpegDecodeAcceleratorAsyncWaiter::DecodeWithDmaBuf(
     int32_t task_id, ::mojo::ScopedHandle src_dmabuf_fd, uint32_t src_size, uint32_t src_offset, ::cros::mojom::DmaBufVideoFramePtr dst_frame, DecodeError* out_error) {
   base::RunLoop loop;
@@ -746,6 +754,14 @@ void MjpegDecodeAcceleratorAsyncWaiter::DecodeWithDmaBuf(
           out_error));
   loop.Run();
 }
+
+DecodeError MjpegDecodeAcceleratorAsyncWaiter::DecodeWithDmaBuf(
+    int32_t task_id, ::mojo::ScopedHandle src_dmabuf_fd, uint32_t src_size, uint32_t src_offset, ::cros::mojom::DmaBufVideoFramePtr dst_frame) {
+  DecodeError async_wait_result;
+  DecodeWithDmaBuf(std::move(task_id),std::move(src_dmabuf_fd),std::move(src_size),std::move(src_offset),std::move(dst_frame),&async_wait_result);
+  return async_wait_result;
+}
+
 
 
 

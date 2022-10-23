@@ -29,6 +29,7 @@
 #include "arc/vm/libvda/gpu/mojom/video_encode_accelerator.mojom-shared.h"
 #include "arc/vm/libvda/gpu/mojom/video_protected_buffer_allocator.mojom-shared.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
+#include "mojo/public/cpp/system/data_pipe.h"
 
 
 

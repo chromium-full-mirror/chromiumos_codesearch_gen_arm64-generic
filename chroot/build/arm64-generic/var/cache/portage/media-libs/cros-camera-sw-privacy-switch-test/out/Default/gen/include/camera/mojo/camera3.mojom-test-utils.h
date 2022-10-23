@@ -55,20 +55,28 @@ class  Camera3DeviceOpsAsyncWaiter {
   ~Camera3DeviceOpsAsyncWaiter();
   void Initialize(
       ::mojo::PendingRemote<Camera3CallbackOps> callback_ops, int32_t* out_result);
+  int32_t Initialize(::mojo::PendingRemote<Camera3CallbackOps> callback_ops);
   void ConfigureStreams(
       Camera3StreamConfigurationPtr config, int32_t* out_result, Camera3StreamConfigurationPtr* out_updated_config);
+  
   void ConstructDefaultRequestSettings(
       Camera3RequestTemplate type, ::cros::mojom::CameraMetadataPtr* out_settings);
+  ::cros::mojom::CameraMetadataPtr ConstructDefaultRequestSettings(Camera3RequestTemplate type);
   void ProcessCaptureRequest(
       Camera3CaptureRequestPtr request, int32_t* out_result);
+  int32_t ProcessCaptureRequest(Camera3CaptureRequestPtr request);
   void Flush(
       int32_t* out_result);
+  int32_t Flush();
   void RegisterBuffer(
       uint64_t buffer_id, Camera3DeviceOps::BufferType type, std::vector<::mojo::ScopedHandle> fds, uint32_t drm_format, HalPixelFormat hal_pixel_format, uint32_t width, uint32_t height, const std::vector<uint32_t>& strides, const std::vector<uint32_t>& offsets, int32_t* out_result);
+  int32_t RegisterBuffer(uint64_t buffer_id, Camera3DeviceOps::BufferType type, std::vector<::mojo::ScopedHandle> fds, uint32_t drm_format, HalPixelFormat hal_pixel_format, uint32_t width, uint32_t height, const std::vector<uint32_t>& strides, const std::vector<uint32_t>& offsets);
   void Close(
       int32_t* out_result);
+  int32_t Close();
   void ConfigureStreamsAndGetAllocatedBuffers(
       Camera3StreamConfigurationPtr config, int32_t* out_result, Camera3StreamConfigurationPtr* out_updated_config, base::flat_map<uint64_t, std::vector<Camera3StreamBufferPtr>>* out_allocated_buffers);
+  
 
  private:
   Camera3DeviceOps* const proxy_;

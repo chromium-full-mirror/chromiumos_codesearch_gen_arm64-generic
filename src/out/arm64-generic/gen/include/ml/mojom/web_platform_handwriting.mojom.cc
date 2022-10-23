@@ -898,6 +898,14 @@ void HandwritingRecognizerAsyncWaiter::GetPrediction(
   loop.Run();
 }
 
+absl::optional<std::vector<HandwritingPredictionPtr>> HandwritingRecognizerAsyncWaiter::GetPrediction(
+    std::vector<HandwritingStrokePtr> strokes, HandwritingHintsPtr hints) {
+  absl::optional<std::vector<HandwritingPredictionPtr>> async_wait_result;
+  GetPrediction(std::move(strokes),std::move(hints),&async_wait_result);
+  return async_wait_result;
+}
+
+
 
 
 

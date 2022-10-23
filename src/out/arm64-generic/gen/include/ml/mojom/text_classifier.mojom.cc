@@ -1518,6 +1518,14 @@ void TextClassifierAsyncWaiter::Annotate(
           out_outputs));
   loop.Run();
 }
+
+std::vector<TextAnnotationPtr> TextClassifierAsyncWaiter::Annotate(
+    TextAnnotationRequestPtr request) {
+  std::vector<TextAnnotationPtr> async_wait_result;
+  Annotate(std::move(request),&async_wait_result);
+  return async_wait_result;
+}
+
 void TextClassifierAsyncWaiter::FindLanguages(
     const std::string& text, std::vector<TextLanguagePtr>* out_outputs) {
   base::RunLoop loop;
@@ -1533,6 +1541,14 @@ void TextClassifierAsyncWaiter::FindLanguages(
           out_outputs));
   loop.Run();
 }
+
+std::vector<TextLanguagePtr> TextClassifierAsyncWaiter::FindLanguages(
+    const std::string& text) {
+  std::vector<TextLanguagePtr> async_wait_result;
+  FindLanguages(std::move(text),&async_wait_result);
+  return async_wait_result;
+}
+
 void TextClassifierAsyncWaiter::REMOVED_1(
     REMOVED_TextSuggestSelectionRequestPtr request, CodepointSpanPtr* out_outputs) {
   base::RunLoop loop;
@@ -1548,6 +1564,14 @@ void TextClassifierAsyncWaiter::REMOVED_1(
           out_outputs));
   loop.Run();
 }
+
+CodepointSpanPtr TextClassifierAsyncWaiter::REMOVED_1(
+    REMOVED_TextSuggestSelectionRequestPtr request) {
+  CodepointSpanPtr async_wait_result;
+  REMOVED_1(std::move(request),&async_wait_result);
+  return async_wait_result;
+}
+
 
 
 

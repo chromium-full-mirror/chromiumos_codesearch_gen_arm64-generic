@@ -1869,6 +1869,9 @@ void WilcoDtcSupportdServiceFactoryAsyncWaiter::GetService(
 
 
 
+
+
+
 void WilcoDtcSupportdServiceInterceptorForTesting::SendUiMessageToWilcoDtc(::mojo::ScopedHandle json_message, SendUiMessageToWilcoDtcCallback callback) {
   GetForwardingInterface()->SendUiMessageToWilcoDtc(std::move(json_message), std::move(callback));
 }
@@ -1895,6 +1898,14 @@ void WilcoDtcSupportdServiceAsyncWaiter::SendUiMessageToWilcoDtc(
           out_response_json_message));
   loop.Run();
 }
+
+::mojo::ScopedHandle WilcoDtcSupportdServiceAsyncWaiter::SendUiMessageToWilcoDtc(
+    ::mojo::ScopedHandle json_message) {
+  ::mojo::ScopedHandle async_wait_result;
+  SendUiMessageToWilcoDtc(std::move(json_message),&async_wait_result);
+  return async_wait_result;
+}
+
 
 
 
@@ -1944,6 +1955,9 @@ void WilcoDtcSupportdClientAsyncWaiter::PerformWebRequest(
           out_response_body));
   loop.Run();
 }
+
+
+
 void WilcoDtcSupportdClientAsyncWaiter::SendWilcoDtcMessageToUi(
     ::mojo::ScopedHandle json_message, ::mojo::ScopedHandle* out_response_json_message) {
   base::RunLoop loop;
@@ -1959,6 +1973,14 @@ void WilcoDtcSupportdClientAsyncWaiter::SendWilcoDtcMessageToUi(
           out_response_json_message));
   loop.Run();
 }
+
+::mojo::ScopedHandle WilcoDtcSupportdClientAsyncWaiter::SendWilcoDtcMessageToUi(
+    ::mojo::ScopedHandle json_message) {
+  ::mojo::ScopedHandle async_wait_result;
+  SendWilcoDtcMessageToUi(std::move(json_message),&async_wait_result);
+  return async_wait_result;
+}
+
 void WilcoDtcSupportdClientAsyncWaiter::GetConfigurationData(
     std::string* out_json_configuration_data) {
   base::RunLoop loop;
@@ -1974,6 +1996,14 @@ void WilcoDtcSupportdClientAsyncWaiter::GetConfigurationData(
           out_json_configuration_data));
   loop.Run();
 }
+
+std::string WilcoDtcSupportdClientAsyncWaiter::GetConfigurationData(
+    ) {
+  std::string async_wait_result;
+  GetConfigurationData(&async_wait_result);
+  return async_wait_result;
+}
+
 
 
 

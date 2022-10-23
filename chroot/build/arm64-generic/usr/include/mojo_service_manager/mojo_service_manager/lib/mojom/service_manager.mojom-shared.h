@@ -26,6 +26,7 @@
 #include "mojo_service_manager/lib/mojom/service_manager.mojom-shared-internal.h"
 #include "mojo_service_manager/lib/mojom/time.mojom-shared.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
+#include "mojo/public/cpp/system/data_pipe.h"
 
 
 

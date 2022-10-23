@@ -34,10 +34,13 @@ class  VideoDecodeAcceleratorAsyncWaiter {
   ~VideoDecodeAcceleratorAsyncWaiter();
   void Initialize(
       VideoDecodeAcceleratorConfigPtr config, ::mojo::PendingRemote<VideoDecodeClient> client, VideoDecodeAccelerator::Result* out_result);
+  VideoDecodeAccelerator::Result Initialize(VideoDecodeAcceleratorConfigPtr config, ::mojo::PendingRemote<VideoDecodeClient> client);
   void Reset(
       VideoDecodeAccelerator::Result* out_result);
+  VideoDecodeAccelerator::Result Reset();
   void Flush(
       VideoDecodeAccelerator::Result* out_result);
+  VideoDecodeAccelerator::Result Flush();
 
  private:
   VideoDecodeAccelerator* const proxy_;

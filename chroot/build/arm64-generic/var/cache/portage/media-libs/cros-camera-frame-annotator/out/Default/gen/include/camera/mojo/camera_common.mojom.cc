@@ -3621,6 +3621,14 @@ void VendorTagOpsAsyncWaiter::GetTagCount(
           out_result));
   loop.Run();
 }
+
+int32_t VendorTagOpsAsyncWaiter::GetTagCount(
+    ) {
+  int32_t async_wait_result;
+  GetTagCount(&async_wait_result);
+  return async_wait_result;
+}
+
 void VendorTagOpsAsyncWaiter::GetAllTags(
     std::vector<uint32_t>* out_tag_array) {
   base::RunLoop loop;
@@ -3636,6 +3644,14 @@ void VendorTagOpsAsyncWaiter::GetAllTags(
           out_tag_array));
   loop.Run();
 }
+
+std::vector<uint32_t> VendorTagOpsAsyncWaiter::GetAllTags(
+    ) {
+  std::vector<uint32_t> async_wait_result;
+  GetAllTags(&async_wait_result);
+  return async_wait_result;
+}
+
 void VendorTagOpsAsyncWaiter::GetSectionName(
     uint32_t tag, absl::optional<std::string>* out_name) {
   base::RunLoop loop;
@@ -3651,6 +3667,14 @@ void VendorTagOpsAsyncWaiter::GetSectionName(
           out_name));
   loop.Run();
 }
+
+absl::optional<std::string> VendorTagOpsAsyncWaiter::GetSectionName(
+    uint32_t tag) {
+  absl::optional<std::string> async_wait_result;
+  GetSectionName(std::move(tag),&async_wait_result);
+  return async_wait_result;
+}
+
 void VendorTagOpsAsyncWaiter::GetTagName(
     uint32_t tag, absl::optional<std::string>* out_name) {
   base::RunLoop loop;
@@ -3666,6 +3690,14 @@ void VendorTagOpsAsyncWaiter::GetTagName(
           out_name));
   loop.Run();
 }
+
+absl::optional<std::string> VendorTagOpsAsyncWaiter::GetTagName(
+    uint32_t tag) {
+  absl::optional<std::string> async_wait_result;
+  GetTagName(std::move(tag),&async_wait_result);
+  return async_wait_result;
+}
+
 void VendorTagOpsAsyncWaiter::GetTagType(
     uint32_t tag, int32_t* out_type) {
   base::RunLoop loop;
@@ -3681,6 +3713,14 @@ void VendorTagOpsAsyncWaiter::GetTagType(
           out_type));
   loop.Run();
 }
+
+int32_t VendorTagOpsAsyncWaiter::GetTagType(
+    uint32_t tag) {
+  int32_t async_wait_result;
+  GetTagType(std::move(tag),&async_wait_result);
+  return async_wait_result;
+}
+
 
 
 
@@ -3728,6 +3768,14 @@ void CameraModuleAsyncWaiter::OpenDevice(
           out_result));
   loop.Run();
 }
+
+int32_t CameraModuleAsyncWaiter::OpenDevice(
+    int32_t camera_id, ::mojo::PendingReceiver<::cros::mojom::Camera3DeviceOps> device_ops_receiver) {
+  int32_t async_wait_result;
+  OpenDevice(std::move(camera_id),std::move(device_ops_receiver),&async_wait_result);
+  return async_wait_result;
+}
+
 void CameraModuleAsyncWaiter::GetNumberOfCameras(
     int32_t* out_result) {
   base::RunLoop loop;
@@ -3743,6 +3791,14 @@ void CameraModuleAsyncWaiter::GetNumberOfCameras(
           out_result));
   loop.Run();
 }
+
+int32_t CameraModuleAsyncWaiter::GetNumberOfCameras(
+    ) {
+  int32_t async_wait_result;
+  GetNumberOfCameras(&async_wait_result);
+  return async_wait_result;
+}
+
 void CameraModuleAsyncWaiter::GetCameraInfo(
     int32_t camera_id, int32_t* out_result, CameraInfoPtr* out_camera_info) {
   base::RunLoop loop;
@@ -3762,6 +3818,9 @@ void CameraModuleAsyncWaiter::GetCameraInfo(
           out_camera_info));
   loop.Run();
 }
+
+
+
 void CameraModuleAsyncWaiter::SetCallbacks(
     ::mojo::PendingRemote<CameraModuleCallbacks> callbacks, int32_t* out_result) {
   base::RunLoop loop;
@@ -3777,6 +3836,14 @@ void CameraModuleAsyncWaiter::SetCallbacks(
           out_result));
   loop.Run();
 }
+
+int32_t CameraModuleAsyncWaiter::SetCallbacks(
+    ::mojo::PendingRemote<CameraModuleCallbacks> callbacks) {
+  int32_t async_wait_result;
+  SetCallbacks(std::move(callbacks),&async_wait_result);
+  return async_wait_result;
+}
+
 void CameraModuleAsyncWaiter::SetTorchMode(
     int32_t camera_id, bool enabled, int32_t* out_result) {
   base::RunLoop loop;
@@ -3792,6 +3859,14 @@ void CameraModuleAsyncWaiter::SetTorchMode(
           out_result));
   loop.Run();
 }
+
+int32_t CameraModuleAsyncWaiter::SetTorchMode(
+    int32_t camera_id, bool enabled) {
+  int32_t async_wait_result;
+  SetTorchMode(std::move(camera_id),std::move(enabled),&async_wait_result);
+  return async_wait_result;
+}
+
 void CameraModuleAsyncWaiter::Init(
     int32_t* out_result) {
   base::RunLoop loop;
@@ -3807,6 +3882,14 @@ void CameraModuleAsyncWaiter::Init(
           out_result));
   loop.Run();
 }
+
+int32_t CameraModuleAsyncWaiter::Init(
+    ) {
+  int32_t async_wait_result;
+  Init(&async_wait_result);
+  return async_wait_result;
+}
+
 void CameraModuleAsyncWaiter::GetVendorTagOps(
     ::mojo::PendingReceiver<VendorTagOps> vendor_tag_ops_receiver) {
   base::RunLoop loop;
@@ -3818,6 +3901,9 @@ void CameraModuleAsyncWaiter::GetVendorTagOps(
           &loop));
   loop.Run();
 }
+
+
+
 void CameraModuleAsyncWaiter::SetCallbacksAssociated(
     ::mojo::PendingAssociatedRemote<CameraModuleCallbacks> callbacks, int32_t* out_result) {
   base::RunLoop loop;
@@ -3833,6 +3919,14 @@ void CameraModuleAsyncWaiter::SetCallbacksAssociated(
           out_result));
   loop.Run();
 }
+
+int32_t CameraModuleAsyncWaiter::SetCallbacksAssociated(
+    ::mojo::PendingAssociatedRemote<CameraModuleCallbacks> callbacks) {
+  int32_t async_wait_result;
+  SetCallbacksAssociated(std::move(callbacks),&async_wait_result);
+  return async_wait_result;
+}
+
 
 
 

@@ -30,8 +30,10 @@ class  RollbackNetworkConfigAsyncWaiter {
   ~RollbackNetworkConfigAsyncWaiter();
   void RollbackConfigImport(
       const std::string& config, bool* out_success);
+  bool RollbackConfigImport(const std::string& config);
   void RollbackConfigExport(
       std::string* out_config);
+  std::string RollbackConfigExport();
 
  private:
   RollbackNetworkConfig* const proxy_;

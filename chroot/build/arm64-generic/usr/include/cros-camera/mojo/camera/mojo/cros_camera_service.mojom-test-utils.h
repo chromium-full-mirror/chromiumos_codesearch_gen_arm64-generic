@@ -34,10 +34,13 @@ class  CameraHalDispatcherAsyncWaiter {
   ~CameraHalDispatcherAsyncWaiter();
   void RegisterServerWithToken(
       ::mojo::PendingRemote<CameraHalServer> server, ::mojo_base::mojom::UnguessableTokenPtr auth_token, int32_t* out_result, ::mojo::PendingRemote<CameraHalServerCallbacks>* out_callbacks);
+  
   void RegisterClientWithToken(
       ::mojo::PendingRemote<CameraHalClient> client, CameraClientType type, ::mojo_base::mojom::UnguessableTokenPtr auth_token, int32_t* out_result);
+  int32_t RegisterClientWithToken(::mojo::PendingRemote<CameraHalClient> client, CameraClientType type, ::mojo_base::mojom::UnguessableTokenPtr auth_token);
   void RegisterSensorClientWithToken(
       ::mojo::PendingRemote<::cros::mojom::SensorHalClient> client, ::mojo_base::mojom::UnguessableTokenPtr auth_token, int32_t* out_result);
+  int32_t RegisterSensorClientWithToken(::mojo::PendingRemote<::cros::mojom::SensorHalClient> client, ::mojo_base::mojom::UnguessableTokenPtr auth_token);
 
  private:
   CameraHalDispatcher* const proxy_;
@@ -64,10 +67,13 @@ class  CameraHalServerAsyncWaiter {
   ~CameraHalServerAsyncWaiter();
   void GetCameraSWPrivacySwitchState(
       CameraPrivacySwitchState* out_state);
+  CameraPrivacySwitchState GetCameraSWPrivacySwitchState();
   void GetAutoFramingSupported(
       bool* out_supported);
+  bool GetAutoFramingSupported();
   void SetCameraEffect(
       ::cros::mojom::EffectsConfigPtr config, ::cros::mojom::SetEffectResult* out_result);
+  ::cros::mojom::SetEffectResult SetCameraEffect(::cros::mojom::EffectsConfigPtr config);
 
  private:
   CameraHalServer* const proxy_;

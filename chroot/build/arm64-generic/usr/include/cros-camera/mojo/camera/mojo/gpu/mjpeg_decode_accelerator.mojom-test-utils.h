@@ -30,8 +30,10 @@ class  MjpegDecodeAcceleratorAsyncWaiter {
   ~MjpegDecodeAcceleratorAsyncWaiter();
   void Initialize(
       bool* out_success);
+  bool Initialize();
   void DecodeWithDmaBuf(
       int32_t task_id, ::mojo::ScopedHandle src_dmabuf_fd, uint32_t src_size, uint32_t src_offset, ::cros::mojom::DmaBufVideoFramePtr dst_frame, DecodeError* out_error);
+  DecodeError DecodeWithDmaBuf(int32_t task_id, ::mojo::ScopedHandle src_dmabuf_fd, uint32_t src_size, uint32_t src_offset, ::cros::mojom::DmaBufVideoFramePtr dst_frame);
 
  private:
   MjpegDecodeAccelerator* const proxy_;

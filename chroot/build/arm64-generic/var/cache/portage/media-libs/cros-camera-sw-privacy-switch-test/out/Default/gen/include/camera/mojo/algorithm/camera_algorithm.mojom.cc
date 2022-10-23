@@ -1259,6 +1259,14 @@ void CameraAlgorithmOpsAsyncWaiter::Initialize(
           out_result));
   loop.Run();
 }
+
+int32_t CameraAlgorithmOpsAsyncWaiter::Initialize(
+    ::mojo::PendingRemote<CameraAlgorithmCallbackOps> callbacks) {
+  int32_t async_wait_result;
+  Initialize(std::move(callbacks),&async_wait_result);
+  return async_wait_result;
+}
+
 void CameraAlgorithmOpsAsyncWaiter::RegisterBuffer(
     ::mojo::ScopedHandle buffer_fd, int32_t* out_result) {
   base::RunLoop loop;
@@ -1274,6 +1282,14 @@ void CameraAlgorithmOpsAsyncWaiter::RegisterBuffer(
           out_result));
   loop.Run();
 }
+
+int32_t CameraAlgorithmOpsAsyncWaiter::RegisterBuffer(
+    ::mojo::ScopedHandle buffer_fd) {
+  int32_t async_wait_result;
+  RegisterBuffer(std::move(buffer_fd),&async_wait_result);
+  return async_wait_result;
+}
+
 
 
 

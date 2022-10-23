@@ -28,6 +28,7 @@ class  SmbFsBootstrapAsyncWaiter {
   ~SmbFsBootstrapAsyncWaiter();
   void MountShare(
       MountOptionsPtr options, ::mojo::PendingRemote<SmbFsDelegate> delegate, MountError* out_error, ::mojo::PendingRemote<SmbFs>* out_smbfs);
+  
 
  private:
   SmbFsBootstrap* const proxy_;
@@ -49,8 +50,10 @@ class  SmbFsAsyncWaiter {
   ~SmbFsAsyncWaiter();
   void RemoveSavedCredentials(
       bool* out_success);
+  bool RemoveSavedCredentials();
   void DeleteRecursively(
       const base::FilePath& path, DeleteRecursivelyError* out_error);
+  DeleteRecursivelyError DeleteRecursively(const base::FilePath& path);
 
  private:
   SmbFs* const proxy_;
@@ -71,6 +74,7 @@ class  SmbFsDelegateAsyncWaiter {
   ~SmbFsDelegateAsyncWaiter();
   void RequestCredentials(
       CredentialsPtr* out_credentials);
+  CredentialsPtr RequestCredentials();
 
  private:
   SmbFsDelegate* const proxy_;

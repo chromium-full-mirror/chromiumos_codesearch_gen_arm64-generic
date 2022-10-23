@@ -624,6 +624,14 @@ void RollbackNetworkConfigAsyncWaiter::RollbackConfigImport(
           out_success));
   loop.Run();
 }
+
+bool RollbackNetworkConfigAsyncWaiter::RollbackConfigImport(
+    const std::string& config) {
+  bool async_wait_result;
+  RollbackConfigImport(std::move(config),&async_wait_result);
+  return async_wait_result;
+}
+
 void RollbackNetworkConfigAsyncWaiter::RollbackConfigExport(
     std::string* out_config) {
   base::RunLoop loop;
@@ -639,6 +647,14 @@ void RollbackNetworkConfigAsyncWaiter::RollbackConfigExport(
           out_config));
   loop.Run();
 }
+
+std::string RollbackNetworkConfigAsyncWaiter::RollbackConfigExport(
+    ) {
+  std::string async_wait_result;
+  RollbackConfigExport(&async_wait_result);
+  return async_wait_result;
+}
+
 
 
 

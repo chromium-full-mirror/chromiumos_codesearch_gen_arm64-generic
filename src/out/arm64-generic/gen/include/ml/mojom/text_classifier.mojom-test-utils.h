@@ -31,10 +31,13 @@ class  TextClassifierAsyncWaiter {
   ~TextClassifierAsyncWaiter();
   void Annotate(
       TextAnnotationRequestPtr request, std::vector<TextAnnotationPtr>* out_outputs);
+  std::vector<TextAnnotationPtr> Annotate(TextAnnotationRequestPtr request);
   void FindLanguages(
       const std::string& text, std::vector<TextLanguagePtr>* out_outputs);
+  std::vector<TextLanguagePtr> FindLanguages(const std::string& text);
   void REMOVED_1(
       REMOVED_TextSuggestSelectionRequestPtr request, CodepointSpanPtr* out_outputs);
+  CodepointSpanPtr REMOVED_1(REMOVED_TextSuggestSelectionRequestPtr request);
 
  private:
   TextClassifier* const proxy_;

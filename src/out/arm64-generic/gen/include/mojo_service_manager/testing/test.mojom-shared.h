@@ -25,6 +25,7 @@
 
 #include "mojo_service_manager/testing/test.mojom-shared-internal.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
+#include "mojo/public/cpp/system/data_pipe.h"
 
 
 

@@ -31,6 +31,7 @@
 #include "camera/mojo/unguessable_token.mojom-shared.h"
 #include "ml_core/mojo/effects_pipeline.mojom-shared.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
+#include "mojo/public/cpp/system/data_pipe.h"
 
 
 

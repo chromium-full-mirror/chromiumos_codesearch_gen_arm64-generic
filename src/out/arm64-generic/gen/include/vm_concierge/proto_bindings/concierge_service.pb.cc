@@ -96,6 +96,7 @@ constexpr StartVmRequest::StartVmRequest(
   , shared_directory_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
   , name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
   , owner_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , vm_username_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
   , vm_(nullptr)
   , start_termina_(false)
   , enable_gpu_(false)
@@ -3439,6 +3440,14 @@ StartVmRequest::StartVmRequest(const StartVmRequest& from)
     owner_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_owner_id(), 
       GetArenaForAllocation());
   }
+  vm_username_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    vm_username_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_vm_username().empty()) {
+    vm_username_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_vm_username(), 
+      GetArenaForAllocation());
+  }
   if (from._internal_has_vm()) {
     vm_ = new ::vm_tools::concierge::VirtualMachineSpec(*from.vm_);
   } else {
@@ -3463,6 +3472,10 @@ owner_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlr
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   owner_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+vm_username_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  vm_username_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&vm_) - reinterpret_cast<char*>(this)),
     0, static_cast<size_t>(reinterpret_cast<char*>(&enable_virtgpu_native_context_) -
@@ -3481,6 +3494,7 @@ inline void StartVmRequest::SharedDtor() {
   shared_directory_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   owner_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  vm_username_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (this != internal_default_instance()) delete vm_;
 }
 
@@ -3508,6 +3522,7 @@ void StartVmRequest::Clear() {
   shared_directory_.ClearToEmpty();
   name_.ClearToEmpty();
   owner_id_.ClearToEmpty();
+  vm_username_.ClearToEmpty();
   if (GetArenaForAllocation() == nullptr && vm_ != nullptr) {
     delete vm_;
   }
@@ -3733,6 +3748,16 @@ const char* StartVmRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         } else
           goto handle_unusual;
         continue;
+      // string vm_username = 26;
+      case 26:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 210)) {
+          auto str = _internal_mutable_vm_username();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -3924,6 +3949,16 @@ uint8_t* StartVmRequest::_InternalSerialize(
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(25, this->_internal_enable_virtgpu_native_context(), target);
   }
 
+  // string vm_username = 26;
+  if (!this->_internal_vm_username().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_vm_username().data(), static_cast<int>(this->_internal_vm_username().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "vm_tools.concierge.StartVmRequest.vm_username");
+    target = stream->WriteStringMaybeAliased(
+        26, this->_internal_vm_username(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -4018,6 +4053,13 @@ size_t StartVmRequest::ByteSizeLong() const {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_owner_id());
+  }
+
+  // string vm_username = 26;
+  if (!this->_internal_vm_username().empty()) {
+    total_size += 2 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_vm_username());
   }
 
   // .vm_tools.concierge.VirtualMachineSpec vm = 1;
@@ -4128,6 +4170,9 @@ void StartVmRequest::MergeFrom(const StartVmRequest& from) {
   if (!from._internal_owner_id().empty()) {
     _internal_set_owner_id(from._internal_owner_id());
   }
+  if (!from._internal_vm_username().empty()) {
+    _internal_set_vm_username(from._internal_vm_username());
+  }
   if (from._internal_has_vm()) {
     _internal_mutable_vm()->::vm_tools::concierge::VirtualMachineSpec::MergeFrom(from._internal_vm());
   }
@@ -4208,6 +4253,11 @@ void StartVmRequest::InternalSwap(StartVmRequest* other) {
       &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       &owner_id_, lhs_arena,
       &other->owner_id_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &vm_username_, lhs_arena,
+      &other->vm_username_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(StartVmRequest, enable_virtgpu_native_context_)

@@ -28,6 +28,7 @@ class  VideoHostAsyncWaiter {
   ~VideoHostAsyncWaiter();
   void OnBootstrapVideoAcceleratorFactory(
       ::mojo::ScopedHandle* out_channel_handle, std::string* out_token);
+  
 
  private:
   VideoHost* const proxy_;
@@ -48,6 +49,7 @@ class  VideoInstanceAsyncWaiter {
   ~VideoInstanceAsyncWaiter();
   void Init(
       ::mojo::PendingRemote<VideoHost> host_remote);
+  
 
  private:
   VideoInstance* const proxy_;

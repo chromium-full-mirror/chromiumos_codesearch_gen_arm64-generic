@@ -1639,6 +1639,14 @@ void ServiceManagerAsyncWaiter::Query(
   loop.Run();
 }
 
+ErrorOrServiceStatePtr ServiceManagerAsyncWaiter::Query(
+    const std::string& service_name) {
+  ErrorOrServiceStatePtr async_wait_result;
+  Query(std::move(service_name),&async_wait_result);
+  return async_wait_result;
+}
+
+
 
 
 void ServiceProviderInterceptorForTesting::Request(ProcessIdentityPtr client_identity, ::mojo::ScopedMessagePipeHandle receiver) {

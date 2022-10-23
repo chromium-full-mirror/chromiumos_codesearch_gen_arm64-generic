@@ -814,6 +814,14 @@ void ChromiumDataCollectorAsyncWaiter::GetTouchscreenDevices(
           out_devices));
   loop.Run();
 }
+
+std::vector<TouchscreenDevicePtr> ChromiumDataCollectorAsyncWaiter::GetTouchscreenDevices(
+    ) {
+  std::vector<TouchscreenDevicePtr> async_wait_result;
+  GetTouchscreenDevices(&async_wait_result);
+  return async_wait_result;
+}
+
 void ChromiumDataCollectorAsyncWaiter::GetTouchpadLibraryName(
     std::string* out_library_name) {
   base::RunLoop loop;
@@ -829,6 +837,14 @@ void ChromiumDataCollectorAsyncWaiter::GetTouchpadLibraryName(
           out_library_name));
   loop.Run();
 }
+
+std::string ChromiumDataCollectorAsyncWaiter::GetTouchpadLibraryName(
+    ) {
+  std::string async_wait_result;
+  GetTouchpadLibraryName(&async_wait_result);
+  return async_wait_result;
+}
+
 
 
 

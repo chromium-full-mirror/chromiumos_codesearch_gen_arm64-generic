@@ -32,8 +32,10 @@ class  CameraAlgorithmOpsAsyncWaiter {
   ~CameraAlgorithmOpsAsyncWaiter();
   void Initialize(
       ::mojo::PendingRemote<CameraAlgorithmCallbackOps> callbacks, int32_t* out_result);
+  int32_t Initialize(::mojo::PendingRemote<CameraAlgorithmCallbackOps> callbacks);
   void RegisterBuffer(
       ::mojo::ScopedHandle buffer_fd, int32_t* out_result);
+  int32_t RegisterBuffer(::mojo::ScopedHandle buffer_fd);
 
  private:
   CameraAlgorithmOps* const proxy_;

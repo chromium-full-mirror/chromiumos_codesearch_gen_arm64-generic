@@ -35,16 +35,22 @@ class  VideoEncodeAcceleratorAsyncWaiter {
   ~VideoEncodeAcceleratorAsyncWaiter();
   void GetSupportedProfiles(
       std::vector<VideoEncodeProfilePtr>* out_profiles);
+  std::vector<VideoEncodeProfilePtr> GetSupportedProfiles();
   void Initialize(
       VideoEncodeAcceleratorConfigPtr config, ::mojo::PendingRemote<VideoEncodeClient> client, VideoEncodeAccelerator::Result* out_result);
+  VideoEncodeAccelerator::Result Initialize(VideoEncodeAcceleratorConfigPtr config, ::mojo::PendingRemote<VideoEncodeClient> client);
   void InitializeDeprecated(
       VideoEncodeAcceleratorConfigPtr config, ::mojo::PendingRemote<VideoEncodeClient> client, bool* out_success);
+  bool InitializeDeprecated(VideoEncodeAcceleratorConfigPtr config, ::mojo::PendingRemote<VideoEncodeClient> client);
   void Encode(
       ::arc::mojom::VideoPixelFormat format, ::mojo::ScopedHandle frame_fd, std::vector<::arc::mojom::VideoFramePlanePtr> planes, int64_t timestamp, bool force_keyframe);
+  
   void UseBitstreamBuffer(
       ::mojo::ScopedHandle shmem_fd, uint32_t offset, uint32_t size, uint32_t* out_payload_size, bool* out_key_frame, int64_t* out_timestamp);
+  
   void Flush(
       bool* out_flush_done);
+  bool Flush();
 
  private:
   VideoEncodeAccelerator* const proxy_;

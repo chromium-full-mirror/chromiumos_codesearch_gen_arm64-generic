@@ -45,38 +45,55 @@ class  NetworkDiagnosticsRoutinesAsyncWaiter {
   ~NetworkDiagnosticsRoutinesAsyncWaiter();
   void GetResult(
       RoutineType routine, RoutineResultPtr* out_result);
+  RoutineResultPtr GetResult(RoutineType routine);
   void GetAllResults(
       base::flat_map<RoutineType, RoutineResultPtr>* out_results);
+  base::flat_map<RoutineType, RoutineResultPtr> GetAllResults();
   void RunLanConnectivity(
       RoutineResultPtr* out_result);
+  RoutineResultPtr RunLanConnectivity();
   void RunSignalStrength(
       RoutineResultPtr* out_result);
+  RoutineResultPtr RunSignalStrength();
   void RunGatewayCanBePinged(
       RoutineResultPtr* out_result);
+  RoutineResultPtr RunGatewayCanBePinged();
   void RunHasSecureWiFiConnection(
       RoutineResultPtr* out_result);
+  RoutineResultPtr RunHasSecureWiFiConnection();
   void RunDnsResolverPresent(
       RoutineResultPtr* out_result);
+  RoutineResultPtr RunDnsResolverPresent();
   void RunDnsLatency(
       RoutineResultPtr* out_result);
+  RoutineResultPtr RunDnsLatency();
   void RunDnsResolution(
       RoutineResultPtr* out_result);
+  RoutineResultPtr RunDnsResolution();
   void RunCaptivePortal(
       RoutineResultPtr* out_result);
+  RoutineResultPtr RunCaptivePortal();
   void RunHttpFirewall(
       RoutineResultPtr* out_result);
+  RoutineResultPtr RunHttpFirewall();
   void RunHttpsFirewall(
       RoutineResultPtr* out_result);
+  RoutineResultPtr RunHttpsFirewall();
   void RunHttpsLatency(
       RoutineResultPtr* out_result);
+  RoutineResultPtr RunHttpsLatency();
   void RunVideoConferencing(
       const absl::optional<std::string>& stun_server_hostname, RoutineResultPtr* out_result);
+  RoutineResultPtr RunVideoConferencing(const absl::optional<std::string>& stun_server_hostname);
   void RunArcHttp(
       RoutineResultPtr* out_result);
+  RoutineResultPtr RunArcHttp();
   void RunArcPing(
       RoutineResultPtr* out_result);
+  RoutineResultPtr RunArcPing();
   void RunArcDnsResolution(
       RoutineResultPtr* out_result);
+  RoutineResultPtr RunArcDnsResolution();
 
  private:
   NetworkDiagnosticsRoutines* const proxy_;

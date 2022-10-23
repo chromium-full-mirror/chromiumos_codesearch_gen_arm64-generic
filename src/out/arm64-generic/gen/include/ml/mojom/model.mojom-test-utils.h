@@ -30,8 +30,10 @@ class  ModelAsyncWaiter {
   ~ModelAsyncWaiter();
   void REMOVED_0(
       ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::GraphExecutor> receiver, CreateGraphExecutorResult* out_result);
+  CreateGraphExecutorResult REMOVED_0(::mojo::PendingReceiver<::chromeos::machine_learning::mojom::GraphExecutor> receiver);
   void CreateGraphExecutor(
       GraphExecutorOptionsPtr options, ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::GraphExecutor> receiver, CreateGraphExecutorResult* out_result);
+  CreateGraphExecutorResult CreateGraphExecutor(GraphExecutorOptionsPtr options, ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::GraphExecutor> receiver);
 
  private:
   Model* const proxy_;

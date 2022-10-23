@@ -963,6 +963,9 @@ void ModelLoaderAsyncWaiter::Load(
 
 
 
+
+
+
 void ModelInterceptorForTesting::Compute(const base::flat_map<std::string, std::vector<uint8_t>>& input_tensors, ComputeCallback callback) {
   GetForwardingInterface()->Compute(std::move(input_tensors), std::move(callback));
 }
@@ -990,6 +993,9 @@ void ModelAsyncWaiter::Compute(
           out_output_tensors));
   loop.Run();
 }
+
+
+
 
 
 

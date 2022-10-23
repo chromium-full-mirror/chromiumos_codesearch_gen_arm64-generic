@@ -32,6 +32,7 @@ class  ServiceManagerAsyncWaiter {
   ~ServiceManagerAsyncWaiter();
   void Query(
       const std::string& service_name, ErrorOrServiceStatePtr* out_result);
+  ErrorOrServiceStatePtr Query(const std::string& service_name);
 
  private:
   ServiceManager* const proxy_;

@@ -51,14 +51,19 @@ class  VendorTagOpsAsyncWaiter {
   ~VendorTagOpsAsyncWaiter();
   void GetTagCount(
       int32_t* out_result);
+  int32_t GetTagCount();
   void GetAllTags(
       std::vector<uint32_t>* out_tag_array);
+  std::vector<uint32_t> GetAllTags();
   void GetSectionName(
       uint32_t tag, absl::optional<std::string>* out_name);
+  absl::optional<std::string> GetSectionName(uint32_t tag);
   void GetTagName(
       uint32_t tag, absl::optional<std::string>* out_name);
+  absl::optional<std::string> GetTagName(uint32_t tag);
   void GetTagType(
       uint32_t tag, int32_t* out_type);
+  int32_t GetTagType(uint32_t tag);
 
  private:
   VendorTagOps* const proxy_;
@@ -86,20 +91,28 @@ class  CameraModuleAsyncWaiter {
   ~CameraModuleAsyncWaiter();
   void OpenDevice(
       int32_t camera_id, ::mojo::PendingReceiver<::cros::mojom::Camera3DeviceOps> device_ops_receiver, int32_t* out_result);
+  int32_t OpenDevice(int32_t camera_id, ::mojo::PendingReceiver<::cros::mojom::Camera3DeviceOps> device_ops_receiver);
   void GetNumberOfCameras(
       int32_t* out_result);
+  int32_t GetNumberOfCameras();
   void GetCameraInfo(
       int32_t camera_id, int32_t* out_result, CameraInfoPtr* out_camera_info);
+  
   void SetCallbacks(
       ::mojo::PendingRemote<CameraModuleCallbacks> callbacks, int32_t* out_result);
+  int32_t SetCallbacks(::mojo::PendingRemote<CameraModuleCallbacks> callbacks);
   void SetTorchMode(
       int32_t camera_id, bool enabled, int32_t* out_result);
+  int32_t SetTorchMode(int32_t camera_id, bool enabled);
   void Init(
       int32_t* out_result);
+  int32_t Init();
   void GetVendorTagOps(
       ::mojo::PendingReceiver<VendorTagOps> vendor_tag_ops_receiver);
+  
   void SetCallbacksAssociated(
       ::mojo::PendingAssociatedRemote<CameraModuleCallbacks> callbacks, int32_t* out_result);
+  int32_t SetCallbacksAssociated(::mojo::PendingAssociatedRemote<CameraModuleCallbacks> callbacks);
 
  private:
   CameraModule* const proxy_;

@@ -1662,6 +1662,9 @@ void SmbFsBootstrapAsyncWaiter::MountShare(
 
 
 
+
+
+
 void SmbFsInterceptorForTesting::RemoveSavedCredentials(RemoveSavedCredentialsCallback callback) {
   GetForwardingInterface()->RemoveSavedCredentials(std::move(callback));
 }
@@ -1688,6 +1691,14 @@ void SmbFsAsyncWaiter::RemoveSavedCredentials(
           out_success));
   loop.Run();
 }
+
+bool SmbFsAsyncWaiter::RemoveSavedCredentials(
+    ) {
+  bool async_wait_result;
+  RemoveSavedCredentials(&async_wait_result);
+  return async_wait_result;
+}
+
 void SmbFsAsyncWaiter::DeleteRecursively(
     const base::FilePath& path, DeleteRecursivelyError* out_error) {
   base::RunLoop loop;
@@ -1703,6 +1714,14 @@ void SmbFsAsyncWaiter::DeleteRecursively(
           out_error));
   loop.Run();
 }
+
+DeleteRecursivelyError SmbFsAsyncWaiter::DeleteRecursively(
+    const base::FilePath& path) {
+  DeleteRecursivelyError async_wait_result;
+  DeleteRecursively(std::move(path),&async_wait_result);
+  return async_wait_result;
+}
+
 
 
 
@@ -1729,6 +1748,14 @@ void SmbFsDelegateAsyncWaiter::RequestCredentials(
           out_credentials));
   loop.Run();
 }
+
+CredentialsPtr SmbFsDelegateAsyncWaiter::RequestCredentials(
+    ) {
+  CredentialsPtr async_wait_result;
+  RequestCredentials(&async_wait_result);
+  return async_wait_result;
+}
+
 
 
 

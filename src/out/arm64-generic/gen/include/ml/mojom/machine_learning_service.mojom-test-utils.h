@@ -40,26 +40,37 @@ class  MachineLearningServiceAsyncWaiter {
   ~MachineLearningServiceAsyncWaiter();
   void LoadBuiltinModel(
       ::chromeos::machine_learning::mojom::BuiltinModelSpecPtr spec, ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::Model> receiver, LoadModelResult* out_result);
+  LoadModelResult LoadBuiltinModel(::chromeos::machine_learning::mojom::BuiltinModelSpecPtr spec, ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::Model> receiver);
   void LoadFlatBufferModel(
       ::chromeos::machine_learning::mojom::FlatBufferModelSpecPtr spec, ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::Model> receiver, LoadModelResult* out_result);
+  LoadModelResult LoadFlatBufferModel(::chromeos::machine_learning::mojom::FlatBufferModelSpecPtr spec, ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::Model> receiver);
   void LoadTextClassifier(
       ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::TextClassifier> receiver, LoadModelResult* out_result);
+  LoadModelResult LoadTextClassifier(::mojo::PendingReceiver<::chromeos::machine_learning::mojom::TextClassifier> receiver);
   void LoadHandwritingModel(
       ::chromeos::machine_learning::mojom::HandwritingRecognizerSpecPtr spec, ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::HandwritingRecognizer> receiver, ::chromeos::machine_learning::mojom::LoadHandwritingModelResult* out_result);
+  ::chromeos::machine_learning::mojom::LoadHandwritingModelResult LoadHandwritingModel(::chromeos::machine_learning::mojom::HandwritingRecognizerSpecPtr spec, ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::HandwritingRecognizer> receiver);
   void LoadSpeechRecognizer(
       ::chromeos::machine_learning::mojom::SodaConfigPtr config, ::mojo::PendingRemote<::chromeos::machine_learning::mojom::SodaClient> soda_client, ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::SodaRecognizer> soda_recognizer, LoadModelResult* out_result);
+  LoadModelResult LoadSpeechRecognizer(::chromeos::machine_learning::mojom::SodaConfigPtr config, ::mojo::PendingRemote<::chromeos::machine_learning::mojom::SodaClient> soda_client, ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::SodaRecognizer> soda_recognizer);
   void LoadGrammarChecker(
       ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::GrammarChecker> receiver, LoadModelResult* out_result);
+  LoadModelResult LoadGrammarChecker(::mojo::PendingReceiver<::chromeos::machine_learning::mojom::GrammarChecker> receiver);
   void LoadTextSuggester(
       ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::TextSuggester> receiver, ::chromeos::machine_learning::mojom::TextSuggesterSpecPtr spec, LoadModelResult* out_result);
+  LoadModelResult LoadTextSuggester(::mojo::PendingReceiver<::chromeos::machine_learning::mojom::TextSuggester> receiver, ::chromeos::machine_learning::mojom::TextSuggesterSpecPtr spec);
   void LoadWebPlatformHandwritingModel(
       ::chromeos::machine_learning::web_platform::mojom::HandwritingModelConstraintPtr constraint, ::mojo::PendingReceiver<::chromeos::machine_learning::web_platform::mojom::HandwritingRecognizer> receiver, ::chromeos::machine_learning::mojom::LoadHandwritingModelResult* out_result);
+  ::chromeos::machine_learning::mojom::LoadHandwritingModelResult LoadWebPlatformHandwritingModel(::chromeos::machine_learning::web_platform::mojom::HandwritingModelConstraintPtr constraint, ::mojo::PendingReceiver<::chromeos::machine_learning::web_platform::mojom::HandwritingRecognizer> receiver);
   void LoadDocumentScanner(
       ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::DocumentScanner> receiver, ::chromeos::machine_learning::mojom::DocumentScannerConfigPtr config, LoadModelResult* out_result);
+  LoadModelResult LoadDocumentScanner(::mojo::PendingReceiver<::chromeos::machine_learning::mojom::DocumentScanner> receiver, ::chromeos::machine_learning::mojom::DocumentScannerConfigPtr config);
   void CreateWebPlatformModelLoader(
       ::mojo::PendingReceiver<::ml::model_loader::mojom::ModelLoader> receiver, ::ml::model_loader::mojom::CreateModelLoaderOptionsPtr options, ::ml::model_loader::mojom::CreateModelLoaderResult* out_result);
+  ::ml::model_loader::mojom::CreateModelLoaderResult CreateWebPlatformModelLoader(::mojo::PendingReceiver<::ml::model_loader::mojom::ModelLoader> receiver, ::ml::model_loader::mojom::CreateModelLoaderOptionsPtr options);
   void REMOVED_4(
       ::chromeos::machine_learning::mojom::HandwritingRecognizerSpecPtr spec, ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::HandwritingRecognizer> receiver, LoadModelResult* out_result);
+  LoadModelResult REMOVED_4(::chromeos::machine_learning::mojom::HandwritingRecognizerSpecPtr spec, ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::HandwritingRecognizer> receiver);
 
  private:
   MachineLearningService* const proxy_;

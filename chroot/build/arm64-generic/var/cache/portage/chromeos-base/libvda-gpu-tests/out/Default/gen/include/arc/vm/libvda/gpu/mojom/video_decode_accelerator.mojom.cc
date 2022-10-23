@@ -2075,6 +2075,14 @@ void VideoDecodeAcceleratorAsyncWaiter::Initialize(
           out_result));
   loop.Run();
 }
+
+VideoDecodeAccelerator::Result VideoDecodeAcceleratorAsyncWaiter::Initialize(
+    VideoDecodeAcceleratorConfigPtr config, ::mojo::PendingRemote<VideoDecodeClient> client) {
+  VideoDecodeAccelerator::Result async_wait_result;
+  Initialize(std::move(config),std::move(client),&async_wait_result);
+  return async_wait_result;
+}
+
 void VideoDecodeAcceleratorAsyncWaiter::Reset(
     VideoDecodeAccelerator::Result* out_result) {
   base::RunLoop loop;
@@ -2090,6 +2098,14 @@ void VideoDecodeAcceleratorAsyncWaiter::Reset(
           out_result));
   loop.Run();
 }
+
+VideoDecodeAccelerator::Result VideoDecodeAcceleratorAsyncWaiter::Reset(
+    ) {
+  VideoDecodeAccelerator::Result async_wait_result;
+  Reset(&async_wait_result);
+  return async_wait_result;
+}
+
 void VideoDecodeAcceleratorAsyncWaiter::Flush(
     VideoDecodeAccelerator::Result* out_result) {
   base::RunLoop loop;
@@ -2105,6 +2121,14 @@ void VideoDecodeAcceleratorAsyncWaiter::Flush(
           out_result));
   loop.Run();
 }
+
+VideoDecodeAccelerator::Result VideoDecodeAcceleratorAsyncWaiter::Flush(
+    ) {
+  VideoDecodeAccelerator::Result async_wait_result;
+  Flush(&async_wait_result);
+  return async_wait_result;
+}
+
 
 
 

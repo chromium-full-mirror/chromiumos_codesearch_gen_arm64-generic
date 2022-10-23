@@ -11293,6 +11293,14 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::GetAvailableRoutines(
           out_available_routines));
   loop.Run();
 }
+
+std::vector<::ash::cros_healthd::mojom::DiagnosticRoutineEnum> CrosHealthdDiagnosticsServiceAsyncWaiter::GetAvailableRoutines(
+    ) {
+  std::vector<::ash::cros_healthd::mojom::DiagnosticRoutineEnum> async_wait_result;
+  GetAvailableRoutines(&async_wait_result);
+  return async_wait_result;
+}
+
 void CrosHealthdDiagnosticsServiceAsyncWaiter::GetRoutineUpdate(
     int32_t id, ::ash::cros_healthd::mojom::DiagnosticRoutineCommandEnum command, bool include_output, ::ash::cros_healthd::mojom::RoutineUpdatePtr* out_routine_update) {
   base::RunLoop loop;
@@ -11308,6 +11316,14 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::GetRoutineUpdate(
           out_routine_update));
   loop.Run();
 }
+
+::ash::cros_healthd::mojom::RoutineUpdatePtr CrosHealthdDiagnosticsServiceAsyncWaiter::GetRoutineUpdate(
+    int32_t id, ::ash::cros_healthd::mojom::DiagnosticRoutineCommandEnum command, bool include_output) {
+  ::ash::cros_healthd::mojom::RoutineUpdatePtr async_wait_result;
+  GetRoutineUpdate(std::move(id),std::move(command),std::move(include_output),&async_wait_result);
+  return async_wait_result;
+}
+
 void CrosHealthdDiagnosticsServiceAsyncWaiter::RunUrandomRoutine(
     ::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
   base::RunLoop loop;
@@ -11323,6 +11339,14 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunUrandomRoutine(
           out_response));
   loop.Run();
 }
+
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunUrandomRoutine(
+    ::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds) {
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
+  RunUrandomRoutine(std::move(length_seconds),&async_wait_result);
+  return async_wait_result;
+}
+
 void CrosHealthdDiagnosticsServiceAsyncWaiter::RunBatteryCapacityRoutine(
     ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
   base::RunLoop loop;
@@ -11338,6 +11362,14 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunBatteryCapacityRoutine(
           out_response));
   loop.Run();
 }
+
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunBatteryCapacityRoutine(
+    ) {
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
+  RunBatteryCapacityRoutine(&async_wait_result);
+  return async_wait_result;
+}
+
 void CrosHealthdDiagnosticsServiceAsyncWaiter::RunBatteryHealthRoutine(
     ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
   base::RunLoop loop;
@@ -11353,6 +11385,14 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunBatteryHealthRoutine(
           out_response));
   loop.Run();
 }
+
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunBatteryHealthRoutine(
+    ) {
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
+  RunBatteryHealthRoutine(&async_wait_result);
+  return async_wait_result;
+}
+
 void CrosHealthdDiagnosticsServiceAsyncWaiter::RunSmartctlCheckRoutine(
     ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
   base::RunLoop loop;
@@ -11368,6 +11408,14 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunSmartctlCheckRoutine(
           out_response));
   loop.Run();
 }
+
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunSmartctlCheckRoutine(
+    ) {
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
+  RunSmartctlCheckRoutine(&async_wait_result);
+  return async_wait_result;
+}
+
 void CrosHealthdDiagnosticsServiceAsyncWaiter::RunAcPowerRoutine(
     ::ash::cros_healthd::mojom::AcPowerStatusEnum expected_status, const absl::optional<std::string>& expected_power_type, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
   base::RunLoop loop;
@@ -11383,6 +11431,14 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunAcPowerRoutine(
           out_response));
   loop.Run();
 }
+
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunAcPowerRoutine(
+    ::ash::cros_healthd::mojom::AcPowerStatusEnum expected_status, const absl::optional<std::string>& expected_power_type) {
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
+  RunAcPowerRoutine(std::move(expected_status),std::move(expected_power_type),&async_wait_result);
+  return async_wait_result;
+}
+
 void CrosHealthdDiagnosticsServiceAsyncWaiter::RunCpuCacheRoutine(
     ::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
   base::RunLoop loop;
@@ -11398,6 +11454,14 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunCpuCacheRoutine(
           out_response));
   loop.Run();
 }
+
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunCpuCacheRoutine(
+    ::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds) {
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
+  RunCpuCacheRoutine(std::move(length_seconds),&async_wait_result);
+  return async_wait_result;
+}
+
 void CrosHealthdDiagnosticsServiceAsyncWaiter::RunCpuStressRoutine(
     ::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
   base::RunLoop loop;
@@ -11413,6 +11477,14 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunCpuStressRoutine(
           out_response));
   loop.Run();
 }
+
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunCpuStressRoutine(
+    ::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds) {
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
+  RunCpuStressRoutine(std::move(length_seconds),&async_wait_result);
+  return async_wait_result;
+}
+
 void CrosHealthdDiagnosticsServiceAsyncWaiter::RunFloatingPointAccuracyRoutine(
     ::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
   base::RunLoop loop;
@@ -11428,6 +11500,14 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunFloatingPointAccuracyRoutine(
           out_response));
   loop.Run();
 }
+
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunFloatingPointAccuracyRoutine(
+    ::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds) {
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
+  RunFloatingPointAccuracyRoutine(std::move(length_seconds),&async_wait_result);
+  return async_wait_result;
+}
+
 void CrosHealthdDiagnosticsServiceAsyncWaiter::DEPRECATED_RunNvmeWearLevelRoutine(
     uint32_t wear_level_threshold, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
   base::RunLoop loop;
@@ -11443,6 +11523,14 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::DEPRECATED_RunNvmeWearLevelRoutin
           out_response));
   loop.Run();
 }
+
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::DEPRECATED_RunNvmeWearLevelRoutine(
+    uint32_t wear_level_threshold) {
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
+  DEPRECATED_RunNvmeWearLevelRoutine(std::move(wear_level_threshold),&async_wait_result);
+  return async_wait_result;
+}
+
 void CrosHealthdDiagnosticsServiceAsyncWaiter::RunNvmeWearLevelRoutine(
     ::ash::cros_healthd::mojom::NullableUint32Ptr wear_level_threshold, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
   base::RunLoop loop;
@@ -11458,6 +11546,14 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunNvmeWearLevelRoutine(
           out_response));
   loop.Run();
 }
+
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunNvmeWearLevelRoutine(
+    ::ash::cros_healthd::mojom::NullableUint32Ptr wear_level_threshold) {
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
+  RunNvmeWearLevelRoutine(std::move(wear_level_threshold),&async_wait_result);
+  return async_wait_result;
+}
+
 void CrosHealthdDiagnosticsServiceAsyncWaiter::RunNvmeSelfTestRoutine(
     ::ash::cros_healthd::mojom::NvmeSelfTestTypeEnum nvme_self_test_type, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
   base::RunLoop loop;
@@ -11473,6 +11569,14 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunNvmeSelfTestRoutine(
           out_response));
   loop.Run();
 }
+
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunNvmeSelfTestRoutine(
+    ::ash::cros_healthd::mojom::NvmeSelfTestTypeEnum nvme_self_test_type) {
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
+  RunNvmeSelfTestRoutine(std::move(nvme_self_test_type),&async_wait_result);
+  return async_wait_result;
+}
+
 void CrosHealthdDiagnosticsServiceAsyncWaiter::RunDiskReadRoutine(
     ::ash::cros_healthd::mojom::DiskReadRoutineTypeEnum type, uint32_t length_seconds, uint32_t file_size_mb, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
   base::RunLoop loop;
@@ -11488,6 +11592,14 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunDiskReadRoutine(
           out_response));
   loop.Run();
 }
+
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunDiskReadRoutine(
+    ::ash::cros_healthd::mojom::DiskReadRoutineTypeEnum type, uint32_t length_seconds, uint32_t file_size_mb) {
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
+  RunDiskReadRoutine(std::move(type),std::move(length_seconds),std::move(file_size_mb),&async_wait_result);
+  return async_wait_result;
+}
+
 void CrosHealthdDiagnosticsServiceAsyncWaiter::RunPrimeSearchRoutine(
     ::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
   base::RunLoop loop;
@@ -11503,6 +11615,14 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunPrimeSearchRoutine(
           out_response));
   loop.Run();
 }
+
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunPrimeSearchRoutine(
+    ::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds) {
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
+  RunPrimeSearchRoutine(std::move(length_seconds),&async_wait_result);
+  return async_wait_result;
+}
+
 void CrosHealthdDiagnosticsServiceAsyncWaiter::RunBatteryDischargeRoutine(
     uint32_t length_seconds, uint32_t maximum_discharge_percent_allowed, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
   base::RunLoop loop;
@@ -11518,6 +11638,14 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunBatteryDischargeRoutine(
           out_response));
   loop.Run();
 }
+
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunBatteryDischargeRoutine(
+    uint32_t length_seconds, uint32_t maximum_discharge_percent_allowed) {
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
+  RunBatteryDischargeRoutine(std::move(length_seconds),std::move(maximum_discharge_percent_allowed),&async_wait_result);
+  return async_wait_result;
+}
+
 void CrosHealthdDiagnosticsServiceAsyncWaiter::RunBatteryChargeRoutine(
     uint32_t length_seconds, uint32_t minimum_charge_percent_required, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
   base::RunLoop loop;
@@ -11533,6 +11661,14 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunBatteryChargeRoutine(
           out_response));
   loop.Run();
 }
+
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunBatteryChargeRoutine(
+    uint32_t length_seconds, uint32_t minimum_charge_percent_required) {
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
+  RunBatteryChargeRoutine(std::move(length_seconds),std::move(minimum_charge_percent_required),&async_wait_result);
+  return async_wait_result;
+}
+
 void CrosHealthdDiagnosticsServiceAsyncWaiter::RunMemoryRoutine(
     ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
   base::RunLoop loop;
@@ -11548,6 +11684,14 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunMemoryRoutine(
           out_response));
   loop.Run();
 }
+
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunMemoryRoutine(
+    ) {
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
+  RunMemoryRoutine(&async_wait_result);
+  return async_wait_result;
+}
+
 void CrosHealthdDiagnosticsServiceAsyncWaiter::RunLanConnectivityRoutine(
     ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
   base::RunLoop loop;
@@ -11563,6 +11707,14 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunLanConnectivityRoutine(
           out_response));
   loop.Run();
 }
+
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunLanConnectivityRoutine(
+    ) {
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
+  RunLanConnectivityRoutine(&async_wait_result);
+  return async_wait_result;
+}
+
 void CrosHealthdDiagnosticsServiceAsyncWaiter::RunSignalStrengthRoutine(
     ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
   base::RunLoop loop;
@@ -11578,6 +11730,14 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunSignalStrengthRoutine(
           out_response));
   loop.Run();
 }
+
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunSignalStrengthRoutine(
+    ) {
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
+  RunSignalStrengthRoutine(&async_wait_result);
+  return async_wait_result;
+}
+
 void CrosHealthdDiagnosticsServiceAsyncWaiter::RunGatewayCanBePingedRoutine(
     ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
   base::RunLoop loop;
@@ -11593,6 +11753,14 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunGatewayCanBePingedRoutine(
           out_response));
   loop.Run();
 }
+
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunGatewayCanBePingedRoutine(
+    ) {
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
+  RunGatewayCanBePingedRoutine(&async_wait_result);
+  return async_wait_result;
+}
+
 void CrosHealthdDiagnosticsServiceAsyncWaiter::RunHasSecureWiFiConnectionRoutine(
     ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
   base::RunLoop loop;
@@ -11608,6 +11776,14 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunHasSecureWiFiConnectionRoutine
           out_response));
   loop.Run();
 }
+
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunHasSecureWiFiConnectionRoutine(
+    ) {
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
+  RunHasSecureWiFiConnectionRoutine(&async_wait_result);
+  return async_wait_result;
+}
+
 void CrosHealthdDiagnosticsServiceAsyncWaiter::RunDnsResolverPresentRoutine(
     ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
   base::RunLoop loop;
@@ -11623,6 +11799,14 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunDnsResolverPresentRoutine(
           out_response));
   loop.Run();
 }
+
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunDnsResolverPresentRoutine(
+    ) {
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
+  RunDnsResolverPresentRoutine(&async_wait_result);
+  return async_wait_result;
+}
+
 void CrosHealthdDiagnosticsServiceAsyncWaiter::RunDnsLatencyRoutine(
     ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
   base::RunLoop loop;
@@ -11638,6 +11822,14 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunDnsLatencyRoutine(
           out_response));
   loop.Run();
 }
+
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunDnsLatencyRoutine(
+    ) {
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
+  RunDnsLatencyRoutine(&async_wait_result);
+  return async_wait_result;
+}
+
 void CrosHealthdDiagnosticsServiceAsyncWaiter::RunDnsResolutionRoutine(
     ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
   base::RunLoop loop;
@@ -11653,6 +11845,14 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunDnsResolutionRoutine(
           out_response));
   loop.Run();
 }
+
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunDnsResolutionRoutine(
+    ) {
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
+  RunDnsResolutionRoutine(&async_wait_result);
+  return async_wait_result;
+}
+
 void CrosHealthdDiagnosticsServiceAsyncWaiter::RunCaptivePortalRoutine(
     ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
   base::RunLoop loop;
@@ -11668,6 +11868,14 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunCaptivePortalRoutine(
           out_response));
   loop.Run();
 }
+
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunCaptivePortalRoutine(
+    ) {
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
+  RunCaptivePortalRoutine(&async_wait_result);
+  return async_wait_result;
+}
+
 void CrosHealthdDiagnosticsServiceAsyncWaiter::RunHttpFirewallRoutine(
     ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
   base::RunLoop loop;
@@ -11683,6 +11891,14 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunHttpFirewallRoutine(
           out_response));
   loop.Run();
 }
+
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunHttpFirewallRoutine(
+    ) {
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
+  RunHttpFirewallRoutine(&async_wait_result);
+  return async_wait_result;
+}
+
 void CrosHealthdDiagnosticsServiceAsyncWaiter::RunHttpsFirewallRoutine(
     ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
   base::RunLoop loop;
@@ -11698,6 +11914,14 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunHttpsFirewallRoutine(
           out_response));
   loop.Run();
 }
+
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunHttpsFirewallRoutine(
+    ) {
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
+  RunHttpsFirewallRoutine(&async_wait_result);
+  return async_wait_result;
+}
+
 void CrosHealthdDiagnosticsServiceAsyncWaiter::RunHttpsLatencyRoutine(
     ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
   base::RunLoop loop;
@@ -11713,6 +11937,14 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunHttpsLatencyRoutine(
           out_response));
   loop.Run();
 }
+
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunHttpsLatencyRoutine(
+    ) {
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
+  RunHttpsLatencyRoutine(&async_wait_result);
+  return async_wait_result;
+}
+
 void CrosHealthdDiagnosticsServiceAsyncWaiter::RunVideoConferencingRoutine(
     const absl::optional<std::string>& stun_server_hostname, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
   base::RunLoop loop;
@@ -11728,6 +11960,14 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunVideoConferencingRoutine(
           out_response));
   loop.Run();
 }
+
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunVideoConferencingRoutine(
+    const absl::optional<std::string>& stun_server_hostname) {
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
+  RunVideoConferencingRoutine(std::move(stun_server_hostname),&async_wait_result);
+  return async_wait_result;
+}
+
 void CrosHealthdDiagnosticsServiceAsyncWaiter::RunArcHttpRoutine(
     ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
   base::RunLoop loop;
@@ -11743,6 +11983,14 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunArcHttpRoutine(
           out_response));
   loop.Run();
 }
+
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunArcHttpRoutine(
+    ) {
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
+  RunArcHttpRoutine(&async_wait_result);
+  return async_wait_result;
+}
+
 void CrosHealthdDiagnosticsServiceAsyncWaiter::RunArcPingRoutine(
     ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
   base::RunLoop loop;
@@ -11758,6 +12006,14 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunArcPingRoutine(
           out_response));
   loop.Run();
 }
+
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunArcPingRoutine(
+    ) {
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
+  RunArcPingRoutine(&async_wait_result);
+  return async_wait_result;
+}
+
 void CrosHealthdDiagnosticsServiceAsyncWaiter::RunArcDnsResolutionRoutine(
     ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
   base::RunLoop loop;
@@ -11773,6 +12029,14 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunArcDnsResolutionRoutine(
           out_response));
   loop.Run();
 }
+
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunArcDnsResolutionRoutine(
+    ) {
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
+  RunArcDnsResolutionRoutine(&async_wait_result);
+  return async_wait_result;
+}
+
 void CrosHealthdDiagnosticsServiceAsyncWaiter::RunSensitiveSensorRoutine(
     ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
   base::RunLoop loop;
@@ -11788,6 +12052,14 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunSensitiveSensorRoutine(
           out_response));
   loop.Run();
 }
+
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunSensitiveSensorRoutine(
+    ) {
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result;
+  RunSensitiveSensorRoutine(&async_wait_result);
+  return async_wait_result;
+}
+
 
 
 
@@ -11849,6 +12121,14 @@ void CrosHealthdProbeServiceAsyncWaiter::ProbeProcessInfo(
           out_process_info));
   loop.Run();
 }
+
+::ash::cros_healthd::mojom::ProcessResultPtr CrosHealthdProbeServiceAsyncWaiter::ProbeProcessInfo(
+    uint32_t process_id) {
+  ::ash::cros_healthd::mojom::ProcessResultPtr async_wait_result;
+  ProbeProcessInfo(std::move(process_id),&async_wait_result);
+  return async_wait_result;
+}
+
 void CrosHealthdProbeServiceAsyncWaiter::ProbeTelemetryInfo(
     const std::vector<::ash::cros_healthd::mojom::ProbeCategoryEnum>& categories, ::ash::cros_healthd::mojom::TelemetryInfoPtr* out_telemetry_info) {
   base::RunLoop loop;
@@ -11864,6 +12144,14 @@ void CrosHealthdProbeServiceAsyncWaiter::ProbeTelemetryInfo(
           out_telemetry_info));
   loop.Run();
 }
+
+::ash::cros_healthd::mojom::TelemetryInfoPtr CrosHealthdProbeServiceAsyncWaiter::ProbeTelemetryInfo(
+    const std::vector<::ash::cros_healthd::mojom::ProbeCategoryEnum>& categories) {
+  ::ash::cros_healthd::mojom::TelemetryInfoPtr async_wait_result;
+  ProbeTelemetryInfo(std::move(categories),&async_wait_result);
+  return async_wait_result;
+}
+
 void CrosHealthdProbeServiceAsyncWaiter::ProbeMultipleProcessInfo(
     const absl::optional<std::vector<uint32_t>>& process_ids, bool ignore_single_process_error, ::ash::cros_healthd::mojom::MultipleProcessResultPtr* out_multiple_process_info) {
   base::RunLoop loop;
@@ -11879,6 +12167,14 @@ void CrosHealthdProbeServiceAsyncWaiter::ProbeMultipleProcessInfo(
           out_multiple_process_info));
   loop.Run();
 }
+
+::ash::cros_healthd::mojom::MultipleProcessResultPtr CrosHealthdProbeServiceAsyncWaiter::ProbeMultipleProcessInfo(
+    const absl::optional<std::vector<uint32_t>>& process_ids, bool ignore_single_process_error) {
+  ::ash::cros_healthd::mojom::MultipleProcessResultPtr async_wait_result;
+  ProbeMultipleProcessInfo(std::move(process_ids),std::move(ignore_single_process_error),&async_wait_result);
+  return async_wait_result;
+}
+
 
 
 
@@ -11905,6 +12201,14 @@ void CrosHealthdSystemServiceAsyncWaiter::GetServiceStatus(
           out_response));
   loop.Run();
 }
+
+ServiceStatusPtr CrosHealthdSystemServiceAsyncWaiter::GetServiceStatus(
+    ) {
+  ServiceStatusPtr async_wait_result;
+  GetServiceStatus(&async_wait_result);
+  return async_wait_result;
+}
+
 
 
 
@@ -11940,6 +12244,14 @@ void WilcoEcServiceControllerAsyncWaiter::GetEcTelemetry(
           out_response));
   loop.Run();
 }
+
+::ash::cros_healthd::mojom::GetEcTelemetryResponsePtr WilcoEcServiceControllerAsyncWaiter::GetEcTelemetry(
+    const std::string& payload_string) {
+  ::ash::cros_healthd::mojom::GetEcTelemetryResponsePtr async_wait_result;
+  GetEcTelemetry(std::move(payload_string),&async_wait_result);
+  return async_wait_result;
+}
+
 
 
 

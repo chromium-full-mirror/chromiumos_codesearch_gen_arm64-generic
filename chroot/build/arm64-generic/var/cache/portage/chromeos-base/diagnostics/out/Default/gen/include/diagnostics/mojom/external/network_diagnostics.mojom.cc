@@ -4605,6 +4605,14 @@ void NetworkDiagnosticsRoutinesAsyncWaiter::GetResult(
           out_result));
   loop.Run();
 }
+
+RoutineResultPtr NetworkDiagnosticsRoutinesAsyncWaiter::GetResult(
+    RoutineType routine) {
+  RoutineResultPtr async_wait_result;
+  GetResult(std::move(routine),&async_wait_result);
+  return async_wait_result;
+}
+
 void NetworkDiagnosticsRoutinesAsyncWaiter::GetAllResults(
     base::flat_map<RoutineType, RoutineResultPtr>* out_results) {
   base::RunLoop loop;
@@ -4620,6 +4628,14 @@ void NetworkDiagnosticsRoutinesAsyncWaiter::GetAllResults(
           out_results));
   loop.Run();
 }
+
+base::flat_map<RoutineType, RoutineResultPtr> NetworkDiagnosticsRoutinesAsyncWaiter::GetAllResults(
+    ) {
+  base::flat_map<RoutineType, RoutineResultPtr> async_wait_result;
+  GetAllResults(&async_wait_result);
+  return async_wait_result;
+}
+
 void NetworkDiagnosticsRoutinesAsyncWaiter::RunLanConnectivity(
     RoutineResultPtr* out_result) {
   base::RunLoop loop;
@@ -4635,6 +4651,14 @@ void NetworkDiagnosticsRoutinesAsyncWaiter::RunLanConnectivity(
           out_result));
   loop.Run();
 }
+
+RoutineResultPtr NetworkDiagnosticsRoutinesAsyncWaiter::RunLanConnectivity(
+    ) {
+  RoutineResultPtr async_wait_result;
+  RunLanConnectivity(&async_wait_result);
+  return async_wait_result;
+}
+
 void NetworkDiagnosticsRoutinesAsyncWaiter::RunSignalStrength(
     RoutineResultPtr* out_result) {
   base::RunLoop loop;
@@ -4650,6 +4674,14 @@ void NetworkDiagnosticsRoutinesAsyncWaiter::RunSignalStrength(
           out_result));
   loop.Run();
 }
+
+RoutineResultPtr NetworkDiagnosticsRoutinesAsyncWaiter::RunSignalStrength(
+    ) {
+  RoutineResultPtr async_wait_result;
+  RunSignalStrength(&async_wait_result);
+  return async_wait_result;
+}
+
 void NetworkDiagnosticsRoutinesAsyncWaiter::RunGatewayCanBePinged(
     RoutineResultPtr* out_result) {
   base::RunLoop loop;
@@ -4665,6 +4697,14 @@ void NetworkDiagnosticsRoutinesAsyncWaiter::RunGatewayCanBePinged(
           out_result));
   loop.Run();
 }
+
+RoutineResultPtr NetworkDiagnosticsRoutinesAsyncWaiter::RunGatewayCanBePinged(
+    ) {
+  RoutineResultPtr async_wait_result;
+  RunGatewayCanBePinged(&async_wait_result);
+  return async_wait_result;
+}
+
 void NetworkDiagnosticsRoutinesAsyncWaiter::RunHasSecureWiFiConnection(
     RoutineResultPtr* out_result) {
   base::RunLoop loop;
@@ -4680,6 +4720,14 @@ void NetworkDiagnosticsRoutinesAsyncWaiter::RunHasSecureWiFiConnection(
           out_result));
   loop.Run();
 }
+
+RoutineResultPtr NetworkDiagnosticsRoutinesAsyncWaiter::RunHasSecureWiFiConnection(
+    ) {
+  RoutineResultPtr async_wait_result;
+  RunHasSecureWiFiConnection(&async_wait_result);
+  return async_wait_result;
+}
+
 void NetworkDiagnosticsRoutinesAsyncWaiter::RunDnsResolverPresent(
     RoutineResultPtr* out_result) {
   base::RunLoop loop;
@@ -4695,6 +4743,14 @@ void NetworkDiagnosticsRoutinesAsyncWaiter::RunDnsResolverPresent(
           out_result));
   loop.Run();
 }
+
+RoutineResultPtr NetworkDiagnosticsRoutinesAsyncWaiter::RunDnsResolverPresent(
+    ) {
+  RoutineResultPtr async_wait_result;
+  RunDnsResolverPresent(&async_wait_result);
+  return async_wait_result;
+}
+
 void NetworkDiagnosticsRoutinesAsyncWaiter::RunDnsLatency(
     RoutineResultPtr* out_result) {
   base::RunLoop loop;
@@ -4710,6 +4766,14 @@ void NetworkDiagnosticsRoutinesAsyncWaiter::RunDnsLatency(
           out_result));
   loop.Run();
 }
+
+RoutineResultPtr NetworkDiagnosticsRoutinesAsyncWaiter::RunDnsLatency(
+    ) {
+  RoutineResultPtr async_wait_result;
+  RunDnsLatency(&async_wait_result);
+  return async_wait_result;
+}
+
 void NetworkDiagnosticsRoutinesAsyncWaiter::RunDnsResolution(
     RoutineResultPtr* out_result) {
   base::RunLoop loop;
@@ -4725,6 +4789,14 @@ void NetworkDiagnosticsRoutinesAsyncWaiter::RunDnsResolution(
           out_result));
   loop.Run();
 }
+
+RoutineResultPtr NetworkDiagnosticsRoutinesAsyncWaiter::RunDnsResolution(
+    ) {
+  RoutineResultPtr async_wait_result;
+  RunDnsResolution(&async_wait_result);
+  return async_wait_result;
+}
+
 void NetworkDiagnosticsRoutinesAsyncWaiter::RunCaptivePortal(
     RoutineResultPtr* out_result) {
   base::RunLoop loop;
@@ -4740,6 +4812,14 @@ void NetworkDiagnosticsRoutinesAsyncWaiter::RunCaptivePortal(
           out_result));
   loop.Run();
 }
+
+RoutineResultPtr NetworkDiagnosticsRoutinesAsyncWaiter::RunCaptivePortal(
+    ) {
+  RoutineResultPtr async_wait_result;
+  RunCaptivePortal(&async_wait_result);
+  return async_wait_result;
+}
+
 void NetworkDiagnosticsRoutinesAsyncWaiter::RunHttpFirewall(
     RoutineResultPtr* out_result) {
   base::RunLoop loop;
@@ -4755,6 +4835,14 @@ void NetworkDiagnosticsRoutinesAsyncWaiter::RunHttpFirewall(
           out_result));
   loop.Run();
 }
+
+RoutineResultPtr NetworkDiagnosticsRoutinesAsyncWaiter::RunHttpFirewall(
+    ) {
+  RoutineResultPtr async_wait_result;
+  RunHttpFirewall(&async_wait_result);
+  return async_wait_result;
+}
+
 void NetworkDiagnosticsRoutinesAsyncWaiter::RunHttpsFirewall(
     RoutineResultPtr* out_result) {
   base::RunLoop loop;
@@ -4770,6 +4858,14 @@ void NetworkDiagnosticsRoutinesAsyncWaiter::RunHttpsFirewall(
           out_result));
   loop.Run();
 }
+
+RoutineResultPtr NetworkDiagnosticsRoutinesAsyncWaiter::RunHttpsFirewall(
+    ) {
+  RoutineResultPtr async_wait_result;
+  RunHttpsFirewall(&async_wait_result);
+  return async_wait_result;
+}
+
 void NetworkDiagnosticsRoutinesAsyncWaiter::RunHttpsLatency(
     RoutineResultPtr* out_result) {
   base::RunLoop loop;
@@ -4785,6 +4881,14 @@ void NetworkDiagnosticsRoutinesAsyncWaiter::RunHttpsLatency(
           out_result));
   loop.Run();
 }
+
+RoutineResultPtr NetworkDiagnosticsRoutinesAsyncWaiter::RunHttpsLatency(
+    ) {
+  RoutineResultPtr async_wait_result;
+  RunHttpsLatency(&async_wait_result);
+  return async_wait_result;
+}
+
 void NetworkDiagnosticsRoutinesAsyncWaiter::RunVideoConferencing(
     const absl::optional<std::string>& stun_server_hostname, RoutineResultPtr* out_result) {
   base::RunLoop loop;
@@ -4800,6 +4904,14 @@ void NetworkDiagnosticsRoutinesAsyncWaiter::RunVideoConferencing(
           out_result));
   loop.Run();
 }
+
+RoutineResultPtr NetworkDiagnosticsRoutinesAsyncWaiter::RunVideoConferencing(
+    const absl::optional<std::string>& stun_server_hostname) {
+  RoutineResultPtr async_wait_result;
+  RunVideoConferencing(std::move(stun_server_hostname),&async_wait_result);
+  return async_wait_result;
+}
+
 void NetworkDiagnosticsRoutinesAsyncWaiter::RunArcHttp(
     RoutineResultPtr* out_result) {
   base::RunLoop loop;
@@ -4815,6 +4927,14 @@ void NetworkDiagnosticsRoutinesAsyncWaiter::RunArcHttp(
           out_result));
   loop.Run();
 }
+
+RoutineResultPtr NetworkDiagnosticsRoutinesAsyncWaiter::RunArcHttp(
+    ) {
+  RoutineResultPtr async_wait_result;
+  RunArcHttp(&async_wait_result);
+  return async_wait_result;
+}
+
 void NetworkDiagnosticsRoutinesAsyncWaiter::RunArcPing(
     RoutineResultPtr* out_result) {
   base::RunLoop loop;
@@ -4830,6 +4950,14 @@ void NetworkDiagnosticsRoutinesAsyncWaiter::RunArcPing(
           out_result));
   loop.Run();
 }
+
+RoutineResultPtr NetworkDiagnosticsRoutinesAsyncWaiter::RunArcPing(
+    ) {
+  RoutineResultPtr async_wait_result;
+  RunArcPing(&async_wait_result);
+  return async_wait_result;
+}
+
 void NetworkDiagnosticsRoutinesAsyncWaiter::RunArcDnsResolution(
     RoutineResultPtr* out_result) {
   base::RunLoop loop;
@@ -4845,6 +4973,14 @@ void NetworkDiagnosticsRoutinesAsyncWaiter::RunArcDnsResolution(
           out_result));
   loop.Run();
 }
+
+RoutineResultPtr NetworkDiagnosticsRoutinesAsyncWaiter::RunArcDnsResolution(
+    ) {
+  RoutineResultPtr async_wait_result;
+  RunArcDnsResolution(&async_wait_result);
+  return async_wait_result;
+}
+
 
 
 

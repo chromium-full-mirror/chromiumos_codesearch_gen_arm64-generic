@@ -1104,6 +1104,14 @@ void DocumentScannerAsyncWaiter::DetectCornersFromNV12Image(
           out_result));
   loop.Run();
 }
+
+DetectCornersResultPtr DocumentScannerAsyncWaiter::DetectCornersFromNV12Image(
+    ::mojo_base::mojom::ReadOnlySharedMemoryRegionPtr nv12_image) {
+  DetectCornersResultPtr async_wait_result;
+  DetectCornersFromNV12Image(std::move(nv12_image),&async_wait_result);
+  return async_wait_result;
+}
+
 void DocumentScannerAsyncWaiter::DetectCornersFromJPEGImage(
     ::mojo_base::mojom::ReadOnlySharedMemoryRegionPtr jpeg_image, DetectCornersResultPtr* out_result) {
   base::RunLoop loop;
@@ -1119,6 +1127,14 @@ void DocumentScannerAsyncWaiter::DetectCornersFromJPEGImage(
           out_result));
   loop.Run();
 }
+
+DetectCornersResultPtr DocumentScannerAsyncWaiter::DetectCornersFromJPEGImage(
+    ::mojo_base::mojom::ReadOnlySharedMemoryRegionPtr jpeg_image) {
+  DetectCornersResultPtr async_wait_result;
+  DetectCornersFromJPEGImage(std::move(jpeg_image),&async_wait_result);
+  return async_wait_result;
+}
+
 void DocumentScannerAsyncWaiter::DoPostProcessing(
     ::mojo_base::mojom::ReadOnlySharedMemoryRegionPtr jpeg_image, std::vector<::gfx::mojom::PointFPtr> corners, ::chromeos::machine_learning::mojom::Rotation rotation, DoPostProcessingResultPtr* out_result) {
   base::RunLoop loop;
@@ -1134,6 +1150,14 @@ void DocumentScannerAsyncWaiter::DoPostProcessing(
           out_result));
   loop.Run();
 }
+
+DoPostProcessingResultPtr DocumentScannerAsyncWaiter::DoPostProcessing(
+    ::mojo_base::mojom::ReadOnlySharedMemoryRegionPtr jpeg_image, std::vector<::gfx::mojom::PointFPtr> corners, ::chromeos::machine_learning::mojom::Rotation rotation) {
+  DoPostProcessingResultPtr async_wait_result;
+  DoPostProcessing(std::move(jpeg_image),std::move(corners),std::move(rotation),&async_wait_result);
+  return async_wait_result;
+}
+
 
 
 

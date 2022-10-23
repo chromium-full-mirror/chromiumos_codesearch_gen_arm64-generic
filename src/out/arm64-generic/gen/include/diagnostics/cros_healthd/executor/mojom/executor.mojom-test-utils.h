@@ -40,26 +40,37 @@ class  ExecutorAsyncWaiter {
   ~ExecutorAsyncWaiter();
   void GetFanSpeed(
       ExecutedProcessResultPtr* out_result);
+  ExecutedProcessResultPtr GetFanSpeed();
   void GetInterfaces(
       ExecutedProcessResultPtr* out_result);
+  ExecutedProcessResultPtr GetInterfaces();
   void GetLink(
       const std::string& interface_name, ExecutedProcessResultPtr* out_result);
+  ExecutedProcessResultPtr GetLink(const std::string& interface_name);
   void GetInfo(
       const std::string& interface_name, ExecutedProcessResultPtr* out_result);
+  ExecutedProcessResultPtr GetInfo(const std::string& interface_name);
   void GetScanDump(
       const std::string& interface_name, ExecutedProcessResultPtr* out_result);
+  ExecutedProcessResultPtr GetScanDump(const std::string& interface_name);
   void RunMemtester(
       uint32_t test_mem_kib, ExecutedProcessResultPtr* out_result);
+  ExecutedProcessResultPtr RunMemtester(uint32_t test_mem_kib);
   void GetProcessIOContents(
       const std::vector<uint32_t>& pids, base::flat_map<uint32_t, std::string>* out_contents);
+  base::flat_map<uint32_t, std::string> GetProcessIOContents(const std::vector<uint32_t>& pids);
   void ReadMsr(
       uint32_t msr_reg, uint32_t cpu_index, ::ash::cros_healthd::mojom::NullableUint64Ptr* out_value);
+  ::ash::cros_healthd::mojom::NullableUint64Ptr ReadMsr(uint32_t msr_reg, uint32_t cpu_index);
   void GetUEFISecureBootContent(
       std::string* out_contents);
+  std::string GetUEFISecureBootContent();
   void GetUEFIPlatformSizeContent(
       std::string* out_contents);
+  std::string GetUEFIPlatformSizeContent();
   void GetLidAngle(
       ExecutedProcessResultPtr* out_result);
+  ExecutedProcessResultPtr GetLidAngle();
 
  private:
   Executor* const proxy_;

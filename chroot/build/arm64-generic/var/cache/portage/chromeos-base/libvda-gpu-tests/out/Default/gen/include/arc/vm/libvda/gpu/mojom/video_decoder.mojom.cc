@@ -1452,6 +1452,14 @@ void VideoDecoderAsyncWaiter::Initialize(
           out_status));
   loop.Run();
 }
+
+DecoderStatus VideoDecoderAsyncWaiter::Initialize(
+    VideoDecoderConfigPtr config, ::mojo::PendingRemote<VideoDecoderClient> client, ::mojo::PendingAssociatedReceiver<::arc::mojom::VideoFramePool> video_frame_pool) {
+  DecoderStatus async_wait_result;
+  Initialize(std::move(config),std::move(client),std::move(video_frame_pool),&async_wait_result);
+  return async_wait_result;
+}
+
 void VideoDecoderAsyncWaiter::Decode(
     DecoderBufferPtr buffer, DecoderStatus* out_status) {
   base::RunLoop loop;
@@ -1467,6 +1475,14 @@ void VideoDecoderAsyncWaiter::Decode(
           out_status));
   loop.Run();
 }
+
+DecoderStatus VideoDecoderAsyncWaiter::Decode(
+    DecoderBufferPtr buffer) {
+  DecoderStatus async_wait_result;
+  Decode(std::move(buffer),&async_wait_result);
+  return async_wait_result;
+}
+
 void VideoDecoderAsyncWaiter::Reset(
     ) {
   base::RunLoop loop;
@@ -1478,6 +1494,9 @@ void VideoDecoderAsyncWaiter::Reset(
           &loop));
   loop.Run();
 }
+
+
+
 
 
 

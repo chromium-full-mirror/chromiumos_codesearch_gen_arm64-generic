@@ -4615,6 +4615,14 @@ void SensorServiceAsyncWaiter::GetDeviceIds(
           out_iio_device_ids));
   loop.Run();
 }
+
+std::vector<int32_t> SensorServiceAsyncWaiter::GetDeviceIds(
+    DeviceType type) {
+  std::vector<int32_t> async_wait_result;
+  GetDeviceIds(std::move(type),&async_wait_result);
+  return async_wait_result;
+}
+
 void SensorServiceAsyncWaiter::GetAllDeviceIds(
     base::flat_map<int32_t, std::vector<DeviceType>>* out_iio_device_ids_types) {
   base::RunLoop loop;
@@ -4630,6 +4638,14 @@ void SensorServiceAsyncWaiter::GetAllDeviceIds(
           out_iio_device_ids_types));
   loop.Run();
 }
+
+base::flat_map<int32_t, std::vector<DeviceType>> SensorServiceAsyncWaiter::GetAllDeviceIds(
+    ) {
+  base::flat_map<int32_t, std::vector<DeviceType>> async_wait_result;
+  GetAllDeviceIds(&async_wait_result);
+  return async_wait_result;
+}
+
 
 
 
@@ -4698,6 +4714,14 @@ void SensorDeviceAsyncWaiter::GetAttributes(
           out_values));
   loop.Run();
 }
+
+std::vector<absl::optional<std::string>> SensorDeviceAsyncWaiter::GetAttributes(
+    const std::vector<std::string>& attr_names) {
+  std::vector<absl::optional<std::string>> async_wait_result;
+  GetAttributes(std::move(attr_names),&async_wait_result);
+  return async_wait_result;
+}
+
 void SensorDeviceAsyncWaiter::SetFrequency(
     double frequency, double* out_result_freq) {
   base::RunLoop loop;
@@ -4713,6 +4737,14 @@ void SensorDeviceAsyncWaiter::SetFrequency(
           out_result_freq));
   loop.Run();
 }
+
+double SensorDeviceAsyncWaiter::SetFrequency(
+    double frequency) {
+  double async_wait_result;
+  SetFrequency(std::move(frequency),&async_wait_result);
+  return async_wait_result;
+}
+
 void SensorDeviceAsyncWaiter::GetAllChannelIds(
     std::vector<std::string>* out_iio_chn_ids) {
   base::RunLoop loop;
@@ -4728,6 +4760,14 @@ void SensorDeviceAsyncWaiter::GetAllChannelIds(
           out_iio_chn_ids));
   loop.Run();
 }
+
+std::vector<std::string> SensorDeviceAsyncWaiter::GetAllChannelIds(
+    ) {
+  std::vector<std::string> async_wait_result;
+  GetAllChannelIds(&async_wait_result);
+  return async_wait_result;
+}
+
 void SensorDeviceAsyncWaiter::SetChannelsEnabled(
     const std::vector<int32_t>& iio_chn_indices, bool en, std::vector<int32_t>* out_failed_indices) {
   base::RunLoop loop;
@@ -4743,6 +4783,14 @@ void SensorDeviceAsyncWaiter::SetChannelsEnabled(
           out_failed_indices));
   loop.Run();
 }
+
+std::vector<int32_t> SensorDeviceAsyncWaiter::SetChannelsEnabled(
+    const std::vector<int32_t>& iio_chn_indices, bool en) {
+  std::vector<int32_t> async_wait_result;
+  SetChannelsEnabled(std::move(iio_chn_indices),std::move(en),&async_wait_result);
+  return async_wait_result;
+}
+
 void SensorDeviceAsyncWaiter::GetChannelsEnabled(
     const std::vector<int32_t>& iio_chn_indices, std::vector<bool>* out_enabled) {
   base::RunLoop loop;
@@ -4758,6 +4806,14 @@ void SensorDeviceAsyncWaiter::GetChannelsEnabled(
           out_enabled));
   loop.Run();
 }
+
+std::vector<bool> SensorDeviceAsyncWaiter::GetChannelsEnabled(
+    const std::vector<int32_t>& iio_chn_indices) {
+  std::vector<bool> async_wait_result;
+  GetChannelsEnabled(std::move(iio_chn_indices),&async_wait_result);
+  return async_wait_result;
+}
+
 void SensorDeviceAsyncWaiter::GetChannelsAttributes(
     const std::vector<int32_t>& iio_chn_indices, const std::string& attr_name, std::vector<absl::optional<std::string>>* out_values) {
   base::RunLoop loop;
@@ -4773,6 +4829,14 @@ void SensorDeviceAsyncWaiter::GetChannelsAttributes(
           out_values));
   loop.Run();
 }
+
+std::vector<absl::optional<std::string>> SensorDeviceAsyncWaiter::GetChannelsAttributes(
+    const std::vector<int32_t>& iio_chn_indices, const std::string& attr_name) {
+  std::vector<absl::optional<std::string>> async_wait_result;
+  GetChannelsAttributes(std::move(iio_chn_indices),std::move(attr_name),&async_wait_result);
+  return async_wait_result;
+}
+
 void SensorDeviceAsyncWaiter::GetAllEvents(
     std::vector<IioEventPtr>* out_iio_events) {
   base::RunLoop loop;
@@ -4788,6 +4852,14 @@ void SensorDeviceAsyncWaiter::GetAllEvents(
           out_iio_events));
   loop.Run();
 }
+
+std::vector<IioEventPtr> SensorDeviceAsyncWaiter::GetAllEvents(
+    ) {
+  std::vector<IioEventPtr> async_wait_result;
+  GetAllEvents(&async_wait_result);
+  return async_wait_result;
+}
+
 void SensorDeviceAsyncWaiter::SetEventsEnabled(
     const std::vector<int32_t>& iio_event_indices, bool en, std::vector<int32_t>* out_failed_indices) {
   base::RunLoop loop;
@@ -4803,6 +4875,14 @@ void SensorDeviceAsyncWaiter::SetEventsEnabled(
           out_failed_indices));
   loop.Run();
 }
+
+std::vector<int32_t> SensorDeviceAsyncWaiter::SetEventsEnabled(
+    const std::vector<int32_t>& iio_event_indices, bool en) {
+  std::vector<int32_t> async_wait_result;
+  SetEventsEnabled(std::move(iio_event_indices),std::move(en),&async_wait_result);
+  return async_wait_result;
+}
+
 void SensorDeviceAsyncWaiter::GetEventsEnabled(
     const std::vector<int32_t>& iio_event_indices, std::vector<bool>* out_enabled) {
   base::RunLoop loop;
@@ -4818,6 +4898,14 @@ void SensorDeviceAsyncWaiter::GetEventsEnabled(
           out_enabled));
   loop.Run();
 }
+
+std::vector<bool> SensorDeviceAsyncWaiter::GetEventsEnabled(
+    const std::vector<int32_t>& iio_event_indices) {
+  std::vector<bool> async_wait_result;
+  GetEventsEnabled(std::move(iio_event_indices),&async_wait_result);
+  return async_wait_result;
+}
+
 void SensorDeviceAsyncWaiter::GetEventsAttributes(
     const std::vector<int32_t>& iio_event_indices, const std::string& attr_name, std::vector<absl::optional<std::string>>* out_values) {
   base::RunLoop loop;
@@ -4833,6 +4921,14 @@ void SensorDeviceAsyncWaiter::GetEventsAttributes(
           out_values));
   loop.Run();
 }
+
+std::vector<absl::optional<std::string>> SensorDeviceAsyncWaiter::GetEventsAttributes(
+    const std::vector<int32_t>& iio_event_indices, const std::string& attr_name) {
+  std::vector<absl::optional<std::string>> async_wait_result;
+  GetEventsAttributes(std::move(iio_event_indices),std::move(attr_name),&async_wait_result);
+  return async_wait_result;
+}
+
 
 
 

@@ -2622,6 +2622,14 @@ void VideoEncodeAcceleratorAsyncWaiter::GetSupportedProfiles(
           out_profiles));
   loop.Run();
 }
+
+std::vector<VideoEncodeProfilePtr> VideoEncodeAcceleratorAsyncWaiter::GetSupportedProfiles(
+    ) {
+  std::vector<VideoEncodeProfilePtr> async_wait_result;
+  GetSupportedProfiles(&async_wait_result);
+  return async_wait_result;
+}
+
 void VideoEncodeAcceleratorAsyncWaiter::Initialize(
     VideoEncodeAcceleratorConfigPtr config, ::mojo::PendingRemote<VideoEncodeClient> client, VideoEncodeAccelerator::Result* out_result) {
   base::RunLoop loop;
@@ -2637,6 +2645,14 @@ void VideoEncodeAcceleratorAsyncWaiter::Initialize(
           out_result));
   loop.Run();
 }
+
+VideoEncodeAccelerator::Result VideoEncodeAcceleratorAsyncWaiter::Initialize(
+    VideoEncodeAcceleratorConfigPtr config, ::mojo::PendingRemote<VideoEncodeClient> client) {
+  VideoEncodeAccelerator::Result async_wait_result;
+  Initialize(std::move(config),std::move(client),&async_wait_result);
+  return async_wait_result;
+}
+
 void VideoEncodeAcceleratorAsyncWaiter::InitializeDeprecated(
     VideoEncodeAcceleratorConfigPtr config, ::mojo::PendingRemote<VideoEncodeClient> client, bool* out_success) {
   base::RunLoop loop;
@@ -2652,6 +2668,14 @@ void VideoEncodeAcceleratorAsyncWaiter::InitializeDeprecated(
           out_success));
   loop.Run();
 }
+
+bool VideoEncodeAcceleratorAsyncWaiter::InitializeDeprecated(
+    VideoEncodeAcceleratorConfigPtr config, ::mojo::PendingRemote<VideoEncodeClient> client) {
+  bool async_wait_result;
+  InitializeDeprecated(std::move(config),std::move(client),&async_wait_result);
+  return async_wait_result;
+}
+
 void VideoEncodeAcceleratorAsyncWaiter::Encode(
     ::arc::mojom::VideoPixelFormat format, ::mojo::ScopedHandle frame_fd, std::vector<::arc::mojom::VideoFramePlanePtr> planes, int64_t timestamp, bool force_keyframe) {
   base::RunLoop loop;
@@ -2663,6 +2687,9 @@ void VideoEncodeAcceleratorAsyncWaiter::Encode(
           &loop));
   loop.Run();
 }
+
+
+
 void VideoEncodeAcceleratorAsyncWaiter::UseBitstreamBuffer(
     ::mojo::ScopedHandle shmem_fd, uint32_t offset, uint32_t size, uint32_t* out_payload_size, bool* out_key_frame, int64_t* out_timestamp) {
   base::RunLoop loop;
@@ -2686,6 +2713,9 @@ void VideoEncodeAcceleratorAsyncWaiter::UseBitstreamBuffer(
           out_timestamp));
   loop.Run();
 }
+
+
+
 void VideoEncodeAcceleratorAsyncWaiter::Flush(
     bool* out_flush_done) {
   base::RunLoop loop;
@@ -2701,6 +2731,14 @@ void VideoEncodeAcceleratorAsyncWaiter::Flush(
           out_flush_done));
   loop.Run();
 }
+
+bool VideoEncodeAcceleratorAsyncWaiter::Flush(
+    ) {
+  bool async_wait_result;
+  Flush(&async_wait_result);
+  return async_wait_result;
+}
+
 
 
 

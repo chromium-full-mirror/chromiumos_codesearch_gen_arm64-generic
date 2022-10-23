@@ -25,6 +25,7 @@
 
 #include "ml/mojom/text_suggester.mojom-shared-internal.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
+#include "mojo/public/cpp/system/data_pipe.h"
 
 
 

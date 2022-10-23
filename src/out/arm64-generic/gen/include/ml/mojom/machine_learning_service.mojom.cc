@@ -3007,6 +3007,14 @@ void MachineLearningServiceAsyncWaiter::LoadBuiltinModel(
           out_result));
   loop.Run();
 }
+
+LoadModelResult MachineLearningServiceAsyncWaiter::LoadBuiltinModel(
+    ::chromeos::machine_learning::mojom::BuiltinModelSpecPtr spec, ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::Model> receiver) {
+  LoadModelResult async_wait_result;
+  LoadBuiltinModel(std::move(spec),std::move(receiver),&async_wait_result);
+  return async_wait_result;
+}
+
 void MachineLearningServiceAsyncWaiter::LoadFlatBufferModel(
     ::chromeos::machine_learning::mojom::FlatBufferModelSpecPtr spec, ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::Model> receiver, LoadModelResult* out_result) {
   base::RunLoop loop;
@@ -3022,6 +3030,14 @@ void MachineLearningServiceAsyncWaiter::LoadFlatBufferModel(
           out_result));
   loop.Run();
 }
+
+LoadModelResult MachineLearningServiceAsyncWaiter::LoadFlatBufferModel(
+    ::chromeos::machine_learning::mojom::FlatBufferModelSpecPtr spec, ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::Model> receiver) {
+  LoadModelResult async_wait_result;
+  LoadFlatBufferModel(std::move(spec),std::move(receiver),&async_wait_result);
+  return async_wait_result;
+}
+
 void MachineLearningServiceAsyncWaiter::LoadTextClassifier(
     ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::TextClassifier> receiver, LoadModelResult* out_result) {
   base::RunLoop loop;
@@ -3037,6 +3053,14 @@ void MachineLearningServiceAsyncWaiter::LoadTextClassifier(
           out_result));
   loop.Run();
 }
+
+LoadModelResult MachineLearningServiceAsyncWaiter::LoadTextClassifier(
+    ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::TextClassifier> receiver) {
+  LoadModelResult async_wait_result;
+  LoadTextClassifier(std::move(receiver),&async_wait_result);
+  return async_wait_result;
+}
+
 void MachineLearningServiceAsyncWaiter::LoadHandwritingModel(
     ::chromeos::machine_learning::mojom::HandwritingRecognizerSpecPtr spec, ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::HandwritingRecognizer> receiver, ::chromeos::machine_learning::mojom::LoadHandwritingModelResult* out_result) {
   base::RunLoop loop;
@@ -3052,6 +3076,14 @@ void MachineLearningServiceAsyncWaiter::LoadHandwritingModel(
           out_result));
   loop.Run();
 }
+
+::chromeos::machine_learning::mojom::LoadHandwritingModelResult MachineLearningServiceAsyncWaiter::LoadHandwritingModel(
+    ::chromeos::machine_learning::mojom::HandwritingRecognizerSpecPtr spec, ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::HandwritingRecognizer> receiver) {
+  ::chromeos::machine_learning::mojom::LoadHandwritingModelResult async_wait_result;
+  LoadHandwritingModel(std::move(spec),std::move(receiver),&async_wait_result);
+  return async_wait_result;
+}
+
 void MachineLearningServiceAsyncWaiter::LoadSpeechRecognizer(
     ::chromeos::machine_learning::mojom::SodaConfigPtr config, ::mojo::PendingRemote<::chromeos::machine_learning::mojom::SodaClient> soda_client, ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::SodaRecognizer> soda_recognizer, LoadModelResult* out_result) {
   base::RunLoop loop;
@@ -3067,6 +3099,14 @@ void MachineLearningServiceAsyncWaiter::LoadSpeechRecognizer(
           out_result));
   loop.Run();
 }
+
+LoadModelResult MachineLearningServiceAsyncWaiter::LoadSpeechRecognizer(
+    ::chromeos::machine_learning::mojom::SodaConfigPtr config, ::mojo::PendingRemote<::chromeos::machine_learning::mojom::SodaClient> soda_client, ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::SodaRecognizer> soda_recognizer) {
+  LoadModelResult async_wait_result;
+  LoadSpeechRecognizer(std::move(config),std::move(soda_client),std::move(soda_recognizer),&async_wait_result);
+  return async_wait_result;
+}
+
 void MachineLearningServiceAsyncWaiter::LoadGrammarChecker(
     ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::GrammarChecker> receiver, LoadModelResult* out_result) {
   base::RunLoop loop;
@@ -3082,6 +3122,14 @@ void MachineLearningServiceAsyncWaiter::LoadGrammarChecker(
           out_result));
   loop.Run();
 }
+
+LoadModelResult MachineLearningServiceAsyncWaiter::LoadGrammarChecker(
+    ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::GrammarChecker> receiver) {
+  LoadModelResult async_wait_result;
+  LoadGrammarChecker(std::move(receiver),&async_wait_result);
+  return async_wait_result;
+}
+
 void MachineLearningServiceAsyncWaiter::LoadTextSuggester(
     ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::TextSuggester> receiver, ::chromeos::machine_learning::mojom::TextSuggesterSpecPtr spec, LoadModelResult* out_result) {
   base::RunLoop loop;
@@ -3097,6 +3145,14 @@ void MachineLearningServiceAsyncWaiter::LoadTextSuggester(
           out_result));
   loop.Run();
 }
+
+LoadModelResult MachineLearningServiceAsyncWaiter::LoadTextSuggester(
+    ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::TextSuggester> receiver, ::chromeos::machine_learning::mojom::TextSuggesterSpecPtr spec) {
+  LoadModelResult async_wait_result;
+  LoadTextSuggester(std::move(receiver),std::move(spec),&async_wait_result);
+  return async_wait_result;
+}
+
 void MachineLearningServiceAsyncWaiter::LoadWebPlatformHandwritingModel(
     ::chromeos::machine_learning::web_platform::mojom::HandwritingModelConstraintPtr constraint, ::mojo::PendingReceiver<::chromeos::machine_learning::web_platform::mojom::HandwritingRecognizer> receiver, ::chromeos::machine_learning::mojom::LoadHandwritingModelResult* out_result) {
   base::RunLoop loop;
@@ -3112,6 +3168,14 @@ void MachineLearningServiceAsyncWaiter::LoadWebPlatformHandwritingModel(
           out_result));
   loop.Run();
 }
+
+::chromeos::machine_learning::mojom::LoadHandwritingModelResult MachineLearningServiceAsyncWaiter::LoadWebPlatformHandwritingModel(
+    ::chromeos::machine_learning::web_platform::mojom::HandwritingModelConstraintPtr constraint, ::mojo::PendingReceiver<::chromeos::machine_learning::web_platform::mojom::HandwritingRecognizer> receiver) {
+  ::chromeos::machine_learning::mojom::LoadHandwritingModelResult async_wait_result;
+  LoadWebPlatformHandwritingModel(std::move(constraint),std::move(receiver),&async_wait_result);
+  return async_wait_result;
+}
+
 void MachineLearningServiceAsyncWaiter::LoadDocumentScanner(
     ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::DocumentScanner> receiver, ::chromeos::machine_learning::mojom::DocumentScannerConfigPtr config, LoadModelResult* out_result) {
   base::RunLoop loop;
@@ -3127,6 +3191,14 @@ void MachineLearningServiceAsyncWaiter::LoadDocumentScanner(
           out_result));
   loop.Run();
 }
+
+LoadModelResult MachineLearningServiceAsyncWaiter::LoadDocumentScanner(
+    ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::DocumentScanner> receiver, ::chromeos::machine_learning::mojom::DocumentScannerConfigPtr config) {
+  LoadModelResult async_wait_result;
+  LoadDocumentScanner(std::move(receiver),std::move(config),&async_wait_result);
+  return async_wait_result;
+}
+
 void MachineLearningServiceAsyncWaiter::CreateWebPlatformModelLoader(
     ::mojo::PendingReceiver<::ml::model_loader::mojom::ModelLoader> receiver, ::ml::model_loader::mojom::CreateModelLoaderOptionsPtr options, ::ml::model_loader::mojom::CreateModelLoaderResult* out_result) {
   base::RunLoop loop;
@@ -3142,6 +3214,14 @@ void MachineLearningServiceAsyncWaiter::CreateWebPlatformModelLoader(
           out_result));
   loop.Run();
 }
+
+::ml::model_loader::mojom::CreateModelLoaderResult MachineLearningServiceAsyncWaiter::CreateWebPlatformModelLoader(
+    ::mojo::PendingReceiver<::ml::model_loader::mojom::ModelLoader> receiver, ::ml::model_loader::mojom::CreateModelLoaderOptionsPtr options) {
+  ::ml::model_loader::mojom::CreateModelLoaderResult async_wait_result;
+  CreateWebPlatformModelLoader(std::move(receiver),std::move(options),&async_wait_result);
+  return async_wait_result;
+}
+
 void MachineLearningServiceAsyncWaiter::REMOVED_4(
     ::chromeos::machine_learning::mojom::HandwritingRecognizerSpecPtr spec, ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::HandwritingRecognizer> receiver, LoadModelResult* out_result) {
   base::RunLoop loop;
@@ -3157,6 +3237,14 @@ void MachineLearningServiceAsyncWaiter::REMOVED_4(
           out_result));
   loop.Run();
 }
+
+LoadModelResult MachineLearningServiceAsyncWaiter::REMOVED_4(
+    ::chromeos::machine_learning::mojom::HandwritingRecognizerSpecPtr spec, ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::HandwritingRecognizer> receiver) {
+  LoadModelResult async_wait_result;
+  REMOVED_4(std::move(spec),std::move(receiver),&async_wait_result);
+  return async_wait_result;
+}
+
 
 
 

@@ -1025,6 +1025,14 @@ void JpegEncodeAcceleratorAsyncWaiter::Initialize(
           out_success));
   loop.Run();
 }
+
+bool JpegEncodeAcceleratorAsyncWaiter::Initialize(
+    ) {
+  bool async_wait_result;
+  Initialize(&async_wait_result);
+  return async_wait_result;
+}
+
 void JpegEncodeAcceleratorAsyncWaiter::EncodeWithFD(
     int32_t task_id, ::mojo::ScopedHandle input_fd, uint32_t input_buffer_size, int32_t coded_size_width, int32_t coded_size_height, ::mojo::ScopedHandle exif_fd, uint32_t exif_buffer_size, ::mojo::ScopedHandle output_fd, uint32_t output_buffer_size, int32_t* out_task_id, uint32_t* out_encoded_buffer_size, EncodeStatus* out_status) {
   base::RunLoop loop;
@@ -1048,6 +1056,9 @@ void JpegEncodeAcceleratorAsyncWaiter::EncodeWithFD(
           out_status));
   loop.Run();
 }
+
+
+
 void JpegEncodeAcceleratorAsyncWaiter::EncodeWithDmaBuf(
     int32_t task_id, uint32_t input_format, std::vector<::cros::mojom::DmaBufPlanePtr> input_planes, std::vector<::cros::mojom::DmaBufPlanePtr> output_planes, ::mojo::ScopedHandle exif_handle, uint32_t exif_buffer_size, int32_t coded_size_width, int32_t coded_size_height, int32_t quality, uint32_t* out_encoded_buffer_size, EncodeStatus* out_status) {
   base::RunLoop loop;
@@ -1067,6 +1078,9 @@ void JpegEncodeAcceleratorAsyncWaiter::EncodeWithDmaBuf(
           out_status));
   loop.Run();
 }
+
+
+
 
 
 

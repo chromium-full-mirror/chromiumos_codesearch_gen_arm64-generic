@@ -755,6 +755,14 @@ void VideoProtectedBufferAllocatorAsyncWaiter::AllocateProtectedSharedMemory(
           out_result));
   loop.Run();
 }
+
+bool VideoProtectedBufferAllocatorAsyncWaiter::AllocateProtectedSharedMemory(
+    ::mojo::ScopedHandle handle_fd, uint64_t size) {
+  bool async_wait_result;
+  AllocateProtectedSharedMemory(std::move(handle_fd),std::move(size),&async_wait_result);
+  return async_wait_result;
+}
+
 void VideoProtectedBufferAllocatorAsyncWaiter::AllocateProtectedNativePixmap(
     ::mojo::ScopedHandle handle_fd, ::arc::mojom::HalPixelFormat pixel_format, ::arc::mojom::SizePtr picture_size, bool* out_result) {
   base::RunLoop loop;
@@ -770,6 +778,14 @@ void VideoProtectedBufferAllocatorAsyncWaiter::AllocateProtectedNativePixmap(
           out_result));
   loop.Run();
 }
+
+bool VideoProtectedBufferAllocatorAsyncWaiter::AllocateProtectedNativePixmap(
+    ::mojo::ScopedHandle handle_fd, ::arc::mojom::HalPixelFormat pixel_format, ::arc::mojom::SizePtr picture_size) {
+  bool async_wait_result;
+  AllocateProtectedNativePixmap(std::move(handle_fd),std::move(pixel_format),std::move(picture_size),&async_wait_result);
+  return async_wait_result;
+}
+
 
 
 

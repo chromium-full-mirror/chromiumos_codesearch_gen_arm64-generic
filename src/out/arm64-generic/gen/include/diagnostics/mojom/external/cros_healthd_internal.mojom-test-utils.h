@@ -31,8 +31,10 @@ class  ChromiumDataCollectorAsyncWaiter {
   ~ChromiumDataCollectorAsyncWaiter();
   void GetTouchscreenDevices(
       std::vector<TouchscreenDevicePtr>* out_devices);
+  std::vector<TouchscreenDevicePtr> GetTouchscreenDevices();
   void GetTouchpadLibraryName(
       std::string* out_library_name);
+  std::string GetTouchpadLibraryName();
 
  private:
   ChromiumDataCollector* const proxy_;

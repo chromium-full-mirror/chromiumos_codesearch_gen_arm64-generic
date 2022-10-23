@@ -29,6 +29,7 @@ class  GrammarCheckerAsyncWaiter {
   ~GrammarCheckerAsyncWaiter();
   void Check(
       GrammarCheckerQueryPtr query, GrammarCheckerResultPtr* out_result);
+  GrammarCheckerResultPtr Check(GrammarCheckerQueryPtr query);
 
  private:
   GrammarChecker* const proxy_;

@@ -813,6 +813,14 @@ void VideoFramePoolAsyncWaiter::AddVideoFrame(
   loop.Run();
 }
 
+bool VideoFramePoolAsyncWaiter::AddVideoFrame(
+    VideoFramePtr video_frame) {
+  bool async_wait_result;
+  AddVideoFrame(std::move(video_frame),&async_wait_result);
+  return async_wait_result;
+}
+
+
 
 
 void VideoFramePoolClientInterceptorForTesting::RequestVideoFrames(::arc::mojom::VideoPixelFormat format, ::arc::mojom::SizePtr coded_size, ::arc::mojom::RectPtr visible_rect, uint32_t num_frames) {

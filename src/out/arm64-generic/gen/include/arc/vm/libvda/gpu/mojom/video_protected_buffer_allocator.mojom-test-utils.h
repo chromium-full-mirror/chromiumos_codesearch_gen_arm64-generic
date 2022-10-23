@@ -30,8 +30,10 @@ class  VideoProtectedBufferAllocatorAsyncWaiter {
   ~VideoProtectedBufferAllocatorAsyncWaiter();
   void AllocateProtectedSharedMemory(
       ::mojo::ScopedHandle handle_fd, uint64_t size, bool* out_result);
+  bool AllocateProtectedSharedMemory(::mojo::ScopedHandle handle_fd, uint64_t size);
   void AllocateProtectedNativePixmap(
       ::mojo::ScopedHandle handle_fd, ::arc::mojom::HalPixelFormat pixel_format, ::arc::mojom::SizePtr picture_size, bool* out_result);
+  bool AllocateProtectedNativePixmap(::mojo::ScopedHandle handle_fd, ::arc::mojom::HalPixelFormat pixel_format, ::arc::mojom::SizePtr picture_size);
 
  private:
   VideoProtectedBufferAllocator* const proxy_;

@@ -2973,6 +2973,9 @@ void CameraHalDispatcherAsyncWaiter::RegisterServerWithToken(
           out_callbacks));
   loop.Run();
 }
+
+
+
 void CameraHalDispatcherAsyncWaiter::RegisterClientWithToken(
     ::mojo::PendingRemote<CameraHalClient> client, CameraClientType type, ::mojo_base::mojom::UnguessableTokenPtr auth_token, int32_t* out_result) {
   base::RunLoop loop;
@@ -2988,6 +2991,14 @@ void CameraHalDispatcherAsyncWaiter::RegisterClientWithToken(
           out_result));
   loop.Run();
 }
+
+int32_t CameraHalDispatcherAsyncWaiter::RegisterClientWithToken(
+    ::mojo::PendingRemote<CameraHalClient> client, CameraClientType type, ::mojo_base::mojom::UnguessableTokenPtr auth_token) {
+  int32_t async_wait_result;
+  RegisterClientWithToken(std::move(client),std::move(type),std::move(auth_token),&async_wait_result);
+  return async_wait_result;
+}
+
 void CameraHalDispatcherAsyncWaiter::RegisterSensorClientWithToken(
     ::mojo::PendingRemote<::cros::mojom::SensorHalClient> client, ::mojo_base::mojom::UnguessableTokenPtr auth_token, int32_t* out_result) {
   base::RunLoop loop;
@@ -3003,6 +3014,14 @@ void CameraHalDispatcherAsyncWaiter::RegisterSensorClientWithToken(
           out_result));
   loop.Run();
 }
+
+int32_t CameraHalDispatcherAsyncWaiter::RegisterSensorClientWithToken(
+    ::mojo::PendingRemote<::cros::mojom::SensorHalClient> client, ::mojo_base::mojom::UnguessableTokenPtr auth_token) {
+  int32_t async_wait_result;
+  RegisterSensorClientWithToken(std::move(client),std::move(auth_token),&async_wait_result);
+  return async_wait_result;
+}
+
 
 
 
@@ -3047,6 +3066,14 @@ void CameraHalServerAsyncWaiter::GetCameraSWPrivacySwitchState(
           out_state));
   loop.Run();
 }
+
+CameraPrivacySwitchState CameraHalServerAsyncWaiter::GetCameraSWPrivacySwitchState(
+    ) {
+  CameraPrivacySwitchState async_wait_result;
+  GetCameraSWPrivacySwitchState(&async_wait_result);
+  return async_wait_result;
+}
+
 void CameraHalServerAsyncWaiter::GetAutoFramingSupported(
     bool* out_supported) {
   base::RunLoop loop;
@@ -3062,6 +3089,14 @@ void CameraHalServerAsyncWaiter::GetAutoFramingSupported(
           out_supported));
   loop.Run();
 }
+
+bool CameraHalServerAsyncWaiter::GetAutoFramingSupported(
+    ) {
+  bool async_wait_result;
+  GetAutoFramingSupported(&async_wait_result);
+  return async_wait_result;
+}
+
 void CameraHalServerAsyncWaiter::SetCameraEffect(
     ::cros::mojom::EffectsConfigPtr config, ::cros::mojom::SetEffectResult* out_result) {
   base::RunLoop loop;
@@ -3077,6 +3112,14 @@ void CameraHalServerAsyncWaiter::SetCameraEffect(
           out_result));
   loop.Run();
 }
+
+::cros::mojom::SetEffectResult CameraHalServerAsyncWaiter::SetCameraEffect(
+    ::cros::mojom::EffectsConfigPtr config) {
+  ::cros::mojom::SetEffectResult async_wait_result;
+  SetCameraEffect(std::move(config),&async_wait_result);
+  return async_wait_result;
+}
+
 
 
 
