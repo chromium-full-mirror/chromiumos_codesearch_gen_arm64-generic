@@ -1,4 +1,4 @@
-// Copyright (c) 2013 The Chromium Authors. All rights reserved.
+// Copyright 2013 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -41,10 +41,6 @@ constexpr T AlignDown(T size, T alignment) {
   return size & ~(alignment - 1);
 }
 
-inline constexpr size_t AlignDown(size_t size, size_t alignment) {
-  return AlignDown<size_t>(size, alignment);
-}
-
 // Move |ptr| back to the previous multiple of alignment, which must be a power
 // of two. Defined for types where sizeof(T) is one byte.
 template <typename T, typename = typename std::enable_if<sizeof(T) == 1>::type>
@@ -58,10 +54,6 @@ template <typename T, typename = std::enable_if_t<std::is_integral_v<T>>>
 constexpr T AlignUp(T size, T alignment) {
   DCHECK(IsPowerOfTwo(alignment));
   return (size + alignment - 1) & ~(alignment - 1);
-}
-
-inline constexpr size_t AlignUp(size_t size, size_t alignment) {
-  return AlignUp<size_t>(size, alignment);
 }
 
 // Advance |ptr| to the next multiple of alignment, which must be a power of
