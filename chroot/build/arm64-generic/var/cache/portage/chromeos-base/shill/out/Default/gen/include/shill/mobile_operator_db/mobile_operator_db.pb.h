@@ -101,11 +101,12 @@ enum Filter_Type : int {
   Filter_Type_ICCID = 2,
   Filter_Type_SID = 3,
   Filter_Type_OPERATOR_NAME = 4,
-  Filter_Type_MCCMNC = 5
+  Filter_Type_MCCMNC = 5,
+  Filter_Type_GID1 = 6
 };
 bool Filter_Type_IsValid(int value);
 constexpr Filter_Type Filter_Type_Type_MIN = Filter_Type_IMSI;
-constexpr Filter_Type Filter_Type_Type_MAX = Filter_Type_MCCMNC;
+constexpr Filter_Type Filter_Type_Type_MAX = Filter_Type_GID1;
 constexpr int Filter_Type_Type_ARRAYSIZE = Filter_Type_Type_MAX + 1;
 
 const std::string& Filter_Type_Name(Filter_Type value);
@@ -461,6 +462,8 @@ class Filter final :
     Filter_Type_OPERATOR_NAME;
   static constexpr Type MCCMNC =
     Filter_Type_MCCMNC;
+  static constexpr Type GID1 =
+    Filter_Type_GID1;
   static inline bool Type_IsValid(int value) {
     return Filter_Type_IsValid(value);
   }

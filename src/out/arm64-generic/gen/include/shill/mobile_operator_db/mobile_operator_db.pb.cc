@@ -168,15 +168,17 @@ bool Filter_Type_IsValid(int value) {
     case 3:
     case 4:
     case 5:
+    case 6:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> Filter_Type_strings[5] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> Filter_Type_strings[6] = {};
 
 static const char Filter_Type_names[] =
+  "GID1"
   "ICCID"
   "IMSI"
   "MCCMNC"
@@ -184,19 +186,21 @@ static const char Filter_Type_names[] =
   "SID";
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry Filter_Type_entries[] = {
-  { {Filter_Type_names + 0, 5}, 2 },
-  { {Filter_Type_names + 5, 4}, 1 },
-  { {Filter_Type_names + 9, 6}, 5 },
-  { {Filter_Type_names + 15, 13}, 4 },
-  { {Filter_Type_names + 28, 3}, 3 },
+  { {Filter_Type_names + 0, 4}, 6 },
+  { {Filter_Type_names + 4, 5}, 2 },
+  { {Filter_Type_names + 9, 4}, 1 },
+  { {Filter_Type_names + 13, 6}, 5 },
+  { {Filter_Type_names + 19, 13}, 4 },
+  { {Filter_Type_names + 32, 3}, 3 },
 };
 
 static const int Filter_Type_entries_by_number[] = {
-  1, // 1 -> IMSI
-  0, // 2 -> ICCID
-  4, // 3 -> SID
-  3, // 4 -> OPERATOR_NAME
-  2, // 5 -> MCCMNC
+  2, // 1 -> IMSI
+  1, // 2 -> ICCID
+  5, // 3 -> SID
+  4, // 4 -> OPERATOR_NAME
+  3, // 5 -> MCCMNC
+  0, // 6 -> GID1
 };
 
 const std::string& Filter_Type_Name(
@@ -205,12 +209,12 @@ const std::string& Filter_Type_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           Filter_Type_entries,
           Filter_Type_entries_by_number,
-          5, Filter_Type_strings);
+          6, Filter_Type_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       Filter_Type_entries,
       Filter_Type_entries_by_number,
-      5, value);
+      6, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      Filter_Type_strings[idx].get();
 }
@@ -218,7 +222,7 @@ bool Filter_Type_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, Filter_Type* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      Filter_Type_entries, 5, name, &int_value);
+      Filter_Type_entries, 6, name, &int_value);
   if (success) {
     *value = static_cast<Filter_Type>(int_value);
   }
@@ -230,6 +234,7 @@ constexpr Filter_Type Filter::ICCID;
 constexpr Filter_Type Filter::SID;
 constexpr Filter_Type Filter::OPERATOR_NAME;
 constexpr Filter_Type Filter::MCCMNC;
+constexpr Filter_Type Filter::GID1;
 constexpr Filter_Type Filter::Type_MIN;
 constexpr Filter_Type Filter::Type_MAX;
 constexpr int Filter::Type_ARRAYSIZE;
