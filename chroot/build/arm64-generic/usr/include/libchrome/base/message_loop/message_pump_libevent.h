@@ -16,13 +16,11 @@
 #include "base/message_loop/message_pump_buildflags.h"
 #include "base/message_loop/watchable_io_message_pump_posix.h"
 #include "base/threading/thread_checker.h"
+#include "third_party/libevent/event.h"
 
 // Declare structs we need from libevent.h rather than including it
 struct event_base;
 struct event;
-extern "C" struct event_base *event_base_new(void);
-extern "C" void event_base_free(struct event_base *);
-
 namespace base {
 
 class MessagePumpEpoll;
