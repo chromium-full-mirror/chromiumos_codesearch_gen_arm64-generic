@@ -95,7 +95,7 @@ enum class BuiltinModelId : int32_t {
   
   SMART_DIM_20190521 = 5,
   
-  SEARCH_RANKER_20190923 = 6,
+  UNSUPPORTED_SEARCH_RANKER_20190923 = 6,
   
   ADAPTIVE_CHARGING_20211105 = 7,
   kMinValue = 0,

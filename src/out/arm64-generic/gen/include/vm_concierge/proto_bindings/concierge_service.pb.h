@@ -46,7 +46,7 @@ struct TableStruct_concierge_5fservice_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[66]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[68]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -147,6 +147,12 @@ extern GetVmInfoRequestDefaultTypeInternal _GetVmInfoRequest_default_instance_;
 class GetVmInfoResponse;
 struct GetVmInfoResponseDefaultTypeInternal;
 extern GetVmInfoResponseDefaultTypeInternal _GetVmInfoResponse_default_instance_;
+class GetVmLaunchAllowedRequest;
+struct GetVmLaunchAllowedRequestDefaultTypeInternal;
+extern GetVmLaunchAllowedRequestDefaultTypeInternal _GetVmLaunchAllowedRequest_default_instance_;
+class GetVmLaunchAllowedResponse;
+struct GetVmLaunchAllowedResponseDefaultTypeInternal;
+extern GetVmLaunchAllowedResponseDefaultTypeInternal _GetVmLaunchAllowedResponse_default_instance_;
 class ImportDiskImageRequest;
 struct ImportDiskImageRequestDefaultTypeInternal;
 extern ImportDiskImageRequestDefaultTypeInternal _ImportDiskImageRequest_default_instance_;
@@ -286,6 +292,8 @@ template<> ::vm_tools::concierge::GetVmGpuCachePathRequest* Arena::CreateMaybeMe
 template<> ::vm_tools::concierge::GetVmGpuCachePathResponse* Arena::CreateMaybeMessage<::vm_tools::concierge::GetVmGpuCachePathResponse>(Arena*);
 template<> ::vm_tools::concierge::GetVmInfoRequest* Arena::CreateMaybeMessage<::vm_tools::concierge::GetVmInfoRequest>(Arena*);
 template<> ::vm_tools::concierge::GetVmInfoResponse* Arena::CreateMaybeMessage<::vm_tools::concierge::GetVmInfoResponse>(Arena*);
+template<> ::vm_tools::concierge::GetVmLaunchAllowedRequest* Arena::CreateMaybeMessage<::vm_tools::concierge::GetVmLaunchAllowedRequest>(Arena*);
+template<> ::vm_tools::concierge::GetVmLaunchAllowedResponse* Arena::CreateMaybeMessage<::vm_tools::concierge::GetVmLaunchAllowedResponse>(Arena*);
 template<> ::vm_tools::concierge::ImportDiskImageRequest* Arena::CreateMaybeMessage<::vm_tools::concierge::ImportDiskImageRequest>(Arena*);
 template<> ::vm_tools::concierge::ImportDiskImageResponse* Arena::CreateMaybeMessage<::vm_tools::concierge::ImportDiskImageResponse>(Arena*);
 template<> ::vm_tools::concierge::ListUsbDeviceRequest* Arena::CreateMaybeMessage<::vm_tools::concierge::ListUsbDeviceRequest>(Arena*);
@@ -12356,6 +12364,304 @@ class AddGroupPermissionMesaRequest final :
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_concierge_5fservice_2eproto;
 };
+// -------------------------------------------------------------------
+
+class GetVmLaunchAllowedRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:vm_tools.concierge.GetVmLaunchAllowedRequest) */ {
+ public:
+  inline GetVmLaunchAllowedRequest() : GetVmLaunchAllowedRequest(nullptr) {}
+  ~GetVmLaunchAllowedRequest() override;
+  explicit constexpr GetVmLaunchAllowedRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  GetVmLaunchAllowedRequest(const GetVmLaunchAllowedRequest& from);
+  GetVmLaunchAllowedRequest(GetVmLaunchAllowedRequest&& from) noexcept
+    : GetVmLaunchAllowedRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline GetVmLaunchAllowedRequest& operator=(const GetVmLaunchAllowedRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline GetVmLaunchAllowedRequest& operator=(GetVmLaunchAllowedRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const GetVmLaunchAllowedRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const GetVmLaunchAllowedRequest* internal_default_instance() {
+    return reinterpret_cast<const GetVmLaunchAllowedRequest*>(
+               &_GetVmLaunchAllowedRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    66;
+
+  friend void swap(GetVmLaunchAllowedRequest& a, GetVmLaunchAllowedRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(GetVmLaunchAllowedRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(GetVmLaunchAllowedRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  GetVmLaunchAllowedRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<GetVmLaunchAllowedRequest>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const GetVmLaunchAllowedRequest& from);
+  void MergeFrom(const GetVmLaunchAllowedRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(GetVmLaunchAllowedRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "vm_tools.concierge.GetVmLaunchAllowedRequest";
+  }
+  protected:
+  explicit GetVmLaunchAllowedRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kRunAsUntrustedFieldNumber = 1,
+    kIsTrustedImageFieldNumber = 2,
+    kHasCustomKernelParamsFieldNumber = 3,
+  };
+  // bool run_as_untrusted = 1;
+  void clear_run_as_untrusted();
+  bool run_as_untrusted() const;
+  void set_run_as_untrusted(bool value);
+  private:
+  bool _internal_run_as_untrusted() const;
+  void _internal_set_run_as_untrusted(bool value);
+  public:
+
+  // bool is_trusted_image = 2;
+  void clear_is_trusted_image();
+  bool is_trusted_image() const;
+  void set_is_trusted_image(bool value);
+  private:
+  bool _internal_is_trusted_image() const;
+  void _internal_set_is_trusted_image(bool value);
+  public:
+
+  // bool has_custom_kernel_params = 3;
+  void clear_has_custom_kernel_params();
+  bool has_custom_kernel_params() const;
+  void set_has_custom_kernel_params(bool value);
+  private:
+  bool _internal_has_custom_kernel_params() const;
+  void _internal_set_has_custom_kernel_params(bool value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:vm_tools.concierge.GetVmLaunchAllowedRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  bool run_as_untrusted_;
+  bool is_trusted_image_;
+  bool has_custom_kernel_params_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_concierge_5fservice_2eproto;
+};
+// -------------------------------------------------------------------
+
+class GetVmLaunchAllowedResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:vm_tools.concierge.GetVmLaunchAllowedResponse) */ {
+ public:
+  inline GetVmLaunchAllowedResponse() : GetVmLaunchAllowedResponse(nullptr) {}
+  ~GetVmLaunchAllowedResponse() override;
+  explicit constexpr GetVmLaunchAllowedResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  GetVmLaunchAllowedResponse(const GetVmLaunchAllowedResponse& from);
+  GetVmLaunchAllowedResponse(GetVmLaunchAllowedResponse&& from) noexcept
+    : GetVmLaunchAllowedResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline GetVmLaunchAllowedResponse& operator=(const GetVmLaunchAllowedResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline GetVmLaunchAllowedResponse& operator=(GetVmLaunchAllowedResponse&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const GetVmLaunchAllowedResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const GetVmLaunchAllowedResponse* internal_default_instance() {
+    return reinterpret_cast<const GetVmLaunchAllowedResponse*>(
+               &_GetVmLaunchAllowedResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    67;
+
+  friend void swap(GetVmLaunchAllowedResponse& a, GetVmLaunchAllowedResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(GetVmLaunchAllowedResponse* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(GetVmLaunchAllowedResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  GetVmLaunchAllowedResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<GetVmLaunchAllowedResponse>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const GetVmLaunchAllowedResponse& from);
+  void MergeFrom(const GetVmLaunchAllowedResponse& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(GetVmLaunchAllowedResponse* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "vm_tools.concierge.GetVmLaunchAllowedResponse";
+  }
+  protected:
+  explicit GetVmLaunchAllowedResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kReasonFieldNumber = 2,
+    kAllowedFieldNumber = 1,
+  };
+  // string reason = 2;
+  void clear_reason();
+  const std::string& reason() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_reason(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_reason();
+  PROTOBUF_NODISCARD std::string* release_reason();
+  void set_allocated_reason(std::string* reason);
+  private:
+  const std::string& _internal_reason() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_reason(const std::string& value);
+  std::string* _internal_mutable_reason();
+  public:
+
+  // bool allowed = 1;
+  void clear_allowed();
+  bool allowed() const;
+  void set_allowed(bool value);
+  private:
+  bool _internal_allowed() const;
+  void _internal_set_allowed(bool value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:vm_tools.concierge.GetVmLaunchAllowedResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr reason_;
+  bool allowed_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_concierge_5fservice_2eproto;
+};
 // ===================================================================
 
 
@@ -22462,9 +22768,152 @@ inline void AddGroupPermissionMesaRequest::set_allocated_owner_id(std::string* o
   // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.AddGroupPermissionMesaRequest.owner_id)
 }
 
+// -------------------------------------------------------------------
+
+// GetVmLaunchAllowedRequest
+
+// bool run_as_untrusted = 1;
+inline void GetVmLaunchAllowedRequest::clear_run_as_untrusted() {
+  run_as_untrusted_ = false;
+}
+inline bool GetVmLaunchAllowedRequest::_internal_run_as_untrusted() const {
+  return run_as_untrusted_;
+}
+inline bool GetVmLaunchAllowedRequest::run_as_untrusted() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.GetVmLaunchAllowedRequest.run_as_untrusted)
+  return _internal_run_as_untrusted();
+}
+inline void GetVmLaunchAllowedRequest::_internal_set_run_as_untrusted(bool value) {
+  
+  run_as_untrusted_ = value;
+}
+inline void GetVmLaunchAllowedRequest::set_run_as_untrusted(bool value) {
+  _internal_set_run_as_untrusted(value);
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.GetVmLaunchAllowedRequest.run_as_untrusted)
+}
+
+// bool is_trusted_image = 2;
+inline void GetVmLaunchAllowedRequest::clear_is_trusted_image() {
+  is_trusted_image_ = false;
+}
+inline bool GetVmLaunchAllowedRequest::_internal_is_trusted_image() const {
+  return is_trusted_image_;
+}
+inline bool GetVmLaunchAllowedRequest::is_trusted_image() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.GetVmLaunchAllowedRequest.is_trusted_image)
+  return _internal_is_trusted_image();
+}
+inline void GetVmLaunchAllowedRequest::_internal_set_is_trusted_image(bool value) {
+  
+  is_trusted_image_ = value;
+}
+inline void GetVmLaunchAllowedRequest::set_is_trusted_image(bool value) {
+  _internal_set_is_trusted_image(value);
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.GetVmLaunchAllowedRequest.is_trusted_image)
+}
+
+// bool has_custom_kernel_params = 3;
+inline void GetVmLaunchAllowedRequest::clear_has_custom_kernel_params() {
+  has_custom_kernel_params_ = false;
+}
+inline bool GetVmLaunchAllowedRequest::_internal_has_custom_kernel_params() const {
+  return has_custom_kernel_params_;
+}
+inline bool GetVmLaunchAllowedRequest::has_custom_kernel_params() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.GetVmLaunchAllowedRequest.has_custom_kernel_params)
+  return _internal_has_custom_kernel_params();
+}
+inline void GetVmLaunchAllowedRequest::_internal_set_has_custom_kernel_params(bool value) {
+  
+  has_custom_kernel_params_ = value;
+}
+inline void GetVmLaunchAllowedRequest::set_has_custom_kernel_params(bool value) {
+  _internal_set_has_custom_kernel_params(value);
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.GetVmLaunchAllowedRequest.has_custom_kernel_params)
+}
+
+// -------------------------------------------------------------------
+
+// GetVmLaunchAllowedResponse
+
+// bool allowed = 1;
+inline void GetVmLaunchAllowedResponse::clear_allowed() {
+  allowed_ = false;
+}
+inline bool GetVmLaunchAllowedResponse::_internal_allowed() const {
+  return allowed_;
+}
+inline bool GetVmLaunchAllowedResponse::allowed() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.GetVmLaunchAllowedResponse.allowed)
+  return _internal_allowed();
+}
+inline void GetVmLaunchAllowedResponse::_internal_set_allowed(bool value) {
+  
+  allowed_ = value;
+}
+inline void GetVmLaunchAllowedResponse::set_allowed(bool value) {
+  _internal_set_allowed(value);
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.GetVmLaunchAllowedResponse.allowed)
+}
+
+// string reason = 2;
+inline void GetVmLaunchAllowedResponse::clear_reason() {
+  reason_.ClearToEmpty();
+}
+inline const std::string& GetVmLaunchAllowedResponse::reason() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.GetVmLaunchAllowedResponse.reason)
+  return _internal_reason();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void GetVmLaunchAllowedResponse::set_reason(ArgT0&& arg0, ArgT... args) {
+ 
+ reason_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.GetVmLaunchAllowedResponse.reason)
+}
+inline std::string* GetVmLaunchAllowedResponse::mutable_reason() {
+  std::string* _s = _internal_mutable_reason();
+  // @@protoc_insertion_point(field_mutable:vm_tools.concierge.GetVmLaunchAllowedResponse.reason)
+  return _s;
+}
+inline const std::string& GetVmLaunchAllowedResponse::_internal_reason() const {
+  return reason_.Get();
+}
+inline void GetVmLaunchAllowedResponse::_internal_set_reason(const std::string& value) {
+  
+  reason_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* GetVmLaunchAllowedResponse::_internal_mutable_reason() {
+  
+  return reason_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* GetVmLaunchAllowedResponse::release_reason() {
+  // @@protoc_insertion_point(field_release:vm_tools.concierge.GetVmLaunchAllowedResponse.reason)
+  return reason_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void GetVmLaunchAllowedResponse::set_allocated_reason(std::string* reason) {
+  if (reason != nullptr) {
+    
+  } else {
+    
+  }
+  reason_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), reason,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (reason_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    reason_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.GetVmLaunchAllowedResponse.reason)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

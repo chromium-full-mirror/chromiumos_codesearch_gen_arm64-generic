@@ -37,8 +37,8 @@ static NOINLINE const char* BuiltinModelIdToStringHelper(BuiltinModelId value) {
       return "UNSUPPORTED_TOP_CAT_20190722";
     case BuiltinModelId::SMART_DIM_20190521:
       return "SMART_DIM_20190521";
-    case BuiltinModelId::SEARCH_RANKER_20190923:
-      return "SEARCH_RANKER_20190923";
+    case BuiltinModelId::UNSUPPORTED_SEARCH_RANKER_20190923:
+      return "UNSUPPORTED_SEARCH_RANKER_20190923";
     case BuiltinModelId::ADAPTIVE_CHARGING_20211105:
       return "ADAPTIVE_CHARGING_20211105";
     default:
