@@ -76,6 +76,17 @@ class UpdateEngineInterfaceProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
+  virtual bool Install(
+      const update_engine::InstallParams& in_install_params,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual void InstallAsync(
+      const update_engine::InstallParams& in_install_params,
+      base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
   virtual bool AttemptRollback(
       bool in_powerwash,
       brillo::ErrorPtr* error,
@@ -485,6 +496,36 @@ class UpdateEngineInterfaceProxy final : public UpdateEngineInterfaceProxyInterf
         std::move(error_callback),
         in_omaha_url,
         in_dlc_ids);
+  }
+
+  bool Install(
+      const update_engine::InstallParams& in_install_params,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.UpdateEngineInterface",
+        "Install",
+        error,
+        in_install_params);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error);
+  }
+
+  void InstallAsync(
+      const update_engine::InstallParams& in_install_params,
+      base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.UpdateEngineInterface",
+        "Install",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_install_params);
   }
 
   bool AttemptRollback(

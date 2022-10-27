@@ -60,6 +60,15 @@ class UpdateEngineInterfaceProxyMock : public UpdateEngineInterfaceProxyInterfac
                     base::OnceCallback<void()> /*success_callback*/,
                     base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
                     int /*timeout_ms*/));
+  MOCK_METHOD3(Install,
+               bool(const update_engine::InstallParams& /*in_install_params*/,
+                    brillo::ErrorPtr* /*error*/,
+                    int /*timeout_ms*/));
+  MOCK_METHOD4(InstallAsync,
+               void(const update_engine::InstallParams& /*in_install_params*/,
+                    base::OnceCallback<void()> /*success_callback*/,
+                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+                    int /*timeout_ms*/));
   MOCK_METHOD3(AttemptRollback,
                bool(bool /*in_powerwash*/,
                     brillo::ErrorPtr* /*error*/,
