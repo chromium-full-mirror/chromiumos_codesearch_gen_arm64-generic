@@ -51,7 +51,7 @@ class JpegEncodeAcceleratorRequestValidator;
 class JpegEncodeAcceleratorResponseValidator;
 
 
-class  JpegEncodeAccelerator
+class JpegEncodeAccelerator
     : public JpegEncodeAcceleratorInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();

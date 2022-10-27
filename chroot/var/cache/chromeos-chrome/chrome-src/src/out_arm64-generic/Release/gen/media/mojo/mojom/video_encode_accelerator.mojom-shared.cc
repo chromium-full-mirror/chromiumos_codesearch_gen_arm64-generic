@@ -323,8 +323,8 @@ bool VideoEncodeAcceleratorSupportedProfile_Data::Validate(
           object->rate_control_modes, 6, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams rate_control_modes_validate_params(
-      0, ::media::mojom::internal::VideoEncodeAcceleratorSupportedRateControlMode_Data::Validate);
+  constexpr const mojo::internal::ContainerValidateParams& rate_control_modes_validate_params =
+      mojo::internal::GetArrayOfEnumsValidator<0, ::media::mojom::internal::VideoEncodeAcceleratorSupportedRateControlMode_Data::Validate>();
   if (!mojo::internal::ValidateContainer(object->rate_control_modes, validation_context,
                                          &rate_control_modes_validate_params)) {
     return false;
@@ -334,8 +334,8 @@ bool VideoEncodeAcceleratorSupportedProfile_Data::Validate(
           object->scalability_modes, 7, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams scalability_modes_validate_params(
-      0, ::media::mojom::internal::SVCScalabilityMode_Data::Validate);
+  constexpr const mojo::internal::ContainerValidateParams& scalability_modes_validate_params =
+      mojo::internal::GetArrayOfEnumsValidator<0, ::media::mojom::internal::SVCScalabilityMode_Data::Validate>();
   if (!mojo::internal::ValidateContainer(object->scalability_modes, validation_context,
                                          &scalability_modes_validate_params)) {
     return false;
@@ -391,8 +391,8 @@ bool VideoBitrateAllocation_Data::Validate(
           object->bitrates, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams bitrates_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& bitrates_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->bitrates, validation_context,
                                          &bitrates_validate_params)) {
     return false;
@@ -531,8 +531,8 @@ bool VideoEncodeAcceleratorConfig_Data::Validate(
           object->spatial_layers, 15, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams spatial_layers_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& spatial_layers_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->spatial_layers, validation_context,
                                          &spatial_layers_validate_params)) {
     return false;
@@ -616,8 +616,8 @@ bool Vp9Metadata_Data::Validate(
           object->spatial_layer_resolutions, 8, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams spatial_layer_resolutions_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& spatial_layer_resolutions_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->spatial_layer_resolutions, validation_context,
                                          &spatial_layer_resolutions_validate_params)) {
     return false;
@@ -627,8 +627,8 @@ bool Vp9Metadata_Data::Validate(
           object->p_diffs, 9, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams p_diffs_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& p_diffs_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->p_diffs, validation_context,
                                          &p_diffs_validate_params)) {
     return false;
@@ -661,8 +661,8 @@ bool Av1Metadata_Data::Validate(
           object->spatial_layer_resolutions, 6, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams spatial_layer_resolutions_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& spatial_layer_resolutions_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->spatial_layer_resolutions, validation_context,
                                          &spatial_layer_resolutions_validate_params)) {
     return false;
@@ -672,8 +672,8 @@ bool Av1Metadata_Data::Validate(
           object->f_diffs, 7, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams f_diffs_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& f_diffs_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->f_diffs, validation_context,
                                          &f_diffs_validate_params)) {
     return false;
@@ -794,8 +794,8 @@ bool VideoEncodeAcceleratorProvider_GetVideoEncodeAcceleratorSupportedProfiles_R
           object->profiles, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams profiles_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& profiles_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->profiles, validation_context,
                                          &profiles_validate_params)) {
     return false;

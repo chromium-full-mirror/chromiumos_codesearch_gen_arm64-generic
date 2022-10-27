@@ -782,8 +782,8 @@ struct Serializer<::chromeos::machine_learning::mojom::InkStrokeDataView, MaybeC
     mojo::internal::MessageFragment<
         typename decltype(fragment->points)::BaseType>
         points_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams points_validate_params(
-        0, false, nullptr);
+    constexpr const mojo::internal::ContainerValidateParams& points_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
     mojo::internal::Serialize<mojo::ArrayDataView<::chromeos::machine_learning::mojom::InkPointDataView>>(
         in_points, points_fragment, &points_validate_params);
     fragment->points.Set(
@@ -901,8 +901,8 @@ struct Serializer<::chromeos::machine_learning::mojom::HandwritingRecognitionQue
     mojo::internal::MessageFragment<
         typename decltype(fragment->ink)::BaseType>
         ink_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams ink_validate_params(
-        0, false, nullptr);
+    constexpr const mojo::internal::ContainerValidateParams& ink_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
     mojo::internal::Serialize<mojo::ArrayDataView<::chromeos::machine_learning::mojom::InkStrokeDataView>>(
         in_ink, ink_fragment, &ink_validate_params);
     fragment->ink.Set(
@@ -999,8 +999,8 @@ struct Serializer<::chromeos::machine_learning::mojom::HandwritingRecognizerSegm
     mojo::internal::MessageFragment<
         typename decltype(fragment->ink_ranges)::BaseType>
         ink_ranges_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams ink_ranges_validate_params(
-        0, false, nullptr);
+    constexpr const mojo::internal::ContainerValidateParams& ink_ranges_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
     mojo::internal::Serialize<mojo::ArrayDataView<::chromeos::machine_learning::mojom::HandwritingRecognizerInkRangeDataView>>(
         in_ink_ranges, ink_ranges_fragment, &ink_ranges_validate_params);
     fragment->ink_ranges.Set(
@@ -1042,8 +1042,8 @@ struct Serializer<::chromeos::machine_learning::mojom::HandwritingRecognizerSegm
     mojo::internal::MessageFragment<
         typename decltype(fragment->segments)::BaseType>
         segments_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams segments_validate_params(
-        0, false, nullptr);
+    constexpr const mojo::internal::ContainerValidateParams& segments_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
     mojo::internal::Serialize<mojo::ArrayDataView<::chromeos::machine_learning::mojom::HandwritingRecognizerSegmentDataView>>(
         in_segments, segments_fragment, &segments_validate_params);
     fragment->segments.Set(
@@ -1137,8 +1137,8 @@ struct Serializer<::chromeos::machine_learning::mojom::HandwritingRecognizerResu
     mojo::internal::MessageFragment<
         typename decltype(fragment->candidates)::BaseType>
         candidates_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams candidates_validate_params(
-        0, false, nullptr);
+    constexpr const mojo::internal::ContainerValidateParams& candidates_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
     mojo::internal::Serialize<mojo::ArrayDataView<::chromeos::machine_learning::mojom::HandwritingRecognizerCandidateDataView>>(
         in_candidates, candidates_fragment, &candidates_validate_params);
     fragment->candidates.Set(

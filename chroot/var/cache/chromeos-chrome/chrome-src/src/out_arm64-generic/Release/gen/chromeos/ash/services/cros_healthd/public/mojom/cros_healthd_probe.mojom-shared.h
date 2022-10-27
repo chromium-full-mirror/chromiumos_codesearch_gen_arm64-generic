@@ -7586,8 +7586,8 @@ struct Serializer<::ash::cros_healthd::mojom::MultipleProcessResultDataView, May
     mojo::internal::MessageFragment<
         typename decltype(fragment->process_infos)::BaseType>
         process_infos_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams process_infos_validate_params(
-        new mojo::internal::ContainerValidateParams(0, false, nullptr), new mojo::internal::ContainerValidateParams(0, false, nullptr));
+    constexpr const mojo::internal::ContainerValidateParams& process_infos_validate_params =
+        mojo::internal::GetMapValidator<*&mojo::internal::GetArrayValidator<0, false, nullptr>(), *&mojo::internal::GetArrayValidator<0, false, nullptr>()>();
     mojo::internal::Serialize<mojo::MapDataView<uint32_t, ::ash::cros_healthd::mojom::ProcessInfoDataView>>(
         in_process_infos, process_infos_fragment, &process_infos_validate_params);
     fragment->process_infos.Set(
@@ -7600,8 +7600,8 @@ struct Serializer<::ash::cros_healthd::mojom::MultipleProcessResultDataView, May
     mojo::internal::MessageFragment<
         typename decltype(fragment->errors)::BaseType>
         errors_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams errors_validate_params(
-        new mojo::internal::ContainerValidateParams(0, false, nullptr), new mojo::internal::ContainerValidateParams(0, false, nullptr));
+    constexpr const mojo::internal::ContainerValidateParams& errors_validate_params =
+        mojo::internal::GetMapValidator<*&mojo::internal::GetArrayValidator<0, false, nullptr>(), *&mojo::internal::GetArrayValidator<0, false, nullptr>()>();
     mojo::internal::Serialize<mojo::MapDataView<uint32_t, ::ash::cros_healthd::mojom::ProbeErrorDataView>>(
         in_errors, errors_fragment, &errors_validate_params);
     fragment->errors.Set(
@@ -7950,8 +7950,8 @@ struct Serializer<::ash::cros_healthd::mojom::CpuInfoDataView, MaybeConstUserTyp
     mojo::internal::MessageFragment<
         typename decltype(fragment->physical_cpus)::BaseType>
         physical_cpus_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams physical_cpus_validate_params(
-        0, false, nullptr);
+    constexpr const mojo::internal::ContainerValidateParams& physical_cpus_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
     mojo::internal::Serialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::PhysicalCpuInfoDataView>>(
         in_physical_cpus, physical_cpus_fragment, &physical_cpus_validate_params);
     fragment->physical_cpus.Set(
@@ -7964,8 +7964,8 @@ struct Serializer<::ash::cros_healthd::mojom::CpuInfoDataView, MaybeConstUserTyp
     mojo::internal::MessageFragment<
         typename decltype(fragment->temperature_channels)::BaseType>
         temperature_channels_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams temperature_channels_validate_params(
-        0, false, nullptr);
+    constexpr const mojo::internal::ContainerValidateParams& temperature_channels_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
     mojo::internal::Serialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::CpuTemperatureChannelDataView>>(
         in_temperature_channels, temperature_channels_fragment, &temperature_channels_validate_params);
     fragment->temperature_channels.Set(
@@ -7994,8 +7994,8 @@ struct Serializer<::ash::cros_healthd::mojom::CpuInfoDataView, MaybeConstUserTyp
     mojo::internal::MessageFragment<
         typename decltype(fragment->vulnerabilities)::BaseType>
         vulnerabilities_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams vulnerabilities_validate_params(
-        new mojo::internal::ContainerValidateParams(0, false, new mojo::internal::ContainerValidateParams(0, false, nullptr)), new mojo::internal::ContainerValidateParams(0, false, nullptr));
+    constexpr const mojo::internal::ContainerValidateParams& vulnerabilities_validate_params =
+        mojo::internal::GetMapValidator<*&mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>(), *&mojo::internal::GetArrayValidator<0, false, nullptr>()>();
     mojo::internal::Serialize<mojo::MapDataView<mojo::StringDataView, ::ash::cros_healthd::mojom::VulnerabilityInfoDataView>>(
         in_vulnerabilities, vulnerabilities_fragment, &vulnerabilities_validate_params);
     fragment->vulnerabilities.Set(
@@ -8147,8 +8147,8 @@ struct Serializer<::ash::cros_healthd::mojom::PhysicalCpuInfoDataView, MaybeCons
     mojo::internal::MessageFragment<
         typename decltype(fragment->logical_cpus)::BaseType>
         logical_cpus_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams logical_cpus_validate_params(
-        0, false, nullptr);
+    constexpr const mojo::internal::ContainerValidateParams& logical_cpus_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
     mojo::internal::Serialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::LogicalCpuInfoDataView>>(
         in_logical_cpus, logical_cpus_fragment, &logical_cpus_validate_params);
     fragment->logical_cpus.Set(
@@ -8161,8 +8161,8 @@ struct Serializer<::ash::cros_healthd::mojom::PhysicalCpuInfoDataView, MaybeCons
     mojo::internal::MessageFragment<
         typename decltype(fragment->flags)::BaseType>
         flags_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams flags_validate_params(
-        0, false, new mojo::internal::ContainerValidateParams(0, false, nullptr));
+    constexpr const mojo::internal::ContainerValidateParams& flags_validate_params =
+        mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
     mojo::internal::Serialize<mojo::ArrayDataView<mojo::StringDataView>>(
         in_flags, flags_fragment, &flags_validate_params);
     fragment->flags.Set(
@@ -8247,8 +8247,8 @@ struct Serializer<::ash::cros_healthd::mojom::LogicalCpuInfoDataView, MaybeConst
     mojo::internal::MessageFragment<
         typename decltype(fragment->c_states)::BaseType>
         c_states_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams c_states_validate_params(
-        0, false, nullptr);
+    constexpr const mojo::internal::ContainerValidateParams& c_states_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
     mojo::internal::Serialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::CpuCStateInfoDataView>>(
         in_c_states, c_states_fragment, &c_states_validate_params);
     fragment->c_states.Set(
@@ -8653,8 +8653,8 @@ struct Serializer<::ash::cros_healthd::mojom::BluetoothAdapterInfoDataView, Mayb
     mojo::internal::MessageFragment<
         typename decltype(fragment->connected_devices)::BaseType>
         connected_devices_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams connected_devices_validate_params(
-        0, false, nullptr);
+    constexpr const mojo::internal::ContainerValidateParams& connected_devices_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
     mojo::internal::Serialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::BluetoothDeviceInfoDataView>>(
         in_connected_devices, connected_devices_fragment, &connected_devices_validate_params);
     fragment->connected_devices.Set(
@@ -8665,8 +8665,8 @@ struct Serializer<::ash::cros_healthd::mojom::BluetoothAdapterInfoDataView, Mayb
     mojo::internal::MessageFragment<
         typename decltype(fragment->uuids)::BaseType>
         uuids_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams uuids_validate_params(
-        0, false, new mojo::internal::ContainerValidateParams(0, false, nullptr));
+    constexpr const mojo::internal::ContainerValidateParams& uuids_validate_params =
+        mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
     mojo::internal::Serialize<mojo::ArrayDataView<mojo::StringDataView>>(
         in_uuids, uuids_fragment, &uuids_validate_params);
     fragment->uuids.Set(
@@ -8683,8 +8683,8 @@ struct Serializer<::ash::cros_healthd::mojom::BluetoothAdapterInfoDataView, Mayb
     mojo::internal::MessageFragment<
         typename decltype(fragment->service_allow_list)::BaseType>
         service_allow_list_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams service_allow_list_validate_params(
-        0, false, new mojo::internal::ContainerValidateParams(0, false, nullptr));
+    constexpr const mojo::internal::ContainerValidateParams& service_allow_list_validate_params =
+        mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
     mojo::internal::Serialize<mojo::ArrayDataView<mojo::StringDataView>>(
         in_service_allow_list, service_allow_list_fragment, &service_allow_list_validate_params);
     fragment->service_allow_list.Set(
@@ -8796,8 +8796,8 @@ struct Serializer<::ash::cros_healthd::mojom::BluetoothDeviceInfoDataView, Maybe
     mojo::internal::MessageFragment<
         typename decltype(fragment->uuids)::BaseType>
         uuids_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams uuids_validate_params(
-        0, false, new mojo::internal::ContainerValidateParams(0, false, nullptr));
+    constexpr const mojo::internal::ContainerValidateParams& uuids_validate_params =
+        mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
     mojo::internal::Serialize<mojo::ArrayDataView<mojo::StringDataView>>(
         in_uuids, uuids_fragment, &uuids_validate_params);
     fragment->uuids.Set(
@@ -9433,8 +9433,8 @@ struct Serializer<::ash::cros_healthd::mojom::AudioHardwareInfoDataView, MaybeCo
     mojo::internal::MessageFragment<
         typename decltype(fragment->audio_cards)::BaseType>
         audio_cards_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams audio_cards_validate_params(
-        0, false, nullptr);
+    constexpr const mojo::internal::ContainerValidateParams& audio_cards_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
     mojo::internal::Serialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::AudioCardDataView>>(
         in_audio_cards, audio_cards_fragment, &audio_cards_validate_params);
     fragment->audio_cards.Set(
@@ -9496,8 +9496,8 @@ struct Serializer<::ash::cros_healthd::mojom::AudioCardDataView, MaybeConstUserT
     mojo::internal::MessageFragment<
         typename decltype(fragment->hd_audio_codecs)::BaseType>
         hd_audio_codecs_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams hd_audio_codecs_validate_params(
-        0, false, nullptr);
+    constexpr const mojo::internal::ContainerValidateParams& hd_audio_codecs_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
     mojo::internal::Serialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::HDAudioCodecDataView>>(
         in_hd_audio_codecs, hd_audio_codecs_fragment, &hd_audio_codecs_validate_params);
     fragment->hd_audio_codecs.Set(
@@ -9738,8 +9738,8 @@ struct Serializer<::ash::cros_healthd::mojom::UsbBusInfoDataView, MaybeConstUser
     mojo::internal::MessageFragment<
         typename decltype(fragment->interfaces)::BaseType>
         interfaces_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams interfaces_validate_params(
-        0, false, nullptr);
+    constexpr const mojo::internal::ContainerValidateParams& interfaces_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
     mojo::internal::Serialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::UsbBusInterfaceInfoDataView>>(
         in_interfaces, interfaces_fragment, &interfaces_validate_params);
     fragment->interfaces.Set(
@@ -10244,8 +10244,8 @@ struct Serializer<::ash::cros_healthd::mojom::GLESInfoDataView, MaybeConstUserTy
     mojo::internal::MessageFragment<
         typename decltype(fragment->extensions)::BaseType>
         extensions_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams extensions_validate_params(
-        0, false, new mojo::internal::ContainerValidateParams(0, false, nullptr));
+    constexpr const mojo::internal::ContainerValidateParams& extensions_validate_params =
+        mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
     mojo::internal::Serialize<mojo::ArrayDataView<mojo::StringDataView>>(
         in_extensions, extensions_fragment, &extensions_validate_params);
     fragment->extensions.Set(
@@ -10323,8 +10323,8 @@ struct Serializer<::ash::cros_healthd::mojom::EGLInfoDataView, MaybeConstUserTyp
     mojo::internal::MessageFragment<
         typename decltype(fragment->extensions)::BaseType>
         extensions_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams extensions_validate_params(
-        0, false, new mojo::internal::ContainerValidateParams(0, false, nullptr));
+    constexpr const mojo::internal::ContainerValidateParams& extensions_validate_params =
+        mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
     mojo::internal::Serialize<mojo::ArrayDataView<mojo::StringDataView>>(
         in_extensions, extensions_fragment, &extensions_validate_params);
     fragment->extensions.Set(
@@ -10378,8 +10378,8 @@ struct Serializer<::ash::cros_healthd::mojom::DisplayInfoDataView, MaybeConstUse
     mojo::internal::MessageFragment<
         typename decltype(fragment->dp_infos)::BaseType>
         dp_infos_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams dp_infos_validate_params(
-        0, false, nullptr);
+    constexpr const mojo::internal::ContainerValidateParams& dp_infos_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
     mojo::internal::Serialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::ExternalDisplayInfoDataView>>(
         in_dp_infos, dp_infos_fragment, &dp_infos_validate_params);
     fragment->dp_infos.Set(
@@ -10767,8 +10767,8 @@ struct Serializer<::ash::cros_healthd::mojom::ThunderboltBusInfoDataView, MaybeC
     mojo::internal::MessageFragment<
         typename decltype(fragment->thunderbolt_interfaces)::BaseType>
         thunderbolt_interfaces_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams thunderbolt_interfaces_validate_params(
-        0, false, nullptr);
+    constexpr const mojo::internal::ContainerValidateParams& thunderbolt_interfaces_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
     mojo::internal::Serialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::ThunderboltBusInterfaceInfoDataView>>(
         in_thunderbolt_interfaces, thunderbolt_interfaces_fragment, &thunderbolt_interfaces_validate_params);
     fragment->thunderbolt_interfaces.Set(
@@ -10822,8 +10822,8 @@ struct Serializer<::ash::cros_healthd::mojom::InputInfoDataView, MaybeConstUserT
     mojo::internal::MessageFragment<
         typename decltype(fragment->touchscreen_devices)::BaseType>
         touchscreen_devices_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams touchscreen_devices_validate_params(
-        0, false, nullptr);
+    constexpr const mojo::internal::ContainerValidateParams& touchscreen_devices_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
     mojo::internal::Serialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::TouchscreenDeviceDataView>>(
         in_touchscreen_devices, touchscreen_devices_fragment, &touchscreen_devices_validate_params);
     fragment->touchscreen_devices.Set(
@@ -11275,8 +11275,8 @@ struct Serializer<::ash::cros_healthd::mojom::NonRemovableBlockDeviceResultDataV
         mojo::internal::MessageFragment<
             typename decltype(fragment->data.f_block_device_info)::BaseType>
             value_fragment(fragment.message());
-        const ContainerValidateParams block_device_info_validate_params(
-            0, false, nullptr);
+        constexpr const mojo::internal::ContainerValidateParams& block_device_info_validate_params =
+            mojo::internal::GetArrayValidator<0, false, nullptr>();
         mojo::internal::Serialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::NonRemovableBlockDeviceInfoDataView>>(
             in_block_device_info, value_fragment, &block_device_info_validate_params);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
@@ -11841,8 +11841,8 @@ struct Serializer<::ash::cros_healthd::mojom::BacklightResultDataView, MaybeCons
         mojo::internal::MessageFragment<
             typename decltype(fragment->data.f_backlight_info)::BaseType>
             value_fragment(fragment.message());
-        const ContainerValidateParams backlight_info_validate_params(
-            0, false, nullptr);
+        constexpr const mojo::internal::ContainerValidateParams& backlight_info_validate_params =
+            mojo::internal::GetArrayValidator<0, false, nullptr>();
         mojo::internal::Serialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::BacklightInfoDataView>>(
             in_backlight_info, value_fragment, &backlight_info_validate_params);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
@@ -11916,8 +11916,8 @@ struct Serializer<::ash::cros_healthd::mojom::FanResultDataView, MaybeConstUserT
         mojo::internal::MessageFragment<
             typename decltype(fragment->data.f_fan_info)::BaseType>
             value_fragment(fragment.message());
-        const ContainerValidateParams fan_info_validate_params(
-            0, false, nullptr);
+        constexpr const mojo::internal::ContainerValidateParams& fan_info_validate_params =
+            mojo::internal::GetArrayValidator<0, false, nullptr>();
         mojo::internal::Serialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::FanInfoDataView>>(
             in_fan_info, value_fragment, &fan_info_validate_params);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
@@ -12064,8 +12064,8 @@ struct Serializer<::ash::cros_healthd::mojom::BluetoothResultDataView, MaybeCons
         mojo::internal::MessageFragment<
             typename decltype(fragment->data.f_bluetooth_adapter_info)::BaseType>
             value_fragment(fragment.message());
-        const ContainerValidateParams bluetooth_adapter_info_validate_params(
-            0, false, nullptr);
+        constexpr const mojo::internal::ContainerValidateParams& bluetooth_adapter_info_validate_params =
+            mojo::internal::GetArrayValidator<0, false, nullptr>();
         mojo::internal::Serialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::BluetoothAdapterInfoDataView>>(
             in_bluetooth_adapter_info, value_fragment, &bluetooth_adapter_info_validate_params);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
@@ -12342,8 +12342,8 @@ struct Serializer<::ash::cros_healthd::mojom::NetworkInterfaceResultDataView, Ma
         mojo::internal::MessageFragment<
             typename decltype(fragment->data.f_network_interface_info)::BaseType>
             value_fragment(fragment.message());
-        const ContainerValidateParams network_interface_info_validate_params(
-            0, false, nullptr);
+        constexpr const mojo::internal::ContainerValidateParams& network_interface_info_validate_params =
+            mojo::internal::GetArrayValidator<0, false, nullptr>();
         mojo::internal::Serialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::NetworkInterfaceInfoDataView>>(
             in_network_interface_info, value_fragment, &network_interface_info_validate_params);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
@@ -12693,8 +12693,8 @@ struct Serializer<::ash::cros_healthd::mojom::BusResultDataView, MaybeConstUserT
         mojo::internal::MessageFragment<
             typename decltype(fragment->data.f_bus_devices)::BaseType>
             value_fragment(fragment.message());
-        const ContainerValidateParams bus_devices_validate_params(
-            0, false, nullptr);
+        constexpr const mojo::internal::ContainerValidateParams& bus_devices_validate_params =
+            mojo::internal::GetArrayValidator<0, false, nullptr>();
         mojo::internal::Serialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::BusDeviceDataView>>(
             in_bus_devices, value_fragment, &bus_devices_validate_params);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(

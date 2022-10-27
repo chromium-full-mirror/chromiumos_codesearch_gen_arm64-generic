@@ -50,7 +50,7 @@ class SensorHalServerStub;
 class SensorHalServerRequestValidator;
 
 
-class  SensorHalServer
+class SensorHalServer
     : public SensorHalServerInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();
@@ -96,7 +96,7 @@ class SensorHalClientStub;
 class SensorHalClientRequestValidator;
 
 
-class  SensorHalClient
+class SensorHalClient
     : public SensorHalClientInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();

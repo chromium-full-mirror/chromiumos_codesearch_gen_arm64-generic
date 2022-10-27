@@ -283,8 +283,8 @@ struct Serializer<::mojo_base::mojom::DictionaryValueDataView, MaybeConstUserTyp
     mojo::internal::MessageFragment<
         typename decltype(fragment->storage)::BaseType>
         storage_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams storage_validate_params(
-        new mojo::internal::ContainerValidateParams(0, false, new mojo::internal::ContainerValidateParams(0, false, nullptr)), new mojo::internal::ContainerValidateParams(0, false, nullptr));
+    constexpr const mojo::internal::ContainerValidateParams& storage_validate_params =
+        mojo::internal::GetMapValidator<*&mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>(), *&mojo::internal::GetArrayValidator<0, false, nullptr>()>();
     mojo::internal::Serialize<mojo::MapDataView<mojo::StringDataView, ::mojo_base::mojom::ValueDataView>>(
         in_storage, storage_fragment, &storage_validate_params);
     fragment->storage.Set(
@@ -326,8 +326,8 @@ struct Serializer<::mojo_base::mojom::ListValueDataView, MaybeConstUserType> {
     mojo::internal::MessageFragment<
         typename decltype(fragment->storage)::BaseType>
         storage_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams storage_validate_params(
-        0, false, nullptr);
+    constexpr const mojo::internal::ContainerValidateParams& storage_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
     mojo::internal::Serialize<mojo::ArrayDataView<::mojo_base::mojom::ValueDataView>>(
         in_storage, storage_fragment, &storage_validate_params);
     fragment->storage.Set(
@@ -369,8 +369,8 @@ struct Serializer<::mojo_base::mojom::DeprecatedDictionaryValueDataView, MaybeCo
     mojo::internal::MessageFragment<
         typename decltype(fragment->storage)::BaseType>
         storage_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams storage_validate_params(
-        new mojo::internal::ContainerValidateParams(0, false, new mojo::internal::ContainerValidateParams(0, false, nullptr)), new mojo::internal::ContainerValidateParams(0, false, nullptr));
+    constexpr const mojo::internal::ContainerValidateParams& storage_validate_params =
+        mojo::internal::GetMapValidator<*&mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>(), *&mojo::internal::GetArrayValidator<0, false, nullptr>()>();
     mojo::internal::Serialize<mojo::MapDataView<mojo::StringDataView, ::mojo_base::mojom::ValueDataView>>(
         in_storage, storage_fragment, &storage_validate_params);
     fragment->storage.Set(
@@ -465,8 +465,8 @@ struct Serializer<::mojo_base::mojom::ValueDataView, MaybeConstUserType> {
         mojo::internal::MessageFragment<
             typename decltype(fragment->data.f_binary_value)::BaseType>
             value_fragment(fragment.message());
-        const ContainerValidateParams binary_value_validate_params(
-            0, false, nullptr);
+        constexpr const mojo::internal::ContainerValidateParams& binary_value_validate_params =
+            mojo::internal::GetArrayValidator<0, false, nullptr>();
         mojo::internal::Serialize<mojo::ArrayDataView<uint8_t>>(
             in_binary_value, value_fragment, &binary_value_validate_params);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(

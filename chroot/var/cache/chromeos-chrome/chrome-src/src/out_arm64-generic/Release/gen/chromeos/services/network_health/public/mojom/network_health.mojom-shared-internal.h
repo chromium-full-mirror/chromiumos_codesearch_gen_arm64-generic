@@ -11,6 +11,7 @@
 #include "mojo/public/cpp/bindings/lib/map_data_internal.h"
 #include "mojo/public/cpp/bindings/lib/buffer.h"
 #include "chromeos/services/network_config/public/mojom/network_types.mojom-shared-internal.h"
+#include "url/mojom/url.mojom-shared-internal.h"
 #include "mojo/public/cpp/bindings/lib/native_enum_data.h"
 #include "mojo/public/interfaces/bindings/native_struct.mojom-shared-internal.h"
 
@@ -177,6 +178,7 @@ class  Network_Data {
   int32_t portal_state;
   uint8_t pad8_[4];
   mojo::internal::Pointer<internal::SignalStrengthStats_Data> signal_strength_stats;
+  mojo::internal::Pointer<::url::mojom::internal::Url_Data> portal_probe_url;
 
  private:
   friend class mojo::internal::MessageFragment<Network_Data>;
@@ -184,7 +186,7 @@ class  Network_Data {
   Network_Data();
   ~Network_Data() = delete;
 };
-static_assert(sizeof(Network_Data) == 80,
+static_assert(sizeof(Network_Data) == 88,
               "Bad sizeof(Network_Data)");
 // Used by Network::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

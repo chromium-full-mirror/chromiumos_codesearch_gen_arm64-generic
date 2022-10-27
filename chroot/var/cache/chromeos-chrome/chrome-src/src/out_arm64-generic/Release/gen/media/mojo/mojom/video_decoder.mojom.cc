@@ -1005,8 +1005,8 @@ void VideoDecoder_GetSupportedConfigs_ProxyToResponder::Run(
   mojo::internal::MessageFragment<
       typename decltype(params->supported_configs)::BaseType>
       supported_configs_fragment(params.message());
-  const mojo::internal::ContainerValidateParams supported_configs_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& supported_configs_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   mojo::internal::Serialize<mojo::ArrayDataView<::media::mojom::SupportedVideoDecoderConfigDataView>>(
       in_supported_configs, supported_configs_fragment, &supported_configs_validate_params);
   params->supported_configs.Set(

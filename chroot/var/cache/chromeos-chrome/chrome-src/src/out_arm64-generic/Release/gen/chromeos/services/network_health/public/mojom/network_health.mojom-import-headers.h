@@ -8,5 +8,7 @@
 #define CHROMEOS_SERVICES_NETWORK_HEALTH_PUBLIC_MOJOM_NETWORK_HEALTH_MOJOM_IMPORT_HEADERS_H_
 #include "chromeos/services/network_config/public/mojom/network_types.mojom.h"
 #include "chromeos/services/network_config/public/mojom/network_types.mojom-import-headers.h"
+#include "url/mojom/url.mojom.h"
+#include "url/mojom/url.mojom-import-headers.h"
 
 #endif  // CHROMEOS_SERVICES_NETWORK_HEALTH_PUBLIC_MOJOM_NETWORK_HEALTH_MOJOM_IMPORT_HEADERS_H_

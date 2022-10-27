@@ -1440,8 +1440,8 @@ struct Serializer<::chromeos::network_diagnostics::mojom::RoutineProblemsDataVie
         mojo::internal::MessageFragment<
             typename decltype(fragment->data.f_lan_connectivity_problems)::BaseType>
             value_fragment(fragment.message());
-        const ContainerValidateParams lan_connectivity_problems_validate_params(
-            0, ::chromeos::network_diagnostics::mojom::internal::LanConnectivityProblem_Data::Validate);
+        constexpr const mojo::internal::ContainerValidateParams& lan_connectivity_problems_validate_params =
+            mojo::internal::GetArrayOfEnumsValidator<0, ::chromeos::network_diagnostics::mojom::internal::LanConnectivityProblem_Data::Validate>();
         mojo::internal::Serialize<mojo::ArrayDataView<::chromeos::network_diagnostics::mojom::LanConnectivityProblem>>(
             in_lan_connectivity_problems, value_fragment, &lan_connectivity_problems_validate_params);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
@@ -1458,8 +1458,8 @@ struct Serializer<::chromeos::network_diagnostics::mojom::RoutineProblemsDataVie
         mojo::internal::MessageFragment<
             typename decltype(fragment->data.f_signal_strength_problems)::BaseType>
             value_fragment(fragment.message());
-        const ContainerValidateParams signal_strength_problems_validate_params(
-            0, ::chromeos::network_diagnostics::mojom::internal::SignalStrengthProblem_Data::Validate);
+        constexpr const mojo::internal::ContainerValidateParams& signal_strength_problems_validate_params =
+            mojo::internal::GetArrayOfEnumsValidator<0, ::chromeos::network_diagnostics::mojom::internal::SignalStrengthProblem_Data::Validate>();
         mojo::internal::Serialize<mojo::ArrayDataView<::chromeos::network_diagnostics::mojom::SignalStrengthProblem>>(
             in_signal_strength_problems, value_fragment, &signal_strength_problems_validate_params);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
@@ -1476,8 +1476,8 @@ struct Serializer<::chromeos::network_diagnostics::mojom::RoutineProblemsDataVie
         mojo::internal::MessageFragment<
             typename decltype(fragment->data.f_gateway_can_be_pinged_problems)::BaseType>
             value_fragment(fragment.message());
-        const ContainerValidateParams gateway_can_be_pinged_problems_validate_params(
-            0, ::chromeos::network_diagnostics::mojom::internal::GatewayCanBePingedProblem_Data::Validate);
+        constexpr const mojo::internal::ContainerValidateParams& gateway_can_be_pinged_problems_validate_params =
+            mojo::internal::GetArrayOfEnumsValidator<0, ::chromeos::network_diagnostics::mojom::internal::GatewayCanBePingedProblem_Data::Validate>();
         mojo::internal::Serialize<mojo::ArrayDataView<::chromeos::network_diagnostics::mojom::GatewayCanBePingedProblem>>(
             in_gateway_can_be_pinged_problems, value_fragment, &gateway_can_be_pinged_problems_validate_params);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
@@ -1494,8 +1494,8 @@ struct Serializer<::chromeos::network_diagnostics::mojom::RoutineProblemsDataVie
         mojo::internal::MessageFragment<
             typename decltype(fragment->data.f_has_secure_wifi_connection_problems)::BaseType>
             value_fragment(fragment.message());
-        const ContainerValidateParams has_secure_wifi_connection_problems_validate_params(
-            0, ::chromeos::network_diagnostics::mojom::internal::HasSecureWiFiConnectionProblem_Data::Validate);
+        constexpr const mojo::internal::ContainerValidateParams& has_secure_wifi_connection_problems_validate_params =
+            mojo::internal::GetArrayOfEnumsValidator<0, ::chromeos::network_diagnostics::mojom::internal::HasSecureWiFiConnectionProblem_Data::Validate>();
         mojo::internal::Serialize<mojo::ArrayDataView<::chromeos::network_diagnostics::mojom::HasSecureWiFiConnectionProblem>>(
             in_has_secure_wifi_connection_problems, value_fragment, &has_secure_wifi_connection_problems_validate_params);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
@@ -1512,8 +1512,8 @@ struct Serializer<::chromeos::network_diagnostics::mojom::RoutineProblemsDataVie
         mojo::internal::MessageFragment<
             typename decltype(fragment->data.f_dns_resolver_present_problems)::BaseType>
             value_fragment(fragment.message());
-        const ContainerValidateParams dns_resolver_present_problems_validate_params(
-            0, ::chromeos::network_diagnostics::mojom::internal::DnsResolverPresentProblem_Data::Validate);
+        constexpr const mojo::internal::ContainerValidateParams& dns_resolver_present_problems_validate_params =
+            mojo::internal::GetArrayOfEnumsValidator<0, ::chromeos::network_diagnostics::mojom::internal::DnsResolverPresentProblem_Data::Validate>();
         mojo::internal::Serialize<mojo::ArrayDataView<::chromeos::network_diagnostics::mojom::DnsResolverPresentProblem>>(
             in_dns_resolver_present_problems, value_fragment, &dns_resolver_present_problems_validate_params);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
@@ -1530,8 +1530,8 @@ struct Serializer<::chromeos::network_diagnostics::mojom::RoutineProblemsDataVie
         mojo::internal::MessageFragment<
             typename decltype(fragment->data.f_dns_latency_problems)::BaseType>
             value_fragment(fragment.message());
-        const ContainerValidateParams dns_latency_problems_validate_params(
-            0, ::chromeos::network_diagnostics::mojom::internal::DnsLatencyProblem_Data::Validate);
+        constexpr const mojo::internal::ContainerValidateParams& dns_latency_problems_validate_params =
+            mojo::internal::GetArrayOfEnumsValidator<0, ::chromeos::network_diagnostics::mojom::internal::DnsLatencyProblem_Data::Validate>();
         mojo::internal::Serialize<mojo::ArrayDataView<::chromeos::network_diagnostics::mojom::DnsLatencyProblem>>(
             in_dns_latency_problems, value_fragment, &dns_latency_problems_validate_params);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
@@ -1548,8 +1548,8 @@ struct Serializer<::chromeos::network_diagnostics::mojom::RoutineProblemsDataVie
         mojo::internal::MessageFragment<
             typename decltype(fragment->data.f_dns_resolution_problems)::BaseType>
             value_fragment(fragment.message());
-        const ContainerValidateParams dns_resolution_problems_validate_params(
-            0, ::chromeos::network_diagnostics::mojom::internal::DnsResolutionProblem_Data::Validate);
+        constexpr const mojo::internal::ContainerValidateParams& dns_resolution_problems_validate_params =
+            mojo::internal::GetArrayOfEnumsValidator<0, ::chromeos::network_diagnostics::mojom::internal::DnsResolutionProblem_Data::Validate>();
         mojo::internal::Serialize<mojo::ArrayDataView<::chromeos::network_diagnostics::mojom::DnsResolutionProblem>>(
             in_dns_resolution_problems, value_fragment, &dns_resolution_problems_validate_params);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
@@ -1566,8 +1566,8 @@ struct Serializer<::chromeos::network_diagnostics::mojom::RoutineProblemsDataVie
         mojo::internal::MessageFragment<
             typename decltype(fragment->data.f_captive_portal_problems)::BaseType>
             value_fragment(fragment.message());
-        const ContainerValidateParams captive_portal_problems_validate_params(
-            0, ::chromeos::network_diagnostics::mojom::internal::CaptivePortalProblem_Data::Validate);
+        constexpr const mojo::internal::ContainerValidateParams& captive_portal_problems_validate_params =
+            mojo::internal::GetArrayOfEnumsValidator<0, ::chromeos::network_diagnostics::mojom::internal::CaptivePortalProblem_Data::Validate>();
         mojo::internal::Serialize<mojo::ArrayDataView<::chromeos::network_diagnostics::mojom::CaptivePortalProblem>>(
             in_captive_portal_problems, value_fragment, &captive_portal_problems_validate_params);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
@@ -1584,8 +1584,8 @@ struct Serializer<::chromeos::network_diagnostics::mojom::RoutineProblemsDataVie
         mojo::internal::MessageFragment<
             typename decltype(fragment->data.f_http_firewall_problems)::BaseType>
             value_fragment(fragment.message());
-        const ContainerValidateParams http_firewall_problems_validate_params(
-            0, ::chromeos::network_diagnostics::mojom::internal::HttpFirewallProblem_Data::Validate);
+        constexpr const mojo::internal::ContainerValidateParams& http_firewall_problems_validate_params =
+            mojo::internal::GetArrayOfEnumsValidator<0, ::chromeos::network_diagnostics::mojom::internal::HttpFirewallProblem_Data::Validate>();
         mojo::internal::Serialize<mojo::ArrayDataView<::chromeos::network_diagnostics::mojom::HttpFirewallProblem>>(
             in_http_firewall_problems, value_fragment, &http_firewall_problems_validate_params);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
@@ -1602,8 +1602,8 @@ struct Serializer<::chromeos::network_diagnostics::mojom::RoutineProblemsDataVie
         mojo::internal::MessageFragment<
             typename decltype(fragment->data.f_https_firewall_problems)::BaseType>
             value_fragment(fragment.message());
-        const ContainerValidateParams https_firewall_problems_validate_params(
-            0, ::chromeos::network_diagnostics::mojom::internal::HttpsFirewallProblem_Data::Validate);
+        constexpr const mojo::internal::ContainerValidateParams& https_firewall_problems_validate_params =
+            mojo::internal::GetArrayOfEnumsValidator<0, ::chromeos::network_diagnostics::mojom::internal::HttpsFirewallProblem_Data::Validate>();
         mojo::internal::Serialize<mojo::ArrayDataView<::chromeos::network_diagnostics::mojom::HttpsFirewallProblem>>(
             in_https_firewall_problems, value_fragment, &https_firewall_problems_validate_params);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
@@ -1620,8 +1620,8 @@ struct Serializer<::chromeos::network_diagnostics::mojom::RoutineProblemsDataVie
         mojo::internal::MessageFragment<
             typename decltype(fragment->data.f_https_latency_problems)::BaseType>
             value_fragment(fragment.message());
-        const ContainerValidateParams https_latency_problems_validate_params(
-            0, ::chromeos::network_diagnostics::mojom::internal::HttpsLatencyProblem_Data::Validate);
+        constexpr const mojo::internal::ContainerValidateParams& https_latency_problems_validate_params =
+            mojo::internal::GetArrayOfEnumsValidator<0, ::chromeos::network_diagnostics::mojom::internal::HttpsLatencyProblem_Data::Validate>();
         mojo::internal::Serialize<mojo::ArrayDataView<::chromeos::network_diagnostics::mojom::HttpsLatencyProblem>>(
             in_https_latency_problems, value_fragment, &https_latency_problems_validate_params);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
@@ -1638,8 +1638,8 @@ struct Serializer<::chromeos::network_diagnostics::mojom::RoutineProblemsDataVie
         mojo::internal::MessageFragment<
             typename decltype(fragment->data.f_video_conferencing_problems)::BaseType>
             value_fragment(fragment.message());
-        const ContainerValidateParams video_conferencing_problems_validate_params(
-            0, ::chromeos::network_diagnostics::mojom::internal::VideoConferencingProblem_Data::Validate);
+        constexpr const mojo::internal::ContainerValidateParams& video_conferencing_problems_validate_params =
+            mojo::internal::GetArrayOfEnumsValidator<0, ::chromeos::network_diagnostics::mojom::internal::VideoConferencingProblem_Data::Validate>();
         mojo::internal::Serialize<mojo::ArrayDataView<::chromeos::network_diagnostics::mojom::VideoConferencingProblem>>(
             in_video_conferencing_problems, value_fragment, &video_conferencing_problems_validate_params);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
@@ -1656,8 +1656,8 @@ struct Serializer<::chromeos::network_diagnostics::mojom::RoutineProblemsDataVie
         mojo::internal::MessageFragment<
             typename decltype(fragment->data.f_arc_http_problems)::BaseType>
             value_fragment(fragment.message());
-        const ContainerValidateParams arc_http_problems_validate_params(
-            0, ::chromeos::network_diagnostics::mojom::internal::ArcHttpProblem_Data::Validate);
+        constexpr const mojo::internal::ContainerValidateParams& arc_http_problems_validate_params =
+            mojo::internal::GetArrayOfEnumsValidator<0, ::chromeos::network_diagnostics::mojom::internal::ArcHttpProblem_Data::Validate>();
         mojo::internal::Serialize<mojo::ArrayDataView<::chromeos::network_diagnostics::mojom::ArcHttpProblem>>(
             in_arc_http_problems, value_fragment, &arc_http_problems_validate_params);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
@@ -1674,8 +1674,8 @@ struct Serializer<::chromeos::network_diagnostics::mojom::RoutineProblemsDataVie
         mojo::internal::MessageFragment<
             typename decltype(fragment->data.f_arc_dns_resolution_problems)::BaseType>
             value_fragment(fragment.message());
-        const ContainerValidateParams arc_dns_resolution_problems_validate_params(
-            0, ::chromeos::network_diagnostics::mojom::internal::ArcDnsResolutionProblem_Data::Validate);
+        constexpr const mojo::internal::ContainerValidateParams& arc_dns_resolution_problems_validate_params =
+            mojo::internal::GetArrayOfEnumsValidator<0, ::chromeos::network_diagnostics::mojom::internal::ArcDnsResolutionProblem_Data::Validate>();
         mojo::internal::Serialize<mojo::ArrayDataView<::chromeos::network_diagnostics::mojom::ArcDnsResolutionProblem>>(
             in_arc_dns_resolution_problems, value_fragment, &arc_dns_resolution_problems_validate_params);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
@@ -1692,8 +1692,8 @@ struct Serializer<::chromeos::network_diagnostics::mojom::RoutineProblemsDataVie
         mojo::internal::MessageFragment<
             typename decltype(fragment->data.f_arc_ping_problems)::BaseType>
             value_fragment(fragment.message());
-        const ContainerValidateParams arc_ping_problems_validate_params(
-            0, ::chromeos::network_diagnostics::mojom::internal::ArcPingProblem_Data::Validate);
+        constexpr const mojo::internal::ContainerValidateParams& arc_ping_problems_validate_params =
+            mojo::internal::GetArrayOfEnumsValidator<0, ::chromeos::network_diagnostics::mojom::internal::ArcPingProblem_Data::Validate>();
         mojo::internal::Serialize<mojo::ArrayDataView<::chromeos::network_diagnostics::mojom::ArcPingProblem>>(
             in_arc_ping_problems, value_fragment, &arc_ping_problems_validate_params);
         MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(

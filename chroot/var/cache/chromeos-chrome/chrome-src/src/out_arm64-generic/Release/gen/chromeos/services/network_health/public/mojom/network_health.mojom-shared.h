@@ -25,6 +25,7 @@
 
 #include "chromeos/services/network_health/public/mojom/network_health.mojom-shared-internal.h"
 #include "chromeos/services/network_config/public/mojom/network_types.mojom-shared.h"
+#include "url/mojom/url.mojom-shared.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
 #include "mojo/public/cpp/system/data_pipe.h"
 
@@ -369,6 +370,27 @@ static_assert(
     return mojo::internal::Deserialize<::chromeos::network_health::mojom::SignalStrengthStatsDataView>(
         pointer, output, message_);
   }
+  inline void GetPortalProbeUrlDataView(
+      ::url::mojom::UrlDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadPortalProbeUrl(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::url::mojom::UrlDataView, UserType>(),
+    "Attempting to read the optional `portal_probe_url` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadPortalProbeUrl` instead "
+    "of `ReadPortalProbeUrl if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->header_.version >= 3
+                    ? data_->portal_probe_url.Get() : nullptr;
+    return mojo::internal::Deserialize<::url::mojom::UrlDataView>(
+        pointer, output, message_);
+  }
  private:
   internal::Network_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -487,8 +509,8 @@ struct Serializer<::chromeos::network_health::mojom::SignalStrengthStatsDataView
     mojo::internal::MessageFragment<
         typename decltype(fragment->samples)::BaseType>
         samples_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams samples_validate_params(
-        0, false, nullptr);
+    constexpr const mojo::internal::ContainerValidateParams& samples_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
     mojo::internal::Serialize<mojo::ArrayDataView<uint8_t>>(
         in_samples, samples_fragment, &samples_validate_params);
     fragment->samples.Set(
@@ -574,8 +596,8 @@ struct Serializer<::chromeos::network_health::mojom::NetworkDataView, MaybeConst
     mojo::internal::MessageFragment<
         typename decltype(fragment->ipv6_addresses)::BaseType>
         ipv6_addresses_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams ipv6_addresses_validate_params(
-        0, false, new mojo::internal::ContainerValidateParams(0, false, nullptr));
+    constexpr const mojo::internal::ContainerValidateParams& ipv6_addresses_validate_params =
+        mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
     mojo::internal::Serialize<mojo::ArrayDataView<mojo::StringDataView>>(
         in_ipv6_addresses, ipv6_addresses_fragment, &ipv6_addresses_validate_params);
     fragment->ipv6_addresses.Set(
@@ -594,6 +616,14 @@ struct Serializer<::chromeos::network_health::mojom::NetworkDataView, MaybeConst
         in_signal_strength_stats, signal_strength_stats_fragment);
     fragment->signal_strength_stats.Set(
         signal_strength_stats_fragment.is_null() ? nullptr : signal_strength_stats_fragment.data());
+    decltype(Traits::portal_probe_url(input)) in_portal_probe_url = Traits::portal_probe_url(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->portal_probe_url)::BaseType> portal_probe_url_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::url::mojom::UrlDataView>(
+        in_portal_probe_url, portal_probe_url_fragment);
+    fragment->portal_probe_url.Set(
+        portal_probe_url_fragment.is_null() ? nullptr : portal_probe_url_fragment.data());
   }
 
   static bool Deserialize(::chromeos::network_health::mojom::internal::Network_Data* input,
@@ -627,8 +657,8 @@ struct Serializer<::chromeos::network_health::mojom::NetworkHealthStateDataView,
     mojo::internal::MessageFragment<
         typename decltype(fragment->networks)::BaseType>
         networks_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams networks_validate_params(
-        0, false, nullptr);
+    constexpr const mojo::internal::ContainerValidateParams& networks_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
     mojo::internal::Serialize<mojo::ArrayDataView<::chromeos::network_health::mojom::NetworkDataView>>(
         in_networks, networks_fragment, &networks_validate_params);
     fragment->networks.Set(
@@ -703,6 +733,12 @@ inline void NetworkDataView::GetSignalStrengthStatsDataView(
   auto pointer = data_->header_.version >= 1
                  ? data_->signal_strength_stats.Get() : nullptr;
   *output = SignalStrengthStatsDataView(pointer, message_);
+}
+inline void NetworkDataView::GetPortalProbeUrlDataView(
+    ::url::mojom::UrlDataView* output) {
+  auto pointer = data_->header_.version >= 3
+                 ? data_->portal_probe_url.Get() : nullptr;
+  *output = ::url::mojom::UrlDataView(pointer, message_);
 }
 
 

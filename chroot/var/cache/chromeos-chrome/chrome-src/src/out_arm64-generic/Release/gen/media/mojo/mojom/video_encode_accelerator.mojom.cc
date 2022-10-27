@@ -1393,8 +1393,8 @@ void VideoEncodeAcceleratorProvider_GetVideoEncodeAcceleratorSupportedProfiles_P
   mojo::internal::MessageFragment<
       typename decltype(params->profiles)::BaseType>
       profiles_fragment(params.message());
-  const mojo::internal::ContainerValidateParams profiles_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& profiles_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   mojo::internal::Serialize<mojo::ArrayDataView<::media::mojom::VideoEncodeAcceleratorSupportedProfileDataView>>(
       in_profiles, profiles_fragment, &profiles_validate_params);
   params->profiles.Set(

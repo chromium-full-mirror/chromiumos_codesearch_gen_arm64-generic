@@ -151,11 +151,13 @@ enum CryptohomeErrorCode : int {
   CRYPTOHOME_ERROR_UNKNOWN_LEGACY = 52,
   CRYPTOHOME_ERROR_UNUSABLE_VAULT = 53,
   CRYPTOHOME_REMOVE_CREDENTIALS_FAILED = 54,
-  CRYPTOHOME_UPDATE_CREDENTIALS_FAILED = 55
+  CRYPTOHOME_UPDATE_CREDENTIALS_FAILED = 55,
+  CRYPTOHOME_ERROR_RECOVERY_TRANSIENT = 56,
+  CRYPTOHOME_ERROR_RECOVERY_FATAL = 57
 };
 bool CryptohomeErrorCode_IsValid(int value);
 constexpr CryptohomeErrorCode CryptohomeErrorCode_MIN = CRYPTOHOME_ERROR_NOT_SET;
-constexpr CryptohomeErrorCode CryptohomeErrorCode_MAX = CRYPTOHOME_UPDATE_CREDENTIALS_FAILED;
+constexpr CryptohomeErrorCode CryptohomeErrorCode_MAX = CRYPTOHOME_ERROR_RECOVERY_FATAL;
 constexpr int CryptohomeErrorCode_ARRAYSIZE = CryptohomeErrorCode_MAX + 1;
 
 const std::string& CryptohomeErrorCode_Name(CryptohomeErrorCode value);

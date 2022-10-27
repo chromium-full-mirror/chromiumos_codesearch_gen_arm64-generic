@@ -50,7 +50,7 @@ class ChromiumDataCollectorRequestValidator;
 class ChromiumDataCollectorResponseValidator;
 
 
-class  ChromiumDataCollector
+class ChromiumDataCollector
     : public ChromiumDataCollectorInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();

@@ -991,8 +991,8 @@ void WilcoDtcSupportdClientProxy::PerformWebRequest(
   mojo::internal::MessageFragment<
       typename decltype(params->headers)::BaseType>
       headers_fragment(params.message());
-  const mojo::internal::ContainerValidateParams headers_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& headers_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   mojo::internal::Serialize<mojo::ArrayDataView<mojo::ScopedHandle>>(
       in_headers, headers_fragment, &headers_validate_params);
   params->headers.Set(

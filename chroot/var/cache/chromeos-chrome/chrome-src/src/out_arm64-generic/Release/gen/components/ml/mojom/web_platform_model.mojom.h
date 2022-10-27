@@ -50,7 +50,7 @@ class ModelLoaderRequestValidator;
 class ModelLoaderResponseValidator;
 
 
-class  ModelLoader
+class ModelLoader
     : public ModelLoaderInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();
@@ -99,7 +99,7 @@ class ModelRequestValidator;
 class ModelResponseValidator;
 
 
-class  Model
+class Model
     : public ModelInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();

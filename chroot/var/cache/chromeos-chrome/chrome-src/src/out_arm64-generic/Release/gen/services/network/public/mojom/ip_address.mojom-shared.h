@@ -112,8 +112,8 @@ struct Serializer<::network::mojom::IPAddressDataView, MaybeConstUserType> {
     mojo::internal::MessageFragment<
         typename decltype(fragment->address_bytes)::BaseType>
         address_bytes_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams address_bytes_validate_params(
-        0, false, nullptr);
+    constexpr const mojo::internal::ContainerValidateParams& address_bytes_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
     mojo::internal::Serialize<mojo::ArrayDataView<uint8_t>>(
         in_address_bytes, address_bytes_fragment, &address_bytes_validate_params);
     fragment->address_bytes.Set(

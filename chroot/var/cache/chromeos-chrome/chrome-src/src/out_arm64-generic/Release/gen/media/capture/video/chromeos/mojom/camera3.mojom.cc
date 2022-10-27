@@ -1942,8 +1942,8 @@ void Camera3DeviceOpsProxy::RegisterBuffer(
   mojo::internal::MessageFragment<
       typename decltype(params->fds)::BaseType>
       fds_fragment(params.message());
-  const mojo::internal::ContainerValidateParams fds_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& fds_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   mojo::internal::Serialize<mojo::ArrayDataView<mojo::ScopedHandle>>(
       in_fds, fds_fragment, &fds_validate_params);
   params->fds.Set(
@@ -1960,8 +1960,8 @@ void Camera3DeviceOpsProxy::RegisterBuffer(
   mojo::internal::MessageFragment<
       typename decltype(params->strides)::BaseType>
       strides_fragment(params.message());
-  const mojo::internal::ContainerValidateParams strides_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& strides_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   mojo::internal::Serialize<mojo::ArrayDataView<uint32_t>>(
       in_strides, strides_fragment, &strides_validate_params);
   params->strides.Set(
@@ -1973,8 +1973,8 @@ void Camera3DeviceOpsProxy::RegisterBuffer(
   mojo::internal::MessageFragment<
       typename decltype(params->offsets)::BaseType>
       offsets_fragment(params.message());
-  const mojo::internal::ContainerValidateParams offsets_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& offsets_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   mojo::internal::Serialize<mojo::ArrayDataView<uint32_t>>(
       in_offsets, offsets_fragment, &offsets_validate_params);
   params->offsets.Set(
@@ -3012,8 +3012,8 @@ void Camera3DeviceOps_ConfigureStreamsAndGetAllocatedBuffers_ProxyToResponder::R
   mojo::internal::MessageFragment<
       typename decltype(params->allocated_buffers)::BaseType>
       allocated_buffers_fragment(params.message());
-  const mojo::internal::ContainerValidateParams allocated_buffers_validate_params(
-      new mojo::internal::ContainerValidateParams(0, false, nullptr), new mojo::internal::ContainerValidateParams(0, false, new mojo::internal::ContainerValidateParams(0, false, nullptr)));
+  constexpr const mojo::internal::ContainerValidateParams& allocated_buffers_validate_params =
+      mojo::internal::GetMapValidator<*&mojo::internal::GetArrayValidator<0, false, nullptr>(), *&mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>()>();
   mojo::internal::Serialize<mojo::MapDataView<uint64_t, mojo::ArrayDataView<::cros::mojom::Camera3StreamBufferDataView>>>(
       in_allocated_buffers, allocated_buffers_fragment, &allocated_buffers_validate_params);
   params->allocated_buffers.Set(

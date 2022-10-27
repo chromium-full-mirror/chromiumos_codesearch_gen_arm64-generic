@@ -106,6 +106,12 @@ void ExperimentalDomain::GetInterestGroupDetails(std::unique_ptr<GetInterestGrou
 void ExperimentalDomain::SetInterestGroupTracking(std::unique_ptr<SetInterestGroupTrackingParams> params, base::OnceCallback<void(std::unique_ptr<SetInterestGroupTrackingResult>)> callback) {
   dispatcher_->SendMessage("Storage.setInterestGroupTracking", params->Serialize(), base::BindOnce(&Domain::HandleSetInterestGroupTrackingResponse, std::move(callback)));
 }
+void ExperimentalDomain::GetSharedStorageMetadata(std::unique_ptr<GetSharedStorageMetadataParams> params, base::OnceCallback<void(std::unique_ptr<GetSharedStorageMetadataResult>)> callback) {
+  dispatcher_->SendMessage("Storage.getSharedStorageMetadata", params->Serialize(), base::BindOnce(&Domain::HandleGetSharedStorageMetadataResponse, std::move(callback)));
+}
+void ExperimentalDomain::GetSharedStorageEntries(std::unique_ptr<GetSharedStorageEntriesParams> params, base::OnceCallback<void(std::unique_ptr<GetSharedStorageEntriesResult>)> callback) {
+  dispatcher_->SendMessage("Storage.getSharedStorageEntries", params->Serialize(), base::BindOnce(&Domain::HandleGetSharedStorageEntriesResponse, std::move(callback)));
+}
 
 
 // static
@@ -374,6 +380,36 @@ void Domain::HandleSetInterestGroupTrackingResponse(base::OnceCallback<void(std:
   }
   ErrorReporter errors;
   std::unique_ptr<SetInterestGroupTrackingResult> result = SetInterestGroupTrackingResult::Parse(response, &errors);
+  DCHECK(!errors.HasErrors()) << errors.ToString();
+  std::move(callback).Run(std::move(result));
+}
+
+// static
+void Domain::HandleGetSharedStorageMetadataResponse(base::OnceCallback<void(std::unique_ptr<GetSharedStorageMetadataResult>)> callback, const base::Value& response) {
+  if (callback.is_null())
+    return;
+  // This is an error response.
+  if (response.is_none()) {
+    std::move(callback).Run(nullptr);
+    return;
+  }
+  ErrorReporter errors;
+  std::unique_ptr<GetSharedStorageMetadataResult> result = GetSharedStorageMetadataResult::Parse(response, &errors);
+  DCHECK(!errors.HasErrors()) << errors.ToString();
+  std::move(callback).Run(std::move(result));
+}
+
+// static
+void Domain::HandleGetSharedStorageEntriesResponse(base::OnceCallback<void(std::unique_ptr<GetSharedStorageEntriesResult>)> callback, const base::Value& response) {
+  if (callback.is_null())
+    return;
+  // This is an error response.
+  if (response.is_none()) {
+    std::move(callback).Run(nullptr);
+    return;
+  }
+  ErrorReporter errors;
+  std::unique_ptr<GetSharedStorageEntriesResult> result = GetSharedStorageEntriesResult::Parse(response, &errors);
   DCHECK(!errors.HasErrors()) << errors.ToString();
   std::move(callback).Run(std::move(result));
 }

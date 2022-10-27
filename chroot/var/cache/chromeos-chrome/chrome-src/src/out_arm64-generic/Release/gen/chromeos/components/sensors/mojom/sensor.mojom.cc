@@ -475,8 +475,8 @@ void SensorService_GetDeviceIds_ProxyToResponder::Run(
   mojo::internal::MessageFragment<
       typename decltype(params->iio_device_ids)::BaseType>
       iio_device_ids_fragment(params.message());
-  const mojo::internal::ContainerValidateParams iio_device_ids_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& iio_device_ids_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   mojo::internal::Serialize<mojo::ArrayDataView<int32_t>>(
       in_iio_device_ids, iio_device_ids_fragment, &iio_device_ids_validate_params);
   params->iio_device_ids.Set(
@@ -601,8 +601,8 @@ void SensorService_GetAllDeviceIds_ProxyToResponder::Run(
   mojo::internal::MessageFragment<
       typename decltype(params->iio_device_ids_types)::BaseType>
       iio_device_ids_types_fragment(params.message());
-  const mojo::internal::ContainerValidateParams iio_device_ids_types_validate_params(
-      new mojo::internal::ContainerValidateParams(0, false, nullptr), new mojo::internal::ContainerValidateParams(0, false, new mojo::internal::ContainerValidateParams(0, ::chromeos::sensors::mojom::internal::DeviceType_Data::Validate)));
+  constexpr const mojo::internal::ContainerValidateParams& iio_device_ids_types_validate_params =
+      mojo::internal::GetMapValidator<*&mojo::internal::GetArrayValidator<0, false, nullptr>(), *&mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayOfEnumsValidator<0, ::chromeos::sensors::mojom::internal::DeviceType_Data::Validate>()>()>();
   mojo::internal::Serialize<mojo::MapDataView<int32_t, mojo::ArrayDataView<::chromeos::sensors::mojom::DeviceType>>>(
       in_iio_device_ids_types, iio_device_ids_types_fragment, &iio_device_ids_types_validate_params);
   params->iio_device_ids_types.Set(
@@ -1181,8 +1181,8 @@ void SensorDeviceProxy::GetAttributes(
   mojo::internal::MessageFragment<
       typename decltype(params->attr_names)::BaseType>
       attr_names_fragment(params.message());
-  const mojo::internal::ContainerValidateParams attr_names_validate_params(
-      0, false, new mojo::internal::ContainerValidateParams(0, false, nullptr));
+  constexpr const mojo::internal::ContainerValidateParams& attr_names_validate_params =
+      mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
   mojo::internal::Serialize<mojo::ArrayDataView<mojo::StringDataView>>(
       in_attr_names, attr_names_fragment, &attr_names_validate_params);
   params->attr_names.Set(
@@ -1378,8 +1378,8 @@ void SensorDeviceProxy::SetChannelsEnabled(
   mojo::internal::MessageFragment<
       typename decltype(params->iio_chn_indices)::BaseType>
       iio_chn_indices_fragment(params.message());
-  const mojo::internal::ContainerValidateParams iio_chn_indices_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& iio_chn_indices_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   mojo::internal::Serialize<mojo::ArrayDataView<int32_t>>(
       in_iio_chn_indices, iio_chn_indices_fragment, &iio_chn_indices_validate_params);
   params->iio_chn_indices.Set(
@@ -1430,8 +1430,8 @@ void SensorDeviceProxy::GetChannelsEnabled(
   mojo::internal::MessageFragment<
       typename decltype(params->iio_chn_indices)::BaseType>
       iio_chn_indices_fragment(params.message());
-  const mojo::internal::ContainerValidateParams iio_chn_indices_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& iio_chn_indices_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   mojo::internal::Serialize<mojo::ArrayDataView<int32_t>>(
       in_iio_chn_indices, iio_chn_indices_fragment, &iio_chn_indices_validate_params);
   params->iio_chn_indices.Set(
@@ -1484,8 +1484,8 @@ void SensorDeviceProxy::GetChannelsAttributes(
   mojo::internal::MessageFragment<
       typename decltype(params->iio_chn_indices)::BaseType>
       iio_chn_indices_fragment(params.message());
-  const mojo::internal::ContainerValidateParams iio_chn_indices_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& iio_chn_indices_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   mojo::internal::Serialize<mojo::ArrayDataView<int32_t>>(
       in_iio_chn_indices, iio_chn_indices_fragment, &iio_chn_indices_validate_params);
   params->iio_chn_indices.Set(
@@ -1614,8 +1614,8 @@ void SensorDevice_GetAttributes_ProxyToResponder::Run(
   mojo::internal::MessageFragment<
       typename decltype(params->values)::BaseType>
       values_fragment(params.message());
-  const mojo::internal::ContainerValidateParams values_validate_params(
-      0, true, new mojo::internal::ContainerValidateParams(0, false, nullptr));
+  constexpr const mojo::internal::ContainerValidateParams& values_validate_params =
+      mojo::internal::GetArrayValidator<0, true, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
   mojo::internal::Serialize<mojo::ArrayDataView<mojo::StringDataView>>(
       in_values, values_fragment, &values_validate_params);
   params->values.Set(
@@ -1854,8 +1854,8 @@ void SensorDevice_GetAllChannelIds_ProxyToResponder::Run(
   mojo::internal::MessageFragment<
       typename decltype(params->iio_chn_ids)::BaseType>
       iio_chn_ids_fragment(params.message());
-  const mojo::internal::ContainerValidateParams iio_chn_ids_validate_params(
-      0, false, new mojo::internal::ContainerValidateParams(0, false, nullptr));
+  constexpr const mojo::internal::ContainerValidateParams& iio_chn_ids_validate_params =
+      mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
   mojo::internal::Serialize<mojo::ArrayDataView<mojo::StringDataView>>(
       in_iio_chn_ids, iio_chn_ids_fragment, &iio_chn_ids_validate_params);
   params->iio_chn_ids.Set(
@@ -1980,8 +1980,8 @@ void SensorDevice_SetChannelsEnabled_ProxyToResponder::Run(
   mojo::internal::MessageFragment<
       typename decltype(params->failed_indices)::BaseType>
       failed_indices_fragment(params.message());
-  const mojo::internal::ContainerValidateParams failed_indices_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& failed_indices_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   mojo::internal::Serialize<mojo::ArrayDataView<int32_t>>(
       in_failed_indices, failed_indices_fragment, &failed_indices_validate_params);
   params->failed_indices.Set(
@@ -2106,8 +2106,8 @@ void SensorDevice_GetChannelsEnabled_ProxyToResponder::Run(
   mojo::internal::MessageFragment<
       typename decltype(params->enabled)::BaseType>
       enabled_fragment(params.message());
-  const mojo::internal::ContainerValidateParams enabled_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& enabled_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   mojo::internal::Serialize<mojo::ArrayDataView<bool>>(
       in_enabled, enabled_fragment, &enabled_validate_params);
   params->enabled.Set(
@@ -2232,8 +2232,8 @@ void SensorDevice_GetChannelsAttributes_ProxyToResponder::Run(
   mojo::internal::MessageFragment<
       typename decltype(params->values)::BaseType>
       values_fragment(params.message());
-  const mojo::internal::ContainerValidateParams values_validate_params(
-      0, true, new mojo::internal::ContainerValidateParams(0, false, nullptr));
+  constexpr const mojo::internal::ContainerValidateParams& values_validate_params =
+      mojo::internal::GetArrayValidator<0, true, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
   mojo::internal::Serialize<mojo::ArrayDataView<mojo::StringDataView>>(
       in_values, values_fragment, &values_validate_params);
   params->values.Set(
@@ -2703,8 +2703,8 @@ void SensorDeviceSamplesObserverProxy::OnSampleUpdated(
   mojo::internal::MessageFragment<
       typename decltype(params->sample)::BaseType>
       sample_fragment(params.message());
-  const mojo::internal::ContainerValidateParams sample_validate_params(
-      new mojo::internal::ContainerValidateParams(0, false, nullptr), new mojo::internal::ContainerValidateParams(0, false, nullptr));
+  constexpr const mojo::internal::ContainerValidateParams& sample_validate_params =
+      mojo::internal::GetMapValidator<*&mojo::internal::GetArrayValidator<0, false, nullptr>(), *&mojo::internal::GetArrayValidator<0, false, nullptr>()>();
   mojo::internal::Serialize<mojo::MapDataView<int32_t, int64_t>>(
       in_sample, sample_fragment, &sample_validate_params);
   params->sample.Set(
@@ -2948,8 +2948,8 @@ void SensorServiceNewDevicesObserverProxy::OnNewDeviceAdded(
   mojo::internal::MessageFragment<
       typename decltype(params->types)::BaseType>
       types_fragment(params.message());
-  const mojo::internal::ContainerValidateParams types_validate_params(
-      0, ::chromeos::sensors::mojom::internal::DeviceType_Data::Validate);
+  constexpr const mojo::internal::ContainerValidateParams& types_validate_params =
+      mojo::internal::GetArrayOfEnumsValidator<0, ::chromeos::sensors::mojom::internal::DeviceType_Data::Validate>();
   mojo::internal::Serialize<mojo::ArrayDataView<::chromeos::sensors::mojom::DeviceType>>(
       in_types, types_fragment, &types_validate_params);
   params->types.Set(

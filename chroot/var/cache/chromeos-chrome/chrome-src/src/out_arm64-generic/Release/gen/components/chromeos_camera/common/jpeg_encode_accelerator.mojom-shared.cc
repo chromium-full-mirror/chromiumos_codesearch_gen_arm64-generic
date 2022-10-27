@@ -202,8 +202,8 @@ bool JpegEncodeAccelerator_EncodeWithDmaBuf_Params_Data::Validate(
           object->input_planes, 3, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams input_planes_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& input_planes_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->input_planes, validation_context,
                                          &input_planes_validate_params)) {
     return false;
@@ -213,8 +213,8 @@ bool JpegEncodeAccelerator_EncodeWithDmaBuf_Params_Data::Validate(
           object->output_planes, 4, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams output_planes_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& output_planes_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->output_planes, validation_context,
                                          &output_planes_validate_params)) {
     return false;

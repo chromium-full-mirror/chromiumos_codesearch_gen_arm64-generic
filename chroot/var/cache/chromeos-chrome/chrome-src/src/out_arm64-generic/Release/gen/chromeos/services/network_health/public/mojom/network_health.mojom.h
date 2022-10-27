@@ -26,6 +26,7 @@
 #include "chromeos/services/network_health/public/mojom/network_health.mojom-shared.h"
 #include "chromeos/services/network_health/public/mojom/network_health.mojom-forward.h"
 #include "chromeos/services/network_config/public/mojom/network_types.mojom-forward.h"
+#include "url/mojom/url.mojom.h"
 #include <string>
 #include <vector>
 
@@ -49,7 +50,7 @@ class NetworkEventsObserverStub;
 class NetworkEventsObserverRequestValidator;
 
 
-class  NetworkEventsObserver
+class NetworkEventsObserver
     : public NetworkEventsObserverInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();
@@ -103,7 +104,7 @@ class NetworkHealthServiceRequestValidator;
 class NetworkHealthServiceResponseValidator;
 
 
-class  NetworkHealthService
+class NetworkHealthService
     : public NetworkHealthServiceInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();
@@ -640,6 +641,19 @@ class  Network {
       ::chromeos::network_config::mojom::PortalState portal_state,
       SignalStrengthStatsPtr signal_strength_stats);
 
+  Network(
+      ::chromeos::network_config::mojom::NetworkType type,
+      NetworkState state,
+      const absl::optional<std::string>& guid,
+      const absl::optional<std::string>& name,
+      const absl::optional<std::string>& mac_address,
+      UInt32ValuePtr signal_strength,
+      const absl::optional<std::string>& ipv4_address,
+      std::vector<std::string> ipv6_addresses,
+      ::chromeos::network_config::mojom::PortalState portal_state,
+      SignalStrengthStatsPtr signal_strength_stats,
+      const absl::optional<::GURL>& portal_probe_url);
+
 Network(const Network&) = delete;
 Network& operator=(const Network&) = delete;
 
@@ -734,6 +748,8 @@ Network& operator=(const Network&) = delete;
   ::chromeos::network_config::mojom::PortalState portal_state;
   
   SignalStrengthStatsPtr signal_strength_stats;
+  
+  absl::optional<::GURL> portal_probe_url;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -973,7 +989,8 @@ NetworkPtr Network::Clone() const {
       mojo::Clone(ipv4_address),
       mojo::Clone(ipv6_addresses),
       mojo::Clone(portal_state),
-      mojo::Clone(signal_strength_stats)
+      mojo::Clone(signal_strength_stats),
+      mojo::Clone(portal_probe_url)
   );
 }
 
@@ -998,6 +1015,8 @@ bool Network::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->portal_state, other_struct.portal_state))
     return false;
   if (!mojo::Equals(this->signal_strength_stats, other_struct.signal_strength_stats))
+    return false;
+  if (!mojo::Equals(this->portal_probe_url, other_struct.portal_probe_url))
     return false;
   return true;
 }
@@ -1043,6 +1062,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.signal_strength_stats < rhs.signal_strength_stats)
     return true;
   if (rhs.signal_strength_stats < lhs.signal_strength_stats)
+    return false;
+  if (lhs.portal_probe_url < rhs.portal_probe_url)
+    return true;
+  if (rhs.portal_probe_url < lhs.portal_probe_url)
     return false;
   return false;
 }
@@ -1171,6 +1194,11 @@ struct  StructTraits<::chromeos::network_health::mojom::Network::DataView,
   static const decltype(::chromeos::network_health::mojom::Network::signal_strength_stats)& signal_strength_stats(
       const ::chromeos::network_health::mojom::NetworkPtr& input) {
     return input->signal_strength_stats;
+  }
+
+  static const decltype(::chromeos::network_health::mojom::Network::portal_probe_url)& portal_probe_url(
+      const ::chromeos::network_health::mojom::NetworkPtr& input) {
+    return input->portal_probe_url;
   }
 
   static bool Read(::chromeos::network_health::mojom::Network::DataView input, ::chromeos::network_health::mojom::NetworkPtr* output);

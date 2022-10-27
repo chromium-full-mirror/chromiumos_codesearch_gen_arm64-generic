@@ -45,6 +45,8 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INI
 PROTOBUF_CONSTEXPR CryptohomeRecoveryAuthInput::CryptohomeRecoveryAuthInput(
     ::_pbi::ConstantInitialized)
   : mediator_pub_key_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , user_gaia_id_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , device_user_id_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , epoch_response_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , recovery_response_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}){}
 struct CryptohomeRecoveryAuthInputDefaultTypeInternal {
@@ -849,6 +851,22 @@ CryptohomeRecoveryAuthInput::CryptohomeRecoveryAuthInput(const CryptohomeRecover
     mediator_pub_key_.Set(from._internal_mediator_pub_key(), 
       GetArenaForAllocation());
   }
+  user_gaia_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    user_gaia_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_user_gaia_id().empty()) {
+    user_gaia_id_.Set(from._internal_user_gaia_id(), 
+      GetArenaForAllocation());
+  }
+  device_user_id_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    device_user_id_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_device_user_id().empty()) {
+    device_user_id_.Set(from._internal_device_user_id(), 
+      GetArenaForAllocation());
+  }
   epoch_response_.InitDefault();
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
     epoch_response_.Set("", GetArenaForAllocation());
@@ -873,6 +891,14 @@ mediator_pub_key_.InitDefault();
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   mediator_pub_key_.Set("", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+user_gaia_id_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  user_gaia_id_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+device_user_id_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  device_user_id_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 epoch_response_.InitDefault();
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   epoch_response_.Set("", GetArenaForAllocation());
@@ -895,6 +921,8 @@ CryptohomeRecoveryAuthInput::~CryptohomeRecoveryAuthInput() {
 inline void CryptohomeRecoveryAuthInput::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   mediator_pub_key_.Destroy();
+  user_gaia_id_.Destroy();
+  device_user_id_.Destroy();
   epoch_response_.Destroy();
   recovery_response_.Destroy();
 }
@@ -910,6 +938,8 @@ void CryptohomeRecoveryAuthInput::Clear() {
   (void) cached_has_bits;
 
   mediator_pub_key_.ClearToEmpty();
+  user_gaia_id_.ClearToEmpty();
+  device_user_id_.ClearToEmpty();
   epoch_response_.ClearToEmpty();
   recovery_response_.ClearToEmpty();
   _internal_metadata_.Clear<std::string>();
@@ -930,18 +960,38 @@ const char* CryptohomeRecoveryAuthInput::_InternalParse(const char* ptr, ::_pbi:
         } else
           goto handle_unusual;
         continue;
-      // bytes epoch_response = 2;
+      // string user_gaia_id = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          auto str = _internal_mutable_user_gaia_id();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // string device_user_id = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          auto str = _internal_mutable_device_user_id();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // bytes epoch_response = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
           auto str = _internal_mutable_epoch_response();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // bytes recovery_response = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+      // bytes recovery_response = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 42)) {
           auto str = _internal_mutable_recovery_response();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
@@ -983,16 +1033,36 @@ uint8_t* CryptohomeRecoveryAuthInput::_InternalSerialize(
         1, this->_internal_mediator_pub_key(), target);
   }
 
-  // bytes epoch_response = 2;
-  if (!this->_internal_epoch_response().empty()) {
-    target = stream->WriteBytesMaybeAliased(
-        2, this->_internal_epoch_response(), target);
+  // string user_gaia_id = 2;
+  if (!this->_internal_user_gaia_id().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_user_gaia_id().data(), static_cast<int>(this->_internal_user_gaia_id().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "user_data_auth.CryptohomeRecoveryAuthInput.user_gaia_id");
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_user_gaia_id(), target);
   }
 
-  // bytes recovery_response = 3;
+  // string device_user_id = 3;
+  if (!this->_internal_device_user_id().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_device_user_id().data(), static_cast<int>(this->_internal_device_user_id().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "user_data_auth.CryptohomeRecoveryAuthInput.device_user_id");
+    target = stream->WriteStringMaybeAliased(
+        3, this->_internal_device_user_id(), target);
+  }
+
+  // bytes epoch_response = 4;
+  if (!this->_internal_epoch_response().empty()) {
+    target = stream->WriteBytesMaybeAliased(
+        4, this->_internal_epoch_response(), target);
+  }
+
+  // bytes recovery_response = 5;
   if (!this->_internal_recovery_response().empty()) {
     target = stream->WriteBytesMaybeAliased(
-        3, this->_internal_recovery_response(), target);
+        5, this->_internal_recovery_response(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1018,14 +1088,28 @@ size_t CryptohomeRecoveryAuthInput::ByteSizeLong() const {
         this->_internal_mediator_pub_key());
   }
 
-  // bytes epoch_response = 2;
+  // string user_gaia_id = 2;
+  if (!this->_internal_user_gaia_id().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_user_gaia_id());
+  }
+
+  // string device_user_id = 3;
+  if (!this->_internal_device_user_id().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_device_user_id());
+  }
+
+  // bytes epoch_response = 4;
   if (!this->_internal_epoch_response().empty()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
         this->_internal_epoch_response());
   }
 
-  // bytes recovery_response = 3;
+  // bytes recovery_response = 5;
   if (!this->_internal_recovery_response().empty()) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
@@ -1055,6 +1139,12 @@ void CryptohomeRecoveryAuthInput::MergeFrom(const CryptohomeRecoveryAuthInput& f
   if (!from._internal_mediator_pub_key().empty()) {
     _internal_set_mediator_pub_key(from._internal_mediator_pub_key());
   }
+  if (!from._internal_user_gaia_id().empty()) {
+    _internal_set_user_gaia_id(from._internal_user_gaia_id());
+  }
+  if (!from._internal_device_user_id().empty()) {
+    _internal_set_device_user_id(from._internal_device_user_id());
+  }
   if (!from._internal_epoch_response().empty()) {
     _internal_set_epoch_response(from._internal_epoch_response());
   }
@@ -1083,6 +1173,14 @@ void CryptohomeRecoveryAuthInput::InternalSwap(CryptohomeRecoveryAuthInput* othe
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &mediator_pub_key_, lhs_arena,
       &other->mediator_pub_key_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &user_gaia_id_, lhs_arena,
+      &other->user_gaia_id_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &device_user_id_, lhs_arena,
+      &other->device_user_id_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &epoch_response_, lhs_arena,

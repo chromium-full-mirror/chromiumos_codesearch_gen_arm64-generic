@@ -55,7 +55,7 @@ class VideoHostRequestValidator;
 class VideoHostResponseValidator;
 
 
-class  VideoHost
+class VideoHost
     : public VideoHostInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();
@@ -104,7 +104,7 @@ class VideoInstanceRequestValidator;
 class VideoInstanceResponseValidator;
 
 
-class  VideoInstance
+class VideoInstance
     : public VideoInstanceInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();
@@ -152,7 +152,7 @@ class VideoAcceleratorFactoryStub;
 class VideoAcceleratorFactoryRequestValidator;
 
 
-class  VideoAcceleratorFactory
+class VideoAcceleratorFactory
     : public VideoAcceleratorFactoryInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();

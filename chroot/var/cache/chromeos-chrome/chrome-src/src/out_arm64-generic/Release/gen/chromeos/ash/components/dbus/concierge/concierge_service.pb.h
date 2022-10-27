@@ -1628,6 +1628,7 @@ class StartVmRequest final :
     kSharedDirectoryFieldNumber = 3,
     kNameFieldNumber = 4,
     kOwnerIdFieldNumber = 7,
+    kVmUsernameFieldNumber = 26,
     kVmFieldNumber = 1,
     kStartTerminaFieldNumber = 5,
     kEnableGpuFieldNumber = 8,
@@ -1785,6 +1786,20 @@ class StartVmRequest final :
   std::string* _internal_mutable_owner_id();
   public:
 
+  // string vm_username = 26;
+  void clear_vm_username();
+  const std::string& vm_username() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_vm_username(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_vm_username();
+  PROTOBUF_NODISCARD std::string* release_vm_username();
+  void set_allocated_vm_username(std::string* vm_username);
+  private:
+  const std::string& _internal_vm_username() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_vm_username(const std::string& value);
+  std::string* _internal_mutable_vm_username();
+  public:
+
   // .vm_tools.concierge.VirtualMachineSpec vm = 1;
   bool has_vm() const;
   private:
@@ -1937,6 +1952,7 @@ class StartVmRequest final :
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr shared_directory_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr owner_id_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr vm_username_;
   ::vm_tools::concierge::VirtualMachineSpec* vm_;
   bool start_termina_;
   bool enable_gpu_;
@@ -13724,6 +13740,56 @@ inline void StartVmRequest::_internal_set_enable_virtgpu_native_context(bool val
 inline void StartVmRequest::set_enable_virtgpu_native_context(bool value) {
   _internal_set_enable_virtgpu_native_context(value);
   // @@protoc_insertion_point(field_set:vm_tools.concierge.StartVmRequest.enable_virtgpu_native_context)
+}
+
+// string vm_username = 26;
+inline void StartVmRequest::clear_vm_username() {
+  vm_username_.ClearToEmpty();
+}
+inline const std::string& StartVmRequest::vm_username() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.StartVmRequest.vm_username)
+  return _internal_vm_username();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void StartVmRequest::set_vm_username(ArgT0&& arg0, ArgT... args) {
+ 
+ vm_username_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.StartVmRequest.vm_username)
+}
+inline std::string* StartVmRequest::mutable_vm_username() {
+  std::string* _s = _internal_mutable_vm_username();
+  // @@protoc_insertion_point(field_mutable:vm_tools.concierge.StartVmRequest.vm_username)
+  return _s;
+}
+inline const std::string& StartVmRequest::_internal_vm_username() const {
+  return vm_username_.Get();
+}
+inline void StartVmRequest::_internal_set_vm_username(const std::string& value) {
+  
+  vm_username_.Set(value, GetArenaForAllocation());
+}
+inline std::string* StartVmRequest::_internal_mutable_vm_username() {
+  
+  return vm_username_.Mutable(GetArenaForAllocation());
+}
+inline std::string* StartVmRequest::release_vm_username() {
+  // @@protoc_insertion_point(field_release:vm_tools.concierge.StartVmRequest.vm_username)
+  return vm_username_.Release();
+}
+inline void StartVmRequest::set_allocated_vm_username(std::string* vm_username) {
+  if (vm_username != nullptr) {
+    
+  } else {
+    
+  }
+  vm_username_.SetAllocated(vm_username, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (vm_username_.IsDefault()) {
+    vm_username_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.StartVmRequest.vm_username)
 }
 
 // -------------------------------------------------------------------

@@ -636,8 +636,8 @@ void ModelProxy::Compute(
   mojo::internal::MessageFragment<
       typename decltype(params->input_tensors)::BaseType>
       input_tensors_fragment(params.message());
-  const mojo::internal::ContainerValidateParams input_tensors_validate_params(
-      new mojo::internal::ContainerValidateParams(0, false, new mojo::internal::ContainerValidateParams(0, false, nullptr)), new mojo::internal::ContainerValidateParams(0, false, new mojo::internal::ContainerValidateParams(0, false, nullptr)));
+  constexpr const mojo::internal::ContainerValidateParams& input_tensors_validate_params =
+      mojo::internal::GetMapValidator<*&mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>(), *&mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>()>();
   mojo::internal::Serialize<mojo::MapDataView<mojo::StringDataView, mojo::ArrayDataView<uint8_t>>>(
       in_input_tensors, input_tensors_fragment, &input_tensors_validate_params);
   params->input_tensors.Set(
@@ -764,8 +764,8 @@ void Model_Compute_ProxyToResponder::Run(
   mojo::internal::MessageFragment<
       typename decltype(params->output_tensors)::BaseType>
       output_tensors_fragment(params.message());
-  const mojo::internal::ContainerValidateParams output_tensors_validate_params(
-      new mojo::internal::ContainerValidateParams(0, false, new mojo::internal::ContainerValidateParams(0, false, nullptr)), new mojo::internal::ContainerValidateParams(0, false, new mojo::internal::ContainerValidateParams(0, false, nullptr)));
+  constexpr const mojo::internal::ContainerValidateParams& output_tensors_validate_params =
+      mojo::internal::GetMapValidator<*&mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>(), *&mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>()>();
   mojo::internal::Serialize<mojo::MapDataView<mojo::StringDataView, mojo::ArrayDataView<uint8_t>>>(
       in_output_tensors, output_tensors_fragment, &output_tensors_validate_params);
   params->output_tensors.Set(

@@ -56,7 +56,7 @@ class CrosHealthdServiceFactoryStub;
 class CrosHealthdServiceFactoryRequestValidator;
 
 
-class  CrosHealthdServiceFactory
+class CrosHealthdServiceFactory
     : public CrosHealthdServiceFactoryInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();
@@ -145,7 +145,7 @@ class CrosHealthdDiagnosticsServiceRequestValidator;
 class CrosHealthdDiagnosticsServiceResponseValidator;
 
 
-class  CrosHealthdDiagnosticsService
+class CrosHealthdDiagnosticsService
     : public CrosHealthdDiagnosticsServiceInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();
@@ -472,7 +472,7 @@ class CrosHealthdEventServiceStub;
 class CrosHealthdEventServiceRequestValidator;
 
 
-class  CrosHealthdEventService
+class CrosHealthdEventService
     : public CrosHealthdEventServiceInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();
@@ -561,7 +561,7 @@ class CrosHealthdProbeServiceRequestValidator;
 class CrosHealthdProbeServiceResponseValidator;
 
 
-class  CrosHealthdProbeService
+class CrosHealthdProbeService
     : public CrosHealthdProbeServiceInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();
@@ -628,7 +628,7 @@ class CrosHealthdSystemServiceRequestValidator;
 class CrosHealthdSystemServiceResponseValidator;
 
 
-class  CrosHealthdSystemService
+class CrosHealthdSystemService
     : public CrosHealthdSystemServiceInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();
@@ -677,7 +677,7 @@ class WilcoEcServiceControllerRequestValidator;
 class WilcoEcServiceControllerResponseValidator;
 
 
-class  WilcoEcServiceController
+class WilcoEcServiceController
     : public WilcoEcServiceControllerInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();

@@ -92,8 +92,8 @@ bool BitstreamBuffer_Data::Validate(
           object->key_id, 6, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams key_id_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& key_id_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->key_id, validation_context,
                                          &key_id_validate_params)) {
     return false;
@@ -103,8 +103,8 @@ bool BitstreamBuffer_Data::Validate(
           object->iv, 7, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams iv_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& iv_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->iv, validation_context,
                                          &iv_validate_params)) {
     return false;
@@ -114,8 +114,8 @@ bool BitstreamBuffer_Data::Validate(
           object->subsamples, 8, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams subsamples_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& subsamples_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->subsamples, validation_context,
                                          &subsamples_validate_params)) {
     return false;

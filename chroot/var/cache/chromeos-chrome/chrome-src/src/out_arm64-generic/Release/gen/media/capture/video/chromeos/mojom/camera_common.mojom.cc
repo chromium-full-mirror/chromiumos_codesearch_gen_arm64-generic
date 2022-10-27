@@ -1057,8 +1057,8 @@ void VendorTagOps_GetAllTags_ProxyToResponder::Run(
   mojo::internal::MessageFragment<
       typename decltype(params->tag_array)::BaseType>
       tag_array_fragment(params.message());
-  const mojo::internal::ContainerValidateParams tag_array_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& tag_array_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   mojo::internal::Serialize<mojo::ArrayDataView<uint32_t>>(
       in_tag_array, tag_array_fragment, &tag_array_validate_params);
   params->tag_array.Set(

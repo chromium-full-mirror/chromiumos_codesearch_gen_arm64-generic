@@ -48,7 +48,7 @@ class NetworkDiagnosticsStub;
 class NetworkDiagnosticsRequestValidator;
 
 
-class  NetworkDiagnostics
+class NetworkDiagnostics
     : public NetworkDiagnosticsInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();
@@ -94,7 +94,7 @@ class NetworkDiagnosticsClientStub;
 class NetworkDiagnosticsClientRequestValidator;
 
 
-class  NetworkDiagnosticsClient
+class NetworkDiagnosticsClient
     : public NetworkDiagnosticsClientInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();

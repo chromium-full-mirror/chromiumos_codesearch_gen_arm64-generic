@@ -542,8 +542,8 @@ bool RoutineProblems_Data::Validate(
               object->data.f_lan_connectivity_problems, 1, validation_context)) {
         return false;
       }
-      const mojo::internal::ContainerValidateParams lan_connectivity_problems_validate_params(
-          0, ::chromeos::network_diagnostics::mojom::internal::LanConnectivityProblem_Data::Validate);
+      constexpr const mojo::internal::ContainerValidateParams& lan_connectivity_problems_validate_params =
+          mojo::internal::GetArrayOfEnumsValidator<0, ::chromeos::network_diagnostics::mojom::internal::LanConnectivityProblem_Data::Validate>();
       if (!mojo::internal::ValidateContainer(object->data.f_lan_connectivity_problems, validation_context,
                                              &lan_connectivity_problems_validate_params)) {
         return false;
@@ -556,8 +556,8 @@ bool RoutineProblems_Data::Validate(
               object->data.f_signal_strength_problems, 2, validation_context)) {
         return false;
       }
-      const mojo::internal::ContainerValidateParams signal_strength_problems_validate_params(
-          0, ::chromeos::network_diagnostics::mojom::internal::SignalStrengthProblem_Data::Validate);
+      constexpr const mojo::internal::ContainerValidateParams& signal_strength_problems_validate_params =
+          mojo::internal::GetArrayOfEnumsValidator<0, ::chromeos::network_diagnostics::mojom::internal::SignalStrengthProblem_Data::Validate>();
       if (!mojo::internal::ValidateContainer(object->data.f_signal_strength_problems, validation_context,
                                              &signal_strength_problems_validate_params)) {
         return false;
@@ -570,8 +570,8 @@ bool RoutineProblems_Data::Validate(
               object->data.f_gateway_can_be_pinged_problems, 3, validation_context)) {
         return false;
       }
-      const mojo::internal::ContainerValidateParams gateway_can_be_pinged_problems_validate_params(
-          0, ::chromeos::network_diagnostics::mojom::internal::GatewayCanBePingedProblem_Data::Validate);
+      constexpr const mojo::internal::ContainerValidateParams& gateway_can_be_pinged_problems_validate_params =
+          mojo::internal::GetArrayOfEnumsValidator<0, ::chromeos::network_diagnostics::mojom::internal::GatewayCanBePingedProblem_Data::Validate>();
       if (!mojo::internal::ValidateContainer(object->data.f_gateway_can_be_pinged_problems, validation_context,
                                              &gateway_can_be_pinged_problems_validate_params)) {
         return false;
@@ -584,8 +584,8 @@ bool RoutineProblems_Data::Validate(
               object->data.f_has_secure_wifi_connection_problems, 4, validation_context)) {
         return false;
       }
-      const mojo::internal::ContainerValidateParams has_secure_wifi_connection_problems_validate_params(
-          0, ::chromeos::network_diagnostics::mojom::internal::HasSecureWiFiConnectionProblem_Data::Validate);
+      constexpr const mojo::internal::ContainerValidateParams& has_secure_wifi_connection_problems_validate_params =
+          mojo::internal::GetArrayOfEnumsValidator<0, ::chromeos::network_diagnostics::mojom::internal::HasSecureWiFiConnectionProblem_Data::Validate>();
       if (!mojo::internal::ValidateContainer(object->data.f_has_secure_wifi_connection_problems, validation_context,
                                              &has_secure_wifi_connection_problems_validate_params)) {
         return false;
@@ -598,8 +598,8 @@ bool RoutineProblems_Data::Validate(
               object->data.f_dns_resolver_present_problems, 5, validation_context)) {
         return false;
       }
-      const mojo::internal::ContainerValidateParams dns_resolver_present_problems_validate_params(
-          0, ::chromeos::network_diagnostics::mojom::internal::DnsResolverPresentProblem_Data::Validate);
+      constexpr const mojo::internal::ContainerValidateParams& dns_resolver_present_problems_validate_params =
+          mojo::internal::GetArrayOfEnumsValidator<0, ::chromeos::network_diagnostics::mojom::internal::DnsResolverPresentProblem_Data::Validate>();
       if (!mojo::internal::ValidateContainer(object->data.f_dns_resolver_present_problems, validation_context,
                                              &dns_resolver_present_problems_validate_params)) {
         return false;
@@ -612,8 +612,8 @@ bool RoutineProblems_Data::Validate(
               object->data.f_dns_latency_problems, 6, validation_context)) {
         return false;
       }
-      const mojo::internal::ContainerValidateParams dns_latency_problems_validate_params(
-          0, ::chromeos::network_diagnostics::mojom::internal::DnsLatencyProblem_Data::Validate);
+      constexpr const mojo::internal::ContainerValidateParams& dns_latency_problems_validate_params =
+          mojo::internal::GetArrayOfEnumsValidator<0, ::chromeos::network_diagnostics::mojom::internal::DnsLatencyProblem_Data::Validate>();
       if (!mojo::internal::ValidateContainer(object->data.f_dns_latency_problems, validation_context,
                                              &dns_latency_problems_validate_params)) {
         return false;
@@ -626,8 +626,8 @@ bool RoutineProblems_Data::Validate(
               object->data.f_dns_resolution_problems, 7, validation_context)) {
         return false;
       }
-      const mojo::internal::ContainerValidateParams dns_resolution_problems_validate_params(
-          0, ::chromeos::network_diagnostics::mojom::internal::DnsResolutionProblem_Data::Validate);
+      constexpr const mojo::internal::ContainerValidateParams& dns_resolution_problems_validate_params =
+          mojo::internal::GetArrayOfEnumsValidator<0, ::chromeos::network_diagnostics::mojom::internal::DnsResolutionProblem_Data::Validate>();
       if (!mojo::internal::ValidateContainer(object->data.f_dns_resolution_problems, validation_context,
                                              &dns_resolution_problems_validate_params)) {
         return false;
@@ -640,8 +640,8 @@ bool RoutineProblems_Data::Validate(
               object->data.f_captive_portal_problems, 8, validation_context)) {
         return false;
       }
-      const mojo::internal::ContainerValidateParams captive_portal_problems_validate_params(
-          0, ::chromeos::network_diagnostics::mojom::internal::CaptivePortalProblem_Data::Validate);
+      constexpr const mojo::internal::ContainerValidateParams& captive_portal_problems_validate_params =
+          mojo::internal::GetArrayOfEnumsValidator<0, ::chromeos::network_diagnostics::mojom::internal::CaptivePortalProblem_Data::Validate>();
       if (!mojo::internal::ValidateContainer(object->data.f_captive_portal_problems, validation_context,
                                              &captive_portal_problems_validate_params)) {
         return false;
@@ -654,8 +654,8 @@ bool RoutineProblems_Data::Validate(
               object->data.f_http_firewall_problems, 9, validation_context)) {
         return false;
       }
-      const mojo::internal::ContainerValidateParams http_firewall_problems_validate_params(
-          0, ::chromeos::network_diagnostics::mojom::internal::HttpFirewallProblem_Data::Validate);
+      constexpr const mojo::internal::ContainerValidateParams& http_firewall_problems_validate_params =
+          mojo::internal::GetArrayOfEnumsValidator<0, ::chromeos::network_diagnostics::mojom::internal::HttpFirewallProblem_Data::Validate>();
       if (!mojo::internal::ValidateContainer(object->data.f_http_firewall_problems, validation_context,
                                              &http_firewall_problems_validate_params)) {
         return false;
@@ -668,8 +668,8 @@ bool RoutineProblems_Data::Validate(
               object->data.f_https_firewall_problems, 10, validation_context)) {
         return false;
       }
-      const mojo::internal::ContainerValidateParams https_firewall_problems_validate_params(
-          0, ::chromeos::network_diagnostics::mojom::internal::HttpsFirewallProblem_Data::Validate);
+      constexpr const mojo::internal::ContainerValidateParams& https_firewall_problems_validate_params =
+          mojo::internal::GetArrayOfEnumsValidator<0, ::chromeos::network_diagnostics::mojom::internal::HttpsFirewallProblem_Data::Validate>();
       if (!mojo::internal::ValidateContainer(object->data.f_https_firewall_problems, validation_context,
                                              &https_firewall_problems_validate_params)) {
         return false;
@@ -682,8 +682,8 @@ bool RoutineProblems_Data::Validate(
               object->data.f_https_latency_problems, 11, validation_context)) {
         return false;
       }
-      const mojo::internal::ContainerValidateParams https_latency_problems_validate_params(
-          0, ::chromeos::network_diagnostics::mojom::internal::HttpsLatencyProblem_Data::Validate);
+      constexpr const mojo::internal::ContainerValidateParams& https_latency_problems_validate_params =
+          mojo::internal::GetArrayOfEnumsValidator<0, ::chromeos::network_diagnostics::mojom::internal::HttpsLatencyProblem_Data::Validate>();
       if (!mojo::internal::ValidateContainer(object->data.f_https_latency_problems, validation_context,
                                              &https_latency_problems_validate_params)) {
         return false;
@@ -696,8 +696,8 @@ bool RoutineProblems_Data::Validate(
               object->data.f_video_conferencing_problems, 12, validation_context)) {
         return false;
       }
-      const mojo::internal::ContainerValidateParams video_conferencing_problems_validate_params(
-          0, ::chromeos::network_diagnostics::mojom::internal::VideoConferencingProblem_Data::Validate);
+      constexpr const mojo::internal::ContainerValidateParams& video_conferencing_problems_validate_params =
+          mojo::internal::GetArrayOfEnumsValidator<0, ::chromeos::network_diagnostics::mojom::internal::VideoConferencingProblem_Data::Validate>();
       if (!mojo::internal::ValidateContainer(object->data.f_video_conferencing_problems, validation_context,
                                              &video_conferencing_problems_validate_params)) {
         return false;
@@ -710,8 +710,8 @@ bool RoutineProblems_Data::Validate(
               object->data.f_arc_http_problems, 13, validation_context)) {
         return false;
       }
-      const mojo::internal::ContainerValidateParams arc_http_problems_validate_params(
-          0, ::chromeos::network_diagnostics::mojom::internal::ArcHttpProblem_Data::Validate);
+      constexpr const mojo::internal::ContainerValidateParams& arc_http_problems_validate_params =
+          mojo::internal::GetArrayOfEnumsValidator<0, ::chromeos::network_diagnostics::mojom::internal::ArcHttpProblem_Data::Validate>();
       if (!mojo::internal::ValidateContainer(object->data.f_arc_http_problems, validation_context,
                                              &arc_http_problems_validate_params)) {
         return false;
@@ -724,8 +724,8 @@ bool RoutineProblems_Data::Validate(
               object->data.f_arc_dns_resolution_problems, 14, validation_context)) {
         return false;
       }
-      const mojo::internal::ContainerValidateParams arc_dns_resolution_problems_validate_params(
-          0, ::chromeos::network_diagnostics::mojom::internal::ArcDnsResolutionProblem_Data::Validate);
+      constexpr const mojo::internal::ContainerValidateParams& arc_dns_resolution_problems_validate_params =
+          mojo::internal::GetArrayOfEnumsValidator<0, ::chromeos::network_diagnostics::mojom::internal::ArcDnsResolutionProblem_Data::Validate>();
       if (!mojo::internal::ValidateContainer(object->data.f_arc_dns_resolution_problems, validation_context,
                                              &arc_dns_resolution_problems_validate_params)) {
         return false;
@@ -738,8 +738,8 @@ bool RoutineProblems_Data::Validate(
               object->data.f_arc_ping_problems, 15, validation_context)) {
         return false;
       }
-      const mojo::internal::ContainerValidateParams arc_ping_problems_validate_params(
-          0, ::chromeos::network_diagnostics::mojom::internal::ArcPingProblem_Data::Validate);
+      constexpr const mojo::internal::ContainerValidateParams& arc_ping_problems_validate_params =
+          mojo::internal::GetArrayOfEnumsValidator<0, ::chromeos::network_diagnostics::mojom::internal::ArcPingProblem_Data::Validate>();
       if (!mojo::internal::ValidateContainer(object->data.f_arc_ping_problems, validation_context,
                                              &arc_ping_problems_validate_params)) {
         return false;
@@ -983,8 +983,8 @@ bool NetworkDiagnosticsRoutines_GetAllResults_ResponseParams_Data::Validate(
           object->results, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams results_validate_params(
-      new mojo::internal::ContainerValidateParams(0, ::chromeos::network_diagnostics::mojom::internal::RoutineType_Data::Validate), new mojo::internal::ContainerValidateParams(0, false, nullptr));
+  constexpr const mojo::internal::ContainerValidateParams& results_validate_params =
+      mojo::internal::GetMapValidator<*&mojo::internal::GetArrayOfEnumsValidator<0, ::chromeos::network_diagnostics::mojom::internal::RoutineType_Data::Validate>(), *&mojo::internal::GetArrayValidator<0, false, nullptr>()>();
   if (!mojo::internal::ValidateContainer(object->results, validation_context,
                                          &results_validate_params)) {
     return false;
@@ -1596,8 +1596,8 @@ bool NetworkDiagnosticsRoutines_RunVideoConferencing_Params_Data::Validate(
   [[maybe_unused]] const NetworkDiagnosticsRoutines_RunVideoConferencing_Params_Data* object =
       static_cast<const NetworkDiagnosticsRoutines_RunVideoConferencing_Params_Data*>(data);
 
-  const mojo::internal::ContainerValidateParams stun_server_hostname_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& stun_server_hostname_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->stun_server_hostname, validation_context,
                                          &stun_server_hostname_validate_params)) {
     return false;

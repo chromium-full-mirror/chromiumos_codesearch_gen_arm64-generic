@@ -290,8 +290,8 @@ void ServiceManagerListenerProxy::OnInit(
   mojo::internal::MessageFragment<
       typename decltype(params->running_services)::BaseType>
       running_services_fragment(params.message());
-  const mojo::internal::ContainerValidateParams running_services_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& running_services_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   mojo::internal::Serialize<mojo::ArrayDataView<::service_manager::mojom::RunningServiceInfoDataView>>(
       in_running_services, running_services_fragment, &running_services_validate_params);
   params->running_services.Set(

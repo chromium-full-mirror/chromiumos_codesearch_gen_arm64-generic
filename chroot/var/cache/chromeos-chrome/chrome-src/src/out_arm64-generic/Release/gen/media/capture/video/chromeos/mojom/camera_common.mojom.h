@@ -49,7 +49,7 @@ class CameraModuleCallbacksStub;
 class CameraModuleCallbacksRequestValidator;
 
 
-class  CameraModuleCallbacks
+class CameraModuleCallbacks
     : public CameraModuleCallbacksInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();
@@ -103,7 +103,7 @@ class VendorTagOpsRequestValidator;
 class VendorTagOpsResponseValidator;
 
 
-class  VendorTagOps
+class VendorTagOps
     : public VendorTagOpsInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();
@@ -188,7 +188,7 @@ class CameraModuleRequestValidator;
 class CameraModuleResponseValidator;
 
 
-class  CameraModule
+class CameraModule
     : public CameraModuleInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();

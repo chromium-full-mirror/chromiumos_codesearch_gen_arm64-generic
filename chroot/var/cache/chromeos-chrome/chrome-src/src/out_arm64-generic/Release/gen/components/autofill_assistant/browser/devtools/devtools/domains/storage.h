@@ -151,6 +151,14 @@ class Domain {
       base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<SetInterestGroupTrackingResult>)> callback,
       const MessageDispatcher::ReplyStatus& reply_status,
       const base::Value& response);
+  static void HandleGetSharedStorageMetadataResponse(
+      base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<GetSharedStorageMetadataResult>)> callback,
+      const MessageDispatcher::ReplyStatus& reply_status,
+      const base::Value& response);
+  static void HandleGetSharedStorageEntriesResponse(
+      base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<GetSharedStorageEntriesResult>)> callback,
+      const MessageDispatcher::ReplyStatus& reply_status,
+      const base::Value& response);
 
   void DispatchCacheStorageContentUpdatedEvent(const base::Value& params);
   void DispatchCacheStorageListUpdatedEvent(const base::Value& params);
@@ -238,6 +246,12 @@ class ExperimentalDomain : public Domain {
 
   // Enables/Disables issuing of interestGroupAccessed events.
   void SetInterestGroupTracking(std::unique_ptr<SetInterestGroupTrackingParams> params, const std::string& optional_node_frame_id, base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<SetInterestGroupTrackingResult>)> callback = base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<SetInterestGroupTrackingResult>)>());
+
+  // Gets metadata for an origin's shared storage.
+  void GetSharedStorageMetadata(std::unique_ptr<GetSharedStorageMetadataParams> params, const std::string& optional_node_frame_id, base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<GetSharedStorageMetadataResult>)> callback = base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<GetSharedStorageMetadataResult>)>());
+
+  // Gets the entries in an given origin's shared storage.
+  void GetSharedStorageEntries(std::unique_ptr<GetSharedStorageEntriesParams> params, const std::string& optional_node_frame_id, base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<GetSharedStorageEntriesResult>)> callback = base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<GetSharedStorageEntriesResult>)>());
 
 };
 

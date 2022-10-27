@@ -73,8 +73,8 @@ bool DocumentScannerConfig_Data::Validate(
           object->deprecated_library_dlc_path, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams deprecated_library_dlc_path_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& deprecated_library_dlc_path_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->deprecated_library_dlc_path, validation_context,
                                          &deprecated_library_dlc_path_validate_params)) {
     return false;
@@ -117,8 +117,8 @@ bool DetectCornersResult_Data::Validate(
           object->corners, 2, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams corners_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& corners_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->corners, validation_context,
                                          &corners_validate_params)) {
     return false;
@@ -156,8 +156,8 @@ bool DoPostProcessingResult_Data::Validate(
           object->processed_jpeg_image, 2, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams processed_jpeg_image_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& processed_jpeg_image_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->processed_jpeg_image, validation_context,
                                          &processed_jpeg_image_validate_params)) {
     return false;
@@ -321,8 +321,8 @@ bool DocumentScanner_DoPostProcessing_Params_Data::Validate(
           object->corners, 2, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams corners_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& corners_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->corners, validation_context,
                                          &corners_validate_params)) {
     return false;

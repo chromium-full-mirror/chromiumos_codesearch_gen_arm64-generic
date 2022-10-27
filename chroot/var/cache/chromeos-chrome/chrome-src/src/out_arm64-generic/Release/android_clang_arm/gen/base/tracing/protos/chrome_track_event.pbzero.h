@@ -439,13 +439,15 @@ enum BlockCaptureReason : int32_t {
   BLOCKED_STATUS_ICON_ANIMATION_IN_PROGRESS = 7,
   BLOCKED_SCROLL_ABLATION = 8,
   BLOCKED_BROWSER_CONTROLS_LOCKED = 9,
+  BLOCKED_TAB_SWITCHER_MODE = 10,
+  BLOCKED_COMPOSITOR_IN_MOTION = 11,
 };
 } // namespace perfetto_pbzero_enum_AndroidToolbar
 using AndroidToolbar_BlockCaptureReason = perfetto_pbzero_enum_AndroidToolbar::BlockCaptureReason;
 
 
 constexpr AndroidToolbar_BlockCaptureReason AndroidToolbar_BlockCaptureReason_MIN = AndroidToolbar_BlockCaptureReason::BLOCKED_UNKNOWN;
-constexpr AndroidToolbar_BlockCaptureReason AndroidToolbar_BlockCaptureReason_MAX = AndroidToolbar_BlockCaptureReason::BLOCKED_BROWSER_CONTROLS_LOCKED;
+constexpr AndroidToolbar_BlockCaptureReason AndroidToolbar_BlockCaptureReason_MAX = AndroidToolbar_BlockCaptureReason::BLOCKED_COMPOSITOR_IN_MOTION;
 
 
 PERFETTO_PROTOZERO_CONSTEXPR14_OR_INLINE
@@ -480,6 +482,12 @@ const char* AndroidToolbar_BlockCaptureReason_Name(::perfetto::protos::pbzero::A
 
   case ::perfetto::protos::pbzero::AndroidToolbar_BlockCaptureReason::BLOCKED_BROWSER_CONTROLS_LOCKED:
     return "BLOCKED_BROWSER_CONTROLS_LOCKED";
+
+  case ::perfetto::protos::pbzero::AndroidToolbar_BlockCaptureReason::BLOCKED_TAB_SWITCHER_MODE:
+    return "BLOCKED_TAB_SWITCHER_MODE";
+
+  case ::perfetto::protos::pbzero::AndroidToolbar_BlockCaptureReason::BLOCKED_COMPOSITOR_IN_MOTION:
+    return "BLOCKED_COMPOSITOR_IN_MOTION";
   }
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
@@ -528,15 +536,15 @@ enum SnapshotDifference : int32_t {
   DIFF_LOCATION_BAR_WIDTH = 10,
   DIFF_URL_TEXT = 11,
   DIFF_HOME_BUTTON_COLOR = 12,
-  TITLE_TEXT = 13,
-  CCT_ANIMATION = 14,
+  DIFF_TITLE_TEXT = 13,
+  DIFF_CCT_ANIMATION = 14,
 };
 } // namespace perfetto_pbzero_enum_AndroidToolbar
 using AndroidToolbar_SnapshotDifference = perfetto_pbzero_enum_AndroidToolbar::SnapshotDifference;
 
 
 constexpr AndroidToolbar_SnapshotDifference AndroidToolbar_SnapshotDifference_MIN = AndroidToolbar_SnapshotDifference::DIFF_NONE;
-constexpr AndroidToolbar_SnapshotDifference AndroidToolbar_SnapshotDifference_MAX = AndroidToolbar_SnapshotDifference::CCT_ANIMATION;
+constexpr AndroidToolbar_SnapshotDifference AndroidToolbar_SnapshotDifference_MAX = AndroidToolbar_SnapshotDifference::DIFF_CCT_ANIMATION;
 
 
 PERFETTO_PROTOZERO_CONSTEXPR14_OR_INLINE
@@ -581,11 +589,11 @@ const char* AndroidToolbar_SnapshotDifference_Name(::perfetto::protos::pbzero::A
   case ::perfetto::protos::pbzero::AndroidToolbar_SnapshotDifference::DIFF_HOME_BUTTON_COLOR:
     return "DIFF_HOME_BUTTON_COLOR";
 
-  case ::perfetto::protos::pbzero::AndroidToolbar_SnapshotDifference::TITLE_TEXT:
-    return "TITLE_TEXT";
+  case ::perfetto::protos::pbzero::AndroidToolbar_SnapshotDifference::DIFF_TITLE_TEXT:
+    return "DIFF_TITLE_TEXT";
 
-  case ::perfetto::protos::pbzero::AndroidToolbar_SnapshotDifference::CCT_ANIMATION:
-    return "CCT_ANIMATION";
+  case ::perfetto::protos::pbzero::AndroidToolbar_SnapshotDifference::DIFF_CCT_ANIMATION:
+    return "DIFF_CCT_ANIMATION";
   }
   return "PBZERO_UNKNOWN_ENUM_VALUE";
 }
@@ -2806,6 +2814,8 @@ class AndroidToolbar : public ::protozero::Message {
   static const BlockCaptureReason BLOCKED_STATUS_ICON_ANIMATION_IN_PROGRESS = BlockCaptureReason::BLOCKED_STATUS_ICON_ANIMATION_IN_PROGRESS;
   static const BlockCaptureReason BLOCKED_SCROLL_ABLATION = BlockCaptureReason::BLOCKED_SCROLL_ABLATION;
   static const BlockCaptureReason BLOCKED_BROWSER_CONTROLS_LOCKED = BlockCaptureReason::BLOCKED_BROWSER_CONTROLS_LOCKED;
+  static const BlockCaptureReason BLOCKED_TAB_SWITCHER_MODE = BlockCaptureReason::BLOCKED_TAB_SWITCHER_MODE;
+  static const BlockCaptureReason BLOCKED_COMPOSITOR_IN_MOTION = BlockCaptureReason::BLOCKED_COMPOSITOR_IN_MOTION;
   static const AllowCaptureReason ALLOWED_UNKNOWN = AllowCaptureReason::ALLOWED_UNKNOWN;
   static const AllowCaptureReason ALLOWED_FORCE_CAPTURE = AllowCaptureReason::ALLOWED_FORCE_CAPTURE;
   static const AllowCaptureReason ALLOWED_SNAPSHOT_DIFFERENCE = AllowCaptureReason::ALLOWED_SNAPSHOT_DIFFERENCE;
@@ -2822,8 +2832,8 @@ class AndroidToolbar : public ::protozero::Message {
   static const SnapshotDifference DIFF_LOCATION_BAR_WIDTH = SnapshotDifference::DIFF_LOCATION_BAR_WIDTH;
   static const SnapshotDifference DIFF_URL_TEXT = SnapshotDifference::DIFF_URL_TEXT;
   static const SnapshotDifference DIFF_HOME_BUTTON_COLOR = SnapshotDifference::DIFF_HOME_BUTTON_COLOR;
-  static const SnapshotDifference TITLE_TEXT = SnapshotDifference::TITLE_TEXT;
-  static const SnapshotDifference CCT_ANIMATION = SnapshotDifference::CCT_ANIMATION;
+  static const SnapshotDifference DIFF_TITLE_TEXT = SnapshotDifference::DIFF_TITLE_TEXT;
+  static const SnapshotDifference DIFF_CCT_ANIMATION = SnapshotDifference::DIFF_CCT_ANIMATION;
 
   using FieldMetadata_BlockCaptureReason =
     ::protozero::proto_utils::FieldMetadata<

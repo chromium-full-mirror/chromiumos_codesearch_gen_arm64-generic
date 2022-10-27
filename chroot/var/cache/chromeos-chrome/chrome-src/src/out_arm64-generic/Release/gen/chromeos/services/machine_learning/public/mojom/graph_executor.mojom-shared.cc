@@ -85,8 +85,8 @@ bool GraphExecutor_Execute_Params_Data::Validate(
           object->inputs, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams inputs_validate_params(
-      new mojo::internal::ContainerValidateParams(0, false, new mojo::internal::ContainerValidateParams(0, false, nullptr)), new mojo::internal::ContainerValidateParams(0, false, nullptr));
+  constexpr const mojo::internal::ContainerValidateParams& inputs_validate_params =
+      mojo::internal::GetMapValidator<*&mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>(), *&mojo::internal::GetArrayValidator<0, false, nullptr>()>();
   if (!mojo::internal::ValidateContainer(object->inputs, validation_context,
                                          &inputs_validate_params)) {
     return false;
@@ -96,8 +96,8 @@ bool GraphExecutor_Execute_Params_Data::Validate(
           object->output_names, 2, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams output_names_validate_params(
-      0, false, new mojo::internal::ContainerValidateParams(0, false, nullptr));
+  constexpr const mojo::internal::ContainerValidateParams& output_names_validate_params =
+      mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
   if (!mojo::internal::ValidateContainer(object->output_names, validation_context,
                                          &output_names_validate_params)) {
     return false;
@@ -131,8 +131,8 @@ bool GraphExecutor_Execute_ResponseParams_Data::Validate(
         ::Validate(object->result, validation_context))
     return false;
 
-  const mojo::internal::ContainerValidateParams outputs_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& outputs_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->outputs, validation_context,
                                          &outputs_validate_params)) {
     return false;

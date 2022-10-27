@@ -262,8 +262,8 @@ bool VideoFrameLayout_Data::Validate(
           object->planes, 3, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams planes_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& planes_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->planes, validation_context,
                                          &planes_validate_params)) {
     return false;

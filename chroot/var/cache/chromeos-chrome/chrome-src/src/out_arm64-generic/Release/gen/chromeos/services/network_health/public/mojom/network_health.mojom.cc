@@ -144,7 +144,8 @@ Network::Network()
       ipv4_address(),
       ipv6_addresses(),
       portal_state(::chromeos::network_config::mojom::PortalState::kUnknown),
-      signal_strength_stats() {}
+      signal_strength_stats(),
+      portal_probe_url() {}
 
 Network::Network(
     ::chromeos::network_config::mojom::NetworkType type_in,
@@ -165,7 +166,8 @@ Network::Network(
       ipv4_address(std::move(ipv4_address_in)),
       ipv6_addresses(std::move(ipv6_addresses_in)),
       portal_state(std::move(portal_state_in)),
-      signal_strength_stats() {}
+      signal_strength_stats(),
+      portal_probe_url() {}
 
 Network::Network(
     ::chromeos::network_config::mojom::NetworkType type_in,
@@ -187,7 +189,32 @@ Network::Network(
       ipv4_address(std::move(ipv4_address_in)),
       ipv6_addresses(std::move(ipv6_addresses_in)),
       portal_state(std::move(portal_state_in)),
-      signal_strength_stats(std::move(signal_strength_stats_in)) {}
+      signal_strength_stats(std::move(signal_strength_stats_in)),
+      portal_probe_url() {}
+
+Network::Network(
+    ::chromeos::network_config::mojom::NetworkType type_in,
+    NetworkState state_in,
+    const absl::optional<std::string>& guid_in,
+    const absl::optional<std::string>& name_in,
+    const absl::optional<std::string>& mac_address_in,
+    UInt32ValuePtr signal_strength_in,
+    const absl::optional<std::string>& ipv4_address_in,
+    std::vector<std::string> ipv6_addresses_in,
+    ::chromeos::network_config::mojom::PortalState portal_state_in,
+    SignalStrengthStatsPtr signal_strength_stats_in,
+    const absl::optional<::GURL>& portal_probe_url_in)
+    : type(std::move(type_in)),
+      state(std::move(state_in)),
+      guid(std::move(guid_in)),
+      name(std::move(name_in)),
+      mac_address(std::move(mac_address_in)),
+      signal_strength(std::move(signal_strength_in)),
+      ipv4_address(std::move(ipv4_address_in)),
+      ipv6_addresses(std::move(ipv6_addresses_in)),
+      portal_state(std::move(portal_state_in)),
+      signal_strength_stats(std::move(signal_strength_stats_in)),
+      portal_probe_url(std::move(portal_probe_url_in)) {}
 
 Network::~Network() = default;
 
@@ -280,6 +307,15 @@ void Network::WriteIntoTrace(
       "signal_strength_stats"), this->signal_strength_stats,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type SignalStrengthStatsPtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "portal_probe_url"), this->portal_probe_url,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const absl::optional<::GURL>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1015,8 +1051,8 @@ void NetworkHealthService_GetNetworkList_ProxyToResponder::Run(
   mojo::internal::MessageFragment<
       typename decltype(params->networks)::BaseType>
       networks_fragment(params.message());
-  const mojo::internal::ContainerValidateParams networks_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& networks_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   mojo::internal::Serialize<mojo::ArrayDataView<::chromeos::network_health::mojom::NetworkDataView>>(
       in_networks, networks_fragment, &networks_validate_params);
   params->networks.Set(
@@ -1265,8 +1301,8 @@ void NetworkHealthService_GetRecentlyActiveNetworks_ProxyToResponder::Run(
   mojo::internal::MessageFragment<
       typename decltype(params->guids)::BaseType>
       guids_fragment(params.message());
-  const mojo::internal::ContainerValidateParams guids_validate_params(
-      0, false, new mojo::internal::ContainerValidateParams(0, false, nullptr));
+  constexpr const mojo::internal::ContainerValidateParams& guids_validate_params =
+      mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
   mojo::internal::Serialize<mojo::ArrayDataView<mojo::StringDataView>>(
       in_guids, guids_fragment, &guids_validate_params);
   params->guids.Set(
@@ -1519,6 +1555,8 @@ bool StructTraits<::chromeos::network_health::mojom::Network::DataView, ::chrome
       if (success && !input.ReadPortalState(&result->portal_state))
         success = false;
       if (success && !input.ReadSignalStrengthStats(&result->signal_strength_stats))
+        success = false;
+      if (success && !input.ReadPortalProbeUrl(&result->portal_probe_url))
         success = false;
   *output = std::move(result);
   return success;

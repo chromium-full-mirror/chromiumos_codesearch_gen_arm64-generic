@@ -342,8 +342,8 @@ bool VideoEncodeAccelerator_GetSupportedProfiles_ResponseParams_Data::Validate(
           object->profiles, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams profiles_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& profiles_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->profiles, validation_context,
                                          &profiles_validate_params)) {
     return false;
@@ -457,8 +457,8 @@ bool VideoEncodeAccelerator_Encode_Params_Data::Validate(
           object->planes, 3, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams planes_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& planes_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->planes, validation_context,
                                          &planes_validate_params)) {
     return false;

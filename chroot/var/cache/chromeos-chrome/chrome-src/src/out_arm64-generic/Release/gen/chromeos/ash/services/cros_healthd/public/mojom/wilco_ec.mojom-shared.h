@@ -359,8 +359,8 @@ struct Serializer<::ash::cros_healthd::mojom::EcEventDataView, MaybeConstUserTyp
     mojo::internal::MessageFragment<
         typename decltype(fragment->payload)::BaseType>
         payload_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams payload_validate_params(
-        0, false, nullptr);
+    constexpr const mojo::internal::ContainerValidateParams& payload_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
     mojo::internal::Serialize<mojo::ArrayDataView<uint16_t>>(
         in_payload, payload_fragment, &payload_validate_params);
     fragment->payload.Set(

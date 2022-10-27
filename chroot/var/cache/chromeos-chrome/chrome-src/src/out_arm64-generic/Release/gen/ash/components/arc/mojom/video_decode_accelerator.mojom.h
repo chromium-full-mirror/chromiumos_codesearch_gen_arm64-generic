@@ -51,7 +51,7 @@ class VideoDecodeAcceleratorRequestValidator;
 class VideoDecodeAcceleratorResponseValidator;
 
 
-class  VideoDecodeAccelerator
+class VideoDecodeAccelerator
     : public VideoDecodeAcceleratorInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();
@@ -148,7 +148,7 @@ class VideoDecodeClientStub;
 class VideoDecodeClientRequestValidator;
 
 
-class  VideoDecodeClient
+class VideoDecodeClient
     : public VideoDecodeClientInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();

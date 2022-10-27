@@ -467,8 +467,8 @@ void DocumentScannerProxy::DoPostProcessing(
   mojo::internal::MessageFragment<
       typename decltype(params->corners)::BaseType>
       corners_fragment(params.message());
-  const mojo::internal::ContainerValidateParams corners_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& corners_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   mojo::internal::Serialize<mojo::ArrayDataView<::gfx::mojom::PointFDataView>>(
       in_corners, corners_fragment, &corners_validate_params);
   params->corners.Set(

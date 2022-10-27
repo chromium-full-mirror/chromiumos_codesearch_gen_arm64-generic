@@ -69,8 +69,8 @@ bool GrammarCheckerQuery_Data::Validate(
           object->text, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams text_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& text_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->text, validation_context,
                                          &text_validate_params)) {
     return false;
@@ -80,8 +80,8 @@ bool GrammarCheckerQuery_Data::Validate(
           object->language, 2, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams language_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& language_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->language, validation_context,
                                          &language_validate_params)) {
     return false;
@@ -114,8 +114,8 @@ bool GrammarCorrectionFragment_Data::Validate(
           object->replacement, 3, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams replacement_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& replacement_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->replacement, validation_context,
                                          &replacement_validate_params)) {
     return false;
@@ -148,8 +148,8 @@ bool GrammarCheckerCandidate_Data::Validate(
           object->text, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams text_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& text_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->text, validation_context,
                                          &text_validate_params)) {
     return false;
@@ -159,8 +159,8 @@ bool GrammarCheckerCandidate_Data::Validate(
           object->fragments, 3, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams fragments_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& fragments_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->fragments, validation_context,
                                          &fragments_validate_params)) {
     return false;
@@ -198,8 +198,8 @@ bool GrammarCheckerResult_Data::Validate(
           object->candidates, 2, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams candidates_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& candidates_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->candidates, validation_context,
                                          &candidates_validate_params)) {
     return false;

@@ -57,7 +57,7 @@ class VideoFrameHandleReleaserStub;
 class VideoFrameHandleReleaserRequestValidator;
 
 
-class  VideoFrameHandleReleaser
+class VideoFrameHandleReleaser
     : public VideoFrameHandleReleaserInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();
@@ -104,7 +104,7 @@ class VideoDecoderRequestValidator;
 class VideoDecoderResponseValidator;
 
 
-class  VideoDecoder
+class VideoDecoder
     : public VideoDecoderInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();
@@ -193,7 +193,7 @@ class VideoDecoderClientStub;
 class VideoDecoderClientRequestValidator;
 
 
-class  VideoDecoderClient
+class VideoDecoderClient
     : public VideoDecoderClientInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();

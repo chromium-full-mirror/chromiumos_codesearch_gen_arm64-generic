@@ -573,8 +573,10 @@ class CryptohomeRecoveryAuthInput final :
 
   enum : int {
     kMediatorPubKeyFieldNumber = 1,
-    kEpochResponseFieldNumber = 2,
-    kRecoveryResponseFieldNumber = 3,
+    kUserGaiaIdFieldNumber = 2,
+    kDeviceUserIdFieldNumber = 3,
+    kEpochResponseFieldNumber = 4,
+    kRecoveryResponseFieldNumber = 5,
   };
   // bytes mediator_pub_key = 1;
   void clear_mediator_pub_key();
@@ -590,7 +592,35 @@ class CryptohomeRecoveryAuthInput final :
   std::string* _internal_mutable_mediator_pub_key();
   public:
 
-  // bytes epoch_response = 2;
+  // string user_gaia_id = 2;
+  void clear_user_gaia_id();
+  const std::string& user_gaia_id() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_user_gaia_id(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_user_gaia_id();
+  PROTOBUF_NODISCARD std::string* release_user_gaia_id();
+  void set_allocated_user_gaia_id(std::string* user_gaia_id);
+  private:
+  const std::string& _internal_user_gaia_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_user_gaia_id(const std::string& value);
+  std::string* _internal_mutable_user_gaia_id();
+  public:
+
+  // string device_user_id = 3;
+  void clear_device_user_id();
+  const std::string& device_user_id() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_device_user_id(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_device_user_id();
+  PROTOBUF_NODISCARD std::string* release_device_user_id();
+  void set_allocated_device_user_id(std::string* device_user_id);
+  private:
+  const std::string& _internal_device_user_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_device_user_id(const std::string& value);
+  std::string* _internal_mutable_device_user_id();
+  public:
+
+  // bytes epoch_response = 4;
   void clear_epoch_response();
   const std::string& epoch_response() const;
   template <typename ArgT0 = const std::string&, typename... ArgT>
@@ -604,7 +634,7 @@ class CryptohomeRecoveryAuthInput final :
   std::string* _internal_mutable_epoch_response();
   public:
 
-  // bytes recovery_response = 3;
+  // bytes recovery_response = 5;
   void clear_recovery_response();
   const std::string& recovery_response() const;
   template <typename ArgT0 = const std::string&, typename... ArgT>
@@ -626,6 +656,8 @@ class CryptohomeRecoveryAuthInput final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr mediator_pub_key_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr user_gaia_id_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr device_user_id_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr epoch_response_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr recovery_response_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
@@ -2616,7 +2648,107 @@ inline void CryptohomeRecoveryAuthInput::set_allocated_mediator_pub_key(std::str
   // @@protoc_insertion_point(field_set_allocated:user_data_auth.CryptohomeRecoveryAuthInput.mediator_pub_key)
 }
 
-// bytes epoch_response = 2;
+// string user_gaia_id = 2;
+inline void CryptohomeRecoveryAuthInput::clear_user_gaia_id() {
+  user_gaia_id_.ClearToEmpty();
+}
+inline const std::string& CryptohomeRecoveryAuthInput::user_gaia_id() const {
+  // @@protoc_insertion_point(field_get:user_data_auth.CryptohomeRecoveryAuthInput.user_gaia_id)
+  return _internal_user_gaia_id();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void CryptohomeRecoveryAuthInput::set_user_gaia_id(ArgT0&& arg0, ArgT... args) {
+ 
+ user_gaia_id_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:user_data_auth.CryptohomeRecoveryAuthInput.user_gaia_id)
+}
+inline std::string* CryptohomeRecoveryAuthInput::mutable_user_gaia_id() {
+  std::string* _s = _internal_mutable_user_gaia_id();
+  // @@protoc_insertion_point(field_mutable:user_data_auth.CryptohomeRecoveryAuthInput.user_gaia_id)
+  return _s;
+}
+inline const std::string& CryptohomeRecoveryAuthInput::_internal_user_gaia_id() const {
+  return user_gaia_id_.Get();
+}
+inline void CryptohomeRecoveryAuthInput::_internal_set_user_gaia_id(const std::string& value) {
+  
+  user_gaia_id_.Set(value, GetArenaForAllocation());
+}
+inline std::string* CryptohomeRecoveryAuthInput::_internal_mutable_user_gaia_id() {
+  
+  return user_gaia_id_.Mutable(GetArenaForAllocation());
+}
+inline std::string* CryptohomeRecoveryAuthInput::release_user_gaia_id() {
+  // @@protoc_insertion_point(field_release:user_data_auth.CryptohomeRecoveryAuthInput.user_gaia_id)
+  return user_gaia_id_.Release();
+}
+inline void CryptohomeRecoveryAuthInput::set_allocated_user_gaia_id(std::string* user_gaia_id) {
+  if (user_gaia_id != nullptr) {
+    
+  } else {
+    
+  }
+  user_gaia_id_.SetAllocated(user_gaia_id, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (user_gaia_id_.IsDefault()) {
+    user_gaia_id_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:user_data_auth.CryptohomeRecoveryAuthInput.user_gaia_id)
+}
+
+// string device_user_id = 3;
+inline void CryptohomeRecoveryAuthInput::clear_device_user_id() {
+  device_user_id_.ClearToEmpty();
+}
+inline const std::string& CryptohomeRecoveryAuthInput::device_user_id() const {
+  // @@protoc_insertion_point(field_get:user_data_auth.CryptohomeRecoveryAuthInput.device_user_id)
+  return _internal_device_user_id();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void CryptohomeRecoveryAuthInput::set_device_user_id(ArgT0&& arg0, ArgT... args) {
+ 
+ device_user_id_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:user_data_auth.CryptohomeRecoveryAuthInput.device_user_id)
+}
+inline std::string* CryptohomeRecoveryAuthInput::mutable_device_user_id() {
+  std::string* _s = _internal_mutable_device_user_id();
+  // @@protoc_insertion_point(field_mutable:user_data_auth.CryptohomeRecoveryAuthInput.device_user_id)
+  return _s;
+}
+inline const std::string& CryptohomeRecoveryAuthInput::_internal_device_user_id() const {
+  return device_user_id_.Get();
+}
+inline void CryptohomeRecoveryAuthInput::_internal_set_device_user_id(const std::string& value) {
+  
+  device_user_id_.Set(value, GetArenaForAllocation());
+}
+inline std::string* CryptohomeRecoveryAuthInput::_internal_mutable_device_user_id() {
+  
+  return device_user_id_.Mutable(GetArenaForAllocation());
+}
+inline std::string* CryptohomeRecoveryAuthInput::release_device_user_id() {
+  // @@protoc_insertion_point(field_release:user_data_auth.CryptohomeRecoveryAuthInput.device_user_id)
+  return device_user_id_.Release();
+}
+inline void CryptohomeRecoveryAuthInput::set_allocated_device_user_id(std::string* device_user_id) {
+  if (device_user_id != nullptr) {
+    
+  } else {
+    
+  }
+  device_user_id_.SetAllocated(device_user_id, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (device_user_id_.IsDefault()) {
+    device_user_id_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:user_data_auth.CryptohomeRecoveryAuthInput.device_user_id)
+}
+
+// bytes epoch_response = 4;
 inline void CryptohomeRecoveryAuthInput::clear_epoch_response() {
   epoch_response_.ClearToEmpty();
 }
@@ -2666,7 +2798,7 @@ inline void CryptohomeRecoveryAuthInput::set_allocated_epoch_response(std::strin
   // @@protoc_insertion_point(field_set_allocated:user_data_auth.CryptohomeRecoveryAuthInput.epoch_response)
 }
 
-// bytes recovery_response = 3;
+// bytes recovery_response = 5;
 inline void CryptohomeRecoveryAuthInput::clear_recovery_response() {
   recovery_response_.ClearToEmpty();
 }

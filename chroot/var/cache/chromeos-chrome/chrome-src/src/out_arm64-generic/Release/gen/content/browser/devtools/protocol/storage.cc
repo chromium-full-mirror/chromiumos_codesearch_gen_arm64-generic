@@ -37,6 +37,7 @@ const char Websql[] = "websql";
 const char Service_workers[] = "service_workers";
 const char Cache_storage[] = "cache_storage";
 const char Interest_groups[] = "interest_groups";
+const char Shared_storage[] = "shared_storage";
 const char All[] = "all";
 const char Other[] = "other";
 } // namespace StorageTypeEnum
@@ -112,6 +113,30 @@ CRDTP_BEGIN_SERIALIZER(InterestGroupDetails)
     CRDTP_SERIALIZE_FIELD("userBiddingSignals", m_userBiddingSignals);
     CRDTP_SERIALIZE_FIELD("ads", m_ads);
     CRDTP_SERIALIZE_FIELD("adComponents", m_adComponents);
+CRDTP_END_SERIALIZER();
+
+
+CRDTP_BEGIN_DESERIALIZER(SharedStorageEntry)
+    CRDTP_DESERIALIZE_FIELD("key", m_key),
+    CRDTP_DESERIALIZE_FIELD("value", m_value),
+CRDTP_END_DESERIALIZER()
+
+CRDTP_BEGIN_SERIALIZER(SharedStorageEntry)
+    CRDTP_SERIALIZE_FIELD("key", m_key);
+    CRDTP_SERIALIZE_FIELD("value", m_value);
+CRDTP_END_SERIALIZER();
+
+
+CRDTP_BEGIN_DESERIALIZER(SharedStorageMetadata)
+    CRDTP_DESERIALIZE_FIELD("creationTime", m_creationTime),
+    CRDTP_DESERIALIZE_FIELD("length", m_length),
+    CRDTP_DESERIALIZE_FIELD("remainingBudget", m_remainingBudget),
+CRDTP_END_DESERIALIZER()
+
+CRDTP_BEGIN_SERIALIZER(SharedStorageMetadata)
+    CRDTP_SERIALIZE_FIELD("creationTime", m_creationTime);
+    CRDTP_SERIALIZE_FIELD("length", m_length);
+    CRDTP_SERIALIZE_FIELD("remainingBudget", m_remainingBudget);
 CRDTP_END_SERIALIZER();
 
 
@@ -214,6 +239,8 @@ public:
     void clearTrustTokens(const crdtp::Dispatchable& dispatchable);
     void getInterestGroupDetails(const crdtp::Dispatchable& dispatchable);
     void setInterestGroupTracking(const crdtp::Dispatchable& dispatchable);
+    void getSharedStorageMetadata(const crdtp::Dispatchable& dispatchable);
+    void getSharedStorageEntries(const crdtp::Dispatchable& dispatchable);
  protected:
     Backend* m_backend;
 };
@@ -249,6 +276,14 @@ DomainDispatcherImpl::CallHandler CommandByName(crdtp::span<uint8_t> command_nam
     {
           crdtp::SpanFrom("getInterestGroupDetails"),
           &DomainDispatcherImpl::getInterestGroupDetails
+    },
+    {
+          crdtp::SpanFrom("getSharedStorageEntries"),
+          &DomainDispatcherImpl::getSharedStorageEntries
+    },
+    {
+          crdtp::SpanFrom("getSharedStorageMetadata"),
+          &DomainDispatcherImpl::getSharedStorageMetadata
     },
     {
           crdtp::SpanFrom("getStorageKeyForFrame"),
@@ -1100,6 +1135,108 @@ void DomainDispatcherImpl::setInterestGroupTracking(const crdtp::Dispatchable& d
     if (weak->get())
         weak->get()->sendResponse(dispatchable.CallId(), response);
     return;
+}
+
+class GetSharedStorageMetadataCallbackImpl : public Backend::GetSharedStorageMetadataCallback, public DomainDispatcher::Callback {
+public:
+    GetSharedStorageMetadataCallbackImpl(std::unique_ptr<DomainDispatcher::WeakPtr> backendImpl, int callId, crdtp::span<uint8_t> message)
+        : DomainDispatcher::Callback(std::move(backendImpl), callId,
+crdtp::SpanFrom("Storage.getSharedStorageMetadata"), message) { }
+
+    void sendSuccess(std::unique_ptr<protocol::Storage::SharedStorageMetadata> metadata) override
+    {
+        crdtp::ObjectSerializer serializer;
+        serializer.AddField(crdtp::MakeSpan("metadata"), metadata);
+        sendIfActive(serializer.Finish(), DispatchResponse::Success());
+    }
+
+    void fallThrough() override
+    {
+        fallThroughIfActive();
+    }
+
+    void sendFailure(const DispatchResponse& response) override
+    {
+        DCHECK(response.IsError());
+        sendIfActive(nullptr, response);
+    }
+};
+
+namespace {
+
+struct getSharedStorageMetadataParams : public crdtp::DeserializableProtocolObject<getSharedStorageMetadataParams> {
+    String ownerOrigin;
+    DECLARE_DESERIALIZATION_SUPPORT();
+};
+
+CRDTP_BEGIN_DESERIALIZER(getSharedStorageMetadataParams)
+    CRDTP_DESERIALIZE_FIELD("ownerOrigin", ownerOrigin),
+CRDTP_END_DESERIALIZER()
+
+}  // namespace
+
+void DomainDispatcherImpl::getSharedStorageMetadata(const crdtp::Dispatchable& dispatchable)
+{
+    // Prepare input parameters.
+    auto deserializer = crdtp::DeferredMessage::FromSpan(dispatchable.Params())->MakeDeserializer();
+    getSharedStorageMetadataParams params;
+    if (!getSharedStorageMetadataParams::Deserialize(&deserializer, &params)) {
+      ReportInvalidParams(dispatchable, deserializer);
+      return;
+    }
+
+    m_backend->GetSharedStorageMetadata(params.ownerOrigin, std::make_unique<GetSharedStorageMetadataCallbackImpl>(weakPtr(), dispatchable.CallId(), dispatchable.Serialized()));
+}
+
+class GetSharedStorageEntriesCallbackImpl : public Backend::GetSharedStorageEntriesCallback, public DomainDispatcher::Callback {
+public:
+    GetSharedStorageEntriesCallbackImpl(std::unique_ptr<DomainDispatcher::WeakPtr> backendImpl, int callId, crdtp::span<uint8_t> message)
+        : DomainDispatcher::Callback(std::move(backendImpl), callId,
+crdtp::SpanFrom("Storage.getSharedStorageEntries"), message) { }
+
+    void sendSuccess(std::unique_ptr<protocol::Array<protocol::Storage::SharedStorageEntry>> entries) override
+    {
+        crdtp::ObjectSerializer serializer;
+        serializer.AddField(crdtp::MakeSpan("entries"), entries);
+        sendIfActive(serializer.Finish(), DispatchResponse::Success());
+    }
+
+    void fallThrough() override
+    {
+        fallThroughIfActive();
+    }
+
+    void sendFailure(const DispatchResponse& response) override
+    {
+        DCHECK(response.IsError());
+        sendIfActive(nullptr, response);
+    }
+};
+
+namespace {
+
+struct getSharedStorageEntriesParams : public crdtp::DeserializableProtocolObject<getSharedStorageEntriesParams> {
+    String ownerOrigin;
+    DECLARE_DESERIALIZATION_SUPPORT();
+};
+
+CRDTP_BEGIN_DESERIALIZER(getSharedStorageEntriesParams)
+    CRDTP_DESERIALIZE_FIELD("ownerOrigin", ownerOrigin),
+CRDTP_END_DESERIALIZER()
+
+}  // namespace
+
+void DomainDispatcherImpl::getSharedStorageEntries(const crdtp::Dispatchable& dispatchable)
+{
+    // Prepare input parameters.
+    auto deserializer = crdtp::DeferredMessage::FromSpan(dispatchable.Params())->MakeDeserializer();
+    getSharedStorageEntriesParams params;
+    if (!getSharedStorageEntriesParams::Deserialize(&deserializer, &params)) {
+      ReportInvalidParams(dispatchable, deserializer);
+      return;
+    }
+
+    m_backend->GetSharedStorageEntries(params.ownerOrigin, std::make_unique<GetSharedStorageEntriesCallbackImpl>(weakPtr(), dispatchable.CallId(), dispatchable.Serialized()));
 }
 
 namespace {

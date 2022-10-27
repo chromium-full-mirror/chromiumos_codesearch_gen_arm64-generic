@@ -477,8 +477,8 @@ void ChromiumDataCollector_GetTouchscreenDevices_ProxyToResponder::Run(
   mojo::internal::MessageFragment<
       typename decltype(params->devices)::BaseType>
       devices_fragment(params.message());
-  const mojo::internal::ContainerValidateParams devices_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& devices_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   mojo::internal::Serialize<mojo::ArrayDataView<::ash::cros_healthd::internal::mojom::TouchscreenDeviceDataView>>(
       in_devices, devices_fragment, &devices_validate_params);
   params->devices.Set(

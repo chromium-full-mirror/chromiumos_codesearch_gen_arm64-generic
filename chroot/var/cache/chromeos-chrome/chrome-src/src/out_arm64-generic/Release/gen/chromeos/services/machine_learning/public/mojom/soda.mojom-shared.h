@@ -951,8 +951,8 @@ struct Serializer<::chromeos::machine_learning::mojom::TimingInfoDataView, Maybe
     mojo::internal::MessageFragment<
         typename decltype(fragment->word_alignments)::BaseType>
         word_alignments_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams word_alignments_validate_params(
-        0, false, nullptr);
+    constexpr const mojo::internal::ContainerValidateParams& word_alignments_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
     mojo::internal::Serialize<mojo::ArrayDataView<::mojo_base::mojom::TimeDeltaDataView>>(
         in_word_alignments, word_alignments_fragment, &word_alignments_validate_params);
     fragment->word_alignments.Set(
@@ -1033,8 +1033,8 @@ struct Serializer<::chromeos::machine_learning::mojom::PartialResultDataView, Ma
     mojo::internal::MessageFragment<
         typename decltype(fragment->partial_text)::BaseType>
         partial_text_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams partial_text_validate_params(
-        0, false, new mojo::internal::ContainerValidateParams(0, false, nullptr));
+    constexpr const mojo::internal::ContainerValidateParams& partial_text_validate_params =
+        mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
     mojo::internal::Serialize<mojo::ArrayDataView<mojo::StringDataView>>(
         in_partial_text, partial_text_fragment, &partial_text_validate_params);
     fragment->partial_text.Set(
@@ -1084,8 +1084,8 @@ struct Serializer<::chromeos::machine_learning::mojom::HypothesisPartInResultDat
     mojo::internal::MessageFragment<
         typename decltype(fragment->text)::BaseType>
         text_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams text_validate_params(
-        0, false, new mojo::internal::ContainerValidateParams(0, false, nullptr));
+    constexpr const mojo::internal::ContainerValidateParams& text_validate_params =
+        mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
     mojo::internal::Serialize<mojo::ArrayDataView<mojo::StringDataView>>(
         in_text, text_fragment, &text_validate_params);
     fragment->text.Set(
@@ -1139,8 +1139,8 @@ struct Serializer<::chromeos::machine_learning::mojom::FinalResultDataView, Mayb
     mojo::internal::MessageFragment<
         typename decltype(fragment->final_hypotheses)::BaseType>
         final_hypotheses_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams final_hypotheses_validate_params(
-        0, false, new mojo::internal::ContainerValidateParams(0, false, nullptr));
+    constexpr const mojo::internal::ContainerValidateParams& final_hypotheses_validate_params =
+        mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
     mojo::internal::Serialize<mojo::ArrayDataView<mojo::StringDataView>>(
         in_final_hypotheses, final_hypotheses_fragment, &final_hypotheses_validate_params);
     fragment->final_hypotheses.Set(
@@ -1163,8 +1163,8 @@ struct Serializer<::chromeos::machine_learning::mojom::FinalResultDataView, Mayb
     mojo::internal::MessageFragment<
         typename decltype(fragment->hypothesis_part)::BaseType>
         hypothesis_part_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams hypothesis_part_validate_params(
-        0, false, nullptr);
+    constexpr const mojo::internal::ContainerValidateParams& hypothesis_part_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
     mojo::internal::Serialize<mojo::ArrayDataView<::chromeos::machine_learning::mojom::HypothesisPartInResultDataView>>(
         in_hypothesis_part, hypothesis_part_fragment, &hypothesis_part_validate_params);
     fragment->hypothesis_part.Set(

@@ -112,8 +112,8 @@ bool StringList_Data::Validate(
           object->value, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams value_validate_params(
-      0, false, new mojo::internal::ContainerValidateParams(0, false, nullptr));
+  constexpr const mojo::internal::ContainerValidateParams& value_validate_params =
+      mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
   if (!mojo::internal::ValidateContainer(object->value, validation_context,
                                          &value_validate_params)) {
     return false;
@@ -146,8 +146,8 @@ bool FloatList_Data::Validate(
           object->value, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams value_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& value_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->value, validation_context,
                                          &value_validate_params)) {
     return false;
@@ -180,8 +180,8 @@ bool Int64List_Data::Validate(
           object->value, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams value_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& value_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->value, validation_context,
                                          &value_validate_params)) {
     return false;

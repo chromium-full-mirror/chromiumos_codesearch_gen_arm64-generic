@@ -315,8 +315,8 @@ bool CrosHealthdDiagnosticsService_GetAvailableRoutines_ResponseParams_Data::Val
           object->available_routines, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams available_routines_validate_params(
-      0, ::ash::cros_healthd::mojom::internal::DiagnosticRoutineEnum_Data::Validate);
+  constexpr const mojo::internal::ContainerValidateParams& available_routines_validate_params =
+      mojo::internal::GetArrayOfEnumsValidator<0, ::ash::cros_healthd::mojom::internal::DiagnosticRoutineEnum_Data::Validate>();
   if (!mojo::internal::ValidateContainer(object->available_routines, validation_context,
                                          &available_routines_validate_params)) {
     return false;
@@ -623,8 +623,8 @@ bool CrosHealthdDiagnosticsService_RunAcPowerRoutine_Params_Data::Validate(
         ::Validate(object->expected_status, validation_context))
     return false;
 
-  const mojo::internal::ContainerValidateParams expected_power_type_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& expected_power_type_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->expected_power_type, validation_context,
                                          &expected_power_type_validate_params)) {
     return false;
@@ -1818,8 +1818,8 @@ bool CrosHealthdDiagnosticsService_RunVideoConferencingRoutine_Params_Data::Vali
   [[maybe_unused]] const CrosHealthdDiagnosticsService_RunVideoConferencingRoutine_Params_Data* object =
       static_cast<const CrosHealthdDiagnosticsService_RunVideoConferencingRoutine_Params_Data*>(data);
 
-  const mojo::internal::ContainerValidateParams stun_server_hostname_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& stun_server_hostname_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->stun_server_hostname, validation_context,
                                          &stun_server_hostname_validate_params)) {
     return false;
@@ -2318,8 +2318,8 @@ bool CrosHealthdProbeService_ProbeTelemetryInfo_Params_Data::Validate(
           object->categories, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams categories_validate_params(
-      0, ::ash::cros_healthd::mojom::internal::ProbeCategoryEnum_Data::Validate);
+  constexpr const mojo::internal::ContainerValidateParams& categories_validate_params =
+      mojo::internal::GetArrayOfEnumsValidator<0, ::ash::cros_healthd::mojom::internal::ProbeCategoryEnum_Data::Validate>();
   if (!mojo::internal::ValidateContainer(object->categories, validation_context,
                                          &categories_validate_params)) {
     return false;
@@ -2378,8 +2378,8 @@ bool CrosHealthdProbeService_ProbeMultipleProcessInfo_Params_Data::Validate(
   [[maybe_unused]] const CrosHealthdProbeService_ProbeMultipleProcessInfo_Params_Data* object =
       static_cast<const CrosHealthdProbeService_ProbeMultipleProcessInfo_Params_Data*>(data);
 
-  const mojo::internal::ContainerValidateParams process_ids_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& process_ids_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->process_ids, validation_context,
                                          &process_ids_validate_params)) {
     return false;
@@ -2527,8 +2527,8 @@ bool WilcoEcServiceController_GetEcTelemetry_Params_Data::Validate(
           object->payload_string, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams payload_string_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& payload_string_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->payload_string, validation_context,
                                          &payload_string_validate_params)) {
     return false;

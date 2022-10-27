@@ -1143,8 +1143,8 @@ struct Serializer<::media::mojom::VideoEncodeAcceleratorSupportedProfileDataView
     mojo::internal::MessageFragment<
         typename decltype(fragment->rate_control_modes)::BaseType>
         rate_control_modes_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams rate_control_modes_validate_params(
-        0, ::media::mojom::internal::VideoEncodeAcceleratorSupportedRateControlMode_Data::Validate);
+    constexpr const mojo::internal::ContainerValidateParams& rate_control_modes_validate_params =
+        mojo::internal::GetArrayOfEnumsValidator<0, ::media::mojom::internal::VideoEncodeAcceleratorSupportedRateControlMode_Data::Validate>();
     mojo::internal::Serialize<mojo::ArrayDataView<::media::mojom::VideoEncodeAcceleratorSupportedRateControlMode>>(
         in_rate_control_modes, rate_control_modes_fragment, &rate_control_modes_validate_params);
     fragment->rate_control_modes.Set(
@@ -1157,8 +1157,8 @@ struct Serializer<::media::mojom::VideoEncodeAcceleratorSupportedProfileDataView
     mojo::internal::MessageFragment<
         typename decltype(fragment->scalability_modes)::BaseType>
         scalability_modes_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams scalability_modes_validate_params(
-        0, ::media::mojom::internal::SVCScalabilityMode_Data::Validate);
+    constexpr const mojo::internal::ContainerValidateParams& scalability_modes_validate_params =
+        mojo::internal::GetArrayOfEnumsValidator<0, ::media::mojom::internal::SVCScalabilityMode_Data::Validate>();
     mojo::internal::Serialize<mojo::ArrayDataView<::media::mojom::SVCScalabilityMode>>(
         in_scalability_modes, scalability_modes_fragment, &scalability_modes_validate_params);
     fragment->scalability_modes.Set(
@@ -1230,8 +1230,8 @@ struct Serializer<::media::mojom::VideoBitrateAllocationDataView, MaybeConstUser
     mojo::internal::MessageFragment<
         typename decltype(fragment->bitrates)::BaseType>
         bitrates_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams bitrates_validate_params(
-        0, false, nullptr);
+    constexpr const mojo::internal::ContainerValidateParams& bitrates_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
     mojo::internal::Serialize<mojo::ArrayDataView<uint32_t>>(
         in_bitrates, bitrates_fragment, &bitrates_validate_params);
     fragment->bitrates.Set(
@@ -1415,8 +1415,8 @@ struct Serializer<::media::mojom::VideoEncodeAcceleratorConfigDataView, MaybeCon
     mojo::internal::MessageFragment<
         typename decltype(fragment->spatial_layers)::BaseType>
         spatial_layers_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams spatial_layers_validate_params(
-        0, false, nullptr);
+    constexpr const mojo::internal::ContainerValidateParams& spatial_layers_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
     mojo::internal::Serialize<mojo::ArrayDataView<::media::mojom::SpatialLayerDataView>>(
         in_spatial_layers, spatial_layers_fragment, &spatial_layers_validate_params);
     fragment->spatial_layers.Set(
@@ -1531,8 +1531,8 @@ struct Serializer<::media::mojom::Vp9MetadataDataView, MaybeConstUserType> {
     mojo::internal::MessageFragment<
         typename decltype(fragment->spatial_layer_resolutions)::BaseType>
         spatial_layer_resolutions_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams spatial_layer_resolutions_validate_params(
-        0, false, nullptr);
+    constexpr const mojo::internal::ContainerValidateParams& spatial_layer_resolutions_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
     mojo::internal::Serialize<mojo::ArrayDataView<::gfx::mojom::SizeDataView>>(
         in_spatial_layer_resolutions, spatial_layer_resolutions_fragment, &spatial_layer_resolutions_validate_params);
     fragment->spatial_layer_resolutions.Set(
@@ -1545,8 +1545,8 @@ struct Serializer<::media::mojom::Vp9MetadataDataView, MaybeConstUserType> {
     mojo::internal::MessageFragment<
         typename decltype(fragment->p_diffs)::BaseType>
         p_diffs_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams p_diffs_validate_params(
-        0, false, nullptr);
+    constexpr const mojo::internal::ContainerValidateParams& p_diffs_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
     mojo::internal::Serialize<mojo::ArrayDataView<uint8_t>>(
         in_p_diffs, p_diffs_fragment, &p_diffs_validate_params);
     fragment->p_diffs.Set(
@@ -1593,8 +1593,8 @@ struct Serializer<::media::mojom::Av1MetadataDataView, MaybeConstUserType> {
     mojo::internal::MessageFragment<
         typename decltype(fragment->spatial_layer_resolutions)::BaseType>
         spatial_layer_resolutions_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams spatial_layer_resolutions_validate_params(
-        0, false, nullptr);
+    constexpr const mojo::internal::ContainerValidateParams& spatial_layer_resolutions_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
     mojo::internal::Serialize<mojo::ArrayDataView<::gfx::mojom::SizeDataView>>(
         in_spatial_layer_resolutions, spatial_layer_resolutions_fragment, &spatial_layer_resolutions_validate_params);
     fragment->spatial_layer_resolutions.Set(
@@ -1607,8 +1607,8 @@ struct Serializer<::media::mojom::Av1MetadataDataView, MaybeConstUserType> {
     mojo::internal::MessageFragment<
         typename decltype(fragment->f_diffs)::BaseType>
         f_diffs_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams f_diffs_validate_params(
-        0, false, nullptr);
+    constexpr const mojo::internal::ContainerValidateParams& f_diffs_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
     mojo::internal::Serialize<mojo::ArrayDataView<uint8_t>>(
         in_f_diffs, f_diffs_fragment, &f_diffs_validate_params);
     fragment->f_diffs.Set(

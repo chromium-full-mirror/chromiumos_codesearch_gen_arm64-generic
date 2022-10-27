@@ -2522,7 +2522,7 @@ const char* Battery_Fields::_InternalParse(const char* ptr, ::_pbi::ParseContext
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // int32 index = 1;
+      // int32 index = 1 [deprecated = true];
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
           index_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
@@ -2691,7 +2691,7 @@ uint8_t* Battery_Fields::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // int32 index = 1;
+  // int32 index = 1 [deprecated = true];
   if (this->_internal_index() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(1, this->_internal_index(), target);
@@ -2869,7 +2869,7 @@ size_t Battery_Fields::ByteSizeLong() const {
         this->_internal_chemistry());
   }
 
-  // int32 index = 1;
+  // int32 index = 1 [deprecated = true];
   if (this->_internal_index() != 0) {
     total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_index());
   }

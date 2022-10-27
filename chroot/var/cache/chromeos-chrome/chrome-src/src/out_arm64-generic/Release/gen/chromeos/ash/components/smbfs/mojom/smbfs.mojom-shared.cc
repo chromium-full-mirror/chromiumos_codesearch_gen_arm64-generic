@@ -173,8 +173,8 @@ bool KerberosConfig_Data::Validate(
           object->identity, 2, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams identity_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& identity_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->identity, validation_context,
                                          &identity_validate_params)) {
     return false;
@@ -207,8 +207,8 @@ bool CredentialStorageOptions_Data::Validate(
           object->account_hash, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams account_hash_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& account_hash_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->account_hash, validation_context,
                                          &account_hash_validate_params)) {
     return false;
@@ -218,8 +218,8 @@ bool CredentialStorageOptions_Data::Validate(
           object->salt, 2, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams salt_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& salt_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->salt, validation_context,
                                          &salt_validate_params)) {
     return false;
@@ -256,8 +256,8 @@ bool MountOptions_Data::Validate(
           object->share_path, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams share_path_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& share_path_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->share_path, validation_context,
                                          &share_path_validate_params)) {
     return false;
@@ -270,8 +270,8 @@ bool MountOptions_Data::Validate(
           object->username, 3, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams username_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& username_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->username, validation_context,
                                          &username_validate_params)) {
     return false;
@@ -281,8 +281,8 @@ bool MountOptions_Data::Validate(
           object->workgroup, 4, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams workgroup_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& workgroup_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->workgroup, validation_context,
                                          &workgroup_validate_params)) {
     return false;
@@ -326,8 +326,8 @@ bool Credentials_Data::Validate(
           object->username, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams username_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& username_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->username, validation_context,
                                          &username_validate_params)) {
     return false;
@@ -337,8 +337,8 @@ bool Credentials_Data::Validate(
           object->workgroup, 2, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams workgroup_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& workgroup_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->workgroup, validation_context,
                                          &workgroup_validate_params)) {
     return false;

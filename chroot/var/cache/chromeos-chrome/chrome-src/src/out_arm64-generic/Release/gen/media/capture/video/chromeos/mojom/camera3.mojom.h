@@ -48,7 +48,7 @@ class Camera3CallbackOpsStub;
 class Camera3CallbackOpsRequestValidator;
 
 
-class  Camera3CallbackOps
+class Camera3CallbackOps
     : public Camera3CallbackOpsInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();
@@ -102,7 +102,7 @@ class Camera3DeviceOpsRequestValidator;
 class Camera3DeviceOpsResponseValidator;
 
 
-class  Camera3DeviceOps
+class Camera3DeviceOps
     : public Camera3DeviceOpsInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();

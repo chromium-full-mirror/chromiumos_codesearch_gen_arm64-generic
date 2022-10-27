@@ -1078,8 +1078,8 @@ void SodaRecognizerProxy::AddAudio(
   mojo::internal::MessageFragment<
       typename decltype(params->audio)::BaseType>
       audio_fragment(params.message());
-  const mojo::internal::ContainerValidateParams audio_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& audio_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   mojo::internal::Serialize<mojo::ArrayDataView<uint8_t>>(
       in_audio, audio_fragment, &audio_validate_params);
   params->audio.Set(

@@ -208,8 +208,8 @@ bool FlatBufferModelSpec_Data::Validate(
           object->model_string, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams model_string_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& model_string_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->model_string, validation_context,
                                          &model_string_validate_params)) {
     return false;
@@ -219,8 +219,8 @@ bool FlatBufferModelSpec_Data::Validate(
           object->inputs, 2, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams inputs_validate_params(
-      new mojo::internal::ContainerValidateParams(0, false, new mojo::internal::ContainerValidateParams(0, false, nullptr)), new mojo::internal::ContainerValidateParams(0, false, nullptr));
+  constexpr const mojo::internal::ContainerValidateParams& inputs_validate_params =
+      mojo::internal::GetMapValidator<*&mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>(), *&mojo::internal::GetArrayValidator<0, false, nullptr>()>();
   if (!mojo::internal::ValidateContainer(object->inputs, validation_context,
                                          &inputs_validate_params)) {
     return false;
@@ -230,8 +230,8 @@ bool FlatBufferModelSpec_Data::Validate(
           object->outputs, 3, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams outputs_validate_params(
-      new mojo::internal::ContainerValidateParams(0, false, new mojo::internal::ContainerValidateParams(0, false, nullptr)), new mojo::internal::ContainerValidateParams(0, false, nullptr));
+  constexpr const mojo::internal::ContainerValidateParams& outputs_validate_params =
+      mojo::internal::GetMapValidator<*&mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>(), *&mojo::internal::GetArrayValidator<0, false, nullptr>()>();
   if (!mojo::internal::ValidateContainer(object->outputs, validation_context,
                                          &outputs_validate_params)) {
     return false;
@@ -241,8 +241,8 @@ bool FlatBufferModelSpec_Data::Validate(
           object->metrics_model_name, 4, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams metrics_model_name_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& metrics_model_name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->metrics_model_name, validation_context,
                                          &metrics_model_name_validate_params)) {
     return false;

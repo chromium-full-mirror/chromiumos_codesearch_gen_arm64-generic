@@ -1257,10 +1257,10 @@ class Battery_Fields final :
   std::string* _internal_mutable_chemistry();
   public:
 
-  // int32 index = 1;
-  void clear_index();
-  int32_t index() const;
-  void set_index(int32_t value);
+  // int32 index = 1 [deprecated = true];
+  PROTOBUF_DEPRECATED void clear_index();
+  PROTOBUF_DEPRECATED int32_t index() const;
+  PROTOBUF_DEPRECATED void set_index(int32_t value);
   private:
   int32_t _internal_index() const;
   void _internal_set_index(int32_t value);
@@ -6152,7 +6152,7 @@ inline void AudioCodec::set_allocated_information(::runtime_probe::Information* 
 
 // Battery_Fields
 
-// int32 index = 1;
+// int32 index = 1 [deprecated = true];
 inline void Battery_Fields::clear_index() {
   index_ = 0;
 }

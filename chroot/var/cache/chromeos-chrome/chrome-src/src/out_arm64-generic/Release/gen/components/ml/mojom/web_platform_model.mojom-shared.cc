@@ -265,8 +265,8 @@ bool TensorInfo_Data::Validate(
           object->dimensions, 3, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams dimensions_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& dimensions_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->dimensions, validation_context,
                                          &dimensions_validate_params)) {
     return false;
@@ -299,8 +299,8 @@ bool ModelInfo_Data::Validate(
           object->input_tensor_info, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams input_tensor_info_validate_params(
-      new mojo::internal::ContainerValidateParams(0, false, new mojo::internal::ContainerValidateParams(0, false, nullptr)), new mojo::internal::ContainerValidateParams(0, false, nullptr));
+  constexpr const mojo::internal::ContainerValidateParams& input_tensor_info_validate_params =
+      mojo::internal::GetMapValidator<*&mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>(), *&mojo::internal::GetArrayValidator<0, false, nullptr>()>();
   if (!mojo::internal::ValidateContainer(object->input_tensor_info, validation_context,
                                          &input_tensor_info_validate_params)) {
     return false;
@@ -310,8 +310,8 @@ bool ModelInfo_Data::Validate(
           object->output_tensor_info, 2, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams output_tensor_info_validate_params(
-      new mojo::internal::ContainerValidateParams(0, false, new mojo::internal::ContainerValidateParams(0, false, nullptr)), new mojo::internal::ContainerValidateParams(0, false, nullptr));
+  constexpr const mojo::internal::ContainerValidateParams& output_tensor_info_validate_params =
+      mojo::internal::GetMapValidator<*&mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>(), *&mojo::internal::GetArrayValidator<0, false, nullptr>()>();
   if (!mojo::internal::ValidateContainer(object->output_tensor_info, validation_context,
                                          &output_tensor_info_validate_params)) {
     return false;
@@ -410,8 +410,8 @@ bool Model_Compute_Params_Data::Validate(
           object->input_tensors, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams input_tensors_validate_params(
-      new mojo::internal::ContainerValidateParams(0, false, new mojo::internal::ContainerValidateParams(0, false, nullptr)), new mojo::internal::ContainerValidateParams(0, false, new mojo::internal::ContainerValidateParams(0, false, nullptr)));
+  constexpr const mojo::internal::ContainerValidateParams& input_tensors_validate_params =
+      mojo::internal::GetMapValidator<*&mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>(), *&mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>()>();
   if (!mojo::internal::ValidateContainer(object->input_tensors, validation_context,
                                          &input_tensors_validate_params)) {
     return false;
@@ -445,8 +445,8 @@ bool Model_Compute_ResponseParams_Data::Validate(
         ::Validate(object->result, validation_context))
     return false;
 
-  const mojo::internal::ContainerValidateParams output_tensors_validate_params(
-      new mojo::internal::ContainerValidateParams(0, false, new mojo::internal::ContainerValidateParams(0, false, nullptr)), new mojo::internal::ContainerValidateParams(0, false, new mojo::internal::ContainerValidateParams(0, false, nullptr)));
+  constexpr const mojo::internal::ContainerValidateParams& output_tensors_validate_params =
+      mojo::internal::GetMapValidator<*&mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>(), *&mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>()>();
   if (!mojo::internal::ValidateContainer(object->output_tensors, validation_context,
                                          &output_tensors_validate_params)) {
     return false;

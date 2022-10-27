@@ -96,6 +96,8 @@ class HEADLESS_EXPORT Domain {
   static void HandleClearTrustTokensResponse(base::OnceCallback<void(std::unique_ptr<ClearTrustTokensResult>)> callback, const base::Value& response);
   static void HandleGetInterestGroupDetailsResponse(base::OnceCallback<void(std::unique_ptr<GetInterestGroupDetailsResult>)> callback, const base::Value& response);
   static void HandleSetInterestGroupTrackingResponse(base::OnceCallback<void(std::unique_ptr<SetInterestGroupTrackingResult>)> callback, const base::Value& response);
+  static void HandleGetSharedStorageMetadataResponse(base::OnceCallback<void(std::unique_ptr<GetSharedStorageMetadataResult>)> callback, const base::Value& response);
+  static void HandleGetSharedStorageEntriesResponse(base::OnceCallback<void(std::unique_ptr<GetSharedStorageEntriesResult>)> callback, const base::Value& response);
 
   void DispatchCacheStorageContentUpdatedEvent(const base::Value& params);
   void DispatchCacheStorageListUpdatedEvent(const base::Value& params);
@@ -183,6 +185,12 @@ class ExperimentalDomain : public Domain {
 
   // Enables/Disables issuing of interestGroupAccessed events.
   void SetInterestGroupTracking(std::unique_ptr<SetInterestGroupTrackingParams> params, base::OnceCallback<void(std::unique_ptr<SetInterestGroupTrackingResult>)> callback = base::OnceCallback<void(std::unique_ptr<SetInterestGroupTrackingResult>)>());
+
+  // Gets metadata for an origin's shared storage.
+  void GetSharedStorageMetadata(std::unique_ptr<GetSharedStorageMetadataParams> params, base::OnceCallback<void(std::unique_ptr<GetSharedStorageMetadataResult>)> callback = base::OnceCallback<void(std::unique_ptr<GetSharedStorageMetadataResult>)>());
+
+  // Gets the entries in an given origin's shared storage.
+  void GetSharedStorageEntries(std::unique_ptr<GetSharedStorageEntriesParams> params, base::OnceCallback<void(std::unique_ptr<GetSharedStorageEntriesResult>)> callback = base::OnceCallback<void(std::unique_ptr<GetSharedStorageEntriesResult>)>());
 
 };
 

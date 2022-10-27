@@ -271,8 +271,8 @@ struct Serializer<::chromeos_camera::mojom::BitstreamBufferDataView, MaybeConstU
     mojo::internal::MessageFragment<
         typename decltype(fragment->subsamples)::BaseType>
         subsamples_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams subsamples_validate_params(
-        0, false, nullptr);
+    constexpr const mojo::internal::ContainerValidateParams& subsamples_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
     mojo::internal::Serialize<mojo::ArrayDataView<::media::mojom::SubsampleEntryDataView>>(
         in_subsamples, subsamples_fragment, &subsamples_validate_params);
     fragment->subsamples.Set(

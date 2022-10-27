@@ -105,8 +105,8 @@ bool ServiceManagerListener_OnInit_Params_Data::Validate(
           object->running_services, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams running_services_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& running_services_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->running_services, validation_context,
                                          &running_services_validate_params)) {
     return false;

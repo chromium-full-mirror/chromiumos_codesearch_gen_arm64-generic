@@ -48,7 +48,7 @@ class WilcoEcObserverStub;
 class WilcoEcObserverRequestValidator;
 
 
-class  WilcoEcObserver
+class WilcoEcObserver
     : public WilcoEcObserverInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();

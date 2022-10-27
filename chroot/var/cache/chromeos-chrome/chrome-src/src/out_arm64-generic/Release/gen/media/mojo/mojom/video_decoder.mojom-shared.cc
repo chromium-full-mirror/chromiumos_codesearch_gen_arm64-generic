@@ -177,8 +177,8 @@ bool VideoDecoder_GetSupportedConfigs_ResponseParams_Data::Validate(
           object->supported_configs, 1, validation_context)) {
     return false;
   }
-  const mojo::internal::ContainerValidateParams supported_configs_validate_params(
-      0, false, nullptr);
+  constexpr const mojo::internal::ContainerValidateParams& supported_configs_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->supported_configs, validation_context,
                                          &supported_configs_validate_params)) {
     return false;

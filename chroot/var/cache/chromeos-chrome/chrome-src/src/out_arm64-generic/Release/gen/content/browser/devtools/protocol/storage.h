@@ -24,6 +24,8 @@ class TrustTokens;
 using InterestGroupAccessType = String;
 class InterestGroupAd;
 class InterestGroupDetails;
+class SharedStorageEntry;
+class SharedStorageMetadata;
 
 // ------------- Forward and enum declarations.
 
@@ -38,6 +40,7 @@ CONTENT_EXPORT extern const char Websql[];
 CONTENT_EXPORT extern const char Service_workers[];
 CONTENT_EXPORT extern const char Cache_storage[];
 CONTENT_EXPORT extern const char Interest_groups[];
+CONTENT_EXPORT extern const char Shared_storage[];
 CONTENT_EXPORT extern const char All[];
 CONTENT_EXPORT extern const char Other[];
 } // namespace StorageTypeEnum
@@ -445,6 +448,159 @@ private:
 };
 
 
+class CONTENT_EXPORT SharedStorageEntry : public ::crdtp::ProtocolObject<SharedStorageEntry> {
+public:
+    ~SharedStorageEntry() override { }
+
+    String GetKey() { return m_key; }
+    void SetKey(const String& value) { m_key = value; }
+
+    String GetValue() { return m_value; }
+    void SetValue(const String& value) { m_value = value; }
+
+    template<int STATE>
+    class SharedStorageEntryBuilder {
+    public:
+        enum {
+            NoFieldsSet = 0,
+            KeySet = 1 << 1,
+            ValueSet = 1 << 2,
+            AllFieldsSet = (KeySet | ValueSet | 0)};
+
+
+        SharedStorageEntryBuilder<STATE | KeySet>& SetKey(const String& value)
+        {
+            static_assert(!(STATE & KeySet), "property key should not be set yet");
+            m_result->SetKey(value);
+            return castState<KeySet>();
+        }
+
+        SharedStorageEntryBuilder<STATE | ValueSet>& SetValue(const String& value)
+        {
+            static_assert(!(STATE & ValueSet), "property value should not be set yet");
+            m_result->SetValue(value);
+            return castState<ValueSet>();
+        }
+
+        std::unique_ptr<SharedStorageEntry> Build()
+        {
+            static_assert(STATE == AllFieldsSet, "state should be AllFieldsSet");
+            return std::move(m_result);
+        }
+
+    private:
+        friend class SharedStorageEntry;
+        SharedStorageEntryBuilder() : m_result(new SharedStorageEntry()) { }
+
+        template<int STEP> SharedStorageEntryBuilder<STATE | STEP>& castState()
+        {
+            return *reinterpret_cast<SharedStorageEntryBuilder<STATE | STEP>*>(this);
+        }
+
+        std::unique_ptr<protocol::Storage::SharedStorageEntry> m_result;
+    };
+
+    static SharedStorageEntryBuilder<0> Create()
+    {
+        return SharedStorageEntryBuilder<0>();
+    }
+
+private:
+    DECLARE_SERIALIZATION_SUPPORT();
+
+    SharedStorageEntry()
+    {
+    }
+
+    String m_key;
+    String m_value;
+};
+
+
+class CONTENT_EXPORT SharedStorageMetadata : public ::crdtp::ProtocolObject<SharedStorageMetadata> {
+public:
+    ~SharedStorageMetadata() override { }
+
+    double GetCreationTime() { return m_creationTime; }
+    void SetCreationTime(double value) { m_creationTime = value; }
+
+    int GetLength() { return m_length; }
+    void SetLength(int value) { m_length = value; }
+
+    double GetRemainingBudget() { return m_remainingBudget; }
+    void SetRemainingBudget(double value) { m_remainingBudget = value; }
+
+    template<int STATE>
+    class SharedStorageMetadataBuilder {
+    public:
+        enum {
+            NoFieldsSet = 0,
+            CreationTimeSet = 1 << 1,
+            LengthSet = 1 << 2,
+            RemainingBudgetSet = 1 << 3,
+            AllFieldsSet = (CreationTimeSet | LengthSet | RemainingBudgetSet | 0)};
+
+
+        SharedStorageMetadataBuilder<STATE | CreationTimeSet>& SetCreationTime(double value)
+        {
+            static_assert(!(STATE & CreationTimeSet), "property creationTime should not be set yet");
+            m_result->SetCreationTime(value);
+            return castState<CreationTimeSet>();
+        }
+
+        SharedStorageMetadataBuilder<STATE | LengthSet>& SetLength(int value)
+        {
+            static_assert(!(STATE & LengthSet), "property length should not be set yet");
+            m_result->SetLength(value);
+            return castState<LengthSet>();
+        }
+
+        SharedStorageMetadataBuilder<STATE | RemainingBudgetSet>& SetRemainingBudget(double value)
+        {
+            static_assert(!(STATE & RemainingBudgetSet), "property remainingBudget should not be set yet");
+            m_result->SetRemainingBudget(value);
+            return castState<RemainingBudgetSet>();
+        }
+
+        std::unique_ptr<SharedStorageMetadata> Build()
+        {
+            static_assert(STATE == AllFieldsSet, "state should be AllFieldsSet");
+            return std::move(m_result);
+        }
+
+    private:
+        friend class SharedStorageMetadata;
+        SharedStorageMetadataBuilder() : m_result(new SharedStorageMetadata()) { }
+
+        template<int STEP> SharedStorageMetadataBuilder<STATE | STEP>& castState()
+        {
+            return *reinterpret_cast<SharedStorageMetadataBuilder<STATE | STEP>*>(this);
+        }
+
+        std::unique_ptr<protocol::Storage::SharedStorageMetadata> m_result;
+    };
+
+    static SharedStorageMetadataBuilder<0> Create()
+    {
+        return SharedStorageMetadataBuilder<0>();
+    }
+
+private:
+    DECLARE_SERIALIZATION_SUPPORT();
+
+    SharedStorageMetadata()
+    {
+          m_creationTime = 0;
+          m_length = 0;
+          m_remainingBudget = 0;
+    }
+
+    double m_creationTime;
+    int m_length;
+    double m_remainingBudget;
+};
+
+
 // ------------- Backend interface.
 
 class CONTENT_EXPORT Backend {
@@ -539,6 +695,22 @@ public:
     };
     virtual void GetInterestGroupDetails(const String& in_ownerOrigin, const String& in_name, std::unique_ptr<GetInterestGroupDetailsCallback> callback) = 0;
     virtual DispatchResponse SetInterestGroupTracking(bool in_enable) = 0;
+    class CONTENT_EXPORT GetSharedStorageMetadataCallback {
+    public:
+        virtual void sendSuccess(std::unique_ptr<protocol::Storage::SharedStorageMetadata> metadata) = 0;
+        virtual void sendFailure(const DispatchResponse&) = 0;
+        virtual void fallThrough() = 0;
+        virtual ~GetSharedStorageMetadataCallback() { }
+    };
+    virtual void GetSharedStorageMetadata(const String& in_ownerOrigin, std::unique_ptr<GetSharedStorageMetadataCallback> callback) = 0;
+    class CONTENT_EXPORT GetSharedStorageEntriesCallback {
+    public:
+        virtual void sendSuccess(std::unique_ptr<protocol::Array<protocol::Storage::SharedStorageEntry>> entries) = 0;
+        virtual void sendFailure(const DispatchResponse&) = 0;
+        virtual void fallThrough() = 0;
+        virtual ~GetSharedStorageEntriesCallback() { }
+    };
+    virtual void GetSharedStorageEntries(const String& in_ownerOrigin, std::unique_ptr<GetSharedStorageEntriesCallback> callback) = 0;
 
     virtual DispatchResponse Disable()
     {

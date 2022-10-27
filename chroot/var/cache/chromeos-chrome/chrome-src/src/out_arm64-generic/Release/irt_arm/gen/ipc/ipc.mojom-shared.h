@@ -157,8 +157,8 @@ struct Serializer<::IPC::mojom::MessageDataView, MaybeConstUserType> {
     mojo::internal::MessageFragment<
         typename decltype(fragment->bytes)::BaseType>
         bytes_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams bytes_validate_params(
-        0, false, nullptr);
+    constexpr const mojo::internal::ContainerValidateParams& bytes_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
     mojo::internal::Serialize<mojo::ArrayDataView<uint8_t>>(
         in_bytes, bytes_fragment, &bytes_validate_params);
     fragment->bytes.Set(
@@ -171,8 +171,8 @@ struct Serializer<::IPC::mojom::MessageDataView, MaybeConstUserType> {
     mojo::internal::MessageFragment<
         typename decltype(fragment->handles)::BaseType>
         handles_fragment(fragment.message());
-    const mojo::internal::ContainerValidateParams handles_validate_params(
-        0, false, nullptr);
+    constexpr const mojo::internal::ContainerValidateParams& handles_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
     mojo::internal::Serialize<mojo::ArrayDataView<::mojo::native::SerializedHandleDataView>>(
         in_handles, handles_fragment, &handles_validate_params);
     fragment->handles.Set(

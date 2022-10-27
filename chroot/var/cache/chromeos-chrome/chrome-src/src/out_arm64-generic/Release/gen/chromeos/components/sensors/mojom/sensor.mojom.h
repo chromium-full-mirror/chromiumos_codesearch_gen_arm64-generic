@@ -49,7 +49,7 @@ class SensorServiceRequestValidator;
 class SensorServiceResponseValidator;
 
 
-class  SensorService
+class SensorService
     : public SensorServiceInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();
@@ -121,7 +121,7 @@ class SensorDeviceRequestValidator;
 class SensorDeviceResponseValidator;
 
 
-class  SensorDevice
+class SensorDevice
     : public SensorDeviceInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();
@@ -235,7 +235,7 @@ class SensorDeviceSamplesObserverStub;
 class SensorDeviceSamplesObserverRequestValidator;
 
 
-class  SensorDeviceSamplesObserver
+class SensorDeviceSamplesObserver
     : public SensorDeviceSamplesObserverInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();
@@ -288,7 +288,7 @@ class SensorServiceNewDevicesObserverStub;
 class SensorServiceNewDevicesObserverRequestValidator;
 
 
-class  SensorServiceNewDevicesObserver
+class SensorServiceNewDevicesObserver
     : public SensorServiceNewDevicesObserverInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();

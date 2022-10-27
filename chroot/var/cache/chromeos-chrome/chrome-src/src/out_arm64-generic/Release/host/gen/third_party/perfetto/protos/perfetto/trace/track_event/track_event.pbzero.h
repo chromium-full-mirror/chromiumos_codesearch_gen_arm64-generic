@@ -16,6 +16,7 @@ namespace perfetto {
 namespace protos {
 namespace pbzero {
 
+class ChromeActiveProcesses;
 class ChromeApplicationStateInfo;
 class ChromeCompositorSchedulerState;
 class ChromeContentSettingsEventInfo;
@@ -406,7 +407,7 @@ class TrackEventDefaults : public ::protozero::Message {
   }
 };
 
-class TrackEvent_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/48, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
+class TrackEvent_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=*/49, /*HAS_NONPACKED_REPEATED_FIELDS=*/true> {
  public:
   TrackEvent_Decoder(const uint8_t* data, size_t len) : TypedProtoDecoder(data, len) {}
   explicit TrackEvent_Decoder(const std::string& raw) : TypedProtoDecoder(reinterpret_cast<const uint8_t*>(raw.data()), raw.size()) {}
@@ -471,6 +472,8 @@ class TrackEvent_Decoder : public ::protozero::TypedProtoDecoder</*MAX_FIELD_ID=
   ::protozero::ConstBytes chrome_window_handle_event_info() const { return at<41>().as_bytes(); }
   bool has_chrome_content_settings_event_info() const { return at<43>().valid(); }
   ::protozero::ConstBytes chrome_content_settings_event_info() const { return at<43>().as_bytes(); }
+  bool has_chrome_active_processes() const { return at<49>().valid(); }
+  ::protozero::ConstBytes chrome_active_processes() const { return at<49>().as_bytes(); }
   bool has_source_location() const { return at<33>().valid(); }
   ::protozero::ConstBytes source_location() const { return at<33>().as_bytes(); }
   bool has_source_location_iid() const { return at<34>().valid(); }
@@ -529,6 +532,7 @@ class TrackEvent : public ::protozero::Message {
     kChromeRendererSchedulerStateFieldNumber = 40,
     kChromeWindowHandleEventInfoFieldNumber = 41,
     kChromeContentSettingsEventInfoFieldNumber = 43,
+    kChromeActiveProcessesFieldNumber = 49,
     kSourceLocationFieldNumber = 33,
     kSourceLocationIidFieldNumber = 34,
     kChromeMessagePumpFieldNumber = 35,
@@ -1258,6 +1262,27 @@ class TrackEvent : public ::protozero::Message {
   static constexpr FieldMetadata_ChromeContentSettingsEventInfo kChromeContentSettingsEventInfo() { return {}; }
   template <typename T = ChromeContentSettingsEventInfo> T* set_chrome_content_settings_event_info() {
     return BeginNestedMessage<T>(43);
+  }
+
+
+  using FieldMetadata_ChromeActiveProcesses =
+    ::protozero::proto_utils::FieldMetadata<
+      49,
+      ::protozero::proto_utils::RepetitionType::kNotRepeated,
+      ::protozero::proto_utils::ProtoSchemaType::kMessage,
+      ChromeActiveProcesses,
+      TrackEvent>;
+
+  // Ceci n'est pas une pipe.
+  // This is actually a variable of FieldMetadataHelper<FieldMetadata<...>>
+  // type (and users are expected to use it as such, hence kCamelCase name).
+  // It is declared as a function to keep protozero bindings header-only as
+  // inline constexpr variables are not available until C++17 (while inline
+  // functions are).
+  // TODO(altimin): Use inline variable instead after adopting C++17.
+  static constexpr FieldMetadata_ChromeActiveProcesses kChromeActiveProcesses() { return {}; }
+  template <typename T = ChromeActiveProcesses> T* set_chrome_active_processes() {
+    return BeginNestedMessage<T>(49);
   }
 
 
