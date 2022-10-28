@@ -6,5 +6,7 @@
 
 #ifndef DIAGNOSTICS_CROS_HEALTHD_EXECUTOR_MOJOM_DELEGATE_MOJOM_IMPORT_HEADERS_H_
 #define DIAGNOSTICS_CROS_HEALTHD_EXECUTOR_MOJOM_DELEGATE_MOJOM_IMPORT_HEADERS_H_
+#include "diagnostics/cros_healthd/executor/mojom/executor.mojom.h"
+#include "diagnostics/cros_healthd/executor/mojom/executor.mojom-import-headers.h"
 
 #endif  // DIAGNOSTICS_CROS_HEALTHD_EXECUTOR_MOJOM_DELEGATE_MOJOM_IMPORT_HEADERS_H_

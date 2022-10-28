@@ -1042,6 +1042,32 @@ std::string GetProtoDebugStringWithIndent(const EnrollReply& value,
   return output;
 }
 
+std::string GetProtoDebugString(
+    const DeviceSetupCertificateRequestMetadata& value) {
+  return GetProtoDebugStringWithIndent(value, 0);
+}
+
+std::string GetProtoDebugStringWithIndent(
+    const DeviceSetupCertificateRequestMetadata& value,
+    int indent_size) {
+  std::string indent(indent_size, ' ');
+  std::string output =
+      base::StringPrintf("[%s] {\n", value.GetTypeName().c_str());
+
+  if (value.has_id()) {
+    output += indent + "  id: ";
+    base::StringAppendF(&output, "%s", value.id().c_str());
+    output += "\n";
+  }
+  if (value.has_content_binding()) {
+    output += indent + "  content_binding: ";
+    base::StringAppendF(&output, "%s", value.content_binding().c_str());
+    output += "\n";
+  }
+  output += indent + "}\n";
+  return output;
+}
+
 std::string GetProtoDebugString(const CreateCertificateRequestRequest& value) {
   return GetProtoDebugStringWithIndent(value, 0);
 }

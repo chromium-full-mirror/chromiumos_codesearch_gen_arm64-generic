@@ -384,6 +384,72 @@ class  Executor_GetLidAngle_ResponseParams_Data {
 };
 static_assert(sizeof(Executor_GetLidAngle_ResponseParams_Data) == 16,
               "Bad sizeof(Executor_GetLidAngle_ResponseParams_Data)");
+class  Executor_GetFingerprintFrame_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t type;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<Executor_GetFingerprintFrame_Params_Data>;
+
+  Executor_GetFingerprintFrame_Params_Data();
+  ~Executor_GetFingerprintFrame_Params_Data() = delete;
+};
+static_assert(sizeof(Executor_GetFingerprintFrame_Params_Data) == 16,
+              "Bad sizeof(Executor_GetFingerprintFrame_Params_Data)");
+class  Executor_GetFingerprintFrame_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<internal::FingerprintFrameResult_Data> result;
+  mojo::internal::Pointer<mojo::internal::String_Data> err;
+
+ private:
+  friend class mojo::internal::MessageFragment<Executor_GetFingerprintFrame_ResponseParams_Data>;
+
+  Executor_GetFingerprintFrame_ResponseParams_Data();
+  ~Executor_GetFingerprintFrame_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(Executor_GetFingerprintFrame_ResponseParams_Data) == 24,
+              "Bad sizeof(Executor_GetFingerprintFrame_ResponseParams_Data)");
+class  Executor_GetFingerprintInfo_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<Executor_GetFingerprintInfo_Params_Data>;
+
+  Executor_GetFingerprintInfo_Params_Data();
+  ~Executor_GetFingerprintInfo_Params_Data() = delete;
+};
+static_assert(sizeof(Executor_GetFingerprintInfo_Params_Data) == 8,
+              "Bad sizeof(Executor_GetFingerprintInfo_Params_Data)");
+class  Executor_GetFingerprintInfo_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<internal::FingerprintInfoResult_Data> result;
+  mojo::internal::Pointer<mojo::internal::String_Data> err;
+
+ private:
+  friend class mojo::internal::MessageFragment<Executor_GetFingerprintInfo_ResponseParams_Data>;
+
+  Executor_GetFingerprintInfo_ResponseParams_Data();
+  ~Executor_GetFingerprintInfo_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(Executor_GetFingerprintInfo_ResponseParams_Data) == 24,
+              "Bad sizeof(Executor_GetFingerprintInfo_ResponseParams_Data)");
 
 }  // namespace internal
 
@@ -940,6 +1006,142 @@ class Executor_GetLidAngle_ResponseParamsDataView {
 
 
 
+class Executor_GetFingerprintFrame_ParamsDataView {
+ public:
+  Executor_GetFingerprintFrame_ParamsDataView() = default;
+
+  Executor_GetFingerprintFrame_ParamsDataView(
+      internal::Executor_GetFingerprintFrame_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadType(UserType* output) const {
+    auto data_value = data_->type;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::FingerprintCaptureType>(
+        data_value, output);
+  }
+  FingerprintCaptureType type() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::cros_healthd::mojom::FingerprintCaptureType>(data_->type));
+  }
+ private:
+  internal::Executor_GetFingerprintFrame_Params_Data* data_ = nullptr;
+};
+
+
+
+class Executor_GetFingerprintFrame_ResponseParamsDataView {
+ public:
+  Executor_GetFingerprintFrame_ResponseParamsDataView() = default;
+
+  Executor_GetFingerprintFrame_ResponseParamsDataView(
+      internal::Executor_GetFingerprintFrame_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetResultDataView(
+      FingerprintFrameResultDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadResult(UserType* output) {
+    
+    auto* pointer = data_->result.Get();
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::FingerprintFrameResultDataView>(
+        pointer, output, message_);
+  }
+  inline void GetErrDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadErr(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::StringDataView, UserType>(),
+    "Attempting to read the optional `err` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadErr` instead "
+    "of `ReadErr if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->err.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::Executor_GetFingerprintFrame_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
+class Executor_GetFingerprintInfo_ParamsDataView {
+ public:
+  Executor_GetFingerprintInfo_ParamsDataView() = default;
+
+  Executor_GetFingerprintInfo_ParamsDataView(
+      internal::Executor_GetFingerprintInfo_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::Executor_GetFingerprintInfo_Params_Data* data_ = nullptr;
+};
+
+
+
+class Executor_GetFingerprintInfo_ResponseParamsDataView {
+ public:
+  Executor_GetFingerprintInfo_ResponseParamsDataView() = default;
+
+  Executor_GetFingerprintInfo_ResponseParamsDataView(
+      internal::Executor_GetFingerprintInfo_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetResultDataView(
+      FingerprintInfoResultDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadResult(UserType* output) {
+    
+    auto* pointer = data_->result.Get();
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::FingerprintInfoResultDataView>(
+        pointer, output, message_);
+  }
+  inline void GetErrDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadErr(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::StringDataView, UserType>(),
+    "Attempting to read the optional `err` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadErr` instead "
+    "of `ReadErr if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->err.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::Executor_GetFingerprintInfo_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
 
 inline void Executor_GetFanSpeed_ResponseParamsDataView::GetResultDataView(
     ExecutedProcessResultDataView* output) {
@@ -1057,6 +1259,34 @@ inline void Executor_GetLidAngle_ResponseParamsDataView::GetResultDataView(
     ExecutedProcessResultDataView* output) {
   auto pointer = data_->result.Get();
   *output = ExecutedProcessResultDataView(pointer, message_);
+}
+
+
+
+
+inline void Executor_GetFingerprintFrame_ResponseParamsDataView::GetResultDataView(
+    FingerprintFrameResultDataView* output) {
+  auto pointer = data_->result.Get();
+  *output = FingerprintFrameResultDataView(pointer, message_);
+}
+inline void Executor_GetFingerprintFrame_ResponseParamsDataView::GetErrDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->err.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
+
+
+inline void Executor_GetFingerprintInfo_ResponseParamsDataView::GetResultDataView(
+    FingerprintInfoResultDataView* output) {
+  auto pointer = data_->result.Get();
+  *output = FingerprintInfoResultDataView(pointer, message_);
+}
+inline void Executor_GetFingerprintInfo_ResponseParamsDataView::GetErrDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->err.Get();
+  *output = mojo::StringDataView(pointer, message_);
 }
 
 }  // namespace mojom

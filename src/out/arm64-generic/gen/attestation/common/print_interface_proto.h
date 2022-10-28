@@ -153,6 +153,11 @@ std::string GetProtoDebugStringWithIndent(const EnrollReply& value,
                                           int indent_size);
 BRILLO_EXPORT std::string GetProtoDebugString(const EnrollReply& value);
 std::string GetProtoDebugStringWithIndent(
+    const DeviceSetupCertificateRequestMetadata& value,
+    int indent_size);
+BRILLO_EXPORT std::string GetProtoDebugString(
+    const DeviceSetupCertificateRequestMetadata& value);
+std::string GetProtoDebugStringWithIndent(
     const CreateCertificateRequestRequest& value,
     int indent_size);
 BRILLO_EXPORT std::string GetProtoDebugString(

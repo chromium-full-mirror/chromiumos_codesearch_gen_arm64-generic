@@ -4,20 +4,152 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+#include "diagnostics/cros_healthd/executor/mojom/delegate.mojom-shared.h"
 
 // Used to support stream output operator for enums.
 // TODO(dcheng): Consider omitting this somehow if not needed.
+#include <ostream>
+#include <utility>
 
+#include "base/strings/stringprintf.h"
+#include "mojo/public/cpp/bindings/lib/validate_params.h"
+#include "mojo/public/cpp/bindings/lib/validation_errors.h"
+#include "mojo/public/cpp/bindings/lib/validation_util.h"
+#include "third_party/perfetto/include/perfetto/tracing/traced_value.h"
 
+#include "diagnostics/cros_healthd/executor/mojom/delegate.mojom-params-data.h"
 namespace ash {
 namespace cros_healthd {
 namespace mojom {
 
 namespace internal {
 
+
+// static
+bool Delegate_GetFingerprintFrame_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Delegate_GetFingerprintFrame_Params_Data* object =
+      static_cast<const Delegate_GetFingerprintFrame_Params_Data*>(data);
+
+
+  if (!::ash::cros_healthd::mojom::internal::FingerprintCaptureType_Data
+        ::Validate(object->type, validation_context))
+    return false;
+
+  return true;
+}
+
+Delegate_GetFingerprintFrame_Params_Data::Delegate_GetFingerprintFrame_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool Delegate_GetFingerprintFrame_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Delegate_GetFingerprintFrame_ResponseParams_Data* object =
+      static_cast<const Delegate_GetFingerprintFrame_ResponseParams_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->result, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->result, validation_context))
+    return false;
+
+  const mojo::internal::ContainerValidateParams err_validate_params(
+      0, false, nullptr);
+  if (!mojo::internal::ValidateContainer(object->err, validation_context,
+                                         &err_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+Delegate_GetFingerprintFrame_ResponseParams_Data::Delegate_GetFingerprintFrame_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool Delegate_GetFingerprintInfo_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Delegate_GetFingerprintInfo_Params_Data* object =
+      static_cast<const Delegate_GetFingerprintInfo_Params_Data*>(data);
+
+  return true;
+}
+
+Delegate_GetFingerprintInfo_Params_Data::Delegate_GetFingerprintInfo_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool Delegate_GetFingerprintInfo_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Delegate_GetFingerprintInfo_ResponseParams_Data* object =
+      static_cast<const Delegate_GetFingerprintInfo_ResponseParams_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->result, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->result, validation_context))
+    return false;
+
+  const mojo::internal::ContainerValidateParams err_validate_params(
+      0, false, nullptr);
+  if (!mojo::internal::ValidateContainer(object->err, validation_context,
+                                         &err_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+Delegate_GetFingerprintInfo_ResponseParams_Data::Delegate_GetFingerprintInfo_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
 }  // namespace internal
 }  // namespace mojom
 }  // namespace cros_healthd
 }  // namespace ash
-
-// Includes removed due to no code being generated.

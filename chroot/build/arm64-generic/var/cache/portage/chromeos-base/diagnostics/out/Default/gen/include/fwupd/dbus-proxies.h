@@ -370,6 +370,27 @@ class fwupdProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
+  virtual bool SetBiosSettings(
+      const std::map<std::string, std::string>& in_settings,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual void SetBiosSettingsAsync(
+      const std::map<std::string, std::string>& in_settings,
+      base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual bool GetBiosSettings(
+      std::vector<brillo::VariantDictionary>* out_attrs,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual void GetBiosSettingsAsync(
+      base::OnceCallback<void(const std::vector<brillo::VariantDictionary>& /*attrs*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
   virtual bool Quit(
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
@@ -403,6 +424,8 @@ class fwupdProxyInterface {
   virtual const std::string& daemon_version() const = 0;
   static const char* HostBkcName() { return "HostBkc"; }
   virtual const std::string& host_bkc() const = 0;
+  static const char* HostVendorName() { return "HostVendor"; }
+  virtual const std::string& host_vendor() const = 0;
   static const char* HostProductName() { return "HostProduct"; }
   virtual const std::string& host_product() const = 0;
   static const char* HostMachineIdName() { return "HostMachineId"; }
@@ -449,6 +472,7 @@ class fwupdProxy final : public fwupdProxyInterface {
                             callback} {
       RegisterProperty(DaemonVersionName(), &daemon_version);
       RegisterProperty(HostBkcName(), &host_bkc);
+      RegisterProperty(HostVendorName(), &host_vendor);
       RegisterProperty(HostProductName(), &host_product);
       RegisterProperty(HostMachineIdName(), &host_machine_id);
       RegisterProperty(HostSecurityIdName(), &host_security_id);
@@ -465,6 +489,7 @@ class fwupdProxy final : public fwupdProxyInterface {
 
     brillo::dbus_utils::Property<std::string> daemon_version;
     brillo::dbus_utils::Property<std::string> host_bkc;
+    brillo::dbus_utils::Property<std::string> host_vendor;
     brillo::dbus_utils::Property<std::string> host_product;
     brillo::dbus_utils::Property<std::string> host_machine_id;
     brillo::dbus_utils::Property<std::string> host_security_id;
@@ -1464,6 +1489,63 @@ class fwupdProxy final : public fwupdProxyInterface {
         in_options);
   }
 
+  bool SetBiosSettings(
+      const std::map<std::string, std::string>& in_settings,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.freedesktop.fwupd",
+        "SetBiosSettings",
+        error,
+        in_settings);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error);
+  }
+
+  void SetBiosSettingsAsync(
+      const std::map<std::string, std::string>& in_settings,
+      base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.freedesktop.fwupd",
+        "SetBiosSettings",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_settings);
+  }
+
+  bool GetBiosSettings(
+      std::vector<brillo::VariantDictionary>* out_attrs,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.freedesktop.fwupd",
+        "GetBiosSettings",
+        error);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_attrs);
+  }
+
+  void GetBiosSettingsAsync(
+      base::OnceCallback<void(const std::vector<brillo::VariantDictionary>& /*attrs*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.freedesktop.fwupd",
+        "GetBiosSettings",
+        std::move(success_callback),
+        std::move(error_callback));
+  }
+
   bool Quit(
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
@@ -1496,6 +1578,10 @@ class fwupdProxy final : public fwupdProxyInterface {
 
   const std::string& host_bkc() const override {
     return property_set_->host_bkc.value();
+  }
+
+  const std::string& host_vendor() const override {
+    return property_set_->host_vendor.value();
   }
 
   const std::string& host_product() const override {

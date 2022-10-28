@@ -17,6 +17,8 @@ namespace mojom {
 
 class  DelegateInterceptorForTesting : public Delegate {
   virtual Delegate* GetForwardingInterface() = 0;
+  void GetFingerprintFrame(::ash::cros_healthd::mojom::FingerprintCaptureType type, GetFingerprintFrameCallback callback) override;
+  void GetFingerprintInfo(GetFingerprintInfoCallback callback) override;
 };
 class  DelegateAsyncWaiter {
  public:
@@ -26,6 +28,12 @@ class  DelegateAsyncWaiter {
   DelegateAsyncWaiter& operator=(const DelegateAsyncWaiter&) = delete;
 
   ~DelegateAsyncWaiter();
+  void GetFingerprintFrame(
+      ::ash::cros_healthd::mojom::FingerprintCaptureType type, ::ash::cros_healthd::mojom::FingerprintFrameResultPtr* out_result, absl::optional<std::string>* out_err);
+  
+  void GetFingerprintInfo(
+      ::ash::cros_healthd::mojom::FingerprintInfoResultPtr* out_result, absl::optional<std::string>* out_err);
+  
 
  private:
   Delegate* const proxy_;

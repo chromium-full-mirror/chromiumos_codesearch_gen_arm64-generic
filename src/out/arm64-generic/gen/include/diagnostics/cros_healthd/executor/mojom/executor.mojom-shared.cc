@@ -22,6 +22,32 @@ namespace ash {
 namespace cros_healthd {
 namespace mojom {
 
+static NOINLINE const char* FingerprintCaptureTypeToStringHelper(FingerprintCaptureType value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case FingerprintCaptureType::kCheckerboardTest:
+      return "kCheckerboardTest";
+    case FingerprintCaptureType::kInvertedCheckerboardTest:
+      return "kInvertedCheckerboardTest";
+    case FingerprintCaptureType::kResetTest:
+      return "kResetTest";
+    default:
+      return nullptr;
+  }
+}
+
+std::string FingerprintCaptureTypeToString(FingerprintCaptureType value) {
+  const char *str = FingerprintCaptureTypeToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown FingerprintCaptureType value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, FingerprintCaptureType value) {
+  return os << FingerprintCaptureTypeToString(value);
+}
+
 namespace internal {
 
 
@@ -67,6 +93,63 @@ bool ExecutedProcessResult_Data::Validate(
 }
 
 ExecutedProcessResult_Data::ExecutedProcessResult_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool FingerprintInfoResult_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const FingerprintInfoResult_Data* object =
+      static_cast<const FingerprintInfoResult_Data*>(data);
+
+  return true;
+}
+
+FingerprintInfoResult_Data::FingerprintInfoResult_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool FingerprintFrameResult_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const FingerprintFrameResult_Data* object =
+      static_cast<const FingerprintFrameResult_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->frame, 1, validation_context)) {
+    return false;
+  }
+  const mojo::internal::ContainerValidateParams frame_validate_params(
+      0, false, nullptr);
+  if (!mojo::internal::ValidateContainer(object->frame, validation_context,
+                                         &frame_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+FingerprintFrameResult_Data::FingerprintFrameResult_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -727,7 +810,142 @@ bool Executor_GetLidAngle_ResponseParams_Data::Validate(
 Executor_GetLidAngle_ResponseParams_Data::Executor_GetLidAngle_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
+
+// static
+bool Executor_GetFingerprintFrame_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Executor_GetFingerprintFrame_Params_Data* object =
+      static_cast<const Executor_GetFingerprintFrame_Params_Data*>(data);
+
+
+  if (!::ash::cros_healthd::mojom::internal::FingerprintCaptureType_Data
+        ::Validate(object->type, validation_context))
+    return false;
+
+  return true;
+}
+
+Executor_GetFingerprintFrame_Params_Data::Executor_GetFingerprintFrame_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool Executor_GetFingerprintFrame_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Executor_GetFingerprintFrame_ResponseParams_Data* object =
+      static_cast<const Executor_GetFingerprintFrame_ResponseParams_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->result, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->result, validation_context))
+    return false;
+
+  const mojo::internal::ContainerValidateParams err_validate_params(
+      0, false, nullptr);
+  if (!mojo::internal::ValidateContainer(object->err, validation_context,
+                                         &err_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+Executor_GetFingerprintFrame_ResponseParams_Data::Executor_GetFingerprintFrame_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool Executor_GetFingerprintInfo_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Executor_GetFingerprintInfo_Params_Data* object =
+      static_cast<const Executor_GetFingerprintInfo_Params_Data*>(data);
+
+  return true;
+}
+
+Executor_GetFingerprintInfo_Params_Data::Executor_GetFingerprintInfo_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool Executor_GetFingerprintInfo_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Executor_GetFingerprintInfo_ResponseParams_Data* object =
+      static_cast<const Executor_GetFingerprintInfo_ResponseParams_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->result, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->result, validation_context))
+    return false;
+
+  const mojo::internal::ContainerValidateParams err_validate_params(
+      0, false, nullptr);
+  if (!mojo::internal::ValidateContainer(object->err, validation_context,
+                                         &err_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+Executor_GetFingerprintInfo_ResponseParams_Data::Executor_GetFingerprintInfo_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
 }  // namespace internal
 }  // namespace mojom
 }  // namespace cros_healthd
 }  // namespace ash
+
+namespace perfetto_libchrome {
+
+// static
+void TraceFormatTraits<::ash::cros_healthd::mojom::FingerprintCaptureType>::WriteIntoTrace(
+   perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::FingerprintCaptureType value) {
+  return std::move(context).WriteString(::ash::cros_healthd::mojom::FingerprintCaptureTypeToString(value));
+}
+
+} // namespace perfetto

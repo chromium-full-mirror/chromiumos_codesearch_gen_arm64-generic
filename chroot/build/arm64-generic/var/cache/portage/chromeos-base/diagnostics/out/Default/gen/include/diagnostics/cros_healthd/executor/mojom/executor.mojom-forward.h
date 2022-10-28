@@ -7,7 +7,7 @@
 #ifndef DIAGNOSTICS_CROS_HEALTHD_EXECUTOR_MOJOM_EXECUTOR_MOJOM_FORWARD_H_
 #define DIAGNOSTICS_CROS_HEALTHD_EXECUTOR_MOJOM_EXECUTOR_MOJOM_FORWARD_H_
 
-
+#include <stdint.h>
 
 #include "mojo/public/cpp/bindings/struct_forward.h"
 
@@ -26,8 +26,20 @@ namespace cros_healthd {
 namespace mojom {
 class ExecutedProcessResultDataView;
 
+class FingerprintInfoResultDataView;
+
+class FingerprintFrameResultDataView;
+
+
+enum class FingerprintCaptureType : int32_t;
 class ExecutedProcessResult;
 using ExecutedProcessResultPtr = mojo::InlinedStructPtr<ExecutedProcessResult>;
+
+class FingerprintInfoResult;
+using FingerprintInfoResultPtr = mojo::InlinedStructPtr<FingerprintInfoResult>;
+
+class FingerprintFrameResult;
+using FingerprintFrameResultPtr = mojo::StructPtr<FingerprintFrameResult>;
 
 class Executor;
 

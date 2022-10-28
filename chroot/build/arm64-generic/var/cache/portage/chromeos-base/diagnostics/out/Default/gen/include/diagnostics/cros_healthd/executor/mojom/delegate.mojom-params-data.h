@@ -20,8 +20,238 @@ namespace mojom {
 namespace internal {
 
 class ValidationContext;
+class  Delegate_GetFingerprintFrame_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t type;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<Delegate_GetFingerprintFrame_Params_Data>;
+
+  Delegate_GetFingerprintFrame_Params_Data();
+  ~Delegate_GetFingerprintFrame_Params_Data() = delete;
+};
+static_assert(sizeof(Delegate_GetFingerprintFrame_Params_Data) == 16,
+              "Bad sizeof(Delegate_GetFingerprintFrame_Params_Data)");
+class  Delegate_GetFingerprintFrame_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::FingerprintFrameResult_Data> result;
+  mojo::internal::Pointer<mojo::internal::String_Data> err;
+
+ private:
+  friend class mojo::internal::MessageFragment<Delegate_GetFingerprintFrame_ResponseParams_Data>;
+
+  Delegate_GetFingerprintFrame_ResponseParams_Data();
+  ~Delegate_GetFingerprintFrame_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(Delegate_GetFingerprintFrame_ResponseParams_Data) == 24,
+              "Bad sizeof(Delegate_GetFingerprintFrame_ResponseParams_Data)");
+class  Delegate_GetFingerprintInfo_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<Delegate_GetFingerprintInfo_Params_Data>;
+
+  Delegate_GetFingerprintInfo_Params_Data();
+  ~Delegate_GetFingerprintInfo_Params_Data() = delete;
+};
+static_assert(sizeof(Delegate_GetFingerprintInfo_Params_Data) == 8,
+              "Bad sizeof(Delegate_GetFingerprintInfo_Params_Data)");
+class  Delegate_GetFingerprintInfo_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::FingerprintInfoResult_Data> result;
+  mojo::internal::Pointer<mojo::internal::String_Data> err;
+
+ private:
+  friend class mojo::internal::MessageFragment<Delegate_GetFingerprintInfo_ResponseParams_Data>;
+
+  Delegate_GetFingerprintInfo_ResponseParams_Data();
+  ~Delegate_GetFingerprintInfo_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(Delegate_GetFingerprintInfo_ResponseParams_Data) == 24,
+              "Bad sizeof(Delegate_GetFingerprintInfo_ResponseParams_Data)");
 
 }  // namespace internal
+
+
+class Delegate_GetFingerprintFrame_ParamsDataView {
+ public:
+  Delegate_GetFingerprintFrame_ParamsDataView() = default;
+
+  Delegate_GetFingerprintFrame_ParamsDataView(
+      internal::Delegate_GetFingerprintFrame_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadType(UserType* output) const {
+    auto data_value = data_->type;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::FingerprintCaptureType>(
+        data_value, output);
+  }
+  ::ash::cros_healthd::mojom::FingerprintCaptureType type() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::cros_healthd::mojom::FingerprintCaptureType>(data_->type));
+  }
+ private:
+  internal::Delegate_GetFingerprintFrame_Params_Data* data_ = nullptr;
+};
+
+
+
+class Delegate_GetFingerprintFrame_ResponseParamsDataView {
+ public:
+  Delegate_GetFingerprintFrame_ResponseParamsDataView() = default;
+
+  Delegate_GetFingerprintFrame_ResponseParamsDataView(
+      internal::Delegate_GetFingerprintFrame_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetResultDataView(
+      ::ash::cros_healthd::mojom::FingerprintFrameResultDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadResult(UserType* output) {
+    
+    auto* pointer = data_->result.Get();
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::FingerprintFrameResultDataView>(
+        pointer, output, message_);
+  }
+  inline void GetErrDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadErr(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::StringDataView, UserType>(),
+    "Attempting to read the optional `err` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadErr` instead "
+    "of `ReadErr if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->err.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::Delegate_GetFingerprintFrame_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
+class Delegate_GetFingerprintInfo_ParamsDataView {
+ public:
+  Delegate_GetFingerprintInfo_ParamsDataView() = default;
+
+  Delegate_GetFingerprintInfo_ParamsDataView(
+      internal::Delegate_GetFingerprintInfo_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::Delegate_GetFingerprintInfo_Params_Data* data_ = nullptr;
+};
+
+
+
+class Delegate_GetFingerprintInfo_ResponseParamsDataView {
+ public:
+  Delegate_GetFingerprintInfo_ResponseParamsDataView() = default;
+
+  Delegate_GetFingerprintInfo_ResponseParamsDataView(
+      internal::Delegate_GetFingerprintInfo_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetResultDataView(
+      ::ash::cros_healthd::mojom::FingerprintInfoResultDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadResult(UserType* output) {
+    
+    auto* pointer = data_->result.Get();
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::FingerprintInfoResultDataView>(
+        pointer, output, message_);
+  }
+  inline void GetErrDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadErr(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::StringDataView, UserType>(),
+    "Attempting to read the optional `err` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadErr` instead "
+    "of `ReadErr if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->err.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::Delegate_GetFingerprintInfo_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
+
+inline void Delegate_GetFingerprintFrame_ResponseParamsDataView::GetResultDataView(
+    ::ash::cros_healthd::mojom::FingerprintFrameResultDataView* output) {
+  auto pointer = data_->result.Get();
+  *output = ::ash::cros_healthd::mojom::FingerprintFrameResultDataView(pointer, message_);
+}
+inline void Delegate_GetFingerprintFrame_ResponseParamsDataView::GetErrDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->err.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
+
+
+inline void Delegate_GetFingerprintInfo_ResponseParamsDataView::GetResultDataView(
+    ::ash::cros_healthd::mojom::FingerprintInfoResultDataView* output) {
+  auto pointer = data_->result.Get();
+  *output = ::ash::cros_healthd::mojom::FingerprintInfoResultDataView(pointer, message_);
+}
+inline void Delegate_GetFingerprintInfo_ResponseParamsDataView::GetErrDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->err.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
 }  // namespace mojom
 }  // namespace cros_healthd
 }  // namespace ash

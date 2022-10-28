@@ -107,6 +107,90 @@ bool ExecutedProcessResult::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+FingerprintInfoResult::FingerprintInfoResult()
+    : rw_fw() {}
+
+FingerprintInfoResult::FingerprintInfoResult(
+    bool rw_fw_in)
+    : rw_fw(std::move(rw_fw_in)) {}
+
+FingerprintInfoResult::~FingerprintInfoResult() = default;
+size_t FingerprintInfoResult::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->rw_fw);
+  return seed;
+}
+
+void FingerprintInfoResult::WriteIntoTrace(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "rw_fw"), this->rw_fw,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool FingerprintInfoResult::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+FingerprintFrameResult::FingerprintFrameResult()
+    : frame(),
+      width(),
+      height() {}
+
+FingerprintFrameResult::FingerprintFrameResult(
+    std::vector<uint8_t> frame_in,
+    int32_t width_in,
+    int32_t height_in)
+    : frame(std::move(frame_in)),
+      width(std::move(width_in)),
+      height(std::move(height_in)) {}
+
+FingerprintFrameResult::~FingerprintFrameResult() = default;
+
+void FingerprintFrameResult::WriteIntoTrace(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "frame"), this->frame,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::vector<uint8_t>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "width"), this->width,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type int32_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "height"), this->height,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type int32_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool FingerprintFrameResult::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 const char Executor::Name_[] = "ash.cros_healthd.mojom.Executor";
 
 Executor::IPCStableHashFunction Executor::MessageToMethodInfo_(mojo::Message& message) {
@@ -148,6 +232,12 @@ Executor::IPCStableHashFunction Executor::MessageToMethodInfo_(mojo::Message& me
     case internal::kExecutor_GetLidAngle_Name: {
       return &Executor::GetLidAngle_Sym::IPCStableHash;
     }
+    case internal::kExecutor_GetFingerprintFrame_Name: {
+      return &Executor::GetFingerprintFrame_Sym::IPCStableHash;
+    }
+    case internal::kExecutor_GetFingerprintInfo_Name: {
+      return &Executor::GetFingerprintInfo_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -183,6 +273,10 @@ const char* Executor::MessageToMethodName_(mojo::Message& message) {
             return "Receive ash::cros_healthd::mojom::Executor::GetUEFIPlatformSizeContent";
       case internal::kExecutor_GetLidAngle_Name:
             return "Receive ash::cros_healthd::mojom::Executor::GetLidAngle";
+      case internal::kExecutor_GetFingerprintFrame_Name:
+            return "Receive ash::cros_healthd::mojom::Executor::GetFingerprintFrame";
+      case internal::kExecutor_GetFingerprintInfo_Name:
+            return "Receive ash::cros_healthd::mojom::Executor::GetFingerprintInfo";
     }
   } else {
     switch (message.name()) {
@@ -210,6 +304,10 @@ const char* Executor::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply ash::cros_healthd::mojom::Executor::GetUEFIPlatformSizeContent";
       case internal::kExecutor_GetLidAngle_Name:
             return "Receive reply ash::cros_healthd::mojom::Executor::GetLidAngle";
+      case internal::kExecutor_GetFingerprintFrame_Name:
+            return "Receive reply ash::cros_healthd::mojom::Executor::GetFingerprintFrame";
+      case internal::kExecutor_GetFingerprintInfo_Name:
+            return "Receive reply ash::cros_healthd::mojom::Executor::GetFingerprintInfo";
     }
   }
   return "Receive unknown mojo message";
@@ -376,6 +474,32 @@ uint32_t Executor::GetLidAngle_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)ash::cros_healthd::mojom::Executor::GetLidAngle");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t Executor::GetFingerprintFrame_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::Executor::GetFingerprintFrame");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t Executor::GetFingerprintInfo_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::Executor::GetFingerprintInfo");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -556,6 +680,38 @@ class Executor_GetLidAngle_ForwardToCallback
   bool Accept(mojo::Message* message) override;
  private:
   Executor::GetLidAngleCallback callback_;
+};
+
+class Executor_GetFingerprintFrame_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  Executor_GetFingerprintFrame_ForwardToCallback(
+      Executor::GetFingerprintFrameCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  Executor_GetFingerprintFrame_ForwardToCallback(const Executor_GetFingerprintFrame_ForwardToCallback&) = delete;
+  Executor_GetFingerprintFrame_ForwardToCallback& operator=(const Executor_GetFingerprintFrame_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  Executor::GetFingerprintFrameCallback callback_;
+};
+
+class Executor_GetFingerprintInfo_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  Executor_GetFingerprintInfo_ForwardToCallback(
+      Executor::GetFingerprintInfoCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  Executor_GetFingerprintInfo_ForwardToCallback(const Executor_GetFingerprintInfo_ForwardToCallback&) = delete;
+  Executor_GetFingerprintInfo_ForwardToCallback& operator=(const Executor_GetFingerprintInfo_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  Executor::GetFingerprintInfoCallback callback_;
 };
 
 ExecutorProxy::ExecutorProxy(mojo::MessageReceiverWithResponder* receiver)
@@ -1023,6 +1179,77 @@ void ExecutorProxy::GetLidAngle(
 #endif
   std::unique_ptr<mojo::MessageReceiver> responder(
       new Executor_GetLidAngle_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void ExecutorProxy::GetFingerprintFrame(
+    FingerprintCaptureType in_type, GetFingerprintFrameCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send ash::cros_healthd::mojom::Executor::GetFingerprintFrame", "input_parameters",
+    [&](perfetto_libchrome::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("type"), in_type,
+                        "<value of type FingerprintCaptureType>");
+   });
+#endif
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kExecutor_GetFingerprintFrame_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::Executor_GetFingerprintFrame_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::FingerprintCaptureType>(
+      in_type, &params->type);
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Executor::Name_);
+  message.set_method_name("GetFingerprintFrame");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new Executor_GetFingerprintFrame_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void ExecutorProxy::GetFingerprintInfo(
+    GetFingerprintInfoCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send ash::cros_healthd::mojom::Executor::GetFingerprintInfo");
+#endif
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kExecutor_GetFingerprintInfo_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::Executor_GetFingerprintInfo_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Executor::Name_);
+  message.set_method_name("GetFingerprintInfo");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new Executor_GetFingerprintInfo_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
@@ -2388,6 +2615,282 @@ void Executor_GetLidAngle_ProxyToResponder::Run(
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
+class Executor_GetFingerprintFrame_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static Executor::GetFingerprintFrameCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<Executor_GetFingerprintFrame_ProxyToResponder> proxy(
+        new Executor_GetFingerprintFrame_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&Executor_GetFingerprintFrame_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~Executor_GetFingerprintFrame_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  Executor_GetFingerprintFrame_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "Executor::GetFingerprintFrameCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      FingerprintFrameResultPtr in_result, const absl::optional<std::string>& in_err);
+};
+
+bool Executor_GetFingerprintFrame_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::Executor_GetFingerprintFrame_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::Executor_GetFingerprintFrame_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  FingerprintFrameResultPtr p_result{};
+  absl::optional<std::string> p_err{};
+  Executor_GetFingerprintFrame_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadResult(&p_result))
+    success = false;
+  if (success && !input_data_view.ReadErr(&p_err))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        Executor::Name_, 12, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_result), 
+std::move(p_err));
+  return true;
+}
+
+void Executor_GetFingerprintFrame_ProxyToResponder::Run(
+    FingerprintFrameResultPtr in_result, const absl::optional<std::string>& in_err) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply ash::cros_healthd::mojom::Executor::GetFingerprintFrame", "async_response_parameters",
+    [&](perfetto_libchrome::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("result"), in_result,
+                        "<value of type FingerprintFrameResultPtr>");
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("err"), in_err,
+                        "<value of type const absl::optional<std::string>&>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kExecutor_GetFingerprintFrame_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::Executor_GetFingerprintFrame_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->result)::BaseType> result_fragment(
+          params.message());
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::FingerprintFrameResultDataView>(
+      in_result, result_fragment);
+  params->result.Set(
+      result_fragment.is_null() ? nullptr : result_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->result.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null result in ");
+  mojo::internal::MessageFragment<
+      typename decltype(params->err)::BaseType> err_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_err, err_fragment);
+  params->err.Set(
+      err_fragment.is_null() ? nullptr : err_fragment.data());
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Executor::Name_);
+  message.set_method_name("GetFingerprintFrame");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
+class Executor_GetFingerprintInfo_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static Executor::GetFingerprintInfoCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<Executor_GetFingerprintInfo_ProxyToResponder> proxy(
+        new Executor_GetFingerprintInfo_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&Executor_GetFingerprintInfo_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~Executor_GetFingerprintInfo_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  Executor_GetFingerprintInfo_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "Executor::GetFingerprintInfoCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      FingerprintInfoResultPtr in_result, const absl::optional<std::string>& in_err);
+};
+
+bool Executor_GetFingerprintInfo_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::Executor_GetFingerprintInfo_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::Executor_GetFingerprintInfo_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  FingerprintInfoResultPtr p_result{};
+  absl::optional<std::string> p_err{};
+  Executor_GetFingerprintInfo_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadResult(&p_result))
+    success = false;
+  if (success && !input_data_view.ReadErr(&p_err))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        Executor::Name_, 13, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_result), 
+std::move(p_err));
+  return true;
+}
+
+void Executor_GetFingerprintInfo_ProxyToResponder::Run(
+    FingerprintInfoResultPtr in_result, const absl::optional<std::string>& in_err) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply ash::cros_healthd::mojom::Executor::GetFingerprintInfo", "async_response_parameters",
+    [&](perfetto_libchrome::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("result"), in_result,
+                        "<value of type FingerprintInfoResultPtr>");
+      perfetto_libchrome::WriteIntoTracedValueWithFallback(
+           dict.AddItem("err"), in_err,
+                        "<value of type const absl::optional<std::string>&>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kExecutor_GetFingerprintInfo_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::Executor_GetFingerprintInfo_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->result)::BaseType> result_fragment(
+          params.message());
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::FingerprintInfoResultDataView>(
+      in_result, result_fragment);
+  params->result.Set(
+      result_fragment.is_null() ? nullptr : result_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->result.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null result in ");
+  mojo::internal::MessageFragment<
+      typename decltype(params->err)::BaseType> err_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_err, err_fragment);
+  params->err.Set(
+      err_fragment.is_null() ? nullptr : err_fragment.data());
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(Executor::Name_);
+  message.set_method_name("GetFingerprintInfo");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
 
 // static
 bool ExecutorStubDispatch::Accept(
@@ -2447,6 +2950,12 @@ bool ExecutorStubDispatch::Accept(
       break;
     }
     case internal::kExecutor_GetLidAngle_Name: {
+      break;
+    }
+    case internal::kExecutor_GetFingerprintFrame_Name: {
+      break;
+    }
+    case internal::kExecutor_GetFingerprintInfo_Name: {
       break;
     }
   }
@@ -2768,6 +3277,60 @@ std::move(p_cpu_index), std::move(callback));
       impl->GetLidAngle(std::move(callback));
       return true;
     }
+    case internal::kExecutor_GetFingerprintFrame_Name: {
+
+      internal::Executor_GetFingerprintFrame_Params_Data* params =
+          reinterpret_cast<
+              internal::Executor_GetFingerprintFrame_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      FingerprintCaptureType p_type{};
+      Executor_GetFingerprintFrame_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadType(&p_type))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            Executor::Name_, 12, false);
+        return false;
+      }
+      Executor::GetFingerprintFrameCallback callback =
+          Executor_GetFingerprintFrame_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->GetFingerprintFrame(
+std::move(p_type), std::move(callback));
+      return true;
+    }
+    case internal::kExecutor_GetFingerprintInfo_Name: {
+
+      internal::Executor_GetFingerprintInfo_Params_Data* params =
+          reinterpret_cast<
+              internal::Executor_GetFingerprintInfo_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      Executor_GetFingerprintInfo_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            Executor::Name_, 13, false);
+        return false;
+      }
+      Executor::GetFingerprintInfoCallback callback =
+          Executor_GetFingerprintInfo_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->GetFingerprintInfo(std::move(callback));
+      return true;
+    }
   }
   return false;
 }
@@ -2798,6 +3361,10 @@ static const mojo::internal::GenericValidationInfo kExecutorValidationInfo[] = {
      &internal::Executor_GetUEFIPlatformSizeContent_ResponseParams_Data::Validate},
     {&internal::Executor_GetLidAngle_Params_Data::Validate,
      &internal::Executor_GetLidAngle_ResponseParams_Data::Validate},
+    {&internal::Executor_GetFingerprintFrame_Params_Data::Validate,
+     &internal::Executor_GetFingerprintFrame_ResponseParams_Data::Validate},
+    {&internal::Executor_GetFingerprintInfo_Params_Data::Validate,
+     &internal::Executor_GetFingerprintInfo_ResponseParams_Data::Validate},
 };
 
 bool ExecutorRequestValidator::Accept(mojo::Message* message) {
@@ -2832,6 +3399,38 @@ bool StructTraits<::ash::cros_healthd::mojom::ExecutedProcessResult::DataView, :
         success = false;
       if (success && !input.ReadErr(&result->err))
         success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::FingerprintInfoResult::DataView, ::ash::cros_healthd::mojom::FingerprintInfoResultPtr>::Read(
+    ::ash::cros_healthd::mojom::FingerprintInfoResult::DataView input,
+    ::ash::cros_healthd::mojom::FingerprintInfoResultPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::FingerprintInfoResultPtr result(::ash::cros_healthd::mojom::FingerprintInfoResult::New());
+  
+      if (success)
+        result->rw_fw = input.rw_fw();
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::FingerprintFrameResult::DataView, ::ash::cros_healthd::mojom::FingerprintFrameResultPtr>::Read(
+    ::ash::cros_healthd::mojom::FingerprintFrameResult::DataView input,
+    ::ash::cros_healthd::mojom::FingerprintFrameResultPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::FingerprintFrameResultPtr result(::ash::cros_healthd::mojom::FingerprintFrameResult::New());
+  
+      if (success && !input.ReadFrame(&result->frame))
+        success = false;
+      if (success)
+        result->width = input.width();
+      if (success)
+        result->height = input.height();
   *output = std::move(result);
   return success;
 }
@@ -2883,6 +3482,12 @@ void ExecutorInterceptorForTesting::GetUEFIPlatformSizeContent(GetUEFIPlatformSi
 }
 void ExecutorInterceptorForTesting::GetLidAngle(GetLidAngleCallback callback) {
   GetForwardingInterface()->GetLidAngle(std::move(callback));
+}
+void ExecutorInterceptorForTesting::GetFingerprintFrame(FingerprintCaptureType type, GetFingerprintFrameCallback callback) {
+  GetForwardingInterface()->GetFingerprintFrame(std::move(type), std::move(callback));
+}
+void ExecutorInterceptorForTesting::GetFingerprintInfo(GetFingerprintInfoCallback callback) {
+  GetForwardingInterface()->GetFingerprintInfo(std::move(callback));
 }
 ExecutorAsyncWaiter::ExecutorAsyncWaiter(
     Executor* proxy) : proxy_(proxy) {}
@@ -3141,6 +3746,50 @@ ExecutedProcessResultPtr ExecutorAsyncWaiter::GetLidAngle(
   GetLidAngle(&async_wait_result);
   return async_wait_result;
 }
+
+void ExecutorAsyncWaiter::GetFingerprintFrame(
+    FingerprintCaptureType type, FingerprintFrameResultPtr* out_result, absl::optional<std::string>* out_err) {
+  base::RunLoop loop;
+  proxy_->GetFingerprintFrame(std::move(type),
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             FingerprintFrameResultPtr* out_result
+,
+             absl::optional<std::string>* out_err
+,
+             FingerprintFrameResultPtr result,
+             const absl::optional<std::string>& err) {*out_result = std::move(result);*out_err = std::move(err);
+            loop->Quit();
+          },
+          &loop,
+          out_result,
+          out_err));
+  loop.Run();
+}
+
+
+
+void ExecutorAsyncWaiter::GetFingerprintInfo(
+    FingerprintInfoResultPtr* out_result, absl::optional<std::string>* out_err) {
+  base::RunLoop loop;
+  proxy_->GetFingerprintInfo(
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             FingerprintInfoResultPtr* out_result
+,
+             absl::optional<std::string>* out_err
+,
+             FingerprintInfoResultPtr result,
+             const absl::optional<std::string>& err) {*out_result = std::move(result);*out_err = std::move(err);
+            loop->Quit();
+          },
+          &loop,
+          out_result,
+          out_err));
+  loop.Run();
+}
+
+
 
 
 

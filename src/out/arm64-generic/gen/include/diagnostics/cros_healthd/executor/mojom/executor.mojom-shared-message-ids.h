@@ -27,6 +27,8 @@ constexpr uint32_t kExecutor_ReadMsr_Name = 8;
 constexpr uint32_t kExecutor_GetUEFISecureBootContent_Name = 9;
 constexpr uint32_t kExecutor_GetUEFIPlatformSizeContent_Name = 10;
 constexpr uint32_t kExecutor_GetLidAngle_Name = 11;
+constexpr uint32_t kExecutor_GetFingerprintFrame_Name = 12;
+constexpr uint32_t kExecutor_GetFingerprintInfo_Name = 13;
 
 }  // namespace internal
 }  // namespace mojom

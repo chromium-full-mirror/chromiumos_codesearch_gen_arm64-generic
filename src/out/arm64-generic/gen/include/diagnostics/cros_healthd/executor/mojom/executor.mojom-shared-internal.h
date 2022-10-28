@@ -26,6 +26,33 @@ namespace cros_healthd {
 namespace mojom {
 namespace internal {
 class ExecutedProcessResult_Data;
+class FingerprintInfoResult_Data;
+class FingerprintFrameResult_Data;
+
+struct FingerprintCaptureType_Data {
+ public:
+  static bool constexpr kIsExtensible = false;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
 
 #pragma pack(push, 1)
 class  ExecutedProcessResult_Data {
@@ -79,6 +106,105 @@ struct ExecutedProcessResult_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     ExecutedProcessResult_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  FingerprintInfoResult_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t rw_fw : 1;
+  uint8_t padfinal_[7];
+
+ private:
+  friend class mojo::internal::MessageFragment<FingerprintInfoResult_Data>;
+
+  FingerprintInfoResult_Data();
+  ~FingerprintInfoResult_Data() = delete;
+};
+static_assert(sizeof(FingerprintInfoResult_Data) == 16,
+              "Bad sizeof(FingerprintInfoResult_Data)");
+// Used by FingerprintInfoResult::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct FingerprintInfoResult_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  FingerprintInfoResult_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~FingerprintInfoResult_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<FingerprintInfoResult_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    FingerprintInfoResult_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  FingerprintFrameResult_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::Array_Data<uint8_t>> frame;
+  int32_t width;
+  int32_t height;
+
+ private:
+  friend class mojo::internal::MessageFragment<FingerprintFrameResult_Data>;
+
+  FingerprintFrameResult_Data();
+  ~FingerprintFrameResult_Data() = delete;
+};
+static_assert(sizeof(FingerprintFrameResult_Data) == 24,
+              "Bad sizeof(FingerprintFrameResult_Data)");
+// Used by FingerprintFrameResult::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct FingerprintFrameResult_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  FingerprintFrameResult_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~FingerprintFrameResult_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<FingerprintFrameResult_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    FingerprintFrameResult_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 
 #pragma pack(pop)
 

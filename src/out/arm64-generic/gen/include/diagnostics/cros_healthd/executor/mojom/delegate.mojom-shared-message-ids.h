@@ -15,6 +15,8 @@ namespace mojom {
 namespace internal {
 
 
+constexpr uint32_t kDelegate_GetFingerprintFrame_Name = 0;
+constexpr uint32_t kDelegate_GetFingerprintInfo_Name = 1;
 
 }  // namespace internal
 }  // namespace mojom

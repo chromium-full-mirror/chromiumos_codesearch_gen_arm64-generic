@@ -25,6 +25,7 @@
 
 #include "diagnostics/cros_healthd/executor/mojom/delegate.mojom-shared.h"
 #include "diagnostics/cros_healthd/executor/mojom/delegate.mojom-forward.h"
+#include "diagnostics/cros_healthd/executor/mojom/executor.mojom-forward.h"
 #include <string>
 #include <vector>
 
@@ -46,6 +47,7 @@ template <typename ImplRefTraits>
 class DelegateStub;
 
 class DelegateRequestValidator;
+class DelegateResponseValidator;
 
 
 class  Delegate
@@ -68,15 +70,33 @@ class  Delegate
   using Stub_ = DelegateStub<ImplRefTraits>;
 
   using RequestValidator_ = DelegateRequestValidator;
-  using ResponseValidator_ = mojo::PassThroughFilter;
+  using ResponseValidator_ = DelegateResponseValidator;
   enum MethodMinVersions : uint32_t {
+    kGetFingerprintFrameMinVersion = 0,
+    kGetFingerprintInfoMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
 // with not having this data in traces there.
 #if !BUILDFLAG(IS_FUCHSIA)
+  struct GetFingerprintFrame_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct GetFingerprintInfo_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~Delegate() = default;
+
+
+  using GetFingerprintFrameCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::FingerprintFrameResultPtr, const absl::optional<std::string>&)>;
+  
+  virtual void GetFingerprintFrame(::ash::cros_healthd::mojom::FingerprintCaptureType type, GetFingerprintFrameCallback callback) = 0;
+
+
+  using GetFingerprintInfoCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::FingerprintInfoResultPtr, const absl::optional<std::string>&)>;
+  
+  virtual void GetFingerprintInfo(GetFingerprintInfoCallback callback) = 0;
 };
 
 
@@ -87,6 +107,10 @@ class  DelegateProxy
   using InterfaceType = Delegate;
 
   explicit DelegateProxy(mojo::MessageReceiverWithResponder* receiver);
+  
+  void GetFingerprintFrame(::ash::cros_healthd::mojom::FingerprintCaptureType type, GetFingerprintFrameCallback callback) final;
+  
+  void GetFingerprintInfo(GetFingerprintInfoCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -133,6 +157,10 @@ class DelegateStub
   ImplPointerType sink_;
 };
 class  DelegateRequestValidator : public mojo::MessageReceiver {
+ public:
+  bool Accept(mojo::Message* message) override;
+};
+class  DelegateResponseValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
 };

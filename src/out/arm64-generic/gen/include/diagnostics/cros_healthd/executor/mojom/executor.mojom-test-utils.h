@@ -29,6 +29,8 @@ class  ExecutorInterceptorForTesting : public Executor {
   void GetUEFISecureBootContent(GetUEFISecureBootContentCallback callback) override;
   void GetUEFIPlatformSizeContent(GetUEFIPlatformSizeContentCallback callback) override;
   void GetLidAngle(GetLidAngleCallback callback) override;
+  void GetFingerprintFrame(FingerprintCaptureType type, GetFingerprintFrameCallback callback) override;
+  void GetFingerprintInfo(GetFingerprintInfoCallback callback) override;
 };
 class  ExecutorAsyncWaiter {
  public:
@@ -71,6 +73,12 @@ class  ExecutorAsyncWaiter {
   void GetLidAngle(
       ExecutedProcessResultPtr* out_result);
   ExecutedProcessResultPtr GetLidAngle();
+  void GetFingerprintFrame(
+      FingerprintCaptureType type, FingerprintFrameResultPtr* out_result, absl::optional<std::string>* out_err);
+  
+  void GetFingerprintInfo(
+      FingerprintInfoResultPtr* out_result, absl::optional<std::string>* out_err);
+  
 
  private:
   Executor* const proxy_;

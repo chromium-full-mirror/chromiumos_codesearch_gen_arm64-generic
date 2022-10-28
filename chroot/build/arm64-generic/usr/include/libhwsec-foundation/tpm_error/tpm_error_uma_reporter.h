@@ -5,6 +5,8 @@
 #ifndef LIBHWSEC_FOUNDATION_TPM_ERROR_TPM_ERROR_UMA_REPORTER_H_
 #define LIBHWSEC_FOUNDATION_TPM_ERROR_TPM_ERROR_UMA_REPORTER_H_
 
+#include <string>
+
 #include <metrics/metrics_library.h>
 
 #include "libhwsec-foundation/hwsec-foundation_export.h"
@@ -12,26 +14,31 @@
 
 namespace hwsec_foundation {
 
+enum class HWSEC_FOUNDATION_EXPORT TpmMetricsClientID {
+  kUnknown = 0,
+  kCryptohome = 1,
+  kAttestation = 2,
+  kTpmManager = 3,
+  kChaps = 4,
+  kVtpm = 5,
+  kU2f = 6,
+  kTrunksSend = 7,
+};
+
+void HWSEC_FOUNDATION_EXPORT SetTpmMetricsClientID(TpmMetricsClientID id);
+TpmMetricsClientID HWSEC_FOUNDATION_EXPORT GetTpmMetricsClientID();
+
 // Reports various types of UMA regarding to TPM errors.
 class HWSEC_FOUNDATION_EXPORT TpmErrorUmaReporter {
  public:
-  TpmErrorUmaReporter() = default;
-  // Constructs the object with injected `metrics`; used for testing.
-  explicit TpmErrorUmaReporter(MetricsLibraryInterface* metrics);
-  ~TpmErrorUmaReporter() = default;
-
-  // Not copyable or movable.
-  TpmErrorUmaReporter(const TpmErrorUmaReporter&) = delete;
-  TpmErrorUmaReporter& operator=(const TpmErrorUmaReporter&) = delete;
-  TpmErrorUmaReporter(TpmErrorUmaReporter&&) = delete;
-  TpmErrorUmaReporter& operator=(TpmErrorUmaReporter&&) = delete;
+  virtual ~TpmErrorUmaReporter() = default;
 
   // Reports the UMAs according to the error indicated in `data`, if necessary.
-  void Report(const TpmErrorData& data);
+  virtual void Report(const TpmErrorData& data) = 0;
 
- private:
-  MetricsLibrary default_metrics_;
-  MetricsLibraryInterface* metrics_ = &default_metrics_;
+  // Report the TPM2 command and response. The |data|.command should be less
+  // then 2^12 and the |data|.response should be less then 2^16.
+  virtual bool ReportTpm2CommandAndResponse(const TpmErrorData& data) = 0;
 };
 
 }  // namespace hwsec_foundation

@@ -84,6 +84,8 @@ class  Executor
     kGetUEFISecureBootContentMinVersion = 0,
     kGetUEFIPlatformSizeContentMinVersion = 0,
     kGetLidAngleMinVersion = 0,
+    kGetFingerprintFrameMinVersion = 0,
+    kGetFingerprintInfoMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -123,6 +125,12 @@ class  Executor
     NOINLINE static uint32_t IPCStableHash();
   };
   struct GetLidAngle_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct GetFingerprintFrame_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct GetFingerprintInfo_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -185,6 +193,16 @@ class  Executor
   using GetLidAngleCallback = base::OnceCallback<void(ExecutedProcessResultPtr)>;
   
   virtual void GetLidAngle(GetLidAngleCallback callback) = 0;
+
+
+  using GetFingerprintFrameCallback = base::OnceCallback<void(FingerprintFrameResultPtr, const absl::optional<std::string>&)>;
+  
+  virtual void GetFingerprintFrame(FingerprintCaptureType type, GetFingerprintFrameCallback callback) = 0;
+
+
+  using GetFingerprintInfoCallback = base::OnceCallback<void(FingerprintInfoResultPtr, const absl::optional<std::string>&)>;
+  
+  virtual void GetFingerprintInfo(GetFingerprintInfoCallback callback) = 0;
 };
 
 
@@ -219,6 +237,10 @@ class  ExecutorProxy
   void GetUEFIPlatformSizeContent(GetUEFIPlatformSizeContentCallback callback) final;
   
   void GetLidAngle(GetLidAngleCallback callback) final;
+  
+  void GetFingerprintFrame(FingerprintCaptureType type, GetFingerprintFrameCallback callback) final;
+  
+  void GetFingerprintInfo(GetFingerprintInfoCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -420,6 +442,289 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+
+class  FingerprintInfoResult {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<FingerprintInfoResult, T>::value>;
+  using DataView = FingerprintInfoResultDataView;
+  using Data_ = internal::FingerprintInfoResult_Data;
+
+  template <typename... Args>
+  static FingerprintInfoResultPtr New(Args&&... args) {
+    return FingerprintInfoResultPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static FingerprintInfoResultPtr From(const U& u) {
+    return mojo::TypeConverter<FingerprintInfoResultPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, FingerprintInfoResult>::Convert(*this);
+  }
+
+
+  FingerprintInfoResult();
+
+  explicit FingerprintInfoResult(
+      bool rw_fw);
+
+
+  ~FingerprintInfoResult();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = FingerprintInfoResultPtr>
+  FingerprintInfoResultPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, FingerprintInfoResult::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, FingerprintInfoResult::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        FingerprintInfoResult::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        FingerprintInfoResult::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::FingerprintInfoResult_UnserializedMessageContext<
+            UserType, FingerprintInfoResult::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<FingerprintInfoResult::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return FingerprintInfoResult::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::FingerprintInfoResult_UnserializedMessageContext<
+            UserType, FingerprintInfoResult::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<FingerprintInfoResult::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  bool rw_fw;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, FingerprintInfoResult::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, FingerprintInfoResult::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, FingerprintInfoResult::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, FingerprintInfoResult::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+
+
+
+
+
+class  FingerprintFrameResult {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<FingerprintFrameResult, T>::value>;
+  using DataView = FingerprintFrameResultDataView;
+  using Data_ = internal::FingerprintFrameResult_Data;
+
+  template <typename... Args>
+  static FingerprintFrameResultPtr New(Args&&... args) {
+    return FingerprintFrameResultPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static FingerprintFrameResultPtr From(const U& u) {
+    return mojo::TypeConverter<FingerprintFrameResultPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, FingerprintFrameResult>::Convert(*this);
+  }
+
+
+  FingerprintFrameResult();
+
+  FingerprintFrameResult(
+      std::vector<uint8_t> frame,
+      int32_t width,
+      int32_t height);
+
+
+  ~FingerprintFrameResult();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = FingerprintFrameResultPtr>
+  FingerprintFrameResultPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, FingerprintFrameResult::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, FingerprintFrameResult::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        FingerprintFrameResult::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        FingerprintFrameResult::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::FingerprintFrameResult_UnserializedMessageContext<
+            UserType, FingerprintFrameResult::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<FingerprintFrameResult::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return FingerprintFrameResult::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::FingerprintFrameResult_UnserializedMessageContext<
+            UserType, FingerprintFrameResult::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<FingerprintFrameResult::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  std::vector<uint8_t> frame;
+  
+  int32_t width;
+  
+  int32_t height;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto_libchrome::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, FingerprintFrameResult::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, FingerprintFrameResult::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, FingerprintFrameResult::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, FingerprintFrameResult::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
 template <typename StructPtrType>
 ExecutedProcessResultPtr ExecutedProcessResult::Clone() const {
   return New(
@@ -456,6 +761,64 @@ bool operator<(const T& lhs, const T& rhs) {
     return false;
   return false;
 }
+template <typename StructPtrType>
+FingerprintInfoResultPtr FingerprintInfoResult::Clone() const {
+  return New(
+      mojo::Clone(rw_fw)
+  );
+}
+
+template <typename T, FingerprintInfoResult::EnableIfSame<T>*>
+bool FingerprintInfoResult::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->rw_fw, other_struct.rw_fw))
+    return false;
+  return true;
+}
+
+template <typename T, FingerprintInfoResult::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.rw_fw < rhs.rw_fw)
+    return true;
+  if (rhs.rw_fw < lhs.rw_fw)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+FingerprintFrameResultPtr FingerprintFrameResult::Clone() const {
+  return New(
+      mojo::Clone(frame),
+      mojo::Clone(width),
+      mojo::Clone(height)
+  );
+}
+
+template <typename T, FingerprintFrameResult::EnableIfSame<T>*>
+bool FingerprintFrameResult::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->frame, other_struct.frame))
+    return false;
+  if (!mojo::Equals(this->width, other_struct.width))
+    return false;
+  if (!mojo::Equals(this->height, other_struct.height))
+    return false;
+  return true;
+}
+
+template <typename T, FingerprintFrameResult::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.frame < rhs.frame)
+    return true;
+  if (rhs.frame < lhs.frame)
+    return false;
+  if (lhs.width < rhs.width)
+    return true;
+  if (rhs.width < lhs.width)
+    return false;
+  if (lhs.height < rhs.height)
+    return true;
+  if (rhs.height < lhs.height)
+    return false;
+  return false;
+}
 
 
 }  // namespace mojom
@@ -487,6 +850,46 @@ struct  StructTraits<::ash::cros_healthd::mojom::ExecutedProcessResult::DataView
   }
 
   static bool Read(::ash::cros_healthd::mojom::ExecutedProcessResult::DataView input, ::ash::cros_healthd::mojom::ExecutedProcessResultPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::ash::cros_healthd::mojom::FingerprintInfoResult::DataView,
+                                         ::ash::cros_healthd::mojom::FingerprintInfoResultPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::FingerprintInfoResultPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::FingerprintInfoResultPtr* output) { output->reset(); }
+
+  static decltype(::ash::cros_healthd::mojom::FingerprintInfoResult::rw_fw) rw_fw(
+      const ::ash::cros_healthd::mojom::FingerprintInfoResultPtr& input) {
+    return input->rw_fw;
+  }
+
+  static bool Read(::ash::cros_healthd::mojom::FingerprintInfoResult::DataView input, ::ash::cros_healthd::mojom::FingerprintInfoResultPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::ash::cros_healthd::mojom::FingerprintFrameResult::DataView,
+                                         ::ash::cros_healthd::mojom::FingerprintFrameResultPtr> {
+  static bool IsNull(const ::ash::cros_healthd::mojom::FingerprintFrameResultPtr& input) { return !input; }
+  static void SetToNull(::ash::cros_healthd::mojom::FingerprintFrameResultPtr* output) { output->reset(); }
+
+  static const decltype(::ash::cros_healthd::mojom::FingerprintFrameResult::frame)& frame(
+      const ::ash::cros_healthd::mojom::FingerprintFrameResultPtr& input) {
+    return input->frame;
+  }
+
+  static decltype(::ash::cros_healthd::mojom::FingerprintFrameResult::width) width(
+      const ::ash::cros_healthd::mojom::FingerprintFrameResultPtr& input) {
+    return input->width;
+  }
+
+  static decltype(::ash::cros_healthd::mojom::FingerprintFrameResult::height) height(
+      const ::ash::cros_healthd::mojom::FingerprintFrameResultPtr& input) {
+    return input->height;
+  }
+
+  static bool Read(::ash::cros_healthd::mojom::FingerprintFrameResult::DataView input, ::ash::cros_healthd::mojom::FingerprintFrameResultPtr* output);
 };
 
 }  // namespace mojo

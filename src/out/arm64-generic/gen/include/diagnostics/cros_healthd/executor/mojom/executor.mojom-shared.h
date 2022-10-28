@@ -38,6 +38,10 @@ namespace cros_healthd {
 namespace mojom {
 class ExecutedProcessResultDataView;
 
+class FingerprintInfoResultDataView;
+
+class FingerprintFrameResultDataView;
+
 
 
 }  // namespace mojom
@@ -54,6 +58,20 @@ struct MojomTypeTraits<::ash::cros_healthd::mojom::ExecutedProcessResultDataView
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::FingerprintInfoResultDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::FingerprintInfoResult_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::FingerprintFrameResultDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::FingerprintFrameResult_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
 }  // namespace internal
 }  // namespace mojo
 
@@ -61,6 +79,24 @@ struct MojomTypeTraits<::ash::cros_healthd::mojom::ExecutedProcessResultDataView
 namespace ash {
 namespace cros_healthd {
 namespace mojom {
+
+
+enum class FingerprintCaptureType : int32_t {
+  
+  kCheckerboardTest = 0,
+  
+  kInvertedCheckerboardTest = 1,
+  
+  kResetTest = 2,
+  kMinValue = 0,
+  kMaxValue = 2,
+};
+
+ std::ostream& operator<<(std::ostream& os, FingerprintCaptureType value);
+inline bool IsKnownEnumValue(FingerprintCaptureType value) {
+  return internal::FingerprintCaptureType_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
 // Interface base classes. They are used for type safety check.
 class ExecutorInterfaceBase {};
 
@@ -114,15 +150,91 @@ class ExecutedProcessResultDataView {
 
 
 
+class FingerprintInfoResultDataView {
+ public:
+  FingerprintInfoResultDataView() = default;
+
+  FingerprintInfoResultDataView(
+      internal::FingerprintInfoResult_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  bool rw_fw() const {
+    return data_->rw_fw;
+  }
+ private:
+  internal::FingerprintInfoResult_Data* data_ = nullptr;
+};
+
+
+
+class FingerprintFrameResultDataView {
+ public:
+  FingerprintFrameResultDataView() = default;
+
+  FingerprintFrameResultDataView(
+      internal::FingerprintFrameResult_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetFrameDataView(
+      mojo::ArrayDataView<uint8_t>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadFrame(UserType* output) {
+    
+    auto* pointer = data_->frame.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<uint8_t>>(
+        pointer, output, message_);
+  }
+  int32_t width() const {
+    return data_->width;
+  }
+  int32_t height() const {
+    return data_->height;
+  }
+ private:
+  internal::FingerprintFrameResult_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
 }  // namespace mojom
 }  // namespace cros_healthd
 }  // namespace ash
 
 namespace std {
 
+template <>
+struct hash<::ash::cros_healthd::mojom::FingerprintCaptureType>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::FingerprintCaptureType> {};
+
 }  // namespace std
 
 namespace mojo {
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::FingerprintCaptureType, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::FingerprintCaptureType, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::ash::cros_healthd::mojom::FingerprintCaptureType>(input)), output);
+  }
+};
+
+}  // namespace internal
 
 
 namespace internal {
@@ -178,6 +290,81 @@ struct Serializer<::ash::cros_healthd::mojom::ExecutedProcessResultDataView, May
 
 }  // namespace internal
 
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::FingerprintInfoResultDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::FingerprintInfoResultDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::FingerprintInfoResult_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    fragment->rw_fw = Traits::rw_fw(input);
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::FingerprintInfoResult_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::FingerprintInfoResultDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::FingerprintFrameResultDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::FingerprintFrameResultDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::FingerprintFrameResult_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::frame(input)) in_frame = Traits::frame(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->frame)::BaseType>
+        frame_fragment(fragment.message());
+    const mojo::internal::ContainerValidateParams frame_validate_params(
+        0, false, nullptr);
+    mojo::internal::Serialize<mojo::ArrayDataView<uint8_t>>(
+        in_frame, frame_fragment, &frame_validate_params);
+    fragment->frame.Set(
+        frame_fragment.is_null() ? nullptr : frame_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->frame.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null frame in FingerprintFrameResult struct");
+    fragment->width = Traits::width(input);
+    fragment->height = Traits::height(input);
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::FingerprintFrameResult_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::FingerprintFrameResultDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
 }  // namespace mojo
 
 
@@ -198,11 +385,29 @@ inline void ExecutedProcessResultDataView::GetErrDataView(
 
 
 
+
+inline void FingerprintFrameResultDataView::GetFrameDataView(
+    mojo::ArrayDataView<uint8_t>* output) {
+  auto pointer = data_->frame.Get();
+  *output = mojo::ArrayDataView<uint8_t>(pointer, message_);
+}
+
+
+
 }  // namespace mojom
 }  // namespace cros_healthd
 }  // namespace ash
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.
+
+namespace perfetto_libchrome {
+
+template <>
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::FingerprintCaptureType> {
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::ash::cros_healthd::mojom::FingerprintCaptureType value);
+};
+
+} // namespace perfetto
 
 #endif  // DIAGNOSTICS_CROS_HEALTHD_EXECUTOR_MOJOM_EXECUTOR_MOJOM_SHARED_H_

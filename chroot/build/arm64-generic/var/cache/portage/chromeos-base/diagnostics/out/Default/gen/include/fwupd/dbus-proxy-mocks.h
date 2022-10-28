@@ -304,6 +304,23 @@ class fwupdProxyMock : public fwupdProxyInterface {
                     base::OnceCallback<void(const std::string& /*sig*/)> /*success_callback*/,
                     base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
                     int /*timeout_ms*/));
+  MOCK_METHOD3(SetBiosSettings,
+               bool(const std::map<std::string, std::string>& /*in_settings*/,
+                    brillo::ErrorPtr* /*error*/,
+                    int /*timeout_ms*/));
+  MOCK_METHOD4(SetBiosSettingsAsync,
+               void(const std::map<std::string, std::string>& /*in_settings*/,
+                    base::OnceCallback<void()> /*success_callback*/,
+                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+                    int /*timeout_ms*/));
+  MOCK_METHOD3(GetBiosSettings,
+               bool(std::vector<brillo::VariantDictionary>* /*out_attrs*/,
+                    brillo::ErrorPtr* /*error*/,
+                    int /*timeout_ms*/));
+  MOCK_METHOD3(GetBiosSettingsAsync,
+               void(base::OnceCallback<void(const std::vector<brillo::VariantDictionary>& /*attrs*/)> /*success_callback*/,
+                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+                    int /*timeout_ms*/));
   MOCK_METHOD2(Quit,
                bool(brillo::ErrorPtr* /*error*/,
                     int /*timeout_ms*/));
@@ -353,6 +370,7 @@ class fwupdProxyMock : public fwupdProxyInterface {
                     dbus::ObjectProxy::OnConnectedCallback* /*on_connected_callback*/));
   MOCK_CONST_METHOD0(daemon_version, const std::string&());
   MOCK_CONST_METHOD0(host_bkc, const std::string&());
+  MOCK_CONST_METHOD0(host_vendor, const std::string&());
   MOCK_CONST_METHOD0(host_product, const std::string&());
   MOCK_CONST_METHOD0(host_machine_id, const std::string&());
   MOCK_CONST_METHOD0(host_security_id, const std::string&());

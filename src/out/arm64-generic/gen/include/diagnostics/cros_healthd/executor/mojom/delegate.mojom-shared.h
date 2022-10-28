@@ -24,6 +24,7 @@
 #include "third_party/perfetto/include/perfetto/tracing/traced_value_forward.h"
 
 #include "diagnostics/cros_healthd/executor/mojom/delegate.mojom-shared-internal.h"
+#include "diagnostics/cros_healthd/executor/mojom/executor.mojom-shared.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
 #include "mojo/public/cpp/system/data_pipe.h"
 

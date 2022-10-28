@@ -75,19 +75,21 @@ typedef enum {
  * @FWUPD_FEATURE_FLAG_FDE_WARNING:		Can warn about full disk encryption
  * @FWUPD_FEATURE_FLAG_COMMUNITY_TEXT:		Can show information about community supported
  * @FWUPD_FEATURE_FLAG_SHOW_PROBLEMS:		Can show problems when getting the update list
+ * @FWUPD_FEATURE_FLAG_ALLOW_AUTHENTICATION:	Can authenticate with PolicyKit for requests
  *
  * The flags to the feature capabilities of the front-end client.
  **/
 typedef enum {
-	FWUPD_FEATURE_FLAG_NONE = 0,		    /* Since: 1.4.5 */
-	FWUPD_FEATURE_FLAG_CAN_REPORT = 1 << 0,	    /* Since: 1.4.5 */
-	FWUPD_FEATURE_FLAG_DETACH_ACTION = 1 << 1,  /* Since: 1.4.5 */
-	FWUPD_FEATURE_FLAG_UPDATE_ACTION = 1 << 2,  /* Since: 1.4.5 */
-	FWUPD_FEATURE_FLAG_SWITCH_BRANCH = 1 << 3,  /* Since: 1.5.0 */
-	FWUPD_FEATURE_FLAG_REQUESTS = 1 << 4,	    /* Since: 1.6.2 */
-	FWUPD_FEATURE_FLAG_FDE_WARNING = 1 << 5,    /* Since: 1.7.1 */
-	FWUPD_FEATURE_FLAG_COMMUNITY_TEXT = 1 << 6, /* Since: 1.7.5 */
-	FWUPD_FEATURE_FLAG_SHOW_PROBLEMS = 1 << 7,  /* Since: 1.8.1 */
+	FWUPD_FEATURE_FLAG_NONE = 0,			  /* Since: 1.4.5 */
+	FWUPD_FEATURE_FLAG_CAN_REPORT = 1 << 0,		  /* Since: 1.4.5 */
+	FWUPD_FEATURE_FLAG_DETACH_ACTION = 1 << 1,	  /* Since: 1.4.5 */
+	FWUPD_FEATURE_FLAG_UPDATE_ACTION = 1 << 2,	  /* Since: 1.4.5 */
+	FWUPD_FEATURE_FLAG_SWITCH_BRANCH = 1 << 3,	  /* Since: 1.5.0 */
+	FWUPD_FEATURE_FLAG_REQUESTS = 1 << 4,		  /* Since: 1.6.2 */
+	FWUPD_FEATURE_FLAG_FDE_WARNING = 1 << 5,	  /* Since: 1.7.1 */
+	FWUPD_FEATURE_FLAG_COMMUNITY_TEXT = 1 << 6,	  /* Since: 1.7.5 */
+	FWUPD_FEATURE_FLAG_SHOW_PROBLEMS = 1 << 7,	  /* Since: 1.8.1 */
+	FWUPD_FEATURE_FLAG_ALLOW_AUTHENTICATION = 1 << 8, /* Since: 1.8.4 */
 	/*< private >*/
 	FWUPD_FEATURE_FLAG_LAST
 } FwupdFeatureFlags;
@@ -598,6 +600,22 @@ typedef guint64 FwupdDeviceFlags;
  */
 #define FWUPD_DEVICE_PROBLEM_LID_IS_CLOSED (1u << 5)
 /**
+ * FWUPD_DEVICE_PROBLEM_IS_EMULATED:
+ *
+ * The device is emulated from a different host.
+ *
+ * Since 1.8.3
+ */
+#define FWUPD_DEVICE_PROBLEM_IS_EMULATED (1u << 6)
+/**
+ * FWUPD_DEVICE_PROBLEM_MISSING_LICENSE:
+ *
+ * The device cannot be updated due to missing vendor's license.
+ *
+ * Since 1.8.6
+ */
+#define FWUPD_DEVICE_PROBLEM_MISSING_LICENSE (1u << 7)
+/**
  * FWUPD_DEVICE_PROBLEM_UNKNOWN:
  *
  * This problem is not defined, this typically will happen from mismatched
@@ -844,6 +862,23 @@ typedef enum {
  * Since: 1.6.2
  */
 #define FWUPD_PLUGIN_FLAG_AUTH_REQUIRED (1u << 12)
+/**
+ * FWUPD_PLUGIN_FLAG_SECURE_CONFIG:
+ *
+ * The plugin requires the config file to be saved with permissions that only allow the root user
+ * to read.
+ *
+ * Since: 1.8.5
+ */
+#define FWUPD_PLUGIN_FLAG_SECURE_CONFIG (1u << 13)
+/**
+ * FWUPD_PLUGIN_FLAG_MODULAR:
+ *
+ * The plugin is loaded from an external module.
+ *
+ * Since: 1.8.6
+ */
+#define FWUPD_PLUGIN_FLAG_MODULAR (1u << 14)
 /**
  * FWUPD_PLUGIN_FLAG_UNKNOWN:
  *
