@@ -115,6 +115,32 @@ class PowerManagerProxyMock : public PowerManagerProxyInterface {
                void(base::OnceCallback<void()> /*success_callback*/,
                     base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
                     int /*timeout_ms*/));
+  MOCK_METHOD3(SetKeyboardBacklightToggledOff,
+               bool(bool /*in_toggled_off*/,
+                    brillo::ErrorPtr* /*error*/,
+                    int /*timeout_ms*/));
+  MOCK_METHOD4(SetKeyboardBacklightToggledOffAsync,
+               void(bool /*in_toggled_off*/,
+                    base::OnceCallback<void()> /*success_callback*/,
+                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+                    int /*timeout_ms*/));
+  MOCK_METHOD3(GetKeyboardBacklightToggledOff,
+               bool(bool* /*out_toggled_off*/,
+                    brillo::ErrorPtr* /*error*/,
+                    int /*timeout_ms*/));
+  MOCK_METHOD3(GetKeyboardBacklightToggledOffAsync,
+               void(base::OnceCallback<void(bool /*toggled_off*/)> /*success_callback*/,
+                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+                    int /*timeout_ms*/));
+  MOCK_METHOD4(GetKeyboardBrightnessPercent,
+               bool(double* /*out_percent*/,
+                    bool* /*out_success*/,
+                    brillo::ErrorPtr* /*error*/,
+                    int /*timeout_ms*/));
+  MOCK_METHOD3(GetKeyboardBrightnessPercentAsync,
+               void(base::OnceCallback<void(double /*percent*/, bool /*success*/)> /*success_callback*/,
+                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+                    int /*timeout_ms*/));
   MOCK_METHOD3(GetPowerSupplyProperties,
                bool(std::vector<uint8_t>* /*out_serialized_proto*/,
                     brillo::ErrorPtr* /*error*/,

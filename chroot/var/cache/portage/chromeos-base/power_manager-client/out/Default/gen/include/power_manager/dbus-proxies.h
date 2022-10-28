@@ -183,6 +183,68 @@ class PowerManagerProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
+  // Enable or disable the keyboard backlight.
+  //
+  // If the |toggled_off| arg is true, the keyboard backlight will be
+  // turned off. If false, the backlight will be enabled.
+  virtual bool SetKeyboardBacklightToggledOff(
+      bool in_toggled_off,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Enable or disable the keyboard backlight.
+  //
+  // If the |toggled_off| arg is true, the keyboard backlight will be
+  // turned off. If false, the backlight will be enabled.
+  virtual void SetKeyboardBacklightToggledOffAsync(
+      bool in_toggled_off,
+      base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Determine if the keyboard backlight is currently disabled.
+  //
+  // If |toggled_off| returns true, the keyboard backlight is
+  // currently disabled.
+  virtual bool GetKeyboardBacklightToggledOff(
+      bool* out_toggled_off,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Determine if the keyboard backlight is currently disabled.
+  //
+  // If |toggled_off| returns true, the keyboard backlight is
+  // currently disabled.
+  virtual void GetKeyboardBacklightToggledOffAsync(
+      base::OnceCallback<void(bool /*toggled_off*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Get the current brightness of the keyboard backlight as
+  // a percentage.
+  //
+  // If |success| is true, the returned value |percent| will be
+  // a value between 0.0 and 100.0 inclusive, representing the
+  // brightness. The value 0.0 represents "off", while 100.0
+  // represents "full brightness".
+  virtual bool GetKeyboardBrightnessPercent(
+      double* out_percent,
+      bool* out_success,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Get the current brightness of the keyboard backlight as
+  // a percentage.
+  //
+  // If |success| is true, the returned value |percent| will be
+  // a value between 0.0 and 100.0 inclusive, representing the
+  // brightness. The value 0.0 represents "off", while 100.0
+  // represents "full brightness".
+  virtual void GetKeyboardBrightnessPercentAsync(
+      base::OnceCallback<void(double /*percent*/, bool /*success*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
   // The |serialized_proto| arg is a serialized
   // power_manager::PowerSupplyProperties protobuf.
   virtual bool GetPowerSupplyProperties(
@@ -1166,6 +1228,121 @@ class PowerManagerProxy final : public PowerManagerProxyInterface {
         dbus_object_proxy_,
         "org.chromium.PowerManager",
         "IncreaseKeyboardBrightness",
+        std::move(success_callback),
+        std::move(error_callback));
+  }
+
+  // Enable or disable the keyboard backlight.
+  //
+  // If the |toggled_off| arg is true, the keyboard backlight will be
+  // turned off. If false, the backlight will be enabled.
+  bool SetKeyboardBacklightToggledOff(
+      bool in_toggled_off,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.PowerManager",
+        "SetKeyboardBacklightToggledOff",
+        error,
+        in_toggled_off);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error);
+  }
+
+  // Enable or disable the keyboard backlight.
+  //
+  // If the |toggled_off| arg is true, the keyboard backlight will be
+  // turned off. If false, the backlight will be enabled.
+  void SetKeyboardBacklightToggledOffAsync(
+      bool in_toggled_off,
+      base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.PowerManager",
+        "SetKeyboardBacklightToggledOff",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_toggled_off);
+  }
+
+  // Determine if the keyboard backlight is currently disabled.
+  //
+  // If |toggled_off| returns true, the keyboard backlight is
+  // currently disabled.
+  bool GetKeyboardBacklightToggledOff(
+      bool* out_toggled_off,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.PowerManager",
+        "GetKeyboardBacklightToggledOff",
+        error);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_toggled_off);
+  }
+
+  // Determine if the keyboard backlight is currently disabled.
+  //
+  // If |toggled_off| returns true, the keyboard backlight is
+  // currently disabled.
+  void GetKeyboardBacklightToggledOffAsync(
+      base::OnceCallback<void(bool /*toggled_off*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.PowerManager",
+        "GetKeyboardBacklightToggledOff",
+        std::move(success_callback),
+        std::move(error_callback));
+  }
+
+  // Get the current brightness of the keyboard backlight as
+  // a percentage.
+  //
+  // If |success| is true, the returned value |percent| will be
+  // a value between 0.0 and 100.0 inclusive, representing the
+  // brightness. The value 0.0 represents "off", while 100.0
+  // represents "full brightness".
+  bool GetKeyboardBrightnessPercent(
+      double* out_percent,
+      bool* out_success,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.PowerManager",
+        "GetKeyboardBrightnessPercent",
+        error);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_percent, out_success);
+  }
+
+  // Get the current brightness of the keyboard backlight as
+  // a percentage.
+  //
+  // If |success| is true, the returned value |percent| will be
+  // a value between 0.0 and 100.0 inclusive, representing the
+  // brightness. The value 0.0 represents "off", while 100.0
+  // represents "full brightness".
+  void GetKeyboardBrightnessPercentAsync(
+      base::OnceCallback<void(double /*percent*/, bool /*success*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.PowerManager",
+        "GetKeyboardBrightnessPercent",
         std::move(success_callback),
         std::move(error_callback));
   }
