@@ -141,6 +141,9 @@ class UserDataAuthInterfaceInterface {
   virtual void PrepareAuthFactor(
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::PrepareAuthFactorReply>> response,
       const user_data_auth::PrepareAuthFactorRequest& in_request) = 0;
+  virtual void TerminateAuthFactor(
+      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::TerminateAuthFactorReply>> response,
+      const user_data_auth::TerminateAuthFactorRequest& in_request) = 0;
   virtual void GetRecoveryRequest(
       std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<user_data_auth::GetRecoveryRequestReply>> response,
       const user_data_auth::GetRecoveryRequestRequest& in_request) = 0;
@@ -313,6 +316,10 @@ class UserDataAuthInterfaceAdaptor {
         base::Unretained(interface_),
         &UserDataAuthInterfaceInterface::PrepareAuthFactor);
     itf->AddMethodHandler(
+        "TerminateAuthFactor",
+        base::Unretained(interface_),
+        &UserDataAuthInterfaceInterface::TerminateAuthFactor);
+    itf->AddMethodHandler(
         "GetRecoveryRequest",
         base::Unretained(interface_),
         &UserDataAuthInterfaceInterface::GetRecoveryRequest);
@@ -323,6 +330,7 @@ class UserDataAuthInterfaceAdaptor {
 
     signal_DircryptoMigrationProgress_ = itf->RegisterSignalOfType<SignalDircryptoMigrationProgressType>("DircryptoMigrationProgress");
     signal_LowDiskSpace_ = itf->RegisterSignalOfType<SignalLowDiskSpaceType>("LowDiskSpace");
+    signal_AuthScanResult_ = itf->RegisterSignalOfType<SignalAuthScanResultType>("AuthScanResult");
   }
 
   void SendDircryptoMigrationProgressSignal(
@@ -334,6 +342,12 @@ class UserDataAuthInterfaceAdaptor {
   void SendLowDiskSpaceSignal(
       const user_data_auth::LowDiskSpace& in_status) {
     auto signal = signal_LowDiskSpace_.lock();
+    if (signal)
+      signal->Send(in_status);
+  }
+  void SendAuthScanResultSignal(
+      const user_data_auth::AuthScanResult& in_status) {
+    auto signal = signal_AuthScanResult_.lock();
     if (signal)
       signal->Send(in_status);
   }
@@ -497,6 +511,10 @@ class UserDataAuthInterfaceAdaptor {
         "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
         "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
         "    </method>\n"
+        "    <method name=\"TerminateAuthFactor\">\n"
+        "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
+        "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
+        "    </method>\n"
         "    <method name=\"GetRecoveryRequest\">\n"
         "      <arg name=\"request\" type=\"ay\" direction=\"in\"/>\n"
         "      <arg name=\"reply\" type=\"ay\" direction=\"out\"/>\n"
@@ -511,6 +529,9 @@ class UserDataAuthInterfaceAdaptor {
         "    <signal name=\"LowDiskSpace\">\n"
         "      <arg name=\"status\" type=\"ay\"/>\n"
         "    </signal>\n"
+        "    <signal name=\"AuthScanResult\">\n"
+        "      <arg name=\"status\" type=\"ay\"/>\n"
+        "    </signal>\n"
         "  </interface>\n";
   }
 
@@ -522,6 +543,10 @@ class UserDataAuthInterfaceAdaptor {
   using SignalLowDiskSpaceType = brillo::dbus_utils::DBusSignal<
       user_data_auth::LowDiskSpace /*status*/>;
   std::weak_ptr<SignalLowDiskSpaceType> signal_LowDiskSpace_;
+
+  using SignalAuthScanResultType = brillo::dbus_utils::DBusSignal<
+      user_data_auth::AuthScanResult /*status*/>;
+  std::weak_ptr<SignalAuthScanResultType> signal_AuthScanResult_;
 
   UserDataAuthInterfaceInterface* interface_;  // Owned by container of this adapter.
 };

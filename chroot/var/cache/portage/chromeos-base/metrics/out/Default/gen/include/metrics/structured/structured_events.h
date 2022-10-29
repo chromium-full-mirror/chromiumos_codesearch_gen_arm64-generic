@@ -456,6 +456,9 @@ class BRILLO_EXPORT CellularConnectionAttempt final : public ::metrics::structur
   static constexpr uint64_t kdetailed_errorNameHash = UINT64_C(1755108877035597562);
   CellularConnectionAttempt& Setdetailed_error(const int64_t value);
 
+  static constexpr uint64_t kgid1NameHash = UINT64_C(10647497580367333237);
+  CellularConnectionAttempt& Setgid1(const int64_t value);
+
 };
 
 class BRILLO_EXPORT ModemFwdFwInstallResult final : public ::metrics::structured::EventBase {

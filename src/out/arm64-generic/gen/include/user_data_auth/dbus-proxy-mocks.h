@@ -408,6 +408,16 @@ class UserDataAuthInterfaceProxyMock : public UserDataAuthInterfaceProxyInterfac
                     base::OnceCallback<void(const user_data_auth::PrepareAuthFactorReply& /*reply*/)> /*success_callback*/,
                     base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
                     int /*timeout_ms*/));
+  MOCK_METHOD4(TerminateAuthFactor,
+               bool(const user_data_auth::TerminateAuthFactorRequest& /*in_request*/,
+                    user_data_auth::TerminateAuthFactorReply* /*out_reply*/,
+                    brillo::ErrorPtr* /*error*/,
+                    int /*timeout_ms*/));
+  MOCK_METHOD4(TerminateAuthFactorAsync,
+               void(const user_data_auth::TerminateAuthFactorRequest& /*in_request*/,
+                    base::OnceCallback<void(const user_data_auth::TerminateAuthFactorReply& /*reply*/)> /*success_callback*/,
+                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+                    int /*timeout_ms*/));
   MOCK_METHOD4(GetRecoveryRequest,
                bool(const user_data_auth::GetRecoveryRequestRequest& /*in_request*/,
                     user_data_auth::GetRecoveryRequestReply* /*out_reply*/,
@@ -443,6 +453,14 @@ class UserDataAuthInterfaceProxyMock : public UserDataAuthInterfaceProxyInterfac
   }
   MOCK_METHOD2(DoRegisterLowDiskSpaceSignalHandler,
                void(const base::RepeatingCallback<void(const user_data_auth::LowDiskSpace&)>& /*signal_callback*/,
+                    dbus::ObjectProxy::OnConnectedCallback* /*on_connected_callback*/));
+  void RegisterAuthScanResultSignalHandler(
+    const base::RepeatingCallback<void(const user_data_auth::AuthScanResult&)>& signal_callback,
+    dbus::ObjectProxy::OnConnectedCallback on_connected_callback) {
+    DoRegisterAuthScanResultSignalHandler(signal_callback, &on_connected_callback);
+  }
+  MOCK_METHOD2(DoRegisterAuthScanResultSignalHandler,
+               void(const base::RepeatingCallback<void(const user_data_auth::AuthScanResult&)>& /*signal_callback*/,
                     dbus::ObjectProxy::OnConnectedCallback* /*on_connected_callback*/));
   MOCK_CONST_METHOD0(GetObjectPath, const dbus::ObjectPath&());
   MOCK_CONST_METHOD0(GetObjectProxy, dbus::ObjectProxy*());

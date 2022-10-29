@@ -505,6 +505,11 @@ CellularConnectionAttempt& CellularConnectionAttempt::Setdetailed_error(const in
   return *this;
 }
 
+CellularConnectionAttempt& CellularConnectionAttempt::Setgid1(const int64_t value) {
+  AddIntMetric(kgid1NameHash, value);
+  return *this;
+}
+
 ModemFwdFwInstallResult::ModemFwdFwInstallResult() :
   ::metrics::structured::EventBase(kEventNameHash, kProjectNameHash, kIdType, kEventType) {}
 ModemFwdFwInstallResult::~ModemFwdFwInstallResult() = default;
