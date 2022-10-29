@@ -21,7 +21,6 @@
 #  pragma GCC system_header
 #endif
 
-_LIBCPP_DISABLE_DEBUG_INFO
 _LIBCPP_BEGIN_NAMESPACE_STD
 
 template<class _Tp, class _Compare>
@@ -66,6 +65,5 @@ minmax(initializer_list<_Tp> __t)
 #endif // _LIBCPP_CXX03_LANG
 
 _LIBCPP_END_NAMESPACE_STD
-_LIBCPP_ENABLE_DEBUG_INFO
 
 #endif // _LIBCPP___ALGORITHM_MINMAX_H

@@ -15,7 +15,6 @@
 #  pragma GCC system_header
 #endif
 
-_LIBCPP_DISABLE_DEBUG_INFO
 _LIBCPP_BEGIN_NAMESPACE_STD
 
 template <class _InputIterator, class _OutputIterator, class _UnaryOperation>
@@ -40,6 +39,5 @@ transform(_InputIterator1 __first1, _InputIterator1 __last1, _InputIterator2 __f
 }
 
 _LIBCPP_END_NAMESPACE_STD
-_LIBCPP_ENABLE_DEBUG_INFO
 
 #endif // _LIBCPP___ALGORITHM_TRANSFORM_H

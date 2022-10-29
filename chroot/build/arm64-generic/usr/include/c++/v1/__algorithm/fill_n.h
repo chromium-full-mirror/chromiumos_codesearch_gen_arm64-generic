@@ -17,7 +17,6 @@
 #  pragma GCC system_header
 #endif
 
-_LIBCPP_DISABLE_DEBUG_INFO
 _LIBCPP_BEGIN_NAMESPACE_STD
 
 template <class _OutputIterator, class _Size, class _Tp>
@@ -39,6 +38,5 @@ fill_n(_OutputIterator __first, _Size __n, const _Tp& __value_)
 }
 
 _LIBCPP_END_NAMESPACE_STD
-_LIBCPP_ENABLE_DEBUG_INFO
 
 #endif // _LIBCPP___ALGORITHM_FILL_N_H

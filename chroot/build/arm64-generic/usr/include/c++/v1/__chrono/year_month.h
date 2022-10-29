@@ -21,7 +21,6 @@
 
 #if _LIBCPP_STD_VER > 17
 
-_LIBCPP_DISABLE_DEBUG_INFO
 _LIBCPP_BEGIN_NAMESPACE_STD
 
 namespace chrono
@@ -109,7 +108,6 @@ year_month operator-(const year_month& __lhs, const years& __rhs) noexcept
 } // namespace chrono
 
 _LIBCPP_END_NAMESPACE_STD
-_LIBCPP_ENABLE_DEBUG_INFO
 
 #endif // _LIBCPP_STD_VER > 17
 

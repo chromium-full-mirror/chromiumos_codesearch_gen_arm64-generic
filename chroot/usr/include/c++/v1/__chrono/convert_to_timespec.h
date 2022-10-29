@@ -20,7 +20,6 @@
 _LIBCPP_PUSH_MACROS
 #include <__undef_macros>
 
-_LIBCPP_DISABLE_DEBUG_INFO
 _LIBCPP_BEGIN_NAMESPACE_STD
 
 // Convert a nanoseconds duration to the given TimeSpec type, which must have
@@ -50,7 +49,6 @@ _TimeSpec __convert_to_timespec(const chrono::nanoseconds& __ns)
 }
 
 _LIBCPP_END_NAMESPACE_STD
-_LIBCPP_ENABLE_DEBUG_INFO
 
 _LIBCPP_POP_MACROS
 

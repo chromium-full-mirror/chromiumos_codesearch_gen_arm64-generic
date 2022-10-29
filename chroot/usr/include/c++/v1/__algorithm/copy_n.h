@@ -18,7 +18,6 @@
 #  pragma GCC system_header
 #endif
 
-_LIBCPP_DISABLE_DEBUG_INFO
 _LIBCPP_BEGIN_NAMESPACE_STD
 
 template<class _InputIterator, class _Size, class _OutputIterator>
@@ -63,6 +62,5 @@ copy_n(_InputIterator __first, _Size __orig_n, _OutputIterator __result)
 }
 
 _LIBCPP_END_NAMESPACE_STD
-_LIBCPP_ENABLE_DEBUG_INFO
 
 #endif // _LIBCPP___ALGORITHM_COPY_N_H

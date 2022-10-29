@@ -22,7 +22,6 @@
 _LIBCPP_PUSH_MACROS
 #include <__undef_macros>
 
-_LIBCPP_DISABLE_DEBUG_INFO
 _LIBCPP_BEGIN_NAMESPACE_STD
 
 namespace chrono
@@ -244,7 +243,6 @@ operator-(const time_point<_Clock, _Duration1>& __lhs, const time_point<_Clock, 
 } // namespace chrono
 
 _LIBCPP_END_NAMESPACE_STD
-_LIBCPP_ENABLE_DEBUG_INFO
 
 _LIBCPP_POP_MACROS
 

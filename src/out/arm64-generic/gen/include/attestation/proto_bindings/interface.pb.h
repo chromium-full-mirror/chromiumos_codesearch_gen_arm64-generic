@@ -6571,6 +6571,11 @@ class GetCertificateRequest final :
   static const GetCertificateRequest& default_instance() {
     return *internal_default_instance();
   }
+  enum MetadataCase {
+    kDeviceSetupCertificateRequestMetadata = 9,
+    METADATA_NOT_SET = 0,
+  };
+
   static inline const GetCertificateRequest* internal_default_instance() {
     return reinterpret_cast<const GetCertificateRequest*>(
                &_GetCertificateRequest_default_instance_);
@@ -6651,6 +6656,7 @@ class GetCertificateRequest final :
     kForcedFieldNumber = 7,
     kShallTriggerEnrollmentFieldNumber = 8,
     kKeyTypeFieldNumber = 5,
+    kDeviceSetupCertificateRequestMetadataFieldNumber = 9,
   };
   // optional string username = 2;
   bool has_username() const;
@@ -6771,9 +6777,33 @@ class GetCertificateRequest final :
   void _internal_set_key_type(::attestation::KeyType value);
   public:
 
+  // .attestation.DeviceSetupCertificateRequestMetadata device_setup_certificate_request_metadata = 9;
+  bool has_device_setup_certificate_request_metadata() const;
+  private:
+  bool _internal_has_device_setup_certificate_request_metadata() const;
+  public:
+  void clear_device_setup_certificate_request_metadata();
+  const ::attestation::DeviceSetupCertificateRequestMetadata& device_setup_certificate_request_metadata() const;
+  PROTOBUF_NODISCARD ::attestation::DeviceSetupCertificateRequestMetadata* release_device_setup_certificate_request_metadata();
+  ::attestation::DeviceSetupCertificateRequestMetadata* mutable_device_setup_certificate_request_metadata();
+  void set_allocated_device_setup_certificate_request_metadata(::attestation::DeviceSetupCertificateRequestMetadata* device_setup_certificate_request_metadata);
+  private:
+  const ::attestation::DeviceSetupCertificateRequestMetadata& _internal_device_setup_certificate_request_metadata() const;
+  ::attestation::DeviceSetupCertificateRequestMetadata* _internal_mutable_device_setup_certificate_request_metadata();
+  public:
+  void unsafe_arena_set_allocated_device_setup_certificate_request_metadata(
+      ::attestation::DeviceSetupCertificateRequestMetadata* device_setup_certificate_request_metadata);
+  ::attestation::DeviceSetupCertificateRequestMetadata* unsafe_arena_release_device_setup_certificate_request_metadata();
+
+  void clear_metadata();
+  MetadataCase metadata_case() const;
   // @@protoc_insertion_point(class_scope:attestation.GetCertificateRequest)
  private:
   class _Internal;
+  void set_has_device_setup_certificate_request_metadata();
+
+  inline bool has_metadata() const;
+  inline void clear_has_metadata();
 
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
@@ -6788,6 +6818,13 @@ class GetCertificateRequest final :
   bool forced_;
   bool shall_trigger_enrollment_;
   int key_type_;
+  union MetadataUnion {
+    constexpr MetadataUnion() : _constinit_{} {}
+      ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized _constinit_;
+    ::attestation::DeviceSetupCertificateRequestMetadata* device_setup_certificate_request_metadata_;
+  } metadata_;
+  uint32_t _oneof_case_[1];
+
   friend struct ::TableStruct_interface_2eproto;
 };
 // -------------------------------------------------------------------
@@ -14592,6 +14629,89 @@ inline void GetCertificateRequest::set_shall_trigger_enrollment(bool value) {
   // @@protoc_insertion_point(field_set:attestation.GetCertificateRequest.shall_trigger_enrollment)
 }
 
+// .attestation.DeviceSetupCertificateRequestMetadata device_setup_certificate_request_metadata = 9;
+inline bool GetCertificateRequest::_internal_has_device_setup_certificate_request_metadata() const {
+  return metadata_case() == kDeviceSetupCertificateRequestMetadata;
+}
+inline bool GetCertificateRequest::has_device_setup_certificate_request_metadata() const {
+  return _internal_has_device_setup_certificate_request_metadata();
+}
+inline void GetCertificateRequest::set_has_device_setup_certificate_request_metadata() {
+  _oneof_case_[0] = kDeviceSetupCertificateRequestMetadata;
+}
+inline void GetCertificateRequest::clear_device_setup_certificate_request_metadata() {
+  if (_internal_has_device_setup_certificate_request_metadata()) {
+    if (GetArenaForAllocation() == nullptr) {
+      delete metadata_.device_setup_certificate_request_metadata_;
+    }
+    clear_has_metadata();
+  }
+}
+inline ::attestation::DeviceSetupCertificateRequestMetadata* GetCertificateRequest::release_device_setup_certificate_request_metadata() {
+  // @@protoc_insertion_point(field_release:attestation.GetCertificateRequest.device_setup_certificate_request_metadata)
+  if (_internal_has_device_setup_certificate_request_metadata()) {
+    clear_has_metadata();
+      ::attestation::DeviceSetupCertificateRequestMetadata* temp = metadata_.device_setup_certificate_request_metadata_;
+    if (GetArenaForAllocation() != nullptr) {
+      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+    }
+    metadata_.device_setup_certificate_request_metadata_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline const ::attestation::DeviceSetupCertificateRequestMetadata& GetCertificateRequest::_internal_device_setup_certificate_request_metadata() const {
+  return _internal_has_device_setup_certificate_request_metadata()
+      ? *metadata_.device_setup_certificate_request_metadata_
+      : reinterpret_cast< ::attestation::DeviceSetupCertificateRequestMetadata&>(::attestation::_DeviceSetupCertificateRequestMetadata_default_instance_);
+}
+inline const ::attestation::DeviceSetupCertificateRequestMetadata& GetCertificateRequest::device_setup_certificate_request_metadata() const {
+  // @@protoc_insertion_point(field_get:attestation.GetCertificateRequest.device_setup_certificate_request_metadata)
+  return _internal_device_setup_certificate_request_metadata();
+}
+inline ::attestation::DeviceSetupCertificateRequestMetadata* GetCertificateRequest::unsafe_arena_release_device_setup_certificate_request_metadata() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:attestation.GetCertificateRequest.device_setup_certificate_request_metadata)
+  if (_internal_has_device_setup_certificate_request_metadata()) {
+    clear_has_metadata();
+    ::attestation::DeviceSetupCertificateRequestMetadata* temp = metadata_.device_setup_certificate_request_metadata_;
+    metadata_.device_setup_certificate_request_metadata_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline void GetCertificateRequest::unsafe_arena_set_allocated_device_setup_certificate_request_metadata(::attestation::DeviceSetupCertificateRequestMetadata* device_setup_certificate_request_metadata) {
+  clear_metadata();
+  if (device_setup_certificate_request_metadata) {
+    set_has_device_setup_certificate_request_metadata();
+    metadata_.device_setup_certificate_request_metadata_ = device_setup_certificate_request_metadata;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:attestation.GetCertificateRequest.device_setup_certificate_request_metadata)
+}
+inline ::attestation::DeviceSetupCertificateRequestMetadata* GetCertificateRequest::_internal_mutable_device_setup_certificate_request_metadata() {
+  if (!_internal_has_device_setup_certificate_request_metadata()) {
+    clear_metadata();
+    set_has_device_setup_certificate_request_metadata();
+    metadata_.device_setup_certificate_request_metadata_ = CreateMaybeMessage< ::attestation::DeviceSetupCertificateRequestMetadata >(GetArenaForAllocation());
+  }
+  return metadata_.device_setup_certificate_request_metadata_;
+}
+inline ::attestation::DeviceSetupCertificateRequestMetadata* GetCertificateRequest::mutable_device_setup_certificate_request_metadata() {
+  ::attestation::DeviceSetupCertificateRequestMetadata* _msg = _internal_mutable_device_setup_certificate_request_metadata();
+  // @@protoc_insertion_point(field_mutable:attestation.GetCertificateRequest.device_setup_certificate_request_metadata)
+  return _msg;
+}
+
+inline bool GetCertificateRequest::has_metadata() const {
+  return metadata_case() != METADATA_NOT_SET;
+}
+inline void GetCertificateRequest::clear_has_metadata() {
+  _oneof_case_[0] = METADATA_NOT_SET;
+}
+inline GetCertificateRequest::MetadataCase GetCertificateRequest::metadata_case() const {
+  return GetCertificateRequest::MetadataCase(_oneof_case_[0]);
+}
 // -------------------------------------------------------------------
 
 // GetCertificateReply

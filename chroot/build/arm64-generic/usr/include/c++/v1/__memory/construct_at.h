@@ -23,7 +23,6 @@
 #  pragma GCC system_header
 #endif
 
-_LIBCPP_DISABLE_DEBUG_INFO
 _LIBCPP_BEGIN_NAMESPACE_STD
 
 // construct_at
@@ -113,6 +112,5 @@ _ForwardIterator destroy_n(_ForwardIterator __first, _Size __n) {
 #endif // _LIBCPP_STD_VER > 14
 
 _LIBCPP_END_NAMESPACE_STD
-_LIBCPP_ENABLE_DEBUG_INFO
 
 #endif // _LIBCPP___MEMORY_CONSTRUCT_AT_H

@@ -565,7 +565,8 @@ constexpr GetCertificateRequest::GetCertificateRequest(
   , forced_(false)
   , shall_trigger_enrollment_(false)
   , key_type_(1)
-{}
+
+  , _oneof_case_{}{}
 struct GetCertificateRequestDefaultTypeInternal {
   constexpr GetCertificateRequestDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -10819,8 +10820,28 @@ class GetCertificateRequest::_Internal {
   static void set_has_shall_trigger_enrollment(HasBits* has_bits) {
     (*has_bits)[0] |= 64u;
   }
+  static const ::attestation::DeviceSetupCertificateRequestMetadata& device_setup_certificate_request_metadata(const GetCertificateRequest* msg);
 };
 
+const ::attestation::DeviceSetupCertificateRequestMetadata&
+GetCertificateRequest::_Internal::device_setup_certificate_request_metadata(const GetCertificateRequest* msg) {
+  return *msg->metadata_.device_setup_certificate_request_metadata_;
+}
+void GetCertificateRequest::set_allocated_device_setup_certificate_request_metadata(::attestation::DeviceSetupCertificateRequestMetadata* device_setup_certificate_request_metadata) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  clear_metadata();
+  if (device_setup_certificate_request_metadata) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+      ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::attestation::DeviceSetupCertificateRequestMetadata>::GetOwningArena(device_setup_certificate_request_metadata);
+    if (message_arena != submessage_arena) {
+      device_setup_certificate_request_metadata = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, device_setup_certificate_request_metadata, submessage_arena);
+    }
+    set_has_device_setup_certificate_request_metadata();
+    metadata_.device_setup_certificate_request_metadata_ = device_setup_certificate_request_metadata;
+  }
+  // @@protoc_insertion_point(field_set_allocated:attestation.GetCertificateRequest.device_setup_certificate_request_metadata)
+}
 GetCertificateRequest::GetCertificateRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
@@ -10861,6 +10882,16 @@ GetCertificateRequest::GetCertificateRequest(const GetCertificateRequest& from)
   ::memcpy(&certificate_profile_, &from.certificate_profile_,
     static_cast<size_t>(reinterpret_cast<char*>(&key_type_) -
     reinterpret_cast<char*>(&certificate_profile_)) + sizeof(key_type_));
+  clear_has_metadata();
+  switch (from.metadata_case()) {
+    case kDeviceSetupCertificateRequestMetadata: {
+      _internal_mutable_device_setup_certificate_request_metadata()->::attestation::DeviceSetupCertificateRequestMetadata::MergeFrom(from._internal_device_setup_certificate_request_metadata());
+      break;
+    }
+    case METADATA_NOT_SET: {
+      break;
+    }
+  }
   // @@protoc_insertion_point(copy_constructor:attestation.GetCertificateRequest)
 }
 
@@ -10882,6 +10913,7 @@ key_label_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAl
     0, static_cast<size_t>(reinterpret_cast<char*>(&shall_trigger_enrollment_) -
     reinterpret_cast<char*>(&certificate_profile_)) + sizeof(shall_trigger_enrollment_));
 key_type_ = 1;
+clear_has_metadata();
 }
 
 GetCertificateRequest::~GetCertificateRequest() {
@@ -10896,6 +10928,9 @@ inline void GetCertificateRequest::SharedDtor() {
   username_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   request_origin_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   key_label_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (has_metadata()) {
+    clear_metadata();
+  }
 }
 
 void GetCertificateRequest::ArenaDtor(void* object) {
@@ -10907,6 +10942,23 @@ void GetCertificateRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
 void GetCertificateRequest::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
+
+void GetCertificateRequest::clear_metadata() {
+// @@protoc_insertion_point(one_of_clear_start:attestation.GetCertificateRequest)
+  switch (metadata_case()) {
+    case kDeviceSetupCertificateRequestMetadata: {
+      if (GetArenaForAllocation() == nullptr) {
+        delete metadata_.device_setup_certificate_request_metadata_;
+      }
+      break;
+    }
+    case METADATA_NOT_SET: {
+      break;
+    }
+  }
+  _oneof_case_[0] = METADATA_NOT_SET;
+}
+
 
 void GetCertificateRequest::Clear() {
 // @@protoc_insertion_point(message_clear_start:attestation.GetCertificateRequest)
@@ -10932,6 +10984,7 @@ void GetCertificateRequest::Clear() {
         reinterpret_cast<char*>(&certificate_profile_)) + sizeof(shall_trigger_enrollment_));
     key_type_ = 1;
   }
+  clear_metadata();
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
@@ -11027,6 +11080,14 @@ const char* GetCertificateRequest::_InternalParse(const char* ptr, ::PROTOBUF_NA
         } else
           goto handle_unusual;
         continue;
+      // .attestation.DeviceSetupCertificateRequestMetadata device_setup_certificate_request_metadata = 9;
+      case 9:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 74)) {
+          ptr = ctx->ParseMessage(_internal_mutable_device_setup_certificate_request_metadata(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -11109,6 +11170,14 @@ uint8_t* GetCertificateRequest::_InternalSerialize(
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(8, this->_internal_shall_trigger_enrollment(), target);
   }
 
+  // .attestation.DeviceSetupCertificateRequestMetadata device_setup_certificate_request_metadata = 9;
+  if (_internal_has_device_setup_certificate_request_metadata()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(
+        9, _Internal::device_setup_certificate_request_metadata(this), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -11177,6 +11246,18 @@ size_t GetCertificateRequest::ByteSizeLong() const {
     }
 
   }
+  switch (metadata_case()) {
+    // .attestation.DeviceSetupCertificateRequestMetadata device_setup_certificate_request_metadata = 9;
+    case kDeviceSetupCertificateRequestMetadata: {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *metadata_.device_setup_certificate_request_metadata_);
+      break;
+    }
+    case METADATA_NOT_SET: {
+      break;
+    }
+  }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -11225,6 +11306,15 @@ void GetCertificateRequest::MergeFrom(const GetCertificateRequest& from) {
     }
     _has_bits_[0] |= cached_has_bits;
   }
+  switch (from.metadata_case()) {
+    case kDeviceSetupCertificateRequestMetadata: {
+      _internal_mutable_device_setup_certificate_request_metadata()->::attestation::DeviceSetupCertificateRequestMetadata::MergeFrom(from._internal_device_setup_certificate_request_metadata());
+      break;
+    }
+    case METADATA_NOT_SET: {
+      break;
+    }
+  }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
@@ -11267,6 +11357,8 @@ void GetCertificateRequest::InternalSwap(GetCertificateRequest* other) {
           reinterpret_cast<char*>(&certificate_profile_),
           reinterpret_cast<char*>(&other->certificate_profile_));
   swap(key_type_, other->key_type_);
+  swap(metadata_, other->metadata_);
+  swap(_oneof_case_[0], other->_oneof_case_[0]);
 }
 
 std::string GetCertificateRequest::GetTypeName() const {
