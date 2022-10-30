@@ -75,6 +75,8 @@ class  CrosHealthdDiagnosticsServiceInterceptorForTesting : public CrosHealthdDi
   void RunArcPingRoutine(RunArcPingRoutineCallback callback) override;
   void RunArcDnsResolutionRoutine(RunArcDnsResolutionRoutineCallback callback) override;
   void RunSensitiveSensorRoutine(RunSensitiveSensorRoutineCallback callback) override;
+  void RunFingerprintRoutine(RunFingerprintRoutineCallback callback) override;
+  void RunFingerprintAliveRoutine(RunFingerprintAliveRoutineCallback callback) override;
 };
 class  CrosHealthdDiagnosticsServiceAsyncWaiter {
  public:
@@ -186,6 +188,12 @@ class  CrosHealthdDiagnosticsServiceAsyncWaiter {
   void RunSensitiveSensorRoutine(
       ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunSensitiveSensorRoutine();
+  void RunFingerprintRoutine(
+      ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunFingerprintRoutine();
+  void RunFingerprintAliveRoutine(
+      ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response);
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr RunFingerprintAliveRoutine();
 
  private:
   CrosHealthdDiagnosticsService* const proxy_;

@@ -1216,6 +1216,68 @@ class  CrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_ResponseParams_Da
 };
 static_assert(sizeof(CrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_ResponseParams_Data) == 16,
               "Bad sizeof(CrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_ResponseParams_Data)");
+class  CrosHealthdDiagnosticsService_RunFingerprintRoutine_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_RunFingerprintRoutine_Params_Data>;
+
+  CrosHealthdDiagnosticsService_RunFingerprintRoutine_Params_Data();
+  ~CrosHealthdDiagnosticsService_RunFingerprintRoutine_Params_Data() = delete;
+};
+static_assert(sizeof(CrosHealthdDiagnosticsService_RunFingerprintRoutine_Params_Data) == 8,
+              "Bad sizeof(CrosHealthdDiagnosticsService_RunFingerprintRoutine_Params_Data)");
+class  CrosHealthdDiagnosticsService_RunFingerprintRoutine_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
+
+ private:
+  friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_RunFingerprintRoutine_ResponseParams_Data>;
+
+  CrosHealthdDiagnosticsService_RunFingerprintRoutine_ResponseParams_Data();
+  ~CrosHealthdDiagnosticsService_RunFingerprintRoutine_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(CrosHealthdDiagnosticsService_RunFingerprintRoutine_ResponseParams_Data) == 16,
+              "Bad sizeof(CrosHealthdDiagnosticsService_RunFingerprintRoutine_ResponseParams_Data)");
+class  CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_Params_Data>;
+
+  CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_Params_Data();
+  ~CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_Params_Data() = delete;
+};
+static_assert(sizeof(CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_Params_Data) == 8,
+              "Bad sizeof(CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_Params_Data)");
+class  CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
+
+ private:
+  friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_ResponseParams_Data>;
+
+  CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_ResponseParams_Data();
+  ~CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_ResponseParams_Data) == 16,
+              "Bad sizeof(CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_ResponseParams_Data)");
 class  CrosHealthdEventService_AddBluetoothObserver_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -3419,6 +3481,92 @@ class CrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_ResponseParamsData
 
 
 
+class CrosHealthdDiagnosticsService_RunFingerprintRoutine_ParamsDataView {
+ public:
+  CrosHealthdDiagnosticsService_RunFingerprintRoutine_ParamsDataView() = default;
+
+  CrosHealthdDiagnosticsService_RunFingerprintRoutine_ParamsDataView(
+      internal::CrosHealthdDiagnosticsService_RunFingerprintRoutine_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::CrosHealthdDiagnosticsService_RunFingerprintRoutine_Params_Data* data_ = nullptr;
+};
+
+
+
+class CrosHealthdDiagnosticsService_RunFingerprintRoutine_ResponseParamsDataView {
+ public:
+  CrosHealthdDiagnosticsService_RunFingerprintRoutine_ResponseParamsDataView() = default;
+
+  CrosHealthdDiagnosticsService_RunFingerprintRoutine_ResponseParamsDataView(
+      internal::CrosHealthdDiagnosticsService_RunFingerprintRoutine_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetResponseDataView(
+      ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadResponse(UserType* output) {
+    
+    auto* pointer = data_->response.Get();
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::CrosHealthdDiagnosticsService_RunFingerprintRoutine_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
+class CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_ParamsDataView {
+ public:
+  CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_ParamsDataView() = default;
+
+  CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_ParamsDataView(
+      internal::CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_Params_Data* data_ = nullptr;
+};
+
+
+
+class CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_ResponseParamsDataView {
+ public:
+  CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_ResponseParamsDataView() = default;
+
+  CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_ResponseParamsDataView(
+      internal::CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetResponseDataView(
+      ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadResponse(UserType* output) {
+    
+    auto* pointer = data_->response.Get();
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
 class CrosHealthdEventService_AddBluetoothObserver_ParamsDataView {
  public:
   CrosHealthdEventService_AddBluetoothObserver_ParamsDataView() = default;
@@ -4276,6 +4424,24 @@ inline void CrosHealthdDiagnosticsService_RunArcDnsResolutionRoutine_ResponsePar
 
 
 inline void CrosHealthdDiagnosticsService_RunSensitiveSensorRoutine_ResponseParamsDataView::GetResponseDataView(
+    ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output) {
+  auto pointer = data_->response.Get();
+  *output = ::ash::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
+}
+
+
+
+
+inline void CrosHealthdDiagnosticsService_RunFingerprintRoutine_ResponseParamsDataView::GetResponseDataView(
+    ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output) {
+  auto pointer = data_->response.Get();
+  *output = ::ash::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
+}
+
+
+
+
+inline void CrosHealthdDiagnosticsService_RunFingerprintAliveRoutine_ResponseParamsDataView::GetResponseDataView(
     ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output) {
   auto pointer = data_->response.Get();
   *output = ::ash::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);

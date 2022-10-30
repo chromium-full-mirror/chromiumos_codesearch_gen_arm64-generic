@@ -162,8 +162,12 @@ enum class DiagnosticRoutineEnum : int32_t {
   kArcDnsResolution = 29,
   
   kSensitiveSensor = 31,
+  
+  kFingerprint = 32,
+  
+  kFingerprintAlive = 33,
   kMinValue = 0,
-  kMaxValue = 31,
+  kMaxValue = 33,
   kDefaultValue = 30
 };
 
