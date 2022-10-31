@@ -11,7 +11,7 @@
 #include "base/thread_annotations.h"
 #include "build/build_config.h"
 
-#if DCHECK_IS_ON() || 1
+#if DCHECK_IS_ON() | 1
 #include "base/threading/platform_thread_ref.h"
 #endif
 

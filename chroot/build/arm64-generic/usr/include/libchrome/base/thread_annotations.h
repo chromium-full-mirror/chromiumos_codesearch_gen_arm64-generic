@@ -245,7 +245,7 @@ inline T& ts_unchecked_read(T& v) NO_THREAD_SAFETY_ANALYSIS {
 }
 
 }  // namespace thread_safety_analysis
-} // namespace libchrome
+}  // namespace libchrome
 
 // The above is imported as-is from abseil-cpp. The following Chromium-specific
 // synonyms are added for Chromium concepts (SequenceChecker/ThreadChecker).
