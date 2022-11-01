@@ -83,6 +83,8 @@ class ThunderboltBusInfo_Data;
 class InputInfo_Data;
 class TouchscreenDevice_Data;
 class InputDevice_Data;
+class SensorInfo_Data;
+class Sensor_Data;
 class TelemetryInfo_Data;
 class ProcessResult_Data;
 class BatteryResult_Data;
@@ -112,6 +114,7 @@ class TpmResult_Data;
 class GraphicsResult_Data;
 class DisplayResult_Data;
 class InputResult_Data;
+class SensorResult_Data;
 
 struct CpuArchitectureEnum_Data {
  public:
@@ -166,6 +169,7 @@ struct ProbeCategoryEnum_Data {
       case 18:
       case 19:
       case 20:
+      case 21:
         return true;
     }
     return false;
@@ -621,6 +625,62 @@ struct OsInfo_EfiPlatformSize_Data {
 };
 
 struct InputDevice_ConnectionType_Data {
+ public:
+  static bool constexpr kIsExtensible = true;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+      case 3:
+      case 4:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
+struct Sensor_Type_Data {
+ public:
+  static bool constexpr kIsExtensible = true;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+      case 3:
+      case 4:
+      case 5:
+      case 6:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
+struct Sensor_Location_Data {
  public:
   static bool constexpr kIsExtensible = true;
 
@@ -2134,6 +2194,58 @@ class  InputResult_Data {
 };
 static_assert(sizeof(InputResult_Data) == mojo::internal::kUnionDataSize,
               "Bad sizeof(InputResult_Data)");
+
+
+class  SensorResult_Data {
+ public:
+  // Used to identify Mojom Union Data Classes.
+  typedef void MojomUnionDataType;
+
+  SensorResult_Data() = default;
+  // Do nothing in the destructor since it won't be called when it is a
+  // non-inlined union.
+  ~SensorResult_Data() = default;
+
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context,
+                       bool inlined);
+
+  bool is_null() const { return size == 0; }
+
+  void set_null() {
+    size = 0U;
+    tag = static_cast<SensorResult_Tag>(0);
+    data.unknown = 0U;
+  }
+
+  // TODO(crbug.com/1148486): SHOUTY_CASE values are being deprecated per C++ code style
+  // guidelines (https://google.github.io/styleguide/cppguide.html#Enumerator_Names),
+  // please use kCamelCase values instead.  Cleanup NULL_VALUE, BOOL_VALUE, INT_VALUE, etc.
+  // generation once codebase is transitioned to kNullValue, kBoolValue, kIntValue, etc.
+  enum class SensorResult_Tag : uint32_t {
+
+    
+    kSensorInfo,
+    
+    kError,
+  };
+
+  // A note on layout:
+  // "Each non-static data member is allocated as if it were the sole member of
+  // a struct." - Section 9.5.2 ISO/IEC 14882:2011 (The C++ Spec)
+  union MOJO_ALIGNAS(8) Union_ {
+    Union_() : unknown(0) {}
+    mojo::internal::Pointer<internal::SensorInfo_Data> f_sensor_info;
+    mojo::internal::Pointer<internal::ProbeError_Data> f_error;
+    uint64_t unknown;
+  };
+
+  uint32_t size;
+  SensorResult_Tag tag;
+  Union_ data;
+};
+static_assert(sizeof(SensorResult_Data) == mojo::internal::kUnionDataSize,
+              "Bad sizeof(SensorResult_Data)");
 class  ProbeError_Data {
  public:
   static bool Validate(const void* data,
@@ -5147,6 +5259,107 @@ struct InputDevice_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     InputDevice_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  SensorInfo_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint16_Data> lid_angle;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::Sensor_Data>>> sensors;
+
+ private:
+  friend class mojo::internal::MessageFragment<SensorInfo_Data>;
+
+  SensorInfo_Data();
+  ~SensorInfo_Data() = delete;
+};
+static_assert(sizeof(SensorInfo_Data) == 24,
+              "Bad sizeof(SensorInfo_Data)");
+// Used by SensorInfo::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct SensorInfo_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  SensorInfo_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~SensorInfo_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<SensorInfo_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    SensorInfo_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  Sensor_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> name;
+  int32_t device_id;
+  int32_t type;
+  int32_t location;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<Sensor_Data>;
+
+  Sensor_Data();
+  ~Sensor_Data() = delete;
+};
+static_assert(sizeof(Sensor_Data) == 32,
+              "Bad sizeof(Sensor_Data)");
+// Used by Sensor::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct Sensor_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  Sensor_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~Sensor_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<Sensor_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    Sensor_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  TelemetryInfo_Data {
  public:
   static bool Validate(const void* data,
@@ -5174,6 +5387,7 @@ class  TelemetryInfo_Data {
   internal::NetworkInterfaceResult_Data network_interface_result;
   internal::InputResult_Data input_result;
   internal::AudioHardwareResult_Data audio_hardware_result;
+  internal::SensorResult_Data sensor_result;
 
  private:
   friend class mojo::internal::MessageFragment<TelemetryInfo_Data>;
@@ -5181,7 +5395,7 @@ class  TelemetryInfo_Data {
   TelemetryInfo_Data();
   ~TelemetryInfo_Data() = delete;
 };
-static_assert(sizeof(TelemetryInfo_Data) == 344,
+static_assert(sizeof(TelemetryInfo_Data) == 360,
               "Bad sizeof(TelemetryInfo_Data)");
 // Used by TelemetryInfo::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

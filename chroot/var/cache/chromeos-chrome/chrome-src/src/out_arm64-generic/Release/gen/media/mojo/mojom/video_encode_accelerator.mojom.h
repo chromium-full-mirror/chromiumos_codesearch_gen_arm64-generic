@@ -1054,6 +1054,150 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+class  H265Metadata {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<H265Metadata, T>::value>;
+  using DataView = H265MetadataDataView;
+  using Data_ = internal::H265Metadata_Data;
+
+  template <typename... Args>
+  static H265MetadataPtr New(Args&&... args) {
+    return H265MetadataPtr(
+        absl::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static H265MetadataPtr From(const U& u) {
+    return mojo::TypeConverter<H265MetadataPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, H265Metadata>::Convert(*this);
+  }
+
+
+  H265Metadata();
+
+  H265Metadata(
+      uint8_t temporal_idx,
+      uint8_t spatial_idx,
+      bool layer_sync);
+
+
+  ~H265Metadata();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = H265MetadataPtr>
+  H265MetadataPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, H265Metadata::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, H265Metadata::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        H265Metadata::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        H265Metadata::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::H265Metadata_UnserializedMessageContext<
+            UserType, H265Metadata::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<H265Metadata::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return H265Metadata::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::H265Metadata_UnserializedMessageContext<
+            UserType, H265Metadata::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<H265Metadata::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  uint8_t temporal_idx;
+  
+  uint8_t spatial_idx;
+  
+  bool layer_sync;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, H265Metadata::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, H265Metadata::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, H265Metadata::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, H265Metadata::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
 class  Vp8Metadata {
  public:
   template <typename T>
@@ -1350,6 +1494,14 @@ class  CodecMetadata {
     result->set_h264(std::move(h264));
     return result;
   }
+  // Construct an instance holding |h265|.
+  static CodecMetadataPtr
+  NewH265(
+      H265MetadataPtr h265) {
+    auto result = CodecMetadataPtr(absl::in_place);
+    result->set_h265(std::move(h265));
+    return result;
+  }
   // Construct an instance holding |vp8|.
   static CodecMetadataPtr
   NewVp8(
@@ -1425,6 +1577,18 @@ class  CodecMetadata {
   void set_h264(
       H264MetadataPtr h264);
   
+  bool is_h265() const { return tag_ == Tag::kH265; }
+
+  
+  H265MetadataPtr& get_h265() const {
+    CHECK(tag_ == Tag::kH265);
+    return *(data_.h265);
+  }
+
+  
+  void set_h265(
+      H265MetadataPtr h265);
+  
   bool is_vp8() const { return tag_ == Tag::kVp8; }
 
   
@@ -1479,6 +1643,7 @@ class  CodecMetadata {
     Union_() = default;
     ~Union_() = default;
     H264MetadataPtr* h264;
+    H265MetadataPtr* h265;
     ::media::Vp8Metadata* vp8;
     ::media::Vp9Metadata* vp9;
     Av1MetadataPtr* av1;
@@ -2138,6 +2303,7 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+
 class  Vp9Metadata {
  public:
   template <typename T>
@@ -2636,6 +2802,9 @@ CodecMetadataPtr CodecMetadata::Clone() const {
     case Tag::kH264:
       return NewH264(
           mojo::Clone(*data_.h264));
+    case Tag::kH265:
+      return NewH265(
+          mojo::Clone(*data_.h265));
     case Tag::kVp8:
       return NewVp8(
           mojo::Clone(*data_.vp8));
@@ -2659,6 +2828,8 @@ bool CodecMetadata::Equals(const T& other) const {
   switch (tag_) {
     case Tag::kH264:
       return mojo::Equals(*(data_.h264), *(other.data_.h264));
+    case Tag::kH265:
+      return mojo::Equals(*(data_.h265), *(other.data_.h265));
     case Tag::kVp8:
       return mojo::Equals(*(data_.vp8), *(other.data_.vp8));
     case Tag::kVp9:
@@ -3048,6 +3219,42 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.temporal_idx < rhs.temporal_idx)
     return true;
   if (rhs.temporal_idx < lhs.temporal_idx)
+    return false;
+  if (lhs.layer_sync < rhs.layer_sync)
+    return true;
+  if (rhs.layer_sync < lhs.layer_sync)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+H265MetadataPtr H265Metadata::Clone() const {
+  return New(
+      mojo::Clone(temporal_idx),
+      mojo::Clone(spatial_idx),
+      mojo::Clone(layer_sync)
+  );
+}
+
+template <typename T, H265Metadata::EnableIfSame<T>*>
+bool H265Metadata::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->temporal_idx, other_struct.temporal_idx))
+    return false;
+  if (!mojo::Equals(this->spatial_idx, other_struct.spatial_idx))
+    return false;
+  if (!mojo::Equals(this->layer_sync, other_struct.layer_sync))
+    return false;
+  return true;
+}
+
+template <typename T, H265Metadata::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.temporal_idx < rhs.temporal_idx)
+    return true;
+  if (rhs.temporal_idx < lhs.temporal_idx)
+    return false;
+  if (lhs.spatial_idx < rhs.spatial_idx)
+    return true;
+  if (rhs.spatial_idx < lhs.spatial_idx)
     return false;
   if (lhs.layer_sync < rhs.layer_sync)
     return true;
@@ -3562,6 +3769,31 @@ struct  StructTraits<::media::mojom::H264Metadata::DataView,
 
 
 template <>
+struct  StructTraits<::media::mojom::H265Metadata::DataView,
+                                         ::media::mojom::H265MetadataPtr> {
+  static bool IsNull(const ::media::mojom::H265MetadataPtr& input) { return !input; }
+  static void SetToNull(::media::mojom::H265MetadataPtr* output) { output->reset(); }
+
+  static decltype(::media::mojom::H265Metadata::temporal_idx) temporal_idx(
+      const ::media::mojom::H265MetadataPtr& input) {
+    return input->temporal_idx;
+  }
+
+  static decltype(::media::mojom::H265Metadata::spatial_idx) spatial_idx(
+      const ::media::mojom::H265MetadataPtr& input) {
+    return input->spatial_idx;
+  }
+
+  static decltype(::media::mojom::H265Metadata::layer_sync) layer_sync(
+      const ::media::mojom::H265MetadataPtr& input) {
+    return input->layer_sync;
+  }
+
+  static bool Read(::media::mojom::H265Metadata::DataView input, ::media::mojom::H265MetadataPtr* output);
+};
+
+
+template <>
 struct  StructTraits<::media::mojom::Vp8Metadata::DataView,
                                          ::media::mojom::Vp8MetadataPtr> {
   static bool IsNull(const ::media::mojom::Vp8MetadataPtr& input) { return !input; }
@@ -3755,6 +3987,10 @@ struct  UnionTraits<::media::mojom::CodecMetadata::DataView,
 
   static const ::media::mojom::H264MetadataPtr& h264(const ::media::mojom::CodecMetadataPtr& input) {
     return input->get_h264();
+  }
+
+  static const ::media::mojom::H265MetadataPtr& h265(const ::media::mojom::CodecMetadataPtr& input) {
+    return input->get_h265();
   }
 
   static const ::media::Vp8Metadata& vp8(const ::media::mojom::CodecMetadataPtr& input) {

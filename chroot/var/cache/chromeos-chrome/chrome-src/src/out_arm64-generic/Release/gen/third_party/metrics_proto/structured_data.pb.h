@@ -132,6 +132,7 @@ class StructuredEventProto_Metric final :
     kValueHmac = 2,
     kValueInt64 = 3,
     kValueString = 4,
+    kValueDouble = 5,
     VALUE_NOT_SET = 0,
   };
 
@@ -208,6 +209,7 @@ class StructuredEventProto_Metric final :
     kValueHmacFieldNumber = 2,
     kValueInt64FieldNumber = 3,
     kValueStringFieldNumber = 4,
+    kValueDoubleFieldNumber = 5,
   };
   // optional fixed64 name_hash = 1;
   bool has_name_hash() const;
@@ -266,6 +268,19 @@ class StructuredEventProto_Metric final :
   std::string* _internal_mutable_value_string();
   public:
 
+  // double value_double = 5;
+  bool has_value_double() const;
+  private:
+  bool _internal_has_value_double() const;
+  public:
+  void clear_value_double();
+  double value_double() const;
+  void set_value_double(double value);
+  private:
+  double _internal_value_double() const;
+  void _internal_set_value_double(double value);
+  public:
+
   void clear_value();
   ValueCase value_case() const;
   // @@protoc_insertion_point(class_scope:metrics.StructuredEventProto.Metric)
@@ -274,6 +289,7 @@ class StructuredEventProto_Metric final :
   void set_has_value_hmac();
   void set_has_value_int64();
   void set_has_value_string();
+  void set_has_value_double();
 
   inline bool has_value() const;
   inline void clear_has_value();
@@ -290,6 +306,7 @@ class StructuredEventProto_Metric final :
     uint64_t value_hmac_;
     int64_t value_int64_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr value_string_;
+    double value_double_;
   } value_;
   uint32_t _oneof_case_[1];
 
@@ -1054,6 +1071,44 @@ inline void StructuredEventProto_Metric::set_allocated_value_string(std::string*
     value_.value_string_.InitAllocated(value_string, GetArenaForAllocation());
   }
   // @@protoc_insertion_point(field_set_allocated:metrics.StructuredEventProto.Metric.value_string)
+}
+
+// double value_double = 5;
+inline bool StructuredEventProto_Metric::_internal_has_value_double() const {
+  return value_case() == kValueDouble;
+}
+inline bool StructuredEventProto_Metric::has_value_double() const {
+  return _internal_has_value_double();
+}
+inline void StructuredEventProto_Metric::set_has_value_double() {
+  _oneof_case_[0] = kValueDouble;
+}
+inline void StructuredEventProto_Metric::clear_value_double() {
+  if (_internal_has_value_double()) {
+    value_.value_double_ = 0;
+    clear_has_value();
+  }
+}
+inline double StructuredEventProto_Metric::_internal_value_double() const {
+  if (_internal_has_value_double()) {
+    return value_.value_double_;
+  }
+  return 0;
+}
+inline void StructuredEventProto_Metric::_internal_set_value_double(double value) {
+  if (!_internal_has_value_double()) {
+    clear_value();
+    set_has_value_double();
+  }
+  value_.value_double_ = value;
+}
+inline double StructuredEventProto_Metric::value_double() const {
+  // @@protoc_insertion_point(field_get:metrics.StructuredEventProto.Metric.value_double)
+  return _internal_value_double();
+}
+inline void StructuredEventProto_Metric::set_value_double(double value) {
+  _internal_set_value_double(value);
+  // @@protoc_insertion_point(field_set:metrics.StructuredEventProto.Metric.value_double)
 }
 
 inline bool StructuredEventProto_Metric::has_value() const {

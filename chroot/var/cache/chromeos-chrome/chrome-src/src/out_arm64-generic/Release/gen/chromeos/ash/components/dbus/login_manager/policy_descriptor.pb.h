@@ -55,7 +55,6 @@ namespace login_manager {
 enum PolicyAccountType : int {
   ACCOUNT_TYPE_DEVICE = 0,
   ACCOUNT_TYPE_USER = 1,
-  ACCOUNT_TYPE_SESSIONLESS_USER = 2,
   ACCOUNT_TYPE_DEVICE_LOCAL_ACCOUNT = 3
 };
 bool PolicyAccountType_IsValid(int value);

@@ -43,6 +43,9 @@ class HEADLESS_EXPORT ExperimentalObserver {
   virtual void OnIndexedDBListUpdated(const IndexedDBListUpdatedParams& params) {}
   // One of the interest groups was accessed by the associated page.
   virtual void OnInterestGroupAccessed(const InterestGroupAccessedParams& params) {}
+  // Shared storage was accessed by the associated page.
+  // The following parameters are included in all events.
+  virtual void OnSharedStorageAccessed(const SharedStorageAccessedParams& params) {}
 };
 
 class HEADLESS_EXPORT Observer : public ExperimentalObserver {
@@ -58,6 +61,9 @@ class HEADLESS_EXPORT Observer : public ExperimentalObserver {
   virtual void OnIndexedDBListUpdated(const IndexedDBListUpdatedParams& params) final {}
   // Experimental: One of the interest groups was accessed by the associated page.
   virtual void OnInterestGroupAccessed(const InterestGroupAccessedParams& params) final {}
+  // Experimental: Shared storage was accessed by the associated page.
+  // The following parameters are included in all events.
+  virtual void OnSharedStorageAccessed(const SharedStorageAccessedParams& params) final {}
 };
 
 class HEADLESS_EXPORT Domain {
@@ -98,12 +104,14 @@ class HEADLESS_EXPORT Domain {
   static void HandleSetInterestGroupTrackingResponse(base::OnceCallback<void(std::unique_ptr<SetInterestGroupTrackingResult>)> callback, const base::Value& response);
   static void HandleGetSharedStorageMetadataResponse(base::OnceCallback<void(std::unique_ptr<GetSharedStorageMetadataResult>)> callback, const base::Value& response);
   static void HandleGetSharedStorageEntriesResponse(base::OnceCallback<void(std::unique_ptr<GetSharedStorageEntriesResult>)> callback, const base::Value& response);
+  static void HandleSetSharedStorageTrackingResponse(base::OnceCallback<void(std::unique_ptr<SetSharedStorageTrackingResult>)> callback, const base::Value& response);
 
   void DispatchCacheStorageContentUpdatedEvent(const base::Value& params);
   void DispatchCacheStorageListUpdatedEvent(const base::Value& params);
   void DispatchIndexedDBContentUpdatedEvent(const base::Value& params);
   void DispatchIndexedDBListUpdatedEvent(const base::Value& params);
   void DispatchInterestGroupAccessedEvent(const base::Value& params);
+  void DispatchSharedStorageAccessedEvent(const base::Value& params);
 
   internal::MessageDispatcher* dispatcher_;  // Not owned.
   base::ObserverList<ExperimentalObserver>::Unchecked observers_;
@@ -191,6 +199,9 @@ class ExperimentalDomain : public Domain {
 
   // Gets the entries in an given origin's shared storage.
   void GetSharedStorageEntries(std::unique_ptr<GetSharedStorageEntriesParams> params, base::OnceCallback<void(std::unique_ptr<GetSharedStorageEntriesResult>)> callback = base::OnceCallback<void(std::unique_ptr<GetSharedStorageEntriesResult>)>());
+
+  // Enables/disables issuing of sharedStorageAccessed events.
+  void SetSharedStorageTracking(std::unique_ptr<SetSharedStorageTrackingParams> params, base::OnceCallback<void(std::unique_ptr<SetSharedStorageTrackingResult>)> callback = base::OnceCallback<void(std::unique_ptr<SetSharedStorageTrackingResult>)>());
 
 };
 

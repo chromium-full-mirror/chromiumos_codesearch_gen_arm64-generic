@@ -872,6 +872,9 @@ CrosHealthdDiagnosticsService::IPCStableHashFunction CrosHealthdDiagnosticsServi
     case internal::kCrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_Name: {
       return &CrosHealthdDiagnosticsService::RunFloatingPointAccuracyRoutine_Sym::IPCStableHash;
     }
+    case internal::kCrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_Name: {
+      return &CrosHealthdDiagnosticsService::DEPRECATED_RunNvmeWearLevelRoutine_Sym::IPCStableHash;
+    }
     case internal::kCrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_Name: {
       return &CrosHealthdDiagnosticsService::RunNvmeWearLevelRoutine_Sym::IPCStableHash;
     }
@@ -969,6 +972,8 @@ const char* CrosHealthdDiagnosticsService::MessageToMethodName_(mojo::Message& m
             return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunCpuStressRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_Name:
             return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunFloatingPointAccuracyRoutine";
+      case internal::kCrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_Name:
+            return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::DEPRECATED_RunNvmeWearLevelRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_Name:
             return "Receive ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunNvmeWearLevelRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunNvmeSelfTestRoutine_Name:
@@ -1036,6 +1041,8 @@ const char* CrosHealthdDiagnosticsService::MessageToMethodName_(mojo::Message& m
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunCpuStressRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_Name:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunFloatingPointAccuracyRoutine";
+      case internal::kCrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_Name:
+            return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::DEPRECATED_RunNvmeWearLevelRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_Name:
             return "Receive reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunNvmeWearLevelRoutine";
       case internal::kCrosHealthdDiagnosticsService_RunNvmeSelfTestRoutine_Name:
@@ -1220,6 +1227,19 @@ uint32_t CrosHealthdDiagnosticsService::RunFloatingPointAccuracyRoutine_Sym::IPC
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunFloatingPointAccuracyRoutine");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t CrosHealthdDiagnosticsService::DEPRECATED_RunNvmeWearLevelRoutine_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::DEPRECATED_RunNvmeWearLevelRoutine");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -1670,6 +1690,22 @@ class CrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_ForwardToCal
   bool Accept(mojo::Message* message) override;
  private:
   CrosHealthdDiagnosticsService::RunFloatingPointAccuracyRoutineCallback callback_;
+};
+
+class CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ForwardToCallback(
+      CrosHealthdDiagnosticsService::DEPRECATED_RunNvmeWearLevelRoutineCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ForwardToCallback(const CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ForwardToCallback&) = delete;
+  CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ForwardToCallback& operator=(const CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  CrosHealthdDiagnosticsService::DEPRECATED_RunNvmeWearLevelRoutineCallback callback_;
 };
 
 class CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_ForwardToCallback
@@ -2430,11 +2466,11 @@ void CrosHealthdDiagnosticsServiceProxy::RunFloatingPointAccuracyRoutine(
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
 
-void CrosHealthdDiagnosticsServiceProxy::RunNvmeWearLevelRoutine(
-    uint32_t in_wear_level_threshold, RunNvmeWearLevelRoutineCallback callback) {
+void CrosHealthdDiagnosticsServiceProxy::DEPRECATED_RunNvmeWearLevelRoutine(
+    uint32_t in_wear_level_threshold, DEPRECATED_RunNvmeWearLevelRoutineCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunNvmeWearLevelRoutine", "input_parameters",
+    "mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::DEPRECATED_RunNvmeWearLevelRoutine", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
@@ -2452,12 +2488,57 @@ void CrosHealthdDiagnosticsServiceProxy::RunNvmeWearLevelRoutine(
       ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
   
   mojo::Message message(
+      internal::kCrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_Params_Data> params(
+          message);
+  params.Allocate();
+  params->wear_level_threshold = in_wear_level_threshold;
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(CrosHealthdDiagnosticsService::Name_);
+  message.set_method_name("DEPRECATED_RunNvmeWearLevelRoutine");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void CrosHealthdDiagnosticsServiceProxy::RunNvmeWearLevelRoutine(
+    ::ash::cros_healthd::mojom::NullableUint32Ptr in_wear_level_threshold, RunNvmeWearLevelRoutineCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::RunNvmeWearLevelRoutine", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("wear_level_threshold"), in_wear_level_threshold,
+                        "<value of type ::ash::cros_healthd::mojom::NullableUint32Ptr>");
+   });
+#endif
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
       internal::kCrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
       ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_Params_Data> params(
           message);
   params.Allocate();
-  params->wear_level_threshold = in_wear_level_threshold;
+  mojo::internal::MessageFragment<
+      typename decltype(params->wear_level_threshold)::BaseType> wear_level_threshold_fragment(
+          params.message());
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::NullableUint32DataView>(
+      in_wear_level_threshold, wear_level_threshold_fragment);
+  params->wear_level_threshold.Set(
+      wear_level_threshold_fragment.is_null() ? nullptr : wear_level_threshold_fragment.data());
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(CrosHealthdDiagnosticsService::Name_);
@@ -4439,6 +4520,130 @@ void CrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_ProxyToRespon
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
+class CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static CrosHealthdDiagnosticsService::DEPRECATED_RunNvmeWearLevelRoutineCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ProxyToResponder> proxy(
+        new CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "CrosHealthdDiagnosticsService::DEPRECATED_RunNvmeWearLevelRoutineCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response);
+};
+
+bool CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  bool success = true;
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr p_response = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadResponse(&p_response))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        CrosHealthdDiagnosticsService::Name_, 10, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_response));
+  return true;
+}
+
+void CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ProxyToResponder::Run(
+    ::ash::cros_healthd::mojom::RunRoutineResponsePtr in_response) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply ash::cros_healthd::mojom::CrosHealthdDiagnosticsService::DEPRECATED_RunNvmeWearLevelRoutine", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("response"), in_response,
+                        "<value of type ::ash::cros_healthd::mojom::RunRoutineResponsePtr>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kCrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::cros_healthd::mojom::internal::CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->response)::BaseType> response_fragment(
+          params.message());
+  mojo::internal::Serialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
+      in_response, response_fragment);
+  params->response.Set(
+      response_fragment.is_null() ? nullptr : response_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->response.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null response in ");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(CrosHealthdDiagnosticsService::Name_);
+  message.set_method_name("DEPRECATED_RunNvmeWearLevelRoutine");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
 class CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
   static CrosHealthdDiagnosticsService::RunNvmeWearLevelRoutineCallback CreateCallback(
@@ -4503,7 +4708,7 @@ bool CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_ForwardToCallback::Ac
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        CrosHealthdDiagnosticsService::Name_, 10, true);
+        CrosHealthdDiagnosticsService::Name_, 32, true);
     return false;
   }
   if (!callback_.is_null())
@@ -7203,6 +7408,9 @@ bool CrosHealthdDiagnosticsServiceStubDispatch::Accept(
     case internal::kCrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_Name: {
       break;
     }
+    case internal::kCrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_Name: {
+      break;
+    }
     case internal::kCrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_Name: {
       break;
     }
@@ -7568,16 +7776,16 @@ std::move(p_length_seconds), std::move(callback));
 std::move(p_length_seconds), std::move(callback));
       return true;
     }
-    case internal::kCrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_Name: {
+    case internal::kCrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_Name: {
 
-      internal::CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_Params_Data* params =
+      internal::CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_Params_Data* params =
           reinterpret_cast<
-              internal::CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_Params_Data*>(
+              internal::CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_Params_Data*>(
                   message->mutable_payload());
       
       bool success = true;
       uint32_t p_wear_level_threshold = mojo::DefaultConstructTraits::CreateInstance<uint32_t>();
-      CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_ParamsDataView input_data_view(params, message);
+      CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ParamsDataView input_data_view(params, message);
       
       if (success)
         p_wear_level_threshold = input_data_view.wear_level_threshold();
@@ -7586,6 +7794,35 @@ std::move(p_length_seconds), std::move(callback));
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
             CrosHealthdDiagnosticsService::Name_, 10, false);
+        return false;
+      }
+      CrosHealthdDiagnosticsService::DEPRECATED_RunNvmeWearLevelRoutineCallback callback =
+          CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->DEPRECATED_RunNvmeWearLevelRoutine(
+std::move(p_wear_level_threshold), std::move(callback));
+      return true;
+    }
+    case internal::kCrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_Name: {
+
+      internal::CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_Params_Data* params =
+          reinterpret_cast<
+              internal::CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_Params_Data*>(
+                  message->mutable_payload());
+      
+      bool success = true;
+      ::ash::cros_healthd::mojom::NullableUint32Ptr p_wear_level_threshold = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::NullableUint32Ptr>();
+      CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadWearLevelThreshold(&p_wear_level_threshold))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            CrosHealthdDiagnosticsService::Name_, 32, false);
         return false;
       }
       CrosHealthdDiagnosticsService::RunNvmeWearLevelRoutineCallback callback =
@@ -8188,8 +8425,8 @@ static const mojo::internal::GenericValidationInfo kCrosHealthdDiagnosticsServic
      &internal::CrosHealthdDiagnosticsService_RunCpuStressRoutine_ResponseParams_Data::Validate},
     {&internal::CrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_Params_Data::Validate,
      &internal::CrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_ResponseParams_Data::Validate},
-    {&internal::CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_Params_Data::Validate,
-     &internal::CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_ResponseParams_Data::Validate},
+    {&internal::CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_Params_Data::Validate,
+     &internal::CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ResponseParams_Data::Validate},
     {&internal::CrosHealthdDiagnosticsService_RunNvmeSelfTestRoutine_Params_Data::Validate,
      &internal::CrosHealthdDiagnosticsService_RunNvmeSelfTestRoutine_ResponseParams_Data::Validate},
     {&internal::CrosHealthdDiagnosticsService_RunDiskReadRoutine_Params_Data::Validate,
@@ -8232,6 +8469,8 @@ static const mojo::internal::GenericValidationInfo kCrosHealthdDiagnosticsServic
      &internal::CrosHealthdDiagnosticsService_RunArcPingRoutine_ResponseParams_Data::Validate},
     {&internal::CrosHealthdDiagnosticsService_RunArcDnsResolutionRoutine_Params_Data::Validate,
      &internal::CrosHealthdDiagnosticsService_RunArcDnsResolutionRoutine_ResponseParams_Data::Validate},
+    {&internal::CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_Params_Data::Validate,
+     &internal::CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_ResponseParams_Data::Validate},
 };
 
 bool CrosHealthdDiagnosticsServiceRequestValidator::Accept(mojo::Message* message) {
@@ -10742,7 +10981,10 @@ void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunCpuStressRoutine(::a
 void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunFloatingPointAccuracyRoutine(::ash::cros_healthd::mojom::NullableUint32Ptr length_seconds, RunFloatingPointAccuracyRoutineCallback callback) {
   GetForwardingInterface()->RunFloatingPointAccuracyRoutine(std::move(length_seconds), std::move(callback));
 }
-void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunNvmeWearLevelRoutine(uint32_t wear_level_threshold, RunNvmeWearLevelRoutineCallback callback) {
+void CrosHealthdDiagnosticsServiceInterceptorForTesting::DEPRECATED_RunNvmeWearLevelRoutine(uint32_t wear_level_threshold, DEPRECATED_RunNvmeWearLevelRoutineCallback callback) {
+  GetForwardingInterface()->DEPRECATED_RunNvmeWearLevelRoutine(std::move(wear_level_threshold), std::move(callback));
+}
+void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunNvmeWearLevelRoutine(::ash::cros_healthd::mojom::NullableUint32Ptr wear_level_threshold, RunNvmeWearLevelRoutineCallback callback) {
   GetForwardingInterface()->RunNvmeWearLevelRoutine(std::move(wear_level_threshold), std::move(callback));
 }
 void CrosHealthdDiagnosticsServiceInterceptorForTesting::RunNvmeSelfTestRoutine(::ash::cros_healthd::mojom::NvmeSelfTestTypeEnum nvme_self_test_type, RunNvmeSelfTestRoutineCallback callback) {
@@ -11043,8 +11285,31 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunFloatingPointAccuracyRoutine(
   return async_wait_result;
 }
 
-void CrosHealthdDiagnosticsServiceAsyncWaiter::RunNvmeWearLevelRoutine(
+void CrosHealthdDiagnosticsServiceAsyncWaiter::DEPRECATED_RunNvmeWearLevelRoutine(
     uint32_t wear_level_threshold, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
+  base::RunLoop loop;
+  proxy_->DEPRECATED_RunNvmeWearLevelRoutine(std::move(wear_level_threshold),
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response
+,
+             ::ash::cros_healthd::mojom::RunRoutineResponsePtr response) {*out_response = std::move(response);
+            loop->Quit();
+          },
+          &loop,
+          out_response));
+  loop.Run();
+}
+
+::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::DEPRECATED_RunNvmeWearLevelRoutine(
+    uint32_t wear_level_threshold) {
+  ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
+  DEPRECATED_RunNvmeWearLevelRoutine(std::move(wear_level_threshold),&async_wait_result);
+  return async_wait_result;
+}
+
+void CrosHealthdDiagnosticsServiceAsyncWaiter::RunNvmeWearLevelRoutine(
+    ::ash::cros_healthd::mojom::NullableUint32Ptr wear_level_threshold, ::ash::cros_healthd::mojom::RunRoutineResponsePtr* out_response) {
   base::RunLoop loop;
   proxy_->RunNvmeWearLevelRoutine(std::move(wear_level_threshold),
       base::BindOnce(
@@ -11060,7 +11325,7 @@ void CrosHealthdDiagnosticsServiceAsyncWaiter::RunNvmeWearLevelRoutine(
 }
 
 ::ash::cros_healthd::mojom::RunRoutineResponsePtr CrosHealthdDiagnosticsServiceAsyncWaiter::RunNvmeWearLevelRoutine(
-    uint32_t wear_level_threshold) {
+    ::ash::cros_healthd::mojom::NullableUint32Ptr wear_level_threshold) {
   ::ash::cros_healthd::mojom::RunRoutineResponsePtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::RunRoutineResponsePtr>();
   RunNvmeWearLevelRoutine(std::move(wear_level_threshold),&async_wait_result);
   return async_wait_result;

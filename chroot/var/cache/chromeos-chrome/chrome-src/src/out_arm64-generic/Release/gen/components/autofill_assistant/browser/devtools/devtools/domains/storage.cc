@@ -52,6 +52,10 @@ void Domain::RegisterEventHandlersIfNeeded() {
       "Storage.interestGroupAccessed",
       base::BindRepeating(&Domain::DispatchInterestGroupAccessedEvent,
                           base::Unretained(this)));
+  dispatcher_->RegisterEventHandler(
+      "Storage.sharedStorageAccessed",
+      base::BindRepeating(&Domain::DispatchSharedStorageAccessedEvent,
+                          base::Unretained(this)));
 }
 
 void ExperimentalDomain::GetStorageKeyForFrame(
@@ -173,6 +177,12 @@ void ExperimentalDomain::GetSharedStorageEntries(
     const std::string& optional_node_frame_id,
     base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<GetSharedStorageEntriesResult>)> callback) {
   dispatcher_->SendMessage("Storage.getSharedStorageEntries", params->Serialize(), optional_node_frame_id, base::BindOnce(&Domain::HandleGetSharedStorageEntriesResponse, std::move(callback)));
+}
+void ExperimentalDomain::SetSharedStorageTracking(
+    std::unique_ptr<SetSharedStorageTrackingParams> params,
+    const std::string& optional_node_frame_id,
+    base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<SetSharedStorageTrackingResult>)> callback) {
+  dispatcher_->SendMessage("Storage.setSharedStorageTracking", params->Serialize(), optional_node_frame_id, base::BindOnce(&Domain::HandleSetSharedStorageTrackingResponse, std::move(callback)));
 }
 
 
@@ -556,6 +566,25 @@ void Domain::HandleGetSharedStorageEntriesResponse(
   std::move(callback).Run(reply_status, std::move(result));
 }
 
+// static
+void Domain::HandleSetSharedStorageTrackingResponse(
+    base::OnceCallback<void(const MessageDispatcher::ReplyStatus&, std::unique_ptr<SetSharedStorageTrackingResult>)> callback,
+    const MessageDispatcher::ReplyStatus& reply_status,
+    const base::Value& response) {
+  if (callback.is_null())
+    return;
+
+  // This is an error response.
+  if (response.is_none()) {
+    std::move(callback).Run(reply_status, nullptr);
+    return;
+  }
+  ErrorReporter errors;
+  std::unique_ptr<SetSharedStorageTrackingResult> result = SetSharedStorageTrackingResult::Parse(response, &errors);
+  DCHECK(!errors.HasErrors()) << errors.ToString();
+  std::move(callback).Run(reply_status, std::move(result));
+}
+
 void Domain::DispatchCacheStorageContentUpdatedEvent(const base::Value& params) {
   ErrorReporter errors;
   std::unique_ptr<CacheStorageContentUpdatedParams> parsed_params(CacheStorageContentUpdatedParams::Parse(params, &errors));
@@ -598,6 +627,15 @@ void Domain::DispatchInterestGroupAccessedEvent(const base::Value& params) {
   DCHECK(!errors.HasErrors()) << errors.ToString();
   for (ExperimentalObserver& observer : observers_) {
     observer.OnInterestGroupAccessed(*parsed_params);
+  }
+}
+
+void Domain::DispatchSharedStorageAccessedEvent(const base::Value& params) {
+  ErrorReporter errors;
+  std::unique_ptr<SharedStorageAccessedParams> parsed_params(SharedStorageAccessedParams::Parse(params, &errors));
+  DCHECK(!errors.HasErrors()) << errors.ToString();
+  for (ExperimentalObserver& observer : observers_) {
+    observer.OnSharedStorageAccessed(*parsed_params);
   }
 }
 

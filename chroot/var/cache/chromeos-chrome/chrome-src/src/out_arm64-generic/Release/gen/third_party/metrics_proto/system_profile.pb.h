@@ -266,11 +266,12 @@ enum SystemProfileProto_Hardware_FormFactor : int {
   SystemProfileProto_Hardware_FormFactor_FORM_FACTOR_DESKTOP = 1,
   SystemProfileProto_Hardware_FormFactor_FORM_FACTOR_PHONE = 2,
   SystemProfileProto_Hardware_FormFactor_FORM_FACTOR_TABLET = 3,
-  SystemProfileProto_Hardware_FormFactor_FORM_FACTOR_TV = 4
+  SystemProfileProto_Hardware_FormFactor_FORM_FACTOR_TV = 4,
+  SystemProfileProto_Hardware_FormFactor_FORM_FACTOR_MEET_DEVICE = 5
 };
 bool SystemProfileProto_Hardware_FormFactor_IsValid(int value);
 constexpr SystemProfileProto_Hardware_FormFactor SystemProfileProto_Hardware_FormFactor_FormFactor_MIN = SystemProfileProto_Hardware_FormFactor_FORM_FACTOR_UNKNOWN;
-constexpr SystemProfileProto_Hardware_FormFactor SystemProfileProto_Hardware_FormFactor_FormFactor_MAX = SystemProfileProto_Hardware_FormFactor_FORM_FACTOR_TV;
+constexpr SystemProfileProto_Hardware_FormFactor SystemProfileProto_Hardware_FormFactor_FormFactor_MAX = SystemProfileProto_Hardware_FormFactor_FORM_FACTOR_MEET_DEVICE;
 constexpr int SystemProfileProto_Hardware_FormFactor_FormFactor_ARRAYSIZE = SystemProfileProto_Hardware_FormFactor_FormFactor_MAX + 1;
 
 const std::string& SystemProfileProto_Hardware_FormFactor_Name(SystemProfileProto_Hardware_FormFactor value);
@@ -655,11 +656,13 @@ enum SystemProfileProto_ComponentId : int {
   SystemProfileProto_ComponentId_CROS_SMART_DIM = 26,
   SystemProfileProto_ComponentId_ZXCVBN_DATA = 27,
   SystemProfileProto_ComponentId_AUTOFILL_REGEX_CONSTANTS = 28,
-  SystemProfileProto_ComponentId_WEBVIEW_APPS_PACKAGE_NAMES_ALLOWLIST = 29
+  SystemProfileProto_ComponentId_WEBVIEW_APPS_PACKAGE_NAMES_ALLOWLIST = 29,
+  SystemProfileProto_ComponentId_MEDIA_FOUNDATION_WIDEVINE_CDM = 30,
+  SystemProfileProto_ComponentId_CROWD_DENY = 31
 };
 bool SystemProfileProto_ComponentId_IsValid(int value);
 constexpr SystemProfileProto_ComponentId SystemProfileProto_ComponentId_ComponentId_MIN = SystemProfileProto_ComponentId_UNKNOWN;
-constexpr SystemProfileProto_ComponentId SystemProfileProto_ComponentId_ComponentId_MAX = SystemProfileProto_ComponentId_WEBVIEW_APPS_PACKAGE_NAMES_ALLOWLIST;
+constexpr SystemProfileProto_ComponentId SystemProfileProto_ComponentId_ComponentId_MAX = SystemProfileProto_ComponentId_CROWD_DENY;
 constexpr int SystemProfileProto_ComponentId_ComponentId_ARRAYSIZE = SystemProfileProto_ComponentId_ComponentId_MAX + 1;
 
 const std::string& SystemProfileProto_ComponentId_Name(SystemProfileProto_ComponentId value);
@@ -2635,6 +2638,8 @@ class SystemProfileProto_Hardware final :
     SystemProfileProto_Hardware_FormFactor_FORM_FACTOR_TABLET;
   static constexpr FormFactor FORM_FACTOR_TV =
     SystemProfileProto_Hardware_FormFactor_FORM_FACTOR_TV;
+  static constexpr FormFactor FORM_FACTOR_MEET_DEVICE =
+    SystemProfileProto_Hardware_FormFactor_FORM_FACTOR_MEET_DEVICE;
   static inline bool FormFactor_IsValid(int value) {
     return SystemProfileProto_Hardware_FormFactor_IsValid(value);
   }
@@ -6905,6 +6910,10 @@ class SystemProfileProto final :
     SystemProfileProto_ComponentId_AUTOFILL_REGEX_CONSTANTS;
   static constexpr ComponentId WEBVIEW_APPS_PACKAGE_NAMES_ALLOWLIST =
     SystemProfileProto_ComponentId_WEBVIEW_APPS_PACKAGE_NAMES_ALLOWLIST;
+  static constexpr ComponentId MEDIA_FOUNDATION_WIDEVINE_CDM =
+    SystemProfileProto_ComponentId_MEDIA_FOUNDATION_WIDEVINE_CDM;
+  static constexpr ComponentId CROWD_DENY =
+    SystemProfileProto_ComponentId_CROWD_DENY;
   static inline bool ComponentId_IsValid(int value) {
     return SystemProfileProto_ComponentId_IsValid(value);
   }

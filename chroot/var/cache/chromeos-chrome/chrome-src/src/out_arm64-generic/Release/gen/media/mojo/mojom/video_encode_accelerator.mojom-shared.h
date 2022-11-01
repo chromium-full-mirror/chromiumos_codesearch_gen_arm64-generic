@@ -58,6 +58,8 @@ class VideoEncodeAcceleratorConfigDataView;
 
 class H264MetadataDataView;
 
+class H265MetadataDataView;
+
 class Vp8MetadataDataView;
 
 class Vp9MetadataDataView;
@@ -128,6 +130,13 @@ struct MojomTypeTraits<::media::mojom::VideoEncodeAcceleratorConfigDataView> {
 template <>
 struct MojomTypeTraits<::media::mojom::H264MetadataDataView> {
   using Data = ::media::mojom::internal::H264Metadata_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::media::mojom::H265MetadataDataView> {
+  using Data = ::media::mojom::internal::H265Metadata_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -659,6 +668,31 @@ class H264MetadataDataView {
 
 
 
+class H265MetadataDataView {
+ public:
+  H265MetadataDataView() = default;
+
+  H265MetadataDataView(
+      internal::H265Metadata_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  uint8_t temporal_idx() const {
+    return data_->temporal_idx;
+  }
+  uint8_t spatial_idx() const {
+    return data_->spatial_idx;
+  }
+  bool layer_sync() const {
+    return data_->layer_sync;
+  }
+ private:
+  internal::H265Metadata_Data* data_ = nullptr;
+};
+
+
+
 class Vp8MetadataDataView {
  public:
   Vp8MetadataDataView() = default;
@@ -926,6 +960,17 @@ class CodecMetadataDataView {
     CHECK(is_h264());
     return mojo::internal::Deserialize<::media::mojom::H264MetadataDataView>(
         data_->data.f_h264.Get(), output, message_);
+  }
+  bool is_h265() const { return data_->tag == Tag::kH265; }
+  inline void GetH265DataView(
+      H265MetadataDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadH265(UserType* output) const {
+    
+    CHECK(is_h265());
+    return mojo::internal::Deserialize<::media::mojom::H265MetadataDataView>(
+        data_->data.f_h265.Get(), output, message_);
   }
   bool is_vp8() const { return data_->tag == Tag::kVp8; }
   inline void GetVp8DataView(
@@ -1478,6 +1523,38 @@ struct Serializer<::media::mojom::H264MetadataDataView, MaybeConstUserType> {
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::media::mojom::H265MetadataDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::media::mojom::H265MetadataDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::media::mojom::internal::H265Metadata_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    fragment->temporal_idx = Traits::temporal_idx(input);
+    fragment->spatial_idx = Traits::spatial_idx(input);
+    fragment->layer_sync = Traits::layer_sync(input);
+  }
+
+  static bool Deserialize(::media::mojom::internal::H265Metadata_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::media::mojom::H265MetadataDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::media::mojom::Vp8MetadataDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = StructTraits<::media::mojom::Vp8MetadataDataView, UserType>;
@@ -1796,6 +1873,22 @@ struct Serializer<::media::mojom::CodecMetadataDataView, MaybeConstUserType> {
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
+      case ::media::mojom::CodecMetadataDataView::Tag::kH265: {
+        decltype(Traits::h265(input))
+            in_h265 = Traits::h265(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_h265)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::media::mojom::H265MetadataDataView>(
+            in_h265, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null h265 in CodecMetadata union");
+        fragment->data.f_h265.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
       case ::media::mojom::CodecMetadataDataView::Tag::kVp8: {
         decltype(Traits::vp8(input))
             in_vp8 = Traits::vp8(input);
@@ -1929,6 +2022,8 @@ inline void VideoEncodeAcceleratorConfigDataView::GetSpatialLayersDataView(
 
 
 
+
+
 inline void Vp9MetadataDataView::GetSpatialLayerResolutionsDataView(
     mojo::ArrayDataView<::gfx::mojom::SizeDataView>* output) {
   auto pointer = data_->spatial_layer_resolutions.Get();
@@ -1980,6 +2075,11 @@ inline void CodecMetadataDataView::GetH264DataView(
     H264MetadataDataView* output) const {
   CHECK(is_h264());
   *output = H264MetadataDataView(data_->data.f_h264.Get(), message_);
+}
+inline void CodecMetadataDataView::GetH265DataView(
+    H265MetadataDataView* output) const {
+  CHECK(is_h265());
+  *output = H265MetadataDataView(data_->data.f_h265.Get(), message_);
 }
 inline void CodecMetadataDataView::GetVp8DataView(
     Vp8MetadataDataView* output) const {

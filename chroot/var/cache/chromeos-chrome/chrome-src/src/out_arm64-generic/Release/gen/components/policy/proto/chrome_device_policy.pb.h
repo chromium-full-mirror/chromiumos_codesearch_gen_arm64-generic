@@ -291,6 +291,9 @@ POLICY_PROTO_EXPORT extern GuestModeEnabledProtoDefaultTypeInternal _GuestModeEn
 class HostnameUserConfigurableProto;
 struct HostnameUserConfigurableProtoDefaultTypeInternal;
 POLICY_PROTO_EXPORT extern HostnameUserConfigurableProtoDefaultTypeInternal _HostnameUserConfigurableProto_default_instance_;
+class KeyboardBacklightColorProto;
+struct KeyboardBacklightColorProtoDefaultTypeInternal;
+POLICY_PROTO_EXPORT extern KeyboardBacklightColorProtoDefaultTypeInternal _KeyboardBacklightColorProto_default_instance_;
 class KioskAppInfoProto;
 struct KioskAppInfoProtoDefaultTypeInternal;
 POLICY_PROTO_EXPORT extern KioskAppInfoProtoDefaultTypeInternal _KioskAppInfoProto_default_instance_;
@@ -522,6 +525,7 @@ template<> POLICY_PROTO_EXPORT ::enterprise_management::ExtensionCacheSizeProto*
 template<> POLICY_PROTO_EXPORT ::enterprise_management::FeatureFlagsProto* Arena::CreateMaybeMessage<::enterprise_management::FeatureFlagsProto>(Arena*);
 template<> POLICY_PROTO_EXPORT ::enterprise_management::GuestModeEnabledProto* Arena::CreateMaybeMessage<::enterprise_management::GuestModeEnabledProto>(Arena*);
 template<> POLICY_PROTO_EXPORT ::enterprise_management::HostnameUserConfigurableProto* Arena::CreateMaybeMessage<::enterprise_management::HostnameUserConfigurableProto>(Arena*);
+template<> POLICY_PROTO_EXPORT ::enterprise_management::KeyboardBacklightColorProto* Arena::CreateMaybeMessage<::enterprise_management::KeyboardBacklightColorProto>(Arena*);
 template<> POLICY_PROTO_EXPORT ::enterprise_management::KioskAppInfoProto* Arena::CreateMaybeMessage<::enterprise_management::KioskAppInfoProto>(Arena*);
 template<> POLICY_PROTO_EXPORT ::enterprise_management::LoginAuthenticationBehaviorProto* Arena::CreateMaybeMessage<::enterprise_management::LoginAuthenticationBehaviorProto>(Arena*);
 template<> POLICY_PROTO_EXPORT ::enterprise_management::LoginScreenDomainAutoCompleteProto* Arena::CreateMaybeMessage<::enterprise_management::LoginScreenDomainAutoCompleteProto>(Arena*);
@@ -889,6 +893,32 @@ return DeviceKerberosEncryptionTypesProto_Types_Name(static_cast<DeviceKerberosE
 }
 bool DeviceKerberosEncryptionTypesProto_Types_Parse(
 ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, DeviceKerberosEncryptionTypesProto_Types* value);
+enum KeyboardBacklightColorProto_BacklightColor : int {
+KeyboardBacklightColorProto_BacklightColor_BACKLIGHT_UNSPECIFIED = 0,
+KeyboardBacklightColorProto_BacklightColor_BACKLIGHT_WHITE = 1,
+KeyboardBacklightColorProto_BacklightColor_BACKLIGHT_RED = 2,
+KeyboardBacklightColorProto_BacklightColor_BACKLIGHT_YELLOW = 3,
+KeyboardBacklightColorProto_BacklightColor_BACKLIGHT_GREEN = 4,
+KeyboardBacklightColorProto_BacklightColor_BACKLIGHT_BLUE = 5,
+KeyboardBacklightColorProto_BacklightColor_BACKLIGHT_INDIGO = 6,
+KeyboardBacklightColorProto_BacklightColor_BACKLIGHT_PURPLE = 7,
+KeyboardBacklightColorProto_BacklightColor_BACKLIGHT_RAINBOW = 100
+};
+POLICY_PROTO_EXPORT bool KeyboardBacklightColorProto_BacklightColor_IsValid(int value);
+constexpr KeyboardBacklightColorProto_BacklightColor KeyboardBacklightColorProto_BacklightColor_BacklightColor_MIN = KeyboardBacklightColorProto_BacklightColor_BACKLIGHT_UNSPECIFIED;
+constexpr KeyboardBacklightColorProto_BacklightColor KeyboardBacklightColorProto_BacklightColor_BacklightColor_MAX = KeyboardBacklightColorProto_BacklightColor_BACKLIGHT_RAINBOW;
+constexpr int KeyboardBacklightColorProto_BacklightColor_BacklightColor_ARRAYSIZE = KeyboardBacklightColorProto_BacklightColor_BacklightColor_MAX + 1;
+
+const std::string& KeyboardBacklightColorProto_BacklightColor_Name(KeyboardBacklightColorProto_BacklightColor value);
+template<typename T>
+inline const std::string& KeyboardBacklightColorProto_BacklightColor_Name(T enum_t_value) {
+static_assert(::std::is_same<T, KeyboardBacklightColorProto_BacklightColor>::value ||
+::std::is_integral<T>::value,
+"Incorrect type passed to function KeyboardBacklightColorProto_BacklightColor_Name.");
+return KeyboardBacklightColorProto_BacklightColor_Name(static_cast<KeyboardBacklightColorProto_BacklightColor>(enum_t_value));
+}
+bool KeyboardBacklightColorProto_BacklightColor_Parse(
+::PROTOBUF_NAMESPACE_ID::ConstStringParam name, KeyboardBacklightColorProto_BacklightColor* value);
 enum DeviceUserPolicyLoopbackProcessingModeProto_Mode : int {
 DeviceUserPolicyLoopbackProcessingModeProto_Mode_USER_POLICY_MODE_DEFAULT = 0,
 DeviceUserPolicyLoopbackProcessingModeProto_Mode_USER_POLICY_MODE_MERGE = 1,
@@ -16229,6 +16259,185 @@ friend struct ::TableStruct_chrome_5fdevice_5fpolicy_2eproto;
 };
 // -------------------------------------------------------------------
 
+class POLICY_PROTO_EXPORT KeyboardBacklightColorProto final :
+public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:enterprise_management.KeyboardBacklightColorProto) */ {
+public:
+inline KeyboardBacklightColorProto() : KeyboardBacklightColorProto(nullptr) {}
+~KeyboardBacklightColorProto() override;
+explicit PROTOBUF_CONSTEXPR KeyboardBacklightColorProto(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+KeyboardBacklightColorProto(const KeyboardBacklightColorProto& from);
+KeyboardBacklightColorProto(KeyboardBacklightColorProto&& from) noexcept
+: KeyboardBacklightColorProto() {
+*this = ::std::move(from);
+}
+
+inline KeyboardBacklightColorProto& operator=(const KeyboardBacklightColorProto& from) {
+CopyFrom(from);
+return *this;
+}
+inline KeyboardBacklightColorProto& operator=(KeyboardBacklightColorProto&& from) noexcept {
+if (this == &from) return *this;
+if (GetOwningArena() == from.GetOwningArena()
+#ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+&& GetOwningArena() != nullptr
+#endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+) {
+InternalSwap(&from);
+} else {
+CopyFrom(from);
+}
+return *this;
+}
+
+inline const std::string& unknown_fields() const {
+return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+}
+inline std::string* mutable_unknown_fields() {
+return _internal_metadata_.mutable_unknown_fields<std::string>();
+}
+
+static const KeyboardBacklightColorProto& default_instance() {
+return *internal_default_instance();
+}
+static inline const KeyboardBacklightColorProto* internal_default_instance() {
+return reinterpret_cast<const KeyboardBacklightColorProto*>(
+&_KeyboardBacklightColorProto_default_instance_);
+}
+static constexpr int kIndexInFileMessages =
+89;
+
+friend void swap(KeyboardBacklightColorProto& a, KeyboardBacklightColorProto& b) {
+a.Swap(&b);
+}
+PROTOBUF_NOINLINE void Swap(KeyboardBacklightColorProto* other) {
+if (other == this) return;
+#ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+if (GetOwningArena() != nullptr &&
+GetOwningArena() == other->GetOwningArena()) {
+#else  // PROTOBUF_FORCE_COPY_IN_SWAP
+if (GetOwningArena() == other->GetOwningArena()) {
+#endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+InternalSwap(other);
+} else {
+::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+}
+}
+void UnsafeArenaSwap(KeyboardBacklightColorProto* other) {
+if (other == this) return;
+GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+InternalSwap(other);
+}
+
+// implements Message ----------------------------------------------
+
+KeyboardBacklightColorProto* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+return CreateMaybeMessage<KeyboardBacklightColorProto>(arena);
+}
+void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+void CopyFrom(const KeyboardBacklightColorProto& from);
+void MergeFrom(const KeyboardBacklightColorProto& from);
+PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+bool IsInitialized() const final;
+
+size_t ByteSizeLong() const final;
+const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+uint8_t* _InternalSerialize(
+uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+int GetCachedSize() const final { return _cached_size_.Get(); }
+
+private:
+void SharedCtor();
+void SharedDtor();
+void SetCachedSize(int size) const;
+void InternalSwap(KeyboardBacklightColorProto* other);
+
+private:
+friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+return "enterprise_management.KeyboardBacklightColorProto";
+}
+protected:
+explicit KeyboardBacklightColorProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+bool is_message_owned = false);
+public:
+
+std::string GetTypeName() const final;
+
+// nested types ----------------------------------------------------
+
+typedef KeyboardBacklightColorProto_BacklightColor BacklightColor;
+static constexpr BacklightColor BACKLIGHT_UNSPECIFIED =
+KeyboardBacklightColorProto_BacklightColor_BACKLIGHT_UNSPECIFIED;
+static constexpr BacklightColor BACKLIGHT_WHITE =
+KeyboardBacklightColorProto_BacklightColor_BACKLIGHT_WHITE;
+static constexpr BacklightColor BACKLIGHT_RED =
+KeyboardBacklightColorProto_BacklightColor_BACKLIGHT_RED;
+static constexpr BacklightColor BACKLIGHT_YELLOW =
+KeyboardBacklightColorProto_BacklightColor_BACKLIGHT_YELLOW;
+static constexpr BacklightColor BACKLIGHT_GREEN =
+KeyboardBacklightColorProto_BacklightColor_BACKLIGHT_GREEN;
+static constexpr BacklightColor BACKLIGHT_BLUE =
+KeyboardBacklightColorProto_BacklightColor_BACKLIGHT_BLUE;
+static constexpr BacklightColor BACKLIGHT_INDIGO =
+KeyboardBacklightColorProto_BacklightColor_BACKLIGHT_INDIGO;
+static constexpr BacklightColor BACKLIGHT_PURPLE =
+KeyboardBacklightColorProto_BacklightColor_BACKLIGHT_PURPLE;
+static constexpr BacklightColor BACKLIGHT_RAINBOW =
+KeyboardBacklightColorProto_BacklightColor_BACKLIGHT_RAINBOW;
+static inline bool BacklightColor_IsValid(int value) {
+return KeyboardBacklightColorProto_BacklightColor_IsValid(value);
+}
+static constexpr BacklightColor BacklightColor_MIN =
+KeyboardBacklightColorProto_BacklightColor_BacklightColor_MIN;
+static constexpr BacklightColor BacklightColor_MAX =
+KeyboardBacklightColorProto_BacklightColor_BacklightColor_MAX;
+static constexpr int BacklightColor_ARRAYSIZE =
+KeyboardBacklightColorProto_BacklightColor_BacklightColor_ARRAYSIZE;
+template<typename T>
+static inline const std::string& BacklightColor_Name(T enum_t_value) {
+static_assert(::std::is_same<T, BacklightColor>::value ||
+::std::is_integral<T>::value,
+"Incorrect type passed to function BacklightColor_Name.");
+return KeyboardBacklightColorProto_BacklightColor_Name(enum_t_value);
+}
+static inline bool BacklightColor_Parse(::PROTOBUF_NAMESPACE_ID::ConstStringParam name,
+BacklightColor* value) {
+return KeyboardBacklightColorProto_BacklightColor_Parse(name, value);
+}
+
+// accessors -------------------------------------------------------
+
+enum : int {
+kColorFieldNumber = 1,
+};
+// optional .enterprise_management.KeyboardBacklightColorProto.BacklightColor color = 1 [default = BACKLIGHT_UNSPECIFIED];
+bool has_color() const;
+private:
+bool _internal_has_color() const;
+public:
+void clear_color();
+::enterprise_management::KeyboardBacklightColorProto_BacklightColor color() const;
+void set_color(::enterprise_management::KeyboardBacklightColorProto_BacklightColor value);
+private:
+::enterprise_management::KeyboardBacklightColorProto_BacklightColor _internal_color() const;
+void _internal_set_color(::enterprise_management::KeyboardBacklightColorProto_BacklightColor value);
+public:
+
+// @@protoc_insertion_point(class_scope:enterprise_management.KeyboardBacklightColorProto)
+private:
+class _Internal;
+
+template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+typedef void InternalArenaConstructable_;
+typedef void DestructorSkippable_;
+::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+int color_;
+friend struct ::TableStruct_chrome_5fdevice_5fpolicy_2eproto;
+};
+// -------------------------------------------------------------------
+
 class POLICY_PROTO_EXPORT DeviceUserPolicyLoopbackProcessingModeProto final :
 public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:enterprise_management.DeviceUserPolicyLoopbackProcessingModeProto) */ {
 public:
@@ -16275,7 +16484,7 @@ return reinterpret_cast<const DeviceUserPolicyLoopbackProcessingModeProto*>(
 &_DeviceUserPolicyLoopbackProcessingModeProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-89;
+90;
 
 friend void swap(DeviceUserPolicyLoopbackProcessingModeProto& a, DeviceUserPolicyLoopbackProcessingModeProto& b) {
 a.Swap(&b);
@@ -16442,7 +16651,7 @@ return reinterpret_cast<const OBSOLETE_DeviceLoginScreenIsolateOriginsProto*>(
 &_OBSOLETE_DeviceLoginScreenIsolateOriginsProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-90;
+91;
 
 friend void swap(OBSOLETE_DeviceLoginScreenIsolateOriginsProto& a, OBSOLETE_DeviceLoginScreenIsolateOriginsProto& b) {
 a.Swap(&b);
@@ -16586,7 +16795,7 @@ return reinterpret_cast<const OBSOLETE_DeviceLoginScreenSitePerProcessProto*>(
 &_OBSOLETE_DeviceLoginScreenSitePerProcessProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-91;
+92;
 
 friend void swap(OBSOLETE_DeviceLoginScreenSitePerProcessProto& a, OBSOLETE_DeviceLoginScreenSitePerProcessProto& b) {
 a.Swap(&b);
@@ -16725,7 +16934,7 @@ return reinterpret_cast<const VirtualMachinesAllowedProto*>(
 &_VirtualMachinesAllowedProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-92;
+93;
 
 friend void swap(VirtualMachinesAllowedProto& a, VirtualMachinesAllowedProto& b) {
 a.Swap(&b);
@@ -16864,7 +17073,7 @@ return reinterpret_cast<const DeviceMachinePasswordChangeRateProto*>(
 &_DeviceMachinePasswordChangeRateProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-93;
+94;
 
 friend void swap(DeviceMachinePasswordChangeRateProto& a, DeviceMachinePasswordChangeRateProto& b) {
 a.Swap(&b);
@@ -17003,7 +17212,7 @@ return reinterpret_cast<const DeviceGpoCacheLifetimeProto*>(
 &_DeviceGpoCacheLifetimeProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-94;
+95;
 
 friend void swap(DeviceGpoCacheLifetimeProto& a, DeviceGpoCacheLifetimeProto& b) {
 a.Swap(&b);
@@ -17142,7 +17351,7 @@ return reinterpret_cast<const DeviceAuthDataCacheLifetimeProto*>(
 &_DeviceAuthDataCacheLifetimeProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-95;
+96;
 
 friend void swap(DeviceAuthDataCacheLifetimeProto& a, DeviceAuthDataCacheLifetimeProto& b) {
 a.Swap(&b);
@@ -17281,7 +17490,7 @@ return reinterpret_cast<const DeviceUnaffiliatedCrostiniAllowedProto*>(
 &_DeviceUnaffiliatedCrostiniAllowedProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-96;
+97;
 
 friend void swap(DeviceUnaffiliatedCrostiniAllowedProto& a, DeviceUnaffiliatedCrostiniAllowedProto& b) {
 a.Swap(&b);
@@ -17420,7 +17629,7 @@ return reinterpret_cast<const PluginVmAllowedProto*>(
 &_PluginVmAllowedProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-97;
+98;
 
 friend void swap(PluginVmAllowedProto& a, PluginVmAllowedProto& b) {
 a.Swap(&b);
@@ -17559,7 +17768,7 @@ return reinterpret_cast<const PluginVmLicenseKeyProto*>(
 &_PluginVmLicenseKeyProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-98;
+99;
 
 friend void swap(PluginVmLicenseKeyProto& a, PluginVmLicenseKeyProto& b) {
 a.Swap(&b);
@@ -17703,7 +17912,7 @@ return reinterpret_cast<const DeviceRebootOnUserSignoutProto*>(
 &_DeviceRebootOnUserSignoutProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-99;
+100;
 
 friend void swap(DeviceRebootOnUserSignoutProto& a, DeviceRebootOnUserSignoutProto& b) {
 a.Swap(&b);
@@ -17874,7 +18083,7 @@ return reinterpret_cast<const DeviceWilcoDtcAllowedProto*>(
 &_DeviceWilcoDtcAllowedProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-100;
+101;
 
 friend void swap(DeviceWilcoDtcAllowedProto& a, DeviceWilcoDtcAllowedProto& b) {
 a.Swap(&b);
@@ -18013,7 +18222,7 @@ return reinterpret_cast<const DeviceWilcoDtcConfigurationProto*>(
 &_DeviceWilcoDtcConfigurationProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-101;
+102;
 
 friend void swap(DeviceWilcoDtcConfigurationProto& a, DeviceWilcoDtcConfigurationProto& b) {
 a.Swap(&b);
@@ -18157,7 +18366,7 @@ return reinterpret_cast<const DevicePowerPeakShiftProto*>(
 &_DevicePowerPeakShiftProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-102;
+103;
 
 friend void swap(DevicePowerPeakShiftProto& a, DevicePowerPeakShiftProto& b) {
 a.Swap(&b);
@@ -18331,7 +18540,7 @@ return reinterpret_cast<const DeviceBootOnAcProto*>(
 &_DeviceBootOnAcProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-103;
+104;
 
 friend void swap(DeviceBootOnAcProto& a, DeviceBootOnAcProto& b) {
 a.Swap(&b);
@@ -18470,7 +18679,7 @@ return reinterpret_cast<const DeviceDockMacAddressSourceProto*>(
 &_DeviceDockMacAddressSourceProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-104;
+105;
 
 friend void swap(DeviceDockMacAddressSourceProto& a, DeviceDockMacAddressSourceProto& b) {
 a.Swap(&b);
@@ -18639,7 +18848,7 @@ return reinterpret_cast<const DeviceAdvancedBatteryChargeModeProto*>(
 &_DeviceAdvancedBatteryChargeModeProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-105;
+106;
 
 friend void swap(DeviceAdvancedBatteryChargeModeProto& a, DeviceAdvancedBatteryChargeModeProto& b) {
 a.Swap(&b);
@@ -18798,7 +19007,7 @@ return reinterpret_cast<const DeviceBatteryChargeModeProto*>(
 &_DeviceBatteryChargeModeProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-106;
+107;
 
 friend void swap(DeviceBatteryChargeModeProto& a, DeviceBatteryChargeModeProto& b) {
 a.Swap(&b);
@@ -19001,7 +19210,7 @@ return reinterpret_cast<const DeviceUsbPowerShareProto*>(
 &_DeviceUsbPowerShareProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-107;
+108;
 
 friend void swap(DeviceUsbPowerShareProto& a, DeviceUsbPowerShareProto& b) {
 a.Swap(&b);
@@ -19140,7 +19349,7 @@ return reinterpret_cast<const DeviceScheduledUpdateCheckProto*>(
 &_DeviceScheduledUpdateCheckProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-108;
+109;
 
 friend void swap(DeviceScheduledUpdateCheckProto& a, DeviceScheduledUpdateCheckProto& b) {
 a.Swap(&b);
@@ -19284,7 +19493,7 @@ return reinterpret_cast<const DevicePowerwashAllowedProto*>(
 &_DevicePowerwashAllowedProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-109;
+110;
 
 friend void swap(DevicePowerwashAllowedProto& a, DevicePowerwashAllowedProto& b) {
 a.Swap(&b);
@@ -19423,7 +19632,7 @@ return reinterpret_cast<const DeviceLoginScreenWebUsbAllowDevicesForUrlsProto*>(
 &_DeviceLoginScreenWebUsbAllowDevicesForUrlsProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-110;
+111;
 
 friend void swap(DeviceLoginScreenWebUsbAllowDevicesForUrlsProto& a, DeviceLoginScreenWebUsbAllowDevicesForUrlsProto& b) {
 a.Swap(&b);
@@ -19567,7 +19776,7 @@ return reinterpret_cast<const SystemProxySettingsProto*>(
 &_SystemProxySettingsProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-111;
+112;
 
 friend void swap(SystemProxySettingsProto& a, SystemProxySettingsProto& b) {
 a.Swap(&b);
@@ -19711,7 +19920,7 @@ return reinterpret_cast<const RequiredClientCertificateForDeviceProto*>(
 &_RequiredClientCertificateForDeviceProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-112;
+113;
 
 friend void swap(RequiredClientCertificateForDeviceProto& a, RequiredClientCertificateForDeviceProto& b) {
 a.Swap(&b);
@@ -19855,7 +20064,7 @@ return reinterpret_cast<const DeviceCrostiniArcAdbSideloadingAllowedProto*>(
 &_DeviceCrostiniArcAdbSideloadingAllowedProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-113;
+114;
 
 friend void swap(DeviceCrostiniArcAdbSideloadingAllowedProto& a, DeviceCrostiniArcAdbSideloadingAllowedProto& b) {
 a.Swap(&b);
@@ -20022,7 +20231,7 @@ return reinterpret_cast<const DeviceShowLowDiskSpaceNotificationProto*>(
 &_DeviceShowLowDiskSpaceNotificationProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-114;
+115;
 
 friend void swap(DeviceShowLowDiskSpaceNotificationProto& a, DeviceShowLowDiskSpaceNotificationProto& b) {
 a.Swap(&b);
@@ -20161,7 +20370,7 @@ return reinterpret_cast<const DeviceFamilyLinkAccountsAllowedProto*>(
 &_DeviceFamilyLinkAccountsAllowedProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-115;
+116;
 
 friend void swap(DeviceFamilyLinkAccountsAllowedProto& a, DeviceFamilyLinkAccountsAllowedProto& b) {
 a.Swap(&b);
@@ -20300,7 +20509,7 @@ return reinterpret_cast<const DeviceArcDataSnapshotHoursProto*>(
 &_DeviceArcDataSnapshotHoursProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-116;
+117;
 
 friend void swap(DeviceArcDataSnapshotHoursProto& a, DeviceArcDataSnapshotHoursProto& b) {
 a.Swap(&b);
@@ -20444,7 +20653,7 @@ return reinterpret_cast<const DeviceSystemWideTracingEnabledProto*>(
 &_DeviceSystemWideTracingEnabledProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-117;
+118;
 
 friend void swap(DeviceSystemWideTracingEnabledProto& a, DeviceSystemWideTracingEnabledProto& b) {
 a.Swap(&b);
@@ -20583,7 +20792,7 @@ return reinterpret_cast<const DevicePciPeripheralDataAccessEnabledProto*>(
 &_DevicePciPeripheralDataAccessEnabledProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-118;
+119;
 
 friend void swap(DevicePciPeripheralDataAccessEnabledProto& a, DevicePciPeripheralDataAccessEnabledProto& b) {
 a.Swap(&b);
@@ -20722,7 +20931,7 @@ return reinterpret_cast<const DevicePciPeripheralDataAccessEnabledProtoV2*>(
 &_DevicePciPeripheralDataAccessEnabledProtoV2_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-119;
+120;
 
 friend void swap(DevicePciPeripheralDataAccessEnabledProtoV2& a, DevicePciPeripheralDataAccessEnabledProtoV2& b) {
 a.Swap(&b);
@@ -20861,7 +21070,7 @@ return reinterpret_cast<const DeviceBorealisAllowedProto*>(
 &_DeviceBorealisAllowedProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-120;
+121;
 
 friend void swap(DeviceBorealisAllowedProto& a, DeviceBorealisAllowedProto& b) {
 a.Swap(&b);
@@ -21000,7 +21209,7 @@ return reinterpret_cast<const DeviceAllowedBluetoothServicesProto*>(
 &_DeviceAllowedBluetoothServicesProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-121;
+122;
 
 friend void swap(DeviceAllowedBluetoothServicesProto& a, DeviceAllowedBluetoothServicesProto& b) {
 a.Swap(&b);
@@ -21149,7 +21358,7 @@ return reinterpret_cast<const DeviceDebugPacketCaptureAllowedProto*>(
 &_DeviceDebugPacketCaptureAllowedProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-122;
+123;
 
 friend void swap(DeviceDebugPacketCaptureAllowedProto& a, DeviceDebugPacketCaptureAllowedProto& b) {
 a.Swap(&b);
@@ -21288,7 +21497,7 @@ return reinterpret_cast<const DeviceScheduledRebootProto*>(
 &_DeviceScheduledRebootProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-123;
+124;
 
 friend void swap(DeviceScheduledRebootProto& a, DeviceScheduledRebootProto& b) {
 a.Swap(&b);
@@ -21432,7 +21641,7 @@ return reinterpret_cast<const DeviceRestrictedManagedGuestSessionEnabledProto*>(
 &_DeviceRestrictedManagedGuestSessionEnabledProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-124;
+125;
 
 friend void swap(DeviceRestrictedManagedGuestSessionEnabledProto& a, DeviceRestrictedManagedGuestSessionEnabledProto& b) {
 a.Swap(&b);
@@ -21571,7 +21780,7 @@ return reinterpret_cast<const DeviceI18nShortcutsEnabledProto*>(
 &_DeviceI18nShortcutsEnabledProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-125;
+126;
 
 friend void swap(DeviceI18nShortcutsEnabledProto& a, DeviceI18nShortcutsEnabledProto& b) {
 a.Swap(&b);
@@ -21710,7 +21919,7 @@ return reinterpret_cast<const RevenDeviceHWDataUsageEnabledProto*>(
 &_RevenDeviceHWDataUsageEnabledProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-126;
+127;
 
 friend void swap(RevenDeviceHWDataUsageEnabledProto& a, RevenDeviceHWDataUsageEnabledProto& b) {
 a.Swap(&b);
@@ -21849,7 +22058,7 @@ return reinterpret_cast<const DeviceLoginScreenWebUILazyLoadingProto*>(
 &_DeviceLoginScreenWebUILazyLoadingProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-127;
+128;
 
 friend void swap(DeviceLoginScreenWebUILazyLoadingProto& a, DeviceLoginScreenWebUILazyLoadingProto& b) {
 a.Swap(&b);
@@ -21988,7 +22197,7 @@ return reinterpret_cast<const EncryptedReportingPipelineConfigurationProto*>(
 &_EncryptedReportingPipelineConfigurationProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-128;
+129;
 
 friend void swap(EncryptedReportingPipelineConfigurationProto& a, EncryptedReportingPipelineConfigurationProto& b) {
 a.Swap(&b);
@@ -22127,7 +22336,7 @@ return reinterpret_cast<const DeviceReportXDREventsProto*>(
 &_DeviceReportXDREventsProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-129;
+130;
 
 friend void swap(DeviceReportXDREventsProto& a, DeviceReportXDREventsProto& b) {
 a.Swap(&b);
@@ -22266,7 +22475,7 @@ return reinterpret_cast<const ChromeDeviceSettingsProto*>(
 &_ChromeDeviceSettingsProto_default_instance_);
 }
 static constexpr int kIndexInFileMessages =
-130;
+131;
 
 friend void swap(ChromeDeviceSettingsProto& a, ChromeDeviceSettingsProto& b) {
 a.Swap(&b);
@@ -22465,6 +22674,7 @@ kSamlUsernameFieldNumber = 135,
 kDeviceLoginScreenContextAwareAccessSignalsAllowlistFieldNumber = 136,
 kDevicePrintingClientNameTemplateFieldNumber = 137,
 kDeviceReportXdrEventsFieldNumber = 138,
+kKeyboardBacklightColorFieldNumber = 139,
 };
 // optional .enterprise_management.DevicePolicyRefreshRateProto device_policy_refresh_rate = 1;
 bool has_device_policy_refresh_rate() const;
@@ -24896,6 +25106,24 @@ void unsafe_arena_set_allocated_device_report_xdr_events(
 ::enterprise_management::DeviceReportXDREventsProto* device_report_xdr_events);
 ::enterprise_management::DeviceReportXDREventsProto* unsafe_arena_release_device_report_xdr_events();
 
+// optional .enterprise_management.KeyboardBacklightColorProto keyboard_backlight_color = 139;
+bool has_keyboard_backlight_color() const;
+private:
+bool _internal_has_keyboard_backlight_color() const;
+public:
+void clear_keyboard_backlight_color();
+const ::enterprise_management::KeyboardBacklightColorProto& keyboard_backlight_color() const;
+PROTOBUF_NODISCARD ::enterprise_management::KeyboardBacklightColorProto* release_keyboard_backlight_color();
+::enterprise_management::KeyboardBacklightColorProto* mutable_keyboard_backlight_color();
+void set_allocated_keyboard_backlight_color(::enterprise_management::KeyboardBacklightColorProto* keyboard_backlight_color);
+private:
+const ::enterprise_management::KeyboardBacklightColorProto& _internal_keyboard_backlight_color() const;
+::enterprise_management::KeyboardBacklightColorProto* _internal_mutable_keyboard_backlight_color();
+public:
+void unsafe_arena_set_allocated_keyboard_backlight_color(
+::enterprise_management::KeyboardBacklightColorProto* keyboard_backlight_color);
+::enterprise_management::KeyboardBacklightColorProto* unsafe_arena_release_keyboard_backlight_color();
+
 // @@protoc_insertion_point(class_scope:enterprise_management.ChromeDeviceSettingsProto)
 private:
 class _Internal;
@@ -25040,6 +25268,7 @@ mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
 ::enterprise_management::StringListPolicyProto* device_login_screen_context_aware_access_signals_allowlist_;
 ::enterprise_management::StringPolicyProto* device_printing_client_name_template_;
 ::enterprise_management::DeviceReportXDREventsProto* device_report_xdr_events_;
+::enterprise_management::KeyboardBacklightColorProto* keyboard_backlight_color_;
 friend struct ::TableStruct_chrome_5fdevice_5fpolicy_2eproto;
 };
 // ===================================================================
@@ -35299,6 +35528,39 @@ types_ = value;
 inline void DeviceKerberosEncryptionTypesProto::set_types(::enterprise_management::DeviceKerberosEncryptionTypesProto_Types value) {
 _internal_set_types(value);
 // @@protoc_insertion_point(field_set:enterprise_management.DeviceKerberosEncryptionTypesProto.types)
+}
+
+// -------------------------------------------------------------------
+
+// KeyboardBacklightColorProto
+
+// optional .enterprise_management.KeyboardBacklightColorProto.BacklightColor color = 1 [default = BACKLIGHT_UNSPECIFIED];
+inline bool KeyboardBacklightColorProto::_internal_has_color() const {
+bool value = (_has_bits_[0] & 0x00000001u) != 0;
+return value;
+}
+inline bool KeyboardBacklightColorProto::has_color() const {
+return _internal_has_color();
+}
+inline void KeyboardBacklightColorProto::clear_color() {
+color_ = 0;
+_has_bits_[0] &= ~0x00000001u;
+}
+inline ::enterprise_management::KeyboardBacklightColorProto_BacklightColor KeyboardBacklightColorProto::_internal_color() const {
+return static_cast< ::enterprise_management::KeyboardBacklightColorProto_BacklightColor >(color_);
+}
+inline ::enterprise_management::KeyboardBacklightColorProto_BacklightColor KeyboardBacklightColorProto::color() const {
+// @@protoc_insertion_point(field_get:enterprise_management.KeyboardBacklightColorProto.color)
+return _internal_color();
+}
+inline void KeyboardBacklightColorProto::_internal_set_color(::enterprise_management::KeyboardBacklightColorProto_BacklightColor value) {
+assert(::enterprise_management::KeyboardBacklightColorProto_BacklightColor_IsValid(value));
+_has_bits_[0] |= 0x00000001u;
+color_ = value;
+}
+inline void KeyboardBacklightColorProto::set_color(::enterprise_management::KeyboardBacklightColorProto_BacklightColor value) {
+_internal_set_color(value);
+// @@protoc_insertion_point(field_set:enterprise_management.KeyboardBacklightColorProto.color)
 }
 
 // -------------------------------------------------------------------
@@ -49357,9 +49619,101 @@ device_report_xdr_events_ = device_report_xdr_events;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.ChromeDeviceSettingsProto.device_report_xdr_events)
 }
 
+// optional .enterprise_management.KeyboardBacklightColorProto keyboard_backlight_color = 139;
+inline bool ChromeDeviceSettingsProto::_internal_has_keyboard_backlight_color() const {
+bool value = (_has_bits_[4] & 0x00000080u) != 0;
+PROTOBUF_ASSUME(!value || keyboard_backlight_color_ != nullptr);
+return value;
+}
+inline bool ChromeDeviceSettingsProto::has_keyboard_backlight_color() const {
+return _internal_has_keyboard_backlight_color();
+}
+inline void ChromeDeviceSettingsProto::clear_keyboard_backlight_color() {
+if (keyboard_backlight_color_ != nullptr) keyboard_backlight_color_->Clear();
+_has_bits_[4] &= ~0x00000080u;
+}
+inline const ::enterprise_management::KeyboardBacklightColorProto& ChromeDeviceSettingsProto::_internal_keyboard_backlight_color() const {
+const ::enterprise_management::KeyboardBacklightColorProto* p = keyboard_backlight_color_;
+return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::KeyboardBacklightColorProto&>(
+::enterprise_management::_KeyboardBacklightColorProto_default_instance_);
+}
+inline const ::enterprise_management::KeyboardBacklightColorProto& ChromeDeviceSettingsProto::keyboard_backlight_color() const {
+// @@protoc_insertion_point(field_get:enterprise_management.ChromeDeviceSettingsProto.keyboard_backlight_color)
+return _internal_keyboard_backlight_color();
+}
+inline void ChromeDeviceSettingsProto::unsafe_arena_set_allocated_keyboard_backlight_color(
+::enterprise_management::KeyboardBacklightColorProto* keyboard_backlight_color) {
+if (GetArenaForAllocation() == nullptr) {
+delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(keyboard_backlight_color_);
+}
+keyboard_backlight_color_ = keyboard_backlight_color;
+if (keyboard_backlight_color) {
+_has_bits_[4] |= 0x00000080u;
+} else {
+_has_bits_[4] &= ~0x00000080u;
+}
+// @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.ChromeDeviceSettingsProto.keyboard_backlight_color)
+}
+inline ::enterprise_management::KeyboardBacklightColorProto* ChromeDeviceSettingsProto::release_keyboard_backlight_color() {
+_has_bits_[4] &= ~0x00000080u;
+::enterprise_management::KeyboardBacklightColorProto* temp = keyboard_backlight_color_;
+keyboard_backlight_color_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+if (GetArenaForAllocation() != nullptr) {
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+}
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+return temp;
+}
+inline ::enterprise_management::KeyboardBacklightColorProto* ChromeDeviceSettingsProto::unsafe_arena_release_keyboard_backlight_color() {
+// @@protoc_insertion_point(field_release:enterprise_management.ChromeDeviceSettingsProto.keyboard_backlight_color)
+_has_bits_[4] &= ~0x00000080u;
+::enterprise_management::KeyboardBacklightColorProto* temp = keyboard_backlight_color_;
+keyboard_backlight_color_ = nullptr;
+return temp;
+}
+inline ::enterprise_management::KeyboardBacklightColorProto* ChromeDeviceSettingsProto::_internal_mutable_keyboard_backlight_color() {
+_has_bits_[4] |= 0x00000080u;
+if (keyboard_backlight_color_ == nullptr) {
+auto* p = CreateMaybeMessage<::enterprise_management::KeyboardBacklightColorProto>(GetArenaForAllocation());
+keyboard_backlight_color_ = p;
+}
+return keyboard_backlight_color_;
+}
+inline ::enterprise_management::KeyboardBacklightColorProto* ChromeDeviceSettingsProto::mutable_keyboard_backlight_color() {
+::enterprise_management::KeyboardBacklightColorProto* _msg = _internal_mutable_keyboard_backlight_color();
+// @@protoc_insertion_point(field_mutable:enterprise_management.ChromeDeviceSettingsProto.keyboard_backlight_color)
+return _msg;
+}
+inline void ChromeDeviceSettingsProto::set_allocated_keyboard_backlight_color(::enterprise_management::KeyboardBacklightColorProto* keyboard_backlight_color) {
+::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+if (message_arena == nullptr) {
+delete keyboard_backlight_color_;
+}
+if (keyboard_backlight_color) {
+::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(keyboard_backlight_color);
+if (message_arena != submessage_arena) {
+keyboard_backlight_color = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+message_arena, keyboard_backlight_color, submessage_arena);
+}
+_has_bits_[4] |= 0x00000080u;
+} else {
+_has_bits_[4] &= ~0x00000080u;
+}
+keyboard_backlight_color_ = keyboard_backlight_color;
+// @@protoc_insertion_point(field_set_allocated:enterprise_management.ChromeDeviceSettingsProto.keyboard_backlight_color)
+}
+
 #ifdef __GNUC__
 #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
@@ -49642,6 +49996,7 @@ template <> struct is_proto_enum< ::enterprise_management::DeviceNativePrintersA
 template <> struct is_proto_enum< ::enterprise_management::DevicePrintersAccessModeProto_AccessMode> : ::std::true_type {};
 template <> struct is_proto_enum< ::enterprise_management::TPMFirmwareUpdateSettingsProto_AutoUpdateMode> : ::std::true_type {};
 template <> struct is_proto_enum< ::enterprise_management::DeviceKerberosEncryptionTypesProto_Types> : ::std::true_type {};
+template <> struct is_proto_enum< ::enterprise_management::KeyboardBacklightColorProto_BacklightColor> : ::std::true_type {};
 template <> struct is_proto_enum< ::enterprise_management::DeviceUserPolicyLoopbackProcessingModeProto_Mode> : ::std::true_type {};
 template <> struct is_proto_enum< ::enterprise_management::DeviceRebootOnUserSignoutProto_RebootOnSignoutMode> : ::std::true_type {};
 template <> struct is_proto_enum< ::enterprise_management::DeviceDockMacAddressSourceProto_Source> : ::std::true_type {};

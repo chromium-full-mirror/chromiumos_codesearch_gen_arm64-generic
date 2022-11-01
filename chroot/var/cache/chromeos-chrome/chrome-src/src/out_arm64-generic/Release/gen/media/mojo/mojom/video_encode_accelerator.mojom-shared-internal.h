@@ -37,6 +37,7 @@ class ConstantBitrate_Data;
 class VariableBitrate_Data;
 class VideoEncodeAcceleratorConfig_Data;
 class H264Metadata_Data;
+class H265Metadata_Data;
 class Vp8Metadata_Data;
 class Vp9Metadata_Data;
 class Av1Metadata_Data;
@@ -253,6 +254,8 @@ class  CodecMetadata_Data {
     
     kH264,
     
+    kH265,
+    
     kVp8,
     
     kVp9,
@@ -266,6 +269,7 @@ class  CodecMetadata_Data {
   union MOJO_ALIGNAS(8) Union_ {
     Union_() : unknown(0) {}
     mojo::internal::Pointer<internal::H264Metadata_Data> f_h264;
+    mojo::internal::Pointer<internal::H265Metadata_Data> f_h265;
     mojo::internal::Pointer<internal::Vp8Metadata_Data> f_vp8;
     mojo::internal::Pointer<internal::Vp9Metadata_Data> f_vp9;
     mojo::internal::Pointer<internal::Av1Metadata_Data> f_av1;
@@ -698,6 +702,57 @@ struct H264Metadata_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     H264Metadata_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  H265Metadata_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t temporal_idx;
+  uint8_t spatial_idx;
+  uint8_t layer_sync : 1;
+  uint8_t padfinal_[5];
+
+ private:
+  friend class mojo::internal::MessageFragment<H265Metadata_Data>;
+
+  H265Metadata_Data();
+  ~H265Metadata_Data() = delete;
+};
+static_assert(sizeof(H265Metadata_Data) == 16,
+              "Bad sizeof(H265Metadata_Data)");
+// Used by H265Metadata::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct H265Metadata_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  H265Metadata_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~H265Metadata_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<H265Metadata_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    H265Metadata_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  Vp8Metadata_Data {
  public:
   static bool Validate(const void* data,

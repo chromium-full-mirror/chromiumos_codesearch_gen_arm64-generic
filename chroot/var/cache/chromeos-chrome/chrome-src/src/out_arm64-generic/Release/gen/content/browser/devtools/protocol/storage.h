@@ -24,8 +24,12 @@ class TrustTokens;
 using InterestGroupAccessType = String;
 class InterestGroupAd;
 class InterestGroupDetails;
+using SharedStorageAccessType = String;
 class SharedStorageEntry;
 class SharedStorageMetadata;
+class SharedStorageReportingMetadata;
+class SharedStorageUrlWithMetadata;
+class SharedStorageAccessParams;
 
 // ------------- Forward and enum declarations.
 
@@ -52,6 +56,25 @@ CONTENT_EXPORT extern const char Update[];
 CONTENT_EXPORT extern const char Bid[];
 CONTENT_EXPORT extern const char Win[];
 } // namespace InterestGroupAccessTypeEnum
+
+namespace SharedStorageAccessTypeEnum {
+CONTENT_EXPORT extern const char DocumentAddModule[];
+CONTENT_EXPORT extern const char DocumentSelectURL[];
+CONTENT_EXPORT extern const char DocumentRun[];
+CONTENT_EXPORT extern const char DocumentSet[];
+CONTENT_EXPORT extern const char DocumentAppend[];
+CONTENT_EXPORT extern const char DocumentDelete[];
+CONTENT_EXPORT extern const char DocumentClear[];
+CONTENT_EXPORT extern const char WorkletSet[];
+CONTENT_EXPORT extern const char WorkletAppend[];
+CONTENT_EXPORT extern const char WorkletDelete[];
+CONTENT_EXPORT extern const char WorkletClear[];
+CONTENT_EXPORT extern const char WorkletGet[];
+CONTENT_EXPORT extern const char WorkletKeys[];
+CONTENT_EXPORT extern const char WorkletEntries[];
+CONTENT_EXPORT extern const char WorkletLength[];
+CONTENT_EXPORT extern const char WorkletRemainingBudget[];
+} // namespace SharedStorageAccessTypeEnum
 
 // ------------- Type and builder declarations.
 
@@ -601,6 +624,266 @@ private:
 };
 
 
+class CONTENT_EXPORT SharedStorageReportingMetadata : public ::crdtp::ProtocolObject<SharedStorageReportingMetadata> {
+public:
+    ~SharedStorageReportingMetadata() override { }
+
+    String GetEventType() { return m_eventType; }
+    void SetEventType(const String& value) { m_eventType = value; }
+
+    String GetReportingUrl() { return m_reportingUrl; }
+    void SetReportingUrl(const String& value) { m_reportingUrl = value; }
+
+    template<int STATE>
+    class SharedStorageReportingMetadataBuilder {
+    public:
+        enum {
+            NoFieldsSet = 0,
+            EventTypeSet = 1 << 1,
+            ReportingUrlSet = 1 << 2,
+            AllFieldsSet = (EventTypeSet | ReportingUrlSet | 0)};
+
+
+        SharedStorageReportingMetadataBuilder<STATE | EventTypeSet>& SetEventType(const String& value)
+        {
+            static_assert(!(STATE & EventTypeSet), "property eventType should not be set yet");
+            m_result->SetEventType(value);
+            return castState<EventTypeSet>();
+        }
+
+        SharedStorageReportingMetadataBuilder<STATE | ReportingUrlSet>& SetReportingUrl(const String& value)
+        {
+            static_assert(!(STATE & ReportingUrlSet), "property reportingUrl should not be set yet");
+            m_result->SetReportingUrl(value);
+            return castState<ReportingUrlSet>();
+        }
+
+        std::unique_ptr<SharedStorageReportingMetadata> Build()
+        {
+            static_assert(STATE == AllFieldsSet, "state should be AllFieldsSet");
+            return std::move(m_result);
+        }
+
+    private:
+        friend class SharedStorageReportingMetadata;
+        SharedStorageReportingMetadataBuilder() : m_result(new SharedStorageReportingMetadata()) { }
+
+        template<int STEP> SharedStorageReportingMetadataBuilder<STATE | STEP>& castState()
+        {
+            return *reinterpret_cast<SharedStorageReportingMetadataBuilder<STATE | STEP>*>(this);
+        }
+
+        std::unique_ptr<protocol::Storage::SharedStorageReportingMetadata> m_result;
+    };
+
+    static SharedStorageReportingMetadataBuilder<0> Create()
+    {
+        return SharedStorageReportingMetadataBuilder<0>();
+    }
+
+private:
+    DECLARE_SERIALIZATION_SUPPORT();
+
+    SharedStorageReportingMetadata()
+    {
+    }
+
+    String m_eventType;
+    String m_reportingUrl;
+};
+
+
+class CONTENT_EXPORT SharedStorageUrlWithMetadata : public ::crdtp::ProtocolObject<SharedStorageUrlWithMetadata> {
+public:
+    ~SharedStorageUrlWithMetadata() override { }
+
+    String GetUrl() { return m_url; }
+    void SetUrl(const String& value) { m_url = value; }
+
+    protocol::Array<protocol::Storage::SharedStorageReportingMetadata>* GetReportingMetadata() { return m_reportingMetadata.get(); }
+    void SetReportingMetadata(std::unique_ptr<protocol::Array<protocol::Storage::SharedStorageReportingMetadata>> value) { m_reportingMetadata = std::move(value); }
+
+    template<int STATE>
+    class SharedStorageUrlWithMetadataBuilder {
+    public:
+        enum {
+            NoFieldsSet = 0,
+            UrlSet = 1 << 1,
+            ReportingMetadataSet = 1 << 2,
+            AllFieldsSet = (UrlSet | ReportingMetadataSet | 0)};
+
+
+        SharedStorageUrlWithMetadataBuilder<STATE | UrlSet>& SetUrl(const String& value)
+        {
+            static_assert(!(STATE & UrlSet), "property url should not be set yet");
+            m_result->SetUrl(value);
+            return castState<UrlSet>();
+        }
+
+        SharedStorageUrlWithMetadataBuilder<STATE | ReportingMetadataSet>& SetReportingMetadata(std::unique_ptr<protocol::Array<protocol::Storage::SharedStorageReportingMetadata>> value)
+        {
+            static_assert(!(STATE & ReportingMetadataSet), "property reportingMetadata should not be set yet");
+            m_result->SetReportingMetadata(std::move(value));
+            return castState<ReportingMetadataSet>();
+        }
+
+        std::unique_ptr<SharedStorageUrlWithMetadata> Build()
+        {
+            static_assert(STATE == AllFieldsSet, "state should be AllFieldsSet");
+            return std::move(m_result);
+        }
+
+    private:
+        friend class SharedStorageUrlWithMetadata;
+        SharedStorageUrlWithMetadataBuilder() : m_result(new SharedStorageUrlWithMetadata()) { }
+
+        template<int STEP> SharedStorageUrlWithMetadataBuilder<STATE | STEP>& castState()
+        {
+            return *reinterpret_cast<SharedStorageUrlWithMetadataBuilder<STATE | STEP>*>(this);
+        }
+
+        std::unique_ptr<protocol::Storage::SharedStorageUrlWithMetadata> m_result;
+    };
+
+    static SharedStorageUrlWithMetadataBuilder<0> Create()
+    {
+        return SharedStorageUrlWithMetadataBuilder<0>();
+    }
+
+private:
+    DECLARE_SERIALIZATION_SUPPORT();
+
+    SharedStorageUrlWithMetadata()
+    {
+    }
+
+    String m_url;
+    std::unique_ptr<protocol::Array<protocol::Storage::SharedStorageReportingMetadata>> m_reportingMetadata;
+};
+
+
+class CONTENT_EXPORT SharedStorageAccessParams : public ::crdtp::ProtocolObject<SharedStorageAccessParams> {
+public:
+    ~SharedStorageAccessParams() override { }
+
+    bool HasScriptSourceUrl() { return m_scriptSourceUrl.isJust(); }
+    String GetScriptSourceUrl(const String& defaultValue) { return m_scriptSourceUrl.isJust() ? m_scriptSourceUrl.fromJust() : defaultValue; }
+    void SetScriptSourceUrl(const String& value) { m_scriptSourceUrl = value; }
+
+    bool HasOperationName() { return m_operationName.isJust(); }
+    String GetOperationName(const String& defaultValue) { return m_operationName.isJust() ? m_operationName.fromJust() : defaultValue; }
+    void SetOperationName(const String& value) { m_operationName = value; }
+
+    bool HasSerializedData() { return m_serializedData.isJust(); }
+    String GetSerializedData(const String& defaultValue) { return m_serializedData.isJust() ? m_serializedData.fromJust() : defaultValue; }
+    void SetSerializedData(const String& value) { m_serializedData = value; }
+
+    bool HasUrlsWithMetadata() { return m_urlsWithMetadata.isJust(); }
+    protocol::Array<protocol::Storage::SharedStorageUrlWithMetadata>* GetUrlsWithMetadata(protocol::Array<protocol::Storage::SharedStorageUrlWithMetadata>* defaultValue) { return m_urlsWithMetadata.isJust() ? m_urlsWithMetadata.fromJust() : defaultValue; }
+    void SetUrlsWithMetadata(std::unique_ptr<protocol::Array<protocol::Storage::SharedStorageUrlWithMetadata>> value) { m_urlsWithMetadata = std::move(value); }
+
+    bool HasKey() { return m_key.isJust(); }
+    String GetKey(const String& defaultValue) { return m_key.isJust() ? m_key.fromJust() : defaultValue; }
+    void SetKey(const String& value) { m_key = value; }
+
+    bool HasValue() { return m_value.isJust(); }
+    String GetValue(const String& defaultValue) { return m_value.isJust() ? m_value.fromJust() : defaultValue; }
+    void SetValue(const String& value) { m_value = value; }
+
+    bool HasIgnoreIfPresent() { return m_ignoreIfPresent.isJust(); }
+    bool GetIgnoreIfPresent(bool defaultValue) { return m_ignoreIfPresent.isJust() ? m_ignoreIfPresent.fromJust() : defaultValue; }
+    void SetIgnoreIfPresent(bool value) { m_ignoreIfPresent = value; }
+
+    template<int STATE>
+    class SharedStorageAccessParamsBuilder {
+    public:
+        enum {
+            NoFieldsSet = 0,
+            AllFieldsSet = (0)};
+
+
+        SharedStorageAccessParamsBuilder<STATE>& SetScriptSourceUrl(const String& value)
+        {
+            m_result->SetScriptSourceUrl(value);
+            return *this;
+        }
+
+        SharedStorageAccessParamsBuilder<STATE>& SetOperationName(const String& value)
+        {
+            m_result->SetOperationName(value);
+            return *this;
+        }
+
+        SharedStorageAccessParamsBuilder<STATE>& SetSerializedData(const String& value)
+        {
+            m_result->SetSerializedData(value);
+            return *this;
+        }
+
+        SharedStorageAccessParamsBuilder<STATE>& SetUrlsWithMetadata(std::unique_ptr<protocol::Array<protocol::Storage::SharedStorageUrlWithMetadata>> value)
+        {
+            m_result->SetUrlsWithMetadata(std::move(value));
+            return *this;
+        }
+
+        SharedStorageAccessParamsBuilder<STATE>& SetKey(const String& value)
+        {
+            m_result->SetKey(value);
+            return *this;
+        }
+
+        SharedStorageAccessParamsBuilder<STATE>& SetValue(const String& value)
+        {
+            m_result->SetValue(value);
+            return *this;
+        }
+
+        SharedStorageAccessParamsBuilder<STATE>& SetIgnoreIfPresent(bool value)
+        {
+            m_result->SetIgnoreIfPresent(value);
+            return *this;
+        }
+
+        std::unique_ptr<SharedStorageAccessParams> Build()
+        {
+            static_assert(STATE == AllFieldsSet, "state should be AllFieldsSet");
+            return std::move(m_result);
+        }
+
+    private:
+        friend class SharedStorageAccessParams;
+        SharedStorageAccessParamsBuilder() : m_result(new SharedStorageAccessParams()) { }
+
+        template<int STEP> SharedStorageAccessParamsBuilder<STATE | STEP>& castState()
+        {
+            return *reinterpret_cast<SharedStorageAccessParamsBuilder<STATE | STEP>*>(this);
+        }
+
+        std::unique_ptr<protocol::Storage::SharedStorageAccessParams> m_result;
+    };
+
+    static SharedStorageAccessParamsBuilder<0> Create()
+    {
+        return SharedStorageAccessParamsBuilder<0>();
+    }
+
+private:
+    DECLARE_SERIALIZATION_SUPPORT();
+
+    SharedStorageAccessParams()
+    {
+    }
+
+    Maybe<String> m_scriptSourceUrl;
+    Maybe<String> m_operationName;
+    Maybe<String> m_serializedData;
+    Maybe<protocol::Array<protocol::Storage::SharedStorageUrlWithMetadata>> m_urlsWithMetadata;
+    Maybe<String> m_key;
+    Maybe<String> m_value;
+    Maybe<bool> m_ignoreIfPresent;
+};
+
+
 // ------------- Backend interface.
 
 class CONTENT_EXPORT Backend {
@@ -711,6 +994,7 @@ public:
         virtual ~GetSharedStorageEntriesCallback() { }
     };
     virtual void GetSharedStorageEntries(const String& in_ownerOrigin, std::unique_ptr<GetSharedStorageEntriesCallback> callback) = 0;
+    virtual DispatchResponse SetSharedStorageTracking(bool in_enable) = 0;
 
     virtual DispatchResponse Disable()
     {
@@ -728,6 +1012,7 @@ public:
     void IndexedDBContentUpdated(const String& origin, const String& storageKey, const String& databaseName, const String& objectStoreName);
     void IndexedDBListUpdated(const String& origin, const String& storageKey);
     void InterestGroupAccessed(double accessTime, const String& type, const String& ownerOrigin, const String& name);
+    void SharedStorageAccessed(double accessTime, const String& type, const String& mainFrameId, const String& ownerOrigin, std::unique_ptr<protocol::Storage::SharedStorageAccessParams> params);
 
   void flush();
   void sendRawNotification(std::unique_ptr<Serializable>);

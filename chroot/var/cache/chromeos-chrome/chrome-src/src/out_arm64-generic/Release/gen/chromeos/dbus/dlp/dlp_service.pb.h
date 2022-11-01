@@ -159,11 +159,14 @@ bool DlpComponent_Parse(
 enum FileAction : int {
   TRANSFER = 0,
   UPLOAD = 1,
-  OPEN = 2
+  OPEN = 2,
+  COPY = 3,
+  MOVE = 4,
+  SHARE = 5
 };
 bool FileAction_IsValid(int value);
 constexpr FileAction FileAction_MIN = TRANSFER;
-constexpr FileAction FileAction_MAX = OPEN;
+constexpr FileAction FileAction_MAX = SHARE;
 constexpr int FileAction_ARRAYSIZE = FileAction_MAX + 1;
 
 const std::string& FileAction_Name(FileAction value);

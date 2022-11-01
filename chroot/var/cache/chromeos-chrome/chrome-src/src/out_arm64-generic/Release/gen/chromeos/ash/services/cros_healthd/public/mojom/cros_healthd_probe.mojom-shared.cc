@@ -95,6 +95,8 @@ static NOINLINE const char* ProbeCategoryEnumToStringHelper(ProbeCategoryEnum va
       return "kInput";
     case ProbeCategoryEnum::kAudioHardware:
       return "kAudioHardware";
+    case ProbeCategoryEnum::kSensor:
+      return "kSensor";
     default:
       return nullptr;
   }
@@ -632,6 +634,70 @@ std::string InputDevice_ConnectionTypeToString(InputDevice_ConnectionType value)
 
 std::ostream& operator<<(std::ostream& os, InputDevice_ConnectionType value) {
   return os << InputDevice_ConnectionTypeToString(value);
+}
+
+static NOINLINE const char* Sensor_TypeToStringHelper(Sensor_Type value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case Sensor_Type::kUnmappedEnumField:
+      return "kUnmappedEnumField";
+    case Sensor_Type::kAccel:
+      return "kAccel";
+    case Sensor_Type::kLight:
+      return "kLight";
+    case Sensor_Type::kGyro:
+      return "kGyro";
+    case Sensor_Type::kAngle:
+      return "kAngle";
+    case Sensor_Type::kGravity:
+      return "kGravity";
+    case Sensor_Type::kMagn:
+      return "kMagn";
+    default:
+      return nullptr;
+  }
+}
+
+std::string Sensor_TypeToString(Sensor_Type value) {
+  const char *str = Sensor_TypeToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown Sensor_Type value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, Sensor_Type value) {
+  return os << Sensor_TypeToString(value);
+}
+
+static NOINLINE const char* Sensor_LocationToStringHelper(Sensor_Location value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case Sensor_Location::kUnmappedEnumField:
+      return "kUnmappedEnumField";
+    case Sensor_Location::kUnknown:
+      return "kUnknown";
+    case Sensor_Location::kBase:
+      return "kBase";
+    case Sensor_Location::kLid:
+      return "kLid";
+    case Sensor_Location::kCamera:
+      return "kCamera";
+    default:
+      return nullptr;
+  }
+}
+
+std::string Sensor_LocationToString(Sensor_Location value) {
+  const char *str = Sensor_LocationToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown Sensor_Location value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, Sensor_Location value) {
+  return os << Sensor_LocationToString(value);
 }
 
 namespace internal {
@@ -2213,6 +2279,63 @@ bool InputResult_Data::Validate(
           validation_context,
           mojo::internal::VALIDATION_ERROR_UNKNOWN_UNION_TAG,
           "unknown tag in InputResult");
+      return false;
+    }
+  }
+}
+// static
+bool SensorResult_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context,
+    bool inlined) {
+  if (!data) {
+    DCHECK(!inlined);
+    return true;
+  }
+
+  // If it is inlined, the alignment is already enforced by its enclosing
+  // object. We don't have to validate that.
+  DCHECK(!inlined || mojo::internal::IsAligned(data));
+
+  if (!inlined &&
+      !mojo::internal::ValidateNonInlinedUnionHeaderAndClaimMemory(
+          data, validation_context)) {
+    return false;
+  }
+
+  const SensorResult_Data* object = static_cast<const SensorResult_Data*>(data);
+
+  if (inlined && object->is_null())
+    return true;
+
+  switch (object->tag) {
+
+    case SensorResult_Tag::kSensorInfo: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_sensor_info, 1, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_sensor_info, validation_context))
+        return false;
+      return true;
+    }
+    case SensorResult_Tag::kError: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_error, 2, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_error, validation_context))
+        return false;
+      return true;
+    }
+    default: {
+
+      ReportValidationError(
+          validation_context,
+          mojo::internal::VALIDATION_ERROR_UNKNOWN_UNION_TAG,
+          "unknown tag in SensorResult");
       return false;
     }
   }
@@ -4964,6 +5087,85 @@ InputDevice_Data::InputDevice_Data()
 
 
 // static
+bool SensorInfo_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  static constexpr mojo::internal::StructVersionSize kVersionSizes[] = {
+    { 0, 16 },
+    { 1, 24 },
+  };
+  if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
+          data, kVersionSizes, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const SensorInfo_Data* object =
+      static_cast<const SensorInfo_Data*>(data);
+
+  if (!mojo::internal::ValidateStruct(object->lid_angle, validation_context))
+    return false;
+  if (object->header_.version < 1)
+    return true;
+
+  constexpr const mojo::internal::ContainerValidateParams& sensors_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->sensors, validation_context,
+                                         &sensors_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+SensorInfo_Data::SensorInfo_Data()
+    : header_({sizeof(*this), 1}) {}
+
+
+// static
+bool Sensor_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 32, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Sensor_Data* object =
+      static_cast<const Sensor_Data*>(data);
+
+  constexpr const mojo::internal::ContainerValidateParams& name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->name, validation_context,
+                                         &name_validate_params)) {
+    return false;
+  }
+
+
+  if (!::ash::cros_healthd::mojom::internal::Sensor_Type_Data
+        ::Validate(object->type, validation_context))
+    return false;
+
+
+  if (!::ash::cros_healthd::mojom::internal::Sensor_Location_Data
+        ::Validate(object->location, validation_context))
+    return false;
+
+  return true;
+}
+
+Sensor_Data::Sensor_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool TelemetryInfo_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -4975,6 +5177,7 @@ bool TelemetryInfo_Data::Validate(
     { 2, 312 },
     { 3, 328 },
     { 4, 344 },
+    { 5, 360 },
   };
   if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
           data, kVersionSizes, validation_context)) {
@@ -5056,12 +5259,17 @@ bool TelemetryInfo_Data::Validate(
 
   if (!mojo::internal::ValidateInlinedUnion(object->audio_hardware_result, validation_context))
     return false;
+  if (object->header_.version < 5)
+    return true;
+
+  if (!mojo::internal::ValidateInlinedUnion(object->sensor_result, validation_context))
+    return false;
 
   return true;
 }
 
 TelemetryInfo_Data::TelemetryInfo_Data()
-    : header_({sizeof(*this), 4}) {}
+    : header_({sizeof(*this), 5}) {}
 
 }  // namespace internal
 }  // namespace mojom
@@ -5254,6 +5462,26 @@ namespace perfetto {
 void TraceFormatTraits<::ash::cros_healthd::mojom::InputDevice_ConnectionType>::WriteIntoTrace(
    perfetto::TracedValue context, ::ash::cros_healthd::mojom::InputDevice_ConnectionType value) {
   return std::move(context).WriteString(::ash::cros_healthd::mojom::InputDevice_ConnectionTypeToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::ash::cros_healthd::mojom::Sensor_Type>::WriteIntoTrace(
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::Sensor_Type value) {
+  return std::move(context).WriteString(::ash::cros_healthd::mojom::Sensor_TypeToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::ash::cros_healthd::mojom::Sensor_Location>::WriteIntoTrace(
+   perfetto::TracedValue context, ::ash::cros_healthd::mojom::Sensor_Location value) {
+  return std::move(context).WriteString(::ash::cros_healthd::mojom::Sensor_LocationToString(value));
 }
 
 } // namespace perfetto

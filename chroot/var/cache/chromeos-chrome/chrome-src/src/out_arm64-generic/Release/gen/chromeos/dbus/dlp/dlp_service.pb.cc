@@ -372,29 +372,41 @@ bool FileAction_IsValid(int value) {
     case 0:
     case 1:
     case 2:
+    case 3:
+    case 4:
+    case 5:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> FileAction_strings[3] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> FileAction_strings[6] = {};
 
 static const char FileAction_names[] =
+  "COPY"
+  "MOVE"
   "OPEN"
+  "SHARE"
   "TRANSFER"
   "UPLOAD";
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry FileAction_entries[] = {
-  { {FileAction_names + 0, 4}, 2 },
-  { {FileAction_names + 4, 8}, 0 },
-  { {FileAction_names + 12, 6}, 1 },
+  { {FileAction_names + 0, 4}, 3 },
+  { {FileAction_names + 4, 4}, 4 },
+  { {FileAction_names + 8, 4}, 2 },
+  { {FileAction_names + 12, 5}, 5 },
+  { {FileAction_names + 17, 8}, 0 },
+  { {FileAction_names + 25, 6}, 1 },
 };
 
 static const int FileAction_entries_by_number[] = {
-  1, // 0 -> TRANSFER
-  2, // 1 -> UPLOAD
-  0, // 2 -> OPEN
+  4, // 0 -> TRANSFER
+  5, // 1 -> UPLOAD
+  2, // 2 -> OPEN
+  0, // 3 -> COPY
+  1, // 4 -> MOVE
+  3, // 5 -> SHARE
 };
 
 const std::string& FileAction_Name(
@@ -403,12 +415,12 @@ const std::string& FileAction_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           FileAction_entries,
           FileAction_entries_by_number,
-          3, FileAction_strings);
+          6, FileAction_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       FileAction_entries,
       FileAction_entries_by_number,
-      3, value);
+      6, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      FileAction_strings[idx].get();
 }
@@ -416,7 +428,7 @@ bool FileAction_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, FileAction* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      FileAction_entries, 3, name, &int_value);
+      FileAction_entries, 6, name, &int_value);
   if (success) {
     *value = static_cast<FileAction>(int_value);
   }

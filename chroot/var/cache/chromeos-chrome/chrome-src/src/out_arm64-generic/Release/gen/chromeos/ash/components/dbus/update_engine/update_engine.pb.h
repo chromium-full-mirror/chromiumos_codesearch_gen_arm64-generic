@@ -49,6 +49,9 @@ extern ApplyUpdateConfigDefaultTypeInternal _ApplyUpdateConfig_default_instance_
 class Feature;
 struct FeatureDefaultTypeInternal;
 extern FeatureDefaultTypeInternal _Feature_default_instance_;
+class InstallParams;
+struct InstallParamsDefaultTypeInternal;
+extern InstallParamsDefaultTypeInternal _InstallParams_default_instance_;
 class StatusResult;
 struct StatusResultDefaultTypeInternal;
 extern StatusResultDefaultTypeInternal _StatusResult_default_instance_;
@@ -62,6 +65,7 @@ extern UpdateParamsDefaultTypeInternal _UpdateParams_default_instance_;
 PROTOBUF_NAMESPACE_OPEN
 template<> ::update_engine::ApplyUpdateConfig* Arena::CreateMaybeMessage<::update_engine::ApplyUpdateConfig>(Arena*);
 template<> ::update_engine::Feature* Arena::CreateMaybeMessage<::update_engine::Feature>(Arena*);
+template<> ::update_engine::InstallParams* Arena::CreateMaybeMessage<::update_engine::InstallParams>(Arena*);
 template<> ::update_engine::StatusResult* Arena::CreateMaybeMessage<::update_engine::StatusResult>(Arena*);
 template<> ::update_engine::UpdateFlags* Arena::CreateMaybeMessage<::update_engine::UpdateFlags>(Arena*);
 template<> ::update_engine::UpdateParams* Arena::CreateMaybeMessage<::update_engine::UpdateParams>(Arena*);
@@ -1003,6 +1007,165 @@ class UpdateParams final :
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_update_5fengine_2eproto;
 };
+// -------------------------------------------------------------------
+
+class InstallParams final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:update_engine.InstallParams) */ {
+ public:
+  inline InstallParams() : InstallParams(nullptr) {}
+  ~InstallParams() override;
+  explicit PROTOBUF_CONSTEXPR InstallParams(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  InstallParams(const InstallParams& from);
+  InstallParams(InstallParams&& from) noexcept
+    : InstallParams() {
+    *this = ::std::move(from);
+  }
+
+  inline InstallParams& operator=(const InstallParams& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline InstallParams& operator=(InstallParams&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const InstallParams& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const InstallParams* internal_default_instance() {
+    return reinterpret_cast<const InstallParams*>(
+               &_InstallParams_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    5;
+
+  friend void swap(InstallParams& a, InstallParams& b) {
+    a.Swap(&b);
+  }
+  PROTOBUF_NOINLINE void Swap(InstallParams* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(InstallParams* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  InstallParams* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<InstallParams>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const InstallParams& from);
+  void MergeFrom(const InstallParams& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(InstallParams* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "update_engine.InstallParams";
+  }
+  protected:
+  explicit InstallParams(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kIdFieldNumber = 1,
+    kOmahaUrlFieldNumber = 2,
+    kScaledFieldNumber = 3,
+  };
+  // string id = 1;
+  void clear_id();
+  const std::string& id() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_id(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_id();
+  PROTOBUF_NODISCARD std::string* release_id();
+  void set_allocated_id(std::string* id);
+  private:
+  const std::string& _internal_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_id(const std::string& value);
+  std::string* _internal_mutable_id();
+  public:
+
+  // string omaha_url = 2;
+  void clear_omaha_url();
+  const std::string& omaha_url() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_omaha_url(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_omaha_url();
+  PROTOBUF_NODISCARD std::string* release_omaha_url();
+  void set_allocated_omaha_url(std::string* omaha_url);
+  private:
+  const std::string& _internal_omaha_url() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_omaha_url(const std::string& value);
+  std::string* _internal_mutable_omaha_url();
+  public:
+
+  // bool scaled = 3;
+  void clear_scaled();
+  bool scaled() const;
+  void set_scaled(bool value);
+  private:
+  bool _internal_scaled() const;
+  void _internal_set_scaled(bool value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:update_engine.InstallParams)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr id_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr omaha_url_;
+  bool scaled_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_update_5fengine_2eproto;
+};
 // ===================================================================
 
 
@@ -1680,9 +1843,135 @@ inline void UpdateParams::set_skip_applying(bool value) {
   // @@protoc_insertion_point(field_set:update_engine.UpdateParams.skip_applying)
 }
 
+// -------------------------------------------------------------------
+
+// InstallParams
+
+// string id = 1;
+inline void InstallParams::clear_id() {
+  id_.ClearToEmpty();
+}
+inline const std::string& InstallParams::id() const {
+  // @@protoc_insertion_point(field_get:update_engine.InstallParams.id)
+  return _internal_id();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void InstallParams::set_id(ArgT0&& arg0, ArgT... args) {
+ 
+ id_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:update_engine.InstallParams.id)
+}
+inline std::string* InstallParams::mutable_id() {
+  std::string* _s = _internal_mutable_id();
+  // @@protoc_insertion_point(field_mutable:update_engine.InstallParams.id)
+  return _s;
+}
+inline const std::string& InstallParams::_internal_id() const {
+  return id_.Get();
+}
+inline void InstallParams::_internal_set_id(const std::string& value) {
+  
+  id_.Set(value, GetArenaForAllocation());
+}
+inline std::string* InstallParams::_internal_mutable_id() {
+  
+  return id_.Mutable(GetArenaForAllocation());
+}
+inline std::string* InstallParams::release_id() {
+  // @@protoc_insertion_point(field_release:update_engine.InstallParams.id)
+  return id_.Release();
+}
+inline void InstallParams::set_allocated_id(std::string* id) {
+  if (id != nullptr) {
+    
+  } else {
+    
+  }
+  id_.SetAllocated(id, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (id_.IsDefault()) {
+    id_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:update_engine.InstallParams.id)
+}
+
+// string omaha_url = 2;
+inline void InstallParams::clear_omaha_url() {
+  omaha_url_.ClearToEmpty();
+}
+inline const std::string& InstallParams::omaha_url() const {
+  // @@protoc_insertion_point(field_get:update_engine.InstallParams.omaha_url)
+  return _internal_omaha_url();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void InstallParams::set_omaha_url(ArgT0&& arg0, ArgT... args) {
+ 
+ omaha_url_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:update_engine.InstallParams.omaha_url)
+}
+inline std::string* InstallParams::mutable_omaha_url() {
+  std::string* _s = _internal_mutable_omaha_url();
+  // @@protoc_insertion_point(field_mutable:update_engine.InstallParams.omaha_url)
+  return _s;
+}
+inline const std::string& InstallParams::_internal_omaha_url() const {
+  return omaha_url_.Get();
+}
+inline void InstallParams::_internal_set_omaha_url(const std::string& value) {
+  
+  omaha_url_.Set(value, GetArenaForAllocation());
+}
+inline std::string* InstallParams::_internal_mutable_omaha_url() {
+  
+  return omaha_url_.Mutable(GetArenaForAllocation());
+}
+inline std::string* InstallParams::release_omaha_url() {
+  // @@protoc_insertion_point(field_release:update_engine.InstallParams.omaha_url)
+  return omaha_url_.Release();
+}
+inline void InstallParams::set_allocated_omaha_url(std::string* omaha_url) {
+  if (omaha_url != nullptr) {
+    
+  } else {
+    
+  }
+  omaha_url_.SetAllocated(omaha_url, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (omaha_url_.IsDefault()) {
+    omaha_url_.Set("", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:update_engine.InstallParams.omaha_url)
+}
+
+// bool scaled = 3;
+inline void InstallParams::clear_scaled() {
+  scaled_ = false;
+}
+inline bool InstallParams::_internal_scaled() const {
+  return scaled_;
+}
+inline bool InstallParams::scaled() const {
+  // @@protoc_insertion_point(field_get:update_engine.InstallParams.scaled)
+  return _internal_scaled();
+}
+inline void InstallParams::_internal_set_scaled(bool value) {
+  
+  scaled_ = value;
+}
+inline void InstallParams::set_scaled(bool value) {
+  _internal_set_scaled(value);
+  // @@protoc_insertion_point(field_set:update_engine.InstallParams.scaled)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

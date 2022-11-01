@@ -473,6 +473,20 @@ TestEventSix& TestEventSix::SetTestMetricSix(const std::string& value) {
 
 }  // namespace test_project_five
 
+namespace test_project_six {
+
+TestEventSeven::TestEventSeven() :
+  ::metrics::structured::Event("TestProjectSix",
+                               "TestEventSeven") {}
+TestEventSeven::~TestEventSeven() = default;
+TestEventSeven& TestEventSeven::SetTestMetricSeven(const double value) {
+  AddMetric("TestMetricSeven", Event::MetricType::kDouble,
+            base::Value(value));
+  return *this;
+}
+
+}  // namespace test_project_six
+
 
 }  // namespace v2
 }  // namespace events

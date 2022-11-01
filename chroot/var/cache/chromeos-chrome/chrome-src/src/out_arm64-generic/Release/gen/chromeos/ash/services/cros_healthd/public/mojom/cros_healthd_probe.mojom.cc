@@ -5006,6 +5006,115 @@ bool InputDevice::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+SensorInfo::SensorInfo()
+    : lid_angle(),
+      sensors() {}
+
+SensorInfo::SensorInfo(
+    ::ash::cros_healthd::mojom::NullableUint16Ptr lid_angle_in)
+    : lid_angle(std::move(lid_angle_in)),
+      sensors() {}
+
+SensorInfo::SensorInfo(
+    ::ash::cros_healthd::mojom::NullableUint16Ptr lid_angle_in,
+    absl::optional<std::vector<SensorPtr>> sensors_in)
+    : lid_angle(std::move(lid_angle_in)),
+      sensors(std::move(sensors_in)) {}
+
+SensorInfo::~SensorInfo() = default;
+
+void SensorInfo::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "lid_angle"), this->lid_angle,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ::ash::cros_healthd::mojom::NullableUint16Ptr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "sensors"), this->sensors,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type absl::optional<std::vector<SensorPtr>>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool SensorInfo::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+Sensor::Sensor()
+    : name(),
+      device_id(),
+      type(),
+      location() {}
+
+Sensor::Sensor(
+    const absl::optional<std::string>& name_in,
+    int32_t device_id_in,
+    Sensor::Type type_in,
+    Sensor::Location location_in)
+    : name(std::move(name_in)),
+      device_id(std::move(device_id_in)),
+      type(std::move(type_in)),
+      location(std::move(location_in)) {}
+
+Sensor::~Sensor() = default;
+
+void Sensor::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "name"), this->name,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const absl::optional<std::string>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "device_id"), this->device_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type int32_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "type"), this->type,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type Sensor::Type>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "location"), this->location,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type Sensor::Location>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool Sensor::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 TelemetryInfo::TelemetryInfo()
     : battery_result(),
       block_device_result(),
@@ -5027,7 +5136,8 @@ TelemetryInfo::TelemetryInfo()
       display_result(),
       network_interface_result(),
       input_result(),
-      audio_hardware_result() {}
+      audio_hardware_result(),
+      sensor_result() {}
 
 TelemetryInfo::TelemetryInfo(
     BatteryResultPtr battery_result_in,
@@ -5067,7 +5177,8 @@ TelemetryInfo::TelemetryInfo(
       display_result(),
       network_interface_result(),
       input_result(),
-      audio_hardware_result() {}
+      audio_hardware_result(),
+      sensor_result() {}
 
 TelemetryInfo::TelemetryInfo(
     BatteryResultPtr battery_result_in,
@@ -5108,7 +5219,8 @@ TelemetryInfo::TelemetryInfo(
       display_result(std::move(display_result_in)),
       network_interface_result(),
       input_result(),
-      audio_hardware_result() {}
+      audio_hardware_result(),
+      sensor_result() {}
 
 TelemetryInfo::TelemetryInfo(
     BatteryResultPtr battery_result_in,
@@ -5150,7 +5262,8 @@ TelemetryInfo::TelemetryInfo(
       display_result(std::move(display_result_in)),
       network_interface_result(std::move(network_interface_result_in)),
       input_result(),
-      audio_hardware_result() {}
+      audio_hardware_result(),
+      sensor_result() {}
 
 TelemetryInfo::TelemetryInfo(
     BatteryResultPtr battery_result_in,
@@ -5193,7 +5306,8 @@ TelemetryInfo::TelemetryInfo(
       display_result(std::move(display_result_in)),
       network_interface_result(std::move(network_interface_result_in)),
       input_result(std::move(input_result_in)),
-      audio_hardware_result() {}
+      audio_hardware_result(),
+      sensor_result() {}
 
 TelemetryInfo::TelemetryInfo(
     BatteryResultPtr battery_result_in,
@@ -5237,7 +5351,54 @@ TelemetryInfo::TelemetryInfo(
       display_result(std::move(display_result_in)),
       network_interface_result(std::move(network_interface_result_in)),
       input_result(std::move(input_result_in)),
-      audio_hardware_result(std::move(audio_hardware_result_in)) {}
+      audio_hardware_result(std::move(audio_hardware_result_in)),
+      sensor_result() {}
+
+TelemetryInfo::TelemetryInfo(
+    BatteryResultPtr battery_result_in,
+    NonRemovableBlockDeviceResultPtr block_device_result_in,
+    CpuResultPtr cpu_result_in,
+    TimezoneResultPtr timezone_result_in,
+    MemoryResultPtr memory_result_in,
+    BacklightResultPtr backlight_result_in,
+    FanResultPtr fan_result_in,
+    StatefulPartitionResultPtr stateful_partition_result_in,
+    BluetoothResultPtr bluetooth_result_in,
+    DEPRECATE_SystemResultPtr deprecate_system_result_in,
+    NetworkResultPtr network_result_in,
+    AudioResultPtr audio_result_in,
+    BootPerformanceResultPtr boot_performance_result_in,
+    BusResultPtr bus_result_in,
+    SystemResultPtr system_result_in,
+    TpmResultPtr tpm_result_in,
+    GraphicsResultPtr graphics_result_in,
+    DisplayResultPtr display_result_in,
+    NetworkInterfaceResultPtr network_interface_result_in,
+    InputResultPtr input_result_in,
+    AudioHardwareResultPtr audio_hardware_result_in,
+    SensorResultPtr sensor_result_in)
+    : battery_result(std::move(battery_result_in)),
+      block_device_result(std::move(block_device_result_in)),
+      cpu_result(std::move(cpu_result_in)),
+      timezone_result(std::move(timezone_result_in)),
+      memory_result(std::move(memory_result_in)),
+      backlight_result(std::move(backlight_result_in)),
+      fan_result(std::move(fan_result_in)),
+      stateful_partition_result(std::move(stateful_partition_result_in)),
+      bluetooth_result(std::move(bluetooth_result_in)),
+      deprecate_system_result(std::move(deprecate_system_result_in)),
+      network_result(std::move(network_result_in)),
+      audio_result(std::move(audio_result_in)),
+      boot_performance_result(std::move(boot_performance_result_in)),
+      bus_result(std::move(bus_result_in)),
+      system_result(std::move(system_result_in)),
+      tpm_result(std::move(tpm_result_in)),
+      graphics_result(std::move(graphics_result_in)),
+      display_result(std::move(display_result_in)),
+      network_interface_result(std::move(network_interface_result_in)),
+      input_result(std::move(input_result_in)),
+      audio_hardware_result(std::move(audio_hardware_result_in)),
+      sensor_result(std::move(sensor_result_in)) {}
 
 TelemetryInfo::~TelemetryInfo() = default;
 
@@ -5429,6 +5590,15 @@ void TelemetryInfo::WriteIntoTrace(
       "audio_hardware_result"), this->audio_hardware_result,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type AudioHardwareResultPtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "sensor_result"), this->sensor_result,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type SensorResultPtr>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -7077,6 +7247,57 @@ bool InputResult::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context, false);
 }
+SensorResult::SensorResult() : tag_(Tag::kSensorInfo) {
+  data_.sensor_info = new SensorInfoPtr;
+}
+
+SensorResult::~SensorResult() {
+  DestroyActive();
+}
+
+
+void SensorResult::set_sensor_info(
+    SensorInfoPtr sensor_info) {
+  if (tag_ == Tag::kSensorInfo) {
+    *(data_.sensor_info) = std::move(sensor_info);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kSensorInfo;
+    data_.sensor_info = new SensorInfoPtr(
+        std::move(sensor_info));
+  }
+}
+void SensorResult::set_error(
+    ProbeErrorPtr error) {
+  if (tag_ == Tag::kError) {
+    *(data_.error) = std::move(error);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kError;
+    data_.error = new ProbeErrorPtr(
+        std::move(error));
+  }
+}
+
+void SensorResult::DestroyActive() {
+  switch (tag_) {
+
+    case Tag::kSensorInfo:
+
+      delete data_.sensor_info;
+      break;
+    case Tag::kError:
+
+      delete data_.error;
+      break;
+  }
+}
+
+bool SensorResult::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context, false);
+}
 
 
 }  // namespace mojom
@@ -8372,6 +8593,42 @@ bool StructTraits<::ash::cros_healthd::mojom::InputDevice::DataView, ::ash::cros
 
 
 // static
+bool StructTraits<::ash::cros_healthd::mojom::SensorInfo::DataView, ::ash::cros_healthd::mojom::SensorInfoPtr>::Read(
+    ::ash::cros_healthd::mojom::SensorInfo::DataView input,
+    ::ash::cros_healthd::mojom::SensorInfoPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::SensorInfoPtr result(::ash::cros_healthd::mojom::SensorInfo::New());
+  
+      if (success && !input.ReadLidAngle(&result->lid_angle))
+        success = false;
+      if (success && !input.ReadSensors(&result->sensors))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::ash::cros_healthd::mojom::Sensor::DataView, ::ash::cros_healthd::mojom::SensorPtr>::Read(
+    ::ash::cros_healthd::mojom::Sensor::DataView input,
+    ::ash::cros_healthd::mojom::SensorPtr* output) {
+  bool success = true;
+  ::ash::cros_healthd::mojom::SensorPtr result(::ash::cros_healthd::mojom::Sensor::New());
+  
+      if (success && !input.ReadName(&result->name))
+        success = false;
+      if (success)
+        result->device_id = input.device_id();
+      if (success && !input.ReadType(&result->type))
+        success = false;
+      if (success && !input.ReadLocation(&result->location))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
 bool StructTraits<::ash::cros_healthd::mojom::TelemetryInfo::DataView, ::ash::cros_healthd::mojom::TelemetryInfoPtr>::Read(
     ::ash::cros_healthd::mojom::TelemetryInfo::DataView input,
     ::ash::cros_healthd::mojom::TelemetryInfoPtr* output) {
@@ -8419,6 +8676,8 @@ bool StructTraits<::ash::cros_healthd::mojom::TelemetryInfo::DataView, ::ash::cr
       if (success && !input.ReadInputResult(&result->input_result))
         success = false;
       if (success && !input.ReadAudioHardwareResult(&result->audio_hardware_result))
+        success = false;
+      if (success && !input.ReadSensorResult(&result->sensor_result))
         success = false;
   *output = std::move(result);
   return success;
@@ -9330,6 +9589,39 @@ bool UnionTraits<::ash::cros_healthd::mojom::InputResult::DataView, ::ash::cros_
 
       *output = UnionType::NewInputInfo(
           std::move(result_input_info));
+      break;
+    }
+    case Tag::kError: {
+      ::ash::cros_healthd::mojom::ProbeErrorPtr result_error;
+      if (!input.ReadError(&result_error))
+        return false;
+
+      *output = UnionType::NewError(
+          std::move(result_error));
+      break;
+    }
+    default:
+
+      return false;
+  }
+  return true;
+}
+
+// static
+bool UnionTraits<::ash::cros_healthd::mojom::SensorResult::DataView, ::ash::cros_healthd::mojom::SensorResultPtr>::Read(
+    ::ash::cros_healthd::mojom::SensorResult::DataView input,
+    ::ash::cros_healthd::mojom::SensorResultPtr* output) {
+  using UnionType = ::ash::cros_healthd::mojom::SensorResult;
+  using Tag = UnionType::Tag;
+
+  switch (input.tag()) {
+    case Tag::kSensorInfo: {
+      ::ash::cros_healthd::mojom::SensorInfoPtr result_sensor_info;
+      if (!input.ReadSensorInfo(&result_sensor_info))
+        return false;
+
+      *output = UnionType::NewSensorInfo(
+          std::move(result_sensor_info));
       break;
     }
     case Tag::kError: {

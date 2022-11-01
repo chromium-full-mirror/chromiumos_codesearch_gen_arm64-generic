@@ -642,6 +642,64 @@ bool H264Metadata::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+H265Metadata::H265Metadata()
+    : temporal_idx(),
+      spatial_idx(),
+      layer_sync() {}
+
+H265Metadata::H265Metadata(
+    uint8_t temporal_idx_in,
+    uint8_t spatial_idx_in,
+    bool layer_sync_in)
+    : temporal_idx(std::move(temporal_idx_in)),
+      spatial_idx(std::move(spatial_idx_in)),
+      layer_sync(std::move(layer_sync_in)) {}
+
+H265Metadata::~H265Metadata() = default;
+size_t H265Metadata::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->temporal_idx);
+  seed = mojo::internal::Hash(seed, this->spatial_idx);
+  seed = mojo::internal::Hash(seed, this->layer_sync);
+  return seed;
+}
+
+void H265Metadata::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "temporal_idx"), this->temporal_idx,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint8_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "spatial_idx"), this->spatial_idx,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint8_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "layer_sync"), this->layer_sync,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool H265Metadata::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 Vp8Metadata::Vp8Metadata()
     : non_reference(),
       temporal_idx(),
@@ -1065,6 +1123,17 @@ void CodecMetadata::set_h264(
         std::move(h264));
   }
 }
+void CodecMetadata::set_h265(
+    H265MetadataPtr h265) {
+  if (tag_ == Tag::kH265) {
+    *(data_.h265) = std::move(h265);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kH265;
+    data_.h265 = new H265MetadataPtr(
+        std::move(h265));
+  }
+}
 void CodecMetadata::set_vp8(
     const ::media::Vp8Metadata& vp8) {
   if (tag_ == Tag::kVp8) {
@@ -1105,6 +1174,10 @@ void CodecMetadata::DestroyActive() {
     case Tag::kH264:
 
       delete data_.h264;
+      break;
+    case Tag::kH265:
+
+      delete data_.h265;
       break;
     case Tag::kVp8:
 
@@ -3707,6 +3780,24 @@ bool StructTraits<::media::mojom::H264Metadata::DataView, ::media::mojom::H264Me
 
 
 // static
+bool StructTraits<::media::mojom::H265Metadata::DataView, ::media::mojom::H265MetadataPtr>::Read(
+    ::media::mojom::H265Metadata::DataView input,
+    ::media::mojom::H265MetadataPtr* output) {
+  bool success = true;
+  ::media::mojom::H265MetadataPtr result(::media::mojom::H265Metadata::New());
+  
+      if (success)
+        result->temporal_idx = input.temporal_idx();
+      if (success)
+        result->spatial_idx = input.spatial_idx();
+      if (success)
+        result->layer_sync = input.layer_sync();
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
 bool StructTraits<::media::mojom::Vp8Metadata::DataView, ::media::mojom::Vp8MetadataPtr>::Read(
     ::media::mojom::Vp8Metadata::DataView input,
     ::media::mojom::Vp8MetadataPtr* output) {
@@ -3849,6 +3940,15 @@ bool UnionTraits<::media::mojom::CodecMetadata::DataView, ::media::mojom::CodecM
 
       *output = UnionType::NewH264(
           std::move(result_h264));
+      break;
+    }
+    case Tag::kH265: {
+      ::media::mojom::H265MetadataPtr result_h265;
+      if (!input.ReadH265(&result_h265))
+        return false;
+
+      *output = UnionType::NewH265(
+          std::move(result_h265));
       break;
     }
     case Tag::kVp8: {

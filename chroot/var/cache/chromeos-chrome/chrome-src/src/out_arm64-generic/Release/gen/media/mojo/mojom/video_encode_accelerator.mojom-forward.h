@@ -41,6 +41,8 @@ class VideoEncodeAcceleratorConfigDataView;
 
 class H264MetadataDataView;
 
+class H265MetadataDataView;
+
 class Vp8MetadataDataView;
 
 class Vp9MetadataDataView;
@@ -84,6 +86,9 @@ using VideoEncodeAcceleratorConfigPtr = mojo::StructPtr<VideoEncodeAcceleratorCo
 
 class H264Metadata;
 using H264MetadataPtr = mojo::InlinedStructPtr<H264Metadata>;
+
+class H265Metadata;
+using H265MetadataPtr = mojo::InlinedStructPtr<H265Metadata>;
 
 class Vp8Metadata;
 using Vp8MetadataPtr = mojo::InlinedStructPtr<Vp8Metadata>;

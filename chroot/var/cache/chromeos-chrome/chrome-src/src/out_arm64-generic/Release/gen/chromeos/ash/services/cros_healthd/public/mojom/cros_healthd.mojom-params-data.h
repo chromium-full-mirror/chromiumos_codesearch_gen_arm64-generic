@@ -457,7 +457,7 @@ class  CrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_ResponsePar
 };
 static_assert(sizeof(CrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_ResponseParams_Data) == 16,
               "Bad sizeof(CrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_ResponseParams_Data)");
-class  CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_Params_Data {
+class  CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_Params_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
@@ -465,6 +465,38 @@ class  CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_Params_Data {
   mojo::internal::StructHeader header_;
   uint32_t wear_level_threshold;
   uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_Params_Data>;
+
+  CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_Params_Data();
+  ~CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_Params_Data() = delete;
+};
+static_assert(sizeof(CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_Params_Data) == 16,
+              "Bad sizeof(CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_Params_Data)");
+class  CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::RunRoutineResponse_Data> response;
+
+ private:
+  friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ResponseParams_Data>;
+
+  CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ResponseParams_Data();
+  ~CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ResponseParams_Data) == 16,
+              "Bad sizeof(CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ResponseParams_Data)");
+class  CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::ash::cros_healthd::mojom::internal::NullableUint32_Data> wear_level_threshold;
 
  private:
   friend class mojo::internal::MessageFragment<CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_Params_Data>;
@@ -2220,12 +2252,12 @@ class CrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_ResponsePara
 
 
 
-class CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_ParamsDataView {
+class CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ParamsDataView {
  public:
-  CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_ParamsDataView() = default;
+  CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ParamsDataView() = default;
 
-  CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_ParamsDataView(
-      internal::CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_Params_Data* data,
+  CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ParamsDataView(
+      internal::CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_Params_Data* data,
       mojo::Message* message)
       : data_(data) {}
 
@@ -2234,7 +2266,71 @@ class CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_ParamsDataView {
     return data_->wear_level_threshold;
   }
  private:
+  internal::CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_Params_Data* data_ = nullptr;
+};
+
+
+
+class CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ResponseParamsDataView {
+ public:
+  CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ResponseParamsDataView() = default;
+
+  CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ResponseParamsDataView(
+      internal::CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetResponseDataView(
+      ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadResponse(UserType* output) {
+    
+    auto* pointer = data_->response.Get();
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::RunRoutineResponseDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
+class CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_ParamsDataView {
+ public:
+  CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_ParamsDataView() = default;
+
+  CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_ParamsDataView(
+      internal::CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetWearLevelThresholdDataView(
+      ::ash::cros_healthd::mojom::NullableUint32DataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadWearLevelThreshold(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::ash::cros_healthd::mojom::NullableUint32DataView, UserType>(),
+    "Attempting to read the optional `wear_level_threshold` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadWearLevelThreshold` instead "
+    "of `ReadWearLevelThreshold if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->wear_level_threshold.Get();
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::NullableUint32DataView>(
+        pointer, output, message_);
+  }
+ private:
   internal::CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
 };
 
 
@@ -3881,6 +3977,20 @@ inline void CrosHealthdDiagnosticsService_RunFloatingPointAccuracyRoutine_Respon
 }
 
 
+
+
+inline void CrosHealthdDiagnosticsService_DEPRECATED_RunNvmeWearLevelRoutine_ResponseParamsDataView::GetResponseDataView(
+    ::ash::cros_healthd::mojom::RunRoutineResponseDataView* output) {
+  auto pointer = data_->response.Get();
+  *output = ::ash::cros_healthd::mojom::RunRoutineResponseDataView(pointer, message_);
+}
+
+
+inline void CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_ParamsDataView::GetWearLevelThresholdDataView(
+    ::ash::cros_healthd::mojom::NullableUint32DataView* output) {
+  auto pointer = data_->wear_level_threshold.Get();
+  *output = ::ash::cros_healthd::mojom::NullableUint32DataView(pointer, message_);
+}
 
 
 inline void CrosHealthdDiagnosticsService_RunNvmeWearLevelRoutine_ResponseParamsDataView::GetResponseDataView(

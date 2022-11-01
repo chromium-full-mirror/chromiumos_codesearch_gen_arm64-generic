@@ -893,16 +893,18 @@ bool SystemProfileProto_Hardware_FormFactor_IsValid(int value) {
     case 2:
     case 3:
     case 4:
+    case 5:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> SystemProfileProto_Hardware_FormFactor_strings[5] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> SystemProfileProto_Hardware_FormFactor_strings[6] = {};
 
 static const char SystemProfileProto_Hardware_FormFactor_names[] =
   "FORM_FACTOR_DESKTOP"
+  "FORM_FACTOR_MEET_DEVICE"
   "FORM_FACTOR_PHONE"
   "FORM_FACTOR_TABLET"
   "FORM_FACTOR_TV"
@@ -910,18 +912,20 @@ static const char SystemProfileProto_Hardware_FormFactor_names[] =
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry SystemProfileProto_Hardware_FormFactor_entries[] = {
   { {SystemProfileProto_Hardware_FormFactor_names + 0, 19}, 1 },
-  { {SystemProfileProto_Hardware_FormFactor_names + 19, 17}, 2 },
-  { {SystemProfileProto_Hardware_FormFactor_names + 36, 18}, 3 },
-  { {SystemProfileProto_Hardware_FormFactor_names + 54, 14}, 4 },
-  { {SystemProfileProto_Hardware_FormFactor_names + 68, 19}, 0 },
+  { {SystemProfileProto_Hardware_FormFactor_names + 19, 23}, 5 },
+  { {SystemProfileProto_Hardware_FormFactor_names + 42, 17}, 2 },
+  { {SystemProfileProto_Hardware_FormFactor_names + 59, 18}, 3 },
+  { {SystemProfileProto_Hardware_FormFactor_names + 77, 14}, 4 },
+  { {SystemProfileProto_Hardware_FormFactor_names + 91, 19}, 0 },
 };
 
 static const int SystemProfileProto_Hardware_FormFactor_entries_by_number[] = {
-  4, // 0 -> FORM_FACTOR_UNKNOWN
+  5, // 0 -> FORM_FACTOR_UNKNOWN
   0, // 1 -> FORM_FACTOR_DESKTOP
-  1, // 2 -> FORM_FACTOR_PHONE
-  2, // 3 -> FORM_FACTOR_TABLET
-  3, // 4 -> FORM_FACTOR_TV
+  2, // 2 -> FORM_FACTOR_PHONE
+  3, // 3 -> FORM_FACTOR_TABLET
+  4, // 4 -> FORM_FACTOR_TV
+  1, // 5 -> FORM_FACTOR_MEET_DEVICE
 };
 
 const std::string& SystemProfileProto_Hardware_FormFactor_Name(
@@ -930,12 +934,12 @@ const std::string& SystemProfileProto_Hardware_FormFactor_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           SystemProfileProto_Hardware_FormFactor_entries,
           SystemProfileProto_Hardware_FormFactor_entries_by_number,
-          5, SystemProfileProto_Hardware_FormFactor_strings);
+          6, SystemProfileProto_Hardware_FormFactor_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       SystemProfileProto_Hardware_FormFactor_entries,
       SystemProfileProto_Hardware_FormFactor_entries_by_number,
-      5, value);
+      6, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      SystemProfileProto_Hardware_FormFactor_strings[idx].get();
 }
@@ -943,7 +947,7 @@ bool SystemProfileProto_Hardware_FormFactor_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, SystemProfileProto_Hardware_FormFactor* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      SystemProfileProto_Hardware_FormFactor_entries, 5, name, &int_value);
+      SystemProfileProto_Hardware_FormFactor_entries, 6, name, &int_value);
   if (success) {
     *value = static_cast<SystemProfileProto_Hardware_FormFactor>(int_value);
   }
@@ -955,6 +959,7 @@ constexpr SystemProfileProto_Hardware_FormFactor SystemProfileProto_Hardware::FO
 constexpr SystemProfileProto_Hardware_FormFactor SystemProfileProto_Hardware::FORM_FACTOR_PHONE;
 constexpr SystemProfileProto_Hardware_FormFactor SystemProfileProto_Hardware::FORM_FACTOR_TABLET;
 constexpr SystemProfileProto_Hardware_FormFactor SystemProfileProto_Hardware::FORM_FACTOR_TV;
+constexpr SystemProfileProto_Hardware_FormFactor SystemProfileProto_Hardware::FORM_FACTOR_MEET_DEVICE;
 constexpr SystemProfileProto_Hardware_FormFactor SystemProfileProto_Hardware::FormFactor_MIN;
 constexpr SystemProfileProto_Hardware_FormFactor SystemProfileProto_Hardware::FormFactor_MAX;
 constexpr int SystemProfileProto_Hardware::FormFactor_ARRAYSIZE;
@@ -2150,13 +2155,15 @@ bool SystemProfileProto_ComponentId_IsValid(int value) {
     case 27:
     case 28:
     case 29:
+    case 30:
+    case 31:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> SystemProfileProto_ComponentId_strings[29] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> SystemProfileProto_ComponentId_strings[31] = {};
 
 static const char SystemProfileProto_ComponentId_names[] =
   "AUTOFILL_REGEX_CONSTANTS"
@@ -2164,10 +2171,12 @@ static const char SystemProfileProto_ComponentId_names[] =
   "CRL_SET"
   "CROS_SMART_DIM"
   "CROS_TERMINA"
+  "CROWD_DENY"
   "DEMO_MODE_RESOURCES"
   "DOWNLOADABLE_STRINGS"
   "EPSON_INKJET_PRINTER_ESCPR"
   "FILE_TYPE_POLICIES"
+  "MEDIA_FOUNDATION_WIDEVINE_CDM"
   "ON_DEVICE_HEAD_SUGGEST"
   "OPTIMIZATION_HINTS"
   "ORIGIN_TRIALS"
@@ -2195,62 +2204,66 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry SystemProfileProto_Com
   { {SystemProfileProto_ComponentId_names + 32, 7}, 10 },
   { {SystemProfileProto_ComponentId_names + 39, 14}, 26 },
   { {SystemProfileProto_ComponentId_names + 53, 12}, 15 },
-  { {SystemProfileProto_ComponentId_names + 65, 19}, 24 },
-  { {SystemProfileProto_ComponentId_names + 84, 20}, 19 },
-  { {SystemProfileProto_ComponentId_names + 104, 26}, 14 },
-  { {SystemProfileProto_ComponentId_names + 130, 18}, 2 },
-  { {SystemProfileProto_ComponentId_names + 148, 22}, 25 },
-  { {SystemProfileProto_ComponentId_names + 170, 18}, 18 },
-  { {SystemProfileProto_ComponentId_names + 188, 13}, 3 },
-  { {SystemProfileProto_ComponentId_names + 201, 12}, 4 },
-  { {SystemProfileProto_ComponentId_names + 213, 21}, 5 },
-  { {SystemProfileProto_ComponentId_names + 234, 5}, 6 },
-  { {SystemProfileProto_ComponentId_names + 239, 8}, 7 },
-  { {SystemProfileProto_ComponentId_names + 247, 16}, 22 },
-  { {SystemProfileProto_ComponentId_names + 263, 17}, 21 },
-  { {SystemProfileProto_ComponentId_names + 280, 22}, 17 },
-  { {SystemProfileProto_ComponentId_names + 302, 19}, 8 },
-  { {SystemProfileProto_ComponentId_names + 321, 16}, 16 },
-  { {SystemProfileProto_ComponentId_names + 337, 7}, 9 },
-  { {SystemProfileProto_ComponentId_names + 344, 18}, 11 },
-  { {SystemProfileProto_ComponentId_names + 362, 11}, 12 },
-  { {SystemProfileProto_ComponentId_names + 373, 7}, 1 },
-  { {SystemProfileProto_ComponentId_names + 380, 9}, 20 },
-  { {SystemProfileProto_ComponentId_names + 389, 36}, 29 },
-  { {SystemProfileProto_ComponentId_names + 425, 12}, 13 },
-  { {SystemProfileProto_ComponentId_names + 437, 11}, 27 },
+  { {SystemProfileProto_ComponentId_names + 65, 10}, 31 },
+  { {SystemProfileProto_ComponentId_names + 75, 19}, 24 },
+  { {SystemProfileProto_ComponentId_names + 94, 20}, 19 },
+  { {SystemProfileProto_ComponentId_names + 114, 26}, 14 },
+  { {SystemProfileProto_ComponentId_names + 140, 18}, 2 },
+  { {SystemProfileProto_ComponentId_names + 158, 29}, 30 },
+  { {SystemProfileProto_ComponentId_names + 187, 22}, 25 },
+  { {SystemProfileProto_ComponentId_names + 209, 18}, 18 },
+  { {SystemProfileProto_ComponentId_names + 227, 13}, 3 },
+  { {SystemProfileProto_ComponentId_names + 240, 12}, 4 },
+  { {SystemProfileProto_ComponentId_names + 252, 21}, 5 },
+  { {SystemProfileProto_ComponentId_names + 273, 5}, 6 },
+  { {SystemProfileProto_ComponentId_names + 278, 8}, 7 },
+  { {SystemProfileProto_ComponentId_names + 286, 16}, 22 },
+  { {SystemProfileProto_ComponentId_names + 302, 17}, 21 },
+  { {SystemProfileProto_ComponentId_names + 319, 22}, 17 },
+  { {SystemProfileProto_ComponentId_names + 341, 19}, 8 },
+  { {SystemProfileProto_ComponentId_names + 360, 16}, 16 },
+  { {SystemProfileProto_ComponentId_names + 376, 7}, 9 },
+  { {SystemProfileProto_ComponentId_names + 383, 18}, 11 },
+  { {SystemProfileProto_ComponentId_names + 401, 11}, 12 },
+  { {SystemProfileProto_ComponentId_names + 412, 7}, 1 },
+  { {SystemProfileProto_ComponentId_names + 419, 9}, 20 },
+  { {SystemProfileProto_ComponentId_names + 428, 36}, 29 },
+  { {SystemProfileProto_ComponentId_names + 464, 12}, 13 },
+  { {SystemProfileProto_ComponentId_names + 476, 11}, 27 },
 };
 
 static const int SystemProfileProto_ComponentId_entries_by_number[] = {
-  24, // 1 -> UNKNOWN
-  8, // 2 -> FILE_TYPE_POLICIES
-  11, // 3 -> ORIGIN_TRIALS
-  12, // 4 -> PEPPER_FLASH
-  13, // 5 -> PEPPER_FLASH_CHROMEOS
-  14, // 6 -> PNACL
-  15, // 7 -> RECOVERY
-  19, // 8 -> SSL_ERROR_ASSISTANT
-  21, // 9 -> STH_SET
+  26, // 1 -> UNKNOWN
+  9, // 2 -> FILE_TYPE_POLICIES
+  13, // 3 -> ORIGIN_TRIALS
+  14, // 4 -> PEPPER_FLASH
+  15, // 5 -> PEPPER_FLASH_CHROMEOS
+  16, // 6 -> PNACL
+  17, // 7 -> RECOVERY
+  21, // 8 -> SSL_ERROR_ASSISTANT
+  23, // 9 -> STH_SET
   2, // 10 -> CRL_SET
-  22, // 11 -> SUBRESOURCE_FILTER
-  23, // 12 -> SW_REPORTER
-  27, // 13 -> WIDEVINE_CDM
-  7, // 14 -> EPSON_INKJET_PRINTER_ESCPR
+  24, // 11 -> SUBRESOURCE_FILTER
+  25, // 12 -> SW_REPORTER
+  29, // 13 -> WIDEVINE_CDM
+  8, // 14 -> EPSON_INKJET_PRINTER_ESCPR
   4, // 15 -> CROS_TERMINA
-  20, // 16 -> STAR_CUPS_DRIVER
-  18, // 17 -> SPEECH_SYNTHESIS_SV_SE
-  10, // 18 -> OPTIMIZATION_HINTS
-  6, // 19 -> DOWNLOADABLE_STRINGS
-  25, // 20 -> VR_ASSETS
-  17, // 21 -> RTANALYTICS_LIGHT
-  16, // 22 -> RTANALYTICS_FULL
+  22, // 16 -> STAR_CUPS_DRIVER
+  20, // 17 -> SPEECH_SYNTHESIS_SV_SE
+  12, // 18 -> OPTIMIZATION_HINTS
+  7, // 19 -> DOWNLOADABLE_STRINGS
+  27, // 20 -> VR_ASSETS
+  19, // 21 -> RTANALYTICS_LIGHT
+  18, // 22 -> RTANALYTICS_FULL
   1, // 23 -> CELLULAR
-  5, // 24 -> DEMO_MODE_RESOURCES
-  9, // 25 -> ON_DEVICE_HEAD_SUGGEST
+  6, // 24 -> DEMO_MODE_RESOURCES
+  11, // 25 -> ON_DEVICE_HEAD_SUGGEST
   3, // 26 -> CROS_SMART_DIM
-  28, // 27 -> ZXCVBN_DATA
+  30, // 27 -> ZXCVBN_DATA
   0, // 28 -> AUTOFILL_REGEX_CONSTANTS
-  26, // 29 -> WEBVIEW_APPS_PACKAGE_NAMES_ALLOWLIST
+  28, // 29 -> WEBVIEW_APPS_PACKAGE_NAMES_ALLOWLIST
+  10, // 30 -> MEDIA_FOUNDATION_WIDEVINE_CDM
+  5, // 31 -> CROWD_DENY
 };
 
 const std::string& SystemProfileProto_ComponentId_Name(
@@ -2259,12 +2272,12 @@ const std::string& SystemProfileProto_ComponentId_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           SystemProfileProto_ComponentId_entries,
           SystemProfileProto_ComponentId_entries_by_number,
-          29, SystemProfileProto_ComponentId_strings);
+          31, SystemProfileProto_ComponentId_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       SystemProfileProto_ComponentId_entries,
       SystemProfileProto_ComponentId_entries_by_number,
-      29, value);
+      31, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      SystemProfileProto_ComponentId_strings[idx].get();
 }
@@ -2272,7 +2285,7 @@ bool SystemProfileProto_ComponentId_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, SystemProfileProto_ComponentId* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      SystemProfileProto_ComponentId_entries, 29, name, &int_value);
+      SystemProfileProto_ComponentId_entries, 31, name, &int_value);
   if (success) {
     *value = static_cast<SystemProfileProto_ComponentId>(int_value);
   }
@@ -2308,6 +2321,8 @@ constexpr SystemProfileProto_ComponentId SystemProfileProto::CROS_SMART_DIM;
 constexpr SystemProfileProto_ComponentId SystemProfileProto::ZXCVBN_DATA;
 constexpr SystemProfileProto_ComponentId SystemProfileProto::AUTOFILL_REGEX_CONSTANTS;
 constexpr SystemProfileProto_ComponentId SystemProfileProto::WEBVIEW_APPS_PACKAGE_NAMES_ALLOWLIST;
+constexpr SystemProfileProto_ComponentId SystemProfileProto::MEDIA_FOUNDATION_WIDEVINE_CDM;
+constexpr SystemProfileProto_ComponentId SystemProfileProto::CROWD_DENY;
 constexpr SystemProfileProto_ComponentId SystemProfileProto::ComponentId_MIN;
 constexpr SystemProfileProto_ComponentId SystemProfileProto::ComponentId_MAX;
 constexpr int SystemProfileProto::ComponentId_ARRAYSIZE;

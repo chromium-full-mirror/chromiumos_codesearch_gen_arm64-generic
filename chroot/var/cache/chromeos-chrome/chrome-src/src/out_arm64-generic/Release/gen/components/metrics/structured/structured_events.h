@@ -236,6 +236,18 @@ class TestEventSix final : public ::metrics::structured::Event {
 
 }  // namespace test_project_five
 
+namespace test_project_six {
+
+class TestEventSeven final : public ::metrics::structured::Event {
+ public:
+  TestEventSeven();
+  ~TestEventSeven() override;
+
+    TestEventSeven& SetTestMetricSeven(const double value);
+};
+
+}  // namespace test_project_six
+
 
 
 }  // namespace v2

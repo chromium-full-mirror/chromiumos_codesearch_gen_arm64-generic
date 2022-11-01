@@ -242,10 +242,20 @@ bool CodecMetadata_Data::Validate(
         return false;
       return true;
     }
+    case CodecMetadata_Tag::kH265: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_h265, 2, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_h265, validation_context))
+        return false;
+      return true;
+    }
     case CodecMetadata_Tag::kVp8: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_vp8, 2, validation_context)) {
+              object->data.f_vp8, 3, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_vp8, validation_context))
@@ -255,7 +265,7 @@ bool CodecMetadata_Data::Validate(
     case CodecMetadata_Tag::kVp9: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_vp9, 3, validation_context)) {
+              object->data.f_vp9, 4, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_vp9, validation_context))
@@ -265,7 +275,7 @@ bool CodecMetadata_Data::Validate(
     case CodecMetadata_Tag::kAv1: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_av1, 4, validation_context)) {
+              object->data.f_av1, 5, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_av1, validation_context))
@@ -570,6 +580,29 @@ bool H264Metadata_Data::Validate(
 }
 
 H264Metadata_Data::H264Metadata_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool H265Metadata_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const H265Metadata_Data* object =
+      static_cast<const H265Metadata_Data*>(data);
+
+  return true;
+}
+
+H265Metadata_Data::H265Metadata_Data()
     : header_({sizeof(*this), 0}) {}
 
 

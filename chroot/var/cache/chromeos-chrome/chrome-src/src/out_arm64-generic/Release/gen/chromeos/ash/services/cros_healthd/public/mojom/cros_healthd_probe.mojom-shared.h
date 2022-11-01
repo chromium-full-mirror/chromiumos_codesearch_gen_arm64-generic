@@ -150,6 +150,10 @@ class TouchscreenDeviceDataView;
 
 class InputDeviceDataView;
 
+class SensorInfoDataView;
+
+class SensorDataView;
+
 class TelemetryInfoDataView;
 
 class ProcessResultDataView;
@@ -180,6 +184,7 @@ class TpmResultDataView;
 class GraphicsResultDataView;
 class DisplayResultDataView;
 class InputResultDataView;
+class SensorResultDataView;
 
 
 }  // namespace mojom
@@ -589,6 +594,20 @@ struct MojomTypeTraits<::ash::cros_healthd::mojom::InputDeviceDataView> {
 };
 
 template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::SensorInfoDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::SensorInfo_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::SensorDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::Sensor_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
 struct MojomTypeTraits<::ash::cros_healthd::mojom::TelemetryInfoDataView> {
   using Data = ::ash::cros_healthd::mojom::internal::TelemetryInfo_Data;
   using DataAsArrayElement = Pointer<Data>;
@@ -791,6 +810,13 @@ struct MojomTypeTraits<::ash::cros_healthd::mojom::InputResultDataView> {
   static constexpr MojomTypeCategory category = MojomTypeCategory::kUnion;
 };
 
+template <>
+struct MojomTypeTraits<::ash::cros_healthd::mojom::SensorResultDataView> {
+  using Data = ::ash::cros_healthd::mojom::internal::SensorResult_Data;
+  using DataAsArrayElement = Data;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kUnion;
+};
+
 }  // namespace internal
 }  // namespace mojo
 
@@ -870,8 +896,10 @@ enum class ProbeCategoryEnum : int32_t {
   kInput = 19,
   
   kAudioHardware = 20,
+  
+  kSensor = 21,
   kMinValue = 0,
-  kMaxValue = 20,
+  kMaxValue = 21,
   kDefaultValue = 16
 };
 
@@ -1390,6 +1418,68 @@ inline InputDevice_ConnectionType ToKnownEnumValue(InputDevice_ConnectionType va
     return value;
   }
   return InputDevice_ConnectionType::kDefaultValue;
+}
+
+
+enum class Sensor_Type : int32_t {
+  
+  kUnmappedEnumField = 0,
+  
+  kAccel = 1,
+  
+  kLight = 2,
+  
+  kGyro = 3,
+  
+  kAngle = 4,
+  
+  kGravity = 5,
+  
+  kMagn = 6,
+  kMinValue = 0,
+  kMaxValue = 6,
+  kDefaultValue = 0
+};
+
+ std::ostream& operator<<(std::ostream& os, Sensor_Type value);
+inline bool IsKnownEnumValue(Sensor_Type value) {
+  return internal::Sensor_Type_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+inline Sensor_Type ToKnownEnumValue(Sensor_Type value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return Sensor_Type::kDefaultValue;
+}
+
+
+enum class Sensor_Location : int32_t {
+  
+  kUnmappedEnumField = 0,
+  
+  kUnknown = 1,
+  
+  kBase = 2,
+  
+  kLid = 3,
+  
+  kCamera = 4,
+  kMinValue = 0,
+  kMaxValue = 4,
+  kDefaultValue = 0
+};
+
+ std::ostream& operator<<(std::ostream& os, Sensor_Location value);
+inline bool IsKnownEnumValue(Sensor_Location value) {
+  return internal::Sensor_Location_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+inline Sensor_Location ToKnownEnumValue(Sensor_Location value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return Sensor_Location::kDefaultValue;
 }
 
 
@@ -5272,6 +5362,124 @@ class InputDeviceDataView {
 
 
 
+class SensorInfoDataView {
+ public:
+  SensorInfoDataView() = default;
+
+  SensorInfoDataView(
+      internal::SensorInfo_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetLidAngleDataView(
+      ::ash::cros_healthd::mojom::NullableUint16DataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadLidAngle(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::ash::cros_healthd::mojom::NullableUint16DataView, UserType>(),
+    "Attempting to read the optional `lid_angle` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadLidAngle` instead "
+    "of `ReadLidAngle if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->lid_angle.Get();
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::NullableUint16DataView>(
+        pointer, output, message_);
+  }
+  inline void GetSensorsDataView(
+      mojo::ArrayDataView<SensorDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadSensors(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::ArrayDataView<::ash::cros_healthd::mojom::SensorDataView>, UserType>(),
+    "Attempting to read the optional `sensors` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadSensors` instead "
+    "of `ReadSensors if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->header_.version >= 1
+                    ? data_->sensors.Get() : nullptr;
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::SensorDataView>>(
+        pointer, output, message_);
+  }
+ private:
+  internal::SensorInfo_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
+class SensorDataView {
+ public:
+  SensorDataView() = default;
+
+  SensorDataView(
+      internal::Sensor_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetNameDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadName(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::StringDataView, UserType>(),
+    "Attempting to read the optional `name` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadName` instead "
+    "of `ReadName if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->name.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  int32_t device_id() const {
+    return data_->device_id;
+  }
+  template <typename UserType>
+  [[nodiscard]] bool ReadType(UserType* output) const {
+    auto data_value = data_->type;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::Sensor_Type>(
+        data_value, output);
+  }
+  Sensor_Type type() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::cros_healthd::mojom::Sensor_Type>(data_->type));
+  }
+  template <typename UserType>
+  [[nodiscard]] bool ReadLocation(UserType* output) const {
+    auto data_value = data_->location;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::Sensor_Location>(
+        data_value, output);
+  }
+  Sensor_Location location() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::cros_healthd::mojom::Sensor_Location>(data_->location));
+  }
+ private:
+  internal::Sensor_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
 class TelemetryInfoDataView {
  public:
   TelemetryInfoDataView() = default;
@@ -5704,6 +5912,27 @@ static_assert(
     auto* pointer = data_->header_.version >= 4 && !data_->audio_hardware_result.is_null()
                     ? &data_->audio_hardware_result : nullptr;
     return mojo::internal::Deserialize<::ash::cros_healthd::mojom::AudioHardwareResultDataView>(
+        pointer, output, message_);
+  }
+  inline void GetSensorResultDataView(
+      SensorResultDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadSensorResult(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::ash::cros_healthd::mojom::SensorResultDataView, UserType>(),
+    "Attempting to read the optional `sensor_result` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with absl::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadSensorResult` instead "
+    "of `ReadSensorResult if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->header_.version >= 5 && !data_->sensor_result.is_null()
+                    ? &data_->sensor_result : nullptr;
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::SensorResultDataView>(
         pointer, output, message_);
   }
  private:
@@ -7059,6 +7288,54 @@ class InputResultDataView {
 
 
 
+class SensorResultDataView {
+ public:
+  using Tag = internal::SensorResult_Data::SensorResult_Tag;
+
+  SensorResultDataView() = default;
+
+  SensorResultDataView(
+      internal::SensorResult_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const {
+    // For inlined unions, |data_| is always non-null. In that case we need to
+    // check |data_->is_null()|.
+    return !data_ || data_->is_null();
+  }
+
+  Tag tag() const { return data_->tag; }
+  bool is_sensor_info() const { return data_->tag == Tag::kSensorInfo; }
+  inline void GetSensorInfoDataView(
+      SensorInfoDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadSensorInfo(UserType* output) const {
+    
+    CHECK(is_sensor_info());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::SensorInfoDataView>(
+        data_->data.f_sensor_info.Get(), output, message_);
+  }
+  bool is_error() const { return data_->tag == Tag::kError; }
+  inline void GetErrorDataView(
+      ProbeErrorDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadError(UserType* output) const {
+    
+    CHECK(is_error());
+    return mojo::internal::Deserialize<::ash::cros_healthd::mojom::ProbeErrorDataView>(
+        data_->data.f_error.Get(), output, message_);
+  }
+
+ private:
+  internal::SensorResult_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+
 }  // namespace mojom
 }  // namespace cros_healthd
 }  // namespace ash
@@ -7140,6 +7417,14 @@ struct hash<::ash::cros_healthd::mojom::OsInfo_EfiPlatformSize>
 template <>
 struct hash<::ash::cros_healthd::mojom::InputDevice_ConnectionType>
     : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::InputDevice_ConnectionType> {};
+
+template <>
+struct hash<::ash::cros_healthd::mojom::Sensor_Type>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::Sensor_Type> {};
+
+template <>
+struct hash<::ash::cros_healthd::mojom::Sensor_Location>
+    : public mojo::internal::EnumHashImpl<::ash::cros_healthd::mojom::Sensor_Location> {};
 
 }  // namespace std
 
@@ -7520,6 +7805,46 @@ struct Serializer<::ash::cros_healthd::mojom::InputDevice_ConnectionType, MaybeC
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
         static_cast<::ash::cros_healthd::mojom::InputDevice_ConnectionType>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::Sensor_Type, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::Sensor_Type, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::ash::cros_healthd::mojom::Sensor_Type>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::Sensor_Location, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::ash::cros_healthd::mojom::Sensor_Location, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::ash::cros_healthd::mojom::Sensor_Location>(input)), output);
   }
 };
 
@@ -10951,6 +11276,95 @@ struct Serializer<::ash::cros_healthd::mojom::InputDeviceDataView, MaybeConstUse
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::SensorInfoDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::SensorInfoDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::SensorInfo_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::lid_angle(input)) in_lid_angle = Traits::lid_angle(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->lid_angle)::BaseType> lid_angle_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::NullableUint16DataView>(
+        in_lid_angle, lid_angle_fragment);
+    fragment->lid_angle.Set(
+        lid_angle_fragment.is_null() ? nullptr : lid_angle_fragment.data());
+    decltype(Traits::sensors(input)) in_sensors = Traits::sensors(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->sensors)::BaseType>
+        sensors_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& sensors_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
+    mojo::internal::Serialize<mojo::ArrayDataView<::ash::cros_healthd::mojom::SensorDataView>>(
+        in_sensors, sensors_fragment, &sensors_validate_params);
+    fragment->sensors.Set(
+        sensors_fragment.is_null() ? nullptr : sensors_fragment.data());
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::SensorInfo_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::SensorInfoDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::SensorDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ash::cros_healthd::mojom::SensorDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ash::cros_healthd::mojom::internal::Sensor_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::name(input)) in_name = Traits::name(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->name)::BaseType> name_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_name, name_fragment);
+    fragment->name.Set(
+        name_fragment.is_null() ? nullptr : name_fragment.data());
+    fragment->device_id = Traits::device_id(input);
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::Sensor_Type>(
+        Traits::type(input), &fragment->type);
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::Sensor_Location>(
+        Traits::location(input), &fragment->location);
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::Sensor_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::SensorDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::ash::cros_healthd::mojom::TelemetryInfoDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = StructTraits<::ash::cros_healthd::mojom::TelemetryInfoDataView, UserType>;
@@ -11087,6 +11501,12 @@ struct Serializer<::ash::cros_healthd::mojom::TelemetryInfoDataView, MaybeConstU
     audio_hardware_result_fragment.Claim(&fragment->audio_hardware_result);
     mojo::internal::Serialize<::ash::cros_healthd::mojom::AudioHardwareResultDataView>(
         in_audio_hardware_result, audio_hardware_result_fragment, true);
+    decltype(Traits::sensor_result(input)) in_sensor_result = Traits::sensor_result(input);
+    mojo::internal::MessageFragment<decltype(fragment->sensor_result)>
+        sensor_result_fragment(fragment.message());
+    sensor_result_fragment.Claim(&fragment->sensor_result);
+    mojo::internal::Serialize<::ash::cros_healthd::mojom::SensorResultDataView>(
+        in_sensor_result, sensor_result_fragment, true);
   }
 
   static bool Deserialize(::ash::cros_healthd::mojom::internal::TelemetryInfo_Data* input,
@@ -13124,6 +13544,79 @@ struct Serializer<::ash::cros_healthd::mojom::InputResultDataView, MaybeConstUse
 
 }  // namespace internal
 
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::cros_healthd::mojom::SensorResultDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = UnionTraits<::ash::cros_healthd::mojom::SensorResultDataView, UserType>;
+
+  static void Serialize(MaybeConstUserType& input,
+                        MessageFragment<::ash::cros_healthd::mojom::internal::SensorResult_Data>& fragment,
+                        bool inlined) {
+    if (CallIsNullIfExists<Traits>(input)) {
+       if (inlined)
+        fragment->set_null();
+      return;
+    }
+
+    if (!inlined)
+      fragment.Allocate();
+
+    // TODO(azani): Handle unknown and objects.
+    // Set the not-null flag.
+    fragment->size = kUnionDataSize;
+    fragment->tag = Traits::GetTag(input);
+    switch (fragment->tag) {
+      case ::ash::cros_healthd::mojom::SensorResultDataView::Tag::kSensorInfo: {
+        decltype(Traits::sensor_info(input))
+            in_sensor_info = Traits::sensor_info(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_sensor_info)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::SensorInfoDataView>(
+            in_sensor_info, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null sensor_info in SensorResult union");
+        fragment->data.f_sensor_info.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::ash::cros_healthd::mojom::SensorResultDataView::Tag::kError: {
+        decltype(Traits::error(input))
+            in_error = Traits::error(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_error)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::ash::cros_healthd::mojom::ProbeErrorDataView>(
+            in_error, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null error in SensorResult union");
+        fragment->data.f_error.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+    }
+  }
+
+  static bool Deserialize(::ash::cros_healthd::mojom::internal::SensorResult_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input || input->is_null())
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ash::cros_healthd::mojom::SensorResultDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
 }  // namespace mojo
 
 
@@ -14059,6 +14552,26 @@ inline void InputDeviceDataView::GetPhysicalLocationDataView(
 }
 
 
+inline void SensorInfoDataView::GetLidAngleDataView(
+    ::ash::cros_healthd::mojom::NullableUint16DataView* output) {
+  auto pointer = data_->lid_angle.Get();
+  *output = ::ash::cros_healthd::mojom::NullableUint16DataView(pointer, message_);
+}
+inline void SensorInfoDataView::GetSensorsDataView(
+    mojo::ArrayDataView<SensorDataView>* output) {
+  auto pointer = data_->header_.version >= 1
+                 ? data_->sensors.Get() : nullptr;
+  *output = mojo::ArrayDataView<SensorDataView>(pointer, message_);
+}
+
+
+inline void SensorDataView::GetNameDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->name.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
 inline void TelemetryInfoDataView::GetBatteryResultDataView(
     BatteryResultDataView* output) {
   auto pointer = &data_->battery_result;
@@ -14167,6 +14680,12 @@ inline void TelemetryInfoDataView::GetAudioHardwareResultDataView(
   auto pointer = data_->header_.version >= 4
                  ? &data_->audio_hardware_result : nullptr;
   *output = AudioHardwareResultDataView(pointer, message_);
+}
+inline void TelemetryInfoDataView::GetSensorResultDataView(
+    SensorResultDataView* output) {
+  auto pointer = data_->header_.version >= 5
+                 ? &data_->sensor_result : nullptr;
+  *output = SensorResultDataView(pointer, message_);
 }
 
 
@@ -14433,6 +14952,17 @@ inline void InputResultDataView::GetErrorDataView(
   *output = ProbeErrorDataView(data_->data.f_error.Get(), message_);
 }
 
+inline void SensorResultDataView::GetSensorInfoDataView(
+    SensorInfoDataView* output) const {
+  CHECK(is_sensor_info());
+  *output = SensorInfoDataView(data_->data.f_sensor_info.Get(), message_);
+}
+inline void SensorResultDataView::GetErrorDataView(
+    ProbeErrorDataView* output) const {
+  CHECK(is_error());
+  *output = ProbeErrorDataView(data_->data.f_error.Get(), message_);
+}
+
 
 }  // namespace mojom
 }  // namespace cros_healthd
@@ -14608,6 +15138,24 @@ namespace perfetto {
 template <>
 struct  TraceFormatTraits<::ash::cros_healthd::mojom::InputDevice_ConnectionType> {
  static void WriteIntoTrace(perfetto::TracedValue context, ::ash::cros_healthd::mojom::InputDevice_ConnectionType value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::Sensor_Type> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::cros_healthd::mojom::Sensor_Type value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::ash::cros_healthd::mojom::Sensor_Location> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::cros_healthd::mojom::Sensor_Location value);
 };
 
 } // namespace perfetto

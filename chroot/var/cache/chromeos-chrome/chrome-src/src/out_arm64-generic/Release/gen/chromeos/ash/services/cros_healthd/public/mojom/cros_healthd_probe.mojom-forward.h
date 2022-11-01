@@ -138,6 +138,10 @@ class TouchscreenDeviceDataView;
 
 class InputDeviceDataView;
 
+class SensorInfoDataView;
+
+class SensorDataView;
+
 class TelemetryInfoDataView;
 
 class ProcessResultDataView;
@@ -168,6 +172,7 @@ class TpmResultDataView;
 class GraphicsResultDataView;
 class DisplayResultDataView;
 class InputResultDataView;
+class SensorResultDataView;
 
 enum class CpuArchitectureEnum : int32_t;
 
@@ -206,6 +211,10 @@ enum class CpuVirtualizationInfo_Type : int32_t;
 enum class OsInfo_EfiPlatformSize : int32_t;
 
 enum class InputDevice_ConnectionType : int32_t;
+
+enum class Sensor_Type : int32_t;
+
+enum class Sensor_Location : int32_t;
 class ProbeError;
 using ProbeErrorPtr = mojo::InlinedStructPtr<ProbeError>;
 
@@ -377,6 +386,12 @@ using TouchscreenDevicePtr = mojo::StructPtr<TouchscreenDevice>;
 class InputDevice;
 using InputDevicePtr = mojo::InlinedStructPtr<InputDevice>;
 
+class SensorInfo;
+using SensorInfoPtr = mojo::StructPtr<SensorInfo>;
+
+class Sensor;
+using SensorPtr = mojo::InlinedStructPtr<Sensor>;
+
 class TelemetryInfo;
 using TelemetryInfoPtr = mojo::StructPtr<TelemetryInfo>;
 
@@ -491,6 +506,10 @@ using DisplayResultPtr = mojo::StructPtr<DisplayResult>;
 class InputResult;
 
 using InputResultPtr = mojo::StructPtr<InputResult>;
+
+class SensorResult;
+
+using SensorResultPtr = mojo::StructPtr<SensorResult>;
 
 
 
