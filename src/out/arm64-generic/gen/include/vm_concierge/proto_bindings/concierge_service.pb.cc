@@ -192,7 +192,9 @@ constexpr StartArcVmRequest::StartArcVmRequest(
   , arc_generate_play_auto_install_(false)
   , disable_download_provider_(false)
   , guest_zram_size_(0)
-  , guest_swappiness_(0){}
+  , guest_swappiness_(0)
+  , mglru_reclaim_interval_(0)
+  , mglru_reclaim_swappiness_(0){}
 struct StartArcVmRequestDefaultTypeInternal {
   constexpr StartArcVmRequestDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -5133,8 +5135,8 @@ StartArcVmRequest::StartArcVmRequest(const StartArcVmRequest& from)
     mini_instance_request_ = nullptr;
   }
   ::memcpy(&cpus_, &from.cpus_,
-    static_cast<size_t>(reinterpret_cast<char*>(&guest_swappiness_) -
-    reinterpret_cast<char*>(&cpus_)) + sizeof(guest_swappiness_));
+    static_cast<size_t>(reinterpret_cast<char*>(&mglru_reclaim_swappiness_) -
+    reinterpret_cast<char*>(&cpus_)) + sizeof(mglru_reclaim_swappiness_));
   // @@protoc_insertion_point(copy_constructor:vm_tools.concierge.StartArcVmRequest)
 }
 
@@ -5153,8 +5155,8 @@ fstab_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlread
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&vm_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&guest_swappiness_) -
-    reinterpret_cast<char*>(&vm_)) + sizeof(guest_swappiness_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&mglru_reclaim_swappiness_) -
+    reinterpret_cast<char*>(&vm_)) + sizeof(mglru_reclaim_swappiness_));
 }
 
 StartArcVmRequest::~StartArcVmRequest() {
@@ -5208,8 +5210,8 @@ void StartArcVmRequest::Clear() {
   }
   mini_instance_request_ = nullptr;
   ::memset(&cpus_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&guest_swappiness_) -
-      reinterpret_cast<char*>(&cpus_)) + sizeof(guest_swappiness_));
+      reinterpret_cast<char*>(&mglru_reclaim_swappiness_) -
+      reinterpret_cast<char*>(&cpus_)) + sizeof(mglru_reclaim_swappiness_));
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -5510,6 +5512,22 @@ const char* StartArcVmRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESP
         } else
           goto handle_unusual;
         continue;
+      // int32 mglru_reclaim_interval = 35;
+      case 35:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+          mglru_reclaim_interval_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 mglru_reclaim_swappiness = 36;
+      case 36:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+          mglru_reclaim_swappiness_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -5768,6 +5786,18 @@ uint8_t* StartArcVmRequest::_InternalSerialize(
         34, _Internal::mini_instance_request(this), target, stream);
   }
 
+  // int32 mglru_reclaim_interval = 35;
+  if (this->_internal_mglru_reclaim_interval() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(35, this->_internal_mglru_reclaim_interval(), target);
+  }
+
+  // int32 mglru_reclaim_swappiness = 36;
+  if (this->_internal_mglru_reclaim_swappiness() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(36, this->_internal_mglru_reclaim_swappiness(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -5980,6 +6010,20 @@ size_t StartArcVmRequest::ByteSizeLong() const {
         this->_internal_guest_swappiness());
   }
 
+  // int32 mglru_reclaim_interval = 35;
+  if (this->_internal_mglru_reclaim_interval() != 0) {
+    total_size += 2 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_mglru_reclaim_interval());
+  }
+
+  // int32 mglru_reclaim_swappiness = 36;
+  if (this->_internal_mglru_reclaim_swappiness() != 0) {
+    total_size += 2 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_mglru_reclaim_swappiness());
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -6098,6 +6142,12 @@ void StartArcVmRequest::MergeFrom(const StartArcVmRequest& from) {
   if (from._internal_guest_swappiness() != 0) {
     _internal_set_guest_swappiness(from._internal_guest_swappiness());
   }
+  if (from._internal_mglru_reclaim_interval() != 0) {
+    _internal_set_mglru_reclaim_interval(from._internal_mglru_reclaim_interval());
+  }
+  if (from._internal_mglru_reclaim_swappiness() != 0) {
+    _internal_set_mglru_reclaim_swappiness(from._internal_mglru_reclaim_swappiness());
+  }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
@@ -6135,8 +6185,8 @@ void StartArcVmRequest::InternalSwap(StartArcVmRequest* other) {
       &other->fstab_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(StartArcVmRequest, guest_swappiness_)
-      + sizeof(StartArcVmRequest::guest_swappiness_)
+      PROTOBUF_FIELD_OFFSET(StartArcVmRequest, mglru_reclaim_swappiness_)
+      + sizeof(StartArcVmRequest::mglru_reclaim_swappiness_)
       - PROTOBUF_FIELD_OFFSET(StartArcVmRequest, vm_)>(
           reinterpret_cast<char*>(&vm_),
           reinterpret_cast<char*>(&other->vm_));

@@ -2605,6 +2605,8 @@ class StartArcVmRequest final :
     kDisableDownloadProviderFieldNumber = 31,
     kGuestZramSizeFieldNumber = 32,
     kGuestSwappinessFieldNumber = 33,
+    kMglruReclaimIntervalFieldNumber = 35,
+    kMglruReclaimSwappinessFieldNumber = 36,
   };
   // repeated .vm_tools.concierge.DiskImage disks = 2;
   int disks_size() const;
@@ -2978,6 +2980,24 @@ class StartArcVmRequest final :
   void _internal_set_guest_swappiness(int32_t value);
   public:
 
+  // int32 mglru_reclaim_interval = 35;
+  void clear_mglru_reclaim_interval();
+  int32_t mglru_reclaim_interval() const;
+  void set_mglru_reclaim_interval(int32_t value);
+  private:
+  int32_t _internal_mglru_reclaim_interval() const;
+  void _internal_set_mglru_reclaim_interval(int32_t value);
+  public:
+
+  // int32 mglru_reclaim_swappiness = 36;
+  void clear_mglru_reclaim_swappiness();
+  int32_t mglru_reclaim_swappiness() const;
+  void set_mglru_reclaim_swappiness(int32_t value);
+  private:
+  int32_t _internal_mglru_reclaim_swappiness() const;
+  void _internal_set_mglru_reclaim_swappiness(int32_t value);
+  public:
+
   // @@protoc_insertion_point(class_scope:vm_tools.concierge.StartArcVmRequest)
  private:
   class _Internal;
@@ -3019,6 +3039,8 @@ class StartArcVmRequest final :
   bool disable_download_provider_;
   int32_t guest_zram_size_;
   int32_t guest_swappiness_;
+  int32_t mglru_reclaim_interval_;
+  int32_t mglru_reclaim_swappiness_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_concierge_5fservice_2eproto;
 };
@@ -15882,6 +15904,46 @@ inline void StartArcVmRequest::set_allocated_mini_instance_request(::arc::StartA
   }
   mini_instance_request_ = mini_instance_request;
   // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.StartArcVmRequest.mini_instance_request)
+}
+
+// int32 mglru_reclaim_interval = 35;
+inline void StartArcVmRequest::clear_mglru_reclaim_interval() {
+  mglru_reclaim_interval_ = 0;
+}
+inline int32_t StartArcVmRequest::_internal_mglru_reclaim_interval() const {
+  return mglru_reclaim_interval_;
+}
+inline int32_t StartArcVmRequest::mglru_reclaim_interval() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.StartArcVmRequest.mglru_reclaim_interval)
+  return _internal_mglru_reclaim_interval();
+}
+inline void StartArcVmRequest::_internal_set_mglru_reclaim_interval(int32_t value) {
+  
+  mglru_reclaim_interval_ = value;
+}
+inline void StartArcVmRequest::set_mglru_reclaim_interval(int32_t value) {
+  _internal_set_mglru_reclaim_interval(value);
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.StartArcVmRequest.mglru_reclaim_interval)
+}
+
+// int32 mglru_reclaim_swappiness = 36;
+inline void StartArcVmRequest::clear_mglru_reclaim_swappiness() {
+  mglru_reclaim_swappiness_ = 0;
+}
+inline int32_t StartArcVmRequest::_internal_mglru_reclaim_swappiness() const {
+  return mglru_reclaim_swappiness_;
+}
+inline int32_t StartArcVmRequest::mglru_reclaim_swappiness() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.StartArcVmRequest.mglru_reclaim_swappiness)
+  return _internal_mglru_reclaim_swappiness();
+}
+inline void StartArcVmRequest::_internal_set_mglru_reclaim_swappiness(int32_t value) {
+  
+  mglru_reclaim_swappiness_ = value;
+}
+inline void StartArcVmRequest::set_mglru_reclaim_swappiness(int32_t value) {
+  _internal_set_mglru_reclaim_swappiness(value);
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.StartArcVmRequest.mglru_reclaim_swappiness)
 }
 
 // -------------------------------------------------------------------
