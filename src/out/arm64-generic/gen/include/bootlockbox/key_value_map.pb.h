@@ -53,19 +53,19 @@ struct TableStruct_key_5fvalue_5fmap_2eproto {
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
   static const uint32_t offsets[];
 };
-namespace cryptohome {
+namespace bootlockbox {
 class SerializedKeyValueMap;
 struct SerializedKeyValueMapDefaultTypeInternal;
 extern SerializedKeyValueMapDefaultTypeInternal _SerializedKeyValueMap_default_instance_;
 class SerializedKeyValueMap_KeyvalsEntry_DoNotUse;
 struct SerializedKeyValueMap_KeyvalsEntry_DoNotUseDefaultTypeInternal;
 extern SerializedKeyValueMap_KeyvalsEntry_DoNotUseDefaultTypeInternal _SerializedKeyValueMap_KeyvalsEntry_DoNotUse_default_instance_;
-}  // namespace cryptohome
+}  // namespace bootlockbox
 PROTOBUF_NAMESPACE_OPEN
-template<> ::cryptohome::SerializedKeyValueMap* Arena::CreateMaybeMessage<::cryptohome::SerializedKeyValueMap>(Arena*);
-template<> ::cryptohome::SerializedKeyValueMap_KeyvalsEntry_DoNotUse* Arena::CreateMaybeMessage<::cryptohome::SerializedKeyValueMap_KeyvalsEntry_DoNotUse>(Arena*);
+template<> ::bootlockbox::SerializedKeyValueMap* Arena::CreateMaybeMessage<::bootlockbox::SerializedKeyValueMap>(Arena*);
+template<> ::bootlockbox::SerializedKeyValueMap_KeyvalsEntry_DoNotUse* Arena::CreateMaybeMessage<::bootlockbox::SerializedKeyValueMap_KeyvalsEntry_DoNotUse>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
-namespace cryptohome {
+namespace bootlockbox {
 
 // ===================================================================
 
@@ -91,7 +91,7 @@ public:
 // -------------------------------------------------------------------
 
 class SerializedKeyValueMap final :
-    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:cryptohome.SerializedKeyValueMap) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:bootlockbox.SerializedKeyValueMap) */ {
  public:
   inline SerializedKeyValueMap() : SerializedKeyValueMap(nullptr) {}
   ~SerializedKeyValueMap() override;
@@ -186,7 +186,7 @@ class SerializedKeyValueMap final :
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "cryptohome.SerializedKeyValueMap";
+    return "bootlockbox.SerializedKeyValueMap";
   }
   protected:
   explicit SerializedKeyValueMap(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -237,7 +237,7 @@ class SerializedKeyValueMap final :
   void _internal_set_version(uint32_t value);
   public:
 
-  // @@protoc_insertion_point(class_scope:cryptohome.SerializedKeyValueMap)
+  // @@protoc_insertion_point(class_scope:bootlockbox.SerializedKeyValueMap)
  private:
   class _Internal;
 
@@ -283,7 +283,7 @@ inline uint32_t SerializedKeyValueMap::_internal_version() const {
   return version_;
 }
 inline uint32_t SerializedKeyValueMap::version() const {
-  // @@protoc_insertion_point(field_get:cryptohome.SerializedKeyValueMap.version)
+  // @@protoc_insertion_point(field_get:bootlockbox.SerializedKeyValueMap.version)
   return _internal_version();
 }
 inline void SerializedKeyValueMap::_internal_set_version(uint32_t value) {
@@ -292,7 +292,7 @@ inline void SerializedKeyValueMap::_internal_set_version(uint32_t value) {
 }
 inline void SerializedKeyValueMap::set_version(uint32_t value) {
   _internal_set_version(value);
-  // @@protoc_insertion_point(field_set:cryptohome.SerializedKeyValueMap.version)
+  // @@protoc_insertion_point(field_set:bootlockbox.SerializedKeyValueMap.version)
 }
 
 // map<string, string> keyvals = 2;
@@ -311,7 +311,7 @@ SerializedKeyValueMap::_internal_keyvals() const {
 }
 inline const ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >&
 SerializedKeyValueMap::keyvals() const {
-  // @@protoc_insertion_point(field_map:cryptohome.SerializedKeyValueMap.keyvals)
+  // @@protoc_insertion_point(field_map:bootlockbox.SerializedKeyValueMap.keyvals)
   return _internal_keyvals();
 }
 inline ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >*
@@ -320,7 +320,7 @@ SerializedKeyValueMap::_internal_mutable_keyvals() {
 }
 inline ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >*
 SerializedKeyValueMap::mutable_keyvals() {
-  // @@protoc_insertion_point(field_mutable_map:cryptohome.SerializedKeyValueMap.keyvals)
+  // @@protoc_insertion_point(field_mutable_map:bootlockbox.SerializedKeyValueMap.keyvals)
   return _internal_mutable_keyvals();
 }
 
@@ -332,7 +332,7 @@ SerializedKeyValueMap::mutable_keyvals() {
 
 // @@protoc_insertion_point(namespace_scope)
 
-}  // namespace cryptohome
+}  // namespace bootlockbox
 
 // @@protoc_insertion_point(global_scope)
 

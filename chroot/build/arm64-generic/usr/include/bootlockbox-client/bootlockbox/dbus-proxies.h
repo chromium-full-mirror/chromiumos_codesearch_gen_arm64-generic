@@ -33,38 +33,38 @@ class BootLockboxInterfaceProxyInterface {
   virtual ~BootLockboxInterfaceProxyInterface() = default;
 
   virtual bool StoreBootLockbox(
-      const cryptohome::StoreBootLockboxRequest& in_request,
-      cryptohome::StoreBootLockboxReply* out_reply,
+      const bootlockbox::StoreBootLockboxRequest& in_request,
+      bootlockbox::StoreBootLockboxReply* out_reply,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
   virtual void StoreBootLockboxAsync(
-      const cryptohome::StoreBootLockboxRequest& in_request,
-      base::OnceCallback<void(const cryptohome::StoreBootLockboxReply& /*reply*/)> success_callback,
+      const bootlockbox::StoreBootLockboxRequest& in_request,
+      base::OnceCallback<void(const bootlockbox::StoreBootLockboxReply& /*reply*/)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
   virtual bool ReadBootLockbox(
-      const cryptohome::ReadBootLockboxRequest& in_request,
-      cryptohome::ReadBootLockboxReply* out_reply,
+      const bootlockbox::ReadBootLockboxRequest& in_request,
+      bootlockbox::ReadBootLockboxReply* out_reply,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
   virtual void ReadBootLockboxAsync(
-      const cryptohome::ReadBootLockboxRequest& in_request,
-      base::OnceCallback<void(const cryptohome::ReadBootLockboxReply& /*reply*/)> success_callback,
+      const bootlockbox::ReadBootLockboxRequest& in_request,
+      base::OnceCallback<void(const bootlockbox::ReadBootLockboxReply& /*reply*/)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
   virtual bool FinalizeBootLockbox(
-      const cryptohome::FinalizeNVRamBootLockboxRequest& in_request,
-      cryptohome::FinalizeBootLockboxReply* out_reply,
+      const bootlockbox::FinalizeNVRamBootLockboxRequest& in_request,
+      bootlockbox::FinalizeBootLockboxReply* out_reply,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
   virtual void FinalizeBootLockboxAsync(
-      const cryptohome::FinalizeNVRamBootLockboxRequest& in_request,
-      base::OnceCallback<void(const cryptohome::FinalizeBootLockboxReply& /*reply*/)> success_callback,
+      const bootlockbox::FinalizeNVRamBootLockboxRequest& in_request,
+      base::OnceCallback<void(const bootlockbox::FinalizeBootLockboxReply& /*reply*/)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
@@ -106,8 +106,8 @@ class BootLockboxInterfaceProxy final : public BootLockboxInterfaceProxyInterfac
   }
 
   bool StoreBootLockbox(
-      const cryptohome::StoreBootLockboxRequest& in_request,
-      cryptohome::StoreBootLockboxReply* out_reply,
+      const bootlockbox::StoreBootLockboxRequest& in_request,
+      bootlockbox::StoreBootLockboxReply* out_reply,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
     auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
@@ -122,8 +122,8 @@ class BootLockboxInterfaceProxy final : public BootLockboxInterfaceProxyInterfac
   }
 
   void StoreBootLockboxAsync(
-      const cryptohome::StoreBootLockboxRequest& in_request,
-      base::OnceCallback<void(const cryptohome::StoreBootLockboxReply& /*reply*/)> success_callback,
+      const bootlockbox::StoreBootLockboxRequest& in_request,
+      base::OnceCallback<void(const bootlockbox::StoreBootLockboxReply& /*reply*/)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
     brillo::dbus_utils::CallMethodWithTimeout(
@@ -137,8 +137,8 @@ class BootLockboxInterfaceProxy final : public BootLockboxInterfaceProxyInterfac
   }
 
   bool ReadBootLockbox(
-      const cryptohome::ReadBootLockboxRequest& in_request,
-      cryptohome::ReadBootLockboxReply* out_reply,
+      const bootlockbox::ReadBootLockboxRequest& in_request,
+      bootlockbox::ReadBootLockboxReply* out_reply,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
     auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
@@ -153,8 +153,8 @@ class BootLockboxInterfaceProxy final : public BootLockboxInterfaceProxyInterfac
   }
 
   void ReadBootLockboxAsync(
-      const cryptohome::ReadBootLockboxRequest& in_request,
-      base::OnceCallback<void(const cryptohome::ReadBootLockboxReply& /*reply*/)> success_callback,
+      const bootlockbox::ReadBootLockboxRequest& in_request,
+      base::OnceCallback<void(const bootlockbox::ReadBootLockboxReply& /*reply*/)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
     brillo::dbus_utils::CallMethodWithTimeout(
@@ -168,8 +168,8 @@ class BootLockboxInterfaceProxy final : public BootLockboxInterfaceProxyInterfac
   }
 
   bool FinalizeBootLockbox(
-      const cryptohome::FinalizeNVRamBootLockboxRequest& in_request,
-      cryptohome::FinalizeBootLockboxReply* out_reply,
+      const bootlockbox::FinalizeNVRamBootLockboxRequest& in_request,
+      bootlockbox::FinalizeBootLockboxReply* out_reply,
       brillo::ErrorPtr* error,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
     auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
@@ -184,8 +184,8 @@ class BootLockboxInterfaceProxy final : public BootLockboxInterfaceProxyInterfac
   }
 
   void FinalizeBootLockboxAsync(
-      const cryptohome::FinalizeNVRamBootLockboxRequest& in_request,
-      base::OnceCallback<void(const cryptohome::FinalizeBootLockboxReply& /*reply*/)> success_callback,
+      const bootlockbox::FinalizeNVRamBootLockboxRequest& in_request,
+      base::OnceCallback<void(const bootlockbox::FinalizeBootLockboxReply& /*reply*/)> success_callback,
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
     brillo::dbus_utils::CallMethodWithTimeout(

@@ -24,14 +24,14 @@ class BootLockboxInterfaceInterface {
   virtual ~BootLockboxInterfaceInterface() = default;
 
   virtual void StoreBootLockbox(
-      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<cryptohome::StoreBootLockboxReply>> response,
-      const cryptohome::StoreBootLockboxRequest& in_request) = 0;
+      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<bootlockbox::StoreBootLockboxReply>> response,
+      const bootlockbox::StoreBootLockboxRequest& in_request) = 0;
   virtual void ReadBootLockbox(
-      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<cryptohome::ReadBootLockboxReply>> response,
-      const cryptohome::ReadBootLockboxRequest& in_request) = 0;
+      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<bootlockbox::ReadBootLockboxReply>> response,
+      const bootlockbox::ReadBootLockboxRequest& in_request) = 0;
   virtual void FinalizeBootLockbox(
-      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<cryptohome::FinalizeBootLockboxReply>> response,
-      const cryptohome::FinalizeNVRamBootLockboxRequest& in_request) = 0;
+      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<bootlockbox::FinalizeBootLockboxReply>> response,
+      const bootlockbox::FinalizeNVRamBootLockboxRequest& in_request) = 0;
 };
 
 // Interface adaptor for org::chromium::BootLockboxInterface.

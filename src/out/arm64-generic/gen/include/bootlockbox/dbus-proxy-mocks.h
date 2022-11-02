@@ -25,33 +25,33 @@ class BootLockboxInterfaceProxyMock : public BootLockboxInterfaceProxyInterface 
   BootLockboxInterfaceProxyMock& operator=(const BootLockboxInterfaceProxyMock&) = delete;
 
   MOCK_METHOD4(StoreBootLockbox,
-               bool(const cryptohome::StoreBootLockboxRequest& /*in_request*/,
-                    cryptohome::StoreBootLockboxReply* /*out_reply*/,
+               bool(const bootlockbox::StoreBootLockboxRequest& /*in_request*/,
+                    bootlockbox::StoreBootLockboxReply* /*out_reply*/,
                     brillo::ErrorPtr* /*error*/,
                     int /*timeout_ms*/));
   MOCK_METHOD4(StoreBootLockboxAsync,
-               void(const cryptohome::StoreBootLockboxRequest& /*in_request*/,
-                    base::OnceCallback<void(const cryptohome::StoreBootLockboxReply& /*reply*/)> /*success_callback*/,
+               void(const bootlockbox::StoreBootLockboxRequest& /*in_request*/,
+                    base::OnceCallback<void(const bootlockbox::StoreBootLockboxReply& /*reply*/)> /*success_callback*/,
                     base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
                     int /*timeout_ms*/));
   MOCK_METHOD4(ReadBootLockbox,
-               bool(const cryptohome::ReadBootLockboxRequest& /*in_request*/,
-                    cryptohome::ReadBootLockboxReply* /*out_reply*/,
+               bool(const bootlockbox::ReadBootLockboxRequest& /*in_request*/,
+                    bootlockbox::ReadBootLockboxReply* /*out_reply*/,
                     brillo::ErrorPtr* /*error*/,
                     int /*timeout_ms*/));
   MOCK_METHOD4(ReadBootLockboxAsync,
-               void(const cryptohome::ReadBootLockboxRequest& /*in_request*/,
-                    base::OnceCallback<void(const cryptohome::ReadBootLockboxReply& /*reply*/)> /*success_callback*/,
+               void(const bootlockbox::ReadBootLockboxRequest& /*in_request*/,
+                    base::OnceCallback<void(const bootlockbox::ReadBootLockboxReply& /*reply*/)> /*success_callback*/,
                     base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
                     int /*timeout_ms*/));
   MOCK_METHOD4(FinalizeBootLockbox,
-               bool(const cryptohome::FinalizeNVRamBootLockboxRequest& /*in_request*/,
-                    cryptohome::FinalizeBootLockboxReply* /*out_reply*/,
+               bool(const bootlockbox::FinalizeNVRamBootLockboxRequest& /*in_request*/,
+                    bootlockbox::FinalizeBootLockboxReply* /*out_reply*/,
                     brillo::ErrorPtr* /*error*/,
                     int /*timeout_ms*/));
   MOCK_METHOD4(FinalizeBootLockboxAsync,
-               void(const cryptohome::FinalizeNVRamBootLockboxRequest& /*in_request*/,
-                    base::OnceCallback<void(const cryptohome::FinalizeBootLockboxReply& /*reply*/)> /*success_callback*/,
+               void(const bootlockbox::FinalizeNVRamBootLockboxRequest& /*in_request*/,
+                    base::OnceCallback<void(const bootlockbox::FinalizeBootLockboxReply& /*reply*/)> /*success_callback*/,
                     base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
                     int /*timeout_ms*/));
   MOCK_CONST_METHOD0(GetObjectPath, const dbus::ObjectPath&());

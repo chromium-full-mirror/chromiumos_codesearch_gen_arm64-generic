@@ -104,7 +104,11 @@ enum class CameraMetadataSection : int32_t {
   
   ANDROID_HEIC_INFO = 29,
   
-  ANDROID_SECTION_COUNT = 30,
+  ANDROID_AUTOMOTIVE = 30,
+  
+  ANDROID_AUTOMOTIVE_LENS = 31,
+  
+  ANDROID_SECTION_COUNT = 32,
   
   VENDOR_SECTION = 32768,
   kMinValue = 0,
@@ -179,8 +183,12 @@ enum class CameraMetadataSectionStart : int32_t {
   ANDROID_HEIC_START = 1835008,
   
   ANDROID_HEIC_INFO_START = 1900544,
+  
+  ANDROID_AUTOMOTIVE_START = 1966080,
+  
+  ANDROID_AUTOMOTIVE_LENS_START = 2031616,
   kMinValue = 0,
-  kMaxValue = 1900544,
+  kMaxValue = 2031616,
 };
 
  std::ostream& operator<<(std::ostream& os, CameraMetadataSectionStart value);
@@ -300,7 +308,15 @@ enum class CameraMetadataTag : int32_t {
   
   ANDROID_CONTROL_ZOOM_RATIO = 65583,
   
-  ANDROID_CONTROL_END = 65584,
+  ANDROID_CONTROL_AVAILABLE_HIGH_SPEED_VIDEO_CONFIGURATIONS_MAXIMUM_RESOLUTION = 65584,
+  
+  ANDROID_CONTROL_AF_REGIONS_SET = 65585,
+  
+  ANDROID_CONTROL_AE_REGIONS_SET = 65586,
+  
+  ANDROID_CONTROL_AWB_REGIONS_SET = 65587,
+  
+  ANDROID_CONTROL_END = 65588,
   
   ANDROID_DEMOSAIC_MODE = 131072,
   
@@ -332,7 +348,11 @@ enum class CameraMetadataTag : int32_t {
   
   ANDROID_FLASH_INFO_CHARGE_DURATION = 327681,
   
-  ANDROID_FLASH_INFO_END = 327682,
+  ANDROID_FLASH_INFO_STRENGTH_MAXIMUM_LEVEL = 327682,
+  
+  ANDROID_FLASH_INFO_STRENGTH_DEFAULT_LEVEL = 327683,
+  
+  ANDROID_FLASH_INFO_END = 327684,
   
   ANDROID_HOT_PIXEL_MODE = 393216,
   
@@ -390,7 +410,11 @@ enum class CameraMetadataTag : int32_t {
   
   ANDROID_LENS_DISTORTION = 524301,
   
-  ANDROID_LENS_END = 524302,
+  ANDROID_LENS_DISTORTION_MAXIMUM_RESOLUTION = 524302,
+  
+  ANDROID_LENS_INTRINSIC_CALIBRATION_MAXIMUM_RESOLUTION = 524303,
+  
+  ANDROID_LENS_END = 524304,
   
   ANDROID_LENS_INFO_AVAILABLE_APERTURES = 589824,
   
@@ -468,7 +492,11 @@ enum class CameraMetadataTag : int32_t {
   
   ANDROID_REQUEST_CHARACTERISTIC_KEYS_NEEDING_PERMISSION = 786450,
   
-  ANDROID_REQUEST_END = 786451,
+  ANDROID_REQUEST_AVAILABLE_DYNAMIC_RANGE_PROFILES_MAP = 786451,
+  
+  ANDROID_REQUEST_RECOMMENDED_TEN_BIT_DYNAMIC_RANGE_PROFILE = 786452,
+  
+  ANDROID_REQUEST_END = 786453,
   
   ANDROID_SCALER_CROP_REGION = 851968,
   
@@ -506,7 +534,25 @@ enum class CameraMetadataTag : int32_t {
   
   ANDROID_SCALER_ROTATE_AND_CROP = 851985,
   
-  ANDROID_SCALER_END = 851986,
+  ANDROID_SCALER_DEFAULT_SECURE_IMAGE_SIZE = 851986,
+  
+  ANDROID_SCALER_PHYSICAL_CAMERA_MULTI_RESOLUTION_STREAM_CONFIGURATIONS = 851987,
+  
+  ANDROID_SCALER_AVAILABLE_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION = 851988,
+  
+  ANDROID_SCALER_AVAILABLE_MIN_FRAME_DURATIONS_MAXIMUM_RESOLUTION = 851989,
+  
+  ANDROID_SCALER_AVAILABLE_STALL_DURATIONS_MAXIMUM_RESOLUTION = 851990,
+  
+  ANDROID_SCALER_AVAILABLE_INPUT_OUTPUT_FORMATS_MAP_MAXIMUM_RESOLUTION = 851991,
+  
+  ANDROID_SCALER_MULTI_RESOLUTION_STREAM_SUPPORTED = 851992,
+  
+  ANDROID_SCALER_CROP_REGION_SET = 851993,
+  
+  ANDROID_SCALER_AVAILABLE_STREAM_USE_CASES = 851994,
+  
+  ANDROID_SCALER_END = 851995,
   
   ANDROID_SENSOR_EXPOSURE_TIME = 917504,
   
@@ -570,7 +616,13 @@ enum class CameraMetadataTag : int32_t {
   
   ANDROID_SENSOR_OPAQUE_RAW_SIZE = 917534,
   
-  ANDROID_SENSOR_END = 917535,
+  ANDROID_SENSOR_OPAQUE_RAW_SIZE_MAXIMUM_RESOLUTION = 917535,
+  
+  ANDROID_SENSOR_PIXEL_MODE = 917536,
+  
+  ANDROID_SENSOR_RAW_BINNING_FACTOR_USED = 917537,
+  
+  ANDROID_SENSOR_END = 917538,
   
   ANDROID_SENSOR_INFO_ACTIVE_ARRAY_SIZE = 983040,
   
@@ -594,7 +646,15 @@ enum class CameraMetadataTag : int32_t {
   
   ANDROID_SENSOR_INFO_PRE_CORRECTION_ACTIVE_ARRAY_SIZE = 983050,
   
-  ANDROID_SENSOR_INFO_END = 983051,
+  ANDROID_SENSOR_INFO_ACTIVE_ARRAY_SIZE_MAXIMUM_RESOLUTION = 983051,
+  
+  ANDROID_SENSOR_INFO_PIXEL_ARRAY_SIZE_MAXIMUM_RESOLUTION = 983052,
+  
+  ANDROID_SENSOR_INFO_PRE_CORRECTION_ACTIVE_ARRAY_SIZE_MAXIMUM_RESOLUTION = 983053,
+  
+  ANDROID_SENSOR_INFO_BINNING_FACTOR = 983054,
+  
+  ANDROID_SENSOR_INFO_END = 983055,
   
   ANDROID_SHADING_MODE = 1048576,
   
@@ -698,7 +758,9 @@ enum class CameraMetadataTag : int32_t {
   
   ANDROID_INFO_SUPPORTED_BUFFER_MANAGEMENT_VERSION = 1376258,
   
-  ANDROID_INFO_END = 1376259,
+  ANDROID_INFO_DEVICE_STATE_ORIENTATIONS = 1376259,
+  
+  ANDROID_INFO_END = 1376260,
   
   ANDROID_BLACK_LEVEL_LOCK = 1441792,
   
@@ -734,7 +796,19 @@ enum class CameraMetadataTag : int32_t {
   
   ANDROID_DEPTH_AVAILABLE_DYNAMIC_DEPTH_STALL_DURATIONS = 1638408,
   
-  ANDROID_DEPTH_END = 1638409,
+  ANDROID_DEPTH_AVAILABLE_DEPTH_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION = 1638409,
+  
+  ANDROID_DEPTH_AVAILABLE_DEPTH_MIN_FRAME_DURATIONS_MAXIMUM_RESOLUTION = 1638410,
+  
+  ANDROID_DEPTH_AVAILABLE_DEPTH_STALL_DURATIONS_MAXIMUM_RESOLUTION = 1638411,
+  
+  ANDROID_DEPTH_AVAILABLE_DYNAMIC_DEPTH_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION = 1638412,
+  
+  ANDROID_DEPTH_AVAILABLE_DYNAMIC_DEPTH_MIN_FRAME_DURATIONS_MAXIMUM_RESOLUTION = 1638413,
+  
+  ANDROID_DEPTH_AVAILABLE_DYNAMIC_DEPTH_STALL_DURATIONS_MAXIMUM_RESOLUTION = 1638414,
+  
+  ANDROID_DEPTH_END = 1638415,
   
   ANDROID_LOGICAL_MULTI_CAMERA_PHYSICAL_IDS = 1703936,
   
@@ -756,15 +830,29 @@ enum class CameraMetadataTag : int32_t {
   
   ANDROID_HEIC_AVAILABLE_HEIC_STALL_DURATIONS = 1835010,
   
-  ANDROID_HEIC_END = 1835011,
+  ANDROID_HEIC_AVAILABLE_HEIC_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION = 1835011,
+  
+  ANDROID_HEIC_AVAILABLE_HEIC_MIN_FRAME_DURATIONS_MAXIMUM_RESOLUTION = 1835012,
+  
+  ANDROID_HEIC_AVAILABLE_HEIC_STALL_DURATIONS_MAXIMUM_RESOLUTION = 1835013,
+  
+  ANDROID_HEIC_END = 1835014,
   
   ANDROID_HEIC_INFO_SUPPORTED = 1900544,
   
   ANDROID_HEIC_INFO_MAX_JPEG_APP_SEGMENTS_COUNT = 1900545,
   
   ANDROID_HEIC_INFO_END = 1900546,
+  
+  ANDROID_AUTOMOTIVE_LOCATION = 1966080,
+  
+  ANDROID_AUTOMOTIVE_END = 1966081,
+  
+  ANDROID_AUTOMOTIVE_LENS_FACING = 2031616,
+  
+  ANDROID_AUTOMOTIVE_LENS_END = 2031617,
   kMinValue = 0,
-  kMaxValue = 1900546,
+  kMaxValue = 2031617,
 };
 
  std::ostream& operator<<(std::ostream& os, CameraMetadataTag value);
@@ -1117,8 +1205,10 @@ enum class AndroidControlVideoStabilizationMode : int32_t {
   ANDROID_CONTROL_VIDEO_STABILIZATION_MODE_OFF = 0,
   
   ANDROID_CONTROL_VIDEO_STABILIZATION_MODE_ON = 1,
+  
+  ANDROID_CONTROL_VIDEO_STABILIZATION_MODE_PREVIEW_STABILIZATION = 2,
   kMinValue = 0,
-  kMaxValue = 1,
+  kMaxValue = 2,
 };
 
  std::ostream& operator<<(std::ostream& os, AndroidControlVideoStabilizationMode value);
@@ -1278,6 +1368,54 @@ enum class AndroidControlExtendedSceneMode : int32_t {
  std::ostream& operator<<(std::ostream& os, AndroidControlExtendedSceneMode value);
 inline bool IsKnownEnumValue(AndroidControlExtendedSceneMode value) {
   return internal::AndroidControlExtendedSceneMode_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+
+
+enum class AndroidControlAfRegionsSet : int32_t {
+  
+  ANDROID_CONTROL_AF_REGIONS_SET_FALSE = 0,
+  
+  ANDROID_CONTROL_AF_REGIONS_SET_TRUE = 1,
+  kMinValue = 0,
+  kMaxValue = 1,
+};
+
+ std::ostream& operator<<(std::ostream& os, AndroidControlAfRegionsSet value);
+inline bool IsKnownEnumValue(AndroidControlAfRegionsSet value) {
+  return internal::AndroidControlAfRegionsSet_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+
+
+enum class AndroidControlAeRegionsSet : int32_t {
+  
+  ANDROID_CONTROL_AE_REGIONS_SET_FALSE = 0,
+  
+  ANDROID_CONTROL_AE_REGIONS_SET_TRUE = 1,
+  kMinValue = 0,
+  kMaxValue = 1,
+};
+
+ std::ostream& operator<<(std::ostream& os, AndroidControlAeRegionsSet value);
+inline bool IsKnownEnumValue(AndroidControlAeRegionsSet value) {
+  return internal::AndroidControlAeRegionsSet_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+
+
+enum class AndroidControlAwbRegionsSet : int32_t {
+  
+  ANDROID_CONTROL_AWB_REGIONS_SET_FALSE = 0,
+  
+  ANDROID_CONTROL_AWB_REGIONS_SET_TRUE = 1,
+  kMinValue = 0,
+  kMaxValue = 1,
+};
+
+ std::ostream& operator<<(std::ostream& os, AndroidControlAwbRegionsSet value);
+inline bool IsKnownEnumValue(AndroidControlAwbRegionsSet value) {
+  return internal::AndroidControlAwbRegionsSet_Data::IsKnownValue(
       static_cast<int32_t>(value));
 }
 
@@ -1449,8 +1587,10 @@ enum class AndroidLensPoseReference : int32_t {
   ANDROID_LENS_POSE_REFERENCE_GYROSCOPE = 1,
   
   ANDROID_LENS_POSE_REFERENCE_UNDEFINED = 2,
+  
+  ANDROID_LENS_POSE_REFERENCE_AUTOMOTIVE = 3,
   kMinValue = 0,
-  kMaxValue = 2,
+  kMaxValue = 3,
 };
 
  std::ostream& operator<<(std::ostream& os, AndroidLensPoseReference value);
@@ -1581,13 +1721,59 @@ enum class AndroidRequestAvailableCapabilities : int32_t {
   ANDROID_REQUEST_AVAILABLE_CAPABILITIES_SYSTEM_CAMERA = 14,
   
   ANDROID_REQUEST_AVAILABLE_CAPABILITIES_OFFLINE_PROCESSING = 15,
+  
+  ANDROID_REQUEST_AVAILABLE_CAPABILITIES_ULTRA_HIGH_RESOLUTION_SENSOR = 16,
+  
+  ANDROID_REQUEST_AVAILABLE_CAPABILITIES_REMOSAIC_REPROCESSING = 17,
+  
+  ANDROID_REQUEST_AVAILABLE_CAPABILITIES_DYNAMIC_RANGE_TEN_BIT = 18,
+  
+  ANDROID_REQUEST_AVAILABLE_CAPABILITIES_STREAM_USE_CASE = 19,
   kMinValue = 0,
-  kMaxValue = 15,
+  kMaxValue = 19,
 };
 
  std::ostream& operator<<(std::ostream& os, AndroidRequestAvailableCapabilities value);
 inline bool IsKnownEnumValue(AndroidRequestAvailableCapabilities value) {
   return internal::AndroidRequestAvailableCapabilities_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+
+
+enum class AndroidRequestAvailableDynamicRangeProfilesMap : int32_t {
+  
+  ANDROID_REQUEST_AVAILABLE_DYNAMIC_RANGE_PROFILES_MAP_STANDARD = 1,
+  
+  ANDROID_REQUEST_AVAILABLE_DYNAMIC_RANGE_PROFILES_MAP_HLG10 = 2,
+  
+  ANDROID_REQUEST_AVAILABLE_DYNAMIC_RANGE_PROFILES_MAP_HDR10 = 4,
+  
+  ANDROID_REQUEST_AVAILABLE_DYNAMIC_RANGE_PROFILES_MAP_HDR10_PLUS = 8,
+  
+  ANDROID_REQUEST_AVAILABLE_DYNAMIC_RANGE_PROFILES_MAP_DOLBY_VISION_10B_HDR_REF = 16,
+  
+  ANDROID_REQUEST_AVAILABLE_DYNAMIC_RANGE_PROFILES_MAP_DOLBY_VISION_10B_HDR_REF_PO = 32,
+  
+  ANDROID_REQUEST_AVAILABLE_DYNAMIC_RANGE_PROFILES_MAP_DOLBY_VISION_10B_HDR_OEM = 64,
+  
+  ANDROID_REQUEST_AVAILABLE_DYNAMIC_RANGE_PROFILES_MAP_DOLBY_VISION_10B_HDR_OEM_PO = 128,
+  
+  ANDROID_REQUEST_AVAILABLE_DYNAMIC_RANGE_PROFILES_MAP_DOLBY_VISION_8B_HDR_REF = 256,
+  
+  ANDROID_REQUEST_AVAILABLE_DYNAMIC_RANGE_PROFILES_MAP_DOLBY_VISION_8B_HDR_REF_PO = 512,
+  
+  ANDROID_REQUEST_AVAILABLE_DYNAMIC_RANGE_PROFILES_MAP_DOLBY_VISION_8B_HDR_OEM = 1024,
+  
+  ANDROID_REQUEST_AVAILABLE_DYNAMIC_RANGE_PROFILES_MAP_DOLBY_VISION_8B_HDR_OEM_PO = 2048,
+  
+  ANDROID_REQUEST_AVAILABLE_DYNAMIC_RANGE_PROFILES_MAP_MAX = 4096,
+  kMinValue = 1,
+  kMaxValue = 4096,
+};
+
+ std::ostream& operator<<(std::ostream& os, AndroidRequestAvailableDynamicRangeProfilesMap value);
+inline bool IsKnownEnumValue(AndroidRequestAvailableDynamicRangeProfilesMap value) {
+  return internal::AndroidRequestAvailableDynamicRangeProfilesMap_Data::IsKnownValue(
       static_cast<int32_t>(value));
 }
 
@@ -1674,6 +1860,10 @@ enum class AndroidScalerAvailableRecommendedStreamConfigurations : int32_t {
   
   ANDROID_SCALER_AVAILABLE_RECOMMENDED_STREAM_CONFIGURATIONS_PUBLIC_END = 7,
   
+  ANDROID_SCALER_AVAILABLE_RECOMMENDED_STREAM_CONFIGURATIONS_10BIT_OUTPUT = 8,
+  
+  ANDROID_SCALER_AVAILABLE_RECOMMENDED_STREAM_CONFIGURATIONS_PUBLIC_END_3_8 = 9,
+  
   ANDROID_SCALER_AVAILABLE_RECOMMENDED_STREAM_CONFIGURATIONS_VENDOR_START = 24,
   kMinValue = 0,
   kMaxValue = 24,
@@ -1704,6 +1894,96 @@ enum class AndroidScalerRotateAndCrop : int32_t {
  std::ostream& operator<<(std::ostream& os, AndroidScalerRotateAndCrop value);
 inline bool IsKnownEnumValue(AndroidScalerRotateAndCrop value) {
   return internal::AndroidScalerRotateAndCrop_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+
+
+enum class AndroidScalerPhysicalCameraMultiResolutionStreamConfigurations : int32_t {
+  
+  ANDROID_SCALER_PHYSICAL_CAMERA_MULTI_RESOLUTION_STREAM_CONFIGURATIONS_OUTPUT = 0,
+  
+  ANDROID_SCALER_PHYSICAL_CAMERA_MULTI_RESOLUTION_STREAM_CONFIGURATIONS_INPUT = 1,
+  kMinValue = 0,
+  kMaxValue = 1,
+};
+
+ std::ostream& operator<<(std::ostream& os, AndroidScalerPhysicalCameraMultiResolutionStreamConfigurations value);
+inline bool IsKnownEnumValue(AndroidScalerPhysicalCameraMultiResolutionStreamConfigurations value) {
+  return internal::AndroidScalerPhysicalCameraMultiResolutionStreamConfigurations_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+
+
+enum class AndroidScalerAvailableStreamConfigurationsMaximumResolution : int32_t {
+  
+  ANDROID_SCALER_AVAILABLE_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION_OUTPUT = 0,
+  
+  ANDROID_SCALER_AVAILABLE_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION_INPUT = 1,
+  kMinValue = 0,
+  kMaxValue = 1,
+};
+
+ std::ostream& operator<<(std::ostream& os, AndroidScalerAvailableStreamConfigurationsMaximumResolution value);
+inline bool IsKnownEnumValue(AndroidScalerAvailableStreamConfigurationsMaximumResolution value) {
+  return internal::AndroidScalerAvailableStreamConfigurationsMaximumResolution_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+
+
+enum class AndroidScalerMultiResolutionStreamSupported : int32_t {
+  
+  ANDROID_SCALER_MULTI_RESOLUTION_STREAM_SUPPORTED_FALSE = 0,
+  
+  ANDROID_SCALER_MULTI_RESOLUTION_STREAM_SUPPORTED_TRUE = 1,
+  kMinValue = 0,
+  kMaxValue = 1,
+};
+
+ std::ostream& operator<<(std::ostream& os, AndroidScalerMultiResolutionStreamSupported value);
+inline bool IsKnownEnumValue(AndroidScalerMultiResolutionStreamSupported value) {
+  return internal::AndroidScalerMultiResolutionStreamSupported_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+
+
+enum class AndroidScalerCropRegionSet : int32_t {
+  
+  ANDROID_SCALER_CROP_REGION_SET_FALSE = 0,
+  
+  ANDROID_SCALER_CROP_REGION_SET_TRUE = 1,
+  kMinValue = 0,
+  kMaxValue = 1,
+};
+
+ std::ostream& operator<<(std::ostream& os, AndroidScalerCropRegionSet value);
+inline bool IsKnownEnumValue(AndroidScalerCropRegionSet value) {
+  return internal::AndroidScalerCropRegionSet_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+
+
+enum class AndroidScalerAvailableStreamUseCases : int32_t {
+  
+  ANDROID_SCALER_AVAILABLE_STREAM_USE_CASES_DEFAULT = 0,
+  
+  ANDROID_SCALER_AVAILABLE_STREAM_USE_CASES_PREVIEW = 1,
+  
+  ANDROID_SCALER_AVAILABLE_STREAM_USE_CASES_STILL_CAPTURE = 2,
+  
+  ANDROID_SCALER_AVAILABLE_STREAM_USE_CASES_VIDEO_RECORD = 3,
+  
+  ANDROID_SCALER_AVAILABLE_STREAM_USE_CASES_PREVIEW_VIDEO_STILL = 4,
+  
+  ANDROID_SCALER_AVAILABLE_STREAM_USE_CASES_VIDEO_CALL = 5,
+  
+  ANDROID_SCALER_AVAILABLE_STREAM_USE_CASES_VENDOR_START = 65536,
+  kMinValue = 0,
+  kMaxValue = 65536,
+};
+
+ std::ostream& operator<<(std::ostream& os, AndroidScalerAvailableStreamUseCases value);
+inline bool IsKnownEnumValue(AndroidScalerAvailableStreamUseCases value) {
+  return internal::AndroidScalerAvailableStreamUseCases_Data::IsKnownValue(
       static_cast<int32_t>(value));
 }
 
@@ -1770,6 +2050,8 @@ enum class AndroidSensorTestPatternMode : int32_t {
   
   ANDROID_SENSOR_TEST_PATTERN_MODE_PN9 = 4,
   
+  ANDROID_SENSOR_TEST_PATTERN_MODE_BLACK = 5,
+  
   ANDROID_SENSOR_TEST_PATTERN_MODE_CUSTOM1 = 256,
   kMinValue = 0,
   kMaxValue = 256,
@@ -1778,6 +2060,38 @@ enum class AndroidSensorTestPatternMode : int32_t {
  std::ostream& operator<<(std::ostream& os, AndroidSensorTestPatternMode value);
 inline bool IsKnownEnumValue(AndroidSensorTestPatternMode value) {
   return internal::AndroidSensorTestPatternMode_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+
+
+enum class AndroidSensorPixelMode : int32_t {
+  
+  ANDROID_SENSOR_PIXEL_MODE_DEFAULT = 0,
+  
+  ANDROID_SENSOR_PIXEL_MODE_MAXIMUM_RESOLUTION = 1,
+  kMinValue = 0,
+  kMaxValue = 1,
+};
+
+ std::ostream& operator<<(std::ostream& os, AndroidSensorPixelMode value);
+inline bool IsKnownEnumValue(AndroidSensorPixelMode value) {
+  return internal::AndroidSensorPixelMode_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+
+
+enum class AndroidSensorRawBinningFactorUsed : int32_t {
+  
+  ANDROID_SENSOR_RAW_BINNING_FACTOR_USED_TRUE = 0,
+  
+  ANDROID_SENSOR_RAW_BINNING_FACTOR_USED_FALSE = 1,
+  kMinValue = 0,
+  kMaxValue = 1,
+};
+
+ std::ostream& operator<<(std::ostream& os, AndroidSensorRawBinningFactorUsed value);
+inline bool IsKnownEnumValue(AndroidSensorRawBinningFactorUsed value) {
+  return internal::AndroidSensorRawBinningFactorUsed_Data::IsKnownValue(
       static_cast<int32_t>(value));
 }
 
@@ -2174,6 +2488,38 @@ inline bool IsKnownEnumValue(AndroidDepthAvailableDynamicDepthStreamConfiguratio
 }
 
 
+enum class AndroidDepthAvailableDepthStreamConfigurationsMaximumResolution : int32_t {
+  
+  ANDROID_DEPTH_AVAILABLE_DEPTH_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION_OUTPUT = 0,
+  
+  ANDROID_DEPTH_AVAILABLE_DEPTH_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION_INPUT = 1,
+  kMinValue = 0,
+  kMaxValue = 1,
+};
+
+ std::ostream& operator<<(std::ostream& os, AndroidDepthAvailableDepthStreamConfigurationsMaximumResolution value);
+inline bool IsKnownEnumValue(AndroidDepthAvailableDepthStreamConfigurationsMaximumResolution value) {
+  return internal::AndroidDepthAvailableDepthStreamConfigurationsMaximumResolution_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+
+
+enum class AndroidDepthAvailableDynamicDepthStreamConfigurationsMaximumResolution : int32_t {
+  
+  ANDROID_DEPTH_AVAILABLE_DYNAMIC_DEPTH_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION_OUTPUT = 0,
+  
+  ANDROID_DEPTH_AVAILABLE_DYNAMIC_DEPTH_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION_INPUT = 1,
+  kMinValue = 0,
+  kMaxValue = 1,
+};
+
+ std::ostream& operator<<(std::ostream& os, AndroidDepthAvailableDynamicDepthStreamConfigurationsMaximumResolution value);
+inline bool IsKnownEnumValue(AndroidDepthAvailableDynamicDepthStreamConfigurationsMaximumResolution value) {
+  return internal::AndroidDepthAvailableDynamicDepthStreamConfigurationsMaximumResolution_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+
+
 enum class AndroidLogicalMultiCameraSensorSyncType : int32_t {
   
   ANDROID_LOGICAL_MULTI_CAMERA_SENSOR_SYNC_TYPE_APPROXIMATE = 0,
@@ -2224,6 +2570,22 @@ inline bool IsKnownEnumValue(AndroidHeicAvailableHeicStreamConfigurations value)
 }
 
 
+enum class AndroidHeicAvailableHeicStreamConfigurationsMaximumResolution : int32_t {
+  
+  ANDROID_HEIC_AVAILABLE_HEIC_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION_OUTPUT = 0,
+  
+  ANDROID_HEIC_AVAILABLE_HEIC_STREAM_CONFIGURATIONS_MAXIMUM_RESOLUTION_INPUT = 1,
+  kMinValue = 0,
+  kMaxValue = 1,
+};
+
+ std::ostream& operator<<(std::ostream& os, AndroidHeicAvailableHeicStreamConfigurationsMaximumResolution value);
+inline bool IsKnownEnumValue(AndroidHeicAvailableHeicStreamConfigurationsMaximumResolution value) {
+  return internal::AndroidHeicAvailableHeicStreamConfigurationsMaximumResolution_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+
+
 enum class AndroidHeicInfoSupported : int32_t {
   
   ANDROID_HEIC_INFO_SUPPORTED_FALSE = 0,
@@ -2236,6 +2598,82 @@ enum class AndroidHeicInfoSupported : int32_t {
  std::ostream& operator<<(std::ostream& os, AndroidHeicInfoSupported value);
 inline bool IsKnownEnumValue(AndroidHeicInfoSupported value) {
   return internal::AndroidHeicInfoSupported_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+
+
+enum class AndroidAutomotiveLocation : int32_t {
+  
+  ANDROID_AUTOMOTIVE_LOCATION_INTERIOR = 0,
+  
+  ANDROID_AUTOMOTIVE_LOCATION_EXTERIOR_OTHER = 1,
+  
+  ANDROID_AUTOMOTIVE_LOCATION_EXTERIOR_FRONT = 2,
+  
+  ANDROID_AUTOMOTIVE_LOCATION_EXTERIOR_REAR = 3,
+  
+  ANDROID_AUTOMOTIVE_LOCATION_EXTERIOR_LEFT = 4,
+  
+  ANDROID_AUTOMOTIVE_LOCATION_EXTERIOR_RIGHT = 5,
+  
+  ANDROID_AUTOMOTIVE_LOCATION_EXTRA_OTHER = 6,
+  
+  ANDROID_AUTOMOTIVE_LOCATION_EXTRA_FRONT = 7,
+  
+  ANDROID_AUTOMOTIVE_LOCATION_EXTRA_REAR = 8,
+  
+  ANDROID_AUTOMOTIVE_LOCATION_EXTRA_LEFT = 9,
+  
+  ANDROID_AUTOMOTIVE_LOCATION_EXTRA_RIGHT = 10,
+  kMinValue = 0,
+  kMaxValue = 10,
+};
+
+ std::ostream& operator<<(std::ostream& os, AndroidAutomotiveLocation value);
+inline bool IsKnownEnumValue(AndroidAutomotiveLocation value) {
+  return internal::AndroidAutomotiveLocation_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+
+
+enum class AndroidAutomotiveLensFacing : int32_t {
+  
+  ANDROID_AUTOMOTIVE_LENS_FACING_EXTERIOR_OTHER = 0,
+  
+  ANDROID_AUTOMOTIVE_LENS_FACING_EXTERIOR_FRONT = 1,
+  
+  ANDROID_AUTOMOTIVE_LENS_FACING_EXTERIOR_REAR = 2,
+  
+  ANDROID_AUTOMOTIVE_LENS_FACING_EXTERIOR_LEFT = 3,
+  
+  ANDROID_AUTOMOTIVE_LENS_FACING_EXTERIOR_RIGHT = 4,
+  
+  ANDROID_AUTOMOTIVE_LENS_FACING_INTERIOR_OTHER = 5,
+  
+  ANDROID_AUTOMOTIVE_LENS_FACING_INTERIOR_SEAT_ROW_1_LEFT = 6,
+  
+  ANDROID_AUTOMOTIVE_LENS_FACING_INTERIOR_SEAT_ROW_1_CENTER = 7,
+  
+  ANDROID_AUTOMOTIVE_LENS_FACING_INTERIOR_SEAT_ROW_1_RIGHT = 8,
+  
+  ANDROID_AUTOMOTIVE_LENS_FACING_INTERIOR_SEAT_ROW_2_LEFT = 9,
+  
+  ANDROID_AUTOMOTIVE_LENS_FACING_INTERIOR_SEAT_ROW_2_CENTER = 10,
+  
+  ANDROID_AUTOMOTIVE_LENS_FACING_INTERIOR_SEAT_ROW_2_RIGHT = 11,
+  
+  ANDROID_AUTOMOTIVE_LENS_FACING_INTERIOR_SEAT_ROW_3_LEFT = 12,
+  
+  ANDROID_AUTOMOTIVE_LENS_FACING_INTERIOR_SEAT_ROW_3_CENTER = 13,
+  
+  ANDROID_AUTOMOTIVE_LENS_FACING_INTERIOR_SEAT_ROW_3_RIGHT = 14,
+  kMinValue = 0,
+  kMaxValue = 14,
+};
+
+ std::ostream& operator<<(std::ostream& os, AndroidAutomotiveLensFacing value);
+inline bool IsKnownEnumValue(AndroidAutomotiveLensFacing value) {
+  return internal::AndroidAutomotiveLensFacing_Data::IsKnownValue(
       static_cast<int32_t>(value));
 }
 
@@ -2350,6 +2788,18 @@ struct hash<::cros::mojom::AndroidControlExtendedSceneMode>
     : public mojo::internal::EnumHashImpl<::cros::mojom::AndroidControlExtendedSceneMode> {};
 
 template <>
+struct hash<::cros::mojom::AndroidControlAfRegionsSet>
+    : public mojo::internal::EnumHashImpl<::cros::mojom::AndroidControlAfRegionsSet> {};
+
+template <>
+struct hash<::cros::mojom::AndroidControlAeRegionsSet>
+    : public mojo::internal::EnumHashImpl<::cros::mojom::AndroidControlAeRegionsSet> {};
+
+template <>
+struct hash<::cros::mojom::AndroidControlAwbRegionsSet>
+    : public mojo::internal::EnumHashImpl<::cros::mojom::AndroidControlAwbRegionsSet> {};
+
+template <>
 struct hash<::cros::mojom::AndroidDemosaicMode>
     : public mojo::internal::EnumHashImpl<::cros::mojom::AndroidDemosaicMode> {};
 
@@ -2414,6 +2864,10 @@ struct hash<::cros::mojom::AndroidRequestAvailableCapabilities>
     : public mojo::internal::EnumHashImpl<::cros::mojom::AndroidRequestAvailableCapabilities> {};
 
 template <>
+struct hash<::cros::mojom::AndroidRequestAvailableDynamicRangeProfilesMap>
+    : public mojo::internal::EnumHashImpl<::cros::mojom::AndroidRequestAvailableDynamicRangeProfilesMap> {};
+
+template <>
 struct hash<::cros::mojom::AndroidScalerAvailableFormats>
     : public mojo::internal::EnumHashImpl<::cros::mojom::AndroidScalerAvailableFormats> {};
 
@@ -2434,12 +2888,40 @@ struct hash<::cros::mojom::AndroidScalerRotateAndCrop>
     : public mojo::internal::EnumHashImpl<::cros::mojom::AndroidScalerRotateAndCrop> {};
 
 template <>
+struct hash<::cros::mojom::AndroidScalerPhysicalCameraMultiResolutionStreamConfigurations>
+    : public mojo::internal::EnumHashImpl<::cros::mojom::AndroidScalerPhysicalCameraMultiResolutionStreamConfigurations> {};
+
+template <>
+struct hash<::cros::mojom::AndroidScalerAvailableStreamConfigurationsMaximumResolution>
+    : public mojo::internal::EnumHashImpl<::cros::mojom::AndroidScalerAvailableStreamConfigurationsMaximumResolution> {};
+
+template <>
+struct hash<::cros::mojom::AndroidScalerMultiResolutionStreamSupported>
+    : public mojo::internal::EnumHashImpl<::cros::mojom::AndroidScalerMultiResolutionStreamSupported> {};
+
+template <>
+struct hash<::cros::mojom::AndroidScalerCropRegionSet>
+    : public mojo::internal::EnumHashImpl<::cros::mojom::AndroidScalerCropRegionSet> {};
+
+template <>
+struct hash<::cros::mojom::AndroidScalerAvailableStreamUseCases>
+    : public mojo::internal::EnumHashImpl<::cros::mojom::AndroidScalerAvailableStreamUseCases> {};
+
+template <>
 struct hash<::cros::mojom::AndroidSensorReferenceIlluminant1>
     : public mojo::internal::EnumHashImpl<::cros::mojom::AndroidSensorReferenceIlluminant1> {};
 
 template <>
 struct hash<::cros::mojom::AndroidSensorTestPatternMode>
     : public mojo::internal::EnumHashImpl<::cros::mojom::AndroidSensorTestPatternMode> {};
+
+template <>
+struct hash<::cros::mojom::AndroidSensorPixelMode>
+    : public mojo::internal::EnumHashImpl<::cros::mojom::AndroidSensorPixelMode> {};
+
+template <>
+struct hash<::cros::mojom::AndroidSensorRawBinningFactorUsed>
+    : public mojo::internal::EnumHashImpl<::cros::mojom::AndroidSensorRawBinningFactorUsed> {};
 
 template <>
 struct hash<::cros::mojom::AndroidSensorInfoColorFilterArrangement>
@@ -2534,6 +3016,14 @@ struct hash<::cros::mojom::AndroidDepthAvailableDynamicDepthStreamConfigurations
     : public mojo::internal::EnumHashImpl<::cros::mojom::AndroidDepthAvailableDynamicDepthStreamConfigurations> {};
 
 template <>
+struct hash<::cros::mojom::AndroidDepthAvailableDepthStreamConfigurationsMaximumResolution>
+    : public mojo::internal::EnumHashImpl<::cros::mojom::AndroidDepthAvailableDepthStreamConfigurationsMaximumResolution> {};
+
+template <>
+struct hash<::cros::mojom::AndroidDepthAvailableDynamicDepthStreamConfigurationsMaximumResolution>
+    : public mojo::internal::EnumHashImpl<::cros::mojom::AndroidDepthAvailableDynamicDepthStreamConfigurationsMaximumResolution> {};
+
+template <>
 struct hash<::cros::mojom::AndroidLogicalMultiCameraSensorSyncType>
     : public mojo::internal::EnumHashImpl<::cros::mojom::AndroidLogicalMultiCameraSensorSyncType> {};
 
@@ -2546,8 +3036,20 @@ struct hash<::cros::mojom::AndroidHeicAvailableHeicStreamConfigurations>
     : public mojo::internal::EnumHashImpl<::cros::mojom::AndroidHeicAvailableHeicStreamConfigurations> {};
 
 template <>
+struct hash<::cros::mojom::AndroidHeicAvailableHeicStreamConfigurationsMaximumResolution>
+    : public mojo::internal::EnumHashImpl<::cros::mojom::AndroidHeicAvailableHeicStreamConfigurationsMaximumResolution> {};
+
+template <>
 struct hash<::cros::mojom::AndroidHeicInfoSupported>
     : public mojo::internal::EnumHashImpl<::cros::mojom::AndroidHeicInfoSupported> {};
+
+template <>
+struct hash<::cros::mojom::AndroidAutomotiveLocation>
+    : public mojo::internal::EnumHashImpl<::cros::mojom::AndroidAutomotiveLocation> {};
+
+template <>
+struct hash<::cros::mojom::AndroidAutomotiveLensFacing>
+    : public mojo::internal::EnumHashImpl<::cros::mojom::AndroidAutomotiveLensFacing> {};
 
 }  // namespace std
 
@@ -3077,6 +3579,66 @@ struct Serializer<::cros::mojom::AndroidControlExtendedSceneMode, MaybeConstUser
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::cros::mojom::AndroidControlAfRegionsSet, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::cros::mojom::AndroidControlAfRegionsSet, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::cros::mojom::AndroidControlAfRegionsSet>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::cros::mojom::AndroidControlAeRegionsSet, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::cros::mojom::AndroidControlAeRegionsSet, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::cros::mojom::AndroidControlAeRegionsSet>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::cros::mojom::AndroidControlAwbRegionsSet, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::cros::mojom::AndroidControlAwbRegionsSet, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::cros::mojom::AndroidControlAwbRegionsSet>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::cros::mojom::AndroidDemosaicMode, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = EnumTraits<::cros::mojom::AndroidDemosaicMode, UserType>;
@@ -3397,6 +3959,26 @@ struct Serializer<::cros::mojom::AndroidRequestAvailableCapabilities, MaybeConst
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::cros::mojom::AndroidRequestAvailableDynamicRangeProfilesMap, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::cros::mojom::AndroidRequestAvailableDynamicRangeProfilesMap, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::cros::mojom::AndroidRequestAvailableDynamicRangeProfilesMap>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::cros::mojom::AndroidScalerAvailableFormats, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = EnumTraits<::cros::mojom::AndroidScalerAvailableFormats, UserType>;
@@ -3497,6 +4079,106 @@ struct Serializer<::cros::mojom::AndroidScalerRotateAndCrop, MaybeConstUserType>
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::cros::mojom::AndroidScalerPhysicalCameraMultiResolutionStreamConfigurations, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::cros::mojom::AndroidScalerPhysicalCameraMultiResolutionStreamConfigurations, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::cros::mojom::AndroidScalerPhysicalCameraMultiResolutionStreamConfigurations>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::cros::mojom::AndroidScalerAvailableStreamConfigurationsMaximumResolution, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::cros::mojom::AndroidScalerAvailableStreamConfigurationsMaximumResolution, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::cros::mojom::AndroidScalerAvailableStreamConfigurationsMaximumResolution>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::cros::mojom::AndroidScalerMultiResolutionStreamSupported, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::cros::mojom::AndroidScalerMultiResolutionStreamSupported, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::cros::mojom::AndroidScalerMultiResolutionStreamSupported>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::cros::mojom::AndroidScalerCropRegionSet, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::cros::mojom::AndroidScalerCropRegionSet, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::cros::mojom::AndroidScalerCropRegionSet>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::cros::mojom::AndroidScalerAvailableStreamUseCases, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::cros::mojom::AndroidScalerAvailableStreamUseCases, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::cros::mojom::AndroidScalerAvailableStreamUseCases>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::cros::mojom::AndroidSensorReferenceIlluminant1, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = EnumTraits<::cros::mojom::AndroidSensorReferenceIlluminant1, UserType>;
@@ -3528,6 +4210,46 @@ struct Serializer<::cros::mojom::AndroidSensorTestPatternMode, MaybeConstUserTyp
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
         static_cast<::cros::mojom::AndroidSensorTestPatternMode>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::cros::mojom::AndroidSensorPixelMode, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::cros::mojom::AndroidSensorPixelMode, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::cros::mojom::AndroidSensorPixelMode>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::cros::mojom::AndroidSensorRawBinningFactorUsed, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::cros::mojom::AndroidSensorRawBinningFactorUsed, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::cros::mojom::AndroidSensorRawBinningFactorUsed>(input)), output);
   }
 };
 
@@ -3997,6 +4719,46 @@ struct Serializer<::cros::mojom::AndroidDepthAvailableDynamicDepthStreamConfigur
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::cros::mojom::AndroidDepthAvailableDepthStreamConfigurationsMaximumResolution, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::cros::mojom::AndroidDepthAvailableDepthStreamConfigurationsMaximumResolution, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::cros::mojom::AndroidDepthAvailableDepthStreamConfigurationsMaximumResolution>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::cros::mojom::AndroidDepthAvailableDynamicDepthStreamConfigurationsMaximumResolution, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::cros::mojom::AndroidDepthAvailableDynamicDepthStreamConfigurationsMaximumResolution, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::cros::mojom::AndroidDepthAvailableDynamicDepthStreamConfigurationsMaximumResolution>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::cros::mojom::AndroidLogicalMultiCameraSensorSyncType, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = EnumTraits<::cros::mojom::AndroidLogicalMultiCameraSensorSyncType, UserType>;
@@ -4057,6 +4819,26 @@ struct Serializer<::cros::mojom::AndroidHeicAvailableHeicStreamConfigurations, M
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::cros::mojom::AndroidHeicAvailableHeicStreamConfigurationsMaximumResolution, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::cros::mojom::AndroidHeicAvailableHeicStreamConfigurationsMaximumResolution, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::cros::mojom::AndroidHeicAvailableHeicStreamConfigurationsMaximumResolution>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::cros::mojom::AndroidHeicInfoSupported, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = EnumTraits<::cros::mojom::AndroidHeicInfoSupported, UserType>;
@@ -4068,6 +4850,46 @@ struct Serializer<::cros::mojom::AndroidHeicInfoSupported, MaybeConstUserType> {
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
         static_cast<::cros::mojom::AndroidHeicInfoSupported>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::cros::mojom::AndroidAutomotiveLocation, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::cros::mojom::AndroidAutomotiveLocation, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::cros::mojom::AndroidAutomotiveLocation>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::cros::mojom::AndroidAutomotiveLensFacing, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::cros::mojom::AndroidAutomotiveLensFacing, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::cros::mojom::AndroidAutomotiveLensFacing>(input)), output);
   }
 };
 
@@ -4323,6 +5145,33 @@ struct  TraceFormatTraits<::cros::mojom::AndroidControlExtendedSceneMode> {
 namespace perfetto_libchrome {
 
 template <>
+struct  TraceFormatTraits<::cros::mojom::AndroidControlAfRegionsSet> {
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidControlAfRegionsSet value);
+};
+
+} // namespace perfetto
+
+namespace perfetto_libchrome {
+
+template <>
+struct  TraceFormatTraits<::cros::mojom::AndroidControlAeRegionsSet> {
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidControlAeRegionsSet value);
+};
+
+} // namespace perfetto
+
+namespace perfetto_libchrome {
+
+template <>
+struct  TraceFormatTraits<::cros::mojom::AndroidControlAwbRegionsSet> {
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidControlAwbRegionsSet value);
+};
+
+} // namespace perfetto
+
+namespace perfetto_libchrome {
+
+template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidDemosaicMode> {
  static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidDemosaicMode value);
 };
@@ -4467,6 +5316,15 @@ struct  TraceFormatTraits<::cros::mojom::AndroidRequestAvailableCapabilities> {
 namespace perfetto_libchrome {
 
 template <>
+struct  TraceFormatTraits<::cros::mojom::AndroidRequestAvailableDynamicRangeProfilesMap> {
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidRequestAvailableDynamicRangeProfilesMap value);
+};
+
+} // namespace perfetto
+
+namespace perfetto_libchrome {
+
+template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidScalerAvailableFormats> {
  static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidScalerAvailableFormats value);
 };
@@ -4512,6 +5370,51 @@ struct  TraceFormatTraits<::cros::mojom::AndroidScalerRotateAndCrop> {
 namespace perfetto_libchrome {
 
 template <>
+struct  TraceFormatTraits<::cros::mojom::AndroidScalerPhysicalCameraMultiResolutionStreamConfigurations> {
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidScalerPhysicalCameraMultiResolutionStreamConfigurations value);
+};
+
+} // namespace perfetto
+
+namespace perfetto_libchrome {
+
+template <>
+struct  TraceFormatTraits<::cros::mojom::AndroidScalerAvailableStreamConfigurationsMaximumResolution> {
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidScalerAvailableStreamConfigurationsMaximumResolution value);
+};
+
+} // namespace perfetto
+
+namespace perfetto_libchrome {
+
+template <>
+struct  TraceFormatTraits<::cros::mojom::AndroidScalerMultiResolutionStreamSupported> {
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidScalerMultiResolutionStreamSupported value);
+};
+
+} // namespace perfetto
+
+namespace perfetto_libchrome {
+
+template <>
+struct  TraceFormatTraits<::cros::mojom::AndroidScalerCropRegionSet> {
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidScalerCropRegionSet value);
+};
+
+} // namespace perfetto
+
+namespace perfetto_libchrome {
+
+template <>
+struct  TraceFormatTraits<::cros::mojom::AndroidScalerAvailableStreamUseCases> {
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidScalerAvailableStreamUseCases value);
+};
+
+} // namespace perfetto
+
+namespace perfetto_libchrome {
+
+template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidSensorReferenceIlluminant1> {
  static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidSensorReferenceIlluminant1 value);
 };
@@ -4523,6 +5426,24 @@ namespace perfetto_libchrome {
 template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidSensorTestPatternMode> {
  static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidSensorTestPatternMode value);
+};
+
+} // namespace perfetto
+
+namespace perfetto_libchrome {
+
+template <>
+struct  TraceFormatTraits<::cros::mojom::AndroidSensorPixelMode> {
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidSensorPixelMode value);
+};
+
+} // namespace perfetto
+
+namespace perfetto_libchrome {
+
+template <>
+struct  TraceFormatTraits<::cros::mojom::AndroidSensorRawBinningFactorUsed> {
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidSensorRawBinningFactorUsed value);
 };
 
 } // namespace perfetto
@@ -4737,6 +5658,24 @@ struct  TraceFormatTraits<::cros::mojom::AndroidDepthAvailableDynamicDepthStream
 namespace perfetto_libchrome {
 
 template <>
+struct  TraceFormatTraits<::cros::mojom::AndroidDepthAvailableDepthStreamConfigurationsMaximumResolution> {
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidDepthAvailableDepthStreamConfigurationsMaximumResolution value);
+};
+
+} // namespace perfetto
+
+namespace perfetto_libchrome {
+
+template <>
+struct  TraceFormatTraits<::cros::mojom::AndroidDepthAvailableDynamicDepthStreamConfigurationsMaximumResolution> {
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidDepthAvailableDynamicDepthStreamConfigurationsMaximumResolution value);
+};
+
+} // namespace perfetto
+
+namespace perfetto_libchrome {
+
+template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidLogicalMultiCameraSensorSyncType> {
  static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidLogicalMultiCameraSensorSyncType value);
 };
@@ -4764,8 +5703,35 @@ struct  TraceFormatTraits<::cros::mojom::AndroidHeicAvailableHeicStreamConfigura
 namespace perfetto_libchrome {
 
 template <>
+struct  TraceFormatTraits<::cros::mojom::AndroidHeicAvailableHeicStreamConfigurationsMaximumResolution> {
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidHeicAvailableHeicStreamConfigurationsMaximumResolution value);
+};
+
+} // namespace perfetto
+
+namespace perfetto_libchrome {
+
+template <>
 struct  TraceFormatTraits<::cros::mojom::AndroidHeicInfoSupported> {
  static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidHeicInfoSupported value);
+};
+
+} // namespace perfetto
+
+namespace perfetto_libchrome {
+
+template <>
+struct  TraceFormatTraits<::cros::mojom::AndroidAutomotiveLocation> {
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidAutomotiveLocation value);
+};
+
+} // namespace perfetto
+
+namespace perfetto_libchrome {
+
+template <>
+struct  TraceFormatTraits<::cros::mojom::AndroidAutomotiveLensFacing> {
+ static void WriteIntoTrace(perfetto_libchrome::TracedValue context, ::cros::mojom::AndroidAutomotiveLensFacing value);
 };
 
 } // namespace perfetto

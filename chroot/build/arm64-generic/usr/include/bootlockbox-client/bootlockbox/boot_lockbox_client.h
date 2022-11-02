@@ -2,8 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#ifndef CRYPTOHOME_BOOTLOCKBOX_BOOT_LOCKBOX_CLIENT_H_
-#define CRYPTOHOME_BOOTLOCKBOX_BOOT_LOCKBOX_CLIENT_H_
+#ifndef BOOTLOCKBOX_BOOT_LOCKBOX_CLIENT_H_
+#define BOOTLOCKBOX_BOOT_LOCKBOX_CLIENT_H_
 
 #include <memory>
 #include <string>
@@ -23,7 +23,7 @@ class BootLockboxInterfaceProxy;
 }  // namespace chromium
 }  // namespace org
 
-namespace cryptohome {
+namespace bootlockbox {
 
 // A class that that manages the communication with BootLockbox.
 class BRILLO_EXPORT BootLockboxClient {
@@ -55,6 +55,6 @@ class BRILLO_EXPORT BootLockboxClient {
   scoped_refptr<dbus::Bus> bus_;
 };
 
-}  // namespace cryptohome
+}  // namespace bootlockbox
 
-#endif  // CRYPTOHOME_BOOTLOCKBOX_BOOT_LOCKBOX_CLIENT_H_
+#endif  // BOOTLOCKBOX_BOOT_LOCKBOX_CLIENT_H_

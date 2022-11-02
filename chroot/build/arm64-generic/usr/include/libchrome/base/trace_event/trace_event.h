@@ -697,7 +697,7 @@ inline base::trace_event::TraceEventHandle AddTraceEvent(
 }
 
 template <class ARG1_TYPE>
-static void AddMetadataEvent(const unsigned char* category_group_enabled,
+inline void AddMetadataEvent(const unsigned char* category_group_enabled,
                              const char* event_name,
                              const char* arg_name,
                              ARG1_TYPE&& arg_val) {

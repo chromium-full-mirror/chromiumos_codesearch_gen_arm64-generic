@@ -13,7 +13,7 @@
 #include <google/protobuf/port_def.inc>
 
 PROTOBUF_PRAGMA_INIT_SEG
-namespace cryptohome {
+namespace bootlockbox {
 constexpr SerializedKeyValueMap_KeyvalsEntry_DoNotUse::SerializedKeyValueMap_KeyvalsEntry_DoNotUse(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized){}
 struct SerializedKeyValueMap_KeyvalsEntry_DoNotUseDefaultTypeInternal {
@@ -38,8 +38,8 @@ struct SerializedKeyValueMapDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT SerializedKeyValueMapDefaultTypeInternal _SerializedKeyValueMap_default_instance_;
-}  // namespace cryptohome
-namespace cryptohome {
+}  // namespace bootlockbox
+namespace bootlockbox {
 
 // ===================================================================
 
@@ -68,7 +68,7 @@ SerializedKeyValueMap::SerializedKeyValueMap(::PROTOBUF_NAMESPACE_ID::Arena* are
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
   }
-  // @@protoc_insertion_point(arena_constructor:cryptohome.SerializedKeyValueMap)
+  // @@protoc_insertion_point(arena_constructor:bootlockbox.SerializedKeyValueMap)
 }
 SerializedKeyValueMap::SerializedKeyValueMap(const SerializedKeyValueMap& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
@@ -76,7 +76,7 @@ SerializedKeyValueMap::SerializedKeyValueMap(const SerializedKeyValueMap& from)
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   keyvals_.MergeFrom(from.keyvals_);
   version_ = from.version_;
-  // @@protoc_insertion_point(copy_constructor:cryptohome.SerializedKeyValueMap)
+  // @@protoc_insertion_point(copy_constructor:bootlockbox.SerializedKeyValueMap)
 }
 
 inline void SerializedKeyValueMap::SharedCtor() {
@@ -84,7 +84,7 @@ version_ = 1u;
 }
 
 SerializedKeyValueMap::~SerializedKeyValueMap() {
-  // @@protoc_insertion_point(destructor:cryptohome.SerializedKeyValueMap)
+  // @@protoc_insertion_point(destructor:bootlockbox.SerializedKeyValueMap)
   if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<std::string>();
@@ -105,7 +105,7 @@ void SerializedKeyValueMap::SetCachedSize(int size) const {
 }
 
 void SerializedKeyValueMap::Clear() {
-// @@protoc_insertion_point(message_clear_start:cryptohome.SerializedKeyValueMap)
+// @@protoc_insertion_point(message_clear_start:bootlockbox.SerializedKeyValueMap)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -171,7 +171,7 @@ failure:
 
 uint8_t* SerializedKeyValueMap::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:cryptohome.SerializedKeyValueMap)
+  // @@protoc_insertion_point(serialize_to_array_start:bootlockbox.SerializedKeyValueMap)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -224,12 +224,12 @@ uint8_t* SerializedKeyValueMap::_InternalSerialize(
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:cryptohome.SerializedKeyValueMap)
+  // @@protoc_insertion_point(serialize_to_array_end:bootlockbox.SerializedKeyValueMap)
   return target;
 }
 
 size_t SerializedKeyValueMap::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:cryptohome.SerializedKeyValueMap)
+// @@protoc_insertion_point(message_byte_size_start:bootlockbox.SerializedKeyValueMap)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
@@ -266,7 +266,7 @@ void SerializedKeyValueMap::CheckTypeAndMergeFrom(
 }
 
 void SerializedKeyValueMap::MergeFrom(const SerializedKeyValueMap& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:cryptohome.SerializedKeyValueMap)
+// @@protoc_insertion_point(class_specific_merge_from_start:bootlockbox.SerializedKeyValueMap)
   GOOGLE_DCHECK_NE(&from, this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -279,7 +279,7 @@ void SerializedKeyValueMap::MergeFrom(const SerializedKeyValueMap& from) {
 }
 
 void SerializedKeyValueMap::CopyFrom(const SerializedKeyValueMap& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:cryptohome.SerializedKeyValueMap)
+// @@protoc_insertion_point(class_specific_copy_from_start:bootlockbox.SerializedKeyValueMap)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -298,18 +298,18 @@ void SerializedKeyValueMap::InternalSwap(SerializedKeyValueMap* other) {
 }
 
 std::string SerializedKeyValueMap::GetTypeName() const {
-  return "cryptohome.SerializedKeyValueMap";
+  return "bootlockbox.SerializedKeyValueMap";
 }
 
 
 // @@protoc_insertion_point(namespace_scope)
-}  // namespace cryptohome
+}  // namespace bootlockbox
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::cryptohome::SerializedKeyValueMap_KeyvalsEntry_DoNotUse* Arena::CreateMaybeMessage< ::cryptohome::SerializedKeyValueMap_KeyvalsEntry_DoNotUse >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::cryptohome::SerializedKeyValueMap_KeyvalsEntry_DoNotUse >(arena);
+template<> PROTOBUF_NOINLINE ::bootlockbox::SerializedKeyValueMap_KeyvalsEntry_DoNotUse* Arena::CreateMaybeMessage< ::bootlockbox::SerializedKeyValueMap_KeyvalsEntry_DoNotUse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::bootlockbox::SerializedKeyValueMap_KeyvalsEntry_DoNotUse >(arena);
 }
-template<> PROTOBUF_NOINLINE ::cryptohome::SerializedKeyValueMap* Arena::CreateMaybeMessage< ::cryptohome::SerializedKeyValueMap >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::cryptohome::SerializedKeyValueMap >(arena);
+template<> PROTOBUF_NOINLINE ::bootlockbox::SerializedKeyValueMap* Arena::CreateMaybeMessage< ::bootlockbox::SerializedKeyValueMap >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::bootlockbox::SerializedKeyValueMap >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

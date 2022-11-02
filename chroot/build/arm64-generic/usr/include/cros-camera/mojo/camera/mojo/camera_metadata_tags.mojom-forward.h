@@ -75,6 +75,12 @@ enum class AndroidControlAfSceneChange : int32_t;
 
 enum class AndroidControlExtendedSceneMode : int32_t;
 
+enum class AndroidControlAfRegionsSet : int32_t;
+
+enum class AndroidControlAeRegionsSet : int32_t;
+
+enum class AndroidControlAwbRegionsSet : int32_t;
+
 enum class AndroidDemosaicMode : int32_t;
 
 enum class AndroidEdgeMode : int32_t;
@@ -107,6 +113,8 @@ enum class AndroidRequestType : int32_t;
 
 enum class AndroidRequestAvailableCapabilities : int32_t;
 
+enum class AndroidRequestAvailableDynamicRangeProfilesMap : int32_t;
+
 enum class AndroidScalerAvailableFormats : int32_t;
 
 enum class AndroidScalerAvailableStreamConfigurations : int32_t;
@@ -117,9 +125,23 @@ enum class AndroidScalerAvailableRecommendedStreamConfigurations : int32_t;
 
 enum class AndroidScalerRotateAndCrop : int32_t;
 
+enum class AndroidScalerPhysicalCameraMultiResolutionStreamConfigurations : int32_t;
+
+enum class AndroidScalerAvailableStreamConfigurationsMaximumResolution : int32_t;
+
+enum class AndroidScalerMultiResolutionStreamSupported : int32_t;
+
+enum class AndroidScalerCropRegionSet : int32_t;
+
+enum class AndroidScalerAvailableStreamUseCases : int32_t;
+
 enum class AndroidSensorReferenceIlluminant1 : int32_t;
 
 enum class AndroidSensorTestPatternMode : int32_t;
+
+enum class AndroidSensorPixelMode : int32_t;
+
+enum class AndroidSensorRawBinningFactorUsed : int32_t;
 
 enum class AndroidSensorInfoColorFilterArrangement : int32_t;
 
@@ -167,13 +189,23 @@ enum class AndroidDepthDepthIsExclusive : int32_t;
 
 enum class AndroidDepthAvailableDynamicDepthStreamConfigurations : int32_t;
 
+enum class AndroidDepthAvailableDepthStreamConfigurationsMaximumResolution : int32_t;
+
+enum class AndroidDepthAvailableDynamicDepthStreamConfigurationsMaximumResolution : int32_t;
+
 enum class AndroidLogicalMultiCameraSensorSyncType : int32_t;
 
 enum class AndroidDistortionCorrectionMode : int32_t;
 
 enum class AndroidHeicAvailableHeicStreamConfigurations : int32_t;
 
+enum class AndroidHeicAvailableHeicStreamConfigurationsMaximumResolution : int32_t;
+
 enum class AndroidHeicInfoSupported : int32_t;
+
+enum class AndroidAutomotiveLocation : int32_t;
+
+enum class AndroidAutomotiveLensFacing : int32_t;
 
 
 

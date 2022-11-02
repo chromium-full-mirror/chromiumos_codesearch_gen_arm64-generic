@@ -57,6 +57,8 @@ struct CameraMetadataSection_Data {
       case 28:
       case 29:
       case 30:
+      case 31:
+      case 32:
       case 32768:
         return true;
     }
@@ -110,6 +112,8 @@ struct CameraMetadataSectionStart_Data {
       case 1769472:
       case 1835008:
       case 1900544:
+      case 1966080:
+      case 2031616:
         return true;
     }
     return false;
@@ -187,6 +191,10 @@ struct CameraMetadataTag_Data {
       case 65582:
       case 65583:
       case 65584:
+      case 65585:
+      case 65586:
+      case 65587:
+      case 65588:
       case 131072:
       case 131073:
       case 196608:
@@ -203,6 +211,8 @@ struct CameraMetadataTag_Data {
       case 327680:
       case 327681:
       case 327682:
+      case 327683:
+      case 327684:
       case 393216:
       case 393217:
       case 393218:
@@ -232,6 +242,8 @@ struct CameraMetadataTag_Data {
       case 524300:
       case 524301:
       case 524302:
+      case 524303:
+      case 524304:
       case 589824:
       case 589825:
       case 589826:
@@ -271,6 +283,8 @@ struct CameraMetadataTag_Data {
       case 786449:
       case 786450:
       case 786451:
+      case 786452:
+      case 786453:
       case 851968:
       case 851969:
       case 851970:
@@ -290,6 +304,15 @@ struct CameraMetadataTag_Data {
       case 851984:
       case 851985:
       case 851986:
+      case 851987:
+      case 851988:
+      case 851989:
+      case 851990:
+      case 851991:
+      case 851992:
+      case 851993:
+      case 851994:
+      case 851995:
       case 917504:
       case 917505:
       case 917506:
@@ -322,6 +345,9 @@ struct CameraMetadataTag_Data {
       case 917533:
       case 917534:
       case 917535:
+      case 917536:
+      case 917537:
+      case 917538:
       case 983040:
       case 983041:
       case 983042:
@@ -334,6 +360,10 @@ struct CameraMetadataTag_Data {
       case 983049:
       case 983050:
       case 983051:
+      case 983052:
+      case 983053:
+      case 983054:
+      case 983055:
       case 1048576:
       case 1048577:
       case 1048578:
@@ -386,6 +416,7 @@ struct CameraMetadataTag_Data {
       case 1376257:
       case 1376258:
       case 1376259:
+      case 1376260:
       case 1441792:
       case 1441793:
       case 1507328:
@@ -404,6 +435,12 @@ struct CameraMetadataTag_Data {
       case 1638407:
       case 1638408:
       case 1638409:
+      case 1638410:
+      case 1638411:
+      case 1638412:
+      case 1638413:
+      case 1638414:
+      case 1638415:
       case 1703936:
       case 1703937:
       case 1703938:
@@ -415,9 +452,16 @@ struct CameraMetadataTag_Data {
       case 1835009:
       case 1835010:
       case 1835011:
+      case 1835012:
+      case 1835013:
+      case 1835014:
       case 1900544:
       case 1900545:
       case 1900546:
+      case 1966080:
+      case 1966081:
+      case 2031616:
+      case 2031617:
         return true;
     }
     return false;
@@ -835,6 +879,7 @@ struct AndroidControlVideoStabilizationMode_Data {
     switch (value) {
       case 0:
       case 1:
+      case 2:
         return true;
     }
     return false;
@@ -1040,6 +1085,78 @@ struct AndroidControlExtendedSceneMode_Data {
       case 1:
       case 2:
       case 64:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
+struct AndroidControlAfRegionsSet_Data {
+ public:
+  static bool constexpr kIsExtensible = false;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
+struct AndroidControlAeRegionsSet_Data {
+ public:
+  static bool constexpr kIsExtensible = false;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
+struct AndroidControlAwbRegionsSet_Data {
+ public:
+  static bool constexpr kIsExtensible = false;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
         return true;
     }
     return false;
@@ -1289,6 +1406,7 @@ struct AndroidLensPoseReference_Data {
       case 0:
       case 1:
       case 2:
+      case 3:
         return true;
     }
     return false;
@@ -1451,6 +1569,45 @@ struct AndroidRequestAvailableCapabilities_Data {
       case 13:
       case 14:
       case 15:
+      case 16:
+      case 17:
+      case 18:
+      case 19:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
+struct AndroidRequestAvailableDynamicRangeProfilesMap_Data {
+ public:
+  static bool constexpr kIsExtensible = false;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 1:
+      case 2:
+      case 4:
+      case 8:
+      case 16:
+      case 32:
+      case 64:
+      case 128:
+      case 256:
+      case 512:
+      case 1024:
+      case 2048:
+      case 4096:
         return true;
     }
     return false;
@@ -1561,6 +1718,8 @@ struct AndroidScalerAvailableRecommendedStreamConfigurations_Data {
       case 5:
       case 6:
       case 7:
+      case 8:
+      case 9:
       case 24:
         return true;
     }
@@ -1589,6 +1748,131 @@ struct AndroidScalerRotateAndCrop_Data {
       case 2:
       case 3:
       case 4:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
+struct AndroidScalerPhysicalCameraMultiResolutionStreamConfigurations_Data {
+ public:
+  static bool constexpr kIsExtensible = false;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
+struct AndroidScalerAvailableStreamConfigurationsMaximumResolution_Data {
+ public:
+  static bool constexpr kIsExtensible = false;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
+struct AndroidScalerMultiResolutionStreamSupported_Data {
+ public:
+  static bool constexpr kIsExtensible = false;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
+struct AndroidScalerCropRegionSet_Data {
+ public:
+  static bool constexpr kIsExtensible = false;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
+struct AndroidScalerAvailableStreamUseCases_Data {
+ public:
+  static bool constexpr kIsExtensible = false;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+      case 3:
+      case 4:
+      case 5:
+      case 65536:
         return true;
     }
     return false;
@@ -1657,7 +1941,56 @@ struct AndroidSensorTestPatternMode_Data {
       case 2:
       case 3:
       case 4:
+      case 5:
       case 256:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
+struct AndroidSensorPixelMode_Data {
+ public:
+  static bool constexpr kIsExtensible = false;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
+struct AndroidSensorRawBinningFactorUsed_Data {
+ public:
+  static bool constexpr kIsExtensible = false;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
         return true;
     }
     return false;
@@ -2238,6 +2571,54 @@ struct AndroidDepthAvailableDynamicDepthStreamConfigurations_Data {
   }
 };
 
+struct AndroidDepthAvailableDepthStreamConfigurationsMaximumResolution_Data {
+ public:
+  static bool constexpr kIsExtensible = false;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
+struct AndroidDepthAvailableDynamicDepthStreamConfigurationsMaximumResolution_Data {
+ public:
+  static bool constexpr kIsExtensible = false;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
 struct AndroidLogicalMultiCameraSensorSyncType_Data {
  public:
   static bool constexpr kIsExtensible = false;
@@ -2311,6 +2692,30 @@ struct AndroidHeicAvailableHeicStreamConfigurations_Data {
   }
 };
 
+struct AndroidHeicAvailableHeicStreamConfigurationsMaximumResolution_Data {
+ public:
+  static bool constexpr kIsExtensible = false;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
 struct AndroidHeicInfoSupported_Data {
  public:
   static bool constexpr kIsExtensible = false;
@@ -2319,6 +2724,76 @@ struct AndroidHeicInfoSupported_Data {
     switch (value) {
       case 0:
       case 1:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
+struct AndroidAutomotiveLocation_Data {
+ public:
+  static bool constexpr kIsExtensible = false;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+      case 3:
+      case 4:
+      case 5:
+      case 6:
+      case 7:
+      case 8:
+      case 9:
+      case 10:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
+struct AndroidAutomotiveLensFacing_Data {
+ public:
+  static bool constexpr kIsExtensible = false;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+      case 3:
+      case 4:
+      case 5:
+      case 6:
+      case 7:
+      case 8:
+      case 9:
+      case 10:
+      case 11:
+      case 12:
+      case 13:
+      case 14:
         return true;
     }
     return false;
