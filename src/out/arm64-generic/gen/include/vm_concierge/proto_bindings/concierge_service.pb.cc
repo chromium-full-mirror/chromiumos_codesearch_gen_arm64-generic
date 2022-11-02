@@ -189,9 +189,10 @@ constexpr StartArcVmRequest::StartArcVmRequest(
   , enable_virtio_blk_data_(false)
   , disable_media_store_maintenance_(false)
   , vm_memory_psi_period_(0)
+  , guest_zram_size_(0)
   , arc_generate_play_auto_install_(false)
   , disable_download_provider_(false)
-  , guest_zram_size_(0)
+  , update_o4c_list_via_a2c2_(false)
   , guest_swappiness_(0)
   , mglru_reclaim_interval_(0)
   , mglru_reclaim_swappiness_(0){}
@@ -5528,6 +5529,14 @@ const char* StartArcVmRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESP
         } else
           goto handle_unusual;
         continue;
+      // bool update_o4c_list_via_a2c2 = 37;
+      case 37:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+          update_o4c_list_via_a2c2_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -5798,6 +5807,12 @@ uint8_t* StartArcVmRequest::_InternalSerialize(
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(36, this->_internal_mglru_reclaim_swappiness(), target);
   }
 
+  // bool update_o4c_list_via_a2c2 = 37;
+  if (this->_internal_update_o4c_list_via_a2c2() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(37, this->_internal_update_o4c_list_via_a2c2(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -5986,6 +6001,13 @@ size_t StartArcVmRequest::ByteSizeLong() const {
         this->_internal_vm_memory_psi_period());
   }
 
+  // int32 guest_zram_size = 32;
+  if (this->_internal_guest_zram_size() != 0) {
+    total_size += 2 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_guest_zram_size());
+  }
+
   // bool arc_generate_play_auto_install = 30;
   if (this->_internal_arc_generate_play_auto_install() != 0) {
     total_size += 2 + 1;
@@ -5996,11 +6018,9 @@ size_t StartArcVmRequest::ByteSizeLong() const {
     total_size += 2 + 1;
   }
 
-  // int32 guest_zram_size = 32;
-  if (this->_internal_guest_zram_size() != 0) {
-    total_size += 2 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
-        this->_internal_guest_zram_size());
+  // bool update_o4c_list_via_a2c2 = 37;
+  if (this->_internal_update_o4c_list_via_a2c2() != 0) {
+    total_size += 2 + 1;
   }
 
   // int32 guest_swappiness = 33;
@@ -6130,14 +6150,17 @@ void StartArcVmRequest::MergeFrom(const StartArcVmRequest& from) {
   if (from._internal_vm_memory_psi_period() != 0) {
     _internal_set_vm_memory_psi_period(from._internal_vm_memory_psi_period());
   }
+  if (from._internal_guest_zram_size() != 0) {
+    _internal_set_guest_zram_size(from._internal_guest_zram_size());
+  }
   if (from._internal_arc_generate_play_auto_install() != 0) {
     _internal_set_arc_generate_play_auto_install(from._internal_arc_generate_play_auto_install());
   }
   if (from._internal_disable_download_provider() != 0) {
     _internal_set_disable_download_provider(from._internal_disable_download_provider());
   }
-  if (from._internal_guest_zram_size() != 0) {
-    _internal_set_guest_zram_size(from._internal_guest_zram_size());
+  if (from._internal_update_o4c_list_via_a2c2() != 0) {
+    _internal_set_update_o4c_list_via_a2c2(from._internal_update_o4c_list_via_a2c2());
   }
   if (from._internal_guest_swappiness() != 0) {
     _internal_set_guest_swappiness(from._internal_guest_swappiness());

@@ -2601,9 +2601,10 @@ class StartArcVmRequest final :
     kEnableVirtioBlkDataFieldNumber = 27,
     kDisableMediaStoreMaintenanceFieldNumber = 29,
     kVmMemoryPsiPeriodFieldNumber = 28,
+    kGuestZramSizeFieldNumber = 32,
     kArcGeneratePlayAutoInstallFieldNumber = 30,
     kDisableDownloadProviderFieldNumber = 31,
-    kGuestZramSizeFieldNumber = 32,
+    kUpdateO4CListViaA2C2FieldNumber = 37,
     kGuestSwappinessFieldNumber = 33,
     kMglruReclaimIntervalFieldNumber = 35,
     kMglruReclaimSwappinessFieldNumber = 36,
@@ -2944,6 +2945,15 @@ class StartArcVmRequest final :
   void _internal_set_vm_memory_psi_period(int32_t value);
   public:
 
+  // int32 guest_zram_size = 32;
+  void clear_guest_zram_size();
+  int32_t guest_zram_size() const;
+  void set_guest_zram_size(int32_t value);
+  private:
+  int32_t _internal_guest_zram_size() const;
+  void _internal_set_guest_zram_size(int32_t value);
+  public:
+
   // bool arc_generate_play_auto_install = 30;
   void clear_arc_generate_play_auto_install();
   bool arc_generate_play_auto_install() const;
@@ -2962,13 +2972,13 @@ class StartArcVmRequest final :
   void _internal_set_disable_download_provider(bool value);
   public:
 
-  // int32 guest_zram_size = 32;
-  void clear_guest_zram_size();
-  int32_t guest_zram_size() const;
-  void set_guest_zram_size(int32_t value);
+  // bool update_o4c_list_via_a2c2 = 37;
+  void clear_update_o4c_list_via_a2c2();
+  bool update_o4c_list_via_a2c2() const;
+  void set_update_o4c_list_via_a2c2(bool value);
   private:
-  int32_t _internal_guest_zram_size() const;
-  void _internal_set_guest_zram_size(int32_t value);
+  bool _internal_update_o4c_list_via_a2c2() const;
+  void _internal_set_update_o4c_list_via_a2c2(bool value);
   public:
 
   // int32 guest_swappiness = 33;
@@ -3035,9 +3045,10 @@ class StartArcVmRequest final :
   bool enable_virtio_blk_data_;
   bool disable_media_store_maintenance_;
   int32_t vm_memory_psi_period_;
+  int32_t guest_zram_size_;
   bool arc_generate_play_auto_install_;
   bool disable_download_provider_;
-  int32_t guest_zram_size_;
+  bool update_o4c_list_via_a2c2_;
   int32_t guest_swappiness_;
   int32_t mglru_reclaim_interval_;
   int32_t mglru_reclaim_swappiness_;
@@ -15944,6 +15955,26 @@ inline void StartArcVmRequest::_internal_set_mglru_reclaim_swappiness(int32_t va
 inline void StartArcVmRequest::set_mglru_reclaim_swappiness(int32_t value) {
   _internal_set_mglru_reclaim_swappiness(value);
   // @@protoc_insertion_point(field_set:vm_tools.concierge.StartArcVmRequest.mglru_reclaim_swappiness)
+}
+
+// bool update_o4c_list_via_a2c2 = 37;
+inline void StartArcVmRequest::clear_update_o4c_list_via_a2c2() {
+  update_o4c_list_via_a2c2_ = false;
+}
+inline bool StartArcVmRequest::_internal_update_o4c_list_via_a2c2() const {
+  return update_o4c_list_via_a2c2_;
+}
+inline bool StartArcVmRequest::update_o4c_list_via_a2c2() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.StartArcVmRequest.update_o4c_list_via_a2c2)
+  return _internal_update_o4c_list_via_a2c2();
+}
+inline void StartArcVmRequest::_internal_set_update_o4c_list_via_a2c2(bool value) {
+  
+  update_o4c_list_via_a2c2_ = value;
+}
+inline void StartArcVmRequest::set_update_o4c_list_via_a2c2(bool value) {
+  _internal_set_update_o4c_list_via_a2c2(value);
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.StartArcVmRequest.update_o4c_list_via_a2c2)
 }
 
 // -------------------------------------------------------------------
