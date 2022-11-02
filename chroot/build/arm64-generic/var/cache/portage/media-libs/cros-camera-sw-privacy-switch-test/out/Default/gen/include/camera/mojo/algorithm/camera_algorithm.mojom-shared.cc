@@ -235,6 +235,29 @@ CameraAlgorithmOps_UpdateReturn_Params_Data::CameraAlgorithmOps_UpdateReturn_Par
 
 
 // static
+bool CameraAlgorithmOps_Deinitialize_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const CameraAlgorithmOps_Deinitialize_Params_Data* object =
+      static_cast<const CameraAlgorithmOps_Deinitialize_Params_Data*>(data);
+
+  return true;
+}
+
+CameraAlgorithmOps_Deinitialize_Params_Data::CameraAlgorithmOps_Deinitialize_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool CameraAlgorithmCallbackOps_Return_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {

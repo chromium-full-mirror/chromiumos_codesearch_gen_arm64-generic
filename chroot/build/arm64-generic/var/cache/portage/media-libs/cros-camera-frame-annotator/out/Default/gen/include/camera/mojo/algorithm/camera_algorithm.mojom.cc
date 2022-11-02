@@ -68,6 +68,9 @@ CameraAlgorithmOps::IPCStableHashFunction CameraAlgorithmOps::MessageToMethodInf
     case internal::kCameraAlgorithmOps_UpdateReturn_Name: {
       return &CameraAlgorithmOps::UpdateReturn_Sym::IPCStableHash;
     }
+    case internal::kCameraAlgorithmOps_Deinitialize_Name: {
+      return &CameraAlgorithmOps::Deinitialize_Sym::IPCStableHash;
+    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -89,6 +92,8 @@ const char* CameraAlgorithmOps::MessageToMethodName_(mojo::Message& message) {
             return "Receive cros::mojom::CameraAlgorithmOps::DeregisterBuffers";
       case internal::kCameraAlgorithmOps_UpdateReturn_Name:
             return "Receive cros::mojom::CameraAlgorithmOps::UpdateReturn";
+      case internal::kCameraAlgorithmOps_Deinitialize_Name:
+            return "Receive cros::mojom::CameraAlgorithmOps::Deinitialize";
     }
   } else {
     switch (message.name()) {
@@ -102,6 +107,8 @@ const char* CameraAlgorithmOps::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply cros::mojom::CameraAlgorithmOps::DeregisterBuffers";
       case internal::kCameraAlgorithmOps_UpdateReturn_Name:
             return "Receive reply cros::mojom::CameraAlgorithmOps::UpdateReturn";
+      case internal::kCameraAlgorithmOps_Deinitialize_Name:
+            return "Receive reply cros::mojom::CameraAlgorithmOps::Deinitialize";
     }
   }
   return "Receive unknown mojo message";
@@ -177,6 +184,19 @@ uint32_t CameraAlgorithmOps::UpdateReturn_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)cros::mojom::CameraAlgorithmOps::UpdateReturn");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t CameraAlgorithmOps::Deinitialize_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)cros::mojom::CameraAlgorithmOps::Deinitialize");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -460,6 +480,36 @@ void CameraAlgorithmOpsProxy::UpdateReturn(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(CameraAlgorithmOps::Name_);
   message.set_method_name("UpdateReturn");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void CameraAlgorithmOpsProxy::Deinitialize(
+    ) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send cros::mojom::CameraAlgorithmOps::Deinitialize");
+#endif
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt);
+  
+  mojo::Message message(
+      internal::kCameraAlgorithmOps_Deinitialize_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::cros::mojom::internal::CameraAlgorithmOps_Deinitialize_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(CameraAlgorithmOps::Name_);
+  message.set_method_name("Deinitialize");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
@@ -799,6 +849,28 @@ std::move(p_status),
 std::move(p_buffer_fd));
       return true;
     }
+    case internal::kCameraAlgorithmOps_Deinitialize_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::CameraAlgorithmOps_Deinitialize_Params_Data* params =
+          reinterpret_cast<internal::CameraAlgorithmOps_Deinitialize_Params_Data*>(
+              message->mutable_payload());
+      
+      bool success = true;
+      CameraAlgorithmOps_Deinitialize_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            CameraAlgorithmOps::Name_, 5, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->Deinitialize();
+      return true;
+    }
   }
   return false;
 }
@@ -881,6 +953,9 @@ std::move(p_buffer_fd), std::move(callback));
     case internal::kCameraAlgorithmOps_UpdateReturn_Name: {
       break;
     }
+    case internal::kCameraAlgorithmOps_Deinitialize_Name: {
+      break;
+    }
   }
   return false;
 }
@@ -896,6 +971,8 @@ static const mojo::internal::GenericValidationInfo kCameraAlgorithmOpsValidation
     {&internal::CameraAlgorithmOps_DeregisterBuffers_Params_Data::Validate,
      nullptr /* no response */},
     {&internal::CameraAlgorithmOps_UpdateReturn_Params_Data::Validate,
+     nullptr /* no response */},
+    {&internal::CameraAlgorithmOps_Deinitialize_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -1238,6 +1315,9 @@ void CameraAlgorithmOpsInterceptorForTesting::DeregisterBuffers(const std::vecto
 }
 void CameraAlgorithmOpsInterceptorForTesting::UpdateReturn(uint32_t upd_id, uint32_t status, ::mojo::ScopedHandle buffer_fd) {
   GetForwardingInterface()->UpdateReturn(std::move(upd_id), std::move(status), std::move(buffer_fd));
+}
+void CameraAlgorithmOpsInterceptorForTesting::Deinitialize() {
+  GetForwardingInterface()->Deinitialize();
 }
 CameraAlgorithmOpsAsyncWaiter::CameraAlgorithmOpsAsyncWaiter(
     CameraAlgorithmOps* proxy) : proxy_(proxy) {}

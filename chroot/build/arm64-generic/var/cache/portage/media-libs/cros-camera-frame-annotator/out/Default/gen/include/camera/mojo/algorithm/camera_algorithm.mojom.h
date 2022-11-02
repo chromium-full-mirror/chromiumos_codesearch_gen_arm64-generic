@@ -75,6 +75,7 @@ class  CameraAlgorithmOps
     kRequestMinVersion = 0,
     kDeregisterBuffersMinVersion = 0,
     kUpdateReturnMinVersion = 0,
+    kDeinitializeMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -93,6 +94,9 @@ class  CameraAlgorithmOps
     NOINLINE static uint32_t IPCStableHash();
   };
   struct UpdateReturn_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct Deinitialize_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -116,6 +120,9 @@ class  CameraAlgorithmOps
 
   
   virtual void UpdateReturn(uint32_t upd_id, uint32_t status, ::mojo::ScopedHandle buffer_fd) = 0;
+
+  
+  virtual void Deinitialize() = 0;
 };
 
 class CameraAlgorithmCallbackOpsProxy;
@@ -189,6 +196,8 @@ class  CameraAlgorithmOpsProxy
   void DeregisterBuffers(const std::vector<int32_t>& buffer_handles) final;
   
   void UpdateReturn(uint32_t upd_id, uint32_t status, ::mojo::ScopedHandle buffer_fd) final;
+  
+  void Deinitialize() final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

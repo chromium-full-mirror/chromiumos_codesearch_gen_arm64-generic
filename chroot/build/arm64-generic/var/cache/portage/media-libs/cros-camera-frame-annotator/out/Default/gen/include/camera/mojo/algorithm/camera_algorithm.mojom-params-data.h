@@ -139,6 +139,21 @@ class  CameraAlgorithmOps_UpdateReturn_Params_Data {
 };
 static_assert(sizeof(CameraAlgorithmOps_UpdateReturn_Params_Data) == 24,
               "Bad sizeof(CameraAlgorithmOps_UpdateReturn_Params_Data)");
+class  CameraAlgorithmOps_Deinitialize_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<CameraAlgorithmOps_Deinitialize_Params_Data>;
+
+  CameraAlgorithmOps_Deinitialize_Params_Data();
+  ~CameraAlgorithmOps_Deinitialize_Params_Data() = delete;
+};
+static_assert(sizeof(CameraAlgorithmOps_Deinitialize_Params_Data) == 8,
+              "Bad sizeof(CameraAlgorithmOps_Deinitialize_Params_Data)");
 class  CameraAlgorithmCallbackOps_Return_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -360,6 +375,22 @@ class CameraAlgorithmOps_UpdateReturn_ParamsDataView {
 
 
 
+class CameraAlgorithmOps_Deinitialize_ParamsDataView {
+ public:
+  CameraAlgorithmOps_Deinitialize_ParamsDataView() = default;
+
+  CameraAlgorithmOps_Deinitialize_ParamsDataView(
+      internal::CameraAlgorithmOps_Deinitialize_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::CameraAlgorithmOps_Deinitialize_Params_Data* data_ = nullptr;
+};
+
+
+
 class CameraAlgorithmCallbackOps_Return_ParamsDataView {
  public:
   CameraAlgorithmCallbackOps_Return_ParamsDataView() = default;
@@ -442,6 +473,8 @@ inline void CameraAlgorithmOps_DeregisterBuffers_ParamsDataView::GetBufferHandle
   auto pointer = data_->buffer_handles.Get();
   *output = mojo::ArrayDataView<int32_t>(pointer, message_);
 }
+
+
 
 
 

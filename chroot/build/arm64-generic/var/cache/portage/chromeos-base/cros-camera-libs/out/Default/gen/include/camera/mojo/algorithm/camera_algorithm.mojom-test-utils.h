@@ -21,6 +21,7 @@ class  CameraAlgorithmOpsInterceptorForTesting : public CameraAlgorithmOps {
   void Request(uint32_t req_id, const std::vector<uint8_t>& req_header, int32_t buffer_handle) override;
   void DeregisterBuffers(const std::vector<int32_t>& buffer_handles) override;
   void UpdateReturn(uint32_t upd_id, uint32_t status, ::mojo::ScopedHandle buffer_fd) override;
+  void Deinitialize() override;
 };
 class  CameraAlgorithmOpsAsyncWaiter {
  public:

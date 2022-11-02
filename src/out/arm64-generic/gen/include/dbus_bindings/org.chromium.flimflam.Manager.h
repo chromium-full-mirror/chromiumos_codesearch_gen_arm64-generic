@@ -149,9 +149,8 @@ class ManagerInterface {
   virtual bool SetTetheringEnabled(
       brillo::ErrorPtr* error,
       bool in_1) = 0;
-  virtual bool CheckTetheringReadiness(
-      brillo::ErrorPtr* error,
-      std::string* out_1) = 0;
+  virtual void CheckTetheringReadiness(
+      std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<std::string>> response) = 0;
 };
 
 // Interface adaptor for org::chromium::flimflam::Manager.
@@ -317,7 +316,7 @@ class ManagerAdaptor {
         "SetTetheringEnabled",
         base::Unretained(interface_),
         &ManagerInterface::SetTetheringEnabled);
-    itf->AddSimpleMethodHandlerWithError(
+    itf->AddMethodHandler(
         "CheckTetheringReadiness",
         base::Unretained(interface_),
         &ManagerInterface::CheckTetheringReadiness);

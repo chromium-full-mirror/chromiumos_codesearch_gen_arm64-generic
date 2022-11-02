@@ -19,6 +19,7 @@ constexpr uint32_t kCameraAlgorithmOps_RegisterBuffer_Name = 1;
 constexpr uint32_t kCameraAlgorithmOps_Request_Name = 2;
 constexpr uint32_t kCameraAlgorithmOps_DeregisterBuffers_Name = 3;
 constexpr uint32_t kCameraAlgorithmOps_UpdateReturn_Name = 4;
+constexpr uint32_t kCameraAlgorithmOps_Deinitialize_Name = 5;
 constexpr uint32_t kCameraAlgorithmCallbackOps_Return_Name = 0;
 constexpr uint32_t kCameraAlgorithmCallbackOps_Update_Name = 1;
 
