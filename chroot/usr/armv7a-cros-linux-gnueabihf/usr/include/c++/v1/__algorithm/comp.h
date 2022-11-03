@@ -15,7 +15,6 @@
 #  pragma GCC system_header
 #endif
 
-_LIBCPP_DISABLE_DEBUG_INFO
 _LIBCPP_BEGIN_NAMESPACE_STD
 
 // I'd like to replace these with _VSTD::equal_to<void>, but can't because:
@@ -89,6 +88,5 @@ struct __less<_T1, const _T1>
 };
 
 _LIBCPP_END_NAMESPACE_STD
-_LIBCPP_ENABLE_DEBUG_INFO
 
 #endif // _LIBCPP___ALGORITHM_COMP_H

@@ -26,7 +26,6 @@
 _LIBCPP_PUSH_MACROS
 #include <__undef_macros>
 
-_LIBCPP_DISABLE_DEBUG_INFO
 _LIBCPP_BEGIN_NAMESPACE_STD
 
 template <class _UIntType, size_t __w, size_t __n, size_t __m, size_t __r,
@@ -529,7 +528,6 @@ typedef mersenne_twister_engine<uint_fast64_t, 64, 312, 156, 31,
                                 43, 6364136223846793005ULL>          mt19937_64;
 
 _LIBCPP_END_NAMESPACE_STD
-_LIBCPP_ENABLE_DEBUG_INFO
 
 _LIBCPP_POP_MACROS
 

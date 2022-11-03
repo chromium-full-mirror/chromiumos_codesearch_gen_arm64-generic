@@ -20,7 +20,6 @@
 #  pragma GCC system_header
 #endif
 
-_LIBCPP_DISABLE_DEBUG_INFO
 _LIBCPP_BEGIN_NAMESPACE_STD
 
 #if _LIBCPP_STD_VER > 17
@@ -491,6 +490,5 @@ using __iter_to_alloc_type = pair<
     typename iterator_traits<_InputIterator>::value_type::second_type>;
 
 _LIBCPP_END_NAMESPACE_STD
-_LIBCPP_ENABLE_DEBUG_INFO
 
 #endif // _LIBCPP___ITERATOR_ITERATOR_TRAITS_H

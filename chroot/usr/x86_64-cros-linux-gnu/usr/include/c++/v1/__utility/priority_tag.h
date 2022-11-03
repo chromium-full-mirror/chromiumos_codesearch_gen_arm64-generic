@@ -16,11 +16,13 @@
 #  pragma GCC system_header
 #endif
 
+_LIBCPP_DISABLE_DEBUG_INFO
 _LIBCPP_BEGIN_NAMESPACE_STD
 
 template<size_t _Ip> struct __priority_tag : __priority_tag<_Ip - 1> {};
 template<> struct __priority_tag<0> {};
 
 _LIBCPP_END_NAMESPACE_STD
+_LIBCPP_ENABLE_DEBUG_INFO
 
 #endif // _LIBCPP___UTILITY_PRIORITY_TAG_H

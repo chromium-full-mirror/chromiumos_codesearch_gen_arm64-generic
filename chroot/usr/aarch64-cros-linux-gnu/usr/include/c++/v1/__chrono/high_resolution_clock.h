@@ -18,7 +18,6 @@
 #  pragma GCC system_header
 #endif
 
-_LIBCPP_DISABLE_DEBUG_INFO
 _LIBCPP_BEGIN_NAMESPACE_STD
 
 namespace chrono
@@ -33,6 +32,5 @@ typedef system_clock high_resolution_clock;
 } // namespace chrono
 
 _LIBCPP_END_NAMESPACE_STD
-_LIBCPP_ENABLE_DEBUG_INFO
 
 #endif // _LIBCPP___CHRONO_HIGH_RESOLUTION_CLOCK_H

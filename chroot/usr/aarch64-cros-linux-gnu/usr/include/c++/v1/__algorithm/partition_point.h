@@ -19,7 +19,6 @@
 #  pragma GCC system_header
 #endif
 
-_LIBCPP_DISABLE_DEBUG_INFO
 _LIBCPP_BEGIN_NAMESPACE_STD
 
 template<class _ForwardIterator, class _Predicate>
@@ -45,6 +44,5 @@ partition_point(_ForwardIterator __first, _ForwardIterator __last, _Predicate __
 }
 
 _LIBCPP_END_NAMESPACE_STD
-_LIBCPP_ENABLE_DEBUG_INFO
 
 #endif // _LIBCPP___ALGORITHM_PARTITION_POINT_H

@@ -127,4 +127,5 @@
   _Func(_LIBCPP_FUNC_VIS void basic_string<_CharType>::resize(size_type, value_type)) \
   _Func(_LIBCPP_FUNC_VIS basic_string<_CharType>& basic_string<_CharType>::insert(size_type, basic_string const&, size_type, size_type))
 
+
 #endif // _LIBCPP___STRING_EXTERN_TEMPLATE_LISTS_H

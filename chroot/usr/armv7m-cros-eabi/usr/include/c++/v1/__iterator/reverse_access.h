@@ -19,7 +19,6 @@
 #  pragma GCC system_header
 #endif
 
-_LIBCPP_DISABLE_DEBUG_INFO
 _LIBCPP_BEGIN_NAMESPACE_STD
 
 #if _LIBCPP_STD_VER > 11
@@ -97,6 +96,5 @@ auto crend(const _Cp& __c) -> decltype(_VSTD::rend(__c))
 #endif // _LIBCPP_STD_VER > 11
 
 _LIBCPP_END_NAMESPACE_STD
-_LIBCPP_ENABLE_DEBUG_INFO
 
 #endif // _LIBCPP___ITERATOR_REVERSE_ACCESS_H

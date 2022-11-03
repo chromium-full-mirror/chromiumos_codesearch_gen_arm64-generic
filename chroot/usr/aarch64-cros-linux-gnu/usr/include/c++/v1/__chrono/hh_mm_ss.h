@@ -22,7 +22,6 @@
 
 #if _LIBCPP_STD_VER > 17
 
-_LIBCPP_DISABLE_DEBUG_INFO
 _LIBCPP_BEGIN_NAMESPACE_STD
 
 namespace chrono
@@ -107,7 +106,6 @@ _LIBCPP_HIDE_FROM_ABI constexpr hours make24(const hours& __h, bool __is_pm) noe
 } // namespace chrono
 
 _LIBCPP_END_NAMESPACE_STD
-_LIBCPP_ENABLE_DEBUG_INFO
 
 #endif // _LIBCPP_STD_VER > 17
 
