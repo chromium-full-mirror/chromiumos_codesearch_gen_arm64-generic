@@ -57,6 +57,40 @@ bool FilePath_Data::Validate(
 FilePath_Data::FilePath_Data()
     : header_({sizeof(*this), 0}) {}
 
+
+// static
+bool RelativeFilePath_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const RelativeFilePath_Data* object =
+      static_cast<const RelativeFilePath_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->path, 1, validation_context)) {
+    return false;
+  }
+  const mojo::internal::ContainerValidateParams path_validate_params(
+      0, false, nullptr);
+  if (!mojo::internal::ValidateContainer(object->path, validation_context,
+                                         &path_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+RelativeFilePath_Data::RelativeFilePath_Data()
+    : header_({sizeof(*this), 0}) {}
+
 }  // namespace internal
 }  // namespace mojom
 }  // namespace mojo_base

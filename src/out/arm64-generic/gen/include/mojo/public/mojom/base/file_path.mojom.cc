@@ -80,6 +80,38 @@ bool FilePath::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+RelativeFilePath::RelativeFilePath()
+    : path() {}
+
+RelativeFilePath::RelativeFilePath(
+    const std::string& path_in)
+    : path(std::move(path_in)) {}
+
+RelativeFilePath::~RelativeFilePath() = default;
+size_t RelativeFilePath::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->path);
+  return seed;
+}
+
+void RelativeFilePath::WriteIntoTrace(
+    perfetto_libchrome::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto_libchrome::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "path"), this->path,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool RelativeFilePath::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 
 
 }  // namespace mojom
@@ -95,6 +127,20 @@ bool StructTraits<::mojo_base::mojom::FilePath::DataView, ::mojo_base::mojom::Fi
     ::mojo_base::mojom::FilePathPtr* output) {
   bool success = true;
   ::mojo_base::mojom::FilePathPtr result(::mojo_base::mojom::FilePath::New());
+  
+      if (success && !input.ReadPath(&result->path))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::mojo_base::mojom::RelativeFilePath::DataView, ::mojo_base::mojom::RelativeFilePathPtr>::Read(
+    ::mojo_base::mojom::RelativeFilePath::DataView input,
+    ::mojo_base::mojom::RelativeFilePathPtr* output) {
+  bool success = true;
+  ::mojo_base::mojom::RelativeFilePathPtr result(::mojo_base::mojom::RelativeFilePath::New());
   
       if (success && !input.ReadPath(&result->path))
         success = false;
