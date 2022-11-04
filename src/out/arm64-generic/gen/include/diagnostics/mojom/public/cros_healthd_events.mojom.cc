@@ -21,6 +21,7 @@
 #include "base/strings/string_number_conversions.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
+#include "mojo/public/cpp/bindings/default_construct_traits.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
 #include "mojo/public/cpp/bindings/lib/send_message_helper.h"
@@ -2049,7 +2050,7 @@ bool CrosHealthdUsbObserverStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      UsbEventInfoPtr p_info{};
+      UsbEventInfoPtr p_info = mojo::DefaultConstructTraits::CreateInstance<UsbEventInfoPtr>();
       CrosHealthdUsbObserver_OnAdd_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadInfo(&p_info))
@@ -2075,7 +2076,7 @@ std::move(p_info));
               message->mutable_payload());
       
       bool success = true;
-      UsbEventInfoPtr p_info{};
+      UsbEventInfoPtr p_info = mojo::DefaultConstructTraits::CreateInstance<UsbEventInfoPtr>();
       CrosHealthdUsbObserver_OnRemove_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadInfo(&p_info))

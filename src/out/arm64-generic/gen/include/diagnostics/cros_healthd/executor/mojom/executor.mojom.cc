@@ -21,6 +21,7 @@
 #include "base/strings/string_number_conversions.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
+#include "mojo/public/cpp/bindings/default_construct_traits.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
 #include "mojo/public/cpp/bindings/lib/send_message_helper.h"
@@ -1308,7 +1309,7 @@ bool Executor_GetFanSpeed_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  ExecutedProcessResultPtr p_result{};
+  ExecutedProcessResultPtr p_result = mojo::DefaultConstructTraits::CreateInstance<ExecutedProcessResultPtr>();
   Executor_GetFanSpeed_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -1432,7 +1433,7 @@ bool Executor_GetInterfaces_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  ExecutedProcessResultPtr p_result{};
+  ExecutedProcessResultPtr p_result = mojo::DefaultConstructTraits::CreateInstance<ExecutedProcessResultPtr>();
   Executor_GetInterfaces_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -1556,7 +1557,7 @@ bool Executor_GetLink_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  ExecutedProcessResultPtr p_result{};
+  ExecutedProcessResultPtr p_result = mojo::DefaultConstructTraits::CreateInstance<ExecutedProcessResultPtr>();
   Executor_GetLink_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -1680,7 +1681,7 @@ bool Executor_GetInfo_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  ExecutedProcessResultPtr p_result{};
+  ExecutedProcessResultPtr p_result = mojo::DefaultConstructTraits::CreateInstance<ExecutedProcessResultPtr>();
   Executor_GetInfo_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -1804,7 +1805,7 @@ bool Executor_GetScanDump_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  ExecutedProcessResultPtr p_result{};
+  ExecutedProcessResultPtr p_result = mojo::DefaultConstructTraits::CreateInstance<ExecutedProcessResultPtr>();
   Executor_GetScanDump_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -1928,7 +1929,7 @@ bool Executor_RunMemtester_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  ExecutedProcessResultPtr p_result{};
+  ExecutedProcessResultPtr p_result = mojo::DefaultConstructTraits::CreateInstance<ExecutedProcessResultPtr>();
   Executor_RunMemtester_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -2052,7 +2053,7 @@ bool Executor_GetProcessIOContents_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  base::flat_map<uint32_t, std::string> p_contents{};
+  base::flat_map<uint32_t, std::string> p_contents = mojo::DefaultConstructTraits::CreateInstance<base::flat_map<uint32_t, std::string>>();
   Executor_GetProcessIOContents_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadContents(&p_contents))
@@ -2178,7 +2179,7 @@ bool Executor_ReadMsr_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  ::ash::cros_healthd::mojom::NullableUint64Ptr p_value{};
+  ::ash::cros_healthd::mojom::NullableUint64Ptr p_value = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::NullableUint64Ptr>();
   Executor_ReadMsr_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadValue(&p_value))
@@ -2298,7 +2299,7 @@ bool Executor_GetUEFISecureBootContent_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  std::string p_contents{};
+  std::string p_contents = mojo::DefaultConstructTraits::CreateInstance<std::string>();
   Executor_GetUEFISecureBootContent_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadContents(&p_contents))
@@ -2422,7 +2423,7 @@ bool Executor_GetUEFIPlatformSizeContent_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  std::string p_contents{};
+  std::string p_contents = mojo::DefaultConstructTraits::CreateInstance<std::string>();
   Executor_GetUEFIPlatformSizeContent_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadContents(&p_contents))
@@ -2546,7 +2547,7 @@ bool Executor_GetLidAngle_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  ExecutedProcessResultPtr p_result{};
+  ExecutedProcessResultPtr p_result = mojo::DefaultConstructTraits::CreateInstance<ExecutedProcessResultPtr>();
   Executor_GetLidAngle_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -2670,8 +2671,8 @@ bool Executor_GetFingerprintFrame_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  FingerprintFrameResultPtr p_result{};
-  absl::optional<std::string> p_err{};
+  FingerprintFrameResultPtr p_result = mojo::DefaultConstructTraits::CreateInstance<FingerprintFrameResultPtr>();
+  absl::optional<std::string> p_err = mojo::DefaultConstructTraits::CreateInstance<absl::optional<std::string>>();
   Executor_GetFingerprintFrame_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -2808,8 +2809,8 @@ bool Executor_GetFingerprintInfo_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  FingerprintInfoResultPtr p_result{};
-  absl::optional<std::string> p_err{};
+  FingerprintInfoResultPtr p_result = mojo::DefaultConstructTraits::CreateInstance<FingerprintInfoResultPtr>();
+  absl::optional<std::string> p_err = mojo::DefaultConstructTraits::CreateInstance<absl::optional<std::string>>();
   Executor_GetFingerprintInfo_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -3029,7 +3030,7 @@ bool ExecutorStubDispatch::AcceptWithResponder(
                   message->mutable_payload());
       
       bool success = true;
-      std::string p_interface_name{};
+      std::string p_interface_name = mojo::DefaultConstructTraits::CreateInstance<std::string>();
       Executor_GetLink_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadInterfaceName(&p_interface_name))
@@ -3058,7 +3059,7 @@ std::move(p_interface_name), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      std::string p_interface_name{};
+      std::string p_interface_name = mojo::DefaultConstructTraits::CreateInstance<std::string>();
       Executor_GetInfo_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadInterfaceName(&p_interface_name))
@@ -3087,7 +3088,7 @@ std::move(p_interface_name), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      std::string p_interface_name{};
+      std::string p_interface_name = mojo::DefaultConstructTraits::CreateInstance<std::string>();
       Executor_GetScanDump_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadInterfaceName(&p_interface_name))
@@ -3116,7 +3117,7 @@ std::move(p_interface_name), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      uint32_t p_test_mem_kib{};
+      uint32_t p_test_mem_kib = mojo::DefaultConstructTraits::CreateInstance<uint32_t>();
       Executor_RunMemtester_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -3148,7 +3149,7 @@ std::move(p_test_mem_kib), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      std::vector<uint32_t> p_pids{};
+      std::vector<uint32_t> p_pids = mojo::DefaultConstructTraits::CreateInstance<std::vector<uint32_t>>();
       Executor_GetProcessIOContents_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadPids(&p_pids))
@@ -3177,8 +3178,8 @@ std::move(p_pids), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      uint32_t p_msr_reg{};
-      uint32_t p_cpu_index{};
+      uint32_t p_msr_reg = mojo::DefaultConstructTraits::CreateInstance<uint32_t>();
+      uint32_t p_cpu_index = mojo::DefaultConstructTraits::CreateInstance<uint32_t>();
       Executor_ReadMsr_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -3285,7 +3286,7 @@ std::move(p_cpu_index), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      FingerprintCaptureType p_type{};
+      FingerprintCaptureType p_type = mojo::DefaultConstructTraits::CreateInstance<FingerprintCaptureType>();
       Executor_GetFingerprintFrame_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadType(&p_type))
@@ -3512,7 +3513,7 @@ void ExecutorAsyncWaiter::GetFanSpeed(
 
 ExecutedProcessResultPtr ExecutorAsyncWaiter::GetFanSpeed(
     ) {
-  ExecutedProcessResultPtr async_wait_result;
+  ExecutedProcessResultPtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<ExecutedProcessResultPtr>();
   GetFanSpeed(&async_wait_result);
   return async_wait_result;
 }
@@ -3535,7 +3536,7 @@ void ExecutorAsyncWaiter::GetInterfaces(
 
 ExecutedProcessResultPtr ExecutorAsyncWaiter::GetInterfaces(
     ) {
-  ExecutedProcessResultPtr async_wait_result;
+  ExecutedProcessResultPtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<ExecutedProcessResultPtr>();
   GetInterfaces(&async_wait_result);
   return async_wait_result;
 }
@@ -3558,7 +3559,7 @@ void ExecutorAsyncWaiter::GetLink(
 
 ExecutedProcessResultPtr ExecutorAsyncWaiter::GetLink(
     const std::string& interface_name) {
-  ExecutedProcessResultPtr async_wait_result;
+  ExecutedProcessResultPtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<ExecutedProcessResultPtr>();
   GetLink(std::move(interface_name),&async_wait_result);
   return async_wait_result;
 }
@@ -3581,7 +3582,7 @@ void ExecutorAsyncWaiter::GetInfo(
 
 ExecutedProcessResultPtr ExecutorAsyncWaiter::GetInfo(
     const std::string& interface_name) {
-  ExecutedProcessResultPtr async_wait_result;
+  ExecutedProcessResultPtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<ExecutedProcessResultPtr>();
   GetInfo(std::move(interface_name),&async_wait_result);
   return async_wait_result;
 }
@@ -3604,7 +3605,7 @@ void ExecutorAsyncWaiter::GetScanDump(
 
 ExecutedProcessResultPtr ExecutorAsyncWaiter::GetScanDump(
     const std::string& interface_name) {
-  ExecutedProcessResultPtr async_wait_result;
+  ExecutedProcessResultPtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<ExecutedProcessResultPtr>();
   GetScanDump(std::move(interface_name),&async_wait_result);
   return async_wait_result;
 }
@@ -3627,7 +3628,7 @@ void ExecutorAsyncWaiter::RunMemtester(
 
 ExecutedProcessResultPtr ExecutorAsyncWaiter::RunMemtester(
     uint32_t test_mem_kib) {
-  ExecutedProcessResultPtr async_wait_result;
+  ExecutedProcessResultPtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<ExecutedProcessResultPtr>();
   RunMemtester(std::move(test_mem_kib),&async_wait_result);
   return async_wait_result;
 }
@@ -3650,7 +3651,7 @@ void ExecutorAsyncWaiter::GetProcessIOContents(
 
 base::flat_map<uint32_t, std::string> ExecutorAsyncWaiter::GetProcessIOContents(
     const std::vector<uint32_t>& pids) {
-  base::flat_map<uint32_t, std::string> async_wait_result;
+  base::flat_map<uint32_t, std::string> async_wait_result = mojo::DefaultConstructTraits::CreateInstance<base::flat_map<uint32_t, std::string>>();
   GetProcessIOContents(std::move(pids),&async_wait_result);
   return async_wait_result;
 }
@@ -3673,7 +3674,7 @@ void ExecutorAsyncWaiter::ReadMsr(
 
 ::ash::cros_healthd::mojom::NullableUint64Ptr ExecutorAsyncWaiter::ReadMsr(
     uint32_t msr_reg, uint32_t cpu_index) {
-  ::ash::cros_healthd::mojom::NullableUint64Ptr async_wait_result;
+  ::ash::cros_healthd::mojom::NullableUint64Ptr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::NullableUint64Ptr>();
   ReadMsr(std::move(msr_reg),std::move(cpu_index),&async_wait_result);
   return async_wait_result;
 }
@@ -3696,7 +3697,7 @@ void ExecutorAsyncWaiter::GetUEFISecureBootContent(
 
 std::string ExecutorAsyncWaiter::GetUEFISecureBootContent(
     ) {
-  std::string async_wait_result;
+  std::string async_wait_result = mojo::DefaultConstructTraits::CreateInstance<std::string>();
   GetUEFISecureBootContent(&async_wait_result);
   return async_wait_result;
 }
@@ -3719,7 +3720,7 @@ void ExecutorAsyncWaiter::GetUEFIPlatformSizeContent(
 
 std::string ExecutorAsyncWaiter::GetUEFIPlatformSizeContent(
     ) {
-  std::string async_wait_result;
+  std::string async_wait_result = mojo::DefaultConstructTraits::CreateInstance<std::string>();
   GetUEFIPlatformSizeContent(&async_wait_result);
   return async_wait_result;
 }
@@ -3742,7 +3743,7 @@ void ExecutorAsyncWaiter::GetLidAngle(
 
 ExecutedProcessResultPtr ExecutorAsyncWaiter::GetLidAngle(
     ) {
-  ExecutedProcessResultPtr async_wait_result;
+  ExecutedProcessResultPtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<ExecutedProcessResultPtr>();
   GetLidAngle(&async_wait_result);
   return async_wait_result;
 }

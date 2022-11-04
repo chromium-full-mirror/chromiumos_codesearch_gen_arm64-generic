@@ -21,6 +21,7 @@
 #include "base/strings/string_number_conversions.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
+#include "mojo/public/cpp/bindings/default_construct_traits.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
 #include "mojo/public/cpp/bindings/lib/send_message_helper.h"
@@ -432,7 +433,7 @@ bool ChromiumDataCollector_GetTouchscreenDevices_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  std::vector<TouchscreenDevicePtr> p_devices{};
+  std::vector<TouchscreenDevicePtr> p_devices = mojo::DefaultConstructTraits::CreateInstance<std::vector<TouchscreenDevicePtr>>();
   ChromiumDataCollector_GetTouchscreenDevices_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadDevices(&p_devices))
@@ -558,7 +559,7 @@ bool ChromiumDataCollector_GetTouchpadLibraryName_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  std::string p_library_name{};
+  std::string p_library_name = mojo::DefaultConstructTraits::CreateInstance<std::string>();
   ChromiumDataCollector_GetTouchpadLibraryName_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadLibraryName(&p_library_name))
@@ -817,7 +818,7 @@ void ChromiumDataCollectorAsyncWaiter::GetTouchscreenDevices(
 
 std::vector<TouchscreenDevicePtr> ChromiumDataCollectorAsyncWaiter::GetTouchscreenDevices(
     ) {
-  std::vector<TouchscreenDevicePtr> async_wait_result;
+  std::vector<TouchscreenDevicePtr> async_wait_result = mojo::DefaultConstructTraits::CreateInstance<std::vector<TouchscreenDevicePtr>>();
   GetTouchscreenDevices(&async_wait_result);
   return async_wait_result;
 }
@@ -840,7 +841,7 @@ void ChromiumDataCollectorAsyncWaiter::GetTouchpadLibraryName(
 
 std::string ChromiumDataCollectorAsyncWaiter::GetTouchpadLibraryName(
     ) {
-  std::string async_wait_result;
+  std::string async_wait_result = mojo::DefaultConstructTraits::CreateInstance<std::string>();
   GetTouchpadLibraryName(&async_wait_result);
   return async_wait_result;
 }

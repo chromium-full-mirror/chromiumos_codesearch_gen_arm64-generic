@@ -21,6 +21,7 @@
 #include "base/strings/string_number_conversions.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
+#include "mojo/public/cpp/bindings/default_construct_traits.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
 #include "mojo/public/cpp/bindings/lib/send_message_helper.h"
@@ -1688,7 +1689,7 @@ bool NetworkDiagnosticsRoutines_GetResult_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  RoutineResultPtr p_result{};
+  RoutineResultPtr p_result = mojo::DefaultConstructTraits::CreateInstance<RoutineResultPtr>();
   NetworkDiagnosticsRoutines_GetResult_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -1808,7 +1809,7 @@ bool NetworkDiagnosticsRoutines_GetAllResults_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  base::flat_map<RoutineType, RoutineResultPtr> p_results{};
+  base::flat_map<RoutineType, RoutineResultPtr> p_results = mojo::DefaultConstructTraits::CreateInstance<base::flat_map<RoutineType, RoutineResultPtr>>();
   NetworkDiagnosticsRoutines_GetAllResults_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResults(&p_results))
@@ -1934,7 +1935,7 @@ bool NetworkDiagnosticsRoutines_RunLanConnectivity_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  RoutineResultPtr p_result{};
+  RoutineResultPtr p_result = mojo::DefaultConstructTraits::CreateInstance<RoutineResultPtr>();
   NetworkDiagnosticsRoutines_RunLanConnectivity_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -2058,7 +2059,7 @@ bool NetworkDiagnosticsRoutines_RunSignalStrength_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  RoutineResultPtr p_result{};
+  RoutineResultPtr p_result = mojo::DefaultConstructTraits::CreateInstance<RoutineResultPtr>();
   NetworkDiagnosticsRoutines_RunSignalStrength_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -2182,7 +2183,7 @@ bool NetworkDiagnosticsRoutines_RunGatewayCanBePinged_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  RoutineResultPtr p_result{};
+  RoutineResultPtr p_result = mojo::DefaultConstructTraits::CreateInstance<RoutineResultPtr>();
   NetworkDiagnosticsRoutines_RunGatewayCanBePinged_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -2306,7 +2307,7 @@ bool NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_ForwardToCallback::Ac
               message->mutable_payload());
   
   bool success = true;
-  RoutineResultPtr p_result{};
+  RoutineResultPtr p_result = mojo::DefaultConstructTraits::CreateInstance<RoutineResultPtr>();
   NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -2430,7 +2431,7 @@ bool NetworkDiagnosticsRoutines_RunDnsResolverPresent_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  RoutineResultPtr p_result{};
+  RoutineResultPtr p_result = mojo::DefaultConstructTraits::CreateInstance<RoutineResultPtr>();
   NetworkDiagnosticsRoutines_RunDnsResolverPresent_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -2554,7 +2555,7 @@ bool NetworkDiagnosticsRoutines_RunDnsLatency_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  RoutineResultPtr p_result{};
+  RoutineResultPtr p_result = mojo::DefaultConstructTraits::CreateInstance<RoutineResultPtr>();
   NetworkDiagnosticsRoutines_RunDnsLatency_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -2678,7 +2679,7 @@ bool NetworkDiagnosticsRoutines_RunDnsResolution_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  RoutineResultPtr p_result{};
+  RoutineResultPtr p_result = mojo::DefaultConstructTraits::CreateInstance<RoutineResultPtr>();
   NetworkDiagnosticsRoutines_RunDnsResolution_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -2802,7 +2803,7 @@ bool NetworkDiagnosticsRoutines_RunCaptivePortal_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  RoutineResultPtr p_result{};
+  RoutineResultPtr p_result = mojo::DefaultConstructTraits::CreateInstance<RoutineResultPtr>();
   NetworkDiagnosticsRoutines_RunCaptivePortal_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -2926,7 +2927,7 @@ bool NetworkDiagnosticsRoutines_RunHttpFirewall_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  RoutineResultPtr p_result{};
+  RoutineResultPtr p_result = mojo::DefaultConstructTraits::CreateInstance<RoutineResultPtr>();
   NetworkDiagnosticsRoutines_RunHttpFirewall_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -3050,7 +3051,7 @@ bool NetworkDiagnosticsRoutines_RunHttpsFirewall_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  RoutineResultPtr p_result{};
+  RoutineResultPtr p_result = mojo::DefaultConstructTraits::CreateInstance<RoutineResultPtr>();
   NetworkDiagnosticsRoutines_RunHttpsFirewall_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -3174,7 +3175,7 @@ bool NetworkDiagnosticsRoutines_RunHttpsLatency_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  RoutineResultPtr p_result{};
+  RoutineResultPtr p_result = mojo::DefaultConstructTraits::CreateInstance<RoutineResultPtr>();
   NetworkDiagnosticsRoutines_RunHttpsLatency_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -3298,7 +3299,7 @@ bool NetworkDiagnosticsRoutines_RunVideoConferencing_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  RoutineResultPtr p_result{};
+  RoutineResultPtr p_result = mojo::DefaultConstructTraits::CreateInstance<RoutineResultPtr>();
   NetworkDiagnosticsRoutines_RunVideoConferencing_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -3422,7 +3423,7 @@ bool NetworkDiagnosticsRoutines_RunArcHttp_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  RoutineResultPtr p_result{};
+  RoutineResultPtr p_result = mojo::DefaultConstructTraits::CreateInstance<RoutineResultPtr>();
   NetworkDiagnosticsRoutines_RunArcHttp_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -3546,7 +3547,7 @@ bool NetworkDiagnosticsRoutines_RunArcPing_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  RoutineResultPtr p_result{};
+  RoutineResultPtr p_result = mojo::DefaultConstructTraits::CreateInstance<RoutineResultPtr>();
   NetworkDiagnosticsRoutines_RunArcPing_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -3670,7 +3671,7 @@ bool NetworkDiagnosticsRoutines_RunArcDnsResolution_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  RoutineResultPtr p_result{};
+  RoutineResultPtr p_result = mojo::DefaultConstructTraits::CreateInstance<RoutineResultPtr>();
   NetworkDiagnosticsRoutines_RunArcDnsResolution_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -3817,7 +3818,7 @@ bool NetworkDiagnosticsRoutinesStubDispatch::AcceptWithResponder(
                   message->mutable_payload());
       
       bool success = true;
-      RoutineType p_routine{};
+      RoutineType p_routine = mojo::DefaultConstructTraits::CreateInstance<RoutineType>();
       NetworkDiagnosticsRoutines_GetResult_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadRoutine(&p_routine))
@@ -4146,7 +4147,7 @@ std::move(p_routine), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      absl::optional<std::string> p_stun_server_hostname{};
+      absl::optional<std::string> p_stun_server_hostname = mojo::DefaultConstructTraits::CreateInstance<absl::optional<std::string>>();
       NetworkDiagnosticsRoutines_RunVideoConferencing_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadStunServerHostname(&p_stun_server_hostname))
@@ -4608,7 +4609,7 @@ void NetworkDiagnosticsRoutinesAsyncWaiter::GetResult(
 
 RoutineResultPtr NetworkDiagnosticsRoutinesAsyncWaiter::GetResult(
     RoutineType routine) {
-  RoutineResultPtr async_wait_result;
+  RoutineResultPtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<RoutineResultPtr>();
   GetResult(std::move(routine),&async_wait_result);
   return async_wait_result;
 }
@@ -4631,7 +4632,7 @@ void NetworkDiagnosticsRoutinesAsyncWaiter::GetAllResults(
 
 base::flat_map<RoutineType, RoutineResultPtr> NetworkDiagnosticsRoutinesAsyncWaiter::GetAllResults(
     ) {
-  base::flat_map<RoutineType, RoutineResultPtr> async_wait_result;
+  base::flat_map<RoutineType, RoutineResultPtr> async_wait_result = mojo::DefaultConstructTraits::CreateInstance<base::flat_map<RoutineType, RoutineResultPtr>>();
   GetAllResults(&async_wait_result);
   return async_wait_result;
 }
@@ -4654,7 +4655,7 @@ void NetworkDiagnosticsRoutinesAsyncWaiter::RunLanConnectivity(
 
 RoutineResultPtr NetworkDiagnosticsRoutinesAsyncWaiter::RunLanConnectivity(
     ) {
-  RoutineResultPtr async_wait_result;
+  RoutineResultPtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<RoutineResultPtr>();
   RunLanConnectivity(&async_wait_result);
   return async_wait_result;
 }
@@ -4677,7 +4678,7 @@ void NetworkDiagnosticsRoutinesAsyncWaiter::RunSignalStrength(
 
 RoutineResultPtr NetworkDiagnosticsRoutinesAsyncWaiter::RunSignalStrength(
     ) {
-  RoutineResultPtr async_wait_result;
+  RoutineResultPtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<RoutineResultPtr>();
   RunSignalStrength(&async_wait_result);
   return async_wait_result;
 }
@@ -4700,7 +4701,7 @@ void NetworkDiagnosticsRoutinesAsyncWaiter::RunGatewayCanBePinged(
 
 RoutineResultPtr NetworkDiagnosticsRoutinesAsyncWaiter::RunGatewayCanBePinged(
     ) {
-  RoutineResultPtr async_wait_result;
+  RoutineResultPtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<RoutineResultPtr>();
   RunGatewayCanBePinged(&async_wait_result);
   return async_wait_result;
 }
@@ -4723,7 +4724,7 @@ void NetworkDiagnosticsRoutinesAsyncWaiter::RunHasSecureWiFiConnection(
 
 RoutineResultPtr NetworkDiagnosticsRoutinesAsyncWaiter::RunHasSecureWiFiConnection(
     ) {
-  RoutineResultPtr async_wait_result;
+  RoutineResultPtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<RoutineResultPtr>();
   RunHasSecureWiFiConnection(&async_wait_result);
   return async_wait_result;
 }
@@ -4746,7 +4747,7 @@ void NetworkDiagnosticsRoutinesAsyncWaiter::RunDnsResolverPresent(
 
 RoutineResultPtr NetworkDiagnosticsRoutinesAsyncWaiter::RunDnsResolverPresent(
     ) {
-  RoutineResultPtr async_wait_result;
+  RoutineResultPtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<RoutineResultPtr>();
   RunDnsResolverPresent(&async_wait_result);
   return async_wait_result;
 }
@@ -4769,7 +4770,7 @@ void NetworkDiagnosticsRoutinesAsyncWaiter::RunDnsLatency(
 
 RoutineResultPtr NetworkDiagnosticsRoutinesAsyncWaiter::RunDnsLatency(
     ) {
-  RoutineResultPtr async_wait_result;
+  RoutineResultPtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<RoutineResultPtr>();
   RunDnsLatency(&async_wait_result);
   return async_wait_result;
 }
@@ -4792,7 +4793,7 @@ void NetworkDiagnosticsRoutinesAsyncWaiter::RunDnsResolution(
 
 RoutineResultPtr NetworkDiagnosticsRoutinesAsyncWaiter::RunDnsResolution(
     ) {
-  RoutineResultPtr async_wait_result;
+  RoutineResultPtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<RoutineResultPtr>();
   RunDnsResolution(&async_wait_result);
   return async_wait_result;
 }
@@ -4815,7 +4816,7 @@ void NetworkDiagnosticsRoutinesAsyncWaiter::RunCaptivePortal(
 
 RoutineResultPtr NetworkDiagnosticsRoutinesAsyncWaiter::RunCaptivePortal(
     ) {
-  RoutineResultPtr async_wait_result;
+  RoutineResultPtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<RoutineResultPtr>();
   RunCaptivePortal(&async_wait_result);
   return async_wait_result;
 }
@@ -4838,7 +4839,7 @@ void NetworkDiagnosticsRoutinesAsyncWaiter::RunHttpFirewall(
 
 RoutineResultPtr NetworkDiagnosticsRoutinesAsyncWaiter::RunHttpFirewall(
     ) {
-  RoutineResultPtr async_wait_result;
+  RoutineResultPtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<RoutineResultPtr>();
   RunHttpFirewall(&async_wait_result);
   return async_wait_result;
 }
@@ -4861,7 +4862,7 @@ void NetworkDiagnosticsRoutinesAsyncWaiter::RunHttpsFirewall(
 
 RoutineResultPtr NetworkDiagnosticsRoutinesAsyncWaiter::RunHttpsFirewall(
     ) {
-  RoutineResultPtr async_wait_result;
+  RoutineResultPtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<RoutineResultPtr>();
   RunHttpsFirewall(&async_wait_result);
   return async_wait_result;
 }
@@ -4884,7 +4885,7 @@ void NetworkDiagnosticsRoutinesAsyncWaiter::RunHttpsLatency(
 
 RoutineResultPtr NetworkDiagnosticsRoutinesAsyncWaiter::RunHttpsLatency(
     ) {
-  RoutineResultPtr async_wait_result;
+  RoutineResultPtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<RoutineResultPtr>();
   RunHttpsLatency(&async_wait_result);
   return async_wait_result;
 }
@@ -4907,7 +4908,7 @@ void NetworkDiagnosticsRoutinesAsyncWaiter::RunVideoConferencing(
 
 RoutineResultPtr NetworkDiagnosticsRoutinesAsyncWaiter::RunVideoConferencing(
     const absl::optional<std::string>& stun_server_hostname) {
-  RoutineResultPtr async_wait_result;
+  RoutineResultPtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<RoutineResultPtr>();
   RunVideoConferencing(std::move(stun_server_hostname),&async_wait_result);
   return async_wait_result;
 }
@@ -4930,7 +4931,7 @@ void NetworkDiagnosticsRoutinesAsyncWaiter::RunArcHttp(
 
 RoutineResultPtr NetworkDiagnosticsRoutinesAsyncWaiter::RunArcHttp(
     ) {
-  RoutineResultPtr async_wait_result;
+  RoutineResultPtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<RoutineResultPtr>();
   RunArcHttp(&async_wait_result);
   return async_wait_result;
 }
@@ -4953,7 +4954,7 @@ void NetworkDiagnosticsRoutinesAsyncWaiter::RunArcPing(
 
 RoutineResultPtr NetworkDiagnosticsRoutinesAsyncWaiter::RunArcPing(
     ) {
-  RoutineResultPtr async_wait_result;
+  RoutineResultPtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<RoutineResultPtr>();
   RunArcPing(&async_wait_result);
   return async_wait_result;
 }
@@ -4976,7 +4977,7 @@ void NetworkDiagnosticsRoutinesAsyncWaiter::RunArcDnsResolution(
 
 RoutineResultPtr NetworkDiagnosticsRoutinesAsyncWaiter::RunArcDnsResolution(
     ) {
-  RoutineResultPtr async_wait_result;
+  RoutineResultPtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<RoutineResultPtr>();
   RunArcDnsResolution(&async_wait_result);
   return async_wait_result;
 }

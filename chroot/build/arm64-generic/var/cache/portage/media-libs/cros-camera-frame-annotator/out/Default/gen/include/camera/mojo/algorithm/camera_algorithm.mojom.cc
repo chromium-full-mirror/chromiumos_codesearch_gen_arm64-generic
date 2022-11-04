@@ -21,6 +21,7 @@
 #include "base/strings/string_number_conversions.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
+#include "mojo/public/cpp/bindings/default_construct_traits.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
 #include "mojo/public/cpp/bindings/lib/send_message_helper.h"
@@ -570,7 +571,7 @@ bool CameraAlgorithmOps_Initialize_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  int32_t p_result{};
+  int32_t p_result = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
   CameraAlgorithmOps_Initialize_ResponseParamsDataView input_data_view(params, message);
   
   if (success)
@@ -684,7 +685,7 @@ bool CameraAlgorithmOps_RegisterBuffer_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  int32_t p_result{};
+  int32_t p_result = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
   CameraAlgorithmOps_RegisterBuffer_ResponseParamsDataView input_data_view(params, message);
   
   if (success)
@@ -763,9 +764,9 @@ bool CameraAlgorithmOpsStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      uint32_t p_req_id{};
-      std::vector<uint8_t> p_req_header{};
-      int32_t p_buffer_handle{};
+      uint32_t p_req_id = mojo::DefaultConstructTraits::CreateInstance<uint32_t>();
+      std::vector<uint8_t> p_req_header = mojo::DefaultConstructTraits::CreateInstance<std::vector<uint8_t>>();
+      int32_t p_buffer_handle = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
       CameraAlgorithmOps_Request_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -797,7 +798,7 @@ std::move(p_buffer_handle));
               message->mutable_payload());
       
       bool success = true;
-      std::vector<int32_t> p_buffer_handles{};
+      std::vector<int32_t> p_buffer_handles = mojo::DefaultConstructTraits::CreateInstance<std::vector<int32_t>>();
       CameraAlgorithmOps_DeregisterBuffers_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadBufferHandles(&p_buffer_handles))
@@ -823,9 +824,9 @@ std::move(p_buffer_handles));
               message->mutable_payload());
       
       bool success = true;
-      uint32_t p_upd_id{};
-      uint32_t p_status{};
-      ::mojo::ScopedHandle p_buffer_fd{};
+      uint32_t p_upd_id = mojo::DefaultConstructTraits::CreateInstance<uint32_t>();
+      uint32_t p_status = mojo::DefaultConstructTraits::CreateInstance<uint32_t>();
+      ::mojo::ScopedHandle p_buffer_fd = mojo::DefaultConstructTraits::CreateInstance<::mojo::ScopedHandle>();
       CameraAlgorithmOps_UpdateReturn_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -892,7 +893,7 @@ bool CameraAlgorithmOpsStubDispatch::AcceptWithResponder(
                   message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingRemote<CameraAlgorithmCallbackOps> p_callbacks{};
+      ::mojo::PendingRemote<CameraAlgorithmCallbackOps> p_callbacks = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingRemote<CameraAlgorithmCallbackOps>>();
       CameraAlgorithmOps_Initialize_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -923,7 +924,7 @@ std::move(p_callbacks), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      ::mojo::ScopedHandle p_buffer_fd{};
+      ::mojo::ScopedHandle p_buffer_fd = mojo::DefaultConstructTraits::CreateInstance<::mojo::ScopedHandle>();
       CameraAlgorithmOps_RegisterBuffer_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -1186,9 +1187,9 @@ bool CameraAlgorithmCallbackOpsStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      uint32_t p_req_id{};
-      uint32_t p_status{};
-      int32_t p_buffer_handle{};
+      uint32_t p_req_id = mojo::DefaultConstructTraits::CreateInstance<uint32_t>();
+      uint32_t p_status = mojo::DefaultConstructTraits::CreateInstance<uint32_t>();
+      int32_t p_buffer_handle = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
       CameraAlgorithmCallbackOps_Return_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -1220,9 +1221,9 @@ std::move(p_buffer_handle));
               message->mutable_payload());
       
       bool success = true;
-      uint32_t p_upd_id{};
-      std::vector<uint8_t> p_upd_header{};
-      ::mojo::ScopedHandle p_buffer_fd{};
+      uint32_t p_upd_id = mojo::DefaultConstructTraits::CreateInstance<uint32_t>();
+      std::vector<uint8_t> p_upd_header = mojo::DefaultConstructTraits::CreateInstance<std::vector<uint8_t>>();
+      ::mojo::ScopedHandle p_buffer_fd = mojo::DefaultConstructTraits::CreateInstance<::mojo::ScopedHandle>();
       CameraAlgorithmCallbackOps_Update_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -1342,7 +1343,7 @@ void CameraAlgorithmOpsAsyncWaiter::Initialize(
 
 int32_t CameraAlgorithmOpsAsyncWaiter::Initialize(
     ::mojo::PendingRemote<CameraAlgorithmCallbackOps> callbacks) {
-  int32_t async_wait_result;
+  int32_t async_wait_result = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
   Initialize(std::move(callbacks),&async_wait_result);
   return async_wait_result;
 }
@@ -1365,7 +1366,7 @@ void CameraAlgorithmOpsAsyncWaiter::RegisterBuffer(
 
 int32_t CameraAlgorithmOpsAsyncWaiter::RegisterBuffer(
     ::mojo::ScopedHandle buffer_fd) {
-  int32_t async_wait_result;
+  int32_t async_wait_result = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
   RegisterBuffer(std::move(buffer_fd),&async_wait_result);
   return async_wait_result;
 }

@@ -1005,6 +1005,7 @@ class  RunInput {
         "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
         "an empty union, mark the field or parameter as nullable in the mojom "
         "definition.");
+    return nullptr;
   }
   // Construct an instance holding |query_version|.
   static RunInputPtr
@@ -1131,6 +1132,7 @@ class  RunOutput {
         "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
         "an empty union, mark the field or parameter as nullable in the mojom "
         "definition.");
+    return nullptr;
   }
   // Construct an instance holding |query_version_result|.
   static RunOutputPtr
@@ -1236,6 +1238,7 @@ class  RunOrClosePipeInput {
         "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
         "an empty union, mark the field or parameter as nullable in the mojom "
         "definition.");
+    return nullptr;
   }
   // Construct an instance holding |require_version|.
   static RunOrClosePipeInputPtr

@@ -21,6 +21,7 @@
 #include "base/strings/string_number_conversions.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
+#include "mojo/public/cpp/bindings/default_construct_traits.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
 #include "mojo/public/cpp/bindings/lib/send_message_helper.h"
@@ -590,7 +591,7 @@ bool HandwritingRecognizer_GetPrediction_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  absl::optional<std::vector<HandwritingPredictionPtr>> p_prediction{};
+  absl::optional<std::vector<HandwritingPredictionPtr>> p_prediction = mojo::DefaultConstructTraits::CreateInstance<absl::optional<std::vector<HandwritingPredictionPtr>>>();
   HandwritingRecognizer_GetPrediction_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadPrediction(&p_prediction))
@@ -687,8 +688,8 @@ bool HandwritingRecognizerStubDispatch::AcceptWithResponder(
                   message->mutable_payload());
       
       bool success = true;
-      std::vector<HandwritingStrokePtr> p_strokes{};
-      HandwritingHintsPtr p_hints{};
+      std::vector<HandwritingStrokePtr> p_strokes = mojo::DefaultConstructTraits::CreateInstance<std::vector<HandwritingStrokePtr>>();
+      HandwritingHintsPtr p_hints = mojo::DefaultConstructTraits::CreateInstance<HandwritingHintsPtr>();
       HandwritingRecognizer_GetPrediction_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadStrokes(&p_strokes))
@@ -900,7 +901,7 @@ void HandwritingRecognizerAsyncWaiter::GetPrediction(
 
 absl::optional<std::vector<HandwritingPredictionPtr>> HandwritingRecognizerAsyncWaiter::GetPrediction(
     std::vector<HandwritingStrokePtr> strokes, HandwritingHintsPtr hints) {
-  absl::optional<std::vector<HandwritingPredictionPtr>> async_wait_result;
+  absl::optional<std::vector<HandwritingPredictionPtr>> async_wait_result = mojo::DefaultConstructTraits::CreateInstance<absl::optional<std::vector<HandwritingPredictionPtr>>>();
   GetPrediction(std::move(strokes),std::move(hints),&async_wait_result);
   return async_wait_result;
 }

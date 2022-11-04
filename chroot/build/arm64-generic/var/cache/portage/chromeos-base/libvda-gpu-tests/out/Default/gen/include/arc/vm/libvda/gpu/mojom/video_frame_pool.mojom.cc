@@ -21,6 +21,7 @@
 #include "base/strings/string_number_conversions.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
+#include "mojo/public/cpp/bindings/default_construct_traits.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
 #include "mojo/public/cpp/bindings/lib/send_message_helper.h"
@@ -377,7 +378,7 @@ bool VideoFramePool_AddVideoFrame_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  bool p_result{};
+  bool p_result = mojo::DefaultConstructTraits::CreateInstance<bool>();
   VideoFramePool_AddVideoFrame_ResponseParamsDataView input_data_view(params, message);
   
   if (success)
@@ -450,7 +451,7 @@ bool VideoFramePoolStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingAssociatedRemote<VideoFramePoolClient> p_client{};
+      ::mojo::PendingAssociatedRemote<VideoFramePoolClient> p_client = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingAssociatedRemote<VideoFramePoolClient>>();
       VideoFramePool_Initialize_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -497,7 +498,7 @@ bool VideoFramePoolStubDispatch::AcceptWithResponder(
                   message->mutable_payload());
       
       bool success = true;
-      VideoFramePtr p_video_frame{};
+      VideoFramePtr p_video_frame = mojo::DefaultConstructTraits::CreateInstance<VideoFramePtr>();
       VideoFramePool_AddVideoFrame_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadVideoFrame(&p_video_frame))
@@ -682,10 +683,10 @@ bool VideoFramePoolClientStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      ::arc::mojom::VideoPixelFormat p_format{};
-      ::arc::mojom::SizePtr p_coded_size{};
-      ::arc::mojom::RectPtr p_visible_rect{};
-      uint32_t p_num_frames{};
+      ::arc::mojom::VideoPixelFormat p_format = mojo::DefaultConstructTraits::CreateInstance<::arc::mojom::VideoPixelFormat>();
+      ::arc::mojom::SizePtr p_coded_size = mojo::DefaultConstructTraits::CreateInstance<::arc::mojom::SizePtr>();
+      ::arc::mojom::RectPtr p_visible_rect = mojo::DefaultConstructTraits::CreateInstance<::arc::mojom::RectPtr>();
+      uint32_t p_num_frames = mojo::DefaultConstructTraits::CreateInstance<uint32_t>();
       VideoFramePoolClient_RequestVideoFrames_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadFormat(&p_format))
@@ -815,7 +816,7 @@ void VideoFramePoolAsyncWaiter::AddVideoFrame(
 
 bool VideoFramePoolAsyncWaiter::AddVideoFrame(
     VideoFramePtr video_frame) {
-  bool async_wait_result;
+  bool async_wait_result = mojo::DefaultConstructTraits::CreateInstance<bool>();
   AddVideoFrame(std::move(video_frame),&async_wait_result);
   return async_wait_result;
 }

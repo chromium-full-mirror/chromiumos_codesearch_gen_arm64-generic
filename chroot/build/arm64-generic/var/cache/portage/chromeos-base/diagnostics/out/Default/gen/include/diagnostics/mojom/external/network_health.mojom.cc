@@ -21,6 +21,7 @@
 #include "base/strings/string_number_conversions.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
+#include "mojo/public/cpp/bindings/default_construct_traits.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
 #include "mojo/public/cpp/bindings/lib/send_message_helper.h"
@@ -525,8 +526,8 @@ bool NetworkEventsObserverStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      std::string p_guid{};
-      NetworkState p_state{};
+      std::string p_guid = mojo::DefaultConstructTraits::CreateInstance<std::string>();
+      NetworkState p_state = mojo::DefaultConstructTraits::CreateInstance<NetworkState>();
       NetworkEventsObserver_OnConnectionStateChanged_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadGuid(&p_guid))
@@ -555,8 +556,8 @@ std::move(p_state));
               message->mutable_payload());
       
       bool success = true;
-      std::string p_guid{};
-      UInt32ValuePtr p_signal_strength{};
+      std::string p_guid = mojo::DefaultConstructTraits::CreateInstance<std::string>();
+      UInt32ValuePtr p_signal_strength = mojo::DefaultConstructTraits::CreateInstance<UInt32ValuePtr>();
       NetworkEventsObserver_OnSignalStrengthChanged_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadGuid(&p_guid))
@@ -903,7 +904,7 @@ bool NetworkHealthService_GetNetworkList_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  std::vector<NetworkPtr> p_networks{};
+  std::vector<NetworkPtr> p_networks = mojo::DefaultConstructTraits::CreateInstance<std::vector<NetworkPtr>>();
   NetworkHealthService_GetNetworkList_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadNetworks(&p_networks))
@@ -1029,7 +1030,7 @@ bool NetworkHealthService_GetHealthSnapshot_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  NetworkHealthStatePtr p_state{};
+  NetworkHealthStatePtr p_state = mojo::DefaultConstructTraits::CreateInstance<NetworkHealthStatePtr>();
   NetworkHealthService_GetHealthSnapshot_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadState(&p_state))
@@ -1112,7 +1113,7 @@ bool NetworkHealthServiceStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingRemote<NetworkEventsObserver> p_observer{};
+      ::mojo::PendingRemote<NetworkEventsObserver> p_observer = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingRemote<NetworkEventsObserver>>();
       NetworkHealthService_AddObserver_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -1372,7 +1373,7 @@ void NetworkHealthServiceAsyncWaiter::GetNetworkList(
 
 std::vector<NetworkPtr> NetworkHealthServiceAsyncWaiter::GetNetworkList(
     ) {
-  std::vector<NetworkPtr> async_wait_result;
+  std::vector<NetworkPtr> async_wait_result = mojo::DefaultConstructTraits::CreateInstance<std::vector<NetworkPtr>>();
   GetNetworkList(&async_wait_result);
   return async_wait_result;
 }
@@ -1395,7 +1396,7 @@ void NetworkHealthServiceAsyncWaiter::GetHealthSnapshot(
 
 NetworkHealthStatePtr NetworkHealthServiceAsyncWaiter::GetHealthSnapshot(
     ) {
-  NetworkHealthStatePtr async_wait_result;
+  NetworkHealthStatePtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<NetworkHealthStatePtr>();
   GetHealthSnapshot(&async_wait_result);
   return async_wait_result;
 }

@@ -21,6 +21,7 @@
 #include "base/strings/string_number_conversions.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
+#include "mojo/public/cpp/bindings/default_construct_traits.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
 #include "mojo/public/cpp/bindings/lib/send_message_helper.h"
@@ -560,8 +561,8 @@ bool SmbFsBootstrap_MountShare_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  MountError p_error{};
-  ::mojo::PendingRemote<SmbFs> p_smbfs{};
+  MountError p_error = mojo::DefaultConstructTraits::CreateInstance<MountError>();
+  ::mojo::PendingRemote<SmbFs> p_smbfs = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingRemote<SmbFs>>();
   SmbFsBootstrap_MountShare_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadError(&p_error))
@@ -661,8 +662,8 @@ bool SmbFsBootstrapStubDispatch::AcceptWithResponder(
                   message->mutable_payload());
       
       bool success = true;
-      MountOptionsPtr p_options{};
-      ::mojo::PendingRemote<SmbFsDelegate> p_delegate{};
+      MountOptionsPtr p_options = mojo::DefaultConstructTraits::CreateInstance<MountOptionsPtr>();
+      ::mojo::PendingRemote<SmbFsDelegate> p_delegate = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingRemote<SmbFsDelegate>>();
       SmbFsBootstrap_MountShare_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadOptions(&p_options))
@@ -952,7 +953,7 @@ bool SmbFs_RemoveSavedCredentials_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  bool p_success{};
+  bool p_success = mojo::DefaultConstructTraits::CreateInstance<bool>();
   SmbFs_RemoveSavedCredentials_ResponseParamsDataView input_data_view(params, message);
   
   if (success)
@@ -1066,7 +1067,7 @@ bool SmbFs_DeleteRecursively_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  DeleteRecursivelyError p_error{};
+  DeleteRecursivelyError p_error = mojo::DefaultConstructTraits::CreateInstance<DeleteRecursivelyError>();
   SmbFs_DeleteRecursively_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadError(&p_error))
@@ -1184,7 +1185,7 @@ bool SmbFsStubDispatch::AcceptWithResponder(
                   message->mutable_payload());
       
       bool success = true;
-      base::FilePath p_path{};
+      base::FilePath p_path = mojo::DefaultConstructTraits::CreateInstance<base::FilePath>();
       SmbFs_DeleteRecursively_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadPath(&p_path))
@@ -1386,7 +1387,7 @@ bool SmbFsDelegate_RequestCredentials_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  CredentialsPtr p_credentials{};
+  CredentialsPtr p_credentials = mojo::DefaultConstructTraits::CreateInstance<CredentialsPtr>();
   SmbFsDelegate_RequestCredentials_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadCredentials(&p_credentials))
@@ -1694,7 +1695,7 @@ void SmbFsAsyncWaiter::RemoveSavedCredentials(
 
 bool SmbFsAsyncWaiter::RemoveSavedCredentials(
     ) {
-  bool async_wait_result;
+  bool async_wait_result = mojo::DefaultConstructTraits::CreateInstance<bool>();
   RemoveSavedCredentials(&async_wait_result);
   return async_wait_result;
 }
@@ -1717,7 +1718,7 @@ void SmbFsAsyncWaiter::DeleteRecursively(
 
 DeleteRecursivelyError SmbFsAsyncWaiter::DeleteRecursively(
     const base::FilePath& path) {
-  DeleteRecursivelyError async_wait_result;
+  DeleteRecursivelyError async_wait_result = mojo::DefaultConstructTraits::CreateInstance<DeleteRecursivelyError>();
   DeleteRecursively(std::move(path),&async_wait_result);
   return async_wait_result;
 }
@@ -1751,7 +1752,7 @@ void SmbFsDelegateAsyncWaiter::RequestCredentials(
 
 CredentialsPtr SmbFsDelegateAsyncWaiter::RequestCredentials(
     ) {
-  CredentialsPtr async_wait_result;
+  CredentialsPtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<CredentialsPtr>();
   RequestCredentials(&async_wait_result);
   return async_wait_result;
 }

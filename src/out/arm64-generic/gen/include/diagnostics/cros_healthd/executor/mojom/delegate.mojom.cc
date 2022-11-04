@@ -21,6 +21,7 @@
 #include "base/strings/string_number_conversions.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
+#include "mojo/public/cpp/bindings/default_construct_traits.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
 #include "mojo/public/cpp/bindings/lib/send_message_helper.h"
@@ -285,8 +286,8 @@ bool Delegate_GetFingerprintFrame_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  ::ash::cros_healthd::mojom::FingerprintFrameResultPtr p_result{};
-  absl::optional<std::string> p_err{};
+  ::ash::cros_healthd::mojom::FingerprintFrameResultPtr p_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::FingerprintFrameResultPtr>();
+  absl::optional<std::string> p_err = mojo::DefaultConstructTraits::CreateInstance<absl::optional<std::string>>();
   Delegate_GetFingerprintFrame_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -423,8 +424,8 @@ bool Delegate_GetFingerprintInfo_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  ::ash::cros_healthd::mojom::FingerprintInfoResultPtr p_result{};
-  absl::optional<std::string> p_err{};
+  ::ash::cros_healthd::mojom::FingerprintInfoResultPtr p_result = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::FingerprintInfoResultPtr>();
+  absl::optional<std::string> p_err = mojo::DefaultConstructTraits::CreateInstance<absl::optional<std::string>>();
   Delegate_GetFingerprintInfo_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -539,7 +540,7 @@ bool DelegateStubDispatch::AcceptWithResponder(
                   message->mutable_payload());
       
       bool success = true;
-      ::ash::cros_healthd::mojom::FingerprintCaptureType p_type{};
+      ::ash::cros_healthd::mojom::FingerprintCaptureType p_type = mojo::DefaultConstructTraits::CreateInstance<::ash::cros_healthd::mojom::FingerprintCaptureType>();
       Delegate_GetFingerprintFrame_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadType(&p_type))

@@ -3111,6 +3111,7 @@ class  ProcessResult {
         "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
         "an empty union, mark the field or parameter as nullable in the mojom "
         "definition.");
+    return nullptr;
   }
   // Construct an instance holding |process_info|.
   static ProcessResultPtr
@@ -3236,6 +3237,7 @@ class  BatteryResult {
         "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
         "an empty union, mark the field or parameter as nullable in the mojom "
         "definition.");
+    return nullptr;
   }
   // Construct an instance holding |battery_info|.
   static BatteryResultPtr
@@ -3361,6 +3363,7 @@ class  NonRemovableBlockDeviceResult {
         "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
         "an empty union, mark the field or parameter as nullable in the mojom "
         "definition.");
+    return nullptr;
   }
   // Construct an instance holding |block_device_info|.
   static NonRemovableBlockDeviceResultPtr
@@ -3486,6 +3489,7 @@ class  BlockDeviceVendor {
         "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
         "an empty union, mark the field or parameter as nullable in the mojom "
         "definition.");
+    return nullptr;
   }
   // Construct an instance holding |nvme_subsystem_vendor|.
   static BlockDeviceVendorPtr
@@ -3675,6 +3679,7 @@ class  BlockDeviceProduct {
         "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
         "an empty union, mark the field or parameter as nullable in the mojom "
         "definition.");
+    return nullptr;
   }
   // Construct an instance holding |nvme_subsystem_device|.
   static BlockDeviceProductPtr
@@ -3843,6 +3848,7 @@ class  BlockDeviceRevision {
         "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
         "an empty union, mark the field or parameter as nullable in the mojom "
         "definition.");
+    return nullptr;
   }
   // Construct an instance holding |nvme_pcie_rev|.
   static BlockDeviceRevisionPtr
@@ -4011,6 +4017,7 @@ class  BlockDeviceFirmware {
         "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
         "an empty union, mark the field or parameter as nullable in the mojom "
         "definition.");
+    return nullptr;
   }
   // Construct an instance holding |nvme_firmware_rev|.
   static BlockDeviceFirmwarePtr
@@ -4200,6 +4207,7 @@ class  CpuResult {
         "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
         "an empty union, mark the field or parameter as nullable in the mojom "
         "definition.");
+    return nullptr;
   }
   // Construct an instance holding |cpu_info|.
   static CpuResultPtr
@@ -4325,6 +4333,7 @@ class  TimezoneResult {
         "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
         "an empty union, mark the field or parameter as nullable in the mojom "
         "definition.");
+    return nullptr;
   }
   // Construct an instance holding |timezone_info|.
   static TimezoneResultPtr
@@ -4451,6 +4460,7 @@ class  MemoryResult {
         "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
         "an empty union, mark the field or parameter as nullable in the mojom "
         "definition.");
+    return nullptr;
   }
   // Construct an instance holding |memory_info|.
   static MemoryResultPtr
@@ -4576,6 +4586,7 @@ class  BacklightResult {
         "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
         "an empty union, mark the field or parameter as nullable in the mojom "
         "definition.");
+    return nullptr;
   }
   // Construct an instance holding |backlight_info|.
   static BacklightResultPtr
@@ -4701,6 +4712,7 @@ class  FanResult {
         "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
         "an empty union, mark the field or parameter as nullable in the mojom "
         "definition.");
+    return nullptr;
   }
   // Construct an instance holding |fan_info|.
   static FanResultPtr
@@ -4826,6 +4838,7 @@ class  StatefulPartitionResult {
         "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
         "an empty union, mark the field or parameter as nullable in the mojom "
         "definition.");
+    return nullptr;
   }
   // Construct an instance holding |partition_info|.
   static StatefulPartitionResultPtr
@@ -4952,6 +4965,7 @@ class  BluetoothResult {
         "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
         "an empty union, mark the field or parameter as nullable in the mojom "
         "definition.");
+    return nullptr;
   }
   // Construct an instance holding |bluetooth_adapter_info|.
   static BluetoothResultPtr
@@ -5077,6 +5091,7 @@ class  DEPRECATE_SystemResult {
         "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
         "an empty union, mark the field or parameter as nullable in the mojom "
         "definition.");
+    return nullptr;
   }
   // Construct an instance holding |error|.
   static DEPRECATE_SystemResultPtr
@@ -5182,6 +5197,7 @@ class  SystemResult {
         "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
         "an empty union, mark the field or parameter as nullable in the mojom "
         "definition.");
+    return nullptr;
   }
   // Construct an instance holding |system_info|.
   static SystemResultPtr
@@ -5307,6 +5323,7 @@ class  NetworkResult {
         "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
         "an empty union, mark the field or parameter as nullable in the mojom "
         "definition.");
+    return nullptr;
   }
   // Construct an instance holding |network_health|.
   static NetworkResultPtr
@@ -5432,6 +5449,7 @@ class  NetworkInterfaceResult {
         "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
         "an empty union, mark the field or parameter as nullable in the mojom "
         "definition.");
+    return nullptr;
   }
   // Construct an instance holding |network_interface_info|.
   static NetworkInterfaceResultPtr
@@ -5557,6 +5575,7 @@ class  NetworkInterfaceInfo {
         "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
         "an empty union, mark the field or parameter as nullable in the mojom "
         "definition.");
+    return nullptr;
   }
   // Construct an instance holding |wireless_interface_info|.
   static NetworkInterfaceInfoPtr
@@ -5661,6 +5680,7 @@ class  AudioResult {
         "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
         "an empty union, mark the field or parameter as nullable in the mojom "
         "definition.");
+    return nullptr;
   }
   // Construct an instance holding |audio_info|.
   static AudioResultPtr
@@ -5787,6 +5807,7 @@ class  AudioHardwareResult {
         "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
         "an empty union, mark the field or parameter as nullable in the mojom "
         "definition.");
+    return nullptr;
   }
   // Construct an instance holding |audio_hardware_info|.
   static AudioHardwareResultPtr
@@ -5912,6 +5933,7 @@ class  BootPerformanceResult {
         "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
         "an empty union, mark the field or parameter as nullable in the mojom "
         "definition.");
+    return nullptr;
   }
   // Construct an instance holding |boot_performance_info|.
   static BootPerformanceResultPtr
@@ -6038,6 +6060,7 @@ class  BusResult {
         "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
         "an empty union, mark the field or parameter as nullable in the mojom "
         "definition.");
+    return nullptr;
   }
   // Construct an instance holding |bus_devices|.
   static BusResultPtr
@@ -6163,6 +6186,7 @@ class  BusInfo {
         "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
         "an empty union, mark the field or parameter as nullable in the mojom "
         "definition.");
+    return nullptr;
   }
   // Construct an instance holding |pci_bus_info|.
   static BusInfoPtr
@@ -6330,6 +6354,7 @@ class  TpmResult {
         "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
         "an empty union, mark the field or parameter as nullable in the mojom "
         "definition.");
+    return nullptr;
   }
   // Construct an instance holding |tpm_info|.
   static TpmResultPtr
@@ -6455,6 +6480,7 @@ class  GraphicsResult {
         "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
         "an empty union, mark the field or parameter as nullable in the mojom "
         "definition.");
+    return nullptr;
   }
   // Construct an instance holding |graphics_info|.
   static GraphicsResultPtr
@@ -6580,6 +6606,7 @@ class  DisplayResult {
         "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
         "an empty union, mark the field or parameter as nullable in the mojom "
         "definition.");
+    return nullptr;
   }
   // Construct an instance holding |display_info|.
   static DisplayResultPtr
@@ -6705,6 +6732,7 @@ class  InputResult {
         "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
         "an empty union, mark the field or parameter as nullable in the mojom "
         "definition.");
+    return nullptr;
   }
   // Construct an instance holding |input_info|.
   static InputResultPtr
@@ -6830,6 +6858,7 @@ class  SensorResult {
         "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
         "an empty union, mark the field or parameter as nullable in the mojom "
         "definition.");
+    return nullptr;
   }
   // Construct an instance holding |sensor_info|.
   static SensorResultPtr

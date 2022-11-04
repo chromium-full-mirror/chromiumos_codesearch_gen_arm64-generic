@@ -21,6 +21,7 @@
 #include "base/strings/string_number_conversions.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
+#include "mojo/public/cpp/bindings/default_construct_traits.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
 #include "mojo/public/cpp/bindings/lib/send_message_helper.h"
@@ -1213,7 +1214,7 @@ bool MachineLearningService_LoadBuiltinModel_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  LoadModelResult p_result{};
+  LoadModelResult p_result = mojo::DefaultConstructTraits::CreateInstance<LoadModelResult>();
   MachineLearningService_LoadBuiltinModel_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -1328,7 +1329,7 @@ bool MachineLearningService_LoadFlatBufferModel_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  LoadModelResult p_result{};
+  LoadModelResult p_result = mojo::DefaultConstructTraits::CreateInstance<LoadModelResult>();
   MachineLearningService_LoadFlatBufferModel_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -1443,7 +1444,7 @@ bool MachineLearningService_LoadTextClassifier_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  LoadModelResult p_result{};
+  LoadModelResult p_result = mojo::DefaultConstructTraits::CreateInstance<LoadModelResult>();
   MachineLearningService_LoadTextClassifier_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -1558,7 +1559,7 @@ bool MachineLearningService_LoadHandwritingModel_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  ::chromeos::machine_learning::mojom::LoadHandwritingModelResult p_result{};
+  ::chromeos::machine_learning::mojom::LoadHandwritingModelResult p_result = mojo::DefaultConstructTraits::CreateInstance<::chromeos::machine_learning::mojom::LoadHandwritingModelResult>();
   MachineLearningService_LoadHandwritingModel_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -1673,7 +1674,7 @@ bool MachineLearningService_LoadSpeechRecognizer_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  LoadModelResult p_result{};
+  LoadModelResult p_result = mojo::DefaultConstructTraits::CreateInstance<LoadModelResult>();
   MachineLearningService_LoadSpeechRecognizer_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -1788,7 +1789,7 @@ bool MachineLearningService_LoadGrammarChecker_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  LoadModelResult p_result{};
+  LoadModelResult p_result = mojo::DefaultConstructTraits::CreateInstance<LoadModelResult>();
   MachineLearningService_LoadGrammarChecker_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -1903,7 +1904,7 @@ bool MachineLearningService_LoadTextSuggester_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  LoadModelResult p_result{};
+  LoadModelResult p_result = mojo::DefaultConstructTraits::CreateInstance<LoadModelResult>();
   MachineLearningService_LoadTextSuggester_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -2018,7 +2019,7 @@ bool MachineLearningService_LoadWebPlatformHandwritingModel_ForwardToCallback::A
               message->mutable_payload());
   
   bool success = true;
-  ::chromeos::machine_learning::mojom::LoadHandwritingModelResult p_result{};
+  ::chromeos::machine_learning::mojom::LoadHandwritingModelResult p_result = mojo::DefaultConstructTraits::CreateInstance<::chromeos::machine_learning::mojom::LoadHandwritingModelResult>();
   MachineLearningService_LoadWebPlatformHandwritingModel_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -2133,7 +2134,7 @@ bool MachineLearningService_LoadDocumentScanner_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  LoadModelResult p_result{};
+  LoadModelResult p_result = mojo::DefaultConstructTraits::CreateInstance<LoadModelResult>();
   MachineLearningService_LoadDocumentScanner_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -2248,7 +2249,7 @@ bool MachineLearningService_CreateWebPlatformModelLoader_ForwardToCallback::Acce
               message->mutable_payload());
   
   bool success = true;
-  ::ml::model_loader::mojom::CreateModelLoaderResult p_result{};
+  ::ml::model_loader::mojom::CreateModelLoaderResult p_result = mojo::DefaultConstructTraits::CreateInstance<::ml::model_loader::mojom::CreateModelLoaderResult>();
   MachineLearningService_CreateWebPlatformModelLoader_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -2363,7 +2364,7 @@ bool MachineLearningService_REMOVED_4_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  LoadModelResult p_result{};
+  LoadModelResult p_result = mojo::DefaultConstructTraits::CreateInstance<LoadModelResult>();
   MachineLearningService_REMOVED_4_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -2437,7 +2438,7 @@ bool MachineLearningServiceStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingReceiver<MachineLearningService> p_receiver{};
+      ::mojo::PendingReceiver<MachineLearningService> p_receiver = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingReceiver<MachineLearningService>>();
       MachineLearningService_Clone_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -2514,8 +2515,8 @@ bool MachineLearningServiceStubDispatch::AcceptWithResponder(
                   message->mutable_payload());
       
       bool success = true;
-      ::chromeos::machine_learning::mojom::BuiltinModelSpecPtr p_spec{};
-      ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::Model> p_receiver{};
+      ::chromeos::machine_learning::mojom::BuiltinModelSpecPtr p_spec = mojo::DefaultConstructTraits::CreateInstance<::chromeos::machine_learning::mojom::BuiltinModelSpecPtr>();
+      ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::Model> p_receiver = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingReceiver<::chromeos::machine_learning::mojom::Model>>();
       MachineLearningService_LoadBuiltinModel_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadSpec(&p_spec))
@@ -2549,8 +2550,8 @@ std::move(p_receiver), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      ::chromeos::machine_learning::mojom::FlatBufferModelSpecPtr p_spec{};
-      ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::Model> p_receiver{};
+      ::chromeos::machine_learning::mojom::FlatBufferModelSpecPtr p_spec = mojo::DefaultConstructTraits::CreateInstance<::chromeos::machine_learning::mojom::FlatBufferModelSpecPtr>();
+      ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::Model> p_receiver = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingReceiver<::chromeos::machine_learning::mojom::Model>>();
       MachineLearningService_LoadFlatBufferModel_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadSpec(&p_spec))
@@ -2584,7 +2585,7 @@ std::move(p_receiver), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::TextClassifier> p_receiver{};
+      ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::TextClassifier> p_receiver = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingReceiver<::chromeos::machine_learning::mojom::TextClassifier>>();
       MachineLearningService_LoadTextClassifier_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -2615,8 +2616,8 @@ std::move(p_receiver), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      ::chromeos::machine_learning::mojom::HandwritingRecognizerSpecPtr p_spec{};
-      ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::HandwritingRecognizer> p_receiver{};
+      ::chromeos::machine_learning::mojom::HandwritingRecognizerSpecPtr p_spec = mojo::DefaultConstructTraits::CreateInstance<::chromeos::machine_learning::mojom::HandwritingRecognizerSpecPtr>();
+      ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::HandwritingRecognizer> p_receiver = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingReceiver<::chromeos::machine_learning::mojom::HandwritingRecognizer>>();
       MachineLearningService_LoadHandwritingModel_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadSpec(&p_spec))
@@ -2650,9 +2651,9 @@ std::move(p_receiver), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      ::chromeos::machine_learning::mojom::SodaConfigPtr p_config{};
-      ::mojo::PendingRemote<::chromeos::machine_learning::mojom::SodaClient> p_soda_client{};
-      ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::SodaRecognizer> p_soda_recognizer{};
+      ::chromeos::machine_learning::mojom::SodaConfigPtr p_config = mojo::DefaultConstructTraits::CreateInstance<::chromeos::machine_learning::mojom::SodaConfigPtr>();
+      ::mojo::PendingRemote<::chromeos::machine_learning::mojom::SodaClient> p_soda_client = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingRemote<::chromeos::machine_learning::mojom::SodaClient>>();
+      ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::SodaRecognizer> p_soda_recognizer = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingReceiver<::chromeos::machine_learning::mojom::SodaRecognizer>>();
       MachineLearningService_LoadSpeechRecognizer_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadConfig(&p_config))
@@ -2691,7 +2692,7 @@ std::move(p_soda_recognizer), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::GrammarChecker> p_receiver{};
+      ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::GrammarChecker> p_receiver = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingReceiver<::chromeos::machine_learning::mojom::GrammarChecker>>();
       MachineLearningService_LoadGrammarChecker_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -2722,8 +2723,8 @@ std::move(p_receiver), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::TextSuggester> p_receiver{};
-      ::chromeos::machine_learning::mojom::TextSuggesterSpecPtr p_spec{};
+      ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::TextSuggester> p_receiver = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingReceiver<::chromeos::machine_learning::mojom::TextSuggester>>();
+      ::chromeos::machine_learning::mojom::TextSuggesterSpecPtr p_spec = mojo::DefaultConstructTraits::CreateInstance<::chromeos::machine_learning::mojom::TextSuggesterSpecPtr>();
       MachineLearningService_LoadTextSuggester_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -2757,8 +2758,8 @@ std::move(p_spec), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      ::chromeos::machine_learning::web_platform::mojom::HandwritingModelConstraintPtr p_constraint{};
-      ::mojo::PendingReceiver<::chromeos::machine_learning::web_platform::mojom::HandwritingRecognizer> p_receiver{};
+      ::chromeos::machine_learning::web_platform::mojom::HandwritingModelConstraintPtr p_constraint = mojo::DefaultConstructTraits::CreateInstance<::chromeos::machine_learning::web_platform::mojom::HandwritingModelConstraintPtr>();
+      ::mojo::PendingReceiver<::chromeos::machine_learning::web_platform::mojom::HandwritingRecognizer> p_receiver = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingReceiver<::chromeos::machine_learning::web_platform::mojom::HandwritingRecognizer>>();
       MachineLearningService_LoadWebPlatformHandwritingModel_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadConstraint(&p_constraint))
@@ -2792,8 +2793,8 @@ std::move(p_receiver), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::DocumentScanner> p_receiver{};
-      ::chromeos::machine_learning::mojom::DocumentScannerConfigPtr p_config{};
+      ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::DocumentScanner> p_receiver = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingReceiver<::chromeos::machine_learning::mojom::DocumentScanner>>();
+      ::chromeos::machine_learning::mojom::DocumentScannerConfigPtr p_config = mojo::DefaultConstructTraits::CreateInstance<::chromeos::machine_learning::mojom::DocumentScannerConfigPtr>();
       MachineLearningService_LoadDocumentScanner_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -2827,8 +2828,8 @@ std::move(p_config), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingReceiver<::ml::model_loader::mojom::ModelLoader> p_receiver{};
-      ::ml::model_loader::mojom::CreateModelLoaderOptionsPtr p_options{};
+      ::mojo::PendingReceiver<::ml::model_loader::mojom::ModelLoader> p_receiver = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingReceiver<::ml::model_loader::mojom::ModelLoader>>();
+      ::ml::model_loader::mojom::CreateModelLoaderOptionsPtr p_options = mojo::DefaultConstructTraits::CreateInstance<::ml::model_loader::mojom::CreateModelLoaderOptionsPtr>();
       MachineLearningService_CreateWebPlatformModelLoader_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -2862,8 +2863,8 @@ std::move(p_options), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      ::chromeos::machine_learning::mojom::HandwritingRecognizerSpecPtr p_spec{};
-      ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::HandwritingRecognizer> p_receiver{};
+      ::chromeos::machine_learning::mojom::HandwritingRecognizerSpecPtr p_spec = mojo::DefaultConstructTraits::CreateInstance<::chromeos::machine_learning::mojom::HandwritingRecognizerSpecPtr>();
+      ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::HandwritingRecognizer> p_receiver = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingReceiver<::chromeos::machine_learning::mojom::HandwritingRecognizer>>();
       MachineLearningService_REMOVED_4_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadSpec(&p_spec))
@@ -3010,7 +3011,7 @@ void MachineLearningServiceAsyncWaiter::LoadBuiltinModel(
 
 LoadModelResult MachineLearningServiceAsyncWaiter::LoadBuiltinModel(
     ::chromeos::machine_learning::mojom::BuiltinModelSpecPtr spec, ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::Model> receiver) {
-  LoadModelResult async_wait_result;
+  LoadModelResult async_wait_result = mojo::DefaultConstructTraits::CreateInstance<LoadModelResult>();
   LoadBuiltinModel(std::move(spec),std::move(receiver),&async_wait_result);
   return async_wait_result;
 }
@@ -3033,7 +3034,7 @@ void MachineLearningServiceAsyncWaiter::LoadFlatBufferModel(
 
 LoadModelResult MachineLearningServiceAsyncWaiter::LoadFlatBufferModel(
     ::chromeos::machine_learning::mojom::FlatBufferModelSpecPtr spec, ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::Model> receiver) {
-  LoadModelResult async_wait_result;
+  LoadModelResult async_wait_result = mojo::DefaultConstructTraits::CreateInstance<LoadModelResult>();
   LoadFlatBufferModel(std::move(spec),std::move(receiver),&async_wait_result);
   return async_wait_result;
 }
@@ -3056,7 +3057,7 @@ void MachineLearningServiceAsyncWaiter::LoadTextClassifier(
 
 LoadModelResult MachineLearningServiceAsyncWaiter::LoadTextClassifier(
     ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::TextClassifier> receiver) {
-  LoadModelResult async_wait_result;
+  LoadModelResult async_wait_result = mojo::DefaultConstructTraits::CreateInstance<LoadModelResult>();
   LoadTextClassifier(std::move(receiver),&async_wait_result);
   return async_wait_result;
 }
@@ -3079,7 +3080,7 @@ void MachineLearningServiceAsyncWaiter::LoadHandwritingModel(
 
 ::chromeos::machine_learning::mojom::LoadHandwritingModelResult MachineLearningServiceAsyncWaiter::LoadHandwritingModel(
     ::chromeos::machine_learning::mojom::HandwritingRecognizerSpecPtr spec, ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::HandwritingRecognizer> receiver) {
-  ::chromeos::machine_learning::mojom::LoadHandwritingModelResult async_wait_result;
+  ::chromeos::machine_learning::mojom::LoadHandwritingModelResult async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::chromeos::machine_learning::mojom::LoadHandwritingModelResult>();
   LoadHandwritingModel(std::move(spec),std::move(receiver),&async_wait_result);
   return async_wait_result;
 }
@@ -3102,7 +3103,7 @@ void MachineLearningServiceAsyncWaiter::LoadSpeechRecognizer(
 
 LoadModelResult MachineLearningServiceAsyncWaiter::LoadSpeechRecognizer(
     ::chromeos::machine_learning::mojom::SodaConfigPtr config, ::mojo::PendingRemote<::chromeos::machine_learning::mojom::SodaClient> soda_client, ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::SodaRecognizer> soda_recognizer) {
-  LoadModelResult async_wait_result;
+  LoadModelResult async_wait_result = mojo::DefaultConstructTraits::CreateInstance<LoadModelResult>();
   LoadSpeechRecognizer(std::move(config),std::move(soda_client),std::move(soda_recognizer),&async_wait_result);
   return async_wait_result;
 }
@@ -3125,7 +3126,7 @@ void MachineLearningServiceAsyncWaiter::LoadGrammarChecker(
 
 LoadModelResult MachineLearningServiceAsyncWaiter::LoadGrammarChecker(
     ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::GrammarChecker> receiver) {
-  LoadModelResult async_wait_result;
+  LoadModelResult async_wait_result = mojo::DefaultConstructTraits::CreateInstance<LoadModelResult>();
   LoadGrammarChecker(std::move(receiver),&async_wait_result);
   return async_wait_result;
 }
@@ -3148,7 +3149,7 @@ void MachineLearningServiceAsyncWaiter::LoadTextSuggester(
 
 LoadModelResult MachineLearningServiceAsyncWaiter::LoadTextSuggester(
     ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::TextSuggester> receiver, ::chromeos::machine_learning::mojom::TextSuggesterSpecPtr spec) {
-  LoadModelResult async_wait_result;
+  LoadModelResult async_wait_result = mojo::DefaultConstructTraits::CreateInstance<LoadModelResult>();
   LoadTextSuggester(std::move(receiver),std::move(spec),&async_wait_result);
   return async_wait_result;
 }
@@ -3171,7 +3172,7 @@ void MachineLearningServiceAsyncWaiter::LoadWebPlatformHandwritingModel(
 
 ::chromeos::machine_learning::mojom::LoadHandwritingModelResult MachineLearningServiceAsyncWaiter::LoadWebPlatformHandwritingModel(
     ::chromeos::machine_learning::web_platform::mojom::HandwritingModelConstraintPtr constraint, ::mojo::PendingReceiver<::chromeos::machine_learning::web_platform::mojom::HandwritingRecognizer> receiver) {
-  ::chromeos::machine_learning::mojom::LoadHandwritingModelResult async_wait_result;
+  ::chromeos::machine_learning::mojom::LoadHandwritingModelResult async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::chromeos::machine_learning::mojom::LoadHandwritingModelResult>();
   LoadWebPlatformHandwritingModel(std::move(constraint),std::move(receiver),&async_wait_result);
   return async_wait_result;
 }
@@ -3194,7 +3195,7 @@ void MachineLearningServiceAsyncWaiter::LoadDocumentScanner(
 
 LoadModelResult MachineLearningServiceAsyncWaiter::LoadDocumentScanner(
     ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::DocumentScanner> receiver, ::chromeos::machine_learning::mojom::DocumentScannerConfigPtr config) {
-  LoadModelResult async_wait_result;
+  LoadModelResult async_wait_result = mojo::DefaultConstructTraits::CreateInstance<LoadModelResult>();
   LoadDocumentScanner(std::move(receiver),std::move(config),&async_wait_result);
   return async_wait_result;
 }
@@ -3217,7 +3218,7 @@ void MachineLearningServiceAsyncWaiter::CreateWebPlatformModelLoader(
 
 ::ml::model_loader::mojom::CreateModelLoaderResult MachineLearningServiceAsyncWaiter::CreateWebPlatformModelLoader(
     ::mojo::PendingReceiver<::ml::model_loader::mojom::ModelLoader> receiver, ::ml::model_loader::mojom::CreateModelLoaderOptionsPtr options) {
-  ::ml::model_loader::mojom::CreateModelLoaderResult async_wait_result;
+  ::ml::model_loader::mojom::CreateModelLoaderResult async_wait_result = mojo::DefaultConstructTraits::CreateInstance<::ml::model_loader::mojom::CreateModelLoaderResult>();
   CreateWebPlatformModelLoader(std::move(receiver),std::move(options),&async_wait_result);
   return async_wait_result;
 }
@@ -3240,7 +3241,7 @@ void MachineLearningServiceAsyncWaiter::REMOVED_4(
 
 LoadModelResult MachineLearningServiceAsyncWaiter::REMOVED_4(
     ::chromeos::machine_learning::mojom::HandwritingRecognizerSpecPtr spec, ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::HandwritingRecognizer> receiver) {
-  LoadModelResult async_wait_result;
+  LoadModelResult async_wait_result = mojo::DefaultConstructTraits::CreateInstance<LoadModelResult>();
   REMOVED_4(std::move(spec),std::move(receiver),&async_wait_result);
   return async_wait_result;
 }

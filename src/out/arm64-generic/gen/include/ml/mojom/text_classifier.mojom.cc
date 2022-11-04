@@ -21,6 +21,7 @@
 #include "base/strings/string_number_conversions.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
+#include "mojo/public/cpp/bindings/default_construct_traits.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
 #include "mojo/public/cpp/bindings/lib/send_message_helper.h"
@@ -863,7 +864,7 @@ bool TextClassifier_Annotate_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  std::vector<TextAnnotationPtr> p_outputs{};
+  std::vector<TextAnnotationPtr> p_outputs = mojo::DefaultConstructTraits::CreateInstance<std::vector<TextAnnotationPtr>>();
   TextClassifier_Annotate_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadOutputs(&p_outputs))
@@ -989,7 +990,7 @@ bool TextClassifier_FindLanguages_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  std::vector<TextLanguagePtr> p_outputs{};
+  std::vector<TextLanguagePtr> p_outputs = mojo::DefaultConstructTraits::CreateInstance<std::vector<TextLanguagePtr>>();
   TextClassifier_FindLanguages_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadOutputs(&p_outputs))
@@ -1115,7 +1116,7 @@ bool TextClassifier_REMOVED_1_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  CodepointSpanPtr p_outputs{};
+  CodepointSpanPtr p_outputs = mojo::DefaultConstructTraits::CreateInstance<CodepointSpanPtr>();
   TextClassifier_REMOVED_1_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadOutputs(&p_outputs))
@@ -1220,7 +1221,7 @@ bool TextClassifierStubDispatch::AcceptWithResponder(
                   message->mutable_payload());
       
       bool success = true;
-      TextAnnotationRequestPtr p_request{};
+      TextAnnotationRequestPtr p_request = mojo::DefaultConstructTraits::CreateInstance<TextAnnotationRequestPtr>();
       TextClassifier_Annotate_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadRequest(&p_request))
@@ -1249,7 +1250,7 @@ std::move(p_request), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      std::string p_text{};
+      std::string p_text = mojo::DefaultConstructTraits::CreateInstance<std::string>();
       TextClassifier_FindLanguages_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadText(&p_text))
@@ -1278,7 +1279,7 @@ std::move(p_text), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      REMOVED_TextSuggestSelectionRequestPtr p_request{};
+      REMOVED_TextSuggestSelectionRequestPtr p_request = mojo::DefaultConstructTraits::CreateInstance<REMOVED_TextSuggestSelectionRequestPtr>();
       TextClassifier_REMOVED_1_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadRequest(&p_request))
@@ -1521,7 +1522,7 @@ void TextClassifierAsyncWaiter::Annotate(
 
 std::vector<TextAnnotationPtr> TextClassifierAsyncWaiter::Annotate(
     TextAnnotationRequestPtr request) {
-  std::vector<TextAnnotationPtr> async_wait_result;
+  std::vector<TextAnnotationPtr> async_wait_result = mojo::DefaultConstructTraits::CreateInstance<std::vector<TextAnnotationPtr>>();
   Annotate(std::move(request),&async_wait_result);
   return async_wait_result;
 }
@@ -1544,7 +1545,7 @@ void TextClassifierAsyncWaiter::FindLanguages(
 
 std::vector<TextLanguagePtr> TextClassifierAsyncWaiter::FindLanguages(
     const std::string& text) {
-  std::vector<TextLanguagePtr> async_wait_result;
+  std::vector<TextLanguagePtr> async_wait_result = mojo::DefaultConstructTraits::CreateInstance<std::vector<TextLanguagePtr>>();
   FindLanguages(std::move(text),&async_wait_result);
   return async_wait_result;
 }
@@ -1567,7 +1568,7 @@ void TextClassifierAsyncWaiter::REMOVED_1(
 
 CodepointSpanPtr TextClassifierAsyncWaiter::REMOVED_1(
     REMOVED_TextSuggestSelectionRequestPtr request) {
-  CodepointSpanPtr async_wait_result;
+  CodepointSpanPtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<CodepointSpanPtr>();
   REMOVED_1(std::move(request),&async_wait_result);
   return async_wait_result;
 }

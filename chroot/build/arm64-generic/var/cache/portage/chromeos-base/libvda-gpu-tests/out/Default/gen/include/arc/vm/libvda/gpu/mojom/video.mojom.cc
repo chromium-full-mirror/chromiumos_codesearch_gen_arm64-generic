@@ -21,6 +21,7 @@
 #include "base/strings/string_number_conversions.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
+#include "mojo/public/cpp/bindings/default_construct_traits.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
 #include "mojo/public/cpp/bindings/lib/send_message_helper.h"
@@ -208,8 +209,8 @@ bool VideoHost_OnBootstrapVideoAcceleratorFactory_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  ::mojo::ScopedHandle p_channel_handle{};
-  std::string p_token{};
+  ::mojo::ScopedHandle p_channel_handle = mojo::DefaultConstructTraits::CreateInstance<::mojo::ScopedHandle>();
+  std::string p_token = mojo::DefaultConstructTraits::CreateInstance<std::string>();
   VideoHost_OnBootstrapVideoAcceleratorFactory_ResponseParamsDataView input_data_view(params, message);
   
   if (success)
@@ -607,7 +608,7 @@ bool VideoInstanceStubDispatch::AcceptWithResponder(
                   message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingRemote<VideoHost> p_host_remote{};
+      ::mojo::PendingRemote<VideoHost> p_host_remote = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingRemote<VideoHost>>();
       VideoInstance_Init_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -954,7 +955,7 @@ bool VideoAcceleratorFactoryStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingReceiver<::arc::mojom::VideoEncodeAccelerator> p_video_encoder{};
+      ::mojo::PendingReceiver<::arc::mojom::VideoEncodeAccelerator> p_video_encoder = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingReceiver<::arc::mojom::VideoEncodeAccelerator>>();
       VideoAcceleratorFactory_CreateEncodeAccelerator_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -982,7 +983,7 @@ std::move(p_video_encoder));
               message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingReceiver<::arc::mojom::VideoDecodeAccelerator> p_video_decoder{};
+      ::mojo::PendingReceiver<::arc::mojom::VideoDecodeAccelerator> p_video_decoder = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingReceiver<::arc::mojom::VideoDecodeAccelerator>>();
       VideoAcceleratorFactory_CreateDecodeAccelerator_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -1010,7 +1011,7 @@ std::move(p_video_decoder));
               message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingReceiver<::arc::mojom::VideoDecoder> p_video_decoder{};
+      ::mojo::PendingReceiver<::arc::mojom::VideoDecoder> p_video_decoder = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingReceiver<::arc::mojom::VideoDecoder>>();
       VideoAcceleratorFactory_CreateVideoDecoder_ParamsDataView input_data_view(params, message);
       
       if (success) {
@@ -1038,7 +1039,7 @@ std::move(p_video_decoder));
               message->mutable_payload());
       
       bool success = true;
-      ::mojo::PendingReceiver<::arc::mojom::VideoProtectedBufferAllocator> p_video_protected_buffer_allocator{};
+      ::mojo::PendingReceiver<::arc::mojom::VideoProtectedBufferAllocator> p_video_protected_buffer_allocator = mojo::DefaultConstructTraits::CreateInstance<::mojo::PendingReceiver<::arc::mojom::VideoProtectedBufferAllocator>>();
       VideoAcceleratorFactory_CreateProtectedBufferAllocator_ParamsDataView input_data_view(params, message);
       
       if (success) {

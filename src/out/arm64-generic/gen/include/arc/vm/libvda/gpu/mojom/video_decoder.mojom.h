@@ -321,6 +321,7 @@ class  DecoderBuffer {
         "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
         "an empty union, mark the field or parameter as nullable in the mojom "
         "definition.");
+    return nullptr;
   }
   // Construct an instance holding |buffer|.
   static DecoderBufferPtr

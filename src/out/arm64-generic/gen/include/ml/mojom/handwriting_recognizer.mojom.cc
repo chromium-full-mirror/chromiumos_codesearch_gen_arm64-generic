@@ -21,6 +21,7 @@
 #include "base/strings/string_number_conversions.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
+#include "mojo/public/cpp/bindings/default_construct_traits.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
 #include "mojo/public/cpp/bindings/lib/send_message_helper.h"
@@ -753,7 +754,7 @@ bool HandwritingRecognizer_Recognize_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  HandwritingRecognizerResultPtr p_result{};
+  HandwritingRecognizerResultPtr p_result = mojo::DefaultConstructTraits::CreateInstance<HandwritingRecognizerResultPtr>();
   HandwritingRecognizer_Recognize_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -852,7 +853,7 @@ bool HandwritingRecognizerStubDispatch::AcceptWithResponder(
                   message->mutable_payload());
       
       bool success = true;
-      HandwritingRecognitionQueryPtr p_query{};
+      HandwritingRecognitionQueryPtr p_query = mojo::DefaultConstructTraits::CreateInstance<HandwritingRecognitionQueryPtr>();
       HandwritingRecognizer_Recognize_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadQuery(&p_query))
@@ -1125,7 +1126,7 @@ void HandwritingRecognizerAsyncWaiter::Recognize(
 
 HandwritingRecognizerResultPtr HandwritingRecognizerAsyncWaiter::Recognize(
     HandwritingRecognitionQueryPtr query) {
-  HandwritingRecognizerResultPtr async_wait_result;
+  HandwritingRecognizerResultPtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<HandwritingRecognizerResultPtr>();
   Recognize(std::move(query),&async_wait_result);
   return async_wait_result;
 }

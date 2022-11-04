@@ -21,6 +21,7 @@
 #include "base/strings/string_number_conversions.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
+#include "mojo/public/cpp/bindings/default_construct_traits.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
 #include "mojo/public/cpp/bindings/lib/send_message_helper.h"
@@ -495,7 +496,7 @@ bool TextSuggester_Suggest_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  TextSuggesterResultPtr p_result{};
+  TextSuggesterResultPtr p_result = mojo::DefaultConstructTraits::CreateInstance<TextSuggesterResultPtr>();
   TextSuggester_Suggest_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadResult(&p_result))
@@ -594,7 +595,7 @@ bool TextSuggesterStubDispatch::AcceptWithResponder(
                   message->mutable_payload());
       
       bool success = true;
-      TextSuggesterQueryPtr p_query{};
+      TextSuggesterQueryPtr p_query = mojo::DefaultConstructTraits::CreateInstance<TextSuggesterQueryPtr>();
       TextSuggester_Suggest_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadQuery(&p_query))
@@ -785,7 +786,7 @@ void TextSuggesterAsyncWaiter::Suggest(
 
 TextSuggesterResultPtr TextSuggesterAsyncWaiter::Suggest(
     TextSuggesterQueryPtr query) {
-  TextSuggesterResultPtr async_wait_result;
+  TextSuggesterResultPtr async_wait_result = mojo::DefaultConstructTraits::CreateInstance<TextSuggesterResultPtr>();
   Suggest(std::move(query),&async_wait_result);
   return async_wait_result;
 }

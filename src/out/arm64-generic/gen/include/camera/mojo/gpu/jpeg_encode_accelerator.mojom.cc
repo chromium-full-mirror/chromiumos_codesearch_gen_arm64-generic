@@ -21,6 +21,7 @@
 #include "base/strings/string_number_conversions.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
+#include "mojo/public/cpp/bindings/default_construct_traits.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
 #include "mojo/public/cpp/bindings/lib/send_message_helper.h"
@@ -466,7 +467,7 @@ bool JpegEncodeAccelerator_Initialize_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  bool p_success{};
+  bool p_success = mojo::DefaultConstructTraits::CreateInstance<bool>();
   JpegEncodeAccelerator_Initialize_ResponseParamsDataView input_data_view(params, message);
   
   if (success)
@@ -580,9 +581,9 @@ bool JpegEncodeAccelerator_EncodeWithFD_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  int32_t p_task_id{};
-  uint32_t p_encoded_buffer_size{};
-  EncodeStatus p_status{};
+  int32_t p_task_id = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
+  uint32_t p_encoded_buffer_size = mojo::DefaultConstructTraits::CreateInstance<uint32_t>();
+  EncodeStatus p_status = mojo::DefaultConstructTraits::CreateInstance<EncodeStatus>();
   JpegEncodeAccelerator_EncodeWithFD_ResponseParamsDataView input_data_view(params, message);
   
   if (success)
@@ -711,8 +712,8 @@ bool JpegEncodeAccelerator_EncodeWithDmaBuf_ForwardToCallback::Accept(
               message->mutable_payload());
   
   bool success = true;
-  uint32_t p_encoded_buffer_size{};
-  EncodeStatus p_status{};
+  uint32_t p_encoded_buffer_size = mojo::DefaultConstructTraits::CreateInstance<uint32_t>();
+  EncodeStatus p_status = mojo::DefaultConstructTraits::CreateInstance<EncodeStatus>();
   JpegEncodeAccelerator_EncodeWithDmaBuf_ResponseParamsDataView input_data_view(params, message);
   
   if (success)
@@ -840,15 +841,15 @@ bool JpegEncodeAcceleratorStubDispatch::AcceptWithResponder(
                   message->mutable_payload());
       
       bool success = true;
-      int32_t p_task_id{};
-      ::mojo::ScopedHandle p_input_fd{};
-      uint32_t p_input_buffer_size{};
-      int32_t p_coded_size_width{};
-      int32_t p_coded_size_height{};
-      ::mojo::ScopedHandle p_exif_fd{};
-      uint32_t p_exif_buffer_size{};
-      ::mojo::ScopedHandle p_output_fd{};
-      uint32_t p_output_buffer_size{};
+      int32_t p_task_id = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
+      ::mojo::ScopedHandle p_input_fd = mojo::DefaultConstructTraits::CreateInstance<::mojo::ScopedHandle>();
+      uint32_t p_input_buffer_size = mojo::DefaultConstructTraits::CreateInstance<uint32_t>();
+      int32_t p_coded_size_width = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
+      int32_t p_coded_size_height = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
+      ::mojo::ScopedHandle p_exif_fd = mojo::DefaultConstructTraits::CreateInstance<::mojo::ScopedHandle>();
+      uint32_t p_exif_buffer_size = mojo::DefaultConstructTraits::CreateInstance<uint32_t>();
+      ::mojo::ScopedHandle p_output_fd = mojo::DefaultConstructTraits::CreateInstance<::mojo::ScopedHandle>();
+      uint32_t p_output_buffer_size = mojo::DefaultConstructTraits::CreateInstance<uint32_t>();
       JpegEncodeAccelerator_EncodeWithFD_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -901,15 +902,15 @@ std::move(p_output_buffer_size), std::move(callback));
                   message->mutable_payload());
       
       bool success = true;
-      int32_t p_task_id{};
-      uint32_t p_input_format{};
-      std::vector<::cros::mojom::DmaBufPlanePtr> p_input_planes{};
-      std::vector<::cros::mojom::DmaBufPlanePtr> p_output_planes{};
-      ::mojo::ScopedHandle p_exif_handle{};
-      uint32_t p_exif_buffer_size{};
-      int32_t p_coded_size_width{};
-      int32_t p_coded_size_height{};
-      int32_t p_quality{};
+      int32_t p_task_id = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
+      uint32_t p_input_format = mojo::DefaultConstructTraits::CreateInstance<uint32_t>();
+      std::vector<::cros::mojom::DmaBufPlanePtr> p_input_planes = mojo::DefaultConstructTraits::CreateInstance<std::vector<::cros::mojom::DmaBufPlanePtr>>();
+      std::vector<::cros::mojom::DmaBufPlanePtr> p_output_planes = mojo::DefaultConstructTraits::CreateInstance<std::vector<::cros::mojom::DmaBufPlanePtr>>();
+      ::mojo::ScopedHandle p_exif_handle = mojo::DefaultConstructTraits::CreateInstance<::mojo::ScopedHandle>();
+      uint32_t p_exif_buffer_size = mojo::DefaultConstructTraits::CreateInstance<uint32_t>();
+      int32_t p_coded_size_width = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
+      int32_t p_coded_size_height = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
+      int32_t p_quality = mojo::DefaultConstructTraits::CreateInstance<int32_t>();
       JpegEncodeAccelerator_EncodeWithDmaBuf_ParamsDataView input_data_view(params, message);
       
       if (success)
@@ -1028,7 +1029,7 @@ void JpegEncodeAcceleratorAsyncWaiter::Initialize(
 
 bool JpegEncodeAcceleratorAsyncWaiter::Initialize(
     ) {
-  bool async_wait_result;
+  bool async_wait_result = mojo::DefaultConstructTraits::CreateInstance<bool>();
   Initialize(&async_wait_result);
   return async_wait_result;
 }

@@ -13699,6 +13699,7 @@ struct TraceFormatTraits<std::nullptr_t> {
 #include <stdint.h>
 
 // gen_amalgamated expanded: #include "perfetto/base/build_config.h"
+// gen_amalgamated expanded: #include "perfetto/base/export.h"
 
 #if PERFETTO_BUILDFLAG(PERFETTO_OS_WIN)
 extern "C" {
@@ -13732,7 +13733,7 @@ inline PlatformThreadId GetThreadId() {
 #elif PERFETTO_BUILDFLAG(PERFETTO_OS_FUCHSIA)
 using PlatformThreadId = zx_koid_t;
 // Not inlined because the result is cached internally.
-PlatformThreadId GetThreadId();
+PERFETTO_EXPORT_COMPONENT PlatformThreadId GetThreadId();
 #elif PERFETTO_BUILDFLAG(PERFETTO_OS_APPLE)
 using PlatformThreadId = uint64_t;
 inline PlatformThreadId GetThreadId() {

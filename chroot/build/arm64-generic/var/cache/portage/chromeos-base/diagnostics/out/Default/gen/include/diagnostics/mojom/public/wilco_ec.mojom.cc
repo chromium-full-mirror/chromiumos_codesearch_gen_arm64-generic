@@ -21,6 +21,7 @@
 #include "base/strings/string_number_conversions.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
+#include "mojo/public/cpp/bindings/default_construct_traits.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
 #include "mojo/public/cpp/bindings/lib/send_message_helper.h"
@@ -266,7 +267,7 @@ bool WilcoEcObserverStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      EcEventPtr p_ec_event{};
+      EcEventPtr p_ec_event = mojo::DefaultConstructTraits::CreateInstance<EcEventPtr>();
       WilcoEcObserver_OnEcEvent_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadEcEvent(&p_ec_event))

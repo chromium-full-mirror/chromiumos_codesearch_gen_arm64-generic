@@ -350,6 +350,7 @@ class  RoutineProblems {
         "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
         "an empty union, mark the field or parameter as nullable in the mojom "
         "definition.");
+    return nullptr;
   }
   // Construct an instance holding |lan_connectivity_problems|.
   static RoutineProblemsPtr
@@ -748,6 +749,7 @@ class  RoutineResultValue {
         "New<SubType>(), not New() followed by set_<sub_type>(). To represent "
         "an empty union, mark the field or parameter as nullable in the mojom "
         "definition.");
+    return nullptr;
   }
   // Construct an instance holding |https_latency_result_value|.
   static RoutineResultValuePtr

@@ -21,6 +21,7 @@
 #include "base/strings/string_number_conversions.h"
 #include "base/trace_event/trace_event.h"
 #include "base/trace_event/typed_macros.h"
+#include "mojo/public/cpp/bindings/default_construct_traits.h"
 #include "mojo/public/cpp/bindings/lib/generated_code_util.h"
 #include "mojo/public/cpp/bindings/lib/message_internal.h"
 #include "mojo/public/cpp/bindings/lib/send_message_helper.h"
@@ -870,7 +871,7 @@ bool SodaClientStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      SpeechRecognizerEventPtr p_event{};
+      SpeechRecognizerEventPtr p_event = mojo::DefaultConstructTraits::CreateInstance<SpeechRecognizerEventPtr>();
       SodaClient_OnSpeechRecognizerEvent_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadEvent(&p_event))
@@ -1201,7 +1202,7 @@ bool SodaRecognizerStubDispatch::Accept(
               message->mutable_payload());
       
       bool success = true;
-      std::vector<uint8_t> p_audio{};
+      std::vector<uint8_t> p_audio = mojo::DefaultConstructTraits::CreateInstance<std::vector<uint8_t>>();
       SodaRecognizer_AddAudio_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadAudio(&p_audio))
