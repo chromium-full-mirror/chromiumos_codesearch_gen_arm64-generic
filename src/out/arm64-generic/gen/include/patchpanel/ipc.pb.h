@@ -140,11 +140,13 @@ enum NDProxyControlMessage_NDProxyRequestType : int {
   NDProxyControlMessage_NDProxyRequestType_START_NS_NA = 1,
   NDProxyControlMessage_NDProxyRequestType_START_NS_NA_RS_RA = 2,
   NDProxyControlMessage_NDProxyRequestType_START_NS_NA_RS_RA_MODIFYING_ROUTER_ADDRESS = 3,
-  NDProxyControlMessage_NDProxyRequestType_STOP_PROXY = 4
+  NDProxyControlMessage_NDProxyRequestType_STOP_PROXY = 4,
+  NDProxyControlMessage_NDProxyRequestType_START_NEIGHBOR_MONITOR = 5,
+  NDProxyControlMessage_NDProxyRequestType_STOP_NEIGHBOR_MONITOR = 6
 };
 bool NDProxyControlMessage_NDProxyRequestType_IsValid(int value);
 constexpr NDProxyControlMessage_NDProxyRequestType NDProxyControlMessage_NDProxyRequestType_NDProxyRequestType_MIN = NDProxyControlMessage_NDProxyRequestType_UNKNOWN;
-constexpr NDProxyControlMessage_NDProxyRequestType NDProxyControlMessage_NDProxyRequestType_NDProxyRequestType_MAX = NDProxyControlMessage_NDProxyRequestType_STOP_PROXY;
+constexpr NDProxyControlMessage_NDProxyRequestType NDProxyControlMessage_NDProxyRequestType_NDProxyRequestType_MAX = NDProxyControlMessage_NDProxyRequestType_STOP_NEIGHBOR_MONITOR;
 constexpr int NDProxyControlMessage_NDProxyRequestType_NDProxyRequestType_ARRAYSIZE = NDProxyControlMessage_NDProxyRequestType_NDProxyRequestType_MAX + 1;
 
 const std::string& NDProxyControlMessage_NDProxyRequestType_Name(NDProxyControlMessage_NDProxyRequestType value);
@@ -1282,6 +1284,10 @@ class NDProxyControlMessage final :
     NDProxyControlMessage_NDProxyRequestType_START_NS_NA_RS_RA_MODIFYING_ROUTER_ADDRESS;
   static constexpr NDProxyRequestType STOP_PROXY =
     NDProxyControlMessage_NDProxyRequestType_STOP_PROXY;
+  static constexpr NDProxyRequestType START_NEIGHBOR_MONITOR =
+    NDProxyControlMessage_NDProxyRequestType_START_NEIGHBOR_MONITOR;
+  static constexpr NDProxyRequestType STOP_NEIGHBOR_MONITOR =
+    NDProxyControlMessage_NDProxyRequestType_STOP_NEIGHBOR_MONITOR;
   static inline bool NDProxyRequestType_IsValid(int value) {
     return NDProxyControlMessage_NDProxyRequestType_IsValid(value);
   }

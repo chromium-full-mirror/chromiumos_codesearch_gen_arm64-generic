@@ -281,35 +281,43 @@ bool NDProxyControlMessage_NDProxyRequestType_IsValid(int value) {
     case 2:
     case 3:
     case 4:
+    case 5:
+    case 6:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> NDProxyControlMessage_NDProxyRequestType_strings[5] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> NDProxyControlMessage_NDProxyRequestType_strings[7] = {};
 
 static const char NDProxyControlMessage_NDProxyRequestType_names[] =
+  "START_NEIGHBOR_MONITOR"
   "START_NS_NA"
   "START_NS_NA_RS_RA"
   "START_NS_NA_RS_RA_MODIFYING_ROUTER_ADDRESS"
+  "STOP_NEIGHBOR_MONITOR"
   "STOP_PROXY"
   "UNKNOWN";
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry NDProxyControlMessage_NDProxyRequestType_entries[] = {
-  { {NDProxyControlMessage_NDProxyRequestType_names + 0, 11}, 1 },
-  { {NDProxyControlMessage_NDProxyRequestType_names + 11, 17}, 2 },
-  { {NDProxyControlMessage_NDProxyRequestType_names + 28, 42}, 3 },
-  { {NDProxyControlMessage_NDProxyRequestType_names + 70, 10}, 4 },
-  { {NDProxyControlMessage_NDProxyRequestType_names + 80, 7}, 0 },
+  { {NDProxyControlMessage_NDProxyRequestType_names + 0, 22}, 5 },
+  { {NDProxyControlMessage_NDProxyRequestType_names + 22, 11}, 1 },
+  { {NDProxyControlMessage_NDProxyRequestType_names + 33, 17}, 2 },
+  { {NDProxyControlMessage_NDProxyRequestType_names + 50, 42}, 3 },
+  { {NDProxyControlMessage_NDProxyRequestType_names + 92, 21}, 6 },
+  { {NDProxyControlMessage_NDProxyRequestType_names + 113, 10}, 4 },
+  { {NDProxyControlMessage_NDProxyRequestType_names + 123, 7}, 0 },
 };
 
 static const int NDProxyControlMessage_NDProxyRequestType_entries_by_number[] = {
-  4, // 0 -> UNKNOWN
-  0, // 1 -> START_NS_NA
-  1, // 2 -> START_NS_NA_RS_RA
-  2, // 3 -> START_NS_NA_RS_RA_MODIFYING_ROUTER_ADDRESS
-  3, // 4 -> STOP_PROXY
+  6, // 0 -> UNKNOWN
+  1, // 1 -> START_NS_NA
+  2, // 2 -> START_NS_NA_RS_RA
+  3, // 3 -> START_NS_NA_RS_RA_MODIFYING_ROUTER_ADDRESS
+  5, // 4 -> STOP_PROXY
+  0, // 5 -> START_NEIGHBOR_MONITOR
+  4, // 6 -> STOP_NEIGHBOR_MONITOR
 };
 
 const std::string& NDProxyControlMessage_NDProxyRequestType_Name(
@@ -318,12 +326,12 @@ const std::string& NDProxyControlMessage_NDProxyRequestType_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           NDProxyControlMessage_NDProxyRequestType_entries,
           NDProxyControlMessage_NDProxyRequestType_entries_by_number,
-          5, NDProxyControlMessage_NDProxyRequestType_strings);
+          7, NDProxyControlMessage_NDProxyRequestType_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       NDProxyControlMessage_NDProxyRequestType_entries,
       NDProxyControlMessage_NDProxyRequestType_entries_by_number,
-      5, value);
+      7, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      NDProxyControlMessage_NDProxyRequestType_strings[idx].get();
 }
@@ -331,7 +339,7 @@ bool NDProxyControlMessage_NDProxyRequestType_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, NDProxyControlMessage_NDProxyRequestType* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      NDProxyControlMessage_NDProxyRequestType_entries, 5, name, &int_value);
+      NDProxyControlMessage_NDProxyRequestType_entries, 7, name, &int_value);
   if (success) {
     *value = static_cast<NDProxyControlMessage_NDProxyRequestType>(int_value);
   }
@@ -343,6 +351,8 @@ constexpr NDProxyControlMessage_NDProxyRequestType NDProxyControlMessage::START_
 constexpr NDProxyControlMessage_NDProxyRequestType NDProxyControlMessage::START_NS_NA_RS_RA;
 constexpr NDProxyControlMessage_NDProxyRequestType NDProxyControlMessage::START_NS_NA_RS_RA_MODIFYING_ROUTER_ADDRESS;
 constexpr NDProxyControlMessage_NDProxyRequestType NDProxyControlMessage::STOP_PROXY;
+constexpr NDProxyControlMessage_NDProxyRequestType NDProxyControlMessage::START_NEIGHBOR_MONITOR;
+constexpr NDProxyControlMessage_NDProxyRequestType NDProxyControlMessage::STOP_NEIGHBOR_MONITOR;
 constexpr NDProxyControlMessage_NDProxyRequestType NDProxyControlMessage::NDProxyRequestType_MIN;
 constexpr NDProxyControlMessage_NDProxyRequestType NDProxyControlMessage::NDProxyRequestType_MAX;
 constexpr int NDProxyControlMessage::NDProxyRequestType_ARRAYSIZE;

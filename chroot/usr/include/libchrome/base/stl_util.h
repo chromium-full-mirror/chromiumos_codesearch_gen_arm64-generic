@@ -14,6 +14,7 @@
 
 #include "base/check.h"
 #include "base/ranges/algorithm.h"
+#include "base/types/cxx23_to_underlying.h"
 
 namespace base {
 
@@ -25,17 +26,6 @@ constexpr bool IsRandomAccessIter =
                  std::random_access_iterator_tag>::value;
 
 }  // namespace internal
-
-// Implementation of C++23's std::to_underlying.
-//
-// Note: This has an additional `std::is_enum<EnumT>` requirement to be SFINAE
-// friendly prior to C++20.
-//
-// Reference: https://en.cppreference.com/w/cpp/utility/to_underlying
-template <typename EnumT, typename = std::enable_if_t<std::is_enum<EnumT>{}>>
-constexpr std::underlying_type_t<EnumT> to_underlying(EnumT e) noexcept {
-  return static_cast<std::underlying_type_t<EnumT>>(e);
-}
 
 // Returns a const reference to the underlying container of a container adapter.
 // Works for std::priority_queue, std::queue, and std::stack.
