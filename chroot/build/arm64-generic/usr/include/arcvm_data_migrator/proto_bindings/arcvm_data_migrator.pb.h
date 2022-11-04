@@ -68,6 +68,27 @@ PROTOBUF_NAMESPACE_CLOSE
 namespace arc {
 namespace data_migrator {
 
+enum DataMigrationDestinationType : int {
+  CROSVM_DISK = 0,
+  LVM_DEVICE = 1,
+  DataMigrationDestinationType_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  DataMigrationDestinationType_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+};
+bool DataMigrationDestinationType_IsValid(int value);
+constexpr DataMigrationDestinationType DataMigrationDestinationType_MIN = CROSVM_DISK;
+constexpr DataMigrationDestinationType DataMigrationDestinationType_MAX = LVM_DEVICE;
+constexpr int DataMigrationDestinationType_ARRAYSIZE = DataMigrationDestinationType_MAX + 1;
+
+const std::string& DataMigrationDestinationType_Name(DataMigrationDestinationType value);
+template<typename T>
+inline const std::string& DataMigrationDestinationType_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, DataMigrationDestinationType>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function DataMigrationDestinationType_Name.");
+  return DataMigrationDestinationType_Name(static_cast<DataMigrationDestinationType>(enum_t_value));
+}
+bool DataMigrationDestinationType_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, DataMigrationDestinationType* value);
 enum DataMigrationStatus : int {
   DATA_MIGRATION_SUCCESS = 0,
   DATA_MIGRATION_FAILED = 1,
@@ -197,6 +218,33 @@ class StartMigrationRequest final :
 
   // accessors -------------------------------------------------------
 
+  enum : int {
+    kUsernameFieldNumber = 1,
+    kDestinationTypeFieldNumber = 2,
+  };
+  // string username = 1;
+  void clear_username();
+  const std::string& username() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_username(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_username();
+  PROTOBUF_NODISCARD std::string* release_username();
+  void set_allocated_username(std::string* username);
+  private:
+  const std::string& _internal_username() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_username(const std::string& value);
+  std::string* _internal_mutable_username();
+  public:
+
+  // .arc.data_migrator.DataMigrationDestinationType destination_type = 2;
+  void clear_destination_type();
+  ::arc::data_migrator::DataMigrationDestinationType destination_type() const;
+  void set_destination_type(::arc::data_migrator::DataMigrationDestinationType value);
+  private:
+  ::arc::data_migrator::DataMigrationDestinationType _internal_destination_type() const;
+  void _internal_set_destination_type(::arc::data_migrator::DataMigrationDestinationType value);
+  public:
+
   // @@protoc_insertion_point(class_scope:arc.data_migrator.StartMigrationRequest)
  private:
   class _Internal;
@@ -204,6 +252,8 @@ class StartMigrationRequest final :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr username_;
+  int destination_type_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_arcvm_5fdata_5fmigrator_2eproto;
 };
@@ -370,6 +420,77 @@ class DataMigrationProgress final :
 #endif  // __GNUC__
 // StartMigrationRequest
 
+// string username = 1;
+inline void StartMigrationRequest::clear_username() {
+  username_.ClearToEmpty();
+}
+inline const std::string& StartMigrationRequest::username() const {
+  // @@protoc_insertion_point(field_get:arc.data_migrator.StartMigrationRequest.username)
+  return _internal_username();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void StartMigrationRequest::set_username(ArgT0&& arg0, ArgT... args) {
+ 
+ username_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:arc.data_migrator.StartMigrationRequest.username)
+}
+inline std::string* StartMigrationRequest::mutable_username() {
+  std::string* _s = _internal_mutable_username();
+  // @@protoc_insertion_point(field_mutable:arc.data_migrator.StartMigrationRequest.username)
+  return _s;
+}
+inline const std::string& StartMigrationRequest::_internal_username() const {
+  return username_.Get();
+}
+inline void StartMigrationRequest::_internal_set_username(const std::string& value) {
+  
+  username_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* StartMigrationRequest::_internal_mutable_username() {
+  
+  return username_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* StartMigrationRequest::release_username() {
+  // @@protoc_insertion_point(field_release:arc.data_migrator.StartMigrationRequest.username)
+  return username_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void StartMigrationRequest::set_allocated_username(std::string* username) {
+  if (username != nullptr) {
+    
+  } else {
+    
+  }
+  username_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), username,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (username_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    username_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:arc.data_migrator.StartMigrationRequest.username)
+}
+
+// .arc.data_migrator.DataMigrationDestinationType destination_type = 2;
+inline void StartMigrationRequest::clear_destination_type() {
+  destination_type_ = 0;
+}
+inline ::arc::data_migrator::DataMigrationDestinationType StartMigrationRequest::_internal_destination_type() const {
+  return static_cast< ::arc::data_migrator::DataMigrationDestinationType >(destination_type_);
+}
+inline ::arc::data_migrator::DataMigrationDestinationType StartMigrationRequest::destination_type() const {
+  // @@protoc_insertion_point(field_get:arc.data_migrator.StartMigrationRequest.destination_type)
+  return _internal_destination_type();
+}
+inline void StartMigrationRequest::_internal_set_destination_type(::arc::data_migrator::DataMigrationDestinationType value) {
+  
+  destination_type_ = value;
+}
+inline void StartMigrationRequest::set_destination_type(::arc::data_migrator::DataMigrationDestinationType value) {
+  _internal_set_destination_type(value);
+  // @@protoc_insertion_point(field_set:arc.data_migrator.StartMigrationRequest.destination_type)
+}
+
 // -------------------------------------------------------------------
 
 // DataMigrationProgress
@@ -447,6 +568,7 @@ inline void DataMigrationProgress::set_total_bytes(uint64_t value) {
 
 PROTOBUF_NAMESPACE_OPEN
 
+template <> struct is_proto_enum< ::arc::data_migrator::DataMigrationDestinationType> : ::std::true_type {};
 template <> struct is_proto_enum< ::arc::data_migrator::DataMigrationStatus> : ::std::true_type {};
 
 PROTOBUF_NAMESPACE_CLOSE

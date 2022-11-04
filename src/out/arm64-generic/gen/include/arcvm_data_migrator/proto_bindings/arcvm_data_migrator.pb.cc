@@ -16,7 +16,10 @@ PROTOBUF_PRAGMA_INIT_SEG
 namespace arc {
 namespace data_migrator {
 constexpr StartMigrationRequest::StartMigrationRequest(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized){}
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : username_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , destination_type_(0)
+{}
 struct StartMigrationRequestDefaultTypeInternal {
   constexpr StartMigrationRequestDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -45,6 +48,57 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT DataMigrationProgressDefaultTyp
 }  // namespace arc
 namespace arc {
 namespace data_migrator {
+bool DataMigrationDestinationType_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+      return true;
+    default:
+      return false;
+  }
+}
+
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> DataMigrationDestinationType_strings[2] = {};
+
+static const char DataMigrationDestinationType_names[] =
+  "CROSVM_DISK"
+  "LVM_DEVICE";
+
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry DataMigrationDestinationType_entries[] = {
+  { {DataMigrationDestinationType_names + 0, 11}, 0 },
+  { {DataMigrationDestinationType_names + 11, 10}, 1 },
+};
+
+static const int DataMigrationDestinationType_entries_by_number[] = {
+  0, // 0 -> CROSVM_DISK
+  1, // 1 -> LVM_DEVICE
+};
+
+const std::string& DataMigrationDestinationType_Name(
+    DataMigrationDestinationType value) {
+  static const bool dummy =
+      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
+          DataMigrationDestinationType_entries,
+          DataMigrationDestinationType_entries_by_number,
+          2, DataMigrationDestinationType_strings);
+  (void) dummy;
+  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
+      DataMigrationDestinationType_entries,
+      DataMigrationDestinationType_entries_by_number,
+      2, value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
+                     DataMigrationDestinationType_strings[idx].get();
+}
+bool DataMigrationDestinationType_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, DataMigrationDestinationType* value) {
+  int int_value;
+  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
+      DataMigrationDestinationType_entries, 2, name, &int_value);
+  if (success) {
+    *value = static_cast<DataMigrationDestinationType>(int_value);
+  }
+  return success;
+}
 bool DataMigrationStatus_IsValid(int value) {
   switch (value) {
     case 0:
@@ -119,10 +173,24 @@ StartMigrationRequest::StartMigrationRequest(::PROTOBUF_NAMESPACE_ID::Arena* are
 StartMigrationRequest::StartMigrationRequest(const StartMigrationRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  username_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    username_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_username().empty()) {
+    username_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_username(), 
+      GetArenaForAllocation());
+  }
+  destination_type_ = from.destination_type_;
   // @@protoc_insertion_point(copy_constructor:arc.data_migrator.StartMigrationRequest)
 }
 
 inline void StartMigrationRequest::SharedCtor() {
+username_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  username_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+destination_type_ = 0;
 }
 
 StartMigrationRequest::~StartMigrationRequest() {
@@ -134,6 +202,7 @@ StartMigrationRequest::~StartMigrationRequest() {
 
 inline void StartMigrationRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  username_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
 void StartMigrationRequest::ArenaDtor(void* object) {
@@ -152,6 +221,8 @@ void StartMigrationRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  username_.ClearToEmpty();
+  destination_type_ = 0;
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -160,6 +231,30 @@ const char* StartMigrationRequest::_InternalParse(const char* ptr, ::PROTOBUF_NA
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // string username = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_username();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .arc.data_migrator.DataMigrationDestinationType destination_type = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_set_destination_type(static_cast<::arc::data_migrator::DataMigrationDestinationType>(val));
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
     if ((tag == 0) || ((tag & 7) == 4)) {
       CHK_(ptr);
       ctx->SetLastTag(tag);
@@ -185,6 +280,23 @@ uint8_t* StartMigrationRequest::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
+  // string username = 1;
+  if (!this->_internal_username().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_username().data(), static_cast<int>(this->_internal_username().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "arc.data_migrator.StartMigrationRequest.username");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_username(), target);
+  }
+
+  // .arc.data_migrator.DataMigrationDestinationType destination_type = 2;
+  if (this->_internal_destination_type() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+      2, this->_internal_destination_type(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -200,6 +312,19 @@ size_t StartMigrationRequest::ByteSizeLong() const {
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
+
+  // string username = 1;
+  if (!this->_internal_username().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_username());
+  }
+
+  // .arc.data_migrator.DataMigrationDestinationType destination_type = 2;
+  if (this->_internal_destination_type() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_destination_type());
+  }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
@@ -221,6 +346,12 @@ void StartMigrationRequest::MergeFrom(const StartMigrationRequest& from) {
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
+  if (!from._internal_username().empty()) {
+    _internal_set_username(from._internal_username());
+  }
+  if (from._internal_destination_type() != 0) {
+    _internal_set_destination_type(from._internal_destination_type());
+  }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
@@ -237,7 +368,15 @@ bool StartMigrationRequest::IsInitialized() const {
 
 void StartMigrationRequest::InternalSwap(StartMigrationRequest* other) {
   using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &username_, lhs_arena,
+      &other->username_, rhs_arena
+  );
+  swap(destination_type_, other->destination_type_);
 }
 
 std::string StartMigrationRequest::GetTypeName() const {

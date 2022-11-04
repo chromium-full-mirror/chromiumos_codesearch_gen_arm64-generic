@@ -400,12 +400,6 @@ class BASE_EXPORT FieldTrialList {
 
   // This singleton holds the global list of registered FieldTrials.
   FieldTrialList();
-  explicit FieldTrialList(
-      std::unique_ptr<const FieldTrial::EntropyProvider>) {
-    DCHECK(!global_);
-    DCHECK(!used_without_global_);
-    global_ = this;
-  }
   FieldTrialList(const FieldTrialList&) = delete;
   FieldTrialList& operator=(const FieldTrialList&) = delete;
 
