@@ -29,7 +29,7 @@
 #include <google/protobuf/repeated_field.h>  // IWYU pragma: export
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
 #include "components/reporting/proto/synced/record_constants.pb.h"
-#include "components/reporting/util/status.pb.h"
+#include "components/reporting/proto/synced/status.pb.h"
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
 #define PROTOBUF_INTERNAL_EXPORT_components_2freporting_2fproto_2fsynced_2fhealth_2eproto
