@@ -14,7 +14,6 @@
 
 #include "base/check.h"
 #include "base/ranges/algorithm.h"
-#include "base/types/cxx23_to_underlying.h"
 
 namespace base {
 
