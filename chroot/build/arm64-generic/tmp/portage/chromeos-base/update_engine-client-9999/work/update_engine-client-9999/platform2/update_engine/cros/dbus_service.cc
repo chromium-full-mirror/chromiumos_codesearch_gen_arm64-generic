@@ -58,6 +58,8 @@ void ConvertToStatusResult(const UpdateEngineStatus& ue_status,
     out_feature->set_name(feature.name);
     out_feature->set_enabled(feature.enabled);
   }
+  out_status->set_is_interactive(ue_status.is_interactive);
+  out_status->set_will_defer_update(ue_status.will_defer_update);
 }
 }  // namespace
 
@@ -85,6 +87,11 @@ bool DBusUpdateEngineService::AttemptInstall(ErrorPtr* error,
                                              const string& in_omaha_url,
                                              const vector<string>& dlc_ids) {
   return common_->AttemptInstall(error, in_omaha_url, dlc_ids);
+}
+
+bool DBusUpdateEngineService::Install(
+    ErrorPtr* error, const update_engine::InstallParams& install_params) {
+  return common_->Install(error, install_params);
 }
 
 bool DBusUpdateEngineService::AttemptRollback(ErrorPtr* error,

@@ -4,6 +4,7 @@
 
 #include <cstdint>
 #include <memory>
+#include <optional>
 #include <utility>
 
 #include <gtest/gtest.h>
@@ -15,6 +16,9 @@
 
 #include "libhwsec/backend/tpm2/backend_test_base.h"
 
+using hwsec_foundation::error::testing::IsOk;
+using hwsec_foundation::error::testing::IsOkAndHolds;
+using hwsec_foundation::error::testing::NotOk;
 using hwsec_foundation::error::testing::ReturnError;
 using hwsec_foundation::error::testing::ReturnValue;
 using testing::_;
@@ -35,10 +39,8 @@ TEST_F(BackendPinweaverTpm2Test, IsEnabled) {
   EXPECT_CALL(proxy_->GetMock().tpm_utility, PinWeaverIsSupported(_, _))
       .WillOnce(DoAll(SetArgPointee<1>(1), Return(trunks::TPM_RC_SUCCESS)));
 
-  auto result = middleware_->CallSync<&Backend::PinWeaver::IsEnabled>();
-
-  ASSERT_TRUE(result.ok());
-  EXPECT_TRUE(*result);
+  EXPECT_THAT(middleware_->CallSync<&Backend::PinWeaver::IsEnabled>(),
+              IsOkAndHolds(true));
 }
 
 TEST_F(BackendPinweaverTpm2Test, IsEnabledMismatch) {
@@ -46,20 +48,16 @@ TEST_F(BackendPinweaverTpm2Test, IsEnabledMismatch) {
       .WillOnce(Return(trunks::SAPI_RC_ABI_MISMATCH))
       .WillOnce(DoAll(SetArgPointee<1>(1), Return(trunks::TPM_RC_SUCCESS)));
 
-  auto result = middleware_->CallSync<&Backend::PinWeaver::IsEnabled>();
-
-  ASSERT_TRUE(result.ok());
-  EXPECT_TRUE(*result);
+  EXPECT_THAT(middleware_->CallSync<&Backend::PinWeaver::IsEnabled>(),
+              IsOkAndHolds(true));
 }
 
 TEST_F(BackendPinweaverTpm2Test, IsDisabled) {
   EXPECT_CALL(proxy_->GetMock().tpm_utility, PinWeaverIsSupported(_, _))
       .WillOnce(Return(trunks::TPM_RC_FAILURE));
 
-  auto result = middleware_->CallSync<&Backend::PinWeaver::IsEnabled>();
-
-  ASSERT_TRUE(result.ok());
-  EXPECT_FALSE(*result);
+  EXPECT_THAT(middleware_->CallSync<&Backend::PinWeaver::IsEnabled>(),
+              IsOkAndHolds(false));
 }
 
 TEST_F(BackendPinweaverTpm2Test, IsDisabledMismatch) {
@@ -67,10 +65,8 @@ TEST_F(BackendPinweaverTpm2Test, IsDisabledMismatch) {
       .WillOnce(Return(trunks::SAPI_RC_ABI_MISMATCH))
       .WillOnce(Return(trunks::SAPI_RC_ABI_MISMATCH));
 
-  auto result = middleware_->CallSync<&Backend::PinWeaver::IsEnabled>();
-
-  ASSERT_TRUE(result.ok());
-  EXPECT_FALSE(*result);
+  EXPECT_THAT(middleware_->CallSync<&Backend::PinWeaver::IsEnabled>(),
+              IsOkAndHolds(false));
 }
 
 TEST_F(BackendPinweaverTpm2Test, Reset) {
@@ -90,7 +86,7 @@ TEST_F(BackendPinweaverTpm2Test, Reset) {
   auto result = middleware_->CallSync<&Backend::PinWeaver::Reset>(
       kBitsPerLevel, kLengthLabels);
 
-  ASSERT_TRUE(result.ok());
+  ASSERT_OK(result);
   EXPECT_EQ(result->error, ErrorCode::kSuccess);
   EXPECT_EQ(result->new_root, brillo::BlobFromString(kFakeRoot));
 }
@@ -111,11 +107,11 @@ TEST_F(BackendPinweaverTpm2Test, ResetFailure) {
   auto result = middleware_->CallSync<&Backend::PinWeaver::Reset>(
       kBitsPerLevel, kLengthLabels);
 
-  ASSERT_FALSE(result.ok());
+  ASSERT_NOT_OK(result);
 }
 
 TEST_F(BackendPinweaverTpm2Test, InsertCredential) {
-  constexpr uint32_t kVersion = 1;
+  constexpr uint32_t kVersion = 2;
   constexpr uint32_t kLabel = 42;
   const std::string kFakeRoot = "fake_root";
   const std::string kFakeCred = "fake_cred";
@@ -126,6 +122,7 @@ TEST_F(BackendPinweaverTpm2Test, InsertCredential) {
   const hwsec::Backend::PinWeaver::DelaySchedule kDelaySched = {
       {5, UINT32_MAX},
   };
+  const uint32_t kExpirationDelay = 100;
   const std::vector<OperationPolicySetting> kPolicies = {
       OperationPolicySetting{
           .device_config_settings =
@@ -156,20 +153,19 @@ TEST_F(BackendPinweaverTpm2Test, InsertCredential) {
       .WillOnce(
           DoAll(SetArgPointee<1>(kVersion), Return(trunks::TPM_RC_SUCCESS)));
 
-  EXPECT_CALL(
-      proxy_->GetMock().tpm_utility,
-      PinWeaverInsertLeaf(kVersion, kLabel, _, kFakeLeSecret, kFakeHeSecret,
-                          kFakeResetSecret, kDelaySched, _,
-                          /*expiration_delay=*/Eq(std::nullopt), _, _, _, _))
+  EXPECT_CALL(proxy_->GetMock().tpm_utility,
+              PinWeaverInsertLeaf(kVersion, kLabel, _, kFakeLeSecret,
+                                  kFakeHeSecret, kFakeResetSecret, kDelaySched,
+                                  _, Eq(kExpirationDelay), _, _, _, _))
       .WillOnce(DoAll(SetArgPointee<9>(0), SetArgPointee<10>(kFakeRoot),
                       SetArgPointee<11>(kFakeCred), SetArgPointee<12>(kFakeMac),
                       Return(trunks::TPM_RC_SUCCESS)));
 
   auto result = middleware_->CallSync<&Backend::PinWeaver::InsertCredential>(
       kPolicies, kLabel, kHAux, kFakeLeSecret, kFakeHeSecret, kFakeResetSecret,
-      kDelaySched);
+      kDelaySched, kExpirationDelay);
 
-  ASSERT_TRUE(result.ok());
+  ASSERT_OK(result);
   EXPECT_EQ(result->error, ErrorCode::kSuccess);
   EXPECT_EQ(result->new_root, brillo::BlobFromString(kFakeRoot));
   ASSERT_TRUE(result->new_cred_metadata.has_value());
@@ -180,7 +176,7 @@ TEST_F(BackendPinweaverTpm2Test, InsertCredential) {
 }
 
 TEST_F(BackendPinweaverTpm2Test, InsertCredentialUnsupportedPolicy) {
-  constexpr uint32_t kVersion = 1;
+  constexpr uint32_t kVersion = 2;
   constexpr uint32_t kLabel = 42;
   const std::string kFakeRoot = "fake_root";
   const std::string kFakeCred = "fake_cred";
@@ -191,6 +187,7 @@ TEST_F(BackendPinweaverTpm2Test, InsertCredentialUnsupportedPolicy) {
   const hwsec::Backend::PinWeaver::DelaySchedule kDelaySched = {
       {5, UINT32_MAX},
   };
+  const uint32_t kExpirationDelay = 100;
   const std::vector<OperationPolicySetting> kPolicies = {
       OperationPolicySetting{.permission =
                                  Permission{
@@ -209,12 +206,12 @@ TEST_F(BackendPinweaverTpm2Test, InsertCredentialUnsupportedPolicy) {
 
   auto result = middleware_->CallSync<&Backend::PinWeaver::InsertCredential>(
       kPolicies, kLabel, kHAux, kFakeLeSecret, kFakeHeSecret, kFakeResetSecret,
-      kDelaySched);
+      kDelaySched, kExpirationDelay);
 
   EXPECT_FALSE(result.ok());
 }
 
-TEST_F(BackendPinweaverTpm2Test, InsertCredentialUnsupportedVersion) {
+TEST_F(BackendPinweaverTpm2Test, InsertCredentialV0PolicyUnsupported) {
   constexpr uint32_t kVersion = 0;
   constexpr uint32_t kLabel = 42;
   const std::string kFakeRoot = "fake_root";
@@ -258,12 +255,12 @@ TEST_F(BackendPinweaverTpm2Test, InsertCredentialUnsupportedVersion) {
 
   auto result = middleware_->CallSync<&Backend::PinWeaver::InsertCredential>(
       kPolicies, kLabel, kHAux, kFakeLeSecret, kFakeHeSecret, kFakeResetSecret,
-      kDelaySched);
+      kDelaySched, /*expiration_delay=*/std::nullopt);
 
   EXPECT_FALSE(result.ok());
 }
 
-TEST_F(BackendPinweaverTpm2Test, InsertCredentialNoDelay) {
+TEST_F(BackendPinweaverTpm2Test, InsertCredentialV1ExpirationUnsupported) {
   constexpr uint32_t kVersion = 1;
   constexpr uint32_t kLabel = 42;
   const std::string kFakeRoot = "fake_root";
@@ -275,6 +272,7 @@ TEST_F(BackendPinweaverTpm2Test, InsertCredentialNoDelay) {
   const hwsec::Backend::PinWeaver::DelaySchedule kDelaySched = {
       {5, UINT32_MAX},
   };
+  const uint32_t kExpirationDelay = 100;
   const std::vector<OperationPolicySetting> kPolicies = {
       OperationPolicySetting{
           .device_config_settings =
@@ -305,17 +303,66 @@ TEST_F(BackendPinweaverTpm2Test, InsertCredentialNoDelay) {
       .WillOnce(
           DoAll(SetArgPointee<1>(kVersion), Return(trunks::TPM_RC_SUCCESS)));
 
-  EXPECT_CALL(
-      proxy_->GetMock().tpm_utility,
-      PinWeaverInsertLeaf(kVersion, kLabel, _, kFakeLeSecret, kFakeHeSecret,
-                          kFakeResetSecret, kDelaySched, _,
-                          /*expiration_delay=*/Eq(std::nullopt), _, _, _, _))
+  auto result = middleware_->CallSync<&Backend::PinWeaver::InsertCredential>(
+      kPolicies, kLabel, kHAux, kFakeLeSecret, kFakeHeSecret, kFakeResetSecret,
+      kDelaySched, kExpirationDelay);
+
+  EXPECT_FALSE(result.ok());
+}
+
+TEST_F(BackendPinweaverTpm2Test, InsertCredentialNoDelay) {
+  constexpr uint32_t kVersion = 2;
+  constexpr uint32_t kLabel = 42;
+  const std::string kFakeRoot = "fake_root";
+  const std::string kFakeCred = "fake_cred";
+  const std::string kFakeMac = "fake_mac";
+  const brillo::SecureBlob kFakeLeSecret("fake_le_secret");
+  const brillo::SecureBlob kFakeHeSecret("fake_he_secret");
+  const brillo::SecureBlob kFakeResetSecret("fake_reset_secret");
+  const hwsec::Backend::PinWeaver::DelaySchedule kDelaySched = {
+      {5, UINT32_MAX},
+  };
+  const uint32_t kExpirationDelay = 100;
+  const std::vector<OperationPolicySetting> kPolicies = {
+      OperationPolicySetting{
+          .device_config_settings =
+              DeviceConfigSettings{
+                  .current_user =
+                      DeviceConfigSettings::CurrentUserSetting{
+                          .username = std::nullopt,
+                      },
+              },
+      },
+      OperationPolicySetting{
+          .device_config_settings =
+              DeviceConfigSettings{
+                  .current_user =
+                      DeviceConfigSettings::CurrentUserSetting{
+                          .username = "fake_username",
+                      },
+              },
+      },
+  };
+  const std::vector<brillo::Blob>& kHAux = {
+      brillo::Blob(32, 'X'),
+      brillo::Blob(32, 'Y'),
+      brillo::Blob(32, 'Z'),
+  };
+
+  EXPECT_CALL(proxy_->GetMock().tpm_utility, PinWeaverIsSupported(_, _))
+      .WillOnce(
+          DoAll(SetArgPointee<1>(kVersion), Return(trunks::TPM_RC_SUCCESS)));
+
+  EXPECT_CALL(proxy_->GetMock().tpm_utility,
+              PinWeaverInsertLeaf(kVersion, kLabel, _, kFakeLeSecret,
+                                  kFakeHeSecret, kFakeResetSecret, kDelaySched,
+                                  _, Eq(kExpirationDelay), _, _, _, _))
       .WillOnce(DoAll(SetArgPointee<9>(PW_ERR_DELAY_SCHEDULE_INVALID),
                       Return(trunks::TPM_RC_SUCCESS)));
 
   auto result = middleware_->CallSync<&Backend::PinWeaver::InsertCredential>(
       kPolicies, kLabel, kHAux, kFakeLeSecret, kFakeHeSecret, kFakeResetSecret,
-      kDelaySched);
+      kDelaySched, kExpirationDelay);
 
   EXPECT_FALSE(result.ok());
 }
@@ -352,7 +399,7 @@ TEST_F(BackendPinweaverTpm2Test, CheckCredential) {
   auto result = middleware_->CallSync<&Backend::PinWeaver::CheckCredential>(
       kLabel, kHAux, brillo::BlobFromString(kFakeCred), kFakeLeSecret);
 
-  ASSERT_TRUE(result.ok());
+  ASSERT_OK(result);
   EXPECT_EQ(result->error, ErrorCode::kSuccess);
   EXPECT_EQ(result->new_root, brillo::BlobFromString(kFakeRoot));
   ASSERT_TRUE(result->new_cred_metadata.has_value());
@@ -389,16 +436,15 @@ TEST_F(BackendPinweaverTpm2Test, CheckCredentialAuthFail) {
   EXPECT_CALL(proxy_->GetMock().tpm_utility,
               PinWeaverTryAuth(kVersion, kFakeLeSecret, _, kFakeCred, _, _, _,
                                _, _, _, _))
-      .WillOnce(
-          DoAll(SetArgPointee<4>(PW_ERR_LOWENT_AUTH_FAILED),
-                SetArgPointee<5>(kFakeRoot), SetArgPointee<7>(kFakeHeSecret),
-                SetArgPointee<8>(kFakeResetSecret), SetArgPointee<9>(kNewCred),
-                SetArgPointee<10>(kFakeMac), Return(trunks::TPM_RC_SUCCESS)));
+      .WillOnce(DoAll(SetArgPointee<4>(PW_ERR_LOWENT_AUTH_FAILED),
+                      SetArgPointee<5>(kFakeRoot), SetArgPointee<9>(kNewCred),
+                      SetArgPointee<10>(kFakeMac),
+                      Return(trunks::TPM_RC_SUCCESS)));
 
   auto result = middleware_->CallSync<&Backend::PinWeaver::CheckCredential>(
       kLabel, kHAux, brillo::BlobFromString(kFakeCred), kFakeLeSecret);
 
-  ASSERT_TRUE(result.ok());
+  ASSERT_OK(result);
   EXPECT_EQ(result->error, ErrorCode::kInvalidLeSecret);
   EXPECT_EQ(result->new_root, brillo::BlobFromString(kFakeRoot));
   ASSERT_TRUE(result->new_cred_metadata.has_value());
@@ -407,9 +453,9 @@ TEST_F(BackendPinweaverTpm2Test, CheckCredentialAuthFail) {
   ASSERT_TRUE(result->new_mac.has_value());
   EXPECT_EQ(result->new_mac.value(), brillo::BlobFromString(kFakeMac));
   ASSERT_TRUE(result->he_secret.has_value());
-  EXPECT_EQ(result->he_secret.value(), kFakeHeSecret);
+  EXPECT_TRUE(result->he_secret->empty());
   ASSERT_TRUE(result->reset_secret.has_value());
-  EXPECT_EQ(result->reset_secret.value(), kFakeResetSecret);
+  EXPECT_TRUE(result->reset_secret->empty());
 }
 
 TEST_F(BackendPinweaverTpm2Test, CheckCredentialTpmFail) {
@@ -461,7 +507,7 @@ TEST_F(BackendPinweaverTpm2Test, RemoveCredential) {
   auto result = middleware_->CallSync<&Backend::PinWeaver::RemoveCredential>(
       kLabel, kHAux, brillo::BlobFromString(kFakeMac));
 
-  ASSERT_TRUE(result.ok());
+  ASSERT_OK(result);
   EXPECT_EQ(result->error, ErrorCode::kSuccess);
   EXPECT_EQ(result->new_root, brillo::BlobFromString(kFakeRoot));
 }
@@ -494,7 +540,7 @@ TEST_F(BackendPinweaverTpm2Test, RemoveCredentialFail) {
 }
 
 TEST_F(BackendPinweaverTpm2Test, ResetCredential) {
-  constexpr uint32_t kVersion = 1;
+  constexpr uint32_t kVersion = 2;
   constexpr uint32_t kLabel = 42;
   const std::string kFakeRoot = "fake_root";
   const std::string kFakeCred = "fake_cred";
@@ -513,16 +559,17 @@ TEST_F(BackendPinweaverTpm2Test, ResetCredential) {
 
   EXPECT_CALL(
       proxy_->GetMock().tpm_utility,
-      PinWeaverResetAuth(kVersion, kFakeResetSecret, /*strong_reset=*/false, _,
+      PinWeaverResetAuth(kVersion, kFakeResetSecret, /*strong_reset=*/true, _,
                          kFakeCred, _, _, _, _))
       .WillOnce(DoAll(SetArgPointee<5>(0), SetArgPointee<6>(kFakeRoot),
                       SetArgPointee<7>(kNewCred), SetArgPointee<8>(kFakeMac),
                       Return(trunks::TPM_RC_SUCCESS)));
 
   auto result = middleware_->CallSync<&Backend::PinWeaver::ResetCredential>(
-      kLabel, kHAux, brillo::BlobFromString(kFakeCred), kFakeResetSecret);
+      kLabel, kHAux, brillo::BlobFromString(kFakeCred), kFakeResetSecret,
+      /*strong_reset=*/true);
 
-  ASSERT_TRUE(result.ok());
+  ASSERT_OK(result);
   EXPECT_EQ(result->error, ErrorCode::kSuccess);
   EXPECT_EQ(result->new_root, brillo::BlobFromString(kFakeRoot));
   ASSERT_TRUE(result->new_cred_metadata.has_value());
@@ -530,6 +577,31 @@ TEST_F(BackendPinweaverTpm2Test, ResetCredential) {
             brillo::BlobFromString(kNewCred));
   ASSERT_TRUE(result->new_mac.has_value());
   EXPECT_EQ(result->new_mac.value(), brillo::BlobFromString(kFakeMac));
+}
+
+TEST_F(BackendPinweaverTpm2Test, ResetCredentialV1ExpirationUnsupported) {
+  constexpr uint32_t kVersion = 1;
+  constexpr uint32_t kLabel = 42;
+  const std::string kFakeRoot = "fake_root";
+  const std::string kFakeCred = "fake_cred";
+  const std::string kNewCred = "new_cred";
+  const std::string kFakeMac = "fake_mac";
+  const brillo::SecureBlob kFakeResetSecret("fake_reset_secret");
+  const std::vector<brillo::Blob>& kHAux = {
+      brillo::Blob(32, 'X'),
+      brillo::Blob(32, 'Y'),
+      brillo::Blob(32, 'Z'),
+  };
+
+  EXPECT_CALL(proxy_->GetMock().tpm_utility, PinWeaverIsSupported(_, _))
+      .WillOnce(
+          DoAll(SetArgPointee<1>(kVersion), Return(trunks::TPM_RC_SUCCESS)));
+
+  auto result = middleware_->CallSync<&Backend::PinWeaver::ResetCredential>(
+      kLabel, kHAux, brillo::BlobFromString(kFakeCred), kFakeResetSecret,
+      /*strong_reset=*/true);
+
+  ASSERT_NOT_OK(result);
 }
 
 TEST_F(BackendPinweaverTpm2Test, GetLog) {
@@ -572,7 +644,7 @@ TEST_F(BackendPinweaverTpm2Test, GetLog) {
   auto result = middleware_->CallSync<&Backend::PinWeaver::GetLog>(
       brillo::BlobFromString(kFakeRoot));
 
-  ASSERT_TRUE(result.ok());
+  ASSERT_OK(result);
   EXPECT_EQ(result->root_hash, brillo::BlobFromString(kNewRoot));
   EXPECT_EQ(result->log_entries.size(), kFakeLog.size());
 }
@@ -625,7 +697,7 @@ TEST_F(BackendPinweaverTpm2Test, ReplayLogOperation) {
       brillo::BlobFromString(kFakeRoot), kHAux,
       brillo::BlobFromString(kFakeCred));
 
-  ASSERT_TRUE(result.ok());
+  ASSERT_OK(result);
   EXPECT_EQ(result->new_cred_metadata, brillo::BlobFromString(kNewCred));
   EXPECT_EQ(result->new_mac, brillo::BlobFromString(kFakeMac));
 }
@@ -668,20 +740,15 @@ TEST_F(BackendPinweaverTpm2Test, GetWrongAuthAttempts) {
       reinterpret_cast<struct leaf_public_data_t*>(leaf.data());
   leaf_data->attempt_count.v = 123;
 
-  auto result =
-      middleware_->CallSync<&Backend::PinWeaver::GetWrongAuthAttempts>(
-          brillo::CombineBlobs({header, leaf}));
-
-  ASSERT_TRUE(result.ok());
-  EXPECT_EQ(result.value(), 123);
+  EXPECT_THAT(middleware_->CallSync<&Backend::PinWeaver::GetWrongAuthAttempts>(
+                  brillo::CombineBlobs({header, leaf})),
+              IsOkAndHolds(123));
 }
 
 TEST_F(BackendPinweaverTpm2Test, GetWrongAuthAttemptsEmpty) {
-  auto result =
-      middleware_->CallSync<&Backend::PinWeaver::GetWrongAuthAttempts>(
-          brillo::Blob());
-
-  EXPECT_FALSE(result.ok());
+  EXPECT_THAT(middleware_->CallSync<&Backend::PinWeaver::GetWrongAuthAttempts>(
+                  brillo::Blob()),
+              NotOk());
 }
 
 TEST_F(BackendPinweaverTpm2Test, GetDelaySchedule) {
@@ -696,7 +763,7 @@ TEST_F(BackendPinweaverTpm2Test, GetDelaySchedule) {
   auto result = middleware_->CallSync<&Backend::PinWeaver::GetDelaySchedule>(
       brillo::CombineBlobs({header, leaf}));
 
-  ASSERT_TRUE(result.ok());
+  ASSERT_OK(result);
   ASSERT_EQ(result.value().size(), 1);
   EXPECT_EQ(result.value().begin()->first, 5);
   EXPECT_EQ(result.value().begin()->second, UINT32_MAX);
@@ -724,19 +791,15 @@ TEST_F(BackendPinweaverTpm2Test, GetDelayInSecondsV1) {
   EXPECT_CALL(proxy_->GetMock().tpm_utility, PinWeaverIsSupported(_, _))
       .WillOnce(DoAll(SetArgPointee<1>(1), Return(trunks::TPM_RC_SUCCESS)));
 
-  auto result = middleware_->CallSync<&Backend::PinWeaver::GetDelayInSeconds>(
-      brillo::CombineBlobs({header, leaf}));
-
-  ASSERT_TRUE(result.ok());
-  EXPECT_EQ(result.value(), 0);
+  EXPECT_THAT(middleware_->CallSync<&Backend::PinWeaver::GetDelayInSeconds>(
+                  brillo::CombineBlobs({header, leaf})),
+              IsOkAndHolds(0));
 
   leaf_data->attempt_count.v = 5;
 
-  auto result2 = middleware_->CallSync<&Backend::PinWeaver::GetDelayInSeconds>(
-      brillo::CombineBlobs({header, leaf}));
-
-  ASSERT_TRUE(result2.ok());
-  EXPECT_EQ(result2.value(), UINT32_MAX);
+  EXPECT_THAT(middleware_->CallSync<&Backend::PinWeaver::GetDelayInSeconds>(
+                  brillo::CombineBlobs({header, leaf})),
+              IsOkAndHolds(UINT32_MAX));
 }
 
 TEST_F(BackendPinweaverTpm2Test, GetDelayInSecondsV2) {
@@ -772,32 +835,526 @@ TEST_F(BackendPinweaverTpm2Test, GetDelayInSecondsV2) {
                       SetArgPointee<3>(1), SetArgPointee<4>(10),
                       Return(trunks::TPM_RC_SUCCESS)));
 
-  auto result = middleware_->CallSync<&Backend::PinWeaver::GetDelayInSeconds>(
-      brillo::CombineBlobs({header, leaf}));
-  ASSERT_TRUE(result.ok());
-  EXPECT_EQ(result.value(), 0);
+  EXPECT_THAT(middleware_->CallSync<&Backend::PinWeaver::GetDelayInSeconds>(
+                  brillo::CombineBlobs({header, leaf})),
+              IsOkAndHolds(0));
 
   // Ready timestamp is 100+60=160, and the current timestamp is 120.
   leaf_data->attempt_count.v = 5;
-  auto result2 = middleware_->CallSync<&Backend::PinWeaver::GetDelayInSeconds>(
-      brillo::CombineBlobs({header, leaf}));
-  ASSERT_TRUE(result2.ok());
-  EXPECT_EQ(result2.value(), 40);
+
+  EXPECT_THAT(middleware_->CallSync<&Backend::PinWeaver::GetDelayInSeconds>(
+                  brillo::CombineBlobs({header, leaf})),
+              IsOkAndHolds(40));
 
   // Ready timestamp is 70 because the boot count has changed, and the current
   // timestamp is 10.
   leaf_data->attempt_count.v = 6;
-  auto result3 = middleware_->CallSync<&Backend::PinWeaver::GetDelayInSeconds>(
-      brillo::CombineBlobs({header, leaf}));
-  ASSERT_TRUE(result3.ok());
-  EXPECT_EQ(result3.value(), 60);
+
+  EXPECT_THAT(middleware_->CallSync<&Backend::PinWeaver::GetDelayInSeconds>(
+                  brillo::CombineBlobs({header, leaf})),
+              IsOkAndHolds(60));
 
   // Ready timestamp isn't important because the leaf is infinitely locked out.
   leaf_data->attempt_count.v = 7;
-  auto result4 = middleware_->CallSync<&Backend::PinWeaver::GetDelayInSeconds>(
-      brillo::CombineBlobs({header, leaf}));
-  ASSERT_TRUE(result4.ok());
-  EXPECT_EQ(result4.value(), UINT32_MAX);
+
+  EXPECT_THAT(middleware_->CallSync<&Backend::PinWeaver::GetDelayInSeconds>(
+                  brillo::CombineBlobs({header, leaf})),
+              IsOkAndHolds(UINT32_MAX));
+}
+
+TEST_F(BackendPinweaverTpm2Test, GetExpirationInSecondsV1) {
+  constexpr uint32_t kVersion = 1;
+  const std::string kFakeRoot = "fake_root";
+
+  brillo::Blob header(sizeof(unimported_leaf_data_t));
+  brillo::Blob leaf(sizeof(leaf_public_data_t));
+
+  struct leaf_public_data_t* leaf_data =
+      reinterpret_cast<struct leaf_public_data_t*>(leaf.data());
+  leaf_data->expiration_delay_s.v = 10;
+  leaf_data->expiration_ts.boot_count = 1;
+  leaf_data->expiration_ts.timer_value = 120;
+
+  EXPECT_CALL(proxy_->GetMock().tpm_utility, PinWeaverIsSupported(_, _))
+      .WillOnce(
+          DoAll(SetArgPointee<1>(kVersion), Return(trunks::TPM_RC_SUCCESS)));
+
+  // In version 1, credentials are always treated as having no expiration.
+  EXPECT_THAT(
+      middleware_->CallSync<&Backend::PinWeaver::GetExpirationInSeconds>(
+          brillo::CombineBlobs({header, leaf})),
+      IsOkAndHolds(std::nullopt));
+}
+
+TEST_F(BackendPinweaverTpm2Test, GetExpirationInSecondsV2) {
+  constexpr uint32_t kVersion = 2;
+  const std::string kFakeRoot = "fake_root";
+
+  brillo::Blob header(sizeof(unimported_leaf_data_t));
+  brillo::Blob leaf(sizeof(leaf_public_data_t));
+  // Simulate a leaf created at v1.
+  brillo::Blob leaf_v1(offsetof(leaf_public_data_t, expiration_ts));
+
+  struct leaf_public_data_t* leaf_data =
+      reinterpret_cast<struct leaf_public_data_t*>(leaf.data());
+  leaf_data->expiration_delay_s.v = 0;
+  leaf_data->expiration_ts.boot_count = 0;
+  leaf_data->expiration_ts.timer_value = 0;
+
+  EXPECT_CALL(proxy_->GetMock().tpm_utility, PinWeaverIsSupported(_, _))
+      .WillOnce(
+          DoAll(SetArgPointee<1>(kVersion), Return(trunks::TPM_RC_SUCCESS)));
+
+  // This is only called 3 times because when the delay is 0, we don't have
+  // to query the current timestamp.
+  EXPECT_CALL(proxy_->GetMock().tpm_utility,
+              PinWeaverSysInfo(kVersion, _, _, _, _))
+      .Times(3)
+      .WillRepeatedly(DoAll(SetArgPointee<1>(0), SetArgPointee<2>(kFakeRoot),
+                            SetArgPointee<3>(1), SetArgPointee<4>(100),
+                            Return(trunks::TPM_RC_SUCCESS)));
+
+  EXPECT_THAT(
+      middleware_->CallSync<&Backend::PinWeaver::GetExpirationInSeconds>(
+          brillo::CombineBlobs({header, leaf})),
+      IsOkAndHolds(std::nullopt));
+
+  leaf_data->expiration_delay_s.v = 10;
+  leaf_data->expiration_ts.timer_value = 120;
+
+  EXPECT_THAT(
+      middleware_->CallSync<&Backend::PinWeaver::GetExpirationInSeconds>(
+          brillo::CombineBlobs({header, leaf})),
+      IsOkAndHolds(0));
+
+  leaf_data->expiration_ts.boot_count = 1;
+  leaf_data->expiration_ts.timer_value = 80;
+
+  EXPECT_THAT(
+      middleware_->CallSync<&Backend::PinWeaver::GetExpirationInSeconds>(
+          brillo::CombineBlobs({header, leaf})),
+      IsOkAndHolds(0));
+
+  leaf_data->expiration_ts.timer_value = 120;
+
+  EXPECT_THAT(
+      middleware_->CallSync<&Backend::PinWeaver::GetExpirationInSeconds>(
+          brillo::CombineBlobs({header, leaf})),
+      IsOkAndHolds(20));
+
+  // Leaf created in version before v2 has no expiration.
+  EXPECT_THAT(
+      middleware_->CallSync<&Backend::PinWeaver::GetExpirationInSeconds>(
+          brillo::CombineBlobs({header, leaf_v1})),
+      IsOkAndHolds(std::nullopt));
+}
+
+TEST_F(BackendPinweaverTpm2Test, GeneratePk) {
+  constexpr uint32_t kVersion = 2;
+  constexpr uint8_t kAuthChannel = 0;
+  const std::string kFakeRoot = "fake_root";
+  const std::string kClientCoordinate(32, 'A');
+  const std::string kServerCoordinate(32, 'B');
+
+  Backend::PinWeaver::PinWeaverEccPoint client_public_key;
+  memcpy(client_public_key.x, kClientCoordinate.data(),
+         kClientCoordinate.size());
+  memcpy(client_public_key.y, kClientCoordinate.data(),
+         kClientCoordinate.size());
+  trunks::PinWeaverEccPoint server_public_key;
+  memcpy(server_public_key.x, kServerCoordinate.data(),
+         kServerCoordinate.size());
+  memcpy(server_public_key.y, kServerCoordinate.data(),
+         kServerCoordinate.size());
+
+  EXPECT_CALL(proxy_->GetMock().tpm_utility, PinWeaverIsSupported(_, _))
+      .WillOnce(
+          DoAll(SetArgPointee<1>(kVersion), Return(trunks::TPM_RC_SUCCESS)));
+
+  EXPECT_CALL(
+      proxy_->GetMock().tpm_utility,
+      PinWeaverGenerateBiometricsAuthPk(kVersion, kAuthChannel, _, _, _, _))
+      .WillOnce(DoAll(SetArgPointee<3>(0), SetArgPointee<4>(kFakeRoot),
+                      SetArgPointee<5>(server_public_key),
+                      Return(trunks::TPM_RC_SUCCESS)));
+
+  auto result = middleware_->CallSync<&Backend::PinWeaver::GeneratePk>(
+      kAuthChannel, client_public_key);
+
+  ASSERT_OK(result);
+  ASSERT_FALSE(memcmp(&*result, &server_public_key, 64));
+}
+
+TEST_F(BackendPinweaverTpm2Test, GeneratePkV1Unsupported) {
+  constexpr uint32_t kVersion = 1;
+  constexpr uint8_t kAuthChannel = 0;
+  const std::string kClientCoordinate(32, 'A');
+
+  Backend::PinWeaver::PinWeaverEccPoint client_public_key;
+  memcpy(client_public_key.x, kClientCoordinate.data(),
+         kClientCoordinate.size());
+  memcpy(client_public_key.y, kClientCoordinate.data(),
+         kClientCoordinate.size());
+
+  EXPECT_CALL(proxy_->GetMock().tpm_utility, PinWeaverIsSupported(_, _))
+      .WillOnce(
+          DoAll(SetArgPointee<1>(kVersion), Return(trunks::TPM_RC_SUCCESS)));
+
+  EXPECT_THAT(middleware_->CallSync<&Backend::PinWeaver::GeneratePk>(
+                  kAuthChannel, client_public_key),
+              NotOk());
+}
+
+TEST_F(BackendPinweaverTpm2Test, GeneratePkInvalidAuthChannel) {
+  constexpr uint32_t kVersion = 2;
+  constexpr uint8_t kAuthChannel = 2;
+  const std::string kClientCoordinate(32, 'A');
+
+  Backend::PinWeaver::PinWeaverEccPoint client_public_key;
+  memcpy(client_public_key.x, kClientCoordinate.data(),
+         kClientCoordinate.size());
+  memcpy(client_public_key.y, kClientCoordinate.data(),
+         kClientCoordinate.size());
+
+  EXPECT_CALL(proxy_->GetMock().tpm_utility, PinWeaverIsSupported(_, _))
+      .WillOnce(
+          DoAll(SetArgPointee<1>(kVersion), Return(trunks::TPM_RC_SUCCESS)));
+
+  EXPECT_THAT(middleware_->CallSync<&Backend::PinWeaver::GeneratePk>(
+                  kAuthChannel, client_public_key),
+              NotOk());
+}
+
+TEST_F(BackendPinweaverTpm2Test, InsertRateLimiter) {
+  constexpr uint32_t kVersion = 2;
+  constexpr uint8_t kAuthChannel = 0;
+  constexpr uint32_t kLabel = 42;
+  const std::string kFakeRoot = "fake_root";
+  const std::string kFakeCred = "fake_cred";
+  const std::string kFakeMac = "fake_mac";
+  const brillo::SecureBlob kFakeResetSecret("fake_reset_secret");
+  const hwsec::Backend::PinWeaver::DelaySchedule kDelaySched = {
+      {5, UINT32_MAX},
+  };
+  const uint32_t kExpirationDelay = 100;
+  const std::vector<OperationPolicySetting> kPolicies = {
+      OperationPolicySetting{
+          .device_config_settings =
+              DeviceConfigSettings{
+                  .current_user =
+                      DeviceConfigSettings::CurrentUserSetting{
+                          .username = std::nullopt,
+                      },
+              },
+      },
+      OperationPolicySetting{
+          .device_config_settings =
+              DeviceConfigSettings{
+                  .current_user =
+                      DeviceConfigSettings::CurrentUserSetting{
+                          .username = "fake_username",
+                      },
+              },
+      },
+  };
+  const std::vector<brillo::Blob>& kHAux = {
+      brillo::Blob(32, 'X'),
+      brillo::Blob(32, 'Y'),
+      brillo::Blob(32, 'Z'),
+  };
+
+  EXPECT_CALL(proxy_->GetMock().tpm_utility, PinWeaverIsSupported(_, _))
+      .WillOnce(
+          DoAll(SetArgPointee<1>(kVersion), Return(trunks::TPM_RC_SUCCESS)));
+
+  EXPECT_CALL(proxy_->GetMock().tpm_utility,
+              PinWeaverCreateBiometricsAuthRateLimiter(
+                  kVersion, kAuthChannel, kLabel, _, kFakeResetSecret,
+                  kDelaySched, _, Eq(kExpirationDelay), _, _, _, _))
+      .WillOnce(DoAll(SetArgPointee<8>(0), SetArgPointee<9>(kFakeRoot),
+                      SetArgPointee<10>(kFakeCred), SetArgPointee<11>(kFakeMac),
+                      Return(trunks::TPM_RC_SUCCESS)));
+
+  auto result = middleware_->CallSync<&Backend::PinWeaver::InsertRateLimiter>(
+      kAuthChannel, kPolicies, kLabel, kHAux, kFakeResetSecret, kDelaySched,
+      kExpirationDelay);
+
+  ASSERT_OK(result);
+  EXPECT_EQ(result->error, ErrorCode::kSuccess);
+  EXPECT_EQ(result->new_root, brillo::BlobFromString(kFakeRoot));
+  ASSERT_TRUE(result->new_cred_metadata.has_value());
+  EXPECT_EQ(result->new_cred_metadata.value(),
+            brillo::BlobFromString(kFakeCred));
+  ASSERT_TRUE(result->new_mac.has_value());
+  EXPECT_EQ(result->new_mac.value(), brillo::BlobFromString(kFakeMac));
+}
+
+TEST_F(BackendPinweaverTpm2Test, InsertRateLimiterV1Unsupported) {
+  constexpr uint32_t kVersion = 1;
+  constexpr uint8_t kAuthChannel = 0;
+  constexpr uint32_t kLabel = 42;
+  const std::string kFakeRoot = "fake_root";
+  const std::string kFakeCred = "fake_cred";
+  const std::string kFakeMac = "fake_mac";
+  const brillo::SecureBlob kFakeResetSecret("fake_reset_secret");
+  const hwsec::Backend::PinWeaver::DelaySchedule kDelaySched = {
+      {5, UINT32_MAX},
+  };
+  const uint32_t kExpirationDelay = 100;
+  const std::vector<brillo::Blob>& kHAux = {
+      brillo::Blob(32, 'X'),
+      brillo::Blob(32, 'Y'),
+      brillo::Blob(32, 'Z'),
+  };
+
+  EXPECT_CALL(proxy_->GetMock().tpm_utility, PinWeaverIsSupported(_, _))
+      .WillOnce(
+          DoAll(SetArgPointee<1>(kVersion), Return(trunks::TPM_RC_SUCCESS)));
+
+  EXPECT_THAT(
+      middleware_->CallSync<&Backend::PinWeaver::InsertRateLimiter>(
+          kAuthChannel, /*policies=*/std::vector<OperationPolicySetting>(),
+          kLabel, kHAux, kFakeResetSecret, kDelaySched, kExpirationDelay),
+      NotOk());
+}
+
+TEST_F(BackendPinweaverTpm2Test, InsertRateLimiterInvalidAuthChannel) {
+  constexpr uint32_t kVersion = 2;
+  constexpr uint8_t kAuthChannel = 2;
+  constexpr uint32_t kLabel = 42;
+  const std::string kFakeRoot = "fake_root";
+  const std::string kFakeCred = "fake_cred";
+  const std::string kFakeMac = "fake_mac";
+  const brillo::SecureBlob kFakeResetSecret("fake_reset_secret");
+  const hwsec::Backend::PinWeaver::DelaySchedule kDelaySched = {
+      {5, UINT32_MAX},
+  };
+  const uint32_t kExpirationDelay = 100;
+  const std::vector<brillo::Blob>& kHAux = {
+      brillo::Blob(32, 'X'),
+      brillo::Blob(32, 'Y'),
+      brillo::Blob(32, 'Z'),
+  };
+
+  EXPECT_CALL(proxy_->GetMock().tpm_utility, PinWeaverIsSupported(_, _))
+      .WillOnce(
+          DoAll(SetArgPointee<1>(kVersion), Return(trunks::TPM_RC_SUCCESS)));
+
+  EXPECT_THAT(
+      middleware_->CallSync<&Backend::PinWeaver::InsertRateLimiter>(
+          kAuthChannel, /*policies=*/std::vector<OperationPolicySetting>(),
+          kLabel, kHAux, kFakeResetSecret, kDelaySched, kExpirationDelay),
+      NotOk());
+}
+
+TEST_F(BackendPinweaverTpm2Test, StartBiometricsAuth) {
+  constexpr uint32_t kVersion = 2;
+  constexpr uint8_t kAuthChannel = 0;
+  constexpr uint32_t kLabel = 42;
+  const std::string kFakeRoot = "fake_root";
+  const std::string kFakeCred = "fake_cred";
+  const std::string kNewCred = "new_cred";
+  const std::string kFakeMac = "fake_mac";
+  const brillo::SecureBlob kFakeClientNonce("fake_client_nonce");
+  const brillo::SecureBlob kFakeServerNonce("fake_server_nonce");
+  const brillo::SecureBlob kFakeEncryptedHeSecret("fake_encrypted_he_secret");
+  const brillo::SecureBlob kFakeIv("fake_iv");
+  const std::vector<brillo::Blob>& kHAux = {
+      brillo::Blob(32, 'X'),
+      brillo::Blob(32, 'Y'),
+      brillo::Blob(32, 'Z'),
+  };
+
+  EXPECT_CALL(proxy_->GetMock().tpm_utility, PinWeaverIsSupported(_, _))
+      .WillOnce(
+          DoAll(SetArgPointee<1>(kVersion), Return(trunks::TPM_RC_SUCCESS)));
+
+  EXPECT_CALL(
+      proxy_->GetMock().tpm_utility,
+      PinWeaverStartBiometricsAuth(kVersion, kAuthChannel, kFakeClientNonce, _,
+                                   kFakeCred, _, _, _, _, _, _, _))
+      .WillOnce(DoAll(SetArgPointee<5>(0), SetArgPointee<6>(kFakeRoot),
+                      SetArgPointee<7>(kFakeServerNonce),
+                      SetArgPointee<8>(kFakeEncryptedHeSecret),
+                      SetArgPointee<9>(kFakeIv), SetArgPointee<10>(kNewCred),
+                      SetArgPointee<11>(kFakeMac),
+                      Return(trunks::TPM_RC_SUCCESS)));
+
+  auto result = middleware_->CallSync<&Backend::PinWeaver::StartBiometricsAuth>(
+      kAuthChannel, kLabel, kHAux, brillo::BlobFromString(kFakeCred),
+      kFakeClientNonce);
+
+  ASSERT_OK(result);
+  EXPECT_EQ(result->error, ErrorCode::kSuccess);
+  EXPECT_EQ(result->new_root, brillo::BlobFromString(kFakeRoot));
+  ASSERT_TRUE(result->new_cred_metadata.has_value());
+  EXPECT_EQ(result->new_cred_metadata.value(),
+            brillo::BlobFromString(kNewCred));
+  ASSERT_TRUE(result->new_mac.has_value());
+  EXPECT_EQ(result->new_mac.value(), brillo::BlobFromString(kFakeMac));
+  ASSERT_TRUE(result->server_nonce.has_value());
+  EXPECT_EQ(result->server_nonce.value(), kFakeServerNonce);
+  ASSERT_TRUE(result->encrypted_he_secret.has_value());
+  EXPECT_EQ(result->encrypted_he_secret.value(), kFakeEncryptedHeSecret);
+  ASSERT_TRUE(result->iv.has_value());
+  EXPECT_EQ(result->iv.value(), kFakeIv);
+}
+
+TEST_F(BackendPinweaverTpm2Test, StartBiometricsAuthAuthFail) {
+  constexpr uint32_t kVersion = 2;
+  constexpr uint8_t kWrongAuthChannel = 1;
+  constexpr uint32_t kLabel = 42;
+  const std::string kFakeRoot = "fake_root";
+  const std::string kFakeCred = "fake_cred";
+  const std::string kNewCred = "new_cred";
+  const std::string kFakeMac = "fake_mac";
+  const brillo::SecureBlob kFakeClientNonce("fake_client_nonce");
+  const std::vector<brillo::Blob>& kHAux = {
+      brillo::Blob(32, 'X'),
+      brillo::Blob(32, 'Y'),
+      brillo::Blob(32, 'Z'),
+  };
+
+  EXPECT_CALL(proxy_->GetMock().tpm_utility, PinWeaverIsSupported(_, _))
+      .WillOnce(
+          DoAll(SetArgPointee<1>(kVersion), Return(trunks::TPM_RC_SUCCESS)));
+
+  EXPECT_CALL(proxy_->GetMock().tpm_utility,
+              PinWeaverStartBiometricsAuth(kVersion, kWrongAuthChannel,
+                                           kFakeClientNonce, _, kFakeCred, _, _,
+                                           _, _, _, _, _))
+      .WillOnce(DoAll(SetArgPointee<5>(PW_ERR_LOWENT_AUTH_FAILED),
+                      SetArgPointee<6>(kFakeRoot), SetArgPointee<10>(kNewCred),
+                      SetArgPointee<11>(kFakeMac),
+                      Return(trunks::TPM_RC_SUCCESS)));
+
+  auto result = middleware_->CallSync<&Backend::PinWeaver::StartBiometricsAuth>(
+      kWrongAuthChannel, kLabel, kHAux, brillo::BlobFromString(kFakeCred),
+      kFakeClientNonce);
+
+  ASSERT_OK(result);
+  EXPECT_EQ(result->error, ErrorCode::kInvalidLeSecret);
+  EXPECT_EQ(result->new_root, brillo::BlobFromString(kFakeRoot));
+  ASSERT_TRUE(result->new_cred_metadata.has_value());
+  EXPECT_EQ(result->new_cred_metadata.value(),
+            brillo::BlobFromString(kNewCred));
+  ASSERT_TRUE(result->new_mac.has_value());
+  EXPECT_EQ(result->new_mac.value(), brillo::BlobFromString(kFakeMac));
+  ASSERT_TRUE(result->server_nonce.has_value());
+  EXPECT_TRUE(result->server_nonce->empty());
+  ASSERT_TRUE(result->encrypted_he_secret.has_value());
+  EXPECT_TRUE(result->encrypted_he_secret->empty());
+  ASSERT_TRUE(result->iv.has_value());
+  EXPECT_TRUE(result->iv->empty());
+}
+
+TEST_F(BackendPinweaverTpm2Test, StartBiometricsAuthTpmFail) {
+  constexpr uint32_t kVersion = 2;
+  constexpr uint8_t kAuthChannel = 0;
+  constexpr uint32_t kLabel = 42;
+  const std::string kFakeRoot = "fake_root";
+  const std::string kFakeCred = "fake_cred";
+  const std::string kNewCred = "new_cred";
+  const std::string kFakeMac = "fake_mac";
+  const brillo::SecureBlob kFakeClientNonce("fake_client_nonce");
+  const std::vector<brillo::Blob>& kHAux = {
+      brillo::Blob(32, 'X'),
+      brillo::Blob(32, 'Y'),
+      brillo::Blob(32, 'Z'),
+  };
+
+  EXPECT_CALL(proxy_->GetMock().tpm_utility, PinWeaverIsSupported(_, _))
+      .WillOnce(
+          DoAll(SetArgPointee<1>(kVersion), Return(trunks::TPM_RC_SUCCESS)));
+
+  EXPECT_CALL(
+      proxy_->GetMock().tpm_utility,
+      PinWeaverStartBiometricsAuth(kVersion, kAuthChannel, kFakeClientNonce, _,
+                                   kFakeCred, _, _, _, _, _, _, _))
+      .WillOnce(Return(trunks::TPM_RC_FAILURE));
+
+  EXPECT_THAT(middleware_->CallSync<&Backend::PinWeaver::StartBiometricsAuth>(
+                  kAuthChannel, kLabel, kHAux,
+                  brillo::BlobFromString(kFakeCred), kFakeClientNonce),
+              NotOk());
+}
+
+TEST_F(BackendPinweaverTpm2Test, StartBiometricsAuthV1NotSupported) {
+  constexpr uint32_t kVersion = 1;
+  constexpr uint8_t kAuthChannel = 0;
+  constexpr uint32_t kLabel = 42;
+  const std::string kFakeRoot = "fake_root";
+  const std::string kFakeCred = "fake_cred";
+  const std::string kNewCred = "new_cred";
+  const std::string kFakeMac = "fake_mac";
+  const brillo::SecureBlob kFakeClientNonce("fake_client_nonce");
+  const std::vector<brillo::Blob>& kHAux = {
+      brillo::Blob(32, 'X'),
+      brillo::Blob(32, 'Y'),
+      brillo::Blob(32, 'Z'),
+  };
+
+  EXPECT_CALL(proxy_->GetMock().tpm_utility, PinWeaverIsSupported(_, _))
+      .WillOnce(
+          DoAll(SetArgPointee<1>(kVersion), Return(trunks::TPM_RC_SUCCESS)));
+
+  EXPECT_THAT(middleware_->CallSync<&Backend::PinWeaver::StartBiometricsAuth>(
+                  kAuthChannel, kLabel, kHAux,
+                  brillo::BlobFromString(kFakeCred), kFakeClientNonce),
+              NotOk());
+}
+
+TEST_F(BackendPinweaverTpm2Test, StartBiometricsAuthInvalidAuthChannel) {
+  constexpr uint32_t kVersion = 2;
+  constexpr uint8_t kAuthChannel = 2;
+  constexpr uint32_t kLabel = 42;
+  const std::string kFakeRoot = "fake_root";
+  const std::string kFakeCred = "fake_cred";
+  const std::string kNewCred = "new_cred";
+  const std::string kFakeMac = "fake_mac";
+  const brillo::SecureBlob kFakeClientNonce("fake_client_nonce");
+  const std::vector<brillo::Blob>& kHAux = {
+      brillo::Blob(32, 'X'),
+      brillo::Blob(32, 'Y'),
+      brillo::Blob(32, 'Z'),
+  };
+
+  EXPECT_CALL(proxy_->GetMock().tpm_utility, PinWeaverIsSupported(_, _))
+      .WillOnce(
+          DoAll(SetArgPointee<1>(kVersion), Return(trunks::TPM_RC_SUCCESS)));
+
+  EXPECT_THAT(middleware_->CallSync<&Backend::PinWeaver::StartBiometricsAuth>(
+                  kAuthChannel, kLabel, kHAux,
+                  brillo::BlobFromString(kFakeCred), kFakeClientNonce),
+              NotOk());
+}
+
+TEST_F(BackendPinweaverTpm2Test, BlockGeneratePk) {
+  constexpr uint32_t kVersion = 2;
+  const std::string kFakeRoot = "fake_root";
+
+  EXPECT_CALL(proxy_->GetMock().tpm_utility, PinWeaverIsSupported(_, _))
+      .WillOnce(
+          DoAll(SetArgPointee<1>(kVersion), Return(trunks::TPM_RC_SUCCESS)));
+
+  EXPECT_CALL(proxy_->GetMock().tpm_utility,
+              PinWeaverBlockGenerateBiometricsAuthPk(kVersion, _, _))
+      .WillOnce(DoAll(SetArgPointee<1>(0), SetArgPointee<2>(kFakeRoot),
+                      Return(trunks::TPM_RC_SUCCESS)));
+
+  EXPECT_THAT(middleware_->CallSync<&Backend::PinWeaver::BlockGeneratePk>(),
+              IsOk());
+}
+
+TEST_F(BackendPinweaverTpm2Test, BlockGeneratePkV1NotSupported) {
+  constexpr uint32_t kVersion = 1;
+
+  EXPECT_CALL(proxy_->GetMock().tpm_utility, PinWeaverIsSupported(_, _))
+      .WillOnce(
+          DoAll(SetArgPointee<1>(kVersion), Return(trunks::TPM_RC_SUCCESS)));
+
+  EXPECT_THAT(middleware_->CallSync<&Backend::PinWeaver::BlockGeneratePk>(),
+              NotOk());
 }
 
 }  // namespace hwsec

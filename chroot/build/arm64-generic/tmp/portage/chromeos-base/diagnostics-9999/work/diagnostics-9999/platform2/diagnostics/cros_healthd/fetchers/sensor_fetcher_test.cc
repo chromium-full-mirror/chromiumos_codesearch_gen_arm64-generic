@@ -2,6 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+#include <memory>
 #include <string>
 #include <utility>
 
@@ -10,13 +11,17 @@
 #include <base/test/task_environment.h>
 #include <gtest/gtest.h>
 
+#include "diagnostics/common/mojo_type_utils.h"
 #include "diagnostics/cros_healthd/executor/mojom/executor.mojom.h"
 #include "diagnostics/cros_healthd/fetchers/sensor_fetcher.h"
+#include "diagnostics/cros_healthd/system/fake_mojo_service.h"
 #include "diagnostics/cros_healthd/system/mock_context.h"
 #include "diagnostics/mojom/public/cros_healthd_probe.mojom.h"
 
 namespace diagnostics {
 namespace {
+
+namespace mojom = ::ash::cros_healthd::mojom;
 
 using ::testing::_;
 using ::testing::Invoke;
@@ -41,11 +46,16 @@ class SensorFetcherTest : public ::testing::Test {
  protected:
   void SetUp() override {
     ASSERT_TRUE(base::CreateDirectory(root_dir().Append(kRelativeCrosEcPath)));
+    mock_context_.fake_mojo_service()->InitializeFakeMojoService();
   }
 
   const base::FilePath& root_dir() { return mock_context_.root_dir(); }
 
   MockExecutor* mock_executor() { return mock_context_.mock_executor(); }
+
+  FakeSensorService& fake_sensor_service() {
+    return mock_context_.fake_mojo_service()->fake_sensor_service();
+  }
 
   mojom::SensorResultPtr FetchSensorInfoSync() {
     base::RunLoop run_loop;
@@ -69,8 +79,7 @@ class SensorFetcherTest : public ::testing::Test {
   }
 
  private:
-  base::test::TaskEnvironment task_environment_{
-      base::test::TaskEnvironment::ThreadingMode::MAIN_THREAD_ONLY};
+  base::test::TaskEnvironment task_environment_;
   MockContext mock_context_;
 };
 
@@ -83,6 +92,8 @@ TEST_F(SensorFetcherTest, FetchLidAngle) {
   const auto& sensor_info = sensor_result->get_sensor_info();
   ASSERT_TRUE(sensor_info->lid_angle);
   ASSERT_EQ(sensor_info->lid_angle->value, 120);
+  ASSERT_TRUE(sensor_info->sensors.has_value());
+  ASSERT_TRUE(sensor_info->sensors.value().empty());
 }
 
 // Test that unreliable lid_angle can be handled and gets null.
@@ -93,6 +104,8 @@ TEST_F(SensorFetcherTest, FetchLidAngleUnreliable) {
   ASSERT_TRUE(sensor_result->is_sensor_info());
   const auto& sensor_info = sensor_result->get_sensor_info();
   ASSERT_FALSE(sensor_info->lid_angle);
+  ASSERT_TRUE(sensor_info->sensors.has_value());
+  ASSERT_TRUE(sensor_info->sensors.value().empty());
 }
 
 // Test that incorredtly formatted lid_angle can be handled and gets ProbeError.
@@ -101,8 +114,7 @@ TEST_F(SensorFetcherTest, FetchLidAngleIncorrectlyFormatted) {
 
   auto sensor_result = FetchSensorInfoSync();
   ASSERT_TRUE(sensor_result->is_error());
-  EXPECT_EQ(sensor_result->get_error()->type,
-            chromeos::cros_healthd::mojom::ErrorType::kParseError);
+  EXPECT_EQ(sensor_result->get_error()->type, mojom::ErrorType::kParseError);
 }
 
 // Test that acceptable error code can be handled and gets null lid_angle.
@@ -113,6 +125,8 @@ TEST_F(SensorFetcherTest, FetchLidAngleAcceptableError) {
   ASSERT_TRUE(sensor_result->is_sensor_info());
   const auto& sensor_info = sensor_result->get_sensor_info();
   ASSERT_FALSE(sensor_info->lid_angle);
+  ASSERT_TRUE(sensor_info->sensors.has_value());
+  ASSERT_TRUE(sensor_info->sensors.value().empty());
 }
 
 // Test that the executor fails to collect lid_angle and gets ProbeError.
@@ -122,7 +136,120 @@ TEST_F(SensorFetcherTest, FetchLidAngleFailure) {
   auto sensor_result = FetchSensorInfoSync();
   ASSERT_TRUE(sensor_result->is_error());
   EXPECT_EQ(sensor_result->get_error()->type,
-            chromeos::cros_healthd::mojom::ErrorType::kSystemUtilityError);
+            mojom::ErrorType::kSystemUtilityError);
+}
+
+// Test that without Google EC can be handled and gets null lid_angle.
+TEST_F(SensorFetcherTest, FetchLidAngleWithoutEC) {
+  ASSERT_TRUE(
+      base::DeletePathRecursively(root_dir().Append(kRelativeCrosEcPath)));
+
+  auto sensor_result = FetchSensorInfoSync();
+  ASSERT_TRUE(sensor_result->is_sensor_info());
+  const auto& sensor_info = sensor_result->get_sensor_info();
+  ASSERT_FALSE(sensor_info->lid_angle);
+  ASSERT_TRUE(sensor_info->sensors.has_value());
+  ASSERT_TRUE(sensor_info->sensors.value().empty());
+}
+
+// Test that single sensor's attributes can be fetched successfully.
+TEST_F(SensorFetcherTest, FetchSensorAttribue) {
+  SetExecutorResponse("Lid angle: 120\n", EXIT_SUCCESS);
+  fake_sensor_service().SetIdsTypes({{0, {cros::mojom::DeviceType::ACCEL}}});
+  fake_sensor_service().SetSensorDevice(
+      0, std::make_unique<FakeSensorDevice>("cros-ec-accel", "lid"));
+
+  auto sensor_result = FetchSensorInfoSync();
+  ASSERT_TRUE(sensor_result->is_sensor_info());
+  const auto& sensor_info = sensor_result->get_sensor_info();
+  ASSERT_TRUE(sensor_info->sensors.has_value());
+  const auto& sensors = sensor_info->sensors.value();
+  ASSERT_EQ(sensors.size(), 1);
+  ASSERT_TRUE(sensors[0]->name.has_value());
+  ASSERT_EQ(sensors[0]->name.value(), "cros-ec-accel");
+  ASSERT_EQ(sensors[0]->device_id, 0);
+  ASSERT_EQ(sensors[0]->type, mojom::Sensor::Type::kAccel);
+  ASSERT_EQ(sensors[0]->location, mojom::Sensor::Location::kLid);
+}
+
+// Test that multiple sensors' attributes can be fetched successfully.
+TEST_F(SensorFetcherTest, FetchMultipleSensorAttribue) {
+  SetExecutorResponse("Lid angle: 120\n", EXIT_SUCCESS);
+  fake_sensor_service().SetIdsTypes(
+      {{1, {cros::mojom::DeviceType::ANGL}},
+       {3, {cros::mojom::DeviceType::ANGLVEL}},
+       {4, {cros::mojom::DeviceType::LIGHT}},
+       {10000, {cros::mojom::DeviceType::GRAVITY}}});
+
+  fake_sensor_service().SetSensorDevice(
+      1, std::make_unique<FakeSensorDevice>("cros-ec-lid-angle", std::nullopt));
+  fake_sensor_service().SetSensorDevice(
+      3, std::make_unique<FakeSensorDevice>("cros-ec-gyro", "base"));
+  fake_sensor_service().SetSensorDevice(
+      4, std::make_unique<FakeSensorDevice>("acpi-als", std::nullopt));
+  fake_sensor_service().SetSensorDevice(
+      10000, std::make_unique<FakeSensorDevice>("iioservice-gravity", "base"));
+
+  auto sensor_result = FetchSensorInfoSync();
+  ASSERT_TRUE(sensor_result->is_sensor_info());
+  const auto& sensor_info = sensor_result->get_sensor_info();
+  ASSERT_TRUE(sensor_info->sensors.has_value());
+
+  // Sort the sensors by name.
+  const auto& sensors = Sorted(sensor_info->sensors.value());
+  ASSERT_EQ(sensors.size(), 4);
+
+  ASSERT_TRUE(sensors[0]->name.has_value());
+  ASSERT_EQ(sensors[0]->device_id, 4);
+  ASSERT_EQ(sensors[0]->name.value(), "acpi-als");
+  ASSERT_EQ(sensors[0]->type, mojom::Sensor::Type::kLight);
+  ASSERT_EQ(sensors[0]->location, mojom::Sensor::Location::kUnknown);
+
+  ASSERT_TRUE(sensors[1]->name.has_value());
+  ASSERT_EQ(sensors[1]->name.value(), "cros-ec-gyro");
+  ASSERT_EQ(sensors[1]->device_id, 3);
+  ASSERT_EQ(sensors[1]->type, mojom::Sensor::Type::kGyro);
+  ASSERT_EQ(sensors[1]->location, mojom::Sensor::Location::kBase);
+
+  ASSERT_TRUE(sensors[2]->name.has_value());
+  ASSERT_EQ(sensors[2]->name.value(), "cros-ec-lid-angle");
+  ASSERT_EQ(sensors[2]->device_id, 1);
+  ASSERT_EQ(sensors[2]->type, mojom::Sensor::Type::kAngle);
+  ASSERT_EQ(sensors[2]->location, mojom::Sensor::Location::kUnknown);
+
+  ASSERT_TRUE(sensors[3]->name.has_value());
+  ASSERT_EQ(sensors[3]->name.value(), "iioservice-gravity");
+  ASSERT_EQ(sensors[3]->device_id, 10000);
+  ASSERT_EQ(sensors[3]->type, mojom::Sensor::Type::kGravity);
+  ASSERT_EQ(sensors[3]->location, mojom::Sensor::Location::kBase);
+}
+
+// Test that combo sensor's attributes can be fetched successfully.
+TEST_F(SensorFetcherTest, FetchSensorAttribueComboSensor) {
+  SetExecutorResponse("Lid angle: 120\n", EXIT_SUCCESS);
+  fake_sensor_service().SetIdsTypes(
+      {{100, {cros::mojom::DeviceType::ANGL, cros::mojom::DeviceType::ACCEL}}});
+  fake_sensor_service().SetSensorDevice(
+      100, std::make_unique<FakeSensorDevice>("cros-combo-angle-accel",
+                                              std::nullopt));
+
+  auto sensor_result = FetchSensorInfoSync();
+  ASSERT_TRUE(sensor_result->is_sensor_info());
+  const auto& sensor_info = sensor_result->get_sensor_info();
+  ASSERT_TRUE(sensor_info->sensors.has_value());
+  const auto& sensors = sensor_info->sensors.value();
+  ASSERT_EQ(sensors.size(), 2);
+  ASSERT_TRUE(sensors[0]->name.has_value());
+  ASSERT_EQ(sensors[0]->name.value(), "cros-combo-angle-accel");
+  ASSERT_EQ(sensors[0]->device_id, 100);
+  ASSERT_EQ(sensors[0]->type, mojom::Sensor::Type::kAngle);
+  ASSERT_EQ(sensors[0]->location, mojom::Sensor::Location::kUnknown);
+
+  ASSERT_TRUE(sensors[1]->name.has_value());
+  ASSERT_EQ(sensors[1]->name.value(), "cros-combo-angle-accel");
+  ASSERT_EQ(sensors[1]->device_id, 100);
+  ASSERT_EQ(sensors[1]->type, mojom::Sensor::Type::kAccel);
+  ASSERT_EQ(sensors[1]->location, mojom::Sensor::Location::kUnknown);
 }
 
 }  // namespace

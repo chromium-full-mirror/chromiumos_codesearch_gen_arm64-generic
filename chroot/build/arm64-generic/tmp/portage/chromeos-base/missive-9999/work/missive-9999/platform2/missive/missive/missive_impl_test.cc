@@ -5,10 +5,12 @@
 #include "missive/missive/missive_impl.h"
 
 #include <memory>
+#include <string>
 #include <utility>
 #include <vector>
 
 #include <base/bind.h>
+#include <base/guid.h>
 #include <base/memory/scoped_refptr.h>
 #include <base/test/task_environment.h>
 #include <brillo/dbus/mock_dbus_method_response.h>
@@ -21,28 +23,49 @@
 #include "missive/analytics/resource_collector_memory.h"
 #include "missive/analytics/resource_collector_storage.h"
 #include "missive/dbus/mock_upload_client.h"
-#include "missive/storage/storage_module_interface.h"
-#include "missive/storage/storage_uploader_interface.h"
-#include "missive/storage/test_storage_module.h"
+#include "missive/storage/storage_module.h"
 #include "missive/util/test_support_callbacks.h"
+#include "missive/util/test_util.h"
 
 using ::testing::_;
 using ::testing::Eq;
+using ::testing::IsEmpty;
 using ::testing::NiceMock;
+using ::testing::Return;
 using ::testing::StrEq;
 using ::testing::WithArg;
 
 namespace reporting {
 namespace {
 
-MATCHER_P(EqualsProto,
-          message,
-          "Match a proto Message equal to the matcher's argument.") {
-  std::string expected_serialized, actual_serialized;
-  message.SerializeToString(&expected_serialized);
-  arg.SerializeToString(&actual_serialized);
-  return expected_serialized == actual_serialized;
-}
+class MockStorageModule : public StorageModule {
+ public:
+  // As opposed to the production |StorageModule|, test module does not need to
+  // call factory method - it is created directly by constructor.
+  MockStorageModule() = default;
+
+  MOCK_METHOD(void,
+              AddRecord,
+              (Priority priority, Record record, EnqueueCallback callback),
+              (override));
+
+  MOCK_METHOD(void,
+              Flush,
+              (Priority priority, FlushCallback callback),
+              (override));
+
+  MOCK_METHOD(void,
+              ReportSuccess,
+              (SequenceInformation sequence_information, bool force),
+              (override));
+
+  MOCK_METHOD(void,
+              UpdateEncryptionKey,
+              (SignedEncryptionInfo signed_encryption_key),
+              (override));
+
+  MOCK_METHOD(base::StringPiece, GetPipelineId, (), (const override));
+};
 
 class MissiveImplTest : public ::testing::Test {
  public:
@@ -64,10 +87,9 @@ class MissiveImplTest : public ::testing::Test {
         base::BindOnce(
             [](MissiveImplTest* self, MissiveImpl* missive,
                StorageOptions storage_options,
-               base::OnceCallback<void(
-                   StatusOr<scoped_refptr<StorageModuleInterface>>)> callback) {
-              self->storage_module_ =
-                  base::MakeRefCounted<test::TestStorageModule>();
+               base::OnceCallback<void(StatusOr<scoped_refptr<StorageModule>>)>
+                   callback) {
+              self->storage_module_ = base::MakeRefCounted<MockStorageModule>();
               std::move(callback).Run(self->storage_module_);
             },
             base::Unretained(this)));
@@ -91,18 +113,38 @@ class MissiveImplTest : public ::testing::Test {
   base::test::TaskEnvironment task_environment_;
 
   scoped_refptr<UploadClient> upload_client_;
-  scoped_refptr<test::TestStorageModule> storage_module_;
+  scoped_refptr<MockStorageModule> storage_module_;
   std::unique_ptr<MissiveImpl> missive_;
 };
 
+TEST_F(MissiveImplTest, GetPipelineId) {
+  ASSERT_TRUE(storage_module_);
+  EXPECT_CALL(*storage_module_, GetPipelineId())
+      .WillOnce(Return(base::GenerateGUID()));
+  EXPECT_TRUE(base::IsValidGUID(storage_module_->GetPipelineId()));
+}
+
 TEST_F(MissiveImplTest, AsyncStartUploadTest) {
   test::TestEvent<StatusOr<std::unique_ptr<UploaderInterface>>> uploader_event;
-  missive_->AsyncStartUpload(UploaderInterface::UploadReason::IMMEDIATE_FLUSH,
-                             uploader_event.cb());
+  MissiveImpl::AsyncStartUpload(
+      missive_->GetWeakPtr(), UploaderInterface::UploadReason::IMMEDIATE_FLUSH,
+      uploader_event.cb());
   auto response_result = uploader_event.result();
   EXPECT_OK(response_result) << response_result.status();
   response_result.ValueOrDie()->Completed(
       Status(error::INTERNAL, "Failing for tests"));
+}
+
+TEST_F(MissiveImplTest, AsyncNoStartUploadTest) {
+  test::TestEvent<StatusOr<std::unique_ptr<UploaderInterface>>> uploader_event;
+  auto weak_ptr = missive_->GetWeakPtr();
+  missive_.reset();
+  MissiveImpl::AsyncStartUpload(
+      weak_ptr, UploaderInterface::UploadReason::IMMEDIATE_FLUSH,
+      uploader_event.cb());
+  auto response_result = uploader_event.result();
+  EXPECT_THAT(response_result.status().code(), Eq(error::UNAVAILABLE))
+      << response_result.status();
 }
 
 TEST_F(MissiveImplTest, EnqueueRecordTest) {

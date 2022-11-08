@@ -16,11 +16,12 @@
 #include "cryptohome/auth_blocks/auth_block.h"
 #include "cryptohome/auth_blocks/auth_block_type.h"
 #include "cryptohome/auth_blocks/auth_block_utility.h"
+#include "cryptohome/auth_blocks/fp_service.h"
 #include "cryptohome/auth_factor/auth_factor_type.h"
+#include "cryptohome/auth_intent.h"
 #include "cryptohome/challenge_credentials/challenge_credentials_helper.h"
 #include "cryptohome/credentials.h"
 #include "cryptohome/crypto.h"
-#include "cryptohome/crypto_error.h"
 #include "cryptohome/flatbuffer_schemas/auth_block_state.h"
 #include "cryptohome/key_challenge_service.h"
 #include "cryptohome/key_objects.h"
@@ -39,7 +40,8 @@ class AuthBlockUtilityImpl final : public AuthBlockUtility {
   // AuthBlockUtilityImpl.
   AuthBlockUtilityImpl(KeysetManagement* keyset_management,
                        Crypto* crypto,
-                       Platform* platform);
+                       Platform* platform,
+                       std::unique_ptr<FingerprintAuthBlockService> fp_service);
 
   AuthBlockUtilityImpl(const AuthBlockUtilityImpl&) = delete;
   AuthBlockUtilityImpl& operator=(const AuthBlockUtilityImpl&) = delete;
@@ -51,6 +53,28 @@ class AuthBlockUtilityImpl final : public AuthBlockUtility {
       AuthFactorType auth_factor_type,
       AuthFactorStorageType auth_factor_storage_type,
       const std::set<AuthFactorType>& configured_factors) const override;
+
+  bool IsPrepareAuthFactorRequired(
+      AuthFactorType auth_factor_type) const override;
+
+  bool IsVerifyWithAuthFactorSupported(
+      AuthIntent auth_intent, AuthFactorType auth_factor_type) const override;
+
+  std::unique_ptr<CredentialVerifier> CreateCredentialVerifier(
+      AuthFactorType auth_factor_type,
+      const std::string& auth_factor_label,
+      const AuthInput& auth_input) const override;
+
+  void PrepareAuthFactorForAuth(AuthFactorType auth_factor_type,
+                                const std::string& username,
+                                CryptohomeStatusCallback callback) override;
+
+  void PrepareAuthFactorForAdd(AuthFactorType auth_factor_type,
+                               const std::string& username,
+                               CryptohomeStatusCallback callback) override;
+
+  CryptohomeStatus TerminateAuthFactor(
+      AuthFactorType auth_factor_type) override;
 
   CryptoStatus CreateKeyBlobsWithAuthBlock(
       AuthBlockType auth_block_type,
@@ -83,13 +107,17 @@ class AuthBlockUtilityImpl final : public AuthBlockUtility {
   AuthBlockType GetAuthBlockTypeForCreation(
       const bool is_le_credential,
       const bool is_recovery,
-      const bool is_challenge_credential,
-      const AuthFactorStorageType auth_factor_storage_type) const override;
+      const bool is_challenge_credential) const override;
 
   // This function returns the AuthBlock type for
   // AuthBlock::Derive() based on AutBlockState.
   AuthBlockType GetAuthBlockTypeFromState(
       const AuthBlockState& state) const override;
+
+  // Returns the set of supported AuthIntents, determined from the PinWeaver
+  // AuthBlockState if it is available.
+  base::flat_set<AuthIntent> GetSupportedIntentsFromState(
+      const AuthBlockState& auth_block_state) const override;
 
   bool GetAuthBlockStateFromVaultKeyset(
       const std::string& label,
@@ -111,14 +139,11 @@ class AuthBlockUtilityImpl final : public AuthBlockUtility {
       brillo::SecureBlob* out_recovery_request,
       brillo::SecureBlob* out_ephemeral_pub_key) const override;
 
-  void SetSingleUseKeyChallengeService(
-      std::unique_ptr<KeyChallengeService> key_challenge_service,
-      const std::string& username) override;
+  void InitializeChallengeCredentialsHelper(
+      ChallengeCredentialsHelper* challenge_credentials_helper,
+      KeyChallengeServiceFactory* key_challenge_service_factory) override;
 
-  void InitializeForChallengeCredentials(
-      ChallengeCredentialsHelper* challenge_credentials_helper) override;
-
-  bool IsChallengeCredentialReady() const override;
+  bool IsChallengeCredentialReady(const AuthInput& auth_input) const override;
 
  private:
   // This helper function serves as a factory method to return the authblock
@@ -129,7 +154,7 @@ class AuthBlockUtilityImpl final : public AuthBlockUtility {
   // This helper function returns an authblock with asynchronous create and
   // derive.
   CryptoStatusOr<std::unique_ptr<AuthBlock>> GetAsyncAuthBlockWithType(
-      const AuthBlockType& auth_block_type);
+      const AuthBlockType& auth_block_type, const AuthInput& auth_input);
 
   // Non-owned object used for the keyset management operations. Must be alive
   // for the entire lifecycle of the class.
@@ -145,22 +170,26 @@ class AuthBlockUtilityImpl final : public AuthBlockUtility {
 
   // Challenge credential helper utility object. This object is required
   // for using a challenge response authblock.
-  ChallengeCredentialsHelper* challenge_credentials_helper_;
+  ChallengeCredentialsHelper* challenge_credentials_helper_ = nullptr;
 
-  // KeyChallengeService is tasked with contacting the challenge response D-Bus
-  // service that'll provide the response once we send the challenge.
-  // This unique_ptr is validated through SetSingleUseKeyChallengeService(),
-  // and is invalidated through Create/DeriveKeyBlobsWithAsyncAuthBlock().
-  // This means |key_challenge_service_| must be validated through a call to
-  // SetSingleUseKeyChallengeSerive() before deriving key_blobs.
-  std::unique_ptr<KeyChallengeService> key_challenge_service_;
+  // Factory of key challenge service used to generate a key_challenge_service
+  // for Challenge Credentials. KeyChallengeService is tasked with contacting
+  // the challenge response D-Bus service that'll provide the response once
+  // we send the challenge.
+  KeyChallengeServiceFactory* key_challenge_service_factory_ = nullptr;
 
-  // Username for AsyncChallengeCredentialAuthBlock.
-  std::optional<std::string> username_;
+  // Fingerprint service, used by operations that need to interact with
+  // fingerprint sensors.
+  std::unique_ptr<FingerprintAuthBlockService> fp_service_;
 
   friend class AuthBlockUtilityImplTest;
   FRIEND_TEST(AuthBlockUtilityImplTest, GetAsyncAuthBlockWithType);
   FRIEND_TEST(AuthBlockUtilityImplTest, GetAsyncAuthBlockWithTypeFail);
+
+  // TODO(b/246576446): remove the following two lines once AuthBlockUtility
+  // has the functions to set up fingerprint service state.
+  FRIEND_TEST(AuthBlockUtilityImplTest, VerifyFingerprintSuccess);
+  FRIEND_TEST(AuthBlockUtilityImplTest, VerifyFingerprintFailure);
 };
 
 }  // namespace cryptohome

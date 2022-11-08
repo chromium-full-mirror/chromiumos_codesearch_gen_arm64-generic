@@ -432,6 +432,8 @@ constexpr char kExtensionDuration[] = "extension_duration";
 constexpr char kUnlockWebAuthnSecret[] = "unlock_webauthn_secret";
 constexpr char kPinSwitch[] = "pin";
 constexpr char kRecoveryMediatorPubKeySwitch[] = "recovery_mediator_pub_key";
+constexpr char kRecoveryUserIdSwitch[] = "recovery_user_gaia_id";
+constexpr char kRecoveryDeviceIdSwitch[] = "recovery_device_user_id";
 constexpr char kRecoveryEpochResponseSwitch[] = "recovery_epoch_response";
 constexpr char kRecoveryResponseSwitch[] = "recovery_response";
 constexpr char kAuthIntentSwitch[] = "auth_intent";
@@ -868,6 +870,18 @@ bool BuildAuthInput(Printer& printer,
     }
     auth_input->mutable_cryptohome_recovery_input()->set_mediator_pub_key(
         mediator_pub_key);
+    if (cl->HasSwitch(switches::kRecoveryUserIdSwitch)) {
+      std::string user_gaia_id =
+          cl->GetSwitchValueASCII(switches::kRecoveryUserIdSwitch);
+      auth_input->mutable_cryptohome_recovery_input()->set_user_gaia_id(
+          user_gaia_id);
+    }
+    if (cl->HasSwitch(switches::kRecoveryDeviceIdSwitch)) {
+      std::string device_user_id =
+          cl->GetSwitchValueASCII(switches::kRecoveryDeviceIdSwitch);
+      auth_input->mutable_cryptohome_recovery_input()->set_device_user_id(
+          device_user_id);
+    }
     return true;
   } else if (cl->HasSwitch(switches::kRecoveryResponseSwitch)) {
     std::string recovery_response_hex =
@@ -1356,6 +1370,10 @@ int main(int argc, char** argv) {
     req.mutable_account_id()->set_account_id(account_id);
     req.mutable_authorization_request()->mutable_key()->set_secret(
         old_password);
+    req.mutable_authorization_request()
+        ->mutable_key()
+        ->mutable_data()
+        ->set_label(cl->GetSwitchValueASCII(switches::kKeyLabelSwitch));
     req.set_secret(password);
 
     user_data_auth::MigrateKeyReply reply;

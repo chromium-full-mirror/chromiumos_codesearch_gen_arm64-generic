@@ -6,6 +6,7 @@
 
 #include <cstdint>
 #include <optional>
+#include <utility>
 
 #include <base/check.h>
 #include <base/logging.h>
@@ -25,6 +26,8 @@
 #include "diagnostics/cros_healthd/routines/dns_latency/dns_latency.h"
 #include "diagnostics/cros_healthd/routines/dns_resolution/dns_resolution.h"
 #include "diagnostics/cros_healthd/routines/dns_resolver_present/dns_resolver_present.h"
+#include "diagnostics/cros_healthd/routines/fingerprint/fingerprint.h"
+#include "diagnostics/cros_healthd/routines/fingerprint_alive/fingerprint_alive.h"
 #include "diagnostics/cros_healthd/routines/floating_point/floating_point_accuracy.h"
 #include "diagnostics/cros_healthd/routines/gateway_can_be_pinged/gateway_can_be_pinged.h"
 #include "diagnostics/cros_healthd/routines/has_secure_wifi_connection/has_secure_wifi_connection.h"
@@ -36,6 +39,7 @@
 #include "diagnostics/cros_healthd/routines/nvme_self_test/nvme_self_test.h"
 #include "diagnostics/cros_healthd/routines/nvme_wear_level/nvme_wear_level.h"
 #include "diagnostics/cros_healthd/routines/prime_search/prime_search.h"
+#include "diagnostics/cros_healthd/routines/sensor/sensitive_sensor.h"
 #include "diagnostics/cros_healthd/routines/signal_strength/signal_strength.h"
 #include "diagnostics/cros_healthd/routines/smartctl_check/smartctl_check.h"
 #include "diagnostics/cros_healthd/routines/urandom/urandom.h"
@@ -56,7 +60,7 @@ CrosHealthdRoutineFactoryImpl::~CrosHealthdRoutineFactoryImpl() = default;
 
 std::unique_ptr<DiagnosticRoutine>
 CrosHealthdRoutineFactoryImpl::MakeUrandomRoutine(
-    chromeos::cros_healthd::mojom::NullableUint32Ptr length_seconds) {
+    ash::cros_healthd::mojom::NullableUint32Ptr length_seconds) {
   return CreateUrandomRoutine(length_seconds.is_null()
                                   ? std::nullopt
                                   : std::optional<base::TimeDelta>(
@@ -88,7 +92,7 @@ CrosHealthdRoutineFactoryImpl::MakeSmartctlCheckRoutine() {
 
 std::unique_ptr<DiagnosticRoutine>
 CrosHealthdRoutineFactoryImpl::MakeAcPowerRoutine(
-    chromeos::cros_healthd::mojom::AcPowerStatusEnum expected_status,
+    ash::cros_healthd::mojom::AcPowerStatusEnum expected_status,
     const std::optional<std::string>& expected_power_type) {
   return std::make_unique<AcPowerRoutine>(expected_status, expected_power_type);
 }
@@ -114,21 +118,25 @@ CrosHealthdRoutineFactoryImpl::MakeFloatingPointAccuracyRoutine(
 std::unique_ptr<DiagnosticRoutine>
 CrosHealthdRoutineFactoryImpl::MakeNvmeWearLevelRoutine(
     org::chromium::debugdProxyInterface* debugd_proxy,
-    uint32_t wear_level_threshold) {
+    ash::cros_healthd::mojom::NullableUint32Ptr wear_level_threshold) {
   DCHECK(debugd_proxy);
+  std::optional<uint32_t> wear_level_threshold_ =
+      !wear_level_threshold.is_null()
+          ? wear_level_threshold->value
+          : parameter_fetcher_->GetNvmeWearLevelParameters();
   return std::make_unique<NvmeWearLevelRoutine>(debugd_proxy,
-                                                wear_level_threshold);
+                                                wear_level_threshold_);
 }
 
 std::unique_ptr<DiagnosticRoutine>
 CrosHealthdRoutineFactoryImpl::MakeNvmeSelfTestRoutine(
     org::chromium::debugdProxyInterface* debugd_proxy,
-    chromeos::cros_healthd::mojom::NvmeSelfTestTypeEnum nvme_self_test_type) {
+    ash::cros_healthd::mojom::NvmeSelfTestTypeEnum nvme_self_test_type) {
   DCHECK(debugd_proxy);
 
   NvmeSelfTestRoutine::SelfTestType type =
-      nvme_self_test_type == chromeos::cros_healthd::mojom::
-                                 NvmeSelfTestTypeEnum::kShortSelfTest
+      nvme_self_test_type ==
+              ash::cros_healthd::mojom::NvmeSelfTestTypeEnum::kShortSelfTest
           ? NvmeSelfTestRoutine::kRunShortSelfTest
           : NvmeSelfTestRoutine::kRunLongSelfTest;
 
@@ -137,7 +145,7 @@ CrosHealthdRoutineFactoryImpl::MakeNvmeSelfTestRoutine(
 
 std::unique_ptr<DiagnosticRoutine>
 CrosHealthdRoutineFactoryImpl::MakeDiskReadRoutine(
-    chromeos::cros_healthd::mojom::DiskReadRoutineTypeEnum type,
+    ash::cros_healthd::mojom::DiskReadRoutineTypeEnum type,
     base::TimeDelta exec_duration,
     uint32_t file_size_mb) {
   return CreateDiskReadRoutine(type, exec_duration, file_size_mb);
@@ -248,6 +256,23 @@ CrosHealthdRoutineFactoryImpl::MakeArcPingRoutine() {
 std::unique_ptr<DiagnosticRoutine>
 CrosHealthdRoutineFactoryImpl::MakeArcDnsResolutionRoutine() {
   return CreateArcDnsResolutionRoutine(context_->network_diagnostics_adapter());
+}
+
+std::unique_ptr<DiagnosticRoutine>
+CrosHealthdRoutineFactoryImpl::MakeSensitiveSensorRoutine() {
+  return std::make_unique<SensitiveSensorRoutine>(context_->mojo_service());
+}
+
+std::unique_ptr<DiagnosticRoutine>
+CrosHealthdRoutineFactoryImpl::MakeFingerprintRoutine() {
+  auto params = parameter_fetcher_->GetFingerprintParameters();
+
+  return std::make_unique<FingerprintRoutine>(context_, std::move(params));
+}
+
+std::unique_ptr<DiagnosticRoutine>
+CrosHealthdRoutineFactoryImpl::MakeFingerprintAliveRoutine() {
+  return std::make_unique<FingerprintAliveRoutine>(context_);
 }
 
 }  // namespace diagnostics

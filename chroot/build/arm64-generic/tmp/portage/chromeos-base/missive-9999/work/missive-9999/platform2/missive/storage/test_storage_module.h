@@ -8,17 +8,18 @@
 #include <optional>
 
 #include <base/callback.h>
+#include <base/strings/string_piece.h>
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
 #include "missive/proto/record.pb.h"
 #include "missive/proto/record_constants.pb.h"
-#include "missive/storage/storage_module.h"
+#include "missive/storage/storage_module_interface.h"
 
 namespace reporting {
 namespace test {
 
-class TestStorageModuleStrict : public StorageModule {
+class TestStorageModuleStrict : public StorageModuleInterface {
  public:
   // As opposed to the production |StorageModule|, test module does not need to
   // call factory method - it is created directly by constructor.
@@ -32,15 +33,6 @@ class TestStorageModuleStrict : public StorageModule {
   MOCK_METHOD(void,
               Flush,
               (Priority priority, FlushCallback callback),
-              (override));
-
-  MOCK_METHOD(void,
-              ReportSuccess,
-              (SequenceInformation sequence_information, bool force),
-              (override));
-  MOCK_METHOD(void,
-              UpdateEncryptionKey,
-              (SignedEncryptionInfo signed_encryption_key),
               (override));
 
   const Record& record() const;

@@ -1,4 +1,4 @@
-// Copyright 2019 The Chromium Authors. All rights reserved.
+// Copyright 2019 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -11,26 +11,18 @@
 #include <tuple>
 #include <type_traits>
 
+#include "base/containers/contains.h"
+
 namespace base {
 
 // Checks if any of the elements in |ilist| is true.
-// Similar to std::any_of for the case of constexpr initializer_list.
 inline constexpr bool any_of(std::initializer_list<bool> ilist) {
-  for (auto c : ilist) {
-    if (c)
-      return true;
-  }
-  return false;
+  return base::Contains(ilist, true);
 }
 
 // Checks if all of the elements in |ilist| are true.
-// Similar to std::all_of for the case of constexpr initializer_list.
 inline constexpr bool all_of(std::initializer_list<bool> ilist) {
-  for (auto c : ilist) {
-    if (!c)
-      return false;
-  }
-  return true;
+  return !base::Contains(ilist, false);
 }
 
 // Counts the elements in |ilist| that are equal to |value|.
@@ -44,7 +36,7 @@ inline constexpr size_t count(std::initializer_list<T> ilist, T value) {
   return c;
 }
 
-constexpr size_t pack_npos = -1;
+constexpr size_t pack_npos = static_cast<size_t>(-1);
 
 template <typename... Ts>
 struct ParameterPack {

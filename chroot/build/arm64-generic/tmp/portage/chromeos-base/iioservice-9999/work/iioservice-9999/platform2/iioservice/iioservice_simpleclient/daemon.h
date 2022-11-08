@@ -6,36 +6,32 @@
 #define IIOSERVICE_IIOSERVICE_SIMPLECLIENT_DAEMON_H_
 
 #include <memory>
+#include <string>
 
-#include <brillo/daemons/dbus_daemon.h>
+#include <brillo/daemons/daemon.h>
 #include <mojo/core/embedder/scoped_ipc_support.h>
+#include <mojo_service_manager/lib/connect.h>
 
-#include "iioservice/iioservice_simpleclient/common.h"
 #include "iioservice/iioservice_simpleclient/sensor_client.h"
-#include "iioservice/libiioservice_ipc/sensor_client_dbus.h"
 
 namespace iioservice {
 
-class Daemon : public brillo::DBusDaemon, public SensorClientDbus {
+class Daemon : public brillo::Daemon {
  public:
   ~Daemon() override;
 
  protected:
-  explicit Daemon(int mojo_broker_disconnect_tolerance = 0);
+  Daemon();
 
   // Initializes |sensor_client_| (observer, query) that will interact with the
   // sensors as clients.
   virtual void SetSensorClient() = 0;
 
-  // brillo::DBusDaemon overrides:
+  // brillo::Daemon overrides:
   int OnInit() override;
 
-  // SensorClientDbus overrides:
-  void OnClientReceived(
-      mojo::PendingReceiver<cros::mojom::SensorHalClient> client) override;
-
-  // Responds to Mojo disconnection by quitting the daemon.
-  void OnMojoDisconnect(bool mojo_broker);
+  // Responds to iioservice Mojo disconnection by quitting the daemon.
+  void OnMojoDisconnect();
 
   SensorClient::ScopedSensorClient sensor_client_ = {
       nullptr, SensorClient::SensorClientDeleter};
@@ -44,11 +40,13 @@ class Daemon : public brillo::DBusDaemon, public SensorClientDbus {
   std::unique_ptr<mojo::core::ScopedIPCSupport> ipc_support_;
 
  private:
-  void SetMojoBootstrapTimeout();
+  void ConnectToMojoServiceManager();
 
-  std::unique_ptr<TimeoutDelegate> timeout_delegate_;
+  void OnServiceManagerDisconnect(uint32_t custom_reason,
+                                  const std::string& description);
 
-  int mojo_broker_disconnect_tolerance_;
+  mojo::Remote<chromeos::mojo_service_manager::mojom::ServiceManager>
+      service_manager_;
 };
 
 }  // namespace iioservice

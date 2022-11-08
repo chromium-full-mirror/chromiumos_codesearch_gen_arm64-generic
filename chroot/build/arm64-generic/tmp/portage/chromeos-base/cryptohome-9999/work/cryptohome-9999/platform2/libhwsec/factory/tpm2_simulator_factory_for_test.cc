@@ -8,6 +8,7 @@
 #include <utility>
 
 #include "libhwsec/backend/tpm2/backend.h"
+#include "libhwsec/frontend/chaps/frontend_impl.h"
 #include "libhwsec/frontend/client/frontend_impl.h"
 #include "libhwsec/frontend/cryptohome/frontend_impl.h"
 #include "libhwsec/frontend/pinweaver/frontend_impl.h"
@@ -27,11 +28,7 @@ Tpm2SimulatorFactoryForTest::Tpm2SimulatorFactoryForTest() {
   backend_ = std::move(backend);
 
   middleware_ = std::make_unique<MiddlewareOwner>(
-      std::move(backend_),
-      base::SequencedTaskRunnerHandle::IsSet()
-          ? base::SequencedTaskRunnerHandle::Get()
-          : nullptr,
-      base::PlatformThread::CurrentId());
+      std::move(backend_), MiddlewareOwner::OnCurrentTaskRunner{});
 
   backend_ptr->set_middleware_derivative_for_test(middleware_->Derive());
 }
@@ -60,6 +57,10 @@ std::unique_ptr<ClientFrontend>
 Tpm2SimulatorFactoryForTest::GetClientFrontend() {
   return std::make_unique<ClientFrontendImpl>(
       Middleware(middleware_->Derive()));
+}
+
+std::unique_ptr<ChapsFrontend> Tpm2SimulatorFactoryForTest::GetChapsFrontend() {
+  return std::make_unique<ChapsFrontendImpl>(Middleware(middleware_->Derive()));
 }
 
 }  // namespace hwsec

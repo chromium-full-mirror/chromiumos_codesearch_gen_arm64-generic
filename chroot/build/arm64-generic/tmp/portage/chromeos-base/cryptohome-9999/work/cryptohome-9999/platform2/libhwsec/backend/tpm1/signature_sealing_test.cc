@@ -16,6 +16,8 @@
 
 using hwsec_foundation::Sha1;
 using hwsec_foundation::error::testing::IsOk;
+using hwsec_foundation::error::testing::IsOkAndHolds;
+using hwsec_foundation::error::testing::NotOk;
 using hwsec_foundation::error::testing::ReturnError;
 using hwsec_foundation::error::testing::ReturnValue;
 using testing::_;
@@ -354,9 +356,11 @@ class BackendSignatureSealingTpm1Test : public BackendTpm1TestBase {
         .WillOnce([&](uint64_t* offset, auto&&, auto&&,
                       TPM_PUBKEY* tpm_pubkey) {
           *offset = cmk_pubkey_.size();
-          uint8_t* parms_ptr = new uint8_t[sizeof(kFakeParms)];
+          uint8_t* parms_ptr =
+              static_cast<uint8_t*>(malloc(sizeof(kFakeParms)));
           memcpy(parms_ptr, kFakeParms, sizeof(kFakeParms));
-          uint8_t* key_ptr = new uint8_t[fake_modulus_.size()];
+          uint8_t* key_ptr =
+              static_cast<uint8_t*>(malloc(fake_modulus_.size()));
           memcpy(key_ptr, fake_modulus_.data(), fake_modulus_.size());
           *tpm_pubkey = TPM_PUBKEY{
               .algorithmParms =
@@ -773,7 +777,8 @@ class BackendSignatureSealingTpm1Test : public BackendTpm1TestBase {
         .Times(generic_times)
         .WillOnce([&](uint64_t* offset, auto&&, auto&&, TPM_KEY12* tpm_key12) {
           *offset = migrated_cmk_key12_.size();
-          uint8_t* encdata_ptr = new uint8_t[key12_encdata.size()];
+          uint8_t* encdata_ptr =
+              static_cast<uint8_t*>(malloc(key12_encdata.size()));
           memcpy(encdata_ptr, key12_encdata.data(), key12_encdata.size());
           *tpm_key12 = TPM_KEY12{
               .tag = TPM_TAG_KEY12,
@@ -859,9 +864,11 @@ class BackendSignatureSealingTpm1Test : public BackendTpm1TestBase {
         .WillOnce([&](uint64_t* offset, auto&&, auto&&,
                       TPM_PUBKEY* tpm_pubkey) {
           *offset = cmk_pubkey_.size();
-          uint8_t* parms_ptr = new uint8_t[sizeof(kFakeParms)];
+          uint8_t* parms_ptr =
+              static_cast<uint8_t*>(malloc(sizeof(kFakeParms)));
           memcpy(parms_ptr, kFakeParms, sizeof(kFakeParms));
-          uint8_t* key_ptr = new uint8_t[fake_modulus_.size()];
+          uint8_t* key_ptr =
+              static_cast<uint8_t*>(malloc(fake_modulus_.size()));
           memcpy(key_ptr, fake_modulus_.data(), fake_modulus_.size());
           *tpm_pubkey = TPM_PUBKEY{
               .algorithmParms =
@@ -972,7 +979,7 @@ class BackendSignatureSealingTpm1Test : public BackendTpm1TestBase {
 
 TEST_F(BackendSignatureSealingTpm1Test, SealChallengeUnseal) {
   StatusOr<SignatureSealedData> seal_result = SetupSealing();
-  ASSERT_THAT(seal_result, IsOk());
+  ASSERT_OK(seal_result);
   ASSERT_TRUE(std::holds_alternative<Tpm12CertifiedMigratableKeyData>(
       seal_result.value()));
   SignatureSealedData expected_seal_result = Tpm12CertifiedMigratableKeyData{
@@ -1012,7 +1019,7 @@ TEST_F(BackendSignatureSealingTpm1Test, SealChallengeUnseal) {
 
   StatusOr<Backend::SignatureSealing::ChallengeResult> challenge_result =
       SetupChallenge(seal_result.value());
-  ASSERT_THAT(challenge_result, IsOk());
+  ASSERT_OK(challenge_result);
 
   EXPECT_EQ(challenge_result->algorithm, Algorithm::kRsassaPkcs1V15Sha1);
 
@@ -1025,15 +1032,13 @@ TEST_F(BackendSignatureSealingTpm1Test, SealChallengeUnseal) {
 
   EXPECT_EQ(challenge_result->challenge, challenge_value);
 
-  StatusOr<brillo::SecureBlob> unseal_result =
-      SetupUnseal(challenge_result->challenge_id);
-  ASSERT_THAT(unseal_result, IsOk());
-  EXPECT_EQ(unseal_result.value(), unsealed_data_);
+  EXPECT_THAT(SetupUnseal(challenge_result->challenge_id),
+              IsOkAndHolds(unsealed_data_));
 }
 
 TEST_F(BackendSignatureSealingTpm1Test, SealChallengeUserPcr) {
   StatusOr<SignatureSealedData> seal_result = SetupSealing();
-  ASSERT_THAT(seal_result, IsOk());
+  ASSERT_OK(seal_result);
   ASSERT_TRUE(std::holds_alternative<Tpm12CertifiedMigratableKeyData>(
       seal_result.value()));
   SignatureSealedData expected_seal_result = Tpm12CertifiedMigratableKeyData{
@@ -1075,7 +1080,7 @@ TEST_F(BackendSignatureSealingTpm1Test, SealChallengeUserPcr) {
 
   StatusOr<Backend::SignatureSealing::ChallengeResult> challenge_result =
       SetupChallenge(seal_result.value());
-  ASSERT_THAT(challenge_result, IsOk());
+  ASSERT_OK(challenge_result);
 
   EXPECT_EQ(challenge_result->algorithm, Algorithm::kRsassaPkcs1V15Sha1);
 
@@ -1088,15 +1093,13 @@ TEST_F(BackendSignatureSealingTpm1Test, SealChallengeUserPcr) {
 
   EXPECT_EQ(challenge_result->challenge, challenge_value);
 
-  StatusOr<brillo::SecureBlob> unseal_result =
-      SetupUnseal(challenge_result->challenge_id);
-  ASSERT_THAT(unseal_result, IsOk());
-  EXPECT_EQ(unseal_result.value(), unsealed_data_);
+  EXPECT_THAT(SetupUnseal(challenge_result->challenge_id),
+              IsOkAndHolds(unsealed_data_));
 }
 
 TEST_F(BackendSignatureSealingTpm1Test, SealChallengeLegacyFormat) {
   StatusOr<SignatureSealedData> seal_result = SetupSealing();
-  ASSERT_THAT(seal_result, IsOk());
+  ASSERT_OK(seal_result);
   ASSERT_TRUE(std::holds_alternative<Tpm12CertifiedMigratableKeyData>(
       seal_result.value()));
 
@@ -1121,7 +1124,7 @@ TEST_F(BackendSignatureSealingTpm1Test, SealChallengeLegacyFormat) {
 
   StatusOr<Backend::SignatureSealing::ChallengeResult> challenge_result =
       SetupChallenge(seal_result.value());
-  ASSERT_THAT(challenge_result, IsOk());
+  ASSERT_OK(challenge_result);
 
   EXPECT_EQ(challenge_result->algorithm, Algorithm::kRsassaPkcs1V15Sha1);
 
@@ -1134,24 +1137,21 @@ TEST_F(BackendSignatureSealingTpm1Test, SealChallengeLegacyFormat) {
 
   EXPECT_EQ(challenge_result->challenge, challenge_value);
 
-  StatusOr<brillo::SecureBlob> unseal_result =
-      SetupUnseal(challenge_result->challenge_id);
-  ASSERT_THAT(unseal_result, IsOk());
-  EXPECT_EQ(unseal_result.value(), unsealed_data_);
+  EXPECT_THAT(SetupUnseal(challenge_result->challenge_id),
+              IsOkAndHolds(unsealed_data_));
 
   // Check again with extended PCR.
   pcr_value_ = extended_pcr_value_;
 
   challenge_result = SetupChallenge(seal_result.value());
-  ASSERT_THAT(challenge_result, IsOk());
+  ASSERT_OK(challenge_result);
 
   EXPECT_EQ(challenge_result->algorithm, Algorithm::kRsassaPkcs1V15Sha1);
 
   EXPECT_EQ(challenge_result->challenge, challenge_value);
 
-  unseal_result = SetupUnseal(challenge_result->challenge_id);
-  ASSERT_THAT(unseal_result, IsOk());
-  EXPECT_EQ(unseal_result.value(), unsealed_data_);
+  EXPECT_THAT(SetupUnseal(challenge_result->challenge_id),
+              IsOkAndHolds(unsealed_data_));
 }
 
 TEST_F(BackendSignatureSealingTpm1Test, SealWithoutSha1) {
@@ -1209,7 +1209,7 @@ TEST_F(BackendSignatureSealingTpm1Test, SealBadModulus) {
 
 TEST_F(BackendSignatureSealingTpm1Test, ChallengeWrongData) {
   StatusOr<SignatureSealedData> seal_result = SetupSealing();
-  ASSERT_THAT(seal_result, IsOk());
+  ASSERT_OK(seal_result);
 
   // Wrong method.
   SignatureSealedData sealed_data = Tpm12CertifiedMigratableKeyData{};
@@ -1312,11 +1312,11 @@ TEST_F(BackendSignatureSealingTpm1Test, UnsealWrongData) {
   EXPECT_FALSE(unseal_result.ok());
 
   StatusOr<SignatureSealedData> seal_result = SetupSealing();
-  ASSERT_THAT(seal_result, IsOk());
+  ASSERT_OK(seal_result);
 
   StatusOr<Backend::SignatureSealing::ChallengeResult> challenge_result =
       SetupChallenge(seal_result.value());
-  ASSERT_THAT(challenge_result, IsOk());
+  ASSERT_OK(challenge_result);
 
   // Wrong challenge ID.
   Backend::SignatureSealing::ChallengeID challenge_id =
@@ -1330,67 +1330,67 @@ TEST_F(BackendSignatureSealingTpm1Test, UnsealWrongData) {
 
 TEST_F(BackendSignatureSealingTpm1Test, UnsealWrongModulus) {
   StatusOr<SignatureSealedData> seal_result = SetupSealing();
-  ASSERT_THAT(seal_result, IsOk());
+  ASSERT_OK(seal_result);
 
   StatusOr<Backend::SignatureSealing::ChallengeResult> challenge_result =
       SetupChallenge(seal_result.value());
-  ASSERT_THAT(challenge_result, IsOk());
+  ASSERT_OK(challenge_result);
 
   fake_modulus_ = brillo::Blob(38, 'T');
 
-  StatusOr<brillo::SecureBlob> unseal_result =
-      SetupUnseal(challenge_result->challenge_id, /*all_expected=*/false);
-  EXPECT_FALSE(unseal_result.ok());
+  EXPECT_THAT(
+      SetupUnseal(challenge_result->challenge_id, /*all_expected=*/false),
+      NotOk());
 }
 
 TEST_F(BackendSignatureSealingTpm1Test, UnsealWrongPrime) {
   StatusOr<SignatureSealedData> seal_result = SetupSealing();
-  ASSERT_THAT(seal_result, IsOk());
+  ASSERT_OK(seal_result);
 
   StatusOr<Backend::SignatureSealing::ChallengeResult> challenge_result =
       SetupChallenge(seal_result.value());
-  ASSERT_THAT(challenge_result, IsOk());
+  ASSERT_OK(challenge_result);
 
   fake_one_of_prime_[0] ^= 1;
 
-  StatusOr<brillo::SecureBlob> unseal_result =
-      SetupUnseal(challenge_result->challenge_id, /*all_expected=*/false);
-  EXPECT_FALSE(unseal_result.ok());
+  EXPECT_THAT(
+      SetupUnseal(challenge_result->challenge_id, /*all_expected=*/false),
+      NotOk());
 }
 
 TEST_F(BackendSignatureSealingTpm1Test, UnsealWrongMigrationRandom) {
   StatusOr<SignatureSealedData> seal_result = SetupSealing();
-  ASSERT_THAT(seal_result, IsOk());
+  ASSERT_OK(seal_result);
 
   StatusOr<Backend::SignatureSealing::ChallengeResult> challenge_result =
       SetupChallenge(seal_result.value());
-  ASSERT_THAT(challenge_result, IsOk());
+  ASSERT_OK(challenge_result);
 
   migration_random_ = brillo::Blob(42, '*');
 
-  StatusOr<brillo::SecureBlob> unseal_result =
-      SetupUnseal(challenge_result->challenge_id, /*all_expected=*/false);
-  EXPECT_FALSE(unseal_result.ok());
+  EXPECT_THAT(
+      SetupUnseal(challenge_result->challenge_id, /*all_expected=*/false),
+      NotOk());
 }
 
 TEST_F(BackendSignatureSealingTpm1Test, UnsealWrongOaepLabel) {
   StatusOr<SignatureSealedData> seal_result = SetupSealing();
-  ASSERT_THAT(seal_result, IsOk());
+  ASSERT_OK(seal_result);
 
   StatusOr<Backend::SignatureSealing::ChallengeResult> challenge_result =
       SetupChallenge(seal_result.value());
-  ASSERT_THAT(challenge_result, IsOk());
+  ASSERT_OK(challenge_result);
 
   oaep_label_ = brillo::BlobFromString("CROS");
 
-  StatusOr<brillo::SecureBlob> unseal_result =
-      SetupUnseal(challenge_result->challenge_id, /*all_expected=*/false);
-  EXPECT_FALSE(unseal_result.ok());
+  EXPECT_THAT(
+      SetupUnseal(challenge_result->challenge_id, /*all_expected=*/false),
+      NotOk());
 }
 
 TEST_F(BackendSignatureSealingTpm1Test, UnsealWrongPolicy) {
   StatusOr<SignatureSealedData> seal_result = SetupSealing();
-  ASSERT_THAT(seal_result, IsOk());
+  ASSERT_OK(seal_result);
 
   operation_policy_ = OperationPolicy{
       .device_configs = DeviceConfigs{DeviceConfig::kCurrentUser},
@@ -1399,11 +1399,11 @@ TEST_F(BackendSignatureSealingTpm1Test, UnsealWrongPolicy) {
 
   StatusOr<Backend::SignatureSealing::ChallengeResult> challenge_result =
       SetupChallenge(seal_result.value());
-  ASSERT_THAT(challenge_result, IsOk());
+  ASSERT_OK(challenge_result);
 
-  StatusOr<brillo::SecureBlob> unseal_result =
-      SetupUnseal(challenge_result->challenge_id, /*all_expected=*/false);
-  EXPECT_FALSE(unseal_result.ok());
+  EXPECT_THAT(
+      SetupUnseal(challenge_result->challenge_id, /*all_expected=*/false),
+      NotOk());
 }
 
 }  // namespace hwsec

@@ -48,19 +48,31 @@ class Middleware;
 
 class HWSEC_EXPORT MiddlewareOwner {
  public:
+  // A tag to indicate the backend would be run on the current thread.
+  // All CallSync would run immediately in this mode.
+  // If the current thread doesn't have any task runner, the CallAsync would
+  // check failed.
+  struct OnCurrentTaskRunner {};
+
   friend class Middleware;
 
   // Constructor for an isolated thread.
   MiddlewareOwner();
 
-  // Constructor for custom task runner and thread id.
-  MiddlewareOwner(scoped_refptr<base::TaskRunner> task_runner,
-                  base::PlatformThreadId thread_id = base::kInvalidThreadId);
+  // Constructor for no isolated thread.
+  explicit MiddlewareOwner(OnCurrentTaskRunner);
 
-  // Constructor for custom backend.
+  // Constructor for custom task runner, the task runner cannot be the current
+  // thread.
+  explicit MiddlewareOwner(scoped_refptr<base::TaskRunner> task_runner);
+
+  // Constructor for custom backend and no isolated thread.
+  MiddlewareOwner(std::unique_ptr<Backend> custom_backend, OnCurrentTaskRunner);
+
+  // Constructor for custom backend and task runner, the task runner cannot be
+  // the current thread.
   MiddlewareOwner(std::unique_ptr<Backend> custom_backend,
-                  scoped_refptr<base::TaskRunner> task_runner,
-                  base::PlatformThreadId thread_id);
+                  scoped_refptr<base::TaskRunner> task_runner);
 
   virtual ~MiddlewareOwner();
 
@@ -90,6 +102,8 @@ class Middleware {
  public:
   explicit Middleware(MiddlewareDerivative middleware_derivative)
       : middleware_derivative_(middleware_derivative) {}
+
+  MiddlewareDerivative Derive() { return middleware_derivative_; }
 
   template <auto Func, typename... Args>
   auto CallSync(Args&&... args) {
@@ -202,13 +216,29 @@ class Middleware {
   static bool ReloadKeyHandler(hwsec::Backend* backend, const Arg& key) {
     if constexpr (std::is_same_v<Arg, Key>) {
       auto* key_mgr = backend->Get<Backend::KeyManagement>();
+      if (key_mgr == nullptr) {
+        return false;
+      }
       if (Status status = key_mgr->ReloadIfPossible(key); !status.ok()) {
-        LOG(WARNING) << "Failed to reload key parameter: " << status.status();
+        LOG(WARNING) << "Failed to reload key parameter: "
+                     << status.err_status();
         return false;
       }
       return true;
     }
     return false;
+  }
+
+  static bool FlushInvalidSessions(hwsec::Backend* backend) {
+    auto* session_mgr = backend->Get<Backend::SessionManagement>();
+    if (session_mgr == nullptr) {
+      return false;
+    }
+    if (Status status = session_mgr->FlushInvalidSessions(); !status.ok()) {
+      LOG(WARNING) << "Failed to flush invalid sessions: " << status.status();
+      return false;
+    }
+    return true;
   }
 
   template <auto Func, typename... Args>
@@ -235,27 +265,34 @@ class Middleware {
       if (result.ok()) {
         return result;
       }
-      switch (result.status()->ToTPMRetryAction()) {
+      switch (result.err_status()->ToTPMRetryAction()) {
         case TPMRetryAction::kCommunication:
           RetryDelayHandler(&retry_data);
           break;
-        case TPMRetryAction::kLater:
+        case TPMRetryAction::kLater: {
+          bool shall_retry = false;
+          // Flush the invalid sessions.
+          shall_retry |= FlushInvalidSessions(middleware->backend_.get());
           // fold expression with || operator.
-          if (!(ReloadKeyHandler(middleware->backend_.get(), args) || ...)) {
-            // Don't continue retry if all reload operations failed.
+          shall_retry |=
+              (ReloadKeyHandler(middleware->backend_.get(), args) || ...);
+          // Don't continue retry if all reload/flush operations failed.
+          if (!shall_retry) {
             return result;
           }
           RetryDelayHandler(&retry_data);
           break;
+        }
         default:
           return result;
       }
       if (retry_data.try_count <= 0) {
         return MakeStatus<TPMError>("Retry Failed", TPMRetryAction::kReboot)
-            .Wrap(std::move(result).status());
+            .Wrap(std::move(result).err_status());
       }
 
-      LOG(WARNING) << "Retry libhwsec error: " << std::move(result).status();
+      LOG(WARNING) << "Retry libhwsec error: "
+                   << std::move(result).err_status();
     }
   }
 

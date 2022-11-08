@@ -40,6 +40,58 @@ struct DirEntryListProtoDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT DirEntryListProtoDefaultTypeInternal _DirEntryListProto_default_instance_;
+constexpr ListStoragesRequestProto::ListStoragesRequestProto(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized){}
+struct ListStoragesRequestProtoDefaultTypeInternal {
+  constexpr ListStoragesRequestProtoDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~ListStoragesRequestProtoDefaultTypeInternal() {}
+  union {
+    ListStoragesRequestProto _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ListStoragesRequestProtoDefaultTypeInternal _ListStoragesRequestProto_default_instance_;
+constexpr ListStoragesResponseProto::ListStoragesResponseProto(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : storages_()
+  , posix_error_code_(0){}
+struct ListStoragesResponseProtoDefaultTypeInternal {
+  constexpr ListStoragesResponseProtoDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~ListStoragesResponseProtoDefaultTypeInternal() {}
+  union {
+    ListStoragesResponseProto _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ListStoragesResponseProtoDefaultTypeInternal _ListStoragesResponseProto_default_instance_;
+constexpr ReadDir2RequestProto::ReadDir2RequestProto(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : file_system_url_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , cookie_(uint64_t{0u})
+  , cancel_error_code_(0){}
+struct ReadDir2RequestProtoDefaultTypeInternal {
+  constexpr ReadDir2RequestProtoDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~ReadDir2RequestProtoDefaultTypeInternal() {}
+  union {
+    ReadDir2RequestProto _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ReadDir2RequestProtoDefaultTypeInternal _ReadDir2RequestProto_default_instance_;
+constexpr ReadDir2ResponseProto::ReadDir2ResponseProto(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : entries_()
+  , cookie_(uint64_t{0u})
+  , posix_error_code_(0){}
+struct ReadDir2ResponseProtoDefaultTypeInternal {
+  constexpr ReadDir2ResponseProtoDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~ReadDir2ResponseProtoDefaultTypeInternal() {}
+  union {
+    ReadDir2ResponseProto _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT ReadDir2ResponseProtoDefaultTypeInternal _ReadDir2ResponseProto_default_instance_;
 }  // namespace fusebox
 namespace fusebox {
 
@@ -510,6 +562,922 @@ std::string DirEntryListProto::GetTypeName() const {
 }
 
 
+// ===================================================================
+
+class ListStoragesRequestProto::_Internal {
+ public:
+};
+
+ListStoragesRequestProto::ListStoragesRequestProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
+  // @@protoc_insertion_point(arena_constructor:fusebox.ListStoragesRequestProto)
+}
+ListStoragesRequestProto::ListStoragesRequestProto(const ListStoragesRequestProto& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  // @@protoc_insertion_point(copy_constructor:fusebox.ListStoragesRequestProto)
+}
+
+inline void ListStoragesRequestProto::SharedCtor() {
+}
+
+ListStoragesRequestProto::~ListStoragesRequestProto() {
+  // @@protoc_insertion_point(destructor:fusebox.ListStoragesRequestProto)
+  if (GetArenaForAllocation() != nullptr) return;
+  SharedDtor();
+  _internal_metadata_.Delete<std::string>();
+}
+
+inline void ListStoragesRequestProto::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void ListStoragesRequestProto::ArenaDtor(void* object) {
+  ListStoragesRequestProto* _this = reinterpret_cast< ListStoragesRequestProto* >(object);
+  (void)_this;
+}
+void ListStoragesRequestProto::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void ListStoragesRequestProto::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void ListStoragesRequestProto::Clear() {
+// @@protoc_insertion_point(message_clear_start:fusebox.ListStoragesRequestProto)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* ListStoragesRequestProto::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* ListStoragesRequestProto::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:fusebox.ListStoragesRequestProto)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:fusebox.ListStoragesRequestProto)
+  return target;
+}
+
+size_t ListStoragesRequestProto::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:fusebox.ListStoragesRequestProto)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void ListStoragesRequestProto::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const ListStoragesRequestProto*>(
+      &from));
+}
+
+void ListStoragesRequestProto::MergeFrom(const ListStoragesRequestProto& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:fusebox.ListStoragesRequestProto)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void ListStoragesRequestProto::CopyFrom(const ListStoragesRequestProto& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:fusebox.ListStoragesRequestProto)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ListStoragesRequestProto::IsInitialized() const {
+  return true;
+}
+
+void ListStoragesRequestProto::InternalSwap(ListStoragesRequestProto* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+}
+
+std::string ListStoragesRequestProto::GetTypeName() const {
+  return "fusebox.ListStoragesRequestProto";
+}
+
+
+// ===================================================================
+
+class ListStoragesResponseProto::_Internal {
+ public:
+  using HasBits = decltype(std::declval<ListStoragesResponseProto>()._has_bits_);
+  static void set_has_posix_error_code(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+};
+
+ListStoragesResponseProto::ListStoragesResponseProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
+  storages_(arena) {
+  SharedCtor();
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
+  // @@protoc_insertion_point(arena_constructor:fusebox.ListStoragesResponseProto)
+}
+ListStoragesResponseProto::ListStoragesResponseProto(const ListStoragesResponseProto& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      _has_bits_(from._has_bits_),
+      storages_(from.storages_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  posix_error_code_ = from.posix_error_code_;
+  // @@protoc_insertion_point(copy_constructor:fusebox.ListStoragesResponseProto)
+}
+
+inline void ListStoragesResponseProto::SharedCtor() {
+posix_error_code_ = 0;
+}
+
+ListStoragesResponseProto::~ListStoragesResponseProto() {
+  // @@protoc_insertion_point(destructor:fusebox.ListStoragesResponseProto)
+  if (GetArenaForAllocation() != nullptr) return;
+  SharedDtor();
+  _internal_metadata_.Delete<std::string>();
+}
+
+inline void ListStoragesResponseProto::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void ListStoragesResponseProto::ArenaDtor(void* object) {
+  ListStoragesResponseProto* _this = reinterpret_cast< ListStoragesResponseProto* >(object);
+  (void)_this;
+}
+void ListStoragesResponseProto::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void ListStoragesResponseProto::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void ListStoragesResponseProto::Clear() {
+// @@protoc_insertion_point(message_clear_start:fusebox.ListStoragesResponseProto)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  storages_.Clear();
+  posix_error_code_ = 0;
+  _has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* ListStoragesResponseProto::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional int32 posix_error_code = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _Internal::set_has_posix_error_code(&has_bits);
+          posix_error_code_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated string storages = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            auto str = _internal_add_storages();
+            ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* ListStoragesResponseProto::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:fusebox.ListStoragesResponseProto)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // optional int32 posix_error_code = 1;
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(1, this->_internal_posix_error_code(), target);
+  }
+
+  // repeated string storages = 2;
+  for (int i = 0, n = this->_internal_storages_size(); i < n; i++) {
+    const auto& s = this->_internal_storages(i);
+    target = stream->WriteString(2, s, target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:fusebox.ListStoragesResponseProto)
+  return target;
+}
+
+size_t ListStoragesResponseProto::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:fusebox.ListStoragesResponseProto)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // repeated string storages = 2;
+  total_size += 1 *
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(storages_.size());
+  for (int i = 0, n = storages_.size(); i < n; i++) {
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+      storages_.Get(i));
+  }
+
+  // optional int32 posix_error_code = 1;
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_posix_error_code());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void ListStoragesResponseProto::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const ListStoragesResponseProto*>(
+      &from));
+}
+
+void ListStoragesResponseProto::MergeFrom(const ListStoragesResponseProto& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:fusebox.ListStoragesResponseProto)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  storages_.MergeFrom(from.storages_);
+  if (from._internal_has_posix_error_code()) {
+    _internal_set_posix_error_code(from._internal_posix_error_code());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void ListStoragesResponseProto::CopyFrom(const ListStoragesResponseProto& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:fusebox.ListStoragesResponseProto)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ListStoragesResponseProto::IsInitialized() const {
+  return true;
+}
+
+void ListStoragesResponseProto::InternalSwap(ListStoragesResponseProto* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  storages_.InternalSwap(&other->storages_);
+  swap(posix_error_code_, other->posix_error_code_);
+}
+
+std::string ListStoragesResponseProto::GetTypeName() const {
+  return "fusebox.ListStoragesResponseProto";
+}
+
+
+// ===================================================================
+
+class ReadDir2RequestProto::_Internal {
+ public:
+  using HasBits = decltype(std::declval<ReadDir2RequestProto>()._has_bits_);
+  static void set_has_cancel_error_code(HasBits* has_bits) {
+    (*has_bits)[0] |= 4u;
+  }
+  static void set_has_cookie(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
+  static void set_has_file_system_url(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+};
+
+ReadDir2RequestProto::ReadDir2RequestProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
+  // @@protoc_insertion_point(arena_constructor:fusebox.ReadDir2RequestProto)
+}
+ReadDir2RequestProto::ReadDir2RequestProto(const ReadDir2RequestProto& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      _has_bits_(from._has_bits_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  file_system_url_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    file_system_url_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_file_system_url()) {
+    file_system_url_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_file_system_url(), 
+      GetArenaForAllocation());
+  }
+  ::memcpy(&cookie_, &from.cookie_,
+    static_cast<size_t>(reinterpret_cast<char*>(&cancel_error_code_) -
+    reinterpret_cast<char*>(&cookie_)) + sizeof(cancel_error_code_));
+  // @@protoc_insertion_point(copy_constructor:fusebox.ReadDir2RequestProto)
+}
+
+inline void ReadDir2RequestProto::SharedCtor() {
+file_system_url_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  file_system_url_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&cookie_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&cancel_error_code_) -
+    reinterpret_cast<char*>(&cookie_)) + sizeof(cancel_error_code_));
+}
+
+ReadDir2RequestProto::~ReadDir2RequestProto() {
+  // @@protoc_insertion_point(destructor:fusebox.ReadDir2RequestProto)
+  if (GetArenaForAllocation() != nullptr) return;
+  SharedDtor();
+  _internal_metadata_.Delete<std::string>();
+}
+
+inline void ReadDir2RequestProto::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  file_system_url_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+void ReadDir2RequestProto::ArenaDtor(void* object) {
+  ReadDir2RequestProto* _this = reinterpret_cast< ReadDir2RequestProto* >(object);
+  (void)_this;
+}
+void ReadDir2RequestProto::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void ReadDir2RequestProto::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void ReadDir2RequestProto::Clear() {
+// @@protoc_insertion_point(message_clear_start:fusebox.ReadDir2RequestProto)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    file_system_url_.ClearNonDefaultToEmpty();
+  }
+  if (cached_has_bits & 0x00000006u) {
+    ::memset(&cookie_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&cancel_error_code_) -
+        reinterpret_cast<char*>(&cookie_)) + sizeof(cancel_error_code_));
+  }
+  _has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* ReadDir2RequestProto::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional int32 cancel_error_code = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _Internal::set_has_cancel_error_code(&has_bits);
+          cancel_error_code_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional uint64 cookie = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          _Internal::set_has_cookie(&has_bits);
+          cookie_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional string file_system_url = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          auto str = _internal_mutable_file_system_url();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* ReadDir2RequestProto::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:fusebox.ReadDir2RequestProto)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // optional int32 cancel_error_code = 1;
+  if (cached_has_bits & 0x00000004u) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(1, this->_internal_cancel_error_code(), target);
+  }
+
+  // optional uint64 cookie = 2;
+  if (cached_has_bits & 0x00000002u) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(2, this->_internal_cookie(), target);
+  }
+
+  // optional string file_system_url = 3;
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->WriteStringMaybeAliased(
+        3, this->_internal_file_system_url(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:fusebox.ReadDir2RequestProto)
+  return target;
+}
+
+size_t ReadDir2RequestProto::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:fusebox.ReadDir2RequestProto)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000007u) {
+    // optional string file_system_url = 3;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_file_system_url());
+    }
+
+    // optional uint64 cookie = 2;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt64SizePlusOne(this->_internal_cookie());
+    }
+
+    // optional int32 cancel_error_code = 1;
+    if (cached_has_bits & 0x00000004u) {
+      total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_cancel_error_code());
+    }
+
+  }
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void ReadDir2RequestProto::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const ReadDir2RequestProto*>(
+      &from));
+}
+
+void ReadDir2RequestProto::MergeFrom(const ReadDir2RequestProto& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:fusebox.ReadDir2RequestProto)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = from._has_bits_[0];
+  if (cached_has_bits & 0x00000007u) {
+    if (cached_has_bits & 0x00000001u) {
+      _internal_set_file_system_url(from._internal_file_system_url());
+    }
+    if (cached_has_bits & 0x00000002u) {
+      cookie_ = from.cookie_;
+    }
+    if (cached_has_bits & 0x00000004u) {
+      cancel_error_code_ = from.cancel_error_code_;
+    }
+    _has_bits_[0] |= cached_has_bits;
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void ReadDir2RequestProto::CopyFrom(const ReadDir2RequestProto& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:fusebox.ReadDir2RequestProto)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ReadDir2RequestProto::IsInitialized() const {
+  return true;
+}
+
+void ReadDir2RequestProto::InternalSwap(ReadDir2RequestProto* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &file_system_url_, lhs_arena,
+      &other->file_system_url_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(ReadDir2RequestProto, cancel_error_code_)
+      + sizeof(ReadDir2RequestProto::cancel_error_code_)
+      - PROTOBUF_FIELD_OFFSET(ReadDir2RequestProto, cookie_)>(
+          reinterpret_cast<char*>(&cookie_),
+          reinterpret_cast<char*>(&other->cookie_));
+}
+
+std::string ReadDir2RequestProto::GetTypeName() const {
+  return "fusebox.ReadDir2RequestProto";
+}
+
+
+// ===================================================================
+
+class ReadDir2ResponseProto::_Internal {
+ public:
+  using HasBits = decltype(std::declval<ReadDir2ResponseProto>()._has_bits_);
+  static void set_has_posix_error_code(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
+  static void set_has_cookie(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+};
+
+ReadDir2ResponseProto::ReadDir2ResponseProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
+  entries_(arena) {
+  SharedCtor();
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
+  // @@protoc_insertion_point(arena_constructor:fusebox.ReadDir2ResponseProto)
+}
+ReadDir2ResponseProto::ReadDir2ResponseProto(const ReadDir2ResponseProto& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      _has_bits_(from._has_bits_),
+      entries_(from.entries_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  ::memcpy(&cookie_, &from.cookie_,
+    static_cast<size_t>(reinterpret_cast<char*>(&posix_error_code_) -
+    reinterpret_cast<char*>(&cookie_)) + sizeof(posix_error_code_));
+  // @@protoc_insertion_point(copy_constructor:fusebox.ReadDir2ResponseProto)
+}
+
+inline void ReadDir2ResponseProto::SharedCtor() {
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&cookie_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&posix_error_code_) -
+    reinterpret_cast<char*>(&cookie_)) + sizeof(posix_error_code_));
+}
+
+ReadDir2ResponseProto::~ReadDir2ResponseProto() {
+  // @@protoc_insertion_point(destructor:fusebox.ReadDir2ResponseProto)
+  if (GetArenaForAllocation() != nullptr) return;
+  SharedDtor();
+  _internal_metadata_.Delete<std::string>();
+}
+
+inline void ReadDir2ResponseProto::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void ReadDir2ResponseProto::ArenaDtor(void* object) {
+  ReadDir2ResponseProto* _this = reinterpret_cast< ReadDir2ResponseProto* >(object);
+  (void)_this;
+}
+void ReadDir2ResponseProto::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void ReadDir2ResponseProto::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void ReadDir2ResponseProto::Clear() {
+// @@protoc_insertion_point(message_clear_start:fusebox.ReadDir2ResponseProto)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  entries_.Clear();
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    ::memset(&cookie_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&posix_error_code_) -
+        reinterpret_cast<char*>(&cookie_)) + sizeof(posix_error_code_));
+  }
+  _has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* ReadDir2ResponseProto::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional int32 posix_error_code = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _Internal::set_has_posix_error_code(&has_bits);
+          posix_error_code_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional uint64 cookie = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          _Internal::set_has_cookie(&has_bits);
+          cookie_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated .fusebox.DirEntryProto entries = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_entries(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<26>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* ReadDir2ResponseProto::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:fusebox.ReadDir2ResponseProto)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // optional int32 posix_error_code = 1;
+  if (cached_has_bits & 0x00000002u) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(1, this->_internal_posix_error_code(), target);
+  }
+
+  // optional uint64 cookie = 2;
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(2, this->_internal_cookie(), target);
+  }
+
+  // repeated .fusebox.DirEntryProto entries = 3;
+  for (unsigned int i = 0,
+      n = static_cast<unsigned int>(this->_internal_entries_size()); i < n; i++) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(3, this->_internal_entries(i), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:fusebox.ReadDir2ResponseProto)
+  return target;
+}
+
+size_t ReadDir2ResponseProto::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:fusebox.ReadDir2ResponseProto)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // repeated .fusebox.DirEntryProto entries = 3;
+  total_size += 1UL * this->_internal_entries_size();
+  for (const auto& msg : this->entries_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    // optional uint64 cookie = 2;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt64SizePlusOne(this->_internal_cookie());
+    }
+
+    // optional int32 posix_error_code = 1;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_posix_error_code());
+    }
+
+  }
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void ReadDir2ResponseProto::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const ReadDir2ResponseProto*>(
+      &from));
+}
+
+void ReadDir2ResponseProto::MergeFrom(const ReadDir2ResponseProto& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:fusebox.ReadDir2ResponseProto)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  entries_.MergeFrom(from.entries_);
+  cached_has_bits = from._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      cookie_ = from.cookie_;
+    }
+    if (cached_has_bits & 0x00000002u) {
+      posix_error_code_ = from.posix_error_code_;
+    }
+    _has_bits_[0] |= cached_has_bits;
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void ReadDir2ResponseProto::CopyFrom(const ReadDir2ResponseProto& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:fusebox.ReadDir2ResponseProto)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ReadDir2ResponseProto::IsInitialized() const {
+  return true;
+}
+
+void ReadDir2ResponseProto::InternalSwap(ReadDir2ResponseProto* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  entries_.InternalSwap(&other->entries_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(ReadDir2ResponseProto, posix_error_code_)
+      + sizeof(ReadDir2ResponseProto::posix_error_code_)
+      - PROTOBUF_FIELD_OFFSET(ReadDir2ResponseProto, cookie_)>(
+          reinterpret_cast<char*>(&cookie_),
+          reinterpret_cast<char*>(&other->cookie_));
+}
+
+std::string ReadDir2ResponseProto::GetTypeName() const {
+  return "fusebox.ReadDir2ResponseProto";
+}
+
+
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace fusebox
 PROTOBUF_NAMESPACE_OPEN
@@ -518,6 +1486,18 @@ template<> PROTOBUF_NOINLINE ::fusebox::DirEntryProto* Arena::CreateMaybeMessage
 }
 template<> PROTOBUF_NOINLINE ::fusebox::DirEntryListProto* Arena::CreateMaybeMessage< ::fusebox::DirEntryListProto >(Arena* arena) {
   return Arena::CreateMessageInternal< ::fusebox::DirEntryListProto >(arena);
+}
+template<> PROTOBUF_NOINLINE ::fusebox::ListStoragesRequestProto* Arena::CreateMaybeMessage< ::fusebox::ListStoragesRequestProto >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::fusebox::ListStoragesRequestProto >(arena);
+}
+template<> PROTOBUF_NOINLINE ::fusebox::ListStoragesResponseProto* Arena::CreateMaybeMessage< ::fusebox::ListStoragesResponseProto >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::fusebox::ListStoragesResponseProto >(arena);
+}
+template<> PROTOBUF_NOINLINE ::fusebox::ReadDir2RequestProto* Arena::CreateMaybeMessage< ::fusebox::ReadDir2RequestProto >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::fusebox::ReadDir2RequestProto >(arena);
+}
+template<> PROTOBUF_NOINLINE ::fusebox::ReadDir2ResponseProto* Arena::CreateMaybeMessage< ::fusebox::ReadDir2ResponseProto >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::fusebox::ReadDir2ResponseProto >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

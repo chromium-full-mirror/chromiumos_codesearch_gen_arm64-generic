@@ -5,6 +5,7 @@
 #ifndef __TOKEN_REPLACER_H__
 #define __TOKEN_REPLACER_H__
 
+#include <iostream>
 #include <regex>
 #include <string>
 
@@ -50,5 +51,9 @@ class TokenReplacer {
   const std::regex re_copies_;
   const std::string copies_replacement_;
 };
+
+void transform(const TokenReplacer& replacer,
+               std::istream& in,
+               std::ostream& out);
 
 #endif // __TOKEN_REPLACER_H__

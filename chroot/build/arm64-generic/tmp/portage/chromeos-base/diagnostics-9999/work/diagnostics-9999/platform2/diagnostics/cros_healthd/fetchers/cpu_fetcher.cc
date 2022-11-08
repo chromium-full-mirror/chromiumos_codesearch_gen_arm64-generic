@@ -8,6 +8,7 @@
 
 #include <cstdint>
 #include <map>
+#include <memory>
 #include <optional>
 #include <sstream>
 #include <string>
@@ -34,7 +35,7 @@ namespace diagnostics {
 
 namespace {
 
-namespace mojo_ipc = ::chromeos::cros_healthd::mojom;
+namespace mojo_ipc = ::ash::cros_healthd::mojom;
 
 using PhysicalCpuMap = std::map<int, mojo_ipc::PhysicalCpuInfoPtr>;
 using VulnerabilityInfoMap =
@@ -48,7 +49,6 @@ constexpr char kCStateDirectoryMatcher[] = "state*";
 
 // Keys used to parse information from /proc/cpuinfo.
 constexpr char kModelNameKey[] = "model name";
-constexpr char kPhysicalIdKey[] = "physical id";
 constexpr char kProcessorIdKey[] = "processor";
 constexpr char kX86CpuFlagsKey[] = "flags";
 constexpr char kArmCpuFlagsKey[] = "Features";
@@ -260,7 +260,6 @@ bool IsProcessorBlock(const std::string& block) {
 // depending on the CPU architecture, and it is considered as success.
 bool ParseProcessor(const std::string& processor,
                     int& processor_id,
-                    int& physical_id,
                     std::string& model_name,
                     std::vector<std::string>& cpu_flags) {
   base::StringPairs pairs;
@@ -275,8 +274,6 @@ bool ParseProcessor(const std::string& processor,
     base::TrimWhitespaceASCII(key_value.second, base::TRIM_ALL, &value);
     if (key == kProcessorIdKey) {
       processor_id_str = value;
-    } else if (key == kPhysicalIdKey) {
-      physical_id_str = value;
     } else if (key == kModelNameKey) {
       model_name = value;
     } else if (key == kX86CpuFlagsKey || key == kArmCpuFlagsKey) {
@@ -284,18 +281,6 @@ bool ParseProcessor(const std::string& processor,
                                     base::SPLIT_WANT_NONEMPTY);
       flags_found = true;
     }
-  }
-
-  // If the processor does not have a distinction between physical_id and
-  // processor_id, make them the same value.
-  if (!processor_id_str.empty() && physical_id_str.empty()) {
-    physical_id_str = processor_id_str;
-  }
-
-  if (!base::StringToInt(physical_id_str, &physical_id)) {
-    LOG(ERROR) << "physical id cannot be converted to integer: "
-               << physical_id_str;
-    return false;
   }
 
   if (!base::StringToInt(processor_id_str, &processor_id)) {
@@ -383,9 +368,86 @@ void GetArmSoCModelName(const base::FilePath& root_dir,
   }
   ParseCompatibleString(root_dir, model_name);
 }
-}  // namespace
 
-bool CpuFetcher::FetchNumTotalThreads() {
+// The State class is responsible storing the state when fetching CPU info.
+class State {
+ public:
+  explicit State(Context* context);
+  State(const State&) = delete;
+  State& operator=(const State&) = delete;
+  ~State();
+
+  static void Fetch(Context* context, FetchCpuInfoCallback callback);
+
+ private:
+  // Read and parse physical cpus and store into |physical_cpus|. Returns true
+  // on success and false otherwise.
+  bool FetchPhysicalCpus();
+
+  // Reads and parses the total number of threads available on the device and
+  // store into |num_total_threads|. Returns true on success and false
+  // otherwise.
+  bool FetchNumTotalThreads();
+
+  // Record the cpu architecture into |architecture|. Returns true on success
+  // and false otherwise.
+  bool FetchArchitecture();
+
+  // Record the keylocker information into |architecture|. Returns true on
+  // success and false otherwise.
+  bool FetchKeylockerInfo();
+
+  // Fetch cpu temperature channels and store into |temperature_channels|.
+  // Returns true on success and false otherwise.
+  bool FetchCpuTemperatures();
+
+  // Read and parse general virtualization info and store into |virtualization|.
+  // Returns true on success and false otherwise.
+  bool FetchVirtualization();
+
+  // Read and parse cpu vulnerabilities and store into |vulnerabilities|.
+  // Returns true on success and false otherwise.
+  bool FetchVulnerabilities();
+
+  // Calls |callback_| and passes the result. If |all_callback_called| or
+  // |error_| is set, the result is a ProbeError, otherwise it is |cpu_info_|.
+  void HandleCallbackComplete(FetchCpuInfoCallback callback,
+                              bool is_all_callback_called);
+
+  // Callback function to handle ReadMsr() call reading vmx registers.
+  void HandleVmxReadMsr(uint32_t index, mojo_ipc::NullableUint64Ptr val);
+
+  // Callback function to handle ReadMsr() call reading svm registers.
+  void HandleSvmReadMsr(uint32_t index, mojo_ipc::NullableUint64Ptr val);
+
+  // Calls ReadMsr based on the virtualization capability of each physical cpu.
+  void FetchPhysicalCpusVirtualizationInfo(CallbackBarrier& barrier);
+
+  // Logs |message| and sets |error_|. Only do the logging if |error_| has been
+  // set.
+  void LogAndSetError(mojo_ipc::ErrorType type, const std::string& message);
+
+  // Stores the context received from Fetch.
+  Context* const context_;
+  // Stores the error that will be returned. HandleCallbackComplete will report
+  // error if this is set.
+  mojo_ipc::ProbeErrorPtr error_;
+  // Stores the final cpu info that will be returned.
+  mojo_ipc::CpuInfoPtr cpu_info_;
+
+  // Maintains a map that maps each physical cpu id to its first corresponding
+  // logical cpu id.
+  std::map<uint32_t, uint32_t> physical_id_to_first_logical_id_;
+  // Must be the last member of the class.
+  base::WeakPtrFactory<State> weak_factory_{this};
+};
+
+State::State(Context* context)
+    : context_(context), cpu_info_(mojo_ipc::CpuInfo::New()) {}
+
+State::~State() = default;
+
+bool State::FetchNumTotalThreads() {
   base::FilePath root_dir = context_->root_dir();
 
   std::string cpu_present;
@@ -397,30 +459,48 @@ bool CpuFetcher::FetchNumTotalThreads() {
     return false;
   }
 
-  // Two strings will be parsed directly from the regex, then converted to
-  // uint32_t's. Expect |cpu_present| to contain the pattern "%d-%d", where the
-  // first integer is strictly smaller than the second.
-  std::string low_thread_num;
-  std::string high_thread_num;
-  uint32_t low_thread_int;
-  uint32_t high_thread_int;
-  if (!RE2::FullMatch(cpu_present, kPresentFileRegex, &low_thread_num,
-                      &high_thread_num) ||
-      !base::StringToUint(low_thread_num, &low_thread_int) ||
-      !base::StringToUint(high_thread_num, &high_thread_int)) {
+  // Expect |cpu_present| to contain a comma separated list of values either in
+  // the pattern of "%d" or "%d-%d". In the case of "%d-%d", the first integer
+  // is strictly smaller than the second. The total number of threads is the
+  // sum of the number of threads calculated in each individual pattern.
+  //
+  // https://www.kernel.org/doc/html/v5.5/admin-guide/cputopology.html
+
+  std::vector<std::string> cpu_threads = base::SplitString(
+      cpu_present, ",", base::TRIM_WHITESPACE, base::SPLIT_WANT_NONEMPTY);
+  uint32_t total_thread_count = 0;
+
+  for (auto& thread : cpu_threads) {
+    std::string low_thread_num;
+    std::string high_thread_num;
+    uint32_t low_thread_int;
+    uint32_t high_thread_int;
+    // Check if is in the form of "%d".
+    if (base::StringToUint(thread, &low_thread_int)) {
+      total_thread_count++;
+      continue;
+    }
+    // Check if is in the form of "%d-%d".
+    if (RE2::FullMatch(thread, kPresentFileRegex, &low_thread_num,
+                       &high_thread_num) &&
+        base::StringToUint(low_thread_num, &low_thread_int) &&
+        base::StringToUint(high_thread_num, &high_thread_int)) {
+      DCHECK_GT(high_thread_int, low_thread_int);
+      total_thread_count += high_thread_int - low_thread_int + 1;
+      continue;
+    }
+
     LogAndSetError(mojo_ipc::ErrorType::kParseError,
                    "Unable to parse CPU present file: " + cpu_present);
     return false;
   }
 
-  DCHECK_GT(high_thread_int, low_thread_int);
-
-  cpu_info_->num_total_threads = high_thread_int - low_thread_int + 1;
+  cpu_info_->num_total_threads = total_thread_count;
 
   return true;
 }
 
-bool CpuFetcher::FetchArchitecture() {
+bool State::FetchArchitecture() {
   struct utsname buf;
   if (context_->system_utils()->Uname(&buf)) {
     cpu_info_->architecture = mojo_ipc::CpuArchitectureEnum::kUnknown;
@@ -446,7 +526,7 @@ bool CpuFetcher::FetchArchitecture() {
 }
 
 // Fetch Keylocker information.
-bool CpuFetcher::FetchKeylockerInfo() {
+bool State::FetchKeylockerInfo() {
   base::FilePath root_dir = context_->root_dir();
 
   std::string file_contents;
@@ -473,7 +553,7 @@ bool CpuFetcher::FetchKeylockerInfo() {
 }
 
 // Fetches and returns information about the device's CPU temperature channels.
-bool CpuFetcher::FetchCpuTemperatures() {
+bool State::FetchCpuTemperatures() {
   base::FilePath root_dir = context_->root_dir();
 
   std::vector<mojo_ipc::CpuTemperatureChannelPtr> temps;
@@ -498,7 +578,7 @@ bool CpuFetcher::FetchCpuTemperatures() {
   return true;
 }
 
-bool CpuFetcher::FetchPhysicalCpus() {
+bool State::FetchPhysicalCpus() {
   base::FilePath root_dir = context_->root_dir();
 
   std::optional<std::map<int, ParsedStatContents>> parsed_stat_contents =
@@ -528,13 +608,20 @@ bool CpuFetcher::FetchPhysicalCpus() {
       continue;
 
     int processor_id;
-    int physical_id;
     std::string model_name;
     std::vector<std::string> cpu_flags;
-    if (!ParseProcessor(processor, processor_id, physical_id, model_name,
-                        cpu_flags)) {
+    if (!ParseProcessor(processor, processor_id, model_name, cpu_flags)) {
       LogAndSetError(mojo_ipc::ErrorType::kParseError,
                      "Unable to parse processor string: " + processor);
+      return false;
+    }
+
+    int physical_id;
+    if (!ReadInteger(GetPhysicalPackageIdPath(root_dir, processor_id),
+                     &base::StringToInt, &physical_id)) {
+      LogAndSetError(mojo_ipc::ErrorType::kParseError,
+                     "Unable to parse physical ID for cpu " +
+                         std::to_string(processor_id));
       return false;
     }
 
@@ -620,7 +707,7 @@ bool CpuFetcher::FetchPhysicalCpus() {
   return true;
 }
 
-bool CpuFetcher::FetchVirtualization() {
+bool State::FetchVirtualization() {
   base::FilePath root_dir = context_->root_dir();
 
   cpu_info_->virtualization = mojo_ipc::VirtualizationInfo::New();
@@ -682,7 +769,7 @@ bool CpuFetcher::FetchVirtualization() {
   return true;
 }
 
-bool CpuFetcher::FetchVulnerabilities() {
+bool State::FetchVulnerabilities() {
   base::FilePath root_dir = context_->root_dir();
   base::FilePath vulnerability_dir =
       root_dir.Append(kRelativeCpuDir).Append(kVulnerabilityDirName);
@@ -715,6 +802,104 @@ bool CpuFetcher::FetchVulnerabilities() {
   return true;
 }
 
+void State::FetchPhysicalCpusVirtualizationInfo(CallbackBarrier& barrier) {
+  for (uint32_t physical_id = 0; physical_id < cpu_info_->physical_cpus.size();
+       ++physical_id) {
+    uint32_t logical_id = physical_id_to_first_logical_id_[physical_id];
+    mojo_ipc::PhysicalCpuInfoPtr& physical_cpu =
+        cpu_info_->physical_cpus[physical_id];
+
+    physical_cpu->virtualization = mojo_ipc::CpuVirtualizationInfo::New();
+    const std::vector<std::string>& flags = physical_cpu->flags.value();
+    if (std::find(flags.begin(), flags.end(), "vmx") != flags.end()) {
+      physical_cpu->virtualization->type =
+          mojo_ipc::CpuVirtualizationInfo::Type::kVMX;
+      context_->executor()->ReadMsr(
+          cpu_msr::kIA32FeatureControl, logical_id,
+          barrier.Depend(base::BindOnce(&State::HandleVmxReadMsr,
+                                        weak_factory_.GetWeakPtr(),
+                                        physical_id)));
+    } else if (std::find(flags.begin(), flags.end(), "svm") != flags.end()) {
+      physical_cpu->virtualization->type =
+          mojo_ipc::CpuVirtualizationInfo::Type::kSVM;
+      context_->executor()->ReadMsr(
+          cpu_msr::kVmCr, logical_id,
+          barrier.Depend(base::BindOnce(&State::HandleSvmReadMsr,
+                                        weak_factory_.GetWeakPtr(),
+                                        physical_id)));
+    } else {
+      physical_cpu->virtualization = nullptr;
+      continue;
+    }
+  }
+}
+
+void State::HandleSvmReadMsr(uint32_t physical_id,
+                             mojo_ipc::NullableUint64Ptr val) {
+  if (val.is_null()) {
+    LogAndSetError(mojo_ipc::ErrorType::kFileReadError,
+                   "Error while reading svm msr register");
+    return;
+  }
+  cpu_info_->physical_cpus[physical_id]->virtualization->is_enabled =
+      !(val->value & kVmCrSvmeDisabledBit);
+  cpu_info_->physical_cpus[physical_id]->virtualization->is_locked =
+      val->value & kVmCrLockedBit;
+}
+
+void State::HandleVmxReadMsr(uint32_t physical_id,
+                             mojo_ipc::NullableUint64Ptr val) {
+  if (val.is_null()) {
+    LogAndSetError(mojo_ipc::ErrorType::kFileReadError,
+                   "Error while reading vmx msr register");
+    return;
+  }
+  cpu_info_->physical_cpus[physical_id]->virtualization->is_enabled =
+      (val->value & kIA32FeatureEnableVmxInsideSmx) ||
+      (val->value & kIA32FeatureEnableVmxOutsideSmx);
+  cpu_info_->physical_cpus[physical_id]->virtualization->is_locked =
+      val->value & kIA32FeatureLocked;
+}
+
+void State::HandleCallbackComplete(FetchCpuInfoCallback callback,
+                                   bool is_all_callback_called) {
+  if (!is_all_callback_called) {
+    LogAndSetError(mojo_ipc::ErrorType::kServiceUnavailable,
+                   "Not all Fetch Cpu Virtualization Callbacks "
+                   "have been sucessfully called");
+  }
+  std::move(callback).Run(
+      error_ ? mojo_ipc::CpuResult::NewError(std::move(error_))
+             : mojo_ipc::CpuResult::NewCpuInfo(std::move(cpu_info_)));
+}
+
+void State::LogAndSetError(mojo_ipc::ErrorType type,
+                           const std::string& message) {
+  LOG(ERROR) << message;
+  if (error_.is_null())
+    error_ = mojo_ipc::ProbeError::New(type, message);
+}
+
+void State::Fetch(Context* context, FetchCpuInfoCallback callback) {
+  auto state = std::make_unique<State>(context);
+  State* state_ptr = state.get();
+
+  CallbackBarrier barrier{base::BindOnce(
+      &State::HandleCallbackComplete, std::move(state), std::move(callback))};
+
+  if (!state_ptr->FetchNumTotalThreads() || !state_ptr->FetchArchitecture() ||
+      !state_ptr->FetchKeylockerInfo() || !state_ptr->FetchCpuTemperatures() ||
+      !state_ptr->FetchVirtualization() || !state_ptr->FetchVulnerabilities() ||
+      !state_ptr->FetchPhysicalCpus()) {
+    DCHECK(!state_ptr->error_.is_null());
+    return;
+  }
+
+  state_ptr->FetchPhysicalCpusVirtualizationInfo(barrier);
+  return;
+}
+}  // namespace
+
 base::FilePath GetCStateDirectoryPath(const base::FilePath& root_dir,
                                       int logical_id) {
   std::string logical_cpu_dir = "cpu" + std::to_string(logical_id);
@@ -744,6 +929,15 @@ base::FilePath GetCpuFreqDirectoryPath(const base::FilePath& root_dir,
       .Append(cpufreq_dirname);
 }
 
+base::FilePath GetPhysicalPackageIdPath(const base::FilePath& root_dir,
+                                        int logical_id) {
+  std::string logical_cpu_dir = "cpu" + std::to_string(logical_id);
+  std::string physical_package_id_filename = "topology/physical_package_id";
+  return root_dir.Append(kRelativeCpuDir)
+      .Append(logical_cpu_dir)
+      .Append(physical_package_id_filename);
+}
+
 mojo_ipc::VulnerabilityInfo::Status GetVulnerabilityStatusFromMessage(
     const std::string& message) {
   // Messages in the |iTLB multihit| vulnerability takes a different form with
@@ -770,108 +964,8 @@ mojo_ipc::VulnerabilityInfo::Status GetVulnerabilityStatusFromMessage(
   return mojo_ipc::VulnerabilityInfo::Status::kUnrecognized;
 }
 
-void CpuFetcher::FetchPhysicalCpusVirtualizationInfo(CallbackBarrier& barrier) {
-  for (uint32_t physical_id = 0; physical_id < cpu_info_->physical_cpus.size();
-       ++physical_id) {
-    uint32_t logical_id = physical_id_to_first_logical_id_[physical_id];
-    mojo_ipc::PhysicalCpuInfoPtr& physical_cpu =
-        cpu_info_->physical_cpus[physical_id];
-
-    physical_cpu->virtualization = mojo_ipc::CpuVirtualizationInfo::New();
-    const std::vector<std::string>& flags = physical_cpu->flags.value();
-    if (std::find(flags.begin(), flags.end(), "vmx") != flags.end()) {
-      physical_cpu->virtualization->type =
-          mojo_ipc::CpuVirtualizationInfo::Type::kVMX;
-      context_->executor()->ReadMsr(
-          cpu_msr::kIA32FeatureControl, logical_id,
-          barrier.Depend(base::BindOnce(&CpuFetcher::HandleVmxReadMsr,
-                                        weak_factory_.GetWeakPtr(),
-                                        physical_id)));
-    } else if (std::find(flags.begin(), flags.end(), "svm") != flags.end()) {
-      physical_cpu->virtualization->type =
-          mojo_ipc::CpuVirtualizationInfo::Type::kSVM;
-      context_->executor()->ReadMsr(
-          cpu_msr::kVmCr, logical_id,
-          barrier.Depend(base::BindOnce(&CpuFetcher::HandleSvmReadMsr,
-                                        weak_factory_.GetWeakPtr(),
-                                        physical_id)));
-    } else {
-      physical_cpu->virtualization = nullptr;
-      continue;
-    }
-  }
-}
-
-void CpuFetcher::HandleSvmReadMsr(uint32_t physical_id,
-                                  mojo_ipc::NullableUint64Ptr val) {
-  if (val.is_null()) {
-    LogAndSetError(mojo_ipc::ErrorType::kFileReadError,
-                   "Error while reading svm msr register");
-    return;
-  }
-  cpu_info_->physical_cpus[physical_id]->virtualization->is_enabled =
-      !(val->value & kVmCrSvmeDisabledBit);
-  cpu_info_->physical_cpus[physical_id]->virtualization->is_locked =
-      val->value & kVmCrLockedBit;
-}
-
-void CpuFetcher::HandleVmxReadMsr(uint32_t physical_id,
-                                  mojo_ipc::NullableUint64Ptr val) {
-  if (val.is_null()) {
-    LogAndSetError(mojo_ipc::ErrorType::kFileReadError,
-                   "Error while reading vmx msr register");
-    return;
-  }
-  cpu_info_->physical_cpus[physical_id]->virtualization->is_enabled =
-      (val->value & kIA32FeatureEnableVmxInsideSmx) ||
-      (val->value & kIA32FeatureEnableVmxOutsideSmx);
-  cpu_info_->physical_cpus[physical_id]->virtualization->is_locked =
-      val->value & kIA32FeatureLocked;
-}
-
-void CpuFetcher::HandleCallbackComplete(bool all_callback_called) {
-  if (!all_callback_called) {
-    LogAndSetError(mojo_ipc::ErrorType::kServiceUnavailable,
-                   "Not all Fetch Cpu Virtualization Callbacks "
-                   "have been sucessfully called");
-  }
-  if (!error_.is_null()) {
-    std::move(callback_).Run(mojo_ipc::CpuResult::NewError(std::move(error_)));
-    return;
-  }
-  std::move(callback_).Run(
-      mojo_ipc::CpuResult::NewCpuInfo(std::move(cpu_info_)));
-}
-
-void CpuFetcher::LogAndSetError(chromeos::cros_healthd::mojom::ErrorType type,
-                                const std::string& message) {
-  LOG(ERROR) << message;
-  if (error_.is_null())
-    error_ = chromeos::cros_healthd::mojom::ProbeError::New(type, message);
-}
-
-void CpuFetcher::FetchImpl(ResultCallback callback) {
-  callback_ = std::move(callback);
-
-  CallbackBarrier barrier{base::BindOnce(&CpuFetcher::HandleCallbackComplete,
-                                         weak_factory_.GetWeakPtr(),
-                                         /*all_callback_called=*/true),
-                          base::BindOnce(&CpuFetcher::HandleCallbackComplete,
-                                         weak_factory_.GetWeakPtr(),
-                                         /*all_callback_called=*/false)};
-
-  cpu_info_ = chromeos::cros_healthd::mojom::CpuInfo::New();
-
-  if (!FetchNumTotalThreads() || !FetchArchitecture() ||
-      !FetchKeylockerInfo() || !FetchCpuTemperatures() ||
-      !FetchVirtualization() || !FetchVulnerabilities() ||
-      !FetchPhysicalCpus()) {
-    DCHECK(!error_.is_null());
-    return;
-  }
-
-  FetchPhysicalCpusVirtualizationInfo(barrier);
-  return;
+void FetchCpuInfo(Context* context, FetchCpuInfoCallback callback) {
+  State::Fetch(context, std::move(callback));
 }
 
 }  // namespace diagnostics

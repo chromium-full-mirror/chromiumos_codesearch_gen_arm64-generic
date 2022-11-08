@@ -9,6 +9,7 @@
 #include <utility>
 
 #include "libhwsec/factory/factory.h"
+#include "libhwsec/frontend/chaps/frontend.h"
 #include "libhwsec/frontend/client/frontend.h"
 #include "libhwsec/frontend/cryptohome/frontend.h"
 #include "libhwsec/frontend/pinweaver/frontend.h"
@@ -19,12 +20,22 @@ namespace hwsec {
 
 class HWSEC_EXPORT FactoryImpl : public Factory {
  public:
+  // A tag to indicate the backend would be run on the current thread.
+  struct OnCurrentTaskRunner {};
+
+  // Constructor for an isolated thread.
   FactoryImpl();
+
+  // Constructor for no isolated thread.
+  explicit FactoryImpl(OnCurrentTaskRunner);
+
   ~FactoryImpl() override;
+
   std::unique_ptr<CryptohomeFrontend> GetCryptohomeFrontend() override;
   std::unique_ptr<PinWeaverFrontend> GetPinWeaverFrontend() override;
   std::unique_ptr<RecoveryCryptoFrontend> GetRecoveryCryptoFrontend() override;
   std::unique_ptr<ClientFrontend> GetClientFrontend() override;
+  std::unique_ptr<ChapsFrontend> GetChapsFrontend() override;
 
  private:
   MiddlewareOwner middleware_;

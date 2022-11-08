@@ -4,7 +4,7 @@
 #ifndef LIBCHROME_BASE_CFI_BUILDFLAGS_H_
 #define LIBCHROME_BASE_CFI_BUILDFLAGS_H_
 
-#include "build/buildflag.h"
+#include "build/buildflag.h" // IWYU pragma: export
 
 #define BUILDFLAG_INTERNAL_CFI_ICALL_CHECK() (0)
 #define BUILDFLAG_INTERNAL_CFI_ENFORCEMENT_TRAP() (0)

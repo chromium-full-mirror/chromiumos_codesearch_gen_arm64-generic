@@ -42,7 +42,7 @@ TEST_F(BackendRecoveryCryptoTpm1Test, GenerateKeyAuthValue) {
   auto result =
       middleware_->CallSync<&Backend::RecoveryCrypto::GenerateKeyAuthValue>();
 
-  ASSERT_THAT(result, IsOk());
+  ASSERT_OK(result);
   ASSERT_TRUE(result.value().has_value());
   EXPECT_FALSE(result.value().value().empty());
 }
@@ -134,7 +134,7 @@ TEST_F(BackendRecoveryCryptoTpm1Test, EncryptEccPrivateKey) {
       middleware_->CallSync<&Backend::RecoveryCrypto::EncryptEccPrivateKey>(
           std::move(encrypt_request_destination_share));
 
-  ASSERT_THAT(result, IsOk());
+  ASSERT_OK(result);
   EXPECT_EQ(result->encrypted_own_priv_key, encrypted_own_priv_key);
   EXPECT_EQ(result->extended_pcr_bound_own_priv_key,
             extended_pcr_bound_own_priv_key);
@@ -166,7 +166,7 @@ TEST_F(BackendRecoveryCryptoTpm1Test, EncryptEccPrivateKeyNoAuth) {
       middleware_->CallSync<&Backend::RecoveryCrypto::EncryptEccPrivateKey>(
           std::move(encrypt_request_destination_share));
 
-  ASSERT_THAT(result, IsOk());
+  ASSERT_OK(result);
   EXPECT_FALSE(result->encrypted_own_priv_key.empty());
   EXPECT_TRUE(result->extended_pcr_bound_own_priv_key.empty());
 }
@@ -195,7 +195,7 @@ TEST_F(BackendRecoveryCryptoTpm1Test, EncryptEccPrivateKeyNoKeyPair) {
       middleware_->CallSync<&Backend::RecoveryCrypto::EncryptEccPrivateKey>(
           std::move(encrypt_request_destination_share));
 
-  ASSERT_THAT(result, NotOk());
+  ASSERT_NOT_OK(result);
 }
 
 TEST_F(BackendRecoveryCryptoTpm1Test, GenerateDiffieHellmanSharedSecret) {
@@ -277,7 +277,7 @@ TEST_F(BackendRecoveryCryptoTpm1Test, GenerateDiffieHellmanSharedSecret) {
       &Backend::RecoveryCrypto::GenerateDiffieHellmanSharedSecret>(
       std::move(decrypt_request_destination_share));
 
-  ASSERT_THAT(result, IsOk());
+  ASSERT_OK(result);
   EXPECT_NE(result.value(), nullptr);
 }
 
@@ -318,7 +318,7 @@ TEST_F(BackendRecoveryCryptoTpm1Test, GenerateDiffieHellmanSharedSecretNoAuth) {
       &Backend::RecoveryCrypto::GenerateDiffieHellmanSharedSecret>(
       std::move(decrypt_request_destination_share));
 
-  ASSERT_THAT(result, IsOk());
+  ASSERT_OK(result);
   EXPECT_NE(result.value(), nullptr);
 }
 
@@ -422,9 +422,9 @@ TEST_F(BackendRecoveryCryptoTpm1Test, GenerateRsaKeyPair) {
       .With(Args<1, 2>(ElementsAreArray(fake_pubkey)))
       .WillOnce([&](uint64_t* offset, auto&&, auto&&, TPM_PUBKEY* tpm_pubkey) {
         *offset = fake_pubkey.size();
-        uint8_t* parms_ptr = new uint8_t[sizeof(kFakeParms)];
+        uint8_t* parms_ptr = static_cast<uint8_t*>(malloc(sizeof(kFakeParms)));
         memcpy(parms_ptr, kFakeParms, sizeof(kFakeParms));
-        uint8_t* key_ptr = new uint8_t[sizeof(kFakeModulus)];
+        uint8_t* key_ptr = static_cast<uint8_t*>(malloc(sizeof(kFakeModulus)));
         memcpy(key_ptr, kFakeModulus, sizeof(kFakeModulus));
         *tpm_pubkey = TPM_PUBKEY{
             .algorithmParms =
@@ -459,7 +459,7 @@ TEST_F(BackendRecoveryCryptoTpm1Test, GenerateRsaKeyPair) {
   auto result =
       middleware_->CallSync<&Backend::RecoveryCrypto::GenerateRsaKeyPair>();
 
-  ASSERT_THAT(result, IsOk());
+  ASSERT_OK(result);
   ASSERT_TRUE(result.value().has_value());
   EXPECT_EQ(result.value()->encrypted_rsa_private_key, kFakeKeyBlob);
   EXPECT_FALSE(result.value()->rsa_public_key_spki_der.empty());
@@ -507,7 +507,7 @@ TEST_F(BackendRecoveryCryptoTpm1Test, SignRequestPayload) {
       middleware_->CallSync<&Backend::RecoveryCrypto::SignRequestPayload>(
           kFakeKeyBlob, kFakeData);
 
-  ASSERT_THAT(result, IsOk());
+  ASSERT_OK(result);
   ASSERT_TRUE(result.value().has_value());
   EXPECT_EQ(result.value().value(), kFakeSignature);
 }

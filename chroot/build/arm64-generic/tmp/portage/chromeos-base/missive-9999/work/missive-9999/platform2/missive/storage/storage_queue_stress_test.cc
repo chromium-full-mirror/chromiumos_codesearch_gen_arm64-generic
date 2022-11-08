@@ -137,11 +137,6 @@ class StorageQueueStressTest : public ::testing::TestWithParam<size_t> {
 
   void TearDown() override {
     ResetTestStorageQueue();
-    // Make sure all memory is deallocated.
-    ASSERT_THAT(options_.memory_resource()->GetUsed(), Eq(0u));
-    // Make sure all disk is not reserved (files remain, but Storage is not
-    // responsible for them anymore).
-    ASSERT_THAT(options_.disk_space_resource()->GetUsed(), Eq(0u));
   }
 
   void CreateTestStorageQueueOrDie(const QueueOptions& options) {
@@ -170,12 +165,22 @@ class StorageQueueStressTest : public ::testing::TestWithParam<size_t> {
   }
 
   void ResetTestStorageQueue() {
-    // Let everything ongoing to finish.
+    if (storage_queue_) {
+      // StorageQueue is destructed on thread, wait for it to finish.
+      test::TestCallbackAutoWaiter waiter;
+      storage_queue_->RegisterCompletionCallback(base::BindOnce(
+          &test::TestCallbackAutoWaiter::Signal, base::Unretained(&waiter)));
+      storage_queue_.reset();
+    }
+    // Let remaining asynchronous activity finish.
+    // TODO(b/254418902): The next line is not logically necessary, but for
+    // unknown reason the tests becomes flaky without it, keeping it for now.
     task_environment_.RunUntilIdle();
-    storage_queue_.reset();
-    // StorageQueue is destructed on a thread,
-    // so we need to wait for it to destruct.
-    task_environment_.RunUntilIdle();
+    // Make sure all memory is deallocated.
+    EXPECT_THAT(options_.memory_resource()->GetUsed(), Eq(0u));
+    // Make sure all disk is not reserved (files remain, but Storage is not
+    // responsible for them anymore).
+    EXPECT_THAT(options_.disk_space_resource()->GetUsed(), Eq(0u));
   }
 
   void AsyncStartTestUploader(
@@ -194,6 +199,12 @@ class StorageQueueStressTest : public ::testing::TestWithParam<size_t> {
     record.set_destination(UPLOAD_EVENTS);
     record.set_dm_token("DM TOKEN");
     storage_queue_->Write(std::move(record), std::move(cb));
+  }
+
+  void FlushOrDie() {
+    test::TestEvent<Status> flush_event;
+    storage_queue_->Flush(flush_event.cb());
+    ASSERT_OK(flush_event.result());
   }
 
   base::test::TaskEnvironment task_environment_{
@@ -252,7 +263,7 @@ TEST_P(StorageQueueStressTest,
     write_waiter.Wait();
 
     SCOPED_TRACE(base::StrCat({"Upload ", base::NumberToString(iStart)}));
-    storage_queue_->Flush();
+    FlushOrDie();
 
     SCOPED_TRACE(base::StrCat({"Reset ", base::NumberToString(iStart)}));
     ResetTestStorageQueue();

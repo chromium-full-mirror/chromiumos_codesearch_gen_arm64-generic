@@ -86,7 +86,8 @@ struct UpdateStorageBalloonResponseDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT UpdateStorageBalloonResponseDefaultTypeInternal _UpdateStorageBalloonResponse_default_instance_;
 constexpr ConfigureContainerGuestRequest::ConfigureContainerGuestRequest(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : container_token_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+  : container_token_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , vm_username_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
 struct ConfigureContainerGuestRequestDefaultTypeInternal {
   constexpr ConfigureContainerGuestRequestDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -379,6 +380,7 @@ const uint32_t TableStruct_vm_5fguest_2eproto::offsets[] PROTOBUF_SECTION_VARIAB
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
   PROTOBUF_FIELD_OFFSET(::vm_tools::ConfigureContainerGuestRequest, container_token_),
+  PROTOBUF_FIELD_OFFSET(::vm_tools::ConfigureContainerGuestRequest, vm_username_),
   PROTOBUF_FIELD_OFFSET(::vm_tools::LaunchProcessRequest_EnvEntry_DoNotUse, _has_bits_),
   PROTOBUF_FIELD_OFFSET(::vm_tools::LaunchProcessRequest_EnvEntry_DoNotUse, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -532,23 +534,23 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOB
   { 25, -1, -1, sizeof(::vm_tools::UpdateStorageBalloonRequest)},
   { 33, -1, -1, sizeof(::vm_tools::UpdateStorageBalloonResponse)},
   { 40, -1, -1, sizeof(::vm_tools::ConfigureContainerGuestRequest)},
-  { 47, 55, -1, sizeof(::vm_tools::LaunchProcessRequest_EnvEntry_DoNotUse)},
-  { 57, -1, -1, sizeof(::vm_tools::LaunchProcessRequest)},
-  { 68, -1, -1, sizeof(::vm_tools::LaunchProcessResponse)},
-  { 76, -1, -1, sizeof(::vm_tools::MountRequest)},
-  { 90, -1, -1, sizeof(::vm_tools::Mount9PRequest)},
-  { 98, -1, -1, sizeof(::vm_tools::MountResponse)},
-  { 105, -1, -1, sizeof(::vm_tools::StartTerminaRequest)},
-  { 116, -1, -1, sizeof(::vm_tools::StartTerminaResponse)},
-  { 125, -1, -1, sizeof(::vm_tools::SetResolvConfigRequest)},
-  { 132, -1, -1, sizeof(::vm_tools::SetTimeRequest)},
-  { 139, -1, -1, sizeof(::vm_tools::SetTimezoneRequest)},
-  { 147, -1, -1, sizeof(::vm_tools::GetKernelVersionResponse)},
-  { 155, -1, -1, sizeof(::vm_tools::ResizeFilesystemRequest)},
-  { 162, -1, -1, sizeof(::vm_tools::ResizeFilesystemResponse)},
-  { 169, -1, -1, sizeof(::vm_tools::GetResizeStatusResponse)},
-  { 178, -1, -1, sizeof(::vm_tools::GetResizeBoundsResponse)},
-  { 185, -1, -1, sizeof(::vm_tools::GetAvailableSpaceResponse)},
+  { 48, 56, -1, sizeof(::vm_tools::LaunchProcessRequest_EnvEntry_DoNotUse)},
+  { 58, -1, -1, sizeof(::vm_tools::LaunchProcessRequest)},
+  { 69, -1, -1, sizeof(::vm_tools::LaunchProcessResponse)},
+  { 77, -1, -1, sizeof(::vm_tools::MountRequest)},
+  { 91, -1, -1, sizeof(::vm_tools::Mount9PRequest)},
+  { 99, -1, -1, sizeof(::vm_tools::MountResponse)},
+  { 106, -1, -1, sizeof(::vm_tools::StartTerminaRequest)},
+  { 117, -1, -1, sizeof(::vm_tools::StartTerminaResponse)},
+  { 126, -1, -1, sizeof(::vm_tools::SetResolvConfigRequest)},
+  { 133, -1, -1, sizeof(::vm_tools::SetTimeRequest)},
+  { 140, -1, -1, sizeof(::vm_tools::SetTimezoneRequest)},
+  { 148, -1, -1, sizeof(::vm_tools::GetKernelVersionResponse)},
+  { 156, -1, -1, sizeof(::vm_tools::ResizeFilesystemRequest)},
+  { 163, -1, -1, sizeof(::vm_tools::ResizeFilesystemResponse)},
+  { 170, -1, -1, sizeof(::vm_tools::GetResizeStatusResponse)},
+  { 179, -1, -1, sizeof(::vm_tools::GetResizeBoundsResponse)},
+  { 186, -1, -1, sizeof(::vm_tools::GetAvailableSpaceResponse)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -590,95 +592,96 @@ const char descriptor_table_protodef_vm_5fguest_2eproto[] PROTOBUF_SECTION_VARIA
   " .vm_tools.StatefulDiskSpaceState\022\030\n\020fre"
   "e_space_bytes\030\002 \001(\003\"T\n\034UpdateStorageBall"
   "oonResponse\0224\n\006result\030\001 \001(\0162$.vm_tools.U"
-  "pdateStorageBalloonResult\"9\n\036ConfigureCo"
+  "pdateStorageBalloonResult\"N\n\036ConfigureCo"
   "ntainerGuestRequest\022\027\n\017container_token\030\001"
-  " \001(\t\"\303\001\n\024LaunchProcessRequest\022\014\n\004argv\030\001 "
-  "\003(\t\0224\n\003env\030\002 \003(\0132\'.vm_tools.LaunchProces"
-  "sRequest.EnvEntry\022\017\n\007respawn\030\003 \001(\010\022\023\n\013us"
-  "e_console\030\004 \001(\010\022\025\n\rwait_for_exit\030\005 \001(\010\032*"
-  "\n\010EnvEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\002"
-  "8\001\"N\n\025LaunchProcessResponse\022\'\n\006status\030\001 "
-  "\001(\0162\027.vm_tools.ProcessStatus\022\014\n\004code\030\002 \001"
-  "(\021\"\247\001\n\014MountRequest\022\016\n\006source\030\001 \001(\t\022\016\n\006t"
-  "arget\030\002 \001(\t\022\016\n\006fstype\030\003 \001(\t\022\022\n\nmountflag"
-  "s\030\004 \001(\004\022\017\n\007options\030\005 \001(\t\022\025\n\rcreate_targe"
-  "t\030\006 \001(\010\022\023\n\013permissions\030\007 \001(\r\022\026\n\016mkfs_if_"
-  "needed\030\010 \001(\010\".\n\016Mount9PRequest\022\014\n\004port\030\001"
-  " \001(\r\022\016\n\006target\030\002 \001(\t\"\036\n\rMountResponse\022\r\n"
-  "\005error\030\001 \001(\021\"\255\002\n\023StartTerminaRequest\022\035\n\025"
-  "tremplin_ipv4_address\030\001 \001(\r\022\027\n\017lxd_ipv4_"
-  "subnet\030\002 \001(\t\022\027\n\017stateful_device\030\003 \001(\t\022#\n"
-  "\033allow_privileged_containers\030\004 \001(\010\0226\n\007fe"
-  "ature\030\005 \003(\0162%.vm_tools.StartTerminaReque"
-  "st.Feature\"h\n\007Feature\022\013\n\007UNKNOWN\020\000\022\021\n\rUS"
-  "ED_BY_TESTS\020\001\022\021\n\tSTART_LXD\020\002\032\002\010\001\022\033\n\023RESE"
-  "T_LXD_ON_LAUNCH\020\003\032\002\010\001\022\r\n\tLXD_4_LTS\020\004\"\327\001\n"
-  "\024StartTerminaResponse\022@\n\014mount_result\030\001 "
-  "\001(\0162*.vm_tools.StartTerminaResponse.Moun"
-  "tResult\022\022\n\nfree_bytes\030\002 \001(\003\022\034\n\024free_byte"
-  "s_has_value\030\003 \001(\010\"K\n\013MountResult\022\013\n\007UNKN"
-  "OWN\020\000\022\013\n\007SUCCESS\020\001\022\025\n\021PARTIAL_DATA_LOSS\020"
-  "\002\022\013\n\007FAILURE\020\003\"G\n\026SetResolvConfigRequest"
-  "\022-\n\rresolv_config\030\001 \001(\0132\026.vm_tools.Resol"
-  "vConfig\":\n\016SetTimeRequest\022(\n\004time\030\001 \001(\0132"
-  "\032.google.protobuf.Timestamp\"C\n\022SetTimezo"
-  "neRequest\022\025\n\rtimezone_name\030\001 \001(\t\022\026\n\016use_"
-  "bind_mount\030\002 \001(\010\"J\n\030GetKernelVersionResp"
-  "onse\022\026\n\016kernel_release\030\001 \001(\t\022\026\n\016kernel_v"
-  "ersion\030\002 \001(\t\"\'\n\027ResizeFilesystemRequest\022"
-  "\014\n\004size\030\001 \001(\004\"\235\001\n\030ResizeFilesystemRespon"
-  "se\022\?\n\006status\030\001 \001(\0162/.vm_tools.ResizeFile"
-  "systemResponse.ResizeStatus\"@\n\014ResizeSta"
-  "tus\022\n\n\006FAILED\020\000\022\027\n\023ALREADY_IN_PROGRESS\020\001"
-  "\022\013\n\007STARTED\020\002\"`\n\027GetResizeStatusResponse"
-  "\022\032\n\022resize_in_progress\030\001 \001(\010\022\024\n\014current_"
-  "size\030\002 \001(\004\022\023\n\013target_size\030\003 \001(\004\"/\n\027GetRe"
-  "sizeBoundsResponse\022\024\n\014minimum_size\030\001 \001(\004"
-  "\"4\n\031GetAvailableSpaceResponse\022\027\n\017availab"
-  "le_space\030\001 \001(\004*Y\n\026StatefulDiskSpaceState"
-  "\022\r\n\tDISK_NONE\020\000\022\017\n\013DISK_NORMAL\020\001\022\014\n\010DISK"
-  "_LOW\020\002\022\021\n\rDISK_CRITICAL\020\003*E\n\032UpdateStora"
-  "geBalloonResult\022\013\n\007SUCCESS\020\000\022\032\n\026BALLOON_"
-  "INFLATE_FAILED\020\001*P\n\rProcessStatus\022\013\n\007UNK"
-  "NOWN\020\000\022\n\n\006EXITED\020\001\022\014\n\010SIGNALED\020\002\022\014\n\010LAUN"
-  "CHED\020\003\022\n\n\006FAILED\020\0042\237\013\n\007Maitred\022J\n\020Config"
-  "ureNetwork\022\036.vm_tools.NetworkConfigReque"
-  "st\032\026.vm_tools.EmptyMessage\022[\n\027ConfigureC"
-  "ontainerGuest\022(.vm_tools.ConfigureContai"
-  "nerGuestRequest\032\026.vm_tools.EmptyMessage\022"
-  ";\n\tResetIPv6\022\026.vm_tools.EmptyMessage\032\026.v"
-  "m_tools.EmptyMessage\022F\n\024OnHostNetworkCha"
-  "nged\022\026.vm_tools.EmptyMessage\032\026.vm_tools."
-  "EmptyMessage\022:\n\010Shutdown\022\026.vm_tools.Empt"
-  "yMessage\032\026.vm_tools.EmptyMessage\022P\n\rLaun"
-  "chProcess\022\036.vm_tools.LaunchProcessReques"
-  "t\032\037.vm_tools.LaunchProcessResponse\0228\n\005Mo"
-  "unt\022\026.vm_tools.MountRequest\032\027.vm_tools.M"
-  "ountResponse\022M\n\014StartTermina\022\035.vm_tools."
-  "StartTerminaRequest\032\036.vm_tools.StartTerm"
-  "inaResponse\022;\n\007SetTime\022\030.vm_tools.SetTim"
-  "eRequest\032\026.vm_tools.EmptyMessage\022C\n\013SetT"
-  "imezone\022\034.vm_tools.SetTimezoneRequest\032\026."
-  "vm_tools.EmptyMessage\022<\n\007Mount9P\022\030.vm_to"
-  "ols.Mount9PRequest\032\027.vm_tools.MountRespo"
-  "nse\022K\n\017SetResolvConfig\022 .vm_tools.SetRes"
-  "olvConfigRequest\032\026.vm_tools.EmptyMessage"
-  "\022N\n\020GetKernelVersion\022\026.vm_tools.EmptyMes"
-  "sage\032\".vm_tools.GetKernelVersionResponse"
-  "\022Y\n\020ResizeFilesystem\022!.vm_tools.ResizeFi"
-  "lesystemRequest\032\".vm_tools.ResizeFilesys"
-  "temResponse\022L\n\017GetResizeStatus\022\026.vm_tool"
-  "s.EmptyMessage\032!.vm_tools.GetResizeStatu"
-  "sResponse\022L\n\017GetResizeBounds\022\026.vm_tools."
-  "EmptyMessage\032!.vm_tools.GetResizeBoundsR"
-  "esponse\022P\n\021GetAvailableSpace\022\026.vm_tools."
-  "EmptyMessage\032#.vm_tools.GetAvailableSpac"
-  "eResponse\022B\n\020PrepareToSuspend\022\026.vm_tools"
-  ".EmptyMessage\032\026.vm_tools.EmptyMessage\022e\n"
-  "\024UpdateStorageBalloon\022%.vm_tools.UpdateS"
-  "torageBalloonRequest\032&.vm_tools.UpdateSt"
-  "orageBalloonResponseB\037Z\032chromiumos/vm_to"
-  "ols/vm_rpc\370\001\001b\006proto3"
+  " \001(\t\022\023\n\013vm_username\030\002 \001(\t\"\303\001\n\024LaunchProc"
+  "essRequest\022\014\n\004argv\030\001 \003(\t\0224\n\003env\030\002 \003(\0132\'."
+  "vm_tools.LaunchProcessRequest.EnvEntry\022\017"
+  "\n\007respawn\030\003 \001(\010\022\023\n\013use_console\030\004 \001(\010\022\025\n\r"
+  "wait_for_exit\030\005 \001(\010\032*\n\010EnvEntry\022\013\n\003key\030\001"
+  " \001(\t\022\r\n\005value\030\002 \001(\t:\0028\001\"N\n\025LaunchProcess"
+  "Response\022\'\n\006status\030\001 \001(\0162\027.vm_tools.Proc"
+  "essStatus\022\014\n\004code\030\002 \001(\021\"\247\001\n\014MountRequest"
+  "\022\016\n\006source\030\001 \001(\t\022\016\n\006target\030\002 \001(\t\022\016\n\006fsty"
+  "pe\030\003 \001(\t\022\022\n\nmountflags\030\004 \001(\004\022\017\n\007options\030"
+  "\005 \001(\t\022\025\n\rcreate_target\030\006 \001(\010\022\023\n\013permissi"
+  "ons\030\007 \001(\r\022\026\n\016mkfs_if_needed\030\010 \001(\010\".\n\016Mou"
+  "nt9PRequest\022\014\n\004port\030\001 \001(\r\022\016\n\006target\030\002 \001("
+  "\t\"\036\n\rMountResponse\022\r\n\005error\030\001 \001(\021\"\255\002\n\023St"
+  "artTerminaRequest\022\035\n\025tremplin_ipv4_addre"
+  "ss\030\001 \001(\r\022\027\n\017lxd_ipv4_subnet\030\002 \001(\t\022\027\n\017sta"
+  "teful_device\030\003 \001(\t\022#\n\033allow_privileged_c"
+  "ontainers\030\004 \001(\010\0226\n\007feature\030\005 \003(\0162%.vm_to"
+  "ols.StartTerminaRequest.Feature\"h\n\007Featu"
+  "re\022\013\n\007UNKNOWN\020\000\022\021\n\rUSED_BY_TESTS\020\001\022\021\n\tST"
+  "ART_LXD\020\002\032\002\010\001\022\033\n\023RESET_LXD_ON_LAUNCH\020\003\032\002"
+  "\010\001\022\r\n\tLXD_4_LTS\020\004\"\327\001\n\024StartTerminaRespon"
+  "se\022@\n\014mount_result\030\001 \001(\0162*.vm_tools.Star"
+  "tTerminaResponse.MountResult\022\022\n\nfree_byt"
+  "es\030\002 \001(\003\022\034\n\024free_bytes_has_value\030\003 \001(\010\"K"
+  "\n\013MountResult\022\013\n\007UNKNOWN\020\000\022\013\n\007SUCCESS\020\001\022"
+  "\025\n\021PARTIAL_DATA_LOSS\020\002\022\013\n\007FAILURE\020\003\"G\n\026S"
+  "etResolvConfigRequest\022-\n\rresolv_config\030\001"
+  " \001(\0132\026.vm_tools.ResolvConfig\":\n\016SetTimeR"
+  "equest\022(\n\004time\030\001 \001(\0132\032.google.protobuf.T"
+  "imestamp\"C\n\022SetTimezoneRequest\022\025\n\rtimezo"
+  "ne_name\030\001 \001(\t\022\026\n\016use_bind_mount\030\002 \001(\010\"J\n"
+  "\030GetKernelVersionResponse\022\026\n\016kernel_rele"
+  "ase\030\001 \001(\t\022\026\n\016kernel_version\030\002 \001(\t\"\'\n\027Res"
+  "izeFilesystemRequest\022\014\n\004size\030\001 \001(\004\"\235\001\n\030R"
+  "esizeFilesystemResponse\022\?\n\006status\030\001 \001(\0162"
+  "/.vm_tools.ResizeFilesystemResponse.Resi"
+  "zeStatus\"@\n\014ResizeStatus\022\n\n\006FAILED\020\000\022\027\n\023"
+  "ALREADY_IN_PROGRESS\020\001\022\013\n\007STARTED\020\002\"`\n\027Ge"
+  "tResizeStatusResponse\022\032\n\022resize_in_progr"
+  "ess\030\001 \001(\010\022\024\n\014current_size\030\002 \001(\004\022\023\n\013targe"
+  "t_size\030\003 \001(\004\"/\n\027GetResizeBoundsResponse\022"
+  "\024\n\014minimum_size\030\001 \001(\004\"4\n\031GetAvailableSpa"
+  "ceResponse\022\027\n\017available_space\030\001 \001(\004*Y\n\026S"
+  "tatefulDiskSpaceState\022\r\n\tDISK_NONE\020\000\022\017\n\013"
+  "DISK_NORMAL\020\001\022\014\n\010DISK_LOW\020\002\022\021\n\rDISK_CRIT"
+  "ICAL\020\003*E\n\032UpdateStorageBalloonResult\022\013\n\007"
+  "SUCCESS\020\000\022\032\n\026BALLOON_INFLATE_FAILED\020\001*P\n"
+  "\rProcessStatus\022\013\n\007UNKNOWN\020\000\022\n\n\006EXITED\020\001\022"
+  "\014\n\010SIGNALED\020\002\022\014\n\010LAUNCHED\020\003\022\n\n\006FAILED\020\0042"
+  "\237\013\n\007Maitred\022J\n\020ConfigureNetwork\022\036.vm_too"
+  "ls.NetworkConfigRequest\032\026.vm_tools.Empty"
+  "Message\022[\n\027ConfigureContainerGuest\022(.vm_"
+  "tools.ConfigureContainerGuestRequest\032\026.v"
+  "m_tools.EmptyMessage\022;\n\tResetIPv6\022\026.vm_t"
+  "ools.EmptyMessage\032\026.vm_tools.EmptyMessag"
+  "e\022F\n\024OnHostNetworkChanged\022\026.vm_tools.Emp"
+  "tyMessage\032\026.vm_tools.EmptyMessage\022:\n\010Shu"
+  "tdown\022\026.vm_tools.EmptyMessage\032\026.vm_tools"
+  ".EmptyMessage\022P\n\rLaunchProcess\022\036.vm_tool"
+  "s.LaunchProcessRequest\032\037.vm_tools.Launch"
+  "ProcessResponse\0228\n\005Mount\022\026.vm_tools.Moun"
+  "tRequest\032\027.vm_tools.MountResponse\022M\n\014Sta"
+  "rtTermina\022\035.vm_tools.StartTerminaRequest"
+  "\032\036.vm_tools.StartTerminaResponse\022;\n\007SetT"
+  "ime\022\030.vm_tools.SetTimeRequest\032\026.vm_tools"
+  ".EmptyMessage\022C\n\013SetTimezone\022\034.vm_tools."
+  "SetTimezoneRequest\032\026.vm_tools.EmptyMessa"
+  "ge\022<\n\007Mount9P\022\030.vm_tools.Mount9PRequest\032"
+  "\027.vm_tools.MountResponse\022K\n\017SetResolvCon"
+  "fig\022 .vm_tools.SetResolvConfigRequest\032\026."
+  "vm_tools.EmptyMessage\022N\n\020GetKernelVersio"
+  "n\022\026.vm_tools.EmptyMessage\032\".vm_tools.Get"
+  "KernelVersionResponse\022Y\n\020ResizeFilesyste"
+  "m\022!.vm_tools.ResizeFilesystemRequest\032\".v"
+  "m_tools.ResizeFilesystemResponse\022L\n\017GetR"
+  "esizeStatus\022\026.vm_tools.EmptyMessage\032!.vm"
+  "_tools.GetResizeStatusResponse\022L\n\017GetRes"
+  "izeBounds\022\026.vm_tools.EmptyMessage\032!.vm_t"
+  "ools.GetResizeBoundsResponse\022P\n\021GetAvail"
+  "ableSpace\022\026.vm_tools.EmptyMessage\032#.vm_t"
+  "ools.GetAvailableSpaceResponse\022B\n\020Prepar"
+  "eToSuspend\022\026.vm_tools.EmptyMessage\032\026.vm_"
+  "tools.EmptyMessage\022e\n\024UpdateStorageBallo"
+  "on\022%.vm_tools.UpdateStorageBalloonReques"
+  "t\032&.vm_tools.UpdateStorageBalloonRespons"
+  "eB\037Z\032chromiumos/vm_tools/vm_rpc\370\001\001b\006prot"
+  "o3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_vm_5fguest_2eproto_deps[2] = {
   &::descriptor_table_common_2eproto,
@@ -686,7 +689,7 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_vm_5fguest_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_vm_5fguest_2eproto = {
-  false, false, 4021, descriptor_table_protodef_vm_5fguest_2eproto, "vm_guest.proto", 
+  false, false, 4042, descriptor_table_protodef_vm_5fguest_2eproto, "vm_guest.proto", 
   &descriptor_table_vm_5fguest_2eproto_once, descriptor_table_vm_5fguest_2eproto_deps, 2, 23,
   schemas, file_default_instances, TableStruct_vm_5fguest_2eproto::offsets,
   file_level_metadata_vm_5fguest_2eproto, file_level_enum_descriptors_vm_5fguest_2eproto, file_level_service_descriptors_vm_5fguest_2eproto,
@@ -1949,6 +1952,14 @@ ConfigureContainerGuestRequest::ConfigureContainerGuestRequest(const ConfigureCo
     container_token_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_container_token(), 
       GetArenaForAllocation());
   }
+  vm_username_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    vm_username_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_vm_username().empty()) {
+    vm_username_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_vm_username(), 
+      GetArenaForAllocation());
+  }
   // @@protoc_insertion_point(copy_constructor:vm_tools.ConfigureContainerGuestRequest)
 }
 
@@ -1956,6 +1967,10 @@ inline void ConfigureContainerGuestRequest::SharedCtor() {
 container_token_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   container_token_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+vm_username_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  vm_username_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
@@ -1969,6 +1984,7 @@ ConfigureContainerGuestRequest::~ConfigureContainerGuestRequest() {
 inline void ConfigureContainerGuestRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   container_token_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  vm_username_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
 void ConfigureContainerGuestRequest::ArenaDtor(void* object) {
@@ -1988,6 +2004,7 @@ void ConfigureContainerGuestRequest::Clear() {
   (void) cached_has_bits;
 
   container_token_.ClearToEmpty();
+  vm_username_.ClearToEmpty();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -2003,6 +2020,16 @@ const char* ConfigureContainerGuestRequest::_InternalParse(const char* ptr, ::PR
           auto str = _internal_mutable_container_token();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vm_tools.ConfigureContainerGuestRequest.container_token"));
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // string vm_username = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          auto str = _internal_mutable_vm_username();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "vm_tools.ConfigureContainerGuestRequest.vm_username"));
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -2046,6 +2073,16 @@ uint8_t* ConfigureContainerGuestRequest::_InternalSerialize(
         1, this->_internal_container_token(), target);
   }
 
+  // string vm_username = 2;
+  if (!this->_internal_vm_username().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_vm_username().data(), static_cast<int>(this->_internal_vm_username().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "vm_tools.ConfigureContainerGuestRequest.vm_username");
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_vm_username(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -2067,6 +2104,13 @@ size_t ConfigureContainerGuestRequest::ByteSizeLong() const {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_container_token());
+  }
+
+  // string vm_username = 2;
+  if (!this->_internal_vm_username().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_vm_username());
   }
 
   return MaybeComputeUnknownFieldsSize(total_size, &_cached_size_);
@@ -2094,6 +2138,9 @@ void ConfigureContainerGuestRequest::MergeFrom(const ConfigureContainerGuestRequ
   if (!from._internal_container_token().empty()) {
     _internal_set_container_token(from._internal_container_token());
   }
+  if (!from._internal_vm_username().empty()) {
+    _internal_set_vm_username(from._internal_vm_username());
+  }
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -2117,6 +2164,11 @@ void ConfigureContainerGuestRequest::InternalSwap(ConfigureContainerGuestRequest
       &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       &container_token_, lhs_arena,
       &other->container_token_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &vm_username_, lhs_arena,
+      &other->vm_username_, rhs_arena
   );
 }
 

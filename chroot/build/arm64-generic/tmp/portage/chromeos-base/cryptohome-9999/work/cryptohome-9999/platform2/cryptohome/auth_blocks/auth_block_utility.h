@@ -10,18 +10,22 @@
 #include <set>
 #include <string>
 
+#include <base/containers/flat_set.h>
 #include <brillo/secure_blob.h>
 #include <libhwsec/frontend/recovery_crypto/frontend.h>
 
 #include "cryptohome/auth_blocks/auth_block.h"
 #include "cryptohome/auth_blocks/auth_block_type.h"
 #include "cryptohome/auth_factor/auth_factor_type.h"
+#include "cryptohome/auth_intent.h"
 #include "cryptohome/challenge_credentials/challenge_credentials_helper.h"
+#include "cryptohome/credential_verifier.h"
 #include "cryptohome/credentials.h"
-#include "cryptohome/crypto_error.h"
 #include "cryptohome/cryptorecovery/recovery_crypto_util.h"
+#include "cryptohome/error/cryptohome_error.h"
 #include "cryptohome/flatbuffer_schemas/auth_block_state.h"
 #include "cryptohome/key_challenge_service.h"
+#include "cryptohome/key_challenge_service_factory_impl.h"
 #include "cryptohome/key_objects.h"
 
 namespace cryptohome {
@@ -54,6 +58,47 @@ class AuthBlockUtility {
       AuthFactorType auth_factor_type,
       AuthFactorStorageType auth_factor_storage_type,
       const std::set<AuthFactorType>& configured_factors) const = 0;
+
+  // Given an AuthFactorType, returns a boolean indicating if this factor
+  // should call PrepareAuthFactor before AuthenticateAuthFactor
+  // or AddAuthFactor.
+  virtual bool IsPrepareAuthFactorRequired(
+      AuthFactorType auth_factor_type) const = 0;
+
+  // Given AuthIntent and AuthFactorType, returns a boolean indicating if this
+  // factor supports Verify via CreateCredentialVerifier. Note that (unlike
+  // IsAuthFactorSupported) this is purely an indicator of software support
+  // being present for a particular factor.
+  virtual bool IsVerifyWithAuthFactorSupported(
+      AuthIntent auth_intent, AuthFactorType auth_factor_type) const = 0;
+
+  // Creates a credential verifier for the specified type and input.
+  virtual std::unique_ptr<CredentialVerifier> CreateCredentialVerifier(
+      AuthFactorType auth_factor_type,
+      const std::string& auth_factor_label,
+      const AuthInput& auth_input) const = 0;
+
+  // If the verify/prepare succeeds, |error| will be ok. Otherwise it will
+  // contain an error describing the nature of the failure.
+  using CryptohomeStatusCallback =
+      base::OnceCallback<void(CryptohomeStatus error)>;
+
+  // Given an AuthFactorType, attempt to prepare an auth factor for
+  // authentication. Returns through the asynchronous |callback|.
+  virtual void PrepareAuthFactorForAuth(AuthFactorType auth_factor_type,
+                                        const std::string& username,
+                                        CryptohomeStatusCallback callback) = 0;
+
+  // Given an AuthFactorType, attempt to prepare an auth factor for add.
+  // Returns through the asynchronous |callback|.
+  virtual void PrepareAuthFactorForAdd(AuthFactorType auth_factor_type,
+                                       const std::string& username,
+                                       CryptohomeStatusCallback callback) = 0;
+
+  // Given an AuthFactorType, stop an auth factor's pending async Prepare or
+  // Verify.
+  virtual CryptohomeStatus TerminateAuthFactor(
+      AuthFactorType auth_factor_type) = 0;
 
   // Creates KeyBlobs and AuthBlockState with the given type of AuthBlock for
   // the given credentials. Creating KeyBlobs means generating the KeyBlobs from
@@ -100,12 +145,16 @@ class AuthBlockUtility {
   virtual AuthBlockType GetAuthBlockTypeForCreation(
       const bool is_le_credential,
       const bool is_recovery,
-      const bool is_challenge_credential,
-      const AuthFactorStorageType auth_factor_storage_type) const = 0;
+      const bool is_challenge_credential) const = 0;
 
   // This function returns the AuthBlock type based on AutBlockState.
   virtual AuthBlockType GetAuthBlockTypeFromState(
       const AuthBlockState& state) const = 0;
+
+  // Returns the set of supported AuthIntents, determined from the PinWeaver
+  // AuthBlockState if it is available.
+  virtual base::flat_set<AuthIntent> GetSupportedIntentsFromState(
+      const AuthBlockState& auth_block_state) const = 0;
 
   // This populates an AuthBlockState allocated by the caller.
   virtual bool GetAuthBlockStateFromVaultKeyset(
@@ -133,21 +182,16 @@ class AuthBlockUtility {
       brillo::SecureBlob* out_recovery_request,
       brillo::SecureBlob* out_ephemeral_pub_key) const = 0;
 
-  // Provides a KeyChallengeService for ChallengeCredentials to
-  // either create or derive KeyBlobs.
-  virtual void SetSingleUseKeyChallengeService(
-      std::unique_ptr<KeyChallengeService> key_challenge_service,
-      const std::string& account_id) = 0;
+  // Sets challenge_credentials_helper_ and key_challenge_factory_callback_
+  // in AuthBlockUtility.
+  virtual void InitializeChallengeCredentialsHelper(
+      ChallengeCredentialsHelper* challenge_credentials_helper,
+      KeyChallengeServiceFactory* key_challenge_service_factory) = 0;
 
-  // Initializes ChallengeCredentialsHelper for
-  // AuthBlockType::kChallengeCredential
-  virtual void InitializeForChallengeCredentials(
-      ChallengeCredentialsHelper* challenge_credentials_helper) = 0;
-
-  // Returns if the AuthBlockUtility has called
-  // InitializeForChallengeCredentials and has a valid
-  // challenge_credentials_helper_.
-  virtual bool IsChallengeCredentialReady() const = 0;
+  // Returns if the auth_input has valid fields to generate a
+  // KeyChallengeService.
+  virtual bool IsChallengeCredentialReady(
+      const AuthInput& auth_input) const = 0;
 };
 
 }  // namespace cryptohome

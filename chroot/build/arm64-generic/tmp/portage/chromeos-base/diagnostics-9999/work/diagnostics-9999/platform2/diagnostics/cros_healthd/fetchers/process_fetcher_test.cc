@@ -25,12 +25,13 @@
 #include "diagnostics/cros_healthd/utils/procfs_utils.h"
 #include "diagnostics/mojom/public/cros_healthd_probe.mojom.h"
 
-using testing::_;
-using ::testing::Invoke;
-using ::testing::WithArg;
-
 namespace diagnostics {
 namespace {
+
+namespace mojom = ::ash::cros_healthd::mojom;
+using ::testing::_;
+using ::testing::Invoke;
+using ::testing::WithArg;
 
 // POD struct for ParseProcessStateTest.
 struct ParseProcessStateTestParams {
@@ -40,6 +41,9 @@ struct ParseProcessStateTestParams {
 
 // ID of the process to be probed.
 constexpr pid_t kPid = 6098;
+constexpr pid_t kFirstPid = 6001;
+constexpr pid_t kSecondPid = 6002;
+constexpr pid_t kThirdPid = 6003;
 
 // Valid fake data for /proc/uptime.
 constexpr char kFakeProcUptimeContents[] = "339214.60 2707855.71";
@@ -50,12 +54,22 @@ constexpr char kInvalidProcUptimeContents[] = "NotANumber 870.980";
 constexpr char kFakeProcPidStatContents[] =
     "6098 (fake_exe) S 1 1015 1015 0 -1 4210944 1536 158 1 0 10956 17428 19 37 "
     "20 0 1 0 358 36884480 3515";
+constexpr char kFirstFakeProcPidStatContents[] =
+    "6001 (first_fake_exe) S 1 1015 1015 0 -1 4210944 1536 158 1 0 10956 17428 "
+    "19 37 20 0 1 0 358 36884480 3515";
+constexpr char kSecondFakeProcPidStatContents[] =
+    "6002 (second_fake_exe) S 1 1015 1015 0 -1 4210944 1536 158 1 0 10956 17428"
+    " 19 37 20 0 1 0 358 36884480 3515";
+constexpr char kThirdFakeProcPidStatContents[] =
+    "6003 (third_fake_exe) S 1 1015 1015 0 -1 4210944 1536 158 1 0 10956 17428 "
+    "19 37 20 0 1 0 358 36884480 3515";
 // Data parsed from kFakeProcPidStatContents.
 constexpr mojom::ProcessState kExpectedMojoState =
     mojom::ProcessState::kSleeping;
 constexpr int8_t kExpectedPriority = 20;
 constexpr int8_t kExpectedNice = 0;
 constexpr char kExpectedName[] = "fake_exe";
+constexpr char kFirstExpectedName[] = "first_fake_exe";
 constexpr uint32_t kExpectedParentProcessID = 1;
 constexpr uint32_t kExpectedProcessGroupID = 1015;
 constexpr uint32_t kExpectedThreads = 1;
@@ -96,14 +110,27 @@ constexpr char kProcPidStatmContentsOverflowingResidentMemory[] =
     "25648 4294967296 2357 151 0 18632 0";
 
 // Valid fake data for /proc/|kPid|/io.
-constexpr char kFakeProcPidIOContents[] =
+const std::vector<std::string> kFakeProcPidIOContents = {
     "rchar: 44846\n"
     "wchar: 10617\n"
     "syscr: 248\n"
     "syscw: 317\n"
     "read_bytes: 56799232\n"
     "write_bytes: 32768\n"
-    "cancelled_write_bytes: 0";
+    "cancelled_write_bytes: 0"};
+
+// Response of valid /proc/|kPid|/io from executor.
+const base::flat_map<uint32_t, std::string> kFakeProcPidIOContentsResult = {
+    {kPid, kFakeProcPidIOContents[0]}};
+const base::flat_map<uint32_t, std::string>
+    kFakeProcPidIOContentsMultipleResult = {
+        {kFirstPid, kFakeProcPidIOContents[0]},
+        {kSecondPid, kFakeProcPidIOContents[0]},
+        {kThirdPid, kFakeProcPidIOContents[0]}};
+const base::flat_map<uint32_t, std::string>
+    kFakeProcPidIOContentsOnlyTwoResult = {
+        {kFirstPid, kFakeProcPidIOContents[0]},
+        {kThirdPid, kFakeProcPidIOContents[0]}};
 
 // Data parsed from kFakeProcPidIOContents.
 constexpr uint32_t kExpectedBytesRead = 44846;
@@ -115,13 +142,23 @@ constexpr uint32_t kExpectedPhysicalBytesWritten = 32768;
 constexpr uint32_t kExpectedCancelledBytesWritten = 0;
 
 // Invalid /proc/|kPid|/io: not enough fields.
-constexpr char kFakeProcPidIOContentsInsufficientFields[] =
+const std::vector<std::string> kFakeProcPidIOContentsInsufficientFields = {
     "rchar: 44846\n"
     "wchar: 10617\n"
     "syscr: 248\n"
     "read_bytes: 56799232\n"
     "write_bytes: 32768\n"
-    "cancelled_write_bytes: 0";
+    "cancelled_write_bytes: 0"};
+
+// Response of invalid /proc/|kPid|/io from executor.
+const base::flat_map<uint32_t, std::string>
+    kFakeProcPidIOContentsInsufficientFieldsResult = {
+        {kPid, kFakeProcPidIOContentsInsufficientFields[0]}};
+const base::flat_map<uint32_t, std::string>
+    kFakeProcPidIOContentsInsufficientFieldsMultipleResult = {
+        {kFirstPid, kFakeProcPidIOContents[0]},
+        {kSecondPid, kFakeProcPidIOContentsInsufficientFields[0]},
+        {kThirdPid, kFakeProcPidIOContents[0]}};
 
 // Valid fake data for /proc/|kPid|/status.
 constexpr char kFakeProcPidStatusContents[] =
@@ -150,6 +187,14 @@ void OnMojoResponseReceived(mojom::ProcessResultPtr* response_destination,
   *response_destination = std::move(response);
   std::move(quit_closure).Run();
 }
+void OnMojoResponseReceivedMultiple(
+    mojom::MultipleProcessResultPtr* response_destination,
+    base::OnceClosure quit_closure,
+    mojom::MultipleProcessResultPtr response) {
+  DCHECK(response_destination);
+  *response_destination = std::move(response);
+  std::move(quit_closure).Run();
+}
 
 class ProcessFetcherTest : public testing::Test {
  protected:
@@ -158,37 +203,18 @@ class ProcessFetcherTest : public testing::Test {
   void SetUp() override {
     ASSERT_TRUE(temp_dir_.CreateUniqueTempDir());
 
-    // Set up valid files for the process with PID |kPid|. Individual tests are
-    // expected to override this configuration when necessary.
+    // Set up valid files for the processes with PID |kPid|, |kFirstPid|,
+    // |kSecondPid|, |kThirdPid|. Individual tests are expected to override this
+    // configuration when necessary.
 
     // Write /proc/uptime.
     ASSERT_TRUE(WriteFileAndCreateParentDirs(GetProcUptimePath(temp_dir_path()),
                                              kFakeProcUptimeContents));
-    // Write /proc/|kPid|/stat.
-    ASSERT_TRUE(WriteFileAndCreateParentDirs(
-        GetProcProcessDirectoryPath(temp_dir_path(), kPid)
-            .Append(kProcessStatFile),
-        kFakeProcPidStatContents));
-    // Write /proc/|kPid|/statm.
-    ASSERT_TRUE(WriteFileAndCreateParentDirs(
-        GetProcProcessDirectoryPath(temp_dir_path(), kPid)
-            .Append(kProcessStatmFile),
-        kFakeProcPidStatmContents));
-    // Write /proc/|kPid|/io.
-    ASSERT_TRUE(WriteFileAndCreateParentDirs(
-        GetProcProcessDirectoryPath(temp_dir_path(), kPid)
-            .Append(kProcessIOFile),
-        kFakeProcPidIOContents));
-    // Write /proc/|kPid|/status.
-    ASSERT_TRUE(WriteFileAndCreateParentDirs(
-        GetProcProcessDirectoryPath(temp_dir_path(), kPid)
-            .Append(kProcessStatusFile),
-        kFakeProcPidStatusContents));
-    // Write /proc/|kPid|/cmdline.
-    ASSERT_TRUE(WriteFileAndCreateParentDirs(
-        GetProcProcessDirectoryPath(temp_dir_path(), kPid)
-            .Append(kProcessCmdlineFile),
-        kFakeProcPidCmdlineContents));
+
+    WriteFiles(kPid, kFakeProcPidStatContents);
+    WriteFiles(kFirstPid, kFirstFakeProcPidStatContents);
+    WriteFiles(kSecondPid, kSecondFakeProcPidStatContents);
+    WriteFiles(kThirdPid, kThirdFakeProcPidStatContents);
   }
 
   MockExecutor* mock_executor() { return mock_context_.mock_executor(); }
@@ -196,17 +222,32 @@ class ProcessFetcherTest : public testing::Test {
   mojom::ProcessResultPtr FetchProcessInfo() {
     mojom::ProcessResultPtr result;
     base::RunLoop run_loop;
-    ProcessFetcher(&mock_context_, kPid, temp_dir_path())
-        .FetchProcessInfo(base::BindOnce(&OnMojoResponseReceived, &result,
-                                         run_loop.QuitClosure()));
+    ProcessFetcher(&mock_context_, temp_dir_path())
+        .FetchProcessInfo(kPid, base::BindOnce(&OnMojoResponseReceived, &result,
+                                               run_loop.QuitClosure()));
+    run_loop.Run();
+
+    return result;
+  }
+
+  mojom::MultipleProcessResultPtr FetchMultipleProcessInfo(bool ignore) {
+    mojom::MultipleProcessResultPtr result;
+    base::RunLoop run_loop;
+    std::vector<uint32_t> pids{kFirstPid, kSecondPid, kThirdPid};
+    ProcessFetcher(&mock_context_, temp_dir_path())
+        .FetchMultipleProcessInfo(
+            pids, ignore,
+            base::BindOnce(&OnMojoResponseReceivedMultiple, &result,
+                           run_loop.QuitClosure()));
     run_loop.Run();
 
     return result;
   }
 
   bool WriteProcPidStatData(const std::string& new_data,
-                            ProcPidStatIndices index) {
-    // Tokenize the fake /proc/|kPid|/stat data.
+                            ProcPidStatIndices index,
+                            const pid_t pid) {
+    // Tokenize the fake /proc/|pid|/stat data.
     std::vector<std::string> tokens =
         base::SplitString(kFakeProcPidStatContents, " ", base::TRIM_WHITESPACE,
                           base::SPLIT_WANT_NONEMPTY);
@@ -221,18 +262,18 @@ class ProcessFetcherTest : public testing::Test {
 
     // Write the new fake data.
     return WriteFileAndCreateParentDirs(
-        GetProcProcessDirectoryPath(temp_dir_path(), kPid)
+        GetProcProcessDirectoryPath(temp_dir_path(), pid)
             .Append(kProcessStatFile),
         new_fake_data);
   }
 
   void ExpectAndSetExecutorGetProcessIOContentsResponse(
-      const std::string& io_contents) {
+      const base::flat_map<uint32_t, std::string>& io_contents) {
     // Set the mock executor response.
     EXPECT_CALL(*mock_context_.mock_executor(), GetProcessIOContents(_, _))
         .WillOnce(WithArg<1>(
             Invoke([=](mojom::Executor::GetProcessIOContentsCallback callback) {
-              std::string content;
+              base::flat_map<uint32_t, std::string> content;
               content = io_contents;
               std::move(callback).Run(content);
             })));
@@ -241,6 +282,34 @@ class ProcessFetcherTest : public testing::Test {
   const base::FilePath& temp_dir_path() const { return temp_dir_.GetPath(); }
 
  private:
+  void WriteFiles(pid_t pid, const char fake_proc_pid_stat_contents[]) {
+    // Write /proc/|pid|/stat.
+    ASSERT_TRUE(WriteFileAndCreateParentDirs(
+        GetProcProcessDirectoryPath(temp_dir_path(), pid)
+            .Append(kProcessStatFile),
+        fake_proc_pid_stat_contents));
+    // Write /proc/|pid|/statm.
+    ASSERT_TRUE(WriteFileAndCreateParentDirs(
+        GetProcProcessDirectoryPath(temp_dir_path(), pid)
+            .Append(kProcessStatmFile),
+        kFakeProcPidStatmContents));
+    // Write /proc/|pid|/io.
+    ASSERT_TRUE(WriteFileAndCreateParentDirs(
+        GetProcProcessDirectoryPath(temp_dir_path(), pid)
+            .Append(kProcessIOFile),
+        kFakeProcPidIOContents[0]));
+    // Write /proc/|pid|/status.
+    ASSERT_TRUE(WriteFileAndCreateParentDirs(
+        GetProcProcessDirectoryPath(temp_dir_path(), pid)
+            .Append(kProcessStatusFile),
+        kFakeProcPidStatusContents));
+    // Write /proc/|pid|/cmdline.
+    ASSERT_TRUE(WriteFileAndCreateParentDirs(
+        GetProcProcessDirectoryPath(temp_dir_path(), pid)
+            .Append(kProcessCmdlineFile),
+        kFakeProcPidCmdlineContents));
+  }
+
   base::test::TaskEnvironment task_environment_{
       base::test::TaskEnvironment::ThreadingMode::MAIN_THREAD_ONLY};
   base::ScopedTempDir temp_dir_;
@@ -249,7 +318,8 @@ class ProcessFetcherTest : public testing::Test {
 
 // Test that process info can be read when it exists.
 TEST_F(ProcessFetcherTest, FetchProcessInfo) {
-  ExpectAndSetExecutorGetProcessIOContentsResponse(kFakeProcPidIOContents);
+  ExpectAndSetExecutorGetProcessIOContentsResponse(
+      kFakeProcPidIOContentsResult);
   auto process_result = FetchProcessInfo();
 
   ASSERT_TRUE(process_result->is_process_info());
@@ -343,7 +413,7 @@ TEST_F(ProcessFetcherTest, MissingProcPidIOFile) {
   ASSERT_TRUE(
       base::DeleteFile(GetProcProcessDirectoryPath(temp_dir_path(), kPid)
                            .Append(kProcessIOFile)));
-  ExpectAndSetExecutorGetProcessIOContentsResponse("");
+  ExpectAndSetExecutorGetProcessIOContentsResponse({});
 
   auto process_result = FetchProcessInfo();
 
@@ -368,7 +438,7 @@ TEST_F(ProcessFetcherTest, ProcPidStatFileInsufficientTokens) {
 // Test that we handle an invalid state read from the /proc/|kPid|/stat file.
 TEST_F(ProcessFetcherTest, InvalidProcessStateRead) {
   ASSERT_TRUE(
-      WriteProcPidStatData(kInvalidRawState, ProcPidStatIndices::kState));
+      WriteProcPidStatData(kInvalidRawState, ProcPidStatIndices::kState, kPid));
 
   auto process_result = FetchProcessInfo();
 
@@ -378,8 +448,8 @@ TEST_F(ProcessFetcherTest, InvalidProcessStateRead) {
 
 // Test that we handle an invalid priority read from the /proc/|kPid|/stat file.
 TEST_F(ProcessFetcherTest, InvalidProcessPriorityRead) {
-  ASSERT_TRUE(
-      WriteProcPidStatData(kInvalidPriority, ProcPidStatIndices::kPriority));
+  ASSERT_TRUE(WriteProcPidStatData(kInvalidPriority,
+                                   ProcPidStatIndices::kPriority, kPid));
 
   auto process_result = FetchProcessInfo();
 
@@ -390,7 +460,8 @@ TEST_F(ProcessFetcherTest, InvalidProcessPriorityRead) {
 // Test that we handle an invalid nice value read from the /proc/|kPid|/stat
 // file.
 TEST_F(ProcessFetcherTest, InvalidProcessNiceRead) {
-  ASSERT_TRUE(WriteProcPidStatData(kInvalidNice, ProcPidStatIndices::kNice));
+  ASSERT_TRUE(
+      WriteProcPidStatData(kInvalidNice, ProcPidStatIndices::kNice, kPid));
 
   auto process_result = FetchProcessInfo();
 
@@ -402,7 +473,7 @@ TEST_F(ProcessFetcherTest, InvalidProcessNiceRead) {
 // /proc/|kPid|/stat file.
 TEST_F(ProcessFetcherTest, OverflowingPriorityRead) {
   ASSERT_TRUE(WriteProcPidStatData(kOverflowingPriority,
-                                   ProcPidStatIndices::kPriority));
+                                   ProcPidStatIndices::kPriority, kPid));
 
   auto process_result = FetchProcessInfo();
 
@@ -413,8 +484,8 @@ TEST_F(ProcessFetcherTest, OverflowingPriorityRead) {
 // Test that we handle an invalid starttime read from the /proc/|kPid|/stat
 // file.
 TEST_F(ProcessFetcherTest, InvalidProcessStarttimeRead) {
-  ASSERT_TRUE(
-      WriteProcPidStatData(kInvalidStarttime, ProcPidStatIndices::kStartTime));
+  ASSERT_TRUE(WriteProcPidStatData(kInvalidStarttime,
+                                   ProcPidStatIndices::kStartTime, kPid));
 
   auto process_result = FetchProcessInfo();
 
@@ -426,7 +497,7 @@ TEST_F(ProcessFetcherTest, InvalidProcessStarttimeRead) {
 // /proc/|kPid|/stat file.
 TEST_F(ProcessFetcherTest, InvalidParentProcessIDRead) {
   ASSERT_TRUE(WriteProcPidStatData(kInvalidParentProcessID,
-                                   ProcPidStatIndices::kParentProcessID));
+                                   ProcPidStatIndices::kParentProcessID, kPid));
 
   auto process_result = FetchProcessInfo();
 
@@ -438,7 +509,7 @@ TEST_F(ProcessFetcherTest, InvalidParentProcessIDRead) {
 // /proc/|kPid|/stat file.
 TEST_F(ProcessFetcherTest, InvalidProcessGroupIDRead) {
   ASSERT_TRUE(WriteProcPidStatData(kInvalidProcessGroupID,
-                                   ProcPidStatIndices::kProcessGroupID));
+                                   ProcPidStatIndices::kProcessGroupID, kPid));
 
   auto process_result = FetchProcessInfo();
 
@@ -449,8 +520,8 @@ TEST_F(ProcessFetcherTest, InvalidProcessGroupIDRead) {
 // Test that we handle an invalid threads value read from the /proc/|kPid|/stat
 // file.
 TEST_F(ProcessFetcherTest, InvalidThreadsRead) {
-  ASSERT_TRUE(
-      WriteProcPidStatData(kInvalidThreads, ProcPidStatIndices::kThreads));
+  ASSERT_TRUE(WriteProcPidStatData(kInvalidThreads,
+                                   ProcPidStatIndices::kThreads, kPid));
 
   auto process_result = FetchProcessInfo();
 
@@ -461,8 +532,8 @@ TEST_F(ProcessFetcherTest, InvalidThreadsRead) {
 // Test that we handle an invalid process id value read from the
 // /proc/|kPid|/stat file.
 TEST_F(ProcessFetcherTest, InvalidProcessIDRead) {
-  ASSERT_TRUE(
-      WriteProcPidStatData(kInvalidProcessID, ProcPidStatIndices::kProcessID));
+  ASSERT_TRUE(WriteProcPidStatData(kInvalidProcessID,
+                                   ProcPidStatIndices::kProcessID, kPid));
 
   auto process_result = FetchProcessInfo();
 
@@ -515,9 +586,9 @@ TEST_F(ProcessFetcherTest, ProcPidStatmFileInvalidResidentMemory) {
 TEST_F(ProcessFetcherTest, ProcPidIOFileInsufficientTokens) {
   ASSERT_TRUE(WriteFileAndCreateParentDirs(
       GetProcProcessDirectoryPath(temp_dir_path(), kPid).Append(kProcessIOFile),
-      kFakeProcPidIOContentsInsufficientFields));
+      kFakeProcPidIOContentsInsufficientFields[0]));
   ExpectAndSetExecutorGetProcessIOContentsResponse(
-      kFakeProcPidIOContentsInsufficientFields);
+      kFakeProcPidIOContentsInsufficientFieldsResult);
 
   auto process_result = FetchProcessInfo();
 
@@ -594,6 +665,119 @@ TEST_F(ProcessFetcherTest, ProcPidStatusFileUidKeyWithNegativeValues) {
   EXPECT_EQ(process_result->get_error()->type, mojom::ErrorType::kParseError);
 }
 
+// Test that multiple process info can be read when all exists.
+TEST_F(ProcessFetcherTest, FetchMultipleProcessInfo) {
+  ExpectAndSetExecutorGetProcessIOContentsResponse(
+      kFakeProcPidIOContentsMultipleResult);
+  auto process_result = FetchMultipleProcessInfo(false);
+
+  ASSERT_TRUE(process_result->errors.empty());
+  EXPECT_EQ(process_result->process_infos.size(), 3);
+  // Ensure all three process info match input process ids, and only verify
+  // |kFirstPid|'s detailed content.
+  EXPECT_TRUE(process_result->process_infos.count(kFirstPid));
+  EXPECT_TRUE(process_result->process_infos.count(kSecondPid));
+  EXPECT_TRUE(process_result->process_infos.count(kThirdPid));
+  auto& first_pid_process_info =
+      process_result->process_infos.find(kFirstPid)->second;
+  EXPECT_EQ(first_pid_process_info->command, kFakeProcPidCmdlineContents);
+  EXPECT_EQ(first_pid_process_info->user_id, kExpectedUid);
+  EXPECT_EQ(first_pid_process_info->priority, kExpectedPriority);
+  EXPECT_EQ(first_pid_process_info->nice, kExpectedNice);
+  EXPECT_EQ(first_pid_process_info->state, kExpectedMojoState);
+  EXPECT_EQ(first_pid_process_info->bytes_read, kExpectedBytesRead);
+  EXPECT_EQ(first_pid_process_info->bytes_written, kExpectedBytesWritten);
+  EXPECT_EQ(first_pid_process_info->read_system_calls,
+            kExpectedReadSystemCalls);
+  EXPECT_EQ(first_pid_process_info->write_system_calls,
+            kExpectedWriteSystemCalls);
+  EXPECT_EQ(first_pid_process_info->physical_bytes_read,
+            kExpectedPhysicalBytesRead);
+  EXPECT_EQ(first_pid_process_info->physical_bytes_written,
+            kExpectedPhysicalBytesWritten);
+  EXPECT_EQ(first_pid_process_info->cancelled_bytes_written,
+            kExpectedCancelledBytesWritten);
+  EXPECT_EQ(first_pid_process_info->name, kFirstExpectedName);
+  EXPECT_EQ(first_pid_process_info->parent_process_id,
+            kExpectedParentProcessID);
+  EXPECT_EQ(first_pid_process_info->process_group_id, kExpectedProcessGroupID);
+  EXPECT_EQ(first_pid_process_info->threads, kExpectedThreads);
+  EXPECT_EQ(first_pid_process_info->process_id, kFirstPid);
+}
+
+// Test that we handle a missing /proc/|kSecondPid|/stat file while ignoring
+// single process errors.
+TEST_F(ProcessFetcherTest, MissingProcPidStatFileMultipleProcessIgnoreError) {
+  ASSERT_TRUE(
+      base::DeleteFile(GetProcProcessDirectoryPath(temp_dir_path(), kSecondPid)
+                           .Append(kProcessStatFile)));
+  ExpectAndSetExecutorGetProcessIOContentsResponse(
+      kFakeProcPidIOContentsOnlyTwoResult);
+  auto process_result = FetchMultipleProcessInfo(true);
+
+  ASSERT_TRUE(process_result->errors.empty());
+  EXPECT_EQ(process_result->process_infos.size(), 2);
+  EXPECT_TRUE(process_result->process_infos.count(kFirstPid));
+  EXPECT_TRUE(process_result->process_infos.count(kThirdPid));
+}
+
+// Test that we handle a missing /proc/|kSecondPid|/stat file while not ignoring
+// single process errors.
+TEST_F(ProcessFetcherTest, MissingProcPidStatFileMultipleProcess) {
+  ASSERT_TRUE(
+      base::DeleteFile(GetProcProcessDirectoryPath(temp_dir_path(), kSecondPid)
+                           .Append(kProcessStatFile)));
+  ExpectAndSetExecutorGetProcessIOContentsResponse(
+      kFakeProcPidIOContentsOnlyTwoResult);
+  auto process_result = FetchMultipleProcessInfo(false);
+
+  EXPECT_EQ(process_result->errors.size(), 1);
+  EXPECT_EQ(process_result->errors.find(kSecondPid)->second->type,
+            mojom::ErrorType::kFileReadError);
+  EXPECT_EQ(process_result->process_infos.size(), 2);
+  EXPECT_TRUE(process_result->process_infos.count(kFirstPid));
+  EXPECT_TRUE(process_result->process_infos.count(kThirdPid));
+}
+
+// Test that we handle a /proc/|kSecondPid|/io file with insufficient fields
+// while not ignoring single process errors.
+TEST_F(ProcessFetcherTest, ProcPidIOFileInsufficientTokensMultipleProcess) {
+  ASSERT_TRUE(WriteFileAndCreateParentDirs(
+      GetProcProcessDirectoryPath(temp_dir_path(), kSecondPid)
+          .Append(kProcessIOFile),
+      kFakeProcPidIOContentsInsufficientFields[0]));
+  ExpectAndSetExecutorGetProcessIOContentsResponse(
+      kFakeProcPidIOContentsInsufficientFieldsMultipleResult);
+
+  auto process_result = FetchMultipleProcessInfo(false);
+
+  EXPECT_EQ(process_result->errors.size(), 1);
+  EXPECT_EQ(process_result->errors.find(kSecondPid)->second->type,
+            mojom::ErrorType::kParseError);
+  EXPECT_EQ(process_result->process_infos.size(), 2);
+  EXPECT_TRUE(process_result->process_infos.count(kFirstPid));
+  EXPECT_TRUE(process_result->process_infos.count(kThirdPid));
+}
+
+// Test that we handle a missing /proc/|kSecondPid|/io file while not ignoring
+// single process errors.
+TEST_F(ProcessFetcherTest, MissingProcPidIOFileMultipleProcess) {
+  ASSERT_TRUE(
+      base::DeleteFile(GetProcProcessDirectoryPath(temp_dir_path(), kSecondPid)
+                           .Append(kProcessIOFile)));
+  ExpectAndSetExecutorGetProcessIOContentsResponse(
+      kFakeProcPidIOContentsOnlyTwoResult);
+
+  auto process_result = FetchMultipleProcessInfo(false);
+
+  EXPECT_EQ(process_result->errors.size(), 1);
+  EXPECT_EQ(process_result->errors.find(kSecondPid)->second->type,
+            mojom::ErrorType::kFileReadError);
+  EXPECT_EQ(process_result->process_infos.size(), 2);
+  EXPECT_TRUE(process_result->process_infos.count(kFirstPid));
+  EXPECT_TRUE(process_result->process_infos.count(kThirdPid));
+}
+
 // Tests that ProcessFetcher can correctly parse each process state.
 //
 // This is a parameterized test with the following parameters (accessed
@@ -611,9 +795,10 @@ class ParseProcessStateTest
 
 // Test that we can parse the given process state.
 TEST_P(ParseProcessStateTest, ParseState) {
-  ASSERT_TRUE(
-      WriteProcPidStatData(params().raw_state, ProcPidStatIndices::kState));
-  ExpectAndSetExecutorGetProcessIOContentsResponse(kFakeProcPidIOContents);
+  ASSERT_TRUE(WriteProcPidStatData(params().raw_state,
+                                   ProcPidStatIndices::kState, kPid));
+  ExpectAndSetExecutorGetProcessIOContentsResponse(
+      kFakeProcPidIOContentsResult);
 
   auto process_result = FetchProcessInfo();
 

@@ -26,6 +26,7 @@
 #include "missive/storage/storage_uploader_interface.h"
 #include "missive/util/status.h"
 #include "missive/util/test_support_callbacks.h"
+#include "missive/util/test_util.h"
 
 using ::brillo::dbus_utils::AsyncEventSequencer;
 
@@ -43,15 +44,6 @@ using ::testing::WithArg;
 namespace reporting {
 namespace {
 
-MATCHER_P(EqualsProto,
-          message,
-          "Match a proto Message equal to the matcher's argument.") {
-  std::string expected_serialized, actual_serialized;
-  message.SerializeToString(&expected_serialized);
-  arg.SerializeToString(&actual_serialized);
-  return expected_serialized == actual_serialized;
-}
-
 class MockMissive : public MissiveService {
  public:
   MockMissive() = default;
@@ -64,11 +56,6 @@ class MockMissive : public MissiveService {
   MOCK_METHOD(Status, ShutDown, (), (override));
   MOCK_METHOD(void, OnReady, (), (const override));
 
-  MOCK_METHOD(void,
-              AsyncStartUpload,
-              (UploaderInterface::UploadReason reason,
-               UploaderInterface::UploaderInterfaceResultCb uploader_result_cb),
-              (override));
   MOCK_METHOD(void,
               EnqueueRecord,
               (const EnqueueRecordRequest& in_request,
@@ -103,6 +90,7 @@ class MissiveDaemonTest : public ::testing::Test {
     if (missive_daemon_) {
       if (mock_missive_) {
         EXPECT_CALL(*mock_missive_, ShutDown()).Times(1);
+        mock_missive_ = nullptr;
       }
       missive_daemon_->Shutdown();
       missive_daemon_.reset();

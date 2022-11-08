@@ -14,7 +14,9 @@
 
 #include "cryptohome/auth_factor/auth_factor_manager.h"
 #include "cryptohome/auth_factor/auth_factor_metadata.h"
+#include "cryptohome/auth_factor/auth_factor_prepare_purpose.h"
 #include "cryptohome/auth_factor/auth_factor_type.h"
+#include "cryptohome/crypto.h"
 
 namespace cryptohome {
 
@@ -27,6 +29,12 @@ namespace cryptohome {
 user_data_auth::AuthFactorType AuthFactorTypeToProto(AuthFactorType type);
 std::optional<AuthFactorType> AuthFactorTypeFromProto(
     user_data_auth::AuthFactorType type);
+
+// Populates any relevant fields in an AuthFactor proto with the relevant system
+// information (e.g. OS version). Will overwrite any info already populating the
+// system information fields, but will not touch any other fields.
+void PopulateAuthFactorProtoWithSysinfo(
+    user_data_auth::AuthFactor& auth_factor);
 
 // GetAuthFactorMetadata sets the metadata inferred from the proto. This
 // includes the metadata struct, type and label.
@@ -45,13 +53,18 @@ std::optional<user_data_auth::AuthFactor> GetAuthFactorProto(
 // user using the provided factor manager.
 void LoadUserAuthFactorProtos(
     AuthFactorManager* manager,
+    const AuthBlockUtility& auth_block_utility,
     const std::string& obfuscated_username,
-    google::protobuf::RepeatedPtrField<user_data_auth::AuthFactor>*
+    google::protobuf::RepeatedPtrField<user_data_auth::AuthFactorWithStatus>*
         out_auth_factors);
 
 // This returns if a given |auth_factor_type| is PinWeaver backed, and thus
 // needs a reset secret.
 bool NeedsResetSecret(AuthFactorType auth_factor_type);
+
+// Converts to AuthFactorPreparePurpose from the proto enum.
+std::optional<AuthFactorPreparePurpose> AuthFactorPreparePurposeFromProto(
+    user_data_auth::AuthFactorPreparePurpose purpose);
 
 }  // namespace cryptohome
 #endif  // CRYPTOHOME_AUTH_FACTOR_AUTH_FACTOR_UTILS_H_

@@ -23,8 +23,8 @@
 #include "cryptohome/auth_blocks/auth_block_utils.h"
 #include "cryptohome/auth_blocks/cryptohome_recovery_auth_block.h"
 #include "cryptohome/auth_blocks/double_wrapped_compat_auth_block.h"
-#include "cryptohome/auth_blocks/libscrypt_compat_auth_block.h"
 #include "cryptohome/auth_blocks/pin_weaver_auth_block.h"
+#include "cryptohome/auth_blocks/scrypt_auth_block.h"
 #include "cryptohome/auth_blocks/tpm_bound_to_pcr_auth_block.h"
 #include "cryptohome/auth_blocks/tpm_ecc_auth_block.h"
 #include "cryptohome/auth_blocks/tpm_not_bound_to_pcr_auth_block.h"
@@ -66,6 +66,8 @@ using ::testing::SetArgPointee;
 
 namespace cryptohome {
 namespace {
+constexpr char kFakeGaiaId[] = "123456789";
+constexpr char kFakeDeviceId[] = "1234-5678-AAAA-BBBB";
 constexpr char kObfuscatedUsername[] = "OBFUSCATED_USERNAME";
 
 TpmEccAuthBlockState GetDefaultEccAuthBlockState() {
@@ -108,7 +110,7 @@ TEST(TpmBoundToPcrTest, CreateTest) {
 
   AuthInput user_input = {vault_key,
                           /*locked_to_single_user=*/std::nullopt,
-                          kObfuscatedUsername,
+                          /*username=*/std::string(""), kObfuscatedUsername,
                           /*reset_secret=*/std::nullopt};
   KeyBlobs vkk_data;
 
@@ -153,7 +155,7 @@ TEST(TpmBoundToPcrTest, CreateFailTpm) {
 
   AuthInput user_input = {vault_key,
                           /*locked_to_single_user=*/std::nullopt,
-                          kObfuscatedUsername,
+                          /*username=*/std::string(""), kObfuscatedUsername,
                           /*reset_secret=*/std::nullopt};
   KeyBlobs vkk_data;
   TpmBoundToPcrAuthBlock auth_block(&hwsec, &cryptohome_keys_manager);
@@ -213,7 +215,7 @@ TEST(TpmNotBoundToPcrTest, Success) {
 
   AuthInput user_input = {vault_key,
                           /*locked_to_single_user=*/std::nullopt,
-                          kObfuscatedUsername,
+                          /*username=*/std::string(""), kObfuscatedUsername,
                           /*reset_secret=*/std::nullopt};
   KeyBlobs vkk_data;
   TpmNotBoundToPcrAuthBlock auth_block(&hwsec, &cryptohome_keys_manager);
@@ -267,7 +269,7 @@ TEST(TpmNotBoundToPcrTest, CreateFailTpm) {
 
   AuthInput user_input = {vault_key,
                           /*locked_to_single_user=*/std::nullopt,
-                          kObfuscatedUsername,
+                          /*username=*/std::string(""), kObfuscatedUsername,
                           /*reset_secret=*/std::nullopt};
   KeyBlobs vkk_data;
   TpmNotBoundToPcrAuthBlock auth_block(&hwsec, &cryptohome_keys_manager);
@@ -396,14 +398,15 @@ TEST(PinWeaverAuthBlockTest, CreateTest) {
   brillo::SecureBlob le_secret;
   NiceMock<MockCryptohomeKeysManager> cryptohome_keys_manager;
   NiceMock<MockLECredentialManager> le_cred_manager;
-  EXPECT_CALL(le_cred_manager, InsertCredential(_, _, _, _, _, _))
+  EXPECT_CALL(le_cred_manager, InsertCredential(_, _, _, _, _, _, _))
       .WillOnce(
           DoAll(SaveArg<1>(&le_secret), ReturnError<CryptohomeLECredError>()));
 
   // Call the Create() method.
   AuthInput user_input = {vault_key,
                           /*locked_to_single_user=*/std::nullopt,
-                          kObfuscatedUsername, reset_secret};
+                          /*username=*/std::string(""), kObfuscatedUsername,
+                          reset_secret};
   KeyBlobs vkk_data;
 
   PinWeaverAuthBlock auth_block(&le_cred_manager, &cryptohome_keys_manager);
@@ -433,7 +436,7 @@ TEST(PinWeaverAuthBlockTest, CreateFailureLeManager) {
   // Now test that the method fails if the le_cred_manager fails.
   NiceMock<MockCryptohomeKeysManager> cryptohome_keys_manager_fail;
   NiceMock<MockLECredentialManager> le_cred_manager_fail;
-  ON_CALL(le_cred_manager_fail, InsertCredential(_, _, _, _, _, _))
+  ON_CALL(le_cred_manager_fail, InsertCredential(_, _, _, _, _, _, _))
       .WillByDefault(ReturnError<CryptohomeLECredError>(
           kErrorLocationForTesting1, ErrorActionSet({ErrorAction::kFatal}),
           LECredError::LE_CRED_ERROR_HASH_TREE));
@@ -443,7 +446,8 @@ TEST(PinWeaverAuthBlockTest, CreateFailureLeManager) {
   // Call the Create() method.
   AuthInput user_input = {vault_key,
                           /*locked_to_single_user=*/std::nullopt,
-                          kObfuscatedUsername, reset_secret};
+                          /*username=*/std::string(""), kObfuscatedUsername,
+                          reset_secret};
   KeyBlobs vkk_data;
   AuthBlockState auth_state;
   EXPECT_EQ(CryptoError::CE_OTHER_CRYPTO,
@@ -1145,13 +1149,13 @@ TEST(DoubleWrappedCompatAuthBlockTest, DeriveTest) {
   EXPECT_TRUE(auth_block.Derive(auth_input, auth_state, &key_out_data).ok());
 }
 
-TEST(LibScryptCompatAuthBlockTest, CreateTest) {
+TEST(ScyptAuthBlockTest, CreateTest) {
   AuthInput auth_input;
   auth_input.user_input = brillo::SecureBlob("foo");
 
   KeyBlobs blobs;
 
-  LibScryptCompatAuthBlock auth_block;
+  ScryptAuthBlock auth_block;
   AuthBlockState auth_state;
   EXPECT_TRUE(auth_block.Create(auth_input, &auth_state, &blobs).ok());
 
@@ -1159,17 +1163,20 @@ TEST(LibScryptCompatAuthBlockTest, CreateTest) {
   // cannot check the exact values returned. The salt() could be passed through
   // in some test specific harness, but the underlying scrypt code is tested in
   // so many other places, it's unnecessary.
-  EXPECT_FALSE(blobs.scrypt_key->derived_key().empty());
-  EXPECT_FALSE(blobs.scrypt_key->ConsumeSalt().empty());
+  auto* state = std::get_if<ScryptAuthBlockState>(&auth_state.state);
+  EXPECT_NE(state, nullptr);
 
-  EXPECT_FALSE(blobs.chaps_scrypt_key->derived_key().empty());
-  EXPECT_FALSE(blobs.chaps_scrypt_key->ConsumeSalt().empty());
+  EXPECT_FALSE(blobs.vkk_key->empty());
+  EXPECT_FALSE(state->salt->empty());
 
-  EXPECT_FALSE(blobs.scrypt_wrapped_reset_seed_key->derived_key().empty());
-  EXPECT_FALSE(blobs.scrypt_wrapped_reset_seed_key->ConsumeSalt().empty());
+  EXPECT_FALSE(blobs.scrypt_chaps_key->empty());
+  EXPECT_FALSE(state->chaps_salt->empty());
+
+  EXPECT_FALSE(blobs.scrypt_reset_seed_key->empty());
+  EXPECT_FALSE(state->reset_seed_salt->empty());
 }
 
-TEST(LibScryptCompatAuthBlockTest, DeriveTest) {
+TEST(ScyptAuthBlockTest, DeriveTest) {
   SerializedVaultKeyset serialized;
   serialized.set_flags(SerializedVaultKeyset::SCRYPT_WRAPPED);
 
@@ -1251,7 +1258,7 @@ TEST(LibScryptCompatAuthBlockTest, DeriveTest) {
   AuthBlockState auth_state;
   EXPECT_TRUE(GetAuthBlockState(vk, auth_state));
 
-  LibScryptCompatAuthBlock auth_block;
+  ScryptAuthBlock auth_block;
   EXPECT_TRUE(auth_block.Derive(auth_input, auth_state, &key_out_data).ok());
 
   brillo::SecureBlob derived_key = {
@@ -1278,10 +1285,9 @@ TEST(LibScryptCompatAuthBlockTest, DeriveTest) {
       0xFD, 0x7C, 0x78, 0x1D, 0x9B, 0xAD, 0xE6, 0x71, 0x35, 0x2B, 0x32,
       0x1E, 0x59, 0x19, 0x47, 0x88, 0x92, 0x50, 0x28, 0x09};
 
-  EXPECT_EQ(derived_key, key_out_data.scrypt_key->derived_key());
-  EXPECT_EQ(derived_chaps_key, key_out_data.chaps_scrypt_key->derived_key());
-  EXPECT_EQ(derived_reset_seed_key,
-            key_out_data.scrypt_wrapped_reset_seed_key->derived_key());
+  EXPECT_EQ(derived_key, key_out_data.vkk_key);
+  EXPECT_EQ(derived_chaps_key, key_out_data.scrypt_chaps_key);
+  EXPECT_EQ(derived_reset_seed_key, key_out_data.scrypt_reset_seed_key);
 }
 
 class CryptohomeRecoveryAuthBlockTest : public testing::Test {
@@ -1348,6 +1354,17 @@ class CryptohomeRecoveryAuthBlockTest : public testing::Test {
         response_proto));
   }
 
+  AuthInput GenerateFakeAuthInput() const {
+    AuthInput auth_input;
+    CryptohomeRecoveryAuthInput cryptohome_recovery_auth_input;
+    cryptohome_recovery_auth_input.mediator_pub_key = mediator_pub_key_;
+    cryptohome_recovery_auth_input.user_gaia_id = kFakeGaiaId;
+    cryptohome_recovery_auth_input.device_user_id = kFakeDeviceId;
+    auth_input.cryptohome_recovery_auth_input = cryptohome_recovery_auth_input;
+    auth_input.obfuscated_username = kObfuscatedUsername;
+    return auth_input;
+  }
+
  protected:
   brillo::SecureBlob mediator_pub_key_;
   brillo::SecureBlob epoch_pub_key_;
@@ -1356,11 +1373,7 @@ class CryptohomeRecoveryAuthBlockTest : public testing::Test {
 };
 
 TEST_F(CryptohomeRecoveryAuthBlockTest, SuccessTest) {
-  AuthInput auth_input;
-  CryptohomeRecoveryAuthInput cryptohome_recovery_auth_input;
-  cryptohome_recovery_auth_input.mediator_pub_key = mediator_pub_key_;
-  auth_input.cryptohome_recovery_auth_input = cryptohome_recovery_auth_input;
-  auth_input.obfuscated_username = kObfuscatedUsername;
+  AuthInput auth_input = GenerateFakeAuthInput();
 
   // IsPinWeaverEnabled()) returns `false` -> revocation is not supported.
   hwsec::Tpm2SimulatorFactoryForTest factory;
@@ -1416,11 +1429,7 @@ TEST_F(CryptohomeRecoveryAuthBlockTest, SuccessTest) {
 }
 
 TEST_F(CryptohomeRecoveryAuthBlockTest, SuccessTestWithRevocation) {
-  AuthInput auth_input;
-  CryptohomeRecoveryAuthInput cryptohome_recovery_auth_input;
-  cryptohome_recovery_auth_input.mediator_pub_key = mediator_pub_key_;
-  auth_input.cryptohome_recovery_auth_input = cryptohome_recovery_auth_input;
-  auth_input.obfuscated_username = kObfuscatedUsername;
+  AuthInput auth_input = GenerateFakeAuthInput();
 
   // IsPinWeaverEnabled() returns `true` -> revocation is supported.
   hwsec::Tpm2SimulatorFactoryForTest factory;
@@ -1429,9 +1438,9 @@ TEST_F(CryptohomeRecoveryAuthBlockTest, SuccessTestWithRevocation) {
   NiceMock<MockLECredentialManager> le_cred_manager;
   brillo::SecureBlob le_secret, he_secret;
   uint64_t le_label = 1;
-  EXPECT_CALL(le_cred_manager, InsertCredential(_, _, _, _, _, _))
+  EXPECT_CALL(le_cred_manager, InsertCredential(_, _, _, _, _, _, _))
       .WillOnce(DoAll(SaveArg<1>(&le_secret), SaveArg<2>(&he_secret),
-                      SetArgPointee<5>(le_label),
+                      SetArgPointee<6>(le_label),
                       ReturnError<CryptohomeLECredError>()));
 
   NiceMock<hwsec::MockCryptohomeFrontend> hwsec;
@@ -1495,10 +1504,8 @@ TEST_F(CryptohomeRecoveryAuthBlockTest, SuccessTestWithRevocation) {
 }
 
 TEST_F(CryptohomeRecoveryAuthBlockTest, MissingObfuscatedUsername) {
-  AuthInput auth_input;
-  CryptohomeRecoveryAuthInput cryptohome_recovery_auth_input;
-  cryptohome_recovery_auth_input.mediator_pub_key = mediator_pub_key_;
-  auth_input.cryptohome_recovery_auth_input = cryptohome_recovery_auth_input;
+  AuthInput auth_input = GenerateFakeAuthInput();
+  auth_input.obfuscated_username.reset();
 
   // Tpm::GetLECredentialBackend() returns `nullptr` -> revocation is not
   // supported.
@@ -1544,7 +1551,7 @@ TEST(TpmEccAuthBlockTest, CreateTest) {
 
   AuthInput user_input = {vault_key,
                           /*locked_to_single_user=*/std::nullopt,
-                          kObfuscatedUsername,
+                          /*username=*/std::string(""), kObfuscatedUsername,
                           /*reset_secret=*/std::nullopt};
   KeyBlobs vkk_data;
 
@@ -1599,7 +1606,7 @@ TEST(TpmEccAuthBlockTest, CreateRetryTest) {
 
   AuthInput user_input = {vault_key,
                           /*locked_to_single_user=*/std::nullopt,
-                          kObfuscatedUsername,
+                          /*username=*/std::string(""), kObfuscatedUsername,
                           /*reset_secret=*/std::nullopt};
   KeyBlobs vkk_data;
 
@@ -1641,7 +1648,7 @@ TEST(TpmEccAuthBlockTest, CreateRetryFailTest) {
 
   AuthInput user_input = {vault_key,
                           /*locked_to_single_user=*/std::nullopt,
-                          kObfuscatedUsername,
+                          /*username=*/std::string(""), kObfuscatedUsername,
                           /*reset_secret=*/std::nullopt};
   KeyBlobs vkk_data;
   TpmEccAuthBlock auth_block(&hwsec, &cryptohome_keys_manager);
@@ -1704,7 +1711,7 @@ TEST(TpmEccAuthBlockTest, CreateSealToPcrFailTest) {
 
   AuthInput user_input = {vault_key,
                           /*locked_to_single_user=*/std::nullopt,
-                          kObfuscatedUsername,
+                          /*username=*/std::string(""), kObfuscatedUsername,
                           /*reset_secret=*/std::nullopt};
   KeyBlobs vkk_data;
   TpmEccAuthBlock auth_block(&hwsec, &cryptohome_keys_manager);
@@ -1736,6 +1743,7 @@ TEST(TpmEccAuthBlockTest, CreateSecondSealToPcrFailTest) {
   AuthInput user_input = {vault_key,
                           /*locked_to_single_user=*/std::nullopt,
                           kObfuscatedUsername,
+                          /*username=*/std::string(""),
                           /*reset_secret=*/std::nullopt};
   KeyBlobs vkk_data;
   TpmEccAuthBlock auth_block(&hwsec, &cryptohome_keys_manager);
@@ -1763,7 +1771,7 @@ TEST(TpmEccAuthBlockTest, CreateEccAuthValueFailTest) {
 
   AuthInput user_input = {vault_key,
                           /*locked_to_single_user=*/std::nullopt,
-                          kObfuscatedUsername,
+                          /*username=*/std::string(""), kObfuscatedUsername,
                           /*reset_secret=*/std::nullopt};
   KeyBlobs vkk_data;
   TpmEccAuthBlock auth_block(&hwsec, &cryptohome_keys_manager);

@@ -4,6 +4,7 @@
 
 #include "diagnostics/cros_healthd/cros_healthd_routine_service.h"
 
+#include <cstdint>
 #include <limits>
 #include <optional>
 #include <string>
@@ -22,9 +23,9 @@
 
 namespace diagnostics {
 
-namespace mojo_ipc = ::chromeos::cros_healthd::mojom;
-
 namespace {
+
+namespace mojo_ipc = ::ash::cros_healthd::mojom;
 
 void SetErrorRoutineUpdate(const std::string& status_message,
                            mojo_ipc::RoutineUpdate* response) {
@@ -171,7 +172,7 @@ void CrosHealthdRoutineService::RunCaptivePortalRoutine(
 }
 
 void CrosHealthdRoutineService::RunCpuCacheRoutine(
-    chromeos::cros_healthd::mojom::NullableUint32Ptr length_seconds,
+    mojo_ipc::NullableUint32Ptr length_seconds,
     RunCpuCacheRoutineCallback callback) {
   std::optional<base::TimeDelta> exec_duration;
   if (!length_seconds.is_null())
@@ -181,7 +182,7 @@ void CrosHealthdRoutineService::RunCpuCacheRoutine(
 }
 
 void CrosHealthdRoutineService::RunCpuStressRoutine(
-    chromeos::cros_healthd::mojom::NullableUint32Ptr length_seconds,
+    mojo_ipc::NullableUint32Ptr length_seconds,
     RunCpuStressRoutineCallback callback) {
   std::optional<base::TimeDelta> exec_duration;
   if (!length_seconds.is_null())
@@ -221,7 +222,7 @@ void CrosHealthdRoutineService::RunDnsResolverPresentRoutine(
 }
 
 void CrosHealthdRoutineService::RunFloatingPointAccuracyRoutine(
-    chromeos::cros_healthd::mojom::NullableUint32Ptr length_seconds,
+    mojo_ipc::NullableUint32Ptr length_seconds,
     RunFloatingPointAccuracyRoutineCallback callback) {
   std::optional<base::TimeDelta> exec_duration;
   if (!length_seconds.is_null())
@@ -288,16 +289,26 @@ void CrosHealthdRoutineService::RunNvmeSelfTestRoutine(
              std::move(callback));
 }
 
-void CrosHealthdRoutineService::RunNvmeWearLevelRoutine(
+void CrosHealthdRoutineService::DEPRECATED_RunNvmeWearLevelRoutine(
     uint32_t wear_level_threshold, RunNvmeWearLevelRoutineCallback callback) {
+  RunRoutine(
+      routine_factory_->MakeNvmeWearLevelRoutine(
+          context_->debugd_proxy(),
+          ash::cros_healthd::mojom::NullableUint32::New(wear_level_threshold)),
+      mojo_ipc::DiagnosticRoutineEnum::kNvmeWearLevel, std::move(callback));
+}
+
+void CrosHealthdRoutineService::RunNvmeWearLevelRoutine(
+    ash::cros_healthd::mojom::NullableUint32Ptr wear_level_threshold,
+    RunNvmeWearLevelRoutineCallback callback) {
   RunRoutine(routine_factory_->MakeNvmeWearLevelRoutine(
-                 context_->debugd_proxy(), wear_level_threshold),
+                 context_->debugd_proxy(), std::move(wear_level_threshold)),
              mojo_ipc::DiagnosticRoutineEnum::kNvmeWearLevel,
              std::move(callback));
 }
 
 void CrosHealthdRoutineService::RunPrimeSearchRoutine(
-    chromeos::cros_healthd::mojom::NullableUint32Ptr length_seconds,
+    mojo_ipc::NullableUint32Ptr length_seconds,
     RunPrimeSearchRoutineCallback callback) {
   std::optional<base::TimeDelta> exec_duration;
   if (!length_seconds.is_null())
@@ -352,6 +363,27 @@ void CrosHealthdRoutineService::RunArcDnsResolutionRoutine(
     RunArcDnsResolutionRoutineCallback callback) {
   RunRoutine(routine_factory_->MakeArcDnsResolutionRoutine(),
              mojo_ipc::DiagnosticRoutineEnum::kArcDnsResolution,
+             std::move(callback));
+}
+
+void CrosHealthdRoutineService::RunSensitiveSensorRoutine(
+    RunSensitiveSensorRoutineCallback callback) {
+  RunRoutine(routine_factory_->MakeSensitiveSensorRoutine(),
+             mojo_ipc::DiagnosticRoutineEnum::kSensitiveSensor,
+             std::move(callback));
+}
+
+void CrosHealthdRoutineService::RunFingerprintRoutine(
+    RunFingerprintRoutineCallback callback) {
+  RunRoutine(routine_factory_->MakeFingerprintRoutine(),
+             mojo_ipc::DiagnosticRoutineEnum::kFingerprint,
+             std::move(callback));
+}
+
+void CrosHealthdRoutineService::RunFingerprintAliveRoutine(
+    RunFingerprintAliveRoutineCallback callback) {
+  RunRoutine(routine_factory_->MakeFingerprintAliveRoutine(),
+             mojo_ipc::DiagnosticRoutineEnum::kFingerprintAlive,
              std::move(callback));
 }
 
@@ -435,7 +467,8 @@ void CrosHealthdRoutineService::PopulateAvailableRoutines(
       mojo_ipc::DiagnosticRoutineEnum::kVideoConferencing,
       mojo_ipc::DiagnosticRoutineEnum::kArcHttp,
       mojo_ipc::DiagnosticRoutineEnum::kArcPing,
-      mojo_ipc::DiagnosticRoutineEnum::kArcDnsResolution};
+      mojo_ipc::DiagnosticRoutineEnum::kArcDnsResolution,
+      mojo_ipc::DiagnosticRoutineEnum::kSensitiveSensor};
 
   if (context_->system_config()->HasBattery()) {
     available_routines_.insert(
@@ -464,6 +497,12 @@ void CrosHealthdRoutineService::PopulateAvailableRoutines(
 
   if (context_->system_config()->FioSupported()) {
     available_routines_.insert(mojo_ipc::DiagnosticRoutineEnum::kDiskRead);
+  }
+
+  if (context_->system_config()->FingerprintDiagnosticSupported()) {
+    available_routines_.insert(mojo_ipc::DiagnosticRoutineEnum::kFingerprint);
+    available_routines_.insert(
+        mojo_ipc::DiagnosticRoutineEnum::kFingerprintAlive);
   }
 }
 

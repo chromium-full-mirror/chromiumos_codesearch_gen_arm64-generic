@@ -207,6 +207,12 @@ class UserDataAuth {
   void SetLowDiskSpaceCallback(
       const base::RepeatingCallback<void(uint64_t)>& callback);
 
+  // Set the FingerprintScanResult callback. This is usually called by the
+  // DBus adaptor.
+  void SetFingerprintScanResultCallback(
+      const base::RepeatingCallback<
+          void(user_data_auth::FingerprintScanResult)>& callback);
+
   // =============== Key Related Public Utilities ===============
   // Add the key specified in the request, and return a CryptohomeErrorCode to
   // indicate the status of adding the key. If CryptohomeErrorCode is
@@ -775,10 +781,15 @@ class UserDataAuth {
       base::OnceCallback<void(const user_data_auth::ListAuthFactorsReply&)>
           on_done);
 
-  void PrepareAsyncAuthFactor(
-      user_data_auth::PrepareAsyncAuthFactorRequest request,
-      base::OnceCallback<
-          void(const user_data_auth::PrepareAsyncAuthFactorReply&)> on_done);
+  void PrepareAuthFactor(
+      user_data_auth::PrepareAuthFactorRequest request,
+      base::OnceCallback<void(const user_data_auth::PrepareAuthFactorReply&)>
+          on_done);
+
+  void TerminateAuthFactor(
+      user_data_auth::TerminateAuthFactorRequest request,
+      base::OnceCallback<void(const user_data_auth::TerminateAuthFactorReply&)>
+          on_done);
 
   void GetAuthSessionStatus(
       user_data_auth::GetAuthSessionStatusRequest request,
@@ -892,18 +903,6 @@ class UserDataAuth {
   // succeeded.
   CryptohomeStatus InitForChallengeResponseAuth();
 
-  // After lazy initialization through InitForChallengeResponseAuth,
-  // it updates the existing auth_block_utility_ to have a valid
-  // challenge_credentials_helper and refreshes the key_challenge_service
-  // for adding, updating and authenticating with ChallengeCredentials.
-  CryptohomeStatus InitAuthBlockUtilityForChallengeResponse(
-      const AuthorizationRequest& authorization, const std::string& username);
-
-  // Helper function for InitAuthBlockUtilityForChallengeResponse initializes
-  // KeyChallengeService.
-  CryptohomeStatus InitKeyChallengeServiceForAuthBlockUtility(
-      const std::string& dbus_service_name, const std::string& username);
-
   // This is a utility function used by DoMount(). It is called if the request
   // mounting operation requires challenge response authentication. i.e. The key
   // for the storage is sealed.
@@ -957,6 +956,11 @@ class UserDataAuth {
       TPMStatusOr<ChallengeCredentialsHelper::GenerateNewOrDecryptResult>
           result);
 
+  // Called on Mount Thread, initializes the challenge_credentials_helper_
+  // and the key_challenge_service_factory_, and forwards these
+  // arguments to AuthBlockUtility.
+  void InitializeChallengeCredentialsHelper();
+
   void GetAuthSessionStatusImpl(
       AuthSession* auth_session,
       user_data_auth::GetAuthSessionStatusReply& reply);
@@ -989,6 +993,10 @@ class UserDataAuth {
   // and connects to signals.
   void CreateFingerprintManager();
 
+  // Called on Mount thread. The returns a pointer to the fingerprint manager,
+  // or null if it has not been created.
+  FingerprintManager* GetFingerprintManager() const;
+
   // Called on Mount thread when fingerprint auth session starts or fails to
   // start.
   void OnFingerprintStartAuthSessionResp(
@@ -1002,6 +1010,11 @@ class UserDataAuth {
       base::OnceCallback<void(const user_data_auth::CryptohomeErrorCode)>
           on_done,
       FingerprintScanStatus status);
+
+  // OnFingerprintScanResult will be called on every received fingerprint
+  // scan result. It will forward results to
+  // |fingerprint_scan_result_callback_|.
+  void OnFingerprintScanResult(user_data_auth::FingerprintScanResult result);
 
   // =============== Periodic Maintenance Related Methods ===============
 
@@ -1151,10 +1164,9 @@ class UserDataAuth {
                                   StatusCallback on_done,
                                   CryptohomeStatus status);
 
-  // SetCredentialVerifierForUserSession sets credential_verifier derived from
-  // AuthSession.
-  void SetCredentialVerifierForUserSession(
-      AuthSession* auth_session, bool override_existing_credential_verifier);
+  // Populates the user session key data from the auth session key data.
+  void SetKeyDataForUserSession(AuthSession* auth_session,
+                                bool override_existing_data);
 
   // =============== WebAuthn Related Helpers ===============
 
@@ -1167,6 +1179,18 @@ class UserDataAuth {
   // and connects to signals. It fetches the experiment config from gstatic when
   // network is ready.
   void CreateUssExperimentConfigFetcher();
+
+  // =============== PinWeaver Related Methods ===============
+
+  // Called on Mount thread. Pairing secret (Pk) is established once per
+  // powerwash cycle after the device first boots. An ECDH protocol is used
+  // between biometrics AuthStacks and GSC to establish Pk. This function blocks
+  // future Pk establishment attempts made by biometrics AuthStacks, as we
+  // considered device state becoming more vulnerable after entering user
+  // session. For example, an attacker can try to send EC commands to FPMCU and
+  // send vendor commands to GSC to complete a person-in-the-middle attack on
+  // the ECDH protocol used for Pk establishment.
+  void BlockPkEstablishment();
 
   // =============== Threading Related Variables ===============
 
@@ -1352,6 +1376,10 @@ class UserDataAuth {
   // overridden for testing.
   ChallengeCredentialsHelper* challenge_credentials_helper_ = nullptr;
 
+  // The repeating callback to send FingerprintScanResult signal.
+  base::RepeatingCallback<void(user_data_auth::FingerprintScanResult)>
+      fingerprint_scan_result_callback_;
+
   // The object used to instantiate AuthBlocks.
   std::unique_ptr<AuthBlockUtility> default_auth_block_utility_;
   // This holds the object that records information about the
@@ -1465,6 +1493,10 @@ class UserDataAuth {
   // default_uss_experiment_config_fetcher_, but can be overridden for testing.
   UssExperimentConfigFetcher* uss_experiment_config_fetcher_;
 
+  // Flag to cache the status of whether Pk establishment is blocked
+  // successfully, so we don't have to do this multiple times.
+  bool pk_establishment_blocked_;
+
   friend class AuthSessionTestWithKeysetManagement;
   FRIEND_TEST(AuthSessionTestWithKeysetManagement,
               StartAuthSessionWithoutKeyData);
@@ -1475,6 +1507,7 @@ class UserDataAuth {
 
   friend class UserDataAuthExTest;
   FRIEND_TEST(UserDataAuthExTest, ExtendAuthSession);
+  FRIEND_TEST(UserDataAuthExTest, ExtendUnAuthenticatedAuthSessionFail);
   FRIEND_TEST(UserDataAuthExTest, CheckTimeoutTimerSetAfterAuthentication);
   FRIEND_TEST(UserDataAuthExTest, InvalidateAuthSession);
   FRIEND_TEST(UserDataAuthExTest, MountUnauthenticatedAuthSession);

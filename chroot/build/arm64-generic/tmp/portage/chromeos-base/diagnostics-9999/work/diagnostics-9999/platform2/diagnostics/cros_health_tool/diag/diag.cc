@@ -26,11 +26,11 @@
 #include "diagnostics/cros_healthd/routines/urandom/urandom.h"
 #include "diagnostics/mojom/public/cros_healthd_diagnostics.mojom.h"
 
-namespace mojo_ipc = ::chromeos::cros_healthd::mojom;
-
 namespace diagnostics {
 
 namespace {
+
+namespace mojo_ipc = ::ash::cros_healthd::mojom;
 
 // Poll interval while waiting for a routine to finish.
 constexpr base::TimeDelta kRoutinePollIntervalTimeDelta =
@@ -70,9 +70,10 @@ int diag_main(int argc, char** argv) {
   DEFINE_string(
       expected_power_type, "",
       "Optional type of power supply expected for the AC power routine.");
-  DEFINE_uint32(wear_level_threshold, 50,
+  DEFINE_uint32(wear_level_threshold, 0,
                 "Threshold number in percentage which routine examines "
-                "wear level of NVMe against.");
+                "wear level of NVMe against. If not specified, device "
+                "threshold set in cros-config will be used instead.");
   DEFINE_bool(nvme_self_test_long, false,
               "Long-time period self-test of NVMe would be performed with "
               "this flag being set.");
@@ -98,6 +99,8 @@ int diag_main(int argc, char** argv) {
   base::AtExitManager at_exit_manager;
 
   base::SingleThreadTaskExecutor task_executor(base::MessagePumpType::IO);
+
+  base::CommandLine* command_line = base::CommandLine::ForCurrentProcess();
 
   if (FLAGS_crosh_help) {
     std::cout << "Usage: [list|routine]" << std::endl;
@@ -167,8 +170,10 @@ int diag_main(int argc, char** argv) {
             base::Seconds(FLAGS_cpu_stress_length_seconds));
         break;
       case mojo_ipc::DiagnosticRoutineEnum::kNvmeWearLevel:
-        routine_result =
-            actions.ActionRunNvmeWearLevelRoutine(FLAGS_wear_level_threshold);
+        routine_result = actions.ActionRunNvmeWearLevelRoutine(
+            command_line->HasSwitch("wear_level_threshold")
+                ? std::optional<std::uint32_t>{FLAGS_wear_level_threshold}
+                : std::nullopt);
         break;
       case mojo_ipc::DiagnosticRoutineEnum::kNvmeSelfTest:
         routine_result = actions.ActionRunNvmeSelfTestRoutine(
@@ -254,6 +259,15 @@ int diag_main(int argc, char** argv) {
         break;
       case mojo_ipc::DiagnosticRoutineEnum::kArcDnsResolution:
         routine_result = actions.ActionRunArcDnsResolutionRoutine();
+        break;
+      case mojo_ipc::DiagnosticRoutineEnum::kSensitiveSensor:
+        routine_result = actions.ActionRunSensitiveSensorRoutine();
+        break;
+      case mojo_ipc::DiagnosticRoutineEnum::kFingerprint:
+        routine_result = actions.ActionRunFingerprintRoutine();
+        break;
+      case mojo_ipc::DiagnosticRoutineEnum::kFingerprintAlive:
+        routine_result = actions.ActionRunFingerprintAliveRoutine();
         break;
       case mojo_ipc::DiagnosticRoutineEnum::kUnknown:
         // Never map FLAGS_routine to kUnknown field.

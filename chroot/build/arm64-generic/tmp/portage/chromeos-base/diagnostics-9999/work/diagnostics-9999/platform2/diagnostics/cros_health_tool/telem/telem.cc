@@ -22,6 +22,7 @@
 #include <base/json/json_writer.h>
 #include <base/logging.h>
 #include <base/strings/stringprintf.h>
+#include <base/strings/string_number_conversions.h>
 #include <base/strings/string_split.h>
 #include <base/strings/string_util.h>
 #include <base/task/single_thread_task_executor.h>
@@ -38,9 +39,9 @@ namespace diagnostics {
 
 namespace {
 
-namespace mojom = chromeos::cros_healthd::mojom;
-namespace network_config_mojom = chromeos::network_config::mojom;
-namespace network_health_mojom = chromeos::network_health::mojom;
+namespace mojom = ::ash::cros_healthd::mojom;
+namespace network_config_mojom = ::chromeos::network_config::mojom;
+namespace network_health_mojom = ::chromeos::network_health::mojom;
 
 constexpr std::pair<const char*, mojom::ProbeCategoryEnum> kCategorySwitches[] =
     {
@@ -225,6 +226,7 @@ std::string EnumToString(mojom::BusDeviceClass device_class) {
 std::string EnumToString(mojom::FwupdVersionFormat fwupd_version_format) {
   switch (fwupd_version_format) {
     case mojom::FwupdVersionFormat::kUnmappedEnumField:
+      LOG(FATAL) << "Got UnmappedEnumField";
       return "unmapped-enum-field";
     case mojom::FwupdVersionFormat::kUnknown:
       return "unknown";
@@ -316,6 +318,7 @@ std::optional<std::string> EnumToString(mojom::BluetoothDeviceType type) {
 std::string EnumToString(mojom::VulnerabilityInfo::Status status) {
   switch (status) {
     case mojom::VulnerabilityInfo::Status::kUnmappedEnumField:
+      LOG(FATAL) << "Got UnmappedEnumField";
       return "UnmappedEnumField";
     case mojom::VulnerabilityInfo::Status::kNotAffected:
       return "Not affected";
@@ -333,6 +336,7 @@ std::string EnumToString(mojom::VulnerabilityInfo::Status status) {
 std::string EnumToString(mojom::CpuVirtualizationInfo::Type type) {
   switch (type) {
     case mojom::CpuVirtualizationInfo::Type::kUnmappedEnumField:
+      LOG(FATAL) << "Got UnmappedEnumField";
       return "UnmappedEnumField";
     case mojom::CpuVirtualizationInfo::Type::kVMX:
       return "VMX";
@@ -361,6 +365,7 @@ std::string EnumToString(mojom::VirtualizationInfo::SMTControl control) {
 std::string EnumToString(mojom::InputDevice::ConnectionType type) {
   switch (type) {
     case mojom::InputDevice::ConnectionType::kUnmappedEnumField:
+      LOG(FATAL) << "Got UnmappedEnumField";
       return "UnmappedEnumField";
     case mojom::InputDevice::ConnectionType::kInternal:
       return "Internal";
@@ -395,6 +400,40 @@ std::string EnumToString(mojom::OsInfo::EfiPlatformSize size) {
       return "64";
     case mojom::OsInfo::EfiPlatformSize::k32:
       return "32";
+  }
+}
+
+std::string EnumToString(mojom::Sensor::Type type) {
+  switch (type) {
+    case mojom::Sensor::Type::kUnmappedEnumField:
+      return "UnmappedEnumField";
+    case mojom::Sensor::Type::kAccel:
+      return "Accel";
+    case mojom::Sensor::Type::kLight:
+      return "Light";
+    case mojom::Sensor::Type::kGyro:
+      return "Gyro";
+    case mojom::Sensor::Type::kAngle:
+      return "Angle";
+    case mojom::Sensor::Type::kGravity:
+      return "Gravity";
+    case mojom::Sensor::Type::kMagn:
+      return "Magn";
+  }
+}
+
+std::string EnumToString(mojom::Sensor::Location type) {
+  switch (type) {
+    case mojom::Sensor::Location::kUnmappedEnumField:
+      return "UnmappedEnumField";
+    case mojom::Sensor::Location::kUnknown:
+      return "Unknown";
+    case mojom::Sensor::Location::kBase:
+      return "Base";
+    case mojom::Sensor::Location::kLid:
+      return "Lid";
+    case mojom::Sensor::Location::kCamera:
+      return "Camera";
   }
 }
 
@@ -505,6 +544,61 @@ void DisplayProcessInfo(const mojom::ProcessResultPtr& result) {
   SET_DICT(uptime_ticks, info, &output);
   SET_DICT(user_id, info, &output);
   SET_DICT(write_system_calls, info, &output);
+
+  OutputJson(output);
+}
+
+void DisplayMultipleProcessInfo(const mojom::MultipleProcessResultPtr& result) {
+  if (result.is_null())
+    return;
+
+  const auto& info = result;
+
+  base::Value output{base::Value::Type::DICTIONARY};
+  auto* process_infos = output.SetKey(
+      "process_infos", base::Value{base::Value::Type::DICTIONARY});
+  if (!info->process_infos.empty()) {
+    for (const auto& process_info_key_value : info->process_infos) {
+      auto* process_info = process_infos->SetKey(
+          base::NumberToString(process_info_key_value.first),
+          base::Value{base::Value::Type::DICTIONARY});
+      SET_DICT(bytes_read, process_info_key_value.second, process_info);
+      SET_DICT(bytes_written, process_info_key_value.second, process_info);
+      SET_DICT(cancelled_bytes_written, process_info_key_value.second,
+               process_info);
+      SET_DICT(command, process_info_key_value.second, process_info);
+      SET_DICT(free_memory_kib, process_info_key_value.second, process_info);
+      SET_DICT(name, process_info_key_value.second, process_info);
+      SET_DICT(nice, process_info_key_value.second, process_info);
+      SET_DICT(parent_process_id, process_info_key_value.second, process_info);
+      SET_DICT(process_group_id, process_info_key_value.second, process_info);
+      SET_DICT(process_id, process_info_key_value.second, process_info);
+      SET_DICT(physical_bytes_read, process_info_key_value.second,
+               process_info);
+      SET_DICT(physical_bytes_written, process_info_key_value.second,
+               process_info);
+      SET_DICT(priority, process_info_key_value.second, process_info);
+      SET_DICT(read_system_calls, process_info_key_value.second, process_info);
+      SET_DICT(resident_memory_kib, process_info_key_value.second,
+               process_info);
+      SET_DICT(state, process_info_key_value.second, process_info);
+      SET_DICT(threads, process_info_key_value.second, process_info);
+      SET_DICT(total_memory_kib, process_info_key_value.second, process_info);
+      SET_DICT(uptime_ticks, process_info_key_value.second, process_info);
+      SET_DICT(user_id, process_info_key_value.second, process_info);
+      SET_DICT(write_system_calls, process_info_key_value.second, process_info);
+    }
+  }
+  auto* errors =
+      output.SetKey("errors", base::Value{base::Value::Type::DICTIONARY});
+  if (!info->errors.empty()) {
+    for (const auto& error_key_value : info->errors) {
+      auto* error = errors->SetKey(base::NumberToString(error_key_value.first),
+                                   base::Value{base::Value::Type::DICTIONARY});
+      SET_DICT(type, error_key_value.second, error);
+      SET_DICT(msg, error_key_value.second, error);
+    }
+  }
 
   OutputJson(output);
 }
@@ -1053,6 +1147,7 @@ void DisplaySystemInfo(const mojom::SystemResultPtr& system_result) {
       "os_version", base::Value{base::Value::Type::DICTIONARY});
   SET_DICT(release_milestone, os_version, out_os_version);
   SET_DICT(build_number, os_version, out_os_version);
+  SET_DICT(branch_number, os_version, out_os_version);
   SET_DICT(patch_number, os_version, out_os_version);
   SET_DICT(release_channel, os_version, out_os_version);
 
@@ -1066,6 +1161,7 @@ void DisplaySystemInfo(const mojom::SystemResultPtr& system_result) {
     SET_DICT(activate_date, vpd_info, out_vpd_info);
     SET_DICT(sku_number, vpd_info, out_vpd_info);
     SET_DICT(model_name, vpd_info, out_vpd_info);
+    SET_DICT(oem_name, vpd_info, out_vpd_info);
   }
 
   const auto& dmi_info = system_info->dmi_info;
@@ -1366,6 +1462,19 @@ void DisplaySensorInfo(const mojom::SensorResultPtr& result) {
   const auto& info = result->get_sensor_info();
   CHECK(!info.is_null());
 
+  if (info->sensors.has_value()) {
+    auto* out_sensors =
+        output.SetKey("sensors", base::Value{base::Value::Type::LIST});
+    for (const auto& sensor : info->sensors.value()) {
+      base::Value out_sensor{base::Value::Type::DICTIONARY};
+      SET_DICT(name, sensor, &out_sensor);
+      SET_DICT(device_id, sensor, &out_sensor);
+      SET_DICT(type, sensor, &out_sensor);
+      SET_DICT(location, sensor, &out_sensor);
+      out_sensors->Append(std::move(out_sensor));
+    }
+  }
+
   SET_DICT(lid_angle, info, &output);
 
   OutputJson(output);
@@ -1476,11 +1585,13 @@ std::string GetCategoryHelp() {
 // 'telem' sub-command for cros-health-tool:
 //
 // Test driver for cros_healthd's telemetry collection. Supports requesting a
-// comma-separate list of categories and/or a single process at a time.
+// comma-separate list of categories and/or a single process, multiple/ all
+// processes at a time.
 int telem_main(int argc, char** argv) {
   std::string category_help = GetCategoryHelp();
   DEFINE_string(category, "", category_help.c_str());
-  DEFINE_uint32(process, 0, "Process ID to probe.");
+  DEFINE_string(process, "", "Process IDs to probe.");
+  DEFINE_bool(ignore, false, "Set to true to ignore single process errors.");
   brillo::FlagHelper::Init(argc, argv, "telem - Device telemetry tool.");
   brillo::InitLog(brillo::kLogToSyslog | brillo::kLogToStderrIfTty);
 
@@ -1497,15 +1608,51 @@ int telem_main(int argc, char** argv) {
       CrosHealthdMojoAdapter::Create();
 
   // Make sure at least one flag is specified.
-  if (FLAGS_category == "" && FLAGS_process == 0) {
-    LOG(ERROR) << "No category or process specified.";
+  if (FLAGS_category == "" && FLAGS_process == "") {
     return EXIT_FAILURE;
   }
 
-  // Probe a process, if requested.
-  if (FLAGS_process != 0) {
-    DisplayProcessInfo(
-        adapter->GetProcessInfo(static_cast<pid_t>(FLAGS_process)));
+  // Probe single or multiple processes, if requested.
+  if (FLAGS_process != "") {
+    std::vector<std::string> process_ids_string;
+    bool ignore_single_process_info = false;
+    if (FLAGS_ignore == true) {
+      ignore_single_process_info = true;
+    }
+
+    // Probe all processes if "all" is specified.
+    if (FLAGS_process == "all") {
+      DisplayMultipleProcessInfo(adapter->GetMultipleProcessInfo(
+          std::nullopt, ignore_single_process_info));
+    } else {
+      process_ids_string = base::SplitString(
+          FLAGS_process, ",", base::TRIM_WHITESPACE, base::SPLIT_WANT_NONEMPTY);
+      if (process_ids_string.size() == 1) {
+        // Use original ProcessFetcher for single process telemetry.
+        uint32_t process_id;
+        if (!base::StringToUint(process_ids_string.at(0), &process_id)) {
+          LOG(ERROR) << "Invalid process id: " << process_ids_string.at(0);
+          return EXIT_FAILURE;
+        } else {
+          DisplayProcessInfo(
+              adapter->GetProcessInfo(static_cast<pid_t>(process_id)));
+        }
+      } else {
+        std::vector<uint32_t> process_ids;
+        for (const auto& process_id_string : process_ids_string) {
+          uint32_t process_id;
+          if (!base::StringToUint(process_id_string, &process_id)) {
+            LOG(ERROR) << "One of the provided process ids is invalid: "
+                       << process_id_string;
+            return EXIT_FAILURE;
+          } else {
+            process_ids.push_back(process_id);
+          }
+        }
+        DisplayMultipleProcessInfo(adapter->GetMultipleProcessInfo(
+            process_ids, ignore_single_process_info));
+      }
+    }
   }
 
   // Probe category info, if requested.

@@ -45,6 +45,8 @@ AuthInput FromCryptohomeRecoveryAuthInput(
   CryptohomeRecoveryAuthInput recovery_auth_input{
       // These fields are used for `Create`:
       .mediator_pub_key = SecureBlob(proto.mediator_pub_key()),
+      .user_gaia_id = proto.user_gaia_id(),
+      .device_user_id = proto.device_user_id(),
       // These fields are used for `Derive`:
       .epoch_response = SecureBlob(proto.epoch_response()),
       .ephemeral_pub_key =
@@ -77,6 +79,11 @@ AuthInput FromSmartCardAuthInput(
     chall_cred_auth_input.public_key_spki_der = public_key_spki_der.value();
   }
 
+  if (!proto.key_delegate_dbus_service_name().empty()) {
+    chall_cred_auth_input.dbus_service_name =
+        proto.key_delegate_dbus_service_name();
+  }
+
   return AuthInput{
       .challenge_credential_auth_input = chall_cred_auth_input,
   };
@@ -96,6 +103,11 @@ std::optional<AuthInput> FromKioskAuthInput(
   return AuthInput{
       .user_input = passkey,
   };
+}
+
+AuthInput FromLegacyFingerprintAuthInput(
+    const user_data_auth::LegacyFingerprintAuthInput& proto) {
+  return AuthInput{};
 }
 
 }  // namespace
@@ -142,6 +154,10 @@ std::optional<AuthInput> CreateAuthInput(
                                           public_key_spki_der);
       break;
     }
+    case user_data_auth::AuthInput::kLegacyFingerprintInput:
+      auth_input = FromLegacyFingerprintAuthInput(
+          auth_input_proto.legacy_fingerprint_input());
+      break;
     case user_data_auth::AuthInput::INPUT_NOT_SET:
       break;
   }
@@ -152,6 +168,7 @@ std::optional<AuthInput> CreateAuthInput(
   }
 
   // Fill out common fields.
+  auth_input.value().username = username;
   auth_input.value().obfuscated_username = obfuscated_username;
   auth_input.value().locked_to_single_user = locked_to_single_user;
 
@@ -171,9 +188,22 @@ std::optional<AuthFactorType> DetermineFactorTypeFromAuthInput(
       return AuthFactorType::kKiosk;
     case user_data_auth::AuthInput::kSmartCardInput:
       return AuthFactorType::kSmartCard;
+    case user_data_auth::AuthInput::kLegacyFingerprintInput:
+      return AuthFactorType::kLegacyFingerprint;
     case user_data_auth::AuthInput::INPUT_NOT_SET:
       return std::nullopt;
   }
+}
+
+AuthInput CreatePasswordAuthInputForLegacyCode(
+    const std::string& obfuscated_username,
+    bool locked_to_single_user,
+    const brillo::SecureBlob& passkey) {
+  return {
+      .user_input = passkey,
+      .locked_to_single_user = locked_to_single_user,
+      .obfuscated_username = obfuscated_username,
+  };
 }
 
 }  // namespace cryptohome

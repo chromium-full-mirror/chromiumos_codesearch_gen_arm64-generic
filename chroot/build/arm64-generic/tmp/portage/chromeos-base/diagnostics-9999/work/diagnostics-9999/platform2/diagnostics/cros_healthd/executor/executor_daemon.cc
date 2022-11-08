@@ -18,11 +18,7 @@
 
 namespace diagnostics {
 
-namespace {
-
-namespace mojom = ::chromeos::cros_healthd::mojom;
-
-}  // namespace
+namespace mojom = ::ash::cros_healthd::mojom;
 
 ExecutorDaemon::ExecutorDaemon(mojo::PlatformChannelEndpoint endpoint)
     : mojo_task_runner_(base::ThreadTaskRunnerHandle::Get()) {
@@ -48,7 +44,8 @@ ExecutorDaemon::ExecutorDaemon(mojo::PlatformChannelEndpoint endpoint)
 
   mojo_service_ = std::make_unique<Executor>(
       mojo_task_runner_,
-      mojo::PendingReceiver<mojom::Executor>(std::move(pipe)));
+      mojo::PendingReceiver<mojom::Executor>(std::move(pipe)),
+      base::BindOnce(&ExecutorDaemon::Quit, base::Unretained(this)));
 }
 
 ExecutorDaemon::~ExecutorDaemon() = default;

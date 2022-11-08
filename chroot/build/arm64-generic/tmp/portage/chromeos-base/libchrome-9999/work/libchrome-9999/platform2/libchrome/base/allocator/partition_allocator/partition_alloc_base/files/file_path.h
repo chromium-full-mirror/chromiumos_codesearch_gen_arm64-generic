@@ -1,4 +1,4 @@
-// Copyright (c) 2012 The Chromium Authors. All rights reserved.
+// Copyright 2012 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -106,8 +106,8 @@
 #include <iosfwd>
 #include <string>
 
+#include "base/allocator/partition_allocator/partition_alloc_base/component_export.h"
 #include "base/allocator/partition_allocator/partition_alloc_base/migration_adapter.h"
-#include "base/base_export.h"
 #include "build/build_config.h"
 
 // Windows-style drive letter support and pathname separator characters can be
@@ -130,7 +130,7 @@ namespace partition_alloc::internal::base {
 
 // An abstraction to isolate users from the differences between native
 // pathnames on different platforms.
-class BASE_EXPORT FilePath {
+class PA_COMPONENT_EXPORT(PARTITION_ALLOC) FilePath {
  public:
 #if BUILDFLAG(IS_WIN)
   // On Windows, for Unicode-aware applications, native pathnames are wchar_t

@@ -7,6 +7,7 @@
 #include <algorithm>
 #include <cstdint>
 #include <limits>
+#include <memory>
 #include <optional>
 #include <string>
 #include <utility>
@@ -35,6 +36,7 @@ namespace {
 
 constexpr uint8_t kPinWeaverProtocolVersion = 2;
 constexpr uint32_t kInfiniteDelay = std::numeric_limits<uint32_t>::max();
+constexpr uint8_t kMaxAuthChannel = 1;
 
 StatusOr<std::string> EncodeAuxHashes(const std::vector<brillo::Blob>& h_aux) {
   std::string result;
@@ -174,7 +176,6 @@ StatusOr<PinWeaverTpm2::CredentialTreeResult> PinWeaverTpm2::Reset(
   };
 }
 
-// TODO(b/240207599): Support the |expiration_delay| parameter.
 StatusOr<PinWeaverTpm2::CredentialTreeResult> PinWeaverTpm2::InsertCredential(
     const std::vector<OperationPolicySetting>& policies,
     const uint64_t label,
@@ -182,36 +183,22 @@ StatusOr<PinWeaverTpm2::CredentialTreeResult> PinWeaverTpm2::InsertCredential(
     const brillo::SecureBlob& le_secret,
     const brillo::SecureBlob& he_secret,
     const brillo::SecureBlob& reset_secret,
-    const DelaySchedule& delay_schedule) {
+    const DelaySchedule& delay_schedule,
+    std::optional<uint32_t> expiration_delay) {
   ASSIGN_OR_RETURN(uint8_t version, GetVersion());
   ASSIGN_OR_RETURN(std::string encoded_aux, EncodeAuxHashes(h_aux));
+  ASSIGN_OR_RETURN(trunks::ValidPcrCriteria pcr_criteria,
+                   PolicySettingsToPcrCriteria(policies));
 
-  std::vector<ConfigTpm2::PcrValue> pcr_values;
-
-  for (const OperationPolicySetting& policy : policies) {
-    if (policy.permission.auth_value.has_value()) {
-      return MakeStatus<TPMError>("Unsupported policy",
-                                  TPMRetryAction::kNoRetry);
-    }
-
-    ASSIGN_OR_RETURN(
-        const ConfigTpm2::PcrValue& pcr_value,
-        backend_.GetConfigTpm2().ToPcrValue(policy.device_config_settings),
-        _.WithStatus<TPMError>("Failed to convert setting to PCR value"));
-
-    pcr_values.push_back(pcr_value);
-  }
-
-  if (version == 0 && !pcr_values.empty()) {
+  if (version == 0 && pcr_criteria.valid_pcr_values_size() != 0) {
     return MakeStatus<TPMError>("PinWeaver Version 0 doesn't support PCR",
                                 TPMRetryAction::kNoRetry);
   }
 
-  trunks::ValidPcrCriteria pcr_criteria;
-  for (const ConfigTpm2::PcrValue& pcr_value : pcr_values) {
-    trunks::ValidPcrValue* new_value = pcr_criteria.add_valid_pcr_values();
-    new_value->set_bitmask(&pcr_value.bitmask, 2);
-    new_value->set_digest(pcr_value.digest);
+  if (version <= 1 && expiration_delay.has_value()) {
+    return MakeStatus<TPMError>(
+        "PinWeaver Version 0/1 doesn't support expiration",
+        TPMRetryAction::kNoRetry);
   }
 
   BackendTpm2::TrunksClientContext& context = backend_.GetTrunksContext();
@@ -224,8 +211,8 @@ StatusOr<PinWeaverTpm2::CredentialTreeResult> PinWeaverTpm2::InsertCredential(
   RETURN_IF_ERROR(
       MakeStatus<TPM2Error>(context.tpm_utility->PinWeaverInsertLeaf(
           version, label, encoded_aux, le_secret, he_secret, reset_secret,
-          delay_schedule, pcr_criteria, /*expiration_delay=*/std::nullopt,
-          &pinweaver_status, &root, &cred_metadata_string, &mac_string)))
+          delay_schedule, pcr_criteria, expiration_delay, &pinweaver_status,
+          &root, &cred_metadata_string, &mac_string)))
       .WithStatus<TPMError>("Failed to insert leaf in pinweaver");
 
   RETURN_IF_ERROR(ErrorCodeToStatus(ConvertPWStatus(pinweaver_status)));
@@ -299,14 +286,20 @@ StatusOr<PinWeaverTpm2::CredentialTreeResult> PinWeaverTpm2::RemoveCredential(
   };
 }
 
-// TODO(b/240207599): Support the |strong_reset| parameter.
 StatusOr<PinWeaverTpm2::CredentialTreeResult> PinWeaverTpm2::ResetCredential(
     const uint64_t label,
     const std::vector<std::vector<uint8_t>>& h_aux,
     const std::vector<uint8_t>& orig_cred_metadata,
-    const brillo::SecureBlob& reset_secret) {
+    const brillo::SecureBlob& reset_secret,
+    bool strong_reset) {
   ASSIGN_OR_RETURN(uint8_t version, GetVersion());
   ASSIGN_OR_RETURN(std::string encoded_aux, EncodeAuxHashes(h_aux));
+
+  if (version <= 1 && strong_reset) {
+    return MakeStatus<TPMError>(
+        "PinWeaver Version 0/1 doesn't support expiration",
+        TPMRetryAction::kNoRetry);
+  }
 
   BackendTpm2::TrunksClientContext& context = backend_.GetTrunksContext();
 
@@ -317,7 +310,7 @@ StatusOr<PinWeaverTpm2::CredentialTreeResult> PinWeaverTpm2::ResetCredential(
 
   RETURN_IF_ERROR(
       MakeStatus<TPM2Error>(context.tpm_utility->PinWeaverResetAuth(
-          version, reset_secret, /*strong_reset=*/false, encoded_aux,
+          version, reset_secret, strong_reset, encoded_aux,
           brillo::BlobToString(orig_cred_metadata), &pinweaver_status, &root,
           &cred_metadata_string, &mac_string)))
       .WithStatus<TPMError>("Failed to reset auth in pinweaver");
@@ -535,6 +528,192 @@ StatusOr<uint32_t> PinWeaverTpm2::GetDelayInSeconds(
   return static_cast<uint32_t>(remaining_seconds);
 }
 
+StatusOr<std::optional<uint32_t>> PinWeaverTpm2::GetExpirationInSeconds(
+    const brillo::Blob& cred_metadata) {
+  ASSIGN_OR_RETURN(uint8_t version, GetVersion());
+  if (version <= 1) {
+    return std::nullopt;
+  }
+  auto status = GetExpirationDelay(cred_metadata);
+  // If an error is returned, the credential is probably created before
+  // expiration is introduced, treat it as having no expiration.
+  // If the expiration delay field is 0, it means there's no expiration.
+  if (!status.ok() || *status == 0) {
+    return std::nullopt;
+  }
+
+  ASSIGN_OR_RETURN(PinWeaverTimestamp expiration_ts,
+                   GetExpirationTimestamp(cred_metadata));
+  ASSIGN_OR_RETURN(PinWeaverTimestamp current_ts, GetSystemTimestamp());
+
+  if (expiration_ts.boot_count != current_ts.boot_count ||
+      expiration_ts.timer_value <= current_ts.timer_value) {
+    return 0;
+  }
+  uint64_t remaining_seconds =
+      std::min(expiration_ts.timer_value - current_ts.timer_value,
+               static_cast<uint64_t>(kInfiniteDelay));
+  return static_cast<uint32_t>(remaining_seconds);
+}
+
+StatusOr<PinWeaverTpm2::PinWeaverEccPoint> PinWeaverTpm2::GeneratePk(
+    uint8_t auth_channel,
+    const PinWeaverTpm2::PinWeaverEccPoint& client_public_key) {
+  ASSIGN_OR_RETURN(uint8_t version, GetVersion());
+  if (version <= 1) {
+    return MakeStatus<TPMError>(
+        "PinWeaver Version 0/1 doesn't support biometrics operations",
+        TPMRetryAction::kNoRetry);
+  }
+
+  if (auth_channel > kMaxAuthChannel) {
+    return MakeStatus<TPMError>("Invalid auth_channel",
+                                TPMRetryAction::kNoRetry);
+  }
+
+  BackendTpm2::TrunksClientContext& context = backend_.GetTrunksContext();
+
+  uint32_t pinweaver_status = 0;
+  std::string root;
+  trunks::PinWeaverEccPoint trunks_client_public_key, trunks_server_public_key;
+  memcpy(trunks_client_public_key.x, client_public_key.x, 32);
+  memcpy(trunks_client_public_key.y, client_public_key.y, 32);
+
+  RETURN_IF_ERROR(MakeStatus<TPM2Error>(
+                      context.tpm_utility->PinWeaverGenerateBiometricsAuthPk(
+                          version, auth_channel, trunks_client_public_key,
+                          &pinweaver_status, &root, &trunks_server_public_key)))
+      .WithStatus<TPMError>("Failed to generate pk in pinweaver");
+
+  RETURN_IF_ERROR(ErrorCodeToStatus(ConvertPWStatus(pinweaver_status)));
+
+  PinWeaverTpm2::PinWeaverEccPoint server_public_key;
+  memcpy(server_public_key.x, trunks_server_public_key.x, 32);
+  memcpy(server_public_key.y, trunks_server_public_key.y, 32);
+
+  return server_public_key;
+}
+
+StatusOr<PinWeaverTpm2::CredentialTreeResult> PinWeaverTpm2::InsertRateLimiter(
+    uint8_t auth_channel,
+    const std::vector<OperationPolicySetting>& policies,
+    const uint64_t label,
+    const std::vector<brillo::Blob>& h_aux,
+    const brillo::SecureBlob& reset_secret,
+    const DelaySchedule& delay_schedule,
+    std::optional<uint32_t> expiration_delay) {
+  ASSIGN_OR_RETURN(uint8_t version, GetVersion());
+  if (version <= 1) {
+    return MakeStatus<TPMError>(
+        "PinWeaver Version 0/1 doesn't support biometrics operations",
+        TPMRetryAction::kNoRetry);
+  }
+
+  if (auth_channel > kMaxAuthChannel) {
+    return MakeStatus<TPMError>("Invalid auth_channel",
+                                TPMRetryAction::kNoRetry);
+  }
+
+  ASSIGN_OR_RETURN(std::string encoded_aux, EncodeAuxHashes(h_aux));
+  ASSIGN_OR_RETURN(trunks::ValidPcrCriteria pcr_criteria,
+                   PolicySettingsToPcrCriteria(policies));
+
+  BackendTpm2::TrunksClientContext& context = backend_.GetTrunksContext();
+
+  uint32_t pinweaver_status = 0;
+  std::string root;
+  std::string cred_metadata_string;
+  std::string mac_string;
+
+  RETURN_IF_ERROR(
+      MakeStatus<TPM2Error>(
+          context.tpm_utility->PinWeaverCreateBiometricsAuthRateLimiter(
+              version, auth_channel, label, encoded_aux, reset_secret,
+              delay_schedule, pcr_criteria, expiration_delay, &pinweaver_status,
+              &root, &cred_metadata_string, &mac_string)))
+      .WithStatus<TPMError>("Failed to insert rate-limiter in pinweaver");
+
+  RETURN_IF_ERROR(ErrorCodeToStatus(ConvertPWStatus(pinweaver_status)));
+
+  return CredentialTreeResult{
+      .error = ErrorCode::kSuccess,
+      .new_root = brillo::BlobFromString(root),
+      .new_cred_metadata = BlobOrNullopt(cred_metadata_string),
+      .new_mac = BlobOrNullopt(mac_string),
+  };
+}
+
+StatusOr<PinWeaverTpm2::CredentialTreeResult>
+PinWeaverTpm2::StartBiometricsAuth(uint8_t auth_channel,
+                                   const uint64_t label,
+                                   const std::vector<brillo::Blob>& h_aux,
+                                   const brillo::Blob& orig_cred_metadata,
+                                   const brillo::SecureBlob& client_nonce) {
+  ASSIGN_OR_RETURN(uint8_t version, GetVersion());
+  if (version <= 1) {
+    return MakeStatus<TPMError>(
+        "PinWeaver Version 0/1 doesn't support biometrics operations",
+        TPMRetryAction::kNoRetry);
+  }
+
+  if (auth_channel > kMaxAuthChannel) {
+    return MakeStatus<TPMError>("Invalid auth_channel",
+                                TPMRetryAction::kNoRetry);
+  }
+
+  ASSIGN_OR_RETURN(std::string encoded_aux, EncodeAuxHashes(h_aux));
+
+  BackendTpm2::TrunksClientContext& context = backend_.GetTrunksContext();
+
+  uint32_t pinweaver_status = 0;
+  std::string root;
+  brillo::SecureBlob server_nonce;
+  brillo::SecureBlob encrypted_he_secret;
+  brillo::SecureBlob iv;
+  std::string cred_metadata_string;
+  std::string mac_string;
+
+  RETURN_IF_ERROR(
+      MakeStatus<TPM2Error>(context.tpm_utility->PinWeaverStartBiometricsAuth(
+          version, auth_channel, client_nonce, encoded_aux,
+          brillo::BlobToString(orig_cred_metadata), &pinweaver_status, &root,
+          &server_nonce, &encrypted_he_secret, &iv, &cred_metadata_string,
+          &mac_string)))
+      .WithStatus<TPMError>("Failed to try auth in pinweaver");
+
+  return CredentialTreeResult{
+      .error = ConvertPWStatus(pinweaver_status),
+      .new_root = brillo::BlobFromString(root),
+      .new_cred_metadata = BlobOrNullopt(cred_metadata_string),
+      .new_mac = BlobOrNullopt(mac_string),
+      .server_nonce = std::move(server_nonce),
+      .iv = std::move(iv),
+      .encrypted_he_secret = std::move(encrypted_he_secret),
+  };
+}
+
+Status PinWeaverTpm2::BlockGeneratePk() {
+  ASSIGN_OR_RETURN(uint8_t version, GetVersion());
+  if (version <= 1) {
+    return MakeStatus<TPMError>(
+        "PinWeaver Version 0/1 doesn't support biometrics operations",
+        TPMRetryAction::kNoRetry);
+  }
+
+  BackendTpm2::TrunksClientContext& context = backend_.GetTrunksContext();
+
+  uint32_t pinweaver_status = 0;
+  std::string root;
+
+  RETURN_IF_ERROR(
+      MakeStatus<TPM2Error>(
+          context.tpm_utility->PinWeaverBlockGenerateBiometricsAuthPk(
+              version, &pinweaver_status, &root)))
+      .WithStatus<TPMError>("Failed to try auth in pinweaver");
+
+  return OkStatus();
+}
+
 StatusOr<PinWeaverTpm2::PinWeaverTimestamp>
 PinWeaverTpm2::GetLastAccessTimestamp(const brillo::Blob& cred_metadata) {
   // The assumption is that leaf_public_data_t structure will have the existing
@@ -601,6 +780,123 @@ PinWeaverTpm2::GetSystemTimestamp() {
   RETURN_IF_ERROR(ErrorCodeToStatus(ConvertPWStatus(pinweaver_status)));
 
   return timestamp;
+}
+
+StatusOr<uint32_t> PinWeaverTpm2::GetExpirationDelay(
+    const brillo::Blob& cred_metadata) {
+  // The assumption is that leaf_public_data_t structure will have the existing
+  // part immutable in the future.
+  if (cred_metadata.size() <
+      offsetof(unimported_leaf_data_t, payload) +
+          offsetof(leaf_public_data_t, expiration_delay_s) +
+          sizeof(std::declval<leaf_public_data_t>().expiration_delay_s)) {
+    return MakeStatus<TPMError>("GetExpirationDelay metadata too short",
+                                TPMRetryAction::kNoRetry);
+  }
+
+  // The below should equal to this:
+  //
+  // reinterpret_cast<struct leaf_public_data_t*>(
+  //   reinterpret_cast<struct unimported_leaf_data_t*>(
+  //     cred_metadata.data()
+  //   )->payload
+  // )->expiration_delay_s.v;
+  //
+  // But we should use memcpy to prevent misaligned accesses and endian issue.
+
+  uint32_t expiration_delay;
+
+  static_assert(sizeof(std::declval<leaf_public_data_t>().expiration_delay_s) ==
+                sizeof(time_diff_t));
+  static_assert(sizeof(std::declval<time_diff_t>().v) ==
+                sizeof(expiration_delay));
+
+  const uint8_t* ptr = cred_metadata.data() +
+                       offsetof(unimported_leaf_data_t, payload) +
+                       offsetof(leaf_public_data_t, expiration_delay_s) +
+                       offsetof(time_diff_t, v);
+
+  memcpy(&expiration_delay, ptr, sizeof(expiration_delay));
+
+  expiration_delay = base::ByteSwapToLE32(expiration_delay);
+
+  return expiration_delay;
+}
+
+StatusOr<PinWeaverTpm2::PinWeaverTimestamp>
+PinWeaverTpm2::GetExpirationTimestamp(const brillo::Blob& cred_metadata) {
+  // The assumption is that leaf_public_data_t structure will have the existing
+  // part immutable in the future.
+  if (cred_metadata.size() <
+      offsetof(unimported_leaf_data_t, payload) +
+          offsetof(leaf_public_data_t, expiration_ts) +
+          sizeof(std::declval<leaf_public_data_t>().expiration_ts)) {
+    return MakeStatus<TPMError>("GetLastAccessTimestamp metadata too short",
+                                TPMRetryAction::kNoRetry);
+  }
+
+  // The below should equal to this:
+  //
+  // reinterpret_cast<struct leaf_public_data_t*>(
+  //   reinterpret_cast<struct unimported_leaf_data_t*>(
+  //     cred_metadata.data()
+  //   )->payload
+  // )->expiration_ts.boot_count/timer_value;
+  //
+  // But we should use memcpy to prevent misaligned accesses and endian issue.
+
+  PinWeaverTpm2::PinWeaverTimestamp timestamp;
+
+  static_assert(sizeof(std::declval<pw_timestamp_t>().boot_count) ==
+                sizeof(timestamp.boot_count));
+  static_assert(sizeof(std::declval<pw_timestamp_t>().timer_value) ==
+                sizeof(timestamp.timer_value));
+
+  const uint8_t* ptr = cred_metadata.data() +
+                       offsetof(unimported_leaf_data_t, payload) +
+                       offsetof(leaf_public_data_t, expiration_ts) +
+                       offsetof(pw_timestamp_t, boot_count);
+
+  memcpy(&timestamp.boot_count, ptr, sizeof(timestamp.boot_count));
+
+  ptr = cred_metadata.data() + offsetof(unimported_leaf_data_t, payload) +
+        offsetof(leaf_public_data_t, expiration_ts) +
+        offsetof(pw_timestamp_t, timer_value);
+
+  memcpy(&timestamp.timer_value, ptr, sizeof(timestamp.timer_value));
+
+  timestamp.boot_count = base::ByteSwapToLE32(timestamp.boot_count);
+  timestamp.timer_value = base::ByteSwapToLE64(timestamp.timer_value);
+
+  return timestamp;
+}
+
+StatusOr<trunks::ValidPcrCriteria> PinWeaverTpm2::PolicySettingsToPcrCriteria(
+    const std::vector<OperationPolicySetting>& policies) {
+  std::vector<ConfigTpm2::PcrValue> pcr_values;
+
+  for (const OperationPolicySetting& policy : policies) {
+    if (policy.permission.auth_value.has_value()) {
+      return MakeStatus<TPMError>("Unsupported policy",
+                                  TPMRetryAction::kNoRetry);
+    }
+
+    ASSIGN_OR_RETURN(
+        const ConfigTpm2::PcrValue& pcr_value,
+        backend_.GetConfigTpm2().ToPcrValue(policy.device_config_settings),
+        _.WithStatus<TPMError>("Failed to convert setting to PCR value"));
+
+    pcr_values.push_back(pcr_value);
+  }
+
+  trunks::ValidPcrCriteria pcr_criteria;
+  for (const ConfigTpm2::PcrValue& pcr_value : pcr_values) {
+    trunks::ValidPcrValue* new_value = pcr_criteria.add_valid_pcr_values();
+    new_value->set_bitmask(&pcr_value.bitmask, 2);
+    new_value->set_digest(pcr_value.digest);
+  }
+
+  return pcr_criteria;
 }
 
 }  // namespace hwsec

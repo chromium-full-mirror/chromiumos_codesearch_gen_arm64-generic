@@ -13,11 +13,7 @@
 
 namespace diagnostics {
 
-namespace {
-
-namespace mojo_ipc = ::chromeos::cros_healthd::mojom;
-
-}  // namespace
+namespace mojo_ipc = ::ash::cros_healthd::mojom;
 
 FakeRoutineService::FakeRoutineService() = default;
 FakeRoutineService::~FakeRoutineService() = default;
@@ -64,25 +60,31 @@ void FakeRoutineService::RunAcPowerRoutine(
 }
 
 void FakeRoutineService::RunCpuCacheRoutine(
-    chromeos::cros_healthd::mojom::NullableUint32Ptr length_seconds,
+    mojo_ipc::NullableUint32Ptr length_seconds,
     RunCpuCacheRoutineCallback callback) {
   NOTIMPLEMENTED();
 }
 
 void FakeRoutineService::RunCpuStressRoutine(
-    chromeos::cros_healthd::mojom::NullableUint32Ptr length_seconds,
+    mojo_ipc::NullableUint32Ptr length_seconds,
     RunCpuStressRoutineCallback callback) {
   NOTIMPLEMENTED();
 }
 
 void FakeRoutineService::RunFloatingPointAccuracyRoutine(
-    chromeos::cros_healthd::mojom::NullableUint32Ptr length_seconds,
+    mojo_ipc::NullableUint32Ptr length_seconds,
     RunFloatingPointAccuracyRoutineCallback callback) {
   NOTIMPLEMENTED();
 }
 
-void FakeRoutineService::RunNvmeWearLevelRoutine(
+void FakeRoutineService::DEPRECATED_RunNvmeWearLevelRoutine(
     uint32_t wear_level_threshold, RunNvmeWearLevelRoutineCallback callback) {
+  NOTIMPLEMENTED();
+}
+
+void FakeRoutineService::RunNvmeWearLevelRoutine(
+    ash::cros_healthd::mojom::NullableUint32Ptr wear_level_threshold,
+    RunNvmeWearLevelRoutineCallback callback) {
   NOTIMPLEMENTED();
 }
 
@@ -101,7 +103,7 @@ void FakeRoutineService::RunDiskReadRoutine(
 }
 
 void FakeRoutineService::RunPrimeSearchRoutine(
-    chromeos::cros_healthd::mojom::NullableUint32Ptr length_seconds,
+    mojo_ipc::NullableUint32Ptr length_seconds,
     RunPrimeSearchRoutineCallback callback) {
   NOTIMPLEMENTED();
 }
@@ -195,6 +197,21 @@ void FakeRoutineService::RunArcPingRoutine(RunArcPingRoutineCallback callback) {
 
 void FakeRoutineService::RunArcDnsResolutionRoutine(
     RunArcDnsResolutionRoutineCallback callback) {
+  NOTIMPLEMENTED();
+}
+
+void FakeRoutineService::RunSensitiveSensorRoutine(
+    RunSensitiveSensorRoutineCallback callback) {
+  NOTIMPLEMENTED();
+}
+
+void FakeRoutineService::RunFingerprintRoutine(
+    RunFingerprintRoutineCallback callback) {
+  NOTIMPLEMENTED();
+}
+
+void FakeRoutineService::RunFingerprintAliveRoutine(
+    RunFingerprintAliveRoutineCallback callback) {
   NOTIMPLEMENTED();
 }
 

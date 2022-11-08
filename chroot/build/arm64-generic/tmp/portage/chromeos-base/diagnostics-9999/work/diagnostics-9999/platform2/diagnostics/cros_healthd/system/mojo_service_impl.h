@@ -5,6 +5,7 @@
 #ifndef DIAGNOSTICS_CROS_HEALTHD_SYSTEM_MOJO_SERVICE_IMPL_H_
 #define DIAGNOSTICS_CROS_HEALTHD_SYSTEM_MOJO_SERVICE_IMPL_H_
 
+#include <map>
 #include <memory>
 #include <string>
 
@@ -39,13 +40,14 @@ class MojoServiceImpl : public MojoService {
   // MojoService overrides.
   chromeos::mojo_service_manager::mojom::ServiceManager* GetServiceManager()
       override;
-  chromeos::cros_healthd::internal::mojom::ChromiumDataCollector*
+  ash::cros_healthd::internal::mojom::ChromiumDataCollector*
   GetChromiumDataCollector() override;
   chromeos::network_health::mojom::NetworkHealthService* GetNetworkHealth()
       override;
   chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines*
   GetNetworkDiagnosticsRoutines() override;
   cros::mojom::SensorService* GetSensorService() override;
+  cros::mojom::SensorDevice* GetSensorDevice(int32_t device_id) override;
 
  protected:
   MojoServiceImpl();
@@ -53,15 +55,16 @@ class MojoServiceImpl : public MojoService {
                   NetworkDiagnosticsAdapter* network_diagnostics_adapter);
 
   // Getters for subclass to modify the value.
-  mojo::Remote<chromeos::cros_healthd::internal::mojom::ChromiumDataCollector>&
+  mojo::Remote<ash::cros_healthd::internal::mojom::ChromiumDataCollector>&
   chromium_data_collector() {
     return chromium_data_collector_;
   }
-
-  // Getters for subclass to modify the value.
   mojo::Remote<chromeos::mojo_service_manager::mojom::ServiceManager>&
   service_manager() {
     return service_manager_;
+  }
+  mojo::Remote<cros::mojom::SensorService>& sensor_service() {
+    return sensor_service_;
   }
 
  private:
@@ -87,16 +90,20 @@ class MojoServiceImpl : public MojoService {
                            uint32_t error,
                            const std::string& message);
 
+  // Bind the sensor device if it is not bound.
+  void BindSensorDeviceRemoteIfNeeded(int32_t device_id);
+
   // Mojo remotes or adaptors to access mojo interfaces.
   mojo::Remote<chromeos::mojo_service_manager::mojom::ServiceManager>
       service_manager_;
-  mojo::Remote<chromeos::cros_healthd::internal::mojom::ChromiumDataCollector>
+  mojo::Remote<ash::cros_healthd::internal::mojom::ChromiumDataCollector>
       chromium_data_collector_;
   mojo::Remote<chromeos::network_health::mojom::NetworkHealthService>
       network_health_;
   mojo::Remote<chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines>
       network_diagnostics_routines_;
   mojo::Remote<cros::mojom::SensorService> sensor_service_;
+  std::map<int32_t, mojo::Remote<cros::mojom::SensorDevice>> sensor_devices_;
 
   // Network adapters. TODO(b/237239654): Remove this after migration.
   NetworkHealthAdapter* const network_health_adapter_;

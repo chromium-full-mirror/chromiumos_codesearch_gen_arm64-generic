@@ -9,7 +9,6 @@
 
 #include <base/memory/scoped_refptr.h>
 #include <brillo/errors/error.h>
-#include <chromeos/dbus/service_constants.h>
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
@@ -21,7 +20,7 @@
 namespace diagnostics {
 namespace {
 
-using ::chromeos::cros_healthd::mojom::ErrorType;
+using ::ash::cros_healthd::mojom::ErrorType;
 using ::testing::_;
 using ::testing::DoAll;
 using ::testing::Invoke;

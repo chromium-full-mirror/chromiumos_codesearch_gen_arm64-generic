@@ -10,6 +10,7 @@
 #include <vector>
 
 #include <brillo/secure_blob.h>
+#include <trunks/tpm_utility.h>
 
 #include "libhwsec/backend/backend.h"
 #include "libhwsec/status.h"
@@ -33,7 +34,8 @@ class PinWeaverTpm2 : public Backend::PinWeaver,
       const brillo::SecureBlob& le_secret,
       const brillo::SecureBlob& he_secret,
       const brillo::SecureBlob& reset_secret,
-      const DelaySchedule& delay_schedule) override;
+      const DelaySchedule& delay_schedule,
+      std::optional<uint32_t> expiration_delay) override;
   StatusOr<CredentialTreeResult> CheckCredential(
       const uint64_t label,
       const std::vector<brillo::Blob>& h_aux,
@@ -47,7 +49,8 @@ class PinWeaverTpm2 : public Backend::PinWeaver,
       const uint64_t label,
       const std::vector<std::vector<uint8_t>>& h_aux,
       const std::vector<uint8_t>& orig_cred_metadata,
-      const brillo::SecureBlob& reset_secret) override;
+      const brillo::SecureBlob& reset_secret,
+      bool strong_reset) override;
   StatusOr<GetLogResult> GetLog(
       const std::vector<uint8_t>& cur_disk_root_hash) override;
   StatusOr<ReplayLogOperationResult> ReplayLogOperation(
@@ -60,11 +63,37 @@ class PinWeaverTpm2 : public Backend::PinWeaver,
       const brillo::Blob& cred_metadata) override;
   StatusOr<uint32_t> GetDelayInSeconds(
       const brillo::Blob& cred_metadata) override;
+  StatusOr<std::optional<uint32_t>> GetExpirationInSeconds(
+      const brillo::Blob& cred_metadata) override;
+  StatusOr<PinWeaverEccPoint> GeneratePk(
+      uint8_t auth_channel,
+      const PinWeaverEccPoint& client_public_key) override;
+  StatusOr<CredentialTreeResult> InsertRateLimiter(
+      uint8_t auth_channel,
+      const std::vector<OperationPolicySetting>& policies,
+      const uint64_t label,
+      const std::vector<brillo::Blob>& h_aux,
+      const brillo::SecureBlob& reset_secret,
+      const DelaySchedule& delay_schedule,
+      std::optional<uint32_t> expiration_delay) override;
+  StatusOr<CredentialTreeResult> StartBiometricsAuth(
+      uint8_t auth_channel,
+      const uint64_t label,
+      const std::vector<brillo::Blob>& h_aux,
+      const brillo::Blob& orig_cred_metadata,
+      const brillo::SecureBlob& client_nonce) override;
+  Status BlockGeneratePk() override;
+
+ private:
   StatusOr<PinWeaverTimestamp> GetLastAccessTimestamp(
       const brillo::Blob& cred_metadata);
   StatusOr<PinWeaverTimestamp> GetSystemTimestamp();
+  StatusOr<uint32_t> GetExpirationDelay(const brillo::Blob& cred_metadata);
+  StatusOr<PinWeaverTimestamp> GetExpirationTimestamp(
+      const brillo::Blob& cred_metadata);
+  StatusOr<trunks::ValidPcrCriteria> PolicySettingsToPcrCriteria(
+      const std::vector<OperationPolicySetting>& policies);
 
- private:
   // The protocol version used by pinweaver.
   std::optional<uint8_t> protocol_version_;
 };

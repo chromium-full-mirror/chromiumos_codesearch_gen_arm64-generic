@@ -85,7 +85,6 @@ AuthFactorType VaultKeysetTypeToAuthFactorType(int32_t vk_flags,
     case AuthBlockType::kDoubleWrappedCompat:
     case AuthBlockType::kTpmBoundToPcr:
     case AuthBlockType::kTpmNotBoundToPcr:
-    case AuthBlockType::kLibScryptCompat:
     case AuthBlockType::kTpmEcc:
     case AuthBlockType::kScrypt:
       return AuthFactorType::kPassword;
@@ -93,7 +92,7 @@ AuthFactorType VaultKeysetTypeToAuthFactorType(int32_t vk_flags,
       return AuthFactorType::kPin;
     case AuthBlockType::kChallengeCredential:
       return AuthFactorType::kSmartCard;
-    case AuthBlockType::kCryptohomeRecovery:   // Never reported by a VK.
+    case AuthBlockType::kCryptohomeRecovery:  // Never reported by a VK.
     case AuthBlockType::kMaxValue:
       return AuthFactorType::kUnspecified;
   }
@@ -153,11 +152,15 @@ AuthFactorVaultKeysetConverter::VaultKeysetToAuthFactor(
 }
 
 user_data_auth::CryptohomeErrorCode
-AuthFactorVaultKeysetConverter::VaultKeysetsToAuthFactors(
+AuthFactorVaultKeysetConverter::VaultKeysetsToAuthFactorsAndKeyLabelData(
     const std::string& username,
     std::map<std::string, std::unique_ptr<AuthFactor>>&
-        out_label_to_auth_factor) {
-  out_label_to_auth_factor.clear();
+        out_label_to_auth_factor,
+    std::map<std::string, std::unique_ptr<AuthFactor>>&
+        out_label_to_auth_factor_backup_vks,
+    std::map<std::string, KeyData>* out_key_label_data) {
+  DCHECK(out_label_to_auth_factor.empty());
+  DCHECK(out_label_to_auth_factor_backup_vks.empty());
 
   std::string obfuscated_username =
       brillo::cryptohome::home::SanitizeUserName(username);
@@ -174,15 +177,36 @@ AuthFactorVaultKeysetConverter::VaultKeysetsToAuthFactors(
     if (!vk) {
       continue;
     }
+
     std::unique_ptr<AuthFactor> auth_factor = ConvertToAuthFactor(*vk.get());
-    if (auth_factor) {
+    if (!auth_factor) {
+      continue;
+    }
+
+    if (!vk->IsForBackup()) {
       out_label_to_auth_factor.emplace(vk->GetLabel(), std::move(auth_factor));
+
+      if (out_key_label_data) {
+        if (out_key_label_data->find(vk->GetLabel()) !=
+            out_key_label_data->end()) {
+          // This is a confirmation check, we do not expect to hit this.
+          LOG(ERROR) << "Found a duplicate label, skipping it: "
+                     << vk->GetLabel();
+          continue;
+        }
+        out_key_label_data->emplace(
+            std::make_pair(vk->GetLabel(), vk->GetKeyDataOrDefault()));
+      }
+    } else {
+      out_label_to_auth_factor_backup_vks.emplace(vk->GetLabel(),
+                                                  std::move(auth_factor));
     }
   }
 
   // Differentiate between no vault keyset case and vault keysets on the disk
   // but unable to be loaded case.
-  if (out_label_to_auth_factor.empty()) {
+  if (out_label_to_auth_factor.empty() &&
+      out_label_to_auth_factor_backup_vks.empty()) {
     return user_data_auth::CRYPTOHOME_ERROR_BACKING_STORE_FAILURE;
   }
 
@@ -244,6 +268,9 @@ AuthFactorVaultKeysetConverter::AuthFactorToKeyData(
       challenge_key->set_public_key_spki_der(public_key_string);
       return user_data_auth::CRYPTOHOME_ERROR_NOT_SET;
     }
+    case AuthFactorType::kLegacyFingerprint:
+      LOG(ERROR) << "Verify-only fingerprints do not have key data";
+      return user_data_auth::CRYPTOHOME_ERROR_NOT_IMPLEMENTED;
     case AuthFactorType::kUnspecified:
       LOG(ERROR) << "Unimplemented AuthFactorType.";
       return user_data_auth::CRYPTOHOME_ERROR_NOT_IMPLEMENTED;

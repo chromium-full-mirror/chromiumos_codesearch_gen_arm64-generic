@@ -26,7 +26,6 @@
 #include "cryptohome/auth_blocks/challenge_credential_auth_block.h"
 #include "cryptohome/auth_blocks/cryptohome_recovery_auth_block.h"
 #include "cryptohome/auth_blocks/double_wrapped_compat_auth_block.h"
-#include "cryptohome/auth_blocks/libscrypt_compat_auth_block.h"
 #include "cryptohome/auth_blocks/pin_weaver_auth_block.h"
 #include "cryptohome/auth_blocks/scrypt_auth_block.h"
 #include "cryptohome/auth_blocks/sync_to_async_auth_block_adapter.h"
@@ -42,13 +41,16 @@
 #include "cryptohome/cryptorecovery/recovery_crypto_hsm_cbor_serialization.h"
 #include "cryptohome/cryptorecovery/recovery_crypto_impl.h"
 #include "cryptohome/cryptorecovery/recovery_crypto_util.h"
+#include "cryptohome/error/cryptohome_error.h"
 #include "cryptohome/error/location_utils.h"
 #include "cryptohome/flatbuffer_schemas/auth_block_state.h"
 #include "cryptohome/key_objects.h"
 #include "cryptohome/keyset_management.h"
+#include "cryptohome/scrypt_verifier.h"
 #include "cryptohome/vault_keyset.h"
 
 using cryptohome::error::CryptohomeCryptoError;
+using cryptohome::error::CryptohomeError;
 using cryptohome::error::ErrorAction;
 using cryptohome::error::ErrorActionSet;
 using hwsec_foundation::status::MakeStatus;
@@ -57,14 +59,15 @@ using hwsec_foundation::status::StatusChain;
 
 namespace cryptohome {
 
-AuthBlockUtilityImpl::AuthBlockUtilityImpl(KeysetManagement* keyset_management,
-                                           Crypto* crypto,
-                                           Platform* platform)
+AuthBlockUtilityImpl::AuthBlockUtilityImpl(
+    KeysetManagement* keyset_management,
+    Crypto* crypto,
+    Platform* platform,
+    std::unique_ptr<FingerprintAuthBlockService> fp_service)
     : keyset_management_(keyset_management),
       crypto_(crypto),
       platform_(platform),
-      challenge_credentials_helper_(nullptr),
-      key_challenge_service_(nullptr) {
+      fp_service_(std::move(fp_service)) {
   DCHECK(keyset_management);
   DCHECK(crypto_);
   DCHECK(platform_);
@@ -108,8 +111,162 @@ bool AuthBlockUtilityImpl::IsAuthFactorSupported(
       hwsec::StatusOr<bool> is_ready = crypto_->GetHwsec()->IsReady();
       return is_ready.ok() && is_ready.value();
     }
+    case AuthFactorType::kLegacyFingerprint:
+      return false;
     case AuthFactorType::kUnspecified:
       return false;
+  }
+}
+
+bool AuthBlockUtilityImpl::IsPrepareAuthFactorRequired(
+    AuthFactorType auth_factor_type) const {
+  switch (auth_factor_type) {
+    case AuthFactorType::kLegacyFingerprint:
+      return true;
+    case AuthFactorType::kPassword:
+    case AuthFactorType::kPin:
+    case AuthFactorType::kCryptohomeRecovery:
+    case AuthFactorType::kKiosk:
+    case AuthFactorType::kSmartCard:
+    case AuthFactorType::kUnspecified:
+      return false;
+  }
+}
+
+bool AuthBlockUtilityImpl::IsVerifyWithAuthFactorSupported(
+    AuthIntent auth_intent, AuthFactorType auth_factor_type) const {
+  // Legacy Fingerprint + WebAuthn is a special case that supports a lightweight
+  // verify.
+  if (auth_intent == AuthIntent::kWebAuthn &&
+      auth_factor_type == AuthFactorType::kLegacyFingerprint) {
+    return true;
+  }
+  // Verify can only be used with verify-only intents, other than the above
+  // special cases.
+  if (auth_intent != AuthIntent::kVerifyOnly) {
+    return false;
+  }
+  switch (auth_factor_type) {
+    case AuthFactorType::kPassword:
+    case AuthFactorType::kLegacyFingerprint:
+      return true;
+    case AuthFactorType::kPin:
+    case AuthFactorType::kCryptohomeRecovery:
+    case AuthFactorType::kKiosk:
+    case AuthFactorType::kSmartCard:
+    case AuthFactorType::kUnspecified:
+      return false;
+  }
+}
+
+std::unique_ptr<CredentialVerifier>
+AuthBlockUtilityImpl::CreateCredentialVerifier(
+    AuthFactorType auth_factor_type,
+    const std::string& auth_factor_label,
+    const AuthInput& auth_input) const {
+  std::unique_ptr<CredentialVerifier> verifier;
+  switch (auth_factor_type) {
+    case AuthFactorType::kPassword: {
+      if (!auth_input.user_input.has_value()) {
+        LOG(ERROR) << "Cannot construct a password verifier without a password";
+        return nullptr;
+      }
+      verifier =
+          ScryptVerifier::Create(auth_factor_label, *auth_input.user_input);
+      if (!verifier) {
+        LOG(ERROR) << "Credential verifier initialization failed.";
+        return nullptr;
+      }
+      break;
+    }
+    case AuthFactorType::kLegacyFingerprint:
+      if (!auth_factor_label.empty()) {
+        LOG(ERROR) << "Legacy fingerprint verifiers cannot use labels";
+        return nullptr;
+      }
+      if (!fp_service_) {
+        LOG(ERROR) << "Cannot construct a legacy fingerprint verifier, "
+                      "FP service not available";
+        return nullptr;
+      }
+      verifier = std::make_unique<FingerprintVerifier>(fp_service_.get());
+      break;
+    case AuthFactorType::kPin:
+    case AuthFactorType::kCryptohomeRecovery:
+    case AuthFactorType::kKiosk:
+    case AuthFactorType::kSmartCard:
+    case AuthFactorType::kUnspecified: {
+      return nullptr;
+    }
+  }
+
+  DCHECK_EQ(verifier->auth_factor_label(), auth_factor_label);
+  DCHECK_EQ(verifier->auth_factor_type(), auth_factor_type);
+  return verifier;
+}
+
+void AuthBlockUtilityImpl::PrepareAuthFactorForAuth(
+    AuthFactorType auth_factor_type,
+    const std::string& username,
+    CryptohomeStatusCallback callback) {
+  switch (auth_factor_type) {
+    case AuthFactorType::kLegacyFingerprint: {
+      fp_service_->Start(username, std::move(callback));
+      return;
+    }
+    case AuthFactorType::kPassword:
+    case AuthFactorType::kPin:
+    case AuthFactorType::kCryptohomeRecovery:
+    case AuthFactorType::kKiosk:
+    case AuthFactorType::kSmartCard:
+    case AuthFactorType::kUnspecified: {
+      // These factors do not require Prepare.
+      CryptohomeStatus status = MakeStatus<CryptohomeError>(
+          CRYPTOHOME_ERR_LOC(kLocAuthBlockUtilPrepareInvalidAuthFactorType),
+          ErrorActionSet(
+              {ErrorAction::kDevCheckUnexpectedState, ErrorAction::kAuth}),
+          user_data_auth::CryptohomeErrorCode::
+              CRYPTOHOME_ERROR_INVALID_ARGUMENT);
+      std::move(callback).Run(std::move(status));
+      return;
+    }
+  }
+}
+
+void AuthBlockUtilityImpl::PrepareAuthFactorForAdd(
+    AuthFactorType auth_factor_type,
+    const std::string& username,
+    CryptohomeStatusCallback callback) {
+  // Not implemented for now.
+  CryptohomeStatus status = MakeStatus<CryptohomeError>(
+      CRYPTOHOME_ERR_LOC(kLocAuthBlockUtilUnimplementedPrepareForAdd),
+      ErrorActionSet(
+          {ErrorAction::kDevCheckUnexpectedState, ErrorAction::kAuth}),
+      user_data_auth::CryptohomeErrorCode::CRYPTOHOME_ERROR_NOT_IMPLEMENTED);
+  std::move(callback).Run(std::move(status));
+}
+
+CryptohomeStatus AuthBlockUtilityImpl::TerminateAuthFactor(
+    AuthFactorType auth_factor_type) {
+  switch (auth_factor_type) {
+    case AuthFactorType::kLegacyFingerprint: {
+      fp_service_->Terminate();
+      return OkStatus<CryptohomeError>();
+    }
+    case AuthFactorType::kPassword:
+    case AuthFactorType::kPin:
+    case AuthFactorType::kCryptohomeRecovery:
+    case AuthFactorType::kKiosk:
+    case AuthFactorType::kSmartCard:
+    case AuthFactorType::kUnspecified: {
+      // These factors do not support Terminate.
+      return MakeStatus<CryptohomeError>(
+          CRYPTOHOME_ERR_LOC(kLocAuthBlockUtilTerminateInvalidAuthFactorType),
+          ErrorActionSet(
+              {ErrorAction::kDevCheckUnexpectedState, ErrorAction::kAuth}),
+          user_data_auth::CryptohomeErrorCode::
+              CRYPTOHOME_ERROR_INVALID_ARGUMENT);
+    }
   }
 }
 
@@ -135,6 +292,7 @@ CryptoStatus AuthBlockUtilityImpl::CreateKeyBlobsWithAuthBlock(
   AuthInput user_input = {
       credentials.passkey(),
       /*locked_to_single_user*=*/std::nullopt,
+      /*username=*/credentials.username(),
       brillo::cryptohome::home::SanitizeUserName(credentials.username()),
       reset_secret};
 
@@ -148,9 +306,6 @@ CryptoStatus AuthBlockUtilityImpl::CreateKeyBlobsWithAuthBlock(
         .Wrap(std::move(error));
   }
 
-  ReportWrappingKeyDerivationType(auth_block.value()->derivation_type(),
-                                  CryptohomePhase::kCreated);
-
   return OkStatus<CryptohomeCryptoError>();
 }
 
@@ -159,7 +314,7 @@ bool AuthBlockUtilityImpl::CreateKeyBlobsWithAuthBlockAsync(
     const AuthInput& auth_input,
     AuthBlock::CreateCallback create_callback) {
   CryptoStatusOr<std::unique_ptr<AuthBlock>> auth_block =
-      GetAsyncAuthBlockWithType(auth_block_type);
+      GetAsyncAuthBlockWithType(auth_block_type, auth_input);
   if (!auth_block.ok()) {
     LOG(ERROR) << "Failed to retrieve auth block.";
     std::move(create_callback)
@@ -171,11 +326,6 @@ bool AuthBlockUtilityImpl::CreateKeyBlobsWithAuthBlockAsync(
     return false;
   }
   ReportCreateAuthBlock(auth_block_type);
-
-  // TODO(b/225001347): Move this report to the caller. Here this is always
-  // reported independent of the error status.
-  ReportWrappingKeyDerivationType(auth_block.value()->derivation_type(),
-                                  CryptohomePhase::kCreated);
 
   // This lambda functions to keep the auth_block reference valid until
   // the results are returned through create_callback.
@@ -218,8 +368,6 @@ CryptoStatus AuthBlockUtilityImpl::DeriveKeyBlobsWithAuthBlock(
   CryptoStatus error =
       auth_block.value()->Derive(auth_input, auth_state, &out_key_blobs);
   if (error.ok()) {
-    ReportWrappingKeyDerivationType(auth_block.value()->derivation_type(),
-                                    CryptohomePhase::kMounted);
     return OkStatus<CryptohomeCryptoError>();
   }
   LOG(ERROR) << "Failed to derive per credential secret: " << error;
@@ -262,7 +410,7 @@ bool AuthBlockUtilityImpl::DeriveKeyBlobsWithAuthBlockAsync(
   DCHECK_NE(auth_block_type, AuthBlockType::kMaxValue);
 
   CryptoStatusOr<std::unique_ptr<AuthBlock>> auth_block =
-      GetAsyncAuthBlockWithType(auth_block_type);
+      GetAsyncAuthBlockWithType(auth_block_type, auth_input);
   if (!auth_block.ok()) {
     LOG(ERROR) << "Failed to retrieve auth block.";
     std::move(derive_callback)
@@ -293,8 +441,7 @@ bool AuthBlockUtilityImpl::DeriveKeyBlobsWithAuthBlockAsync(
 AuthBlockType AuthBlockUtilityImpl::GetAuthBlockTypeForCreation(
     const bool is_le_credential,
     const bool is_recovery,
-    const bool is_challenge_credential,
-    const AuthFactorStorageType auth_factor_storage_type) const {
+    const bool is_challenge_credential) const {
   DCHECK_LE(is_le_credential + is_recovery + is_challenge_credential, 1);
   if (is_le_credential) {
     return AuthBlockType::kPinWeaver;
@@ -328,9 +475,7 @@ AuthBlockType AuthBlockUtilityImpl::GetAuthBlockTypeForCreation(
   }
 
   if (USE_TPM_INSECURE_FALLBACK) {
-    return auth_factor_storage_type == AuthFactorStorageType::kUserSecretStash
-               ? AuthBlockType::kScrypt
-               : AuthBlockType::kLibScryptCompat;
+    return AuthBlockType::kScrypt;
   }
 
   LOG(WARNING) << "No available auth block for creation.";
@@ -342,6 +487,14 @@ AuthBlockUtilityImpl::GetAuthBlockWithType(
     const AuthBlockType& auth_block_type) const {
   switch (auth_block_type) {
     case AuthBlockType::kPinWeaver:
+      if (!crypto_->le_manager() || !crypto_->cryptohome_keys_manager()) {
+        return MakeStatus<CryptohomeCryptoError>(
+            CRYPTOHOME_ERR_LOC(
+                kLocAuthBlockUtilNullLeManagerInGetAuthBlockWithType),
+            ErrorActionSet(
+                {ErrorAction::kDevCheckUnexpectedState, ErrorAction::kAuth}),
+            CryptoError::CE_OTHER_CRYPTO);
+      }
       return std::make_unique<PinWeaverAuthBlock>(
           crypto_->le_manager(), crypto_->cryptohome_keys_manager());
 
@@ -364,16 +517,13 @@ AuthBlockUtilityImpl::GetAuthBlockWithType(
       return std::make_unique<TpmNotBoundToPcrAuthBlock>(
           crypto_->GetHwsec(), crypto_->cryptohome_keys_manager());
 
-    case AuthBlockType::kLibScryptCompat:
-      return std::make_unique<LibScryptCompatAuthBlock>();
+    case AuthBlockType::kScrypt:
+      return std::make_unique<ScryptAuthBlock>();
 
     case AuthBlockType::kCryptohomeRecovery:
       return std::make_unique<CryptohomeRecoveryAuthBlock>(
           crypto_->GetHwsec(), crypto_->GetRecoveryCrypto(),
           crypto_->le_manager(), platform_);
-
-    case AuthBlockType::kScrypt:
-      return std::make_unique<ScryptAuthBlock>();
 
     case AuthBlockType::kMaxValue:
       LOG(ERROR) << "Unsupported AuthBlockType.";
@@ -395,7 +545,7 @@ AuthBlockUtilityImpl::GetAuthBlockWithType(
 
 CryptoStatusOr<std::unique_ptr<AuthBlock>>
 AuthBlockUtilityImpl::GetAsyncAuthBlockWithType(
-    const AuthBlockType& auth_block_type) {
+    const AuthBlockType& auth_block_type, const AuthInput& auth_input) {
   switch (auth_block_type) {
     case AuthBlockType::kPinWeaver:
       return std::make_unique<SyncToAsyncAuthBlockAdapter>(
@@ -403,10 +553,12 @@ AuthBlockUtilityImpl::GetAsyncAuthBlockWithType(
               crypto_->le_manager(), crypto_->cryptohome_keys_manager()));
 
     case AuthBlockType::kChallengeCredential:
-      if (IsChallengeCredentialReady()) {
+      if (IsChallengeCredentialReady(auth_input)) {
+        auto key_challenge_service = key_challenge_service_factory_->New(
+            auth_input.challenge_credential_auth_input->dbus_service_name);
         return std::make_unique<AsyncChallengeCredentialAuthBlock>(
-            challenge_credentials_helper_, std::move(key_challenge_service_),
-            username_.value());
+            challenge_credentials_helper_, std::move(key_challenge_service),
+            auth_input.username);
       }
       LOG(ERROR) << "No valid ChallengeCredentialsHelper, "
                     "KeyChallengeService, or account id in AuthBlockUtility";
@@ -437,10 +589,6 @@ AuthBlockUtilityImpl::GetAsyncAuthBlockWithType(
           std::make_unique<TpmNotBoundToPcrAuthBlock>(
               crypto_->GetHwsec(), crypto_->cryptohome_keys_manager()));
 
-    case AuthBlockType::kLibScryptCompat:
-      return std::make_unique<SyncToAsyncAuthBlockAdapter>(
-          std::make_unique<LibScryptCompatAuthBlock>());
-
     case AuthBlockType::kScrypt:
       return std::make_unique<SyncToAsyncAuthBlockAdapter>(
           std::make_unique<ScryptAuthBlock>());
@@ -468,26 +616,30 @@ AuthBlockUtilityImpl::GetAsyncAuthBlockWithType(
       CryptoError::CE_OTHER_CRYPTO);
 }
 
-void AuthBlockUtilityImpl::SetSingleUseKeyChallengeService(
-    std::unique_ptr<KeyChallengeService> key_challenge_service,
-    const std::string& username) {
-  key_challenge_service_ = std::move(key_challenge_service);
-  username_ = username;
-}
-
-void AuthBlockUtilityImpl::InitializeForChallengeCredentials(
-    ChallengeCredentialsHelper* challenge_credentials_helper) {
+void AuthBlockUtilityImpl::InitializeChallengeCredentialsHelper(
+    ChallengeCredentialsHelper* challenge_credentials_helper,
+    KeyChallengeServiceFactory* key_challenge_service_factory) {
   if (!challenge_credentials_helper_) {
     challenge_credentials_helper_ = challenge_credentials_helper;
   } else {
-    LOG(WARNING) << "challenge_credentials_helper already initialized in "
+    LOG(WARNING) << "ChallengeCredentialsHelper already initialized in "
+                    "AuthBlockUtility.";
+  }
+  if (!key_challenge_service_factory_) {
+    key_challenge_service_factory_ = key_challenge_service_factory;
+  } else {
+    LOG(WARNING) << "KeyChallengeServiceFactory already initialized in "
                     "AuthBlockUtility.";
   }
 }
 
-bool AuthBlockUtilityImpl::IsChallengeCredentialReady() const {
-  return (key_challenge_service_ && challenge_credentials_helper_ &&
-          username_.has_value());
+bool AuthBlockUtilityImpl::IsChallengeCredentialReady(
+    const AuthInput& auth_input) const {
+  return (
+      challenge_credentials_helper_ != nullptr &&
+      key_challenge_service_factory_ != nullptr &&
+      auth_input.challenge_credential_auth_input &&
+      !auth_input.challenge_credential_auth_input->dbus_service_name.empty());
 }
 
 bool AuthBlockUtilityImpl::GetAuthBlockStateFromVaultKeyset(
@@ -519,9 +671,9 @@ void AuthBlockUtilityImpl::AssignAuthBlockStateToVaultKeyset(
   } else if (const auto* state =
                  std::get_if<PinWeaverAuthBlockState>(&auth_state.state)) {
     vault_keyset.SetPinWeaverState(*state);
-  } else if (const auto* state = std::get_if<LibScryptCompatAuthBlockState>(
-                 &auth_state.state)) {
-    vault_keyset.SetLibScryptCompatState(*state);
+  } else if (const auto* state =
+                 std::get_if<ScryptAuthBlockState>(&auth_state.state)) {
+    vault_keyset.SetScryptState(*state);
   } else if (const auto* state = std::get_if<ChallengeCredentialAuthBlockState>(
                  &auth_state.state)) {
     vault_keyset.SetChallengeCredentialState(*state);
@@ -546,9 +698,9 @@ AuthBlockType AuthBlockUtilityImpl::GetAuthBlockTypeFromState(
   } else if (const auto* state = std::get_if<PinWeaverAuthBlockState>(
                  &auth_block_state.state)) {
     auth_block_type = AuthBlockType::kPinWeaver;
-  } else if (const auto* state = std::get_if<LibScryptCompatAuthBlockState>(
-                 &auth_block_state.state)) {
-    auth_block_type = AuthBlockType::kLibScryptCompat;
+  } else if (const auto* state =
+                 std::get_if<ScryptAuthBlockState>(&auth_block_state.state)) {
+    auth_block_type = AuthBlockType::kScrypt;
   } else if (const auto* state =
                  std::get_if<TpmEccAuthBlockState>(&auth_block_state.state)) {
     auth_block_type = AuthBlockType::kTpmEcc;
@@ -558,12 +710,56 @@ AuthBlockType AuthBlockUtilityImpl::GetAuthBlockTypeFromState(
   } else if (const auto& state = std::get_if<CryptohomeRecoveryAuthBlockState>(
                  &auth_block_state.state)) {
     auth_block_type = AuthBlockType::kCryptohomeRecovery;
-  } else if (const auto* state =
-                 std::get_if<ScryptAuthBlockState>(&auth_block_state.state)) {
-    auth_block_type = AuthBlockType::kScrypt;
   }
 
   return auth_block_type;
+}
+
+base::flat_set<AuthIntent> AuthBlockUtilityImpl::GetSupportedIntentsFromState(
+    const AuthBlockState& auth_block_state) const {
+  // The supported intents. Defaults to all of them.
+  base::flat_set<AuthIntent> supported_intents = {
+      AuthIntent::kDecrypt, AuthIntent::kVerifyOnly, AuthIntent::kWebAuthn};
+
+  AuthBlockType auth_block_type = GetAuthBlockTypeFromState(auth_block_state);
+
+  // Non-Pinweaver based AuthFactors are assumed to support all AuthIntents by
+  // default.
+  if (auth_block_type != AuthBlockType::kPinWeaver) {
+    return supported_intents;
+  }
+
+  auto* state = std::get_if<::cryptohome::PinWeaverAuthBlockState>(
+      &auth_block_state.state);
+  if (!state) {
+    supported_intents.clear();
+    return supported_intents;
+  }
+  // Ensure that the AuthFactor has le_label.
+  if (!state->le_label.has_value()) {
+    LOG(ERROR) << "PinWeaver AuthBlockState does not have le_label";
+    supported_intents.clear();
+    return supported_intents;
+  }
+  // Check with PinWeaver and fill the appropriate value.
+  if (!crypto_->le_manager()) {
+    LOG(ERROR) << "Crypto object does not have a valid LE manager";
+    supported_intents.clear();
+    return supported_intents;
+  }
+  if (!crypto_->cryptohome_keys_manager()) {
+    LOG(ERROR) << "Crypto object does not have a valid keys manager";
+    supported_intents.clear();
+    return supported_intents;
+  }
+
+  PinWeaverAuthBlock pinweaver_auth_block = PinWeaverAuthBlock(
+      crypto_->le_manager(), crypto_->cryptohome_keys_manager());
+  if (pinweaver_auth_block.IsLocked(state->le_label.value())) {
+    supported_intents.clear();
+  }
+
+  return supported_intents;
 }
 
 CryptoStatus AuthBlockUtilityImpl::PrepareAuthBlockForRemoval(
@@ -578,8 +774,16 @@ CryptoStatus AuthBlockUtilityImpl::PrepareAuthBlockForRemoval(
         CryptoError::CE_OTHER_CRYPTO);
   }
 
+  // Should not create ChallengeCredential AuthBlock, no underlying
+  // removal of the AuthBlock needed. Because of this, auth_input
+  // can be an empty input.
+  if (auth_block_type == AuthBlockType::kChallengeCredential) {
+    return OkStatus<CryptohomeCryptoError>();
+  }
+
+  AuthInput auth_input;
   CryptoStatusOr<std::unique_ptr<AuthBlock>> auth_block =
-      GetAsyncAuthBlockWithType(auth_block_type);
+      GetAsyncAuthBlockWithType(auth_block_type, auth_input);
   if (!auth_block.ok()) {
     LOG(ERROR) << "Failed to retrieve auth block.";
     return MakeStatus<CryptohomeCryptoError>(

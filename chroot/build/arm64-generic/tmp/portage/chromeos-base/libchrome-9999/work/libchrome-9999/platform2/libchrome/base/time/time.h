@@ -1,4 +1,4 @@
-// Copyright (c) 2012 The Chromium Authors. All rights reserved.
+// Copyright 2012 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -956,7 +956,7 @@ constexpr TimeDelta TimeBase<TimeClass>::since_origin() const {
 template <class TimeClass>
 constexpr TimeDelta TimeBase<TimeClass>::operator-(
     const TimeBase<TimeClass>& other) const {
-  return Microseconds(us_ - other.us_);
+  return Microseconds(ClampSub(us_, other.us_));
 }
 
 template <class TimeClass>
@@ -1083,6 +1083,8 @@ class BASE_EXPORT TimeTicks : public time_internal::TimeBase<TimeTicks> {
   // the same value for the duration of the application, but will be different
   // in future application runs.
   static TimeTicks UnixEpoch();
+
+  static void SetSharedUnixEpoch(TimeTicks);
 
   // Returns |this| snapped to the next tick, given a |tick_phase| and
   // repeating |tick_interval| in both directions. |this| may be before,

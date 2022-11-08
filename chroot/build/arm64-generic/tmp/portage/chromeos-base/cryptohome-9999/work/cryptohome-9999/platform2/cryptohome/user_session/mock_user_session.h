@@ -12,16 +12,11 @@
 #include <brillo/secure_blob.h>
 #include <gmock/gmock.h>
 
-#include "cryptohome/auth_session.h"
-#include "cryptohome/cleanup/user_oldest_activity_timestamp_manager.h"
-#include "cryptohome/credential_verifier.h"
 #include "cryptohome/credentials.h"
-#include "cryptohome/keyset_management.h"
+#include "cryptohome/dircrypto_data_migrator/migration_helper.h"
+#include "cryptohome/migration_type.h"
 #include "cryptohome/pkcs11/pkcs11_token.h"
-#include "cryptohome/pkcs11/pkcs11_token_factory.h"
 #include "cryptohome/storage/cryptohome_vault.h"
-#include "cryptohome/storage/homedirs.h"
-#include "cryptohome/storage/mount.h"
 #include "cryptohome/user_session/user_session.h"
 
 namespace cryptohome {
@@ -61,19 +56,9 @@ class MockUserSession : public UserSession {
               GetHibernateSecret,
               (),
               (override));
-  MOCK_METHOD(void, SetCredentials, (const Credentials&), (override));
-  MOCK_METHOD(void, SetCredentials, (AuthSession*), (override));
-  MOCK_METHOD(CredentialVerifier*,
-              GetCredentialVerifier,
-              (),
-              (const, override));
+  MOCK_METHOD(void, AddCredentials, (const Credentials&), (override));
   MOCK_METHOD(bool, VerifyUser, (const std::string&), (const, override));
   MOCK_METHOD(bool, VerifyCredentials, (const Credentials&), (const, override));
-  MOCK_METHOD(void,
-              RemoveCredentialVerifierForKeyLabel,
-              (const std::string&),
-              (override));
-  MOCK_METHOD(const KeyData&, key_data, (), (const, override));
   MOCK_METHOD(Pkcs11Token*, GetPkcs11Token, (), (override));
   MOCK_METHOD(std::string, GetUsername, (), (const, override));
   MOCK_METHOD(void,

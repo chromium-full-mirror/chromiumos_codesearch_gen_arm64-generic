@@ -5,6 +5,7 @@
 #include "diagnostics/cros_healthd/fetchers/system_fetcher.h"
 
 #include <memory>
+#include <optional>
 #include <string>
 #include <utility>
 
@@ -26,6 +27,8 @@ namespace diagnostics {
 
 namespace {
 
+namespace mojom = ::ash::cros_healthd::mojom;
+
 class State {
  public:
   explicit State(Context* context);
@@ -40,7 +43,8 @@ class State {
 
   bool FetchDmiInfo();
 
-  bool GetLsbReleaseValue(const std::string& field, std::string& out_str);
+  template <typename StringType>
+  bool GetLsbReleaseValue(const std::string& field, StringType& out_str);
 
   bool FetchOsVersion(mojom::OsVersionPtr& os_version);
 
@@ -123,6 +127,7 @@ bool State::FetchCachedVpdInfo() {
   ReadAndTrimString(ro_path, kFileNameModelName, &vpd_info->model_name);
   ReadAndTrimString(ro_path, kFileNameRegion, &vpd_info->region);
   ReadAndTrimString(ro_path, kFileNameSerialNumber, &vpd_info->serial_number);
+  ReadAndTrimString(ro_path, kFileNameOemName, &vpd_info->oem_name);
   if (context_->system_config()->HasSkuNumber() &&
       !ReadAndTrimString(ro_path, kFileNameSkuNumber, &vpd_info->sku_number)) {
     SetError(mojom::ErrorType::kFileReadError,
@@ -145,9 +150,13 @@ bool State::FetchCachedVpdInfo() {
   return true;
 }
 
-bool State::GetLsbReleaseValue(const std::string& field, std::string& out_str) {
-  if (base::SysInfo::GetLsbReleaseValue(field, &out_str))
+template <typename StringType>
+bool State::GetLsbReleaseValue(const std::string& field, StringType& out_str) {
+  std::string out_raw;
+  if (base::SysInfo::GetLsbReleaseValue(field, &out_raw)) {
+    out_str = out_raw;
     return true;
+  }
 
   SetError(mojom::ErrorType::kFileReadError,
            base::StringPrintf("Unable to read %s from /etc/lsb-release",
@@ -163,6 +172,10 @@ bool State::FetchOsVersion(mojom::OsVersionPtr& os_version) {
   }
   if (!GetLsbReleaseValue("CHROMEOS_RELEASE_BUILD_NUMBER",
                           os_version->build_number)) {
+    return false;
+  }
+  if (!GetLsbReleaseValue("CHROMEOS_RELEASE_BRANCH_NUMBER",
+                          os_version->branch_number)) {
     return false;
   }
   if (!GetLsbReleaseValue("CHROMEOS_RELEASE_PATCH_NUMBER",
@@ -205,13 +218,16 @@ void State::FetchBootMode(mojom::BootMode& boot_mode) {
 
 bool State::FetchOsInfo() {
   auto os_info = mojom::OsInfo::New();
-  os_info->code_name = context_->system_config()->GetCodeName();
-  os_info->marketing_name = context_->system_config()->GetMarketingName();
-  os_info->oem_name = context_->system_config()->GetOemName();
   if (!FetchOsVersion(os_info->os_version))
     return false;
-  FetchBootMode(os_info->boot_mode);
+  os_info->code_name = context_->system_config()->GetCodeName();
+  os_info->marketing_name = context_->system_config()->GetMarketingName();
+
+  // Note that the following fields, oem_name, efi_platform_size and boot_mode,
+  // may be further modified. See `State::Fetch()`.
+  os_info->oem_name = context_->system_config()->GetOemName();
   os_info->efi_platform_size = mojom::OsInfo::EfiPlatformSize::kUnknown;
+  FetchBootMode(os_info->boot_mode);
 
   info_->os_info = std::move(os_info);
   return true;
@@ -294,6 +310,13 @@ void State::Fetch(Context* context, FetchSystemInfoCallback callback) {
         barrier.Depend(base::BindOnce(&State::HandleEfiPlatformSize,
                                       base::Unretained(state_ptr))));
   }
+
+  // OEM name in cros-config is usually filled after (or right before) launch.
+  // Fallback to VPD (vpd.ro.oem-name) if it’s missing in cros-config. Note that
+  // VPD info may be null, for example, on Flex devices & VM.
+  if (!state_ptr->info_->os_info->oem_name.has_value() &&
+      !state_ptr->info_->vpd_info.is_null())
+    state_ptr->info_->os_info->oem_name = state_ptr->info_->vpd_info->oem_name;
 }
 
 }  // namespace

@@ -28,8 +28,8 @@
 #include "cryptohome/auth_blocks/auth_block_utils.h"
 #include "cryptohome/auth_blocks/challenge_credential_auth_block.h"
 #include "cryptohome/auth_blocks/double_wrapped_compat_auth_block.h"
-#include "cryptohome/auth_blocks/libscrypt_compat_auth_block.h"
 #include "cryptohome/auth_blocks/pin_weaver_auth_block.h"
+#include "cryptohome/auth_blocks/scrypt_auth_block.h"
 #include "cryptohome/auth_blocks/tpm_bound_to_pcr_auth_block.h"
 #include "cryptohome/auth_blocks/tpm_ecc_auth_block.h"
 #include "cryptohome/auth_blocks/tpm_not_bound_to_pcr_auth_block.h"
@@ -58,6 +58,7 @@ using hwsec_foundation::CreateSecureRandomBlob;
 using hwsec_foundation::HmacSha256;
 using hwsec_foundation::kAesBlockSize;
 using hwsec_foundation::kDefaultScryptParams;
+using hwsec_foundation::kLibScryptSaltSize;
 using hwsec_foundation::LibScryptCompat;
 using hwsec_foundation::Sha1;
 using hwsec_foundation::status::MakeStatus;
@@ -77,6 +78,7 @@ VaultKeyset::VaultKeyset()
       loaded_(false),
       encrypted_(false),
       flags_(0),
+      backup_vk_(false),
       legacy_index_(-1),
       auth_locked_(false) {}
 
@@ -85,6 +87,13 @@ VaultKeyset::~VaultKeyset() {}
 void VaultKeyset::Initialize(Platform* platform, Crypto* crypto) {
   platform_ = platform;
   crypto_ = crypto;
+  backup_vk_ = false;
+}
+
+void VaultKeyset::InitializeAsBackup(Platform* platform, Crypto* crypto) {
+  platform_ = platform;
+  crypto_ = crypto;
+  backup_vk_ = true;
 }
 
 void VaultKeyset::InitializeToAdd(const VaultKeyset& vault_keyset) {
@@ -247,13 +256,13 @@ CryptohomeStatus VaultKeyset::EncryptEx(const KeyBlobs& key_blobs,
   }
 
   bool is_scrypt_wrapped =
-      std::holds_alternative<LibScryptCompatAuthBlockState>(auth_state.state) ||
+      std::holds_alternative<ScryptAuthBlockState>(auth_state.state) ||
       std::holds_alternative<ChallengeCredentialAuthBlockState>(
           auth_state.state);
 
   CryptohomeStatus return_status = OkStatus<CryptohomeError>();
   if (is_scrypt_wrapped) {
-    CryptohomeStatus status = WrapScryptVaultKeyset(key_blobs);
+    CryptohomeStatus status = WrapScryptVaultKeyset(auth_state, key_blobs);
     if (!status.ok()) {
       return_status =
           MakeStatus<CryptohomeError>(
@@ -380,8 +389,6 @@ CryptoStatus VaultKeyset::DecryptVaultKeyset(const SecureBlob& vault_key,
 
   CryptoStatus status = UnwrapVaultKeyset(serialized, vkk_data);
   if (status.ok()) {
-    ReportWrappingKeyDerivationType(auth_block->derivation_type(),
-                                    CryptohomePhase::kMounted);
     return OkStatus<CryptohomeCryptoError>();
   } else {
     return MakeStatus<CryptohomeCryptoError>(
@@ -467,13 +474,12 @@ CryptoStatus VaultKeyset::UnwrapVKKVaultKeyset(
 }
 
 CryptoStatus VaultKeyset::UnwrapScryptVaultKeyset(
-    const SerializedVaultKeyset& serialized, const KeyBlobs& vkk_data) {
+    const SerializedVaultKeyset& serialized, const KeyBlobs& key_blobs) {
   SecureBlob blob = SecureBlob(serialized.wrapped_keyset());
   SecureBlob decrypted(blob.size());
-  if (!LibScryptCompat::Decrypt(blob, vkk_data.scrypt_key->derived_key(),
-                                &decrypted)) {
+  if (!LibScryptCompat::Decrypt(blob, key_blobs.vkk_key.value(), &decrypted)) {
     // Note that Decrypt() checks the validity of the key. Also, it is possible
-    // for the input vkk_data to be garbage because some AuthBlocks (such as
+    // for the input key_blobs to be garbage because some AuthBlocks (such as
     // Scrypt) doesn't check the correctness of its output when given the wrong
     // credentials. Therefore, a decryption failure here is most likely an
     // incorrect password.
@@ -488,7 +494,7 @@ CryptoStatus VaultKeyset::UnwrapScryptVaultKeyset(
     SecureBlob wrapped_chaps_key = SecureBlob(serialized.wrapped_chaps_key());
     chaps_key.resize(wrapped_chaps_key.size());
     if (!LibScryptCompat::Decrypt(wrapped_chaps_key,
-                                  vkk_data.chaps_scrypt_key->derived_key(),
+                                  key_blobs.scrypt_chaps_key.value(),
                                   &chaps_key)) {
       return MakeStatus<CryptohomeCryptoError>(
           CRYPTOHOME_ERR_LOC(kLocVaultKeysetChapsDecryptFailedInUnwrapScrypt),
@@ -503,10 +509,9 @@ CryptoStatus VaultKeyset::UnwrapScryptVaultKeyset(
     SecureBlob reset_seed;
     SecureBlob wrapped_reset_seed = SecureBlob(serialized.wrapped_reset_seed());
     reset_seed.resize(wrapped_reset_seed.size());
-    if (!LibScryptCompat::Decrypt(
-            wrapped_reset_seed,
-            vkk_data.scrypt_wrapped_reset_seed_key->derived_key(),
-            &reset_seed)) {
+    if (!LibScryptCompat::Decrypt(wrapped_reset_seed,
+                                  key_blobs.scrypt_reset_seed_key.value(),
+                                  &reset_seed)) {
       return MakeStatus<CryptohomeCryptoError>(
           CRYPTOHOME_ERR_LOC(
               kLocVaultKeysetResetSeedDecryptFailedInUnwrapScrypt),
@@ -603,7 +608,8 @@ CryptohomeStatus VaultKeyset::WrapVaultKeysetWithAesDeprecated(
   return OkStatus<CryptohomeError>();
 }
 
-CryptohomeStatus VaultKeyset::WrapScryptVaultKeyset(const KeyBlobs& key_blobs) {
+CryptohomeStatus VaultKeyset::WrapScryptVaultKeyset(
+    const AuthBlockState& auth_block_state, const KeyBlobs& key_blobs) {
   if (IsLECredential()) {
     LOG(ERROR) << "Low entropy credentials cannot be scrypt-wrapped.";
     return MakeStatus<CryptohomeError>(
@@ -628,9 +634,27 @@ CryptohomeStatus VaultKeyset::WrapScryptVaultKeyset(const KeyBlobs& key_blobs) {
   brillo::SecureBlob hash = Sha1(blob);
   brillo::SecureBlob local_blob = SecureBlob::Combine(blob, hash);
   brillo::SecureBlob cipher_text;
-  if (!LibScryptCompat::Encrypt(key_blobs.scrypt_key->derived_key(),
-                                key_blobs.scrypt_key->ConsumeSalt(), local_blob,
-                                kDefaultScryptParams, &cipher_text)) {
+  auto* state = std::get_if<ScryptAuthBlockState>(&auth_block_state.state);
+  auto* cc_state =
+      std::get_if<ChallengeCredentialAuthBlockState>(&auth_block_state.state);
+  // Fetch ScryptAuthBlockState from inside ChallengeCredentialAuthBlockState
+  // since the |auth_block_state| ScryptAuthBlockState is empty. Either one of
+  // Scrypt or ChallengeCredential states is populated per encryption with
+  // Scrypt.
+  if (state == nullptr) {
+    state = &(cc_state->scrypt_state);
+  }
+
+  if (state == nullptr) {
+    return MakeStatus<CryptohomeError>(
+        CRYPTOHOME_ERR_LOC(kLocVaultKeysetAuthBlockStateFailedInWrapScrypt),
+        ErrorActionSet({ErrorAction::kDevCheckUnexpectedState}),
+        user_data_auth::CRYPTOHOME_ERROR_AUTHORIZATION_KEY_FAILED);
+  }
+
+  if (!LibScryptCompat::Encrypt(key_blobs.vkk_key.value(), state->salt.value(),
+                                local_blob, kDefaultScryptParams,
+                                &cipher_text)) {
     LOG(ERROR) << "Scrypt encrypt of keyset blob failed.";
     return MakeStatus<CryptohomeError>(
         CRYPTOHOME_ERR_LOC(kLocVaultKeysetEncryptKeysetFailedInWrapScrypt),
@@ -641,10 +665,9 @@ CryptohomeStatus VaultKeyset::WrapScryptVaultKeyset(const KeyBlobs& key_blobs) {
 
   if (GetChapsKey().size() == CRYPTOHOME_CHAPS_KEY_LENGTH) {
     SecureBlob wrapped_chaps_key;
-    if (!LibScryptCompat::Encrypt(key_blobs.chaps_scrypt_key->derived_key(),
-                                  key_blobs.chaps_scrypt_key->ConsumeSalt(),
-                                  GetChapsKey(), kDefaultScryptParams,
-                                  &wrapped_chaps_key)) {
+    if (!LibScryptCompat::Encrypt(key_blobs.scrypt_chaps_key.value(),
+                                  state->chaps_salt.value(), GetChapsKey(),
+                                  kDefaultScryptParams, &wrapped_chaps_key)) {
       LOG(ERROR) << "Scrypt encrypt of chaps key blob failed.";
       return MakeStatus<CryptohomeError>(
           CRYPTOHOME_ERR_LOC(kLocVaultKeysetEncryptChapsFailedInWrapScrypt),
@@ -657,10 +680,10 @@ CryptohomeStatus VaultKeyset::WrapScryptVaultKeyset(const KeyBlobs& key_blobs) {
   // If there is a reset seed, encrypt and store it.
   if (GetResetSeed().size() != 0) {
     brillo::SecureBlob wrapped_reset_seed;
-    if (!LibScryptCompat::Encrypt(
-            key_blobs.scrypt_wrapped_reset_seed_key->derived_key(),
-            key_blobs.scrypt_wrapped_reset_seed_key->ConsumeSalt(),
-            GetResetSeed(), kDefaultScryptParams, &wrapped_reset_seed)) {
+    if (!LibScryptCompat::Encrypt(key_blobs.scrypt_reset_seed_key.value(),
+                                  state->reset_seed_salt.value(),
+                                  GetResetSeed(), kDefaultScryptParams,
+                                  &wrapped_reset_seed)) {
       LOG(ERROR) << "Scrypt encrypt of reset seed failed.";
       return MakeStatus<CryptohomeError>(
           CRYPTOHOME_ERR_LOC(kLocVaultKeysetEncryptResetSeedFailedInWrapScrypt),
@@ -679,7 +702,8 @@ CryptoStatus VaultKeyset::UnwrapVaultKeyset(
   bool has_vkk_key = vkk_data.vkk_key != std::nullopt &&
                      vkk_data.vkk_iv != std::nullopt &&
                      vkk_data.chaps_iv != std::nullopt;
-  bool has_scrypt_key = vkk_data.scrypt_key != nullptr;
+  bool has_scrypt_key =
+      vkk_data.vkk_key.has_value() && vkk_data.scrypt_chaps_key.has_value();
 
   CryptoStatus return_status = OkStatus<CryptohomeCryptoError>();
   if (has_vkk_key && !has_scrypt_key) {
@@ -781,9 +805,8 @@ void VaultKeyset::SetPinWeaverState(const PinWeaverAuthBlockState& auth_state) {
   }
 }
 
-void VaultKeyset::SetLibScryptCompatState(
-    const LibScryptCompatAuthBlockState& auth_state) {
-  flags_ = kLibScryptCompatFlags.require_flags;
+void VaultKeyset::SetScryptState(const ScryptAuthBlockState& auth_state) {
+  flags_ = kScryptFlags.require_flags;
 
   // TODO(b/198394243): We should remove this because it's not actually used.
   if (auth_state.salt.has_value()) {
@@ -838,9 +861,9 @@ void VaultKeyset::SetAuthBlockState(const AuthBlockState& auth_state) {
   } else if (auto* state =
                  std::get_if<PinWeaverAuthBlockState>(&auth_state.state)) {
     SetPinWeaverState(*state);
-  } else if (auto* state = std::get_if<LibScryptCompatAuthBlockState>(
-                 &auth_state.state)) {
-    SetLibScryptCompatState(*state);
+  } else if (auto* state =
+                 std::get_if<ScryptAuthBlockState>(&auth_state.state)) {
+    SetScryptState(*state);
   } else if (auto* state = std::get_if<ChallengeCredentialAuthBlockState>(
                  &auth_state.state)) {
     SetChallengeCredentialState(*state);
@@ -919,15 +942,15 @@ bool VaultKeyset::GetPinWeaverState(AuthBlockState* auth_state) const {
 
 bool VaultKeyset::GetSignatureChallengeState(AuthBlockState* auth_state) const {
   AuthBlockState scrypt_state;
-  if (!GetLibScryptCompatState(&scrypt_state)) {
+  if (!GetScryptState(&scrypt_state)) {
     return false;
   }
   const auto* libscrypt_state =
-      std::get_if<LibScryptCompatAuthBlockState>(&scrypt_state.state);
+      std::get_if<ScryptAuthBlockState>(&scrypt_state.state);
 
   // This should never happen.
   if (libscrypt_state == nullptr) {
-    NOTREACHED() << "LibScryptCompatState should have been created";
+    NOTREACHED() << "ScryptAuthBlockState should have been created";
     return false;
   }
 
@@ -942,16 +965,40 @@ bool VaultKeyset::GetSignatureChallengeState(AuthBlockState* auth_state) const {
   return true;
 }
 
-bool VaultKeyset::GetLibScryptCompatState(AuthBlockState* auth_state) const {
-  LibScryptCompatAuthBlockState state;
+bool VaultKeyset::GetScryptState(AuthBlockState* auth_state) const {
+  ScryptAuthBlockState state;
 
-  state.wrapped_keyset = wrapped_keyset_;
-  if (wrapped_chaps_key_.has_value()) {
-    state.wrapped_chaps_key = wrapped_chaps_key_.value();
+  hwsec_foundation::ScryptParameters params;
+  brillo::SecureBlob salt;
+  if (!LibScryptCompat::ParseHeader(wrapped_keyset_, &params, &salt)) {
+    LOG(ERROR) << "Failed to parse scrypt header for wrapped_keyset_.";
+    return false;
   }
-  if (wrapped_reset_seed_.has_value()) {
-    state.wrapped_reset_seed = wrapped_reset_seed_.value();
+  state.salt = std::move(salt);
+
+  brillo::SecureBlob chaps_salt;
+  if (HasWrappedChapsKey()) {
+    if (!LibScryptCompat::ParseHeader(GetWrappedChapsKey(), &params,
+                                      &chaps_salt)) {
+      LOG(ERROR) << "Failed to parse scrypt header for wrapped_chaps_keyset_.";
+      return false;
+    }
+    state.chaps_salt = std::move(chaps_salt);
   }
+
+  brillo::SecureBlob reset_seed_salt;
+  if (HasWrappedResetSeed()) {
+    if (!LibScryptCompat::ParseHeader(GetWrappedResetSeed(), &params,
+                                      &reset_seed_salt)) {
+      LOG(ERROR) << "Failed to parse scrypt header for wrapped_reset_seed_.";
+      return false;
+    }
+    state.reset_seed_salt = std::move(reset_seed_salt);
+  }
+
+  state.work_factor = params.n_factor;
+  state.block_size = params.r_factor;
+  state.parallel_factor = params.p_factor;
   auth_state->state = std::move(state);
   return true;
 }
@@ -959,15 +1006,15 @@ bool VaultKeyset::GetLibScryptCompatState(AuthBlockState* auth_state) const {
 bool VaultKeyset::GetDoubleWrappedCompatState(
     AuthBlockState* auth_state) const {
   AuthBlockState scrypt_state;
-  if (!GetLibScryptCompatState(&scrypt_state)) {
+  if (!GetScryptState(&scrypt_state)) {
     return false;
   }
   const auto* scrypt_sub_state =
-      std::get_if<LibScryptCompatAuthBlockState>(&scrypt_state.state);
+      std::get_if<ScryptAuthBlockState>(&scrypt_state.state);
 
   // This should never happen.
   if (scrypt_sub_state == nullptr) {
-    NOTREACHED() << "LibScryptCompatState should have been created";
+    NOTREACHED() << "ScryptAuthBlockState should have been created";
     return false;
   }
 
@@ -1075,8 +1122,11 @@ CryptohomeStatus VaultKeyset::EncryptVaultKeyset(
         CryptoError::CE_OTHER_CRYPTO);
   }
 
-  AuthInput user_input = {vault_key, /*locked_to_single_user*=*/std::nullopt,
-                          obfuscated_username, /*reset_secret=*/std::nullopt,
+  AuthInput user_input = {vault_key,
+                          /*locked_to_single_user*=*/std::nullopt,
+                          /*username=*/std::string(),
+                          obfuscated_username,
+                          /*reset_secret=*/std::nullopt,
                           /*reset_seed=*/std::nullopt};
   if (!reset_seed_.empty()) {
     user_input.reset_seed = reset_seed_;
@@ -1093,12 +1143,11 @@ CryptohomeStatus VaultKeyset::EncryptVaultKeyset(
 
   CryptohomeStatus return_status = OkStatus<CryptohomeError>();
   bool is_scrypt_wrapped =
-      std::holds_alternative<LibScryptCompatAuthBlockState>(
-          auth_state->state) ||
+      std::holds_alternative<ScryptAuthBlockState>(auth_state->state) ||
       std::holds_alternative<ChallengeCredentialAuthBlockState>(
           auth_state->state);
   if (is_scrypt_wrapped) {
-    CryptohomeStatus status = WrapScryptVaultKeyset(key_blobs);
+    CryptohomeStatus status = WrapScryptVaultKeyset(*auth_state, key_blobs);
     if (!status.ok()) {
       return_status =
           MakeStatus<CryptohomeError>(
@@ -1115,18 +1164,15 @@ CryptohomeStatus VaultKeyset::EncryptVaultKeyset(
     }
   }
 
-  // Report wrapping key type to UMA
-  if (return_status.ok()) {
-    ReportWrappingKeyDerivationType(auth_block->derivation_type(),
-                                    CryptohomePhase::kCreated);
-  }
-
   return return_status;
 }
 
 // TODO(crbug.com/1216659): Move AuthBlock to AuthFactor once it is ready.
 std::unique_ptr<SyncAuthBlock> VaultKeyset::GetAuthBlockForCreation() const {
   if (IsLECredential()) {
+    if (!crypto_->le_manager() || !crypto_->cryptohome_keys_manager()) {
+      return nullptr;
+    }
     ReportCreateAuthBlock(AuthBlockType::kPinWeaver);
     return std::make_unique<PinWeaverAuthBlock>(
         crypto_->le_manager(), crypto_->cryptohome_keys_manager());
@@ -1162,8 +1208,8 @@ std::unique_ptr<SyncAuthBlock> VaultKeyset::GetAuthBlockForCreation() const {
   }
 
   if (USE_TPM_INSECURE_FALLBACK) {
-    ReportCreateAuthBlock(AuthBlockType::kLibScryptCompat);
-    return std::make_unique<LibScryptCompatAuthBlock>();
+    ReportCreateAuthBlock(AuthBlockType::kScrypt);
+    return std::make_unique<ScryptAuthBlock>();
   }
 
   LOG(WARNING) << "No available auth block for creation.";
@@ -1195,8 +1241,8 @@ std::unique_ptr<SyncAuthBlock> VaultKeyset::GetAuthBlockForDerivation() {
   } else if (auth_block_type == AuthBlockType::kTpmNotBoundToPcr) {
     return std::make_unique<TpmNotBoundToPcrAuthBlock>(
         crypto_->GetHwsec(), crypto_->cryptohome_keys_manager());
-  } else if (auth_block_type == AuthBlockType::kLibScryptCompat) {
-    return std::make_unique<LibScryptCompatAuthBlock>();
+  } else if (auth_block_type == AuthBlockType::kScrypt) {
+    return std::make_unique<ScryptAuthBlock>();
   }
   return nullptr;
 }
@@ -1569,11 +1615,14 @@ SerializedVaultKeyset VaultKeyset::ToSerialized() const {
     serialized.set_vkk_iv(vkk_iv_->data(), vkk_iv_->size());
   }
 
+  serialized.set_backup_vk(backup_vk_);
+
   return serialized;
 }
 
 void VaultKeyset::ResetVaultKeyset() {
   flags_ = -1;
+  backup_vk_ = false;
   auth_salt_.clear();
   legacy_index_ = -1;
   tpm_public_key_hash_.reset();
@@ -1700,6 +1749,8 @@ void VaultKeyset::InitializeFromSerialized(
     vkk_iv_ = brillo::SecureBlob(serialized.vkk_iv().begin(),
                                  serialized.vkk_iv().end());
   }
+
+  backup_vk_ = serialized.backup_vk();
 }
 
 const base::FilePath& VaultKeyset::GetSourceFile() const {

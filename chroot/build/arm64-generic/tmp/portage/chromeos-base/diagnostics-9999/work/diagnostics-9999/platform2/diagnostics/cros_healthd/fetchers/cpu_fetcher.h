@@ -10,11 +10,10 @@
 
 #include <base/files/file_path.h>
 #include <base/memory/weak_ptr.h>
-#include "diagnostics/cros_healthd/fetchers/base_fetcher.h"
 
 #include "diagnostics/cros_healthd/executor/constants.h"
 #include "diagnostics/cros_healthd/executor/mojom/executor.mojom.h"
-#include "diagnostics/cros_healthd/fetchers/async_fetcher.h"
+#include "diagnostics/cros_healthd/fetchers/base_fetcher.h"
 #include "diagnostics/cros_healthd/utils/callback_barrier.h"
 #include "diagnostics/mojom/public/cros_healthd_probe.mojom.h"
 #include "diagnostics/mojom/public/nullable_primitives.mojom.h"
@@ -73,83 +72,24 @@ base::FilePath GetCStateDirectoryPath(const base::FilePath& root_dir,
 base::FilePath GetCpuFreqDirectoryPath(const base::FilePath& root_dir,
                                        int logical_id);
 
+// Returns an absolute path to the CPU Physical package ID file for the logical
+// CPU with ID |logical_id|. On a real device, this will be
+// /sys/devices/system/cpu/cpu|logical_id|/topology/physical_package_id.
+base::FilePath GetPhysicalPackageIdPath(const base::FilePath& root_dir,
+                                        int logical_id);
+
 // Returns the parsed vulnerability status from reading the vulnerability
 // message. This function is exported for testing.
-chromeos::cros_healthd::mojom::VulnerabilityInfo::Status
+ash::cros_healthd::mojom::VulnerabilityInfo::Status
 GetVulnerabilityStatusFromMessage(const std::string& message);
 
-// The CpuFetcher class is responsible for gathering CPU info reported by
-// cros_healthd.
-class CpuFetcher final
-    : public AsyncFetcherInterface<chromeos::cros_healthd::mojom::CpuResult> {
- public:
-  using AsyncFetcherInterface::AsyncFetcherInterface;
+using FetchCpuInfoCallback =
+    base::OnceCallback<void(ash::cros_healthd::mojom::CpuResultPtr)>;
 
- private:
-  // AsyncFetcherInterface override
-  void FetchImpl(ResultCallback callback) override;
-
-  // Read and parse physical cpus and store into |physical_cpus|. Returns true
-  // on success and false otherwise.
-  bool FetchPhysicalCpus();
-
-  // Reads and parses the total number of threads available on the device and
-  // store into |num_total_threads|. Returns true on success and false
-  // otherwise.
-  bool FetchNumTotalThreads();
-
-  // Record the cpu architecture into |architecture|. Returns true on success
-  // and false otherwise.
-  bool FetchArchitecture();
-
-  // Record the keylocker information into |architecture|. Returns true on
-  // success and false otherwise.
-  bool FetchKeylockerInfo();
-
-  // Fetch cpu temperature channels and store into |temperature_channels|.
-  // Returns true on success and false otherwise.
-  bool FetchCpuTemperatures();
-
-  // Read and parse general virtualization info and store into |virtualization|.
-  // Returns true on success and false otherwise.
-  bool FetchVirtualization();
-
-  // Read and parse cpu vulnerabilities and store into |vulnerabilities|.
-  // Returns true on success and false otherwise.
-  bool FetchVulnerabilities();
-
-  // Calls |callback_| and passes the result. If |all_callback_called| or
-  // |error_| is set, the result is a ProbeError, otherwise it is |cpu_info_|.
-  void HandleCallbackComplete(bool all_callback_called);
-
-  // Callback function to handle ReadMsr() call reading vmx registers.
-  void HandleVmxReadMsr(uint32_t index, mojom::NullableUint64Ptr val);
-
-  // Callback function to handle ReadMsr() call reading svm registers.
-  void HandleSvmReadMsr(uint32_t index, mojom::NullableUint64Ptr val);
-
-  // Calls ReadMsr based on the virtualization capability of each physical cpu.
-  void FetchPhysicalCpusVirtualizationInfo(CallbackBarrier& barrier);
-
-  // Logs |message| and sets |error_|. Only do the logging if |error_| has been
-  // set.
-  void LogAndSetError(chromeos::cros_healthd::mojom::ErrorType type,
-                      const std::string& message);
-
-  // Stores the callback received from FetchImpl.
-  ResultCallback callback_;
-  // Stores the error that will be returned. HandleCallbackComplete will report
-  // error if this is set.
-  chromeos::cros_healthd::mojom::ProbeErrorPtr error_;
-  // Stores the final cpu info that will be returned.
-  chromeos::cros_healthd::mojom::CpuInfoPtr cpu_info_;
-
-  // Maintains a map that maps each physical cpu id to its first corresponding
-  // logical cpu id.
-  std::map<uint32_t, uint32_t> physical_id_to_first_logical_id_;
-  // Must be the last member of the class.
-  base::WeakPtrFactory<CpuFetcher> weak_factory_{this};
-};
+// Fetches cpu info and pass the result to the callback. Returns either a
+// structure with the cpu information or the error that occurred fetching the
+// information.
+void FetchCpuInfo(Context* context, FetchCpuInfoCallback callback);
 
 }  // namespace diagnostics
 

@@ -16,6 +16,8 @@
 #include <brillo/unittest_utils.h>
 #include <gtest/gtest.h>
 #include <gtest/gtest_prod.h>
+#include <mojo/public/cpp/bindings/pending_receiver.h>
+#include <mojo/public/cpp/bindings/receiver.h>
 
 #include "diagnostics/common/file_test_utils.h"
 #include "diagnostics/common/mojo_type_utils.h"
@@ -27,11 +29,10 @@
 namespace diagnostics {
 namespace {
 
-namespace mojo_ipc = ::chromeos::cros_healthd::mojom;
+namespace mojo_ipc = ::ash::cros_healthd::mojom;
 
 using testing::_;
 using testing::ByMove;
-using testing::DoAll;
 using testing::Invoke;
 using testing::Return;
 using testing::StrictMock;

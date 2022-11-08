@@ -26,6 +26,7 @@
 #include <libhwsec/frontend/cryptohome/mock_frontend.h>
 #include <libhwsec/frontend/pinweaver/mock_frontend.h>
 #include <libhwsec/frontend/recovery_crypto/mock_frontend.h>
+#include <libhwsec-foundation/crypto/libscrypt_compat.h>
 #include <libhwsec-foundation/crypto/secure_blob_util.h>
 #include <libhwsec-foundation/crypto/sha.h>
 #include <libhwsec-foundation/error/testing_helper.h>
@@ -35,6 +36,7 @@
 #include <tpm_manager-client-test/tpm_manager/dbus-proxy-mocks.h>
 
 #include "cryptohome/auth_blocks/mock_auth_block_utility.h"
+#include "cryptohome/auth_intent.h"
 #include "cryptohome/challenge_credentials/challenge_credentials_helper.h"
 #include "cryptohome/challenge_credentials/mock_challenge_credentials_helper.h"
 #include "cryptohome/cleanup/mock_disk_cleanup.h"
@@ -42,10 +44,8 @@
 #include "cryptohome/cleanup/mock_user_oldest_activity_timestamp_manager.h"
 #include "cryptohome/credentials_test_util.h"
 #include "cryptohome/cryptohome_common.h"
-#include "cryptohome/cryptohome_metrics.h"
 #include "cryptohome/error/cryptohome_mount_error.h"
-#include "cryptohome/error/location_utils.h"
-#include "cryptohome/filesystem_layout.h"
+#include "cryptohome/mock_credential_verifier.h"
 #include "cryptohome/mock_cryptohome_keys_manager.h"
 #include "cryptohome/mock_fingerprint_manager.h"
 #include "cryptohome/mock_firmware_management_parameters.h"
@@ -157,6 +157,8 @@ class UserDataAuthTestBase : public ::testing::Test {
     ON_CALL(hwsec_, IsReady()).WillByDefault(ReturnValue(true));
     ON_CALL(hwsec_, IsSealingSupported()).WillByDefault(ReturnValue(true));
     ON_CALL(pinweaver_, IsEnabled()).WillByDefault(ReturnValue(true));
+    ON_CALL(pinweaver_, GetVersion()).WillByDefault(ReturnValue(2));
+    ON_CALL(pinweaver_, BlockGeneratePk()).WillByDefault(ReturnOk<TPMError>());
 
     if (!userdataauth_) {
       // Note that this branch is usually taken as |userdataauth_| is usually
@@ -214,6 +216,21 @@ class UserDataAuthTestBase : public ::testing::Test {
 
     // Make sure FreeDiskSpaceDuringLogin is not called unexpectedly.
     EXPECT_CALL(disk_cleanup_, FreeDiskSpaceDuringLogin(_)).Times(0);
+
+    EXPECT_CALL(auth_block_utility_, IsVerifyWithAuthFactorSupported(_, _))
+        .WillRepeatedly([](AuthIntent, AuthFactorType type) {
+          return type == AuthFactorType::kPassword;
+        });
+    EXPECT_CALL(auth_block_utility_, CreateCredentialVerifier(_, _, _))
+        .WillRepeatedly(
+            [](AuthFactorType type, const std::string& label,
+               const AuthInput& input) -> std::unique_ptr<CredentialVerifier> {
+              if (type == AuthFactorType::kPassword) {
+                return ScryptVerifier::Create(
+                    label, brillo::SecureBlob(*input.user_input));
+              }
+              return nullptr;
+            });
   }
 
   // Create a new session and store an unowned pointer to it in |session_|.
@@ -837,9 +854,9 @@ static_assert(
     "user_data_auth:: and cryptohome::");
 
 static_assert(
-    user_data_auth::CryptohomeErrorCode_MAX == 55,
+    user_data_auth::CryptohomeErrorCode_MAX == 57,
     "user_data_auth::CryptohomeErrorCode's element count is incorrect");
-static_assert(cryptohome::CryptohomeErrorCode_MAX == 55,
+static_assert(cryptohome::CryptohomeErrorCode_MAX == 57,
               "cryptohome::CryptohomeErrorCode's element count is incorrect");
 }  // namespace CryptohomeErrorCodeEquivalenceTest
 
@@ -2968,8 +2985,7 @@ TEST_F(UserDataAuthExTest, MountPublicUsesPublicMountPasskeyResave) {
             .WillRepeatedly(Return(ByMove(std::make_unique<VaultKeyset>())));
         EXPECT_CALL(keyset_management_, ShouldReSaveKeyset(_))
             .WillOnce(Return(true));
-        EXPECT_CALL(auth_block_utility_,
-                    GetAuthBlockTypeForCreation(_, _, _, _))
+        EXPECT_CALL(auth_block_utility_, GetAuthBlockTypeForCreation(_, _, _))
             .WillOnce(Return(AuthBlockType::kTpmEcc));
         EXPECT_CALL(auth_block_utility_,
                     CreateKeyBlobsWithAuthBlock(_, _, _, _, _))
@@ -3011,13 +3027,13 @@ TEST_F(UserDataAuthExTest, MountPublicUsesPublicMountPasskeyWithNewUser) {
   EXPECT_CALL(homedirs_, CryptohomeExists(_)).WillOnce(ReturnValue(false));
   EXPECT_CALL(homedirs_, Create(kUser)).WillOnce(Return(true));
 
-  EXPECT_CALL(auth_block_utility_, GetAuthBlockTypeForCreation(_, _, _, _))
+  EXPECT_CALL(auth_block_utility_, GetAuthBlockTypeForCreation(_, _, _))
       .WillOnce(Return(AuthBlockType::kTpmNotBoundToPcr));
   EXPECT_CALL(auth_block_utility_, CreateKeyBlobsWithAuthBlock(_, _, _, _, _))
       .WillOnce(ReturnError<CryptohomeCryptoError>());
   auto vk = std::make_unique<VaultKeyset>();
   EXPECT_CALL(keyset_management_,
-              AddInitialKeysetWithKeyBlobs(_, _, _, _, _, _))
+              AddInitialKeysetWithKeyBlobs(_, _, _, _, _, _, _))
       .WillOnce(Return(ByMove(std::move(vk))));
 
   std::vector<std::string> key_labels;
@@ -3163,7 +3179,7 @@ TEST_F(UserDataAuthExTest,
   ASSERT_THAT(auth_session, NotNull());
 
   // Migration only happens for authenticated auth session.
-  auth_session->SetAuthSessionAsAuthenticated(kAllAuthIntents);
+  auth_session->SetAuthSessionAsAuthenticated(kAuthorizedIntentsForFullAuth);
 
   user_data_auth::StartMigrateToDircryptoRequest request;
   request.set_auth_session_id(auth_session_reply.auth_session_id());
@@ -3299,7 +3315,7 @@ TEST_F(UserDataAuthExTest, AddKeyValidity) {
   EXPECT_CALL(homedirs_, Exists(_)).WillOnce(Return(true));
   EXPECT_CALL(keyset_management_, GetValidKeyset(_))
       .WillOnce(Return(ByMove(std::make_unique<VaultKeyset>())));
-  EXPECT_CALL(keyset_management_, AddKeyset(_, _, _))
+  EXPECT_CALL(keyset_management_, AddKeyset(_, _, _, _))
       .WillOnce(Return(cryptohome::CRYPTOHOME_ERROR_NOT_SET));
 
   EXPECT_EQ(userdataauth_->AddKey(*add_req_.get()),
@@ -3321,7 +3337,7 @@ TEST_F(UserDataAuthExTest, AddKeyResetSeedGeneration) {
   EXPECT_CALL(keyset_management_, GetValidKeyset(_))
       .WillOnce(Return(ByMove(std::make_unique<VaultKeyset>())));
   EXPECT_CALL(keyset_management_, AddWrappedResetSeedIfMissing(_, _));
-  EXPECT_CALL(keyset_management_, AddKeyset(_, _, _))
+  EXPECT_CALL(keyset_management_, AddKeyset(_, _, _, _))
       .WillOnce(Return(cryptohome::CRYPTOHOME_ERROR_NOT_SET));
 
   EXPECT_EQ(userdataauth_->AddKey(*add_req_.get()),
@@ -3362,7 +3378,7 @@ TEST_F(UserDataAuthExTest, CheckKeyHomedirsCheckSuccess) {
   check_req_->mutable_authorization_request()->mutable_key()->set_secret(kKey);
 
   Credentials credentials("another", brillo::SecureBlob(kKey));
-  session_->SetCredentials(credentials);
+  session_->AddCredentials(credentials);
   EXPECT_CALL(homedirs_, Exists(_)).WillOnce(Return(true));
   EXPECT_CALL(keyset_management_, GetValidKeyset(_))
       .WillOnce(Return(ByMove(std::make_unique<VaultKeyset>())));
@@ -3384,7 +3400,7 @@ TEST_F(UserDataAuthExTest, CheckKeyHomedirsUnlockWebAuthnSecretSuccess) {
   check_req_->set_unlock_webauthn_secret(true);
 
   Credentials credentials("another", brillo::SecureBlob(kKey));
-  session_->SetCredentials(credentials);
+  session_->AddCredentials(credentials);
   EXPECT_CALL(homedirs_, Exists(_)).WillOnce(Return(true));
   EXPECT_CALL(keyset_management_, GetValidKeyset(_))
       .WillOnce(Return(ByMove(std::make_unique<VaultKeyset>())));
@@ -3407,7 +3423,7 @@ TEST_F(UserDataAuthExTest, CheckKeyHomedirsCheckFail) {
 
   // Ensure failure
   Credentials credentials("another", brillo::SecureBlob(kKey));
-  session_->SetCredentials(credentials);
+  session_->AddCredentials(credentials);
   EXPECT_CALL(homedirs_, Exists(_)).WillRepeatedly(Return(true));
   EXPECT_CALL(keyset_management_, GetValidKeyset(_))
       .WillOnce(ReturnError<CryptohomeMountError>(
@@ -4158,8 +4174,6 @@ TEST_F(UserDataAuthExTest, StartAuthSessionUnusableClobber) {
   start_auth_session_req_->mutable_account_id()->set_account_id(
       "foo@example.com");
   EXPECT_CALL(keyset_management_, UserExists(_)).WillOnce(Return(true));
-  EXPECT_CALL(keyset_management_, GetVaultKeysetLabelsAndData(_, _))
-      .WillOnce(Return(true));
   EXPECT_CALL(platform_, GetFileEnumerator(_, _, _))
       .WillOnce(Return(new NiceMock<cryptohome::MockFileEnumerator>));
   user_data_auth::StartAuthSessionReply auth_session_reply;
@@ -4360,7 +4374,7 @@ TEST_F(UserDataAuthExTest, ExtendAuthSession) {
   EXPECT_THAT(auth_session, NotNull());
 
   // Extension only happens for authenticated auth session.
-  auth_session->SetAuthSessionAsAuthenticated(kAllAuthIntents);
+  auth_session->SetAuthSessionAsAuthenticated(kAuthorizedIntentsForFullAuth);
 
   // Test.
   user_data_auth::ExtendAuthSessionRequest ext_auth_session_req;
@@ -4379,6 +4393,8 @@ TEST_F(UserDataAuthExTest, ExtendAuthSession) {
                const user_data_auth::ExtendAuthSessionReply& reply) {
               EXPECT_EQ(user_data_auth::CRYPTOHOME_ERROR_NOT_SET,
                         reply.error());
+              EXPECT_EQ(TRUE, reply.has_seconds_left());
+              EXPECT_GT(reply.seconds_left(), kAuthSessionExtensionDuration);
               extended_ref = true;
             },
             std::ref(extended)));
@@ -4392,6 +4408,61 @@ TEST_F(UserDataAuthExTest, ExtendAuthSession) {
   auto time_difference =
       (kAuthSessionTimeout + kAuthSessionExtension) - requested_delay;
   EXPECT_LT(time_difference, base::Seconds(1));
+}
+
+TEST_F(UserDataAuthExTest, ExtendUnAuthenticatedAuthSessionFail) {
+  // Setup.
+  PrepareArguments();
+
+  start_auth_session_req_->mutable_account_id()->set_account_id(
+      "foo@example.com");
+  user_data_auth::StartAuthSessionReply auth_session_reply;
+  {
+    TaskGuard guard(this, UserDataAuth::TestThreadId::kMountThread);
+    userdataauth_->StartAuthSession(
+        *start_auth_session_req_,
+        base::BindOnce(
+            [](user_data_auth::StartAuthSessionReply* auth_reply_ptr,
+               const user_data_auth::StartAuthSessionReply& reply) {
+              *auth_reply_ptr = reply;
+            },
+            base::Unretained(&auth_session_reply)));
+  }
+  EXPECT_EQ(auth_session_reply.error(),
+            user_data_auth::CRYPTOHOME_ERROR_NOT_SET);
+  std::optional<base::UnguessableToken> auth_session_id =
+      AuthSession::GetTokenFromSerializedString(
+          auth_session_reply.auth_session_id());
+  EXPECT_TRUE(auth_session_id.has_value());
+
+  AuthSession* auth_session =
+      userdataauth_->auth_session_manager_->FindAuthSession(
+          auth_session_id.value());
+  EXPECT_THAT(auth_session, NotNull());
+
+  // Test.
+  user_data_auth::ExtendAuthSessionRequest ext_auth_session_req;
+  ext_auth_session_req.set_auth_session_id(
+      auth_session_reply.auth_session_id());
+  ext_auth_session_req.set_extension_duration(kAuthSessionExtensionDuration);
+
+  // Extend the AuthSession.
+  bool extended_called = false;
+  {
+    TaskGuard guard(this, UserDataAuth::TestThreadId::kMountThread);
+    userdataauth_->ExtendAuthSession(
+        ext_auth_session_req,
+        base::BindOnce(
+            [](bool& extended_ref,
+               const user_data_auth::ExtendAuthSessionReply& reply) {
+              EXPECT_EQ(user_data_auth::CRYPTOHOME_ERROR_INVALID_ARGUMENT,
+                        reply.error());
+              EXPECT_EQ(FALSE, reply.has_seconds_left());
+              extended_ref = true;
+            },
+            std::ref(extended_called)));
+    EXPECT_EQ(TRUE, extended_called);
+  }
 }
 
 TEST_F(UserDataAuthExTest, CheckTimeoutTimerSetAfterAuthentication) {
@@ -4429,7 +4500,7 @@ TEST_F(UserDataAuthExTest, CheckTimeoutTimerSetAfterAuthentication) {
   EXPECT_EQ(auth_session->timeout_timer_start_time_, base::TimeTicks());
 
   // Extension only happens for authenticated auth session.
-  auth_session->SetAuthSessionAsAuthenticated(kAllAuthIntents);
+  auth_session->SetAuthSessionAsAuthenticated(kAuthorizedIntentsForFullAuth);
 
   // Test timer is correctly set after authentication.
   EXPECT_TRUE(auth_session->timeout_timer_.IsRunning());
@@ -4444,14 +4515,28 @@ TEST_F(UserDataAuthExTest, StartAuthSessionReplyCheck) {
 
   KeyData key_data;
   key_data.set_label(kFakeLabel);
-  key_data.set_type(KeyData::KEY_TYPE_FINGERPRINT);
+  key_data.set_type(KeyData::KEY_TYPE_PASSWORD);
   KeyLabelMap keyLabelData = {{kFakeLabel, key_data}};
 
   EXPECT_CALL(keyset_management_, UserExists(_)).WillRepeatedly(Return(true));
-  EXPECT_CALL(keyset_management_, GetVaultKeysetLabelsAndData(_, _))
-      .WillOnce(DoAll(SetArgPointee<1>(keyLabelData), Return(true)));
+  std::vector<int> vk_indicies = {0};
+  EXPECT_CALL(keyset_management_, GetVaultKeysets(_, _))
+      .WillOnce(DoAll(SetArgPointee<1>(vk_indicies), Return(true)));
+  EXPECT_CALL(keyset_management_, LoadVaultKeysetForUser(_, 0))
+      .WillOnce([key_data](const std::string&, int) {
+        auto vk = std::make_unique<VaultKeyset>();
+        vk->SetFlags(SerializedVaultKeyset::TPM_WRAPPED |
+                     SerializedVaultKeyset::PCR_BOUND);
+        vk->SetKeyData(key_data);
+        vk->SetTPMKey(SecureBlob("fake tpm key"));
+        vk->SetExtendedTPMKey(SecureBlob("fake extended tpm key"));
+        return vk;
+      });
+  EXPECT_CALL(auth_block_utility_, GetSupportedIntentsFromState(_))
+      .WillOnce(Return(base::flat_set<AuthIntent>(
+          {AuthIntent::kVerifyOnly, AuthIntent::kDecrypt})));
 
-  user_data_auth::StartAuthSessionReply auth_session_reply;
+  user_data_auth::StartAuthSessionReply start_auth_session_reply;
   {
     TaskGuard guard(this, UserDataAuth::TestThreadId::kMountThread);
     userdataauth_->StartAuthSession(
@@ -4461,13 +4546,114 @@ TEST_F(UserDataAuthExTest, StartAuthSessionReplyCheck) {
                const user_data_auth::StartAuthSessionReply& reply) {
               *auth_reply_ptr = reply;
             },
-            base::Unretained(&auth_session_reply)));
+            base::Unretained(&start_auth_session_reply)));
   }
 
-  EXPECT_THAT(auth_session_reply.key_label_data().at(kFakeLabel).label(),
+  EXPECT_THAT(start_auth_session_reply.key_label_data().at(kFakeLabel).label(),
               kFakeLabel);
-  EXPECT_THAT(auth_session_reply.key_label_data().at(kFakeLabel).type(),
-              KeyData::KEY_TYPE_FINGERPRINT);
+  EXPECT_THAT(start_auth_session_reply.key_label_data().at(kFakeLabel).type(),
+              KeyData::KEY_TYPE_PASSWORD);
+  EXPECT_THAT(start_auth_session_reply.auth_factors().size(), 1);
+  EXPECT_THAT(start_auth_session_reply.auth_factors().at(0).label(),
+              kFakeLabel);
+  EXPECT_THAT(start_auth_session_reply.auth_factors().at(0).type(),
+              user_data_auth::AUTH_FACTOR_TYPE_PASSWORD);
+}
+
+TEST_F(UserDataAuthExTest, StartAuthSessionVerifyOnlyFactors) {
+  PrepareArguments();
+  SetupMount("foo@example.com");
+  // Setup
+  start_auth_session_req_->mutable_account_id()->set_account_id(
+      "foo@example.com");
+  start_auth_session_req_->set_intent(user_data_auth::AUTH_INTENT_VERIFY_ONLY);
+
+  KeyData key_data;
+  key_data.set_label(kFakeLabel);
+  key_data.set_type(KeyData::KEY_TYPE_PASSWORD);
+
+  // Add persistent auth factors.
+  EXPECT_CALL(keyset_management_, UserExists(_)).WillRepeatedly(Return(true));
+  std::vector<int> vk_indicies = {0};
+  EXPECT_CALL(keyset_management_, GetVaultKeysets(_, _))
+      .WillOnce(DoAll(SetArgPointee<1>(vk_indicies), Return(true)));
+  EXPECT_CALL(keyset_management_, LoadVaultKeysetForUser(_, 0))
+      .WillOnce([key_data](const std::string&, int) {
+        auto vk = std::make_unique<VaultKeyset>();
+        vk->SetFlags(SerializedVaultKeyset::TPM_WRAPPED |
+                     SerializedVaultKeyset::PCR_BOUND);
+        vk->SetKeyData(key_data);
+        vk->SetTPMKey(SecureBlob("fake tpm key"));
+        vk->SetExtendedTPMKey(SecureBlob("fake extended tpm key"));
+        return vk;
+      });
+  EXPECT_CALL(auth_block_utility_, GetSupportedIntentsFromState(_))
+      .WillOnce(Return(base::flat_set<AuthIntent>(
+          {AuthIntent::kVerifyOnly, AuthIntent::kDecrypt})));
+  // Add a verifier as well.
+  session_->AddCredentialVerifier(std::make_unique<MockCredentialVerifier>(
+      AuthFactorType::kPassword, kFakeLabel,
+      AuthFactorMetadata{.metadata = PasswordAuthFactorMetadata()}));
+
+  user_data_auth::StartAuthSessionReply start_auth_session_reply;
+  {
+    TaskGuard guard(this, UserDataAuth::TestThreadId::kMountThread);
+    userdataauth_->StartAuthSession(
+        *start_auth_session_req_,
+        base::BindOnce(
+            [](user_data_auth::StartAuthSessionReply* auth_reply_ptr,
+               const user_data_auth::StartAuthSessionReply& reply) {
+              *auth_reply_ptr = reply;
+            },
+            base::Unretained(&start_auth_session_reply)));
+  }
+
+  EXPECT_EQ(start_auth_session_reply.error(),
+            user_data_auth::CRYPTOHOME_ERROR_NOT_SET);
+  ASSERT_THAT(start_auth_session_reply.auth_factors().size(), 1);
+  // We should only find one factor, not two. There's a persistent factor and a
+  // verifier but they have the same label.
+  EXPECT_THAT(start_auth_session_reply.auth_factors().at(0).label(),
+              kFakeLabel);
+  EXPECT_THAT(start_auth_session_reply.auth_factors().at(0).type(),
+              user_data_auth::AUTH_FACTOR_TYPE_PASSWORD);
+}
+
+TEST_F(UserDataAuthExTest, StartAuthSessionEphemeralFactors) {
+  PrepareArguments();
+  SetupMount("foo@example.com");
+  // Setup
+  start_auth_session_req_->mutable_account_id()->set_account_id(
+      "foo@example.com");
+  start_auth_session_req_->set_intent(user_data_auth::AUTH_INTENT_VERIFY_ONLY);
+  start_auth_session_req_->set_flags(
+      user_data_auth::AUTH_SESSION_FLAGS_EPHEMERAL_USER);
+
+  EXPECT_CALL(keyset_management_, UserExists(_)).WillRepeatedly(Return(false));
+  session_->AddCredentialVerifier(std::make_unique<MockCredentialVerifier>(
+      AuthFactorType::kPassword, "password-verifier-label",
+      AuthFactorMetadata{.metadata = PasswordAuthFactorMetadata()}));
+
+  user_data_auth::StartAuthSessionReply start_auth_session_reply;
+  {
+    TaskGuard guard(this, UserDataAuth::TestThreadId::kMountThread);
+    userdataauth_->StartAuthSession(
+        *start_auth_session_req_,
+        base::BindOnce(
+            [](user_data_auth::StartAuthSessionReply* auth_reply_ptr,
+               const user_data_auth::StartAuthSessionReply& reply) {
+              *auth_reply_ptr = reply;
+            },
+            base::Unretained(&start_auth_session_reply)));
+  }
+
+  EXPECT_EQ(start_auth_session_reply.error(),
+            user_data_auth::CRYPTOHOME_ERROR_NOT_SET);
+  ASSERT_THAT(start_auth_session_reply.auth_factors().size(), 1);
+  EXPECT_THAT(start_auth_session_reply.auth_factors().at(0).label(),
+              "password-verifier-label");
+  EXPECT_THAT(start_auth_session_reply.auth_factors().at(0).type(),
+              user_data_auth::AUTH_FACTOR_TYPE_PASSWORD);
 }
 
 TEST_F(UserDataAuthExTest, ListAuthFactorsUserDoesNotExist) {
@@ -4520,7 +4706,7 @@ TEST_F(UserDataAuthExTest, ListAuthFactorsUserIsPersistentButHasNoStorage) {
   }
 
   EXPECT_EQ(list_reply.error(), user_data_auth::CRYPTOHOME_ERROR_NOT_SET);
-  EXPECT_THAT(list_reply.configured_auth_factors(), IsEmpty());
+  EXPECT_THAT(list_reply.configured_auth_factors_with_status(), IsEmpty());
   EXPECT_THAT(list_reply.supported_auth_factors(),
               UnorderedElementsAre(user_data_auth::AUTH_FACTOR_TYPE_PASSWORD,
                                    user_data_auth::AUTH_FACTOR_TYPE_KIOSK));
@@ -4531,8 +4717,6 @@ TEST_F(UserDataAuthExTest, ListAuthFactorsUserIsEphemeralWithoutVerifier) {
   // Add a mount (and user session) for the ephemeral user.
   SetupMount("foo@example.com");
   EXPECT_CALL(*session_, IsEphemeral()).WillRepeatedly(Return(true));
-  EXPECT_CALL(*session_, GetCredentialVerifier())
-      .WillRepeatedly(Return(nullptr));
 
   user_data_auth::ListAuthFactorsRequest list_request;
   list_request.mutable_account_id()->set_account_id("foo@example.com");
@@ -4550,7 +4734,7 @@ TEST_F(UserDataAuthExTest, ListAuthFactorsUserIsEphemeralWithoutVerifier) {
   }
 
   EXPECT_EQ(list_reply.error(), user_data_auth::CRYPTOHOME_ERROR_NOT_SET);
-  EXPECT_THAT(list_reply.configured_auth_factors(), IsEmpty());
+  EXPECT_THAT(list_reply.configured_auth_factors_with_status(), IsEmpty());
   EXPECT_THAT(list_reply.supported_auth_factors(),
               UnorderedElementsAre(user_data_auth::AUTH_FACTOR_TYPE_PASSWORD));
 }
@@ -4560,9 +4744,9 @@ TEST_F(UserDataAuthExTest, ListAuthFactorsUserIsEphemeralWithVerifier) {
   // Add a mount (and user session) for the ephemeral user.
   SetupMount("foo@example.com");
   EXPECT_CALL(*session_, IsEphemeral()).WillRepeatedly(Return(true));
-  ScryptVerifier verifier("password-label");
-  EXPECT_CALL(*session_, GetCredentialVerifier())
-      .WillRepeatedly(Return(&verifier));
+  session_->AddCredentialVerifier(std::make_unique<MockCredentialVerifier>(
+      AuthFactorType::kPassword, "password-label",
+      AuthFactorMetadata{.metadata = PasswordAuthFactorMetadata()}));
 
   user_data_auth::ListAuthFactorsRequest list_request;
   list_request.mutable_account_id()->set_account_id("foo@example.com");
@@ -4580,11 +4764,16 @@ TEST_F(UserDataAuthExTest, ListAuthFactorsUserIsEphemeralWithVerifier) {
   }
 
   EXPECT_EQ(list_reply.error(), user_data_auth::CRYPTOHOME_ERROR_NOT_SET);
-  ASSERT_EQ(list_reply.configured_auth_factors_size(), 1);
-  EXPECT_EQ(list_reply.configured_auth_factors(0).type(),
-            user_data_auth::AUTH_FACTOR_TYPE_PASSWORD);
-  EXPECT_EQ(list_reply.configured_auth_factors(0).label(), "password-label");
-  EXPECT_TRUE(list_reply.configured_auth_factors(0).has_password_metadata());
+  ASSERT_EQ(list_reply.configured_auth_factors_with_status_size(), 1);
+  EXPECT_EQ(
+      list_reply.configured_auth_factors_with_status(0).auth_factor().type(),
+      user_data_auth::AUTH_FACTOR_TYPE_PASSWORD);
+  EXPECT_EQ(
+      list_reply.configured_auth_factors_with_status(0).auth_factor().label(),
+      "password-label");
+  EXPECT_TRUE(list_reply.configured_auth_factors_with_status(0)
+                  .auth_factor()
+                  .has_password_metadata());
   EXPECT_THAT(list_reply.supported_auth_factors(),
               UnorderedElementsAre(user_data_auth::AUTH_FACTOR_TYPE_PASSWORD));
 }
@@ -4616,7 +4805,7 @@ TEST_F(UserDataAuthExTest, ListAuthFactorsUserExistsWithoutPinweaver) {
   }
 
   EXPECT_EQ(list_reply.error(), user_data_auth::CRYPTOHOME_ERROR_NOT_SET);
-  EXPECT_THAT(list_reply.configured_auth_factors(), IsEmpty());
+  EXPECT_THAT(list_reply.configured_auth_factors_with_status(), IsEmpty());
   EXPECT_THAT(list_reply.supported_auth_factors(),
               UnorderedElementsAre(user_data_auth::AUTH_FACTOR_TYPE_PASSWORD,
                                    user_data_auth::AUTH_FACTOR_TYPE_KIOSK));
@@ -4652,7 +4841,7 @@ TEST_F(UserDataAuthExTest, ListAuthFactorsUserExistsWithPinweaver) {
   }
 
   EXPECT_EQ(list_reply.error(), user_data_auth::CRYPTOHOME_ERROR_NOT_SET);
-  EXPECT_THAT(list_reply.configured_auth_factors(), IsEmpty());
+  EXPECT_THAT(list_reply.configured_auth_factors_with_status(), IsEmpty());
   EXPECT_THAT(list_reply.supported_auth_factors(),
               UnorderedElementsAre(user_data_auth::AUTH_FACTOR_TYPE_PASSWORD,
                                    user_data_auth::AUTH_FACTOR_TYPE_PIN,
@@ -4695,7 +4884,7 @@ TEST_F(UserDataAuthExTest,
   }
 
   EXPECT_EQ(list_reply.error(), user_data_auth::CRYPTOHOME_ERROR_NOT_SET);
-  EXPECT_THAT(list_reply.configured_auth_factors(), IsEmpty());
+  EXPECT_THAT(list_reply.configured_auth_factors_with_status(), IsEmpty());
   EXPECT_THAT(
       list_reply.supported_auth_factors(),
       UnorderedElementsAre(user_data_auth::AUTH_FACTOR_TYPE_PASSWORD,
@@ -4743,6 +4932,42 @@ TEST_F(UserDataAuthExTest, ListAuthFactorsUserExistsWithFactorsFromVks) {
         key_data.set_type(KeyData::KEY_TYPE_PASSWORD);
         key_data.set_label("password-scrypt-label");
         vk->SetKeyData(key_data);
+        const brillo::Blob kScryptPlaintext =
+            brillo::BlobFromString("plaintext");
+        const auto blob_to_encrypt = brillo::SecureBlob(brillo::CombineBlobs(
+            {kScryptPlaintext, hwsec_foundation::Sha1(kScryptPlaintext)}));
+        brillo::SecureBlob wrapped_keyset;
+        brillo::SecureBlob wrapped_chaps_key;
+        brillo::SecureBlob wrapped_reset_seed;
+        brillo::SecureBlob derived_key = {
+            0x67, 0xeb, 0xcd, 0x84, 0x49, 0x5e, 0xa2, 0xf3, 0xb1, 0xe6, 0xe7,
+            0x5b, 0x13, 0xb9, 0x16, 0x2f, 0x5a, 0x39, 0xc8, 0xfe, 0x6a, 0x60,
+            0xd4, 0x7a, 0xd8, 0x2b, 0x44, 0xc4, 0x45, 0x53, 0x1a, 0x85, 0x4a,
+            0x97, 0x9f, 0x2d, 0x06, 0xf5, 0xd0, 0xd3, 0xa6, 0xe7, 0xac, 0x9b,
+            0x02, 0xaf, 0x3c, 0x08, 0xce, 0x43, 0x46, 0x32, 0x6d, 0xd7, 0x2b,
+            0xe9, 0xdf, 0x8b, 0x38, 0x0e, 0x60, 0x3d, 0x64, 0x12};
+        brillo::SecureBlob scrypt_salt = brillo::SecureBlob("salt");
+        brillo::SecureBlob chaps_salt = brillo::SecureBlob("chaps_salt");
+        brillo::SecureBlob reset_seed_salt =
+            brillo::SecureBlob("reset_seed_salt");
+        scrypt_salt.resize(hwsec_foundation::kLibScryptSaltSize);
+        chaps_salt.resize(hwsec_foundation::kLibScryptSaltSize);
+        reset_seed_salt.resize(hwsec_foundation::kLibScryptSaltSize);
+        if (hwsec_foundation::LibScryptCompat::Encrypt(
+                derived_key, scrypt_salt, blob_to_encrypt,
+                hwsec_foundation::kDefaultScryptParams, &wrapped_keyset)) {
+          vk->SetWrappedKeyset(wrapped_keyset);
+        }
+        if (hwsec_foundation::LibScryptCompat::Encrypt(
+                derived_key, chaps_salt, blob_to_encrypt,
+                hwsec_foundation::kDefaultScryptParams, &wrapped_chaps_key)) {
+          vk->SetWrappedChapsKey(wrapped_chaps_key);
+        }
+        if (hwsec_foundation::LibScryptCompat::Encrypt(
+                derived_key, reset_seed_salt, blob_to_encrypt,
+                hwsec_foundation::kDefaultScryptParams, &wrapped_reset_seed)) {
+          vk->SetWrappedResetSeed(wrapped_reset_seed);
+        }
         return vk;
       });
 
@@ -4762,12 +4987,19 @@ TEST_F(UserDataAuthExTest, ListAuthFactorsUserExistsWithFactorsFromVks) {
   }
 
   EXPECT_EQ(list_reply.error(), user_data_auth::CRYPTOHOME_ERROR_NOT_SET);
-  ASSERT_EQ(list_reply.configured_auth_factors_size(), 2);
-  EXPECT_EQ(list_reply.configured_auth_factors(0).label(), "password-label");
-  EXPECT_TRUE(list_reply.configured_auth_factors(0).has_password_metadata());
-  EXPECT_EQ(list_reply.configured_auth_factors(1).label(),
-            "password-scrypt-label");
-  EXPECT_TRUE(list_reply.configured_auth_factors(1).has_password_metadata());
+  ASSERT_EQ(list_reply.configured_auth_factors_with_status_size(), 2);
+  EXPECT_EQ(
+      list_reply.configured_auth_factors_with_status(0).auth_factor().label(),
+      "password-label");
+  EXPECT_TRUE(list_reply.configured_auth_factors_with_status(0)
+                  .auth_factor()
+                  .has_password_metadata());
+  EXPECT_EQ(
+      list_reply.configured_auth_factors_with_status(1).auth_factor().label(),
+      "password-scrypt-label");
+  EXPECT_TRUE(list_reply.configured_auth_factors_with_status(1)
+                  .auth_factor()
+                  .has_password_metadata());
   EXPECT_THAT(list_reply.supported_auth_factors(),
               UnorderedElementsAre(user_data_auth::AUTH_FACTOR_TYPE_PASSWORD));
 }
@@ -4809,7 +5041,7 @@ TEST_F(UserDataAuthExTest, ListAuthFactorsWithFactorsFromUss) {
         base::BindOnce(save_reply, base::Unretained(&list_reply)));
   }
   EXPECT_EQ(list_reply.error(), user_data_auth::CRYPTOHOME_ERROR_NOT_SET);
-  EXPECT_THAT(list_reply.configured_auth_factors(), IsEmpty());
+  EXPECT_THAT(list_reply.configured_auth_factors_with_status(), IsEmpty());
   EXPECT_THAT(list_reply.supported_auth_factors(),
               UnorderedElementsAre(user_data_auth::AUTH_FACTOR_TYPE_PASSWORD,
                                    user_data_auth::AUTH_FACTOR_TYPE_PIN));
@@ -4847,17 +5079,26 @@ TEST_F(UserDataAuthExTest, ListAuthFactorsWithFactorsFromUss) {
         base::BindOnce(save_reply, base::Unretained(&list_reply)));
   }
   EXPECT_EQ(list_reply.error(), user_data_auth::CRYPTOHOME_ERROR_NOT_SET);
-  std::sort(list_reply.mutable_configured_auth_factors()->pointer_begin(),
-            list_reply.mutable_configured_auth_factors()->pointer_end(),
-            [](const user_data_auth::AuthFactor* lhs,
-               const user_data_auth::AuthFactor* rhs) {
-              return lhs->label() < rhs->label();
-            });
-  ASSERT_EQ(list_reply.configured_auth_factors_size(), 2);
-  EXPECT_EQ(list_reply.configured_auth_factors(0).label(), "password-label");
-  EXPECT_TRUE(list_reply.configured_auth_factors(0).has_password_metadata());
-  EXPECT_EQ(list_reply.configured_auth_factors(1).label(), "pin-label");
-  EXPECT_TRUE(list_reply.configured_auth_factors(1).has_pin_metadata());
+  std::sort(
+      list_reply.mutable_configured_auth_factors_with_status()->pointer_begin(),
+      list_reply.mutable_configured_auth_factors_with_status()->pointer_end(),
+      [](const user_data_auth::AuthFactorWithStatus* lhs,
+         const user_data_auth::AuthFactorWithStatus* rhs) {
+        return lhs->auth_factor().label() < rhs->auth_factor().label();
+      });
+  ASSERT_EQ(list_reply.configured_auth_factors_with_status_size(), 2);
+  EXPECT_EQ(
+      list_reply.configured_auth_factors_with_status(0).auth_factor().label(),
+      "password-label");
+  EXPECT_TRUE(list_reply.configured_auth_factors_with_status(0)
+                  .auth_factor()
+                  .has_password_metadata());
+  EXPECT_EQ(
+      list_reply.configured_auth_factors_with_status(1).auth_factor().label(),
+      "pin-label");
+  EXPECT_TRUE(list_reply.configured_auth_factors_with_status(1)
+                  .auth_factor()
+                  .has_pin_metadata());
   EXPECT_THAT(list_reply.supported_auth_factors(),
               UnorderedElementsAre(
                   user_data_auth::AUTH_FACTOR_TYPE_PASSWORD,
@@ -4876,14 +5117,426 @@ TEST_F(UserDataAuthExTest, ListAuthFactorsWithFactorsFromUss) {
         base::BindOnce(save_reply, base::Unretained(&list_reply)));
   }
   EXPECT_EQ(list_reply.error(), user_data_auth::CRYPTOHOME_ERROR_NOT_SET);
-  ASSERT_EQ(list_reply.configured_auth_factors_size(), 1);
-  EXPECT_EQ(list_reply.configured_auth_factors(0).label(), "password-label");
-  EXPECT_TRUE(list_reply.configured_auth_factors(0).has_password_metadata());
+  ASSERT_EQ(list_reply.configured_auth_factors_with_status_size(), 1);
+  EXPECT_EQ(
+      list_reply.configured_auth_factors_with_status(0).auth_factor().label(),
+      "password-label");
+  EXPECT_TRUE(list_reply.configured_auth_factors_with_status(0)
+                  .auth_factor()
+                  .has_password_metadata());
   EXPECT_THAT(list_reply.supported_auth_factors(),
               UnorderedElementsAre(
                   user_data_auth::AUTH_FACTOR_TYPE_PASSWORD,
                   user_data_auth::AUTH_FACTOR_TYPE_PIN,
                   user_data_auth::AUTH_FACTOR_TYPE_CRYPTOHOME_RECOVERY));
+}
+
+TEST_F(UserDataAuthExTest, PrepareAuthFactorLegacyFingerprintSuccess) {
+  // Setup.
+  PrepareArguments();
+  start_auth_session_req_->mutable_account_id()->set_account_id(
+      "foo@example.com");
+  user_data_auth::StartAuthSessionReply auth_session_reply;
+  {
+    TaskGuard guard(this, UserDataAuth::TestThreadId::kMountThread);
+    userdataauth_->StartAuthSession(
+        *start_auth_session_req_,
+        base::BindOnce(
+            [](user_data_auth::StartAuthSessionReply* auth_reply_ptr,
+               const user_data_auth::StartAuthSessionReply& reply) {
+              *auth_reply_ptr = reply;
+            },
+            base::Unretained(&auth_session_reply)));
+  }
+  EXPECT_EQ(auth_session_reply.error(),
+            user_data_auth::CRYPTOHOME_ERROR_NOT_SET);
+  std::optional<base::UnguessableToken> auth_session_id =
+      AuthSession::GetTokenFromSerializedString(
+          auth_session_reply.auth_session_id());
+  EXPECT_TRUE(auth_session_id.has_value());
+
+  // Prepare the request and set up the mock components.
+  user_data_auth::PrepareAuthFactorRequest prepare_auth_factor_req;
+  prepare_auth_factor_req.set_auth_session_id(
+      auth_session_reply.auth_session_id());
+  prepare_auth_factor_req.set_auth_factor_type(
+      user_data_auth::AUTH_FACTOR_TYPE_LEGACY_FINGERPRINT);
+  prepare_auth_factor_req.set_purpose(
+      user_data_auth::PURPOSE_AUTHENTICATE_AUTH_FACTOR);
+  EXPECT_CALL(auth_block_utility_,
+              IsPrepareAuthFactorRequired(AuthFactorType::kLegacyFingerprint))
+      .WillRepeatedly(Return(true));
+  EXPECT_CALL(
+      auth_block_utility_,
+      PrepareAuthFactorForAuth(AuthFactorType::kLegacyFingerprint, _, _))
+      .WillOnce([](AuthFactorType, const std::string&,
+                   AuthBlockUtility::CryptohomeStatusCallback callback) {
+        std::move(callback).Run(OkStatus<CryptohomeError>());
+      });
+
+  // Test.
+  user_data_auth::PrepareAuthFactorReply prepare_auth_factor_reply;
+  {
+    TaskGuard guard(this, UserDataAuth::TestThreadId::kMountThread);
+    userdataauth_->PrepareAuthFactor(
+        prepare_auth_factor_req,
+        base::BindOnce(
+            [](user_data_auth::PrepareAuthFactorReply&
+                   prepare_auth_factor_reply,
+               const user_data_auth::PrepareAuthFactorReply& reply) {
+              prepare_auth_factor_reply = reply;
+            },
+            std::ref(prepare_auth_factor_reply)));
+  }
+
+  // Verify.
+  EXPECT_EQ(prepare_auth_factor_reply.error(),
+            user_data_auth::CRYPTOHOME_ERROR_NOT_SET);
+}
+
+TEST_F(UserDataAuthExTest, PrepareAuthFactorLegacyFingerprintFailure) {
+  // Setup.
+  PrepareArguments();
+  start_auth_session_req_->mutable_account_id()->set_account_id(
+      "foo@example.com");
+  user_data_auth::StartAuthSessionReply auth_session_reply;
+  {
+    TaskGuard guard(this, UserDataAuth::TestThreadId::kMountThread);
+    userdataauth_->StartAuthSession(
+        *start_auth_session_req_,
+        base::BindOnce(
+            [](user_data_auth::StartAuthSessionReply* auth_reply_ptr,
+               const user_data_auth::StartAuthSessionReply& reply) {
+              *auth_reply_ptr = reply;
+            },
+            base::Unretained(&auth_session_reply)));
+  }
+  EXPECT_EQ(auth_session_reply.error(),
+            user_data_auth::CRYPTOHOME_ERROR_NOT_SET);
+  std::optional<base::UnguessableToken> auth_session_id =
+      AuthSession::GetTokenFromSerializedString(
+          auth_session_reply.auth_session_id());
+  EXPECT_TRUE(auth_session_id.has_value());
+
+  // Prepare the request and set up the mock components.
+  user_data_auth::PrepareAuthFactorRequest prepare_auth_factor_req;
+  prepare_auth_factor_req.set_auth_session_id(
+      auth_session_reply.auth_session_id());
+  prepare_auth_factor_req.set_auth_factor_type(
+      user_data_auth::AUTH_FACTOR_TYPE_LEGACY_FINGERPRINT);
+  prepare_auth_factor_req.set_purpose(
+      user_data_auth::PURPOSE_AUTHENTICATE_AUTH_FACTOR);
+  EXPECT_CALL(auth_block_utility_,
+              IsPrepareAuthFactorRequired(AuthFactorType::kLegacyFingerprint))
+      .WillRepeatedly(Return(true));
+  EXPECT_CALL(
+      auth_block_utility_,
+      PrepareAuthFactorForAuth(AuthFactorType::kLegacyFingerprint, _, _))
+      .WillOnce([this](AuthFactorType, const std::string&,
+                       AuthBlockUtility::CryptohomeStatusCallback callback) {
+        std::move(callback).Run(MakeStatus<CryptohomeError>(
+            kErrorLocationPlaceholder,
+            ErrorActionSet({ErrorAction::kIncorrectAuth}),
+            user_data_auth::CryptohomeErrorCode::
+                CRYPTOHOME_ERROR_FINGERPRINT_ERROR_INTERNAL));
+      });
+
+  // Test.
+  user_data_auth::PrepareAuthFactorReply prepare_auth_factor_reply;
+  {
+    TaskGuard guard(this, UserDataAuth::TestThreadId::kMountThread);
+    userdataauth_->PrepareAuthFactor(
+        prepare_auth_factor_req,
+        base::BindOnce(
+            [](user_data_auth::PrepareAuthFactorReply&
+                   prepare_auth_factor_reply,
+               const user_data_auth::PrepareAuthFactorReply& reply) {
+              prepare_auth_factor_reply = reply;
+            },
+            std::ref(prepare_auth_factor_reply)));
+  }
+
+  // Verify.
+  EXPECT_EQ(prepare_auth_factor_reply.error(),
+            user_data_auth::CRYPTOHOME_ERROR_FINGERPRINT_ERROR_INTERNAL);
+}
+
+TEST_F(UserDataAuthExTest, PrepareAuthFactorNoAuthSessionIdFailure) {
+  // Setup.
+  PrepareArguments();
+  // Prepare the request and set up the mock components.
+  user_data_auth::PrepareAuthFactorRequest prepare_auth_factor_req;
+  prepare_auth_factor_req.set_auth_factor_type(
+      user_data_auth::AUTH_FACTOR_TYPE_LEGACY_FINGERPRINT);
+  prepare_auth_factor_req.set_purpose(
+      user_data_auth::PURPOSE_AUTHENTICATE_AUTH_FACTOR);
+
+  // Test.
+  user_data_auth::PrepareAuthFactorReply prepare_auth_factor_reply;
+  {
+    TaskGuard guard(this, UserDataAuth::TestThreadId::kMountThread);
+    userdataauth_->PrepareAuthFactor(
+        prepare_auth_factor_req,
+        base::BindOnce(
+            [](user_data_auth::PrepareAuthFactorReply&
+                   prepare_auth_factor_reply,
+               const user_data_auth::PrepareAuthFactorReply& reply) {
+              prepare_auth_factor_reply = reply;
+            },
+            std::ref(prepare_auth_factor_reply)));
+  }
+
+  // Verify.
+  EXPECT_EQ(prepare_auth_factor_reply.error(),
+            user_data_auth::CRYPTOHOME_INVALID_AUTH_SESSION_TOKEN);
+}
+
+TEST_F(UserDataAuthExTest, PrepareAuthFactorPasswordFailure) {
+  // Setup.
+  PrepareArguments();
+  start_auth_session_req_->mutable_account_id()->set_account_id(
+      "foo@example.com");
+  user_data_auth::StartAuthSessionReply auth_session_reply;
+  {
+    TaskGuard guard(this, UserDataAuth::TestThreadId::kMountThread);
+    userdataauth_->StartAuthSession(
+        *start_auth_session_req_,
+        base::BindOnce(
+            [](user_data_auth::StartAuthSessionReply* auth_reply_ptr,
+               const user_data_auth::StartAuthSessionReply& reply) {
+              *auth_reply_ptr = reply;
+            },
+            base::Unretained(&auth_session_reply)));
+  }
+  EXPECT_EQ(auth_session_reply.error(),
+            user_data_auth::CRYPTOHOME_ERROR_NOT_SET);
+  std::optional<base::UnguessableToken> auth_session_id =
+      AuthSession::GetTokenFromSerializedString(
+          auth_session_reply.auth_session_id());
+  EXPECT_TRUE(auth_session_id.has_value());
+
+  // Prepare the request and set up the mock components.
+  user_data_auth::PrepareAuthFactorRequest prepare_auth_factor_req;
+  prepare_auth_factor_req.set_auth_session_id(
+      auth_session_reply.auth_session_id());
+  prepare_auth_factor_req.set_auth_factor_type(
+      user_data_auth::AUTH_FACTOR_TYPE_PASSWORD);
+  prepare_auth_factor_req.set_purpose(
+      user_data_auth::PURPOSE_AUTHENTICATE_AUTH_FACTOR);
+  EXPECT_CALL(auth_block_utility_,
+              IsPrepareAuthFactorRequired(AuthFactorType::kPassword))
+      .WillRepeatedly(Return(false));
+
+  // Test.
+  user_data_auth::PrepareAuthFactorReply prepare_auth_factor_reply;
+  {
+    TaskGuard guard(this, UserDataAuth::TestThreadId::kMountThread);
+    userdataauth_->PrepareAuthFactor(
+        prepare_auth_factor_req,
+        base::BindOnce(
+            [](user_data_auth::PrepareAuthFactorReply&
+                   prepare_auth_factor_reply,
+               const user_data_auth::PrepareAuthFactorReply& reply) {
+              prepare_auth_factor_reply = reply;
+            },
+            std::ref(prepare_auth_factor_reply)));
+  }
+
+  // Verify.
+  EXPECT_EQ(prepare_auth_factor_reply.error(),
+            user_data_auth::CRYPTOHOME_ERROR_INVALID_ARGUMENT);
+}
+
+TEST_F(UserDataAuthExTest, TerminateAuthFactorLegacyFingerprintSuccess) {
+  // Setup.
+  PrepareArguments();
+  start_auth_session_req_->mutable_account_id()->set_account_id(
+      "foo@example.com");
+  user_data_auth::StartAuthSessionReply auth_session_reply;
+  {
+    TaskGuard guard(this, UserDataAuth::TestThreadId::kMountThread);
+    userdataauth_->StartAuthSession(
+        *start_auth_session_req_,
+        base::BindOnce(
+            [](user_data_auth::StartAuthSessionReply* auth_reply_ptr,
+               const user_data_auth::StartAuthSessionReply& reply) {
+              *auth_reply_ptr = reply;
+            },
+            base::Unretained(&auth_session_reply)));
+  }
+  EXPECT_EQ(auth_session_reply.error(),
+            user_data_auth::CRYPTOHOME_ERROR_NOT_SET);
+  std::optional<base::UnguessableToken> auth_session_id =
+      AuthSession::GetTokenFromSerializedString(
+          auth_session_reply.auth_session_id());
+  EXPECT_TRUE(auth_session_id.has_value());
+
+  // Execute a successful PrepareAuthFactor with mocked response.
+  user_data_auth::PrepareAuthFactorRequest prepare_auth_factor_req;
+  prepare_auth_factor_req.set_auth_session_id(
+      auth_session_reply.auth_session_id());
+  prepare_auth_factor_req.set_auth_factor_type(
+      user_data_auth::AUTH_FACTOR_TYPE_LEGACY_FINGERPRINT);
+  prepare_auth_factor_req.set_purpose(
+      user_data_auth::PURPOSE_AUTHENTICATE_AUTH_FACTOR);
+  EXPECT_CALL(auth_block_utility_,
+              IsPrepareAuthFactorRequired(AuthFactorType::kLegacyFingerprint))
+      .WillRepeatedly(Return(true));
+  EXPECT_CALL(
+      auth_block_utility_,
+      PrepareAuthFactorForAuth(AuthFactorType::kLegacyFingerprint, _, _))
+      .WillOnce([](AuthFactorType, const std::string&,
+                   AuthBlockUtility::CryptohomeStatusCallback callback) {
+        std::move(callback).Run(OkStatus<CryptohomeError>());
+      });
+  user_data_auth::PrepareAuthFactorReply prepare_auth_factor_reply;
+  {
+    TaskGuard guard(this, UserDataAuth::TestThreadId::kMountThread);
+    userdataauth_->PrepareAuthFactor(
+        prepare_auth_factor_req,
+        base::BindOnce(
+            [](user_data_auth::PrepareAuthFactorReply&
+                   prepare_auth_factor_reply,
+               const user_data_auth::PrepareAuthFactorReply& reply) {
+              prepare_auth_factor_reply = reply;
+            },
+            std::ref(prepare_auth_factor_reply)));
+  }
+  EXPECT_EQ(prepare_auth_factor_reply.error(),
+            user_data_auth::CRYPTOHOME_ERROR_NOT_SET);
+  EXPECT_CALL(auth_block_utility_,
+              TerminateAuthFactor(AuthFactorType::kLegacyFingerprint))
+      .WillOnce([](AuthFactorType) { return OkStatus<CryptohomeError>(); });
+
+  // Test.
+  user_data_auth::TerminateAuthFactorRequest terminate_auth_factor_req;
+  terminate_auth_factor_req.set_auth_session_id(
+      auth_session_reply.auth_session_id());
+  terminate_auth_factor_req.set_auth_factor_type(
+      user_data_auth::AUTH_FACTOR_TYPE_LEGACY_FINGERPRINT);
+  user_data_auth::TerminateAuthFactorReply terminate_auth_factor_reply;
+  {
+    TaskGuard guard(this, UserDataAuth::TestThreadId::kMountThread);
+    userdataauth_->TerminateAuthFactor(
+        terminate_auth_factor_req,
+        base::BindOnce(
+            [](user_data_auth::TerminateAuthFactorReply&
+                   terminate_auth_factor_reply,
+               const user_data_auth::TerminateAuthFactorReply& reply) {
+              terminate_auth_factor_reply = reply;
+            },
+            std::ref(terminate_auth_factor_reply)));
+  }
+
+  // Verify.
+  EXPECT_EQ(terminate_auth_factor_reply.error(),
+            user_data_auth::CRYPTOHOME_ERROR_NOT_SET);
+}
+
+TEST_F(UserDataAuthExTest, TerminateAuthFactorInactiveFactorFailure) {
+  // Setup.
+  PrepareArguments();
+  start_auth_session_req_->mutable_account_id()->set_account_id(
+      "foo@example.com");
+  user_data_auth::StartAuthSessionReply auth_session_reply;
+  {
+    TaskGuard guard(this, UserDataAuth::TestThreadId::kMountThread);
+    userdataauth_->StartAuthSession(
+        *start_auth_session_req_,
+        base::BindOnce(
+            [](user_data_auth::StartAuthSessionReply* auth_reply_ptr,
+               const user_data_auth::StartAuthSessionReply& reply) {
+              *auth_reply_ptr = reply;
+            },
+            base::Unretained(&auth_session_reply)));
+  }
+  EXPECT_EQ(auth_session_reply.error(),
+            user_data_auth::CRYPTOHOME_ERROR_NOT_SET);
+  std::optional<base::UnguessableToken> auth_session_id =
+      AuthSession::GetTokenFromSerializedString(
+          auth_session_reply.auth_session_id());
+  EXPECT_TRUE(auth_session_id.has_value());
+  EXPECT_CALL(auth_block_utility_,
+              IsPrepareAuthFactorRequired(AuthFactorType::kLegacyFingerprint))
+      .WillOnce(Return(true));
+
+  // Test. TerminateAuthFactor fails when there is
+  // no pending fingerprint auth factor to be terminated.
+  user_data_auth::TerminateAuthFactorRequest terminate_auth_factor_req;
+  terminate_auth_factor_req.set_auth_session_id(
+      auth_session_reply.auth_session_id());
+  terminate_auth_factor_req.set_auth_factor_type(
+      user_data_auth::AUTH_FACTOR_TYPE_LEGACY_FINGERPRINT);
+  user_data_auth::TerminateAuthFactorReply terminate_auth_factor_reply;
+  {
+    TaskGuard guard(this, UserDataAuth::TestThreadId::kMountThread);
+    userdataauth_->TerminateAuthFactor(
+        terminate_auth_factor_req,
+        base::BindOnce(
+            [](user_data_auth::TerminateAuthFactorReply&
+                   terminate_auth_factor_reply,
+               const user_data_auth::TerminateAuthFactorReply& reply) {
+              terminate_auth_factor_reply = reply;
+            },
+            std::ref(terminate_auth_factor_reply)));
+  }
+
+  // Verify.
+  EXPECT_EQ(terminate_auth_factor_reply.error(),
+            user_data_auth::CRYPTOHOME_ERROR_INVALID_ARGUMENT);
+}
+
+TEST_F(UserDataAuthExTest, TerminateAuthFactorBadTypeFailure) {
+  // Setup.
+  PrepareArguments();
+  start_auth_session_req_->mutable_account_id()->set_account_id(
+      "foo@example.com");
+  user_data_auth::StartAuthSessionReply auth_session_reply;
+  {
+    TaskGuard guard(this, UserDataAuth::TestThreadId::kMountThread);
+    userdataauth_->StartAuthSession(
+        *start_auth_session_req_,
+        base::BindOnce(
+            [](user_data_auth::StartAuthSessionReply* auth_reply_ptr,
+               const user_data_auth::StartAuthSessionReply& reply) {
+              *auth_reply_ptr = reply;
+            },
+            base::Unretained(&auth_session_reply)));
+  }
+  EXPECT_EQ(auth_session_reply.error(),
+            user_data_auth::CRYPTOHOME_ERROR_NOT_SET);
+  std::optional<base::UnguessableToken> auth_session_id =
+      AuthSession::GetTokenFromSerializedString(
+          auth_session_reply.auth_session_id());
+  EXPECT_TRUE(auth_session_id.has_value());
+  EXPECT_CALL(auth_block_utility_,
+              IsPrepareAuthFactorRequired(AuthFactorType::kPassword))
+      .WillOnce(Return(false));
+
+  // Test. TerminateAuthFactor fails when the auth factor type
+  // does not support PrepareAuthFactor.
+  user_data_auth::TerminateAuthFactorRequest terminate_auth_factor_req;
+  terminate_auth_factor_req.set_auth_session_id(
+      auth_session_reply.auth_session_id());
+  terminate_auth_factor_req.set_auth_factor_type(
+      user_data_auth::AUTH_FACTOR_TYPE_PASSWORD);
+  user_data_auth::TerminateAuthFactorReply terminate_auth_factor_reply;
+  {
+    TaskGuard guard(this, UserDataAuth::TestThreadId::kMountThread);
+    userdataauth_->TerminateAuthFactor(
+        terminate_auth_factor_req,
+        base::BindOnce(
+            [](user_data_auth::TerminateAuthFactorReply&
+                   terminate_auth_factor_reply,
+               const user_data_auth::TerminateAuthFactorReply& reply) {
+              terminate_auth_factor_reply = reply;
+            },
+            std::ref(terminate_auth_factor_reply)));
+  }
+
+  // Verify.
+  EXPECT_EQ(terminate_auth_factor_reply.error(),
+            user_data_auth::CRYPTOHOME_ERROR_INVALID_ARGUMENT);
 }
 
 class ChallengeResponseUserDataAuthExTest : public UserDataAuthExTest {
@@ -4960,8 +5613,7 @@ class ChallengeResponseUserDataAuthExTest : public UserDataAuthExTest {
         ->mutable_key_delegate()
         ->set_dbus_service_name(kKeyDelegateDBusService);
 
-    ON_CALL(key_challenge_service_factory_,
-            New(/*bus=*/_, kKeyDelegateDBusService))
+    ON_CALL(key_challenge_service_factory_, New(kKeyDelegateDBusService))
         .WillByDefault(InvokeWithoutArgs(
             []() { return std::make_unique<MockKeyChallengeService>(); }));
   }
@@ -4975,7 +5627,7 @@ class ChallengeResponseUserDataAuthExTest : public UserDataAuthExTest {
     SetupMount(kUser);
     ON_CALL(*session_, VerifyUser(GetObfuscatedUsername(kUser)))
         .WillByDefault(Return(true));
-    ON_CALL(*session_, key_data()).WillByDefault(ReturnRef(key_data_));
+    session_->set_key_data(key_data_);
   }
 
  protected:

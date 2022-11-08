@@ -13,6 +13,7 @@
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 #include <mojo/public/cpp/bindings/pending_receiver.h>
+#include <mojo/public/cpp/bindings/receiver.h>
 
 #include "diagnostics/cros_healthd/events/bluetooth_events_impl.h"
 #include "diagnostics/cros_healthd/system/mock_context.h"
@@ -22,7 +23,7 @@
 namespace diagnostics {
 namespace {
 
-namespace mojo_ipc = ::chromeos::cros_healthd::mojom;
+namespace mojo_ipc = ::ash::cros_healthd::mojom;
 
 using ::testing::_;
 using ::testing::Invoke;

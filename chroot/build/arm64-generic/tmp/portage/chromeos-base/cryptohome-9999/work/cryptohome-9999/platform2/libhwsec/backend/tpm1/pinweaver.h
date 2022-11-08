@@ -6,6 +6,7 @@
 #define LIBHWSEC_BACKEND_TPM1_PINWEAVER_H_
 
 #include <cstdint>
+#include <optional>
 #include <vector>
 
 #include <brillo/secure_blob.h>
@@ -32,7 +33,8 @@ class PinWeaverTpm1 : public Backend::PinWeaver,
       const brillo::SecureBlob& le_secret,
       const brillo::SecureBlob& he_secret,
       const brillo::SecureBlob& reset_secret,
-      const DelaySchedule& delay_schedule) override;
+      const DelaySchedule& delay_schedule,
+      std::optional<uint32_t> expiration_delay) override;
   StatusOr<CredentialTreeResult> CheckCredential(
       const uint64_t label,
       const std::vector<brillo::Blob>& h_aux,
@@ -46,7 +48,8 @@ class PinWeaverTpm1 : public Backend::PinWeaver,
       const uint64_t label,
       const std::vector<std::vector<uint8_t>>& h_aux,
       const std::vector<uint8_t>& orig_cred_metadata,
-      const brillo::SecureBlob& reset_secret) override;
+      const brillo::SecureBlob& reset_secret,
+      bool strong_reset) override;
   StatusOr<GetLogResult> GetLog(
       const std::vector<uint8_t>& cur_disk_root_hash) override;
   StatusOr<ReplayLogOperationResult> ReplayLogOperation(
@@ -59,6 +62,26 @@ class PinWeaverTpm1 : public Backend::PinWeaver,
       const brillo::Blob& cred_metadata) override;
   StatusOr<uint32_t> GetDelayInSeconds(
       const brillo::Blob& cred_metadata) override;
+  StatusOr<std::optional<uint32_t>> GetExpirationInSeconds(
+      const brillo::Blob& cred_metadata) override;
+  StatusOr<PinWeaverEccPoint> GeneratePk(
+      uint8_t auth_channel,
+      const PinWeaverEccPoint& client_public_key) override;
+  StatusOr<CredentialTreeResult> InsertRateLimiter(
+      uint8_t auth_channel,
+      const std::vector<OperationPolicySetting>& policies,
+      const uint64_t label,
+      const std::vector<brillo::Blob>& h_aux,
+      const brillo::SecureBlob& reset_secret,
+      const DelaySchedule& delay_schedule,
+      std::optional<uint32_t> expiration_delay) override;
+  StatusOr<CredentialTreeResult> StartBiometricsAuth(
+      uint8_t auth_channel,
+      const uint64_t label,
+      const std::vector<brillo::Blob>& h_aux,
+      const brillo::Blob& orig_cred_metadata,
+      const brillo::SecureBlob& client_nonce) override;
+  Status BlockGeneratePk() override;
 };
 
 }  // namespace hwsec

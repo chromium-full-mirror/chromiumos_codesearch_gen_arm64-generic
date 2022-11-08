@@ -10,6 +10,7 @@
 
 #include <limits>
 #include <map>
+#include <optional>
 #include <string>
 #include <utility>
 #include <variant>
@@ -121,9 +122,10 @@ CryptoStatus PinWeaverAuthBlock::Create(const AuthInput& auth_input,
   }
 
   PinWeaverAuthBlockState pin_auth_state;
+  pin_auth_state.reset_salt = auth_input.reset_salt.has_value()
+                                  ? auth_input.reset_salt.value()
+                                  : CreateSecureRandomBlob(kAesBlockSize);
   brillo::SecureBlob reset_secret;
-  brillo::SecureBlob salt =
-      CreateSecureRandomBlob(CRYPTOHOME_DEFAULT_KEY_SALT_SIZE);
   if (auth_input.reset_secret.has_value()) {
     // This case be used for USS as we do not have the concept of reset seed and
     // salt there.
@@ -132,7 +134,6 @@ CryptoStatus PinWeaverAuthBlock::Create(const AuthInput& auth_input,
     // At this point we know auth_input reset_seed is set. The expectation is
     // that this branch of code would be deprecated once we move fully to USS
     // world.
-    pin_auth_state.reset_salt = CreateSecureRandomBlob(kAesBlockSize);
     reset_secret = HmacSha256(pin_auth_state.reset_salt.value(),
                               auth_input.reset_seed.value());
   }
@@ -143,6 +144,8 @@ CryptoStatus PinWeaverAuthBlock::Create(const AuthInput& auth_input,
 
   brillo::SecureBlob le_secret(kDefaultSecretSize);
   brillo::SecureBlob kdf_skey(kDefaultSecretSize);
+  brillo::SecureBlob salt =
+      CreateSecureRandomBlob(CRYPTOHOME_DEFAULT_KEY_SALT_SIZE);
   if (!DeriveSecretsScrypt(auth_input.user_input.value(), salt,
                            {&le_secret, &kdf_skey})) {
     return MakeStatus<CryptohomeCryptoError>(
@@ -205,7 +208,8 @@ CryptoStatus PinWeaverAuthBlock::Create(const AuthInput& auth_input,
 
   uint64_t label;
   LECredStatus ret = le_manager_->InsertCredential(
-      policies, le_secret, he_secret, reset_secret, delay_sched, &label);
+      policies, le_secret, he_secret, reset_secret, delay_sched,
+      /*expiration_delay=*/std::nullopt, &label);
   if (!ret.ok()) {
     LogLERetCode(ret->local_lecred_error());
     return MakeStatus<CryptohomeCryptoError>(
@@ -311,6 +315,30 @@ CryptoStatus PinWeaverAuthBlock::Derive(const AuthInput& auth_input,
   key_blobs->vkk_key = HmacSha256(kdf_skey, vkk_seed);
 
   return OkStatus<CryptohomeCryptoError>();
+}
+
+CryptoStatus PinWeaverAuthBlock::PrepareForRemoval(
+    const AuthBlockState& auth_block_state) {
+  // Read supported_intents only for AuthFactors with a PinWeaver backend.
+  auto* state = std::get_if<::cryptohome::PinWeaverAuthBlockState>(
+      &auth_block_state.state);
+  if (!state) {
+    return MakeStatus<CryptohomeCryptoError>(
+        CRYPTOHOME_ERR_LOC(
+            kLocPinWeaverAuthBlockFailedToGetStateFailedInPrepareForRemoval),
+        ErrorActionSet({ErrorAction::kDevCheckUnexpectedState}),
+        CryptoError::CE_OTHER_FATAL);
+  }
+
+  // Ensure that the AuthFactor has le_label.
+  if (!state->le_label.has_value()) {
+    LOG(ERROR) << "PinWeaver AuthBlockState does not have le_label";
+    return MakeStatus<CryptohomeCryptoError>(
+        CRYPTOHOME_ERR_LOC(kLocPinWeaverAuthBlockNoLabelInPrepareForRemoval),
+        ErrorActionSet({ErrorAction::kDevCheckUnexpectedState}),
+        CryptoError::CE_OTHER_FATAL);
+  }
+  return le_manager_->RemoveCredential(state->le_label.value());
 }
 
 bool PinWeaverAuthBlock::IsLocked(uint64_t label) {

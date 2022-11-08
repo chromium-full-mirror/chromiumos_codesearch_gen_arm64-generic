@@ -13,7 +13,7 @@
 #include <google/protobuf/port_def.inc>
 
 PROTOBUF_PRAGMA_INIT_SEG
-namespace cryptohome {
+namespace bootlockbox {
 constexpr StoreBootLockboxRequest::StoreBootLockboxRequest(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : key_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
@@ -90,8 +90,8 @@ struct FinalizeBootLockboxReplyDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT FinalizeBootLockboxReplyDefaultTypeInternal _FinalizeBootLockboxReply_default_instance_;
-}  // namespace cryptohome
-namespace cryptohome {
+}  // namespace bootlockbox
+namespace bootlockbox {
 bool BootLockboxErrorCode_IsValid(int value) {
   switch (value) {
     case 0:
@@ -188,7 +188,7 @@ StoreBootLockboxRequest::StoreBootLockboxRequest(::PROTOBUF_NAMESPACE_ID::Arena*
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
   }
-  // @@protoc_insertion_point(arena_constructor:cryptohome.StoreBootLockboxRequest)
+  // @@protoc_insertion_point(arena_constructor:bootlockbox.StoreBootLockboxRequest)
 }
 StoreBootLockboxRequest::StoreBootLockboxRequest(const StoreBootLockboxRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
@@ -210,7 +210,7 @@ StoreBootLockboxRequest::StoreBootLockboxRequest(const StoreBootLockboxRequest& 
     data_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_data(), 
       GetArenaForAllocation());
   }
-  // @@protoc_insertion_point(copy_constructor:cryptohome.StoreBootLockboxRequest)
+  // @@protoc_insertion_point(copy_constructor:bootlockbox.StoreBootLockboxRequest)
 }
 
 inline void StoreBootLockboxRequest::SharedCtor() {
@@ -225,7 +225,7 @@ data_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlready
 }
 
 StoreBootLockboxRequest::~StoreBootLockboxRequest() {
-  // @@protoc_insertion_point(destructor:cryptohome.StoreBootLockboxRequest)
+  // @@protoc_insertion_point(destructor:bootlockbox.StoreBootLockboxRequest)
   if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<std::string>();
@@ -248,7 +248,7 @@ void StoreBootLockboxRequest::SetCachedSize(int size) const {
 }
 
 void StoreBootLockboxRequest::Clear() {
-// @@protoc_insertion_point(message_clear_start:cryptohome.StoreBootLockboxRequest)
+// @@protoc_insertion_point(message_clear_start:bootlockbox.StoreBootLockboxRequest)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -317,7 +317,7 @@ failure:
 
 uint8_t* StoreBootLockboxRequest::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:cryptohome.StoreBootLockboxRequest)
+  // @@protoc_insertion_point(serialize_to_array_start:bootlockbox.StoreBootLockboxRequest)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -338,12 +338,12 @@ uint8_t* StoreBootLockboxRequest::_InternalSerialize(
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:cryptohome.StoreBootLockboxRequest)
+  // @@protoc_insertion_point(serialize_to_array_end:bootlockbox.StoreBootLockboxRequest)
   return target;
 }
 
 size_t StoreBootLockboxRequest::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:cryptohome.StoreBootLockboxRequest)
+// @@protoc_insertion_point(message_byte_size_start:bootlockbox.StoreBootLockboxRequest)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
@@ -382,7 +382,7 @@ void StoreBootLockboxRequest::CheckTypeAndMergeFrom(
 }
 
 void StoreBootLockboxRequest::MergeFrom(const StoreBootLockboxRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:cryptohome.StoreBootLockboxRequest)
+// @@protoc_insertion_point(class_specific_merge_from_start:bootlockbox.StoreBootLockboxRequest)
   GOOGLE_DCHECK_NE(&from, this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -400,7 +400,7 @@ void StoreBootLockboxRequest::MergeFrom(const StoreBootLockboxRequest& from) {
 }
 
 void StoreBootLockboxRequest::CopyFrom(const StoreBootLockboxRequest& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:cryptohome.StoreBootLockboxRequest)
+// @@protoc_insertion_point(class_specific_copy_from_start:bootlockbox.StoreBootLockboxRequest)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -429,7 +429,7 @@ void StoreBootLockboxRequest::InternalSwap(StoreBootLockboxRequest* other) {
 }
 
 std::string StoreBootLockboxRequest::GetTypeName() const {
-  return "cryptohome.StoreBootLockboxRequest";
+  return "bootlockbox.StoreBootLockboxRequest";
 }
 
 
@@ -450,14 +450,14 @@ StoreBootLockboxReply::StoreBootLockboxReply(::PROTOBUF_NAMESPACE_ID::Arena* are
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
   }
-  // @@protoc_insertion_point(arena_constructor:cryptohome.StoreBootLockboxReply)
+  // @@protoc_insertion_point(arena_constructor:bootlockbox.StoreBootLockboxReply)
 }
 StoreBootLockboxReply::StoreBootLockboxReply(const StoreBootLockboxReply& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
       _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   error_ = from.error_;
-  // @@protoc_insertion_point(copy_constructor:cryptohome.StoreBootLockboxReply)
+  // @@protoc_insertion_point(copy_constructor:bootlockbox.StoreBootLockboxReply)
 }
 
 inline void StoreBootLockboxReply::SharedCtor() {
@@ -465,7 +465,7 @@ error_ = 0;
 }
 
 StoreBootLockboxReply::~StoreBootLockboxReply() {
-  // @@protoc_insertion_point(destructor:cryptohome.StoreBootLockboxReply)
+  // @@protoc_insertion_point(destructor:bootlockbox.StoreBootLockboxReply)
   if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<std::string>();
@@ -486,7 +486,7 @@ void StoreBootLockboxReply::SetCachedSize(int size) const {
 }
 
 void StoreBootLockboxReply::Clear() {
-// @@protoc_insertion_point(message_clear_start:cryptohome.StoreBootLockboxReply)
+// @@protoc_insertion_point(message_clear_start:bootlockbox.StoreBootLockboxReply)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -503,13 +503,13 @@ const char* StoreBootLockboxReply::_InternalParse(const char* ptr, ::PROTOBUF_NA
     uint32_t tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // optional .cryptohome.BootLockboxErrorCode error = 1;
+      // optional .bootlockbox.BootLockboxErrorCode error = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
           uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-          if (PROTOBUF_PREDICT_TRUE(::cryptohome::BootLockboxErrorCode_IsValid(val))) {
-            _internal_set_error(static_cast<::cryptohome::BootLockboxErrorCode>(val));
+          if (PROTOBUF_PREDICT_TRUE(::bootlockbox::BootLockboxErrorCode_IsValid(val))) {
+            _internal_set_error(static_cast<::bootlockbox::BootLockboxErrorCode>(val));
           } else {
             ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(1, val, mutable_unknown_fields());
           }
@@ -542,12 +542,12 @@ failure:
 
 uint8_t* StoreBootLockboxReply::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:cryptohome.StoreBootLockboxReply)
+  // @@protoc_insertion_point(serialize_to_array_start:bootlockbox.StoreBootLockboxReply)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  // optional .cryptohome.BootLockboxErrorCode error = 1;
+  // optional .bootlockbox.BootLockboxErrorCode error = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
@@ -558,19 +558,19 @@ uint8_t* StoreBootLockboxReply::_InternalSerialize(
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:cryptohome.StoreBootLockboxReply)
+  // @@protoc_insertion_point(serialize_to_array_end:bootlockbox.StoreBootLockboxReply)
   return target;
 }
 
 size_t StoreBootLockboxReply::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:cryptohome.StoreBootLockboxReply)
+// @@protoc_insertion_point(message_byte_size_start:bootlockbox.StoreBootLockboxReply)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // optional .cryptohome.BootLockboxErrorCode error = 1;
+  // optional .bootlockbox.BootLockboxErrorCode error = 1;
   cached_has_bits = _has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
@@ -592,7 +592,7 @@ void StoreBootLockboxReply::CheckTypeAndMergeFrom(
 }
 
 void StoreBootLockboxReply::MergeFrom(const StoreBootLockboxReply& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:cryptohome.StoreBootLockboxReply)
+// @@protoc_insertion_point(class_specific_merge_from_start:bootlockbox.StoreBootLockboxReply)
   GOOGLE_DCHECK_NE(&from, this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -604,7 +604,7 @@ void StoreBootLockboxReply::MergeFrom(const StoreBootLockboxReply& from) {
 }
 
 void StoreBootLockboxReply::CopyFrom(const StoreBootLockboxReply& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:cryptohome.StoreBootLockboxReply)
+// @@protoc_insertion_point(class_specific_copy_from_start:bootlockbox.StoreBootLockboxReply)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -622,7 +622,7 @@ void StoreBootLockboxReply::InternalSwap(StoreBootLockboxReply* other) {
 }
 
 std::string StoreBootLockboxReply::GetTypeName() const {
-  return "cryptohome.StoreBootLockboxReply";
+  return "bootlockbox.StoreBootLockboxReply";
 }
 
 
@@ -643,7 +643,7 @@ ReadBootLockboxRequest::ReadBootLockboxRequest(::PROTOBUF_NAMESPACE_ID::Arena* a
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
   }
-  // @@protoc_insertion_point(arena_constructor:cryptohome.ReadBootLockboxRequest)
+  // @@protoc_insertion_point(arena_constructor:bootlockbox.ReadBootLockboxRequest)
 }
 ReadBootLockboxRequest::ReadBootLockboxRequest(const ReadBootLockboxRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
@@ -657,7 +657,7 @@ ReadBootLockboxRequest::ReadBootLockboxRequest(const ReadBootLockboxRequest& fro
     key_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_key(), 
       GetArenaForAllocation());
   }
-  // @@protoc_insertion_point(copy_constructor:cryptohome.ReadBootLockboxRequest)
+  // @@protoc_insertion_point(copy_constructor:bootlockbox.ReadBootLockboxRequest)
 }
 
 inline void ReadBootLockboxRequest::SharedCtor() {
@@ -668,7 +668,7 @@ key_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyI
 }
 
 ReadBootLockboxRequest::~ReadBootLockboxRequest() {
-  // @@protoc_insertion_point(destructor:cryptohome.ReadBootLockboxRequest)
+  // @@protoc_insertion_point(destructor:bootlockbox.ReadBootLockboxRequest)
   if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<std::string>();
@@ -690,7 +690,7 @@ void ReadBootLockboxRequest::SetCachedSize(int size) const {
 }
 
 void ReadBootLockboxRequest::Clear() {
-// @@protoc_insertion_point(message_clear_start:cryptohome.ReadBootLockboxRequest)
+// @@protoc_insertion_point(message_clear_start:bootlockbox.ReadBootLockboxRequest)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -745,7 +745,7 @@ failure:
 
 uint8_t* ReadBootLockboxRequest::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:cryptohome.ReadBootLockboxRequest)
+  // @@protoc_insertion_point(serialize_to_array_start:bootlockbox.ReadBootLockboxRequest)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -760,12 +760,12 @@ uint8_t* ReadBootLockboxRequest::_InternalSerialize(
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:cryptohome.ReadBootLockboxRequest)
+  // @@protoc_insertion_point(serialize_to_array_end:bootlockbox.ReadBootLockboxRequest)
   return target;
 }
 
 size_t ReadBootLockboxRequest::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:cryptohome.ReadBootLockboxRequest)
+// @@protoc_insertion_point(message_byte_size_start:bootlockbox.ReadBootLockboxRequest)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
@@ -795,7 +795,7 @@ void ReadBootLockboxRequest::CheckTypeAndMergeFrom(
 }
 
 void ReadBootLockboxRequest::MergeFrom(const ReadBootLockboxRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:cryptohome.ReadBootLockboxRequest)
+// @@protoc_insertion_point(class_specific_merge_from_start:bootlockbox.ReadBootLockboxRequest)
   GOOGLE_DCHECK_NE(&from, this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -807,7 +807,7 @@ void ReadBootLockboxRequest::MergeFrom(const ReadBootLockboxRequest& from) {
 }
 
 void ReadBootLockboxRequest::CopyFrom(const ReadBootLockboxRequest& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:cryptohome.ReadBootLockboxRequest)
+// @@protoc_insertion_point(class_specific_copy_from_start:bootlockbox.ReadBootLockboxRequest)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -831,7 +831,7 @@ void ReadBootLockboxRequest::InternalSwap(ReadBootLockboxRequest* other) {
 }
 
 std::string ReadBootLockboxRequest::GetTypeName() const {
-  return "cryptohome.ReadBootLockboxRequest";
+  return "bootlockbox.ReadBootLockboxRequest";
 }
 
 
@@ -855,7 +855,7 @@ ReadBootLockboxReply::ReadBootLockboxReply(::PROTOBUF_NAMESPACE_ID::Arena* arena
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
   }
-  // @@protoc_insertion_point(arena_constructor:cryptohome.ReadBootLockboxReply)
+  // @@protoc_insertion_point(arena_constructor:bootlockbox.ReadBootLockboxReply)
 }
 ReadBootLockboxReply::ReadBootLockboxReply(const ReadBootLockboxReply& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
@@ -870,7 +870,7 @@ ReadBootLockboxReply::ReadBootLockboxReply(const ReadBootLockboxReply& from)
       GetArenaForAllocation());
   }
   error_ = from.error_;
-  // @@protoc_insertion_point(copy_constructor:cryptohome.ReadBootLockboxReply)
+  // @@protoc_insertion_point(copy_constructor:bootlockbox.ReadBootLockboxReply)
 }
 
 inline void ReadBootLockboxReply::SharedCtor() {
@@ -882,7 +882,7 @@ error_ = 0;
 }
 
 ReadBootLockboxReply::~ReadBootLockboxReply() {
-  // @@protoc_insertion_point(destructor:cryptohome.ReadBootLockboxReply)
+  // @@protoc_insertion_point(destructor:bootlockbox.ReadBootLockboxReply)
   if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<std::string>();
@@ -904,7 +904,7 @@ void ReadBootLockboxReply::SetCachedSize(int size) const {
 }
 
 void ReadBootLockboxReply::Clear() {
-// @@protoc_insertion_point(message_clear_start:cryptohome.ReadBootLockboxReply)
+// @@protoc_insertion_point(message_clear_start:bootlockbox.ReadBootLockboxReply)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -925,13 +925,13 @@ const char* ReadBootLockboxReply::_InternalParse(const char* ptr, ::PROTOBUF_NAM
     uint32_t tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // optional .cryptohome.BootLockboxErrorCode error = 1;
+      // optional .bootlockbox.BootLockboxErrorCode error = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
           uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-          if (PROTOBUF_PREDICT_TRUE(::cryptohome::BootLockboxErrorCode_IsValid(val))) {
-            _internal_set_error(static_cast<::cryptohome::BootLockboxErrorCode>(val));
+          if (PROTOBUF_PREDICT_TRUE(::bootlockbox::BootLockboxErrorCode_IsValid(val))) {
+            _internal_set_error(static_cast<::bootlockbox::BootLockboxErrorCode>(val));
           } else {
             ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(1, val, mutable_unknown_fields());
           }
@@ -973,12 +973,12 @@ failure:
 
 uint8_t* ReadBootLockboxReply::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:cryptohome.ReadBootLockboxReply)
+  // @@protoc_insertion_point(serialize_to_array_start:bootlockbox.ReadBootLockboxReply)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  // optional .cryptohome.BootLockboxErrorCode error = 1;
+  // optional .bootlockbox.BootLockboxErrorCode error = 1;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
@@ -995,12 +995,12 @@ uint8_t* ReadBootLockboxReply::_InternalSerialize(
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:cryptohome.ReadBootLockboxReply)
+  // @@protoc_insertion_point(serialize_to_array_end:bootlockbox.ReadBootLockboxReply)
   return target;
 }
 
 size_t ReadBootLockboxReply::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:cryptohome.ReadBootLockboxReply)
+// @@protoc_insertion_point(message_byte_size_start:bootlockbox.ReadBootLockboxReply)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
@@ -1016,7 +1016,7 @@ size_t ReadBootLockboxReply::ByteSizeLong() const {
           this->_internal_data());
     }
 
-    // optional .cryptohome.BootLockboxErrorCode error = 1;
+    // optional .bootlockbox.BootLockboxErrorCode error = 1;
     if (cached_has_bits & 0x00000002u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_error());
@@ -1038,7 +1038,7 @@ void ReadBootLockboxReply::CheckTypeAndMergeFrom(
 }
 
 void ReadBootLockboxReply::MergeFrom(const ReadBootLockboxReply& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:cryptohome.ReadBootLockboxReply)
+// @@protoc_insertion_point(class_specific_merge_from_start:bootlockbox.ReadBootLockboxReply)
   GOOGLE_DCHECK_NE(&from, this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -1057,7 +1057,7 @@ void ReadBootLockboxReply::MergeFrom(const ReadBootLockboxReply& from) {
 }
 
 void ReadBootLockboxReply::CopyFrom(const ReadBootLockboxReply& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:cryptohome.ReadBootLockboxReply)
+// @@protoc_insertion_point(class_specific_copy_from_start:bootlockbox.ReadBootLockboxReply)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -1082,7 +1082,7 @@ void ReadBootLockboxReply::InternalSwap(ReadBootLockboxReply* other) {
 }
 
 std::string ReadBootLockboxReply::GetTypeName() const {
-  return "cryptohome.ReadBootLockboxReply";
+  return "bootlockbox.ReadBootLockboxReply";
 }
 
 
@@ -1099,19 +1099,19 @@ FinalizeNVRamBootLockboxRequest::FinalizeNVRamBootLockboxRequest(::PROTOBUF_NAME
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
   }
-  // @@protoc_insertion_point(arena_constructor:cryptohome.FinalizeNVRamBootLockboxRequest)
+  // @@protoc_insertion_point(arena_constructor:bootlockbox.FinalizeNVRamBootLockboxRequest)
 }
 FinalizeNVRamBootLockboxRequest::FinalizeNVRamBootLockboxRequest(const FinalizeNVRamBootLockboxRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  // @@protoc_insertion_point(copy_constructor:cryptohome.FinalizeNVRamBootLockboxRequest)
+  // @@protoc_insertion_point(copy_constructor:bootlockbox.FinalizeNVRamBootLockboxRequest)
 }
 
 inline void FinalizeNVRamBootLockboxRequest::SharedCtor() {
 }
 
 FinalizeNVRamBootLockboxRequest::~FinalizeNVRamBootLockboxRequest() {
-  // @@protoc_insertion_point(destructor:cryptohome.FinalizeNVRamBootLockboxRequest)
+  // @@protoc_insertion_point(destructor:bootlockbox.FinalizeNVRamBootLockboxRequest)
   if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<std::string>();
@@ -1132,7 +1132,7 @@ void FinalizeNVRamBootLockboxRequest::SetCachedSize(int size) const {
 }
 
 void FinalizeNVRamBootLockboxRequest::Clear() {
-// @@protoc_insertion_point(message_clear_start:cryptohome.FinalizeNVRamBootLockboxRequest)
+// @@protoc_insertion_point(message_clear_start:bootlockbox.FinalizeNVRamBootLockboxRequest)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -1166,7 +1166,7 @@ failure:
 
 uint8_t* FinalizeNVRamBootLockboxRequest::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:cryptohome.FinalizeNVRamBootLockboxRequest)
+  // @@protoc_insertion_point(serialize_to_array_start:bootlockbox.FinalizeNVRamBootLockboxRequest)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -1174,12 +1174,12 @@ uint8_t* FinalizeNVRamBootLockboxRequest::_InternalSerialize(
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:cryptohome.FinalizeNVRamBootLockboxRequest)
+  // @@protoc_insertion_point(serialize_to_array_end:bootlockbox.FinalizeNVRamBootLockboxRequest)
   return target;
 }
 
 size_t FinalizeNVRamBootLockboxRequest::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:cryptohome.FinalizeNVRamBootLockboxRequest)
+// @@protoc_insertion_point(message_byte_size_start:bootlockbox.FinalizeNVRamBootLockboxRequest)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
@@ -1201,7 +1201,7 @@ void FinalizeNVRamBootLockboxRequest::CheckTypeAndMergeFrom(
 }
 
 void FinalizeNVRamBootLockboxRequest::MergeFrom(const FinalizeNVRamBootLockboxRequest& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:cryptohome.FinalizeNVRamBootLockboxRequest)
+// @@protoc_insertion_point(class_specific_merge_from_start:bootlockbox.FinalizeNVRamBootLockboxRequest)
   GOOGLE_DCHECK_NE(&from, this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -1210,7 +1210,7 @@ void FinalizeNVRamBootLockboxRequest::MergeFrom(const FinalizeNVRamBootLockboxRe
 }
 
 void FinalizeNVRamBootLockboxRequest::CopyFrom(const FinalizeNVRamBootLockboxRequest& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:cryptohome.FinalizeNVRamBootLockboxRequest)
+// @@protoc_insertion_point(class_specific_copy_from_start:bootlockbox.FinalizeNVRamBootLockboxRequest)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -1226,7 +1226,7 @@ void FinalizeNVRamBootLockboxRequest::InternalSwap(FinalizeNVRamBootLockboxReque
 }
 
 std::string FinalizeNVRamBootLockboxRequest::GetTypeName() const {
-  return "cryptohome.FinalizeNVRamBootLockboxRequest";
+  return "bootlockbox.FinalizeNVRamBootLockboxRequest";
 }
 
 
@@ -1247,14 +1247,14 @@ FinalizeBootLockboxReply::FinalizeBootLockboxReply(::PROTOBUF_NAMESPACE_ID::Aren
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
   }
-  // @@protoc_insertion_point(arena_constructor:cryptohome.FinalizeBootLockboxReply)
+  // @@protoc_insertion_point(arena_constructor:bootlockbox.FinalizeBootLockboxReply)
 }
 FinalizeBootLockboxReply::FinalizeBootLockboxReply(const FinalizeBootLockboxReply& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
       _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   error_ = from.error_;
-  // @@protoc_insertion_point(copy_constructor:cryptohome.FinalizeBootLockboxReply)
+  // @@protoc_insertion_point(copy_constructor:bootlockbox.FinalizeBootLockboxReply)
 }
 
 inline void FinalizeBootLockboxReply::SharedCtor() {
@@ -1262,7 +1262,7 @@ error_ = 0;
 }
 
 FinalizeBootLockboxReply::~FinalizeBootLockboxReply() {
-  // @@protoc_insertion_point(destructor:cryptohome.FinalizeBootLockboxReply)
+  // @@protoc_insertion_point(destructor:bootlockbox.FinalizeBootLockboxReply)
   if (GetArenaForAllocation() != nullptr) return;
   SharedDtor();
   _internal_metadata_.Delete<std::string>();
@@ -1283,7 +1283,7 @@ void FinalizeBootLockboxReply::SetCachedSize(int size) const {
 }
 
 void FinalizeBootLockboxReply::Clear() {
-// @@protoc_insertion_point(message_clear_start:cryptohome.FinalizeBootLockboxReply)
+// @@protoc_insertion_point(message_clear_start:bootlockbox.FinalizeBootLockboxReply)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -1300,13 +1300,13 @@ const char* FinalizeBootLockboxReply::_InternalParse(const char* ptr, ::PROTOBUF
     uint32_t tag;
     ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // optional .cryptohome.BootLockboxErrorCode error = 1;
+      // optional .bootlockbox.BootLockboxErrorCode error = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
           uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-          if (PROTOBUF_PREDICT_TRUE(::cryptohome::BootLockboxErrorCode_IsValid(val))) {
-            _internal_set_error(static_cast<::cryptohome::BootLockboxErrorCode>(val));
+          if (PROTOBUF_PREDICT_TRUE(::bootlockbox::BootLockboxErrorCode_IsValid(val))) {
+            _internal_set_error(static_cast<::bootlockbox::BootLockboxErrorCode>(val));
           } else {
             ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(1, val, mutable_unknown_fields());
           }
@@ -1339,12 +1339,12 @@ failure:
 
 uint8_t* FinalizeBootLockboxReply::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:cryptohome.FinalizeBootLockboxReply)
+  // @@protoc_insertion_point(serialize_to_array_start:bootlockbox.FinalizeBootLockboxReply)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  // optional .cryptohome.BootLockboxErrorCode error = 1;
+  // optional .bootlockbox.BootLockboxErrorCode error = 1;
   if (cached_has_bits & 0x00000001u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
@@ -1355,19 +1355,19 @@ uint8_t* FinalizeBootLockboxReply::_InternalSerialize(
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:cryptohome.FinalizeBootLockboxReply)
+  // @@protoc_insertion_point(serialize_to_array_end:bootlockbox.FinalizeBootLockboxReply)
   return target;
 }
 
 size_t FinalizeBootLockboxReply::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:cryptohome.FinalizeBootLockboxReply)
+// @@protoc_insertion_point(message_byte_size_start:bootlockbox.FinalizeBootLockboxReply)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // optional .cryptohome.BootLockboxErrorCode error = 1;
+  // optional .bootlockbox.BootLockboxErrorCode error = 1;
   cached_has_bits = _has_bits_[0];
   if (cached_has_bits & 0x00000001u) {
     total_size += 1 +
@@ -1389,7 +1389,7 @@ void FinalizeBootLockboxReply::CheckTypeAndMergeFrom(
 }
 
 void FinalizeBootLockboxReply::MergeFrom(const FinalizeBootLockboxReply& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:cryptohome.FinalizeBootLockboxReply)
+// @@protoc_insertion_point(class_specific_merge_from_start:bootlockbox.FinalizeBootLockboxReply)
   GOOGLE_DCHECK_NE(&from, this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -1401,7 +1401,7 @@ void FinalizeBootLockboxReply::MergeFrom(const FinalizeBootLockboxReply& from) {
 }
 
 void FinalizeBootLockboxReply::CopyFrom(const FinalizeBootLockboxReply& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:cryptohome.FinalizeBootLockboxReply)
+// @@protoc_insertion_point(class_specific_copy_from_start:bootlockbox.FinalizeBootLockboxReply)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -1419,30 +1419,30 @@ void FinalizeBootLockboxReply::InternalSwap(FinalizeBootLockboxReply* other) {
 }
 
 std::string FinalizeBootLockboxReply::GetTypeName() const {
-  return "cryptohome.FinalizeBootLockboxReply";
+  return "bootlockbox.FinalizeBootLockboxReply";
 }
 
 
 // @@protoc_insertion_point(namespace_scope)
-}  // namespace cryptohome
+}  // namespace bootlockbox
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::cryptohome::StoreBootLockboxRequest* Arena::CreateMaybeMessage< ::cryptohome::StoreBootLockboxRequest >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::cryptohome::StoreBootLockboxRequest >(arena);
+template<> PROTOBUF_NOINLINE ::bootlockbox::StoreBootLockboxRequest* Arena::CreateMaybeMessage< ::bootlockbox::StoreBootLockboxRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::bootlockbox::StoreBootLockboxRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::cryptohome::StoreBootLockboxReply* Arena::CreateMaybeMessage< ::cryptohome::StoreBootLockboxReply >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::cryptohome::StoreBootLockboxReply >(arena);
+template<> PROTOBUF_NOINLINE ::bootlockbox::StoreBootLockboxReply* Arena::CreateMaybeMessage< ::bootlockbox::StoreBootLockboxReply >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::bootlockbox::StoreBootLockboxReply >(arena);
 }
-template<> PROTOBUF_NOINLINE ::cryptohome::ReadBootLockboxRequest* Arena::CreateMaybeMessage< ::cryptohome::ReadBootLockboxRequest >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::cryptohome::ReadBootLockboxRequest >(arena);
+template<> PROTOBUF_NOINLINE ::bootlockbox::ReadBootLockboxRequest* Arena::CreateMaybeMessage< ::bootlockbox::ReadBootLockboxRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::bootlockbox::ReadBootLockboxRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::cryptohome::ReadBootLockboxReply* Arena::CreateMaybeMessage< ::cryptohome::ReadBootLockboxReply >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::cryptohome::ReadBootLockboxReply >(arena);
+template<> PROTOBUF_NOINLINE ::bootlockbox::ReadBootLockboxReply* Arena::CreateMaybeMessage< ::bootlockbox::ReadBootLockboxReply >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::bootlockbox::ReadBootLockboxReply >(arena);
 }
-template<> PROTOBUF_NOINLINE ::cryptohome::FinalizeNVRamBootLockboxRequest* Arena::CreateMaybeMessage< ::cryptohome::FinalizeNVRamBootLockboxRequest >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::cryptohome::FinalizeNVRamBootLockboxRequest >(arena);
+template<> PROTOBUF_NOINLINE ::bootlockbox::FinalizeNVRamBootLockboxRequest* Arena::CreateMaybeMessage< ::bootlockbox::FinalizeNVRamBootLockboxRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::bootlockbox::FinalizeNVRamBootLockboxRequest >(arena);
 }
-template<> PROTOBUF_NOINLINE ::cryptohome::FinalizeBootLockboxReply* Arena::CreateMaybeMessage< ::cryptohome::FinalizeBootLockboxReply >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::cryptohome::FinalizeBootLockboxReply >(arena);
+template<> PROTOBUF_NOINLINE ::bootlockbox::FinalizeBootLockboxReply* Arena::CreateMaybeMessage< ::bootlockbox::FinalizeBootLockboxReply >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::bootlockbox::FinalizeBootLockboxReply >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

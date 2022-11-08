@@ -7,23 +7,22 @@
 
 #include <string>
 #include <gmock/gmock.h>
+#include <vector>
 
 #include "diagnostics/cros_healthd/executor/mojom/executor.mojom.h"
 #include "diagnostics/mojom/public/nullable_primitives.mojom.h"
 
 namespace diagnostics {
 
-namespace mojom = ::chromeos::cros_healthd::mojom;
-
 // Mock implementation of the Executor interface.
-class MockExecutor final : public mojom::Executor {
+class MockExecutor final : public ash::cros_healthd::mojom::Executor {
  public:
   MockExecutor() = default;
   MockExecutor(const MockExecutor&) = delete;
   MockExecutor& operator=(const MockExecutor&) = delete;
   ~MockExecutor() override = default;
 
-  // mojom::Executor overrides:
+  // ash::cros_healthd::mojom::Executor overrides:
   MOCK_METHOD(void, GetFanSpeed, (GetFanSpeedCallback), (override));
   MOCK_METHOD(void, GetInterfaces, (GetInterfacesCallback), (override));
   MOCK_METHOD(void,
@@ -45,7 +44,7 @@ class MockExecutor final : public mojom::Executor {
   MOCK_METHOD(void, KillMemtester, (), (override));
   MOCK_METHOD(void,
               GetProcessIOContents,
-              (uint32_t pid, GetProcessIOContentsCallback),
+              (const std::vector<uint32_t>& pids, GetProcessIOContentsCallback),
               (override));
   MOCK_METHOD(void,
               ReadMsr,
@@ -60,6 +59,15 @@ class MockExecutor final : public mojom::Executor {
               (GetUEFIPlatformSizeContentCallback),
               (override));
   MOCK_METHOD(void, GetLidAngle, (GetLidAngleCallback), (override));
+  MOCK_METHOD(void,
+              GetFingerprintFrame,
+              (ash::cros_healthd::mojom::FingerprintCaptureType type,
+               GetFingerprintFrameCallback),
+              (override));
+  MOCK_METHOD(void,
+              GetFingerprintInfo,
+              (GetFingerprintInfoCallback),
+              (override));
 };
 
 }  // namespace diagnostics

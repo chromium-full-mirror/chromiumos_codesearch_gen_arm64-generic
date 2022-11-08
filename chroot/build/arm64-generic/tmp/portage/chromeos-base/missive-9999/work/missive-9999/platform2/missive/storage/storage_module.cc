@@ -37,7 +37,7 @@ void StorageModule::AddRecord(Priority priority,
 }
 
 void StorageModule::Flush(Priority priority, FlushCallback callback) {
-  std::move(callback).Run(storage_->Flush(priority));
+  storage_->Flush(priority, std::move(callback));
 }
 
 void StorageModule::ReportSuccess(SequenceInformation sequence_information,
@@ -54,14 +54,17 @@ void StorageModule::UpdateEncryptionKey(
   storage_->UpdateEncryptionKey(std::move(signed_encryption_key));
 }
 
+base::StringPiece StorageModule::GetPipelineId() const {
+  return storage_->GetPipelineId();
+}
+
 // static
 void StorageModule::Create(
     const StorageOptions& options,
     UploaderInterface::AsyncStartUploaderCb async_start_upload_cb,
     scoped_refptr<EncryptionModuleInterface> encryption_module,
     scoped_refptr<CompressionModule> compression_module,
-    base::OnceCallback<void(StatusOr<scoped_refptr<StorageModuleInterface>>)>
-        callback) {
+    base::OnceCallback<void(StatusOr<scoped_refptr<StorageModule>>)> callback) {
   scoped_refptr<StorageModule> instance =
       // Cannot base::MakeRefCounted, since constructor is protected.
       base::WrapRefCounted(new StorageModule());
@@ -69,8 +72,8 @@ void StorageModule::Create(
       options, async_start_upload_cb, encryption_module, compression_module,
       base::BindOnce(
           [](scoped_refptr<StorageModule> instance,
-             base::OnceCallback<void(
-                 StatusOr<scoped_refptr<StorageModuleInterface>>)> callback,
+             base::OnceCallback<void(StatusOr<scoped_refptr<StorageModule>>)>
+                 callback,
              StatusOr<scoped_refptr<Storage>> storage) {
             if (!storage.ok()) {
               std::move(callback).Run(storage.status());

@@ -37,9 +37,19 @@ namespace hwsec {
 namespace {
 
 constexpr uint32_t kDefaultTpmRsaKeyBits = 2048;
-constexpr uint32_t kDefaultTpmRsaModulusSize = 2048;
 constexpr uint32_t kDefaultTpmPublicExponent = 0x10001;
 constexpr trunks::TPMI_ECC_CURVE kDefaultTpmCurveId = trunks::TPM_ECC_NIST_P256;
+
+// Min and max supported RSA modulus sizes (in bytes).
+constexpr uint32_t kMinModulusSize = 128;
+constexpr uint32_t kMaxModulusSize = 256;
+
+constexpr struct {
+  trunks::TPM_ALG_ID trunks_id;
+  int openssl_nid;
+} kSupportedECCurveAlgorithms[] = {
+    {trunks::TPM_ECC_NIST_P256, NID_X9_62_prime256v1},
+};
 
 StatusOr<trunks::TpmUtility::AsymmetricKeyUsage> GetKeyUsage(
     const KeyManagementTpm2::CreateKeyOptions& options) {
@@ -100,6 +110,47 @@ StatusOr<RsaParameters> ParseSpkiDer(const brillo::Blob& public_key_spki_der) {
   };
 }
 
+StatusOr<uint32_t> GetIntegerExponent(const brillo::Blob& public_exponent) {
+  if (public_exponent.size() > 4) {
+    return MakeStatus<TPMError>("Exponent too large", TPMRetryAction::kNoRetry);
+  }
+
+  uint32_t exponent = 0;
+  for (size_t i = 0; i < public_exponent.size(); i++) {
+    exponent = exponent << 8;
+    exponent += public_exponent[i];
+  }
+  return exponent;
+}
+
+StatusOr<trunks::TPMI_ECC_CURVE> ConvertNIDToTrunksCurveID(int curve_nid) {
+  for (const auto& curve_info : kSupportedECCurveAlgorithms) {
+    if (curve_info.openssl_nid == curve_nid) {
+      return curve_info.trunks_id;
+    }
+  }
+  return MakeStatus<TPMError>("Unsupported curve", TPMRetryAction::kNoRetry);
+}
+
+StatusOr<int> ConvertTrunksCurveIDToNID(trunks::TPMI_ECC_CURVE trunks_id) {
+  for (auto curve_info : kSupportedECCurveAlgorithms) {
+    if (curve_info.trunks_id == trunks_id) {
+      return curve_info.openssl_nid;
+    }
+  }
+  return MakeStatus<TPMError>("Unsupported curve", TPMRetryAction::kNoRetry);
+}
+
+// Padding '\0' at the beginning of the string until it matches the length.
+// This is for padding elliptic curve points and keys, and not for ordinary
+// string. It's needed to normalize the format of the curve point.
+std::string PaddingStringToLength(const std::string& in, size_t length) {
+  if (in.length() < length) {
+    return std::string(length - in.length(), '\0') + in;
+  }
+  return in;
+}
+
 }  // namespace
 
 KeyManagementTpm2::~KeyManagementTpm2() {
@@ -122,30 +173,50 @@ KeyManagementTpm2::GetSupportedAlgo() {
   });
 }
 
-StatusOr<KeyManagementTpm2::CreateKeyResult> KeyManagementTpm2::CreateKey(
-    const OperationPolicySetting& policy,
-    KeyAlgoType key_algo,
-    CreateKeyOptions options) {
+Status KeyManagementTpm2::IsSupported(KeyAlgoType key_algo,
+                                      const CreateKeyOptions& options) {
   switch (key_algo) {
-    case KeyAlgoType::kRsa:
-      return CreateRsaKey(policy, options, /*auto_reload=*/false);
-    case KeyAlgoType::kEcc:
-      return CreateEccKey(policy, options, /*auto_reload=*/false);
+    case KeyAlgoType::kRsa: {
+      if (options.rsa_exponent.has_value()) {
+        RETURN_IF_ERROR(
+            GetIntegerExponent(options.rsa_exponent.value()).status());
+      }
+      if (options.rsa_modulus_bits.has_value()) {
+        uint32_t bits = options.rsa_modulus_bits.value();
+        if (bits < kMinModulusSize * 8) {
+          return MakeStatus<TPMError>("Modulus bits too small",
+                                      TPMRetryAction::kNoRetry);
+        }
+        if (bits > kMaxModulusSize * 8) {
+          return MakeStatus<TPMError>("Modulus bits too big",
+                                      TPMRetryAction::kNoRetry);
+        }
+      }
+      return OkStatus();
+    }
+    case KeyAlgoType::kEcc: {
+      if (options.ecc_nid.has_value()) {
+        RETURN_IF_ERROR(
+            ConvertNIDToTrunksCurveID(options.ecc_nid.value()).status());
+      }
+      return OkStatus();
+    }
     default:
       return MakeStatus<TPMError>("Unsupported key creation algorithm",
                                   TPMRetryAction::kNoRetry);
   }
 }
 
-StatusOr<KeyManagementTpm2::CreateKeyResult>
-KeyManagementTpm2::CreateAutoReloadKey(const OperationPolicySetting& policy,
-                                       KeyAlgoType key_algo,
-                                       CreateKeyOptions options) {
+StatusOr<KeyManagementTpm2::CreateKeyResult> KeyManagementTpm2::CreateKey(
+    const OperationPolicySetting& policy,
+    KeyAlgoType key_algo,
+    AutoReload auto_reload,
+    const CreateKeyOptions& options) {
   switch (key_algo) {
     case KeyAlgoType::kRsa:
-      return CreateRsaKey(policy, options, /*auto_reload=*/true);
+      return CreateRsaKey(policy, options, auto_reload);
     case KeyAlgoType::kEcc:
-      return CreateEccKey(policy, options, /*auto_reload=*/true);
+      return CreateEccKey(policy, options, auto_reload);
     default:
       return MakeStatus<TPMError>("Unsupported key creation algorithm",
                                   TPMRetryAction::kNoRetry);
@@ -155,7 +226,7 @@ KeyManagementTpm2::CreateAutoReloadKey(const OperationPolicySetting& policy,
 StatusOr<KeyManagementTpm2::CreateKeyResult> KeyManagementTpm2::CreateRsaKey(
     const OperationPolicySetting& policy,
     const CreateKeyOptions& options,
-    bool auto_reload) {
+    AutoReload auto_reload) {
   ASSIGN_OR_RETURN(
       const ConfigTpm2::PcrMap& setting,
       backend_.GetConfigTpm2().ToSettingsPcrMap(policy.device_config_settings),
@@ -190,6 +261,12 @@ StatusOr<KeyManagementTpm2::CreateKeyResult> KeyManagementTpm2::CreateRsaKey(
     use_only_policy_authorization = true;
   }
 
+  uint32_t exponent = kDefaultTpmPublicExponent;
+  if (options.rsa_exponent.has_value()) {
+    ASSIGN_OR_RETURN(exponent,
+                     GetIntegerExponent(options.rsa_exponent.value()));
+  }
+
   std::string auth_value;
   if (policy.permission.auth_value.has_value()) {
     auth_value = policy.permission.auth_value.value().to_string();
@@ -206,9 +283,10 @@ StatusOr<KeyManagementTpm2::CreateKeyResult> KeyManagementTpm2::CreateRsaKey(
 
   RETURN_IF_ERROR(
       MakeStatus<TPM2Error>(context.tpm_utility->CreateRSAKeyPair(
-          usage, kDefaultTpmRsaModulusSize, kDefaultTpmPublicExponent,
-          auth_value, policy_digest, use_only_policy_authorization, pcr_list,
-          delegate.get(), &tpm_key_blob, nullptr /* No creation_blob */)))
+          usage, options.rsa_modulus_bits.value_or(kDefaultTpmRsaKeyBits),
+          exponent, auth_value, policy_digest, use_only_policy_authorization,
+          pcr_list, delegate.get(), &tpm_key_blob,
+          nullptr /* No creation_blob */)))
       .WithStatus<TPMError>("Failed to create RSA key");
 
   brillo::Blob key_blob = BlobFromString(tpm_key_blob);
@@ -218,9 +296,7 @@ StatusOr<KeyManagementTpm2::CreateKeyResult> KeyManagementTpm2::CreateRsaKey(
       backend_.GetConfigTpm2().ToOperationPolicy(policy),
       _.WithStatus<TPMError>("Failed to convert setting to policy"));
 
-  ASSIGN_OR_RETURN(ScopedKey key,
-                   auto_reload ? LoadAutoReloadKey(op_policy, key_blob)
-                               : LoadKey(op_policy, key_blob),
+  ASSIGN_OR_RETURN(ScopedKey key, LoadKey(op_policy, key_blob, auto_reload),
                    _.WithStatus<TPMError>("Failed to load created RSA key"));
 
   return CreateKeyResult{
@@ -232,41 +308,66 @@ StatusOr<KeyManagementTpm2::CreateKeyResult> KeyManagementTpm2::CreateRsaKey(
 StatusOr<KeyManagementTpm2::CreateKeyResult>
 KeyManagementTpm2::CreateSoftwareGenRsaKey(const OperationPolicySetting& policy,
                                            const CreateKeyOptions& options,
-                                           bool auto_reload) {
-  ASSIGN_OR_RETURN(trunks::TpmUtility::AsymmetricKeyUsage usage,
-                   GetKeyUsage(options),
-                   _.WithStatus<TPMError>("Failed to get key usage"));
-
+                                           AutoReload auto_reload) {
   brillo::SecureBlob n;
   brillo::SecureBlob p;
-  if (!hwsec_foundation::CreateRsaKey(kDefaultTpmRsaKeyBits, &n, &p)) {
+  if (!hwsec_foundation::CreateRsaKey(
+          options.rsa_modulus_bits.value_or(kDefaultTpmRsaKeyBits), &n, &p)) {
     return MakeStatus<TPMError>("Failed to creating software RSA key",
                                 TPMRetryAction::kNoRetry);
   }
 
-  BackendTpm2::TrunksClientContext& context = backend_.GetTrunksContext();
+  return WrapRSAKey(policy, brillo::Blob(std::begin(n), std::end(n)), p,
+                    auto_reload, options);
+}
 
-  std::string public_modulus = n.to_string();
-  std::string prime_factor = p.to_string();
+StatusOr<KeyManagementTpm2::CreateKeyResult> KeyManagementTpm2::WrapRSAKey(
+    const OperationPolicySetting& policy,
+    const brillo::Blob& public_modulus,
+    const brillo::SecureBlob& private_prime_factor,
+    AutoReload auto_reload,
+    const CreateKeyOptions& options) {
+  ASSIGN_OR_RETURN(
+      const ConfigTpm2::PcrMap& setting,
+      backend_.GetConfigTpm2().ToSettingsPcrMap(policy.device_config_settings),
+      _.WithStatus<TPMError>("Failed to convert setting to PCR map"));
+
+  if (!setting.empty()) {
+    return MakeStatus<TPMError>("Unsupported device config",
+                                TPMRetryAction::kNoRetry);
+  }
+
+  ASSIGN_OR_RETURN(trunks::TpmUtility::AsymmetricKeyUsage usage,
+                   GetKeyUsage(options),
+                   _.WithStatus<TPMError>("Failed to get key usage"));
+
+  std::string prime_factor = private_prime_factor.to_string();
+
   std::string auth_value;
   if (policy.permission.auth_value.has_value()) {
     auth_value = policy.permission.auth_value.value().to_string();
   }
 
   // Cleanup the data from secure blob.
-  base::ScopedClosureRunner cleanup_public_modulus(base::BindOnce(
-      brillo::SecureClearContainer<std::string>, std::ref(public_modulus)));
   base::ScopedClosureRunner cleanup_prime_factor(base::BindOnce(
       brillo::SecureClearContainer<std::string>, std::ref(prime_factor)));
   base::ScopedClosureRunner cleanup_auth_value(base::BindOnce(
       brillo::SecureClearContainer<std::string>, std::ref(auth_value)));
+
+  uint32_t exponent = kDefaultTpmPublicExponent;
+  if (options.rsa_exponent.has_value()) {
+    ASSIGN_OR_RETURN(exponent,
+                     GetIntegerExponent(options.rsa_exponent.value()));
+  }
+
+  BackendTpm2::TrunksClientContext& context = backend_.GetTrunksContext();
 
   std::string tpm_key_blob;
   std::unique_ptr<trunks::AuthorizationDelegate> delegate =
       context.factory.GetPasswordAuthorization("");
 
   RETURN_IF_ERROR(MakeStatus<TPM2Error>(context.tpm_utility->ImportRSAKey(
-                      usage, public_modulus, kDefaultTpmPublicExponent,
+                      usage, brillo::BlobToString(public_modulus), exponent,
                       prime_factor, auth_value, delegate.get(), &tpm_key_blob)))
       .WithStatus<TPMError>("Failed to import software RSA key");
 
@@ -278,9 +379,77 @@ KeyManagementTpm2::CreateSoftwareGenRsaKey(const OperationPolicySetting& policy,
       _.WithStatus<TPMError>("Failed to convert setting to policy"));
 
   ASSIGN_OR_RETURN(
-      ScopedKey key,
-      auto_reload ? LoadAutoReloadKey(op_policy, key_blob)
-                  : LoadKey(op_policy, key_blob),
+      ScopedKey key, LoadKey(op_policy, key_blob, auto_reload),
+      _.WithStatus<TPMError>("Failed to load created software RSA key"));
+
+  return CreateKeyResult{
+      .key = std::move(key),
+      .key_blob = std::move(key_blob),
+  };
+}
+
+StatusOr<KeyManagementTpm2::CreateKeyResult> KeyManagementTpm2::WrapECCKey(
+    const OperationPolicySetting& policy,
+    const brillo::Blob& public_point_x,
+    const brillo::Blob& public_point_y,
+    const brillo::SecureBlob& private_value,
+    AutoReload auto_reload,
+    const CreateKeyOptions& options) {
+  ASSIGN_OR_RETURN(
+      const ConfigTpm2::PcrMap& setting,
+      backend_.GetConfigTpm2().ToSettingsPcrMap(policy.device_config_settings),
+      _.WithStatus<TPMError>("Failed to convert setting to PCR map"));
+
+  if (!setting.empty()) {
+    return MakeStatus<TPMError>("Unsupported device config",
+                                TPMRetryAction::kNoRetry);
+  }
+
+  ASSIGN_OR_RETURN(trunks::TpmUtility::AsymmetricKeyUsage usage,
+                   GetKeyUsage(options),
+                   _.WithStatus<TPMError>("Failed to get key usage"));
+
+  std::string auth_value;
+  if (policy.permission.auth_value.has_value()) {
+    auth_value = policy.permission.auth_value.value().to_string();
+  }
+
+  // Cleanup the data from secure blob.
+  base::ScopedClosureRunner cleanup_auth_value(base::BindOnce(
+      brillo::SecureClearContainer<std::string>, std::ref(auth_value)));
+
+  trunks::TPMI_ECC_CURVE curve = kDefaultTpmCurveId;
+
+  if (options.ecc_nid.has_value()) {
+    ASSIGN_OR_RETURN(curve, ConvertNIDToTrunksCurveID(options.ecc_nid.value()));
+  }
+
+  BackendTpm2::TrunksClientContext& context = backend_.GetTrunksContext();
+
+  std::string tpm_key_blob;
+  std::unique_ptr<trunks::AuthorizationDelegate> delegate =
+      context.factory.GetPasswordAuthorization("");
+
+  RETURN_IF_ERROR(
+      MakeStatus<TPM2Error>(context.tpm_utility->ImportECCKey(
+          usage, curve,
+          PaddingStringToLength(brillo::BlobToString(public_point_x),
+                                MAX_ECC_KEY_BYTES),
+          PaddingStringToLength(brillo::BlobToString(public_point_y),
+                                MAX_ECC_KEY_BYTES),
+          PaddingStringToLength(private_value.to_string(), MAX_ECC_KEY_BYTES),
+          auth_value, delegate.get(), &tpm_key_blob)))
+      .WithStatus<TPMError>("Failed to import software RSA key");
+
+  brillo::Blob key_blob = BlobFromString(tpm_key_blob);
+
+  ASSIGN_OR_RETURN(
+      const OperationPolicy& op_policy,
+      backend_.GetConfigTpm2().ToOperationPolicy(policy),
+      _.WithStatus<TPMError>("Failed to convert setting to policy"));
+
+  ASSIGN_OR_RETURN(
+      ScopedKey key, LoadKey(op_policy, key_blob, auto_reload),
       _.WithStatus<TPMError>("Failed to load created software RSA key"));
 
   return CreateKeyResult{
@@ -292,7 +461,7 @@ KeyManagementTpm2::CreateSoftwareGenRsaKey(const OperationPolicySetting& policy,
 StatusOr<KeyManagementTpm2::CreateKeyResult> KeyManagementTpm2::CreateEccKey(
     const OperationPolicySetting& policy,
     const CreateKeyOptions& options,
-    bool auto_reload) {
+    AutoReload auto_reload) {
   BackendTpm2::TrunksClientContext& context = backend_.GetTrunksContext();
 
   ASSIGN_OR_RETURN(trunks::TpmUtility::AsymmetricKeyUsage usage,
@@ -328,6 +497,12 @@ StatusOr<KeyManagementTpm2::CreateKeyResult> KeyManagementTpm2::CreateEccKey(
     auth_value = policy.permission.auth_value.value().to_string();
   }
 
+  trunks::TPMI_ECC_CURVE curve = kDefaultTpmCurveId;
+
+  if (options.ecc_nid.has_value()) {
+    ASSIGN_OR_RETURN(curve, ConvertNIDToTrunksCurveID(options.ecc_nid.value()));
+  }
+
   // Cleanup the data from secure blob.
   base::ScopedClosureRunner cleanup_auth_value(base::BindOnce(
       brillo::SecureClearContainer<std::string>, std::ref(auth_value)));
@@ -338,7 +513,7 @@ StatusOr<KeyManagementTpm2::CreateKeyResult> KeyManagementTpm2::CreateEccKey(
   std::string tpm_key_blob;
 
   RETURN_IF_ERROR(MakeStatus<TPM2Error>(context.tpm_utility->CreateECCKeyPair(
-                      usage, kDefaultTpmCurveId, auth_value, policy_digest,
+                      usage, curve, auth_value, policy_digest,
                       use_only_policy_authorization, pcr_list, delegate.get(),
                       &tpm_key_blob, /*creation_blob=*/nullptr)))
       .WithStatus<TPMError>("Failed to create ECC key");
@@ -350,9 +525,7 @@ StatusOr<KeyManagementTpm2::CreateKeyResult> KeyManagementTpm2::CreateEccKey(
       backend_.GetConfigTpm2().ToOperationPolicy(policy),
       _.WithStatus<TPMError>("Failed to convert setting to policy"));
 
-  ASSIGN_OR_RETURN(ScopedKey key,
-                   auto_reload ? LoadAutoReloadKey(op_policy, key_blob)
-                               : LoadKey(op_policy, key_blob),
+  ASSIGN_OR_RETURN(ScopedKey key, LoadKey(op_policy, key_blob, auto_reload),
                    _.WithStatus<TPMError>("Failed to load created RSA key"));
 
   return CreateKeyResult{
@@ -362,7 +535,8 @@ StatusOr<KeyManagementTpm2::CreateKeyResult> KeyManagementTpm2::CreateEccKey(
 }
 
 StatusOr<ScopedKey> KeyManagementTpm2::LoadKey(const OperationPolicy& policy,
-                                               const brillo::Blob& key_blob) {
+                                               const brillo::Blob& key_blob,
+                                               AutoReload auto_reload) {
   BackendTpm2::TrunksClientContext& context = backend_.GetTrunksContext();
 
   uint32_t key_handle;
@@ -373,27 +547,16 @@ StatusOr<ScopedKey> KeyManagementTpm2::LoadKey(const OperationPolicy& policy,
                       BlobToString(key_blob), delegate.get(), &key_handle)))
       .WithStatus<TPMError>("Failed to load SRK wrapped key");
 
-  return LoadKeyInternal(KeyTpm2::Type::kTransientKey, key_handle,
-                         /*reload_data=*/std::nullopt);
-}
+  KeyTpm2::Type key_type = KeyTpm2::Type::kTransientKey;
+  std::optional<KeyReloadDataTpm2> reload_data;
+  if (auto_reload == AutoReload::kTrue) {
+    key_type = KeyTpm2::Type::kReloadableTransientKey;
+    reload_data = KeyReloadDataTpm2{
+        .key_blob = key_blob,
+    };
+  }
 
-StatusOr<ScopedKey> KeyManagementTpm2::LoadAutoReloadKey(
-    const OperationPolicy& policy, const brillo::Blob& key_blob) {
-  BackendTpm2::TrunksClientContext& context = backend_.GetTrunksContext();
-
-  uint32_t key_handle;
-  std::unique_ptr<trunks::AuthorizationDelegate> delegate =
-      context.factory.GetPasswordAuthorization("");
-
-  RETURN_IF_ERROR(MakeStatus<TPM2Error>(context.tpm_utility->LoadKey(
-                      BlobToString(key_blob), delegate.get(), &key_handle)))
-      .WithStatus<TPMError>("Failed to load SRK wrapped key");
-
-  return LoadKeyInternal(KeyTpm2::Type::kReloadableTransientKey, key_handle,
-                         KeyReloadDataTpm2{
-                             .policy = policy,
-                             .key_blob = key_blob,
-                         });
+  return LoadKeyInternal(policy, key_type, key_handle, reload_data);
 }
 
 StatusOr<ScopedKey> KeyManagementTpm2::GetPersistentKey(
@@ -417,7 +580,8 @@ StatusOr<ScopedKey> KeyManagementTpm2::GetPersistentKey(
 
   ASSIGN_OR_RETURN(
       ScopedKey key,
-      LoadKeyInternal(KeyTpm2::Type::kPersistentKey, key_handle,
+      LoadKeyInternal(OperationPolicy{}, KeyTpm2::Type::kPersistentKey,
+                      key_handle,
                       /*reload_data=*/std::nullopt),
       _.WithStatus<TPMError>("Failed to side load persistent key"));
 
@@ -444,8 +608,58 @@ StatusOr<brillo::Blob> KeyManagementTpm2::GetPubkeyHash(Key key) {
                               TPMRetryAction::kNoRetry);
 }
 
+StatusOr<RSAPublicInfo> KeyManagementTpm2::GetRSAPublicInfo(Key key) {
+  ASSIGN_OR_RETURN(const KeyTpm2& key_data, GetKeyData(key));
+
+  const trunks::TPMT_PUBLIC& public_data = key_data.cache.public_area;
+
+  if (public_data.type != trunks::TPM_ALG_RSA) {
+    return MakeStatus<TPMError>("Get RSA public info for none-RSA key",
+                                TPMRetryAction::kNoRetry);
+  }
+
+  std::string exponent;
+  RETURN_IF_ERROR(MakeStatus<TPM2Error>(trunks::Serialize_UINT32(
+                      public_data.parameters.rsa_detail.exponent, &exponent)))
+      .WithStatus<TPMError>("Failed to serialize uint32");
+
+  std::string modulus =
+      trunks::StringFrom_TPM2B_PUBLIC_KEY_RSA(public_data.unique.rsa);
+
+  return RSAPublicInfo{
+      .exponent = brillo::BlobFromString(exponent),
+      .modulus = brillo::BlobFromString(modulus),
+  };
+}
+
+StatusOr<ECCPublicInfo> KeyManagementTpm2::GetECCPublicInfo(Key key) {
+  ASSIGN_OR_RETURN(const KeyTpm2& key_data, GetKeyData(key));
+
+  const trunks::TPMT_PUBLIC& public_data = key_data.cache.public_area;
+
+  if (public_data.type != trunks::TPM_ALG_ECC) {
+    return MakeStatus<TPMError>("Get ECC public info for none-ECC key",
+                                TPMRetryAction::kNoRetry);
+  }
+
+  ASSIGN_OR_RETURN(int nid, ConvertTrunksCurveIDToNID(
+                                public_data.parameters.ecc_detail.curve_id));
+
+  std::string x_point =
+      trunks::StringFrom_TPM2B_ECC_PARAMETER(public_data.unique.ecc.x);
+  std::string y_point =
+      trunks::StringFrom_TPM2B_ECC_PARAMETER(public_data.unique.ecc.y);
+
+  return ECCPublicInfo{
+      .nid = nid,
+      .x_point = brillo::BlobFromString(x_point),
+      .y_point = brillo::BlobFromString(y_point),
+  };
+}
+
 StatusOr<ScopedKey> KeyManagementTpm2::SideLoadKey(uint32_t key_handle) {
-  return LoadKeyInternal(KeyTpm2::Type::kPersistentKey, key_handle,
+  return LoadKeyInternal(OperationPolicy{}, KeyTpm2::Type::kPersistentKey,
+                         key_handle,
                          /*reload_data=*/std::nullopt);
 }
 
@@ -456,6 +670,7 @@ StatusOr<uint32_t> KeyManagementTpm2::GetKeyHandle(Key key) {
 }
 
 StatusOr<ScopedKey> KeyManagementTpm2::LoadKeyInternal(
+    const OperationPolicy& policy,
     KeyTpm2::Type key_type,
     uint32_t key_handle,
     std::optional<KeyReloadDataTpm2> reload_data) {
@@ -472,6 +687,7 @@ StatusOr<ScopedKey> KeyManagementTpm2::LoadKeyInternal(
                               .key_handle = key_handle,
                               .cache =
                                   KeyTpm2::Cache{
+                                      .policy = policy,
                                       .public_area = std::move(public_area),
                                   },
                               .reload_data = std::move(reload_data),
@@ -561,7 +777,8 @@ StatusOr<ScopedKey> KeyManagementTpm2::LoadPublicKeyFromSpki(
                       public_key.key_exponent, nullptr, &key_handle)))
       .WithStatus<TPMError>("Failed to load RSA public key");
 
-  return LoadKeyInternal(KeyTpm2::Type::kTransientKey, key_handle,
+  return LoadKeyInternal(OperationPolicy{}, KeyTpm2::Type::kTransientKey,
+                         key_handle,
                          /*reload_data=*/std::nullopt);
 }
 

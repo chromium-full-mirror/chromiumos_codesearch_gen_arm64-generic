@@ -14,7 +14,6 @@
 #include <base/notreached.h>
 #include <base/values.h>
 #include <brillo/cryptohome.h>
-#include <cryptohome/scrypt_verifier.h>
 #include <libhwsec-foundation/crypto/hmac.h>
 #include <libhwsec-foundation/crypto/sha.h>
 
@@ -27,6 +26,7 @@
 #include "cryptohome/keyset_management.h"
 #include "cryptohome/pkcs11/pkcs11_token.h"
 #include "cryptohome/pkcs11/pkcs11_token_factory.h"
+#include "cryptohome/scrypt_verifier.h"
 #include "cryptohome/storage/cryptohome_vault.h"
 #include "cryptohome/storage/error.h"
 #include "cryptohome/storage/mount.h"
@@ -257,73 +257,55 @@ std::unique_ptr<brillo::SecureBlob> RealUserSession::GetHibernateSecret() {
   return std::move(hibernate_secret_);
 }
 
-void RealUserSession::SetCredentials(const Credentials& credentials) {
+void RealUserSession::AddCredentials(const Credentials& credentials) {
   if (obfuscated_username_ != credentials.GetObfuscatedUsername()) {
-    NOTREACHED() << "SetCredentials username mismatch.";
+    NOTREACHED() << "AddCredentials username mismatch.";
     return;
   }
 
-  key_data_ = credentials.key_data();
+  set_key_data(credentials.key_data());
 
-  credential_verifier_.reset(new ScryptVerifier(key_data_.label()));
-  if (!credential_verifier_->Set(credentials.passkey())) {
+  // Create a matching passkey-based verifier for the key data.
+  auto verifier =
+      ScryptVerifier::Create(key_data().label(), credentials.passkey());
+  if (verifier) {
+    AddCredentialVerifier(std::move(verifier));
+  } else {
     LOG(WARNING) << "CredentialVerifier could not be set";
   }
-}
-
-void RealUserSession::SetCredentials(AuthSession* auth_session) {
-  if (obfuscated_username_ != auth_session->obfuscated_username()) {
-    NOTREACHED() << "SetCredentials auth session username mismatch.";
-    return;
-  }
-
-  key_data_ = auth_session->current_key_data();
-  credential_verifier_ = auth_session->TakeCredentialVerifier();
 }
 
 bool RealUserSession::VerifyUser(const std::string& obfuscated_username) const {
   return obfuscated_username_ == obfuscated_username;
 }
 
-// TODO(betuls): Move credential verification to AuthBlocks once AuthBlock
-// refactor is completed.
 bool RealUserSession::VerifyCredentials(const Credentials& credentials) const {
   ReportTimerStart(kSessionUnlockTimer);
 
-  if (!credential_verifier_) {
-    LOG(ERROR) << "Attempt to verify credentials with no verifier set";
-    return false;
-  }
   if (!VerifyUser(credentials.GetObfuscatedUsername())) {
     return false;
   }
-  // If the incoming credentials have no label, then just test the secret. If it
-  // is labeled, then the label must match.
-  if (!credentials.key_data().label().empty() &&
-      credentials.key_data().label() !=
-          credential_verifier_->auth_factor_label()) {
+
+  // If the incoming credentials have no label, the want to use the verifier
+  // that's associated with key_data_ (found by using the key_data_ label).
+  // Otherwise, use the one specified by the credentials.
+  const std::string& label_to_use = credentials.key_data().label().empty()
+                                        ? key_data().label()
+                                        : credentials.key_data().label();
+  const CredentialVerifier* verifier = FindCredentialVerifier(label_to_use);
+  if (!verifier) {
+    LOG(ERROR) << "Attempt to verify credentials with no verifier set";
     return false;
   }
 
-  bool status = credential_verifier_->Verify(credentials.passkey());
+  // Try testing the secret now.
+  bool status = verifier->Verify(
+      {.user_input = credentials.passkey(),
+       .obfuscated_username = credentials.GetObfuscatedUsername()});
 
   ReportTimerStop(kSessionUnlockTimer);
 
   return status;
-}
-
-void RealUserSession::RemoveCredentialVerifierForKeyLabel(
-    const std::string& key_label) {
-  if (!credential_verifier_) {
-    return;
-  }
-
-  // If the credential to remove has the same label as the current credential
-  // verifier, then we reset the credential verifier and remove KeyData.
-  if (key_label == credential_verifier_->auth_factor_label()) {
-    credential_verifier_.reset();
-    key_data_ = KeyData();
-  }
 }
 
 bool RealUserSession::ResetApplicationContainer(

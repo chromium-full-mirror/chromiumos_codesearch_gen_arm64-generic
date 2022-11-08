@@ -51,7 +51,7 @@ struct TableStruct_boot_5flockbox_5frpc_2eproto {
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
   static const uint32_t offsets[];
 };
-namespace cryptohome {
+namespace bootlockbox {
 class FinalizeBootLockboxReply;
 struct FinalizeBootLockboxReplyDefaultTypeInternal;
 extern FinalizeBootLockboxReplyDefaultTypeInternal _FinalizeBootLockboxReply_default_instance_;
@@ -70,16 +70,16 @@ extern StoreBootLockboxReplyDefaultTypeInternal _StoreBootLockboxReply_default_i
 class StoreBootLockboxRequest;
 struct StoreBootLockboxRequestDefaultTypeInternal;
 extern StoreBootLockboxRequestDefaultTypeInternal _StoreBootLockboxRequest_default_instance_;
-}  // namespace cryptohome
+}  // namespace bootlockbox
 PROTOBUF_NAMESPACE_OPEN
-template<> ::cryptohome::FinalizeBootLockboxReply* Arena::CreateMaybeMessage<::cryptohome::FinalizeBootLockboxReply>(Arena*);
-template<> ::cryptohome::FinalizeNVRamBootLockboxRequest* Arena::CreateMaybeMessage<::cryptohome::FinalizeNVRamBootLockboxRequest>(Arena*);
-template<> ::cryptohome::ReadBootLockboxReply* Arena::CreateMaybeMessage<::cryptohome::ReadBootLockboxReply>(Arena*);
-template<> ::cryptohome::ReadBootLockboxRequest* Arena::CreateMaybeMessage<::cryptohome::ReadBootLockboxRequest>(Arena*);
-template<> ::cryptohome::StoreBootLockboxReply* Arena::CreateMaybeMessage<::cryptohome::StoreBootLockboxReply>(Arena*);
-template<> ::cryptohome::StoreBootLockboxRequest* Arena::CreateMaybeMessage<::cryptohome::StoreBootLockboxRequest>(Arena*);
+template<> ::bootlockbox::FinalizeBootLockboxReply* Arena::CreateMaybeMessage<::bootlockbox::FinalizeBootLockboxReply>(Arena*);
+template<> ::bootlockbox::FinalizeNVRamBootLockboxRequest* Arena::CreateMaybeMessage<::bootlockbox::FinalizeNVRamBootLockboxRequest>(Arena*);
+template<> ::bootlockbox::ReadBootLockboxReply* Arena::CreateMaybeMessage<::bootlockbox::ReadBootLockboxReply>(Arena*);
+template<> ::bootlockbox::ReadBootLockboxRequest* Arena::CreateMaybeMessage<::bootlockbox::ReadBootLockboxRequest>(Arena*);
+template<> ::bootlockbox::StoreBootLockboxReply* Arena::CreateMaybeMessage<::bootlockbox::StoreBootLockboxReply>(Arena*);
+template<> ::bootlockbox::StoreBootLockboxRequest* Arena::CreateMaybeMessage<::bootlockbox::StoreBootLockboxRequest>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
-namespace cryptohome {
+namespace bootlockbox {
 
 enum BootLockboxErrorCode : int {
   BOOTLOCKBOX_ERROR_NOT_SET = 0,
@@ -109,7 +109,7 @@ bool BootLockboxErrorCode_Parse(
 // ===================================================================
 
 class StoreBootLockboxRequest final :
-    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:cryptohome.StoreBootLockboxRequest) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:bootlockbox.StoreBootLockboxRequest) */ {
  public:
   inline StoreBootLockboxRequest() : StoreBootLockboxRequest(nullptr) {}
   ~StoreBootLockboxRequest() override;
@@ -204,7 +204,7 @@ class StoreBootLockboxRequest final :
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "cryptohome.StoreBootLockboxRequest";
+    return "bootlockbox.StoreBootLockboxRequest";
   }
   protected:
   explicit StoreBootLockboxRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -260,7 +260,7 @@ class StoreBootLockboxRequest final :
   std::string* _internal_mutable_data();
   public:
 
-  // @@protoc_insertion_point(class_scope:cryptohome.StoreBootLockboxRequest)
+  // @@protoc_insertion_point(class_scope:bootlockbox.StoreBootLockboxRequest)
  private:
   class _Internal;
 
@@ -276,7 +276,7 @@ class StoreBootLockboxRequest final :
 // -------------------------------------------------------------------
 
 class StoreBootLockboxReply final :
-    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:cryptohome.StoreBootLockboxReply) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:bootlockbox.StoreBootLockboxReply) */ {
  public:
   inline StoreBootLockboxReply() : StoreBootLockboxReply(nullptr) {}
   ~StoreBootLockboxReply() override;
@@ -371,7 +371,7 @@ class StoreBootLockboxReply final :
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "cryptohome.StoreBootLockboxReply";
+    return "bootlockbox.StoreBootLockboxReply";
   }
   protected:
   explicit StoreBootLockboxReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -390,20 +390,20 @@ class StoreBootLockboxReply final :
   enum : int {
     kErrorFieldNumber = 1,
   };
-  // optional .cryptohome.BootLockboxErrorCode error = 1;
+  // optional .bootlockbox.BootLockboxErrorCode error = 1;
   bool has_error() const;
   private:
   bool _internal_has_error() const;
   public:
   void clear_error();
-  ::cryptohome::BootLockboxErrorCode error() const;
-  void set_error(::cryptohome::BootLockboxErrorCode value);
+  ::bootlockbox::BootLockboxErrorCode error() const;
+  void set_error(::bootlockbox::BootLockboxErrorCode value);
   private:
-  ::cryptohome::BootLockboxErrorCode _internal_error() const;
-  void _internal_set_error(::cryptohome::BootLockboxErrorCode value);
+  ::bootlockbox::BootLockboxErrorCode _internal_error() const;
+  void _internal_set_error(::bootlockbox::BootLockboxErrorCode value);
   public:
 
-  // @@protoc_insertion_point(class_scope:cryptohome.StoreBootLockboxReply)
+  // @@protoc_insertion_point(class_scope:bootlockbox.StoreBootLockboxReply)
  private:
   class _Internal;
 
@@ -418,7 +418,7 @@ class StoreBootLockboxReply final :
 // -------------------------------------------------------------------
 
 class ReadBootLockboxRequest final :
-    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:cryptohome.ReadBootLockboxRequest) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:bootlockbox.ReadBootLockboxRequest) */ {
  public:
   inline ReadBootLockboxRequest() : ReadBootLockboxRequest(nullptr) {}
   ~ReadBootLockboxRequest() override;
@@ -513,7 +513,7 @@ class ReadBootLockboxRequest final :
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "cryptohome.ReadBootLockboxRequest";
+    return "bootlockbox.ReadBootLockboxRequest";
   }
   protected:
   explicit ReadBootLockboxRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -550,7 +550,7 @@ class ReadBootLockboxRequest final :
   std::string* _internal_mutable_key();
   public:
 
-  // @@protoc_insertion_point(class_scope:cryptohome.ReadBootLockboxRequest)
+  // @@protoc_insertion_point(class_scope:bootlockbox.ReadBootLockboxRequest)
  private:
   class _Internal;
 
@@ -565,7 +565,7 @@ class ReadBootLockboxRequest final :
 // -------------------------------------------------------------------
 
 class ReadBootLockboxReply final :
-    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:cryptohome.ReadBootLockboxReply) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:bootlockbox.ReadBootLockboxReply) */ {
  public:
   inline ReadBootLockboxReply() : ReadBootLockboxReply(nullptr) {}
   ~ReadBootLockboxReply() override;
@@ -660,7 +660,7 @@ class ReadBootLockboxReply final :
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "cryptohome.ReadBootLockboxReply";
+    return "bootlockbox.ReadBootLockboxReply";
   }
   protected:
   explicit ReadBootLockboxReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -698,20 +698,20 @@ class ReadBootLockboxReply final :
   std::string* _internal_mutable_data();
   public:
 
-  // optional .cryptohome.BootLockboxErrorCode error = 1;
+  // optional .bootlockbox.BootLockboxErrorCode error = 1;
   bool has_error() const;
   private:
   bool _internal_has_error() const;
   public:
   void clear_error();
-  ::cryptohome::BootLockboxErrorCode error() const;
-  void set_error(::cryptohome::BootLockboxErrorCode value);
+  ::bootlockbox::BootLockboxErrorCode error() const;
+  void set_error(::bootlockbox::BootLockboxErrorCode value);
   private:
-  ::cryptohome::BootLockboxErrorCode _internal_error() const;
-  void _internal_set_error(::cryptohome::BootLockboxErrorCode value);
+  ::bootlockbox::BootLockboxErrorCode _internal_error() const;
+  void _internal_set_error(::bootlockbox::BootLockboxErrorCode value);
   public:
 
-  // @@protoc_insertion_point(class_scope:cryptohome.ReadBootLockboxReply)
+  // @@protoc_insertion_point(class_scope:bootlockbox.ReadBootLockboxReply)
  private:
   class _Internal;
 
@@ -727,7 +727,7 @@ class ReadBootLockboxReply final :
 // -------------------------------------------------------------------
 
 class FinalizeNVRamBootLockboxRequest final :
-    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:cryptohome.FinalizeNVRamBootLockboxRequest) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:bootlockbox.FinalizeNVRamBootLockboxRequest) */ {
  public:
   inline FinalizeNVRamBootLockboxRequest() : FinalizeNVRamBootLockboxRequest(nullptr) {}
   ~FinalizeNVRamBootLockboxRequest() override;
@@ -822,7 +822,7 @@ class FinalizeNVRamBootLockboxRequest final :
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "cryptohome.FinalizeNVRamBootLockboxRequest";
+    return "bootlockbox.FinalizeNVRamBootLockboxRequest";
   }
   protected:
   explicit FinalizeNVRamBootLockboxRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -838,7 +838,7 @@ class FinalizeNVRamBootLockboxRequest final :
 
   // accessors -------------------------------------------------------
 
-  // @@protoc_insertion_point(class_scope:cryptohome.FinalizeNVRamBootLockboxRequest)
+  // @@protoc_insertion_point(class_scope:bootlockbox.FinalizeNVRamBootLockboxRequest)
  private:
   class _Internal;
 
@@ -851,7 +851,7 @@ class FinalizeNVRamBootLockboxRequest final :
 // -------------------------------------------------------------------
 
 class FinalizeBootLockboxReply final :
-    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:cryptohome.FinalizeBootLockboxReply) */ {
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:bootlockbox.FinalizeBootLockboxReply) */ {
  public:
   inline FinalizeBootLockboxReply() : FinalizeBootLockboxReply(nullptr) {}
   ~FinalizeBootLockboxReply() override;
@@ -946,7 +946,7 @@ class FinalizeBootLockboxReply final :
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "cryptohome.FinalizeBootLockboxReply";
+    return "bootlockbox.FinalizeBootLockboxReply";
   }
   protected:
   explicit FinalizeBootLockboxReply(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -965,20 +965,20 @@ class FinalizeBootLockboxReply final :
   enum : int {
     kErrorFieldNumber = 1,
   };
-  // optional .cryptohome.BootLockboxErrorCode error = 1;
+  // optional .bootlockbox.BootLockboxErrorCode error = 1;
   bool has_error() const;
   private:
   bool _internal_has_error() const;
   public:
   void clear_error();
-  ::cryptohome::BootLockboxErrorCode error() const;
-  void set_error(::cryptohome::BootLockboxErrorCode value);
+  ::bootlockbox::BootLockboxErrorCode error() const;
+  void set_error(::bootlockbox::BootLockboxErrorCode value);
   private:
-  ::cryptohome::BootLockboxErrorCode _internal_error() const;
-  void _internal_set_error(::cryptohome::BootLockboxErrorCode value);
+  ::bootlockbox::BootLockboxErrorCode _internal_error() const;
+  void _internal_set_error(::bootlockbox::BootLockboxErrorCode value);
   public:
 
-  // @@protoc_insertion_point(class_scope:cryptohome.FinalizeBootLockboxReply)
+  // @@protoc_insertion_point(class_scope:bootlockbox.FinalizeBootLockboxReply)
  private:
   class _Internal;
 
@@ -1014,7 +1014,7 @@ inline void StoreBootLockboxRequest::clear_key() {
   _has_bits_[0] &= ~0x00000001u;
 }
 inline const std::string& StoreBootLockboxRequest::key() const {
-  // @@protoc_insertion_point(field_get:cryptohome.StoreBootLockboxRequest.key)
+  // @@protoc_insertion_point(field_get:bootlockbox.StoreBootLockboxRequest.key)
   return _internal_key();
 }
 template <typename ArgT0, typename... ArgT>
@@ -1022,11 +1022,11 @@ inline PROTOBUF_ALWAYS_INLINE
 void StoreBootLockboxRequest::set_key(ArgT0&& arg0, ArgT... args) {
  _has_bits_[0] |= 0x00000001u;
  key_.SetBytes(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:cryptohome.StoreBootLockboxRequest.key)
+  // @@protoc_insertion_point(field_set:bootlockbox.StoreBootLockboxRequest.key)
 }
 inline std::string* StoreBootLockboxRequest::mutable_key() {
   std::string* _s = _internal_mutable_key();
-  // @@protoc_insertion_point(field_mutable:cryptohome.StoreBootLockboxRequest.key)
+  // @@protoc_insertion_point(field_mutable:bootlockbox.StoreBootLockboxRequest.key)
   return _s;
 }
 inline const std::string& StoreBootLockboxRequest::_internal_key() const {
@@ -1041,7 +1041,7 @@ inline std::string* StoreBootLockboxRequest::_internal_mutable_key() {
   return key_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
 }
 inline std::string* StoreBootLockboxRequest::release_key() {
-  // @@protoc_insertion_point(field_release:cryptohome.StoreBootLockboxRequest.key)
+  // @@protoc_insertion_point(field_release:bootlockbox.StoreBootLockboxRequest.key)
   if (!_internal_has_key()) {
     return nullptr;
   }
@@ -1067,7 +1067,7 @@ inline void StoreBootLockboxRequest::set_allocated_key(std::string* key) {
     key_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:cryptohome.StoreBootLockboxRequest.key)
+  // @@protoc_insertion_point(field_set_allocated:bootlockbox.StoreBootLockboxRequest.key)
 }
 
 // optional bytes data = 2;
@@ -1083,7 +1083,7 @@ inline void StoreBootLockboxRequest::clear_data() {
   _has_bits_[0] &= ~0x00000002u;
 }
 inline const std::string& StoreBootLockboxRequest::data() const {
-  // @@protoc_insertion_point(field_get:cryptohome.StoreBootLockboxRequest.data)
+  // @@protoc_insertion_point(field_get:bootlockbox.StoreBootLockboxRequest.data)
   return _internal_data();
 }
 template <typename ArgT0, typename... ArgT>
@@ -1091,11 +1091,11 @@ inline PROTOBUF_ALWAYS_INLINE
 void StoreBootLockboxRequest::set_data(ArgT0&& arg0, ArgT... args) {
  _has_bits_[0] |= 0x00000002u;
  data_.SetBytes(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:cryptohome.StoreBootLockboxRequest.data)
+  // @@protoc_insertion_point(field_set:bootlockbox.StoreBootLockboxRequest.data)
 }
 inline std::string* StoreBootLockboxRequest::mutable_data() {
   std::string* _s = _internal_mutable_data();
-  // @@protoc_insertion_point(field_mutable:cryptohome.StoreBootLockboxRequest.data)
+  // @@protoc_insertion_point(field_mutable:bootlockbox.StoreBootLockboxRequest.data)
   return _s;
 }
 inline const std::string& StoreBootLockboxRequest::_internal_data() const {
@@ -1110,7 +1110,7 @@ inline std::string* StoreBootLockboxRequest::_internal_mutable_data() {
   return data_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
 }
 inline std::string* StoreBootLockboxRequest::release_data() {
-  // @@protoc_insertion_point(field_release:cryptohome.StoreBootLockboxRequest.data)
+  // @@protoc_insertion_point(field_release:bootlockbox.StoreBootLockboxRequest.data)
   if (!_internal_has_data()) {
     return nullptr;
   }
@@ -1136,14 +1136,14 @@ inline void StoreBootLockboxRequest::set_allocated_data(std::string* data) {
     data_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:cryptohome.StoreBootLockboxRequest.data)
+  // @@protoc_insertion_point(field_set_allocated:bootlockbox.StoreBootLockboxRequest.data)
 }
 
 // -------------------------------------------------------------------
 
 // StoreBootLockboxReply
 
-// optional .cryptohome.BootLockboxErrorCode error = 1;
+// optional .bootlockbox.BootLockboxErrorCode error = 1;
 inline bool StoreBootLockboxReply::_internal_has_error() const {
   bool value = (_has_bits_[0] & 0x00000001u) != 0;
   return value;
@@ -1155,21 +1155,21 @@ inline void StoreBootLockboxReply::clear_error() {
   error_ = 0;
   _has_bits_[0] &= ~0x00000001u;
 }
-inline ::cryptohome::BootLockboxErrorCode StoreBootLockboxReply::_internal_error() const {
-  return static_cast< ::cryptohome::BootLockboxErrorCode >(error_);
+inline ::bootlockbox::BootLockboxErrorCode StoreBootLockboxReply::_internal_error() const {
+  return static_cast< ::bootlockbox::BootLockboxErrorCode >(error_);
 }
-inline ::cryptohome::BootLockboxErrorCode StoreBootLockboxReply::error() const {
-  // @@protoc_insertion_point(field_get:cryptohome.StoreBootLockboxReply.error)
+inline ::bootlockbox::BootLockboxErrorCode StoreBootLockboxReply::error() const {
+  // @@protoc_insertion_point(field_get:bootlockbox.StoreBootLockboxReply.error)
   return _internal_error();
 }
-inline void StoreBootLockboxReply::_internal_set_error(::cryptohome::BootLockboxErrorCode value) {
-  assert(::cryptohome::BootLockboxErrorCode_IsValid(value));
+inline void StoreBootLockboxReply::_internal_set_error(::bootlockbox::BootLockboxErrorCode value) {
+  assert(::bootlockbox::BootLockboxErrorCode_IsValid(value));
   _has_bits_[0] |= 0x00000001u;
   error_ = value;
 }
-inline void StoreBootLockboxReply::set_error(::cryptohome::BootLockboxErrorCode value) {
+inline void StoreBootLockboxReply::set_error(::bootlockbox::BootLockboxErrorCode value) {
   _internal_set_error(value);
-  // @@protoc_insertion_point(field_set:cryptohome.StoreBootLockboxReply.error)
+  // @@protoc_insertion_point(field_set:bootlockbox.StoreBootLockboxReply.error)
 }
 
 // -------------------------------------------------------------------
@@ -1189,7 +1189,7 @@ inline void ReadBootLockboxRequest::clear_key() {
   _has_bits_[0] &= ~0x00000001u;
 }
 inline const std::string& ReadBootLockboxRequest::key() const {
-  // @@protoc_insertion_point(field_get:cryptohome.ReadBootLockboxRequest.key)
+  // @@protoc_insertion_point(field_get:bootlockbox.ReadBootLockboxRequest.key)
   return _internal_key();
 }
 template <typename ArgT0, typename... ArgT>
@@ -1197,11 +1197,11 @@ inline PROTOBUF_ALWAYS_INLINE
 void ReadBootLockboxRequest::set_key(ArgT0&& arg0, ArgT... args) {
  _has_bits_[0] |= 0x00000001u;
  key_.SetBytes(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:cryptohome.ReadBootLockboxRequest.key)
+  // @@protoc_insertion_point(field_set:bootlockbox.ReadBootLockboxRequest.key)
 }
 inline std::string* ReadBootLockboxRequest::mutable_key() {
   std::string* _s = _internal_mutable_key();
-  // @@protoc_insertion_point(field_mutable:cryptohome.ReadBootLockboxRequest.key)
+  // @@protoc_insertion_point(field_mutable:bootlockbox.ReadBootLockboxRequest.key)
   return _s;
 }
 inline const std::string& ReadBootLockboxRequest::_internal_key() const {
@@ -1216,7 +1216,7 @@ inline std::string* ReadBootLockboxRequest::_internal_mutable_key() {
   return key_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
 }
 inline std::string* ReadBootLockboxRequest::release_key() {
-  // @@protoc_insertion_point(field_release:cryptohome.ReadBootLockboxRequest.key)
+  // @@protoc_insertion_point(field_release:bootlockbox.ReadBootLockboxRequest.key)
   if (!_internal_has_key()) {
     return nullptr;
   }
@@ -1242,14 +1242,14 @@ inline void ReadBootLockboxRequest::set_allocated_key(std::string* key) {
     key_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:cryptohome.ReadBootLockboxRequest.key)
+  // @@protoc_insertion_point(field_set_allocated:bootlockbox.ReadBootLockboxRequest.key)
 }
 
 // -------------------------------------------------------------------
 
 // ReadBootLockboxReply
 
-// optional .cryptohome.BootLockboxErrorCode error = 1;
+// optional .bootlockbox.BootLockboxErrorCode error = 1;
 inline bool ReadBootLockboxReply::_internal_has_error() const {
   bool value = (_has_bits_[0] & 0x00000002u) != 0;
   return value;
@@ -1261,21 +1261,21 @@ inline void ReadBootLockboxReply::clear_error() {
   error_ = 0;
   _has_bits_[0] &= ~0x00000002u;
 }
-inline ::cryptohome::BootLockboxErrorCode ReadBootLockboxReply::_internal_error() const {
-  return static_cast< ::cryptohome::BootLockboxErrorCode >(error_);
+inline ::bootlockbox::BootLockboxErrorCode ReadBootLockboxReply::_internal_error() const {
+  return static_cast< ::bootlockbox::BootLockboxErrorCode >(error_);
 }
-inline ::cryptohome::BootLockboxErrorCode ReadBootLockboxReply::error() const {
-  // @@protoc_insertion_point(field_get:cryptohome.ReadBootLockboxReply.error)
+inline ::bootlockbox::BootLockboxErrorCode ReadBootLockboxReply::error() const {
+  // @@protoc_insertion_point(field_get:bootlockbox.ReadBootLockboxReply.error)
   return _internal_error();
 }
-inline void ReadBootLockboxReply::_internal_set_error(::cryptohome::BootLockboxErrorCode value) {
-  assert(::cryptohome::BootLockboxErrorCode_IsValid(value));
+inline void ReadBootLockboxReply::_internal_set_error(::bootlockbox::BootLockboxErrorCode value) {
+  assert(::bootlockbox::BootLockboxErrorCode_IsValid(value));
   _has_bits_[0] |= 0x00000002u;
   error_ = value;
 }
-inline void ReadBootLockboxReply::set_error(::cryptohome::BootLockboxErrorCode value) {
+inline void ReadBootLockboxReply::set_error(::bootlockbox::BootLockboxErrorCode value) {
   _internal_set_error(value);
-  // @@protoc_insertion_point(field_set:cryptohome.ReadBootLockboxReply.error)
+  // @@protoc_insertion_point(field_set:bootlockbox.ReadBootLockboxReply.error)
 }
 
 // optional bytes data = 2;
@@ -1291,7 +1291,7 @@ inline void ReadBootLockboxReply::clear_data() {
   _has_bits_[0] &= ~0x00000001u;
 }
 inline const std::string& ReadBootLockboxReply::data() const {
-  // @@protoc_insertion_point(field_get:cryptohome.ReadBootLockboxReply.data)
+  // @@protoc_insertion_point(field_get:bootlockbox.ReadBootLockboxReply.data)
   return _internal_data();
 }
 template <typename ArgT0, typename... ArgT>
@@ -1299,11 +1299,11 @@ inline PROTOBUF_ALWAYS_INLINE
 void ReadBootLockboxReply::set_data(ArgT0&& arg0, ArgT... args) {
  _has_bits_[0] |= 0x00000001u;
  data_.SetBytes(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:cryptohome.ReadBootLockboxReply.data)
+  // @@protoc_insertion_point(field_set:bootlockbox.ReadBootLockboxReply.data)
 }
 inline std::string* ReadBootLockboxReply::mutable_data() {
   std::string* _s = _internal_mutable_data();
-  // @@protoc_insertion_point(field_mutable:cryptohome.ReadBootLockboxReply.data)
+  // @@protoc_insertion_point(field_mutable:bootlockbox.ReadBootLockboxReply.data)
   return _s;
 }
 inline const std::string& ReadBootLockboxReply::_internal_data() const {
@@ -1318,7 +1318,7 @@ inline std::string* ReadBootLockboxReply::_internal_mutable_data() {
   return data_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
 }
 inline std::string* ReadBootLockboxReply::release_data() {
-  // @@protoc_insertion_point(field_release:cryptohome.ReadBootLockboxReply.data)
+  // @@protoc_insertion_point(field_release:bootlockbox.ReadBootLockboxReply.data)
   if (!_internal_has_data()) {
     return nullptr;
   }
@@ -1344,7 +1344,7 @@ inline void ReadBootLockboxReply::set_allocated_data(std::string* data) {
     data_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:cryptohome.ReadBootLockboxReply.data)
+  // @@protoc_insertion_point(field_set_allocated:bootlockbox.ReadBootLockboxReply.data)
 }
 
 // -------------------------------------------------------------------
@@ -1355,7 +1355,7 @@ inline void ReadBootLockboxReply::set_allocated_data(std::string* data) {
 
 // FinalizeBootLockboxReply
 
-// optional .cryptohome.BootLockboxErrorCode error = 1;
+// optional .bootlockbox.BootLockboxErrorCode error = 1;
 inline bool FinalizeBootLockboxReply::_internal_has_error() const {
   bool value = (_has_bits_[0] & 0x00000001u) != 0;
   return value;
@@ -1367,21 +1367,21 @@ inline void FinalizeBootLockboxReply::clear_error() {
   error_ = 0;
   _has_bits_[0] &= ~0x00000001u;
 }
-inline ::cryptohome::BootLockboxErrorCode FinalizeBootLockboxReply::_internal_error() const {
-  return static_cast< ::cryptohome::BootLockboxErrorCode >(error_);
+inline ::bootlockbox::BootLockboxErrorCode FinalizeBootLockboxReply::_internal_error() const {
+  return static_cast< ::bootlockbox::BootLockboxErrorCode >(error_);
 }
-inline ::cryptohome::BootLockboxErrorCode FinalizeBootLockboxReply::error() const {
-  // @@protoc_insertion_point(field_get:cryptohome.FinalizeBootLockboxReply.error)
+inline ::bootlockbox::BootLockboxErrorCode FinalizeBootLockboxReply::error() const {
+  // @@protoc_insertion_point(field_get:bootlockbox.FinalizeBootLockboxReply.error)
   return _internal_error();
 }
-inline void FinalizeBootLockboxReply::_internal_set_error(::cryptohome::BootLockboxErrorCode value) {
-  assert(::cryptohome::BootLockboxErrorCode_IsValid(value));
+inline void FinalizeBootLockboxReply::_internal_set_error(::bootlockbox::BootLockboxErrorCode value) {
+  assert(::bootlockbox::BootLockboxErrorCode_IsValid(value));
   _has_bits_[0] |= 0x00000001u;
   error_ = value;
 }
-inline void FinalizeBootLockboxReply::set_error(::cryptohome::BootLockboxErrorCode value) {
+inline void FinalizeBootLockboxReply::set_error(::bootlockbox::BootLockboxErrorCode value) {
   _internal_set_error(value);
-  // @@protoc_insertion_point(field_set:cryptohome.FinalizeBootLockboxReply.error)
+  // @@protoc_insertion_point(field_set:bootlockbox.FinalizeBootLockboxReply.error)
 }
 
 #ifdef __GNUC__
@@ -1400,11 +1400,11 @@ inline void FinalizeBootLockboxReply::set_error(::cryptohome::BootLockboxErrorCo
 
 // @@protoc_insertion_point(namespace_scope)
 
-}  // namespace cryptohome
+}  // namespace bootlockbox
 
 PROTOBUF_NAMESPACE_OPEN
 
-template <> struct is_proto_enum< ::cryptohome::BootLockboxErrorCode> : ::std::true_type {};
+template <> struct is_proto_enum< ::bootlockbox::BootLockboxErrorCode> : ::std::true_type {};
 
 PROTOBUF_NAMESPACE_CLOSE
 

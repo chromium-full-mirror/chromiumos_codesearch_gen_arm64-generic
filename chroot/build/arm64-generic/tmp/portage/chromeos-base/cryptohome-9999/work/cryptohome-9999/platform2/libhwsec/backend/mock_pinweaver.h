@@ -36,7 +36,8 @@ class MockPinWeaver : public PinWeaver {
                const brillo::SecureBlob& le_secret,
                const brillo::SecureBlob& he_secret,
                const brillo::SecureBlob& reset_secret,
-               const DelaySchedule& delay_schedule),
+               const DelaySchedule& delay_schedule,
+               std::optional<uint32_t> expiration_delay),
               (override));
   MOCK_METHOD(StatusOr<CredentialTreeResult>,
               CheckCredential,
@@ -56,7 +57,8 @@ class MockPinWeaver : public PinWeaver {
               (const uint64_t label,
                const std::vector<std::vector<uint8_t>>& h_aux,
                const std::vector<uint8_t>& orig_cred_metadata,
-               const brillo::SecureBlob& reset_secret),
+               const brillo::SecureBlob& reset_secret,
+               bool strong_reset),
               (override));
   MOCK_METHOD(StatusOr<GetLogResult>,
               GetLog,
@@ -80,6 +82,34 @@ class MockPinWeaver : public PinWeaver {
               GetDelayInSeconds,
               (const brillo::Blob& cred_metadata),
               (override));
+  MOCK_METHOD(StatusOr<std::optional<uint32_t>>,
+              GetExpirationInSeconds,
+              (const brillo::Blob& cred_metadata),
+              (override));
+  MOCK_METHOD(StatusOr<PinWeaverEccPoint>,
+              GeneratePk,
+              (uint8_t auth_channel,
+               const PinWeaverEccPoint& client_public_key),
+              (override));
+  MOCK_METHOD(StatusOr<CredentialTreeResult>,
+              InsertRateLimiter,
+              (uint8_t auth_channel,
+               const std::vector<OperationPolicySetting>& policies,
+               const uint64_t label,
+               const std::vector<brillo::Blob>& h_aux,
+               const brillo::SecureBlob& reset_secret,
+               const DelaySchedule& delay_schedule,
+               std::optional<uint32_t> expiration_delay),
+              (override));
+  MOCK_METHOD(StatusOr<CredentialTreeResult>,
+              StartBiometricsAuth,
+              (uint8_t auth_channel,
+               const uint64_t label,
+               const std::vector<brillo::Blob>& h_aux,
+               const brillo::Blob& orig_cred_metadata,
+               const brillo::SecureBlob& client_nonce),
+              (override));
+  MOCK_METHOD(Status, BlockGeneratePk, (), (override));
 };
 
 }  // namespace hwsec

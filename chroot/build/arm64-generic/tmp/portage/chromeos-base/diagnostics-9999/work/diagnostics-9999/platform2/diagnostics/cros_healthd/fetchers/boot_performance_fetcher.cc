@@ -5,6 +5,7 @@
 #include <cctype>
 #include <optional>
 #include <string>
+#include <utility>
 #include <vector>
 
 #include <base/files/file_util.h>
@@ -12,27 +13,20 @@
 #include <base/strings/string_split.h>
 #include <re2/re2.h>
 
-#include <chromeos/dbus/service_constants.h>
 #include "diagnostics/cros_healthd/fetchers/boot_performance_fetcher.h"
 #include "diagnostics/cros_healthd/utils/error_utils.h"
 #include "diagnostics/cros_healthd/utils/file_utils.h"
 #include "diagnostics/cros_healthd/utils/procfs_utils.h"
 
-#include <utility>
-
 namespace diagnostics {
+
+namespace mojo_ipc = ::ash::cros_healthd::mojom;
 
 constexpr char kRelativeBiosTimesPath[] = "var/log/bios_times.txt";
 constexpr char kRelativeUptimeLoginPath[] = "tmp/uptime-login-prompt-visible";
 constexpr char kRelativeShutdownMetricsPath[] = "var/log/metrics";
 constexpr char kRelativePreviousPowerdLogPath[] =
     "var/log/power_manager/powerd.PREVIOUS";
-
-namespace {
-
-namespace mojo_ipc = ::chromeos::cros_healthd::mojom;
-
-}  // namespace
 
 mojo_ipc::BootPerformanceResultPtr
 BootPerformanceFetcher::FetchBootPerformanceInfo() {

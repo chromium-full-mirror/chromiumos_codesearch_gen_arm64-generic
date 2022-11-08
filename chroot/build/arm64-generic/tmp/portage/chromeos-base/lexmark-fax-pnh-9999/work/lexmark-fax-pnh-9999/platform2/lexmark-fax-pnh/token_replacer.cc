@@ -38,3 +38,14 @@ std::string TokenReplacer::EscapeTitle(std::string title) {
 
   return title;
 }
+
+// Read in the file, line-by-line, apply the transformation to each line, and
+// then write the line to out.
+void transform(const TokenReplacer& replacer,
+               std::istream& in,
+               std::ostream& out) {
+  std::string line;
+  while(std::getline(in, line)) {
+    out << replacer.TokenizeLine(line) << std::endl;
+  }
+}

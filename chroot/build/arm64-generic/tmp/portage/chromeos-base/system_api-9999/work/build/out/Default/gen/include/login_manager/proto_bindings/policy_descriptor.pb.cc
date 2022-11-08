@@ -37,7 +37,6 @@ bool PolicyAccountType_IsValid(int value) {
   switch (value) {
     case 0:
     case 1:
-    case 2:
     case 3:
       return true;
     default:
@@ -45,25 +44,22 @@ bool PolicyAccountType_IsValid(int value) {
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> PolicyAccountType_strings[4] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> PolicyAccountType_strings[3] = {};
 
 static const char PolicyAccountType_names[] =
   "ACCOUNT_TYPE_DEVICE"
   "ACCOUNT_TYPE_DEVICE_LOCAL_ACCOUNT"
-  "ACCOUNT_TYPE_SESSIONLESS_USER"
   "ACCOUNT_TYPE_USER";
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry PolicyAccountType_entries[] = {
   { {PolicyAccountType_names + 0, 19}, 0 },
   { {PolicyAccountType_names + 19, 33}, 3 },
-  { {PolicyAccountType_names + 52, 29}, 2 },
-  { {PolicyAccountType_names + 81, 17}, 1 },
+  { {PolicyAccountType_names + 52, 17}, 1 },
 };
 
 static const int PolicyAccountType_entries_by_number[] = {
   0, // 0 -> ACCOUNT_TYPE_DEVICE
-  3, // 1 -> ACCOUNT_TYPE_USER
-  2, // 2 -> ACCOUNT_TYPE_SESSIONLESS_USER
+  2, // 1 -> ACCOUNT_TYPE_USER
   1, // 3 -> ACCOUNT_TYPE_DEVICE_LOCAL_ACCOUNT
 };
 
@@ -73,12 +69,12 @@ const std::string& PolicyAccountType_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           PolicyAccountType_entries,
           PolicyAccountType_entries_by_number,
-          4, PolicyAccountType_strings);
+          3, PolicyAccountType_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       PolicyAccountType_entries,
       PolicyAccountType_entries_by_number,
-      4, value);
+      3, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      PolicyAccountType_strings[idx].get();
 }
@@ -86,7 +82,7 @@ bool PolicyAccountType_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, PolicyAccountType* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      PolicyAccountType_entries, 4, name, &int_value);
+      PolicyAccountType_entries, 3, name, &int_value);
   if (success) {
     *value = static_cast<PolicyAccountType>(int_value);
   }

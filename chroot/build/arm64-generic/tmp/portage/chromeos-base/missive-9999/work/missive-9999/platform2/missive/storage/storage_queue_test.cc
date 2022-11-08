@@ -102,11 +102,6 @@ class StorageQueueTest
 
   void TearDown() override {
     ResetTestStorageQueue();
-    // Make sure all memory is deallocated.
-    ASSERT_THAT(options_.memory_resource()->GetUsed(), Eq(0u));
-    // Make sure all disk is not reserved (files remain, but Storage is not
-    // responsible for them anymore).
-    ASSERT_THAT(options_.disk_space_resource()->GetUsed(), Eq(0u));
     // Log next uploader id for possible verification.
     LOG(ERROR) << "Next uploader id=" << next_uploader_id.load();
   }
@@ -619,12 +614,22 @@ class StorageQueueTest
   }
 
   void ResetTestStorageQueue() {
-    // Let everything ongoing to finish.
+    if (storage_queue_) {
+      // StorageQueue is destructed on thread, wait for it to finish.
+      test::TestCallbackAutoWaiter waiter;
+      storage_queue_->RegisterCompletionCallback(base::BindOnce(
+          &test::TestCallbackAutoWaiter::Signal, base::Unretained(&waiter)));
+      storage_queue_.reset();
+    }
+    // Let remaining asynchronous activity finish.
+    // TODO(b/254418902): The next line is not logically necessary, but for
+    // unknown reason the tests becomes flaky without it, keeping it for now.
     task_environment_.RunUntilIdle();
-    storage_queue_.reset();
-    // StorageQueue is destructed on a thread,
-    // so we need to wait for it to destruct.
-    task_environment_.RunUntilIdle();
+    // Make sure all memory is deallocated.
+    EXPECT_THAT(options_.memory_resource()->GetUsed(), Eq(0u));
+    // Make sure all disk is not reserved (files remain, but Storage is not
+    // responsible for them anymore).
+    EXPECT_THAT(options_.disk_space_resource()->GetUsed(), Eq(0u));
     // Handle and reject INIT_RESUME (optionally), in case the queue is
     // recreated.
     EXPECT_CALL(set_mock_uploader_expectations_,
@@ -672,6 +677,8 @@ class StorageQueueTest
                StorageQueueTest* self) {
               LOG(ERROR) << "Attempt upload, reason="
                          << UploaderInterface::ReasonToString(reason);
+              LOG_IF(FATAL, ++(self->upload_count_) >= 8uL)
+                  << "Too many uploads";
               auto result = self->set_mock_uploader_expectations_.Call(reason);
               if (!result.ok()) {
                 LOG(ERROR) << "Upload not allowed, reason="
@@ -710,6 +717,12 @@ class StorageQueueTest
     ASSERT_OK(write_result) << write_result;
   }
 
+  void FlushOrDie() {
+    test::TestEvent<Status> flush_event;
+    storage_queue_->Flush(flush_event.cb());
+    ASSERT_OK(flush_event.result());
+  }
+
   void ConfirmOrDie(int64_t sequencing_id, bool force = false) {
     ASSERT_TRUE(last_upload_generation_id_.has_value());
     LOG(ERROR) << "Confirm force=" << force << " seq=" << sequencing_id
@@ -740,6 +753,8 @@ class StorageQueueTest
   // Test-wide global mapping of <generation id, sequencing id> to record
   // digest. Serves all TestUploaders created by test fixture.
   TestUploader::LastRecordDigestMap last_record_digest_map_;
+
+  size_t upload_count_ = 0uL;
 
   ::testing::MockFunction<StatusOr<std::unique_ptr<TestUploader>>(
       UploaderInterface::UploadReason /*reason*/)>
@@ -1063,7 +1078,7 @@ TEST_P(StorageQueueTest, WriteIntoNewStorageQueueAndFlush) {
       .RetiresOnSaturation();
 
   // Flush manually.
-  storage_queue_->Flush();
+  FlushOrDie();
 }
 
 TEST_P(StorageQueueTest, WriteIntoNewStorageQueueReopenWriteMoreAndFlush) {
@@ -1096,7 +1111,7 @@ TEST_P(StorageQueueTest, WriteIntoNewStorageQueueReopenWriteMoreAndFlush) {
       .RetiresOnSaturation();
 
   // Flush manually.
-  storage_queue_->Flush();
+  FlushOrDie();
 }
 
 TEST_P(StorageQueueTest, ValidateVariousRecordSizes) {
@@ -1124,7 +1139,7 @@ TEST_P(StorageQueueTest, ValidateVariousRecordSizes) {
       .RetiresOnSaturation();
 
   // Flush manually.
-  storage_queue_->Flush();
+  FlushOrDie();
 }
 
 TEST_P(StorageQueueTest, WriteAndRepeatedlyUploadWithConfirmations) {

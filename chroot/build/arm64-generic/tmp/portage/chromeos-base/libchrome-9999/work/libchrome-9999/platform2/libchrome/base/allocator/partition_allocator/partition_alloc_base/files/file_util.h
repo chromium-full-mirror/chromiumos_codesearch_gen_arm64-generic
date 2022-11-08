@@ -1,4 +1,4 @@
-// Copyright (c) 2012 The Chromium Authors. All rights reserved.
+// Copyright 2012 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -12,7 +12,7 @@
 #include <stdint.h>
 #include <stdio.h>
 
-#include "base/base_export.h"
+#include "base/allocator/partition_allocator/partition_alloc_base/component_export.h"
 #include "build/build_config.h"
 
 #if BUILDFLAG(IS_POSIX) || BUILDFLAG(IS_FUCHSIA)
@@ -27,7 +27,8 @@ namespace partition_alloc::internal::base {
 // Read exactly |bytes| bytes from file descriptor |fd|, storing the result
 // in |buffer|. This function is protected against EINTR and partial reads.
 // Returns true iff |bytes| bytes have been successfully read from |fd|.
-BASE_EXPORT bool ReadFromFD(int fd, char* buffer, size_t bytes);
+PA_COMPONENT_EXPORT(PARTITION_ALLOC)
+bool ReadFromFD(int fd, char* buffer, size_t bytes);
 
 #endif  // BUILDFLAG(IS_POSIX) || BUILDFLAG(IS_FUCHSIA)
 

@@ -27,7 +27,6 @@ namespace cryptohome {
 class MockAuthBlockUtility : public AuthBlockUtility {
  public:
   MockAuthBlockUtility() = default;
-  ~MockAuthBlockUtility() = default;
 
   MOCK_METHOD(bool, GetLockedToSingleUser, (), (const, override));
   MOCK_METHOD(bool,
@@ -36,6 +35,30 @@ class MockAuthBlockUtility : public AuthBlockUtility {
                AuthFactorStorageType,
                const std::set<AuthFactorType>&),
               (const, override));
+  MOCK_METHOD(bool,
+              IsPrepareAuthFactorRequired,
+              (AuthFactorType),
+              (const, override));
+  MOCK_METHOD(bool,
+              IsVerifyWithAuthFactorSupported,
+              (AuthIntent, AuthFactorType),
+              (const, override));
+  MOCK_METHOD(std::unique_ptr<CredentialVerifier>,
+              CreateCredentialVerifier,
+              (AuthFactorType, const std::string&, const AuthInput&),
+              (const, override));
+  MOCK_METHOD(void,
+              PrepareAuthFactorForAuth,
+              (AuthFactorType, const std::string&, CryptohomeStatusCallback),
+              (override));
+  MOCK_METHOD(void,
+              PrepareAuthFactorForAdd,
+              (AuthFactorType, const std::string&, CryptohomeStatusCallback),
+              (override));
+  MOCK_METHOD(CryptohomeStatus,
+              TerminateAuthFactor,
+              (AuthFactorType),
+              (override));
   MOCK_METHOD(CryptoStatus,
               CreateKeyBlobsWithAuthBlock,
               (AuthBlockType auth_block_type,
@@ -66,10 +89,14 @@ class MockAuthBlockUtility : public AuthBlockUtility {
               (override));
   MOCK_METHOD(AuthBlockType,
               GetAuthBlockTypeForCreation,
-              (const bool, const bool, const bool, const AuthFactorStorageType),
+              (const bool, const bool, const bool),
               (const, override));
   MOCK_METHOD(AuthBlockType,
               GetAuthBlockTypeFromState,
+              (const AuthBlockState& auth_state),
+              (const, override));
+  MOCK_METHOD(base::flat_set<AuthIntent>,
+              GetSupportedIntentsFromState,
               (const AuthBlockState& auth_state),
               (const, override));
   MOCK_METHOD(bool,
@@ -97,15 +124,14 @@ class MockAuthBlockUtility : public AuthBlockUtility {
                brillo::SecureBlob* out_ephemeral_pub_key),
               (const, override));
   MOCK_METHOD(void,
-              SetSingleUseKeyChallengeService,
-              (std::unique_ptr<KeyChallengeService> key_challenge_service,
-               const std::string& account_id),
+              InitializeChallengeCredentialsHelper,
+              (ChallengeCredentialsHelper * challenge_credentials_helper,
+               KeyChallengeServiceFactory* key_challenge_service_factory),
               (override));
-  MOCK_METHOD(void,
-              InitializeForChallengeCredentials,
-              (ChallengeCredentialsHelper* const challenge_credentials_helper),
-              (override));
-  MOCK_METHOD(bool, IsChallengeCredentialReady, (), (const, override));
+  MOCK_METHOD(bool,
+              IsChallengeCredentialReady,
+              (const AuthInput& auth_input),
+              (const, override));
 };
 
 }  // namespace cryptohome

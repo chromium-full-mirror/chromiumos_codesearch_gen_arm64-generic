@@ -9,16 +9,18 @@
 
 namespace diagnostics {
 
-namespace mojom = ::chromeos::cros_healthd::mojom;
-
-class DelegateImpl : public mojom::Delegate {
+class DelegateImpl : public ash::cros_healthd::mojom::Delegate {
  public:
   DelegateImpl();
   DelegateImpl(const DelegateImpl&) = delete;
   DelegateImpl& operator=(const DelegateImpl&) = delete;
   ~DelegateImpl() override;
 
-  // chromeos::cros_healthd::mojom::Delegate overrides.
+  // ash::cros_healthd::mojom::Delegate overrides.
+  void GetFingerprintFrame(
+      ash::cros_healthd::mojom::FingerprintCaptureType type,
+      GetFingerprintFrameCallback callback) override;
+  void GetFingerprintInfo(GetFingerprintInfoCallback callback) override;
 };
 
 }  // namespace diagnostics

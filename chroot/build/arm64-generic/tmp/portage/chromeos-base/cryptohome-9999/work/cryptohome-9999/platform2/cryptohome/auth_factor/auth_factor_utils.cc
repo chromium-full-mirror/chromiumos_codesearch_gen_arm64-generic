@@ -10,12 +10,15 @@
 #include <utility>
 #include <variant>
 
+#include <base/system/sys_info.h>
 #include <cryptohome/proto_bindings/auth_factor.pb.h>
 
 #include "cryptohome/auth_factor/auth_factor.h"
 #include "cryptohome/auth_factor/auth_factor_label.h"
 #include "cryptohome/auth_factor/auth_factor_metadata.h"
+#include "cryptohome/auth_factor/auth_factor_prepare_purpose.h"
 #include "cryptohome/auth_factor/auth_factor_type.h"
+#include "cryptohome/auth_session_proto_utils.h"
 
 namespace cryptohome {
 
@@ -102,6 +105,14 @@ std::optional<user_data_auth::AuthFactor> ToSmartCardProto(
       brillo::BlobToString(metadata.public_key_spki_der));
   return proto;
 }
+
+// Creates a D-Bus proto for a legacy fingerprint auth factor.
+std::optional<user_data_auth::AuthFactor> ToLegacyFingerprintProto() {
+  user_data_auth::AuthFactor proto;
+  proto.set_type(user_data_auth::AUTH_FACTOR_TYPE_LEGACY_FINGERPRINT);
+  return proto;
+}
+
 }  // namespace
 
 user_data_auth::AuthFactorType AuthFactorTypeToProto(AuthFactorType type) {
@@ -116,6 +127,8 @@ user_data_auth::AuthFactorType AuthFactorTypeToProto(AuthFactorType type) {
       return user_data_auth::AUTH_FACTOR_TYPE_KIOSK;
     case AuthFactorType::kSmartCard:
       return user_data_auth::AUTH_FACTOR_TYPE_SMART_CARD;
+    case AuthFactorType::kLegacyFingerprint:
+      return user_data_auth::AUTH_FACTOR_TYPE_LEGACY_FINGERPRINT;
     case AuthFactorType::kUnspecified:
       return user_data_auth::AUTH_FACTOR_TYPE_UNSPECIFIED;
   }
@@ -136,17 +149,36 @@ std::optional<AuthFactorType> AuthFactorTypeFromProto(
       return AuthFactorType::kKiosk;
     case user_data_auth::AUTH_FACTOR_TYPE_SMART_CARD:
       return AuthFactorType::kSmartCard;
+    case user_data_auth::AUTH_FACTOR_TYPE_LEGACY_FINGERPRINT:
+      return AuthFactorType::kLegacyFingerprint;
     default:
       return std::nullopt;
   }
 }
 
-// GetAuthFactorMetadata sets the metadata inferred from the proto. This
-// includes the metadata struct and type.
+void PopulateAuthFactorProtoWithSysinfo(
+    user_data_auth::AuthFactor& auth_factor) {
+  // Populate the ChromeOS version. Note that reading GetLsbReleaseValue can
+  // fail but in that case we still populate the metadata with an empty string.
+  std::string chromeos_version;
+  base::SysInfo::GetLsbReleaseValue("CHROMEOS_RELEASE_VERSION",
+                                    &chromeos_version);
+  auth_factor.mutable_common_metadata()->set_chromeos_version_last_updated(
+      std::move(chromeos_version));
+}
+
 bool GetAuthFactorMetadata(const user_data_auth::AuthFactor& auth_factor,
                            AuthFactorMetadata& out_auth_factor_metadata,
                            AuthFactorType& out_auth_factor_type,
                            std::string& out_auth_factor_label) {
+  // Extract the common metadata.
+  out_auth_factor_metadata.common.chromeos_version_last_updated =
+      auth_factor.common_metadata().chromeos_version_last_updated();
+  out_auth_factor_metadata.common.chrome_version_last_updated =
+      auth_factor.common_metadata().chrome_version_last_updated();
+
+  // Extract the factor type and use it to try and extract the factor-specific
+  // metadata. Returns false if this fails.
   switch (auth_factor.type()) {
     case user_data_auth::AUTH_FACTOR_TYPE_PASSWORD:
       DCHECK(auth_factor.has_password_metadata());
@@ -178,6 +210,7 @@ bool GetAuthFactorMetadata(const user_data_auth::AuthFactor& auth_factor,
       return false;
   }
 
+  // Extract the label. Returns false if it isn't formatted correctly.
   out_auth_factor_label = auth_factor.label();
   if (!IsValidAuthFactorLabel(out_auth_factor_label)) {
     LOG(ERROR) << "Invalid auth factor label";
@@ -192,6 +225,7 @@ std::optional<user_data_auth::AuthFactor> GetAuthFactorProto(
     const AuthFactorType& auth_factor_type,
     const std::string& auth_factor_label) {
   std::optional<user_data_auth::AuthFactor> proto;
+  // Try to populate the factor-specific data into the proto.
   switch (auth_factor_type) {
     case AuthFactorType::kPassword: {
       auto* password_metadata = std::get_if<PasswordAuthFactorMetadata>(
@@ -228,6 +262,10 @@ std::optional<user_data_auth::AuthFactor> GetAuthFactorProto(
                                   : std::nullopt;
       break;
     }
+    case AuthFactorType::kLegacyFingerprint: {
+      proto = ToLegacyFingerprintProto();
+      break;
+    }
     case AuthFactorType::kUnspecified: {
       LOG(ERROR) << "Cannot convert unspecified AuthFactor to proto";
       return std::nullopt;
@@ -237,15 +275,23 @@ std::optional<user_data_auth::AuthFactor> GetAuthFactorProto(
     LOG(ERROR) << "Failed to convert auth factor to proto";
     return std::nullopt;
   }
-  proto.value().set_label(auth_factor_label);
+  // If we get here we were able to populate a proto with all the
+  // factor-specific data. Now fill in the common metadata and the label.
+  // This step cannot fail.
+  proto->set_label(auth_factor_label);
+  proto->mutable_common_metadata()->set_chromeos_version_last_updated(
+      auth_factor_metadata.common.chromeos_version_last_updated);
+  proto->mutable_common_metadata()->set_chrome_version_last_updated(
+      auth_factor_metadata.common.chrome_version_last_updated);
   return proto;
 }
 
 void LoadUserAuthFactorProtos(
     AuthFactorManager* manager,
+    const AuthBlockUtility& auth_block_utility,
     const std::string& obfuscated_username,
-    google::protobuf::RepeatedPtrField<user_data_auth::AuthFactor>*
-        out_auth_factors) {
+    google::protobuf::RepeatedPtrField<user_data_auth::AuthFactorWithStatus>*
+        out_auth_factors_status) {
   for (const auto& [label, auth_factor_type] :
        manager->ListAuthFactors(obfuscated_username)) {
     // Try to load the auth factor. If this fails we just skip it and move on
@@ -262,13 +308,35 @@ void LoadUserAuthFactorProtos(
     auto auth_factor_proto = GetAuthFactorProto(
         auth_factor.metadata(), auth_factor.type(), auth_factor.label());
     if (auth_factor_proto) {
-      *out_auth_factors->Add() = std::move(*auth_factor_proto);
+      user_data_auth::AuthFactorWithStatus auth_factor_with_status;
+      *auth_factor_with_status.mutable_auth_factor() =
+          std::move(*auth_factor_proto);
+      auto supported_intents = auth_block_utility.GetSupportedIntentsFromState(
+          auth_factor.auth_block_state());
+      for (const auto& auth_intent : supported_intents) {
+        auth_factor_with_status.add_available_for_intents(
+            AuthIntentToProto(auth_intent));
+      }
+
+      *out_auth_factors_status->Add() = std::move(auth_factor_with_status);
     }
   }
 }
 
 bool NeedsResetSecret(AuthFactorType auth_factor_type) {
   return auth_factor_type == AuthFactorType::kPin;
+}
+
+std::optional<AuthFactorPreparePurpose> AuthFactorPreparePurposeFromProto(
+    user_data_auth::AuthFactorPreparePurpose purpose) {
+  switch (purpose) {
+    case user_data_auth::PURPOSE_AUTHENTICATE_AUTH_FACTOR:
+      return AuthFactorPreparePurpose::kPrepareAuthenticateAuthFactor;
+    case user_data_auth::PURPOSE_ADD_AUTH_FACTOR:
+      return AuthFactorPreparePurpose::kPrepareAddAuthFactor;
+    default:
+      return std::nullopt;
+  }
 }
 
 }  // namespace cryptohome

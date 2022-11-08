@@ -548,30 +548,57 @@ void UserDataAuthAdaptor::DoListAuthFactors(
           std::move(response)));
 }
 
-void UserDataAuthAdaptor::PrepareAsyncAuthFactor(
+void UserDataAuthAdaptor::PrepareAuthFactor(
     std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<
-        user_data_auth::PrepareAsyncAuthFactorReply>> response,
-    const user_data_auth::PrepareAsyncAuthFactorRequest& in_request) {
+        user_data_auth::PrepareAuthFactorReply>> response,
+    const user_data_auth::PrepareAuthFactorRequest& in_request) {
   service_->PostTaskToMountThread(
       FROM_HERE,
-      base::BindOnce(&UserDataAuthAdaptor::DoPrepareAsyncAuthFactor,
-                     base::Unretained(this),
-                     ThreadSafeDBusMethodResponse<
-                         user_data_auth::PrepareAsyncAuthFactorReply>::
-                         MakeThreadSafe(std::move(response)),
-                     in_request));
+      base::BindOnce(
+          &UserDataAuthAdaptor::DoPrepareAuthFactor, base::Unretained(this),
+          ThreadSafeDBusMethodResponse<user_data_auth::PrepareAuthFactorReply>::
+              MakeThreadSafe(std::move(response)),
+          in_request));
 }
 
-void UserDataAuthAdaptor::DoPrepareAsyncAuthFactor(
+void UserDataAuthAdaptor::DoPrepareAuthFactor(
     std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<
-        user_data_auth::PrepareAsyncAuthFactorReply>> response,
-    const user_data_auth::PrepareAsyncAuthFactorRequest& in_request) {
-  service_->PrepareAsyncAuthFactor(
+        user_data_auth::PrepareAuthFactorReply>> response,
+    const user_data_auth::PrepareAuthFactorRequest& in_request) {
+  service_->PrepareAuthFactor(
       in_request,
       base::BindOnce(
           [](std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<
-                 user_data_auth::PrepareAsyncAuthFactorReply>> local_response,
-             const user_data_auth::PrepareAsyncAuthFactorReply& reply) {
+                 user_data_auth::PrepareAuthFactorReply>> local_response,
+             const user_data_auth::PrepareAuthFactorReply& reply) {
+            local_response->Return(reply);
+          },
+          std::move(response)));
+}
+
+void UserDataAuthAdaptor::TerminateAuthFactor(
+    std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<
+        user_data_auth::TerminateAuthFactorReply>> response,
+    const user_data_auth::TerminateAuthFactorRequest& in_request) {
+  service_->PostTaskToMountThread(
+      FROM_HERE, base::BindOnce(&UserDataAuthAdaptor::DoTerminateAuthFactor,
+                                base::Unretained(this),
+                                ThreadSafeDBusMethodResponse<
+                                    user_data_auth::TerminateAuthFactorReply>::
+                                    MakeThreadSafe(std::move(response)),
+                                in_request));
+}
+
+void UserDataAuthAdaptor::DoTerminateAuthFactor(
+    std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<
+        user_data_auth::TerminateAuthFactorReply>> response,
+    const user_data_auth::TerminateAuthFactorRequest& in_request) {
+  service_->TerminateAuthFactor(
+      in_request,
+      base::BindOnce(
+          [](std::unique_ptr<brillo::dbus_utils::DBusMethodResponse<
+                 user_data_auth::TerminateAuthFactorReply>> local_response,
+             const user_data_auth::TerminateAuthFactorReply& reply) {
             local_response->Return(reply);
           },
           std::move(response)));
@@ -1009,6 +1036,13 @@ void UserDataAuthAdaptor::LowDiskSpaceCallback(uint64_t free_disk_space) {
   user_data_auth::LowDiskSpace signal_payload;
   signal_payload.set_disk_free_bytes(free_disk_space);
   SendLowDiskSpaceSignal(signal_payload);
+}
+
+void UserDataAuthAdaptor::FingerprintScanResultCallback(
+    user_data_auth::FingerprintScanResult result) {
+  user_data_auth::AuthScanResult signal_payload;
+  signal_payload.set_fingerprint_result(result);
+  SendAuthScanResultSignal(signal_payload);
 }
 
 void ArcQuotaAdaptor::GetArcDiskFeatures(

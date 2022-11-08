@@ -1,4 +1,4 @@
-// Copyright 2018 The Chromium Authors. All rights reserved.
+// Copyright 2018 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -77,9 +77,10 @@ absl::optional<span<uint8_t>> PlatformSharedMemoryRegion::MapAt(
 
   // The backing mapper expects offset to be aligned to
   // `SysInfo::VMAllocationGranularity()`.
-  size_t aligned_offset =
-      bits::AlignDown(offset, SysInfo::VMAllocationGranularity());
-  size_t adjustment_for_alignment = offset - aligned_offset;
+  uint64_t aligned_offset =
+      bits::AlignDown(offset, uint64_t{SysInfo::VMAllocationGranularity()});
+  size_t adjustment_for_alignment =
+      static_cast<size_t>(offset - aligned_offset);
 
   bool write_allowed = mode_ != Mode::kReadOnly;
   auto result = mapper->Map(GetPlatformHandle(), write_allowed, aligned_offset,

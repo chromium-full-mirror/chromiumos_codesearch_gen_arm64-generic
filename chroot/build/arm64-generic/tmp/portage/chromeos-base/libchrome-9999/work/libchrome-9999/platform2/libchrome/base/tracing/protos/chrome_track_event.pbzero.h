@@ -15,6 +15,7 @@ class ChromeTaskPostedToDisabledQueue;
 class ChromeThreadPoolTask;
 class ChromeTaskAnnotator;
 class ChromeMemoryPressureNotification;
+class SequenceManagerTask;
 
 enum MemoryPressureLevel {
   MEMORY_PRESSURE_LEVEL_NONE = 0,
@@ -36,6 +37,10 @@ public:
   }
   template <typename T = ChromeMemoryPressureNotification>
   T *set_chrome_memory_pressure_notification() {
+    return BeginNestedMessage<T>(0);
+  }
+  template <typename T = SequenceManagerTask>
+  T *set_sequence_manager_task() {
     return BeginNestedMessage<T>(0);
   }
 };
@@ -83,6 +88,83 @@ class ChromeMemoryPressureNotification : public ::protozero_libchrome::Message {
 public:
   void set_level(::perfetto_libchrome::protos::pbzero::MemoryPressureLevel) {}
   void set_creation_location_iid(uint64_t) {}
+};
+
+class SequenceManagerTask : public ::protozero_libchrome::Message {
+public:
+  enum Priority {
+    UNKNOWN = 0,
+    CONTROL_PRIORITY = 1,
+    HIGHEST_PRIORITY = 2,
+    VERY_HIGH_PRIORITY = 3,
+    HIGH_PRIORITY = 4,
+    NORMAL_PRIORITY = 5,
+    LOW_PRIORITY = 6,
+    BEST_EFFORT_PRIORITY = 7,
+  };
+
+  void set_priority(Priority) {}
+
+  enum QueueName : int32_t {
+    UNKNOWN_TQ = 0,
+    DEFAULT_TQ = 1,
+    TASK_ENVIRONMENT_DEFAULT_TQ = 2,
+    TEST2_TQ = 3,
+    TEST_TQ = 4,
+    CONTROL_TQ = 5,
+    SUBTHREAD_CONTROL_TQ = 6,
+    SUBTHREAD_DEFAULT_TQ = 7,
+    SUBTHREAD_INPUT_TQ = 8,
+    UI_BEST_EFFORT_TQ = 9,
+    UI_BOOTSTRAP_TQ = 10,
+    UI_CONTROL_TQ = 11,
+    UI_DEFAULT_TQ = 12,
+    UI_NAVIGATION_NETWORK_RESPONSE_TQ = 13,
+    UI_RUN_ALL_PENDING_TQ = 14,
+    UI_SERVICE_WORKER_STORAGE_CONTROL_RESPONSE_TQ = 15,
+    UI_THREAD_TQ = 16,
+    UI_USER_BLOCKING_TQ = 17,
+    UI_USER_INPUT_TQ = 18,
+    UI_USER_VISIBLE_TQ = 19,
+    IO_BEST_EFFORT_TQ = 20,
+    IO_BOOTSTRAP_TQ = 21,
+    IO_CONTROL_TQ = 22,
+    IO_DEFAULT_TQ = 23,
+    IO_NAVIGATION_NETWORK_RESPONSE_TQ = 24,
+    IO_RUN_ALL_PENDING_TQ = 25,
+    IO_SERVICE_WORKER_STORAGE_CONTROL_RESPONSE_TQ = 26,
+    IO_THREAD_TQ = 27,
+    IO_USER_BLOCKING_TQ = 28,
+    IO_USER_INPUT_TQ = 29,
+    IO_USER_VISIBLE_TQ = 30,
+    COMPOSITOR_TQ = 31,
+    DETACHED_TQ = 32,
+    FRAME_DEFERRABLE_TQ = 33,
+    FRAME_LOADING_CONTROL_TQ = 34,
+    FRAME_LOADING_TQ = 35,
+    FRAME_PAUSABLE_TQ = 36,
+    FRAME_THROTTLEABLE_TQ = 37,
+    FRAME_UNPAUSABLE_TQ = 38,
+    IDLE_TQ = 39,
+    INPUT_TQ = 40,
+    IPC_TRACKING_FOR_CACHED_PAGES_TQ = 41,
+    NON_WAKING_TQ = 42,
+    OTHER_TQ = 43,
+    V8_TQ = 44,
+    WEB_SCHEDULING_TQ = 45,
+    WORKER_IDLE_TQ = 46,
+    WORKER_PAUSABLE_TQ = 47,
+    WORKER_THREAD_INTERNAL_TQ = 48,
+    WORKER_THROTTLEABLE_TQ = 49,
+    WORKER_UNPAUSABLE_TQ = 50,
+    WORKER_WEB_SCHEDULING_TQ = 51,
+  };
+
+  void set_queue_name(QueueName) {}
+
+  static inline const char* QueueName_Name(QueueName) {
+    return nullptr;
+  }
 };
 
 } // namespace pbzero

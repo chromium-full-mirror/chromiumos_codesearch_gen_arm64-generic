@@ -1,4 +1,4 @@
-// Copyright 2018 The Chromium Authors. All rights reserved.
+// Copyright 2018 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -83,9 +83,6 @@ class BASE_EXPORT SequenceManagerImpl
  public:
   using Observer = SequenceManager::Observer;
 
-  // This feature controls whether wake ups are possible for canceled tasks.
-  static const Feature kNoWakeUpsForCanceledTasks;
-
   SequenceManagerImpl(const SequenceManagerImpl&) = delete;
   SequenceManagerImpl& operator=(const SequenceManagerImpl&) = delete;
   ~SequenceManagerImpl() override;
@@ -117,6 +114,10 @@ class BASE_EXPORT SequenceManagerImpl
   // according to its default state.
   static void ResetNoWakeUpsForCanceledTasksForTesting();
 
+  static void MaybeEmitTaskDetails(
+      perfetto_libchrome::EventContext& ctx,
+      const SequencedTaskSource::SelectedTask& selected_task);
+
   // SequenceManager implementation:
   void BindToCurrentThread() override;
   scoped_refptr<SequencedTaskRunner> GetTaskRunnerForCurrentTask() override;
@@ -143,6 +144,7 @@ class BASE_EXPORT SequenceManagerImpl
   std::unique_ptr<NativeWorkHandle> OnNativeWorkPending(
       TaskQueue::QueuePriority priority) override;
   void PrioritizeYieldingToNative(base::TimeTicks prioritize_until) override;
+  void EnablePeriodicYieldingToNative(base::TimeDelta interval) override;
   void AddTaskObserver(TaskObserver* task_observer) override;
   void RemoveTaskObserver(TaskObserver* task_observer) override;
   absl::optional<WakeUp> GetNextDelayedWakeUp() const override;
@@ -178,6 +180,7 @@ class BASE_EXPORT SequenceManagerImpl
   void AttachToMessagePump();
 #endif
   bool IsIdleForTesting() override;
+  void EnableMessagePumpTimeKeeperMetrics(const char* thread_name);
 
   // Requests that a task to process work is scheduled.
   void ScheduleWork();
@@ -195,7 +198,7 @@ class BASE_EXPORT SequenceManagerImpl
   void ShutdownTaskQueueGracefully(
       std::unique_ptr<internal::TaskQueueImpl> task_queue);
 
-  const scoped_refptr<AssociatedThreadId>& associated_thread() const {
+  scoped_refptr<const AssociatedThreadId> associated_thread() const {
     return associated_thread_;
   }
 
@@ -249,7 +252,7 @@ class BASE_EXPORT SequenceManagerImpl
                   TaskQueue::TaskTiming task_timing)
         : pending_task(std::move(task)),
           task_queue(task_queue),
-          task_queue_name(task_queue->GetName()),
+          task_queue_name(task_queue->GetProtoName()),
           task_timing(task_timing),
           priority(task_queue->GetQueuePriority()),
           task_type(pending_task.task_type) {}
@@ -260,7 +263,7 @@ class BASE_EXPORT SequenceManagerImpl
     // analysis of sampling profiler data and tab_search:top100:2020).
     RAW_PTR_EXCLUSION internal::TaskQueueImpl* task_queue = nullptr;
     // Save task_queue_name as the task queue can be deleted within the task.
-    const char* task_queue_name;
+    QueueName task_queue_name;
     TaskQueue::TaskTiming task_timing;
     // Save priority as it might change after running a task.
     TaskQueue::QueuePriority priority;
@@ -287,12 +290,12 @@ class BASE_EXPORT SequenceManagerImpl
     std::array<char, static_cast<size_t>(debug::CrashKeySize::Size64)>
         async_stack_buffer = {};
 
-    absl::optional<base::InsecureRandomGenerator> random_generator;
+    absl::optional<base::MetricsSubSampler> metrics_subsampler;
 
     internal::TaskQueueSelector selector;
     ObserverList<TaskObserver>::Unchecked task_observers;
     ObserverList<TaskTimeObserver>::Unchecked task_time_observers;
-    const base::TickClock* const default_clock;
+    const raw_ptr<const base::TickClock> default_clock;
     raw_ptr<TimeDomain> time_domain = nullptr;
 
     std::unique_ptr<WakeUpQueue> wake_up_queue;
@@ -360,7 +363,7 @@ class BASE_EXPORT SequenceManagerImpl
   // Called by the task queue to inform this SequenceManager of a task that's
   // about to be queued. This SequenceManager may use this opportunity to add
   // metadata to |pending_task| before it is moved into the queue.
-  void WillQueueTask(Task* pending_task, const char* task_queue_name);
+  void WillQueueTask(Task* pending_task);
 
   // Enqueues onto delayed WorkQueues all delayed tasks which must run now
   // (cannot be postponed) and possibly some delayed tasks which can run now but
@@ -378,8 +381,9 @@ class BASE_EXPORT SequenceManagerImpl
   std::unique_ptr<trace_event::ConvertableToTraceFormat>
   AsValueWithSelectorResultForTracing(internal::WorkQueue* selected_work_queue,
                                       bool force_verbose) const;
-  Value AsValueWithSelectorResult(internal::WorkQueue* selected_work_queue,
-                                  bool force_verbose) const;
+  Value::Dict AsValueWithSelectorResult(
+      internal::WorkQueue* selected_work_queue,
+      bool force_verbose) const;
 
   // Used in construction of TaskQueueImpl to obtain an AtomicFlag which it can
   // use to request reload by ReloadEmptyWorkQueues. The lifetime of
@@ -446,7 +450,7 @@ class BASE_EXPORT SequenceManagerImpl
   TaskQueue::TaskTiming InitializeTaskTiming(
       internal::TaskQueueImpl* task_queue);
 
-  scoped_refptr<AssociatedThreadId> associated_thread_;
+  const scoped_refptr<AssociatedThreadId> associated_thread_;
 
   EnqueueOrderGenerator enqueue_order_generator_;
 
@@ -459,12 +463,6 @@ class BASE_EXPORT SequenceManagerImpl
   base::subtle::Atomic32 add_queue_time_to_tasks_;
 
   AtomicFlagSet empty_queues_to_reload_;
-
-  // A check to bail out early during memory corruption.
-  // https://crbug.com/757940
-  bool Validate();
-
-  volatile int32_t memory_corruption_sentinel_;
 
   MainThreadOnly main_thread_only_;
   MainThreadOnly& main_thread_only() {

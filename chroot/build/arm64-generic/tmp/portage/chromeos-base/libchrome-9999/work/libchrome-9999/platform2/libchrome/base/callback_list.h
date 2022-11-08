@@ -1,4 +1,4 @@
-// Copyright 2013 The Chromium Authors. All rights reserved.
+// Copyright 2013 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -340,12 +340,12 @@ class RepeatingCallbackList
   }
 };
 
-template <typename Signature>
-using CallbackList = RepeatingCallbackList<Signature>;
-
 // Syntactic sugar to parallel that used for {Once,Repeating}Callbacks.
 using OnceClosureList = OnceCallbackList<void()>;
 using RepeatingClosureList = RepeatingCallbackList<void()>;
+
+template <typename Signature>
+using CallbackList = RepeatingCallbackList<Signature>;
 
 }  // namespace base
 

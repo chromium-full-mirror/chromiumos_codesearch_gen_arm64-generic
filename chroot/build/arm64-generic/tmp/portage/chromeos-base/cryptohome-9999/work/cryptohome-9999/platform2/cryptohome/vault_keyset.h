@@ -44,6 +44,11 @@ class VaultKeyset {
   // them must outlive this object.
   virtual void Initialize(Platform* platform, Crypto* crypto);
 
+  // This function initializes the VaultKeyset as a backup keyset by setting the
+  // |backup_vk_| field to true. Does not take ownership of platform and crypto.
+  // The objects pointed to by them must outlive this object.
+  void InitializeAsBackup(Platform* platform, Crypto* crypto);
+
   // Populates the fields from a SerializedVaultKeyset.
   void InitializeFromSerialized(const SerializedVaultKeyset& serialized);
 
@@ -221,7 +226,7 @@ class VaultKeyset {
   bool GetTpmNotBoundToPcrState(AuthBlockState* auth_state) const;
   bool GetPinWeaverState(AuthBlockState* auth_state) const;
   bool GetSignatureChallengeState(AuthBlockState* auth_state) const;
-  bool GetLibScryptCompatState(AuthBlockState* auth_state) const;
+  bool GetScryptState(AuthBlockState* auth_state) const;
   bool GetDoubleWrappedCompatState(AuthBlockState* auth_state) const;
   bool GetTpmEccState(AuthBlockState* auth_state) const;
 
@@ -234,11 +239,16 @@ class VaultKeyset {
       const TpmNotBoundToPcrAuthBlockState& auth_state);
   void SetTpmBoundToPcrState(const TpmBoundToPcrAuthBlockState& auth_state);
   void SetPinWeaverState(const PinWeaverAuthBlockState& auth_state);
-  void SetLibScryptCompatState(const LibScryptCompatAuthBlockState& auth_state);
+  void SetScryptState(const ScryptAuthBlockState& auth_state);
   void SetChallengeCredentialState(
       const ChallengeCredentialAuthBlockState& auth_state);
   void SetTpmEccState(const TpmEccAuthBlockState& auth_state);
 
+  // Returns whether the VaultKeyset is setup for backup purpose.
+  bool IsForBackup() { return backup_vk_; }
+
+  // Setter for the |backup_vk_|.
+  void set_backup_vk_for_testing(bool value) { backup_vk_ = value; }
   // The protected functions that can be override for the testing purpose.
  protected:
   // This function serves as a factory method to return the authblock used in
@@ -288,10 +298,12 @@ class VaultKeyset {
   // This function encrypts a VaultKeyset with an scrypt derived key.
   //
   // Parameters
+  //   auth_block_state - AuthBlockState that stores salts for scrypt wrapping.
   //   key_blobs - Key blob that stores scrypt derived keys.
   // Return
   //   error - The specific error code on failure.
-  CryptohomeStatus WrapScryptVaultKeyset(const KeyBlobs& key_blobs);
+  CryptohomeStatus WrapScryptVaultKeyset(const AuthBlockState& auth_block_state,
+                                         const KeyBlobs& key_blobs);
 
   // This function consumes the Vault Keyset Key (VKK) and IV, and produces
   // the unwrapped secrets from the Vault Keyset.
@@ -354,6 +366,8 @@ class VaultKeyset {
   // Group 1. AuthBlockState. This is metadata used to derive the keys,
   // persisted as plaintext.
   int32_t flags_;
+  // Field to tag the VaultKeyset as a backup VaultKeyset for USS.
+  bool backup_vk_;
   // The salt used to derive the user input in auth block.
   brillo::SecureBlob auth_salt_;
   // The IV used to encrypt the encryption key.

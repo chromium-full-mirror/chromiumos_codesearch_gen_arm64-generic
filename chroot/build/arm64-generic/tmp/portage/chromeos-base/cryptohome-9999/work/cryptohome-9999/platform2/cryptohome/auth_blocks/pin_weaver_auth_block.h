@@ -27,9 +27,13 @@ class PinWeaverAuthBlock : public SyncAuthBlock {
                       const AuthBlockState& state,
                       KeyBlobs* key_blobs) override;
 
- private:
+  // Removing the underlying Pinweaver leaf node before the AuthFactor is
+  // removed.
+  CryptoStatus PrepareForRemoval(const AuthBlockState& state) override;
+
   bool IsLocked(uint64_t label);
 
+ private:
   // Handler for Low Entropy credentials.
   LECredentialManager* le_manager_;
 

@@ -26,25 +26,22 @@ class MockKeyManagement : public KeyManagement {
               GetSupportedAlgo,
               (),
               (override));
+  MOCK_METHOD(Status,
+              IsSupported,
+              (KeyAlgoType key_algo, const CreateKeyOptions& options),
+              (override));
   MOCK_METHOD(StatusOr<CreateKeyResult>,
               CreateKey,
               (const OperationPolicySetting& policy,
                KeyAlgoType key_algo,
-               CreateKeyOptions options),
+               AutoReload auto_reload,
+               const CreateKeyOptions& options),
               (override));
   MOCK_METHOD(StatusOr<ScopedKey>,
               LoadKey,
-              (const OperationPolicy& policy, const brillo::Blob& key_blob),
-              (override));
-  MOCK_METHOD(StatusOr<CreateKeyResult>,
-              CreateAutoReloadKey,
-              (const OperationPolicySetting& policy,
-               KeyAlgoType key_algo,
-               CreateKeyOptions options),
-              (override));
-  MOCK_METHOD(StatusOr<ScopedKey>,
-              LoadAutoReloadKey,
-              (const OperationPolicy& policy, const brillo::Blob& key_blob),
+              (const OperationPolicy& policy,
+               const brillo::Blob& key_blob,
+               AutoReload auto_reload),
               (override));
   MOCK_METHOD(StatusOr<ScopedKey>,
               GetPersistentKey,
@@ -58,6 +55,25 @@ class MockKeyManagement : public KeyManagement {
               (uint32_t key_handle),
               (override));
   MOCK_METHOD(StatusOr<uint32_t>, GetKeyHandle, (Key key), (override));
+  MOCK_METHOD(StatusOr<CreateKeyResult>,
+              WrapRSAKey,
+              (const OperationPolicySetting& policy,
+               const brillo::Blob& public_modulus,
+               const brillo::SecureBlob& private_prime_factor,
+               AutoReload auto_reload,
+               const CreateKeyOptions& options),
+              (override));
+  MOCK_METHOD(StatusOr<CreateKeyResult>,
+              WrapECCKey,
+              (const OperationPolicySetting& policy,
+               const brillo::Blob& public_point_x,
+               const brillo::Blob& public_point_y,
+               const brillo::SecureBlob& private_value,
+               AutoReload auto_reload,
+               const CreateKeyOptions& options),
+              (override));
+  MOCK_METHOD(StatusOr<RSAPublicInfo>, GetRSAPublicInfo, (Key key), (override));
+  MOCK_METHOD(StatusOr<ECCPublicInfo>, GetECCPublicInfo, (Key key), (override));
 };
 
 }  // namespace hwsec

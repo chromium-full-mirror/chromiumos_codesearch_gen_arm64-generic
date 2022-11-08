@@ -14,6 +14,7 @@
 #include <base/containers/flat_map.h>
 #include <base/feature_list.h>
 #include <base/files/scoped_temp_dir.h>
+#include <base/guid.h>
 #include <base/strings/strcat.h>
 #include <base/strings/string_number_conversions.h>
 #include <base/task/sequenced_task_runner.h>
@@ -53,6 +54,8 @@ using ::testing::Eq;
 using ::testing::Gt;
 using ::testing::HasSubstr;
 using ::testing::Invoke;
+using ::testing::IsEmpty;
+using ::testing::Not;
 using ::testing::Property;
 using ::testing::Return;
 using ::testing::Sequence;
@@ -826,20 +829,26 @@ class StorageTest
   }
 
   void ResetTestStorage() {
-    // Let asynchronous activity finish.
-    task_environment_.RunUntilIdle();
     if (storage_) {
+      // StorageQueue comprising Storage are destructed on threads, wait for
+      // them to finish.
+      test::TestCallbackAutoWaiter waiter;
+      storage_->RegisterCompletionCallback(base::BindOnce(
+          &test::TestCallbackAutoWaiter::Signal, base::Unretained(&waiter)));
       storage_.reset();
-      // StorageQueue is destructed on a thread,
-      // so we need to wait for all queues to destruct.
-      task_environment_.RunUntilIdle();
     }
+    // Key has already been loaded, no need to redo it next time
+    // (unless explicitly requested).
     expect_to_need_key_ = false;
+    // Let remaining asynchronous activity finish.
+    // TODO(b/254418902): The next line is not logically necessary, but for
+    // unknown reason the tests becomes flaky without it, keeping it for now.
+    task_environment_.RunUntilIdle();
     // Make sure all memory is deallocated.
-    ASSERT_THAT(options_.memory_resource()->GetUsed(), Eq(0u));
+    EXPECT_THAT(options_.memory_resource()->GetUsed(), Eq(0u));
     // Make sure all disk is not reserved (files remain, but Storage is not
     // responsible for them anymore).
-    ASSERT_THAT(options_.disk_space_resource()->GetUsed(), Eq(0u));
+    EXPECT_THAT(options_.disk_space_resource()->GetUsed(), Eq(0u));
     // Handle and reject INIT_RESUME (optionally), in case the storage is
     // recreated.
     EXPECT_CALL(set_mock_uploader_expectations_,
@@ -884,6 +893,8 @@ class StorageTest
                StorageTest* self) {
               LOG(ERROR) << "Attempt upload, reason="
                          << UploaderInterface::ReasonToString(reason);
+              LOG_IF(FATAL, ++(self->upload_count_) >= 16uL)
+                  << "Too many uploads";
               auto result = self->set_mock_uploader_expectations_.Call(reason);
               if (!result.ok()) {
                 LOG(ERROR) << "Upload not allowed, reason="
@@ -941,6 +952,13 @@ class StorageTest
     seq_info.set_priority(priority);
     test::TestEvent<Status> c;
     storage_->Confirm(std::move(seq_info), force, c.cb());
+    const Status c_result = c.result();
+    ASSERT_OK(c_result) << c_result;
+  }
+
+  void FlushOrDie(Priority priority) {
+    test::TestEvent<Status> c;
+    storage_->Flush(priority, c.cb());
     const Status c_result = c.result();
     ASSERT_OK(c_result) << c_result;
   }
@@ -1023,6 +1041,8 @@ class StorageTest
   // digest. Serves all TestUploaders created by test fixture.
   TestUploader::LastRecordDigestMap last_record_digest_map_;
 
+  size_t upload_count_ = 0uL;
+
   ::testing::MockFunction<StatusOr<std::unique_ptr<TestUploader>>(
       UploaderInterface::UploadReason /*reason*/)>
       set_mock_uploader_expectations_;
@@ -1031,6 +1051,17 @@ class StorageTest
 constexpr std::array<const char*, 3> kData = {"Rec1111", "Rec222", "Rec33"};
 constexpr std::array<const char*, 3> kMoreData = {"More1111", "More222",
                                                   "More33"};
+TEST_P(StorageTest, ReadPipelineId) {
+  CreateTestStorageOrDie(BuildTestStorageOptions());
+
+  // TODO(b/249381224): investigate why removing WriteStringOrDie causes test to
+  // fail
+  WriteStringOrDie(FAST_BATCH, kData[0]);
+
+  StatusOr<base::StringPiece> pipeline_id_result = storage_->GetPipelineId();
+  EXPECT_THAT(pipeline_id_result.status(), Eq(Status::StatusOK()));
+  EXPECT_TRUE(base::IsValidGUID(pipeline_id_result.ValueOrDie()));
+}
 
 TEST_P(StorageTest, WriteIntoNewStorageAndReopen) {
   CreateTestStorageOrDie(BuildTestStorageOptions());
@@ -1109,7 +1140,7 @@ TEST_P(StorageTest, WriteIntoNewStorageAndUploadWithKeyUpdate) {
         .RetiresOnSaturation();
 
     // Trigger upload with no key update.
-    EXPECT_OK(storage_->Flush(MANUAL_BATCH));
+    FlushOrDie(MANUAL_BATCH);
   }
 
   // Confirm written data to prevent upload retry.
@@ -1139,7 +1170,7 @@ TEST_P(StorageTest, WriteIntoNewStorageAndUploadWithKeyUpdate) {
       .RetiresOnSaturation();
 
   // Trigger upload to make sure data is present.
-  EXPECT_OK(storage_->Flush(MANUAL_BATCH));
+  FlushOrDie(MANUAL_BATCH);
 }
 
 TEST_P(StorageTest, WriteIntoNewStorageReopenWriteMoreAndUpload) {
@@ -1195,7 +1226,7 @@ TEST_P(StorageTest, WriteIntoNewStorageAndFlush) {
       .RetiresOnSaturation();
 
   // Trigger upload.
-  EXPECT_OK(storage_->Flush(MANUAL_BATCH));
+  FlushOrDie(MANUAL_BATCH);
 }
 
 TEST_P(StorageTest, WriteIntoNewStorageReopenWriteMoreAndFlush) {
@@ -1228,7 +1259,7 @@ TEST_P(StorageTest, WriteIntoNewStorageReopenWriteMoreAndFlush) {
       .RetiresOnSaturation();
 
   // Trigger upload.
-  EXPECT_OK(storage_->Flush(MANUAL_BATCH));
+  FlushOrDie(MANUAL_BATCH);
 }
 
 TEST_P(StorageTest, WriteAndRepeatedlyUploadWithConfirmations) {
@@ -1908,7 +1939,7 @@ TEST_P(StorageTest, KeyDeliveryFailureOnNewStorage) {
         .RetiresOnSaturation();
 
     // Trigger upload.
-    EXPECT_OK(storage_->Flush(MANUAL_BATCH));
+    FlushOrDie(MANUAL_BATCH);
   }
 
   ResetTestStorage();
@@ -1938,7 +1969,7 @@ TEST_P(StorageTest, KeyDeliveryFailureOnNewStorage) {
         .RetiresOnSaturation();
 
     // Trigger upload.
-    EXPECT_OK(storage_->Flush(MANUAL_BATCH));
+    FlushOrDie(MANUAL_BATCH);
   }
 }
 

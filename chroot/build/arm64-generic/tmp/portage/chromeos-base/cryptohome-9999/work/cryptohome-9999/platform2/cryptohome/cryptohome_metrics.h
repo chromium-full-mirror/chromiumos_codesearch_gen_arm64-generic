@@ -14,7 +14,6 @@
 #include "cryptohome/auth_blocks/auth_block_type.h"
 #include "cryptohome/le_credential_manager.h"
 #include "cryptohome/migration_type.h"
-#include "cryptohome/tpm_metrics.h"
 
 namespace cryptohome {
 
@@ -77,9 +76,6 @@ enum DerivationType : int {
   kTpmBackedEcc = 7,
   kDerivationTypeNumBuckets  // Must be the last entry.
 };
-
-// This enum lists the cryptohome phases, used for reporting purposes.
-enum CryptohomePhase { kCreated, kMounted };
 
 // These values are persisted to logs. Entries should not be renumbered and
 // numeric values should never be reused.
@@ -441,6 +437,21 @@ enum class AttestationOpsStatus {
   kMaxValue
 };
 
+// List of possible results from migrating the files at ~/MyFiles to
+// ~/MyFiles/Downloads. These values are persisted to logs. Entries should not
+// be renumbered and numeric values should never be reused.
+enum class DownloadsBindMountMigrationStatus {
+  kSuccess = 0,
+  kSettingMigratedPreviouslyFailed = 1,
+  kUpdatingXattrFailed = 2,
+  kCleanupFailed = 3,
+  kBackupFailed = 4,
+  kRestoreFailed = 5,
+  kFailedMovingToMyFiles = 6,
+  kFailedSettingMigratedXattr = 7,
+  kMaxValue = kFailedMovingToMyFiles
+};
+
 // Just to make sure I count correctly.
 static_assert(static_cast<int>(DeprecatedApiEvent::kMaxValue) == 110,
               "DeprecatedApiEvent Enum miscounted");
@@ -453,11 +464,14 @@ const char kCryptohomeDoubleMount[] = "Cryptohome.DoubleMountRequest";
 // Constants related to LE Credential UMA logging.
 inline constexpr char kLEOpResetTree[] = ".ResetTree";
 inline constexpr char kLEOpInsert[] = ".Insert";
+inline constexpr char kLEOpInsertRateLimiter[] = ".InsertRateLimiter";
 inline constexpr char kLEOpCheck[] = ".Check";
 inline constexpr char kLEOpReset[] = ".Reset";
 inline constexpr char kLEOpRemove[] = ".Remove";
+inline constexpr char kLEOpStartBiometricsAuth[] = ".StartBiometricsAuth";
 inline constexpr char kLEOpSync[] = ".Sync";
 inline constexpr char kLEOpGetDelayInSeconds[] = ".GetDelayInSeconds";
+inline constexpr char kLEOpGetExpirationInSeconds[] = ".GetExpirationInSeconds";
 inline constexpr char kLEOpReplay[] = ".Replay";
 inline constexpr char kLEOpReplayResetTree[] = ".ReplayResetTree";
 inline constexpr char kLEOpReplayInsert[] = ".ReplayInsert";
@@ -576,20 +590,8 @@ void OverrideMetricsLibraryForTesting(MetricsLibraryInterface* lib);
 // used with OverrideMetricsLibraryForTesting().
 void ClearMetricsLibraryForTesting();
 
-// The |derivation_type| value is reported to the
-// "Cryptohome.WrappingKeyDerivation.[Create]/[Mount]" histograms.
-// Reported to:
-// *.Create - when the cryptohome is being created &
-//            when the new wrapping keys are generated for the cryptohome
-// *.Mount  - when the cryptohome is being mounted
-void ReportWrappingKeyDerivationType(DerivationType derivation_type,
-                                     CryptohomePhase crypto_phase);
-
 // The |error| value is reported to the "Cryptohome.Errors" enum histogram.
 void ReportCryptohomeError(CryptohomeErrorMetric error);
-
-// The |result| value is reported to the "Cryptohome.TpmResults" enum histogram.
-void ReportTpmResult(TpmResult result);
 
 // Cros events are translated to an enum and reported to the generic
 // "Platform.CrOSEvent" enum histogram. The |event| string must be registered in
@@ -710,6 +712,9 @@ void ReportLoginDiskCleanupResult(DiskCleanupResult result);
 // histogram.
 void ReportHomedirEncryptionType(HomedirEncryptionType type);
 
+// Reports the number of user directories present in the system.
+void ReportNumUserHomeDirectories(int num_users);
+
 // Reports the result of a Low Entropy (LE) Credential operation to the relevant
 // LE Credential histogram.
 void ReportLEResult(const char* type, const char* action, LECredError result);
@@ -810,6 +815,11 @@ void ReportVaultKeysetMetrics(const VaultKeysetMetrics& keyset_metrics);
 // and bind mounting. This only records the top-level items but does not record
 // items in sub-directories.
 void ReportMaskedDownloadsItems(int num_items);
+
+// Reports the overall status after attempting to migrate a user's ~/Downloads
+// to ~/MyFiles/Downloads.
+void ReportDownloadsBindMountMigrationStatus(
+    DownloadsBindMountMigrationStatus status);
 
 // Cryptohome Error Reporting related UMAs
 

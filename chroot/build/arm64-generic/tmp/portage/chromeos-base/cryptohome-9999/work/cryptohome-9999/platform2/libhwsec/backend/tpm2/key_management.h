@@ -27,7 +27,6 @@ namespace hwsec {
 class BackendTpm2;
 
 struct KeyReloadDataTpm2 {
-  OperationPolicy policy;
   brillo::Blob key_blob;
 };
 
@@ -39,6 +38,7 @@ struct KeyTpm2 {
   };
 
   struct Cache {
+    OperationPolicy policy;
     NoDefault<trunks::TPMT_PUBLIC> public_area;
   };
 
@@ -55,17 +55,15 @@ class KeyManagementTpm2 : public Backend::KeyManagement,
   ~KeyManagementTpm2();
 
   StatusOr<absl::flat_hash_set<KeyAlgoType>> GetSupportedAlgo() override;
+  Status IsSupported(KeyAlgoType key_algo,
+                     const CreateKeyOptions& options) override;
   StatusOr<CreateKeyResult> CreateKey(const OperationPolicySetting& policy,
                                       KeyAlgoType key_algo,
-                                      CreateKeyOptions options) override;
+                                      AutoReload auto_reload,
+                                      const CreateKeyOptions& options) override;
   StatusOr<ScopedKey> LoadKey(const OperationPolicy& policy,
-                              const brillo::Blob& key_blob) override;
-  StatusOr<CreateKeyResult> CreateAutoReloadKey(
-      const OperationPolicySetting& policy,
-      KeyAlgoType key_algo,
-      CreateKeyOptions options) override;
-  StatusOr<ScopedKey> LoadAutoReloadKey(const OperationPolicy& policy,
-                                        const brillo::Blob& key_blob) override;
+                              const brillo::Blob& key_blob,
+                              AutoReload auto_reload) override;
   StatusOr<ScopedKey> GetPersistentKey(PersistentKeyType key_type) override;
   StatusOr<brillo::Blob> GetPubkeyHash(Key key) override;
   Status Flush(Key key) override;
@@ -73,6 +71,22 @@ class KeyManagementTpm2 : public Backend::KeyManagement,
 
   StatusOr<ScopedKey> SideLoadKey(uint32_t key_handle) override;
   StatusOr<uint32_t> GetKeyHandle(Key key) override;
+
+  StatusOr<CreateKeyResult> WrapRSAKey(
+      const OperationPolicySetting& policy,
+      const brillo::Blob& public_modulus,
+      const brillo::SecureBlob& private_prime_factor,
+      AutoReload auto_reload,
+      const CreateKeyOptions& options) override;
+  StatusOr<CreateKeyResult> WrapECCKey(
+      const OperationPolicySetting& policy,
+      const brillo::Blob& public_point_x,
+      const brillo::Blob& public_point_y,
+      const brillo::SecureBlob& private_value,
+      AutoReload auto_reload,
+      const CreateKeyOptions& options) override;
+  StatusOr<RSAPublicInfo> GetRSAPublicInfo(Key key) override;
+  StatusOr<ECCPublicInfo> GetECCPublicInfo(Key key) override;
 
   // Below are TPM2.0 specific code.
 
@@ -90,15 +104,16 @@ class KeyManagementTpm2 : public Backend::KeyManagement,
  private:
   StatusOr<CreateKeyResult> CreateRsaKey(const OperationPolicySetting& policy,
                                          const CreateKeyOptions& options,
-                                         bool auto_reload);
+                                         AutoReload auto_reload);
   StatusOr<CreateKeyResult> CreateSoftwareGenRsaKey(
       const OperationPolicySetting& policy,
       const CreateKeyOptions& options,
-      bool auto_reload);
+      AutoReload auto_reload);
   StatusOr<CreateKeyResult> CreateEccKey(const OperationPolicySetting& policy,
                                          const CreateKeyOptions& options,
-                                         bool auto_reload);
+                                         AutoReload auto_reload);
   StatusOr<ScopedKey> LoadKeyInternal(
+      const OperationPolicy& policy,
       KeyTpm2::Type key_type,
       uint32_t key_handle,
       std::optional<KeyReloadDataTpm2> reload_data);

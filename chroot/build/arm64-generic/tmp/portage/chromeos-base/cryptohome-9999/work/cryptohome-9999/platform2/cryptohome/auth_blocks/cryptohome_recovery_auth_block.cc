@@ -23,8 +23,10 @@
 #include "cryptohome/cryptohome_metrics.h"
 #include "cryptohome/cryptorecovery/recovery_crypto_hsm_cbor_serialization.h"
 #include "cryptohome/cryptorecovery/recovery_crypto_impl.h"
+#include "cryptohome/error/cryptohome_crypto_error.h"
 #include "cryptohome/error/location_utils.h"
 #include "cryptohome/flatbuffer_schemas/auth_block_state.h"
+#include "cryptohome/proto_bindings/rpc.pb.h"
 
 using cryptohome::cryptorecovery::HsmPayload;
 using cryptohome::cryptorecovery::HsmResponsePlainText;
@@ -42,6 +44,16 @@ using hwsec_foundation::status::OkStatus;
 using hwsec_foundation::status::StatusChain;
 
 namespace cryptohome {
+
+namespace {
+
+void LogDeriveFailure(CryptoError error) {
+  // Note: the error format should match `cryptohome_recovery_failure` in
+  // crash-reporter/anomaly_detector.cc
+  LOG(ERROR) << "Cryptohome Recovery Derive failure, error = " << error;
+}
+
+}  // namespace
 
 CryptohomeRecoveryAuthBlock::CryptohomeRecoveryAuthBlock(
     hwsec::CryptohomeFrontend* hwsec,
@@ -73,11 +85,13 @@ CryptoStatus CryptohomeRecoveryAuthBlock::Create(
   auto cryptohome_recovery_auth_input =
       auth_input.cryptohome_recovery_auth_input.value();
   DCHECK(cryptohome_recovery_auth_input.mediator_pub_key.has_value());
+  DCHECK(!cryptohome_recovery_auth_input.user_gaia_id.empty());
+  DCHECK(!cryptohome_recovery_auth_input.device_user_id.empty());
 
   if (!auth_input.obfuscated_username.has_value()) {
     LOG(ERROR) << "Missing obfuscated_username";
     return MakeStatus<CryptohomeCryptoError>(
-        CRYPTOHOME_ERR_LOC(kLocCryptohomeRecoveryAuthBlockNoUsernameInCreate),
+        CRYPTOHOME_ERR_LOC(kLocRecoveryAuthBlockNoUsernameInCreate),
         ErrorActionSet({ErrorAction::kDevCheckUnexpectedState}),
         CryptoError::CE_OTHER_CRYPTO);
   }
@@ -90,16 +104,38 @@ CryptoStatus CryptohomeRecoveryAuthBlock::Create(
       RecoveryCryptoImpl::Create(recovery_hwsec_, platform_);
   if (!recovery) {
     return MakeStatus<CryptohomeCryptoError>(
-        CRYPTOHOME_ERR_LOC(
-            kLocCryptohomeRecoveryAuthBlockCantCreateRecoveryInCreate),
+        CRYPTOHOME_ERR_LOC(kLocRecoveryAuthBlockCantCreateRecoveryInCreate),
         ErrorActionSet({ErrorAction::kDevCheckUnexpectedState,
                         ErrorAction::kReboot, ErrorAction::kAuth}),
         CryptoError::CE_OTHER_CRYPTO);
   }
 
   // Generates HSM payload that would be persisted on a chromebook.
-  // TODO(b/184924482): set values in onboarding_metadata.
   OnboardingMetadata onboarding_metadata;
+  AccountIdentifier account_id;
+  account_id.set_email(obfuscated_username);
+  if (!recovery->GenerateRecoveryId(account_id)) {
+    LOG(ERROR) << "Unable to generate a new recovery_id";
+    return MakeStatus<CryptohomeCryptoError>(
+        CRYPTOHOME_ERR_LOC(kLocCryptohomeRecoveryAuthBlockNoRecoveryIdInCreate),
+        ErrorActionSet(
+            {ErrorAction::kDevCheckUnexpectedState, ErrorAction::kReboot}),
+        CryptoError::CE_OTHER_CRYPTO);
+  }
+  std::string recovery_id = recovery->LoadStoredRecoveryId(account_id);
+  if (recovery_id.empty()) {
+    LOG(ERROR) << "Unable to load persisted recovery_id";
+    return MakeStatus<CryptohomeCryptoError>(
+        CRYPTOHOME_ERR_LOC(
+            kLocCryptohomeRecoveryAuthBlockFailedRecoveryIdReadInCreate),
+        ErrorActionSet(
+            {ErrorAction::kDevCheckUnexpectedState, ErrorAction::kReboot}),
+        CryptoError::CE_OTHER_CRYPTO);
+  }
+  recovery->GenerateOnboardingMetadata(
+      cryptohome_recovery_auth_input.user_gaia_id,
+      cryptohome_recovery_auth_input.device_user_id, recovery_id,
+      &onboarding_metadata);
   cryptorecovery::GenerateHsmPayloadRequest generate_hsm_payload_request(
       {.mediator_pub_key = mediator_pub_key,
        .onboarding_metadata = onboarding_metadata,
@@ -109,7 +145,7 @@ CryptoStatus CryptohomeRecoveryAuthBlock::Create(
                                     &generate_hsm_payload_response)) {
     return MakeStatus<CryptohomeCryptoError>(
         CRYPTOHOME_ERR_LOC(
-            kLocCryptohomeRecoveryAuthBlockGenerateHSMPayloadFailedInCreate),
+            kLocRecoveryAuthBlockGenerateHSMPayloadFailedInCreate),
         ErrorActionSet({ErrorAction::kDevCheckUnexpectedState,
                         ErrorAction::kReboot, ErrorAction::kAuth}),
         CryptoError::CE_OTHER_CRYPTO);
@@ -125,8 +161,7 @@ CryptoStatus CryptohomeRecoveryAuthBlock::Create(
   if (!SerializeHsmPayloadToCbor(generate_hsm_payload_response.hsm_payload,
                                  &hsm_payload_cbor)) {
     return MakeStatus<CryptohomeCryptoError>(
-        CRYPTOHOME_ERR_LOC(
-            kLocCryptohomeRecoveryAuthBlockCborConvFailedInCreate),
+        CRYPTOHOME_ERR_LOC(kLocRecoveryAuthBlockCborConvFailedInCreate),
         ErrorActionSet({ErrorAction::kDevCheckUnexpectedState,
                         ErrorAction::kReboot, ErrorAction::kAuth}),
         CryptoError::CE_OTHER_FATAL);
@@ -147,15 +182,13 @@ CryptoStatus CryptohomeRecoveryAuthBlock::Create(
   if (revocation::IsRevocationSupported(hwsec_)) {
     DCHECK(le_manager_);
     RevocationState revocation_state;
-    CryptoError err =
+    CryptoStatus result =
         revocation::Create(le_manager_, &revocation_state, key_blobs);
-    if (err != CryptoError::CE_NONE) {
+    if (!result.ok()) {
       return MakeStatus<CryptohomeCryptoError>(
-          CRYPTOHOME_ERR_LOC(
-              kLocCryptohomeRecoveryAuthBlockRevocationCreateFailedInCreate),
-          ErrorActionSet(
-              {ErrorAction::kDevCheckUnexpectedState, ErrorAction::kReboot}),
-          err);
+                 CRYPTOHOME_ERR_LOC(
+                     kLocRecoveryAuthBlockRevocationCreateFailedInCreate))
+          .Wrap(std::move(result));
     }
     auth_block_state->revocation_state = revocation_state;
   }
@@ -172,8 +205,7 @@ CryptoStatus CryptohomeRecoveryAuthBlock::Derive(const AuthInput& auth_input,
             std::get_if<CryptohomeRecoveryAuthBlockState>(&state.state))) {
     DLOG(FATAL) << "Invalid AuthBlockState";
     return MakeStatus<CryptohomeCryptoError>(
-        CRYPTOHOME_ERR_LOC(
-            kLocCryptohomeRecoveryAuthBlockInvalidBlockStateInDerive),
+        CRYPTOHOME_ERR_LOC(kLocRecoveryAuthBlockInvalidBlockStateInDerive),
         ErrorActionSet(
             {ErrorAction::kDevCheckUnexpectedState, ErrorAction::kAuth}),
         CryptoError::CE_OTHER_CRYPTO);
@@ -182,7 +214,7 @@ CryptoStatus CryptohomeRecoveryAuthBlock::Derive(const AuthInput& auth_input,
   if (!auth_input.obfuscated_username.has_value()) {
     LOG(ERROR) << "Missing obfuscated_username";
     return MakeStatus<CryptohomeCryptoError>(
-        CRYPTOHOME_ERR_LOC(kLocCryptohomeRecoveryAuthBlockNoUsernameInDerive),
+        CRYPTOHOME_ERR_LOC(kLocRecoveryAuthBlockNoUsernameInDerive),
         ErrorActionSet({ErrorAction::kDevCheckUnexpectedState}),
         CryptoError::CE_OTHER_CRYPTO);
   }
@@ -206,8 +238,7 @@ CryptoStatus CryptohomeRecoveryAuthBlock::Derive(const AuthInput& auth_input,
   if (!epoch_response.ParseFromString(serialized_epoch_response.to_string())) {
     LOG(ERROR) << "Failed to parse CryptoRecoveryEpochResponse";
     return MakeStatus<CryptohomeCryptoError>(
-        CRYPTOHOME_ERR_LOC(
-            kLocCryptohomeRecoveryAuthBlockCantParseEpochResponseInDerive),
+        CRYPTOHOME_ERR_LOC(kLocRecoveryAuthBlockCantParseEpochResponseInDerive),
         ErrorActionSet({ErrorAction::kDevCheckUnexpectedState}),
         CryptoError::CE_OTHER_CRYPTO);
   }
@@ -215,8 +246,7 @@ CryptoStatus CryptohomeRecoveryAuthBlock::Derive(const AuthInput& auth_input,
   if (!response_proto.ParseFromString(serialized_response_proto.to_string())) {
     LOG(ERROR) << "Failed to parse CryptoRecoveryRpcResponse";
     return MakeStatus<CryptohomeCryptoError>(
-        CRYPTOHOME_ERR_LOC(
-            kLocCryptohomeRecoveryAuthBlockCantParseResponseInDerive),
+        CRYPTOHOME_ERR_LOC(kLocRecoveryAuthBlockCantParseResponseInDerive),
         ErrorActionSet({ErrorAction::kDevCheckUnexpectedState}),
         CryptoError::CE_OTHER_CRYPTO);
   }
@@ -225,27 +255,23 @@ CryptoStatus CryptohomeRecoveryAuthBlock::Derive(const AuthInput& auth_input,
       RecoveryCryptoImpl::Create(recovery_hwsec_, platform_);
   if (!recovery) {
     return MakeStatus<CryptohomeCryptoError>(
-        CRYPTOHOME_ERR_LOC(
-            kLocCryptohomeRecoveryAuthBlockCantCreateRecoveryInDerive),
+        CRYPTOHOME_ERR_LOC(kLocRecoveryAuthBlockCantCreateRecoveryInDerive),
         ErrorActionSet({ErrorAction::kDevCheckUnexpectedState,
                         ErrorAction::kReboot, ErrorAction::kAuth}),
         CryptoError::CE_OTHER_CRYPTO);
   }
   HsmResponsePlainText response_plain_text;
-  if (!recovery->DecryptResponsePayload(
-          cryptorecovery::DecryptResponsePayloadRequest(
-              {.encrypted_channel_priv_key =
-                   auth_state->encrypted_channel_priv_key,
-               .epoch_response = epoch_response,
-               .recovery_response_proto = response_proto,
-               .obfuscated_username = obfuscated_username}),
-          &response_plain_text)) {
+  CryptoStatus decrypt_result = recovery->DecryptResponsePayload(
+      cryptorecovery::DecryptResponsePayloadRequest(
+          {.encrypted_channel_priv_key = auth_state->encrypted_channel_priv_key,
+           .epoch_response = epoch_response,
+           .recovery_response_proto = response_proto,
+           .obfuscated_username = obfuscated_username}),
+      &response_plain_text);
+  if (!decrypt_result.ok()) {
     return MakeStatus<CryptohomeCryptoError>(
-        CRYPTOHOME_ERR_LOC(
-            kLocCryptohomeRecoveryAuthBlockDecryptFailedInDerive),
-        ErrorActionSet({ErrorAction::kIncorrectAuth, ErrorAction::kReboot,
-                        ErrorAction::kAuth}),
-        CryptoError::CE_OTHER_CRYPTO);
+               CRYPTOHOME_ERR_LOC(kLocRecoveryAuthBlockDecryptFailedInDerive))
+        .Wrap(std::move(decrypt_result));
   }
 
   brillo::SecureBlob recovery_key;
@@ -261,9 +287,9 @@ CryptoStatus CryptohomeRecoveryAuthBlock::Derive(const AuthInput& auth_input,
                .mediated_publisher_pub_key = response_plain_text.mediated_point,
                .obfuscated_username = obfuscated_username}),
           &recovery_key)) {
+    LogDeriveFailure(CryptoError::CE_OTHER_CRYPTO);
     return MakeStatus<CryptohomeCryptoError>(
-        CRYPTOHOME_ERR_LOC(
-            kLocCryptohomeRecoveryAuthBlockRecoveryFailedInDerive),
+        CRYPTOHOME_ERR_LOC(kLocRecoveryAuthBlockRecoveryFailedInDerive),
         ErrorActionSet({ErrorAction::kIncorrectAuth, ErrorAction::kReboot,
                         ErrorAction::kAuth}),
         CryptoError::CE_OTHER_CRYPTO);
@@ -275,15 +301,14 @@ CryptoStatus CryptohomeRecoveryAuthBlock::Derive(const AuthInput& auth_input,
   if (state.revocation_state.has_value()) {
     DCHECK(revocation::IsRevocationSupported(hwsec_));
     DCHECK(le_manager_);
-    CryptoError crypto_err = revocation::Derive(
+    CryptoStatus result = revocation::Derive(
         le_manager_, state.revocation_state.value(), key_blobs);
-    if (crypto_err != CryptoError::CE_NONE) {
+    if (!result.ok()) {
+      LogDeriveFailure(result->local_crypto_error());
       return MakeStatus<CryptohomeCryptoError>(
-          CRYPTOHOME_ERR_LOC(
-              kLocCryptohomeRecoveryAuthBlockRevocationDeriveFailedInDerive),
-          ErrorActionSet(
-              {ErrorAction::kDevCheckUnexpectedState, ErrorAction::kReboot}),
-          crypto_err);
+                 CRYPTOHOME_ERR_LOC(
+                     kLocRecoveryAuthBlockRevocationDeriveFailedInDerive))
+          .Wrap(std::move(result));
     }
   }
 
@@ -314,7 +339,7 @@ CryptoStatus CryptohomeRecoveryAuthBlock::PrepareForRemovalInternal(
     NOTREACHED() << "Invalid AuthBlockState";
     return MakeStatus<CryptohomeCryptoError>(
         CRYPTOHOME_ERR_LOC(
-            kLocCryptohomeRecoveryAuthBlockInvalidStateInPrepareForRemoval),
+            kLocRecoveryAuthBlockInvalidStateInPrepareForRemoval),
         ErrorActionSet(
             {ErrorAction::kDevCheckUnexpectedState, ErrorAction::kAuth}),
         CryptoError::CE_OTHER_CRYPTO);
@@ -332,7 +357,7 @@ CryptoStatus CryptohomeRecoveryAuthBlock::PrepareForRemovalInternal(
         << "Revocation is not supported during recovery auth block removal";
     return MakeStatus<CryptohomeCryptoError>(
         CRYPTOHOME_ERR_LOC(
-            kLocCryptohomeRecoveryAuthBlockNoRevocationInPrepareForRemoval),
+            kLocRecoveryAuthBlockNoRevocationInPrepareForRemoval),
         ErrorActionSet(
             {ErrorAction::kDevCheckUnexpectedState, ErrorAction::kReboot}),
         CryptoError::CE_OTHER_CRYPTO);
@@ -341,23 +366,20 @@ CryptoStatus CryptohomeRecoveryAuthBlock::PrepareForRemovalInternal(
   if (!le_manager_) {
     LOG(ERROR) << "No LE manager during recovery auth block removal";
     return MakeStatus<CryptohomeCryptoError>(
-        CRYPTOHOME_ERR_LOC(
-            kLocCryptohomeRecoveryAuthBlockNoLEManagerInPrepareForRemoval),
+        CRYPTOHOME_ERR_LOC(kLocRecoveryAuthBlockNoLEManagerInPrepareForRemoval),
         ErrorActionSet(
             {ErrorAction::kDevCheckUnexpectedState, ErrorAction::kReboot}),
         CryptoError::CE_OTHER_CRYPTO);
   }
 
-  CryptoError crypto_err =
+  CryptoStatus result =
       revocation::Revoke(AuthBlockType::kCryptohomeRecovery, le_manager_,
                          state.revocation_state.value());
-  if (crypto_err != CryptoError::CE_NONE) {
+  if (!result.ok()) {
     return MakeStatus<CryptohomeCryptoError>(
-        CRYPTOHOME_ERR_LOC(
-            kLocCryptohomeRecoveryAuthBlockRevocationFailedInPrepareForRemoval),
-        ErrorActionSet(
-            {ErrorAction::kDevCheckUnexpectedState, ErrorAction::kReboot}),
-        crypto_err);
+               CRYPTOHOME_ERR_LOC(
+                   kLocRecoveryAuthBlockRevocationFailedInPrepareForRemoval))
+        .Wrap(std::move(result));
   }
   return OkStatus<CryptohomeCryptoError>();
 }

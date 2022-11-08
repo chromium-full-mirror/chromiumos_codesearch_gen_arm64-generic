@@ -30,6 +30,7 @@
 #include <google/protobuf/repeated_field.h>  // IWYU pragma: export
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
 #include <google/protobuf/generated_enum_util.h>
+#include "arc/arc.pb.h"
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
 #define PROTOBUF_INTERNAL_EXPORT_concierge_5fservice_2eproto
@@ -45,7 +46,7 @@ struct TableStruct_concierge_5fservice_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[64]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[68]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -53,6 +54,9 @@ struct TableStruct_concierge_5fservice_2eproto {
 };
 namespace vm_tools {
 namespace concierge {
+class AddGroupPermissionMesaRequest;
+struct AddGroupPermissionMesaRequestDefaultTypeInternal;
+extern AddGroupPermissionMesaRequestDefaultTypeInternal _AddGroupPermissionMesaRequest_default_instance_;
 class AdjustVmRequest;
 struct AdjustVmRequestDefaultTypeInternal;
 extern AdjustVmRequestDefaultTypeInternal _AdjustVmRequest_default_instance_;
@@ -143,6 +147,12 @@ extern GetVmInfoRequestDefaultTypeInternal _GetVmInfoRequest_default_instance_;
 class GetVmInfoResponse;
 struct GetVmInfoResponseDefaultTypeInternal;
 extern GetVmInfoResponseDefaultTypeInternal _GetVmInfoResponse_default_instance_;
+class GetVmLaunchAllowedRequest;
+struct GetVmLaunchAllowedRequestDefaultTypeInternal;
+extern GetVmLaunchAllowedRequestDefaultTypeInternal _GetVmLaunchAllowedRequest_default_instance_;
+class GetVmLaunchAllowedResponse;
+struct GetVmLaunchAllowedResponseDefaultTypeInternal;
+extern GetVmLaunchAllowedResponseDefaultTypeInternal _GetVmLaunchAllowedResponse_default_instance_;
 class ImportDiskImageRequest;
 struct ImportDiskImageRequestDefaultTypeInternal;
 extern ImportDiskImageRequestDefaultTypeInternal _ImportDiskImageRequest_default_instance_;
@@ -245,9 +255,13 @@ extern VmStartedSignalDefaultTypeInternal _VmStartedSignal_default_instance_;
 class VmStoppedSignal;
 struct VmStoppedSignalDefaultTypeInternal;
 extern VmStoppedSignalDefaultTypeInternal _VmStoppedSignal_default_instance_;
+class VmStoppingSignal;
+struct VmStoppingSignalDefaultTypeInternal;
+extern VmStoppingSignalDefaultTypeInternal _VmStoppingSignal_default_instance_;
 }  // namespace concierge
 }  // namespace vm_tools
 PROTOBUF_NAMESPACE_OPEN
+template<> ::vm_tools::concierge::AddGroupPermissionMesaRequest* Arena::CreateMaybeMessage<::vm_tools::concierge::AddGroupPermissionMesaRequest>(Arena*);
 template<> ::vm_tools::concierge::AdjustVmRequest* Arena::CreateMaybeMessage<::vm_tools::concierge::AdjustVmRequest>(Arena*);
 template<> ::vm_tools::concierge::AdjustVmResponse* Arena::CreateMaybeMessage<::vm_tools::concierge::AdjustVmResponse>(Arena*);
 template<> ::vm_tools::concierge::ArcVmCompleteBootRequest* Arena::CreateMaybeMessage<::vm_tools::concierge::ArcVmCompleteBootRequest>(Arena*);
@@ -278,6 +292,8 @@ template<> ::vm_tools::concierge::GetVmGpuCachePathRequest* Arena::CreateMaybeMe
 template<> ::vm_tools::concierge::GetVmGpuCachePathResponse* Arena::CreateMaybeMessage<::vm_tools::concierge::GetVmGpuCachePathResponse>(Arena*);
 template<> ::vm_tools::concierge::GetVmInfoRequest* Arena::CreateMaybeMessage<::vm_tools::concierge::GetVmInfoRequest>(Arena*);
 template<> ::vm_tools::concierge::GetVmInfoResponse* Arena::CreateMaybeMessage<::vm_tools::concierge::GetVmInfoResponse>(Arena*);
+template<> ::vm_tools::concierge::GetVmLaunchAllowedRequest* Arena::CreateMaybeMessage<::vm_tools::concierge::GetVmLaunchAllowedRequest>(Arena*);
+template<> ::vm_tools::concierge::GetVmLaunchAllowedResponse* Arena::CreateMaybeMessage<::vm_tools::concierge::GetVmLaunchAllowedResponse>(Arena*);
 template<> ::vm_tools::concierge::ImportDiskImageRequest* Arena::CreateMaybeMessage<::vm_tools::concierge::ImportDiskImageRequest>(Arena*);
 template<> ::vm_tools::concierge::ImportDiskImageResponse* Arena::CreateMaybeMessage<::vm_tools::concierge::ImportDiskImageResponse>(Arena*);
 template<> ::vm_tools::concierge::ListUsbDeviceRequest* Arena::CreateMaybeMessage<::vm_tools::concierge::ListUsbDeviceRequest>(Arena*);
@@ -312,6 +328,7 @@ template<> ::vm_tools::concierge::VmDiskInfo* Arena::CreateMaybeMessage<::vm_too
 template<> ::vm_tools::concierge::VmInfo* Arena::CreateMaybeMessage<::vm_tools::concierge::VmInfo>(Arena*);
 template<> ::vm_tools::concierge::VmStartedSignal* Arena::CreateMaybeMessage<::vm_tools::concierge::VmStartedSignal>(Arena*);
 template<> ::vm_tools::concierge::VmStoppedSignal* Arena::CreateMaybeMessage<::vm_tools::concierge::VmStoppedSignal>(Arena*);
+template<> ::vm_tools::concierge::VmStoppingSignal* Arena::CreateMaybeMessage<::vm_tools::concierge::VmStoppingSignal>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace vm_tools {
 namespace concierge {
@@ -510,12 +527,13 @@ enum VmStopReason : int {
   STOP_ALL_VMS_REQUESTED = 2,
   DESTROY_DISK_IMAGE_REQUESTED = 3,
   SERVICE_SHUTDOWN = 4,
+  SIBLING_VM_EXITED = 5,
   VmStopReason_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
   VmStopReason_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
 };
 bool VmStopReason_IsValid(int value);
 constexpr VmStopReason VmStopReason_MIN = VM_EXITED;
-constexpr VmStopReason VmStopReason_MAX = SERVICE_SHUTDOWN;
+constexpr VmStopReason VmStopReason_MAX = SIBLING_VM_EXITED;
 constexpr int VmStopReason_ARRAYSIZE = VmStopReason_MAX + 1;
 
 const std::string& VmStopReason_Name(VmStopReason value);
@@ -1642,6 +1660,7 @@ class StartVmRequest final :
     kSharedDirectoryFieldNumber = 3,
     kNameFieldNumber = 4,
     kOwnerIdFieldNumber = 7,
+    kVmUsernameFieldNumber = 26,
     kVmFieldNumber = 1,
     kStartTerminaFieldNumber = 5,
     kEnableGpuFieldNumber = 8,
@@ -1655,6 +1674,7 @@ class StartVmRequest final :
     kTimeoutFieldNumber = 20,
     kVtpmProxyFieldNumber = 22,
     kStorageBallooningFieldNumber = 23,
+    kEnableVirtgpuNativeContextFieldNumber = 25,
   };
   // repeated .vm_tools.concierge.DiskImage disks = 2;
   int disks_size() const;
@@ -1798,6 +1818,20 @@ class StartVmRequest final :
   std::string* _internal_mutable_owner_id();
   public:
 
+  // string vm_username = 26;
+  void clear_vm_username();
+  const std::string& vm_username() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_vm_username(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_vm_username();
+  PROTOBUF_NODISCARD std::string* release_vm_username();
+  void set_allocated_vm_username(std::string* vm_username);
+  private:
+  const std::string& _internal_vm_username() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_vm_username(const std::string& value);
+  std::string* _internal_mutable_vm_username();
+  public:
+
   // .vm_tools.concierge.VirtualMachineSpec vm = 1;
   bool has_vm() const;
   private:
@@ -1924,6 +1958,15 @@ class StartVmRequest final :
   void _internal_set_storage_ballooning(bool value);
   public:
 
+  // bool enable_virtgpu_native_context = 25;
+  void clear_enable_virtgpu_native_context();
+  bool enable_virtgpu_native_context() const;
+  void set_enable_virtgpu_native_context(bool value);
+  private:
+  bool _internal_enable_virtgpu_native_context() const;
+  void _internal_set_enable_virtgpu_native_context(bool value);
+  public:
+
   // @@protoc_insertion_point(class_scope:vm_tools.concierge.StartVmRequest)
  private:
   class _Internal;
@@ -1941,6 +1984,7 @@ class StartVmRequest final :
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr shared_directory_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr owner_id_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr vm_username_;
   ::vm_tools::concierge::VirtualMachineSpec* vm_;
   bool start_termina_;
   bool enable_gpu_;
@@ -1954,6 +1998,7 @@ class StartVmRequest final :
   uint32_t timeout_;
   bool vtpm_proxy_;
   bool storage_ballooning_;
+  bool enable_virtgpu_native_context_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_concierge_5fservice_2eproto;
 };
@@ -2533,6 +2578,7 @@ class StartArcVmRequest final :
     kFstabFieldNumber = 6,
     kVmFieldNumber = 1,
     kBalloonPolicyFieldNumber = 13,
+    kMiniInstanceRequestFieldNumber = 34,
     kCpusFieldNumber = 7,
     kRootfsWritableFieldNumber = 8,
     kIgnoreDevConfFieldNumber = 9,
@@ -2555,10 +2601,13 @@ class StartArcVmRequest final :
     kEnableVirtioBlkDataFieldNumber = 27,
     kDisableMediaStoreMaintenanceFieldNumber = 29,
     kVmMemoryPsiPeriodFieldNumber = 28,
+    kGuestZramSizeFieldNumber = 32,
     kArcGeneratePlayAutoInstallFieldNumber = 30,
     kDisableDownloadProviderFieldNumber = 31,
-    kGuestZramSizeFieldNumber = 32,
+    kUpdateO4CListViaA2C2FieldNumber = 37,
     kGuestSwappinessFieldNumber = 33,
+    kMglruReclaimIntervalFieldNumber = 35,
+    kMglruReclaimSwappinessFieldNumber = 36,
   };
   // repeated .vm_tools.concierge.DiskImage disks = 2;
   int disks_size() const;
@@ -2679,6 +2728,24 @@ class StartArcVmRequest final :
   void unsafe_arena_set_allocated_balloon_policy(
       ::vm_tools::concierge::BalloonPolicyOptions* balloon_policy);
   ::vm_tools::concierge::BalloonPolicyOptions* unsafe_arena_release_balloon_policy();
+
+  // .arc.StartArcMiniInstanceRequest mini_instance_request = 34;
+  bool has_mini_instance_request() const;
+  private:
+  bool _internal_has_mini_instance_request() const;
+  public:
+  void clear_mini_instance_request();
+  const ::arc::StartArcMiniInstanceRequest& mini_instance_request() const;
+  PROTOBUF_NODISCARD ::arc::StartArcMiniInstanceRequest* release_mini_instance_request();
+  ::arc::StartArcMiniInstanceRequest* mutable_mini_instance_request();
+  void set_allocated_mini_instance_request(::arc::StartArcMiniInstanceRequest* mini_instance_request);
+  private:
+  const ::arc::StartArcMiniInstanceRequest& _internal_mini_instance_request() const;
+  ::arc::StartArcMiniInstanceRequest* _internal_mutable_mini_instance_request();
+  public:
+  void unsafe_arena_set_allocated_mini_instance_request(
+      ::arc::StartArcMiniInstanceRequest* mini_instance_request);
+  ::arc::StartArcMiniInstanceRequest* unsafe_arena_release_mini_instance_request();
 
   // uint32 cpus = 7;
   void clear_cpus();
@@ -2878,6 +2945,15 @@ class StartArcVmRequest final :
   void _internal_set_vm_memory_psi_period(int32_t value);
   public:
 
+  // int32 guest_zram_size = 32;
+  void clear_guest_zram_size();
+  int32_t guest_zram_size() const;
+  void set_guest_zram_size(int32_t value);
+  private:
+  int32_t _internal_guest_zram_size() const;
+  void _internal_set_guest_zram_size(int32_t value);
+  public:
+
   // bool arc_generate_play_auto_install = 30;
   void clear_arc_generate_play_auto_install();
   bool arc_generate_play_auto_install() const;
@@ -2896,13 +2972,13 @@ class StartArcVmRequest final :
   void _internal_set_disable_download_provider(bool value);
   public:
 
-  // int32 guest_zram_size = 32;
-  void clear_guest_zram_size();
-  int32_t guest_zram_size() const;
-  void set_guest_zram_size(int32_t value);
+  // bool update_o4c_list_via_a2c2 = 37;
+  void clear_update_o4c_list_via_a2c2();
+  bool update_o4c_list_via_a2c2() const;
+  void set_update_o4c_list_via_a2c2(bool value);
   private:
-  int32_t _internal_guest_zram_size() const;
-  void _internal_set_guest_zram_size(int32_t value);
+  bool _internal_update_o4c_list_via_a2c2() const;
+  void _internal_set_update_o4c_list_via_a2c2(bool value);
   public:
 
   // int32 guest_swappiness = 33;
@@ -2912,6 +2988,24 @@ class StartArcVmRequest final :
   private:
   int32_t _internal_guest_swappiness() const;
   void _internal_set_guest_swappiness(int32_t value);
+  public:
+
+  // int32 mglru_reclaim_interval = 35;
+  void clear_mglru_reclaim_interval();
+  int32_t mglru_reclaim_interval() const;
+  void set_mglru_reclaim_interval(int32_t value);
+  private:
+  int32_t _internal_mglru_reclaim_interval() const;
+  void _internal_set_mglru_reclaim_interval(int32_t value);
+  public:
+
+  // int32 mglru_reclaim_swappiness = 36;
+  void clear_mglru_reclaim_swappiness();
+  int32_t mglru_reclaim_swappiness() const;
+  void set_mglru_reclaim_swappiness(int32_t value);
+  private:
+  int32_t _internal_mglru_reclaim_swappiness() const;
+  void _internal_set_mglru_reclaim_swappiness(int32_t value);
   public:
 
   // @@protoc_insertion_point(class_scope:vm_tools.concierge.StartArcVmRequest)
@@ -2928,6 +3022,7 @@ class StartArcVmRequest final :
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr fstab_;
   ::vm_tools::concierge::VirtualMachineSpec* vm_;
   ::vm_tools::concierge::BalloonPolicyOptions* balloon_policy_;
+  ::arc::StartArcMiniInstanceRequest* mini_instance_request_;
   uint32_t cpus_;
   bool rootfs_writable_;
   bool ignore_dev_conf_;
@@ -2950,10 +3045,13 @@ class StartArcVmRequest final :
   bool enable_virtio_blk_data_;
   bool disable_media_store_maintenance_;
   int32_t vm_memory_psi_period_;
+  int32_t guest_zram_size_;
   bool arc_generate_play_auto_install_;
   bool disable_download_provider_;
-  int32_t guest_zram_size_;
+  bool update_o4c_list_via_a2c2_;
   int32_t guest_swappiness_;
+  int32_t mglru_reclaim_interval_;
+  int32_t mglru_reclaim_swappiness_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_concierge_5fservice_2eproto;
 };
@@ -3851,6 +3949,168 @@ class VmStoppedSignal final :
 };
 // -------------------------------------------------------------------
 
+class VmStoppingSignal final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:vm_tools.concierge.VmStoppingSignal) */ {
+ public:
+  inline VmStoppingSignal() : VmStoppingSignal(nullptr) {}
+  ~VmStoppingSignal() override;
+  explicit constexpr VmStoppingSignal(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  VmStoppingSignal(const VmStoppingSignal& from);
+  VmStoppingSignal(VmStoppingSignal&& from) noexcept
+    : VmStoppingSignal() {
+    *this = ::std::move(from);
+  }
+
+  inline VmStoppingSignal& operator=(const VmStoppingSignal& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline VmStoppingSignal& operator=(VmStoppingSignal&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const VmStoppingSignal& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const VmStoppingSignal* internal_default_instance() {
+    return reinterpret_cast<const VmStoppingSignal*>(
+               &_VmStoppingSignal_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    13;
+
+  friend void swap(VmStoppingSignal& a, VmStoppingSignal& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(VmStoppingSignal* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(VmStoppingSignal* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  VmStoppingSignal* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<VmStoppingSignal>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const VmStoppingSignal& from);
+  void MergeFrom(const VmStoppingSignal& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(VmStoppingSignal* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "vm_tools.concierge.VmStoppingSignal";
+  }
+  protected:
+  explicit VmStoppingSignal(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kNameFieldNumber = 1,
+    kOwnerIdFieldNumber = 2,
+    kCidFieldNumber = 3,
+  };
+  // string name = 1;
+  void clear_name();
+  const std::string& name() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_name(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_name();
+  PROTOBUF_NODISCARD std::string* release_name();
+  void set_allocated_name(std::string* name);
+  private:
+  const std::string& _internal_name() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_name(const std::string& value);
+  std::string* _internal_mutable_name();
+  public:
+
+  // string owner_id = 2;
+  void clear_owner_id();
+  const std::string& owner_id() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_owner_id(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_owner_id();
+  PROTOBUF_NODISCARD std::string* release_owner_id();
+  void set_allocated_owner_id(std::string* owner_id);
+  private:
+  const std::string& _internal_owner_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_owner_id(const std::string& value);
+  std::string* _internal_mutable_owner_id();
+  public:
+
+  // int64 cid = 3;
+  void clear_cid();
+  int64_t cid() const;
+  void set_cid(int64_t value);
+  private:
+  int64_t _internal_cid() const;
+  void _internal_set_cid(int64_t value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:vm_tools.concierge.VmStoppingSignal)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr owner_id_;
+  int64_t cid_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_concierge_5fservice_2eproto;
+};
+// -------------------------------------------------------------------
+
 class SuspendVmRequest final :
     public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:vm_tools.concierge.SuspendVmRequest) */ {
  public:
@@ -3890,7 +4150,7 @@ class SuspendVmRequest final :
                &_SuspendVmRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    13;
+    14;
 
   friend void swap(SuspendVmRequest& a, SuspendVmRequest& b) {
     a.Swap(&b);
@@ -4041,7 +4301,7 @@ class SuspendVmResponse final :
                &_SuspendVmResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    14;
+    15;
 
   friend void swap(SuspendVmResponse& a, SuspendVmResponse& b) {
     a.Swap(&b);
@@ -4187,7 +4447,7 @@ class ResumeVmRequest final :
                &_ResumeVmRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    15;
+    16;
 
   friend void swap(ResumeVmRequest& a, ResumeVmRequest& b) {
     a.Swap(&b);
@@ -4338,7 +4598,7 @@ class ResumeVmResponse final :
                &_ResumeVmResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    16;
+    17;
 
   friend void swap(ResumeVmResponse& a, ResumeVmResponse& b) {
     a.Swap(&b);
@@ -4484,7 +4744,7 @@ class SyncVmTimesResponse final :
                &_SyncVmTimesResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    17;
+    18;
 
   friend void swap(SyncVmTimesResponse& a, SyncVmTimesResponse& b) {
     a.Swap(&b);
@@ -4651,7 +4911,7 @@ class GetVmInfoRequest final :
                &_GetVmInfoRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    18;
+    19;
 
   friend void swap(GetVmInfoRequest& a, GetVmInfoRequest& b) {
     a.Swap(&b);
@@ -4802,7 +5062,7 @@ class GetVmInfoResponse final :
                &_GetVmInfoResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    19;
+    20;
 
   friend void swap(GetVmInfoResponse& a, GetVmInfoResponse& b) {
     a.Swap(&b);
@@ -4952,7 +5212,7 @@ class GetVmEnterpriseReportingInfoRequest final :
                &_GetVmEnterpriseReportingInfoRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    20;
+    21;
 
   friend void swap(GetVmEnterpriseReportingInfoRequest& a, GetVmEnterpriseReportingInfoRequest& b) {
     a.Swap(&b);
@@ -5103,7 +5363,7 @@ class GetVmEnterpriseReportingInfoResponse final :
                &_GetVmEnterpriseReportingInfoResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    21;
+    22;
 
   friend void swap(GetVmEnterpriseReportingInfoResponse& a, GetVmEnterpriseReportingInfoResponse& b) {
     a.Swap(&b);
@@ -5265,7 +5525,7 @@ class ArcVmCompleteBootRequest final :
                &_ArcVmCompleteBootRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    22;
+    23;
 
   friend void swap(ArcVmCompleteBootRequest& a, ArcVmCompleteBootRequest& b) {
     a.Swap(&b);
@@ -5400,7 +5660,7 @@ class ArcVmCompleteBootResponse final :
                &_ArcVmCompleteBootResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    23;
+    24;
 
   friend void swap(ArcVmCompleteBootResponse& a, ArcVmCompleteBootResponse& b) {
     a.Swap(&b);
@@ -5530,7 +5790,7 @@ class SetBalloonTimerRequest final :
                &_SetBalloonTimerRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    24;
+    25;
 
   friend void swap(SetBalloonTimerRequest& a, SetBalloonTimerRequest& b) {
     a.Swap(&b);
@@ -5660,7 +5920,7 @@ class SetBalloonTimerResponse final :
                &_SetBalloonTimerResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    25;
+    26;
 
   friend void swap(SetBalloonTimerResponse& a, SetBalloonTimerResponse& b) {
     a.Swap(&b);
@@ -5806,7 +6066,7 @@ class CreateDiskImageRequest final :
                &_CreateDiskImageRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    26;
+    27;
 
   friend void swap(CreateDiskImageRequest& a, CreateDiskImageRequest& b) {
     a.Swap(&b);
@@ -6049,7 +6309,7 @@ class CreateDiskImageResponse final :
                &_CreateDiskImageResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    27;
+    28;
 
   friend void swap(CreateDiskImageResponse& a, CreateDiskImageResponse& b) {
     a.Swap(&b);
@@ -6227,7 +6487,7 @@ class DestroyDiskImageRequest final :
                &_DestroyDiskImageRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    28;
+    29;
 
   friend void swap(DestroyDiskImageRequest& a, DestroyDiskImageRequest& b) {
     a.Swap(&b);
@@ -6378,7 +6638,7 @@ class DestroyDiskImageResponse final :
                &_DestroyDiskImageResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    29;
+    30;
 
   friend void swap(DestroyDiskImageResponse& a, DestroyDiskImageResponse& b) {
     a.Swap(&b);
@@ -6524,7 +6784,7 @@ class ResizeDiskImageRequest final :
                &_ResizeDiskImageRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    30;
+    31;
 
   friend void swap(ResizeDiskImageRequest& a, ResizeDiskImageRequest& b) {
     a.Swap(&b);
@@ -6686,7 +6946,7 @@ class ResizeDiskImageResponse final :
                &_ResizeDiskImageResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    31;
+    32;
 
   friend void swap(ResizeDiskImageResponse& a, ResizeDiskImageResponse& b) {
     a.Swap(&b);
@@ -6848,7 +7108,7 @@ class ExportDiskImageRequest final :
                &_ExportDiskImageRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    32;
+    33;
 
   friend void swap(ExportDiskImageRequest& a, ExportDiskImageRequest& b) {
     a.Swap(&b);
@@ -7021,7 +7281,7 @@ class ExportDiskImageResponse final :
                &_ExportDiskImageResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    33;
+    34;
 
   friend void swap(ExportDiskImageResponse& a, ExportDiskImageResponse& b) {
     a.Swap(&b);
@@ -7183,7 +7443,7 @@ class ImportDiskImageRequest final :
                &_ImportDiskImageRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    34;
+    35;
 
   friend void swap(ImportDiskImageRequest& a, ImportDiskImageRequest& b) {
     a.Swap(&b);
@@ -7356,7 +7616,7 @@ class ImportDiskImageResponse final :
                &_ImportDiskImageResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    35;
+    36;
 
   friend void swap(ImportDiskImageResponse& a, ImportDiskImageResponse& b) {
     a.Swap(&b);
@@ -7518,7 +7778,7 @@ class DiskImageStatusRequest final :
                &_DiskImageStatusRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    36;
+    37;
 
   friend void swap(DiskImageStatusRequest& a, DiskImageStatusRequest& b) {
     a.Swap(&b);
@@ -7653,7 +7913,7 @@ class DiskImageStatusResponse final :
                &_DiskImageStatusResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    37;
+    38;
 
   friend void swap(DiskImageStatusResponse& a, DiskImageStatusResponse& b) {
     a.Swap(&b);
@@ -7826,7 +8086,7 @@ class CancelDiskImageRequest final :
                &_CancelDiskImageRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    38;
+    39;
 
   friend void swap(CancelDiskImageRequest& a, CancelDiskImageRequest& b) {
     a.Swap(&b);
@@ -7961,7 +8221,7 @@ class CancelDiskImageResponse final :
                &_CancelDiskImageResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    39;
+    40;
 
   friend void swap(CancelDiskImageResponse& a, CancelDiskImageResponse& b) {
     a.Swap(&b);
@@ -8107,7 +8367,7 @@ class ListVmDisksRequest final :
                &_ListVmDisksRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    40;
+    41;
 
   friend void swap(ListVmDisksRequest& a, ListVmDisksRequest& b) {
     a.Swap(&b);
@@ -8280,7 +8540,7 @@ class VmDiskInfo final :
                &_VmDiskInfo_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    41;
+    42;
 
   friend void swap(VmDiskInfo& a, VmDiskInfo& b) {
     a.Swap(&b);
@@ -8497,7 +8757,7 @@ class ListVmDisksResponse final :
                &_ListVmDisksResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    42;
+    43;
 
   friend void swap(ListVmDisksResponse& a, ListVmDisksResponse& b) {
     a.Swap(&b);
@@ -8674,7 +8934,7 @@ class ContainerSshKeysRequest final :
                &_ContainerSshKeysRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    43;
+    44;
 
   friend void swap(ContainerSshKeysRequest& a, ContainerSshKeysRequest& b) {
     a.Swap(&b);
@@ -8841,7 +9101,7 @@ class ContainerSshKeysResponse final :
                &_ContainerSshKeysResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    44;
+    45;
 
   friend void swap(ContainerSshKeysResponse& a, ContainerSshKeysResponse& b) {
     a.Swap(&b);
@@ -9040,7 +9300,7 @@ class AttachUsbDeviceRequest final :
                &_AttachUsbDeviceRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    45;
+    46;
 
   friend void swap(AttachUsbDeviceRequest& a, AttachUsbDeviceRequest& b) {
     a.Swap(&b);
@@ -9235,7 +9495,7 @@ class AttachUsbDeviceResponse final :
                &_AttachUsbDeviceResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    46;
+    47;
 
   friend void swap(AttachUsbDeviceResponse& a, AttachUsbDeviceResponse& b) {
     a.Swap(&b);
@@ -9392,7 +9652,7 @@ class DetachUsbDeviceRequest final :
                &_DetachUsbDeviceRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    47;
+    48;
 
   friend void swap(DetachUsbDeviceRequest& a, DetachUsbDeviceRequest& b) {
     a.Swap(&b);
@@ -9554,7 +9814,7 @@ class DetachUsbDeviceResponse final :
                &_DetachUsbDeviceResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    48;
+    49;
 
   friend void swap(DetachUsbDeviceResponse& a, DetachUsbDeviceResponse& b) {
     a.Swap(&b);
@@ -9700,7 +9960,7 @@ class ListUsbDeviceRequest final :
                &_ListUsbDeviceRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    49;
+    50;
 
   friend void swap(ListUsbDeviceRequest& a, ListUsbDeviceRequest& b) {
     a.Swap(&b);
@@ -9851,7 +10111,7 @@ class UsbDeviceMessage final :
                &_UsbDeviceMessage_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    50;
+    51;
 
   friend void swap(UsbDeviceMessage& a, UsbDeviceMessage& b) {
     a.Swap(&b);
@@ -10019,7 +10279,7 @@ class ListUsbDeviceResponse final :
                &_ListUsbDeviceResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    51;
+    52;
 
   friend void swap(ListUsbDeviceResponse& a, ListUsbDeviceResponse& b) {
     a.Swap(&b);
@@ -10169,7 +10429,7 @@ class DnsSettings final :
                &_DnsSettings_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    52;
+    53;
 
   friend void swap(DnsSettings& a, DnsSettings& b) {
     a.Swap(&b);
@@ -10340,7 +10600,7 @@ class SetVmCpuRestrictionRequest final :
                &_SetVmCpuRestrictionRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    53;
+    54;
 
   friend void swap(SetVmCpuRestrictionRequest& a, SetVmCpuRestrictionRequest& b) {
     a.Swap(&b);
@@ -10481,7 +10741,7 @@ class SetVmCpuRestrictionResponse final :
                &_SetVmCpuRestrictionResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    54;
+    55;
 
   friend void swap(SetVmCpuRestrictionResponse& a, SetVmCpuRestrictionResponse& b) {
     a.Swap(&b);
@@ -10611,7 +10871,7 @@ class AdjustVmRequest final :
                &_AdjustVmRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    55;
+    56;
 
   friend void swap(AdjustVmRequest& a, AdjustVmRequest& b) {
     a.Swap(&b);
@@ -10804,7 +11064,7 @@ class AdjustVmResponse final :
                &_AdjustVmResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    56;
+    57;
 
   friend void swap(AdjustVmResponse& a, AdjustVmResponse& b) {
     a.Swap(&b);
@@ -10950,7 +11210,7 @@ class ReclaimVmMemoryRequest final :
                &_ReclaimVmMemoryRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    57;
+    58;
 
   friend void swap(ReclaimVmMemoryRequest& a, ReclaimVmMemoryRequest& b) {
     a.Swap(&b);
@@ -11112,7 +11372,7 @@ class ReclaimVmMemoryResponse final :
                &_ReclaimVmMemoryResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    58;
+    59;
 
   friend void swap(ReclaimVmMemoryResponse& a, ReclaimVmMemoryResponse& b) {
     a.Swap(&b);
@@ -11258,7 +11518,7 @@ class ListVmsRequest final :
                &_ListVmsRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    59;
+    60;
 
   friend void swap(ListVmsRequest& a, ListVmsRequest& b) {
     a.Swap(&b);
@@ -11393,7 +11653,7 @@ class ExtendedVmInfo final :
                &_ExtendedVmInfo_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    60;
+    61;
 
   friend void swap(ExtendedVmInfo& a, ExtendedVmInfo& b) {
     a.Swap(&b);
@@ -11575,7 +11835,7 @@ class ListVmsResponse final :
                &_ListVmsResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    61;
+    62;
 
   friend void swap(ListVmsResponse& a, ListVmsResponse& b) {
     a.Swap(&b);
@@ -11741,7 +12001,7 @@ class GetVmGpuCachePathRequest final :
                &_GetVmGpuCachePathRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    62;
+    63;
 
   friend void swap(GetVmGpuCachePathRequest& a, GetVmGpuCachePathRequest& b) {
     a.Swap(&b);
@@ -11892,7 +12152,7 @@ class GetVmGpuCachePathResponse final :
                &_GetVmGpuCachePathResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    63;
+    64;
 
   friend void swap(GetVmGpuCachePathResponse& a, GetVmGpuCachePathResponse& b) {
     a.Swap(&b);
@@ -11983,6 +12243,455 @@ class GetVmGpuCachePathResponse final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr path_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_concierge_5fservice_2eproto;
+};
+// -------------------------------------------------------------------
+
+class AddGroupPermissionMesaRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:vm_tools.concierge.AddGroupPermissionMesaRequest) */ {
+ public:
+  inline AddGroupPermissionMesaRequest() : AddGroupPermissionMesaRequest(nullptr) {}
+  ~AddGroupPermissionMesaRequest() override;
+  explicit constexpr AddGroupPermissionMesaRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  AddGroupPermissionMesaRequest(const AddGroupPermissionMesaRequest& from);
+  AddGroupPermissionMesaRequest(AddGroupPermissionMesaRequest&& from) noexcept
+    : AddGroupPermissionMesaRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline AddGroupPermissionMesaRequest& operator=(const AddGroupPermissionMesaRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline AddGroupPermissionMesaRequest& operator=(AddGroupPermissionMesaRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const AddGroupPermissionMesaRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const AddGroupPermissionMesaRequest* internal_default_instance() {
+    return reinterpret_cast<const AddGroupPermissionMesaRequest*>(
+               &_AddGroupPermissionMesaRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    65;
+
+  friend void swap(AddGroupPermissionMesaRequest& a, AddGroupPermissionMesaRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(AddGroupPermissionMesaRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(AddGroupPermissionMesaRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  AddGroupPermissionMesaRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<AddGroupPermissionMesaRequest>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const AddGroupPermissionMesaRequest& from);
+  void MergeFrom(const AddGroupPermissionMesaRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(AddGroupPermissionMesaRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "vm_tools.concierge.AddGroupPermissionMesaRequest";
+  }
+  protected:
+  explicit AddGroupPermissionMesaRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kNameFieldNumber = 1,
+    kOwnerIdFieldNumber = 2,
+  };
+  // string name = 1;
+  void clear_name();
+  const std::string& name() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_name(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_name();
+  PROTOBUF_NODISCARD std::string* release_name();
+  void set_allocated_name(std::string* name);
+  private:
+  const std::string& _internal_name() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_name(const std::string& value);
+  std::string* _internal_mutable_name();
+  public:
+
+  // string owner_id = 2;
+  void clear_owner_id();
+  const std::string& owner_id() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_owner_id(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_owner_id();
+  PROTOBUF_NODISCARD std::string* release_owner_id();
+  void set_allocated_owner_id(std::string* owner_id);
+  private:
+  const std::string& _internal_owner_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_owner_id(const std::string& value);
+  std::string* _internal_mutable_owner_id();
+  public:
+
+  // @@protoc_insertion_point(class_scope:vm_tools.concierge.AddGroupPermissionMesaRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr owner_id_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_concierge_5fservice_2eproto;
+};
+// -------------------------------------------------------------------
+
+class GetVmLaunchAllowedRequest final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:vm_tools.concierge.GetVmLaunchAllowedRequest) */ {
+ public:
+  inline GetVmLaunchAllowedRequest() : GetVmLaunchAllowedRequest(nullptr) {}
+  ~GetVmLaunchAllowedRequest() override;
+  explicit constexpr GetVmLaunchAllowedRequest(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  GetVmLaunchAllowedRequest(const GetVmLaunchAllowedRequest& from);
+  GetVmLaunchAllowedRequest(GetVmLaunchAllowedRequest&& from) noexcept
+    : GetVmLaunchAllowedRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline GetVmLaunchAllowedRequest& operator=(const GetVmLaunchAllowedRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline GetVmLaunchAllowedRequest& operator=(GetVmLaunchAllowedRequest&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const GetVmLaunchAllowedRequest& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const GetVmLaunchAllowedRequest* internal_default_instance() {
+    return reinterpret_cast<const GetVmLaunchAllowedRequest*>(
+               &_GetVmLaunchAllowedRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    66;
+
+  friend void swap(GetVmLaunchAllowedRequest& a, GetVmLaunchAllowedRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(GetVmLaunchAllowedRequest* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(GetVmLaunchAllowedRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  GetVmLaunchAllowedRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<GetVmLaunchAllowedRequest>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const GetVmLaunchAllowedRequest& from);
+  void MergeFrom(const GetVmLaunchAllowedRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(GetVmLaunchAllowedRequest* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "vm_tools.concierge.GetVmLaunchAllowedRequest";
+  }
+  protected:
+  explicit GetVmLaunchAllowedRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kRunAsUntrustedFieldNumber = 1,
+    kIsTrustedImageFieldNumber = 2,
+    kHasCustomKernelParamsFieldNumber = 3,
+  };
+  // bool run_as_untrusted = 1;
+  void clear_run_as_untrusted();
+  bool run_as_untrusted() const;
+  void set_run_as_untrusted(bool value);
+  private:
+  bool _internal_run_as_untrusted() const;
+  void _internal_set_run_as_untrusted(bool value);
+  public:
+
+  // bool is_trusted_image = 2;
+  void clear_is_trusted_image();
+  bool is_trusted_image() const;
+  void set_is_trusted_image(bool value);
+  private:
+  bool _internal_is_trusted_image() const;
+  void _internal_set_is_trusted_image(bool value);
+  public:
+
+  // bool has_custom_kernel_params = 3;
+  void clear_has_custom_kernel_params();
+  bool has_custom_kernel_params() const;
+  void set_has_custom_kernel_params(bool value);
+  private:
+  bool _internal_has_custom_kernel_params() const;
+  void _internal_set_has_custom_kernel_params(bool value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:vm_tools.concierge.GetVmLaunchAllowedRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  bool run_as_untrusted_;
+  bool is_trusted_image_;
+  bool has_custom_kernel_params_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_concierge_5fservice_2eproto;
+};
+// -------------------------------------------------------------------
+
+class GetVmLaunchAllowedResponse final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:vm_tools.concierge.GetVmLaunchAllowedResponse) */ {
+ public:
+  inline GetVmLaunchAllowedResponse() : GetVmLaunchAllowedResponse(nullptr) {}
+  ~GetVmLaunchAllowedResponse() override;
+  explicit constexpr GetVmLaunchAllowedResponse(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  GetVmLaunchAllowedResponse(const GetVmLaunchAllowedResponse& from);
+  GetVmLaunchAllowedResponse(GetVmLaunchAllowedResponse&& from) noexcept
+    : GetVmLaunchAllowedResponse() {
+    *this = ::std::move(from);
+  }
+
+  inline GetVmLaunchAllowedResponse& operator=(const GetVmLaunchAllowedResponse& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline GetVmLaunchAllowedResponse& operator=(GetVmLaunchAllowedResponse&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const GetVmLaunchAllowedResponse& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const GetVmLaunchAllowedResponse* internal_default_instance() {
+    return reinterpret_cast<const GetVmLaunchAllowedResponse*>(
+               &_GetVmLaunchAllowedResponse_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    67;
+
+  friend void swap(GetVmLaunchAllowedResponse& a, GetVmLaunchAllowedResponse& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(GetVmLaunchAllowedResponse* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(GetVmLaunchAllowedResponse* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  GetVmLaunchAllowedResponse* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<GetVmLaunchAllowedResponse>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const GetVmLaunchAllowedResponse& from);
+  void MergeFrom(const GetVmLaunchAllowedResponse& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  uint8_t* _InternalSerialize(
+      uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(GetVmLaunchAllowedResponse* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "vm_tools.concierge.GetVmLaunchAllowedResponse";
+  }
+  protected:
+  explicit GetVmLaunchAllowedResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kReasonFieldNumber = 2,
+    kAllowedFieldNumber = 1,
+  };
+  // string reason = 2;
+  void clear_reason();
+  const std::string& reason() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_reason(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_reason();
+  PROTOBUF_NODISCARD std::string* release_reason();
+  void set_allocated_reason(std::string* reason);
+  private:
+  const std::string& _internal_reason() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_reason(const std::string& value);
+  std::string* _internal_mutable_reason();
+  public:
+
+  // bool allowed = 1;
+  void clear_allowed();
+  bool allowed() const;
+  void set_allowed(bool value);
+  private:
+  bool _internal_allowed() const;
+  void _internal_set_allowed(bool value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:vm_tools.concierge.GetVmLaunchAllowedResponse)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr reason_;
+  bool allowed_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_concierge_5fservice_2eproto;
 };
@@ -13237,6 +13946,49 @@ inline void StartVmRequest::set_writable_rootfs(bool value) {
   // @@protoc_insertion_point(field_set:vm_tools.concierge.StartVmRequest.writable_rootfs)
 }
 
+// repeated .vm_tools.concierge.StartVmRequest.FdType fds = 16;
+inline int StartVmRequest::_internal_fds_size() const {
+  return fds_.size();
+}
+inline int StartVmRequest::fds_size() const {
+  return _internal_fds_size();
+}
+inline void StartVmRequest::clear_fds() {
+  fds_.Clear();
+}
+inline ::vm_tools::concierge::StartVmRequest_FdType StartVmRequest::_internal_fds(int index) const {
+  return static_cast< ::vm_tools::concierge::StartVmRequest_FdType >(fds_.Get(index));
+}
+inline ::vm_tools::concierge::StartVmRequest_FdType StartVmRequest::fds(int index) const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.StartVmRequest.fds)
+  return _internal_fds(index);
+}
+inline void StartVmRequest::set_fds(int index, ::vm_tools::concierge::StartVmRequest_FdType value) {
+  fds_.Set(index, value);
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.StartVmRequest.fds)
+}
+inline void StartVmRequest::_internal_add_fds(::vm_tools::concierge::StartVmRequest_FdType value) {
+  fds_.Add(value);
+}
+inline void StartVmRequest::add_fds(::vm_tools::concierge::StartVmRequest_FdType value) {
+  _internal_add_fds(value);
+  // @@protoc_insertion_point(field_add:vm_tools.concierge.StartVmRequest.fds)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>&
+StartVmRequest::fds() const {
+  // @@protoc_insertion_point(field_list:vm_tools.concierge.StartVmRequest.fds)
+  return fds_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>*
+StartVmRequest::_internal_mutable_fds() {
+  return &fds_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>*
+StartVmRequest::mutable_fds() {
+  // @@protoc_insertion_point(field_mutable_list:vm_tools.concierge.StartVmRequest.fds)
+  return _internal_mutable_fds();
+}
+
 // repeated string kernel_params = 17;
 inline int StartVmRequest::_internal_kernel_params_size() const {
   return kernel_params_.size();
@@ -13350,49 +14102,6 @@ inline void StartVmRequest::_internal_set_enable_big_gl(bool value) {
 inline void StartVmRequest::set_enable_big_gl(bool value) {
   _internal_set_enable_big_gl(value);
   // @@protoc_insertion_point(field_set:vm_tools.concierge.StartVmRequest.enable_big_gl)
-}
-
-// repeated .vm_tools.concierge.StartVmRequest.FdType fds = 16;
-inline int StartVmRequest::_internal_fds_size() const {
-  return fds_.size();
-}
-inline int StartVmRequest::fds_size() const {
-  return _internal_fds_size();
-}
-inline void StartVmRequest::clear_fds() {
-  fds_.Clear();
-}
-inline ::vm_tools::concierge::StartVmRequest_FdType StartVmRequest::_internal_fds(int index) const {
-  return static_cast< ::vm_tools::concierge::StartVmRequest_FdType >(fds_.Get(index));
-}
-inline ::vm_tools::concierge::StartVmRequest_FdType StartVmRequest::fds(int index) const {
-  // @@protoc_insertion_point(field_get:vm_tools.concierge.StartVmRequest.fds)
-  return _internal_fds(index);
-}
-inline void StartVmRequest::set_fds(int index, ::vm_tools::concierge::StartVmRequest_FdType value) {
-  fds_.Set(index, value);
-  // @@protoc_insertion_point(field_set:vm_tools.concierge.StartVmRequest.fds)
-}
-inline void StartVmRequest::_internal_add_fds(::vm_tools::concierge::StartVmRequest_FdType value) {
-  fds_.Add(value);
-}
-inline void StartVmRequest::add_fds(::vm_tools::concierge::StartVmRequest_FdType value) {
-  _internal_add_fds(value);
-  // @@protoc_insertion_point(field_add:vm_tools.concierge.StartVmRequest.fds)
-}
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>&
-StartVmRequest::fds() const {
-  // @@protoc_insertion_point(field_list:vm_tools.concierge.StartVmRequest.fds)
-  return fds_;
-}
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>*
-StartVmRequest::_internal_mutable_fds() {
-  return &fds_;
-}
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedField<int>*
-StartVmRequest::mutable_fds() {
-  // @@protoc_insertion_point(field_mutable_list:vm_tools.concierge.StartVmRequest.fds)
-  return _internal_mutable_fds();
 }
 
 // uint32 timeout = 20;
@@ -13571,6 +14280,77 @@ inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
 StartVmRequest::mutable_oem_strings() {
   // @@protoc_insertion_point(field_mutable_list:vm_tools.concierge.StartVmRequest.oem_strings)
   return &oem_strings_;
+}
+
+// bool enable_virtgpu_native_context = 25;
+inline void StartVmRequest::clear_enable_virtgpu_native_context() {
+  enable_virtgpu_native_context_ = false;
+}
+inline bool StartVmRequest::_internal_enable_virtgpu_native_context() const {
+  return enable_virtgpu_native_context_;
+}
+inline bool StartVmRequest::enable_virtgpu_native_context() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.StartVmRequest.enable_virtgpu_native_context)
+  return _internal_enable_virtgpu_native_context();
+}
+inline void StartVmRequest::_internal_set_enable_virtgpu_native_context(bool value) {
+  
+  enable_virtgpu_native_context_ = value;
+}
+inline void StartVmRequest::set_enable_virtgpu_native_context(bool value) {
+  _internal_set_enable_virtgpu_native_context(value);
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.StartVmRequest.enable_virtgpu_native_context)
+}
+
+// string vm_username = 26;
+inline void StartVmRequest::clear_vm_username() {
+  vm_username_.ClearToEmpty();
+}
+inline const std::string& StartVmRequest::vm_username() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.StartVmRequest.vm_username)
+  return _internal_vm_username();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void StartVmRequest::set_vm_username(ArgT0&& arg0, ArgT... args) {
+ 
+ vm_username_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.StartVmRequest.vm_username)
+}
+inline std::string* StartVmRequest::mutable_vm_username() {
+  std::string* _s = _internal_mutable_vm_username();
+  // @@protoc_insertion_point(field_mutable:vm_tools.concierge.StartVmRequest.vm_username)
+  return _s;
+}
+inline const std::string& StartVmRequest::_internal_vm_username() const {
+  return vm_username_.Get();
+}
+inline void StartVmRequest::_internal_set_vm_username(const std::string& value) {
+  
+  vm_username_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* StartVmRequest::_internal_mutable_vm_username() {
+  
+  return vm_username_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* StartVmRequest::release_vm_username() {
+  // @@protoc_insertion_point(field_release:vm_tools.concierge.StartVmRequest.vm_username)
+  return vm_username_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void StartVmRequest::set_allocated_vm_username(std::string* vm_username) {
+  if (vm_username != nullptr) {
+    
+  } else {
+    
+  }
+  vm_username_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), vm_username,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (vm_username_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    vm_username_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.StartVmRequest.vm_username)
 }
 
 // -------------------------------------------------------------------
@@ -15051,6 +15831,152 @@ inline void StartArcVmRequest::set_guest_swappiness(int32_t value) {
   // @@protoc_insertion_point(field_set:vm_tools.concierge.StartArcVmRequest.guest_swappiness)
 }
 
+// .arc.StartArcMiniInstanceRequest mini_instance_request = 34;
+inline bool StartArcVmRequest::_internal_has_mini_instance_request() const {
+  return this != internal_default_instance() && mini_instance_request_ != nullptr;
+}
+inline bool StartArcVmRequest::has_mini_instance_request() const {
+  return _internal_has_mini_instance_request();
+}
+inline const ::arc::StartArcMiniInstanceRequest& StartArcVmRequest::_internal_mini_instance_request() const {
+  const ::arc::StartArcMiniInstanceRequest* p = mini_instance_request_;
+  return p != nullptr ? *p : reinterpret_cast<const ::arc::StartArcMiniInstanceRequest&>(
+      ::arc::_StartArcMiniInstanceRequest_default_instance_);
+}
+inline const ::arc::StartArcMiniInstanceRequest& StartArcVmRequest::mini_instance_request() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.StartArcVmRequest.mini_instance_request)
+  return _internal_mini_instance_request();
+}
+inline void StartArcVmRequest::unsafe_arena_set_allocated_mini_instance_request(
+    ::arc::StartArcMiniInstanceRequest* mini_instance_request) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(mini_instance_request_);
+  }
+  mini_instance_request_ = mini_instance_request;
+  if (mini_instance_request) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:vm_tools.concierge.StartArcVmRequest.mini_instance_request)
+}
+inline ::arc::StartArcMiniInstanceRequest* StartArcVmRequest::release_mini_instance_request() {
+  
+  ::arc::StartArcMiniInstanceRequest* temp = mini_instance_request_;
+  mini_instance_request_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::arc::StartArcMiniInstanceRequest* StartArcVmRequest::unsafe_arena_release_mini_instance_request() {
+  // @@protoc_insertion_point(field_release:vm_tools.concierge.StartArcVmRequest.mini_instance_request)
+  
+  ::arc::StartArcMiniInstanceRequest* temp = mini_instance_request_;
+  mini_instance_request_ = nullptr;
+  return temp;
+}
+inline ::arc::StartArcMiniInstanceRequest* StartArcVmRequest::_internal_mutable_mini_instance_request() {
+  
+  if (mini_instance_request_ == nullptr) {
+    auto* p = CreateMaybeMessage<::arc::StartArcMiniInstanceRequest>(GetArenaForAllocation());
+    mini_instance_request_ = p;
+  }
+  return mini_instance_request_;
+}
+inline ::arc::StartArcMiniInstanceRequest* StartArcVmRequest::mutable_mini_instance_request() {
+  ::arc::StartArcMiniInstanceRequest* _msg = _internal_mutable_mini_instance_request();
+  // @@protoc_insertion_point(field_mutable:vm_tools.concierge.StartArcVmRequest.mini_instance_request)
+  return _msg;
+}
+inline void StartArcVmRequest::set_allocated_mini_instance_request(::arc::StartArcMiniInstanceRequest* mini_instance_request) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(mini_instance_request_);
+  }
+  if (mini_instance_request) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<
+            ::PROTOBUF_NAMESPACE_ID::MessageLite>::GetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(mini_instance_request));
+    if (message_arena != submessage_arena) {
+      mini_instance_request = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, mini_instance_request, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  mini_instance_request_ = mini_instance_request;
+  // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.StartArcVmRequest.mini_instance_request)
+}
+
+// int32 mglru_reclaim_interval = 35;
+inline void StartArcVmRequest::clear_mglru_reclaim_interval() {
+  mglru_reclaim_interval_ = 0;
+}
+inline int32_t StartArcVmRequest::_internal_mglru_reclaim_interval() const {
+  return mglru_reclaim_interval_;
+}
+inline int32_t StartArcVmRequest::mglru_reclaim_interval() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.StartArcVmRequest.mglru_reclaim_interval)
+  return _internal_mglru_reclaim_interval();
+}
+inline void StartArcVmRequest::_internal_set_mglru_reclaim_interval(int32_t value) {
+  
+  mglru_reclaim_interval_ = value;
+}
+inline void StartArcVmRequest::set_mglru_reclaim_interval(int32_t value) {
+  _internal_set_mglru_reclaim_interval(value);
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.StartArcVmRequest.mglru_reclaim_interval)
+}
+
+// int32 mglru_reclaim_swappiness = 36;
+inline void StartArcVmRequest::clear_mglru_reclaim_swappiness() {
+  mglru_reclaim_swappiness_ = 0;
+}
+inline int32_t StartArcVmRequest::_internal_mglru_reclaim_swappiness() const {
+  return mglru_reclaim_swappiness_;
+}
+inline int32_t StartArcVmRequest::mglru_reclaim_swappiness() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.StartArcVmRequest.mglru_reclaim_swappiness)
+  return _internal_mglru_reclaim_swappiness();
+}
+inline void StartArcVmRequest::_internal_set_mglru_reclaim_swappiness(int32_t value) {
+  
+  mglru_reclaim_swappiness_ = value;
+}
+inline void StartArcVmRequest::set_mglru_reclaim_swappiness(int32_t value) {
+  _internal_set_mglru_reclaim_swappiness(value);
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.StartArcVmRequest.mglru_reclaim_swappiness)
+}
+
+// bool update_o4c_list_via_a2c2 = 37;
+inline void StartArcVmRequest::clear_update_o4c_list_via_a2c2() {
+  update_o4c_list_via_a2c2_ = false;
+}
+inline bool StartArcVmRequest::_internal_update_o4c_list_via_a2c2() const {
+  return update_o4c_list_via_a2c2_;
+}
+inline bool StartArcVmRequest::update_o4c_list_via_a2c2() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.StartArcVmRequest.update_o4c_list_via_a2c2)
+  return _internal_update_o4c_list_via_a2c2();
+}
+inline void StartArcVmRequest::_internal_set_update_o4c_list_via_a2c2(bool value) {
+  
+  update_o4c_list_via_a2c2_ = value;
+}
+inline void StartArcVmRequest::set_update_o4c_list_via_a2c2(bool value) {
+  _internal_set_update_o4c_list_via_a2c2(value);
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.StartArcVmRequest.update_o4c_list_via_a2c2)
+}
+
 // -------------------------------------------------------------------
 
 // StartVmResponse
@@ -15837,6 +16763,132 @@ inline void VmStoppedSignal::_internal_set_reason(::vm_tools::concierge::VmStopR
 inline void VmStoppedSignal::set_reason(::vm_tools::concierge::VmStopReason value) {
   _internal_set_reason(value);
   // @@protoc_insertion_point(field_set:vm_tools.concierge.VmStoppedSignal.reason)
+}
+
+// -------------------------------------------------------------------
+
+// VmStoppingSignal
+
+// string name = 1;
+inline void VmStoppingSignal::clear_name() {
+  name_.ClearToEmpty();
+}
+inline const std::string& VmStoppingSignal::name() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.VmStoppingSignal.name)
+  return _internal_name();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void VmStoppingSignal::set_name(ArgT0&& arg0, ArgT... args) {
+ 
+ name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.VmStoppingSignal.name)
+}
+inline std::string* VmStoppingSignal::mutable_name() {
+  std::string* _s = _internal_mutable_name();
+  // @@protoc_insertion_point(field_mutable:vm_tools.concierge.VmStoppingSignal.name)
+  return _s;
+}
+inline const std::string& VmStoppingSignal::_internal_name() const {
+  return name_.Get();
+}
+inline void VmStoppingSignal::_internal_set_name(const std::string& value) {
+  
+  name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* VmStoppingSignal::_internal_mutable_name() {
+  
+  return name_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* VmStoppingSignal::release_name() {
+  // @@protoc_insertion_point(field_release:vm_tools.concierge.VmStoppingSignal.name)
+  return name_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void VmStoppingSignal::set_allocated_name(std::string* name) {
+  if (name != nullptr) {
+    
+  } else {
+    
+  }
+  name_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), name,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (name_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.VmStoppingSignal.name)
+}
+
+// string owner_id = 2;
+inline void VmStoppingSignal::clear_owner_id() {
+  owner_id_.ClearToEmpty();
+}
+inline const std::string& VmStoppingSignal::owner_id() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.VmStoppingSignal.owner_id)
+  return _internal_owner_id();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void VmStoppingSignal::set_owner_id(ArgT0&& arg0, ArgT... args) {
+ 
+ owner_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.VmStoppingSignal.owner_id)
+}
+inline std::string* VmStoppingSignal::mutable_owner_id() {
+  std::string* _s = _internal_mutable_owner_id();
+  // @@protoc_insertion_point(field_mutable:vm_tools.concierge.VmStoppingSignal.owner_id)
+  return _s;
+}
+inline const std::string& VmStoppingSignal::_internal_owner_id() const {
+  return owner_id_.Get();
+}
+inline void VmStoppingSignal::_internal_set_owner_id(const std::string& value) {
+  
+  owner_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* VmStoppingSignal::_internal_mutable_owner_id() {
+  
+  return owner_id_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* VmStoppingSignal::release_owner_id() {
+  // @@protoc_insertion_point(field_release:vm_tools.concierge.VmStoppingSignal.owner_id)
+  return owner_id_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void VmStoppingSignal::set_allocated_owner_id(std::string* owner_id) {
+  if (owner_id != nullptr) {
+    
+  } else {
+    
+  }
+  owner_id_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), owner_id,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (owner_id_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    owner_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.VmStoppingSignal.owner_id)
+}
+
+// int64 cid = 3;
+inline void VmStoppingSignal::clear_cid() {
+  cid_ = int64_t{0};
+}
+inline int64_t VmStoppingSignal::_internal_cid() const {
+  return cid_;
+}
+inline int64_t VmStoppingSignal::cid() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.VmStoppingSignal.cid)
+  return _internal_cid();
+}
+inline void VmStoppingSignal::_internal_set_cid(int64_t value) {
+  
+  cid_ = value;
+}
+inline void VmStoppingSignal::set_cid(int64_t value) {
+  _internal_set_cid(value);
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.VmStoppingSignal.cid)
 }
 
 // -------------------------------------------------------------------
@@ -21703,9 +22755,262 @@ inline void GetVmGpuCachePathResponse::set_allocated_path(std::string* path) {
   // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.GetVmGpuCachePathResponse.path)
 }
 
+// -------------------------------------------------------------------
+
+// AddGroupPermissionMesaRequest
+
+// string name = 1;
+inline void AddGroupPermissionMesaRequest::clear_name() {
+  name_.ClearToEmpty();
+}
+inline const std::string& AddGroupPermissionMesaRequest::name() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.AddGroupPermissionMesaRequest.name)
+  return _internal_name();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void AddGroupPermissionMesaRequest::set_name(ArgT0&& arg0, ArgT... args) {
+ 
+ name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.AddGroupPermissionMesaRequest.name)
+}
+inline std::string* AddGroupPermissionMesaRequest::mutable_name() {
+  std::string* _s = _internal_mutable_name();
+  // @@protoc_insertion_point(field_mutable:vm_tools.concierge.AddGroupPermissionMesaRequest.name)
+  return _s;
+}
+inline const std::string& AddGroupPermissionMesaRequest::_internal_name() const {
+  return name_.Get();
+}
+inline void AddGroupPermissionMesaRequest::_internal_set_name(const std::string& value) {
+  
+  name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* AddGroupPermissionMesaRequest::_internal_mutable_name() {
+  
+  return name_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* AddGroupPermissionMesaRequest::release_name() {
+  // @@protoc_insertion_point(field_release:vm_tools.concierge.AddGroupPermissionMesaRequest.name)
+  return name_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void AddGroupPermissionMesaRequest::set_allocated_name(std::string* name) {
+  if (name != nullptr) {
+    
+  } else {
+    
+  }
+  name_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), name,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (name_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.AddGroupPermissionMesaRequest.name)
+}
+
+// string owner_id = 2;
+inline void AddGroupPermissionMesaRequest::clear_owner_id() {
+  owner_id_.ClearToEmpty();
+}
+inline const std::string& AddGroupPermissionMesaRequest::owner_id() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.AddGroupPermissionMesaRequest.owner_id)
+  return _internal_owner_id();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void AddGroupPermissionMesaRequest::set_owner_id(ArgT0&& arg0, ArgT... args) {
+ 
+ owner_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.AddGroupPermissionMesaRequest.owner_id)
+}
+inline std::string* AddGroupPermissionMesaRequest::mutable_owner_id() {
+  std::string* _s = _internal_mutable_owner_id();
+  // @@protoc_insertion_point(field_mutable:vm_tools.concierge.AddGroupPermissionMesaRequest.owner_id)
+  return _s;
+}
+inline const std::string& AddGroupPermissionMesaRequest::_internal_owner_id() const {
+  return owner_id_.Get();
+}
+inline void AddGroupPermissionMesaRequest::_internal_set_owner_id(const std::string& value) {
+  
+  owner_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* AddGroupPermissionMesaRequest::_internal_mutable_owner_id() {
+  
+  return owner_id_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* AddGroupPermissionMesaRequest::release_owner_id() {
+  // @@protoc_insertion_point(field_release:vm_tools.concierge.AddGroupPermissionMesaRequest.owner_id)
+  return owner_id_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void AddGroupPermissionMesaRequest::set_allocated_owner_id(std::string* owner_id) {
+  if (owner_id != nullptr) {
+    
+  } else {
+    
+  }
+  owner_id_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), owner_id,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (owner_id_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    owner_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.AddGroupPermissionMesaRequest.owner_id)
+}
+
+// -------------------------------------------------------------------
+
+// GetVmLaunchAllowedRequest
+
+// bool run_as_untrusted = 1;
+inline void GetVmLaunchAllowedRequest::clear_run_as_untrusted() {
+  run_as_untrusted_ = false;
+}
+inline bool GetVmLaunchAllowedRequest::_internal_run_as_untrusted() const {
+  return run_as_untrusted_;
+}
+inline bool GetVmLaunchAllowedRequest::run_as_untrusted() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.GetVmLaunchAllowedRequest.run_as_untrusted)
+  return _internal_run_as_untrusted();
+}
+inline void GetVmLaunchAllowedRequest::_internal_set_run_as_untrusted(bool value) {
+  
+  run_as_untrusted_ = value;
+}
+inline void GetVmLaunchAllowedRequest::set_run_as_untrusted(bool value) {
+  _internal_set_run_as_untrusted(value);
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.GetVmLaunchAllowedRequest.run_as_untrusted)
+}
+
+// bool is_trusted_image = 2;
+inline void GetVmLaunchAllowedRequest::clear_is_trusted_image() {
+  is_trusted_image_ = false;
+}
+inline bool GetVmLaunchAllowedRequest::_internal_is_trusted_image() const {
+  return is_trusted_image_;
+}
+inline bool GetVmLaunchAllowedRequest::is_trusted_image() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.GetVmLaunchAllowedRequest.is_trusted_image)
+  return _internal_is_trusted_image();
+}
+inline void GetVmLaunchAllowedRequest::_internal_set_is_trusted_image(bool value) {
+  
+  is_trusted_image_ = value;
+}
+inline void GetVmLaunchAllowedRequest::set_is_trusted_image(bool value) {
+  _internal_set_is_trusted_image(value);
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.GetVmLaunchAllowedRequest.is_trusted_image)
+}
+
+// bool has_custom_kernel_params = 3;
+inline void GetVmLaunchAllowedRequest::clear_has_custom_kernel_params() {
+  has_custom_kernel_params_ = false;
+}
+inline bool GetVmLaunchAllowedRequest::_internal_has_custom_kernel_params() const {
+  return has_custom_kernel_params_;
+}
+inline bool GetVmLaunchAllowedRequest::has_custom_kernel_params() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.GetVmLaunchAllowedRequest.has_custom_kernel_params)
+  return _internal_has_custom_kernel_params();
+}
+inline void GetVmLaunchAllowedRequest::_internal_set_has_custom_kernel_params(bool value) {
+  
+  has_custom_kernel_params_ = value;
+}
+inline void GetVmLaunchAllowedRequest::set_has_custom_kernel_params(bool value) {
+  _internal_set_has_custom_kernel_params(value);
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.GetVmLaunchAllowedRequest.has_custom_kernel_params)
+}
+
+// -------------------------------------------------------------------
+
+// GetVmLaunchAllowedResponse
+
+// bool allowed = 1;
+inline void GetVmLaunchAllowedResponse::clear_allowed() {
+  allowed_ = false;
+}
+inline bool GetVmLaunchAllowedResponse::_internal_allowed() const {
+  return allowed_;
+}
+inline bool GetVmLaunchAllowedResponse::allowed() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.GetVmLaunchAllowedResponse.allowed)
+  return _internal_allowed();
+}
+inline void GetVmLaunchAllowedResponse::_internal_set_allowed(bool value) {
+  
+  allowed_ = value;
+}
+inline void GetVmLaunchAllowedResponse::set_allowed(bool value) {
+  _internal_set_allowed(value);
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.GetVmLaunchAllowedResponse.allowed)
+}
+
+// string reason = 2;
+inline void GetVmLaunchAllowedResponse::clear_reason() {
+  reason_.ClearToEmpty();
+}
+inline const std::string& GetVmLaunchAllowedResponse::reason() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.GetVmLaunchAllowedResponse.reason)
+  return _internal_reason();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void GetVmLaunchAllowedResponse::set_reason(ArgT0&& arg0, ArgT... args) {
+ 
+ reason_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.GetVmLaunchAllowedResponse.reason)
+}
+inline std::string* GetVmLaunchAllowedResponse::mutable_reason() {
+  std::string* _s = _internal_mutable_reason();
+  // @@protoc_insertion_point(field_mutable:vm_tools.concierge.GetVmLaunchAllowedResponse.reason)
+  return _s;
+}
+inline const std::string& GetVmLaunchAllowedResponse::_internal_reason() const {
+  return reason_.Get();
+}
+inline void GetVmLaunchAllowedResponse::_internal_set_reason(const std::string& value) {
+  
+  reason_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* GetVmLaunchAllowedResponse::_internal_mutable_reason() {
+  
+  return reason_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* GetVmLaunchAllowedResponse::release_reason() {
+  // @@protoc_insertion_point(field_release:vm_tools.concierge.GetVmLaunchAllowedResponse.reason)
+  return reason_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void GetVmLaunchAllowedResponse::set_allocated_reason(std::string* reason) {
+  if (reason != nullptr) {
+    
+  } else {
+    
+  }
+  reason_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), reason,
+      GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (reason_.IsDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited())) {
+    reason_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  }
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:vm_tools.concierge.GetVmLaunchAllowedResponse.reason)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

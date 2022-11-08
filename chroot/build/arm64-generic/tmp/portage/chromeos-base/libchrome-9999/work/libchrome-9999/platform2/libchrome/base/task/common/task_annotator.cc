@@ -1,4 +1,4 @@
-// Copyright 2014 The Chromium Authors. All rights reserved.
+// Copyright 2014 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -56,10 +56,8 @@ TaskAnnotator::TaskAnnotator() = default;
 TaskAnnotator::~TaskAnnotator() = default;
 
 void TaskAnnotator::WillQueueTask(perfetto_libchrome::StaticString trace_event_name,
-                                  PendingTask* pending_task,
-                                  const char* task_queue_name) {
+                                  PendingTask* pending_task) {
   DCHECK(pending_task);
-  DCHECK(task_queue_name);
   TRACE_EVENT_INSTANT(
       "toplevel.flow", trace_event_name,
       perfetto_libchrome::Flow::ProcessScoped(GetTaskTraceID(*pending_task)));
@@ -196,8 +194,8 @@ void TaskAnnotator::MaybeEmitIPCHashAndDelay(perfetto_libchrome::EventContext& c
   auto* annotator = event->set_chrome_task_annotator();
   annotator->set_ipc_hash(task.ipc_hash);
   if (!task.delayed_run_time.is_null()) {
-    annotator->set_task_delay_us(
-        (task.delayed_run_time - task.queue_time).InMicroseconds());
+    annotator->set_task_delay_us(static_cast<uint64_t>(
+        (task.delayed_run_time - task.queue_time).InMicroseconds()));
   }
 }
 #endif  //  BUILDFLAG(ENABLE_BASE_TRACING)
@@ -212,14 +210,6 @@ TaskAnnotator::ScopedSetIpcHash::ScopedSetIpcHash(
 TaskAnnotator::ScopedSetIpcHash::ScopedSetIpcHash(
     uint32_t ipc_hash,
     const char* ipc_interface_name) {
-  TRACE_EVENT_BEGIN(
-      "base", "ScopedSetIpcHash", [&](perfetto_libchrome::EventContext ctx) {
-        auto* mojo_event = ctx.event()->set_chrome_mojo_event_info();
-        if (ipc_hash > 0)
-          mojo_event->set_ipc_hash(ipc_hash);
-        if (ipc_interface_name != nullptr)
-          mojo_event->set_mojo_interface_tag(ipc_interface_name);
-      });
   auto* tls_ipc_hash = GetTLSForCurrentScopedIpcHash();
   auto* current_ipc_hash = tls_ipc_hash->Get();
   old_scoped_ipc_hash_ = current_ipc_hash;
@@ -243,7 +233,6 @@ TaskAnnotator::ScopedSetIpcHash::~ScopedSetIpcHash() {
   auto* tls_ipc_hash = GetTLSForCurrentScopedIpcHash();
   DCHECK_EQ(this, tls_ipc_hash->Get());
   tls_ipc_hash->Set(old_scoped_ipc_hash_.get());
-  TRACE_EVENT_END("base");
 }
 
 }  // namespace base

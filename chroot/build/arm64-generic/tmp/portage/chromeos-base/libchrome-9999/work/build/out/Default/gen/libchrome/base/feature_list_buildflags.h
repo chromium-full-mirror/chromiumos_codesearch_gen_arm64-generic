@@ -4,7 +4,7 @@
 #ifndef LIBCHROME_BASE_FEATURE_LIST_BUILDFLAGS_H_
 #define LIBCHROME_BASE_FEATURE_LIST_BUILDFLAGS_H_
 
-#include "build/buildflag.h"
+#include "build/buildflag.h" // IWYU pragma: export
 
 #define BUILDFLAG_INTERNAL_ENABLE_BANNED_BASE_FEATURE_PREFIX() (0)
 

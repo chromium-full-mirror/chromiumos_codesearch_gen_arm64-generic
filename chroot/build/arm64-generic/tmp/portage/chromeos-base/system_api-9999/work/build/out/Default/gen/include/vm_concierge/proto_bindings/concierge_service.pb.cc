@@ -96,6 +96,7 @@ constexpr StartVmRequest::StartVmRequest(
   , shared_directory_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
   , name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
   , owner_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , vm_username_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
   , vm_(nullptr)
   , start_termina_(false)
   , enable_gpu_(false)
@@ -108,7 +109,8 @@ constexpr StartVmRequest::StartVmRequest(
   , enable_big_gl_(false)
   , timeout_(0u)
   , vtpm_proxy_(false)
-  , storage_ballooning_(false){}
+  , storage_ballooning_(false)
+  , enable_virtgpu_native_context_(false){}
 struct StartVmRequestDefaultTypeInternal {
   constexpr StartVmRequestDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -163,6 +165,7 @@ constexpr StartArcVmRequest::StartArcVmRequest(
   , fstab_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
   , vm_(nullptr)
   , balloon_policy_(nullptr)
+  , mini_instance_request_(nullptr)
   , cpus_(0u)
   , rootfs_writable_(false)
   , ignore_dev_conf_(false)
@@ -186,10 +189,13 @@ constexpr StartArcVmRequest::StartArcVmRequest(
   , enable_virtio_blk_data_(false)
   , disable_media_store_maintenance_(false)
   , vm_memory_psi_period_(0)
+  , guest_zram_size_(0)
   , arc_generate_play_auto_install_(false)
   , disable_download_provider_(false)
-  , guest_zram_size_(0)
-  , guest_swappiness_(0){}
+  , update_o4c_list_via_a2c2_(false)
+  , guest_swappiness_(0)
+  , mglru_reclaim_interval_(0)
+  , mglru_reclaim_swappiness_(0){}
 struct StartArcVmRequestDefaultTypeInternal {
   constexpr StartArcVmRequestDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -277,6 +283,20 @@ struct VmStoppedSignalDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT VmStoppedSignalDefaultTypeInternal _VmStoppedSignal_default_instance_;
+constexpr VmStoppingSignal::VmStoppingSignal(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , owner_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , cid_(int64_t{0}){}
+struct VmStoppingSignalDefaultTypeInternal {
+  constexpr VmStoppingSignalDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~VmStoppingSignalDefaultTypeInternal() {}
+  union {
+    VmStoppingSignal _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT VmStoppingSignalDefaultTypeInternal _VmStoppingSignal_default_instance_;
 constexpr SuspendVmRequest::SuspendVmRequest(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
@@ -998,6 +1018,46 @@ struct GetVmGpuCachePathResponseDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT GetVmGpuCachePathResponseDefaultTypeInternal _GetVmGpuCachePathResponse_default_instance_;
+constexpr AddGroupPermissionMesaRequest::AddGroupPermissionMesaRequest(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , owner_id_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+struct AddGroupPermissionMesaRequestDefaultTypeInternal {
+  constexpr AddGroupPermissionMesaRequestDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~AddGroupPermissionMesaRequestDefaultTypeInternal() {}
+  union {
+    AddGroupPermissionMesaRequest _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT AddGroupPermissionMesaRequestDefaultTypeInternal _AddGroupPermissionMesaRequest_default_instance_;
+constexpr GetVmLaunchAllowedRequest::GetVmLaunchAllowedRequest(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : run_as_untrusted_(false)
+  , is_trusted_image_(false)
+  , has_custom_kernel_params_(false){}
+struct GetVmLaunchAllowedRequestDefaultTypeInternal {
+  constexpr GetVmLaunchAllowedRequestDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~GetVmLaunchAllowedRequestDefaultTypeInternal() {}
+  union {
+    GetVmLaunchAllowedRequest _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT GetVmLaunchAllowedRequestDefaultTypeInternal _GetVmLaunchAllowedRequest_default_instance_;
+constexpr GetVmLaunchAllowedResponse::GetVmLaunchAllowedResponse(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : reason_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , allowed_(false){}
+struct GetVmLaunchAllowedResponseDefaultTypeInternal {
+  constexpr GetVmLaunchAllowedResponseDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~GetVmLaunchAllowedResponseDefaultTypeInternal() {}
+  union {
+    GetVmLaunchAllowedResponse _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT GetVmLaunchAllowedResponseDefaultTypeInternal _GetVmLaunchAllowedResponse_default_instance_;
 }  // namespace concierge
 }  // namespace vm_tools
 namespace vm_tools {
@@ -1546,17 +1606,19 @@ bool VmStopReason_IsValid(int value) {
     case 2:
     case 3:
     case 4:
+    case 5:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> VmStopReason_strings[5] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> VmStopReason_strings[6] = {};
 
 static const char VmStopReason_names[] =
   "DESTROY_DISK_IMAGE_REQUESTED"
   "SERVICE_SHUTDOWN"
+  "SIBLING_VM_EXITED"
   "STOP_ALL_VMS_REQUESTED"
   "STOP_VM_REQUESTED"
   "VM_EXITED";
@@ -1564,17 +1626,19 @@ static const char VmStopReason_names[] =
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry VmStopReason_entries[] = {
   { {VmStopReason_names + 0, 28}, 3 },
   { {VmStopReason_names + 28, 16}, 4 },
-  { {VmStopReason_names + 44, 22}, 2 },
-  { {VmStopReason_names + 66, 17}, 1 },
-  { {VmStopReason_names + 83, 9}, 0 },
+  { {VmStopReason_names + 44, 17}, 5 },
+  { {VmStopReason_names + 61, 22}, 2 },
+  { {VmStopReason_names + 83, 17}, 1 },
+  { {VmStopReason_names + 100, 9}, 0 },
 };
 
 static const int VmStopReason_entries_by_number[] = {
-  4, // 0 -> VM_EXITED
-  3, // 1 -> STOP_VM_REQUESTED
-  2, // 2 -> STOP_ALL_VMS_REQUESTED
+  5, // 0 -> VM_EXITED
+  4, // 1 -> STOP_VM_REQUESTED
+  3, // 2 -> STOP_ALL_VMS_REQUESTED
   0, // 3 -> DESTROY_DISK_IMAGE_REQUESTED
   1, // 4 -> SERVICE_SHUTDOWN
+  2, // 5 -> SIBLING_VM_EXITED
 };
 
 const std::string& VmStopReason_Name(
@@ -1583,12 +1647,12 @@ const std::string& VmStopReason_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           VmStopReason_entries,
           VmStopReason_entries_by_number,
-          5, VmStopReason_strings);
+          6, VmStopReason_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       VmStopReason_entries,
       VmStopReason_entries_by_number,
-      5, value);
+      6, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      VmStopReason_strings[idx].get();
 }
@@ -1596,7 +1660,7 @@ bool VmStopReason_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, VmStopReason* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      VmStopReason_entries, 5, name, &int_value);
+      VmStopReason_entries, 6, name, &int_value);
   if (success) {
     *value = static_cast<VmStopReason>(int_value);
   }
@@ -3406,14 +3470,22 @@ StartVmRequest::StartVmRequest(const StartVmRequest& from)
     owner_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_owner_id(), 
       GetArenaForAllocation());
   }
+  vm_username_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    vm_username_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_vm_username().empty()) {
+    vm_username_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_vm_username(), 
+      GetArenaForAllocation());
+  }
   if (from._internal_has_vm()) {
     vm_ = new ::vm_tools::concierge::VirtualMachineSpec(*from.vm_);
   } else {
     vm_ = nullptr;
   }
   ::memcpy(&start_termina_, &from.start_termina_,
-    static_cast<size_t>(reinterpret_cast<char*>(&storage_ballooning_) -
-    reinterpret_cast<char*>(&start_termina_)) + sizeof(storage_ballooning_));
+    static_cast<size_t>(reinterpret_cast<char*>(&enable_virtgpu_native_context_) -
+    reinterpret_cast<char*>(&start_termina_)) + sizeof(enable_virtgpu_native_context_));
   // @@protoc_insertion_point(copy_constructor:vm_tools.concierge.StartVmRequest)
 }
 
@@ -3430,10 +3502,14 @@ owner_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlr
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   owner_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+vm_username_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  vm_username_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&vm_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&storage_ballooning_) -
-    reinterpret_cast<char*>(&vm_)) + sizeof(storage_ballooning_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&enable_virtgpu_native_context_) -
+    reinterpret_cast<char*>(&vm_)) + sizeof(enable_virtgpu_native_context_));
 }
 
 StartVmRequest::~StartVmRequest() {
@@ -3448,6 +3524,7 @@ inline void StartVmRequest::SharedDtor() {
   shared_directory_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   owner_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  vm_username_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (this != internal_default_instance()) delete vm_;
 }
 
@@ -3475,13 +3552,14 @@ void StartVmRequest::Clear() {
   shared_directory_.ClearToEmpty();
   name_.ClearToEmpty();
   owner_id_.ClearToEmpty();
+  vm_username_.ClearToEmpty();
   if (GetArenaForAllocation() == nullptr && vm_ != nullptr) {
     delete vm_;
   }
   vm_ = nullptr;
   ::memset(&start_termina_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&storage_ballooning_) -
-      reinterpret_cast<char*>(&start_termina_)) + sizeof(storage_ballooning_));
+      reinterpret_cast<char*>(&enable_virtgpu_native_context_) -
+      reinterpret_cast<char*>(&start_termina_)) + sizeof(enable_virtgpu_native_context_));
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -3692,6 +3770,24 @@ const char* StartVmRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE
         } else
           goto handle_unusual;
         continue;
+      // bool enable_virtgpu_native_context = 25;
+      case 25:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 200)) {
+          enable_virtgpu_native_context_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // string vm_username = 26;
+      case 26:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 210)) {
+          auto str = _internal_mutable_vm_username();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -3877,6 +3973,22 @@ uint8_t* StartVmRequest::_InternalSerialize(
     target = stream->WriteString(24, s, target);
   }
 
+  // bool enable_virtgpu_native_context = 25;
+  if (this->_internal_enable_virtgpu_native_context() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(25, this->_internal_enable_virtgpu_native_context(), target);
+  }
+
+  // string vm_username = 26;
+  if (!this->_internal_vm_username().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_vm_username().data(), static_cast<int>(this->_internal_vm_username().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "vm_tools.concierge.StartVmRequest.vm_username");
+    target = stream->WriteStringMaybeAliased(
+        26, this->_internal_vm_username(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -3973,6 +4085,13 @@ size_t StartVmRequest::ByteSizeLong() const {
         this->_internal_owner_id());
   }
 
+  // string vm_username = 26;
+  if (!this->_internal_vm_username().empty()) {
+    total_size += 2 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_vm_username());
+  }
+
   // .vm_tools.concierge.VirtualMachineSpec vm = 1;
   if (this->_internal_has_vm()) {
     total_size += 1 +
@@ -4042,6 +4161,11 @@ size_t StartVmRequest::ByteSizeLong() const {
     total_size += 2 + 1;
   }
 
+  // bool enable_virtgpu_native_context = 25;
+  if (this->_internal_enable_virtgpu_native_context() != 0) {
+    total_size += 2 + 1;
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -4075,6 +4199,9 @@ void StartVmRequest::MergeFrom(const StartVmRequest& from) {
   }
   if (!from._internal_owner_id().empty()) {
     _internal_set_owner_id(from._internal_owner_id());
+  }
+  if (!from._internal_vm_username().empty()) {
+    _internal_set_vm_username(from._internal_vm_username());
   }
   if (from._internal_has_vm()) {
     _internal_mutable_vm()->::vm_tools::concierge::VirtualMachineSpec::MergeFrom(from._internal_vm());
@@ -4115,6 +4242,9 @@ void StartVmRequest::MergeFrom(const StartVmRequest& from) {
   if (from._internal_storage_ballooning() != 0) {
     _internal_set_storage_ballooning(from._internal_storage_ballooning());
   }
+  if (from._internal_enable_virtgpu_native_context() != 0) {
+    _internal_set_enable_virtgpu_native_context(from._internal_enable_virtgpu_native_context());
+  }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
@@ -4154,9 +4284,14 @@ void StartVmRequest::InternalSwap(StartVmRequest* other) {
       &owner_id_, lhs_arena,
       &other->owner_id_, rhs_arena
   );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &vm_username_, lhs_arena,
+      &other->vm_username_, rhs_arena
+  );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(StartVmRequest, storage_ballooning_)
-      + sizeof(StartVmRequest::storage_ballooning_)
+      PROTOBUF_FIELD_OFFSET(StartVmRequest, enable_virtgpu_native_context_)
+      + sizeof(StartVmRequest::enable_virtgpu_native_context_)
       - PROTOBUF_FIELD_OFFSET(StartVmRequest, vm_)>(
           reinterpret_cast<char*>(&vm_),
           reinterpret_cast<char*>(&other->vm_));
@@ -4924,6 +5059,7 @@ class StartArcVmRequest::_Internal {
  public:
   static const ::vm_tools::concierge::VirtualMachineSpec& vm(const StartArcVmRequest* msg);
   static const ::vm_tools::concierge::BalloonPolicyOptions& balloon_policy(const StartArcVmRequest* msg);
+  static const ::arc::StartArcMiniInstanceRequest& mini_instance_request(const StartArcVmRequest* msg);
 };
 
 const ::vm_tools::concierge::VirtualMachineSpec&
@@ -4933,6 +5069,16 @@ StartArcVmRequest::_Internal::vm(const StartArcVmRequest* msg) {
 const ::vm_tools::concierge::BalloonPolicyOptions&
 StartArcVmRequest::_Internal::balloon_policy(const StartArcVmRequest* msg) {
   return *msg->balloon_policy_;
+}
+const ::arc::StartArcMiniInstanceRequest&
+StartArcVmRequest::_Internal::mini_instance_request(const StartArcVmRequest* msg) {
+  return *msg->mini_instance_request_;
+}
+void StartArcVmRequest::clear_mini_instance_request() {
+  if (GetArenaForAllocation() == nullptr && mini_instance_request_ != nullptr) {
+    delete mini_instance_request_;
+  }
+  mini_instance_request_ = nullptr;
 }
 StartArcVmRequest::StartArcVmRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
@@ -4984,9 +5130,14 @@ StartArcVmRequest::StartArcVmRequest(const StartArcVmRequest& from)
   } else {
     balloon_policy_ = nullptr;
   }
+  if (from._internal_has_mini_instance_request()) {
+    mini_instance_request_ = new ::arc::StartArcMiniInstanceRequest(*from.mini_instance_request_);
+  } else {
+    mini_instance_request_ = nullptr;
+  }
   ::memcpy(&cpus_, &from.cpus_,
-    static_cast<size_t>(reinterpret_cast<char*>(&guest_swappiness_) -
-    reinterpret_cast<char*>(&cpus_)) + sizeof(guest_swappiness_));
+    static_cast<size_t>(reinterpret_cast<char*>(&mglru_reclaim_swappiness_) -
+    reinterpret_cast<char*>(&cpus_)) + sizeof(mglru_reclaim_swappiness_));
   // @@protoc_insertion_point(copy_constructor:vm_tools.concierge.StartArcVmRequest)
 }
 
@@ -5005,8 +5156,8 @@ fstab_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlread
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&vm_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&guest_swappiness_) -
-    reinterpret_cast<char*>(&vm_)) + sizeof(guest_swappiness_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&mglru_reclaim_swappiness_) -
+    reinterpret_cast<char*>(&vm_)) + sizeof(mglru_reclaim_swappiness_));
 }
 
 StartArcVmRequest::~StartArcVmRequest() {
@@ -5023,6 +5174,7 @@ inline void StartArcVmRequest::SharedDtor() {
   fstab_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (this != internal_default_instance()) delete vm_;
   if (this != internal_default_instance()) delete balloon_policy_;
+  if (this != internal_default_instance()) delete mini_instance_request_;
 }
 
 void StartArcVmRequest::ArenaDtor(void* object) {
@@ -5054,9 +5206,13 @@ void StartArcVmRequest::Clear() {
     delete balloon_policy_;
   }
   balloon_policy_ = nullptr;
+  if (GetArenaForAllocation() == nullptr && mini_instance_request_ != nullptr) {
+    delete mini_instance_request_;
+  }
+  mini_instance_request_ = nullptr;
   ::memset(&cpus_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&guest_swappiness_) -
-      reinterpret_cast<char*>(&cpus_)) + sizeof(guest_swappiness_));
+      reinterpret_cast<char*>(&mglru_reclaim_swappiness_) -
+      reinterpret_cast<char*>(&cpus_)) + sizeof(mglru_reclaim_swappiness_));
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -5349,6 +5505,38 @@ const char* StartArcVmRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESP
         } else
           goto handle_unusual;
         continue;
+      // .arc.StartArcMiniInstanceRequest mini_instance_request = 34;
+      case 34:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          ptr = ctx->ParseMessage(_internal_mutable_mini_instance_request(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 mglru_reclaim_interval = 35;
+      case 35:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+          mglru_reclaim_interval_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 mglru_reclaim_swappiness = 36;
+      case 36:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+          mglru_reclaim_swappiness_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bool update_o4c_list_via_a2c2 = 37;
+      case 37:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
+          update_o4c_list_via_a2c2_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -5599,6 +5787,32 @@ uint8_t* StartArcVmRequest::_InternalSerialize(
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(33, this->_internal_guest_swappiness(), target);
   }
 
+  // .arc.StartArcMiniInstanceRequest mini_instance_request = 34;
+  if (this->_internal_has_mini_instance_request()) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(
+        34, _Internal::mini_instance_request(this), target, stream);
+  }
+
+  // int32 mglru_reclaim_interval = 35;
+  if (this->_internal_mglru_reclaim_interval() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(35, this->_internal_mglru_reclaim_interval(), target);
+  }
+
+  // int32 mglru_reclaim_swappiness = 36;
+  if (this->_internal_mglru_reclaim_swappiness() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(36, this->_internal_mglru_reclaim_swappiness(), target);
+  }
+
+  // bool update_o4c_list_via_a2c2 = 37;
+  if (this->_internal_update_o4c_list_via_a2c2() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(37, this->_internal_update_o4c_list_via_a2c2(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -5663,6 +5877,13 @@ size_t StartArcVmRequest::ByteSizeLong() const {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
         *balloon_policy_);
+  }
+
+  // .arc.StartArcMiniInstanceRequest mini_instance_request = 34;
+  if (this->_internal_has_mini_instance_request()) {
+    total_size += 2 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *mini_instance_request_);
   }
 
   // uint32 cpus = 7;
@@ -5780,6 +6001,13 @@ size_t StartArcVmRequest::ByteSizeLong() const {
         this->_internal_vm_memory_psi_period());
   }
 
+  // int32 guest_zram_size = 32;
+  if (this->_internal_guest_zram_size() != 0) {
+    total_size += 2 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_guest_zram_size());
+  }
+
   // bool arc_generate_play_auto_install = 30;
   if (this->_internal_arc_generate_play_auto_install() != 0) {
     total_size += 2 + 1;
@@ -5790,11 +6018,9 @@ size_t StartArcVmRequest::ByteSizeLong() const {
     total_size += 2 + 1;
   }
 
-  // int32 guest_zram_size = 32;
-  if (this->_internal_guest_zram_size() != 0) {
-    total_size += 2 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
-        this->_internal_guest_zram_size());
+  // bool update_o4c_list_via_a2c2 = 37;
+  if (this->_internal_update_o4c_list_via_a2c2() != 0) {
+    total_size += 2 + 1;
   }
 
   // int32 guest_swappiness = 33;
@@ -5802,6 +6028,20 @@ size_t StartArcVmRequest::ByteSizeLong() const {
     total_size += 2 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
         this->_internal_guest_swappiness());
+  }
+
+  // int32 mglru_reclaim_interval = 35;
+  if (this->_internal_mglru_reclaim_interval() != 0) {
+    total_size += 2 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_mglru_reclaim_interval());
+  }
+
+  // int32 mglru_reclaim_swappiness = 36;
+  if (this->_internal_mglru_reclaim_swappiness() != 0) {
+    total_size += 2 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_mglru_reclaim_swappiness());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -5840,6 +6080,9 @@ void StartArcVmRequest::MergeFrom(const StartArcVmRequest& from) {
   }
   if (from._internal_has_balloon_policy()) {
     _internal_mutable_balloon_policy()->::vm_tools::concierge::BalloonPolicyOptions::MergeFrom(from._internal_balloon_policy());
+  }
+  if (from._internal_has_mini_instance_request()) {
+    _internal_mutable_mini_instance_request()->::arc::StartArcMiniInstanceRequest::MergeFrom(from._internal_mini_instance_request());
   }
   if (from._internal_cpus() != 0) {
     _internal_set_cpus(from._internal_cpus());
@@ -5907,17 +6150,26 @@ void StartArcVmRequest::MergeFrom(const StartArcVmRequest& from) {
   if (from._internal_vm_memory_psi_period() != 0) {
     _internal_set_vm_memory_psi_period(from._internal_vm_memory_psi_period());
   }
+  if (from._internal_guest_zram_size() != 0) {
+    _internal_set_guest_zram_size(from._internal_guest_zram_size());
+  }
   if (from._internal_arc_generate_play_auto_install() != 0) {
     _internal_set_arc_generate_play_auto_install(from._internal_arc_generate_play_auto_install());
   }
   if (from._internal_disable_download_provider() != 0) {
     _internal_set_disable_download_provider(from._internal_disable_download_provider());
   }
-  if (from._internal_guest_zram_size() != 0) {
-    _internal_set_guest_zram_size(from._internal_guest_zram_size());
+  if (from._internal_update_o4c_list_via_a2c2() != 0) {
+    _internal_set_update_o4c_list_via_a2c2(from._internal_update_o4c_list_via_a2c2());
   }
   if (from._internal_guest_swappiness() != 0) {
     _internal_set_guest_swappiness(from._internal_guest_swappiness());
+  }
+  if (from._internal_mglru_reclaim_interval() != 0) {
+    _internal_set_mglru_reclaim_interval(from._internal_mglru_reclaim_interval());
+  }
+  if (from._internal_mglru_reclaim_swappiness() != 0) {
+    _internal_set_mglru_reclaim_swappiness(from._internal_mglru_reclaim_swappiness());
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -5956,8 +6208,8 @@ void StartArcVmRequest::InternalSwap(StartArcVmRequest* other) {
       &other->fstab_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(StartArcVmRequest, guest_swappiness_)
-      + sizeof(StartArcVmRequest::guest_swappiness_)
+      PROTOBUF_FIELD_OFFSET(StartArcVmRequest, mglru_reclaim_swappiness_)
+      + sizeof(StartArcVmRequest::mglru_reclaim_swappiness_)
       - PROTOBUF_FIELD_OFFSET(StartArcVmRequest, vm_)>(
           reinterpret_cast<char*>(&vm_),
           reinterpret_cast<char*>(&other->vm_));
@@ -7452,6 +7704,281 @@ void VmStoppedSignal::InternalSwap(VmStoppedSignal* other) {
 
 std::string VmStoppedSignal::GetTypeName() const {
   return "vm_tools.concierge.VmStoppedSignal";
+}
+
+
+// ===================================================================
+
+class VmStoppingSignal::_Internal {
+ public:
+};
+
+VmStoppingSignal::VmStoppingSignal(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
+  // @@protoc_insertion_point(arena_constructor:vm_tools.concierge.VmStoppingSignal)
+}
+VmStoppingSignal::VmStoppingSignal(const VmStoppingSignal& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_name().empty()) {
+    name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_name(), 
+      GetArenaForAllocation());
+  }
+  owner_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    owner_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_owner_id().empty()) {
+    owner_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_owner_id(), 
+      GetArenaForAllocation());
+  }
+  cid_ = from.cid_;
+  // @@protoc_insertion_point(copy_constructor:vm_tools.concierge.VmStoppingSignal)
+}
+
+inline void VmStoppingSignal::SharedCtor() {
+name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+owner_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  owner_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+cid_ = int64_t{0};
+}
+
+VmStoppingSignal::~VmStoppingSignal() {
+  // @@protoc_insertion_point(destructor:vm_tools.concierge.VmStoppingSignal)
+  if (GetArenaForAllocation() != nullptr) return;
+  SharedDtor();
+  _internal_metadata_.Delete<std::string>();
+}
+
+inline void VmStoppingSignal::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  owner_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+void VmStoppingSignal::ArenaDtor(void* object) {
+  VmStoppingSignal* _this = reinterpret_cast< VmStoppingSignal* >(object);
+  (void)_this;
+}
+void VmStoppingSignal::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void VmStoppingSignal::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void VmStoppingSignal::Clear() {
+// @@protoc_insertion_point(message_clear_start:vm_tools.concierge.VmStoppingSignal)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  name_.ClearToEmpty();
+  owner_id_.ClearToEmpty();
+  cid_ = int64_t{0};
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* VmStoppingSignal::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // string name = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_name();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // string owner_id = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          auto str = _internal_mutable_owner_id();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // int64 cid = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+          cid_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* VmStoppingSignal::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:vm_tools.concierge.VmStoppingSignal)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string name = 1;
+  if (!this->_internal_name().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_name().data(), static_cast<int>(this->_internal_name().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "vm_tools.concierge.VmStoppingSignal.name");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_name(), target);
+  }
+
+  // string owner_id = 2;
+  if (!this->_internal_owner_id().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_owner_id().data(), static_cast<int>(this->_internal_owner_id().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "vm_tools.concierge.VmStoppingSignal.owner_id");
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_owner_id(), target);
+  }
+
+  // int64 cid = 3;
+  if (this->_internal_cid() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(3, this->_internal_cid(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:vm_tools.concierge.VmStoppingSignal)
+  return target;
+}
+
+size_t VmStoppingSignal::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:vm_tools.concierge.VmStoppingSignal)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string name = 1;
+  if (!this->_internal_name().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_name());
+  }
+
+  // string owner_id = 2;
+  if (!this->_internal_owner_id().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_owner_id());
+  }
+
+  // int64 cid = 3;
+  if (this->_internal_cid() != 0) {
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int64SizePlusOne(this->_internal_cid());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void VmStoppingSignal::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const VmStoppingSignal*>(
+      &from));
+}
+
+void VmStoppingSignal::MergeFrom(const VmStoppingSignal& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.concierge.VmStoppingSignal)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (!from._internal_name().empty()) {
+    _internal_set_name(from._internal_name());
+  }
+  if (!from._internal_owner_id().empty()) {
+    _internal_set_owner_id(from._internal_owner_id());
+  }
+  if (from._internal_cid() != 0) {
+    _internal_set_cid(from._internal_cid());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void VmStoppingSignal::CopyFrom(const VmStoppingSignal& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:vm_tools.concierge.VmStoppingSignal)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool VmStoppingSignal::IsInitialized() const {
+  return true;
+}
+
+void VmStoppingSignal::InternalSwap(VmStoppingSignal* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &name_, lhs_arena,
+      &other->name_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &owner_id_, lhs_arena,
+      &other->owner_id_, rhs_arena
+  );
+  swap(cid_, other->cid_);
+}
+
+std::string VmStoppingSignal::GetTypeName() const {
+  return "vm_tools.concierge.VmStoppingSignal";
 }
 
 
@@ -20813,6 +21340,712 @@ std::string GetVmGpuCachePathResponse::GetTypeName() const {
 }
 
 
+// ===================================================================
+
+class AddGroupPermissionMesaRequest::_Internal {
+ public:
+};
+
+AddGroupPermissionMesaRequest::AddGroupPermissionMesaRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
+  // @@protoc_insertion_point(arena_constructor:vm_tools.concierge.AddGroupPermissionMesaRequest)
+}
+AddGroupPermissionMesaRequest::AddGroupPermissionMesaRequest(const AddGroupPermissionMesaRequest& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_name().empty()) {
+    name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_name(), 
+      GetArenaForAllocation());
+  }
+  owner_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    owner_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_owner_id().empty()) {
+    owner_id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_owner_id(), 
+      GetArenaForAllocation());
+  }
+  // @@protoc_insertion_point(copy_constructor:vm_tools.concierge.AddGroupPermissionMesaRequest)
+}
+
+inline void AddGroupPermissionMesaRequest::SharedCtor() {
+name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  name_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+owner_id_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  owner_id_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+}
+
+AddGroupPermissionMesaRequest::~AddGroupPermissionMesaRequest() {
+  // @@protoc_insertion_point(destructor:vm_tools.concierge.AddGroupPermissionMesaRequest)
+  if (GetArenaForAllocation() != nullptr) return;
+  SharedDtor();
+  _internal_metadata_.Delete<std::string>();
+}
+
+inline void AddGroupPermissionMesaRequest::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  owner_id_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+void AddGroupPermissionMesaRequest::ArenaDtor(void* object) {
+  AddGroupPermissionMesaRequest* _this = reinterpret_cast< AddGroupPermissionMesaRequest* >(object);
+  (void)_this;
+}
+void AddGroupPermissionMesaRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void AddGroupPermissionMesaRequest::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void AddGroupPermissionMesaRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:vm_tools.concierge.AddGroupPermissionMesaRequest)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  name_.ClearToEmpty();
+  owner_id_.ClearToEmpty();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* AddGroupPermissionMesaRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // string name = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 10)) {
+          auto str = _internal_mutable_name();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // string owner_id = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          auto str = _internal_mutable_owner_id();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* AddGroupPermissionMesaRequest::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:vm_tools.concierge.AddGroupPermissionMesaRequest)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string name = 1;
+  if (!this->_internal_name().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_name().data(), static_cast<int>(this->_internal_name().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "vm_tools.concierge.AddGroupPermissionMesaRequest.name");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_name(), target);
+  }
+
+  // string owner_id = 2;
+  if (!this->_internal_owner_id().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_owner_id().data(), static_cast<int>(this->_internal_owner_id().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "vm_tools.concierge.AddGroupPermissionMesaRequest.owner_id");
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_owner_id(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:vm_tools.concierge.AddGroupPermissionMesaRequest)
+  return target;
+}
+
+size_t AddGroupPermissionMesaRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:vm_tools.concierge.AddGroupPermissionMesaRequest)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string name = 1;
+  if (!this->_internal_name().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_name());
+  }
+
+  // string owner_id = 2;
+  if (!this->_internal_owner_id().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_owner_id());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void AddGroupPermissionMesaRequest::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const AddGroupPermissionMesaRequest*>(
+      &from));
+}
+
+void AddGroupPermissionMesaRequest::MergeFrom(const AddGroupPermissionMesaRequest& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.concierge.AddGroupPermissionMesaRequest)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (!from._internal_name().empty()) {
+    _internal_set_name(from._internal_name());
+  }
+  if (!from._internal_owner_id().empty()) {
+    _internal_set_owner_id(from._internal_owner_id());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void AddGroupPermissionMesaRequest::CopyFrom(const AddGroupPermissionMesaRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:vm_tools.concierge.AddGroupPermissionMesaRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool AddGroupPermissionMesaRequest::IsInitialized() const {
+  return true;
+}
+
+void AddGroupPermissionMesaRequest::InternalSwap(AddGroupPermissionMesaRequest* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &name_, lhs_arena,
+      &other->name_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &owner_id_, lhs_arena,
+      &other->owner_id_, rhs_arena
+  );
+}
+
+std::string AddGroupPermissionMesaRequest::GetTypeName() const {
+  return "vm_tools.concierge.AddGroupPermissionMesaRequest";
+}
+
+
+// ===================================================================
+
+class GetVmLaunchAllowedRequest::_Internal {
+ public:
+};
+
+GetVmLaunchAllowedRequest::GetVmLaunchAllowedRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
+  // @@protoc_insertion_point(arena_constructor:vm_tools.concierge.GetVmLaunchAllowedRequest)
+}
+GetVmLaunchAllowedRequest::GetVmLaunchAllowedRequest(const GetVmLaunchAllowedRequest& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  ::memcpy(&run_as_untrusted_, &from.run_as_untrusted_,
+    static_cast<size_t>(reinterpret_cast<char*>(&has_custom_kernel_params_) -
+    reinterpret_cast<char*>(&run_as_untrusted_)) + sizeof(has_custom_kernel_params_));
+  // @@protoc_insertion_point(copy_constructor:vm_tools.concierge.GetVmLaunchAllowedRequest)
+}
+
+inline void GetVmLaunchAllowedRequest::SharedCtor() {
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&run_as_untrusted_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&has_custom_kernel_params_) -
+    reinterpret_cast<char*>(&run_as_untrusted_)) + sizeof(has_custom_kernel_params_));
+}
+
+GetVmLaunchAllowedRequest::~GetVmLaunchAllowedRequest() {
+  // @@protoc_insertion_point(destructor:vm_tools.concierge.GetVmLaunchAllowedRequest)
+  if (GetArenaForAllocation() != nullptr) return;
+  SharedDtor();
+  _internal_metadata_.Delete<std::string>();
+}
+
+inline void GetVmLaunchAllowedRequest::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void GetVmLaunchAllowedRequest::ArenaDtor(void* object) {
+  GetVmLaunchAllowedRequest* _this = reinterpret_cast< GetVmLaunchAllowedRequest* >(object);
+  (void)_this;
+}
+void GetVmLaunchAllowedRequest::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void GetVmLaunchAllowedRequest::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void GetVmLaunchAllowedRequest::Clear() {
+// @@protoc_insertion_point(message_clear_start:vm_tools.concierge.GetVmLaunchAllowedRequest)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  ::memset(&run_as_untrusted_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&has_custom_kernel_params_) -
+      reinterpret_cast<char*>(&run_as_untrusted_)) + sizeof(has_custom_kernel_params_));
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* GetVmLaunchAllowedRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // bool run_as_untrusted = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          run_as_untrusted_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bool is_trusted_image = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          is_trusted_image_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // bool has_custom_kernel_params = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+          has_custom_kernel_params_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* GetVmLaunchAllowedRequest::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:vm_tools.concierge.GetVmLaunchAllowedRequest)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // bool run_as_untrusted = 1;
+  if (this->_internal_run_as_untrusted() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(1, this->_internal_run_as_untrusted(), target);
+  }
+
+  // bool is_trusted_image = 2;
+  if (this->_internal_is_trusted_image() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(2, this->_internal_is_trusted_image(), target);
+  }
+
+  // bool has_custom_kernel_params = 3;
+  if (this->_internal_has_custom_kernel_params() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(3, this->_internal_has_custom_kernel_params(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:vm_tools.concierge.GetVmLaunchAllowedRequest)
+  return target;
+}
+
+size_t GetVmLaunchAllowedRequest::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:vm_tools.concierge.GetVmLaunchAllowedRequest)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // bool run_as_untrusted = 1;
+  if (this->_internal_run_as_untrusted() != 0) {
+    total_size += 1 + 1;
+  }
+
+  // bool is_trusted_image = 2;
+  if (this->_internal_is_trusted_image() != 0) {
+    total_size += 1 + 1;
+  }
+
+  // bool has_custom_kernel_params = 3;
+  if (this->_internal_has_custom_kernel_params() != 0) {
+    total_size += 1 + 1;
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void GetVmLaunchAllowedRequest::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const GetVmLaunchAllowedRequest*>(
+      &from));
+}
+
+void GetVmLaunchAllowedRequest::MergeFrom(const GetVmLaunchAllowedRequest& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.concierge.GetVmLaunchAllowedRequest)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_run_as_untrusted() != 0) {
+    _internal_set_run_as_untrusted(from._internal_run_as_untrusted());
+  }
+  if (from._internal_is_trusted_image() != 0) {
+    _internal_set_is_trusted_image(from._internal_is_trusted_image());
+  }
+  if (from._internal_has_custom_kernel_params() != 0) {
+    _internal_set_has_custom_kernel_params(from._internal_has_custom_kernel_params());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void GetVmLaunchAllowedRequest::CopyFrom(const GetVmLaunchAllowedRequest& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:vm_tools.concierge.GetVmLaunchAllowedRequest)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool GetVmLaunchAllowedRequest::IsInitialized() const {
+  return true;
+}
+
+void GetVmLaunchAllowedRequest::InternalSwap(GetVmLaunchAllowedRequest* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(GetVmLaunchAllowedRequest, has_custom_kernel_params_)
+      + sizeof(GetVmLaunchAllowedRequest::has_custom_kernel_params_)
+      - PROTOBUF_FIELD_OFFSET(GetVmLaunchAllowedRequest, run_as_untrusted_)>(
+          reinterpret_cast<char*>(&run_as_untrusted_),
+          reinterpret_cast<char*>(&other->run_as_untrusted_));
+}
+
+std::string GetVmLaunchAllowedRequest::GetTypeName() const {
+  return "vm_tools.concierge.GetVmLaunchAllowedRequest";
+}
+
+
+// ===================================================================
+
+class GetVmLaunchAllowedResponse::_Internal {
+ public:
+};
+
+GetVmLaunchAllowedResponse::GetVmLaunchAllowedResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
+  // @@protoc_insertion_point(arena_constructor:vm_tools.concierge.GetVmLaunchAllowedResponse)
+}
+GetVmLaunchAllowedResponse::GetVmLaunchAllowedResponse(const GetVmLaunchAllowedResponse& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  reason_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    reason_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_reason().empty()) {
+    reason_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_reason(), 
+      GetArenaForAllocation());
+  }
+  allowed_ = from.allowed_;
+  // @@protoc_insertion_point(copy_constructor:vm_tools.concierge.GetVmLaunchAllowedResponse)
+}
+
+inline void GetVmLaunchAllowedResponse::SharedCtor() {
+reason_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  reason_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+allowed_ = false;
+}
+
+GetVmLaunchAllowedResponse::~GetVmLaunchAllowedResponse() {
+  // @@protoc_insertion_point(destructor:vm_tools.concierge.GetVmLaunchAllowedResponse)
+  if (GetArenaForAllocation() != nullptr) return;
+  SharedDtor();
+  _internal_metadata_.Delete<std::string>();
+}
+
+inline void GetVmLaunchAllowedResponse::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  reason_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+void GetVmLaunchAllowedResponse::ArenaDtor(void* object) {
+  GetVmLaunchAllowedResponse* _this = reinterpret_cast< GetVmLaunchAllowedResponse* >(object);
+  (void)_this;
+}
+void GetVmLaunchAllowedResponse::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void GetVmLaunchAllowedResponse::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void GetVmLaunchAllowedResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:vm_tools.concierge.GetVmLaunchAllowedResponse)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  reason_.ClearToEmpty();
+  allowed_ = false;
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* GetVmLaunchAllowedResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // bool allowed = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          allowed_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // string reason = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
+          auto str = _internal_mutable_reason();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, nullptr));
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* GetVmLaunchAllowedResponse::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:vm_tools.concierge.GetVmLaunchAllowedResponse)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // bool allowed = 1;
+  if (this->_internal_allowed() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(1, this->_internal_allowed(), target);
+  }
+
+  // string reason = 2;
+  if (!this->_internal_reason().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_reason().data(), static_cast<int>(this->_internal_reason().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "vm_tools.concierge.GetVmLaunchAllowedResponse.reason");
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_reason(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:vm_tools.concierge.GetVmLaunchAllowedResponse)
+  return target;
+}
+
+size_t GetVmLaunchAllowedResponse::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:vm_tools.concierge.GetVmLaunchAllowedResponse)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string reason = 2;
+  if (!this->_internal_reason().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_reason());
+  }
+
+  // bool allowed = 1;
+  if (this->_internal_allowed() != 0) {
+    total_size += 1 + 1;
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void GetVmLaunchAllowedResponse::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const GetVmLaunchAllowedResponse*>(
+      &from));
+}
+
+void GetVmLaunchAllowedResponse::MergeFrom(const GetVmLaunchAllowedResponse& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:vm_tools.concierge.GetVmLaunchAllowedResponse)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (!from._internal_reason().empty()) {
+    _internal_set_reason(from._internal_reason());
+  }
+  if (from._internal_allowed() != 0) {
+    _internal_set_allowed(from._internal_allowed());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void GetVmLaunchAllowedResponse::CopyFrom(const GetVmLaunchAllowedResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:vm_tools.concierge.GetVmLaunchAllowedResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool GetVmLaunchAllowedResponse::IsInitialized() const {
+  return true;
+}
+
+void GetVmLaunchAllowedResponse::InternalSwap(GetVmLaunchAllowedResponse* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &reason_, lhs_arena,
+      &other->reason_, rhs_arena
+  );
+  swap(allowed_, other->allowed_);
+}
+
+std::string GetVmLaunchAllowedResponse::GetTypeName() const {
+  return "vm_tools.concierge.GetVmLaunchAllowedResponse";
+}
+
+
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace concierge
 }  // namespace vm_tools
@@ -20855,6 +22088,9 @@ template<> PROTOBUF_NOINLINE ::vm_tools::concierge::StopVmResponse* Arena::Creat
 }
 template<> PROTOBUF_NOINLINE ::vm_tools::concierge::VmStoppedSignal* Arena::CreateMaybeMessage< ::vm_tools::concierge::VmStoppedSignal >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_tools::concierge::VmStoppedSignal >(arena);
+}
+template<> PROTOBUF_NOINLINE ::vm_tools::concierge::VmStoppingSignal* Arena::CreateMaybeMessage< ::vm_tools::concierge::VmStoppingSignal >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::vm_tools::concierge::VmStoppingSignal >(arena);
 }
 template<> PROTOBUF_NOINLINE ::vm_tools::concierge::SuspendVmRequest* Arena::CreateMaybeMessage< ::vm_tools::concierge::SuspendVmRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_tools::concierge::SuspendVmRequest >(arena);
@@ -21008,6 +22244,15 @@ template<> PROTOBUF_NOINLINE ::vm_tools::concierge::GetVmGpuCachePathRequest* Ar
 }
 template<> PROTOBUF_NOINLINE ::vm_tools::concierge::GetVmGpuCachePathResponse* Arena::CreateMaybeMessage< ::vm_tools::concierge::GetVmGpuCachePathResponse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::vm_tools::concierge::GetVmGpuCachePathResponse >(arena);
+}
+template<> PROTOBUF_NOINLINE ::vm_tools::concierge::AddGroupPermissionMesaRequest* Arena::CreateMaybeMessage< ::vm_tools::concierge::AddGroupPermissionMesaRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::vm_tools::concierge::AddGroupPermissionMesaRequest >(arena);
+}
+template<> PROTOBUF_NOINLINE ::vm_tools::concierge::GetVmLaunchAllowedRequest* Arena::CreateMaybeMessage< ::vm_tools::concierge::GetVmLaunchAllowedRequest >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::vm_tools::concierge::GetVmLaunchAllowedRequest >(arena);
+}
+template<> PROTOBUF_NOINLINE ::vm_tools::concierge::GetVmLaunchAllowedResponse* Arena::CreateMaybeMessage< ::vm_tools::concierge::GetVmLaunchAllowedResponse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::vm_tools::concierge::GetVmLaunchAllowedResponse >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

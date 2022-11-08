@@ -79,6 +79,25 @@ TEST(Title, ForwardSlash) {
   EXPECT_EQ(replacer.GetTitle(), "this / that");
 }
 
+TEST(Title, Transform) {
+  TokenReplacer replacer("hostname", "user@host.com", "this / that", "42");
+  std::istringstream input(
+    "@PJL SET STATIONID = GETMYHOST\n"
+    "@PJL SET USERNAME = GEYMYUSERNAME\n"
+    "@PJL SET JOBNAME = GETMYJOBNAME\n"
+    "@PJL SET QTY = GETMYCOPIES\n"
+  );
+  std::ostringstream output;
+  std::string expected =
+    "@PJL SET STATIONID = \"hostname\"\n"
+    "@PJL SET USERNAME = \"user@host.com\"\n"
+    "@PJL SET JOBNAME = \"this / that\"\n"
+    "@PJL SET QTY = 42\n";
+
+  transform(replacer, input, output);
+  EXPECT_EQ(output.str(), expected);
+}
+
 TEST_F(TokenReplacerTest, UnchangedLine) {
   EXPECT_EQ(replacer_.TokenizeLine("Unchanged"), "Unchanged");
 }

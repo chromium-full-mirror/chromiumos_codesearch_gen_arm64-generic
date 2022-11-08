@@ -8,11 +8,10 @@
 #include <string>
 
 #include <base/logging.h>
+#include <base/strings/strcat.h>
 #include <base/strings/stringprintf.h>
 #include <metrics/metrics_library.h>
 #include <metrics/timer.h>
-
-#include "cryptohome/tpm_metrics.h"
 
 namespace {
 
@@ -23,15 +22,10 @@ struct TimerHistogramParams {
   int num_buckets;
 };
 
-constexpr char kWrappingKeyDerivationCreateHistogram[] =
-    "Cryptohome.WrappingKeyDerivation.Create";
-constexpr char kWrappingKeyDerivationMountHistogram[] =
-    "Cryptohome.WrappingKeyDerivation.Mount";
 constexpr char kCryptohomeErrorHistogram[] = "Cryptohome.Errors";
 constexpr char kChecksumStatusHistogram[] = "Cryptohome.ChecksumStatus";
 constexpr char kCredentialRevocationResultHistogram[] =
     "Cryptohome.%s.CredentialRevocationResult";
-constexpr char kCryptohomeTpmResultsHistogram[] = "Cryptohome.TpmResults";
 constexpr char kCryptohomeDeletedUserProfilesHistogram[] =
     "Cryptohome.DeletedUserProfiles";
 constexpr char kCryptohomeGCacheFreedDiskSpaceInMbHistogram[] =
@@ -119,6 +113,11 @@ constexpr char kFetchUssExperimentConfigRetries[] =
 constexpr char kUssExperimentFlag[] =
     "Cryptohome.UssExperiment.UssExperimentFlag";
 constexpr char kMaskedDownloadsItems[] = "Cryptohome.MaskedDownloadsItems";
+constexpr char kDownloadsBindMountMigrationStatusHistogram[] =
+    "Cryptohome.DownloadsBindMountMigrationStatus";
+
+constexpr char kNumUserHomeDirectories[] =
+    "Platform.DiskUsage.NumUserHomeDirectories";
 
 // Histogram parameters. This should match the order of 'TimerType'.
 // Min and max samples are in milliseconds.
@@ -213,21 +212,6 @@ static_assert(
         static_cast<int>(cryptohome::LegacyCodePathLocation::kMaxValue) + 1,
     "kLegacyCodePathLocations out of sync with enum LegacyCodePathLocation");
 
-// List of strings for corresponding AuthBlockType parameters.
-const char* const kAuthBlockTypeString[] = {".PinWeaver",
-                                            ".ChallengeCredential",
-                                            ".DoubleWrappedCompat",
-                                            ".TpmBoundToPcr",
-                                            ".TpmNotBoundToPcr",
-                                            ".LibScryptCompat",
-                                            ".CryptohomeRecovery",
-                                            ".TpmEcc",
-                                            ".Scrypt"};
-
-static_assert(std::size(kAuthBlockTypeString) ==
-                  static_cast<int>(cryptohome::AuthBlockType::kMaxValue),
-              "kAuthBlockTypeString out of sync with AuthBlockType");
-
 constexpr char kCryptohomeDeprecatedApiHistogramName[] =
     "Cryptohome.DeprecatedApiCalled";
 
@@ -266,14 +250,12 @@ char const* GetAuthBlockTypeStringVariant(cryptohome::AuthBlockType type) {
       return "TpmBoundToPcr";
     case cryptohome::AuthBlockType::kTpmNotBoundToPcr:
       return "TpmNotBoundToPcr";
-    case cryptohome::AuthBlockType::kLibScryptCompat:
-      return "LibScryptCompat";
+    case cryptohome::AuthBlockType::kScrypt:
+      return "Scrypt";
     case cryptohome::AuthBlockType::kCryptohomeRecovery:
       return "CryptohomeRecovery";
     case cryptohome::AuthBlockType::kTpmEcc:
       return "TpmEcc";
-    case cryptohome::AuthBlockType::kScrypt:
-      return "Scrypt";
     case cryptohome::AuthBlockType::kMaxValue:
       NOTREACHED();
       return "";
@@ -314,35 +296,12 @@ void DisableErrorMetricsReporting() {
   g_disable_error_metrics = true;
 }
 
-void ReportWrappingKeyDerivationType(DerivationType derivation_type,
-                                     CryptohomePhase crypto_phase) {
-  if (!g_metrics) {
-    return;
-  }
-
-  if (crypto_phase == kCreated) {
-    g_metrics->SendEnumToUMA(kWrappingKeyDerivationCreateHistogram,
-                             derivation_type, kDerivationTypeNumBuckets);
-  } else if (crypto_phase == kMounted) {
-    g_metrics->SendEnumToUMA(kWrappingKeyDerivationMountHistogram,
-                             derivation_type, kDerivationTypeNumBuckets);
-  }
-}
-
 void ReportCryptohomeError(CryptohomeErrorMetric error) {
   if (!g_metrics) {
     return;
   }
   g_metrics->SendEnumToUMA(kCryptohomeErrorHistogram, error,
                            kCryptohomeErrorNumBuckets);
-}
-
-void ReportTpmResult(TpmResult result) {
-  if (!g_metrics) {
-    return;
-  }
-  g_metrics->SendEnumToUMA(kCryptohomeTpmResultsHistogram, result,
-                           kTpmResultNumberOfBuckets);
 }
 
 void ReportCrosEvent(const char* event) {
@@ -392,7 +351,9 @@ void ReportTimerDuration(
       auth_session_performance_timer->auth_block_type;
   std::string metric_name = kTimerHistogramParams[timer_type].metric_name;
   if (auth_block_type != cryptohome::AuthBlockType::kMaxValue) {
-    metric_name.append(kAuthBlockTypeString[static_cast<int>(auth_block_type)]);
+    std::string block_type =
+        base::StrCat({".", GetAuthBlockTypeStringVariant(auth_block_type)});
+    metric_name.append(block_type);
   }
 
   auto duration =
@@ -621,6 +582,15 @@ void ReportLoginDiskCleanupResult(DiskCleanupResult result) {
   g_metrics->SendEnumToUMA(kCryptohomeLoginDiskCleanupResultHistogram,
                            static_cast<int>(result),
                            static_cast<int>(DiskCleanupResult::kNumBuckets));
+}
+
+void ReportNumUserHomeDirectories(int num_users) {
+  if (!g_metrics) {
+    return;
+  }
+  constexpr int kMin = 1, kMax = 50, kNumBuckets = 50;
+  g_metrics->SendToUMA(kNumUserHomeDirectories, num_users, kMin, kMax,
+                       kNumBuckets);
 }
 
 void ReportHomedirEncryptionType(HomedirEncryptionType type) {
@@ -907,6 +877,16 @@ void ReportMaskedDownloadsItems(int num_items) {
   constexpr int kMin = 1, kMax = 1000, kNumBuckets = 20;
   g_metrics->SendToUMA(kMaskedDownloadsItems, num_items, kMin, kMax,
                        kNumBuckets);
+}
+
+void ReportDownloadsBindMountMigrationStatus(
+    DownloadsBindMountMigrationStatus status) {
+  if (!g_metrics) {
+    return;
+  }
+  g_metrics->SendEnumToUMA(
+      kDownloadsBindMountMigrationStatusHistogram, static_cast<int>(status),
+      static_cast<int>(DownloadsBindMountMigrationStatus::kMaxValue));
 }
 
 void ReportCryptohomeErrorHashedStack(const uint32_t hashed) {

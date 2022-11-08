@@ -11,6 +11,8 @@
 
 #include <chromeos/chromeos-config/libcros_config/cros_config_interface.h>
 
+#include "diagnostics/cros_healthd/routines/fingerprint/fingerprint.h"
+
 namespace diagnostics {
 
 // Responsible for fetching routine parameters from cros_config. Each individual
@@ -26,6 +28,8 @@ class RoutineParameterFetcher {
   RoutineParameterFetcher& operator=(const RoutineParameterFetcher&) = delete;
   ~RoutineParameterFetcher();
 
+  // TODO(b/251696072): Replace pointer arguments with return values.
+
   // Fetches the parameters for the battery capacity routine.
   void GetBatteryCapacityParameters(
       std::optional<uint32_t>* low_mah_out,
@@ -39,21 +43,36 @@ class RoutineParameterFetcher {
   // Fetches the parameter for the prime search routine.
   void GetPrimeSearchParameters(std::optional<uint64_t>* max_num_out) const;
 
+  // Fetches the parameter for the NVMe wear level routine.
+  std::optional<uint32_t> GetNvmeWearLevelParameters() const;
+
+  // Fetches the parameter for the fingerprint routine.
+  FingerprintParameter GetFingerprintParameters() const;
+
  private:
   // Fetches a uint64_t parameter from cros_config.
+  //
+  // * |parameter_out| - Remain unmodified if can't populated.
+  template <typename Uint64Type>
   void FetchUint64Parameter(const std::string& path,
                             const std::string& parameter_name,
-                            std::optional<uint64_t>* parameter_out) const;
+                            Uint64Type* parameter_out) const;
 
   // Fetches a uint32_t parameter from cros_config.
+  //
+  // * |parameter_out| - Remain unmodified if can't populated.
+  template <typename Uint32Type>
   void FetchUint32Parameter(const std::string& path,
                             const std::string& parameter_name,
-                            std::optional<uint32_t>* parameter_out) const;
+                            Uint32Type* parameter_out) const;
 
   // Fetches a uint8_t parameter from cros_config.
+  //
+  // * |parameter_out| - Remain unmodified if can't populated.
+  template <typename Uint8Type>
   void FetchUint8Parameter(const std::string& path,
                            const std::string& parameter_name,
-                           std::optional<uint8_t>* parameter_out) const;
+                           Uint8Type* parameter_out) const;
 
   // Unowned. Should outlive this instance.
   brillo::CrosConfigInterface* cros_config_;

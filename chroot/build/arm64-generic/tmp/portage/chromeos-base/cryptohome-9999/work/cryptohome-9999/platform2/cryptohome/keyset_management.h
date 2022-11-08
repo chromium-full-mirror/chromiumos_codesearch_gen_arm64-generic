@@ -31,6 +31,12 @@
 
 namespace cryptohome {
 
+// The structure that stores the status of a VaultKeyset, such as whether the
+// VaultKeyset is created as a backup storage.
+struct VaultKeysetIntent {
+  bool backup;
+};
+
 class KeysetManagement {
  public:
   using DecryptVkCallback = base::RepeatingCallback<CryptoStatus(VaultKeyset*)>;
@@ -56,14 +62,6 @@ class KeysetManagement {
   virtual bool GetVaultKeysetLabels(const std::string& obfuscated_username,
                                     bool include_le_labels,
                                     std::vector<std::string>* labels) const;
-
-  // Outputs a map of present keysets by label and the associate key data for a
-  // given obfuscated username. There is no guarantee the keysets are valid nor
-  // is the ordering guaranteed. Returns true on success, false if no keysets
-  // are found.
-  virtual bool GetVaultKeysetLabelsAndData(
-      const std::string& obfuscated_username,
-      std::map<std::string, KeyData>* key_label_data) const;
 
   // Returns a VaultKeyset that matches the given obfuscated username and the
   // key label. If the label is empty or if no matching keyset is found, NULL
@@ -97,6 +95,7 @@ class KeysetManagement {
   // Adds initial keyset for the credentials and wraps the file system keyset
   // provided. Returns the added keyset, or an error status on failure.
   virtual CryptohomeStatusOr<std::unique_ptr<VaultKeyset>> AddInitialKeyset(
+      const VaultKeysetIntent& vk_intent,
       const Credentials& credentials,
       const FileSystemKeyset& file_system_keyset);
 
@@ -120,7 +119,8 @@ class KeysetManagement {
   // from |new_credentials|. If |clobber| is true and there are no matching,
   // labeled keys, then it does nothing; if there is an identically labeled key,
   // it will overwrite it.
-  virtual CryptohomeErrorCode AddKeyset(const Credentials& new_credentials,
+  virtual CryptohomeErrorCode AddKeyset(const VaultKeysetIntent& vk_intent,
+                                        const Credentials& new_credentials,
                                         const VaultKeyset& vault_keyset,
                                         bool clobber);
 
@@ -129,7 +129,8 @@ class KeysetManagement {
   // existing credentials is unwrapped. New keyset is updated to have the key
   // data from |new_credentials|, KeyBlobs from |VaultKeyset| and is wrapped by
   // the secret in |new_credentials|.
-  virtual CryptohomeErrorCode UpdateKeyset(const Credentials& new_credentials,
+  virtual CryptohomeErrorCode UpdateKeyset(const VaultKeysetIntent& vk_intent,
+                                           const Credentials& new_credentials,
                                            const VaultKeyset& vault_keyset);
 
   // Removes the keyset identified by |key_data|.  The VaultKeyset backing
@@ -205,6 +206,7 @@ class KeysetManagement {
   // with |key_blobs| and persists to the disk.
   virtual CryptohomeStatusOr<std::unique_ptr<VaultKeyset>>
   AddInitialKeysetWithKeyBlobs(
+      const VaultKeysetIntent& vk_intent,
       const std::string& obfuscated_username,
       const KeyData& key_data,
       const std::optional<SerializedVaultKeyset_SignatureChallengeInfo>&
@@ -233,6 +235,7 @@ class KeysetManagement {
   // |clobber| is true and there are no matching, labeled keys, then it does
   // nothing; if there is an identically labeled key, it will overwrite it.
   virtual CryptohomeErrorCode AddKeysetWithKeyBlobs(
+      const VaultKeysetIntent& vk_intent,
       const std::string& obfuscated_username_new,
       const KeyData& key_data_new,
       const VaultKeyset& vault_keyset_old,
@@ -252,6 +255,7 @@ class KeysetManagement {
   // is wrapped by the |key_blobs| passed, which should be derived from the new
   // credentials.
   virtual CryptohomeErrorCode UpdateKeysetWithKeyBlobs(
+      const VaultKeysetIntent& vk_intent,
       const std::string& obfuscated_username_new,
       const KeyData& key_data_new,
       const VaultKeyset& vault_keyset,
@@ -264,6 +268,7 @@ class KeysetManagement {
   // |challenge_credentials_keyset_info| to the created keyset. Wraps keyset
   // with |encrypt_vk_callback| and persists to disk.
   CryptohomeStatusOr<std::unique_ptr<VaultKeyset>> AddInitialKeysetImpl(
+      const VaultKeysetIntent& vk_intent,
       const std::string& obfuscated_username,
       const KeyData& key_data,
       const std::optional<SerializedVaultKeyset_SignatureChallengeInfo>&
@@ -282,7 +287,8 @@ class KeysetManagement {
   // and the filesystem key from |vault_keyset_old| and persist to disk.  If
   // |clobber| is true and there are no matching, labeled keys, then it does
   // nothing; if there is an identically labeled key, it will overwrite it.
-  CryptohomeErrorCode AddKeysetImpl(const std::string& obfuscated_username_new,
+  CryptohomeErrorCode AddKeysetImpl(const VaultKeysetIntent& vk_intent,
+                                    const std::string& obfuscated_username_new,
                                     const KeyData& key_data_new,
                                     const VaultKeyset& vault_keyset_old,
                                     EncryptVkCallback encrypt_vk_callback,

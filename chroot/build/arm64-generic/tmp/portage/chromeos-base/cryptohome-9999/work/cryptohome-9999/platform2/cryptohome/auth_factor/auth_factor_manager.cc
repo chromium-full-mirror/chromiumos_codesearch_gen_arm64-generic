@@ -7,8 +7,8 @@
 #include <sys/stat.h>
 
 #include <memory>
-#include <string>
 #include <optional>
+#include <string>
 #include <utility>
 #include <variant>
 
@@ -18,6 +18,7 @@
 #include <base/logging.h>
 #include <brillo/secure_blob.h>
 #include <flatbuffers/flatbuffers.h>
+#include <libhwsec-foundation/flatbuffers/basic_objects.h>
 #include <libhwsec-foundation/flatbuffers/flatbuffer_secure_allocator_bridge.h>
 
 #include "cryptohome/auth_factor/auth_factor.h"
@@ -47,36 +48,6 @@ constexpr mode_t kAuthFactorFilePermissions = 0600;
 
 constexpr int kFlatbufferAllocatorInitialSize = 4096;
 
-// Note: The string values in this constant must stay stable, as they're used in
-// file names.
-constexpr std::pair<AuthFactorType, const char*> kAuthFactorTypeStrings[] = {
-    {AuthFactorType::kPassword, "password"},
-    {AuthFactorType::kPin, "pin"},
-    {AuthFactorType::kSmartCard, "smart_card"},
-    {AuthFactorType::kCryptohomeRecovery, "cryptohome_recovery"}};
-
-// Converts the auth factor type enum into a string.
-std::string GetAuthFactorTypeString(AuthFactorType type) {
-  for (const auto& type_and_string : kAuthFactorTypeStrings) {
-    if (type_and_string.first == type) {
-      return type_and_string.second;
-    }
-  }
-  return std::string();
-}
-
-// Converts the auth factor type string into an enum. Returns a null optional
-// if the string is unknown.
-std::optional<AuthFactorType> GetAuthFactorTypeFromString(
-    const std::string& type_string) {
-  for (const auto& type_and_string : kAuthFactorTypeStrings) {
-    if (type_and_string.second == type_string) {
-      return type_and_string.first;
-    }
-  }
-  return std::nullopt;
-}
-
 // Checks if the provided `auth_factor_label` is valid and on success returns
 // `AuthFactorPath()`.
 CryptohomeStatusOr<base::FilePath> GetAuthFactorPathFromStringType(
@@ -102,7 +73,7 @@ CryptohomeStatusOr<base::FilePath> GetAuthFactorPath(
     const std::string& obfuscated_username,
     const AuthFactorType auth_factor_type,
     const std::string& auth_factor_label) {
-  const std::string type_string = GetAuthFactorTypeString(auth_factor_type);
+  const std::string type_string = AuthFactorTypeToString(auth_factor_type);
   if (type_string.empty()) {
     LOG(ERROR) << "Failed to convert auth factor type "
                << static_cast<int>(auth_factor_type) << " for factor called "
@@ -117,8 +88,22 @@ CryptohomeStatusOr<base::FilePath> GetAuthFactorPath(
                                          auth_factor_label);
 }
 
-// Serializes the password metadata into the given flatbuffer builder. Returns
-// the flatbuffer offset, to be used for building the outer table.
+// Serializes the factor-specific metadata into the given flatbuffer builder.
+// Returns the flatbuffer offset, to be used for building the outer table.
+flatbuffers::Offset<SerializedCommonMetadata> SerializeCommonMetadataToOffset(
+    const CommonAuthFactorMetadata& common_metadata,
+    flatbuffers::FlatBufferBuilder& builder) {
+  auto chromeos_offset = hwsec_foundation::ToFlatBuffer<std::string>()(
+      &builder, common_metadata.chromeos_version_last_updated);
+  auto chrome_offset = hwsec_foundation::ToFlatBuffer<std::string>()(
+      &builder, common_metadata.chrome_version_last_updated);
+
+  SerializedCommonMetadataBuilder cm_builder(builder);
+  cm_builder.add_chromeos_version_last_updated(chromeos_offset);
+  cm_builder.add_chrome_version_last_updated(chrome_offset);
+  return cm_builder.Finish();
+}
+
 flatbuffers::Offset<SerializedPasswordMetadata> SerializeMetadataToOffset(
     const PasswordAuthFactorMetadata& password_metadata,
     flatbuffers::FlatBufferBuilder* builder) {
@@ -126,10 +111,8 @@ flatbuffers::Offset<SerializedPasswordMetadata> SerializeMetadataToOffset(
   return metadata_builder.Finish();
 }
 
-// Serializes the pin metadata into the given flatbuffer builder. Returns
-// the flatbuffer offset, to be used for building the outer table.
 flatbuffers::Offset<SerializedPinMetadata> SerializeMetadataToOffset(
-    const PinAuthFactorMetadata& password_metadata,
+    const PinAuthFactorMetadata& pin_metadata,
     flatbuffers::FlatBufferBuilder* builder) {
   SerializedPinMetadataBuilder metadata_builder(*builder);
   return metadata_builder.Finish();
@@ -137,9 +120,16 @@ flatbuffers::Offset<SerializedPinMetadata> SerializeMetadataToOffset(
 
 flatbuffers::Offset<SerializedCryptohomeRecoveryMetadata>
 SerializeMetadataToOffset(
-    const CryptohomeRecoveryAuthFactorMetadata& password_metadata,
+    const CryptohomeRecoveryAuthFactorMetadata& recovery_metadata,
     flatbuffers::FlatBufferBuilder* builder) {
   SerializedCryptohomeRecoveryMetadataBuilder metadata_builder(*builder);
+  return metadata_builder.Finish();
+}
+
+flatbuffers::Offset<SerializedKioskMetadata> SerializeMetadataToOffset(
+    const KioskAuthFactorMetadata& kiosk_metadata,
+    flatbuffers::FlatBufferBuilder* builder) {
+  SerializedKioskMetadataBuilder metadata_builder(*builder);
   return metadata_builder.Finish();
 }
 
@@ -153,8 +143,11 @@ flatbuffers::Offset<SerializedSmartCardMetadata> SerializeMetadataToOffset(
   return metadata_builder.Finish();
 }
 
-// Serializes the password metadata into the given flatbuffer builder. Returns
-// the flatbuffer offset, to be used for building the outer table.
+// Serializes the factor-specific metadata into the given flatbuffer builder.
+// Returns the flatbuffer offset, to be used for building the outer table.
+//
+// Implemented by selecting the appropriate specific overload based on the
+// factor type and delegating to it.
 flatbuffers::Offset<void> SerializeMetadataToOffset(
     const AuthFactorMetadata& metadata,
     flatbuffers::FlatBufferBuilder* builder,
@@ -177,6 +170,10 @@ flatbuffers::Offset<void> SerializeMetadataToOffset(
     *metadata_type =
         SerializedAuthFactorMetadata::SerializedCryptohomeRecoveryMetadata;
     return SerializeMetadataToOffset(*recovery_metadata, builder).Union();
+  } else if (const auto* kiosk_metadata =
+                 std::get_if<KioskAuthFactorMetadata>(&metadata.metadata)) {
+    *metadata_type = SerializedAuthFactorMetadata::SerializedKioskMetadata;
+    return SerializeMetadataToOffset(*kiosk_metadata, builder).Union();
   }
   LOG(ERROR) << "Missing or unexpected auth factor metadata: "
              << metadata.metadata.index();
@@ -206,15 +203,32 @@ std::optional<Blob> SerializeAuthFactor(const AuthFactor& auth_factor) {
     return std::nullopt;
   }
 
+  auto common_metadata_offset =
+      SerializeCommonMetadataToOffset(auth_factor.metadata().common, builder);
+
   SerializedAuthFactorBuilder auth_factor_builder(builder);
   auth_factor_builder.add_auth_block_state(auth_block_state_offset);
   auth_factor_builder.add_metadata(metadata_offset);
   auth_factor_builder.add_metadata_type(metadata_type);
+  auth_factor_builder.add_common_metadata(common_metadata_offset);
   auto auth_factor_offset = auth_factor_builder.Finish();
 
   builder.Finish(auth_factor_offset);
   return Blob(builder.GetBufferPointer(),
               builder.GetBufferPointer() + builder.GetSize());
+}
+
+void ConvertCommonMetadataFromFlatbuffer(
+    const SerializedCommonMetadata& flatbuffer_table,
+    AuthFactorMetadata* metadata) {
+  metadata->common = CommonAuthFactorMetadata{
+      .chromeos_version_last_updated =
+          hwsec_foundation::FromFlatBuffer<std::string>()(
+              flatbuffer_table.chromeos_version_last_updated()),
+      .chrome_version_last_updated =
+          hwsec_foundation::FromFlatBuffer<std::string>()(
+              flatbuffer_table.chrome_version_last_updated()),
+  };
 }
 
 bool ConvertPasswordMetadataFromFlatbuffer(
@@ -250,6 +264,14 @@ bool ConvertSmartCardMetadataFromFlatbuffer(
   return true;
 }
 
+bool ConvertKioskMetadataFromFlatbuffer(
+    const SerializedKioskMetadata& flatbuffer_table,
+    AuthFactorMetadata* metadata) {
+  // There's no metadata currently.
+  metadata->metadata = KioskAuthFactorMetadata();
+  return true;
+}
+
 bool ParseAuthFactorFlatbuffer(const Blob& flatbuffer,
                                AuthBlockState* auth_block_state,
                                AuthFactorMetadata* metadata) {
@@ -262,6 +284,7 @@ bool ParseAuthFactorFlatbuffer(const Blob& flatbuffer,
 
   auto auth_factor_table = GetSerializedAuthFactor(flatbuffer.data());
 
+  // Extract the auth block state from the serialized data.
   if (!auth_factor_table->auth_block_state()) {
     LOG(ERROR) << "SerializedAuthFactor has no auth block state";
     return false;
@@ -269,6 +292,16 @@ bool ParseAuthFactorFlatbuffer(const Blob& flatbuffer,
   *auth_block_state = hwsec_foundation::FromFlatBuffer<AuthBlockState>()(
       auth_factor_table->auth_block_state());
 
+  // Extract the common metadata from the serialized data.
+  if (!auth_factor_table->common_metadata()) {
+    // This is not an error, old auth factors have no common metadata.
+    LOG(WARNING) << "SerializedAuthFactor has no common metadata";
+  } else {
+    ConvertCommonMetadataFromFlatbuffer(*auth_factor_table->common_metadata(),
+                                        metadata);
+  }
+
+  // Extract the factor-specific metadata from the serialized data.
   if (!auth_factor_table->metadata()) {
     LOG(ERROR) << "SerializedAuthFactor has no metadata";
     return false;
@@ -299,6 +332,12 @@ bool ParseAuthFactorFlatbuffer(const Blob& flatbuffer,
                                                 metadata)) {
       LOG(ERROR)
           << "Failed to convert SerializedAuthFactor smart card metadata";
+      return false;
+    }
+  } else if (const SerializedKioskMetadata* kiosk_metadata =
+                 auth_factor_table->metadata_as_SerializedKioskMetadata()) {
+    if (!ConvertKioskMetadataFromFlatbuffer(*kiosk_metadata, metadata)) {
+      LOG(ERROR) << "Failed to convert SerializedAuthFactor kiosk metadata";
       return false;
     }
   } else {
@@ -333,7 +372,7 @@ CryptohomeStatus AuthFactorManager::SaveAuthFactor(
   std::optional<Blob> flatbuffer = SerializeAuthFactor(auth_factor);
   if (!flatbuffer.has_value()) {
     LOG(ERROR) << "Failed to serialize auth factor " << auth_factor.label()
-               << " of type " << GetAuthFactorTypeString(auth_factor.type());
+               << " of type " << AuthFactorTypeToString(auth_factor.type());
     return MakeStatus<CryptohomeError>(
         CRYPTOHOME_ERR_LOC(kLocAuthFactorManagerSerializeFailedInSave),
         ErrorActionSet({ErrorAction::kDevCheckUnexpectedState}),
@@ -344,7 +383,7 @@ CryptohomeStatus AuthFactorManager::SaveAuthFactor(
   if (!platform_->WriteFileAtomicDurable(file_path.value(), flatbuffer.value(),
                                          kAuthFactorFilePermissions)) {
     LOG(ERROR) << "Failed to persist auth factor " << auth_factor.label()
-               << " of type " << GetAuthFactorTypeString(auth_factor.type())
+               << " of type " << AuthFactorTypeToString(auth_factor.type())
                << " for " << obfuscated_username;
     return MakeStatus<CryptohomeError>(
         CRYPTOHOME_ERR_LOC(kLocAuthFactorManagerWriteFailedInSave),
@@ -372,7 +411,7 @@ AuthFactorManager::LoadAuthFactor(const std::string& obfuscated_username,
   Blob file_contents;
   if (!platform_->ReadFile(file_path.value(), &file_contents)) {
     LOG(ERROR) << "Failed to load persisted auth factor " << auth_factor_label
-               << " of type " << GetAuthFactorTypeString(auth_factor_type)
+               << " of type " << AuthFactorTypeToString(auth_factor_type)
                << " for " << obfuscated_username;
     return MakeStatus<CryptohomeError>(
         CRYPTOHOME_ERR_LOC(kLocAuthFactorManagerReadFailedInLoad),
@@ -385,7 +424,7 @@ AuthFactorManager::LoadAuthFactor(const std::string& obfuscated_username,
   if (!ParseAuthFactorFlatbuffer(file_contents, &auth_block_state,
                                  &auth_factor_metadata)) {
     LOG(ERROR) << "Failed to parse persisted auth factor " << auth_factor_label
-               << " of type " << GetAuthFactorTypeString(auth_factor_type)
+               << " of type " << AuthFactorTypeToString(auth_factor_type)
                << " for " << obfuscated_username;
     return MakeStatus<CryptohomeError>(
         CRYPTOHOME_ERR_LOC(kLocAuthFactorManagerParseFailedInLoad),
@@ -395,6 +434,22 @@ AuthFactorManager::LoadAuthFactor(const std::string& obfuscated_username,
 
   return std::make_unique<AuthFactor>(auth_factor_type, auth_factor_label,
                                       auth_factor_metadata, auth_block_state);
+}
+
+std::map<std::string, std::unique_ptr<AuthFactor>>
+AuthFactorManager::LoadAllAuthFactors(const std::string& obfuscated_username) {
+  std::map<std::string, std::unique_ptr<AuthFactor>> label_to_auth_factor;
+  for (const auto& [label, auth_factor_type] :
+       ListAuthFactors(obfuscated_username)) {
+    CryptohomeStatusOr<std::unique_ptr<AuthFactor>> auth_factor =
+        LoadAuthFactor(obfuscated_username, auth_factor_type, label);
+    if (!auth_factor.ok()) {
+      LOG(WARNING) << "Skipping malformed auth factor " << label;
+      continue;
+    }
+    label_to_auth_factor.emplace(label, std::move(auth_factor).value());
+  }
+  return label_to_auth_factor;
 }
 
 AuthFactorManager::LabelToTypeMap AuthFactorManager::ListAuthFactors(
@@ -419,7 +474,7 @@ AuthFactorManager::LabelToTypeMap AuthFactorManager::ListAuthFactors(
     const std::string auth_factor_type_string =
         base_name.RemoveExtension().value();
     const std::optional<AuthFactorType> auth_factor_type =
-        GetAuthFactorTypeFromString(auth_factor_type_string);
+        AuthFactorTypeFromString(auth_factor_type_string);
     if (!auth_factor_type.has_value()) {
       LOG(WARNING) << "Unknown auth factor type: file name = "
                    << base_name.value();
@@ -448,7 +503,7 @@ AuthFactorManager::LabelToTypeMap AuthFactorManager::ListAuthFactors(
       LOG(WARNING) << "Ignoring duplicate auth factor: label = "
                    << auth_factor_label << " type = " << auth_factor_type_string
                    << " previous type = "
-                   << GetAuthFactorTypeString(previous_type);
+                   << AuthFactorTypeToString(previous_type);
       continue;
     }
 
@@ -478,7 +533,7 @@ CryptohomeStatus AuthFactorManager::RemoveAuthFactor(
   if (!crypto_status.ok()) {
     LOG(WARNING) << "Failed to prepare for removal for auth factor "
                  << auth_factor.label() << " of type "
-                 << GetAuthFactorTypeString(auth_factor.type()) << " for "
+                 << AuthFactorTypeToString(auth_factor.type()) << " for "
                  << obfuscated_username;
     return MakeStatus<CryptohomeError>(
                CRYPTOHOME_ERR_LOC(
@@ -491,7 +546,7 @@ CryptohomeStatus AuthFactorManager::RemoveAuthFactor(
   if (!platform_->DeleteFile(file_path.value())) {
     LOG(ERROR) << "Failed to delete from disk auth factor "
                << auth_factor.label() << " of type "
-               << GetAuthFactorTypeString(auth_factor.type()) << " for "
+               << AuthFactorTypeToString(auth_factor.type()) << " for "
                << obfuscated_username;
     return MakeStatus<CryptohomeError>(
         CRYPTOHOME_ERR_LOC(kLocAuthFactorManagerDeleteFailedInRemove),
@@ -514,7 +569,7 @@ CryptohomeStatus AuthFactorManager::UpdateAuthFactor(
                      auth_factor_label);
   if (!existing_auth_factor.ok()) {
     LOG(ERROR) << "Failed to load persisted auth factor " << auth_factor_label
-               << " of type " << GetAuthFactorTypeString(auth_factor.type())
+               << " of type " << AuthFactorTypeToString(auth_factor.type())
                << " for " << obfuscated_username << " in Update.";
     return MakeStatus<CryptohomeError>(
                CRYPTOHOME_ERR_LOC(kLocAuthFactorManagerLoadFailedInUpdate),
@@ -528,7 +583,7 @@ CryptohomeStatus AuthFactorManager::UpdateAuthFactor(
       SaveAuthFactor(obfuscated_username, auth_factor);
   if (!save_result.ok()) {
     LOG(ERROR) << "Failed to save auth factor " << auth_factor.label()
-               << " of type " << GetAuthFactorTypeString(auth_factor.type())
+               << " of type " << AuthFactorTypeToString(auth_factor.type())
                << " for " << obfuscated_username << " in Update.";
     return MakeStatus<CryptohomeError>(
                CRYPTOHOME_ERR_LOC(kLocAuthFactorManagerSaveFailedInUpdate),
@@ -543,7 +598,7 @@ CryptohomeStatus AuthFactorManager::UpdateAuthFactor(
   if (!crypto_status.ok()) {
     LOG(WARNING) << "PrepareForRemoval failed for auth factor "
                  << auth_factor.label() << " of type "
-                 << GetAuthFactorTypeString(auth_factor.type()) << " for "
+                 << AuthFactorTypeToString(auth_factor.type()) << " for "
                  << obfuscated_username << " in Update.";
     return MakeStatus<CryptohomeError>(
                CRYPTOHOME_ERR_LOC(

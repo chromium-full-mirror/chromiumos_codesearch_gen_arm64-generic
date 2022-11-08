@@ -4,7 +4,7 @@
 #ifndef LIBCHROME_BUILD_CONFIG_COMPILER_COMPILER_BUILDFLAGS_H_
 #define LIBCHROME_BUILD_CONFIG_COMPILER_COMPILER_BUILDFLAGS_H_
 
-#include "build/buildflag.h"
+#include "build/buildflag.h" // IWYU pragma: export
 
 #define BUILDFLAG_INTERNAL_CLANG_PGO() (0)
 #define BUILDFLAG_INTERNAL_SYMBOL_LEVEL() (1)

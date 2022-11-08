@@ -4,7 +4,7 @@
 #ifndef LIBCHROME_BUILD_CHROMEOS_BUILDFLAGS_H_
 #define LIBCHROME_BUILD_CHROMEOS_BUILDFLAGS_H_
 
-#include "build/buildflag.h"
+#include "build/buildflag.h" // IWYU pragma: export
 
 #define BUILDFLAG_INTERNAL_IS_CHROMEOS_DEVICE() (0)
 #define BUILDFLAG_INTERNAL_IS_CHROMEOS_LACROS() (0)

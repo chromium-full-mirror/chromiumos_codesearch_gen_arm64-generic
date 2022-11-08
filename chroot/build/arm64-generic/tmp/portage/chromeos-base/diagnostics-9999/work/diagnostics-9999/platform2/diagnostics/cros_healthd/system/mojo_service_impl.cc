@@ -74,7 +74,7 @@ MojoServiceImpl::GetServiceManager() {
   return service_manager_.get();
 }
 
-chromeos::cros_healthd::internal::mojom::ChromiumDataCollector*
+ash::cros_healthd::internal::mojom::ChromiumDataCollector*
 MojoServiceImpl::GetChromiumDataCollector() {
   DCHECK(chromium_data_collector_.is_bound());
   return chromium_data_collector_.get();
@@ -95,6 +95,19 @@ MojoServiceImpl::GetNetworkDiagnosticsRoutines() {
 cros::mojom::SensorService* MojoServiceImpl::GetSensorService() {
   DCHECK(sensor_service_.is_bound());
   return sensor_service_.get();
+}
+
+cros::mojom::SensorDevice* MojoServiceImpl::GetSensorDevice(int32_t device_id) {
+  MojoServiceImpl::BindSensorDeviceRemoteIfNeeded(device_id);
+  return sensor_devices_[device_id].get();
+}
+
+void MojoServiceImpl::BindSensorDeviceRemoteIfNeeded(int32_t device_id) {
+  if (sensor_devices_[device_id].is_bound())
+    return;
+
+  MojoServiceImpl::GetSensorService()->GetDevice(
+      device_id, sensor_devices_[device_id].BindNewPipeAndPassReceiver());
 }
 
 template <typename InterfaceType>

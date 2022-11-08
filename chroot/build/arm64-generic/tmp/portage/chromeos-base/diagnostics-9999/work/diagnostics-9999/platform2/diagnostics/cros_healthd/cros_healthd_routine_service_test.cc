@@ -25,12 +25,10 @@
 #include "diagnostics/mojom/public/cros_healthd_diagnostics.mojom.h"
 #include "diagnostics/mojom/public/nullable_primitives.mojom.h"
 
-using testing::StrictMock;
-
 namespace diagnostics {
 namespace {
 
-namespace mojo_ipc = ::chromeos::cros_healthd::mojom;
+namespace mojo_ipc = ::ash::cros_healthd::mojom;
 
 constexpr char kRoutineDoesNotExistStatusMessage[] =
     "Specified routine does not exist.";
@@ -75,7 +73,10 @@ std::set<mojo_ipc::DiagnosticRoutineEnum> GetAllAvailableRoutines() {
       mojo_ipc::DiagnosticRoutineEnum::kVideoConferencing,
       mojo_ipc::DiagnosticRoutineEnum::kArcHttp,
       mojo_ipc::DiagnosticRoutineEnum::kArcPing,
-      mojo_ipc::DiagnosticRoutineEnum::kArcDnsResolution};
+      mojo_ipc::DiagnosticRoutineEnum::kArcDnsResolution,
+      mojo_ipc::DiagnosticRoutineEnum::kSensitiveSensor,
+      mojo_ipc::DiagnosticRoutineEnum::kFingerprint,
+      mojo_ipc::DiagnosticRoutineEnum::kFingerprintAlive};
 }
 
 std::set<mojo_ipc::DiagnosticRoutineEnum> GetBatteryRoutines() {
@@ -489,7 +490,7 @@ TEST_F(CrosHealthdRoutineServiceTest, RunNvmeWearLevelRoutine) {
   mojo_ipc::RunRoutineResponsePtr response;
   base::RunLoop run_loop;
   service()->RunNvmeWearLevelRoutine(
-      /*wear_level_threshold=*/30,
+      /*wear_level_threshold=*/mojo_ipc::NullableUint32::New(30),
       base::BindLambdaForTesting(
           [&](mojo_ipc::RunRoutineResponsePtr received_response) {
             response = std::move(received_response);

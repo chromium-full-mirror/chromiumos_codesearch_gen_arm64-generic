@@ -5,6 +5,7 @@
 #include "libhwsec/backend/tpm1/pinweaver.h"
 
 #include <cstdint>
+#include <optional>
 #include <vector>
 
 #include <brillo/secure_blob.h>
@@ -36,7 +37,8 @@ StatusOr<PinWeaverTpm1::CredentialTreeResult> PinWeaverTpm1::InsertCredential(
     const brillo::SecureBlob& le_secret,
     const brillo::SecureBlob& he_secret,
     const brillo::SecureBlob& reset_secret,
-    const DelaySchedule& delay_schedule) {
+    const DelaySchedule& delay_schedule,
+    std::optional<uint32_t> expiration_delay) {
   return MakeStatus<TPMError>("Unsupported", TPMRetryAction::kNoRetry);
 }
 
@@ -59,7 +61,8 @@ StatusOr<PinWeaverTpm1::CredentialTreeResult> PinWeaverTpm1::ResetCredential(
     const uint64_t label,
     const std::vector<std::vector<uint8_t>>& h_aux,
     const std::vector<uint8_t>& orig_cred_metadata,
-    const brillo::SecureBlob& reset_secret) {
+    const brillo::SecureBlob& reset_secret,
+    bool strong_reset) {
   return MakeStatus<TPMError>("Unsupported", TPMRetryAction::kNoRetry);
 }
 
@@ -87,6 +90,41 @@ StatusOr<PinWeaverTpm1::DelaySchedule> PinWeaverTpm1::GetDelaySchedule(
 
 StatusOr<uint32_t> PinWeaverTpm1::GetDelayInSeconds(
     const brillo::Blob& cred_metadata) {
+  return MakeStatus<TPMError>("Unsupported", TPMRetryAction::kNoRetry);
+}
+
+StatusOr<std::optional<uint32_t>> PinWeaverTpm1::GetExpirationInSeconds(
+    const brillo::Blob& cred_metadata) {
+  return MakeStatus<TPMError>("Unsupported", TPMRetryAction::kNoRetry);
+}
+
+StatusOr<PinWeaverTpm1::PinWeaverEccPoint> PinWeaverTpm1::GeneratePk(
+    uint8_t auth_channel,
+    const PinWeaverTpm1::PinWeaverEccPoint& client_public_key) {
+  return MakeStatus<TPMError>("Unsupported", TPMRetryAction::kNoRetry);
+}
+
+StatusOr<PinWeaverTpm1::CredentialTreeResult> PinWeaverTpm1::InsertRateLimiter(
+    uint8_t auth_channel,
+    const std::vector<OperationPolicySetting>& policies,
+    const uint64_t label,
+    const std::vector<brillo::Blob>& h_aux,
+    const brillo::SecureBlob& reset_secret,
+    const DelaySchedule& delay_schedule,
+    std::optional<uint32_t> expiration_delay) {
+  return MakeStatus<TPMError>("Unsupported", TPMRetryAction::kNoRetry);
+}
+
+StatusOr<PinWeaverTpm1::CredentialTreeResult>
+PinWeaverTpm1::StartBiometricsAuth(uint8_t auth_channel,
+                                   const uint64_t label,
+                                   const std::vector<brillo::Blob>& h_aux,
+                                   const brillo::Blob& orig_cred_metadata,
+                                   const brillo::SecureBlob& client_nonce) {
+  return MakeStatus<TPMError>("Unsupported", TPMRetryAction::kNoRetry);
+}
+
+Status PinWeaverTpm1::BlockGeneratePk() {
   return MakeStatus<TPMError>("Unsupported", TPMRetryAction::kNoRetry);
 }
 }  // namespace hwsec

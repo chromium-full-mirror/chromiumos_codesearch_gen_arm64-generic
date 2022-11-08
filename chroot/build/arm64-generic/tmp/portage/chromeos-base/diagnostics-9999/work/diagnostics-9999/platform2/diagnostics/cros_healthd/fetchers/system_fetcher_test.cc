@@ -27,6 +27,7 @@
 namespace diagnostics {
 namespace {
 
+namespace mojom = ::ash::cros_healthd::mojom;
 using ::testing::_;
 using ::testing::Invoke;
 using ::testing::WithArg;
@@ -60,6 +61,7 @@ class SystemUtilsTest : public BaseFileTest {
     vpd_info->region = "us";
     vpd_info->serial_number = "8607G03EDF";
     vpd_info->sku_number = "ABCD&^A";
+    vpd_info->oem_name = "FooOEM-VPD";
     auto& dmi_info = expected_system_info_->dmi_info;
     dmi_info = mojom::DmiInfo::New();
     dmi_info->bios_vendor = "Google";
@@ -84,7 +86,8 @@ class SystemUtilsTest : public BaseFileTest {
     os_version = mojom::OsVersion::New();
     os_version->release_milestone = "87";
     os_version->build_number = "13544";
-    os_version->patch_number = "59.0";
+    os_version->branch_number = "59";
+    os_version->patch_number = "0";
     os_version->release_channel = "stable-channel";
 
     SetSystemInfo(expected_system_info_);
@@ -111,6 +114,7 @@ class SystemUtilsTest : public BaseFileTest {
     SetMockFile({ro, kFileNameRegion}, vpd_info->region);
     SetMockFile({ro, kFileNameSerialNumber}, vpd_info->serial_number);
     SetMockFile({ro, kFileNameSkuNumber}, vpd_info->sku_number);
+    SetMockFile({ro, kFileNameOemName}, vpd_info->oem_name);
   }
 
   void SetDmiInfo(const mojom::DmiInfoPtr& dmi_info) {
@@ -146,9 +150,11 @@ class SystemUtilsTest : public BaseFileTest {
     PopulateLsbRelease(base::StringPrintf(
         "CHROMEOS_RELEASE_CHROME_MILESTONE=%s\n"
         "CHROMEOS_RELEASE_BUILD_NUMBER=%s\n"
+        "CHROMEOS_RELEASE_BRANCH_NUMBER=%s\n"
         "CHROMEOS_RELEASE_PATCH_NUMBER=%s\n"
         "CHROMEOS_RELEASE_TRACK=%s\n",
         os_version->release_milestone.c_str(), os_version->build_number.c_str(),
+        os_version->branch_number.value().c_str(),
         os_version->patch_number.c_str(), os_version->release_channel.c_str()));
   }
 
@@ -282,6 +288,12 @@ TEST_F(SystemUtilsTest, TestNoVpdDir) {
 
   SetHasSkuNumber(false);
   ExpectFetchSystemInfo();
+
+  // Test if the fallback logic triggered by missing OEM name in cros-config
+  // works when there's no VPD.
+  expected_system_info_->os_info->oem_name = std::nullopt;
+  SetSystemInfo(expected_system_info_);
+  ExpectFetchSystemInfo();
 }
 
 TEST_F(SystemUtilsTest, TestNoSkuNumber) {
@@ -306,6 +318,7 @@ TEST_MISSING_FIELD(vpd_info, region);
 TEST_MISSING_FIELD(vpd_info, mfg_date);
 TEST_MISSING_FIELD(vpd_info, serial_number);
 TEST_MISSING_FIELD(vpd_info, model_name);
+TEST_MISSING_FIELD(vpd_info, oem_name);
 
 TEST_F(SystemUtilsTest, TestNoSysDevicesVirtualDmiId) {
   expected_system_info_->dmi_info = nullptr;
@@ -410,6 +423,30 @@ TEST_F(SystemUtilsTest, TestEfiPlatformSize) {
   SetUEFIPlatformSizeResponse("32");
   SetUEFISecureBootResponse(std::string("\x00\x00\x00\x00\x00", 5));
   SetSystemInfo(expected_system_info_);
+  ExpectFetchSystemInfo();
+}
+
+TEST_F(SystemUtilsTest, TestOemName) {
+  expected_system_info_->os_info->oem_name = "FooOEM";
+  expected_system_info_->vpd_info->oem_name = "FooOEM-VPD";
+  SetSystemInfo(expected_system_info_);
+  ExpectFetchSystemInfo();
+
+  expected_system_info_->os_info->oem_name = "FooOEM";
+  expected_system_info_->vpd_info->oem_name = "";
+  SetSystemInfo(expected_system_info_);
+  ExpectFetchSystemInfo();
+
+  expected_system_info_->os_info->oem_name = std::nullopt;
+  expected_system_info_->vpd_info->oem_name = std::nullopt;
+  SetSystemInfo(expected_system_info_);
+  ExpectFetchSystemInfo();
+
+  // Test the fallback logic triggered by missing OEM name in cros-config.
+  expected_system_info_->os_info->oem_name = std::nullopt;
+  expected_system_info_->vpd_info->oem_name = "FooOEM-VPD";
+  SetSystemInfo(expected_system_info_);
+  expected_system_info_->os_info->oem_name = "FooOEM-VPD";
   ExpectFetchSystemInfo();
 }
 

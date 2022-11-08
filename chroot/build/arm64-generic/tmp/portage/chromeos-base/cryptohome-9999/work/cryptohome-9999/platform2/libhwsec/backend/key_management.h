@@ -16,7 +16,16 @@
 
 namespace hwsec {
 
-class BackendTpm2;
+struct RSAPublicInfo {
+  brillo::Blob exponent;
+  brillo::Blob modulus;
+};
+
+struct ECCPublicInfo {
+  int nid;
+  brillo::Blob x_point;
+  brillo::Blob y_point;
+};
 
 // KeyManagement provide the functions to manager key.
 class KeyManagement {
@@ -24,10 +33,17 @@ class KeyManagement {
   enum class PersistentKeyType {
     kStorageRootKey,
   };
+  enum class AutoReload {
+    kFalse,
+    kTrue,
+  };
   struct CreateKeyOptions {
     bool allow_software_gen = false;
     bool allow_decrypt = false;
     bool allow_sign = false;
+    std::optional<uint32_t> rsa_modulus_bits;
+    std::optional<brillo::Blob> rsa_exponent;
+    std::optional<uint32_t> ecc_nid;
   };
   struct CreateKeyResult {
     ScopedKey key;
@@ -37,26 +53,21 @@ class KeyManagement {
   // Gets the supported algorithm.
   virtual StatusOr<absl::flat_hash_set<KeyAlgoType>> GetSupportedAlgo() = 0;
 
+  // Checks a specific key creation combination is valid or not.
+  virtual Status IsSupported(KeyAlgoType key_algo,
+                             const CreateKeyOptions& options) = 0;
+
   // Creates a key with |key_algo| algorithm, |policy| and optional |options|.
   virtual StatusOr<CreateKeyResult> CreateKey(
       const OperationPolicySetting& policy,
       KeyAlgoType key_algo,
-      CreateKeyOptions options) = 0;
+      AutoReload auto_reload,
+      const CreateKeyOptions& options) = 0;
 
   // Loads a key from |key_blob| with |policy|.
   virtual StatusOr<ScopedKey> LoadKey(const OperationPolicy& policy,
-                                      const brillo::Blob& key_blob) = 0;
-
-  // Creates an auto-reload key with |key_algo| algorithm, |policy| and
-  // optional |options|.
-  virtual StatusOr<CreateKeyResult> CreateAutoReloadKey(
-      const OperationPolicySetting& policy,
-      KeyAlgoType key_algo,
-      CreateKeyOptions options) = 0;
-
-  // Loads an auto-reload key from |key_blob| with |policy|.
-  virtual StatusOr<ScopedKey> LoadAutoReloadKey(
-      const OperationPolicy& policy, const brillo::Blob& key_blob) = 0;
+                                      const brillo::Blob& key_blob,
+                                      AutoReload auto_reload) = 0;
 
   // Loads the persistent key with specific |key_type|.
   virtual StatusOr<ScopedKey> GetPersistentKey(PersistentKeyType key_type) = 0;
@@ -77,6 +88,29 @@ class KeyManagement {
   // Loads the raw |key_handle| from key.
   // TODO(174816474): deprecated legacy APIs.
   virtual StatusOr<uint32_t> GetKeyHandle(Key key) = 0;
+
+  // Wraps a RSA key with the |policy| and the given parameters.
+  virtual StatusOr<CreateKeyResult> WrapRSAKey(
+      const OperationPolicySetting& policy,
+      const brillo::Blob& public_modulus,
+      const brillo::SecureBlob& private_prime_factor,
+      AutoReload auto_reload,
+      const CreateKeyOptions& options) = 0;
+
+  // Wraps an ECC key with the |policy| and the given parameters.
+  virtual StatusOr<CreateKeyResult> WrapECCKey(
+      const OperationPolicySetting& policy,
+      const brillo::Blob& public_point_x,
+      const brillo::Blob& public_point_y,
+      const brillo::SecureBlob& private_value,
+      AutoReload auto_reload,
+      const CreateKeyOptions& options) = 0;
+
+  // Gets the public information of a RSA |key|.
+  virtual StatusOr<RSAPublicInfo> GetRSAPublicInfo(Key key) = 0;
+
+  // Gets the public information of a ECC |key|.
+  virtual StatusOr<ECCPublicInfo> GetECCPublicInfo(Key key) = 0;
 
  protected:
   KeyManagement() = default;
