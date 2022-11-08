@@ -1319,7 +1319,9 @@ constexpr OSReport::OSReport(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
   , arch_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , version_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+  , version_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , version_type_(0)
+{}
 struct OSReportDefaultTypeInternal {
   constexpr OSReportDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -5272,6 +5274,89 @@ constexpr Policy_PolicySource Policy::SOURCE_RESTRICTED_MANAGED_GUEST_SESSION_OV
 constexpr Policy_PolicySource Policy::PolicySource_MIN;
 constexpr Policy_PolicySource Policy::PolicySource_MAX;
 constexpr int Policy::PolicySource_ARRAYSIZE;
+#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+bool OSReport_VersionType_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+    case 5:
+    case 6:
+      return true;
+    default:
+      return false;
+  }
+}
+
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> OSReport_VersionType_strings[7] = {};
+
+static const char OSReport_VersionType_names[] =
+  "EDUCATION"
+  "EDUCATION_PRO"
+  "ENTERPRISE"
+  "HOME"
+  "PROFESSIONAL"
+  "SERVER"
+  "UNKNOWN";
+
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry OSReport_VersionType_entries[] = {
+  { {OSReport_VersionType_names + 0, 9}, 5 },
+  { {OSReport_VersionType_names + 9, 13}, 6 },
+  { {OSReport_VersionType_names + 22, 10}, 4 },
+  { {OSReport_VersionType_names + 32, 4}, 1 },
+  { {OSReport_VersionType_names + 36, 12}, 2 },
+  { {OSReport_VersionType_names + 48, 6}, 3 },
+  { {OSReport_VersionType_names + 54, 7}, 0 },
+};
+
+static const int OSReport_VersionType_entries_by_number[] = {
+  6, // 0 -> UNKNOWN
+  3, // 1 -> HOME
+  4, // 2 -> PROFESSIONAL
+  5, // 3 -> SERVER
+  2, // 4 -> ENTERPRISE
+  0, // 5 -> EDUCATION
+  1, // 6 -> EDUCATION_PRO
+};
+
+const std::string& OSReport_VersionType_Name(
+    OSReport_VersionType value) {
+  static const bool dummy =
+      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
+          OSReport_VersionType_entries,
+          OSReport_VersionType_entries_by_number,
+          7, OSReport_VersionType_strings);
+  (void) dummy;
+  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
+      OSReport_VersionType_entries,
+      OSReport_VersionType_entries_by_number,
+      7, value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
+                     OSReport_VersionType_strings[idx].get();
+}
+bool OSReport_VersionType_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, OSReport_VersionType* value) {
+  int int_value;
+  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
+      OSReport_VersionType_entries, 7, name, &int_value);
+  if (success) {
+    *value = static_cast<OSReport_VersionType>(int_value);
+  }
+  return success;
+}
+#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+constexpr OSReport_VersionType OSReport::UNKNOWN;
+constexpr OSReport_VersionType OSReport::HOME;
+constexpr OSReport_VersionType OSReport::PROFESSIONAL;
+constexpr OSReport_VersionType OSReport::SERVER;
+constexpr OSReport_VersionType OSReport::ENTERPRISE;
+constexpr OSReport_VersionType OSReport::EDUCATION;
+constexpr OSReport_VersionType OSReport::EDUCATION_PRO;
+constexpr OSReport_VersionType OSReport::VersionType_MIN;
+constexpr OSReport_VersionType OSReport::VersionType_MAX;
+constexpr int OSReport::VersionType_ARRAYSIZE;
 #endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 bool PolicyValueValidationIssue_ValueValidationIssueSeverity_IsValid(int value) {
   switch (value) {
@@ -38531,6 +38616,9 @@ class OSReport::_Internal {
   static void set_has_version(HasBits* has_bits) {
     (*has_bits)[0] |= 4u;
   }
+  static void set_has_version_type(HasBits* has_bits) {
+    (*has_bits)[0] |= 8u;
+  }
 };
 
 OSReport::OSReport(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -38570,6 +38658,7 @@ OSReport::OSReport(const OSReport& from)
     version_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_version(), 
       GetArenaForAllocation());
   }
+  version_type_ = from.version_type_;
   // @@protoc_insertion_point(copy_constructor:enterprise_management.OSReport)
 }
 
@@ -38586,6 +38675,7 @@ version_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlre
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   version_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), "", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+version_type_ = 0;
 }
 
 OSReport::~OSReport() {
@@ -38630,6 +38720,7 @@ void OSReport::Clear() {
       version_.ClearNonDefaultToEmpty();
     }
   }
+  version_type_ = 0;
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
@@ -38665,6 +38756,19 @@ const char* OSReport::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::i
           auto str = _internal_mutable_version();
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional .enterprise_management.OSReport.VersionType version_type = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          if (PROTOBUF_PREDICT_TRUE(::enterprise_management::OSReport_VersionType_IsValid(val))) {
+            _internal_set_version_type(static_cast<::enterprise_management::OSReport_VersionType>(val));
+          } else {
+            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(4, val, mutable_unknown_fields());
+          }
         } else
           goto handle_unusual;
         continue;
@@ -38717,6 +38821,13 @@ uint8_t* OSReport::_InternalSerialize(
         3, this->_internal_version(), target);
   }
 
+  // optional .enterprise_management.OSReport.VersionType version_type = 4;
+  if (cached_has_bits & 0x00000008u) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+      4, this->_internal_version_type(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -38734,7 +38845,7 @@ size_t OSReport::ByteSizeLong() const {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
+  if (cached_has_bits & 0x0000000fu) {
     // optional string name = 1;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
@@ -38754,6 +38865,12 @@ size_t OSReport::ByteSizeLong() const {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
           this->_internal_version());
+    }
+
+    // optional .enterprise_management.OSReport.VersionType version_type = 4;
+    if (cached_has_bits & 0x00000008u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_version_type());
     }
 
   }
@@ -38778,7 +38895,7 @@ void OSReport::MergeFrom(const OSReport& from) {
   (void) cached_has_bits;
 
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
+  if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
       _internal_set_name(from._internal_name());
     }
@@ -38788,6 +38905,10 @@ void OSReport::MergeFrom(const OSReport& from) {
     if (cached_has_bits & 0x00000004u) {
       _internal_set_version(from._internal_version());
     }
+    if (cached_has_bits & 0x00000008u) {
+      version_type_ = from.version_type_;
+    }
+    _has_bits_[0] |= cached_has_bits;
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -38824,6 +38945,7 @@ void OSReport::InternalSwap(OSReport* other) {
       &version_, lhs_arena,
       &other->version_, rhs_arena
   );
+  swap(version_type_, other->version_type_);
 }
 
 std::string OSReport::GetTypeName() const {

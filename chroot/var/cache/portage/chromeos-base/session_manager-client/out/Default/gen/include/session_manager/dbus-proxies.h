@@ -141,6 +141,21 @@ class SessionManagerInterfaceProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
+  virtual bool StartSessionEx(
+      const std::string& in_account_id,
+      const std::string& in_unique_identifier,
+      bool in_chrome_owner_key,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual void StartSessionExAsync(
+      const std::string& in_account_id,
+      const std::string& in_unique_identifier,
+      bool in_chrome_owner_key,
+      base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
   virtual bool StopSession(
       const std::string& in_unique_identifier,
       brillo::ErrorPtr* error,
@@ -1008,6 +1023,44 @@ class SessionManagerInterfaceProxy final : public SessionManagerInterfaceProxyIn
         std::move(error_callback),
         in_account_id,
         in_unique_identifier);
+  }
+
+  bool StartSessionEx(
+      const std::string& in_account_id,
+      const std::string& in_unique_identifier,
+      bool in_chrome_owner_key,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.SessionManagerInterface",
+        "StartSessionEx",
+        error,
+        in_account_id,
+        in_unique_identifier,
+        in_chrome_owner_key);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error);
+  }
+
+  void StartSessionExAsync(
+      const std::string& in_account_id,
+      const std::string& in_unique_identifier,
+      bool in_chrome_owner_key,
+      base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.SessionManagerInterface",
+        "StartSessionEx",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_account_id,
+        in_unique_identifier,
+        in_chrome_owner_key);
   }
 
   bool StopSession(

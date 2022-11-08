@@ -429,6 +429,73 @@ inline const std::string& StartArcVmRequest_DisplayOrientation_Name(T enum_t_val
 }
 bool StartArcVmRequest_DisplayOrientation_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, StartArcVmRequest_DisplayOrientation* value);
+enum StartArcVmRequest_UsapProfileType : int {
+  StartArcVmRequest_UsapProfileType_USAP_PROFILE_DEFAULT = 0,
+  StartArcVmRequest_UsapProfileType_USAP_PROFILE_4G = 1,
+  StartArcVmRequest_UsapProfileType_USAP_PROFILE_8G = 2,
+  StartArcVmRequest_UsapProfileType_USAP_PROFILE_16G = 3,
+  StartArcVmRequest_UsapProfileType_StartArcVmRequest_UsapProfileType_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  StartArcVmRequest_UsapProfileType_StartArcVmRequest_UsapProfileType_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+};
+bool StartArcVmRequest_UsapProfileType_IsValid(int value);
+constexpr StartArcVmRequest_UsapProfileType StartArcVmRequest_UsapProfileType_UsapProfileType_MIN = StartArcVmRequest_UsapProfileType_USAP_PROFILE_DEFAULT;
+constexpr StartArcVmRequest_UsapProfileType StartArcVmRequest_UsapProfileType_UsapProfileType_MAX = StartArcVmRequest_UsapProfileType_USAP_PROFILE_16G;
+constexpr int StartArcVmRequest_UsapProfileType_UsapProfileType_ARRAYSIZE = StartArcVmRequest_UsapProfileType_UsapProfileType_MAX + 1;
+
+const std::string& StartArcVmRequest_UsapProfileType_Name(StartArcVmRequest_UsapProfileType value);
+template<typename T>
+inline const std::string& StartArcVmRequest_UsapProfileType_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, StartArcVmRequest_UsapProfileType>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function StartArcVmRequest_UsapProfileType_Name.");
+  return StartArcVmRequest_UsapProfileType_Name(static_cast<StartArcVmRequest_UsapProfileType>(enum_t_value));
+}
+bool StartArcVmRequest_UsapProfileType_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, StartArcVmRequest_UsapProfileType* value);
+enum StartArcVmRequest_BinaryTranslationType : int {
+  StartArcVmRequest_BinaryTranslationType_BINARY_TRANSLATION_TYPE_NONE = 0,
+  StartArcVmRequest_BinaryTranslationType_BINARY_TRANSLATION_TYPE_HOUDINI = 1,
+  StartArcVmRequest_BinaryTranslationType_BINARY_TRANSLATION_TYPE_NDK_TRANSLATION = 2,
+  StartArcVmRequest_BinaryTranslationType_StartArcVmRequest_BinaryTranslationType_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  StartArcVmRequest_BinaryTranslationType_StartArcVmRequest_BinaryTranslationType_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+};
+bool StartArcVmRequest_BinaryTranslationType_IsValid(int value);
+constexpr StartArcVmRequest_BinaryTranslationType StartArcVmRequest_BinaryTranslationType_BinaryTranslationType_MIN = StartArcVmRequest_BinaryTranslationType_BINARY_TRANSLATION_TYPE_NONE;
+constexpr StartArcVmRequest_BinaryTranslationType StartArcVmRequest_BinaryTranslationType_BinaryTranslationType_MAX = StartArcVmRequest_BinaryTranslationType_BINARY_TRANSLATION_TYPE_NDK_TRANSLATION;
+constexpr int StartArcVmRequest_BinaryTranslationType_BinaryTranslationType_ARRAYSIZE = StartArcVmRequest_BinaryTranslationType_BinaryTranslationType_MAX + 1;
+
+const std::string& StartArcVmRequest_BinaryTranslationType_Name(StartArcVmRequest_BinaryTranslationType value);
+template<typename T>
+inline const std::string& StartArcVmRequest_BinaryTranslationType_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, StartArcVmRequest_BinaryTranslationType>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function StartArcVmRequest_BinaryTranslationType_Name.");
+  return StartArcVmRequest_BinaryTranslationType_Name(static_cast<StartArcVmRequest_BinaryTranslationType>(enum_t_value));
+}
+bool StartArcVmRequest_BinaryTranslationType_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, StartArcVmRequest_BinaryTranslationType* value);
+enum StartArcVmRequest_UreadaheadMode : int {
+  StartArcVmRequest_UreadaheadMode_UREADAHEAD_MODE_READAHEAD = 0,
+  StartArcVmRequest_UreadaheadMode_UREADAHEAD_MODE_GENERATE = 1,
+  StartArcVmRequest_UreadaheadMode_UREADAHEAD_MODE_DISABLED = 2,
+  StartArcVmRequest_UreadaheadMode_StartArcVmRequest_UreadaheadMode_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::min(),
+  StartArcVmRequest_UreadaheadMode_StartArcVmRequest_UreadaheadMode_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<int32_t>::max()
+};
+bool StartArcVmRequest_UreadaheadMode_IsValid(int value);
+constexpr StartArcVmRequest_UreadaheadMode StartArcVmRequest_UreadaheadMode_UreadaheadMode_MIN = StartArcVmRequest_UreadaheadMode_UREADAHEAD_MODE_READAHEAD;
+constexpr StartArcVmRequest_UreadaheadMode StartArcVmRequest_UreadaheadMode_UreadaheadMode_MAX = StartArcVmRequest_UreadaheadMode_UREADAHEAD_MODE_DISABLED;
+constexpr int StartArcVmRequest_UreadaheadMode_UreadaheadMode_ARRAYSIZE = StartArcVmRequest_UreadaheadMode_UreadaheadMode_MAX + 1;
+
+const std::string& StartArcVmRequest_UreadaheadMode_Name(StartArcVmRequest_UreadaheadMode value);
+template<typename T>
+inline const std::string& StartArcVmRequest_UreadaheadMode_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, StartArcVmRequest_UreadaheadMode>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function StartArcVmRequest_UreadaheadMode_Name.");
+  return StartArcVmRequest_UreadaheadMode_Name(static_cast<StartArcVmRequest_UreadaheadMode>(enum_t_value));
+}
+bool StartArcVmRequest_UreadaheadMode_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, StartArcVmRequest_UreadaheadMode* value);
 enum StartVmResponse_MountResult : int {
   StartVmResponse_MountResult_UNKNOWN = 0,
   StartVmResponse_MountResult_SUCCESS = 1,
@@ -2568,6 +2635,92 @@ class StartArcVmRequest final :
     return StartArcVmRequest_DisplayOrientation_Parse(name, value);
   }
 
+  typedef StartArcVmRequest_UsapProfileType UsapProfileType;
+  static constexpr UsapProfileType USAP_PROFILE_DEFAULT =
+    StartArcVmRequest_UsapProfileType_USAP_PROFILE_DEFAULT;
+  static constexpr UsapProfileType USAP_PROFILE_4G =
+    StartArcVmRequest_UsapProfileType_USAP_PROFILE_4G;
+  static constexpr UsapProfileType USAP_PROFILE_8G =
+    StartArcVmRequest_UsapProfileType_USAP_PROFILE_8G;
+  static constexpr UsapProfileType USAP_PROFILE_16G =
+    StartArcVmRequest_UsapProfileType_USAP_PROFILE_16G;
+  static inline bool UsapProfileType_IsValid(int value) {
+    return StartArcVmRequest_UsapProfileType_IsValid(value);
+  }
+  static constexpr UsapProfileType UsapProfileType_MIN =
+    StartArcVmRequest_UsapProfileType_UsapProfileType_MIN;
+  static constexpr UsapProfileType UsapProfileType_MAX =
+    StartArcVmRequest_UsapProfileType_UsapProfileType_MAX;
+  static constexpr int UsapProfileType_ARRAYSIZE =
+    StartArcVmRequest_UsapProfileType_UsapProfileType_ARRAYSIZE;
+  template<typename T>
+  static inline const std::string& UsapProfileType_Name(T enum_t_value) {
+    static_assert(::std::is_same<T, UsapProfileType>::value ||
+      ::std::is_integral<T>::value,
+      "Incorrect type passed to function UsapProfileType_Name.");
+    return StartArcVmRequest_UsapProfileType_Name(enum_t_value);
+  }
+  static inline bool UsapProfileType_Parse(::PROTOBUF_NAMESPACE_ID::ConstStringParam name,
+      UsapProfileType* value) {
+    return StartArcVmRequest_UsapProfileType_Parse(name, value);
+  }
+
+  typedef StartArcVmRequest_BinaryTranslationType BinaryTranslationType;
+  static constexpr BinaryTranslationType BINARY_TRANSLATION_TYPE_NONE =
+    StartArcVmRequest_BinaryTranslationType_BINARY_TRANSLATION_TYPE_NONE;
+  static constexpr BinaryTranslationType BINARY_TRANSLATION_TYPE_HOUDINI =
+    StartArcVmRequest_BinaryTranslationType_BINARY_TRANSLATION_TYPE_HOUDINI;
+  static constexpr BinaryTranslationType BINARY_TRANSLATION_TYPE_NDK_TRANSLATION =
+    StartArcVmRequest_BinaryTranslationType_BINARY_TRANSLATION_TYPE_NDK_TRANSLATION;
+  static inline bool BinaryTranslationType_IsValid(int value) {
+    return StartArcVmRequest_BinaryTranslationType_IsValid(value);
+  }
+  static constexpr BinaryTranslationType BinaryTranslationType_MIN =
+    StartArcVmRequest_BinaryTranslationType_BinaryTranslationType_MIN;
+  static constexpr BinaryTranslationType BinaryTranslationType_MAX =
+    StartArcVmRequest_BinaryTranslationType_BinaryTranslationType_MAX;
+  static constexpr int BinaryTranslationType_ARRAYSIZE =
+    StartArcVmRequest_BinaryTranslationType_BinaryTranslationType_ARRAYSIZE;
+  template<typename T>
+  static inline const std::string& BinaryTranslationType_Name(T enum_t_value) {
+    static_assert(::std::is_same<T, BinaryTranslationType>::value ||
+      ::std::is_integral<T>::value,
+      "Incorrect type passed to function BinaryTranslationType_Name.");
+    return StartArcVmRequest_BinaryTranslationType_Name(enum_t_value);
+  }
+  static inline bool BinaryTranslationType_Parse(::PROTOBUF_NAMESPACE_ID::ConstStringParam name,
+      BinaryTranslationType* value) {
+    return StartArcVmRequest_BinaryTranslationType_Parse(name, value);
+  }
+
+  typedef StartArcVmRequest_UreadaheadMode UreadaheadMode;
+  static constexpr UreadaheadMode UREADAHEAD_MODE_READAHEAD =
+    StartArcVmRequest_UreadaheadMode_UREADAHEAD_MODE_READAHEAD;
+  static constexpr UreadaheadMode UREADAHEAD_MODE_GENERATE =
+    StartArcVmRequest_UreadaheadMode_UREADAHEAD_MODE_GENERATE;
+  static constexpr UreadaheadMode UREADAHEAD_MODE_DISABLED =
+    StartArcVmRequest_UreadaheadMode_UREADAHEAD_MODE_DISABLED;
+  static inline bool UreadaheadMode_IsValid(int value) {
+    return StartArcVmRequest_UreadaheadMode_IsValid(value);
+  }
+  static constexpr UreadaheadMode UreadaheadMode_MIN =
+    StartArcVmRequest_UreadaheadMode_UreadaheadMode_MIN;
+  static constexpr UreadaheadMode UreadaheadMode_MAX =
+    StartArcVmRequest_UreadaheadMode_UreadaheadMode_MAX;
+  static constexpr int UreadaheadMode_ARRAYSIZE =
+    StartArcVmRequest_UreadaheadMode_UreadaheadMode_ARRAYSIZE;
+  template<typename T>
+  static inline const std::string& UreadaheadMode_Name(T enum_t_value) {
+    static_assert(::std::is_same<T, UreadaheadMode>::value ||
+      ::std::is_integral<T>::value,
+      "Incorrect type passed to function UreadaheadMode_Name.");
+    return StartArcVmRequest_UreadaheadMode_Name(enum_t_value);
+  }
+  static inline bool UreadaheadMode_Parse(::PROTOBUF_NAMESPACE_ID::ConstStringParam name,
+      UreadaheadMode* value) {
+    return StartArcVmRequest_UreadaheadMode_Parse(name, value);
+  }
+
   // accessors -------------------------------------------------------
 
   enum : int {
@@ -2602,12 +2755,16 @@ class StartArcVmRequest final :
     kDisableMediaStoreMaintenanceFieldNumber = 29,
     kVmMemoryPsiPeriodFieldNumber = 28,
     kGuestZramSizeFieldNumber = 32,
+    kGuestSwappinessFieldNumber = 33,
     kArcGeneratePlayAutoInstallFieldNumber = 30,
     kDisableDownloadProviderFieldNumber = 31,
     kUpdateO4CListViaA2C2FieldNumber = 37,
-    kGuestSwappinessFieldNumber = 33,
+    kEnableRwFieldNumber = 41,
     kMglruReclaimIntervalFieldNumber = 35,
     kMglruReclaimSwappinessFieldNumber = 36,
+    kUsapProfileFieldNumber = 38,
+    kNativeBridgeExperimentFieldNumber = 39,
+    kUreadaheadModeFieldNumber = 40,
   };
   // repeated .vm_tools.concierge.DiskImage disks = 2;
   int disks_size() const;
@@ -2954,6 +3111,15 @@ class StartArcVmRequest final :
   void _internal_set_guest_zram_size(int32_t value);
   public:
 
+  // int32 guest_swappiness = 33;
+  void clear_guest_swappiness();
+  int32_t guest_swappiness() const;
+  void set_guest_swappiness(int32_t value);
+  private:
+  int32_t _internal_guest_swappiness() const;
+  void _internal_set_guest_swappiness(int32_t value);
+  public:
+
   // bool arc_generate_play_auto_install = 30;
   void clear_arc_generate_play_auto_install();
   bool arc_generate_play_auto_install() const;
@@ -2981,13 +3147,13 @@ class StartArcVmRequest final :
   void _internal_set_update_o4c_list_via_a2c2(bool value);
   public:
 
-  // int32 guest_swappiness = 33;
-  void clear_guest_swappiness();
-  int32_t guest_swappiness() const;
-  void set_guest_swappiness(int32_t value);
+  // bool enable_rw = 41;
+  void clear_enable_rw();
+  bool enable_rw() const;
+  void set_enable_rw(bool value);
   private:
-  int32_t _internal_guest_swappiness() const;
-  void _internal_set_guest_swappiness(int32_t value);
+  bool _internal_enable_rw() const;
+  void _internal_set_enable_rw(bool value);
   public:
 
   // int32 mglru_reclaim_interval = 35;
@@ -3006,6 +3172,33 @@ class StartArcVmRequest final :
   private:
   int32_t _internal_mglru_reclaim_swappiness() const;
   void _internal_set_mglru_reclaim_swappiness(int32_t value);
+  public:
+
+  // .vm_tools.concierge.StartArcVmRequest.UsapProfileType usap_profile = 38;
+  void clear_usap_profile();
+  ::vm_tools::concierge::StartArcVmRequest_UsapProfileType usap_profile() const;
+  void set_usap_profile(::vm_tools::concierge::StartArcVmRequest_UsapProfileType value);
+  private:
+  ::vm_tools::concierge::StartArcVmRequest_UsapProfileType _internal_usap_profile() const;
+  void _internal_set_usap_profile(::vm_tools::concierge::StartArcVmRequest_UsapProfileType value);
+  public:
+
+  // .vm_tools.concierge.StartArcVmRequest.BinaryTranslationType native_bridge_experiment = 39;
+  void clear_native_bridge_experiment();
+  ::vm_tools::concierge::StartArcVmRequest_BinaryTranslationType native_bridge_experiment() const;
+  void set_native_bridge_experiment(::vm_tools::concierge::StartArcVmRequest_BinaryTranslationType value);
+  private:
+  ::vm_tools::concierge::StartArcVmRequest_BinaryTranslationType _internal_native_bridge_experiment() const;
+  void _internal_set_native_bridge_experiment(::vm_tools::concierge::StartArcVmRequest_BinaryTranslationType value);
+  public:
+
+  // .vm_tools.concierge.StartArcVmRequest.UreadaheadMode ureadahead_mode = 40;
+  void clear_ureadahead_mode();
+  ::vm_tools::concierge::StartArcVmRequest_UreadaheadMode ureadahead_mode() const;
+  void set_ureadahead_mode(::vm_tools::concierge::StartArcVmRequest_UreadaheadMode value);
+  private:
+  ::vm_tools::concierge::StartArcVmRequest_UreadaheadMode _internal_ureadahead_mode() const;
+  void _internal_set_ureadahead_mode(::vm_tools::concierge::StartArcVmRequest_UreadaheadMode value);
   public:
 
   // @@protoc_insertion_point(class_scope:vm_tools.concierge.StartArcVmRequest)
@@ -3046,12 +3239,16 @@ class StartArcVmRequest final :
   bool disable_media_store_maintenance_;
   int32_t vm_memory_psi_period_;
   int32_t guest_zram_size_;
+  int32_t guest_swappiness_;
   bool arc_generate_play_auto_install_;
   bool disable_download_provider_;
   bool update_o4c_list_via_a2c2_;
-  int32_t guest_swappiness_;
+  bool enable_rw_;
   int32_t mglru_reclaim_interval_;
   int32_t mglru_reclaim_swappiness_;
+  int usap_profile_;
+  int native_bridge_experiment_;
+  int ureadahead_mode_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_concierge_5fservice_2eproto;
 };
@@ -15977,6 +16174,86 @@ inline void StartArcVmRequest::set_update_o4c_list_via_a2c2(bool value) {
   // @@protoc_insertion_point(field_set:vm_tools.concierge.StartArcVmRequest.update_o4c_list_via_a2c2)
 }
 
+// .vm_tools.concierge.StartArcVmRequest.UsapProfileType usap_profile = 38;
+inline void StartArcVmRequest::clear_usap_profile() {
+  usap_profile_ = 0;
+}
+inline ::vm_tools::concierge::StartArcVmRequest_UsapProfileType StartArcVmRequest::_internal_usap_profile() const {
+  return static_cast< ::vm_tools::concierge::StartArcVmRequest_UsapProfileType >(usap_profile_);
+}
+inline ::vm_tools::concierge::StartArcVmRequest_UsapProfileType StartArcVmRequest::usap_profile() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.StartArcVmRequest.usap_profile)
+  return _internal_usap_profile();
+}
+inline void StartArcVmRequest::_internal_set_usap_profile(::vm_tools::concierge::StartArcVmRequest_UsapProfileType value) {
+  
+  usap_profile_ = value;
+}
+inline void StartArcVmRequest::set_usap_profile(::vm_tools::concierge::StartArcVmRequest_UsapProfileType value) {
+  _internal_set_usap_profile(value);
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.StartArcVmRequest.usap_profile)
+}
+
+// .vm_tools.concierge.StartArcVmRequest.BinaryTranslationType native_bridge_experiment = 39;
+inline void StartArcVmRequest::clear_native_bridge_experiment() {
+  native_bridge_experiment_ = 0;
+}
+inline ::vm_tools::concierge::StartArcVmRequest_BinaryTranslationType StartArcVmRequest::_internal_native_bridge_experiment() const {
+  return static_cast< ::vm_tools::concierge::StartArcVmRequest_BinaryTranslationType >(native_bridge_experiment_);
+}
+inline ::vm_tools::concierge::StartArcVmRequest_BinaryTranslationType StartArcVmRequest::native_bridge_experiment() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.StartArcVmRequest.native_bridge_experiment)
+  return _internal_native_bridge_experiment();
+}
+inline void StartArcVmRequest::_internal_set_native_bridge_experiment(::vm_tools::concierge::StartArcVmRequest_BinaryTranslationType value) {
+  
+  native_bridge_experiment_ = value;
+}
+inline void StartArcVmRequest::set_native_bridge_experiment(::vm_tools::concierge::StartArcVmRequest_BinaryTranslationType value) {
+  _internal_set_native_bridge_experiment(value);
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.StartArcVmRequest.native_bridge_experiment)
+}
+
+// .vm_tools.concierge.StartArcVmRequest.UreadaheadMode ureadahead_mode = 40;
+inline void StartArcVmRequest::clear_ureadahead_mode() {
+  ureadahead_mode_ = 0;
+}
+inline ::vm_tools::concierge::StartArcVmRequest_UreadaheadMode StartArcVmRequest::_internal_ureadahead_mode() const {
+  return static_cast< ::vm_tools::concierge::StartArcVmRequest_UreadaheadMode >(ureadahead_mode_);
+}
+inline ::vm_tools::concierge::StartArcVmRequest_UreadaheadMode StartArcVmRequest::ureadahead_mode() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.StartArcVmRequest.ureadahead_mode)
+  return _internal_ureadahead_mode();
+}
+inline void StartArcVmRequest::_internal_set_ureadahead_mode(::vm_tools::concierge::StartArcVmRequest_UreadaheadMode value) {
+  
+  ureadahead_mode_ = value;
+}
+inline void StartArcVmRequest::set_ureadahead_mode(::vm_tools::concierge::StartArcVmRequest_UreadaheadMode value) {
+  _internal_set_ureadahead_mode(value);
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.StartArcVmRequest.ureadahead_mode)
+}
+
+// bool enable_rw = 41;
+inline void StartArcVmRequest::clear_enable_rw() {
+  enable_rw_ = false;
+}
+inline bool StartArcVmRequest::_internal_enable_rw() const {
+  return enable_rw_;
+}
+inline bool StartArcVmRequest::enable_rw() const {
+  // @@protoc_insertion_point(field_get:vm_tools.concierge.StartArcVmRequest.enable_rw)
+  return _internal_enable_rw();
+}
+inline void StartArcVmRequest::_internal_set_enable_rw(bool value) {
+  
+  enable_rw_ = value;
+}
+inline void StartArcVmRequest::set_enable_rw(bool value) {
+  _internal_set_enable_rw(value);
+  // @@protoc_insertion_point(field_set:vm_tools.concierge.StartArcVmRequest.enable_rw)
+}
+
 // -------------------------------------------------------------------
 
 // StartVmResponse
@@ -23149,6 +23426,9 @@ template <> struct is_proto_enum< ::vm_tools::concierge::VmInfo_VmType> : ::std:
 template <> struct is_proto_enum< ::vm_tools::concierge::StartVmRequest_FdType> : ::std::true_type {};
 template <> struct is_proto_enum< ::vm_tools::concierge::StartVmRequest_TerminaFeature> : ::std::true_type {};
 template <> struct is_proto_enum< ::vm_tools::concierge::StartArcVmRequest_DisplayOrientation> : ::std::true_type {};
+template <> struct is_proto_enum< ::vm_tools::concierge::StartArcVmRequest_UsapProfileType> : ::std::true_type {};
+template <> struct is_proto_enum< ::vm_tools::concierge::StartArcVmRequest_BinaryTranslationType> : ::std::true_type {};
+template <> struct is_proto_enum< ::vm_tools::concierge::StartArcVmRequest_UreadaheadMode> : ::std::true_type {};
 template <> struct is_proto_enum< ::vm_tools::concierge::StartVmResponse_MountResult> : ::std::true_type {};
 template <> struct is_proto_enum< ::vm_tools::concierge::DiskImageType> : ::std::true_type {};
 template <> struct is_proto_enum< ::vm_tools::concierge::FilesystemType> : ::std::true_type {};

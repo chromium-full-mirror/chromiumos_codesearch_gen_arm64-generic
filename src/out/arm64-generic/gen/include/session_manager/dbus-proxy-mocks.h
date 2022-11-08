@@ -115,6 +115,19 @@ class SessionManagerInterfaceProxyMock : public SessionManagerInterfaceProxyInte
                     base::OnceCallback<void()> /*success_callback*/,
                     base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
                     int /*timeout_ms*/));
+  MOCK_METHOD5(StartSessionEx,
+               bool(const std::string& /*in_account_id*/,
+                    const std::string& /*in_unique_identifier*/,
+                    bool /*in_chrome_owner_key*/,
+                    brillo::ErrorPtr* /*error*/,
+                    int /*timeout_ms*/));
+  MOCK_METHOD6(StartSessionExAsync,
+               void(const std::string& /*in_account_id*/,
+                    const std::string& /*in_unique_identifier*/,
+                    bool /*in_chrome_owner_key*/,
+                    base::OnceCallback<void()> /*success_callback*/,
+                    base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+                    int /*timeout_ms*/));
   MOCK_METHOD3(StopSession,
                bool(const std::string& /*in_unique_identifier*/,
                     brillo::ErrorPtr* /*error*/,

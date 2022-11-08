@@ -54,6 +54,11 @@ class SessionManagerInterfaceInterface {
       brillo::ErrorPtr* error,
       const std::string& in_account_id,
       const std::string& in_unique_identifier) = 0;
+  virtual bool StartSessionEx(
+      brillo::ErrorPtr* error,
+      const std::string& in_account_id,
+      const std::string& in_unique_identifier,
+      bool in_chrome_owner_key) = 0;
   virtual void StopSession(
       const std::string& in_unique_identifier) = 0;
   virtual void StopSessionWithReason(
@@ -206,6 +211,10 @@ class SessionManagerInterfaceAdaptor {
         "StartSession",
         base::Unretained(interface_),
         &SessionManagerInterfaceInterface::StartSession);
+    itf->AddSimpleMethodHandlerWithError(
+        "StartSessionEx",
+        base::Unretained(interface_),
+        &SessionManagerInterfaceInterface::StartSessionEx);
     itf->AddSimpleMethodHandler(
         "StopSession",
         base::Unretained(interface_),
@@ -460,6 +469,11 @@ class SessionManagerInterfaceAdaptor {
         "    <method name=\"StartSession\">\n"
         "      <arg name=\"account_id\" type=\"s\" direction=\"in\"/>\n"
         "      <arg name=\"unique_identifier\" type=\"s\" direction=\"in\"/>\n"
+        "    </method>\n"
+        "    <method name=\"StartSessionEx\">\n"
+        "      <arg name=\"account_id\" type=\"s\" direction=\"in\"/>\n"
+        "      <arg name=\"unique_identifier\" type=\"s\" direction=\"in\"/>\n"
+        "      <arg name=\"chrome_owner_key\" type=\"b\" direction=\"in\"/>\n"
         "    </method>\n"
         "    <method name=\"StopSession\">\n"
         "      <arg name=\"unique_identifier\" type=\"s\" direction=\"in\"/>\n"

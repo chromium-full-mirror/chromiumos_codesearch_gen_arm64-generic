@@ -1222,6 +1222,19 @@ struct DeviceKerberosEncryptionTypesProtoDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT DeviceKerberosEncryptionTypesProtoDefaultTypeInternal _DeviceKerberosEncryptionTypesProto_default_instance_;
+constexpr KeyboardBacklightColorProto::KeyboardBacklightColorProto(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : color_(0)
+{}
+struct KeyboardBacklightColorProtoDefaultTypeInternal {
+  constexpr KeyboardBacklightColorProtoDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~KeyboardBacklightColorProtoDefaultTypeInternal() {}
+  union {
+    KeyboardBacklightColorProto _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT KeyboardBacklightColorProtoDefaultTypeInternal _KeyboardBacklightColorProto_default_instance_;
 constexpr DeviceUserPolicyLoopbackProcessingModeProto::DeviceUserPolicyLoopbackProcessingModeProto(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : mode_(0)
@@ -1860,7 +1873,8 @@ constexpr ChromeDeviceSettingsProto::ChromeDeviceSettingsProto(
   , saml_username_(nullptr)
   , device_login_screen_context_aware_access_signals_allowlist_(nullptr)
   , device_printing_client_name_template_(nullptr)
-  , device_report_xdr_events_(nullptr){}
+  , device_report_xdr_events_(nullptr)
+  , keyboard_backlight_color_(nullptr){}
 struct ChromeDeviceSettingsProtoDefaultTypeInternal {
   constexpr ChromeDeviceSettingsProtoDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -2891,6 +2905,99 @@ constexpr DeviceKerberosEncryptionTypesProto_Types DeviceKerberosEncryptionTypes
 constexpr DeviceKerberosEncryptionTypesProto_Types DeviceKerberosEncryptionTypesProto::Types_MIN;
 constexpr DeviceKerberosEncryptionTypesProto_Types DeviceKerberosEncryptionTypesProto::Types_MAX;
 constexpr int DeviceKerberosEncryptionTypesProto::Types_ARRAYSIZE;
+#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+bool KeyboardBacklightColorProto_BacklightColor_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+    case 5:
+    case 6:
+    case 7:
+    case 100:
+      return true;
+    default:
+      return false;
+  }
+}
+
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> KeyboardBacklightColorProto_BacklightColor_strings[9] = {};
+
+static const char KeyboardBacklightColorProto_BacklightColor_names[] =
+  "BACKLIGHT_BLUE"
+  "BACKLIGHT_GREEN"
+  "BACKLIGHT_INDIGO"
+  "BACKLIGHT_PURPLE"
+  "BACKLIGHT_RAINBOW"
+  "BACKLIGHT_RED"
+  "BACKLIGHT_UNSPECIFIED"
+  "BACKLIGHT_WHITE"
+  "BACKLIGHT_YELLOW";
+
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry KeyboardBacklightColorProto_BacklightColor_entries[] = {
+  { {KeyboardBacklightColorProto_BacklightColor_names + 0, 14}, 5 },
+  { {KeyboardBacklightColorProto_BacklightColor_names + 14, 15}, 4 },
+  { {KeyboardBacklightColorProto_BacklightColor_names + 29, 16}, 6 },
+  { {KeyboardBacklightColorProto_BacklightColor_names + 45, 16}, 7 },
+  { {KeyboardBacklightColorProto_BacklightColor_names + 61, 17}, 100 },
+  { {KeyboardBacklightColorProto_BacklightColor_names + 78, 13}, 2 },
+  { {KeyboardBacklightColorProto_BacklightColor_names + 91, 21}, 0 },
+  { {KeyboardBacklightColorProto_BacklightColor_names + 112, 15}, 1 },
+  { {KeyboardBacklightColorProto_BacklightColor_names + 127, 16}, 3 },
+};
+
+static const int KeyboardBacklightColorProto_BacklightColor_entries_by_number[] = {
+  6, // 0 -> BACKLIGHT_UNSPECIFIED
+  7, // 1 -> BACKLIGHT_WHITE
+  5, // 2 -> BACKLIGHT_RED
+  8, // 3 -> BACKLIGHT_YELLOW
+  1, // 4 -> BACKLIGHT_GREEN
+  0, // 5 -> BACKLIGHT_BLUE
+  2, // 6 -> BACKLIGHT_INDIGO
+  3, // 7 -> BACKLIGHT_PURPLE
+  4, // 100 -> BACKLIGHT_RAINBOW
+};
+
+const std::string& KeyboardBacklightColorProto_BacklightColor_Name(
+    KeyboardBacklightColorProto_BacklightColor value) {
+  static const bool dummy =
+      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
+          KeyboardBacklightColorProto_BacklightColor_entries,
+          KeyboardBacklightColorProto_BacklightColor_entries_by_number,
+          9, KeyboardBacklightColorProto_BacklightColor_strings);
+  (void) dummy;
+  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
+      KeyboardBacklightColorProto_BacklightColor_entries,
+      KeyboardBacklightColorProto_BacklightColor_entries_by_number,
+      9, value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
+                     KeyboardBacklightColorProto_BacklightColor_strings[idx].get();
+}
+bool KeyboardBacklightColorProto_BacklightColor_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, KeyboardBacklightColorProto_BacklightColor* value) {
+  int int_value;
+  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
+      KeyboardBacklightColorProto_BacklightColor_entries, 9, name, &int_value);
+  if (success) {
+    *value = static_cast<KeyboardBacklightColorProto_BacklightColor>(int_value);
+  }
+  return success;
+}
+#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+constexpr KeyboardBacklightColorProto_BacklightColor KeyboardBacklightColorProto::BACKLIGHT_UNSPECIFIED;
+constexpr KeyboardBacklightColorProto_BacklightColor KeyboardBacklightColorProto::BACKLIGHT_WHITE;
+constexpr KeyboardBacklightColorProto_BacklightColor KeyboardBacklightColorProto::BACKLIGHT_RED;
+constexpr KeyboardBacklightColorProto_BacklightColor KeyboardBacklightColorProto::BACKLIGHT_YELLOW;
+constexpr KeyboardBacklightColorProto_BacklightColor KeyboardBacklightColorProto::BACKLIGHT_GREEN;
+constexpr KeyboardBacklightColorProto_BacklightColor KeyboardBacklightColorProto::BACKLIGHT_BLUE;
+constexpr KeyboardBacklightColorProto_BacklightColor KeyboardBacklightColorProto::BACKLIGHT_INDIGO;
+constexpr KeyboardBacklightColorProto_BacklightColor KeyboardBacklightColorProto::BACKLIGHT_PURPLE;
+constexpr KeyboardBacklightColorProto_BacklightColor KeyboardBacklightColorProto::BACKLIGHT_RAINBOW;
+constexpr KeyboardBacklightColorProto_BacklightColor KeyboardBacklightColorProto::BacklightColor_MIN;
+constexpr KeyboardBacklightColorProto_BacklightColor KeyboardBacklightColorProto::BacklightColor_MAX;
+constexpr int KeyboardBacklightColorProto::BacklightColor_ARRAYSIZE;
 #endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 bool DeviceUserPolicyLoopbackProcessingModeProto_Mode_IsValid(int value) {
   switch (value) {
@@ -6708,7 +6815,7 @@ const char* DeviceReportingProto::_InternalParse(const char* ptr, ::PROTOBUF_NAM
         } else
           goto handle_unusual;
         continue;
-      // optional bool enable_granular_reporting = 32 [default = true];
+      // optional bool enable_granular_reporting = 32 [default = true, deprecated = true];
       case 32:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 0)) {
           _Internal::set_has_enable_granular_reporting(&_has_bits_);
@@ -6990,7 +7097,7 @@ uint8_t* DeviceReportingProto::_InternalSerialize(
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(31, this->_internal_report_security_status(), target);
   }
 
-  // optional bool enable_granular_reporting = 32 [default = true];
+  // optional bool enable_granular_reporting = 32 [default = true, deprecated = true];
   if (cached_has_bits & 0x02000000u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteBoolToArray(32, this->_internal_enable_granular_reporting(), target);
@@ -7187,7 +7294,7 @@ size_t DeviceReportingProto::ByteSizeLong() const {
       total_size += 2 + 1;
     }
 
-    // optional bool enable_granular_reporting = 32 [default = true];
+    // optional bool enable_granular_reporting = 32 [default = true, deprecated = true];
     if (cached_has_bits & 0x02000000u) {
       total_size += 2 + 1;
     }
@@ -25160,6 +25267,199 @@ std::string DeviceKerberosEncryptionTypesProto::GetTypeName() const {
 
 // ===================================================================
 
+class KeyboardBacklightColorProto::_Internal {
+ public:
+  using HasBits = decltype(std::declval<KeyboardBacklightColorProto>()._has_bits_);
+  static void set_has_color(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+};
+
+KeyboardBacklightColorProto::KeyboardBacklightColorProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
+  SharedCtor();
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
+  // @@protoc_insertion_point(arena_constructor:enterprise_management.KeyboardBacklightColorProto)
+}
+KeyboardBacklightColorProto::KeyboardBacklightColorProto(const KeyboardBacklightColorProto& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      _has_bits_(from._has_bits_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  color_ = from.color_;
+  // @@protoc_insertion_point(copy_constructor:enterprise_management.KeyboardBacklightColorProto)
+}
+
+inline void KeyboardBacklightColorProto::SharedCtor() {
+color_ = 0;
+}
+
+KeyboardBacklightColorProto::~KeyboardBacklightColorProto() {
+  // @@protoc_insertion_point(destructor:enterprise_management.KeyboardBacklightColorProto)
+  if (GetArenaForAllocation() != nullptr) return;
+  SharedDtor();
+  _internal_metadata_.Delete<std::string>();
+}
+
+inline void KeyboardBacklightColorProto::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void KeyboardBacklightColorProto::ArenaDtor(void* object) {
+  KeyboardBacklightColorProto* _this = reinterpret_cast< KeyboardBacklightColorProto* >(object);
+  (void)_this;
+}
+void KeyboardBacklightColorProto::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void KeyboardBacklightColorProto::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void KeyboardBacklightColorProto::Clear() {
+// @@protoc_insertion_point(message_clear_start:enterprise_management.KeyboardBacklightColorProto)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  color_ = 0;
+  _has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* KeyboardBacklightColorProto::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional .enterprise_management.KeyboardBacklightColorProto.BacklightColor color = 1 [default = BACKLIGHT_UNSPECIFIED];
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          if (PROTOBUF_PREDICT_TRUE(::enterprise_management::KeyboardBacklightColorProto_BacklightColor_IsValid(val))) {
+            _internal_set_color(static_cast<::enterprise_management::KeyboardBacklightColorProto_BacklightColor>(val));
+          } else {
+            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(1, val, mutable_unknown_fields());
+          }
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* KeyboardBacklightColorProto::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:enterprise_management.KeyboardBacklightColorProto)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // optional .enterprise_management.KeyboardBacklightColorProto.BacklightColor color = 1 [default = BACKLIGHT_UNSPECIFIED];
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+      1, this->_internal_color(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:enterprise_management.KeyboardBacklightColorProto)
+  return target;
+}
+
+size_t KeyboardBacklightColorProto::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:enterprise_management.KeyboardBacklightColorProto)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // optional .enterprise_management.KeyboardBacklightColorProto.BacklightColor color = 1 [default = BACKLIGHT_UNSPECIFIED];
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_color());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void KeyboardBacklightColorProto::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::PROTOBUF_NAMESPACE_ID::internal::DownCast<const KeyboardBacklightColorProto*>(
+      &from));
+}
+
+void KeyboardBacklightColorProto::MergeFrom(const KeyboardBacklightColorProto& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:enterprise_management.KeyboardBacklightColorProto)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_has_color()) {
+    _internal_set_color(from._internal_color());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void KeyboardBacklightColorProto::CopyFrom(const KeyboardBacklightColorProto& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:enterprise_management.KeyboardBacklightColorProto)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool KeyboardBacklightColorProto::IsInitialized() const {
+  return true;
+}
+
+void KeyboardBacklightColorProto::InternalSwap(KeyboardBacklightColorProto* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  swap(color_, other->color_);
+}
+
+std::string KeyboardBacklightColorProto::GetTypeName() const {
+  return "enterprise_management.KeyboardBacklightColorProto";
+}
+
+
+// ===================================================================
+
 class DeviceUserPolicyLoopbackProcessingModeProto::_Internal {
  public:
   using HasBits = decltype(std::declval<DeviceUserPolicyLoopbackProcessingModeProto>()._has_bits_);
@@ -33822,6 +34122,10 @@ class ChromeDeviceSettingsProto::_Internal {
   static void set_has_device_report_xdr_events(HasBits* has_bits) {
     (*has_bits)[4] |= 64u;
   }
+  static const ::enterprise_management::KeyboardBacklightColorProto& keyboard_backlight_color(const ChromeDeviceSettingsProto* msg);
+  static void set_has_keyboard_backlight_color(HasBits* has_bits) {
+    (*has_bits)[4] |= 128u;
+  }
 };
 
 const ::enterprise_management::DevicePolicyRefreshRateProto&
@@ -34363,6 +34667,10 @@ ChromeDeviceSettingsProto::_Internal::device_printing_client_name_template(const
 const ::enterprise_management::DeviceReportXDREventsProto&
 ChromeDeviceSettingsProto::_Internal::device_report_xdr_events(const ChromeDeviceSettingsProto* msg) {
   return *msg->device_report_xdr_events_;
+}
+const ::enterprise_management::KeyboardBacklightColorProto&
+ChromeDeviceSettingsProto::_Internal::keyboard_backlight_color(const ChromeDeviceSettingsProto* msg) {
+  return *msg->keyboard_backlight_color_;
 }
 void ChromeDeviceSettingsProto::clear_device_login_screen_system_info_enforced() {
   if (device_login_screen_system_info_enforced_ != nullptr) device_login_screen_system_info_enforced_->Clear();
@@ -35108,14 +35416,19 @@ ChromeDeviceSettingsProto::ChromeDeviceSettingsProto(const ChromeDeviceSettingsP
   } else {
     device_report_xdr_events_ = nullptr;
   }
+  if (from._internal_has_keyboard_backlight_color()) {
+    keyboard_backlight_color_ = new ::enterprise_management::KeyboardBacklightColorProto(*from.keyboard_backlight_color_);
+  } else {
+    keyboard_backlight_color_ = nullptr;
+  }
   // @@protoc_insertion_point(copy_constructor:enterprise_management.ChromeDeviceSettingsProto)
 }
 
 inline void ChromeDeviceSettingsProto::SharedCtor() {
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&device_policy_refresh_rate_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&device_report_xdr_events_) -
-    reinterpret_cast<char*>(&device_policy_refresh_rate_)) + sizeof(device_report_xdr_events_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&keyboard_backlight_color_) -
+    reinterpret_cast<char*>(&device_policy_refresh_rate_)) + sizeof(keyboard_backlight_color_));
 }
 
 ChromeDeviceSettingsProto::~ChromeDeviceSettingsProto() {
@@ -35262,6 +35575,7 @@ inline void ChromeDeviceSettingsProto::SharedDtor() {
   if (this != internal_default_instance()) delete device_login_screen_context_aware_access_signals_allowlist_;
   if (this != internal_default_instance()) delete device_printing_client_name_template_;
   if (this != internal_default_instance()) delete device_report_xdr_events_;
+  if (this != internal_default_instance()) delete keyboard_backlight_color_;
 }
 
 void ChromeDeviceSettingsProto::ArenaDtor(void* object) {
@@ -35829,7 +36143,7 @@ void ChromeDeviceSettingsProto::Clear() {
     }
   }
   cached_has_bits = _has_bits_[4];
-  if (cached_has_bits & 0x0000007fu) {
+  if (cached_has_bits & 0x000000ffu) {
     if (cached_has_bits & 0x00000001u) {
       GOOGLE_DCHECK(keylocker_for_storage_encryption_enabled_ != nullptr);
       keylocker_for_storage_encryption_enabled_->Clear();
@@ -35857,6 +36171,10 @@ void ChromeDeviceSettingsProto::Clear() {
     if (cached_has_bits & 0x00000040u) {
       GOOGLE_DCHECK(device_report_xdr_events_ != nullptr);
       device_report_xdr_events_->Clear();
+    }
+    if (cached_has_bits & 0x00000080u) {
+      GOOGLE_DCHECK(keyboard_backlight_color_ != nullptr);
+      keyboard_backlight_color_->Clear();
     }
   }
   _has_bits_.Clear();
@@ -36945,6 +37263,14 @@ const char* ChromeDeviceSettingsProto::_InternalParse(const char* ptr, ::PROTOBU
       case 138:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 82)) {
           ptr = ctx->ParseMessage(_internal_mutable_device_report_xdr_events(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional .enterprise_management.KeyboardBacklightColorProto keyboard_backlight_color = 139;
+      case 139:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 90)) {
+          ptr = ctx->ParseMessage(_internal_mutable_keyboard_backlight_color(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -38063,6 +38389,14 @@ uint8_t* ChromeDeviceSettingsProto::_InternalSerialize(
         138, _Internal::device_report_xdr_events(this), target, stream);
   }
 
+  // optional .enterprise_management.KeyboardBacklightColorProto keyboard_backlight_color = 139;
+  if (cached_has_bits & 0x00000080u) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(
+        139, _Internal::keyboard_backlight_color(this), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -39012,7 +39346,7 @@ size_t ChromeDeviceSettingsProto::ByteSizeLong() const {
 
   }
   cached_has_bits = _has_bits_[4];
-  if (cached_has_bits & 0x0000007fu) {
+  if (cached_has_bits & 0x000000ffu) {
     // optional .enterprise_management.DeviceKeylockerForStorageEncryptionEnabledProto keylocker_for_storage_encryption_enabled = 132;
     if (cached_has_bits & 0x00000001u) {
       total_size += 2 +
@@ -39060,6 +39394,13 @@ size_t ChromeDeviceSettingsProto::ByteSizeLong() const {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *device_report_xdr_events_);
+    }
+
+    // optional .enterprise_management.KeyboardBacklightColorProto keyboard_backlight_color = 139;
+    if (cached_has_bits & 0x00000080u) {
+      total_size += 2 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *keyboard_backlight_color_);
     }
 
   }
@@ -39504,7 +39845,7 @@ void ChromeDeviceSettingsProto::MergeFrom(const ChromeDeviceSettingsProto& from)
     }
   }
   cached_has_bits = from._has_bits_[4];
-  if (cached_has_bits & 0x0000007fu) {
+  if (cached_has_bits & 0x000000ffu) {
     if (cached_has_bits & 0x00000001u) {
       _internal_mutable_keylocker_for_storage_encryption_enabled()->::enterprise_management::DeviceKeylockerForStorageEncryptionEnabledProto::MergeFrom(from._internal_keylocker_for_storage_encryption_enabled());
     }
@@ -39525,6 +39866,9 @@ void ChromeDeviceSettingsProto::MergeFrom(const ChromeDeviceSettingsProto& from)
     }
     if (cached_has_bits & 0x00000040u) {
       _internal_mutable_device_report_xdr_events()->::enterprise_management::DeviceReportXDREventsProto::MergeFrom(from._internal_device_report_xdr_events());
+    }
+    if (cached_has_bits & 0x00000080u) {
+      _internal_mutable_keyboard_backlight_color()->::enterprise_management::KeyboardBacklightColorProto::MergeFrom(from._internal_keyboard_backlight_color());
     }
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
@@ -39550,8 +39894,8 @@ void ChromeDeviceSettingsProto::InternalSwap(ChromeDeviceSettingsProto* other) {
   swap(_has_bits_[3], other->_has_bits_[3]);
   swap(_has_bits_[4], other->_has_bits_[4]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(ChromeDeviceSettingsProto, device_report_xdr_events_)
-      + sizeof(ChromeDeviceSettingsProto::device_report_xdr_events_)
+      PROTOBUF_FIELD_OFFSET(ChromeDeviceSettingsProto, keyboard_backlight_color_)
+      + sizeof(ChromeDeviceSettingsProto::keyboard_backlight_color_)
       - PROTOBUF_FIELD_OFFSET(ChromeDeviceSettingsProto, device_policy_refresh_rate_)>(
           reinterpret_cast<char*>(&device_policy_refresh_rate_),
           reinterpret_cast<char*>(&other->device_policy_refresh_rate_));
@@ -39831,6 +40175,9 @@ template<> PROTOBUF_NOINLINE ::enterprise_management::UnaffiliatedArcAllowedProt
 }
 template<> PROTOBUF_NOINLINE ::enterprise_management::DeviceKerberosEncryptionTypesProto* Arena::CreateMaybeMessage< ::enterprise_management::DeviceKerberosEncryptionTypesProto >(Arena* arena) {
   return Arena::CreateMessageInternal< ::enterprise_management::DeviceKerberosEncryptionTypesProto >(arena);
+}
+template<> PROTOBUF_NOINLINE ::enterprise_management::KeyboardBacklightColorProto* Arena::CreateMaybeMessage< ::enterprise_management::KeyboardBacklightColorProto >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::enterprise_management::KeyboardBacklightColorProto >(arena);
 }
 template<> PROTOBUF_NOINLINE ::enterprise_management::DeviceUserPolicyLoopbackProcessingModeProto* Arena::CreateMaybeMessage< ::enterprise_management::DeviceUserPolicyLoopbackProcessingModeProto >(Arena* arena) {
   return Arena::CreateMessageInternal< ::enterprise_management::DeviceUserPolicyLoopbackProcessingModeProto >(arena);

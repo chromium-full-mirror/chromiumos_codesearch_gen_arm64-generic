@@ -1525,6 +1525,30 @@ inline const std::string& Policy_PolicySource_Name(T enum_t_value) {
 }
 bool Policy_PolicySource_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, Policy_PolicySource* value);
+enum OSReport_VersionType : int {
+  OSReport_VersionType_UNKNOWN = 0,
+  OSReport_VersionType_HOME = 1,
+  OSReport_VersionType_PROFESSIONAL = 2,
+  OSReport_VersionType_SERVER = 3,
+  OSReport_VersionType_ENTERPRISE = 4,
+  OSReport_VersionType_EDUCATION = 5,
+  OSReport_VersionType_EDUCATION_PRO = 6
+};
+bool OSReport_VersionType_IsValid(int value);
+constexpr OSReport_VersionType OSReport_VersionType_VersionType_MIN = OSReport_VersionType_UNKNOWN;
+constexpr OSReport_VersionType OSReport_VersionType_VersionType_MAX = OSReport_VersionType_EDUCATION_PRO;
+constexpr int OSReport_VersionType_VersionType_ARRAYSIZE = OSReport_VersionType_VersionType_MAX + 1;
+
+const std::string& OSReport_VersionType_Name(OSReport_VersionType value);
+template<typename T>
+inline const std::string& OSReport_VersionType_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, OSReport_VersionType>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function OSReport_VersionType_Name.");
+  return OSReport_VersionType_Name(static_cast<OSReport_VersionType>(enum_t_value));
+}
+bool OSReport_VersionType_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, OSReport_VersionType* value);
 enum PolicyValueValidationIssue_ValueValidationIssueSeverity : int {
   PolicyValueValidationIssue_ValueValidationIssueSeverity_VALUE_VALIDATION_ISSUE_SEVERITY_UNSPECIFIED = 0,
   PolicyValueValidationIssue_ValueValidationIssueSeverity_VALUE_VALIDATION_ISSUE_SEVERITY_WARNING = 1,
@@ -21282,12 +21306,49 @@ class OSReport final :
 
   // nested types ----------------------------------------------------
 
+  typedef OSReport_VersionType VersionType;
+  static constexpr VersionType UNKNOWN =
+    OSReport_VersionType_UNKNOWN;
+  static constexpr VersionType HOME =
+    OSReport_VersionType_HOME;
+  static constexpr VersionType PROFESSIONAL =
+    OSReport_VersionType_PROFESSIONAL;
+  static constexpr VersionType SERVER =
+    OSReport_VersionType_SERVER;
+  static constexpr VersionType ENTERPRISE =
+    OSReport_VersionType_ENTERPRISE;
+  static constexpr VersionType EDUCATION =
+    OSReport_VersionType_EDUCATION;
+  static constexpr VersionType EDUCATION_PRO =
+    OSReport_VersionType_EDUCATION_PRO;
+  static inline bool VersionType_IsValid(int value) {
+    return OSReport_VersionType_IsValid(value);
+  }
+  static constexpr VersionType VersionType_MIN =
+    OSReport_VersionType_VersionType_MIN;
+  static constexpr VersionType VersionType_MAX =
+    OSReport_VersionType_VersionType_MAX;
+  static constexpr int VersionType_ARRAYSIZE =
+    OSReport_VersionType_VersionType_ARRAYSIZE;
+  template<typename T>
+  static inline const std::string& VersionType_Name(T enum_t_value) {
+    static_assert(::std::is_same<T, VersionType>::value ||
+      ::std::is_integral<T>::value,
+      "Incorrect type passed to function VersionType_Name.");
+    return OSReport_VersionType_Name(enum_t_value);
+  }
+  static inline bool VersionType_Parse(::PROTOBUF_NAMESPACE_ID::ConstStringParam name,
+      VersionType* value) {
+    return OSReport_VersionType_Parse(name, value);
+  }
+
   // accessors -------------------------------------------------------
 
   enum : int {
     kNameFieldNumber = 1,
     kArchFieldNumber = 2,
     kVersionFieldNumber = 3,
+    kVersionTypeFieldNumber = 4,
   };
   // optional string name = 1;
   bool has_name() const;
@@ -21343,6 +21404,19 @@ class OSReport final :
   std::string* _internal_mutable_version();
   public:
 
+  // optional .enterprise_management.OSReport.VersionType version_type = 4;
+  bool has_version_type() const;
+  private:
+  bool _internal_has_version_type() const;
+  public:
+  void clear_version_type();
+  ::enterprise_management::OSReport_VersionType version_type() const;
+  void set_version_type(::enterprise_management::OSReport_VersionType value);
+  private:
+  ::enterprise_management::OSReport_VersionType _internal_version_type() const;
+  void _internal_set_version_type(::enterprise_management::OSReport_VersionType value);
+  public:
+
   // @@protoc_insertion_point(class_scope:enterprise_management.OSReport)
  private:
   class _Internal;
@@ -21355,6 +21429,7 @@ class OSReport final :
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr arch_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr version_;
+  int version_type_;
   friend struct ::TableStruct_device_5fmanagement_5fbackend_2eproto;
 };
 // -------------------------------------------------------------------
@@ -62980,6 +63055,35 @@ inline void OSReport::set_allocated_version(std::string* version) {
   // @@protoc_insertion_point(field_set_allocated:enterprise_management.OSReport.version)
 }
 
+// optional .enterprise_management.OSReport.VersionType version_type = 4;
+inline bool OSReport::_internal_has_version_type() const {
+  bool value = (_has_bits_[0] & 0x00000008u) != 0;
+  return value;
+}
+inline bool OSReport::has_version_type() const {
+  return _internal_has_version_type();
+}
+inline void OSReport::clear_version_type() {
+  version_type_ = 0;
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline ::enterprise_management::OSReport_VersionType OSReport::_internal_version_type() const {
+  return static_cast< ::enterprise_management::OSReport_VersionType >(version_type_);
+}
+inline ::enterprise_management::OSReport_VersionType OSReport::version_type() const {
+  // @@protoc_insertion_point(field_get:enterprise_management.OSReport.version_type)
+  return _internal_version_type();
+}
+inline void OSReport::_internal_set_version_type(::enterprise_management::OSReport_VersionType value) {
+  assert(::enterprise_management::OSReport_VersionType_IsValid(value));
+  _has_bits_[0] |= 0x00000008u;
+  version_type_ = value;
+}
+inline void OSReport::set_version_type(::enterprise_management::OSReport_VersionType value) {
+  _internal_set_version_type(value);
+  // @@protoc_insertion_point(field_set:enterprise_management.OSReport.version_type)
+}
+
 // -------------------------------------------------------------------
 
 // ChromeDesktopReportRequest
@@ -84394,6 +84498,7 @@ template <> struct is_proto_enum< ::enterprise_management::Extension_InstallType
 template <> struct is_proto_enum< ::enterprise_management::Policy_PolicyLevel> : ::std::true_type {};
 template <> struct is_proto_enum< ::enterprise_management::Policy_PolicyScope> : ::std::true_type {};
 template <> struct is_proto_enum< ::enterprise_management::Policy_PolicySource> : ::std::true_type {};
+template <> struct is_proto_enum< ::enterprise_management::OSReport_VersionType> : ::std::true_type {};
 template <> struct is_proto_enum< ::enterprise_management::PolicyValueValidationIssue_ValueValidationIssueSeverity> : ::std::true_type {};
 template <> struct is_proto_enum< ::enterprise_management::PolicyValidationReportRequest_ValidationResultType> : ::std::true_type {};
 template <> struct is_proto_enum< ::enterprise_management::DeviceAutoEnrollmentRequest_EnrollmentCheckType> : ::std::true_type {};
